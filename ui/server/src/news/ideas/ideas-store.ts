@@ -15,10 +15,15 @@ import { readFeed } from '../feed'
 import { cleanTicker, normTicker } from '../symbology'
 import { SOURCE_TIERS, type SourceTierId } from '../scope'
 import { createThemesIndexReader } from '../themes/api-index'
-import { themeStoryKey } from '../themes/story-key'
+import {
+  resolveThemeFamilyState,
+  sameThemeStoryObservation,
+  themeStoryFamilyKey,
+} from '../themes/story-key'
 import { loadThemes, readThemesIndex, themesLedgerPath } from '../themes/store'
 import type { Theme, ThemeMember } from '../themes/types'
 import type { FeedItem } from '../types'
+import { classifyStoryObservation, type StoryObservationKind } from '../write-inbox'
 import { parseRfc3339Ms } from '../../rfc3339'
 import { canonicalJsonText } from '../../canonical-json'
 import { acquireRetainedFlockSync, releaseRetainedFlock } from '../../singleton-lock'
@@ -622,50 +627,279 @@ export function isSurfacedIdeaSnapshot(value: unknown, expectedIdeaId?: string):
   return true
 }
 
-/** `dedup_group` is the earliest member's event id. Treat both fields as aliases so a legacy anchor
- * without a persisted group still joins a newer publisher copy whose group points at that anchor. */
-function ideaStoryIds(row: Pick<IdeaInputRow, 'event_id' | 'dedup_group'>): string[] {
-  const group = row.dedup_group?.trim()
-  return group && group !== row.event_id ? [row.event_id, group] : [row.event_id]
+/** Candidate dedupe is exact-observation level, not a finite English status-word list. The bounded family
+ * cap and model-visible story_family label prevent those retained observations from becoming fake breadth. */
+function sameIdeaObservation(left: IdeaInputRow, right: IdeaInputRow): boolean {
+  return sameThemeStoryObservation(
+    { ...left, headline: left.headline_orig || left.headline, headline_en: left.headline || left.headline_orig },
+    { ...right, headline: right.headline_orig || right.headline, headline_en: right.headline || right.headline_orig },
+  )
 }
 
-/** Preserve a separate correction/reversal lane inside one publisher-copy family. Otherwise a highly
- * trusted original can suppress the later row that falsifies it before the model ever sees the change. */
-function ideaStoryKeys(row: Pick<IdeaInputRow, 'event_id' | 'dedup_group' | 'headline' | 'headline_orig' | 'event_types'>): string[] {
-  return ideaStoryIds(row).map((id) => themeStoryKey({
-    event_id: id,
+/** Stable URL identity for human vetoes. Tracking/query order and fragments cannot resurrect the same
+ * article, while meaningful non-tracking query parameters remain part of the source identity. */
+function canonicalHumanVetoUrl(raw: unknown): string {
+  const value = typeof raw === 'string' ? raw.trim().slice(0, 4_000) : ''
+  if (!value) return ''
+  try {
+    const url = new URL(value)
+    if (url.protocol !== 'http:' && url.protocol !== 'https:') return value
+    url.hash = ''
+    const drop: string[] = []
+    url.searchParams.forEach((_entry, key) => {
+      if (/^utm_/i.test(key) || /^(fbclid|gclid|cmpid|mc_cid|mc_eid|ref)$/i.test(key)) drop.push(key)
+    })
+    for (const key of drop) url.searchParams.delete(key)
+    url.searchParams.sort()
+    url.pathname = url.pathname.replace(/\/{2,}/g, '/').replace(/\/+$/, '') || '/'
+    return url.toString().replace(/\/$/, '')
+  } catch {
+    // A malformed but stable imported URL is still a useful negative alias. The exact trimmed value is
+    // safer than discarding the only identity a legacy consumed/dismissed row may carry.
+    return value
+  }
+}
+
+/** Human decisions bind the event, the stable publisher-copy family, and canonical URL. Emit both event
+ * and family namespaces for every id so a legacy anchor (event=A) and a later copy (family=A) cross-match. */
+function ideaHumanVetoKeys(row: { event_id?: unknown; dedup_group?: unknown; url?: unknown }): string[] {
+  const ids = [row.event_id, row.dedup_group]
+    .flatMap((value) => typeof value === 'string' && value.trim() ? [value.trim()] : [])
+  const keys = ids.flatMap((id) => [`event:${id}`, `family:${id}`])
+  const url = canonicalHumanVetoUrl(row.url)
+  if (url) keys.push(`url:${url}`)
+  return [...new Set(keys)]
+}
+
+const MAX_IDEA_OBSERVATIONS_PER_STORY_FAMILY = 4
+const ideaTierRank = (tier?: string): number => tier ? SOURCE_TIERS[tier as SourceTierId]?.rank ?? 0 : 0
+const ideaRowTime = (row: IdeaInputRow): number => {
+  const parsed = parseRfc3339Ms(row.found_at)
+  return Number.isFinite(parsed) ? parsed : 0
+}
+const byIdeaEvidenceQuality = (a: IdeaInputRow, b: IdeaInputRow): number => (
+  ideaTierRank(b.source_tier) - ideaTierRank(a.source_tier)
+  || b.materiality - a.materiality
+  || ideaRowTime(b) - ideaRowTime(a)
+  || a.event_id.localeCompare(b.event_id)
+)
+const byIdeaObservationRecency = (a: IdeaInputRow, b: IdeaInputRow): number => (
+  ideaRowTime(b) - ideaRowTime(a)
+  || ideaTierRank(b.source_tier) - ideaTierRank(a.source_tier)
+  || b.materiality - a.materiality
+  || a.event_id.localeCompare(b.event_id)
+)
+
+function ideaObservationKind(row: IdeaInputRow): StoryObservationKind {
+  return classifyStoryObservation({
     headline: row.headline_orig || row.headline,
-    headline_en: row.headline,
+    headline_en: row.headline || row.headline_orig,
     event_types: row.event_types,
-  }))
-}
-
-function sameIdeaStory(left: IdeaInputRow, right: IdeaInputRow): boolean {
-  const rightKeys = new Set(ideaStoryKeys(right))
-  return ideaStoryKeys(left).some((key) => rightKeys.has(key))
-}
-
-function dedupeIdeaRows(rows: IdeaInputRow[]): IdeaInputRow[] {
-  const tierRank = (tier?: string): number => tier ? SOURCE_TIERS[tier as SourceTierId]?.rank ?? 0 : 0
-  const ordered = [...rows].sort((a, b) => {
-    const tierDiff = tierRank(b.source_tier) - tierRank(a.source_tier)
-    if (tierDiff !== 0) return tierDiff
-    const materialityDiff = b.materiality - a.materiality
-    if (materialityDiff !== 0) return materialityDiff
-    const parsedA = parseRfc3339Ms(a.found_at)
-    const parsedB = parseRfc3339Ms(b.found_at)
-    const timeA = Number.isFinite(parsedA) ? parsedA : 0
-    const timeB = Number.isFinite(parsedB) ? parsedB : 0
-    if (timeB !== timeA) return timeB - timeA
-    return a.event_id.localeCompare(b.event_id)
   })
-  const seenStoryIds = new Set<string>()
-  return ordered.filter((row) => {
-    const keys = ideaStoryKeys(row)
-    if (!row.event_id || keys.some((key) => seenStoryIds.has(key))) return false
-    for (const key of keys) seenStoryIds.add(key)
+}
+
+function orderedIdeaFamilyRows(group: IdeaInputRow[], cap: number): IdeaInputRow[] {
+  const limit = Math.max(0, Math.floor(cap))
+  const selected: IdeaInputRow[] = []
+  const add = (row: IdeaInputRow | undefined): void => {
+    if (row && selected.length < limit && !selected.includes(row)) selected.push(row)
+  }
+  // First preserve the §4 source winner, then the latest opposing/restorative states and newest exact
+  // observation. The shared guarded classifier prevents an unrelated "proceeds" noun from taking the
+  // restoration slot; all remaining exact-family observations are still eligible inside the hard cap.
+  add([...group].sort(byIdeaEvidenceQuality)[0])
+  add([...group].filter((row) => ideaObservationKind(row) === 'adverse').sort(byIdeaObservationRecency)[0])
+  add([...group].filter((row) => ideaObservationKind(row) === 'restorative').sort(byIdeaObservationRecency)[0])
+  add([...group].sort(byIdeaObservationRecency)[0])
+  for (const row of [...group].sort(byIdeaObservationRecency)) add(row)
+  return selected
+}
+
+/** Collapse publisher copies, bound each family's audit history, then apply the global top-N cap without
+ * discarding a family's best source. */
+function selectIdeaRows(
+  rows: IdeaInputRow[],
+  maxRows: number,
+  maxPerFamily = MAX_IDEA_OBSERVATIONS_PER_STORY_FAMILY,
+): IdeaInputRow[] {
+  // Legacy callers without an explicit freshness contract may still supply rows with no source clock.
+  // Such a row can remain a singleton fallback, but it cannot become a second "observation" or win a
+  // tie once the same family has any properly dated evidence.
+  const familiesWithSourceTime = new Set(rows
+    .filter((row) => Number.isFinite(parseRfc3339Ms(row.found_at)))
+    .map((row) => themeStoryFamilyKey(row) || row.event_id))
+  rows = rows.filter((row) => Number.isFinite(parseRfc3339Ms(row.found_at))
+    || !familiesWithSourceTime.has(themeStoryFamilyKey(row) || row.event_id))
+  const familyPriorities = new Map<string, IdeaInputRow>()
+  for (const row of rows) {
+    const family = themeStoryFamilyKey(row) || row.event_id
+    const prior = familyPriorities.get(family)
+    if (!prior || (row.materiality - prior.materiality
+      || ideaTierRank(row.source_tier) - ideaTierRank(prior.source_tier)
+      || ideaRowTime(row) - ideaRowTime(prior)
+      || prior.event_id.localeCompare(row.event_id)) > 0) familyPriorities.set(family, row)
+  }
+  const ordered = [...rows].sort(byIdeaEvidenceQuality)
+  const observations: IdeaInputRow[] = []
+  for (const row of ordered) {
+    if (!row.event_id || observations.some((prior) => sameIdeaObservation(row, prior))) continue
+    observations.push(row)
+  }
+
+  const families = new Map<string, IdeaInputRow[]>()
+  for (const row of observations) {
+    const family = themeStoryFamilyKey(row) || row.event_id
+    const group = families.get(family) || []
+    group.push(row)
+    families.set(family, group)
+  }
+  const familyCap = Math.max(1, Math.floor(maxPerFamily))
+  const selections = [...families.entries()].map(([key, group]) => {
+    const selected = orderedIdeaFamilyRows(group, familyCap)
+    const priority = familyPriorities.get(key) || [...group].sort((a, b) => b.materiality - a.materiality
+      || ideaTierRank(b.source_tier) - ideaTierRank(a.source_tier)
+      || ideaRowTime(b) - ideaRowTime(a)
+      || a.event_id.localeCompare(b.event_id))[0]
+    return { key, priority, rows: selected }
+  }).sort((a, b) => b.priority.materiality - a.priority.materiality
+    || ideaTierRank(b.priority.source_tier) - ideaTierRank(a.priority.source_tier)
+    || ideaRowTime(b.priority) - ideaRowTime(a.priority)
+    || a.key.localeCompare(b.key))
+
+  // Choose families by the best material observation, then take one §4 source winner from every chosen
+  // family before any second/third observation. A noisy status family can no longer crowd an unrelated
+  // high-value filing out, and the final slice cannot undo the source-hierarchy pin.
+  const cap = Math.max(0, Math.floor(maxRows))
+  const chosen = selections.slice(0, cap)
+  const picked: IdeaInputRow[] = []
+  for (let depth = 0; picked.length < cap; depth++) {
+    let found = false
+    for (const family of chosen) {
+      const row = family.rows[depth]
+      if (!row) continue
+      picked.push(row)
+      found = true
+      if (picked.length >= cap) break
+    }
+    if (!found) break
+  }
+  return picked.sort((a, b) => b.materiality - a.materiality
+    || ideaTierRank(b.source_tier) - ideaTierRank(a.source_tier)
+    || a.event_id.localeCompare(b.event_id))
+}
+
+const uniqueBy = <T>(rows: T[], key: (row: T) => string): T[] => {
+  const out = new Map<string, T>()
+  for (const row of rows) if (!out.has(key(row))) out.set(key(row), row)
+  return [...out.values()]
+}
+
+/** Coalesce only the SAME canonical event. A publisher copy with a different event id remains a separate,
+ * family-labelled observation; silently moving Theme lineage onto a different filing would forge the
+ * revision's evidence edge. For an exact event, however, the better source row can safely carry the
+ * Theme metadata because the event id still binds the exact headline+URL. */
+function coalesceThemeRows(themeRows: IdeaInputRow[], wireRows: IdeaInputRow[]): IdeaInputRow[] {
+  const out = new Map<string, IdeaInputRow>()
+  for (const themeRow of themeRows) {
+    const prior = out.get(themeRow.event_id)
+    const wire = wireRows.find((row) => row.event_id === themeRow.event_id)
+    const candidates = [prior, wire, themeRow].filter((row): row is IdeaInputRow => Boolean(row))
+    const evidence = [...candidates].sort(byIdeaEvidenceQuality)[0]
+    const sourceThemes = uniqueBy(
+      candidates.flatMap((row) => row.source_themes || []),
+      (theme) => `${theme.theme_id}@${theme.theme_rev}:${theme.why_now_event_id || ''}`,
+    )
+    const themeContexts = uniqueBy(
+      candidates.flatMap((row) => row.theme_contexts || []),
+      (context) => `${context.theme_id}@${context.theme_rev}:${context.role}:${context.why_now_event_id}`,
+    )
+    const themeExpressions = uniqueBy(
+      candidates.flatMap((row) => row.theme_expressions || []),
+      (expression) => `${expression.theme_id}@${expression.theme_rev}:${expression.name_key}:${expression.ticker}:${expression.side}`,
+    )
+    out.set(themeRow.event_id, {
+      ...evidence,
+      origin_type: wire || candidates.some((row) => row.origin_type === 'mixed') ? 'mixed' : 'theme',
+      source_themes: sourceThemes,
+      theme_contexts: themeContexts,
+      theme_expressions: themeExpressions,
+    })
+  }
+  return [...out.values()]
+}
+
+/** Build the actual model prompt after Theme insertion. Theme rows are indivisible proof packages, but
+ * they still count against the same story-family cap as wire rows. Each reserved family's best wire source
+ * and at least one independent family are pinned before extra observations, so insertion cannot replace a
+ * filing with a weaker copy or crowd every unrelated story out of top-N. */
+function projectIdeaRowsWithThemes(
+  wireRows: IdeaInputRow[],
+  rawThemeRows: IdeaInputRow[],
+  maxRows: number,
+): IdeaInputRow[] {
+  const cap = Math.max(0, Math.floor(maxRows))
+  if (!cap) return []
+  const familyCap = cap > 1 ? Math.min(MAX_IDEA_OBSERVATIONS_PER_STORY_FAMILY, cap - 1) : 1
+  const themeRows = coalesceThemeRows(rawThemeRows, wireRows)
+  const picked = [...themeRows]
+  const pickedEvents = new Set(picked.map((row) => row.event_id))
+  const familyCounts = new Map<string, number>()
+  for (const row of picked) {
+    const family = themeStoryFamilyKey(row) || row.event_id
+    familyCounts.set(family, (familyCounts.get(family) || 0) + 1)
+  }
+  if ([...familyCounts.values()].some((count) => count > familyCap) || picked.length > cap) return []
+
+  const grouped = new Map<string, IdeaInputRow[]>()
+  for (const row of wireRows) {
+    if (pickedEvents.has(row.event_id)) continue
+    const family = themeStoryFamilyKey(row) || row.event_id
+    const group = grouped.get(family) || []
+    if (!group.some((prior) => sameIdeaObservation(row, prior))) group.push(row)
+    grouped.set(family, group)
+  }
+  const priority = (rows: IdeaInputRow[]): IdeaInputRow => [...rows].sort((a, b) => b.materiality - a.materiality
+    || ideaTierRank(b.source_tier) - ideaTierRank(a.source_tier)
+    || ideaRowTime(b) - ideaRowTime(a)
+    || a.event_id.localeCompare(b.event_id))[0]
+  const families = [...grouped.entries()].map(([key, rows]) => ({
+    key,
+    rows: orderedIdeaFamilyRows(rows, familyCap),
+    priority: priority(rows),
+  })).sort((a, b) => b.priority.materiality - a.priority.materiality
+    || ideaTierRank(b.priority.source_tier) - ideaTierRank(a.priority.source_tier)
+    || ideaRowTime(b.priority) - ideaRowTime(a.priority)
+    || a.key.localeCompare(b.key))
+
+  const add = (row: IdeaInputRow | undefined): boolean => {
+    if (!row || picked.length >= cap || pickedEvents.has(row.event_id)) return false
+    const family = themeStoryFamilyKey(row) || row.event_id
+    if ((familyCounts.get(family) || 0) >= familyCap) return false
+    picked.push(row)
+    pickedEvents.add(row.event_id)
+    familyCounts.set(family, (familyCounts.get(family) || 0) + 1)
     return true
-  })
+  }
+
+  const reservedFamilies = new Set(themeRows.map((row) => themeStoryFamilyKey(row) || row.event_id))
+  // Pin the best wire source for every family represented by a Theme package. This is what keeps a
+  // primary filing visible beside a different-event news copy without forging the Theme evidence id.
+  for (const family of families.filter((entry) => reservedFamilies.has(entry.key))) add(family.rows[0])
+  // Then pin the highest-priority independent family before any second observation from a reserved one.
+  add(families.find((entry) => !reservedFamilies.has(entry.key))?.rows[0])
+
+  for (let depth = 0; picked.length < cap; depth++) {
+    let found = false
+    for (const family of families) {
+      const row = family.rows[depth]
+      if (add(row)) found = true
+      if (picked.length >= cap) break
+    }
+    if (!found && !families.some((family) => family.rows.slice(depth + 1).some((row) => !pickedEvents.has(row.event_id)))) break
+  }
+  return picked.sort((a, b) => b.materiality - a.materiality
+    || ideaTierRank(b.source_tier) - ideaTierRank(a.source_tier)
+    || a.event_id.localeCompare(b.event_id))
 }
 
 function validThemeRef(theme: unknown): theme is {
@@ -750,6 +984,20 @@ function canonicalThemeProof(repoRoot: string): {
     }
   }
   return { byRevision, sourcesByEvent }
+}
+
+/** Canonical Theme narratives retain a bounded audit trail, including resolved historical challenges.
+ * Re-run the same family-state rule used by the PM projection so only an ACTIVE challenge vetoes Ideas;
+ * a later support restores the family only when its source priority meets or beats the challenge. */
+function retainedThemeHasActiveChallenge(theme: Theme): boolean {
+  if (!theme.narrative) return false
+  const memberById = new Map(theme.members.map((member) => [member.event_id, member]))
+  const classified = theme.narrative.evidence.flatMap((evidence) => {
+    const member = memberById.get(evidence.event_id)
+    return member ? [{ member, stance: evidence.stance }] : []
+  })
+  return resolveThemeFamilyState(classified, (member) => ideaTierRank(member.tier))
+    .some((row) => row.stance === 'challenges')
 }
 
 type ThemeIdeaFeedSource = Pick<FeedItem, 'event_id' | 'headline' | 'url' | 'source_name' | 'triage_score'>
@@ -867,7 +1115,7 @@ function readActionableThemeRows(
     if (!validThemeRef(theme) || conflictingThemeIds.has(theme.theme_id)) continue
     const retained = canonical.byRevision.get(canonicalThemeKey(theme.theme_id, theme.rev))
     if ((ledgerPresent && !retained)
-      || retained?.narrative?.evidence.some((evidence) => evidence.stance === 'challenges')) continue
+      || (retained && retainedThemeHasActiveChallenge(retained))) continue
     const whyNowEventId = theme.narrative.why_now_event_id
     const proofIds = new Set(theme.qualified_expressions
       .flatMap((expression) => expression.evidence_event_ids)
@@ -1129,7 +1377,12 @@ export function readTopSweep(
         ? row.event_id
         : typeof row.headline === 'string' && row.headline && typeof row.url === 'string' && row.url
           ? eventIdFor(row.headline, row.url) : ''
-      if (!eventId) {
+      const vetoKeys = ideaHumanVetoKeys({
+        event_id: eventId,
+        dedup_group: typeof row.dedup_group === 'string' && row.dedup_group.trim() ? row.dedup_group.trim() : undefined,
+        url: row.url,
+      })
+      if (!vetoKeys.length) {
         // A readable JSON file can still contain a torn/legacy human-action row. Silently skipping an
         // unidentified dismissal is the same resurrection bug as skipping a corrupt partition: we no
         // longer know which current publisher copy the person vetoed. Non-human malformed rows remain
@@ -1139,13 +1392,7 @@ export function readTopSweep(
         invalidTimeCount++
         continue
       }
-      for (const key of ideaStoryKeys({
-        event_id: eventId,
-        dedup_group: typeof row.dedup_group === 'string' && row.dedup_group.trim() ? row.dedup_group.trim() : undefined,
-        headline: row.headline_en || row.headline || '',
-        headline_orig: row.headline || '',
-        event_types: Array.isArray(row.event_types) ? row.event_types : [],
-      })) blockedStoryIds.add(key)
+      for (const key of vetoKeys) blockedStoryIds.add(key)
     }
   }
 
@@ -1197,29 +1444,28 @@ export function readTopSweep(
     }))
   // Human state applies to the ordinary wire as well as the Theme reserve. A current unconsumed
   // publisher copy cannot resurrect a prior-day consumed/dismissed canonical event or story alias.
-  const ordinaryWireRows = dedupeIdeaRows(wireRows.filter((row) => (
-    !ideaStoryKeys(row).some((key) => blockedStoryIds.has(key))
-  ))).sort((a, b) => b.materiality - a.materiality || a.event_id.localeCompare(b.event_id)).slice(0, cap)
+  // For any prompt larger than one row, no single story family may consume every slot. A separate filing
+  // or event must remain eligible even when one story emits many correction/status observations.
+  const maxWireObservationsPerFamily = cap > 1
+    ? Math.min(MAX_IDEA_OBSERVATIONS_PER_STORY_FAMILY, cap - 1)
+    : 1
+  const ordinaryWireRows = selectIdeaRows(wireRows.filter((row) => (
+    !ideaHumanVetoKeys(row).some((key) => blockedStoryIds.has(key))
+  )), cap, maxWireObservationsPerFamily)
   const reserveCap = Math.floor(cap / 3)
   // Themes may widen a healthy wire input; they may never manufacture one. In particular, a cached theme
   // must not turn a stale/corrupt sweep or the provider's fewer-than-two-row refusal into a paid call.
   const themeRows = freshness?.themesEnabled !== false && status === 'ok' && ordinaryWireRows.length >= 2 && reserveCap > 0
     ? readActionableThemeRows(repoRoot, freshness, sweepMs).filter((row) => {
-      return !ideaStoryKeys(row).some((key) => blockedStoryIds.has(key))
+      return !ideaHumanVetoKeys(row).some((key) => blockedStoryIds.has(key))
     })
     : []
 
   // Admission is checked against the ACTUAL final row count, not only `topN`: a sparse two-row wire plus
-  // two theme rows would otherwise be half theme even though floor(topN/3) looked safe. Mixed rows count
-  // toward the same minority ceiling. A row is mixed only when it independently cleared the ordinary
-  // capped wire; matching an uncapped low-tail row is still a theme admission.
-  const reserved: IdeaInputRow[] = []
-  const projectWith = (themeReserve: IdeaInputRow[]): IdeaInputRow[] => [
-    ...themeReserve,
-    ...ordinaryWireRows
-      .filter((row) => !themeReserve.some((reservedRow) => sameIdeaStory(row, reservedRow)))
-      .slice(0, cap - themeReserve.length),
-  ]
+  // two theme rows would otherwise be half theme even though floor(topN/3) looked safe. The final
+  // projector applies the same family/source caps AFTER package insertion; this is the boundary that used
+  // to let two Theme rows crowd an independent filing or replace a better source copy.
+  let reserved: IdeaInputRow[] = []
   const themePackages = new Map<string, IdeaInputRow[]>()
   for (const row of themeRows) {
     const context = row.theme_contexts?.length === 1 ? row.theme_contexts[0] : null
@@ -1234,16 +1480,20 @@ export function readTopSweep(
     const whyRows = group.filter((row) => row.theme_contexts?.[0]?.role === 'WHY_NOW')
     const proofRows = group.filter((row) => row.theme_contexts?.[0]?.role === 'EXPRESSION_PROOF')
     if (whyRows.length !== 1 || proofRows.length !== 1 || whyRows[0].event_id === proofRows[0].event_id) continue
-    const candidates = [whyRows[0], proofRows[0]].map((themeRow) => {
-      const wireMatch = ordinaryWireRows.find((wireRow) => sameIdeaStory(wireRow, themeRow))
-      return wireMatch ? { ...themeRow, origin_type: 'mixed' as const } : themeRow
-    })
-    if (reserved.length + candidates.length > reserveCap) continue
-    const tentative = [...reserved, ...candidates]
-    const tentativeRows = projectWith(tentative)
-    if (tentative.length <= Math.floor(tentativeRows.length / 3)) reserved.push(...candidates)
+    const candidates = [whyRows[0], proofRows[0]]
+    const tentative = coalesceThemeRows([...reserved, ...candidates], ordinaryWireRows)
+    if (tentative.length > reserveCap) continue
+    const tentativeRows = projectIdeaRowsWithThemes(ordinaryWireRows, tentative, cap)
+    const themeRowsInProjection = tentativeRows.filter((row) => row.origin_type === 'theme' || row.origin_type === 'mixed')
+    const completePackage = candidates.every((candidate) => tentativeRows.some((row) => (
+      row.event_id === candidate.event_id
+      && row.theme_contexts?.some((context) => candidate.theme_contexts?.some((expected) => (
+        context.theme_id === expected.theme_id && context.theme_rev === expected.theme_rev && context.role === expected.role
+      )))
+    )))
+    if (completePackage && themeRowsInProjection.length <= Math.floor(tentativeRows.length / 3)) reserved = tentative
   }
-  const projected = projectWith(reserved).sort((a, b) => b.materiality - a.materiality)
+  const projected = projectIdeaRowsWithThemes(ordinaryWireRows, reserved, cap)
   return {
     // Status-aware production callers already pause a degraded sweep. Emptying the projection as well
     // protects row-only/legacy callers from spending on a lead whose human veto history is unknowable.

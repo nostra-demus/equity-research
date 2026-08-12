@@ -18,7 +18,11 @@ import { z } from 'zod'
 export const QUALIFIED_IDEA_SCHEMA = 'qualified-idea/v1' as const
 export const IDEA_ASSESSMENT_SCHEMA = 'idea-assessment/v1' as const
 export const QUALIFICATION_POLICY_VERSION = 'ideas-policy/precal-v1' as const
+export const QUALIFIED_IDEA_RANKING_POLICY_V1 = 'ideas-ranking/calibration-shrinkage-v1' as const
 export const QUALIFIED_IDEA_RANKING_POLICY_VERSION = 'ideas-ranking/calibration-shrinkage-v2' as const
+export type QualifiedIdeaRankingPolicyVersion =
+  | typeof QUALIFIED_IDEA_RANKING_POLICY_V1
+  | typeof QUALIFIED_IDEA_RANKING_POLICY_VERSION
 
 export type IdeaDirection = 'long' | 'short'
 export type QualificationStatus = 'qualified' | 'needs_research' | 'does_not_clear'
@@ -127,7 +131,41 @@ const CALIBRATION_SHRINKAGE_V2_RULES: Readonly<Record<IdeaCalibrationStatus, Rea
     rationale: 'Calibrated is reserved until an out-of-sample quality gate exists; the scenario-level upside haircut remains in force and losses remain fully counted.',
   }),
 })
+// V1 is retained as a replay boundary for any board or audit snapshot produced while that policy was
+// under evaluation. Its return algorithm haircuts a positive NET expected return. V2 supersedes it for
+// live ranking because V1 also softened the loss scenarios embedded in that net number.
+const CALIBRATION_SHRINKAGE_V1_RULES: Readonly<Record<IdeaCalibrationStatus, Readonly<CalibrationRankingRule>>> = Object.freeze({
+  pre_data: Object.freeze({
+    positiveReturnRetention: 0.35,
+    evidenceInputFloor: 50,
+    evidenceConfidenceAtFloor: 40,
+    evidenceConfidenceCap: 50,
+    rationale: 'No exact-horizon outcomes have resolved, so 65% of claimed upside is removed and evidence is compressed into a conservative 0-50 confidence band.',
+  }),
+  insufficient: Object.freeze({
+    positiveReturnRetention: 0.35,
+    evidenceInputFloor: 50,
+    evidenceConfidenceAtFloor: 40,
+    evidenceConfidenceCap: 50,
+    rationale: 'Some outcomes exist but the cohort is too small or narrow to learn from, so the pre-data haircut remains in force.',
+  }),
+  measured: Object.freeze({
+    positiveReturnRetention: 0.35,
+    evidenceInputFloor: 50,
+    evidenceConfidenceAtFloor: 40,
+    evidenceConfidenceCap: 50,
+    rationale: 'The sample is large enough to measure, but measurement alone does not prove forecast skill, so the pre-data haircut remains in force.',
+  }),
+  calibrated: Object.freeze({
+    positiveReturnRetention: 0.35,
+    evidenceInputFloor: 50,
+    evidenceConfidenceAtFloor: 40,
+    evidenceConfidenceCap: 50,
+    rationale: 'Calibrated is reserved until an out-of-sample quality gate exists; the pre-data haircut remains in force.',
+  }),
+})
 export const QUALIFIED_IDEA_RANKING_POLICIES: Readonly<Record<string, Readonly<Record<IdeaCalibrationStatus, Readonly<CalibrationRankingRule>>>>> = Object.freeze({
+  [QUALIFIED_IDEA_RANKING_POLICY_V1]: CALIBRATION_SHRINKAGE_V1_RULES,
   [QUALIFIED_IDEA_RANKING_POLICY_VERSION]: CALIBRATION_SHRINKAGE_V2_RULES,
 })
 // Backward-compatible name for callers that inspect the active policy. The versioned registry above is
@@ -433,7 +471,7 @@ export interface QualifiedIdeaMetrics {
 }
 
 export interface QualifiedIdeaRanking {
-  policy_version: typeof QUALIFIED_IDEA_RANKING_POLICY_VERSION
+  policy_version: QualifiedIdeaRankingPolicyVersion
   calibration_status: IdeaCalibrationStatus
   raw_expected_return_pct: number
   positive_return_retention: number
@@ -536,21 +574,28 @@ function metricsFor(candidate: QualifiedIdeaCandidate, policy: QualificationPoli
   }
 }
 
-function rankingFor(candidate: QualifiedIdeaCandidate, metrics: QualifiedIdeaMetrics | null): QualifiedIdeaRanking | null {
+export function qualifiedIdeaRankingForPolicy(
+  candidate: QualifiedIdeaCandidate,
+  metrics: QualifiedIdeaMetrics | null,
+  policyVersion: string,
+): QualifiedIdeaRanking | null {
   if (!metrics) return null
   const calibrationStatus = candidate?.research?.calibration_status
-  const rule = QUALIFIED_IDEA_RANKING_POLICIES[QUALIFIED_IDEA_RANKING_POLICY_VERSION]?.[calibrationStatus]
+  const rule = QUALIFIED_IDEA_RANKING_POLICIES[policyVersion]?.[calibrationStatus]
   const dataSufficiency = candidate?.research?.data_sufficiency_score
   const edge = candidate?.research?.edge_score
-  if (!rule || !finite(dataSufficiency) || !finite(edge)) return null
+  if (!rule || !finite(dataSufficiency) || !finite(edge)
+    || (policyVersion !== QUALIFIED_IDEA_RANKING_POLICY_V1 && policyVersion !== QUALIFIED_IDEA_RANKING_POLICY_VERSION)) return null
 
   const rawExpectedReturn = metrics.expected_return_pct
-  const conservativeExpectedReturn = metrics.scenario_returns.reduce((sum, scenario) => {
-    const adjustedReturn = scenario.return_pct > 0
-      ? scenario.return_pct * rule.positiveReturnRetention
-      : scenario.return_pct
-    return sum + (scenario.probability_pct / 100) * adjustedReturn
-  }, 0)
+  const conservativeExpectedReturn = policyVersion === QUALIFIED_IDEA_RANKING_POLICY_V1
+    ? rawExpectedReturn > 0 ? rawExpectedReturn * rule.positiveReturnRetention : rawExpectedReturn
+    : metrics.scenario_returns.reduce((sum, scenario) => {
+      const adjustedReturn = scenario.return_pct > 0
+        ? scenario.return_pct * rule.positiveReturnRetention
+        : scenario.return_pct
+      return sum + (scenario.probability_pct / 100) * adjustedReturn
+    }, 0)
   const uncappedEvidenceConfidence = Math.min(dataSufficiency, edge)
   const evidenceConfidence = uncappedEvidenceConfidence <= rule.evidenceInputFloor
     ? uncappedEvidenceConfidence * (rule.evidenceConfidenceAtFloor / rule.evidenceInputFloor)
@@ -558,7 +603,7 @@ function rankingFor(candidate: QualifiedIdeaCandidate, metrics: QualifiedIdeaMet
       ((uncappedEvidenceConfidence - rule.evidenceInputFloor) / (100 - rule.evidenceInputFloor)) *
       (rule.evidenceConfidenceCap - rule.evidenceConfidenceAtFloor)
   return {
-    policy_version: QUALIFIED_IDEA_RANKING_POLICY_VERSION,
+    policy_version: policyVersion,
     calibration_status: calibrationStatus,
     raw_expected_return_pct: rawExpectedReturn,
     positive_return_retention: rule.positiveReturnRetention,
@@ -569,6 +614,10 @@ function rankingFor(candidate: QualifiedIdeaCandidate, metrics: QualifiedIdeaMet
     evidence_confidence_score: round(Math.min(evidenceConfidence, rule.evidenceConfidenceCap)),
     rationale: rule.rationale,
   }
+}
+
+function rankingFor(candidate: QualifiedIdeaCandidate, metrics: QualifiedIdeaMetrics | null): QualifiedIdeaRanking | null {
+  return qualifiedIdeaRankingForPolicy(candidate, metrics, QUALIFIED_IDEA_RANKING_POLICY_VERSION)
 }
 
 function add(issues: QualificationIssue[], code: QualificationIssueCode, message: string, disposition: QualificationIssue['disposition']): void {
@@ -819,10 +868,17 @@ function dominates(a: QualifiedIdeaEvaluation, b: QualifiedIdeaEvaluation): bool
 }
 
 /** Assign non-dominated conservative-return/risk layers, then order each frontier by evidence quality. */
-export function rankQualifiedIdeas(evaluations: QualifiedIdeaEvaluation[]): QualifiedIdeaEvaluation[] {
+export function rankQualifiedIdeas(
+  evaluations: QualifiedIdeaEvaluation[],
+  rankingPolicyVersion: string = QUALIFIED_IDEA_RANKING_POLICY_VERSION,
+): QualifiedIdeaEvaluation[] {
   const remaining: QualifiedIdeaEvaluation[] = evaluations
     .filter((x) => x.status === 'qualified' && x.metrics)
-    .map((x): QualifiedIdeaEvaluation => ({ ...x, ranking: rankingFor(x.candidate, x.metrics), pareto_layer: null }))
+    .map((x): QualifiedIdeaEvaluation => ({
+      ...x,
+      ranking: qualifiedIdeaRankingForPolicy(x.candidate, x.metrics, rankingPolicyVersion),
+      pareto_layer: null,
+    }))
     .filter((x) => x.ranking)
   const ranked: QualifiedIdeaEvaluation[] = []
   let layer = 1

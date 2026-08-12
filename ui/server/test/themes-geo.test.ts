@@ -87,6 +87,40 @@ check('country slice dedupes story families before company placement and qualifi
   assert.equal(summary.top_companies[0]?.mention_count, 2, 'a publisher copy cannot inflate sliced company centrality')
 })
 
+check('country slice cannot resurrect support invalidated by a challenge outside that geography', () => {
+  const acme = { name: 'Acme HK', ticker: 'ACME', listing_country: 'HK' }
+  const challenged = theme('THM-statehk1', 'HK state-bound proof', [
+    member('hk-old-support', { dedup_group: 'state-family', country: 'HK', companies: [acme], found_at: hoursAgo(4) }),
+    member('hk-peer-support', { dedup_group: 'state-peer', country: 'HK', companies: [acme], found_at: hoursAgo(3) }),
+    member('us-current-challenge', { dedup_group: 'state-family', country: 'US', companies: [acme], found_at: hoursAgo(1), headline: 'Acme cancels AI data center capacity expansion' }),
+  ])
+  attachValidNarrative(challenged, {
+    support_event_ids: ['hk-old-support', 'hk-peer-support'],
+    challenge_event_ids: ['us-current-challenge'],
+    why_now_event_id: 'hk-old-support',
+  })
+  assert.equal(buildGeoThemesIndex([challenged], { country: 'HK' }, now).themes.length, 0, 'global active family state removes obsolete HK support')
+})
+
+check('country slice cannot borrow a later global restoration from the same family', () => {
+  const acme = { name: 'Acme HK', ticker: 'ACME', listing_country: 'HK' }
+  const restoredElsewhere = theme('THM-resthk1', 'HK state-bound restoration', [
+    member('hk-rest-old', { dedup_group: 'rest-state-family', country: 'HK', companies: [acme], found_at: hoursAgo(5) }),
+    member('hk-rest-peer', { dedup_group: 'rest-state-peer', country: 'HK', companies: [acme], found_at: hoursAgo(4) }),
+    member('us-rest-challenge', { dedup_group: 'rest-state-family', country: 'US', companies: [acme], found_at: hoursAgo(3), headline: 'Acme cancels AI data center capacity expansion' }),
+    member('us-rest-support', { dedup_group: 'rest-state-family', country: 'US', companies: [acme], found_at: hoursAgo(1), headline: 'Acme reinstates AI data center capacity expansion' }),
+  ])
+  attachValidNarrative(restoredElsewhere, { support_event_ids: ['hk-rest-old', 'hk-rest-peer'] })
+  restoredElsewhere.narrative!.evidence.push(
+    { event_id: 'us-rest-challenge', stance: 'challenges' },
+    { event_id: 'us-rest-support', stance: 'supports' },
+  )
+  restoredElsewhere.narrative!.why_now_event_id = 'us-rest-support'
+  restoredElsewhere.narrative!.expressions[0].evidence_event_ids = ['us-rest-support']
+  assert.equal(buildGeoThemesIndex([restoredElsewhere], { country: 'HK' }, now).themes.length, 0,
+    'the exact active US restoration is not HK proof merely because its family has an old HK row')
+})
+
 check('country slice: a lowercase query param still matches (server upstreams uppercase, be defensive)', () => {
   const idx = buildGeoThemesIndex([hk], { country: 'hk' }, now)
   assert.equal(idx.themes.length, 1)

@@ -12,9 +12,10 @@ import { cleanTicker } from '../symbology'
 import { Budget, clearCooldown, conservativeChatTokenBound, isCoolingDown, type BudgetReservation } from '../triage/budget'
 import type { LlmNamer } from './engine'
 import type { Theme } from './types'
-import { themeStoryKey } from './story-key'
+import { resolveThemeFamilyState, themeStoryFamilyKey } from './story-key'
 import { selectNarrativeCore } from './core'
-import { isDisplayableThemeChallenge, isSupportingThemeEvidence } from './evidence'
+import { isDisplayableThemeChallenge, isSupportingThemeEvidence, sourcePriority } from './evidence'
+import { uniqueThemeMembers } from './qualification'
 
 interface NamerCfg {
   themesDiscoverModel?: string // 'claude-haiku' | 'groq' | 'off'
@@ -276,10 +277,20 @@ function applyProposals(created: Theme[], proposals: any[], generation: 'claude'
       const member = memberById.get(eventId)
       classifications.set(eventId, isDisplayableThemeChallenge(member) ? 'challenges' : 'context')
     }
-    const supportedRows = [...classifications]
-      .filter(([, stance]) => stance === 'supports')
-      .map(([eventId]) => memberById.get(eventId)!)
-      .filter(isSupportingThemeEvidence)
+    const activeFamilyState = resolveThemeFamilyState([...classifications].flatMap(([eventId, stance]) => {
+      const member = memberById.get(eventId)
+      if (!member) return []
+      if (stance === 'supports' && !isSupportingThemeEvidence(member)) return []
+      if (stance === 'challenges' && !isDisplayableThemeChallenge(member)) return []
+      return [{ member, stance }]
+    }), (member) => sourcePriority(member.tier))
+    const activeSupportIds = new Set(activeFamilyState
+      .filter((row) => row.stance === 'supports')
+      .map((row) => String(row.member.event_id)))
+    const supportedRows = uniqueThemeMembers(activeFamilyState
+      .filter((row) => row.stance === 'supports')
+      .map((row) => row.member)
+      .filter(isSupportingThemeEvidence))
     const priorAnchorsAreGeneric = Boolean(t.narrative?.anchor_terms?.some((anchor) => generic?.has(anchor)))
     // An established causal identity cannot be silently redefined during a rename or update. A genuinely
     // different anchor pair must form a new deterministic cluster/theme; the sole exception is an explicit
@@ -290,8 +301,9 @@ function applyProposals(created: Theme[], proposals: any[], generation: 'claude'
     const core = selectNarrativeCore(supportedRows, proposedAnchors, generic)
     if (core.anchors.length !== 2 || core.members.length < 2) return
     if (core.anchors.some((anchor) => !proposedAnchors.includes(anchor))) return
-    const coreIds = new Set(core.members.map((member) => member.event_id))
-    if (!coreIds.has(whyNowEventId)) return
+    const coreFamilies = new Set(core.members.map(themeStoryFamilyKey))
+    const whyNowMember = memberById.get(whyNowEventId)
+    if (!whyNowMember || !activeSupportIds.has(whyNowEventId) || !coreFamilies.has(themeStoryFamilyKey(whyNowMember))) return
 
     const companyByKey = new Map(t.companies.map((company) => [company.name_key, company]))
     const roles = new Set(['direct', 'bottleneck', 'enabler', 'harmed', 'hedge'])
@@ -308,7 +320,9 @@ function applyProposals(created: Theme[], proposals: any[], generation: 'claude'
       if (!roles.has(value?.role) || (value?.side !== 'beneficiary' && value?.side !== 'harmed')) continue
       if (value.role === 'harmed' && value.side !== 'harmed') return
       const evidenceIds: string[] = (Array.isArray(value?.evidence_event_ids) ? value.evidence_event_ids as unknown[] : [])
-        .filter((eventId: unknown): eventId is string => typeof eventId === 'string' && coreIds.has(eventId))
+        .filter((eventId: unknown): eventId is string => typeof eventId === 'string'
+          && activeSupportIds.has(eventId)
+          && coreFamilies.has(themeStoryFamilyKey(memberById.get(eventId)!)))
         .filter((eventId: string) => companyKeys(memberById.get(eventId)?.companies).has(nameKey))
         .slice(0, 4)
       if (!evidenceIds.length) continue
@@ -319,9 +333,13 @@ function applyProposals(created: Theme[], proposals: any[], generation: 'claude'
 
     const byNewest = (a: string, b: string) => Date.parse(memberById.get(b)?.found_at || '') - Date.parse(memberById.get(a)?.found_at || '')
     const supportIds = [...new Set([whyNowEventId, ...core.members.map((member) => member.event_id)])]
-      .filter((eventId) => classifications.get(eventId) === 'supports')
+      .filter((eventId) => activeSupportIds.has(eventId))
+    const historicalSupportIds = [...classifications]
+      .filter(([eventId, stance]) => stance === 'supports' && isSupportingThemeEvidence(memberById.get(eventId)))
+      .map(([eventId]) => eventId)
+      .sort(byNewest)
     const challengeIds = [...classifications]
-      .filter(([, stance]) => stance === 'challenges')
+      .filter(([eventId, stance]) => stance === 'challenges' && isDisplayableThemeChallenge(memberById.get(eventId)))
       .map(([eventId]) => eventId)
       .sort(byNewest)
     const contextEventIds = [...classifications]
@@ -329,7 +347,7 @@ function applyProposals(created: Theme[], proposals: any[], generation: 'claude'
       .map(([eventId]) => eventId)
       .slice(-400)
     const evidence: NonNullable<Theme['narrative']>['evidence'] = [
-      ...supportIds.map((eventId) => ({ event_id: eventId, stance: 'supports' as const })),
+      ...[...new Set([...supportIds, ...historicalSupportIds])].map((eventId) => ({ event_id: eventId, stance: 'supports' as const })),
       ...challengeIds.map((eventId) => ({ event_id: eventId, stance: 'challenges' as const })),
     ]
     delete t.needs_rename // explicitly validated and re-grounded by this same complete proposal
@@ -338,8 +356,12 @@ function applyProposals(created: Theme[], proposals: any[], generation: 'claude'
       [...proposedSupport, ...proposedChallenges, ...proposedContext].filter((eventId) => promptedIds.has(eventId)),
     )
     const remainingPending = (t.pending_narrative_event_ids || []).filter((eventId) => !classifiedPromptIds.has(eventId))
-    if (remainingPending.length) {
-      t.pending_narrative_event_ids = remainingPending
+    if (remainingPending.length || t.narrative_update_overflow) {
+      // A hard-cap overflow means at least one unclassified row is no longer present in this record. Even
+      // a complete reply for every visible FIFO row cannot classify the missing observation, so retain the
+      // fail-closed quarantine instead of treating an empty visible queue as approval.
+      if (remainingPending.length) t.pending_narrative_event_ids = remainingPending
+      else delete t.pending_narrative_event_ids
       t.needs_narrative_update = true
     } else {
       delete t.pending_narrative_event_ids
@@ -355,7 +377,7 @@ function applyProposals(created: Theme[], proposals: any[], generation: 'claude'
       // underlying stories. A model-written but unsupported word is description prose, not a join key.
       const support = new Map<string, Set<string>>()
       for (const member of t.members) {
-        const story = themeStoryKey(member)
+        const story = themeStoryFamilyKey(member)
         for (const token of themeNarrativeTokens(member.headline, member.companies, member.tier, generic)) {
           if (!support.has(token)) support.set(token, new Set())
           support.get(token)!.add(story)

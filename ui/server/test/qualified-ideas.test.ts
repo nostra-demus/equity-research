@@ -3,6 +3,8 @@ import assert from 'node:assert/strict'
 import {
   evaluateQualifiedIdea,
   expectedShortfallLoss,
+  QUALIFIED_IDEA_RANKING_POLICY_V1,
+  qualifiedIdeaRankingForPolicy,
   rankQualifiedIdeas,
   type QualifiedIdeaCandidate,
 } from '../src/qualified-ideas'
@@ -81,6 +83,14 @@ assert.deepEqual(valid.ranking, {
 })
 assert.equal(valid.metrics?.expected_return_pct, 17.5, 'ranking shrinkage must not rewrite the raw scenario math used for qualification and outcome grading')
 assert.match(valid.calibration_note, /Pre-data/)
+const replayedV1Ranking = qualifiedIdeaRankingForPolicy(candidate('QIDEA-v1-replay'), valid.metrics, QUALIFIED_IDEA_RANKING_POLICY_V1)
+assert.equal(replayedV1Ranking?.policy_version, 'ideas-ranking/calibration-shrinkage-v1')
+assert.equal(replayedV1Ranking?.conservative_expected_return_pct, 6.13, 'the superseded net-return policy remains exactly replayable for historical frontiers')
+assert.equal(
+  rankQualifiedIdeas([{ ...valid, candidate: candidate('QIDEA-v1-frontier') }], QUALIFIED_IDEA_RANKING_POLICY_V1)[0]?.ranking?.policy_version,
+  QUALIFIED_IDEA_RANKING_POLICY_V1,
+  'the frontier dispatcher can replay a prior ranking policy instead of silently reclassifying history under v2',
+)
 
 const wrongPolicy = candidate('QIDEA-policy') as any
 wrongPolicy.policy_version = 'ideas-policy/future'

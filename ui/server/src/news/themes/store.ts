@@ -16,6 +16,7 @@ import { buildWhyIndex, buildCompanyWhy } from './why'
 import { compareThemeSummaries, companiesForMembers, firstSeenForMembers, qualifyTheme, uniqueThemeMembers } from './qualification'
 import { cleanTicker } from '../symbology'
 import { DAILY_WINDOWS, ensureDaily, scoreTheme } from './score'
+import { themeStoryFamilyKey } from './story-key'
 
 const ledgerPath = (repoRoot: string) => path.join(repoRoot, 'screener', 'ledger', 'themes.ndjson')
 const indexPath = (repoRoot: string) => path.join(repoRoot, 'screener', 'board', 'themes_index.json')
@@ -222,14 +223,21 @@ function normalizeTheme(v: unknown): Theme | null {
     ...(narrative?.context_event_ids || []),
   ])
   const pendingCap = Math.max(400, members.length)
-  const tracksNarrativeDebt = (narrative && raw.needs_narrative_update === true)
+  const rawNarrativeOverflow = raw.narrative_update_overflow === true
+  const tracksNarrativeDebt = rawNarrativeOverflow
+    || (raw.needs_narrative_update === true && Boolean(narrative))
     || (!narrative && generation === 'deterministic' && raw.needs_validation === true)
+  const rawPendingNarrativeIds = strings(raw.pending_narrative_event_ids, pendingCap)
   const pendingNarrativeIds = tracksNarrativeDebt
-    ? (strings(raw.pending_narrative_event_ids, pendingCap).length
-        ? strings(raw.pending_narrative_event_ids, pendingCap)
+    ? (rawPendingNarrativeIds.length
+        ? rawPendingNarrativeIds
         : members.map((member) => member.event_id).filter((eventId) => !classifiedNarrativeIds.has(eventId)))
       .filter((eventId) => members.some((member) => member.event_id === eventId))
     : []
+  const narrativeUpdateOverflow = Boolean(rawNarrativeOverflow
+    || (raw.needs_narrative_update === true
+      && (rawPendingNarrativeIds.some((eventId) => !members.some((member) => member.event_id === eventId))
+        || (Boolean(narrative) && !rawPendingNarrativeIds.length && pendingNarrativeIds.length === 0))))
   return {
     theme_id: raw.theme_id,
     name: raw.name.trim(), slug: raw.slug.trim(), description: raw.description.trim(),
@@ -237,7 +245,12 @@ function normalizeTheme(v: unknown): Theme | null {
     company_keys: strings(raw.company_keys, 16),
     event_type_affinity: strings(raw.event_type_affinity, 8),
     members,
-    member_count_total: Math.max(members.length, Math.floor(finite(raw.member_count_total, members.length))),
+    // The member ring can hold several state observations for one publisher-copy family. The lifetime
+    // counter measures underlying story families, so reload must never floor it to raw observation rows.
+    member_count_total: Math.max(
+      new Set(members.map(themeStoryFamilyKey)).size,
+      Math.floor(finite(raw.member_count_total, new Set(members.map(themeStoryFamilyKey)).size)),
+    ),
     companies,
     sectors: [],
     scores,
@@ -258,8 +271,9 @@ function normalizeTheme(v: unknown): Theme | null {
     rev: Math.max(0, Math.floor(finite(raw.rev))),
     ...(raw.needs_rename === true ? { needs_rename: true } : {}),
     ...(generation === 'deterministic' && raw.needs_validation === true ? { needs_validation: true } : {}),
-    ...(narrative && raw.needs_narrative_update === true ? { needs_narrative_update: true } : {}),
+    ...(narrativeUpdateOverflow || (Boolean(narrative) && raw.needs_narrative_update === true) ? { needs_narrative_update: true } : {}),
     ...(tracksNarrativeDebt ? { pending_narrative_event_ids: pendingNarrativeIds } : {}),
+    ...(narrativeUpdateOverflow ? { narrative_update_overflow: true } : {}),
     ...(iso(raw.validation_queued_at) ? { validation_queued_at: iso(raw.validation_queued_at) } : {}),
     ...(iso(raw.validation_attempted_at) ? { validation_attempted_at: iso(raw.validation_attempted_at) } : {}),
   }
@@ -414,11 +428,12 @@ function qualifiedExpressions(
 }
 
 /** Compact projection: Theme → ThemeSummary (no member arrays) for the index + SSE bus. */
-export function buildSummary(t: Theme, now: Date = new Date(), companyProjection?: ThemeCompany[]): ThemeSummary {
-  const members = Array.isArray(t.members) ? t.members : []
+export function buildSummary(t: Theme, now: Date = new Date(), companyProjection?: ThemeCompany[], memberProjection?: ThemeMember[]): ThemeSummary {
+  const members = Array.isArray(memberProjection) ? memberProjection : (Array.isArray(t.members) ? t.members : [])
+  const scoped = Array.isArray(companyProjection)
   const uniqueMembers = uniqueThemeMembers(members)
   const allCompanies = Array.isArray(companyProjection) ? companyProjection : companiesForMembers(t, uniqueMembers)
-  const firstPass = qualifyTheme(t, now, uniqueMembers, allCompanies)
+  const firstPass = qualifyTheme(t, now, members, allCompanies, scoped)
   // Every public projection uses the same canonical core. Off-thesis rows cannot leak back through a
   // company count, detail panel or brief after qualification correctly excluded them.
   const coreMembers = [...firstPass.supporting_members, ...firstPass.challenging_members]
@@ -432,7 +447,7 @@ export function buildSummary(t: Theme, now: Date = new Date(), companyProjection
   const companies = admittedCompanyKeys
     ? rebuiltCompanies.filter((company) => admittedCompanyKeys.has(company.name_key))
     : rebuiltCompanies
-  const qualified = qualifyTheme(t, now, uniqueMembers, companies)
+  const qualified = qualifyTheme(t, now, members, companies, scoped)
   const coreFirstSeen = firstSeenForMembers(coreMembers, t.first_seen)
   // Heat and every time-window series are evidence projections too. Reusing the persisted all-member
   // score here let hundreds of explicitly excluded rows make a two-row thesis the largest/hottest node.
@@ -601,9 +616,10 @@ export function buildThemeDetail(repoRoot: string, theme: Theme): ThemeDetail {
   // The detail uses the same unique-story proof as the first-look summary. Otherwise opening a clean
   // briefing row could bring back ten syndicated copies and copy-inflated company placement from a
   // legacy ledger row.
-  const uniqueMembers = uniqueThemeMembers(Array.isArray(theme.members) ? theme.members : [])
+  const rawMembers = Array.isArray(theme.members) ? theme.members : []
+  const uniqueMembers = uniqueThemeMembers(rawMembers)
   const initialCompanies = companiesForMembers(theme, uniqueMembers)
-  const qualified = qualifyTheme(theme, new Date(), uniqueMembers, initialCompanies)
+  const qualified = qualifyTheme(theme, new Date(), rawMembers, initialCompanies)
   // Detail, summary and brief share the exact same thesis evidence. The hundreds of excluded rows in a
   // polluted legacy bag are diagnostics only and never reappear as “news in this theme”.
   const proofMembers = [...qualified.supporting_members, ...qualified.challenging_members]

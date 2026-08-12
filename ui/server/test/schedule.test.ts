@@ -133,6 +133,11 @@ check('dated catalyst evidence is source-bound, complete, valid, and never infer
     'an unrevised schedule remains valid',
   )
   assert.deepEqual(
+    deriveScheduledEventEvidence({ headline: 'Amazon AGM scheduled for 2026/09/09' }),
+    ['shareholder_meeting on 2026-09-09'],
+    'a complete year-first slash date is normalized without losing its source-bound catalyst',
+  )
+  assert.deepEqual(
     deriveScheduledEventEvidence({ headline: 'S&P announces index constituent changes effective September 20, 2026' }),
     ['index_change on 2026-09-20'],
     'ordinary index-change wording is not mistaken for a schedule revision',

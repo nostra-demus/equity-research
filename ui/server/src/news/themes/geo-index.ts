@@ -92,7 +92,8 @@ export function buildGeoThemesIndex(
 
   for (const t of themes) {
     if (t.status !== 'live') continue
-    const geoMembers = uniqueThemeMembers(arr(t.members).filter((m) => memberMatchesGeo(m, geo)))
+    const geoObservations = arr(t.members).filter((m) => memberMatchesGeo(m, geo))
+    const geoMembers = uniqueThemeMembers(geoObservations)
     if (!geoMembers.length) continue // this theme isn't about the requested geography → drop it
 
     // Rebuild from the sliced members first. Filtering the global company aggregate leaked unrelated
@@ -109,7 +110,9 @@ export function buildGeoThemesIndex(
     const flow_daily = holder.flow_daily || []
     const slicedTheme: Theme = {
       ...t,
-      members: geoMembers,
+      // Keep the complete audit ring for family-state resolution; the explicit company projection below
+      // marks this as a scoped read, while scores/flow remain computed only from geoMembers above.
+      members: t.members,
       companies: geoCompanies,
       sectors: [],
       scores: scored.scores,
@@ -118,9 +121,9 @@ export function buildGeoThemesIndex(
       flow_series: scored.flow_series,
       flow_daily,
       first_seen: t.first_seen,
-      last_flow: geoMembers.reduce((mx, m) => (m.found_at > mx ? m.found_at : mx), ''),
+      last_flow: geoObservations.reduce((mx, m) => (m.found_at > mx ? m.found_at : mx), ''),
     }
-    const summary = buildSummary(slicedTheme, nowD, geoCompanies)
+    const summary = buildSummary(slicedTheme, nowD, geoCompanies, geoObservations)
     if (summary.narrative && summary.assessment.status !== 'context') {
       // Counts and advertised history are evidence products, not raw slice traffic. buildSummary has
       // already narrowed flow_daily/tier to explicit support+challenge; heat_flow_daily retains the raw

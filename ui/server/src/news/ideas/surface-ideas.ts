@@ -152,7 +152,7 @@ THE BAR IS HIGH. Most items yield NO idea. Return an idea ONLY when ALL of these
 - there is a reason it matters NOW (a fresh catalyst, a dated event, a live dislocation) — not a slow, someday story.
 If an item is big news but has no clean, liquid single-name expression (a war, a macro print, a policy shift with no pure play), DO NOT force a ticker onto it. Returning FEWER, better ideas — or an empty list — is the correct, valued answer. Never manufacture an idea to fill the list. A dishonest or low-conviction pick is worse than none.
 
-CLUSTER: if several items are the same underlying idea (same mechanism, same names), merge them into ONE idea and list all their indices in "src" — a story told by three sources is one idea, stronger for the corroboration, not three.
+CLUSTER: if several INDEPENDENT items are the same underlying idea (same mechanism, same names), merge them into ONE idea and list all their indices in "src". Rows carrying the same story_family are status observations of ONE underlying story, not independent corroboration: read their corrections, adverse changes, and restorations together, but never raise conviction merely because that family has several rows.
 
 SHORT and PAIR are first-class: when the event HARMS a listed company, that is a short; when it clearly helps one named company at a named rival's expense, that is a pair (long the winner, short the loser). Check the sign before you place the side.
 
@@ -174,6 +174,25 @@ Event-type vocabulary (for your reference, matching the desk's tags): ${EVENT_TY
 Return ONLY JSON: {"ideas":[{"src":[<int>],"ticker":"...","company":"...","exchange":null,"direction":"long|short|pair","pair_with":null,"reason":"...","why_now":"...","conviction":<int>,"priced_in":"priced|room|unknown","thesis_type":"company_specific"}]}. Return {"ideas":[]} when nothing on the wire clears the bar. Never include more than 6 ideas; if you have more, keep only the best.`
 
 export function buildIdeaUserMessage(rows: IdeaInputRow[]): string {
+  const canonicalFamily = (row: IdeaInputRow): string => {
+    const group = typeof row.dedup_group === 'string' ? row.dedup_group.trim() : ''
+    return group || row.event_id.trim()
+  }
+  const familyCounts = new Map<string, number>()
+  for (const row of rows) {
+    const family = canonicalFamily(row)
+    if (family) familyCounts.set(family, (familyCounts.get(family) || 0) + 1)
+  }
+  const promptStoryFamily = (row: IdeaInputRow): string => {
+    // `dedup_group` is the earliest event id. Falling back to event_id labels that legacy anchor with the
+    // same canonical family as a grouped update, so the model never counts the two as corroboration.
+    const family = canonicalFamily(row)
+    if (!family || (familyCounts.get(family) || 0) < 2) return ''
+    // Story ids are engine-authored, but keep the model-visible control field single-line and bounded if
+    // a legacy/imported sweep contains unexpected bytes.
+    const safe = family.replace(/[^A-Za-z0-9._:-]+/g, '_').replace(/^_+|_+$/g, '').slice(0, 96)
+    return safe ? `story_family=${safe}` : ''
+  }
   const lines = rows.map((r, i) => {
     const comp = (r.companies || [])
       .map((c) => (c.ticker ? `${c.name} (${c.ticker})` : c.name))
@@ -196,6 +215,7 @@ export function buildIdeaUserMessage(rows: IdeaInputRow[]): string {
         : '',
       r.source_tier ? `source_tier=${r.source_tier}` : '',
       r.event_direction ? `server_direction=${r.event_direction}` : '',
+      promptStoryFamily(r),
       (r.scheduled_events || []).length ? `scheduled_events=${r.scheduled_events!.slice(0, 4).join('/')}` : '',
       r.label ? `severity=${r.label}` : '',
       tags ? `types=${tags}` : '',

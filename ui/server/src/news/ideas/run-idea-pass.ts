@@ -217,6 +217,7 @@ export function themeProofForIdea(raw: RawIdea, rows: IdeaInputRow[]): ThemeIdea
   }
 
   const proofs: ThemeProofMap = new Map()
+  const coveredRows = new Set<IdeaInputRow>()
   let pairCompanyKey = ''
   let pairCompanyName: string | null = null
   for (const [key, group] of groups) {
@@ -227,7 +228,10 @@ export function themeProofForIdea(raw: RawIdea, rows: IdeaInputRow[]): ThemeIdea
     const proofRows = group.rows.filter((row) => row.event_id !== whyNowId
       && row.theme_contexts?.some((context) => context.theme_id === group.theme.theme_id
         && context.theme_rev === group.theme.theme_rev && context.role === 'EXPRESSION_PROOF'))
-    if (!whyNowId || whyRows.length !== 1 || !proofRows.length) return null
+    // A coalesced event can be WHY_NOW for several actionable Themes. Selecting that shared row plus
+    // Theme A's issuer proof must not make Theme B's absent proof mandatory. Treat each revision as an
+    // independent package and admit only complete packages that bind the returned issuer/side.
+    if (!whyNowId || whyRows.length !== 1 || !proofRows.length) continue
     const primaryMatch = proofRows.flatMap((row) => (row.theme_expressions || []).map((expression) => ({ row, expression })))
       .find(({ row, expression }) => (
         expression.theme_id === group.theme.theme_id
@@ -237,10 +241,11 @@ export function themeProofForIdea(raw: RawIdea, rows: IdeaInputRow[]): ThemeIdea
         && expression.name_key === companyKey
         && expression.evidence_event_ids.includes(row.event_id)
       ))
-    if (!primaryMatch) return null
+    if (!primaryMatch) continue
     const eventIds = new Set([whyNowId, primaryMatch.row.event_id])
+    let pairMatch: { row: IdeaInputRow; expression: IdeaThemeExpression } | undefined
     if (raw.direction === 'pair') {
-      const pairMatch = proofRows.flatMap((row) => (row.theme_expressions || []).map((expression) => ({ row, expression })))
+      pairMatch = proofRows.flatMap((row) => (row.theme_expressions || []).map((expression) => ({ row, expression })))
         .find(({ row, expression }) => (
           expression.theme_id === group.theme.theme_id
           && expression.theme_rev === group.theme.theme_rev
@@ -248,7 +253,7 @@ export function themeProofForIdea(raw: RawIdea, rows: IdeaInputRow[]): ThemeIdea
           && normTicker(expression.ticker) === pairTicker
           && expression.evidence_event_ids.includes(row.event_id)
         ))
-      if (!pairMatch) return null
+      if (!pairMatch) continue
       const pair = pairMatch.expression
       const matchedPairKey = pair.name_key || normName(pair.name)
       if (!matchedPairKey || (pairCompanyKey && pairCompanyKey !== matchedPairKey)) return null
@@ -256,43 +261,59 @@ export function themeProofForIdea(raw: RawIdea, rows: IdeaInputRow[]): ThemeIdea
       eventIds.add(pairMatch.row.event_id)
     }
     proofs.set(key, eventIds)
+    coveredRows.add(whyRows[0])
+    coveredRows.add(primaryMatch.row)
+    if (pairMatch) coveredRows.add(pairMatch.row)
   }
+  // Every selected Theme-bearing row must belong to at least one complete package that actually proves
+  // this idea. This keeps a shared WHY_NOW row package-separable while still failing closed on a selected
+  // expression-only row, a lone trigger, or an unrelated/partial second package.
+  if (!proofs.size || themeRows.some((row) => !coveredRows.has(row))) return null
   return { evidenceByTheme: proofs, pairCompanyName }
 }
 
 export function ideaLineageForRows(
   rows: IdeaInputRow[],
-  expressionProofs: ThemeProofMap = new Map(),
+  expressionProofs?: ThemeProofMap,
 ): { origin_type: IdeaOriginType; source_themes: IdeaSourceTheme[] } | null {
+  const restrictToProvenPackages = expressionProofs !== undefined
   let sawWire = false
   let sawTheme = false
   const sourceThemes: IdeaSourceTheme[] = []
   for (const row of rows) {
     const origin = row.origin_type || 'wire'
     if (origin === 'wire' || origin === 'mixed') sawWire = true
-    if (origin === 'theme' || origin === 'mixed') sawTheme = true
+    if (!restrictToProvenPackages && (origin === 'theme' || origin === 'mixed')) sawTheme = true
     for (const theme of row.source_themes || []) {
+      const key = themeProofKey(theme.theme_id, theme.theme_rev)
+      const provenEvidence = expressionProofs?.get(key)
+      // A shared row may carry contexts for multiple packages. Persistence must retain only the packages
+      // that passed the exact issuer/side proof above; otherwise an incidental Theme becomes a mandatory
+      // lineage edge and can later retire an otherwise valid idea.
+      if (restrictToProvenPackages && !provenEvidence) continue
       sawTheme = true
       if (!theme.why_now_event_id) return null
-      const evidenceIds = theme.evidence_event_ids?.length ? theme.evidence_event_ids : [row.event_id]
-      const expressionIds = expressionProofs.get(themeProofKey(theme.theme_id, theme.theme_rev)) || []
+      const evidenceIds = restrictToProvenPackages
+        ? [...provenEvidence!]
+        : (theme.evidence_event_ids?.length ? theme.evidence_event_ids : [row.event_id])
       const existing = sourceThemes.find((candidate) => candidate.theme_id === theme.theme_id)
       if (existing) {
         if (existing.theme_rev !== theme.theme_rev || existing.why_now_event_id !== theme.why_now_event_id) return null
         const merged = new Set(existing.evidence_event_ids || [])
         for (const eventId of evidenceIds) merged.add(eventId)
-        for (const eventId of expressionIds) merged.add(eventId)
         existing.evidence_event_ids = [...merged]
       } else if (sourceThemes.length < 64) {
         sourceThemes.push({
           theme_id: theme.theme_id,
           theme_rev: theme.theme_rev,
-          evidence_event_ids: [...new Set([...evidenceIds, ...expressionIds])],
+          evidence_event_ids: [...new Set(evidenceIds)],
           why_now_event_id: theme.why_now_event_id,
         })
       }
     }
   }
+  if (restrictToProvenPackages && rows.some((row) => row.origin_type === 'theme' || row.origin_type === 'mixed')
+    && !sourceThemes.length) return null
   if (sawTheme && sourceThemes.some((theme) => !theme.why_now_event_id
     || !theme.evidence_event_ids?.includes(theme.why_now_event_id))) return null
   return {

@@ -132,7 +132,7 @@ const CLAUSE_REVISES_SCHEDULE = new RegExp(
 // "changes effective DATE", and a company can "move ex-dividend on DATE". Treat them as a revision only
 // when the same clause explicitly moves the schedule FROM/TO another complete date. This retains the
 // fail-closed treatment of "AGM moved from X to Y" without deleting valid catalysts by vocabulary alone.
-const COMPLETE_DATE_START = String.raw`(?:20\d{2}-\d{1,2}-\d{1,2}|\d{1,2}[\/-]\d{1,2}[\/-]20\d{2}|${MONTH_WORD}\s+\d{1,2}(?:st|nd|rd|th)?,?\s+20\d{2}|\d{1,2}(?:st|nd|rd|th)?\s+${MONTH_WORD},?\s+20\d{2}|Q[1-4]\s*20\d{2})`
+const COMPLETE_DATE_START = String.raw`(?:20\d{2}[\/-]\d{1,2}[\/-]\d{1,2}|\d{1,2}[\/-]\d{1,2}[\/-]20\d{2}|${MONTH_WORD}\s+\d{1,2}(?:st|nd|rd|th)?,?\s+20\d{2}|\d{1,2}(?:st|nd|rd|th)?\s+${MONTH_WORD},?\s+20\d{2}|Q[1-4]\s*20\d{2})`
 const CLAUSE_RETIMES_SCHEDULE = new RegExp(
   String.raw`\b(?:mov(?:e|es|ed|ing)|chang(?:e|es|ed|ing))\b(?=[^.;!?|\n]{0,96}\b(?:from|to)\s+${COMPLETE_DATE_START})`,
   'i',
@@ -175,7 +175,7 @@ function sourceBoundWindows(headline: string): SourceBoundWindow[] {
     if (index >= 0) found.push({ index, end: index + match[0].length, value, granularity })
   }
 
-  for (const match of headline.matchAll(/\b(20\d{2})-(\d{1,2})-(\d{1,2})\b/g)) {
+  for (const match of headline.matchAll(/\b(20\d{2})[\/-](\d{1,2})[\/-](\d{1,2})\b/g)) {
     const [, year, month, day] = match
     if (validCalendarDay(Number(year), Number(month), Number(day))) push(match, isoDay(Number(year), Number(month), Number(day)))
   }

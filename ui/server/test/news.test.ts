@@ -18,7 +18,7 @@ import { mergeInbox } from '../src/news/write-inbox'
 import { runIngestCycle, triageGroqTokenBound } from '../src/news/runCycle'
 import { anthropicDrainReady, backlogTrend, drainBatchEst, getNewsDiagnostics, providerDrainUsable, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS } from '../src/config'
-import { themeStoryKey } from '../src/news/themes/story-key'
+import { themeStoryFamilyKey, themeStoryKey } from '../src/news/themes/story-key'
 import type { FeedItem, RawArticle, TriagedItem } from '../src/news/types'
 
 let passed = 0
@@ -413,7 +413,7 @@ await check('mergeInbox persists only source-bound dated catalyst evidence', () 
     assert.deepEqual(events.get(`https://r/${slug}`), [], `${slug}: obsolete dates are not persisted`)
   }
 })
-await check('mergeInbox is idempotent by URL and PRESERVES human consumed/launched state', () => {
+await check('mergeInbox keeps a same-URL reword as a new observation without mutating human history', () => {
   const root = tmp()
   mergeInbox(root, '2026-06-12', [triagedItem('https://r/1', 80, 'H1')], { maxRows: 10 })
   const fp = path.join(root, 'screener/inbox/2026-06-12_sweep.json')
@@ -421,22 +421,25 @@ await check('mergeInbox is idempotent by URL and PRESERVES human consumed/launch
   doc1.rows[0].consumed = true
   doc1.rows[0].launched_signal_id = 'SIG-20260612-deadbeef'
   fs.writeFileSync(fp, JSON.stringify(doc1))
-  // re-seen with a NEW observation: source/content + score refresh, lifecycle + inbox identity stay fixed
+  // A reword at the same URL is a NEW exact observation. The prior consumed row remains immutable and
+  // the new wording stays visible for readTopSweep's stable URL veto to block before idea generation.
   const refreshed = {
     ...triagedItem('https://r/1', 91, 'H1 updated'),
     found_at: '2026-06-12T10:15:00Z', source_name: 'Reuters Updated', input_nature: 'exchange_announcement',
   }
   mergeInbox(root, '2026-06-12', [refreshed], { maxRows: 10 })
   const doc2 = JSON.parse(fs.readFileSync(fp, 'utf8'))
-  assert.equal(doc2.rows.length, 1)
-  assert.equal(doc2.rows[0].inbox_id, doc1.rows[0].inbox_id)
-  assert.equal(doc2.rows[0].consumed, true)
-  assert.equal(doc2.rows[0].launched_signal_id, 'SIG-20260612-deadbeef')
-  assert.equal(doc2.rows[0].triage_score, 91) // score refreshed
-  assert.equal(doc2.rows[0].headline, 'H1 updated')
-  assert.equal(doc2.rows[0].found_at, '2026-06-12T10:15:00Z')
-  assert.equal(doc2.rows[0].source_name, 'Reuters Updated')
-  assert.equal(doc2.rows[0].input_nature, 'exchange_announcement')
+  assert.equal(doc2.rows.length, 2)
+  const historical = doc2.rows.find((row: any) => row.headline === 'H1')
+  const update = doc2.rows.find((row: any) => row.headline === 'H1 updated')
+  assert.equal(historical?.inbox_id, doc1.rows[0].inbox_id)
+  assert.equal(historical?.consumed, true)
+  assert.equal(historical?.launched_signal_id, 'SIG-20260612-deadbeef')
+  assert.equal(update?.consumed, false)
+  assert.equal(update?.triage_score, 91)
+  assert.equal(update?.found_at, '2026-06-12T10:15:00Z')
+  assert.equal(update?.source_name, 'Reuters Updated')
+  assert.equal(update?.input_nature, 'exchange_announcement')
 })
 await check('mergeInbox preserves ordinary, correction, and reversal lanes while choosing each lane\'s best source', () => {
   const root = tmp()
@@ -500,25 +503,282 @@ await check('mergeInbox preserves an in-place correction or reversal that reuses
     source_name: 'Updated Exchange Wire',
     input_nature: 'exchange_announcement',
   }], { maxRows: 10 })
+  mergeInbox(root, date, [{
+    ...revision('Correction: final approval remains conditional', 100, '2026-06-12T12:00:00Z'),
+    headline_en: 'Correction: final approval remains conditional',
+    source_name: 'Final Exchange Wire',
+    input_nature: 'exchange_announcement',
+  }], { maxRows: 10 })
 
   const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
-  assert.equal(doc.rows.length, 3, 'one URL keeps one ordinary, correction, and reversal observation')
+  assert.equal(doc.rows.length, 4, 'one URL keeps every differently worded status update, while an exact repeat remains idempotent')
   assert.deepEqual(
     new Set(doc.rows.map((row: any) => row.headline)),
-    new Set(['Issuer reports approval', 'Correction: final approval remains conditional', 'Issuer retracts approval report']),
+    new Set(['Issuer reports approval', 'Correction: approval remains conditional', 'Correction: final approval remains conditional', 'Issuer retracts approval report']),
   )
-  const correction = doc.rows.find((row: any) => row.headline.startsWith('Correction:'))
-  assert.equal(correction?.triage_score, 99, 're-seeing the same correction lane remains idempotent and refreshes its score')
-  assert.equal(correction?.found_at, '2026-06-12T11:45:00Z', 'the newest correction observation replaces the old source clock')
+  const correction = doc.rows.find((row: any) => row.headline === 'Correction: final approval remains conditional')
+  assert.equal(correction?.triage_score, 100, 're-seeing the exact observation remains idempotent and refreshes its score')
+  assert.equal(correction?.found_at, '2026-06-12T12:00:00Z', 'the newest exact observation replaces the old source clock')
   assert.equal(correction?.headline_en, 'Correction: final approval remains conditional')
-  assert.equal(correction?.source_name, 'Updated Exchange Wire')
+  assert.equal(correction?.source_name, 'Final Exchange Wire')
   assert.equal(correction?.input_nature, 'exchange_announcement')
 })
 
-await check('story identity recognizes plural reversals and isolates a correction that restores a cancelled event', () => {
-  assert.equal(themeStoryKey({ dedup_group: 'EVT-cancel', headline: 'Issuer announces AGM cancellations' }), 'EVT-cancel:reversal')
-  assert.equal(themeStoryKey({ dedup_group: 'EVT-postpone', headline: 'Issuer announces results postponements' }), 'EVT-postpone:reversal')
-  assert.equal(themeStoryKey({ dedup_group: 'EVT-cancel', headline: 'Correction: issuer AGM was not cancelled' }), 'EVT-cancel:correction-reversal')
+await check('mergeInbox preserves differently worded exact-family observations without a status keyword', () => {
+  const root = tmp()
+  const family = 'EVT-expansion-state'
+  const observation = (headline: string, score: number, foundAt: string): TriagedItem => ({
+    ...triagedItem('https://company.test/expansion', score, headline),
+    dedup_group: family,
+    found_at: foundAt,
+  })
+  mergeInbox(root, '2026-06-12', [
+    observation('Issuer confirms expansion into Europe', 80, '2026-06-12T09:00:00Z'),
+    observation('Issuer abandons expansion into Europe', 70, '2026-06-12T10:00:00Z'),
+  ], { maxRows: 10 })
+  // An exact replay refreshes only its own observation; it cannot overwrite the differently worded row.
+  mergeInbox(root, '2026-06-12', [
+    observation('Issuer abandons expansion into Europe', 75, '2026-06-12T10:05:00Z'),
+  ], { maxRows: 10 })
+
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  assert.deepEqual(
+    new Set(doc.rows.map((row: any) => row.headline)),
+    new Set(['Issuer confirms expansion into Europe', 'Issuer abandons expansion into Europe']),
+  )
+  assert.equal(doc.rows.find((row: any) => row.headline.startsWith('Issuer abandons'))?.triage_score, 75)
+})
+
+await check('story identity preserves every status update but counts one underlying story family', () => {
+  const updates = [
+    'Issuer announces AGM cancellations',
+    'Issuer announces results postponements',
+    'Issuer issues corrections',
+    'Issuer publishes revisions',
+    'Issuer files restatements',
+    'Issuer announces retractions',
+    'Issuer withdrew guidance',
+    'Issuer delays AGM',
+    'Issuer defers AGM',
+    'Issuer suspends AGM',
+    'Issuer scraps AGM',
+    'Issuer calls off AGM',
+    'Correction: issuer AGM was not cancelled',
+    'Issuer says AGM is no longer cancelled',
+    'Issuer says AGM will not be cancelled',
+    "Issuer says AGM won't be delayed",
+    "Issuer says AGM isn't cancelled",
+    "Issuer says AGM wasn't cancelled",
+    "Issuer says AGM hasn't been cancelled",
+    "Issuer says AGM wouldn't be cancelled",
+    'Issuer says AGM is not being postponed',
+    'Issuer denies AGM was cancelled',
+    'Issuer denies AGM cancellation',
+    'Issuer denies it cancelled the AGM',
+    'Issuer denies reports that AGM and EGM were cancelled',
+    'Issuer denies AGM and EGM cancellation',
+    'Reports of AGM cancellation denied',
+    'AGM cancellation claims are false',
+    'Reported AGM cancellation is incorrect',
+    'Issuer restores AGM after cancellation',
+    'Issuer reinstates its postponed AGM',
+    'Issuer withdraws the AGM cancellation notice',
+    'Issuer reverses decision to cancel AGM',
+    'Issuer cancels postponement of AGM',
+    'Issuer says AGM will go ahead as planned',
+    'Issuer says AGM is going ahead',
+    'Issuer says AGM will proceed as scheduled',
+    'AGM to go ahead as planned',
+    'AGM set to go ahead',
+    'AGM will still go ahead',
+    'AGM can proceed',
+    'Earnings call to proceed',
+    'Production resumes after suspension',
+    'Trading resumes after suspension',
+    'Talks resumed after postponement',
+    'Service restored after outage',
+    'Cancellation claims are false',
+    'Reported cancellation is incorrect',
+    // Ambiguous update wording is deliberately retained rather than semantically guessed. It remains
+    // one family for corroboration, so a false-positive preservation cannot lift conviction.
+    'Issuer restores investor confidence after AGM',
+    'Issuer denies wrongdoing after supplier contract was cancelled',
+    'Issuer denies reports of wrongdoing after supplier cancellation',
+    'Issuer denies wrongdoing and says supplier contract was cancelled',
+    'Issuer denies wrongdoing as supplier contract was cancelled',
+    'Issuer denies wrongdoing when supplier contract was cancelled',
+    'Issuer denies wrongdoing and supplier contract cancellation',
+    'Issuer cancels AGM to avoid delays',
+    'Issuer withdraws offer to prevent postponement',
+    'Issuer rescinds guidance over delays',
+    'Issuer cancels AGM citing delays',
+    'Issuer withdraws bid upon cancellation concerns',
+    'AGM cancellation sees guidance withdrawn',
+    'Offer proceeds will fund expansion',
+    'Dividend proceeds rose 10%',
+    'Meeting proceeds remain in escrow',
+  ]
+  const observationKeys = updates.map((headline) => themeStoryKey({ dedup_group: 'EVT-status', headline }))
+  assert.ok(observationKeys.every((key) => key.startsWith('EVT-status:update:')))
+  assert.equal(new Set(observationKeys).size, updates.length, 'one update can never replace a differently worded update')
+  assert.ok(updates.every((headline) => themeStoryFamilyKey({ dedup_group: 'EVT-status', headline }) === 'EVT-status'))
+  assert.equal(themeStoryKey({ dedup_group: 'EVT-status', headline: 'Issuer confirms AGM for September 9' }), 'EVT-status')
+})
+
+await check('one status-heavy family is bounded and cannot starve a higher-ranked unrelated story', () => {
+  const root = tmp()
+  const date = '2026-06-12'
+  const family = Array.from({ length: 45 }, (_, index): TriagedItem => ({
+    ...triagedItem(`https://news.test/status-${index}`, 70 - (index % 10), `Issuer changes AGM status update ${index}`),
+    dedup_group: 'EVT-status-heavy',
+    found_at: new Date(Date.parse('2026-06-12T09:00:00Z') + index * 60_000).toISOString(),
+  }))
+  const restoration: TriagedItem = {
+    ...triagedItem('https://news.test/status-restored', 20, 'Issuer says AGM will proceed as scheduled'),
+    dedup_group: 'EVT-status-heavy',
+    found_at: '2026-06-12T10:00:00Z',
+  }
+  const independent = triagedItem('https://filing.test/earnings', 99, 'Independent issuer reports quarterly earnings')
+  mergeInbox(root, date, [...family, restoration, independent], { maxRows: 10 })
+
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  const heavy = doc.rows.filter((row: any) => row.dedup_group === 'EVT-status-heavy')
+  assert.equal(heavy.length, 6, 'one story family keeps a bounded strongest-plus-newest audit trail')
+  assert.ok(doc.rows.some((row: any) => row.url === independent.url), 'global re-ranking keeps the higher-scoring unrelated story')
+  assert.ok(doc.rows.some((row: any) => row.url === restoration.url), 'the newest restoration survives even with the family\'s lowest score')
+})
+
+await check('bounded story history pins adverse and restorative states ahead of ambiguous update rewrites', () => {
+  const root = tmp()
+  const date = '2026-06-12'
+  const story = 'EVT-crowded-status-history'
+  const revision = (url: string, score: number, headline: string, foundAt: string, inputNature = 'news_headline'): TriagedItem => ({
+    ...triagedItem(url, score, headline),
+    dedup_group: story,
+    found_at: foundAt,
+    input_nature: inputNature,
+  })
+  const original = revision('https://filing.test/agm-original', 60, 'Issuer confirms AGM for September 9', '2026-06-12T08:00:00Z', 'regulatory_filing')
+  const cancellation = revision('https://news.test/agm-cancelled', 18, 'Issuer cancels AGM', '2026-06-12T08:01:00Z')
+  const restoration = revision('https://news.test/agm-restored', 17, 'Issuer says AGM will proceed as scheduled', '2026-06-12T08:02:00Z')
+  const ambiguous = Array.from({ length: 20 }, (_, index) => revision(
+    `https://news.test/proceeds-${index}`,
+    90 - index,
+    `Offer proceeds will fund expansion update ${index}`,
+    new Date(Date.parse('2026-06-12T09:00:00Z') + index * 60_000).toISOString(),
+  ))
+  const independent = triagedItem('https://filing.test/unrelated', 99, 'Independent issuer reports quarterly earnings')
+
+  mergeInbox(root, date, [original, cancellation, restoration, ...ambiguous, independent], { maxRows: 10 })
+
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  const family = doc.rows.filter((row: any) => row.dedup_group === story)
+  assert.equal(family.length, 6, 'the family remains hard-bounded even when broad preservation sees many updates')
+  assert.ok(family.some((row: any) => row.url === original.url), 'the best-source observation is pinned')
+  assert.ok(family.some((row: any) => row.url === cancellation.url), 'the sole adverse state cannot be crowded out')
+  assert.ok(family.some((row: any) => row.url === restoration.url), 'the sole restoration cannot be crowded out')
+  assert.ok(family.some((row: any) => row.url === ambiguous.at(-1)?.url), 'the newest observation is pinned')
+  assert.ok(doc.rows.some((row: any) => row.url === independent.url), 'family bounding still leaves the unrelated high-score story visible')
+})
+
+await check('global inbox cap keeps each chosen family source winner before extra status rows', () => {
+  const root = tmp()
+  const date = '2026-06-12'
+  const family = 'EVT-global-source-pin'
+  const row = (url: string, headline: string, score: number, inputNature: string): TriagedItem => ({
+    ...triagedItem(url, score, headline), dedup_group: family, input_nature: inputNature,
+  })
+  const filing = row('https://filing.test/global-pin', 'Exchange confirms approval remains conditional', 20, 'regulatory_filing')
+  const adverse = row('https://news.test/global-pin-cancel', 'Regulator cancels approval', 100, 'news_headline')
+  const restoration = row('https://news.test/global-pin-restore', 'Company says approval was not cancelled', 99, 'news_headline')
+  const independent = {
+    ...triagedItem('https://filing.test/global-pin-independent', 80, 'Independent issuer files audited results'),
+    dedup_group: 'EVT-global-pin-independent', input_nature: 'regulatory_filing',
+  }
+  mergeInbox(root, date, [filing, adverse, restoration, independent], { maxRows: 3 })
+
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  assert.ok(doc.rows.some((item: any) => item.url === filing.url), 'the global cap cannot discard the family source winner')
+  assert.ok(doc.rows.some((item: any) => item.url === independent.url), 'the unrelated high-value family gets its first-round slot')
+  assert.ok(doc.rows.some((item: any) => item.url === adverse.url), 'the second family round retains the adverse state')
+  assert.equal(doc.rows.some((item: any) => item.url === restoration.url), false, 'the deterministic third slot is the adverse state')
+})
+
+await check('bounded inbox state uses English translation and pins official adverse plus restorative denial', () => {
+  const root = tmp()
+  const date = '2026-06-12'
+  const family = 'EVT-translated-family-state'
+  const translated = (
+    url: string, headline: string, headlineEn: string, score: number, inputNature: string, foundAt: string,
+  ): TriagedItem => ({
+    ...triagedItem(url, score, headline), headline_en: headlineEn, dedup_group: family,
+    input_nature: inputNature, found_at: foundAt,
+  })
+  const original = translated(
+    'https://filing.test/translated-original', '取引所は審査中と発表', 'Exchange confirms review remains open',
+    50, 'regulatory_filing', '2026-06-12T08:00:00Z',
+  )
+  const adverse = translated(
+    'https://official.test/translated-adverse', '規制当局が承認を撤回', 'Regulator cancels approval',
+    40, 'macro_data_release', '2026-06-12T08:01:00Z',
+  )
+  const restoration = translated(
+    'https://company.test/translated-restoration', '会社は取り消しを否定', 'Company denies approval was cancelled',
+    30, 'company_press_release', '2026-06-12T08:02:00Z',
+  )
+  const rewrites = Array.from({ length: 10 }, (_, index): TriagedItem => ({
+    ...triagedItem(`https://news.test/translated-rewrite-${index}`, 95 - index, `承認状況 ${index}`),
+    headline_en: `Approval status update ${index}`, dedup_group: family,
+    found_at: new Date(Date.parse('2026-06-12T09:00:00Z') + index * 60_000).toISOString(),
+  }))
+  const independent = {
+    ...triagedItem('https://filing.test/translated-independent', 35, 'Independent issuer files results'),
+    dedup_group: 'EVT-translated-independent', input_nature: 'regulatory_filing',
+  }
+  mergeInbox(root, date, [original, adverse, restoration, ...rewrites, independent], { maxRows: 5 })
+
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  assert.ok(doc.rows.some((item: any) => item.url === original.url), 'the best primary source is pinned')
+  assert.ok(doc.rows.some((item: any) => item.url === adverse.url), 'model-visible English preserves the official adverse state')
+  assert.ok(doc.rows.some((item: any) => item.url === restoration.url), 'the translated denial is restorative before the broad adverse grammar')
+  assert.ok(doc.rows.some((item: any) => item.url === independent.url), 'the family remains globally bounded')
+})
+
+await check('mergeInbox keeps lower-score real restorations when unrelated denials or double reversals share a family', () => {
+  const root = tmp()
+  const date = '2026-06-12'
+  const revision = (group: string, url: string, headline: string, score: number): TriagedItem => ({
+    ...triagedItem(url, score, headline),
+    dedup_group: group,
+  })
+  const rows = [
+    revision('EVT-passive', 'https://news.test/passive-false', 'Issuer denies wrongdoing after supplier contract was cancelled', 90),
+    revision('EVT-passive', 'https://news.test/passive-real', 'Issuer says supplier contract cancellation was withdrawn', 40),
+    revision('EVT-nominal', 'https://news.test/nominal-false', 'Issuer denies reports of wrongdoing after supplier cancellation', 89),
+    revision('EVT-nominal', 'https://news.test/nominal-real', 'Issuer denies supplier cancellation', 39),
+    revision('EVT-direct', 'https://news.test/direct-cancel', 'Issuer AGM cancelled', 88),
+    revision('EVT-direct', 'https://news.test/direct-restore', 'Issuer denies AGM cancellation', 38),
+    revision('EVT-decision', 'https://news.test/decision-cancel', 'Issuer plans to cancel AGM', 87),
+    revision('EVT-decision', 'https://news.test/decision-restore', 'Issuer reverses decision to cancel AGM', 37),
+    revision('EVT-postpone', 'https://news.test/postponed', 'Issuer postpones AGM', 86),
+    revision('EVT-postpone', 'https://news.test/postpone-restore', 'Issuer cancels postponement of AGM', 36),
+    revision('EVT-coordinated', 'https://news.test/coordinated-false', 'Issuer denies wrongdoing and says supplier contract was cancelled', 85),
+    revision('EVT-coordinated', 'https://news.test/coordinated-real', 'Issuer says supplier contract cancellation was withdrawn', 35),
+    revision('EVT-contraction', 'https://news.test/contraction-cancel', 'Issuer AGM cancelled', 84),
+    revision('EVT-contraction', 'https://news.test/contraction-restore', "Issuer says AGM hasn't been cancelled", 34),
+    revision('EVT-purpose', 'https://news.test/purpose-false', 'Issuer cancels AGM to avoid delays', 83),
+    revision('EVT-purpose', 'https://news.test/purpose-real', 'Issuer says AGM will proceed as scheduled', 33),
+    revision('EVT-coordinate', 'https://news.test/coordinate-cancel', 'Issuer AGM and EGM cancelled', 82),
+    revision('EVT-coordinate', 'https://news.test/coordinate-restore', 'Issuer denies reports that AGM and EGM were cancelled', 32),
+  ]
+  mergeInbox(root, date, rows, { maxRows: 30 })
+
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  assert.deepEqual(
+    new Set(doc.rows.map((row: any) => row.headline)),
+    new Set(rows.map((row) => row.headline)),
+    'a higher-score unrelated denial cannot occupy the restoration lane or suppress the real update',
+  )
 })
 
 await check('mergeInbox never collapses cancelled, postponed, or corrective-restoration updates', () => {
@@ -531,10 +791,20 @@ await check('mergeInbox never collapses cancelled, postponed, or corrective-rest
   mergeInbox(root, date, [
     revision('EVT-cancel', 'https://filing.test/agm-original', 'Issuer confirms AGM for September 9', 99),
     revision('EVT-cancel', 'https://news.test/agm-cancelled', 'Issuer AGM cancelled', 70),
-    revision('EVT-cancel', 'https://news.test/agm-restored', 'Correction: issuer AGM was not cancelled', 60),
+    revision('EVT-cancel', 'https://news.test/agm-restored', 'Issuer denies AGM was cancelled', 60),
     revision('EVT-postpone', 'https://filing.test/results-original', 'Issuer confirms results for September 10', 98),
     revision('EVT-postpone', 'https://news.test/results-postponed', 'Issuer results have been postponed', 69),
-  ], { maxRows: 10 })
+    revision('EVT-guidance', 'https://filing.test/guidance-original', 'Issuer confirms full-year guidance', 97),
+    revision('EVT-guidance', 'https://news.test/guidance-withdrawn', 'Issuer withdrew full-year guidance', 59),
+    revision('EVT-accounts', 'https://filing.test/accounts-original', 'Issuer publishes annual accounts', 96),
+    revision('EVT-accounts', 'https://news.test/accounts-restated', 'Issuer files annual-account restatements', 58),
+    revision('EVT-delay', 'https://filing.test/delay-original', 'Issuer confirms AGM for September 12', 95),
+    revision('EVT-delay', 'https://news.test/delay', 'Issuer delays AGM', 57),
+    revision('EVT-delay', 'https://news.test/delay-restored', 'Issuer says AGM will not be delayed', 47),
+    revision('EVT-denial', 'https://filing.test/dispute-original', 'Issuer reports supplier dispute', 94),
+    revision('EVT-denial', 'https://news.test/unrelated-denial', 'Issuer denies wrongdoing after supplier cancelled contract', 56),
+    revision('EVT-denial', 'https://news.test/contract-restored', 'Issuer says supplier contract cancellation was withdrawn', 46),
+  ], { maxRows: 20 })
 
   const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
   assert.deepEqual(
@@ -542,9 +812,19 @@ await check('mergeInbox never collapses cancelled, postponed, or corrective-rest
     new Set([
       'Issuer confirms AGM for September 9',
       'Issuer AGM cancelled',
-      'Correction: issuer AGM was not cancelled',
+      'Issuer denies AGM was cancelled',
       'Issuer confirms results for September 10',
       'Issuer results have been postponed',
+      'Issuer confirms full-year guidance',
+      'Issuer withdrew full-year guidance',
+      'Issuer publishes annual accounts',
+      'Issuer files annual-account restatements',
+      'Issuer confirms AGM for September 12',
+      'Issuer delays AGM',
+      'Issuer says AGM will not be delayed',
+      'Issuer reports supplier dispute',
+      'Issuer denies wrongdoing after supplier cancelled contract',
+      'Issuer says supplier contract cancellation was withdrawn',
     ]),
     'lower-score thesis-falsifying updates and their corrective restoration remain visible beside the original',
   )

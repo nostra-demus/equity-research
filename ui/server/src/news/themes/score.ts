@@ -9,7 +9,7 @@
 // slides hot→active→cooling→parked each cycle with no cron.
 
 import type { Theme, ThemeMember, ThemeScores, ThemeTier } from './types'
-import { themeStoryKey } from './story-key'
+import { themeStoryFamilyKey } from './story-key'
 
 export interface ThemeScoreConfig {
   weights: { freshness: number; magnitude: number; breadth: number; persistence: number }
@@ -53,7 +53,7 @@ const ageHours = (iso: string, nowMs: number): number => {
 function uniqueMembers(members: ThemeMember[]): ThemeMember[] {
   const byStory = new Map<string, ThemeMember>()
   for (const member of members) {
-    const key = themeStoryKey(member)
+    const key = themeStoryFamilyKey(member)
     const prior = byStory.get(key)
     const quality = (TIER_WEIGHT[member.tier] ?? 1) * 100 + (member.score || 0)
     const priorQuality = prior ? (TIER_WEIGHT[prior.tier] ?? 1) * 100 + (prior.score || 0) : -1
@@ -163,7 +163,7 @@ export function ensureDaily(t: DailyRingHolder, nowMs: number, windows = DAILY_W
   const arr = new Array(windows).fill(0)
   const seen = new Set<string>()
   for (const m of t.members || []) {
-    const story = themeStoryKey(m) || `${m.found_at}:${seen.size}`
+    const story = themeStoryFamilyKey(m) || `${m.found_at}:${seen.size}`
     if (seen.has(story)) continue
     seen.add(story)
     const ms = Date.parse(m.found_at)

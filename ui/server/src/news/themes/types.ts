@@ -186,6 +186,10 @@ export interface Theme {
   // Exact rows awaiting the next bounded validator pass. A boolean alone lost rows beyond the prompt cap;
   // this FIFO drains across passes and keeps every arrival classifiable as support/challenge/context.
   pending_narrative_event_ids?: string[]
+  // Fail-closed marker: at least one unclassified row or narrative-linked proof could not fit in the
+  // hard-bounded audit ring. No later compiler reply may clear the quarantine because the evicted row can
+  // no longer be adjudicated from this theme record. Applies before and after the first narrative exists.
+  narrative_update_overflow?: boolean
   // Durable queue fairness: repeated updates on two early ledger rows cannot starve later validation debt.
   validation_queued_at?: string
   validation_attempted_at?: string

@@ -28,8 +28,8 @@ const narrative = (rows: ThemeItemView[]) => {
   return attachValidNarrative(theme)
 }
 
-// dedup_group is the canonical event_id, not a separate namespace. This mixed shape exists at the
-// legacy/new boundary and must be one observation even when the publisher rewrote its headline.
+// dedup_group is the canonical family, while each changed event identity remains a bounded audit
+// observation. Family-level conviction still collapses the publisher rewrite to one story.
 {
   const base = narrative([
     item('canonical-a', 'Nvidia expands AI data center chip capacity', { companies: [co('Nvidia', 'NVDA')] }),
@@ -40,7 +40,7 @@ const narrative = (rows: ThemeItemView[]) => {
     headline: 'AI data-centre capacity expansion announced by Nvidia',
   })
   assert.equal(uniqueThemeMembers(base.members).length, 2)
-  assert.equal(uniqueThemeEvidenceMembers(base.members).length, 2)
+  assert.equal(uniqueThemeEvidenceMembers(base.members).length, 3)
 }
 
 // A valid-JSON partial mutation cannot replace the prior good snapshot or crash index construction.
@@ -66,9 +66,8 @@ const narrative = (rows: ThemeItemView[]) => {
   fs.rmSync(root, { recursive: true, force: true })
 }
 
-// Merging two ordered rings must preserve every newly unclassified evidence row even when that temporarily
-// exceeds the ordinary ring cap, and a model-approved keeper must lose admission until the combined
-// narrative is explicitly re-grounded.
+// Merging two ordered rings must enforce the hard member/debt cap, and a model-approved keeper must lose
+// admission until the combined narrative is explicitly re-grounded.
 {
   const fresh = narrative([
     item('fresh-a', 'Nvidia expands AI data center chip capacity', { companies: [co('Nvidia', 'NVDA')], found_at: hoursAgo(1) }),
@@ -84,8 +83,8 @@ const narrative = (rows: ThemeItemView[]) => {
   fresh.scores.composite = 80
   old.scores.composite = 20
   mergeAndRetire([fresh, old], NOW, { ...DEFAULT_DISCOVER_CONFIG, maxMembers: 3 })
-  assert.deepEqual(fresh.members.map((m) => m.event_id), ['old-c', 'old-b', 'old-a', 'fresh-c', 'fresh-b', 'fresh-a'])
-  assert.deepEqual(fresh.pending_narrative_event_ids, ['old-c', 'old-b', 'old-a'])
+  assert.deepEqual(fresh.members.map((m) => m.event_id), ['fresh-c', 'fresh-b', 'fresh-a'])
+  assert.deepEqual(fresh.pending_narrative_event_ids, [])
   assert.equal(fresh.last_flow, hoursAgo(1))
   assert.equal(fresh.needs_rename, true)
   assert.equal(buildSummary(fresh, NOW).assessment.status, 'context', 'pre-merge validation cannot admit the combined cluster')
