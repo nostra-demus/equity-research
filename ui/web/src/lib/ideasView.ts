@@ -101,6 +101,7 @@ export function summarizeIdeasSurface(board?: ScreenerBoard | null): IdeasSurfac
 
   let headerLabel = 'qualification unavailable'
   if (qualified?.health.outcome === 'no_artifacts') headerLabel = 'no assessments yet'
+  else if (qualified?.health.outcome === 'publishing') headerLabel = 'research publishing'
   else if (qualified?.health.outcome === 'invalid_artifacts' || qualified?.health.outcome === 'storage_error') headerLabel = 'assessment error'
   else if (qualified?.health.outcome === 'none_clear') headerLabel = 'none qualified'
   else if (qualified?.health.outcome === 'qualified') headerLabel = qualifiedCount ? `${qualifiedCount} qualified` : 'refresh required'

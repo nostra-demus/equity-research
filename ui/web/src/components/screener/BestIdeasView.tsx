@@ -237,7 +237,7 @@ export function qualifiedIdeaReturnTag(idea: Pick<QualifiedIdeaEvaluation, 'metr
     }
   }
   return typeof raw === 'number' && Number.isFinite(raw)
-    ? { label: `expected return ${signedPct(raw)}` }
+    ? { label: `raw scenario return ${signedPct(raw)}`, title: 'Policy adjustment unavailable on this older research record.' }
     : null
 }
 

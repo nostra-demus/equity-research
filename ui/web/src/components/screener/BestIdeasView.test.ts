@@ -60,7 +60,10 @@ assert.deepEqual(qualifiedIdeaReturnTag({
 })
 assert.deepEqual(qualifiedIdeaReturnTag({
   metrics: { expected_return_pct: 12.5 },
-} as QualifiedIdeaEvaluation), { label: 'expected return +12.5%' })
+} as QualifiedIdeaEvaluation), {
+  label: 'raw scenario return +12.5%',
+  title: 'Policy adjustment unavailable on this older research record.',
+})
 assert.equal(qualifiedIdeaReturnTag({ metrics: null } as QualifiedIdeaEvaluation), null)
 
 assert.deepEqual(qualifiedIdeasWarning({

@@ -1067,7 +1067,7 @@ export interface BoardIdea {
   conviction: number // 0-100 pre-edge PROXY
   conviction_basis: 'pre_edge_proxy'
   trade_score: number
-  trade_score_basis: 'evidence_gate_v1' | 'pre_edge_proxy_legacy'
+  trade_score_basis: 'evidence_gate_v1' | 'evidence_gate_v2' | 'pre_edge_proxy_legacy'
   trade_score_breakdown: { evidence: number; impact: number; specificity: number; timing: number; expression: number; corroboration: number; learning_adjustment: number } | null
   trade_readiness: 'check_now' | 'needs_data' | 'watch_only'
   missing_checks: string[]
@@ -1270,9 +1270,9 @@ export interface QualifiedIdeasBoard {
   policy: QualifiedIdeasPolicy
   health: {
     status: 'pre_data' | 'healthy' | 'degraded'
-    outcome: 'no_artifacts' | 'none_clear' | 'qualified' | 'invalid_artifacts' | 'storage_error'
+    outcome: 'no_artifacts' | 'publishing' | 'none_clear' | 'qualified' | 'invalid_artifacts' | 'storage_error'
     reason: string
-    artifact_count: number; assessment_count: number; parsed_count: number; invalid_count: number; incomplete_count?: number
+    artifact_count: number; assessment_count: number; parsed_count: number; invalid_count: number; incomplete_count?: number; publishing_count?: number
     not_assessable_count: number; qualified_count: number; needs_research_count: number
     does_not_clear_count: number; measured_count: number
   }
