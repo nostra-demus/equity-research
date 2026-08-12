@@ -2,7 +2,21 @@ import assert from 'node:assert/strict'
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import type { BoardIdea, QualifiedIdeaEvaluation, QualifiedIdeasBoard } from '../../lib/types'
-import { IdeasTabs, ideaThemeAttribution, ideasEmptyMessage, ideasForSide, qualifiedIdeaReturnTag, qualifiedIdeasForSide, qualifiedIdeasWarning } from './BestIdeasView'
+import {
+  IdeasTabs,
+  QualifiedIdeaCard,
+  ideaScorePresentation,
+  ideaThemeAttribution,
+  ideasEmptyMessage,
+  ideasForSide,
+  qualifiedIdeaHorizonLabel,
+  qualifiedIdeaReturnTag,
+  qualifiedIdeaSourceRows,
+  qualifiedIdeasForSide,
+  qualifiedIdeasOutcomeNotice,
+  qualifiedIdeasWarning,
+  qualifiedOutcomeHealthWarning,
+} from './BestIdeasView'
 
 const tabsHtml = renderToStaticMarkup(createElement(IdeasTabs, { active: 'long', onSelect: () => {} }))
 assert.equal(tabsHtml.match(/role="tab"/g)?.length, 2, 'the Ideas surface has exactly two tabs')
@@ -81,11 +95,96 @@ assert.deepEqual(qualifiedIdeasWarning({
 })
 assert.equal(qualifiedIdeasWarning({ health: { status: 'healthy' } } as QualifiedIdeasBoard), null)
 
-assert.equal(ideasEmptyMessage('long', true, false, { status: 'healthy' }), 'No LONG ideas.')
-assert.equal(ideasEmptyMessage('short', true, false, { status: 'running' }), 'Checking for ideas…')
-assert.equal(ideasEmptyMessage('long', true, false, { status: 'degraded' }), 'Ideas unavailable.')
-assert.equal(ideasEmptyMessage('short', false, false, { status: 'healthy' }), 'Ideas unavailable.')
-assert.equal(ideasEmptyMessage('short', true, true, { status: 'degraded' }), 'No SHORT ideas.')
+assert.equal(ideasEmptyMessage('long', true, { status: 'healthy' }), 'No LONG ideas.')
+assert.equal(ideasEmptyMessage('short', true, { status: 'running' }), 'Checking for ideas…')
+assert.equal(ideasEmptyMessage('long', true, { status: 'degraded' }), 'Ideas unavailable.')
+assert.equal(ideasEmptyMessage('short', false, { status: 'healthy' }), 'Ideas unavailable.')
+
+assert.deepEqual(qualifiedIdeasOutcomeNotice({
+  health: { status: 'healthy', outcome: 'none_clear', reason: 'All completed assessments failed at least one gate.' },
+} as QualifiedIdeasBoard), {
+  label: 'Full research: no idea clears the bar.',
+  title: 'All completed assessments failed at least one gate.',
+})
+assert.equal(qualifiedIdeasOutcomeNotice({
+  health: { status: 'healthy', outcome: 'qualified' },
+} as QualifiedIdeasBoard), null)
+assert.equal(qualifiedIdeasOutcomeNotice({
+  health: { status: 'degraded', outcome: 'none_clear' },
+} as QualifiedIdeasBoard), null)
+
+assert.deepEqual(qualifiedOutcomeHealthWarning({
+  outcome_health_state: 'expired',
+  outcome_health: { reason: 'Last pass expired at noon.' },
+} as QualifiedIdeasBoard), {
+  label: 'Outcome checks are out of date.',
+  title: 'Last pass expired at noon.',
+})
+assert.deepEqual(qualifiedOutcomeHealthWarning({
+  outcome_health_state: 'unknown', outcome_health: null,
+} as QualifiedIdeasBoard), {
+  label: 'Outcome checks unavailable.',
+  title: 'No trustworthy outcome-health check is available.',
+})
+assert.equal(qualifiedOutcomeHealthWarning({
+  outcome_health_state: 'valid', outcome_health: null,
+} as QualifiedIdeasBoard), null)
+
+assert.equal(
+  qualifiedIdeaHorizonLabel({ start: '2026-08-12T00:00:00Z', end: '2027-02-12T00:00:00Z' }),
+  '6mo forecast · Aug 12, 2026 → Feb 12, 2027',
+)
+assert.equal(qualifiedIdeaHorizonLabel({ start: 'bad', end: '2027-02-12T00:00:00Z' }), null)
+
+assert.deepEqual(ideaScorePresentation({ trade_score_basis: 'pre_edge_proxy_legacy' }), {
+  label: 'pre-edge proxy',
+  title: 'A legacy surface estimate — not trade readiness and not the locked edge score from full research.',
+})
+assert.equal(ideaScorePresentation({ trade_score_basis: 'evidence_gate_v2' }).label, 'trade readiness')
+
+const qualifiedCardIdea = {
+  candidate: {
+    run_root: 'analyses/XYZ_2026-08-12',
+    instrument: { ticker: 'XYZ', company: 'Example Co', exchange: 'NYSE', currency: 'USD', direction: 'long' },
+    horizon: { start: '2026-08-12T00:00:00Z', end: '2027-02-12T00:00:00Z' },
+    quote: { source: 'Primary exchange close' },
+    research: {
+      edge_proof: 'The market is missing a dated earnings inflection.',
+      unresolved_red_flags: [
+        { id: 'RF-1', severity: 'High', description: 'Debt covenant headroom is not proven.' },
+        { id: 'RF-2', severity: 'Medium', description: 'Customer concentration remains elevated.' },
+      ],
+    },
+    catalyst: { name: 'Q4 results', source: 'FY26 Q3 filing' },
+    falsifier: { source: 'FY26 forecast ledger' },
+    scenarios: [
+      { source: 'FY26 valuation summary' },
+      { source: 'FY26 valuation summary' },
+      { source: 'FY26 downside case' },
+    ],
+  },
+  metrics: { expected_return_pct: 18.2, worst_case_loss_pct: -24.5 },
+  ranking: { conservative_expected_return_pct: 7.1 },
+} as unknown as QualifiedIdeaEvaluation
+
+assert.deepEqual(qualifiedIdeaSourceRows(qualifiedCardIdea.candidate), [
+  { label: 'Research decision', source: 'analyses/XYZ_2026-08-12' },
+  { label: 'Quote', source: 'Primary exchange close' },
+  { label: 'Catalyst', source: 'FY26 Q3 filing' },
+  { label: 'Falsifier', source: 'FY26 forecast ledger' },
+  { label: 'Scenarios', source: 'FY26 valuation summary · FY26 downside case' },
+])
+const qualifiedCardHtml = renderToStaticMarkup(createElement(QualifiedIdeaCard, { idea: qualifiedCardIdea }))
+assert.match(qualifiedCardHtml, /policy-adjusted \+7\.1%/)
+assert.match(qualifiedCardHtml, /6mo forecast · Aug 12, 2026 → Feb 12, 2027/)
+assert.match(qualifiedCardHtml, /2 unresolved risks/)
+assert.match(qualifiedCardHtml, /<strong>High<\/strong> — Debt covenant headroom is not proven\./)
+assert.match(qualifiedCardHtml, /<strong>Medium<\/strong> — Customer concentration remains elevated\./)
+assert.match(qualifiedCardHtml, /Evidence sources/)
+assert.match(qualifiedCardHtml, /Primary exchange close/)
+assert.match(qualifiedCardHtml, /FY26 Q3 filing/)
+assert.match(qualifiedCardHtml, /FY26 forecast ledger/)
+assert.match(qualifiedCardHtml, /FY26 valuation summary · FY26 downside case/)
 
 const sourceThemes = [{ theme_id: 'THM-1', theme_rev: 3 }]
 assert.deepEqual(

@@ -44,12 +44,11 @@ export function qualifiedIdeasForSide(board: QualifiedIdeasBoard | null | undefi
 export function ideasEmptyMessage(
   side: IdeaSide,
   leadsAvailable: boolean,
-  hasAnyLiveLead: boolean,
   health?: Pick<IdeasHealth, 'status'>,
 ): string {
   if (!leadsAvailable) return 'Ideas unavailable.'
-  if (health?.status === 'running' && !hasAnyLiveLead) return 'Checking for ideas…'
-  if (hasAnyLiveLead || health?.status === 'healthy') return `No ${side.toUpperCase()} ideas.`
+  if (health?.status === 'running') return 'Checking for ideas…'
+  if (health?.status === 'healthy') return `No ${side.toUpperCase()} ideas.`
   return 'Ideas unavailable.'
 }
 
@@ -252,10 +251,72 @@ export function qualifiedIdeasWarning(board: QualifiedIdeasBoard | null | undefi
   }
 }
 
-function QualifiedIdeaCard({ idea }: { idea: QualifiedIdeaEvaluation }) {
+export function qualifiedIdeasOutcomeNotice(board: QualifiedIdeasBoard | null | undefined): { label: string; title?: string } | null {
+  if (board?.health.status !== 'healthy' || board.health.outcome !== 'none_clear') return null
+  return {
+    label: 'Full research: no idea clears the bar.',
+    title: board.health.reason || undefined,
+  }
+}
+
+export function qualifiedOutcomeHealthWarning(board: QualifiedIdeasBoard | null | undefined): { label: string; title?: string } | null {
+  if (!board || board.outcome_health_state === 'valid') return null
+  return board.outcome_health_state === 'expired'
+    ? {
+        label: 'Outcome checks are out of date.',
+        title: board.outcome_health?.reason || 'The latest outcome-health check has expired.',
+      }
+    : {
+        label: 'Outcome checks unavailable.',
+        title: board.outcome_health?.reason || 'No trustworthy outcome-health check is available.',
+      }
+}
+
+const SHORT_DATE = new Intl.DateTimeFormat('en-US', {
+  month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC',
+})
+
+export function qualifiedIdeaHorizonLabel(horizon: QualifiedIdeaEvaluation['candidate']['horizon']): string | null {
+  const start = Date.parse(horizon.start)
+  const end = Date.parse(horizon.end)
+  if (!Number.isFinite(start) || !Number.isFinite(end) || end <= start) return null
+  const months = Math.max(1, Math.round((end - start) / (30.4375 * 86_400_000)))
+  return `${months}mo forecast · ${SHORT_DATE.format(start)} → ${SHORT_DATE.format(end)}`
+}
+
+export interface QualifiedIdeaSourceRow { label: string; source: string }
+
+/** Keep the card compact while retaining the actual attribution behind each material displayed claim. */
+export function qualifiedIdeaSourceRows(candidate: QualifiedIdeaEvaluation['candidate']): QualifiedIdeaSourceRow[] {
+  const scenarioSources = [...new Set((candidate.scenarios || []).map((scenario) => scenario.source?.trim()).filter(Boolean))]
+  return [
+    { label: 'Research decision', source: candidate.run_root },
+    { label: 'Quote', source: candidate.quote.source || '' },
+    { label: 'Catalyst', source: candidate.catalyst.source || '' },
+    { label: 'Falsifier', source: candidate.falsifier.source || '' },
+    { label: 'Scenarios', source: scenarioSources.join(' · ') },
+  ].filter((row) => row.source.trim())
+}
+
+export function ideaScorePresentation(idea: Pick<BoardIdea, 'trade_score_basis'>): { label: string; title: string } {
+  return idea.trade_score_basis === 'pre_edge_proxy_legacy'
+    ? {
+        label: 'pre-edge proxy',
+        title: 'A legacy surface estimate — not trade readiness and not the locked edge score from full research.',
+      }
+    : {
+        label: 'trade readiness',
+        title: 'A surface read from the skim — not the locked edge score the full machine computes.',
+      }
+}
+
+export function QualifiedIdeaCard({ idea }: { idea: QualifiedIdeaEvaluation }) {
   const candidate = idea.candidate
   const metrics = idea.metrics
   const returnTag = qualifiedIdeaReturnTag(idea)
+  const horizonLabel = qualifiedIdeaHorizonLabel(candidate.horizon)
+  const sources = qualifiedIdeaSourceRows(candidate)
+  const redFlags = candidate.research.unresolved_red_flags || []
   return (
     <article className="bidea">
       <div className="bidea__head">
@@ -267,8 +328,29 @@ function QualifiedIdeaCard({ idea }: { idea: QualifiedIdeaEvaluation }) {
       <div className="bidea__tags">
         <span className="bidea__tag bidea__tag--rated">full research</span>
         {returnTag && <span className="bidea__tag" title={returnTag.title}>{returnTag.label}</span>}
+        {horizonLabel && <span className="bidea__tag">{horizonLabel}</span>}
         {metrics && <span className="bidea__tag">worst case {metrics.worst_case_loss_pct.toFixed(1)}% loss</span>}
       </div>
+      {redFlags.length > 0 && (
+        <details className="bidea__disclosure bidea__disclosure--risk">
+          <summary>{redFlags.length} unresolved risk{redFlags.length === 1 ? '' : 's'}</summary>
+          <ul>
+            {redFlags.map((flag) => (
+              <li key={flag.id}><strong>{flag.severity}</strong> — {flag.description}</li>
+            ))}
+          </ul>
+        </details>
+      )}
+      {sources.length > 0 && (
+        <details className="bidea__disclosure">
+          <summary>Evidence sources</summary>
+          <dl>
+            {sources.map((row) => (
+              <div key={row.label}><dt>{row.label}</dt><dd>{row.source}</dd></div>
+            ))}
+          </dl>
+        </details>
+      )}
     </article>
   )
 }
@@ -281,6 +363,7 @@ function IdeaCard({ idea, side }: { idea: BoardIdea; side: IdeaSide }) {
   const pair = idea.direction === 'pair'
   const ticker = pair && side === 'short' ? idea.pair_with : idea.ticker
   const company = pair && side === 'short' ? '' : [idea.company, idea.exchange].filter(Boolean).join(' · ')
+  const scorePresentation = ideaScorePresentation(idea)
   return (
     <article className="bidea">
       <div className="bidea__head">
@@ -325,8 +408,8 @@ function IdeaCard({ idea, side }: { idea: BoardIdea; side: IdeaSide }) {
       </div>
 
       <div className="bidea__foot">
-        <div className="bidea__read" title="A surface read from the skim — NOT the locked edge score the full machine computes.">
-          <span className="bidea__readlabel">trade readiness</span>
+        <div className="bidea__read" title={scorePresentation.title}>
+          <span className="bidea__readlabel">{scorePresentation.label}</span>
           <span className="bidea__readnum">{idea.trade_score ?? idea.conviction}<span className="bidea__readden">/100</span></span>
           <span className="bidea__bar" aria-hidden><span className="bidea__barfill" style={{ width: `${Math.max(0, Math.min(100, idea.trade_score ?? idea.conviction))}%` }} /></span>
         </div>
@@ -355,9 +438,10 @@ export function BestIdeasView() {
 
   const leadsAvailable = Array.isArray(scBoard?.ideas)
   const leadRows = leadsAvailable ? scBoard!.ideas! : []
-  const hasAnyLiveLead = leadRows.some((idea) => !ideaIsStaleNow(idea))
   const coldError = !scBoard && boardFetch.status === 'error'
   const qualifiedWarning = qualifiedIdeasWarning(scBoard?.qualified_ideas)
+  const qualifiedOutcomeNotice = qualifiedIdeasOutcomeNotice(scBoard?.qualified_ideas)
+  const outcomeHealthWarning = qualifiedOutcomeHealthWarning(scBoard?.qualified_ideas)
 
   return (
     <div className="bideas">
@@ -365,6 +449,16 @@ export function BestIdeasView() {
       {qualifiedWarning && (
         <div className="bideas__truthwarn" role="status" title={qualifiedWarning.title}>
           <span aria-hidden>!</span> {qualifiedWarning.label}
+        </div>
+      )}
+      {qualifiedOutcomeNotice && (
+        <div className="bideas__truthwarn bideas__truthwarn--truth" role="status" title={qualifiedOutcomeNotice.title}>
+          <span aria-hidden>·</span> {qualifiedOutcomeNotice.label}
+        </div>
+      )}
+      {outcomeHealthWarning && (
+        <div className="bideas__truthwarn" role="status" title={outcomeHealthWarning.title}>
+          <span aria-hidden>!</span> {outcomeHealthWarning.label}
         </div>
       )}
       {(coldError || (scBoard && boardFetch.error)) && (
@@ -394,7 +488,7 @@ export function BestIdeasView() {
                 {ideas.map((idea) => <IdeaCard key={`lead-${idea.idea_id}`} idea={idea} side={panelSide} />)}
               </div>
             ) : !coldError ? (
-              <p className="bideas__empty">{ideasEmptyMessage(panelSide, leadsAvailable, hasAnyLiveLead, scBoard?.ideas_health)}</p>
+              <p className="bideas__empty">{ideasEmptyMessage(panelSide, leadsAvailable, scBoard?.ideas_health)}</p>
             ) : null}
           </section>
         )
