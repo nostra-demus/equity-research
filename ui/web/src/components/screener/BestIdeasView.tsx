@@ -276,6 +276,31 @@ const SHORT_DATE = new Intl.DateTimeFormat('en-US', {
   month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC',
 })
 
+function qualifiedShortDate(value: string): string | null {
+  const timestamp = Date.parse(value)
+  return Number.isFinite(timestamp) ? SHORT_DATE.format(timestamp) : null
+}
+
+export function qualifiedIdeaQuoteLabel(
+  quote: Pick<QualifiedIdeaEvaluation['candidate']['quote'], 'price' | 'as_of'>,
+  currency: string,
+): string | null {
+  const asOf = qualifiedShortDate(quote.as_of)
+  if (!Number.isFinite(quote.price) || quote.price <= 0 || !asOf) return null
+  const price = quote.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 4 })
+  const unit = currency.trim().toUpperCase()
+  return `frozen quote ${unit ? `${unit} ` : ''}${price} · as of ${asOf}`
+}
+
+export function qualifiedIdeaCatalystWindowLabel(
+  catalyst: Pick<QualifiedIdeaEvaluation['candidate']['catalyst'], 'window_start' | 'window_end'>,
+): string | null {
+  const start = Date.parse(catalyst.window_start)
+  const end = Date.parse(catalyst.window_end)
+  if (!Number.isFinite(start) || !Number.isFinite(end) || end < start) return null
+  return `${SHORT_DATE.format(start)} → ${SHORT_DATE.format(end)}`
+}
+
 export function qualifiedIdeaHorizonLabel(horizon: QualifiedIdeaEvaluation['candidate']['horizon']): string | null {
   const start = Date.parse(horizon.start)
   const end = Date.parse(horizon.end)
@@ -315,6 +340,9 @@ export function QualifiedIdeaCard({ idea }: { idea: QualifiedIdeaEvaluation }) {
   const metrics = idea.metrics
   const returnTag = qualifiedIdeaReturnTag(idea)
   const horizonLabel = qualifiedIdeaHorizonLabel(candidate.horizon)
+  const quoteLabel = qualifiedIdeaQuoteLabel(candidate.quote, candidate.instrument.currency)
+  const catalystWindow = qualifiedIdeaCatalystWindowLabel(candidate.catalyst)
+  const falsifierDeadline = qualifiedShortDate(candidate.falsifier.deadline)
   const sources = qualifiedIdeaSourceRows(candidate)
   const redFlags = candidate.research.unresolved_red_flags || []
   return (
@@ -324,13 +352,32 @@ export function QualifiedIdeaCard({ idea }: { idea: QualifiedIdeaEvaluation }) {
         <span className="bidea__co">{[candidate.instrument.company, candidate.instrument.exchange].filter(Boolean).join(' · ')}</span>
       </div>
       <p className="bidea__reason">{candidate.research.edge_proof}</p>
-      <p className="bidea__why"><span className="bidea__whylabel">catalyst —</span> {candidate.catalyst.name}</p>
+      <p className="bidea__why">
+        <span className="bidea__whylabel">catalyst —</span> {candidate.catalyst.name}
+        {catalystWindow && <span className="bidea__window"> · {catalystWindow}</span>}
+      </p>
+      <p className="bidea__why bidea__why--falsifier">
+        <span className="bidea__whylabel">falsifier{falsifierDeadline ? ` by ${falsifierDeadline}` : ''} —</span>{' '}
+        {candidate.falsifier.condition}
+      </p>
       <div className="bidea__tags">
         <span className="bidea__tag bidea__tag--rated">full research</span>
         {returnTag && <span className="bidea__tag" title={returnTag.title}>{returnTag.label}</span>}
+        {returnTag && quoteLabel && <span className="bidea__tag">{quoteLabel}</span>}
         {horizonLabel && <span className="bidea__tag">{horizonLabel}</span>}
         {metrics && <span className="bidea__tag">worst case {metrics.worst_case_loss_pct.toFixed(1)}% loss</span>}
+        {metrics && <span className="bidea__tag">loss chance {metrics.loss_probability_pct.toFixed(1)}%</span>}
+        {metrics && <span className="bidea__tag">tail loss {metrics.tail_loss_pct.toFixed(1)}%</span>}
       </div>
+      {(candidate.catalyst.bullish_trigger || candidate.catalyst.bearish_trigger) && (
+        <details className="bidea__disclosure">
+          <summary>Catalyst triggers</summary>
+          <dl>
+            {candidate.catalyst.bullish_trigger && <div><dt>Bullish</dt><dd>{candidate.catalyst.bullish_trigger}</dd></div>}
+            {candidate.catalyst.bearish_trigger && <div><dt>Bearish</dt><dd>{candidate.catalyst.bearish_trigger}</dd></div>}
+          </dl>
+        </details>
+      )}
       {redFlags.length > 0 && (
         <details className="bidea__disclosure bidea__disclosure--risk">
           <summary>{redFlags.length} unresolved risk{redFlags.length === 1 ? '' : 's'}</summary>

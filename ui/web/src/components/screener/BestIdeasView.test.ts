@@ -9,7 +9,9 @@ import {
   ideaThemeAttribution,
   ideasEmptyMessage,
   ideasForSide,
+  qualifiedIdeaCatalystWindowLabel,
   qualifiedIdeaHorizonLabel,
+  qualifiedIdeaQuoteLabel,
   qualifiedIdeaReturnTag,
   qualifiedIdeaSourceRows,
   qualifiedIdeasForSide,
@@ -135,6 +137,16 @@ assert.equal(
   '6mo forecast · Aug 12, 2026 → Feb 12, 2027',
 )
 assert.equal(qualifiedIdeaHorizonLabel({ start: 'bad', end: '2027-02-12T00:00:00Z' }), null)
+assert.equal(
+  qualifiedIdeaQuoteLabel({ price: 123.4567, as_of: '2026-08-12T21:00:00Z' }, 'usd'),
+  'frozen quote USD 123.4567 · as of Aug 12, 2026',
+)
+assert.equal(qualifiedIdeaQuoteLabel({ price: 0, as_of: '2026-08-12T21:00:00Z' }, 'USD'), null)
+assert.equal(
+  qualifiedIdeaCatalystWindowLabel({ window_start: '2026-10-20T00:00:00Z', window_end: '2026-10-28T23:59:00Z' }),
+  'Oct 20, 2026 → Oct 28, 2026',
+)
+assert.equal(qualifiedIdeaCatalystWindowLabel({ window_start: 'bad', window_end: '2026-10-28T23:59:00Z' }), null)
 
 assert.deepEqual(ideaScorePresentation({ trade_score_basis: 'pre_edge_proxy_legacy' }), {
   label: 'pre-edge proxy',
@@ -147,7 +159,7 @@ const qualifiedCardIdea = {
     run_root: 'analyses/XYZ_2026-08-12',
     instrument: { ticker: 'XYZ', company: 'Example Co', exchange: 'NYSE', currency: 'USD', direction: 'long' },
     horizon: { start: '2026-08-12T00:00:00Z', end: '2027-02-12T00:00:00Z' },
-    quote: { source: 'Primary exchange close' },
+    quote: { price: 123.45, as_of: '2026-08-12T21:00:00Z', source: 'Primary exchange close' },
     research: {
       edge_proof: 'The market is missing a dated earnings inflection.',
       unresolved_red_flags: [
@@ -155,15 +167,26 @@ const qualifiedCardIdea = {
         { id: 'RF-2', severity: 'Medium', description: 'Customer concentration remains elevated.' },
       ],
     },
-    catalyst: { name: 'Q4 results', source: 'FY26 Q3 filing' },
-    falsifier: { source: 'FY26 forecast ledger' },
+    catalyst: {
+      name: 'Q4 results',
+      window_start: '2026-10-20T00:00:00Z',
+      window_end: '2026-10-28T23:59:00Z',
+      bullish_trigger: 'Revenue growth exceeds 12% and guidance rises.',
+      bearish_trigger: 'Revenue growth falls below 5% or guidance is cut.',
+      source: 'FY26 Q3 filing',
+    },
+    falsifier: {
+      condition: 'Net retention falls below 100%.',
+      deadline: '2027-01-31T23:59:00Z',
+      source: 'FY26 forecast ledger',
+    },
     scenarios: [
       { source: 'FY26 valuation summary' },
       { source: 'FY26 valuation summary' },
       { source: 'FY26 downside case' },
     ],
   },
-  metrics: { expected_return_pct: 18.2, worst_case_loss_pct: -24.5 },
+  metrics: { expected_return_pct: 18.2, worst_case_loss_pct: 24.5, loss_probability_pct: 35, tail_loss_pct: 21.7 },
   ranking: { conservative_expected_return_pct: 7.1 },
 } as unknown as QualifiedIdeaEvaluation
 
@@ -176,7 +199,18 @@ assert.deepEqual(qualifiedIdeaSourceRows(qualifiedCardIdea.candidate), [
 ])
 const qualifiedCardHtml = renderToStaticMarkup(createElement(QualifiedIdeaCard, { idea: qualifiedCardIdea }))
 assert.match(qualifiedCardHtml, /policy-adjusted \+7\.1%/)
+assert.match(qualifiedCardHtml, /frozen quote USD 123\.45 · as of Aug 12, 2026/)
 assert.match(qualifiedCardHtml, /6mo forecast · Aug 12, 2026 → Feb 12, 2027/)
+assert.match(qualifiedCardHtml, /Q4 results/)
+assert.match(qualifiedCardHtml, /Oct 20, 2026 → Oct 28, 2026/)
+assert.match(qualifiedCardHtml, /Catalyst triggers/)
+assert.match(qualifiedCardHtml, /Revenue growth exceeds 12% and guidance rises\./)
+assert.match(qualifiedCardHtml, /Revenue growth falls below 5% or guidance is cut\./)
+assert.match(qualifiedCardHtml, /falsifier by Jan 31, 2027/)
+assert.match(qualifiedCardHtml, /Net retention falls below 100%\./)
+assert.match(qualifiedCardHtml, /worst case 24\.5% loss/)
+assert.match(qualifiedCardHtml, /loss chance 35\.0%/)
+assert.match(qualifiedCardHtml, /tail loss 21\.7%/)
 assert.match(qualifiedCardHtml, /2 unresolved risks/)
 assert.match(qualifiedCardHtml, /<strong>High<\/strong> — Debt covenant headroom is not proven\./)
 assert.match(qualifiedCardHtml, /<strong>Medium<\/strong> — Customer concentration remains elevated\./)
