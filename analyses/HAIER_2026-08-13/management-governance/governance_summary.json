@@ -1,0 +1,33 @@
+{
+  "ticker": "HAIER",
+  "date": "2026-08-13",
+  "module": "management-governance",
+  "stewardship_verdict": "Standard / mixed",
+  "hard_disqualifier_flagged": false,
+  "scores": {
+    "management_quality": 64,
+    "capital_allocation": 60,
+    "incentive_alignment": 78,
+    "shareholder_friendliness": 61,
+    "disclosure_candor": 56,
+    "governance_risk_inverted_higher_worse": 40,
+    "data_quality": 82,
+    "overall_usefulness": 85
+  },
+  "governance_score": 63,
+  "governance_score_formula": "0.20*60 + 0.18*78 + 0.18*61 + 0.16*56 + 0.16*64 + 0.12*(100-40) = 63.42, rounded 63",
+  "confidence_score": 80,
+  "confidence_adjusted_governance_score": 50,
+  "governance_rating": "Watchlist",
+  "red_flag_count": 6,
+  "critical_red_flag_count": 0,
+  "insider_ownership_summary": "Controlling bloc (Haier Group Corporation + 4 concert parties) 34.49% per FY2025 SSE annual report; named directors/officers combined 0.066%, almost entirely ESOP-vested not bought; mild net insider selling ~6.36mn shares (~0.07% of shares) over trailing 13 weeks, unnamed/low confidence",
+  "biggest_governance_signal": "Deepening related-party financing relationship with Haier Group Finance Co. - 57% of Group cash parked there, related-party borrowing up ~19x YoY to RMB3,767mn against a RMB10,000mn cap (RF-RPT-003)",
+  "supersedes": "business-model/11_capital-allocation-governance.md (quick-read) - this module is the primary governance read",
+  "filters_tripped_section_24": {
+    "turnaround_filter_2": false,
+    "serial_acquirer_filter_4": false,
+    "unaligned_owner_filter_6": false,
+    "integrity_filter_1": false
+  }
+}
