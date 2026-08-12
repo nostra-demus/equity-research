@@ -138,16 +138,25 @@ AV_DATE = "2026-08-03"  # DECISION_LEDGER.md §5 structured-scenario-authority r
 AV_MIN_BASIS_LEN = 20   # mirrors the ≥20-char "non-trivial" bar DECISION_LEDGER.md §18 already uses for error_defense_evidence
 
 def eval_av_conjunction_disclosure(decision_date, scenarios):
-    """Check AV. None = N/A (pre-gate, or scenarios aren't in the structured shape yet); [] = every
-    scenario's conditions[] / joint_probability_basis pair is schema-consistent; [violation,...] = at
-    least one scenario either omits a required conjunction basis or carries a stray one."""
+    """Check AV. None = N/A (pre-gate, or no scenario in the set uses the structured shape yet); [] =
+    every scenario's conditions[] / joint_probability_basis pair is schema-consistent; [violation,...] =
+    at least one scenario either omits a required conjunction basis, carries a stray one, or the set is
+    only PARTIALLY structured (some rows carry conditions[], others omit it or supply a non-list value) —
+    a partial set can hide the exact multi-condition row this gate exists to expose, so it is a violation
+    in its own right rather than silently dropped from the comprehension."""
     if not (_isdate(decision_date) and decision_date >= AV_DATE):
         return None
     if not isinstance(scenarios, list) or len(scenarios) < 2:
         return None
     structured = [s for s in scenarios if isinstance(s, dict) and isinstance(s.get("conditions"), list)]
-    if len(structured) < 2:
-        return None  # not the structured scenario shape yet (pre-rollout record, or malformed) — nothing to check
+    if not structured:
+        return None  # not the structured scenario shape yet (pre-rollout record) — nothing to check
+    if len(structured) < len(scenarios):
+        return [f"{len(scenarios) - len(structured)} of {len(scenarios)} scenario(s) omit a structured "
+                f"conditions[] list (or supply a non-list value) while at least one other scenario in the "
+                f"same set uses it — a partially structured scenario set can hide the exact multi-condition "
+                f"conjunction this gate exists to expose; every scenario must carry conditions[] once the "
+                f"set adopts the structured shape (DECISION_LEDGER.md §5)"]
     out = []
     for s in structured:
         label = str(s.get("label") or s.get("scenario_id") or "?")

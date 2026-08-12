@@ -657,20 +657,33 @@ if os.path.exists(_vs_path):
 # sat undetected until a later manual `/research:eval` run. This block closes that hole for every future
 # run, standalone rerun included (rerun.md Step 8A runs this file verbatim), the same way the blocks
 # above already close it for §24/§13/AI/AK/AP.
-import scenario_integrity_checks as sic
-viol.extend(sic.eval_at_scenario_span(ddte, scen) or [])
-viol.extend(sic.eval_au_sign_check_recorded(ddte, _thesis_text_ak) or [])
-viol.extend(sic.eval_av_conjunction_disclosure(ddte, scen) or [])
-# [PR#9 review fix] idempotent banner: ALWAYS strip any prior finish-gate banner first, then re-stamp
-# fresh if still failing, or write the clean thesis if it now passes. The old code only prepended-if-
-# absent, so a fixed re-run in the same folder kept a stale PROVISIONAL banner with outdated reasons.
-body = open(ft, encoding="utf-8").read()
+# [PR#427 review fix] idempotent banner: ALWAYS strip any prior finish-gate banner first, computed HERE
+# (before AT/AU/AV run) rather than after, and reused both for the write-back below AND as the AU input.
+# A retry on a thesis that previously failed AU still carries the generated PROVISIONAL banner, whose own
+# violation TEXT contains the phrase "SIGN CHECK" ("the thesis records no SIGN CHECK against...") — the
+# presence-only AU regex would match that banner wording and report the check as satisfied even though the
+# underlying thesis body never added a real sign-check line. Stripping first closes that false-pass.
+body = _thesis_text_ak
 lines = body.split("\n"); i = 0
 while i < len(lines) and lines[i].strip() == "": i += 1
 if i < len(lines) and lines[i].startswith(">") and "PROVISIONAL — the automated finish-gate" in "\n".join(lines[i:i+6]):
     while i < len(lines) and lines[i].startswith(">"): i += 1      # drop the old blockquote banner
     while i < len(lines) and lines[i].strip() == "": i += 1        # and its blank separator
     body = "\n".join(lines[i:])
+import scenario_integrity_checks as sic
+# [PR#427 review fix] gate applicability uses the LIVE execution date, not `ddte` (decision_date). A
+# rerun mutates the latest EXISTING run folder rather than creating a new one (rerun.md §3), and
+# decision_date is pinned to that folder's original YYYY-MM-DD suffix (synthesizer.md's decision_date
+# row) — it never advances on rerun. Gating AT/AU/AV on `ddte` would make them permanently N/A for every
+# rerun of a run folder dated before the AT_DATE/AU_DATE/AV_DATE rollout, defeating the point of wiring
+# them into the LIVE, pre-publish gate: they exist to check what ships on THIS execution, not to re-judge
+# when the thesis was first decided (that retrospective distinction stays correct in eval.py, which grades
+# already-committed history and must keep using the true decision_date to avoid retroactively flagging
+# pre-rollout runs).
+_live_date = datetime.date.today().isoformat()
+viol.extend(sic.eval_at_scenario_span(_live_date, scen) or [])
+viol.extend(sic.eval_au_sign_check_recorded(_live_date, body) or [])
+viol.extend(sic.eval_av_conjunction_disclosure(_live_date, scen) or [])
 if viol:
     banner = ("> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED.**\n> "
               + "; ".join(viol) + "\n>\n> Resolve the flagged issue(s) before relying on these numbers — see each violation above for the required action. (CLAUDE.md §7/§10/§11/§13/§14/§21; finish-gate.)\n\n")

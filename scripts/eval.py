@@ -1124,9 +1124,9 @@ def eval_as_forecast_overdue(decision_date, forecast_ledger, today):
 # Import (not copy): eval.py is the single caller of these functions for retrospective grading;
 # scenario_integrity_checks.py is the single source of the detection logic, imported by both callers.
 from scenario_integrity_checks import (
-    AT_DATE, AT_MIN_BEST_PCT, eval_at_scenario_span,
-    AU_DATE, eval_au_sign_check_recorded,
-    AV_DATE, AV_MIN_BASIS_LEN, eval_av_conjunction_disclosure,
+    eval_at_scenario_span,
+    eval_au_sign_check_recorded,
+    eval_av_conjunction_disclosure,
 )
 
 
@@ -3043,6 +3043,13 @@ if scope=="selftest":
         # single-condition scenarios, no basis anywhere → pass (nothing to justify)
         ("2026-08-03",[_av2("bull",["a"],None),_av2("base",["b"],""),_av2("bear",["c"],None)], []),
         ("2026-08-03",[{"label":"bull"},{"label":"bear"}],None),           # no structured conditions[] → N/A
+        # [PR#427 review fix] PARTIALLY structured: one row carries conditions[], the other omits it —
+        # must FAIL (not silently drop the malformed row and pass on whatever survives)
+        ("2026-08-03",[_av2("bull",["aws>=35%","d&a lag","ads rebound","na units"],"shared driver"),
+                        {"label":"bear"}],
+         ["omit a structured"]),
+        ("2026-08-03",[_av2("bull",["a","b"],"shared driver"),{"label":"bear","conditions":"not-a-list"}],
+         ["omit a structured"]),
         ("2026-08-03",[_av2("bull",["a"],None)],None),                    # one scenario is not a set → N/A
         ("2026-08-03",None,None),                                          # no scenarios → N/A
         ("2026-08-03","nope",None),                                        # malformed → N/A, never crash
