@@ -11,6 +11,10 @@ import { invalidateSymbolCache } from '../src/news/symbology'
 import { resetSharedLimiters } from '../src/news/triage/budget'
 import { validIdeaSnapshot } from './ideas-fixture'
 
+function isYahooSymbolDirectoryUrl(input: Parameters<typeof fetch>[0]): boolean {
+  try { return new URL(String(input)).hostname === 'query1.finance.yahoo.com' } catch { return false }
+}
+
 const NOW = Date.parse('2026-08-03T12:00:00Z')
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'idea-pass-integrity-'))
 const stateDir = path.join(root, '.state')
@@ -36,7 +40,7 @@ const id = ideaId('ACME', 'long')
 let lifecycleEditInjected = false
 const fetchFn = (async (input: Parameters<typeof fetch>[0]) => {
   const url = String(input)
-  if (url.includes('query1.finance.yahoo.com')) {
+  if (isYahooSymbolDirectoryUrl(input)) {
     if (!lifecycleEditInjected) {
       lifecycleEditInjected = true
       // Simulate a user promotion while the pass is awaiting its independent listing lookup. The final
@@ -155,7 +159,7 @@ fs.writeFileSync(path.join(lineageBoard, 'themes_index.json'), JSON.stringify({ 
 ] }))
 let lineageProviderCalls = 0
 const lineageFetch = (async (input: Parameters<typeof fetch>[0]) => {
-  if (String(input).includes('query1.finance.yahoo.com')) {
+  if (isYahooSymbolDirectoryUrl(input)) {
     return new Response(JSON.stringify({ quotes: [{ quoteType: 'EQUITY', symbol: 'LINK', longname: 'Link Corp', exchDisp: 'NYSE' }] }), { status: 200 })
   }
   lineageProviderCalls++
@@ -286,7 +290,7 @@ invalidateSymbolCache()
 resetSharedLimiters()
 let packagePrompt = ''
 const packageFetch = (async (input: Parameters<typeof fetch>[0], init?: RequestInit) => {
-  if (String(input).includes('query1.finance.yahoo.com')) {
+  if (isYahooSymbolDirectoryUrl(input)) {
     return new Response(JSON.stringify({ quotes: [{ quoteType: 'EQUITY', symbol: 'ACME', longname: 'Acme Corp', exchDisp: 'NYSE' }] }), { status: 200 })
   }
   const request = JSON.parse(String(init?.body || '{}'))
@@ -357,7 +361,7 @@ fs.writeFileSync(path.join(brokenInbox, '2026-08-03_sweep.json'), JSON.stringify
   ],
 }))
 const brokenFetch = (async (input: Parameters<typeof fetch>[0]) => {
-  if (String(input).includes('query1.finance.yahoo.com')) {
+  if (isYahooSymbolDirectoryUrl(input)) {
     return new Response(JSON.stringify({ quotes: [{ quoteType: 'EQUITY', symbol: 'BROKEN', longname: 'Broken Corp', exchDisp: 'NYSE' }] }), { status: 200 })
   }
   return new Response(JSON.stringify({
@@ -416,7 +420,7 @@ fs.writeFileSync(path.join(directionInbox, '2026-08-03_sweep.json'), JSON.string
 invalidateSymbolCache()
 const directionFetch = (async (input: Parameters<typeof fetch>[0]) => {
   const url = String(input)
-  if (url.includes('query1.finance.yahoo.com')) {
+  if (isYahooSymbolDirectoryUrl(input)) {
     const q = new URL(url).searchParams.get('q') || ''
     const quote = q === 'HARMED'
       ? { quoteType: 'EQUITY', symbol: 'HARMED', longname: 'Harmed Corp', exchDisp: 'NYSE' }
@@ -475,7 +479,7 @@ invalidateSymbolCache()
 const directoryQueries: string[] = []
 const pairFetch = (async (input: Parameters<typeof fetch>[0]) => {
   const url = String(input)
-  if (url.includes('query1.finance.yahoo.com')) {
+  if (isYahooSymbolDirectoryUrl(input)) {
     const q = new URL(url).searchParams.get('q') || ''
     directoryQueries.push(q)
     const quote = q === 'PAIRPRIM'
