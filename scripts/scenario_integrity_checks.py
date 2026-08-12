@@ -46,6 +46,7 @@ silently absorbed" principle means a violation is always surfaced (a FAIL row, o
 PROVISIONAL banner), never used to abort a run outright.
 """
 import re
+import math
 
 
 # ---- check AT: the scenario set must SPAN the outcomes, not merely sum to 100% ----------------------
@@ -152,10 +153,11 @@ AV_MIN_BASIS_LEN = 20   # mirrors the ≥20-char "non-trivial" bar DECISION_LEDG
 def eval_av_conjunction_disclosure(decision_date, scenarios):
     """Check AV. None = N/A (pre-gate, or no scenario in the set uses the structured shape yet); [] =
     every scenario's conditions[] / joint_probability_basis pair is schema-consistent; [violation,...] =
-    at least one scenario either omits a required conjunction basis, carries a stray one, or the set is
-    only PARTIALLY structured (some rows carry conditions[], others omit it or supply a non-list value) —
-    a partial set can hide the exact multi-condition row this gate exists to expose, so it is a violation
-    in its own right rather than silently dropped from the comprehension."""
+    at least one scenario either carries an empty conditions[] list, omits a required conjunction basis,
+    carries a stray one, or the set is only PARTIALLY structured (some rows carry conditions[], others
+    omit it or supply a non-list value) — a partial set (or an empty conditions[] row) can hide the exact
+    multi-condition row this gate exists to expose, so each is a violation in its own right rather than
+    silently dropped from the comprehension."""
     if not (_isdate(decision_date) and decision_date >= AV_DATE):
         return None
     if not isinstance(scenarios, list) or len(scenarios) < 2:
@@ -175,7 +177,15 @@ def eval_av_conjunction_disclosure(decision_date, scenarios):
         conds = s.get("conditions")
         jpb = s.get("joint_probability_basis")
         jpb_txt = jpb.strip() if isinstance(jpb, str) else ""
-        if len(conds) >= 2:
+        if not conds:
+            # [PR#427 review fix] conditions=[] is a list, so it passed the `structured` filter above, but
+            # DECISION_LEDGER.md §5 requires "each scenario has at least one condition" once the structured
+            # shape is adopted — an empty list satisfied neither the >=2 branch nor the elif below, so it
+            # silently returned no violation, hiding whether any conjunction exists at all.
+            out.append(f"scenario '{label}' carries an empty conditions[] list — DECISION_LEDGER.md §5 "
+                       f"requires at least one condition per scenario once the structured shape is adopted; "
+                       f"an empty list hides whether a conjunction exists at all")
+        elif len(conds) >= 2:
             if len(jpb_txt) < AV_MIN_BASIS_LEN:
                 out.append(f"scenario '{label}' has {len(conds)} conditions that must hold simultaneously "
                            f"but joint_probability_basis is "
@@ -200,15 +210,20 @@ def _isdate(s):
 
 
 def _tonum(v):
-    """Coerce an int/float (non-bool) or a numeric string to float; None if not coercible. Mirrors the
-    float(...) coercion the live scenario-math block already applies to return_pct/probability."""
+    """Coerce an int/float (non-bool) or a numeric string to a FINITE float; None if not coercible or
+    non-finite. Mirrors the float(...) coercion the live scenario-math block already applies to
+    return_pct/probability — but float("nan")/float("inf") parse successfully in Python, and a NaN best
+    case makes every comparison False (silently "spanning") while an Infinity best case trivially spans
+    without ever naming a real value, so a finite check after conversion is required, not optional."""
     if isinstance(v, bool):
         return None
     if isinstance(v, (int, float)):
-        return float(v)
-    if isinstance(v, str):
+        f = float(v)
+    elif isinstance(v, str):
         try:
-            return float(v.strip())
+            f = float(v.strip())
         except (ValueError, TypeError):
             return None
-    return None
+    else:
+        return None
+    return f if math.isfinite(f) else None

@@ -2995,6 +2995,13 @@ if scope=="selftest":
         # a present-but-non-coercible return_pct is a data-integrity failure, not a soft N/A
         ("2026-08-01",[{"label":"bull","return_pct":"n/a"},{"label":"bear","return_pct":-25.0}],
          ["non-numeric/non-coercible"]),
+        # [PR#427 review fix] NaN/Infinity parse via float() but are never a usable scenario return —
+        # NaN would make every comparison False (silently "spanning"); Infinity trivially spans without
+        # naming a real value. Both must fail closed as non-coercible, not slip through as numbers.
+        ("2026-08-01",[{"label":"bull","return_pct":"NaN"},{"label":"bear","return_pct":-25.0}],
+         ["non-numeric/non-coercible"]),
+        ("2026-08-01",[{"label":"bull","return_pct":"Infinity"},{"label":"bear","return_pct":-25.0}],
+         ["non-numeric/non-coercible"]),
     ]
     for _dd,_scn,_want in atcases:
         got=eval_at_scenario_span(_dd,_scn)
@@ -3047,6 +3054,10 @@ if scope=="selftest":
          ["still carries a joint_probability_basis"]),
         # single-condition scenarios, no basis anywhere → pass (nothing to justify)
         ("2026-08-03",[_av2("bull",["a"],None),_av2("base",["b"],""),_av2("bear",["c"],None)], []),
+        # [PR#427 review fix] conditions=[] is a list (passes the structured filter) but is empty — must
+        # FAIL, not silently satisfy neither the >=2 nor the elif branch
+        ("2026-08-03",[_av2("bull",[],None),_av2("bear",["a"],None)],
+         ["carries an empty conditions[] list"]),
         ("2026-08-03",[{"label":"bull"},{"label":"bear"}],None),           # no structured conditions[] → N/A
         # [PR#427 review fix] PARTIALLY structured: one row carries conditions[], the other omits it —
         # must FAIL (not silently drop the malformed row and pass on whatever survives)
