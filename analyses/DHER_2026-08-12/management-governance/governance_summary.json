@@ -1,0 +1,28 @@
+{
+  "ticker": "DHER",
+  "date": "2026-08-12",
+  "stewardship_verdict": "Serious governance concerns",
+  "hard_disqualifier_flagged": true,
+  "hard_disqualifier_text": "KPMG AG's Independent Auditor's Report carries a dedicated section titled 'Material Uncertainty about the Ability of Subsidiaries to Continue as a Going Concern,' tied to Glovoapp Spain Platform S.L.U. and the ongoing Spanish social-security rider-classification investigation (contingent liability disclosed at EUR440-770 million). The report explicitly states the group-level opinions have not been modified in this regard.",
+  "scores": {
+    "management_quality": 60,
+    "capital_allocation": 40,
+    "incentive_alignment": 57,
+    "shareholder_friendliness": 60,
+    "disclosure_candor": 53,
+    "governance_risk_inverted_higher_worse": 80,
+    "data_quality": 78,
+    "overall_usefulness": 85
+  },
+  "governance_score": 50,
+  "governance_score_formula": "0.20*40 + 0.18*57 + 0.18*60 + 0.16*53 + 0.16*60 + 0.12*(100-80)",
+  "confidence_score": 72,
+  "confidence_adjusted_governance_score": 36,
+  "governance_rating": "Weak",
+  "red_flag_count": 8,
+  "critical_red_flag_count": 0,
+  "insider_ownership_pct": 0.38,
+  "sec24_filters_tripped": ["Filter2_turnaround_RF-MGT-004", "Filter4_serial_acquirer_RF-CAP-004"],
+  "sec24_filters_watch": ["Filter6_unaligned_owner_forward_risk_pending_Uber_deal_closing_structure"],
+  "supersedes": "business-model/11_capital-allocation-governance.md"
+}
