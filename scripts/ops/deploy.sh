@@ -61,6 +61,22 @@ ts()  { date '+%Y-%m-%d %H:%M:%S'; }
 log() { echo "$(ts) $*" >> "$LOG"; }
 loaded() { launchctl print "gui/$UID_NUM/$1" >/dev/null 2>&1; }
 
+# Role truth takes precedence over legacy topology inference. Admin intent is recorded before demotion removes
+# doer-only services, while doer promotion is recorded only after a complete install, so an interrupted
+# demotion cannot be undone by stale files. Older doers have no marker yet, so their real, current-user-owned
+# tunnel plist remains the migration fallback.
+is_doer_host() {
+  local role_file="$OPS/role" role_value="" tunnel="$HOME/Library/LaunchAgents/com.nostradamus.tunnel.plist"
+  if [ -e "$role_file" ] || [ -L "$role_file" ]; then
+    if [ ! -L "$role_file" ] && [ -f "$role_file" ] && [ -O "$role_file" ]; then
+      role_value="$(cat "$role_file" 2>/dev/null || true)"
+      case "$role_value" in doer) return 0 ;; admin) return 1 ;; esac
+    fi
+    return 1                                                # unsafe/unknown durable truth fails closed as admin
+  fi
+  [ ! -L "$tunnel" ] && [ -f "$tunnel" ] && [ -O "$tunnel" ]
+}
+
 # One-time + continuously idempotent connector LaunchAgent migration. PR1 changes the connector scheduler
 # from six-hourly to a due-aware fifteen-minute floor and moves every declared CONNECTOR_* secret out of the
 # installed plist into ~/.config/nostra-engine/providers.env. Merely changing the tracked template does not
@@ -77,10 +93,36 @@ migrate_connector_launchagent_v2() {
   local secret_helper="$PROD/scripts/ops/migrate-connector-secrets.py"
   local load_contract="$PROD/scripts/ops/service-load-contract.sh"
   local staged claim desired_interval source_isolated changed=0 orphan_count=0
+  is_doer_host || return 0                                # gate every install/claim/activation path, not just absence
+  # Production data/ is a Drive-pool symlink. If Drive is absent, the clobber guard can conservatively leave
+  # an empty real directory in its place; activating RunAtLoad there would turn that outage placeholder into
+  # a local connector pool. Defer every connector activation until the canonical symlink resolves/readable.
+  if [ ! -L "$PROD/data" ] || [ ! -d "$PROD/data" ] || [ ! -r "$PROD/data" ]; then
+    log "connector-agent reconciliation deferred — canonical Drive data pool is unavailable"
+    return 0
+  fi
   if [ ! -e "$installed" ] && [ ! -L "$installed" ]; then
     orphan_count="$(find "$agents" -maxdepth 1 -type d \
       -name '.com.nostradamus.connectors.plist.credential-claim-*' 2>/dev/null | wc -l | tr -d ' ')"
-    [ "$orphan_count" = 0 ] && return 0                 # admin/non-doer host: nothing to migrate
+    if [ "$orphan_count" = 0 ]; then
+      # A legacy doer can pre-date the connector plist entirely. Migration used to treat that same shape as
+      # an admin, so every feed stayed never_run forever. Use the reviewed installer path to add ONLY this
+      # service. `--only connectors` does not replace the deploy/watchdog script that may be executing now.
+      log "connector-agent missing on doer — installing only the connector service"
+      if ! ENGINE_REPO_ROOT="$PROD" NOSTRA_ROLE=doer /bin/bash \
+          "$PROD/scripts/ops/install-services.sh" --role doer --only connectors >>"$LOG" 2>&1; then
+        log "WARN connector-agent doer self-install failed"
+        return 1
+      fi
+      if [ ! -f "$installed" ] || [ -L "$installed" ] || [ ! -O "$installed" ]; then
+        log "WARN connector-agent doer self-install did not leave a safe installed plist"
+        return 1
+      fi
+      printf '%s\n' 'interval=900;credentials=providers_env;isolated=1' > "$marker.tmp" 2>/dev/null \
+        && mv "$marker.tmp" "$marker" 2>/dev/null || true
+      log "connector-agent installed on legacy doer: 15m due-aware scheduler active"
+      return 0                                            # installer already validated and loaded the exact template
+    fi
   fi
   case "$providers_dir" in
     /*) ;;

@@ -49,6 +49,133 @@ def check(name, cond, detail=""):
 check("production acquisition retries have a bounded one-minute/20-second-delay budget",
       PRODUCTION_BACKOFF_S == (0, 5, 15) and PRODUCTION_ATTEMPT_TIMEOUT_S == 60)
 
+# Full automatic sweeps expose one exact, non-secret service heartbeat. The writer uses the same durable
+# atomic primitive as projections but remains best effort: an unavailable/unsafe telemetry lane cannot
+# change any connector result.
+_status_root = tempfile.mkdtemp(prefix="connector-runner-status-")
+_status = m._new_runner_status("2026-08-13T00:00:00.000000Z")
+check("runner heartbeat uses the exact schema-versioned service wire",
+      set(_status) == m.RUNNER_STATUS_KEYS and m._valid_runner_status(_status)
+      and _status["interval_seconds"] == 900 and _status["state"] == "running")
+_bad_status = dict(_status, unexpected="must fail")
+check("runner heartbeat rejects extension fields", not m._valid_runner_status(_bad_status))
+_bad_status = dict(_status, processed_rows=0, failed_rows=1)
+check("runner heartbeat rejects failed_rows above processed_rows", not m._valid_runner_status(_bad_status))
+_bad_status = dict(_status, last_progress_at="2026-08-12T23:59:59.000000Z")
+check("runner heartbeat rejects reversed timestamps", not m._valid_runner_status(_bad_status))
+_bad_status = dict(_status, last_progress_at="2026-08-13 00:00:00Z")
+check("runner heartbeat rejects non-canonical timestamps", not m._valid_runner_status(_bad_status))
+check("runner heartbeat writes atomically into the reserved pool lane",
+      m.write_runner_status(_status_root, _status))
+_status_path = os.path.join(_status_root, m.LEDGER_DIR, m.RUNNER_STATUS_NAME)
+with open(_status_path, encoding="utf-8") as _status_fh:
+    _status_disk = json.load(_status_fh)
+check("runner heartbeat round-trips without secret or diagnostic fields", _status_disk == _status)
+_status_outside = tempfile.mkdtemp(prefix="connector-runner-status-outside-")
+shutil.rmtree(os.path.join(_status_root, m.LEDGER_DIR))
+os.symlink(_status_outside, os.path.join(_status_root, m.LEDGER_DIR))
+check("runner heartbeat refuses a symlinked telemetry lane without blocking the caller",
+      m.write_runner_status(_status_root, _status) is False
+      and not os.path.exists(os.path.join(_status_outside, m.RUNNER_STATUS_NAME)))
+shutil.rmtree(_status_root)
+shutil.rmtree(_status_outside)
+
+
+def _exercise_main_status(argv, fake_run, fake_manual=None, captured=None, status_writer=None):
+    captured = [] if captured is None else captured
+    old_argv = sys.argv
+    old_run = m.run
+    old_manual = m.run_manual_ingest
+    old_lock = m.acquire_lock
+    old_write = m.write_runner_status
+    m.run = fake_run
+    if fake_manual is not None:
+        m.run_manual_ingest = fake_manual
+    m.acquire_lock = lambda: os.open(os.devnull, os.O_RDONLY)
+    m.write_runner_status = (status_writer or
+                             (lambda _root, value: captured.append(json.loads(json.dumps(value))) or True))
+    try:
+        sys.argv = ["run_connectors.py", *argv]
+        return m.main(), captured
+    finally:
+        sys.argv = old_argv
+        m.run = old_run
+        m.run_manual_ingest = old_manual
+        m.acquire_lock = old_lock
+        m.write_runner_status = old_write
+
+
+def _status_fake_run(_root, *, progress_callback=None, **_kwargs):
+    rows = [
+        {"decision": "fresh"},
+        {"decision": "failed"},
+    ]
+    if progress_callback:
+        progress_callback(None, 1)
+        for row in rows:
+            progress_callback(row, 1)
+    return {"rows": rows, "skipped_manifests": [("bad", "invalid")]}
+
+
+_status_main_root = tempfile.mkdtemp(prefix="connector-runner-main-status-")
+_main_rc, _main_statuses = _exercise_main_status(
+    ["--data-root", _status_main_root], _status_fake_run,
+)
+check("full sweep writes running progress and a reconciled completion heartbeat",
+      _main_rc == 0 and [value["state"] for value in _main_statuses] == [
+          "running", "running", "running", "running", "completed",
+      ] and _main_statuses[-1]["processed_rows"] == 2
+      and _main_statuses[-1]["failed_rows"] == 1
+      and _main_statuses[-1]["skipped_manifests"] == 1)
+for _excluded_args in (
+    ["--data-root", _status_main_root, "--dry-run"],
+    ["--data-root", _status_main_root, "--only", "one-connector"],
+):
+    _excluded_rc, _excluded_statuses = _exercise_main_status(_excluded_args, _status_fake_run)
+    check(f"{_excluded_args[-1]} invocation does not publish scheduled-service telemetry",
+          _excluded_rc == 0 and _excluded_statuses == [])
+_manual_rc, _manual_statuses = _exercise_main_status(
+    ["--data-root", _status_main_root, "--only", "manual-one", "--subject", "AAA",
+     "--manual-file", "/operator/source"],
+    _status_fake_run,
+    lambda *_args, **_kwargs: {"rows": [{"decision": "manual_ingested"}], "skipped_manifests": []},
+)
+check("manual ingest does not publish scheduled-service telemetry",
+      _manual_rc == 0 and _manual_statuses == [])
+
+
+def _fatal_status_fake_run(*_args, **_kwargs):
+    raise RuntimeError("https://secret.example/?token=should-never-enter-status")
+
+
+_fatal_statuses = []
+try:
+    _unused_rc, _fatal_statuses = _exercise_main_status(
+        ["--data-root", _status_main_root], _fatal_status_fake_run, captured=_fatal_statuses,
+    )
+except RuntimeError:
+    check("fatal sweep writes a terminal generic heartbeat before propagating",
+          [value["state"] for value in _fatal_statuses] == ["running", "failed"]
+          and _fatal_statuses[-1]["error_code"] == "runner_exception"
+          and "secret" not in json.dumps(_fatal_statuses[-1]))
+else:
+    check("fatal connector exception still propagates after telemetry", False)
+_publication_reached = {"yes": False}
+
+
+def _publication_status_fake_run(*_args, **_kwargs):
+    _publication_reached["yes"] = True
+    return {"rows": [{"decision": "fresh"}], "skipped_manifests": []}
+
+
+_telemetry_failure_rc, _ = _exercise_main_status(
+    ["--data-root", _status_main_root], _publication_status_fake_run,
+    status_writer=lambda *_args: False,
+)
+check("telemetry failure cannot block connector work or sweep completion",
+      _telemetry_failure_rc == 0 and _publication_reached["yes"])
+shutil.rmtree(_status_main_root)
+
 
 def _same_inode_mutation_is_rejected(reader, *, returns_none: bool) -> bool:
     """Mutate a later chunk after the reader has pinned the same inode."""

@@ -38,6 +38,25 @@ machines never fight over the tunnel or double-run the paid jobs. Re-running wit
 bash scripts/ops/install-services.sh --role admin    # secondary machine: engine only, no tunnel/timers
 ```
 
+A full install records the non-secret machine role in `~/.nostra-ops/role`: admin demotion intent is stamped
+before doer-only removal, while doer promotion is stamped only after every install succeeds. An explicit
+`admin` marker therefore wins even if an old tunnel plist remains after an interrupted demotion; only
+pre-marker machines infer the legacy doer role from a safe installed tunnel plist. Deploy uses that truth to
+repair a missing connector timer on a doer without adding it to an admin. The narrow recovery command is safe
+and idempotent:
+
+```
+bash scripts/ops/install-services.sh --role doer --only connectors
+```
+
+It installs only `com.nostradamus.connectors`; it does not copy or replace the currently executing
+`~/.nostra-ops/deploy.sh`, `watchdog.sh`, or `housekeeping.sh`. Full installs publish those runtime scripts by
+atomic rename so an executing script can never be truncated in place. Unknown installer options fail closed.
+Connector install/removal and watchdog recovery share the retained kernel lease
+`~/.nostra-ops/connector-autonomy.lock`; role transitions that also take the deploy lease always acquire
+`.deploy.flock` first, then this autonomy lease. Connector-only repair re-checks installed doer truth while
+holding the lease, so it cannot undo a concurrent admin/failover stand-down.
+
 ### Housekeeping timers (`housekeeping.sh`)
 The five `hk-*` agents run one headless Claude slash command each, from the prod worktree, under a per-run
 USD cap. `track` / `size` / `calibrate` are pure-local aggregates (near-free, seconds); `sweep` and
@@ -55,6 +74,12 @@ repair agents are hard-disabled until the runtime has a separately reviewed OS/c
 The health and repair ledgers still identify broken feeds. Repair them through the normal human-authored
 `codex/...` branch → PR → CI/review workflow, then require a real post-merge refetch before the repair is
 marked verified. An environment flag or DNS preflight is not accepted as isolation.
+
+Every full automatic sweep (not `--dry-run`, `--only`, or manual ingest) also atomically updates the
+non-secret `data/_connectors/runner_status.json`: start time, last row progress, completion/failure state,
+host/PID, interval, and row/manifest counts. It never stores URLs, exception text, or credentials. This is an
+operational heartbeat, not evidence; a status write failure is logged and never blocks or rolls back connector
+publication.
 
 The first deploy after the connector-v2 upgrade atomically reconciles the already-installed connector
 LaunchAgent: it changes the scheduler to fifteen minutes, securely moves every historical `CONNECTOR_*` value
@@ -166,6 +191,15 @@ window with `WATCHDOG_TUNNEL_HEAL_COOLDOWN_SECONDS` (`0` disables suppression). 
 second engine** on a non-`:8787` port (the load-doubling failure mode). Every incident + repair is logged to
 `~/Library/Logs/nostradamus-watchdog.log`. **You do nothing; it fixes itself and keeps a track.**
 
+On the doer, the same watchdog bootstraps `com.nostradamus.connectors` if its installed service was booted
+out. It also reads the atomic runner heartbeat: three missed 15-minute schedules restart an idle/failed timer;
+an in-flight sweep is restarted only after four full intervals with no row progress and only when the recorded
+host/PID still match the live launchd process. Successful repairs have a one-hour cooldown
+(`WATCHDOG_CONNECTOR_HEAL_COOLDOWN_SECONDS`); failed restart commands earn no cooldown. A missing/unmounted
+pool (including an empty real `data/` directory where the production Drive symlink should be), missing first
+heartbeat, future/malformed status, or a different live PID causes a conservative no-op, so the watchdog
+neither kills a valid long sweep nor starts a writer while Drive is unavailable.
+
 ### Keeping the Mac awake (`caffeinate`)
 `com.nostradamus.caffeinate` runs `caffeinate -i`, which holds `PreventUserIdleSystemSleep` — this is
 **not** AC-gated, so the engine + tunnel stay reachable on battery as well as on AC (lid open). Trade-off:
@@ -189,11 +223,13 @@ setup** creates the prod worktree, then installs the agents:
 git worktree add -B main "$HOME/nostra-prod" origin/main
 (cd "$HOME/nostra-prod/ui/server" && npm ci)
 (cd "$HOME/nostra-prod/ui/web" && npm ci && npm run build)
-# migrate the GITIGNORED runtime dirs the fresh worktree doesn't get from git (analyses/ + screener/ are
-# tracked, so they come with the checkout; .state/ and data/ are gitignored and must be copied from your
-# other machine or a Google Drive mirror):
+# Restore the gitignored runtime state the fresh worktree does not get from git (analyses/ + screener/ are
+# tracked). The data pool is shared through Drive: wait until Drive is signed in and the pool directory is
+# present, then create the canonical symlink. Never rsync/copy the pool into a real prod data/ directory.
 rsync -a <source>/ui/server/.state/ "$HOME/nostra-prod/ui/server/.state/"  # enrichment/news cache
-rsync -a <source>/data/             "$HOME/nostra-prod/data/"              # research data pool (uploads, extracts)
+NOSTRA_POOL="$HOME/Library/CloudStorage/GoogleDrive-<you>/My Drive/equity-research-data"
+test -d "$NOSTRA_POOL"                                                    # must succeed before continuing
+ln -s "$NOSTRA_POOL" "$HOME/nostra-prod/data"                            # uploads/extracts shared via Drive
 
 # install / refresh the launchd agents (idempotent, no sudo; safe to re-run). --role doer on the always-on
 # host, --role admin on a secondary machine. Set NEWS_ARCHIVE_DIR to your Google Drive mount to enable the

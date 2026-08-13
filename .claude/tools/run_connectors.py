@@ -33,6 +33,11 @@ CONTRACT
   Ledger — every (connector × subject) decision appends one NDJSON row to
     <data-root>/_connectors/run_ledger.ndjson (the data/_market-style reserved
     lane). --dry-run writes nothing, ledger included.
+  Service status — a full automatic sweep (never --dry-run, --only, or manual
+    ingest) atomically refreshes <data-root>/_connectors/runner_status.json at
+    start, after each decision row, and at completion/fatal exit. It contains
+    no URLs, credentials, messages, or exception text. Status I/O is best effort
+    and can never change a publication outcome.
 
 USAGE
   python3 -I run_connectors.py [--data-root data] [--only <connector-id>] [--force] [--dry-run]
@@ -78,6 +83,7 @@ import json
 import os
 import re
 import shutil
+import socket
 import stat
 import subprocess
 import sys
@@ -187,6 +193,15 @@ finally:
 CONNECTORS_ROOT = os.path.join(REPO, ".claude", "connectors")
 LEDGER_DIR = "_connectors"                 # reserved lane under the pool root (data/_market precedent)
 LEDGER_NAME = "run_ledger.ndjson"
+RUNNER_STATUS_NAME = "runner_status.json"
+RUNNER_STATUS_SCHEMA_VERSION = 1
+RUNNER_INTERVAL_SECONDS = 900
+RUNNER_STATUS_KEYS = {
+    "schema_version", "service", "state", "interval_seconds", "host", "pid",
+    "sweep_started_at", "last_progress_at", "sweep_completed_at", "processed_rows",
+    "failed_rows", "skipped_manifests", "error_code",
+}
+RUNNER_TIMESTAMP_RE = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}Z$")
 BACKOFF_S = (0, 5, 15)                     # bounded retries inside one scheduled acquisition
 ATTEMPT_TIMEOUT_S = 60                     # per-attempt fetch timeout; tests override
 ASOF_RE = r"(\d{4}-\d{2}-\d{2})"
@@ -200,6 +215,105 @@ ALLOW_LEGACY_CONNECTORS_FOR_TESTS = False
 
 def _log(msg: str) -> None:
     print(f"[run_connectors] {msg}")
+
+
+_STATUS_WARNING_EMITTED = False
+
+
+def _status_warning() -> None:
+    """Report status-lane failure once without exposing a path or exception."""
+    global _STATUS_WARNING_EMITTED
+    if not _STATUS_WARNING_EMITTED:
+        _STATUS_WARNING_EMITTED = True
+        try:
+            _log("WARNING: runner status telemetry is unavailable; continuing the sweep")
+        except OSError:
+            pass
+
+
+def _runner_iso_now() -> str:
+    return datetime.now(timezone.utc).isoformat(timespec="microseconds").replace("+00:00", "Z")
+
+
+def _new_runner_status(started_at: str | None = None) -> dict:
+    started = started_at or _runner_iso_now()
+    try:
+        host = socket.gethostname().strip()[:255]
+    except OSError:
+        host = "unknown"
+    if not host or any(ord(char) < 32 or ord(char) == 127 for char in host):
+        host = "unknown"
+    return {
+        "schema_version": RUNNER_STATUS_SCHEMA_VERSION,
+        "service": "connector-fetcher",
+        "state": "running",
+        "interval_seconds": RUNNER_INTERVAL_SECONDS,
+        "host": host,
+        "pid": os.getpid(),
+        "sweep_started_at": started,
+        "last_progress_at": started,
+        "sweep_completed_at": None,
+        "processed_rows": 0,
+        "failed_rows": 0,
+        "skipped_manifests": 0,
+        "error_code": None,
+    }
+
+
+def _valid_runner_status(status_value: object) -> bool:
+    """Keep this telemetry wire exact and incapable of carrying exception text."""
+    if not isinstance(status_value, dict) or set(status_value) != RUNNER_STATUS_KEYS:
+        return False
+    if (status_value.get("schema_version") != RUNNER_STATUS_SCHEMA_VERSION
+            or status_value.get("service") != "connector-fetcher"
+            or status_value.get("state") not in {"running", "completed", "failed"}
+            or status_value.get("interval_seconds") != RUNNER_INTERVAL_SECONDS):
+        return False
+    host = status_value.get("host")
+    pid = status_value.get("pid")
+    if (not isinstance(host, str) or not host or len(host) > 255
+            or any(ord(char) < 32 or ord(char) == 127 for char in host)
+            or not isinstance(pid, int) or isinstance(pid, bool) or pid <= 0):
+        return False
+    parsed_times: dict[str, datetime] = {}
+    for key in ("sweep_started_at", "last_progress_at"):
+        value = status_value.get(key)
+        if not isinstance(value, str) or not RUNNER_TIMESTAMP_RE.fullmatch(value):
+            return False
+        try:
+            parsed_times[key] = datetime.fromisoformat(value[:-1] + "+00:00")
+        except ValueError:
+            return False
+    completed_at = status_value.get("sweep_completed_at")
+    state = status_value["state"]
+    if state == "running":
+        if completed_at is not None or status_value.get("error_code") is not None:
+            return False
+    elif not isinstance(completed_at, str) or not RUNNER_TIMESTAMP_RE.fullmatch(completed_at):
+        return False
+    elif state != "running":
+        try:
+            parsed_times["sweep_completed_at"] = datetime.fromisoformat(completed_at[:-1] + "+00:00")
+        except ValueError:
+            return False
+    for key in ("processed_rows", "failed_rows", "skipped_manifests"):
+        value = status_value.get(key)
+        if not isinstance(value, int) or isinstance(value, bool) or value < 0:
+            return False
+    if status_value["failed_rows"] > status_value["processed_rows"]:
+        return False
+    if parsed_times["last_progress_at"] < parsed_times["sweep_started_at"]:
+        return False
+    if (state != "running"
+            and parsed_times["sweep_completed_at"] < parsed_times["last_progress_at"]):
+        return False
+    error_code = status_value.get("error_code")
+    if state == "failed":
+        if not isinstance(error_code, str) or not re.fullmatch(r"[a-z][a-z0-9_]{0,63}", error_code):
+            return False
+    elif error_code is not None:
+        return False
+    return True
 
 
 def _valid_manual_input(value: object) -> bool:
@@ -1352,6 +1466,33 @@ def _atomic_write(path: str, data: bytes) -> None:
         raise
 
 
+def write_runner_status(data_root: str, status_value: dict) -> bool:
+    """Best-effort durable status for one full automatic sweep.
+
+    This lane is observability only. It must neither materialise a missing
+    Drive pool nor let an I/O/fsync failure change a connector decision or
+    publication outcome.
+    """
+    try:
+        if not _valid_runner_status(status_value):
+            raise ValueError("invalid runner status wire")
+        requested_root = os.path.abspath(data_root)
+        if not os.path.isdir(requested_root):
+            raise OSError("data pool is unavailable")
+        root = os.path.realpath(requested_root)
+        status_path = os.path.join(root, LEDGER_DIR, RUNNER_STATUS_NAME)
+        if no_symlink_path(root, status_path) is None:
+            raise OSError("runner status path is unsafe")
+        _atomic_write(status_path, canonical_json_bytes(status_value))
+        return True
+    except Exception:
+        # Telemetry is deliberately below the publication contract. Ordinary
+        # path/I/O/fsync failures never change evidence publication; process
+        # control signals still propagate to the fatal-status wrapper.
+        _status_warning()
+        return False
+
+
 def _write_once(path: str, data: bytes) -> None:
     """Atomically create immutable content; an identical existing file is a safe replay.
 
@@ -2383,11 +2524,25 @@ def acquire_lock(lock_dir: str | None = None) -> int | None:
 
 # ---------- sweep ----------
 
+
+def _report_sweep_progress(progress_callback, row: dict | None, skipped_count: int) -> None:
+    if progress_callback is None:
+        return
+    try:
+        progress_callback(row, skipped_count)
+    except Exception:
+        # The callback is reserved for observability. A broken status sink may
+        # not suppress a ledger row or interrupt canonical publication.
+        _status_warning()
+
+
 def run(data_root: str, only: str | None = None, force: bool = False, dry_run: bool = False,
-        connectors_root: str = CONNECTORS_ROOT, now: datetime | None = None):
+        connectors_root: str = CONNECTORS_ROOT, now: datetime | None = None,
+        progress_callback=None):
     valid, skipped = discover(connectors_root)
     for name, reason in skipped:
         _log(f"skip manifest {name}: {reason}")
+    _report_sweep_progress(progress_callback, None, len(skipped))
     supplied_now = now is not None
     now = now or datetime.now(timezone.utc)
     if now.tzinfo is None:
@@ -2578,6 +2733,7 @@ def run(data_root: str, only: str | None = None, force: bool = False, dry_run: b
                     row["decision"], row["outcome"] = "fresh", "current"
                 if "decision" in row:
                     rows.append(row)
+                    _report_sweep_progress(progress_callback, row, len(skipped))
                     age_s = f"{age}d" if age is not None else "—"
                     _log(f"{man['id']} × {subject}: latest {row['latest_as_of'] or '—'} (age {age_s}) → {row['decision']}")
                     if not dry_run:
@@ -2730,6 +2886,7 @@ def run(data_root: str, only: str | None = None, force: bool = False, dry_run: b
                                 "publisher_contract_fingerprint": publish_meta.get("publisher_contract_fingerprint"),
                                 "connector_commit": publish_meta.get("connector_commit")})
             rows.append(row)
+            _report_sweep_progress(progress_callback, row, len(skipped))
             age_s = f"{age}d" if age is not None else "—"
             _log(f"{man['id']} × {subject}: latest {row['latest_as_of'] or '—'} (age {age_s}) "
                  f"→ {row['decision']}" + (f" [{row['message']}]" if row["decision"] == "failed" else ""))
@@ -2894,6 +3051,18 @@ def run_manual_ingest(
     return {"rows": [row], "skipped_manifests": skipped}
 
 
+def _is_full_scheduled_sweep(args: argparse.Namespace) -> bool:
+    return not args.dry_run and args.only is None and args.manual_file is None
+
+
+def _fatal_status_code(exc: BaseException) -> str:
+    if isinstance(exc, KeyboardInterrupt):
+        return "interrupted"
+    if isinstance(exc, SystemExit):
+        return "runner_exit"
+    return "runner_exception"
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Release-gated self-heal runner for the connector registry.")
     ap.add_argument("--data-root", default=os.path.join(REPO, "data"), help="pool root (default: <repo>/data)")
@@ -2906,15 +3075,60 @@ def main() -> int:
     if a.manual_file and (not a.only or not a.subject or a.dry_run):
         ap.error("--manual-file requires --only <manual-connector> and --subject, and cannot be dry-run")
 
+    scheduled_full_sweep = _is_full_scheduled_sweep(a)
     lock = None
     if not a.dry_run:
         lock = acquire_lock()
         if lock is None:
             _log("another runner instance holds the lock — skipping this sweep")
             return 0
+    status_value = None
     try:
-        result = (run_manual_ingest(a.data_root, a.only, a.subject, a.manual_file)
-                  if a.manual_file else run(a.data_root, only=a.only, force=a.force, dry_run=a.dry_run))
+        if scheduled_full_sweep:
+            status_value = _new_runner_status()
+            write_runner_status(a.data_root, status_value)
+
+        def record_progress(row: dict | None, skipped_count: int) -> None:
+            if status_value is None:
+                return
+            status_value["skipped_manifests"] = skipped_count
+            if row is not None:
+                status_value["processed_rows"] += 1
+                if row.get("decision") == "failed":
+                    status_value["failed_rows"] += 1
+            status_value["last_progress_at"] = _runner_iso_now()
+            write_runner_status(a.data_root, status_value)
+
+        try:
+            result = (run_manual_ingest(a.data_root, a.only, a.subject, a.manual_file)
+                      if a.manual_file else run(
+                          a.data_root, only=a.only, force=a.force, dry_run=a.dry_run,
+                          progress_callback=record_progress if scheduled_full_sweep else None,
+                      ))
+        except BaseException as exc:
+            if status_value is not None:
+                completed_at = _runner_iso_now()
+                status_value.update({
+                    "state": "failed",
+                    "last_progress_at": completed_at,
+                    "sweep_completed_at": completed_at,
+                    "error_code": _fatal_status_code(exc),
+                })
+                write_runner_status(a.data_root, status_value)
+            raise
+
+        if status_value is not None:
+            completed_at = _runner_iso_now()
+            status_value.update({
+                "state": "completed",
+                "last_progress_at": completed_at,
+                "sweep_completed_at": completed_at,
+                "processed_rows": len(result["rows"]),
+                "failed_rows": sum(1 for row in result["rows"] if row.get("decision") == "failed"),
+                "skipped_manifests": len(result["skipped_manifests"]),
+                "error_code": None,
+            })
+            write_runner_status(a.data_root, status_value)
     finally:
         if lock is not None:
             try:

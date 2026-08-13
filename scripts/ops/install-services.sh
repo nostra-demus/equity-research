@@ -32,6 +32,7 @@
 # Usage:
 #   bash scripts/ops/install-services.sh                 # role=doer (the always-on host)
 #   bash scripts/ops/install-services.sh --role admin    # a secondary machine: engine only, no tunnel/timers
+#   bash scripts/ops/install-services.sh --role doer --only connectors  # repair only the connector timer
 #   ENGINE_REPO_ROOT=/path/to/nostra-prod NEWS_ARCHIVE_DIR="/path/to/Drive/news-archive" bash scripts/ops/install-services.sh
 set -uo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
@@ -43,14 +44,31 @@ mkdir -p "$AGENTS" "$HOME/Library/Logs"
 
 # ── install role ──────────────────────────────────────────────────────────────
 ROLE="${NOSTRA_ROLE:-doer}"
+ONLY=""
+ONLY_SET=0
 while [ $# -gt 0 ]; do
   case "$1" in
     --role) [ $# -ge 2 ] || { echo "ERROR: --role needs a value (doer|admin)" >&2; exit 2; }; ROLE="$2"; shift 2 ;;
     --role=*) ROLE="${1#*=}"; shift ;;
-    *) echo "WARN ignoring unknown arg: $1" >&2; shift ;;
+    --only)
+      [ $# -ge 2 ] && [ -n "$2" ] \
+        || { echo "ERROR: --only needs a non-empty value (connectors)" >&2; exit 2; }
+      ONLY="$2"; ONLY_SET=1; shift 2
+      ;;
+    --only=*)
+      ONLY="${1#*=}"
+      [ -n "$ONLY" ] || { echo "ERROR: --only needs a non-empty value (connectors)" >&2; exit 2; }
+      ONLY_SET=1; shift
+      ;;
+    *) echo "ERROR: unknown argument: $1" >&2; exit 2 ;;
   esac
 done
 case "$ROLE" in doer|admin) ;; *) echo "ERROR: --role must be 'doer' or 'admin' (got '$ROLE')" >&2; exit 2 ;; esac
+if [ "$ONLY_SET" = 1 ]; then
+  case "$ONLY" in connectors) ;; *) echo "ERROR: --only supports only 'connectors' (got '$ONLY')" >&2; exit 2 ;; esac
+fi
+[ "$ONLY" != connectors ] || [ "$ROLE" = doer ] \
+  || { echo "ERROR: --only connectors is doer-only; refusing to add autonomy to an admin host" >&2; exit 2; }
 
 # ── Production runtime topology ───────────────────────────────────────────────
 # The live engine runs from a DEDICATED worktree pinned to main (PROD), NOT this dev tree, so
@@ -62,7 +80,8 @@ case "$ROLE" in doer|admin) ;; *) echo "ERROR: --role must be 'doer' or 'admin' 
 #   (cd "$HOME/nostra-prod/ui/server" && npm ci)
 #   (cd "$HOME/nostra-prod/ui/web" && npm ci && npm run build)
 #   rsync -a <devtree>/ui/server/.state/ "$HOME/nostra-prod/ui/server/.state/"   # gitignored runtime state
-#   rsync -a <devtree>/data/             "$HOME/nostra-prod/data/"               # gitignored research data pool
+#   # After Drive is mounted, symlink data/ to its shared equity-research-data pool; never rsync the pool.
+#   ln -s "/absolute/Drive/path/equity-research-data" "$HOME/nostra-prod/data"
 
 # ── per-machine values the templates render to (see render()) ─────────────────
 PROD="${ENGINE_REPO_ROOT:-$HOME/nostra-prod}"
@@ -110,8 +129,87 @@ PYTHON_BIN="$(resolve_bin python3 /usr/bin/python3)"
 CLOUDFLARED_BIN="$(resolve_bin cloudflared /usr/local/bin/cloudflared)"
 
 OPS="$HOME/.nostra-ops"; mkdir -p "$OPS"
-# runtime copies of the ops shell scripts that the watchdog/deploy/housekeeping plists point at
-for s in watchdog.sh deploy.sh housekeeping.sh; do cp "$HERE/$s" "$OPS/$s" && chmod +x "$OPS/$s"; done
+CONNECTOR_AUTONOMY_LOCK="$OPS/connector-autonomy.lock"
+
+# Serialize every installer role/connector transition with watchdog recovery and failover stand-down. The
+# retained descriptor makes the kernel release the lease on every exit/crash; there is no stale PID file to
+# reclaim. Full installs intentionally wait: overlapping an explicit promotion/demotion is less safe than
+# waiting for its bounded launchctl work to finish. Callers that already hold the deploy lease acquire this
+# second, establishing the global order `.deploy.flock` -> `connector-autonomy.lock`.
+acquire_connector_autonomy_lock() {
+  [ ! -L "$CONNECTOR_AUTONOMY_LOCK" ] \
+    || { echo "ERROR: connector autonomy lock must not be a symlink" >&2; return 1; }
+  umask 077
+  exec 7>>"$CONNECTOR_AUTONOMY_LOCK" \
+    || { echo "ERROR: cannot open connector autonomy lock" >&2; return 1; }
+  if ! "$PYTHON_BIN" -I - "$CONNECTOR_AUTONOMY_LOCK" 7<&7 <<'PYCONNECTORAUTONOMY'
+import fcntl
+import os
+import stat
+import sys
+
+path = sys.argv[1]
+try:
+    opened = os.fstat(7)
+    named = os.lstat(path)
+    if (not stat.S_ISREG(opened.st_mode) or stat.S_ISLNK(named.st_mode)
+            or opened.st_uid != os.getuid() or opened.st_nlink != 1
+            or (opened.st_dev, opened.st_ino) != (named.st_dev, named.st_ino)):
+        raise OSError
+    os.fchmod(7, 0o600)
+    fcntl.flock(7, fcntl.LOCK_EX)
+    locked = os.fstat(7)
+    named = os.lstat(path)
+    if (not stat.S_ISREG(locked.st_mode) or stat.S_ISLNK(named.st_mode)
+            or locked.st_uid != os.getuid() or locked.st_nlink != 1
+            or (locked.st_dev, locked.st_ino) != (named.st_dev, named.st_ino)):
+        raise OSError
+except OSError:
+    raise SystemExit(3)
+PYCONNECTORAUTONOMY
+  then
+    exec 7>&-
+    echo "ERROR: connector autonomy lock is unsafe or unavailable" >&2
+    return 1
+  fi
+}
+
+installed_host_is_doer() {
+  local role_file="$OPS/role" role_value="" tunnel="$AGENTS/com.nostradamus.tunnel.plist"
+  if [ -e "$role_file" ] || [ -L "$role_file" ]; then
+    if [ ! -L "$role_file" ] && [ -f "$role_file" ] && [ -O "$role_file" ]; then
+      role_value="$(cat "$role_file" 2>/dev/null || true)"
+      case "$role_value" in doer) return 0 ;; admin) return 1 ;; esac
+    fi
+    return 1
+  fi
+  [ ! -L "$tunnel" ] && [ -f "$tunnel" ] && [ -O "$tunnel" ]
+}
+
+acquire_connector_autonomy_lock || exit 1
+# Connector-only is repair, never promotion. Re-check durable role truth while holding the transition lease,
+# so a failover stand-down that won the race cannot be undone by a stale `--role doer` invocation.
+if [ "$ONLY" = connectors ] && ! installed_host_is_doer; then
+  echo "ERROR: --only connectors requires this installed host to already be the doer" >&2
+  exit 1
+fi
+
+persist_role() {
+  local value="$1" staged
+  staged="$(mktemp "$OPS/.role.staged.XXXXXX")" || return 1
+  if ! printf '%s\n' "$value" > "$staged" || ! chmod 600 "$staged" || ! mv "$staged" "$OPS/role"; then
+    rm -f "$staged" 2>/dev/null || true
+    echo "ERROR: could not persist installed host role" >&2
+    return 1
+  fi
+}
+
+# Demotion intent is conservative and authoritative immediately. If any later removal/install step fails,
+# deploy must still refuse to resurrect doer-only autonomy from a stale tunnel or connector plist. Promotion
+# to doer is different: publish that role only after every requested service installed successfully below.
+if [ -z "$ONLY" ] && [ "$ROLE" = admin ]; then
+  persist_role admin || exit 1
+fi
 # FAIL FAST if the prod worktree is missing. The engine + news-archive RUN from PROD and deploy keeps it
 # fast-forwarded; installing the (RunAtLoad) launchd agents now would just crash-loop against a missing
 # tree. Refuse, and tell the operator to create it first (one-time setup above / in the README).
@@ -120,6 +218,25 @@ if [ ! -e "$PROD/.git" ]; then
   echo "         git worktree add -B main \"$PROD\" origin/main   (+ npm ci / build / rsync — see README)" >&2
   echo "       Installing the launchd agents against a missing tree would crash-loop the engine." >&2
   exit 1
+fi
+
+# Runtime scripts may be executing from ~/.nostra-ops while this installer runs (notably deploy.sh invoking
+# the connector-only repair path). A direct `cp source destination` truncates that live inode and can make
+# the running shell parse a half-old/half-new script. Full installs therefore publish each copy by a
+# same-directory temp + atomic rename. Connector-only repair does not touch unrelated runtime scripts at all.
+install_runtime_script() {
+  local script="$1" staged
+  staged="$(mktemp "$OPS/.${script}.staged.XXXXXX")" || return 1
+  if ! cp "$HERE/$script" "$staged" || [ ! -s "$staged" ] || ! chmod +x "$staged" || ! mv "$staged" "$OPS/$script"; then
+    rm -f "$staged" 2>/dev/null || true
+    echo "ERROR: could not atomically install runtime ops script $script" >&2
+    return 1
+  fi
+}
+if [ -z "$ONLY" ]; then
+  for s in watchdog.sh deploy.sh housekeeping.sh; do
+    install_runtime_script "$s" || exit 1
+  done
 fi
 
 loaded() { launchctl print "$DOMAIN/$1" >/dev/null 2>&1; }
@@ -338,12 +455,16 @@ DOER_ONLY=(com.nostradamus.tunnel com.nostradamus.news-archive com.nostradamus.e
            com.nostradamus.hk-size com.nostradamus.hk-calibrate)
 NEWS_INGESTER=com.nostradamus.news-ingester   # doer-only AND opt-in (needs a real GROQ key in its plist)
 
-echo "installing role=$ROLE (prod=$PROD)"
+echo "installing role=$ROLE${ONLY:+ only=$ONLY} (prod=$PROD)"
 if [ "$ROLE" = doer ]; then
   prepare_connector_config || exit 1
 fi
-LABELS=("${BASE[@]}")
-[ "$ROLE" = doer ] && LABELS+=("${DOER_ONLY[@]}")
+if [ "$ONLY" = connectors ]; then
+  LABELS=(com.nostradamus.connectors)
+else
+  LABELS=("${BASE[@]}")
+  [ "$ROLE" = doer ] && LABELS+=("${DOER_ONLY[@]}")
+fi
 install_failed=0
 for label in "${LABELS[@]}"; do
   echo "installing $label"
@@ -354,7 +475,7 @@ done
 # free Groq key into its plist (replacing the placeholder). Until then it's skipped, so a keyless setup is
 # unaffected. The cockpit server also runs the ingester in-process when GROQ_API_KEY is set, so this
 # standalone service is only needed if you want ingestion to run with the cockpit closed.
-if [ "$ROLE" = doer ]; then
+if [ "$ROLE" = doer ] && [ -z "$ONLY" ]; then
   if grep -q "__SET_YOUR_GROQ_API_KEY__" "$HERE/$NEWS_INGESTER.plist"; then
     echo "skipping $NEWS_INGESTER (set your GROQ_API_KEY in its plist to enable)"
   else
@@ -365,7 +486,7 @@ fi
 
 # admin role: strip any doer-only agents this machine may have had, so a doer→admin demotion is clean
 # (otherwise a stale tunnel/timer would keep running and fight the real doer).
-if [ "$ROLE" = admin ]; then
+if [ "$ROLE" = admin ] && [ -z "$ONLY" ]; then
   remove_failed=0
   for label in "${DOER_ONLY[@]}" "$NEWS_INGESTER"; do
     remove_one "$label" || remove_failed=1
@@ -378,3 +499,10 @@ echo "status (each should show a PID):"
 launchctl list | grep -i nostradamus || echo "  (none loaded!)"
 echo "logs: ~/Library/Logs/nostradamus-{engine,tunnel,deploy,watchdog,news-archive,caffeinate,housekeeping}.log"
 [ "$install_failed" = 0 ] || exit 1
+
+# Full successful installs leave a durable, non-secret role truth for deploy-time repair. The legacy doer
+# fallback remains the installed tunnel plist, so machines upgraded from before this marker still self-heal.
+# A connector-only repair must never promote/demote the host or rewrite this marker.
+if [ -z "$ONLY" ] && [ "$ROLE" = doer ]; then
+  persist_role doer || exit 1
+fi

@@ -281,6 +281,19 @@ export interface RunnerStatus {
   autoRepairOn: boolean
   pollIntervalMin: number
   lastFetchSweepAt: string | null
+  fetcher?: {
+    state: 'online' | 'running' | 'late' | 'failed' | 'not_started' | 'unknown'
+    note: string
+    intervalMin: number
+    host: string | null
+    lastStartedAt: string | null
+    lastProgressAt: string | null
+    lastCompletedAt: string | null
+    nextExpectedAt: string | null
+    processedRows: number
+    failedRows: number
+    skippedManifests: number
+  }
 }
 
 // ---- find feeds → build them → watch it happen (server: pipeline-discover.ts + the build stream) ----
