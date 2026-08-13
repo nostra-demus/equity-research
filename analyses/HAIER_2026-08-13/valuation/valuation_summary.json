@@ -21,6 +21,14 @@
       "multiple_basis": "EV/FY2026E EBITDA",
       "multiple_kind": "applied",
       "basis": "ev",
+      "bridge": {
+        "net_debt": -24598.67,
+        "net_debt_basis": "broad (01 canonical)",
+        "minority": 9606.03,
+        "other": null,
+        "shares": 9311.825848,
+        "source": "01_price-and-capital-structure.md §3 canonical EV-to-equity bridge"
+      },
       "source": "07_scenario-and-fair-value.md §3 scenario table",
       "level": 31.78,
       "drivers": "Raw-material excess-cost growth reverts to 0pp AND China domestic demand partially recovers to +5% YoY; multiple expands to the quality-adjusted/own-history-mean ceiling (7.4x), not the full unadjusted peer median (9.71x). 12-month horizon."
@@ -34,6 +42,14 @@
       "multiple_basis": "EV/FY2026E EBITDA (implied by the weighted triangulation across peers/DCF/SOTP, not a direct input)",
       "multiple_kind": "implied",
       "basis": "ev",
+      "bridge": {
+        "net_debt": -24598.67,
+        "net_debt_basis": "broad (01 canonical)",
+        "minority": 9606.03,
+        "other": null,
+        "shares": 9311.825848,
+        "source": "01_price-and-capital-structure.md §3 canonical EV-to-equity bridge"
+      },
       "source": "07_scenario-and-fair-value.md §2 weighted triangulation (CNY 23.67); cross-checked at CNY 23.56 by §3's direct forward-metric x 6.7x multiple build, a 0.5% gap",
       "level": 23.67,
       "drivers": "FY2026E consensus growth path holds roughly as guided (revenue +2.24%, EBITDA to ~CNY 30.5bn); multiple sits modestly above the current LTM print (6.75x) but well short of full reversion to 02's own mean (7.38x). 12-month horizon."
@@ -47,6 +63,14 @@
       "multiple_basis": "EV/FY2026E EBITDA (own-history 8-quarter low)",
       "multiple_kind": "applied",
       "basis": "ev",
+      "bridge": {
+        "net_debt": -24598.67,
+        "net_debt_basis": "broad (01 canonical)",
+        "minority": 9606.03,
+        "other": null,
+        "shares": 9311.825848,
+        "source": "01_price-and-capital-structure.md §3 canonical EV-to-equity bridge"
+      },
       "source": "07_scenario-and-fair-value.md §3 scenario table",
       "level": 16.79,
       "drivers": "Commodity-cost pressure, competitive intensity, and China property-cycle softness erase the SG&A-driven margin gains posted since FY2021; EBIT margin reverts fully to the company's own documented 5-year trough. 12-month horizon."
@@ -60,6 +84,14 @@
       "multiple_basis": null,
       "multiple_kind": null,
       "basis": "ev",
+      "bridge": {
+        "net_debt": -24598.67,
+        "net_debt_basis": "broad (01 canonical)",
+        "minority": 9606.03,
+        "other": null,
+        "shares": 9311.825848,
+        "source": "01_price-and-capital-structure.md §3 canonical EV-to-equity bridge"
+      },
       "source": "07_scenario-and-fair-value.md §3 Structural-reset bridge (executed), reproducing 04_intrinsic-dcf.md §5's runoff scenario",
       "level": 15.90,
       "drivers": "Moat erosion continues without stabilizing: revenue growth cut to roughly half consensus, EBIT margin fades to 5.00% by FY2030 (below the FY2021 trough), gross margin fades to 23.8%, capex pulled back, CCC deteriorates to +30.0d. 24-36 month horizon.",

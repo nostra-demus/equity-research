@@ -48,7 +48,7 @@
         "Multiple sits modestly above the current LTM print but short of full reversion to own-history mean"
       ],
       "source": "valuation/07_scenario-and-fair-value.md §2 weighted triangulation (cross-checked at CNY 23.56 by §3 direct build, 0.5% gap)",
-      "joint_probability_basis": null
+      "joint_probability_basis": "This is one joint operating-and-valuation path: Haier must deliver roughly the consensus EBITDA while the market applies no further margin-erosion discount. The 40% probability is assigned to that combined outcome, not to either condition independently."
     },
     {
       "scenario_id": "bear_cyclical",
@@ -61,7 +61,7 @@
         "EBIT margin reverts fully to the FY2021 5-year trough (5.91%)"
       ],
       "source": "valuation/07_scenario-and-fair-value.md §3 scenario table",
-      "joint_probability_basis": null
+      "joint_probability_basis": "The margin trough is the operating result of the same commodity-cost, competition, and China-demand pressures named in the first condition, not an independent draw. The 25% probability is assigned to that combined cyclical-trough path."
     },
     {
       "scenario_id": "bear_structural",
