@@ -84,6 +84,13 @@ export interface IdeaInputRow {
   issuer_linkage: string
   companies: { name: string; ticker: string | null; listing_country: string | null }[]
   found_at: string // ISO — the freshest source timestamp, drives freshness/decay downstream
+  /** First local observation of this exact source revision. Internal ordering evidence only: freshness,
+   * decay, and the model-visible timestamp remain anchored to `found_at`. */
+  observed_at?: string
+  source_is_english?: true // positive source-language proof; absent legacy rows stay veto-closed
+  /** Enclosing durable projection clock for Theme-only rows. Internal ordering evidence, never rendered
+   * or used for source freshness. */
+  observed_by_at?: string
   source_tier?: import('../scope').SourceTierId
   scheduled_events?: string[]
   event_direction?: import('../types').EventDirection

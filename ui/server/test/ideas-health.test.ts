@@ -480,6 +480,68 @@ const staleRowsState = path.join(staleRowsRoot, '.state')
 const staleRows = await runIdeaPass({ repoRoot: staleRowsRoot, stateDir: staleRowsState, config: cfg, refreshBoard: async () => {}, now: () => NOW, persistHealth: true })
 assert.equal(staleRows.reason_code, 'stale_inputs', 'a fresh sweep wrapper cannot launder old found_at timestamps')
 
+// A readable adjacent partition can still preserve a human veto when its wrapper/action clock is bad.
+// That local integrity defect must fail closed for the matching story without pausing the complete current
+// wire: after filtering the alias, two unrelated rows remain and production should spend exactly one call.
+const localVetoRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-health-local-veto-'))
+const localVetoState = path.join(localVetoRoot, '.state')
+const localVetoInbox = path.join(localVetoRoot, 'screener', 'inbox')
+const localVetoAt = Date.parse('2026-08-04T06:05:00Z')
+fs.mkdirSync(localVetoInbox, { recursive: true })
+fs.writeFileSync(path.join(localVetoInbox, '2026-08-03_sweep.json'), JSON.stringify({
+  updated_at: 'not-a-clock',
+  rows: [{
+    headline: 'Regulator approves Acme product', url: 'https://news.test/acme-approval',
+    dedup_group: 'STORY-acme-approval', found_at: '2026-08-03T23:58:00Z', triage_score: 90,
+    consumed: true, consumed_at: 'not-a-clock',
+  }],
+}))
+fs.writeFileSync(path.join(localVetoInbox, '2026-08-04_sweep.json'), JSON.stringify({
+  updated_at: '2026-08-04T06:04:30Z',
+  rows: [
+    {
+      headline: 'Regulator withdraws Acme product approval', url: 'https://copy.test/acme-approval',
+      dedup_group: 'STORY-acme-approval', found_at: '2026-08-04T06:04:00Z', triage_score: 100,
+    },
+    {
+      headline: 'Bravo files a material exchange update', url: 'https://exchange.test/bravo',
+      found_at: '2026-08-04T06:03:00Z', triage_score: 92,
+    },
+    {
+      headline: 'Charlie wins a material customer contract', url: 'https://exchange.test/charlie',
+      found_at: '2026-08-04T06:02:00Z', triage_score: 91,
+    },
+  ],
+}))
+let localVetoFetches = 0
+let localVetoRequestBody = ''
+const localVetoPass = await runIdeaPass({
+  repoRoot: localVetoRoot, stateDir: localVetoState,
+  // 36h deliberately puts the malformed prior-day file inside the positive-candidate partition scan.
+  // Because that readable file contains only human-state rows, it must remain a local veto warning and
+  // cannot pause the two unrelated current leads.
+  config: { ...cfg, inputMaxAgeHrs: 36 }, refreshBoard: async () => {}, now: () => localVetoAt,
+  fetchFn: (async (_input: Parameters<typeof fetch>[0], init?: Parameters<typeof fetch>[1]) => {
+    localVetoFetches++
+    localVetoRequestBody = String(init?.body || '')
+    return new Response(JSON.stringify({
+      choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [] }) } }],
+      usage: { total_tokens: 50 },
+    }), { status: 200, headers: { 'content-type': 'application/json' } })
+  }) as typeof fetch,
+  sleep: async () => {}, persistHealth: true,
+})
+assert.equal(localVetoPass.ran, true, JSON.stringify(localVetoPass))
+assert.equal(localVetoPass.produced, 0)
+assert.equal(localVetoFetches, 1, 'a readable local human-state warning cannot skip the provider pass')
+assert.doesNotMatch(localVetoRequestBody, /Acme product approval/, 'the invalid-clock veto remains closed for its matching story')
+assert.match(localVetoRequestBody, /Bravo files a material exchange update/)
+assert.match(localVetoRequestBody, /Charlie wins a material customer contract/)
+const localVetoHealth = readIdeasHealth(localVetoState, localVetoRoot, true, localVetoAt)
+assert.equal(localVetoHealth.status, 'healthy')
+assert.equal(localVetoHealth.outcome, 'success_empty')
+assert.equal(localVetoHealth.input_count, 2, 'only the two unrelated current rows reach the provider')
+
 const degradedRoot = rootWithRows(2)
 const degradedState = path.join(degradedRoot, '.state')
 fs.writeFileSync(path.join(degradedRoot, 'screener', 'inbox', '2026-08-02_sweep.json'), '{')
@@ -553,5 +615,5 @@ assert.equal(missingProduced.status, 'error')
 assert.equal(missingProduced.outcome, 'failed')
 assert.equal(missingProduced.reason_code, 'snapshot_store_error', 'success_with_ideas must reconcile to an actually projectable snapshot')
 
-for (const root of [thin, noKeyRoot, okRoot, failedRoot, crashRoot, fallbackRoot, transientRoot, adapterGuardRoot, contractRoot, requestRoot, cappedRoot, localRoot, slowLocalRoot, raceRoot, deadlineRoot, staleRoot, staleSweepRoot, staleRowsRoot, brokenStoreRoot, invalidStoreRoot, missingProducedRoot]) fs.rmSync(root, { recursive: true, force: true })
+for (const root of [thin, noKeyRoot, okRoot, failedRoot, crashRoot, fallbackRoot, transientRoot, adapterGuardRoot, contractRoot, requestRoot, cappedRoot, localRoot, slowLocalRoot, raceRoot, deadlineRoot, staleRoot, staleSweepRoot, staleRowsRoot, localVetoRoot, brokenStoreRoot, invalidStoreRoot, missingProducedRoot]) fs.rmSync(root, { recursive: true, force: true })
 console.log('\n1 ideas-health test file passed')

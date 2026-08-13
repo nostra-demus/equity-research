@@ -17,7 +17,7 @@ import { scoreTheme, ensureDaily, rollDaily, DEFAULT_THEME_SCORE_CONFIG, type Th
 import { appendThemeMutations, buildSummary, loadThemes, maybeCompactThemesLedger, readRecentThemeItems, readThemesIndex, writeThemesIndex } from './store'
 import { buildGenericSet, loadTokenDf, saveTokenDf, updateTokenDf, DEFAULT_TOKEN_DF_CONFIG, type TokenDfConfig } from './token-df'
 import type { Theme, ThemeItemView, ThemeRemoval, ThemeSummary } from './types'
-import { boundThemeFamilyHistory, themeStoryFamilyKey } from './story-key'
+import { boundThemeFamilyHistory, themeStoryFamilyKey, themeStoryObservationKey } from './story-key'
 import { sourcePriority } from './evidence'
 
 export interface ThemesConfig {
@@ -92,6 +92,62 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
   const nowMs = now.getTime()
   const themes = input.themes
   const changedIds = new Set<string>()
+  const notSocial = (v: ThemeItemView) => (v.source_tier || '') !== 'social'
+
+  // An overflowed theme is a tombstone, not a sink. Preserve its bounded audit as discovery input before
+  // retiring it, and also reclaim any current-cycle row the cap evicted. The firehose cold-start repairs
+  // older omissions after a restart; this local hand-off prevents the triggering pass itself losing them.
+  const overflowRecovery: ThemeItemView[] = []
+  const retiredOverflowIds = new Set<string>()
+  const recoverMember = (member: Theme['members'][number]): ThemeItemView => ({
+    event_id: member.event_id,
+    dedup_group: member.dedup_group,
+    headline: member.headline,
+    headline_en: member.headline_en,
+    ...(member.source_is_english === true ? { source_is_english: true as const } : {}),
+    found_at: member.found_at,
+    ...(member.observed_at ? { observed_at: member.observed_at } : {}),
+    triage_score: member.score,
+    source_tier: member.tier,
+    source_name: member.source_name,
+    url: member.url,
+    companies: member.companies,
+    event_types: member.event_types,
+    issuer_linkage: member.issuer_linkage,
+    country: member.country,
+    region: member.region,
+    commodities: member.commodities,
+  })
+  const registerOverflowRetirement = (theme: Theme): boolean => {
+    if (retiredOverflowIds.has(theme.theme_id)) return false
+    retiredOverflowIds.add(theme.theme_id)
+    overflowRecovery.push(...theme.members.map(recoverMember).filter(notSocial))
+    return true
+  }
+  const retireLiveOverflowThemes = (alsoChanged?: Set<string>): Set<string> => {
+    const retired = new Set<string>()
+    for (const theme of themes) {
+      if (theme.status === 'live' && theme.narrative_update_overflow === true) {
+        theme.status = 'retired'
+        theme.rev++
+        changedIds.add(theme.theme_id)
+        registerOverflowRetirement(theme)
+        retired.add(theme.theme_id)
+      } else if (alsoChanged?.has(theme.theme_id)
+        && theme.status === 'retired' && theme.narrative_update_overflow === true
+        && registerOverflowRetirement(theme)) {
+        // mergeAndRetire may age-retire the just-overflowed keeper before this scan sees it.
+        retired.add(theme.theme_id)
+      }
+    }
+    return retired
+  }
+  const unclaimedRecovery = (rows: ThemeItemView[]): ThemeItemView[] => {
+    const liveObservations = new Set(themes
+      .filter((theme) => theme.status === 'live')
+      .flatMap((theme) => theme.members.map(themeStoryObservationKey)))
+    return rows.filter((row) => !liveObservations.has(themeStoryObservationKey(row)))
+  }
 
   // Normalize legacy/previous-process state before any scoring, queueing or discovery work. Member and
   // pending-debt state obey the configured hard cap even when the last persisted row predates this rule.
@@ -109,6 +165,12 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
       changedIds.add(theme.theme_id)
     }
   }
+
+  // A hard-cap overflow means this bounded record no longer contains every fact needed to rebuild or
+  // validate its narrative. Keeping it live but excluding it from every compiler lane creates a permanent
+  // zombie. Retire it before any assignment on every scanner cycle; successor discovery may remain on
+  // cadence, but an incomplete theme must never absorb another row in the meantime.
+  retireLiveOverflowThemes()
 
   // Version migration is automatic and bounded. Old lexical clusters remain internal and cannot absorb
   // stories; each discovery pass enrolls at most four newest-first for the existing validator lane, with no hand edits
@@ -140,7 +202,6 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
   // news-level magnitude). So drop social items at the door: they neither seed a new theme nor inflate an
   // existing one's magnitude/breadth. Both entry points are covered here — this cycle's `items` and the
   // accumulated/back-filled `pool` (runThemesCycle seeds it from readRecentThemeItems).
-  const notSocial = (v: ThemeItemView) => (v.source_tier || '') !== 'social'
   const items = input.items.filter(notSocial)
 
   // 0. seed each existing live theme's daily ring from its CURRENT (pre-assignment) member ring, so the
@@ -179,6 +240,14 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
     // assignThemes records the exact pending event IDs on validated themes. Keeping that write next to
     // membership means duplicate/no-op assignments cannot manufacture validation debt.
   }
+  const assignmentOverflows = retireLiveOverflowThemes()
+  if (assignmentOverflows.size) {
+    for (const item of items) {
+      if (a.assignments.get(item.event_id)?.some((themeId) => assignmentOverflows.has(themeId))) {
+        overflowRecovery.push(item)
+      }
+    }
+  }
   // Keep bounded within-family history until discovery has selected families and attached their audit
   // excerpts. Collapsing to one representative here erased cancellations/restorations before
   // discoverDeterministic could preserve them on the created theme.
@@ -195,6 +264,7 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
       if (r.retire) { t.status = 'retired'; t.rev++; changedIds.add(t.theme_id) }
       else if (r.changed) { changedIds.add(t.theme_id); flagRename(t, r) }
     }
+    retireLiveOverflowThemes()
   }
 
   // 2. Discovery remains periodic, but narrative UPDATE classification runs every scanner cycle. New
@@ -271,7 +341,24 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
         changedIds.add(t.theme_id)
       }
     }
-    for (const id of mergeAndRetire(themes, now, cfg.discover)) changedIds.add(id)
+    const mergedOrRetired = mergeAndRetire(themes, now, cfg.discover)
+    for (const id of mergedOrRetired) changedIds.add(id)
+    const mergeOverflows = retireLiveOverflowThemes(mergedOrRetired)
+    if (mergeOverflows.size) {
+      // A merged tombstone retains the pre-cap audit that may have fallen out of its overflowed keeper.
+      // Reclaim it now; the next cold start can independently rebuild the same evidence from firehose.
+      for (const theme of themes) {
+        if (theme.status === 'merged' && theme.merged_into && mergeOverflows.has(theme.merged_into)
+          && mergedOrRetired.has(theme.theme_id)) {
+          overflowRecovery.push(...theme.members.map(recoverMember).filter(notSocial))
+        }
+      }
+      for (const item of items) {
+        if (a.assignments.get(item.event_id)?.some((themeId) => mergeOverflows.has(themeId))) {
+          overflowRecovery.push(item)
+        }
+      }
+    }
     // Link only the post-merge live set. Linking first leaves the just-merged tombstone in every related
     // edge until the next discovery pass even though clients have already received its removal event.
     linkThemes(themes, cfg.discover)
@@ -299,10 +386,33 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
     if (t.tier !== before) changedIds.add(t.theme_id)
   }
 
-  // bound the pool (newest kept)
+  // Defer reclaimed overflow evidence until the next discovery pass. The current pass has already used
+  // the doomed theme's incomplete bounded record; rebuilding immediately from that same subset can create
+  // churn before the cold-start has restored omitted firehose rows. Persisting it here loses no arrival.
+  const recoveredPoolRows = unclaimedRecovery(overflowRecovery)
+  pool.push(...recoveredPoolRows)
+  const recoveredEventIds = new Set(recoveredPoolRows.map((row) => row.event_id))
+
+  // bound the pool (newest kept); recovery rows win an audit lane before ordinary backlog at the same
+  // family-history depth, so the assignment that triggered retirement cannot be silently consumed.
   pool = boundThemeFamilyHistory(pool, cfg.poolCap, {
     priority: (item) => sourcePriority(item.source_tier),
+    preferred: (item) => recoveredEventIds.has(item.event_id),
   })
+
+  // Assignment ran before an overflow was known. Never stamp a tombstone onto the same rows that were
+  // reclaimed for discovery; keep any independent live-theme assignment on a multi-theme item.
+  const invalidOverflowAssignments = new Set(retiredOverflowIds)
+  for (const theme of themes) {
+    if (theme.status === 'merged' && theme.merged_into && retiredOverflowIds.has(theme.merged_into)) {
+      invalidOverflowAssignments.add(theme.theme_id)
+    }
+  }
+  for (const [eventId, themeIds] of a.assignments) {
+    const liveIds = themeIds.filter((themeId) => !invalidOverflowAssignments.has(themeId))
+    if (liveIds.length) a.assignments.set(eventId, liveIds)
+    else a.assignments.delete(eventId)
+  }
 
   const changedThemeIds = [...changedIds]
   const changed = themes.filter((t) => changedIds.has(t.theme_id) && t.status === 'live').map((t) => buildSummary(t, now))
@@ -407,11 +517,15 @@ export async function runThemesCycle(input: RunThemesInput): Promise<{ changed: 
     generic = undefined
   }
   // on a discovery cycle, augment the pool with recent MATERIAL firehose items that aren't already a
-  // member of any theme — so discovery forms from the whole recent backlog (rich cold-start), not just
-  // the few items this cycle. Self-heals duplicates via mergeAndRetire.
+  // member of a LIVE theme — retired/merged rows are tombstones, so their evidence must remain eligible
+  // to rebuild under a distinct identity. Discovery forms from the whole recent backlog (rich cold-start),
+  // not just the few items this cycle. Self-heals duplicates via mergeAndRetire.
   if (input.runDiscovery) {
     const memberStories = new Set<string>()
-    for (const t of themes) for (const m of t.members) memberStories.add(themeStoryFamilyKey(m))
+    for (const t of themes) {
+      if (t.status !== 'live') continue
+      for (const m of t.members) memberStories.add(themeStoryFamilyKey(m))
+    }
     for (const it of readRecentThemeItems(input.repoRoot, input.minScore ?? 50)) {
       const story = themeStoryFamilyKey(it)
       if (!memberStories.has(story)) pool.push(it)

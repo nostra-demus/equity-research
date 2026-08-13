@@ -216,7 +216,9 @@ export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: Assig
         dedup_group: it.dedup_group,
         headline: it.headline,
         headline_en: it.headline_en, // carry the translation so a member older than the feed window still renders in English
+        ...(it.source_is_english === true ? { source_is_english: true as const } : {}),
         found_at: it.found_at,
+        ...(it.observed_at ? { observed_at: it.observed_at } : {}),
         score: typeof it.triage_score === 'number' ? it.triage_score : it.materiality_pre_score || 0,
         tier: it.source_tier || 'news',
         source_name: it.source_name,
@@ -255,7 +257,14 @@ export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: Assig
           || (memberPriority === existingPriority
             && (memberIsNewer || (clocksTie && memberKey > existingKey))))
         if (shouldReplace) {
-          theme.members[existingIndex] = member
+          // Triage refreshes can change score/metadata without creating a new source revision. The inbox
+          // clock is immutable for that exact observation, so never move it forward on replacement.
+          theme.members[existingIndex] = {
+            ...member,
+            observed_at: existing.observed_at || member.observed_at,
+            // Exact legacy observations cannot acquire positive language proof on a refresh.
+            ...(existing.source_is_english === true ? { source_is_english: true as const } : { source_is_english: undefined }),
+          }
           if (member.found_at > theme.last_flow) theme.last_flow = member.found_at
           theme.rev++
           if (theme.narrative && member.event_id !== existing.event_id) {

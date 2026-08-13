@@ -12,7 +12,8 @@ import { createHash, randomUUID } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
 import { eventIdFor } from '../normalize'
 import { readFeed } from '../feed'
-import { cleanTicker, normTicker } from '../symbology'
+import { hasNonLatinScript } from '../lang'
+import { cleanTicker, coreCompanyName, normTicker } from '../symbology'
 import { SOURCE_TIERS, type SourceTierId } from '../scope'
 import { createThemesIndexReader } from '../themes/api-index'
 import {
@@ -23,8 +24,15 @@ import {
 import { loadThemes, readThemesIndex, themesLedgerPath } from '../themes/store'
 import type { Theme, ThemeMember } from '../themes/types'
 import type { FeedItem } from '../types'
-import { classifyStoryObservation, type StoryObservationKind } from '../write-inbox'
+import {
+  classifyHumanVetoStoryState,
+  classifyStoryObservation,
+  humanVetoStoryStates,
+  type HumanVetoStoryState,
+  type StoryObservationKind,
+} from '../write-inbox'
 import { parseRfc3339Ms } from '../../rfc3339'
+import { readInboxHumanActions } from '../inbox-actions'
 import { canonicalJsonText } from '../../canonical-json'
 import { acquireRetainedFlockSync, releaseRetainedFlock } from '../../singleton-lock'
 import {
@@ -644,14 +652,29 @@ function canonicalHumanVetoUrl(raw: unknown): string {
   try {
     const url = new URL(value)
     if (url.protocol !== 'http:' && url.protocol !== 'https:') return value
+    // Publisher migrations from HTTP to HTTPS do not create a new human-visible article. Human vetoes
+    // are conservative aliases, so normalize both schemes to the secure form.
+    url.protocol = 'https:'
+    if (url.port === '80' || url.port === '443') url.port = ''
+    url.hostname = url.hostname.replace(/\.+$/, '').toLowerCase()
     url.hash = ''
-    const drop: string[] = []
-    url.searchParams.forEach((_entry, key) => {
-      if (/^utm_/i.test(key) || /^(fbclid|gclid|cmpid|mc_cid|mc_eid|ref)$/i.test(key)) drop.push(key)
-    })
-    for (const key of drop) url.searchParams.delete(key)
-    url.searchParams.sort()
-    url.pathname = url.pathname.replace(/\/{2,}/g, '/').replace(/\/+$/, '') || '/'
+    const params = [...url.searchParams.entries()]
+      .filter(([key]) => !/^utm_/i.test(key)
+        && !/^(fbclid|gclid|dclid|msclkid|srsltid|igshid|mkt_tok|cmpid|mc_cid|mc_eid|vero_id|_hsenc|_hsmi|ref)$/i.test(key))
+      // URLSearchParams.sort() orders keys only and preserves duplicate-value insertion order. Human
+      // identity must also survive `?a=1&a=2` becoming `?a=2&a=1`, so sort the complete pairs.
+      .sort(([leftKey, leftValue], [rightKey, rightValue]) => leftKey.localeCompare(rightKey)
+        || leftValue.localeCompare(rightValue))
+    url.search = ''
+    for (const [key, value] of params) url.searchParams.append(key, value)
+    // WHATWG preserves escaped unreserved path bytes. Decode only RFC 3986 unreserved characters so
+    // `%7Eissuer` and `~issuer` share identity without collapsing reserved delimiters such as `%2F`.
+    url.pathname = url.pathname
+      .replace(/%([0-9a-f]{2})/gi, (encoded, hex: string) => {
+        const char = String.fromCharCode(Number.parseInt(hex, 16))
+        return /[A-Za-z0-9._~-]/.test(char) ? char : encoded.toUpperCase()
+      })
+      .replace(/\/{2,}/g, '/').replace(/\/+$/, '') || '/'
     return url.toString().replace(/\/$/, '')
   } catch {
     // A malformed but stable imported URL is still a useful negative alias. The exact trimmed value is
@@ -1002,7 +1025,7 @@ function retainedThemeHasActiveChallenge(theme: Theme): boolean {
 
 type ThemeIdeaFeedSource = Pick<FeedItem, 'event_id' | 'headline' | 'url' | 'source_name' | 'triage_score'>
   & Partial<Pick<FeedItem,
-    'headline_en' | 'found_at' | 'region' | 'event_types' | 'issuer_linkage' | 'companies' | 'source_tier'
+    'headline_en' | 'found_at' | 'observed_at' | 'source_is_english' | 'region' | 'event_types' | 'issuer_linkage' | 'companies' | 'source_tier'
     | 'scheduled_events' | 'event_direction' | 'dedup_group' | 'rank_factors' | 'event_materiality_label'>>
 
 function memberFeedSource(member: ThemeMember | undefined): ThemeIdeaFeedSource | null {
@@ -1011,10 +1034,12 @@ function memberFeedSource(member: ThemeMember | undefined): ThemeIdeaFeedSource 
     event_id: member.event_id,
     headline: member.headline,
     headline_en: member.headline_en,
+    source_is_english: member.source_is_english,
     url: member.url,
     source_name: member.source_name,
     triage_score: member.score,
     found_at: member.found_at,
+    observed_at: member.observed_at,
     region: (member.region || '') as FeedItem['region'],
     event_types: Array.isArray(member.event_types) ? member.event_types : [],
     issuer_linkage: (member.issuer_linkage || '') as FeedItem['issuer_linkage'],
@@ -1059,6 +1084,8 @@ function themeIdeaRow(
     issuer_linkage: item.issuer_linkage || '',
     companies: Array.isArray(item.companies) ? item.companies : [],
     found_at: sourceAt,
+    ...(item.observed_at ? { observed_at: item.observed_at } : {}),
+    ...(item.source_is_english === true ? { source_is_english: true as const } : {}),
     source_tier: item.source_tier,
     scheduled_events: Array.isArray(item.scheduled_events) ? item.scheduled_events : [],
     event_direction: item.event_direction,
@@ -1076,6 +1103,8 @@ function readActionableThemeRows(
   repoRoot: string,
   freshness?: TopSweepFreshnessOptions,
   indexNotBeforeMs?: number,
+  wireAliasesByEvent?: Map<string, Partial<Pick<FeedItem, 'dedup_group' | 'found_at' | 'observed_at' | 'source_is_english'>>>,
+  registerRetainedAlias?: (row: Pick<ThemeMember, 'event_id' | 'dedup_group' | 'url'>) => void,
 ): IdeaInputRow[] {
   const index = readCurrentThemesIndex(repoRoot, freshness?.nowMs ?? Date.now())
   const indexGeneratedMs = parseRfc3339Ms(index.generated_at)
@@ -1110,12 +1139,17 @@ function readActionableThemeRows(
     context: IdeaThemeContext
   }
   const requests: ThemeEvidenceRequest[] = []
+  const aliasEvidenceIds = new Set<string>()
   let evidenceRowsSeen = 0
   for (const theme of themes) {
     if (!validThemeRef(theme) || conflictingThemeIds.has(theme.theme_id)) continue
     const retained = canonical.byRevision.get(canonicalThemeKey(theme.theme_id, theme.rev))
     if ((ledgerPresent && !retained)
       || (retained && retainedThemeHasActiveChallenge(retained))) continue
+    // The two-row prompt package is only a projection of a bounded canonical audit. Register every
+    // retained member's identity before veto filtering so an intermediate family/URL bridge cannot be
+    // hidden merely because that member is neither the current WHY_NOW nor expression proof.
+    for (const member of retained?.members || []) registerRetainedAlias?.(member)
     const whyNowEventId = theme.narrative.why_now_event_id
     const proofIds = new Set(theme.qualified_expressions
       .flatMap((expression) => expression.evidence_event_ids)
@@ -1125,8 +1159,10 @@ function readActionableThemeRows(
     if (!proofIds.size) continue
     for (const evidence of theme.evidence) {
       if (!record(evidence) || evidence.stance !== 'supports') continue
+      const aliasEventId = EVENT_ID_RE.test(String(evidence.event_id || '')) ? String(evidence.event_id) : ''
+      if (aliasEventId && aliasEvidenceIds.size < MAX_THEME_EVIDENCE_ROWS) aliasEvidenceIds.add(aliasEventId)
       if (evidenceRowsSeen >= MAX_THEME_EVIDENCE_ROWS) break
-      const eventId = EVENT_ID_RE.test(String(evidence.event_id || '')) ? String(evidence.event_id) : ''
+      const eventId = aliasEventId
       const role = eventId === whyNowEventId ? 'WHY_NOW' : proofIds.has(eventId) ? 'EXPRESSION_PROOF' : null
       if (!eventId || !role) continue
       evidenceRowsSeen++
@@ -1168,8 +1204,9 @@ function readActionableThemeRows(
   if (!requests.length) return []
 
   const targetIds = new Set(requests.map((request) => request.eventId))
+  const lookupIds = new Set([...targetIds, ...aliasEvidenceIds])
   const days = freshness ? MAX_THEME_FEED_LOOKBACK_DAYS : 2
-  const unresolvedIds = new Set([...targetIds].filter((eventId) => !memberFeedSource(canonical.sourcesByEvent.get(eventId))))
+  const unresolvedIds = new Set([...lookupIds].filter((eventId) => !memberFeedSource(canonical.sourcesByEvent.get(eventId))))
   const feed = unresolvedIds.size ? readFeed(repoRoot, days, {
     now: () => new Date(nowMs),
     maxItems: unresolvedIds.size,
@@ -1180,10 +1217,28 @@ function readActionableThemeRows(
     preservePersistedDedupGroups: true,
   }) : { items: [], cycles: [] }
   const byEvent = new Map(feed.items.map((item) => [item.event_id, item]))
+  // Index-only migration can retain an identity bridge outside the final two-row prompt package. Join
+  // every bounded supporting evidence identity into the veto component without projecting it as a model
+  // row; otherwise a why-now row can escape through B->A merely because bridge B was not selected.
+  for (const eventId of aliasEvidenceIds) {
+    const source = memberFeedSource(canonical.sourcesByEvent.get(eventId)) || byEvent.get(eventId)
+    if (source) registerRetainedAlias?.(source)
+  }
   const packages = new Map<string, { whyNow: IdeaInputRow | null; proofs: IdeaInputRow[] }>()
   for (const request of requests) {
-    const item = memberFeedSource(canonical.sourcesByEvent.get(request.eventId)) || byEvent.get(request.eventId)
-    if (!item) continue
+    const resolved = memberFeedSource(canonical.sourcesByEvent.get(request.eventId)) || byEvent.get(request.eventId)
+    if (!resolved) continue
+    // A sparse Theme lookup can choose a newer exact event representation whose optional family alias
+    // was dropped. Reattach the alias/clock proof already present in the current sweep before human-veto
+    // closure, so the Theme reserve cannot launder a grouped wire event into an ungrouped one.
+    const wireAlias = wireAliasesByEvent?.get(request.eventId)
+    const item: ThemeIdeaFeedSource = wireAlias ? {
+      ...resolved,
+      ...(wireAlias.dedup_group ? { dedup_group: wireAlias.dedup_group } : {}),
+      ...(wireAlias.found_at ? { found_at: wireAlias.found_at } : {}),
+      ...(wireAlias.observed_at ? { observed_at: wireAlias.observed_at } : {}),
+      ...(wireAlias.source_is_english === true ? { source_is_english: true as const } : {}),
+    } : resolved
     const persistedAt = typeof item.found_at === 'string' && Number.isFinite(parseRfc3339Ms(item.found_at))
       ? item.found_at
       : null
@@ -1196,6 +1251,7 @@ function readActionableThemeRows(
     if (isWhyNow ? !sourceTimeIsFresh(sourceAt, freshness) : !withinStructuralLookback) continue
     const row = themeIdeaRow(item, [request.sourceTheme], request.expressions, [request.context], sourceAt)
     if (!row) continue
+    row.observed_by_at = index.generated_at
     const key = canonicalThemeKey(request.context.theme_id, request.context.theme_rev)
     const group = packages.get(key) || { whyNow: null, proofs: [] }
     if (isWhyNow) {
@@ -1239,10 +1295,16 @@ export function readTopSweep(
   } catch { return { rows: [], status: 'missing', sweep_updated_at: null, candidate_count: 0, stale_row_count: 0, invalid_time_count: 0 } }
   if (!sweepFiles.length) return { rows: [], status: 'missing', sweep_updated_at: null, candidate_count: 0, stale_row_count: 0, invalid_time_count: 0 }
 
+  const partitionDayStartMs = (name: string): number => {
+    const day = name.match(/^(\d{4}-\d{2}-\d{2})_sweep\.json$/)?.[1]
+    return day ? Date.parse(`${day}T00:00:00Z`) : NaN
+  }
   interface SweepPartition {
+    name: string
     rows: any[]
     updatedAt: string | null
     updatedMs: number
+    dayStartMs: number
   }
   const partitionCache = new Map<string, SweepPartition | null>()
   const readPartition = (name: string): SweepPartition | null => {
@@ -1252,21 +1314,19 @@ export function readTopSweep(
       const doc = JSON.parse(fs.readFileSync(path.join(inboxDir, name), 'utf8'))
       if (Array.isArray(doc?.rows)) {
         const updatedAt = typeof doc.updated_at === 'string' ? doc.updated_at : null
-        partition = { rows: doc.rows, updatedAt, updatedMs: parseRfc3339Ms(updatedAt) }
+        partition = { name, rows: doc.rows, updatedAt, updatedMs: parseRfc3339Ms(updatedAt), dayStartMs: partitionDayStartMs(name) }
       }
     } catch {}
     partitionCache.set(name, partition)
     return partition
   }
   const partitionDayOverlaps = (name: string, floorMs: number, ceilingMs: number): boolean => {
-    const day = name.match(/^(\d{4}-\d{2}-\d{2})_sweep\.json$/)?.[1]
-    const start = day ? Date.parse(`${day}T00:00:00Z`) : NaN
+    const start = partitionDayStartMs(name)
     return Number.isFinite(start) && start <= ceilingMs && start + 86_400_000 > floorMs
   }
   const partitionDayImmediatelyPrecedes = (name: string, floorMs: number): boolean => {
     if (!Number.isFinite(floorMs)) return false
-    const day = name.match(/^(\d{4}-\d{2}-\d{2})_sweep\.json$/)?.[1]
-    const start = day ? Date.parse(`${day}T00:00:00Z`) : NaN
+    const start = partitionDayStartMs(name)
     const floorDayStart = Math.floor(floorMs / 86_400_000) * 86_400_000
     return Number.isFinite(start) && start + 86_400_000 === floorDayStart
   }
@@ -1282,12 +1342,12 @@ export function readTopSweep(
   let invalidTimeCount = 0
   let status: TopSweepStatus = 'ok'
   const invalidPartitionNames = new Set<string>()
-  const noteInvalidPartition = (name: string): void => {
+  const noteInvalidPartition = (name: string, blocksCandidateSet = true): void => {
     if (!invalidPartitionNames.has(name)) {
       invalidPartitionNames.add(name)
       invalidTimeCount++
     }
-    status = 'degraded'
+    if (blocksCandidateSet) status = 'degraded'
   }
   let partitions: SweepPartition[] = [newest]
   let sweepUpdatedAt = newest.updatedAt
@@ -1325,7 +1385,17 @@ export function readTopSweep(
       // partition was checked above; skipping an older unreadable file avoids letting archival debris
       // poison a healthy current wire.
       if (!partition) { noteInvalidPartition(partitionName); continue }
-      if (!Number.isFinite(partition.updatedMs)) { noteInvalidPartition(partitionName); continue }
+      if (!Number.isFinite(partition.updatedMs)) {
+        // A readable archival partition containing only already-consumed/dismissed rows cannot have
+        // contributed a positive candidate. Keep its negative aliases for the human-state pass and
+        // disclose the bad wrapper clock locally, but do not pause unrelated current evidence. If even
+        // one live candidate row is present, the missing partition clock still degrades the full sweep.
+        const hasPositiveCandidate = partition.rows.some((row) => row && row.url
+          && !row.consumed && !row.dismissed && !row.launched_signal_id
+          && typeof row.triage_score === 'number')
+        noteInvalidPartition(partitionName, hasPositiveCandidate)
+        continue
+      }
       if (partition.updatedMs < floor || partition.updatedMs > ceiling) continue
       partitions.push(partition)
       if (partition.updatedMs > sweepMs) {
@@ -1335,25 +1405,99 @@ export function readTopSweep(
     }
   }
 
-  const blockedStoryIds = new Set<string>()
-  const humanSweepLookback = freshness && Number.isFinite(freshness.maxAgeMs) && freshness.maxAgeMs > 0
-    // Human actions have no separate durable clock on every legacy row. Retain the prior bounded
-    // partition lookback so a decision just before the source-time floor still blocks a current copy.
-    ? Math.max(2, Math.ceil(freshness.maxAgeMs / 86_400_000) + 2)
-    : 2
-  const humanPartitions: SweepPartition[] = []
+  interface HumanVetoRecord {
+    keys: Set<string>
+    exactEventIds: Set<string>
+    canProveDistinct: boolean
+    sourceStates: Map<string, HumanVetoStoryState>
+    sourceIssuer: { tickers: Set<string>; names: Set<string> }
+    vetoMs: number
+    headline: string
+    headlineEn: string
+  }
+  const issuerIdentity = (companies: IdeaInputRow['companies'] | unknown): { tickers: Set<string>; names: Set<string> } => {
+    const tickers = new Set<string>()
+    const names = new Set<string>()
+    if (!Array.isArray(companies)) return { tickers, names }
+    for (const company of companies) {
+      if (!company || typeof company !== 'object') continue
+      const ticker = cleanTicker((company as { ticker?: unknown }).ticker)
+      if (ticker) tickers.add(normTicker(ticker))
+      const name = coreCompanyName((company as { name?: unknown }).name)
+      if (name) names.add(name)
+    }
+    return { tickers, names }
+  }
+  const namedIssuerTokens = (headline: string): Set<string> => {
+    // This is only a conflict detector for the guarded exception, never positive issuer extraction.
+    // Require a capitalized multi-token proper name and drop obvious sentence/authority phrases. When
+    // structured companies are absent, distinct explicit subjects therefore close the exception while a
+    // headline with no safely comparable subject remains governed by the stronger family/object checks.
+    const out = new Set<string>()
+    const stop = new Set(['regulator', 'company', 'issuer', 'board', 'approval', 'permit', 'license', 'licence', 'meeting', 'event'])
+    const candidates = [
+      ...headline.matchAll(/\bfor\s+([A-Z][A-Za-z0-9&.'’-]*(?:\s+[A-Z][A-Za-z0-9&.'’-]+){0,3})\b/g),
+      ...headline.matchAll(/^([A-Z][A-Za-z0-9&.'’-]*(?:\s+[A-Z][A-Za-z0-9&.'’-]+){0,3})\s+(?:says?|said|confirms?|confirmed|restor(?:e|es|ed|ing)|reinstat(?:e|es|ed|ing)|receiv(?:e|es|ed|ing)|obtain(?:s|ed|ing)?|secure(?:s|d|ing)?|wins?|won)\b/g),
+    ]
+    for (const match of candidates) {
+      const name = coreCompanyName(match[1])
+      if (name && !name.split(/\s+/).some((token) => stop.has(token))) out.add(name)
+    }
+    return out
+  }
+  const issuerIdentityConflicts = (
+    source: HumanVetoRecord['sourceIssuer'],
+    candidate: ReturnType<typeof issuerIdentity>,
+    sourceHeadline: string,
+    candidateHeadline: string,
+  ): boolean => {
+    const sourceHasIdentity = source.tickers.size > 0 || source.names.size > 0
+    const candidateHasIdentity = candidate.tickers.size > 0 || candidate.names.size > 0
+    if (!sourceHasIdentity || !candidateHasIdentity) {
+      const sourceNames = namedIssuerTokens(sourceHeadline)
+      const candidateNames = namedIssuerTokens(candidateHeadline)
+      return sourceNames.size > 0 && candidateNames.size > 0
+        && ![...sourceNames].some((name) => candidateNames.has(name))
+    }
+    // Exact tickers are authoritative when both sides carry them. Otherwise require an exact
+    // identity-preserving issuer name. A status change for Beta must never undo a veto for Alpha merely
+    // because an upstream dedup family was broad or corrupt.
+    if (source.tickers.size && candidate.tickers.size) {
+      return ![...source.tickers].some((ticker) => candidate.tickers.has(ticker))
+    }
+    return ![...source.names].some((name) => candidate.names.has(name))
+  }
+  const humanVetoesByKey = new Map<string, HumanVetoRecord[]>()
+  const aliasParent = new Map<string, string>()
+  const aliasFind = (key: string): string => {
+    const parent = aliasParent.get(key)
+    if (!parent) { aliasParent.set(key, key); return key }
+    if (parent === key) return key
+    const root = aliasFind(parent)
+    aliasParent.set(key, root)
+    return root
+  }
+  const connectAliases = (keys: Iterable<string>): void => {
+    const values = [...new Set(keys)].filter(Boolean)
+    if (!values.length) return
+    let root = aliasFind(values[0])
+    for (const key of values.slice(1)) {
+      const other = aliasFind(key)
+      if (other === root) continue
+      const keep = root < other ? root : other
+      const drop = keep === root ? other : root
+      aliasParent.set(drop, keep)
+      root = keep
+    }
+  }
+  const humanPartitions: Array<{ name: string; partition: SweepPartition }> = []
   let humanStateUnavailable = false
   const humanFloor = freshness ? freshness.nowMs - Math.max(1, freshness.maxAgeMs) : Number.NEGATIVE_INFINITY
   const humanCeiling = freshness ? freshness.nowMs + Math.max(0, freshness.futureSkewMs ?? 5 * 60_000) : Number.POSITIVE_INFINITY
-  const humanFiles = freshness
-    ? [sweepFiles[0], ...sweepFiles.slice(1).filter((name) => (
-      partitionDayOverlaps(name, humanFloor, humanCeiling)
-      // A floor just after midnight excludes the preceding partition by a few minutes even though a
-      // consume/dismiss at 23:59 must remain durable. Include exactly that adjacent calendar partition,
-      // never the latest arbitrary archive file across a sparse history.
-      || partitionDayImmediatelyPrecedes(name, humanFloor)
-    ))].slice(0, humanSweepLookback)
-    : sweepFiles.slice(0, humanSweepLookback)
+  // Human actions do not expire with the candidate window. Sweep files are already capped at a small
+  // row count; scan their negative state independently so a five-day-old dismissal cannot resurrect.
+  // A future compact action ledger can replace this compatibility scan without changing semantics.
+  const humanFiles = sweepFiles
   for (const [index, name] of humanFiles.entries()) {
     const partition = index === 0 ? newest : readPartition(name)
     if (!partition) {
@@ -1361,27 +1505,81 @@ export function readTopSweep(
       // unreadable file therefore makes human state unknown even when its date is just outside the
       // positive-candidate window. Never call that fail-closed while continuing to rank candidates: that
       // would resurrect exactly the action this extra partition read exists to preserve.
-      humanStateUnavailable = true
-      noteInvalidPartition(name)
+      if (freshness && (partitionDayOverlaps(name, humanFloor, humanCeiling)
+        || partitionDayImmediatelyPrecedes(name, humanFloor))) {
+        humanStateUnavailable = true
+        noteInvalidPartition(name)
+      }
       continue
     }
-    humanPartitions.push(partition)
+    if (freshness && !Number.isFinite(partition.updatedMs)) {
+      // The partition cannot contribute positive candidates, but its readable negative rows still carry
+      // their own action clocks. Keep those vetoes and disclose the bad clock, but do not label the whole
+      // candidate set incomplete: affected legacy vetoes fail closed locally, while unrelated current
+      // evidence remains safe to analyze.
+      noteInvalidPartition(name, false)
+    }
+    humanPartitions.push({ name, partition })
+  }
+  const durableActions = readInboxHumanActions(repoRoot)
+  if (!durableActions.complete) {
+    // The append-only ledger is the only corruption-independent witness for actions created after this
+    // schema shipped. A malformed line means a veto may be missing; fail the surface closed.
+    humanStateUnavailable = true
+    status = 'degraded'
+    invalidTimeCount++
+  } else if (durableActions.rows.length) {
+    const actionRows = durableActions.rows.map((record) => ({
+      inbox_id: record.inbox_id,
+      event_id: record.event_id,
+      headline: record.headline,
+      headline_en: record.headline_en,
+      source_is_english: record.source_is_english,
+      url: record.url,
+      found_at: record.found_at,
+      observed_at: record.observed_at,
+      dedup_group: record.dedup_group,
+      companies: record.companies,
+      consumed: record.action === 'consumed',
+      consumed_at: record.action === 'consumed' ? record.action_at : undefined,
+      dismissed: record.action === 'dismissed',
+      dismissed_at: record.action === 'dismissed' ? record.action_at : undefined,
+    }))
+    const newestActionMs = Math.max(...durableActions.rows.map((row) => parseRfc3339Ms(row.action_at)))
+    humanPartitions.push({
+      name: 'inbox-human-actions.ndjson',
+      partition: {
+        name: 'inbox-human-actions.ndjson', rows: actionRows,
+        updatedAt: Number.isFinite(newestActionMs) ? new Date(newestActionMs).toISOString() : null,
+        updatedMs: newestActionMs, dayStartMs: NaN,
+      },
+    })
   }
   // Human state is durable across midnight and deliberately does not inherit candidate freshness. A
   // stale/invalid partition cannot add a positive candidate, but a readable negative decision still
   // vetoes re-entry. This keeps a current publisher copy from reversing a recent human action.
-  for (const partition of humanPartitions) {
+  for (const { name, partition } of humanPartitions) {
     for (const row of partition.rows) {
-      if (!row || (!row.consumed && !row.dismissed)) continue
-      const eventId = typeof row.event_id === 'string' && EVENT_ID_RE.test(row.event_id)
-        ? row.event_id
-        : typeof row.headline === 'string' && row.headline && typeof row.url === 'string' && row.url
-          ? eventIdFor(row.headline, row.url) : ''
-      const vetoKeys = ideaHumanVetoKeys({
-        event_id: eventId,
+      if (!row) continue
+      const persistedEventId = typeof row.event_id === 'string' && EVENT_ID_RE.test(row.event_id) ? row.event_id : ''
+      const derivedEventId = typeof row.headline === 'string' && row.headline && typeof row.url === 'string' && row.url
+        ? eventIdFor(row.headline, row.url) : ''
+      const exactEventIds = new Set([persistedEventId, derivedEventId].filter(Boolean))
+      // In-place publisher rewrites can retain a persisted event id while the visible headline+URL now
+      // derives a second identity. Both are authoritative negative aliases: choosing one would leave a
+      // gap through which the other namespace could resurrect the human-vetoed observation.
+      const vetoKeys = [...new Set([
+        ...ideaHumanVetoKeys({
         dedup_group: typeof row.dedup_group === 'string' && row.dedup_group.trim() ? row.dedup_group.trim() : undefined,
         url: row.url,
-      })
+        }),
+        ...[...exactEventIds].flatMap((event_id) => ideaHumanVetoKeys({ event_id })),
+      ])]
+      // Human identity is a connected component, not a one-hop lookup. Historical ordinary rows can be
+      // the only durable bridge between an old action and a current second-hop publisher copy, so fold
+      // every readable row into the alias graph without making stale rows positive candidates.
+      if (vetoKeys.length) connectAliases(vetoKeys)
+      if (!row.consumed && !row.dismissed && !row.launched_signal_id) continue
       if (!vetoKeys.length) {
         // A readable JSON file can still contain a torn/legacy human-action row. Silently skipping an
         // unidentified dismissal is the same resurrection bug as skipping a corrupt partition: we no
@@ -1392,14 +1590,90 @@ export function readTopSweep(
         invalidTimeCount++
         continue
       }
-      for (const key of vetoKeys) blockedStoryIds.add(key)
+      // Current rows carry a durable clock for each human action. A row with both flags uses the later
+      // action. Legacy or malformed action clocks stay NaN, so a status rewrite cannot claim to be newer
+      // than an action whose time the engine cannot prove.
+      const actionClocks: number[] = []
+      let missingActionClock = false
+      const sourceMs = typeof row.found_at === 'string' ? parseRfc3339Ms(row.found_at) : NaN
+      const allowedSkewMs = freshness ? Math.max(0, freshness.futureSkewMs ?? 5 * 60_000) : 5 * 60_000
+      const observedRaw = typeof row.observed_at === 'string' ? row.observed_at : null
+      const observedMs = observedRaw ? parseRfc3339Ms(observedRaw) : NaN
+      const observedValid = !observedRaw || (
+        Number.isFinite(observedMs)
+        && Number.isFinite(sourceMs)
+        && observedMs + allowedSkewMs >= sourceMs
+        && (!Number.isFinite(partition.dayStartMs) || observedMs + allowedSkewMs >= partition.dayStartMs)
+        // Both are local persistence clocks written in one process. Adapter/source skew does not apply:
+        // a partition cannot have observed a revision after the partition itself was written.
+        && (!Number.isFinite(partition.updatedMs) || observedMs <= partition.updatedMs)
+        && observedMs <= humanCeiling
+      )
+      if (!observedValid) noteInvalidPartition(name, false)
+      // `observed_at` is immutable across exact refreshes. Legacy rows fall back to their source clock;
+      // an invalid persisted observation clock is never silently replaced by a more favorable one.
+      const stableObservationMs = observedRaw ? (observedValid ? observedMs : NaN) : sourceMs
+      const readActionClock = (raw: unknown): number => {
+        const value = typeof raw === 'string' ? parseRfc3339Ms(raw) : NaN
+        const valid = Number.isFinite(value)
+          && Number.isFinite(sourceMs)
+          && Number.isFinite(stableObservationMs)
+          && value + allowedSkewMs >= stableObservationMs
+          && value + allowedSkewMs >= sourceMs
+          // An action recorded in a dated partition cannot predate that storage day by years even when
+          // a corrupt legacy row carries internally consistent source/action timestamps.
+          && (!Number.isFinite(partition.dayStartMs) || value + allowedSkewMs >= partition.dayStartMs)
+          && (!Number.isFinite(partition.updatedMs) || value <= partition.updatedMs)
+          && value <= humanCeiling
+        if (!valid && typeof raw === 'string') noteInvalidPartition(name, false)
+        return valid ? value : NaN
+      }
+      if (row.dismissed) {
+        const value = readActionClock(row.dismissed_at)
+        if (Number.isFinite(value)) actionClocks.push(value)
+        else missingActionClock = true
+      }
+      if (row.consumed) {
+        const value = readActionClock(row.consumed_at)
+        if (Number.isFinite(value)) actionClocks.push(value)
+        else missingActionClock = true
+      }
+      const veto: HumanVetoRecord = {
+        keys: new Set(vetoKeys),
+        exactEventIds,
+        // A family-only legacy record can still block that family, but cannot prove a later status row is
+        // a distinct observation. Keep the exception closed unless an event id or source text anchors it.
+        // A model translation or bare event id can strengthen exact blocking, but neither proves the
+        // prior source state. The transition exception requires the original source headline itself.
+        canProveDistinct: Boolean(
+          typeof row.headline === 'string'
+          && row.headline.trim()
+          && !hasNonLatinScript(row.headline)
+          && row.source_is_english === true
+          && !(typeof row.headline_en === 'string' && row.headline_en.trim()),
+        ),
+        sourceStates: humanVetoStoryStates({ headline: typeof row.headline === 'string' ? row.headline : '' }),
+        sourceIssuer: issuerIdentity(row.companies),
+        // A candidate must post-date both the observation and the human action. This matters when the
+        // adapter clock is a few minutes ahead of the action clock but still inside allowed skew.
+        vetoMs: missingActionClock || !actionClocks.length || !Number.isFinite(stableObservationMs)
+          ? NaN
+          : Math.max(sourceMs, stableObservationMs, ...actionClocks),
+        headline: typeof row.headline === 'string' ? row.headline : '',
+        headlineEn: typeof row.headline_en === 'string' ? row.headline_en : '',
+      }
+      for (const key of veto.keys) {
+        const records = humanVetoesByKey.get(key) || []
+        records.push(veto)
+        humanVetoesByKey.set(key, records)
+      }
     }
   }
 
   const candidates = partitions
     .flatMap((partition) => partition.rows
-      .filter((row) => row && row.url && !row.consumed && !row.dismissed && typeof row.triage_score === 'number')
-      .map((row) => ({ row, sweepUpdatedAt: partition.updatedAt || '' })))
+      .filter((row) => row && row.url && !row.consumed && !row.dismissed && !row.launched_signal_id && typeof row.triage_score === 'number')
+      .map((row) => ({ row, partition })))
     .sort((a, b) => (b.row.triage_score ?? -1) - (a.row.triage_score ?? -1))
   let eligible = candidates
   if (freshness) {
@@ -1416,49 +1690,192 @@ export function readTopSweep(
     if (!eligible.length && candidates.length && (staleRowCount || invalidTimeCount)) status = 'stale'
   }
   const cap = Math.max(1, Math.floor(topN))
+  const revisionClockByRow = new WeakMap<IdeaInputRow, number>()
   const wireRows = eligible
-    .map(({ row: r, sweepUpdatedAt: partitionUpdatedAt }): IdeaInputRow => ({
-      // event_id isn't stored on the inbox row; re-derive it with the CANONICAL recipe (eventIdFor over the
-      // ORIGINAL headline, lower-cased + whitespace-collapsed) so the idea's source ids match the
-      // firehose/enrich/ledger join key exactly — a bespoke hash over the translation would never line up.
-      event_id: eventIdFor(r.headline || '', r.url || ''),
-      headline: r.headline_en || r.headline || '', // display + the model prompt (English when available)
-      headline_orig: r.headline || '', // the original — anchors a promotion's SIG_ID to the wire launch
-      url: r.url || '',
-      source_name: r.source_name || '',
-      region: r.region || '',
-      materiality: Number(r.triage_score) || 0,
-      materiality_pre_score: Number.isFinite(Number(r.materiality_pre_score)) ? Number(r.materiality_pre_score) : undefined,
-      label: r.event_materiality_label || '',
-      event_types: Array.isArray(r.event_types) ? r.event_types : [],
-      issuer_linkage: r.issuer_linkage || '',
-      companies: Array.isArray(r.companies) ? r.companies : [],
-      found_at: r.found_at || partitionUpdatedAt,
-      source_tier: r.source_tier,
-      scheduled_events: Array.isArray(r.scheduled_events) ? r.scheduled_events : [],
-      event_direction: r.event_direction,
-      dedup_group: typeof r.dedup_group === 'string' && r.dedup_group.trim() ? r.dedup_group.trim() : undefined,
-      origin_type: 'wire',
-      source_themes: [],
-      theme_expressions: [],
-    }))
+    .map(({ row: r, partition }): IdeaInputRow => {
+      const ideaRow: IdeaInputRow = {
+        // event_id isn't stored on the inbox row; re-derive it with the CANONICAL recipe (eventIdFor over the
+        // ORIGINAL headline, lower-cased + whitespace-collapsed) so the idea's source ids match the
+        // firehose/enrich/ledger join key exactly — a bespoke hash over the translation would never line up.
+        event_id: eventIdFor(r.headline || '', r.url || ''),
+        headline: r.headline_en || r.headline || '', // display + the model prompt (English when available)
+        headline_orig: r.headline || '', // the original — anchors a promotion's SIG_ID to the wire launch
+        url: r.url || '',
+        source_name: r.source_name || '',
+        region: r.region || '',
+        materiality: Number(r.triage_score) || 0,
+        materiality_pre_score: Number.isFinite(Number(r.materiality_pre_score)) ? Number(r.materiality_pre_score) : undefined,
+        label: r.event_materiality_label || '',
+        event_types: Array.isArray(r.event_types) ? r.event_types : [],
+        issuer_linkage: r.issuer_linkage || '',
+        companies: Array.isArray(r.companies) ? r.companies : [],
+        found_at: r.found_at || partition.updatedAt || '',
+        observed_at: typeof r.observed_at === 'string' ? r.observed_at : undefined,
+        source_is_english: r.source_is_english === true ? true : undefined,
+        source_tier: r.source_tier,
+        scheduled_events: Array.isArray(r.scheduled_events) ? r.scheduled_events : [],
+        event_direction: r.event_direction,
+        dedup_group: typeof r.dedup_group === 'string' && r.dedup_group.trim() ? r.dedup_group.trim() : undefined,
+        origin_type: 'wire',
+        source_themes: [],
+        theme_expressions: [],
+      }
+      const sourceMs = parseRfc3339Ms(ideaRow.found_at)
+      const observedRaw = ideaRow.observed_at
+      const allowedSkewMs = freshness ? Math.max(0, freshness.futureSkewMs ?? 5 * 60_000) : 5 * 60_000
+      if (!observedRaw) {
+        // A provider timestamp cannot order two revisions against a local consume/dismiss action. Only
+        // the immutable first-seen clock written when a distinct revision lands may open the exception;
+        // legacy rows remain visible when unvetoed but fail closed for a matching human alias.
+        revisionClockByRow.set(ideaRow, NaN)
+      } else {
+        const observedMs = parseRfc3339Ms(observedRaw)
+        const valid = Number.isFinite(observedMs)
+          && Number.isFinite(sourceMs)
+          && observedMs + allowedSkewMs >= sourceMs
+          && (!Number.isFinite(partition.dayStartMs) || observedMs + allowedSkewMs >= partition.dayStartMs)
+          && (!Number.isFinite(partition.updatedMs) || observedMs <= partition.updatedMs)
+          && observedMs <= humanCeiling
+        if (!valid) noteInvalidPartition(partition.name, false)
+        revisionClockByRow.set(ideaRow, valid ? observedMs : NaN)
+      }
+      return ideaRow
+    })
+  const sameVetoObservation = (row: IdeaInputRow, veto: HumanVetoRecord): boolean => {
+    const forcedFamily = '__human_veto_observation__'
+    const exactText = (left: string, right: string): boolean => Boolean(left && right && sameThemeStoryObservation(
+      { dedup_group: forcedFamily, event_id: '__candidate__', headline: left },
+      { dedup_group: forcedFamily, event_id: '__veto__', headline: right },
+    ))
+    const candidateTexts = [...new Set([row.headline_orig, row.headline].filter(Boolean))]
+    const vetoTexts = [...new Set([veto.headline, veto.headlineEn].filter(Boolean))]
+    return candidateTexts.some((candidate) => vetoTexts.some((prior) => exactText(candidate, prior)))
+  }
+  const revisionClockForRow = (row: IdeaInputRow): number => {
+    const mapped = revisionClockByRow.get(row)
+    if (mapped !== undefined) return mapped
+    const sourceMs = parseRfc3339Ms(row.found_at)
+    // Theme/legacy rows have no daily-partition wrapper at this boundary. Without a persisted first-seen
+    // clock they cannot prove that a state revision post-dated the human action.
+    if (!row.observed_at) return NaN
+    const observedMs = parseRfc3339Ms(row.observed_at)
+    const observedByMs = parseRfc3339Ms(row.observed_by_at)
+    const allowedSkewMs = freshness ? Math.max(0, freshness.futureSkewMs ?? 5 * 60_000) : 5 * 60_000
+    // Theme reserve rows have no daily inbox wrapper here, but their persisted member carries the same
+    // immutable source/first-seen pair. Validate that pair and the request ceiling; any malformed clock
+    // stays unable to overturn a human veto.
+    return Number.isFinite(observedMs)
+      && Number.isFinite(sourceMs)
+      && observedMs + allowedSkewMs >= sourceMs
+      && Number.isFinite(observedByMs)
+      // Theme first-seen and index-generation clocks are both local. The index cannot prove an
+      // observation that claims to occur after it was generated.
+      && observedMs <= observedByMs
+      && observedByMs <= humanCeiling
+      && observedMs <= humanCeiling
+      ? observedMs
+      : NaN
+  }
+  const vetoAliasesByEvent = new Map<string, Set<string>>()
+  const addVetoAliases = (row: IdeaInputRow): void => {
+    if (!row.event_id) return
+    const aliases = vetoAliasesByEvent.get(row.event_id) || new Set<string>()
+    for (const key of ideaHumanVetoKeys(row)) aliases.add(key)
+    vetoAliasesByEvent.set(row.event_id, aliases)
+    connectAliases(aliases)
+  }
+  // Union every persisted representation before filtering. Otherwise a grouped copy could be vetoed
+  // while the same event from an overlapping partition or legacy Theme (with its family omitted) slipped
+  // through under the weaker alias set.
+  for (const row of wireRows) addVetoAliases(row)
+
+  let humanVetoesByRoot = new Map<string, HumanVetoRecord[]>()
+  const reindexHumanVetoes = (): void => {
+    humanVetoesByRoot = new Map()
+    const records = new Set([...humanVetoesByKey.values()].flat())
+    for (const veto of records) {
+      const roots = new Set([...veto.keys].map(aliasFind))
+      for (const root of roots) {
+        const group = humanVetoesByRoot.get(root) || []
+        group.push(veto)
+        humanVetoesByRoot.set(root, group)
+      }
+    }
+  }
+  const blockedByHumanVeto = (row: IdeaInputRow): boolean => {
+    const matches = new Set<HumanVetoRecord>()
+    const candidateKeys = new Set([
+      ...ideaHumanVetoKeys(row),
+      ...(vetoAliasesByEvent.get(row.event_id) || []),
+    ])
+    for (const key of candidateKeys) {
+      for (const veto of humanVetoesByRoot.get(aliasFind(key)) || []) matches.add(veto)
+    }
+    if (!matches.size) return false
+    // A model-authored translation may improve display, but it cannot overturn a human decision. The
+    // status exception is proven only from the source headline; unknown source-language grammar stays
+    // fail-closed until a deterministic native-language parser exists.
+    const sourceHeadline = row.headline_orig || ''
+    const states = humanVetoStoryStates({ headline: sourceHeadline })
+    const candidateIssuer = issuerIdentity(row.companies)
+    const sourceProvenEnglish = Boolean(
+      sourceHeadline.trim()
+      && row.source_is_english === true
+      && !hasNonLatinScript(sourceHeadline)
+      && row.headline === sourceHeadline,
+    )
+    const rowMs = revisionClockForRow(row)
+    // Exact observations remain vetoed. A broad family/URL veto may admit only a distinct, source-later
+    // adverse or restorative update. Ambiguous `other` rewrites and bad/equal clocks fail closed, and a
+    // candidate must clear every matching human action rather than slipping past an older alias.
+    return [...matches].some((veto) => (
+      veto.exactEventIds.has(row.event_id)
+      || !veto.canProveDistinct
+      || !sourceProvenEnglish
+      || issuerIdentityConflicts(veto.sourceIssuer, candidateIssuer, veto.headline, sourceHeadline)
+      || sameVetoObservation(row, veto)
+      // The source bytes on both sides must prove one of the deliberately small status transitions.
+      // Unknown grammar, generic "Correction:", unrelated denial/resumption, and same-state paraphrases
+      // remain vetoed. This chooses omission over letting finite status vocabulary undo a human action.
+      || ![...veto.sourceStates].some(([object, priorState]) => {
+        const state = states.get(object)
+        return (priorState === 'positive' && state === 'adverse')
+          || (priorState === 'adverse' && state === 'restorative')
+          || (priorState === 'restorative' && state === 'adverse')
+      })
+      || !Number.isFinite(rowMs)
+      || !Number.isFinite(veto.vetoMs)
+      || rowMs <= veto.vetoMs
+    ))
+  }
   // Human state applies to the ordinary wire as well as the Theme reserve. A current unconsumed
-  // publisher copy cannot resurrect a prior-day consumed/dismissed canonical event or story alias.
+  // publisher copy cannot resurrect a prior-day consumed/dismissed canonical event or story alias. A
+  // genuinely later correction/retraction is new evidence, however, and must be allowed to challenge the
+  // thesis; the guarded helper above distinguishes that update from an ordinary publisher rewrite.
   // For any prompt larger than one row, no single story family may consume every slot. A separate filing
   // or event must remain eligible even when one story emits many correction/status observations.
   const maxWireObservationsPerFamily = cap > 1
     ? Math.min(MAX_IDEA_OBSERVATIONS_PER_STORY_FAMILY, cap - 1)
     : 1
-  const ordinaryWireRows = selectIdeaRows(wireRows.filter((row) => (
-    !ideaHumanVetoKeys(row).some((key) => blockedStoryIds.has(key))
-  )), cap, maxWireObservationsPerFamily)
   const reserveCap = Math.floor(cap / 3)
   // Themes may widen a healthy wire input; they may never manufacture one. In particular, a cached theme
   // must not turn a stale/corrupt sweep or the provider's fewer-than-two-row refusal into a paid call.
-  const themeRows = freshness?.themesEnabled !== false && status === 'ok' && ordinaryWireRows.length >= 2 && reserveCap > 0
-    ? readActionableThemeRows(repoRoot, freshness, sweepMs).filter((row) => {
-      return !ideaHumanVetoKeys(row).some((key) => blockedStoryIds.has(key))
-    })
+  // Read the bounded Theme reserve before either projection is veto-filtered so exact-event aliases can
+  // be unioned symmetrically. A grouped Theme copy must block an otherwise ungrouped wire copy just as a
+  // grouped wire copy blocks a weaker legacy Theme representation.
+  const rawThemeRows = freshness?.themesEnabled !== false && status === 'ok' && wireRows.length >= 2 && reserveCap > 0
+    ? readActionableThemeRows(repoRoot, freshness, sweepMs, new Map(wireRows.map((row) => [row.event_id, {
+      dedup_group: row.dedup_group,
+      found_at: row.found_at,
+      observed_at: row.observed_at,
+      source_is_english: row.source_is_english,
+    }])), (member) => connectAliases(ideaHumanVetoKeys(member)))
+    : []
+  for (const row of rawThemeRows) addVetoAliases(row)
+  reindexHumanVetoes()
+  const ordinaryWireRows = selectIdeaRows(wireRows.filter((row) => !blockedByHumanVeto(row)), cap, maxWireObservationsPerFamily)
+  const themeRows = ordinaryWireRows.length >= 2
+    ? rawThemeRows.filter((row) => !blockedByHumanVeto(row))
     : []
 
   // Admission is checked against the ACTUAL final row count, not only `topN`: a sparse two-row wire plus
