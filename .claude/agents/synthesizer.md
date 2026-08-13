@@ -652,7 +652,7 @@ Summarize from the module's synthesis:
 - The **Red-Flag Register** — carry every Critical or High governance red flag (with its Red Flag ID, including the new RF-PPL/AUD/CL/ACC/CMP families) into the **Risk Register (§9)**, and every Critical one into **What Would Kill the Thesis (§10)**.
 - Any hard disqualifier flagged by `business-model/01_disqualifier-scan` (verbatim).
 
-**Verdict-lock:** if the governance module's **Non-Negotiable Gate is FAIL** — equivalently, it reports a hard disqualifier, a Critical governance red flag, a Disqualifying-graded controller/KMP, or a material undisclosed matter — the headline rating in §1 cannot be "Strong Buy" or "Buy": cap it at "Watchlist" or lower and state which gate condition tripped (a forensic short built on the same evidence remains a valid "Short Candidate" — the lock guards conviction longs, not a thesis that the governance is broken). If the module did not run, treat governance as an unresolved residual risk and apply the governance confidence cap.
+**Verdict-lock:** if the governance module's **Non-Negotiable Gate is FAIL** — equivalently, it reports a hard disqualifier, a Critical governance red flag, a Disqualifying-graded controller/CEO/CFO/chair, or a material undisclosed matter — the headline rating in §1 cannot be "Strong Buy" or "Buy": cap it at "Watchlist" or lower and state which gate condition tripped (a forensic short built on the same evidence remains a valid "Short Candidate" — the lock guards conviction longs, not a thesis that the governance is broken). If the module did not run, treat governance as an unresolved residual risk and apply the governance confidence cap.
 
 ## 9A. Bull Case — Steelman *(fix F37/F38)*
 

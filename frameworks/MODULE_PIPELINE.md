@@ -289,6 +289,16 @@ PY
 
 If the script errors for any reason, record the module dossier as `failed` and continue — never abort the module over a derived tier.
 
+### Step 4.9C — Persist the synthesis's labelled sidecar exports (generic, any module)
+
+Some modules' `99_*-synthesis.md` emit machine-readable exports as fenced code blocks, each **labelled with a target filename** (e.g. a `governance_summary.json`, a `people_register.csv`) — the synthesis names the file the block should be written to, alongside the block. These structured sidecars are a first-class module output, not a derived tier, and they must be written on EVERY run that produced a synthesis — a full `/research:full` run, a standalone `/research:<module>` run, or a `/research:rerun` — never only when a module's own standalone command happens to extract them. This step makes that extraction part of the shared pipeline so it is zero-touch for any current or future module (CLAUDE.md §26): whatever filenames a module's synthesis labels, the pipeline writes them; nothing here is hardcoded to a specific module or a specific filename.
+
+Run this step whenever `<RUN_ROOT>/<MODULE>/99_*-synthesis.md` exists (resolve it via Glob; do not hardcode the name). It runs independently of deferred-memo mode — always do it. It is **best-effort**: a failure is recorded for the caller but never aborts the module.
+
+Read the resolved `99_*-synthesis.md` and scan it for fenced code blocks that are each labelled with a target filename (the label may be the fence info-string, an immediately preceding line, or the enclosing bullet/heading that names the file — e.g. a `` ```json `` block introduced by a `governance_summary.json` label). For every such labelled block, write the block's verbatim contents to `<RUN_ROOT>/<MODULE>/<filename>` under that exact filename (the module folder already exists). Do NOT invent, reorder, or reformat the contents — persist exactly what the synthesis emitted. Skip (and record as a missing output) any block the synthesis marked "pending" or left un-labelled; a block whose label is not a plain filename is not persisted. Overwrite an existing same-named file from this run's synthesis. The Step 4.9B module dossier concatenates only `*.md` artifacts, so these `.json`/`.csv` sidecars are never swept into it, and the subsequent `git add` of the module folder (owned by the caller) picks up whatever sidecars were written.
+
+If extraction fails for any block, record that filename as `failed`/missing and continue — never abort the module over a structured sidecar.
+
 ---
 
 ## Step 5 — Return status to the caller

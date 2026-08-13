@@ -205,6 +205,8 @@ If specialists disagreed (e.g., good capital-allocation record but misaligned in
 | Checklist coverage <50% | | Data quality; Confidence | each max 60 | | | |
 | No auditor-fee / audit-detail disclosure (A4-06/07 N-A) | | Audit & assurance quality; Confidence | AuditAssurance max 65; Confidence max 80 | | | |
 | Legal-database sweep did not run (07/12 coverage-limited) | | People integrity; Legal & regulatory risk; Confidence | PeopleIntegrity max 65; LegalRisk floor 40; Confidence max 70 | | | |
+| No related-party note / RPT disclosure (A5 not quantifiable) | | RPT & leakage risk; Confidence | RPTRisk floor 40; Confidence max 80 | | | |
+| No contingent-liability note (A7a not quantifiable) | | Contingent-liability risk; Confidence | ContingentRisk floor 40; Confidence max 80 | | | |
 | Disqualifying-graded controller / CEO / CFO / chair (07) | | Gate; Governance risk; verdict | GATE FAIL; GovRisk floor 80; rating ≤ "Weak"; verdict ≤ "Serious governance concerns" | | | |
 | Material-concerns grade on a controller/KMP, unresolved (07) | | People integrity; Governance risk | PeopleIntegrity max 50; GovRisk floor 55; no rating above "Watchlist" | | | |
 | Undisclosed material litigation / related entity found (RF-CMP-001 / RF-PPL-005) | | Disclosure candor; Governance risk | Candor max 50; GovRisk floor 60 | | | |

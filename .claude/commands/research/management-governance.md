@@ -80,7 +80,9 @@ This is the standalone behavior. Under `/research:full`, fail-fast in one module
 
 ## 6B. Write structured sidecar outputs
 
-After the synthesizer (`99`) completes, extract the fenced code blocks it emitted (its Section 9, labeled `governance_summary.json`, `governance_checklist.csv`, `people_register.csv`, `governance_findings.csv`, `red_flags.csv`, `source_log.csv`) and Write each to `analyses/${ARGUMENTS}_<DATE>/management-governance/` under that exact filename. Also write `source_manifest.csv` from the triage (`00`) Source Coverage Matrix / Data Freshness tables if present. For any block the synthesizer marked "pending" or did not emit, skip that file and record it as a missing output. (Subagents return inline; the orchestrator owns this file IO. The step-7 `git add` of the module folder will include whatever sidecars were written.)
+The synthesizer's labelled sidecar exports (its Section 9 fenced blocks — `governance_summary.json`, `governance_checklist.csv`, `people_register.csv`, `governance_findings.csv`, `red_flags.csv`, `source_log.csv`) are extracted and written to `analyses/${ARGUMENTS}_<DATE>/management-governance/` by the shared pipeline generically (`frameworks/MODULE_PIPELINE.md` Step 4.9C, which persists whatever filenames any module's `99_*-synthesis.md` labels) — do NOT re-extract them here, so full runs and standalone runs behave identically.
+
+This command additionally writes `source_manifest.csv` from the triage (`00`) Source Coverage Matrix / Data Freshness tables if present — it is derived from the `00` triage, not a `99`-labelled fenced block, so the pipeline's generic step does not cover it. Write it to the same module folder. (Subagents return inline; the orchestrator owns this file IO. The step-7 `git add` of the module folder will include whatever sidecars were written.)
 
 ## 7. Commit and push to main
 
