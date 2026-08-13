@@ -8,7 +8,10 @@ function check(name: string, cond: boolean, detail = '') {
   else { console.error(`FAIL  ${name}  ${detail}`); process.exitCode = 1 }
 }
 
-const { parseDiscovered, usableSourceUrl, buildDiscoverPrompt, openDiscoverNeeds } = await import('../src/pipeline-discover')
+const {
+  admitDiscoveredForOpenNeeds, buildDiscoverPrompt, discoverWant, openDiscoverNeeds, parseDiscovered,
+  parseDiscoveryResult, planTargetedNeedLookup, shouldSkipFeedDiscovery, usableSourceUrl,
+} = await import('../src/pipeline-discover')
 
 const needs = [
   { need_id: 'open', filing_required: false },
@@ -18,6 +21,12 @@ const needs = [
 check('discovery receives only open connector-eligible needs',
   openDiscoverNeeds(needs).map((need: any) => need.need_id).join(',') === 'open')
 check('a targeted already-closed need is not smuggled back into discovery', openDiscoverNeeds(needs, 'closed').length === 0)
+check('targeted discovery ignores a client steer and derives series + reason from the open need',
+  discoverWant('look somewhere unrelated', [{ need_id: 'open', series: 'Official units', why_it_caps: 'Caps the volume case.' } as any], 'open')
+    === 'Official units — Caps the volume case.')
+check('general discovery retains the trimmed user steer', discoverWant('  inventory data  ', needs as any[]) === 'inventory data')
+check('general discovery still runs without structured needs while an unknown targeted need stops cleanly',
+  !shouldSkipFeedDiscovery([], null) && shouldSkipFeedDiscovery([], 'missing'))
 
 // ── usableSourceUrl: pure structural admission; DNS is checked before persistence/dispatch ──
 check('accepts an https URL', usableSourceUrl('https://api.example.com/v1/data') === 'https://api.example.com/v1/data')
@@ -57,6 +66,57 @@ check('the host is re-derived from the URL, not trusted from the model', feeds[0
 check('the verdict is sanitized (tier stays in band)', feeds[0].verdict.tier === 5 && feeds[1].verdict.tier === 9)
 check('why is carried through', feeds[0].why === 'fills the gap')
 
+// ── server-owned need admission: model ids/modules never decide persistence ──
+const openNeed = {
+  need_id: 'need-a', series: 'A daily series', why_it_caps: 'caps', filing_required: false,
+  entry_modules: ['real-module'], suggested_source: { name: 'Body', acquisition: 'official_api' },
+  tier: 5, cadence: 'daily',
+} as any
+const exactClaim = feeds[0]
+exactClaim.verdict.matched_need_ids = ['hallucinated-need', 'need-a']
+exactClaim.verdict.entry_modules = ['hallucinated-module']
+const admitted = admitDiscoveredForOpenNeeds(exactClaim, [openNeed], 'need-a')
+check('targeted exact candidate intersects current need ids and derives modules from the need',
+  admitted?.verdict.matched_need_ids.join(',') === 'need-a'
+  && admitted.verdict.entry_modules.join(',') === 'real-module')
+check('admission does not impose an arbitrary confidence threshold', (() => {
+  const low = { ...exactClaim, verdict: { ...exactClaim.verdict, confidence: 0, buildable: true } }
+  return admitDiscoveredForOpenNeeds(low, [openNeed], 'need-a') !== null
+})())
+check('hallucinated need ids cannot persist', (() => {
+  const hallucinated = { ...exactClaim, verdict: { ...exactClaim.verdict, matched_need_ids: ['not-open'] } }
+  return admitDiscoveredForOpenNeeds(hallucinated, [openNeed], 'need-a') === null
+})())
+check('targeted partial candidates cannot persist, while an exact manual link may answer lookup without enabling build', (() => {
+  const partial = { ...exactClaim, verdict: { ...exactClaim.verdict, relevance: 'partial' as const } }
+  const blocked = { ...exactClaim, verdict: { ...exactClaim.verdict, buildable: false } }
+  return admitDiscoveredForOpenNeeds(partial, [openNeed], 'need-a') === null
+    && admitDiscoveredForOpenNeeds(blocked, [openNeed], 'need-a')?.verdict.buildable === false
+})())
+check('general discovery keeps a relevant partial and derives only server-owned routing', (() => {
+  const partial = { ...exactClaim, verdict: { ...exactClaim.verdict, relevance: 'partial' as const } }
+  const result = admitDiscoveredForOpenNeeds(partial, [openNeed])
+  return result?.verdict.relevance === 'partial'
+    && result.verdict.matched_need_ids.join(',') === 'need-a'
+    && result.verdict.entry_modules.join(',') === 'real-module'
+})())
+check('general discovery without a matching structured need persists an unscoped candidate', (() => {
+  const result = admitDiscoveredForOpenNeeds(exactClaim, [])
+  return result?.verdict.matched_need_ids.length === 0 && result.verdict.entry_modules.length === 0
+})())
+check('clean targeted no-result is distinct from error, abort, disconnect, and freeform', (() => {
+  const noResult = planTargetedNeedLookup(openNeed, 'completed', null)
+  const foundResult = planTargetedNeedLookup(openNeed, 'completed', {
+    pipelineId: 'PIPE-20260813-aaaaaaaa', publicUrl: 'https://api.good.com/series', note: 'exact',
+  })
+  return noResult?.lookup_status === 'could_not_find'
+    && foundResult?.lookup_status === 'public_link_found'
+    && planTargetedNeedLookup(openNeed, 'error', null) === null
+    && planTargetedNeedLookup(openNeed, 'aborted', null) === null
+    && planTargetedNeedLookup(openNeed, 'disconnected', null) === null
+    && planTargetedNeedLookup(undefined, 'completed', null) === null
+})())
+
 // ── a candidate with no usable URL is dropped ──
 const oneBad = JSON.stringify({ feeds: [
   { source_url: 'not a url', series: 'junk', buildable: true },
@@ -81,6 +141,11 @@ check('an object with no feeds array → []', parseDiscovered(JSON.stringify({ n
 check('no JSON at all → []', parseDiscovered('the search found nothing worth wiring').length === 0)
 check('empty string → []', parseDiscovered('').length === 0)
 check('feeds not an array → []', parseDiscovered(JSON.stringify({ feeds: 'nope' })).length === 0)
+check('invalid output is distinct from a valid empty result',
+  parseDiscoveryResult('{"feeds":[]}').valid === true
+  && parseDiscoveryResult('{"feeds":[]}').rejected === 0
+  && parseDiscoveryResult('{"nope":true}').valid === false
+  && parseDiscoveryResult('{"feeds":[{"source_url":"not a url"}]}').rejected === 1)
 
 // ── the prompt: security boundary + the inputs it must carry ──
 const prompt = buildDiscoverPrompt({
@@ -94,6 +159,8 @@ check('prompt carries the open need', prompt.includes('need-x'))
 check('prompt lists what is already wired (do-not-duplicate)', prompt.includes('Existing feed'))
 check('prompt carries the user steer', prompt.includes('inventory data'))
 check('prompt forbids tiers 1-4 (a feed is not a filing)', /NEVER 1-4/.test(prompt))
+check('prompt narrows access claims to public reachability',
+  prompt.includes('Public reachability is the only access claim') && prompt.includes('never claim that a source is licensed'))
 check('prompt can discover every slow connector cadence without collapsing it to monthly',
   ['twelve_hourly', 'quarterly', 'semiannual', 'annual'].every((cadence) => prompt.includes(cadence)))
 

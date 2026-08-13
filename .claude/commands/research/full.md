@@ -883,6 +883,20 @@ PY
 
 Record the printed `GATE-EXPECTATIONS:` line for step 11 ("Integrity gate") and step 13. This carries the same weight as the 10B.1/10B.2 stamps — a `PROVISIONAL` result here means a confident rating shipped with no independently-confirmed variant perception, the exact "fake variant perception" CLAUDE.md §7 bans.
 
+### 10B.3-prewrite — Validate decision-guidance routes before sealing
+
+For a fresh, still-unsealed run, validate the exact final `decision_record.json` against the versioned
+data-needs contract and today's self-discovered research orb roster:
+
+```bash
+python3 scripts/eval.py --data-needs-prewrite "<RUN_ROOT>/decision_record.json"
+```
+
+On `DATA-NEEDS-PREWRITE: FAIL`, STOP before 10B.3A, manifest creation, admission, or commit. Fix the
+unsealed decision record by rerunning the synthesizer; do not delete a valid need just to pass. This gate
+is deliberately creation-time only. A sealed/recovery path never regrades an immutable historical route
+against today's mutable roster.
+
 ### 10B.3A — Final immutable audit set
 
 The propagation and provisional-stamp steps above mutate `decision_record.json` and/or `final_thesis.md`

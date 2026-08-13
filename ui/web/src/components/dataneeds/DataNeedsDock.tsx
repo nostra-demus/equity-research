@@ -1,61 +1,108 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react'
+import { api } from '../../lib/api'
 import { useStore } from '../../lib/store'
 import type { DataNeed } from '../../lib/types'
-import { ACQ_LABEL, CADENCE_LABEL } from '../../lib/labels'
+import { DataNeedsPanel, type NeedSearchState } from './DataNeedsDockView'
 import './DataNeedsDock.css'
 
-// The "Data needs" dock: the external data series the run's terminal synthesizer said were capping conviction,
-// surfaced so a durable connector can be built to feed them in. This is the ENTRY POINT to the Data Pipeline
-// builder — each connector-eligible need has a "Build a feed →" that opens the panel focused on it, and a need
-// a connector already satisfies shows "feed built ✓" (the loop closed). A per-run advisory surface, top-right
-// of the constellation. Gated GENERICALLY on the presence of needs — never a swarm id — so research + commodity
-// both get it the moment their synthesizer emits data_needs[]. Deploy-skew fail-closed: an old server returns
-// none (or no field) → nothing renders.
-export function DataNeedsDock() {
-  const read = useStore((s) => s.dataNeeds)
-  const openPipeline = useStore((s) => s.openDataPipeline)
-  const [open, setOpen] = useState(true)
-  const needs = read?.needs ?? []
-  if (!needs.length) return null
-  return (
-    <div className="dneeds">
-      <button className="dneeds__head" onClick={() => setOpen((o) => !o)} aria-expanded={open}>
-        <span className="dneeds__chev" data-open={open} aria-hidden>▸</span>
-        <span className="dneeds__title">Data needs</span>
-        <span className="dneeds__count">{needs.length} to feed in</span>
-      </button>
-      {open && (
-        <div className="dneeds__body">
-          {needs.map((n, i) => <NeedCard key={n.need_id} need={n} i={i} onBuild={() => openPipeline(n.need_id)} />)}
-          <button className="dneeds__add" onClick={() => openPipeline()}>＋ Add a source →</button>
-        </div>
-      )}
-    </div>
-  )
+function searchErrorMessage(message: string): string {
+  if (message === 'static-deploy') return 'Finding a source needs the live engine.'
+  if (message === 'selected-decision-contract-unavailable') return 'Refresh this call before searching.'
+  if (message === 'selected-decision-changed') return 'This call changed while searching. Refresh and try again.'
+  return message ? `Search failed: ${message}` : 'Search failed. Try again.'
 }
 
-function NeedCard({ need, i, onBuild }: { need: DataNeed; i: number; onBuild: () => void }) {
-  const src = need.suggested_source
+// The selected call's evidence gaps. The server owns ranking and lookup truth: v2 needs arrive in priority
+// order, while source_lookup exists only after a clean targeted search. The dock never upgrades a source
+// suggestion, a partial candidate, or a failed request into a public-link/no-result claim.
+export function DataNeedsDock() {
+  const read = useStore((s) => s.dataNeeds)
+  const refreshDataNeeds = useStore((s) => s.refreshDataNeeds)
+  const decisionDockHeight = useStore((s) => s.stageDockH)
+  const [open, setOpen] = useState(true)
+  const [searchByNeed, setSearchByNeed] = useState<Record<string, NeedSearchState>>({})
+  const searchAborts = useRef(new Map<string, AbortController>())
+  const selectionKey = read ? `${read.swarm}\n${read.subject}\n${read.run_root}\n${read.decision_fingerprint}` : ''
+  const selectionKeyRef = useRef(selectionKey)
+  selectionKeyRef.current = selectionKey
+  const needs = read?.needs ?? []
+
+  useEffect(() => {
+    // A subject switch invalidates every in-flight lookup and every local error from the previous call.
+    for (const controller of searchAborts.current.values()) controller.abort()
+    searchAborts.current.clear()
+    setSearchByNeed({})
+  }, [read?.subject, read?.swarm, read?.run_root, read?.decision_fingerprint])
+  useEffect(() => () => {
+    for (const controller of searchAborts.current.values()) controller.abort()
+  }, [])
+
+  const findPublicSource = useCallback((need: DataNeed) => {
+    if (!read || need.filing_required || need.built_by || searchByNeed[need.need_id]?.status === 'searching') return
+    const controller = new AbortController()
+    const startedFor = selectionKey
+    searchAborts.current.get(need.need_id)?.abort()
+    searchAborts.current.set(need.need_id, controller)
+    setSearchByNeed((current) => ({ ...current, [need.need_id]: { status: 'searching' } }))
+
+    let terminal = false
+    const isCurrent = () => searchAborts.current.get(need.need_id) === controller
+      && selectionKeyRef.current === startedFor
+    void api.pipelineDiscoverStream(read.subject, read.swarm, {
+      need_id: need.need_id,
+      runRoot: read.run_root,
+      decisionFingerprint: read.decision_fingerprint,
+      want: need.series,
+      autoBuild: false,
+    }, {
+      signal: controller.signal,
+      // A streamed candidate is not the lookup verdict. The server admits the URL, requires an exact match,
+      // persists the terminal result, and only then sends done; render that refreshed projection below.
+      onFound: () => {},
+      onDone: () => {
+        if (!isCurrent()) return
+        terminal = true
+        searchAborts.current.delete(need.need_id)
+        void refreshDataNeeds(read.run_root).finally(() => {
+          setSearchByNeed((current) => {
+            if (current[need.need_id]?.status !== 'searching') return current
+            const next = { ...current }
+            delete next[need.need_id]
+            return next
+          })
+        })
+      },
+      onError: (message) => {
+        if (!isCurrent()) return
+        terminal = true
+        searchAborts.current.delete(need.need_id)
+        setSearchByNeed((current) => ({
+          ...current,
+          [need.need_id]: { status: 'error', message: searchErrorMessage(message) },
+        }))
+      },
+      onEnd: () => {
+        if (terminal || controller.signal.aborted || !isCurrent()) return
+        searchAborts.current.delete(need.need_id)
+        setSearchByNeed((current) => ({
+          ...current,
+          [need.need_id]: { status: 'error', message: 'Search ended before a result was recorded. Try again.' },
+        }))
+      },
+    })
+  }, [read, refreshDataNeeds, searchByNeed, selectionKey])
+
+  if (!read) return null
   return (
-    <div className={`dneed${need.filing_required ? ' dneed--filing' : ''}`} style={{ '--i': i } as React.CSSProperties}>
-      <div className="dneed__top">
-        <span className="dneed__series">{need.series}</span>
-        <span className="dneed__tier" title={`§4 source tier ${need.tier} — a live feed, never a filing`}>tier {need.tier}</span>
-      </div>
-      <p className="dneed__why">{need.why_it_caps}</p>
-      <div className="dneed__meta">
-        <span className="dneed__src" title={src.licensing ? `licensing: ${src.licensing}` : undefined}>
-          {src.name || 'source t.b.d.'}<span className="dneed__acq"> · {ACQ_LABEL[src.acquisition] ?? src.acquisition}</span>
-        </span>
-        <span className="dneed__cadence">{CADENCE_LABEL[need.cadence] ?? need.cadence}{need.next_release ? ` · ${need.next_release}` : ''}</span>
-        {need.built_by ? (
-          <span className="dneed__built" title={`A connector (${need.built_by}) already feeds this need.`}>feed built ✓</span>
-        ) : need.filing_required ? (
-          <span className="dneed__flag" title="Only a statutory filing can close this — no connector can satisfy it.">filing · advisory</span>
-        ) : (
-          <button className="dneed__build" title="Add a source and build a durable feed for this need" onClick={onBuild}>Build a feed →</button>
-        )}
-      </div>
-    </div>
+    <DataNeedsPanel
+      needs={needs}
+      integrityWarnings={read.widened}
+      schemaVersion={read.data_needs_schema_version}
+      open={open}
+      style={{ '--dneeds-bottom-reserve': `${Math.max(18, decisionDockHeight + 12)}px` } as CSSProperties}
+      searchByNeed={searchByNeed}
+      onToggle={() => setOpen((value) => !value)}
+      onSearch={findPublicSource}
+    />
   )
 }

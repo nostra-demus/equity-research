@@ -9,6 +9,10 @@ import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, 
 
 // Vite supplies `import.meta.env` in the app; standalone tsx regression tests do not.
 const BASE = import.meta.env?.BASE_URL || '/'
+// The first data-needs read warms filesystem/manifest caches and has been observed at ~14s on the
+// always-on host. Keep this bounded, but above that measured cold path so a healthy engine is not
+// mistaken for an empty decision contract.
+export const DATA_NEEDS_CLIENT_TIMEOUT_MS = 20_000
 
 // ---- live/static mode detection ----
 // Local dev (Fastify backend up) -> live. Cloudflare Pages (no backend) -> static snapshot, read-only.
@@ -891,14 +895,23 @@ export const api = {
     }
   },
 
-  dataNeeds: async (subject: string, swarm: string): Promise<DataNeedsRead | null> => {
+  dataNeeds: async (subject: string, swarm: string, runRoot?: string): Promise<DataNeedsRead | null> => {
     if ((await ensureMode()) === 'static') return null
-    try {
-      const r = await get<{ read: DataNeedsRead | null }>(`/api/data-needs/${encodeURIComponent(subject)}?swarm=${encodeURIComponent(swarm)}`, 8_000)
-      return r.read ?? null
-    } catch {
-      return null
-    }
+    const query = new URLSearchParams({ swarm })
+    if (runRoot) query.set('runRoot', runRoot)
+    const r = await get<{ read: DataNeedsRead | null }>(
+      `/api/data-needs/${encodeURIComponent(subject)}?${query}`,
+      DATA_NEEDS_CLIENT_TIMEOUT_MS,
+    )
+    const read = r.read
+    // Positive-match deploy contract. A new client talking to an old server hides this action surface;
+    // it never sends a targeted write without immutable decision identity.
+    if (!read || read.contract_version !== 'data-needs-read/2'
+        || read.subject !== subject.toUpperCase() || read.swarm !== swarm
+        || typeof read.run_root !== 'string' || (runRoot !== undefined && read.run_root !== runRoot)
+        || !/^sha256:[a-f0-9]{64}$/.test(read.decision_fingerprint)
+        || !Array.isArray(read.needs) || !Array.isArray(read.widened)) return null
+    return read
   },
 
   // ---- data pipeline: find/add a source → live relevance scan → build a connector → PR → live feed ----
@@ -982,17 +995,24 @@ export const api = {
   pipelineDiscoverStream: async (
     subject: string,
     swarm: string,
-    opts: { need_id?: string | null; want?: string; autoBuild?: boolean },
+    opts: { need_id?: string | null; runRoot?: string; decisionFingerprint?: string; want?: string; autoBuild?: boolean },
     cb: {
       onStatus?: (s: { stage?: string; model?: string; openNeeds?: number; wired?: number }) => void
       onActivity?: (a: { tool: string; target: string }) => void
       onFound: (f: DiscoveredFeed) => void
-      onDone: (d: { found: number; autoBuilt: number }) => void
+      onDone: (d: { found: number; autoBuilt: number; decisionFingerprint?: string; superseded?: boolean }) => void
       onError: (msg: string) => void
+      // A clean stream always supplies discover-done. EOF without a terminal frame is a transport failure,
+      // not evidence that no source exists; callers use this hook to keep those states distinct.
+      onEnd?: () => void
       signal: AbortSignal
     },
   ): Promise<void> => {
     if ((await ensureMode()) === 'static') { cb.onError('static-deploy'); return }
+    if (opts.need_id && (!opts.runRoot || !/^sha256:[a-f0-9]{64}$/.test(opts.decisionFingerprint || ''))) {
+      cb.onError('selected-decision-contract-unavailable')
+      return
+    }
     await readSse(
       `/api/pipelines/discover?swarm=${encodeURIComponent(swarm)}`,
       { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ subject, ...opts }), signal: cb.signal },
@@ -1006,10 +1026,22 @@ export const api = {
             verdict: parsed.verdict, building: parsed.building === true,
             connector_exists: typeof parsed.connector_exists === 'string' ? parsed.connector_exists : undefined,
           })
-        } else if (ev === 'discover-done') { cb.onDone({ found: parsed.found ?? 0, autoBuilt: parsed.autoBuilt ?? 0 }); return 'stop' }
+        } else if (ev === 'discover-done') {
+          if (opts.need_id && parsed.decisionFingerprint !== opts.decisionFingerprint) {
+            cb.onError('selected-decision-changed')
+            return 'stop'
+          }
+          cb.onDone({
+            found: parsed.found ?? 0, autoBuilt: parsed.autoBuilt ?? 0,
+            decisionFingerprint: typeof parsed.decisionFingerprint === 'string' ? parsed.decisionFingerprint : undefined,
+            superseded: parsed.superseded === true,
+          })
+          return 'stop'
+        }
         else if (ev === 'discover-error') { cb.onError(parsed.message || 'the search failed'); return 'stop' }
       },
       cb.onError,
+      cb.onEnd,
     )
   },
 
