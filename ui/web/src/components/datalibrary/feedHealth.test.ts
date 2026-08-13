@@ -19,6 +19,7 @@ import {
   feedHealthOf,
   ledgerIntegrityWarningOf,
   normalizeFeedHealth,
+  pipelineIsWaitingForFirstCheck,
   pipelineIsUsable,
   repairForSubject,
   REPAIR_DISPLAY,
@@ -115,6 +116,26 @@ check('usable means a fresh file plus current/no-new-release/manual health', () 
   assert.equal(pipelineIsUsable(mkPipeline({ statuses: [mkStatus('ZZZ', 'current', 'stale')] }), 'ZZZ'), false)
   assert.equal(pipelineIsUsable(mkPipeline({ statuses: [mkStatus('ZZZ', 'stalled')] }), 'ZZZ'), false)
   assert.equal(pipelineIsUsable(mkPipeline(), 'OTHER'), false, 'an absent subject is never usable')
+})
+
+check('never-run and pending feeds are one waiting queue, while real failures still require action', () => {
+  assert.equal(pipelineIsWaitingForFirstCheck(mkPipeline({
+    statuses: [mkStatus('ZZZ', 'never_run', 'missing')], verdict: 'attention',
+  })), true)
+  assert.equal(pipelineIsWaitingForFirstCheck(mkPipeline({
+    subjects: ['AAA', 'ZZZ'],
+    statuses: [mkStatus('AAA', 'current', 'fresh'), mkStatus('ZZZ', 'pending', 'missing')],
+    verdict: 'attention',
+  })), true, 'a multi-subject feed may be partly current while its new subject waits')
+  assert.equal(pipelineIsWaitingForFirstCheck(mkPipeline({
+    statuses: [mkStatus('ZZZ', 'stalled', 'stale')], verdict: 'attention',
+  })), false)
+  assert.equal(pipelineIsWaitingForFirstCheck(mkPipeline({
+    statuses: [mkStatus('ZZZ', 'broken', 'fresh')], verdict: 'broken',
+  })), false)
+  assert.equal(pipelineIsWaitingForFirstCheck(mkPipeline({
+    statuses: [mkStatus('ZZZ', 'never_run', 'unknown')], verdict: 'unknown',
+  })), false, 'a pool-less host cannot turn invisible fetch health into a waiting claim')
 })
 
 check('a ledger-integrity warning remains visible independently of current usable health', () => {
