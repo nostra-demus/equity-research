@@ -143,6 +143,16 @@ const CLAUSE_UNCERTAIN_SCHEDULE = new RegExp(
   String.raw`\b(?:might|could|possibly|potentially|tentative(?:ly)?|unconfirmed)\b|\bmay\s+(?:(?:still|now)\s+)?(?:be|hold|take|occur|happen|meet|convene|schedule|report|announce|release|declare|consider|join|host|set|start|end|expire|trade|go)\b`,
   'i',
 )
+// A date that is only reachable IF some approval lands is not a proven catalyst — it is a plan with a
+// precondition. This is separate from CLAUSE_UNCERTAIN_SCHEDULE: the grammar there is modal ("might be
+// held"), while these headlines assert the date confidently and hang it on an unmet condition ("If
+// approved, AGM will be held on <date>"). §17 requires the timing be proven, so the condition fails closed.
+const CLAUSE_CONDITIONAL_SCHEDULE = new RegExp(
+  String.raw`\bif\s+[^.;!?|\n]{0,48}?\b(?:approv|clear(?:ed|s|ance)|sanction|passe[sd]|succeed|successful|complet|grant|permit|consent|ratif)`
+  + String.raw`|\bsubject\s+to\b|\bconditional\s+(?:on|upon)\b|\bcontingent\s+(?:on|upon)\b`
+  + String.raw`|\bpending\b|\bawait(?:s|ing)\b|\bprovided\s+that\b|\bonce\s+approved\b|\bupon\s+(?:approval|clearance|sanction)\b`,
+  'i',
+)
 const PAST_EVENT_VERBS = String.raw`(?:held|conducted|convened|concluded|completed)`
 const CLAUSE_SEPARATORS = ['.', ';', '!', '?', '？', '|', '\n'] as const
 // Commas and spaced dashes are NOT clause separators — they keep one headline as a single clause — but
@@ -265,7 +275,14 @@ function bindingIsNegated(
     CLAUSE_REVISES_SCHEDULE.test(segText)
     || CLAUSE_RETIMES_SCHEDULE.test(segText)
     || CLAUSE_UNCERTAIN_SCHEDULE.test(segText)
+    || CLAUSE_CONDITIONAL_SCHEDULE.test(segText)
   ) return true
+  // A condition is a LEADING qualifier: it sits in an earlier segment and governs the segments that
+  // follow ("If approved, AGM will be held on <date>"). Segment scoping — which exists so an unrelated
+  // fact cannot veto a proven date — would otherwise drop it and hand the row full timing points. Only
+  // the conditional grammar reaches back; revision/uncertainty words stay segment-local by design, so
+  // "Amazon changes CFO, AGM confirmed for <date>" keeps scoring.
+  if (CLAUSE_CONDITIONAL_SCHEDULE.test(lower.slice(clause.start, segStart))) return true
   // An event named in the past tense cannot borrow a later date from a different claim in the same
   // compact headline (for example, "held AGM and set analyst target price for September 30"). Keep this
   // local to the bound event segment so an unrelated past-tense fact cannot suppress a real schedule.

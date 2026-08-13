@@ -220,6 +220,34 @@ check('dated catalyst evidence is source-bound, complete, valid, and translation
     [],
     'a revision bound to the AGM itself still fails closed even across a comma',
   )
+  // Regression (§17 Catalyst Discipline, §24 fail closed): a date reachable only IF an approval lands is
+  // a plan with a precondition, not proven timing. The condition is a LEADING qualifier, so segment
+  // scoping (added so an unrelated fact cannot veto a proven date) used to drop it and award full dated-
+  // catalyst points to an unconfirmed event — the one gap that failed OPEN rather than closed.
+  for (const headline of [
+    'If approved, Amazon AGM will be held on 2026-09-09',
+    'Subject to regulatory approval, Amazon index inclusion effective 2026-09-09',
+    'Amazon AGM on 2026-09-09 subject to quorum',
+    'Contingent upon shareholder consent, Amazon buyback closes 2026-09-09',
+    'Pending court approval, Amazon AGM on 2026-09-09',
+  ]) {
+    assert.deepEqual(
+      deriveScheduledEventEvidence({ headline }),
+      [],
+      `${headline}: a conditional schedule is not proven dated-catalyst evidence`,
+    )
+  }
+  // The conditional grammar must not swallow an ordinary COMPLETED approval in another segment.
+  for (const headline of [
+    'Amazon board approved buyback, AGM confirmed for 2026-09-09',
+    'Regulator granted licence, Amazon AGM confirmed for 2026-09-09',
+  ]) {
+    assert.deepEqual(
+      deriveScheduledEventEvidence({ headline }),
+      ['shareholder_meeting on 2026-09-09'],
+      `${headline}: a settled approval is not a pending condition`,
+    )
+  }
   assert.deepEqual(
     deriveScheduledEventEvidence({ headline: 'On 2026-08-06, Amazon will report results' }),
     ['results_date on 2026-08-06'],
