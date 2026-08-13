@@ -1100,7 +1100,9 @@ def main() -> int:
         value = supervise(repo, home, now)
         return 0 if write_status(home / ".nostra-ops" / "connector-supervisor.json", value) else 1
     except Exception:
-        # Operational detail belongs in the watchdog log, never the public status wire.
+        # Unexpected operational detail belongs on the private stderr/log path, never in the public wire.
+        import traceback
+        traceback.print_exc()
         return 1
 
 

@@ -546,19 +546,18 @@ if [ "$ROLE" = doer ]; then
   # identity from an explicit NOSTRA_POOL or a currently resolving production data symlink.  It never adopts
   # a new target after that, follows an unsafe identity file, or replaces a real/mismatched/missing Drive path.
   if [ "$INSTALL_CONNECTORS" = 1 ]; then
+    if [ ! -f "$HERE/connector-supervisor.py" ] || [ -L "$HERE/connector-supervisor.py" ] \
+        || ! ENGINE_REPO_ROOT="$PROD" NOSTRA_ENGINE_CONFIG_DIR="$CONNECTOR_CONFIG_DIR" "$PYTHON_BIN" -I \
+          "$HERE/connector-supervisor.py" --ensure-identities; then
+      echo "ERROR: connector writer identity, pool, or config is unavailable/unsafe/mismatched" >&2
+      echo "       First Mac Pro install must set NOSTRA_CONNECTOR_WRITER_HOST to its exact hostname." >&2
+      exit 1
+    fi
+    CONNECTOR_CONFIG_DIR="$(ENGINE_REPO_ROOT="$PROD" "$PYTHON_BIN" -I \
+      "$HERE/connector-supervisor.py" --read-config-identity)" \
+      || { echo "ERROR: cannot read the canonical connector config identity" >&2; exit 1; }
+    CONNECTOR_PROVIDERS_ENV="$CONNECTOR_CONFIG_DIR/providers.env"
     prepare_connector_config || exit 1
-  if [ ! -f "$HERE/connector-supervisor.py" ] || [ -L "$HERE/connector-supervisor.py" ] \
-      || ! ENGINE_REPO_ROOT="$PROD" NOSTRA_ENGINE_CONFIG_DIR="$CONNECTOR_CONFIG_DIR" "$PYTHON_BIN" -I \
-        "$HERE/connector-supervisor.py" --ensure-identities; then
-    echo "ERROR: connector writer identity, pool, or config is unavailable/unsafe/mismatched" >&2
-    echo "       First Mac Pro install must set NOSTRA_CONNECTOR_WRITER_HOST to its exact hostname." >&2
-    exit 1
-  fi
-  CONNECTOR_CONFIG_DIR="$(ENGINE_REPO_ROOT="$PROD" "$PYTHON_BIN" -I \
-    "$HERE/connector-supervisor.py" --read-config-identity)" \
-    || { echo "ERROR: cannot read the canonical connector config identity" >&2; exit 1; }
-  CONNECTOR_PROVIDERS_ENV="$CONNECTOR_CONFIG_DIR/providers.env"
-  prepare_connector_config || exit 1
   fi
 fi
 if [ "$ROLE" = doer ] && [ "$INSTALL_CONNECTORS" = 0 ]; then
