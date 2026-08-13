@@ -284,6 +284,8 @@ function withoutFormationCandidate(
 
 const cancelThemeDetailRequest = () => { themeDetailRequestSeq++ }
 let selectGen = 0 // bumped on every selectTicker; async work bails if it changed (fast-switch guard)
+let dataNeedsRequestSeq = 0 // same-selection refreshes can also race; newest exact-run request owns the dock
+export const DATA_NEEDS_RETRY_MS = 750 // one bounded cold-read recovery; exact selection is rechecked around it
 let archiveToken = 0 // bumped on every archive search; a stale slow response bails if it changed (last-write-wins)
 let facetsToken = 0 // same guard for a standalone facets load (contextless / on dropdown open)
 let creditProbed = false
@@ -591,7 +593,7 @@ interface State {
   // The structured data needs the run's terminal synthesizer surfaced (decision_record.json data_needs[]),
   // refreshed on select + on data-changed — read by the read-only "Data needs" dock. Null = none / no run.
   dataNeeds: DataNeedsRead | null
-  refreshDataNeeds: () => Promise<void>
+  refreshDataNeeds: (runRoot?: string) => Promise<void>
   refreshPipelines: () => Promise<void>
   openDataLibrary: () => void
   closeDataLibrary: () => void
@@ -1351,7 +1353,6 @@ export const useStore = create<State>((set, get) => ({
     void get().refreshResumable() // so the orb-view Resume chip knows if this subject has an interrupted run
     if (isResearch) await get().refreshData()
     if (isResearch) void get().refreshIntake() // the scoped rerun plan (if one exists) — non-blocking
-    void get().refreshDataNeeds() // the surfaced data needs (research + commodity) — non-blocking, fail-closed
     void get().refreshPipelines() // the cross-swarm pipeline library (the Data button gates on this, §5)
     if (get().selectToken !== token) return
     // seed prior-run results into the swarm
@@ -1365,6 +1366,9 @@ export const useStore = create<State>((set, get) => ({
       if (manifest.finalThesis) seed['master/synthesizer'] = { status: 'done', outputPath: `${manifest.runRoot}/final_thesis.md` }
       set({ nodeRuntime: seed, runRoot: manifest.runRoot ?? null, reports: { memo: !!manifest.memo, thesis: !!manifest.finalThesis, dossier: !!manifest.fullDossier }, moduleReports: manifest.moduleReports ?? {} })
     } catch {}
+    // AFTER the manifest sets runRoot: a historical research selection must read that exact call's gaps.
+    // Passing the original selection is the fail-closed fallback if the manifest vanished mid-read.
+    void get().refreshDataNeeds(isResearch ? (get().runRoot ?? runRoot) : undefined)
     // AFTER the manifest set runRoot: the version delta must target the run the banner is about to show,
     // not whatever run resolving the bare ticker would pick.
     if (isResearch) void get().refreshWhatChanged()
@@ -1965,18 +1969,40 @@ export const useStore = create<State>((set, get) => ({
       if (get().selectToken === token) set({ intake: null, intakePlanKeys: new Set() })
     }
   },
-  refreshDataNeeds: async () => {
+  refreshDataNeeds: async (selectedRunRoot) => {
     const t = get().selectedTicker
     const sw = get().activeSwarm
     // constellation swarms only (research + commodity); the screener has no decision_record with data_needs.
     if (!t || get().staticMode || sw === 'screener') return
     const token = get().selectToken
-    try {
-      const read = await api.dataNeeds(t, sw)
-      if (get().selectToken !== token) return // a newer selection superseded this fetch
+    const requestSeq = ++dataNeedsRequestSeq
+    const expectedRunRoot = sw === 'research' ? (selectedRunRoot ?? get().runRoot ?? undefined) : get().runRoot ?? undefined
+    const startingFingerprint = get().dataNeeds?.run_root === expectedRunRoot
+      ? get().dataNeeds?.decision_fingerprint
+      : undefined
+    const runRoot = sw === 'research' ? expectedRunRoot : undefined
+    const requestStillOwnsSelection = () => get().selectToken === token && requestSeq === dataNeedsRequestSeq
+      && get().selectedTicker === t && get().activeSwarm === sw
+      && (expectedRunRoot === undefined || get().runRoot === expectedRunRoot)
+      && (startingFingerprint === undefined || get().dataNeeds?.decision_fingerprint === startingFingerprint)
+    const commit = (read: DataNeedsRead | null) => {
+      if (!requestStillOwnsSelection()
+          || get().selectedTicker !== t || get().activeSwarm !== sw
+          || (read !== null && expectedRunRoot !== undefined && read.run_root !== expectedRunRoot)) return false
       set({ dataNeeds: read })
+      return true
+    }
+    try {
+      commit(await api.dataNeeds(t, sw, runRoot))
     } catch {
-      if (get().selectToken === token) set({ dataNeeds: null })
+      // Keep the last known exact-decision projection on a transient timeout/500. A successful `{read:null}`
+      // above is still authoritative and clears it; transport failure is not evidence that the needs vanished.
+      // One delayed retry covers the measured cold-host path. Every boundary is exact-selection guarded,
+      // so switching ticker/run while it waits (or while the retry is in flight) makes it a no-op.
+      if (!requestStillOwnsSelection()) return
+      await new Promise<void>((resolve) => setTimeout(resolve, DATA_NEEDS_RETRY_MS))
+      if (!requestStillOwnsSelection()) return
+      try { commit(await api.dataNeeds(t, sw, runRoot)) } catch { /* keep the last exact-decision projection */ }
     }
   },
 

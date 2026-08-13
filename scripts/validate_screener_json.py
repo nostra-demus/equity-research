@@ -52,6 +52,12 @@ import sys
 from commodity_decision_archive import ArchiveError, decision_id_for
 from commodity_evidence_links import validate_horizon_evidence_links, validate_signal_projection
 from commodity_forecast_contract import validate_decision_record as validate_dual_horizon_record
+from data_need_contract import (
+    DATA_NEED_PROMISE_RE as _DATA_NEED_GUARANTEE_RE,
+    DATA_NEED_URL_RE as _DATA_NEED_URL_RE,
+    check_live_orb_routes,
+    text_leaves as _data_need_strings,
+)
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -354,6 +360,120 @@ CALIBRATION_STATUSES = {"not_available", "pre_data", "checked_no_action", "appli
 # schema fields (leading_error_categories_flagged, error_defense_evidence) that did not exist when it
 # shipped, mirroring the AG_ERRTAX_DATE convention exactly.
 COMMODITY_CALIBRATION_ERRTAX_DATE = "2026-08-10"
+# Versioned decision-guidance contract. Legacy commodity records omit the discriminator and keep their
+# v1 data_needs shape. Every fresh record from this date must explicitly emit v2, even when no need is
+# active (`data_needs: []`), so absence can never mean either "checked and none" or "forgotten".
+COMMODITY_DATA_NEEDS_V2_DATE = "2026-08-14"
+
+def check_commodity_data_needs_v2(
+    doc_or_path, *, enforce_live_roster=False, publication_date=None
+) -> list[str]:
+    """Semantic half of the commodity data-needs v2 contract.
+
+    JSON Schema owns exact fields, enums, max-five, and 0–1 routing confidence. This gate owns rollout
+    by decision date, exact priority order, unique need ids, URL prohibition, and language that falsely
+    promises an investment-conviction lift. `enforce_live_roster` is creation-time only; archived replay
+    leaves it false so later orb renames cannot rewrite history. Legacy records predating the rollout and
+    omitting the discriminator remain valid.
+    """
+    if isinstance(doc_or_path, dict):
+        doc = doc_or_path
+    else:
+        try:
+            doc = json.load(open(doc_or_path, encoding="utf-8"))
+        except Exception as exc:
+            return [f"cannot parse decision record for data-needs v2 gate: {exc}"]
+    if not isinstance(doc, dict):
+        return ["decision record root is not an object"]
+
+    decision_date = doc.get("decision_date")
+    version = doc.get("data_needs_schema_version")
+    post_gate = isinstance(decision_date, str) and decision_date >= COMMODITY_DATA_NEEDS_V2_DATE
+    # Current/prearchive publication may update a singleton commodity folder while intentionally retaining
+    # its original decision date. Only the creation-time caller supplies publication_date; frozen replay
+    # remains governed by the historical record itself and never acquires today's rules retroactively.
+    if publication_date is not None:
+        try:
+            publish_day = datetime.date.fromisoformat(publication_date)
+        except (TypeError, ValueError):
+            return [f"publication_date {publication_date!r} is not a real YYYY-MM-DD date"]
+        post_gate = post_gate or publish_day.isoformat() >= COMMODITY_DATA_NEEDS_V2_DATE
+    if post_gate and version != "2.0":
+        return [
+            f"decision_date {decision_date} is on/after {COMMODITY_DATA_NEEDS_V2_DATE} but "
+            "data_needs_schema_version is not '2.0' — fresh records must distinguish a completed empty "
+            "check (`data_needs: []`) from an omitted contract"
+        ]
+    if version != "2.0":
+        return []
+
+    needs = doc.get("data_needs")
+    if not isinstance(needs, list):
+        return ["data_needs_schema_version '2.0' requires data_needs to be an array (empty is valid)"]
+
+    errs = []
+    priorities = []
+    need_ids = []
+    try:
+        decision_day = datetime.date.fromisoformat(decision_date)
+    except (TypeError, ValueError):
+        decision_day = None  # the JSON Schema emits the primary decision_date error
+    for i, need in enumerate(needs):
+        if not isinstance(need, dict):
+            continue  # schema emits the precise type error
+        priority = need.get("priority")
+        if isinstance(priority, int) and not isinstance(priority, bool):
+            priorities.append(priority)
+        need_id = need.get("need_id")
+        if isinstance(need_id, str):
+            need_ids.append(need_id)
+        forbidden = sorted(set(need) & {"cap_lifted", "entry_modules", "url", "source_url"})
+        if forbidden:
+            errs.append(f"data_needs[{i}] uses forbidden v2 field(s) {forbidden!r}")
+        if "next_release" in need:
+            try:
+                next_day = datetime.date.fromisoformat(need.get("next_release"))
+            except (TypeError, ValueError):
+                next_day = None  # schema emits the precise format error
+            if next_day is not None and decision_day is not None and next_day < decision_day:
+                errs.append(
+                    f"data_needs[{i}].next_release={need.get('next_release')!r} predates "
+                    f"decision_date={decision_date!r}; a next release must be on or after the decision date"
+                )
+        for value_path, value in _data_need_strings(need, f"data_needs[{i}]"):
+            if _DATA_NEED_URL_RE.search(value):
+                errs.append(f"{value_path} contains a URL — v2 suggested_source is a source hint only")
+            if _DATA_NEED_GUARANTEE_RE.search(value):
+                errs.append(
+                    f"{value_path} promises or quantifies a conviction/score/rating lift — describe the "
+                    "two-sided decision impact conditionally; evidence may strengthen, weaken, or leave the call unchanged"
+                )
+
+    if len(need_ids) != len(set(need_ids)):
+        errs.append("data_needs v2 need_id values must be unique within the record")
+    if len(priorities) == len(needs):
+        want = list(range(1, len(needs) + 1))
+        if priorities != want:
+            errs.append(
+                f"data_needs v2 priorities are ordered {priorities!r}; array order must be exactly "
+                f"{want!r} so data_needs[0] is priority 1 and the queue is contiguous"
+            )
+    if enforce_live_roster:
+        errs.extend(check_live_orb_routes(doc, os.path.join(REPO, ".claude", "agents", "commodity")))
+    return errs
+
+
+def validate_commodity_prearchive(doc_path: str) -> list[str]:
+    """Validate a mutable current record before the first immutable byte is written.
+
+    This intentionally excludes archive-existence checks and mutable run projections. It enforces the
+    full decision JSON Schema, frozen v2 semantics, and today's exact orb routing. Archived replay calls
+    the same semantic function without `enforce_live_roster`, preserving point-in-time validity.
+    """
+    schema_path = os.path.join(REPO, "frameworks", "commodity", "decision_record.schema.json")
+    return validate(schema_path, doc_path) + check_commodity_data_needs_v2(
+        doc_path, enforce_live_roster=True, publication_date=datetime.date.today().isoformat()
+    )
 
 
 def _commodity_leading_error_categories(calibration_summary):
@@ -1733,6 +1853,26 @@ def _selftest_schema_primitives() -> int:
 
 
 def main(argv: list[str]) -> int:
+    if len(argv) in (3, 4) and argv[1] == "--commodity-prearchive":
+        frozen_only = len(argv) == 4 and argv[2] == "--frozen-only"
+        if len(argv) == 4 and not frozen_only:
+            print(__doc__)
+            return 2
+        doc_path = argv[-1]
+        if frozen_only:
+            schema_path = os.path.join(REPO, "frameworks", "commodity", "decision_record.schema.json")
+            errors = validate(schema_path, doc_path) + check_commodity_data_needs_v2(
+                doc_path, enforce_live_roster=False
+            )
+        else:
+            errors = validate_commodity_prearchive(doc_path)
+        if errors:
+            print("COMMODITY-PREARCHIVE: FAIL")
+            for error in errors[:20]:
+                print(f"   - {error}")
+            return 1
+        print("COMMODITY-PREARCHIVE: PASS")
+        return 0
     if len(argv) >= 2 and argv[1] == "--selftest":
         calibration_result = _selftest_calibration_gate()
         scenario_result = _selftest_scenario_math()
@@ -1759,13 +1899,19 @@ def main(argv: list[str]) -> int:
                 # An old immutable snapshot is validated only against evidence frozen beside it.
                 # Run-level routing, current coverage and current signal projection are intentionally
                 # excluded: applying today's mutable artifacts would break point-in-time replay.
-                errs = errs + check_commodity_dual_horizon(doc_p) + check_commodity_archived_snapshot(doc_p)
+                errs = (
+                    errs
+                    + check_commodity_data_needs_v2(doc_p)
+                    + check_commodity_dual_horizon(doc_p)
+                    + check_commodity_archived_snapshot(doc_p)
+                )
             else:
                 errs = (
                     errs
                     + check_commodity_routing(doc_p)
                     + check_commodity_data_sufficiency(doc_p)
                     + check_commodity_calibration_gate(doc_p)
+                    + check_commodity_data_needs_v2(doc_p)
                     + check_commodity_scenario_math(doc_p)
                     + check_commodity_dual_horizon(doc_p)
                     + check_commodity_decision_archive(doc_p)
