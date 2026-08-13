@@ -787,7 +787,7 @@ The management-governance module reads outputs from previously-run modules. Unde
 - `04_guidance-consensus.md` — the guidance/beat-miss track record (a candor and competence signal)
 - `01_historical-financials.md` — the multi-year baseline agent 11 uses for the Beneish/Dechow year-over-year components
 
-**From balance-sheet-survival (`analyses/{TICKER}_{DATE}/balance-sheet-survival/`):**
+**From balance-sheet-survival (`analyses/{TICKER}_{DATE}/balance-sheet-survival/`)** — deliberately NOT in this module's `depends_on` (declaring it would serialize the two modules in the cockpit's admission graph for an optional read; under `/research:full` the alphabetical tie-break already runs balance-sheet-survival first). Agents 10 and 11 SELF-RESOLVE the path: Glob this run's `balance-sheet-survival/` folder (fall back to the latest prior run's), and degrade gracefully to their own read of the filings when it is absent or incomplete:
 - `05_off-balance-sheet-and-contingencies.md` — the solvency-lens read of leases, guarantees, and contingencies; agent 10 reads it, does NOT recompute its numbers, and adds the governance lens (disclosure honesty, movement, provisioning candor) plus the A7a items it doesn't cover
 - `01_capital-structure-and-leverage.md` — the debt stack agent 11 reads for the leverage-hygiene items (A14-01/02)
 
