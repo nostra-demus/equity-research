@@ -355,7 +355,9 @@ function HealthStrip({ pipelines, poolAvailable, runner }: {
           <span className="datalib__serviceicon" aria-hidden>{serviceIncident ? '!' : fetcherState === 'running' ? '↻' : '✓'}</span>
           <div className="datalib__servicecopy">
             <strong>{serviceIncident ? 'Data service needs attention' : fetcherState === 'running' ? 'Data service is checking feeds' : 'Data service online'}</strong>
-            <span>{fetcher.note}{serviceIncident && waiting ? ` This is one service incident; ${waiting} feeds are waiting, not ${waiting} separate connector failures.` : ''}</span>
+            <span>{fetcher.note}{serviceIncident && waiting
+              ? ` This is one service incident; ${waiting} ${waiting === 1 ? 'feed is' : 'feeds are'} waiting, not ${waiting} separate connector ${waiting === 1 ? 'failure' : 'failures'}.`
+              : ''}</span>
           </div>
           <div className="datalib__servicemeta">
             {fetcher.host ? `${fetcher.host} · ` : ''}{fetcher.lastProgressAt ? `checked in ${ago(fetcher.lastProgressAt)}` : 'no check-in yet'}

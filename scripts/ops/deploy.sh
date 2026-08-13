@@ -105,9 +105,6 @@ migrate_connector_launchagent_v2() {
     orphan_count="$(find "$agents" -maxdepth 1 -type d \
       -name '.com.nostradamus.connectors.plist.credential-claim-*' 2>/dev/null | wc -l | tr -d ' ')"
     if [ "$orphan_count" = 0 ]; then
-      if ! is_doer_host; then
-        return 0                                          # admin host: never add autonomous connector work
-      fi
       # A legacy doer can pre-date the connector plist entirely. Migration used to treat that same shape as
       # an admin, so every feed stayed never_run forever. Use the reviewed installer path to add ONLY this
       # service. `--only connectors` does not replace the deploy/watchdog script that may be executing now.

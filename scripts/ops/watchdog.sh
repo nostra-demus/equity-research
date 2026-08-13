@@ -214,7 +214,7 @@ except OSError:
 
 descriptor = None
 try:
-    if (stat.S_ISLNK(before.st_mode) or not stat.S_ISREG(before.st_mode)
+    if (not stat.S_ISREG(before.st_mode)
             or before.st_uid != os.getuid() or before.st_nlink != 1
             or not 0 < before.st_size <= 16384):
         raise ValueError

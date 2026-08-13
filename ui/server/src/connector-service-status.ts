@@ -148,7 +148,7 @@ export function readConnectorFetchServiceStatus(poolAvailable: boolean): Connect
   let fd: number | null = null
   try {
     const before = fs.lstatSync(STATUS_PATH)
-    if (!before.isFile() || before.isSymbolicLink() || before.size <= 0 || before.size > MAX_STATUS_BYTES) {
+    if (!before.isFile() || before.size <= 0 || before.size > MAX_STATUS_BYTES) {
       throw new Error('unsafe status file')
     }
     fd = fs.openSync(STATUS_PATH, fs.constants.O_RDONLY | (fs.constants.O_NOFOLLOW ?? 0))
