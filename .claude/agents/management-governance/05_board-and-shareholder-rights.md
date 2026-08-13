@@ -107,7 +107,7 @@ Populate from filings + 07's directorship maps. This table carries A1-04 (true i
 
 Apply the RPT materiality thresholds (MODULE_RULES). State whether RPTs are recurring, arm's-length, and audit-committee / minority-approved, and whether they are growing faster than revenue. If none disclosed, write "No material related-party transactions disclosed." If material or promoter-linked, flag per the Red-Flag Trigger Engine and cross-reference `business-model/01_disqualifier-scan` (RPT >25% of revenue/expenses is a hard disqualifier owned there). The core question: is economic value leaking to the promoter / group?
 
-**Quantification boundary.** `09_related-party-and-group-forensics` is the module's PRIMARY RPT quantification (items A5/A11). When its output exists, read it and keep this section to the minority-PROTECTION lens (approvals, dissent, rights); do the full quantification yourself ONLY when 09 is absent, and say which mode you used.
+**Quantification boundary (unconditional).** `09_related-party-and-group-forensics` is the module's PRIMARY RPT quantification (items A5/A11) — and it runs in the SAME layer as this agent, so its output does not exist when you run. Therefore: keep this section to the minority-PROTECTION lens ALWAYS — were the RPTs approved by the right body, with IDs-only voting, majority-of-minority where material, and what did the dissent look like — citing the headline RPT figures from the filings only as context for that rights read. Do NOT produce your own item-level A5 quantification verdicts or fire A5 checklist IDs (they are 09's; the synthesis reconciles your rights lens with 09's quantification). The disqualifier cross-reference (RPT >25% → business-model/01) stays.
 
 ## 4. Takeover Defenses & Voting Rights
 

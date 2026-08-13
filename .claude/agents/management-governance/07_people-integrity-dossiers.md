@@ -135,7 +135,7 @@ No sweep-log row → the corresponding "clean" claim is invalid. "No result" row
 | Finding ID | Section | Question / Test | Standardized Verdict | Raw Value | Unit | Current Period | Prior Period | Trend | Peer Benchmark | Peer Verdict | Score | Max Score | Penalty | Confidence 1–5 | Materiality | Evidence | As-of Date | Analyst Interpretation | Red Flag Triggered? | Red Flag ID | Follow-up Required |
 |---|---|---|---|---:|---|---|---|---|---|---|---:|---:|---:|---:|---|---|---|---|---|---|---|
 
-One row per owned checklist item; for the per-person A16 items, one row per item per person where a finding exists, plus one roll-up row per item (e.g. `A16-04 — criminal record, all persons`). Apply RF-PPL-001…008 and RF-MGT-005 from the Red-Flag ID Registry.
+**Exactly ONE canonical row per owned checklist item** — the synthesis assembles the checklist by matching IDs mechanically and must find each `A16-xx` key exactly once. For the per-person A16 items: the canonical row is the all-persons ROLL-UP (Question/Test = `A16-04 — criminal proceedings & arrests`, verdict = the worst across the register, raw value = the count affected). Per-person detail rows are ADDITIONAL rows keyed with the person slug appended — `A16-04/{person-slug}` in the Question/Test column — so they can never be mistaken for the canonical row or double-counted in coverage. Apply RF-PPL-001…008 and RF-MGT-005 from the Red-Flag ID Registry; severity per the gate rule — allegations fire High (cap), only adjudicated/proven facts fire Critical (gate).
 
 ## People Integrity Score
 | Component | Score | Max Score | Evidence |

@@ -70,7 +70,7 @@ If `business-model/01_disqualifier-scan.md` flagged ANY hard disqualifier (audit
   13. `12_regulatory-legal-and-compliance.md`
 - Cross-module: `business-model/01_disqualifier-scan.md` (deference check)
 
-If any of 07–12 is absent (an older run or a partial rerun), fall back gracefully: assemble the checklist from what exists, mark the missing agents' items "Not run", use the prior six-component composite formula per MODULE_RULES, and say so in the Abstract — never fabricate a missing specialist's scores or items.
+If any of 07–12 is absent, fall back gracefully: assemble the checklist from what exists and mark the missing agents' items "Not run". The prior six-component composite formula applies ONLY when ALL of 07–12 are absent (a pre-expansion run); in a PARTIAL run keep the nine-component formula with MODULE_RULES' conservative missing-component treatment (missing positive score → 50; missing inverted risk → 40 in the Checklist Risk max; Confidence capped at 80; every substitution named) — never discard completed specialists' scores because a sibling is missing, and never fabricate a missing one. Say which mode applied in the Abstract.
 
 # REPORT STRUCTURE
 
@@ -119,7 +119,7 @@ Write this LAST.
 - Insider ownership (one line): *(from 04)*
 - Biggest governance signal (one line):
 - **Checklist Risk** = max(RPT & leakage, Contingent-liability, Accounting-forensics, Legal & regulatory) — the worst risk is never averaged away (§12):
-- **Governance Score /100** — compute with the exact MODULE_RULES formula: `0.14×CapAlloc + 0.11×Incentive + 0.11×ShFriendliness + 0.10×Candor + 0.11×MgmtQuality + 0.09×AuditAssurance + 0.11×PeopleIntegrity + 0.11×(100 − GovRisk) + 0.12×(100 − ChecklistRisk)`; show the inputs. (If 07–12 are absent — an older run — use the prior six-component formula and say so.)
+- **Governance Score /100** — compute with the exact MODULE_RULES formula: `0.14×CapAlloc + 0.11×Incentive + 0.11×ShFriendliness + 0.10×Candor + 0.11×MgmtQuality + 0.09×AuditAssurance + 0.11×PeopleIntegrity + 0.11×(100 − GovRisk) + 0.12×(100 − ChecklistRisk)`; show the inputs. (Six-component fallback ONLY if ALL of 07–12 are absent; a partial run keeps this formula with the conservative missing-component substitutions, named.)
 - **Confidence-Adjusted Governance Score /100** (= Governance Score × Confidence Score / 100):
 - **Governance Rating** (Excellent / Good / Watchlist / Weak / Avoid):
 - **Confidence Score /100** (source quality):
@@ -203,6 +203,7 @@ If specialists disagreed (e.g., good capital-allocation record but misaligned in
 | Structurally unaligned controlling owner (§24 Filter 6, RF-OWN-004) | | Shareholder friendliness; Governance risk | ShFriendliness max 55; GovRisk floor 55 | | | |
 | Unresolved adverse integrity signal routed from business-model/01 (§24 Filter 1, RF-MGT-005) | | Management quality; Disclosure candor | each max 60; conviction cap — no rating above "Watchlist" | | | |
 | Checklist coverage <50% | | Data quality; Confidence | each max 60 | | | |
+| No auditor-fee / audit-detail disclosure (A4-06/07 N-A) | | Audit & assurance quality; Confidence | AuditAssurance max 65; Confidence max 80 | | | |
 | Legal-database sweep did not run (07/12 coverage-limited) | | People integrity; Legal & regulatory risk; Confidence | PeopleIntegrity max 65; LegalRisk floor 40; Confidence max 70 | | | |
 | Disqualifying-graded controller / CEO / CFO / chair (07) | | Gate; Governance risk; verdict | GATE FAIL; GovRisk floor 80; rating ≤ "Weak"; verdict ≤ "Serious governance concerns" | | | |
 | Material-concerns grade on a controller/KMP, unresolved (07) | | People integrity; Governance risk | PeopleIntegrity max 50; GovRisk floor 55; no rating above "Watchlist" | | | |
