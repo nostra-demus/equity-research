@@ -423,16 +423,16 @@ with tempfile.TemporaryDirectory() as root:
     staged = os.path.join(agents, ".replacement-staged")
     write_plist(staged, {"PATH": "/usr/bin"})
     anchor = MOD.publish_claimed_replacement(claim, plist, staged)
-    real_purge = MOD._purge_committed_transaction
+    real_purge = MOD._purge_receipt_transaction
 
     def simulate_hard_death(*_args: object, **_kwargs: object) -> bool:
         raise MOD.MigrationError("simulated death after atomic commit receipt")
 
-    MOD._purge_committed_transaction = simulate_hard_death
+    MOD._purge_receipt_transaction = simulate_hard_death
     try:
         MOD.commit_claim(claim, plist, providers, "replacement", anchor)
     finally:
-        MOD._purge_committed_transaction = real_purge
+        MOD._purge_receipt_transaction = real_purge
     committed_before = [
         entry.path for entry in os.scandir(agents)
         if entry.name.startswith(f".{os.path.basename(plist)}.credential-committed-")
@@ -523,7 +523,7 @@ with tempfile.TemporaryDirectory() as root:
         if entry.name.startswith(f".{os.path.basename(plist)}.credential-restored-")
     ]
     check("retry finishes an interrupted restore before starting the next exact claim",
-          len(restored_archives) == 1 and adopted_keys == ["CONNECTOR_TEST_TOKEN"]
+          not restored_archives and adopted_keys == ["CONNECTOR_TEST_TOKEN"]
           and MOD._same_inode(plist, MOD._guard_path(os.path.dirname(adopted))))
     MOD.restore_claim(adopted, plist, providers)
 
@@ -550,6 +550,133 @@ with tempfile.TemporaryDirectory() as root:
     except MOD.MigrationError as error:
         ambiguous_refused = "multiple" in str(error)
     check("multiple orphan claims fail closed", ambiguous_refused)
+
+
+def receipt_directories(agents_directory: str, plist_path: str, disposition: str) -> list[str]:
+    prefix = f".{os.path.basename(plist_path)}.credential-{disposition}-"
+    return sorted(entry.path for entry in os.scandir(agents_directory)
+                  if entry.name.startswith(prefix) and entry.is_dir(follow_symlinks=False))
+
+
+# The steady-state deploy cycle claims the installed plist, finds it unchanged, and rolls the transaction
+# back. That no-op cycle must leave the installed directory byte-identical, or every pass leaks a receipt
+# directory (observed: 52 in ~7h at a 2-minute cadence, each retaining a credential-bearing installed.plist).
+with tempfile.TemporaryDirectory() as root:
+    agents = os.path.join(root, "LaunchAgents")
+    config = os.path.join(root, "config")
+    os.mkdir(agents, 0o700)
+    os.mkdir(config, 0o700)
+    plist = os.path.join(agents, "com.nostradamus.connectors.plist")
+    providers = os.path.join(config, "providers.env")
+    write_plist(plist, {"CONNECTOR_TEST_TOKEN": "steady-state-secret"})
+    with open(plist, "rb") as handle:
+        before_bytes = handle.read()
+    for _cycle in range(5):
+        cycle_claim, _cycle_keys = MOD.claim_and_migrate(plist, providers)
+        MOD.restore_claim(cycle_claim, plist, providers)
+    with open(plist, "rb") as handle:
+        after_bytes = handle.read()
+    residue = sorted(entry.name for entry in os.scandir(agents)
+                     if entry.name != os.path.basename(plist)
+                     and entry.name != f".{os.path.basename(plist)}.credential-transaction.lock")
+    check("an unchanged claim/restore cycle leaks no receipt directory",
+          not residue and after_bytes == before_bytes
+          and "CONNECTOR_TEST_TOKEN=steady-state-secret" in open(providers, encoding="utf-8").read())
+
+# A restored receipt left behind by a hard death between archive and reclaim is finished by the next claim,
+# exactly as a committed receipt already is.
+with tempfile.TemporaryDirectory() as root:
+    agents = os.path.join(root, "LaunchAgents")
+    config = os.path.join(root, "config")
+    os.mkdir(agents, 0o700)
+    os.mkdir(config, 0o700)
+    plist = os.path.join(agents, "com.nostradamus.connectors.plist")
+    providers = os.path.join(config, "providers.env")
+    write_plist(plist, {"CONNECTOR_TEST_TOKEN": "orphan-restore-secret"})
+    claim, _keys = MOD.claim_and_migrate(plist, providers)
+    real_purge = MOD._purge_receipt_transaction
+
+
+    def simulate_death_after_restore_archive(*_args: object, **_kwargs: object) -> bool:
+        raise MOD.MigrationError("simulated death after the restore receipt was archived")
+
+    MOD._purge_receipt_transaction = simulate_death_after_restore_archive
+    try:
+        MOD.restore_claim(claim, plist, providers)
+    finally:
+        MOD._purge_receipt_transaction = real_purge
+    restored_before = receipt_directories(agents, plist, "restored")
+    next_claim, next_keys = MOD.claim_and_migrate(plist, providers)
+    restored_after = receipt_directories(agents, plist, "restored")
+    with open(next_claim, "rb") as handle:
+        next_environment = plistlib.load(handle)["EnvironmentVariables"]
+    # A rollback puts the credential-bearing plist BACK, so the next claim legitimately re-migrates its key.
+    check("hard-death restored receipt is reconciled before the next claim",
+          len(restored_before) == 1 and not restored_after
+          and next_keys == ["CONNECTOR_TEST_TOKEN"]
+          and next_environment.get("CONNECTOR_TEST_TOKEN") == "orphan-restore-secret")
+    MOD.restore_claim(next_claim, plist, providers)
+
+# The reclaim is a proof, not a sweep: a restored receipt whose prior bytes did NOT make it back to the
+# public pathname keeps its only copy of those bytes instead of being deleted for tidiness.
+with tempfile.TemporaryDirectory() as root:
+    agents = os.path.join(root, "LaunchAgents")
+    config = os.path.join(root, "config")
+    os.mkdir(agents, 0o700)
+    os.mkdir(config, 0o700)
+    plist = os.path.join(agents, "com.nostradamus.connectors.plist")
+    providers = os.path.join(config, "providers.env")
+    write_plist(plist, {"CONNECTOR_TEST_TOKEN": "unproven-restore-secret"})
+    claim, _keys = MOD.claim_and_migrate(plist, providers)
+    real_purge = MOD._purge_receipt_transaction
+    MOD._purge_receipt_transaction = simulate_death_after_restore_archive
+    try:
+        MOD.restore_claim(claim, plist, providers)
+    finally:
+        MOD._purge_receipt_transaction = real_purge
+    os.unlink(plist)                                  # the restored public bytes are lost after the rollback
+    write_plist(plist, {"CONNECTOR_TEST_TOKEN": "divergent-secret"})
+    os.chmod(plist, 0o600)
+    MOD._reconcile_receipt_transactions(agents, plist, providers)
+    surviving = [
+        os.path.join(entry, "transaction", "installed.plist")
+        for entry in receipt_directories(agents, plist, "restored")
+    ]
+    surviving_claim = next((path for path in surviving if os.path.isfile(path)), "")
+    with open(surviving_claim, "rb") as handle:
+        surviving_environment = plistlib.load(handle)["EnvironmentVariables"]
+    check("a restored receipt whose prior bytes are not back on disk is retained, not reclaimed",
+          len(surviving) == 1
+          and surviving_environment.get("CONNECTOR_TEST_TOKEN") == "unproven-restore-secret")
+
+# "retained" is the namespace for transactions carrying unclassified residue. Reclaim must never touch it.
+with tempfile.TemporaryDirectory() as root:
+    agents = os.path.join(root, "LaunchAgents")
+    config = os.path.join(root, "config")
+    os.mkdir(agents, 0o700)
+    os.mkdir(config, 0o700)
+    plist = os.path.join(agents, "com.nostradamus.connectors.plist")
+    providers = os.path.join(config, "providers.env")
+    write_plist(plist, {"CONNECTOR_TEST_TOKEN": "quarantine-secret"})
+    claim, _keys = MOD.claim_and_migrate(plist, providers)
+    quarantine = os.path.join(os.path.dirname(claim), "interrupted-replacement.plist")
+    write_plist(quarantine, {"CONNECTOR_NEW_TOKEN": "must-survive-reclaim"})
+    MOD.restore_claim(claim, plist, providers)
+    MOD._reconcile_receipt_transactions(agents, plist, providers)
+    for _cycle in range(2):
+        cycle_claim, _cycle_keys = MOD.claim_and_migrate(plist, providers)
+        MOD.restore_claim(cycle_claim, plist, providers)
+    retained_quarantines = [
+        os.path.join(entry, "transaction", "interrupted-replacement.plist")
+        for entry in receipt_directories(agents, plist, "retained")
+    ]
+    surviving_quarantine = next((path for path in retained_quarantines if os.path.isfile(path)), "")
+    with open(surviving_quarantine, "rb") as handle:
+        quarantine_environment = plistlib.load(handle)["EnvironmentVariables"]
+    check("reclaim never deletes a retained quarantine namespace",
+          len(retained_quarantines) == 1
+          and quarantine_environment.get("CONNECTOR_NEW_TOKEN") == "must-survive-reclaim"
+          and not receipt_directories(agents, plist, "restored"))
 
 print(f"\n{'PASS' if not failures else 'FAIL'}: connector secret migration — {failures} failures")
 raise SystemExit(1 if failures else 0)
