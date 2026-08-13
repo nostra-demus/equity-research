@@ -55,6 +55,7 @@ import sys
 import os
 import re
 import io
+import errno
 import json
 import glob
 import shutil
@@ -94,7 +95,145 @@ def _decision_time_utc(now=None):
     return now.astimezone(timezone.utc)
 
 
-def _read_regular_nofollow_bytes(path):
+# ---------- stable reads on a cloud-synced pool ----------
+# The data pool is normally a Google Drive for Desktop MIRROR folder (see GDRIVE in ui/server/src/
+# config.ts). Drive — and macOS itself, via the `com.apple.lastuseddate#PS` attribute — writes
+# EXTENDED ATTRIBUTES onto pool files independently of their content. An xattr write bumps
+# `st_ctime_ns` and NOTHING else: size, mtime and the inode identity are untouched, and the file's
+# bytes are byte-for-byte identical.
+#
+# The readers below used to fold `st_ctime_ns` into an identity tuple compared before and after the
+# read, and rejected ANY delta as "changed during read". A Drive sync pass that landed while the
+# extractor was reading therefore rejected files whose content never moved — the INDIAMART incident,
+# where one sync pass turned all 87 pool files into `unsafe-input` / "pool input rejected" rows and
+# left the readiness gate with zero usable evidence for a company whose pool was perfectly fine.
+#
+# What actually has to hold is that the bytes returned are a COMPLETE, CONSISTENT snapshot of the
+# pinned inode. `st_size` + `st_mtime_ns` + (dev, ino, nlink) carry exactly that: a content write —
+# including an in-place same-size byte flip — always bumps mtime. A ctime-only delta does not imply
+# a content change, so instead of failing it we RE-READ through the same pinned descriptor and
+# compare digests, which PROVES the bytes rather than inferring it from a clock.
+#
+# KNOWN RESIDUAL, stated plainly rather than papered over. Excluding ctime gives up exactly one
+# detection: a same-uid local writer who rewrites the file mid-read with SAME-LENGTH bytes and then
+# restores st_mtime_ns to the nanosecond with utimensat(). ctime is the one stamp no syscall can
+# roll back, so it was the only metadata evidence of that sequence — and it is precisely the stamp a
+# cloud-sync client makes unusable. Nothing else regresses: a torn read, a differing-length rewrite,
+# a rewrite that does not restore mtime, a path/inode swap, a hard-link alias and a symlink are all
+# still caught, and the digest re-read additionally catches a rewrite that lands after the read.
+# The compensating control for evidence that carries provenance is `_snapshot_pool_file`'s
+# attested-digest binding, which fails closed on exactly this substitution. For an ordinary pool
+# document there is no provenance to forge, and the pool is the user's own Drive folder — so the
+# trade is: absorb the failure mode that empties a real evidence pool weekly, in exchange for a
+# same-uid attack that could equally have written the file a moment before the read began.
+#
+# Anything that still looks like a real mid-read change — or a transient cloud-filesystem error
+# (Drive hydrating a dehydrated file surfaces as ETIMEDOUT / "[Errno 60] Operation timed out") — is
+# RETRIED rather than failed. A file is only rejected once the retry budget is spent, so a sync pass
+# costs a few hundred milliseconds instead of the whole run's evidence.
+STABLE_READ_ATTEMPTS = max(1, int(os.environ.get("EXTRACT_STABLE_READ_ATTEMPTS") or 4))
+STABLE_READ_BACKOFF_S = max(0.0, float(os.environ.get("EXTRACT_STABLE_READ_BACKOFF_S") or 0.15))
+STABLE_READ_BACKOFF_MAX_S = 2.0
+
+# Errors a network/cloud-backed filesystem raises transiently while hydrating or re-syncing a file.
+# EINTR/EAGAIN are ordinary interruptions; ENOENT/ESTALE cover Drive replacing a file by
+# unlink+rename mid-pass (the path is re-pinned from scratch on the retry). A genuinely absent file
+# simply exhausts the budget and fails, as it should.
+_TRANSIENT_READ_ERRNOS = frozenset(
+    getattr(errno, name) for name in
+    ("ETIMEDOUT", "EIO", "EINTR", "EAGAIN", "EWOULDBLOCK", "EBUSY", "ENOENT", "ESTALE",
+     "ENXIO", "EDEADLK", "ENOTCONN", "EHOSTDOWN")
+    if hasattr(errno, name)
+)
+
+
+class _UnstableRead(ValueError):
+    """A read that did not settle. RETRYABLE.
+
+    Subclasses ValueError so every existing `except (OSError, ValueError)` call site still catches
+    it once the retry budget is spent — no caller changes, same fail-closed contract at the end.
+    A refusal that is NOT retryable (symlink, hard-link alias, non-canonical path) stays a plain
+    ValueError and is never retried: those are verdicts about the file, not races.
+    """
+
+
+class _ReadRace(_UnstableRead):
+    """The pin was lost BEFORE any bytes were read (root/dir/inode swapped under us).
+
+    Nothing was parsed, so re-pinning from scratch is always safe and always correct.
+    """
+
+
+class _ContentMoved(_UnstableRead):
+    """The file's own bytes moved DURING the read, so what we assembled may be torn.
+
+    Whether this is retryable depends on what the file IS, which is why `_stable_read` takes
+    `retry_content_change`:
+
+      • A POOL input is the user's evidence file on a Google Drive mirror. Drive genuinely
+        re-downloads and rewrites it. Re-reading and returning a clean snapshot of the settled
+        file is both safe and what the user wants — and when those bytes carry sealed provenance,
+        `_snapshot_pool_file` still re-hashes them against the attested digest and fails closed.
+      • A CONNECTOR PROJECTION is a content-addressed sealed object. Its invariant is stricter:
+        a mid-read content change is rejected outright, never re-read, so an attacker cannot pair
+        later bytes with an earlier-verified digest.
+    """
+
+
+def _content_identity(info):
+    """The stat fields that move if and only if the file's BYTES can have moved.
+
+    Deliberately EXCLUDES st_ctime_ns: ctime tracks inode-metadata changes (xattrs, permissions,
+    link count), which a cloud-sync client writes constantly without touching a single byte.
+    """
+    return (info.st_dev, info.st_ino, info.st_size, info.st_mtime_ns, info.st_nlink)
+
+
+def _reread_digest_matches(fd, size, expected_digest):
+    """Re-read the SAME pinned descriptor and confirm the bytes still hash to `expected_digest`.
+
+    Used when only ctime moved during a read. Reading through the already-open fd cannot be
+    redirected by a path swap, so this compares the identical inode we just parsed — it proves a
+    metadata-only touch instead of trusting a timestamp.
+    """
+    os.lseek(fd, 0, os.SEEK_SET)
+    digest = hashlib.sha256()
+    remaining = size
+    while remaining:
+        chunk = os.read(fd, min(remaining, 1024 * 1024))
+        if not chunk:
+            return False
+        digest.update(chunk)
+        remaining -= len(chunk)
+    return not os.read(fd, 1) and digest.hexdigest() == expected_digest
+
+
+def _stable_read(read_once, retry_content_change):
+    """Run one pinned read attempt, retrying an unsettled read or a transient cloud-FS error.
+
+    `retry_content_change` decides whether a mid-read CONTENT change is re-read (pool inputs) or
+    rejected outright (content-addressed connector projections) — see `_ContentMoved`.
+    """
+    last = None
+    for attempt in range(STABLE_READ_ATTEMPTS):
+        try:
+            return read_once()
+        except _ContentMoved as exc:
+            if not retry_content_change:
+                raise
+            last = exc
+        except _ReadRace as exc:
+            last = exc
+        except OSError as exc:
+            if exc.errno not in _TRANSIENT_READ_ERRNOS:
+                raise
+            last = exc
+        if attempt + 1 < STABLE_READ_ATTEMPTS and STABLE_READ_BACKOFF_S:
+            _time.sleep(min(STABLE_READ_BACKOFF_S * (2 ** attempt), STABLE_READ_BACKOFF_MAX_S))
+    raise last
+
+
+def _read_regular_nofollow_bytes_once(path):
     before = os.lstat(path)
     if (stat.S_ISLNK(before.st_mode) or not stat.S_ISREG(before.st_mode)
             or before.st_nlink != 1):
@@ -102,38 +241,38 @@ def _read_regular_nofollow_bytes(path):
     fd = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
     try:
         opened = os.fstat(fd)
-        identity = (
-            opened.st_dev, opened.st_ino, opened.st_size,
-            opened.st_mtime_ns, opened.st_ctime_ns, opened.st_nlink,
-        )
-        if opened.st_nlink != 1 or identity != (
-            before.st_dev, before.st_ino, before.st_size,
-            before.st_mtime_ns, before.st_ctime_ns, before.st_nlink,
-        ):
-            raise ValueError("connector projection changed before read")
+        identity = _content_identity(opened)
+        ctime_before = opened.st_ctime_ns
+        if opened.st_nlink != 1 or identity != _content_identity(before):
+            raise _ReadRace("connector projection changed before read")
         chunks = []
         remaining = opened.st_size
         while remaining:
             chunk = os.read(fd, min(remaining, 1024 * 1024))
             if not chunk:
-                raise ValueError("connector projection truncated during read")
+                raise _ContentMoved("connector projection truncated during read")
             chunks.append(chunk)
             remaining -= len(chunk)
         if os.read(fd, 1):
-            raise ValueError("connector projection grew during read")
+            raise _ContentMoved("connector projection grew during read")
         after_open = os.fstat(fd)
         after = os.lstat(path)
-        if identity != (
-            after_open.st_dev, after_open.st_ino, after_open.st_size,
-            after_open.st_mtime_ns, after_open.st_ctime_ns, after_open.st_nlink,
-        ) or identity != (
-            after.st_dev, after.st_ino, after.st_size,
-            after.st_mtime_ns, after.st_ctime_ns, after.st_nlink,
-        ):
-            raise ValueError("connector projection changed during read")
-        return b"".join(chunks)
+        if identity != _content_identity(after_open) or identity != _content_identity(after):
+            raise _ContentMoved("connector projection changed during read")
+        raw = b"".join(chunks)
+        if ctime_before != after_open.st_ctime_ns or ctime_before != after.st_ctime_ns:
+            # metadata-only touch (xattr / chmod / cloud-sync): prove the bytes, don't trust the clock
+            if not _reread_digest_matches(fd, opened.st_size, hashlib.sha256(raw).hexdigest()):
+                raise _ContentMoved("connector projection changed during read")
+        return raw
     finally:
         os.close(fd)
+
+
+def _read_regular_nofollow_bytes(path):
+    # sealed, content-addressed object: ride out metadata churn and transient IO, but a real
+    # mid-read content change stays a hard refusal (never re-read under an earlier digest).
+    return _stable_read(lambda: _read_regular_nofollow_bytes_once(path), retry_content_change=False)
 
 
 def _pool_regular_descriptors(data_path, rel):
@@ -160,7 +299,8 @@ def _pool_regular_descriptors(data_path, rel):
         descriptors.append(directory_fd)
         opened_root = os.fstat(directory_fd)
         if (opened_root.st_dev, opened_root.st_ino) != (root_info.st_dev, root_info.st_ino):
-            raise ValueError("pool root changed before read")
+            # a race, not a verdict about the file — _stable_read re-pins from scratch
+            raise _ReadRace("pool root changed before read")
         for component in components[:-1]:
             info = os.stat(component, dir_fd=directory_fd, follow_symlinks=False)
             if stat.S_ISLNK(info.st_mode) or not stat.S_ISDIR(info.st_mode):
@@ -173,7 +313,7 @@ def _pool_regular_descriptors(data_path, rel):
             opened = os.fstat(next_fd)
             if (opened.st_dev, opened.st_ino) != (info.st_dev, info.st_ino):
                 os.close(next_fd)
-                raise ValueError("pool directory changed before read")
+                raise _ReadRace("pool directory changed before read")
             descriptors.append(next_fd)
             directory_fd = next_fd
         name = components[-1]
@@ -185,10 +325,13 @@ def _pool_regular_descriptors(data_path, rel):
             name, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0), dir_fd=directory_fd,
         )
         opened = os.fstat(file_fd)
-        if ((opened.st_dev, opened.st_ino) != (before.st_dev, before.st_ino)
-                or opened.st_nlink != 1):
+        if opened.st_nlink != 1:
+            # a writable hard-link alias is a VERDICT about the file, not a race — never retry it
             os.close(file_fd)
-            raise ValueError("pool input changed before read")
+            raise ValueError("pool input must be a unique regular non-symlink file")
+        if (opened.st_dev, opened.st_ino) != (before.st_dev, before.st_ino):
+            os.close(file_fd)
+            raise _ReadRace("pool input changed before read")
         return descriptors, directory_fd, name, file_fd, opened
     except BaseException:
         for descriptor in reversed(descriptors):
@@ -196,38 +339,44 @@ def _pool_regular_descriptors(data_path, rel):
         raise
 
 
-def _read_pool_regular_bytes(data_path, rel):
+def _read_pool_regular_bytes_once(data_path, rel):
     descriptors, parent_fd, name, file_fd, opened = _pool_regular_descriptors(data_path, rel)
-    identity = (
-        opened.st_dev, opened.st_ino, opened.st_size,
-        opened.st_mtime_ns, opened.st_ctime_ns, opened.st_nlink,
-    )
+    identity = _content_identity(opened)
+    ctime_before = opened.st_ctime_ns
     try:
         chunks = []
         remaining = opened.st_size
         while remaining:
             chunk = os.read(file_fd, min(remaining, 1024 * 1024))
             if not chunk:
-                raise ValueError("pool input truncated during read")
+                raise _ContentMoved("pool input truncated during read")
             chunks.append(chunk)
             remaining -= len(chunk)
         if os.read(file_fd, 1):
-            raise ValueError("pool input grew during read")
+            raise _ContentMoved("pool input grew during read")
         after_open = os.fstat(file_fd)
         after_path = os.stat(name, dir_fd=parent_fd, follow_symlinks=False)
-        if identity != (
-            after_open.st_dev, after_open.st_ino, after_open.st_size,
-            after_open.st_mtime_ns, after_open.st_ctime_ns, after_open.st_nlink,
-        ) or identity != (
-            after_path.st_dev, after_path.st_ino, after_path.st_size,
-            after_path.st_mtime_ns, after_path.st_ctime_ns, after_path.st_nlink,
-        ):
-            raise ValueError("pool input changed during read")
-        return b"".join(chunks)
+        if identity != _content_identity(after_open) or identity != _content_identity(after_path):
+            raise _ContentMoved("pool input changed during read")
+        raw = b"".join(chunks)
+        if ctime_before != after_open.st_ctime_ns or ctime_before != after_path.st_ctime_ns:
+            # Only ctime moved: a metadata-only touch — Google Drive writing its
+            # `com.google.drivefs.item-id` xattr, macOS stamping `com.apple.lastuseddate#PS`, a
+            # chmod. None of those change a byte. Prove that by re-reading the SAME pinned
+            # descriptor and comparing digests, rather than failing the file on a timestamp.
+            if not _reread_digest_matches(file_fd, opened.st_size, hashlib.sha256(raw).hexdigest()):
+                raise _ContentMoved("pool input changed during read")
+        return raw
     finally:
         os.close(file_fd)
         for descriptor in reversed(descriptors):
             os.close(descriptor)
+
+
+def _read_pool_regular_bytes(data_path, rel):
+    # user evidence on a cloud-synced mirror: a genuine re-sync is re-read to a settled snapshot.
+    # Sealed provenance is still enforced downstream by _snapshot_pool_file's attested-digest check.
+    return _stable_read(lambda: _read_pool_regular_bytes_once(data_path, rel), retry_content_change=True)
 
 
 def _snapshot_pool_file(data_path, rel, snapshot_pool, attested_sha256=None):
@@ -944,6 +1093,13 @@ def _visual_source_identity(path):
     for the source from the byte-identical snapshot. Hashing one stable,
     no-follow read makes both names converge without reopening an unverified
     path in the parser.
+
+    The stability comparison EXCLUDES st_ctime_ns on purpose. The returned identity IS a sha256 of
+    the bytes, so a metadata-only touch (Google Drive writing its item-id xattr, macOS stamping
+    lastuseddate) cannot change it. Folding ctime in made every such touch fall through to the
+    `unreadable:<path>` fallback, which scopes the key to a path and therefore MISSES the vision
+    cache — silently re-paying Claude vision token spend for a file whose bytes never moved, against
+    this module's own promise that the cost is "paid once per file, ever".
     """
     descriptor = None
     try:
@@ -953,12 +1109,10 @@ def _visual_source_identity(path):
         descriptor = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
         opened = os.fstat(descriptor)
         expected = (
-            before.st_dev, before.st_ino, before.st_size,
-            before.st_mtime_ns, before.st_ctime_ns,
+            before.st_dev, before.st_ino, before.st_size, before.st_mtime_ns,
         )
         if expected != (
-            opened.st_dev, opened.st_ino, opened.st_size,
-            opened.st_mtime_ns, opened.st_ctime_ns,
+            opened.st_dev, opened.st_ino, opened.st_size, opened.st_mtime_ns,
         ):
             raise ValueError("visual source changed before cache identity read")
         digest = hashlib.sha256()
@@ -974,20 +1128,24 @@ def _visual_source_identity(path):
         after_open = os.fstat(descriptor)
         after_path = os.lstat(path)
         observed_open = (
-            after_open.st_dev, after_open.st_ino, after_open.st_size,
-            after_open.st_mtime_ns, after_open.st_ctime_ns,
+            after_open.st_dev, after_open.st_ino, after_open.st_size, after_open.st_mtime_ns,
         )
         observed_path = (
-            after_path.st_dev, after_path.st_ino, after_path.st_size,
-            after_path.st_mtime_ns, after_path.st_ctime_ns,
+            after_path.st_dev, after_path.st_ino, after_path.st_size, after_path.st_mtime_ns,
         )
         if expected != observed_open or expected != observed_path:
             raise ValueError("visual source changed during cache identity read")
         return f"sha256:{digest.hexdigest()}|size:{opened.st_size}"
     except Exception:
-        # The caller will fail the actual read separately. Keep an unusable
-        # path scoped to itself instead of ever sharing a speculative cache.
-        return f"unreadable:{os.path.abspath(path)}"
+        # The caller will fail the actual read separately. A path-scoped key is NOT enough: it is
+        # stable across runs, so two DIFFERENT documents that ever occupy the same pathname share
+        # one cache entry — replace `investor-presentation.pdf` with the next quarter's deck and,
+        # if the identity read fails both times (a freshly-synced Drive placeholder raising
+        # ETIMEDOUT is exactly that case), the Q1 transcription is served as the Q2 deck's text.
+        # That is a §20 bad-extraction with no visible symptom. A per-call nonce makes an unreadable
+        # source MISS the cache always, so a failed identity can only cost a re-read, never
+        # attribute one document's content to another.
+        return f"unreadable:{os.path.abspath(path)}|{os.urandom(8).hex()}"
     finally:
         if descriptor is not None:
             os.close(descriptor)
@@ -1381,7 +1539,10 @@ def sniff_text(path, max_chars=16000):
 
 # ---------- full pool extract ----------
 
-_CACHE_GUARD_VERSION = 2
+# v3: _file_guard_identity dropped ctime_ns (a Drive xattr touch on one file was discarding the
+# whole cached manifest). The shape changed, so every v2 guard must be treated as stale rather than
+# compared field-by-field against a differently-shaped dict.
+_CACHE_GUARD_VERSION = 3
 
 def iter_pool_files(data_path):
     # Resolve the configured root once (the root itself may intentionally be a
@@ -1436,12 +1597,21 @@ def iter_pool_files(data_path):
 
 
 def _file_guard_identity(path, *, content_hash=False):
-    """Stable local identity; hash only derived/cache text, never every raw filing."""
+    """Stable local identity; hash only derived/cache text, never every raw filing.
+
+    ctime_ns is deliberately absent. This dict is a cache-FRESHNESS signal, compared whole by
+    is_fresh() across every pool file; the pool is a Google Drive mirror, so a single xattr touch on
+    a single file used to move ctime_ns and discard the entire cached manifest. Measured on the live
+    INDIAMART pool: exactly one of 85 entries differed, in ctime_ns alone, with size and mtime_ns
+    byte-identical — turning a ~1.3s cache hit into a ~24s full re-extraction, on essentially every
+    run. size + mtime_ns is the standard freshness pair and is what actually tracks content; the
+    integrity story for pool bytes is carried by the pinned reads and the attested-digest binding at
+    extraction time, not by this heuristic.
+    """
     st = os.stat(path)
     identity = {
         "size": st.st_size,
         "mtime_ns": st.st_mtime_ns,
-        "ctime_ns": st.st_ctime_ns,
     }
     if content_hash:
         digest = hashlib.sha256()
@@ -2049,13 +2219,19 @@ def _write_corpus(out_dir, data_path, corpus_path, manifest, excluded_rels=None)
     for p in iter_pool_files(data_path):
         rel = os.path.relpath(p, data_path).replace(os.sep, "/")
         if p.lower().endswith(".txt") and rel in approved_originals and rel not in excluded:
+            # Read BEFORE labelling. Appending the header first meant a failed read left a
+            # labelled but EMPTY section in the corpus — worse than omitting the source, because
+            # verify-evidence then greps a section that exists, finds nothing in it, and reads that
+            # as "the source says nothing" rather than "the source could not be read" (§20 bad
+            # extraction). An unreadable source must be absent from the corpus, not silently blank.
+            try:
+                body = _read_pool_regular_bytes(data_path, rel).decode("utf-8", "ignore")
+            except (OSError, ValueError):
+                continue
             # relpath, not basename — data/T/note.txt and data/T/external/x/note.txt must be
             # labelled distinctly, or verify-evidence attributes greps to the wrong source.
             parts.append(f"\n===== SOURCE: {rel} =====\n")
-            try:
-                parts.append(_read_pool_regular_bytes(data_path, rel).decode("utf-8", "ignore"))
-            except (OSError, ValueError):
-                continue
+            parts.append(body)
     open(corpus_path, "w").write("".join(parts))
     print(f"[extract_pool] corpus: {corpus_path} ({sum(len(x) for x in parts)} chars)")
 
@@ -2093,8 +2269,51 @@ _NON_FILING_NAME = re.compile(
 # company precedes the (EXCH:TICKER) tag — a high-confidence registrant signal that also works for
 # filings whose cover carries their own ticker. Used FIRST + only in the header region (so a deep-prose
 # peer mention can't match), which lets data exports contribute their clean entity.
+# The name and its (EXCH:TICKER) tag must sit on the SAME line, and the name may not begin
+# mid-word. `\s*` (which matches newlines) let this span a line break, and the {2,80} bound then
+# slid the start forward until the span fit — turning an Indian cover letter's two-column addressee
+# block ("BSE Limited        National Stock Exchange of India Limited\n(BSE: 542726)") into the
+# left-truncated garbage entities "ited National Stock Exchange of India Limited", "ed National
+# Stock Exchange…", "d National Stock Exchange…". Three fake companies from one line, which then
+# read as a mixed-entity pool and blocked the run.
 _CIQ_HEADER = re.compile(
-    r"([A-Za-z][\w&.,'’\- ]{2,80}?)\s*\(\s*[A-Za-z][\w.]*\s*:\s*[A-Za-z0-9.\-]+\s*\)")
+    r"(?<![A-Za-z0-9])([A-Za-z][^\S\r\n\w]*[\w&.,'’\- ]{2,80}?)[^\S\r\n]*"
+    r"\(\s*[A-Za-z][\w.]*\s*:\s*[A-Za-z0-9.\-]+\s*\)")
+
+# Exchanges, depositories and regulators are the ADDRESSEE of a filing cover letter, never its
+# registrant. Every Indian filing opens "To, BSE Limited / National Stock Exchange of India
+# Limited", so without this the exchange is read as a second company in the pool and the
+# mixed-entity gate blocks a perfectly clean pool (CLAUDE.md §27: an Indian company is the
+# default-likely case). Matched on the normalized key, so punctuation/suffix variants collapse.
+_ADDRESSEE_ENTITY_KEYS = frozenset({
+    "nationalstockexchangeindia", "nationalstockexchange", "bombaystockexchange",
+    "nationalsecuritiesdepository", "centraldepositoryservicesindia",
+    "centraldepositoryservices", "metropolitanstockexchangeindia",
+    "securitiesexchangeboardindia", "newyorkstockexchange", "londonstockexchange",
+    "nasdaqstockmarket", "singaporeexchangesecuritiestrading",
+})
+# Cover-letter framing that proves the head is an ADDRESSEE block rather than a title page. The
+# stop-list only applies when one of these is present, so an exchange that is itself the subject of
+# the run (BSE Limited and NSE are both listed companies) is still read from its own title page.
+# Deliberately NARROW. Two earlier drafts of this were far too broad: `\bTrading\s+Symbol\b` sits on
+# every post-2019 US 10-K/10-Q/8-K cover page, and a bare `^\s*To[,:]` under re.M matched any wrapped
+# prose line beginning "to, ". Both armed the addressee branch on documents that are not cover
+# letters at all. The "To," cue must therefore be a STANDALONE addressee line, and the US
+# cover-page cue is gone entirely.
+_ADDRESSEE_CONTEXT = re.compile(
+    r"^\s*To[,:]\s*$|\bListing\s+(?:Department|Compliance)\b|\bDear\s+Sir\b|\bScrip\s+Code\b"
+    r"|\bBSE\s+Scrip\b", re.I | re.M)
+# Indian cover letters sign off "Yours faithfully, / For <REGISTRANT>" — a high-precision POSITIVE
+# signal for the true issuer. The sign-off cue is REQUIRED: `For <Capitalised words> Group` on its
+# own matches ordinary boilerplate ("For Further Information Contact Investor Relations Group"),
+# because _CORP_SUFFIX contains plain English words (Group, Company, Holdings). Without the cue this
+# fabricated a company name and — being checked first — overrode the correct registrant on US and
+# data-vendor documents. It is also checked AFTER the two high-confidence patterns now, so it can
+# only ever fill a gap, never override a header that actually names the registrant.
+_SIGNATORY_FOR = re.compile(
+    r"(?:Yours\s+(?:faithfully|sincerely|truly)|Thanking\s+you)[^\n]*\n\s*"
+    r"(?:For|for)\s+([A-Z][A-Za-z0-9&.,'’\- ]{2,78}?" + _CORP_SUFFIX + r")\s*$",
+    re.I | re.M)
 
 
 def _clean_entity(s):
@@ -2162,12 +2381,23 @@ def _same_entity(k1, k2):
     return _bounded_lev(k1, k2, 2) <= 2
 
 
+# Lead-in words no registrant name starts with. A cover page or press release carries capitalised
+# boilerplate that otherwise satisfies every other test — "For Further Information Contact Investor
+# Relations Group" ends in a _CORP_SUFFIX ("Group"), is short, and is not mostly lowercase, so it was
+# accepted as a company and counted toward the mixed-entity gate. Two files carrying it clear
+# _MIN_FILES_FOR_CONFLICT and block a clean pool on a company that does not exist.
+_ENTITY_LEAD_IN_WORDS = {"for", "to", "about", "contact", "attn", "attention", "re", "by", "from",
+                         "dear", "subject", "ref", "reference"}
+
+
 def _looks_like_entity(name):
     """A registrant name LOOKS like a name, not prose or a bare suffix word: it has a real (non-suffix)
     word, is short, and isn't mostly lowercase function words ("is in fact the very purpose of ...")."""
     words = (name or "").split()
     if not (1 <= len(words) <= 8):
         return False
+    if words[0].strip(".,:").lower() in _ENTITY_LEAD_IN_WORDS:
+        return False                            # boilerplate lead-in, not a registrant name
     norm = _norm_entity(name)
     if not norm:                                # nothing but corporate suffixes ("Company", "The Group")
         return False
@@ -2280,6 +2510,11 @@ def entity_from_header(text):
         return ""
     head = text[:2500]
     cands = []
+    # An Indian filing cover letter is ADDRESSED to the exchanges and SIGNED by the registrant
+    # ("Yours faithfully, / For IndiaMART InterMESH Limited"). When that framing is present the
+    # signature is the issuer and the addressee block is not, so read the signature FIRST and
+    # discard exchange/depository names entirely (see _ADDRESSEE_ENTITY_KEYS).
+    addressed = bool(_ADDRESSEE_CONTEXT.search(head))
     # CIQ / data-vendor export header "{Company} (EXCH:TICKER) > ..." — checked FIRST and only in the
     # header region, so a data export contributes its clean subject (not a peer named deeper in the file).
     m = _CIQ_HEADER.search(head[:300])
@@ -2294,6 +2529,14 @@ def entity_from_header(text):
     m = re.search(r"Name of (?:the )?(?:Listed Entity|Company)\s*(?:[:\-]\s*|\n\s*)([^\n]{3,90})", head, re.I)
     if m:
         cands.append(m.group(1))
+    # An Indian filing cover letter is ADDRESSED to the exchanges and SIGNED by the registrant
+    # ("Yours faithfully, / For IndiaMART InterMESH Limited"). Checked only when that framing is
+    # present, and only AFTER the higher-confidence header patterns above, so it fills the gap those
+    # leave on a cover letter without ever overriding a document that names its registrant outright.
+    if addressed:
+        m = _SIGNATORY_FOR.search(head)
+        if m:
+            cands.append(m.group(1))
     # the first short STANDALONE line ending in a corporate suffix (cover-page title; often ALL CAPS).
     # Strip a trailing parenthetical first ("(Formerly TML ...)", "(NYSE: CRM)") so the registrant name
     # is matched, not lost to the suffix being followed by ")".
@@ -2304,8 +2547,14 @@ def entity_from_header(text):
             break
     for c in cands:
         c = _clean_entity(c)
-        if _looks_like_entity(c):           # reject prose ("fact the very purpose") + bare suffixes ("Company")
-            return c
+        if not _looks_like_entity(c):       # reject prose ("fact the very purpose") + bare suffixes ("Company")
+            continue
+        # Substring, not equality: a PDF text layer flattens the two-column addressee block into one
+        # line ("BSE Limited        National Stock Exchange of India Limited"), whose key contains an
+        # addressee key without equalling it. Either way it is who the letter was sent TO.
+        if addressed and any(k in _entity_key(c) for k in _ADDRESSEE_ENTITY_KEYS):
+            continue
+        return c
     return ""
 
 

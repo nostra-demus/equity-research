@@ -220,9 +220,18 @@ Rules of the road (frameworks/EXTERNAL_DATA.md in the repo):
 
 
 def _file_identity(info):
+    """Stat fields that move if and only if the file's BYTES can have moved.
+
+    st_ctime_ns is deliberately EXCLUDED. The EXTERNAL-INBOX drop folder lives under the
+    Drive-synced data/ tree, where the sync client writes xattrs that bump ctime without changing a
+    byte — folding it in rejected files whose content never moved (the same defect that took out a
+    whole 87-file pool in extract_pool.py; see the stable-read note there). A content write, even an
+    in-place same-size byte flip, always bumps st_mtime_ns, so size + mtime + (dev, ino, nlink)
+    still catch every real change. Index 2 stays st_size — _sha256_open_fd reads it positionally.
+    """
     return (
         info.st_dev, info.st_ino, info.st_size,
-        info.st_mtime_ns, info.st_ctime_ns, info.st_nlink,
+        info.st_mtime_ns, info.st_nlink,
     )
 
 
@@ -271,12 +280,43 @@ def _sha256_open_fd(path, fd, identity):
     return h.hexdigest()
 
 
+# Errors a cloud-backed filesystem raises transiently. The EXTERNAL-INBOX drop folder lives on the
+# Google Drive mount in Stream mode, so the FIRST read of a freshly dropped file triggers hydration
+# and can surface as ETIMEDOUT ("[Errno 60] Operation timed out"). Nothing here caught that: the
+# exception escaped run()/main(), so one cold placeholder aborted the entire routing pass with a
+# traceback — and because iter_inbox_files yields sorted names, a file stuck dehydrated blocked
+# every alphabetically later file behind it. Retry the pinned read instead.
+_TRANSIENT_READ_ERRNOS = frozenset(
+    getattr(errno, name) for name in
+    ("ETIMEDOUT", "EIO", "EINTR", "EAGAIN", "EWOULDBLOCK", "EBUSY", "ENOENT", "ESTALE",
+     "ENXIO", "EDEADLK", "ENOTCONN", "EHOSTDOWN")
+    if hasattr(errno, name)
+)
+_STABLE_READ_ATTEMPTS = max(1, int(os.environ.get("INGEST_STABLE_READ_ATTEMPTS") or 4))
+_STABLE_READ_BACKOFF_S = max(0.0, float(os.environ.get("INGEST_STABLE_READ_BACKOFF_S") or 0.15))
+
+
+def _retry_transient(read_once):
+    """Run a pinned read, retrying only a transient cloud-filesystem error."""
+    for attempt in range(_STABLE_READ_ATTEMPTS):
+        try:
+            return read_once()
+        except OSError as exc:
+            if exc.errno not in _TRANSIENT_READ_ERRNOS or attempt + 1 >= _STABLE_READ_ATTEMPTS:
+                raise
+        if _STABLE_READ_BACKOFF_S:
+            time.sleep(min(_STABLE_READ_BACKOFF_S * (2 ** attempt), 2.0))
+    raise OSError(errno.EIO, "could not complete a stable read")  # unreachable
+
+
 def _sha256_file_with_identity(path):
-    fd, identity = _open_unique_regular(path)
-    try:
-        return _sha256_open_fd(path, fd, identity), identity
-    finally:
-        os.close(fd)
+    def once():
+        fd, identity = _open_unique_regular(path)
+        try:
+            return _sha256_open_fd(path, fd, identity), identity
+        finally:
+            os.close(fd)
+    return _retry_transient(once)
 
 
 def sha256_file(path):
@@ -284,22 +324,24 @@ def sha256_file(path):
 
 
 def _read_unique_regular_bytes(path):
-    fd, identity = _open_unique_regular(path)
-    try:
-        remaining = identity[2]
-        chunks = []
-        while remaining:
-            chunk = os.read(fd, min(remaining, 1 << 20))
-            if not chunk:
-                raise ValueError("file truncated during read")
-            chunks.append(chunk)
-            remaining -= len(chunk)
-        if os.read(fd, 1):
-            raise ValueError("file grew during read")
-        _verify_unique_regular(path, fd, identity)
-        return b"".join(chunks)
-    finally:
-        os.close(fd)
+    def once():
+        fd, identity = _open_unique_regular(path)
+        try:
+            remaining = identity[2]
+            chunks = []
+            while remaining:
+                chunk = os.read(fd, min(remaining, 1 << 20))
+                if not chunk:
+                    raise ValueError("file truncated during read")
+                chunks.append(chunk)
+                remaining -= len(chunk)
+            if os.read(fd, 1):
+                raise ValueError("file grew during read")
+            _verify_unique_regular(path, fd, identity)
+            return b"".join(chunks)
+        finally:
+            os.close(fd)
+    return _retry_transient(once)
 
 
 def _recover_publication_alias(path, prefix):
@@ -682,12 +724,17 @@ def copy_contents(src, dst, root=None, expected_sha256=None):
 
 
 def _same_source_after_rename(info, identity):
+    """Same inode, same bytes, after the rename into the private hold.
+
+    This used to index around position 4 by hand because st_ctime_ns sat in the identity tuple and
+    a rename necessarily bumps ctime. `_file_identity` no longer carries ctime (a metadata-only
+    touch is not a content change — see its docstring), so the comparison is simply the shared one.
+    """
     return (
         stat.S_ISREG(info.st_mode)
         and not stat.S_ISLNK(info.st_mode)
         and info.st_nlink == 1
-        and (info.st_dev, info.st_ino, info.st_size, info.st_mtime_ns, info.st_nlink)
-        == (identity[0], identity[1], identity[2], identity[3], identity[5])
+        and _file_identity(info) == identity
     )
 
 

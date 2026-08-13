@@ -4,7 +4,7 @@
 // in `parseManifest()`; ambiguous provider coverage is removed by `honestCoverage()`.
 
 import fs from 'node:fs'
-import type { Stats } from 'node:fs'
+import type { BigIntStats, Stats } from 'node:fs'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
 import { isIP } from 'node:net'
@@ -752,24 +752,86 @@ function safePoolEntry(dataDir: string, relative: string, kind: PoolEntryKind): 
 const safePoolFile = (dataDir: string, relative: string) => safePoolEntry(dataDir, relative, 'file')
 const safePoolDirectory = (dataDir: string, relative: string) => safePoolEntry(dataDir, relative, 'directory')
 
-/** Open an already-resolved canonical leaf without following a last-moment symlink replacement. */
-function readRegularFileNoFollow(file: string): Buffer | null {
+/** Open an already-resolved canonical leaf without following a last-moment symlink replacement.
+ *
+ * The stability identity deliberately EXCLUDES ctime. `dataDir` is normally a symlink to a Google
+ * Drive for Desktop mount, and Drive (like macOS' own `com.apple.lastuseddate#PS`) writes extended
+ * attributes onto pool files independently of their content. An xattr write bumps ctime and nothing
+ * else, so comparing it rejected files whose bytes never moved — the defect that turned a whole
+ * 87-file evidence pool into "changed during read" failures (see the stable-read note in
+ * .claude/tools/extract_pool.py).
+ *
+ * A content write always bumps mtime, so mtime + size + (dev, ino, nlink) still catch every real
+ * change. Stats are taken with `bigint: true` so the comparison uses NANOSECOND mtime rather than
+ * the float-millisecond `mtimeMs` — strictly finer than what it replaces.
+ *
+ * When ctime moved we do not simply shrug: we re-read the same pinned descriptor from offset 0 and
+ * compare the bytes. Equal bytes prove a metadata-only touch; anything else fails closed. That
+ * catches a same-length rewrite landing after the read, which is otherwise invisible once ctime is
+ * out of the identity.
+ *
+ * KNOWN RESIDUAL: a same-uid writer who rewrites same-length bytes DURING the read and then
+ * restores mtime to the nanosecond with utimensat is no longer detectable here — ctime was the only
+ * stamp that could not be rolled back, and it is exactly the stamp Drive makes unusable. Everything
+ * else PR #407 named still fails closed (hard-link, symlink, partial write, inode swap,
+ * differing-length or mtime-moving rewrite). Content-addressed reads are additionally bound by
+ * their sha256 in jsonFileWithBytes/canonicalCurrent, which is the real defence for those.
+ *
+ * Transient cloud-filesystem errors are retried: Drive hydrating a streamed placeholder raises
+ * ETIMEDOUT on a file that is perfectly readable, and swallowing that as `null` made a satisfied
+ * connector read as not-current.
+ */
+const TRANSIENT_FS_ERRNOS = new Set([
+  'ETIMEDOUT', 'EIO', 'EINTR', 'EAGAIN', 'EBUSY', 'ENOENT', 'ESTALE', 'ENXIO', 'EDEADLK',
+  'ENOTCONN', 'EHOSTDOWN',
+])
+const STABLE_READ_ATTEMPTS = Math.max(1, Number(process.env.ENGINE_STABLE_READ_ATTEMPTS) || 4)
+
+function readRegularFileNoFollowOnce(file: string): { bytes: Buffer | null; transient: boolean } {
   let descriptor: number | null = null
   try {
-    const before = fs.lstatSync(file)
-    if (before.isSymbolicLink() || !before.isFile() || before.nlink !== 1) return null
+    const before = fs.lstatSync(file, { bigint: true })
+    if (before.isSymbolicLink() || !before.isFile() || before.nlink !== 1n) return { bytes: null, transient: false }
     descriptor = fs.openSync(file, fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW)
-    const opened = fs.fstatSync(descriptor)
-    const sameStableIdentity = (candidate: Stats) => candidate.isFile() && candidate.nlink === 1
+    const opened = fs.fstatSync(descriptor, { bigint: true })
+    const sameStableIdentity = (candidate: BigIntStats) => candidate.isFile() && candidate.nlink === 1n
       && candidate.dev === opened.dev && candidate.ino === opened.ino && candidate.size === opened.size
-      && candidate.mtimeMs === opened.mtimeMs && candidate.ctimeMs === opened.ctimeMs
-    if (!sameStableIdentity(before) || !sameStableIdentity(opened)) return null
+      && candidate.mtimeNs === opened.mtimeNs
+    if (!sameStableIdentity(before) || !sameStableIdentity(opened)) return { bytes: null, transient: true }
     const bytes = fs.readFileSync(descriptor)
-    const afterOpen = fs.fstatSync(descriptor)
-    const afterPath = fs.lstatSync(file)
-    return sameStableIdentity(afterOpen) && sameStableIdentity(afterPath) ? bytes : null
-  } catch { return null }
-  finally { if (descriptor != null) try { fs.closeSync(descriptor) } catch { /* already failed closed */ } }
+    const afterOpen = fs.fstatSync(descriptor, { bigint: true })
+    const afterPath = fs.lstatSync(file, { bigint: true })
+    if (!sameStableIdentity(afterOpen) || !sameStableIdentity(afterPath)) return { bytes: null, transient: true }
+    if (afterOpen.ctimeNs !== opened.ctimeNs || afterPath.ctimeNs !== opened.ctimeNs) {
+      // ctime moved but content identity held: prove the bytes rather than trusting the clock.
+      const again = Buffer.allocUnsafe(bytes.length)
+      let filled = 0
+      while (filled < again.length) {
+        const n = fs.readSync(descriptor, again, filled, again.length - filled, filled)
+        if (n <= 0) return { bytes: null, transient: true }
+        filled += n
+      }
+      if (!bytes.equals(again)) return { bytes: null, transient: true }
+    }
+    return { bytes, transient: false }
+  } catch (e: any) {
+    return { bytes: null, transient: TRANSIENT_FS_ERRNOS.has(String(e?.code || '')) }
+  } finally { if (descriptor != null) try { fs.closeSync(descriptor) } catch { /* already failed closed */ } }
+}
+
+// Retries are immediate and un-delayed ON PURPOSE: this reader is synchronous and runs on the
+// Fastify event loop, so a blocking sleep between attempts would freeze every other request —
+// strictly worse than the failure it would paper over. Immediate retries fully cover the identity
+// race (a Drive sync touch is over in microseconds) and partially cover hydration, since the first
+// read is what triggers the download. A placeholder still cold after 4 attempts falls back to the
+// original `null`, which is the pre-existing behaviour rather than a new regression.
+function readRegularFileNoFollow(file: string): Buffer | null {
+  for (let attempt = 0; attempt < STABLE_READ_ATTEMPTS; attempt++) {
+    const { bytes, transient } = readRegularFileNoFollowOnce(file)
+    if (bytes != null) return bytes
+    if (!transient) return null
+  }
+  return null
 }
 
 function digestBytes(bytes: Buffer): string {

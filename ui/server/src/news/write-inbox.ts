@@ -90,10 +90,17 @@ function cacheRevisionQuery(key: string, value: DurableRevisionClock | null): vo
   }
 }
 
+// ctimeMs is deliberately absent. This stamp is a cache-freshness signature over NEWS_ARCHIVE_DIR,
+// which is a Google Drive for Desktop mount (see config.ts). Drive writes its item-id xattr onto
+// archive files independently of content, and an xattr write bumps ctime alone — so including it
+// changed the partition signature for byte-identical files, forcing a full re-discovery (a filename
+// re-scan of the whole archive plus a line-by-line re-stream of the affected partitions) on every
+// sync pass. size + mtime is what actually tracks content. Same root cause as the pool-extractor
+// stable-read fix in .claude/tools/extract_pool.py.
 function fileStamp(fp: string): string | null {
   try {
     const stat = fs.statSync(fp)
-    return `${stat.size}|${stat.mtimeMs}|${stat.ctimeMs}`
+    return `${stat.size}|${stat.mtimeMs}`
   } catch {
     return null
   }

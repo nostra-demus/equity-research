@@ -929,6 +929,260 @@ def test_snapshot_bound_to_attested_digest() -> None:
               Path(snapshot).read_bytes() == b"hello")
 
 
+def test_cloud_sync_metadata_churn() -> None:
+    """A metadata-only touch during a read must NOT reject a file whose bytes never moved.
+
+    The data pool is a Google Drive for Desktop mount. Drive writes its `com.google.drivefs.item-id`
+    xattr — and macOS its `com.apple.lastuseddate#PS` — onto pool files independently of content.
+    That bumps st_ctime_ns and NOTHING else. The readers used to compare ctime across the read and
+    reject any delta, so one sync pass landing mid-extraction turned a whole 87-file evidence pool
+    into `unsafe-input` / "pool input rejected" rows and left the readiness gate with nothing usable.
+
+    os.chmod is the portable stand-in for that touch: it moves ctime while leaving content, size and
+    mtime untouched, so this test reproduces the exact mechanism on Linux CI and macOS alike.
+    """
+    import hashlib as _hashlib
+    import os as _os
+
+    payload = bytes(range(256)) * 8192            # 2 MiB, wide enough to race the read window
+    digest = _hashlib.sha256(payload).hexdigest()
+
+    # (1) ctime moved BEFORE the read: must read clean.
+    with tempfile.TemporaryDirectory() as pool:
+        target = Path(pool) / "filing.pdf"
+        target.write_bytes(payload)
+        _os.chmod(target, 0o644)
+        check("cloud-sync: a ctime-only touch before the read is not a failure",
+              ep._read_pool_regular_bytes(pool, "filing.pdf") == payload)
+
+    # (2) ctime moved DURING the read — the reported failure. The reader must still return the
+    #     correct bytes (it re-reads the pinned fd and compares digests rather than trusting ctime).
+    with tempfile.TemporaryDirectory() as pool:
+        target = Path(pool) / "filing.pdf"
+        target.write_bytes(payload)
+        real_read, calls = _os.read, {"n": 0}
+
+        def touching_read(descriptor, size):
+            chunk = real_read(descriptor, size)
+            calls["n"] += 1
+            if calls["n"] == 1:                   # a sync pass lands mid-read: metadata only
+                _os.chmod(target, 0o600 if calls["n"] % 2 else 0o644)
+            return chunk
+
+        _os.read = touching_read
+        try:
+            got = ep._read_pool_regular_bytes(pool, "filing.pdf")
+        except Exception as exc:                  # noqa: BLE001 — any raise is the regression
+            got = f"raised {type(exc).__name__}: {exc}"
+        finally:
+            _os.read = real_read
+        check("cloud-sync: a ctime-only touch DURING the read returns the correct bytes",
+              got == payload, str(got)[:200])
+        check("cloud-sync: those bytes hash to the untouched content",
+              isinstance(got, bytes) and _hashlib.sha256(got).hexdigest() == digest)
+
+    # (3) the same touch must not silently re-cost the vision/OCR cache. The key is a content
+    #     digest; when a touch landed mid-read the identity fell through to `unreadable:<path>`,
+    #     which scopes the key to a pathname and MISSES the cache — re-paying Claude vision token
+    #     spend for a file whose bytes never moved, against the module's "paid once per file, ever".
+    with tempfile.TemporaryDirectory() as pool:
+        target = Path(pool) / "scan.pdf"
+        target.write_bytes(payload)
+        settled_key = ep._visual_source_identity(str(target))
+        real_read, calls = _os.read, {"n": 0}
+
+        def touching_read(descriptor, size):
+            chunk = real_read(descriptor, size)
+            calls["n"] += 1
+            if calls["n"] == 1:
+                _os.chmod(target, 0o644)
+            return chunk
+
+        _os.read = touching_read
+        try:
+            raced_key = ep._visual_source_identity(str(target))
+        finally:
+            _os.read = real_read
+        check("cloud-sync: a metadata touch mid-read keeps the vision/OCR cache key stable",
+              raced_key == settled_key and settled_key.startswith("sha256:"),
+              f"{settled_key} -> {raced_key}")
+
+    # (4) the security invariant the ctime check was standing in for must still hold: a genuine
+    #     mid-read CONTENT change is never returned as settled evidence under an earlier digest.
+    with tempfile.TemporaryDirectory() as pool, tempfile.TemporaryDirectory() as snap:
+        rel = "sealed.json"
+        target = Path(pool) / rel
+        target.write_bytes(b'{"v":1}')
+        attested = _hashlib.sha256(b'{"v":1}').hexdigest()
+        target.write_bytes(b'{"v":9}')            # re-synced/tampered after verification
+        rejected = False
+        try:
+            ep._snapshot_pool_file(pool, rel, snap, attested)
+        except ValueError as exc:
+            rejected = "changed after provenance verification" in str(exc)
+        check("cloud-sync: tolerating metadata churn did not loosen the attested-digest binding",
+              rejected)
+
+
+def test_cache_guard_survives_metadata_touch() -> None:
+    """One Drive xattr touch must not discard the whole cached manifest.
+
+    `_file_guard_identity` fed ctime_ns into the cache-freshness guard, which `is_fresh` compares
+    whole across every pool file. Measured on the live 85-file INDIAMART pool: exactly ONE entry
+    differed, in ctime_ns alone, with size and mtime_ns byte-identical — turning a ~1.3s cache hit
+    into a ~24s full re-extraction. On a Drive mount that fires on essentially every run.
+    """
+    import os as _os
+
+    with tempfile.TemporaryDirectory() as pool, tempfile.TemporaryDirectory() as out:
+        (Path(pool) / "a.txt").write_text("audited annual report extract")
+        (Path(pool) / "b.txt").write_text("second filing")
+        manifest = ep.extract_pool(pool, out, force=True, vision=False)
+        check("cache guard: a freshly built manifest is fresh",
+              ep.is_fresh(out, pool, str(_HERE / "extract_pool.py")) is not None)
+
+        _os.chmod(Path(pool) / "a.txt", 0o644)      # ctime-only touch, content untouched
+        check("cache guard: a metadata-only touch does NOT force a full re-extraction",
+              ep.is_fresh(out, pool, str(_HERE / "extract_pool.py")) is not None)
+
+        # A real content change must still invalidate it — the guard's actual job.
+        (Path(pool) / "a.txt").write_text("audited annual report extract — REVISED")
+        check("cache guard: a real content change still invalidates the cache",
+              ep.is_fresh(out, pool, str(_HERE / "extract_pool.py")) is None)
+        check("cache guard: the manifest it guards is the one just built",
+              isinstance(manifest, dict) and manifest.get("cache_guard", {}).get("version") == ep._CACHE_GUARD_VERSION)
+
+
+def test_transient_cloud_filesystem_errors() -> None:
+    """Drive hydrating a streamed placeholder raises ETIMEDOUT; that must be retried, not fatal.
+
+    The engine runs with MaterializeDatalessFiles=true against a Drive *Stream*-mode pool, so pool
+    files are dataless placeholders that download on first read. A slow hydration surfaced as
+    `pool input rejected: [Errno 60] Operation timed out` and permanently failed the row.
+    """
+    import errno as _errno
+    import os as _os
+
+    payload = b"audited annual report text" * 4096
+    with tempfile.TemporaryDirectory() as pool:
+        (Path(pool) / "filing.pdf").write_bytes(payload)
+        real_read, calls = _os.read, {"n": 0}
+
+        def flaky_read(descriptor, size):
+            calls["n"] += 1
+            if calls["n"] == 1:                   # first touch blocks while Drive hydrates
+                raise OSError(_errno.ETIMEDOUT, "Operation timed out")
+            return real_read(descriptor, size)
+
+        _os.read = flaky_read
+        try:
+            got = ep._read_pool_regular_bytes(pool, "filing.pdf")
+        except Exception as exc:                  # noqa: BLE001
+            got = f"raised {type(exc).__name__}: {exc}"
+        finally:
+            _os.read = real_read
+        check("streamed pool: a transient ETIMEDOUT is retried, not a permanent failure",
+              got == payload, str(got)[:200])
+
+    # A non-transient OSError must still fail immediately — retry is for blips, not for real errors.
+    with tempfile.TemporaryDirectory() as pool:
+        (Path(pool) / "filing.pdf").write_bytes(payload)
+        real_read = _os.read
+
+        def refusing_read(descriptor, size):
+            raise OSError(_errno.EACCES, "Permission denied")
+
+        _os.read = refusing_read
+        try:
+            ep._read_pool_regular_bytes(pool, "filing.pdf")
+            surfaced = "no error"
+        except OSError as exc:
+            surfaced = exc.errno
+        except Exception as exc:                  # noqa: BLE001
+            surfaced = f"{type(exc).__name__}"
+        finally:
+            _os.read = real_read
+        check("streamed pool: a non-transient OSError still fails closed", surfaced == _errno.EACCES,
+              str(surfaced))
+
+
+def test_entity_addressee_is_not_the_registrant() -> None:
+    """An Indian filing is ADDRESSED to the exchanges and SIGNED by the issuer.
+
+    A real INDIAMART cover letter flattens to a two-column addressee line in the PDF text layer:
+        "BSE Limited                     National Stock Exchange of India Limited"
+    The CIQ-header pattern allowed `\\s*` (which matches newlines) between the name and its
+    (EXCH:TICKER) tag, so it spanned the line break and slid its start forward until the span fit —
+    emitting the left-truncated garbage names "ited National Stock Exchange of India Limited",
+    "ed National Stock Exchange…" and "d National Stock Exchange…". Three fake companies from one
+    line, which then read as a mixed-entity pool and HARD-BLOCKED the run on a clean pool.
+    """
+    cover = (
+        "April 29, 2025\n\nTo,\n"
+        "BSE Limited                                     National Stock Exchange of India Limited\n"
+        "(BSE: 542726)                                   (NSE: INDIAMART)\n\n"
+        " Subject:         Audited (Standalone and Consolidated) Financial Statements\n\n"
+        " Dear Sir/Ma'am,\n\n Please find enclosed herewith the copy of Audited Financial Statements.\n\n"
+        " Yours faithfully,\n For IndiaMART InterMESH Limited\n\n"
+    )
+    got = ep.entity_from_header(cover)
+    check("entity: an Indian cover letter reads its SIGNATORY as the registrant",
+          got == "IndiaMART InterMESH Limited", repr(got))
+    check("entity: the exchange the letter is addressed TO is never the registrant",
+          "Stock Exchange" not in got, repr(got))
+    check("entity: no left-truncated mid-word name survives",
+          not got.startswith(("ited", "ed ", "d ")), repr(got))
+
+    # The two-column line alone (no signature) must yield nothing rather than a sliced fake name.
+    unsigned = (
+        "To,\nBSE Limited                                     National Stock Exchange of India Limited\n"
+        "(BSE: 542726)                                   (NSE: INDIAMART)\n\n Dear Sir,\n"
+    )
+    got = ep.entity_from_header(unsigned)
+    check("entity: an addressee block with no signatory yields no registrant", got == "", repr(got))
+
+    # An exchange that is ITSELF the subject must still be readable from its own title page.
+    own = "BSE Limited\n(Formerly Bombay Stock Exchange)\nAnnual Report 2025\n"
+    check("entity: an exchange analysed as the SUBJECT is still read from its own cover page",
+          ep.entity_from_header(own) == "BSE Limited", repr(ep.entity_from_header(own)))
+
+    # A genuine CIQ export header still resolves — the tightened pattern must not break the good case.
+    ciq = "IndiaMART InterMESH Limited (NSEI:INDIAMART) > Financials > Key Stats\nAs of Aug-13-2026\n"
+    check("entity: a genuine one-line CIQ export header still resolves",
+          ep.entity_from_header(ciq) == "IndiaMART InterMESH Limited", repr(ep.entity_from_header(ciq)))
+
+    # The signatory pattern must never OVERRIDE a document that names its registrant outright, and
+    # must not fire on capitalised boilerplate. "For Further Information Contact Investor Relations
+    # Group" ends in a _CORP_SUFFIX ("Group"), so an un-cued "For <Name>" rule invented a company
+    # from it — and, checked first, replaced the real registrant on US and data-vendor documents.
+    us_10k = (
+        "Acme Robotics Holdings\n(Exact name of registrant as specified in its charter)\n\n"
+        "Title of each class   Trading Symbol(s)   Name of each exchange on which registered\n"
+        "Common stock          ACME                NasdaqGS\n\n"
+        "For Further Information Contact Investor Relations Group\n"
+    )
+    got = ep.entity_from_header(us_10k)
+    check("entity: a US 10-K keeps its charter registrant, not IR boilerplate",
+          got == "Acme Robotics Holdings", repr(got))
+
+    vendor = ("Tata Elxsi Limited (NSEI:TATAELXSI) > Financials\nTrading Symbol: TATAELXSI\n"
+              "For Further Information Contact Investor Relations Group\n")
+    got = ep.entity_from_header(vendor)
+    check("entity: a data-vendor export keeps its subject, not IR boilerplate",
+          got == "Tata Elxsi Limited", repr(got))
+
+    prose = ("The group continues\nto, among other things, expand capacity.\n"
+             "For Further Information Contact Investor Relations Group\n")
+    got = ep.entity_from_header(prose)
+    check("entity: capitalised boilerplate is never read as a company",
+          got == "", repr(got))
+
+    sec = "Amazon.com, Inc.\n(Exact name of registrant as specified in its charter)\n"
+    got = ep.entity_from_header(sec)
+    check("entity: the SEC charter-registrant pattern is unaffected",
+          got == "Amazon.com, Inc", repr(got))
+
+
 def main() -> int:
     print("== sniff: content beats extension ==")
     test_sniff()
@@ -954,6 +1208,14 @@ def main() -> int:
     test_v2_projection_is_anchored_to_current()
     print("== snapshot bound to the attested projection digest ==")
     test_snapshot_bound_to_attested_digest()
+    print("== cloud-sync metadata churn does not reject unchanged bytes ==")
+    test_cloud_sync_metadata_churn()
+    print("== cache guard survives a Drive metadata touch ==")
+    test_cache_guard_survives_metadata_touch()
+    print("== transient cloud-filesystem errors are retried ==")
+    test_transient_cloud_filesystem_errors()
+    print("== entity: addressee exchange is never the registrant ==")
+    test_entity_addressee_is_not_the_registrant()
     print(f"\n{_passed} passed, {_failed} failed, {_skipped} skipped")
     return 1 if _failed else 0
 
