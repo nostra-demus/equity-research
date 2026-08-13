@@ -9,6 +9,7 @@ export type OrderTier = 1 | 2 | 3
 export type ImpactSide = 'beneficiary' | 'harmed' | 'mixed'
 export type ThemeSurfaceStatus = 'actionable' | 'forming' | 'context'
 export type ThemeEvidenceStance = 'supports' | 'challenges'
+export type ThemeFormationEvidenceStance = ThemeEvidenceStance | 'unclassified'
 export type ThemeActivity = 'new' | 'reinforced' | 'challenged' | 'quiet'
 export type ThemeConviction = 'high' | 'medium' | 'watch'
 export type ThemeHorizon = 'days' | 'weeks' | 'months' | 'years'
@@ -71,6 +72,78 @@ export interface ThemeEvidence {
   source_name?: string | null
   url?: string | null
   stance?: ThemeEvidenceStance
+}
+
+/** A formation observation may be waiting for the compiler to decide whether it supports, challenges,
+ * or merely contextualizes the prior thesis. `unclassified` is deliberately unavailable to validated
+ * Theme evidence so it can never enter support/challenge counts or evidence-bound expressions. */
+export interface ThemeFormationEvidence extends Omit<ThemeEvidence, 'stance'> {
+  stance: ThemeFormationEvidenceStance
+}
+
+// The formation queue is deliberately not a second theme index. These are bounded, auditable news
+// patterns that have not cleared the current validated thesis contract above. `investable:false`
+// is part of the wire contract so a rolling client/server deploy cannot accidentally reuse these rows as
+// Theme cards, map nodes, dossiers, or trade ideas.
+export type ThemeFormationState = 'awaiting_validation' | 'awaiting_revalidation' | 'blocked_incomplete_audit' | 'building_evidence'
+
+export interface ThemeFormationCandidate {
+  theme_id: string
+  provisional_label: string
+  investable: false
+  state: ThemeFormationState
+  queued_at: string | null
+  attempted_at: string | null
+  distinct_evidence_count: number
+  high_quality_evidence_count: number
+  evidence: ThemeFormationEvidence[]
+  blockers: string[]
+}
+
+export interface ThemeFormationQueue {
+  total: number
+  shown: number
+  hidden: number
+  /** Client-only trust-boundary count. These rows were included in the server's shown total but failed
+   * this bundle's exact-provenance/runtime contract, so they must never be described as safely sourced. */
+  client_withheld?: number
+  awaiting_validation: number
+  awaiting_revalidation: number
+  blocked_incomplete_audit: number
+  building_evidence: number
+  candidates: ThemeFormationCandidate[]
+}
+
+export type ThemeCompilerBlocker = 'not_configured' | 'daily_cap' | 'cooldown' | 'rate_limiter_busy' | 'provider_error' | 'invalid_response'
+
+export interface ThemeCompilerAttempt {
+  attempted_at: string
+  state: 'succeeded' | 'blocked' | 'failed' | 'skipped'
+  provider: string
+  blocker: ThemeCompilerBlocker | null
+  message: string
+  requested_count: number
+  attempted_count: number
+  validated_count: number
+  rejected_count: number
+  malformed_count: number
+  omitted_count: number
+}
+
+export interface ThemeCompilerHealth {
+  state: 'ready' | 'working' | 'blocked' | 'degraded' | 'idle'
+  observed_at: string
+  provider: string
+  blocker: ThemeCompilerBlocker | null
+  message: string
+  queue: {
+    total: number
+    awaiting_validation: number
+    awaiting_revalidation: number
+    blocked_incomplete_audit: number
+    oldest_queued_at: string | null
+  }
+  last_attempt: ThemeCompilerAttempt | null
 }
 
 /** A trade expression that the server bound to the exact narrative-supporting evidence rows that proved it.
@@ -143,6 +216,10 @@ export interface ThemesIndex {
    * must never be used as the PM surface's evidence-freshness clock. */
   projected_at?: string
   themes: Theme[]
+  /** Optional during rolling deploys. Missing means the server did not expose formation state; it does
+   * not prove the queue is empty. */
+  formation_queue?: ThemeFormationQueue
+  compiler_health?: ThemeCompilerHealth
   counts: { hot: number; active: number; cooling: number; parked: number; retired: number; total: number }
   history_days: number // days of real daily-flow history available (caps how far the window selector reaches)
 }
@@ -358,6 +435,204 @@ export function themeBriefingEvidence(t: Pick<Theme, 'evidence'>): ValidatedThem
     ) conflicts.add(eventId)
   }
   return [...byId.entries()].filter(([eventId]) => !conflicts.has(eventId)).map(([, evidence]) => evidence)
+}
+
+export type ValidatedFormationEvidence = ThemeFormationEvidence & { source_name: string; url: string }
+
+function exactHttpUrl(value: unknown): string | null {
+  if (typeof value !== 'string' || !value.trim()) return null
+  const copy = value.trim()
+  try {
+    const parsed = new URL(copy)
+    return (parsed.protocol === 'http:' || parsed.protocol === 'https:') && Boolean(parsed.hostname) ? copy : null
+  } catch {
+    return null
+  }
+}
+
+/** Exact source rows for a developing pattern. The UI deliberately does not present their internal
+ * stance as a current investment claim, because the row has not cleared the current compiler contract. */
+export function formationCandidateEvidence(candidate: Pick<ThemeFormationCandidate, 'evidence'>): ValidatedFormationEvidence[] {
+  if (!Array.isArray(candidate.evidence)) return []
+  const byId = new Map<string, ValidatedFormationEvidence>()
+  const conflicts = new Set<string>()
+  for (const evidence of candidate.evidence.slice(0, 3)) {
+    const eventId = cleanRequiredCopy(evidence?.event_id)
+    const headline = cleanRequiredCopy(evidence?.headline)
+    const foundAt = cleanRequiredCopy(evidence?.found_at)
+    const sourceTier = cleanRequiredCopy(evidence?.source_tier)
+    const sourceName = typeof evidence?.source_name === 'string' && evidence.source_name.trim() ? evidence.source_name.trim() : null
+    const url = exactHttpUrl(evidence?.url)
+    const stance = evidence?.stance
+    if (!eventId || !headline || !foundAt || !sourceTier || !sourceName || !url || !Number.isFinite(Date.parse(foundAt)) || (stance !== 'supports' && stance !== 'challenges' && stance !== 'unclassified')) continue
+    if (!Number.isFinite(evidence.score) || evidence.score < 0 || evidence.score > 100) continue
+    const normalized = { ...evidence, event_id: eventId, headline, found_at: foundAt, source_tier: sourceTier, source_name: sourceName, url }
+    const prior = byId.get(eventId)
+    if (!prior) byId.set(eventId, normalized)
+    else if (
+      prior.headline !== normalized.headline
+      || prior.found_at !== normalized.found_at
+      || prior.score !== normalized.score
+      || prior.source_tier !== normalized.source_tier
+      || prior.source_name !== normalized.source_name
+      || prior.url !== normalized.url
+      || prior.stance !== normalized.stance
+    ) conflicts.add(eventId)
+  }
+  return [...byId.entries()].filter(([eventId]) => !conflicts.has(eventId)).map(([, evidence]) => evidence)
+}
+
+const FORMATION_STATES: ThemeFormationState[] = ['awaiting_validation', 'awaiting_revalidation', 'blocked_incomplete_audit', 'building_evidence']
+const nonNegativeCount = (value: unknown): number | null => Number.isInteger(value) && (value as number) >= 0 ? value as number : null
+
+/** A malformed envelope fails closed to no disclosed queue. Individual unsafe rows are withheld and
+ * counted separately; the client never falls back to raw Theme clusters, and every admitted candidate
+ * keeps the explicit non-investable marker. */
+export function normalizeThemeFormationQueue(value: unknown): ThemeFormationQueue | null {
+  if (!value || typeof value !== 'object') return null
+  const raw = value as Record<string, unknown>
+  if (!Array.isArray(raw.candidates)) return null
+  const keys = ['total', 'shown', 'hidden', 'awaiting_validation', 'awaiting_revalidation', 'blocked_incomplete_audit', 'building_evidence'] as const
+  const counts = Object.fromEntries(keys.map((key) => [key, nonNegativeCount(raw[key])])) as Record<(typeof keys)[number], number | null>
+  if (keys.some((key) => counts[key] == null)) return null
+  // `shown` is the bounded excerpt on the wire. If its declared cardinality and payload disagree, there
+  // is no honest way to distinguish omitted server rows from malformed client rows, so fail the queue.
+  if (raw.candidates.length > 8 || raw.candidates.length !== counts.shown) return null
+  const candidates: ThemeFormationCandidate[] = []
+  for (const row of raw.candidates) {
+    if (!row || typeof row !== 'object') continue
+    const candidate = row as Record<string, unknown>
+    const themeId = cleanRequiredCopy(candidate.theme_id)
+    const label = cleanRequiredCopy(candidate.provisional_label)
+    const state = candidate.state
+    const distinct = nonNegativeCount(candidate.distinct_evidence_count)
+    const highQuality = nonNegativeCount(candidate.high_quality_evidence_count)
+    if (!themeId || !/^THM-[a-z0-9]{8}$/.test(themeId) || !label || candidate.investable !== false || !FORMATION_STATES.includes(state as ThemeFormationState) || distinct == null || highQuality == null || highQuality > distinct) continue
+    const nullableStamp = (stamp: unknown): string | null | undefined => {
+      if (stamp == null) return null
+      return typeof stamp === 'string' && Number.isFinite(Date.parse(stamp)) ? stamp : undefined
+    }
+    const queuedAt = nullableStamp(candidate.queued_at)
+    const attemptedAt = nullableStamp(candidate.attempted_at)
+    if (queuedAt === undefined || attemptedAt === undefined) continue
+    const blockers = Array.isArray(candidate.blockers)
+      ? candidate.blockers.map(cleanRequiredCopy).filter((copy): copy is string => !!copy).slice(0, 3)
+      : []
+    const evidence = Array.isArray(candidate.evidence) ? candidate.evidence.slice(0, 3) as ThemeFormationEvidence[] : []
+    const normalized: ThemeFormationCandidate = {
+      theme_id: themeId,
+      provisional_label: label,
+      investable: false,
+      state: state as ThemeFormationState,
+      queued_at: queuedAt,
+      attempted_at: attemptedAt,
+      distinct_evidence_count: distinct,
+      high_quality_evidence_count: highQuality,
+      evidence,
+      blockers,
+    }
+    // A provisional label without at least one exact auditable source is not safe disclosure. Keep its
+    // aggregate debt in `total`, but withhold the row just like the server's health-only queue state.
+    if (formationCandidateEvidence(normalized).length < 2) continue
+    candidates.push(normalized)
+  }
+  if (counts.total !== counts.shown! + counts.hidden!) return null
+  if (counts.total !== counts.awaiting_validation! + counts.awaiting_revalidation! + counts.blocked_incomplete_audit! + counts.building_evidence!) return null
+  const visibleStateCount = (state: ThemeFormationState) => candidates.filter((candidate) => candidate.state === state).length
+  if (visibleStateCount('awaiting_validation') > counts.awaiting_validation!
+    || visibleStateCount('awaiting_revalidation') > counts.awaiting_revalidation!
+    || visibleStateCount('blocked_incomplete_audit') > counts.blocked_incomplete_audit!
+    || visibleStateCount('building_evidence') > counts.building_evidence!) return null
+  return {
+    total: counts.total!,
+    shown: candidates.length,
+    // Preserve the server's safe-but-bounded hidden population. Rows rejected above are tracked
+    // separately so the UI cannot relabel a malformed/unsafe shown row as safely sourced.
+    hidden: counts.hidden!,
+    client_withheld: Math.max(0, counts.shown! - candidates.length),
+    awaiting_validation: counts.awaiting_validation!,
+    awaiting_revalidation: counts.awaiting_revalidation!,
+    blocked_incomplete_audit: counts.blocked_incomplete_audit!,
+    building_evidence: counts.building_evidence!,
+    candidates,
+  }
+}
+
+const COMPILER_STATES: ThemeCompilerHealth['state'][] = ['ready', 'working', 'blocked', 'degraded', 'idle']
+const COMPILER_ATTEMPT_STATES: ThemeCompilerAttempt['state'][] = ['succeeded', 'blocked', 'failed', 'skipped']
+const COMPILER_BLOCKERS: ThemeCompilerBlocker[] = ['not_configured', 'daily_cap', 'cooldown', 'rate_limiter_busy', 'provider_error', 'invalid_response']
+
+export function normalizeThemeCompilerHealth(value: unknown): ThemeCompilerHealth | null {
+  if (!value || typeof value !== 'object') return null
+  const raw = value as Record<string, unknown>
+  const state = raw.state as ThemeCompilerHealth['state']
+  const observedAt = cleanRequiredCopy(raw.observed_at)
+  const provider = typeof raw.provider === 'string' ? raw.provider.trim() : ''
+  const message = typeof raw.message === 'string' ? raw.message.trim() : ''
+  const blocker = raw.blocker == null ? null : raw.blocker as ThemeCompilerBlocker
+  if (!COMPILER_STATES.includes(state) || !observedAt || !Number.isFinite(Date.parse(observedAt)) || (blocker != null && !COMPILER_BLOCKERS.includes(blocker))) return null
+  const queue = raw.queue as Record<string, unknown> | null
+  if (!queue) return null
+  const queueTotal = nonNegativeCount(queue.total)
+  const awaitingValidation = nonNegativeCount(queue.awaiting_validation)
+  const awaitingRevalidation = nonNegativeCount(queue.awaiting_revalidation)
+  const blockedAudit = nonNegativeCount(queue.blocked_incomplete_audit)
+  const oldestQueuedAt = queue.oldest_queued_at == null ? null : typeof queue.oldest_queued_at === 'string' && Number.isFinite(Date.parse(queue.oldest_queued_at)) ? queue.oldest_queued_at : undefined
+  if (queueTotal == null || awaitingValidation == null || awaitingRevalidation == null || blockedAudit == null || oldestQueuedAt === undefined) return null
+  let lastAttempt: ThemeCompilerAttempt | null = null
+  if (raw.last_attempt != null) {
+    if (typeof raw.last_attempt !== 'object') return null
+    const attempt = raw.last_attempt as Record<string, unknown>
+    const attemptedAt = cleanRequiredCopy(attempt.attempted_at)
+    const attemptState = attempt.state as ThemeCompilerAttempt['state']
+    const attemptProvider = typeof attempt.provider === 'string' ? attempt.provider.trim() : ''
+    const attemptBlocker = attempt.blocker == null ? null : attempt.blocker as ThemeCompilerBlocker
+    const countKeys = ['requested_count', 'attempted_count', 'validated_count', 'rejected_count', 'malformed_count', 'omitted_count'] as const
+    const attemptCounts = Object.fromEntries(countKeys.map((key) => [key, nonNegativeCount(attempt[key])])) as Record<(typeof countKeys)[number], number | null>
+    if (!attemptedAt || !Number.isFinite(Date.parse(attemptedAt)) || !COMPILER_ATTEMPT_STATES.includes(attemptState) || (attemptBlocker != null && !COMPILER_BLOCKERS.includes(attemptBlocker)) || countKeys.some((key) => attemptCounts[key] == null)) return null
+    lastAttempt = {
+      attempted_at: attemptedAt,
+      state: attemptState,
+      provider: attemptProvider,
+      blocker: attemptBlocker,
+      message: typeof attempt.message === 'string' ? attempt.message.trim() : '',
+      requested_count: attemptCounts.requested_count!,
+      attempted_count: attemptCounts.attempted_count!,
+      validated_count: attemptCounts.validated_count!,
+      rejected_count: attemptCounts.rejected_count!,
+      malformed_count: attemptCounts.malformed_count!,
+      omitted_count: attemptCounts.omitted_count!,
+    }
+  }
+  return {
+    state,
+    observed_at: observedAt,
+    provider,
+    blocker,
+    message,
+    queue: {
+      total: queueTotal,
+      awaiting_validation: awaitingValidation,
+      awaiting_revalidation: awaitingRevalidation,
+      blocked_incomplete_audit: blockedAudit,
+      oldest_queued_at: oldestQueuedAt,
+    },
+    last_attempt: lastAttempt,
+  }
+}
+
+export function themeCompilerCapacityCopy(health: ThemeCompilerHealth | null): string {
+  if (!health) return 'Compiler capacity not disclosed by this server.'
+  const provider = health.provider && health.provider !== 'none' ? ` · ${health.provider}` : ''
+  const message = health.message ? ` · ${health.message}` : ''
+  if (health.queue.total > 0 && !health.last_attempt && (health.state === 'ready' || health.state === 'idle') && health.blocker === null) {
+    return `Compiler capacity not yet observed${message}`
+  }
+  if (health.state === 'working') return `Compiler working${provider}${message}`
+  if (health.state === 'blocked') return `Compiler capacity blocked${provider}${message}`
+  if (health.state === 'degraded') return `Compiler capacity degraded${provider}${message}`
+  if (health.state === 'ready') return `Compiler capacity available${provider}${message}`
+  return `Compiler idle${provider}${message}`
 }
 
 export interface ThemeEvidenceGroups {

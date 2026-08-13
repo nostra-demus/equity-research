@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict'
 import { api } from './api'
 import { useStore } from './store'
-import type { Theme, ThemeBrief, ThemeDetail, ThemesIndex, ThemeSurfaceAssessment } from './themes'
+import type { Theme, ThemeBrief, ThemeCompilerHealth, ThemeDetail, ThemeFormationQueue, ThemesIndex, ThemeSurfaceAssessment } from './themes'
 
 const cachedTheme = {
   theme_id: 'THM-CACHED',
@@ -20,8 +20,27 @@ const cachedTheme = {
   rev: 1,
 } satisfies Theme
 
+const cachedFormationQueue = {
+  total: 1, shown: 1, hidden: 0, awaiting_validation: 1, awaiting_revalidation: 0, blocked_incomplete_audit: 0, building_evidence: 0,
+  candidates: [{
+    theme_id: 'THM-a1b2c3d4', provisional_label: 'Pending pattern', investable: false, state: 'awaiting_validation', queued_at: '2026-08-04T00:00:00Z', attempted_at: null,
+    distinct_evidence_count: 3, high_quality_evidence_count: 2,
+    evidence: [
+      { event_id: 'EV-PENDING', headline: 'Pending exact source', found_at: '2026-08-04T00:00:00Z', score: 80, source_tier: 'news', source_name: 'Evidence Wire', url: 'https://example.test/pending', stance: 'supports' },
+      { event_id: 'EV-PENDING-2', headline: 'Second pending exact source', found_at: '2026-08-03T23:00:00Z', score: 78, source_tier: 'company', source_name: 'Issuer Wire', url: 'https://example.test/pending-2', stance: 'supports' },
+    ],
+    blockers: ['Needs compiler validation.'],
+  }],
+} satisfies ThemeFormationQueue
+const cachedCompilerHealth = {
+  state: 'blocked', observed_at: '2026-08-04T00:00:00Z', provider: 'claude-haiku', blocker: 'daily_cap', message: 'Daily cap reached.',
+  queue: { total: 1, awaiting_validation: 1, awaiting_revalidation: 0, blocked_incomplete_audit: 0, oldest_queued_at: '2026-08-04T00:00:00Z' }, last_attempt: null,
+} satisfies ThemeCompilerHealth
+
 const seedCache = () => useStore.setState({
   themes: [cachedTheme],
+  themeFormationQueue: cachedFormationQueue,
+  themeCompilerHealth: cachedCompilerHealth,
   themesHistoryDays: 9,
   themesGeneratedAt: '2026-08-04T00:00:00Z',
   themesProjectedAt: '2026-08-04T00:00:30Z',
@@ -35,6 +54,8 @@ seedCache()
 useStore.setState({ themesGeo: { country: '', geoRegion: '', label: 'Everywhere' }, themesSubject: null })
 useStore.getState().setThemesGeo({ country: 'IN', geoRegion: 'asia', label: 'India' })
 assert.deepEqual(useStore.getState().themes, [], 'a new geography clears the prior index immediately')
+assert.equal(useStore.getState().themeFormationQueue, null, 'a new geography clears formation candidates from the prior slice')
+assert.equal(useStore.getState().themeCompilerHealth, null, 'a new geography clears compiler health from the prior slice')
 assert.equal(useStore.getState().themesGeneratedAt, null)
 assert.equal(useStore.getState().themesProjectedAt, null)
 assert.equal(useStore.getState().themesHistoryDays, 0)
@@ -46,6 +67,7 @@ seedCache()
 useStore.setState({ themesGeo: { country: 'IN', geoRegion: 'asia', label: 'India' } })
 useStore.getState().setThemesGeo({ country: 'IN', geoRegion: 'asia', label: 'India (updated label)' })
 assert.deepEqual(useStore.getState().themes, [cachedTheme], 'a label-only correction keeps the matching cached slice')
+assert.equal(useStore.getState().themeFormationQueue?.candidates[0]?.theme_id, 'THM-a1b2c3d4', 'a label-only correction keeps the matching queue')
 assert.equal(useStore.getState().themesGeneratedAt, '2026-08-04T00:00:00Z')
 assert.equal(useStore.getState().themesProjectedAt, '2026-08-04T00:00:30Z')
 
@@ -53,6 +75,7 @@ seedCache()
 useStore.setState({ themesSubject: null })
 useStore.getState().setThemesSubject('GOLD')
 assert.deepEqual(useStore.getState().themes, [], 'a new subject clears the prior index immediately')
+assert.equal(useStore.getState().themeFormationQueue, null, 'a new subject clears the prior formation queue')
 assert.equal(useStore.getState().themesGeneratedAt, null)
 assert.equal(useStore.getState().themesStatus, 'idle')
 
@@ -135,7 +158,7 @@ try {
 
   const oldRequest = useStore.getState().refreshThemes()
   const newRequest = useStore.getState().refreshThemes()
-  pending[1].resolve(indexOf(newerTheme, '2026-08-04T00:02:00Z'))
+  pending[1].resolve({ ...indexOf(newerTheme, '2026-08-04T00:02:00Z'), formation_queue: cachedFormationQueue, compiler_health: cachedCompilerHealth })
   await newRequest
   pending[0].resolve(indexOf(cachedTheme, '2026-08-04T00:01:00Z'))
   await oldRequest
@@ -144,6 +167,8 @@ try {
   assert.equal(useStore.getState().themesProjectedAt, '2026-08-04T00:02:30.000Z', 'read-time projection is retained separately from the successful-stage clock')
   assert.equal(useStore.getState().selectedTheme, newerTheme.theme_id, 'a superseded response that omits the open theme cannot dismiss the newer selection')
   assert.equal(useStore.getState().themeDetail?.theme.theme_id, newerTheme.theme_id)
+  assert.equal(useStore.getState().themeFormationQueue?.candidates[0]?.investable, false, 'the additive formation queue lands separately from validated themes')
+  assert.equal(useStore.getState().themeCompilerHealth?.blocker, 'daily_cap', 'compiler capacity health remains visible to the Themes surface')
 
   pending = []
   useStore.setState({
@@ -187,15 +212,45 @@ try {
   assert.deepEqual(useStore.getState().themes.map((t) => t.theme_id), [survivesLoad.theme_id], 'the tombstone filters the removed row out of that response')
 
   pending = []
+  const formationRemovedDuringLoad = {
+    ...cachedFormationQueue,
+    candidates: [{ ...cachedFormationQueue.candidates[0], theme_id: 'THM-deadbeef', provisional_label: 'Removed formation row' }],
+  } satisfies ThemeFormationQueue
+  const formationRemovalHealth = {
+    ...cachedCompilerHealth,
+    queue: { ...cachedCompilerHealth.queue, total: 1, awaiting_validation: 1 },
+  } satisfies ThemeCompilerHealth
+  useStore.setState({
+    themes: [], themeFormationQueue: formationRemovedDuringLoad, themeCompilerHealth: formationRemovalHealth,
+    themesStatus: 'loading', themesGeneratedAt: null, themesView: 'board', selectedTheme: null,
+    activeSwarm: 'owner-a', wireSwarm: 'owner-a', swarms: [],
+    themesGeo: { country: '', geoRegion: '', label: '' }, themesSubject: null,
+  })
+  const formationGlobalLoad = useStore.getState().refreshThemes()
+  useStore.getState()._handleNewsEvent({ type: 'theme-remove', removal: { theme_id: 'THM-deadbeef', reason: 'retired', merged_into: null, rev: 4 } })
+  assert.deepEqual(useStore.getState().themeFormationQueue?.candidates, [], 'SSE removes the disclosed formation row while a global index read is in flight')
+  pending[0].resolve({
+    ...indexFor([], '2026-08-04T00:03:35Z'),
+    formation_queue: formationRemovedDuringLoad,
+    compiler_health: formationRemovalHealth,
+  })
+  await formationGlobalLoad
+  assert.deepEqual(useStore.getState().themeFormationQueue?.candidates, [], 'a pre-removal HTTP response cannot resurrect the tombstoned formation row')
+  assert.equal(useStore.getState().themeFormationQueue?.total, 0)
+  assert.equal(useStore.getState().themeCompilerHealth?.queue.total, 0)
+
+  pending = []
   const beforeLiveUpdate = { ...cachedTheme, theme_id: 'THM-SAME-REV-UPDATE', name: 'Before live assessment', rev: 8 }
   const liveUpdate = { ...beforeLiveUpdate, name: 'After live assessment', assessment: undefined }
   useStore.setState({
     themes: [beforeLiveUpdate], themesStatus: 'loading', themesGeneratedAt: null, themesView: 'map',
+    themeFormationQueue: cachedFormationQueue, themeCompilerHealth: cachedCompilerHealth,
     activeSwarm: 'owner-a', wireSwarm: 'owner-a', swarms: [],
     themesGeo: { country: '', geoRegion: '', label: '' }, themesSubject: null,
   })
   const preUpdateLoad = useStore.getState().refreshThemes()
   useStore.getState()._handleNewsEvent({ type: 'theme-update', theme: liveUpdate })
+  assert.equal(useStore.getState().themeFormationQueue?.candidates[0]?.theme_id, 'THM-a1b2c3d4', 'an unrelated Context upsert does not erase disclosed compiler debt')
   pending[0].resolve(indexOf(beforeLiveUpdate, '2026-08-04T00:03:40Z'))
   await Promise.resolve()
   await Promise.resolve()
@@ -206,13 +261,38 @@ try {
   assert.equal(useStore.getState().themesStatus, 'ready')
   assert.equal(useStore.getState().themes[0]?.name, liveUpdate.name)
 
+  const promotedTheme = { ...newerTheme, theme_id: 'THM-a1b2c3d4', name: 'Validated pending pattern' }
+  useStore.setState({
+    themes: [], themesView: 'map', themesStatus: 'ready',
+    themeFormationQueue: cachedFormationQueue, themeCompilerHealth: cachedCompilerHealth,
+    themesGeo: { country: '', geoRegion: '', label: '' }, themesSubject: null,
+  })
+  useStore.getState()._handleNewsEvent({ type: 'theme-update', theme: promotedTheme })
+  assert.equal(useStore.getState().themes[0]?.theme_id, promotedTheme.theme_id)
+  assert.equal(useStore.getState().themeFormationQueue?.total, 0, 'a validated SSE promotion removes only its matching formation candidate')
+  assert.deepEqual(useStore.getState().themeFormationQueue?.candidates, [])
+  assert.equal(useStore.getState().themeCompilerHealth?.queue.total, 0)
+
+  useStore.setState({
+    themes: [], themesView: 'board', themesStatus: 'ready',
+    themeFormationQueue: cachedFormationQueue, themeCompilerHealth: cachedCompilerHealth,
+    themesGeo: { country: '', geoRegion: '', label: '' }, themesSubject: null,
+  })
+  useStore.getState()._handleNewsEvent({ type: 'theme-remove', removal: { theme_id: 'THM-a1b2c3d4', reason: 'retired', merged_into: null, rev: 2 } })
+  assert.deepEqual(useStore.getState().themeFormationQueue?.candidates, [], 'an SSE retirement removes its matching non-investable formation row immediately')
+  assert.equal(useStore.getState().themeFormationQueue?.total, 0)
+  assert.equal(useStore.getState().themeCompilerHealth?.queue.total, 0, 'the exact removal reconciles aggregate compiler debt for that disclosed row')
+  assert.equal(useStore.getState().themeCompilerHealth?.state, 'idle')
+
   pending = []
-  useStore.setState({ themes: [], themesStatus: 'loading', themesGeneratedAt: null, themesView: 'map', activeSwarm: 'owner-a', wireSwarm: 'owner-a' })
+  useStore.setState({ themes: [], themeFormationQueue: cachedFormationQueue, themeCompilerHealth: cachedCompilerHealth, themesStatus: 'loading', themesGeneratedAt: null, themesView: 'map', activeSwarm: 'owner-a', wireSwarm: 'owner-a' })
   const priorOwner = useStore.getState().refreshThemes()
   useStore.getState()._enterWire('owner-b')
   pending[0].resolve(indexOf(cachedTheme, '2026-08-04T00:04:00Z'))
   await priorOwner
   assert.deepEqual(useStore.getState().themes, [], 'a response from the wire just left cannot populate its replacement')
+  assert.equal(useStore.getState().themeFormationQueue, null, 'a wire-owner change clears the prior owner\'s formation queue')
+  assert.equal(useStore.getState().themeCompilerHealth, null)
   assert.equal(useStore.getState().wireSwarm, 'owner-b')
 
   pending = []

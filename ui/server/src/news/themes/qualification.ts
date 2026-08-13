@@ -7,7 +7,7 @@ import { companyKeys, isRoutineFiling, normName } from '../text-match'
 import { rebuildThemeCompanies } from './assign'
 import { resolveThemeFamilyState, themeStoryFamilyKey, themeStoryObservationKey } from './story-key'
 import { selectNarrativeCore } from './core'
-import { hasExactThemeProvenance, isDisplayableThemeChallenge, isSupportingThemeEvidence, sourcePriority } from './evidence'
+import { exactThemeEvidenceUrl, hasExactThemeProvenance, isDisplayableThemeChallenge, isSupportingThemeEvidence, sourcePriority } from './evidence'
 import type {
   Theme,
   ThemeAssessment,
@@ -153,6 +153,7 @@ function hasSpecificNarrative(theme: Theme, companies: ThemeCompany[]): boolean 
   // Only an explicit validator pass admits a causal contract. Raw deterministic clusters remain internal
   // context; polished prose without the versioned proof object cannot enter the PM surface.
   return theme.generation === 'groq' || theme.generation === 'claude'
+    || (theme.generation === 'llm' && typeof theme.validator_provider === 'string' && Boolean(theme.validator_provider.trim()))
 }
 
 function evidenceRow(m: ThemeMember, stance: ThemeEvidence['stance']): ThemeEvidence {
@@ -163,7 +164,7 @@ function evidenceRow(m: ThemeMember, stance: ThemeEvidence['stance']): ThemeEvid
     score: Number.isFinite(Number(m.score)) ? Math.max(0, Math.min(100, Number(m.score))) : 0,
     source_tier: String(m.tier || 'unconfirmed'),
     source_name: typeof m.source_name === 'string' && m.source_name.trim() ? m.source_name.trim() : null,
-    url: typeof m.url === 'string' && /^https?:\/\//i.test(m.url.trim()) ? m.url.trim() : null,
+    url: exactThemeEvidenceUrl(m.url),
     stance,
   }
 }

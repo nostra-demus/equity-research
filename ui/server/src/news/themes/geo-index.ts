@@ -17,9 +17,10 @@
 import { isCountry, regionOfCountry, resolveCountry } from '../geography'
 import type { Region } from '../types'
 import { DAILY_WINDOWS, ensureDaily, scoreTheme, type ThemeScoreConfig } from './score'
-import type { Theme, ThemeCompany, ThemeMember, ThemesIndex, ThemeSummary, ThemeTier } from './types'
+import type { Theme, ThemeCompany, ThemeCompilerAttempt, ThemeMember, ThemesIndex, ThemeSummary, ThemeTier } from './types'
 import { buildSummary } from './store'
 import { compareThemeSummaries, companiesForMembers, firstSeenForMembers, uniqueThemeMembers } from './qualification'
+import { buildThemeCompilerHealth, buildThemeFormationQueue, compilerDebtForThemes } from './formation'
 
 /** The geography to slice by — a country (leaf) OR a continent (branch). Country wins when both are set. */
 export interface ThemeGeo {
@@ -83,6 +84,7 @@ export function buildGeoThemesIndex(
   geo: ThemeGeo,
   now: () => Date = () => new Date(),
   cfg?: ThemeScoreConfig,
+  compilerAttempt?: ThemeCompilerAttempt | null,
 ): ThemesIndex {
   const nowD = now()
   const nowMs = nowD.getTime()
@@ -138,5 +140,14 @@ export function buildGeoThemesIndex(
 
   // Same evidence-first admission order as the global index; sliced heat only breaks later ties.
   out.sort(compareThemeSummaries)
-  return { generated_at: nowD.toISOString().replace(/\.\d{3}Z$/, 'Z'), themes: out, counts, history_days }
+  const projectMembers = (theme: Theme) => arr(theme.members).filter((member) => memberMatchesGeo(member, geo))
+  const formation_queue = buildThemeFormationQueue(themes, nowD, projectMembers)
+  return {
+    generated_at: nowD.toISOString().replace(/\.\d{3}Z$/, 'Z'),
+    themes: out,
+    formation_queue,
+    compiler_health: buildThemeCompilerHealth(formation_queue, nowD, compilerAttempt, compilerDebtForThemes(themes, projectMembers)),
+    counts,
+    history_days,
+  }
 }

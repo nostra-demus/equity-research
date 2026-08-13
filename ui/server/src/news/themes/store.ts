@@ -11,12 +11,14 @@ import { readFeed } from '../feed'
 import { deriveSourceTier } from '../scope'
 import { companyKeys } from '../text-match'
 import type { FeedItem } from '../types'
-import type { Theme, ThemeSummary, ThemesIndex, ThemeMutation, ThemeTier, ThemeDetail, CompaniesByOrder, ThemeItemView, ThemeCompany, ThemeEvidence, ThemeMember, ThemeQualifiedExpression, ThemeNarrative } from './types'
+import type { Theme, ThemeSummary, ThemesIndex, ThemeMutation, ThemeTier, ThemeDetail, CompaniesByOrder, ThemeItemView, ThemeCompany, ThemeEvidence, ThemeMember, ThemeQualifiedExpression, ThemeNarrative, ThemeCompilerAttempt } from './types'
 import { buildWhyIndex, buildCompanyWhy } from './why'
 import { compareThemeSummaries, companiesForMembers, firstSeenForMembers, qualifyTheme, uniqueThemeMembers } from './qualification'
 import { cleanTicker } from '../symbology'
 import { DAILY_WINDOWS, ensureDaily, scoreTheme } from './score'
 import { themeStoryFamilyKey } from './story-key'
+import { buildThemeCompilerHealth, buildThemeFormationQueue, compilerDebtForThemes, normalizeThemeCompilerAttempt, normalizeThemeCompilerDebt, normalizeThemeFormationQueue } from './formation'
+import { exactThemeEvidenceUrl } from './evidence'
 
 const ledgerPath = (repoRoot: string) => path.join(repoRoot, 'screener', 'ledger', 'themes.ndjson')
 const indexPath = (repoRoot: string) => path.join(repoRoot, 'screener', 'board', 'themes_index.json')
@@ -40,6 +42,7 @@ function normalizeMember(v: unknown): ThemeMember | null {
   const foundAt = iso(m.found_at)
   if (!foundAt) return null // no source clock = no evidence; never fall back to the mutation/audit clock
   const observedAt = iso(m.observed_at)
+  const exactUrl = exactThemeEvidenceUrl(m.url)
   const companies = Array.isArray(m.companies)
     ? m.companies.flatMap((raw: unknown) => {
         const c = object(raw)
@@ -62,7 +65,7 @@ function normalizeMember(v: unknown): ThemeMember | null {
     score: bounded(m.score),
     tier: typeof m.tier === 'string' && m.tier.trim() ? m.tier.trim() : 'unconfirmed',
     ...(typeof m.source_name === 'string' && m.source_name.trim() ? { source_name: m.source_name.trim().slice(0, 160) } : {}),
-    ...(typeof m.url === 'string' && /^https?:\/\//i.test(m.url.trim()) ? { url: m.url.trim().slice(0, 2000) } : {}),
+    ...(exactUrl ? { url: exactUrl.slice(0, 2000) } : {}),
     companies,
     event_types: strings(m.event_types, 6),
     ...(typeof m.issuer_linkage === 'string' && m.issuer_linkage.trim() ? { issuer_linkage: m.issuer_linkage.trim() } : {}),
@@ -216,11 +219,28 @@ function normalizeTheme(v: unknown): Theme | null {
   const memberFirst = members[0].found_at
   const memberLast = members[members.length - 1].found_at
   const firstSeen = iso(raw.first_seen) || memberFirst
-  const generation = raw.generation === 'claude' || raw.generation === 'groq' ? raw.generation : 'deterministic'
+  const validatorProvider = typeof raw.validator_provider === 'string' && raw.validator_provider.trim()
+    ? raw.validator_provider.trim().slice(0, 120)
+    : undefined
+  const invalidLlmProvenance = raw.generation === 'llm' && !validatorProvider
+  // A generic `llm` class without the exact provider route is not sufficient validation provenance.
+  // Preserve the row for audit, but fail it back to deterministic so qualification cannot publish it.
+  const generation = raw.generation === 'claude' || raw.generation === 'groq'
+    ? raw.generation
+    : raw.generation === 'llm' && validatorProvider
+      ? 'llm'
+      : 'deterministic'
   const tier = raw.tier === 'hot' || raw.tier === 'active' || raw.tier === 'cooling' || raw.tier === 'parked' ? raw.tier : 'parked'
   const flowSeries = Array.isArray(raw.flow_series) ? raw.flow_series.map((n: unknown) => Math.max(0, Math.floor(finite(n)))).slice(-48) : []
   const flowDaily = Array.isArray(raw.flow_daily) ? raw.flow_daily.map((n: unknown) => Math.max(0, Math.floor(finite(n)))).slice(-120) : undefined
   const narrative = normalizeNarrative(raw.narrative, members)
+  // Before the versioned narrative contract, successful Claude/Groq naming produced model-labelled live
+  // rows with no migration flags. Queue their complete retained audit for a fresh contract pass instead of
+  // letting a rollout report an empty board and no compiler debt. Invalid generic-LLM provenance follows
+  // the same fail-closed migration path after being normalized back to deterministic above.
+  const legacyModelNamedMigration = raw.status === 'live' && !narrative
+    && (generation === 'claude' || generation === 'groq' || generation === 'llm')
+  const migrationNeedsRename = raw.status === 'live' && (invalidLlmProvenance || legacyModelNamedMigration)
   const classifiedNarrativeIds = new Set([
     ...(narrative?.evidence.map((row) => row.event_id) || []),
     ...(narrative?.context_event_ids || []),
@@ -230,6 +250,7 @@ function normalizeTheme(v: unknown): Theme | null {
   const tracksNarrativeDebt = rawNarrativeOverflow
     || (raw.needs_narrative_update === true && Boolean(narrative))
     || (!narrative && generation === 'deterministic' && raw.needs_validation === true)
+    || migrationNeedsRename
   const rawPendingNarrativeIds = strings(raw.pending_narrative_event_ids, pendingCap)
   const pendingNarrativeIds = tracksNarrativeDebt
     ? (rawPendingNarrativeIds.length
@@ -270,9 +291,10 @@ function normalizeTheme(v: unknown): Theme | null {
     first_seen: firstSeen,
     last_flow: memberLast,
     generation,
+    ...(generation === 'llm' && validatorProvider ? { validator_provider: validatorProvider } : {}),
     ...(narrative ? { narrative } : {}),
     rev: Math.max(0, Math.floor(finite(raw.rev))),
-    ...(raw.needs_rename === true ? { needs_rename: true } : {}),
+    ...(raw.needs_rename === true || migrationNeedsRename ? { needs_rename: true } : {}),
     ...(generation === 'deterministic' && raw.needs_validation === true ? { needs_validation: true } : {}),
     ...(narrativeUpdateOverflow || (Boolean(narrative) && raw.needs_narrative_update === true) ? { needs_narrative_update: true } : {}),
     ...(tracksNarrativeDebt ? { pending_narrative_event_ids: pendingNarrativeIds } : {}),
@@ -286,9 +308,18 @@ function normalizeTheme(v: unknown): Theme | null {
  *  on-the-fly geo-sliced index) instead of re-parsing the whole ledger on every request. */
 export const themesLedgerPath = ledgerPath
 
-/** Read the themes ledger; last VALID line per theme_id wins (a corrupt line never breaks the load). */
-export function loadThemes(repoRoot: string): Theme[] {
+export interface ThemesLedgerSnapshot {
+  themes: Theme[]
+  generatedAt: string
+  compilerAttempt: ThemeCompilerAttempt | null
+}
+
+/** Read the themes ledger; last VALID row per theme_id wins. A batch is one logical transaction: if its
+ * stage/compiler envelope or any Theme row is malformed, none of that batch is admitted. */
+export function loadThemesLedger(repoRoot: string): ThemesLedgerSnapshot {
   const byId = new Map<string, Theme>()
+  let generatedAt = ''
+  let compilerAttempt: ThemeCompilerAttempt | null = null
   try {
     for (const ln of fs.readFileSync(ledgerPath(repoRoot), 'utf8').split('\n')) {
       const t = ln.trim()
@@ -298,6 +329,20 @@ export function loadThemes(repoRoot: string): Theme[] {
         if (o && o.kind === 'theme') {
           const theme = normalizeTheme(o.theme)
           if (theme) byId.set(theme.theme_id, theme)
+        } else if (o && o.kind === 'theme_batch' && Array.isArray(o.themes)) {
+          const stamp = iso(o.ts).replace(/\.\d{3}Z$/, 'Z')
+          const attempt = o.compiler_attempt === undefined ? null : normalizeThemeCompilerAttempt(o.compiler_attempt)
+          const normalized = o.themes.map(normalizeTheme)
+          if (!stamp || (o.compiler_attempt !== undefined && !attempt) || normalized.some((theme) => theme === null)) continue
+          for (const theme of normalized as Theme[]) byId.set(theme.theme_id, theme)
+          generatedAt = stamp
+          if (attempt) compilerAttempt = attempt
+        } else if (o && o.kind === 'theme_stage') {
+          const stamp = iso(o.ts).replace(/\.\d{3}Z$/, 'Z')
+          const attempt = o.compiler_attempt === undefined ? null : normalizeThemeCompilerAttempt(o.compiler_attempt)
+          if (!stamp || (o.compiler_attempt !== undefined && !attempt)) continue
+          generatedAt = stamp
+          if (attempt) compilerAttempt = attempt
         }
       } catch {
         // skip a corrupt line
@@ -306,18 +351,30 @@ export function loadThemes(repoRoot: string): Theme[] {
   } catch {
     // no ledger yet → no themes
   }
-  return [...byId.values()]
+  return { themes: [...byId.values()], generatedAt, compilerAttempt }
 }
 
-/** Append one mutation line per changed theme. False means nothing downstream may advance. */
-export function appendThemeMutations(repoRoot: string, themes: Theme[], now: () => Date = () => new Date()): boolean {
-  if (!themes.length) return true
+/** Compatibility projection for every existing caller that only needs current Theme rows. */
+export function loadThemes(repoRoot: string): Theme[] {
+  return loadThemesLedger(repoRoot).themes
+}
+
+/** Append one logical cycle record. False means nothing downstream may advance. Theme changes and the
+ * compiler attempt share one JSON row; a capacity-only cycle uses a compact stage row. */
+export function appendThemeMutations(
+  repoRoot: string,
+  themes: Theme[],
+  now: () => Date = () => new Date(),
+  compilerAttempt?: ThemeCompilerAttempt,
+): boolean {
   const fp = ledgerPath(repoRoot)
   try {
     fs.mkdirSync(path.dirname(fp), { recursive: true })
     const ts = now().toISOString().replace(/\.\d{3}Z$/, 'Z')
-    const lines = themes.map((theme) => JSON.stringify({ kind: 'theme', ts, theme } satisfies ThemeMutation)).join('\n') + '\n'
-    fs.appendFileSync(fp, lines)
+    const mutation: ThemeMutation = themes.length
+      ? { kind: 'theme_batch', ts, themes, ...(compilerAttempt ? { compiler_attempt: compilerAttempt } : {}) }
+      : { kind: 'theme_stage', ts, ...(compilerAttempt ? { compiler_attempt: compilerAttempt } : {}) }
+    fs.appendFileSync(fp, JSON.stringify(mutation) + '\n')
     return true
   } catch {
     return false
@@ -354,13 +411,43 @@ export function maybeCompactThemesLedger(
   const fp = ledgerPath(repoRoot)
   try {
     if (fs.statSync(fp).size < thresholdBytes) return
-    const physicalLines = fs.readFileSync(fp, 'utf8').split('\n').filter((l) => l.trim()).length
-    const themes = loadThemes(repoRoot) // last-per-id — identical to what every reader already sees
-    if (physicalLines <= themes.length) return // already one-line-per-id → rewriting only churns `ts`
+    const rawLines = fs.readFileSync(fp, 'utf8').split('\n').filter((l) => l.trim())
+    const seenThemeIds = new Set<string>()
+    let stageRows = 0
+    let needsCompaction = false
+    for (const line of rawLines) {
+      try {
+        const row = JSON.parse(line) as ThemeMutation
+        if (row.kind === 'theme') {
+          const id = object(row.theme)?.theme_id
+          if (typeof id !== 'string' || seenThemeIds.has(id)) needsCompaction = true
+          else seenThemeIds.add(id)
+        } else if (row.kind === 'theme_batch') {
+          needsCompaction = true
+        } else if (row.kind === 'theme_stage') {
+          stageRows++
+        } else {
+          needsCompaction = true
+        }
+      } catch {
+        needsCompaction = true
+      }
+    }
+    // Capacity-only cycles are tiny. Retain at most one day of stage history before folding it, rather
+    // than rewriting a multi-megabyte compact Theme ledger on every blocked provider check.
+    if (stageRows > 288) needsCompaction = true
+    if (!needsCompaction) return
+    const snapshot = loadThemesLedger(repoRoot)
+    const themes = snapshot.themes
     const ts = now().toISOString().replace(/\.\d{3}Z$/, 'Z')
-    const body = themes.length
-      ? themes.map((theme) => JSON.stringify({ kind: 'theme', ts, theme } satisfies ThemeMutation)).join('\n') + '\n'
-      : ''
+    const rows: string[] = themes.map((theme) => JSON.stringify({ kind: 'theme', ts, theme } satisfies ThemeMutation))
+    if (snapshot.generatedAt) {
+      rows.push(JSON.stringify({
+        kind: 'theme_stage', ts: snapshot.generatedAt,
+        ...(snapshot.compilerAttempt ? { compiler_attempt: snapshot.compilerAttempt } : {}),
+      } satisfies ThemeMutation))
+    }
+    const body = rows.length ? rows.join('\n') + '\n' : ''
     const tmp = `${fp}.compact.${process.pid}`
     fs.writeFileSync(tmp, body)
     fs.renameSync(tmp, fp)
@@ -516,7 +603,11 @@ export function buildSummary(t: Theme, now: Date = new Date(), companyProjection
 }
 
 /** Build the live themes index. Admission class outranks heat: actionable → forming → context. */
-export function buildThemesIndex(themes: Theme[], now: () => Date = () => new Date()): ThemesIndex {
+export function buildThemesIndex(
+  themes: Theme[],
+  now: () => Date = () => new Date(),
+  compilerAttempt?: ThemeCompilerAttempt | null,
+): ThemesIndex {
   const live = themes.filter((t) => t.status === 'live')
   const nowD = now()
   // The PM-facing index is a thesis product, not a raw-cluster diagnostic. Contractless/rejected Context
@@ -538,18 +629,37 @@ export function buildThemesIndex(themes: Theme[], now: () => Date = () => new Da
     const firstNonZero = fd.findIndex((v) => v > 0)
     if (firstNonZero >= 0) history_days = Math.max(history_days, fd.length - firstNonZero)
   }
-  return { generated_at: nowD.toISOString().replace(/\.\d{3}Z$/, 'Z'), themes: summaries, counts, history_days }
+  const formation_queue = buildThemeFormationQueue(live, nowD)
+  const compiler_health = buildThemeCompilerHealth(formation_queue, nowD, compilerAttempt, compilerDebtForThemes(live))
+  return {
+    generated_at: nowD.toISOString().replace(/\.\d{3}Z$/, 'Z'),
+    themes: summaries,
+    formation_queue,
+    compiler_health,
+    counts,
+    history_days,
+  }
 }
 
 /** Atomically write the live themes index the cockpit reads. */
-export function writeThemesIndex(repoRoot: string, themes: Theme[], now: () => Date = () => new Date()): void {
+export function writeThemesIndex(
+  repoRoot: string,
+  themes: Theme[],
+  now: () => Date = () => new Date(),
+  compilerAttempt?: ThemeCompilerAttempt | null,
+): void {
   const fp = indexPath(repoRoot)
   try {
     fs.mkdirSync(path.dirname(fp), { recursive: true })
     const tmp = `${fp}.tmp.${process.pid}`
+    // The board snapshot is the durable compiler-health seam. A maintenance-only stage with no new
+    // attempt must retain the last observed provider result while queue debt is recomputed from `themes`.
+    const priorAttempt = compilerAttempt === undefined
+      ? readThemesIndex(repoRoot).compiler_health.last_attempt
+      : compilerAttempt
     // compact (not pretty) — the index is machine-read by the cockpit, and the per-theme flow_series[48] +
     // flow_daily[120] rings make indented JSON ~3× larger for zero benefit.
-    fs.writeFileSync(tmp, JSON.stringify(buildThemesIndex(themes, now)) + '\n')
+    fs.writeFileSync(tmp, JSON.stringify(buildThemesIndex(themes, now, priorAttempt)) + '\n')
     fs.renameSync(tmp, fp)
   } catch {
     // best-effort; the cockpit keeps the prior index
@@ -560,21 +670,60 @@ export function writeThemesIndex(repoRoot: string, themes: Theme[], now: () => D
 export function readThemesIndex(repoRoot: string): ThemesIndex {
   try {
     const o = JSON.parse(fs.readFileSync(indexPath(repoRoot), 'utf8'))
-    if (o && Array.isArray(o.themes)) return { history_days: 0, ...o }
+    if (o && Array.isArray(o.themes)) {
+      const validGeneratedAt = typeof o.generated_at === 'string' && Number.isFinite(Date.parse(o.generated_at))
+      const generated = validGeneratedAt ? new Date(Date.parse(o.generated_at)) : new Date(0)
+      const formation = validGeneratedAt
+        ? normalizeThemeFormationQueue(o.formation_queue) || buildThemeFormationQueue([], generated)
+        : buildThemeFormationQueue([], generated)
+      const lastAttempt = validGeneratedAt ? normalizeThemeCompilerAttempt(o.compiler_health?.last_attempt) : null
+      const compilerDebt = validGeneratedAt ? normalizeThemeCompilerDebt(o.compiler_health?.queue) : null
+      return {
+        history_days: 0,
+        ...o,
+        generated_at: validGeneratedAt ? o.generated_at : '',
+        formation_queue: formation,
+        compiler_health: buildThemeCompilerHealth(formation, generated, lastAttempt, compilerDebt || undefined),
+      }
+    }
   } catch {
     // none yet
   }
-  return { generated_at: '', themes: [], counts: { hot: 0, active: 0, cooling: 0, parked: 0, retired: 0, total: 0 }, history_days: 0 }
+  const epoch = new Date(0)
+  const formation_queue = buildThemeFormationQueue([], epoch)
+  return {
+    generated_at: '',
+    themes: [],
+    formation_queue,
+    compiler_health: buildThemeCompilerHealth(formation_queue, epoch),
+    counts: { hot: 0, active: 0, cooling: 0, parked: 0, retired: 0, total: 0 },
+    history_days: 0,
+  }
 }
 
 /** Recent MATERIAL firehose items as ThemeItemViews — the cold-start / comprehensiveness pool for a
  *  discovery pass, so themes form from the whole recent backlog, not just this cycle's handful. */
-export function readRecentThemeItems(repoRoot: string, minScore: number): ThemeItemView[] {
+export function readRecentThemeItems(repoRoot: string, minScore: number, maxItems = 1000): ThemeItemView[] {
   const out: ThemeItemView[] = []
   try {
-    const feed = readFeed(repoRoot, 2, { applyActiveWeights: false, preservePersistedDedupGroups: true }) // discovery uses persisted ingest-time scores + story families, not a display-time re-rank/re-dedup
+    // `readFeed` stops once it has `maxItems` matches. Put the complete Themes admission predicate at its
+    // push site instead of filtering the newest 1,000 RAW wire rows afterwards: on a busy day the raw cap
+    // was mostly drop-band noise, so only ~13% of the retained material wire ever reached discovery.
+    // Discovery intentionally keeps ingest-time scores + canonical story families; it must not re-rank or
+    // re-dedup this historical pool under today's display settings.
+    const eligible = (it: FeedItem): boolean => it.band !== 'drop'
+      && (it.triage_score || 0) >= minScore
+      && typeof it.found_at === 'string'
+      && Number.isFinite(Date.parse(it.found_at))
+      && (it.source_tier || deriveSourceTier(it)) !== 'social'
+    const feed = readFeed(repoRoot, 2, {
+      applyActiveWeights: false,
+      preservePersistedDedupGroups: true,
+      maxItems: Math.max(1, Math.floor(maxItems)),
+      predicate: eligible,
+    })
     for (const it of feed.items as FeedItem[]) {
-      if (it.band === 'drop' || (it.triage_score || 0) < minScore) continue
+      if (!eligible(it)) continue // defensive mirror if readFeed's admission contract changes
       // Legacy firehose rows only have `ts` (when the engine triaged them). Treating that as source time
       // can make a backfilled old article look newly published and clear the six-hour qualification gate.
       // New rows persist the real source/discovery clock; older unknown-time rows fail closed here.

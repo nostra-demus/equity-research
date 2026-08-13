@@ -341,6 +341,8 @@ check('a support row needs both a named source and a valid HTTP(S) URL to contri
   assertRejected('missing-name', (member) => { delete member.source_name })
   assertRejected('missing-url', (member) => { delete member.url })
   assertRejected('invalid-url', (member) => { member.url = 'ftp://example.test/not-a-citation' })
+  assertRejected('hostless-https-url', (member) => { member.url = 'https://' })
+  assertRejected('hostless-http-url', (member) => { member.url = 'http://' })
 })
 
 check('commodity slice does not leak another commodity\'s proof or company aggregate', () => {
