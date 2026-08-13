@@ -52,6 +52,7 @@ const byRecency = (a: InboxRow, b: InboxRow): number =>
   sourceTime(b) - sourceTime(a) || byQuality(a, b)
 
 export type StoryObservationKind = 'ordinary' | 'other' | 'adverse' | 'restorative'
+export type HumanVetoStoryState = 'positive' | 'adverse' | 'restorative' | 'unknown'
 
 type StoryObservationView = {
   headline?: unknown
@@ -63,34 +64,173 @@ type StoryObservationView = {
 // is to reserve two slots inside the bounded family history: one for an adverse state, and one for a
 // correction/restoration. Ambiguous words such as "changes" or the noun "proceeds" remain `other`, so a
 // burst of harmless rewrites cannot evict either state from the audit trail.
-const ADVERSE_STATE_RE = /\b(?:cancel(?:s|l?ed|lations?|l?ing)?|postpon(?:e(?:s|d)?|ements?|ing)|delay(?:s|ed|ing)?|defer(?:s|red|ring)?|deferrals?|suspend(?:s|ed|ing)?|suspensions?|scrap(?:s|ped|ping)?|call(?:s|ed|ing)?[\s-]+off|adjourn(?:s|ed|ing|ments?)?|withdraw(?:s|n|ing|als?)?|withdrew|retract(?:s|ed|ing|ions?)?|rescind(?:s|ed|ing)?)\b/i
+const ADVERSE_STATE_RE = /\b(?:cancel(?:s|l?ed|lations?|l?ing)?|postpon(?:e(?:s|d)?|ements?|ing)|delay(?:s|ed|ing)?|defer(?:s|red|ring)?|deferrals?|suspend(?:s|ed|ing)?|suspensions?|scrap(?:s|ped|ping)?|call(?:s|ed|ing)?[\s-]+off|adjourn(?:s|ed|ing|ments?)?|withdraw(?:s|n|ing|als?)?|withdrew|retract(?:s|ed|ing|ions?)?|rescind(?:s|ed|ing)?|revok(?:e|es|ed|ing|ations?)|reject(?:s|ed|ing|ions?)?|invalidat(?:e|es|ed|ing|ions?)?|terminat(?:e|es|ed|ing|ions?)?|annul(?:s|led|ling|ments?)?)\b/i
 const CORRECTION_STATE_RE = /\b(?:correct(?:s|ed|ing|ions?)?|clarif(?:y|ies|ied|ying|ications?)|revis(?:e|es|ed|ing|ions?)|restat(?:e|es|ed|ing|ements?)|inaccurate|untrue)\b/i
-const NEGATED_ADVERSE_RE = /\b(?:not|never|no longer|won['’]?t|isn['’]?t|wasn['’]?t|weren['’]?t|hasn['’]?t|haven['’]?t|hadn['’]?t|wouldn['’]?t|cannot|can['’]?t)\b[^.;:]{0,80}\b(?:cancel(?:s|l?ed|lations?|l?ing)?|postpon(?:e(?:s|d)?|ements?|ing)|delay(?:s|ed|ing)?|defer(?:s|red|ring)?|suspend(?:s|ed|ing)?|withdraw(?:s|n|ing|als?)?)\b/i
-const DENIES_ADVERSE_RE = /\b(?:den(?:y|ies|ied|ying|ials?)|refut(?:e|es|ed|ing))\s+(?:reports?\s+(?:that\s+)?)?(?!wrongdoing\b)(?:[\p{L}\p{N}'’-]+\s+){0,5}(?:cancel(?:s|l?ed|lations?|l?ing)?|postpon(?:e(?:s|d)?|ements?|ing)|delay(?:s|ed|ing)?|defer(?:s|red|ring)?|suspend(?:s|ed|ing)?)\b/iu
+// Negation must bind directly to the adverse predicate. An arbitrary span made "did not explain why
+// the regulator cancelled approval" look like a restoration even though cancellation still stood.
+const NEGATED_ADVERSE_RE = /\b(?:not|never|no longer|won['’]?t|isn['’]?t|wasn['’]?t|weren['’]?t|hasn['’]?t|haven['’]?t|hadn['’]?t|wouldn['’]?t|cannot|can['’]?t)\s+(?:(?:be|been|being)\s+)?(?:cancel(?:s|l?ed|lations?|l?ing)?|postpon(?:e(?:s|d)?|ements?|ing)|delay(?:s|ed|ing)?|defer(?:s|red|ring)?|suspend(?:s|ed|ing)?|withdraw(?:s|n|ing|als?)?)\b/i
+// Denial is a restoration only when grammar binds the denial to the adverse claim. A loose
+// "denies ... cancelled" span made unrelated headlines such as "denies responsibility after the
+// regulator cancelled approval" look like reversals.
+const DENIES_ADVERSE_REPORT_RE = /\b(?:den(?:y|ies|ied|ying)|refut(?:e|es|ed|ing))\s+(?:reports?|claims?|allegations?|rumou?rs?)\s+(?:that\s+)?(?:the\s+|its\s+)?(?:approval|permit|licen[cs]e|authori[sz]ation|clearance|agm|meeting|event|deal|transaction|vote|guidance|dividend)\s+(?:(?:is|are|was|were|has been|have been|had been|will be)\s+)?(?:cancel(?:l?ed|lation)?|postpon(?:ed|ement)|delay(?:ed)?|defer(?:red|ral)|suspend(?:ed|sion))\b/i
+const DENIES_ADVERSE_ACTION_RE = /\b(?:den(?:y|ies|ied|ying)|refut(?:e|es|ed|ing))\s+(?:it|the company|the issuer|the board|the regulator)\s+(?:(?:has|had)\s+)?(?:cancel(?:l?ed|ling)?|postpon(?:ed|ing)?|delay(?:ed|ing)?|defer(?:red|ring)?|suspend(?:ed|ing)?)\b/i
+const DENIES_ADVERSE_STATUS_RE = /\b(?:den(?:y|ies|ied|ying)|refut(?:e|es|ed|ing))\s+(?:the\s+|its\s+)?(?:approval|permit|licen[cs]e|authori[sz]ation|clearance|agm|meeting|event|deal|transaction|vote|guidance|dividend)\s+(?:(?:is|are|was|were|has been|have been|had been|will be)\s+)?(?:cancel(?:l?ed|lation)?|postpon(?:ed|ement)|delay(?:ed)?|defer(?:red|ral)|suspend(?:ed|sion))\b/i
 const UNDONE_ADVERSE_RE = /\b(?:cancel(?:s|l?ed|lations?|l?ing)?|postpon(?:e(?:s|d)?|ements?|ing)|delay(?:s|ed|ing)?|defer(?:s|red|ring)?|suspend(?:s|ed|ing)?)\b(?:\s+[\p{L}\p{N}'’-]+){0,4}\s+\b(?:is|are|was|were|has been|have been|claims? are|reports? are)\s+(?:withdrawn|rescinded|reversed|denied|false|incorrect|inaccurate|untrue)\b/iu
 const EXPLICIT_UNDO_RE = /\b(?:revers(?:e|es|ed|ing)\s+(?:the\s+)?decision\s+to\s+cancel|cancel(?:s|l?ed|l?ing)?\s+(?:the\s+)?postponement|withdraw(?:s|n|ing)?\s+(?:the\s+)?(?:[\p{L}\p{N}'’-]+\s+){0,3}cancellation\s+notice)\b/iu
-const RESUMPTION_RE = /\b(?:reinstat(?:e|es|ed|ing|ement)|resum(?:e|es|ed|ing)|go(?:es|ing)?\s+ahead)\b|\b(?:will|would|can|may|must|shall|should|to|is|are|was|were|has|have|had)\s+(?:still\s+)?(?:be\s+)?proceed(?:s|ed|ing)?\b/i
+// Generic "proceed/resume" is not proof that the vetoed object changed state (an investigation can
+// proceed while an approval remains cancelled). Only a directly named status object is restorative.
+const RESUMPTION_RE = /\b(?:reinstat(?:e|es|ed|ing)|restor(?:e|es|ed|ing)|resum(?:e|es|ed|ing))\s+(?:the\s+)?(?:approval|permit|licen[cs]e|authori[sz]ation|clearance|agm|meeting|event|deal|transaction|vote|guidance|dividend|trading|production|service|talks?)\b|\b(?:approval|permit|licen[cs]e|authori[sz]ation|clearance|agm|meeting|event|deal|transaction|vote|guidance|dividend|trading|production|service|talks?)\s+(?:(?:is|are|was|were|has been|have been|will be)\s+)?(?:reinstated|restored|resumed)\b/i
+// Bounded family history may retain an explicitly scheduled proceeding even though that wording is
+// intentionally too broad to overturn a human veto. "As scheduled" supplies the missing status bind.
+const SCHEDULED_PROCEED_RE = /\b(?:agm|egm|meeting|event|deal|transaction|vote|dividend|trading|production|service|talks?)\s+(?:(?:will|would|shall|is|are|was|were|has|have)\s+)?(?:still\s+)?(?:proceed|proceeds|proceeded|proceeding)\s+as\s+scheduled\b/i
+const RESTORED_STATUS_RE = /\b(?:reinstat(?:e|es|ed|ing)|restor(?:e|es|ed|ing))\s+(?:the\s+)?(?:approval|permit|licen[cs]e|authori[sz]ation|clearance|agm|meeting|event|deal|transaction|vote|guidance|dividend)\b|\b(?:approval|permit|licen[cs]e|authori[sz]ation|clearance|agm|meeting|event|deal|transaction|vote|guidance|dividend)\s+(?:(?:is|are|was|were|has been|have been|will be)\s+)?(?:reinstated|restored)\b/i
 const RESTORE_CONFIDENCE_RE = /\brestor(?:e|es|ed|ing)\s+(?:(?:investor|consumer|market|public)\s+)?confidence\b/i
 const RESTORE_STATE_RE = /\brestor(?:e|es|ed|ing|ation)\b/i
+const EXPLICIT_REPORT_REVISION_RE = /\b(?:retract(?:s|ed|ing)?|withdraw(?:s|n|ing)?|correct(?:s|ed|ing)?|clarif(?:y|ies|ied|ying))\b[^.;:]{0,60}\b(?:report|claim|statement|announcement|notice)\b|\b(?:report|claim|statement|announcement|notice)\b[^.;:]{0,60}\b(?:retract(?:s|ed|ing)?|withdraw(?:s|n|ing)?|correct(?:s|ed|ing)?|clarif(?:y|ies|ied|ying))\b/i
+const NEGATIVE_APPROVAL_STATE_RE = /\b(?:do|does|did|has|have|had|will|would|can|could)\s+not\s+(?:receive|obtain|secure|get|win|gain)\s+(?:the\s+|an?\s+)?(?:approval|permit|licen[cs]e|authori[sz]ation|clearance)\b|\b(?:fail(?:s|ed|ing)?\s+to\s+)(?:receive|obtain|secure|get|win|gain)\s+(?:the\s+|an?\s+)?(?:approval|permit|licen[cs]e|authori[sz]ation|clearance)\b|\b(?:approval|permit|licen[cs]e|authori[sz]ation|clearance)\s+(?:(?:is|was|has been|had been|will be)\s+)?(?:not|never)\s+(?:granted|approved|received|obtained|secured|confirmed)\b|\b(?:received|obtained|secured|has|have|had)\s+no\s+(?:approval|permit|licen[cs]e|authori[sz]ation|clearance)\b/i
+const POSITIVE_APPROVAL_STATE_RE = /\b(?:approves?|approved|grants?|granted|receives?|received|obtains?|obtained|secures?|secured|wins?|won)\s+(?:the\s+|an?\s+)?(?:approval|permit|licen[cs]e|authori[sz]ation|clearance)\b|\b(?:approval|permit|licen[cs]e|authori[sz]ation|clearance)\s+(?:(?:is|was|has been|had been)\s+)?(?:granted|approved|received|obtained|secured|confirmed|valid|active)\b/i
+// A human dismissal may be bypassed only by an observed state change, never by a forecast or an
+// unattributed/contested report. Keep this global across positive, adverse, and restorative lanes: a
+// modal before "cancelled" is just as unproven as one before "approved". Do not include plain "says" or
+// "reports" here because an identified company/regulator can make a factual statement, and the guarded
+// denial grammar below deliberately accepts "denies reports that ...". Explicit uncertainty markers do
+// close the exception.
+const SPECULATIVE_STATE_RE = /\b(?:may|might|could|would|should|expects?|expected|plans?|planned|seeks?|seeking|aims?|hopes?|appears?|seems?|likely|potentially|possibly|tentative|conditional|pending|unconfirmed|unverified|reportedly|allegedly|purportedly|rumou?rs?|rumou?red|speculat(?:e[sd]?|ing|ion|ive)|according\s+to\s+(?:unnamed|unidentified|anonymous)\s+sources?)\b/i
+const NON_AFFIRMATIVE_APPROVAL_RE = /\b(?:not|never|no|cannot|can['’]?t|won['’]?t|isn['’]?t|wasn['’]?t|hasn['’]?t|haven['’]?t|hadn['’]?t|without|failed?|fails?|yet\s+to|await(?:s|ed|ing)?|pending|conditional|unconfirmed|tentative|false|falsely|alleged|allegedly|purported|claimed?|disput(?:e|es|ed|ing)|den(?:y|ies|ied|ying)|refut(?:e|es|ed|ing)|rumou?rs?)\b/i
+
+const HUMAN_VETO_CLAUSE_SPLIT_RE = /[.;:!?]+|\s+(?:after|while|although|but|whereas|despite|because|when|however|yet|nevertheless)\s+/i
+// Negating a delay/suspension to a separate process is not a status assertion about an object merely
+// mentioned inside that process: "did not suspend investigation into approval" says nothing about
+// whether approval itself is active. This guard applies only to the strict human-veto parser.
+const NEGATED_NON_STATUS_ACTION_RE = /\b(?:not|never|no longer|won['’]?t|isn['’]?t|wasn['’]?t|weren['’]?t|hasn['’]?t|haven['’]?t|hadn['’]?t|wouldn['’]?t|cannot|can['’]?t)\s+(?:(?:be|been|being)\s+)?(?:delay(?:s|ed|ing)?|postpon(?:e(?:s|d)?|ements?|ing)|defer(?:s|red|ring)?|suspend(?:s|ed|ing)?)\s+(?:(?:the|an?)\s+)?(?:review|hearing|investigation|inquiry|proceedings?|process|consideration|decision)\b/i
+
+function classifyHumanVetoClause(headline: string): HumanVetoStoryState {
+  if (SPECULATIVE_STATE_RE.test(headline) || NEGATED_NON_STATUS_ACTION_RE.test(headline)) return 'unknown'
+  const restorative = NEGATED_ADVERSE_RE.test(headline)
+    || DENIES_ADVERSE_REPORT_RE.test(headline)
+    || DENIES_ADVERSE_ACTION_RE.test(headline)
+    || DENIES_ADVERSE_STATUS_RE.test(headline)
+    || UNDONE_ADVERSE_RE.test(headline)
+    || EXPLICIT_UNDO_RE.test(headline)
+    || RESTORED_STATUS_RE.test(headline)
+  // Denials and direct negation contain an adverse word syntactically, so an atomic restorative match
+  // wins inside one clause. Independent contradictory clauses are reconciled by the caller below.
+  if (restorative) return 'restorative'
+  if (ADVERSE_STATE_RE.test(headline) || NEGATIVE_APPROVAL_STATE_RE.test(headline)) return 'adverse'
+  if (!NON_AFFIRMATIVE_APPROVAL_RE.test(headline)
+    && !NEGATIVE_APPROVAL_STATE_RE.test(headline)
+    && POSITIVE_APPROVAL_STATE_RE.test(headline)) return 'positive'
+  return 'unknown'
+}
+
+const headlineFor = (row: StoryObservationView): string =>
+  String((typeof row.headline_en === 'string' && row.headline_en.trim()) || row.headline || '').slice(0, 1_000)
+
+/** Strict source-state parser used only for the guarded human-veto exception. Unknown grammar stays
+ * closed. It intentionally does not treat a generic Correction:, denial, resume, or "did not" as a
+ * transition; the wording must prove the status itself changed. */
+export function classifyHumanVetoStoryState(row: StoryObservationView): HumanVetoStoryState {
+  const headline = headlineFor(row)
+  if (SPECULATIVE_STATE_RE.test(headline)) return 'unknown'
+  const states = new Set(headline.split(HUMAN_VETO_CLAUSE_SPLIT_RE)
+    .map(classifyHumanVetoClause)
+    .filter((state): state is Exclude<HumanVetoStoryState, 'unknown'> => state !== 'unknown'))
+  // A headline asserting both sides of a status is not evidence for either side. This also protects
+  // callers that use the headline-wide classifier without the object binder below.
+  return states.size === 1 ? [...states][0] : 'unknown'
+}
+
+const HUMAN_VETO_OBJECTS: Array<[string, RegExp]> = [
+  ['approval', /\b(?:approval|permit|licen[cs]e|authori[sz]ation|clearance)\b/i],
+  ['meeting', /\b(?:agm|egm|meeting|event)\b/i],
+  ['deal', /\b(?:deal|transaction|merger|acquisition|bid|offer)\b/i],
+  ['vote', /\b(?:vote|ballot|referendum)\b/i],
+  ['guidance', /\bguidance\b/i],
+  ['dividend', /\bdividend\b/i],
+  ['trading', /\btrading\b/i],
+  ['production', /\bproduction\b/i],
+  ['service', /\bservice\b/i],
+  ['talks', /\btalks?\b/i],
+]
+const ANAPHORIC_STATUS_RE = /\b(?:it|this|that|the\s+(?:decision|status)|cancellation|postponement|deferral|suspension|withdrawal|rejection|revocation|termination|annulment|restoration|reinstatement|resumption|reversal|rescission)\b/i
+const ANAPHORIC_RESTORATIVE_RE = /\b(?:restoration|reinstatement|resumption|reversal|rescission)\b|\b(?:it|this|that|the\s+(?:decision|status))\s+(?:(?:is|was|remains?|has been|had been)\s+)?(?:restored|reinstated|resumed|valid|active)\b/i
+
+/** Object-bound state evidence for a human-veto transition. Clauses are separated at contrast/causal
+ * connectors so "restores dividend after approval was cancelled" cannot masquerade as restoration of
+ * the approval. Conflicting states for one object are deliberately unknown. */
+export function humanVetoStoryStates(row: StoryObservationView): Map<string, HumanVetoStoryState> {
+  const headline = headlineFor(row)
+  // A headline-level qualifier such as "Unconfirmed:" governs the asserted status even if punctuation
+  // separates it from the predicate. Partial clause parsing must not wash that qualifier away.
+  if (SPECULATIVE_STATE_RE.test(headline)) return new Map()
+  const clauses = headline.split(HUMAN_VETO_CLAUSE_SPLIT_RE)
+  const found = new Map<string, HumanVetoStoryState>()
+  let antecedentObject: string | undefined
+  for (const clause of clauses) {
+    let state = classifyHumanVetoClause(clause)
+    let objects = HUMAN_VETO_OBJECTS.filter(([, pattern]) => pattern.test(clause))
+    // Status nouns and pronouns can carry the immediately preceding single object: "approval was not
+    // cancelled; regulator confirms cancellation" is contradictory approval evidence, not a clean
+    // restoration. Unknown antecedents remain closed rather than being guessed.
+    if (!objects.length && antecedentObject && ANAPHORIC_STATUS_RE.test(clause)) {
+      objects = [[antecedentObject, /(?:)/]]
+      if (state === 'unknown' && ANAPHORIC_RESTORATIVE_RE.test(clause)) state = 'restorative'
+    }
+    if (state === 'unknown') continue
+    // One clause-level predicate cannot safely be assigned across multiple financial objects. A future
+    // dependency parser may bind each independently; deterministic admission remains fail-closed today.
+    if (objects.length !== 1) continue
+    for (const [object] of objects) {
+      const prior = found.get(object)
+      found.set(object, prior && prior !== state ? 'unknown' : state)
+      antecedentObject = object
+    }
+  }
+  return found
+}
 
 /** Shared bounded-history classifier for Inbox and Ideas. It uses the model-visible English translation
  * when one exists, but deliberately keeps a narrow restoration grammar: a noun such as "proceeds" or an
  * unrelated denial must never displace the actual row that reverses an adverse state. */
 export function classifyStoryObservation(row: StoryObservationView): StoryObservationKind {
-  const headline = String((typeof row.headline_en === 'string' && row.headline_en.trim()) || row.headline || '').slice(0, 1_000)
+  const headline = headlineFor(row)
   const eventTypes = Array.isArray(row.event_types) ? row.event_types.map(String) : []
   const correction = eventTypes.includes('accounting_restatement') || CORRECTION_STATE_RE.test(headline)
   const restoration = NEGATED_ADVERSE_RE.test(headline)
-    || DENIES_ADVERSE_RE.test(headline)
+    || DENIES_ADVERSE_REPORT_RE.test(headline)
+    || DENIES_ADVERSE_ACTION_RE.test(headline)
+    || DENIES_ADVERSE_STATUS_RE.test(headline)
     || UNDONE_ADVERSE_RE.test(headline)
     || EXPLICIT_UNDO_RE.test(headline)
     || RESUMPTION_RE.test(headline)
+    || SCHEDULED_PROCEED_RE.test(headline)
     || (RESTORE_STATE_RE.test(headline) && !RESTORE_CONFIDENCE_RE.test(headline))
-  if (correction || restoration) return 'restorative'
+  // A "Correction:" prefix does not by itself reverse the state being reported. For example,
+  // "Correction: approval was cancelled" is still adverse and must not walk around a human veto as
+  // though it restored the approval. An actual negation/undo remains restorative; otherwise the
+  // asserted adverse state wins before the generic correction lane.
+  if (restoration) return 'restorative'
   if (ADVERSE_STATE_RE.test(headline)) return 'adverse'
+  if (correction) return 'restorative'
 
   const probeFamily = '__inbox_observation_kind__'
   return themeStoryKey({ ...row, dedup_group: probeFamily }) === probeFamily ? 'ordinary' : 'other'
+}
+
+/** Narrow positive proof that a headline explicitly revises/undoes an earlier claim. This is stricter
+ * than the bounded-history classifier: a generic later adverse verb is not enough to bypass a human
+ * veto when the prior state was unrecognized. */
+export function isExplicitStoryRevision(row: StoryObservationView): boolean {
+  const headline = headlineFor(row)
+  return NEGATED_ADVERSE_RE.test(headline)
+    || DENIES_ADVERSE_REPORT_RE.test(headline)
+    || DENIES_ADVERSE_ACTION_RE.test(headline)
+    || DENIES_ADVERSE_STATUS_RE.test(headline)
+    || UNDONE_ADVERSE_RE.test(headline)
+    || EXPLICIT_UNDO_RE.test(headline)
+    || EXPLICIT_REPORT_REVISION_RE.test(headline)
+    || RESUMPTION_RE.test(headline)
+    || (RESTORE_STATE_RE.test(headline) && !RESTORE_CONFIDENCE_RE.test(headline))
 }
 
 /** A publisher can correct or retract an article in place at the same URL. URL-only identity would
@@ -185,6 +325,9 @@ function selectInboxRows(rows: InboxRow[], maxRows: number): InboxRow[] {
 export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[], opts: MergeOptions = {}): number {
   const maxRows = opts.maxRows && opts.maxRows > 0 ? Math.floor(opts.maxRows) : 40
   const now = opts.now || (() => new Date())
+  // One clock for the whole atomic merge. It records when this exact revision first reached the local
+  // inbox; unlike a publisher's `found_at`, it advances when an article is edited in place.
+  const mergedAt = now().toISOString().replace(/\.\d{3}Z$/, 'Z')
   const fp = inboxPath(repoRoot, date)
   let existing: { rows?: InboxRow[] } = {}
   try { existing = JSON.parse(fs.readFileSync(fp, 'utf8')) } catch { existing = {} }
@@ -235,10 +378,23 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
       // stable identity and explicit human state across the refresh.
       byUrlRevision.set(urlRevisionKey, {
         ...sourceFields,
+        // Exact content is the same evidence observation, so neither its first source time nor local
+        // first-seen clock may move on a re-fetch. Advancing either would launder freshness or make an old
+        // revision look newer than a later human action. Distinct content gets a distinct lane below.
+        ...(typeof prior.found_at === 'string' ? { found_at: prior.found_at } : {}),
         ...triageFields,
         inbox_id: prior.inbox_id,
         consumed: prior.consumed === true,
         launched_signal_id: prior.launched_signal_id ?? null,
+        ...(typeof prior.observed_at === 'string'
+          ? { observed_at: prior.observed_at }
+          : {}),
+        // Do not backfill language proof onto an already-stored legacy observation during an exact
+        // refresh; that could newly authorize a post-veto exception for evidence whose language was
+        // never established when the person acted.
+        ...(prior.source_is_english === true ? { source_is_english: true as const } : {}),
+        ...(typeof prior.consumed_at === 'string' ? { consumed_at: prior.consumed_at } : {}),
+        ...(typeof prior.human_action_id === 'string' ? { human_action_id: prior.human_action_id } : {}),
         ...(typeof prior.dismissed === 'boolean' ? { dismissed: prior.dismissed } : {}),
         ...(typeof prior.dismissed_at === 'string' ? { dismissed_at: prior.dismissed_at } : {}),
         ...(typeof prior.dismissed_by === 'string' ? { dismissed_by: prior.dismissed_by } : {}),
@@ -247,6 +403,8 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
       byUrlRevision.set(urlRevisionKey, {
         inbox_id: `INB-${dateCompact}-${String(seq++).padStart(3, '0')}`,
         ...sourceFields,
+        observed_at: mergedAt,
+        ...(it.source_is_english === true ? { source_is_english: true as const } : {}),
         consumed: false,
         launched_signal_id: null,
         ...triageFields,
@@ -269,7 +427,7 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
   const doc = {
     ...existing,
     date,
-    updated_at: now().toISOString().replace(/\.\d{3}Z$/, 'Z'),
+    updated_at: mergedAt,
     focus_hint: (existing as any).focus_hint ?? null,
     source: (existing as any).source || 'auto_ingester',
     rows,

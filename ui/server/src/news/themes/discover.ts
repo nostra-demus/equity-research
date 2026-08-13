@@ -160,7 +160,9 @@ function memberOf(it: ThemeItemView): ThemeMember {
     dedup_group: it.dedup_group,
     headline: it.headline,
     headline_en: it.headline_en,
+    ...(it.source_is_english === true ? { source_is_english: true as const } : {}),
     found_at: it.found_at,
+    ...(it.observed_at ? { observed_at: it.observed_at } : {}),
     score: typeof it.triage_score === 'number' ? it.triage_score : it.materiality_pre_score || 0,
     tier: it.source_tier || 'news',
     source_name: it.source_name,
@@ -417,10 +419,20 @@ export function discoverDeterministic(pool: ThemeItemView[], existing: Theme[], 
     // states, and best provenance. This preserves disconfirmation without letting updates form a theme.
     const selectedFamilies = new Set(items.map(themeStoryFamilyKey))
     const selectedHistory = allPool.filter((row) => selectedFamilies.has(themeStoryFamilyKey(row)))
-    theme.members = boundThemeFamilyHistory(selectedHistory.map(memberOf), cfg.maxMembers, {
+    const selectedAudit = boundThemeFamilyHistory(selectedHistory.map(memberOf), selectedHistory.length, {
       priority: (member) => sourcePriority(member.tier),
-      perFamily: Math.min(6, Math.max(1, cfg.maxMembers - selectedFamilies.size + 1)),
     })
+    // Consuming a qualifying cluster when its complete bounded audit cannot fit makes the excluded
+    // families/updates disappear from both the Theme and the unclustered pool. Keep the whole cluster in
+    // the durable pool instead; a later pass with capacity (or a different scan composition) can rebuild
+    // it without approving a subset selected only by recency.
+    const auditedFamilies = new Set(selectedAudit.map(themeStoryFamilyKey))
+    if (selectedAudit.length > Math.max(0, Math.floor(cfg.maxMembers))
+      || [...selectedFamilies].some((family) => !auditedFamilies.has(family))) {
+      for (const item of items) leftoverFamilies.add(themeStoryFamilyKey(item))
+      continue
+    }
+    theme.members = selectedAudit
     theme.member_count_total = selectedFamilies.size
     theme.pending_narrative_event_ids = theme.members.map((member) => member.event_id)
     theme.last_flow = theme.members.reduce((latest, member) => member.found_at > latest ? member.found_at : latest, '')

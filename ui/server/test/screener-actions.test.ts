@@ -9,7 +9,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { REPO_ROOT } from '../src/config'
-import { markInboxConsumed, setDismissed } from '../src/news/inbox-actions'
+import { markInboxConsumed, readInboxHumanActions, setDismissed } from '../src/news/inbox-actions'
 import { moveThesis } from '../src/screener-actions'
 
 let passed = 0
@@ -57,9 +57,11 @@ await check('inbox: dismiss → restore round-trip stamps and clears human state
   const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
   assert.equal(doc.rows[0].dismissed, true)
   assert.ok(doc.updated_at)
+  assert.deepEqual(readInboxHumanActions(root).rows.map((row) => row.action), ['dismissed'])
   const restored = setDismissed(root, 'INB-20260612-001', false, 'tester@x')
   assert.equal(restored?.dismissed, undefined)
   assert.equal(restored?.dismissed_at, undefined)
+  assert.deepEqual(readInboxHumanActions(root).rows, [], 'restore closes the durable dismissal record')
   assert.equal(setDismissed(root, 'INB-19990101-999', true, 'x'), null) // unknown id → null, no write
 })
 
@@ -68,8 +70,67 @@ await check('inbox: markInboxConsumed sets consumed + launched_signal_id (idempo
   const row = markInboxConsumed(root, 'INB-20260612-002', 'SIG-20260612-abcd1234')
   assert.equal(row?.consumed, true)
   assert.equal(row?.launched_signal_id, 'SIG-20260612-abcd1234')
+  assert.ok(row?.consumed_at)
+  const consumedAt = row?.consumed_at
   const again = markInboxConsumed(root, 'INB-20260612-002', 'SIG-20260612-abcd1234')
   assert.equal(again?.consumed, true)
+  assert.equal(again?.consumed_at, consumedAt, 'an idempotent repeat preserves the original action clock')
+  assert.deepEqual(readInboxHumanActions(root).rows.map((record) => record.action), ['consumed'])
+})
+
+await check('inbox action ledger folds reused inbox slots by immutable observation', () => {
+  const root = mkRepo()
+  const file = path.join(root, 'screener/inbox/2026-06-12_sweep.json')
+  setDismissed(root, 'INB-20260612-001', true, 'tester@x')
+  markInboxConsumed(root, 'INB-20260612-002', 'SIG-old-observation')
+
+  // Simulate a restore/import that reuses the date+sequence slots for unrelated source observations.
+  // Actions on the replacement rows must neither restore nor overwrite the old vetoes.
+  const replacement = JSON.parse(fs.readFileSync(file, 'utf8'))
+  replacement.rows[0] = {
+    ...replacement.rows[0], headline: 'Replacement dismissal observation', url: 'https://reuters.com/replacement-dismiss',
+    found_at: '2026-06-12T10:00:00Z', consumed: false, launched_signal_id: null,
+  }
+  delete replacement.rows[0].dismissed
+  delete replacement.rows[0].dismissed_at
+  delete replacement.rows[0].dismissed_by
+  delete replacement.rows[0].human_action_id
+  replacement.rows[1] = {
+    ...replacement.rows[1], headline: 'Replacement consumed observation', url: 'https://reuters.com/replacement-consume',
+    found_at: '2026-06-12T10:01:00Z', consumed: false, launched_signal_id: null,
+  }
+  delete replacement.rows[1].consumed_at
+  delete replacement.rows[1].human_action_id
+  fs.writeFileSync(file, JSON.stringify(replacement, null, 2))
+
+  setDismissed(root, 'INB-20260612-001', true, 'tester@x')
+  setDismissed(root, 'INB-20260612-001', false, 'tester@x')
+  markInboxConsumed(root, 'INB-20260612-002', 'SIG-new-observation')
+
+  const actions = readInboxHumanActions(root)
+  assert.equal(actions.complete, true)
+  assert.deepEqual(actions.rows.map((row) => [row.action, row.headline]).sort(), [
+    ['consumed', 'A second headline long enough'],
+    ['consumed', 'Replacement consumed observation'],
+    ['dismissed', 'A first headline long enough'],
+  ].sort(), 'restore closes only the replacement dismissal and both consumed observations survive')
+  assert.equal(new Set(actions.rows.map((row) => row.observation_id)).size, 3)
+})
+
+await check('inbox action ledger derives legacy observation identity and rejects conflicting lineage', () => {
+  const root = mkRepo()
+  setDismissed(root, 'INB-20260612-001', true, 'tester@x')
+  const ledger = path.join(root, 'screener/ledger/inbox-human-actions.ndjson')
+  const legacy = JSON.parse(fs.readFileSync(ledger, 'utf8').trim())
+  delete legacy.observation_id
+  fs.writeFileSync(ledger, `${JSON.stringify(legacy)}\n`)
+  const recovered = readInboxHumanActions(root)
+  assert.equal(recovered.complete, true)
+  assert.ok(recovered.rows[0]?.observation_id, 'pre-lineage records derive identity from required source bytes')
+
+  fs.writeFileSync(ledger, `${JSON.stringify({ ...legacy, observation_id: 'EVT-conflicting-lineage' })}\n`)
+  assert.deepEqual(readInboxHumanActions(root), { rows: [], complete: false },
+    'an explicit identity that conflicts with source bytes fails closed')
 })
 
 await check('thesis move: override appended (engine status captured); engine thesis file untouched; unknown id → null', async () => {

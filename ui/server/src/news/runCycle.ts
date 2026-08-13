@@ -16,7 +16,7 @@ import { fetchNse } from './sources/nse'
 import { fetchExchangeIntl } from './sources/exchange-intl'
 import { fetchGovData } from './sources/gov-data'
 import { fetchReddit } from './sources/reddit'
-import { loadLedgerEventIds, normalizeAndFilter } from './normalize'
+import { eventIdFor, loadLedgerEventIds, normalizeAndFilter } from './normalize'
 import { pickTranslation } from './lang'
 import { resolveEventRegion } from './geo'
 import { resolveCountry } from './geography'
@@ -187,31 +187,40 @@ async function runThemesStage(input: {
   fetchFn: typeof fetch
   now: () => Date
   log: (m: string) => void
+  revisionClocksByEvent?: ReadonlyMap<string, InboxRevisionClocks>
 }): Promise<void> {
-  const { cfg, repoRoot, stateDir, picks, fetchFn, now, log } = input
+  const { cfg, repoRoot, stateDir, picks, fetchFn, now, log, revisionClocksByEvent } = input
   if (!cfg.themesEnabled) return
   try {
     const themeItems: ThemeItemView[] = picks
       .filter((t) => t.triage_score >= cfg.themesMinScore)
-      .map((t) => ({
-        event_id: t.event_id,
-        dedup_group: t.dedup_group, // one underlying story across publisher copies — Themes counts it once
-        headline: t.headline,
-        headline_en: t.headline_en,
-        found_at: t.found_at,
-        companies: t.companies,
-        event_types: t.event_types,
-        issuer_linkage: t.issuer_linkage,
-        triage_score: t.triage_score,
-        materiality_pre_score: t.materiality_pre_score,
-        source_tier: deriveSourceTier(t),
-        source_name: t.source_name,
-        url: t.url,
-        scope: deriveScope(t),
-        region: t.region,
-        country: resolveCountry(t.headline, t.headline_en, t.companies, t.region, t.issuer_linkage),
-        commodities: deriveCommodities(t),
-      }))
+      .map((t) => {
+        const clocks = revisionClocksByEvent?.get(t.event_id)
+        const sourceIsEnglish = clocks ? clocks.sourceIsEnglish : t.source_is_english === true
+        return {
+          event_id: t.event_id,
+          dedup_group: t.dedup_group, // one underlying story across publisher copies — Themes counts it once
+          headline: t.headline,
+          headline_en: t.headline_en,
+          ...(sourceIsEnglish ? { source_is_english: true as const } : {}),
+          // The inbox row is the durable exact-revision record. An acted-on refresh may carry a newer
+          // provider timestamp in `t`, but mergeInbox deliberately keeps the source clock the human saw.
+          found_at: clocks?.foundAt || t.found_at,
+          ...(clocks?.observedAt ? { observed_at: clocks.observedAt } : {}),
+          companies: t.companies,
+          event_types: t.event_types,
+          issuer_linkage: t.issuer_linkage,
+          triage_score: t.triage_score,
+          materiality_pre_score: t.materiality_pre_score,
+          source_tier: deriveSourceTier(t),
+          source_name: t.source_name,
+          url: t.url,
+          scope: deriveScope(t),
+          region: t.region,
+          country: resolveCountry(t.headline, t.headline_en, t.companies, t.region, t.issuer_linkage),
+          commodities: deriveCommodities(t),
+        }
+      })
     const n = bumpCycleCounter(stateDir)
     let themesTimeout: ReturnType<typeof setTimeout> | undefined
     const res = await Promise.race([
@@ -236,6 +245,44 @@ async function runThemesStage(input: {
   } catch (e: any) {
     log(`themes stage error: ${e?.message || e}`)
   }
+}
+
+interface InboxRevisionClocks {
+  foundAt: string
+  observedAt?: string
+  sourceIsEnglish: boolean
+}
+
+/** Recover mergeInbox's immutable source/first-seen pair for each exact source revision. Theme and feed
+ * processing run after the atomic inbox write, so both clocks must come from the same durable row: using
+ * its `observed_at` beside a refreshed provider `found_at` would still launder the source's age. */
+function readInboxRevisionClocksByEvent(repoRoot: string, date: string): Map<string, InboxRevisionClocks> {
+  const out = new Map<string, InboxRevisionClocks>()
+  try {
+    const doc = JSON.parse(fs.readFileSync(path.join(repoRoot, 'screener', 'inbox', `${date}_sweep.json`), 'utf8'))
+    if (!Array.isArray(doc?.rows)) return out
+    for (const row of doc.rows) {
+      if (!row || typeof row.headline !== 'string' || typeof row.url !== 'string'
+        || typeof row.found_at !== 'string' || !Number.isFinite(Date.parse(row.found_at))) continue
+      const observedAt = typeof row.observed_at === 'string' && Number.isFinite(Date.parse(row.observed_at))
+        ? row.observed_at
+        : undefined
+      const eventId = eventIdFor(row.headline, row.url)
+      const prior = out.get(eventId)
+      const rowOrder = observedAt ? Date.parse(observedAt) : Date.parse(row.found_at)
+      const priorOrder = prior?.observedAt ? Date.parse(prior.observedAt) : prior ? Date.parse(prior.foundAt) : Infinity
+      if (!prior || rowOrder < priorOrder) {
+        out.set(eventId, {
+          foundAt: row.found_at,
+          ...(observedAt ? { observedAt } : {}),
+          sourceIsEnglish: row.source_is_english === true,
+        })
+      }
+    }
+  } catch {
+    // No durable pair means Theme evidence remains fail-closed for post-human-action revision ordering.
+  }
+  return out
 }
 
 export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSummary> {
@@ -741,6 +788,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         headline_en,
         // the source language named — only when a translation was actually kept (for the "original · X" label)
         ...(headline_en && t?.headline_lang ? { headline_lang: t.headline_lang } : {}),
+        ...(t?.source_is_english === true ? { source_is_english: true as const } : {}),
         // Geography = where the EVENT is, not where it was published: re-derive region from the triage
         // read (news/geo.ts), keeping the publisher's domain region as source_region. Falls back to the
         // domain region when the read gives no signal, so an unscored/omitted item never regresses.
@@ -781,57 +829,67 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const watched = triaged.filter((t) => t.band === 'watch').length
   const dropped = triaged.filter((t) => t.band === 'drop').length
   let inboxed = 0
+  let revisionClocksByEvent = new Map<string, InboxRevisionClocks>()
   if (picks.length) {
     inboxed = mergeInbox(repoRoot, date, picks, { maxRows: cfg.inboxMaxRows, now })
+    revisionClocksByEvent = readInboxRevisionClocksByEvent(repoRoot, date)
     await refreshBoard(repoRoot, log)
   }
 
   // per-item feed records — for KEPT and DROPPED alike, so the live wire shows everything the
   // scanner read and why; then stream each to live listeners
-  const feedItems: FeedItem[] = triaged.map((t) => ({
-    kind: 'item',
-    ts,
-    found_at: t.found_at, // source publication/discovery time; `ts` above remains the triage audit clock
-    event_id: t.event_id,
-    headline: t.headline,
-    headline_en: t.headline_en, // English translation of a non-English headline (news/lang.ts); null when English
-    ...(t.headline_lang ? { headline_lang: t.headline_lang } : {}),
-    url: t.url,
-    domain: t.domain,
-    source_name: t.source_name,
-    via: t.via || 'gdelt',
-    region: t.region, // the EVENT's market (news/geo.ts) — the legacy 8-bucket region
-    // the publisher's region, persisted only when it differs from the event region (e.g. an SCMP/CN
-    // domain piece about Bangladesh → region OTHER, source_region CN) — the override's audit trail
-    ...(t.source_region && t.source_region !== t.region ? { source_region: t.source_region } : {}),
-    // the EVENT's country (ISO alpha-2, news/geography.ts) — the country-level Geography filter's key.
-    // null when no confident signal ("Global / unspecified"). Re-derived on read for older lines (feed.ts).
-    country: resolveCountry(t.headline, t.headline_en, t.companies, t.region, t.issuer_linkage),
-    input_nature: t.input_nature,
-    triage_score: t.triage_score,
-    band: t.band,
-    triage_reason: t.triage_reason,
-    relevance: t.relevance,
-    event_types: t.event_types,
-    issuer_linkage: t.issuer_linkage,
-    companies: t.companies,
-    size_bucket: t.size_bucket,
-    // derived, zero-cost classification — persisted so the wire + a later backfill agree
-    scope: deriveScope(t),
-    source_tier: deriveSourceTier(t),
-    // canonical commodity tag(s) (news/commodities.ts) — absent when the headline names none
-    ...(() => { const cs = deriveCommodities(t); return cs ? { commodity: cs[0], commodities: cs } : {} })(),
-    // event-materiality classifier's final fields — already resolved onto t in the TRIAGE loop above
-    event_materiality_label: t.event_materiality_label,
-    event_direction: t.event_direction,
-    event_scope: t.event_scope,
-    snippet: t.snippet, // the feed's own lede — fetch-free body for on-open enrichment
-    rank_factors: t.rank_factors, // the composite-priority breakdown (rank.ts) — for the WHY in the UI
-    dedup_status: t.dedup_status,
-    dedup_group: t.dedup_group, // story-cluster id (news/dedup.ts) — the live wire collapses on it
-    inboxed: t.band !== 'drop',
-    caution: t.caution, // caution_only social — preserved so the display re-rank (feed.ts) re-applies the lowest cap
-  }))
+  const feedItems: FeedItem[] = triaged.map((t) => {
+    const clocks = revisionClocksByEvent.get(t.event_id)
+    const sourceIsEnglish = clocks ? clocks.sourceIsEnglish : t.source_is_english === true
+    return {
+      kind: 'item',
+      ts,
+      // Exact kept revisions use the pair mergeInbox persisted. Dropped rows have no inbox lane and retain
+      // their raw source clock; `ts` above remains the separate triage audit clock in either case.
+      found_at: clocks?.foundAt || t.found_at,
+      ...(clocks?.observedAt ? { observed_at: clocks.observedAt } : {}),
+      event_id: t.event_id,
+      headline: t.headline,
+      headline_en: t.headline_en, // English translation of a non-English headline (news/lang.ts); null when English
+      ...(t.headline_lang ? { headline_lang: t.headline_lang } : {}),
+      ...(sourceIsEnglish ? { source_is_english: true as const } : {}),
+      url: t.url,
+      domain: t.domain,
+      source_name: t.source_name,
+      via: t.via || 'gdelt',
+      region: t.region, // the EVENT's market (news/geo.ts) — the legacy 8-bucket region
+      // the publisher's region, persisted only when it differs from the event region (e.g. an SCMP/CN
+      // domain piece about Bangladesh → region OTHER, source_region CN) — the override's audit trail
+      ...(t.source_region && t.source_region !== t.region ? { source_region: t.source_region } : {}),
+      // the EVENT's country (ISO alpha-2, news/geography.ts) — the country-level Geography filter's key.
+      // null when no confident signal ("Global / unspecified"). Re-derived on read for older lines (feed.ts).
+      country: resolveCountry(t.headline, t.headline_en, t.companies, t.region, t.issuer_linkage),
+      input_nature: t.input_nature,
+      triage_score: t.triage_score,
+      band: t.band,
+      triage_reason: t.triage_reason,
+      relevance: t.relevance,
+      event_types: t.event_types,
+      issuer_linkage: t.issuer_linkage,
+      companies: t.companies,
+      size_bucket: t.size_bucket,
+      // derived, zero-cost classification — persisted so the wire + a later backfill agree
+      scope: deriveScope(t),
+      source_tier: deriveSourceTier(t),
+      // canonical commodity tag(s) (news/commodities.ts) — absent when the headline names none
+      ...(() => { const cs = deriveCommodities(t); return cs ? { commodity: cs[0], commodities: cs } : {} })(),
+      // event-materiality classifier's final fields — already resolved onto t in the TRIAGE loop above
+      event_materiality_label: t.event_materiality_label,
+      event_direction: t.event_direction,
+      event_scope: t.event_scope,
+      snippet: t.snippet, // the feed's own lede — fetch-free body for on-open enrichment
+      rank_factors: t.rank_factors, // the composite-priority breakdown (rank.ts) — for the WHY in the UI
+      dedup_status: t.dedup_status,
+      dedup_group: t.dedup_group, // story-cluster id (news/dedup.ts) — the live wire collapses on it
+      inboxed: t.band !== 'drop',
+      caution: t.caution, // caution_only social — preserved so the display re-rank (feed.ts) re-applies the lowest cap
+    }
+  })
   // emit exactly what was persisted, so the live wire and a later backfill agree
   const written = appendFeedItems(repoRoot, date, feedItems, cfg.feedItemsDailyCap)
   if (written) invalidateFacets() // a fresh cycle changed the archive — drop the facet index so new items/countries show up before the TTL
@@ -994,6 +1052,6 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
 
   // 5. THEMES — bucket material items and run the same maintenance clock used by quiet cycles. Fully
   // guarded so a themes bug can never block or corrupt the core wire.
-  await runThemesStage({ cfg, repoRoot, stateDir, picks, fetchFn, now, log })
+  await runThemesStage({ cfg, repoRoot, stateDir, picks, fetchFn, now, log, revisionClocksByEvent })
   return summary
 }

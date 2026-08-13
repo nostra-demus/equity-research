@@ -18,8 +18,12 @@ import { mergeInbox } from '../src/news/write-inbox'
 import { runIngestCycle, triageGroqTokenBound } from '../src/news/runCycle'
 import { anthropicDrainReady, backlogTrend, drainBatchEst, getNewsDiagnostics, providerDrainUsable, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS } from '../src/config'
+import { createTheme } from '../src/news/themes/discover'
+import { appendThemeMutations, loadThemes } from '../src/news/themes/store'
 import { themeStoryFamilyKey, themeStoryKey } from '../src/news/themes/story-key'
+import type { ThemeItemView } from '../src/news/themes/types'
 import type { FeedItem, RawArticle, TriagedItem } from '../src/news/types'
+import { attachValidNarrative } from './themes-fixtures'
 
 let passed = 0
 async function check(name: string, fn: () => void | Promise<void>) {
@@ -499,21 +503,27 @@ await check('mergeInbox preserves an in-place correction or reversal that reuses
     dedup_group: story,
   })
 
-  mergeInbox(root, date, [revision('Issuer reports approval', 80)], { maxRows: 10 })
-  mergeInbox(root, date, [revision('Correction: approval remains conditional', 90)], { maxRows: 10 })
-  mergeInbox(root, date, [revision('Issuer retracts approval report', 95)], { maxRows: 10 })
+  mergeInbox(root, date, [revision('Issuer reports approval', 80)], {
+    maxRows: 10, now: () => new Date('2026-06-12T09:01:00Z'),
+  })
+  mergeInbox(root, date, [revision('Correction: approval remains conditional', 90)], {
+    maxRows: 10, now: () => new Date('2026-06-12T09:02:00Z'),
+  })
+  mergeInbox(root, date, [revision('Issuer retracts approval report', 95)], {
+    maxRows: 10, now: () => new Date('2026-06-12T09:03:00Z'),
+  })
   mergeInbox(root, date, [{
     ...revision('Correction: final approval remains conditional', 99, '2026-06-12T11:45:00Z'),
     headline_en: 'Correction: final approval remains conditional',
     source_name: 'Updated Exchange Wire',
     input_nature: 'exchange_announcement',
-  }], { maxRows: 10 })
+  }], { maxRows: 10, now: () => new Date('2026-06-12T11:46:00Z') })
   mergeInbox(root, date, [{
     ...revision('Correction: final approval remains conditional', 100, '2026-06-12T12:00:00Z'),
     headline_en: 'Correction: final approval remains conditional',
     source_name: 'Final Exchange Wire',
     input_nature: 'exchange_announcement',
-  }], { maxRows: 10 })
+  }], { maxRows: 10, now: () => new Date('2026-06-12T12:01:00Z') })
 
   const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
   assert.equal(doc.rows.length, 4, 'one URL keeps every differently worded status update, while an exact repeat remains idempotent')
@@ -523,7 +533,13 @@ await check('mergeInbox preserves an in-place correction or reversal that reuses
   )
   const correction = doc.rows.find((row: any) => row.headline === 'Correction: final approval remains conditional')
   assert.equal(correction?.triage_score, 100, 're-seeing the exact observation remains idempotent and refreshes its score')
-  assert.equal(correction?.found_at, '2026-06-12T12:00:00Z', 'the newest exact observation replaces the old source clock')
+  assert.equal(correction?.found_at, '2026-06-12T11:45:00Z', 'an exact refresh cannot re-date the evidence or reset its freshness')
+  assert.equal(correction?.observed_at, '2026-06-12T11:46:00Z', 'an exact refresh preserves the revision first-seen clock')
+  assert.equal(
+    doc.rows.find((row: any) => row.headline === 'Correction: approval remains conditional')?.observed_at,
+    '2026-06-12T09:02:00Z',
+    'each distinct in-place revision receives its own durable first-seen clock',
+  )
   assert.equal(correction?.headline_en, 'Correction: final approval remains conditional')
   assert.equal(correction?.source_name, 'Final Exchange Wire')
   assert.equal(correction?.input_nature, 'exchange_announcement')
@@ -927,6 +943,11 @@ await check('coerceTriage: companies/size_bucket hard-coerce (bogus ticker → n
   const empty = coerceTriage({ relevance: 'material', materiality_pre_score: 50 })
   assert.deepEqual(empty.companies, [])
   assert.equal(empty.size_bucket, 'unknown')
+  assert.equal(empty.source_is_english, undefined, 'omitted language keys are unknown, not proven English')
+  assert.equal(coerceTriage({ headline_en: null, headline_lang: null }).source_is_english, true,
+    'the explicit model-contract null pair positively identifies an already-English source')
+  assert.equal(coerceTriage({ headline_en: null }).source_is_english, undefined,
+    'a partial/malformed language response cannot open a human-veto exception')
 })
 
 await check('coerceTriage: a non-lowercase event_materiality_label ("High"/"CRITICAL") is normalized, not defaulted to low (Thread E)', () => {
@@ -983,6 +1004,117 @@ await check('runIngestCycle writes kind:"item" feed lines for kept AND dropped, 
   assert.deepEqual(doc.rows[0].event_types, ['macro_sector'])
   assert.equal(doc.rows[0].companies[0].name, 'Can Fin Homes')
   assert.equal(doc.rows[0].size_bucket, 'mid')
+})
+
+await check('runIngestCycle keeps the durable source/first-seen pair through an acted-on exact refresh', async () => {
+  resetSharedLimiters()
+  resetBudgetMemory()
+  const root = tmp()
+  const state = tmp()
+  const date = '2026-08-04'
+  const url = 'https://reuters.com/acme-capacity-live'
+  const headline = 'Acme capacity expansion approval remains active'
+  const eventId = eventIdFor(headline, url)
+  const company = { name: 'Acme', ticker: 'ACME', listing_country: 'US' }
+  const durableFoundAt = '2026-08-04T00:00:00Z'
+  const durableObservedAt = '2026-08-04T00:01:00Z'
+
+  const original: TriagedItem = {
+    ...triagedItem(url, 90, headline),
+    event_id: eventId,
+    found_at: durableFoundAt,
+    companies: [company],
+    event_types: ['capex'],
+    issuer_linkage: 'primary',
+    dedup_group: eventId,
+  }
+  mergeInbox(root, date, [original], {
+    maxRows: 10, now: () => new Date(durableObservedAt),
+  })
+  const inboxPath = path.join(root, 'screener', 'inbox', `${date}_sweep.json`)
+  const acted = JSON.parse(fs.readFileSync(inboxPath, 'utf8'))
+  acted.rows[0].consumed = true
+  acted.rows[0].consumed_at = '2026-08-04T00:02:00Z'
+  acted.rows[0].launched_signal_id = 'SIG-durable-refresh'
+  fs.writeFileSync(inboxPath, JSON.stringify(acted))
+
+  const themeViews: ThemeItemView[] = [
+    {
+      event_id: 'EVT-acme-theme-seed', dedup_group: 'STORY-acme-theme-seed',
+      headline: 'Acme capacity expansion increases supplier orders', found_at: '2026-08-03T23:00:00Z',
+      companies: [company], event_types: ['capex'], issuer_linkage: 'primary', triage_score: 88,
+      source_tier: 'company', source_name: 'Acme', url: 'https://company.test/acme-capacity-seed',
+      region: 'US', country: 'US',
+    },
+    {
+      event_id: 'EVT-beta-theme-seed', dedup_group: 'STORY-beta-theme-seed',
+      headline: 'Beta capacity expansion increases supplier orders', found_at: '2026-08-03T23:01:00Z',
+      companies: [{ name: 'Beta', ticker: 'BETA', listing_country: 'US' }], event_types: ['capex'],
+      issuer_linkage: 'primary', triage_score: 86, source_tier: 'company', source_name: 'Beta',
+      url: 'https://company.test/beta-capacity-seed', region: 'US', country: 'US',
+    },
+  ]
+  const theme = attachValidNarrative(createTheme(themeViews, new Date('2026-08-03T23:05:00Z'), 'claude'), {
+    anchor_terms: ['capacity', 'expansion'],
+    validated_at: '2026-08-03T23:05:00Z',
+  })
+  theme.name = 'Capacity Expansion Increases Supplier Orders'
+  theme.description = 'Capacity expansion is increasing orders for directly exposed suppliers.'
+  appendThemeMutations(root, [theme], () => new Date('2026-08-03T23:06:00Z'))
+
+  const triageReply = {
+    usage: { total_tokens: 120 },
+    choices: [{ message: { content: JSON.stringify({ items: [{
+      i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['capex'],
+      issuer_linkage: 'primary', why: 'The approval affects Acme capacity expansion.',
+      companies: [company], size_bucket: 'mid',
+    }] }) } }],
+  }
+  const fetchFn = (async (requestUrl: string) => {
+    const request = String(requestUrl)
+    if (request.includes('groq')) return res(triageReply)
+    if (request.includes('reuters.com')) return res({ articles: [{
+      url, title: headline, domain: 'reuters.com',
+      // The exact refresh advertises a newer provider timestamp. It must not replace the source clock
+      // already bound to the human action in the durable inbox lane.
+      seendate: '20260804T000900Z',
+    }] })
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const now = () => new Date('2026-08-04T00:10:00Z')
+  await runIngestCycle({
+    repoRoot: root,
+    stateDir: state,
+    fetchFn,
+    sleep: noSleep,
+    now,
+    config: {
+      groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test',
+      groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: true,
+      themesMinScore: 0, themesDiscoverEveryCycles: 9999, themesDiscoverModel: 'off',
+      anthropicFallbackEnabled: false,
+    } as any,
+  })
+
+  const refreshedInbox = JSON.parse(fs.readFileSync(inboxPath, 'utf8')).rows.find((row: any) => row.event_id === eventId
+    || eventIdFor(row.headline, row.url) === eventId)
+  assert.equal(refreshedInbox?.found_at, durableFoundAt)
+  assert.equal(refreshedInbox?.observed_at, durableObservedAt)
+  assert.equal(refreshedInbox?.source_is_english, undefined, 'an exact refresh cannot backfill language proof onto a legacy observation')
+
+  const feedRow = readFeed(root, 1, { now, applyActiveWeights: false }).items.find((row) => row.event_id === eventId)
+  assert.equal(feedRow?.found_at, durableFoundAt, 'the feed cannot publish the refresh as newer evidence')
+  assert.equal(feedRow?.observed_at, durableObservedAt)
+  assert.equal(feedRow?.source_is_english, undefined, 'the firehose follows the durable inbox language proof')
+
+  const persistedMember = loadThemes(root)
+    .find((candidate) => candidate.theme_id === theme.theme_id)?.members
+    .find((member) => member.event_id === eventId)
+  assert.equal(Date.parse(persistedMember!.found_at), Date.parse(durableFoundAt), 'Theme freshness stays bound to the acted-on source clock')
+  assert.equal(Date.parse(persistedMember!.observed_at!), Date.parse(durableObservedAt), 'Theme ordering uses the matching durable first-seen clock')
+  assert.equal(persistedMember!.source_is_english, undefined, 'Theme evidence cannot upgrade legacy source-language certainty')
+  fs.rmSync(root, { recursive: true, force: true })
+  fs.rmSync(state, { recursive: true, force: true })
 })
 
 await check('appendFeedItems honors the daily cap; readFeed skips corrupt lines', () => {

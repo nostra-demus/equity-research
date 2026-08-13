@@ -39,6 +39,7 @@ function normalizeMember(v: unknown): ThemeMember | null {
   if (!m || typeof m.event_id !== 'string' || !m.event_id.trim() || typeof m.headline !== 'string') return null
   const foundAt = iso(m.found_at)
   if (!foundAt) return null // no source clock = no evidence; never fall back to the mutation/audit clock
+  const observedAt = iso(m.observed_at)
   const companies = Array.isArray(m.companies)
     ? m.companies.flatMap((raw: unknown) => {
         const c = object(raw)
@@ -55,7 +56,9 @@ function normalizeMember(v: unknown): ThemeMember | null {
     ...(typeof m.dedup_group === 'string' && m.dedup_group.trim() ? { dedup_group: m.dedup_group.trim() } : {}),
     headline: m.headline,
     ...(typeof m.headline_en === 'string' ? { headline_en: m.headline_en } : m.headline_en === null ? { headline_en: null } : {}),
+    ...(m.source_is_english === true ? { source_is_english: true as const } : {}),
     found_at: foundAt,
+    ...(observedAt ? { observed_at: observedAt } : {}),
     score: bounded(m.score),
     tier: typeof m.tier === 'string' && m.tier.trim() ? m.tier.trim() : 'unconfirmed',
     ...(typeof m.source_name === 'string' && m.source_name.trim() ? { source_name: m.source_name.trim().slice(0, 160) } : {}),
@@ -578,6 +581,8 @@ export function readRecentThemeItems(repoRoot: string, minScore: number): ThemeI
       if (typeof it.found_at !== 'string' || !Number.isFinite(Date.parse(it.found_at))) continue
       out.push({
         event_id: it.event_id, dedup_group: it.dedup_group, headline: it.headline, headline_en: it.headline_en, found_at: it.found_at,
+        ...(it.observed_at ? { observed_at: it.observed_at } : {}),
+        ...(it.source_is_english === true ? { source_is_english: true as const } : {}),
         companies: it.companies || [], event_types: it.event_types || [], issuer_linkage: it.issuer_linkage,
         triage_score: it.triage_score, materiality_pre_score: (it as any).materiality_pre_score,
         source_tier: it.source_tier || deriveSourceTier(it), source_name: it.source_name, url: it.url,

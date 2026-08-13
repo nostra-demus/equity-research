@@ -106,7 +106,11 @@ export interface ThemeMember {
   dedup_group?: string
   headline: string
   headline_en?: string | null // English translation (news/lang.ts) — kept so a member older than the feed window still renders in English
+  source_is_english?: true // positive source-language proof; absent means unknown/legacy
   found_at: string // ISO
+  /** First local observation of this exact source revision. It is carried to Ideas only to order a
+   * correction against a human action; Theme freshness remains anchored to `found_at`. */
+  observed_at?: string
   score: number // the item's composite triage_score (0–100)
   tier: string // source_tier (primary_filing … unconfirmed)
   source_name?: string // exact publisher/filing source carried into the evidence projection
@@ -335,7 +339,9 @@ export interface ThemeItemView {
   dedup_group?: string // canonical story family; persisted onto ThemeMember for evidence dedupe
   headline: string
   headline_en?: string | null // English translation (news/lang.ts) — carried onto the member so themes render in English
+  source_is_english?: true // positive source-language proof; preserved into Ideas ordering checks
   found_at: string // ISO
+  observed_at?: string // durable first-seen clock for this exact revision; never a freshness substitute
   companies?: CompanyGuess[]
   event_types?: string[]
   issuer_linkage?: string
