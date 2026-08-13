@@ -1,0 +1,91 @@
+finding_id,agent,section,question,standardized_verdict,raw_value,unit,current_period,prior_period,trend,peer_benchmark,peer_verdict,score,max_score,penalty,confidence_1_to_5,materiality,evidence,as_of_date,red_flag_triggered,red_flag_id,follow_up_required
+01-001,01,1,CEO tenure and founder status,Green,27,years,FY27 (current),,Stable,No peer set,No peer verdict,,,,5,High,"FY26 Annual Report, Board's Report; CIQ Professionals export",2026-08-13,false,,None
+01-002,01,1,Co-founder / Whole-Time Director tenure,Green,27,years,FY27 (current),,Stable,No peer set,No peer verdict,,,,5,Medium,CIQ Professionals export,2026-08-13,false,,None
+01-003,01,1,Combined founder ownership,Green,49.08,% of shares,Mar-31-2026,,Stable,No peer set,No peer verdict,,,,5,High,"FY26 Annual Report p.7219; CIQ Public Ownership Summary",2026-08-13,false,,None
+01-004,01,2,CFO turnover frequency,Green,1,change in ~9yrs,FY2015-FY2027,,Stable,No peer set,No peer verdict,,,,4,Medium,"FY26 Annual Report Note 33 (KMP)",2026-08-13,false,,None
+01-005,01,2,Current CFO tenure,Amber,2,years,Jun-2024-present,,New,No peer set,No peer verdict,,,,4,Low,"FY26 Annual Report Note 33",2026-08-13,true,,"Assess CFO delivery record FY27/28"
+01-006,01,2,Non-founder C-suite churn,Amber,3,roles changed,Apr-2024-Jan-2025,FY2015-FY2024 (stable),Deteriorating,No peer set,No peer verdict,,,,3,Medium,"CIQ Professionals/Compensation exports",2026-08-13,false,,"Confirm no further turnover FY27/28"
+01-007,01,2,Founder succession plan disclosed,Red,0,disclosures found,FY26,,Not enough history,No peer set,No peer verdict,,,,5,High,"FY26 AR Board's/CG Report; bm/12",2026-08-13,false,,"Request succession disclosure"
+01-008,01,4,FY24 EBITDA margin vs guidance,Red,26.54,% vs 28-30% guided,FY24,FY23: 26.57%,Missed range,No peer set,No peer verdict,,,,4,Medium,"Q4 FY23 transcript; earnings/01",2026-08-13,true,,"Track 1-yr margin guidance"
+01-009,01,4,FY25 EBITDA margin vs guidance,Green,37.03,% vs 30%+ guided,FY25,FY24: 26.54%,Exceeded,No peer set,No peer verdict,,,,4,Medium,"Q4 FY24 transcript; earnings/01",2026-08-13,false,,None
+01-010,01,4,FY25 revenue growth vs 33% aspiration,Red,16.01,% vs 33%,FY25,FY24: 21.45%,Missed materially,No peer set,No peer verdict,,,,4,High,"Q4 FY24 transcript; earnings/01",2026-08-13,true,RF-MGT-003,"Monitor FY27 growth"
+01-011,01,4,FY26 growth vs walked-down target,Green,9/13.02,% vs ~10%,FY26,FY25: 16.01%,Met after cut,No peer set,No peer verdict,,,,4,Medium,"Q4 FY25 transcript; bm/02; earnings/01",2026-08-13,false,,None
+01-012,01,4,KPI redefinition after underperformance,Red,,successive targets 33-to-<10,Apr-2024-Apr-2025,,Deteriorating,No peer set,No peer verdict,,,,4,Medium,"Q4 FY24/FY25 transcripts",2026-08-13,true,RF-MGT-003,"Confirm ~10% band holds"
+01-013,01,4,Supplier net-add guidance vs actual,Red,,1800-2700 vs 8000-9000,FY25 (Q2-Q4),FY24: ~8300/qtr,Missed badly withdrawn,No peer set,No peer verdict,,,,3,Critical,"Q4 FY24/FY25 transcripts",2026-08-13,true,,"Track resumption of guidance"
+01-014,01,4A,Buyer-funnel stagnation admission,Amber,,qualitative,Q1 FY27,,Deteriorating,No peer set,No peer verdict,,,,3,High,"Q1 FY27 transcript; bm/12",2026-08-13,false,,"Monitor buyer trend"
+01-015,01,4A,Routed integrity signal,Amber,1,share (trade),FY26,,Not enough history,No peer set,No peer verdict,,,,4,Low,"FY26 AR Secretarial Audit; bm/01",2026-08-13,false,,"None - investigated and cleared"
+01-016,01,2,Auditor continuity,Green,1,firm since FY2020,FY2026,FY2015-FY2025,Stable,No peer set,No peer verdict,,,,5,Low,"CIQ Auditors; FY26 AR Auditor's Report",2026-08-13,false,,None
+02-001,02,1,Cumulative uses of capital as % of CFO,Green,83.6,% of CFO,FY22-FY26,,Stable,No peer set,No peer verdict,,,,4,Medium,"Financials.xls Cash Flow tab",2026-08-13,false,,None
+02-002,02,1,Treasury-book growth vs deployment,Amber,7286.4,INR mn,FY22-FY26,,Growing,No peer set,No peer verdict,,,,4,Medium,"Financials.xls Balance Sheet tab",2026-08-13,false,,"Monitor redeployment"
+02-003,02,2,Busy Infotech deal size vs market cap,Green,4.7,% of market cap,Deal 2022,,Not enough history,No peer set,No peer verdict,,,,4,Medium,"Transaction Summary M&A export",2026-08-13,false,,None
+02-004,02,2,Busy Infotech segment EBITDA trend,Red,,-28.2 to -119.2 INR mn,FY24-FY26,FY23: +101.75,Deteriorating then recovering,No peer set,No peer verdict,,,,4,High,"Financials.xls Segments tab",2026-08-13,true,,"Track FY27/28 segment EBITDA"
+02-005,02,2,Venture-portfolio exit outcomes,Red,,2 write-downs 1 strike-off 1 nominal-loss,FY2023-FY2025,,Not enough history,No peer set,No peer verdict,,,,4,Medium,"bm/11 Section 1",2026-08-13,true,,"Request cost-basis reconciliation"
+02-006,02,2,Serial-acquirer opportunity-cost severity,Amber,58,/100 inverted below 70,FY2016-FY2026,,Stable,No peer set,No peer verdict,,,,4,Medium,"bm/11 Sections 1&3",2026-08-13,true,RF-CAP-004,"Reassess if 4th/5th deal occurs"
+02-007,02,3,FY23 buyback price and process,Green,6250,INR/share nominal,FY23,,Not enough history,No peer set,No peer verdict,,,,3,Medium,"Q4 FY22/Q1 FY23 transcripts",2026-08-13,false,,"Obtain FY23 AR"
+02-008,02,3,FY24 buyback price and process,Green,4000,INR/share post-bonus,FY24,FY23: 6250 nominal,Not enough history,No peer set,No peer verdict,,,,5,Medium,"FY25 AR Note 2 to Equity",2026-08-13,false,,None
+02-009,02,3,Net share-count change bonus-adj,Green,-1.05,mn shares,FY22-FY26,,Modest reduction,No peer set,No peer verdict,,,,4,Medium,"Financials.xls Balance Sheet tab",2026-08-13,false,,None
+02-010,02,3,Buyback activity since FY24,Red,0,buybacks FY25-FY26,FY25-FY26,FY23-FY24: 2 buybacks,Deteriorating stopped,No peer set,No peer verdict,,,,5,Medium,"Financials.xls Cash Flow tab",2026-08-13,true,,"Monitor resumption"
+02-011,02,4,Dividend coverage tightest year,Green,2.3,x FCF/dividend,FY26,FY25: 5.1x,Tightening but covered,No peer set,No peer verdict,,,,4,Medium,"earnings/01; Financials.xls",2026-08-13,false,,None
+02-012,02,4,Incremental ROIC computability,Insufficient Data,,,FY22-FY26,,Not enough history,No peer set,No peer verdict,,,,3,Low,"Financials.xls; earnings/01",2026-08-13,false,,None
+02-013,02,1,Balance-sheet funding of capital allocation,Green,0.04,x Total Debt/EBITDA,FY26,,Stable,No peer set,No peer verdict,,,,5,Low,"bm/11 Section 1",2026-08-13,false,,None
+03-001,03,1,CEO cash-vs-equity mix,Amber,100,% cash,FY26,FY25: 100% cash,Stable,No peer set,No peer verdict,,,,5,Medium,"FY26 AR Board's Report",2026-08-13,false,,None
+03-002,03,1,Founders' ESOP eligibility,Amber,0,options/SARs to founders,FY26,FY22-FY26: 0,Stable,No peer set,No peer verdict,,,,5,Medium,"FY26 AR ESOP grant table",2026-08-13,false,,None
+03-003,03,1,CFO equity grant FY26,Green,13330,SAR units,FY26,FY25: 0,New,No peer set,No peer verdict,,,,4,Low,"FY26 AR ESOP/SAR grant table",2026-08-13,false,,None
+03-004,03,2,Annual bonus metric disclosure,Red,0,named metrics/weights,FY26,FY22-FY26: 0,Not enough history,No peer set,No peer verdict,,,,5,High,"FY26 AR Remuneration section",2026-08-13,true,,"Request NRC Balanced Scorecard KPI list"
+03-005,03,2,LTIP performance conditions,Amber,0,disclosed hurdles,FY26,FY22-FY26: time-vesting only,Stable,No peer set,No peer verdict,,,,4,Medium,"FY26 AR ESOP scheme terms",2026-08-13,false,,None
+03-006,03,3,CEO pay growth vs diluted EPS growth,Red,,+11.17% vs -14.0%,FY26,FY25 base,Diverging,No peer set,No peer verdict,,,,5,High,"FY26 AR Section 197(12); earnings/01",2026-08-13,true,,"Track FY27 PLVC vs EPS"
+03-007,03,3,CEO pay growth vs share price change,Red,,+11.17% vs -9.75%,FY26,FY25 base,Diverging,No peer set,No peer verdict,,,,5,High,"FY26 AR Section 197(12); CIQ Historical Cap",2026-08-13,true,,"Same as 03-006"
+03-008,03,3,CEO pay vs Info Edge peer,Amber,3,x ratio,FY26 vs FY25,,Not enough history,Info Edge,Peer pays materially less,,,,2,Medium,"Web unverified retrieved 2026-08-13",2026-08-13,false,,"Build fuller peer-comp set"
+03-009,03,3,Say-on-pay vote FY26,Insufficient Data,,,FY26,,,No peer set,No peer verdict,,,,2,Low,"FY26 AR AGM/Postal Ballot",2026-08-13,false,,"Retrieve 25th AGM scrutinizer report"
+03-010,03,1,NED commission cap utilization,Green,0,INR paid,FY26,FY22-FY26: 0,Stable,No peer set,No peer verdict,,,,4,Low,"FY26 AR Board's Report",2026-08-13,false,,None
+03-011,03,1,Total ED remuneration vs PAT,Green,3.3,% of PAT,FY26,,Not enough history,No peer set,No peer verdict,,,,3,Low,"FY26 AR Section 197(12); CIQ",2026-08-13,false,,None
+04-001,04,1,CEO/founder individual ownership,Green,29.09,% of shares,Mar-31-2026,,Stable,No peer set,No peer verdict,,,,5,High,"FY26 AR p.7219; CIQ",2026-08-13,false,,None
+04-002,04,1,Co-founder individual ownership,Green,19.99,% of shares,Mar-31-2026,,Stable,No peer set,No peer verdict,,,,5,High,"FY26 AR p.7219; CIQ",2026-08-13,false,,None
+04-003,04,1,Promoter Group total ownership,Green,49.17,% of shares 18 holders,Mar-31-2026,,Not enough history,No peer set,No peer verdict,,,,5,High,"FY26 AR p.7219",2026-08-13,false,,"Obtain multi-quarter trend"
+04-004,04,1,CIQ vs audited promoter figure,Amber,,50.44 vs 49.17,Mar-31-2026,,Not enough history,No peer set,No peer verdict,,,,3,Low,"CIQ; FY26 AR p.7219",2026-08-13,false,,"Reconcile classifications"
+04-005,04,1,Largest institutional holder,Green,7.71,% of shares,Jul-21-2026,,Increasing,No peer set,No peer verdict,,,,4,Medium,"CIQ Public Ownership Summary",2026-08-13,false,,None
+04-006,04,1,Total institutional ownership,Green,25.48,% of shares 51 holders,Mar-31-2026,,Stable/increasing,No peer set,No peer verdict,,,,4,Medium,"CIQ Public Ownership Summary",2026-08-13,false,,None
+04-007,04,2,Insider transactions prior quarter,Amber,-18872,shares,Dec-2025 to Mar-2026,,N/A,No peer set,No peer verdict,,,,2,Low,"CIQ Ownership Activity",2026-08-13,false,,None
+04-008,04,2,Named individual seller,Amber,-18072,shares change,Dec-2025 to Mar-2026,,N/A,No peer set,No peer verdict,,,,3,Low,"CIQ Top Buyers/Sellers",2026-08-13,false,,"Confirm relationship"
+04-009,04,2,Insider transactions recent window,Amber,513115,shares buy,May-Aug 2026,-18872,Improving,No peer set,No peer verdict,,,,2,Medium,"CIQ Ownership Activity",2026-08-13,false,,"Obtain SAST/PIT filing"
+04-010,04,3,Promoter-level share pledge,Insufficient Data,,% of holding,FY26,,Not enough history,No peer set,No peer verdict,,,,2,Medium,"FY26 AR p.7219",2026-08-13,false,,"Request pledge-populated filing"
+04-011,04,3,Designated Person pledge lapse,Amber,1,compliance-lapse event,FY26,,Not enough history,No peer set,No peer verdict,,,,5,Low,"FY26 AR Secretarial Audit",2026-08-13,false,,"None - cleared"
+04-012,04,4,Dual-class structure,Green,0,share classes,FY26,,Stable,No peer set,No peer verdict,,,,5,High,"FY26 AR shareholding pattern",2026-08-13,false,,None
+04-013,04,4,Controlling-owner alignment Filter6,Green,,Not Applicable,FY26,,Stable,No peer set,No peer verdict,,,,5,High,"bm/01; bm/11; FY26 AR",2026-08-13,false,,None
+04-014,04,4,Promoter-family RPT vote-against,Amber,21.72,% votes against,FY26,,Not enough history,No peer set,No peer verdict,,,,5,Medium,"FY26 AR Postal Ballot",2026-08-13,false,,"Route to 05"
+04-015,04,4A,Institutional holding trend,Green,18643108,shares 54 holders,Dec-2025 to Mar-2026,,Improving,No peer set,No peer verdict,,,,4,Medium,"CIQ Ownership Activity",2026-08-13,false,,None
+04-016,04,4A,Insider selling ahead of weak results,Insufficient Data,,,Trailing 12mo,,Not enough history,No peer set,No peer verdict,,,,1,Medium,"No trade-level dataset",2026-08-13,false,,"Obtain trade-level SAST/PIT"
+05-001,05,1,Board independence %,Green,62.5,% 5 of 8,Aug-2026,55.6% 5 of 9,Improving,No peer set,No peer verdict,,,,4,High,"CIQ Board Members; FY26 AR CG Report",2026-08-13,false,,None
+05-002,05,1,Chair/CEO role split,Green,0,designated Chairman,Current,,Stable,No peer set,No peer verdict,,,,5,High,"FY26 AR CG Report",2026-08-13,false,,None
+05-003,05,1,Audit Committee independence,Green,100,% 3 of 3,Current,,Stable,No peer set,No peer verdict,,,,5,High,"CIQ Committees; FY26 AR",2026-08-13,false,,None
+05-004,05,1,NRC independence,Green,100,%,Current,,Stable,No peer set,No peer verdict,,,,5,Medium,"CIQ Committees; FY26 AR",2026-08-13,false,,None
+05-005,05,2,Average independent-director tenure,Amber,3.2,years,Aug-2026,,Not enough history,No peer set,No peer verdict,,,,4,Medium,"CIQ Board Members export",2026-08-13,false,,"Track newest 3 IDs"
+05-006,05,2,Independent-director refreshment,Green,3,directors,Jan-Jul 2025,,Improving,No peer set,No peer verdict,,,,5,Medium,"FY26 AR KMP table",2026-08-13,false,,None
+05-007,05,2,Independent-director resignation,Amber,1,resignation,21-Jan-2025,,Not enough history,No peer set,No peer verdict,,,,4,Low,"Reg.30 disclosure",2026-08-13,false,,"Confirm no further resignations FY27"
+05-008,05,2,Independent-director term-limit exit,Green,1,director,22-Sep-2025,,Stable,No peer set,No peer verdict,,,,5,Low,"FY26 AR",2026-08-13,false,,None
+05-009,05,3,NED personal services contract,Amber,47.06,INR lakh FY26,FY26,FY25 similar,Improving channel closed,No peer set,No peer verdict,,,,5,Medium,"FY26 AR Pecuniary Relationship of NEDs",2026-08-13,false,RF-RPT-003,"None going forward"
+05-010,05,3,RPT purchases from related parties,Green,0.72,% of purchases,FY26,0.80% FY25,Improving,No peer set,No peer verdict,,,,5,Low,"FY26 AR BRSR Principle 1",2026-08-13,false,,None
+05-011,05,3,RPT sales to related parties,Green,0.11,% of sales,FY26,0.13% FY25,Improving,No peer set,No peer verdict,,,,5,Low,"FY26 AR BRSR Principle 1",2026-08-13,false,,None
+05-012,05,3,RPT investments as % of portfolio,Amber,26.57,%,FY26,24.24% FY25,Deteriorating rising,No peer set,No peer verdict,,,,4,Medium,"FY26 AR BRSR Principle 1",2026-08-13,false,,"Track concentration"
+05-013,05,3,Amit Agarwal RPT vote-against,Red,21.72,% votes against,FY26,,Not enough history,No peer set,No peer verdict,,,,5,Medium,"FY26 AR Postal Ballot",2026-08-13,true,RF-RPT-002,"Monitor role/renewal FY27"
+05-014,05,3,Dividend to KMP/relatives,Green,1413.43,INR mn,FY26,565.39 FY25,Increasing with dividend rate,No peer set,No peer verdict,,,,5,Low,"FY26 AR Note 33(ii)",2026-08-13,false,,None
+05-015,05,3,Receivables from related parties,Green,0.24,INR mn,31-Mar-2026,0.30,Improving,No peer set,No peer verdict,,,,5,Low,"FY26 AR Note 33",2026-08-13,false,,None
+05-016,05,4,Poison pill present,Not Applicable,0,,Current,,,No peer set,No peer verdict,,,,3,Low,"Inference",2026-08-13,false,,None
+05-017,05,4,Classified/staggered board,Green,0,,Current,,Stable,No peer set,No peer verdict,,,,5,Medium,"FY26 AR",2026-08-13,false,,None
+05-018,05,4,Dual-class voting,Green,0,classes,Current,,Stable,No peer set,No peer verdict,,,,5,High,"FY26 AR shareholding tables",2026-08-13,false,,None
+05-019,05,4,Postal-ballot use,Green,2,resolutions,FY26,,Stable,No peer set,No peer verdict,,,,5,Medium,"FY26 AR Postal Ballot section",2026-08-13,false,,None
+05-020,05,4A,High votes-against RPT resolution,Red,21.72,% against,29-Aug-2025,,Not enough history,No peer set,No peer verdict,,,,5,Medium,"FY26 AR Postal Ballot",2026-08-13,true,RF-SHR-001,"Monitor FY27 votes-against"
+05-021,05,4A,Proxy-advisor recommendation,Insufficient Data,,,,,,No peer set,No peer verdict,,,,1,Low,"Not found in pool",2026-08-13,false,,"Request if available"
+05-022,05,5,Promoter vs public split,Green,,49.17/50.88,31-Mar-2026,,Stable,No peer set,No peer verdict,,,,5,High,"FY26 AR CG Report",2026-08-13,false,,None
+05-023,05,2,Overboarding check,Green,3,max directorships,Current,,Stable,No peer set,No peer verdict,,,,4,Low,"CIQ Board Members export",2026-08-13,false,,None
+05-024,05,5,Independent-director personal shareholding,Amber,,0-4643 shares,22-Sep-2025,,Not enough history,No peer set,No peer verdict,,,,4,Low,"FY26 AR director shareholding table",2026-08-13,false,,None
+06-001,06,1,FY24 margin miss owned or obscured,Green,26.54,% vs 28-30% guided,FY24,,Stable pattern,No peer set,No peer verdict,,,,4,Medium,"Q4 FY24 transcript",2026-08-13,false,,None
+06-002,06,1,FY25 revenue-growth miss owned or obscured,Green,16.01,% vs 33% aspiration,FY25,,Stable pattern,No peer set,No peer verdict,,,,4,High,"Q4 FY24 transcript",2026-08-13,false,,None
+06-003,06,1,Net-add guidance miss owned or obscured,Green,,1800-2700 vs 8000-9000,FY25,~8300/qtr FY24,Stable pattern,No peer set,No peer verdict,,,,4,Critical,"Q4 FY25 transcript",2026-08-13,false,,"Track replacement figure"
+06-004,06,1,Q1 FY27 supplier decline disclosed proactively,Green,-1850,net suppliers,Q1 FY27,,Not enough history,No peer set,No peer verdict,,,,5,High,"Q1 FY27 transcript",2026-08-13,false,,None
+06-005,06,1,EPS-swing driver disclosed proactively,Green,,-82/-34 Rs cr,Q2 FY26/Q4 FY26,,Volatile but disclosed,No peer set,No peer verdict,,,,5,Medium,"Q2/Q4 FY26 transcripts",2026-08-13,false,,None
+06-006,06,2,Formal non-GAAP metric published,Green,0,matches found,FY26,FY22-FY26,Stable,No peer set,No peer verdict,,,,5,High,"earnings/06; full-text search",2026-08-13,false,,None
+06-007,06,2,Onetime gain labeling vs aggregate persistence,Amber,,1038-2669 Rs mn/yr,FY22-FY26,,Recurring every year,No peer set,No peer verdict,,,,4,Medium,"Q3 FY23/Q4 FY24/Q3 FY26; earnings/06",2026-08-13,true,RF-DISC-002,"Monitor structural framing"
+06-008,06,3,Unfavorable KPI reported after guidance withdrawn,Green,1,metric,Apr-2025-Jul-2026,,Stable,No peer set,No peer verdict,,,,4,High,"Q4 FY25/Q1 FY27 transcripts",2026-08-13,false,,None
+06-009,06,4,Q&A directness worst quarter,Green,,qualitative,Q1 FY27,,Not enough history,No peer set,No peer verdict,,,,4,High,"Q1 FY27 transcript",2026-08-13,false,,None
+06-010,06,5,Routed integrity signal vs candor,Green,1,share trade,FY26,,Not enough history,No peer set,No peer verdict,,,,4,Low,"01 §4A; FY26 AR Secretarial Audit",2026-08-13,false,,"None - cleared"
