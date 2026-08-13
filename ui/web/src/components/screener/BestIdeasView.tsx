@@ -1367,26 +1367,30 @@ export function BestIdeasView() {
   const boardFetch = useStore((s) => s.scBoardFetch)
   const refresh = useStore((s) => s.scRefreshBoard)
   const [side, setSide] = useState<IdeaSide>('long')
+  const [nowMs, setNowMs] = useState(() => Date.now())
 
-  // Keep the skim fresh while the tab is open — the same 30s cadence PipelineBoard uses. openIdeas already
-  // kicked one refresh; this keeps it live as new passes land server-side.
+  // Keep both the data and wall-clock expiry backstop fresh while the tab is open. The clock update is
+  // independent of a successful fetch, so an offline cached forecast still freezes on time.
   useEffect(() => {
     void refresh()
-    const id = setInterval(() => void refresh(), 30_000)
+    const id = setInterval(() => {
+      setNowMs(Date.now())
+      void refresh()
+    }, 30_000)
     return () => clearInterval(id)
   }, [refresh])
 
   const leadsAvailable = Array.isArray(scBoard?.ideas)
   const leadRows = leadsAvailable ? scBoard!.ideas! : []
   const coldError = !scBoard && boardFetch.status === 'error'
-  const qualifiedRuntime = normalizeQualifiedIdeasBoard(scBoard?.qualified_ideas)
+  const qualifiedRuntime = normalizeQualifiedIdeasBoard(scBoard?.qualified_ideas, nowMs)
   const qualifiedBoard = qualifiedRuntime.board
   const qualifiedRuntimeNotice = scBoard ? qualifiedIdeasRuntimeWarning(qualifiedRuntime) : null
   const qualifiedWarning = qualifiedIdeasWarning(qualifiedBoard)
   const qualifiedOutcomeNotice = qualifiedRuntime.invalidRowCount === 0
     ? qualifiedIdeasOutcomeNotice(qualifiedBoard)
     : null
-  const outcomeHealthWarning = qualifiedOutcomeHealthWarning(qualifiedBoard)
+  const outcomeHealthWarning = qualifiedOutcomeHealthWarning(qualifiedBoard, nowMs)
 
   return (
     <div className="bideas">
@@ -1427,6 +1431,7 @@ export function BestIdeasView() {
           leadHealth={scBoard?.ideas_health}
           qualifiedRuntime={qualifiedRuntime}
           loading={!scBoard && !coldError}
+          nowMs={nowMs}
         />
       ))}
     </div>
