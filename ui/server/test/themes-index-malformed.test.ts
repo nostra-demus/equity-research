@@ -60,4 +60,41 @@ check('buildCommodityThemesIndex: a matching theme with non-array companies/rela
   assert.deepEqual(idx!.themes[0].related_themes, [], 'corrupt related_themes → empty, not a crash')
 })
 
+// PR #437 added a formation_queue/compiler_health pass that both indexes run over EVERY theme (not just
+// slice matches) via their own `projectMembers = (theme) => arr(theme.members).filter(...)` closure — a
+// second, independent read of the theme's own top-level `members` field, guarded by each file's local
+// `arr` helper exactly like the main slice loop above. A corrupt `members` (non-array truthy, e.g. a
+// mis-parsed ledger row) must degrade the same way, not throw — and this must stay true even if that
+// helper is ever inlined or refactored, since neither the main loop nor formation_queue would otherwise
+// catch it (a plain `theme.members || []` fallback passes an array-safe check but still throws on `{}`).
+const corruptMembersTheme = () => {
+  const result = ({
+    theme_id: 'THM-corrupt-members', name: 'Gold Demand Capacity', slug: 'gold-demand-capacity-2',
+    description: 'Gold demand is driving recurring capacity changes.', keywords: [], company_keys: [], event_type_affinity: [],
+    members: {} as any, // corrupt: non-array truthy, reaches both the main loop's arr(t.members) and projectMembers' arr(theme.members)
+    member_count_total: 0,
+    companies: [], related_themes: [], sectors: [],
+    scores: { freshness: 0, magnitude: 0, breadth: 0, persistence: 0, composite: 0 },
+    tier: 'hot', fresh_flow: 0, flow_series: [], flow_daily: [], status: 'live', merged_into: null,
+    first_seen: '2026-06-13T10:00:00Z', last_flow: '2026-06-13T10:00:00Z', generation: 'deterministic', rev: 1,
+  }) as unknown as Theme
+  return result
+}
+
+check('buildGeoThemesIndex: a theme with a corrupt non-array members field does not throw and yields no compiler debt', () => {
+  let idx: ReturnType<typeof buildGeoThemesIndex> | undefined
+  assert.doesNotThrow(() => { idx = buildGeoThemesIndex([corruptMembersTheme(), corruptTheme()], { country: 'AE' }, NOW) },
+    'a corrupt members field must not 500 the geo slice or its formation_queue/compiler_health pass')
+  assert.equal(idx!.themes.length, 1, 'only the theme with real, matching members is surfaced')
+  assert.equal(idx!.compiler_health.queue.total, 0, 'the corrupt-members theme contributes zero debt, not a crash')
+})
+
+check('buildCommodityThemesIndex: a theme with a corrupt non-array members field does not throw and yields no compiler debt', () => {
+  let idx: ReturnType<typeof buildCommodityThemesIndex> | undefined
+  assert.doesNotThrow(() => { idx = buildCommodityThemesIndex([corruptMembersTheme(), corruptTheme()], { commodity: 'gold' }, NOW) },
+    'a corrupt members field must not 500 the commodity slice or its formation_queue/compiler_health pass')
+  assert.equal(idx!.themes.length, 1, 'only the theme with real, matching members is surfaced')
+  assert.equal(idx!.compiler_health.queue.total, 0, 'the corrupt-members theme contributes zero debt, not a crash')
+})
+
 console.log(`\nthemes-index-malformed: ${passed} checks passed`)

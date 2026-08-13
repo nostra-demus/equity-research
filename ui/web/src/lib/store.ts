@@ -249,6 +249,16 @@ function withoutFormationCandidate(
   const removedOldest = candidate.queued_at && health.queue.oldest_queued_at
     ? Date.parse(candidate.queued_at) === Date.parse(health.queue.oldest_queued_at)
     : false
+  // Recompute from the remaining queue rather than blanking it: other candidates can still be waiting.
+  // Mirrors the server's own ordering (formation.ts buildThemeCompilerHealth / compilerDebtForThemes) —
+  // only the three compiler-debt states carry queue age; a still-building candidate isn't durable
+  // compiler work, so it must not seed the recomputed oldest_queued_at either.
+  const oldestQueuedAt = removedOldest
+    ? candidates
+        .filter((row) => row.state !== 'building_evidence' && row.queued_at)
+        .map((row) => row.queued_at as string)
+        .sort()[0] || null
+    : health.queue.oldest_queued_at
   return {
     formation: nextFormation,
     health: {
@@ -266,7 +276,7 @@ function withoutFormationCandidate(
         awaiting_validation: awaitingValidation,
         awaiting_revalidation: awaitingRevalidation,
         blocked_incomplete_audit: blockedIncompleteAudit,
-        ...(removedOldest ? { oldest_queued_at: null } : {}),
+        oldest_queued_at: oldestQueuedAt,
       },
     },
   }
