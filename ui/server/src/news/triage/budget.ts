@@ -232,7 +232,12 @@ export function resetBudgetMemory(): void { sharedBudgetStates.clear() }
 // STATE_DIR but the SAME provider account keeps its own markers/budget — bounded ~2× the (already few-dozen)
 // per-day probe count, but the two budget mirrors under-count real org spend; avoid running two full
 // ingesters against one account.
-interface CooldownState { unhealthyUntil: number; fails: number }
+// `reason` is an OPTIONAL free-form tag naming the failure class that armed the window (e.g. 'auth-expired').
+// It exists because the failure NOTE lives only in the cycle that failed: a later cycle sees nothing but the
+// marker, so without this it can only say "backing off after an error" — the vague line that sent the
+// operator to ask what was actually wrong. Optional and absent-tolerant on purpose: a marker written by an
+// older build simply has no reason and reads exactly as it did before.
+interface CooldownState { unhealthyUntil: number; fails: number; reason?: string }
 const cooldownMem = new Map<string, CooldownState>() // `${stateDir}\0${id}` → state; process-lifetime fallback
 
 function healthFile(id: string): string { return `${id.replace(/[^a-z0-9]+/gi, '-')}-health.json` }
@@ -248,7 +253,11 @@ function readCooldownState(stateDir: string, id: string): CooldownState {
     const until = Number(s?.unhealthyUntil)
     if (Number.isFinite(until) && until > 0) {
       const fails = Number(s?.fails)
-      disk = { unhealthyUntil: until, fails: Number.isFinite(fails) && fails > 0 ? fails : 1 }
+      disk = {
+        unhealthyUntil: until,
+        fails: Number.isFinite(fails) && fails > 0 ? fails : 1,
+        ...(typeof s?.reason === 'string' && s.reason ? { reason: s.reason } : {}),
+      }
     }
   } catch {
     // no marker / unreadable → nothing on disk
@@ -270,18 +279,18 @@ export function isCoolingDown(stateDir: string, id = 'groq', now = Date.now()): 
 /** The live cooldown snapshot for a provider — its unhealthy-until epoch (0 = healthy) plus the consecutive
  *  failure count driving the current backoff window. For status/diagnostics readers that need the fail count
  *  `readCooldownUntil` doesn't expose. Never throws. */
-export function cooldownInfo(stateDir: string, id = 'groq'): { until: number; fails: number } {
+export function cooldownInfo(stateDir: string, id = 'groq'): { until: number; fails: number; reason?: string } {
   const s = readCooldownState(stateDir, id)
-  return { until: s.unhealthyUntil, fails: s.fails }
+  return { until: s.unhealthyUntil, fails: s.fails, ...(s.reason ? { reason: s.reason } : {}) }
 }
 
 /** Arm/extend the cooldown on a real failure, with exponential backoff: each consecutive failed probe
  *  doubles the window (baseMs, 2×, 4×, …) capped at maxMs. Persisted to disk AND the in-memory fallback. */
-export function armCooldown(stateDir: string, now: number, baseMs: number, id = 'groq', maxMs = 3_600_000): void {
+export function armCooldown(stateDir: string, now: number, baseMs: number, id = 'groq', maxMs = 3_600_000, reason?: string): void {
   if (!(baseMs > 0)) return
   const fails = readCooldownState(stateDir, id).fails + 1 // consecutive failures so far (0 when healthy/cleared) + this one
   const window = Math.min(baseMs * Math.pow(2, fails - 1), Math.max(baseMs, maxMs))
-  const state: CooldownState = { unhealthyUntil: now + window, fails }
+  const state: CooldownState = { unhealthyUntil: now + window, fails, ...(reason ? { reason } : {}) }
   cooldownMem.set(memKey(stateDir, id), state) // in-memory first — survives a disk-write failure below
   try {
     fs.mkdirSync(stateDir, { recursive: true })

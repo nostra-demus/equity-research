@@ -63,8 +63,17 @@ const LAST_RESORT_WHY: Record<LastResortState, string> = {
   scored: 'the Haiku last-resort is scoring the overflow',
   'usd-cap': 'the Haiku last-resort hit its daily $ ceiling',
   'plan-quota': 'the Haiku last-resort is paused — the Claude plan quota is spent, waiting for it to reset',
+  'auth-expired': "the Haiku last-resort is paused — the engine's Claude sign-in has expired. Run `claude login` on the engine host; it resumes on the next look.",
   cooling: 'the Haiku last-resort is backing off after an error',
   available: 'the Haiku last-resort is ready (it was not needed)',
+}
+
+/** Look up the reason text, tolerating a state this bundle has never heard of. A NEWER engine can stream a
+ *  last_resort value an OLDER bundle predates (the ~20-30s deploy-skew window), and a bare Record lookup
+ *  would then render `undefined` — a blank where the explanation belongs. Fall back to saying plainly that
+ *  the tier is held, rather than showing nothing. */
+function lastResortWhy(state: LastResortState): string {
+  return LAST_RESORT_WHY[state] || 'the Haiku last-resort is not scoring right now'
 }
 
 function TierRow({ tier, coolLeftMs }: { tier: TierDiagnostics; coolLeftMs: number }) {
@@ -230,7 +239,7 @@ export function PipelineDiagnostics() {
                 <ul className="diagwhy__list">
                   {diag.defer.reason && <li>{DEFER_WHY[diag.defer.reason]}</li>}
                   {diag.defer.lastResort && diag.defer.lastResort !== 'scored' && diag.defer.lastResort !== 'available' && (
-                    <li>{LAST_RESORT_WHY[diag.defer.lastResort]}</li>
+                    <li>{lastResortWhy(diag.defer.lastResort)}</li>
                   )}
                   {diag.defer.blockingTiers.length > 0 && (
                     <li>tapped out right now: {diag.defer.blockingTiers.join(', ')}</li>
