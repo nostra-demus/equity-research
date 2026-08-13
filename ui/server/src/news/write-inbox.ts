@@ -1,6 +1,6 @@
 // The write stage: land triaged items into the SAME inbox contract /screener:sweep already fills, so
 // the cockpit and the gauntlet pick them up with zero changes. Three jobs:
-//   - mergeInbox: idempotent merge into screener/inbox/<DATE>_sweep.json (by URL), PRESERVING any
+//   - mergeInbox: idempotent merge into screener/inbox/<DATE>_sweep.json (by URL + revision lane), PRESERVING any
 //     human state (consumed / launched_signal_id), ranked by triage score and capped;
 //   - appendFirehoseSummary: one compact line per cycle into <DATE>_firehose.ndjson (powers the
 //     "seen / picked / dropped" board header without bloating the inbox with dropped items);
@@ -12,6 +12,9 @@ import { execFile } from 'node:child_process'
 import { promisify } from 'node:util'
 import type { CycleSummary, InboxRow, TriagedItem } from './types'
 import { deriveScope, deriveSourceTier, SOURCE_TIERS, type SourceTierId } from './scope'
+import { deriveScheduledEventEvidence } from './schedule'
+import { eventIdFor } from './normalize'
+import { sameThemeStoryObservation, themeStoryKey, themeStoryObservationKey } from './themes/story-key'
 
 function inboxPath(repoRoot: string, date: string): string {
   return path.join(repoRoot, 'screener', 'inbox', `${date}_sweep.json`)
@@ -35,35 +38,149 @@ export interface MergeOptions {
 }
 
 const tierRank = (t?: string | null): number => (t ? SOURCE_TIERS[t as SourceTierId]?.rank ?? 0 : 0)
+const MAX_OBSERVATIONS_PER_STORY = 6
+const sourceTime = (row: Pick<InboxRow, 'found_at'>): number => {
+  const parsed = Date.parse(row.found_at)
+  return Number.isFinite(parsed) ? parsed : 0
+}
+const byQuality = (a: InboxRow, b: InboxRow): number =>
+  tierRank(b.source_tier) - tierRank(a.source_tier)
+  || (b.triage_score ?? -1) - (a.triage_score ?? -1)
+  || sourceTime(b) - sourceTime(a)
+  || a.inbox_id.localeCompare(b.inbox_id)
+const byRecency = (a: InboxRow, b: InboxRow): number =>
+  sourceTime(b) - sourceTime(a) || byQuality(a, b)
+
+export type StoryObservationKind = 'ordinary' | 'other' | 'adverse' | 'restorative'
+
+type StoryObservationView = {
+  headline?: unknown
+  headline_en?: unknown
+  event_types?: unknown
+}
+
+// Keep this classifier deliberately smaller than story-key's broad preservation detector. Its only job
+// is to reserve two slots inside the bounded family history: one for an adverse state, and one for a
+// correction/restoration. Ambiguous words such as "changes" or the noun "proceeds" remain `other`, so a
+// burst of harmless rewrites cannot evict either state from the audit trail.
+const ADVERSE_STATE_RE = /\b(?:cancel(?:s|l?ed|lations?|l?ing)?|postpon(?:e(?:s|d)?|ements?|ing)|delay(?:s|ed|ing)?|defer(?:s|red|ring)?|deferrals?|suspend(?:s|ed|ing)?|suspensions?|scrap(?:s|ped|ping)?|call(?:s|ed|ing)?[\s-]+off|adjourn(?:s|ed|ing|ments?)?|withdraw(?:s|n|ing|als?)?|withdrew|retract(?:s|ed|ing|ions?)?|rescind(?:s|ed|ing)?)\b/i
+const CORRECTION_STATE_RE = /\b(?:correct(?:s|ed|ing|ions?)?|clarif(?:y|ies|ied|ying|ications?)|revis(?:e|es|ed|ing|ions?)|restat(?:e|es|ed|ing|ements?)|inaccurate|untrue)\b/i
+const NEGATED_ADVERSE_RE = /\b(?:not|never|no longer|won['’]?t|isn['’]?t|wasn['’]?t|weren['’]?t|hasn['’]?t|haven['’]?t|hadn['’]?t|wouldn['’]?t|cannot|can['’]?t)\b[^.;:]{0,80}\b(?:cancel(?:s|l?ed|lations?|l?ing)?|postpon(?:e(?:s|d)?|ements?|ing)|delay(?:s|ed|ing)?|defer(?:s|red|ring)?|suspend(?:s|ed|ing)?|withdraw(?:s|n|ing|als?)?)\b/i
+const DENIES_ADVERSE_RE = /\b(?:den(?:y|ies|ied|ying|ials?)|refut(?:e|es|ed|ing))\s+(?:reports?\s+(?:that\s+)?)?(?!wrongdoing\b)(?:[\p{L}\p{N}'’-]+\s+){0,5}(?:cancel(?:s|l?ed|lations?|l?ing)?|postpon(?:e(?:s|d)?|ements?|ing)|delay(?:s|ed|ing)?|defer(?:s|red|ring)?|suspend(?:s|ed|ing)?)\b/iu
+const UNDONE_ADVERSE_RE = /\b(?:cancel(?:s|l?ed|lations?|l?ing)?|postpon(?:e(?:s|d)?|ements?|ing)|delay(?:s|ed|ing)?|defer(?:s|red|ring)?|suspend(?:s|ed|ing)?)\b(?:\s+[\p{L}\p{N}'’-]+){0,4}\s+\b(?:is|are|was|were|has been|have been|claims? are|reports? are)\s+(?:withdrawn|rescinded|reversed|denied|false|incorrect|inaccurate|untrue)\b/iu
+const EXPLICIT_UNDO_RE = /\b(?:revers(?:e|es|ed|ing)\s+(?:the\s+)?decision\s+to\s+cancel|cancel(?:s|l?ed|l?ing)?\s+(?:the\s+)?postponement|withdraw(?:s|n|ing)?\s+(?:the\s+)?(?:[\p{L}\p{N}'’-]+\s+){0,3}cancellation\s+notice)\b/iu
+const RESUMPTION_RE = /\b(?:reinstat(?:e|es|ed|ing|ement)|resum(?:e|es|ed|ing)|go(?:es|ing)?\s+ahead)\b|\b(?:will|would|can|may|must|shall|should|to|is|are|was|were|has|have|had)\s+(?:still\s+)?(?:be\s+)?proceed(?:s|ed|ing)?\b/i
+const RESTORE_CONFIDENCE_RE = /\brestor(?:e|es|ed|ing)\s+(?:(?:investor|consumer|market|public)\s+)?confidence\b/i
+const RESTORE_STATE_RE = /\brestor(?:e|es|ed|ing|ation)\b/i
+
+/** Shared bounded-history classifier for Inbox and Ideas. It uses the model-visible English translation
+ * when one exists, but deliberately keeps a narrow restoration grammar: a noun such as "proceeds" or an
+ * unrelated denial must never displace the actual row that reverses an adverse state. */
+export function classifyStoryObservation(row: StoryObservationView): StoryObservationKind {
+  const headline = String((typeof row.headline_en === 'string' && row.headline_en.trim()) || row.headline || '').slice(0, 1_000)
+  const eventTypes = Array.isArray(row.event_types) ? row.event_types.map(String) : []
+  const correction = eventTypes.includes('accounting_restatement') || CORRECTION_STATE_RE.test(headline)
+  const restoration = NEGATED_ADVERSE_RE.test(headline)
+    || DENIES_ADVERSE_RE.test(headline)
+    || UNDONE_ADVERSE_RE.test(headline)
+    || EXPLICIT_UNDO_RE.test(headline)
+    || RESUMPTION_RE.test(headline)
+    || (RESTORE_STATE_RE.test(headline) && !RESTORE_CONFIDENCE_RE.test(headline))
+  if (correction || restoration) return 'restorative'
+  if (ADVERSE_STATE_RE.test(headline)) return 'adverse'
+
+  const probeFamily = '__inbox_observation_kind__'
+  return themeStoryKey({ ...row, dedup_group: probeFamily }) === probeFamily ? 'ordinary' : 'other'
+}
+
+/** A publisher can correct or retract an article in place at the same URL. URL-only identity would
+ * overwrite that falsifying observation with the old headline before revision-aware story collapse can
+ * see it. Keep URL idempotence within each canonical ordinary/correction/reversal lane instead. */
+function inboxUrlRevisionKey(row: { url: string; headline?: unknown; headline_en?: unknown; event_types?: unknown }): string {
+  // Revision identity is exact-content based, not dependent on a finite English status vocabulary.
+  // Thus "confirms expansion" and a later "abandons expansion" survive as two bounded observations even
+  // when neither phrase happens to be in the preservation regex. An exact replay remains idempotent.
+  const headline = String(row.headline || row.headline_en || '')
+  const lane = themeStoryObservationKey({
+    event_id: eventIdFor(headline, row.url),
+    dedup_group: '__url_revision__',
+    headline: row.headline,
+    headline_en: row.headline_en,
+    event_types: row.event_types,
+  })
+  return `${row.url}\u0000${lane}`
+}
 
 /**
- * Collapse rows sharing a story-cluster id (news/dedup.ts) to ONE representative, so the curated inbox
- * shows one row per story like the wire does. Rows with no dedup_group stay standalone. A group that
- * already touched a run (any member launched) is left intact — never silently drop a row that spawned
- * work. Representative = best §4 source tier, then highest triage score. The caller has already removed
- * consumed/dismissed rows, so this only ever folds away fresh, never-acted-on duplicates.
+ * Collapse publisher copies, retain a bounded family audit, and apply maxRows family-first. Every chosen
+ * family contributes its best §4 source before a second observation is admitted, so the global cap cannot
+ * undo the source pin or let one status-heavy family starve unrelated evidence.
  */
-function collapseInboxByGroup(rows: InboxRow[]): InboxRow[] {
+function selectInboxRows(rows: InboxRow[], maxRows: number): InboxRow[] {
   const byGroup = new Map<string, InboxRow[]>()
-  const kept: InboxRow[] = []
   for (const r of rows) {
-    const g = r.dedup_group
-    if (!g) { kept.push(r); continue } // ungrouped → standalone
+    const g = r.dedup_group?.trim() || `__inbox__:${r.inbox_id}`
     const arr = byGroup.get(g)
     if (arr) arr.push(r)
     else byGroup.set(g, [r])
   }
-  for (const members of byGroup.values()) {
-    if (members.length === 1 || members.some((m) => m.launched_signal_id)) { kept.push(...members); continue }
-    const rep = members.slice().sort((a, b) => tierRank(b.source_tier) - tierRank(a.source_tier) || (b.triage_score ?? -1) - (a.triage_score ?? -1))[0]
-    kept.push(rep)
+  const selections = [...byGroup.entries()].map(([key, members]) => {
+    const representatives: InboxRow[] = []
+    for (const member of [...members].sort(byQuality)) {
+      const identity = {
+        ...member,
+        event_id: eventIdFor(member.headline || String(member.headline_en || ''), member.url),
+      }
+      if (representatives.some((prior) => sameThemeStoryObservation(identity, {
+        ...prior,
+        event_id: eventIdFor(prior.headline || String(prior.headline_en || ''), prior.url),
+      }))) continue
+      representatives.push(member)
+    }
+    const strongest = representatives.slice().sort(byQuality)[0]
+    const newest = representatives.slice().sort(byRecency)[0]
+    const newestAdverse = representatives.filter((row) => classifyStoryObservation(row) === 'adverse').sort(byRecency)[0]
+    const newestRestorative = representatives.filter((row) => classifyStoryObservation(row) === 'restorative').sort(byRecency)[0]
+    const selected = new Map<string, InboxRow>()
+    for (const pinned of [strongest, newestAdverse, newestRestorative, newest]) {
+      if (pinned) selected.set(pinned.inbox_id, pinned)
+    }
+    for (const row of representatives.slice().sort(byRecency)) {
+      if (selected.size >= MAX_OBSERVATIONS_PER_STORY) break
+      selected.set(row.inbox_id, row)
+    }
+    const priority = members.slice().sort((a, b) => (b.triage_score ?? -1) - (a.triage_score ?? -1)
+      || tierRank(b.source_tier) - tierRank(a.source_tier)
+      || sourceTime(b) - sourceTime(a)
+      || a.inbox_id.localeCompare(b.inbox_id))[0]
+    return { key, priority, rows: [...selected.values()] }
+  }).sort((a, b) => (b.priority.triage_score ?? -1) - (a.priority.triage_score ?? -1)
+    || tierRank(b.priority.source_tier) - tierRank(a.priority.source_tier)
+    || sourceTime(b.priority) - sourceTime(a.priority)
+    || a.key.localeCompare(b.key))
+
+  const cap = Math.max(0, Math.floor(maxRows))
+  const chosen = selections.slice(0, cap)
+  const kept: InboxRow[] = []
+  for (let depth = 0; kept.length < cap; depth++) {
+    let found = false
+    for (const family of chosen) {
+      const row = family.rows[depth]
+      if (!row) continue
+      kept.push(row)
+      found = true
+      if (kept.length >= cap) break
+    }
+    if (!found) break
   }
   return kept
 }
 
 /**
  * Merge pick/watch items into today's inbox file. Existing rows keep their consumed/launched state;
- * a re-seen URL refreshes its triage fields only. Returns the number of rows the inbox now holds.
+ * a re-seen URL in the same revision lane replaces the prior source observation and triage payload while
+ * preserving only its inbox id and human lifecycle. A correction or reversal at that URL remains a
+ * distinct observation. Returns the number of rows the inbox now holds.
  */
 export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[], opts: MergeOptions = {}): number {
   const maxRows = opts.maxRows && opts.maxRows > 0 ? Math.floor(opts.maxRows) : 40
@@ -71,19 +188,27 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
   const fp = inboxPath(repoRoot, date)
   let existing: { rows?: InboxRow[] } = {}
   try { existing = JSON.parse(fs.readFileSync(fp, 'utf8')) } catch { existing = {} }
-  const byUrl = new Map<string, InboxRow>()
-  for (const r of existing.rows || []) if (r && r.url) byUrl.set(r.url, r)
+  const byUrlRevision = new Map<string, InboxRow>()
+  for (const r of existing.rows || []) if (r && r.url) byUrlRevision.set(inboxUrlRevisionKey(r), r)
 
   const dateCompact = date.replace(/-/g, '')
   let seq = nextInboxSeq(existing.rows || [])
 
   for (const it of items) {
-    const prior = byUrl.get(it.url)
+    const urlRevisionKey = inboxUrlRevisionKey(it)
+    const prior = byUrlRevision.get(urlRevisionKey)
+    const sourceFields = {
+      headline: it.headline,
+      headline_en: it.headline_en, // latest translated content, not the first copy seen at this URL
+      headline_lang: it.headline_lang,
+      url: it.url,
+      source_name: it.source_name,
+      input_nature: it.input_nature,
+      found_at: it.found_at,
+    }
     const triageFields = {
       triage_score: it.triage_score,
       triage_reason: it.triage_reason,
-      headline_en: it.headline_en, // English translation of a non-English headline (news/lang.ts)
-      headline_lang: it.headline_lang, // the source language named, for the "original · X" label
       region: it.region,
       relevance: it.relevance,
       materiality_pre_score: it.materiality_pre_score,
@@ -96,21 +221,32 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
       event_materiality_label: it.event_materiality_label,
       event_direction: it.event_direction,
       event_scope: it.event_scope,
+      // Trade timing must come from the source row, never from the later model-authored `why_now`.
+      // Category-only schedule tags are useful UI facets but are not dated catalyst evidence.
+      scheduled_events: deriveScheduledEventEvidence({ headline: it.headline }),
       rank_factors: it.rank_factors, // composite-priority breakdown; triage_score IS the composite
       prelim_note: it.triage_reason, // keep the legacy field populated for any reader that uses it
       dedup_status: it.dedup_status,
       dedup_group: it.dedup_group, // story-cluster id — collapse duplicate stories below
     }
     if (prior) {
-      Object.assign(prior, triageFields) // refresh score; NEVER touch consumed / launched_signal_id
+      // A publisher may rewrite the correction text in place. Retaining the old source fields would pair
+      // a new score with stale evidence. Rebuild the owned row from the newest observation, carrying only
+      // stable identity and explicit human state across the refresh.
+      byUrlRevision.set(urlRevisionKey, {
+        ...sourceFields,
+        ...triageFields,
+        inbox_id: prior.inbox_id,
+        consumed: prior.consumed === true,
+        launched_signal_id: prior.launched_signal_id ?? null,
+        ...(typeof prior.dismissed === 'boolean' ? { dismissed: prior.dismissed } : {}),
+        ...(typeof prior.dismissed_at === 'string' ? { dismissed_at: prior.dismissed_at } : {}),
+        ...(typeof prior.dismissed_by === 'string' ? { dismissed_by: prior.dismissed_by } : {}),
+      })
     } else {
-      byUrl.set(it.url, {
+      byUrlRevision.set(urlRevisionKey, {
         inbox_id: `INB-${dateCompact}-${String(seq++).padStart(3, '0')}`,
-        headline: it.headline,
-        url: it.url,
-        source_name: it.source_name,
-        input_nature: it.input_nature,
-        found_at: it.found_at,
+        ...sourceFields,
         consumed: false,
         launched_signal_id: null,
         ...triageFields,
@@ -120,12 +256,12 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
 
   // rank by score; always keep consumed AND dismissed rows (human state is history — never evicted,
   // never resurrected by a re-seen URL), cap only the live unconsumed tail
-  const all = [...byUrl.values()]
+  const all = [...byUrlRevision.values()]
   all.sort((a, b) => (b.triage_score ?? -1) - (a.triage_score ?? -1))
-  const humanState = all.filter((r) => r.consumed || r.dismissed)
+  const humanState = all.filter((r) => r.consumed || r.dismissed || r.launched_signal_id)
   // collapse duplicate STORIES before the cap, so one story never eats several inbox slots and the cap
   // counts distinct stories (news/dedup.ts). Ungrouped rows and run-touched groups pass through intact.
-  const live = collapseInboxByGroup(all.filter((r) => !r.consumed && !r.dismissed)).slice(0, maxRows)
+  const live = selectInboxRows(all.filter((r) => !r.consumed && !r.dismissed && !r.launched_signal_id), maxRows)
   const rows = [...humanState, ...live].sort((a, b) => (b.triage_score ?? -1) - (a.triage_score ?? -1))
 
   // preserve whatever the existing document carried (a manual sweep's focus_hint, its source label,

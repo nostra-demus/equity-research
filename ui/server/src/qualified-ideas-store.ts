@@ -8,7 +8,10 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
+import { spawnSync } from 'node:child_process'
 import { z } from 'zod'
+import { readActivity, type ActivityRow } from './activity-log'
+import { inFlightRunsForTicker } from './registry'
 import { readCorrections, resolveIntegrityStatus, supersededTarget } from './ledger-corrections'
 import { qualifiedIdeaCalibrationStatusFor, summarizeQualifiedIdeaCalibration, type QualifiedIdeaCalibrationSummary } from './qualified-idea-calibration'
 import { assessQualifiedIdeaOutcomeHealth, qualifiedIdeaOutcomeHealthPath, type QualifiedIdeaOutcomeHealth } from './qualified-idea-outcome-runner'
@@ -17,6 +20,7 @@ import { canonicalJsonText } from './canonical-json'
 import {
   DEFAULT_QUALIFICATION_POLICY,
   IDEA_ASSESSMENT_SCHEMA,
+  QUALIFIED_IDEA_RANKING_POLICY_VERSION,
   QUALIFICATION_POLICY_VERSION,
   evaluateQualifiedIdea,
   ideaAssessmentRuntimeSchema,
@@ -29,21 +33,36 @@ import {
   type QualificationPolicy,
 } from './qualified-ideas'
 
+// Additive rollout: keep the existing envelope version until older browser assets have aged out.
+// The materially new ordering semantics are replay-safe through ranking_policy_version instead.
 export const QUALIFIED_IDEAS_BOARD_SCHEMA = 'qualified-ideas-board/v1' as const
+// Immutable projection/admission became a required producer contract for forward research runs on this
+// date. Earlier completed runs are legacy data, not failed publications.
+const IMMUTABLE_IDEA_PUBLICATION_REQUIRED_FROM = '2026-08-03'
+const IDEA_PUBLICATION_GRACE_MS = 6 * 60 * 60_000
+const IDEA_PUBLICATION_CLOCK_SKEW_MS = 5 * 60_000
+const DIRECT_PUBLICATION_FILE_SKEW_MS = 15 * 60_000
+const CURRENT_AUTHORITY_MISMATCH = 'The standing decision record no longer matches the frozen admission authority; a new run is required.'
+const CURRENT_MARKET_EVIDENCE_MISMATCH = 'The current canonical market-evidence sidecar no longer matches the frozen admission; a new run is required.'
 
 export interface QualifiedIdeasBoard {
   schema_version: typeof QUALIFIED_IDEAS_BOARD_SCHEMA
   generated_at: string
   policy_version: typeof QUALIFICATION_POLICY_VERSION
+  ranking_policy_version: typeof QUALIFIED_IDEA_RANKING_POLICY_VERSION
   policy: QualificationPolicy
   health: {
     status: 'pre_data' | 'healthy' | 'degraded'
-    outcome: 'no_artifacts' | 'none_clear' | 'qualified' | 'invalid_artifacts' | 'storage_error'
+    outcome: 'no_artifacts' | 'publishing' | 'none_clear' | 'qualified' | 'invalid_artifacts' | 'storage_error'
     reason: string
     artifact_count: number
     assessment_count: number
     parsed_count: number
     invalid_count: number
+    /** Completed research runs that did not finish the immutable idea-publication sequence. */
+    incomplete_count: number
+    /** Current research runs still inside the durable immutable-publication grace window. */
+    publishing_count: number
     not_assessable_count: number
     qualified_count: number
     needs_research_count: number
@@ -158,6 +177,122 @@ export function qualifiedIdeaJsonSha256(value: unknown): string {
 }
 
 function digest(value: unknown): string { return qualifiedIdeaJsonSha256(value) }
+
+function candidateMatchesDecisionAuthority(
+  candidate: QualifiedIdeaCandidate,
+  authority: z.infer<typeof decisionAuthoritySchema>,
+): boolean {
+  const instrument = candidate.instrument
+  const research = candidate.research
+  if (
+    instrument.ticker !== authority.ticker || instrument.company !== authority.company ||
+    instrument.exchange !== authority.exchange || instrument.currency !== authority.currency ||
+    research.decision !== authority.decision ||
+    research.data_sufficiency_score !== authority.data_sufficiency_score ||
+    research.edge_score !== authority.edge_score || research.edge_proof !== authority.edge_proof ||
+    research.hard_cap_active !== authority.hard_cap_required ||
+    research.hard_cap_reason !== authority.rating_cap_reason
+  ) return false
+
+  const candidateFlags = new Set(research.unresolved_red_flags.map((flag) => digest(flag)))
+  if (authority.red_flags.some((flag) => !candidateFlags.has(digest(flag)))) return false
+
+  const candidateScenarios = candidate.scenarios.map((scenario) => ({
+    scenario_id: scenario.scenario_id,
+    label: scenario.label,
+    probability_pct: scenario.probability_pct,
+    source_price_target: scenario.source_price_target,
+    conditions: scenario.conditions,
+    source: scenario.source,
+    joint_probability_basis: scenario.joint_probability_basis ?? null,
+  })).sort((left, right) => pythonTextCompare(left.scenario_id, right.scenario_id))
+  if (digest(candidateScenarios) !== digest(authority.scenarios ?? [])) return false
+  if (
+    digest(candidate.valuation_bridge) !== digest(authority.idea_valuation_bridge) ||
+    candidate.valuation_bridge.source_horizon_days !== authority.scenario_horizon_days
+  ) return false
+
+  const forecast = authority.selected_forecast
+  if (!forecast) return false
+  const expectedCatalyst = {
+    forecast_id: forecast.forecast_id,
+    name: forecast.prediction,
+    window_start: forecast.window_start,
+    window_end: forecast.window_end,
+    source: forecast.source_citation,
+    status_at_admission: 'scheduled_unresolved',
+    status_as_of: forecast.status_as_of,
+    causal_steps: forecast.causal_steps,
+    bullish_trigger: forecast.stock_bullish_trigger,
+    bearish_trigger: forecast.stock_bearish_trigger,
+  }
+  const expectedFalsifier = {
+    condition: forecast.falsification_trigger,
+    metric: forecast.metric,
+    threshold: forecast.threshold,
+    deadline: forecast.window_end,
+    source: forecast.source_citation,
+  }
+  return digest(candidate.catalyst) === digest(expectedCatalyst) && digest(candidate.falsifier) === digest(expectedFalsifier)
+}
+
+function admittedIntegrityIsSelfConsistent(integrity: z.infer<typeof integrityEvidenceSchema>): boolean {
+  return integrity.status === 'verified' &&
+    ['clean', 'minor issues'].includes(String(integrity.verification_verdict || '').trim().toLowerCase()) &&
+    typeof integrity.verification_report_sha256 === 'string' &&
+    typeof integrity.final_thesis_sha256 === 'string'
+}
+
+function candidatePublicationOrderIsValid(
+  expectedRoot: string,
+  manifestCreatedAtText: unknown,
+  candidateCreatedAtText: string,
+  frozenAtText: string,
+): boolean {
+  const runDate = expectedRoot.match(/_(\d{4}-\d{2}-\d{2})$/)?.[1]
+  if (!runDate || !isRfc3339(String(manifestCreatedAtText)) || !isRfc3339(candidateCreatedAtText) || !isRfc3339(frozenAtText)) return false
+  const dayStart = Date.parse(`${runDate}T00:00:00Z`)
+  const manifestCreatedAt = Date.parse(String(manifestCreatedAtText))
+  const candidateCreatedAt = Date.parse(candidateCreatedAtText)
+  const frozenAt = Date.parse(frozenAtText)
+  if (![dayStart, manifestCreatedAt, candidateCreatedAt, frozenAt].every(Number.isFinite)) return false
+  const runMin = dayStart - 14 * 60 * 60_000
+  const runMax = dayStart + (24 + 14) * 60 * 60_000
+  return runMin <= manifestCreatedAt && manifestCreatedAt <= candidateCreatedAt &&
+    candidateCreatedAt <= frozenAt && frozenAt <= runMax
+}
+
+/** Replay the producer's immutable sidecar contract for the live card. The admission remains the
+ * historical outcome witness if this later sidecar is missing or drifts; only the live projection is
+ * quarantined. */
+function currentMarketEvidenceMatchesAdmission(
+  runAbs: string,
+  expectedRoot: string,
+  admission: CandidateIdeaAdmission,
+): boolean {
+  try {
+    const validated = validateProjectionManifest(runAbs, expectedRoot)
+    if (!validated || validated.manifest.manifest_sha256 !== admission.projection_manifest_sha256) return false
+    const snapshot = JSON.parse(fs.readFileSync(path.join(runAbs, 'idea_market_evidence.json'), 'utf8'))
+    if (!exactKeys(snapshot, ['schema_version', 'captured_at', 'projection_manifest_sha256', 'evidence', 'evidence_sha256'])) return false
+    if (
+      snapshot.schema_version !== 'idea-market-evidence-snapshot/v1' ||
+      snapshot.projection_manifest_sha256 !== admission.projection_manifest_sha256 ||
+      !isRfc3339(snapshot.captured_at)
+    ) return false
+    const capturedAt = Date.parse(snapshot.captured_at)
+    const manifestCreatedAt = Date.parse(validated.manifest.created_at)
+    const candidateCreatedAt = Date.parse(admission.candidate.created_at)
+    if (
+      ![capturedAt, manifestCreatedAt, candidateCreatedAt].every(Number.isFinite) ||
+      manifestCreatedAt > capturedAt || capturedAt > candidateCreatedAt
+    ) return false
+    const evidence = snapshot.evidence
+    return record(evidence) && snapshot.evidence_sha256 === digest(evidence) &&
+      snapshot.evidence_sha256 === admission.market_evidence_sha256 &&
+      digest(evidence) === digest(admission.market_evidence)
+  } catch { return false }
+}
 
 function fileDigest(file: string): string {
   return createHash('sha256').update(fs.readFileSync(file)).digest('hex')
@@ -346,10 +481,17 @@ function readAdmission(runAbs: string, expectedRoot: string): { admission: IdeaA
     const createdAt = Date.parse(admission.candidate.created_at)
     const horizonStart = Date.parse(admission.candidate.horizon.start)
     const catalystStart = Date.parse(admission.candidate.catalyst.window_start)
+    const wrapperMatchesCandidate = admission.assessment.status === 'candidate' && admission.assessment.gaps.length === 0 &&
+      digest(admission.assessment.candidate) === digest(admission.candidate) &&
+      admission.assessment.run_root === admission.candidate.run_root &&
+      admission.assessment.ticker === admission.candidate.instrument.ticker &&
+      admission.assessment.company === admission.candidate.instrument.company &&
+      admission.assessment.created_at === admission.candidate.created_at
     if (
-      admission.assessment.status !== 'candidate' || digest(admission.assessment.candidate) !== digest(admission.candidate) ||
+      !wrapperMatchesCandidate ||
       admission.candidate.run_root !== expectedRoot ||
       admission.candidate_sha256 !== digest(admission.candidate) ||
+      admission.admission_id !== `${admission.candidate.idea_id}|${admission.candidate_sha256.slice(0, 16)}` ||
       admission.decision_authority_sha256 !== digest(admission.decision_authority) ||
       admission.integrity_evidence_sha256 !== digest(admission.integrity_evidence) ||
       admission.market_evidence_sha256 !== admission.candidate.market_evidence_sha256 || admission.market_evidence_sha256 !== digest(evidence) ||
@@ -363,9 +505,32 @@ function readAdmission(runAbs: string, expectedRoot: string): { admission: IdeaA
       ![frozenAt, createdAt, horizonStart, catalystStart].every(Number.isFinite) || createdAt > frozenAt || frozenAt > horizonStart || frozenAt > catalystStart ||
       (admission.status === 'admitted' && (admission.gaps.length > 0 || admission.integrity_evidence.status !== 'verified' ||
         !admission.decision_authority.scenarios || !admission.decision_authority.scenario_horizon_days ||
-        !admission.decision_authority.idea_valuation_bridge || !admission.decision_authority.selected_forecast)) ||
+        !admission.decision_authority.idea_valuation_bridge || !admission.decision_authority.selected_forecast ||
+        !candidateMatchesDecisionAuthority(admission.candidate, admission.decision_authority) ||
+        !admittedIntegrityIsSelfConsistent(admission.integrity_evidence))) ||
       (admission.status === 'not_admitted' && admission.gaps.length === 0)
     ) return { admission: null, error: 'The post-audit admission snapshot failed digest or state reconciliation.' }
+
+    // If the pinned projection is still byte-for-byte valid, it is safe to replay the producer contract and
+    // prove the embedded authority/integrity came from those exact files. If later research files drift, the
+    // manifest stops validating: live projection quarantines that drift, while the original frozen outcome
+    // cohort stays intact. This distinction blocks a fully rehashed forged admission without hindsight edits
+    // selecting genuine historical admissions out of the denominator.
+    if (admission.status === 'admitted') {
+      const pinned = validateProjectionManifest(runAbs, expectedRoot)
+      if (pinned?.manifest.manifest_sha256 === admission.projection_manifest_sha256) {
+        if (!candidatePublicationOrderIsValid(
+          expectedRoot, pinned.manifest.created_at, admission.candidate.created_at, admission.frozen_at,
+        )) return { admission: null, error: 'The post-audit admission snapshot failed producer publication order.' }
+        const current = currentDecisionAuthority(
+          runAbs, expectedRoot, admission.candidate, admission.projection_manifest_sha256,
+        )
+        if (
+          !current || digest(current.decision) !== admission.decision_authority_sha256 ||
+          digest(current.integrity) !== admission.integrity_evidence_sha256
+        ) return { admission: null, error: 'The post-audit admission snapshot failed pinned producer reconciliation.' }
+      }
+    }
     return { admission, error: null }
   } catch {
     return { admission: null, error: 'The post-audit admission snapshot is unreadable.' }
@@ -379,21 +544,141 @@ function candidateEnvelope(v: unknown): v is QualifiedIdeaCandidate {
   return qualifiedIdeaCandidateRuntimeSchema.safeParse(v).success
 }
 
-function discover(repoRoot: string): {
+interface PublicationProgress {
+  lastProgressMs: number
+  status: 'running' | 'terminal'
+}
+
+function publicationRunKind(kind: string, chained: boolean | undefined): boolean {
+  return kind === 'full' || kind === 'rerun' || chained === true
+}
+
+function liveResearchPublicationRun(kind: string, chained: boolean | undefined, swarm: string | undefined): boolean {
+  return (swarm === undefined || swarm === 'research') && publicationRunKind(kind, chained)
+}
+
+/**
+ * Find a trustworthy, restart-safe clock for the short interval between the synthesizer writing its
+ * terminal thesis/decision and writing the preliminary idea assessment. Filesystem mtimes are not a
+ * clock here: a checkout rewrites them. The live registry is authoritative while this process owns the
+ * run; after a restart, an unmatched launch in the append-only activity ledger supplies a durable clock.
+ */
+function publicationProgressForRun(
+  expectedRoot: string,
+  ticker: string,
+  activityRows: () => ActivityRow[],
+): PublicationProgress | null {
+  const active = inFlightRunsForTicker(ticker)
+    .filter((run) => run.runRoot === expectedRoot && liveResearchPublicationRun(run.kind, run.chained, run.swarmId))
+    .filter((run) => Number.isFinite(run.startedAt))
+    .sort((a, b) => b.startedAt - a.startedAt || b.runId.localeCompare(a.runId))
+  const latestActive = active[0]
+
+  // Choose the latest ATTEMPT before inspecting status. Filtering to `running` first would let an older
+  // orphaned launch hold grace open after a newer retry for the same root had already ended.
+  const latestDurable = activityRows()
+    // Exact run-root identity is stronger than the optional legacy swarm label. Never let a malformed
+    // foreign tag hide a terminal retry for this research folder.
+    .filter((row) => Number.isFinite(row.launchedAt) && row.runRoot === expectedRoot && publicationRunKind(row.kind, row.chained))
+    .sort((a, b) => b.launchedAt - a.launchedAt || b.runId.localeCompare(a.runId))[0]
+
+  // A newly claimed in-memory attempt may precede its durable launch line by a few milliseconds. It is
+  // authoritative only when it is strictly newer than every durable attempt; an older orphan cannot
+  // override a newer terminal ledger row.
+  if (latestActive && (!latestDurable || latestActive.startedAt > latestDurable.launchedAt)) {
+    return {
+      lastProgressMs: Math.max(latestActive.startedAt, latestActive.lastStdoutAt ?? -Infinity, latestActive.lastActivity?.ts ?? -Infinity),
+      status: 'running',
+    }
+  }
+  if (!latestDurable) return null
+  if (latestDurable.status !== 'running') {
+    return { lastProgressMs: latestDurable.finishedAt ?? latestDurable.launchedAt, status: 'terminal' }
+  }
+  const liveAttempt = active.find((run) => run.runId === latestDurable.runId)
+  return {
+    lastProgressMs: liveAttempt
+      ? Math.max(latestDurable.launchedAt, liveAttempt.lastStdoutAt ?? -Infinity, liveAttempt.lastActivity?.ts ?? -Infinity)
+      : latestDurable.launchedAt,
+    status: 'running',
+  }
+}
+
+/**
+ * Return only run roots whose thesis and decision are both different from the Git index. This makes
+ * the files' mtimes useful as a short-lived direct-producer clock without letting a clean checkout (or
+ * merely touching already-committed files) manufacture a fresh publication window. One bounded Git
+ * read covers the entire board projection; failure is deliberately an empty, fail-closed result.
+ */
+function readUncommittedPublicationRuns(repoRoot: string): ReadonlySet<string> {
+  const result = spawnSync('git', ['status', '--porcelain=v1', '-z', '--untracked-files=all', '--', 'analyses'], {
+    cwd: repoRoot, encoding: 'utf8', timeout: 1_500, maxBuffer: 2 * 1024 * 1024,
+  })
+  if (result.status !== 0 || result.error) return new Set()
+  const dirtyFiles = new Set<string>()
+  for (const entry of result.stdout.split('\0')) {
+    if (entry.length < 4) continue
+    const rel = entry.slice(3).replaceAll('\\', '/')
+    if (rel.startsWith('analyses/')) dirtyFiles.add(rel)
+  }
+  const witnesses = new Map<string, Set<string>>()
+  for (const rel of dirtyFiles) {
+    const match = /^(analyses\/[-A-Z0-9.]+_\d{4}-\d{2}-\d{2})\/(final_thesis\.md|decision_record\.json)$/.exec(rel)
+    if (!match) continue
+    const names = witnesses.get(match[1]) ?? new Set<string>()
+    names.add(match[2])
+    witnesses.set(match[1], names)
+  }
+  return new Set([...witnesses].filter(([, names]) => names.size === 2).map(([runRoot]) => runRoot))
+}
+
+function directPublicationClock(
+  runAbs: string,
+  expectedRoot: string,
+  ticker: string,
+  uncommittedRuns: ReadonlySet<string>,
+): number | null {
+  if (!uncommittedRuns.has(expectedRoot)) return null
+  const thesis = path.join(runAbs, 'final_thesis.md')
+  const decisionFile = path.join(runAbs, 'decision_record.json')
+  try {
+    const decision = JSON.parse(fs.readFileSync(decisionFile, 'utf8'))
+    const runDate = expectedRunName(expectedRoot).slice(-10)
+    if (
+      !record(decision) || decision.run_root !== expectedRoot || decision.ticker !== ticker ||
+      decision.decision_date !== runDate
+    ) return null
+    const thesisMtime = fs.statSync(thesis).mtimeMs
+    const decisionMtime = fs.statSync(decisionFile).mtimeMs
+    if (!Number.isFinite(thesisMtime) || !Number.isFinite(decisionMtime)) return null
+    if (Math.abs(thesisMtime - decisionMtime) > DIRECT_PUBLICATION_FILE_SKEW_MS) return null
+    return Math.max(thesisMtime, decisionMtime)
+  } catch { return null }
+}
+
+function discover(
+  repoRoot: string,
+  nowMs = Date.now(),
+  readActivityRows: typeof readActivity = readActivity,
+  readUncommittedRuns: (repoRoot: string) => ReadonlySet<string> = readUncommittedPublicationRuns,
+): {
   rows: Discovered[]
   gaps: GapAssessment[]
   artifacts: number
   assessments: number
   invalid: number
+  incomplete: number
+  incompleteRunRoots: Set<string>
+  publishing: number
   discoveryError: string | null
   latestStandingRunByTicker: Map<string, string>
 } {
   const analyses = path.resolve(repoRoot, 'analyses')
   let runNames: string[] = []
   try { runNames = fs.readdirSync(analyses).filter((x) => /_\d{4}-\d{2}-\d{2}$/.test(x)).sort() } catch (e: any) {
-    if (e?.code === 'ENOENT') return { rows: [], gaps: [], artifacts: 0, assessments: 0, invalid: 0, discoveryError: null, latestStandingRunByTicker: new Map() }
+    if (e?.code === 'ENOENT') return { rows: [], gaps: [], artifacts: 0, assessments: 0, invalid: 0, incomplete: 0, incompleteRunRoots: new Set(), publishing: 0, discoveryError: null, latestStandingRunByTicker: new Map() }
     return {
-      rows: [], gaps: [], artifacts: 0, assessments: 0, invalid: 0,
+      rows: [], gaps: [], artifacts: 0, assessments: 0, invalid: 0, incomplete: 0, incompleteRunRoots: new Set(), publishing: 0,
       discoveryError: `The analyses store cannot be read: ${String(e?.message || e).slice(0, 240)}`,
       latestStandingRunByTicker: new Map(),
     }
@@ -401,9 +686,64 @@ function discover(repoRoot: string): {
   const rows: Discovered[] = []
   const gaps: GapAssessment[] = []
   const latestStandingRunByTicker = new Map<string, string>()
+  const latestPublicationRunByTicker = new Map<string, string>()
   let artifacts = 0
   let assessments = 0
-  let invalid = 0
+  const invalidRunRoots = new Set<string>()
+  const incompleteRunRoots = new Set<string>()
+  const publishingRunRoots = new Set<string>()
+  const activityTickers = [...new Set(runNames
+    .map((runName) => runName.slice(0, -11).toUpperCase())
+    .filter((ticker) => /^[-A-Z0-9.]{1,24}$/.test(ticker)))]
+  let activityRowsByTicker: Map<string, ActivityRow[]> | null = null
+  let activityLedgerComplete = false
+  const activityRowsFor = (ticker: string): ActivityRow[] => {
+    if (!activityRowsByTicker) {
+      activityRowsByTicker = new Map()
+      // readActivity already parses/folds the ledger once. Filter that one pass to board tickers before
+      // returning every matching row, so 5,000 unrelated runs cannot permanently disable publication
+      // grace while terminal retries for a relevant ticker remain hidden beyond the global slice.
+      const activity = readActivityRows({ tickers: activityTickers, limit: null })
+      activityLedgerComplete = (activity.invalid_event_count ?? 0) === 0 && activity.total <= activity.rows.length
+      for (const row of activity.rows) {
+        // The append-only log is a runtime trust boundary: a syntactically valid legacy/corrupt JSON
+        // line can fold into a row even when its ticker is absent or not a string. Never let one bad
+        // historical row take down the board, and do not call the ledger complete after skipping it —
+        // that row could otherwise conceal a terminal attempt and manufacture direct-producer grace.
+        if (typeof row?.ticker !== 'string') {
+          activityLedgerComplete = false
+          continue
+        }
+        const key = row.ticker.toUpperCase()
+        // Production validates this before folding, but keep the injected/test boundary defensive too.
+        // A publication row with no canonical, ticker-matching run root could be a hidden terminal retry;
+        // it must disable the weaker Git-mtime grace rather than let an older sealed call remain live.
+        if (publicationRunKind(row.kind, row.chained)) {
+          const root = typeof row.runRoot === 'string'
+            ? /^analyses\/([-A-Z0-9.]+)_\d{4}-\d{2}-\d{2}$/.exec(row.runRoot)
+            : null
+          if (root) {
+            if (root[1] !== key || (row.swarm !== undefined && row.swarm !== 'research')) {
+              activityLedgerComplete = false
+            }
+          } else if (row.swarm === 'research' || row.runRoot === undefined) {
+            // An explicitly research-tagged row with a foreign root, or a legacy publication row with
+            // no root at all, may conceal a terminal attempt. It cannot authorize the weaker mtime clock.
+            activityLedgerComplete = false
+          }
+        }
+        const grouped = activityRowsByTicker.get(key) ?? []
+        grouped.push(row)
+        activityRowsByTicker.set(key, grouped)
+      }
+    }
+    return activityRowsByTicker.get(ticker.toUpperCase()) ?? []
+  }
+  let uncommittedPublicationRuns: ReadonlySet<string> | null = null
+  const directClockFor = (runAbs: string, expectedRoot: string, ticker: string): number | null => {
+    uncommittedPublicationRuns ??= readUncommittedRuns(repoRoot)
+    return directPublicationClock(runAbs, expectedRoot, ticker, uncommittedPublicationRuns)
+  }
   for (const runName of runNames) {
     const runAbs = path.resolve(analyses, runName)
     if (!runAbs.startsWith(analyses + path.sep)) continue
@@ -420,10 +760,16 @@ function discover(repoRoot: string): {
       ? admissionRead.admission : null
     const admissionFileExists = fs.existsSync(path.join(runAbs, 'idea_admission.json'))
     const projectionMarkerExists = fs.existsSync(path.join(runAbs, 'idea_projection_manifest.json'))
+    const markInvalid = (): void => { invalidRunRoots.add(expectedRoot) }
+    const advanceStanding = (): void => {
+      if (corrections.superseded) return
+      const prior = latestStandingRunByTicker.get(inferredTicker)
+      if (!prior || expectedRunName(prior) < runName) latestStandingRunByTicker.set(inferredTicker, expectedRoot)
+    }
     const pushFrozenFallback = (message: string): boolean => {
       if (!candidateAdmission) return false
       let mtimeMs = Date.parse(candidateAdmission.frozen_at)
-      if (!Number.isFinite(mtimeMs)) mtimeMs = fs.statSync(path.join(runAbs, 'idea_admission.json')).mtimeMs
+      if (!Number.isFinite(mtimeMs)) mtimeMs = safeMtimeMs(path.join(runAbs, 'idea_admission.json'), nowMs)
       rows.push({
         candidate: candidateAdmission.candidate, runAbs, mtimeMs, corrected: corrections.corrected,
         superseded: corrections.superseded, admission: candidateAdmission, admissionError: message,
@@ -431,22 +777,116 @@ function discover(repoRoot: string): {
       return true
     }
     const completed = fs.existsSync(path.join(runAbs, 'decision_record.json')) && fs.existsSync(path.join(runAbs, 'final_thesis.md'))
-    const finalized = !!admissionRead.admission || (completed && projectionMarkerExists)
-    if (!finalized) continue
-    if (!corrections.superseded) artifacts++
-    if (!corrections.superseded && finalized) {
-      if (/^[-A-Z0-9.]{1,24}$/.test(inferredTicker)) {
-        const prior = latestStandingRunByTicker.get(inferredTicker)
-        if (!prior || expectedRunName(prior) < runName) latestStandingRunByTicker.set(inferredTicker, expectedRoot)
-      }
+    const immutableRequired = runName.slice(-10) >= IMMUTABLE_IDEA_PUBLICATION_REQUIRED_FROM
+    // Forward runs are terminal only when a complete admission parses and reconciles. A manifest is an
+    // intermediate seal, not permission to evaluate mutable scenario bytes. Legacy pre-cutoff runs keep
+    // their marker-only compatibility path.
+    const finalized = !!admissionRead.admission || (!immutableRequired && completed && projectionMarkerExists)
+    // A downstream publication marker proves this run entered the terminal sequence even if an earlier
+    // witness was later deleted. Such a damaged run must quarantine the older card, never disappear.
+    const publicationStarted = completed || admissionFileExists || projectionMarkerExists
+    const publicationUnsealed = immutableRequired && publicationStarted && !admissionRead.admission
+    if (!corrections.superseded && (finalized || publicationUnsealed)) {
+      const prior = latestPublicationRunByTicker.get(inferredTicker)
+      if (!prior || expectedRunName(prior) < runName) latestPublicationRunByTicker.set(inferredTicker, expectedRoot)
     }
+    if (finalized) advanceStanding()
+    if (publicationUnsealed) {
+      if (!corrections.superseded) artifacts++
+      let preliminary: IdeaAssessment | null = null
+      let preliminaryError: string | null = null
+      if (fs.existsSync(file)) {
+        try {
+          const parsed = ideaAssessmentRuntimeSchema.safeParse(JSON.parse(fs.readFileSync(file, 'utf8')))
+          if (!parsed.success) throw new Error('invalid preliminary assessment')
+          const assessment = parsed.data
+          if (
+            assessment.run_root !== expectedRoot || assessment.ticker !== inferredTicker ||
+            !isRfc3339(assessment.created_at) || !nonEmpty(assessment.assessment_id)
+          ) throw new Error('preliminary assessment identity mismatch')
+          preliminary = assessment
+        } catch (error: any) {
+          preliminaryError = String(error?.message || error)
+        }
+      }
+      // The assessment's canonical timestamp is the strongest publication clock. During the normal
+      // producer interval before that file exists, use the cockpit's live run progress or its durable
+      // activity ledger. A run with neither proof is not granted grace, and a future clock fails closed.
+      const producerProgress = publicationProgressForRun(
+        expectedRoot, inferredTicker, () => activityRowsFor(inferredTicker),
+      )
+      const preliminaryCreatedMs = preliminary ? Date.parse(preliminary.created_at) : NaN
+      // If the one bounded ledger read was truncated, an omitted terminal retry may exist. In that
+      // case artifact mtimes cannot safely overrule the unknown history, so direct grace fails closed.
+      const directProducerMs = !producerProgress && !preliminary && activityLedgerComplete
+        ? directClockFor(runAbs, expectedRoot, inferredTicker)
+        : null
+      const lastProgressMs = producerProgress?.status === 'running'
+        ? Number.isFinite(preliminaryCreatedMs)
+          ? Math.max(preliminaryCreatedMs, producerProgress.lastProgressMs)
+          : producerProgress.lastProgressMs
+        : Number.isFinite(preliminaryCreatedMs) ? preliminaryCreatedMs : (directProducerMs ?? NaN)
+      const producerTerminated = producerProgress?.status === 'terminal'
+      const publicationClockInvalid = Number.isFinite(lastProgressMs) && lastProgressMs > nowMs + IDEA_PUBLICATION_CLOCK_SKEW_MS
+      const completionWitnessMissing = !completed && (admissionFileExists || projectionMarkerExists)
+      const publicationFailed = completionWitnessMissing || admissionFileExists || preliminaryError !== null
+        || producerTerminated || !Number.isFinite(lastProgressMs) || publicationClockInvalid
+        || nowMs - lastProgressMs > IDEA_PUBLICATION_GRACE_MS
+      if (publicationFailed) incompleteRunRoots.add(expectedRoot)
+      if (admissionFileExists) markInvalid()
+      const publicationGap = completionWitnessMissing
+        ? 'Immutable idea publication is damaged: a downstream marker exists but the final thesis or decision record is missing.'
+        : publicationClockInvalid
+          ? `Immutable idea publication failed: the ${preliminary ? 'preliminary assessment' : 'producer progress'} timestamp is in the future.`
+        : admissionFileExists
+        ? `Immutable idea publication failed: ${admissionRead.error || 'the admission snapshot is invalid.'}`
+        : producerTerminated
+          ? 'Research stopped before immutable idea publication finished.'
+        : publicationFailed
+          ? 'Research finished, but immutable idea publication did not finish.'
+          : 'Research finished and immutable idea publication is still in progress; no idea is shown until admission seals.'
+      // A semantic preliminary result (or a failed terminal sequence) supersedes the older call. Merely
+      // seeing final_thesis + decision_record while the same run is still producing its assessment does
+      // not: keep the older sealed card live until the new result exists or the grace window expires.
+      if (preliminary || publicationFailed) advanceStanding()
+      if (!publicationFailed) {
+        publishingRunRoots.add(expectedRoot)
+        continue
+      }
+      if (!preliminary) {
+        if (publicationFailed) markInvalid()
+        gaps.push({
+          assessment_id: `${inferredTicker}-${runName.slice(-10)}-3-6m-${preliminaryError ? 'incomplete' : 'missing'}`, run_root: expectedRoot,
+          created_at: new Date(nowMs).toISOString(),
+          ticker: inferredTicker, company: null,
+          gaps: [
+            preliminaryError
+              ? 'The preliminary 3-6 month assessment is unreadable or does not match its run.'
+              : 'The required 3-6 month assessment is not available.',
+            publicationGap,
+          ],
+        })
+        continue
+      }
+      if (!corrections.superseded) assessments++
+      gaps.push({
+        assessment_id: preliminary.assessment_id, run_root: preliminary.run_root,
+        created_at: preliminary.created_at, ticker: preliminary.ticker, company: preliminary.company ?? null,
+        gaps: [...new Set([...preliminary.gaps, publicationGap])],
+      })
+      continue
+    }
+    if (!finalized) {
+      continue
+    }
+    if (!corrections.superseded) artifacts++
     if (frozenNegative) {
       if (!corrections.superseded) {
         assessments++
         const assessment = frozenNegative.assessment
         // The frozen first result remains authoritative. A mutable rewrite is surfaced as an integrity
         // defect, but can never turn this dated run into a retrospective candidate.
-        if (admissionRead.error) invalid++
+        if (admissionRead.error) markInvalid()
         gaps.push({
           assessment_id: assessment.assessment_id, run_root: assessment.run_root, created_at: assessment.created_at,
           ticker: assessment.ticker, company: assessment.company ?? null, gaps: assessment.gaps,
@@ -456,18 +896,18 @@ function discover(repoRoot: string): {
     }
     if (!fs.existsSync(file)) {
       if (pushFrozenFallback('The mutable assessment is missing; the admitted forecast remains frozen for outcomes but is quarantined live.')) {
-        if (!corrections.superseded) invalid++
+        if (!corrections.superseded) markInvalid()
         continue
       }
       // The producer contract applies to forward runs. A completed newer run with no assessment is
       // authoritative and must shadow an older card instead of silently leaving it live.
-      if (!corrections.superseded && completed && runName.slice(-10) >= '2026-08-03') {
-        invalid++
+      if (!corrections.superseded && completed && runName.slice(-10) >= IMMUTABLE_IDEA_PUBLICATION_REQUIRED_FROM) {
+        markInvalid()
         let company: string | null = null
         try { company = nonEmpty(JSON.parse(fs.readFileSync(path.join(runAbs, 'decision_record.json'), 'utf8')).company_name) ? JSON.parse(fs.readFileSync(path.join(runAbs, 'decision_record.json'), 'utf8')).company_name : null } catch {}
         gaps.push({
           assessment_id: `${inferredTicker}-${runName.slice(-10)}-3-6m-missing`, run_root: expectedRoot,
-          created_at: new Date(fs.statSync(path.join(runAbs, 'decision_record.json')).mtimeMs).toISOString(),
+          created_at: new Date(safeMtimeMs(path.join(runAbs, 'decision_record.json'), nowMs)).toISOString(),
           ticker: inferredTicker, company, gaps: ['Completed research run is missing the required 3–6 month assessment.'],
         })
       }
@@ -479,7 +919,7 @@ function discover(repoRoot: string): {
       if ((raw as IdeaAssessment)?.schema_version === IDEA_ASSESSMENT_SCHEMA) {
         const parsedAssessment = ideaAssessmentRuntimeSchema.safeParse(raw)
         if (!parsedAssessment.success) {
-          if (!corrections.superseded) invalid++
+          if (!corrections.superseded) markInvalid()
           pushFrozenFallback('The mutable assessment is malformed; the admitted forecast remains frozen for outcomes but is quarantined live.')
           continue
         }
@@ -492,13 +932,13 @@ function discover(repoRoot: string): {
           !isRfc3339(assessment.created_at) ||
           !(assessment.company === null || nonEmpty(assessment.company))
         ) {
-          if (!corrections.superseded) invalid++
+          if (!corrections.superseded) markInvalid()
           pushFrozenFallback('The mutable assessment wrapper no longer matches its run; the admitted forecast remains frozen for outcomes but is quarantined live.')
           continue
         }
         if (assessment.status === 'not_assessable') {
           if (candidateAdmission) {
-            if (!corrections.superseded) invalid++
+            if (!corrections.superseded) markInvalid()
             pushFrozenFallback('The mutable assessment was changed to not_assessable after admission; the frozen outcome remains immutable.')
           } else if (!corrections.superseded) {
             gaps.push({ assessment_id: assessment.assessment_id, run_root: assessment.run_root, created_at: assessment.created_at, ticker: assessment.ticker, company: assessment.company ?? null, gaps: assessment.gaps })
@@ -510,42 +950,75 @@ function discover(repoRoot: string): {
           !candidateEnvelope(candidate) || assessment.ticker !== candidate.instrument.ticker ||
           assessment.company !== candidate.instrument.company || assessment.created_at !== candidate.created_at
         ) {
-          if (!corrections.superseded) invalid++
+          if (!corrections.superseded) markInvalid()
           pushFrozenFallback('The mutable candidate wrapper no longer reconciles; the admitted forecast remains frozen for outcomes but is quarantined live.')
           continue
         }
       } else {
         if (!candidateEnvelope(raw)) {
-          if (!corrections.superseded) invalid++
+          if (!corrections.superseded) markInvalid()
           pushFrozenFallback('The mutable legacy candidate is malformed; the admitted forecast remains frozen for outcomes but is quarantined live.')
           continue
         }
         candidate = raw // backward-compatible prototype artifact
       }
       if (!candidate || candidate.run_root !== expectedRoot || candidate.instrument.ticker !== inferredTicker || typeof candidate.idea_id !== 'string') {
-        if (!corrections.superseded) invalid++
+        if (!corrections.superseded) markInvalid()
         pushFrozenFallback('The mutable candidate identity no longer matches its run; the admitted forecast remains frozen for outcomes but is quarantined live.')
         continue
       }
-      const mtimeMs = fs.statSync(file).mtimeMs
+      const mtimeMs = safeMtimeMs(file, nowMs)
       let admissionError = admissionRead.error
       if (candidateAdmission) {
         if (digest(raw) !== candidateAdmission.assessment_sha256) {
           admissionError = 'The mutable assessment no longer matches its immutable admission snapshot.'
         }
         candidate = candidateAdmission.candidate
+        if (!admissionError && candidateAdmission.status === 'admitted') {
+          const current = currentDecisionAuthority(
+            runAbs, candidate.run_root, candidate, candidateAdmission.projection_manifest_sha256,
+          )
+          if (
+            !current || digest(current.decision) !== candidateAdmission.decision_authority_sha256 ||
+            digest(current.integrity) !== candidateAdmission.integrity_evidence_sha256
+          ) {
+            admissionError = CURRENT_AUTHORITY_MISMATCH
+          } else if (!currentMarketEvidenceMatchesAdmission(runAbs, candidate.run_root, candidateAdmission)) {
+            admissionError = CURRENT_MARKET_EVIDENCE_MISMATCH
+          }
+        }
       }
-      if (!corrections.superseded && admissionRead.error && (completed || admissionFileExists)) invalid++
+      if (!corrections.superseded && admissionError && (completed || admissionFileExists)) markInvalid()
       rows.push({ candidate, runAbs, mtimeMs, corrected: corrections.corrected, superseded: corrections.superseded, admission: candidateAdmission, admissionError })
     } catch {
-      if (!corrections.superseded) invalid++
+      if (!corrections.superseded) markInvalid()
       pushFrozenFallback('The mutable assessment is unreadable; the admitted forecast remains frozen for outcomes but is quarantined live.')
     }
   }
-  return { rows, gaps, artifacts, assessments, invalid, discoveryError: null, latestStandingRunByTicker }
+  const isCurrentRoot = (runRoot: string): boolean => {
+    const name = expectedRunName(runRoot)
+    const ticker = name.slice(0, -11).toUpperCase()
+    return latestStandingRunByTicker.get(ticker) === runRoot
+  }
+  const currentIncompleteRunRoots = new Set([...incompleteRunRoots].filter(isCurrentRoot))
+  const currentPublishingRunRoots = new Set([...publishingRunRoots].filter((runRoot) => {
+    const name = expectedRunName(runRoot)
+    const ticker = name.slice(0, -11).toUpperCase()
+    return latestPublicationRunByTicker.get(ticker) === runRoot
+  }))
+  const invalid = [...invalidRunRoots].filter(isCurrentRoot).length
+  return {
+    rows, gaps, artifacts, assessments, invalid, incomplete: currentIncompleteRunRoots.size,
+    incompleteRunRoots: currentIncompleteRunRoots, publishing: currentPublishingRunRoots.size,
+    discoveryError: null, latestStandingRunByTicker,
+  }
 }
 
 function expectedRunName(runRoot: string): string { return runRoot.split('/').pop() || '' }
+
+function safeMtimeMs(file: string, fallback: number): number {
+  try { return fs.statSync(file).mtimeMs } catch { return fallback }
+}
 
 function nonEmpty(v: unknown): v is string { return typeof v === 'string' && v.trim().length > 0 }
 
@@ -562,6 +1035,27 @@ function pythonTextCompare(left: string, right: string): number {
     if (av !== bv) return av < bv ? -1 : 1
   }
   return a.length - b.length
+}
+
+function currentIntegrityEvidence(
+  runAbs: string,
+  validated: ValidatedProjectionManifest,
+): z.infer<typeof integrityEvidenceSchema> | null {
+  try {
+    const verdict = validated.audits.verification.verdict
+    const opening = fs.readFileSync(path.join(runAbs, 'final_thesis.md'), 'utf8')
+      .slice(0, 4_096).split(/\r?\n/).map((line) => line.trim()).find(Boolean) ?? ''
+    const upper = opening.toUpperCase()
+    const provisional = upper.startsWith('> ⚠️ **PROVISIONAL —') || upper.startsWith('> **PROVISIONAL —')
+    const evidence = {
+      status: ['Clean', 'Minor issues'].includes(verdict) && !provisional ? 'verified' : 'provisional',
+      verification_verdict: verdict,
+      verification_report_sha256: validated.manifest.artifacts.verification.sha256,
+      final_thesis_sha256: validated.manifest.artifacts.final_thesis.sha256,
+    }
+    const parsed = integrityEvidenceSchema.safeParse(evidence)
+    return parsed.success ? parsed.data : null
+  } catch { return null }
 }
 
 function readOutcomeHealth(repoRoot: string, nowMs: number): { health: QualifiedIdeaOutcomeHealth | null; state: 'valid' | 'expired' | 'unknown' } {
@@ -594,7 +1088,10 @@ function currentDecisionAuthority(
   expectedRoot: string,
   candidate: QualifiedIdeaCandidate,
   expectedManifestSha: string,
-): z.infer<typeof decisionAuthoritySchema> | null {
+): {
+  decision: z.infer<typeof decisionAuthoritySchema>
+  integrity: z.infer<typeof integrityEvidenceSchema>
+} | null {
   try {
     const validated = validateProjectionManifest(runAbs, expectedRoot)
     if (!validated || validated.manifest.manifest_sha256 !== expectedManifestSha) return null
@@ -718,7 +1215,8 @@ function currentDecisionAuthority(
       (decisionCapRequired && !ratingCap) || scenarios === null || selectedForecast === null || bridge === null
     ) return null
     const parsed = decisionAuthoritySchema.safeParse(authority)
-    return parsed.success ? parsed.data : null
+    const integrity = currentIntegrityEvidence(runAbs, validated)
+    return parsed.success && integrity ? { decision: parsed.data, integrity } : null
   } catch { return null }
 }
 
@@ -756,28 +1254,27 @@ function evaluateRow(
     }
   }
   if (!row.admission || (mode === 'live' && row.admissionError)) {
-    return addExternalIssue(evaluation, {
+    addExternalIssue(evaluation, {
       code: 'authoritative_research_mismatch',
       message: row.admissionError || 'This candidate has no immutable post-audit admission snapshot.',
       disposition: 'research',
     })
-  }
-  if (row.admission.status !== 'admitted') {
-    return addExternalIssue(evaluation, {
+  } else if (row.admission.status !== 'admitted') {
+    addExternalIssue(evaluation, {
       code: 'authoritative_research_mismatch',
       message: `Post-audit admission failed: ${row.admission.gaps.join('; ')}`,
       disposition: 'research',
     })
   }
   if (mode === 'live') {
-    const current = currentDecisionAuthority(
-      row.runAbs, row.candidate.run_root, row.candidate, row.admission.projection_manifest_sha256,
-    )
-    if (!current || digest(current) !== row.admission.decision_authority_sha256) {
-      return addExternalIssue(evaluation, {
-        code: 'authoritative_research_mismatch',
-        message: 'The standing decision record no longer matches the frozen admission authority; a new run is required.',
-        disposition: 'research',
+    const liveReturnBar = policyOverrides?.minExpectedReturnPct ?? DEFAULT_QUALIFICATION_POLICY.minExpectedReturnPct
+    if (
+      evaluation.ranking && evaluation.ranking.conservative_expected_return_pct < liveReturnBar
+    ) {
+      addExternalIssue(evaluation, {
+        code: 'conservative_return_below_bar',
+        message: `Calibration-adjusted expected return ${evaluation.ranking.conservative_expected_return_pct}% is below the ${liveReturnBar}% live ranking bar; raw scenarios remain frozen for outcome grading.`,
+        disposition: 'reject',
       })
     }
   }
@@ -811,11 +1308,21 @@ export function listFrozenQualifiedIdeaEvaluations(
 
 export function buildQualifiedIdeasBoard(
   repoRoot: string,
-  opts: { nowMs?: number; policy?: Partial<QualificationPolicy> } = {},
+  opts: {
+    nowMs?: number
+    policy?: Partial<QualificationPolicy>
+    /** Deterministic test seam; production always uses the append-only cockpit activity reader. */
+    readActivityRows?: typeof readActivity
+    /** Deterministic test seam for direct producers whose terminal artifacts are still uncommitted. */
+    readUncommittedPublicationRuns?: (repoRoot: string) => ReadonlySet<string>
+  } = {},
 ): QualifiedIdeasBoard {
   const nowMs = opts.nowMs ?? Date.now()
   const policy: QualificationPolicy = { ...DEFAULT_QUALIFICATION_POLICY, ...(opts.policy ?? {}) }
-  const found = discover(repoRoot)
+  const found = discover(
+    repoRoot, nowMs, opts.readActivityRows ?? readActivity,
+    opts.readUncommittedPublicationRuns ?? readUncommittedPublicationRuns,
+  )
   // Calibration is anchored to the immutable cohort ledger, not today's mutable analyses tree. A settled
   // winner or loser therefore remains in the denominator even if its original research folder is moved.
   const calibration = summarizeQualifiedIdeaCalibration(repoRoot, nowMs)
@@ -846,6 +1353,14 @@ export function buildQualifiedIdeasBoard(
     .sort((a, b) => (a.issues.length - b.issues.length) || a.candidate.idea_id.localeCompare(b.candidate.idea_id))
   const measured = evaluations.filter((row) => row.candidate.research.calibration_status === 'measured').length
   const outcomeHealth = readOutcomeHealth(repoRoot, nowMs)
+  const healthDefectSuffix = (): string => {
+    const defects: string[] = []
+    if (found.invalid > 0) defects.push(`${found.invalid} invalid current run${found.invalid === 1 ? '' : 's'}`)
+    if (found.incomplete > 0) {
+      defects.push(`${found.incomplete} completed run${found.incomplete === 1 ? '' : 's'} did not finish immutable publication`)
+    }
+    return defects.length > 0 ? ` Health degraded: ${defects.join('; ')}.` : ''
+  }
 
   let status: QualifiedIdeasBoard['health']['status'] = 'pre_data'
   let outcome: QualifiedIdeasBoard['health']['outcome'] = 'no_artifacts'
@@ -855,17 +1370,21 @@ export function buildQualifiedIdeasBoard(
   } else if (found.artifacts > 0 && evaluations.length === 0 && currentGaps.length === 0 && found.invalid > 0) {
     status = 'degraded'; outcome = 'invalid_artifacts'; reason = 'Qualified-idea artifacts exist, but none can be parsed as a standing candidate.'
   } else if (qualified.length > 0) {
-    status = found.invalid > 0 ? 'degraded' : 'healthy'; outcome = 'qualified'
-    reason = `${qualified.length} standing 3-6 month idea${qualified.length === 1 ? '' : 's'} cleared every qualification gate.`
+    status = found.invalid > 0 || found.incomplete > 0 ? 'degraded' : 'healthy'; outcome = 'qualified'
+    reason = `${qualified.length} standing 3-6 month idea${qualified.length === 1 ? '' : 's'} cleared every qualification gate.${healthDefectSuffix()}`
   } else if (evaluations.length > 0 || currentGaps.length > 0) {
-    status = found.invalid > 0 ? 'degraded' : 'healthy'; outcome = 'none_clear'
-    reason = `${evaluations.length} standing candidate${evaluations.length === 1 ? '' : 's'} evaluated and ${currentGaps.length} run${currentGaps.length === 1 ? '' : 's'} marked not assessable; none cleared every 3-6 month gate.`
+    status = found.invalid > 0 || found.incomplete > 0 ? 'degraded' : 'healthy'; outcome = 'none_clear'
+    reason = `${evaluations.length} standing candidate${evaluations.length === 1 ? '' : 's'} evaluated and ${currentGaps.length} run${currentGaps.length === 1 ? '' : 's'} marked not assessable; none cleared every 3-6 month gate.${healthDefectSuffix()}`
+  } else if (found.publishing > 0) {
+    status = 'healthy'; outcome = 'publishing'
+    reason = `${found.publishing} research run${found.publishing === 1 ? ' is' : 's are'} finishing immutable publication; no result is shown until the seal completes.`
   }
 
   return {
     schema_version: QUALIFIED_IDEAS_BOARD_SCHEMA,
     generated_at: new Date(nowMs).toISOString(),
     policy_version: QUALIFICATION_POLICY_VERSION,
+    ranking_policy_version: QUALIFIED_IDEA_RANKING_POLICY_VERSION,
     policy,
     health: {
       status, outcome, reason,
@@ -873,6 +1392,8 @@ export function buildQualifiedIdeasBoard(
       assessment_count: found.assessments,
       parsed_count: evaluations.length,
       invalid_count: found.invalid,
+      incomplete_count: found.incomplete,
+      publishing_count: found.publishing,
       not_assessable_count: currentGaps.length,
       qualified_count: qualified.length,
       needs_research_count: needsResearch.length,

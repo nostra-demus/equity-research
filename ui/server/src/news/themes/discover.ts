@@ -6,10 +6,11 @@
 
 import { createHash } from 'node:crypto'
 import { companyKeys, themeNarrativeTokens, intersectionSize, jaccard } from '../text-match'
-import { rebuildThemeCompanies } from './assign'
+import { narrativeReferenceEventIds, rebuildThemeCompanies } from './assign'
 import { ensureDaily } from './score'
-import { themeStoryKey } from './story-key'
+import { boundThemeFamilyHistory, resolveThemeFamilyState, themeStoryFamilyKey, type ThemeFamilyClassification } from './story-key'
 import { selectNarrativeCore } from './core'
+import { sourcePriority } from './evidence'
 import type { Theme, ThemeItemView, ThemeMember, RelatedTheme } from './types'
 
 export interface DiscoverConfig {
@@ -54,18 +55,55 @@ const oldestFirst = <T extends { event_id: string; found_at?: string }>(a: T, b:
   return safeA - safeB
 }
 
-/** One newest representative per story, returned in explicit oldest→newest source-time order. */
-function uniqueStoryItems<T extends { event_id: string; dedup_group?: string; found_at?: string }>(items: T[]): T[] {
+/** One newest representative per underlying family, returned in explicit oldest→newest source-time order. */
+export function familyRepresentativeItems<T extends { event_id: string; dedup_group?: string; found_at?: string }>(items: T[]): T[] {
   const ordered = [...items].sort(oldestFirst)
   const seen = new Set<string>()
   const reversed: T[] = []
   for (let i = ordered.length - 1; i >= 0; i--) {
-    const key = themeStoryKey(ordered[i])
+    const key = themeStoryFamilyKey(ordered[i])
     if (seen.has(key)) continue
     seen.add(key)
     reversed.push(ordered[i])
   }
   return reversed.reverse()
+}
+
+function narrativeFamilyClassifications(theme: Theme): ThemeFamilyClassification<ThemeMember>[] {
+  if (!theme.narrative) return []
+  const memberById = new Map(theme.members.map((member) => [member.event_id, member]))
+  return [
+    ...theme.narrative.evidence.flatMap((row) => {
+      const member = memberById.get(row.event_id)
+      return member ? [{ member, stance: row.stance }] : []
+    }),
+    ...theme.narrative.context_event_ids.flatMap((eventId) => {
+      const member = memberById.get(eventId)
+      return member ? [{ member, stance: 'context' as const }] : []
+    }),
+  ]
+}
+
+function activeNarrativeFamilyState(theme: Theme): ThemeFamilyClassification<ThemeMember>[] {
+  return resolveThemeFamilyState(narrativeFamilyClassifications(theme), (member) => sourcePriority(member.tier))
+    .filter((row) => row.stance === 'supports' || row.stance === 'challenges')
+}
+
+/** Current support representative per classified family, plus one row for each still-unclassified family. */
+function coreFamilyMembers(theme: Theme): ThemeMember[] {
+  const representatives = familyRepresentativeItems(theme.members)
+  if (!theme.narrative) {
+    // Legacy clusters still need every family representative during self-heal; only discovery/score
+    // cardinality collapses families. Dropping all but the newest one here lets repeated contaminants
+    // certify themselves and prevents the dense real core from purging unrelated rows.
+    return theme.members
+  }
+  const classifications = narrativeFamilyClassifications(theme)
+  const classifiedFamilies = new Set(classifications.map((row) => themeStoryFamilyKey(row.member)))
+  const activeSupport = activeNarrativeFamilyState(theme)
+    .filter((row) => row.stance === 'supports')
+    .map((row) => row.member)
+  return [...activeSupport, ...representatives.filter((member) => !classifiedFamilies.has(themeStoryFamilyKey(member)))]
 }
 
 // memo: each item's company keys + theme-layer topic tokens (computed once for the clustering graph)
@@ -174,14 +212,14 @@ function deterministicName(id: ReturnType<typeof clusterIdentity>): string {
 
 /** Build a fresh Theme from a cluster of items. */
 export function createTheme(items: ThemeItemView[], now: Date, generation: Theme['generation'] = 'deterministic', generic?: Set<string>): Theme {
-  const unique = uniqueStoryItems(items)
+  const unique = familyRepresentativeItems(items)
   const id = clusterIdentity(unique, generic)
   const name = deterministicName(id)
   const slug = slugify(name)
   const members = unique.map(memberOf)
   const last_flow = members.reduce((mx, m) => (m.found_at > mx ? m.found_at : mx), members[0]?.found_at || iso(now))
   const theme: Theme = {
-    theme_id: themeId(slug, id.keywords.slice(0, 4), unique.map(themeStoryKey)),
+    theme_id: themeId(slug, id.keywords.slice(0, 4), unique.map(themeStoryFamilyKey)),
     name,
     slug,
     description: `Recurring news around ${name}.`,
@@ -242,19 +280,74 @@ export function refreshThemeIdentity(theme: Theme, cfg: DiscoverConfig = DEFAULT
   if (declared.some((anchor) => generic?.has(anchor))) {
     return { changed: false, retire: false, identityShift: 0, purgeShare: 0 }
   }
-  const core = selectNarrativeCore(theme.members, declared, generic)
+  const activeFamilyState = activeNarrativeFamilyState(theme)
+  let core = selectNarrativeCore(theme.narrative ? coreFamilyMembers(theme) : theme.members, declared, generic)
+  if (core.anchors.length < 2 || new Set(core.members.map(themeStoryFamilyKey)).size < cfg.minClusterItems) {
+    // A validated three-family thesis does not stop existing when one family's current state becomes a
+    // cancellation, denial or restoration whose wording no longer repeats the frozen anchors. Re-ground
+    // identity on its explicitly classified historical support, while qualification continues to resolve
+    // the CURRENT family state and therefore keeps a challenged thesis non-actionable. Requiring both the
+    // original dense core and the current family cardinality prevents same-family audit rows from rescuing
+    // a cluster that never cleared the admission bar.
+    const historicalSupport = narrativeFamilyClassifications(theme)
+      .filter((row) => row.stance === 'supports')
+      .map((row) => row.member)
+    const historicalCore = selectNarrativeCore(historicalSupport, declared, generic)
+    const historicalFamilies = new Set(historicalCore.members.map(themeStoryFamilyKey)).size
+    const activeFamilies = new Set(activeFamilyState.map((row) => themeStoryFamilyKey(row.member))).size
+    if (!theme.narrative || historicalCore.anchors.length < 2
+      || historicalFamilies < cfg.minClusterItems || activeFamilies < cfg.minClusterItems) {
+      return { changed: true, retire: true, identityShift: 1, purgeShare: 1 }
+    }
+    core = historicalCore
+  }
   const challengeIds = new Set((theme.narrative?.evidence || []).filter((row) => row.stance === 'challenges').map((row) => row.event_id))
-  const kept = [
+  const pendingBefore = [...new Set(theme.pending_narrative_event_ids || [])]
+  const classifiedIds = new Set([
+    ...(theme.narrative?.evidence || []).map((row) => row.event_id),
+    ...(theme.narrative?.context_event_ids || []),
+  ])
+  // Fresh deterministic themes seed a pending list for first validation. Do not confuse that bootstrap
+  // queue with UPDATE debt while self-healing; only ids outside a compiled narrative are update debt.
+  const hasUnclassifiedPending = pendingBefore.some((eventId) => !classifiedIds.has(eventId))
+  const hadNarrativeDebt = Boolean(theme.narrative
+    && (theme.narrative_update_overflow === true
+      || (theme.needs_narrative_update === true && hasUnclassifiedPending)))
+  const pendingIds = new Set(hadNarrativeDebt ? pendingBefore : [])
+  const coreMemberIds = new Set(core.members.map((member) => member.event_id))
+  const activeStateIds = new Set(activeFamilyState.map((row) => row.member.event_id))
+  const ordinaryKept = [
     ...core.members,
-    ...theme.members.filter((member) => challengeIds.has(member.event_id) && !core.members.includes(member)),
+    ...theme.members.filter((member) => (activeStateIds.has(member.event_id) || challengeIds.has(member.event_id))
+      && !coreMemberIds.has(member.event_id)),
   ]
+  const stanceById = new Map((theme.narrative?.evidence || []).map((row) => [row.event_id, row.stance]))
+  const filteredMembers = theme.members.filter((member) =>
+    coreMemberIds.has(member.event_id) || activeStateIds.has(member.event_id)
+      || challengeIds.has(member.event_id) || pendingIds.has(member.event_id))
+  const kept = hadNarrativeDebt
+    ? boundThemeFamilyHistory(filteredMembers, cfg.maxMembers, {
+        priority: (member) => sourcePriority(member.tier),
+        stance: (member) => stanceById.get(String(member.event_id)),
+        preferred: (member) => pendingIds.has(String(member.event_id)),
+      })
+    : ordinaryKept.slice(-cfg.maxMembers)
   // 3. retire if too little real signal is left to be a multi-company theme
   const distinct = new Set<string>()
   for (const m of kept) for (const k of companyKeys(m.companies)) distinct.add(k)
-  const retire = kept.length < cfg.minClusterItems || distinct.size < cfg.minClusterCompanies
+  const keptFamilies = new Set(kept.map(themeStoryFamilyKey).filter(Boolean))
+  const retire = keptFamilies.size < cfg.minClusterItems || distinct.size < cfg.minClusterCompanies
   if (retire) return { changed: true, retire: true, identityShift: 1, purgeShare: 1 }
   // 4. commit: kept members + identity derived only from that coherent core
   theme.members = kept
+  const retainedIds = new Set(kept.map((member) => member.event_id))
+  const retainedPending = hadNarrativeDebt
+    ? pendingBefore.filter((eventId) => retainedIds.has(eventId))
+    : theme.needs_validation ? kept.map((member) => member.event_id) : []
+  if (retainedPending.length) theme.pending_narrative_event_ids = retainedPending
+  else delete theme.pending_narrative_event_ids
+  if (hadNarrativeDebt && retainedPending.length < pendingBefore.length) theme.narrative_update_overflow = true
+  if (hadNarrativeDebt || theme.narrative_update_overflow) theme.needs_narrative_update = true
   const id2 = clusterIdentity(asViews(kept), generic)
   theme.keywords = [...new Set([...(core.anchors || []), ...id2.keywords])].slice(0, 14)
   theme.company_keys = id2.company_keys
@@ -285,22 +378,24 @@ export function refreshThemeIdentity(theme: Theme, cfg: DiscoverConfig = DEFAULT
  *  so demotion machinery would be dead weight. */
 export function coherenceOf(theme: Theme, generic?: Set<string>): number {
   if (!theme.members.length) return 1
-  const core = selectNarrativeCore(theme.members, theme.narrative?.anchor_terms || [], generic)
-  return core.members.length / theme.members.length
+  const familyMembers = coreFamilyMembers(theme)
+  const core = selectNarrativeCore(familyMembers, theme.narrative?.anchor_terms || [], generic)
+  return core.members.length / familyMembers.length
 }
 
 /** Discover new themes from the unclustered pool. Returns newly-created themes (status live) plus the
  *  leftover items that didn't form a qualifying cluster (kept in the pool for next time). */
 export function discoverDeterministic(pool: ThemeItemView[], existing: Theme[], now: Date, cfg: DiscoverConfig = DEFAULT_DISCOVER_CONFIG, generic?: Set<string>): { created: Theme[]; leftover: ThemeItemView[] } {
-  // Deduplicate the WHOLE pool before taking the scan tail. Deduping only `scanRaw` left an older copy in
-  // `skipped` whenever publisher copies straddled the maxPoolScan boundary, so the consumed story came
-  // back on every later pass. Keep the newest representative and its true position in the pool.
-  const uniquePool = uniqueStoryItems(pool)
+  // Family representatives drive scan/cardinality only. The raw bounded pool remains the audit source for
+  // both created themes and leftovers; collapsing it here erased a cancellation/restoration on a first
+  // under-min pass, so a later corroborating family could form a theme from only the restored headline.
+  const allPool = [...pool].sort(oldestFirst)
+  const uniquePool = familyRepresentativeItems(allPool)
   const scan = uniquePool.slice(-cfg.maxPoolScan)
   const skipped = uniquePool.slice(0, Math.max(0, uniquePool.length - cfg.maxPoolScan))
   const clusters = clusterItems(scan, generic)
   const created: Theme[] = []
-  const leftover: ThemeItemView[] = [...skipped]
+  const leftoverFamilies = new Set(skipped.map(themeStoryFamilyKey))
   const existingIds = new Set(existing.map((t) => t.theme_id))
   // scan-relative document frequency: a token carried by ≥25% of the scan pool is wire-wide vocabulary
   // this pass, not a theme identity. Used below to refuse clusters glued together ONLY by such words
@@ -313,25 +408,46 @@ export function discoverDeterministic(pool: ThemeItemView[], existing: Theme[], 
     const distinctCompanies = new Set<string>()
     for (const it of items) for (const k of companyKeys(it.companies)) distinctCompanies.add(k)
     if (items.length < cfg.minClusterItems || distinctCompanies.size < cfg.minClusterCompanies) {
-      leftover.push(...items) // not yet a theme — wait for more flow
+      for (const item of items) leftoverFamilies.add(themeStoryFamilyKey(item)) // not yet a theme — wait for more flow
       continue
     }
     const theme = createTheme(items, now, 'deterministic', generic)
+    // Family representatives decide cardinality and cluster identity, but the created theme keeps a
+    // bounded audit excerpt for every selected family: original/current changes, adverse/restorative
+    // states, and best provenance. This preserves disconfirmation without letting updates form a theme.
+    const selectedFamilies = new Set(items.map(themeStoryFamilyKey))
+    const selectedHistory = allPool.filter((row) => selectedFamilies.has(themeStoryFamilyKey(row)))
+    theme.members = boundThemeFamilyHistory(selectedHistory.map(memberOf), cfg.maxMembers, {
+      priority: (member) => sourcePriority(member.tier),
+      perFamily: Math.min(6, Math.max(1, cfg.maxMembers - selectedFamilies.size + 1)),
+    })
+    theme.member_count_total = selectedFamilies.size
+    theme.pending_narrative_event_ids = theme.members.map((member) => member.event_id)
+    theme.last_flow = theme.members.reduce((latest, member) => member.found_at > latest ? member.found_at : latest, '')
+    rebuildThemeCompanies(theme)
     // quality guard: a theme needs an anchor — a RECURRING company, or at least one keyword that is
     // distinctive within this scan. A genuine macro wave passes (it carries a tariff target, a drug
     // name, "hormuz" — something below the bar); a cluster of wire-wide words does not.
     const anchored = theme.company_keys.length > 0 || theme.keywords.some((k) => (df.get(k) || 0) < genericBar)
     if (!anchored) {
-      leftover.push(...items) // no real identity — stay in the pool until real anchors accrue
+      for (const item of items) leftoverFamilies.add(themeStoryFamilyKey(item)) // no real identity — wait for real anchors
       continue
     }
     if (existingIds.has(theme.theme_id) || created.some((t) => t.theme_id === theme.theme_id)) {
-      leftover.push(...items) // collides with a known theme id (same slug) — let assignment fold them in next cycle
+      for (const item of items) leftoverFamilies.add(themeStoryFamilyKey(item)) // let assignment fold them in next cycle
       continue
     }
     created.push(theme)
     existingIds.add(theme.theme_id)
   }
+  // Retain bounded history for every unconsumed family, while consumed families disappear in full. Source
+  // hierarchy resolves exact observation collisions, and the family cap prevents one update storm from
+  // turning the cold pool into unbounded storage.
+  const leftover = boundThemeFamilyHistory(
+    allPool.filter((row) => leftoverFamilies.has(themeStoryFamilyKey(row))),
+    allPool.length,
+    { priority: (row) => sourcePriority(row.source_tier) },
+  )
   return { created, leftover }
 }
 
@@ -433,6 +549,15 @@ export function mergeAndRetire(themes: Theme[], now: Date, cfg: DiscoverConfig =
       const companySupported = shared >= cfg.mergeSharedCompanies && narrativeOverlap >= 2
       const narrativeDuplicate = narrativeOverlap >= 2 && kw >= cfg.mergeKeywordJaccard
       if (companySupported || narrativeDuplicate) {
+        const keepFamiliesBefore = new Set(keep.members.map(themeStoryFamilyKey))
+        const dropFamiliesBefore = new Set(drop.members.map(themeStoryFamilyKey))
+        const retainedFamilyOverlap = [...dropFamiliesBefore].filter((family) => keepFamiliesBefore.has(family)).length
+        const mergedLifetimeFamilyCount = Math.max(
+          new Set([...keepFamiliesBefore, ...dropFamiliesBefore]).size,
+          Math.max(keepFamiliesBefore.size, keep.member_count_total || 0)
+            + Math.max(dropFamiliesBefore.size, drop.member_count_total || 0)
+            - retainedFamilyOverlap,
+        )
         const explicitChallengeIds = new Set([
           ...(keep.narrative?.evidence || []).filter((row) => row.stance === 'challenges').map((row) => row.event_id),
           ...(drop.narrative?.evidence || []).filter((row) => row.stance === 'challenges').map((row) => row.event_id),
@@ -443,11 +568,20 @@ export function mergeAndRetire(themes: Theme[], now: Date, cfg: DiscoverConfig =
           ...(drop.pending_narrative_event_ids || []),
           ...(drop.narrative?.evidence || []).filter((row) => row.stance === 'challenges').map((row) => row.event_id),
         ])
-        const seen = new Set(keep.members.map(themeStoryKey))
-        for (const m of drop.members) {
-          const story = themeStoryKey(m)
-          if (!seen.has(story)) { keep.members.push(m); seen.add(story) }
-        }
+        const mergedAuditIds = new Set([
+          ...narrativeReferenceEventIds(keep),
+          ...narrativeReferenceEventIds(drop),
+          ...mergedPendingIds,
+        ])
+        const hadMergedNarrativeDebt = keep.needs_narrative_update === true
+          || drop.needs_narrative_update === true
+          || keep.narrative_update_overflow === true
+          || drop.narrative_update_overflow === true
+          || mergedPendingIds.size > 0
+        // Combine first, then let boundThemeFamilyHistory resolve exact observation collisions by source
+        // hierarchy. Pre-deduping here kept whichever theme happened to win the merge ordering, allowing a
+        // wire copy on the keeper to erase the folded theme's filing for the same event id.
+        keep.members.push(...drop.members)
         // Two individually ordered rings are not ordered after simple concatenation. Re-sort by source
         // time BEFORE applying the bounded tail, otherwise a large older drop can evict the keeper's
         // freshest evidence and leave last_flow pointing at a row that is no longer in the proof ring.
@@ -457,7 +591,7 @@ export function mergeAndRetire(themes: Theme[], now: Date, cfg: DiscoverConfig =
           const safeB = Number.isFinite(bMs) ? bMs : Number.NEGATIVE_INFINITY
           return safeA - safeB
         })
-        const mergedCore = selectNarrativeCore(keep.members, keep.narrative?.anchor_terms || [])
+        const mergedCore = selectNarrativeCore(coreFamilyMembers(keep), keep.narrative?.anchor_terms || [])
         if (keep.generation !== 'deterministic') {
           for (const member of mergedCore.members) if (!keeperClassifiedIds.has(member.event_id)) mergedPendingIds.add(member.event_id)
         }
@@ -470,22 +604,25 @@ export function mergeAndRetire(themes: Theme[], now: Date, cfg: DiscoverConfig =
         // narrative after a merge. Keep them beside explicit challenges; only the remaining slots are
         // filled by the shared anchor core. This prevents bounded-ring pruning from silently declaring
         // an unreviewed update classified.
-        const protectedIds = new Set([
-          ...challengeSet,
-          ...mergedPendingIds,
-          ...(keep.narrative?.evidence || []).map((row) => row.event_id),
-        ])
-        // Pending debt is lossless even when a burst alone exceeds the ordinary ring cap. The ring may be
-        // temporarily larger than maxMembers until the FIFO drains; truncating here would make a merge
-        // silently erase rows that assignment deliberately protected.
-        const protectedMembers = keep.members.filter((member) => protectedIds.has(member.event_id))
-        const protectedMemberIds = new Set(protectedMembers.map((member) => member.event_id))
-        const coreWithoutProtected = mergedCore.members.filter((member) => !protectedMemberIds.has(member.event_id))
-        const coreSlots = Math.max(0, cfg.maxMembers - protectedMembers.length)
-        keep.members = [...(coreSlots ? coreWithoutProtected.slice(-coreSlots) : []), ...protectedMembers].sort((a, b) => Date.parse(a.found_at) - Date.parse(b.found_at))
-        // Lifetime publisher-copy totals are not a useful measure of a theme. From this merge onward the
-        // counter is repaired to the unique evidence carried by the bounded member ring.
-        keep.member_count_total = keep.members.length
+        // Keep a bounded audit history. A burst can never grow either the member ring or its pending debt
+        // past maxMembers; up to six newest observations per family remain available for state review.
+        const mergedStanceById = new Map([
+          ...(keep.narrative?.evidence || []),
+          ...(drop.narrative?.evidence || []),
+        ].map((row) => [row.event_id, row.stance]))
+        keep.members = boundThemeFamilyHistory(keep.members, cfg.maxMembers, {
+          priority: (member) => sourcePriority(member.tier),
+          stance: (member) => mergedStanceById.get(String(member.event_id)),
+          // Only rows that are genuinely unclassified by either pre-merge narrative get priority. Fresh
+          // deterministic validation queues contain every historical member and must still resolve the
+          // global hard cap by recency rather than arbitrary set insertion order.
+          preferred: (member) => mergedPendingIds.has(String(member.event_id))
+            && !mergedStanceById.has(String(member.event_id)),
+        })
+        // Preserve lifetime underlying-family cardinality across the fold. Observation history is bounded
+        // and can contain several rows per family; neither raw member length nor a post-cap union is the
+        // lifetime story count.
+        keep.member_count_total = mergedLifetimeFamilyCount
         const retainedCoreIds = new Set(mergedCore.members.map((member) => member.event_id))
         const mergedIdentity = clusterIdentity(keep.members.filter((member) => retainedCoreIds.has(member.event_id) && !challengeSet.has(member.event_id)).map((member) => ({ ...member, source_tier: member.tier })) as ThemeItemView[])
         keep.keywords = [...new Set([...(mergedCore.anchors || []), ...mergedIdentity.keywords])].slice(0, 14)
@@ -508,17 +645,29 @@ export function mergeAndRetire(themes: Theme[], now: Date, cfg: DiscoverConfig =
         // meaning and can add exactly the evidence/expression that clears admission, so fail closed until
         // the merged keeper is explicitly re-grounded on a later discovery pass.
         const retainedPendingIds = [...mergedPendingIds].filter((eventId) => keep.members.some((member) => member.event_id === eventId))
+        const retainedMemberIds = new Set(keep.members.map((member) => member.event_id))
+        const lostMergedAudit = [...mergedAuditIds].some((eventId) => !retainedMemberIds.has(eventId))
         keep.pending_narrative_event_ids = retainedPendingIds
+        if (retainedPendingIds.length < mergedPendingIds.size
+          || lostMergedAudit
+          || keep.narrative_update_overflow === true
+          || drop.narrative_update_overflow === true) keep.narrative_update_overflow = true
         if (keep.generation === 'deterministic') {
           // More than one fresh cluster can be discovered in a pass while the bounded compiler validates
           // only part of that batch. If two raw clusters merge, carry BOTH queues onto the keeper; retaining
           // the folded members without their debt would make half the evidence permanently invisible to the
           // validator even though qualification still counted it in the denominator.
           keep.needs_validation = true
+          // Raw clusters have no narrative object to carry proof-loss state. If the merged validation FIFO
+          // exceeded the audit cap, mark the same durable rebuild debt used by validated themes and never
+          // let the compiler approve only the surviving subset.
+          if (keep.narrative_update_overflow) keep.needs_narrative_update = true
           keep.validation_queued_at = now.toISOString().replace(/\.\d{3}Z$/, 'Z')
           delete keep.validation_attempted_at
         } else {
-          keep.needs_narrative_update = keep.pending_narrative_event_ids.length > 0 || undefined
+          // A hard-cap eviction is not a classification. Preserve the quarantine flag even when only a
+          // bounded subset of the merged pending queue can remain in the member audit ring.
+          keep.needs_narrative_update = hadMergedNarrativeDebt || keep.narrative_update_overflow || undefined
           keep.needs_rename = true
           keep.validation_queued_at = now.toISOString().replace(/\.\d{3}Z$/, 'Z')
           delete keep.validation_attempted_at

@@ -103,11 +103,17 @@ fs.writeFileSync(
     logLine({ v: 1, event: 'launched', ts: t0 + 3000, runId: 'r3', user: 'u', userVia: 'local', kind: 'handoff', ticker: 'THS-1::MSFT' }),
 )
 
+// A syntactically valid torn/legacy line used to reach foldRows with ticker=undefined and crash
+// resolveSubjectLabel. It must now be counted and skipped before any public field is dereferenced.
+fs.appendFileSync(path.join(STATE, 'activity-log.jsonl'), logLine({ v: 1, event: 'launched', ts: t0 + 3500, runId: 'bad-missing-identity' }))
+
 check('readActivity enriches each row with subjectLabel', () => {
   const res = readActivity({}, sigLabels)
   assert.equal(res.rows.find((r) => r.runId === 'r1')!.subjectLabel, 'Schneider Electric SE')
   assert.equal(res.rows.find((r) => r.runId === 'r3')!.subjectLabel, 'MSFT')
   assert.equal(res.rows.find((r) => r.runId === 'r2')!.subjectLabel, undefined)
+  assert.equal(res.rows.some((r) => r.runId === 'bad-missing-identity'), false)
+  assert.equal(res.invalid_event_count, 1)
 })
 check('readActivity builds tickerLabels only for ids that resolve', () => {
   const res = readActivity({}, sigLabels)
@@ -143,6 +149,79 @@ check('foldRows preserves `swarm` — a commodity run carries its swarm id so Re
   const res = readActivity({})
   assert.equal(res.rows.find((r) => r.runId === 'r6')!.swarm, 'commodity')
   assert.equal(res.rows.find((r) => r.runId === 'r4')!.swarm, 'research')
+})
+
+check('a board-ticker batch is filtered before its internal no-truncation read', () => {
+  const unrelated = Array.from({ length: 5_001 }, (_, index) => logLine({
+    v: 1, event: 'launched', ts: t0 + 10_000 + index, runId: `unrelated-${index}`,
+    user: 'u', userVia: 'local', kind: 'full', ticker: `ZZ${index}`,
+  })).join('')
+  fs.appendFileSync(path.join(STATE, 'activity-log.jsonl'), unrelated)
+  const res = readActivity({ tickers: ['AAPL'], limit: null })
+  assert.equal(res.total, 1, 'unrelated global history is removed before the board completeness check')
+  assert.equal(res.rows.length, 1, 'the relevant ticker history is returned without the public 5,000-row cap')
+  assert.equal(res.rows[0]?.ticker, 'AAPL')
+})
+
+check('an empty internal ticker batch never falls back to an unbounded global read', () => {
+  const res = readActivity({ tickers: [], limit: null })
+  assert.equal(res.total, 0)
+  assert.equal(res.rows.length, 0)
+})
+
+check('a legacy commodity finish inherits its launch identity instead of becoming corrupt or stuck running', () => {
+  fs.appendFileSync(
+    path.join(STATE, 'activity-log.jsonl'),
+    logLine({
+      v: 1, event: 'launched', ts: t0 + 18_000, runId: 'commodity-full', user: 'u', userVia: 'local',
+      kind: 'full', ticker: 'GOLD', swarm: 'commodity', runRoot: 'commodity/runs/GOLD',
+    }) + logLine({
+      v: 1, event: 'finished', ts: t0 + 19_000, runId: 'commodity-full', user: 'u', userVia: 'local',
+      kind: 'full', ticker: 'GOLD', runRoot: 'commodity/runs/GOLD', status: 'done',
+    }),
+  )
+  const res = readActivity({ ticker: 'GOLD' })
+  assert.equal(res.rows[0]?.status, 'done')
+  assert.equal(res.rows[0]?.swarm, 'commodity')
+  assert.equal(res.invalid_event_count, 1, 'only the earlier torn row is invalid')
+})
+
+check('noncanonical or cross-ticker publication identities fail the ledger trust boundary', () => {
+  fs.appendFileSync(
+    path.join(STATE, 'activity-log.jsonl'),
+    logLine({
+      v: 1, event: 'finished', ts: t0 + 20_000, runId: 'spaced-ticker', user: 'u', userVia: 'local',
+      kind: 'full', ticker: ' DIRECTA ', runRoot: 'analyses/DIRECTA_2026-08-03', status: 'error',
+    }) + logLine({
+      v: 1, event: 'finished', ts: t0 + 21_000, runId: 'wrong-root', user: 'u', userVia: 'local',
+      kind: 'full', ticker: 'DIRECTA', runRoot: 'analyses/DIRECTB_2026-08-03', status: 'error',
+    }) + logLine({
+      v: 1, event: 'finished', ts: t0 + 22_000, runId: 'spaced-root', user: 'u', userVia: 'local',
+      kind: 'full', ticker: 'DIRECTA', runRoot: ' analyses/DIRECTA_2026-08-03 ', status: 'error',
+    }) + logLine({
+      v: 1, event: 'finished', ts: t0 + 23_000, runId: 'foreign-swarm', user: 'u', userVia: 'local',
+      kind: 'full', ticker: 'DIRECTA', swarm: 'commodity', runRoot: 'analyses/DIRECTA_2026-08-03', status: 'error',
+    }) + logLine({
+      v: 1, event: 'finished', ts: t0 + 24_000, runId: 'spaced-swarm', user: 'u', userVia: 'local',
+      kind: 'full', ticker: 'DIRECTA', swarm: ' research ', runRoot: 'analyses/DIRECTA_2026-08-03', status: 'error',
+    }),
+  )
+  const res = readActivity({ tickers: ['DIRECTA'], limit: null })
+  assert.equal(res.total, 0, 'invalid identity rows are not folded into trusted activity')
+  assert.equal(res.invalid_event_count, 6, 'all five identity defects plus the earlier torn row are counted')
+})
+
+check('a perpetual activity history does not exceed the runtime argument limit', () => {
+  // V8 rejects Math.min(...timestamps) around this size. Reuse one run id so the regression exercises
+  // the unbounded event history without also manufacturing 125,000 public rows.
+  const repeated = logLine({
+    v: 1, event: 'finished', ts: t0 + 7000, runId: 'bulk', user: 'u', userVia: 'local',
+    kind: 'full', ticker: 'AAPL', status: 'done',
+  }).repeat(125_000)
+  fs.appendFileSync(path.join(STATE, 'activity-log.jsonl'), repeated)
+  const res = readActivity({ limit: 1 })
+  assert.equal(res.earliest, t0)
+  assert.equal(res.allTime, 5_009)
 })
 
 console.log(`\n${passed} checks passed`)

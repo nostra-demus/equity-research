@@ -5,7 +5,7 @@
 import { cleanTicker } from '../symbology'
 import { companyKeys, isRoutineFiling, normName } from '../text-match'
 import { rebuildThemeCompanies } from './assign'
-import { themeStoryKey } from './story-key'
+import { resolveThemeFamilyState, themeStoryFamilyKey, themeStoryObservationKey } from './story-key'
 import { selectNarrativeCore } from './core'
 import { hasExactThemeProvenance, isDisplayableThemeChallenge, isSupportingThemeEvidence, sourcePriority } from './evidence'
 import type {
@@ -52,8 +52,9 @@ export function isThemeEvidenceNoise(headline: unknown): boolean {
   return LAW_FIRM_SOLICITATION_RES.some((re) => re.test(h))
 }
 
-/** One row per actual story family. Used for honest first-look volume before any quality gate. */
-export function uniqueThemeMembers(members: ThemeMember[]): ThemeMember[] {
+/** One best row per actual publisher-copy family. Status updates remain in the raw member ledger for
+ * narrative revalidation, but they never count as independent corroboration. */
+function bestMembersByFamily(members: ThemeMember[]): ThemeMember[] {
   const candidates = arr(members).slice()
     .sort((a, b) => {
       const quality = sourcePriority(b.tier) - sourcePriority(a.tier)
@@ -65,7 +66,7 @@ export function uniqueThemeMembers(members: ThemeMember[]): ThemeMember[] {
   const out: ThemeMember[] = []
   for (const m of candidates) {
     const headline = normalizeEvidenceHeadline(evidenceHeadline(m))
-    const story = themeStoryKey(m) || `headline:${headline}`
+    const story = themeStoryFamilyKey(m) || `headline:${headline}`
     if (seenStories.has(story)) continue
     seenStories.add(story)
     out.push(m)
@@ -73,10 +74,40 @@ export function uniqueThemeMembers(members: ThemeMember[]): ThemeMember[] {
   return out
 }
 
-/**
- * One non-routine row per actual story family. Routine paperwork can provide company context in the
- * deep dive, but it cannot corroborate an investable narrative.
- */
+function resolvedNarrativeState(
+  theme: Theme,
+  observations: ThemeMember[],
+): { supported: ThemeMember[]; challenged: ThemeMember[] } {
+  if (!theme.narrative) return { supported: bestMembersByFamily(observations.filter(isSupportingThemeEvidence)), challenged: [] }
+  const memberById = new Map(observations.map((member) => [member.event_id, member]))
+  const rows = [
+    ...arr(theme.narrative.evidence).flatMap((row) => {
+      const member = memberById.get(row.event_id)
+      if (!member) return []
+      if (row.stance === 'supports' && !isSupportingThemeEvidence(member)) return []
+      if (row.stance === 'challenges' && !isDisplayableThemeChallenge(member)) return []
+      return [{ member, stance: row.stance }]
+    }),
+    ...arr(theme.narrative.context_event_ids).flatMap((eventId) => {
+      const member = memberById.get(eventId)
+      return member ? [{ member, stance: 'context' as const }] : []
+    }),
+  ]
+  const active = resolveThemeFamilyState(rows, (member) => sourcePriority(member.tier))
+  return {
+    supported: active.filter((row) => row.stance === 'supports').map((row) => row.member),
+    challenged: active.filter((row) => row.stance === 'challenges').map((row) => row.member),
+  }
+}
+
+export function uniqueThemeMembers(members: ThemeMember[]): ThemeMember[] {
+  return bestMembersByFamily(members)
+}
+
+/** Distinct exact observations for classification and challenge visibility. This deliberately does not
+ * depend on an English status-word list: once the compiler explicitly classifies a later same-family row,
+ * even opaque/non-English wording must reach family-state resolution. Corroboration callers subsequently
+ * collapse the resolved state with bestMembersByFamily/uniqueThemeMembers. */
 export function uniqueThemeEvidenceMembers(members: ThemeMember[]): ThemeMember[] {
   const candidates = arr(members).filter((m) => {
     const headline = evidenceHeadline(m)
@@ -88,13 +119,18 @@ export function uniqueThemeEvidenceMembers(members: ThemeMember[]): ThemeMember[
     return (Number.isFinite(tb) ? tb : 0) - (Number.isFinite(ta) ? ta : 0) || (b.score || 0) - (a.score || 0)
   })
   const seenStories = new Set<string>()
-  const seenHeadlines = new Set<string>()
+  const seenHeadlineFamily = new Map<string, string>()
   return candidates.filter((m) => {
     const headline = normalizeEvidenceHeadline(evidenceHeadline(m))
-    const story = themeStoryKey(m) || `headline:${headline}`
-    if (seenStories.has(story) || (headline && seenHeadlines.has(headline))) return false
+    const family = themeStoryFamilyKey(m)
+    const story = themeStoryObservationKey(m) || `headline:${headline}`
+    // Identical headlines in different family IDs are a defensive syndication-dedupe backstop. Inside one
+    // exact family, however, distinct event identities remain distinct audit observations: the compiler may
+    // have classified a same-text correction/reversal using article content or source metadata.
+    if (seenStories.has(story)
+      || (headline && seenHeadlineFamily.has(headline) && seenHeadlineFamily.get(headline) !== family)) return false
     seenStories.add(story)
-    if (headline) seenHeadlines.add(headline)
+    if (headline && !seenHeadlineFamily.has(headline)) seenHeadlineFamily.set(headline, family)
     return true
   })
 }
@@ -167,30 +203,43 @@ export function qualifyTheme(
   now: Date = new Date(),
   members: ThemeMember[] = arr(theme.members),
   companies: ThemeCompany[] = arr(theme.companies),
+  scoped = members !== theme.members,
 ): QualifiedTheme {
   const nowMs = now.getTime()
+  const scopedFamilies = new Set(arr(members).map(themeStoryFamilyKey))
   // Invalid timestamps and evidence beyond the same five-minute source-clock allowance used by Ideas are
   // not observations yet. Exclude them from every gate and from displayed proof, not only from recency.
-  const unique = uniqueThemeEvidenceMembers(members)
+  const observations = uniqueThemeEvidenceMembers(arr(theme.members))
     .filter((m) => Number.isFinite(ageHours(m.found_at, nowMs)))
     .filter(hasExactThemeProvenance)
-  const highQuality = unique.filter(isSupportingThemeEvidence)
+  // Resolve the current state of each family, rather than treating its complete audit history as current.
+  // Resolve against the GLOBAL family audit first. A challenge outside a geo/commodity slice can still
+  // invalidate that family's old scoped support; the slice then keeps only active rows it actually owns.
+  const currentState = resolvedNarrativeState(theme, observations)
+  const globallyChallengedFamilies = new Set(currentState.challenged.map(themeStoryFamilyKey))
+  const challengingMembers = currentState.challenged.filter((member) => scopedFamilies.has(themeStoryFamilyKey(member)))
+  const scopedObservations = observations.filter((member) => scopedFamilies.has(themeStoryFamilyKey(member)))
+  const projectedObservationIds = new Set(arr(members).map((member) => member.event_id))
+  // A global active challenge blocks the family's stale scoped support, but a later global restoration is
+  // not evidence inside this slice merely because its family once appeared here. Require the exact active
+  // support observation itself to belong to the caller's geo/commodity projection.
+  const highQuality = currentState.supported.filter((member) => projectedObservationIds.has(member.event_id))
+  const globallyBlockedScopedFamilies = new Set(
+    [...scopedFamilies].filter((family) => globallyChallengedFamilies.has(family)),
+  )
 
   const declaredAnchors = theme.narrative?.anchor_terms || arr(theme.keywords)
   const selected = selectNarrativeCore(highQuality, declaredAnchors)
-  const explicitSupports = new Set(
-    arr(theme.narrative?.evidence).filter((row) => row?.stance === 'supports').map((row) => row.event_id),
-  )
-  const explicitChallenges = new Set(
-    arr(theme.narrative?.evidence).filter((row) => row?.stance === 'challenges').map((row) => row.event_id),
-  )
-  // Challenges do not corroborate the thesis. Keep exact-provenance unconfirmed rows visible so a soft
-  // adverse signal cannot disappear merely because it has not yet cleared the source hierarchy.
-  const challengingMembers = unique.filter((member) => explicitChallenges.has(member.event_id) && isDisplayableThemeChallenge(member))
   const challengeSet = new Set(challengingMembers)
-  const supportedMembers = selected.members.filter((member) => !challengeSet.has(member) && (!theme.narrative || explicitSupports.has(member.event_id)))
+  const supportedMembers = selected.members.filter((member) => !challengeSet.has(member))
   const supportSet = new Set(supportedMembers)
-  const offCoreMembers = unique.filter((member) => !supportSet.has(member) && !challengeSet.has(member))
+  const supportFamilies = new Set(supportedMembers.map(themeStoryFamilyKey))
+  const challengingFamilies = new Set(challengingMembers.map(themeStoryFamilyKey))
+  const offCoreMembers = bestMembersByFamily(scopedObservations.filter((member) => {
+    const family = themeStoryFamilyKey(member)
+    return !supportFamilies.has(family) && !challengingFamilies.has(family)
+      && !supportSet.has(member) && !challengeSet.has(member)
+  }))
 
   // Recency is activity metadata, not conviction. Durable theses do not stop existing because their proof
   // arrived 7 hours ago; a new supporting/challenging observation updates a separate activity axis.
@@ -222,7 +271,9 @@ export function qualifyTheme(
   const expressionCompany = validExpressions[0] ? companyByKey.get(validExpressions[0].name_key) : undefined
   const expressionProofIds = new Set(validExpressions.flatMap((expression) => expression.evidence_event_ids))
 
-  const uniqueCount = unique.length
+  const uniqueCount = new Set(scopedObservations
+    .map(themeStoryFamilyKey)
+    .filter((family) => !globallyBlockedScopedFamilies.has(family))).size
   const supportCount = supportedMembers.length
   const coherencePct = uniqueCount ? Math.round((supportCount / uniqueCount) * 100) : 0
   const recent24Support = supportedMembers.filter((m) => ageHours(m.found_at, nowMs) <= 24)
@@ -246,6 +297,7 @@ export function qualifyTheme(
   const evidenceReady = metrics.narrative_support_count >= 2
   const coherent = metrics.recurring_narrative_token_count >= 2 && metrics.narrative_support_count >= 2 && metrics.narrative_coherence_pct >= 60
   const expressionReady = metrics.first_order_directional_ticker_count >= 1
+  const sliceStateReady = !scoped || globallyBlockedScopedFamilies.size === 0
 
   const newest = (rows: ThemeMember[]): number => Math.max(0, ...rows.map((row) => Date.parse(row.found_at) || 0))
   // `first_seen` is the immutable lifecycle start. Using the oldest retained support row lets an old theme
@@ -258,7 +310,7 @@ export function qualifyTheme(
       : recent24Support.length
         ? 'reinforced' as const
         : 'quiet' as const
-  const allGates = narrativeReady && whyNowReady && evidenceReady && coherent && expressionReady && !theme.needs_narrative_update
+  const allGates = narrativeReady && whyNowReady && evidenceReady && coherent && expressionReady && sliceStateReady && !theme.needs_narrative_update
   const supportTiers = new Set(supportedMembers.map((member) => String(member.tier || '').toLowerCase()))
   const hasPrimaryOrIssuerProof = supportedMembers.some((member) => ['primary_filing', 'official_data', 'company'].includes(String(member.tier || '').toLowerCase()))
   const conviction = allGates && supportCount >= 3 && coherencePct >= 75 && challengingMembers.length === 0 && hasPrimaryOrIssuerProof && supportTiers.size >= 2
@@ -273,7 +325,9 @@ export function qualifyTheme(
   else if (theme.needs_rename) blockers.push('Needs a fresh validator pass because the current name and description predate a material identity change.')
   else blockers.push('Needs a versioned, evidence-bound investment thesis; a company or keyword cluster is not publishable.')
   if (!whyNowReady) blockers.push('The why-now source is not part of this evidence slice; the thesis is withheld here rather than borrowing another geography or subject\'s trigger.')
-  if (theme.needs_narrative_update) blockers.push(`${theme.pending_narrative_event_ids?.length || 1} new matching evidence row${(theme.pending_narrative_event_ids?.length || 1) === 1 ? '' : 's'} still need support/challenge/context classification before this thesis can seed an idea.`)
+  if (!sliceStateReady) blockers.push('A later global observation challenges a story family in this slice; the older scoped support cannot be shown as current.')
+  if (theme.narrative_update_overflow) blockers.push('At least one unclassified matching evidence row fell outside the bounded audit ring; this thesis stays quarantined until its evidence is rebuilt.')
+  else if (theme.needs_narrative_update) blockers.push(`${theme.pending_narrative_event_ids?.length || 1} new matching evidence row${(theme.pending_narrative_event_ids?.length || 1) === 1 ? '' : 's'} still need support/challenge/context classification before this thesis can seed an idea.`)
   if (activity === 'new') reasons.push(`${metrics.recent_24h_support_count} supporting evidence row${metrics.recent_24h_support_count === 1 ? '' : 's'} formed this thesis in the last 24 hours.`)
   else if (activity === 'reinforced') reasons.push(`${metrics.recent_24h_support_count} supporting evidence row${metrics.recent_24h_support_count === 1 ? '' : 's'} reinforced the thesis in the last 24 hours.`)
   else if (activity === 'challenged') reasons.push(`${metrics.recent_24h_challenge_count} recent evidence row${metrics.recent_24h_challenge_count === 1 ? '' : 's'} challenges the thesis.`)

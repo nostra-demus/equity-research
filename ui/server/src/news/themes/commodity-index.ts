@@ -67,7 +67,8 @@ export function buildCommodityThemesIndex(
 
   for (const t of themes) {
     if (t.status !== 'live') continue
-    const sliceMembers = uniqueThemeMembers(arr(t.members).filter((m) => memberMatchesCommodity(m, filter)))
+    const sliceObservations = arr(t.members).filter((m) => memberMatchesCommodity(m, filter))
+    const sliceMembers = uniqueThemeMembers(sliceObservations)
     if (!sliceMembers.length) continue // this theme isn't about the requested commodity → drop it
 
     // Rebuild company placement from the sliced proof. The old projection reused the theme's GLOBAL
@@ -84,7 +85,9 @@ export function buildCommodityThemesIndex(
     const flow_daily = holder.flow_daily || []
     const slicedTheme: Theme = {
       ...t,
-      members: sliceMembers,
+      // Keep the complete audit ring for family-state resolution; the explicit company projection below
+      // marks this as a scoped read, while scores/flow remain computed only from sliceMembers above.
+      members: t.members,
       companies: sliceCompanies,
       sectors: [],
       scores: scored.scores,
@@ -93,9 +96,9 @@ export function buildCommodityThemesIndex(
       flow_series: scored.flow_series,
       flow_daily,
       first_seen: t.first_seen,
-      last_flow: sliceMembers.reduce((mx, m) => (m.found_at > mx ? m.found_at : mx), ''),
+      last_flow: sliceObservations.reduce((mx, m) => (m.found_at > mx ? m.found_at : mx), ''),
     }
-    const summary = buildSummary(slicedTheme, nowD, sliceCompanies)
+    const summary = buildSummary(slicedTheme, nowD, sliceCompanies, sliceObservations)
     if (summary.narrative && summary.assessment.status !== 'context') {
       const firstNonZero = summary.flow_daily.findIndex((value) => value > 0)
       if (firstNonZero >= 0) history_days = Math.max(history_days, summary.flow_daily.length - firstNonZero)

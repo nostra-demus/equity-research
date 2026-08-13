@@ -11,13 +11,14 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { assignThemes, DEFAULT_ASSIGN_CONFIG, type AssignConfig } from './assign'
-import { coherenceOf, discoverDeterministic, linkThemes, mergeAndRetire, refreshThemeIdentity, DEFAULT_DISCOVER_CONFIG, type DiscoverConfig } from './discover'
+import { assignThemes, boundThemeMembers, DEFAULT_ASSIGN_CONFIG, type AssignConfig } from './assign'
+import { coherenceOf, discoverDeterministic, familyRepresentativeItems, linkThemes, mergeAndRetire, refreshThemeIdentity, DEFAULT_DISCOVER_CONFIG, type DiscoverConfig } from './discover'
 import { scoreTheme, ensureDaily, rollDaily, DEFAULT_THEME_SCORE_CONFIG, type ThemeScoreConfig } from './score'
 import { appendThemeMutations, buildSummary, loadThemes, maybeCompactThemesLedger, readRecentThemeItems, readThemesIndex, writeThemesIndex } from './store'
 import { buildGenericSet, loadTokenDf, saveTokenDf, updateTokenDf, DEFAULT_TOKEN_DF_CONFIG, type TokenDfConfig } from './token-df'
 import type { Theme, ThemeItemView, ThemeRemoval, ThemeSummary } from './types'
-import { themeStoryKey } from './story-key'
+import { boundThemeFamilyHistory, themeStoryFamilyKey } from './story-key'
+import { sourcePriority } from './evidence'
 
 export interface ThemesConfig {
   score: ThemeScoreConfig
@@ -92,12 +93,30 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
   const themes = input.themes
   const changedIds = new Set<string>()
 
+  // Normalize legacy/previous-process state before any scoring, queueing or discovery work. Member and
+  // pending-debt state obey the configured hard cap even when the last persisted row predates this rule.
+  for (const theme of themes) {
+    const beforeMembers = theme.members.map((member) => member.event_id).join('\0')
+    const beforePending = (theme.pending_narrative_event_ids || []).join('\0')
+    const beforeNeedsNarrativeUpdate = theme.needs_narrative_update === true
+    const beforeOverflow = theme.narrative_update_overflow === true
+    boundThemeMembers(theme, cfg.assign.maxMembers)
+    if (beforeMembers !== theme.members.map((member) => member.event_id).join('\0')
+      || beforePending !== (theme.pending_narrative_event_ids || []).join('\0')
+      || beforeNeedsNarrativeUpdate !== (theme.needs_narrative_update === true)
+      || beforeOverflow !== (theme.narrative_update_overflow === true)) {
+      theme.rev++
+      changedIds.add(theme.theme_id)
+    }
+  }
+
   // Version migration is automatic and bounded. Old lexical clusters remain internal and cannot absorb
   // stories; each discovery pass enrolls at most four newest-first for the existing validator lane, with no hand edits
   // to historical rows and no separate model call.
   if (input.runDiscovery) {
     const legacyDebt = themes
-      .filter((theme) => theme.status === 'live' && !theme.narrative && !theme.needs_validation && !theme.needs_rename)
+      .filter((theme) => theme.status === 'live' && !theme.narrative && !theme.narrative_update_overflow
+        && !theme.needs_validation && !theme.needs_rename)
       .sort((a, b) => (a.last_flow < b.last_flow ? 1 : a.last_flow > b.last_flow ? -1 : 0))
       .slice(0, 4)
     for (const theme of legacyDebt) {
@@ -160,6 +179,9 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
     // assignThemes records the exact pending event IDs on validated themes. Keeping that write next to
     // membership means duplicate/no-op assignments cannot manufacture validation debt.
   }
+  // Keep bounded within-family history until discovery has selected families and attached their audit
+  // excerpts. Collapsing to one representative here erased cancellations/restorations before
+  // discoverDeterministic could preserve them on the created theme.
   let pool = [...input.pool.filter(notSocial), ...a.unclustered]
 
   // 1b. self-heal existing themes (periodic): re-derive each live theme's identity from its members with
@@ -192,13 +214,20 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
   const debtTime = (theme: Theme) => Date.parse(theme.validation_attempted_at || theme.validation_queued_at || '') || 0
   const byDebt = (a: Theme, b: Theme) => debtTime(a) - debtTime(b) || a.theme_id.localeCompare(b.theme_id)
   const updates = themes
-    .filter((t) => t.status === 'live' && t.narrative && t.needs_narrative_update)
+    // Overflow means the missing row cannot be classified from this bounded record. Retrying the model
+    // would spend money without a path to truth; keep the thesis quarantined until its evidence is rebuilt.
+    .filter((t) => t.status === 'live' && t.narrative && t.needs_narrative_update
+      && !t.narrative_update_overflow && !t.needs_rename)
     .sort(byDebt)
   const pendingValidations = input.runDiscovery ? themes
-    .filter((t) => t.status === 'live' && t.generation === 'deterministic' && t.needs_validation)
+    // A raw cluster whose pre-validation audit overflowed cannot be judged from the retained subset.
+    // Keep it quarantined until its evidence is rebuilt instead of paying the compiler to approve a
+    // materially incomplete cluster.
+    .filter((t) => t.status === 'live' && t.generation === 'deterministic' && t.needs_validation
+      && !t.narrative_update_overflow)
     .sort(byDebt) : []
   const renames = input.runDiscovery ? themes
-    .filter((t) => t.status === 'live' && t.needs_rename && !t.needs_narrative_update)
+    .filter((t) => t.status === 'live' && t.needs_rename && !t.narrative_update_overflow)
     .sort(byDebt)
     .slice(0, cfg.renamePerPass) : []
 
@@ -271,7 +300,9 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
   }
 
   // bound the pool (newest kept)
-  if (pool.length > cfg.poolCap) pool = pool.slice(pool.length - cfg.poolCap)
+  pool = boundThemeFamilyHistory(pool, cfg.poolCap, {
+    priority: (item) => sourcePriority(item.source_tier),
+  })
 
   const changedThemeIds = [...changedIds]
   const changed = themes.filter((t) => changedIds.has(t.theme_id) && t.status === 'live').map((t) => buildSummary(t, now))
@@ -380,17 +411,14 @@ export async function runThemesCycle(input: RunThemesInput): Promise<{ changed: 
   // the few items this cycle. Self-heals duplicates via mergeAndRetire.
   if (input.runDiscovery) {
     const memberStories = new Set<string>()
-    for (const t of themes) for (const m of t.members) memberStories.add(themeStoryKey(m))
-    const haveInPool = new Set(pool.map(themeStoryKey))
+    for (const t of themes) for (const m of t.members) memberStories.add(themeStoryFamilyKey(m))
     for (const it of readRecentThemeItems(input.repoRoot, input.minScore ?? 50)) {
-      const story = themeStoryKey(it)
-      if (!memberStories.has(story) && !haveInPool.has(story)) {
-        pool.push(it)
-        haveInPool.add(story)
-      }
+      const story = themeStoryFamilyKey(it)
+      if (!memberStories.has(story)) pool.push(it)
     }
-    pool = poolOldestFirst(pool)
-    if (pool.length > cfg.poolCap) pool = pool.slice(pool.length - cfg.poolCap)
+    pool = boundThemeFamilyHistory(poolOldestFirst(pool), cfg.poolCap, {
+      priority: (item) => sourcePriority(item.source_tier),
+    })
   }
   const res = await stepThemes({ themes, pool, items: input.items, runDiscovery: input.runDiscovery, now: cycleNow, cfg, llmNamer: input.llmNamer, generic })
   // A theme can cross the 6h qualification boundary while its persisted Theme record and heat tier remain

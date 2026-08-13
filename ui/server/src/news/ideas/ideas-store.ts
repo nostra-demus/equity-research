@@ -13,10 +13,17 @@ import { fileURLToPath } from 'node:url'
 import { eventIdFor } from '../normalize'
 import { readFeed } from '../feed'
 import { cleanTicker, normTicker } from '../symbology'
+import { SOURCE_TIERS, type SourceTierId } from '../scope'
 import { createThemesIndexReader } from '../themes/api-index'
+import {
+  resolveThemeFamilyState,
+  sameThemeStoryObservation,
+  themeStoryFamilyKey,
+} from '../themes/story-key'
 import { loadThemes, readThemesIndex, themesLedgerPath } from '../themes/store'
 import type { Theme, ThemeMember } from '../themes/types'
 import type { FeedItem } from '../types'
+import { classifyStoryObservation, type StoryObservationKind } from '../write-inbox'
 import { parseRfc3339Ms } from '../../rfc3339'
 import { canonicalJsonText } from '../../canonical-json'
 import { acquireRetainedFlockSync, releaseRetainedFlock } from '../../singleton-lock'
@@ -60,7 +67,7 @@ export interface SurfacedIdea {
   conviction: number // 0-100 pre-edge PROXY
   conviction_basis: 'pre_edge_proxy' // hard label — never the locked edge score (§7)
   trade_score: number // strict, capped readiness score; still not expected return or a verdict
-  trade_score_basis: 'evidence_gate_v1'
+  trade_score_basis: 'evidence_gate_v1' | 'evidence_gate_v2'
   trade_score_breakdown: TradeScoreBreakdown
   trade_readiness: 'check_now' | 'needs_data' | 'watch_only'
   missing_checks: string[]
@@ -102,7 +109,7 @@ export interface IdeaSnapshotStoreRead {
   error: string | null
 }
 
-export type TopSweepStatus = 'ok' | 'missing' | 'corrupt' | 'stale'
+export type TopSweepStatus = 'ok' | 'missing' | 'corrupt' | 'stale' | 'degraded'
 export interface TopSweepRead {
   rows: IdeaInputRow[]
   status: TopSweepStatus
@@ -405,6 +412,66 @@ function validTradeBreakdown(value: unknown): value is TradeScoreBreakdown {
     && boundedNumber(value.learning_adjustment, -8, 8, true)
 }
 
+const V2_LIVE_DATA_GAP = 'live price, liquidity, and consensus'
+const V2_MISSING_CHECKS = new Set([
+  'verified listed ticker', 'verified listing', 'live liquidity', 'dated catalyst',
+  'raw economic impact', 'priced-in risk', 'price and market expectations',
+  'independent confirmation', V2_LIVE_DATA_GAP,
+])
+
+/** V2 snapshots cannot be fully replayed from the compact card record because the individual source rows
+ * are intentionally not duplicated there. Bind every field that *is* deterministic at this boundary:
+ * exact scorer arithmetic, the directory-only listing state, the permanent news-only cap, and all missing
+ * checks implied by persisted state. A malformed cache may become less prominent; it may never claim a
+ * readiness state the V2 producer cannot emit. */
+function validEvidenceGateV2State(value: Record<string, unknown>): boolean {
+  if (value.trade_score_basis !== 'evidence_gate_v2') return true
+  if (!validTradeBreakdown(value.trade_score_breakdown) || !Array.isArray(value.missing_checks)) return false
+  const breakdown = value.trade_score_breakdown
+  const missing = value.missing_checks as string[]
+  const has = (check: string): boolean => missing.includes(check)
+  if (missing.some((check) => !V2_MISSING_CHECKS.has(check))) return false
+
+  // runIdeaPass uses one exact directory result for ticker + listing and deliberately leaves liquidity
+  // unverified. Any other combination was not produced by evidence_gate_v2.
+  const listingVerified = value.listing_verified === true
+  if (value.ticker_verified !== listingVerified || value.liquidity_verified !== false) return false
+  if (breakdown.specificity !== (listingVerified ? 15 : 7)) return false
+  if (breakdown.expression !== (listingVerified ? 6 : 0)) return false
+  if (breakdown.learning_adjustment !== (value.learning as IdeaLearning).adjustment) return false
+  if (![0, 3, 7, 14, 18, 23, 25].includes(breakdown.evidence)) return false
+  if (![2, 6, 10, 15].includes(breakdown.timing)) return false
+  if (![0, 6, 10].includes(breakdown.corroboration)) return false
+
+  if (has('verified listed ticker') !== !listingVerified || has('verified listing') !== !listingVerified) return false
+  if (!has('live liquidity') || !has(V2_LIVE_DATA_GAP)) return false
+  if (has('dated catalyst') !== (breakdown.timing !== 15)) return false
+  if (has('raw economic impact') !== (breakdown.impact === 0)) return false
+  if (has('independent confirmation') !== (breakdown.corroboration === 0 && breakdown.evidence < 23)) return false
+  if (has('priced-in risk') !== (value.priced_in === 'priced')) return false
+  if (has('price and market expectations') !== (value.priced_in === 'unknown')) return false
+
+  let cap = 100
+  if (!listingVerified) cap = Math.min(cap, 45)
+  if (!listingVerified) cap = Math.min(cap, 55)
+  cap = Math.min(cap, 62) // liquidity is deliberately unverified in V2
+  if (has('dated catalyst')) cap = Math.min(cap, 65)
+  if (has('raw economic impact')) cap = Math.min(cap, 65)
+  if (value.priced_in === 'priced') cap = Math.min(cap, 55)
+  else if (value.priced_in === 'unknown') cap = Math.min(cap, 60)
+  else cap = Math.min(cap, 62)
+  if (has('independent confirmation')) cap = Math.min(cap, 62)
+  cap = Math.min(cap, 62) // every news-only row carries the explicit live-data ceiling
+
+  const uncapped = Math.max(0, Math.min(100,
+    breakdown.evidence + breakdown.impact + breakdown.specificity + breakdown.timing +
+    breakdown.expression + breakdown.corroboration + breakdown.learning_adjustment,
+  ))
+  if (value.trade_score !== Math.min(uncapped, cap)) return false
+  const expectedReadiness = listingVerified && value.trade_score >= 45 ? 'needs_data' : 'watch_only'
+  return value.trade_readiness === expectedReadiness
+}
+
 function validLearning(value: unknown): value is IdeaLearning {
   if (!record(value)) return false
   const counts = [value.resolved, value.positive, value.negative, value.neutral]
@@ -487,9 +554,10 @@ export function isSurfacedIdeaSnapshot(value: unknown, expectedIdeaId?: string):
   if (direction === 'pair' ? value.pair_with === null : value.pair_with !== null) return false
   if (!exactString(value.reason, 280) || !exactString(value.why_now, 240)) return false
   if (!boundedNumber(value.conviction, 0, 100, true) || value.conviction_basis !== 'pre_edge_proxy') return false
-  if (!boundedNumber(value.trade_score, 0, 100, true) || value.trade_score_basis !== 'evidence_gate_v1') return false
+  if (!boundedNumber(value.trade_score, 0, 100, true) || !['evidence_gate_v1', 'evidence_gate_v2'].includes(String(value.trade_score_basis))) return false
   if (!validTradeBreakdown(value.trade_score_breakdown) || !READINESS.has(value.trade_readiness as SurfacedIdea['trade_readiness'])) return false
   if (!exactStringArray(value.missing_checks, 32, 160, true, true) || !validLearning(value.learning)) return false
+  if (!validEvidenceGateV2State(value)) return false
   if (!PRICED_IN.has(value.priced_in as PricedIn) || !THESIS_TYPE_SET.has(String(value.thesis_type))) return false
   if (!exactStringArray(value.source_event_ids, 64, 16, false, true) || !value.source_event_ids.every((id) => EVENT_ID_RE.test(id))) return false
   const hasPrimarySource = Object.prototype.hasOwnProperty.call(value, 'primary_source_event_id')
@@ -559,30 +627,279 @@ export function isSurfacedIdeaSnapshot(value: unknown, expectedIdeaId?: string):
   return true
 }
 
-function ideaStoryKey(row: IdeaInputRow): string {
-  return row.dedup_group?.trim() || row.event_id
+/** Candidate dedupe is exact-observation level, not a finite English status-word list. The bounded family
+ * cap and model-visible story_family label prevent those retained observations from becoming fake breadth. */
+function sameIdeaObservation(left: IdeaInputRow, right: IdeaInputRow): boolean {
+  return sameThemeStoryObservation(
+    { ...left, headline: left.headline_orig || left.headline, headline_en: left.headline || left.headline_orig },
+    { ...right, headline: right.headline_orig || right.headline, headline_en: right.headline || right.headline_orig },
+  )
 }
 
-/** `dedup_group` is the earliest member's event id. Treat both fields as aliases so a legacy anchor
- * without a persisted group still joins a newer publisher copy whose group points at that anchor. */
-function ideaStoryIds(row: Pick<IdeaInputRow, 'event_id' | 'dedup_group'>): string[] {
-  const group = row.dedup_group?.trim()
-  return group && group !== row.event_id ? [row.event_id, group] : [row.event_id]
+/** Stable URL identity for human vetoes. Tracking/query order and fragments cannot resurrect the same
+ * article, while meaningful non-tracking query parameters remain part of the source identity. */
+function canonicalHumanVetoUrl(raw: unknown): string {
+  const value = typeof raw === 'string' ? raw.trim().slice(0, 4_000) : ''
+  if (!value) return ''
+  try {
+    const url = new URL(value)
+    if (url.protocol !== 'http:' && url.protocol !== 'https:') return value
+    url.hash = ''
+    const drop: string[] = []
+    url.searchParams.forEach((_entry, key) => {
+      if (/^utm_/i.test(key) || /^(fbclid|gclid|cmpid|mc_cid|mc_eid|ref)$/i.test(key)) drop.push(key)
+    })
+    for (const key of drop) url.searchParams.delete(key)
+    url.searchParams.sort()
+    url.pathname = url.pathname.replace(/\/{2,}/g, '/').replace(/\/+$/, '') || '/'
+    return url.toString().replace(/\/$/, '')
+  } catch {
+    // A malformed but stable imported URL is still a useful negative alias. The exact trimmed value is
+    // safer than discarding the only identity a legacy consumed/dismissed row may carry.
+    return value
+  }
 }
 
-function sameIdeaStory(left: IdeaInputRow, right: IdeaInputRow): boolean {
-  const rightIds = new Set(ideaStoryIds(right))
-  return ideaStoryIds(left).some((id) => rightIds.has(id))
+/** Human decisions bind the event, the stable publisher-copy family, and canonical URL. Emit both event
+ * and family namespaces for every id so a legacy anchor (event=A) and a later copy (family=A) cross-match. */
+function ideaHumanVetoKeys(row: { event_id?: unknown; dedup_group?: unknown; url?: unknown }): string[] {
+  const ids = [row.event_id, row.dedup_group]
+    .flatMap((value) => typeof value === 'string' && value.trim() ? [value.trim()] : [])
+  const keys = ids.flatMap((id) => [`event:${id}`, `family:${id}`])
+  const url = canonicalHumanVetoUrl(row.url)
+  if (url) keys.push(`url:${url}`)
+  return [...new Set(keys)]
 }
 
-function dedupeIdeaRows(rows: IdeaInputRow[]): IdeaInputRow[] {
-  const seenStoryIds = new Set<string>()
-  return rows.filter((row) => {
-    const ids = ideaStoryIds(row)
-    if (!row.event_id || ids.some((id) => seenStoryIds.has(id))) return false
-    for (const id of ids) seenStoryIds.add(id)
-    return true
+const MAX_IDEA_OBSERVATIONS_PER_STORY_FAMILY = 4
+const ideaTierRank = (tier?: string): number => tier ? SOURCE_TIERS[tier as SourceTierId]?.rank ?? 0 : 0
+const ideaRowTime = (row: IdeaInputRow): number => {
+  const parsed = parseRfc3339Ms(row.found_at)
+  return Number.isFinite(parsed) ? parsed : 0
+}
+const byIdeaEvidenceQuality = (a: IdeaInputRow, b: IdeaInputRow): number => (
+  ideaTierRank(b.source_tier) - ideaTierRank(a.source_tier)
+  || b.materiality - a.materiality
+  || ideaRowTime(b) - ideaRowTime(a)
+  || a.event_id.localeCompare(b.event_id)
+)
+const byIdeaObservationRecency = (a: IdeaInputRow, b: IdeaInputRow): number => (
+  ideaRowTime(b) - ideaRowTime(a)
+  || ideaTierRank(b.source_tier) - ideaTierRank(a.source_tier)
+  || b.materiality - a.materiality
+  || a.event_id.localeCompare(b.event_id)
+)
+
+function ideaObservationKind(row: IdeaInputRow): StoryObservationKind {
+  return classifyStoryObservation({
+    headline: row.headline_orig || row.headline,
+    headline_en: row.headline || row.headline_orig,
+    event_types: row.event_types,
   })
+}
+
+function orderedIdeaFamilyRows(group: IdeaInputRow[], cap: number): IdeaInputRow[] {
+  const limit = Math.max(0, Math.floor(cap))
+  const selected: IdeaInputRow[] = []
+  const add = (row: IdeaInputRow | undefined): void => {
+    if (row && selected.length < limit && !selected.includes(row)) selected.push(row)
+  }
+  // First preserve the §4 source winner, then the latest opposing/restorative states and newest exact
+  // observation. The shared guarded classifier prevents an unrelated "proceeds" noun from taking the
+  // restoration slot; all remaining exact-family observations are still eligible inside the hard cap.
+  add([...group].sort(byIdeaEvidenceQuality)[0])
+  add([...group].filter((row) => ideaObservationKind(row) === 'adverse').sort(byIdeaObservationRecency)[0])
+  add([...group].filter((row) => ideaObservationKind(row) === 'restorative').sort(byIdeaObservationRecency)[0])
+  add([...group].sort(byIdeaObservationRecency)[0])
+  for (const row of [...group].sort(byIdeaObservationRecency)) add(row)
+  return selected
+}
+
+/** Collapse publisher copies, bound each family's audit history, then apply the global top-N cap without
+ * discarding a family's best source. */
+function selectIdeaRows(
+  rows: IdeaInputRow[],
+  maxRows: number,
+  maxPerFamily = MAX_IDEA_OBSERVATIONS_PER_STORY_FAMILY,
+): IdeaInputRow[] {
+  // Legacy callers without an explicit freshness contract may still supply rows with no source clock.
+  // Such a row can remain a singleton fallback, but it cannot become a second "observation" or win a
+  // tie once the same family has any properly dated evidence.
+  const familiesWithSourceTime = new Set(rows
+    .filter((row) => Number.isFinite(parseRfc3339Ms(row.found_at)))
+    .map((row) => themeStoryFamilyKey(row) || row.event_id))
+  rows = rows.filter((row) => Number.isFinite(parseRfc3339Ms(row.found_at))
+    || !familiesWithSourceTime.has(themeStoryFamilyKey(row) || row.event_id))
+  const familyPriorities = new Map<string, IdeaInputRow>()
+  for (const row of rows) {
+    const family = themeStoryFamilyKey(row) || row.event_id
+    const prior = familyPriorities.get(family)
+    if (!prior || (row.materiality - prior.materiality
+      || ideaTierRank(row.source_tier) - ideaTierRank(prior.source_tier)
+      || ideaRowTime(row) - ideaRowTime(prior)
+      || prior.event_id.localeCompare(row.event_id)) > 0) familyPriorities.set(family, row)
+  }
+  const ordered = [...rows].sort(byIdeaEvidenceQuality)
+  const observations: IdeaInputRow[] = []
+  for (const row of ordered) {
+    if (!row.event_id || observations.some((prior) => sameIdeaObservation(row, prior))) continue
+    observations.push(row)
+  }
+
+  const families = new Map<string, IdeaInputRow[]>()
+  for (const row of observations) {
+    const family = themeStoryFamilyKey(row) || row.event_id
+    const group = families.get(family) || []
+    group.push(row)
+    families.set(family, group)
+  }
+  const familyCap = Math.max(1, Math.floor(maxPerFamily))
+  const selections = [...families.entries()].map(([key, group]) => {
+    const selected = orderedIdeaFamilyRows(group, familyCap)
+    const priority = familyPriorities.get(key) || [...group].sort((a, b) => b.materiality - a.materiality
+      || ideaTierRank(b.source_tier) - ideaTierRank(a.source_tier)
+      || ideaRowTime(b) - ideaRowTime(a)
+      || a.event_id.localeCompare(b.event_id))[0]
+    return { key, priority, rows: selected }
+  }).sort((a, b) => b.priority.materiality - a.priority.materiality
+    || ideaTierRank(b.priority.source_tier) - ideaTierRank(a.priority.source_tier)
+    || ideaRowTime(b.priority) - ideaRowTime(a.priority)
+    || a.key.localeCompare(b.key))
+
+  // Choose families by the best material observation, then take one §4 source winner from every chosen
+  // family before any second/third observation. A noisy status family can no longer crowd an unrelated
+  // high-value filing out, and the final slice cannot undo the source-hierarchy pin.
+  const cap = Math.max(0, Math.floor(maxRows))
+  const chosen = selections.slice(0, cap)
+  const picked: IdeaInputRow[] = []
+  for (let depth = 0; picked.length < cap; depth++) {
+    let found = false
+    for (const family of chosen) {
+      const row = family.rows[depth]
+      if (!row) continue
+      picked.push(row)
+      found = true
+      if (picked.length >= cap) break
+    }
+    if (!found) break
+  }
+  return picked.sort((a, b) => b.materiality - a.materiality
+    || ideaTierRank(b.source_tier) - ideaTierRank(a.source_tier)
+    || a.event_id.localeCompare(b.event_id))
+}
+
+const uniqueBy = <T>(rows: T[], key: (row: T) => string): T[] => {
+  const out = new Map<string, T>()
+  for (const row of rows) if (!out.has(key(row))) out.set(key(row), row)
+  return [...out.values()]
+}
+
+/** Coalesce only the SAME canonical event. A publisher copy with a different event id remains a separate,
+ * family-labelled observation; silently moving Theme lineage onto a different filing would forge the
+ * revision's evidence edge. For an exact event, however, the better source row can safely carry the
+ * Theme metadata because the event id still binds the exact headline+URL. */
+function coalesceThemeRows(themeRows: IdeaInputRow[], wireRows: IdeaInputRow[]): IdeaInputRow[] {
+  const out = new Map<string, IdeaInputRow>()
+  for (const themeRow of themeRows) {
+    const prior = out.get(themeRow.event_id)
+    const wire = wireRows.find((row) => row.event_id === themeRow.event_id)
+    const candidates = [prior, wire, themeRow].filter((row): row is IdeaInputRow => Boolean(row))
+    const evidence = [...candidates].sort(byIdeaEvidenceQuality)[0]
+    const sourceThemes = uniqueBy(
+      candidates.flatMap((row) => row.source_themes || []),
+      (theme) => `${theme.theme_id}@${theme.theme_rev}:${theme.why_now_event_id || ''}`,
+    )
+    const themeContexts = uniqueBy(
+      candidates.flatMap((row) => row.theme_contexts || []),
+      (context) => `${context.theme_id}@${context.theme_rev}:${context.role}:${context.why_now_event_id}`,
+    )
+    const themeExpressions = uniqueBy(
+      candidates.flatMap((row) => row.theme_expressions || []),
+      (expression) => `${expression.theme_id}@${expression.theme_rev}:${expression.name_key}:${expression.ticker}:${expression.side}`,
+    )
+    out.set(themeRow.event_id, {
+      ...evidence,
+      origin_type: wire || candidates.some((row) => row.origin_type === 'mixed') ? 'mixed' : 'theme',
+      source_themes: sourceThemes,
+      theme_contexts: themeContexts,
+      theme_expressions: themeExpressions,
+    })
+  }
+  return [...out.values()]
+}
+
+/** Build the actual model prompt after Theme insertion. Theme rows are indivisible proof packages, but
+ * they still count against the same story-family cap as wire rows. Each reserved family's best wire source
+ * and at least one independent family are pinned before extra observations, so insertion cannot replace a
+ * filing with a weaker copy or crowd every unrelated story out of top-N. */
+function projectIdeaRowsWithThemes(
+  wireRows: IdeaInputRow[],
+  rawThemeRows: IdeaInputRow[],
+  maxRows: number,
+): IdeaInputRow[] {
+  const cap = Math.max(0, Math.floor(maxRows))
+  if (!cap) return []
+  const familyCap = cap > 1 ? Math.min(MAX_IDEA_OBSERVATIONS_PER_STORY_FAMILY, cap - 1) : 1
+  const themeRows = coalesceThemeRows(rawThemeRows, wireRows)
+  const picked = [...themeRows]
+  const pickedEvents = new Set(picked.map((row) => row.event_id))
+  const familyCounts = new Map<string, number>()
+  for (const row of picked) {
+    const family = themeStoryFamilyKey(row) || row.event_id
+    familyCounts.set(family, (familyCounts.get(family) || 0) + 1)
+  }
+  if ([...familyCounts.values()].some((count) => count > familyCap) || picked.length > cap) return []
+
+  const grouped = new Map<string, IdeaInputRow[]>()
+  for (const row of wireRows) {
+    if (pickedEvents.has(row.event_id)) continue
+    const family = themeStoryFamilyKey(row) || row.event_id
+    const group = grouped.get(family) || []
+    if (!group.some((prior) => sameIdeaObservation(row, prior))) group.push(row)
+    grouped.set(family, group)
+  }
+  const priority = (rows: IdeaInputRow[]): IdeaInputRow => [...rows].sort((a, b) => b.materiality - a.materiality
+    || ideaTierRank(b.source_tier) - ideaTierRank(a.source_tier)
+    || ideaRowTime(b) - ideaRowTime(a)
+    || a.event_id.localeCompare(b.event_id))[0]
+  const families = [...grouped.entries()].map(([key, rows]) => ({
+    key,
+    rows: orderedIdeaFamilyRows(rows, familyCap),
+    priority: priority(rows),
+  })).sort((a, b) => b.priority.materiality - a.priority.materiality
+    || ideaTierRank(b.priority.source_tier) - ideaTierRank(a.priority.source_tier)
+    || ideaRowTime(b.priority) - ideaRowTime(a.priority)
+    || a.key.localeCompare(b.key))
+
+  const add = (row: IdeaInputRow | undefined): boolean => {
+    if (!row || picked.length >= cap || pickedEvents.has(row.event_id)) return false
+    const family = themeStoryFamilyKey(row) || row.event_id
+    if ((familyCounts.get(family) || 0) >= familyCap) return false
+    picked.push(row)
+    pickedEvents.add(row.event_id)
+    familyCounts.set(family, (familyCounts.get(family) || 0) + 1)
+    return true
+  }
+
+  const reservedFamilies = new Set(themeRows.map((row) => themeStoryFamilyKey(row) || row.event_id))
+  // Pin the best wire source for every family represented by a Theme package. This is what keeps a
+  // primary filing visible beside a different-event news copy without forging the Theme evidence id.
+  for (const family of families.filter((entry) => reservedFamilies.has(entry.key))) add(family.rows[0])
+  // Then pin the highest-priority independent family before any second observation from a reserved one.
+  add(families.find((entry) => !reservedFamilies.has(entry.key))?.rows[0])
+
+  for (let depth = 0; picked.length < cap; depth++) {
+    let found = false
+    for (const family of families) {
+      const row = family.rows[depth]
+      if (add(row)) found = true
+      if (picked.length >= cap) break
+    }
+    if (!found && !families.some((family) => family.rows.slice(depth + 1).some((row) => !pickedEvents.has(row.event_id)))) break
+  }
+  return picked.sort((a, b) => b.materiality - a.materiality
+    || ideaTierRank(b.source_tier) - ideaTierRank(a.source_tier)
+    || a.event_id.localeCompare(b.event_id))
 }
 
 function validThemeRef(theme: unknown): theme is {
@@ -667,6 +984,20 @@ function canonicalThemeProof(repoRoot: string): {
     }
   }
   return { byRevision, sourcesByEvent }
+}
+
+/** Canonical Theme narratives retain a bounded audit trail, including resolved historical challenges.
+ * Re-run the same family-state rule used by the PM projection so only an ACTIVE challenge vetoes Ideas;
+ * a later support restores the family only when its source priority meets or beats the challenge. */
+function retainedThemeHasActiveChallenge(theme: Theme): boolean {
+  if (!theme.narrative) return false
+  const memberById = new Map(theme.members.map((member) => [member.event_id, member]))
+  const classified = theme.narrative.evidence.flatMap((evidence) => {
+    const member = memberById.get(evidence.event_id)
+    return member ? [{ member, stance: evidence.stance }] : []
+  })
+  return resolveThemeFamilyState(classified, (member) => ideaTierRank(member.tier))
+    .some((row) => row.stance === 'challenges')
 }
 
 type ThemeIdeaFeedSource = Pick<FeedItem, 'event_id' | 'headline' | 'url' | 'source_name' | 'triage_score'>
@@ -784,7 +1115,7 @@ function readActionableThemeRows(
     if (!validThemeRef(theme) || conflictingThemeIds.has(theme.theme_id)) continue
     const retained = canonical.byRevision.get(canonicalThemeKey(theme.theme_id, theme.rev))
     if ((ledgerPresent && !retained)
-      || retained?.narrative?.evidence.some((evidence) => evidence.stance === 'challenges')) continue
+      || (retained && retainedThemeHasActiveChallenge(retained))) continue
     const whyNowEventId = theme.narrative.why_now_event_id
     const proofIds = new Set(theme.qualified_expressions
       .flatMap((expression) => expression.evidence_event_ids)
@@ -890,10 +1221,11 @@ function readActionableThemeRows(
 }
 
 /**
- * Read the freshest curated sweep (the top-N the auto-ingester writes every cycle) into skim input rows,
- * sorted by materiality, capped at `topN`. Drops nothing but consumed/dismissed rows and the low tail:
- * a surfacing candidate must have cleared the wire's own pick/watch bar (triage_score present). Never
- * throws — a missing sweep yields [].
+ * Read every trustworthy curated sweep that overlaps the source-freshness window into skim input rows,
+ * sorted by materiality and capped at `topN`. Daily files are storage partitions, not freshness
+ * boundaries: a 23:59 story must remain eligible after midnight until its source timestamp ages out.
+ * Drops consumed/dismissed rows, duplicate story families, and the low tail. Never throws — a missing
+ * sweep yields []. Callers without a freshness contract keep the legacy newest-file-only read.
  */
 export function readTopSweep(
   repoRoot: string,
@@ -901,84 +1233,191 @@ export function readTopSweep(
   freshness?: TopSweepFreshnessOptions,
 ): TopSweepRead {
   const inboxDir = path.join(repoRoot, 'screener', 'inbox')
-  let file: string | null = null
   let sweepFiles: string[] = []
   try {
     sweepFiles = fs.readdirSync(inboxDir).filter((f) => f.endsWith('_sweep.json')).sort().reverse()
-    file = sweepFiles.length ? path.join(inboxDir, sweepFiles[0]) : null
   } catch { return { rows: [], status: 'missing', sweep_updated_at: null, candidate_count: 0, stale_row_count: 0, invalid_time_count: 0 } }
-  if (!file) return { rows: [], status: 'missing', sweep_updated_at: null, candidate_count: 0, stale_row_count: 0, invalid_time_count: 0 }
-  let doc: any
-  try { doc = JSON.parse(fs.readFileSync(file, 'utf8')) } catch {
+  if (!sweepFiles.length) return { rows: [], status: 'missing', sweep_updated_at: null, candidate_count: 0, stale_row_count: 0, invalid_time_count: 0 }
+
+  interface SweepPartition {
+    rows: any[]
+    updatedAt: string | null
+    updatedMs: number
+  }
+  const partitionCache = new Map<string, SweepPartition | null>()
+  const readPartition = (name: string): SweepPartition | null => {
+    if (partitionCache.has(name)) return partitionCache.get(name) ?? null
+    let partition: SweepPartition | null = null
+    try {
+      const doc = JSON.parse(fs.readFileSync(path.join(inboxDir, name), 'utf8'))
+      if (Array.isArray(doc?.rows)) {
+        const updatedAt = typeof doc.updated_at === 'string' ? doc.updated_at : null
+        partition = { rows: doc.rows, updatedAt, updatedMs: parseRfc3339Ms(updatedAt) }
+      }
+    } catch {}
+    partitionCache.set(name, partition)
+    return partition
+  }
+  const partitionDayOverlaps = (name: string, floorMs: number, ceilingMs: number): boolean => {
+    const day = name.match(/^(\d{4}-\d{2}-\d{2})_sweep\.json$/)?.[1]
+    const start = day ? Date.parse(`${day}T00:00:00Z`) : NaN
+    return Number.isFinite(start) && start <= ceilingMs && start + 86_400_000 > floorMs
+  }
+  const partitionDayImmediatelyPrecedes = (name: string, floorMs: number): boolean => {
+    if (!Number.isFinite(floorMs)) return false
+    const day = name.match(/^(\d{4}-\d{2}-\d{2})_sweep\.json$/)?.[1]
+    const start = day ? Date.parse(`${day}T00:00:00Z`) : NaN
+    const floorDayStart = Math.floor(floorMs / 86_400_000) * 86_400_000
+    return Number.isFinite(start) && start + 86_400_000 === floorDayStart
+  }
+
+  // Preserve the existing fail-closed boundary for the newest partition. An older file cannot stand in
+  // for current state when the newest write is unreadable: it may contain a consume/dismiss action that
+  // would otherwise be silently reversed.
+  const newest = readPartition(sweepFiles[0])
+  if (!newest) {
     return { rows: [], status: 'corrupt', sweep_updated_at: null, candidate_count: 0, stale_row_count: 0, invalid_time_count: 0 }
   }
-  if (!Array.isArray(doc?.rows)) {
-    return {
-      rows: [], status: 'corrupt',
-      sweep_updated_at: typeof doc?.updated_at === 'string' ? doc.updated_at : null,
-      candidate_count: 0, stale_row_count: 0, invalid_time_count: 0,
-    }
-  }
-  const rows: any[] = doc.rows
-  const blockedStoryIds = new Set<string>()
-  const humanSweepLookback = freshness && Number.isFinite(freshness.maxAgeMs) && freshness.maxAgeMs > 0
-    // One daily file per name: the extra two cover both clock/date boundaries around a partial-day window.
-    ? Math.max(2, Math.ceil(freshness.maxAgeMs / 86_400_000) + 2)
-    : 2
-  // Human state is durable across the midnight file rollover. Scan only files that can overlap the source
-  // freshness window; malformed historical files are skipped and cannot poison the healthy current sweep.
-  for (const sweepName of sweepFiles.slice(0, humanSweepLookback)) {
-    let humanRows: any[]
-    if (path.join(inboxDir, sweepName) === file) humanRows = rows
-    else {
-      try {
-        const priorDoc = JSON.parse(fs.readFileSync(path.join(inboxDir, sweepName), 'utf8'))
-        humanRows = Array.isArray(priorDoc?.rows) ? priorDoc.rows : []
-      } catch { continue }
-    }
-    for (const row of humanRows) {
-      if (!row || (!row.consumed && !row.dismissed)) continue
-      if (typeof row.event_id === 'string' && EVENT_ID_RE.test(row.event_id)) blockedStoryIds.add(row.event_id)
-      if (typeof row.headline === 'string' && row.headline && typeof row.url === 'string' && row.url) {
-        blockedStoryIds.add(eventIdFor(row.headline, row.url))
-      }
-      if (typeof row.dedup_group === 'string' && row.dedup_group.trim()) blockedStoryIds.add(row.dedup_group.trim())
-    }
-  }
-  const candidates = rows
-    .filter((r) => r && r.url && !r.consumed && !r.dismissed && typeof r.triage_score === 'number')
-    .sort((a, b) => (b.triage_score ?? -1) - (a.triage_score ?? -1))
-  const sweepUpdatedAt = typeof doc?.updated_at === 'string' ? doc.updated_at : null
   let staleRowCount = 0
   let invalidTimeCount = 0
   let status: TopSweepStatus = 'ok'
-  let eligible = candidates
-  const sweepMs = sweepUpdatedAt ? parseRfc3339Ms(sweepUpdatedAt) : NaN
+  const invalidPartitionNames = new Set<string>()
+  const noteInvalidPartition = (name: string): void => {
+    if (!invalidPartitionNames.has(name)) {
+      invalidPartitionNames.add(name)
+      invalidTimeCount++
+    }
+    status = 'degraded'
+  }
+  let partitions: SweepPartition[] = [newest]
+  let sweepUpdatedAt = newest.updatedAt
+  let sweepMs = newest.updatedMs
   if (freshness) {
     const futureSkewMs = Math.max(0, freshness.futureSkewMs ?? 5 * 60_000)
     const maxAgeMs = Number.isFinite(freshness.maxAgeMs) && freshness.maxAgeMs > 0 ? freshness.maxAgeMs : 1
     const floor = freshness.nowMs - maxAgeMs
     const ceiling = freshness.nowMs + futureSkewMs
-    if (!Number.isFinite(sweepMs)) {
-      status = 'corrupt'
-      invalidTimeCount++
-      eligible = []
-    } else if (sweepMs < floor || sweepMs > ceiling) {
-      status = 'stale'
-      eligible = []
-    } else {
-      eligible = candidates.filter((r) => {
-        const foundMs = typeof r.found_at === 'string' ? parseRfc3339Ms(r.found_at) : NaN
-        if (!Number.isFinite(foundMs)) { invalidTimeCount++; return false }
-        if (foundMs < floor || foundMs > ceiling) { staleRowCount++; return false }
-        return true
-      })
-      if (!eligible.length && candidates.length && (staleRowCount || invalidTimeCount)) status = 'stale'
+    if (!Number.isFinite(newest.updatedMs)) {
+      return {
+        rows: [], status: 'corrupt', sweep_updated_at: newest.updatedAt,
+        candidate_count: 0, stale_row_count: 0, invalid_time_count: 1,
+      }
     }
+    if (newest.updatedMs < floor || newest.updatedMs > ceiling) {
+      return {
+        rows: [], status: 'stale', sweep_updated_at: newest.updatedAt,
+        candidate_count: 0, stale_row_count: 0, invalid_time_count: 0,
+      }
+    }
+
+    partitions = []
+    sweepUpdatedAt = null
+    sweepMs = Number.NEGATIVE_INFINITY
+    // One partition per day; the extra two cover both date/clock boundaries around a partial-day
+    // freshness window. Never synchronously re-read an unbounded archive on the live Ideas route.
+    const candidateSweepLookback = Math.max(1, Math.ceil(maxAgeMs / 86_400_000) + 2)
+    const candidateFiles = [sweepFiles[0], ...sweepFiles.slice(1).filter((name) => partitionDayOverlaps(name, floor, ceiling))]
+      .slice(0, candidateSweepLookback)
+    for (let index = 0; index < candidateFiles.length; index++) {
+      const partitionName = candidateFiles[index]
+      const partition = index === 0 ? newest : readPartition(partitionName)
+      // Historical malformed partitions cannot contribute candidates or human state. The newest
+      // partition was checked above; skipping an older unreadable file avoids letting archival debris
+      // poison a healthy current wire.
+      if (!partition) { noteInvalidPartition(partitionName); continue }
+      if (!Number.isFinite(partition.updatedMs)) { noteInvalidPartition(partitionName); continue }
+      if (partition.updatedMs < floor || partition.updatedMs > ceiling) continue
+      partitions.push(partition)
+      if (partition.updatedMs > sweepMs) {
+        sweepMs = partition.updatedMs
+        sweepUpdatedAt = partition.updatedAt
+      }
+    }
+  }
+
+  const blockedStoryIds = new Set<string>()
+  const humanSweepLookback = freshness && Number.isFinite(freshness.maxAgeMs) && freshness.maxAgeMs > 0
+    // Human actions have no separate durable clock on every legacy row. Retain the prior bounded
+    // partition lookback so a decision just before the source-time floor still blocks a current copy.
+    ? Math.max(2, Math.ceil(freshness.maxAgeMs / 86_400_000) + 2)
+    : 2
+  const humanPartitions: SweepPartition[] = []
+  let humanStateUnavailable = false
+  const humanFloor = freshness ? freshness.nowMs - Math.max(1, freshness.maxAgeMs) : Number.NEGATIVE_INFINITY
+  const humanCeiling = freshness ? freshness.nowMs + Math.max(0, freshness.futureSkewMs ?? 5 * 60_000) : Number.POSITIVE_INFINITY
+  const humanFiles = freshness
+    ? [sweepFiles[0], ...sweepFiles.slice(1).filter((name) => (
+      partitionDayOverlaps(name, humanFloor, humanCeiling)
+      // A floor just after midnight excludes the preceding partition by a few minutes even though a
+      // consume/dismiss at 23:59 must remain durable. Include exactly that adjacent calendar partition,
+      // never the latest arbitrary archive file across a sparse history.
+      || partitionDayImmediatelyPrecedes(name, humanFloor)
+    ))].slice(0, humanSweepLookback)
+    : sweepFiles.slice(0, humanSweepLookback)
+  for (const [index, name] of humanFiles.entries()) {
+    const partition = index === 0 ? newest : readPartition(name)
+    if (!partition) {
+      // This bounded file may contain the only consume/dismiss veto for a current publisher copy. An
+      // unreadable file therefore makes human state unknown even when its date is just outside the
+      // positive-candidate window. Never call that fail-closed while continuing to rank candidates: that
+      // would resurrect exactly the action this extra partition read exists to preserve.
+      humanStateUnavailable = true
+      noteInvalidPartition(name)
+      continue
+    }
+    humanPartitions.push(partition)
+  }
+  // Human state is durable across midnight and deliberately does not inherit candidate freshness. A
+  // stale/invalid partition cannot add a positive candidate, but a readable negative decision still
+  // vetoes re-entry. This keeps a current publisher copy from reversing a recent human action.
+  for (const partition of humanPartitions) {
+    for (const row of partition.rows) {
+      if (!row || (!row.consumed && !row.dismissed)) continue
+      const eventId = typeof row.event_id === 'string' && EVENT_ID_RE.test(row.event_id)
+        ? row.event_id
+        : typeof row.headline === 'string' && row.headline && typeof row.url === 'string' && row.url
+          ? eventIdFor(row.headline, row.url) : ''
+      const vetoKeys = ideaHumanVetoKeys({
+        event_id: eventId,
+        dedup_group: typeof row.dedup_group === 'string' && row.dedup_group.trim() ? row.dedup_group.trim() : undefined,
+        url: row.url,
+      })
+      if (!vetoKeys.length) {
+        // A readable JSON file can still contain a torn/legacy human-action row. Silently skipping an
+        // unidentified dismissal is the same resurrection bug as skipping a corrupt partition: we no
+        // longer know which current publisher copy the person vetoed. Non-human malformed rows remain
+        // harmless and are ignored above; only an unknowable consume/dismiss pauses the surface.
+        humanStateUnavailable = true
+        status = 'degraded'
+        invalidTimeCount++
+        continue
+      }
+      for (const key of vetoKeys) blockedStoryIds.add(key)
+    }
+  }
+
+  const candidates = partitions
+    .flatMap((partition) => partition.rows
+      .filter((row) => row && row.url && !row.consumed && !row.dismissed && typeof row.triage_score === 'number')
+      .map((row) => ({ row, sweepUpdatedAt: partition.updatedAt || '' })))
+    .sort((a, b) => (b.row.triage_score ?? -1) - (a.row.triage_score ?? -1))
+  let eligible = candidates
+  if (freshness) {
+    const futureSkewMs = Math.max(0, freshness.futureSkewMs ?? 5 * 60_000)
+    const maxAgeMs = Number.isFinite(freshness.maxAgeMs) && freshness.maxAgeMs > 0 ? freshness.maxAgeMs : 1
+    const floor = freshness.nowMs - maxAgeMs
+    const ceiling = freshness.nowMs + futureSkewMs
+    eligible = candidates.filter(({ row }) => {
+      const foundMs = typeof row.found_at === 'string' ? parseRfc3339Ms(row.found_at) : NaN
+      if (!Number.isFinite(foundMs)) { invalidTimeCount++; return false }
+      if (foundMs < floor || foundMs > ceiling) { staleRowCount++; return false }
+      return true
+    })
+    if (!eligible.length && candidates.length && (staleRowCount || invalidTimeCount)) status = 'stale'
   }
   const cap = Math.max(1, Math.floor(topN))
   const wireRows = eligible
-    .map((r): IdeaInputRow => ({
+    .map(({ row: r, sweepUpdatedAt: partitionUpdatedAt }): IdeaInputRow => ({
       // event_id isn't stored on the inbox row; re-derive it with the CANONICAL recipe (eventIdFor over the
       // ORIGINAL headline, lower-cased + whitespace-collapsed) so the idea's source ids match the
       // firehose/enrich/ledger join key exactly — a bespoke hash over the translation would never line up.
@@ -994,7 +1433,7 @@ export function readTopSweep(
       event_types: Array.isArray(r.event_types) ? r.event_types : [],
       issuer_linkage: r.issuer_linkage || '',
       companies: Array.isArray(r.companies) ? r.companies : [],
-      found_at: r.found_at || doc?.updated_at || '',
+      found_at: r.found_at || partitionUpdatedAt,
       source_tier: r.source_tier,
       scheduled_events: Array.isArray(r.scheduled_events) ? r.scheduled_events : [],
       event_direction: r.event_direction,
@@ -1005,29 +1444,28 @@ export function readTopSweep(
     }))
   // Human state applies to the ordinary wire as well as the Theme reserve. A current unconsumed
   // publisher copy cannot resurrect a prior-day consumed/dismissed canonical event or story alias.
-  const ordinaryWireRows = dedupeIdeaRows(wireRows.filter((row) => (
-    !ideaStoryIds(row).some((id) => blockedStoryIds.has(id))
-  ))).slice(0, cap)
+  // For any prompt larger than one row, no single story family may consume every slot. A separate filing
+  // or event must remain eligible even when one story emits many correction/status observations.
+  const maxWireObservationsPerFamily = cap > 1
+    ? Math.min(MAX_IDEA_OBSERVATIONS_PER_STORY_FAMILY, cap - 1)
+    : 1
+  const ordinaryWireRows = selectIdeaRows(wireRows.filter((row) => (
+    !ideaHumanVetoKeys(row).some((key) => blockedStoryIds.has(key))
+  )), cap, maxWireObservationsPerFamily)
   const reserveCap = Math.floor(cap / 3)
   // Themes may widen a healthy wire input; they may never manufacture one. In particular, a cached theme
   // must not turn a stale/corrupt sweep or the provider's fewer-than-two-row refusal into a paid call.
   const themeRows = freshness?.themesEnabled !== false && status === 'ok' && ordinaryWireRows.length >= 2 && reserveCap > 0
     ? readActionableThemeRows(repoRoot, freshness, sweepMs).filter((row) => {
-      return !ideaStoryIds(row).some((id) => blockedStoryIds.has(id))
+      return !ideaHumanVetoKeys(row).some((key) => blockedStoryIds.has(key))
     })
     : []
 
   // Admission is checked against the ACTUAL final row count, not only `topN`: a sparse two-row wire plus
-  // two theme rows would otherwise be half theme even though floor(topN/3) looked safe. Mixed rows count
-  // toward the same minority ceiling. A row is mixed only when it independently cleared the ordinary
-  // capped wire; matching an uncapped low-tail row is still a theme admission.
-  const reserved: IdeaInputRow[] = []
-  const projectWith = (themeReserve: IdeaInputRow[]): IdeaInputRow[] => [
-    ...themeReserve,
-    ...ordinaryWireRows
-      .filter((row) => !themeReserve.some((reservedRow) => sameIdeaStory(row, reservedRow)))
-      .slice(0, cap - themeReserve.length),
-  ]
+  // two theme rows would otherwise be half theme even though floor(topN/3) looked safe. The final
+  // projector applies the same family/source caps AFTER package insertion; this is the boundary that used
+  // to let two Theme rows crowd an independent filing or replace a better source copy.
+  let reserved: IdeaInputRow[] = []
   const themePackages = new Map<string, IdeaInputRow[]>()
   for (const row of themeRows) {
     const context = row.theme_contexts?.length === 1 ? row.theme_contexts[0] : null
@@ -1042,18 +1480,24 @@ export function readTopSweep(
     const whyRows = group.filter((row) => row.theme_contexts?.[0]?.role === 'WHY_NOW')
     const proofRows = group.filter((row) => row.theme_contexts?.[0]?.role === 'EXPRESSION_PROOF')
     if (whyRows.length !== 1 || proofRows.length !== 1 || whyRows[0].event_id === proofRows[0].event_id) continue
-    const candidates = [whyRows[0], proofRows[0]].map((themeRow) => {
-      const wireMatch = ordinaryWireRows.find((wireRow) => sameIdeaStory(wireRow, themeRow))
-      return wireMatch ? { ...themeRow, origin_type: 'mixed' as const } : themeRow
-    })
-    if (reserved.length + candidates.length > reserveCap) continue
-    const tentative = [...reserved, ...candidates]
-    const tentativeRows = projectWith(tentative)
-    if (tentative.length <= Math.floor(tentativeRows.length / 3)) reserved.push(...candidates)
+    const candidates = [whyRows[0], proofRows[0]]
+    const tentative = coalesceThemeRows([...reserved, ...candidates], ordinaryWireRows)
+    if (tentative.length > reserveCap) continue
+    const tentativeRows = projectIdeaRowsWithThemes(ordinaryWireRows, tentative, cap)
+    const themeRowsInProjection = tentativeRows.filter((row) => row.origin_type === 'theme' || row.origin_type === 'mixed')
+    const completePackage = candidates.every((candidate) => tentativeRows.some((row) => (
+      row.event_id === candidate.event_id
+      && row.theme_contexts?.some((context) => candidate.theme_contexts?.some((expected) => (
+        context.theme_id === expected.theme_id && context.theme_rev === expected.theme_rev && context.role === expected.role
+      )))
+    )))
+    if (completePackage && themeRowsInProjection.length <= Math.floor(tentativeRows.length / 3)) reserved = tentative
   }
-  const projected = projectWith(reserved).sort((a, b) => b.materiality - a.materiality)
+  const projected = projectIdeaRowsWithThemes(ordinaryWireRows, reserved, cap)
   return {
-    rows: projected,
+    // Status-aware production callers already pause a degraded sweep. Emptying the projection as well
+    // protects row-only/legacy callers from spending on a lead whose human veto history is unknowable.
+    rows: humanStateUnavailable ? [] : projected,
     status,
     sweep_updated_at: sweepUpdatedAt,
     candidate_count: candidates.length,

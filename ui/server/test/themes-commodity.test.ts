@@ -111,6 +111,21 @@ check('commodity slice dedupes story families before company placement and quali
   assert.equal(summary.top_companies[0]?.mention_count, 2, 'a publisher copy cannot inflate sliced company centrality')
 })
 
+check('commodity slice cannot resurrect support invalidated by an untagged family challenge', () => {
+  const miner = { name: 'Gold Miner', ticker: 'GOLD', listing_country: 'US' }
+  const challenged = theme('THM-stategld', 'Gold state-bound proof', [
+    member('gold-old-support', { dedup_group: 'gold-state-family', commodities: ['GOLD'], companies: [miner], found_at: hoursAgo(4) }),
+    member('gold-peer-support', { dedup_group: 'gold-state-peer', commodities: ['GOLD'], companies: [miner], found_at: hoursAgo(3) }),
+    member('untagged-current-challenge', { dedup_group: 'gold-state-family', commodities: [], companies: [miner], found_at: hoursAgo(1), headline: 'Gold Miner cancels capacity expansion' }),
+  ])
+  attachValidNarrative(challenged, {
+    support_event_ids: ['gold-old-support', 'gold-peer-support'],
+    challenge_event_ids: ['untagged-current-challenge'],
+    why_now_event_id: 'gold-old-support',
+  })
+  assert.equal(buildCommodityThemesIndex([challenged], { commodity: 'GOLD' }, now).themes.length, 0, 'global active family state removes obsolete GOLD support')
+})
+
 check("{commodity:'GOLD'} narrows versus the any-commodity slice", () => {
   const mixed = theme('THM-mixdcc33', 'Gold and sugar', [
     member('x1', { commodities: ['GOLD'] }),
