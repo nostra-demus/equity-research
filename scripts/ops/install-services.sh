@@ -130,6 +130,18 @@ CLOUDFLARED_BIN="$(resolve_bin cloudflared /usr/local/bin/cloudflared)"
 
 OPS="$HOME/.nostra-ops"; mkdir -p "$OPS"
 CONNECTOR_AUTONOMY_LOCK="$OPS/connector-autonomy.lock"
+CONNECTOR_FORCE_RESTART="${NOSTRA_CONNECTOR_FORCE_RESTART:-0}"
+INSTALL_CONNECTORS="${NOSTRA_INSTALL_CONNECTORS:-1}"
+case "$CONNECTOR_FORCE_RESTART" in
+  0|1) ;;
+  *) echo "ERROR: NOSTRA_CONNECTOR_FORCE_RESTART must be 0 or 1" >&2; exit 2 ;;
+esac
+case "$INSTALL_CONNECTORS" in
+  0|1) ;;
+  *) echo "ERROR: NOSTRA_INSTALL_CONNECTORS must be 0 or 1" >&2; exit 2 ;;
+esac
+[ "$ONLY" != connectors ] || [ "$INSTALL_CONNECTORS" = 1 ] \
+  || { echo "ERROR: connector-only repair cannot disable connector installation" >&2; exit 2; }
 
 # Serialize every installer role/connector transition with watchdog recovery and failover stand-down. The
 # retained descriptor makes the kernel release the lease on every exit/crash; there is no stale PID file to
@@ -174,16 +186,77 @@ PYCONNECTORAUTONOMY
   fi
 }
 
+legacy_tunnel_contract() {
+  "$PYTHON_BIN" -I - "$1" <<'PYLEGACYROLE'
+import os, plistlib, stat, sys
+path = sys.argv[1]; fd = None
+try:
+    before = os.lstat(path)
+    if (not stat.S_ISREG(before.st_mode) or before.st_uid != os.getuid()
+            or before.st_nlink != 1 or before.st_mode & 0o022
+            or not 0 < before.st_size <= 1024 * 1024): raise OSError
+    fd = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+    opened = os.fstat(fd); chunks = []; remaining = opened.st_size
+    while remaining:
+        chunk = os.read(fd, remaining)
+        if not chunk: raise OSError
+        chunks.append(chunk); remaining -= len(chunk)
+    if os.read(fd, 1): raise OSError
+    raw = b"".join(chunks); after = os.fstat(fd); named = os.lstat(path)
+    identity = lambda s: (s.st_dev, s.st_ino, s.st_size, s.st_mtime_ns, s.st_ctime_ns,
+                          s.st_mode, s.st_uid, s.st_nlink)
+    if identity(before) != identity(opened) or identity(opened) != identity(after) \
+            or identity(after) != identity(named): raise OSError
+    value = plistlib.loads(raw); args = value.get("ProgramArguments")
+    if (value.get("Label") != "com.nostradamus.tunnel" or not isinstance(args, list)
+            or len(args) != 4 or not isinstance(args[0], str) or not args[0].startswith("/")
+            or os.path.basename(args[0]) != "cloudflared"
+            or args[1:] != ["tunnel", "run", "nostradamus-engine"]
+            or value.get("RunAtLoad") is not True or value.get("KeepAlive") is not True): raise OSError
+except (OSError, ValueError, plistlib.InvalidFileException): raise SystemExit(1)
+finally:
+    if fd is not None: os.close(fd)
+PYLEGACYROLE
+}
+
+safe_role_value() {
+  "$PYTHON_BIN" -I - "$1" <<'PYROLEVALUE'
+import os, stat, sys
+path = sys.argv[1]; fd = None
+try:
+    before = os.lstat(path)
+    if (not stat.S_ISREG(before.st_mode) or before.st_uid != os.getuid()
+            or before.st_nlink != 1 or before.st_mode & 0o077 or not 0 < before.st_size <= 32): raise OSError
+    fd = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+    opened = os.fstat(fd); chunks = []; remaining = opened.st_size
+    while remaining:
+        chunk = os.read(fd, remaining)
+        if not chunk: raise OSError
+        chunks.append(chunk); remaining -= len(chunk)
+    if os.read(fd, 1): raise OSError
+    raw = b"".join(chunks); after = os.fstat(fd); named = os.lstat(path)
+    identity = lambda s: (s.st_dev, s.st_ino, s.st_size, s.st_mtime_ns, s.st_ctime_ns,
+                          s.st_mode, s.st_uid, s.st_nlink)
+    if identity(before) != identity(opened) or identity(opened) != identity(after) \
+            or identity(after) != identity(named): raise OSError
+    if raw == b"doer\n": print("doer")
+    elif raw == b"admin\n": print("admin")
+    else: raise OSError
+except OSError: raise SystemExit(1)
+finally:
+    if fd is not None: os.close(fd)
+PYROLEVALUE
+}
+
 installed_host_is_doer() {
   local role_file="$OPS/role" role_value="" tunnel="$AGENTS/com.nostradamus.tunnel.plist"
   if [ -e "$role_file" ] || [ -L "$role_file" ]; then
-    if [ ! -L "$role_file" ] && [ -f "$role_file" ] && [ -O "$role_file" ]; then
-      role_value="$(cat "$role_file" 2>/dev/null || true)"
+    if role_value="$(safe_role_value "$role_file" 2>/dev/null)"; then
       case "$role_value" in doer) return 0 ;; admin) return 1 ;; esac
     fi
     return 1
   fi
-  [ ! -L "$tunnel" ] && [ -f "$tunnel" ] && [ -O "$tunnel" ]
+  legacy_tunnel_contract "$tunnel"
 }
 
 acquire_connector_autonomy_lock || exit 1
@@ -234,7 +307,7 @@ install_runtime_script() {
   fi
 }
 if [ -z "$ONLY" ]; then
-  for s in watchdog.sh deploy.sh housekeeping.sh; do
+  for s in watchdog.sh deploy.sh housekeeping.sh connector-supervisor.py; do
     install_runtime_script "$s" || exit 1
   done
 fi
@@ -245,6 +318,12 @@ loaded() { launchctl print "$DOMAIN/$1" >/dev/null 2>&1; }
 # up front; refuse symlinks/foreign ownership rather than following or replacing them. An absent providers.env
 # is valid for public connectors and will be created by the migration helper only when an old plist has keys.
 CONNECTOR_CONFIG_DIR="${NOSTRA_ENGINE_CONFIG_DIR:-$HOME/.config/nostra-engine}"
+if [ -z "${NOSTRA_ENGINE_CONFIG_DIR:-}" ] \
+    && [ -f "$HERE/connector-supervisor.py" ] && [ ! -L "$HERE/connector-supervisor.py" ]; then
+  carried_connector_config="$(ENGINE_REPO_ROOT="$PROD" "$PYTHON_BIN" -I \
+    "$HERE/connector-supervisor.py" --read-config-identity 2>/dev/null || true)"
+  [ -z "$carried_connector_config" ] || CONNECTOR_CONFIG_DIR="$carried_connector_config"
+fi
 case "$CONNECTOR_CONFIG_DIR" in
   /*) ;;
   *) echo "ERROR: NOSTRA_ENGINE_CONFIG_DIR must be an absolute path" >&2; exit 1 ;;
@@ -384,11 +463,17 @@ install_one() {
       echo "  FAIL: unchanged connector could not restore its exact credential claim: $claim" >&2
       return 1
     fi
-    launchctl kickstart -k "$DOMAIN/$label" 2>/dev/null || true   # current + loaded: restart in place
     if [ "$is_connector" = 1 ]; then
+      # Ordinary deploy/installer reconciliation is idempotent and does not turn every two-minute deploy
+      # tick into a connector sweep.  Only the watchdog supervisor sets the private force flag after a
+      # proven stale/failed/unstarted scheduler; that repair remains inside this same validated transaction.
+      if [ "$CONNECTOR_FORCE_RESTART" = 1 ]; then
+        launchctl kickstart -k "$DOMAIN/$label" 2>/dev/null || return 1
+      fi
       nostra_report_loaded "$label"
       return $?
     fi
+    launchctl kickstart -k "$DOMAIN/$label" 2>/dev/null || true   # non-connector current service: restart in place
     echo "  ok (in place): $label"; return
   fi
   if [ "$is_connector" = 1 ]; then
@@ -457,13 +542,48 @@ NEWS_INGESTER=com.nostradamus.news-ingester   # doer-only AND opt-in (needs a re
 
 echo "installing role=$ROLE${ONLY:+ only=$ONLY} (prod=$PROD)"
 if [ "$ROLE" = doer ]; then
+  # A connector writer is allowed only against the owner-only stable pool identity.  The helper seeds that
+  # identity from an explicit NOSTRA_POOL or a currently resolving production data symlink.  It never adopts
+  # a new target after that, follows an unsafe identity file, or replaces a real/mismatched/missing Drive path.
+  if [ "$INSTALL_CONNECTORS" = 1 ]; then
+    prepare_connector_config || exit 1
+  if [ ! -f "$HERE/connector-supervisor.py" ] || [ -L "$HERE/connector-supervisor.py" ] \
+      || ! ENGINE_REPO_ROOT="$PROD" NOSTRA_ENGINE_CONFIG_DIR="$CONNECTOR_CONFIG_DIR" "$PYTHON_BIN" -I \
+        "$HERE/connector-supervisor.py" --ensure-identities; then
+    echo "ERROR: connector writer identity, pool, or config is unavailable/unsafe/mismatched" >&2
+    echo "       First Mac Pro install must set NOSTRA_CONNECTOR_WRITER_HOST to its exact hostname." >&2
+    exit 1
+  fi
+  CONNECTOR_CONFIG_DIR="$(ENGINE_REPO_ROOT="$PROD" "$PYTHON_BIN" -I \
+    "$HERE/connector-supervisor.py" --read-config-identity)" \
+    || { echo "ERROR: cannot read the canonical connector config identity" >&2; exit 1; }
+  CONNECTOR_PROVIDERS_ENV="$CONNECTOR_CONFIG_DIR/providers.env"
   prepare_connector_config || exit 1
+  fi
+fi
+if [ "$ROLE" = doer ] && [ "$INSTALL_CONNECTORS" = 0 ]; then
+  # Serving/tunnel failover is never connector-writer failover. Fence and
+  # remove any stale connector before this process can publish `doer`.
+  launchctl bootout "$DOMAIN/com.nostradamus.connectors" >/dev/null 2>&1 || true
+  for i in $(seq 1 40); do loaded com.nostradamus.connectors || break; sleep 0.25; done
+  if loaded com.nostradamus.connectors; then
+    echo "ERROR: stale connector writer did not stop; refusing doer promotion" >&2
+    exit 1
+  fi
+  rm -f "$AGENTS/com.nostradamus.connectors.plist" 2>/dev/null || exit 1
 fi
 if [ "$ONLY" = connectors ]; then
   LABELS=(com.nostradamus.connectors)
 else
   LABELS=("${BASE[@]}")
   [ "$ROLE" = doer ] && LABELS+=("${DOER_ONLY[@]}")
+  if [ "$ROLE" = doer ] && [ "$INSTALL_CONNECTORS" = 0 ]; then
+    filtered=()
+    for label in "${LABELS[@]}"; do
+      [ "$label" = com.nostradamus.connectors ] || filtered+=("$label")
+    done
+    LABELS=("${filtered[@]}")
+  fi
 fi
 install_failed=0
 for label in "${LABELS[@]}"; do

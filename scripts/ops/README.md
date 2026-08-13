@@ -21,13 +21,31 @@ fronted by Cloudflare Access). macOS `launchd` user agents keep it up — **and 
 | `com.nostradamus.hk-size` | `housekeeping.sh /research:size all` daily 07:10 | **doer** | — | — |
 | `com.nostradamus.hk-calibrate` | `housekeeping.sh /research:calibrate all` monthly (1st, 07:40) | **doer** | — | — |
 
-### Roles — one doer, N admins
-Exactly **one** machine is the **doer**: it owns the public tunnel and runs the autonomous daily jobs
+### Roles — one serving doer, one permanent connector writer, N admins
+Exactly **one** machine is the **serving doer**: it owns the public tunnel and runs the autonomous daily jobs
 (news + the `hk-*` housekeeping timers). Install it with the default role:
 
 ```
 bash scripts/ops/install-services.sh                 # role=doer (the always-on host)
 ```
+
+Connectors are stricter: they remain pinned to the dedicated Mac Pro even if UI/tunnel failover moves serving
+to another machine. On the Mac Pro only, mount the pool, make `data` resolve to it, then run the first install
+with the exact local hostname. These values become private, immutable machine identities; later repairs read
+them automatically. A custom provider directory must be an absolute owner-only directory.
+
+```
+MAC_PRO_HOST="$(hostname)"
+NOSTRA_CONNECTOR_WRITER_HOST="$MAC_PRO_HOST" \
+NOSTRA_POOL="/absolute/path/to/equity-research-data" \
+NOSTRA_ENGINE_CONFIG_DIR="$HOME/.config/nostra-engine" \
+  bash scripts/ops/install-services.sh --role doer
+```
+
+The identities live at `~/.nostra-ops/connector-writer-host`, `pool-root`, and `connector-config-root`
+(mode `0600`; parent mode `0700`). Do not edit them to move the writer. Re-provision deliberately instead.
+Full installs fail closed if the configured writer host is not this Mac. A failover host installs the cockpit
+and tunnel with connectors explicitly excluded and removes any stale connector job before becoming doer.
 
 Any **other** machine (a laptop you also use as a full admin) installs with `--role admin` — it gets the
 local engine, auto-deploy, watchdog and caffeinate, but **NOT** the tunnel, news, or timers, so the two
@@ -52,9 +70,9 @@ bash scripts/ops/install-services.sh --role doer --only connectors
 It installs only `com.nostradamus.connectors`; it does not copy or replace the currently executing
 `~/.nostra-ops/deploy.sh`, `watchdog.sh`, or `housekeeping.sh`. Full installs publish those runtime scripts by
 atomic rename so an executing script can never be truncated in place. Unknown installer options fail closed.
-Connector install/removal and watchdog recovery share the retained kernel lease
+Connector install/removal and watchdog recovery share retained kernel leases
 `~/.nostra-ops/connector-autonomy.lock`; role transitions that also take the deploy lease always acquire
-`.deploy.flock` first, then this autonomy lease. Connector-only repair re-checks installed doer truth while
+`.deploy.flock`, then the repository mutation lease, then this autonomy lease. Connector-only repair re-checks installed doer truth while
 holding the lease, so it cannot undo a concurrent admin/failover stand-down.
 
 ### Housekeeping timers (`housekeeping.sh`)
@@ -191,14 +209,19 @@ window with `WATCHDOG_TUNNEL_HEAL_COOLDOWN_SECONDS` (`0` disables suppression). 
 second engine** on a non-`:8787` port (the load-doubling failure mode). Every incident + repair is logged to
 `~/Library/Logs/nostradamus-watchdog.log`. **You do nothing; it fixes itself and keeps a track.**
 
-On the doer, the same watchdog bootstraps `com.nostradamus.connectors` if its installed service was booted
-out. It also reads the atomic runner heartbeat: three missed 15-minute schedules restart an idle/failed timer;
-an in-flight sweep is restarted only after four full intervals with no row progress and only when the recorded
-host/PID still match the live launchd process. Successful repairs have a one-hour cooldown
-(`WATCHDOG_CONNECTOR_HEAL_COOLDOWN_SECONDS`); failed restart commands earn no cooldown. A missing/unmounted
-pool (including an empty real `data/` directory where the production Drive symlink should be), missing first
-heartbeat, future/malformed status, or a different live PID causes a conservative no-op, so the watchdog
-neither kills a valid long sweep nor starts a writer while Drive is unavailable.
+On the configured Mac Pro, the watchdog runs an independent connector supervisor. It proves, in order: exact
+writer host and role, the stable pool/config identities, the complete 15-minute plist contract, the loaded
+launchd job, then a fresh non-empty v2 sweep from the current deployed commit. Missing/unloaded first installs
+repair immediately. A single failed/invalid/stale heartbeat only shows `Starting`; disruptive repair requires
+the same failure on a second tick or persistence for one cadence. Admin, wrong-host, foreign-heartbeat, Drive,
+and unsafe states first fence and prove the local scheduler stopped. The Data Library then shows `Online`,
+`Checking`, `Starting`, `Paused — drive`, `Disabled — admin`, `Another Mac is writer`, or `Blocked — unsafe`;
+it never reports a stopped or unproven job as Online.
+
+After the first reviewed merge, acceptance is: the Data Library reaches `Checking`, then `Online` only after a
+completed sweep with at least one processed row; `connector-supervisor.json` stays fresh; the displayed host is
+the configured Mac Pro; and the desired/deployed/current commits match. Run four scheduled shadow sweeps and
+require zero provenance, schema, arithmetic, or reproducibility failures before treating the service as live.
 
 ### Keeping the Mac awake (`caffeinate`)
 `com.nostradamus.caffeinate` runs `caffeinate -i`, which holds `PreventUserIdleSystemSleep` — this is

@@ -28,48 +28,69 @@ tunnel_heal_cooldown_remaining() {
   fi
 }
 
-# Pure connector-service classifier. The 15-minute scheduler gets three missed intervals before an idle
-# service is considered stale, while an in-progress sweep gets four whole intervals without one row of
-# progress before it is considered wedged. A single fetch row has a bounded ~200s retry budget today; the
-# 60-minute running window therefore avoids killing a legitimate long sweep while still recovering a hang.
-connector_watchdog_reason() {
-  local state="${1:-}" now_raw="${2:-}" progress_raw="${3:-}" completed_raw="${4:-}" interval_raw="${5:-}"
-  local now progress completed interval age threshold
-  case "$now_raw" in ''|*[!0-9]*) return 2;; esac
-  case "$interval_raw" in ''|*[!0-9]*) return 2;; esac
-  now=$((10#$now_raw)); interval=$((10#$interval_raw))
-  [ "$interval" -ge 60 ] && [ "$interval" -le 86400 ] || return 2
-  case "$state" in
-    running)
-      case "$progress_raw" in ''|*[!0-9]*) return 2;; esac
-      progress=$((10#$progress_raw)); age=$((now - progress)); threshold=$((interval * 4))
-      [ "$age" -ge "$threshold" ] || return 1
-      printf 'running-stale\n'
-      ;;
-    completed|failed)
-      case "$completed_raw" in ''|*[!0-9]*) return 2;; esac
-      completed=$((10#$completed_raw)); age=$((now - completed)); threshold=$((interval * 3))
-      [ "$age" -ge "$threshold" ] || return 1
-      printf '%s-stale\n' "$state"
-      ;;
-    # A new install may not have a status yet because deploy still holds the shared repository lease when
-    # RunAtLoad fires. A failed sweep is already scheduled to retry. Neither is evidence of a wedged timer.
-    missing) return 1 ;;
-    *) return 2 ;;
-  esac
-}
-
-connector_host_is_doer() {
-  local role_file="${1:-}" tunnel_plist="${2:-}" role_value=""
-  [ -n "$role_file" ] && [ -n "$tunnel_plist" ] || return 2
-  if [ -e "$role_file" ] || [ -L "$role_file" ]; then
-    if [ ! -L "$role_file" ] && [ -f "$role_file" ] && [ -O "$role_file" ]; then
-      role_value="$(cat "$role_file" 2>/dev/null || true)"
-      case "$role_value" in doer) return 0 ;; admin) return 1 ;; esac
-    fi
+# Safely install/refresh the independent connector supervisor from the immutable reviewed Git object. This
+# exists above the source guard so the rollout contract is portable-testable without executing a watchdog
+# tick. It never copies mutable working-tree bytes. A pre-upgrade deploy may install this watchdog before it
+# knows the helper filename; this closes that one-time bootstrap gap. Every later tick also self-attests the
+# installed copy against current production main before execution.
+bootstrap_connector_supervisor() {
+  local ops="$HOME/.nostra-ops" staged head head_after remote branch git_bin
+  git_bin="$(command -v git 2>/dev/null || true)"; git_bin="${git_bin:-/usr/bin/git}"
+  branch="$($git_bin -C "$REPO" symbolic-ref --quiet --short HEAD 2>/dev/null || true)"
+  head="$($git_bin -C "$REPO" rev-parse HEAD 2>/dev/null || true)"
+  remote="$($git_bin -C "$REPO" rev-parse origin/main 2>/dev/null || true)"
+  [ "$branch" = main ] && [ -n "$head" ] && [ "$head" = "$remote" ] || return 1
+  # Normalize only a real, current-user directory. Descriptor/no-follow checks prevent chmod from following
+  # a swapped symlink; mode 0700 keeps the installed executable outside other local users' reach.
+  "$PYTHON" -I - "$ops" <<'PYCONNECTOROPSDIR' || return 1
+import os, stat, sys
+path = sys.argv[1]
+try:
+    os.mkdir(path, 0o700)
+except FileExistsError:
+    pass
+fd = None
+try:
+    before = os.lstat(path)
+    fd = os.open(path, os.O_RDONLY | getattr(os, "O_DIRECTORY", 0) | getattr(os, "O_NOFOLLOW", 0))
+    opened = os.fstat(fd)
+    if (not stat.S_ISDIR(opened.st_mode) or opened.st_uid != os.getuid()
+            or (opened.st_dev, opened.st_ino) != (before.st_dev, before.st_ino)):
+        raise OSError
+    os.fchmod(fd, 0o700)
+finally:
+    if fd is not None: os.close(fd)
+PYCONNECTOROPSDIR
+  staged="$(mktemp "$ops/.connector-supervisor.py.staged.XXXXXX")" || return 1
+  # `git show <verified SHA>:<path>` reads the immutable object, not a dirty/racing checkout.
+  if ! "$git_bin" -C "$REPO" show "$head:scripts/ops/connector-supervisor.py" > "$staged" \
+      || [ ! -s "$staged" ] || ! chmod 700 "$staged" \
+      || ! "$PYTHON" -I - "$staged" <<'PYCONNECTORCOMPILE'
+import pathlib, sys
+source = pathlib.Path(sys.argv[1]).read_bytes()
+compile(source, "connector-supervisor.py", "exec")
+PYCONNECTORCOMPILE
+  then
+    rm -f "$staged" 2>/dev/null || true
     return 1
   fi
-  [ ! -L "$tunnel_plist" ] && [ -f "$tunnel_plist" ] && [ -O "$tunnel_plist" ]
+  head_after="$($git_bin -C "$REPO" rev-parse HEAD 2>/dev/null || true)"
+  remote="$($git_bin -C "$REPO" rev-parse origin/main 2>/dev/null || true)"
+  [ "$head_after" = "$head" ] && [ "$remote" = "$head" ] || { rm -f "$staged"; return 1; }
+  # Refuse a pre-existing unsafe pathname rather than replacing/normalizing it. A safe identical copy stays
+  # in place; a reviewed new object is published by same-directory atomic rename.
+  if [ -e "$CONNECTOR_SUPERVISOR" ] || [ -L "$CONNECTOR_SUPERVISOR" ]; then
+    "$PYTHON" -I - "$CONNECTOR_SUPERVISOR" <<'PYCONNECTORINSTALLED' \
+      || { rm -f "$staged"; return 1; }
+import os, stat, sys
+value = os.lstat(sys.argv[1])
+if (not stat.S_ISREG(value.st_mode) or value.st_uid != os.getuid()
+        or value.st_nlink != 1 or value.st_mode & 0o077):
+    raise SystemExit(1)
+PYCONNECTORINSTALLED
+    if cmp -s "$staged" "$CONNECTOR_SUPERVISOR"; then rm -f "$staged"; return 0; fi
+  fi
+  mv "$staged" "$CONNECTOR_SUPERVISOR" || { rm -f "$staged"; return 1; }
 }
 
 if [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
@@ -82,10 +103,6 @@ TUNNEL_HEAL_COOLDOWN_SECONDS="${WATCHDOG_TUNNEL_HEAL_COOLDOWN_SECONDS:-300}"
 case "$TUNNEL_HEAL_COOLDOWN_SECONDS" in
   ''|*[!0-9]*) TUNNEL_HEAL_COOLDOWN_SECONDS=300;;
 esac
-CONNECTOR_HEAL_COOLDOWN_SECONDS="${WATCHDOG_CONNECTOR_HEAL_COOLDOWN_SECONDS:-3600}"
-case "$CONNECTOR_HEAL_COOLDOWN_SECONDS" in
-  ''|*[!0-9]*) CONNECTOR_HEAL_COOLDOWN_SECONDS=3600;;
-esac
 # resolve npm to an absolute path (launchd has a minimal PATH; brew is /opt/homebrew on Apple-Silicon, /usr/local on Intel)
 NPM="$(command -v npm 2>/dev/null || true)"; [ -n "$NPM" ] || for c in /opt/homebrew/bin/npm /usr/local/bin/npm; do [ -x "$c" ] && NPM="$c" && break; done; NPM="${NPM:-/opt/homebrew/bin/npm}"
 PYTHON="$(command -v python3 2>/dev/null || true)"; PYTHON="${PYTHON:-/usr/bin/python3}"
@@ -95,10 +112,6 @@ LOG="$HOME/Library/Logs/nostradamus-watchdog.log"
 STATE_DIR="$HOME/Library/Application Support/nostradamus"
 FAILS="$STATE_DIR/watchdog.fails"
 TUNNEL_HEAL_AT="$STATE_DIR/tunnel-heal.at"
-CONNECTOR_HEAL_AT="$STATE_DIR/connector-heal.at"
-CONNECTOR_STATUS="$REPO/data/_connectors/runner_status.json"
-ROLE_FILE="$HOME/.nostra-ops/role"
-CONNECTOR_AUTONOMY_LOCK="$HOME/.nostra-ops/connector-autonomy.lock"
 mkdir -p "$STATE_DIR" "$(dirname "$LOG")"
 
 ts() { date '+%Y-%m-%d %H:%M:%S'; }
@@ -111,50 +124,6 @@ get_tunnel_heal_at() {
   case "$value" in ''|*[!0-9]*) echo 0;; *) echo "$value";; esac
 }
 set_tunnel_heal_at() { echo "$1" > "$TUNNEL_HEAL_AT"; }
-get_connector_heal_at() {
-  local value
-  value="$(cat "$CONNECTOR_HEAL_AT" 2>/dev/null || true)"
-  case "$value" in ''|*[!0-9]*) echo 0;; *) echo "$value";; esac
-}
-set_connector_heal_at() {
-  printf '%s\n' "$1" > "$CONNECTOR_HEAL_AT.tmp" 2>/dev/null \
-    && mv "$CONNECTOR_HEAL_AT.tmp" "$CONNECTOR_HEAL_AT" 2>/dev/null
-}
-connector_autonomy_lock_acquire() {
-  [ ! -L "$CONNECTOR_AUTONOMY_LOCK" ] || return 1
-  umask 077
-  exec 6>>"$CONNECTOR_AUTONOMY_LOCK" || return 1
-  if ! "$PYTHON" -I - "$CONNECTOR_AUTONOMY_LOCK" 6<&6 <<'PYCONNECTORAUTONOMY'
-import fcntl
-import os
-import stat
-import sys
-
-path = sys.argv[1]
-try:
-    opened = os.fstat(6)
-    named = os.lstat(path)
-    if (not stat.S_ISREG(opened.st_mode) or stat.S_ISLNK(named.st_mode)
-            or opened.st_uid != os.getuid() or opened.st_nlink != 1
-            or (opened.st_dev, opened.st_ino) != (named.st_dev, named.st_ino)):
-        raise OSError
-    os.fchmod(6, 0o600)
-    fcntl.flock(6, fcntl.LOCK_EX | fcntl.LOCK_NB)
-    locked = os.fstat(6)
-    named = os.lstat(path)
-    if (not stat.S_ISREG(locked.st_mode) or stat.S_ISLNK(named.st_mode)
-            or locked.st_uid != os.getuid() or locked.st_nlink != 1
-            or (locked.st_dev, locked.st_ino) != (named.st_dev, named.st_ino)):
-        raise OSError
-except OSError:
-    raise SystemExit(3)
-PYCONNECTORAUTONOMY
-  then
-    exec 6>&-
-    return 1
-  fi
-}
-connector_autonomy_lock_release() { exec 6>&-; }
 # Recover an agent even if it was booted OUT (not just crashed): `kickstart` cannot start an
 # unloaded agent, so bootstrap first when it is gone, THEN (re)start. This is exactly what was
 # missing when a failed installer left the engine booted-out and the watchdog could not bring it back.
@@ -163,130 +132,6 @@ ensure_up() {
     launchctl bootstrap "gui/$UID_NUM" "$AGENTS_DIR/$1.plist" 2>/dev/null || return 1
   fi
   launchctl kickstart -k "gui/$UID_NUM/$1" 2>/dev/null
-}
-
-connector_service_running() {
-  launchctl print "gui/$UID_NUM/com.nostradamus.connectors" 2>/dev/null \
-    | grep -E 'state[[:space:]]*=[[:space:]]*running' >/dev/null
-}
-
-connector_service_pid() {
-  launchctl print "gui/$UID_NUM/com.nostradamus.connectors" 2>/dev/null \
-    | awk -F'= *' '/^[[:space:]]*pid[[:space:]]*=/{gsub(/[[:space:]]/, "", $2); if (!seen++) print $2}'
-}
-
-# Emit only validated scalars from the non-secret runner wire. Malformed/partial files are never a reason to
-# kill a process: atomic publication should make them impossible, and conservative supervision fails closed.
-read_connector_status() {
-  "$PYTHON" -I - "$CONNECTOR_STATUS" <<'PYCONNECTORSTATUS' 2>/dev/null || printf 'invalid\t0\t0\t900\t0\tunknown\n'
-import datetime
-import json
-import os
-import re
-import stat
-import sys
-import time
-
-path = sys.argv[1]
-required = {
-    "schema_version", "service", "state", "interval_seconds", "host", "pid",
-    "sweep_started_at", "last_progress_at", "sweep_completed_at", "processed_rows",
-    "failed_rows", "skipped_manifests", "error_code",
-}
-
-def epoch(value):
-    if (not isinstance(value, str)
-            or not re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}Z", value)):
-        raise ValueError
-    parsed = datetime.datetime.fromisoformat(value[:-1] + "+00:00")
-    if parsed.tzinfo is None:
-        raise ValueError
-    return int(parsed.timestamp())
-
-try:
-    before = os.lstat(path)
-except FileNotFoundError:
-    print("missing\t0\t0\t900\t0\tunknown")
-    raise SystemExit
-except OSError:
-    print("invalid\t0\t0\t900\t0\tunknown")
-    raise SystemExit
-
-descriptor = None
-try:
-    if (not stat.S_ISREG(before.st_mode)
-            or before.st_uid != os.getuid() or before.st_nlink != 1
-            or not 0 < before.st_size <= 16384):
-        raise ValueError
-    descriptor = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
-    opened = os.fstat(descriptor)
-    if (not stat.S_ISREG(opened.st_mode) or opened.st_uid != os.getuid() or opened.st_nlink != 1
-            or opened.st_size != before.st_size
-            or (opened.st_dev, opened.st_ino) != (before.st_dev, before.st_ino)):
-        raise ValueError
-    chunks = []
-    remaining = opened.st_size
-    while remaining:
-        chunk = os.read(descriptor, remaining)
-        if not chunk:
-            raise ValueError
-        chunks.append(chunk)
-        remaining -= len(chunk)
-    if os.read(descriptor, 1):
-        raise ValueError
-    after = os.fstat(descriptor)
-    after_path = os.lstat(path)
-    identity = (opened.st_dev, opened.st_ino, opened.st_size, opened.st_mtime_ns,
-                opened.st_ctime_ns, opened.st_uid, opened.st_nlink)
-    if ((after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns,
-         after.st_ctime_ns, after.st_uid, after.st_nlink) != identity
-            or (after_path.st_dev, after_path.st_ino, after_path.st_size,
-                after_path.st_mtime_ns, after_path.st_ctime_ns,
-                after_path.st_uid, after_path.st_nlink) != identity):
-        raise ValueError
-    value = json.loads(b"".join(chunks).decode("utf-8"))
-    if not isinstance(value, dict) or set(value) != required:
-        raise ValueError
-    state = value["state"]
-    interval = value["interval_seconds"]
-    pid = value["pid"]
-    host = value["host"]
-    if (value["schema_version"] != 1 or value["service"] != "connector-fetcher"
-            or state not in {"running", "completed", "failed"} or interval != 900
-            or not isinstance(pid, int) or isinstance(pid, bool) or pid <= 0
-            or not isinstance(host, str) or not host or len(host) > 255
-            or any(ord(char) < 32 or ord(char) == 127 for char in host)):
-        raise ValueError
-    for key in ("processed_rows", "failed_rows", "skipped_manifests"):
-        count = value[key]
-        if not isinstance(count, int) or isinstance(count, bool) or count < 0:
-            raise ValueError
-    if value["failed_rows"] > value["processed_rows"]:
-        raise ValueError
-    started = epoch(value["sweep_started_at"])
-    progress = epoch(value["last_progress_at"])
-    if progress < started or started > int(time.time()) + 300 or progress > int(time.time()) + 300:
-        raise ValueError
-    completed = 0
-    if state == "running":
-        if value["sweep_completed_at"] is not None or value["error_code"] is not None:
-            raise ValueError
-    else:
-        completed = epoch(value["sweep_completed_at"])
-        if completed < progress or completed > int(time.time()) + 300:
-            raise ValueError
-        if state == "completed" and value["error_code"] is not None:
-            raise ValueError
-        if state == "failed" and (not isinstance(value["error_code"], str)
-                                  or not re.fullmatch(r"[a-z][a-z0-9_]{0,63}", value["error_code"])):
-            raise ValueError
-    print(f"{state}\t{progress}\t{completed}\t{interval}\t{pid}\t{host}")
-except (OSError, UnicodeError, ValueError, TypeError, json.JSONDecodeError, OverflowError):
-    print("invalid\t0\t0\t900\t0\tunknown")
-finally:
-    if descriptor is not None:
-        os.close(descriptor)
-PYCONNECTORSTATUS
 }
 
 connector_note_hourly() {
@@ -317,109 +162,23 @@ for ag in com.nostradamus.deploy com.nostradamus.news-archive; do
     || { launchctl bootstrap "gui/$UID_NUM" "$AGENTS_DIR/$ag.plist" 2>/dev/null && log "RECOVERED $ag (was booted out)"; }
 done
 
-# Timer services normally sit loaded but idle between launches, so launchctl alone cannot tell whether the
-# scheduler is making progress. The runner's exact, atomic status wire closes that gap. Supervision remains
-# doer-only (the connector plist is absent on admin hosts) and pool-aware: a broken/unmounted Drive symlink is
-# an availability incident, not permission to spin/restart a writer against an empty local directory.
-CONNECTOR_PLIST="$AGENTS_DIR/com.nostradamus.connectors.plist"
-if connector_host_is_doer "$ROLE_FILE" "$AGENTS_DIR/com.nostradamus.tunnel.plist" \
-    && [ ! -L "$CONNECTOR_PLIST" ] && [ -f "$CONNECTOR_PLIST" ] && [ -O "$CONNECTOR_PLIST" ]; then
-  # Production data/ is a symlink into the Drive pool. A Drive outage can coincide with deploy leaving an
-  # empty real data/ directory in place; readability alone would mistake that clobber shape for a pool and
-  # start a writer against local storage. Require both the symlink invariant and a resolving/readable target.
-  if [ ! -L "$REPO/data" ] || [ ! -d "$REPO/data" ] || [ ! -r "$REPO/data" ]; then
-    connector_note_hourly pool-unavailable "CONNECTORS SKIP data pool unavailable — no restart attempted"
-  elif ! connector_autonomy_lock_acquire; then
-    connector_note_hourly transition-busy \
-      "CONNECTORS SKIP another connector role/service transition holds the autonomy lease"
-  else
-    # Failover/admin transition can win after the optimistic checks above but before this lease. Revalidate
-    # all autonomy predicates while serialized; stale observations must never resurrect a stood-down host.
-    if ! connector_host_is_doer "$ROLE_FILE" "$AGENTS_DIR/com.nostradamus.tunnel.plist" \
-        || [ -L "$CONNECTOR_PLIST" ] || [ ! -f "$CONNECTOR_PLIST" ] || [ ! -O "$CONNECTOR_PLIST" ] \
-        || [ ! -L "$REPO/data" ] || [ ! -d "$REPO/data" ] || [ ! -r "$REPO/data" ]; then
-      connector_note_hourly transition-changed \
-        "CONNECTORS SKIP role, service, or pool changed during watchdog arbitration"
-    else
-      connector_bootstrapped=0
-      connector_loaded=1
-      if ! launchctl print "gui/$UID_NUM/com.nostradamus.connectors" >/dev/null 2>&1; then
-        if launchctl bootstrap "gui/$UID_NUM" "$CONNECTOR_PLIST" 2>/dev/null; then
-          connector_bootstrapped=1
-          log "RECOVERED com.nostradamus.connectors (was booted out)"
-        else
-          connector_loaded=0
-          connector_note_hourly bootstrap-failed \
-            "CONNECTORS RECOVERY-FAILED service was booted out — bootstrap remains armed"
-        fi
-      fi
-      # RunAtLoad can legitimately exit without a heartbeat while deploy owns the shared repository lease.
-      # Never interpret the old/missing status in the same cycle that this watchdog bootstrapped the service.
-      if [ "$connector_loaded" = 1 ] && [ "$connector_bootstrapped" = 0 ]; then
-        connector_status_line="$(read_connector_status)"
-        IFS=$'\t' read -r connector_state connector_progress connector_completed connector_interval \
-          connector_pid connector_host <<< "$connector_status_line"
-        if [ "$connector_state" = invalid ]; then
-          connector_note_hourly invalid-status "CONNECTORS SKIP runner status is invalid — conservative no-restart"
-        else
-          connector_now="$(date +%s)"
-          connector_reason=""
-          connector_reason="$(connector_watchdog_reason \
-            "$connector_state" "$connector_now" "$connector_progress" \
-            "$connector_completed" "$connector_interval")"
-          connector_decision=$?
-          if [ "$connector_decision" -eq 0 ]; then
-            connector_heal_allowed=1
-            connector_local_host="$(hostname 2>/dev/null || true)"
-            if [ "$connector_reason" = running-stale ] && [ "$connector_host" != "$connector_local_host" ]; then
-              connector_heal_allowed=0
-              connector_note_hourly host-mismatch \
-                "CONNECTORS SKIP running-stale belongs to a different heartbeat host"
-            elif connector_service_running; then
-              connector_heal_allowed=0
-              if [ "$connector_reason" = running-stale ]; then
-                connector_live_pid="$(connector_service_pid)"
-                case "$connector_live_pid" in ''|*[!0-9]*) ;;
-                  *) [ "$connector_live_pid" = "$connector_pid" ] && connector_heal_allowed=1 ;;
-                esac
-                [ "$connector_heal_allowed" = 1 ] || connector_note_hourly pid-mismatch \
-                  "CONNECTORS SKIP running-stale belongs to a different or unproven live process"
-              fi
-            fi
-            if [ "$connector_heal_allowed" = 1 ]; then
-              connector_confirm_line="$(read_connector_status)"
-              if [ "$connector_confirm_line" != "$connector_status_line" ]; then
-                connector_heal_allowed=0
-                connector_note_hourly status-advanced \
-                  "CONNECTORS SKIP stale status advanced during watchdog decision"
-              fi
-            fi
-            if [ "$connector_heal_allowed" = 1 ]; then
-              connector_last_heal="$(get_connector_heal_at)"
-              connector_cooldown_remaining="$(tunnel_heal_cooldown_remaining \
-                "$connector_now" "$connector_last_heal" "$CONNECTOR_HEAL_COOLDOWN_SECONDS" 2>/dev/null || echo 0)"
-              if [ "${connector_cooldown_remaining:-0}" -gt 0 ]; then
-                connector_note_hourly cooldown \
-                  "CONNECTORS SUPPRESS HEAL $connector_reason — cooldown active"
-              else
-                log "CONNECTORS HEAL $connector_reason"
-                if ensure_up com.nostradamus.connectors; then
-                  set_connector_heal_at "$connector_now" || true
-                else
-                  connector_note_hourly heal-failed \
-                    "CONNECTORS HEAL-FAILED $connector_reason — restart remains armed"
-                fi
-              fi
-            fi
-          elif [ "$connector_decision" -eq 2 ]; then
-            connector_note_hourly invalid-decision \
-              "CONNECTORS SKIP runner status fields failed the watchdog contract"
-          fi
-        fi
-      fi
-    fi
-    connector_autonomy_lock_release
+# Reconcile the complete connector scheduler, not merely an already-installed process.  The independent
+# supervisor owns the fail-closed chain role -> stable pool identity -> plist contract -> launchd -> fresh
+# post-activation heartbeat.  It takes the deploy lease first and then calls the exact connector-only
+# installer, whose own lease is connector-autonomy.lock; this is the one global lock order used by deploy
+# and failover too.  A fresh foreign-host heartbeat suppresses all startup, while admin/unsafe/Drive states
+# never mutate launchd.  Its closed status wire contains reasons and proof identifiers, never paths/secrets.
+CONNECTOR_SUPERVISOR="$HOME/.nostra-ops/connector-supervisor.py"
+connector_supervisor_attested=0
+bootstrap_connector_supervisor && connector_supervisor_attested=1
+if [ "$connector_supervisor_attested" = 1 ]; then
+  if ! "$PYTHON" -I "$CONNECTOR_SUPERVISOR"; then
+    connector_note_hourly supervisor-failed \
+      "CONNECTORS SUPERVISOR unavailable — no unproven service mutation attempted"
   fi
+else
+  connector_note_hourly supervisor-missing \
+    "CONNECTORS SUPERVISOR missing or unsafe — no unproven service mutation attempted"
 fi
 
 problem=""; detail=""; pub=""

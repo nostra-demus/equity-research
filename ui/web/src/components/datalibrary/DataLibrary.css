@@ -33,6 +33,7 @@
   padding: 11px 20px; border-bottom: 1px solid var(--hairline); font-size: 12px;
 }
 .datalib__service--good { background: var(--live-wash); }
+.datalib__service--checking { background: var(--accent-wash-soft); }
 .datalib__service--incident { background: color-mix(in srgb, var(--conv-warn) 10%, transparent); }
 .datalib__serviceicon {
   display: grid; place-items: center; width: 24px; height: 24px; border-radius: var(--r-pill);
@@ -41,9 +42,18 @@
 .datalib__service--incident .datalib__serviceicon {
   color: var(--conv-warn); background: color-mix(in srgb, var(--conv-warn) 15%, transparent);
 }
-.datalib__servicecopy { min-width: 0; display: flex; flex-direction: column; gap: 2px; color: var(--text-muted); line-height: 1.4; }
+.datalib__service--checking .datalib__serviceicon {
+  color: var(--accent-bright); background: var(--accent-wash);
+}
+.datalib__servicecopy {
+  min-width: 0; display: flex; flex-direction: column; gap: 2px; color: var(--text-muted);
+  line-height: 1.4; overflow-wrap: anywhere;
+}
 .datalib__servicecopy strong { color: var(--text); font-size: 12.5px; }
-.datalib__servicemeta { color: var(--text-faint); font-size: 11px; text-align: right; }
+.datalib__servicemeta {
+  min-width: 0; max-width: min(34vw, 360px); color: var(--text-faint); font-size: 11px;
+  text-align: right; overflow-wrap: anywhere;
+}
 
 /* ---------- controls ---------- */
 .datalib__controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
@@ -231,5 +241,5 @@
 
 @media (max-width: 760px) {
   .datalib__service { grid-template-columns: 26px minmax(0, 1fr); }
-  .datalib__servicemeta { grid-column: 2; text-align: left; }
+  .datalib__servicemeta { grid-column: 2; max-width: none; text-align: left; }
 }

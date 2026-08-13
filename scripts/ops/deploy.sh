@@ -61,6 +61,68 @@ ts()  { date '+%Y-%m-%d %H:%M:%S'; }
 log() { echo "$(ts) $*" >> "$LOG"; }
 loaded() { launchctl print "gui/$UID_NUM/$1" >/dev/null 2>&1; }
 
+legacy_tunnel_contract() {
+  "$PYTHON" -I - "$1" <<'PYLEGACYROLE'
+import os, plistlib, stat, sys
+path = sys.argv[1]; fd = None
+try:
+    before = os.lstat(path)
+    if (not stat.S_ISREG(before.st_mode) or before.st_uid != os.getuid()
+            or before.st_nlink != 1 or before.st_mode & 0o022
+            or not 0 < before.st_size <= 1024 * 1024): raise OSError
+    fd = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+    opened = os.fstat(fd); chunks = []; remaining = opened.st_size
+    while remaining:
+        chunk = os.read(fd, remaining)
+        if not chunk: raise OSError
+        chunks.append(chunk); remaining -= len(chunk)
+    if os.read(fd, 1): raise OSError
+    raw = b"".join(chunks); after = os.fstat(fd); named = os.lstat(path)
+    identity = lambda s: (s.st_dev, s.st_ino, s.st_size, s.st_mtime_ns, s.st_ctime_ns,
+                          s.st_mode, s.st_uid, s.st_nlink)
+    if identity(before) != identity(opened) or identity(opened) != identity(after) \
+            or identity(after) != identity(named): raise OSError
+    value = plistlib.loads(raw); args = value.get("ProgramArguments")
+    if (value.get("Label") != "com.nostradamus.tunnel" or not isinstance(args, list)
+            or len(args) != 4 or not isinstance(args[0], str) or not args[0].startswith("/")
+            or os.path.basename(args[0]) != "cloudflared"
+            or args[1:] != ["tunnel", "run", "nostradamus-engine"]
+            or value.get("RunAtLoad") is not True or value.get("KeepAlive") is not True): raise OSError
+except (OSError, ValueError, plistlib.InvalidFileException): raise SystemExit(1)
+finally:
+    if fd is not None: os.close(fd)
+PYLEGACYROLE
+}
+
+safe_role_value() {
+  "$PYTHON" -I - "$1" <<'PYROLEVALUE'
+import os, stat, sys
+path = sys.argv[1]; fd = None
+try:
+    before = os.lstat(path)
+    if (not stat.S_ISREG(before.st_mode) or before.st_uid != os.getuid()
+            or before.st_nlink != 1 or before.st_mode & 0o077 or not 0 < before.st_size <= 32): raise OSError
+    fd = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+    opened = os.fstat(fd); chunks = []; remaining = opened.st_size
+    while remaining:
+        chunk = os.read(fd, remaining)
+        if not chunk: raise OSError
+        chunks.append(chunk); remaining -= len(chunk)
+    if os.read(fd, 1): raise OSError
+    raw = b"".join(chunks); after = os.fstat(fd); named = os.lstat(path)
+    identity = lambda s: (s.st_dev, s.st_ino, s.st_size, s.st_mtime_ns, s.st_ctime_ns,
+                          s.st_mode, s.st_uid, s.st_nlink)
+    if identity(before) != identity(opened) or identity(opened) != identity(after) \
+            or identity(after) != identity(named): raise OSError
+    if raw == b"doer\n": print("doer")
+    elif raw == b"admin\n": print("admin")
+    else: raise OSError
+except OSError: raise SystemExit(1)
+finally:
+    if fd is not None: os.close(fd)
+PYROLEVALUE
+}
+
 # Role truth takes precedence over legacy topology inference. Admin intent is recorded before demotion removes
 # doer-only services, while doer promotion is recorded only after a complete install, so an interrupted
 # demotion cannot be undone by stale files. Older doers have no marker yet, so their real, current-user-owned
@@ -68,13 +130,12 @@ loaded() { launchctl print "gui/$UID_NUM/$1" >/dev/null 2>&1; }
 is_doer_host() {
   local role_file="$OPS/role" role_value="" tunnel="$HOME/Library/LaunchAgents/com.nostradamus.tunnel.plist"
   if [ -e "$role_file" ] || [ -L "$role_file" ]; then
-    if [ ! -L "$role_file" ] && [ -f "$role_file" ] && [ -O "$role_file" ]; then
-      role_value="$(cat "$role_file" 2>/dev/null || true)"
+    if role_value="$(safe_role_value "$role_file" 2>/dev/null)"; then
       case "$role_value" in doer) return 0 ;; admin) return 1 ;; esac
     fi
     return 1                                                # unsafe/unknown durable truth fails closed as admin
   fi
-  [ ! -L "$tunnel" ] && [ -f "$tunnel" ] && [ -O "$tunnel" ]
+  legacy_tunnel_contract "$tunnel"
 }
 
 # One-time + continuously idempotent connector LaunchAgent migration. PR1 changes the connector scheduler
@@ -92,8 +153,31 @@ migrate_connector_launchagent_v2() {
   local providers_env="$providers_dir/providers.env"
   local secret_helper="$PROD/scripts/ops/migrate-connector-secrets.py"
   local load_contract="$PROD/scripts/ops/service-load-contract.sh"
+  local supervisor_helper="$PROD/scripts/ops/connector-supervisor.py"
   local staged claim desired_interval source_isolated changed=0 orphan_count=0
   is_doer_host || return 0                                # gate every install/claim/activation path, not just absence
+  # One private identity owns the connector config path across plist deletion,
+  # upgrades, and custom provider directories. This helper is executed only
+  # after main/origin/dirty gates under the repository mutation lease.
+  if [ ! -f "$supervisor_helper" ] || [ -L "$supervisor_helper" ]; then
+    log "WARN connector-agent migration helper is missing or unsafe"
+    return 1
+  fi
+  if ! ENGINE_REPO_ROOT="$PROD" "$PYTHON" -I "$supervisor_helper" --writer-eligible; then
+    log "connector-agent migration skipped — this host is not the configured connector writer"
+    return 0
+  fi
+  carried_config="$(ENGINE_REPO_ROOT="$PROD" "$PYTHON" -I \
+    "$supervisor_helper" --read-config-identity 2>/dev/null || true)"
+  [ -z "$carried_config" ] || providers_dir="$carried_config"
+  if ! ENGINE_REPO_ROOT="$PROD" NOSTRA_ENGINE_CONFIG_DIR="$providers_dir" \
+      "$PYTHON" -I "$supervisor_helper" --ensure-config-identity \
+      || ! providers_dir="$(ENGINE_REPO_ROOT="$PROD" "$PYTHON" -I \
+        "$supervisor_helper" --read-config-identity)"; then
+    log "WARN connector-agent migration could not prove the canonical config identity"
+    return 1
+  fi
+  providers_env="$providers_dir/providers.env"
   # Production data/ is a Drive-pool symlink. If Drive is absent, the clobber guard can conservatively leave
   # an empty real directory in its place; activating RunAtLoad there would turn that outage placeholder into
   # a local connector pool. Defer every connector activation until the canonical symlink resolves/readable.
@@ -259,11 +343,115 @@ fi
 # re-asserts the invariant each cycle so a manual slip or a future stray tracked path SELF-HEALS. It is
 # deliberately timid: it only acts when data/ is NOT a symlink, only self-heals the known clobber shape
 # (empty, or just the legacy _market scaffold), NEVER deletes (backs up), and NEVER wedges the deploy.
-POOL="${NOSTRA_POOL:-$HOME/Library/CloudStorage/GoogleDrive-ceekay@muns.io/My Drive/equity-research-data}"
+# There is exactly one pool authority: the owner-only identity seeded by an explicit NOSTRA_POOL on first
+# install, or by the currently resolving production data symlink on upgrade.  Never fall back to a hardcoded
+# Drive account after that identity exists; doing so could silently move the writer to a second pool.
+POOL_IDENTITY="$OPS/pool-root"
+read_pool_identity() {
+  "$PYTHON" -I - "$POOL_IDENTITY" <<'PYPOOLIDENTITY'
+import os
+import stat
+import sys
+
+path = sys.argv[1]
+descriptor = None
+try:
+    before = os.lstat(path)
+    if (not stat.S_ISREG(before.st_mode) or before.st_uid != os.getuid()
+            or before.st_nlink != 1 or before.st_mode & 0o077
+            or not 1 < before.st_size <= 4096):
+        raise OSError
+    descriptor = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+    opened = os.fstat(descriptor)
+    raw = os.read(descriptor, opened.st_size + 1)
+    after = os.fstat(descriptor)
+    named = os.lstat(path)
+    if ((opened.st_dev, opened.st_ino, opened.st_size, opened.st_mtime_ns,
+         opened.st_ctime_ns, opened.st_uid, opened.st_nlink)
+            != (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns,
+                after.st_ctime_ns, after.st_uid, after.st_nlink)
+            or (opened.st_dev, opened.st_ino, opened.st_size, opened.st_mtime_ns,
+                opened.st_ctime_ns, opened.st_uid, opened.st_nlink)
+            != (named.st_dev, named.st_ino, named.st_size, named.st_mtime_ns,
+                named.st_ctime_ns, named.st_uid, named.st_nlink)):
+        raise OSError
+    text = raw.decode("utf-8")
+    if not text.endswith("\n") or "\n" in text[:-1] or not text[:-1].startswith("/"):
+        raise OSError
+    target = os.path.realpath(text[:-1])
+    target_stat = os.stat(target)
+    if (not stat.S_ISDIR(target_stat.st_mode) or target_stat.st_uid != os.getuid()
+            or not os.access(target, os.R_OK | os.X_OK) or target != text[:-1]):
+        raise OSError
+    print(target)
+except (OSError, UnicodeError):
+    raise SystemExit(1)
+finally:
+    if descriptor is not None:
+        os.close(descriptor)
+PYPOOLIDENTITY
+}
+seed_pool_identity() {
+  "$PYTHON" -I - "$POOL_IDENTITY" "$PROD/data" "${NOSTRA_POOL:-}" <<'PYSEEDPOOL'
+import os
+import stat
+import sys
+import tempfile
+
+identity, data_path, explicit = sys.argv[1:]
+if os.path.lexists(identity):
+    raise SystemExit(0)
+candidate = explicit or data_path
+if not os.path.isabs(candidate) or (not explicit and not os.path.islink(data_path)):
+    raise SystemExit(1)
+try:
+    target = os.path.realpath(candidate)
+    target_stat = os.stat(target)
+    if (not stat.S_ISDIR(target_stat.st_mode) or target_stat.st_uid != os.getuid()
+            or not os.access(target, os.R_OK | os.X_OK)):
+        raise OSError
+    parent = os.path.dirname(identity)
+    before = os.lstat(parent)
+    descriptor = os.open(parent, os.O_RDONLY | getattr(os, "O_DIRECTORY", 0) | getattr(os, "O_NOFOLLOW", 0))
+    try:
+        opened = os.fstat(descriptor)
+        if (not stat.S_ISDIR(opened.st_mode) or opened.st_uid != os.getuid()
+                or (opened.st_dev, opened.st_ino) != (before.st_dev, before.st_ino)):
+            raise OSError
+        os.fchmod(descriptor, 0o700)
+    finally:
+        os.close(descriptor)
+    staged_fd, staged = tempfile.mkstemp(prefix=".pool-root.seed.", dir=parent)
+    try:
+        os.fchmod(staged_fd, 0o600)
+        os.write(staged_fd, (target + "\n").encode("utf-8"))
+        os.fsync(staged_fd)
+        os.close(staged_fd); staged_fd = -1
+        try:
+            os.link(staged, identity, follow_symlinks=False)
+        except FileExistsError:
+            pass
+    finally:
+        if staged_fd >= 0: os.close(staged_fd)
+        try: os.unlink(staged)
+        except OSError: pass
+except OSError:
+    raise SystemExit(1)
+PYSEEDPOOL
+}
 ensure_data_symlink() {
-  local d="$PROD/data" extra bak
-  [ -L "$d" ] && return 0                              # already a symlink — nothing to do
-  [ -e "$POOL" ] || { log "WARN data-guard: pool '$POOL' absent (Drive signed out?) — leaving data/ as-is"; return 0; }
+  local d="$PROD/data" extra bak pool=""
+  # Seed once from explicit/current safe topology using this installed reviewed deploy script. Never execute
+  # mutable production working-tree code before the deploy lease/main/dirty gates.
+  seed_pool_identity >/dev/null 2>&1 || true
+  pool="$(read_pool_identity 2>/dev/null || true)"
+  [ -n "$pool" ] || { log "WARN data-guard: canonical pool identity unavailable — leaving data/ as-is"; return 0; }
+  if [ -L "$d" ]; then
+    [ "$(cd "$d" 2>/dev/null && pwd -P)" = "$pool" ] \
+      || log "WARN data-guard: data symlink conflicts with canonical pool identity — NOT touching"
+    return 0
+  fi
+  [ -e "$pool" ] || { log "WARN data-guard: canonical pool unavailable (Drive signed out?) — leaving data/ as-is"; return 0; }
   if [ -d "$d" ]; then
     extra="$(ls -A "$d" 2>/dev/null | grep -vxE '_market|\.DS_Store' | head -n 1)"
     [ -n "$extra" ] && { log "WARN data-guard: $d is a non-symlink dir with unexpected content ('$extra') — NOT touching (manual review)"; return 0; }
@@ -275,20 +463,40 @@ ensure_data_symlink() {
     mv "$d" "$bak" 2>/dev/null || { log "WARN data-guard: could not move stray $d aside — leaving as-is"; return 0; }
     log "data-guard: moved clobbered empty data dir aside to $bak (outside the worktree so the dirty-gate never wedges)"
   fi
-  ln -s "$POOL" "$d" 2>/dev/null && log "data-guard: restored data -> Drive pool symlink" || log "WARN data-guard: failed to create data symlink"
+  # Never synthesize a wholly absent data path: only the known, inspected empty clobber directory above is
+  # recoverable without operator ambiguity.
+  [ -e "$bak" ] 2>/dev/null \
+    && ln -s "$pool" "$d" 2>/dev/null \
+    && log "data-guard: restored data -> canonical Drive pool symlink" \
+    || { [ -e "$d" ] || log "WARN data-guard: data path absent — manual topology repair required"; }
 }
 
 # ---- whole-deploy single-flight ----
 # fd 8 survives the short Python helper because flock belongs to the shared open-file description.
 # The kernel releases it on every shell exit/crash, so a long npm/build/health cycle can never be
 # "reclaimed" by age and overlapped by another deploy. A launchd tick that finds it held simply skips.
+umask 077
+[ ! -L "$DEPLOY_LOCK" ] || { log "WARN unsafe deploy single-flight lock"; exit 0; }
 exec 8>>"$DEPLOY_LOCK" || { log "WARN cannot open deploy single-flight lock"; exit 0; }
-if ! "$PYTHON" - 8<&8 <<'PYDEPLOYLOCK'
+if ! "$PYTHON" -I - "$DEPLOY_LOCK" 8<&8 <<'PYDEPLOYLOCK'
 import fcntl
+import os
+import stat
+import sys
 
 try:
+    opened = os.fstat(8); named = os.lstat(sys.argv[1])
+    if (not stat.S_ISREG(opened.st_mode) or opened.st_uid != os.getuid()
+            or opened.st_nlink != 1 or stat.S_ISLNK(named.st_mode)
+            or (opened.st_dev, opened.st_ino) != (named.st_dev, named.st_ino)):
+        raise OSError
+    os.fchmod(8, 0o600)
     fcntl.flock(8, fcntl.LOCK_EX | fcntl.LOCK_NB)
-except BlockingIOError:
+    locked = os.fstat(8); named = os.lstat(sys.argv[1])
+    if (locked.st_uid != os.getuid() or locked.st_nlink != 1 or locked.st_mode & 0o077
+            or (locked.st_dev, locked.st_ino) != (named.st_dev, named.st_ino)):
+        raise OSError
+except (BlockingIOError, OSError):
     raise SystemExit(3)
 PYDEPLOYLOCK
 then
@@ -308,21 +516,39 @@ gitlock_acquire() {
   top="$("$GIT" -C "$PROD" rev-parse --show-toplevel 2>/dev/null)" || return 1
   GITLOCK="$("$GIT" -C "$top" rev-parse --git-path nostra-engine-mutation.flock 2>/dev/null)"
   case "$GITLOCK" in /*) ;; ?*) GITLOCK="$top/$GITLOCK" ;; *) GITLOCK=""; return 1 ;; esac
+  [ ! -L "$GITLOCK" ] || { GITLOCK=""; return 1; }
+  umask 077
   exec 9>>"$GITLOCK" || { GITLOCK=""; return 1; }
-  if "$PYTHON" - 15000 9<&9 <<'PYLOCK'
+  if "$PYTHON" -I - "$GITLOCK" 15000 9<&9 <<'PYLOCK'
 import fcntl
+import os
+import stat
 import sys
 import time
 
-deadline = time.monotonic() + int(sys.argv[1]) / 1000
-while True:
-    try:
+path = sys.argv[1]
+deadline = time.monotonic() + int(sys.argv[2]) / 1000
+try:
+    opened = os.fstat(9); named = os.lstat(path)
+    if (not stat.S_ISREG(opened.st_mode) or opened.st_uid != os.getuid()
+            or opened.st_nlink != 1 or stat.S_ISLNK(named.st_mode)
+            or (opened.st_dev, opened.st_ino) != (named.st_dev, named.st_ino)):
+        raise OSError
+    os.fchmod(9, 0o600)
+    while True:
+      try:
         fcntl.flock(9, fcntl.LOCK_EX | fcntl.LOCK_NB)
         break
-    except BlockingIOError:
+      except BlockingIOError:
         if time.monotonic() >= deadline:
-            raise SystemExit(3)
+            raise OSError
         time.sleep(0.05)
+    locked = os.fstat(9); named = os.lstat(path)
+    if (locked.st_uid != os.getuid() or locked.st_nlink != 1 or locked.st_mode & 0o077
+            or (locked.st_dev, locked.st_ino) != (named.st_dev, named.st_ino)):
+        raise OSError
+except OSError:
+    raise SystemExit(3)
 PYLOCK
   then
     return 0
@@ -342,15 +568,50 @@ is_data_path() { case "$1" in analyses/tracking/*|analyses/*|screener/*) return 
 # to UNTRACKED files — and a build compiles the working tree, so an untracked `ui/web/x.ts` would otherwise
 # be baked into the live bundle with no PR/CI/review. Gitignored paths (ui/dist, node_modules) don't appear.
 has_nondata_dirty() {
-  local line path
-  while IFS= read -r line; do
-    [ -z "$line" ] && continue
-    path="${line:3}"          # strip the "XY " porcelain status prefix
-    path="${path##* -> }"     # a rename prints "old -> new"; keep the destination
-    is_data_path "$path" || return 0
-  done < <("$GIT" status --porcelain 2>/dev/null)
-  return 1
+  local staged
+  staged="$(mktemp "$OPS/.git-status.XXXXXX")" || return 0
+  if ! "$GIT" status --porcelain=v1 -z --untracked-files=normal > "$staged" 2>/dev/null; then
+    rm -f "$staged" 2>/dev/null || true
+    return 0
+  fi
+  "$PYTHON" -I - "$staged" <<'PYDIRTY'
+import sys
+
+raw = open(sys.argv[1], "rb").read()
+fields = raw.split(b"\0")
+if fields and fields[-1] == b"": fields.pop()
+index = 0
+while index < len(fields):
+    record = fields[index]
+    if len(record) < 4 or record[2:3] != b" ": raise SystemExit(0)
+    code, path = record[:2], record[3:]
+    paths = [path]
+    if b"R" in code or b"C" in code:
+        index += 1
+        if index >= len(fields): raise SystemExit(0)
+        paths.append(fields[index])
+    for encoded in paths:
+        try: value = encoded.decode("utf-8", "strict")
+        except UnicodeError: raise SystemExit(0)
+        if not (value.startswith("analyses/") or value.startswith("screener/")):
+            raise SystemExit(0)
+    index += 1
+raise SystemExit(1)
+PYDIRTY
+  local rc=$?
+  rm -f "$staged" 2>/dev/null || true
+  [ "$rc" -eq 0 ]
 }
+
+# Narrow portable test hook: returns 0 when deployment must be blocked and 1
+# only when every dirty old/new path is inside the append-only data roots.
+if [ "${1:-}" = --check-dirty ]; then
+  cd "$PROD" 2>/dev/null || exit 0
+  has_nondata_dirty
+  exit $?
+elif [ "$#" -gt 0 ]; then
+  exit 2
+fi
 
 # code_settling <base> <target> — rc 0 (DEFER the rebuild) when the base..target delta contains a ui/web or
 # ui/server change (the only paths that trigger a dist rebuild or engine restart — the offline blip) AND the
@@ -491,11 +752,14 @@ reconcile_build() {
   # self-update the installed ops shell scripts when they change on main (atomic temp+mv; safe mid-run).
   # These scripts read their paths from env (ENGINE_REPO_ROOT/REPO) at runtime, so a straight copy is
   # portable across machines / usernames — no per-host path rewriting is needed.
-  for opsscript in watchdog.sh deploy.sh housekeeping.sh; do
+  for opsscript in watchdog.sh deploy.sh housekeeping.sh connector-supervisor.py; do
     case "$changed" in
       *scripts/ops/$opsscript*)
-        cp "$PROD/scripts/ops/$opsscript" "$OPS/$opsscript.tmp" 2>/dev/null \
-          && chmod +x "$OPS/$opsscript.tmp" && mv "$OPS/$opsscript.tmp" "$OPS/$opsscript" && log "  refreshed ops/$opsscript (self-update)" ;;
+        staged_ops="$(mktemp "$OPS/.$opsscript.staged.XXXXXX")" \
+          && cp "$PROD/scripts/ops/$opsscript" "$staged_ops" 2>/dev/null \
+          && chmod 700 "$staged_ops" && mv "$staged_ops" "$OPS/$opsscript" \
+          && log "  refreshed ops/$opsscript (self-update)" \
+          || { rm -f "${staged_ops:-}" 2>/dev/null || true; failed=1; log "  WARN could not refresh ops/$opsscript"; } ;;
     esac
   done
 
