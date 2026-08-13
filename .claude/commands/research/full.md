@@ -697,6 +697,50 @@ PY
 
 Record the printed `GATE:` line for step 11 ("Integrity gate") and step 13 (report). A `PROVISIONAL` result must be surfaced loudly in the report — it is never silently dropped.
 
+### 10B.1a — Remediate once, then re-gate (do NOT ship a fixable break)
+
+The gate never aborts the run — a thesis is always produced — but "always produced" was never meant to mean "shipped broken without trying". Almost every violation 10B.1 emits is **mechanically fixable in one pass by the agent that wrote the numbers**: a recorded scenario level that disagrees with `forward_metric × multiple`, a missing SIGN CHECK line, an empty `joint_probability_basis` on a multi-condition scenario, a scorecard figure that does not match `decision_record.json`. Shipping those flagged is a choice, not a constraint.
+
+So: **if 10B.1 printed `GATE: PROVISIONAL`, run exactly one remediation pass before continuing.**
+
+1. Re-dispatch `.claude/agents/synthesizer.md` against the same `<RUN_ROOT>`, passing the verbatim violation list and this instruction: *"The finish-gate rejected these specific numbers. Fix the underlying figures in `final_thesis.md` AND `decision_record.json` so they reconcile — do not restate the thesis, do not re-run modules, and do not weaken a threshold merely to clear a check. If a violation is genuinely not fixable from the available evidence (the input it needs does not exist in the pool), leave it and say in one line why it is unfixable."*
+2. Re-run 10B.1 verbatim. Its banner logic is idempotent — it strips the old banner and re-stamps only what still fails.
+3. Run this loop **once**. If violations remain after the second gate, ship PROVISIONAL with the remaining reasons; that is now an honest record of what could not be fixed rather than of what nobody tried to fix.
+
+Record both gate lines (`GATE:` before and after) for step 13, plus which violations the remediation pass cleared.
+
+### 10B.1b — Stamp the gate result into `decision_record.json` (so the flag cannot be lost)
+
+The PROVISIONAL banner lives only at the top of `final_thesis.md`. Everything else downstream — the decision ledger, `/research:track`, the cockpit, the calibration harness, anyone reading `decision_record.json` directly — reads the record, sees clean numbers, and has no idea the engine flagged them. That is how a thesis the engine itself would not stand behind gets counted as a clean call. Close it by writing the verdict where the machines actually look:
+
+```bash
+python3 - <<'PY'
+import json, os, re
+RUN_ROOT = os.environ["RUN_ROOT"]
+dr_path = os.path.join(RUN_ROOT, "decision_record.json")
+ft_path = os.path.join(RUN_ROOT, "final_thesis.md")
+if os.path.exists(dr_path):
+    d = json.load(open(dr_path, encoding="utf-8"))
+    reasons, status = [], "pass"
+    if os.path.exists(ft_path):
+        head = open(ft_path, encoding="utf-8").read(4000)
+        if "PROVISIONAL — the automated finish-gate" in head:
+            status = "provisional"
+            # the banner is one blockquote; reasons are '; '-joined on its second line
+            m = re.search(r"^> ⚠️ \*\*PROVISIONAL[^\n]*\n> (.+?)\n>\n", head, re.S | re.M)
+            # "; " is the exact inverse of the banner's '"; ".join(viol)' — do NOT split on a bare ";",
+            # which would shred any violation whose own text contains one.
+            if m: reasons = [r.strip() for r in m.group(1).replace("\n> ", " ").split("; ") if r.strip()]
+    d["integrity_gate"] = {"status": status, "violations": reasons, "gate": "research:full step 10B"}
+    json.dump(d, open(dr_path, "w", encoding="utf-8"), indent=2, ensure_ascii=False)
+    print(f"GATE-STAMP: integrity_gate.status={status} ({len(reasons)} violation(s)) → decision_record.json")
+else:
+    print("GATE-STAMP: no decision_record.json — nothing to stamp")
+PY
+```
+
+`integrity_gate` is additive, so existing readers are unaffected; any consumer that wants to distinguish a clean call from a flagged one now can. Run this AFTER 10B.1a's re-gate (and again after 10B.2's stamps, if those change the banner) so the recorded status matches the banner actually shipped.
+
 ### 10B.2 — Integrity audit + red-team (deeper, LLM)
 
 Then run the two standing audits IN the ship path, so the no-source-no-claim and §8 disconfirmation guarantees are enforced rather than left optional:
