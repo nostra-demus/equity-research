@@ -329,8 +329,8 @@ export function EventRail() {
   const pickTab = (t: ListTab) => { setTab(t); if (themesOpen) closeThemes(); if (ideasOpen) closeIdeas(); if (calendarOpen) closeCalendar() }
   // the list surfaces (Wire / Everything) are showing when no full-pane surface (Themes / Calendar / Ideas) is open
   const listActive = !themesOpen && !ideasOpen && !calendarOpen
-  // A rolling deploy may expose lead health or the lead array first. Either capability keeps the simple
-  // LONG / SHORT Ideas surface inspectable while the live board catches up.
+  // A rolling deploy may expose lead health or the lead array first. Either capability keeps the LONG /
+  // SHORT surface inspectable so it can explain that leads and qualified forecasts are separate.
   const ideasSummary = summarizeIdeasSurface(scBoard)
   // A cold board failure must not hide the only surface that explains the failure. Keep Ideas openable
   // so the user sees an explicit retry state instead of a missing tab that looks like "no ideas".
@@ -621,10 +621,10 @@ export function EventRail() {
         )}
         <div className="evrail__seg" role="radiogroup" aria-label="How to view the wire">
           {ideasAvailable && (
-            <button type="button" role="radio" aria-checked={ideasOpen} className={`evrail__segbtn evrail__segbtn--ideas${ideasOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => openIdeas()} title={scBoardFetch.status === 'error' ? 'Ideas board could not refresh — open to retry' : 'Live long and short ideas'}>
+            <button type="button" role="radio" aria-checked={ideasOpen} className={`evrail__segbtn evrail__segbtn--ideas${ideasOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => openIdeas()} title={scBoardFetch.status === 'error' ? 'Ideas board could not refresh — open to retry' : 'Qualified 3–6 month ideas, with unverified news leads kept in a separate research queue'}>
               {scBoardFetch.status === 'error'
                 ? <span className="evrail__segdot evrail__segdot--bad" aria-hidden />
-                : ideasSummary.liveLeadCount > 0 && <span className="evrail__segdot" aria-hidden title="Fresh ideas" />}
+                : ideasSummary.liveLeadCount > 0 && <span className="evrail__segdot" aria-hidden title="Fresh unverified research leads" />}
               Ideas
             </button>
           )}
