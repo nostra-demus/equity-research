@@ -9,6 +9,7 @@ import { buildReportHtml, parseMeta, safeName } from '../lib/export'
 import { buildDocxBlob } from '../lib/docx'
 import { fmtClock } from '../lib/eta'
 import { CONSTITUTION_PATH, moduleOfNodeKey, moduleRulesPath, promptFileName, promptPathForNodeKey, splitFrontmatter } from '../lib/prompts'
+import { reportIntegrityView } from '../lib/reportIntegrity'
 import { Spin } from './Spin'
 
 const IMPROVE_EMAIL = 'ceekay@muns.io'
@@ -54,6 +55,7 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
   const [promptMd, setPromptMd] = useState<string | null>(null)
   const [promptLoading, setPromptLoading] = useState(false)
   const [promptSource, setPromptSource] = useState<PromptSource | null>(null)
+  const reportView = useMemo(() => reportIntegrityView(md), [md])
 
   useEffect(() => {
     if (!output.path) { setMd(''); setLoading(false); return } // pending (not-yet-run) node — nothing to fetch
@@ -376,9 +378,23 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
         {promptView ? promptBody() : output.pending ? pendingBody() : loading ? (
           <div style={{ color: 'var(--text-faint)' }}>Loading…</div>
         ) : (
-          <div className="md">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{md}</ReactMarkdown>
-          </div>
+          <>
+            {reportView.warning && (
+              <section className="reportcheck" role="alert">
+                <strong>This report is not ready to use</strong>
+                <p>Some checks failed. Fix them, then run the report again.</p>
+                <details>
+                  <summary>Show what failed</summary>
+                  <div className="reportcheck__details md">
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{reportView.warning.details}</ReactMarkdown>
+                  </div>
+                </details>
+              </section>
+            )}
+            <div className="md">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{reportView.body}</ReactMarkdown>
+            </div>
+          </>
         )}
       </div>
     </motion.div>
