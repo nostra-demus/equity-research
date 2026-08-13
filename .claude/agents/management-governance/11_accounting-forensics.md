@@ -231,13 +231,15 @@ One row per owned checklist item (A8-01…A8-20, A14-01, A14-02), the item ID le
 ## Accounting-Forensics Risk Score (INVERTED — higher = WORSE; flag this in every table that carries it)
 | Component | Score | Max Score | Evidence |
 |---|---:|---:|---|
-| Accrual battery (Beneish + Dechow) | | 25 | |
-| Cash authenticity | | 15 | |
-| Revenue quality | | 15 | |
-| Balance-sheet hygiene (WC creep, receivables ageing, capitalization, goodwill) | | 20 | |
-| Policy & estimate stability | | 10 | |
-| Leverage & advances hygiene | | 15 | |
+| Accrual battery — Beneish + Dechow (A8-01, A8-11, A8-12, A8-14, A8-17, A8-18) | | 25 | |
+| Cash authenticity (A8-19) | | 15 | |
+| Revenue quality (A8-15) | | 15 | |
+| Balance-sheet hygiene — WC creep, receivables ageing, capitalization, goodwill, consolidation (A8-02, A8-03, A8-04, A8-06, A8-13) | | 20 | |
+| P&L quality & policy stability (A8-05, A8-07, A8-08, A8-09, A8-10, A8-16, A8-20) | | 10 | |
+| Leverage & advances hygiene (A14-01, A14-02) | | 15 | |
 | Total | | 100 | |
+
+Every owned item maps to exactly one component above (the tags in parentheses are the coverage map — an agent filling the table must place each A8/A14 item's risk in its named bucket, never drop it): A8-20 (regulator-found divergence, report Section 10) and A8-05/08/09/10 (P&L quality, report Section 8) land in the "P&L quality & policy stability" bucket.
 
 Score each component as risk points earned by cited evidence: 0 = no manipulation signal, the max = the red band tripped hard. If RF-ACC-001 fires with ≥3 manipulator-zone components, or RF-ACC-002 fires, the Score Cap Rules floor this score at 70 and Governance risk at 60 — state the floor for the synthesis; never average it away (§12). If the battery is not computable (<2 years) score the battery component "Insufficient Data" and say so; if the financials overlay applied, score the excluded components on the overlay signals actually tested and name the substitution.
 

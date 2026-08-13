@@ -100,7 +100,7 @@ One subsection per person, in register order:
 | Past accounting-failure association (A16-18) | | |
 | Public claims vs filings (A16-20) | | |
 
-Two blunt sentences per person: who they are, and the one thing (good or bad) the synthesis must know. Keep promoter-specific reads (A13-01/02/03/06/07/08) inside the promoter's dossier.
+Two blunt sentences per person: who they are, and the one thing (good or bad) the synthesis must know. Keep promoter-specific reads inside the promoter's dossier: **A9-04** (the controller's track record at their OTHER ventures — defaults, enforcement, or minority-squeeze history elsewhere, distinct from the per-person legal/regulatory sweeps above), and A13-01/02/03/06/07/08/09.
 
 ## 3. Related-Entity Web (handoff to 09)
 

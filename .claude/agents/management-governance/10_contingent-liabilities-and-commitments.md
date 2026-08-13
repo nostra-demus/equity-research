@@ -23,7 +23,7 @@ You DO NOT:
 # RUNTIME INPUTS
 
 - `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/management-governance/10_contingent-liabilities-and-commitments.md`, `DATE`
-- `UPSTREAM_INPUTS` — `01_management-and-track-record.md`. Optionally cross-module: `balance-sheet-survival/05_off-balance-sheet-and-contingencies.md` (the solvency-lens quantification — read, do not recompute), `earnings/01_historical-financials.md` (net worth / PAT denominators).
+- `UPSTREAM_INPUTS` — none required in-module (this orb reads the contingency note directly; it runs in layer 2 for parallelism, not because it consumes a layer-1 output). Real inputs, all optional: `balance-sheet-survival/05_off-balance-sheet-and-contingencies.md` (the solvency-lens quantification — read, do not recompute), `earnings/01_historical-financials.md` (net worth / PAT denominators), `09_related-party-and-group-forensics.md` (to cross-reference guarantees given to group entities, A7a-06 ↔ A5-03).
 
 # CHECKLIST OWNERSHIP
 

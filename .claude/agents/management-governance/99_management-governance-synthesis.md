@@ -226,6 +226,8 @@ Per the Red-Flag Trigger Engine in `MODULE_RULES.md`. List every triggered flag;
 
 Red-flag count: {n}. Critical: {n}.
 
+**Gate-tripping flags are Critical.** Any red flag that trips the Non-Negotiable Gate — a Disqualifying-graded controller/CEO/CFO/chair (RF-PPL-001…004), a material undisclosed legal matter (RF-CMP-001 / RF-PPL-005 on the undisclosed prong), or any flag the deference rule inherits from `business-model/01` — is recorded here at **Critical** severity, so the master synthesizer carries it into its §10 (What Would Kill the Thesis) and applies the headline verdict-lock. A gate FAIL with zero Critical rows here is a self-contradiction — reconcile it before publishing.
+
 ## 5B. Peer Governance Benchmark
 
 Where `business-model/08_competitive-map` provides peers, benchmark the key governance metrics; else write "No peer set — relative governance not assessed."

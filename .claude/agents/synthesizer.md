@@ -644,12 +644,15 @@ Include at least:
 
 Summarize from the module's synthesis:
 
+- **The Non-Negotiable Gate result (PASS / FAIL)** and the checklist coverage line — the module's own top-line governance signal. A FAIL names the tripping fact (a hard disqualifier, a Critical governance red flag, a Disqualifying-graded controller/CEO/CFO/chair from the person dossiers, or a material undisclosed legal/regulatory matter).
 - The stewardship verdict (Owner-operator → Serious governance concerns) plus the Governance Score, Confidence-Adjusted Score, and rating.
+- **The people-integrity read** — the person-dossier grade distribution and the single riskiest individual (from the module's People Integrity Summary). A Disqualifying or unresolved Material grade on a controller or KMP is a first-class governance risk, carried like any Critical/High red flag below.
+- **The checklist read** — coverage %, the count of Red checklist items (and the worst of the four inverted checklist risks — the binding Checklist Risk). Low coverage (<50%) or a coverage-limited person/legal sweep is a data-sufficiency input: note it in `missing_data` and apply the governance confidence cap.
 - The capital-allocation record (per-share value created or destroyed) and incentive alignment.
-- The **Red-Flag Register** — carry every Critical or High governance red flag (with its Red Flag ID) into the **Risk Register (§9)**, and every Critical one into **What Would Kill the Thesis (§10)**.
+- The **Red-Flag Register** — carry every Critical or High governance red flag (with its Red Flag ID, including the new RF-PPL/AUD/CL/ACC/CMP families) into the **Risk Register (§9)**, and every Critical one into **What Would Kill the Thesis (§10)**.
 - Any hard disqualifier flagged by `business-model/01_disqualifier-scan` (verbatim).
 
-**Verdict-lock:** if the governance module reports a hard disqualifier OR a Critical red flag, the headline rating in §1 cannot be "Strong Buy" or "Buy" — cap it at "Watchlist" or lower and state why. If the module did not run, treat governance as an unresolved residual risk and apply the governance confidence cap.
+**Verdict-lock:** if the governance module's **Non-Negotiable Gate is FAIL** — equivalently, it reports a hard disqualifier, a Critical governance red flag, a Disqualifying-graded controller/KMP, or a material undisclosed matter — the headline rating in §1 cannot be "Strong Buy" or "Buy": cap it at "Watchlist" or lower and state which gate condition tripped (a forensic short built on the same evidence remains a valid "Short Candidate" — the lock guards conviction longs, not a thesis that the governance is broken). If the module did not run, treat governance as an unresolved residual risk and apply the governance confidence cap.
 
 ## 9A. Bull Case — Steelman *(fix F37/F38)*
 
