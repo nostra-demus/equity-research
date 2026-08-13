@@ -1,7 +1,7 @@
 ---
 name: management-governance-synthesis
-depends_on: [business-model, earnings]
-description: Reads ALL upstream management-governance outputs and produces the final module report — Abstract, Verdict block (with 8 scores and a stewardship verdict), Specialist roll-up, Reconciliation, Score Cap application, Note to Final Synthesizer, and Simple Summary. The master synthesizer reads this as a module chapter and treats its governance verdict as primary (superseding the business-model quick-read).
+depends_on: [business-model, earnings, balance-sheet-survival]
+description: Reads ALL upstream management-governance outputs and produces the final module report — Abstract, Verdict block (14 scores, the Non-Negotiable Gate, and a stewardship verdict), the assembled Governance Checklist (every registry item Green/Amber/Red/NA), People Integrity summary, Specialist roll-up, Reconciliation, Score Cap application, Note to Final Synthesizer, and Simple Summary. The master synthesizer reads this as a module chapter and treats its governance verdict as primary (superseding the business-model quick-read).
 tools: Read, Glob, Grep, Bash
 layer: 3
 ---
@@ -62,7 +62,15 @@ If `business-model/01_disqualifier-scan.md` flagged ANY hard disqualifier (audit
   5. `04_ownership-and-insider-behavior.md`
   6. `05_board-and-shareholder-rights.md`
   7. `06_candor-and-disclosure-quality.md`
+  8. `07_people-integrity-dossiers.md`
+  9. `08_audit-and-assurance-quality.md`
+  10. `09_related-party-and-group-forensics.md`
+  11. `10_contingent-liabilities-and-commitments.md`
+  12. `11_accounting-forensics.md`
+  13. `12_regulatory-legal-and-compliance.md`
 - Cross-module: `business-model/01_disqualifier-scan.md` (deference check)
+
+If any of 07–12 is absent (an older run or a partial rerun), fall back gracefully: assemble the checklist from what exists, mark the missing agents' items "Not run", use the prior six-component composite formula per MODULE_RULES, and say so in the Abstract — never fabricate a missing specialist's scores or items.
 
 # REPORT STRUCTURE
 
@@ -91,18 +99,27 @@ Write this LAST.
   - Misaligned or weak stewardship
   - Serious governance concerns
   - Insufficient data
+- **NON-NEGOTIABLE GATE: PASS / FAIL** — per MODULE_RULES (hard disqualifier · any Critical red flag · a Disqualifying-graded controller/CEO/CFO/chair · a material undisclosed legal matter). If FAIL, name the tripping fact and apply the locks.
 - **Hard disqualifier flagged (business-model/01)?** Y/N — if Y, report it verbatim (verdict capped here)
 - Management quality /100:
 - Capital allocation /100:
 - Incentive alignment /100:
 - Shareholder friendliness /100:
 - Disclosure candor /100:
+- People integrity /100: *(from 07)*
+- Audit & assurance quality /100: *(from 08)*
+- RPT & leakage risk /100 *(higher = worse)*: *(from 09)*
+- Contingent-liability risk /100 *(higher = worse)*: *(from 10)*
+- Accounting-forensics risk /100 *(higher = worse)*: *(from 11)*
+- Legal & regulatory risk /100 *(higher = worse)*: *(from 12)*
 - Governance risk /100 *(higher = worse)*:
 - Data quality /100: *(from 00)*
 - Overall usefulness /100:
+- **Checklist coverage:** {answered}/{total registry items} ({%}) — with the Green / Amber / Red / N-A counts
 - Insider ownership (one line): *(from 04)*
 - Biggest governance signal (one line):
-- **Governance Score /100** — compute with the exact MODULE_RULES formula: `0.20×CapAlloc + 0.18×Incentive + 0.18×ShFriendliness + 0.16×Candor + 0.16×MgmtQuality + 0.12×(100 − GovRisk)`; show the inputs:
+- **Checklist Risk** = max(RPT & leakage, Contingent-liability, Accounting-forensics, Legal & regulatory) — the worst risk is never averaged away (§12):
+- **Governance Score /100** — compute with the exact MODULE_RULES formula: `0.14×CapAlloc + 0.11×Incentive + 0.11×ShFriendliness + 0.10×Candor + 0.11×MgmtQuality + 0.09×AuditAssurance + 0.11×PeopleIntegrity + 0.11×(100 − GovRisk) + 0.12×(100 − ChecklistRisk)`; show the inputs. (If 07–12 are absent — an older run — use the prior six-component formula and say so.)
 - **Confidence-Adjusted Governance Score /100** (= Governance Score × Confidence Score / 100):
 - **Governance Rating** (Excellent / Good / Watchlist / Weak / Avoid):
 - **Confidence Score /100** (source quality):
@@ -129,6 +146,12 @@ Three to five lines, evidence-cited — a required test the verdict must survive
 | ownership-and-insider-behavior | | |
 | board-and-shareholder-rights | | |
 | candor-and-disclosure-quality | | |
+| people-integrity-dossiers | | |
+| audit-and-assurance-quality | | |
+| related-party-and-group-forensics | | |
+| contingent-liabilities-and-commitments | | |
+| accounting-forensics | | |
+| regulatory-legal-and-compliance | | |
 
 ## 2A. Consolidated Governance Findings
 
@@ -138,6 +161,27 @@ Aggregate every specialist's Universal Findings Table into one table (the master
 |---|---|---|---|---|---:|---|---|---|---:|---:|---:|---|---|---|---|
 
 If an upstream agent did not provide a valid Universal Findings Table, write: *"Upstream output quality issue: {agent} did not provide a valid Universal Findings Table — confidence reduced,"* and lower the Confidence Score.
+
+## 2B. The Governance Checklist (assembled — Hard Rule)
+
+Assemble the complete Governance Checklist Registry (MODULE_RULES) from the specialists' Universal Findings Tables — every item, mechanically matched by its ID, in registry order. This is the module's item-by-item audit trail; the CSV export reads this table.
+
+Per section (A1, A2, A3, A4, A5, A6, A7, A7a, A8, A9, A10, A11, A12, A13, A14, A15, A16), a header row with the section's Green/Amber/Red/N-A counts, then:
+
+| ID | Test | Flag (Green/Amber/Red/NA/Insufficient) | Finding (raw value) | Confidence 1–5 | Source | Owner agent |
+|---|---|---|---|---:|---|---|
+
+Rules:
+- Every registry item appears exactly once. An item its owner did not answer is "Not run ({agent} missing)" or "N/A ({owner's stated reason})" — the checklist never silently shrinks.
+- Do not re-derive flags — carry the owner's verdict; where two agents touched the same fact, the OWNER's row wins and the disagreement goes to Section 3.
+- End with the coverage line: `{answered}/{total} answered ({Green} Green · {Amber} Amber · {Red} Red · {NA} not available)`.
+
+### 2B-W. Watchlist (every Red)
+
+| ID | Item | What tripped it | Severity | Red Flag ID | Follow-up |
+|---|---|---|---|---|---|
+
+If no Reds: "No Red checklist items."
 
 ## 3. Reconciliation
 
@@ -158,6 +202,12 @@ If specialists disagreed (e.g., good capital-allocation record but misaligned in
 | Serial-acquirer pattern (§24 Filter 4, RF-CAP-004) | | Capital allocation; Governance risk | CapAlloc max 50; GovRisk floor 60 | | | |
 | Structurally unaligned controlling owner (§24 Filter 6, RF-OWN-004) | | Shareholder friendliness; Governance risk | ShFriendliness max 55; GovRisk floor 55 | | | |
 | Unresolved adverse integrity signal routed from business-model/01 (§24 Filter 1, RF-MGT-005) | | Management quality; Disclosure candor | each max 60; conviction cap — no rating above "Watchlist" | | | |
+| Checklist coverage <50% | | Data quality; Confidence | each max 60 | | | |
+| Legal-database sweep did not run (07/12 coverage-limited) | | People integrity; Legal & regulatory risk; Confidence | PeopleIntegrity max 65; LegalRisk floor 40; Confidence max 70 | | | |
+| Disqualifying-graded controller / CEO / CFO / chair (07) | | Gate; Governance risk; verdict | GATE FAIL; GovRisk floor 80; rating ≤ "Weak"; verdict ≤ "Serious governance concerns" | | | |
+| Material-concerns grade on a controller/KMP, unresolved (07) | | People integrity; Governance risk | PeopleIntegrity max 50; GovRisk floor 55; no rating above "Watchlist" | | | |
+| Undisclosed material litigation / related entity found (RF-CMP-001 / RF-PPL-005) | | Disclosure candor; Governance risk | Candor max 50; GovRisk floor 60 | | | |
+| Accounting-forensics battery red (RF-ACC-001 ≥3 components / RF-ACC-002) | | Accounting-forensics risk; Governance risk | ForensicsRisk floor 70; GovRisk floor 60 | | | |
 
 If multiple caps affect the same score, use the most restrictive. If a hard disqualifier is flagged, the stewardship verdict must be no better than "Serious governance concerns." The five §24 rejector-filter rows apply score penalties + conviction caps (not hard locks); reflect them in the scores above and in the Note To The Final Synthesizer. If `01_management-and-track-record` emitted `RF-MGT-005` as a standalone line, propagate it here as a standalone line too (in this table row or the Red-Flag Register below) — a synthesis that drops the tag lets the conviction cap silently bypass (CLAUDE.md §11).
 
@@ -204,6 +254,15 @@ If a prior dated run exists for this ticker (`analyses/{TICKER}_{prior-date}/man
 
 State whether any change moves the governance score and what to investigate next.
 
+## 5E. People Integrity Summary
+
+Carry 07's register roll-up (never re-derive it):
+
+| Name | Identifier | Role | Grade | Decisive fact | Coverage |
+|---|---|---|---|---|---|
+
+One line below the table: the riskiest person and whether any grade trips a gate/cap. If 07 did not run: "People dossiers not run — person-level integrity unassessed; confidence capped."
+
 ## 5D. Analyst Follow-Up Questions
 
 For each Red or Amber finding, list the follow-up question(s) an analyst must answer before relying on the verdict (one-off vs recurring? material to earnings/cash/valuation? disclosure adequate? company-specific or sector-wide? affects minority holders? management explanation credible?).
@@ -219,12 +278,15 @@ For each Red or Amber finding, list the follow-up question(s) an analyst must an
 Bullet list, no prose paragraphs. **Surface what the scores MEAN — do not restate them.**
 
 - The stewardship verdict and the single strongest piece of evidence for it
+- **The Non-Negotiable Gate result** (PASS with coverage, or FAIL with the tripping fact and the locks applied)
 - The capital-allocation record (per-share value created or destroyed)
 - Whether incentives and ownership align management with minority holders
+- **The people read:** grade distribution across the register, the riskiest person, any open §24 Filter 1 signal
+- **The checklist read:** coverage %, the Red items (or "none"), and the worst of the four checklist risks (which one is the binding Checklist Risk)
 - The biggest governance risk / red flag and its severity
 - Any hard disqualifier flagged by `business-model/01_disqualifier-scan` (verbatim)
 - Which §24 rejector filters tripped (turnaround / serial acquirer / unaligned owner / integrity) and the cap each applied
-- Whether any partial-data cap applied and what it limits
+- Whether any partial-data cap applied and what it limits (including sweep coverage-limited)
 - Biggest missing data point (the single highest-value next data request)
 - **Explicit handoff:** this module supersedes the `business-model/11_capital-allocation-governance` quick-read; the master synthesizer should treat this module's governance verdict and scores as the primary governance read.
 
@@ -244,7 +306,9 @@ Bullet list, no prose paragraphs. **Surface what the scores MEAN — do not rest
 ## 9. Machine-Readable Outputs
 
 Emit the consolidated exports as fenced code blocks, each labeled with its target filename, for the command to write to disk:
-- `governance_summary.json` — verdict, all specialist scores, Governance Score, Confidence-Adjusted Score, rating, red-flag counts.
+- `governance_summary.json` — verdict, gate (PASS/FAIL + tripping fact), all specialist scores (old and new), Checklist Risk, Governance Score, Confidence-Adjusted Score, rating, red-flag counts, checklist coverage counts.
+- `governance_checklist.csv` — the assembled checklist (Section 2B): one row per registry item — `id,section,test,flag,finding,confidence,source,owner_agent`.
+- `people_register.csv` — one row per person from 5E: `name,identifier,role,grade,decisive_fact,coverage`.
 - `governance_findings.csv` — the Consolidated Governance Findings (one row per finding, MODULE_RULES finding schema).
 - `red_flags.csv` — the Red-Flag Register (ID, trigger, severity, evidence, source+date, score impact, follow-up).
 - `source_log.csv` — the union of every specialist's Source Log.
@@ -255,7 +319,11 @@ If any export cannot be produced, label it "pending" and say why — never omit 
 # SELF-CHECK
 
 - [ ] Every upstream specialist output was read and appears in Section 2.
-- [ ] Direction flags are correct: Governance risk is inverted (higher = worse); the other five scores are NOT inverted (higher = better).
+- [ ] Section 2B carries EVERY registry item exactly once (count it against MODULE_RULES), with per-section counts and the coverage line; unanswered items say why.
+- [ ] The Non-Negotiable Gate is computed from its four defined conditions and stated at the top of the verdict block; a FAIL applies all three locks.
+- [ ] Checklist Risk is the MAX of the four inverted checklist risks — never their average.
+- [ ] Section 5E carries 07's per-person grades verbatim; a Disqualifying controller/KMP fed the gate.
+- [ ] Direction flags are correct: Governance risk, RPT & leakage risk, Contingent-liability risk, Accounting-forensics risk, and Legal & regulatory risk are inverted (higher = worse); the other scores are NOT inverted (higher = better).
 - [ ] The verdict is exactly one of the 6 defined categories.
 - [ ] The disqualifier-deference rule was applied (checked `business-model/01`; if flagged, reported verbatim, governance-risk floor 80, verdict capped).
 - [ ] Score caps from MODULE_RULES are applied in Section 4 — every row has an explicit Y/N.

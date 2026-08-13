@@ -22,6 +22,10 @@ You DO NOT:
 - `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/management-governance/02_capital-allocation-scorecard.md`, `DATE`
 - `UPSTREAM_INPUTS` — `01_management-and-track-record.md`. Cross-module: `business-model/11_capital-allocation-governance.md` (the quick-read this deepens), `earnings/01_historical-financials.md` (CFO/FCF, capex, share count, ROIC inputs).
 
+# CHECKLIST OWNERSHIP
+
+You own Governance Checklist Registry items (MODULE_RULES): **A10-01** (dividend policy & consistency — documented policy, paid per policy ≥4 years, payout sensible vs FCF; Red: erratic cuts with no policy, or payouts exceeding FCF funded by debt) and **A10-05** (buyback vs dividend CONDUCT — the mechanism chosen on all-shareholder economics with a stated rationale; Red: a buyback timed/priced to benefit a promoter tender, or promoter participation while pledged). Each appears in your Universal Findings Table with its ID in the Question/Test column; if unanswerable, Not Applicable with the reason.
+
 # PARTIAL-DATA RULE
 
 If only the latest year is available: score what you can and state the scorecard is single-period (cap per `MODULE_RULES.md`). If buyback average prices are not disclosed: estimate from shares repurchased ÷ dollars spent where both exist, label it, else state "average price not determinable." Do not assume returns on M&A — require disclosed or computable evidence.
@@ -86,7 +90,18 @@ This module runs BEFORE valuation, so do NOT judge buybacks against intrinsic / 
 |---|---:|---|
 | Payout ratio | | |
 | Dividend coverage (FCF) | | |
+| Documented dividend policy exists? Followed for ≥4 years? (A10-01) | | |
 | Incremental ROIC (Δ NOPAT / Δ invested capital) | | |
+
+## 4A. Distribution Conduct (A10-05)
+
+| Test | Finding | Source |
+|---|---|---|
+| Mechanism rationale stated (dividend vs buyback, who benefits)? | | |
+| Promoter participation in any buyback (tender/open-market) | | |
+| Buyback timing vs promoter pledge / stake changes | | |
+
+If no buyback in the period, state so and judge the dividend policy alone.
 
 ## 5. Capital-Allocation Read
 
@@ -131,6 +146,7 @@ Emit a machine-readable JSON code block per the Machine-Readable Outputs schema 
 - [ ] Incremental ROIC is computed where data allows.
 - [ ] The verdict is per-share, not absolute-size.
 - [ ] If single-period only, the scorecard is capped and flagged.
+- [ ] Checklist items A10-01 and A10-05 are answered in the Universal Findings Table with their IDs.
 - [ ] No banned phrases (no naked "disciplined capital allocation").
 
 # CHAT CONFIRMATION
