@@ -354,6 +354,7 @@ This registry is the module's canonical, exhaustive item-by-item governance audi
 | A9-01 | Securities-regulator actions vs the COMPANY | None in 5 years — swept and logged, not just "not disclosed" | Any enforcement, consent order, or settlement scheme |
 | A9-02 | NCLT / CCI / ED / CBI / SFIO & forensic investigations | None | Any active investigation, or a forensic audit ordered by lenders/regulator |
 | A9-03 | Whistleblower / vigil mechanism & outcomes | Mechanism + ombudsperson + complaint statistics disclosed | No mechanism, or fraud-alleging complaints left unresolved/undisclosed |
+| A9-04 | Promoter / controller track record elsewhere *(owner: 07)* | The controller's OTHER ventures show clean operations — no defaults, regulator actions, or minority-squeeze history | A trail of defaults, enforcement, minority oppression, or failed listed vehicles in the controller's other companies (the fuller per-person read lives in A16) |
 | A9-05 | Rating actions | Stable or moving ≤1 notch/year; same agencies engaged for years | Downgrade ≥3 notches inside 90 days (IL&FS went AAA→D in ~2 months), "issuer not cooperating", a withdrawal at company request with debt outstanding, or an agency exiting after failing to verify company documents (the Gensol forged-letters pattern) |
 | A9-06 | Exchange fines & listing-compliance register (8 quarters, all exchanges) | Nil | Repeated fines — even small ones are a hygiene signal |
 | A9-07 | Insider-trading / trading-window violations | None | PIT violations by KMP/promoter, or regulator orders on insider trading |

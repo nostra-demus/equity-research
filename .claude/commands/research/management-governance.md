@@ -8,7 +8,7 @@ You are the orchestrator for the management-governance module, invoked standalon
 
 This command runs only the management-governance module's pipeline and commits its output. To run all modules end-to-end with the master synthesizer, use `/research:full $ARGUMENTS` instead.
 
-The module reads prior business-model and earnings outputs as cross-module context (notably `business-model/01_disqualifier-scan`, `11_capital-allocation-governance`, and `earnings/06_earnings-quality`). It still runs if they are absent — each agent falls back to its own read of the data pool — but the analysis is stronger when the upstream modules have run for this ticker.
+The module reads prior business-model, earnings, and balance-sheet-survival outputs as cross-module context (notably `business-model/01_disqualifier-scan`, `11_capital-allocation-governance`, `earnings/06_earnings-quality`, `earnings/01_historical-financials`, and `balance-sheet-survival/05_off-balance-sheet-and-contingencies`). It still runs if they are absent — each agent falls back to its own read of the data pool — but the analysis is stronger when the upstream modules have run for this ticker.
 
 Execute the steps below in order. Do not skip any.
 
@@ -36,23 +36,24 @@ mkdir -p "analyses/${ARGUMENTS}_<DATE>"
 
 Capture `analyses/${ARGUMENTS}_<DATE>` as `<RUN_ROOT>`.
 
-## 4. Resolve cross-module paths (business-model, earnings)
+## 4. Resolve cross-module paths (business-model, earnings, balance-sheet-survival)
 
 The governance agents optionally read prior module outputs for the same ticker. Resolve the upstream folder of each via Bash — **prefer THIS run's date `analyses/${ARGUMENTS}_<DATE>/`; only fall back to the latest prior-dated run (and then state "using prior-run upstream dated X" in your output) when this run lacks that module (fix F30):**
 
 ```
 ls -1d analyses/${ARGUMENTS}_*/business-model/ 2>/dev/null | sort -r | head -n 1
 ls -1d analyses/${ARGUMENTS}_*/earnings/ 2>/dev/null | sort -r | head -n 1
+ls -1d analyses/${ARGUMENTS}_*/balance-sheet-survival/ 2>/dev/null | sort -r | head -n 1
 ```
 
-Capture the results as `<BUSINESS_MODEL_PATH>` and `<EARNINGS_PATH>`. The `sort -r | head -n 1` selects the latest folder by directory name (the `YYYY-MM-DD` in the path sorts correctly). If a command returns an empty string, treat that module as `not available`.
+Capture the results as `<BUSINESS_MODEL_PATH>`, `<EARNINGS_PATH>`, and `<BALANCE_SHEET_SURVIVAL_PATH>`. The `sort -r | head -n 1` selects the latest folder by directory name (the `YYYY-MM-DD` in the path sorts correctly). If a command returns an empty string, treat that module as `not available`.
 
-Build the cross-module context string `<CROSS_MODULE_CONTEXT>` from what is available:
+Build the cross-module context string `<CROSS_MODULE_CONTEXT>` from what is available — one sentence per available module, concatenated in this order (dependency name, first letter capitalized):
 
-- Both available: `Business-model cross-module path: <BUSINESS_MODEL_PATH>. Earnings cross-module path: <EARNINGS_PATH>.`
-- Only business-model: `Business-model cross-module path: <BUSINESS_MODEL_PATH>.`
-- Only earnings: `Earnings cross-module path: <EARNINGS_PATH>.`
-- Neither: the literal string `none`.
+- `Business-model cross-module path: <BUSINESS_MODEL_PATH>.`
+- `Earnings cross-module path: <EARNINGS_PATH>.`
+- `Balance-sheet-survival cross-module path: <BALANCE_SHEET_SURVIVAL_PATH>.`
+- None available: the literal string `none`.
 
 Per `.claude/agents/management-governance/MODULE_RULES.md`, agents that need a path will parse it from the cross-module-context string; agents that don't need it will ignore it.
 
@@ -79,7 +80,7 @@ This is the standalone behavior. Under `/research:full`, fail-fast in one module
 
 ## 6B. Write structured sidecar outputs
 
-After the synthesizer (`99`) completes, extract the fenced code blocks it emitted (its Section 9, labeled `governance_summary.json`, `governance_findings.csv`, `red_flags.csv`, `source_log.csv`) and Write each to `analyses/${ARGUMENTS}_<DATE>/management-governance/` under that exact filename. Also write `source_manifest.csv` from the triage (`00`) Source Coverage Matrix / Data Freshness tables if present. For any block the synthesizer marked "pending" or did not emit, skip that file and record it as a missing output. (Subagents return inline; the orchestrator owns this file IO. The step-7 `git add` of the module folder will include whatever sidecars were written.)
+After the synthesizer (`99`) completes, extract the fenced code blocks it emitted (its Section 9, labeled `governance_summary.json`, `governance_checklist.csv`, `people_register.csv`, `governance_findings.csv`, `red_flags.csv`, `source_log.csv`) and Write each to `analyses/${ARGUMENTS}_<DATE>/management-governance/` under that exact filename. Also write `source_manifest.csv` from the triage (`00`) Source Coverage Matrix / Data Freshness tables if present. For any block the synthesizer marked "pending" or did not emit, skip that file and record it as a missing output. (Subagents return inline; the orchestrator owns this file IO. The step-7 `git add` of the module folder will include whatever sidecars were written.)
 
 ## 7. Commit and push to main
 
@@ -98,11 +99,12 @@ Capture the commit SHA from `git rev-parse HEAD`.
 Print a final summary to the user containing:
 
 - Number of agents discovered and per-layer breakdown (count + names per layer)
-- Which cross-module paths were resolved (business-model, earnings) and the folders used
+- Which cross-module paths were resolved (business-model, earnings, balance-sheet-survival) and the folders used
 - Names of any agents that failed (or "none")
 - Whether a fail-fast abort was triggered, and by whom (if applicable)
 - Full path to the synthesizer's output: `analyses/${ARGUMENTS}_<DATE>/management-governance/99_management-governance-synthesis.md` (or note that it did not run, if aborted)
-- Whether each structured output exists: `99_management-governance-synthesis.md`, `governance_summary.json`, `governance_findings.csv`, `red_flags.csv`, `source_log.csv`, `source_manifest.csv` — list any that are missing or "pending"
+- The Non-Negotiable Gate result (PASS/FAIL) and the checklist coverage line from the synthesis
+- Whether each structured output exists: `99_management-governance-synthesis.md`, `governance_summary.json`, `governance_checklist.csv`, `people_register.csv`, `governance_findings.csv`, `red_flags.csv`, `source_log.csv`, `source_manifest.csv` — list any that are missing or "pending"
 - The commit SHA pushed to `origin/main`
 
 ---
