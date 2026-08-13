@@ -17,7 +17,7 @@ import { scoreTheme, ensureDaily, rollDaily, DEFAULT_THEME_SCORE_CONFIG, type Th
 import { appendThemeMutations, buildSummary, loadThemes, maybeCompactThemesLedger, readRecentThemeItems, readThemesIndex, writeThemesIndex } from './store'
 import { buildGenericSet, loadTokenDf, saveTokenDf, updateTokenDf, DEFAULT_TOKEN_DF_CONFIG, type TokenDfConfig } from './token-df'
 import type { Theme, ThemeItemView, ThemeRemoval, ThemeSummary } from './types'
-import { boundThemeFamilyHistory, themeStoryFamilyKey } from './story-key'
+import { boundThemeFamilyHistory, themeStoryFamilyKey, themeStoryObservationKey } from './story-key'
 import { sourcePriority } from './evidence'
 
 export interface ThemesConfig {
@@ -143,10 +143,10 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
     return retired
   }
   const unclaimedRecovery = (rows: ThemeItemView[]): ThemeItemView[] => {
-    const liveFamilies = new Set(themes
+    const liveObservations = new Set(themes
       .filter((theme) => theme.status === 'live')
-      .flatMap((theme) => theme.members.map(themeStoryFamilyKey)))
-    return rows.filter((row) => !liveFamilies.has(themeStoryFamilyKey(row)))
+      .flatMap((theme) => theme.members.map(themeStoryObservationKey)))
+    return rows.filter((row) => !liveObservations.has(themeStoryObservationKey(row)))
   }
 
   // Normalize legacy/previous-process state before any scoring, queueing or discovery work. Member and

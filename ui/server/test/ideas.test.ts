@@ -1151,19 +1151,31 @@ check('readTopSweep never admits rows through stale or malformed historical part
   assert.deepEqual(got.rows.map((row) => row.headline), ['Trusted row'])
   fs.rmSync(dir, { recursive: true, force: true })
 })
-check('readTopSweep exposes a lost recent partition even when the newest partition is empty', () => {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-degraded-empty-'))
-  const inbox = path.join(dir, 'screener', 'inbox')
-  fs.mkdirSync(inbox, { recursive: true })
-  fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({ updated_at: 'not-a-time', rows: [] }))
-  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({ updated_at: '2026-08-04T00:06:00Z', rows: [] }))
-  const got = readTopSweep(dir, 5, {
-    nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
-  })
-  assert.equal(got.status, 'degraded')
-  assert.equal(got.invalid_time_count, 1)
-  assert.deepEqual(got.rows, [])
-  fs.rmSync(dir, { recursive: true, force: true })
+check('readTopSweep reports but does not globally degrade an invalid empty or launch-only partition', () => {
+  const cases: Array<{ label: string; rows: Array<Record<string, unknown>> }> = [
+    { label: 'empty', rows: [] },
+    {
+      label: 'launched-only',
+      rows: [{
+        headline: 'Already launched archival event', url: 'https://news.test/launched-archive',
+        triage_score: 99, found_at: '2026-08-03T23:58:00Z', launched_signal_id: 'SIG-archival',
+      }],
+    },
+  ]
+  for (const fixture of cases) {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), `ideas-sweep-local-invalid-${fixture.label}-`))
+    const inbox = path.join(dir, 'screener', 'inbox')
+    fs.mkdirSync(inbox, { recursive: true })
+    fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({ updated_at: 'not-a-time', rows: fixture.rows }))
+    fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({ updated_at: '2026-08-04T00:06:00Z', rows: [] }))
+    const got = readTopSweep(dir, 5, {
+      nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
+    })
+    assert.equal(got.status, 'ok', `${fixture.label} cannot have supplied a positive candidate`)
+    assert.equal(got.invalid_time_count, 1)
+    assert.deepEqual(got.rows, [])
+    fs.rmSync(dir, { recursive: true, force: true })
+  }
 })
 check('readTopSweep bounds historical partition reads to the freshness window', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-bounded-history-'))

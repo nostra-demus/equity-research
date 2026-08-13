@@ -10,6 +10,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { REPO_ROOT } from '../src/config'
 import { markInboxConsumed, readInboxHumanActions, setDismissed } from '../src/news/inbox-actions'
+import { mergeInbox } from '../src/news/write-inbox'
 import { moveThesis } from '../src/screener-actions'
 
 let passed = 0
@@ -63,6 +64,73 @@ await check('inbox: dismiss → restore round-trip stamps and clears human state
   assert.equal(restored?.dismissed_at, undefined)
   assert.deepEqual(readInboxHumanActions(root).rows, [], 'restore closes the durable dismissal record')
   assert.equal(setDismissed(root, 'INB-19990101-999', true, 'x'), null) // unknown id → null, no write
+})
+
+await check('inbox: ledger/projection divergence is repaired after sweep write failures without duplicate actions', () => {
+  const root = mkRepo()
+  const sweep = path.join(root, 'screener/inbox/2026-06-12_sweep.json')
+  const ledger = path.join(root, 'screener/ledger/inbox-human-actions.ndjson')
+  const failNextSweepWrite = (fn: () => void): void => {
+    const renameSync = fs.renameSync
+    let failed = false
+    fs.renameSync = ((oldPath, newPath) => {
+      if (!failed && String(newPath) === sweep) {
+        failed = true
+        throw new Error('injected sweep write failure')
+      }
+      return renameSync(oldPath, newPath)
+    }) as typeof fs.renameSync
+    try {
+      assert.throws(fn, /injected sweep write failure/)
+      assert.equal(failed, true, 'the injected failure reached the sweep rename after the ledger append')
+    } finally {
+      fs.renameSync = renameSync
+    }
+  }
+  const ledgerRows = (): any[] => fs.readFileSync(ledger, 'utf8').trim().split('\n').map((line) => JSON.parse(line))
+  const projectedRow = (): any => JSON.parse(fs.readFileSync(sweep, 'utf8')).rows
+    .find((row: any) => row.inbox_id === 'INB-20260612-001')
+
+  // The append is durable but the projection remains in its prior state. A later restore must consult
+  // the observation-keyed ledger instead of returning early just because the sweep already looks clear.
+  failNextSweepWrite(() => { setDismissed(root, 'INB-20260612-001', true, 'tester@x') })
+  assert.equal(projectedRow().dismissed, undefined)
+  assert.deepEqual(readInboxHumanActions(root).rows.map((row) => row.action), ['dismissed'])
+  mergeInbox(root, '2026-06-12', [{
+    event_id: 'EVT-ledger-cap-pressure', headline: 'New higher-scoring event under cap pressure',
+    url: 'https://reuters.com/cap-pressure', domain: 'reuters.com', source_name: 'Reuters',
+    region: 'GLOBAL', input_nature: 'news_headline', found_at: '2026-06-12T10:00:00Z',
+    dedup_status: 'new', triage_score: 99, triage_reason: 'material event', relevance: 'material',
+    materiality_pre_score: 99, event_types: ['mna'], issuer_linkage: 'primary', companies: [],
+    size_bucket: 'large', band: 'pick', event_materiality_label: 'critical',
+    event_direction: 'unknown', event_scope: 'single_name',
+  } as any], { maxRows: 1, now: () => new Date('2026-06-12T10:01:00Z') })
+  assert.equal(projectedRow().dismissed, true, 'merge repairs ledger-backed dismissal before cap selection')
+  assert.ok(JSON.parse(fs.readFileSync(sweep, 'utf8')).rows.some((row: any) => row.inbox_id === 'INB-20260612-001'),
+    'cap pressure cannot evict a durable human veto whose prior projection write failed')
+  const restored = setDismissed(root, 'INB-20260612-001', false, 'tester@x')
+  const restoreLedger = ledgerRows()
+  assert.deepEqual(restoreLedger.map((row) => row.action), ['dismissed', 'restored'])
+  assert.equal(new Set(restoreLedger.map((row) => row.observation_id)).size, 1)
+  assert.deepEqual(readInboxHumanActions(root).rows, [], 'the restore closes the durable dismissal')
+  assert.equal(restored?.human_action_id, restoreLedger[1].action_id)
+  assert.equal(projectedRow().human_action_id, restoreLedger[1].action_id)
+
+  // Same-action retries repair either projection direction from the already-durable transition. They
+  // must not append a second dismissal/restore merely because the sweep rename failed.
+  failNextSweepWrite(() => { setDismissed(root, 'INB-20260612-001', true, 'tester@x') })
+  const dismissalLedger = ledgerRows()
+  const retriedDismissal = setDismissed(root, 'INB-20260612-001', true, 'tester@x')
+  assert.equal(ledgerRows().length, dismissalLedger.length)
+  assert.equal(retriedDismissal?.dismissed, true)
+  assert.equal(projectedRow().human_action_id, dismissalLedger.at(-1).action_id)
+
+  failNextSweepWrite(() => { setDismissed(root, 'INB-20260612-001', false, 'tester@x') })
+  const restoredLedger = ledgerRows()
+  const retriedRestore = setDismissed(root, 'INB-20260612-001', false, 'tester@x')
+  assert.equal(ledgerRows().length, restoredLedger.length)
+  assert.equal(retriedRestore?.dismissed, undefined)
+  assert.equal(projectedRow().human_action_id, restoredLedger.at(-1).action_id)
 })
 
 await check('inbox: markInboxConsumed sets consumed + launched_signal_id (idempotent)', () => {
@@ -131,6 +199,11 @@ await check('inbox action ledger derives legacy observation identity and rejects
   fs.writeFileSync(ledger, `${JSON.stringify({ ...legacy, observation_id: 'EVT-conflicting-lineage' })}\n`)
   assert.deepEqual(readInboxHumanActions(root), { rows: [], complete: false },
     'an explicit identity that conflicts with source bytes fails closed')
+  const retried = setDismissed(root, 'INB-20260612-001', true, 'tester@x')
+  const lines = fs.readFileSync(ledger, 'utf8').trim().split('\n')
+  assert.equal(lines.length, 2, 'a malformed ledger cannot prove that a matching projection is a no-op')
+  assert.equal(retried?.human_action_id, JSON.parse(lines[1]).action_id)
+  assert.equal(readInboxHumanActions(root).complete, false, 'the appended witness does not hide earlier corruption')
 })
 
 await check('thesis move: override appended (engine status captured); engine thesis file untouched; unknown id → null', async () => {

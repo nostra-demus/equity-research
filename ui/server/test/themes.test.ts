@@ -2607,6 +2607,57 @@ await check('assignment overflow retires in the same ordinary scanner pass and r
   assert.equal(result.themes.filter((candidate) => candidate.status === 'live').length, 0, 'rebuild waits for the next cold-start to restore any evicted audit rows')
 })
 
+await check('overflow recovery suppresses only exact live observations, not a missing challenge from their shared family', async () => {
+  const sharedSupport = item('shared-live-support', 'Alpha liquid cooling bottleneck raises supplier orders', {
+    dedup_group: 'shared-recovery-family', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(4),
+  })
+  const missingChallenge = item('shared-missing-challenge', 'Alpha cancels liquid cooling expansion as bottleneck eases', {
+    dedup_group: 'shared-recovery-family', companies: [co('Alpha', 'ALPH')], source_tier: 'primary_filing', found_at: hoursAgo(3),
+  })
+  const doomedPeer = item('shared-doomed-peer', 'Beta liquid cooling bottleneck raises supplier orders', {
+    dedup_group: 'shared-doomed-peer-family', companies: [co('Beta', 'BETA')], source_tier: 'company', found_at: hoursAgo(2),
+  })
+  const doomed = createTheme([sharedSupport, doomedPeer], NOW, 'claude')
+  attachValidNarrative(doomed, { anchor_terms: ['cooling', 'bottleneck'] })
+  assignThemes([missingChallenge], [doomed], undefined, NOW)
+  attachValidNarrative(doomed, {
+    anchor_terms: ['cooling', 'bottleneck'],
+    support_event_ids: [sharedSupport.event_id, doomedPeer.event_id],
+    challenge_event_ids: [missingChallenge.event_id],
+  })
+  delete doomed.pending_narrative_event_ids
+  doomed.needs_narrative_update = true
+  doomed.narrative_update_overflow = true
+
+  const livePeer = item('shared-live-peer', 'Gamma liquid cooling bottleneck raises supplier orders', {
+    dedup_group: 'shared-live-peer-family', companies: [co('Gamma', 'GAMM')], source_tier: 'primary_filing', found_at: hoursAgo(1),
+  })
+  const survivor = createTheme([sharedSupport, livePeer], NOW, 'claude')
+  attachValidNarrative(survivor, { anchor_terms: ['cooling', 'bottleneck'] })
+  survivor.name = 'Liquid Cooling Capacity Bottleneck'
+  survivor.slug = 'liquid-cooling-capacity-bottleneck'
+  survivor.description = 'A liquid-cooling capacity bottleneck is raising supplier orders.'
+  assert.equal(qualifyTheme(survivor, NOW).assessment.status, 'actionable', 'the surviving theme begins publishable')
+
+  const first = await stepThemes({ themes: [doomed, survivor], pool: [], items: [], runDiscovery: false, now: NOW })
+  assert.equal(doomed.status, 'retired')
+  assert.equal(survivor.status, 'live')
+  assert.equal(qualifyTheme(survivor, NOW).assessment.status, 'actionable', 'recovery does not quarantine an independent live theme')
+  assert.deepEqual(
+    first.pool.filter((row) => row.dedup_group === 'shared-recovery-family').map((row) => row.event_id),
+    [missingChallenge.event_id],
+    'the absent challenge is reclaimed while the exact observation already held live is not duplicated',
+  )
+
+  const replay = await stepThemes({ themes: first.themes, pool: first.pool, items: [], runDiscovery: false, now: NOW })
+  assert.deepEqual(
+    replay.pool.map((row) => row.event_id),
+    first.pool.map((row) => row.event_id),
+    'replaying recovery is idempotent and does not duplicate an exact observation',
+  )
+  assert.ok(replay.pool.length <= DEFAULT_THEMES_CONFIG.poolCap, 'the recovered pool remains hard-bounded')
+})
+
 await check('cold-start excludes only live Theme families so retired overflow evidence forms a distinct successor after restart', async () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-overflow-cold-start-'))
   const stateDir = path.join(root, 'state')

@@ -1390,8 +1390,9 @@ export function readTopSweep(
         // contributed a positive candidate. Keep its negative aliases for the human-state pass and
         // disclose the bad wrapper clock locally, but do not pause unrelated current evidence. If even
         // one live candidate row is present, the missing partition clock still degrades the full sweep.
-        const hasPositiveCandidate = partition.rows.length === 0 || partition.rows.some((row) => row && row.url
-          && !row.consumed && !row.dismissed && typeof row.triage_score === 'number')
+        const hasPositiveCandidate = partition.rows.some((row) => row && row.url
+          && !row.consumed && !row.dismissed && !row.launched_signal_id
+          && typeof row.triage_score === 'number')
         noteInvalidPartition(partitionName, hasPositiveCandidate)
         continue
       }

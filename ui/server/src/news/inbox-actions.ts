@@ -32,6 +32,7 @@ export interface InboxHumanActionRecord {
   observed_at?: string
   dedup_group?: string
   companies?: InboxRow['companies']
+  launched_signal_id?: string
 }
 
 interface SweepDoc {
@@ -48,6 +49,14 @@ interface Located {
 }
 
 type ActionObservation = Pick<InboxHumanActionRecord, 'headline' | 'url'>
+
+interface InboxHumanActionState {
+  rows: InboxHumanActionRecord[]
+  complete: boolean
+  /** Latest dismiss/restore transition per immutable observation, including a folded-away restore.
+   * This lets a retry repair the sweep projection without duplicating an already-durable action. */
+  latestDismissalActions: Map<string, InboxHumanActionRecord>
+}
 
 function observationIdFor(row: ActionObservation): string | null {
   const headline = typeof row.headline === 'string' ? row.headline.trim() : ''
@@ -111,6 +120,7 @@ function appendHumanAction(repoRoot: string, row: InboxRow, action: InboxHumanAc
     ...(row.observed_at ? { observed_at: row.observed_at } : {}),
     ...(row.dedup_group ? { dedup_group: row.dedup_group } : {}),
     ...(Array.isArray(row.companies) ? { companies: row.companies } : {}),
+    ...(typeof row.launched_signal_id === 'string' ? { launched_signal_id: row.launched_signal_id } : {}),
   }
   const file = HUMAN_ACTION_LEDGER(repoRoot)
   fs.mkdirSync(path.dirname(file), { recursive: true })
@@ -125,45 +135,81 @@ function appendHumanAction(repoRoot: string, row: InboxRow, action: InboxHumanAc
 }
 
 /** Strictly read/fold the append-only action history. A malformed line makes completeness unknowable. */
-export function readInboxHumanActions(repoRoot: string): { rows: InboxHumanActionRecord[]; complete: boolean } {
+function readInboxHumanActionState(repoRoot: string): InboxHumanActionState {
+  const unavailable = (): InboxHumanActionState => ({
+    rows: [], complete: false, latestDismissalActions: new Map(),
+  })
   let text: string
   try { text = fs.readFileSync(HUMAN_ACTION_LEDGER(repoRoot), 'utf8') }
   catch (error: any) {
-    return error?.code === 'ENOENT' ? { rows: [], complete: true } : { rows: [], complete: false }
+    return error?.code === 'ENOENT'
+      ? { rows: [], complete: true, latestDismissalActions: new Map() }
+      : unavailable()
   }
   const consumed = new Map<string, InboxHumanActionRecord>()
   const dismissed = new Map<string, InboxHumanActionRecord>()
+  const latestDismissalActions = new Map<string, InboxHumanActionRecord>()
   for (const line of text.split('\n').filter(Boolean)) {
     try {
       const row = JSON.parse(line) as InboxHumanActionRecord
       if (!row || typeof row.action_id !== 'string' || typeof row.inbox_id !== 'string'
         || !['dismissed', 'restored', 'consumed'].includes(row.action)
         || !Number.isFinite(Date.parse(row.action_at)) || typeof row.headline !== 'string'
-        || typeof row.url !== 'string' || typeof row.found_at !== 'string') return { rows: [], complete: false }
+        || typeof row.url !== 'string' || typeof row.found_at !== 'string') return unavailable()
       // Pre-schema records remain readable because headline+URL were required from the first ledger
       // version. If a new record's explicit identity disagrees with those immutable bytes, completeness
       // is unknowable and Ideas must fail closed rather than fold under either value.
       const derivedObservationId = observationIdFor(row)
       if (!derivedObservationId
         || (row.observation_id !== undefined && row.observation_id !== derivedObservationId)) {
-        return { rows: [], complete: false }
+        return unavailable()
       }
       const normalized = { ...row, observation_id: derivedObservationId }
       if (row.action === 'consumed') consumed.set(derivedObservationId, normalized)
-      else if (row.action === 'dismissed') dismissed.set(derivedObservationId, normalized)
-      else dismissed.delete(derivedObservationId)
-    } catch { return { rows: [], complete: false } }
+      else {
+        latestDismissalActions.set(derivedObservationId, normalized)
+        if (row.action === 'dismissed') dismissed.set(derivedObservationId, normalized)
+        else dismissed.delete(derivedObservationId)
+      }
+    } catch { return unavailable() }
   }
-  return { rows: [...consumed.values(), ...dismissed.values()], complete: true }
+  return {
+    rows: [...consumed.values(), ...dismissed.values()], complete: true, latestDismissalActions,
+  }
+}
+
+export function readInboxHumanActions(repoRoot: string): { rows: InboxHumanActionRecord[]; complete: boolean } {
+  const { rows, complete } = readInboxHumanActionState(repoRoot)
+  return { rows, complete }
 }
 
 /** Set or clear a row's dismissed state. Returns the updated row, or null when the id is unknown. */
 export function setDismissed(repoRoot: string, inboxId: string, dismissed: boolean, user: string): InboxRow | null {
   const hit = findRow(repoRoot, inboxId)
   if (!hit) return null
-  if ((hit.row.dismissed === true) === dismissed) return hit.row
-  const actionAt = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')
-  hit.row.human_action_id = appendHumanAction(repoRoot, hit.row, dismissed ? 'dismissed' : 'restored', actionAt)
+  const observationId = observationIdFor(hit.row)
+  if (!observationId) throw new Error(`cannot persist human action for unidentified inbox row ${inboxId}`)
+  const durableActions = readInboxHumanActionState(repoRoot)
+  const latestDurableAction = durableActions.complete
+    ? durableActions.latestDismissalActions.get(observationId)
+    : undefined
+  const durableDismissed = durableActions.complete && durableActions.rows
+    .some((record) => record.observation_id === observationId && record.action === 'dismissed')
+  const durableMatches = durableActions.complete && durableDismissed === dismissed
+  const projectionMatches = (hit.row.dismissed === true) === dismissed
+  if (projectionMatches && durableMatches) return hit.row
+
+  // The ledger is the durable authority and the sweep is its repairable UI projection. A corrupt
+  // ledger never proves a no-op; append the request and keep Ideas failed closed until it is repaired.
+  // When a prior append succeeded but the projection write failed, reuse that transition instead of
+  // duplicating it. A legacy projection with no matching transition still gets a durable witness.
+  const needsDurableAction = !durableMatches || (!projectionMatches && !latestDurableAction)
+  const actionAt = needsDurableAction
+    ? new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')
+    : latestDurableAction!.action_at
+  hit.row.human_action_id = needsDurableAction
+    ? appendHumanAction(repoRoot, hit.row, dismissed ? 'dismissed' : 'restored', actionAt)
+    : latestDurableAction!.action_id
   if (dismissed) {
     hit.row.dismissed = true
     hit.row.dismissed_at = actionAt
@@ -182,6 +228,8 @@ export function markInboxConsumed(repoRoot: string, inboxId: string, sigId: stri
   const hit = findRow(repoRoot, inboxId)
   if (!hit) return null
   if (!hit.row.consumed_at) hit.row.consumed_at = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')
+  hit.row.consumed = true
+  hit.row.launched_signal_id = sigId
   const observationId = observationIdFor(hit.row)
   if (!observationId) throw new Error(`cannot consume unidentified inbox row ${inboxId}`)
   const durableActions = readInboxHumanActions(repoRoot)
@@ -190,8 +238,6 @@ export function markInboxConsumed(repoRoot: string, inboxId: string, sigId: stri
   const hasDurableConsume = durableActions.complete && durableActions.rows
     .some((record) => record.observation_id === observationId && record.action === 'consumed')
   if (!hasDurableConsume) hit.row.human_action_id = appendHumanAction(repoRoot, hit.row, 'consumed', hit.row.consumed_at)
-  hit.row.consumed = true
-  hit.row.launched_signal_id = sigId
   writeAtomic(hit.file, hit.doc)
   return hit.row
 }

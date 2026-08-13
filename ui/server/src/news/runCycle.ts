@@ -30,7 +30,7 @@ import { SYSTEM, buildUserMessage, estimateTokens, scoreToBand, triageBatch, typ
 import { rankScore, preTriagePriority, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
 import { deriveScope, deriveSourceTier, toEventScope } from './scope'
 import { deriveCommodities } from './commodities'
-import { appendFirehoseSummary, mergeInbox, refreshBoard } from './write-inbox'
+import { appendFirehoseSummary, mergeInbox, refreshBoard, type InboxRevisionClocks } from './write-inbox'
 import { runThemesCycle, bumpCycleCounter, themesConfigFromNews } from './themes/engine'
 import { makeThemeNamer } from './themes/llm'
 import type { ThemeItemView } from './themes/types'
@@ -245,44 +245,6 @@ async function runThemesStage(input: {
   } catch (e: any) {
     log(`themes stage error: ${e?.message || e}`)
   }
-}
-
-interface InboxRevisionClocks {
-  foundAt: string
-  observedAt?: string
-  sourceIsEnglish: boolean
-}
-
-/** Recover mergeInbox's immutable source/first-seen pair for each exact source revision. Theme and feed
- * processing run after the atomic inbox write, so both clocks must come from the same durable row: using
- * its `observed_at` beside a refreshed provider `found_at` would still launder the source's age. */
-function readInboxRevisionClocksByEvent(repoRoot: string, date: string): Map<string, InboxRevisionClocks> {
-  const out = new Map<string, InboxRevisionClocks>()
-  try {
-    const doc = JSON.parse(fs.readFileSync(path.join(repoRoot, 'screener', 'inbox', `${date}_sweep.json`), 'utf8'))
-    if (!Array.isArray(doc?.rows)) return out
-    for (const row of doc.rows) {
-      if (!row || typeof row.headline !== 'string' || typeof row.url !== 'string'
-        || typeof row.found_at !== 'string' || !Number.isFinite(Date.parse(row.found_at))) continue
-      const observedAt = typeof row.observed_at === 'string' && Number.isFinite(Date.parse(row.observed_at))
-        ? row.observed_at
-        : undefined
-      const eventId = eventIdFor(row.headline, row.url)
-      const prior = out.get(eventId)
-      const rowOrder = observedAt ? Date.parse(observedAt) : Date.parse(row.found_at)
-      const priorOrder = prior?.observedAt ? Date.parse(prior.observedAt) : prior ? Date.parse(prior.foundAt) : Infinity
-      if (!prior || rowOrder < priorOrder) {
-        out.set(eventId, {
-          foundAt: row.found_at,
-          ...(observedAt ? { observedAt } : {}),
-          sourceIsEnglish: row.source_is_english === true,
-        })
-      }
-    }
-  } catch {
-    // No durable pair means Theme evidence remains fail-closed for post-human-action revision ordering.
-  }
-  return out
 }
 
 export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSummary> {
@@ -831,8 +793,14 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   let inboxed = 0
   let revisionClocksByEvent = new Map<string, InboxRevisionClocks>()
   if (picks.length) {
-    inboxed = mergeInbox(repoRoot, date, picks, { maxRows: cfg.inboxMaxRows, now })
-    revisionClocksByEvent = readInboxRevisionClocksByEvent(repoRoot, date)
+    const merged = mergeInbox(repoRoot, date, picks, {
+      maxRows: cfg.inboxMaxRows,
+      now,
+      archiveDir: cfg.newsArchiveDir,
+      stateDir,
+    })
+    inboxed = merged.rowCount
+    revisionClocksByEvent = merged.revisionClocksByEvent
     await refreshBoard(repoRoot, log)
   }
 
