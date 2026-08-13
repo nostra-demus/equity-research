@@ -16,7 +16,7 @@ import { coherenceOf, discoverDeterministic, familyRepresentativeItems, linkThem
 import { scoreTheme, ensureDaily, rollDaily, DEFAULT_THEME_SCORE_CONFIG, type ThemeScoreConfig } from './score'
 import { appendThemeMutations, buildSummary, loadThemes, maybeCompactThemesLedger, readRecentThemeItems, readThemesIndex, writeThemesIndex } from './store'
 import { buildGenericSet, loadTokenDf, saveTokenDf, updateTokenDf, DEFAULT_TOKEN_DF_CONFIG, type TokenDfConfig } from './token-df'
-import type { Theme, ThemeItemView, ThemeRemoval, ThemeSummary } from './types'
+import type { Theme, ThemeCompilerAttempt, ThemeItemView, ThemeRemoval, ThemeSummary } from './types'
 import { boundThemeFamilyHistory, themeStoryFamilyKey, themeStoryObservationKey } from './story-key'
 import { sourcePriority } from './evidence'
 
@@ -63,7 +63,7 @@ export function themesConfigFromNews(news: { themesRetireHours?: number; themesM
 
 // An optional LLM pass that renames/validates freshly-created themes in place (sets name/slug/
 // description/keywords; may set status:'retired' to reject a non-theme). Async; absent = deterministic.
-export type LlmNamer = (created: Theme[], now: Date, generic?: Set<string>) => Promise<void>
+export type LlmNamer = (created: Theme[], now: Date, generic?: Set<string>) => Promise<ThemeCompilerAttempt | void>
 
 export interface StepInput {
   themes: Theme[]
@@ -83,6 +83,7 @@ export interface StepResult {
   removed: ThemeRemoval[] // explicit invalidations for live clients
   changedThemeIds: string[] // every structural mutation, including merged/retired rows (for persistence)
   assignments: Map<string, string[]> // event_id → theme_ids (for stamping theme_ids on items)
+  compilerAttempt?: ThemeCompilerAttempt
 }
 
 /** Pure(ish) in-memory step. The only side effect is mutating the passed theme objects. */
@@ -289,49 +290,47 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
     .filter((t) => t.status === 'live' && t.narrative && t.needs_narrative_update
       && !t.narrative_update_overflow && !t.needs_rename)
     .sort(byDebt)
-  const pendingValidations = input.runDiscovery ? themes
+  const pendingValidations = themes
     // A raw cluster whose pre-validation audit overflowed cannot be judged from the retained subset.
     // Keep it quarantined until its evidence is rebuilt instead of paying the compiler to approve a
     // materially incomplete cluster.
     .filter((t) => t.status === 'live' && t.generation === 'deterministic' && t.needs_validation
       && !t.narrative_update_overflow)
-    .sort(byDebt) : []
-  const renames = input.runDiscovery ? themes
+    .sort(byDebt)
+  const renames = themes
     .filter((t) => t.status === 'live' && t.needs_rename && !t.narrative_update_overflow)
     .sort(byDebt)
-    .slice(0, cfg.renamePerPass) : []
+    .slice(0, cfg.renamePerPass)
 
-  // Four is the compiler's hard batch. Reserve two slots for update debt on discovery cycles, then give
-  // one lane each to validation and rename when present; unused lanes flow back to updates. On ordinary
-  // cycles all four slots drain updates. A flood of renames/new clusters therefore cannot starve evidence.
+  // Four is the compiler's hard batch. Every scanner cycle reserves capacity for raw validation and
+  // re-grounding debt, not only the discovery cadence: otherwise a provider-starved discovery pass strands
+  // candidates for another four cycles after fallback capacity returns. The namer sends one theme per
+  // provider request, so this queue cap does not create an oversized provider payload.
   const validationBatch: Theme[] = []
   const add = (theme: Theme | undefined) => {
     if (theme && !validationBatch.includes(theme) && validationBatch.length < 4) validationBatch.push(theme)
   }
-  for (const theme of updates.slice(0, input.runDiscovery ? 2 : 4)) add(theme)
-  if (input.runDiscovery) {
-    add(pendingValidations[0] || created[0])
-    add(renames[0])
-  }
+  for (const theme of updates.slice(0, 2)) add(theme)
+  add(pendingValidations[0] || created[0])
+  add(renames[0])
   for (const theme of updates) add(theme)
   for (const theme of pendingValidations) add(theme)
   for (const theme of created) add(theme)
   for (const theme of renames) add(theme)
 
+  let compilerAttempt: ThemeCompilerAttempt | undefined
   if (input.llmNamer && validationBatch.length) {
-    const attemptedAt = now.toISOString().replace(/\.\d{3}Z$/, 'Z')
-    for (const theme of validationBatch) {
-      theme.validation_attempted_at = attemptedAt
-      if (!theme.validation_queued_at) theme.validation_queued_at = attemptedAt
-      theme.rev++
-      changedIds.add(theme.theme_id)
-    }
+    const beforeCompiler = new Map(validationBatch.map((theme) => [theme.theme_id, JSON.stringify(theme)]))
     try {
-      await input.llmNamer(validationBatch, now, input.generic)
+      compilerAttempt = (await input.llmNamer(validationBatch, now, input.generic)) || undefined
     } catch {
       // LLM failure → keep queue flags for a later cycle (fail-soft)
     }
-    for (const theme of validationBatch) changedIds.add(theme.theme_id)
+    // The production namer stamps validation_attempted_at immediately before an actual request. A budget,
+    // cooldown, limiter or TPM-envelope skip is capacity state, not an attempt.
+    for (const theme of validationBatch) {
+      if (beforeCompiler.get(theme.theme_id) !== JSON.stringify(theme)) changedIds.add(theme.theme_id)
+    }
   }
 
   if (input.runDiscovery) {
@@ -419,7 +418,7 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
   const removed = themes
     .filter((t) => changedIds.has(t.theme_id) && (t.status === 'retired' || t.status === 'merged'))
     .map((t): ThemeRemoval => ({ theme_id: t.theme_id, reason: t.status as ThemeRemoval['reason'], merged_into: t.merged_into, rev: t.rev }))
-  return { themes, pool, changed, removed, changedThemeIds, assignments: a.assignments }
+  return { themes, pool, changed, removed, changedThemeIds, assignments: a.assignments, ...(compilerAttempt ? { compilerAttempt } : {}) }
 }
 
 // ---- I/O wrapper ----
@@ -495,7 +494,7 @@ export interface RunThemesInput {
 
 /** Full cycle with persistence. Returns the changed theme summaries (for the SSE bus) and the
  *  assignments (so runCycle can stamp theme_ids onto the firehose/inbox items). Never throws. */
-export async function runThemesCycle(input: RunThemesInput): Promise<{ changed: ThemeSummary[]; removed: ThemeRemoval[]; assignments: Map<string, string[]> }> {
+export async function runThemesCycle(input: RunThemesInput): Promise<{ changed: ThemeSummary[]; removed: ThemeRemoval[]; assignments: Map<string, string[]>; compilerAttempt?: ThemeCompilerAttempt }> {
   const now = input.now || (() => new Date())
   const cycleNow = now()
   const cfg = input.cfg || DEFAULT_THEMES_CONFIG
@@ -526,7 +525,7 @@ export async function runThemesCycle(input: RunThemesInput): Promise<{ changed: 
       if (t.status !== 'live') continue
       for (const m of t.members) memberStories.add(themeStoryFamilyKey(m))
     }
-    for (const it of readRecentThemeItems(input.repoRoot, input.minScore ?? 50)) {
+    for (const it of readRecentThemeItems(input.repoRoot, input.minScore ?? 50, cfg.poolCap)) {
       const story = themeStoryFamilyKey(it)
       if (!memberStories.has(story)) pool.push(it)
     }
@@ -552,16 +551,16 @@ export async function runThemesCycle(input: RunThemesInput): Promise<{ changed: 
   const changedIds = new Set(res.changedThemeIds)
   const changedThemes = res.themes.filter((t) => changedIds.has(t.theme_id))
   const fixedNow = () => cycleNow
-  const ledgerAdvanced = appendThemeMutations(input.repoRoot, changedThemes, fixedNow)
+  const ledgerAdvanced = appendThemeMutations(input.repoRoot, changedThemes, fixedNow, res.compilerAttempt)
   if (!ledgerAdvanced) {
     // The ledger is the source of truth. Publishing the in-memory index, consuming the pool, emitting SSE
     // freshness, or stamping assignments after a failed append creates a state clients can see but the next
     // process cannot reconstruct. Leave every downstream artifact untouched so the next cycle retries from
     // the same durable inputs.
-    return { changed: [], removed: [], assignments: new Map() }
+    return { changed: [], removed: [], assignments: new Map(), ...(res.compilerAttempt ? { compilerAttempt: res.compilerAttempt } : {}) }
   }
   maybeCompactThemesLedger(input.repoRoot, fixedNow) // keep the append-only ledger from ballooning (→ git-push 408s)
   savePool(input.stateDir, res.pool, cfg.poolCap)
-  writeThemesIndex(input.repoRoot, res.themes, fixedNow)
-  return { changed: [...emittedById.values()], removed: res.removed, assignments: res.assignments }
+  writeThemesIndex(input.repoRoot, res.themes, fixedNow, res.compilerAttempt)
+  return { changed: [...emittedById.values()], removed: res.removed, assignments: res.assignments, ...(res.compilerAttempt ? { compilerAttempt: res.compilerAttempt } : {}) }
 }

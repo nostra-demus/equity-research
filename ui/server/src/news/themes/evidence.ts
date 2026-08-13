@@ -18,6 +18,21 @@ export const sourcePriority = (tier: unknown): number => {
   }
 }
 
+/** Parse the exact evidence locator instead of accepting a URL-shaped prefix. `https://` and similar
+ * hostless strings pass a regex but cannot take a PM back to the cited source. Preserve the supplied URL
+ * text for display/audit after proving it is an absolute HTTP(S) locator with a non-empty hostname. */
+export function exactThemeEvidenceUrl(value: unknown): string | null {
+  if (typeof value !== 'string' || !value.trim()) return null
+  const raw = value.trim()
+  try {
+    const parsed = new URL(raw)
+    if ((parsed.protocol !== 'http:' && parsed.protocol !== 'https:') || !parsed.hostname.trim()) return null
+    return raw
+  } catch {
+    return null
+  }
+}
+
 /** Exact provenance means the event resolves to a dated, non-empty source row and carries the same
  * publisher + URL pair the PM surface and Ideas launcher require. A source label without a locator is not
  * auditable from the product, while a bare URL with no named provenance cannot satisfy the citation
@@ -28,8 +43,7 @@ export function hasExactThemeProvenance(member: ThemeMember | null | undefined):
   const headline = String((typeof member.headline_en === 'string' && member.headline_en.trim()) || member.headline || '').trim()
   if (!headline) return false
   const source = typeof member.source_name === 'string' && Boolean(member.source_name.trim())
-  const url = typeof member.url === 'string' && /^https?:\/\//i.test(member.url.trim())
-  return source && url
+  return source && Boolean(exactThemeEvidenceUrl(member.url))
 }
 
 /** Only sourced filing/official/company/news rows can increase support or clear an expression gate. */

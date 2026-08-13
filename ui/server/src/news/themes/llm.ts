@@ -1,17 +1,22 @@
-// The themes discovery LLM pass — the ONE place the news ingester can spend Claude money (everything
-// else is free Groq + deterministic). It takes the freshly-clustered themes (already formed
-// deterministically) and only NAMES + VALIDATES them: a good narrative name, a one-line plain-English
-// description, refined keyword anchors, and a yes/no "is this a real investable theme". The clustering
-// stays deterministic, so turning this off (no key / model 'off' / budget hit) degrades gracefully to
-// the deterministic baseline. Budget-guarded by a daily call cap; never throws.
+// The themes discovery LLM pass. It takes deterministically formed candidate clusters and only NAMES +
+// VALIDATES them: a good narrative name, a one-line plain-English description, refined keyword anchors,
+// and a yes/no "is this a real investable theme". The clustering stays deterministic. Validation routes
+// through the configured Claude, local, Groq, and overflow provider chain under the same budgets,
+// limiters, and cooldowns as the rest of news intake. A disabled or blocked compiler reports structured
+// health instead of weakening the qualification bar. Never throws.
 
 import fs from 'node:fs'
 import path from 'node:path'
 import { companyKeys, themeNarrativeTokens } from '../text-match'
 import { cleanTicker } from '../symbology'
-import { Budget, clearCooldown, conservativeChatTokenBound, isCoolingDown, type BudgetReservation } from '../triage/budget'
+import {
+  Budget, NON_BINDING_DAILY_TOKEN_CAP, armCooldown, clearCooldown, conservativeChatTokenBound,
+  getNamedLimiter, getSharedLimiter, isCoolingDown, type PaceCfg,
+} from '../triage/budget'
+import { parseRate } from '../triage/groq'
 import type { LlmNamer } from './engine'
-import type { Theme } from './types'
+import type { Theme, ThemeCompilerAttempt } from './types'
+import type { OverflowProvider } from '../../config'
 import { resolveThemeFamilyState, themeStoryFamilyKey } from './story-key'
 import { selectNarrativeCore } from './core'
 import { isDisplayableThemeChallenge, isSupportingThemeEvidence, sourcePriority } from './evidence'
@@ -30,6 +35,18 @@ interface NamerCfg {
   // (populated automatically: runCycle passes the full NEWS config).
   groqDailyReqCap?: number
   groqDailyTokenCap?: number
+  groqDailyTokenTarget?: number
+  groqPaceFloorFrac?: number
+  groqRpm?: number
+  groqTpm?: number
+  localProvider?: OverflowProvider | null
+  overflowProviders?: OverflowProvider[]
+  localCooldownMs?: number
+  llmCooldownMs?: number
+  llmCooldownMaxMs?: number
+  themesLimiterWaitMs?: number
+  themesProviderAttemptTimeoutMs?: number
+  themesProviderChainTimeoutMs?: number
 }
 
 const SYSTEM =
@@ -50,38 +67,81 @@ const NARRATIVE_BATCH = 4 // richer contract than the old label-only pass; keep 
 
 const budgetPath = (stateDir: string) => path.join(stateDir, 'themes-llm-budget.json')
 
-function canSpend(stateDir: string, cap: number, todayISO: string): boolean {
-  if (cap <= 0) return false
-  try {
-    const b = JSON.parse(fs.readFileSync(budgetPath(stateDir), 'utf8'))
-    if (b?.date === todayISO) return (Number(b.calls) || 0) < cap
-  } catch {}
-  return true
+interface ClaudeBudgetState {
+  date: string
+  calls: number
+  exhausted?: boolean
+  exhaustion_reason?: string
 }
-function recordSpend(stateDir: string, todayISO: string): void {
+
+const TERMINAL_PROVIDER_STATUSES = new Set([400, 401, 402, 403, 404, 413])
+
+function terminalReason(status: number): string | undefined {
+  return TERMINAL_PROVIDER_STATUSES.has(status) ? `terminal_http_${status}` : undefined
+}
+
+function terminalStatus(reason: string | undefined): number | undefined {
+  const match = /^terminal_http_(400|401|402|403|404|413)$/.exec(reason || '')
+  return match ? Number(match[1]) : undefined
+}
+
+function terminalDayMessage(label: string, reason: string | undefined): string {
+  const status = terminalStatus(reason)
+  return status
+    ? `${label} is unavailable for the rest of its provider day after HTTP ${status}.`
+    : `${label} has no daily compiler capacity.`
+}
+
+function readClaudeBudget(stateDir: string, todayISO: string): ClaudeBudgetState {
+  const fresh: ClaudeBudgetState = { date: todayISO, calls: 0 }
   try {
-    let calls = 0
-    try {
-      const b = JSON.parse(fs.readFileSync(budgetPath(stateDir), 'utf8'))
-      if (b?.date === todayISO) calls = Number(b.calls) || 0
-    } catch {}
-    fs.mkdirSync(stateDir, { recursive: true })
-    fs.writeFileSync(budgetPath(stateDir), JSON.stringify({ date: todayISO, calls: calls + 1 }) + '\n')
+    const raw = JSON.parse(fs.readFileSync(budgetPath(stateDir), 'utf8'))
+    if (raw?.date !== todayISO) return fresh
+    const reason = typeof raw.exhaustion_reason === 'string' && terminalStatus(raw.exhaustion_reason)
+      ? raw.exhaustion_reason
+      : undefined
+    return {
+      date: todayISO,
+      calls: Math.max(0, Number(raw.calls) || 0),
+      ...(raw.exhausted === true ? { exhausted: true } : {}),
+      ...(reason ? { exhaustion_reason: reason } : {}),
+    }
   } catch {}
+  return fresh
+}
+
+function saveClaudeBudget(stateDir: string, state: ClaudeBudgetState): void {
+  try {
+    fs.mkdirSync(stateDir, { recursive: true })
+    fs.writeFileSync(budgetPath(stateDir), JSON.stringify(state) + '\n')
+  } catch {}
+}
+
+function recordClaudeSpend(stateDir: string, todayISO: string): void {
+  const state = readClaudeBudget(stateDir, todayISO)
+  state.calls++
+  saveClaudeBudget(stateDir, state)
+}
+
+function exhaustClaudeDay(stateDir: string, todayISO: string, reason: string): void {
+  const state = readClaudeBudget(stateDir, todayISO)
+  state.exhausted = true
+  state.exhaustion_reason = terminalStatus(reason) ? reason : undefined
+  saveClaudeBudget(stateDir, state)
 }
 
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60)
 
 /** Defensive: pull the {"themes":[...]} object out of an LLM text response. */
-function parseThemesJson(text: string): any[] {
+function parseThemesJson(text: string): { proposals: any[]; valid: boolean } {
   try {
     const start = text.indexOf('{')
     const end = text.lastIndexOf('}')
-    if (start < 0 || end <= start) return []
+    if (start < 0 || end <= start) return { proposals: [], valid: false }
     const o = JSON.parse(text.slice(start, end + 1))
-    return Array.isArray(o?.themes) ? o.themes : []
+    return Array.isArray(o?.themes) ? { proposals: o.themes, valid: true } : { proposals: [], valid: false }
   } catch {
-    return []
+    return { proposals: [], valid: false }
   }
 }
 
@@ -142,40 +202,151 @@ function buildUserMessage(created: Theme[], generic?: Set<string>): string {
   return `Classify and name these ${created.length} clusters:\n\n${blocks.join('\n\n')}`
 }
 
-/** Worst-case billable tokens for one Groq theme-namer attempt (the caller sends at most eight themes). */
-export function themeNamerTokenBound(created: Theme[], generic?: Set<string>): number {
-  return conservativeChatTokenBound(SYSTEM, buildUserMessage(created.slice(0, NARRATIVE_BATCH), generic), 3000)
+/** Worst-case billable tokens for one bounded theme-namer attempt. Production sends one theme per request. */
+export function themeNamerTokenBound(created: Theme[], generic?: Set<string>, maxOutputTokens = 3000): number {
+  return conservativeChatTokenBound(SYSTEM, buildUserMessage(created.slice(0, NARRATIVE_BATCH), generic), maxOutputTokens)
 }
 
-async function callClaude(cfg: NamerCfg, user: string, fetchFn: typeof fetch): Promise<string | null> {
-  const res = await fetchFn(`${cfg.themesClaudeBaseUrl}/v1/messages`, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json', 'x-api-key': cfg.themesClaudeApiKey || '', 'anthropic-version': '2023-06-01' },
-    signal: AbortSignal.timeout(30_000), // never let a hung connection stall the themes cycle
-    body: JSON.stringify({ model: cfg.themesClaudeModel || 'claude-haiku-4-5', max_tokens: 3000, system: SYSTEM, messages: [{ role: 'user', content: user }] }),
-  })
-  if (!res.ok) throw new Error(`claude HTTP ${res.status}`)
-  const data: any = await res.json()
-  const text = Array.isArray(data?.content) ? data.content.filter((c: any) => c?.type === 'text').map((c: any) => c.text).join('') : ''
-  return typeof text === 'string' ? text : null
+/** AbortSignal is advisory for injected/local fetch adapters, so race the complete response read with our
+ * own timer as well. A provider that ignores abort, or stalls after headers, can never hold the compiler
+ * beyond its per-attempt/remaining-chain budget. */
+async function withProviderTimeout<T>(timeoutMs: number, run: (signal: AbortSignal) => Promise<T>): Promise<T> {
+  const controller = new AbortController()
+  const boundedMs = Math.max(1, Math.floor(timeoutMs))
+  let timer: ReturnType<typeof setTimeout> | undefined
+  try {
+    return await Promise.race([
+      run(controller.signal),
+      new Promise<T>((_resolve, reject) => {
+        timer = setTimeout(() => {
+          controller.abort()
+          reject(new Error('theme provider request timed out'))
+        }, boundedMs)
+      }),
+    ])
+  } finally {
+    if (timer) clearTimeout(timer)
+  }
 }
 
-async function callGroq(cfg: NamerCfg, user: string, fetchFn: typeof fetch): Promise<{ text: string | null; tokens: number }> {
-  const res = await fetchFn(`${cfg.groqBaseUrl}/chat/completions`, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json', authorization: `Bearer ${cfg.groqApiKey}` },
-    signal: AbortSignal.timeout(30_000), // never let a hung connection stall the themes cycle
-    body: JSON.stringify({ model: cfg.groqModel, temperature: 0.2, max_tokens: 3000, response_format: { type: 'json_object' }, messages: [{ role: 'system', content: SYSTEM }, { role: 'user', content: user }] }),
+function boundedAttemptTimeout(cfg: NamerCfg, deadline: number, providerTimeoutMs?: number): number {
+  const attemptCap = Math.max(1, Math.floor(cfg.themesProviderAttemptTimeoutMs ?? 25_000))
+  const providerCap = Number.isFinite(providerTimeoutMs) && Number(providerTimeoutMs) > 0
+    ? Math.floor(Number(providerTimeoutMs))
+    : attemptCap
+  return Math.max(1, Math.min(attemptCap, providerCap, deadline - Date.now()))
+}
+
+interface ClaudeCallResult {
+  text: string | null
+  ok: boolean
+  status: number
+  note: string
+}
+
+async function callClaude(cfg: NamerCfg, user: string, fetchFn: typeof fetch, timeoutMs: number): Promise<ClaudeCallResult> {
+  return withProviderTimeout(timeoutMs, async (signal) => {
+    const res = await fetchFn(`${cfg.themesClaudeBaseUrl}/v1/messages`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-api-key': cfg.themesClaudeApiKey || '', 'anthropic-version': '2023-06-01' },
+      signal,
+      body: JSON.stringify({ model: cfg.themesClaudeModel || 'claude-haiku-4-5', max_tokens: 3000, system: SYSTEM, messages: [{ role: 'user', content: user }] }),
+    })
+    if (!res.ok) return { text: null, ok: false, status: res.status, note: `Claude HTTP ${res.status}` }
+    try {
+      const data: any = await res.json()
+      const text = Array.isArray(data?.content) ? data.content.filter((c: any) => c?.type === 'text').map((c: any) => c.text).join('') : ''
+      return typeof text === 'string' && text
+        ? { text, ok: true, status: res.status, note: '' }
+        : { text: null, ok: false, status: res.status, note: 'Claude returned empty theme content.' }
+    } catch {
+      return { text: null, ok: false, status: res.status, note: 'Claude returned invalid response JSON.' }
+    }
   })
-  if (!res.ok) throw new Error(`groq HTTP ${res.status}`)
-  const data: any = await res.json()
-  const text = data?.choices?.[0]?.message?.content
-  return { text: typeof text === 'string' ? text : null, tokens: Number(data?.usage?.total_tokens) || 0 }
+}
+
+interface OpenAiThemeProvider {
+  id: string
+  label: string
+  apiKey: string
+  baseUrl: string
+  model: string
+  models?: string[]
+  maxTokens: number
+  rpm: number
+  tpm: number
+  dailyReqCap: number
+  dailyTokenCap: number
+  budgetFile: string
+  dayTz?: string
+  headers?: Record<string, string>
+  extraBody?: Record<string, unknown>
+  timeoutMs?: number
+  pace?: PaceCfg
+}
+
+interface OpenAiCallResult {
+  text: string | null
+  tokens: number
+  ok: boolean
+  status: number
+  note: string
+  rate: ReturnType<typeof parseRate>
+}
+
+async function callOpenAi(provider: OpenAiThemeProvider, user: string, maxTokens: number, fetchFn: typeof fetch, timeoutMs: number): Promise<OpenAiCallResult> {
+  return withProviderTimeout(timeoutMs, async (signal) => {
+    const res = await fetchFn(`${provider.baseUrl}/chat/completions`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${provider.apiKey}`, ...(provider.headers || {}) },
+      signal,
+      body: JSON.stringify({
+        model: provider.model,
+        ...(provider.models?.length ? { models: provider.models } : {}),
+        temperature: 0.2,
+        max_tokens: maxTokens,
+        response_format: { type: 'json_object' },
+        messages: [{ role: 'system', content: SYSTEM }, { role: 'user', content: user }],
+        ...(provider.extraBody || {}),
+      }),
+    })
+    const rate = parseRate(res)
+    if (!res.ok) {
+      // Provider bodies can contain organization names, billing details, request ids, or echoed account
+      // metadata. Compiler health is persisted and served to clients, so only the fixed public status class
+      // may cross this boundary.
+      return { text: null, tokens: 0, ok: false, status: res.status, note: `${provider.label} HTTP ${res.status}`, rate }
+    }
+    try {
+      const data: any = await res.json()
+      const text = data?.choices?.[0]?.message?.content
+      if (data?.choices?.[0]?.finish_reason === 'length') {
+        return { text: null, tokens: Number(data?.usage?.total_tokens) || 0, ok: false, status: res.status, note: `${provider.label}: output truncated`, rate }
+      }
+      return {
+        text: typeof text === 'string' ? text : null,
+        tokens: Number(data?.usage?.total_tokens) || 0,
+        ok: typeof text === 'string',
+        status: res.status,
+        note: typeof text === 'string' ? '' : `${provider.label}: empty content`,
+        rate,
+      }
+    } catch {
+      return { text: null, tokens: 0, ok: false, status: res.status, note: `${provider.label}: invalid response JSON`, rate }
+    }
+  })
 }
 
 /** Apply LLM proposals to the created themes in place. Model prose is never trusted as provenance: IDs,
  * anchors, companies, tickers and expression proof are joined back to the raw cluster before persistence. */
-function applyProposals(created: Theme[], proposals: any[], generation: 'claude' | 'groq', now: Date, generic?: Set<string>): void {
+function applyProposals(
+  created: Theme[],
+  proposals: any[],
+  generation: 'claude' | 'groq' | 'llm',
+  now: Date,
+  generic?: Set<string>,
+  validatorProvider?: string,
+): void {
   const byIndex = new Map<number, any>()
   for (const p of proposals) {
     const i = Number(p?.i)
@@ -408,75 +579,286 @@ function applyProposals(created: Theme[], proposals: any[], generation: 'claude'
       validated_at: now.toISOString().replace(/\.\d{3}Z$/, 'Z'),
     }
     t.generation = generation
+    if (generation === 'llm' && validatorProvider) t.validator_provider = validatorProvider
+    else delete t.validator_provider
     t.rev++
   })
 }
 
-/** Build the LlmNamer used by the discovery pass, or undefined to stay fully deterministic. */
-export function makeThemeNamer(cfg: NamerCfg, fetchFn: typeof fetch, stateDir: string, log: (m: string) => void = () => {}): LlmNamer | undefined {
-  const model = cfg.themesDiscoverModel || 'claude-haiku'
-  const useClaude = model.startsWith('claude') && !!cfg.themesClaudeApiKey
-  const useGroq = (model === 'groq' || (!useClaude && model.startsWith('claude'))) && !!cfg.groqApiKey
-  if (model === 'off' || (!useClaude && !useGroq)) return undefined
+function openAiProviders(cfg: NamerCfg): OpenAiThemeProvider[] {
+  const out: OpenAiThemeProvider[] = []
+  const seen = new Set<string>()
+  const add = (provider: OpenAiThemeProvider | null | undefined) => {
+    if (!provider?.apiKey || seen.has(provider.id)) return
+    seen.add(provider.id); out.push(provider)
+  }
+  const fromConfig = (p: OverflowProvider): OpenAiThemeProvider => ({
+    id: p.id, label: p.label || p.id, apiKey: p.apiKey, baseUrl: p.baseUrl, model: p.model,
+    models: p.models, maxTokens: p.maxTokens, rpm: p.rpm, tpm: p.tpm ?? 0,
+    dailyReqCap: p.dailyReqCap, dailyTokenCap: p.dailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP,
+    budgetFile: p.budgetFile, dayTz: p.dayTz, headers: p.headers, extraBody: p.extraBody,
+    timeoutMs: p.timeoutMs,
+  })
+  if (cfg.localProvider) add(fromConfig(cfg.localProvider))
+  if (cfg.groqApiKey) add({
+    id: 'groq', label: 'Groq', apiKey: cfg.groqApiKey, baseUrl: cfg.groqBaseUrl || 'https://api.groq.com/openai/v1',
+    model: cfg.groqModel || 'llama-3.1-8b-instant', maxTokens: 3000, rpm: cfg.groqRpm ?? 0,
+    tpm: cfg.groqTpm ?? 0, dailyReqCap: cfg.groqDailyReqCap ?? 13_000,
+    dailyTokenCap: cfg.groqDailyTokenCap ?? 500_000, budgetFile: 'groq-budget.json',
+    ...(cfg.groqDailyTokenTarget && cfg.groqPaceFloorFrac != null
+      ? { pace: { targetTokens: cfg.groqDailyTokenTarget, floorFrac: cfg.groqPaceFloorFrac } }
+      : {}),
+  })
+  for (const provider of cfg.overflowProviders || []) add(fromConfig(provider))
+  return out
+}
 
-  return async (created: Theme[], now: Date, generic?: Set<string>): Promise<void> => {
-    if (!created.length) return
+const MIN_THEME_OUTPUT_TOKENS = 1200
+
+/** Pick an output ceiling that the provider's configured token/minute envelope can safely admit. The
+ * former fixed 3,000-token completion made even one conservative Groq request exceed its 6k TPM guard. */
+function providerOutputCap(provider: OpenAiThemeProvider, theme: Theme, generic?: Set<string>): number {
+  let cap = Math.max(0, Math.min(3000, Math.floor(provider.maxTokens)))
+  if (provider.tpm > 0) {
+    const inputBound = themeNamerTokenBound([theme], generic, 0)
+    cap = Math.min(cap, Math.floor(provider.tpm - inputBound))
+  }
+  return cap >= MIN_THEME_OUTPUT_TOKENS ? cap : 0
+}
+
+/** Build the bounded validator. It always returns a callable so a disabled/unconfigured compiler becomes
+ * explicit health state instead of an empty index that falsely says no narrative formed. */
+export function makeThemeNamer(cfg: NamerCfg, fetchFn: typeof fetch, stateDir: string, log: (m: string) => void = () => {}): LlmNamer {
+  const model = cfg.themesDiscoverModel || 'claude-haiku'
+  const useClaude = model !== 'off' && model.startsWith('claude') && !!cfg.themesClaudeApiKey
+  const providers = model === 'off' ? [] : openAiProviders(cfg)
+
+  return async (created: Theme[], now: Date, generic?: Set<string>): Promise<ThemeCompilerAttempt> => {
     const batch = created.slice(0, NARRATIVE_BATCH)
-    const user = buildUserMessage(batch, generic)
-    const perAttemptTokens = themeNamerTokenBound(batch, generic)
-    const todayISO = now.toISOString().slice(0, 10)
-    const cap = useClaude ? (cfg.themesClaudeDailyCap ?? 60) : 1e9 // Groq shares its own caps below; Claude is the metered seam
-    if (useClaude && !canSpend(stateDir, cap, todayISO)) {
-      log('themes: claude daily cap reached — naming deterministically this pass')
-      return
+    const attemptedAt = now.toISOString().replace(/\.\d{3}Z$/, 'Z')
+    const result: ThemeCompilerAttempt = {
+      attempted_at: attemptedAt, state: 'skipped', provider: 'none', blocker: 'not_configured', message: '',
+      requested_count: batch.length, attempted_count: 0, validated_count: 0, rejected_count: 0,
+      malformed_count: 0, omitted_count: 0,
     }
-    // GROQ seam: the namer READS the shared Groq cooldown + daily cap (so it never probes a Groq a recent
-    // triage/read failure marked down, nor exceeds the daily cap) and CHARGES its calls to groq-budget.json
-    // (closing the "uncounted Groq spend" desync). It deliberately does NOT *arm* the shared marker: unlike
-    // triage/reads it is UNPACED (no shared RateLimiter) and hits the per-minute cap routinely, so its 429s
-    // are the expected/benign case — arming on them would sideline a HEALTHY primary Groq. Arming is left to
-    // the paced, high-volume seams (triage + the article reader), which are the reliable outage signal.
-    let groqBudget: Budget | null = null
-    if (useGroq) {
-      if (isCoolingDown(stateDir, 'groq', now.getTime())) { log('themes: groq cooling down — naming deterministically this pass'); return }
-      groqBudget = Budget.load(stateDir, cfg.groqDailyReqCap ?? 13_000, cfg.groqDailyTokenCap ?? 500_000, now.getTime())
-      if (!groqBudget.canSpend(perAttemptTokens)) { log('themes: groq daily cap reached — naming deterministically this pass'); return }
+    if (!batch.length) { result.message = 'No theme candidates were queued.'; return result }
+    if (model === 'off' || (!useClaude && !providers.length)) {
+      result.message = model === 'off' ? 'Theme compilation is disabled.' : 'No configured theme compiler provider is available.'
+      return result
     }
-    // Naming runs AFTER the write, so it can afford to retry across a rate-limit window — the Groq
-    // per-minute cap is usually exhausted by triage this cycle, but resets within ~60s. 3 attempts.
-    const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
-    for (let attempt = 1; attempt <= 3; attempt++) {
-      let reservation: BudgetReservation | null = null
-      try {
-        let text: string | null
-        if (useClaude) text = await callClaude(cfg, user, fetchFn)
-        else {
-          reservation = groqBudget!.tryReserve(perAttemptTokens)
-          if (!reservation) { log('themes: groq daily cap reached — naming deterministically this pass'); return }
-          const result = await callGroq(cfg, user, fetchFn)
-          groqBudget!.reconcile(reservation, 1, result.tokens || perAttemptTokens)
-          reservation = null
-          text = result.text
-        }
-        if (useClaude) recordSpend(stateDir, todayISO)
-        else clearCooldown(stateDir, 'groq') // Groq answered → count it, mark healthy
-        if (!text) return
-        applyProposals(batch, parseThemesJson(text), useClaude ? 'claude' : 'groq', now, generic)
-        log(`themes: named ${batch.length} new theme${batch.length === 1 ? '' : 's'} via ${useClaude ? 'claude' : 'groq'}`)
-        return
-      } catch (e: any) {
-        // Provider errors often omit usage even though the request consumed quota. Charge the conservative
-        // per-attempt estimate; reconciling to zero would reopen token headroom for work already sent.
-        if (reservation) groqBudget!.reconcile(reservation, 1, perAttemptTokens)
-        const transient = /HTTP (429|5\d\d)/.test(String(e?.message || ''))
-        if (attempt === 3 || !transient) {
-          // NB: do NOT arm the shared cooldown here — a benign per-minute 429 (the expected case for this
-          // unpaced seam) must not sideline the healthy primary Groq. Just fall back to deterministic names.
-          log(`themes namer: ${e?.message || e} — keeping deterministic names`)
-          return
-        }
-        await sleep(8000 * attempt) // 8s, 16s — let the Groq per-minute limit reset
+
+    const deadline = Date.now() + Math.min(80_000, Math.max(1, cfg.themesProviderChainTimeoutMs ?? 80_000))
+    type CompilerConstraint = {
+      provider: string
+      blocker: Exclude<ThemeCompilerAttempt['blocker'], null>
+      message: string
+    }
+    const constraints: CompilerConstraint[] = []
+    const constrain = (provider: string, blocker: CompilerConstraint['blocker'], message: string) => {
+      // This is deliberately one assignment. Provider, blocker, and operator-facing explanation describe
+      // the same final routing decision even when an earlier provider was actually sent a request.
+      constraints.push({ provider, blocker, message })
+    }
+    const armProviderFailure = (provider: OpenAiThemeProvider, id: string) => {
+      const local = provider.id === 'local'
+      const base = local ? (cfg.localCooldownMs ?? 45_000) : (cfg.llmCooldownMs ?? 300_000)
+      const max = local ? base : (cfg.llmCooldownMaxMs ?? 3_600_000)
+      armCooldown(stateDir, now.getTime(), base, id, max)
+    }
+
+    const markSent = (theme: Theme, provider: string) => {
+      result.attempted_count++
+      result.provider = provider
+      if (theme.validation_attempted_at !== attemptedAt) {
+        theme.validation_attempted_at = attemptedAt
+        if (!theme.validation_queued_at) theme.validation_queued_at = attemptedAt
+        theme.rev++
       }
     }
+    const classify = (theme: Theme, text: string, generation: 'claude' | 'groq' | 'llm', provider: string): 'validated' | 'rejected' | 'malformed' | 'omitted' => {
+      const parsed = parseThemesJson(text)
+      if (!parsed.valid) return 'malformed'
+      const proposal = parsed.proposals.find((value) => Number(value?.i) === 0)
+      if (!proposal) return 'omitted'
+      const beforeRev = theme.rev
+      const beforeStatus = theme.status
+      applyProposals([theme], [proposal], generation, now, generic, generation === 'llm' ? provider : undefined)
+      if (beforeStatus === 'live' && theme.status === 'retired') return 'rejected'
+      return theme.rev > beforeRev ? 'validated' : 'malformed'
+    }
+
+    for (const theme of batch) {
+      if (Date.now() >= deadline) {
+        constrain('none', 'rate_limiter_busy', 'The theme compiler reached its bounded runtime window.')
+        break
+      }
+      let terminal: 'validated' | 'rejected' | 'malformed' | 'omitted' | null = null
+
+      if (useClaude) {
+        const claudeId = 'claude'
+        const todayISO = now.toISOString().slice(0, 10)
+        const claudeBudget = readClaudeBudget(stateDir, todayISO)
+        const claudeCap = cfg.themesClaudeDailyCap ?? 60
+        if (isCoolingDown(stateDir, 'themes-claude', now.getTime())) {
+          constrain(claudeId, 'cooldown', 'Claude is cooling down.')
+        } else if (claudeCap <= 0 || claudeBudget.exhausted || claudeBudget.calls >= claudeCap) {
+          constrain(claudeId, 'daily_cap', claudeBudget.exhausted
+            ? terminalDayMessage('Claude', claudeBudget.exhaustion_reason)
+            : 'Claude reached its theme-compilation daily cap.')
+        } else {
+          markSent(theme, claudeId)
+          let response: ClaudeCallResult
+          try {
+            response = await callClaude(
+              cfg,
+              buildUserMessage([theme], generic),
+              fetchFn,
+              boundedAttemptTimeout(cfg, deadline),
+            )
+          } catch {
+            response = { text: null, ok: false, status: 0, note: 'Claude request failed.' }
+          }
+          recordClaudeSpend(stateDir, todayISO)
+          if (!response.ok || !response.text) {
+            const dayReason = terminalReason(response.status)
+            if (dayReason) exhaustClaudeDay(stateDir, todayISO, dayReason)
+            if (response.status >= 200 && response.status < 300) {
+              terminal = 'malformed'; result.malformed_count++
+              constrain(claudeId, 'invalid_response', response.note || 'Claude returned an incomplete theme contract.')
+              armCooldown(stateDir, now.getTime(), cfg.llmCooldownMs ?? 300_000, 'themes-claude', cfg.llmCooldownMaxMs ?? 3_600_000)
+            } else {
+              constrain(claudeId, 'provider_error', response.note || 'Claude request failed.')
+              if (!dayReason) armCooldown(stateDir, now.getTime(), cfg.llmCooldownMs ?? 300_000, 'themes-claude', cfg.llmCooldownMaxMs ?? 3_600_000)
+            }
+          } else {
+            terminal = classify(theme, response.text, 'claude', claudeId)
+            if (terminal === 'validated' || terminal === 'rejected') clearCooldown(stateDir, 'themes-claude')
+            else {
+              if (terminal === 'omitted') result.omitted_count++
+              else result.malformed_count++
+              constrain(claudeId, 'invalid_response', 'Claude returned an incomplete theme contract.')
+              armCooldown(stateDir, now.getTime(), cfg.llmCooldownMs ?? 300_000, 'themes-claude', cfg.llmCooldownMaxMs ?? 3_600_000)
+            }
+          }
+        }
+      }
+
+      if (terminal !== 'validated' && terminal !== 'rejected') {
+        for (const provider of providers) {
+          if (Date.now() >= deadline) {
+            constrain('none', 'rate_limiter_busy', 'The theme compiler reached its bounded runtime window.')
+            break
+          }
+          if (isCoolingDown(stateDir, provider.id, now.getTime()) || isCoolingDown(stateDir, `themes:${provider.id}`, now.getTime())) {
+            constrain(provider.id, 'cooldown', `${provider.label} is cooling down.`)
+            continue
+          }
+          const maxTokens = providerOutputCap(provider, theme, generic)
+          if (!maxTokens) {
+            constrain(provider.id, 'rate_limiter_busy', `${provider.label} cannot safely admit one theme contract inside its configured token/minute envelope.`)
+            continue
+          }
+          const perAttemptTokens = themeNamerTokenBound([theme], generic, maxTokens)
+          const budget = Budget.load(stateDir, provider.dailyReqCap, provider.dailyTokenCap, now.getTime(), provider.budgetFile, provider.dayTz)
+          if (!(provider.pace
+            ? budget.pacedCanSpend(perAttemptTokens, provider.pace, now.getTime())
+            : budget.canSpend(perAttemptTokens))) {
+            constrain(provider.id, 'daily_cap', terminalDayMessage(provider.label, budget.exhaustionReason))
+            continue
+          }
+          const limiter = provider.id === 'groq'
+            ? getSharedLimiter(provider.rpm, provider.tpm)
+            : getNamedLimiter(provider.id, provider.rpm, provider.tpm)
+          const remaining = Math.max(1, deadline - Date.now())
+          const got = await limiter.acquire(perAttemptTokens, undefined, Date.now, Math.min(cfg.themesLimiterWaitMs ?? 2500, remaining))
+          if (!got) {
+            constrain(provider.id, 'rate_limiter_busy', `${provider.label}'s shared limiter is busy.`)
+            continue
+          }
+          if (Date.now() >= deadline) {
+            constrain('none', 'rate_limiter_busy', 'The theme compiler reached its bounded runtime window.')
+            break
+          }
+          const reservation = budget.tryReserve(perAttemptTokens, provider.pace, now.getTime())
+          if (!reservation) {
+            constrain(provider.id, 'daily_cap', terminalDayMessage(provider.label, budget.exhaustionReason))
+            continue
+          }
+
+          markSent(theme, provider.id)
+          let response: OpenAiCallResult = {
+            text: null, tokens: 0, ok: false, status: 0, note: `${provider.label}: request failed`, rate: {},
+          }
+          try {
+            response = await callOpenAi(
+              provider,
+              buildUserMessage([theme], generic),
+              maxTokens,
+              fetchFn,
+              boundedAttemptTimeout(cfg, deadline, provider.timeoutMs),
+            )
+          } catch {}
+          budget.reconcile(reservation, 1, response.tokens || perAttemptTokens)
+          limiter.learn(response.rate, Date.now)
+          if (!response.ok || !response.text) {
+            const dayReason = terminalReason(response.status)
+            if (dayReason) budget.exhaust(dayReason)
+            if (response.status >= 200 && response.status < 300) {
+              terminal = 'malformed'; result.malformed_count++
+              constrain(provider.id, 'invalid_response', response.note || `${provider.label} returned an incomplete theme contract.`)
+              armProviderFailure(provider, `themes:${provider.id}`)
+            } else {
+              constrain(provider.id, 'provider_error', response.note || `${provider.label}: provider error`)
+              if (!dayReason) {
+                const sharedFailure = response.status === 0 || response.status === 429 || response.status >= 500
+                armProviderFailure(provider, sharedFailure ? provider.id : `themes:${provider.id}`)
+              }
+            }
+            continue
+          }
+          terminal = classify(theme, response.text, provider.id === 'groq' ? 'groq' : 'llm', provider.id)
+          if (terminal === 'validated' || terminal === 'rejected') {
+            clearCooldown(stateDir, provider.id); clearCooldown(stateDir, `themes:${provider.id}`)
+            break
+          }
+          if (terminal === 'omitted') result.omitted_count++
+          else result.malformed_count++
+          constrain(provider.id, 'invalid_response', `${provider.label} returned an incomplete theme contract.`)
+          armProviderFailure(provider, `themes:${provider.id}`)
+        }
+      }
+
+      if (terminal === 'validated') result.validated_count++
+      else if (terminal === 'rejected') result.rejected_count++
+    }
+
+    const processed = result.validated_count + result.rejected_count
+    const constraint = constraints[constraints.length - 1]
+    if (processed === result.requested_count) {
+      result.state = 'succeeded'; result.blocker = null
+      result.message = `Theme compiler processed ${processed} of ${result.requested_count} queued candidate${result.requested_count === 1 ? '' : 's'} in bounded single-theme requests.`
+    } else if (constraint) {
+      // Partial progress is not proof that the remaining queue has capacity. Preserve the terminal
+      // provider constraint so a successful first row cannot paint later daily-cap/cooldown debt green.
+      result.state = constraint.blocker === 'provider_error' || constraint.blocker === 'invalid_response'
+        ? 'failed'
+        : constraint.blocker === 'not_configured' ? 'skipped' : 'blocked'
+      result.provider = constraint.provider
+      result.blocker = constraint.blocker
+      result.message = processed > 0
+        ? `Theme compiler processed ${processed} of ${result.requested_count}; ${constraint.message}`
+        : constraint.message
+    } else if (result.attempted_count > 0) {
+      result.state = 'failed'
+      result.blocker = result.malformed_count || result.omitted_count ? 'invalid_response' : 'provider_error'
+      result.message = 'Configured providers did not return a valid theme contract.'
+    } else {
+      result.state = 'blocked'
+      result.provider = 'none'
+      result.blocker = 'not_configured'
+      result.message = 'No configured theme compiler provider had capacity.'
+    }
+    log(`themes compiler: ${result.state} via ${result.provider}; ${result.validated_count} validated, ${result.rejected_count} rejected, ${result.requested_count - processed} queued`)
+    return result
   }
 }

@@ -17,9 +17,10 @@
 import { deriveCommodities } from '../commodities'
 import { memberMatchesGeo, type ThemeGeo } from './geo-index'
 import { DAILY_WINDOWS, ensureDaily, scoreTheme, type ThemeScoreConfig } from './score'
-import type { Theme, ThemeMember, ThemesIndex, ThemeSummary, ThemeTier } from './types'
+import type { Theme, ThemeCompilerAttempt, ThemeMember, ThemesIndex, ThemeSummary, ThemeTier } from './types'
 import { buildSummary } from './store'
 import { compareThemeSummaries, companiesForMembers, firstSeenForMembers, uniqueThemeMembers } from './qualification'
+import { buildThemeCompilerHealth, buildThemeFormationQueue, compilerDebtForThemes } from './formation'
 
 /** The commodity slice to apply: `commodity` narrows to ONE canonical subject (e.g. 'GOLD');
  *  otherwise any commodity-tagged member counts. */
@@ -58,6 +59,7 @@ export function buildCommodityThemesIndex(
   filter: ThemeCommodityFilter,
   now: () => Date = () => new Date(),
   cfg?: ThemeScoreConfig,
+  compilerAttempt?: ThemeCompilerAttempt | null,
 ): ThemesIndex {
   const nowD = now()
   const nowMs = nowD.getTime()
@@ -110,5 +112,14 @@ export function buildCommodityThemesIndex(
 
   // Same evidence-first admission order as the global index; sliced heat only breaks later ties.
   out.sort(compareThemeSummaries)
-  return { generated_at: nowD.toISOString().replace(/\.\d{3}Z$/, 'Z'), themes: out, counts, history_days }
+  const projectMembers = (theme: Theme) => arr(theme.members).filter((member) => memberMatchesCommodity(member, filter))
+  const formation_queue = buildThemeFormationQueue(themes, nowD, projectMembers)
+  return {
+    generated_at: nowD.toISOString().replace(/\.\d{3}Z$/, 'Z'),
+    themes: out,
+    formation_queue,
+    compiler_health: buildThemeCompilerHealth(formation_queue, nowD, compilerAttempt, compilerDebtForThemes(themes, projectMembers)),
+    counts,
+    history_days,
+  }
 }

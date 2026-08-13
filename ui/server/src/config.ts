@@ -835,9 +835,10 @@ export const NEWS = {
   // THEMES layer (news/themes/*): buckets the ranked firehose into living investment themes, scores +
   // ranks them (hot/active/cooling/parked, auto-decaying), and assigns 1st/2nd/3rd-order companies.
   // Assignment runs every cycle (deterministic, $0); discovery runs every Nth cycle. The discovery
-  // NAMING/ripple pass optionally uses Claude-Haiku (one of two gated, OFF-by-default places the
-  // ingester can spend Claude money; the other is the metered Haiku last-resort triage fallback,
-  // news/triage/anthropic.ts) — off unless THEMES_CLAUDE_API_KEY is set; else discovery stays $0.
+  // Narrative compilation prefers the dedicated Claude key when configured, then uses the same canonical
+  // local/Groq/OpenAI-compatible provider registry, budgets, limiters and cooldowns as triage. It is
+  // always bounded and reports capacity/provider failures into themes_index compiler health; no key means
+  // an explicit non-investable waiting queue rather than a silently blank Themes surface.
   themesEnabled: process.env.NEWS_THEMES_ENABLED === '0' ? false : true,
   // Only items at/above this composite priority are bucketed into themes — routine low-materiality
   // filings (which flood the firehose) cluster on boilerplate and aren't investment themes; real
@@ -851,6 +852,11 @@ export const NEWS = {
   themesClaudeApiKey: process.env.THEMES_CLAUDE_API_KEY || process.env.ANTHROPIC_API_KEY || '',
   themesClaudeBaseUrl: process.env.THEMES_CLAUDE_BASE_URL || 'https://api.anthropic.com',
   themesClaudeDailyCap: capNum(process.env.NEWS_THEMES_CLAUDE_DAILY_CAP, 60), // max Claude discovery calls/day
+  // Keep the complete fallback chain inside the outer 90s Themes-stage budget. Each provider receives one
+  // candidate at a time; short limiter waits let the next tier run instead of blocking behind triage.
+  themesLimiterWaitMs: capNum(process.env.NEWS_THEMES_LIMITER_WAIT_MS, 2500),
+  themesProviderAttemptTimeoutMs: capNum(process.env.NEWS_THEMES_PROVIDER_ATTEMPT_TIMEOUT_MS, 25_000),
+  themesProviderChainTimeoutMs: capNum(process.env.NEWS_THEMES_PROVIDER_CHAIN_TIMEOUT_MS, 80_000),
   // LAST-RESORT TRIAGE TIER. When EVERY free brain (Groq + the OpenAI-compatible overflow registry + the
   // Gemini pool) is paced/capped/failing for a batch, it would otherwise DEFER — and on a sustained-overload
   // day the deferred backlog overruns its 1,000-item cap and the low-priority tail is permanently dropped
