@@ -1073,7 +1073,8 @@ await check('runIngestCycle keeps the durable source/first-seen pair through an 
   const fetchFn = (async (requestUrl: string) => {
     const request = String(requestUrl)
     if (request.includes('groq')) return res(triageReply)
-    if (request.includes('reuters.com')) return res({ articles: [{
+    const gdeltQuery = new URL(request).searchParams.get('query') ?? ''
+    if (/(?:^|[()\s])domain:reuters\.com(?:[()\s]|$)/.test(gdeltQuery)) return res({ articles: [{
       url, title: headline, domain: 'reuters.com',
       // The exact refresh advertises a newer provider timestamp. It must not replace the source clock
       // already bound to the human action in the durable inbox lane.
