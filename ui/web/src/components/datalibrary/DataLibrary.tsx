@@ -7,6 +7,7 @@ import { ACQ_LABEL, CADENCE_LABEL } from '../../lib/labels'
 import { DataLibraryFilters, dlFiltersActive, emptyDlFilters, matchesDlPipeline, matchesDlRecommended } from './DataLibraryFilters'
 import { DataLibraryBuild } from './DataLibraryBuild'
 import { recommendedDiscoveryAction } from './buildAvailability'
+import { connectorServiceDisplay } from './connectorService'
 import {
   connectorForNeed,
   existingConnectorGuidance,
@@ -315,7 +316,7 @@ function Skeletons() {
 }
 
 /** The header strip: how many feeds are working, how many are not, and when the fetcher last ran. */
-function HealthStrip({ pipelines, poolAvailable, runner }: {
+export function HealthStrip({ pipelines, poolAvailable, runner }: {
   pipelines: PipelineEntry[]
   poolAvailable: boolean
   runner?: RunnerStatus
@@ -324,48 +325,30 @@ function HealthStrip({ pipelines, poolAvailable, runner }: {
   const waiting = pipelines.filter(pipelineIsWaitingForFirstCheck).length
   const action = pipelines.filter((p) => !pipelineIsWaitingForFirstCheck(p)
     && (p.verdict === 'attention' || p.verdict === 'broken')).length
-  if (!poolAvailable) {
-    return (
-      <div className="datalib__health">
-        <div className="datalib__tally">
-          <span className="datalib__tallynum">{pipelines.length}</span>
-          <span>feeds wired · health is computed on the machine that holds the pool, not here</span>
-        </div>
-      </div>
-    )
-  }
-  const fetcher = runner?.fetcher
-  const fetcherState = String(fetcher?.state || 'unknown')
-  // Positive match only: a newer server state must never fall through to a green certificate on an older UI.
-  const serviceHealthy = fetcher && (fetcherState === 'online' || fetcherState === 'running')
-  const serviceIncident = fetcher && !serviceHealthy
-  const recoveryCopy = fetcherState === 'late'
-    ? 'Mac watchdog will restart it'
-    : fetcherState === 'failed' || fetcherState === 'not_started'
-      ? 'Mac scheduler will retry automatically'
-      : fetcherState === 'unknown'
-        ? 'automatic restart paused for safety'
-        : serviceIncident
-          ? 'automatic action paused until this state is understood'
-        : null
+  const service = connectorServiceDisplay(runner?.fetcher)
   return (
     <div className="datalib__healthwrap">
-      {fetcher && (
-        <div className={`datalib__service datalib__service--${serviceIncident ? 'incident' : 'good'}`} role="status">
-          <span className="datalib__serviceicon" aria-hidden>{serviceIncident ? '!' : fetcherState === 'running' ? '↻' : '✓'}</span>
-          <div className="datalib__servicecopy">
-            <strong>{serviceIncident ? 'Data service needs attention' : fetcherState === 'running' ? 'Data service is checking feeds' : 'Data service online'}</strong>
-            <span>{fetcher.note}{serviceIncident && waiting
-              ? ` This is one service incident; ${waiting} ${waiting === 1 ? 'feed is' : 'feeds are'} waiting, not ${waiting} separate connector ${waiting === 1 ? 'failure' : 'failures'}.`
-              : ''}</span>
-          </div>
-          <div className="datalib__servicemeta">
-            {fetcher.host ? `${fetcher.host} · ` : ''}{fetcher.lastProgressAt ? `checked in ${ago(fetcher.lastProgressAt)}` : 'no check-in yet'}
-            {recoveryCopy ? ` · ${recoveryCopy}` : ` · every ${fetcher.intervalMin} min`}
-          </div>
+      <div className={`datalib__service datalib__service--${service.tone}`} role="status" aria-live="polite">
+        <span className="datalib__serviceicon" aria-hidden>{service.icon}</span>
+        <div className="datalib__servicecopy">
+          <strong>{service.label}</strong>
+          <span>{service.note}{service.state !== 'online' && service.state !== 'starting' && waiting
+            ? ` One service state explains ${waiting} ${waiting === 1 ? 'feed waiting for its first check' : 'feeds waiting for their first check'}; feed incidents remain listed separately.`
+            : ''}</span>
         </div>
-      )}
+        <div className="datalib__servicemeta">
+          {service.host ? `${service.host} · ` : ''}{service.lastProgressAt ? `checked in ${ago(service.lastProgressAt)}` : 'no verified check-in'}
+          {service.autoRetryArmed ? ' · Auto-retry armed'
+            : service.state === 'online' && service.intervalMin !== null ? ` · every ${service.intervalMin} min` : ''}
+        </div>
+      </div>
       <div className="datalib__health">
+        {!poolAvailable ? (
+          <div className="datalib__tally">
+            <span className="datalib__tallynum">{pipelines.length}</span>
+            <span>feeds wired · file freshness is unavailable until Drive is ready</span>
+          </div>
+        ) : <>
         <div className={`datalib__tally${live && !action && !waiting ? ' datalib__tally--good' : ''}`}>
           <span className="datalib__tallynum">{live}</span><span>live</span>
         </div>
@@ -382,10 +365,11 @@ function HealthStrip({ pipelines, poolAvailable, runner }: {
         {!action && !waiting && pipelines.length > 0 && (
           <div className="datalib__fine">every wired feed is fetching cleanly and inside its freshness window</div>
         )}
-        {/* §5: an older engine sends no fetcher block. Its empirical ledger time is still safe to show. */}
-        {!fetcher && runner && (
+        {/* §5: an older engine sends no exact fetcher block. Empirical ledger time remains safe to show. */}
+        {!runner?.fetcher && runner && (
           <div className="datalib__sweep">{runner.lastFetchSweepAt ? `last fetch sweep ${ago(runner.lastFetchSweepAt)}` : 'service status unavailable'}</div>
         )}
+        </>}
       </div>
     </div>
   )

@@ -89,6 +89,7 @@ import subprocess
 import sys
 import tempfile
 import time
+import uuid
 import zipfile
 from datetime import date, datetime, timedelta, timezone
 from xml.etree import ElementTree
@@ -199,14 +200,16 @@ CONNECTORS_ROOT = os.path.join(REPO, ".claude", "connectors")
 LEDGER_DIR = "_connectors"                 # reserved lane under the pool root (data/_market precedent)
 LEDGER_NAME = "run_ledger.ndjson"
 RUNNER_STATUS_NAME = "runner_status.json"
-RUNNER_STATUS_SCHEMA_VERSION = 1
+RUNNER_STATUS_SCHEMA_VERSION = 2
 RUNNER_INTERVAL_SECONDS = 900
 RUNNER_STATUS_KEYS = {
     "schema_version", "service", "state", "interval_seconds", "host", "pid",
+    "run_id", "deployed_commit",
     "sweep_started_at", "last_progress_at", "sweep_completed_at", "processed_rows",
     "failed_rows", "skipped_manifests", "error_code",
 }
 RUNNER_TIMESTAMP_RE = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}Z$")
+RUNNER_HOST_RE = re.compile(r"^[^\x00-\x20\x7f]{1,255}$")
 BACKOFF_S = (0, 5, 15)                     # bounded retries inside one scheduled acquisition
 ATTEMPT_TIMEOUT_S = 60                     # per-attempt fetch timeout; tests override
 ASOF_RE = r"(\d{4}-\d{2}-\d{2})"
@@ -216,6 +219,318 @@ BUNDLE_COMPONENT_RE = re.compile(r"[A-Za-z0-9._-]+")
 # Historical unit fixtures exercise the retired v1 helpers in-process. Live
 # discovery never changes this false default.
 ALLOW_LEGACY_CONNECTORS_FOR_TESTS = False
+
+
+class ScheduledTopologyLost(BaseException):
+    """Control-flow stop when this host is no longer the authorised writer.
+
+    This deliberately does not inherit from ``Exception``. Connector code has
+    many fail-soft boundaries that turn ordinary provider/publication errors
+    into health rows; a role or pool-identity change must cross all of those
+    boundaries and stop the sweep without manufacturing a failure row.
+    """
+
+
+def _private_regular_at(directory_fd: int, name: str, limit: int) -> bytes | None:
+    """Read one owner-private, unique inode through a pinned directory."""
+    descriptor: int | None = None
+    try:
+        before = os.stat(name, dir_fd=directory_fd, follow_symlinks=False)
+        if (not stat.S_ISREG(before.st_mode) or before.st_uid != os.getuid()
+                or before.st_nlink != 1 or before.st_mode & 0o077
+                or not before.st_mode & stat.S_IRUSR
+                or not 0 < before.st_size <= limit):
+            return None
+        descriptor = os.open(
+            name, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0), dir_fd=directory_fd,
+        )
+        opened = os.fstat(descriptor)
+        identity = (
+            opened.st_dev, opened.st_ino, opened.st_mode, opened.st_uid,
+            opened.st_nlink, opened.st_size, opened.st_mtime_ns, opened.st_ctime_ns,
+        )
+        if identity != (
+            before.st_dev, before.st_ino, before.st_mode, before.st_uid,
+            before.st_nlink, before.st_size, before.st_mtime_ns, before.st_ctime_ns,
+        ):
+            return None
+        chunks: list[bytes] = []
+        remaining = opened.st_size
+        while remaining:
+            chunk = os.read(descriptor, remaining)
+            if not chunk:
+                return None
+            chunks.append(chunk)
+            remaining -= len(chunk)
+        if os.read(descriptor, 1):
+            return None
+        after = os.fstat(descriptor)
+        named = os.stat(name, dir_fd=directory_fd, follow_symlinks=False)
+        if identity != (
+            after.st_dev, after.st_ino, after.st_mode, after.st_uid,
+            after.st_nlink, after.st_size, after.st_mtime_ns, after.st_ctime_ns,
+        ) or identity != (
+            named.st_dev, named.st_ino, named.st_mode, named.st_uid,
+            named.st_nlink, named.st_size, named.st_mtime_ns, named.st_ctime_ns,
+        ):
+            return None
+        return b"".join(chunks)
+    except OSError:
+        return None
+    finally:
+        if descriptor is not None:
+            os.close(descriptor)
+
+
+def _canonical_owned_pool(raw: bytes | None) -> tuple[str, tuple[int, int]] | None:
+    """Resolve the exact one-line pool identity to an owner-readable directory."""
+    if raw is None:
+        return None
+    try:
+        text = raw.decode("utf-8")
+    except UnicodeError:
+        return None
+    if (not text.endswith("\n") or "\n" in text[:-1] or "\x00" in text
+            or not text[:-1].startswith("/")):
+        return None
+    candidate = text[:-1]
+    if (not candidate or os.path.abspath(candidate) != candidate
+            or os.path.normpath(candidate) != candidate
+            or os.path.realpath(candidate) != candidate):
+        return None
+    descriptor: int | None = None
+    try:
+        before = os.lstat(candidate)
+        if (not stat.S_ISDIR(before.st_mode) or stat.S_ISLNK(before.st_mode)
+                or before.st_uid != os.getuid()
+                or not os.access(candidate, os.R_OK | os.X_OK)):
+            return None
+        descriptor = os.open(
+            candidate,
+            os.O_RDONLY | getattr(os, "O_DIRECTORY", 0) | getattr(os, "O_NOFOLLOW", 0),
+        )
+        opened = os.fstat(descriptor)
+        named = os.lstat(candidate)
+        if (not stat.S_ISDIR(opened.st_mode) or opened.st_uid != os.getuid()
+                or (opened.st_dev, opened.st_ino) != (before.st_dev, before.st_ino)
+                or (opened.st_dev, opened.st_ino) != (named.st_dev, named.st_ino)):
+            return None
+        return candidate, (opened.st_dev, opened.st_ino)
+    except OSError:
+        return None
+    finally:
+        if descriptor is not None:
+            os.close(descriptor)
+
+
+def _stable_pool_link(
+    data_link: str, pool_root: str, pool_identity: tuple[int, int],
+) -> bool:
+    """Prove the production alias and target stay the exact same inodes."""
+    try:
+        before = os.lstat(data_link)
+        before_identity = (
+            before.st_dev, before.st_ino, before.st_mode, before.st_uid,
+            before.st_size, before.st_mtime_ns, before.st_ctime_ns,
+        )
+        if (not stat.S_ISLNK(before.st_mode) or before.st_uid != os.getuid()
+                or os.path.realpath(data_link) != pool_root):
+            return False
+        target = os.stat(data_link)
+        after = os.lstat(data_link)
+        after_identity = (
+            after.st_dev, after.st_ino, after.st_mode, after.st_uid,
+            after.st_size, after.st_mtime_ns, after.st_ctime_ns,
+        )
+        return (before_identity == after_identity
+                and stat.S_ISDIR(target.st_mode)
+                and target.st_uid == os.getuid()
+                and (target.st_dev, target.st_ino) == pool_identity)
+    except OSError:
+        return False
+
+
+class ScheduledTopologyLease:
+    """Retained writer lease plus re-attestable role and pool identity."""
+
+    def __init__(
+        self, *, autonomy_fd: int, ops_fd: int, ops_path: str,
+        data_link: str, pool_root: str, pool_identity: tuple[int, int],
+        expected_host: str,
+    ) -> None:
+        self.autonomy_fd = autonomy_fd
+        self.ops_fd = ops_fd
+        self.ops_path = ops_path
+        self.data_link = data_link
+        self.pool_root = pool_root
+        self.pool_identity = pool_identity
+        self.expected_host = expected_host
+        self.closed = False
+
+    def revalidate(self) -> bool:
+        """Treat the role file as an asynchronous demotion kill switch."""
+        if self.closed:
+            return False
+        try:
+            opened_ops = os.fstat(self.ops_fd)
+            named_ops = os.lstat(self.ops_path)
+            if (not stat.S_ISDIR(opened_ops.st_mode) or opened_ops.st_uid != os.getuid()
+                    or opened_ops.st_mode & 0o077
+                    or (opened_ops.st_dev, opened_ops.st_ino)
+                    != (named_ops.st_dev, named_ops.st_ino)):
+                return False
+            opened_lock = os.fstat(self.autonomy_fd)
+            named_lock = os.stat(
+                "connector-autonomy.lock", dir_fd=self.ops_fd, follow_symlinks=False,
+            )
+            if (not stat.S_ISREG(opened_lock.st_mode) or opened_lock.st_uid != os.getuid()
+                    or opened_lock.st_nlink != 1 or opened_lock.st_mode & 0o077
+                    or (opened_lock.st_dev, opened_lock.st_ino)
+                    != (named_lock.st_dev, named_lock.st_ino)):
+                return False
+            if _private_regular_at(self.ops_fd, "role", 32) != b"doer\n":
+                return False
+            writer_raw = _private_regular_at(self.ops_fd, "connector-writer-host", 512)
+            try:
+                local_host = socket.gethostname()
+            except OSError:
+                return False
+            if (writer_raw != (self.expected_host + "\n").encode("utf-8")
+                    or local_host != self.expected_host
+                    or not RUNNER_HOST_RE.fullmatch(local_host)):
+                return False
+            observed_pool = _canonical_owned_pool(
+                _private_regular_at(self.ops_fd, "pool-root", 4096)
+            )
+            if observed_pool != (self.pool_root, self.pool_identity):
+                return False
+            if not _stable_pool_link(
+                self.data_link, self.pool_root, self.pool_identity,
+            ):
+                return False
+            return True
+        except OSError:
+            return False
+
+    def close(self) -> None:
+        if self.closed:
+            return
+        self.closed = True
+        for descriptor in (self.autonomy_fd, self.ops_fd):
+            try:
+                os.close(descriptor)
+            except OSError:
+                pass
+
+
+def acquire_scheduled_topology_lease(
+    data_root: str, *, home: str | None = None, repo_root: str = REPO,
+) -> ScheduledTopologyLease | None:
+    """Acquire autonomy only for a proven doer writing its durable pool."""
+    ops_path = os.path.join(
+        os.path.abspath(home if home is not None else os.path.expanduser("~")),
+        ".nostra-ops",
+    )
+    data_link = os.path.abspath(data_root)
+    expected_data_link = os.path.join(os.path.abspath(repo_root), "data")
+    ops_fd: int | None = None
+    autonomy_fd: int | None = None
+    try:
+        # Launchd may pass only the reviewed production alias. Accepting an
+        # arbitrary symlink to the same pool would let a stale job outside the
+        # production checkout acquire writer authority.
+        if data_root != expected_data_link or data_link != expected_data_link:
+            return None
+        ops_info = os.lstat(ops_path)
+        if (not stat.S_ISDIR(ops_info.st_mode) or stat.S_ISLNK(ops_info.st_mode)
+                or ops_info.st_uid != os.getuid() or ops_info.st_mode & 0o077):
+            return None
+        ops_fd = os.open(
+            ops_path,
+            os.O_RDONLY | getattr(os, "O_DIRECTORY", 0) | getattr(os, "O_NOFOLLOW", 0),
+        )
+        opened_ops = os.fstat(ops_fd)
+        if ((opened_ops.st_dev, opened_ops.st_ino) != (ops_info.st_dev, ops_info.st_ino)
+                or opened_ops.st_uid != os.getuid() or opened_ops.st_mode & 0o077):
+            return None
+        flags = os.O_RDWR | os.O_CREAT | getattr(os, "O_NOFOLLOW", 0)
+        autonomy_fd = os.open("connector-autonomy.lock", flags, 0o600, dir_fd=ops_fd)
+        opened_lock = os.fstat(autonomy_fd)
+        named_lock = os.stat(
+            "connector-autonomy.lock", dir_fd=ops_fd, follow_symlinks=False,
+        )
+        if (not stat.S_ISREG(opened_lock.st_mode) or opened_lock.st_uid != os.getuid()
+                or opened_lock.st_nlink != 1 or opened_lock.st_mode & 0o077
+                or (opened_lock.st_dev, opened_lock.st_ino)
+                != (named_lock.st_dev, named_lock.st_ino)):
+            return None
+        fcntl.flock(autonomy_fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        if _private_regular_at(ops_fd, "role", 32) != b"doer\n":
+            return None
+        try:
+            local_host = socket.gethostname()
+        except OSError:
+            return None
+        if not RUNNER_HOST_RE.fullmatch(local_host):
+            return None
+        writer_raw = _private_regular_at(ops_fd, "connector-writer-host", 512)
+        try:
+            expected_host = writer_raw.decode("utf-8")[:-1] if writer_raw is not None else ""
+        except UnicodeError:
+            return None
+        if (writer_raw != (expected_host + "\n").encode("utf-8")
+                or not RUNNER_HOST_RE.fullmatch(expected_host)
+                or expected_host != local_host):
+            return None
+        pool = _canonical_owned_pool(_private_regular_at(ops_fd, "pool-root", 4096))
+        if pool is None:
+            return None
+        pool_root, pool_identity = pool
+        if not _stable_pool_link(data_link, pool_root, pool_identity):
+            return None
+        lease = ScheduledTopologyLease(
+            autonomy_fd=autonomy_fd, ops_fd=ops_fd, ops_path=ops_path,
+            data_link=data_link, pool_root=pool_root, pool_identity=pool_identity,
+            expected_host=expected_host,
+        )
+        autonomy_fd = None
+        ops_fd = None
+        if not lease.revalidate():
+            lease.close()
+            return None
+        return lease
+    except (OSError, ValueError):
+        return None
+    finally:
+        for descriptor in (autonomy_fd, ops_fd):
+            if descriptor is not None:
+                try:
+                    os.close(descriptor)
+                except OSError:
+                    pass
+
+
+_ACTIVE_SCHEDULED_TOPOLOGY: ScheduledTopologyLease | None = None
+
+
+def _require_scheduled_topology(
+    *, data_root: str | None = None, mutation_path: str | None = None,
+) -> None:
+    """Re-attest the active scheduled writer before fetch or pool mutation."""
+    lease = _ACTIVE_SCHEDULED_TOPOLOGY
+    if lease is None:
+        return
+    if data_root is not None and os.path.abspath(data_root) != lease.data_link:
+        raise ScheduledTopologyLost()
+    if mutation_path is not None:
+        candidate = os.path.realpath(os.path.abspath(mutation_path))
+        try:
+            if os.path.commonpath((candidate, lease.pool_root)) != lease.pool_root:
+                raise ScheduledTopologyLost()
+        except ValueError:
+            raise ScheduledTopologyLost() from None
+    if not lease.revalidate():
+        raise ScheduledTopologyLost()
 
 
 def _log(msg: str) -> None:
@@ -240,13 +555,25 @@ def _runner_iso_now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="microseconds").replace("+00:00", "Z")
 
 
-def _new_runner_status(started_at: str | None = None) -> dict:
+def _new_runner_status(
+    started_at: str | None = None, *, run_id: str | None = None,
+    commit: str | None = None,
+) -> dict:
+    """Create one bounded, non-secret identity for a scheduled sweep.
+
+    The early repository mutation lease keeps ``HEAD`` stable for the live
+    process.  Capturing it once here lets the supervisor prove that a
+    completed sweep ran the newly activated deployment; later lifecycle writes
+    mutate counters and timestamps only, never this identity.
+    """
     started = started_at or _runner_iso_now()
+    sweep_id = run_id or uuid.uuid4().hex
+    deployed = commit if commit is not None else deployed_commit()
     try:
         host = socket.gethostname().strip()[:255]
     except OSError:
         host = "unknown"
-    if not host or any(ord(char) < 32 or ord(char) == 127 for char in host):
+    if not RUNNER_HOST_RE.fullmatch(host):
         host = "unknown"
     return {
         "schema_version": RUNNER_STATUS_SCHEMA_VERSION,
@@ -255,6 +582,8 @@ def _new_runner_status(started_at: str | None = None) -> dict:
         "interval_seconds": RUNNER_INTERVAL_SECONDS,
         "host": host,
         "pid": os.getpid(),
+        "run_id": sweep_id,
+        "deployed_commit": deployed,
         "sweep_started_at": started,
         "last_progress_at": started,
         "sweep_completed_at": None,
@@ -276,9 +605,13 @@ def _valid_runner_status(status_value: object) -> bool:
         return False
     host = status_value.get("host")
     pid = status_value.get("pid")
-    if (not isinstance(host, str) or not host or len(host) > 255
-            or any(ord(char) < 32 or ord(char) == 127 for char in host)
+    if (not isinstance(host, str) or not RUNNER_HOST_RE.fullmatch(host)
             or not isinstance(pid, int) or isinstance(pid, bool) or pid <= 0):
+        return False
+    if (not isinstance(status_value.get("run_id"), str)
+            or not re.fullmatch(r"[0-9a-f]{32}", status_value["run_id"])
+            or not isinstance(status_value.get("deployed_commit"), str)
+            or not re.fullmatch(r"[0-9a-f]{40}", status_value["deployed_commit"])):
         return False
     parsed_times: dict[str, datetime] = {}
     for key in ("sweep_started_at", "last_progress_at"):
@@ -1084,8 +1417,10 @@ def run_fetch(cdir: str, man: dict, subject: str, data_root: str, extra_args: li
     """Returns (ok, attempts, exit_code, message)."""
     exit_code, message = None, ""
     for attempt, pause in enumerate(BACKOFF_S, start=1):
+        _require_scheduled_topology(data_root=data_root)
         if pause:
             time.sleep(pause)
+            _require_scheduled_topology(data_root=data_root)
         cache_label = re.sub(r"[^A-Za-z0-9_.-]", "-", str(man.get("id") or "connector"))
         pycache_root = tempfile.mkdtemp(prefix=f"nostra-{cache_label}-pycache-")
         cmd = [
@@ -1094,6 +1429,7 @@ def run_fetch(cdir: str, man: dict, subject: str, data_root: str, extra_args: li
             "--data-root", os.path.abspath(data_root), *(extra_args or []),
         ]
         try:
+            _require_scheduled_topology(data_root=data_root)
             p = subprocess.run(cmd, cwd=cdir, capture_output=True, text=True, timeout=ATTEMPT_TIMEOUT_S,
                                env=connector_child_env(man))
             exit_code = p.returncode
@@ -1197,8 +1533,10 @@ def run_fetch_staged(cdir: str, man: dict, subject: str, data_root: str,
         }
     exit_code, message, outcome = None, "", "fetch_error"
     for attempt, pause in enumerate(BACKOFF_S, start=1):
+        _require_scheduled_topology(data_root=data_root)
         if pause:
             time.sleep(pause)
+            _require_scheduled_topology(data_root=data_root)
         # Staging must stay on local ephemeral storage.  The production pool is
         # commonly a synced Google Drive mount; writing unvalidated bytes there
         # would expose a credential or malformed payload before quarantine.
@@ -1215,6 +1553,7 @@ def run_fetch_staged(cdir: str, man: dict, subject: str, data_root: str,
             }
         os.makedirs(os.path.join(stage_root, subject), exist_ok=True)
         try:
+            _require_scheduled_topology(data_root=data_root)
             proc = subprocess.run(
                 [
                     sys.executable, "-I", "-X", f"pycache_prefix={pycache_root}",
@@ -1307,6 +1646,7 @@ def _publication_temp_directory(path: str) -> str:
     lane = os.path.join(connector_root, ".publication-tmp")
     if os.path.lexists(lane) and (os.path.islink(lane) or not os.path.isdir(lane)):
         raise RuntimeError("connector publication temp lane is not a real directory")
+    _require_scheduled_topology(mutation_path=lane)
     os.makedirs(lane, exist_ok=True)
     if os.path.islink(lane):
         raise RuntimeError("connector publication temp lane may not be a symlink")
@@ -1426,6 +1766,7 @@ def _verify_or_recover_immutable(
                     or (info.st_dev, info.st_ino) != (observed.st_dev, observed.st_ino)):
                 raise RuntimeError(f"immutable publication alias changed during recovery at {alias}")
             try:
+                _require_scheduled_topology(mutation_path=alias)
                 os.unlink(alias)
             except FileNotFoundError:
                 pass
@@ -1436,8 +1777,11 @@ def _verify_or_recover_immutable(
 
 
 def _atomic_write(path: str, data: bytes) -> None:
+    _require_scheduled_topology(mutation_path=path)
     directory = os.path.dirname(path) or "."
+    _require_scheduled_topology(mutation_path=directory)
     os.makedirs(directory, exist_ok=True)
+    _require_scheduled_topology(mutation_path=path)
     fd, tmp = tempfile.mkstemp(
         dir=_publication_temp_directory(path), suffix=".atomic.pending",
     )
@@ -1446,6 +1790,7 @@ def _atomic_write(path: str, data: bytes) -> None:
             fh.write(data)
             fh.flush()
             os.fsync(fh.fileno())
+        _require_scheduled_topology(mutation_path=path)
         os.replace(tmp, path)
         try:
             dfd = os.open(directory, os.O_RDONLY)
@@ -1457,6 +1802,7 @@ def _atomic_write(path: str, data: bytes) -> None:
             pass
     except BaseException:
         try:
+            _require_scheduled_topology(mutation_path=tmp)
             os.unlink(tmp)
         except OSError:
             pass
@@ -1503,9 +1849,12 @@ def _write_once(path: str, data: bytes) -> None:
     the same opening prefix.  Callers must quarantine it or use a narrowly
     proven, in-place recovery path that never unlinks the claim.
     """
+    _require_scheduled_topology(mutation_path=path)
     directory = os.path.dirname(path)
+    _require_scheduled_topology(mutation_path=directory)
     os.makedirs(directory, exist_ok=True)
     temp_directory = _publication_temp_directory(path)
+    _require_scheduled_topology(mutation_path=temp_directory)
     fd, tmp = tempfile.mkstemp(dir=temp_directory, suffix=".immutable.pending")
     try:
         with os.fdopen(fd, "wb") as fh:
@@ -1513,12 +1862,14 @@ def _write_once(path: str, data: bytes) -> None:
             fh.flush()
             os.fsync(fh.fileno())
         try:
+            _require_scheduled_topology(mutation_path=path)
             os.link(tmp, path)
             # The final link is the durable claim. Remove the known staging
             # alias before this call may report success, then prove no other
             # writable name survived.
             _fsync_directory(directory)
             try:
+                _require_scheduled_topology(mutation_path=tmp)
                 os.unlink(tmp)
             except OSError as exc:
                 raise RuntimeError(f"immutable publication alias could not be removed at {tmp}") from exc
@@ -1540,6 +1891,7 @@ def _write_once(path: str, data: bytes) -> None:
             target_fd: int | None = None
             claimed_identity: tuple[int, int] | None = None
             try:
+                _require_scheduled_topology(mutation_path=path)
                 target_fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
                 claimed = os.fstat(target_fd)
                 claimed_identity = (claimed.st_dev, claimed.st_ino)
@@ -1563,6 +1915,7 @@ def _write_once(path: str, data: bytes) -> None:
                     try:
                         observed = os.lstat(path)
                         if (observed.st_dev, observed.st_ino) == claimed_identity:
+                            _require_scheduled_topology(mutation_path=path)
                             os.unlink(path)
                     except OSError:
                         pass
@@ -1570,6 +1923,7 @@ def _write_once(path: str, data: bytes) -> None:
         _fsync_directory(directory)
     finally:
         try:
+            _require_scheduled_topology(mutation_path=tmp)
             os.unlink(tmp)
         except OSError:
             pass
@@ -1584,6 +1938,7 @@ def _resume_exact_immutable_prefix(path: str, data: bytes, *, label: str = "immu
     conforming writer is merely slow rather than dead. This helper never
     removes, truncates, renames, or replaces the existing inode.
     """
+    _require_scheduled_topology(mutation_path=path)
     before = os.lstat(path)
     if (not stat.S_ISREG(before.st_mode) or stat.S_ISLNK(before.st_mode)
             or before.st_nlink != 1):
@@ -1607,6 +1962,7 @@ def _resume_exact_immutable_prefix(path: str, data: bytes, *, label: str = "immu
         elif len(observed) < len(data) and data.startswith(observed):
             offset = len(observed)
             while offset < len(data):
+                _require_scheduled_topology(mutation_path=path)
                 written = os.pwrite(fd, data[offset:], offset)
                 if written <= 0:
                     raise OSError(f"{label} prefix recovery made no write progress")
@@ -2383,6 +2739,7 @@ def publish_validated(
 
 def _append_ledger(data_root: str, row: dict) -> None:
     """Append through pinned directory/file descriptors without following links."""
+    _require_scheduled_topology(data_root=data_root)
     root = os.path.realpath(os.path.abspath(data_root))
     payload = (json.dumps(
         {**row, "ts": row.get("ts", int(time.time()))},
@@ -2402,6 +2759,7 @@ def _append_ledger(data_root: str, row: dict) -> None:
         if (opened_root.st_dev, opened_root.st_ino) != (root_info.st_dev, root_info.st_ino):
             raise RuntimeError("connector data root changed before ledger append")
         try:
+            _require_scheduled_topology(data_root=data_root)
             os.mkdir(LEDGER_DIR, mode=0o700, dir_fd=root_fd)
         except FileExistsError:
             pass
@@ -2417,6 +2775,7 @@ def _append_ledger(data_root: str, row: dict) -> None:
         if ((opened_directory.st_dev, opened_directory.st_ino)
                 != (directory_info.st_dev, directory_info.st_ino)):
             raise RuntimeError("connector ledger lane changed before append")
+        _require_scheduled_topology(data_root=data_root)
         ledger_fd = os.open(
             LEDGER_NAME,
             os.O_WRONLY | os.O_APPEND | os.O_CREAT | getattr(os, "O_NOFOLLOW", 0),
@@ -2431,7 +2790,9 @@ def _append_ledger(data_root: str, row: dict) -> None:
                 != (path_ledger.st_dev, path_ledger.st_ino)):
             raise RuntimeError("connector run ledger is not a unique regular non-symlink file")
         view = memoryview(payload)
+        _require_scheduled_topology(data_root=data_root)
         while view:
+            _require_scheduled_topology(data_root=data_root)
             written = os.write(ledger_fd, view)
             if written <= 0:
                 raise RuntimeError("short connector ledger append")
@@ -3084,6 +3445,7 @@ def _fatal_status_code(exc: BaseException) -> str:
 
 
 def main() -> int:
+    global _ACTIVE_SCHEDULED_TOPOLOGY
     ap = argparse.ArgumentParser(description="Release-gated self-heal runner for the connector registry.")
     ap.add_argument("--data-root", default=os.path.join(REPO, "data"), help="pool root (default: <repo>/data)")
     ap.add_argument("--only", help="run a single connector id")
@@ -3096,12 +3458,34 @@ def main() -> int:
         ap.error("--manual-file requires --only <manual-connector> and --subject, and cannot be dry-run")
 
     scheduled_full_sweep = _is_full_scheduled_sweep(a)
+    topology: ScheduledTopologyLease | None = None
     lock = None
+    if scheduled_full_sweep:
+        # Global order: the process already holds the repository-mutation
+        # lease from bootstrap; scheduled work takes autonomy before the
+        # runner-local singleton. Installer/failover use deploy -> repo
+        # mutation -> autonomy, so no participant inverts the shared suffix.
+        topology = acquire_scheduled_topology_lease(a.data_root)
+        if topology is None:
+            _log("scheduled writer topology is not authoritative — skipping this sweep")
+            return 0
     if not a.dry_run:
         lock = acquire_lock()
         if lock is None:
             _log("another runner instance holds the lock — skipping this sweep")
+            if topology is not None:
+                topology.close()
             return 0
+    if topology is not None:
+        # Re-attest after the local wait/exclusion point and only then make the
+        # guard visible to the first status publication and acquisition.
+        if not topology.revalidate():
+            topology.close()
+            if lock is not None:
+                os.close(lock)
+            _log("scheduled writer topology is not authoritative — skipping this sweep")
+            return 0
+        _ACTIVE_SCHEDULED_TOPOLOGY = topology
     status_value = None
     try:
         if scheduled_full_sweep:
@@ -3125,6 +3509,8 @@ def main() -> int:
                           a.data_root, only=a.only, force=a.force, dry_run=a.dry_run,
                           progress_callback=record_progress if scheduled_full_sweep else None,
                       ))
+        except ScheduledTopologyLost:
+            raise
         except BaseException as exc:
             if status_value is not None:
                 completed_at = _runner_iso_now()
@@ -3149,12 +3535,21 @@ def main() -> int:
                 "error_code": None,
             })
             write_runner_status(a.data_root, status_value)
+    except ScheduledTopologyLost:
+        # Demotion is an asynchronous kill switch, not a connector failure.
+        # Leave the last truthful heartbeat in place and publish no synthetic
+        # failure row/status after authority is lost.
+        _log("scheduled writer authority changed — stopping this sweep")
+        return 0
     finally:
+        _ACTIVE_SCHEDULED_TOPOLOGY = None
         if lock is not None:
             try:
                 os.close(lock)
             except OSError:
                 pass
+        if topology is not None:
+            topology.close()
     failed = sum(1 for r in result["rows"] if r["decision"] == "failed")
     _log(f"sweep done: {len(result['rows'])} decision(s), {failed} failed, "
          f"{len(result['skipped_manifests'])} manifest(s) skipped")

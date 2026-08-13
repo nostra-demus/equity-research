@@ -425,7 +425,19 @@ export function dataNeedSubjectsForSwarm(swarm: SwarmManifest): string[] {
 }
 
 export function readPipelines(force = false): PipelinesRead {
-  if (cache && !force && Date.now() - cache.at < TTL_MS) return cache.read
+  if (cache && !force && Date.now() - cache.at < TTL_MS) {
+    // Feed discovery is safe to cache briefly; the service certificate is not. Re-check it on every request
+    // so a production fast-forward or supervisor transition cannot leave an old Online strip green.
+    const fetcher = readConnectorFetchServiceStatus(cache.read.poolAvailable)
+    return {
+      ...cache.read,
+      runner: cache.read.runner ? {
+        ...cache.read.runner,
+        lastFetchSweepAt: fetcher.lastCompletedAt ?? cache.read.runner.lastFetchSweepAt,
+        fetcher,
+      } : cache.read.runner,
+    }
+  }
   const widened: string[] = []
   const discovery = discoverConnectors()
   const manifests = discovery.connectors

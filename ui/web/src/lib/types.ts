@@ -326,8 +326,11 @@ export interface RunnerStatus {
   pollIntervalMin: number
   lastFetchSweepAt: string | null
   fetcher?: {
-    state: 'online' | 'running' | 'late' | 'failed' | 'not_started' | 'unknown'
+    contractVersion: 2
+    // Exact service projection. A future/unknown value is an incident in the UI, never a green fallback.
+    state: 'starting' | 'checking' | 'online' | 'paused_drive' | 'disabled_admin' | 'blocked_unsafe' | 'foreign_writer'
     note: string
+    autoRetryArmed: boolean
     intervalMin: number
     host: string | null
     lastStartedAt: string | null

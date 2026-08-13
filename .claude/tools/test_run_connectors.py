@@ -53,18 +53,44 @@ check("production acquisition retries have a bounded one-minute/20-second-delay 
 # atomic primitive as projections but remains best effort: an unavailable/unsafe telemetry lane cannot
 # change any connector result.
 _status_root = tempfile.mkdtemp(prefix="connector-runner-status-")
-_status = m._new_runner_status("2026-08-13T00:00:00.000000Z")
+_status = m._new_runner_status(
+    "2026-08-13T00:00:00.000000Z",
+    run_id="0123456789abcdef0123456789abcdef",
+    commit="a" * 40,
+)
 check("runner heartbeat uses the exact schema-versioned service wire",
       set(_status) == m.RUNNER_STATUS_KEYS and m._valid_runner_status(_status)
-      and _status["interval_seconds"] == 900 and _status["state"] == "running")
+      and _status["schema_version"] == 2
+      and _status["interval_seconds"] == 900 and _status["state"] == "running"
+      and _status["run_id"] == "0123456789abcdef0123456789abcdef"
+      and _status["deployed_commit"] == "a" * 40)
 _bad_status = dict(_status, unexpected="must fail")
 check("runner heartbeat rejects extension fields", not m._valid_runner_status(_bad_status))
+for _identity_field, _bad_identity in (
+    ("run_id", "https://secret.example/run"),
+    ("run_id", "A" * 32),
+    ("run_id", "a" * 31),
+    ("deployed_commit", "A" * 40),
+    ("deployed_commit", "a" * 39),
+    ("deployed_commit", "https://secret.example/commit"),
+):
+    _bad_status = dict(_status, **{_identity_field: _bad_identity})
+    check(f"runner heartbeat rejects unsafe {_identity_field}",
+          not m._valid_runner_status(_bad_status))
+_fresh_a = m._new_runner_status(commit="b" * 40)
+_fresh_b = m._new_runner_status(commit="b" * 40)
+check("each scheduled sweep gets a fresh opaque run identity",
+      _fresh_a["run_id"] != _fresh_b["run_id"]
+      and m._valid_runner_status(_fresh_a) and m._valid_runner_status(_fresh_b))
 _bad_status = dict(_status, processed_rows=0, failed_rows=1)
 check("runner heartbeat rejects failed_rows above processed_rows", not m._valid_runner_status(_bad_status))
 _bad_status = dict(_status, last_progress_at="2026-08-12T23:59:59.000000Z")
 check("runner heartbeat rejects reversed timestamps", not m._valid_runner_status(_bad_status))
 _bad_status = dict(_status, last_progress_at="2026-08-13 00:00:00Z")
 check("runner heartbeat rejects non-canonical timestamps", not m._valid_runner_status(_bad_status))
+for _bad_host in (" mac-pro", "mac-pro ", "mac pro", "mac\tpro", "mac\npro"):
+    check("runner heartbeat rejects whitespace-bearing host identity",
+          not m._valid_runner_status(dict(_status, host=_bad_host)))
 check("runner heartbeat writes atomically into the reserved pool lane",
       m.write_runner_status(_status_root, _status))
 _status_path = os.path.join(_status_root, m.LEDGER_DIR, m.RUNNER_STATUS_NAME)
@@ -87,11 +113,18 @@ def _exercise_main_status(argv, fake_run, fake_manual=None, captured=None, statu
     old_run = m.run
     old_manual = m.run_manual_ingest
     old_lock = m.acquire_lock
+    old_topology = m.acquire_scheduled_topology_lease
     old_write = m.write_runner_status
     m.run = fake_run
     if fake_manual is not None:
         m.run_manual_ingest = fake_manual
     m.acquire_lock = lambda: os.open(os.devnull, os.O_RDONLY)
+    class _PermittedTopology:
+        data_link = os.path.abspath(argv[argv.index("--data-root") + 1])
+        pool_root = os.path.realpath(data_link)
+        def revalidate(self): return True
+        def close(self): return None
+    m.acquire_scheduled_topology_lease = lambda _root: _PermittedTopology()
     m.write_runner_status = (status_writer or
                              (lambda _root, value: captured.append(json.loads(json.dumps(value))) or True))
     try:
@@ -102,6 +135,7 @@ def _exercise_main_status(argv, fake_run, fake_manual=None, captured=None, statu
         m.run = old_run
         m.run_manual_ingest = old_manual
         m.acquire_lock = old_lock
+        m.acquire_scheduled_topology_lease = old_topology
         m.write_runner_status = old_write
 
 
@@ -126,7 +160,9 @@ check("full sweep writes running progress and a reconciled completion heartbeat"
           "running", "running", "running", "running", "completed",
       ] and _main_statuses[-1]["processed_rows"] == 2
       and _main_statuses[-1]["failed_rows"] == 1
-      and _main_statuses[-1]["skipped_manifests"] == 1)
+      and _main_statuses[-1]["skipped_manifests"] == 1
+      and len({value["run_id"] for value in _main_statuses}) == 1
+      and len({value["deployed_commit"] for value in _main_statuses}) == 1)
 for _excluded_args in (
     ["--data-root", _status_main_root, "--dry-run"],
     ["--data-root", _status_main_root, "--only", "one-connector"],
@@ -175,6 +211,321 @@ _telemetry_failure_rc, _ = _exercise_main_status(
 check("telemetry failure cannot block connector work or sweep completion",
       _telemetry_failure_rc == 0 and _publication_reached["yes"])
 shutil.rmtree(_status_main_root)
+
+
+def _topology_fixture():
+    root = os.path.realpath(tempfile.mkdtemp(prefix="connector-topology-"))
+    home = os.path.join(root, "home")
+    ops = os.path.join(home, ".nostra-ops")
+    pool = os.path.join(root, "pool")
+    repo = os.path.join(root, "repo")
+    os.makedirs(ops, mode=0o700)
+    os.chmod(ops, 0o700)
+    os.makedirs(pool)
+    os.makedirs(repo)
+    data = os.path.join(repo, "data")
+    os.symlink(pool, data)
+    with open(os.path.join(ops, "role"), "wb") as fh:
+        fh.write(b"doer\n")
+    with open(os.path.join(ops, "pool-root"), "wb") as fh:
+        fh.write((pool + "\n").encode())
+    with open(os.path.join(ops, "connector-writer-host"), "wb") as fh:
+        fh.write((__import__("socket").gethostname() + "\n").encode("ascii"))
+    os.chmod(os.path.join(ops, "role"), 0o600)
+    os.chmod(os.path.join(ops, "pool-root"), 0o600)
+    os.chmod(os.path.join(ops, "connector-writer-host"), 0o600)
+    return root, home, ops, pool, data
+
+
+def _acquire_fixture_topology(data, home):
+    return m.acquire_scheduled_topology_lease(
+        data, home=home, repo_root=os.path.dirname(data),
+    )
+
+
+_topology_root, _topology_home, _topology_ops, _topology_pool, _topology_data = _topology_fixture()
+_topology_lease = _acquire_fixture_topology(_topology_data, _topology_home)
+check("exact doer + private canonical pool identity + matching data symlink acquires topology",
+      _topology_lease is not None and _topology_lease.revalidate())
+if _topology_lease is not None:
+    try:
+        competing = os.open(os.path.join(_topology_ops, "connector-autonomy.lock"), os.O_RDWR)
+        try:
+            import fcntl as _fcntl
+            try:
+                _fcntl.flock(competing, _fcntl.LOCK_EX | _fcntl.LOCK_NB)
+            except BlockingIOError:
+                _lease_retained = True
+            else:
+                _lease_retained = False
+        finally:
+            os.close(competing)
+    except OSError:
+        _lease_retained = False
+    check("topology retains the autonomy kernel lease for the sweep", _lease_retained)
+    _topology_lease.close()
+
+_alternate_data = os.path.join(os.path.dirname(_topology_data), "alternate-data")
+os.symlink(_topology_pool, _alternate_data)
+check("an arbitrary pool alias outside lexical REPO/data cannot acquire writer topology",
+      m.acquire_scheduled_topology_lease(
+          _alternate_data, home=_topology_home,
+          repo_root=os.path.dirname(_topology_data),
+      ) is None)
+
+for _bad_role, _label in ((b"admin\n", "admin"), (None, "absent"), (b"doer \n", "malformed")):
+    _root, _home, _ops, _pool, _data = _topology_fixture()
+    _role = os.path.join(_ops, "role")
+    if _bad_role is None:
+        os.unlink(_role)
+    else:
+        with open(_role, "wb") as _fh:
+            _fh.write(_bad_role)
+        os.chmod(_role, 0o600)
+    check(f"{_label} durable role cannot acquire scheduled writer topology",
+          _acquire_fixture_topology(_data, _home) is None)
+    shutil.rmtree(_root)
+
+for _mutate, _label in (
+    (lambda ops, pool, data: os.chmod(os.path.join(ops, "role"), 0o644), "public role"),
+    (lambda ops, pool, data: os.link(os.path.join(ops, "role"), os.path.join(ops, "role.alias")),
+     "hardlinked role"),
+    (lambda ops, pool, data: os.chmod(os.path.join(ops, "pool-root"), 0o644),
+     "public pool identity"),
+    (lambda ops, pool, data: os.link(
+        os.path.join(ops, "pool-root"), os.path.join(ops, "pool-root.alias")
+    ), "hardlinked pool identity"),
+    (lambda ops, pool, data: os.chmod(ops, 0o755), "non-private ops directory"),
+    (lambda ops, pool, data: os.chmod(os.path.join(ops, "connector-writer-host"), 0o644),
+     "public writer identity"),
+    (lambda ops, pool, data: open(
+        os.path.join(ops, "connector-writer-host"), "wb"
+    ).write(b"different-host\n"), "foreign writer identity"),
+):
+    _root, _home, _ops, _pool, _data = _topology_fixture()
+    _mutate(_ops, _pool, _data)
+    check(f"{_label} cannot acquire scheduled writer topology",
+          _acquire_fixture_topology(_data, _home) is None)
+    shutil.rmtree(_root)
+
+_root, _home, _ops, _pool, _data = _topology_fixture()
+_lock = os.path.join(_ops, "connector-autonomy.lock")
+_target = os.path.join(_ops, "lock-target")
+open(_target, "wb").close(); os.chmod(_target, 0o600); os.symlink(_target, _lock)
+check("symlinked autonomy lock cannot acquire scheduled writer topology",
+      _acquire_fixture_topology(_data, _home) is None)
+shutil.rmtree(_root)
+
+_root, _home, _ops, _pool, _data = _topology_fixture()
+_identity = os.path.join(_ops, "pool-root")
+_identity_target = os.path.join(_ops, "pool-root-target")
+os.rename(_identity, _identity_target); os.symlink(_identity_target, _identity)
+check("symlinked pool identity cannot acquire scheduled writer topology",
+      _acquire_fixture_topology(_data, _home) is None)
+shutil.rmtree(_root)
+
+for _writer_bytes, _label in ((None, "absent writer identity"),
+                               (b"bad host\n", "malformed writer identity")):
+    _root, _home, _ops, _pool, _data = _topology_fixture()
+    _writer = os.path.join(_ops, "connector-writer-host")
+    if _writer_bytes is None:
+        os.unlink(_writer)
+    else:
+        with open(_writer, "wb") as _fh:
+            _fh.write(_writer_bytes)
+        os.chmod(_writer, 0o600)
+    check(f"{_label} cannot acquire scheduled writer topology",
+          _acquire_fixture_topology(_data, _home) is None)
+    shutil.rmtree(_root)
+
+_root, _home, _ops, _pool, _data = _topology_fixture()
+_lock = os.path.join(_ops, "connector-autonomy.lock")
+open(_lock, "wb").close(); os.chmod(_lock, 0o600)
+os.link(_lock, _lock + ".alias")
+check("hardlinked autonomy lock cannot acquire scheduled writer topology",
+      _acquire_fixture_topology(_data, _home) is None)
+shutil.rmtree(_root)
+
+for _shape, _label in (("real", "real-directory data root"), ("broken", "broken data symlink"),
+                       ("mismatch", "mismatched data symlink")):
+    _root, _home, _ops, _pool, _data = _topology_fixture()
+    os.unlink(_data)
+    if _shape == "real":
+        os.makedirs(_data)
+    elif _shape == "broken":
+        os.symlink(os.path.join(_root, "missing"), _data)
+    else:
+        _other = os.path.join(_root, "other"); os.makedirs(_other); os.symlink(_other, _data)
+    check(f"{_label} cannot acquire scheduled writer topology",
+          _acquire_fixture_topology(_data, _home) is None)
+    shutil.rmtree(_root)
+
+_root, _home, _ops, _pool, _data = _topology_fixture()
+with open(os.path.join(_ops, "pool-root"), "wb") as _fh:
+    _fh.write((os.path.join(_root, ".", "pool") + "\n").encode())
+os.chmod(os.path.join(_ops, "pool-root"), 0o600)
+check("noncanonical pool identity cannot acquire scheduled writer topology",
+      _acquire_fixture_topology(_data, _home) is None)
+shutil.rmtree(_root)
+
+_root, _home, _ops, _pool, _data = _topology_fixture()
+_lease = _acquire_fixture_topology(_data, _home)
+_retired_pool = _pool + ".retired"
+os.rename(_pool, _retired_pool); os.makedirs(_pool)
+check("an in-place pool target replacement invalidates the retained topology lease",
+      _lease is not None and not _lease.revalidate())
+if _lease is not None:
+    _lease.close()
+shutil.rmtree(_root)
+
+_root, _home, _ops, _pool, _data = _topology_fixture()
+_pool_info = os.stat(_pool)
+_real_realpath = m.os.path.realpath
+_swapped = {"yes": False}
+def _swap_link_during_resolution(path):
+    answer = _real_realpath(path)
+    if path == _data and not _swapped["yes"]:
+        _swapped["yes"] = True
+        os.unlink(_data); os.symlink(_pool, _data)
+    return answer
+m.os.path.realpath = _swap_link_during_resolution
+try:
+    _stable_link = m._stable_pool_link(
+        _data, _pool, (_pool_info.st_dev, _pool_info.st_ino),
+    )
+finally:
+    m.os.path.realpath = _real_realpath
+check("data symlink replacement during resolution is rejected by the second identity read",
+      _swapped["yes"] and not _stable_link)
+shutil.rmtree(_root)
+
+# Scheduled refusal precedes status, fetch, and ledger. Manual/--only/dry-run
+# preserve their operator-scoped behavior and never ask for the topology lease.
+_topology_refusal_root = tempfile.mkdtemp(prefix="connector-topology-refusal-")
+_old_topology_acquire = m.acquire_scheduled_topology_lease
+_old_lock_acquire = m.acquire_lock
+_old_write_status = m.write_runner_status
+_old_run = m.run
+_seen = {"topology": 0, "lock": 0, "status": 0, "run": 0}
+m.acquire_scheduled_topology_lease = lambda _root: (_seen.__setitem__("topology", _seen["topology"] + 1), None)[1]
+m.acquire_lock = lambda: (_seen.__setitem__("lock", _seen["lock"] + 1), os.open(os.devnull, os.O_RDONLY))[1]
+m.write_runner_status = lambda *_args: (_seen.__setitem__("status", _seen["status"] + 1), True)[1]
+m.run = lambda *_args, **_kwargs: (_seen.__setitem__("run", _seen["run"] + 1),
+                                   {"rows": [], "skipped_manifests": []})[1]
+_old_argv = sys.argv
+try:
+    sys.argv = ["run_connectors.py", "--data-root", _topology_refusal_root]
+    _refusal_rc = m.main()
+finally:
+    sys.argv = _old_argv
+    m.acquire_scheduled_topology_lease = _old_topology_acquire
+    m.acquire_lock = _old_lock_acquire
+    m.write_runner_status = _old_write_status
+    m.run = _old_run
+check("scheduled topology refusal exits zero before local lock/status/fetch/ledger",
+      _refusal_rc == 0 and _seen == {"topology": 1, "lock": 0, "status": 0, "run": 0})
+shutil.rmtree(_topology_refusal_root)
+
+for _argv_suffix in (("--dry-run",), ("--only", "one-connector")):
+    _old_topology_acquire = m.acquire_scheduled_topology_lease
+    _old_lock_acquire = m.acquire_lock
+    _old_run = m.run
+    _scoped_seen = {"topology": 0, "run": 0}
+    m.acquire_scheduled_topology_lease = lambda _root: (
+        _scoped_seen.__setitem__("topology", _scoped_seen["topology"] + 1), None
+    )[1]
+    m.acquire_lock = lambda: os.open(os.devnull, os.O_RDONLY)
+    m.run = lambda *_args, **_kwargs: (
+        _scoped_seen.__setitem__("run", _scoped_seen["run"] + 1),
+        {"rows": [], "skipped_manifests": []},
+    )[1]
+    _old_argv = sys.argv
+    try:
+        sys.argv = ["run_connectors.py", "--data-root", tempfile.gettempdir(), *_argv_suffix]
+        _scoped_rc = m.main()
+    finally:
+        sys.argv = _old_argv
+        m.acquire_scheduled_topology_lease = _old_topology_acquire
+        m.acquire_lock = _old_lock_acquire
+        m.run = _old_run
+    check(f"{' '.join(_argv_suffix)} remains operator-scoped outside scheduled topology",
+          _scoped_rc == 0 and _scoped_seen == {"topology": 0, "run": 1})
+
+# The role is an asynchronous kill switch: a demotion that lands while the
+# retained autonomy lease is held is noticed before the next external process
+# and before the next pool write. It yields no terminal status or ledger row.
+_root, _home, _ops, _pool, _data = _topology_fixture()
+_lease = _acquire_fixture_topology(_data, _home)
+_old_topology_acquire = m.acquire_scheduled_topology_lease
+_old_lock_acquire = m.acquire_lock
+_old_write_status = m.write_runner_status
+_old_run = m.run
+_demotion_seen = {"status": 0, "ledger": 0, "fetch": 0}
+m.acquire_scheduled_topology_lease = lambda _root: _lease
+m.acquire_lock = lambda: os.open(os.devnull, os.O_RDONLY)
+m.write_runner_status = lambda *_args: (_demotion_seen.__setitem__(
+    "status", _demotion_seen["status"] + 1
+), True)[1]
+
+def _demoting_run(root, **_kwargs):
+    with open(os.path.join(_ops, "role"), "wb") as _fh:
+        _fh.write(b"admin\n")
+    os.chmod(os.path.join(_ops, "role"), 0o600)
+    m._require_scheduled_topology(data_root=root)
+    _demotion_seen["fetch"] += 1
+    m._append_ledger(root, {"decision": "fresh"})
+    _demotion_seen["ledger"] += 1
+    return {"rows": [], "skipped_manifests": []}
+
+m.run = _demoting_run
+_old_argv = sys.argv
+try:
+    sys.argv = ["run_connectors.py", "--data-root", _data]
+    _demotion_rc = m.main()
+finally:
+    sys.argv = _old_argv
+    m.acquire_scheduled_topology_lease = _old_topology_acquire
+    m.acquire_lock = _old_lock_acquire
+    m.write_runner_status = _old_write_status
+    m.run = _old_run
+check("mid-sweep demotion aborts before fetch/ledger and writes no terminal heartbeat",
+      _demotion_rc == 0 and _demotion_seen == {"status": 1, "ledger": 0, "fetch": 0})
+shutil.rmtree(_root)
+
+_root, _home, _ops, _pool, _data = _topology_fixture()
+_lease = _acquire_fixture_topology(_data, _home)
+_old_active = m._ACTIVE_SCHEDULED_TOPOLOGY
+_old_backoff = m.BACKOFF_S
+_old_sleep = m.time.sleep
+_old_subprocess = m.subprocess.run
+_retry_seen = {"process": 0}
+m._ACTIVE_SCHEDULED_TOPOLOGY = _lease
+m.BACKOFF_S = (1,)
+def _demote_during_backoff(_seconds):
+    with open(os.path.join(_ops, "role"), "wb") as _fh:
+        _fh.write(b"admin\n")
+    os.chmod(os.path.join(_ops, "role"), 0o600)
+m.time.sleep = _demote_during_backoff
+m.subprocess.run = lambda *_args, **_kwargs: _retry_seen.__setitem__("process", 1)
+try:
+    try:
+        m.run_fetch_staged("/unused", {"id": "retry", "entry": "fetch.py"}, "AAA", _data)
+    except m.ScheduledTopologyLost:
+        _retry_aborted = True
+    else:
+        _retry_aborted = False
+finally:
+    m._ACTIVE_SCHEDULED_TOPOLOGY = _old_active
+    m.BACKOFF_S = _old_backoff
+    m.time.sleep = _old_sleep
+    m.subprocess.run = _old_subprocess
+    if _lease is not None:
+        _lease.close()
+check("role flip during retry backoff is re-attested before the external process",
+      _retry_aborted and _retry_seen["process"] == 0)
+shutil.rmtree(_root)
+
+shutil.rmtree(_topology_root)
 
 
 def _same_inode_mutation_is_rejected(reader, *, returns_none: bool) -> bool:
