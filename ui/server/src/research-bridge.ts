@@ -34,11 +34,15 @@ import type { FeedItem } from './news/types'
 import { findFeedItemByEventId } from './news/feed'
 import { EVENT_ID_RE, isValidTicker, safeSubjectSegment } from './sandbox'
 import { BRIDGE_MODE, BRIDGE_MODE_EXPLICIT_OFF, isReservedDataFolder } from './config'
+import { researchSolelyOwnsSharedPool } from './intake-owner'
 
 export interface BridgeOpts {
   dataDir: string
   stateDir: string
   now?: () => Date
+  /** Injected only by isolated tests. Production defaults to the finished-owner resolver and refuses
+   *  zero-owner, commodity-only, or ambiguous labels before an unattended write. */
+  canAutoWriteSubject?: (subject: string) => boolean
 }
 
 export interface BridgeResult {
@@ -403,6 +407,7 @@ export function matchTrackedSubjects(
    *  whose wire enrichment extracted NO matching ticker may still match a subject by NAME. Omitted =>
    *  today's ticker-only behaviour exactly, so no existing caller changes semantics. */
   subjectNames?: Record<string, string>,
+  canWriteSubject: (subject: string) => boolean = researchSolelyOwnsSharedPool,
 ): string[] {
   const candidates = new Set<string>()
   for (const c of item.companies || []) {
@@ -412,6 +417,7 @@ export function matchTrackedSubjects(
   const out: string[] = []
   for (const t of candidates) {
     if (!isValidTicker(t) || isReservedDataFolder(t)) continue
+    if (!canWriteSubject(t)) continue
     try {
       if (fs.statSync(path.join(dataDir, t)).isDirectory()) out.push(t)
     } catch {
@@ -447,6 +453,7 @@ export function matchTrackedSubjects(
   const named: string[] = []
   for (const [t, name] of Object.entries(subjectNames)) {
     if (!isValidTicker(t) || isReservedDataFolder(t)) continue
+    if (!canWriteSubject(t)) continue
     const n = normaliseCompanyName(name)
     if (n.length < 2 || !wanted.has(n)) continue
     // Prove the pool exists, exactly as the ticker path does above. The sweep happens to pass a map built
@@ -530,8 +537,9 @@ export function autoBridgeItem(
     // matchTrackedSubjects never mixes the two passes within one call: it returns the ticker matches alone
     // when there are any, and only falls through to the name pass (all-or-nothing) when there are none — so
     // one boolean covers every subject in `matched`, no per-subject re-derivation needed.
-    const viaTicker = matchTrackedSubjects(item, opts.dataDir)
-    const matched = viaTicker.length ? viaTicker : matchTrackedSubjects(item, opts.dataDir, subjectNames)
+    const canWrite = opts.canAutoWriteSubject ?? researchSolelyOwnsSharedPool
+    const viaTicker = matchTrackedSubjects(item, opts.dataDir, undefined, canWrite)
+    const matched = viaTicker.length ? viaTicker : matchTrackedSubjects(item, opts.dataDir, subjectNames, canWrite)
     if (!matched.length) return written
     const byName = !viaTicker.length && matched.length > 0
     let enrichment: EventEnrichment | null = null

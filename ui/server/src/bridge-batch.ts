@@ -31,6 +31,7 @@ import { isReservedDataFolder } from './config'
 import { readFeed } from './news/feed'
 import type { FeedItem } from './news/types'
 import { bridgeEventToSubject, matchTrackedSubjects, wireNameMatching } from './research-bridge'
+import { researchSolelyOwnsSharedPool } from './intake-owner'
 
 // Re-exported for existing callers/tests that import it from here — the function itself now lives in
 // research-bridge.ts so the per-item stream path (autoBridgeItem) can share it too, without a circular
@@ -300,6 +301,10 @@ export interface SweepOpts {
   /** where run folders live, for the per-subject company-name lookup that powers the name fallback.
    *  Omitted => no aliases => ticker-only matching, exactly as before. */
   analysesDir?: string
+  /** Fail-closed destination authority for unattended writes. Production requires the subject to have
+   *  exactly one finished shared-pool owner, and that owner must be research. Injectable only so the
+   *  filesystem sweep can be tested without manufacturing whole finished-run trees. */
+  canAutoWriteSubject?: (subject: string) => boolean
 }
 
 /** Canonical company name per subject, from each one's NEWEST decision_record.json (`company_name`).
@@ -339,6 +344,10 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
   const now = opts.now ?? (() => new Date())
   const nowMs = now().getTime()
   const writeNote = opts.writeNote ?? bridgeEventToSubject
+  const canWriteSubject = opts.canAutoWriteSubject ?? researchSolelyOwnsSharedPool
+  // Filter before aliases, cursors, feed matching, or note writes. A commodity-only or ambiguous label
+  // therefore receives zero bytes and its research cursor is not advanced past evidence it never owned.
+  subjects = subjects.filter((subject) => canWriteSubject(subject))
   const cursors = readCursors(opts.stateDir)
 
   // A subject transitioning from disabled/absent → enabled must not inherit a stale cursor left over from
@@ -399,7 +408,7 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
     const hit = matchCache.get(key)
     if (hit) return hit
     let matched: string[] = []
-    try { matched = matchTrackedSubjects(it, opts.dataDir) } catch { matched = [] }
+    try { matched = matchTrackedSubjects(it, opts.dataDir, undefined, canWriteSubject) } catch { matched = [] }
     matchCache.set(key, matched)
     return matched
   }
@@ -413,7 +422,7 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
     const hit = nameMatchCache.get(key)
     if (hit) return hit
     let matched: string[] = []
-    try { matched = matchTrackedSubjects(it, opts.dataDir, subjectNames) } catch { matched = [] }
+    try { matched = matchTrackedSubjects(it, opts.dataDir, subjectNames, canWriteSubject) } catch { matched = [] }
     nameMatchCache.set(key, matched)
     return matched
   }

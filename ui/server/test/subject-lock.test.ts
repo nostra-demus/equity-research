@@ -1,12 +1,53 @@
 // subject-lock.ts — the in-process per-key mutex `thesis-plan/run` uses to close the concurrent-carry race.
 // Run: npx tsx test/subject-lock.test.ts
 import assert from 'node:assert/strict'
-import { SubjectBusyError, withSubjectLock } from '../src/subject-lock'
+import fs from 'node:fs'
+import path from 'node:path'
+import { SubjectBusyError, subjectMutationLockKey, withSubjectLock } from '../src/subject-lock'
 
 function deferred<T>(): { promise: Promise<T>; resolve: (v: T) => void } {
   let resolve!: (v: T) => void
   const promise = new Promise<T>((r) => { resolve = r })
   return { promise, resolve }
+}
+
+// ---- 5. intake analysis and scoped staging share one swarm-qualified mutation namespace -------------
+{
+  const gate = deferred<void>()
+  const key = subjectMutationLockKey('research', 'GOLD')
+  const intake = withSubjectLock(key, async () => { await gate.promise; return 'intake' })
+  await assert.rejects(() => withSubjectLock(subjectMutationLockKey('research', 'GOLD'), async () => 'scoped'), SubjectBusyError,
+    'doc-intake and scoped staging for one call must never interleave')
+  const commodity = await withSubjectLock(subjectMutationLockKey('commodity', 'GOLD'), async () => 'commodity')
+  assert.equal(commodity, 'commodity', 'same label in a different swarm remains independent')
+  gate.resolve()
+  assert.equal(await intake, 'intake')
+  console.log('✅ one call shares one mutation lock; cross-swarm labels stay independent')
+}
+
+// ---- 6. the landing watcher joins that namespace and advances dedupe only after proven terminal success
+// server.ts owns process startup/background loops, so importing it would start the real server. Pin the
+// wiring statically here, while the deterministic held-lock case above proves the interleaving behavior.
+{
+  const serverSource = fs.readFileSync(path.join(process.cwd(), 'src/server.ts'), 'utf8')
+  const start = serverSource.indexOf('async function fireAutoIntake(')
+  const end = serverSource.indexOf('\nfunction broadcastData(', start)
+  assert.ok(start >= 0 && end > start, 'auto-intake implementation remains discoverable for its lock contract')
+  const auto = serverSource.slice(start, end)
+  assert.match(auto, /withSubjectLock\(subjectMutationLockKey\(initialOwner\.swarm, ticker\)/,
+    'automatic landing analysis must use the shared swarm-qualified subject mutation lock')
+  assert.match(auto, /intakeOwner: owner/,
+    'automatic landing analysis must carry the unique-owner proof to the final process boundary')
+  assert.match(auto, /const terminalRetry = \(status: RunStatus\)/,
+    'automatic landing dedupe must be driven by the real terminal outcome, not early launch ACK')
+  assert.match(auto, /status === 'done'[\s\S]*terminalPlan\.decision_fingerprint === owner\.decisionFingerprint[\s\S]*terminalPlan\.analyzed_at !== priorPlanAnalyzedAt[\s\S]*Number\(newest\) <= scannedAtMs[\s\S]*terminalNewest === newest/,
+    'terminal success must prove a newly-written exact plan scanned the unchanged landing watermark before deduping')
+  assert.doesNotMatch(auto, /terminalPlan\.pool_current === true/,
+    'normal post-run documents make the run-date floor stale; auto-intake must use the precise scan witness instead')
+  const afterLaunch = auto.slice(auto.indexOf('await launch('))
+  assert.doesNotMatch(afterLaunch, /autoIntakeLastNewest\.set\(/,
+    'the early launch ACK path must not advance the landing dedupe watermark')
+  console.log('✅ automatic landing analysis joins the shared lock and dedupes only proven terminal success')
 }
 
 // ---- 1. a second call for the SAME key while the first is in flight is rejected, not interleaved -------

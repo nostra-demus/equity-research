@@ -9,6 +9,19 @@ TEST_TMP="$(mktemp -d)" || exit 1
 trap 'rm -rf "$TEST_TMP"' EXIT
 PYTHON_BIN="$(command -v python3)"
 
+# The manual selected-need uploader signs its request envelope with a key under ENGINE_STATE_DIR.
+# The doer-only ten-minute recovery job must use that exact same private directory; otherwise a server
+# crash after staging leaves a valid request that the Mac Pro timer can never authenticate. Keep this
+# assertion at the template boundary so a future installer/render refactor cannot silently drop it.
+if grep -A8 '<key>EnvironmentVariables</key>' "$HERE/com.nostradamus.external-ingest.plist" \
+    | grep -q '<key>ENGINE_STATE_DIR</key>' \
+  && grep -q '<string>{{STATE_DIR}}</string>' "$HERE/com.nostradamus.external-ingest.plist"; then
+  echo "  ok  external-ingest recovery shares the engine state directory"
+else
+  echo "  FAIL external-ingest recovery is not bound to ENGINE_STATE_DIR"
+  failures=$((failures + 1))
+fi
+
 portable_file_size() {
   "$PYTHON_BIN" -I - "$1" <<'PY'
 import os

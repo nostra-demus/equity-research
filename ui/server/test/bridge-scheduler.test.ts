@@ -22,6 +22,9 @@ check('GET /api/bridge/status-style read (getBridgeStatus) caches routed-note co
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bridge-sched-state-'))
   const dataDir = path.join(repo, 'data')
   fs.mkdirSync(path.join(dataDir, 'AMZN'), { recursive: true })
+  const runDir = path.join(repo, 'analyses', 'AMZN_2026-08-14')
+  fs.mkdirSync(runDir, { recursive: true })
+  fs.writeFileSync(path.join(runDir, 'final_thesis.md'), '# Finished AMZN thesis')
   const bridgeDir = path.join(repo, '.claude', 'bridge')
   fs.mkdirSync(bridgeDir, { recursive: true })
   fs.writeFileSync(path.join(bridgeDir, 'company-news-bridge.json'), JSON.stringify({ subjects: ['AMZN'] }))
@@ -41,7 +44,7 @@ check('GET /api/bridge/status-style read (getBridgeStatus) caches routed-note co
   }
   fs.writeFileSync(path.join(fhDir, `${today}_firehose.ndjson`), JSON.stringify(eligible) + '\n')
 
-  const probe = path.join(repo, 'probe.ts')
+  const probe = path.join(repo, 'probe.mts')
   const src = path.resolve(here, '..', 'src', 'bridge-scheduler')
   fs.writeFileSync(probe, [
     `import { getBridgeStatus, runBridgeSweep } from ${JSON.stringify(src)}`,
@@ -88,6 +91,9 @@ check('a follow-up analysis that fails to launch (busy/capacity) is retried on t
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bridge-sched-retry-state-'))
   const dataDir = path.join(repo, 'data')
   fs.mkdirSync(path.join(dataDir, 'AMZN'), { recursive: true })
+  const runDir = path.join(repo, 'analyses', 'AMZN_2026-08-14')
+  fs.mkdirSync(runDir, { recursive: true })
+  fs.writeFileSync(path.join(runDir, 'final_thesis.md'), '# Finished AMZN thesis')
   const bridgeDir = path.join(repo, '.claude', 'bridge')
   fs.mkdirSync(bridgeDir, { recursive: true })
   fs.writeFileSync(path.join(bridgeDir, 'company-news-bridge.json'), JSON.stringify({ subjects: ['AMZN'] }))
@@ -105,7 +111,7 @@ check('a follow-up analysis that fails to launch (busy/capacity) is retried on t
   }
   fs.writeFileSync(path.join(fhDir, `${today}_firehose.ndjson`), JSON.stringify(eligible) + '\n')
 
-  const probe = path.join(repo, 'probe2.ts')
+  const probe = path.join(repo, 'probe2.mts')
   const src = path.resolve(here, '..', 'src', 'bridge-scheduler')
   fs.writeFileSync(probe, [
     `import { runBridgeSweep } from ${JSON.stringify(src)}`,
@@ -149,7 +155,7 @@ check('a malformed manifest surfaces as manifestError, not a silent healthy zero
   fs.mkdirSync(path.join(repo, 'data'), { recursive: true })
   fs.writeFileSync(path.join(bridgeDir, 'company-news-bridge.json'), '{ this is not valid json')
 
-  const probe = path.join(repo, 'probe3.ts')
+  const probe = path.join(repo, 'probe3.mts')
   const src = path.resolve(here, '..', 'src', 'bridge-scheduler')
   fs.writeFileSync(probe, [
     `import { getBridgeStatus, runBridgeSweep } from ${JSON.stringify(src)}`,
@@ -180,7 +186,7 @@ check('getBridgeStatus reports running:true when BRIDGE_MODE=stream, even with t
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bridge-sched-stream-state-'))
   fs.mkdirSync(path.join(repo, 'data'), { recursive: true })
 
-  const probe = path.join(repo, 'probe4.ts')
+  const probe = path.join(repo, 'probe4.mts')
   const src = path.resolve(here, '..', 'src', 'bridge-scheduler')
   fs.writeFileSync(probe, [
     `import { getBridgeStatus } from ${JSON.stringify(src)}`,

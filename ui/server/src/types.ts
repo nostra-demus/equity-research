@@ -394,4 +394,18 @@ export interface LaunchPreflight {
   estCommits: number
   requiresTypedConfirm: boolean
   creditPreflight: CreditPreflight
+  // Present only when /api/launch/estimate verified the immutable identity of a selected completed
+  // decision. A new browser requires this versioned echo before it exposes any paid re-run action;
+  // an older server may ignore the query fields, but cannot accidentally mint this receipt.
+  exactDecisionBinding?: {
+    contractVersion: 'exact-decision-launch/1'
+    runRoot: string
+    decisionFingerprint: string
+    intakePlan?: {
+      contractVersion: 'exact-intake-orb/1'
+      planPath: string
+      planSha256: string
+      sourceDecisionFingerprint: string
+    }
+  }
 }

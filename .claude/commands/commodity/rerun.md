@@ -1,12 +1,16 @@
 ---
 description: Re-run ONE orb (or a whole module) into an EXISTING commodity run, then re-run everything downstream of it (its module synthesis, every dependent module's synthesis, the terminal commodity-thesis + decision_record) and commit. For folding fresh data/<COMMODITY>/ notes into a finished dossier.
-argument-hint: MODULE [AGENT] COMMODITY
+argument-hint: MODULE [AGENT] COMMODITY [RUN_ROOT DECISION_FINGERPRINT [PLAN_PATH PLAN_SHA256 SOURCE_DECISION_FINGERPRINT]]
 allowed-tools: Read, Write, Glob, Bash, Task
 ---
 
 You re-run a target **and the synthesis chain its output flows into**, reusing every other existing output. This is the commodity-swarm analogue of `/research:rerun`. Use it after dropping a new note into `data/<COMMODITY>/` (e.g. a screener→commodity handoff, or a regional-focus note) to fold it into an existing commodity dossier without re-running the whole pipeline or hand-deleting synthesis files.
 
-`$ARGUMENTS` is `<MODULE> [<AGENT>] <COMMODITY>` — the last token is always the commodity. **AGENT is optional:**
+`$ARGUMENTS` is normally `<MODULE> [<AGENT>] <COMMODITY>`. The cockpit exact-call form appends both the
+run and decision identity: `<MODULE> <AGENT> <COMMODITY> <EXACT_RUN_ROOT> <CURRENT_DECISION_FINGERPRINT>`.
+An exact single-orb click from a live intake plan appends three more receipt-intent values:
+`<PLAN_PATH> <PLAN_SHA256> <SOURCE_DECISION_FINGERPRINT>`. Exact forms always name an agent.
+**AGENT is optional only when no exact root is supplied:**
 - **2 tokens (`<MODULE> <COMMODITY>`) — whole-module rerun:** re-run ALL of the module's specialists (re-ingesting `data/<COMMODITY>/`), then cascade. This is the common post-note case — a supply/demand or macro note can affect any orb in the module, so refresh them all.
 - **3 tokens (`<MODULE> <AGENT> <COMMODITY>`) — single-orb rerun:** re-run just that one orb, then cascade (parity with `/research:rerun`; this is what the cockpit's "Re-run ↻" button on an orb dispatches).
 
@@ -16,10 +20,29 @@ Unlike `/commodity:agent` (one orb, no commit), this **commits once** at the end
 
 ## 1. Parse arguments
 
-Split `$ARGUMENTS` on whitespace. The **last** token is `<COMMODITY>` (uppercase it, e.g. `sugar` → `SUGAR`). Then:
-- **3 tokens** → `<MODULE>` = first, `<AGENT>` = second (single-orb mode).
+Split `$ARGUMENTS` on whitespace. Then:
+- **8 tokens** → exact single-orb + intake receipt intent (the fields above).
+- **5 tokens** → exact single-orb without an intake receipt.
+- **3 tokens** → `<MODULE>` = first, `<AGENT>` = second, `<COMMODITY>` = third (single-orb mode).
 - **2 tokens** → `<MODULE>` = first, `<AGENT>` = *(none)* (whole-module mode).
-- **fewer than 2** → STOP with the form: `/commodity:rerun <MODULE> [<AGENT>] <COMMODITY>`.
+- **any other count** → STOP with the form shown in the argument hint. A run root without its exact
+  decision fingerprint is malformed.
+
+In either exact form require every fingerprint to match `^sha256:[a-f0-9]{64}$`. In the 8-token form,
+execute the deterministic preflight before Step 2 or any paid Task call:
+
+```bash
+python3 scripts/intake_execution_receipt.py preflight \
+  --swarm commodity --subject "<COMMODITY>" --run-root "<EXACT_RUN_ROOT>" \
+  --current-decision-fingerprint "<CURRENT_DECISION_FINGERPRINT>" \
+  --plan-path "<PLAN_PATH>" --plan-sha256 "<PLAN_SHA256>" \
+  --source-decision-fingerprint "<SOURCE_DECISION_FINGERPRINT>" \
+  --module "<MODULE>" --agent "<AGENT>"
+```
+
+Only `INTAKE-RECEIPT-PREFLIGHT: OK` passes. On mismatch STOP without writing. Set
+`<WRITE_INTAKE_RECEIPT>` true only for that validated 8-token form. Never reproduce the helper's hashes
+or containment checks by hand.
 
 Run `date +%Y-%m-%d` via Bash → `<DATE>`.
 
@@ -33,7 +56,9 @@ If there is no `## <COMMODITY>` section AND no `data/<COMMODITY>/` folder, STOP:
 
 ## 3. Resolve the run root (existing only — never create)
 
-`<RUN_ROOT>` = `commodity/runs/<COMMODITY>` (one stable folder per commodity — NOT date-stamped). Check it exists and has at least one finished module:
+`<RUN_ROOT>` = `commodity/runs/<COMMODITY>` (one stable folder per commodity — NOT date-stamped). If
+`<EXACT_RUN_ROOT>` was supplied it must byte-equal this path; the root and decision file must be real
+non-symlinks contained directly beneath the declared runs tree, or STOP without writing. Check it exists and has at least one finished module:
 
 ```
 test -d "commodity/runs/<COMMODITY>" && ls -1 commodity/runs/<COMMODITY>/*/99_*-synthesis.md 2>/dev/null | head -n 1
@@ -111,6 +136,23 @@ The helper create-only archives the exact reviewed record under
 projection with the identical record carrying `decision_id`. On `ARCHIVE-FAIL`, STOP before step 7; never
 commit a rewritten decision without its immutable snapshot. Capture the `DECISION-ARCHIVE:` line.
 
+## 6.6. Write the one-time intake receipt (only the validated 8-token form)
+
+If `<WRITE_INTAKE_RECEIPT>` is false, skip this step and never infer a receipt. If true, after the
+finish-gate and immutable archive succeeded run:
+
+```bash
+python3 scripts/intake_execution_receipt.py create \
+  --swarm commodity --subject "<COMMODITY>" --run-root "<RUN_ROOT>" \
+  --plan-path "<PLAN_PATH>" --plan-sha256 "<PLAN_SHA256>" \
+  --source-decision-fingerprint "<SOURCE_DECISION_FINGERPRINT>" \
+  --executed-against-decision-fingerprint "<CURRENT_DECISION_FINGERPRINT>" \
+  --module "<MODULE>" --agent "<AGENT>"
+```
+
+Capture `INTAKE-RECEIPT: <PATH> <ID>` as `<INTAKE_RECEIPT_PATH>` / `<INTAKE_RECEIPT_ID>`. The helper
+hashes the archived current decision and creates the receipt exclusively. A nonzero exit must STOP.
+
 ## 7. Commit and push to main (one commit)
 
 Commodity run outputs are DATA (CLAUDE.md §25/§28 — the research-data stream). Commit once through the serialized helper (data pathspec only):
@@ -119,11 +161,19 @@ Commodity run outputs are DATA (CLAUDE.md §25/§28 — the research-data stream
 bash scripts/commit-run.sh "Commodity re-run: <COMMODITY> <MODULE>[/<AGENT>] + downstream <DATE>" -- "commodity/runs/<COMMODITY>/"
 ```
 
+The same run-root pathspec includes `<INTAKE_RECEIPT_PATH>` when Step 6.6 ran. If `commit-run.sh` fails,
+delete only that newly-created uncommitted receipt, report the failure, and STOP, using only:
+
+```bash
+python3 scripts/intake_execution_receipt.py cleanup \
+  --receipt-path "<INTAKE_RECEIPT_PATH>" --receipt-id "<INTAKE_RECEIPT_ID>"
+```
+
 Capture the commit SHA (`git rev-parse HEAD`, or `NOOP=1` if nothing changed).
 
 ## 8. Report
 
-Print: the run root; the target (module or module/agent) re-run; the cascade order actually run; which module memos/dossiers refreshed (or "failed", best-effort); the terminal dossier path `commodity/runs/<COMMODITY>/commodity-thesis/99_commodity-thesis-synthesis.md`, its **Action** verdict, and the one-line thesis; confirmation that `decision_record.json` was rewritten; **the integrity finish-gate result (step 6.5)** — the pre-mortem verdict, confidence haircut, and `post_mortem_action` cap; the immutable decision ID + archive path from `DECISION-ARCHIVE:`; or, on either gate failure, the reason and that the run HALTED before commit; the commit SHA pushed to `origin/main` (or NOOP).
+Print: the run root; the target (module or module/agent) re-run; the cascade order actually run; which module memos/dossiers refreshed (or "failed", best-effort); the terminal dossier path `commodity/runs/<COMMODITY>/commodity-thesis/99_commodity-thesis-synthesis.md`, its **Action** verdict, and the one-line thesis; confirmation that `decision_record.json` was rewritten; **the integrity finish-gate result (step 6.5)** — the pre-mortem verdict, confidence haircut, and `post_mortem_action` cap; the immutable decision ID + archive path from `DECISION-ARCHIVE:`; the intake receipt path when Step 6.6 ran (otherwise `none`); or, on either gate failure, the reason and that the run HALTED before commit; the commit SHA pushed to `origin/main` (or NOOP).
 
 ---
 
@@ -134,3 +184,5 @@ Print: the run root; the target (module or module/agent) re-run; the cascade ord
 - The seeded note lives in `data/<COMMODITY>/` (the Drive pool, outside git) — the commit covers only `commodity/runs/<COMMODITY>/`.
 - Whenever this command rewrites `decision_record.json`, step 6.5 re-red-teams it and then archives that
   exact reviewed record before commit. `commodity:pre-mortem.md` itself stays strictly read-only.
+- A validated intake-plan intent writes one content-bound receipt before that same commit; no intent means
+  no receipt. Never consume an orb from timestamps, latest-plan lookup, or server-local state.
