@@ -37,6 +37,7 @@ BLIND="$OPS/failover.blind"
 LOG="${NOSTRA_FAILOVER_LOG:-$HOME/Library/Logs/nostradamus-failover.log}"
 UIDN="$(id -u)"
 PYTHON="$(command -v python3 2>/dev/null || true)"; PYTHON="${PYTHON:-/usr/bin/python3}"
+GIT="$(command -v git 2>/dev/null || true)"; GIT="${GIT:-/usr/bin/git}"
 DEPLOY_LOCK="$OPS/.deploy.flock"
 CONNECTOR_AUTONOMY_LOCK="$OPS/connector-autonomy.lock"
 LOCK_WAIT_SECONDS="${NOSTRA_FAILOVER_LOCK_WAIT_SECONDS:-10}"
@@ -72,20 +73,41 @@ activate(){
     log "ACTIVATE ABORTED: could not persist safe pre-activation admin role"
     return 1
   fi
+  if ! acquire_standdown_locks; then
+    log "ACTIVATE ABORTED: transition leases unavailable"
+    return 1
+  fi
+  # The installer acquires autonomy itself after deploy -> repository. Release
+  # only fd7 and retain the first two leases while it reads reviewed source.
+  exec 7>&-
+  if ! reviewed_prod_source || ! remove_connector_writer; then
+    exec 9>&-; exec 8>&-
+    log "ACTIVATE ABORTED: production source is unreviewed or stale connector writer could not be fenced"
+    return 1
+  fi
   log "ACTIVATE: primary absent >= ${K} min — taking over via install-services.sh"
-  ENGINE_REPO_ROOT="$PROD" NEWS_ARCHIVE_DIR="$NEWS_ARCHIVE_DIR" bash "$PROD/scripts/ops/install-services.sh" >> "$LOG" 2>&1
+  # The connector pool has one permanently configured writer (the dedicated
+  # Mac Pro). UI/tunnel failover must never install or promote a second data
+  # writer, even while it temporarily serves the cockpit.
+  ENGINE_REPO_ROOT="$PROD" NEWS_ARCHIVE_DIR="$NEWS_ARCHIVE_DIR" \
+    NOSTRA_INSTALL_CONNECTORS=0 bash "$PROD/scripts/ops/install-services.sh" >> "$LOG" 2>&1
   local rc=$?
+  exec 9>&-
+  exec 8>&-
   if [ "$rc" -eq 0 ] && [ "$(installed_role_state)" = doer ]; then
     log "ACTIVATE: install-services.sh verified the doer role"
     return 0
   fi
   log "ACTIVATE FAILED: install-services.sh exit=$rc or did not publish doer — removing partial services"
+  # Restore the conservative marker before the rollback transaction; the
+  # failed installer may have published doer just before returning nonzero.
+  persist_admin_role || log "ACTIVATE FAILED: could not restore admin before rollback"
   stand_down "failed activation rollback"
   return 1
 }
 
 # Stand-down must win as one transaction over every path that can install or restart the connector service.
-# Lock order is global: deploy first, then connector autonomy. Retained descriptors make both leases
+# Lock order is global: deploy, repository mutation, then connector autonomy. Retained descriptors make leases
 # crash-safe; no PID file can go stale. The same inode/owner checks used by installer/watchdog keep a
 # symlink or foreign lock file from becoming permission to mutate service state.
 acquire_standdown_locks(){
@@ -131,7 +153,33 @@ PYDEPLOYLOCK
     return 1
   fi
 
-  exec 7>>"$CONNECTOR_AUTONOMY_LOCK" || { exec 8>&-; return 1; }
+  local gitlock
+  gitlock="$($GIT -C "$PROD" rev-parse --git-path nostra-engine-mutation.flock 2>/dev/null)" \
+    || { exec 8>&-; return 1; }
+  case "$gitlock" in /*) ;; ?*) gitlock="$PROD/$gitlock" ;; *) exec 8>&-; return 1;; esac
+  [ ! -L "$gitlock" ] || { exec 8>&-; return 1; }
+  exec 9>>"$gitlock" || { exec 8>&-; return 1; }
+  if ! "$PYTHON" -I - "$gitlock" "$LOCK_WAIT_SECONDS" 9<&9 <<'PYREPOLOCK'
+import fcntl, os, stat, sys, time
+path = sys.argv[1]; deadline = time.monotonic() + int(sys.argv[2])
+try:
+    opened = os.fstat(9); named = os.lstat(path)
+    if (not stat.S_ISREG(opened.st_mode) or opened.st_uid != os.getuid()
+            or opened.st_nlink != 1 or opened.st_mode & 0o077
+            or (opened.st_dev, opened.st_ino) != (named.st_dev, named.st_ino)): raise OSError
+    os.fchmod(9, 0o600)
+    while True:
+        try: fcntl.flock(9, fcntl.LOCK_EX | fcntl.LOCK_NB); break
+        except BlockingIOError:
+            if time.monotonic() >= deadline: raise OSError
+            time.sleep(0.05)
+except OSError: raise SystemExit(3)
+PYREPOLOCK
+  then
+    exec 9>&-; exec 8>&-; return 1
+  fi
+
+  exec 7>>"$CONNECTOR_AUTONOMY_LOCK" || { exec 9>&-; exec 8>&-; return 1; }
   if ! "$PYTHON" -I - "$CONNECTOR_AUTONOMY_LOCK" "$LOCK_WAIT_SECONDS" 7<&7 <<'PYAUTONOMYLOCK'
 import fcntl
 import os
@@ -168,12 +216,13 @@ except OSError:
 PYAUTONOMYLOCK
   then
     exec 7>&-
+    exec 9>&-
     exec 8>&-
     return 1
   fi
 }
 
-release_standdown_locks(){ exec 7>&-; exec 8>&-; }
+release_standdown_locks(){ exec 7>&-; exec 9>&-; exec 8>&-; }
 
 persist_admin_role(){
   local staged
@@ -184,17 +233,78 @@ persist_admin_role(){
   fi
 }
 
+legacy_tunnel_contract(){
+  "$PYTHON" -I - "$1" <<'PYLEGACYROLE'
+import os, plistlib, stat, sys
+path = sys.argv[1]; fd = None
+try:
+    before = os.lstat(path)
+    if (not stat.S_ISREG(before.st_mode) or before.st_uid != os.getuid()
+            or before.st_nlink != 1 or before.st_mode & 0o022
+            or not 0 < before.st_size <= 1024 * 1024): raise OSError
+    fd = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+    opened = os.fstat(fd); chunks = []; remaining = opened.st_size
+    while remaining:
+        chunk = os.read(fd, remaining)
+        if not chunk: raise OSError
+        chunks.append(chunk); remaining -= len(chunk)
+    if os.read(fd, 1): raise OSError
+    raw = b"".join(chunks); after = os.fstat(fd); named = os.lstat(path)
+    identity = lambda s: (s.st_dev, s.st_ino, s.st_size, s.st_mtime_ns, s.st_ctime_ns,
+                          s.st_mode, s.st_uid, s.st_nlink)
+    if identity(before) != identity(opened) or identity(opened) != identity(after) \
+            or identity(after) != identity(named): raise OSError
+    value = plistlib.loads(raw); args = value.get("ProgramArguments")
+    if (value.get("Label") != "com.nostradamus.tunnel" or not isinstance(args, list)
+            or len(args) != 4 or not isinstance(args[0], str) or not args[0].startswith("/")
+            or os.path.basename(args[0]) != "cloudflared"
+            or args[1:] != ["tunnel", "run", "nostradamus-engine"]
+            or value.get("RunAtLoad") is not True or value.get("KeepAlive") is not True): raise OSError
+except (OSError, ValueError, plistlib.InvalidFileException): raise SystemExit(1)
+finally:
+    if fd is not None: os.close(fd)
+PYLEGACYROLE
+}
+
+safe_role_value(){
+  "$PYTHON" -I - "$1" <<'PYROLEVALUE'
+import os, stat, sys
+path = sys.argv[1]; fd = None
+try:
+    before = os.lstat(path)
+    if (not stat.S_ISREG(before.st_mode) or before.st_uid != os.getuid()
+            or before.st_nlink != 1 or before.st_mode & 0o077 or not 0 < before.st_size <= 32): raise OSError
+    fd = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+    opened = os.fstat(fd); chunks = []; remaining = opened.st_size
+    while remaining:
+        chunk = os.read(fd, remaining)
+        if not chunk: raise OSError
+        chunks.append(chunk); remaining -= len(chunk)
+    if os.read(fd, 1): raise OSError
+    raw = b"".join(chunks); after = os.fstat(fd); named = os.lstat(path)
+    identity = lambda s: (s.st_dev, s.st_ino, s.st_size, s.st_mtime_ns, s.st_ctime_ns,
+                          s.st_mode, s.st_uid, s.st_nlink)
+    if identity(before) != identity(opened) or identity(opened) != identity(after) \
+            or identity(after) != identity(named): raise OSError
+    if raw == b"doer\n": print("doer")
+    elif raw == b"admin\n": print("admin")
+    else: raise OSError
+except OSError: raise SystemExit(1)
+finally:
+    if fd is not None: os.close(fd)
+PYROLEVALUE
+}
+
 installed_role_state(){
   local role_file="$OPS/role" value="" tunnel="$LA/com.nostradamus.tunnel.plist"
   if [ -e "$role_file" ] || [ -L "$role_file" ]; then
-    if [ ! -L "$role_file" ] && [ -f "$role_file" ] && [ -O "$role_file" ]; then
-      value="$(cat "$role_file" 2>/dev/null || true)"
+    if value="$(safe_role_value "$role_file" 2>/dev/null)"; then
       case "$value" in doer|admin) printf '%s\n' "$value"; return;; esac
     fi
     printf '%s\n' unsafe
     return
   fi
-  if [ ! -L "$tunnel" ] && [ -f "$tunnel" ] && [ -O "$tunnel" ]; then
+  if legacy_tunnel_contract "$tunnel"; then
     printf '%s\n' legacy_doer
   else
     printf '%s\n' absent
@@ -202,6 +312,33 @@ installed_role_state(){
 }
 
 service_loaded(){ launchctl print "gui/$UIDN/$1" >/dev/null 2>&1; }
+
+remove_connector_writer(){
+  local plist="$LA/com.nostradamus.connectors.plist" i
+  launchctl bootout "gui/$UIDN/com.nostradamus.connectors" >/dev/null 2>&1 || true
+  for i in $(seq 1 "$STOP_TRIES"); do
+    service_loaded com.nostradamus.connectors || break
+    launchctl bootout "gui/$UIDN/com.nostradamus.connectors" >/dev/null 2>&1 || true
+    sleep 0.25
+  done
+  service_loaded com.nostradamus.connectors && return 1
+  rm -f "$plist" 2>/dev/null || return 1
+  [ ! -e "$plist" ] && [ ! -L "$plist" ]
+}
+
+reviewed_prod_source(){
+  local top branch head remote status
+  top="$($GIT -C "$PROD" rev-parse --show-toplevel 2>/dev/null)" || return 1
+  branch="$($GIT -C "$PROD" symbolic-ref --quiet --short HEAD 2>/dev/null)" || return 1
+  head="$($GIT -C "$PROD" rev-parse HEAD 2>/dev/null)" || return 1
+  remote="$($GIT -C "$PROD" rev-parse origin/main 2>/dev/null)" || return 1
+  [ "$top" = "$(cd "$PROD" 2>/dev/null && pwd -P)" ] \
+    && [ "$branch" = main ] && [ "$head" = "$remote" ] || return 1
+  # Failover executes the full installer and every sourced ops helper. Any
+  # working-tree difference is therefore unreviewed executable input.
+  status="$($GIT -C "$PROD" status --porcelain=v1 --untracked-files=normal 2>/dev/null)" || return 1
+  [ -z "$status" ]
+}
 
 # Stop the two processes capable of creating/restarting service state. This is used only after durable admin
 # intent is visible. It breaks a stuck pre-existing deploy lease before the bounded lock retry below.
@@ -368,8 +505,7 @@ local_services_present(){
 
 tunnel_contract_present(){
   local tunnel="$LA/com.nostradamus.tunnel.plist"
-  [ ! -L "$tunnel" ] && [ -f "$tunnel" ] && [ -O "$tunnel" ] \
-    && service_loaded com.nostradamus.tunnel
+  legacy_tunnel_contract "$tunnel" && service_loaded com.nostradamus.tunnel
 }
 
 # Local inconsistency is sufficient evidence for conservative cleanup and needs no Cloudflare decision.

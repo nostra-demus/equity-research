@@ -76,10 +76,10 @@ import { carryForwardModules, carryForwardScoped, dataPoolNewest, prepareModuleR
 import { latestPlanFileFor, readIntakePlan } from './intake'
 import { getBridgeStatus, getBridgeSubjectNames, startBridgeScheduler } from './bridge-scheduler'
 import { readWhatChanged, whatChangedMarkdown, RUN_ROOT_RE } from './what-changed'
-import { readDataNeeds } from './data-needs'
-import { appendPipelineEvent, getPipelineSource, getPipelineView, isPipelineId, listPipelineForSubject, listRecentPipeline, writePipelineSource, type PipelineSourceKind } from './pipeline-store'
+import { readDataNeeds, resolveDataNeedsRunRoot } from './data-needs'
+import { appendPipelineEvent, getPipelineSource, getPipelineView, isPipelineId, listPipelineForSubject, listRecentPipeline, writeNeedLookup, writePipelineSource, type PipelineSourceKind } from './pipeline-store'
 import { runRelevanceScan, type ScanSignal } from './pipeline-scan'
-import { openDiscoverNeeds, runFeedDiscovery } from './pipeline-discover'
+import { admitDiscoveredForOpenNeeds, discoverWant, openDiscoverNeeds, planTargetedNeedLookup, runFeedDiscovery, shouldSkipFeedDiscovery, type AdmittedLookupMatch } from './pipeline-discover'
 import { existingConnectorFor, getBuildProgress, startConnectorDispatch, subscribeBuild } from './connector-dispatch'
 import { resolveBoundConnectorUrls, resolvedConnectorSourceUrl } from './connector-url-policy'
 import { getConnector } from './connector-registry'
@@ -91,6 +91,7 @@ import { acquireSingletonLock, releaseSingletonLock } from './singleton-lock'
 import { shellForUrl } from './static-shell'
 import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind } from './types'
+import { normalizeDataSubject } from './data-subject'
 
 // async execFile (never execFileSync in a request handler — a python board rebuild takes seconds and
 // execFileSync would freeze the single event loop, stalling every other request incl. SSE pings; see
@@ -835,19 +836,28 @@ app.get('/api/what-changed/:ticker', { config: { rateLimit: { max: 120, timeWind
 
 // Data-needs dock (the "surface a data gap → build a durable connector → re-score" loop): the structured
 // data_needs[] the run's terminal synthesizer wrote onto decision_record.json, normalized + roster-validated
-// by readDataNeeds. Read-only. Same TICKER_RE zod barrier + isValidTicker guard as /api/intake (the subject
-// never reaches path.join as an untrusted value); the swarm is resolved through the registry (swarmById), so
-// an unknown / injected swarm id 400s rather than forming a path.
-const DataNeedsParams = z.object({ subject: z.string().regex(TICKER_RE) })
+// by readDataNeeds. Read-only. The shared manifest-aware subject boundary keeps research on its strict
+// exchange-symbol grammar while allowing another swarm's safe 64-character unit id. The swarm is resolved
+// through the registry first, so an unknown / injected swarm id never forms a path.
+const DataNeedsParams = z.object({ subject: z.string().min(1).max(64) })
+const DataNeedsQuery = z.object({
+  swarm: z.string().min(1).max(120).optional(),
+  runRoot: z.string().min(1).max(300).optional(),
+}).strip()
 app.get('/api/data-needs/:subject', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req, reply) => {
   const parsed = DataNeedsParams.safeParse(req.params)
   if (!parsed.success) return reply.code(400).send({ error: 'bad subject' })
-  const { subject } = parsed.data
-  if (!isValidTicker(subject)) return reply.code(400).send({ error: 'bad subject' })
-  const swarmId = String((req.query as any)?.swarm ?? RESEARCH_SWARM_ID)
+  const query = DataNeedsQuery.safeParse(req.query ?? {})
+  if (!query.success) return reply.code(400).send({ error: 'bad data-needs query' })
+  const swarmId = query.data.swarm ?? RESEARCH_SWARM_ID
   if (!swarmById(swarmId)) return reply.code(400).send({ error: 'unknown swarm' })
+  const subject = normalizeDataSubject(swarmId, parsed.data.subject)
+  if (!subject) return reply.code(400).send({ error: 'bad subject' })
+  if (query.data.runRoot !== undefined && !resolveDataNeedsRunRoot(swarmId, subject, query.data.runRoot)) {
+    return reply.code(400).send({ error: 'runRoot does not match this subject and swarm' })
+  }
   try {
-    return { read: readDataNeeds(swarmId, subject) }
+    return { read: readDataNeeds(swarmId, subject, query.data.runRoot) }
   } catch (e: any) {
     return reply.code(500).send({ error: e?.message || 'could not read data needs' })
   }
@@ -857,24 +867,26 @@ app.get('/api/data-needs/:subject', { config: { rateLimit: { max: 600, timeWindo
 // The interactive half of the data-needs loop, driven by the cockpit's "Data Pipeline" panel. Adding a source
 // is open to any authenticated teammate; the paid SCAN + BUILD actions are separately admin-gated
 // (canScanPipeline / canBuildConnector on /api/whoami), exactly like the feedback dispatch. Subject validated
-// with the same TICKER_RE zod barrier + isValidTicker guard as /api/data-needs; the swarm resolves through the
+// through the same manifest-aware subject boundary as /api/data-needs; the swarm resolves through the
 // registry (swarmById), so an injected swarm id 400s rather than forming a path.
-const PipelineParams = z.object({ subject: z.string().regex(TICKER_RE) })
+const PipelineParams = z.object({ subject: z.string().min(1).max(64) })
 
 // The folded pipeline ledger for a subject: the sources added, their scan verdicts, and build status.
 app.get('/api/pipeline/:subject', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req, reply) => {
   const parsed = PipelineParams.safeParse(req.params)
   if (!parsed.success) return reply.code(400).send({ error: 'bad subject' })
-  const { subject } = parsed.data
-  if (!isValidTicker(subject)) return reply.code(400).send({ error: 'bad subject' })
   const swarmId = String((req.query as any)?.swarm ?? RESEARCH_SWARM_ID)
   if (!swarmById(swarmId)) return reply.code(400).send({ error: 'unknown swarm' })
+  const subject = normalizeDataSubject(swarmId, parsed.data.subject)
+  if (!subject) return reply.code(400).send({ error: 'bad subject' })
   return { items: listPipelineForSubject(swarmId, subject) }
 })
 
 // Add a source (a website / API endpoint) to scan. Open to any authenticated teammate (like filing feedback).
 const AddSourceBody = z.object({
   need_id: z.string().max(128).nullish(), // the panel sends null when no specific need is targeted (free-form)
+  runRoot: z.string().min(1).max(300).optional(),
+  decisionFingerprint: z.string().regex(/^sha256:[a-f0-9]{64}$/).optional(),
   source_url: z.string().min(1).max(2000),
   source_kind: z.enum(['api', 'scrape', 'web', 'file']).optional(),
   series_hint: z.string().max(400).optional(),
@@ -885,12 +897,24 @@ app.post('/api/pipeline/:subject/source', { config: { rateLimit: { max: 120, tim
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
   const parsed = PipelineParams.safeParse(req.params)
   if (!parsed.success) return reply.code(400).send({ error: 'bad subject' })
-  const { subject } = parsed.data
-  if (!isValidTicker(subject)) return reply.code(400).send({ error: 'bad subject' })
   const swarmId = String((req.query as any)?.swarm ?? RESEARCH_SWARM_ID)
   if (!swarmById(swarmId)) return reply.code(400).send({ error: 'unknown swarm' })
+  const subject = normalizeDataSubject(swarmId, parsed.data.subject)
+  if (!subject) return reply.code(400).send({ error: 'bad subject' })
   const body = AddSourceBody.safeParse(req.body)
   if (!body.success) return reply.code(400).send({ error: 'invalid body', detail: body.error.flatten() })
+  let scopedRead: ReturnType<typeof readDataNeeds> = null
+  if (body.data.need_id) {
+    if (!body.data.runRoot || !body.data.decisionFingerprint) {
+      return reply.code(409).send({ error: 'select the exact decision again before attaching this source' })
+    }
+    scopedRead = readDataNeeds(swarmId, subject, body.data.runRoot)
+    const target = scopedRead?.needs.find((need) => need.need_id === body.data.need_id)
+    if (!scopedRead || scopedRead.decision_fingerprint !== body.data.decisionFingerprint
+        || !target || target.filing_required || target.built_by) {
+      return reply.code(409).send({ error: 'the selected data need changed or is no longer open' })
+    }
+  }
   // Persist only an exact public-DNS HTTPS origin with globally routable A/AAAA answers.
   // The generic failure never reflects a query string which may have contained a credential.
   const safeSource = await resolvedConnectorSourceUrl(body.data.source_url)
@@ -898,6 +922,7 @@ app.post('/api/pipeline/:subject/source', { config: { rateLimit: { max: 120, tim
   const { user } = identify(req)
   const item = await writePipelineSource({
     subject, swarm: swarmId,
+    ...(scopedRead ? { run_root: scopedRead.run_root, decision_fingerprint: scopedRead.decision_fingerprint } : {}),
     need_id: body.data.need_id ?? null,
     series_hint: body.data.series_hint,
     source_url: safeSource.url,
@@ -915,10 +940,10 @@ app.post('/api/pipeline/:subject/scan', { config: { rateLimit: { max: 60, timeWi
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
   const parsed = PipelineParams.safeParse(req.params)
   if (!parsed.success) return reply.code(400).send({ error: 'bad subject' })
-  const { subject } = parsed.data
-  if (!isValidTicker(subject)) return reply.code(400).send({ error: 'bad subject' })
   const swarmId = String((req.query as any)?.swarm ?? RESEARCH_SWARM_ID)
   if (!swarmById(swarmId)) return reply.code(400).send({ error: 'unknown swarm' })
+  const subject = normalizeDataSubject(swarmId, parsed.data.subject)
+  if (!subject) return reply.code(400).send({ error: 'bad subject' })
   const { user } = identify(req)
   if (!isDispatchAdmin(user) || !pipelineScanReady()) return reply.code(403).send({ error: 'not authorized to scan (admin only, and scanning must be enabled)' })
   const id = String((req.body as any)?.pipeline_id ?? '')
@@ -927,7 +952,12 @@ app.post('/api/pipeline/:subject/scan', { config: { rateLimit: { max: 60, timeWi
   // Old ledger rows pre-date the admission policy; revalidate before a web-capable agent sees one.
   const safeSource = await resolvedConnectorSourceUrl(source.source_url)
   if (!safeSource) return reply.code(400).send({ error: 'source is not an allowed public HTTPS destination' })
-  const read = readDataNeeds(swarmId, subject)
+  const read = source.run_root && source.decision_fingerprint
+    ? readDataNeeds(swarmId, subject, source.run_root)
+    : readDataNeeds(swarmId, subject)
+  if (source.run_root && (!read || read.decision_fingerprint !== source.decision_fingerprint)) {
+    return reply.code(409).send({ error: 'the decision attached to this source has changed' })
+  }
   const needs = (read?.needs ?? []).filter((n) => !n.filing_required)
 
   const { res, send, ping } = startSSE(reply)
@@ -983,6 +1013,15 @@ app.post('/api/pipeline/source/:id/build', { config: { rateLimit: { max: 30, tim
   const view = getPipelineView(id)
   if (!source || !view) return reply.code(404).send({ error: 'no such source' })
   if (!view.verdict) return reply.code(409).send({ error: 'scan this source before building a connector for it' })
+  if (!view.verdict.buildable) return reply.code(409).send({ error: 'this exact link is useful for manual research but is not approved for an automatic connector' })
+  if (source.run_root && source.decision_fingerprint) {
+    const read = readDataNeeds(source.swarm, source.subject, source.run_root)
+    const target = source.need_id ? read?.needs.find((need) => need.need_id === source.need_id) : null
+    if (!read || read.decision_fingerprint !== source.decision_fingerprint || !target
+        || target.filing_required || target.built_by || target.entry_modules.length === 0) {
+      return reply.code(409).send({ error: 'the attached decision route changed or is no longer buildable' })
+    }
+  }
   const outcome = await startConnectorDispatch(source, view.verdict, user)
   return reply.code(outcome.accepted ? 202 : 409).send({ ok: outcome.accepted, ...outcome })
 })
@@ -999,8 +1038,12 @@ app.post('/api/pipeline/source/:id/build', { config: { rateLimit: { max: 30, tim
 // the client can hand it straight to the build route. `autoBuild` builds the single strongest candidate — the
 // one-click path from the Recommended row — and is ignored unless the caller may build.
 const DiscoverBody = z.object({
-  subject: z.string().regex(TICKER_RE),
-  need_id: z.string().max(128).nullish(),
+  subject: z.string().min(1).max(64),
+  need_id: z.string().regex(/^[a-z0-9][a-z0-9_-]*$/).max(128).nullish(),
+  // A targeted lookup echoes the server-stamped run_root from /api/data-needs. The resolver below owns
+  // containment and subject identity; a client cannot select another company's call.
+  runRoot: z.string().min(1).max(300).optional(),
+  decisionFingerprint: z.string().regex(/^sha256:[a-f0-9]{64}$/).optional(),
   want: z.string().max(500).optional(),
   autoBuild: z.boolean().optional(),
 }).strip()
@@ -1008,20 +1051,36 @@ app.post('/api/pipelines/discover', { config: { rateLimit: { max: 20, timeWindow
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
   const body = DiscoverBody.safeParse(req.body)
   if (!body.success) return reply.code(400).send({ error: 'invalid body', detail: body.error.flatten() })
-  const subject = body.data.subject
-  if (!isValidTicker(subject)) return reply.code(400).send({ error: 'bad subject' })
   const swarmId = String((req.query as any)?.swarm ?? RESEARCH_SWARM_ID)
   if (!swarmById(swarmId)) return reply.code(400).send({ error: 'unknown swarm' })
+  const subject = normalizeDataSubject(swarmId, body.data.subject)
+  if (!subject) return reply.code(400).send({ error: 'bad subject' })
+  if (body.data.runRoot !== undefined && !resolveDataNeedsRunRoot(swarmId, subject, body.data.runRoot)) {
+    return reply.code(400).send({ error: 'runRoot does not match this subject and swarm' })
+  }
   const { user } = identify(req)
   if (!isDispatchAdmin(user) || !pipelineScanReady()) return reply.code(403).send({ error: 'not authorized to search for feeds (admin only, and scanning must be enabled)' })
   const mayBuild = isDispatchAdmin(user) && connectorDispatchReady()
 
   // relevance inputs: what the runs said is missing, and what is already wired (so nothing is proposed twice)
-  const needsRead = readDataNeeds(swarmId, subject)
+  const needsRead = readDataNeeds(swarmId, subject, body.data.runRoot)
+  if (body.data.need_id) {
+    // Positive-match version negotiation: an old client has neither immutable identity field and must not
+    // launch a targeted search against whichever call happens to be current on this deploy.
+    if (!body.data.runRoot || !body.data.decisionFingerprint) {
+      return reply.code(409).send({ error: 'select the exact decision again before searching this need' })
+    }
+    if (!needsRead || needsRead.contract_version !== 'data-needs-read/2'
+        || needsRead.run_root !== body.data.runRoot
+        || needsRead.decision_fingerprint !== body.data.decisionFingerprint) {
+      return reply.code(409).send({ error: 'the selected decision changed; refresh before searching' })
+    }
+  }
   // Discovery is for OPEN needs. `built_by` is the registry's exact current+usable proof; sending one back
   // to the scouting agent wastes a paid search and can propose a duplicate primary for a closed gap.
   const needs = openDiscoverNeeds(needsRead?.needs ?? [], body.data.need_id)
   const wired = readPipelines().pipelines.map((p) => ({ series: p.series, provider: p.provider, subjects: p.subjects }))
+  const lookupStartedAt = new Date().toISOString()
 
   const { res, send, ping } = startSSE(reply)
   const ac = new AbortController()
@@ -1029,8 +1088,14 @@ app.post('/api/pipelines/discover', { config: { rateLimit: { max: 20, timeWindow
   res.on('close', () => { closed = true; clearInterval(ping); ac.abort() })
   send({ type: 'discover-status', stage: 'starting', openNeeds: needs.length, wired: wired.length })
   try {
+    // A targeted closed/filing/unknown need has no admissible persistence target. General subject/free-text
+    // discovery remains useful without structured needs and persists only unscoped candidates.
+    if (shouldSkipFeedDiscovery(needs, body.data.need_id)) {
+      if (!closed) send({ type: 'discover-done', found: 0, costUsd: 0, autoBuilt: 0 })
+      return
+    }
     const out = await runFeedDiscovery({
-      input: { subject, swarm: swarmId, want: (body.data.want || '').trim(), needs, wired },
+      input: { subject, swarm: swarmId, want: discoverWant(body.data.want || '', needs, body.data.need_id), needs, wired },
       signal: ac.signal,
       onSignal: (s: ScanSignal) => {
         if (s.kind === 'ready') send({ type: 'discover-status', stage: 'searching', model: s.model })
@@ -1039,40 +1104,102 @@ app.post('/api/pipelines/discover', { config: { rateLimit: { max: 20, timeWindow
       },
     })
     if (closed) return
-    if (out.error && out.error !== 'aborted') { send({ type: 'discover-error', message: out.error }); return }
+    if (out.error) {
+      if (out.error !== 'aborted') send({ type: 'discover-error', message: out.error })
+      return
+    }
 
     let built = 0
     let found = 0
-    for (const feed of out.feeds) {
+    let targetedMatch: AdmittedLookupMatch | null = null
+    let validationIncomplete = !out.complete
+    for (const rawFeed of out.feeds) {
+      // Model ids and modules are claims, never authority. Targeted lookup is exact + current-need only.
+      // General discovery may keep relevant candidates, but routing is intersected with server-owned needs
+      // and is empty when there is no match.
+      const feed = admitDiscoveredForOpenNeeds(rawFeed, needs, body.data.need_id)
+      if (!feed) continue
       // Discovery parsing is structural-only. DNS and exact-host admission happen
       // here, immediately before either model output is persisted or dispatched.
       const bound = await resolveBoundConnectorUrls(feed.source_url, feed.verdict.endpoint_hint)
-      if (!bound) continue
+      if (closed) return
+      if (!bound) { validationIncomplete = true; continue }
       const verdict = { ...feed.verdict, host: bound.source.host, endpoint_hint: bound.endpoint.url }
       // persist as an ordinary source + its verdict, so it is indistinguishable downstream from a hand-added
       // source that was scanned — one ledger, one build path (§2)
       const item = await writePipelineSource({
         subject, swarm: swarmId,
-        need_id: feed.verdict.matched_need_ids[0] ?? body.data.need_id ?? null,
+        ...(body.data.need_id && needsRead ? {
+          run_root: needsRead.run_root,
+          decision_fingerprint: needsRead.decision_fingerprint,
+        } : {}),
+        need_id: verdict.matched_need_ids[0] ?? null,
         series_hint: feed.verdict.series,
         source_url: bound.source.url,
         source_kind: verdict.acquisition === 'scrape' ? 'scrape' : verdict.acquisition === 'manual' ? 'web' : 'api',
         note: feed.why,
-      }, user).catch(() => null)
-      if (!item) continue
+      }, user)
       found++
-      await appendPipelineEvent(item.pipeline_id, 'scanned', { verdict, note: feed.why || verdict.verdict_note, user }).catch(() => null)
+      await appendPipelineEvent(item.pipeline_id, 'scanned', { verdict, note: feed.why || verdict.verdict_note, user })
+      if (body.data.need_id && !targetedMatch) {
+        targetedMatch = {
+          pipelineId: item.pipeline_id,
+          publicUrl: bound.source.url,
+          note: 'A completed targeted search returned an exact HTTPS address whose host had public DNS.',
+        }
+      }
       let building = false
       const connectorExists = existingConnectorFor(item, verdict)
       // one-click: build the strongest buildable candidate straight away, and say so in the stream
-      if (!connectorExists && body.data.autoBuild && mayBuild && built === 0 && verdict.buildable && verdict.relevance !== 'none') {
+      if (!body.data.need_id && !connectorExists && body.data.autoBuild && mayBuild && built === 0
+          && verdict.buildable && verdict.relevance !== 'none') {
         building = (await startConnectorDispatch(item, verdict, user)).accepted
         if (building) built++
       }
       send({ type: 'discover-found', pipeline_id: item.pipeline_id, source_url: bound.source.url, why: feed.why,
         verdict, building, connector_exists: connectorExists })
     }
-    send({ type: 'discover-done', found, costUsd: out.costUsd, autoBuilt: built })
+    if (closed) return
+    // Only a targeted, completed search has one well-defined operational outcome. General searches may
+    // cover several needs and therefore write no lookup overlay. Exact found links join back to the exact
+    // persisted source; a clean zero-exact result records the explicit no-result state.
+    const targetedNeed = body.data.need_id ? needs.find((need) => need.need_id === body.data.need_id) : undefined
+    if (targetedNeed) {
+      // Terminal compare-and-set: the same immutable decision and the same still-open need must survive the
+      // full web search. A commodity projection can change in place while the model is running.
+      const terminalRead = readDataNeeds(swarmId, subject, body.data.runRoot)
+      const terminalNeed = terminalRead?.needs.find((need) => need.need_id === targetedNeed.need_id)
+      if (!terminalRead || terminalRead.decision_fingerprint !== body.data.decisionFingerprint
+          || terminalRead.run_root !== body.data.runRoot || !terminalNeed
+          || terminalNeed.series !== targetedNeed.series || terminalNeed.filing_required || terminalNeed.built_by) {
+        send({ type: 'discover-error', message: 'The selected decision changed while searching. No lookup result was recorded.' })
+        return
+      }
+      if (!targetedMatch && validationIncomplete) {
+        send({ type: 'discover-error', message: 'A candidate could not be validated as an exact public-DNS HTTPS address. No lookup result was recorded.' })
+        return
+      }
+    }
+    const lookup = planTargetedNeedLookup(targetedNeed, 'completed', targetedMatch)
+    if (targetedNeed && lookup) {
+      try {
+        await writeNeedLookup({
+          subject, swarm: swarmId, run_root: needsRead!.run_root,
+          decision_fingerprint: needsRead!.decision_fingerprint,
+          need_id: targetedNeed.need_id, series: targetedNeed.series,
+          lookup_started_at: lookupStartedAt, ...lookup,
+        }, user)
+      } catch (error: any) {
+        if (/stale lookup attempt/.test(String(error?.message || error))) {
+          send({ type: 'discover-done', found, costUsd: out.costUsd, autoBuilt: built,
+            decisionFingerprint: needsRead!.decision_fingerprint, superseded: true })
+          return
+        }
+        throw error
+      }
+    }
+    send({ type: 'discover-done', found, costUsd: out.costUsd, autoBuilt: built,
+      ...(needsRead ? { decisionFingerprint: needsRead.decision_fingerprint } : {}) })
   } catch (e: any) {
     if (!closed) send({ type: 'discover-error', message: String(e?.message || e) })
   } finally {

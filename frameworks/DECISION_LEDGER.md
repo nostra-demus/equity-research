@@ -212,6 +212,8 @@ The canonical `decision_record.json` the synthesizer emits — one per final the
   "module_scores": {},
   "red_flags": [],
   "missing_data": [],
+  "data_needs_schema_version": "2.0",
+  "data_needs": [],
   "review_schedule": {
     "30d": "",
     "90d": "",
@@ -280,6 +282,8 @@ The three `post_review_*` fields are **additive and optional** — the synthesiz
 | `module_scores` | Yes | Object: module name → score/verdict. | Module Scorecard |
 | `red_flags` | Yes | Array of carried Critical/High red flags (with IDs). | Red-flag register |
 | `missing_data` | Yes | Array of key data gaps / next-data requests. | Gate evidence inventory |
+| `data_needs_schema_version` | Additive (required for publications ≥ 2026-08-14) | Exact discriminator `"2.0"`. Every new publication emits it even when `data_needs` is empty, including a rerun that preserves an older `decision_date`; genuinely older records without it retain the v1/no-structured-guidance meaning. | This framework |
+| `data_needs` | Additive (required for publications ≥ 2026-08-14) | Ranked machine guidance for at most five missing observations that actively cap the decision. `[]` means the synthesizer checked and found none; see the exact v2 contract below. | Pre-Write Gate / module evidence gaps |
 | `review_schedule` | Yes | Target review dates at 30/90/180/365d from `decision_date`. | Computed (§7) |
 | `created_by` | Yes | Emitter ("synthesizer"). | Convention |
 | `notes` | Optional | Free-text caveats. | Synthesizer |
@@ -295,6 +299,77 @@ The three `post_review_*` fields are **additive and optional** — the synthesiz
 | `confidence_breakdown` | Additive (for runs ≥ 2026-07-11) | The step-by-step build (base → evidence → caps → downgrades → final) so `conviction` is auditable and re-derivable. | `scripts/confidence.py` |
 
 Rules: keep field names exactly as above. Absent values are `null` (numbers), `""` (strings), or `[]`/`{}` — never fabricated.
+
+### Data-needs decision guidance v2 (required for new publications from 2026-08-14)
+
+`missing_data[]` remains the full human-readable gap inventory. `data_needs[]` is its smaller,
+machine-actionable decision queue. Every record newly published on or after 2026-08-14 must carry both
+`data_needs_schema_version: "2.0"` and `data_needs`, including a rerun whose original `decision_date`
+is older and an explicit empty array when no missing observation currently caps the call.
+Legacy records without the discriminator remain valid and are never reinterpreted as v2.
+
+Each v2 entry has exactly this shape (`next_release` is the only optional field):
+
+```json
+{
+  "need_id": "filed-segment-margin",
+  "priority": 1,
+  "series": "Quarterly filed segment revenue and operating profit for the cloud segment",
+  "why_it_caps": "the segment margin that drives the bull case is not disclosed in the available interim filing",
+  "expected_impact": {
+    "if_supportive": "a filed margin above the scenario threshold would strengthen the operating-leverage case, subject to cash conversion",
+    "if_adverse": "a filed margin below the threshold would weaken or reject the bull case"
+  },
+  "filing_required": true,
+  "entry_orbs": [
+    {
+      "module": "earnings",
+      "agent": "margin-drivers",
+      "why": "this orb owns the segment-margin bridge",
+      "confidence": 0.96
+    }
+  ],
+  "suggested_source": {
+    "name": "Company quarterly exchange filing",
+    "acquisition": "manual",
+    "access": "public",
+    "licensing_basis": "official public filing; confirm the applicable exchange terms when acquired"
+  },
+  "tier": 5,
+  "cadence": "quarterly",
+  "next_release": "2026-10-29"
+}
+```
+
+Contract:
+
+- Emit no more than five entries. Rank by **decision value**, not expected score lift. Priority `1` is the
+  single missing observation most likely to change or reject the action, or to resolve the largest active
+  cap. Source quality and feasibility break ties. The array itself is ordered by integer priority exactly
+  `1, 2, ... N`; `data_needs[0]` is priority `1`, and `1` cannot be omitted.
+- `series` says exactly what is missing. `why_it_caps` names the unresolved question and the cap already
+  active today. `expected_impact.if_supportive` and `.if_adverse` are both required and conditional.
+  Evidence can strengthen, weaken, or leave the decision unchanged. It never guarantees or mechanically
+  lifts a rating, score, or conviction, and no numeric/promised conviction lift is allowed. Do not promise
+  an upgrade/downgrade or write any numeric confidence/conviction claim, including `100%`.
+- `entry_orbs` contains one or more exact `{module, agent, why, confidence}` objects. Module and agent names
+  come from the discovered roster. `confidence` is routing confidence on a 0–1 scale, not investment
+  conviction. V2 has no module-only `entry_modules` shortcut.
+- `suggested_source` is a hint, not evidence that a source exists or that its rights are cleared. It contains
+  exactly `{name, acquisition, access, licensing_basis}`. `acquisition` is one of `official_api`,
+  `free_key_api`, `paid_api`, `scrape`, or `manual`; `access` is one of `public`, `licensed`, `restricted`,
+  or `unknown`. `licensing_basis` says what is known or `unknown`. No URL appears anywhere in a v2 need.
+- `filing_required: true` means only the statutory filing can close the gap and the item is not connector-
+  dispatchable. `tier` is the source-hint ceiling (`5`, `9`, or `10`, never filing grade); `cadence` is one
+  of `twelve_hourly`, `daily`, `weekly`, `monthly`, `quarterly`, `semiannual`, `annual`, or `event_driven`.
+  `next_release`, if known from a schedule, is a real `YYYY-MM-DD` date on or after `decision_date`;
+  otherwise omit it.
+- V2 entries are exact: no URLs, `cap_lifted`, `entry_modules`, extra source fields, endpoint/schema/host
+  details, or connector implementation promises. Those belong to later discovery, rights review, and build
+  steps. A source hint can be wrong; obtaining data can leave the thesis unchanged.
+
+This is an additive sub-contract: the record's top-level `schema_version` remains `"1.0"`. The dedicated
+discriminator changes only `data_needs[]`, avoiding an ambiguous silent reinterpretation of older entries.
 
 **Structured scenario authority for the final Ideas projection (additive).** A forward run that will be
 re-projected into a final 3–6 month candidate uses this exact decision-record shape:

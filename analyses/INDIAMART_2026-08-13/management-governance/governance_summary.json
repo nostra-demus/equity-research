@@ -1,0 +1,44 @@
+{
+  "ticker": "INDIAMART",
+  "date": "2026-08-13",
+  "module": "management-governance",
+  "stewardship_verdict": "Standard / mixed",
+  "hard_disqualifier_flagged": false,
+  "hard_disqualifier_detail": null,
+  "scores": {
+    "management_quality": 56,
+    "capital_allocation": 70,
+    "incentive_alignment": 32,
+    "shareholder_friendliness": 74,
+    "disclosure_candor": 79,
+    "governance_risk_inverted_higher_worse": 38,
+    "data_quality": 90,
+    "overall_usefulness": 90
+  },
+  "governance_score": 62.12,
+  "governance_score_rounded": 62,
+  "confidence_score": 88,
+  "confidence_adjusted_governance_score": 54.67,
+  "confidence_adjusted_governance_score_rounded": 55,
+  "governance_rating": "Watchlist",
+  "red_flag_count": 5,
+  "critical_red_flag_count": 0,
+  "insider_ownership_pct": 49.17,
+  "founder_direct_ownership_pct": 49.08,
+  "specialist_scores": {
+    "01_management-and-track-record": 56,
+    "02_capital-allocation-scorecard": 70,
+    "03_incentives-and-compensation": 32,
+    "04_ownership-and-insider-behavior": 73,
+    "05_board-and-shareholder-rights": 74,
+    "06_candor-and-disclosure-quality": 79
+  },
+  "sq24_filters": {
+    "filter1_integrity_RF-MGT-005": "not triggered - investigated and cleared",
+    "filter2_turnaround_RF-MGT-004": "not applicable - no turnaround thesis",
+    "filter4_serial_acquirer_RF-CAP-004": "flagged for monitoring, severity 58/100, below 70 hard-cap threshold - not triggered",
+    "filter6_unaligned_owner_RF-OWN-004": "not triggered - standalone founder-operated company"
+  },
+  "supersedes": "business-model/11_capital-allocation-governance.md",
+  "biggest_missing_data_point": "NRC Balanced Scorecard KPI list and weights for the annual executive bonus"
+}

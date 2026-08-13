@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Regression test for scripts/commit-run.sh's push step.
+Regression tests for scripts/commit-run.sh's publication and push boundary.
 
 Reproduces the exact failure mode found live in a 2026-07-13 session: commit-run.sh pushed
 with `git push -q origin main`, which resolves "main" as the LOCAL branch of that name — not
@@ -19,7 +19,10 @@ this asserts and validates that fix stays in place.
 
 Run: python3 scripts/test_commit_run.py   (exit 0 = all pass)
 """
+import json
 import os
+import shlex
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -99,6 +102,33 @@ def setup_stale_local_main_scenario(tmp):
     assert local_main != origin_main, "test setup bug: local main should be stale"
 
     return origin, agent, env
+
+
+def install_prewrite_fixture(agent):
+    """Give an isolated test clone the real creation-time validator and a discovered orb roster."""
+    scripts = os.path.join(agent, "scripts")
+    os.makedirs(scripts, exist_ok=True)
+    for name in ("eval.py", "data_need_contract.py"):
+        shutil.copy2(os.path.join(REPO_ROOT, "scripts", name), os.path.join(scripts, name))
+    agents = os.path.join(agent, ".claude", "agents", "fixture-module")
+    os.makedirs(agents, exist_ok=True)
+    with open(os.path.join(agents, "99_fixture-module-synthesis.md"), "w") as f:
+        f.write("# Fixture synthesis\n")
+
+
+def write_json(repo, relative_path, body):
+    absolute = os.path.join(repo, relative_path)
+    os.makedirs(os.path.dirname(absolute), exist_ok=True)
+    with open(absolute, "w") as f:
+        json.dump(body, f)
+        f.write("\n")
+    return absolute
+
+
+def no_push_env(env):
+    result = dict(env)
+    result["ENGINE_NO_PUSH"] = "1"
+    return result
 
 
 def test_fast_forward_push_from_non_main_branch_with_stale_local_main():
@@ -298,6 +328,148 @@ def test_clean_rebase_second_push_race_retains_rebased_commit():
               and not os.path.exists(git_internal_path(agent, "rebase-apply", env)))
 
 
+def test_invalid_new_decision_is_rejected_before_commit():
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-invalid-decision-") as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        install_prewrite_fixture(agent)
+        relative = "analyses/FRESH_2099-01-01/decision_record.json"
+        write_json(agent, relative, {
+            "decision_date": "2099-01-01",
+            "data_needs_schema_version": "2.0",
+            "data_needs": "not-an-array",
+        })
+        before = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+        result = run(
+            ["bash", COMMIT_RUN, "test: reject invalid decision", "--", relative],
+            cwd=agent, env=no_push_env(env), check_rc=False,
+        )
+        after = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+        cached = run(["git", "diff", "--cached", "--quiet"], cwd=agent, env=env, check_rc=False)
+        check("invalid fresh staged decision exits 5 before commit",
+              result.returncode == 5 and before == after,
+              f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
+        check("invalid fresh decision reports the prewrite failure",
+              "DATA-NEEDS-PREWRITE: FAIL" in result.stderr
+              and "rejected staged publication" in result.stderr,
+              result.stderr)
+        check("rejected decision is unstaged for the next autonomous run", cached.returncode == 0)
+
+
+def test_valid_decision_commits_staged_snapshot_not_later_worktree_bytes():
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-staged-snapshot-") as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        install_prewrite_fixture(agent)
+        relative = "analyses/ODD name [x]_2099-01-01/decision_record.json"
+        absolute = write_json(agent, relative, {
+            "decision_date": "2099-01-01",
+            "data_needs_schema_version": "2.0",
+            "data_needs": [],
+        })
+
+        # Interpose only on the validator call. It mutates the worktree file immediately after the
+        # staged snapshot passes, reproducing the old validation-to-pathspec-commit TOCTOU window.
+        wrappers = os.path.join(tmp, "wrappers")
+        os.makedirs(wrappers)
+        python_wrapper = os.path.join(wrappers, "python3")
+        with open(python_wrapper, "w") as f:
+            f.write(
+                "#!/bin/sh\n"
+                "if [ \"${2:-}\" = \"--data-needs-prewrite\" ]; then\n"
+                f"  {shlex.quote(sys.executable)} \"$@\"\n"
+                "  rc=$?\n"
+                "  if [ \"$rc\" -eq 0 ]; then\n"
+                "    printf '%s\\n' '{\"decision_date\":\"not-a-date\"}' > \"$COMMIT_RUN_MUTATION_TARGET\"\n"
+                "  fi\n"
+                "  exit \"$rc\"\n"
+                "fi\n"
+                f"exec {shlex.quote(sys.executable)} \"$@\"\n"
+            )
+        os.chmod(python_wrapper, 0o755)
+        race_env = no_push_env(env)
+        race_env["PATH"] = wrappers + os.pathsep + race_env.get("PATH", "")
+        race_env["COMMIT_RUN_MUTATION_TARGET"] = absolute
+        result = run(
+            ["bash", COMMIT_RUN, "test: commit staged decision snapshot", "--", relative],
+            cwd=agent, env=race_env, check_rc=False,
+        )
+        committed = run(["git", "show", f"HEAD:{relative}"], cwd=agent, env=env, check_rc=False)
+        committed_body = json.loads(committed.stdout) if committed.returncode == 0 else {}
+        with open(absolute) as f:
+            worktree_body = json.load(f)
+        check("valid staged decision passes and commits",
+              result.returncode == 0 and "DATA-NEEDS-PREWRITE: PASS" in result.stdout,
+              f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
+        check("commit contains the validated index bytes after a worktree race",
+              committed_body.get("data_needs_schema_version") == "2.0"
+              and committed_body.get("data_needs") == [], committed.stdout)
+        check("the test actually changed the later worktree bytes",
+              worktree_body == {"decision_date": "not-a-date"}, repr(worktree_body))
+
+
+def test_unchanged_historical_decision_is_not_regraded():
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-unchanged-history-") as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        install_prewrite_fixture(agent)
+        run_root = os.path.join(agent, "analyses", "LEGACY_2020-01-01")
+        os.makedirs(run_root, exist_ok=True)
+        # Deliberately malformed immutable legacy bytes: if commit-run scans the run directory rather
+        # than the changed index entries, the publication gate will fail this unrelated thesis update.
+        with open(os.path.join(run_root, "decision_record.json"), "w") as f:
+            f.write("{ frozen legacy bytes\n")
+        thesis = os.path.join(run_root, "final_thesis.md")
+        with open(thesis, "w") as f:
+            f.write("original thesis\n")
+        run(["git", "add", "analyses/LEGACY_2020-01-01"], cwd=agent, env=env)
+        run(["git", "commit", "-q", "-m", "fixture: frozen legacy run"], cwd=agent, env=env)
+        with open(thesis, "a") as f:
+            f.write("append-only correction\n")
+        result = run(
+            ["bash", COMMIT_RUN, "test: update legacy thesis", "--", "analyses/LEGACY_2020-01-01/"],
+            cwd=agent, env=no_push_env(env), check_rc=False,
+        )
+        committed = run(["git", "show", "HEAD:analyses/LEGACY_2020-01-01/final_thesis.md"],
+                        cwd=agent, env=env, check_rc=False)
+        check("unchanged historical decision is not regraded",
+              result.returncode == 0 and "append-only correction" in committed.stdout,
+              f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
+        check("no prewrite was launched for the unchanged historical record",
+              "DATA-NEEDS-PREWRITE" not in result.stdout + result.stderr,
+              result.stdout + result.stderr)
+
+
+def test_non_terminal_outputs_and_commodity_archive_bypass_creation_gate():
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-nondecision-") as tmp:
+        _, agent, env = setup_stale_local_main_scenario(tmp)
+        paths = [
+            "analyses/MODULE_2099-01-01/business-model/01_unit-economics.json",
+            "analyses/MODULE_2099-01-01/reviews/2099-02-01_decision_review.json",
+            "analyses/performance/2099-01-01_calibration_summary.json",
+            # Commodity owns a separate pre-archive validator and live orb roster. Neither its mutable
+            # projection nor its immutable archive may be falsely sent through the research validator.
+            "commodity/runs/GOLD/decision_record.json",
+            "commodity/runs/GOLD/decisions/frozen-id/decision_record.json",
+            "commodity/performance/2099-01-01_calibration_summary.json",
+        ]
+        for relative in paths:
+            write_json(agent, relative, {"fixture": relative})
+        # No scripts/eval.py exists in this clone. Success therefore proves these changed paths never
+        # enter the top-level decision-publication gate.
+        result = run(
+            ["bash", COMMIT_RUN, "test: non-terminal outputs", "--", *paths],
+            cwd=agent, env=no_push_env(env), check_rc=False,
+        )
+        all_committed = all(
+            run(["git", "cat-file", "-e", f"HEAD:{relative}"], cwd=agent, env=env, check_rc=False).returncode == 0
+            for relative in paths
+        )
+        check("module/review/calibration/commodity outputs are unaffected by the research creation gate",
+              result.returncode == 0 and all_committed,
+              f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
+        check("non-terminal outputs do not launch prewrite validation",
+              "DATA-NEEDS-PREWRITE" not in result.stdout + result.stderr,
+              result.stdout + result.stderr)
+
+
 if __name__ == "__main__":
     print("== test_commit_run.py ==")
     test_fast_forward_push_from_non_main_branch_with_stale_local_main()
@@ -306,6 +478,10 @@ if __name__ == "__main__":
     test_commit_hook_rejection_is_never_pushed_as_old_head()
     test_conflicting_rebase_is_aborted_cleanly()
     test_clean_rebase_second_push_race_retains_rebased_commit()
+    test_invalid_new_decision_is_rejected_before_commit()
+    test_valid_decision_commits_staged_snapshot_not_later_worktree_bytes()
+    test_unchanged_historical_decision_is_not_regraded()
+    test_non_terminal_outputs_and_commodity_archive_bypass_creation_gate()
     if _fails:
         print(f"\n{len(_fails)} FAILURE(S): {_fails}")
         sys.exit(1)

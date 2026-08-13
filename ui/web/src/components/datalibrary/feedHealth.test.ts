@@ -29,6 +29,7 @@ import {
 import {
   AUTOMATIC_CONNECTOR_CODING_UNAVAILABLE,
   recommendedDiscoveryAction,
+  recommendedDiscoveryRequest,
 } from './buildAvailability'
 
 let passed = 0
@@ -155,6 +156,21 @@ check('scan-only mode never promises an automatic connector build', () => {
   assert.doesNotMatch(scanOnly.title, /send it to|builder/i)
   assert.match(AUTOMATIC_CONNECTOR_CODING_UNAVAILABLE, /manual branch and pull-request workflow/i)
   assert.doesNotMatch(AUTOMATIC_CONNECTOR_CODING_UNAVAILABLE, /admin-only/i)
+})
+
+check('recommended discovery uses its own swarm and immutable decision identity', () => {
+  const need = mkNeed({
+    swarm: 'second-swarm', run_root: 'second-swarm/runs/AAA',
+    decision_fingerprint: `sha256:${'a'.repeat(64)}`,
+  })
+  assert.deepEqual(recommendedDiscoveryRequest(need, true), {
+    swarm: 'second-swarm',
+    opts: {
+      need_id: need.need_id, runRoot: 'second-swarm/runs/AAA',
+      decisionFingerprint: `sha256:${'a'.repeat(64)}`, want: need.series, autoBuild: true,
+    },
+  })
+  assert.equal(recommendedDiscoveryRequest(mkNeed(), true), null, 'deploy-skew row must not launch targeted discovery')
 })
 
 check('repair copy covers every lifecycle state and does not call a PR-open feed fixed', () => {

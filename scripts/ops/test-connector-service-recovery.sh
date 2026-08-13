@@ -9,6 +9,7 @@ INSTALL="$HERE/install-services.sh"
 DEPLOY="$HERE/deploy.sh"
 WATCHDOG="$HERE/watchdog.sh"
 FAILOVER="$HERE/nostra-failover.sh"
+SUPERVISOR="$HERE/connector-supervisor.py"
 failures=0
 
 check() {
@@ -22,7 +23,7 @@ check() {
 }
 
 check "ops scripts remain valid shell" \
-  "bash -n \"$INSTALL\" && bash -n \"$DEPLOY\" && bash -n \"$WATCHDOG\" && bash -n \"$FAILOVER\""
+  "bash -n \"$INSTALL\" && bash -n \"$DEPLOY\" && bash -n \"$WATCHDOG\" && bash -n \"$FAILOVER\" && python3 -m py_compile \"$SUPERVISOR\""
 check "installer accepts only the connector-only repair target" \
   "grep -Fq 'case \"\$ONLY\" in connectors)' \"$INSTALL\" && grep -Fq 'ONLY_SET=1' \"$INSTALL\""
 check "unknown or misspelled installer arguments fail closed" \
@@ -41,17 +42,26 @@ check "legacy doer absence invokes only the reviewed connector installer" \
   "grep -Fq 'install-services.sh\" --role doer --only connectors' \"$DEPLOY\""
 check "deploy defers connector activation until the canonical Drive symlink resolves" \
   "awk 'index(\$0, \"if [ ! -L \\\"\\\$PROD/data\\\"\"){pool=NR} index(\$0, \"install-services.sh\\\" --role doer --only connectors\"){install=NR} END{exit !(pool && install && pool < install)}' \"$DEPLOY\""
-check "watchdog gates connector bootstrap behind doer and pool checks" \
-  "awk 'index(\$0, \"if connector_host_is_doer\"){role=NR} index(\$0, \"if [ ! -L \\\"\\\$REPO/data\\\"\"){pool=NR} index(\$0, \"launchctl bootstrap \\\"gui/\\\$UID_NUM\\\" \\\"\\\$CONNECTOR_PLIST\\\"\"){boot=NR} END{exit !(role && pool && boot && role < pool && pool < boot)}' \"$WATCHDOG\""
-check "installer and watchdog share the connector-autonomy kernel lease" \
-  "grep -Fq 'connector-autonomy.lock' \"$INSTALL\" && grep -Fq 'fcntl.flock(7, fcntl.LOCK_EX)' \"$INSTALL\" && grep -Fq 'connector-autonomy.lock' \"$WATCHDOG\" && grep -Fq 'fcntl.LOCK_EX | fcntl.LOCK_NB' \"$WATCHDOG\""
-check "failover locks are bounded and ordered deploy before connector autonomy" \
-  "grep -Fq 'deadline = time.monotonic() + int(sys.argv[2])' \"$FAILOVER\" && awk 'index(\$0, \"acquire_standdown_locks\"){fn=NR} fn && index(\$0, \"exec 8>>\"){deploy=NR} fn && index(\$0, \"exec 7>>\"){autonomy=NR} END{exit !(fn && deploy && autonomy && deploy < autonomy)}' \"$FAILOVER\""
+check "watchdog delegates connector convergence to its reviewed installed supervisor" \
+  "grep -Fq 'CONNECTOR_SUPERVISOR=\"\$HOME/.nostra-ops/connector-supervisor.py\"' \"$WATCHDOG\" && ! grep -Fq 'launchctl bootstrap \"gui/\$UID_NUM\" \"\$CONNECTOR_PLIST\"' \"$WATCHDOG\""
+check "supervisor orders deploy lease before the exact installer autonomy transaction" \
+  "grep -Fq 'ordered_locks_acquire(repo, ops, autonomy=False)' \"$SUPERVISOR\" && grep -Fq '[\"/bin/bash\", str(installer), \"--role\", \"doer\", \"--only\", \"connectors\"]' \"$SUPERVISOR\" && grep -Fq 'connector-autonomy.lock' \"$INSTALL\""
+check "failover locks are bounded and ordered deploy then repository then connector autonomy" \
+  "grep -Fq 'deadline = time.monotonic() + int(sys.argv[2])' \"$FAILOVER\" && awk 'index(\$0, \"acquire_standdown_locks\"){fn=NR} fn && index(\$0, \"exec 8>>\"){deploy=NR} fn && index(\$0, \"exec 9>>\"){repo=NR} fn && index(\$0, \"exec 7>>\"){autonomy=NR} END{exit !(fn && deploy && repo && autonomy && deploy < repo && repo < autonomy)}' \"$FAILOVER\""
+check "UI/tunnel failover explicitly excludes the dedicated connector writer" \
+  "grep -Fq 'NOSTRA_INSTALL_CONNECTORS=0 bash' \"$FAILOVER\" && grep -Fq 'remove_connector_writer' \"$FAILOVER\" && grep -Fq 'reviewed_prod_source' \"$FAILOVER\""
+check "role readers require exact private stable bytes in every activation path" \
+  "for f in \"$INSTALL\" \"$DEPLOY\" \"$FAILOVER\"; do grep -Fq 'before.st_nlink != 1 or before.st_mode & 0o077' \"\$f\" && grep -Fq 'if raw == b\"doer\\n\"' \"\$f\" || exit 1; done"
+check "deploy creates and validates both global locks as private stable inodes" \
+  "grep -Fq '[ ! -L \"\$DEPLOY_LOCK\" ]' \"$DEPLOY\" && grep -Fq 'os.fchmod(8, 0o600)' \"$DEPLOY\" && grep -Fq '[ ! -L \"\$GITLOCK\" ]' \"$DEPLOY\" && grep -Fq 'os.fchmod(9, 0o600)' \"$DEPLOY\" && grep -Fq 'opened.st_nlink != 1' \"$DEPLOY\""
 check "failover stamps admin before cleanup and never skips dangling plists" \
   "grep -Fq 'if ! persist_admin_role; then' \"$FAILOVER\" && grep -Fq '[ -e \"\$f\" ] || [ -L \"\$f\" ] || continue' \"$FAILOVER\" && grep -Fq 'STANDDOWN INCOMPLETE' \"$FAILOVER\""
 
 TEST_TMP="$(mktemp -d)" || exit 1
 trap 'rm -rf "$TEST_TMP"' EXIT
+FAILOVER_TEST_PROD="$TEST_TMP/failover-test-prod"
+mkdir -p "$FAILOVER_TEST_PROD"
+git -C "$FAILOVER_TEST_PROD" init -q
 TEST_HOME="$TEST_TMP/home"
 TEST_PROD="$TEST_TMP/prod"
 TEST_OPS="$TEST_HOME/.nostra-ops"
@@ -136,7 +146,7 @@ done
 ln -s "$FAILOVER_HOME/missing-target" \
   "$FAILOVER_HOME/Library/LaunchAgents/com.nostradamus.dangling.plist"
 FAILOVER_VIOLATION="$TEST_TMP/failover-violation"
-if HOME="$FAILOVER_HOME" NOSTRA_FAILOVER_LOG="$TEST_TMP/failover.log" \
+if HOME="$FAILOVER_HOME" ENGINE_REPO_ROOT="$FAILOVER_TEST_PROD" NOSTRA_FAILOVER_LOG="$TEST_TMP/failover.log" \
     FAILOVER_SCRIPT="$FAILOVER" FAILOVER_VIOLATION="$FAILOVER_VIOLATION" bash <<'FAILOVER_TEST'
 set -uo pipefail
 source "$FAILOVER_SCRIPT"
@@ -175,7 +185,7 @@ mkdir -p "$FAIL_BOOT_HOME/.nostra-ops" "$FAIL_BOOT_HOME/Library/LaunchAgents" "$
 printf 'doer\n' > "$FAIL_BOOT_HOME/.nostra-ops/role"
 printf '<plist/>\n' > "$FAIL_BOOT_HOME/Library/LaunchAgents/com.nostradamus.failover.plist"
 printf '<plist/>\n' > "$FAIL_BOOT_HOME/Library/LaunchAgents/com.nostradamus.connectors.plist"
-if HOME="$FAIL_BOOT_HOME" NOSTRA_FAILOVER_LOG="$TEST_TMP/fail-boot.log" \
+if HOME="$FAIL_BOOT_HOME" ENGINE_REPO_ROOT="$FAILOVER_TEST_PROD" NOSTRA_FAILOVER_LOG="$TEST_TMP/fail-boot.log" \
     NOSTRA_FAILOVER_STOP_TRIES=1 FAILOVER_SCRIPT="$FAILOVER" bash <<'FAIL_BOOT_TEST'
 set -uo pipefail
 source "$FAILOVER_SCRIPT"
@@ -229,7 +239,7 @@ PY
 lock_holder=$!
 for _wait in $(seq 1 100); do [ -e "$LOCK_READY" ] && break; sleep 0.01; done
 lock_started="$(date +%s)"
-if HOME="$LOCK_HOME" NOSTRA_FAILOVER_LOG="$TEST_TMP/lock.log" \
+if HOME="$LOCK_HOME" ENGINE_REPO_ROOT="$FAILOVER_TEST_PROD" NOSTRA_FAILOVER_LOG="$TEST_TMP/lock.log" \
     NOSTRA_FAILOVER_LOCK_WAIT_SECONDS=1 NOSTRA_FAILOVER_STOP_TRIES=1 \
     FAILOVER_SCRIPT="$FAILOVER" LOCK_LAUNCH_LOG="$LOCK_LAUNCH_LOG" bash <<'LOCK_TEST'
 set -uo pipefail
@@ -267,11 +277,19 @@ ACTIVATE_HOME="$TEST_TMP/activate-home"
 ACTIVATE_PROD="$TEST_TMP/activate-prod"
 mkdir -p "$ACTIVATE_HOME/.nostra-ops" "$ACTIVATE_HOME/Library/LaunchAgents" \
   "$ACTIVATE_HOME/Library/Logs" "$ACTIVATE_PROD/scripts/ops"
+git -C "$ACTIVATE_PROD" init -q
 printf '%s\n' '#!/usr/bin/env bash' \
+  'touch "$HOME/installer-ran"' \
   'mkdir -p "$HOME/Library/LaunchAgents"' \
   'printf "<plist/>\\n" > "$HOME/Library/LaunchAgents/com.nostradamus.tunnel.plist"' \
   'printf "<plist/>\\n" > "$HOME/Library/LaunchAgents/com.nostradamus.connectors.plist"' \
   'exit 9' > "$ACTIVATE_PROD/scripts/ops/install-services.sh"
+chmod +x "$ACTIVATE_PROD/scripts/ops/install-services.sh"
+git -C "$ACTIVATE_PROD" add scripts/ops/install-services.sh
+git -C "$ACTIVATE_PROD" -c user.name=test -c user.email=test@example.com commit -qm fixture
+git -C "$ACTIVATE_PROD" branch -M main
+git -C "$ACTIVATE_PROD" remote add origin "$ACTIVATE_PROD"
+git -C "$ACTIVATE_PROD" update-ref refs/remotes/origin/main HEAD
 if HOME="$ACTIVATE_HOME" ENGINE_REPO_ROOT="$ACTIVATE_PROD" \
     NOSTRA_FAILOVER_LOG="$TEST_TMP/activate.log" NOSTRA_FAILOVER_STOP_TRIES=1 \
     FAILOVER_SCRIPT="$FAILOVER" bash <<'ACTIVATE_TEST'
@@ -285,13 +303,57 @@ then
 else
   activate_rc=$?
 fi
-if [ "$activate_rc" -ne 0 ] && [ "$(cat "$ACTIVATE_HOME/.nostra-ops/role")" = admin ] \
+if [ "$activate_rc" -ne 0 ] && [ -e "$ACTIVATE_HOME/installer-ran" ] \
+    && [ "$(cat "$ACTIVATE_HOME/.nostra-ops/role")" = admin ] \
     && [ ! -e "$ACTIVATE_HOME/Library/LaunchAgents/com.nostradamus.tunnel.plist" ] \
     && [ ! -e "$ACTIVATE_HOME/Library/LaunchAgents/com.nostradamus.connectors.plist" ] \
     && grep -q 'ACTIVATE FAILED' "$TEST_TMP/activate.log"; then
   echo "  ok  failed activation rolls back partial autonomous services and stays retryable"
 else
   echo "  FAIL failed activation left a partial doer or suppressed its retry"
+  failures=$((failures + 1))
+fi
+
+# A reviewed successful serving takeover must fence a stale connector and must
+# not reinstall it while publishing the UI/tunnel doer role.
+TAKEOVER_HOME="$TEST_TMP/takeover-home"
+TAKEOVER_PROD="$TEST_TMP/takeover-prod"
+mkdir -p "$TAKEOVER_HOME/.nostra-ops" "$TAKEOVER_HOME/Library/LaunchAgents" \
+  "$TAKEOVER_HOME/Library/Logs" "$TAKEOVER_PROD/scripts/ops"
+printf '<plist/>\n' > "$TAKEOVER_HOME/Library/LaunchAgents/com.nostradamus.connectors.plist"
+git -C "$TAKEOVER_PROD" init -q
+printf '%s\n' '#!/usr/bin/env bash' \
+  '[ "${NOSTRA_INSTALL_CONNECTORS:-}" = 0 ] || exit 7' \
+  '[ ! -e "$HOME/Library/LaunchAgents/com.nostradamus.connectors.plist" ] || exit 8' \
+  'printf "doer\\n" > "$HOME/.nostra-ops/role"' \
+  'chmod 600 "$HOME/.nostra-ops/role"' \
+  'touch "$HOME/takeover-installer-ran"' \
+  'exit 0' > "$TAKEOVER_PROD/scripts/ops/install-services.sh"
+chmod +x "$TAKEOVER_PROD/scripts/ops/install-services.sh"
+git -C "$TAKEOVER_PROD" add scripts/ops/install-services.sh
+git -C "$TAKEOVER_PROD" -c user.name=test -c user.email=test@example.com commit -qm fixture
+git -C "$TAKEOVER_PROD" branch -M main
+git -C "$TAKEOVER_PROD" remote add origin "$TAKEOVER_PROD"
+git -C "$TAKEOVER_PROD" update-ref refs/remotes/origin/main HEAD
+if HOME="$TAKEOVER_HOME" ENGINE_REPO_ROOT="$TAKEOVER_PROD" \
+    NOSTRA_FAILOVER_LOG="$TEST_TMP/takeover.log" NOSTRA_FAILOVER_STOP_TRIES=1 \
+    FAILOVER_SCRIPT="$FAILOVER" bash <<'TAKEOVER_TEST'
+set -uo pipefail
+source "$FAILOVER_SCRIPT"
+launchctl() { [ "${1:-}" = print ] && return 1; return 0; }
+activate
+TAKEOVER_TEST
+then
+  takeover_rc=0
+else
+  takeover_rc=$?
+fi
+if [ "$takeover_rc" -eq 0 ] && [ -e "$TAKEOVER_HOME/takeover-installer-ran" ] \
+    && [ "$(cat "$TAKEOVER_HOME/.nostra-ops/role")" = doer ] \
+    && [ ! -e "$TAKEOVER_HOME/Library/LaunchAgents/com.nostradamus.connectors.plist" ]; then
+  echo "  ok  reviewed serving takeover fences and never promotes the connector writer"
+else
+  echo "  FAIL serving takeover retained or reinstalled a connector writer"
   failures=$((failures + 1))
 fi
 
@@ -328,7 +390,7 @@ for cleanup_case in admin-leftover doer-no-tunnel doer-unloaded-tunnel; do
     stale_plist="$CASE_HOME/Library/LaunchAgents/com.nostradamus.tunnel.plist"
   fi
   : > "$MAIN_LAUNCH_LOG"
-  HOME="$CASE_HOME" PATH="$MAIN_MOCK_BIN:/usr/bin:/bin" MOCK_LAUNCH_LOG="$MAIN_LAUNCH_LOG" \
+  HOME="$CASE_HOME" ENGINE_REPO_ROOT="$FAILOVER_TEST_PROD" PATH="$MAIN_MOCK_BIN:/usr/bin:/bin" MOCK_LAUNCH_LOG="$MAIN_LAUNCH_LOG" \
     NOSTRA_FAILOVER_LOG="$CASE_LOG" NOSTRA_FAILOVER_STOP_TRIES=1 \
     bash "$FAILOVER" >/dev/null 2>&1
   if [ -e "$stale_plist" ] || [ "$(cat "$CASE_HOME/.nostra-ops/role")" != admin ] \

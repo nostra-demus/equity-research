@@ -10,11 +10,14 @@ import {
 } from './connector-registry'
 import { CONNECTOR_RUNNER, DATA_DIR, REPO_ROOT, connectorAutoRepairReady, connectorRunnerReady } from './config'
 import { readDataNeeds } from './data-needs'
+import type { DataNeedImpact, DataNeedOrb } from './data-needs'
+import type { NeedLookupView } from './pipeline-store'
 import { latestRepairStatus, latestRepairStatusForSubject, type RepairStatus } from './connector-health'
 import { feedHealthOf, readFeedHealth, type FeedHealth, type FeedHealthState } from './feed-health'
 import { listSwarms } from './swarms'
-import { swarmSubjects } from './roster'
 import { readConnectorFetchServiceStatus, type ConnectorFetchServiceStatus } from './connector-service-status'
+import type { SwarmManifest } from './types'
+import { MANIFEST_SUBJECT_PATTERN, normalizeDataSubject } from './data-subject'
 
 export interface PipelineSubjectStatus {
   subject: string
@@ -72,17 +75,29 @@ export interface RecommendedNeed {
   key: string
   swarm: string
   subject: string
+  run_root: string
+  decision_fingerprint: string
   need_id: string
   series: string
   why_it_caps: string
   cap_lifted?: string
-  suggested_source: { name: string; acquisition: string; licensing?: string }
+  priority?: number
+  expected_impact?: DataNeedImpact
+  entry_orbs?: DataNeedOrb[]
+  suggested_source: {
+    name: string
+    acquisition: string
+    licensing?: string
+    access?: 'public' | 'licensed' | 'restricted' | 'unknown'
+    licensing_basis?: string
+  }
   tier: number
   cadence: string
   next_release?: string
   entry_modules: string[]
   built_by?: string
   connector_exists?: string
+  source_lookup?: NeedLookupView
 }
 export interface PipelinesRead {
   generatedAt: string
@@ -297,8 +312,132 @@ export function rollUpVerdict(
 let cache: { at: number; read: PipelinesRead } | null = null
 const TTL_MS = 10_000
 
+const PROFILE_SUBJECT_RE = new RegExp(`^##\\s+(${MANIFEST_SUBJECT_PATTERN})\\s*$`, 'gm')
+const TEMPLATE_TOKEN_RE = /\{([A-Za-z][A-Za-z0-9_]*)\}/g
+
+function regexEscape(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+/**
+ * Invert a manifest's immediate-child run-root template into a subject matcher. The primary placeholder
+ * is captured; DATE is the one shared lifecycle token the engine understands. An unknown extra token or
+ * nested layout is ambiguous, so it fails closed instead of guessing a subject from a folder name.
+ */
+function runFolderSubjectPattern(swarm: SwarmManifest): RegExp | null {
+  const runsRoot = swarm.runsRoot.replace(/^\/+|\/+$/g, '')
+  const template = swarm.runRootTemplate.replace(/^\/+|\/+$/g, '')
+  const relative = runsRoot ? (template.startsWith(`${runsRoot}/`) ? template.slice(runsRoot.length + 1) : '') : template
+  if (!relative || relative.includes('/')) return null
+
+  let source = '^'
+  let cursor = 0
+  let subjectTokens = 0
+  TEMPLATE_TOKEN_RE.lastIndex = 0
+  let match: RegExpExecArray | null
+  while ((match = TEMPLATE_TOKEN_RE.exec(relative))) {
+    source += regexEscape(relative.slice(cursor, match.index))
+    if (match[1] === swarm.placeholder) {
+      source += `(?<subject>${MANIFEST_SUBJECT_PATTERN})`
+      subjectTokens++
+    } else if (match[1].toUpperCase() === 'DATE') {
+      source += '\\d{4}-\\d{2}-\\d{2}'
+    } else {
+      return null
+    }
+    cursor = match.index + match[0].length
+  }
+  if (subjectTokens !== 1) return null
+  source += regexEscape(relative.slice(cursor)) + '$'
+  return new RegExp(source)
+}
+
+function containedPath(root: string, relative: string): string | null {
+  const resolved = path.resolve(root, relative)
+  return resolved === root || resolved.startsWith(root + path.sep) ? resolved : null
+}
+
+function realContainedPath(root: string, candidate: string): string | null {
+  try {
+    const realRoot = fs.realpathSync(root)
+    const realCandidate = fs.realpathSync(candidate)
+    return realCandidate === realRoot || realCandidate.startsWith(realRoot + path.sep) ? realCandidate : null
+  } catch {
+    return null
+  }
+}
+
+function hasObjectDecisionRecord(runDir: string, runsDir: string): boolean {
+  try {
+    const realRuns = fs.realpathSync(runsDir)
+    const realRun = fs.realpathSync(runDir)
+    if (path.dirname(realRun) !== realRuns) return false
+    const record = path.join(realRun, 'decision_record.json')
+    const realRecord = fs.realpathSync(record)
+    if (path.dirname(realRecord) !== realRun || !fs.statSync(realRecord).isFile()) return false
+    const parsed = JSON.parse(fs.readFileSync(realRecord, 'utf8'))
+    return !!parsed && typeof parsed === 'object' && !Array.isArray(parsed)
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Subjects whose data-needs may contribute to the cross-swarm Data Library. Unlike swarmSubjects(),
+ * which deliberately hides the synthetic research swarm from the subject picker, this enumerates every
+ * swarm from its own manifest. Run folders count only when their decision record is a completed object;
+ * a declared subjects_source may add not-yet-run candidates, which readDataNeeds() will harmlessly skip.
+ */
+export function dataNeedSubjectsForSwarm(swarm: SwarmManifest): string[] {
+  const out = new Set<string>()
+  const repoRoot = path.resolve(REPO_ROOT)
+  const runsCandidate = containedPath(repoRoot, swarm.runsRoot)
+  const runsDir = runsCandidate ? realContainedPath(repoRoot, runsCandidate) : null
+  const pattern = runFolderSubjectPattern(swarm)
+  if (runsDir && pattern) {
+    try {
+      for (const entry of fs.readdirSync(runsDir, { withFileTypes: true })) {
+        if (!entry.isDirectory()) continue
+        const match = pattern.exec(entry.name)
+        const subject = normalizeDataSubject(swarm.id, match?.groups?.subject)
+        if (subject && hasObjectDecisionRecord(path.join(runsDir, entry.name), runsDir)) out.add(subject)
+      }
+    } catch { /* absent/inaccessible runs root contributes no subject */ }
+  }
+
+  if (swarm.subjectsSource) {
+    const sourceCandidate = containedPath(repoRoot, swarm.subjectsSource)
+    const source = sourceCandidate ? realContainedPath(repoRoot, sourceCandidate) : null
+    if (source) {
+      try {
+        if (fs.statSync(source).isFile()) {
+          const text = fs.readFileSync(source, 'utf8')
+          PROFILE_SUBJECT_RE.lastIndex = 0
+          for (const match of text.matchAll(PROFILE_SUBJECT_RE)) {
+            const subject = normalizeDataSubject(swarm.id, match[1])
+            if (subject) out.add(subject)
+          }
+        }
+      } catch { /* absent/inaccessible subject source contributes no subject */ }
+    }
+  }
+  return [...out].sort()
+}
+
 export function readPipelines(force = false): PipelinesRead {
-  if (cache && !force && Date.now() - cache.at < TTL_MS) return cache.read
+  if (cache && !force && Date.now() - cache.at < TTL_MS) {
+    // Feed discovery is safe to cache briefly; the service certificate is not. Re-check it on every request
+    // so a production fast-forward or supervisor transition cannot leave an old Online strip green.
+    const fetcher = readConnectorFetchServiceStatus(cache.read.poolAvailable)
+    return {
+      ...cache.read,
+      runner: cache.read.runner ? {
+        ...cache.read.runner,
+        lastFetchSweepAt: fetcher.lastCompletedAt ?? cache.read.runner.lastFetchSweepAt,
+        fetcher,
+      } : cache.read.runner,
+    }
+  }
   const widened: string[] = []
   const discovery = discoverConnectors()
   const manifests = discovery.connectors
@@ -350,12 +489,7 @@ export function readPipelines(force = false): PipelinesRead {
   const recommended: RecommendedNeed[] = []
   const healthyBySubject = new Map<string, Map<string, string>>()
   for (const swarm of listSwarms()) {
-    let subjects: string[] = []
-    try {
-      subjects = swarmSubjects(swarm.id)
-    } catch {
-      continue // a swarm whose subjects cannot be listed contributes nothing (fail closed, never crashes the read)
-    }
+    const subjects = dataNeedSubjectsForSwarm(swarm)
     for (const subject of subjects) {
       let read
       try {
@@ -390,11 +524,16 @@ export function readPipelines(force = false): PipelinesRead {
         if (!usable.length) {
           recommended.push({
             key: `${swarm.id}/${read.subject}/${need.need_id}`,
-            swarm: swarm.id, subject: read.subject, need_id: need.need_id,
+            swarm: swarm.id, subject: read.subject, run_root: read.run_root,
+            decision_fingerprint: read.decision_fingerprint, need_id: need.need_id,
             series: need.series, why_it_caps: need.why_it_caps, cap_lifted: need.cap_lifted,
+            ...(need.priority !== undefined ? {
+              priority: need.priority, expected_impact: need.expected_impact, entry_orbs: need.entry_orbs,
+            } : {}),
             suggested_source: need.suggested_source, tier: need.tier, cadence: need.cadence,
             next_release: need.next_release, entry_modules: need.entry_modules,
             connector_exists: need.connector_exists ?? covering[0]?.id,
+            ...(need.source_lookup ? { source_lookup: need.source_lookup } : {}),
           })
         }
       }
