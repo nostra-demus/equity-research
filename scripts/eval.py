@@ -1160,7 +1160,7 @@ def eval_aw_kill_criteria_overdue(decision_date, kill_criteria, today):
         due = _as_due_date({"time_window": mon}, decision_date)
         if not due or due >= today:
             continue  # not dateable from the monitor text, or not yet due
-        crit = _kc_criterion_text(e)[:110]
+        crit = _kc_criterion_text(e)[:110] or "<empty criterion>"  # dict with monitor text but no criterion field → keep the message well-formed, never a dangling colon
         out.append(f"kill_criteria[{i}] monitor event ({due}) has passed and was never checked: {crit}")
     return out
 
@@ -3024,12 +3024,14 @@ if scope=="selftest":
     _aw_nomonitor = {"criterion":"c4","meaning":"m"}
     _aw_baddate   = {"criterion":"c5","monitor":"Feb 30, 2026"}
     _aw_via       = {"criterion":"c6","monitor_via":"resolves 2026-07-22"}
+    _aw_nocrit    = {"monitor":"resolves 2026-07-22"}  # dateable+elapsed monitor but NO criterion-text field
     awcases=[  # (decision_date, kill_criteria, today, expect: None=N/A, []=nothing due, [substr]=due-with)
         ("2026-07-10",[_aw_open],"2027-04-01",["monitor event (2027-03-28)"]),  # bare month closes at its end
         ("2026-07-10",[_aw_open],"2027-03-01",[]),                              # before the month closes → not due
         ("2026-07-10",[_aw_iso],"2026-08-01",["monitor event (2026-07-22)"]),
         ("2026-07-10",[_aw_iso],"2026-07-22",[]),                               # ON the due date → not yet overdue
         ("2026-07-10",[_aw_via],"2026-08-01",["monitor event (2026-07-22)"]),   # monitor_via is also read
+        ("2026-07-10",[_aw_nocrit],"2026-08-01",["never checked: <empty criterion>"]),  # no criterion text → placeholder, never a dangling colon
         ("2026-07-10",[_aw_undate],"2030-01-01",[]),                            # no dateable text → never flagged
         ("2026-07-10",[_aw_str],"2030-01-01",[]),                               # legacy plain-string entry → never flagged
         ("2026-07-10",[_aw_nomonitor],"2030-01-01",[]),                         # dict with no monitor text → never flagged
