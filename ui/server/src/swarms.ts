@@ -64,6 +64,18 @@ function parseManifest(file: string): SwarmManifest | null {
   const str = (v: any, d = '') => (typeof v === 'string' && v.trim() ? v.trim() : d)
   const runRootTemplate = str(data.run_root_template)
   if (!runRootTemplate) return null // a swarm without a run-root template cannot host runs
+  const runsRoot = str(data.runs_root, path.dirname(runRootTemplate.split('{')[0].replace(/\/+$/, '')))
+  // Every consumer may trust a discovered manifest's path fields. Admit only canonical repo-relative
+  // POSIX paths here, once: absolute/upward/backslash/dot-normalized roots or templates are not swarms.
+  const canonicalRepoPath = (value: string): string | null => {
+    if (!value || value.includes('\\') || path.posix.isAbsolute(value)) return null
+    const normalized = path.posix.normalize(value)
+    if (normalized !== value || normalized === '.' || normalized === '..' || normalized.startsWith('../')) return null
+    return normalized.replace(/\/$/, '')
+  }
+  const safeRunsRoot = canonicalRepoPath(runsRoot)
+  const safeTemplate = canonicalRepoPath(runRootTemplate)
+  if (!safeRunsRoot || !safeTemplate || safeTemplate === safeRunsRoot || !safeTemplate.startsWith(`${safeRunsRoot}/`)) return null
   return {
     id,
     label: str(data.label, id),
@@ -73,8 +85,8 @@ function parseManifest(file: string): SwarmManifest | null {
     layout: str(data.layout, 'flow'),
     commandNs: str(data.command_ns, id),
     dir,
-    runsRoot: str(data.runs_root, path.dirname(runRootTemplate.split('{')[0].replace(/\/+$/, ''))),
-    runRootTemplate,
+    runsRoot: safeRunsRoot,
+    runRootTemplate: safeTemplate,
     placeholder: str(data.placeholder, 'SIG_ID'),
     ledgerRoot: str(data.ledger_root) || undefined,
     boardIndex: str(data.board_index) || undefined,
@@ -117,6 +129,13 @@ export function swarmDirNames(): Set<string> {
 // Null when the template still has unresolved tokens (research's {TICKER}_{DATE} resolves through
 // the launcher's own date logic, never through this helper).
 export function runRootForSubject(swarm: SwarmManifest, subjectId: string): string | null {
-  const out = swarm.runRootTemplate.replace(`{${swarm.placeholder}}`, subjectId)
-  return out.includes('{') ? null : out
+  const marker = `{${swarm.placeholder}}`
+  if (!marker || swarm.runRootTemplate.split(marker).length !== 2) return null
+  const out = swarm.runRootTemplate.replace(marker, subjectId).split(path.sep).join('/')
+  const runsRoot = path.posix.normalize(swarm.runsRoot.replaceAll('\\', '/')).replace(/^\.\//, '').replace(/\/$/, '')
+  const normalized = path.posix.normalize(out).replace(/^\.\//, '')
+  if (!runsRoot || runsRoot === '..' || runsRoot.startsWith('../')
+      || path.posix.isAbsolute(runsRoot) || path.posix.isAbsolute(out) || normalized !== out
+      || out.includes('{') || normalized === runsRoot || !normalized.startsWith(`${runsRoot}/`)) return null
+  return normalized
 }

@@ -34,7 +34,7 @@ const rel = (p: string) => path.relative(REPO_ROOT, p)
 export function admitRun(req: AdmissionRequest): AdmissionDecision {
   const { ticker, kind, coveredModules, writeTargetsAbs, readDepsAbs } = req
   const swarmId = req.swarmId || 'research'
-  const inflight = inFlightRunsForSubject(ticker)
+  const inflight = inFlightRunsForSubject(ticker, swarmId)
   const graph = buildSwarmGraph(swarmId)
 
   // D1 — exclusivity for shared run-root writers (full/rerun write final_thesis/memo/dossier and
