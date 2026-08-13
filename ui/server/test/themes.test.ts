@@ -14,7 +14,7 @@ import { updateTokenDf, buildGenericSet, loadTokenDf, saveTokenDf, DEFAULT_TOKEN
 import { topicTokens, themeTokens, isRoutineFiling } from '../src/news/text-match'
 import { stepThemes, runThemesCycle, DEFAULT_THEMES_CONFIG } from '../src/news/themes/engine'
 import { appendThemeMutations, buildSummary, buildThemesIndex, loadThemes, maybeCompactThemesLedger, readRecentThemeItems, readThemesIndex, writeThemesIndex } from '../src/news/themes/store'
-import { Budget, readCooldownUntil, resetBudgetMemory, resetCooldownMemory, resetSharedLimiters } from '../src/news/triage/budget'
+import { Budget, NON_BINDING_DAILY_TOKEN_CAP, armCooldown, getNamedLimiter, readCooldownUntil, resetBudgetMemory, resetCooldownMemory, resetSharedLimiters } from '../src/news/triage/budget'
 import type { Theme, ThemeItemView } from '../src/news/themes/types'
 import { attachValidNarrative } from './themes-fixtures'
 import { qualifyTheme, uniqueThemeMembers } from '../src/news/themes/qualification'
@@ -1605,7 +1605,7 @@ await check('Claude contract failures arm and consult the same theme-compiler co
   assert.equal(second?.attempted_count, 0)
   assert.equal(secondCandidate.validation_attempted_at, undefined)
   assert.equal(fetches, 1, 'the second pass consults the same marker the malformed first reply armed')
-  assert.equal(readCooldownUntil(tmp, 'themes-claude'), NOW.getTime() + 60_000, 'cloud compiler failures use the configured LLM cooldown')
+  assert.ok(readCooldownUntil(tmp, 'themes:claude') >= Date.now(), 'cloud compiler failures use the configured LLM cooldown')
   fs.rmSync(tmp, { recursive: true, force: true })
 })
 
@@ -1669,11 +1669,180 @@ await check('a stalled local compiler obeys the lower theme-attempt timeout, coo
   const elapsed = Date.now() - started
   assert.deepEqual(urls, ['https://local.test/v1/chat/completions', 'https://groq.test/chat/completions'])
   assert.ok(elapsed < 400, `the provider's 120s timeout must not raise the 20ms Themes attempt cap (elapsed ${elapsed}ms)`)
-  assert.equal(readCooldownUntil(tmp, 'local'), NOW.getTime() + 1_234, 'local failures use one flat short cooldown')
+  const localUntil = readCooldownUntil(tmp, 'themes:local')
+  assert.ok(localUntil >= started + 1_234 && localUntil <= Date.now() + 1_300, 'local timeouts use one flat short Themes-only cooldown')
+  assert.equal(readCooldownUntil(tmp, 'local'), 0, 'a compiler timeout does not sideline unrelated local-provider work')
   assert.equal(outcome?.state, 'succeeded')
   assert.equal(outcome?.attempted_count, 2)
   assert.equal(outcome?.validated_count, 1)
   assert.equal(candidate.generation, 'groq')
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+})
+
+await check('an already-aborted parent stops the theme chain before dispatch or budget reservation', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-parent-pre-abort-'))
+  const candidate = createTheme([
+    item('parent-pre-abort-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('parent-pre-abort-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('parent-pre-abort-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  const parent = new AbortController()
+  parent.abort()
+  let fetches = 0
+  const fetchFn = (async () => {
+    fetches++
+    throw new Error('an already-aborted chain must not invoke fetch')
+  }) as unknown as typeof fetch
+  const outcome = await makeThemeNamer({
+    themesDiscoverModel: 'groq',
+    localProvider: {
+      id: 'local', label: 'Local', color: '--local', apiKey: 'local', baseUrl: 'https://local.test/v1', model: 'local-model',
+      dailyReqCap: 100_000, rpm: 0, maxTokens: 3000, budgetFile: 'local-budget.json',
+    },
+    groqApiKey: 'groq', groqBaseUrl: 'https://groq.test', groqModel: 'groq-model',
+    groqDailyReqCap: 10, groqDailyTokenCap: 100_000,
+  }, fetchFn, tmp, () => {}, parent.signal)([candidate], NOW)
+  assert.equal(fetches, 0)
+  assert.equal(outcome?.state, 'blocked')
+  assert.equal(outcome?.attempted_count, 0)
+  assert.match(outcome?.message || '', /parent news cycle was aborted/)
+  assert.equal(candidate.validation_attempted_at, undefined)
+  assert.equal(fs.existsSync(path.join(tmp, 'local-budget.json')), false, 'pre-dispatch abort creates no reservation')
+  assert.equal(fs.existsSync(path.join(tmp, 'groq-budget.json')), false, 'later providers remain untouched')
+  assert.equal(readCooldownUntil(tmp, 'local'), 0)
+  assert.equal(readCooldownUntil(tmp, 'themes:local'), 0)
+  assert.equal(readCooldownUntil(tmp, 'groq'), 0)
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+})
+
+await check('a parent abort while Themes waits on the shared limiter never reaches ledger admission', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-parent-limiter-abort-'))
+  const candidate = createTheme([
+    item('parent-limiter-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('parent-limiter-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('parent-limiter-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  // Seed a one-second request gap. The compiler must be cancellable while queued behind this exact shared
+  // limiter; an abort cannot wake as a successful admission and then reserve the daily provider ledger.
+  assert.equal(await getNamedLimiter('local', 60, 0).acquire(), true)
+  const parent = new AbortController()
+  let fetches = 0
+  const fetchFn = (async () => {
+    fetches++
+    throw new Error('limiter-wait cancellation must stop before fetch')
+  }) as unknown as typeof fetch
+  const run = makeThemeNamer({
+    themesDiscoverModel: 'groq', themesLimiterWaitMs: 2_000,
+    localProvider: {
+      id: 'local', label: 'Local', color: '--local', apiKey: 'local', baseUrl: 'https://local.test/v1', model: 'local-model',
+      dailyReqCap: 100_000, rpm: 60, maxTokens: 3000, budgetFile: 'local-budget.json',
+    },
+  }, fetchFn, tmp, () => {}, parent.signal)([candidate], NOW)
+  setTimeout(() => parent.abort(), 10)
+  const outcome = await run
+  assert.equal(fetches, 0)
+  assert.equal(outcome?.state, 'blocked')
+  assert.equal(outcome?.attempted_count, 0)
+  assert.equal(candidate.validation_attempted_at, undefined)
+  assert.equal(fs.existsSync(path.join(tmp, 'local-budget.json')), false)
+  assert.equal(readCooldownUntil(tmp, 'local'), 0)
+  assert.equal(readCooldownUntil(tmp, 'themes:local'), 0)
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+})
+
+await check('a parent abort racing a successful limiter wake stops before reopening or reserving the ledger', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-parent-limiter-wake-abort-'))
+  const candidate = createTheme([
+    item('parent-limiter-wake-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('parent-limiter-wake-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('parent-limiter-wake-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  const parent = new AbortController()
+  const limiter = getNamedLimiter('local', 0, 0)
+  // Deterministically model the narrow race where cancellation lands during the limiter's final wake-up:
+  // admission says true, but the parent is aborted by the time control returns to the caller.
+  const originalAcquire = limiter.acquire.bind(limiter)
+  ;(limiter as any).acquire = async () => {
+    parent.abort()
+    return true
+  }
+  let fetches = 0
+  const fetchFn = (async () => {
+    fetches++
+    throw new Error('post-limiter cancellation must stop before fetch')
+  }) as unknown as typeof fetch
+  try {
+    const outcome = await makeThemeNamer({
+      themesDiscoverModel: 'groq',
+      localProvider: {
+        id: 'local', label: 'Local', color: '--local', apiKey: 'local', baseUrl: 'https://local.test/v1', model: 'local-model',
+        dailyReqCap: 100_000, rpm: 0, maxTokens: 3000, budgetFile: 'local-budget.json',
+      },
+    }, fetchFn, tmp, () => {}, parent.signal)([candidate], NOW)
+    assert.equal(fetches, 0)
+    assert.equal(outcome?.state, 'blocked')
+    assert.equal(outcome?.attempted_count, 0)
+    assert.equal(candidate.validation_attempted_at, undefined)
+    assert.equal(fs.existsSync(path.join(tmp, 'local-budget.json')), false, 'abort after a successful limiter wake creates no reservation')
+    assert.equal(readCooldownUntil(tmp, 'local'), 0)
+    assert.equal(readCooldownUntil(tmp, 'themes:local'), 0)
+  } finally {
+    ;(limiter as any).acquire = originalAcquire
+    fs.rmSync(tmp, { recursive: true, force: true })
+    resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  }
+})
+
+await check('an in-flight parent abort stops theme fallback without cooling healthy providers', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-parent-inflight-abort-'))
+  const candidate = createTheme([
+    item('parent-inflight-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('parent-inflight-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('parent-inflight-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  const parent = new AbortController()
+  const urls: string[] = []
+  const fetchFn = (async (url: string | URL | Request, init?: RequestInit) => {
+    urls.push(String(url))
+    queueMicrotask(() => parent.abort())
+    return await new Promise<Response>((_resolve, reject) => {
+      const fail = () => reject(Object.assign(new Error('parent aborted'), { name: 'AbortError' }))
+      init?.signal?.addEventListener('abort', fail, { once: true })
+      if (init?.signal?.aborted) fail()
+    })
+  }) as unknown as typeof fetch
+  const outcome = await makeThemeNamer({
+    themesDiscoverModel: 'groq',
+    localProvider: {
+      id: 'local', label: 'Local', color: '--local', apiKey: 'local', baseUrl: 'https://local.test/v1', model: 'local-model',
+      dailyReqCap: 100_000, rpm: 0, maxTokens: 3000, budgetFile: 'local-budget.json',
+    },
+    groqApiKey: 'groq', groqBaseUrl: 'https://groq.test', groqModel: 'groq-model',
+    groqDailyReqCap: 10, groqDailyTokenCap: 100_000,
+    llmCooldownMs: 60_000, llmCooldownMaxMs: 60_000,
+  }, fetchFn, tmp, () => {}, parent.signal)([candidate], NOW)
+  assert.deepEqual(urls, ['https://local.test/v1/chat/completions'], 'an aborted parent never walks the remaining provider chain')
+  assert.equal(outcome?.state, 'blocked')
+  assert.equal(outcome?.attempted_count, 1, 'the already-dispatched request remains an honest attempt')
+  assert.match(outcome?.message || '', /parent news cycle was aborted/)
+  assert.ok(candidate.validation_attempted_at)
+  const localBudget = JSON.parse(fs.readFileSync(path.join(tmp, 'local-budget.json'), 'utf8'))
+  assert.equal(localBudget.requests, 1, 'an uncertain in-flight request keeps its conservative charge')
+  assert.equal(fs.existsSync(path.join(tmp, 'groq-budget.json')), false, 'fallback capacity is not burned after cancellation')
+  assert.equal(readCooldownUntil(tmp, 'local'), 0, 'parent cancellation is not provider-health evidence')
+  assert.equal(readCooldownUntil(tmp, 'themes:local'), 0, 'parent cancellation does not cool the workload either')
+  assert.equal(readCooldownUntil(tmp, 'groq'), 0)
   fs.rmSync(tmp, { recursive: true, force: true })
   resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
 })
@@ -1710,9 +1879,9 @@ await check('a stalled Claude compiler cannot outlive the remaining provider-cha
   resetCooldownMemory()
 })
 
-await check('terminal provider HTTP classes exhaust the provider day and retain only a sanitized reason on later cycles', async () => {
+await check('theme HTTP failures hold the correct scope without forging provider-day exhaustion', async () => {
   const { makeThemeNamer } = await import('../src/news/themes/llm')
-  for (const status of [400, 401, 402, 403, 404, 413]) {
+  for (const status of [400, 413, 422, 401, 402, 403, 404]) {
     resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
     const tmp = fs.mkdtempSync(path.join(os.tmpdir(), `thm-terminal-${status}-`))
     const makeCandidate = (tag: string) => createTheme([
@@ -1736,27 +1905,29 @@ await check('terminal provider HTTP classes exhaust the provider day and retain 
     assert.match(first?.message || '', new RegExp(`Groq HTTP ${status}`))
     assert.doesNotMatch(first?.message || '', /private-provider-body/)
     const persisted = JSON.parse(fs.readFileSync(path.join(tmp, 'groq-budget.json'), 'utf8'))
-    assert.equal(persisted.exhausted, true)
-    assert.equal(persisted.exhaustion_reason, `terminal_http_${status}`)
+    assert.notEqual(persisted.providerDayExhausted, true, `${status} is not proof that the daily allowance is gone`)
+    assert.notEqual(persisted.exhausted, true)
+    const scoped = [400, 413, 422].includes(status)
+    assert.ok(readCooldownUntil(tmp, scoped ? 'themes:groq' : 'groq') > NOW.getTime())
+    assert.equal(readCooldownUntil(tmp, scoped ? 'groq' : 'themes:groq'), 0)
 
-    // Prove the reason survives process memory, not merely the in-process Budget object.
+    // Prove the durable hold, rather than a fabricated day marker, prevents repeated failed probes.
     resetBudgetMemory()
     const secondCandidate = makeCandidate(`Second${status}`)
     const second = await makeThemeNamer(cfg, failed, tmp)([secondCandidate], new Date(NOW.getTime() + 1_000))
     assert.equal(second?.state, 'blocked')
     assert.equal(second?.provider, 'groq')
-    assert.equal(second?.blocker, 'daily_cap')
-    assert.match(second?.message || '', new RegExp(`rest of its provider day after HTTP ${status}`))
+    assert.equal(second?.blocker, 'cooldown')
     assert.doesNotMatch(second?.message || '', /private-provider-body/)
     assert.equal(second?.attempted_count, 0)
     assert.equal(secondCandidate.validation_attempted_at, undefined)
-    assert.equal(fetches, 1, 'a terminal day marker prevents another provider request on later cycles')
+    assert.equal(fetches, 1, 'the correctly scoped hold prevents another provider request on later cycles')
     fs.rmSync(tmp, { recursive: true, force: true })
   }
   resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
 })
 
-await check('a terminal Claude response closes its dedicated provider day with the same sanitized durable reason', async () => {
+await check('a Claude access response uses the shared provider hold but only consumes one real call', async () => {
   const { makeThemeNamer } = await import('../src/news/themes/llm')
   resetCooldownMemory()
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-claude-terminal-'))
@@ -1781,15 +1952,16 @@ await check('a terminal Claude response closes its dedicated provider day with t
   assert.match(first?.message || '', /Claude HTTP 403/)
   assert.doesNotMatch(first?.message || '', /private-account-body/)
   const persisted = JSON.parse(fs.readFileSync(path.join(tmp, 'themes-llm-budget.json'), 'utf8'))
-  assert.equal(persisted.exhausted, true)
-  assert.equal(persisted.exhaustion_reason, 'terminal_http_403')
+  assert.equal(persisted.calls, 1)
+  assert.notEqual(persisted.exhausted, true)
+  assert.ok(readCooldownUntil(tmp, 'claude') > NOW.getTime())
+  assert.equal(readCooldownUntil(tmp, 'themes:claude'), 0)
 
   const secondCandidate = makeCandidate('SecondClaude')
   const second = await makeThemeNamer(cfg, failed, tmp)([secondCandidate], new Date(NOW.getTime() + 1_000))
   assert.equal(second?.state, 'blocked')
   assert.equal(second?.provider, 'claude')
-  assert.equal(second?.blocker, 'daily_cap')
-  assert.match(second?.message || '', /Claude.*provider day after HTTP 403/)
+  assert.equal(second?.blocker, 'cooldown')
   assert.doesNotMatch(second?.message || '', /private-account-body/)
   assert.equal(second?.attempted_count, 0)
   assert.equal(secondCandidate.validation_attempted_at, undefined)
@@ -1798,11 +1970,51 @@ await check('a terminal Claude response closes its dedicated provider day with t
   resetCooldownMemory()
 })
 
+await check('only an explicit daily-limit response exhausts the durable provider day', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-explicit-day-limit-'))
+  const makeCandidate = (tag: string) => createTheme([
+    item(`${tag}-1`, `${tag} Alpha capacity shortage raises orders`, { companies: [co(`${tag} Alpha`, `${tag}A`)] }),
+    item(`${tag}-2`, `${tag} Beta capacity shortage raises orders`, { companies: [co(`${tag} Beta`, `${tag}B`)] }),
+    item(`${tag}-3`, `${tag} Alpha and Beta capacity shortage persists`, { companies: [co(`${tag} Alpha`, `${tag}A`), co(`${tag} Beta`, `${tag}B`)] }),
+  ], NOW)
+  let fetches = 0
+  const dailyLimit = (async () => {
+    fetches++
+    return {
+      ok: false, status: 429,
+      headers: new Headers({ 'x-ratelimit-remaining-requests': '0', 'retry-after': '0' }),
+    }
+  }) as unknown as typeof fetch
+  const cfg = {
+    themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm',
+    groqDailyReqCap: 10, groqDailyTokenCap: 100_000,
+  }
+  const first = await makeThemeNamer(cfg, dailyLimit, tmp)([makeCandidate('First')], NOW)
+  assert.equal(first?.blocker, 'provider_error')
+  const persisted = JSON.parse(fs.readFileSync(path.join(tmp, 'groq-budget.json'), 'utf8'))
+  assert.equal(persisted.providerDayExhausted, true)
+  assert.equal(persisted.exhaustion_reason, 'provider_daily_limit')
+  assert.equal(readCooldownUntil(tmp, 'groq'), 0, 'the day marker, not a second retry hold, owns admission')
+
+  resetBudgetMemory()
+  const secondCandidate = makeCandidate('Second')
+  const second = await makeThemeNamer(cfg, dailyLimit, tmp)([secondCandidate], new Date(NOW.getTime() + 1_000))
+  assert.equal(second?.state, 'blocked')
+  assert.equal(second?.blocker, 'daily_cap')
+  assert.equal(second?.attempted_count, 0)
+  assert.equal(secondCandidate.validation_attempted_at, undefined)
+  assert.equal(fetches, 1)
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+})
+
 await check('compiler health keeps provider, blocker, and message from the same final fallback decision', async () => {
   const { makeThemeNamer } = await import('../src/news/themes/llm')
   resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-coherent-blocker-'))
-  Budget.load(tmp, 1, 100_000, NOW.getTime(), 'groq-budget.json').exhaust('terminal_http_401')
+  Budget.load(tmp, 1, 100_000, NOW.getTime(), 'groq-budget.json').exhaust('provider_daily_limit')
   const candidate = createTheme([
     item('coherent-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
     item('coherent-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
@@ -1827,7 +2039,7 @@ await check('compiler health keeps provider, blocker, and message from the same 
   assert.equal(outcome?.state, 'blocked')
   assert.equal(outcome?.provider, 'groq')
   assert.equal(outcome?.blocker, 'daily_cap')
-  assert.match(outcome?.message || '', /Groq.*provider day after HTTP 401/)
+  assert.match(outcome?.message || '', /Groq.*provider-day allowance is exhausted/)
   assert.doesNotMatch(outcome?.message || '', /Local|private-local-body/)
   fs.rmSync(tmp, { recursive: true, force: true })
   resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
@@ -2023,18 +2235,528 @@ await check('reload floors lifetime count to story families, not same-family obs
 
 await check('makeThemeNamer charges its strict bound when a malformed Groq reply has no usage', async () => {
   const { makeThemeNamer, themeNamerTokenBound } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-malformed-'))
   const real = createTheme([
     item('mr1', 'Nvidia AI data center buildout', { companies: [co('Nvidia', 'NVDA')] }),
     item('mr2', 'Vertiv expands AI data center cooling', { companies: [co('Vertiv', 'VRT')] }),
     item('mr3', 'Microsoft expands AI data centers', { companies: [co('Microsoft', 'MSFT')] }),
   ], NOW)
-  const malformed = (async () => ({ ok: true, status: 200, json: async () => { throw new SyntaxError('malformed JSON') } })) as unknown as typeof fetch
+  let calls = 0
+  const malformed = (async () => {
+    calls++
+    return { ok: true, status: 200, headers: new Headers(), json: async () => { throw new SyntaxError('sensitive malformed JSON') } }
+  }) as unknown as typeof fetch
   const namer = makeThemeNamer({ themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'llama', groqDailyReqCap: 10, groqDailyTokenCap: 10_000 }, malformed, tmp)
   await namer!([real], NOW)
   const budget = JSON.parse(fs.readFileSync(path.join(tmp, 'groq-budget.json'), 'utf8'))
   assert.equal(budget.requests, 1)
   assert.equal(budget.tokens, themeNamerTokenBound([real]), 'a sent malformed reply is charged at the same safe bound it reserved')
+  assert.equal(readCooldownUntil(tmp, 'groq'), 0, 'a reachable malformed response does not sideline other Groq work')
+  assert.ok(readCooldownUntil(tmp, 'themes:groq') > Date.now(), 'the malformed contract is held on the namer only')
+  await namer!([real], new Date(NOW.getTime() + 1_000))
+  assert.equal(calls, 1, 'the scoped hold prevents repeated malformed probes')
+})
+
+await check('makeThemeNamer cannot refund a sent request through negative or invalid token telemetry', async () => {
+  const { makeThemeNamer, themeNamerTokenBound } = await import('../src/news/themes/llm')
+  for (const reportedTokens of [-17, 0, Number.NaN, Number.POSITIVE_INFINITY, '17']) {
+    resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-invalid-token-usage-'))
+    try {
+      const candidate = createTheme([
+        item('invalid-usage-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+        item('invalid-usage-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+        item('invalid-usage-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+      ], NOW)
+      const proposal = llmThemeProposal({
+        support: candidate.members.map((member) => member.event_id), anchors: ['capacity', 'shortage'],
+      })
+      let calls = 0
+      const fetchFn = (async () => {
+        calls++
+        return {
+          ok: true, status: 200, headers: new Headers(),
+          json: async () => ({
+            choices: [{ message: { content: JSON.stringify({ themes: [proposal] }) } }],
+            usage: { total_tokens: reportedTokens },
+          }),
+        }
+      }) as unknown as typeof fetch
+      const bound = themeNamerTokenBound([candidate])
+      const outcome = await makeThemeNamer({
+        themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm',
+        groqDailyReqCap: 10, groqDailyTokenCap: 100_000, groqDailyTokenTarget: 100_000, groqPaceFloorFrac: 1,
+      }, fetchFn, tmp)([candidate], NOW)
+      const ledger = JSON.parse(fs.readFileSync(path.join(tmp, 'groq-budget.json'), 'utf8'))
+
+      assert.equal(calls, 1)
+      assert.equal(outcome?.state, 'succeeded')
+      assert.equal(ledger.requests, 1)
+      assert.equal(ledger.tokens, bound, `${String(reportedTokens)} cannot lower the conservative token charge`)
+      assert.equal(Object.keys(ledger.reservations || {}).length, 0, 'the completed conservative charge is finalized')
+    } finally {
+      fs.rmSync(tmp, { recursive: true, force: true })
+    }
+  }
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+})
+
+await check('makeThemeNamer keeps a 400 Retry-After scoped to the namer and does not re-probe it', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-request-hold-'))
+  const candidate = createTheme([
+    item('rq1', 'Nvidia AI data center buildout expands', { companies: [co('Nvidia', 'NVDA')] }),
+    item('rq2', 'Vertiv AI data center cooling expands', { companies: [co('Vertiv', 'VRT')] }),
+    item('rq3', 'Microsoft AI data center capacity expands', { companies: [co('Microsoft', 'MSFT')] }),
+  ], NOW)
+  let calls = 0
+  const started = Date.now()
+  const requestError = (async () => {
+    calls++
+    return { ok: false, status: 400, headers: new Headers({ 'retry-after': '7' }), json: async () => ({ secret: 'must-not-surface' }) }
+  }) as unknown as typeof fetch
+  const cfg = { themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm' }
+  const namer = makeThemeNamer(cfg, requestError, tmp)!
+  await namer([candidate], NOW)
+  const scopedUntil = readCooldownUntil(tmp, 'themes:groq')
+  assert.ok(scopedUntil >= started + 7_000 && scopedUntil <= Date.now() + 7_100)
+  assert.equal(readCooldownUntil(tmp, 'groq'), 0)
+  await namer([candidate], new Date(NOW.getTime() + 1_000))
+  assert.equal(calls, 1)
+})
+
+await check('makeThemeNamer shares exact 429/503 Retry-After holds and never burns a second probe', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  for (const status of [429, 503]) {
+    resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), `thm-provider-${status}-`))
+    const candidate = createTheme([
+      item(`p${status}-1`, 'Nvidia AI data center buildout expands', { companies: [co('Nvidia', 'NVDA')] }),
+      item(`p${status}-2`, 'Vertiv AI data center cooling expands', { companies: [co('Vertiv', 'VRT')] }),
+      item(`p${status}-3`, 'Microsoft AI data center capacity expands', { companies: [co('Microsoft', 'MSFT')] }),
+    ], NOW)
+    let calls = 0
+    const started = Date.now()
+    const providerFailure = (async () => {
+      calls++
+      return { ok: false, status, headers: new Headers({ 'retry-after': '9' }), json: async () => ({ secret: 'must-not-surface' }) }
+    }) as unknown as typeof fetch
+    const namer = makeThemeNamer({ themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm' }, providerFailure, tmp)!
+    await namer([candidate], NOW)
+    const sharedUntil = readCooldownUntil(tmp, 'groq')
+    assert.ok(sharedUntil >= started + 9_000 && sharedUntil <= Date.now() + 9_100, `${status} follows the exact provider clock`)
+    assert.equal(readCooldownUntil(tmp, 'themes:groq'), 0)
+    await namer([candidate], new Date(NOW.getTime() + 1_000))
+    assert.equal(calls, 1, `${status} is not repeatedly probed while shared hold is live`)
+  }
+})
+
+await check('theme Retry-After preserves zero and subsecond provider clocks exactly', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  const candidate = (tag: string) => createTheme([
+    item(`${tag}-1`, `${tag} Nvidia AI data center buildout expands`, { companies: [co('Nvidia', 'NVDA')] }),
+    item(`${tag}-2`, `${tag} Vertiv AI data center cooling expands`, { companies: [co('Vertiv', 'VRT')] }),
+    item(`${tag}-3`, `${tag} Microsoft AI data center capacity expands`, { companies: [co('Microsoft', 'MSFT')] }),
+  ], NOW)
+  const cfg = { themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm' }
+
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const zeroDir = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-retry-zero-'))
+  const zero = (async () => ({ ok: false, status: 400, headers: new Headers({ 'retry-after': '0' }) })) as unknown as typeof fetch
+  await makeThemeNamer(cfg, zero, zeroDir)([candidate('Zero')], NOW)
+  assert.equal(readCooldownUntil(zeroDir, 'themes:groq'), 0, 'explicit zero is not replaced by the generic Themes hold')
+  assert.equal(readCooldownUntil(zeroDir, 'groq'), 0)
+  fs.rmSync(zeroDir, { recursive: true, force: true })
+
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const fractionalDir = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-retry-fractional-'))
+  const started = Date.now()
+  const fractional = (async () => ({ ok: false, status: 503, headers: new Headers({ 'retry-after': '0.25' }) })) as unknown as typeof fetch
+  await makeThemeNamer(cfg, fractional, fractionalDir)([candidate('Fractional')], NOW)
+  const until = readCooldownUntil(fractionalDir, 'groq')
+  assert.ok(until >= started + 250 && until <= Date.now() + 300, `expected a flat 250ms provider hold, got ${until - started}ms`)
+  assert.equal(readCooldownUntil(fractionalDir, 'themes:groq'), 0)
+  fs.rmSync(fractionalDir, { recursive: true, force: true })
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+})
+
+await check('a successful theme reply cannot clear a newer provider failure generation', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-cooldown-generation-'))
+  const candidate = createTheme([
+    item('generation-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('generation-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('generation-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  const proposal = llmThemeProposal({ support: candidate.members.map((member) => member.event_id), anchors: ['capacity', 'shortage'] })
+  const fetchFn = (async () => {
+    // This marker is a newer concurrent generation than the request currently returning successfully.
+    armCooldown(tmp, Date.now() + 1, 60_000, 'groq', 60_000, 'rate-limit')
+    return {
+      ok: true, status: 200, headers: new Headers(),
+      json: async () => ({ choices: [{ message: { content: JSON.stringify({ themes: [proposal] }) } }], usage: { total_tokens: 100 } }),
+    }
+  }) as unknown as typeof fetch
+  const outcome = await makeThemeNamer({
+    themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm',
+    groqDailyReqCap: 10, groqDailyTokenCap: 100_000,
+  }, fetchFn, tmp)([candidate], NOW)
+  assert.equal(outcome?.state, 'succeeded')
+  assert.ok(readCooldownUntil(tmp, 'groq') > Date.now(), 'generation-aware clear preserves the newer failure')
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+})
+
+await check('theme compiler does not send after a provider hold starts while waiting for the limiter', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-post-limiter-hold-'))
+  const candidate = createTheme([
+    item('post-hold-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('post-hold-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('post-hold-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  const limiter = getNamedLimiter('post-hold-provider', 0, 0)
+  const originalAcquire = limiter.acquire.bind(limiter)
+  let fetches = 0
+  limiter.acquire = (async () => {
+    armCooldown(tmp, NOW.getTime(), 60_000, 'post-hold-provider', 60_000, 'availability')
+    return true
+  }) as typeof limiter.acquire
+  try {
+    const outcome = await makeThemeNamer({
+      themesDiscoverModel: 'groq',
+      overflowProviders: [{
+        id: 'post-hold-provider', label: 'Post Hold', color: '--test', apiKey: 'k',
+        baseUrl: 'https://post-hold.test/v1', model: 'm', dailyReqCap: 10, rpm: 0,
+        maxTokens: 3000, budgetFile: 'post-hold-budget.json',
+      }],
+    }, (async () => {
+      fetches++
+      return new Response('{}', { status: 200 })
+    }) as typeof fetch, tmp)([candidate], NOW)
+    assert.equal(fetches, 0, 'a hold armed during limiter wait blocks provider I/O')
+    assert.equal(outcome?.attempted_count, 0)
+    assert.equal(outcome?.blocker, 'cooldown')
+    assert.ok(readCooldownUntil(tmp, 'post-hold-provider') > NOW.getTime())
+    assert.equal(fs.existsSync(path.join(tmp, 'post-hold-budget.json')), false, 'no daily allowance is reserved')
+  } finally {
+    limiter.acquire = originalAcquire
+    fs.rmSync(tmp, { recursive: true, force: true })
+    resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  }
+})
+
+await check('makeThemeNamer counts failed Claude attempts against its daily call cap', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-claude-cap-'))
+  const candidate = createTheme([
+    item('cc1', 'Nvidia AI data center buildout expands', { companies: [co('Nvidia', 'NVDA')] }),
+    item('cc2', 'Vertiv AI data center cooling expands', { companies: [co('Vertiv', 'VRT')] }),
+    item('cc3', 'Microsoft AI data center capacity expands', { companies: [co('Microsoft', 'MSFT')] }),
+  ], NOW)
+  let calls = 0
+  const rejected = (async () => { calls++; return { ok: false, status: 400 } }) as unknown as typeof fetch
+  const namer = makeThemeNamer({
+    themesDiscoverModel: 'claude-haiku', themesClaudeApiKey: 'k', themesClaudeBaseUrl: 'https://claude.test', themesClaudeModel: 'm', themesClaudeDailyCap: 1,
+  }, rejected, tmp)!
+  await namer([candidate], NOW)
+  await namer([candidate], new Date(NOW.getTime() + 1_000))
+  assert.equal(calls, 1, 'the rejected first attempt consumes the only authorized call')
+  assert.equal(JSON.parse(fs.readFileSync(path.join(tmp, 'themes-llm-budget.json'), 'utf8')).calls, 1)
+})
+
+await check('makeThemeNamer sends no Claude request when its daily call ledger cannot be read or saved', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  for (const failure of ['read-eisdir', 'write-enoent'] as const) {
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), `thm-claude-ledger-${failure}-`))
+    const ledger = path.join(tmp, 'themes-llm-budget.json')
+    if (failure === 'read-eisdir') {
+      fs.mkdirSync(ledger) // exact audited repro: a directory occupies the ledger file path
+    } else {
+      // read sees an ordinary missing target, then the pre-dispatch reservation write fails because its
+      // symlink target's parent does not exist.
+      fs.symlinkSync(path.join(tmp, 'missing', 'ledger.json'), ledger)
+    }
+    const candidate = createTheme([
+      item(`${failure}-1`, 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+      item(`${failure}-2`, 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+      item(`${failure}-3`, 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+    ], NOW)
+    let calls = 0
+    const fetchFn = (async () => {
+      calls++
+      return { ok: true, status: 200, json: async () => ({ content: [] }) }
+    }) as unknown as typeof fetch
+    const outcome = await makeThemeNamer({
+      themesDiscoverModel: 'claude-haiku', themesClaudeApiKey: 'k', themesClaudeBaseUrl: 'https://claude.test',
+      themesClaudeModel: 'm', themesClaudeDailyCap: 10,
+    }, fetchFn, tmp)([candidate], NOW)
+    assert.equal(calls, 0, `${failure}: an unusable ledger cannot reopen the daily cap`)
+    assert.equal(outcome?.state, 'failed')
+    assert.equal(outcome?.provider, 'claude')
+    assert.equal(outcome?.blocker, 'provider_error')
+    assert.match(outcome?.message || '', /usage record needs attention.*no request was sent/i)
+    assert.equal(candidate.validation_attempted_at, undefined)
+    fs.rmSync(tmp, { recursive: true, force: true })
+  }
+})
+
+await check('makeThemeNamer never resets a future or invalid Claude call ledger', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  for (const badDate of ['2099-01-01', 'not-a-day', '2026-02-31']) {
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-claude-ledger-date-'))
+    const ledger = path.join(tmp, 'themes-llm-budget.json')
+    const original = JSON.stringify({ date: badDate, calls: 60 })
+    fs.writeFileSync(ledger, original)
+    const candidate = createTheme([
+      item(`${badDate}-1`, 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+      item(`${badDate}-2`, 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+      item(`${badDate}-3`, 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+    ], NOW)
+    let calls = 0
+    const fetchFn = (async () => {
+      calls++
+      return { ok: true, status: 200, json: async () => ({ content: [] }) }
+    }) as unknown as typeof fetch
+    const outcome = await makeThemeNamer({
+      themesDiscoverModel: 'claude-haiku', themesClaudeApiKey: 'k', themesClaudeBaseUrl: 'https://claude.test',
+      themesClaudeModel: 'm', themesClaudeDailyCap: 60,
+    }, fetchFn, tmp)([candidate], NOW)
+    assert.equal(calls, 0, `${badDate}: unsafe day authority cannot reopen the cap`)
+    assert.equal(outcome?.blocker, 'provider_error')
+    assert.match(outcome?.message || '', /usage record needs attention/i)
+    assert.equal(fs.readFileSync(ledger, 'utf8'), original)
+    fs.rmSync(tmp, { recursive: true, force: true })
+  }
+})
+
+await check('makeThemeNamer rejects coerced Claude ledger fields instead of reopening the cap', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  for (const raw of [
+    { date: NOW.toISOString().slice(0, 10), calls: null },
+    { date: NOW.toISOString().slice(0, 10), calls: '0' },
+    { date: NOW.toISOString().slice(0, 10), calls: 0, exhausted: 'true' },
+    { date: NOW.toISOString().slice(0, 10), calls: 0, exhaustion_reason: 7 },
+  ]) {
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-claude-ledger-schema-'))
+    const ledger = path.join(tmp, 'themes-llm-budget.json')
+    const original = JSON.stringify(raw)
+    fs.writeFileSync(ledger, original)
+    const candidate = createTheme([
+      item('schema-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+      item('schema-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+      item('schema-3', 'Alpha and Beta shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+    ], NOW)
+    let calls = 0
+    const fetchFn = (async () => { calls++; return { ok: false, status: 400 } }) as unknown as typeof fetch
+    const outcome = await makeThemeNamer({
+      themesDiscoverModel: 'claude-haiku', themesClaudeApiKey: 'k', themesClaudeBaseUrl: 'https://claude.test',
+      themesClaudeModel: 'm', themesClaudeDailyCap: 60,
+    }, fetchFn, tmp)([candidate], NOW)
+    assert.equal(calls, 0)
+    assert.equal(outcome?.blocker, 'provider_error')
+    assert.match(outcome?.message || '', /usage record needs attention/i)
+    assert.equal(fs.readFileSync(ledger, 'utf8'), original)
+    fs.rmSync(tmp, { recursive: true, force: true })
+  }
+})
+
+await check('makeThemeNamer does not reopen a Claude call cap after its used ledger disappears', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-claude-ledger-deleted-'))
+  const makeCandidate = (tag: string) => createTheme([
+    item(`${tag}-1`, `${tag} Alpha capacity shortage raises orders`, { companies: [co(`${tag} Alpha`, `${tag}A`)] }),
+    item(`${tag}-2`, `${tag} Beta capacity shortage raises orders`, { companies: [co(`${tag} Beta`, `${tag}B`)] }),
+    item(`${tag}-3`, `${tag} Alpha and Beta shortage persists`, { companies: [co(`${tag} Alpha`, `${tag}A`), co(`${tag} Beta`, `${tag}B`)] }),
+  ], NOW)
+  const first = makeCandidate('first')
+  const proposal = llmThemeProposal({ support: first.members.map((member) => member.event_id), anchors: ['capacity', 'shortage'] })
+  let calls = 0
+  const fetchFn = (async () => {
+    calls++
+    return {
+      ok: true, status: 200, headers: new Headers(),
+      json: async () => ({ content: [{ type: 'text', text: JSON.stringify({ themes: [proposal] }) }], usage: { input_tokens: 20, output_tokens: 20 } }),
+    }
+  }) as unknown as typeof fetch
+  const namer = makeThemeNamer({
+    themesDiscoverModel: 'claude-haiku', themesClaudeApiKey: 'k', themesClaudeBaseUrl: 'https://claude.test',
+    themesClaudeModel: 'm', themesClaudeDailyCap: 1,
+  }, fetchFn, tmp)
+  const firstResult = await namer([first], NOW)
+  assert.equal(calls, 1)
+  assert.equal(firstResult?.state, 'succeeded')
+  fs.rmSync(path.join(tmp, 'themes-llm-budget.json'))
+  const second = await namer([makeCandidate('second')], new Date(NOW.getTime() + 1_000))
+  assert.equal(calls, 1, 'a missing ledger after use cannot authorize another request')
+  assert.equal(second?.blocker, 'provider_error')
+  assert.match(second?.message || '', /usage record needs attention/i)
+  fs.rmSync(tmp, { recursive: true, force: true })
+})
+
+await check('makeThemeNamer rejects and latches a same-day Claude call-counter rollback', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-claude-ledger-rollback-'))
+  try {
+    const makeCandidate = (tag: string) => createTheme([
+      item(`${tag}-rollback-1`, `${tag} Alpha capacity shortage raises orders`, { companies: [co(`${tag} Alpha`, `${tag}A`)] }),
+      item(`${tag}-rollback-2`, `${tag} Beta capacity shortage raises orders`, { companies: [co(`${tag} Beta`, `${tag}B`)] }),
+      item(`${tag}-rollback-3`, `${tag} Alpha and Beta capacity shortage persists`, { companies: [co(`${tag} Alpha`, `${tag}A`), co(`${tag} Beta`, `${tag}B`)] }),
+    ], NOW)
+    const first = makeCandidate('first')
+    const proposal = llmThemeProposal({
+      support: first.members.map((member) => member.event_id), anchors: ['capacity', 'shortage'],
+    })
+    let calls = 0
+    const fetchFn = (async () => {
+      calls++
+      return {
+        ok: true, status: 200, headers: new Headers(),
+        json: async () => ({
+          content: [{ type: 'text', text: JSON.stringify({ themes: [proposal] }) }],
+          usage: { input_tokens: 20, output_tokens: 20 },
+        }),
+      }
+    }) as unknown as typeof fetch
+    const namer = makeThemeNamer({
+      themesDiscoverModel: 'claude-haiku', themesClaudeApiKey: 'k', themesClaudeBaseUrl: 'https://claude.test',
+      themesClaudeModel: 'm', themesClaudeDailyCap: 1,
+    }, fetchFn, tmp)
+    assert.equal((await namer([first], NOW))?.state, 'succeeded')
+    assert.equal(calls, 1)
+
+    const ledger = path.join(tmp, 'themes-llm-budget.json')
+    const rolledBack = JSON.stringify({ date: NOW.toISOString().slice(0, 10), calls: 0 }) + '\n'
+    fs.writeFileSync(ledger, rolledBack)
+    for (const [index, tag] of ['second', 'third'].entries()) {
+      const candidate = makeCandidate(tag)
+      const outcome = await namer([candidate], new Date(NOW.getTime() + (index + 1) * 1_000))
+      assert.equal(calls, 1, `${tag}: a lower same-day counter cannot authorize another request`)
+      assert.equal(outcome?.state, 'failed')
+      assert.equal(outcome?.provider, 'claude')
+      assert.equal(outcome?.blocker, 'provider_error')
+      assert.match(outcome?.message || '', /usage record needs attention.*no request was sent/i)
+      assert.equal(candidate.validation_attempted_at, undefined)
+      assert.equal(fs.readFileSync(ledger, 'utf8'), rolledBack, 'the rejected rollback is not promoted to authority')
+    }
+  } finally {
+    fs.rmSync(tmp, { recursive: true, force: true })
+  }
+})
+
+await check('makeThemeNamer reports a damaged provider usage record, never a false daily cap', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-provider-ledger-corrupt-'))
+  fs.writeFileSync(path.join(tmp, 'groq-budget.json'), '{truncated')
+  const candidate = createTheme([
+    item('bad-ledger-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('bad-ledger-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('bad-ledger-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  let calls = 0
+  const fetchFn = (async () => {
+    calls++
+    return { ok: true, status: 200, json: async () => ({ choices: [] }) }
+  }) as unknown as typeof fetch
+  const outcome = await makeThemeNamer({
+    themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm',
+    groqRpm: 6000, groqDailyReqCap: 10, groqDailyTokenCap: 100_000,
+  }, fetchFn, tmp)([candidate], NOW)
+  assert.equal(calls, 0)
+  assert.equal(outcome?.state, 'failed')
+  assert.equal(outcome?.provider, 'groq')
+  assert.equal(outcome?.blocker, 'provider_error')
+  assert.match(outcome?.message || '', /usage record needs attention.*no request was sent/i)
+  assert.doesNotMatch(outcome?.message || '', /daily.*cap|exhaust/i)
+  assert.equal(candidate.validation_attempted_at, undefined)
+  assert.equal(fs.readFileSync(path.join(tmp, 'groq-budget.json'), 'utf8'), '{truncated', 'the damaged authority is not overwritten')
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetSharedLimiters()
+})
+
+await check('theme provider reservation failures stay provider errors when the durable allowance still fits', async () => {
+  const { makeThemeNamer, themeNamerTokenBound } = await import('../src/news/themes/llm')
+  const routes = [
+    {
+      id: 'local', label: 'Local', budgetFile: 'local-null-budget.json', reqCap: 10,
+      tokenCap: NON_BINDING_DAILY_TOKEN_CAP,
+      cfg: {
+        themesDiscoverModel: 'groq',
+        localProvider: {
+          id: 'local', label: 'Local', color: '--local', apiKey: 'local', baseUrl: 'https://local.test/v1', model: 'm',
+          dailyReqCap: 10, rpm: 0, maxTokens: 3000, budgetFile: 'local-null-budget.json',
+        },
+      },
+    },
+    {
+      id: 'groq', label: 'Groq', budgetFile: 'groq-budget.json', reqCap: 10, tokenCap: 100_000,
+      cfg: {
+        themesDiscoverModel: 'groq', groqApiKey: 'groq', groqBaseUrl: 'https://groq.test', groqModel: 'm',
+        groqDailyReqCap: 10, groqDailyTokenCap: 100_000, groqDailyTokenTarget: 100_000, groqPaceFloorFrac: 1,
+      },
+    },
+    {
+      id: 'overflow-null', label: 'Overflow Null', budgetFile: 'overflow-null-budget.json', reqCap: 10,
+      tokenCap: NON_BINDING_DAILY_TOKEN_CAP,
+      cfg: {
+        themesDiscoverModel: 'groq', freeProviderPaceFloorFrac: 1,
+        overflowProviders: [{
+          id: 'overflow-null', label: 'Overflow Null', color: '--overflow-null', apiKey: 'overflow',
+          baseUrl: 'https://overflow.test/v1', model: 'm', dailyReqCap: 10, rpm: 0, maxTokens: 3000,
+          budgetFile: 'overflow-null-budget.json',
+        }],
+      },
+    },
+  ]
+  const originalTryReserve = Budget.prototype.tryReserve
+  // Deterministically model the lock/persist catch path: preflight can read a fit ledger, but the atomic
+  // reservation returns no authority and must not be mistaken for proof that the provider day is spent.
+  ;(Budget.prototype as any).tryReserve = () => null
+  try {
+    for (const route of routes) {
+      resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+      const tmp = fs.mkdtempSync(path.join(os.tmpdir(), `thm-${route.id}-reservation-null-`))
+      try {
+        const candidate = createTheme([
+          item(`${route.id}-null-1`, 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+          item(`${route.id}-null-2`, 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+          item(`${route.id}-null-3`, 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+        ], NOW)
+        const budget = Budget.load(tmp, route.reqCap, route.tokenCap, NOW.getTime(), route.budgetFile)
+        budget.record(0, 7)
+        assert.equal(budget.canSpend(themeNamerTokenBound([candidate]), 1), true, `${route.id}: control preflight must fit`)
+        const ledger = path.join(tmp, route.budgetFile)
+        const before = fs.readFileSync(ledger, 'utf8')
+        let providerCalls = 0
+        const fetchFn = (async () => {
+          providerCalls++
+          throw new Error('a null reservation must stop before provider I/O')
+        }) as unknown as typeof fetch
+
+        const outcome = await makeThemeNamer(route.cfg, fetchFn, tmp)([candidate], NOW)
+
+        assert.equal(providerCalls, 0, `${route.id}: no provider request is sent without a reservation`)
+        assert.equal(outcome?.state, 'failed')
+        assert.equal(outcome?.provider, route.id)
+        assert.equal(outcome?.blocker, 'provider_error')
+        assert.equal(outcome?.message, `${route.label} usage record needs attention. No request was sent.`)
+        assert.doesNotMatch(outcome?.message || '', /daily|cap|exhaust/i)
+        assert.equal(outcome?.attempted_count, 0)
+        assert.equal(candidate.validation_attempted_at, undefined)
+        assert.equal(fs.readFileSync(ledger, 'utf8'), before, `${route.id}: a failed reservation does not change the ledger`)
+      } finally {
+        fs.rmSync(tmp, { recursive: true, force: true })
+      }
+    }
+  } finally {
+    ;(Budget.prototype as any).tryReserve = originalTryReserve
+    resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  }
 })
 
 await check('makeThemeNamer reserves the full prompt/output bound near the shared token cap', async () => {
@@ -2051,7 +2773,8 @@ await check('makeThemeNamer reserves the full prompt/output bound near the share
     item('ns2', 'Arista expands AI data center networking', { companies: [co('Arista', 'ANET')] }),
     item('ns3', 'Dell expands AI server capacity', { companies: [co('Dell', 'DELL')] }),
   ], NOW)
-  const bound = themeNamerTokenBound([first])
+  const conservativeOutput = 3000
+  const bound = themeNamerTokenBound([first], undefined, conservativeOutput)
   const oldEstimate = 1_400
   const actualTokens = oldEstimate + 200
   const tokenCap = 100 + bound
@@ -2064,7 +2787,13 @@ await check('makeThemeNamer reserves the full prompt/output bound near the share
     await new Promise<void>((resolve) => setTimeout(resolve, 20))
     return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: JSON.stringify({ themes: [{ i: 0, is_theme: true, name: 'AI Data-Center Buildout', slug: 'ai-data-center-buildout', description: 'AI infrastructure capacity is expanding.', keywords: ['ai'] }] }) } }], usage: { total_tokens: actualTokens } }) }
   }) as unknown as typeof fetch
-  const cfg = { themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm', groqDailyReqCap: 10, groqDailyTokenCap: tokenCap }
+  const cfg = {
+    themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm',
+    groqDailyReqCap: 10, groqDailyTokenCap: tokenCap, groqDailyTokenTarget: tokenCap,
+    // Keep the wall-clock pacer deliberately disabled for this hard-cap race. This case proves that the
+    // atomic reservation itself, not today's release fraction, excludes the competing request.
+    groqPaceFloorFrac: 1,
+  }
   const namerA = makeThemeNamer(cfg, fetchFn, tmp)!
   const namerB = makeThemeNamer(cfg, fetchFn, tmp)!
   await Promise.all([namerA([first], NOW), namerB([second], NOW)])
@@ -2073,6 +2802,43 @@ await check('makeThemeNamer reserves the full prompt/output bound near the share
   assert.equal(saved.tokens, 100 + actualTokens)
   assert.ok(actualTokens > oldEstimate)
   assert.ok(saved.tokens <= tokenCap)
+})
+
+await check('theme compiler spends the finite cloud allowance furthest behind its provider-day release', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-fair-cloud-pool-'))
+  const candidate = createTheme([
+    item('fair-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('fair-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('fair-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  // At noon Groq has consumed 40% of its safe token envelope while the later request-gated pool has used
+  // none. Both can admit a call; the latter is further behind its cumulative target and must go first.
+  Budget.load(tmp, 100, 100_000, NOW.getTime(), 'groq-budget.json').record(1, 40_000)
+  const proposal = llmThemeProposal({ support: candidate.members.map((member) => member.event_id), anchors: ['capacity', 'shortage'] })
+  const urls: string[] = []
+  const fetchFn = (async (url: string | URL | Request) => {
+    urls.push(String(url))
+    return {
+      ok: true, status: 200, headers: new Headers(),
+      json: async () => ({ choices: [{ message: { content: JSON.stringify({ themes: [proposal] }) } }], usage: { total_tokens: 100 } }),
+    }
+  }) as unknown as typeof fetch
+  const outcome = await makeThemeNamer({
+    themesDiscoverModel: 'groq', groqApiKey: 'groq', groqBaseUrl: 'https://groq.test', groqModel: 'g',
+    groqDailyReqCap: 100, groqDailyTokenCap: 100_000, groqDailyTokenTarget: 100_000,
+    overflowProviders: [{
+      id: 'later-pool', label: 'Later Pool', color: '--later', apiKey: 'later',
+      baseUrl: 'https://later.test/v1', model: 'm', dailyReqCap: 10, rpm: 0, maxTokens: 3000,
+      budgetFile: 'later-budget.json',
+    }],
+  }, fetchFn, tmp)([candidate], NOW)
+  assert.deepEqual(urls, ['https://later.test/v1/chat/completions'])
+  assert.equal(outcome?.state, 'succeeded')
+  assert.equal(candidate.validator_provider, 'later-pool')
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
 })
 
 await check('theme compiler skips an unsafe TPM envelope and validates through configured overflow with honest provenance', async () => {

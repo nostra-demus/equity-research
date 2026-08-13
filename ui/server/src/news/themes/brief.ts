@@ -12,7 +12,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
-import { Budget, armCooldown, clearCooldown, conservativeChatTokenBound, getSharedLimiter, isCoolingDown } from '../triage/budget'
+import { Budget, armCooldown, clearCooldown, conservativeChatTokenBound, credibleTokenUsage, getSharedLimiter, isCoolingDown, rateInfoForLimiter, type RateInfo } from '../triage/budget'
+import { parseRate } from '../triage/groq'
 import type { Theme, ThemeCompany, ThemeMember } from './types'
 import { selectNarrativeCore } from './core'
 
@@ -48,6 +49,7 @@ const LIMITER_WAIT_MS = 2000 // how long we'll wait for a per-minute slot before
 const UPGRADE_COOLDOWN_MS = 10 * 60_000 // a deterministic brief re-tries the LLM at most this often
 const FORCE_COOLDOWN_MS = 30_000 // a ?force=1 regen is ignored if a brief was built this recently (anti-spam)
 const EST_TOKENS = 1200 // a brief's rough input(headlines)+output cost — for budget + limiter sizing
+const BRIEF_HOLD_ID = 'theme-brief:groq'
 
 const iso = (d = new Date()) => d.toISOString().replace(/\.\d{3}Z$/, 'Z')
 const cachePath = (stateDir: string) => path.join(stateDir, CACHE_FILE)
@@ -258,7 +260,14 @@ function parseBriefJson(text: string): string | null {
   }
 }
 
-async function callGroq(cfg: BriefConfig, user: string, fetchFn: typeof fetch): Promise<{ text: string; tokens: number }> {
+class GroqBriefHttpError extends Error {
+  constructor(readonly status: number, readonly rate: RateInfo) {
+    super(`Groq theme brief HTTP ${status}`)
+    this.name = 'GroqBriefHttpError'
+  }
+}
+
+async function callGroq(cfg: BriefConfig, user: string, fetchFn: typeof fetch): Promise<{ text: string; tokens: number; rate: RateInfo }> {
   const res = await fetchFn(`${cfg.groqBaseUrl}/chat/completions`, {
     method: 'POST',
     headers: { 'content-type': 'application/json', authorization: `Bearer ${cfg.groqApiKey}` },
@@ -274,10 +283,13 @@ async function callGroq(cfg: BriefConfig, user: string, fetchFn: typeof fetch): 
       ],
     }),
   })
-  if (!res.ok) throw new Error(`groq HTTP ${res.status}`)
+  const rate = parseRate(res)
+  // Upstream bodies can contain account ids, balances, or request fragments. Do not read or attach them
+  // to the typed failure: status + rate headers are the complete routing contract.
+  if (!res.ok) throw new GroqBriefHttpError(res.status, rate)
   const data: any = await res.json()
   const text = data?.choices?.[0]?.message?.content
-  return { text: typeof text === 'string' ? text : '', tokens: Number(data?.usage?.total_tokens) || 0 }
+  return { text: typeof text === 'string' ? text : '', tokens: credibleTokenUsage(data?.usage?.total_tokens, 0), rate }
 }
 
 /** One brief from Groq, on the SHARED free-tier budget + per-minute limiter (so the brief never
@@ -287,25 +299,106 @@ async function callGroq(cfg: BriefConfig, user: string, fetchFn: typeof fetch): 
  *  exhausts the shared daily ledger, especially not on a transient per-minute 429. */
 async function tryGroqBrief(theme: Theme, cfg: BriefConfig, stateDir: string, fetchFn: typeof fetch): Promise<string | null> {
   const now = Date.now()
-  if (isCoolingDown(stateDir, 'groq', now)) return null
+  if (isCoolingDown(stateDir, 'groq', now) || isCoolingDown(stateDir, BRIEF_HOLD_ID, now)) return null
   const budget = Budget.load(stateDir, cfg.groqDailyReqCap ?? 13_000, cfg.groqDailyTokenCap ?? 500_000, now, 'groq-budget.json')
   const perAttemptTokens = themeBriefTokenBound(theme)
   if (!budget.canSpend(perAttemptTokens)) return null
   const limiter = getSharedLimiter(cfg.groqRpm ?? 28, cfg.groqTpm ?? 6000)
   const got = await limiter.acquire(EST_TOKENS, undefined, undefined, LIMITER_WAIT_MS)
   if (!got) return null // per-minute window busy — degrade rather than make the user wait
+  if (isCoolingDown(stateDir, 'groq', Date.now()) || isCoolingDown(stateDir, BRIEF_HOLD_ID, Date.now())) return null
   const reservation = budget.tryReserve(perAttemptTokens)
   if (!reservation) return null
+  let providerReachable = false
+  let briefHealthy = false
+  let attemptStartedAt = 0
+  let exhaustDay = false
+  let failureHold: { id: string; baseMs: number; maxMs: number; reason: string } | null = null
+  const providerWideHttp = (status: number) => status === 429 || status >= 500 || [401, 402, 403, 404].includes(status)
+  const classifyHttpFailure = (status: number, rate: RateInfo) => {
+    exhaustDay = status === 429 && rate.rpdRemaining === 0
+    if (exhaustDay) return
+    const sharedFailure = providerWideHttp(status)
+    const retryMs = rate.retryAfterMs != null && Number.isFinite(rate.retryAfterMs)
+      ? Math.max(0, Math.floor(rate.retryAfterMs))
+      : null
+    if (retryMs === 0) {
+      if (!sharedFailure) providerReachable = true
+      return
+    }
+    if (!sharedFailure) {
+      providerReachable = true
+      failureHold = retryMs != null
+        ? { id: BRIEF_HOLD_ID, baseMs: retryMs, maxMs: retryMs, reason: 'theme-brief-request' }
+        : { id: BRIEF_HOLD_ID, baseMs: cfg.llmCooldownMs ?? 300_000, maxMs: cfg.llmCooldownMaxMs ?? 3_600_000, reason: 'theme-brief-request' }
+    } else if (retryMs != null) {
+      failureHold = { id: 'groq', baseMs: retryMs, maxMs: retryMs, reason: status === 429 ? 'rate-limit' : status >= 500 ? 'availability' : 'provider-access' }
+    } else if (status === 429) {
+      failureHold = { id: 'groq', baseMs: 60_000, maxMs: 60_000, reason: 'rate-limit' }
+    } else {
+      failureHold = {
+        id: 'groq',
+        baseMs: cfg.llmCooldownMs ?? 300_000,
+        maxMs: cfg.llmCooldownMaxMs ?? 3_600_000,
+        reason: status >= 500 ? 'availability' : 'provider-access',
+      }
+    }
+  }
   try {
+    attemptStartedAt = Date.now()
     const result = await callGroq(cfg, buildUserMessage(theme), fetchFn)
+    providerReachable = true
     budget.reconcile(reservation, 1, result.tokens || perAttemptTokens)
-    clearCooldown(stateDir, 'groq')
     const brief = parseBriefJson(result.text)
-    return brief && brief.length >= 40 ? brief.slice(0, 900) : null
+    if (!brief || brief.length < 40) {
+      limiter.learn(rateInfoForLimiter(result.rate, false))
+      failureHold = {
+        id: BRIEF_HOLD_ID,
+        baseMs: cfg.llmCooldownMs ?? 300_000,
+        maxMs: cfg.llmCooldownMaxMs ?? 3_600_000,
+        reason: 'theme-brief-contract',
+      }
+      return null
+    }
+    limiter.learn(result.rate)
+    briefHealthy = true
+    return brief.slice(0, 900)
   } catch (e: any) {
     budget.reconcile(reservation, 1, perAttemptTokens)
-    armCooldown(stateDir, Date.now(), cfg.llmCooldownMs ?? 300_000, 'groq', cfg.llmCooldownMaxMs ?? 3_600_000)
+    if (e instanceof GroqBriefHttpError) {
+      limiter.learn(rateInfoForLimiter(e.rate, providerWideHttp(e.status)))
+      classifyHttpFailure(e.status, e.rate)
+    } else {
+      const timedOut = e?.name === 'TimeoutError' || e?.name === 'AbortError'
+      if (timedOut || e instanceof SyntaxError) {
+        providerReachable = e instanceof SyntaxError
+        failureHold = {
+          id: BRIEF_HOLD_ID,
+          baseMs: cfg.llmCooldownMs ?? 300_000,
+          maxMs: cfg.llmCooldownMaxMs ?? 3_600_000,
+          reason: timedOut ? 'theme-brief-timeout' : 'theme-brief-contract',
+        }
+      } else {
+        failureHold = {
+          id: 'groq',
+          baseMs: cfg.llmCooldownMs ?? 300_000,
+          maxMs: cfg.llmCooldownMaxMs ?? 3_600_000,
+          reason: 'availability',
+        }
+      }
+    }
     return null
+  } finally {
+    if (briefHealthy) {
+      clearCooldown(stateDir, 'groq', attemptStartedAt)
+      clearCooldown(stateDir, BRIEF_HOLD_ID, attemptStartedAt)
+    } else {
+      // A syntactically reachable response proves the provider itself is back even when this workload's
+      // request/contract is bad. Clear stale shared outage state, then isolate the retry to this prompt.
+      if (providerReachable && failureHold?.id !== 'groq') clearCooldown(stateDir, 'groq', attemptStartedAt)
+      if (exhaustDay) budget.exhaust()
+      else if (failureHold) armCooldown(stateDir, Date.now(), failureHold.baseMs, failureHold.id, failureHold.maxMs, failureHold.reason)
+    }
   }
 }
 

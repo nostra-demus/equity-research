@@ -116,17 +116,27 @@ check that reuses the production parser and reports the real item-link domains),
 `frameworks/screener/rss_feeds.json`, and ensure its **link** domain is on the `approved-domains.ts`
 firewall + the `SWARM.md` allow-list. `scripts/gen-wiring.py` automates the firewall/allow-list rows.
 
-## Free overflow brains (when Groq is paced/capped)
+## Sustainable free-provider routing
 
-When Groq's paced daily budget is spent, a batch routes to a free **overflow** pool instead of
-deferring, so the day's throughput = Groq + every free pool. Each pool keeps its own daily budget
-file + isolated per-minute limiter, and is **off unless its key is set** (secrets live in env, never
-in source). Adding an OpenAI-compatible key is a single entry in `buildOverflowProviders()` — it then
-auto-appears in routing, the article-read chain, the drain gate, status, and as a cockpit chip (§26).
+Groq and every finite free provider have separate persisted allowance ledgers. The engine releases each
+configured safe allowance cumulatively against that provider's reset clock, carries unused quiet-time room
+forward, and selects the eligible provider furthest behind its released target. Config order is only the
+quality tiebreak; it no longer lets an early provider starve OpenRouter, NVIDIA, or Gemini. With enough useful
+backlog, all complete calls that fit the configured safe envelopes are released before reset without exceeding
+the envelopes. `NEWS_FREE_PROVIDER_PACE_FLOOR_FRAC` controls the small start-of-day floor (default 6%).
+
+Each pool keeps its own daily budget file and isolated per-minute limiter, and is **off unless its key is
+set** (secrets live in env, never in source). Adding an OpenAI-compatible key is a single entry in
+`buildOverflowProviders()` — it then auto-appears in routing, the article-read chain, the drain gate, status,
+and as a cockpit chip (§26). A provider may still be retry-held after a real rate limit, service outage, or
+network failure. Exact `Retry-After` is honored; service failures back off. Request/JSON-contract failures are
+workload-scoped, so a bad triage response does not unnecessarily sideline article reads, Themes, or Ideas.
+The cockpit calls these **engine retry holds**, not provider quota resets, and labels the bars as configured
+engine allowances rather than claiming live account-quota knowledge.
 
 - **Gemini** (`GEMINI_API_KEY`) — a rotation pool of free models (`generateContent`), each its own
   per-day bucket, resetting midnight Pacific.
-- **Cerebras** (`CEREBRAS_API_KEY`) — leads the chain: the biggest + fastest free pool, on `gpt-oss-120b`
+- **Cerebras** (`CEREBRAS_API_KEY`) — the biggest + fastest free pool, on `gpt-oss-120b`
   (the current model; `llama-3.3-70b` is retired). Its free tier is **token-gated**, limits verified live
   (2026-06-17): **1M tokens/day, 30k tokens/min, 5 req/min, 2,400 req/day**, so it paces on the binding
   limit (a daily **token** cap, not a request cap). `gpt-oss-120b` is a reasoning model but returns its
@@ -141,8 +151,8 @@ auto-appears in routing, the article-read chain, the drain gate, status, and as 
   requests: `NEWS_MISTRAL_MODEL` (default `mistral-small-latest`) · `NEWS_MISTRAL_RPM` (45, ≈1.3s spacing,
   under 1 req/s) · `NEWS_MISTRAL_DAILY_REQ_CAP` (2000 soft backstop) · `NEWS_MISTRAL_MAX_TOKENS` ·
   `MISTRAL_BASE_URL` · `NEWS_MISTRAL_ENABLED=0` to force off.
-- **OpenRouter** (`OPENROUTER_API_KEY`) / **NVIDIA NIM** (`NVIDIA_API_KEY`) — request-gated free pools,
-  tried after Cerebras + Mistral.
+- **OpenRouter** (`OPENROUTER_API_KEY`) / **NVIDIA NIM** (`NVIDIA_API_KEY`) — request-gated free pools
+  participating in the same reset-clock allocator instead of waiting behind Cerebras + Mistral.
 
 ## What this is not
 

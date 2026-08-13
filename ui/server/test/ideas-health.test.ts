@@ -4,9 +4,9 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { ideasHealthLivenessMs, initializeIdeasHealth, inspectPersistedIdeasHealth, readIdeasHealth, readPersistedIdeasHealth, updateIdeasHealth } from '../src/news/ideas/ideas-health'
-import { callGroqForIdeaPass, ideaGroqTokenBound, runIdeaPass, type IdeaPassConfig } from '../src/news/ideas/run-idea-pass'
-import { ideaId, readTopSweep, topNHash, writePassState } from '../src/news/ideas/ideas-store'
-import { Budget, NON_BINDING_DAILY_TOKEN_CAP, readCooldownUntil } from '../src/news/triage/budget'
+import { callGroqForIdeaPass, chunkIdeaRows, ideaGroqTokenBound, runIdeaPass, type IdeaPassConfig } from '../src/news/ideas/run-idea-pass'
+import { ideaId, readIdeaById, readPassState, readTopSweep, topNEffectHash, topNHash, writePassState } from '../src/news/ideas/ideas-store'
+import { armCooldown, Budget, NON_BINDING_DAILY_TOKEN_CAP, getSharedGeminiLimiter, getSharedLimiter, readCooldownUntil, resetBudgetMemory, resetCooldownMemory, resetSharedLimiters } from '../src/news/triage/budget'
 import type { OverflowProvider } from '../src/config'
 import { validIdeaSnapshot } from './ideas-fixture'
 
@@ -58,6 +58,27 @@ const noKeyHealth = readIdeasHealth(noKeyState, noKeyRoot, true, NOW)
 assert.equal(noKeyHealth.status, 'error')
 assert.equal(noKeyHealth.last_attempt_at, null, 'eligibility failures are not provider attempts')
 
+// A damaged usage ledger is not a spent allowance. Ideas fails closed and tells the operator which simple
+// record needs attention instead of falsely reporting that the provider's daily limit was used.
+const corruptBudgetRoot = rootWithRows(2)
+const corruptBudgetState = path.join(corruptBudgetRoot, '.state')
+fs.mkdirSync(corruptBudgetState, { recursive: true })
+fs.writeFileSync(path.join(corruptBudgetState, 'groq-budget.json'), '{bad-json')
+let corruptBudgetFetches = 0
+const corruptBudget = await runIdeaPass({
+  repoRoot: corruptBudgetRoot, stateDir: corruptBudgetState, config: cfg, refreshBoard: async () => {},
+  now: () => NOW, fetchFn: (async () => {
+    corruptBudgetFetches++
+    return new Response('{}', { status: 500 })
+  }) as typeof fetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(corruptBudget.reason_code, 'internal_error')
+assert.match(corruptBudget.note || '', /Groq usage record needs attention/)
+assert.doesNotMatch(corruptBudget.note || '', /budget is exhausted/)
+assert.equal(corruptBudgetFetches, 0)
+assert.equal(readPassState(corruptBudgetState)?.in_flight, undefined, 'the no-I/O path clears its prepared marker')
+assert.equal(readIdeasHealth(corruptBudgetState, corruptBudgetRoot, true, NOW).reason_code, 'internal_error')
+
 const okRoot = rootWithRows(2)
 const okState = path.join(okRoot, '.state')
 let fetches = 0
@@ -72,6 +93,66 @@ const success = await runIdeaPass({ repoRoot: okRoot, stateDir: okState, config:
 assert.equal(success.ran, true)
 assert.equal(success.produced, 0)
 assert.equal(fetches, 1)
+
+// ideas-pass.json is paid-work authority. Corrupt bytes must never be read as a fresh first run, because
+// that would resend the same envelope and replace the only evidence of prior coverage.
+resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+const corruptPassRoot = rootWithRows(2)
+const corruptPassState = path.join(corruptPassRoot, '.state')
+let corruptPassFetches = 0
+const corruptPassFetch = (async () => {
+  corruptPassFetches++
+  return new Response(JSON.stringify({
+    choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [] }) } }],
+    usage: { total_tokens: 50 },
+  }), { status: 200, headers: { 'content-type': 'application/json' } })
+}) as typeof fetch
+await runIdeaPass({
+  repoRoot: corruptPassRoot, stateDir: corruptPassState, config: cfg, refreshBoard: async () => {},
+  now: () => NOW, fetchFn: corruptPassFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(corruptPassFetches, 1)
+const corruptPassFile = path.join(corruptPassState, 'ideas-pass.json')
+fs.writeFileSync(corruptPassFile, '{bad-json')
+const corruptPassRetry = await runIdeaPass({
+  repoRoot: corruptPassRoot, stateDir: corruptPassState, config: cfg, refreshBoard: async () => {},
+  now: () => NOW + cfg.minIntervalSec * 1000 + 1, fetchFn: corruptPassFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(corruptPassRetry.reason_code, 'internal_error')
+assert.equal(corruptPassFetches, 1, 'the corrupt progress record blocks repeat provider spend')
+assert.equal(fs.readFileSync(corruptPassFile, 'utf8'), '{bad-json', 'the damaged authority is preserved for repair')
+assert.match(corruptPassRetry.note || '', /progress record needs attention/i)
+resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+
+// Deleting the progress authority after a provider attempt is the same safety failure as corrupting it.
+// The health record proves work was sent, so a restart must not treat ENOENT as a fresh first run.
+const missingPassRoot = rootWithRows(2)
+const missingPassState = path.join(missingPassRoot, '.state')
+let missingPassFetches = 0
+const missingPassFetch = (async () => {
+  missingPassFetches++
+  return new Response(JSON.stringify({
+    choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [] }) } }],
+    usage: { total_tokens: 50 },
+  }), { status: 200, headers: { 'content-type': 'application/json' } })
+}) as typeof fetch
+await runIdeaPass({
+  repoRoot: missingPassRoot, stateDir: missingPassState, config: cfg, refreshBoard: async () => {},
+  now: () => NOW, fetchFn: missingPassFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(missingPassFetches, 1)
+const missingPassFile = path.join(missingPassState, 'ideas-pass.json')
+fs.unlinkSync(missingPassFile)
+resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+const missingPassRetry = await runIdeaPass({
+  repoRoot: missingPassRoot, stateDir: missingPassState, config: cfg, refreshBoard: async () => {},
+  now: () => NOW + cfg.minIntervalSec * 1000 + 1, fetchFn: missingPassFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(missingPassRetry.reason_code, 'internal_error')
+assert.equal(missingPassFetches, 1, 'a missing-after-use progress record blocks repeat provider spend')
+assert.equal(fs.existsSync(missingPassFile), false, 'the missing authority is not silently recreated')
+assert.match(missingPassRetry.note || '', /progress record needs attention/i)
+resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
 
 const failedRoot = rootWithRows(2)
 const failedState = path.join(failedRoot, '.state')
@@ -96,6 +177,541 @@ assert.equal(healthy.status, 'healthy')
 assert.equal(healthy.outcome, 'success_empty', 'a valid empty provider response is success, not a failure or a qualified rejection')
 assert.ok(healthy.last_attempt_at)
 assert.ok(healthy.last_success_at)
+
+// The configured topN is a provider-call bound, not a visibility cap. Thirteen current candidates are
+// covered as two comparative chunks; the rank-13 row is neither dropped nor sent alone. A completed first
+// chunk is checkpointed. Even after provider capacity is absent beyond the heartbeat interval, the next
+// eligible pass resumes at the second without re-billing the first.
+const coverageRoot = rootWithRows(13)
+const coverageState = path.join(coverageRoot, '.state')
+resetSharedLimiters()
+const projectedCoverage = readTopSweep(coverageRoot, cfg.topN, {
+  nowMs: NOW, maxAgeMs: cfg.inputMaxAgeHrs! * 3_600_000, allEligible: true,
+}).rows
+assert.equal(projectedCoverage.length, 13)
+const coverageChunks = chunkIdeaRows(projectedCoverage, cfg.topN)
+assert.deepEqual(coverageChunks.map((chunk) => chunk.length), [11, 2])
+assert.deepEqual(new Set(coverageChunks.flat().map((row) => row.event_id)), new Set(projectedCoverage.map((row) => row.event_id)))
+let coverageFetches = 0
+const coveragePrompts: string[] = []
+const coverageFetch = (async (_url: Parameters<typeof fetch>[0], init?: Parameters<typeof fetch>[1]) => {
+  coverageFetches++
+  const body = JSON.parse(String(init?.body || '{}'))
+  coveragePrompts.push(String(body?.messages?.[1]?.content || ''))
+  return new Response(JSON.stringify({
+    choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [] }) } }],
+    usage: { total_tokens: 50 },
+  }), { status: 200, headers: { 'content-type': 'application/json' } })
+}) as typeof fetch
+await runIdeaPass({
+  repoRoot: coverageRoot, stateDir: coverageState, config: cfg, refreshBoard: async () => {},
+  now: () => NOW, fetchFn: coverageFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(coverageFetches, 1)
+assert.equal(readPassState(coverageState)?.completed_chunks?.length, 1)
+const coveragePaused = await runIdeaPass({
+  repoRoot: coverageRoot, stateDir: coverageState, config: { ...cfg, groqApiKey: '' },
+  refreshBoard: async () => {}, now: () => NOW + cfg.minIntervalSec * 1000 + 1,
+  fetchFn: coverageFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(coveragePaused.reason_code, 'missing_api_key')
+assert.equal(coverageFetches, 1, 'the simulated capacity pause sends no request')
+assert.equal(readPassState(coverageState)?.completed_chunks?.length, 1)
+await runIdeaPass({
+  repoRoot: coverageRoot, stateDir: coverageState, config: cfg, refreshBoard: async () => {},
+  now: () => NOW + cfg.refreshSec * 1000 + 1,
+  fetchFn: coverageFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(coverageFetches, 2, 'the post-refresh pass runs only the unfinished rank tail')
+assert.equal(readPassState(coverageState)?.completed_chunks?.length, 2)
+assert.ok(coveragePrompts[1].includes('Company 12 files a material update'), 'rank 13 reaches a provider')
+assert.ok(!coveragePrompts[1].includes('Company 0 files a material update'), 'the completed first chunk is not re-sent')
+resetSharedLimiters()
+
+// Stable input identities, not positional chunk numbers, drive resume. A new rank-one row arriving after
+// chunk one completes is appended behind the unfinished queue, so it cannot repeatedly push rank five and
+// every lower row into a never-reached chunk.
+const churnRoot = rootWithRows(9)
+const churnState = path.join(churnRoot, '.state')
+const churnCfg = { ...cfg, topN: 4 }
+const churnRows = readTopSweep(churnRoot, churnCfg.topN, {
+  nowMs: NOW, maxAgeMs: churnCfg.inputMaxAgeHrs! * 3_600_000, allEligible: true,
+}).rows
+const churnChunks = chunkIdeaRows(churnRows, churnCfg.topN)
+assert.ok(churnChunks.length >= 2)
+const nextUnfinishedHeadline = churnChunks[1][0].headline
+const churnPrompts: string[] = []
+const churnFetch = (async (_url: Parameters<typeof fetch>[0], init?: Parameters<typeof fetch>[1]) => {
+  const body = JSON.parse(String(init?.body || '{}'))
+  churnPrompts.push(String(body?.messages?.[1]?.content || ''))
+  return new Response(JSON.stringify({
+    choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [] }) } }],
+    usage: { total_tokens: 50 },
+  }), { status: 200, headers: { 'content-type': 'application/json' } })
+}) as typeof fetch
+await runIdeaPass({
+  repoRoot: churnRoot, stateDir: churnState, config: churnCfg, refreshBoard: async () => {},
+  now: () => NOW, fetchFn: churnFetch, sleep: async () => {}, persistHealth: true,
+})
+const churnSweepPath = path.join(churnRoot, 'screener', 'inbox', '2026-08-03_sweep.json')
+const churnSweep = JSON.parse(fs.readFileSync(churnSweepPath, 'utf8'))
+churnSweep.updated_at = '2026-08-03T11:30:00Z'
+churnSweep.rows.unshift({
+  headline: 'Brand New Top Company files a material update', url: 'https://example.test/brand-new-top',
+  source_name: 'Exchange', found_at: '2026-08-03T11:00:00Z', triage_score: 99,
+  companies: [{ name: 'Brand New Top Company', ticker: 'BNT', listing_country: 'US' }],
+})
+fs.writeFileSync(churnSweepPath, JSON.stringify(churnSweep))
+await runIdeaPass({
+  repoRoot: churnRoot, stateDir: churnState, config: churnCfg, refreshBoard: async () => {},
+  now: () => NOW + churnCfg.minIntervalSec * 1000 + 1, fetchFn: churnFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(churnPrompts.length, 2)
+assert.ok(churnPrompts[1].includes(nextUnfinishedHeadline), 'the original unfinished queue advances after a new top row arrives')
+assert.ok(!churnPrompts[1].includes('Brand New Top Company'), 'the new top row cannot jump ahead of unfinished coverage')
+churnSweep.rows.unshift({
+  headline: 'Second New Top Company files a material update', url: 'https://example.test/second-new-top',
+  source_name: 'Exchange', found_at: '2026-08-03T11:05:00Z', triage_score: 100,
+  companies: [{ name: 'Second New Top Company', ticker: 'SNT', listing_country: 'US' }],
+})
+fs.writeFileSync(churnSweepPath, JSON.stringify(churnSweep))
+await runIdeaPass({
+  repoRoot: churnRoot, stateDir: churnState, config: churnCfg, refreshBoard: async () => {},
+  now: () => NOW + 2 * (churnCfg.minIntervalSec * 1000 + 1), fetchFn: churnFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(churnPrompts.length, 3)
+assert.ok(churnPrompts[2].includes(churnRows.at(-1)!.headline), 'repeated new top rows still cannot starve the original tail')
+resetSharedLimiters()
+
+// A provider call is never made unless its progress record is readable and can be written. Replacing the
+// file with a directory makes the authority unavailable and proves chunk zero is not charged.
+const checkpointRoot = rootWithRows(2)
+const checkpointState = path.join(checkpointRoot, '.state')
+fs.mkdirSync(path.join(checkpointState, 'ideas-pass.json'), { recursive: true })
+let checkpointFetches = 0
+const checkpointFailure = await runIdeaPass({
+  repoRoot: checkpointRoot, stateDir: checkpointState, config: cfg, refreshBoard: async () => {},
+  now: () => NOW, fetchFn: (async () => {
+    checkpointFetches++
+    return new Response('{}', { status: 500 })
+  }) as typeof fetch, sleep: async () => {}, persistHealth: false,
+})
+assert.equal(checkpointFailure.reason_code, 'internal_error')
+assert.match(checkpointFailure.note || '', /progress record needs attention/)
+assert.equal(checkpointFetches, 0, 'an unwritable progress store fails before provider dispatch')
+const checkpointRetry = await runIdeaPass({
+  repoRoot: checkpointRoot, stateDir: checkpointState, config: cfg, refreshBoard: async () => {},
+  now: () => NOW + cfg.minIntervalSec * 1000 + 1, fetchFn: (async () => {
+    checkpointFetches++
+    return new Response('{}', { status: 500 })
+  }) as typeof fetch, sleep: async () => {}, persistHealth: false,
+})
+assert.equal(checkpointRetry.reason_code, 'internal_error')
+assert.equal(checkpointFetches, 0, 'repeated eligible passes cannot rebill chunk zero while its checkpoint is unwritable')
+
+// A crash after the prepared marker but before dispatch authorization is safe to retry: no reservation or I/O
+// started. Failing exactly that second rename leaves phase=prepared, and restart must not skip the rows.
+const terminalCheckpointRoot = rootWithRows(2)
+const terminalCheckpointState = path.join(terminalCheckpointRoot, '.state')
+let terminalCheckpointFetches = 0
+const originalRenameSync = fs.renameSync
+let passCheckpointRenames = 0
+let terminalCheckpointFailure
+try {
+  ;(fs as any).renameSync = (from: fs.PathLike, to: fs.PathLike) => {
+    if (String(to) === path.join(terminalCheckpointState, 'ideas-pass.json') && ++passCheckpointRenames === 2) {
+      throw Object.assign(new Error('simulated pre-dispatch crash'), { code: 'EIO' })
+    }
+    return originalRenameSync(from, to)
+  }
+  terminalCheckpointFailure = await runIdeaPass({
+    repoRoot: terminalCheckpointRoot, stateDir: terminalCheckpointState, config: cfg, refreshBoard: async () => {},
+    now: () => NOW, fetchFn: (async () => {
+      terminalCheckpointFetches++
+      return new Response(JSON.stringify({
+        choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [] }) } }],
+        usage: { total_tokens: 50 },
+      }), { status: 200, headers: { 'content-type': 'application/json' } })
+    }) as typeof fetch, sleep: async () => {}, persistHealth: true,
+  })
+} finally {
+  ;(fs as any).renameSync = originalRenameSync
+}
+assert.equal(terminalCheckpointFailure?.reason_code, 'internal_error')
+assert.equal(terminalCheckpointFetches, 0, 'the failed authorization marker stops before provider I/O')
+assert.equal(readPassState(terminalCheckpointState)?.in_flight?.phase, 'prepared')
+assert.equal(Budget.load(terminalCheckpointState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap,
+  NOW, 'groq-budget.json').requests, 0, 'a failed authorization checkpoint happens before reservation')
+const terminalCheckpointRecovery = await runIdeaPass({
+  repoRoot: terminalCheckpointRoot, stateDir: terminalCheckpointState, config: cfg, refreshBoard: async () => {},
+  now: () => NOW + 60_001, fetchFn: (async () => {
+    terminalCheckpointFetches++
+    return new Response(JSON.stringify({
+      choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [] }) } }],
+      usage: { total_tokens: 50 },
+    }), { status: 200, headers: { 'content-type': 'application/json' } })
+  }) as typeof fetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(terminalCheckpointRecovery.ran, true, 'a prepared-only crash retries instead of losing the input')
+assert.equal(terminalCheckpointFetches, 1)
+assert.equal(Budget.load(terminalCheckpointState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap,
+  NOW + 60_001, 'groq-budget.json').requests, 1)
+resetSharedLimiters()
+
+// The exact envelope becomes dispatch-authorized before Budget.tryReserve. If the process dies immediately
+// after the durable reservation, restart quarantines those rows instead of retrying them and double-counting
+// the same work. The later chunk still runs and is the only new ledger request.
+const reservationCrashRoot = rootWithRows(5)
+const reservationCrashState = path.join(reservationCrashRoot, '.state')
+const reservationCrashCfg = { ...cfg, topN: 3 }
+const reservationCrashRows = readTopSweep(reservationCrashRoot, reservationCrashCfg.topN, {
+  nowMs: NOW, maxAgeMs: reservationCrashCfg.inputMaxAgeHrs! * 3_600_000, allEligible: true,
+}).rows
+const reservationCrashChunks = chunkIdeaRows(reservationCrashRows, reservationCrashCfg.topN)
+let reservationCrashProviderCalls = 0
+const reservationCrashPrompts: string[] = []
+const reservationCrashFetch = (async (_url: Parameters<typeof fetch>[0], init?: Parameters<typeof fetch>[1]) => {
+  reservationCrashProviderCalls++
+  const body = JSON.parse(String(init?.body || '{}'))
+  reservationCrashPrompts.push(String(body?.messages?.[1]?.content || ''))
+  return new Response(JSON.stringify({
+    choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [] }) } }],
+    usage: { total_tokens: 50 },
+  }), { status: 200, headers: { 'content-type': 'application/json' } })
+}) as typeof fetch
+const originalTryReserve = Budget.prototype.tryReserve
+let injectedReservationCrash = false
+let reservationCrashFirst
+try {
+  Budget.prototype.tryReserve = function (...args: Parameters<Budget['tryReserve']>) {
+    const reservation = originalTryReserve.apply(this, args)
+    if (reservation && !injectedReservationCrash) {
+      injectedReservationCrash = true
+      throw new Error('simulated process death after provider-budget reservation')
+    }
+    return reservation
+  }
+  reservationCrashFirst = await runIdeaPass({
+    repoRoot: reservationCrashRoot, stateDir: reservationCrashState, config: reservationCrashCfg,
+    refreshBoard: async () => {}, now: () => NOW,
+    fetchFn: reservationCrashFetch, sleep: async () => {}, persistHealth: true,
+  })
+} finally {
+  Budget.prototype.tryReserve = originalTryReserve
+}
+assert.equal(reservationCrashFirst?.reason_code, 'internal_error')
+assert.equal(reservationCrashProviderCalls, 0)
+assert.equal(readPassState(reservationCrashState)?.in_flight?.phase, 'authorized',
+  'the crash cannot leave a retryable prepared marker beside the reservation')
+assert.equal(Budget.load(reservationCrashState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap,
+  NOW, 'groq-budget.json').requests, 1)
+const reservationCrashRecovery = await runIdeaPass({
+  repoRoot: reservationCrashRoot, stateDir: reservationCrashState, config: reservationCrashCfg,
+  refreshBoard: async () => {}, now: () => NOW + reservationCrashCfg.minIntervalSec * 1000 + 1,
+  fetchFn: reservationCrashFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(reservationCrashRecovery.ran, true, 'the unrelated later chunk keeps moving')
+assert.equal(reservationCrashProviderCalls, 1, 'the dispatch-authorized envelope is never retried')
+assert.ok(reservationCrashPrompts[0].includes(reservationCrashChunks[1][0].headline))
+assert.ok(!reservationCrashPrompts[0].includes(reservationCrashChunks[0][0].headline))
+assert.deepEqual(readPassState(reservationCrashState)?.uncertain_input_keys?.length, 3)
+assert.equal(Budget.load(reservationCrashState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap,
+  NOW + reservationCrashCfg.minIntervalSec * 1000 + 1, 'groq-budget.json').requests, 2,
+  'only the original reservation and the later real request remain; there is no retry reservation')
+resetSharedLimiters()
+
+// A process can die after the dispatched marker reaches disk but before a response is checkpointed. With
+// no provider idempotency key, only that exact envelope is set aside. It is never called complete or sent
+// again, while later and newly arriving rows keep moving through the queue.
+const dispatchedCrashRoot = rootWithRows(5)
+const dispatchedCrashCfg = { ...cfg, topN: 3 }
+const dispatchedCrashState = path.join(dispatchedCrashRoot, '.state')
+const dispatchedCrashRows = readTopSweep(dispatchedCrashRoot, dispatchedCrashCfg.topN, {
+  nowMs: NOW, maxAgeMs: dispatchedCrashCfg.inputMaxAgeHrs! * 3_600_000, allEligible: true,
+}).rows
+const dispatchedCrashChunks = chunkIdeaRows(dispatchedCrashRows, dispatchedCrashCfg.topN)
+assert.deepEqual(dispatchedCrashChunks.map((chunk) => chunk.length), [3, 2])
+const dispatchedCrashKeys = dispatchedCrashRows.map((row) => `${topNHash([row])}:${topNEffectHash([row])}`)
+const dispatchedEnvelopeKeys = dispatchedCrashChunks[0].map((row) => `${topNHash([row])}:${topNEffectHash([row])}`)
+writePassState(dispatchedCrashState, {
+  hash: topNHash(dispatchedCrashRows), effect_hash: topNEffectHash(dispatchedCrashRows), ran_at_ms: NOW,
+  coverage_order: dispatchedCrashKeys, completed_chunks: [], completed_input_keys: [],
+  completed_idea_ids: [], completed_idea_claims: [],
+  in_flight: {
+    chunk: { hash: topNHash(dispatchedCrashChunks[0]), effect_hash: topNEffectHash(dispatchedCrashChunks[0]) },
+    input_keys: dispatchedEnvelopeKeys, started_at_ms: NOW, phase: 'dispatched', attempt_id: 'crash:groq',
+    snapshot_revisions: [],
+  },
+})
+updateIdeasHealth(dispatchedCrashState, {
+  enabled: true, status: 'running', outcome: 'not_run', reason_code: null,
+  reason: 'Groq is reading the current ranked lead set.', last_attempt_at: new Date(NOW).toISOString(),
+  last_success_at: null, next_eligible_at: null, input_count: 5, produced_count: 0,
+}, NOW)
+const dispatchedCrashBudget = Budget.load(dispatchedCrashState, cfg.groqDailyReqCap,
+  cfg.groqDailyTokenCap, NOW, 'groq-budget.json')
+const dispatchedCrashReservation = dispatchedCrashBudget.tryReserve(50, undefined, NOW)
+assert.ok(dispatchedCrashReservation)
+dispatchedCrashBudget.reconcile(dispatchedCrashReservation, 1, 50)
+let dispatchedCrashFetches = 0
+const dispatchedCrashPrompts: string[] = []
+const dispatchedCrashFetch = (async (_url: Parameters<typeof fetch>[0], init?: Parameters<typeof fetch>[1]) => {
+  dispatchedCrashFetches++
+  const body = JSON.parse(String(init?.body || '{}'))
+  dispatchedCrashPrompts.push(String(body?.messages?.[1]?.content || ''))
+  return new Response(JSON.stringify({
+    choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [] }) } }],
+    usage: { total_tokens: 50 },
+  }), { status: 200, headers: { 'content-type': 'application/json' } })
+}) as typeof fetch
+const dispatchedCrashHeld = await runIdeaPass({
+  repoRoot: dispatchedCrashRoot, stateDir: dispatchedCrashState, config: dispatchedCrashCfg, refreshBoard: async () => {},
+  now: () => NOW + 60_000, fetchFn: dispatchedCrashFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(dispatchedCrashHeld.reason_code, 'stale_running')
+assert.equal(dispatchedCrashFetches, 0, 'an ambiguous dispatched request is not repeated immediately')
+const quarantinedState = readPassState(dispatchedCrashState)
+assert.equal(quarantinedState?.in_flight, undefined, 'the global marker is converted into a row-scoped quarantine')
+assert.deepEqual(quarantinedState?.uncertain_input_keys, dispatchedEnvelopeKeys)
+assert.deepEqual(quarantinedState?.completed_input_keys, [], 'uncertain rows are not called completed')
+assert.equal(Budget.load(dispatchedCrashState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap,
+  NOW + 60_000, 'groq-budget.json').requests, 1, 'recovery never reserves or charges the uncertain envelope again')
+const heldHealth = readIdeasHealth(dispatchedCrashState, dispatchedCrashRoot, true, NOW + 60_000)
+assert.match(heldHealth.reason || '', /set aside/)
+assert.match(heldHealth.reason || '', /Check provider use and saved ideas/)
+const dispatchedCrashRetry = await runIdeaPass({
+  repoRoot: dispatchedCrashRoot, stateDir: dispatchedCrashState, config: dispatchedCrashCfg, refreshBoard: async () => {},
+  now: () => NOW + dispatchedCrashCfg.minIntervalSec * 1000 + 1,
+  fetchFn: dispatchedCrashFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(dispatchedCrashRetry.ran, true, 'the later chunk still runs after row-scoped quarantine')
+assert.equal(dispatchedCrashFetches, 1)
+assert.equal(Budget.load(dispatchedCrashState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap,
+  NOW + dispatchedCrashCfg.minIntervalSec * 1000 + 1, 'groq-budget.json').requests, 2,
+  'only the later chunk adds one request')
+assert.ok(dispatchedCrashPrompts[0].includes('Company 3 files a material update'))
+assert.ok(dispatchedCrashPrompts[0].includes('Company 4 files a material update'))
+assert.ok(!dispatchedCrashPrompts[0].includes('Company 0 files a material update'), 'the uncertain envelope is not repeated')
+assert.deepEqual(readPassState(dispatchedCrashState)?.completed_input_keys?.sort(), dispatchedCrashKeys.slice(3).sort(),
+  'only the later successful rows are completed')
+assert.equal(readIdeasHealth(dispatchedCrashState, dispatchedCrashRoot, true,
+  NOW + dispatchedCrashCfg.minIntervalSec * 1000 + 1).status, 'degraded')
+const dispatchedCrashSweepPath = path.join(dispatchedCrashRoot, 'screener', 'inbox', '2026-08-03_sweep.json')
+const dispatchedCrashSweep = JSON.parse(fs.readFileSync(dispatchedCrashSweepPath, 'utf8'))
+dispatchedCrashSweep.updated_at = '2026-08-03T11:30:00Z'
+dispatchedCrashSweep.rows.unshift({
+  headline: 'New Arrival files a material update', url: 'https://example.test/new-arrival',
+  source_name: 'Exchange', found_at: '2026-08-03T11:15:00Z', triage_score: 99,
+  companies: [{ name: 'New Arrival', ticker: 'NEW', listing_country: 'US' }],
+})
+fs.writeFileSync(dispatchedCrashSweepPath, JSON.stringify(dispatchedCrashSweep))
+const dispatchedCrashNewRow = await runIdeaPass({
+  repoRoot: dispatchedCrashRoot, stateDir: dispatchedCrashState, config: dispatchedCrashCfg, refreshBoard: async () => {},
+  now: () => NOW + 2 * (dispatchedCrashCfg.minIntervalSec * 1000 + 1),
+  fetchFn: dispatchedCrashFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(dispatchedCrashNewRow.ran, true, 'a newly arriving row also moves past the quarantine')
+assert.equal(dispatchedCrashFetches, 2)
+assert.equal(Budget.load(dispatchedCrashState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap,
+  NOW + 2 * (dispatchedCrashCfg.minIntervalSec * 1000 + 1), 'groq-budget.json').requests, 3,
+  'only the newly arrived row adds the next request')
+assert.ok(dispatchedCrashPrompts[1].includes('New Arrival files a material update'))
+assert.ok(!dispatchedCrashPrompts[1].includes('Company 0 files a material update'))
+assert.deepEqual(readPassState(dispatchedCrashState)?.uncertain_input_keys, dispatchedEnvelopeKeys,
+  'new work cannot clear or complete an unrelated uncertain envelope')
+dispatchedCrashSweep.updated_at = '2026-08-03T11:40:00Z'
+dispatchedCrashSweep.rows = dispatchedCrashSweep.rows.filter((row: { headline: string }) => (
+  row.headline !== 'Company 0 files a material update'
+))
+fs.writeFileSync(dispatchedCrashSweepPath, JSON.stringify(dispatchedCrashSweep))
+const dispatchedCrashRemoval = await runIdeaPass({
+  repoRoot: dispatchedCrashRoot, stateDir: dispatchedCrashState, config: dispatchedCrashCfg, refreshBoard: async () => {},
+  now: () => NOW + 3 * (dispatchedCrashCfg.minIntervalSec * 1000 + 1),
+  fetchFn: dispatchedCrashFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(dispatchedCrashRemoval.reason_code, 'stale_running')
+assert.equal(dispatchedCrashFetches, 2, 'removing one uncertain row does not re-send its peers')
+assert.deepEqual(readPassState(dispatchedCrashState)?.uncertain_input_keys, dispatchedEnvelopeKeys.slice(1),
+  'removing one uncertain row clears only its own exact key')
+assert.equal(Budget.load(dispatchedCrashState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap,
+  NOW + 3 * (dispatchedCrashCfg.minIntervalSec * 1000 + 1), 'groq-budget.json').requests, 3)
+const dispatchedCrashHeartbeatAt = NOW
+  + 2 * (dispatchedCrashCfg.minIntervalSec * 1000 + 1)
+  + dispatchedCrashCfg.refreshSec * 1000 + 1
+const dispatchedCrashHeartbeat = await runIdeaPass({
+  repoRoot: dispatchedCrashRoot, stateDir: dispatchedCrashState, config: dispatchedCrashCfg,
+  refreshBoard: async () => {}, now: () => dispatchedCrashHeartbeatAt,
+  fetchFn: dispatchedCrashFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(dispatchedCrashHeartbeat.ran, true,
+  'visible quarantine health does not suppress the hourly refresh of safe rows')
+assert.equal(dispatchedCrashFetches, 3)
+assert.ok(dispatchedCrashPrompts[2].includes('New Arrival files a material update'))
+assert.ok(dispatchedCrashPrompts[2].includes('Company 3 files a material update'))
+assert.ok(dispatchedCrashPrompts[2].includes('Company 4 files a material update'))
+assert.ok(!dispatchedCrashPrompts[2].includes('Company 1 files a material update'))
+assert.ok(!dispatchedCrashPrompts[2].includes('Company 2 files a material update'))
+assert.deepEqual(readPassState(dispatchedCrashState)?.uncertain_input_keys, dispatchedEnvelopeKeys.slice(1))
+assert.equal(readIdeasHealth(dispatchedCrashState, dispatchedCrashRoot, true, dispatchedCrashHeartbeatAt).status, 'degraded')
+assert.equal(Budget.load(dispatchedCrashState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap,
+  dispatchedCrashHeartbeatAt, 'groq-budget.json').requests, 4,
+  'only the safe heartbeat adds a request; quarantined rows still add none')
+resetSharedLimiters()
+
+// The ranked queue is strongest first. If a later chunk repeats the same ticker+direction, completing
+// that chunk must not replace the reason and source set already admitted from the stronger first chunk.
+const duplicateRoot = rootWithRows(5)
+const duplicateState = path.join(duplicateRoot, '.state')
+const duplicateCfg = { ...cfg, topN: 3 }
+let duplicateProviderCalls = 0
+const duplicateFetch = (async (input: Parameters<typeof fetch>[0]) => {
+  if (new URL(String(input)).hostname === 'query1.finance.yahoo.com') {
+    return new Response(JSON.stringify({
+      quotes: [{ quoteType: 'EQUITY', symbol: 'ACME', longname: 'Acme Corp', exchDisp: 'NYSE' }],
+    }), { status: 200, headers: { 'content-type': 'application/json' } })
+  }
+  duplicateProviderCalls++
+  const first = duplicateProviderCalls === 1
+  return new Response(JSON.stringify({
+    choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [{
+      src: [0, 1], ticker: 'ACME', company: 'Acme Corp', exchange: 'NYSE', direction: 'long',
+      reason: first ? 'Higher-ranked evidence supports the call' : 'Lower-ranked evidence repeats the call',
+      why_now: first ? 'The strongest source was published today' : 'A weaker source was also published today',
+      conviction: first ? 80 : 60, priced_in: 'room', thesis_type: 'company_specific',
+    }] }) } }], usage: { total_tokens: 80 },
+  }), { status: 200, headers: { 'content-type': 'application/json' } })
+}) as typeof fetch
+let duplicateCheckpointRenames = 0
+let duplicateFirst
+const duplicateOriginalRename = fs.renameSync
+try {
+  ;(fs as any).renameSync = (from: fs.PathLike, to: fs.PathLike) => {
+    if (String(to) === path.join(duplicateState, 'ideas-pass.json') && ++duplicateCheckpointRenames === 4) {
+      throw Object.assign(new Error('simulated final marker-removal crash'), { code: 'EIO' })
+    }
+    return duplicateOriginalRename(from, to)
+  }
+  duplicateFirst = await runIdeaPass({
+    repoRoot: duplicateRoot, stateDir: duplicateState, config: duplicateCfg, refreshBoard: async () => {},
+    now: () => NOW, fetchFn: duplicateFetch, sleep: async () => {}, persistHealth: true,
+  })
+} finally {
+  ;(fs as any).renameSync = duplicateOriginalRename
+}
+assert.equal(duplicateFirst?.reason_code, 'internal_error', 'the simulated crash interrupts final marker removal')
+assert.equal(readPassState(duplicateState)?.in_flight?.phase, 'persisted', 'result, claims, and coverage are durable first')
+const firstDuplicateSnapshot = readIdeaById(duplicateRoot, ideaId('ACME', 'long'))
+assert.equal(firstDuplicateSnapshot?.reason, 'Higher-ranked evidence supports the call')
+const duplicateSweepPath = path.join(duplicateRoot, 'screener', 'inbox', '2026-08-03_sweep.json')
+const duplicateSweep = JSON.parse(fs.readFileSync(duplicateSweepPath, 'utf8'))
+duplicateSweep.updated_at = '2026-08-03T11:30:00Z'
+duplicateSweep.rows = duplicateSweep.rows.filter((row: { headline: string }) => row.headline !== 'Company 2 files a material update')
+fs.writeFileSync(duplicateSweepPath, JSON.stringify(duplicateSweep))
+const duplicateLocalRecovery = await runIdeaPass({
+  repoRoot: duplicateRoot, stateDir: duplicateState, config: duplicateCfg, refreshBoard: async () => {},
+  now: () => NOW + 60_000, fetchFn: duplicateFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(duplicateLocalRecovery.reason_code, 'min_interval')
+assert.equal(duplicateProviderCalls, 1, 'a persisted result finishes its terminal checkpoint locally')
+assert.equal(readPassState(duplicateState)?.in_flight, undefined)
+const duplicateSecond = await runIdeaPass({
+  repoRoot: duplicateRoot, stateDir: duplicateState, config: duplicateCfg, refreshBoard: async () => {},
+  now: () => NOW + duplicateCfg.minIntervalSec * 1000 + 1,
+  fetchFn: duplicateFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(duplicateSecond.ran, true)
+assert.equal(duplicateSecond.produced, 0, 'local recovery keeps the stronger first claim')
+assert.equal(readPassState(duplicateState)?.completed_idea_claims?.[0]?.input_keys.length, 2,
+  'the persisted call is bound only to its two selected source rows')
+assert.equal(duplicateProviderCalls, 2, 'persisted recovery calls only the later unfinished chunk')
+const preservedDuplicateSnapshot = readIdeaById(duplicateRoot, ideaId('ACME', 'long'))
+assert.equal(preservedDuplicateSnapshot?.reason, 'Higher-ranked evidence supports the call',
+  'deleting unrelated row 2 cannot unlock the stronger idea for a lower-ranked overwrite')
+assert.deepEqual(preservedDuplicateSnapshot?.source_event_ids, firstDuplicateSnapshot?.source_event_ids)
+resetSharedLimiters()
+
+// If the provider result and snapshot are saved but the first result checkpoint itself fails, recovery
+// preserves the demonstrably new snapshot's first-occurrence claim and quarantines that envelope. It may
+// continue the later chunk, but it still cannot retry or call the ambiguous request successful.
+const resultCheckpointRoot = rootWithRows(5)
+const resultCheckpointState = path.join(resultCheckpointRoot, '.state')
+const resultCheckpointCfg = { ...cfg, topN: 3 }
+let resultCheckpointFetches = 0
+const resultCheckpointFetch = (async (input: Parameters<typeof fetch>[0]) => {
+  if (new URL(String(input)).hostname === 'query1.finance.yahoo.com') {
+    return new Response(JSON.stringify({
+      quotes: [{ quoteType: 'EQUITY', symbol: 'ACME', longname: 'Acme Corp', exchDisp: 'NYSE' }],
+    }), { status: 200, headers: { 'content-type': 'application/json' } })
+  }
+  resultCheckpointFetches++
+  return new Response(JSON.stringify({
+    choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [{
+      src: [0, 1], ticker: 'ACME', company: 'Acme Corp', exchange: 'NYSE', direction: 'long',
+      reason: 'Higher-ranked evidence supports the blocked call', why_now: 'The strongest source was published today',
+      conviction: 80, priced_in: 'room', thesis_type: 'company_specific',
+    }] }) } }], usage: { total_tokens: 80 },
+  }), { status: 200, headers: { 'content-type': 'application/json' } })
+}) as typeof fetch
+let resultCheckpointRenames = 0
+const resultCheckpointOriginalRename = fs.renameSync
+let resultCheckpointFirst
+try {
+  ;(fs as any).renameSync = (from: fs.PathLike, to: fs.PathLike) => {
+    if (String(to) === path.join(resultCheckpointState, 'ideas-pass.json') && ++resultCheckpointRenames === 3) {
+      throw Object.assign(new Error('simulated result-checkpoint crash'), { code: 'EIO' })
+    }
+    return resultCheckpointOriginalRename(from, to)
+  }
+  resultCheckpointFirst = await runIdeaPass({
+    repoRoot: resultCheckpointRoot, stateDir: resultCheckpointState, config: resultCheckpointCfg,
+    refreshBoard: async () => {}, now: () => NOW,
+    fetchFn: resultCheckpointFetch, sleep: async () => {}, persistHealth: true,
+  })
+} finally {
+  ;(fs as any).renameSync = resultCheckpointOriginalRename
+}
+assert.equal(resultCheckpointFirst?.reason_code, 'internal_error')
+assert.equal(readPassState(resultCheckpointState)?.in_flight?.phase, 'authorized')
+assert.equal(readIdeaById(resultCheckpointRoot, ideaId('ACME', 'long'))?.reason,
+  'Higher-ranked evidence supports the blocked call')
+const resultCheckpointSweepPath = path.join(resultCheckpointRoot, 'screener', 'inbox', '2026-08-03_sweep.json')
+const resultCheckpointSweep = JSON.parse(fs.readFileSync(resultCheckpointSweepPath, 'utf8'))
+resultCheckpointSweep.rows = resultCheckpointSweep.rows.filter((row: { headline: string }) => (
+  row.headline !== 'Company 2 files a material update'
+))
+fs.writeFileSync(resultCheckpointSweepPath, JSON.stringify(resultCheckpointSweep))
+const resultCheckpointRecovery = await runIdeaPass({
+  repoRoot: resultCheckpointRoot, stateDir: resultCheckpointState, config: resultCheckpointCfg,
+  refreshBoard: async () => {}, now: () => NOW + resultCheckpointCfg.minIntervalSec * 1000 + 1,
+  fetchFn: resultCheckpointFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(resultCheckpointRecovery.ran, true, 'the later chunk continues after the ambiguous envelope is isolated')
+assert.equal(resultCheckpointFetches, 2, 'only the later chunk is sent; the ambiguous request is never sent again')
+const resultCheckpointRecoveredState = readPassState(resultCheckpointState)
+assert.equal(resultCheckpointRecoveredState?.in_flight, undefined)
+assert.equal(resultCheckpointRecoveredState?.uncertain_input_keys?.length, 2,
+  'only the two still-current rows from the dispatched envelope stay uncertain after unrelated removal')
+assert.ok(resultCheckpointRecoveredState?.completed_input_keys?.every((key) => (
+  !resultCheckpointRecoveredState.uncertain_input_keys?.includes(key)
+)), 'quarantined rows are never called completed')
+assert.equal(resultCheckpointRecoveredState?.completed_idea_claims?.[0]?.idea_id, ideaId('ACME', 'long'))
+assert.equal(resultCheckpointRecoveredState?.completed_idea_claims?.[0]?.input_keys.length, 2,
+  'snapshot recovery keeps only the actual support rows despite unrelated row removal')
+resultCheckpointSweep.updated_at = '2026-08-03T11:40:00Z'
+resultCheckpointSweep.rows = resultCheckpointSweep.rows.filter((row: { headline: string }) => (
+  row.headline !== 'Company 0 files a material update'
+))
+fs.writeFileSync(resultCheckpointSweepPath, JSON.stringify(resultCheckpointSweep))
+const resultCheckpointSupportRemoval = await runIdeaPass({
+  repoRoot: resultCheckpointRoot, stateDir: resultCheckpointState, config: resultCheckpointCfg,
+  refreshBoard: async () => {}, now: () => NOW + 2 * (resultCheckpointCfg.minIntervalSec * 1000 + 1),
+  fetchFn: resultCheckpointFetch, sleep: async () => {}, persistHealth: true,
+})
+assert.equal(resultCheckpointSupportRemoval.reason_code, 'stale_running')
+assert.equal(resultCheckpointFetches, 2)
+assert.deepEqual(readPassState(resultCheckpointState)?.completed_idea_claims, [],
+  'removing one of the idea own support rows releases only that source-scoped claim')
+resetSharedLimiters()
 
 const throttled = await runIdeaPass({ repoRoot: okRoot, stateDir: okState, config: cfg, refreshBoard: async () => {}, now: () => NOW + 60_000, fetchFn, sleep: async () => {}, persistHealth: true })
 assert.equal(throttled.reason_code, 'min_interval')
@@ -189,6 +805,149 @@ assert.equal(fallbackHealth.status, 'healthy')
 assert.equal(fallbackHealth.outcome, 'success_empty')
 assert.match(fallbackHealth.reason || '', /Mistral completed successfully/)
 
+// Finite overflow is one reset-clock pool, not a fixed chain. Both providers are admissible at 18:00,
+// but the second is further behind its released daily target and must receive this Ideas call first.
+const fairRoot = rootWithRows(2)
+const fairState = path.join(fairRoot, '.state')
+const fairAt = Date.parse('2026-08-03T18:00:00Z')
+const fairFirst = testProvider('ideas-fair-first', 'https://fair-first.test/v1', { label: 'First', dailyReqCap: 100 })
+const fairBehind = testProvider('ideas-fair-behind', 'https://fair-behind.test/v1', { label: 'Behind', dailyReqCap: 100 })
+Budget.load(fairState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap, fairAt, 'groq-budget.json').exhaust()
+const fairFirstBudget = Budget.load(fairState, 100, NON_BINDING_DAILY_TOKEN_CAP, fairAt, fairFirst.budgetFile)
+fairFirstBudget.record(50, 0); fairFirstBudget.save()
+const fairBehindBudget = Budget.load(fairState, 100, NON_BINDING_DAILY_TOKEN_CAP, fairAt, fairBehind.budgetFile)
+fairBehindBudget.record(10, 0); fairBehindBudget.save()
+const fairUrls: string[] = []
+const fair = await runIdeaPass({
+  repoRoot: fairRoot, stateDir: fairState,
+  config: { ...cfg, freeProviderPaceFloorFrac: 0.06, overflowProviders: [fairFirst, fairBehind] },
+  refreshBoard: async () => {}, now: () => fairAt, persistHealth: true, sleep: async () => {},
+  fetchFn: (async (input: Parameters<typeof fetch>[0]) => {
+    fairUrls.push(String(input))
+    return new Response(JSON.stringify({
+      choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [] }) } }],
+      usage: { total_tokens: 20 },
+    }), { status: 200, headers: { 'content-type': 'application/json' } })
+  }) as typeof fetch,
+})
+assert.equal(fair.ran, true)
+assert.deepEqual(fairUrls, ['https://fair-behind.test/v1/chat/completions'], 'config order is only a tie-break; allowance deficit chooses the provider')
+assert.equal(fairFirstBudget.requests, 50)
+assert.equal(fairBehindBudget.requests, 11)
+
+// Gemini's native generateContent pool participates in the SAME reset-clock selector. Each model has its
+// own Pacific-day ledger, while all models share one minute limiter. This is the production gap that left
+// healthy Gemini allowance unused and the Ideas board stale when the OpenAI-compatible tiers were held.
+resetSharedLimiters()
+const geminiRoot = rootWithRows(2)
+const geminiState = path.join(geminiRoot, '.state')
+const geminiAt = Date.parse('2026-08-03T18:00:00Z')
+const geminiModels = [{ model: 'gemini-a', dailyReqCap: 10 }, { model: 'gemini-b', dailyReqCap: 10 }]
+const geminiDayTz = 'America/Los_Angeles'
+const geminiA = Budget.load(geminiState, 10, 5_000_000, geminiAt, 'gemini-budget-gemini-a.json', geminiDayTz)
+geminiA.record(4, 100); geminiA.save()
+const geminiUrls: string[] = []
+const geminiOnly = await runIdeaPass({
+  repoRoot: geminiRoot, stateDir: geminiState,
+  config: {
+    ...cfg, groqApiKey: '', overflowProviders: [], geminiEnabled: true, geminiApiKey: 'gemini-key',
+    geminiBaseUrl: 'https://gemini.test/v1beta', geminiModels, geminiMaxTokens: 500,
+    geminiDailyTokenCap: 5_000_000, geminiDayTz, geminiRpm: 0, geminiTpm: 0,
+  },
+  refreshBoard: async () => {}, now: () => geminiAt, sleep: async () => {}, persistHealth: true,
+  fetchFn: (async (input: Parameters<typeof fetch>[0]) => {
+    geminiUrls.push(String(input))
+    return new Response(JSON.stringify({
+      candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify({ ideas: [] }) }] } }],
+      usageMetadata: { totalTokenCount: 20 },
+    }), { status: 200, headers: { 'content-type': 'application/json' } })
+  }) as typeof fetch,
+})
+assert.equal(geminiOnly.ran, true)
+assert.deepEqual(geminiUrls, ['https://gemini.test/v1beta/models/gemini-b:generateContent'], 'the model furthest behind its released Pacific-day target is selected')
+assert.equal(geminiA.requests, 4)
+assert.equal(Budget.load(geminiState, 10, 5_000_000, geminiAt, 'gemini-budget-gemini-b.json', geminiDayTz).requests, 1)
+assert.match(readIdeasHealth(geminiState, geminiRoot, true, geminiAt).reason || '', /Gemini · gemini-b completed successfully/)
+
+const geminiFallbackRoot = rootWithRows(2)
+const geminiFallbackState = path.join(geminiFallbackRoot, '.state')
+const geminiFallbackUrls: string[] = []
+const geminiFallback = await runIdeaPass({
+  repoRoot: geminiFallbackRoot, stateDir: geminiFallbackState,
+  config: {
+    ...cfg, groqApiKey: '', overflowProviders: [], geminiEnabled: true, geminiApiKey: 'gemini-key',
+    geminiBaseUrl: 'https://gemini.test/v1beta', geminiModels, geminiMaxTokens: 500,
+    geminiDailyTokenCap: 5_000_000, geminiDayTz, geminiRpm: 0, geminiTpm: 0,
+  },
+  refreshBoard: async () => {}, now: () => geminiAt, sleep: async () => {}, persistHealth: true,
+  fetchFn: (async (input: Parameters<typeof fetch>[0]) => {
+    const url = String(input)
+    geminiFallbackUrls.push(url)
+    if (url.includes('/gemini-a:')) {
+      return new Response(JSON.stringify({ error: { details: [{ violations: [{ quotaId: 'GenerateRequestsPerDayPerProjectPerModel-FreeTier' }] }] } }), { status: 429 })
+    }
+    return new Response(JSON.stringify({
+      candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify({ ideas: [] }) }] } }],
+      usageMetadata: { totalTokenCount: 20 },
+    }), { status: 200, headers: { 'content-type': 'application/json' } })
+  }) as typeof fetch,
+})
+assert.equal(geminiFallback.ran, true)
+assert.deepEqual(geminiFallbackUrls, [
+  'https://gemini.test/v1beta/models/gemini-a:generateContent',
+  'https://gemini.test/v1beta/models/gemini-b:generateContent',
+], 'one model daily-limit signal moves the same pass to the next model')
+const exhaustedGemini = Budget.load(geminiFallbackState, 10, 5_000_000, geminiAt, 'gemini-budget-gemini-a.json', geminiDayTz)
+assert.equal(exhaustedGemini.providerDayExhausted, true)
+assert.equal(exhaustedGemini.requests, 1, 'provider-day closure retains the real call count')
+assert.equal(Budget.load(geminiFallbackState, 10, 5_000_000, geminiAt, 'gemini-budget-gemini-b.json', geminiDayTz).requests, 1)
+
+resetSharedLimiters()
+const geminiLimiterRoot = rootWithRows(2)
+const geminiLimiterState = path.join(geminiLimiterRoot, '.state')
+const geminiLimiterAt = geminiAt + 60_000
+await getSharedGeminiLimiter(60, 0).acquire(100, async () => {}, () => geminiLimiterAt)
+let geminiLimiterFetches = 0
+const geminiBusy = await runIdeaPass({
+  repoRoot: geminiLimiterRoot, stateDir: geminiLimiterState,
+  config: {
+    ...cfg, groqApiKey: '', overflowProviders: [], limiterWaitMs: 0,
+    geminiEnabled: true, geminiApiKey: 'gemini-key', geminiBaseUrl: 'https://gemini.test/v1beta',
+    geminiModels: [{ model: 'gemini-shared', dailyReqCap: 10 }], geminiMaxTokens: 500,
+    geminiDailyTokenCap: 5_000_000, geminiDayTz, geminiRpm: 60, geminiTpm: 0,
+  },
+  refreshBoard: async () => {}, now: () => geminiLimiterAt, sleep: async () => {}, persistHealth: true,
+  fetchFn: (async () => { geminiLimiterFetches++; throw new Error('shared minute window must gate this call') }) as unknown as typeof fetch,
+})
+assert.equal(geminiBusy.reason_code, 'rate_limiter_busy')
+assert.equal(geminiLimiterFetches, 0, 'Ideas shares Gemini minute admission with title triage instead of opening a private lane')
+resetSharedLimiters()
+
+const pacedRoot = rootWithRows(2)
+const pacedState = path.join(pacedRoot, '.state')
+const pacedAt = Date.parse('2026-08-04T00:15:00Z')
+const pacedFirst = testProvider('ideas-paced-first', 'https://paced-first.test/v1', { label: 'Paced first', dailyReqCap: 100 })
+const pacedLater = testProvider('ideas-paced-later', 'https://paced-later.test/v1', { label: 'Paced later', dailyReqCap: 100 })
+Budget.load(pacedState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap, pacedAt, 'groq-budget.json').exhaust()
+const pacedFirstBudget = Budget.load(pacedState, 100, NON_BINDING_DAILY_TOKEN_CAP, pacedAt, pacedFirst.budgetFile)
+pacedFirstBudget.record(6, 0); pacedFirstBudget.save() // exactly the configured 6% start-of-day release
+const pacedUrls: string[] = []
+const paced = await runIdeaPass({
+  repoRoot: pacedRoot, stateDir: pacedState,
+  config: { ...cfg, freeProviderPaceFloorFrac: 0.06, overflowProviders: [pacedFirst, pacedLater] },
+  refreshBoard: async () => {}, now: () => pacedAt, persistHealth: true, sleep: async () => {},
+  fetchFn: (async (input: Parameters<typeof fetch>[0]) => {
+    pacedUrls.push(String(input))
+    return new Response(JSON.stringify({
+      choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [] }) } }],
+      usage: { total_tokens: 20 },
+    }), { status: 200, headers: { 'content-type': 'application/json' } })
+  }) as typeof fetch,
+})
+assert.equal(paced.ran, true)
+assert.deepEqual(pacedUrls, ['https://paced-later.test/v1/chat/completions'], 'an ahead-of-clock tier cannot fixed-order drain past its released allowance')
+assert.equal(pacedFirstBudget.requests, 6)
+
 // A transient primary failure falls through in the SAME pass. Only availability failures arm the shared
 // provider cooldown; the fallback success remains the health verdict.
 const transientRoot = rootWithRows(2)
@@ -219,6 +978,38 @@ assert.equal(transientFallbackCalls, 1)
 assert.ok(readCooldownUntil(transientState, 'groq') > transientAt, 'availability failure cools shared Groq')
 assert.equal(readIdeasHealth(transientState, transientRoot, true, transientAt).outcome, 'success_empty')
 
+// Retry-After is an exact provider clock, not an input to the generic exponential breaker. A 503 can carry
+// it too; the same batch must fall through immediately while every workload shares only that exact hold.
+const retryRoot = rootWithRows(2)
+const retryState = path.join(retryRoot, '.state')
+const retryAfterAt = NOW + 32 * 60_000 + 30_000
+const retryProvider = testProvider('ideas-retry-after', 'https://retry-after.test/v1', { label: 'Retry provider' })
+const retryFallback = testProvider('ideas-after-retry', 'https://after-retry.test/v1', { label: 'Retry fallback' })
+const retryUrls: string[] = []
+const retryAfterResult = await runIdeaPass({
+  repoRoot: retryRoot, stateDir: retryState,
+  config: { ...cfg, groqApiKey: '', overflowProviders: [retryProvider, retryFallback] },
+  refreshBoard: async () => {}, now: () => retryAfterAt, sleep: async () => {}, persistHealth: true,
+  fetchFn: (async (input: Parameters<typeof fetch>[0]) => {
+    retryUrls.push(String(input))
+    if (String(input).startsWith(retryProvider.baseUrl)) {
+      return new Response('private account detail', { status: 503, headers: { 'retry-after': '25' } })
+    }
+    return new Response(JSON.stringify({
+      choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [] }) } }],
+      usage: { total_tokens: 20 },
+    }), { status: 200, headers: { 'content-type': 'application/json' } })
+  }) as typeof fetch,
+})
+assert.equal(retryAfterResult.ran, true)
+assert.deepEqual(retryUrls, [
+  'https://retry-after.test/v1/chat/completions',
+  'https://after-retry.test/v1/chat/completions',
+])
+assert.equal(readCooldownUntil(retryState, retryProvider.id), retryAfterAt + 25_000, 'shared hold ends on the exact Retry-After clock')
+assert.equal(readCooldownUntil(retryState, `ideas:${retryProvider.id}`), 0)
+assert.doesNotMatch(readIdeasHealth(retryState, retryRoot, true, retryAfterAt).reason || '', /private account detail/)
+
 // The adapter itself is supposed to be fail-soft. Keep a second boundary anyway: if a future retry helper
 // unexpectedly throws, Ideas fails closed, charges conservatively, and never crashes or cools shared Groq.
 const adapterGuardRoot = rootWithRows(2)
@@ -231,11 +1022,12 @@ const adapterGuard = await callGroqForIdeaPass(adapterGuardRows, {
   repoRoot: adapterGuardRoot, stateDir: adapterGuardState, config: cfg, refreshBoard: async () => {},
   now: () => adapterGuardAt,
   fetchFn: (async () => new Response('temporarily unavailable', { status: 503 })) as typeof fetch,
-  sleep: async () => { throw new Error('retry helper failed') },
+  sleep: async () => { throw new Error('acct-secret-from-provider retry helper failed') },
 })
 assert.equal(adapterGuard?.ok, false)
 assert.equal(adapterGuard?.failureKind, 'contract')
 assert.match(adapterGuard?.note || '', /unexpected adapter failure/)
+assert.doesNotMatch(adapterGuard?.note || '', /acct-secret-from-provider/)
 assert.equal(readCooldownUntil(adapterGuardState, 'groq'), 0, 'an internal Ideas adapter bug cannot cool shared Groq')
 assert.ok(readCooldownUntil(adapterGuardState, 'ideas:groq') > adapterGuardAt)
 assert.equal(
@@ -243,6 +1035,38 @@ assert.equal(
   ideaGroqTokenBound(adapterGuardRows, cfg.groqMaxTokens),
   'an escaped adapter failure is charged at one full conservative attempt',
 )
+
+// A shared hold can start while Ideas waits for the minute limiter. The live recheck must stop before
+// the durable dispatch marker, daily reservation, or provider request.
+resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+const postLimiterRoot = rootWithRows(2)
+const postLimiterState = path.join(postLimiterRoot, '.state')
+const postLimiterRows = readTopSweep(postLimiterRoot, cfg.topN, {
+  nowMs: NOW, maxAgeMs: cfg.inputMaxAgeHrs! * 3_600_000,
+}).rows
+const postLimiter = getSharedLimiter(cfg.groqRpm, cfg.groqTpm)
+const originalPostLimiterAcquire = postLimiter.acquire.bind(postLimiter)
+let postLimiterFetches = 0
+postLimiter.acquire = (async () => {
+  armCooldown(postLimiterState, NOW, 60_000, 'groq', 60_000, 'availability')
+  return true
+}) as typeof postLimiter.acquire
+try {
+  const postLimiterResult = await callGroqForIdeaPass(postLimiterRows, {
+    repoRoot: postLimiterRoot, stateDir: postLimiterState, config: cfg, refreshBoard: async () => {},
+    now: () => NOW, fetchFn: (async () => {
+      postLimiterFetches++
+      return new Response('{}', { status: 200 })
+    }) as typeof fetch, sleep: async () => {},
+  })
+  assert.equal(postLimiterResult, null)
+  assert.equal(postLimiterFetches, 0)
+  assert.equal(fs.existsSync(path.join(postLimiterState, 'groq-budget.json')), false)
+  assert.ok(readCooldownUntil(postLimiterState, 'groq') > NOW)
+} finally {
+  postLimiter.acquire = originalPostLimiterAcquire
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+}
 
 // Bad Ideas JSON is workload-specific: charge the real request, then cool only `ideas:<provider>`. It must
 // never exhaust the shared ledger or mark the provider unhealthy for core news triage.
@@ -279,6 +1103,22 @@ await runIdeaPass({
 assert.equal(readCooldownUntil(requestState, 'ideas-request-shape'), 0, 'Ideas HTTP 400 cannot cool shared triage')
 assert.ok(readCooldownUntil(requestState, 'ideas:ideas-request-shape') > requestAt)
 assert.equal(Budget.load(requestState, 10, NON_BINDING_DAILY_TOKEN_CAP, requestAt, requestProvider.budgetFile).remainingRequests, 9)
+
+const requestRetryRoot = rootWithRows(2)
+const requestRetryState = path.join(requestRetryRoot, '.state')
+const requestRetryAt = requestAt + 1_000
+const requestRetryProvider = testProvider('ideas-request-retry', 'https://request-retry.test/v1', { label: 'Request retry provider' })
+await runIdeaPass({
+  repoRoot: requestRetryRoot, stateDir: requestRetryState,
+  config: { ...cfg, groqApiKey: '', overflowProviders: [requestRetryProvider] },
+  refreshBoard: async () => {}, now: () => requestRetryAt, sleep: async () => {}, persistHealth: true,
+  fetchFn: (async () => new Response('acct-secret-400', {
+    status: 400, headers: { 'retry-after': '25' },
+  })) as typeof fetch,
+})
+assert.equal(readCooldownUntil(requestRetryState, requestRetryProvider.id), 0, 'request-shape Retry-After is not provider-wide evidence')
+assert.ok(readCooldownUntil(requestRetryState, `ideas:${requestRetryProvider.id}`) > requestRetryAt)
+assert.doesNotMatch(readIdeasHealth(requestRetryState, requestRetryRoot, true, requestRetryAt).reason || '', /acct-secret-400/)
 
 // No provider attempt means no false success or attempt timestamp. The UI must say deferred with the
 // per-tier reasons instead of claiming that the wire genuinely cleared no ideas.
@@ -367,6 +1207,29 @@ assert.deepEqual(slowLocalUrls, ['https://slow-local.test/v1/chat/completions', 
 assert.equal(readCooldownUntil(slowLocalState, 'local'), 0, 'Ideas latency policy cannot cool Local for core triage')
 assert.ok(readCooldownUntil(slowLocalState, 'ideas:local') > slowLocalAt, 'the short timeout is remembered only by Ideas')
 assert.match(readIdeasHealth(slowLocalState, slowLocalRoot, true, slowLocalAt).reason || '', /Cloud fallback completed successfully/)
+
+// A timeout at the provider's own configured deadline is still specific to the richer Ideas request. It
+// must not idle core title triage/chat/themes, even when no shorter outer Ideas deadline caused it.
+const providerTimeoutRoot = rootWithRows(2)
+const providerTimeoutState = path.join(providerTimeoutRoot, '.state')
+const providerTimeoutAt = NOW + 39 * 60_000 + 30_000
+const providerTimeout = testProvider('ideas-provider-timeout', 'https://provider-timeout.test/v1', {
+  label: 'Timed Ideas provider', timeoutMs: 20,
+})
+await runIdeaPass({
+  repoRoot: providerTimeoutRoot, stateDir: providerTimeoutState,
+  config: { ...cfg, groqApiKey: '', overflowProviders: [providerTimeout], providerAttemptTimeoutMs: 1_000, providerChainTimeoutMs: 2_000 },
+  refreshBoard: async () => {}, now: () => providerTimeoutAt, sleep: async () => {}, persistHealth: true,
+  fetchFn: ((_input: Parameters<typeof fetch>[0], init?: Parameters<typeof fetch>[1]) => new Promise<Response>((_resolve, reject) => {
+    const signal = init?.signal
+    const hold = setTimeout(() => reject(new Error('provider timeout did not fire')), 1_000)
+    const abort = () => { clearTimeout(hold); reject(signal?.reason || new DOMException('aborted', 'AbortError')) }
+    if (signal?.aborted) abort()
+    else signal?.addEventListener('abort', abort, { once: true })
+  })) as typeof fetch,
+})
+assert.equal(readCooldownUntil(providerTimeoutState, providerTimeout.id), 0, 'Ideas provider timeout cannot cool shared triage')
+assert.ok(readCooldownUntil(providerTimeoutState, `ideas:${providerTimeout.id}`) > providerTimeoutAt)
 
 // The same provider budget object is the atomic admission boundary for every caller. Even two accidental
 // concurrent Ideas passes cannot collectively exceed a one-request overflow cap.
@@ -615,5 +1478,5 @@ assert.equal(missingProduced.status, 'error')
 assert.equal(missingProduced.outcome, 'failed')
 assert.equal(missingProduced.reason_code, 'snapshot_store_error', 'success_with_ideas must reconcile to an actually projectable snapshot')
 
-for (const root of [thin, noKeyRoot, okRoot, failedRoot, crashRoot, fallbackRoot, transientRoot, adapterGuardRoot, contractRoot, requestRoot, cappedRoot, localRoot, slowLocalRoot, raceRoot, deadlineRoot, staleRoot, staleSweepRoot, staleRowsRoot, localVetoRoot, brokenStoreRoot, invalidStoreRoot, missingProducedRoot]) fs.rmSync(root, { recursive: true, force: true })
+for (const root of [thin, noKeyRoot, okRoot, coverageRoot, failedRoot, crashRoot, fallbackRoot, fairRoot, geminiRoot, geminiFallbackRoot, geminiLimiterRoot, pacedRoot, transientRoot, retryRoot, adapterGuardRoot, contractRoot, requestRoot, requestRetryRoot, cappedRoot, localRoot, slowLocalRoot, raceRoot, deadlineRoot, staleRoot, staleSweepRoot, staleRowsRoot, localVetoRoot, brokenStoreRoot, invalidStoreRoot, missingProducedRoot]) fs.rmSync(root, { recursive: true, force: true })
 console.log('\n1 ideas-health test file passed')
