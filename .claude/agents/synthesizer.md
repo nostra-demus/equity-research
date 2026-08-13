@@ -673,7 +673,7 @@ For each, say what data would confirm it.
 | Kill Criteria | What It Would Mean | How To Monitor | Module Source |
 |---|---|---|---|
 
-Draw from the modules — e.g. earnings miss / margin deterioration / guidance cut (earnings), covenant breach (balance-sheet-survival), auditor resignation / promoter pledge increase (management-governance), valuation re-rating failure (valuation), or a commodity/macro variable moving against the thesis. Every row ties to a module source.
+Draw from the modules — e.g. earnings miss / margin deterioration / guidance cut (earnings), covenant breach (balance-sheet-survival), auditor resignation / promoter pledge increase (management-governance), valuation re-rating failure (valuation), or a commodity/macro variable moving against the thesis. Every row ties to a module source. When the monitoring event has a knowable date or period (a results release, a filing deadline, a court/regulatory ruling window), name it in "How To Monitor" (e.g. "FY2026 results release (~March 2027)") rather than only a vague description — `scripts/eval.py` check AW mechanically parses this text to flag a kill criterion whose own named event has already passed with no outcome review addressing it (§8: disconfirming evidence must be actively checked, not left as a closing caveat).
 
 ## 11. Positioning and Trade Construction
 

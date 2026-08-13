@@ -1116,6 +1116,55 @@ def eval_as_forecast_overdue(decision_date, forecast_ledger, today):
     return out
 
 
+# ── Check AW (kill-criteria overdue) — CLAUDE.md §8 says disconfirming evidence is "a required test the
+# thesis must survive," not a closing caveat, and §19 says "a forecast that cannot be checked later is
+# not a forecast" — the same discipline forecast_ledger gets from AS above, but nothing applied it to
+# kill_criteria. Unlike forecast_ledger, kill_criteria carries no `status` field and no structured due
+# date; the only date signal already on record is free text in each entry's `monitor` field (e.g. "FY2026
+# results release (~March 2027)", "EU Platform Work Directive national transposition (~Nov 2026
+# deadline)"). Reuses `_as_due_date`'s proven ISO/month-name extraction against that text — no new
+# required schema field, so every already-committed kill_criteria entry is checkable immediately.
+def _kc_monitor_text(entry):
+    if isinstance(entry, dict):
+        for f in ("monitor", "monitor_via"):
+            v = entry.get(f)
+            if isinstance(v, str) and v.strip():
+                return v.strip()
+    return ""
+
+def _kc_criterion_text(entry):
+    if isinstance(entry, str):
+        return entry.strip()
+    if isinstance(entry, dict):
+        for f in ("criterion", "condition", "trigger", "what_invalidates", "kill_criterion", "description", "text"):
+            v = entry.get(f)
+            if isinstance(v, str) and v.strip():
+                return v.strip()
+    return ""
+
+def eval_aw_kill_criteria_overdue(decision_date, kill_criteria, today):
+    """Check AW. Returns None (undateable / empty / malformed) or a list of overdue descriptions (empty =
+    none due). Pure — `today` is injected, same convention as eval_as_forecast_overdue. ADVISORY, never a
+    hard FAIL, for the same reason AS is advisory: overdue-ness is created by the calendar, not by a
+    defect in the run at the time it was written."""
+    if kill_criteria is not None and not isinstance(kill_criteria, list):
+        return None
+    kc = kill_criteria or []
+    if not kc or not isdate(today):
+        return None
+    out = []
+    for i, e in enumerate(kc):
+        mon = _kc_monitor_text(e)
+        if not mon:
+            continue  # no monitor text (e.g. a legacy plain-string entry) — undateable, never flagged
+        due = _as_due_date({"time_window": mon}, decision_date)
+        if not due or due >= today:
+            continue  # not dateable from the monitor text, or not yet due
+        crit = _kc_criterion_text(e)[:110]
+        out.append(f"kill_criteria[{i}] monitor event ({due}) has passed and was never checked: {crit}")
+    return out
+
+
 # ── Checks AT/AU/AV (§10 scenario span + conjunction disclosure; sign-check presence) ───────────
 # Detection logic extracted to scripts/scenario_integrity_checks.py (importable, side-effect-free)
 # so the SAME functions also run LIVE in the /research:full Step 10B.1 finish-gate — before a
@@ -2967,6 +3016,37 @@ if scope=="selftest":
         print(("  [ok] " if ok else "  [BAD] ")+f"AS({_dd!r},today={_td!r}) -> {got!r} (want {_want!r})")
         if not ok: bad+=1
 
+    # ---- check AW: a kill criterion whose own monitor event ELAPSED and was never checked (advisory) ----
+    _aw_open      = {"criterion":"c1","monitor":"FY2026 results release (~March 2027)"}
+    _aw_iso       = {"criterion":"c2","monitor":"resolves 2026-07-22"}
+    _aw_undate    = {"criterion":"c3","monitor":"BaFin Offer Document publication"}
+    _aw_str       = "a plain-string kill criterion with no monitor field at all"
+    _aw_nomonitor = {"criterion":"c4","meaning":"m"}
+    _aw_baddate   = {"criterion":"c5","monitor":"Feb 30, 2026"}
+    _aw_via       = {"criterion":"c6","monitor_via":"resolves 2026-07-22"}
+    awcases=[  # (decision_date, kill_criteria, today, expect: None=N/A, []=nothing due, [substr]=due-with)
+        ("2026-07-10",[_aw_open],"2027-04-01",["monitor event (2027-03-28)"]),  # bare month closes at its end
+        ("2026-07-10",[_aw_open],"2027-03-01",[]),                              # before the month closes → not due
+        ("2026-07-10",[_aw_iso],"2026-08-01",["monitor event (2026-07-22)"]),
+        ("2026-07-10",[_aw_iso],"2026-07-22",[]),                               # ON the due date → not yet overdue
+        ("2026-07-10",[_aw_via],"2026-08-01",["monitor event (2026-07-22)"]),   # monitor_via is also read
+        ("2026-07-10",[_aw_undate],"2030-01-01",[]),                            # no dateable text → never flagged
+        ("2026-07-10",[_aw_str],"2030-01-01",[]),                               # legacy plain-string entry → never flagged
+        ("2026-07-10",[_aw_nomonitor],"2030-01-01",[]),                         # dict with no monitor text → never flagged
+        ("2026-07-10",[_aw_baddate],"2027-01-01",[]),                           # invalid calendar date → undateable
+        ("2026-07-10",[],"2026-08-01",None),                                    # empty → N/A
+        ("2026-07-10",5,"2026-08-01",None),                                     # malformed (non-list) → N/A
+        ("2026-07-10",[_aw_open],"nonsense",None),                              # unusable clock → N/A
+    ]
+    for _dd,_kc,_td,_want in awcases:
+        got=eval_aw_kill_criteria_overdue(_dd,_kc,_td)
+        if _want is None:
+            ok = got is None
+        else:
+            ok = got is not None and len(got)==len(_want) and all(any(w in g for g in got) for w in _want)
+        print(("  [ok] " if ok else "  [BAD] ")+f"AW({_dd!r},today={_td!r}) -> {got!r} (want {_want!r})")
+        if not ok: bad+=1
+
     for dt_,fl_,exp in aocases:
         got=eval_ao_forecast_resolvability(dt_,fl_)
         if exp is None: ok=(got is None)
@@ -3079,7 +3159,7 @@ if scope=="selftest":
     # AP — valuation-summary lever-sidecar integrity: reuse the module's own fixture-free selftest (DRY),
     # covering soft-presence, structure, blend, and the decision_record non-contradiction check.
     if _vs_selftest() != 0: bad += 1
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV cases + AP lever-sidecar (module selftest)")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -4054,6 +4134,15 @@ for drp in runs:
                       "note":"the ledger owes a resolution — run /research:review-decisions for this ticker "
                              "(§19: a forecast that cannot be checked later is not a forecast); informational "
                              "only, does not affect pass/gate_eligible/suite_pass"})
+    # AW: kill criteria whose own named monitor event has ELAPSED, with no outcome review on file.
+    # Advisory by construction — same reason as AS: overdue-ness is the calendar, not a defect in the run.
+    _awr=eval_aw_kill_criteria_overdue(ddte,d.get("kill_criteria"),TODAY)
+    if _awr:
+        retro.append({"check":"AW_kill_criteria_overdue","status":"DUE","detail":"; ".join(_awr),
+                      "note":"a kill criterion's own named monitor event has passed — run "
+                             "/research:review-decisions for this ticker and record it in risk_results "
+                             "(§8: disconfirming evidence is a required test, not a closing caveat); "
+                             "informational only, does not affect pass/gate_eligible/suite_pass"})
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
