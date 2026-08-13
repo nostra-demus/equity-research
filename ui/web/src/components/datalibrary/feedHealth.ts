@@ -140,6 +140,28 @@ export function pipelineIsUsable(pipeline: PipelineEntry, subject?: string): boo
   return statuses.length > 0 && statuses.every((s) => s.status === 'fresh' && USABLE_HEALTH.has(feedHealthOf(s)))
 }
 
+/**
+ * A first sweep is a queue state, not 27 independent incidents.  Keep this classification at the display
+ * boundary: the server must still report the feeds as non-usable for sufficiency until a real sweep validates
+ * them, but the operations UI should reserve "Action required" for an actual source/data failure.
+ */
+export function pipelineIsWaitingForFirstCheck(pipeline: PipelineEntry): boolean {
+  // `unknown` is what a host without the shared pool reports.  Its default never_run rows are not proof that
+  // the doer is waiting; only the server's observable `attention` projection may enter this display bucket.
+  if (pipeline.verdict !== 'attention') return false
+  if (!pipeline.statuses.length) return false
+  let waiting = false
+  for (const status of pipeline.statuses) {
+    const health = feedHealthOf(status)
+    if (health === 'never_run' || health === 'pending') {
+      waiting = true
+      continue
+    }
+    if (!USABLE_HEALTH.has(health) || status.status !== 'fresh' || status.projectionIntact === false) return false
+  }
+  return waiting
+}
+
 export interface RepairDisplay {
   label: string
   row: string

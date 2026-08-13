@@ -14,6 +14,7 @@ import { latestRepairStatus, latestRepairStatusForSubject, type RepairStatus } f
 import { feedHealthOf, readFeedHealth, type FeedHealth, type FeedHealthState } from './feed-health'
 import { listSwarms } from './swarms'
 import { swarmSubjects } from './roster'
+import { readConnectorFetchServiceStatus, type ConnectorFetchServiceStatus } from './connector-service-status'
 
 export interface PipelineSubjectStatus {
   subject: string
@@ -99,6 +100,9 @@ export interface RunnerStatus {
   autoRepairOn: boolean
   pollIntervalMin: number
   lastFetchSweepAt: string | null
+  // Positive OS-service proof from the runner-owned heartbeat.  Kept separate from the repair watchdog
+  // above: connector code can be healthy while the scheduler is stopped, and vice versa.
+  fetcher: ConnectorFetchServiceStatus
 }
 
 /**
@@ -397,6 +401,7 @@ export function readPipelines(force = false): PipelinesRead {
     }
   }
 
+  const fetcher = readConnectorFetchServiceStatus(poolAvailable)
   const read: PipelinesRead = {
     generatedAt: new Date().toISOString(),
     poolAvailable,
@@ -407,7 +412,8 @@ export function readPipelines(force = false): PipelinesRead {
       watchdogOn: connectorRunnerReady(),
       autoRepairOn: repairAutomationAvailable,
       pollIntervalMin: CONNECTOR_RUNNER.pollIntervalMin,
-      lastFetchSweepAt,
+      lastFetchSweepAt: fetcher.lastCompletedAt ?? lastFetchSweepAt,
+      fetcher,
     },
   }
   cache = { at: Date.now(), read }

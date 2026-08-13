@@ -14,6 +14,7 @@ import {
   ledgerIntegrityWarningOf,
   repairForSubject,
   REPAIR_DISPLAY,
+  pipelineIsWaitingForFirstCheck,
   worstPipelineRepair,
   worstPipelineStatus,
 } from './feedHealth'
@@ -55,8 +56,8 @@ function ago(iso: string | null): string {
   return h < 24 ? `${h}h ago` : `${Math.round(h / 24)}d ago`
 }
 
-function VerdictBadge({ verdict, title }: { verdict: PipelineVerdict; title?: string }) {
-  return <span className="datalib__verdict" data-v={verdict} title={title}>{VERDICT_LABEL[verdict]}</span>
+function VerdictBadge({ verdict, title, label, tone }: { verdict: PipelineVerdict; title?: string; label?: string; tone?: string }) {
+  return <span className="datalib__verdict" data-v={tone ?? verdict} title={title}>{label ?? VERDICT_LABEL[verdict]}</span>
 }
 
 function StatusDot({ status, feed }: { status: string; feed?: PipelineSubjectStatus }) {
@@ -78,8 +79,9 @@ function helpsLine(p: PipelineEntry): string {
     const more = p.helps.length > 1 ? ` · +${p.helps.length - 1} more` : ''
     return `feeds ${h.subject} · ${h.entry_modules.join(', ') || h.swarm} — ${h.series}${more}`
   }
-  if (p.satisfies.length) return `feeds: ${p.satisfies.join(', ')}`
-  return `feeds ${p.subjects.join(', ')}`
+  // Semantic need IDs are machine join keys, not useful operator copy.  When there is no plain-English
+  // `helps` row, the subject chips above already say what this feed covers.
+  return ''
 }
 
 /** The most recent dated subject (ISO dates sort lexicographically) — never the first one that has a date. */
@@ -94,10 +96,13 @@ function WiredRow({ p, onOpen }: { p: PipelineEntry; onOpen: () => void }) {
   const ledgerWarning = ledgerIntegrityWarningOf(p.statuses)
   const repairState = worstPipelineRepair(p)
   const repair = REPAIR_DISPLAY[repairState.repair.status]
+  const waiting = pipelineIsWaitingForFirstCheck(p)
+  const help = helpsLine(p)
   return (
-    <button className={`datalib__row datalib__row--${p.verdict}`} onClick={onOpen}>
+    <button className={`datalib__row datalib__row--${waiting ? 'waiting' : p.verdict}`} onClick={onOpen}>
       <span className={`datalib__dot${p.verdict === 'live' ? ' datalib__dot--live' : ''}`}
-        style={{ background: VERDICT_TONE[p.verdict] }} aria-label={VERDICT_LABEL[p.verdict]} />
+        style={{ background: waiting ? 'var(--text-faint)' : VERDICT_TONE[p.verdict] }}
+        aria-label={waiting ? 'Waiting' : VERDICT_LABEL[p.verdict]} />
       <div className="datalib__rowbody">
         <div className="datalib__series">{p.series}</div>
         <div className="datalib__chips">
@@ -106,12 +111,13 @@ function WiredRow({ p, onOpen }: { p: PipelineEntry; onOpen: () => void }) {
           <span className="chip">{CADENCE_LABEL[p.cadence] ?? p.cadence}</span>
           {p.subjects.map((s) => <span key={s} className="chip datalib__chip--subj">{s}</span>)}
         </div>
-        <div className="datalib__helps">{p.verdictNote}</div>
-        <div className="datalib__fine">{helpsLine(p)}</div>
+        {!waiting && p.verdictNote && <div className="datalib__helps">{p.verdictNote}</div>}
+        {help && <div className="datalib__fine">{help}</div>}
       </div>
       <div className="datalib__rowmeta">
-        <VerdictBadge verdict={p.verdict} title={worst && worstHealth ? `${worst.subject}: ${worstHealth.label} — ${worstHealth.hint}` : undefined} />
-        {worstHealth && <span title={worstHealth.hint}>{worstHealth.label}</span>}
+        <VerdictBadge verdict={p.verdict} label={waiting ? 'Waiting' : undefined} tone={waiting ? 'waiting' : undefined}
+          title={worst && worstHealth ? `${worst.subject}: ${worstHealth.label} — ${worstHealth.hint}` : undefined} />
+        {worstHealth && !waiting && <span title={worstHealth.hint}>{worstHealth.label}</span>}
         {ledgerWarning && <span className="chip" title={ledgerWarning}>Ledger warning</span>}
         <span className="datalib__asof" title="latest as-of in the pool (from the filename, never mtime)">
           {latest?.latestAsOf ? `${latest.latestAsOf}${typeof latest.ageDays === 'number' ? ` · ${latest.ageDays}d` : ''}` : 'no file yet'}
@@ -184,6 +190,7 @@ function RecommendedRow({ r, pipelines, canScan, canBuild, onBuild, onOpenExisti
 function PipelineDetail({ p, poolAvailable }: { p: PipelineEntry; poolAvailable: boolean }) {
   const back = useStore((s) => s.setDlSelected)
   const ledgerWarning = ledgerIntegrityWarningOf(p.statuses)
+  const waiting = pipelineIsWaitingForFirstCheck(p)
   const subjectRepairs = p.subjects.map((subject) => ({ subject, repair: repairForSubject(p, subject) }))
     .filter(({ repair }) => repair.status !== 'none')
   return (
@@ -195,8 +202,8 @@ function PipelineDetail({ p, poolAvailable }: { p: PipelineEntry; poolAvailable:
         </div>
         <div className="datalib__series datalib__series--lg">{p.series}</div>
         <div className="datalib__verdictline">
-          <VerdictBadge verdict={p.verdict} />
-          <span className="datalib__why">{p.verdictNote}</span>
+          <VerdictBadge verdict={p.verdict} label={waiting ? 'Waiting' : undefined} tone={waiting ? 'waiting' : undefined} />
+          <span className="datalib__why">{waiting ? 'Waiting for the Mac data service to complete its first check.' : p.verdictNote}</span>
         </div>
         {!poolAvailable && (
           <div className="datalib__banner">the data pool isn’t mounted on this host — freshness and fetch health are computed on the always-on machine</div>
@@ -314,8 +321,9 @@ function HealthStrip({ pipelines, poolAvailable, runner }: {
   runner?: RunnerStatus
 }) {
   const live = pipelines.filter((p) => p.verdict === 'live').length
-  const attention = pipelines.filter((p) => p.verdict === 'attention').length
-  const broken = pipelines.filter((p) => p.verdict === 'broken').length
+  const waiting = pipelines.filter(pipelineIsWaitingForFirstCheck).length
+  const action = pipelines.filter((p) => !pipelineIsWaitingForFirstCheck(p)
+    && (p.verdict === 'attention' || p.verdict === 'broken')).length
   if (!poolAvailable) {
     return (
       <div className="datalib__health">
@@ -326,33 +334,59 @@ function HealthStrip({ pipelines, poolAvailable, runner }: {
       </div>
     )
   }
+  const fetcher = runner?.fetcher
+  const fetcherState = String(fetcher?.state || 'unknown')
+  // Positive match only: a newer server state must never fall through to a green certificate on an older UI.
+  const serviceHealthy = fetcher && (fetcherState === 'online' || fetcherState === 'running')
+  const serviceIncident = fetcher && !serviceHealthy
+  const recoveryCopy = fetcherState === 'late'
+    ? 'Mac watchdog will restart it'
+    : fetcherState === 'failed' || fetcherState === 'not_started'
+      ? 'Mac scheduler will retry automatically'
+      : fetcherState === 'unknown'
+        ? 'automatic restart paused for safety'
+        : serviceIncident
+          ? 'automatic action paused until this state is understood'
+        : null
   return (
-    <div className="datalib__health">
-      <div className={`datalib__tally${live && !broken && !attention ? ' datalib__tally--good' : ''}`}>
-        <span className="datalib__tallynum">{live}</span><span>live</span>
+    <div className="datalib__healthwrap">
+      {fetcher && (
+        <div className={`datalib__service datalib__service--${serviceIncident ? 'incident' : 'good'}`} role="status">
+          <span className="datalib__serviceicon" aria-hidden>{serviceIncident ? '!' : fetcherState === 'running' ? '↻' : '✓'}</span>
+          <div className="datalib__servicecopy">
+            <strong>{serviceIncident ? 'Data service needs attention' : fetcherState === 'running' ? 'Data service is checking feeds' : 'Data service online'}</strong>
+            <span>{fetcher.note}{serviceIncident && waiting
+              ? ` This is one service incident; ${waiting} ${waiting === 1 ? 'feed is' : 'feeds are'} waiting, not ${waiting} separate connector ${waiting === 1 ? 'failure' : 'failures'}.`
+              : ''}</span>
+          </div>
+          <div className="datalib__servicemeta">
+            {fetcher.host ? `${fetcher.host} · ` : ''}{fetcher.lastProgressAt ? `checked in ${ago(fetcher.lastProgressAt)}` : 'no check-in yet'}
+            {recoveryCopy ? ` · ${recoveryCopy}` : ` · every ${fetcher.intervalMin} min`}
+          </div>
+        </div>
+      )}
+      <div className="datalib__health">
+        <div className={`datalib__tally${live && !action && !waiting ? ' datalib__tally--good' : ''}`}>
+          <span className="datalib__tallynum">{live}</span><span>live</span>
+        </div>
+        {waiting > 0 && (
+          <div className="datalib__tally">
+            <span className="datalib__tallynum">{waiting}</span><span>waiting for first check</span>
+          </div>
+        )}
+        {action > 0 && (
+          <div className="datalib__tally datalib__tally--bad">
+            <span className="datalib__tallynum">{action}</span><span>action required</span>
+          </div>
+        )}
+        {!action && !waiting && pipelines.length > 0 && (
+          <div className="datalib__fine">every wired feed is fetching cleanly and inside its freshness window</div>
+        )}
+        {/* §5: an older engine sends no fetcher block. Its empirical ledger time is still safe to show. */}
+        {!fetcher && runner && (
+          <div className="datalib__sweep">{runner.lastFetchSweepAt ? `last fetch sweep ${ago(runner.lastFetchSweepAt)}` : 'service status unavailable'}</div>
+        )}
       </div>
-      {attention > 0 && (
-        <div className="datalib__tally datalib__tally--warn">
-          <span className="datalib__tallynum">{attention}</span><span>need attention</span>
-        </div>
-      )}
-      {broken > 0 && (
-        <div className="datalib__tally datalib__tally--bad">
-          <span className="datalib__tallynum">{broken}</span><span>broken</span>
-        </div>
-      )}
-      {!attention && !broken && pipelines.length > 0 && (
-        <div className="datalib__fine">every wired feed is fetching cleanly and inside its freshness window</div>
-      )}
-      {/* §5: an older engine sends no runner block — say nothing rather than guess */}
-      {runner && (
-        <div className="datalib__sweep" title={runner.autoRepairOn
-          ? `a feed that fails repeatedly is sent to a coding agent automatically; the watchdog wakes every ${runner.pollIntervalMin} min`
-          : 'auto-repair is off on this server — a broken feed is reported here but not fixed on its own'}>
-          {runner.lastFetchSweepAt ? `last fetch sweep ${ago(runner.lastFetchSweepAt)}` : 'the fetcher has not run on this host yet'}
-          {runner.autoRepairOn ? ' · auto-repair on' : ''}
-        </div>
-      )}
     </div>
   )
 }
@@ -406,7 +440,9 @@ export function DataLibrary() {
     () => [...new Set([...pipelines.map((p) => String(p.tier)), ...recommended.map((r) => String(r.tier))])].sort(),
     [pipelines, recommended])
   const selected = selectedId ? pipelines.find((p) => p.id === selectedId) : undefined
-  const problems = useMemo(() => pipelines.filter((p) => p.verdict === 'attention' || p.verdict === 'broken').length, [pipelines])
+  const waiting = useMemo(() => pipelines.filter(pipelineIsWaitingForFirstCheck).length, [pipelines])
+  const action = useMemo(() => pipelines.filter((p) => !pipelineIsWaitingForFirstCheck(p)
+    && (p.verdict === 'attention' || p.verdict === 'broken')).length, [pipelines])
 
   const doRefresh = useCallback(() => {
     setSpin(true)
@@ -420,8 +456,8 @@ export function DataLibrary() {
     <motion.div className="pipeline datalib" initial={{ opacity: 0, x: '100%' }} animate={{ opacity: 1, x: 0 }} exit={{ x: '100%' }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
       <div className="pipeline__head">
         <div className="pipeline__titlewrap">
-          <div className="pipeline__title">Data library</div>
-          <div className="pipeline__sub">every feed pouring primary data into the pool — whether it is working, and what is still missing</div>
+          <div className="pipeline__title">Data</div>
+          <div className="pipeline__sub">See what is arriving, what needs attention, and what is still missing.</div>
         </div>
         <div className="pipeline__tools">
           <button className={`btn btn--ghost pipeline__refresh${spin ? ' is-spinning' : ''}`} onClick={doRefresh} title="Re-read the connector registry, pool freshness and fetch health">↻</button>
@@ -462,7 +498,8 @@ export function DataLibrary() {
                   <div className="seg" role="radiogroup" aria-label="Which feeds to show">
                     <button className={`seg__btn${!bucket ? ' seg__btn--on' : ''}`} role="radio" aria-checked={!bucket} onClick={() => setBucket({})}>All {pipelines.length + recommended.length}</button>
                     <button className={`seg__btn${bucket === 'live' ? ' seg__btn--on' : ''}`} role="radio" aria-checked={bucket === 'live'} disabled={!pipelines.some((p) => p.verdict === 'live')} onClick={() => setBucket({ verdict: bucket === 'live' ? '' : 'live' })}>Live {pipelines.filter((p) => p.verdict === 'live').length}</button>
-                    <button className={`seg__btn${bucket === 'problem' ? ' seg__btn--on' : ''}`} role="radio" aria-checked={bucket === 'problem'} disabled={!problems} onClick={() => setBucket({ verdict: bucket === 'problem' ? '' : 'problem' })}>Needs fixing {problems}</button>
+                    <button className={`seg__btn${bucket === 'action' ? ' seg__btn--on' : ''}`} role="radio" aria-checked={bucket === 'action'} disabled={!action} onClick={() => setBucket({ verdict: bucket === 'action' ? '' : 'action' })}>Action required {action}</button>
+                    <button className={`seg__btn${bucket === 'waiting' ? ' seg__btn--on' : ''}`} role="radio" aria-checked={bucket === 'waiting'} disabled={!waiting} onClick={() => setBucket({ verdict: bucket === 'waiting' ? '' : 'waiting' })}>Waiting {waiting}</button>
                     <button className={`seg__btn${bucket === 'recommended' ? ' seg__btn--on' : ''}`} role="radio" aria-checked={bucket === 'recommended'} disabled={!recommended.length} onClick={() => setBucket({ kind: bucket === 'recommended' ? '' : 'recommended' })}>Missing {recommended.length}</button>
                   </div>
                   <DataLibraryFilters value={filters} onChange={setFilters} subjects={subjects} cadences={cadences} tiers={tiers} />

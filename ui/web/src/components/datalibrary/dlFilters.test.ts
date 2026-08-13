@@ -57,6 +57,21 @@ check("verdict: 'live' keeps only live feeds; 'problem' keeps attention AND brok
   assert.equal(matchesDlPipeline(unknown, { ...emptyDlFilters(), verdict: 'problem' }), false, 'an unreadable pool is not a broken feed')
 })
 
+check("'waiting' separates first sweeps from real 'action' failures", () => {
+  const waiting = mkPipeline({
+    statuses: [{ subject: 'AAA', status: 'missing', health: 'never_run', failStreak: 0 }],
+    verdict: 'attention',
+  })
+  const stalled = mkPipeline({
+    statuses: [{ subject: 'AAA', status: 'stale', health: 'stalled', failStreak: 1 }],
+    verdict: 'attention',
+  })
+  assert.equal(matchesDlPipeline(waiting, { ...emptyDlFilters(), verdict: 'waiting' }), true)
+  assert.equal(matchesDlPipeline(waiting, { ...emptyDlFilters(), verdict: 'action' }), false)
+  assert.equal(matchesDlPipeline(stalled, { ...emptyDlFilters(), verdict: 'waiting' }), false)
+  assert.equal(matchesDlPipeline(stalled, { ...emptyDlFilters(), verdict: 'action' }), true)
+})
+
 check('a set verdict filter always excludes recommended (an unwired need has no feed health)', () => {
   assert.equal(matchesDlRecommended(mkRecommended(), { ...emptyDlFilters(), verdict: 'live' }), false)
   assert.equal(matchesDlRecommended(mkRecommended(), { ...emptyDlFilters(), verdict: 'problem' }), false)
