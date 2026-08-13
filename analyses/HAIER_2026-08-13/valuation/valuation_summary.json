@@ -1,0 +1,194 @@
+{
+  "schema_version": "1.4",
+  "ticker": "HAIER",
+  "as_of": "2026-08-13",
+  "currency": "CNY",
+  "business_type": "Operating",
+  "basis": "ev",
+  "shares": 9311.825848,
+  "net_debt": -24598.67,
+  "net_debt_basis": "broad",
+  "current_price": 21.75,
+  "price_as_of": "2026-08-12",
+  "price_state": "pool-verified",
+  "scenarios": [
+    {
+      "label": "bull",
+      "probability": null,
+      "forward_metric": 37967.4,
+      "metric_basis": "FY2026E EBITDA (consensus base + bull-case raw-material and China-demand uplifts)",
+      "multiple": 7.4,
+      "multiple_basis": "EV/FY2026E EBITDA",
+      "multiple_kind": "applied",
+      "basis": "ev",
+      "source": "07_scenario-and-fair-value.md §3 scenario table",
+      "level": 31.78,
+      "drivers": "Raw-material excess-cost growth reverts to 0pp AND China domestic demand partially recovers to +5% YoY; multiple expands to the quality-adjusted/own-history-mean ceiling (7.4x), not the full unadjusted peer median (9.71x). 12-month horizon."
+    },
+    {
+      "label": "base",
+      "probability": null,
+      "forward_metric": 30506.36,
+      "metric_basis": "FY2026E consensus EBITDA (Capital IQ)",
+      "multiple": 6.734,
+      "multiple_basis": "EV/FY2026E EBITDA (implied by the weighted triangulation across peers/DCF/SOTP, not a direct input)",
+      "multiple_kind": "implied",
+      "basis": "ev",
+      "source": "07_scenario-and-fair-value.md §2 weighted triangulation (CNY 23.67); cross-checked at CNY 23.56 by §3's direct forward-metric x 6.7x multiple build, a 0.5% gap",
+      "level": 23.67,
+      "drivers": "FY2026E consensus growth path holds roughly as guided (revenue +2.24%, EBITDA to ~CNY 30.5bn); multiple sits modestly above the current LTM print (6.75x) but well short of full reversion to 02's own mean (7.38x). 12-month horizon."
+    },
+    {
+      "label": "bear_cyclical",
+      "probability": null,
+      "forward_metric": 24072.0,
+      "metric_basis": "FY2026E EBITDA at FY2021-trough (5.91%) EBIT margin applied to FY2026E consensus revenue, plus FY2025 D&A ratio",
+      "multiple": 5.87,
+      "multiple_basis": "EV/FY2026E EBITDA (own-history 8-quarter low)",
+      "multiple_kind": "applied",
+      "basis": "ev",
+      "source": "07_scenario-and-fair-value.md §3 scenario table",
+      "level": 16.79,
+      "drivers": "Commodity-cost pressure, competitive intensity, and China property-cycle softness erase the SG&A-driven margin gains posted since FY2021; EBIT margin reverts fully to the company's own documented 5-year trough. 12-month horizon."
+    },
+    {
+      "label": "bear_structural",
+      "probability": null,
+      "forward_metric": null,
+      "metric_basis": null,
+      "multiple": null,
+      "multiple_basis": null,
+      "multiple_kind": null,
+      "basis": "ev",
+      "source": "07_scenario-and-fair-value.md §3 Structural-reset bridge (executed), reproducing 04_intrinsic-dcf.md §5's runoff scenario",
+      "level": 15.90,
+      "drivers": "Moat erosion continues without stabilizing: revenue growth cut to roughly half consensus, EBIT margin fades to 5.00% by FY2030 (below the FY2021 trough), gross margin fades to 23.8%, capex pulled back, CCC deteriorates to +30.0d. 24-36 month horizon.",
+      "derivation": {
+        "model": "ev_bridge",
+        "ev": 133070.5,
+        "net_debt": -24598.67,
+        "net_debt_basis": "broad (01 canonical)",
+        "minority": 9606.03,
+        "other": null,
+        "shares": 9311.825848,
+        "stated_drivers": [
+          {
+            "label": "FY2030 terminal EBITDA (structural runoff)",
+            "value": 23440.1,
+            "note": "CNY mn; from 04_intrinsic-dcf.md §5's dedicated structural-decline/runoff scenario"
+          },
+          {
+            "label": "exit multiple applied to terminal EBITDA",
+            "value": 5.0,
+            "note": "Undiscounted TV = 117,200.7 (23,440.1 x 5.0); PV(TV) = 97,795.1 discounted at WACC 4.10%, added to PV(explicit runoff FCF) = 35,275.4 to reach ev=133,070.5 -- the mapping is a full discounted chain, not a bare metric x multiple product, so it is recorded here as provenance rather than as the scenario-level multiple field"
+          }
+        ],
+        "source": "07_scenario-and-fair-value.md §3 Structural-reset bridge (executed); reproduced from 04_intrinsic-dcf.md §5"
+      }
+    }
+  ],
+  "methods": {
+    "own_history": null,
+    "peers": 22.08,
+    "dcf": 29.84,
+    "sotp": 23.86
+  },
+  "method_weights": {
+    "own_history": 0.0,
+    "peers": 0.68,
+    "dcf": 0.17,
+    "sotp": 0.15
+  },
+  "method_basis": {
+    "own_history": "LTM",
+    "peers": "LTM",
+    "dcf": "5yr explicit FCFF forecast (FY2026E-FY2030E) + exit-multiple terminal",
+    "sotp": "FY+1"
+  },
+  "method_weight_exception": null,
+  "discount_rate": {
+    "rf": 0.017,
+    "erp": 0.065,
+    "beta": 0.46,
+    "cost_of_equity": 0.0469,
+    "wacc": 0.041045,
+    "after_tax_kd": 0.01459
+  },
+  "is_developed_mega_cap": false,
+  "dcf_grid": null,
+  "sotp_segments": [
+    {
+      "segment": "Refrigerators/Freezers",
+      "metric_name": "FY2026E segment EBIT",
+      "metric": 6658.7,
+      "multiple": 3.48,
+      "comp": "Hisense Home Appliances Group (SZSE:000921)",
+      "source": "06_sum-of-the-parts.md §2-§3"
+    },
+    {
+      "segment": "Kitchen Appliances",
+      "metric_name": "FY2026E segment EBIT",
+      "metric": 3150.2,
+      "multiple": 7.80,
+      "comp": "Hangzhou Robam Appliances (SZSE:002508)",
+      "source": "06_sum-of-the-parts.md §2-§3"
+    },
+    {
+      "segment": "Air Solutions",
+      "metric_name": "FY2026E segment EBIT",
+      "metric": 2549.1,
+      "multiple": 4.86,
+      "comp": "Gree Electric Appliances (SZSE:000651)",
+      "source": "06_sum-of-the-parts.md §2-§3"
+    },
+    {
+      "segment": "Home Laundry Care Solutions",
+      "metric_name": "FY2026E segment EBIT",
+      "metric": 7183.5,
+      "multiple": 12.71,
+      "comp": "Midea Group (SZSE:000333)",
+      "source": "06_sum-of-the-parts.md §2-§3"
+    },
+    {
+      "segment": "Household Water Solutions",
+      "metric_name": "FY2026E segment EBIT",
+      "metric": 2633.0,
+      "multiple": 11.98,
+      "comp": "A.O. Smith Corp. (NYSE:AOS)",
+      "source": "06_sum-of-the-parts.md §2-§3"
+    },
+    {
+      "segment": "Other Business",
+      "metric_name": "FY2026E segment EBIT",
+      "metric": 385.5,
+      "multiple": 6.51,
+      "comp": "Guangdong Xinbao Electrical Appliances (SZSE:002705)",
+      "source": "06_sum-of-the-parts.md §2-§3"
+    }
+  ],
+  "sotp_bridge": {
+    "net_debt": -24598.67,
+    "minority": 9606.03,
+    "other": 21697.25,
+    "source": "06_sum-of-the-parts.md §4 Equity Bridge"
+  },
+  "peers_internals": {
+    "metric_name": "EV/LTM EBITDA",
+    "median_multiple": 9.71,
+    "applied_multiple": 7.35,
+    "discount_pct": 24.3,
+    "anchors": [
+      {
+        "multiple": 7.35,
+        "value": 22.08,
+        "label": "quality-adjusted (base case)"
+      },
+      {
+        "multiple": 9.71,
+        "value": 28.67,
+        "label": "peer-median unadjusted"
+      }
+    ],
+    "source": "03_relative-valuation-peers.md §5 Implied Value from Peer Multiples table"
+  }
+}

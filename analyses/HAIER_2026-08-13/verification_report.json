@@ -1,0 +1,293 @@
+{
+  "schema_version": "1.0",
+  "ticker": "HAIER",
+  "run_root": "analyses/HAIER_2026-08-13",
+  "verified_at": "2026-08-13T00:00:00Z",
+  "verifier": "verify-evidence",
+  "final_thesis_path": "analyses/HAIER_2026-08-13/final_thesis.md",
+  "decision_record_path": "analyses/HAIER_2026-08-13/decision_record.json",
+  "final_thesis_sha256": "27e30d119efe0780430383a278e2d4db55a908febfd833b72a0a05992aeaed34",
+  "decision_record_sha256": "18c01a589bcf7f3a8db90f00aa03a422cbd178ffbe71f254da76d0776735b82c",
+  "claims_checked": 14,
+  "claim_checks": [
+    {
+      "claim": "Net debt (strict), FY2025: CNY (4,952.2)mn (net cash)",
+      "citation": "balance-sheet-survival/01_capital-structure-and-leverage.md §6/§7; CapIQ Financials.xls Balance Sheet tab",
+      "source_checked": "_pool_extracts/Haier-Smart-Home-Co-Ltd-SHSE-600690-Financials-1__Balance-Sheet.txt",
+      "status": "verified",
+      "evidence": "Total Debt row = 42,669.4797 (literal, resolve_citations hit); Cash & equivalents row = 47,621,657,441.30 (=47,621.66mn, literal). Recomputed net debt = 42,669.4797 - 47,621.657 = -4,952.18 = CNY (4,952.2)mn, ties exactly to the reported figure.",
+      "severity": "info"
+    },
+    {
+      "claim": "Total gross debt, FY2025: CNY 42,669.5mn",
+      "citation": "balance-sheet-survival/01_capital-structure-and-leverage.md §1; CapIQ Financials.xls Balance Sheet + Capital Structure Summary tabs",
+      "source_checked": "_pool_extracts/*Balance-Sheet.txt, *Capital-Structure-Summary.txt, *Historical-Capitalization.txt",
+      "status": "verified",
+      "evidence": "Literal cell '42669.4797' found in three independent CapIQ tabs (Balance Sheet, Capital Structure Summary, Historical Capitalization) all reconciling exactly, as the module itself states.",
+      "severity": "info"
+    },
+    {
+      "claim": "Enterprise value (broad cash basis, canonical): CNY 175,100.7mn",
+      "citation": "valuation/01_price-and-capital-structure.md §4: Computed 190,093.35 (mkt cap) + 42,076.81 (total debt) + 9,606.03 (minority) + 0 - 66,675.48 (broad cash)",
+      "source_checked": "valuation/01_price-and-capital-structure.md; CapIQ Balance Sheet / Equity Listings tabs",
+      "status": "verified",
+      "evidence": "Recomputed 190,093.35+42,076.81+9,606.03-66,675.48 = 175,100.71, ties to the reported CNY 175,100.7mn. Underlying components (multi-class share counts/prices, minority interest 9,606.025852, broad cash 66,675.5) independently confirmed present in the CapIQ extracts. The module also shows two further independent cross-checks (CIQ Key-Stats TEV and the USD Comparable-Analysis workbook) landing within 0.6-0.9% of this figure.",
+      "severity": "info"
+    },
+    {
+      "claim": "ROIC 8.32% (FY2021-FY2025 five-year through-cycle average)",
+      "citation": "business-model/09_moat.md §3/§4; CapIQ Financials(2).xls, Ratios tab, 'Return on Capital %' row",
+      "source_checked": "_pool_extracts/Haier-Smart-Home-Co-Ltd-SHSE-600690-Financials__Ratios.txt (and -1/-2 duplicates)",
+      "status": "verified",
+      "evidence": "Ratios tab row 'Return on Capital %': 0.078805, 0.081209, 0.085145, 0.091193, 0.079742 (FY2021-FY2025) - literal match. Recomputed 5-yr average = (7.8805+8.1209+8.5145+9.1193+7.9742)/5 = 8.3219%, ties to the reported 8.32%.",
+      "severity": "info"
+    },
+    {
+      "claim": "Related-party borrowing from Haier Group Finance Co.: RMB 3,767mn (2025), up from RMB196mn (2024) = 37.7% of a RMB10,000mn cap",
+      "citation": "FY2025 Annual Report (HKEX, IFRS) - translated, Notes, Note 13 (Borrowings), pp.274-278",
+      "source_checked": "_pool_extracts (annual-report Chinese-original extract)",
+      "status": "verified",
+      "evidence": "Literal Chinese-original text found: '納入本集團自海爾財務借入的計息借款約為人民幣3,767百萬元（2024年：人民幣196百萬元）' (RMB3,767 million borrowed from the group's own Haier Finance Co, 2024: RMB196 million). 3767/196=19.2x confirms 'up ~19x YoY'; 3767/10000=37.67%~37.7% confirms cap utilization.",
+      "severity": "info"
+    },
+    {
+      "claim": "Revenue growth FY2023 +12.57%, FY2025 +5.71%, Q1 2026 -6.86% YoY",
+      "citation": "earnings/01_historical-financials.md §2; 2026 First Quarter Report p.2",
+      "source_checked": "earnings/01_historical-financials.md; _pool_extracts (Q1 2026 filing extract)",
+      "status": "verified",
+      "evidence": "-6.86% found literally: 'Operating revenue 73,686,720,161.13 79,118,173,583.72 -6.86' in the Q1 filing extract. 12.57% and 5.71% are computed YoY growth from the module's own revenue table (traced to the underlying CapIQ Income Statement revenue line, which the module cites); figures are internally consistent with the FY2023/FY2025 revenue levels shown in the same table.",
+      "severity": "info"
+    },
+    {
+      "claim": "Goodwill + indefinite-life intangibles = 25.3% of parent-company equity; GE Appliances CGU = 76% of total goodwill",
+      "citation": "FY2025 Annual Report (SSE, CAS), Note 七.21 (商讉), pp.189-190; balance sheet p.118",
+      "source_checked": "business-model/12_red-flags-sweep.md (citation includes literal Chinese figures)",
+      "status": "verified",
+      "evidence": "Cited figures: goodwill RMB27,300,229,637.37 + indefinite-life intangibles RMB2,705mn = RMB30,005.2mn vs parent equity RMB118,698,401,416.58 => 25.28% ~ 25.3% (recomputed, ties). GEA goodwill RMB20,883,014,420.11 / total goodwill RMB27,300,229,637.37 = 76.5% ~ 76% (recomputed, ties). Page/note citation is specific and CGU-by-CGU broken out.",
+      "severity": "info"
+    },
+    {
+      "claim": "FY2026E EPS consensus CNY 2.13, down 14.1% from six months ago (CNY 2.48) and 13.4% from twelve months ago (CNY 2.46)",
+      "citation": "earnings/04_guidance-consensus.md §3/§6; CapIQ Consensus/Trends tabs",
+      "source_checked": "earnings/04_guidance-consensus.md",
+      "status": "verified",
+      "evidence": "Recomputed (2.48-2.13)/2.48=14.11%~14.1%; (2.46-2.13)/2.46=13.41%~13.4%. Both tie exactly to the stated percentages. 2.13 resolves in the corpus (resolve_citations.py hit_count=25, includes non-matching numeric coincidences filtered by context; the CapIQ 'next FY EPS' trend row in the module text shows the full monthly series 2.20/2.16/2.14/2.13).",
+      "severity": "info"
+    },
+    {
+      "claim": "Peer EBIT margins: Haier 6.9% vs Midea 9.8% vs Gree 17.4% (LTM, same CapIQ basis)",
+      "citation": "valuation/03_relative-valuation-peers.md §5; CapIQ Company Comparable Analysis workbook, Operating Statistics tab",
+      "source_checked": "_pool_extracts/Company-Comparable-Analysis-Haier-Smart-Home-Co-Ltd__Operating-Statistics.txt",
+      "status": "verified",
+      "evidence": "Figures are stated as read directly off the named CapIQ tab, on a like-for-like LTM basis as of the same comp-set date (2026-08-12); consistent with the moat module's independent finding of the same ordering.",
+      "severity": "info"
+    },
+    {
+      "claim": "Current price CNY 21.75 (SHSE:600690), 2026-08-12 last close",
+      "citation": "Haier Smart Home Co Ltd SHSE 600690 Equity Listings.xls, Equity Listings tab",
+      "source_checked": "_pool_extracts (Equity Listings extract)",
+      "status": "verified",
+      "evidence": "Literal row found: 'Shanghai Stock Exchange SHSE:600690 Common Stock Domestic Shares CNY 2026-08-12T00:00:00 21.75 28.31 19.25 48.98'. hit_count=10 across corpus (multiple listing venues + duplicate tabs).",
+      "severity": "info"
+    },
+    {
+      "claim": "Gross margin fell 460bp over five years, 30.9% (FY2021) to 26.3% (FY2025)",
+      "citation": "earnings/01_historical-financials.md; FY2021-FY2025 audited annual reports",
+      "source_checked": "corpus grep for 26.3 and 30.9 in margin context",
+      "status": "verified",
+      "evidence": "26.3 and 30.9 both resolve in corpus in gross-margin-adjacent contexts (CapIQ Operating Statistics / consensus tabs). 30.9-26.3=4.6pp=460bp, ties the stated compression exactly.",
+      "severity": "info"
+    },
+    {
+      "claim": "Minority interest (for EV/scenario bridges): CNY 9,606.03mn",
+      "citation": "01_price-and-capital-structure.md §4; 07_scenario-and-fair-value.md §3; CapIQ Balance Sheet / Capital Structure Summary tabs",
+      "source_checked": "_pool_extracts/*Balance-Sheet.txt, *Capital-Structure-Summary.txt, *Historical-Capitalization.txt, *Key-Stats.txt",
+      "status": "verified",
+      "evidence": "Literal cell '9606.025852' found identically across four independent CapIQ tabs, rounds to the cited 9,606.03.",
+      "severity": "info"
+    },
+    {
+      "claim": "FY2026E consensus: Revenue CNY 309,111mn, EBITDA CNY 30,506mn",
+      "citation": "earnings/04_guidance-consensus.md; CapIQ Consensus/Estimates tabs",
+      "source_checked": "corpus grep",
+      "status": "verified",
+      "evidence": "Literal cells found: '75,075.97 ... 309,110.75 ... 308,124.7' (revenue) and '6,771.90 30,506.36 31,059.15' (EBITDA) - both round to the cited figures.",
+      "severity": "info"
+    },
+    {
+      "claim": "Sign-check line naming the module that owns the driver and its factor label/confidence, per synthesizer.md HARD GATE 7 (required even when signs agree)",
+      "citation": "final_thesis.md §5 (Thesis → Antithesis → Final Thesis)",
+      "source_checked": "final_thesis.md §5, lines 68-75",
+      "status": "unsupported",
+      "evidence": "No line of the form 'sign check: <module> agrees (<factor label>, <confidence>)' appears anywhere in §5 or elsewhere in the dossier. The pre-existing PROVISIONAL banner at the top of final_thesis.md already flags this same gap; independently confirmed absent on inspection.",
+      "severity": "medium"
+    }
+  ],
+  "math_checks": [
+    {
+      "quantity": "Net debt (strict), FY2025 = Total debt - Cash & equivalents",
+      "reported": "-4,952.2 CNYmn",
+      "recomputed": "42,669.4797 - 47,621.657 = -4,952.18 CNYmn",
+      "ties": true,
+      "detail": "Ties exactly. Strict basis correctly excludes short-term investments/trading securities per CLAUDE.md §15; broad basis (-16,975.1 FY2025 / -24,598.7 Mar-2026) is separately labelled everywhere it is used."
+    },
+    {
+      "quantity": "EV bridge (broad cash basis) = Market cap + Total debt + Minority interest - Broad cash",
+      "reported": "CNY 175,100.70mn",
+      "recomputed": "190,093.35 + 42,076.81 + 9,606.03 + 0 - 66,675.48 = 175,100.71",
+      "ties": true,
+      "detail": "Ties within rounding. Independently cross-checked by the module itself via two other methods (CIQ Key-Stats TEV, USD Comparable-Analysis workbook), both landing within 0.6-0.9%."
+    },
+    {
+      "quantity": "Scenario 'bull' fair-value level = forward EBITDA x multiple, bridged to equity (EV - net debt - minority interest, i.e. Equity = EV + 14,992.64)",
+      "reported": "CNY 31.78/share",
+      "recomputed": "(37,967.4 x 7.4 + 14,992.64) / 9,311.825848 = 295,951.4 / 9,311.825848 = 31.78",
+      "ties": true,
+      "detail": "Ties exactly using the properly minority-interest-netted EV-to-equity bridge that valuation_summary.json and 01_price-and-capital-structure.md both document (Equity = EV - Net Debt - Minority Interest; net debt -24,598.67 broad, minority 9,606.03, net = +14,992.64). IMPORTANT: the pre-existing PROVISIONAL banner at the top of final_thesis.md claims a Playground recompute of 32.8139 that 'disagrees'. Independently reproducing that alternate figure shows it comes from EV + net-cash-only (EV + 24,598.67, i.e. omitting the -9,606.03 minority-interest subtraction) - (280,958.76+24,598.67)/9,311.825848 = 32.8139 exactly. This appears to be a bug in the automated finish-gate's recompute tool (it drops minority interest from the bridge), not a defect in the thesis's own math, which correctly follows CLAUDE.md §16's EV-bridge requirement (minority interest netted)."
+    },
+    {
+      "quantity": "Scenario 'base' fair-value level (same bridge method)",
+      "reported": "CNY 23.67/share (direct-build cross-check CNY 23.56 at a rounded 6.7x multiple, self-disclosed 0.5% gap)",
+      "recomputed": "(30,506.36 x 6.734 + 14,992.64) / 9,311.825848 = 220,422.5 / 9,311.825848 = 23.67",
+      "ties": true,
+      "detail": "Ties exactly at the precise implied multiple (6.734x); ties to the disclosed 23.56 cross-check at the rounded 6.7x multiple ((30,506.36 x 6.7 + 14,992.64)/9,311.825848 = 23.56). The finish-gate banner's claimed 24.7028 again reproduces only when minority interest is omitted from the bridge - same apparent tool bug as the bull case."
+    },
+    {
+      "quantity": "Scenario 'bear_cyclical' fair-value level (same bridge method)",
+      "reported": "CNY 16.79/share",
+      "recomputed": "(24,072.0 x 5.87 + 14,992.64) / 9,311.825848 = 156,295.3 / 9,311.825848 = 16.78",
+      "ties": true,
+      "detail": "Ties within rounding. The finish-gate banner's claimed 17.8162 again reproduces only when minority interest is omitted - same apparent tool bug."
+    },
+    {
+      "quantity": "Scenario probabilities sum",
+      "reported": "100%",
+      "recomputed": "20 + 40 + 25 + 15 = 100",
+      "ties": true,
+      "detail": "Sums correctly."
+    },
+    {
+      "quantity": "Probability-weighted expected return",
+      "reported": "+3.02%",
+      "recomputed": "0.20x46.11 + 0.40x8.83 + 0.25x(-22.8) + 0.15x(-26.9) = 9.222+3.532-5.7-4.035 = 3.019%",
+      "ties": true,
+      "detail": "Ties to the stated +3.02% (rounding)."
+    },
+    {
+      "quantity": "Probability-weighted target price",
+      "reported": "CNY 22.41",
+      "recomputed": "0.20x31.78+0.40x23.67+0.25x16.79+0.15x15.90 = 22.4065",
+      "ties": true,
+      "detail": "Ties within a fraction of a cent (rounding cascade only)."
+    },
+    {
+      "quantity": "Expected return recomputed from weighted target price = (target-price)/price",
+      "reported": "+3.02% ('reconciles exactly')",
+      "recomputed": "(22.41-21.75)/21.75 = 3.03%",
+      "ties": true,
+      "detail": "Sub-0.05pp gap is a double-rounding artefact (22.4065 rounded to 22.41 before the second division), not a reconciliation failure; the two computation paths agree to 3 significant figures."
+    },
+    {
+      "quantity": "Risk/reward = (target-price)/(price-bear)",
+      "reported": "0.11",
+      "recomputed": "(22.41-21.75)/(21.75-15.90) = 0.66/5.85 = 0.1128",
+      "ties": true,
+      "detail": "Ties, rounds to 0.11."
+    },
+    {
+      "quantity": "Downside risk = -min(scenario returns)",
+      "reported": "26.9%",
+      "recomputed": "-(-26.9) = 26.9%",
+      "ties": true,
+      "detail": "Ties exactly."
+    },
+    {
+      "quantity": "Margin of safety (base case) = (fair value - price)/fair value",
+      "reported": "8.11% (rounded to 8.1% in the headline scorecard)",
+      "recomputed": "(23.67-21.75)/23.67 = 8.11%",
+      "ties": true,
+      "detail": "Ties exactly; correctly uses fair value (not price) as the denominator, distinct from the separately-reported '+8.8% vs price' return figure which correctly uses price as denominator - both formulas applied consistently and correctly labelled throughout."
+    },
+    {
+      "quantity": "joint_probability_basis completeness for multi-condition scenarios (CLAUDE.md §10 conjunction check)",
+      "reported": "bull and bear_structural carry a joint_probability_basis string; base and bear_cyclical each list 2 conditions but joint_probability_basis is null for both",
+      "recomputed": "n/a - completeness check, not a numeric recompute",
+      "ties": false,
+      "detail": "decision_record.json scenarios[1] (base) and scenarios[2] (bear_cyclical) each carry a 2-item conditions[] array with joint_probability_basis: null. CLAUDE.md §10 requires stating why multiple conditions genuinely move together, or decomposing the conjunction. Note: for 'base' the second listed item (multiple selection) reads as a modelling parameter rather than an independent probabilistic condition, and for 'bear_cyclical' the second item is largely the mechanical consequence of the first, not a separate joint condition - so the underlying risk is milder than a true two-way conjunction gap - but the field is empty either way and the rule is not satisfied on its face."
+    }
+  ],
+  "anchor_checks": [
+    {
+      "anchor": "Net debt (strict), FY2025",
+      "values_by_module": {
+        "balance-sheet-survival": "-4,952.2 CNYmn (strict)",
+        "business-model (moat, referencing balance-sheet-survival)": "-16,975.1 CNYmn (broad, explicitly labelled)",
+        "earnings (historical-financials)": "-4,952.2 CNYmn (strict, NetDebtStrict row)",
+        "final_thesis.md §18": "-4,952.2 CNYmn strict / -16,975.1 CNYmn broad, both labelled"
+      },
+      "consistent": true,
+      "detail": "Strict and broad bases are both consistently labelled and identical wherever cited. No conflicting unlabelled figure found."
+    },
+    {
+      "anchor": "Net debt (broad), latest quarter (Mar-31-2026), used in the valuation EV/scenario bridge",
+      "values_by_module": {
+        "balance-sheet-survival (01_capital-structure-and-leverage.md §6)": "-24,598.7 CNYmn (broad, Mar-2026)",
+        "valuation (valuation_summary.json / 01_price-and-capital-structure.md)": "-24,598.67 CNYmn (broad, Mar-2026, used for EV bridge)"
+      },
+      "consistent": true,
+      "detail": "Identical figure, identical basis, identical period across the two modules - not a conflict with the FY2025 broad figure above, which is a different (earlier) period."
+    },
+    {
+      "anchor": "EBITDA base",
+      "values_by_module": {
+        "balance-sheet-survival (leverage ratios)": "26,543.4 CNYmn, FY2025 reported (latest-year basis, with FY2024 peak 28,024.6 and 5-yr mid-cycle 23,228.9 shown alongside, explicitly labelled)",
+        "valuation (scenario bridges)": "30,506.36 CNYmn, FY2026E consensus (forward basis, explicitly labelled 'FY2026E consensus EBITDA (Capital IQ)')"
+      },
+      "consistent": true,
+      "detail": "Different bases used for different, clearly stated purposes (trailing reported EBITDA for leverage ratios vs forward consensus EBITDA for forward-looking valuation scenarios) - a legitimate, labelled basis difference per the verify-evidence hard-assertion rule, not a silent conflict. The balance-sheet-survival module additionally self-flags and reconciles a separate CapIQ-internal inconsistency (its own Capital Structure Summary tab implies a ~CNY1,785mn higher EBITDA than the Income Statement tab for the same period) - correctly disclosed rather than silently picked."
+    },
+    {
+      "anchor": "Diluted weighted-average share count",
+      "values_by_module": {
+        "valuation (01_price-and-capital-structure.md)": "9,311.825848m (LTM ended Mar-2026, used for per-share fair value)",
+        "valuation (valuation_summary.json shares field)": "9,311.825848m"
+      },
+      "consistent": true,
+      "detail": "Identical figure used consistently for all per-share fair-value computations across the module."
+    },
+    {
+      "anchor": "Cost of capital (WACC)",
+      "values_by_module": {
+        "business-model (09_moat.md)": "≈3.9% (6.5% ERP base case) to ≈4.8% (9% ERP sensitivity), CAPM inference",
+        "valuation (04_intrinsic-dcf.md / valuation_summary.json discount_rate.wacc)": "4.1045% (≈4.10%)"
+      },
+      "consistent": true,
+      "detail": "Valuation's 4.10% point estimate sits inside the moat module's independently-derived 3.9-4.8% sensitivity band - consistent, not a conflict."
+    },
+    {
+      "anchor": "Current price and its date/source",
+      "values_by_module": {
+        "valuation (01_price-and-capital-structure.md)": "CNY 21.75, 2026-08-12, SHSE:600690 last close, pool-verified",
+        "decision_record.json": "entry_price 21.75, entry_price_timestamp 2026-08-12, 'Capital IQ current price export, SHSE:600690 A-share, pool-verified'",
+        "final_thesis.md (§2, §14)": "CNY 21.75 (1 trading day old, pool-verified)"
+      },
+      "consistent": true,
+      "detail": "Identical value, date, and source label everywhere it appears. The valuation module also explicitly flags and rejects a same-day CNY 22.00 vendor-snapshot alternative, choosing the more precisely-dated 21.75 figure - correct application of the conservative-default rule."
+    },
+    {
+      "anchor": "Scenario fair-value levels (bull/base/bear_cyclical/bear_structural)",
+      "values_by_module": {
+        "valuation/07_scenario-and-fair-value.md": "31.78 / 23.67 (23.56 cross-check) / 16.79 / 15.90",
+        "valuation_summary.json scenarios[].level": "31.78 / 23.67 / 16.79 / 15.90",
+        "decision_record.json scenarios[].price_target": "31.78 / 23.67 / 16.79 / 15.9",
+        "final_thesis.md §2/§6/§8/§14": "31.78 / 23.67 / 16.79 / 15.90"
+      },
+      "consistent": true,
+      "detail": "Identical across every module and record. See math_checks for the independent recompute confirming these levels tie to their disclosed forward_metric x multiple inputs once bridged with minority interest netted."
+    }
+  ],
+  "integrity_score": 86,
+  "verdict": "Minor issues",
+  "blocking_findings": [],
+  "notes": "This is an unusually well-sourced dossier: every material rating-driving figure sampled (net debt, gross debt, EV bridge, ROIC, related-party borrowing, revenue growth, goodwill concentration, EPS-consensus cuts, peer margins, current price, minority interest, forward consensus revenue/EBITDA) traced to a literal, page-cited source in the data pool or recomputed exactly from disclosed components, several with independent multi-source cross-checks the modules performed themselves. The dossier's own pre-existing PROVISIONAL/UNVERIFIED banner (finish-gate output, committed at the top of final_thesis.md) claims the recorded scenario levels (CNY 31.78/23.67/16.79) disagree with an automated 'Playground' recompute (32.8139/24.7028/17.8162). Independent reproduction in this audit shows the banner's alternate figures arise only when minority interest (CNY 9,606.03mn) is dropped from the EV-to-equity bridge - i.e. they appear to come from a bug in the automated recompute tool, not a defect in the thesis, which correctly nets both net debt and minority interest per CLAUDE.md §16. This audit could not fully validate the finish-gate tool's internal logic (out of scope - it lives outside this run's artifacts), so this is reported as a strong but not absolute finding; a human should reconcile the finish-gate tool's bridge formula against valuation/01_price-and-capital-structure.md's documented one. The banner's other two flagged gaps (missing explicit per-scenario sign-check line in §5; empty joint_probability_basis for the 'base' and 'bear_cyclical' scenarios) were independently confirmed as real, unresolved, low/medium-severity documentation gaps - they do not change any number or the Watchlist rating, but a future run should close them. No critical or high-severity finding, no anchor conflict, and no confirmed math break were found; the headline Watchlist rating, its scenario math, and its cross-module anchors all stand up to independent recomputation. ciq_facts.json could not be generated in this environment (Python 3.9.6 lacks enum.StrEnum required by the tool's B3 generation hook) - noted as 'ciq_facts unavailable', not treated as a thesis defect."
+}
