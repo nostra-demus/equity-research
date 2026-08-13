@@ -7,8 +7,9 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { buildCommodityThemesIndex } from './commodity-index'
 import { buildGeoThemesIndex, hasThemeGeo, type ThemeGeo } from './geo-index'
-import { buildThemesIndex, loadThemes } from './store'
-import type { Theme, ThemesIndex } from './types'
+import { buildThemesIndex, loadThemes, loadThemesLedger } from './store'
+import { normalizeThemeCompilerAttempt } from './formation'
+import type { Theme, ThemeCompilerAttempt, ThemesIndex } from './types'
 
 export interface ThemesApiCommoditySlice {
   scoped: boolean
@@ -25,6 +26,7 @@ interface LedgerSnapshot {
   ledgerMtimeMs: number
   boardMtimeMs: number
   generatedAt: string
+  compilerAttempt: ThemeCompilerAttempt | null
   themes: Theme[]
 }
 
@@ -37,18 +39,18 @@ interface ProjectionCache {
 const ledgerPath = (repoRoot: string) => path.join(repoRoot, 'screener', 'ledger', 'themes.ndjson')
 const boardIndexPath = (repoRoot: string) => path.join(repoRoot, 'screener', 'board', 'themes_index.json')
 
-function lastSuccessfulStage(repoRoot: string): { mtimeMs: number; generatedAt: string } {
+function lastSuccessfulStage(repoRoot: string): { mtimeMs: number; generatedAt: string; compilerAttempt: ThemeCompilerAttempt | null } {
   const fp = boardIndexPath(repoRoot)
   let mtimeMs = 0
-  try { mtimeMs = fs.statSync(fp).mtimeMs } catch { return { mtimeMs, generatedAt: '' } }
+  try { mtimeMs = fs.statSync(fp).mtimeMs } catch { return { mtimeMs, generatedAt: '', compilerAttempt: null } }
   try {
-    const value = JSON.parse(fs.readFileSync(fp, 'utf8')) as { generated_at?: unknown }
+    const value = JSON.parse(fs.readFileSync(fp, 'utf8')) as { generated_at?: unknown; compiler_health?: { last_attempt?: unknown } }
     const generatedAt = typeof value.generated_at === 'string' && Number.isFinite(Date.parse(value.generated_at))
       ? value.generated_at
       : ''
-    return { mtimeMs, generatedAt }
+    return { mtimeMs, generatedAt, compilerAttempt: normalizeThemeCompilerAttempt(value.compiler_health?.last_attempt) }
   } catch {
-    return { mtimeMs, generatedAt: '' }
+    return { mtimeMs, generatedAt: '', compilerAttempt: null }
   }
 }
 
@@ -74,7 +76,16 @@ export function createThemesIndexReader(
     // Parsing a large ledger is the expensive part. Keep that snapshot until its mtime changes; the
     // cheaper summaries below have an independent TTL because their evidence gates depend on the clock.
     if (!snapshot || snapshot.ledgerMtimeMs !== ledgerMtimeMs || snapshot.boardMtimeMs !== stage.mtimeMs) {
-      snapshot = { ledgerMtimeMs, boardMtimeMs: stage.mtimeMs, generatedAt: stage.generatedAt, themes: load(repoRoot) }
+      const durable = opts.load
+        ? { themes: load(repoRoot), generatedAt: '', compilerAttempt: null }
+        : loadThemesLedger(repoRoot)
+      snapshot = {
+        ledgerMtimeMs,
+        boardMtimeMs: stage.mtimeMs,
+        generatedAt: durable.generatedAt || stage.generatedAt,
+        compilerAttempt: durable.compilerAttempt || stage.compilerAttempt,
+        themes: durable.themes,
+      }
       projections = null
     }
     const projectionsExpired = !projections
@@ -97,10 +108,10 @@ export function createThemesIndexReader(
 
     const fixedNow = () => nowD
     const index = commodity.scoped
-      ? buildCommodityThemesIndex(ledger.themes, { commodity: commodity.subject, geo: hasGeo ? geo : null }, fixedNow)
+      ? buildCommodityThemesIndex(ledger.themes, { commodity: commodity.subject, geo: hasGeo ? geo : null }, fixedNow, undefined, ledger.compilerAttempt)
       : hasGeo
-        ? buildGeoThemesIndex(ledger.themes, geo, fixedNow)
-        : buildThemesIndex(ledger.themes, fixedNow)
+        ? buildGeoThemesIndex(ledger.themes, geo, fixedNow, undefined, ledger.compilerAttempt)
+        : buildThemesIndex(ledger.themes, fixedNow, ledger.compilerAttempt)
     // Qualification is intentionally reprojected on the wall clock, but liveness is not. A request at
     // 17:00 must not turn a last-successful 10:00 pipeline stage into “index 17:00”.
     index.projected_at = index.generated_at

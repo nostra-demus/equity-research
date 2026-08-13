@@ -29,7 +29,12 @@ interface PyReadiness {
 const FIX_HINT: Record<string, string> = {
   zero_files: 'Add the company\'s filings to the data folder, then re-check.',
   zero_usable_data: 'Re-upload readable files (PDF/XLSX/HTML), then re-check.',
-  extraction_failed: 'Re-export or re-upload this file; if a dependency is missing, run setup-tools.sh.',
+  // The pool sits on a Google Drive mount, so a read can fail for reasons that have nothing to do
+  // with the file: a sync pass touching it, or Drive hydrating a streamed placeholder. The
+  // extractor now retries both, so a rejection that still reaches here is usually a real problem —
+  // but "re-check" stays the first step, because re-exporting a perfectly good file is wasted work.
+  extraction_failed: 'Re-check first (a Google Drive sync blip clears on retry). If it persists, '
+    + 're-export or re-upload this file; if a dependency is missing, run setup-tools.sh.',
   missing_dependency: 'Run .claude/tools/setup-tools.sh to install the extractor dependency, then re-check.',
   empty_file: 'Replace the empty file with the real export, then re-check.',
   entity_disagreement: 'The pool appears to mix companies — remove the wrong-entity files, then re-check.',

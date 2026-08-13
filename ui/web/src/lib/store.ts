@@ -4,8 +4,8 @@ import type { ArchiveQuery, FeedFacets, SearchCursor } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
 import { moduleLabel, preferRunRoot, resolveVerdict } from './format'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
-import type { Theme, ThemeDetail, ThemeBrief, ThemeRemoval } from './themes'
-import { compareBriefingThemes, intensityWindowForHours, themeSurfaceStatus, themeWindowForView } from './themes'
+import type { Theme, ThemeCompilerHealth, ThemeDetail, ThemeBrief, ThemeFormationQueue, ThemeRemoval } from './themes'
+import { compareBriefingThemes, intensityWindowForHours, normalizeThemeCompilerHealth, normalizeThemeFormationQueue, themeSurfaceStatus, themeWindowForView } from './themes'
 import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
 import { archiveErrorNote } from './archiveError'
 import { selectNewsChatHandoffEvidence } from './newsChatHandoff'
@@ -218,8 +218,74 @@ const themeDetailContractKey = (theme: Theme | null | undefined): string | null 
     }))
   : null
 
+/** Reconcile one exact formation-row invalidation from SSE. The formation excerpt and compiler-health
+ * debt are separate totals: building-evidence rows are disclosed formation patterns but are not runnable
+ * compiler debt, so only the three compiler states decrement health. */
+function withoutFormationCandidate(
+  formation: ThemeFormationQueue | null,
+  health: ThemeCompilerHealth | null,
+  themeId: string,
+): { formation: ThemeFormationQueue | null; health: ThemeCompilerHealth | null } {
+  const candidate = formation?.candidates.find((row) => row.theme_id === themeId)
+  if (!formation || !candidate) return { formation, health }
+
+  const candidates = formation.candidates.filter((row) => row.theme_id !== themeId)
+  const nextFormation: ThemeFormationQueue = {
+    ...formation,
+    total: candidates.length + formation.hidden + (formation.client_withheld || 0),
+    shown: candidates.length,
+    ...(candidate.state === 'awaiting_validation' ? { awaiting_validation: Math.max(0, formation.awaiting_validation - 1) } : {}),
+    ...(candidate.state === 'awaiting_revalidation' ? { awaiting_revalidation: Math.max(0, formation.awaiting_revalidation - 1) } : {}),
+    ...(candidate.state === 'blocked_incomplete_audit' ? { blocked_incomplete_audit: Math.max(0, formation.blocked_incomplete_audit - 1) } : {}),
+    ...(candidate.state === 'building_evidence' ? { building_evidence: Math.max(0, formation.building_evidence - 1) } : {}),
+    candidates,
+  }
+
+  if (!health || candidate.state === 'building_evidence') return { formation: nextFormation, health }
+  const awaitingValidation = Math.max(0, health.queue.awaiting_validation - (candidate.state === 'awaiting_validation' ? 1 : 0))
+  const awaitingRevalidation = Math.max(0, health.queue.awaiting_revalidation - (candidate.state === 'awaiting_revalidation' ? 1 : 0))
+  const blockedIncompleteAudit = Math.max(0, health.queue.blocked_incomplete_audit - (candidate.state === 'blocked_incomplete_audit' ? 1 : 0))
+  const total = awaitingValidation + awaitingRevalidation + blockedIncompleteAudit
+  const removedOldest = candidate.queued_at && health.queue.oldest_queued_at
+    ? Date.parse(candidate.queued_at) === Date.parse(health.queue.oldest_queued_at)
+    : false
+  // Recompute from the remaining queue rather than blanking it: other candidates can still be waiting.
+  // Mirrors the server's own ordering (formation.ts buildThemeCompilerHealth / compilerDebtForThemes) —
+  // only the three compiler-debt states carry queue age; a still-building candidate isn't durable
+  // compiler work, so it must not seed the recomputed oldest_queued_at either.
+  const oldestQueuedAt = removedOldest
+    ? candidates
+        .filter((row) => row.state !== 'building_evidence' && row.queued_at)
+        .map((row) => row.queued_at as string)
+        .sort()[0] || null
+    : health.queue.oldest_queued_at
+  return {
+    formation: nextFormation,
+    health: {
+      ...health,
+      ...(total === 0 ? {
+        state: 'idle' as const,
+        blocker: null,
+        message: nextFormation.building_evidence
+          ? `${nextFormation.building_evidence} provisional pattern${nextFormation.building_evidence === 1 ? ' is' : 's are'} still building evidence.`
+          : 'No theme compilation work is queued.',
+      } : {}),
+      queue: {
+        ...health.queue,
+        total,
+        awaiting_validation: awaitingValidation,
+        awaiting_revalidation: awaitingRevalidation,
+        blocked_incomplete_audit: blockedIncompleteAudit,
+        oldest_queued_at: oldestQueuedAt,
+      },
+    },
+  }
+}
+
 const cancelThemeDetailRequest = () => { themeDetailRequestSeq++ }
 let selectGen = 0 // bumped on every selectTicker; async work bails if it changed (fast-switch guard)
+let dataNeedsRequestSeq = 0 // same-selection refreshes can also race; newest exact-run request owns the dock
+export const DATA_NEEDS_RETRY_MS = 750 // one bounded cold-read recovery; exact selection is rechecked around it
 let archiveToken = 0 // bumped on every archive search; a stale slow response bails if it changed (last-write-wins)
 let facetsToken = 0 // same guard for a standalone facets load (contextless / on dropdown open)
 let creditProbed = false
@@ -527,7 +593,7 @@ interface State {
   // The structured data needs the run's terminal synthesizer surfaced (decision_record.json data_needs[]),
   // refreshed on select + on data-changed — read by the read-only "Data needs" dock. Null = none / no run.
   dataNeeds: DataNeedsRead | null
-  refreshDataNeeds: () => Promise<void>
+  refreshDataNeeds: (runRoot?: string) => Promise<void>
   refreshPipelines: () => Promise<void>
   openDataLibrary: () => void
   closeDataLibrary: () => void
@@ -775,6 +841,10 @@ interface State {
 
   // ---- dynamic themes (the firehose bucketed into living, ranked investment themes) ----
   themes: Theme[]
+  // A separate, non-investable disclosure lane. It never feeds map nodes, dossier selection, or Ideas.
+  // Null means the server did not disclose this contract (rolling deploy), not that the queue is empty.
+  themeFormationQueue: ThemeFormationQueue | null
+  themeCompilerHealth: ThemeCompilerHealth | null
   themesView: 'map' | 'board' | null // null = themes view closed (gauntlet/idle canvas shows)
   // "Best ideas" tab — the PM skim. A sibling of Themes in the wire's tab row: when true, the main pane
   // shows BestIdeasView instead of the home/gauntlet. Mutually exclusive with Themes (opening one closes
@@ -1180,6 +1250,8 @@ export const useStore = create<State>((set, get) => ({
   bridgeStatus: null,
   newsStreamOnline: false,
   themes: [],
+  themeFormationQueue: null,
+  themeCompilerHealth: null,
   themesView: null,
   ideasOpen: false,
   calendarOpen: false,
@@ -1281,7 +1353,6 @@ export const useStore = create<State>((set, get) => ({
     void get().refreshResumable() // so the orb-view Resume chip knows if this subject has an interrupted run
     if (isResearch) await get().refreshData()
     if (isResearch) void get().refreshIntake() // the scoped rerun plan (if one exists) — non-blocking
-    void get().refreshDataNeeds() // the surfaced data needs (research + commodity) — non-blocking, fail-closed
     void get().refreshPipelines() // the cross-swarm pipeline library (the Data button gates on this, §5)
     if (get().selectToken !== token) return
     // seed prior-run results into the swarm
@@ -1295,6 +1366,9 @@ export const useStore = create<State>((set, get) => ({
       if (manifest.finalThesis) seed['master/synthesizer'] = { status: 'done', outputPath: `${manifest.runRoot}/final_thesis.md` }
       set({ nodeRuntime: seed, runRoot: manifest.runRoot ?? null, reports: { memo: !!manifest.memo, thesis: !!manifest.finalThesis, dossier: !!manifest.fullDossier }, moduleReports: manifest.moduleReports ?? {} })
     } catch {}
+    // AFTER the manifest sets runRoot: a historical research selection must read that exact call's gaps.
+    // Passing the original selection is the fail-closed fallback if the manifest vanished mid-read.
+    void get().refreshDataNeeds(isResearch ? (get().runRoot ?? runRoot) : undefined)
     // AFTER the manifest set runRoot: the version delta must target the run the banner is about to show,
     // not whatever run resolving the bare ticker would pick.
     if (isResearch) void get().refreshWhatChanged()
@@ -1895,18 +1969,40 @@ export const useStore = create<State>((set, get) => ({
       if (get().selectToken === token) set({ intake: null, intakePlanKeys: new Set() })
     }
   },
-  refreshDataNeeds: async () => {
+  refreshDataNeeds: async (selectedRunRoot) => {
     const t = get().selectedTicker
     const sw = get().activeSwarm
     // constellation swarms only (research + commodity); the screener has no decision_record with data_needs.
     if (!t || get().staticMode || sw === 'screener') return
     const token = get().selectToken
-    try {
-      const read = await api.dataNeeds(t, sw)
-      if (get().selectToken !== token) return // a newer selection superseded this fetch
+    const requestSeq = ++dataNeedsRequestSeq
+    const expectedRunRoot = sw === 'research' ? (selectedRunRoot ?? get().runRoot ?? undefined) : get().runRoot ?? undefined
+    const startingFingerprint = get().dataNeeds?.run_root === expectedRunRoot
+      ? get().dataNeeds?.decision_fingerprint
+      : undefined
+    const runRoot = sw === 'research' ? expectedRunRoot : undefined
+    const requestStillOwnsSelection = () => get().selectToken === token && requestSeq === dataNeedsRequestSeq
+      && get().selectedTicker === t && get().activeSwarm === sw
+      && (expectedRunRoot === undefined || get().runRoot === expectedRunRoot)
+      && (startingFingerprint === undefined || get().dataNeeds?.decision_fingerprint === startingFingerprint)
+    const commit = (read: DataNeedsRead | null) => {
+      if (!requestStillOwnsSelection()
+          || get().selectedTicker !== t || get().activeSwarm !== sw
+          || (read !== null && expectedRunRoot !== undefined && read.run_root !== expectedRunRoot)) return false
       set({ dataNeeds: read })
+      return true
+    }
+    try {
+      commit(await api.dataNeeds(t, sw, runRoot))
     } catch {
-      if (get().selectToken === token) set({ dataNeeds: null })
+      // Keep the last known exact-decision projection on a transient timeout/500. A successful `{read:null}`
+      // above is still authoritative and clears it; transport failure is not evidence that the needs vanished.
+      // One delayed retry covers the measured cold-host path. Every boundary is exact-selection guarded,
+      // so switching ticker/run while it waits (or while the retry is in flight) makes it a no-op.
+      if (!requestStillOwnsSelection()) return
+      await new Promise<void>((resolve) => setTimeout(resolve, DATA_NEEDS_RETRY_MS))
+      if (!requestStillOwnsSelection()) return
+      try { commit(await api.dataNeeds(t, sw, runRoot)) } catch { /* keep the last exact-decision projection */ }
     }
   },
 
@@ -2779,6 +2875,7 @@ export const useStore = create<State>((set, get) => ({
       set({
         health: 'session-expired', connected: false,
         themesView: null, themesStatus: 'idle', themesLoading: false, themeBriefLoading: false,
+        themeFormationQueue: null, themeCompilerHealth: null,
         selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null,
       })
     } else {
@@ -3106,7 +3203,7 @@ export const useStore = create<State>((set, get) => ({
       scArchiveQuery: {}, scArchiveResults: [], scArchiveCursor: null, scArchiveLoading: false,
       scArchiveLoadingMore: false, scArchiveScannedThrough: null, scArchiveExhausted: false, scArchiveError: null,
       scFacets: null, scFacetsLoading: false,
-      themes: [], themesStatus: 'idle', themesView: null, themesWindow: null, themesHistoryDays: 0, themesGeneratedAt: null, themesProjectedAt: null,
+      themes: [], themeFormationQueue: null, themeCompilerHealth: null, themesStatus: 'idle', themesView: null, themesWindow: null, themesHistoryDays: 0, themesGeneratedAt: null, themesProjectedAt: null,
       themesGeo: { country: '', geoRegion: '', label: '' }, themesSubject: null,
       selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false,
       feedWindowDays: 2,
@@ -3296,6 +3393,17 @@ export const useStore = create<State>((set, get) => ({
         if (Number.isFinite(t.rev) && t.rev > removedAt) { themeRemovalRevs.delete(t.theme_id); return true }
         return false
       })
+      // A global removal deliberately lets an already-useful index read settle. Apply the same session
+      // tombstones to its additive formation excerpt before commit, otherwise a pre-removal HTTP response
+      // can resurrect the exact non-investable row that SSE just invalidated.
+      let nextFormation = normalizeThemeFormationQueue(idx.formation_queue)
+      let nextCompilerHealth = normalizeThemeCompilerHealth(idx.compiler_health)
+      for (const candidate of nextFormation?.candidates || []) {
+        if (!themeRemovalRevs.has(candidate.theme_id)) continue
+        const reconciled = withoutFormationCandidate(nextFormation, nextCompilerHealth, candidate.theme_id)
+        nextFormation = reconciled.formation
+        nextCompilerHealth = reconciled.health
+      }
       // The full index is also the authoritative removal reconciliation after a lossy SSE gap. If the
       // currently open detail no longer belongs to this exact owner/slice, close every piece of its cached
       // state in the same synchronous write. The request/owner guard above makes an older response unable
@@ -3319,6 +3427,8 @@ export const useStore = create<State>((set, get) => ({
       if (selectedMissing || selectedContractChanged) cancelThemeDetailRequest()
       set({
         themes: currentThemes,
+        themeFormationQueue: nextFormation,
+        themeCompilerHealth: nextCompilerHealth,
         themesHistoryDays: idx.history_days || 0,
         themesGeneratedAt: idx.generated_at || null,
         themesProjectedAt: idx.projected_at || null,
@@ -3361,7 +3471,7 @@ export const useStore = create<State>((set, get) => ({
     // label, so clear it instead of briefly (or after a failed fetch, indefinitely) relabelling it.
     set({
       themesSubject: s,
-      themes: [], themesHistoryDays: 0, themesGeneratedAt: null, themesProjectedAt: null,
+      themes: [], themeFormationQueue: null, themeCompilerHealth: null, themesHistoryDays: 0, themesGeneratedAt: null, themesProjectedAt: null,
       themesStatus: open ? 'loading' : 'idle',
       selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false,
     })
@@ -3386,7 +3496,7 @@ export const useStore = create<State>((set, get) => ({
     // label. Clearing is intentionally blunt and honest; a matching fresh index replaces it shortly.
     set({
       themesGeo: geo,
-      themes: [], themesHistoryDays: 0, themesGeneratedAt: null, themesProjectedAt: null,
+      themes: [], themeFormationQueue: null, themeCompilerHealth: null, themesHistoryDays: 0, themesGeneratedAt: null, themesProjectedAt: null,
       themesStatus: open ? 'loading' : 'idle',
       selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false,
     })
@@ -4621,8 +4731,11 @@ export const useStore = create<State>((set, get) => ({
       if (refetchSlice) themesRequestSeq++
       const selected = get().selectedTheme === removal.theme_id
       if (selected) cancelThemeDetailRequest()
+      const reconciledFormation = withoutFormationCandidate(get().themeFormationQueue, get().themeCompilerHealth, removal.theme_id)
       set({
         themes: get().themes.filter((t) => t.theme_id !== removal.theme_id),
+        themeFormationQueue: reconciledFormation.formation,
+        themeCompilerHealth: reconciledFormation.health,
         ...(selected ? { selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false } : {}),
       })
       // Global removal is exact, so the delete above is sufficient. A sliced projection may also need
@@ -4671,8 +4784,16 @@ export const useStore = create<State>((set, get) => ({
       // Match the server's evidence-first index contract. Composite-only sorting would let a hot Context
       // row jump above an actionable pattern after any live patch until the next full refresh.
       next.sort(compareBriefingThemes)
+      // A validated SSE summary can be the promotion of one disclosed formation candidate. Remove only
+      // that exact candidate; unrelated compiler debt stays visible until the authoritative index refresh.
+      // A Context update is not a promotion and must not erase its own developing-pattern disclosure.
+      const reconciledFormation = themeSurfaceStatus(t) !== 'context'
+        ? withoutFormationCandidate(get().themeFormationQueue, get().themeCompilerHealth, t.theme_id)
+        : { formation: get().themeFormationQueue, health: get().themeCompilerHealth }
       set({
         themes: next,
+        themeFormationQueue: reconciledFormation.formation,
+        themeCompilerHealth: reconciledFormation.health,
         ...(selectedInvalid ? {
           selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false,
         } : selectedChanged ? {

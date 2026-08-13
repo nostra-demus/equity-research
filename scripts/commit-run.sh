@@ -12,7 +12,7 @@
 # Prints: COMMIT_SHA=<sha>   on a successful commit (and push)
 #         NOOP=1             when nothing matched the pathspecs (idempotent)
 # Exit:   0 ok/noop; 2 usage; 3 unrelated staged changes; 4 committed locally but
-#         not pushed (origin moved + unsafe to auto-rebase); 5 add/commit failed.
+#         not pushed (origin moved + unsafe to auto-rebase); 5 add/validation/commit failed.
 set -u
 
 MSG="${1:-}"
@@ -95,7 +95,57 @@ if git diff --cached --quiet; then
   exit 0
 fi
 
-if ! git commit -q -m "$MSG" -- "$@"; then
+# Validate only newly staged terminal decision publications. The normal historical eval deliberately
+# replays frozen records without today's live-roster check; this creation-time boundary is the last place
+# where a new top-level research decision must prove its data-needs routes still exist. Commodity has a
+# separate pre-archive validator with its own orb roster and is deliberately not routed through this gate. Reading
+# `:<path>` snapshots the exact index blob, so a concurrent writer cannot swap the worktree file between
+# validation and commit. Exact path shapes exclude module outputs, reviews, calibration files, and the
+# immutable commodity `decisions/<id>/decision_record.json` archives.
+PREWRITE_TMP=""
+cleanup_prewrite_tmp() {
+  if [ -n "$PREWRITE_TMP" ] && [ -d "$PREWRITE_TMP" ]; then
+    rm -f -- "$PREWRITE_TMP/staged-paths" "$PREWRITE_TMP/decision_record.json"
+    rmdir -- "$PREWRITE_TMP" 2>/dev/null || true
+  fi
+}
+trap cleanup_prewrite_tmp EXIT
+PREWRITE_TMP="$(mktemp -d "${TMPDIR:-/tmp}/nostra-data-needs-prewrite.XXXXXX")" || {
+  unstage_own_paths "$@"
+  echo "commit-run: cannot create data-needs validation workspace — nothing was committed or pushed" >&2
+  exit 5
+}
+if ! git -C "$TOP" diff --cached --name-only --diff-filter=ACMRT -z -- >"$PREWRITE_TMP/staged-paths"; then
+  unstage_own_paths "$@"
+  echo "commit-run: cannot enumerate staged publications — nothing was committed or pushed" >&2
+  exit 5
+fi
+while IFS= read -r -d '' STAGED_PATH; do
+  if [[ "$STAGED_PATH" =~ ^analyses/[^/]+/decision_record\.json$ ]]; then
+    STAGED_MODE="$(git -C "$TOP" ls-files -s -- "$STAGED_PATH")"
+    STAGED_MODE="${STAGED_MODE%% *}"
+    if [ "$STAGED_MODE" != "100644" ] && [ "$STAGED_MODE" != "100755" ]; then
+      unstage_own_paths "$@"
+      echo "commit-run: staged decision publication is not a regular file: $STAGED_PATH — nothing was committed or pushed" >&2
+      exit 5
+    fi
+    if ! git -C "$TOP" cat-file blob ":$STAGED_PATH" >"$PREWRITE_TMP/decision_record.json"; then
+      unstage_own_paths "$@"
+      echo "commit-run: cannot read staged decision publication: $STAGED_PATH — nothing was committed or pushed" >&2
+      exit 5
+    fi
+    if ! (cd "$TOP" && python3 scripts/eval.py --data-needs-prewrite "$PREWRITE_TMP/decision_record.json"); then
+      unstage_own_paths "$@"
+      echo "commit-run: data-needs prewrite rejected staged publication: $STAGED_PATH — nothing was committed or pushed" >&2
+      exit 5
+    fi
+  fi
+done <"$PREWRITE_TMP/staged-paths"
+
+# The index was empty before this invocation and now contains only this run's staged snapshot. Commit
+# that snapshot directly: passing pathspecs to `git commit` would read mutable worktree bytes again and
+# reopen the validation-to-commit race closed above.
+if ! git commit -q -m "$MSG"; then
   unstage_own_paths "$@"
   echo "commit-run: git commit failed — nothing was pushed" >&2
   exit 5

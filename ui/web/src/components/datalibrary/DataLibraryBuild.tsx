@@ -22,7 +22,7 @@ import { api } from '../../lib/api'
 import { ACQ_LABEL, CADENCE_LABEL } from '../../lib/labels'
 import type { BuildStep, DiscoveredFeed, PipelineEntry, PipelineView, RecommendedNeed, ScanVerdict } from '../../lib/types'
 import { connectorForCandidate, connectorIdForCandidate, pipelineIsUsable } from './feedHealth'
-import { AUTOMATIC_CONNECTOR_CODING_UNAVAILABLE } from './buildAvailability'
+import { AUTOMATIC_CONNECTOR_CODING_UNAVAILABLE, recommendedDiscoveryRequest } from './buildAvailability'
 
 const TOOL_VERB: Record<string, string> = {
   WebSearch: 'searching', WebFetch: 'reading', Read: 'reading', Write: 'writing', Edit: 'editing',
@@ -205,6 +205,7 @@ export function DataLibraryBuild({ pipelines, recommended, canScan, canBuild, fo
   const tickers = useStore((s) => s.tickers)
 
   const [subject, setSubject] = useState(selectedTicker ?? '')
+  const [searchSwarm, setSearchSwarm] = useState(activeSwarm)
   const [want, setWant] = useState('')
   const [searching, setSearching] = useState(false)
   const [steps, setSteps] = useState<BuildStep[]>([])
@@ -298,7 +299,7 @@ export function DataLibraryBuild({ pipelines, recommended, canScan, canBuild, fo
     }
   }, [pipelines, setSelected, setToast, track])
 
-  const search = useCallback((subj: string, opts: { need_id?: string | null; want?: string; autoBuild?: boolean }) => {
+  const search = useCallback((subj: string, opts: { need_id?: string | null; runRoot?: string; decisionFingerprint?: string; want?: string; autoBuild?: boolean }, swarm = activeSwarm) => {
     const target = subj.trim().toUpperCase()
     if (!target || searching) return
     searchAbort.current?.abort()
@@ -306,7 +307,7 @@ export function DataLibraryBuild({ pipelines, recommended, canScan, canBuild, fo
     searchAbort.current = ac
     setSearching(true); setSteps([]); setFound([]); setSearchError(null)
     setStartedAt(Date.now()); setSearchedFor(target)
-    void api.pipelineDiscoverStream(target, activeSwarm, opts, {
+    void api.pipelineDiscoverStream(target, swarm, opts, {
       signal: ac.signal,
       onActivity: (a) => setSteps((cur) => {
         const last = cur[cur.length - 1]
@@ -331,7 +332,13 @@ export function DataLibraryBuild({ pipelines, recommended, canScan, canBuild, fo
     onFocusHandled()
     setWant(focusNeed.series)
     setSubject(focusNeed.subject)
-    search(focusNeed.subject, { need_id: focusNeed.need_id, want: focusNeed.series, autoBuild: canBuild })
+    setSearchSwarm(focusNeed.swarm)
+    const request = recommendedDiscoveryRequest(focusNeed, canBuild)
+    if (!request) {
+      setSearchError('This recommendation came from an older server and cannot be tied to one decision. Use Find feeds for a general search.')
+      return
+    }
+    search(focusNeed.subject, request.opts, request.swarm)
   }, [focusNeed, onFocusHandled, search, canBuild])
 
   const openNeedsFor = useMemo(
@@ -377,16 +384,16 @@ export function DataLibraryBuild({ pipelines, recommended, canScan, canBuild, fo
         <div className="datalib__disform">
           <input
             className="datalib__input datalib__input--subject" list="datalib-subjects" value={subject}
-            onChange={(e) => setSubject(e.target.value.toUpperCase())}
-            onKeyDown={(e) => { if (e.key === 'Enter') search(subject, { want }) }}
+            onChange={(e) => { setSubject(e.target.value.toUpperCase()); setSearchSwarm(activeSwarm) }}
+            onKeyDown={(e) => { if (e.key === 'Enter') search(subject, { want }, searchSwarm) }}
             placeholder="TICKER" aria-label="Company or commodity to find feeds for" spellCheck={false} />
           <datalist id="datalib-subjects">{knownSubjects.map((s) => <option key={s} value={s} />)}</datalist>
           <input
             className="datalib__input datalib__input--want" value={want}
             onChange={(e) => setWant(e.target.value)}
-            onKeyDown={(e) => { if (e.key === 'Enter') search(subject, { want }) }}
+            onKeyDown={(e) => { if (e.key === 'Enter') search(subject, { want }, searchSwarm) }}
             placeholder="anything specific you're after? (optional)" aria-label="What data are you after" />
-          <button className="btn btn--amber" disabled={!subject.trim() || searching} onClick={() => search(subject, { want })}>
+          <button className="btn btn--amber" disabled={!subject.trim() || searching} onClick={() => search(subject, { want }, searchSwarm)}>
             {searching ? 'Searching…' : 'Find feeds ▸'}
           </button>
         </div>

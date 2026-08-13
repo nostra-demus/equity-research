@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Deterministic eval harness for the equity-research engine.
 
-Checks invariants A-Z, AA-AO, and J (framework-source contracts) against every committed
+Checks invariants A-Z, AA-AX, and J (framework-source contracts) against every committed
 decision record in analyses/. Called by /research:eval and by CI.
 
 Usage:
@@ -9,7 +9,13 @@ Usage:
 
 Exit 0 = all checks PASS; 1 = at least one FAIL.
 """
-import json, glob, os, re, sys, subprocess, datetime
+import json, glob, os, re, sys, subprocess, datetime, math, tempfile
+from data_need_contract import (
+    DATA_NEED_PROMISE_RE as _DATA_NEED_PROMISE_RE,
+    DATA_NEED_URL_RE as _DATA_NEED_URL_RE,
+    check_live_orb_routes,
+    text_leaves as _data_need_text_leaves,
+)
 scope = (sys.argv[1] if len(sys.argv)>1 else "").strip() or "all"
 today = subprocess.check_output(["date","+%F"]).decode().strip()
 
@@ -45,6 +51,211 @@ def isdate(s):
     try: datetime.date.fromisoformat(s); return True
     except: return False
 def isnum(v): return isinstance(v,(int,float)) and not isinstance(v,bool)  # bool is an int subclass — exclude it [review fix]
+
+# ── Check AX (versioned data-needs decision guidance) ───────────────────────────────────────────────
+# DECISION_LEDGER.md §5. Fresh records explicitly emit v2 even when no active need exists, separating a
+# completed empty check from an omitted contract. Older records without the discriminator remain valid.
+# Schema-like structural checks live here because the research decision record is a documented ledger
+# contract, not a standalone JSON Schema; ranks and promise language are the semantic half no schema can
+# express. Priority is decision value, never an expected score lift.
+DATA_NEEDS_V2_DATE = "2026-08-14"
+DATA_NEED_ACQUISITIONS = {"official_api", "free_key_api", "paid_api", "scrape", "manual"}
+DATA_NEED_ACCESS = {"public", "licensed", "restricted", "unknown"}
+DATA_NEED_TIERS = {5, 9, 10}
+DATA_NEED_CADENCES = {"twelve_hourly", "daily", "weekly", "monthly", "quarterly", "semiannual", "annual", "event_driven"}
+_DATA_NEED_ID_RE = re.compile(r"^[a-z0-9][a-z0-9_-]*$")
+def eval_ax_data_needs_v2(decision_date, version, data_needs):
+    """Return None for a legacy pre-gate record, otherwise a violation list (`[]` = pass).
+
+    Enforces the exact v2 entry/source/orb shapes plus the semantic constraints: max five, unique ids,
+    priorities exactly 1..N, no URLs, and no obvious guarantee or numeric/promised conviction lift.
+    """
+    post_gate = isdate(decision_date) and decision_date >= DATA_NEEDS_V2_DATE
+    if version is None:
+        if post_gate:
+            return [
+                f"record dated {decision_date} must carry data_needs_schema_version='2.0' and data_needs "
+                "(use [] when no missing observation actively caps the decision)"
+            ]
+        return None
+    if version != "2.0":
+        return [f"data_needs_schema_version={version!r}; the only supported discriminator is '2.0'"]
+    if not isinstance(data_needs, list):
+        return ["data_needs_schema_version='2.0' requires data_needs to be an array (empty is valid)"]
+
+    issues = []
+    if len(data_needs) > 5:
+        issues.append(f"data_needs has {len(data_needs)} entries; v2 allows at most 5")
+    priorities, need_ids = [], []
+    need_required = {
+        "need_id", "priority", "series", "why_it_caps", "expected_impact", "filing_required",
+        "entry_orbs", "suggested_source", "tier", "cadence",
+    }
+    need_allowed = need_required | {"next_release"}
+    impact_keys = {"if_supportive", "if_adverse"}
+    orb_keys = {"module", "agent", "why", "confidence"}
+    source_keys = {"name", "acquisition", "access", "licensing_basis"}
+
+    def _nonempty_string(value):
+        return isinstance(value, str) and bool(value.strip())
+
+    for i, need in enumerate(data_needs):
+        prefix = f"data_needs[{i}]"
+        if not isinstance(need, dict):
+            issues.append(f"{prefix} is not an object")
+            continue
+        missing = sorted(need_required - set(need))
+        extra = sorted(set(need) - need_allowed)
+        if missing: issues.append(f"{prefix} missing required fields {missing!r}")
+        if extra: issues.append(f"{prefix} has forbidden/extra v2 fields {extra!r}")
+
+        need_id = need.get("need_id")
+        if not (_nonempty_string(need_id) and _DATA_NEED_ID_RE.fullmatch(need_id)):
+            issues.append(f"{prefix}.need_id={need_id!r} is not a stable lowercase slug")
+        else:
+            need_ids.append(need_id)
+        priority = need.get("priority")
+        if not (isinstance(priority, int) and not isinstance(priority, bool) and 1 <= priority <= 5):
+            issues.append(f"{prefix}.priority={priority!r} is not an integer rank from 1 to 5")
+        else:
+            priorities.append(priority)
+        for key in ("series", "why_it_caps"):
+            if not _nonempty_string(need.get(key)):
+                issues.append(f"{prefix}.{key} must be a non-empty string")
+        if not isinstance(need.get("filing_required"), bool):
+            issues.append(f"{prefix}.filing_required must be boolean")
+
+        impact = need.get("expected_impact")
+        if not isinstance(impact, dict):
+            issues.append(f"{prefix}.expected_impact must be an exact object")
+        else:
+            if set(impact) != impact_keys:
+                issues.append(f"{prefix}.expected_impact must contain exactly {sorted(impact_keys)!r}")
+            for key in impact_keys:
+                if not _nonempty_string(impact.get(key)):
+                    issues.append(f"{prefix}.expected_impact.{key} must be a non-empty string")
+
+        orbs = need.get("entry_orbs")
+        if not isinstance(orbs, list) or not orbs:
+            issues.append(f"{prefix}.entry_orbs must be a non-empty array")
+        else:
+            seen_orbs = set()
+            for j, orb in enumerate(orbs):
+                op = f"{prefix}.entry_orbs[{j}]"
+                if not isinstance(orb, dict):
+                    issues.append(f"{op} is not an object")
+                    continue
+                if set(orb) != orb_keys:
+                    issues.append(f"{op} must contain exactly {sorted(orb_keys)!r}")
+                for key in ("module", "agent", "why"):
+                    if not _nonempty_string(orb.get(key)):
+                        issues.append(f"{op}.{key} must be a non-empty string")
+                confidence = orb.get("confidence")
+                if not (isnum(confidence) and math.isfinite(confidence) and 0 <= confidence <= 1):
+                    issues.append(f"{op}.confidence={confidence!r} must be routing confidence on the 0..1 scale")
+                try:
+                    encoded = json.dumps(orb, sort_keys=True, separators=(",", ":"), allow_nan=False)
+                except (TypeError, ValueError):
+                    encoded = None
+                if encoded is not None:
+                    if encoded in seen_orbs: issues.append(f"{op} duplicates another entry_orb")
+                    seen_orbs.add(encoded)
+
+        source = need.get("suggested_source")
+        if not isinstance(source, dict):
+            issues.append(f"{prefix}.suggested_source must be an exact source-hint object")
+        else:
+            if set(source) != source_keys:
+                issues.append(f"{prefix}.suggested_source must contain exactly {sorted(source_keys)!r}")
+            for key in ("name", "licensing_basis"):
+                if not _nonempty_string(source.get(key)):
+                    issues.append(f"{prefix}.suggested_source.{key} must be a non-empty string")
+            if source.get("acquisition") not in DATA_NEED_ACQUISITIONS:
+                issues.append(f"{prefix}.suggested_source.acquisition={source.get('acquisition')!r} is outside the closed enum")
+            if source.get("access") not in DATA_NEED_ACCESS:
+                issues.append(f"{prefix}.suggested_source.access={source.get('access')!r} is outside the closed enum")
+
+        tier = need.get("tier")
+        if not (isinstance(tier, int) and not isinstance(tier, bool) and tier in DATA_NEED_TIERS):
+            issues.append(f"{prefix}.tier={tier!r}; v2 permits only 5, 9, or 10")
+        if need.get("cadence") not in DATA_NEED_CADENCES:
+            issues.append(f"{prefix}.cadence={need.get('cadence')!r} is outside the connector cadence enum")
+        if "next_release" in need:
+            next_release=need.get("next_release")
+            if not isdate(next_release):
+                issues.append(f"{prefix}.next_release={next_release!r} is not a real YYYY-MM-DD date")
+            elif isdate(decision_date) and next_release < decision_date:
+                issues.append(
+                    f"{prefix}.next_release={next_release!r} predates decision_date={decision_date!r}; "
+                    "a next release must be on or after the decision date"
+                )
+
+        for text_path, value in _data_need_text_leaves(need, prefix):
+            if _DATA_NEED_URL_RE.search(value):
+                issues.append(f"{text_path} contains a URL; suggested_source is a hint only")
+            if _DATA_NEED_PROMISE_RE.search(value):
+                issues.append(
+                    f"{text_path} guarantees or promises/quantifies a conviction, score, or rating lift; "
+                    "state conditional two-sided decision impact instead"
+                )
+
+    if len(need_ids) != len(set(need_ids)):
+        issues.append("data_needs v2 need_id values must be unique")
+    if len(priorities) == len(data_needs):
+        expected = list(range(1, len(data_needs) + 1))
+        if priorities != expected:
+            issues.append(
+                f"data_needs priorities are ordered {priorities!r}; array order must be exactly "
+                f"{expected!r} so data_needs[0] is priority 1 and the queue is contiguous"
+            )
+    return issues
+
+
+def _data_needs_prewrite(record_path, publication_date=None):
+    """Creation-time gate: frozen semantics plus today's exact research orb roster.
+
+    Normal `eval.py all` intentionally does not call the live-roster half: an orb renamed next year must
+    not retro-fail an immutable decision published today. Full/rerun commands invoke this before sealing.
+    """
+    try:
+        record=json.load(open(record_path,encoding="utf-8"))
+    except Exception as error:
+        return [f"cannot read decision record: {error}"]
+    if not isinstance(record,dict):
+        return ["decision record root is not an object"]
+    decision_date=record.get("decision_date")
+    if not isdate(decision_date):
+        return [f"decision_date={decision_date!r} is not a real YYYY-MM-DD date"]
+    publish_date=publication_date or today
+    if not isdate(publish_date):
+        return [f"publication_date={publish_date!r} is not a real YYYY-MM-DD date"]
+    # A rerun deliberately preserves the original thesis decision_date. That historical date must not
+    # let a newly published record bypass a contract that is live today: immutable replay keys off the
+    # authored decision date, while this creation-only gate keys off the actual publication date.
+    if publish_date >= DATA_NEEDS_V2_DATE and record.get("data_needs_schema_version") != "2.0":
+        return [
+            f"publication date {publish_date} is on/after {DATA_NEEDS_V2_DATE}; the new publication must "
+            "carry data_needs_schema_version='2.0' and data_needs (use [] when no active gap exists)"
+        ]
+    issues=eval_ax_data_needs_v2(
+        decision_date, record.get("data_needs_schema_version"), record.get("data_needs")
+    )
+    errors=[] if issues is None else list(issues)
+    errors.extend(check_live_orb_routes(record,".claude/agents"))
+    return errors
+
+
+if scope=="--data-needs-prewrite":
+    if len(sys.argv)!=3:
+        print("usage: python3 scripts/eval.py --data-needs-prewrite <decision_record.json>",file=sys.stderr)
+        raise SystemExit(2)
+    _prewrite_errors=_data_needs_prewrite(sys.argv[2])
+    if _prewrite_errors:
+        print("DATA-NEEDS-PREWRITE: FAIL",file=sys.stderr)
+        for _error in _prewrite_errors: print(f"  - {_error}",file=sys.stderr)
+        raise SystemExit(1)
+    print("DATA-NEEDS-PREWRITE: PASS")
+    raise SystemExit(0)
 
 # ── Check W (sector ↔ valuation-method consistency) — module-level so the `selftest` scope can drive it ──
 # Method substrings SECTOR_OVERLAYS.md forbids per sector type, matched against a SEPARATOR-STRIPPED,
@@ -1113,6 +1324,55 @@ def eval_as_forecast_overdue(decision_date, forecast_ledger, today):
             continue  # not dateable, or not yet due
         pred = str(e.get("prediction") or "")[:110]
         out.append(f"forecast_ledger[{i}] came due {due} and is still unresolved (status {status or 'unset'!r}): {pred}")
+    return out
+
+
+# ── Check AW (kill-criteria overdue) — CLAUDE.md §8 says disconfirming evidence is "a required test the
+# thesis must survive," not a closing caveat, and §19 says "a forecast that cannot be checked later is
+# not a forecast" — the same discipline forecast_ledger gets from AS above, but nothing applied it to
+# kill_criteria. Unlike forecast_ledger, kill_criteria carries no `status` field and no structured due
+# date; the only date signal already on record is free text in each entry's `monitor` field (e.g. "FY2026
+# results release (~March 2027)", "EU Platform Work Directive national transposition (~Nov 2026
+# deadline)"). Reuses `_as_due_date`'s proven ISO/month-name extraction against that text — no new
+# required schema field, so every already-committed kill_criteria entry is checkable immediately.
+def _kc_monitor_text(entry):
+    if isinstance(entry, dict):
+        for f in ("monitor", "monitor_via"):
+            v = entry.get(f)
+            if isinstance(v, str) and v.strip():
+                return v.strip()
+    return ""
+
+def _kc_criterion_text(entry):
+    if isinstance(entry, str):
+        return entry.strip()
+    if isinstance(entry, dict):
+        for f in ("criterion", "condition", "trigger", "what_invalidates", "kill_criterion", "description", "text"):
+            v = entry.get(f)
+            if isinstance(v, str) and v.strip():
+                return v.strip()
+    return ""
+
+def eval_aw_kill_criteria_overdue(decision_date, kill_criteria, today):
+    """Check AW. Returns None (undateable / empty / malformed) or a list of overdue descriptions (empty =
+    none due). Pure — `today` is injected, same convention as eval_as_forecast_overdue. ADVISORY, never a
+    hard FAIL, for the same reason AS is advisory: overdue-ness is created by the calendar, not by a
+    defect in the run at the time it was written."""
+    if kill_criteria is not None and not isinstance(kill_criteria, list):
+        return None
+    kc = kill_criteria or []
+    if not kc or not isdate(today):
+        return None
+    out = []
+    for i, e in enumerate(kc):
+        mon = _kc_monitor_text(e)
+        if not mon:
+            continue  # no monitor text (e.g. a legacy plain-string entry) — undateable, never flagged
+        due = _as_due_date({"time_window": mon}, decision_date)
+        if not due or due >= today:
+            continue  # not dateable from the monitor text, or not yet due
+        crit = _kc_criterion_text(e)[:110] or "<empty criterion>"  # dict with monitor text but no criterion field → keep the message well-formed, never a dangling colon
+        out.append(f"kill_criteria[{i}] monitor event ({due}) has passed and was never checked: {crit}")
     return out
 
 
@@ -2967,6 +3227,39 @@ if scope=="selftest":
         print(("  [ok] " if ok else "  [BAD] ")+f"AS({_dd!r},today={_td!r}) -> {got!r} (want {_want!r})")
         if not ok: bad+=1
 
+    # ---- check AW: a kill criterion whose own monitor event ELAPSED and was never checked (advisory) ----
+    _aw_open      = {"criterion":"c1","monitor":"FY2026 results release (~March 2027)"}
+    _aw_iso       = {"criterion":"c2","monitor":"resolves 2026-07-22"}
+    _aw_undate    = {"criterion":"c3","monitor":"BaFin Offer Document publication"}
+    _aw_str       = "a plain-string kill criterion with no monitor field at all"
+    _aw_nomonitor = {"criterion":"c4","meaning":"m"}
+    _aw_baddate   = {"criterion":"c5","monitor":"Feb 30, 2026"}
+    _aw_via       = {"criterion":"c6","monitor_via":"resolves 2026-07-22"}
+    _aw_nocrit    = {"monitor":"resolves 2026-07-22"}  # dateable+elapsed monitor but NO criterion-text field
+    awcases=[  # (decision_date, kill_criteria, today, expect: None=N/A, []=nothing due, [substr]=due-with)
+        ("2026-07-10",[_aw_open],"2027-04-01",["monitor event (2027-03-28)"]),  # bare month closes at its end
+        ("2026-07-10",[_aw_open],"2027-03-01",[]),                              # before the month closes → not due
+        ("2026-07-10",[_aw_iso],"2026-08-01",["monitor event (2026-07-22)"]),
+        ("2026-07-10",[_aw_iso],"2026-07-22",[]),                               # ON the due date → not yet overdue
+        ("2026-07-10",[_aw_via],"2026-08-01",["monitor event (2026-07-22)"]),   # monitor_via is also read
+        ("2026-07-10",[_aw_nocrit],"2026-08-01",["never checked: <empty criterion>"]),  # no criterion text → placeholder, never a dangling colon
+        ("2026-07-10",[_aw_undate],"2030-01-01",[]),                            # no dateable text → never flagged
+        ("2026-07-10",[_aw_str],"2030-01-01",[]),                               # legacy plain-string entry → never flagged
+        ("2026-07-10",[_aw_nomonitor],"2030-01-01",[]),                         # dict with no monitor text → never flagged
+        ("2026-07-10",[_aw_baddate],"2027-01-01",[]),                           # invalid calendar date → undateable
+        ("2026-07-10",[],"2026-08-01",None),                                    # empty → N/A
+        ("2026-07-10",5,"2026-08-01",None),                                     # malformed (non-list) → N/A
+        ("2026-07-10",[_aw_open],"nonsense",None),                              # unusable clock → N/A
+    ]
+    for _dd,_kc,_td,_want in awcases:
+        got=eval_aw_kill_criteria_overdue(_dd,_kc,_td)
+        if _want is None:
+            ok = got is None
+        else:
+            ok = got is not None and len(got)==len(_want) and all(any(w in g for g in got) for w in _want)
+        print(("  [ok] " if ok else "  [BAD] ")+f"AW({_dd!r},today={_td!r}) -> {got!r} (want {_want!r})")
+        if not ok: bad+=1
+
     for dt_,fl_,exp in aocases:
         got=eval_ao_forecast_resolvability(dt_,fl_)
         if exp is None: ok=(got is None)
@@ -3076,10 +3369,244 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] AV({_dd!r}) -> {str(got)[:64]}")
         if not ok: bad+=1
 
+    # ---- check AX: versioned, ranked, two-sided data-needs decision guidance ----
+    _aw_need = {
+        "need_id": "filed-segment-margin",
+        "priority": 1,
+        "series": "Quarterly filed segment revenue and operating profit",
+        "why_it_caps": "the segment margin that drives the bull case is not disclosed",
+        "expected_impact": {
+            "if_supportive": "a margin above the scenario threshold would strengthen the case, subject to cash conversion",
+            "if_adverse": "a margin below the threshold would weaken or reject the bull case",
+        },
+        "filing_required": True,
+        "entry_orbs": [{
+            "module": "earnings", "agent": "margin-drivers",
+            "why": "this orb owns the segment-margin bridge", "confidence": 0.96,
+        }],
+        "suggested_source": {
+            "name": "Company quarterly exchange filing", "acquisition": "manual", "access": "public",
+            "licensing_basis": "official public filing; confirm exchange terms when acquired",
+        },
+        "tier": 5, "cadence": "quarterly", "next_release": "2026-10-29",
+    }
+    _aw_second = {**_aw_need, "need_id": "consensus-revision-delta", "priority": 2,
+                  "series": "Point-in-time consensus revision history", "filing_required": False}
+    axcases = [  # (date, version, needs, expect: None=N/A, []=pass, [substring]=fail-with)
+        ("2026-08-13", None, None, None),                              # legacy omission remains valid
+        ("2026-08-13", None, [{"legacy": "shape"}], None),           # legacy data_needs not reinterpreted
+        ("2026-08-14", None, [], ["must carry data_needs_schema_version"]),
+        ("2026-08-14", "2.0", [], []),                                # explicit completed-empty check
+        ("2026-08-14", "2.0", [_aw_need], []),
+        ("2026-08-14", "2.0", [_aw_need, _aw_second], []),
+        ("2026-08-14", "3.0", [], ["only supported discriminator"]),
+        ("2026-08-14", "2.0", None, ["requires data_needs to be an array"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "priority": 2}], ["array order must be exactly"]),
+        ("2026-08-14", "2.0", [_aw_need, {**_aw_second, "priority": 1}], ["array order must be exactly"]),
+        ("2026-08-14", "2.0", [_aw_need, {**_aw_second, "priority": 3}], ["array order must be exactly"]),
+        ("2026-08-14", "2.0", [_aw_second, _aw_need], ["array order must be exactly"]),
+        ("2026-08-14", "2.0", [_aw_need, {**_aw_second, "need_id": _aw_need["need_id"]}], ["need_id values must be unique"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "entry_modules": ["earnings"]}], ["forbidden/extra v2 fields"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "cap_lifted": "raises confidence"}], ["forbidden/extra v2 fields"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "suggested_source": {
+            **_aw_need["suggested_source"], "url": "https://example.test/data"}}], ["must contain exactly"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "series": "https://example.test/data"}], ["contains a URL"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "series": "api.example.gov/data"}], ["contains a URL"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "series": "api.provider.dev/data"}], ["contains a URL"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "series": "provider.xyz/data"}], ["contains a URL"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "series": "ftp://provider.example/data"}], ["contains a URL"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "series": "s3://research-bucket/key"}], ["contains a URL"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "series": "192.0.2.1/data"}], ["contains a URL"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "series": "10.0.0.1:8080/path"}], ["contains a URL"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "this will guarantee a Buy rating"}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "this is guaranteeing a Buy rating"}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "this would upgrade the rating to Buy"}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "this produces 100% confidence"}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "Supportive evidence raises conviction."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "Supportive evidence improves the rating."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "Supportive evidence upgrades the rating to Buy."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "Buy is guaranteed."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This provides 99.9% confidence."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "We can be 100 percent confident."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This implies confidence of 100%."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This would provide 100% confidence in the call."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This ensures an upgrade."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence would strengthen conviction."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence would enhance confidence."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence makes the call certain."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence gives complete confidence."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence implies 1.0 confidence."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence guarantees the conclusion."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence guarantees the thesis."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence guarantees the investment case."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence guarantees the bull case."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence makes the thesis certain."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence makes us fully confident."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence removes all uncertainty."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence would leave no doubt about the call."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence guarantees upside."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence guarantees positive returns."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence guarantees outperformance."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence guarantees the price target."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence guarantees a profit."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence promises alpha."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence guarantees a rally."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence makes gains certain."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence means there is no downside."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence proves the bull case."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence confirms the Buy thesis."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence locks in a Buy."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence forces a Buy."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence compels an upgrade."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence automatically makes it a Buy."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "This evidence means we must Buy."}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "this will lift conviction by 10 points"}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "confidence rises from 40 to 60"}}], ["guarantees or promises"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "entry_orbs": [{
+            **_aw_need["entry_orbs"][0], "confidence": 96}]}], ["0..1 scale"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            "if_supportive": "one-sided only"}}], ["must contain exactly"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "why_it_caps": "OPEC production cap will increase after the policy meeting"}], []),
+        ("2026-08-14", "2.0", [{**_aw_need, "why_it_caps": "rating will improve after debt repayment"}], []),
+        ("2026-08-14", "2.0", [{**_aw_need, "why_it_caps": "The decision depends on certain filed data."}], []),
+        ("2026-08-14", "2.0", [{**_aw_need, "why_it_caps": "Certain evidence required for the rating is unavailable."}], []),
+        ("2026-08-14", "2.0", [{**_aw_need, "why_it_caps": "The action depends on certain production assumptions."}], []),
+        ("2026-08-14", "2.0", [{**_aw_need, "why_it_caps": "The survey reports a 95% confidence interval."}], []),
+        ("2026-08-14", "2.0", [{**_aw_need, "why_it_caps": "The estimate needs a 90 percent confidence interval."}], []),
+        ("2026-08-14", "2.0", [{**_aw_need, "why_it_caps": "Consumer confidence rose by 10%."}], []),
+        ("2026-08-14", "2.0", [{**_aw_need, "why_it_caps": "The supplier guarantees data quality."}], []),
+        ("2026-08-14", "2.0", [{**_aw_need, "why_it_caps": "The exchange guarantees settlement."}], []),
+        ("2026-08-14", "2.0", [{**_aw_need, "why_it_caps": "The vendor guarantees credit rating data completeness."}], []),
+        ("2026-08-14", "2.0", [{**_aw_need, "why_it_caps": "The source promises timely credit rating updates."}], []),
+        ("2026-08-14", "2.0", [{**_aw_need, "why_it_caps": "The provider assures complete rating-history coverage."}], []),
+        ("2026-08-14", "2.0", [{**_aw_need, "why_it_caps": "The supplier guarantees an upgrade to the API."}], []),
+        ("2026-08-14", "2.0", [{**_aw_need, "why_it_caps": "The vendor guarantees return-field completeness."}], []),
+        ("2026-08-14", "2.0", [{**_aw_need, "why_it_caps": "The print confirms the production estimate."}], []),
+        ("2026-08-14", "2.0", [{**_aw_need, "why_it_caps": "The regulation forces supplier closure."}], []),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_supportive": "A lower print would strengthen the case, subject to other inputs"}}], []),
+        ("2026-08-14", "2.0", [{**_aw_need, "expected_impact": {
+            **_aw_need["expected_impact"], "if_adverse": "The adverse result would weaken the balance case"}}], []),
+        ("2026-08-14", "2.0", [{**_aw_need, "series": "Official production series, revised monthly"}], []),
+        ("2026-08-14", "2.0", [{**_aw_need, "next_release": "2026-08-14"}], []),
+        ("2026-08-14", "2.0", [{**_aw_need, "next_release": "2026-08-13"}], ["predates decision_date"]),
+        ("2026-08-14", "2.0", [{**_aw_need, "next_release": "2026-02-30"}], ["not a real YYYY-MM-DD"]),
+        ("2026-08-14", "2.0", [
+            {**_aw_need, "need_id": f"need-{i}", "priority": i} for i in range(1, 7)
+        ], ["at most 5"]),
+    ]
+    for _dd, _version, _needs, _want in axcases:
+        got = eval_ax_data_needs_v2(_dd, _version, _needs)
+        ok = (got is None) if _want is None else (
+            isinstance(got, list) and (not _want and not got or all(any(w in g for g in got) for w in _want))
+        )
+        print(f"  [{'ok' if ok else 'XX'}] AX({_dd!r},v={_version!r}) -> {str(got)[:72]}")
+        if not ok: bad += 1
+
+    # Live roster membership is publication-time only. Normal AX replay remains stable after an orb
+    # rename/removal; the dedicated CLI rejects the same stale route before a fresh record is sealed.
+    _ax_stale_route={**_aw_need,"entry_orbs":[{**_aw_need["entry_orbs"][0],"agent":"renamed-after-publication"}]}
+    got=eval_ax_data_needs_v2("2026-08-14","2.0",[_ax_stale_route])
+    ok=(got==[])
+    print(f"  [{'ok' if ok else 'XX'}] AX historical replay ignores today's mutable roster")
+    if not ok: bad+=1
+    with tempfile.TemporaryDirectory(prefix="data-needs-prewrite-") as _temporary:
+        _record_path=os.path.join(_temporary,"decision_record.json")
+        _prewrite_record={"decision_date":"2026-08-14","data_needs_schema_version":"2.0","data_needs":[_aw_need]}
+        with open(_record_path,"w",encoding="utf-8") as _handle: json.dump(_prewrite_record,_handle)
+        _valid_cli=subprocess.run(
+            [sys.executable,os.path.abspath(__file__),"--data-needs-prewrite",_record_path],
+            cwd=os.getcwd(),stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,check=False,
+        )
+        _bad_date_results=[]
+        for _bad_date in (None,"not-a-date","2026-02-30"):
+            _bad_record={**_prewrite_record}
+            if _bad_date is None: _bad_record.pop("decision_date",None)
+            else: _bad_record["decision_date"]=_bad_date
+            with open(_record_path,"w",encoding="utf-8") as _handle: json.dump(_bad_record,_handle)
+            _bad_date_results.append(subprocess.run(
+                [sys.executable,os.path.abspath(__file__),"--data-needs-prewrite",_record_path],
+                cwd=os.getcwd(),stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,check=False,
+            ))
+        _prewrite_record["data_needs"]=[_ax_stale_route]
+        _prewrite_record["decision_date"]="2026-08-14"
+        with open(_record_path,"w",encoding="utf-8") as _handle: json.dump(_prewrite_record,_handle)
+        _invalid_cli=subprocess.run(
+            [sys.executable,os.path.abspath(__file__),"--data-needs-prewrite",_record_path],
+            cwd=os.getcwd(),stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,check=False,
+        )
+        _legacy_rerun={"decision_date":"2026-08-13","data_needs":[]}
+        with open(_record_path,"w",encoding="utf-8") as _handle: json.dump(_legacy_rerun,_handle)
+        _before_rollout=_data_needs_prewrite(_record_path,publication_date="2026-08-13")
+        _after_rollout=_data_needs_prewrite(_record_path,publication_date="2026-08-14")
+        ok=(_valid_cli.returncode==0 and "DATA-NEEDS-PREWRITE: PASS" in _valid_cli.stdout
+            and _invalid_cli.returncode==1 and "live discovered roster" in _invalid_cli.stdout
+            and all(result.returncode==1 and "not a real YYYY-MM-DD date" in result.stdout
+                    for result in _bad_date_results)
+            and _before_rollout==[]
+            and any("new publication must carry" in error for error in _after_rollout))
+        print(f"  [{'ok' if ok else 'XX'}] AX publication CLI validates date/live route and rollout date for old-folder reruns")
+        if not ok: bad+=1
+
+    # Static ship-path order: the live route gate must run after finish-gate writers but before either
+    # immutable sealing (full) or commit (rerun). This guards prompt drift without regrading history.
+    _full_text=open(".claude/commands/research/full.md",encoding="utf-8").read()
+    _rerun_text=open(".claude/commands/research/rerun.md",encoding="utf-8").read()
+    _full_gate=_full_text.index('python3 scripts/eval.py --data-needs-prewrite "<RUN_ROOT>/decision_record.json"')
+    _rerun_gate=_rerun_text.index('python3 scripts/eval.py --data-needs-prewrite "<RUN_ROOT>/decision_record.json"')
+    ok=(_full_text.index("GATE-EXPECTATIONS:") < _full_gate < _full_text.index("### 10B.3A")
+        and _rerun_text.index("## 9B.") < _rerun_gate < _rerun_text.index("## 10. Commit"))
+    print(f"  [{'ok' if ok else 'XX'}] AX live-route gate is ordered before sealing/commit")
+    if not ok: bad+=1
+
     # AP — valuation-summary lever-sidecar integrity: reuse the module's own fixture-free selftest (DRY),
     # covering soft-presence, structure, blend, and the decision_record non-contradiction check.
     if _vs_selftest() != 0: bad += 1
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV cases + AP lever-sidecar (module selftest)")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -4020,6 +4547,16 @@ for drp in runs:
         add("AV_conjunction_disclosure",False,"; ".join(_avresult))
     else:
         add("AV_conjunction_disclosure",True,"every scenario's conditions[] / joint_probability_basis pair is schema-consistent (§10)")
+    # AX versioned data-needs guidance (DECISION_LEDGER §5): fresh records prove the check ran even when
+    # empty, and any populated queue is exact, ranked by decision value, two-sided, URL-free and makes no
+    # promised/numeric conviction lift.
+    _axresult=eval_ax_data_needs_v2(ddte,d.get("data_needs_schema_version"),d.get("data_needs"))
+    if _axresult is None:
+        add("AX_data_needs_v2",True,"record predates the v2 decision-guidance gate and has no discriminator — N/A",na=True)
+    elif _axresult:
+        add("AX_data_needs_v2",False,"; ".join(_axresult))
+    else:
+        add("AX_data_needs_v2",True,"v2 data_needs is explicit, exact, ranked 1..N, two-sided, URL-free and carries no promised/numeric conviction lift")
     # Retrospective advisories (informational only — NEVER read by run_pass/gate_eligible/suite_pass below).
     # AI and AK reconcile fields that existed long before either check's own landing date (Headline
     # Scorecard prose vs decision_record.json numbers; module-declared red-flag severity vs the red_flags
@@ -4054,6 +4591,15 @@ for drp in runs:
                       "note":"the ledger owes a resolution — run /research:review-decisions for this ticker "
                              "(§19: a forecast that cannot be checked later is not a forecast); informational "
                              "only, does not affect pass/gate_eligible/suite_pass"})
+    # AW: kill criteria whose own named monitor event has ELAPSED, with no outcome review on file.
+    # Advisory by construction — same reason as AS: overdue-ness is the calendar, not a defect in the run.
+    _awr=eval_aw_kill_criteria_overdue(ddte,d.get("kill_criteria"),TODAY)
+    if _awr:
+        retro.append({"check":"AW_kill_criteria_overdue","status":"DUE","detail":"; ".join(_awr),
+                      "note":"a kill criterion's own named monitor event has passed — run "
+                             "/research:review-decisions for this ticker and record it in risk_results "
+                             "(§8: disconfirming evidence is a required test, not a closing caveat); "
+                             "informational only, does not affect pass/gate_eligible/suite_pass"})
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
@@ -4115,22 +4661,22 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/management-governance/04_ownership-and-insider-behavior.md":["RF-OWN-004","Filter 6"],
  ".claude/agents/balance-sheet-survival/MODULE_RULES.md":["Net cash is a strategic asset","Filter 3","Label the cycle position of the EBITDA","the **strict** basis (CLAUDE.md §15)"],
  ".claude/agents/valuation/MODULE_RULES.md":["RF-OWN-004","Filter 6","value trap","benchmarked against BOTH a peer-normal margin"],
- ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type","RF-MGT-005","calibration_feedback","Calibration feedback check","flagged_forecast_types","calibration_by_thesis_type","flagged_thesis_types","leading_error_categories_flagged","error_defense_evidence","no defense evidence found","eval_aq_forensic_mosaic_cap","Cross-module forensic mosaic","eval_ar_short_bull_case_sanity","genuine loss to the short","RF-DISQ-001","RF-RFS-001"],
+ ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type","RF-MGT-005","calibration_feedback","Calibration feedback check","flagged_forecast_types","calibration_by_thesis_type","flagged_thesis_types","leading_error_categories_flagged","error_defense_evidence","no defense evidence found","eval_aq_forensic_mosaic_cap","Cross-module forensic mosaic","eval_ar_short_bull_case_sanity","genuine loss to the short","RF-DISQ-001","RF-RFS-001","data_needs_schema_version","entry_orbs","expected_impact","decision value"],
  ".claude/agents/catalyst/MODULE_RULES.md":["§17 Catalyst Discipline","Catalyst Category Checklist","No proven catalyst yet"],
  ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet","depends_on"],
  ".claude/agents/memo-writer.md":["memo.md","colleague","~10"],
- ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md","rating_caps","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_ac_turnaround_cap","eval_aq_forensic_mosaic_cap","headline_checks","eval_ai_headline_reconciliation","eval_ak_red_flag_severity_reconciliation","valuation_summary_checks","eval_ap_valuation_summary_integrity"],
+ ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md","rating_caps","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_ac_turnaround_cap","eval_aq_forensic_mosaic_cap","headline_checks","eval_ai_headline_reconciliation","eval_ak_red_flag_severity_reconciliation","valuation_summary_checks","eval_ap_valuation_summary_integrity","--data-needs-prewrite","before 10B.3A"],
  "scripts/rating_caps.py":["AC_DATE","AD_DATE","AE_DATE","AF_DATE","AQ_DATE","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","eval_ae_filter5_cap","eval_af_filter1_integrity_cap","eval_aq_forensic_mosaic_cap","_tag_fired_standalone","HIGH_CONVICTION_DECISIONS","FORENSIC_TAGS","MOSAIC_MIN_DISTINCT_TAGS","MOSAIC_MIN_DISTINCT_MODULES"],
  "scripts/headline_checks.py":["AI_DATE","CONF_SPLIT_DATE","eval_ai_headline_reconciliation","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","AK_DATE","eval_ak_red_flag_severity_reconciliation","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM"],
  "scripts/valuation_summary_checks.py":["eval_ap_valuation_summary_integrity","scan_committed","_selftest","_REQUIRED","level_from_multiple"],
  ".claude/agents/module-memo-writer.md":["_memo.md","module synthesis","condenser"],
  "frameworks/MODULE_PIPELINE.md":["Step 4.9","module-memo-writer","_memo.md","_dossier.md"],
- ".claude/commands/research/rerun.md":["module-memo-writer","_dossier.md","10B.3","forensic-mosaic"],
+ ".claude/commands/research/rerun.md":["module-memo-writer","_dossier.md","10B.3","forensic-mosaic","--data-needs-prewrite","Publication-time data-needs route gate"],
  ".claude/commands/research/track.md":["analyses/tracking","_calls_tracker","review_schedule","ad-hoc","memo_delta_file"],
  ".claude/settings.json":["SessionStart","review_due.py"],
  ".claude/hooks/review_due.py":["review_schedule","research:review-decisions due"],
- "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method","forecast_type","Calibration Feedback Gate","calibration_feedback","calibration_by_module","calibration_by_forecast_type","flagged_forecast_types","calibration_by_thesis_type","flagged_thesis_types","error_taxonomy_distribution","leading_error_categories_flagged","error_defense_evidence","AG_ERRTAX_DATE","no defense evidence found","pre_mortem_check","audit-of-the-auditor","outcome_vs_verdict","false comfort","excess caution"],
+ "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method","forecast_type","Calibration Feedback Gate","calibration_feedback","calibration_by_module","calibration_by_forecast_type","flagged_forecast_types","calibration_by_thesis_type","flagged_thesis_types","error_taxonomy_distribution","leading_error_categories_flagged","error_defense_evidence","AG_ERRTAX_DATE","no defense evidence found","pre_mortem_check","audit-of-the-auditor","outcome_vs_verdict","false comfort","excess caution","data_needs_schema_version","entry_orbs","licensing_basis","decision value"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta","pre_mortem_check","outcome_vs_verdict","7A. Pre-mortem calibration check"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
  ".claude/commands/research/calibrate.md":["calibration_by_module","calibration_by_forecast_type","owner_module","forecast_type","Phase 6","error_taxonomy_distribution","pre_mortem_calibration","scripts/calibrate.py","Pre-data","withheld","Clopper-Pearson","Selected − Rejected","commit-run.sh"],
@@ -4140,9 +4686,13 @@ FRAMEWORK_CONTRACTS={
  "frameworks/MARKET_FEED.md":["date,symbol,close","_symbols.json","beta_adjusted_excess","close_on","EXTERNAL_DATA"],
  "frameworks/EXTERNAL_DATA.md":["data/_market","market_prices.py","beta-adjusted","tracking_price","date,symbol,close"],
  "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","eval_forecast_entry_completeness","OWNERCONF_DATE","owner_module","confidence_score","evidence_today","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_FTYPE_DATE","AG_TTYPE_DATE","AG_ERRTAX_DATE","AG_STATUSES","_ag_leading_error_categories","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","AL_pre_mortem_check","PRE_MORTEM_CHECK_DATE","PM_OUTCOMES","eval_am_bear_case_sanity","AM_DATE","eval_an_supersession_integrity","eval_ar_short_bull_case_sanity","AR_DATE","AO_forecast_resolvability","AO_DATE","eval_ao_forecast_resolvability","_ao_earliest_date","eval_ap_valuation_summary_integrity","scan_committed"],
+ "scripts/data_need_contract.py":["DATA_NEED_PROMISE_RE","DATA_NEED_URL_RE","check_live_orb_routes","discover_orb_roster"],
 
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
+FRAMEWORK_CONTRACTS["scripts/eval.py"] += [
+    "eval_ax_data_needs_v2", "DATA_NEEDS_V2_DATE", "AX_data_needs_v2",
+]
 jchecks=[]
 for jf,subs in FRAMEWORK_CONTRACTS.items():
     try: jtxt=open(jf).read()

@@ -1,9 +1,10 @@
-// Ideas is deliberately a two-tab skim: live LONG ideas and live SHORT ideas. The payload's direction is
-// authoritative; stale news leads stay out, while an expired qualified forecast remains visibly frozen
-// for audit and pair trades appear under each of their explicit legs.
+// Ideas is deliberately a two-tab skim: live LONG ideas and live SHORT ideas. Within either tab, qualified
+// 3-6 month forecasts are the primary surface and news-only leads stay in a separate collapsed research
+// queue. The payload's direction is authoritative; stale leads stay out, while an expired qualified
+// forecast remains visibly frozen for audit and pair trades appear under each of their explicit legs.
 //
-// Deliberate honesty, per the doctrine: the conviction is labelled a "pre-edge read", never the locked edge
-// score (§7); a macro/commodity bet is flagged, not dressed as a single-name pick (§14); and when nothing
+// Deliberate honesty, per the doctrine: a news score is labelled research priority, never investment
+// conviction (§7); a macro/commodity bet is flagged, not dressed as a single-name pick (§14); and when nothing
 // clears the bar the view SAYS SO (§24, the Rejector) instead of manufacturing a pick. It fails closed on a
 // missing ideas array (deploy skew, DESIGN.md §5), ships loading/empty/error states (§4), and — because it
 // auto-refreshes on the board poll (a live tick) — never uses a mount/exit animation that a re-render could
@@ -39,6 +40,8 @@ const CLOCK_SKEW_MS = 5 * 60_000
 const RUN_DAY_SKEW_MS = 14 * 60 * 60_000
 const OUTCOME_HEALTH_MIN_TTL_MS = 30 * 60_000
 const OUTCOME_HEALTH_MAX_TTL_MS = 24 * 60 * 60_000
+const LEAD_RESEARCH_PRIORITY_CAP = 62
+const LEGACY_LEAD_RESEARCH_PRIORITY_CAP = 44
 const ACTIONABLE_LONG_DECISIONS = new Set(['Strong Buy', 'Buy', 'Starter Position Only'])
 const CALIBRATION_NOTES = Object.freeze({
   pre_data: 'Pre-data: probabilities and policy thresholds are auditable priors until enough exact-horizon outcomes resolve.',
@@ -613,32 +616,62 @@ export function qualifiedIdeasForSide(board: QualifiedIdeasBoard | null | undefi
     .filter((idea): idea is QualifiedIdeaEvaluation => idea?.candidate.instrument.direction === side)
 }
 
-export interface IdeasEmptySources {
-  leadsAvailable: boolean
-  leadHealth: unknown
-  qualified: QualifiedIdeasRuntime
+export function currentQualifiedIdeasForSide(
+  board: QualifiedIdeasBoard | null | undefined,
+  side: IdeaSide,
+  nowMs = Date.now(),
+): QualifiedIdeaEvaluation[] {
+  return qualifiedIdeasForSide(board, side)
+    .filter((idea) => !qualifiedIdeaFreshnessNow(idea, board?.policy, nowMs).refreshRequired)
 }
 
-export function ideasEmptyMessage(
-  side: IdeaSide,
-  sources: IdeasEmptySources,
-): string {
-  const leadHealth = isRecord(sources.leadHealth) ? sources.leadHealth : null
-  const leadChecking = leadHealth?.schema_version === 'ideas-health/v1'
-    && ['waiting', 'deferred', 'running'].includes(String(leadHealth.status))
-  const leadTrusted = sources.leadsAvailable
-    && leadHealth?.schema_version === 'ideas-health/v1' && leadHealth.status === 'healthy'
-  const qualifiedHealth = sources.qualified.board?.health
-  const qualifiedChecking = qualifiedHealth?.status === 'pre_data'
-    || qualifiedHealth?.outcome === 'publishing' || qualifiedHealth?.outcome === 'no_artifacts'
-  const qualifiedTrusted = Boolean(sources.qualified.board)
-    && sources.qualified.invalidRowCount === 0
-    && qualifiedHealth?.status === 'healthy'
-    && ['none_clear', 'qualified'].includes(String(qualifiedHealth.outcome))
+export interface QualifiedIdeasEmptyStatePresentation {
+  heading: string
+  body: string
+  healthReason: string | null
+  state: 'checked' | 'checking' | 'unavailable'
+}
 
-  if (leadChecking || qualifiedChecking) return 'Checking for ideas…'
-  if (leadTrusted && qualifiedTrusted) return `No ${side.toUpperCase()} ideas.`
-  return 'Ideas unavailable.'
+/** The primary empty state is owned entirely by full research. News leads must never turn it off. */
+export function qualifiedIdeasEmptyState(
+  side: IdeaSide,
+  runtime: QualifiedIdeasRuntime,
+  nowMs = Date.now(),
+): QualifiedIdeasEmptyStatePresentation | null {
+  if (currentQualifiedIdeasForSide(runtime.board, side, nowMs).length > 0) return null
+  const board = runtime.board
+  const health = board?.health
+  const frozenCount = qualifiedIdeasForSide(board, side).length
+  const cleanBoard = Boolean(board) && runtime.invalidRowCount === 0
+  const checked = cleanBoard
+    && health?.status === 'healthy'
+    && ['none_clear', 'qualified'].includes(String(health.outcome))
+  const checking = cleanBoard
+    && (health?.status === 'pre_data' || ['no_artifacts', 'publishing'].includes(String(health?.outcome)))
+  const direction = side.toUpperCase()
+  const healthReason = frozenCount > 0
+    ? `${frozenCount} prior qualified forecast${frozenCount === 1 ? ' is' : 's are'} frozen for audit because ${frozenCount === 1 ? 'its' : 'their'} live evidence is no longer current.`
+    : cleanBoard && nonBlank(health?.reason) ? health.reason.trim() : null
+  const body = `For this side, default to no position. Do not open a ${direction} position from news leads; wait until a full-research forecast clears the 3–6 month bar.`
+
+  if (checked) return {
+    heading: `No qualified ${direction} 3–6 month idea.`,
+    body,
+    healthReason,
+    state: 'checked',
+  }
+  if (checking) return {
+    heading: `No qualified ${direction} 3–6 month idea yet.`,
+    body,
+    healthReason,
+    state: 'checking',
+  }
+  return {
+    heading: `No verified qualified ${direction} 3–6 month idea can be shown.`,
+    body,
+    healthReason,
+    state: 'unavailable',
+  }
 }
 
 export function IdeasTabs({ active, onSelect }: { active: IdeaSide; onSelect: (side: IdeaSide) => void }) {
@@ -967,15 +1000,32 @@ export function qualifiedIdeaSourceRows(candidate: QualifiedIdeaEvaluation['cand
 }
 
 export function ideaScorePresentation(idea: Pick<BoardIdea, 'trade_score_basis'>): { label: string; title: string } {
-  return idea.trade_score_basis === 'pre_edge_proxy_legacy'
-    ? {
-        label: 'pre-edge proxy',
-        title: 'A legacy surface estimate — not trade readiness and not the locked edge score from full research.',
-      }
-    : {
-        label: 'trade readiness',
-        title: 'A surface read from the skim — not the locked edge score the full machine computes.',
-      }
+  if (idea.trade_score_basis === 'evidence_gate_v2') return {
+    label: 'lead research priority',
+    title: 'News-only research priority, capped at 62/100 pending verified live price, liquidity, consensus, and full research. It is not investment conviction or a recommendation.',
+  }
+  if (idea.trade_score_basis === 'evidence_gate_v1') return {
+    label: 'legacy lead research priority',
+    title: 'Legacy news-only score from an earlier policy, capped at 44/100 in the current projection. It is not comparable with the current lead research priority, which is capped at 62/100 pending verified live price, liquidity, consensus, and full research; neither score is investment conviction or a recommendation.',
+  }
+  return {
+    label: 'legacy pre-edge proxy',
+    title: 'Legacy news-only surface estimate. It was not produced by the current lead research priority policy, is not comparable with its 62/100 cap, and is not investment conviction or a recommendation.',
+  }
+}
+
+export function leadResearchPriorityValue(
+  idea: Pick<BoardIdea, 'trade_score' | 'conviction' | 'trade_score_basis'>,
+): number {
+  const raw = finiteNumber(idea.trade_score)
+    ? idea.trade_score
+    : finiteNumber(idea.conviction) ? idea.conviction : 0
+  const cap = idea.trade_score_basis === 'evidence_gate_v2'
+    ? LEAD_RESEARCH_PRIORITY_CAP
+    : idea.trade_score_basis === 'evidence_gate_v1'
+      ? LEGACY_LEAD_RESEARCH_PRIORITY_CAP
+      : 100
+  return Math.max(0, Math.min(cap, raw))
 }
 
 export function QualifiedIdeaCard({
@@ -1089,7 +1139,7 @@ export function QualifiedIdeaCard({
   )
 }
 
-function IdeaCard({ idea, side }: { idea: BoardIdea; side: IdeaSide }) {
+export function NewsLeadCard({ idea, side }: { idea: BoardIdea; side: IdeaSide }) {
   const macro = MACRO_TYPES.has(idea.thesis_type)
   const pc = idea.prior_coverage
   const rated = pc?.has_run
@@ -1098,8 +1148,9 @@ function IdeaCard({ idea, side }: { idea: BoardIdea; side: IdeaSide }) {
   const ticker = pair && side === 'short' ? idea.pair_with : idea.ticker
   const company = pair && side === 'short' ? '' : [idea.company, idea.exchange].filter(Boolean).join(' · ')
   const scorePresentation = ideaScorePresentation(idea)
+  const researchPriority = leadResearchPriorityValue(idea)
   return (
-    <article className="bidea">
+    <article className="bidea bidea--lead">
       <div className="bidea__head">
         <span className="bidea__ticker">{ticker}</span>
         {company && <span className="bidea__co">{company}</span>}
@@ -1124,6 +1175,7 @@ function IdeaCard({ idea, side }: { idea: BoardIdea; side: IdeaSide }) {
       )}
 
       <div className="bidea__tags">
+        <span className="bidea__tag bidea__tag--lead">unverified news-only lead</span>
         {themeAttribution && (
           <span className="bidea__tag bidea__tag--theme" title={themeAttribution.title}>
             {themeAttribution.label}
@@ -1144,8 +1196,8 @@ function IdeaCard({ idea, side }: { idea: BoardIdea; side: IdeaSide }) {
       <div className="bidea__foot">
         <div className="bidea__read" title={scorePresentation.title}>
           <span className="bidea__readlabel">{scorePresentation.label}</span>
-          <span className="bidea__readnum">{idea.trade_score ?? idea.conviction}<span className="bidea__readden">/100</span></span>
-          <span className="bidea__bar" aria-hidden><span className="bidea__barfill" style={{ width: `${Math.max(0, Math.min(100, idea.trade_score ?? idea.conviction))}%` }} /></span>
+          <span className="bidea__readnum">{researchPriority}<span className="bidea__readden">/100</span></span>
+          <span className="bidea__bar" aria-hidden><span className="bidea__barfill" style={{ width: `${researchPriority}%` }} /></span>
         </div>
         <div className="bidea__actions">
           <IdeaFeedback idea={idea} />
@@ -1156,31 +1208,189 @@ function IdeaCard({ idea, side }: { idea: BoardIdea; side: IdeaSide }) {
   )
 }
 
+export function newsLeadQueueEmptyMessage(
+  leadsAvailable: boolean,
+  leadHealth: unknown,
+  loading = false,
+): string {
+  const health = isRecord(leadHealth) && leadHealth.schema_version === 'ideas-health/v1'
+    ? leadHealth
+    : null
+  if (loading || (health && ['waiting', 'deferred', 'running'].includes(String(health.status)))) {
+    return 'Checking for news leads…'
+  }
+  if (leadsAvailable && health?.status === 'healthy') return 'No live news leads in this direction.'
+  return 'News lead queue unavailable.'
+}
+
+export function NewsLeadResearchQueue({
+  ideas,
+  side,
+  leadsAvailable,
+  leadHealth,
+  loading = false,
+}: {
+  ideas: readonly BoardIdea[]
+  side: IdeaSide
+  leadsAvailable: boolean
+  leadHealth: unknown
+  loading?: boolean
+}) {
+  const health = isRecord(leadHealth) && leadHealth.schema_version === 'ideas-health/v1'
+    ? leadHealth
+    : null
+  const checking = loading || Boolean(health && ['waiting', 'deferred', 'running'].includes(String(health.status)))
+  const countLabel = checking
+    ? 'checking · unverified · not recommendations'
+    : leadsAvailable && health?.status === 'healthy'
+      ? `${ideas.length} unverified news lead${ideas.length === 1 ? '' : 's'} · not recommendations`
+      : 'availability unknown · unverified · not recommendations'
+  return (
+    <details className="bideas__queue">
+      <summary>
+        <span>News lead research queue</span>
+        <small>{countLabel}</small>
+      </summary>
+      <div className="bideas__queuebody">
+        <p className="bideas__queuedisclaimer">
+          <strong>Unverified news-only leads.</strong> These rank what to research next. They are not recommendations or qualified 3–6 month calls.
+        </p>
+        {ideas.length > 0 ? (
+          <div className="bideas__list bideas__leadlist">
+            {ideas.map((idea) => <NewsLeadCard key={`lead-${idea.idea_id}`} idea={idea} side={side} />)}
+          </div>
+        ) : (
+          <p className="bideas__queueempty">{newsLeadQueueEmptyMessage(leadsAvailable, leadHealth, loading)}</p>
+        )}
+      </div>
+    </details>
+  )
+}
+
+export function IdeasSidePanel({
+  panelSide,
+  activeSide,
+  leadRows,
+  leadsAvailable,
+  leadHealth,
+  qualifiedRuntime,
+  loading = false,
+  nowMs = Date.now(),
+}: {
+  panelSide: IdeaSide
+  activeSide: IdeaSide
+  leadRows: readonly BoardIdea[]
+  leadsAvailable: boolean
+  leadHealth: unknown
+  qualifiedRuntime: QualifiedIdeasRuntime
+  loading?: boolean
+  nowMs?: number
+}) {
+  const qualifiedBoard = qualifiedRuntime.board
+  const allQualified = qualifiedIdeasForSide(qualifiedBoard, panelSide)
+  const qualified = allQualified.filter((idea) => !qualifiedIdeaFreshnessNow(idea, qualifiedBoard?.policy, nowMs).refreshRequired)
+  const frozenQualified = allQualified.filter((idea) => qualifiedIdeaFreshnessNow(idea, qualifiedBoard?.policy, nowMs).refreshRequired)
+  const ideas = ideasForSide(leadRows, panelSide, nowMs)
+  const emptyState = qualified.length === 0
+    ? qualifiedIdeasEmptyState(panelSide, qualifiedRuntime, nowMs)
+    : null
+  return (
+    <section
+      id={`ideas-${panelSide}-panel`}
+      className="bideas__panel"
+      role="tabpanel"
+      aria-labelledby={`ideas-${panelSide}-tab`}
+      hidden={activeSide !== panelSide}
+    >
+      <section className="bideas__qualified" aria-labelledby={`ideas-${panelSide}-qualified-heading`}>
+        <header className="bideas__sectionhead">
+          <div>
+            <h2 id={`ideas-${panelSide}-qualified-heading`}>Qualified 3–6 month ideas</h2>
+            <p>Ranked on risk/return frontiers: policy-adjusted return against tail loss, worst case, and loss probability; evidence confidence orders each frontier. News leads never enter this list.</p>
+          </div>
+          <span>{loading ? 'checking' : `${qualified.length} current`}</span>
+        </header>
+        {loading ? (
+          <div className="bideas__list" aria-busy="true"><div className="bidea bidea--skeleton" /><div className="bidea bidea--skeleton" /></div>
+        ) : qualified.length > 0 ? (
+          <div className="bideas__list bideas__qualified-list">
+            {qualified.map((idea) => (
+              <QualifiedIdeaCard
+                key={`qualified-${idea.candidate.idea_id}`}
+                idea={idea}
+                policy={qualifiedBoard?.policy}
+                evaluatedAtMs={qualifiedBoard ? parseRfc3339Ms(qualifiedBoard.generated_at) : undefined}
+                nowMs={nowMs}
+              />
+            ))}
+          </div>
+        ) : emptyState ? (
+          <div className={`bideas__qualified-empty bideas__qualified-empty--${emptyState.state}`} role="status">
+            <strong>{emptyState.heading}</strong>
+            <p>{emptyState.body}</p>
+            {emptyState.healthReason && <p className="bideas__healthreason"><span>Board health —</span> {emptyState.healthReason}</p>}
+          </div>
+        ) : null}
+        {!loading && frozenQualified.length > 0 && (
+          <details className="bideas__frozen">
+            <summary>
+              <span>Frozen forecast archive</span>
+              <small>{frozenQualified.length} prior qualified · audit only</small>
+            </summary>
+            <div className="bideas__list bideas__frozen-list">
+              {frozenQualified.map((idea) => (
+                <QualifiedIdeaCard
+                  key={`frozen-${idea.candidate.idea_id}`}
+                  idea={idea}
+                  policy={qualifiedBoard?.policy}
+                  evaluatedAtMs={qualifiedBoard ? parseRfc3339Ms(qualifiedBoard.generated_at) : undefined}
+                  nowMs={nowMs}
+                />
+              ))}
+            </div>
+          </details>
+        )}
+      </section>
+      <NewsLeadResearchQueue
+        ideas={ideas}
+        side={panelSide}
+        leadsAvailable={leadsAvailable}
+        leadHealth={leadHealth}
+        loading={loading}
+      />
+    </section>
+  )
+}
+
 export function BestIdeasView() {
   const scBoard = useStore((s) => s.scBoard)
   const boardFetch = useStore((s) => s.scBoardFetch)
   const refresh = useStore((s) => s.scRefreshBoard)
   const [side, setSide] = useState<IdeaSide>('long')
+  const [nowMs, setNowMs] = useState(() => Date.now())
 
-  // Keep the skim fresh while the tab is open — the same 30s cadence PipelineBoard uses. openIdeas already
-  // kicked one refresh; this keeps it live as new passes land server-side.
+  // Keep both the data and wall-clock expiry backstop fresh while the tab is open. The clock update is
+  // independent of a successful fetch, so an offline cached forecast still freezes on time.
   useEffect(() => {
     void refresh()
-    const id = setInterval(() => void refresh(), 30_000)
+    const id = setInterval(() => {
+      setNowMs(Date.now())
+      void refresh()
+    }, 30_000)
     return () => clearInterval(id)
   }, [refresh])
 
   const leadsAvailable = Array.isArray(scBoard?.ideas)
   const leadRows = leadsAvailable ? scBoard!.ideas! : []
   const coldError = !scBoard && boardFetch.status === 'error'
-  const qualifiedRuntime = normalizeQualifiedIdeasBoard(scBoard?.qualified_ideas)
+  const qualifiedRuntime = normalizeQualifiedIdeasBoard(scBoard?.qualified_ideas, nowMs)
   const qualifiedBoard = qualifiedRuntime.board
   const qualifiedRuntimeNotice = scBoard ? qualifiedIdeasRuntimeWarning(qualifiedRuntime) : null
   const qualifiedWarning = qualifiedIdeasWarning(qualifiedBoard)
   const qualifiedOutcomeNotice = qualifiedRuntime.invalidRowCount === 0
     ? qualifiedIdeasOutcomeNotice(qualifiedBoard)
     : null
-  const outcomeHealthWarning = qualifiedOutcomeHealthWarning(qualifiedBoard)
+  const outcomeHealthWarning = qualifiedOutcomeHealthWarning(qualifiedBoard, nowMs)
 
   return (
     <div className="bideas">
@@ -1211,43 +1421,19 @@ export function BestIdeasView() {
           <button type="button" disabled={boardFetch.status === 'refreshing'} onClick={() => void refresh()}>{boardFetch.status === 'refreshing' ? 'Retrying…' : 'Retry'}</button>
         </div>
       )}
-      {IDEA_SIDES.map((panelSide) => {
-        const qualified = qualifiedIdeasForSide(qualifiedBoard, panelSide)
-        const ideas = ideasForSide(leadRows, panelSide)
-        const hasIdeas = qualified.length > 0 || ideas.length > 0
-        return (
-          <section
-            key={panelSide}
-            id={`ideas-${panelSide}-panel`}
-            className="bideas__panel"
-            role="tabpanel"
-            aria-labelledby={`ideas-${panelSide}-tab`}
-            hidden={side !== panelSide}
-          >
-            {!scBoard && !coldError ? (
-              <div className="bideas__list" aria-busy="true"><div className="bidea bidea--skeleton" /><div className="bidea bidea--skeleton" /></div>
-            ) : hasIdeas ? (
-              <div className="bideas__list">
-                {qualified.map((idea) => (
-                  <QualifiedIdeaCard
-                    key={`qualified-${idea.candidate.idea_id}`}
-                    idea={idea}
-                    policy={qualifiedBoard?.policy}
-                    evaluatedAtMs={qualifiedBoard ? parseRfc3339Ms(qualifiedBoard.generated_at) : undefined}
-                  />
-                ))}
-                {ideas.map((idea) => <IdeaCard key={`lead-${idea.idea_id}`} idea={idea} side={panelSide} />)}
-              </div>
-            ) : !coldError ? (
-              <p className="bideas__empty">{ideasEmptyMessage(panelSide, {
-                leadsAvailable,
-                leadHealth: scBoard?.ideas_health,
-                qualified: qualifiedRuntime,
-              })}</p>
-            ) : null}
-          </section>
-        )
-      })}
+      {IDEA_SIDES.map((panelSide) => (
+        <IdeasSidePanel
+          key={panelSide}
+          panelSide={panelSide}
+          activeSide={side}
+          leadRows={leadRows}
+          leadsAvailable={leadsAvailable}
+          leadHealth={scBoard?.ideas_health}
+          qualifiedRuntime={qualifiedRuntime}
+          loading={!scBoard && !coldError}
+          nowMs={nowMs}
+        />
+      ))}
     </div>
   )
 }

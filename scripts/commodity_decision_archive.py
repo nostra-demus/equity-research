@@ -8,6 +8,9 @@ import datetime as dt
 import hashlib
 import json
 import re
+import subprocess
+import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -22,6 +25,42 @@ class ArchiveError(RuntimeError):
 
 
 COMMODITY_ID_RE = re.compile(r"^[A-Z0-9]+(?:[-_][A-Z0-9]+)*$")
+
+
+def _validate_prearchive(record: dict[str, Any], *, enforce_live_roster: bool) -> None:
+    """Run the independent schema/v2/live-route gate before any immutable write.
+
+    A subprocess keeps the archive helper and the repository's broad validator dependency-neutral:
+    validate_screener_json imports `decision_id_for` for archive replay, so importing it back here would
+    create a circular module graph. The dedicated CLI excludes archive-existence checks by design.
+    """
+    validator = Path(__file__).with_name("validate_screener_json.py")
+    # Validate a private serialization of the exact in-memory object later hashed and archived. Never
+    # point the subprocess back at mutable `decision_record.json`: a concurrent writer could swap those
+    # bytes between this function's initial read and the validator's read (TOCTOU).
+    with tempfile.TemporaryDirectory(prefix="commodity-prearchive-") as temporary:
+        candidate = Path(temporary) / "decision_record.json"
+        try:
+            candidate.write_text(
+                json.dumps(record, ensure_ascii=False, allow_nan=False) + "\n", encoding="utf-8"
+            )
+        except (OSError, TypeError, ValueError) as error:
+            raise ArchiveError(f"pre-archive candidate cannot be serialized safely: {error}") from error
+        command = [sys.executable, str(validator), "--commodity-prearchive"]
+        if not enforce_live_roster:
+            command.append("--frozen-only")
+        command.append(str(candidate))
+        result = subprocess.run(
+            command,
+            cwd=str(Path(__file__).resolve().parent.parent),
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            check=False,
+        )
+    if result.returncode != 0:
+        detail = " ".join(line.strip() for line in result.stdout.splitlines() if line.strip())
+        raise ArchiveError(f"pre-archive decision contract failed: {detail[:1000] or 'validator failed without output'}")
 
 
 def _canonical_without_id(record: dict[str, Any]) -> bytes:
@@ -92,6 +131,24 @@ def archive_decision(run_root: Path) -> tuple[str, Path, bool]:
         raise ArchiveError("decision_record.json is not a commodity record")
     if record.get("commodity") != run_root.name:
         raise ArchiveError("record commodity does not match the run folder")
+    # An exact already-published projection may be retried after an orb is renamed. Preserve that
+    # recovery/idempotence guarantee without creating a bypass: live routing is skipped only when the
+    # caller-supplied decision_id is content-valid AND its immutable archive already exists and is byte-
+    # semantically identical. Fresh/unmatched records always face today's roster.
+    exact_existing_archive = False
+    supplied_id = record.get("decision_id")
+    if isinstance(supplied_id, str):
+        try:
+            content_id = decision_id_for(record)
+        except ArchiveError:
+            content_id = ""
+        candidate_archive = run_root / "decisions" / supplied_id / "decision_record.json"
+        if supplied_id == content_id:
+            try:
+                exact_existing_archive = json.loads(candidate_archive.read_text(encoding="utf-8")) == record
+            except (OSError, json.JSONDecodeError):
+                exact_existing_archive = False
+    _validate_prearchive(record, enforce_live_roster=not exact_existing_archive)
     coverage = None
     coverage_text = None
     # The dual-horizon contract began on 2026-08-10. Required-series coverage has its own

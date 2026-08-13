@@ -28,6 +28,71 @@ tunnel_heal_cooldown_remaining() {
   fi
 }
 
+# Safely install/refresh the independent connector supervisor from the immutable reviewed Git object. This
+# exists above the source guard so the rollout contract is portable-testable without executing a watchdog
+# tick. It never copies mutable working-tree bytes. A pre-upgrade deploy may install this watchdog before it
+# knows the helper filename; this closes that one-time bootstrap gap. Every later tick also self-attests the
+# installed copy against current production main before execution.
+bootstrap_connector_supervisor() {
+  local ops="$HOME/.nostra-ops" staged head head_after remote branch git_bin
+  git_bin="$(command -v git 2>/dev/null || true)"; git_bin="${git_bin:-/usr/bin/git}"
+  branch="$($git_bin -C "$REPO" symbolic-ref --quiet --short HEAD 2>/dev/null || true)"
+  head="$($git_bin -C "$REPO" rev-parse HEAD 2>/dev/null || true)"
+  remote="$($git_bin -C "$REPO" rev-parse origin/main 2>/dev/null || true)"
+  [ "$branch" = main ] && [ -n "$head" ] && [ "$head" = "$remote" ] || return 1
+  # Normalize only a real, current-user directory. Descriptor/no-follow checks prevent chmod from following
+  # a swapped symlink; mode 0700 keeps the installed executable outside other local users' reach.
+  "$PYTHON" -I - "$ops" <<'PYCONNECTOROPSDIR' || return 1
+import os, stat, sys
+path = sys.argv[1]
+try:
+    os.mkdir(path, 0o700)
+except FileExistsError:
+    pass
+fd = None
+try:
+    before = os.lstat(path)
+    fd = os.open(path, os.O_RDONLY | getattr(os, "O_DIRECTORY", 0) | getattr(os, "O_NOFOLLOW", 0))
+    opened = os.fstat(fd)
+    if (not stat.S_ISDIR(opened.st_mode) or opened.st_uid != os.getuid()
+            or (opened.st_dev, opened.st_ino) != (before.st_dev, before.st_ino)):
+        raise OSError
+    os.fchmod(fd, 0o700)
+finally:
+    if fd is not None: os.close(fd)
+PYCONNECTOROPSDIR
+  staged="$(mktemp "$ops/.connector-supervisor.py.staged.XXXXXX")" || return 1
+  # `git show <verified SHA>:<path>` reads the immutable object, not a dirty/racing checkout.
+  if ! "$git_bin" -C "$REPO" show "$head:scripts/ops/connector-supervisor.py" > "$staged" \
+      || [ ! -s "$staged" ] || ! chmod 700 "$staged" \
+      || ! "$PYTHON" -I - "$staged" <<'PYCONNECTORCOMPILE'
+import pathlib, sys
+source = pathlib.Path(sys.argv[1]).read_bytes()
+compile(source, "connector-supervisor.py", "exec")
+PYCONNECTORCOMPILE
+  then
+    rm -f "$staged" 2>/dev/null || true
+    return 1
+  fi
+  head_after="$($git_bin -C "$REPO" rev-parse HEAD 2>/dev/null || true)"
+  remote="$($git_bin -C "$REPO" rev-parse origin/main 2>/dev/null || true)"
+  [ "$head_after" = "$head" ] && [ "$remote" = "$head" ] || { rm -f "$staged"; return 1; }
+  # Refuse a pre-existing unsafe pathname rather than replacing/normalizing it. A safe identical copy stays
+  # in place; a reviewed new object is published by same-directory atomic rename.
+  if [ -e "$CONNECTOR_SUPERVISOR" ] || [ -L "$CONNECTOR_SUPERVISOR" ]; then
+    "$PYTHON" -I - "$CONNECTOR_SUPERVISOR" <<'PYCONNECTORINSTALLED' \
+      || { rm -f "$staged"; return 1; }
+import os, stat, sys
+value = os.lstat(sys.argv[1])
+if (not stat.S_ISREG(value.st_mode) or value.st_uid != os.getuid()
+        or value.st_nlink != 1 or value.st_mode & 0o077):
+    raise SystemExit(1)
+PYCONNECTORINSTALLED
+    if cmp -s "$staged" "$CONNECTOR_SUPERVISOR"; then rm -f "$staged"; return 0; fi
+  fi
+  mv "$staged" "$CONNECTOR_SUPERVISOR" || { rm -f "$staged"; return 1; }
+}
+
 if [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
   return 0
 fi
@@ -40,6 +105,7 @@ case "$TUNNEL_HEAL_COOLDOWN_SECONDS" in
 esac
 # resolve npm to an absolute path (launchd has a minimal PATH; brew is /opt/homebrew on Apple-Silicon, /usr/local on Intel)
 NPM="$(command -v npm 2>/dev/null || true)"; [ -n "$NPM" ] || for c in /opt/homebrew/bin/npm /usr/local/bin/npm; do [ -x "$c" ] && NPM="$c" && break; done; NPM="${NPM:-/opt/homebrew/bin/npm}"
+PYTHON="$(command -v python3 2>/dev/null || true)"; PYTHON="${PYTHON:-/usr/bin/python3}"
 UID_NUM="$(id -u)"
 AGENTS_DIR="$HOME/Library/LaunchAgents"
 LOG="$HOME/Library/Logs/nostradamus-watchdog.log"
@@ -68,6 +134,18 @@ ensure_up() {
   launchctl kickstart -k "gui/$UID_NUM/$1" 2>/dev/null
 }
 
+connector_note_hourly() {
+  local key="$1" message="$2" now last marker remaining
+  marker="$STATE_DIR/connector-note-$key.at"
+  now="$(date +%s)"
+  last="$(cat "$marker" 2>/dev/null || true)"
+  case "$last" in ''|*[!0-9]*) last=0;; esac
+  remaining="$(tunnel_heal_cooldown_remaining "$now" "$last" 3600 2>/dev/null || echo 0)"
+  [ "${remaining:-0}" -eq 0 ] || return 0
+  log "$message"
+  printf '%s\n' "$now" > "$marker.tmp" 2>/dev/null && mv "$marker.tmp" "$marker" 2>/dev/null || true
+}
+
 # keep the log bounded (~last 1000 lines once it passes 5000)
 if [ -f "$LOG" ] && [ "$(wc -l < "$LOG" 2>/dev/null || echo 0)" -gt 5000 ]; then
   tail -n 1000 "$LOG" > "$LOG.tmp" 2>/dev/null && mv "$LOG.tmp" "$LOG"
@@ -83,6 +161,25 @@ for ag in com.nostradamus.deploy com.nostradamus.news-archive; do
   launchctl print "gui/$UID_NUM/$ag" >/dev/null 2>&1 \
     || { launchctl bootstrap "gui/$UID_NUM" "$AGENTS_DIR/$ag.plist" 2>/dev/null && log "RECOVERED $ag (was booted out)"; }
 done
+
+# Reconcile the complete connector scheduler, not merely an already-installed process.  The independent
+# supervisor owns the fail-closed chain role -> stable pool identity -> plist contract -> launchd -> fresh
+# post-activation heartbeat.  It takes the deploy lease first and then calls the exact connector-only
+# installer, whose own lease is connector-autonomy.lock; this is the one global lock order used by deploy
+# and failover too.  A fresh foreign-host heartbeat suppresses all startup, while admin/unsafe/Drive states
+# never mutate launchd.  Its closed status wire contains reasons and proof identifiers, never paths/secrets.
+CONNECTOR_SUPERVISOR="$HOME/.nostra-ops/connector-supervisor.py"
+connector_supervisor_attested=0
+bootstrap_connector_supervisor && connector_supervisor_attested=1
+if [ "$connector_supervisor_attested" = 1 ]; then
+  if ! "$PYTHON" -I "$CONNECTOR_SUPERVISOR"; then
+    connector_note_hourly supervisor-failed \
+      "CONNECTORS SUPERVISOR unavailable — no unproven service mutation attempted"
+  fi
+else
+  connector_note_hourly supervisor-missing \
+    "CONNECTORS SUPERVISOR missing or unsafe — no unproven service mutation attempted"
+fi
 
 problem=""; detail=""; pub=""
 

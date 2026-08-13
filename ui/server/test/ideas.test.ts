@@ -23,7 +23,8 @@ import {
 } from '../src/news/ideas/run-idea-pass'
 import { scoreTradeCluster } from '../src/news/trade-score'
 import { eventIdFor } from '../src/news/normalize'
-import { mergeInbox } from '../src/news/write-inbox'
+import { classifyHumanVetoStoryState, humanVetoStoryStates, mergeInbox } from '../src/news/write-inbox'
+import { setDismissed } from '../src/news/inbox-actions'
 import { createTheme } from '../src/news/themes/discover'
 import { appendThemeMutations, buildThemesIndex } from '../src/news/themes/store'
 import type { ThemeItemView } from '../src/news/themes/types'
@@ -1150,19 +1151,31 @@ check('readTopSweep never admits rows through stale or malformed historical part
   assert.deepEqual(got.rows.map((row) => row.headline), ['Trusted row'])
   fs.rmSync(dir, { recursive: true, force: true })
 })
-check('readTopSweep exposes a lost recent partition even when the newest partition is empty', () => {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-degraded-empty-'))
-  const inbox = path.join(dir, 'screener', 'inbox')
-  fs.mkdirSync(inbox, { recursive: true })
-  fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({ updated_at: 'not-a-time', rows: [] }))
-  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({ updated_at: '2026-08-04T00:06:00Z', rows: [] }))
-  const got = readTopSweep(dir, 5, {
-    nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
-  })
-  assert.equal(got.status, 'degraded')
-  assert.equal(got.invalid_time_count, 1)
-  assert.deepEqual(got.rows, [])
-  fs.rmSync(dir, { recursive: true, force: true })
+check('readTopSweep reports but does not globally degrade an invalid empty or launch-only partition', () => {
+  const cases: Array<{ label: string; rows: Array<Record<string, unknown>> }> = [
+    { label: 'empty', rows: [] },
+    {
+      label: 'launched-only',
+      rows: [{
+        headline: 'Already launched archival event', url: 'https://news.test/launched-archive',
+        triage_score: 99, found_at: '2026-08-03T23:58:00Z', launched_signal_id: 'SIG-archival',
+      }],
+    },
+  ]
+  for (const fixture of cases) {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), `ideas-sweep-local-invalid-${fixture.label}-`))
+    const inbox = path.join(dir, 'screener', 'inbox')
+    fs.mkdirSync(inbox, { recursive: true })
+    fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({ updated_at: 'not-a-time', rows: fixture.rows }))
+    fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({ updated_at: '2026-08-04T00:06:00Z', rows: [] }))
+    const got = readTopSweep(dir, 5, {
+      nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
+    })
+    assert.equal(got.status, 'ok', `${fixture.label} cannot have supplied a positive candidate`)
+    assert.equal(got.invalid_time_count, 1)
+    assert.deepEqual(got.rows, [])
+    fs.rmSync(dir, { recursive: true, force: true })
+  }
 })
 check('readTopSweep bounds historical partition reads to the freshness window', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-bounded-history-'))
@@ -1231,7 +1244,61 @@ check('prior-partition human decisions remain blocking just outside the candidat
   assert.deepEqual(got.rows.map((row) => row.headline), ['Unblocked current story'])
   fs.rmSync(dir, { recursive: true, force: true })
 })
-check('human vetoes bind exact events and stable families independently of observation dedupe', () => {
+check('human-veto state proof rejects loose polarity, denial, and resumption grammar', () => {
+  const states = new Map<string, ReturnType<typeof classifyHumanVetoStoryState>>([
+    ['Company receives approval', 'positive'],
+    ['Regulator cancelled approval', 'adverse'],
+    ['Company says approval was not cancelled', 'restorative'],
+    ['Company denies reports that approval was cancelled', 'restorative'],
+    ['Company reinstates approval', 'restorative'],
+    ['Company did not receive approval', 'adverse'],
+    ['Company failed to receive approval', 'adverse'],
+    ['Company may receive approval', 'unknown'],
+    ['Regulator may cancel approval', 'unknown'],
+    ['Regulator reportedly cancelled approval', 'unknown'],
+    ['Unconfirmed: regulator cancelled approval', 'unknown'],
+    ['Rumour says regulator restored approval', 'unknown'],
+    ['Company could restore approval', 'unknown'],
+    ['Company allegedly received approval', 'unknown'],
+    ['Approval was not cancelled; regulator confirms cancellation', 'unknown'],
+    ['Company has not received approval', 'unknown'],
+    ['Company was not granted approval', 'unknown'],
+    ['Company falsely claimed it received approval', 'unknown'],
+    ['Company disputes that it received approval', 'unknown'],
+    ['Company denies responsibility after regulator cancelled approval', 'adverse'],
+    ['Company did not explain why regulator rejected approval', 'adverse'],
+    ['Regulator has not delayed review of approval', 'unknown'],
+    ['Regulator has not postponed hearing on approval', 'unknown'],
+    ['Regulator did not suspend investigation into approval', 'unknown'],
+    ['Investigation is proceeding after regulator cancelled approval', 'adverse'],
+    ['Company resumes layoffs after regulator suspended permit', 'adverse'],
+  ])
+  for (const [headline, expected] of states) {
+    assert.equal(classifyHumanVetoStoryState({ headline }), expected, headline)
+  }
+  assert.deepEqual([...humanVetoStoryStates({ headline: 'Company restores dividend after regulator cancelled approval' })], [
+    ['dividend', 'restorative'], ['approval', 'adverse'],
+  ])
+  assert.deepEqual([...humanVetoStoryStates({ headline: 'Company receives approval as board cancels dividend' })], [],
+    'one clause containing two status objects cannot smear one predicate across both')
+  assert.deepEqual([...humanVetoStoryStates({ headline: 'Approval was not cancelled; regulator confirms cancellation' })], [
+    ['approval', 'unknown'],
+  ], 'a status noun inherits the preceding object and exposes the contradiction')
+  assert.deepEqual([...humanVetoStoryStates({ headline: 'Approval was cancelled; regulator confirms reinstatement' })], [
+    ['approval', 'unknown'],
+  ], 'an anaphoric restorative noun cannot erase an adverse assertion in the same headline')
+  assert.deepEqual([...humanVetoStoryStates({ headline: 'Unverified: regulator restores approval' })], [],
+    'a headline-level uncertainty qualifier cannot be washed away by punctuation')
+  for (const headline of [
+    'Regulator has not delayed review of approval',
+    'Regulator has not postponed hearing on approval',
+    'Regulator did not suspend investigation into approval',
+  ]) {
+    assert.deepEqual([...humanVetoStoryStates({ headline })], [],
+      `${headline}: negation of a separate process must not become an approval transition`)
+  }
+})
+check('human vetoes block exact and ordinary copies but admit only newer guarded family revisions', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-veto-aliases-'))
   const inbox = path.join(dir, 'screener', 'inbox')
   const exactUrl = 'https://news.test/exact-veto'
@@ -1245,11 +1312,33 @@ check('human vetoes bind exact events and stable families independently of obser
         // A legacy/action row can retain the canonical event id even when its visible status text was
         // revised in place. The human veto binds the id, not this old observation wording.
         event_id: exactEventId, headline: 'Regulator cancels exact-event approval', url: exactUrl,
-        dedup_group: 'STORY-exact-veto', triage_score: 90, found_at: '2026-08-03T23:58:00Z', dismissed: true,
+        dedup_group: 'STORY-exact-veto', triage_score: 90, found_at: '2026-08-03T23:58:00Z',
+        source_is_english: true,
+        dismissed: true, dismissed_at: '2026-08-03T23:59:00Z',
       },
       {
         headline: 'Regulator cancels family approval', url: 'https://news.test/family-veto',
-        dedup_group: 'STORY-family-veto', triage_score: 89, found_at: '2026-08-03T23:58:00Z', consumed: true,
+        dedup_group: 'STORY-family-veto', triage_score: 89, found_at: '2026-08-03T23:58:00Z',
+        observed_at: '2026-08-03T23:58:30Z', source_is_english: true,
+        consumed: true, consumed_at: '2026-08-03T23:59:00Z',
+      },
+      {
+        headline: 'Regulator cancels stale approval', url: 'https://news.test/stale-veto',
+        dedup_group: 'STORY-stale-veto', triage_score: 88, found_at: '2026-08-03T23:58:00Z',
+        source_is_english: true,
+        consumed: true, consumed_at: '2026-08-03T23:59:00Z',
+      },
+      {
+        headline: 'Regulator cancels ambiguous update', url: 'https://news.test/ambiguous-veto',
+        dedup_group: 'STORY-ambiguous-veto', triage_score: 87, found_at: '2026-08-03T23:58:00Z',
+        source_is_english: true,
+        consumed: true, consumed_at: '2026-08-03T23:59:00Z',
+      },
+      {
+        headline: 'Company receives approval', url: 'https://news.test/adverse-veto',
+        dedup_group: 'STORY-adverse-veto', triage_score: 86, found_at: '2026-08-03T23:58:00Z',
+        observed_at: '2026-08-03T23:58:30Z', source_is_english: true,
+        consumed: true, consumed_at: '2026-08-03T23:59:00Z',
       },
     ],
   }))
@@ -1262,9 +1351,25 @@ check('human vetoes bind exact events and stable families independently of obser
         triage_score: 100, found_at: '2026-08-04T00:04:00Z',
       },
       {
-        // Different event id and wording, but the stable publisher-copy family is unchanged.
+        // Different event id and a strictly newer, explicit restoration in the stable family.
         headline: 'Company says family approval was not cancelled', url: 'https://copy.test/family-veto',
-        dedup_group: 'STORY-family-veto', triage_score: 99, found_at: '2026-08-04T00:04:00Z',
+        dedup_group: 'STORY-family-veto', triage_score: 99, found_at: '2026-08-04T00:04:00Z', observed_at: '2026-08-04T00:04:30Z', source_is_english: true,
+      },
+      {
+        headline: 'Ordinary publisher rewrite of family approval', url: 'https://copy.test/family-veto-ordinary',
+        dedup_group: 'STORY-family-veto', triage_score: 98, found_at: '2026-08-04T00:04:30Z',
+      },
+      {
+        headline: 'Correction: regulator withdraws adverse approval', url: 'https://copy.test/adverse-veto',
+        dedup_group: 'STORY-adverse-veto', triage_score: 97.5, found_at: '2026-08-04T00:03:00Z', observed_at: '2026-08-04T00:03:30Z', source_is_english: true,
+      },
+      {
+        headline: 'Regulator withdraws stale approval', url: 'https://copy.test/stale-veto',
+        dedup_group: 'STORY-stale-veto', triage_score: 97, found_at: '2026-08-03T23:57:00Z',
+      },
+      {
+        headline: 'Company changes CFO', url: 'https://copy.test/ambiguous-veto',
+        dedup_group: 'STORY-ambiguous-veto', triage_score: 96, found_at: '2026-08-04T00:04:00Z',
       },
       {
         headline: 'Independent current event', url: 'https://news.test/veto-control',
@@ -1276,10 +1381,14 @@ check('human vetoes bind exact events and stable families independently of obser
   const got = readTopSweep(dir, 5, {
     nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
   })
-  assert.deepEqual(got.rows.map((row) => row.headline), ['Independent current event'])
+  assert.deepEqual(got.rows.map((row) => row.headline), [
+    'Company says family approval was not cancelled',
+    'Correction: regulator withdraws adverse approval',
+    'Independent current event',
+  ])
   fs.rmSync(dir, { recursive: true, force: true })
 })
-check('an ungrouped same-URL reword cannot resurrect a human veto across partitions', () => {
+check('same-URL human vetoes block ordinary copies while admitting a distinct newer restoration', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-veto-url-alias-'))
   const inbox = path.join(dir, 'screener', 'inbox')
   fs.mkdirSync(inbox, { recursive: true })
@@ -1287,7 +1396,8 @@ check('an ungrouped same-URL reword cannot resurrect a human veto across partiti
     updated_at: '2026-08-03T23:59:30Z', rows: [{
       headline: 'Regulator cancels approval',
       url: 'https://news.test/same-article?utm_source=wire&b=2&a=1',
-      triage_score: 90, found_at: '2026-08-03T23:58:00Z', dismissed: true,
+      triage_score: 90, found_at: '2026-08-03T23:58:00Z', observed_at: '2026-08-03T23:58:30Z', source_is_english: true,
+      dismissed: true, dismissed_at: '2026-08-03T23:59:00Z',
     }],
   }))
   fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({
@@ -1295,9 +1405,601 @@ check('an ungrouped same-URL reword cannot resurrect a human veto across partiti
       {
         headline: 'Company says approval was not cancelled',
         url: 'https://news.test/same-article?a=1&b=2#latest',
-        triage_score: 100, found_at: '2026-08-04T00:04:00Z',
+        triage_score: 100, found_at: '2026-08-04T00:04:00Z', observed_at: '2026-08-04T00:04:30Z', source_is_english: true,
+      },
+      {
+        headline: 'Regulator cancels approval',
+        url: 'https://news.test/same-article?b=2&a=1&utm_medium=wire',
+        triage_score: 99, found_at: '2026-08-04T00:04:30Z',
+      },
+      {
+        headline: 'Regulator approval update',
+        url: 'https://news.test/same-article?a=1&b=2',
+        triage_score: 98, found_at: '2026-08-04T00:05:00Z',
       },
       { headline: 'Independent current event', url: 'https://news.test/url-veto-control', triage_score: 80, found_at: '2026-08-04T00:05:00Z' },
+    ],
+  }))
+  const got = readTopSweep(dir, 5, {
+    nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
+  })
+  assert.deepEqual(got.rows.map((row) => row.headline), [
+    'Company says approval was not cancelled',
+    'Independent current event',
+  ])
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('canonical human URLs ignore duplicate-query ordering without admitting an ordinary reword', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-veto-duplicate-query-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-04T00:06:00Z',
+    rows: [
+      {
+        headline: 'Company receives approval', url: 'http://news.test/article?a=1&a=2&b=3',
+        triage_score: 90, found_at: '2026-08-04T00:00:00Z', observed_at: '2026-08-04T00:01:00Z',
+        source_is_english: true, dismissed: true, dismissed_at: '2026-08-04T00:02:00Z',
+      },
+      {
+        headline: 'Ordinary publisher approval update', url: 'https://news.test/article?a=2&b=3&a=1',
+        triage_score: 100, found_at: '2026-08-04T00:04:00Z', observed_at: '2026-08-04T00:04:30Z',
+        source_is_english: true,
+      },
+      { headline: 'Independent current event', url: 'https://news.test/query-control', triage_score: 80, found_at: '2026-08-04T00:05:00Z' },
+    ],
+  }))
+  const got = readTopSweep(dir, 5, {
+    nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
+  })
+  assert.deepEqual(got.rows.map((row) => row.headline), ['Independent current event'])
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('human-veto state transitions reject uncertain and internally contradictory updates', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-veto-state-certainty-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  const history = [
+    ['Company receives approval for modal case', 'STORY-modal-adverse'],
+    ['Regulator cancels approval for reported case', 'STORY-reported-restoration'],
+    ['Regulator cancels approval for contradiction case', 'STORY-contradictory-restoration'],
+    ['Company receives approval for rumour case', 'STORY-rumour-adverse'],
+    ['Company receives approval for factual control', 'STORY-factual-adverse'],
+    ['Regulator cancels approval for restorative control', 'STORY-factual-restorative'],
+  ]
+  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-04T00:06:00Z',
+    rows: [
+      ...history.map(([headline, dedup_group], index) => ({
+        headline, url: `https://filing.test/state-source-${index}`, dedup_group,
+        triage_score: 90 - index, found_at: '2026-08-04T00:00:00Z', observed_at: '2026-08-04T00:00:30Z',
+        source_is_english: true, consumed: true, consumed_at: '2026-08-04T00:01:00Z',
+      })),
+      {
+        headline: 'Regulator may cancel approval for modal case', url: 'https://news.test/modal-adverse',
+        dedup_group: 'STORY-modal-adverse', triage_score: 100, found_at: '2026-08-04T00:04:00Z',
+        observed_at: '2026-08-04T00:04:30Z', source_is_english: true,
+      },
+      {
+        headline: 'Regulator reportedly restores approval for reported case', url: 'https://news.test/reported-restoration',
+        dedup_group: 'STORY-reported-restoration', triage_score: 99, found_at: '2026-08-04T00:04:00Z',
+        observed_at: '2026-08-04T00:04:30Z', source_is_english: true,
+      },
+      {
+        headline: 'Approval was not cancelled; regulator confirms cancellation', url: 'https://news.test/contradiction',
+        dedup_group: 'STORY-contradictory-restoration', triage_score: 98, found_at: '2026-08-04T00:04:00Z',
+        observed_at: '2026-08-04T00:04:30Z', source_is_english: true,
+      },
+      {
+        headline: 'Rumour says regulator cancelled approval for rumour case', url: 'https://news.test/rumour-adverse',
+        dedup_group: 'STORY-rumour-adverse', triage_score: 97, found_at: '2026-08-04T00:04:00Z',
+        observed_at: '2026-08-04T00:04:30Z', source_is_english: true,
+      },
+      {
+        headline: 'Regulator cancels approval for factual control', url: 'https://official.test/factual-adverse',
+        dedup_group: 'STORY-factual-adverse', triage_score: 96, found_at: '2026-08-04T00:04:00Z',
+        observed_at: '2026-08-04T00:04:30Z', source_is_english: true,
+      },
+      {
+        headline: 'Regulator restores approval for restorative control', url: 'https://official.test/factual-restorative',
+        dedup_group: 'STORY-factual-restorative', triage_score: 95, found_at: '2026-08-04T00:04:00Z',
+        observed_at: '2026-08-04T00:04:30Z', source_is_english: true,
+      },
+      { headline: 'Independent current event', url: 'https://news.test/state-certainty-control', triage_score: 80, found_at: '2026-08-04T00:05:00Z' },
+    ],
+  }))
+  const got = readTopSweep(dir, 10, {
+    nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
+  })
+  assert.deepEqual(got.rows.map((row) => row.headline), [
+    'Regulator cancels approval for factual control',
+    'Regulator restores approval for restorative control',
+    'Independent current event',
+  ])
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('human-veto family transitions remain bound to the explicitly named issuer', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-veto-issuer-binding-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  const alpha = [{ name: 'Alpha Pharma', ticker: 'ALPH', listing_country: 'US' }]
+  const beta = [{ name: 'Beta Pharma', ticker: 'BETA', listing_country: 'US' }]
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-04T00:06:00Z', rows: [
+      {
+        headline: 'Regulator cancels approval for Alpha Pharma', url: 'https://filing.test/issuer-conflict',
+        dedup_group: 'STORY-issuer-conflict', companies: alpha, triage_score: 90,
+        found_at: '2026-08-04T00:00:00Z', observed_at: '2026-08-04T00:00:30Z', source_is_english: true,
+        consumed: true, consumed_at: '2026-08-04T00:01:00Z',
+      },
+      {
+        headline: 'Regulator cancels second approval for Alpha Pharma', url: 'https://filing.test/issuer-control',
+        dedup_group: 'STORY-issuer-control', companies: alpha, triage_score: 89,
+        found_at: '2026-08-04T00:00:00Z', observed_at: '2026-08-04T00:00:30Z', source_is_english: true,
+        consumed: true, consumed_at: '2026-08-04T00:01:00Z',
+      },
+      {
+        headline: 'Regulator cancels approval for Alpha Pharma', url: 'https://filing.test/issuer-headline-conflict',
+        dedup_group: 'STORY-issuer-headline-conflict', triage_score: 88,
+        found_at: '2026-08-04T00:00:00Z', observed_at: '2026-08-04T00:00:30Z', source_is_english: true,
+        consumed: true, consumed_at: '2026-08-04T00:01:00Z',
+      },
+      {
+        headline: 'Regulator cancelled approval for Apple', url: 'https://filing.test/issuer-single-token-conflict',
+        dedup_group: 'STORY-issuer-single-token-conflict', triage_score: 87,
+        found_at: '2026-08-04T00:00:00Z', observed_at: '2026-08-04T00:00:30Z', source_is_english: true,
+        consumed: true, consumed_at: '2026-08-04T00:01:00Z',
+      },
+      {
+        headline: 'Regulator restores approval for Beta Pharma', url: 'https://official.test/issuer-conflict',
+        dedup_group: 'STORY-issuer-conflict', companies: beta, triage_score: 100,
+        found_at: '2026-08-04T00:04:00Z', observed_at: '2026-08-04T00:04:30Z', source_is_english: true,
+      },
+      {
+        headline: 'Regulator restores approval for Alpha Pharma under second filing', url: 'https://official.test/issuer-control',
+        dedup_group: 'STORY-issuer-control', companies: alpha, triage_score: 99,
+        found_at: '2026-08-04T00:04:00Z', observed_at: '2026-08-04T00:04:30Z', source_is_english: true,
+      },
+      {
+        headline: 'Regulator restores approval for Beta Pharma', url: 'https://official.test/issuer-headline-conflict',
+        dedup_group: 'STORY-issuer-headline-conflict', triage_score: 98,
+        found_at: '2026-08-04T00:04:00Z', observed_at: '2026-08-04T00:04:30Z', source_is_english: true,
+      },
+      {
+        headline: 'Tesla says approval was restored', url: 'https://official.test/issuer-single-token-conflict',
+        dedup_group: 'STORY-issuer-single-token-conflict', triage_score: 97,
+        found_at: '2026-08-04T00:04:00Z', observed_at: '2026-08-04T00:04:30Z', source_is_english: true,
+      },
+      { headline: 'Independent current event', url: 'https://news.test/issuer-control', triage_score: 80, found_at: '2026-08-04T00:05:00Z' },
+    ],
+  }))
+  const got = readTopSweep(dir, 5, {
+    nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
+  })
+  assert.deepEqual(got.rows.map((row) => row.headline), [
+    'Regulator restores approval for Alpha Pharma under second filing',
+    'Independent current event',
+  ])
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('a persisted event id and its derived identity both bind later family aliases', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-veto-derived-event-alias-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  const sourceHeadline = 'Company receives derived-identity approval'
+  const sourceUrl = 'https://news.test/derived-identity-source'
+  const derivedEventId = eventIdFor(sourceHeadline, sourceUrl)
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-04T00:06:00Z', rows: [
+      {
+        event_id: 'EVT-persisted-identity-A', headline: sourceHeadline, url: sourceUrl,
+        triage_score: 90, found_at: '2026-08-04T00:00:00Z', observed_at: '2026-08-04T00:00:30Z',
+        source_is_english: true, dismissed: true, dismissed_at: '2026-08-04T00:01:00Z',
+      },
+      {
+        headline: 'Publisher republishes the acted-on approval update', url: 'https://copy.test/derived-identity-copy',
+        dedup_group: derivedEventId, triage_score: 100, found_at: '2026-08-04T00:04:00Z',
+        observed_at: '2026-08-04T00:04:30Z', source_is_english: true,
+      },
+      { headline: 'Independent current event', url: 'https://news.test/derived-event-control', triage_score: 80, found_at: '2026-08-04T00:05:00Z' },
+    ],
+  }))
+  const got = readTopSweep(dir, 5, {
+    nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
+  })
+  assert.deepEqual(got.rows.map((row) => row.headline), ['Independent current event'])
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('canonical human URLs strip search, Instagram, and marketing-token trackers', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-veto-extra-trackers-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-04T00:06:00Z', rows: [
+      {
+        headline: 'Company receives tracker-bound approval',
+        url: 'https://news.test/tracker-article?id=7&srsltid=old&utm_source=wire&igshid=old&mkt_tok=old',
+        triage_score: 90, found_at: '2026-08-04T00:00:00Z', observed_at: '2026-08-04T00:00:30Z',
+        source_is_english: true, dismissed: true, dismissed_at: '2026-08-04T00:01:00Z',
+      },
+      {
+        headline: 'Ordinary publisher rewrite of tracker-bound approval',
+        url: 'https://news.test/tracker-article?mkt_tok=new&id=7&igshid=new&srsltid=new',
+        triage_score: 100, found_at: '2026-08-04T00:04:00Z', observed_at: '2026-08-04T00:04:30Z', source_is_english: true,
+      },
+      { headline: 'Independent current event', url: 'https://news.test/tracker-control', triage_score: 80, found_at: '2026-08-04T00:05:00Z' },
+    ],
+  }))
+  const got = readTopSweep(dir, 5, {
+    nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
+  })
+  assert.deepEqual(got.rows.map((row) => row.headline), ['Independent current event'])
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('durable human vetoes close transitive aliases and launched rows across old partitions', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-veto-closure-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  const rootFamily = 'STORY-durable-root'
+  const bridgeHeadline = 'Publisher republishes the approval article'
+  const bridgeUrl = 'https://copy.test/approval-bridge'
+  const bridgeEvent = eventIdFor(bridgeHeadline, bridgeUrl)
+  const sharedUrl = 'https://news.test/edited-title?id=7'
+  fs.writeFileSync(path.join(inbox, '2026-07-30_sweep.json'), JSON.stringify({
+    updated_at: '2026-07-30T12:03:00Z',
+    rows: [
+      {
+        headline: 'Original approval article', url: 'https://news.test/durable-root', dedup_group: rootFamily,
+        triage_score: 90, found_at: '2026-07-30T12:00:00Z', observed_at: '2026-07-30T12:01:00Z',
+        source_is_english: true, dismissed: true, dismissed_at: '2026-07-30T12:02:00Z',
+      },
+      {
+        headline: 'Original edited-title article', url: sharedUrl,
+        triage_score: 89, found_at: '2026-07-30T12:00:00Z', observed_at: '2026-07-30T12:01:00Z',
+        source_is_english: true, consumed: true, consumed_at: '2026-07-30T12:02:00Z',
+      },
+    ],
+  }))
+  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-04T00:06:00Z',
+    rows: [
+      {
+        headline: bridgeHeadline, url: bridgeUrl, dedup_group: rootFamily,
+        triage_score: 100, found_at: '2026-08-04T00:01:00Z', observed_at: '2026-08-04T00:01:30Z', source_is_english: true,
+      },
+      {
+        headline: 'Second-hop publisher copy', url: 'https://copy.test/approval-hop-two', dedup_group: bridgeEvent,
+        triage_score: 99, found_at: '2026-08-04T00:02:00Z', observed_at: '2026-08-04T00:02:30Z', source_is_english: true,
+      },
+      {
+        headline: 'Edited title at the same publisher URL', url: sharedUrl, dedup_group: 'STORY-edited-title-family',
+        triage_score: 98, found_at: '2026-08-04T00:03:00Z', observed_at: '2026-08-04T00:03:30Z', source_is_english: true,
+      },
+      {
+        headline: 'Syndicated edited-title copy', url: 'https://copy.test/edited-title', dedup_group: 'STORY-edited-title-family',
+        triage_score: 97, found_at: '2026-08-04T00:04:00Z', observed_at: '2026-08-04T00:04:30Z', source_is_english: true,
+      },
+      {
+        headline: 'Already launched event', url: 'https://news.test/already-launched',
+        triage_score: 96, found_at: '2026-08-04T00:04:00Z', launched_signal_id: 'SIG-launched',
+      },
+      {
+        headline: 'Escaped path veto copy', url: 'https://news.test/%7Eissuer/update', dedup_group: 'STORY-url-path',
+        triage_score: 95, found_at: '2026-08-04T00:03:00Z', observed_at: '2026-08-04T00:03:30Z',
+        source_is_english: true, dismissed: true, dismissed_at: '2026-08-04T00:04:00Z',
+      },
+      {
+        headline: 'Equivalent decoded path copy', url: 'https://news.test./~issuer/update',
+        triage_score: 94, found_at: '2026-08-04T00:04:30Z', observed_at: '2026-08-04T00:05:00Z', source_is_english: true,
+      },
+      { headline: 'Independent current event', url: 'https://news.test/closure-control', triage_score: 80, found_at: '2026-08-04T00:05:00Z' },
+    ],
+  }))
+  const got = readTopSweep(dir, 10, {
+    nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
+  })
+  assert.equal(got.status, 'ok')
+  assert.deepEqual(got.rows.map((row) => row.headline), ['Independent current event'])
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('the append-only human-action ledger survives corruption of an old sweep projection', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-durable-action-ledger-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  const nowMs = Date.now()
+  const now = new Date(nowMs)
+  const oldDay = new Date(nowMs - 5 * 86_400_000).toISOString().slice(0, 10)
+  const currentDay = now.toISOString().slice(0, 10)
+  const oldSourceAt = new Date(nowMs - 5 * 86_400_000 + 60_000).toISOString()
+  const sourceAt = new Date(nowMs - 60_000).toISOString()
+  const observedAt = new Date(nowMs - 30_000).toISOString()
+  const oldFile = path.join(inbox, `${oldDay}_sweep.json`)
+  fs.writeFileSync(oldFile, JSON.stringify({
+    updated_at: oldSourceAt,
+    rows: [{
+      inbox_id: `INB-${oldDay.replace(/-/g, '')}-001`, headline: 'Company receives durable approval',
+      url: 'https://news.test/durable-ledger-veto', dedup_group: 'STORY-durable-ledger-veto',
+      triage_score: 90, found_at: oldSourceAt, observed_at: oldSourceAt, source_is_english: true,
+      consumed: false, launched_signal_id: null,
+    }],
+  }))
+  setDismissed(dir, `INB-${oldDay.replace(/-/g, '')}-001`, true, 'test')
+  fs.writeFileSync(oldFile, '{corrupt archival projection')
+  const currentFile = path.join(inbox, `${currentDay}_sweep.json`)
+  // Reuse the old date+sequence ID for an unrelated imported row, then dismiss and restore only that
+  // replacement. The original observation's durable veto must survive both operations.
+  fs.writeFileSync(currentFile, JSON.stringify({
+    updated_at: new Date(nowMs + 5_000).toISOString(),
+    rows: [{
+      inbox_id: `INB-${oldDay.replace(/-/g, '')}-001`, headline: 'Unrelated replacement observation',
+      url: 'https://news.test/reused-inbox-slot', triage_score: 70, found_at: sourceAt,
+      observed_at: observedAt, source_is_english: true, consumed: false, launched_signal_id: null,
+    }],
+  }))
+  setDismissed(dir, `INB-${oldDay.replace(/-/g, '')}-001`, true, 'test')
+  setDismissed(dir, `INB-${oldDay.replace(/-/g, '')}-001`, false, 'test')
+  fs.writeFileSync(currentFile, JSON.stringify({
+    updated_at: new Date(nowMs + 15_000).toISOString(),
+    rows: [
+      {
+        headline: 'Ordinary copy of durable approval', url: 'https://copy.test/durable-ledger-veto',
+        dedup_group: 'STORY-durable-ledger-veto', triage_score: 100,
+        found_at: sourceAt, observed_at: observedAt, source_is_english: true,
+      },
+      { headline: 'Independent current event', url: 'https://news.test/durable-ledger-control', triage_score: 80, found_at: sourceAt },
+    ],
+  }))
+  const got = readTopSweep(dir, 5, { nowMs: nowMs + 30_000, maxAgeMs: 2 * 3_600_000 })
+  assert.equal(got.status, 'ok', 'an irrelevant corrupt archive cannot pause unrelated evidence')
+  assert.deepEqual(got.rows.map((row) => row.headline), ['Independent current event'])
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('merge first-seen clocks admit a same-URL correction even when the publisher timestamp is unchanged', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-in-place-revision-clock-'))
+  const date = '2026-08-04'
+  const url = 'https://news.test/in-place-approval'
+  const family = 'STORY-in-place-approval'
+  const item = (headline: string, score: number, foundAt = '2026-08-04T00:00:00Z', itemUrl = url, itemFamily = family): any => ({
+    event_id: eventIdFor(headline, itemUrl), headline, url: itemUrl, domain: 'news.test', source_name: 'Wire',
+    region: 'US', input_nature: 'news_headline', found_at: foundAt, dedup_status: 'new',
+    triage_score: score, triage_reason: 'material update', relevance: 'material', materiality_pre_score: score,
+    event_types: [], issuer_linkage: 'primary', companies: [], size_bucket: 'large', band: 'pick',
+    event_materiality_label: 'high', event_direction: 'unknown', event_scope: 'company_specific',
+    source_is_english: true,
+    dedup_group: itemFamily,
+  })
+  mergeInbox(dir, date, [item('Company receives approval', 90)], {
+    maxRows: 10, now: () => new Date('2026-08-04T00:01:00Z'),
+  })
+  const fp = path.join(dir, 'screener', 'inbox', `${date}_sweep.json`)
+  const acted = JSON.parse(fs.readFileSync(fp, 'utf8'))
+  acted.rows[0].consumed = true
+  acted.rows[0].consumed_at = '2026-08-04T00:02:00Z'
+  acted.rows[0].launched_signal_id = 'SIG-in-place'
+  fs.writeFileSync(fp, JSON.stringify(acted))
+
+  mergeInbox(dir, date, [
+    // An exact re-fetch carries a newer provider timestamp but cannot move the acted-on observation.
+    item('Company receives approval', 91, '2026-08-04T00:03:00Z'),
+    // The publisher edits the same URL and retains the original pubDate. The local first-seen clock proves
+    // that this is a post-action correction without laundering its source freshness timestamp.
+    item('Correction: company did not receive approval', 100),
+    item('Independent current event', 80, '2026-08-04T00:03:30Z', 'https://news.test/in-place-control', 'STORY-in-place-control'),
+  ], { maxRows: 10, now: () => new Date('2026-08-04T00:04:00Z') })
+
+  const persisted = JSON.parse(fs.readFileSync(fp, 'utf8'))
+  const original = persisted.rows.find((row: any) => row.headline === 'Company receives approval')
+  const correction = persisted.rows.find((row: any) => row.headline.startsWith('Correction:'))
+  assert.equal(original?.found_at, '2026-08-04T00:00:00Z')
+  assert.equal(original?.observed_at, '2026-08-04T00:01:00Z')
+  assert.equal(correction?.found_at, '2026-08-04T00:00:00Z')
+  assert.equal(correction?.observed_at, '2026-08-04T00:04:00Z')
+
+  const got = readTopSweep(dir, 5, {
+    nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
+  })
+  assert.deepEqual(got.rows.map((row) => row.headline), [
+    'Correction: company did not receive approval',
+    'Independent current event',
+  ])
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('durable consume clocks admit a later same-day retraction while legacy or impossible clocks stay closed', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-consume-clock-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-04T00:06:00Z',
+    rows: [
+      {
+        headline: 'Company receives approval', url: 'https://news.test/current-consume',
+        dedup_group: 'STORY-current-consume', triage_score: 90, found_at: '2026-08-04T00:00:00Z',
+        source_is_english: true,
+        consumed: true, consumed_at: '2026-08-04T00:02:00Z',
+      },
+      {
+        headline: 'Correction: regulator withdraws current approval', url: 'https://news.test/current-consume-retraction',
+        dedup_group: 'STORY-current-consume', triage_score: 100, found_at: '2026-08-04T00:04:00Z', observed_at: '2026-08-04T00:04:30Z', source_is_english: true,
+      },
+      {
+        headline: 'Company receives legacy approval', url: 'https://news.test/legacy-consume',
+        dedup_group: 'STORY-legacy-consume', triage_score: 89, found_at: '2026-08-04T00:00:00Z', consumed: true,
+      },
+      {
+        headline: 'Regulator withdraws legacy approval', url: 'https://news.test/legacy-consume-retraction',
+        dedup_group: 'STORY-legacy-consume', triage_score: 99, found_at: '2026-08-04T00:04:00Z',
+      },
+      {
+        headline: 'Company receives bad-clock approval', url: 'https://news.test/bad-clock-consume',
+        dedup_group: 'STORY-bad-clock-consume', triage_score: 88, found_at: '2026-08-04T00:00:00Z',
+        consumed: true, consumed_at: '1970-01-01T00:00:00Z',
+      },
+      {
+        headline: 'Regulator withdraws bad-clock approval', url: 'https://news.test/bad-clock-consume-retraction',
+        dedup_group: 'STORY-bad-clock-consume', triage_score: 98, found_at: '2026-08-04T00:04:00Z',
+      },
+      {
+        headline: 'Ancient approval record', url: 'https://news.test/ancient-consume',
+        dedup_group: 'STORY-ancient-consume', triage_score: 87, found_at: '1970-01-01T00:00:00Z',
+        consumed: true, consumed_at: '1970-01-01T00:01:00Z',
+      },
+      {
+        headline: 'Regulator withdraws ancient approval', url: 'https://news.test/ancient-consume-retraction',
+        dedup_group: 'STORY-ancient-consume', triage_score: 97, found_at: '2026-08-04T00:04:00Z',
+      },
+      {
+        headline: 'Company receives skewed approval', url: 'https://news.test/skewed-consume',
+        dedup_group: 'STORY-skewed-consume', triage_score: 86, found_at: '2026-08-04T00:04:00Z',
+        consumed: true, consumed_at: '2026-08-04T00:00:00Z',
+      },
+      {
+        headline: 'Regulator withdraws skewed approval', url: 'https://news.test/skewed-consume-retraction',
+        dedup_group: 'STORY-skewed-consume', triage_score: 96, found_at: '2026-08-04T00:02:00Z',
+      },
+      {
+        headline: 'Regulator cancels same-state approval', url: 'https://news.test/same-state-consume',
+        dedup_group: 'STORY-same-state-consume', triage_score: 85, found_at: '2026-08-04T00:00:00Z',
+        consumed: true, consumed_at: '2026-08-04T00:02:00Z',
+      },
+      {
+        headline: 'Approval withdrawn by regulator', url: 'https://news.test/same-state-consume-copy',
+        dedup_group: 'STORY-same-state-consume', triage_score: 95, found_at: '2026-08-04T00:04:00Z',
+      },
+      {
+        dedup_group: 'STORY-family-only-consume', triage_score: 84, found_at: '2026-08-04T00:00:00Z',
+        consumed: true, consumed_at: '2026-08-04T00:02:00Z',
+      },
+      {
+        headline: 'Regulator withdraws family-only approval', url: 'https://news.test/family-only-consume-copy',
+        dedup_group: 'STORY-family-only-consume', triage_score: 94, found_at: '2026-08-04T00:04:00Z',
+      },
+      { headline: 'Independent current event', url: 'https://news.test/consume-clock-control', triage_score: 80, found_at: '2026-08-04T00:05:00Z' },
+    ],
+  }))
+  const got = readTopSweep(dir, 6, {
+    nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
+  })
+  assert.equal(got.status, 'ok', 'local veto-clock defects do not pause unrelated trusted current evidence')
+  assert.equal(got.invalid_time_count, 1, 'all malformed clocks in this partition are disclosed once')
+  assert.deepEqual(got.rows.map((row) => row.headline), [
+    'Correction: regulator withdraws current approval',
+    'Independent current event',
+  ])
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('human-veto transitions require proven English, a real state change, and a partition-bound revision clock', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-veto-proof-contract-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-04T00:06:00Z',
+    rows: [
+      {
+        headline: 'El regulador cancela la aprobación', url: 'https://news.test/spanish-veto',
+        dedup_group: 'STORY-spanish-veto', triage_score: 90, found_at: '2026-08-04T00:00:00Z',
+        consumed: true, consumed_at: '2026-08-04T00:02:00Z',
+      },
+      {
+        headline: 'Approval withdrawn by regulator', url: 'https://copy.test/spanish-veto',
+        dedup_group: 'STORY-spanish-veto', triage_score: 100, found_at: '2026-08-04T00:04:00Z',
+        source_is_english: true,
+      },
+      {
+        headline: 'Regulator cancelled approval', url: 'https://news.test/same-state-veto',
+        dedup_group: 'STORY-same-state-veto', triage_score: 89, found_at: '2026-08-04T00:00:00Z',
+        source_is_english: true, consumed: true, consumed_at: '2026-08-04T00:02:00Z',
+      },
+      {
+        headline: 'Regulator cancelled explained approval', url: 'https://news.test/negation-scope-veto',
+        dedup_group: 'STORY-negation-scope-veto', triage_score: 86, found_at: '2026-08-04T00:00:00Z',
+        observed_at: '2026-08-04T00:01:00Z', source_is_english: true,
+        consumed: true, consumed_at: '2026-08-04T00:02:00Z',
+      },
+      {
+        headline: 'Company did not explain why regulator cancelled explained approval', url: 'https://copy.test/negation-scope-veto',
+        dedup_group: 'STORY-negation-scope-veto', triage_score: 96, found_at: '2026-08-04T00:04:00Z',
+        observed_at: '2026-08-04T00:04:30Z', source_is_english: true,
+      },
+      {
+        headline: 'Correction: approval was cancelled by regulator', url: 'https://copy.test/same-state-veto',
+        dedup_group: 'STORY-same-state-veto', triage_score: 99, found_at: '2026-08-04T00:04:00Z',
+        source_is_english: true,
+      },
+      {
+        headline: 'Company receives clocked approval', url: 'https://news.test/future-partition-veto',
+        dedup_group: 'STORY-future-partition-veto', triage_score: 88, found_at: '2026-08-04T00:00:00Z',
+        source_is_english: true, consumed: true, consumed_at: '2026-08-04T00:02:00Z',
+      },
+      {
+        headline: 'Regulator cancelled locally clocked approval', url: 'https://news.test/future-observed-veto',
+        dedup_group: 'STORY-future-observed-veto', triage_score: 87, found_at: '2026-08-04T00:00:00Z',
+        observed_at: '2026-08-04T00:01:00Z', source_is_english: true,
+        consumed: true, consumed_at: '2026-08-04T00:02:00Z',
+      },
+      {
+        headline: 'Company says locally clocked approval was not cancelled', url: 'https://copy.test/future-observed-veto',
+        dedup_group: 'STORY-future-observed-veto', triage_score: 97, found_at: '2026-08-04T00:00:00Z',
+        observed_at: '2026-08-04T00:07:00Z', source_is_english: true,
+      },
+      {
+        headline: 'Correction: regulator withdraws clocked approval', url: 'https://copy.test/future-partition-veto',
+        dedup_group: 'STORY-future-partition-veto', triage_score: 98, found_at: '2026-08-04T00:20:00Z',
+        source_is_english: true,
+      },
+      { headline: 'Independent current event', url: 'https://news.test/veto-proof-control', triage_score: 80, found_at: '2026-08-04T00:05:00Z' },
+    ],
+  }))
+  const got = readTopSweep(dir, 6, {
+    nowMs: Date.parse('2026-08-04T00:21:00Z'), maxAgeMs: 2 * 3_600_000,
+  })
+  assert.equal(got.status, 'ok', 'local revision-clock defects do not pause unrelated evidence')
+  assert.equal(got.invalid_time_count, 1, 'the impossible source/partition ordering is disclosed')
+  assert.deepEqual(got.rows.map((row) => row.headline), ['Independent current event'])
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('translations cannot turn an ordinary foreign-language copy into a human-veto override', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-veto-translation-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-03T23:59:30Z',
+    rows: [
+      {
+        headline: '規制当局が承認を取り消した', headline_en: 'Regulator cancelled approval',
+        url: 'https://news.test/foreign-veto', dedup_group: 'STORY-foreign-veto', triage_score: 90,
+        found_at: '2026-08-03T23:58:00Z', consumed: true, consumed_at: '2026-08-03T23:59:00Z',
+      },
+      {
+        headline: 'Regulator cancelled permit', url: 'https://news.test/translated-exact-veto',
+        dedup_group: 'STORY-translated-exact-veto', triage_score: 89,
+        found_at: '2026-08-03T23:58:00Z', consumed: true, consumed_at: '2026-08-03T23:59:00Z',
+      },
+      {
+        headline: '規制当局が別の承認を取り消した', headline_en: 'Regulator cancelled another approval',
+        url: 'https://news.test/foreign-state-veto', dedup_group: 'STORY-foreign-state-veto', triage_score: 88,
+        found_at: '2026-08-03T23:58:00Z', consumed: true, consumed_at: '2026-08-03T23:59:00Z',
+      },
+    ],
+  }))
+  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-04T00:06:00Z',
+    rows: [
+      {
+        headline: '会社が承認について説明した', headline_en: 'Company says approval was not cancelled', source_is_english: true,
+        url: 'https://copy.test/foreign-veto', dedup_group: 'STORY-foreign-veto', triage_score: 100,
+        found_at: '2026-08-04T00:04:00Z',
+      },
+      {
+        headline: '規制当局が許可を取り消した', headline_en: 'Regulator cancelled permit',
+        url: 'https://copy.test/translated-exact-veto', dedup_group: 'STORY-translated-exact-veto', triage_score: 99,
+        found_at: '2026-08-04T00:04:00Z',
+      },
+      {
+        headline: 'Approval withdrawn by regulator',
+        url: 'https://copy.test/foreign-state-veto', dedup_group: 'STORY-foreign-state-veto', triage_score: 98,
+        found_at: '2026-08-04T00:04:00Z',
+      },
+      { headline: 'Independent current event', url: 'https://news.test/translation-veto-control', triage_score: 80, found_at: '2026-08-04T00:05:00Z' },
     ],
   }))
   const got = readTopSweep(dir, 5, {
@@ -1356,6 +2058,36 @@ check('a corrupt human-state-only partition pauses candidates so an unknown dism
   assert.equal(got.status, 'degraded')
   assert.deepEqual(got.rows, [], 'unknown veto state withholds every candidate instead of resurrecting one')
   assert.equal(got.invalid_time_count, 1, 'the missing human-state partition is disclosed')
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('an invalid human-partition clock is disclosed but blocks only its matching legacy veto', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-sweep-invalid-human-clock-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.writeFileSync(path.join(inbox, '2026-08-03_sweep.json'), JSON.stringify({
+    updated_at: 'bad-clock',
+    rows: [{
+      headline: 'Consumed approval story', url: 'https://news.test/invalid-human-clock',
+      dedup_group: 'STORY-invalid-human-clock', triage_score: 90,
+      found_at: '2026-08-03T23:58:00Z', consumed: true,
+    }],
+  }))
+  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-04T06:04:30Z',
+    rows: [
+      {
+        headline: 'Regulator withdraws approval story', url: 'https://copy.test/invalid-human-clock',
+        dedup_group: 'STORY-invalid-human-clock', triage_score: 100, found_at: '2026-08-04T06:04:00Z',
+      },
+      { headline: 'Independent morning story', url: 'https://news.test/invalid-human-clock-control', triage_score: 90, found_at: '2026-08-04T06:04:00Z' },
+    ],
+  }))
+  const got = readTopSweep(dir, 5, {
+    nowMs: Date.parse('2026-08-04T06:05:00Z'), maxAgeMs: 6 * 3_600_000,
+  })
+  assert.equal(got.status, 'ok', 'a readable human-state warning cannot pause unrelated current evidence')
+  assert.equal(got.invalid_time_count, 1)
+  assert.deepEqual(got.rows.map((row) => row.headline), ['Independent morning story'])
   fs.rmSync(dir, { recursive: true, force: true })
 })
 check('an unidentified human-action row pauses candidates, while a malformed non-human row does not', () => {
@@ -1540,6 +2272,102 @@ check('readTopSweep reserves at most one-third for actionable theme evidence and
   fs.writeFileSync(path.join(board, 'themes_index.json'), JSON.stringify({ generated_at: '2026-08-03T11:55:00Z', themes: [{ theme_id: 'THM-a1b2c3d4', rev: 4 }] }))
   const legacy = readTopSweep(dir, 6, { nowMs: Date.parse('2026-08-03T12:00:00Z'), maxAgeMs: 36 * 3_600_000 })
   assert.deepEqual(legacy.rows.map((row) => row.headline), ['Wire one', 'Wire two', 'Wire three', 'Wire four', 'Wire five', 'Wire six'], 'old indexes contribute no reserve rows')
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('an actionable Theme carries a same-URL correction first-seen clock into Ideas', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-theme-in-place-clock-'))
+  const inbox = path.join(dir, 'screener', 'inbox')
+  const board = path.join(dir, 'screener', 'board')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.mkdirSync(board, { recursive: true })
+  const url = 'https://news.test/theme-in-place-approval'
+  const family = 'STORY-theme-in-place-approval'
+  const company = { name: 'Acme', ticker: 'ACME', listing_country: 'US' }
+  const correction = {
+    event_id: eventIdFor('Correction: Acme capacity expansion approval was withdrawn', url),
+    dedup_group: family,
+    headline: 'Correction: Acme capacity expansion approval was withdrawn',
+    url,
+    found_at: '2026-08-04T00:00:00Z',
+    observed_at: '2026-08-04T00:04:00Z',
+    source_is_english: true,
+    triage_score: 92,
+    source_tier: 'news',
+    source_name: 'Wire',
+    companies: [company],
+    event_types: ['operational'],
+    issuer_linkage: 'primary',
+    country: 'US',
+    region: 'US',
+  }
+  const proof = {
+    event_id: eventIdFor('Acme capacity expansion supplier filing confirms exposure', 'https://filing.test/theme-in-place-proof'),
+    dedup_group: 'STORY-theme-in-place-proof',
+    headline: 'Acme capacity expansion supplier filing confirms exposure',
+    url: 'https://filing.test/theme-in-place-proof',
+    found_at: '2026-08-04T00:01:00Z',
+    observed_at: '2026-08-04T00:01:30Z',
+    triage_score: 88,
+    source_tier: 'primary_filing',
+    source_name: 'Exchange',
+    companies: [company],
+    event_types: ['capex'],
+    issuer_linkage: 'primary',
+    country: 'US',
+    region: 'US',
+  }
+  const theme = attachValidNarrative(
+    createTheme([correction, proof] as ThemeItemView[], new Date('2026-08-04T00:05:00Z'), 'claude'),
+    {
+      support_event_ids: [correction.event_id, proof.event_id],
+      why_now_event_id: correction.event_id,
+      validated_at: '2026-08-04T00:05:00Z',
+      expressions: [{
+        name_key: 'acme', side: 'beneficiary', role: 'direct',
+        mechanism: 'The filing binds Acme to the capacity expansion economics.',
+        evidence_event_ids: [proof.event_id],
+      }],
+    },
+  )
+  theme.name = 'Capacity Expansion Approval Reversal'
+  theme.description = 'A withdrawn approval changes the economics of Acme capacity expansion.'
+  appendThemeMutations(dir, [theme], () => new Date('2026-08-04T00:08:00Z'))
+  const publicTheme = buildThemesIndex([theme], () => new Date('2026-08-04T00:09:00Z')).themes[0]
+  assert.equal(publicTheme.assessment.status, 'actionable', 'control fixture reaches Ideas only as a complete Theme package')
+  fs.writeFileSync(path.join(board, 'themes_index.json'), JSON.stringify({
+    generated_at: '2026-08-04T00:09:00Z', themes: [publicTheme],
+  }))
+
+  const controls = [1, 2, 3, 4].map((index) => ({
+    headline: `Independent Theme-clock wire ${index}`,
+    url: `https://wire.test/theme-clock-control-${index}`,
+    source_name: 'Wire', triage_score: 100 - index, found_at: '2026-08-04T00:03:00Z',
+  }))
+  fs.writeFileSync(path.join(inbox, '2026-08-04_sweep.json'), JSON.stringify({
+    updated_at: '2026-08-04T00:06:00Z',
+    rows: [{
+      headline: 'Acme capacity expansion approval received',
+      url,
+      dedup_group: family,
+      source_name: 'Wire',
+      triage_score: 90,
+      found_at: '2026-08-04T00:00:00Z',
+      observed_at: '2026-08-04T00:01:00Z',
+      source_is_english: true,
+      consumed: true,
+      consumed_at: '2026-08-04T00:02:00Z',
+    }, ...controls],
+  }))
+
+  const got = readTopSweep(dir, 6, {
+    nowMs: Date.parse('2026-08-04T00:10:00Z'), maxAgeMs: 2 * 3_600_000,
+  })
+  const correctionRow = got.rows.find((row) => row.event_id === correction.event_id)
+  assert.equal(correctionRow?.origin_type, 'theme', 'the correction was not an ordinary sweep candidate')
+  assert.equal(Date.parse(correctionRow!.found_at), Date.parse(correction.found_at), 'publisher time remains the freshness clock')
+  assert.equal(Date.parse(correctionRow!.observed_at!), Date.parse(correction.observed_at), 'Theme persistence carries the immutable revision clock')
+  assert.ok(got.rows.some((row) => row.event_id === proof.event_id && row.origin_type === 'theme'), 'the complete causal package reaches Ideas')
+  assert.equal(got.rows.length, 6)
   fs.rmSync(dir, { recursive: true, force: true })
 })
 check('final Theme insertion keeps a complete package, the family filing, and independent wire families', () => {

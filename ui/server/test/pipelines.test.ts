@@ -8,15 +8,16 @@
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
+import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { readPipelines } from '../src/pipelines'
+import { dataNeedSubjectsForSwarm, readPipelines } from '../src/pipelines'
 import { DATA_DIR } from '../src/config'
 import { listSwarms } from '../src/swarms'
-import { swarmSubjects } from '../src/roster'
 import { readDataNeeds } from '../src/data-needs'
+import { dataNeedFingerprint } from '../src/pipeline-store'
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -78,7 +79,8 @@ check('real repo: any widened entries are keep-and-label audit notes, never drop
 })
 
 // Independently re-derive the SET of eligible (non-filing) needs the join is obliged to place, from the
-// SAME discovery functions readPipelines() joins against (listSwarms → swarmSubjects → readDataNeeds). It
+// SAME discovery functions readPipelines() joins against (listSwarms → manifest-owned run/profile
+// subjects → readDataNeeds). It
 // names no subject / need_id — it enumerates whatever the pool holds — but it lets the check below assert
 // the join placed EVERY demanded need somewhere, so the real-repo block can no longer pass by iterating
 // zero times over empty helps[]/recommended[]. The skip/continue posture mirrors the reader exactly, so
@@ -86,8 +88,7 @@ check('real repo: any widened entries are keep-and-label audit notes, never drop
 function eligibleNeedKeys(): Set<string> {
   const keys = new Set<string>()
   for (const swarm of listSwarms()) {
-    let subjects: string[] = []
-    try { subjects = swarmSubjects(swarm.id) } catch { continue }
+    const subjects = dataNeedSubjectsForSwarm(swarm)
     for (const subject of subjects) {
       let read
       try { read = readDataNeeds(swarm.id, subject) } catch { continue }
@@ -206,7 +207,10 @@ function probeRead(repo: string): any {
   const tsx = path.join(here, '..', 'node_modules', '.bin', process.platform === 'win32' ? 'tsx.cmd' : 'tsx')
   const r = spawnSync(tsx, [probe], {
     encoding: 'utf8',
-    env: { ...process.env, ENGINE_REPO_ROOT: repo, ENGINE_ACTIVITY_LOG_DISABLED: '1' },
+    env: {
+      ...process.env, ENGINE_REPO_ROOT: repo, ENGINE_STATE_DIR: path.join(repo, '.state'),
+      ENGINE_ACTIVITY_LOG_DISABLED: '1',
+    },
   })
   assert.equal(r.status, 0, `probe subprocess failed: ${r.stderr || r.error}`)
   const lines = r.stdout.trim().split('\n')
@@ -349,6 +353,133 @@ check('fixture: a declared-but-unusable v2 connector keeps its covered need open
     ['fixswarm/AAA/covered-need', 'good-conn'],
     ['fixswarm/AAA/uncovered-need', undefined],
   ])
+})
+
+check('fixture: research and a newly discovered swarm both contribute needs from manifest-owned completed runs', () => {
+  const repo = tmp('pipe-cross-swarm-')
+  fs.mkdirSync(path.join(repo, 'data'), { recursive: true })
+
+  // The synthetic research manifest owns analyses/{TICKER}_{DATE}. A valid object decision record is
+  // the same cheap completion signal standingRunDir() uses; malformed/partial neighbours must not leak.
+  const researchModule = path.join(repo, '.claude', 'agents', 'quality')
+  fs.mkdirSync(researchModule, { recursive: true })
+  fs.writeFileSync(path.join(researchModule, '99_quality-synthesis.md'),
+    '---\nname: research-quality-synthesis\nlayer: 99\n---\n\nfixture research synthesis\n')
+  const equityRun = path.join(repo, 'analyses', 'ALPHA_2026-08-12')
+  fs.mkdirSync(equityRun, { recursive: true })
+  fs.writeFileSync(path.join(equityRun, 'decision_record.json'), JSON.stringify({
+    data_needs: [{
+      need_id: 'equity-gap', series: 'Official equity series', why_it_caps: 'The equity call lacks it.',
+      filing_required: false, entry_modules: ['quality'],
+      suggested_source: { name: 'Equity authority', acquisition: 'official_api' }, tier: 5, cadence: 'weekly',
+    }],
+  }))
+  fs.mkdirSync(path.join(repo, 'analyses', 'PARTIAL_2026-08-13'), { recursive: true })
+  const malformedRun = path.join(repo, 'analyses', 'MALFORMED_2026-08-13')
+  fs.mkdirSync(malformedRun, { recursive: true })
+  fs.writeFileSync(path.join(malformedRun, 'decision_record.json'), '["not a completed record"]')
+
+  // This swarm exists only through its SWARM.md. No central registry/family branch names it. Its declared
+  // source also contains a not-yet-run subject, which must not invent a recommendation without a record.
+  const swarmDir = path.join(repo, '.claude', 'agents', 'future-assets')
+  fs.mkdirSync(path.join(swarmDir, 'physical'), { recursive: true })
+  fs.writeFileSync(path.join(swarmDir, 'SWARM.md'), [
+    '---', 'id: future-assets', 'order: 7', 'run_root_template: future-assets/runs/{ASSET}',
+    'placeholder: ASSET', 'runs_root: future-assets/runs',
+    'subjects_source: frameworks/future-assets/SUBJECTS.md', '---', '', 'fixture swarm', '',
+  ].join('\n'))
+  fs.writeFileSync(path.join(swarmDir, 'physical', '99_physical-synthesis.md'),
+    '---\nname: future-assets-physical-synthesis\nlayer: 99\n---\n\nfixture swarm synthesis\n')
+  const subjectSource = path.join(repo, 'frameworks', 'future-assets')
+  fs.mkdirSync(subjectSource, { recursive: true })
+  const futureSubject = 'PHYSICAL-MARKET-SIGNAL-20260813'
+  fs.writeFileSync(path.join(subjectSource, 'SUBJECTS.md'), `## ${futureSubject}\n\n## NOTRUN\n`)
+  const swarmRun = path.join(repo, 'future-assets', 'runs', futureSubject)
+  fs.mkdirSync(swarmRun, { recursive: true })
+  fs.writeFileSync(path.join(swarmRun, 'decision_record.json'), JSON.stringify({
+    data_needs: [{
+      need_id: 'physical-gap', series: 'Official physical series', why_it_caps: 'The physical read lacks it.',
+      filing_required: false, entry_modules: ['physical'],
+      suggested_source: { name: 'Physical authority', acquisition: 'official_api' }, tier: 5, cadence: 'weekly',
+    }],
+  }))
+
+  const out = probeRead(repo)
+  assert.deepEqual(out.recommended.map((r: any) => r.key), [
+    'research/ALPHA/equity-gap',
+    `future-assets/${futureSubject}/physical-gap`,
+  ])
+  assert.ok(!out.recommended.some((r: any) => r.subject === 'PARTIAL' || r.subject === 'MALFORMED' || r.subject === 'NOTRUN'))
+})
+
+check('fixture: RecommendedNeed carries the full ranked v2 need and operational lookup projection', () => {
+  const repo = tmp('pipe-v2-projection-')
+  fs.mkdirSync(path.join(repo, 'data', 'AAA'), { recursive: true })
+  const swarmDir = path.join(repo, '.claude', 'agents', 'fixswarm')
+  fs.mkdirSync(path.join(swarmDir, 'moda'), { recursive: true })
+  fs.writeFileSync(path.join(swarmDir, 'SWARM.md'),
+    '---\nid: fixswarm\nrun_root_template: fixswarm/runs/{X}\nplaceholder: X\nruns_root: fixswarm/runs\n---\n\nfixture swarm\n')
+  fs.writeFileSync(path.join(swarmDir, 'moda', '01_alpha.md'),
+    '---\nname: fixswarm-moda-alpha\nlayer: 1\n---\n\nfixture orb\n')
+  fs.writeFileSync(path.join(swarmDir, 'moda', '99_moda-synthesis.md'),
+    '---\nname: fixswarm-moda-synthesis\nlayer: 99\n---\n\nfixture synthesis\n')
+  const runDir = path.join(repo, 'fixswarm', 'runs', 'AAA')
+  fs.mkdirSync(runDir, { recursive: true })
+  const series = 'Official daily units'
+  const expected = { if_supportive: 'Would support the demand premise.', if_adverse: 'Would weaken the demand premise.' }
+  const orb = { module: 'moda', agent: 'fixswarm-moda-alpha', why: 'Tests demand.', confidence: 0.75 }
+  const record = {
+    decision_date: '2026-08-14', data_needs_schema_version: '2.0', data_needs: [{
+      need_id: 'daily-units', priority: 1, series, why_it_caps: 'The demand premise lacks a direct series.',
+      expected_impact: expected, filing_required: false, entry_orbs: [orb],
+      suggested_source: {
+        name: 'Official body', acquisition: 'official_api', access: 'public', licensing_basis: 'Unknown',
+      },
+      tier: 5, cadence: 'daily', next_release: '2026-08-15',
+    }],
+  }
+  fs.writeFileSync(path.join(runDir, 'decision_record.json'), JSON.stringify(record))
+  const canonical = (value: any): string => Array.isArray(value)
+    ? `[${value.map(canonical).join(',')}]`
+    : value && typeof value === 'object'
+      ? `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${canonical(value[key])}`).join(',')}}`
+      : JSON.stringify(value)
+  const runRoot = 'fixswarm/runs/AAA'
+  const decisionFingerprint = `sha256:${createHash('sha256').update(`${runRoot}\n${canonical(record)}`, 'utf8').digest('hex')}`
+  const stateDir = path.join(repo, '.state', 'pipeline')
+  fs.mkdirSync(stateDir, { recursive: true })
+  const sourceId = 'PIPE-20260814-aaaaaaaa'
+  fs.writeFileSync(path.join(stateDir, 'pipeline.ndjson'), [
+    {
+      pipeline_id: sourceId, kind: 'pipeline_source', subject: 'AAA', swarm: 'fixswarm', need_id: 'daily-units',
+      run_root: runRoot, decision_fingerprint: decisionFingerprint,
+      series_hint: series, source_url: 'https://public.example.com/data', source_kind: 'api', sample: '',
+      note: '', user_id: 'u', submitted_at: '2026-08-14T10:00:00Z',
+    },
+    {
+      pipeline_id: 'PIPE-20260814-bbbbbbbb', kind: 'pipeline_lookup', subject: 'AAA', swarm: 'fixswarm',
+      need_id: 'daily-units', need_fingerprint: dataNeedFingerprint('daily-units', series),
+      run_root: runRoot, decision_fingerprint: decisionFingerprint,
+      lookup_started_at: '2026-08-14T10:00:00.000Z',
+      lookup_status: 'public_link_found', public_url: 'https://public.example.com/data', lookup_note: 'found',
+      source_pipeline_id: sourceId, user_id: 'u', submitted_at: '2026-08-14T10:01:00Z',
+    },
+  ].map((row) => JSON.stringify(row)).join('\n') + '\n')
+  const rec = probeRead(repo).recommended[0]
+  assert.equal(rec.run_root, runRoot)
+  assert.equal(rec.decision_fingerprint, decisionFingerprint)
+  assert.equal(rec.priority, 1)
+  assert.deepEqual(rec.expected_impact, expected)
+  assert.deepEqual(rec.entry_orbs, [{ ...orb, route_status: 'current' }])
+  assert.deepEqual(rec.entry_modules, ['moda'])
+  assert.deepEqual(rec.suggested_source, {
+    name: 'Official body', acquisition: 'official_api', access: 'public', licensing_basis: 'Unknown',
+  })
+  assert.deepEqual(rec.source_lookup, {
+    lookup_status: 'public_link_found', public_url: 'https://public.example.com/data',
+    checked_at: '2026-08-14T10:01:00Z', lookup_note: 'found', stale: false,
+    access_basis: 'https_url_public_dns',
+  })
 })
 
 for (const d of tmpdirs) fs.rmSync(d, { recursive: true, force: true })

@@ -81,7 +81,21 @@ export function pacedHasHeadroom(
   return tokens + need <= pacedCeiling(now, pace)
 }
 
-interface BudgetState { date: string; requests: number; tokens: number; exhausted?: boolean }
+interface BudgetState {
+  date: string
+  requests: number
+  tokens: number
+  exhausted?: boolean
+  /** Optional machine-readable reason for a day-scoped terminal close. Never persist a provider body here:
+   * several status surfaces read the shared budget ledger. */
+  exhaustion_reason?: string
+}
+
+const cleanExhaustionReason = (value: unknown): string | undefined => {
+  if (typeof value !== 'string') return undefined
+  const reason = value.trim().toLowerCase()
+  return /^[a-z0-9][a-z0-9_-]{0,79}$/.test(reason) ? reason : undefined
+}
 
 // Every in-process caller that points at the same ledger must mutate the same counters. `Budget.load`
 // is intentionally cheap and is used throughout the ingester, so returning independent snapshots here
@@ -126,9 +140,11 @@ export class Budget {
 
   /** Mark today's quota terminally spent. Active reservations may still reconcile later, but can never
    *  reopen headroom: `exhausted` is a monotonic day-scoped marker shared by every Budget for this file. */
-  exhaust(): void {
+  exhaust(reason?: string): void {
     if (!this.ownsCurrentState()) return
     this.state.exhausted = true
+    const safeReason = cleanExhaustionReason(reason)
+    if (safeReason) this.state.exhaustion_reason = safeReason
     this.state.requests = Math.max(this.state.requests, this.reqCap)
     this.save()
   }
@@ -197,6 +213,11 @@ export class Budget {
 
   get requests(): number { return this.state.requests }
   get tokens(): number { return this.state.tokens }
+  get exhaustionReason(): string | undefined {
+    return this.ownsCurrentState() && this.state.exhausted
+      ? cleanExhaustionReason(this.state.exhaustion_reason)
+      : undefined
+  }
   get remainingRequests(): number { return !this.ownsCurrentState() || this.state.exhausted ? 0 : Math.max(0, this.reqCap - this.state.requests) }
   get remainingTokens(): number { return !this.ownsCurrentState() || this.state.exhausted ? 0 : Math.max(0, this.tokenCap - this.state.tokens) }
 }

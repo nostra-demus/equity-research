@@ -50,6 +50,75 @@ mkdir -p "$MOCK_BIN" "$TEST_HOME/Library/LaunchAgents" "$TEST_HOME/Library/Appli
 : > "$TEST_HOME/Library/LaunchAgents/com.nostradamus.tunnel.plist"
 : > "$TEST_HOME/Library/Application Support/nostradamus/enrich-health.at"
 : > "$LAUNCHCTL_LOG"
+mkdir -p "$TEST_HOME/.nostra-ops"
+cat > "$TEST_HOME/.nostra-ops/connector-supervisor.py" <<'PY'
+import os
+from pathlib import Path
+
+marker = Path(os.environ["HOME"]) / ".nostra-ops" / "supervisor-test.calls"
+count = int(marker.read_text() if marker.exists() else "0")
+marker.write_text(str(count + 1))
+PY
+chmod 700 "$TEST_HOME/.nostra-ops/connector-supervisor.py"
+mkdir -p "$TEST_TMP/repo/scripts/ops"
+cp "$TEST_HOME/.nostra-ops/connector-supervisor.py" "$TEST_TMP/repo/scripts/ops/connector-supervisor.py"
+git -C "$TEST_TMP/repo" init -q -b main
+git -C "$TEST_TMP/repo" config user.email test@example.invalid
+git -C "$TEST_TMP/repo" config user.name Test
+git -C "$TEST_TMP/repo" add scripts/ops/connector-supervisor.py
+git -C "$TEST_TMP/repo" commit -qm supervisor-fixture
+git -C "$TEST_TMP/repo" update-ref refs/remotes/origin/main HEAD
+
+# First-rollout migration: the prior deploy process can copy the new watchdog before it knows the helper
+# filename. The watchdog may bootstrap that installed helper only from clean current main == origin/main.
+BOOTSTRAP_REPO="$TEST_TMP/bootstrap-repo"
+BOOTSTRAP_HOME="$TEST_TMP/bootstrap-home"
+mkdir -p "$BOOTSTRAP_REPO/scripts/ops" "$BOOTSTRAP_HOME/.nostra-ops"
+cp "$HERE/connector-supervisor.py" "$BOOTSTRAP_REPO/scripts/ops/connector-supervisor.py"
+git -C "$BOOTSTRAP_REPO" init -q -b main
+git -C "$BOOTSTRAP_REPO" config user.email test@example.invalid
+git -C "$BOOTSTRAP_REPO" config user.name Test
+git -C "$BOOTSTRAP_REPO" add scripts/ops/connector-supervisor.py
+git -C "$BOOTSTRAP_REPO" commit -qm bootstrap
+git -C "$BOOTSTRAP_REPO" update-ref refs/remotes/origin/main HEAD
+if HOME="$BOOTSTRAP_HOME" ENGINE_REPO_ROOT="$BOOTSTRAP_REPO" WATCHDOG_SCRIPT="$HERE/watchdog.sh" \
+    bash <<'BOOTSTRAP_TEST'
+set -uo pipefail
+source "$WATCHDOG_SCRIPT"
+REPO="$ENGINE_REPO_ROOT"
+PYTHON="$(command -v python3)"
+CONNECTOR_SUPERVISOR="$HOME/.nostra-ops/connector-supervisor.py"
+bootstrap_connector_supervisor
+BOOTSTRAP_TEST
+then bootstrap_rc=0; else bootstrap_rc=$?; fi
+if [ "$bootstrap_rc" -eq 0 ] && [ -f "$BOOTSTRAP_HOME/.nostra-ops/connector-supervisor.py" ] \
+    && [ ! -L "$BOOTSTRAP_HOME/.nostra-ops/connector-supervisor.py" ]; then
+  echo "  ok  clean first-rollout watchdog atomically installs the reviewed supervisor"
+else
+  echo "  FAIL first-rollout watchdog could not bootstrap the reviewed supervisor"
+  failures=$((failures + 1))
+fi
+rm -f "$BOOTSTRAP_HOME/.nostra-ops/connector-supervisor.py"
+printf '# dirty\n' >> "$BOOTSTRAP_REPO/scripts/ops/connector-supervisor.py"
+if HOME="$BOOTSTRAP_HOME" ENGINE_REPO_ROOT="$BOOTSTRAP_REPO" WATCHDOG_SCRIPT="$HERE/watchdog.sh" \
+    bash <<'DIRTY_BOOTSTRAP_TEST'
+set -uo pipefail
+source "$WATCHDOG_SCRIPT"
+REPO="$ENGINE_REPO_ROOT"
+PYTHON="$(command -v python3)"
+CONNECTOR_SUPERVISOR="$HOME/.nostra-ops/connector-supervisor.py"
+bootstrap_connector_supervisor
+DIRTY_BOOTSTRAP_TEST
+then dirty_bootstrap_rc=0; else dirty_bootstrap_rc=$?; fi
+if [ "$dirty_bootstrap_rc" -eq 0 ] \
+    && ! grep -q '# dirty' "$BOOTSTRAP_HOME/.nostra-ops/connector-supervisor.py" \
+    && cmp -s "$BOOTSTRAP_HOME/.nostra-ops/connector-supervisor.py" \
+      <(git -C "$BOOTSTRAP_REPO" show HEAD:scripts/ops/connector-supervisor.py); then
+  echo "  ok  dirty working-tree helper is ignored in favor of the reviewed Git object"
+else
+  echo "  FAIL dirty helper bytes crossed the first-rollout trust gate"
+  failures=$((failures + 1))
+fi
 
 cat > "$MOCK_BIN/mock-command" <<'MOCK'
 #!/usr/bin/env bash
@@ -85,7 +154,20 @@ case "${0##*/}" in
   launchctl)
     printf '%s\n' "$*" >> "$WATCHDOG_TEST_LAUNCHCTL_LOG"
     case "$*" in
-      *"kickstart -k"*com.nostradamus.tunnel*)
+      print*com.nostradamus.connectors*)
+        [ "${WATCHDOG_TEST_CONNECTOR_LOADED:-1}" = 1 ] || exit 1
+        if [ "${WATCHDOG_TEST_CONNECTOR_RUNNING:-0}" = 1 ]; then
+          printf 'state = running\n'
+          # Keep writing after the match so `grep -q` readers deterministically close early/SIGPIPE under
+          # pipefail. The production helper must drain the complete launchctl snapshot before deciding.
+          for _line in $(seq 1 2000); do printf 'noise = %s\n' "$_line"; done
+          printf '  pid = %s\n' "${WATCHDOG_TEST_CONNECTOR_PID:-4242}"
+        fi
+        exit 0
+        ;;
+    esac
+    case "$*" in
+      *"kickstart -k"*com.nostradamus.tunnel*|*"kickstart -k"*com.nostradamus.connectors*)
         [ "${WATCHDOG_TEST_LAUNCHCTL_FAIL:-0}" = 1 ] && exit 1
         ;;
     esac
@@ -113,6 +195,9 @@ run_watchdog() {
   WATCHDOG_TEST_LOCAL_HEALTH="$2" \
   WATCHDOG_TEST_LAUNCHCTL_FAIL="${3:-0}" \
   WATCHDOG_TEST_LAUNCHCTL_LOG="$LAUNCHCTL_LOG" \
+  WATCHDOG_TEST_CONNECTOR_LOADED="${4:-1}" \
+  WATCHDOG_TEST_CONNECTOR_RUNNING="${5:-0}" \
+  WATCHDOG_TEST_CONNECTOR_PID="${6:-4242}" \
   WATCHDOG_TUNNEL_HEAL_COOLDOWN_SECONDS=300 \
   ENGINE_REPO_ROOT="$TEST_TMP/repo" \
   HOME="$TEST_HOME" \
@@ -123,6 +208,18 @@ run_watchdog() {
 count_kickstarts() {
   grep -c "kickstart -k .*com.nostradamus.$1" "$LAUNCHCTL_LOG" 2>/dev/null || true
 }
+
+mkdir -p "$TEST_TMP/repo"
+run_watchdog 200 up
+if [ "$(cat "$TEST_HOME/.nostra-ops/supervisor-test.calls" 2>/dev/null || echo 0)" != 1 ]; then
+  echo "  FAIL watchdog did not invoke the installed connector supervisor exactly once"
+  failures=$((failures + 1))
+elif grep -q 'com.nostradamus.connectors' "$LAUNCHCTL_LOG"; then
+  echo "  FAIL watchdog bypassed the supervisor and mutated connector launchd state directly"
+  failures=$((failures + 1))
+else
+  echo "  ok  watchdog delegates connector convergence to the installed reviewed supervisor"
+fi
 
 run_watchdog 503 up
 first_heal_at="$(cat "$TEST_HOME/Library/Application Support/nostradamus/tunnel-heal.at")"

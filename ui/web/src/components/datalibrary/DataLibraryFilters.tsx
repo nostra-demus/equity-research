@@ -9,10 +9,11 @@
 // are reused — only the layout is the Data Library's own.
 import { CADENCE_LABEL } from '../../lib/labels'
 import type { PipelineEntry, RecommendedNeed } from '../../lib/types'
+import { pipelineIsWaitingForFirstCheck } from './feedHealth'
 
 export interface DlFilterState {
   kind: string // '' = all | wired | recommended — set by the funnel seg, not the filter bar
-  verdict: string // '' = all | live | problem ('problem' = needs attention OR broken; see the matcher note)
+  verdict: string // '' = all | live | action | waiting (legacy 'problem' still matches every non-live row)
   subject: string // '' = all
   status: string // '' = all | fresh | stale | missing | unknown — WIRED rows only (see matcher note)
   cadence: string // '' = all
@@ -27,10 +28,11 @@ export const dlFiltersActive = (f: DlFilterState): boolean =>
 
 export function matchesDlPipeline(row: PipelineEntry, f: DlFilterState): boolean {
   if (f.kind === 'recommended') return false
-  // 'problem' is one bucket on purpose: a reader asking "what needs me?" wants the broken feeds AND the ones
-  // drifting out of their window in one list, not two clicks apart.
+  const waiting = pipelineIsWaitingForFirstCheck(row)
   if (f.verdict === 'live' && row.verdict !== 'live') return false
   if (f.verdict === 'problem' && row.verdict !== 'attention' && row.verdict !== 'broken') return false
+  if (f.verdict === 'action' && (waiting || (row.verdict !== 'attention' && row.verdict !== 'broken'))) return false
+  if (f.verdict === 'waiting' && !waiting) return false
   if (f.subject && !row.subjects.includes(f.subject)) return false
   if (f.status && !row.statuses.some((s) => s.status === f.status)) return false
   if (f.cadence && row.cadence !== f.cadence) return false

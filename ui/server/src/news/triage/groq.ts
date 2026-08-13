@@ -166,6 +166,13 @@ export function coerceTriage(raw: any): Triage {
   // the source language the model named (for the reader's "original · <language>" affordance). Whether the
   // translation is KEPT at all is still decided downstream by news/lang.ts pickTranslation.
   const headline_lang = typeof raw?.headline_lang === 'string' && raw.headline_lang.trim() ? raw.headline_lang.trim().slice(0, 32) : null
+  // The prompt requires both keys. Preserve the distinction between an explicit pair of nulls (the
+  // model positively said the source is already English) and omitted/malformed legacy output. Latin
+  // script alone is not proof: Spanish/French/etc. rows also use it.
+  const source_is_english = Object.prototype.hasOwnProperty.call(raw || {}, 'headline_en')
+    && Object.prototype.hasOwnProperty.call(raw || {}, 'headline_lang')
+    && raw.headline_en === null
+    && raw.headline_lang === null
   // the market the event is about; a valid Region code or null (unsure). Uppercased first so a lowercase
   // model reply ("other") still validates. news/geo.ts resolveEventRegion decides whether to use it over
   // the domain region at the merge site (runCycle.ts).
@@ -183,6 +190,7 @@ export function coerceTriage(raw: any): Triage {
     size_bucket: size,
     headline_en,
     headline_lang,
+    ...(source_is_english ? { source_is_english: true as const } : {}),
     event_region,
   }
 }

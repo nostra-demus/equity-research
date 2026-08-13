@@ -13,8 +13,8 @@ import { clusterItems, discoverDeterministic, createTheme, linkThemes, mergeAndR
 import { updateTokenDf, buildGenericSet, loadTokenDf, saveTokenDf, DEFAULT_TOKEN_DF_CONFIG, type TokenDfState } from '../src/news/themes/token-df'
 import { topicTokens, themeTokens, isRoutineFiling } from '../src/news/text-match'
 import { stepThemes, runThemesCycle, DEFAULT_THEMES_CONFIG } from '../src/news/themes/engine'
-import { appendThemeMutations, buildSummary, buildThemesIndex, loadThemes, maybeCompactThemesLedger, readThemesIndex, writeThemesIndex } from '../src/news/themes/store'
-import { Budget, resetBudgetMemory } from '../src/news/triage/budget'
+import { appendThemeMutations, buildSummary, buildThemesIndex, loadThemes, maybeCompactThemesLedger, readRecentThemeItems, readThemesIndex, writeThemesIndex } from '../src/news/themes/store'
+import { Budget, readCooldownUntil, resetBudgetMemory, resetCooldownMemory, resetSharedLimiters } from '../src/news/triage/budget'
 import type { Theme, ThemeItemView } from '../src/news/themes/types'
 import { attachValidNarrative } from './themes-fixtures'
 import { qualifyTheme, uniqueThemeMembers } from '../src/news/themes/qualification'
@@ -37,6 +37,7 @@ function item(id: string, headline: string, opts: Partial<ThemeItemView> = {}): 
   return {
     event_id: id, dedup_group: opts.dedup_group, headline, headline_en: opts.headline_en,
     found_at: opts.found_at || hoursAgo(0), companies: opts.companies || [], event_types: opts.event_types || [],
+    ...(opts.observed_at ? { observed_at: opts.observed_at } : {}),
     issuer_linkage: opts.issuer_linkage || 'primary', triage_score: opts.triage_score ?? 70,
     source_tier: opts.source_tier || 'news', source_name: opts.source_name ?? 'Synthetic theme fixture',
     url: opts.url ?? `https://example.test/themes/${encodeURIComponent(id)}`,
@@ -81,6 +82,28 @@ function llmThemeProposal(options: {
     },
   }
 }
+
+await check('readRecentThemeItems fills its cap with eligible material rows after a busy raw-wire flood', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'themes-eligible-cap-'))
+  const inbox = path.join(root, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  const clock = new Date()
+  const day = clock.toISOString().slice(0, 10)
+  const wire = (event_id: string, offsetMs: number, score: number, band: 'pick' | 'drop') => ({
+    kind: 'item', event_id, dedup_group: event_id,
+    ts: new Date(clock.getTime() + offsetMs).toISOString(),
+    found_at: new Date(clock.getTime() + offsetMs).toISOString(),
+    headline: `${event_id} capacity shortage`, source_name: 'Synthetic Wire', url: `https://example.test/${event_id}`,
+    triage_score: score, band, companies: [{ name: event_id, ticker: null, listing_country: null }],
+    event_types: ['operations'], issuer_linkage: 'primary', source_tier: 'news', region: 'US', country: 'US',
+  })
+  const noisy = Array.from({ length: 1_005 }, (_, index) => wire(`drop-${index}`, index + 10_000, 5, 'drop'))
+  const eligible = [wire('eligible-1', 1, 75, 'pick'), wire('eligible-2', 2, 80, 'pick'), wire('eligible-3', 3, 85, 'pick')]
+  fs.writeFileSync(path.join(inbox, `${day}_firehose.ndjson`), [...noisy, ...eligible].map((row) => JSON.stringify(row)).join('\n') + '\n')
+  const rows = readRecentThemeItems(root, 50, 3)
+  assert.deepEqual(rows.map((row) => row.event_id), ['eligible-1', 'eligible-2', 'eligible-3'])
+  fs.rmSync(root, { recursive: true, force: true })
+})
 
 // ---- scoring + decay ----
 await check('scoreTheme: a fresh, broad, sustained theme is HOT; the same theme 48h later decays to parked', () => {
@@ -299,6 +322,35 @@ await check('assignThemes treats an exact replay as a no-op', () => {
   assert.equal(JSON.stringify(theme.members), before.members)
   assert.equal(theme.validation_queued_at, before.queuedAt)
   assert.deepEqual(theme.pending_narrative_event_ids || [], before.pending)
+})
+
+await check('Theme members persist the first-seen revision clock and an exact refresh cannot advance it', () => {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-observed-clock-'))
+  const firstSeen = '2026-06-13T09:01:00Z'
+  const revision = item('observed-source', 'Vertiv cooling bottleneck raises equipment orders', {
+    companies: [co('Vertiv', 'VRT')], dedup_group: 'observed-family', found_at: hoursAgo(3),
+    observed_at: firstSeen, source_tier: 'company', source_name: 'Vertiv',
+    url: 'https://example.test/observed-source', event_types: ['operations'], triage_score: 70,
+  })
+  const theme = createTheme([
+    revision,
+    item('observed-peer', 'Eaton cooling bottleneck raises equipment orders', {
+      companies: [co('Eaton', 'ETN')], dedup_group: 'observed-peer', found_at: hoursAgo(2), source_tier: 'company',
+    }),
+  ], NOW, 'claude')
+  assert.equal(theme.members.find((member) => member.event_id === revision.event_id)?.observed_at, firstSeen)
+
+  assignThemes([{ ...revision, triage_score: 71, observed_at: '2026-06-13T09:04:00Z' }], [theme], undefined, NOW)
+  assert.equal(
+    theme.members.find((member) => member.event_id === revision.event_id)?.observed_at,
+    firstSeen,
+    'an exact source refresh keeps the clock of the first durable inbox lane',
+  )
+
+  appendThemeMutations(tmp, [theme], () => NOW)
+  const reloaded = loadThemes(tmp)[0]
+  assert.equal(Date.parse(reloaded.members.find((member) => member.event_id === revision.event_id)!.observed_at!), Date.parse(firstSeen))
+  fs.rmSync(tmp, { recursive: true, force: true })
 })
 
 await check('equal-time alternate representatives converge on one deterministic winner', () => {
@@ -808,6 +860,48 @@ await check('clusterItems + discoverDeterministic: a 3-item, 2-company cluster f
   assert.ok(leftover.some((i) => i.event_id === 'z1'), 'the unrelated item stays in the pool')
 })
 
+await check('discoverDeterministic retains every family when a qualifying cluster exceeds maxMembers', () => {
+  const overCap = [
+    item('cap-alpha', 'Alpha liquid cooling bottleneck raises supplier orders', { dedup_group: 'cap-family-alpha', companies: [co('Alpha', 'ALPH')] }),
+    item('cap-beta', 'Beta liquid cooling bottleneck raises supplier orders', { dedup_group: 'cap-family-beta', companies: [co('Beta', 'BETA')] }),
+    item('cap-gamma', 'Gamma liquid cooling bottleneck raises supplier orders', { dedup_group: 'cap-family-gamma', companies: [co('Gamma', 'GAMM')] }),
+    item('cap-delta', 'Delta liquid cooling bottleneck raises supplier orders', { dedup_group: 'cap-family-delta', companies: [co('Delta', 'DELT')] }),
+  ]
+  const refused = discoverDeterministic(overCap, [], NOW, { ...DEFAULT_DISCOVER_CONFIG, maxMembers: 3 })
+  assert.equal(refused.created.length, 0, 'discovery cannot publish a theme that omits a selected family')
+  assert.deepEqual(
+    new Set(refused.leftover.map((row) => row.dedup_group)),
+    new Set(overCap.map((row) => row.dedup_group)),
+    'every excluded family remains durable discovery debt instead of disappearing with the consumed cluster',
+  )
+
+  const rebuilt = discoverDeterministic(refused.leftover, [], NOW, { ...DEFAULT_DISCOVER_CONFIG, maxMembers: 4 })
+  assert.equal(rebuilt.created.length, 1, 'the retained cluster can rebuild when the audit cap can represent it')
+  assert.equal(new Set(rebuilt.created[0].members.map((member) => member.dedup_group)).size, 4)
+
+  const stateHistory = [
+    item('cap-state-original', 'Alpha liquid cooling bottleneck raises supplier orders', {
+      dedup_group: 'cap-state-alpha', companies: [co('Alpha', 'ALPH')], found_at: hoursAgo(4),
+    }),
+    item('cap-state-cancel', 'Alpha cancels liquid cooling expansion as bottleneck ends', {
+      dedup_group: 'cap-state-alpha', companies: [co('Alpha', 'ALPH')], found_at: hoursAgo(3), source_tier: 'company',
+    }),
+    item('cap-state-beta', 'Beta liquid cooling bottleneck raises supplier orders', {
+      dedup_group: 'cap-state-beta', companies: [co('Beta', 'BETA')], found_at: hoursAgo(2),
+    }),
+    item('cap-state-gamma', 'Gamma liquid cooling bottleneck raises supplier orders', {
+      dedup_group: 'cap-state-gamma', companies: [co('Gamma', 'GAMM')], found_at: hoursAgo(1),
+    }),
+  ]
+  const stateRefused = discoverDeterministic(stateHistory, [], NOW, { ...DEFAULT_DISCOVER_CONFIG, maxMembers: 3 })
+  assert.equal(stateRefused.created.length, 0, 'a status-change audit row cannot be consumed merely because all three families fit')
+  assert.deepEqual(
+    new Set(stateRefused.leftover.map((row) => row.event_id)),
+    new Set(stateHistory.map((row) => row.event_id)),
+    'the original and cancellation remain in durable pool debt beside their peer families',
+  )
+})
+
 await check('discoverDeterministic keeps bounded family history in leftovers before the scan cut', () => {
   const pool = [
     item('old-copy', 'Old publisher copy of a solar capacity story', { dedup_group: 'story-solar' }),
@@ -1246,7 +1340,11 @@ await check('runThemesCycle emits a quiet-activity transition once without appen
   assert.equal(first.changed[0].assessment.status, 'actionable')
   assert.equal(first.changed[0].activity, 'quiet')
   const ledger = path.join(dir, 'screener', 'ledger', 'themes.ndjson')
-  assert.equal(fs.readFileSync(ledger, 'utf8').trim().split('\n').length, 1, 'projection-only decay does not duplicate a Theme mutation')
+  const persistedThemeRows = fs.readFileSync(ledger, 'utf8').trim().split('\n').flatMap((line) => {
+    const row = JSON.parse(line)
+    return row.kind === 'theme' ? [row.theme] : row.kind === 'theme_batch' ? row.themes : []
+  })
+  assert.equal(persistedThemeRows.length, 1, 'projection-only decay does not duplicate a Theme mutation; the separate stage record is health/freshness only')
 
   const unchanged = await runThemesCycle({ repoRoot: dir, stateDir, items: [], runDiscovery: false, now: () => later, cfg })
   assert.deepEqual(unchanged.changed, [], 'the same assessment is not emitted again on every cycle')
@@ -1315,10 +1413,17 @@ await check('makeThemeNamer (groq path): renames a real theme, retires a non-the
     },
     { i: 1, is_theme: false },
   ] })
-  const fetchFn = (async () => ({ ok: true, status: 200, json: async () => ({ choices: [{ message: { content } }] }) })) as unknown as typeof fetch
+  let compilerCall = 0
+  const fetchFn = (async () => {
+    compilerCall++
+    const oneThemeContent = compilerCall === 1
+      ? JSON.stringify({ themes: [JSON.parse(content).themes[0]] })
+      : JSON.stringify({ themes: [{ i: 0, is_theme: false }] })
+    return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: oneThemeContent } }] }) }
+  }) as unknown as typeof fetch
   const namer = makeThemeNamer({ themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'llama' }, fetchFn, tmp)
   assert.ok(namer, 'a namer is returned when a key is present')
-  await namer!([real, junk], NOW)
+  const compilerOutcome = await namer!([real, junk], NOW)
   assert.equal(real.name, 'AI Data-Center Buildout')
   assert.equal(real.generation, 'groq')
   assert.equal(real.narrative?.version, 1)
@@ -1329,6 +1434,12 @@ await check('makeThemeNamer (groq path): renames a real theme, retires a non-the
   assert.ok(real.keywords.includes('ai'), 'a proposed keyword recurring in the evidence is accepted')
   assert.ok(!real.keywords.includes('hyperscaler'), 'an unsupported model-written keyword cannot become a future join key')
   assert.equal(junk.status, 'retired') // is_theme:false → dropped
+  assert.deepEqual({
+    requested: compilerOutcome?.requested_count,
+    attempted: compilerOutcome?.attempted_count,
+    validated: compilerOutcome?.validated_count,
+    rejected: compilerOutcome?.rejected_count,
+  }, { requested: 2, attempted: 2, validated: 1, rejected: 1 }, 'health counts actual single-theme proposal outcomes')
 })
 
 await check('makeThemeNamer refuses a polished two-row proposal when both rows are one story family', async () => {
@@ -1432,10 +1543,294 @@ await check('makeThemeNamer: a polished proposal with a malformed narrative cont
   const fetchFn = (async () => ({ ok: true, status: 200, json: async () => ({ choices: [{ message: { content } }], usage: { total_tokens: 20 } }) })) as unknown as typeof fetch
   const namer = makeThemeNamer({ themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'llama', groqDailyReqCap: 10, groqDailyTokenCap: 10_000 }, fetchFn, tmp)
   await namer!([candidate], NOW)
-  assert.deepEqual({ name: candidate.name, description: candidate.description, generation: candidate.generation, rev: candidate.rev }, prior)
+  assert.deepEqual({ name: candidate.name, description: candidate.description, generation: candidate.generation }, {
+    name: prior.name, description: prior.description, generation: prior.generation,
+  })
+  assert.equal(candidate.rev, prior.rev + 1, 'a real sent request records queue fairness even when its proposal fails closed')
+  assert.equal(candidate.validation_attempted_at, NOW.toISOString().replace(/\.\d{3}Z$/, 'Z'))
   assert.equal(candidate.narrative, undefined)
   assert.equal(candidate.needs_validation, true)
   fs.rmSync(tmp, { recursive: true, force: true })
+})
+
+await check('theme compiler counts one malformed request once and does not smear it onto later blocked debt', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-malformed-count-'))
+  const makeCandidate = (tag: string) => createTheme([
+    item(`${tag}-1`, `${tag} Alpha capacity shortage raises orders`, { companies: [co(`${tag} Alpha`, `${tag}A`)] }),
+    item(`${tag}-2`, `${tag} Beta capacity shortage raises orders`, { companies: [co(`${tag} Beta`, `${tag}B`)] }),
+    item(`${tag}-3`, `${tag} Alpha and Beta capacity shortage persists`, { companies: [co(`${tag} Alpha`, `${tag}A`), co(`${tag} Beta`, `${tag}B`)] }),
+  ], NOW)
+  const first = makeCandidate('Malformed')
+  const second = makeCandidate('Blocked')
+  const malformed = (async () => ({ ok: true, status: 200, json: async () => ({ choices: [{ message: { content: '{bad-json' } }], usage: { total_tokens: 10 } }) })) as unknown as typeof fetch
+  const outcome = await makeThemeNamer({
+    themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm',
+    llmCooldownMs: 60_000, llmCooldownMaxMs: 60_000,
+  }, malformed, tmp)([first, second], NOW)
+  assert.equal(outcome?.requested_count, 2)
+  assert.equal(outcome?.attempted_count, 1)
+  assert.equal(outcome?.malformed_count, 1)
+  assert.equal(outcome?.omitted_count, 0)
+  assert.ok(first.validation_attempted_at)
+  assert.equal(second.validation_attempted_at, undefined)
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetSharedLimiters()
+})
+
+await check('Claude contract failures arm and consult the same theme-compiler cooldown id', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-claude-cooldown-'))
+  const makeCandidate = (tag: string) => createTheme([
+    item(`${tag}-1`, `${tag} Alpha capacity shortage raises orders`, { companies: [co(`${tag} Alpha`, `${tag}A`)] }),
+    item(`${tag}-2`, `${tag} Beta capacity shortage raises orders`, { companies: [co(`${tag} Beta`, `${tag}B`)] }),
+    item(`${tag}-3`, `${tag} Alpha and Beta capacity shortage persists`, { companies: [co(`${tag} Alpha`, `${tag}A`), co(`${tag} Beta`, `${tag}B`)] }),
+  ], NOW)
+  let fetches = 0
+  const malformed = (async () => {
+    fetches++
+    return { ok: true, status: 200, json: async () => ({ content: [{ type: 'text', text: '{bad-json' }] }) }
+  }) as unknown as typeof fetch
+  const namer = makeThemeNamer({
+    themesDiscoverModel: 'claude-haiku', themesClaudeApiKey: 'k', themesClaudeBaseUrl: 'https://claude.test',
+    themesClaudeDailyCap: 10, llmCooldownMs: 60_000, llmCooldownMaxMs: 60_000,
+  }, malformed, tmp)
+  const first = await namer([makeCandidate('First')], NOW)
+  const secondCandidate = makeCandidate('Second')
+  const second = await namer([secondCandidate], NOW)
+  assert.equal(first?.malformed_count, 1)
+  assert.equal(second?.state, 'blocked')
+  assert.equal(second?.blocker, 'cooldown')
+  assert.equal(second?.attempted_count, 0)
+  assert.equal(secondCandidate.validation_attempted_at, undefined)
+  assert.equal(fetches, 1, 'the second pass consults the same marker the malformed first reply armed')
+  assert.equal(readCooldownUntil(tmp, 'themes-claude'), NOW.getTime() + 60_000, 'cloud compiler failures use the configured LLM cooldown')
+  fs.rmSync(tmp, { recursive: true, force: true })
+})
+
+await check('theme compiler health never exposes a provider error response body', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-provider-body-'))
+  const candidate = createTheme([
+    item('secret-1', 'Alpha grid equipment shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('secret-2', 'Beta grid equipment shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('secret-3', 'Alpha and Beta grid equipment shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  const sentinel = 'org-private@example.test workspace-secret-123'
+  const failed = (async () => ({
+    ok: false, status: 401,
+    text: async () => `{"error":"${sentinel}"}`,
+  })) as unknown as typeof fetch
+  const outcome = await makeThemeNamer({
+    themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm',
+  }, failed, tmp)([candidate], NOW)
+  assert.equal(outcome?.state, 'failed')
+  assert.equal(outcome?.blocker, 'provider_error')
+  assert.match(outcome?.message || '', /Groq HTTP 401/)
+  assert.doesNotMatch(outcome?.message || '', /org-private|workspace-secret/)
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetSharedLimiters()
+})
+
+await check('a stalled local compiler obeys the lower theme-attempt timeout, cools down briefly, and falls through to Groq', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-local-timeout-'))
+  const candidate = createTheme([
+    item('local-timeout-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('local-timeout-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('local-timeout-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  const proposal = llmThemeProposal({
+    support: candidate.members.map((member) => member.event_id), anchors: ['capacity', 'shortage'],
+  })
+  const urls: string[] = []
+  const fetchFn = (async (url: string | URL | Request) => {
+    urls.push(String(url))
+    if (String(url).startsWith('https://local.test/')) return await new Promise<Response>(() => {})
+    return {
+      ok: true, status: 200,
+      json: async () => ({ choices: [{ message: { content: JSON.stringify({ themes: [proposal] }) } }], usage: { total_tokens: 100 } }),
+    }
+  }) as unknown as typeof fetch
+  const started = Date.now()
+  const outcome = await makeThemeNamer({
+    themesDiscoverModel: 'groq', themesProviderAttemptTimeoutMs: 20, themesProviderChainTimeoutMs: 500,
+    localCooldownMs: 1_234, llmCooldownMs: 60_000, llmCooldownMaxMs: 60_000,
+    localProvider: {
+      id: 'local', label: 'Local', color: '--local', apiKey: 'local', baseUrl: 'https://local.test/v1', model: 'local-model',
+      dailyReqCap: 100_000, rpm: 0, maxTokens: 3000, budgetFile: 'local-budget.json', timeoutMs: 120_000,
+    },
+    groqApiKey: 'groq', groqBaseUrl: 'https://groq.test', groqModel: 'groq-model',
+    groqDailyReqCap: 10, groqDailyTokenCap: 100_000,
+  }, fetchFn, tmp)([candidate], NOW)
+  const elapsed = Date.now() - started
+  assert.deepEqual(urls, ['https://local.test/v1/chat/completions', 'https://groq.test/chat/completions'])
+  assert.ok(elapsed < 400, `the provider's 120s timeout must not raise the 20ms Themes attempt cap (elapsed ${elapsed}ms)`)
+  assert.equal(readCooldownUntil(tmp, 'local'), NOW.getTime() + 1_234, 'local failures use one flat short cooldown')
+  assert.equal(outcome?.state, 'succeeded')
+  assert.equal(outcome?.attempted_count, 2)
+  assert.equal(outcome?.validated_count, 1)
+  assert.equal(candidate.generation, 'groq')
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+})
+
+await check('a stalled Claude compiler cannot outlive the remaining provider-chain deadline', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetCooldownMemory()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-claude-timeout-'))
+  const candidate = createTheme([
+    item('claude-timeout-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('claude-timeout-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('claude-timeout-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  let signal: AbortSignal | undefined
+  const stalled = (async (_url: string | URL | Request, init?: RequestInit) => {
+    signal = init?.signal || undefined
+    return await new Promise<Response>(() => {})
+  }) as unknown as typeof fetch
+  const started = Date.now()
+  const outcome = await makeThemeNamer({
+    themesDiscoverModel: 'claude-haiku', themesClaudeApiKey: 'claude', themesClaudeBaseUrl: 'https://claude.test',
+    themesClaudeDailyCap: 10, themesProviderAttemptTimeoutMs: 1_000, themesProviderChainTimeoutMs: 25,
+    llmCooldownMs: 60_000, llmCooldownMaxMs: 60_000,
+  }, stalled, tmp)([candidate], NOW)
+  const elapsed = Date.now() - started
+  assert.ok(elapsed < 400, `Claude must respect the 25ms remaining-chain deadline (elapsed ${elapsed}ms)`)
+  assert.equal(signal?.aborted, true)
+  assert.equal(outcome?.state, 'failed')
+  assert.equal(outcome?.provider, 'claude')
+  assert.equal(outcome?.blocker, 'provider_error')
+  assert.equal(outcome?.attempted_count, 1)
+  assert.equal(candidate.validation_attempted_at, NOW.toISOString().replace(/\.\d{3}Z$/, 'Z'))
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetCooldownMemory()
+})
+
+await check('terminal provider HTTP classes exhaust the provider day and retain only a sanitized reason on later cycles', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  for (const status of [400, 401, 402, 403, 404, 413]) {
+    resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), `thm-terminal-${status}-`))
+    const makeCandidate = (tag: string) => createTheme([
+      item(`${tag}-1`, `${tag} Alpha capacity shortage raises orders`, { companies: [co(`${tag} Alpha`, `${tag}A`)] }),
+      item(`${tag}-2`, `${tag} Beta capacity shortage raises orders`, { companies: [co(`${tag} Beta`, `${tag}B`)] }),
+      item(`${tag}-3`, `${tag} Alpha and Beta capacity shortage persists`, { companies: [co(`${tag} Alpha`, `${tag}A`), co(`${tag} Beta`, `${tag}B`)] }),
+    ], NOW)
+    let fetches = 0
+    const sentinel = `private-provider-body-${status}`
+    const failed = (async () => {
+      fetches++
+      return { ok: false, status, text: async () => sentinel }
+    }) as unknown as typeof fetch
+    const cfg = {
+      themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm',
+      groqDailyReqCap: 10, groqDailyTokenCap: 100_000,
+    }
+    const first = await makeThemeNamer(cfg, failed, tmp)([makeCandidate(`First${status}`)], NOW)
+    assert.equal(first?.provider, 'groq')
+    assert.equal(first?.blocker, 'provider_error')
+    assert.match(first?.message || '', new RegExp(`Groq HTTP ${status}`))
+    assert.doesNotMatch(first?.message || '', /private-provider-body/)
+    const persisted = JSON.parse(fs.readFileSync(path.join(tmp, 'groq-budget.json'), 'utf8'))
+    assert.equal(persisted.exhausted, true)
+    assert.equal(persisted.exhaustion_reason, `terminal_http_${status}`)
+
+    // Prove the reason survives process memory, not merely the in-process Budget object.
+    resetBudgetMemory()
+    const secondCandidate = makeCandidate(`Second${status}`)
+    const second = await makeThemeNamer(cfg, failed, tmp)([secondCandidate], new Date(NOW.getTime() + 1_000))
+    assert.equal(second?.state, 'blocked')
+    assert.equal(second?.provider, 'groq')
+    assert.equal(second?.blocker, 'daily_cap')
+    assert.match(second?.message || '', new RegExp(`rest of its provider day after HTTP ${status}`))
+    assert.doesNotMatch(second?.message || '', /private-provider-body/)
+    assert.equal(second?.attempted_count, 0)
+    assert.equal(secondCandidate.validation_attempted_at, undefined)
+    assert.equal(fetches, 1, 'a terminal day marker prevents another provider request on later cycles')
+    fs.rmSync(tmp, { recursive: true, force: true })
+  }
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+})
+
+await check('a terminal Claude response closes its dedicated provider day with the same sanitized durable reason', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetCooldownMemory()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-claude-terminal-'))
+  const makeCandidate = (tag: string) => createTheme([
+    item(`${tag}-1`, `${tag} Alpha capacity shortage raises orders`, { companies: [co(`${tag} Alpha`, `${tag}A`)] }),
+    item(`${tag}-2`, `${tag} Beta capacity shortage raises orders`, { companies: [co(`${tag} Beta`, `${tag}B`)] }),
+    item(`${tag}-3`, `${tag} Alpha and Beta capacity shortage persists`, { companies: [co(`${tag} Alpha`, `${tag}A`), co(`${tag} Beta`, `${tag}B`)] }),
+  ], NOW)
+  let fetches = 0
+  const failed = (async () => {
+    fetches++
+    return { ok: false, status: 403, text: async () => 'claude-private-account-body' }
+  }) as unknown as typeof fetch
+  const cfg = {
+    themesDiscoverModel: 'claude-haiku', themesClaudeApiKey: 'k', themesClaudeBaseUrl: 'https://claude.test',
+    themesClaudeDailyCap: 10,
+  }
+  const first = await makeThemeNamer(cfg, failed, tmp)([makeCandidate('FirstClaude')], NOW)
+  assert.equal(first?.state, 'failed')
+  assert.equal(first?.provider, 'claude')
+  assert.equal(first?.blocker, 'provider_error')
+  assert.match(first?.message || '', /Claude HTTP 403/)
+  assert.doesNotMatch(first?.message || '', /private-account-body/)
+  const persisted = JSON.parse(fs.readFileSync(path.join(tmp, 'themes-llm-budget.json'), 'utf8'))
+  assert.equal(persisted.exhausted, true)
+  assert.equal(persisted.exhaustion_reason, 'terminal_http_403')
+
+  const secondCandidate = makeCandidate('SecondClaude')
+  const second = await makeThemeNamer(cfg, failed, tmp)([secondCandidate], new Date(NOW.getTime() + 1_000))
+  assert.equal(second?.state, 'blocked')
+  assert.equal(second?.provider, 'claude')
+  assert.equal(second?.blocker, 'daily_cap')
+  assert.match(second?.message || '', /Claude.*provider day after HTTP 403/)
+  assert.doesNotMatch(second?.message || '', /private-account-body/)
+  assert.equal(second?.attempted_count, 0)
+  assert.equal(secondCandidate.validation_attempted_at, undefined)
+  assert.equal(fetches, 1)
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetCooldownMemory()
+})
+
+await check('compiler health keeps provider, blocker, and message from the same final fallback decision', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-coherent-blocker-'))
+  Budget.load(tmp, 1, 100_000, NOW.getTime(), 'groq-budget.json').exhaust('terminal_http_401')
+  const candidate = createTheme([
+    item('coherent-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('coherent-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('coherent-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  let fetches = 0
+  const localFailure = (async () => {
+    fetches++
+    return { ok: false, status: 500, text: async () => 'private-local-body' }
+  }) as unknown as typeof fetch
+  const outcome = await makeThemeNamer({
+    themesDiscoverModel: 'groq', localCooldownMs: 1_000,
+    localProvider: {
+      id: 'local', label: 'Local', color: '--local', apiKey: 'local', baseUrl: 'https://local.test/v1', model: 'local-model',
+      dailyReqCap: 100_000, rpm: 0, maxTokens: 3000, budgetFile: 'local-budget.json',
+    },
+    groqApiKey: 'groq', groqBaseUrl: 'https://groq.test', groqModel: 'groq-model',
+    groqDailyReqCap: 1, groqDailyTokenCap: 100_000,
+  }, localFailure, tmp)([candidate], NOW)
+  assert.equal(fetches, 1)
+  assert.equal(outcome?.attempted_count, 1)
+  assert.equal(outcome?.state, 'blocked')
+  assert.equal(outcome?.provider, 'groq')
+  assert.equal(outcome?.blocker, 'daily_cap')
+  assert.match(outcome?.message || '', /Groq.*provider day after HTTP 401/)
+  assert.doesNotMatch(outcome?.message || '', /Local|private-local-body/)
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
 })
 
 await check('makeThemeNamer accepts the model\'s exact dense semantic pair and rejects corpus-generic anchors', async () => {
@@ -1680,10 +2075,118 @@ await check('makeThemeNamer reserves the full prompt/output bound near the share
   assert.ok(saved.tokens <= tokenCap)
 })
 
-await check('makeThemeNamer returns undefined when no key / model off (stays deterministic)', async () => {
+await check('theme compiler skips an unsafe TPM envelope and validates through configured overflow with honest provenance', async () => {
   const { makeThemeNamer } = await import('../src/news/themes/llm')
-  assert.equal(makeThemeNamer({ themesDiscoverModel: 'off' }, fetch, '/tmp'), undefined)
-  assert.equal(makeThemeNamer({ themesDiscoverModel: 'claude-haiku' }, fetch, '/tmp'), undefined) // no key
+  resetBudgetMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-overflow-route-'))
+  const candidate = createTheme([
+    item('overflow-route-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('overflow-route-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('overflow-route-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  const proposal = llmThemeProposal({
+    support: candidate.members.map((member) => member.event_id), anchors: ['capacity', 'shortage'],
+    expressions: [{
+      name_key: 'alpha', side: 'beneficiary', role: 'direct',
+      mechanism: 'Alpha receives equipment orders while the cited shortage constrains capacity.',
+      evidence_event_ids: ['overflow-route-1'],
+    }],
+  })
+  const urls: string[] = []
+  const fetchFn = (async (url: string | URL | Request) => {
+    urls.push(String(url))
+    return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: JSON.stringify({ themes: [proposal] }) } }], usage: { total_tokens: 100 } }) }
+  }) as unknown as typeof fetch
+  const outcome = await makeThemeNamer({
+    themesDiscoverModel: 'groq', groqApiKey: 'groq-key', groqBaseUrl: 'https://groq.test', groqModel: 'g',
+    groqRpm: 28, groqTpm: 1000, groqDailyReqCap: 10, groqDailyTokenCap: 100_000,
+    overflowProviders: [{
+      id: 'overflow-test', label: 'Overflow Test', color: '--test', apiKey: 'overflow-key',
+      baseUrl: 'https://overflow.test/v1', model: 'm', dailyReqCap: 10, rpm: 0, maxTokens: 3000,
+      budgetFile: 'overflow-test-budget.json',
+    }],
+  }, fetchFn, tmp)([candidate], NOW)
+  assert.deepEqual(urls, ['https://overflow.test/v1/chat/completions'], 'the unsafe Groq request is never acquired or sent')
+  assert.equal(outcome?.state, 'succeeded')
+  assert.equal(outcome?.attempted_count, 1)
+  assert.equal(outcome?.validated_count, 1)
+  assert.equal(candidate.generation, 'llm')
+  assert.equal(candidate.validator_provider, 'overflow-test')
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetSharedLimiters()
+})
+
+await check('theme compiler dynamically caps one Groq request inside its configured TPM envelope', async () => {
+  const { makeThemeNamer, themeNamerTokenBound } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-tpm-admit-'))
+  const candidate = createTheme([
+    item('tpm-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('tpm-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('tpm-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  const proposal = llmThemeProposal({ support: candidate.members.map((member) => member.event_id), anchors: ['capacity', 'shortage'] })
+  const inputBound = themeNamerTokenBound([candidate], undefined, 0)
+  let sentMaxTokens = 0
+  const fetchFn = (async (_url: string | URL | Request, init?: RequestInit) => {
+    sentMaxTokens = Number(JSON.parse(String(init?.body || '{}')).max_tokens)
+    return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: JSON.stringify({ themes: [proposal] }) } }], usage: { total_tokens: 100 } }) }
+  }) as unknown as typeof fetch
+  const outcome = await makeThemeNamer({
+    themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm',
+    groqRpm: 28, groqTpm: 6000, groqDailyReqCap: 10, groqDailyTokenCap: 100_000,
+  }, fetchFn, tmp)([candidate], NOW)
+  assert.ok(sentMaxTokens >= 1200 && sentMaxTokens < 3000, `expected a reduced but usable output cap, got ${sentMaxTokens}`)
+  assert.ok(inputBound + sentMaxTokens <= 6000, 'the admitted conservative request fits the configured TPM envelope')
+  assert.equal(outcome?.validated_count, 1)
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetSharedLimiters()
+})
+
+await check('partial compiler progress preserves the capacity blocker for remaining debt', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-partial-cap-'))
+  const makeCandidate = (tag: string) => createTheme([
+    item(`${tag}-1`, `${tag} Alpha capacity shortage raises orders`, { companies: [co(`${tag} Alpha`, `${tag}A`)] }),
+    item(`${tag}-2`, `${tag} Beta capacity shortage raises orders`, { companies: [co(`${tag} Beta`, `${tag}B`)] }),
+    item(`${tag}-3`, `${tag} Alpha and Beta capacity shortage persists`, { companies: [co(`${tag} Alpha`, `${tag}A`), co(`${tag} Beta`, `${tag}B`)] }),
+  ], NOW)
+  const first = makeCandidate('First')
+  const second = makeCandidate('Second')
+  const proposal = llmThemeProposal({ support: first.members.map((member) => member.event_id), anchors: ['capacity', 'shortage'] })
+  const fetchFn = (async () => ({
+    ok: true, status: 200,
+    json: async () => ({ choices: [{ message: { content: JSON.stringify({ themes: [proposal] }) } }], usage: { total_tokens: 100 } }),
+  })) as unknown as typeof fetch
+  const outcome = await makeThemeNamer({
+    themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm',
+    groqDailyReqCap: 1, groqDailyTokenCap: 100_000,
+  }, fetchFn, tmp)([first, second], NOW)
+  assert.equal(outcome?.validated_count, 1)
+  assert.equal(outcome?.state, 'blocked')
+  assert.equal(outcome?.blocker, 'daily_cap')
+  assert.match(outcome?.message || '', /processed 1 of 2.*no daily compiler capacity/i)
+  assert.equal(second.validation_attempted_at, undefined)
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetSharedLimiters()
+})
+
+await check('makeThemeNamer reports disabled or unconfigured capacity without fabricating an attempt', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  const candidate = createTheme([
+    item('off-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('off-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('off-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  const disabled = await makeThemeNamer({ themesDiscoverModel: 'off' }, fetch, '/tmp')([candidate], NOW)
+  assert.equal(disabled?.state, 'skipped')
+  assert.equal(disabled?.blocker, 'not_configured')
+  assert.equal(disabled?.attempted_count, 0)
+  assert.equal(candidate.validation_attempted_at, undefined)
+  const unconfigured = await makeThemeNamer({ themesDiscoverModel: 'claude-haiku' }, fetch, '/tmp')([candidate], NOW)
+  assert.equal(unconfigured?.state, 'skipped')
+  assert.equal(unconfigured?.attempted_count, 0)
 })
 
 // ---- the daily flow ring (long-horizon history for the time-window selector) ----
@@ -2363,6 +2866,41 @@ await check('new and legacy deterministic themes retry through the bounded migra
   assert.ok(legacy.narrative, 'migration completes only with the versioned narrative contract')
 })
 
+await check('existing validation debt retries on every scanner cycle, not only discovery cadence', async () => {
+  const queued = createTheme([
+    item('ordinary-v1', 'IonQ expands quantum qubit capacity', { companies: [co('IonQ', 'IONQ')] }),
+    item('ordinary-v2', 'Rigetti expands quantum qubit capacity', { companies: [co('Rigetti', 'RGTI')] }),
+    item('ordinary-v3', 'IonQ and Rigetti expand quantum qubit capacity', { companies: [co('IonQ', 'IONQ'), co('Rigetti', 'RGTI')] }),
+  ], NOW)
+  let seen: string[] = []
+  await stepThemes({
+    themes: [queued], pool: [], items: [], runDiscovery: false, now: NOW,
+    llmNamer: async (batch) => { seen = batch.map((theme) => theme.theme_id) },
+  })
+  assert.deepEqual(seen, [queued.theme_id], 'capacity returning on an ordinary cycle immediately reaches old validation debt')
+})
+
+await check('a capacity-only compiler result persists health without inventing a theme mutation', async () => {
+  const queued = createTheme([
+    item('blocked-v1', 'IonQ expands quantum qubit capacity', { companies: [co('IonQ', 'IONQ')] }),
+    item('blocked-v2', 'Rigetti expands quantum qubit capacity', { companies: [co('Rigetti', 'RGTI')] }),
+    item('blocked-v3', 'IonQ and Rigetti expand quantum qubit capacity', { companies: [co('IonQ', 'IONQ'), co('Rigetti', 'RGTI')] }),
+  ], NOW)
+  await stepThemes({ themes: [queued], pool: [], items: [], runDiscovery: false, now: NOW })
+  const before = JSON.stringify(queued)
+  const result = await stepThemes({
+    themes: [queued], pool: [], items: [], runDiscovery: false, now: NOW,
+    llmNamer: async (batch, now) => ({
+      attempted_at: now.toISOString().replace(/\.\d{3}Z$/, 'Z'), state: 'blocked', provider: 'groq',
+      blocker: 'daily_cap', message: 'Groq has no daily compiler capacity.', requested_count: batch.length,
+      attempted_count: 0, validated_count: 0, rejected_count: 0, malformed_count: 0, omitted_count: 0,
+    }),
+  })
+  assert.equal(JSON.stringify(queued), before)
+  assert.ok(!result.changedThemeIds.includes(queued.theme_id), 'health-only state does not append an unchanged ledger row')
+  assert.equal(result.compilerAttempt?.blocker, 'daily_cap')
+})
+
 await check('validation debt leads the four-theme compiler batch even when 8+ new clusters arrive', async () => {
   const pending = createTheme([
     item('debt-p1', 'IonQ expands quantum qubit production', { companies: [co('IonQ', 'IONQ')] }),
@@ -2443,7 +2981,7 @@ await check('compiler queue reserves the front of every batch for narrative upda
   }
 })
 
-await check('pending overflow stays quarantined instead of spending a compiler call that could clear missing debt', async () => {
+await check('pending overflow retires on the next scanner step so it cannot become a permanent zombie', async () => {
   const theme = createTheme([
     item('cycle-1', 'Vertiv cooling bottleneck raises orders', { companies: [co('Vertiv', 'VRT')] }),
     item('cycle-2', 'Eaton cooling bottleneck raises orders', { companies: [co('Eaton', 'ETN')] }),
@@ -2459,13 +2997,198 @@ await check('pending overflow stays quarantined instead of spending a compiler c
   assert.ok((theme.pending_narrative_event_ids?.length || 0) <= 3)
   assert.ok((theme.pending_narrative_event_ids || []).every((eventId) => theme.members.some((member) => member.event_id === eventId)), 'pending debt always resolves inside the hard-capped ring')
   let seen: string[] = []
-  await stepThemes({
+  const recovery = await stepThemes({
     themes: [theme], pool: [], items: [], runDiscovery: false, now: NOW,
     llmNamer: async (batch) => { seen = batch.map((row) => row.theme_id) },
   })
   assert.deepEqual(seen, [], 'a compiler cannot classify the IDs the hard cap no longer carries')
   assert.equal(theme.narrative_update_overflow, true)
   assert.equal(theme.needs_narrative_update, true)
+  assert.equal(theme.status, 'retired', 'ordinary cadence retires an irrecoverably incomplete bounded record')
+  assert.deepEqual(recovery.removed, [{ theme_id: theme.theme_id, reason: 'retired', merged_into: null, rev: theme.rev }])
+  assert.equal(seen.length, 0, 'retirement never spends a compiler call on incomplete evidence')
+  assert.ok(recovery.pool.length > 0, 'the bounded retained audit is reclaimed for later successor discovery')
+  const fresh = [
+    item('cycle-fresh-a', 'Alpha liquid cooling bottleneck raises orders', {
+      dedup_group: 'STORY-cycle-fresh-a', companies: [co('Alpha Supplier', 'FRESHA')],
+    }),
+    item('cycle-fresh-b', 'Beta liquid cooling bottleneck raises orders', {
+      dedup_group: 'STORY-cycle-fresh-b', companies: [co('Beta Supplier', 'FRESHB')],
+    }),
+    item('cycle-fresh-c', 'Gamma liquid cooling bottleneck raises orders', {
+      dedup_group: 'STORY-cycle-fresh-c', companies: [co('Gamma Supplier', 'FRESHC')],
+    }),
+  ]
+  const successorSeed = await stepThemes({
+    themes: [theme], pool: [], items: fresh, runDiscovery: true,
+    now: new Date(NOW.getTime() + 120_000),
+  })
+  for (const row of fresh) {
+    assert.equal(successorSeed.assignments.get(row.event_id)?.includes(theme.theme_id) || false, false,
+      'fresh evidence is never stamped with a retired incomplete theme')
+  }
+  const successor = successorSeed.themes.find((candidate) => candidate.status === 'live')
+  assert.ok(successor, 'three genuinely new independent families can form a complete successor')
+  assert.notEqual(successor!.theme_id, theme.theme_id, 'the retired tombstone ID remains reserved')
+  assert.ok(successorSeed.changedThemeIds.includes(successor!.theme_id))
+  assert.equal(new Set(successor!.members.map((member) => member.dedup_group || member.event_id)).size, 3)
+
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-overflow-successor-'))
+  appendThemeMutations(root, [theme, successor!], () => new Date(NOW.getTime() + 120_000))
+  const persisted = loadThemes(root)
+  assert.equal(persisted.find((candidate) => candidate.theme_id === theme.theme_id)?.status, 'retired')
+  assert.equal(persisted.find((candidate) => candidate.theme_id === successor!.theme_id)?.status, 'live')
+  fs.rmSync(root, { recursive: true, force: true })
+})
+
+await check('assignment overflow retires in the same ordinary scanner pass and returns the triggering evidence to the pool', async () => {
+  const supports = [
+    item('same-pass-a', 'Alpha liquid cooling bottleneck raises supplier orders', {
+      dedup_group: 'same-pass-family-a', companies: [co('Alpha', 'ALPH')], found_at: hoursAgo(3),
+    }),
+    item('same-pass-b', 'Beta liquid cooling bottleneck raises supplier orders', {
+      dedup_group: 'same-pass-family-b', companies: [co('Beta', 'BETA')], found_at: hoursAgo(2),
+    }),
+    item('same-pass-c', 'Gamma liquid cooling bottleneck raises supplier orders', {
+      dedup_group: 'same-pass-family-c', companies: [co('Gamma', 'GAMM')], found_at: hoursAgo(1),
+    }),
+  ]
+  const theme = createTheme(supports, NOW, 'claude')
+  attachValidNarrative(theme, { anchor_terms: ['cooling', 'bottleneck'] })
+  const trigger = item('same-pass-d', 'Delta liquid cooling bottleneck raises supplier orders', {
+    dedup_group: 'same-pass-family-d', companies: [co('Delta', 'DELT')], found_at: NOW.toISOString(),
+  })
+  const cfg = {
+    ...DEFAULT_THEMES_CONFIG,
+    assign: { ...DEFAULT_THEMES_CONFIG.assign, maxMembers: 3 },
+    discover: { ...DEFAULT_THEMES_CONFIG.discover, maxMembers: 3 },
+  }
+  const result = await stepThemes({ themes: [theme], pool: [], items: [trigger], runDiscovery: false, now: NOW, cfg })
+
+  assert.equal(theme.status, 'retired', 'the assignment-created overflow cannot remain live until another cadence')
+  assert.equal(theme.narrative_update_overflow, true)
+  assert.ok(result.removed.some((row) => row.theme_id === theme.theme_id && row.reason === 'retired'))
+  assert.equal(result.assignments.get(trigger.event_id)?.includes(theme.theme_id) || false, false, 'the trigger is never stamped with the retired tombstone')
+  assert.ok(result.pool.some((row) => row.event_id === trigger.event_id), 'the row absorbed before overflow detection is reclaimed for successor discovery')
+  assert.equal(result.themes.filter((candidate) => candidate.status === 'live').length, 0, 'rebuild waits for the next cold-start to restore any evicted audit rows')
+})
+
+await check('overflow recovery suppresses only exact live observations, not a missing challenge from their shared family', async () => {
+  const sharedSupport = item('shared-live-support', 'Alpha liquid cooling bottleneck raises supplier orders', {
+    dedup_group: 'shared-recovery-family', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(4),
+  })
+  const missingChallenge = item('shared-missing-challenge', 'Alpha cancels liquid cooling expansion as bottleneck eases', {
+    dedup_group: 'shared-recovery-family', companies: [co('Alpha', 'ALPH')], source_tier: 'primary_filing', found_at: hoursAgo(3),
+  })
+  const doomedPeer = item('shared-doomed-peer', 'Beta liquid cooling bottleneck raises supplier orders', {
+    dedup_group: 'shared-doomed-peer-family', companies: [co('Beta', 'BETA')], source_tier: 'company', found_at: hoursAgo(2),
+  })
+  const doomed = createTheme([sharedSupport, doomedPeer], NOW, 'claude')
+  attachValidNarrative(doomed, { anchor_terms: ['cooling', 'bottleneck'] })
+  assignThemes([missingChallenge], [doomed], undefined, NOW)
+  attachValidNarrative(doomed, {
+    anchor_terms: ['cooling', 'bottleneck'],
+    support_event_ids: [sharedSupport.event_id, doomedPeer.event_id],
+    challenge_event_ids: [missingChallenge.event_id],
+  })
+  delete doomed.pending_narrative_event_ids
+  doomed.needs_narrative_update = true
+  doomed.narrative_update_overflow = true
+
+  const livePeer = item('shared-live-peer', 'Gamma liquid cooling bottleneck raises supplier orders', {
+    dedup_group: 'shared-live-peer-family', companies: [co('Gamma', 'GAMM')], source_tier: 'primary_filing', found_at: hoursAgo(1),
+  })
+  const survivor = createTheme([sharedSupport, livePeer], NOW, 'claude')
+  attachValidNarrative(survivor, { anchor_terms: ['cooling', 'bottleneck'] })
+  survivor.name = 'Liquid Cooling Capacity Bottleneck'
+  survivor.slug = 'liquid-cooling-capacity-bottleneck'
+  survivor.description = 'A liquid-cooling capacity bottleneck is raising supplier orders.'
+  assert.equal(qualifyTheme(survivor, NOW).assessment.status, 'actionable', 'the surviving theme begins publishable')
+
+  const first = await stepThemes({ themes: [doomed, survivor], pool: [], items: [], runDiscovery: false, now: NOW })
+  assert.equal(doomed.status, 'retired')
+  assert.equal(survivor.status, 'live')
+  assert.equal(qualifyTheme(survivor, NOW).assessment.status, 'actionable', 'recovery does not quarantine an independent live theme')
+  assert.deepEqual(
+    first.pool.filter((row) => row.dedup_group === 'shared-recovery-family').map((row) => row.event_id),
+    [missingChallenge.event_id],
+    'the absent challenge is reclaimed while the exact observation already held live is not duplicated',
+  )
+
+  const replay = await stepThemes({ themes: first.themes, pool: first.pool, items: [], runDiscovery: false, now: NOW })
+  assert.deepEqual(
+    replay.pool.map((row) => row.event_id),
+    first.pool.map((row) => row.event_id),
+    'replaying recovery is idempotent and does not duplicate an exact observation',
+  )
+  assert.ok(replay.pool.length <= DEFAULT_THEMES_CONFIG.poolCap, 'the recovered pool remains hard-bounded')
+})
+
+await check('cold-start excludes only live Theme families so retired overflow evidence forms a distinct successor after restart', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-overflow-cold-start-'))
+  const stateDir = path.join(root, 'state')
+  const original = [
+    item('restart-a', 'Alpha liquid cooling bottleneck raises supplier orders', {
+      dedup_group: 'restart-family-a', companies: [co('Alpha', 'ALPH')], found_at: hoursAgo(4),
+    }),
+    item('restart-b', 'Beta liquid cooling bottleneck raises supplier orders', {
+      dedup_group: 'restart-family-b', companies: [co('Beta', 'BETA')], found_at: hoursAgo(3),
+    }),
+    item('restart-c', 'Gamma liquid cooling bottleneck raises supplier orders', {
+      dedup_group: 'restart-family-c', companies: [co('Gamma', 'GAMM')], found_at: hoursAgo(2),
+    }),
+  ]
+  const retired = createTheme(original, NOW, 'claude')
+  attachValidNarrative(retired, { anchor_terms: ['cooling', 'bottleneck'] })
+  const replacement = item('restart-d', 'Delta liquid cooling bottleneck raises supplier orders', {
+    dedup_group: 'restart-family-d', companies: [co('Delta', 'DELT')], found_at: hoursAgo(1),
+  })
+  assignThemes([replacement], [retired], { maxThemesPerItem: 3, maxMembers: 3 }, NOW)
+  assert.equal(retired.narrative_update_overflow, true)
+  retired.status = 'retired'
+  retired.rev++
+  appendThemeMutations(root, [retired], () => NOW)
+
+  const retainedRows = retired.members.map((member): ThemeItemView => ({
+    event_id: member.event_id,
+    dedup_group: member.dedup_group,
+    headline: member.headline,
+    headline_en: member.headline_en,
+    found_at: member.found_at,
+    observed_at: member.observed_at,
+    companies: member.companies,
+    event_types: member.event_types,
+    issuer_linkage: member.issuer_linkage,
+    triage_score: member.score,
+    source_tier: member.tier,
+    source_name: member.source_name,
+    url: member.url,
+  }))
+  const inbox = path.join(root, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  const wallDay = new Date().toISOString().slice(0, 10)
+  fs.writeFileSync(
+    path.join(inbox, `${wallDay}_firehose.ndjson`),
+    retainedRows.map((row) => JSON.stringify({ kind: 'item', ts: row.found_at, band: 'pick', ...row })).join('\n') + '\n',
+  )
+
+  await runThemesCycle({
+    repoRoot: root,
+    stateDir,
+    items: [],
+    runDiscovery: true,
+    now: () => NOW,
+    cfg: { ...DEFAULT_THEMES_CONFIG, assign: { ...DEFAULT_THEMES_CONFIG.assign, maxMembers: 3 }, discover: { ...DEFAULT_THEMES_CONFIG.discover, maxMembers: 3 } },
+  })
+  const persisted = loadThemes(root)
+  const successor = persisted.find((candidate) => candidate.status === 'live')
+  assert.ok(successor, 'retired member families re-enter the cold-start pool and rebuild')
+  assert.notEqual(successor!.theme_id, retired.theme_id, 'the changed retained family set creates a new ID while the tombstone remains reserved')
+  assert.deepEqual(
+    new Set(successor!.members.map((member) => member.dedup_group)),
+    new Set(retainedRows.map((row) => row.dedup_group)),
+  )
+  fs.rmSync(root, { recursive: true, force: true })
 })
 
 await check('latest classifications override old support, challenges win conflicts, context survives reload, and bare false cannot erase an established theme', async () => {

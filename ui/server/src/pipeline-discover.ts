@@ -38,7 +38,40 @@ export interface DiscoverInput {
 export interface DiscoverOutcome {
   feeds: DiscoveredFeed[]
   costUsd: number
+  // False means the model emitted at least one malformed/unsafe candidate. Valid keepers may still be
+  // shown, but a zero-match targeted search must not become "Could not find" from incomplete parsing.
+  complete: boolean
   error?: string
+}
+
+export interface AdmittedLookupMatch {
+  pipelineId: string
+  publicUrl: string
+  note: string
+}
+
+export type DiscoveryTerminal = 'completed' | 'error' | 'aborted' | 'disconnected'
+export type PlannedNeedLookup =
+  | { lookup_status: 'public_link_found'; public_url: string; lookup_note: string; source_pipeline_id: string }
+  | { lookup_status: 'could_not_find'; public_url: null; lookup_note: string; source_pipeline_id: null }
+
+/** Only a clean, completed TARGETED search has enough meaning to produce a lookup-ledger row. */
+export function planTargetedNeedLookup(
+  need: DataNeed | undefined,
+  terminal: DiscoveryTerminal,
+  match: AdmittedLookupMatch | null,
+): PlannedNeedLookup | null {
+  if (!need || terminal !== 'completed') return null
+  return match
+    ? {
+      lookup_status: 'public_link_found', public_url: match.publicUrl,
+      lookup_note: match.note, source_pipeline_id: match.pipelineId,
+    }
+    : {
+      lookup_status: 'could_not_find', public_url: null,
+      lookup_note: 'A completed targeted search found no admitted exact public link for this need.',
+      source_pipeline_id: null,
+    }
 }
 
 const MAX_FEEDS = 6
@@ -47,6 +80,46 @@ const MAX_FEEDS = 6
 export function openDiscoverNeeds(needs: DataNeed[], needId?: string | null): DataNeed[] {
   const open = needs.filter((need) => !need.filing_required && !need.built_by)
   return needId ? open.filter((need) => need.need_id === needId) : open
+}
+
+/** A targeted lookup is steered only by the server-owned need, never by a caller-supplied sentence. */
+export function discoverWant(clientWant: string, openNeeds: DataNeed[], targetedNeedId?: string | null): string {
+  if (!targetedNeedId) return clientWant.trim()
+  const need = openNeeds.find((candidate) => candidate.need_id === targetedNeedId)
+  return need ? `${need.series} — ${need.why_it_caps}`.slice(0, 500) : ''
+}
+
+/** Only a targeted lookup needs an open structured need. General library discovery may be free-form. */
+export function shouldSkipFeedDiscovery(openNeeds: DataNeed[], targetedNeedId?: string | null): boolean {
+  return Boolean(targetedNeedId) && openNeeds.length === 0
+}
+
+/**
+ * Replace the model's routing claims with the server-owned open-needs projection. Targeted lookup is exact-only
+ * and must name its current need. General discovery may retain a relevant exact or partial candidate even when
+ * no structured need exists; in that case it is deliberately unscoped and cannot invent an orb route.
+ */
+export function admitDiscoveredForOpenNeeds(
+  feed: DiscoveredFeed,
+  openNeeds: DataNeed[],
+  targetedNeedId?: string | null,
+): DiscoveredFeed | null {
+  // Exact manual/non-buildable links still answer "where could I get this data?" and may be shown. Build
+  // admission remains a separate, stricter boundary (`buildable === true`) in the dispatch route.
+  if (feed.verdict.relevance === 'none') return null
+  const claimed = new Set(feed.verdict.matched_need_ids)
+  const matched = openNeeds.filter((need) => claimed.has(need.need_id))
+  if (targetedNeedId && (feed.verdict.relevance !== 'exact'
+      || !matched.some((need) => need.need_id === targetedNeedId))) return null
+  const entryModules = [...new Set(matched.flatMap((need) => need.entry_modules))]
+  return {
+    ...feed,
+    verdict: {
+      ...feed.verdict,
+      matched_need_ids: matched.map((need) => need.need_id),
+      entry_modules: entryModules,
+    },
+  }
 }
 
 /** Pure first boundary; DNS is re-checked by the server before persistence/action. */
@@ -61,22 +134,32 @@ export function usableSourceUrl(raw: any): string | null {
  * model, because the host is what a build pins into the connector's allowlist.  Unsafe or off-host endpoint
  * hints reject the candidate; they are never silently replaced with a broader/safer-looking source URL.
  */
-export function parseDiscovered(text: string): DiscoveredFeed[] {
+export interface ParsedDiscovery {
+  valid: boolean
+  feeds: DiscoveredFeed[]
+  rejected: number
+}
+
+export function parseDiscoveryResult(text: string): ParsedDiscovery {
   const raw = extractLastJsonObject(text)
-  const list = Array.isArray((raw as any)?.feeds) ? (raw as any).feeds : []
+  if (!raw || Object.keys(raw).length !== 1 || !Array.isArray((raw as any).feeds)) {
+    return { valid: false, feeds: [], rejected: 0 }
+  }
+  const list = (raw as any).feeds
   const out: DiscoveredFeed[] = []
   const seen = new Set<string>()
+  let rejected = 0
   for (const item of list) {
-    if (!item || typeof item !== 'object') continue
+    if (!item || typeof item !== 'object' || Array.isArray(item)) { rejected++; continue }
     const url = usableSourceUrl(item.source_url ?? item.endpoint_hint)
-    if (!url) continue
+    if (!url) { rejected++; continue }
     // An explicitly supplied endpoint is evidence, not a hint we may silently
     // replace: reject it if unsafe or if it tries to expand the exact-host scope.
     const bound = bindConnectorUrls(url, item.endpoint_hint)
-    if (!bound) continue
+    if (!bound) { rejected++; continue }
     const host = bound.source.host
     const key = `${host}${new URL(url).pathname}`.toLowerCase()
-    if (seen.has(key)) continue // the same endpoint found twice is one find
+    if (seen.has(key)) continue // the same endpoint found twice is one find, not malformed output
     seen.add(key)
     const verdict = sanitizeVerdict({
       ...item,
@@ -92,7 +175,15 @@ export function parseDiscovered(text: string): DiscoveredFeed[] {
   }
   // strongest first: an exact match on an open need beats a partial one, then by the model's own confidence
   const rank = (f: DiscoveredFeed) => (f.verdict.relevance === 'exact' ? 2 : f.verdict.relevance === 'partial' ? 1 : 0)
-  return out.sort((a, b) => rank(b) - rank(a) || b.verdict.confidence - a.verdict.confidence)
+  return {
+    valid: true,
+    feeds: out.sort((a, b) => rank(b) - rank(a) || b.verdict.confidence - a.verdict.confidence),
+    rejected,
+  }
+}
+
+export function parseDiscovered(text: string): DiscoveredFeed[] {
+  return parseDiscoveryResult(text).feeds
 }
 
 /** The prompt. The subject + needs are CONTEXT; every page it reads is UNTRUSTED data. */
@@ -100,6 +191,7 @@ export function buildDiscoverPrompt(input: DiscoverInput): string {
   const needsJson = JSON.stringify(
     input.needs.map((n) => ({
       need_id: n.need_id, series: n.series, why_it_caps: n.why_it_caps,
+      priority: n.priority, expected_impact: n.expected_impact, entry_orbs: n.entry_orbs,
       entry_modules: n.entry_modules, tier: n.tier, cadence: n.cadence, suggested_source: n.suggested_source,
     })), null, 2,
   )
@@ -133,8 +225,11 @@ export function buildDiscoverPrompt(input: DiscoverInput): string {
     '   that republishes it.',
     '3. FETCH each promising source to confirm, concretely: what series it actually publishes, the exact URL or',
     '   API endpoint a fetcher would call, how often it updates, and whether it is reachable without a login.',
-    '4. Reject the ones a durable connector CANNOT be built for (login wall, paywall with no API, no stable',
-    '   endpoint, or really a statutory filing) — say so rather than proposing them.',
+    '   Public reachability is the only access claim here: never claim that a source is licensed, lawful to',
+    '   reuse, or cleared for redistribution.',
+    '4. A precise public page can still answer the source question when no durable connector can be built.',
+    '   Return that exact link with buildable=false. Never mark a login wall or inaccessible page as public,',
+    '   and never mark a statutory filing as a connector candidate.',
     `5. Return the best ${MAX_FEEDS} or fewer, strongest first. Fewer good ones beats a padded list; returning`,
     '   an empty list is a valid, useful answer.',
     '',
@@ -181,6 +276,10 @@ export async function runFeedDiscovery(opts: {
     budgetUsd: PIPELINE_DISCOVER.budgetUsd,
     timeoutMs: PIPELINE_DISCOVER.timeoutMs,
   })
-  if (out.error) return { feeds: [], costUsd: out.costUsd, error: out.error }
-  return { feeds: parseDiscovered(out.text), costUsd: out.costUsd }
+  if (out.error) return { feeds: [], costUsd: out.costUsd, complete: false, error: out.error }
+  const parsed = parseDiscoveryResult(out.text)
+  if (!parsed.valid) {
+    return { feeds: [], costUsd: out.costUsd, complete: false, error: 'The source search returned an invalid result. No lookup outcome was recorded.' }
+  }
+  return { feeds: parsed.feeds, costUsd: out.costUsd, complete: parsed.rejected === 0 }
 }

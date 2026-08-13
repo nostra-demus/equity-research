@@ -159,6 +159,19 @@ completed (master re-run)
 
 Then **delete the marker so it is never committed, and drop any stale failure note** — the run has now completed, so a break-time `RUN_FAILURE.md` (written by the server when an earlier attempt broke) must NOT ride along in this success commit: `rm -f "<RUN_ROOT>/.defer_module_memos" "<RUN_ROOT>/RUN_FAILURE.md"`.
 
+## 9C. Publication-time data-needs route gate
+
+After every applicable finish-gate writer above and before the commit, validate the final unsealed
+decision record against the versioned data-needs contract and today's self-discovered research orb roster:
+
+```bash
+python3 scripts/eval.py --data-needs-prewrite "<RUN_ROOT>/decision_record.json"
+```
+
+On `DATA-NEEDS-PREWRITE: FAIL`, STOP before commit and report the exact error. Rerun the synthesizer to
+repair the unsealed record; never silently drop a real need. Historical/sealed records are not regraded
+against today's mutable roster.
+
 ## 10. Commit and push to main (one commit)
 
 Per repo `CLAUDE.md` git policy: commit straight to `main`, no branches, no PRs.

@@ -3,12 +3,16 @@ import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import type { BoardIdea, QualifiedIdeaEvaluation, QualifiedIdeasBoard } from '../../lib/types'
 import {
+  currentQualifiedIdeasForSide,
+  IdeasSidePanel,
   IdeasTabs,
+  NewsLeadCard,
   QualifiedIdeaCard,
   ideaScorePresentation,
   ideaThemeAttribution,
-  ideasEmptyMessage,
   ideasForSide,
+  leadResearchPriorityValue,
+  newsLeadQueueEmptyMessage,
   normalizeQualifiedIdeaRow,
   normalizeQualifiedIdeasBoard,
   qualifiedIdeaCalibrationPresentation,
@@ -18,6 +22,7 @@ import {
   qualifiedIdeaReturnTag,
   qualifiedIdeaSourceRows,
   qualifiedIdeasForSide,
+  qualifiedIdeasEmptyState,
   qualifiedIdeasOutcomeNotice,
   qualifiedIdeasRuntimeWarning,
   qualifiedIdeasWarning,
@@ -205,6 +210,8 @@ const qualifiedBoard = {
 } as unknown as QualifiedIdeasBoard
 assert.deepEqual(qualifiedIdeasForSide(qualifiedBoard, 'long').map((row) => row.candidate.idea_id), ['qualified-long', 'qualified-second'])
 assert.deepEqual(qualifiedIdeasForSide(qualifiedBoard, 'short').map((row) => row.candidate.idea_id), [])
+assert.deepEqual(currentQualifiedIdeasForSide(qualifiedBoard, 'long', nowMs).map((row) => row.candidate.idea_id), ['qualified-long', 'qualified-second'])
+assert.deepEqual(currentQualifiedIdeasForSide(qualifiedBoard, 'long', Date.parse('2026-12-11T12:00:00Z')), [], 'expired forecasts remain audit rows, not current qualified calls')
 
 const normalizedQualifiedBoard = normalizeQualifiedIdeasBoard(qualifiedBoard)
 assert.equal(normalizedQualifiedBoard.invalidRowCount, 0)
@@ -501,11 +508,6 @@ assert.deepEqual(qualifiedIdeasWarning({
 })
 assert.equal(qualifiedIdeasWarning({ health: { status: 'healthy' } } as unknown as QualifiedIdeasBoard), null)
 
-const trustedEmptySources = {
-  leadsAvailable: true,
-  leadHealth: { schema_version: 'ideas-health/v1', status: 'healthy' },
-  qualified: normalizedQualifiedBoard,
-}
 const preDataQualifiedBoard = normalizeQualifiedIdeasBoard({
   ...qualifiedBoard,
   health: {
@@ -516,34 +518,41 @@ const preDataQualifiedBoard = normalizeQualifiedIdeasBoard({
   },
   qualified: [],
 })
-assert.equal(ideasEmptyMessage('long', trustedEmptySources), 'No LONG ideas.')
-assert.equal(ideasEmptyMessage('short', {
-  ...trustedEmptySources,
-  leadHealth: { schema_version: 'ideas-health/v1', status: 'running' },
-}), 'Checking for ideas…')
-assert.equal(ideasEmptyMessage('long', {
-  ...trustedEmptySources,
-  qualified: preDataQualifiedBoard,
-}), 'Checking for ideas…', 'qualified research that has not run yet is checking, not a clean empty result')
-assert.equal(ideasEmptyMessage('long', {
-  ...trustedEmptySources,
-  leadHealth: { status: 'healthy' },
-}), 'Ideas unavailable.', 'a lead-health object without its trusted schema cannot prove an empty result')
-assert.equal(ideasEmptyMessage('short', {
-  ...trustedEmptySources,
-  qualified: normalizeQualifiedIdeasBoard(null),
-}), 'Ideas unavailable.', 'healthy leads alone cannot prove no qualified forecast exists')
-assert.equal(ideasEmptyMessage('long', {
-  ...trustedEmptySources,
-  qualified: normalizeQualifiedIdeasBoard({
-    ...qualifiedBoard,
-    health: { ...qualifiedBoard.health, status: 'degraded' },
-  }),
-}), 'Ideas unavailable.', 'a degraded qualified source cannot support a clean empty claim')
-assert.equal(ideasEmptyMessage('short', {
-  ...trustedEmptySources,
-  qualified: partlyMalformedQualifiedBoard,
-}), 'Ideas unavailable.', 'a board with hidden malformed rows cannot support a clean empty claim')
+assert.equal(
+  qualifiedIdeasEmptyState('long', preDataQualifiedBoard)?.heading,
+  'No qualified LONG 3–6 month idea yet.',
+  'qualified research that has not run yet is pending, not a clean rejection',
+)
+assert.equal(
+  qualifiedIdeasEmptyState('short', normalizeQualifiedIdeasBoard(null))?.heading,
+  'No verified qualified SHORT 3–6 month idea can be shown.',
+  'news leads can never prove the missing full-research result',
+)
+assert.equal(
+  qualifiedIdeasEmptyState('short', partlyMalformedQualifiedBoard)?.heading,
+  'No verified qualified SHORT 3–6 month idea can be shown.',
+  'a board with hidden malformed rows cannot support a clean empty claim',
+)
+
+const checkedEmptyQualifiedBoard = normalizeQualifiedIdeasBoard({
+  ...qualifiedBoard,
+  health: {
+    ...qualifiedBoard.health,
+    status: 'healthy', outcome: 'none_clear', reason: 'Three complete forecasts missed at least one gate.',
+    parsed_count: 0, qualified_count: 0,
+  },
+  qualified: [],
+})
+assert.deepEqual(qualifiedIdeasEmptyState('long', checkedEmptyQualifiedBoard), {
+  heading: 'No qualified LONG 3–6 month idea.',
+  body: 'For this side, default to no position. Do not open a LONG position from news leads; wait until a full-research forecast clears the 3–6 month bar.',
+  healthReason: 'Three complete forecasts missed at least one gate.',
+  state: 'checked',
+})
+assert.equal(qualifiedIdeasEmptyState('long', normalizedQualifiedBoard), null, 'a real qualified row suppresses only its side empty state')
+assert.equal(newsLeadQueueEmptyMessage(true, { schema_version: 'ideas-health/v1', status: 'healthy' }), 'No live news leads in this direction.')
+assert.equal(newsLeadQueueEmptyMessage(true, { schema_version: 'ideas-health/v1', status: 'running' }), 'Checking for news leads…')
+assert.equal(newsLeadQueueEmptyMessage(false, null), 'News lead queue unavailable.')
 
 assert.deepEqual(qualifiedIdeasOutcomeNotice({
   health: { status: 'healthy', outcome: 'none_clear', reason: 'All completed assessments failed at least one gate.' },
@@ -634,10 +643,81 @@ assert.equal(
 assert.equal(qualifiedIdeaCatalystWindowLabel({ window_start: 'bad', window_end: '2026-10-28T23:59:00Z' }), null)
 
 assert.deepEqual(ideaScorePresentation({ trade_score_basis: 'pre_edge_proxy_legacy' }), {
-  label: 'pre-edge proxy',
-  title: 'A legacy surface estimate — not trade readiness and not the locked edge score from full research.',
+  label: 'legacy pre-edge proxy',
+  title: 'Legacy news-only surface estimate. It was not produced by the current lead research priority policy, is not comparable with its 62/100 cap, and is not investment conviction or a recommendation.',
 })
-assert.equal(ideaScorePresentation({ trade_score_basis: 'evidence_gate_v2' }).label, 'trade readiness')
+assert.deepEqual(ideaScorePresentation({ trade_score_basis: 'evidence_gate_v2' }), {
+  label: 'lead research priority',
+  title: 'News-only research priority, capped at 62/100 pending verified live price, liquidity, consensus, and full research. It is not investment conviction or a recommendation.',
+})
+assert.equal(ideaScorePresentation({ trade_score_basis: 'evidence_gate_v1' }).label, 'legacy lead research priority')
+assert.equal(leadResearchPriorityValue({ trade_score: 99, conviction: 99, trade_score_basis: 'evidence_gate_v2' }), 62, 'the current news-only policy can never render above its 62 ceiling')
+assert.equal(leadResearchPriorityValue({ trade_score: 44, conviction: 80, trade_score_basis: 'evidence_gate_v1' }), 44, 'a stored legacy evidence score stays visibly distinct')
+assert.equal(leadResearchPriorityValue({ trade_score: 62, conviction: 80, trade_score_basis: 'evidence_gate_v1' }), 44, 'an offline snapshot applies the same V1 demotion as the live server projection')
+assert.equal(leadResearchPriorityValue({ trade_score: 88, conviction: 90, trade_score_basis: 'pre_edge_proxy_legacy' }), 88, 'the unversioned legacy proxy is labelled rather than silently reinterpreted')
+
+const newsLead = idea('lead-jazz', 'long', {
+  ticker: 'JAZZ', company: 'Jazz Pharmaceuticals', exchange: 'NASDAQ',
+  reason: 'A new filing may change the earnings path.', why_now: 'The next results window is approaching.',
+  conviction: 58, conviction_basis: 'pre_edge_proxy', trade_score: 62, trade_score_basis: 'evidence_gate_v2',
+  trade_readiness: 'needs_data', trade_score_breakdown: {} as BoardIdea['trade_score_breakdown'],
+  missing_checks: ['live liquidity', 'dated catalyst', 'live price, liquidity, and consensus'],
+  priced_in: 'unknown', thesis_type: 'company_specific', status: 'live',
+  source_headlines: ['Jazz files an operating update'], source_name: 'Primary filing',
+  source_url: 'https://example.test/jazz-update', newest_source_at: '2026-08-12T11:00:00Z',
+})
+const newsLeadHtml = renderToStaticMarkup(createElement(NewsLeadCard, { idea: newsLead, side: 'long' }))
+assert.match(newsLeadHtml, /unverified news-only lead/)
+assert.match(newsLeadHtml, /lead research priority/)
+assert.match(newsLeadHtml, />62<span class="bidea__readden">\/100/)
+assert.doesNotMatch(newsLeadHtml, /trade readiness/i)
+
+const emptyWithLeadHtml = renderToStaticMarkup(createElement(IdeasSidePanel, {
+  panelSide: 'long', activeSide: 'long', leadRows: [newsLead], leadsAvailable: true,
+  leadHealth: { schema_version: 'ideas-health/v1', status: 'healthy' },
+  qualifiedRuntime: checkedEmptyQualifiedBoard, nowMs,
+}))
+assert.match(emptyWithLeadHtml, /Qualified 3–6 month ideas/)
+assert.match(emptyWithLeadHtml, /No qualified LONG 3–6 month idea\./)
+assert.match(emptyWithLeadHtml, /For this side, default to no position\./)
+assert.match(emptyWithLeadHtml, /<details class="bideas__queue">/, 'the unverified queue is collapsed by default')
+assert.match(emptyWithLeadHtml, /News lead research queue/)
+assert.match(emptyWithLeadHtml, /1 unverified news lead · not recommendations/)
+assert.ok(
+  emptyWithLeadHtml.indexOf('No qualified LONG 3–6 month idea.') < emptyWithLeadHtml.indexOf('Jazz Pharmaceuticals'),
+  'a live 62/100 lead remains secondary to the explicit no-qualified result',
+)
+
+const qualifiedWithLeadHtml = renderToStaticMarkup(createElement(IdeasSidePanel, {
+  panelSide: 'long', activeSide: 'long', leadRows: [newsLead], leadsAvailable: true,
+  leadHealth: { schema_version: 'ideas-health/v1', status: 'healthy' },
+  qualifiedRuntime: normalizedQualifiedBoard, nowMs,
+}))
+assert.match(qualifiedWithLeadHtml, /2 current/)
+assert.match(qualifiedWithLeadHtml, /Ranked on risk\/return frontiers: policy-adjusted return against tail loss, worst case, and loss probability; evidence confidence orders each frontier\./)
+assert.ok(
+  qualifiedWithLeadHtml.indexOf('QUALIFIED-LONG') < qualifiedWithLeadHtml.indexOf('News lead research queue'),
+  'qualified risk/return ordering remains the primary surface when research calls exist',
+)
+
+const frozenWithLeadHtml = renderToStaticMarkup(createElement(IdeasSidePanel, {
+  panelSide: 'long', activeSide: 'long', leadRows: [newsLead], leadsAvailable: true,
+  leadHealth: { schema_version: 'ideas-health/v1', status: 'healthy' },
+  qualifiedRuntime: normalizedQualifiedBoard, nowMs: Date.parse('2026-12-11T12:00:00Z'),
+}))
+assert.match(frozenWithLeadHtml, /0 current/)
+assert.match(frozenWithLeadHtml, /No qualified LONG 3–6 month idea\./)
+assert.match(frozenWithLeadHtml, /For this side, default to no position\./)
+assert.match(frozenWithLeadHtml, /Frozen forecast archive/)
+assert.match(frozenWithLeadHtml, /2 prior qualified · audit only/)
+assert.match(frozenWithLeadHtml, /Refresh required · frozen forecast only/)
+
+const unavailableQueueHtml = renderToStaticMarkup(createElement(IdeasSidePanel, {
+  panelSide: 'long', activeSide: 'long', leadRows: [], leadsAvailable: false,
+  leadHealth: null, qualifiedRuntime: checkedEmptyQualifiedBoard, nowMs,
+}))
+assert.match(unavailableQueueHtml, /availability unknown · unverified · not recommendations/)
+assert.doesNotMatch(unavailableQueueHtml, /0 unverified news leads/)
 
 const qualifiedCardIdea = qualified('XYZ', 'long')
 qualifiedCardIdea.candidate.run_root = 'analyses/XYZ_2026-08-12'

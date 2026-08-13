@@ -8,6 +8,7 @@ never fills missing rows from a second provider or combines releases.
 from __future__ import annotations
 
 import argparse
+import errno
 import hashlib
 import json
 import os
@@ -25,11 +26,16 @@ if _scripts_path_added:
     sys.path.append(HERE)
 try:
     from connector_contract import (  # noqa: E402
+        STABLE_READ_ATTEMPTS,
+        TRANSIENT_READ_ERRNOS,
         advance_release_period,
         canonical_json_bytes,
         connector_storage_paths,
+        content_identity,
         load_valid_manifests,
         no_symlink_path,
+        reread_digest_matches,
+        stable_read_backoff,
     )
 finally:
     if _scripts_path_added:
@@ -68,57 +74,76 @@ def _utc(value: str | datetime | None) -> datetime | None:
     return dt.astimezone(timezone.utc)
 
 
-def _read_regular_nofollow_bytes(path: str) -> bytes | None:
-    """Read one stable regular-file inode exactly once.
+def _read_regular_nofollow_bytes_once(path: str) -> bytes | None:
+    """One pinned attempt. Returns None on a refusal or an unsettled read; raises transient OSError.
 
     Sealed connector objects are content addressed.  Parsing one open and
     hashing a later open lets a path swap pair attacker-controlled JSON with a
-    valid digest.  Pin the inode with ``O_NOFOLLOW`` and reject any identity,
-    size, or timestamp change before returning the bytes used by both checks.
+    valid digest.  Pin the inode with ``O_NOFOLLOW`` and reject any identity or
+    size change before returning the bytes used by both checks.
+
+    st_ctime_ns is deliberately NOT part of that identity: connector storage sits under the
+    Drive-synced ``data/`` tree, where a sync client writes xattrs that bump ctime without touching
+    a byte (see the stable-read note in connector_contract.py). A ctime-only delta is re-verified by
+    digest instead, which is strictly stronger than trusting the timestamp. A genuine CONTENT change
+    mid-read is still rejected outright and never re-read.
     """
-    try:
-        before = os.lstat(path)
-        if (stat.S_ISLNK(before.st_mode) or not stat.S_ISREG(before.st_mode)
-                or before.st_nlink != 1):
-            return None
-        fd = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
-        try:
-            opened = os.fstat(fd)
-            identity = (
-                opened.st_dev, opened.st_ino, opened.st_size,
-                opened.st_mtime_ns, opened.st_ctime_ns, opened.st_nlink,
-            )
-            if opened.st_nlink != 1 or identity != (
-                before.st_dev, before.st_ino, before.st_size,
-                before.st_mtime_ns, before.st_ctime_ns, before.st_nlink,
-            ):
-                return None
-            chunks: list[bytes] = []
-            remaining = opened.st_size
-            while remaining:
-                chunk = os.read(fd, min(remaining, 1024 * 1024))
-                if not chunk:
-                    return None
-                chunks.append(chunk)
-                remaining -= len(chunk)
-            # A regular file growing during the bounded read is also a change.
-            if os.read(fd, 1):
-                return None
-            after_open = os.fstat(fd)
-            after_path = os.lstat(path)
-            if identity != (
-                after_open.st_dev, after_open.st_ino, after_open.st_size,
-                after_open.st_mtime_ns, after_open.st_ctime_ns, after_open.st_nlink,
-            ) or identity != (
-                after_path.st_dev, after_path.st_ino, after_path.st_size,
-                after_path.st_mtime_ns, after_path.st_ctime_ns, after_path.st_nlink,
-            ):
-                return None
-            return b"".join(chunks)
-        finally:
-            os.close(fd)
-    except OSError:
+    before = os.lstat(path)
+    if (stat.S_ISLNK(before.st_mode) or not stat.S_ISREG(before.st_mode)
+            or before.st_nlink != 1):
         return None
+    fd = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+    try:
+        opened = os.fstat(fd)
+        identity = content_identity(opened)
+        ctime_before = opened.st_ctime_ns
+        if opened.st_nlink != 1:
+            return None
+        if identity != content_identity(before):
+            # Pin lost between lstat and open (Drive unlink+rename mid-resync). Nothing was read, so
+            # this is a retryable race, not a verdict — raise it as transient for the retry loop.
+            raise OSError(errno.ESTALE, f"file changed before read at {path}")
+        chunks: list[bytes] = []
+        remaining = opened.st_size
+        while remaining:
+            chunk = os.read(fd, min(remaining, 1024 * 1024))
+            if not chunk:
+                return None
+            chunks.append(chunk)
+            remaining -= len(chunk)
+        # A regular file growing during the bounded read is also a change.
+        if os.read(fd, 1):
+            return None
+        after_open = os.fstat(fd)
+        after_path = os.lstat(path)
+        if identity != content_identity(after_open) or identity != content_identity(after_path):
+            return None
+        raw = b"".join(chunks)
+        if ctime_before != after_open.st_ctime_ns or ctime_before != after_path.st_ctime_ns:
+            # metadata-only touch (xattr / chmod / cloud-sync): prove the bytes, don't trust the clock
+            if not reread_digest_matches(fd, opened.st_size, hashlib.sha256(raw).hexdigest()):
+                return None
+        return raw
+    finally:
+        os.close(fd)
+
+
+def _read_regular_nofollow_bytes(path: str) -> bytes | None:
+    """Read one stable regular-file inode, riding out transient cloud-filesystem errors.
+
+    Drive hydrating a dehydrated file raises ETIMEDOUT ("[Errno 60]") on an otherwise fine file, so
+    a transient OSError is retried rather than turned into a silent None. Every other outcome keeps
+    the original fail-closed contract: None.
+    """
+    for attempt in range(STABLE_READ_ATTEMPTS):
+        try:
+            return _read_regular_nofollow_bytes_once(path)
+        except OSError as exc:
+            if exc.errno not in TRANSIENT_READ_ERRNOS:
+                return None
+        if attempt + 1 < STABLE_READ_ATTEMPTS:
+            stable_read_backoff(attempt)
+    return None
 
 
 def _read_json(path: str, *, expected_sha256: str | None = None) -> Any | None:
