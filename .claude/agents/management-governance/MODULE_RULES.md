@@ -107,6 +107,14 @@ This registry is the module's canonical, exhaustive item-by-item governance audi
 
 **Banded thresholds.** Green band = the level that earns Green. Red band = the level that trips Red. Between the two = Amber. Bands are calibrated from: SEBI LODR / Companies Act 2013 statutory floors, the Kotak Committee recommendations, ISS and Glass Lewis voting policies, the UK Corporate Governance Code, OECD/ICGN principles, proxy-advisor (IiAS/SES) norms, forensic-accounting research (Beneish), and the post-mortems of named governance failures (Satyam, IL&FS, Yes Bank, DHFL, Enron, Wirecard, Gensol). A statutory floor is never the green band — compliance with the legal minimum is Amber-grade hygiene, not excellence.
 
+**Regime & structure nuance (Hard Rule — bands never fire against a structure the law mandates).** Before flagging an item Red, check whether the tested structure is REQUIRED by the company's own regulatory regime — a mandated structure is judged by conduct within it, never flagged for existing:
+- **Banks (India):** RBI mandates promoter dilution on a glide path — a low or falling promoter stake in a bank is COMPLIANCE, not an A3-01 red flag; judge the trajectory against the RBI-approved plan instead. Bank boards also carry RBI-mandated composition/tenure rules that supersede the generic bands.
+- **Government / PSU companies:** board appointments flow through the government — A1-level items are judged within that regime (independence of the non-official directors, vacancies left unfilled), while the ownership CONFLICT is handled once, by §24 Filter 6 / RF-OWN-004 as a conviction cap — do not double-punish every board item for the same fact.
+- **Listed subsidiaries of MNC parents:** a parent royalty/brand fee is a standard structure — A5-02 judges the RATE, its trend vs margins, and the approval hygiene (majority-of-minority), not the existence of a royalty.
+- **Recently listed companies:** items needing 3–5 years of listed history (voting records, pledge trends, KPI stability) are "Not Applicable (insufficient listed history)" — a real N/A, never a Red and never silently Green.
+- **REITs / InvITs and manager-structured vehicles:** governance sits at the MANAGER — apply the board/committee/RPT items to the manager entity and say so.
+The §24 rejector filters still apply on top (government control remains a structural conviction cap); this rule prevents the CHECKLIST from mechanically red-flagging what the regime itself dictates.
+
 ### Owner map
 
 | Agent | Checklist sections owned |
@@ -115,7 +123,7 @@ This registry is the module's canonical, exhaustive item-by-item governance audi
 | `02_capital-allocation-scorecard` | A10-01, A10-05 (dividend policy, buyback-vs-dividend conduct) |
 | `03_incentives-and-compensation` | A6 (remuneration, all), A12 (human capital, all) |
 | `04_ownership-and-insider-behavior` | A3 (promoter & ownership, all), A15 (stock & market characteristics, all) |
-| `05_board-and-shareholder-rights` | A1 (board, all except A1-05), A2 (committees, all), A10-02/03/04 (swap ratios, voting patterns, issue-pricing fairness) |
+| `05_board-and-shareholder-rights` | A1 (board, all except A1-05), A2 (committees, all), A10-02/03/04/06 (swap ratios, voting patterns, issue-pricing fairness, delisting conduct) |
 | `06_candor-and-disclosure-quality` | A7-03, A7-04 (KPI stability, guidance hygiene) |
 | `07_people-integrity-dossiers` | A1-05, A9-04, A13-01/02/03/06/07/08/09, A16 (person-level integrity, all) |
 | `08_audit-and-assurance-quality` | A4 (auditor & audit quality, all), A7-02 (restatements) |
@@ -212,6 +220,7 @@ This registry is the module's canonical, exhaustive item-by-item governance audi
 | A10-03 | Institutional voting patterns *(05)* | Every management resolution over the last 2–3 AGMs passed with >90% of total votes AND a majority of institutional/public votes in favor | Any resolution defeated, >20% against pay / RPT / director / auditor resolutions (the significant-dissent norm) with no board response within 6 months, or repeated proxy-advisor (IiAS/SES/ISS/GL) AGAINST recommendations |
 | A10-04 | Rights / preferential pricing fairness *(05)* | Raises at/near market price with monitoring-agency oversight and stated use of proceeds | Deep-discount preferential allotments to promoters or select investors; warrants repeatedly allowed to lapse and re-priced |
 | A10-05 | Buyback vs dividend conduct *(02)* | Distribution mechanism chosen on all-shareholder economics with a stated rationale | Buyback timed/priced to benefit a promoter tender, or promoter participates in the buyback while pledged |
+| A10-06 | Delisting & exit-offer conduct *(05)* | No delisting attempt; or a completed/withdrawn attempt at a fair discovered price with independent-committee oversight and no coercion | A delisting attempt with gamed price discovery (results/guidance managed down beforehand, counteroffer below book), repeated failed attempts used to depress the float, or minority holders squeezed via schemes after a failed delisting |
 
 ### A13 — Management & Promoter Quality *(owners: 07 for A13-01/02/03/06/07/08/09; 01 for A13-04/05)*
 
@@ -412,6 +421,11 @@ The module builds a forensic dossier on EVERY named individual: each board direc
 - **Fallback chains.** If a primary database is unreachable (captcha, downtime), use the registry's listed fallback and record the substitution. If the whole chain fails, record coverage-limited — never silently skip.
 - **Web tiering still applies.** Database records are cited as what they are (court record, regulator release) with dates; they do not become "filings."
 - **The reconciliation duty.** What the databases show is compared against what the filings disclose (A9-10, A16-02, A16-13). A material fact visible in public records but absent from filings is a disclosure-integrity finding — often more decision-relevant than the underlying fact itself.
+
+**Sweep budget, tiering & delta-refresh (Hard Rule — depth follows materiality; a rerun refreshes, it does not restart).**
+- **Role-tiered depth.** Sweep depth is proportional to the person's power over the company's capital: **Tier A** (controller/promoter individuals, CEO, CFO, board chair, company secretary) = the FULL core set for their jurisdiction plus the global overlay. **Tier B** (other executive/non-independent directors, named KMP) = the core registry + courts + securities-regulator set. **Tier C** (independent directors, minor promoter-group holders with no operating role) = registry/directorship map + disqualification + securities-regulator screen + a scoped adverse-media pass; escalate any Tier-C person to a full sweep the moment a hit or a cross-link to a Tier-A person appears. The dossier states each person's tier; a Tier-C scope is a stated scope, not a coverage failure.
+- **Delta-refresh across runs.** If a prior run's `07_people-integrity-dossiers.md` exists for this ticker (any prior dated run folder), REUSE it: people unchanged in role get a REFRESH — re-run only the volatile axes (litigation, regulator actions, exchange actions, adverse media, pledge-linked structures) for the window since the prior sweep date, and carry forward the stable axes (identity anchor, credential verification, historical directorship map, past-failure associations) with their original as-of dates clearly shown. A NEW person, a role change (e.g., director → CFO), or any fresh hit triggers a full sweep for that person. The dossier's Coverage column says "full sweep {date}" or "refresh of {prior date}, volatile axes {date}". The same rule applies to `12`'s company-level sweep (refresh enforcement/fines/ratings since the prior run; carry the historical record forward, dated).
+- **Never trade rigor for the budget silently.** A sweep cut short by rate limits or outages is coverage-limited (caps apply) — the budget shapes WHERE depth goes, never whether gaps are admitted.
 
 ---
 

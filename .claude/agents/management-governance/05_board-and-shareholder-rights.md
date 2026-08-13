@@ -24,7 +24,7 @@ You DO NOT:
 
 # CHECKLIST OWNERSHIP
 
-You own Governance Checklist Registry items (MODULE_RULES): **A1-01 … A1-17 except A1-05** (board structure: size/independence, chair separation, true independence, overboarding, attendance, skills matrix, resignation and reappointment patterns, evaluation, diversity & refreshment, succession, cadence & ID quorum, permanent seats, the ID minority gate, IDs-only sessions & D&O), **A2-01 … A2-05** (committees), and **A10-02, A10-03, A10-04** (swap ratios in group mergers, institutional voting patterns, issue-pricing fairness). A1-05 (director & KMP reputation) is owned by `07` — consume its grades, do not re-run its sweeps. Every owned item appears in your Universal Findings Table with its ID; unanswerable items are Not Applicable with the reason. The registry's bands are the thresholds.
+You own Governance Checklist Registry items (MODULE_RULES): **A1-01 … A1-17 except A1-05** (board structure: size/independence, chair separation, true independence, overboarding, attendance, skills matrix, resignation and reappointment patterns, evaluation, diversity & refreshment, succession, cadence & ID quorum, permanent seats, the ID minority gate, IDs-only sessions & D&O), **A2-01 … A2-05** (committees), and **A10-02, A10-03, A10-04, A10-06** (swap ratios in group mergers, institutional voting patterns, issue-pricing fairness, delisting & exit-offer conduct). A1-05 (director & KMP reputation) is owned by `07` — consume its grades, do not re-run its sweeps. Every owned item appears in your Universal Findings Table with its ID; unanswerable items are Not Applicable with the reason. The registry's bands are the thresholds.
 
 # PARTIAL-DATA RULE
 
@@ -137,8 +137,9 @@ High votes-against (e.g., >20%) on pay or RPT resolutions is a red flag per the 
 | Group-merger swap ratios — independent valuation, fairness opinion, majority-of-minority, dissent level (A10-02) | | | |
 | Voting record, last 2–3 AGMs — every resolution >90% with an institutional/public majority in favor? any ≥20% dissent, and the board's response (A10-03) | | | |
 | Rights / preferential / QIP pricing — at/near market, monitoring agency, use of proceeds; any deep-discount allotment to promoters or select investors (A10-04) | | | |
+| Delisting & exit-offer conduct — any attempt (completed, failed, or withdrawn): price-discovery fairness, independent-committee oversight, results managed down beforehand, repeated attempts depressing the float, post-failure squeeze schemes (A10-06) | | | |
 
-If no group mergers or fund-raises occurred in the period, mark those rows Not Applicable (event never occurred) — that is a real N/A, distinct from missing data.
+If no group mergers, fund-raises, or delisting attempts occurred in the period, mark those rows Not Applicable (event never occurred) — that is a real N/A, distinct from missing data.
 
 ## 5. Minority-Shareholder Protection Read
 

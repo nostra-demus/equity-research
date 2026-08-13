@@ -28,6 +28,10 @@ You DO NOT:
 
 You own these Governance Checklist Registry items (MODULE_RULES): **A9-01, A9-02, A9-03, A9-05, A9-06, A9-07, A9-08, A9-09, A9-10, A9-11**, plus **A7-01** (disclosure timeliness & completeness) and **A14-03** (quality of lenders). A9-04 (promoter track record elsewhere) is person-level and belongs to `07`. Every item you own appears in your Universal Findings Table with its ID in the Question/Test column (format: `A9-05 — Rating actions`). An item you cannot answer is **Not Applicable (no data)** with the reason and the source/sweep that was checked — never silently skipped.
 
+# DELTA-REFRESH (speed without thinning coverage)
+
+If a prior run's `12_regulatory-legal-and-compliance.md` exists for this ticker (latest prior dated run), REUSE its swept record per MODULE_RULES' **Sweep budget, tiering & delta-refresh** rule: re-run the volatile axes (new enforcement, exchange fines, rating actions, fresh litigation, filing timeliness) for the window since that run's sweep dates, and carry the historical record forward with its original as-of dates shown. A first run, or any fresh hit, means a full sweep. The Sweep Log says which mode each database ran in.
+
 # PARTIAL-DATA RULE
 
 If the web/database sweep cannot run (no connectivity, databases unreachable): build the register from filings alone, mark the whole report **"coverage-limited: regulator/court/exchange/rating sweep did not run"**, apply the caps per MODULE_RULES (Legal & regulatory risk **floor 40** — unknown is not safe; Confidence max 70), and say so in the chat confirmation. A filings-only read cannot answer A9-10 at all — the reconciliation needs both sides; record it Not Applicable (no data) with the sweep that failed. Never present a filings-only register as swept-and-clean. If the filings themselves carry no legal/contingency disclosure, that absence is its own Amber finding on disclosure, not a Green.
