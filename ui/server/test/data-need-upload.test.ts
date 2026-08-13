@@ -394,5 +394,31 @@ await check('post-rename hash/write/fsync faults clean every partial request ino
   }
 })
 
+await check('exclusive-write failures close the descriptor once and preserve the original error', async () => {
+  const f = fixture()
+  const received = await receiveDataNeedUploadFile(stream('single close'), 'fault.txt', 'text/plain', { dataDir: f.data })
+  const originalWrite = fs.writeFileSync
+  const originalClose = fs.closeSync
+  const closed = new Set<number>()
+  ;(fs as any).writeFileSync = (file: any, bytes: any, ...args: any[]) => {
+    if (typeof file === 'number') throw new Error('fixture original write failure')
+    return (originalWrite as any).call(fs, file, bytes, ...args)
+  }
+  ;(fs as any).closeSync = (fd: number) => {
+    if (closed.has(fd)) throw new Error('fixture double close')
+    closed.add(fd)
+    return originalClose.call(fs, fd)
+  }
+  try {
+    await assert.rejects(() => commitDataNeedUpload(received, input, () => undefined, {
+      dataDir: f.data, stateDir: f.state, requestId: () => `DNU-${'f'.repeat(32)}`,
+    }), /fixture original write failure/)
+  } finally {
+    ;(fs as any).writeFileSync = originalWrite
+    ;(fs as any).closeSync = originalClose
+  }
+  assert.ok(closed.size >= 1, 'the failing path exercised descriptor cleanup without closing any descriptor twice')
+})
+
 for (const root of roots) fs.rmSync(root, { recursive: true, force: true })
 console.log(`\ndata-need-upload.test.ts: ${passed} passed${process.exitCode ? ' (with failures)' : ''}`)

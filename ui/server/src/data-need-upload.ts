@@ -468,7 +468,6 @@ function writeExclusiveFsync(file: string, bytes: Buffer | string, mode = 0o600)
     if (!after.isFile() || after.dev !== identity.dev || after.ino !== identity.ino) throw new Error('exclusive upload write changed')
     return identity
   } catch (error) {
-    try { fs.closeSync(fd) } catch {}
     try { unlinkIfIdentity(file, identity) } catch {}
     throw error
   } finally {

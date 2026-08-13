@@ -31,6 +31,11 @@ for (const sw of ['commodity', 'zztest-swarm']) {
 assert.match(buildPrompt('commodity', 'full', 'WHEAT'), /:full WHEAT$/)
 assert.match(buildPrompt('commodity', 'module', 'WHEAT', 'market-structure'), /:market-structure WHEAT$/)
 assert.match(buildPrompt('commodity', 'rerun', 'WHEAT', 'market-structure'), /:rerun market-structure WHEAT$/)
+const commodityRerunCommand = await import('node:fs').then(({ readFileSync }) =>
+  readFileSync('../../.claude/commands/commodity/rerun.md', 'utf8'))
+assert.match(commodityRerunCommand,
+  /\*\*2 tokens\*\*[^\n]*`<MODULE>` = first[^\n]*`<COMMODITY>` = second[^\n]*`<AGENT>` = \*\(none\)\*/,
+  'the whole-module parser must explicitly bind the second token to COMMODITY')
 
 // A selected decision is rebound to its exact immutable run folder. The launcher independently checks
 // the decision fingerprint immediately before spawn; the command receives this root so it cannot drift

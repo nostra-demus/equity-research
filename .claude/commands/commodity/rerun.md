@@ -24,7 +24,7 @@ Split `$ARGUMENTS` on whitespace. Then:
 - **8 tokens** → exact single-orb + intake receipt intent (the fields above).
 - **5 tokens** → exact single-orb without an intake receipt.
 - **3 tokens** → `<MODULE>` = first, `<AGENT>` = second, `<COMMODITY>` = third (single-orb mode).
-- **2 tokens** → `<MODULE>` = first, `<AGENT>` = *(none)* (whole-module mode).
+- **2 tokens** → `<MODULE>` = first, `<COMMODITY>` = second, `<AGENT>` = *(none)* (whole-module mode).
 - **any other count** → STOP with the form shown in the argument hint. A run root without its exact
   decision fingerprint is malformed.
 
