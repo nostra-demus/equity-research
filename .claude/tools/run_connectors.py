@@ -165,14 +165,19 @@ if _scripts_path_added:
     sys.path.append(SCRIPTS_DIR)
 try:
     from connector_contract import (  # noqa: E402
+        STABLE_READ_ATTEMPTS as _STABLE_READ_ATTEMPTS,
+        TRANSIENT_READ_ERRNOS as _TRANSIENT_READ_ERRNOS,
         advance_release_period,
         canonical_json_bytes,
         connector_storage_paths,
+        content_identity as _content_identity,
         load_valid_manifests,
         methodology_only_source_reason,
         no_symlink_path,
         normalise_manifest,
         publisher_owned_sidecar_fields,
+        reread_digest_matches as _reread_digest_matches,
+        stable_read_backoff as _stable_read_backoff,
         validate_manifest,
         validate_staged_output,
     )
@@ -1330,14 +1335,11 @@ def _stable_immutable_bytes(path: str, expected: bytes) -> os.stat_result:
     descriptor = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
     try:
         opened = os.fstat(descriptor)
-        identity = (
-            opened.st_dev, opened.st_ino, opened.st_size, opened.st_mtime_ns,
-            opened.st_ctime_ns, opened.st_nlink,
-        )
-        if (not stat.S_ISREG(opened.st_mode) or identity != (
-            before.st_dev, before.st_ino, before.st_size, before.st_mtime_ns,
-            before.st_ctime_ns, before.st_nlink,
-        )):
+        # ctime excluded: this record sits on the Drive-synced data/ tree, whose sync client bumps
+        # ctime via xattrs without touching a byte. The bytes are compared against `expected` in
+        # full below, so content equality — not a timestamp — is what actually seals this read.
+        identity = _content_identity(opened)
+        if (not stat.S_ISREG(opened.st_mode) or identity != _content_identity(before)):
             raise RuntimeError(f"immutable connector record changed before read at {path}")
         chunks: list[bytes] = []
         remaining = opened.st_size
@@ -1351,13 +1353,8 @@ def _stable_immutable_bytes(path: str, expected: bytes) -> os.stat_result:
             raise RuntimeError(f"immutable connector record grew during read at {path}")
         after_open = os.fstat(descriptor)
         after_path = os.lstat(path)
-        if identity != (
-            after_open.st_dev, after_open.st_ino, after_open.st_size, after_open.st_mtime_ns,
-            after_open.st_ctime_ns, after_open.st_nlink,
-        ) or identity != (
-            after_path.st_dev, after_path.st_ino, after_path.st_size, after_path.st_mtime_ns,
-            after_path.st_ctime_ns, after_path.st_nlink,
-        ):
+        if (identity != _content_identity(after_open)
+                or identity != _content_identity(after_path)):
             raise RuntimeError(f"immutable connector record changed during read at {path}")
         if b"".join(chunks) != expected:
             raise RuntimeError(f"immutable connector record differs at {path}")
@@ -1657,8 +1654,15 @@ def _legacy_path(man: dict, data_root: str, subject: str, as_of: str) -> str:
     return path
 
 
-def _read_regular_nofollow_bytes(path: str) -> bytes:
-    """Read one stable regular inode exactly once without following aliases."""
+def _read_regular_nofollow_bytes_once(path: str) -> bytes:
+    """One pinned attempt at reading a stable regular inode without following aliases.
+
+    st_ctime_ns is deliberately NOT part of the identity compared across the read: connector
+    storage sits under the Drive-synced ``data/`` tree, where the sync client writes xattrs that
+    bump ctime without changing a byte (see the stable-read note in scripts/connector_contract.py).
+    A ctime-only delta is re-verified by digest instead — strictly stronger than trusting the
+    timestamp. A genuine CONTENT change mid-read is still rejected outright and never re-read.
+    """
     before = os.lstat(path)
     if (stat.S_ISLNK(before.st_mode) or not stat.S_ISREG(before.st_mode)
             or before.st_nlink != 1):
@@ -1666,15 +1670,15 @@ def _read_regular_nofollow_bytes(path: str) -> bytes:
     fd = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
     try:
         opened = os.fstat(fd)
-        identity = (
-            opened.st_dev, opened.st_ino, opened.st_size,
-            opened.st_mtime_ns, opened.st_ctime_ns, opened.st_nlink,
-        )
-        if opened.st_nlink != 1 or identity != (
-            before.st_dev, before.st_ino, before.st_size,
-            before.st_mtime_ns, before.st_ctime_ns, before.st_nlink,
-        ):
-            raise RuntimeError(f"file changed before read at {path}")
+        identity = _content_identity(opened)
+        ctime_before = opened.st_ctime_ns
+        if opened.st_nlink != 1:
+            raise RuntimeError(f"expected a unique regular non-symlink file at {path}")
+        if identity != _content_identity(before):
+            # The pin was lost BETWEEN lstat and open — Drive replacing the file by unlink+rename
+            # during a re-sync. Nothing was read, so re-pinning from scratch is safe; surface it as
+            # the transient it is rather than aborting the whole connector run.
+            raise OSError(errno.ESTALE, f"file changed before read at {path}")
         chunks: list[bytes] = []
         remaining = opened.st_size
         while remaining:
@@ -1687,17 +1691,33 @@ def _read_regular_nofollow_bytes(path: str) -> bytes:
             raise RuntimeError(f"file grew during read at {path}")
         after_open = os.fstat(fd)
         after = os.lstat(path)
-        if identity != (
-            after_open.st_dev, after_open.st_ino, after_open.st_size,
-            after_open.st_mtime_ns, after_open.st_ctime_ns, after_open.st_nlink,
-        ) or identity != (
-            after.st_dev, after.st_ino, after.st_size,
-            after.st_mtime_ns, after.st_ctime_ns, after.st_nlink,
-        ):
+        if identity != _content_identity(after_open) or identity != _content_identity(after):
             raise RuntimeError(f"file changed during read at {path}")
-        return b"".join(chunks)
+        raw = b"".join(chunks)
+        if ctime_before != after_open.st_ctime_ns or ctime_before != after.st_ctime_ns:
+            # metadata-only touch (xattr / chmod / cloud-sync): prove the bytes, don't trust the clock
+            if not _reread_digest_matches(fd, opened.st_size, hashlib.sha256(raw).hexdigest()):
+                raise RuntimeError(f"file changed during read at {path}")
+        return raw
     finally:
         os.close(fd)
+
+
+def _read_regular_nofollow_bytes(path: str) -> bytes:
+    """Read one stable regular inode, riding out transient cloud-filesystem errors.
+
+    Drive hydrating a dehydrated (cloud-only) file raises ETIMEDOUT — "[Errno 60] Operation timed
+    out" — on a file that is otherwise perfectly readable, so a transient OSError is retried instead
+    of aborting the connector run. Every non-transient outcome keeps the original contract.
+    """
+    for attempt in range(_STABLE_READ_ATTEMPTS):
+        try:
+            return _read_regular_nofollow_bytes_once(path)
+        except OSError as exc:
+            if exc.errno not in _TRANSIENT_READ_ERRNOS or attempt + 1 >= _STABLE_READ_ATTEMPTS:
+                raise
+        _stable_read_backoff(attempt)
+    raise RuntimeError(f"could not read a stable inode at {path}")  # unreachable; keeps mypy honest
 
 
 def _payload_from_current(data_root: str, current: dict):

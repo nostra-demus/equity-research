@@ -9,6 +9,8 @@ explicit historical tests; it is not a migration/runtime path.
 """
 from __future__ import annotations
 
+import errno as _errno
+import hashlib
 import json
 import calendar
 import ipaddress
@@ -18,12 +20,78 @@ import posixpath
 import re
 import socket
 import stat
+import time as _time
 from datetime import date, datetime, timedelta, timezone
 from typing import Any
 from urllib.parse import parse_qsl, unquote, urlparse
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from canonical_json import canonical_json_bytes as _cross_runtime_canonical_json_bytes
+
+
+# ---------- stable reads on a cloud-synced tree ----------
+# Connector storage lives at data/_connectors/** — INSIDE the same `data/` tree that is a Google
+# Drive for Desktop mirror. Drive (and macOS, via `com.apple.lastuseddate#PS`) writes extended
+# attributes onto those files independently of their content, and an xattr write bumps st_ctime_ns
+# and nothing else: size, mtime and the inode identity are untouched, the bytes are identical.
+#
+# A hardened reader that folds st_ctime_ns into a before/after identity tuple therefore rejects
+# perfectly good files whenever a sync pass lands inside its read window. That is exactly what took
+# out a whole 87-file evidence pool in the extractor (see the matching note in
+# .claude/tools/extract_pool.py). These helpers are the shared, canonical treatment so the connector
+# readers cannot drift back into the same defect.
+#
+# What still has to hold — the bytes are a complete, consistent snapshot of the pinned inode — is
+# carried by st_size + st_mtime_ns + (dev, ino, nlink): a content write, even an in-place same-size
+# byte flip, always bumps mtime. A ctime-ONLY delta is re-verified by re-reading the same pinned
+# descriptor and comparing digests, which PROVES the bytes rather than inferring it from a clock.
+#
+# KNOWN RESIDUAL: a same-uid writer who rewrites same-length bytes mid-read and then restores
+# st_mtime_ns to the nanosecond with utimensat() is no longer detectable by metadata — ctime was the
+# only stamp that cannot be rolled back, and it is the one a sync client makes unusable. Every other
+# case still fails closed, and connector objects are content-addressed: their callers verify the
+# returned bytes against the expected sha256, which is the real defence for this class.
+def content_identity(info: os.stat_result) -> tuple[int, int, int, int, int]:
+    """Stat fields that move if and only if the file's BYTES can have moved (ctime excluded)."""
+    return (info.st_dev, info.st_ino, info.st_size, info.st_mtime_ns, info.st_nlink)
+
+
+# Errors a network/cloud-backed filesystem raises transiently while hydrating or re-syncing a file.
+# Google Drive hydrating a dehydrated (cloud-only) file surfaces as ETIMEDOUT — "[Errno 60]".
+TRANSIENT_READ_ERRNOS = frozenset(
+    getattr(_errno, name) for name in
+    ("ETIMEDOUT", "EIO", "EINTR", "EAGAIN", "EWOULDBLOCK", "EBUSY", "ENOENT", "ESTALE",
+     "ENXIO", "EDEADLK", "ENOTCONN", "EHOSTDOWN")
+    if hasattr(_errno, name)
+)
+STABLE_READ_ATTEMPTS = max(1, int(os.environ.get("CONNECTOR_STABLE_READ_ATTEMPTS") or 4))
+STABLE_READ_BACKOFF_S = max(0.0, float(os.environ.get("CONNECTOR_STABLE_READ_BACKOFF_S") or 0.15))
+STABLE_READ_BACKOFF_MAX_S = 2.0
+
+
+def reread_digest_matches(fd: int, size: int, expected_digest: str) -> bool:
+    """Re-read the SAME pinned descriptor and confirm the bytes still hash to `expected_digest`.
+
+    Called only when a read finished with its content identity intact but ctime moved. Reading
+    through the already-open fd cannot be redirected by a path swap, so this compares the identical
+    inode just parsed: equal digests mean a metadata-only touch, not a content change.
+    """
+    os.lseek(fd, 0, os.SEEK_SET)
+    digest = hashlib.sha256()
+    remaining = size
+    while remaining:
+        chunk = os.read(fd, min(remaining, 1024 * 1024))
+        if not chunk:
+            return False
+        digest.update(chunk)
+        remaining -= len(chunk)
+    return not os.read(fd, 1) and digest.hexdigest() == expected_digest
+
+
+def stable_read_backoff(attempt: int) -> None:
+    """Sleep between stable-read attempts (exponential, capped)."""
+    if STABLE_READ_BACKOFF_S:
+        _time.sleep(min(STABLE_READ_BACKOFF_S * (2 ** attempt), STABLE_READ_BACKOFF_MAX_S))
 
 
 ID_RE = re.compile(r"^[a-z0-9][a-z0-9._-]*$")
