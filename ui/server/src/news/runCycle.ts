@@ -654,22 +654,25 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         // FOUR failure classes, four responses — because this is the LAST line of defence and its cooldown
         // must fit the actual cause (all keep the same 'anthropic-triage' marker id, so the diagnostics + the
         // drain's anthropicHasHeadroom read it unchanged):
-        //   1. an EXPIRED SIGN-IN (HTTP 401 / "authenticate") — checked FIRST, because the terminal-4xx regex
-        //      below also matches 401 and used to swallow it. It is not terminal at all: `claude login` on the
-        //      host fixes it in seconds. Treating it as terminal did real damage — exhaust() force-marks the
-        //      day's $ ledger as fully spent, so (a) the tier stayed dark until the UTC rollover even after the
-        //      sign-in was repaired, and (b) the cockpit reported the whole daily ceiling as SPENT when the
-        //      failing calls cost $0. So: the SHORT flat cooldown instead, tagged with its reason. The tier
-        //      then re-probes ~once a drain and resumes on its own within one drain of the operator signing
-        //      back in — and the $0 it actually spent stays $0.
-        //   2. terminal 4xx (api mode: bad key / no credits) — won't recover today → exhaust the day's ledger.
+        //   1. an EXPIRED SIGN-IN (HTTP 401 / "authenticate"), SUBSCRIPTION MODE ONLY — checked FIRST, because
+        //      the terminal-4xx regex below also matches 401 and used to swallow it. It is not terminal at all:
+        //      `claude login` on the host fixes it in seconds. Treating it as terminal did real damage —
+        //      exhaust() force-marks the day's $ ledger as fully spent, so (a) the tier stayed dark until the
+        //      UTC rollover even after the sign-in was repaired, and (b) the cockpit reported the whole daily
+        //      ceiling as SPENT when the failing calls cost $0. So: the SHORT flat cooldown instead, tagged
+        //      with its reason. The tier then re-probes ~once a drain and resumes on its own within one drain
+        //      of the operator signing back in — and the $0 it actually spent stays $0. Gated to subscription
+        //      mode: in api mode a 401 means a bad/revoked API key, which `claude login` cannot fix and which
+        //      genuinely IS terminal — that falls through to branch 2 below.
+        //   2. terminal 4xx (api mode: bad/expired/revoked key, or no credits) — won't recover today → exhaust
+        //      the day's ledger.
         //   3. real plan-quota ("usage limit reached" — the plan's 5-hour/weekly pool is spent) → the LONG
         //      exponential backoff, so later cycles wait for the plan to reset instead of re-spawning the CLI.
         //   4. a TRANSIENT blip (timeout / rate-limit / one-off non-JSON, after the adapter's own in-call
         //      retry already failed) → a SHORT, FLAT cooldown (base==max flattens the exponential to a
         //      constant), so the paid tier re-probes ~once a drain and keeps draining the backlog rather than
         //      going dark for up to an hour while data drops past the cap.
-        if (isAuthExpiredNote(ar.note || '')) armCooldown(stateDir, now().getTime(), cfg.anthropicTransientCooldownMs, 'anthropic-triage', cfg.anthropicTransientCooldownMs, 'auth-expired')
+        if (cfg.anthropicFallbackMode === 'subscription' && isAuthExpiredNote(ar.note || '')) armCooldown(stateDir, now().getTime(), cfg.anthropicTransientCooldownMs, 'anthropic-triage', cfg.anthropicTransientCooldownMs, 'auth-expired')
         else if (isTerminalApiNote(ar.note || '')) anthropicBudget!.exhaust()
         else if (isPlanQuotaNote(ar.note || '')) armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, 'anthropic-triage', cfg.llmCooldownMaxMs)
         else armCooldown(stateDir, now().getTime(), cfg.anthropicTransientCooldownMs, 'anthropic-triage', cfg.anthropicTransientCooldownMs)
@@ -876,8 +879,13 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // cause (and the one-line fix) instead of degrading to a nameless "backing off after an error". The live
   // note takes precedence deliberately: once the tier probes again and fails a DIFFERENT way (a timeout, say),
   // that new cause is the honest one to show, not the stale reason left on the marker by the previous failure.
+  // Gated to subscription mode, matching the armCooldown call above: in api mode a 401 is a bad/revoked key
+  // (terminal, §2 above), never a recoverable sign-in, so it must never read as 'auth-expired' here either.
+  // (The cooldown-marker branch is already safe by construction — the marker can only carry the 'auth-expired'
+  // reason if the gated armCooldown call above set it — but the note-present branch checks the raw note text
+  // independent of mode and needs its own gate.)
   const authExpiredHit = anthropicFailNote
-    ? isAuthExpiredNote(anthropicFailNote)
+    ? (cfg.anthropicFallbackMode === 'subscription' && isAuthExpiredNote(anthropicFailNote))
     : anthropicCooldownReason === 'auth-expired'
   const lastResort: CycleSummary['last_resort'] = !anthropicOn
     ? 'off'

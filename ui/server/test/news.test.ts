@@ -1288,6 +1288,45 @@ await check('expired sign-in → the $ ceiling is NOT falsely burned, and the ti
   assert.equal(readCooldownUntil(state, 'anthropic-triage'), 0, 'the marker is cleared once the tier recovers')
 })
 
+// The recoverable read above is SUBSCRIPTION-MODE ONLY (`claude login` fixes an expired OAuth token on the
+// host). In API mode a 401 means the metered key itself is bad/expired/revoked — `claude login` does nothing
+// for that — so it must stay on the terminal path: exhaust the day's $ ledger, same as any other terminal 4xx.
+// Regression guard for the PR #430 review fix (Gemini + Codex both flagged isAuthExpiredNote firing on ANY
+// 401 regardless of mode).
+await check('api-mode 401 (bad key) → stays TERMINAL, exhausts the $ ceiling, never reads as auth-expired', async () => {
+  resetSharedLimiters()
+  resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return res('upstream sad', 503)
+    if (u.includes('gdelt')) return res({ articles: [{ url: 'https://reuters.com/apikey', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    // the metered API key is revoked — same HTTP shape (401 + "authenticate"-free body) the CLI's expired
+    // OAuth token produces, but this is the Anthropic Messages API in 'api' mode, not the subscription CLI
+    if (u.includes('anthropic')) return res('authentication_error: invalid x-api-key', 401)
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
+    overflowProviders: [], anthropicFallbackEnabled: true, anthropicFallbackMode: 'api', anthropicApiKey: 'bad-key', anthropicBaseUrl: 'https://api.anthropic.test',
+    anthropicDailyUsd: 5, anthropicRpm: 6000, anthropicMinPriority: 0 } as any
+  let nowMs = Date.parse('2026-06-12T09:30:00Z')
+  const now = () => new Date(nowMs)
+
+  const s1 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(s1.picked + s1.watched + s1.dropped, 0, 'nothing scored — the key is bad')
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 1, 'the item is kept, not lost')
+  assert.notEqual(s1.last_resort, 'auth-expired', "a bad API key must never read as the recoverable sign-in state")
+  // the day's $ ledger IS force-marked spent — this is the correct terminal response, unchanged by the PR
+  const ledger = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
+  assert.ok(ledger.usd >= 5, `terminal 401 in api mode must exhaust the ceiling (got usd=${ledger.usd} of 5)`)
+
+  // and the ceiling being spent must suppress the very next cycle's call — the normal usd-cap behavior
+  nowMs += 30_000
+  const s2 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(s2.last_resort, 'usd-cap', 'next cycle reads the exhausted ledger as the ordinary $ ceiling, not auth-expired')
+})
+
 // ---- end-to-end transparency: the defer note is honest about EVERY blocker, not just Groq ----
 
 await check('the cycle summary carries the transparency fields (fresh/carryover/backlog/backlog_cap/last_resort)', async () => {
