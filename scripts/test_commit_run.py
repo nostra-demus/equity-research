@@ -108,7 +108,7 @@ def install_prewrite_fixture(agent):
     """Give an isolated test clone the real creation-time validator and a discovered orb roster."""
     scripts = os.path.join(agent, "scripts")
     os.makedirs(scripts, exist_ok=True)
-    for name in ("eval.py", "data_need_contract.py"):
+    for name in ("eval.py", "data_need_contract.py", "overdue_checks.py"):
         shutil.copy2(os.path.join(REPO_ROOT, "scripts", name), os.path.join(scripts, name))
     agents = os.path.join(agent, ".claude", "agents", "fixture-module")
     os.makedirs(agents, exist_ok=True)
