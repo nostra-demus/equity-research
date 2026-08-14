@@ -84,6 +84,16 @@ You DO NOT:
 | M&A / buyback / dividend history | | | Capital-allocation scorecard |
 | Management tenure / turnover | | | Stability and competence |
 | Transcripts | | | Candor and tone |
+| Auditor's report + annexures (CARO / KAMs / IFC) | | | Audit quality (08) |
+| Auditor-fee disclosure (audit vs non-audit) | | | Auditor independence (08) |
+| Secretarial audit report (India: MR-3) | | | Compliance assurance (08) |
+| Related-party NOTE with counterparties + amounts | | | RPT quantification (09) |
+| Contingent-liabilities & commitments note | | | Off-P&L exposure (10) |
+| ≥2 consecutive annual financials | | | Beneish/Dechow forensic battery (11) |
+| Shareholding-pattern history (quarters, pledge column) | | | Ownership trend + pledge (04) |
+| AGM/EGM voting results (scrutinizer reports) | | | Minority dissent (05) |
+| Exchange announcements history (fines, Reg 30 events) | | | Compliance hygiene (12) |
+| Rating-agency reports / actions | | | Rating conduct (12) |
 
 ## 4. Cross-Module Availability
 
@@ -105,6 +115,20 @@ You DO NOT:
 | No board disclosure | | 05, 99 | board read not assessable |
 | No multi-year history | | 02 | capital-allocation scorecard limited |
 | No transcripts / prior letters | | 01, 06 | promise-vs-delivery & candor limited |
+| No related-party note | | 09, 99 | RPT quantification not assessable (that absence is itself an Amber disclosure finding) |
+| No contingent-liability note | | 10, 99 | CL read limited to the auditor's report |
+| No auditor-fee / audit-detail disclosure | | 08, 99 | A4-06/07 Not Available with reason |
+| Under 2 years of financials | | 11, 99 | Beneish/Dechow battery not computable — single-year checks only |
+| Web/database sweep unavailable this run | | 07, 12, 99 | dossiers & legal sweep "coverage-limited"; People integrity max 65; confidence capped |
+
+## 5E. Person Register (feeds 07 — Hard Rule)
+
+Enumerate EVERY named individual from the pool — each board director, each KMP (CEO, CFO, COO, Company Secretary, officers named in filings), each promoter-group individual with ≥1% holding or an operating role. `07_people-integrity-dossiers` iterates this register; a person missed here is a person never checked.
+
+| # | Name | Identifier (DIN / registry ID, if disclosed) | Role | Category (Director / KMP / Promoter individual) | Source (filing + section) |
+|---|---|---|---|---|---|
+
+If a role is known to exist but the person is unnamed in the pool (e.g., no CS named), add a row with "UNNAMED — {role}" so 07 records the gap instead of skipping it.
 
 ## 5A. Jurisdiction & Filing Regime
 
@@ -159,7 +183,7 @@ Write a source manifest to `analyses/{TICKER}_{DATE}/management-governance/sourc
 
 - **Verdict:** Sufficient / Partial / Insufficient
 - **Reason:** (one sentence)
-- **Specialists that can run:** (list which of: management track record, capital allocation, incentives, ownership, board, candor)
+- **Specialists that can run:** (list which of: management track record, capital allocation, incentives, ownership, board, candor, people dossiers, audit quality, RPT/group forensics, contingent liabilities, accounting forensics, regulatory/legal)
 - **Hard disqualifier already flagged by business-model/01_disqualifier-scan?** (Y/N — note it for the synthesis)
 - **Active partial-data caps:** (bulleted list, only if Partial)
 - **Critical missing items:** (bulleted list, only if Partial or Insufficient)
@@ -173,8 +197,9 @@ Write a source manifest to `analyses/{TICKER}_{DATE}/management-governance/sourc
 - [ ] Each file has a type classification and governance-relevance rating.
 - [ ] Most-recent table identifies actual filenames (no fabrication).
 - [ ] Cross-module availability is checked against the actual filesystem.
-- [ ] Governance usability check table is fully populated (all 11 rows have Y/N).
-- [ ] Partial-data flags table is fully populated (all 5 rows have Y/N).
+- [ ] Governance usability check table is fully populated (every row has Y/N).
+- [ ] Partial-data flags table is fully populated (every row has Y/N).
+- [ ] The Person Register (5E) lists every director, KMP, and promoter individual found in the pool — with an UNNAMED row for any known-but-unnamed role.
 - [ ] Whether `business-model/01_disqualifier-scan` flagged a hard disqualifier is noted.
 - [ ] Jurisdiction, filing regime, and sector are detected (Section 5A) so downstream agents apply the right source map and overlay.
 - [ ] Verdict matches the sufficiency rule exactly.
