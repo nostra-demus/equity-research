@@ -946,11 +946,11 @@ python3 scripts/research_paid_completion.py diagnostic-transform <RUN_ROOT>
 ```
 
 This command reproduces the required F28/F28b/F30/F-EG rules: it derives a missing self-reported haircut
-from the confidence delta; preserves the original decision while setting the post-mortem decision/basket
-cap; treats every verification result outside Clean/Minor issues as unverified; and stamps a high-confidence
-thesis when independent expectations work says the edge is None/Weak or not exploitable. It prints and
-returns the exact `RATING-CAP:`, `HAIRCUT:`, `GATE-VERIFY:`, and `GATE-EXPECTATIONS:` lines for steps 11 and
-13.
+from the confidence delta; preserves the original decision while applying the `TERMINAL` pre-mortem set to
+the additive `post_mortem_decision` / `post_mortem_basket` cap fields; treats every verification result
+outside Clean/Minor issues as unverified; and stamps a high-confidence thesis when independent expectations
+work says the edge is None/Weak or not exploitable. It prints and returns the exact `RATING-CAP:`, `HAIRCUT:`,
+`GATE-VERIFY:`, and `GATE-EXPECTATIONS:` lines for steps 11 and 13.
 
 Before either live file is replaced, the helper deterministically renders both outputs from the immutable
 diagnostic snapshots + exact report hashes, writes/fsyncs content-addressed output snapshots, and atomically
