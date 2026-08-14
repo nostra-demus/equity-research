@@ -14,6 +14,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../../lib/store'
 import type { BoardIdea, QualifiedIdeaEvaluation, QualifiedIdeasBoard } from '../../lib/types'
 import { ideaIsStaleNow, qualifiedIdeaFreshnessNow } from '../../lib/ideasView'
+import { ChainLane, normalizeSupplyChainBoard } from './ChainLane'
 
 const MACRO_TYPES = new Set(['macro_conditional', 'commodity_conditional', 'policy_conditional', 'fx_rates', 'liquidity_positioning'])
 
@@ -24,6 +25,8 @@ const UP_REASONS = ['clean setup', 'timely', 'non-obvious']
 const DOWN_REASONS = ['not tradable', 'priced in', 'wrong way', 'too vague']
 
 export type IdeaSide = 'long' | 'short'
+/** The lanes the tab strip can show. `chain` is conditional — it appears only when the server sends one. */
+export type IdeasTabKey = IdeaSide | 'chain'
 const IDEA_SIDES: readonly IdeaSide[] = ['long', 'short']
 const QUALIFIED_BOARD_SCHEMA = 'qualified-ideas-board/v1'
 const QUALIFIED_HEALTH_STATUSES = new Set(['pre_data', 'healthy', 'degraded'])
@@ -674,35 +677,43 @@ export function qualifiedIdeasEmptyState(
   }
 }
 
-export function IdeasTabs({ active, onSelect }: { active: IdeaSide; onSelect: (side: IdeaSide) => void }) {
+// CHAIN is a peer of LONG and SHORT, not a filter inside them: its rows carry no direction at all (the
+// relationship exports prove who trades with whom, never how much), so folding them under a side would
+// assert exactly the thing the evidence cannot support. The tab only exists when the server actually
+// sends a chain board this build understands — see `chain` below and DESIGN.md §5.
+export function IdeasTabs({ active, onSelect, chain = false }: { active: IdeasTabKey; onSelect: (tab: IdeasTabKey) => void; chain?: boolean }) {
+  const tabs: IdeasTabKey[] = chain ? [...IDEA_SIDES, 'chain'] : [...IDEA_SIDES]
   return (
-    <div className="bideas__tabs" role="tablist" aria-label="Idea direction">
-      {IDEA_SIDES.map((side) => (
+    <div className="bideas__tabs" role="tablist" aria-label="Idea lane">
+      {tabs.map((tab) => (
         <button
-          key={side}
-          id={`ideas-${side}-tab`}
+          key={tab}
+          id={`ideas-${tab}-tab`}
           type="button"
           role="tab"
-          aria-controls={`ideas-${side}-panel`}
-          aria-selected={active === side}
-          tabIndex={active === side ? 0 : -1}
-          className={`bideas__tab bideas__tab--${side}${active === side ? ' bideas__tab--on' : ''}`}
-          onClick={() => onSelect(side)}
+          aria-controls={`ideas-${tab}-panel`}
+          aria-selected={active === tab}
+          tabIndex={active === tab ? 0 : -1}
+          className={`bideas__tab bideas__tab--${tab}${active === tab ? ' bideas__tab--on' : ''}`}
+          onClick={() => onSelect(tab)}
           onKeyDown={(event) => {
+            const at = tabs.indexOf(tab)
             const keyTarget = event.key === 'Home'
-              ? 'long'
+              ? tabs[0]
               : event.key === 'End'
-                ? 'short'
-                : event.key === 'ArrowLeft' || event.key === 'ArrowRight'
-                  ? side === 'long' ? 'short' : 'long'
-                : null
+                ? tabs[tabs.length - 1]
+                : event.key === 'ArrowLeft'
+                  ? tabs[(at - 1 + tabs.length) % tabs.length]
+                  : event.key === 'ArrowRight'
+                    ? tabs[(at + 1) % tabs.length]
+                    : null
             if (!keyTarget) return
             event.preventDefault()
             onSelect(keyTarget)
             document.getElementById(`ideas-${keyTarget}-tab`)?.focus()
           }}
         >
-          {side.toUpperCase()}
+          {tab.toUpperCase()}
         </button>
       ))}
     </div>
@@ -1278,7 +1289,7 @@ export function IdeasSidePanel({
   nowMs = Date.now(),
 }: {
   panelSide: IdeaSide
-  activeSide: IdeaSide
+  activeSide: IdeasTabKey
   leadRows: readonly BoardIdea[]
   leadsAvailable: boolean
   leadHealth: unknown
@@ -1366,7 +1377,7 @@ export function BestIdeasView() {
   const scBoard = useStore((s) => s.scBoard)
   const boardFetch = useStore((s) => s.scBoardFetch)
   const refresh = useStore((s) => s.scRefreshBoard)
-  const [side, setSide] = useState<IdeaSide>('long')
+  const [side, setSide] = useState<IdeasTabKey>('long')
   const [nowMs, setNowMs] = useState(() => Date.now())
 
   // Keep both the data and wall-clock expiry backstop fresh while the tab is open. The clock update is
@@ -1391,10 +1402,14 @@ export function BestIdeasView() {
     ? qualifiedIdeasOutcomeNotice(qualifiedBoard)
     : null
   const outcomeHealthWarning = qualifiedOutcomeHealthWarning(qualifiedBoard, nowMs)
+  const chainBoard = normalizeSupplyChainBoard(scBoard?.supply_chain)
+  // If the chain lane disappears mid-session (an engine restart on an older build, a rejected payload),
+  // the selected tab would otherwise point at a panel that no longer exists.
+  const activeTab: IdeasTabKey = side === 'chain' && !chainBoard ? 'long' : side
 
   return (
     <div className="bideas">
-      <IdeasTabs active={side} onSelect={setSide} />
+      <IdeasTabs active={activeTab} onSelect={setSide} chain={Boolean(chainBoard)} />
       {qualifiedWarning && (
         <div className="bideas__truthwarn" role="status" title={qualifiedWarning.title}>
           <span aria-hidden>!</span> {qualifiedWarning.label}
@@ -1425,7 +1440,7 @@ export function BestIdeasView() {
         <IdeasSidePanel
           key={panelSide}
           panelSide={panelSide}
-          activeSide={side}
+          activeSide={activeTab}
           leadRows={leadRows}
           leadsAvailable={leadsAvailable}
           leadHealth={scBoard?.ideas_health}
@@ -1434,6 +1449,17 @@ export function BestIdeasView() {
           nowMs={nowMs}
         />
       ))}
+      {chainBoard && (
+        <section
+          id="ideas-chain-panel"
+          className="bideas__panel"
+          role="tabpanel"
+          aria-labelledby="ideas-chain-tab"
+          hidden={activeTab !== 'chain'}
+        >
+          <ChainLane board={chainBoard} />
+        </section>
+      )}
     </div>
   )
 }

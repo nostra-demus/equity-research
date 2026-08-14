@@ -147,6 +147,9 @@ function readWorkbookSheets(filePath: string, sizeBytes: number, mtimeMs: number
 
 // when a workbook's filename gave no signal, classify on the tab names we actually read
 const SHEET_TYPE_RULES: [RegExp, FileType][] = [
+  // tab-name first: a workbook saved as "Haier 600690.xls" whose only tab is "Suppliers" is still a
+  // relationship export, and the filename rule above would never have seen it.
+  [/^suppliers?$|^customers?$|relationship/i, 'business_relationships'],
   [/multiple/i, 'multiples_export'],
   [/peer|comp/i, 'peer_comps'],
   [/consensus|estimate|revision|surprise|trend|guidance/i, 'consensus_estimates'],
@@ -419,7 +422,12 @@ export function classify(filename: string, sniff: string): { type: FileType; con
   // sniff below can't mis-toptier them. "Key Developments" is a material-events/news feed that quotes
   // phrases like "Independent Auditor" and would otherwise false-match the annual_filing content rule and
   // hijack the "Annual report" coverage slot from the real 10-K (a §4 source-hierarchy error).
-  if (test(/company[\s_]?profile|tear[\s_]?sheet|landscape|suppliers|customers|products|key[\s_]?developments|strategic[\s_]?alliances/)) return { type: 'other', confidence: 'low', basis: 'filename' }
+  // A Suppliers / Customers export is NOT supplementary chrome: it is the only pool document that names
+  // the company's counterparties, and the engine parses it into the supply-chain graph every module and
+  // the Ideas chain lane read. Typed before the generic landscape sweep-up below so it stops being an
+  // opaque "other / low" row. Still readiness-neutral — no readiness rule keys on this type.
+  if (test(/supplier|customer/) && !test(/customer[\s_]?call|customer[\s_]?recap/)) return { type: 'business_relationships', confidence: 'high', basis: 'filename' }
+  if (test(/company[\s_]?profile|tear[\s_]?sheet|landscape|products|key[\s_]?developments|strategic[\s_]?alliances/)) return { type: 'other', confidence: 'low', basis: 'filename' }
 
   // content sniff for opaque names (UUID PDFs). A sell-side verdict block is already caught above
   // (isSellSideNoteContent), before the transcript-filename fallback, so no proxy check is needed here.
@@ -926,6 +934,9 @@ const COVERAGE_GROUPS: CoverageGroupDef[] = [
   { key: 'deck', label: 'Investor deck', tier: 'optional',
     helps: 'clearer segment splits & KPI slides than the filings',
     types: ['investor_deck'] },
+  { key: 'relationships', label: 'Suppliers & customers', tier: 'optional',
+    helps: 'the Capital IQ Suppliers + Customers exports — the only source that NAMES who the company trades with; feeds the value-chain read, the related-party check, and the Ideas board’s chain lane',
+    types: ['business_relationships'], tab: /^suppliers?$|^customers?$|relationship/i },
 ]
 
 // Match a group against the pool: prefer a whole-file match (file-type, then filename), else a tab match.

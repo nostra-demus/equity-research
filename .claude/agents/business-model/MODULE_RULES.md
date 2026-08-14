@@ -33,6 +33,19 @@ When the deck is bullish and the filing is cautious, trust the filing.
 
 ---
 
+## The supply-chain graph (`_pool_extracts/relationships.json`)
+
+When the pool carries a Capital IQ **Suppliers** or **Customers** export, the extractor emits a deterministic graph of it at `<RUN_ROOT>/_pool_extracts/relationships.json`. `value-chain` and `customer-geography` own it; `capital-allocation-governance` reads its concentration block. Rules for every agent that touches it:
+
+- **It is a tier-5 vendor export**, not a filing. Cite it as `CIQ <Suppliers|Customers> export ({TICKER}), retrieved {DATE} — vendor export`, and name the disclosing document the graph itself carries (`source_ref`) whenever you rely on a single relationship. Where a filing discloses the same relationship, cite the filing (§4, §5).
+- **Carry the scope.** These views cover only *recently disclosed* relationships — usually a two-year window — for *current subsidiaries*. Quote the graph's `scope_notes` the first time you use it. Never present the list as the company's full supplier or customer base, and never infer that an absent counterparty does not exist.
+- **`affiliation` is the gate.** Only `third_party` rows are outside parties. `group` rows are the company's own entities (the export placed them on the company's side of a relationship). `likely_group` shares the group's brand but was never proven — treat it as related until a filing says otherwise, and say so.
+- **`disclosed_by` is real evidence.** `counterparty` means the OTHER company named this one in its own filing — it considered the relationship material enough to disclose. That is a stronger signal about the link than the company's own list, and worth stating.
+- **The graph proves existence, never size.** It never says what share of either side's revenue a relationship represents. Do not convert a named relationship into a materiality claim, a dependency percentage, or a directional view without a filing that quantifies it. "Not disclosed" is the correct answer.
+- **The intra-group share is a governance read.** A high `concentration.intragroup_row_share_pct` means most disclosed trading is with the company's own entities — a related-party observation for `capital-allocation-governance` (CLAUDE.md §13, §24 filter 6), not an idea.
+
+---
+
 ## Evidence Citation Format
 
 Every "Evidence" cell uses this format:
