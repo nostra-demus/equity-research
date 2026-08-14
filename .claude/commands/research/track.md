@@ -167,7 +167,10 @@ json.dump({"schema_version": "1.0", "generated_at": today, "scope": SCOPE, "n_ca
           open(jf, "w", encoding="utf-8"), indent=2, ensure_ascii=False)
 
 def cell(v, suf=""):
-    return ("—" if v is None or v == "" else f"{v}{suf}")
+    # Escape any literal '|' so a pipe inside free text (e.g. a forecast prediction) cannot start a
+    # spurious extra column in the GitHub-flavored-markdown table (GFM: a literal pipe in a cell must
+    # be written '\|'). No-op for the common no-pipe case.
+    return ("—" if v is None or v == "" else f"{v}{suf}".replace("|", "\\|"))
 def ret(v):
     return "—" if not isinstance(v, (int, float)) else (f"+{v:.1f}%" if v >= 0 else f"{v:.1f}%")
 
@@ -190,7 +193,7 @@ if needs_attention:
     H.append("| --- | --- | --- | --- |")
     for n in needs_attention:
         H.append(f'| {n["due_date"]} | {"forecast" if n["type"] == "forecast" else "kill criterion"} | '
-                  f'{n["ticker"]} | {n["description"]} |')
+                  f'{cell(n["ticker"])} | {cell(n["description"])} |')
     H.append("")
 H += ["## All calls\n",
      "| Company | Ticker | Called | Verdict | Horizon | Latest status | Next checkpoint |",
