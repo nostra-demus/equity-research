@@ -65,7 +65,10 @@ function makeRepo(subjects: string[], items: FeedItem[]) {
   for (const [d, its] of byDay) {
     fs.writeFileSync(path.join(fhDir, `${d}_firehose.ndjson`), its.map((i) => JSON.stringify(i)).join('\n') + '\n')
   }
-  return { repo, dataDir, stateDir, opts: { repoRoot: repo, dataDir, stateDir, now, lookbackDays: 4 } }
+  return {
+    repo, dataDir, stateDir,
+    opts: { repoRoot: repo, dataDir, stateDir, now, lookbackDays: 4, canAutoWriteSubject: () => true },
+  }
 }
 const noteFor = (dataDir: string, ticker: string, id: string) => path.join(dataDir, ticker, `screener_event_${id}.md`)
 
@@ -82,6 +85,20 @@ check('a window routes eligible items and reports the subject as having FRESH no
   assert.deepEqual(r.subjectsWithFreshNotes, ['NHY'], 'only the subject that gained notes earns an analysis')
   assert.ok(fs.existsSync(noteFor(dataDir, 'NHY', a.event_id)))
   assert.ok(!fs.existsSync(noteFor(dataDir, 'AMZN', a.event_id)), 'an NHY story never lands in AMZN’s pool')
+})
+
+check('batch auto-routing writes zero subject bytes when ownership is commodity-only or ambiguous', () => {
+  const e = item({ ticker: 'NHY', headline: 'NHY material owner collision' })
+  const { dataDir, opts } = makeRepo(['NHY'], [e])
+  let checks = 0
+  const r = sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, {
+    ...opts,
+    canAutoWriteSubject: () => { checks++; return false },
+  })
+  assert.ok(checks > 0, 'the owner gate is consulted before the sweep')
+  assert.deepEqual(r.sweeps, [])
+  assert.deepEqual(r.subjectsWithFreshNotes, [])
+  assert.deepEqual(fs.readdirSync(path.join(dataDir, 'NHY')), [], 'the denied subject receives zero bytes')
 })
 
 // ---- 1b. noise discipline WITHIN one window: two outlets, one story → one note ----

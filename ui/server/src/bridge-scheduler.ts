@@ -148,7 +148,9 @@ function currentSubjects(): string[] {
 }
 
 /** One sweep + its follow-up analyses. `launchAnalysis` is injected so this stays testable without the
- *  CLI and without server.ts's admission stack; it returns true when an analysis actually started. */
+ *  CLI and without server.ts's admission stack; it resolves true only after the analysis reaches a
+ *  proved terminal success. An early launcher admission ACK is not success: its final identity check,
+ *  process spawn, or command can still fail without writing a plan. */
 export async function runBridgeSweep(launchAnalysis: (ticker: string) => Promise<boolean>): Promise<void> {
   // Checked every tick, BEFORE deciding subjects.length===0 means "nothing configured" — a manifest that
   // exists but fails to parse must read as broken, not as valid empty coverage (Codex #359, "Surface an
@@ -185,13 +187,15 @@ export async function runBridgeSweep(launchAnalysis: (ticker: string) => Promise
   const candidates = new Set<string>([...res.subjectsWithFreshNotes, ...pendingAnalysisSubjects])
   const stillPending = new Set<string>()
   let analyses = 0
-  for (const subject of candidates) {
-    try {
-      if (await launchAnalysis(subject)) analyses++
-      else stillPending.add(subject) // busy right now — retry next sweep
-    } catch {
-      stillPending.add(subject) // capacity / CLI unavailable — the note still landed; retry next sweep
-    }
+  // Launch independently, then await every REAL terminal result together. Sequentially awaiting a full
+  // doc-intake process here would serialize unrelated subjects for minutes; an early ACK would lose work.
+  const results = await Promise.all([...candidates].map(async (subject) => {
+    try { return { subject, ok: await launchAnalysis(subject) } }
+    catch { return { subject, ok: false } }
+  }))
+  for (const { subject, ok } of results) {
+    if (ok) analyses++
+    else stillPending.add(subject) // busy/capacity/CAS/spawn/command/no-plan — retry next sweep
   }
   pendingAnalysisSubjects = stillPending
 

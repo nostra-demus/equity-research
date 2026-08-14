@@ -1,5 +1,5 @@
 import path from 'node:path'
-import { isValidTicker } from './sandbox'
+import { isValidTicker, SIG_RE } from './sandbox'
 import { RESEARCH_SWARM_ID, swarmById } from './swarms'
 
 // A swarm manifest owns its unit of work. Non-research subjects therefore need a generic, path-safe
@@ -13,7 +13,7 @@ export function normalizeDataSubject(swarmId: string, subject: unknown): string 
   if (!swarmById(swarmId) || typeof subject !== 'string') return null
   const valid = swarmId === RESEARCH_SWARM_ID
     ? isValidTicker(subject)
-    : MANIFEST_SUBJECT_RE.test(subject)
+    : swarmId === 'screener' ? SIG_RE.test(subject) : MANIFEST_SUBJECT_RE.test(subject)
   if (!valid || path.basename(subject) !== subject || subject === '.' || subject === '..') return null
   return subject
 }

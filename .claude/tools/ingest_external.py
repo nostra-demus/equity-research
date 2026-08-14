@@ -43,10 +43,14 @@ import re
 import json
 import time
 import hashlib
+import hmac
 import tempfile
 import importlib.util
+import subprocess
 import stat
-from datetime import date
+import fcntl
+from datetime import date, datetime, timezone
+from urllib.parse import urlsplit
 
 # ---- shared venv re-exec (same .venv as extract_pool; own sentinel) ----
 # extract_pool._ensure_deps cannot be reused: it execv's extract_pool's OWN
@@ -84,6 +88,17 @@ INBOX_NAME = "EXTERNAL-INBOX"
 ROUTED_DIR = "_routed"
 LEDGER_NAME = ".ingest_ledger.ndjson"
 README_NAME = "README.md"
+MANUAL_REQUEST_DIR = ".data-need-requests"
+MANUAL_INTENT_NAME = "intent.json"
+MANUAL_PAYLOAD_NAME = "payload"
+MANUAL_RESULT_NAME = "result.json"
+MANUAL_INTENT_CONTRACT = "data-need-upload-intent/1"
+MANUAL_RESULT_CONTRACT = "data-need-upload-result/1"
+MANUAL_CONTEXT_CONTRACT = "data-need-upload-context/1"
+MANUAL_MAX_BYTES = 40 * 1024 * 1024
+MANUAL_NAME_MAX_BYTES = 255
+MANUAL_FILENAME_MAX_BYTES = 200
+MANUAL_SIDECAR_SUFFIX = ".source.json"
 # Keep in sync with RESERVED_DATA_FOLDERS in ui/server/src/config.ts — reserved
 # system folders in the pool root that are never companies.
 RESERVED = {"news-archive", "external-inbox"}
@@ -92,6 +107,13 @@ RESERVED = {"news-archive", "external-inbox"}
 # (`[A-Z0-9.\-]{1,15}` + at least one alphanumeric), so a digit-led Indian symbol or a 13-15 char
 # ticker the cockpit accepts is also routable here (incl. via the forced <Provider>/<TICKER>/ lane).
 TICKER_SHAPE = re.compile(r"^(?=.*[A-Z0-9])[A-Z0-9.\-]{1,15}$")
+MANUAL_SUBJECT_SHAPE = re.compile(r"^[A-Z0-9][A-Z0-9._-]{0,63}$")
+MANUAL_REQUEST_ID = re.compile(r"^DNU-[a-f0-9]{32}$")
+MANUAL_NEED_ID = re.compile(r"^[a-z0-9][a-z0-9_-]{0,127}$")
+MANUAL_SWARM_ID = re.compile(r"^[a-z0-9][a-z0-9_-]{0,119}$")
+MANUAL_FINGERPRINT = re.compile(r"^sha256:[a-f0-9]{64}$")
+MANUAL_SHA256 = re.compile(r"^[a-f0-9]{64}$")
+MANUAL_SIGNATURE = re.compile(r"^hmac-sha256:[a-f0-9]{64}$")
 # Auto-detection only trusts symbols of length >= 3 as bare word tokens ("IT"/"SO"/"A" would
 # over-match any English text); shorter symbols need an explicit context tag ($SO / (NYSE:SO)).
 MIN_BARE_SYMBOL_LEN = 3
@@ -374,12 +396,23 @@ def _recover_publication_alias(path, prefix):
         raise ValueError("published path changed during alias recovery")
 
 
+def _unlink_if_inode(path, identity):
+    """Unlink only the exact named inode the caller created."""
+    try:
+        observed = os.lstat(path)
+        if (observed.st_dev, observed.st_ino) != identity:
+            raise ValueError("temporary publication name changed")
+        os.unlink(path)
+    except FileNotFoundError:
+        return
+
+
 def _publish_temp_no_clobber(tmp, dst):
     """Atomically claim an absent name without replacing concurrent evidence."""
+    tmp_info = os.lstat(tmp)
+    tmp_identity = (tmp_info.st_dev, tmp_info.st_ino)
     try:
         os.link(tmp, dst, follow_symlinks=False)
-        os.unlink(tmp)
-        return
     except OSError as exc:
         unsupported = {
             errno.EXDEV, errno.EPERM, errno.EOPNOTSUPP,
@@ -387,6 +420,18 @@ def _publish_temp_no_clobber(tmp, dst):
         }
         if isinstance(exc, FileExistsError) or exc.errno not in unsupported:
             raise
+    else:
+        try:
+            _unlink_if_inode(tmp, tmp_identity)
+        except Exception:
+            try:
+                claimed = os.lstat(dst)
+                if (claimed.st_dev, claimed.st_ino) == tmp_identity:
+                    os.unlink(dst)
+            except OSError:
+                pass
+            raise
+        return
 
     # Google Drive File Stream and some FUSE mounts reject hard links. Claim
     # the final name with O_EXCL, then copy the already-fsynced staged bytes
@@ -418,7 +463,7 @@ def _publish_temp_no_clobber(tmp, dst):
         os.fsync(target_fd)
         os.close(target_fd)
         target_fd = None
-        os.unlink(tmp)
+        _unlink_if_inode(tmp, (source_identity[0], source_identity[1]))
     except Exception:
         if target_fd is not None:
             os.close(target_fd)
@@ -677,12 +722,22 @@ def copy_contents(src, dst, root=None, expected_sha256=None):
     os.makedirs(dst_dir, exist_ok=True)
     if _safe_beneath(destination_root, dst_dir) is None:
         raise ValueError("destination parent contains a symlinked or escaping component")
-    source_fd, source_identity = _open_unique_regular(src)
+    destination_pin = _pin_directory(dst_dir)
+    if destination_pin is None:
+        raise ValueError("destination parent is unsafe")
+    source_fd = None
+    source_identity = None
     tmp = None
+    tmp_identity = None
     claimed = None
     digest = hashlib.sha256()
     try:
+        source_fd, source_identity = _open_unique_regular(src)
+        _assert_directory_pin(dst_dir, destination_pin)
         temp_fd, tmp = tempfile.mkstemp(dir=dst_dir, prefix=".tmp-route-")
+        temp_info = os.fstat(temp_fd)
+        tmp_identity = (temp_info.st_dev, temp_info.st_ino)
+        _assert_directory_pin(dst_dir, destination_pin)
         with os.fdopen(source_fd, "rb", closefd=False) as fi, os.fdopen(temp_fd, "wb") as fo:
             remaining = source_identity[2]
             while remaining:
@@ -699,8 +754,10 @@ def copy_contents(src, dst, root=None, expected_sha256=None):
             if expected_sha256 is not None and actual_sha256 != expected_sha256:
                 raise ValueError("source content changed after provenance hashing")
             fo.flush(); os.fsync(fo.fileno())
+        _assert_directory_pin(dst_dir, destination_pin)
         staged = os.lstat(tmp)
         _publish_temp_no_clobber(tmp, dst)
+        _assert_directory_pin(dst_dir, destination_pin)
         claimed = (staged.st_dev, staged.st_ino)
         if sha256_file(dst) != actual_sha256:
             raise ValueError("published copy does not match staged source bytes")
@@ -715,10 +772,13 @@ def copy_contents(src, dst, root=None, expected_sha256=None):
                 pass
         raise
     finally:
-        os.close(source_fd)
+        if source_fd is not None:
+            os.close(source_fd)
+        os.close(destination_pin[0])
         if tmp is not None:
             try:
-                os.unlink(tmp)
+                if tmp_identity is not None:
+                    _unlink_if_inode(tmp, tmp_identity)
             except OSError:
                 pass
 
@@ -833,17 +893,27 @@ def _write_json_safe(path, value, root):
     os.makedirs(directory, exist_ok=True)
     if _safe_beneath(root, directory) is None:
         raise ValueError("sidecar parent contains a symlinked or escaping component")
+    directory_pin = _pin_directory(directory)
+    if directory_pin is None:
+        raise ValueError("sidecar parent is unsafe")
     encoded = json.dumps(value, indent=2).encode("utf-8")
-    if os.path.lexists(path):
-        _recover_publication_alias(path, ".tmp-sidecar-")
-        if _read_unique_regular_bytes(path) == encoded:
-            return False
-        raise FileExistsError("different sidecar already exists")
-    fd, tmp = tempfile.mkstemp(dir=directory, prefix=".tmp-sidecar-")
+    tmp = None
+    tmp_identity = None
     try:
+        _assert_directory_pin(directory, directory_pin)
+        if os.path.lexists(path):
+            _recover_publication_alias(path, ".tmp-sidecar-")
+            if _read_unique_regular_bytes(path) == encoded:
+                return False
+            raise FileExistsError("different sidecar already exists")
+        fd, tmp = tempfile.mkstemp(dir=directory, prefix=".tmp-sidecar-")
+        opened_tmp = os.fstat(fd)
+        tmp_identity = (opened_tmp.st_dev, opened_tmp.st_ino)
+        _assert_directory_pin(directory, directory_pin)
         with os.fdopen(fd, "wb") as fh:
             fh.write(encoded)
             fh.flush(); os.fsync(fh.fileno())
+        _assert_directory_pin(directory, directory_pin)
         try:
             _publish_temp_no_clobber(tmp, path)
         except FileExistsError:
@@ -851,14 +921,54 @@ def _write_json_safe(path, value, root):
             if _read_unique_regular_bytes(path) != encoded:
                 raise FileExistsError("different sidecar won the publication race")
             return False
+        _assert_directory_pin(directory, directory_pin)
         if _read_unique_regular_bytes(path) != encoded:
             raise ValueError("published sidecar does not match staged bytes")
         return True
     finally:
+        os.close(directory_pin[0])
         try:
-            os.unlink(tmp)
+            if tmp is not None and tmp_identity is not None:
+                _unlink_if_inode(tmp, tmp_identity)
         except OSError:
             pass
+
+
+def _append_json_line_safe(path, value, root):
+    if _safe_beneath(root, path) is None:
+        raise ValueError("ledger path contains a symlinked or escaping component")
+    directory = os.path.dirname(path) or "."
+    pinned = _pin_directory(directory)
+    if pinned is None:
+        raise ValueError("ledger parent is unsafe")
+    fd = None
+    try:
+        _assert_directory_pin(directory, pinned)
+        fd = os.open(path, os.O_WRONLY | os.O_APPEND | os.O_CREAT
+                     | getattr(os, "O_NOFOLLOW", 0), 0o600)
+        opened = os.fstat(fd)
+        named = os.lstat(path)
+        if (not stat.S_ISREG(opened.st_mode) or stat.S_ISLNK(named.st_mode)
+                or opened.st_uid != os.getuid() or opened.st_nlink != 1
+                or (opened.st_dev, opened.st_ino) != (named.st_dev, named.st_ino)):
+            raise ValueError("ledger is not a unique owned regular file")
+        encoded = (json.dumps(value) + "\n").encode("utf-8")
+        view = memoryview(encoded)
+        while view:
+            written = os.write(fd, view)
+            if written <= 0:
+                raise OSError("short ledger write")
+            view = view[written:]
+        os.fsync(fd)
+        after = os.fstat(fd); named_after = os.lstat(path)
+        if ((after.st_dev, after.st_ino) != (opened.st_dev, opened.st_ino)
+                or (named_after.st_dev, named_after.st_ino) != (opened.st_dev, opened.st_ino)):
+            raise ValueError("ledger changed during append")
+        _assert_directory_pin(directory, pinned)
+    finally:
+        if fd is not None:
+            os.close(fd)
+        os.close(pinned[0])
 
 
 def _sidecar_binds_payload(path, digest, ticker):
@@ -896,36 +1006,816 @@ def _existing_route_is_complete(dst, sidecar, ticker, root):
     return _ensure_routed_sidecar(dst, sidecar, ticker, root)
 
 
-# ---------- singleton lock (LOCAL disk — O_EXCL on the FUSE mount is unreliable) ----------
+# ---------- signed, decision-scoped manual requests ----------
 
-def acquire_lock():
-    lock = os.path.join(tempfile.gettempdir(), "nostra-external-ingest.lock")
+_MANUAL_INTENT_KEYS = {
+    "contract_version", "request_id", "subject", "swarm", "run_root",
+    "decision_fingerprint", "need_id", "series", "provider", "source_url",
+    "source_url_basis", "filename", "payload_sha256", "payload_size", "staged_at", "requested_by",
+    "signature",
+}
+_MANUAL_RESULT_KEYS = {
+    "contract_version", "request_id", "intent_sha256", "payload_sha256", "sidecar_sha256",
+    "status", "routed_path", "reason", "completed_at", "signature",
+}
+_MANUAL_ALLOWED_EXTS = {
+    "pdf", "xlsx", "xls", "csv", "doc", "docx", "ppt", "pptx", "txt", "md",
+    "json", "png", "jpg", "jpeg",
+}
+
+
+def _canonical_json(value):
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+
+
+def _signed_value(value, key):
+    unsigned = dict(value)
+    unsigned.pop("signature", None)
+    digest = hmac.new(key, _canonical_json(unsigned).encode("utf-8"), hashlib.sha256).hexdigest()
+    return {**unsigned, "signature": f"hmac-sha256:{digest}"}
+
+
+def _signature_valid(value, key):
+    if not isinstance(value, dict) or not MANUAL_SIGNATURE.fullmatch(str(value.get("signature", ""))):
+        return False
+    expected = _signed_value(value, key)["signature"]
+    return hmac.compare_digest(expected, value["signature"])
+
+
+def _plain(value, maximum):
+    return (isinstance(value, str) and 0 < len(value) <= maximum
+            and not re.search(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]", value))
+
+
+def _iso_timestamp(value):
+    if not isinstance(value, str) or not re.fullmatch(
+            r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z", value):
+        return False
     try:
-        fd = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
-        os.write(fd, str(os.getpid()).encode())
-        os.close(fd)
-        return lock
-    except FileExistsError:
-        try:
-            pid = int(open(lock).read().strip() or "0")
-            alive = pid > 0 and _pid_alive(pid)
-            stale = time.time() - os.path.getmtime(lock) > 1800
-            if not alive or stale:
-                os.unlink(lock)  # steal a dead/stale lock and retry once
-                return acquire_lock()
-        except Exception:
-            pass
-        return None
-    except Exception:
-        return lock  # fail OPEN: never block the only ingester on a lock hiccup
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        return parsed.astimezone(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z") == value
+    except ValueError:
+        return False
 
 
-def _pid_alive(pid):
-    try:
-        os.kill(pid, 0)
+def _safe_source_url(value):
+    if value is None:
         return True
+    if not _plain(value, 2048) or re.search(r"[\x00-\x20\x7f]", value):
+        return False
+    try:
+        parsed = urlsplit(value)
+        return (parsed.scheme in ("http", "https") and bool(parsed.hostname)
+                and parsed.username is None and parsed.password is None)
+    except ValueError:
+        return False
+
+
+def _safe_original_filename(value):
+    if not _plain(value, 180) or value.startswith(".") or os.path.basename(value) != value \
+            or "/" in value or "\\" in value or "." not in value:
+        return False
+    return (value.rsplit(".", 1)[-1].lower() in _MANUAL_ALLOWED_EXTS
+            and len(value.encode("utf-8")) <= MANUAL_FILENAME_MAX_BYTES
+            and len((value + MANUAL_SIDECAR_SUFFIX).encode("utf-8")) <= MANUAL_NAME_MAX_BYTES)
+
+
+def _owned_private_directory(path):
+    """Pin an existing current-UID owner-only directory with no symlink in its chain."""
+    requested = os.path.abspath(path)
+    path = os.path.realpath(requested)
+    try:
+        requested_cursor = os.path.sep
+        for part in requested[len(os.path.sep):].split(os.sep):
+            if not part:
+                continue
+            requested_cursor = os.path.join(requested_cursor, part)
+            info = os.lstat(requested_cursor)
+            if stat.S_ISLNK(info.st_mode) and info.st_uid != 0:
+                return None
+        # The directory itself is the trust boundary. Ancestors such as /tmp legitimately have shared
+        # modes; reject only symlinks in that chain, not their unrelated permissions/ownership.
+        cursor = os.path.sep
+        for part in path[len(os.path.sep):].split(os.sep):
+            if not part:
+                continue
+            cursor = os.path.join(cursor, part)
+            info = os.lstat(cursor)
+            if stat.S_ISLNK(info.st_mode) or not stat.S_ISDIR(info.st_mode):
+                return None
+        requested_info = os.lstat(requested)
+        before = os.lstat(path)
+        if (before.st_uid != os.getuid() or before.st_mode & 0o077
+                or not stat.S_ISDIR(before.st_mode) or stat.S_ISLNK(requested_info.st_mode)
+                or (requested_info.st_dev, requested_info.st_ino) != (before.st_dev, before.st_ino)):
+            return None
+        fd = os.open(path, os.O_RDONLY | getattr(os, "O_DIRECTORY", 0)
+                     | getattr(os, "O_NOFOLLOW", 0))
+        opened = os.fstat(fd)
+        named = os.lstat(path)
+        if (opened.st_uid != os.getuid() or opened.st_mode & 0o077
+                or not stat.S_ISDIR(opened.st_mode)
+                or (opened.st_dev, opened.st_ino) != (before.st_dev, before.st_ino)
+                or (opened.st_dev, opened.st_ino) != (named.st_dev, named.st_ino)):
+            os.close(fd)
+            return None
+        return fd, (opened.st_dev, opened.st_ino)
+    except OSError:
+        return None
+
+
+def _directory_pin_valid(path, fd, identity, private=False):
+    try:
+        opened = os.fstat(fd)
+        named = os.lstat(path)
+        return (stat.S_ISDIR(opened.st_mode) and not stat.S_ISLNK(named.st_mode)
+                and opened.st_uid == os.getuid()
+                and (not private or not opened.st_mode & 0o077)
+                and (opened.st_dev, opened.st_ino) == identity
+                and (named.st_dev, named.st_ino) == identity)
     except OSError:
         return False
+
+
+def _pin_directory(path, *, private=False):
+    """Pin a current-UID directory. Caller retains the descriptor across mutations."""
+    path = os.path.abspath(path)
+    try:
+        before = os.lstat(path)
+        if (not stat.S_ISDIR(before.st_mode) or stat.S_ISLNK(before.st_mode)
+                or before.st_uid != os.getuid() or (private and before.st_mode & 0o077)):
+            return None
+        fd = os.open(path, os.O_RDONLY | getattr(os, "O_DIRECTORY", 0)
+                     | getattr(os, "O_NOFOLLOW", 0))
+        opened = os.fstat(fd)
+        if ((opened.st_dev, opened.st_ino) != (before.st_dev, before.st_ino)
+                or not _directory_pin_valid(path, fd, (opened.st_dev, opened.st_ino), private)):
+            os.close(fd)
+            return None
+        return fd, (opened.st_dev, opened.st_ino)
+    except OSError:
+        return None
+
+
+def _assert_directory_pin(path, pinned, *, private=False):
+    if pinned is None or not _directory_pin_valid(path, pinned[0], pinned[1], private):
+        raise ValueError("directory changed during manual routing")
+
+
+def _ensure_owned_directory_chain(root, parts, *, private_leaf=False):
+    """Create fixed components while revalidating each retained parent descriptor."""
+    cursor = os.path.realpath(os.path.abspath(root))
+    pinned = _pin_directory(cursor)
+    if pinned is None:
+        raise ValueError("directory root is unsafe")
+    try:
+        for index, part in enumerate(parts):
+            if (not part or part in (".", "..") or os.sep in part
+                    or (os.altsep and os.altsep in part)):
+                raise ValueError("unsafe directory component")
+            _assert_directory_pin(cursor, pinned)
+            child = os.path.join(cursor, part)
+            try:
+                os.mkdir(child, 0o700)
+            except FileExistsError:
+                pass
+            _assert_directory_pin(cursor, pinned)
+            child_pin = _pin_directory(
+                child, private=private_leaf and index == len(parts) - 1,
+            )
+            if child_pin is None:
+                raise ValueError("directory component is unsafe")
+            os.close(pinned[0]); pinned = child_pin; cursor = child
+        return cursor
+    finally:
+        os.close(pinned[0])
+
+
+def _manual_key(path):
+    if not path:
+        return None
+    parent = os.path.dirname(os.path.abspath(path))
+    pinned = _owned_private_directory(parent)
+    if pinned is None:
+        return None
+    parent_fd, identity = pinned
+    try:
+        before = os.lstat(path)
+        if (not stat.S_ISREG(before.st_mode) or stat.S_ISLNK(before.st_mode)
+                or before.st_uid != os.getuid() or before.st_nlink != 1
+                or before.st_mode & 0o077 or not before.st_mode & stat.S_IRUSR):
+            return None
+        raw = _read_unique_regular_bytes(path)
+        after = os.lstat(path)
+        if ((after.st_dev, after.st_ino) != (before.st_dev, before.st_ino)
+                or not _directory_pin_valid(parent, parent_fd, identity, private=True)):
+            return None
+        text = raw.decode("ascii")
+    except (OSError, ValueError, UnicodeError):
+        return None
+    finally:
+        os.close(parent_fd)
+    return bytes.fromhex(text[:64]) if re.fullmatch(r"[a-f0-9]{64}\n", text) else None
+
+
+def _default_manual_key_path():
+    repo = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    state = os.environ.get("ENGINE_STATE_DIR") or os.path.join(repo, "ui", "server", ".state")
+    return os.path.join(state, "data-need-upload.key")
+
+
+def _default_manual_authority(intent):
+    """Ask the canonical TypeScript readers whether this SIGNED binding may still publish.
+
+    This is deliberately a new short-lived process. The always-on server may have admitted and staged
+    the request minutes earlier; consulting its old in-memory answer would not close the owner/decision
+    race. Missing Node dependencies, an unreadable owner, multiple finished owners, or a changed standing
+    decision all abstain. The caller leaves the envelope staged for a later pass; none is evidence that
+    the payload itself is bad.
+    """
+    repo = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    runner = os.path.join(repo, "ui", "server", "node_modules", ".bin", "tsx")
+    checker = os.path.join(repo, "ui", "server", "src", "manual-upload-authority.ts")
+    if not os.path.isfile(runner) or not os.path.isfile(checker):
+        return False, "terminal owner authority checker is unavailable"
+    env = dict(os.environ)
+    env["ENGINE_REPO_ROOT"] = repo
+    try:
+        result = subprocess.run(
+            [runner, checker, intent["subject"], intent["swarm"], intent["run_root"],
+             intent["decision_fingerprint"]],
+            cwd=repo, env=env, capture_output=True, text=True, timeout=20, check=False,
+        )
+        parsed = json.loads((result.stdout or "").strip())
+        if result.returncode == 0 and parsed.get("authorized") is True:
+            return True, None
+        reason = parsed.get("reason") if isinstance(parsed, dict) else None
+        return False, str(reason or "terminal shared data-pool authority was denied")[:400]
+    except (OSError, subprocess.SubprocessError, ValueError, json.JSONDecodeError):
+        return False, "terminal shared data-pool authority check failed closed"
+
+
+def _manual_authority(authority, intent):
+    try:
+        result = authority(intent)
+        if isinstance(result, tuple) and len(result) == 2:
+            return bool(result[0]), str(result[1] or "")[:400]
+        return bool(result), "terminal shared data-pool authority was denied"
+    except Exception:
+        return False, "terminal shared data-pool authority check failed closed"
+
+
+def _valid_manual_intent(value, key, request_id):
+    if not isinstance(value, dict) or set(value) != _MANUAL_INTENT_KEYS \
+            or value.get("contract_version") != MANUAL_INTENT_CONTRACT \
+            or value.get("request_id") != request_id or not MANUAL_REQUEST_ID.fullmatch(request_id):
+        return False
+    subject = value.get("subject")
+    run_root = value.get("run_root")
+    return (
+        isinstance(subject, str) and MANUAL_SUBJECT_SHAPE.fullmatch(subject)
+        and subject.lower() not in RESERVED
+        and isinstance(value.get("swarm"), str) and MANUAL_SWARM_ID.fullmatch(value["swarm"])
+        and _plain(run_root, 300) and not os.path.isabs(run_root)
+        and ".." not in re.split(r"[\\/]", run_root)
+        and isinstance(value.get("decision_fingerprint"), str)
+        and MANUAL_FINGERPRINT.fullmatch(value["decision_fingerprint"])
+        and isinstance(value.get("need_id"), str) and MANUAL_NEED_ID.fullmatch(value["need_id"])
+        and _plain(value.get("series"), 1000)
+        and _plain(value.get("provider"), 200)
+        and _safe_source_url(value.get("source_url"))
+        and value.get("source_url_basis") in (
+            "server_lookup_public_dns", "user_supplied_unverified", "absent")
+        and ((value.get("source_url") is None) == (value.get("source_url_basis") == "absent"))
+        and _safe_original_filename(value.get("filename"))
+        and isinstance(value.get("payload_sha256"), str)
+        and MANUAL_SHA256.fullmatch(value["payload_sha256"])
+        and isinstance(value.get("payload_size"), int) and not isinstance(value["payload_size"], bool)
+        and 0 < value["payload_size"] <= MANUAL_MAX_BYTES
+        and _iso_timestamp(value.get("staged_at"))
+        and _plain(value.get("requested_by"), 320)
+        and _signature_valid(value, key)
+    )
+
+
+def _read_manual_intent(envelope, key):
+    intent_path = os.path.join(envelope, MANUAL_INTENT_NAME)
+    try:
+        raw = _read_unique_regular_bytes(intent_path)
+        if len(raw) > 32 * 1024:
+            return None
+        value = json.loads(raw.decode("utf-8"))
+    except (OSError, ValueError, UnicodeError, json.JSONDecodeError):
+        return None
+    request_id = os.path.basename(envelope)
+    if not _valid_manual_intent(value, key, request_id):
+        return None
+    return value, raw, hashlib.sha256(raw).hexdigest()
+
+
+def _valid_manual_result(value, key, intent, intent_sha):
+    if not isinstance(value, dict) or set(value) != _MANUAL_RESULT_KEYS \
+            or value.get("contract_version") != MANUAL_RESULT_CONTRACT \
+            or value.get("request_id") != intent["request_id"] \
+            or value.get("intent_sha256") != intent_sha \
+            or value.get("payload_sha256") != intent["payload_sha256"] \
+            or value.get("status") not in (
+                "routed_provenance_verified", "rejected_policy", "failed_tampered") \
+            or not _iso_timestamp(value.get("completed_at")) or not _signature_valid(value, key):
+        return False
+    if value["status"] == "routed_provenance_verified":
+        routed = value.get("routed_path")
+        return (isinstance(routed, str) and routed.startswith("data/") and "\\" not in routed
+                and ".." not in routed.split("/")
+                and isinstance(value.get("sidecar_sha256"), str)
+                and MANUAL_SHA256.fullmatch(value["sidecar_sha256"])
+                and value.get("reason") is None)
+    terminal = (value.get("routed_path") is None
+                and value.get("sidecar_sha256") is None
+                and value.get("reason") in (
+                    "malformed_request", "tampered_request", "routing_failed", "policy_rejected"))
+    return (terminal and ((value["status"] == "rejected_policy")
+                          == (value.get("reason") == "policy_rejected")))
+
+
+def _read_manual_result(envelope, key, intent, intent_sha):
+    try:
+        raw = _read_unique_regular_bytes(os.path.join(envelope, MANUAL_RESULT_NAME))
+        if len(raw) > 16 * 1024:
+            return None
+        value = json.loads(raw.decode("utf-8"))
+    except (OSError, ValueError, UnicodeError, json.JSONDecodeError):
+        return None
+    return value if _valid_manual_result(value, key, intent, intent_sha) else None
+
+
+def _manual_result(intent, intent_sha, key, status, routed_path=None, sidecar_sha256=None, reason=None):
+    value = {
+        "contract_version": MANUAL_RESULT_CONTRACT,
+        "request_id": intent["request_id"],
+        "intent_sha256": intent_sha,
+        "payload_sha256": intent["payload_sha256"],
+        "sidecar_sha256": sidecar_sha256,
+        "status": status,
+        "routed_path": routed_path,
+        "reason": reason,
+        "completed_at": datetime.now(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z"),
+    }
+    return _signed_value(value, key)
+
+
+def _manual_context(intent):
+    # This is request context only. It is copied into provenance, never fed into source-type, tier,
+    # licensing, or as-of inference.
+    return {
+        "contract_version": MANUAL_CONTEXT_CONTRACT,
+        "request_id": intent["request_id"],
+        "subject": intent["subject"],
+        "swarm": intent["swarm"],
+        "run_root": intent["run_root"],
+        "decision_fingerprint": intent["decision_fingerprint"],
+        "need_id": intent["need_id"],
+        "series": intent["series"],
+        "provider_basis": "operator_supplied_unverified",
+        "source_url": intent["source_url"],
+        "source_url_basis": intent["source_url_basis"],
+        "staged_at": intent["staged_at"],
+        "requested_by": intent["requested_by"],
+    }
+
+
+def _manual_sidecar_binds(path, sidecar, subject, intent, intent_sha):
+    try:
+        encoded = _read_unique_regular_bytes(path)
+        value = json.loads(encoded.decode("utf-8"))
+    except (OSError, ValueError, UnicodeError, json.JSONDecodeError):
+        return False
+    return (
+        isinstance(value, dict) and value == sidecar
+        and encoded == json.dumps(sidecar, indent=2).encode("utf-8")
+        and value.get("sha256") == sidecar["sha256"]
+        and value.get("tickers") == [subject]
+        and value.get("provider") == intent["provider"]
+        and value.get("upload_intent_sha256") == intent_sha
+    )
+
+
+def _existing_manual_route_complete(dst, sidecar, subject, intent, intent_sha, pool):
+    try:
+        _recover_publication_alias(dst, ".tmp-route-")
+        return (sha256_file(dst) == sidecar["sha256"]
+                and _manual_sidecar_binds(dst + ".source.json", sidecar, subject, intent, intent_sha))
+    except (OSError, ValueError):
+        return False
+
+
+def _write_manual_failure(envelope, intent, intent_sha, key, reason):
+    status = "rejected_policy" if reason == "policy_rejected" else "failed_tampered"
+    result = _manual_result(intent, intent_sha, key, status, reason=reason)
+    path = os.path.join(envelope, MANUAL_RESULT_NAME)
+    try:
+        _write_json_safe(path, result, envelope)
+    except (FileExistsError, OSError, ValueError):
+        return False
+    return _read_manual_result(envelope, key, intent, intent_sha) is not None
+
+
+def _consume_policy_rejected_payload(envelope, envelope_pin, intent):
+    """Remove validated prohibited bytes only after their signed policy result is durable."""
+    payload = os.path.join(envelope, MANUAL_PAYLOAD_NAME)
+    _assert_directory_pin(envelope, envelope_pin, private=True)
+    observed, identity = _sha256_file_with_identity(payload)
+    if observed != intent["payload_sha256"]:
+        raise ValueError("policy-rejected payload changed before cleanup")
+    _consume_source(payload, identity, observed)
+    _assert_directory_pin(envelope, envelope_pin, private=True)
+
+
+def _archive_manual_request(envelope, inbox, intent, intent_raw, intent_sha, result):
+    archive_lane = _ensure_owned_directory_chain(inbox, (ROUTED_DIR, MANUAL_REQUEST_DIR))
+    lane_pin = _pin_directory(archive_lane)
+    if lane_pin is None:
+        raise ValueError("manual archive lane is unsafe")
+    archive = os.path.join(archive_lane, intent["request_id"])
+    try:
+        _assert_directory_pin(archive_lane, lane_pin)
+        try:
+            os.mkdir(archive, 0o700)
+        except FileExistsError:
+            info = os.lstat(archive)
+            if not stat.S_ISDIR(info.st_mode) or stat.S_ISLNK(info.st_mode):
+                raise ValueError("manual archive request is not a safe directory")
+        _assert_directory_pin(archive_lane, lane_pin)
+        if _safe_beneath(inbox, archive) is None:
+            raise ValueError("manual archive request contains a symlinked component")
+    finally:
+        os.close(lane_pin[0])
+
+    archive_pin = _pin_directory(archive, private=True)
+    envelope_pin = _pin_directory(envelope, private=True)
+    if archive_pin is None or envelope_pin is None:
+        for pinned in (archive_pin, envelope_pin):
+            if pinned is not None:
+                os.close(pinned[0])
+        raise ValueError("manual archive/request directory is unsafe")
+
+    try:
+        pairs = (
+            (os.path.join(envelope, MANUAL_PAYLOAD_NAME), os.path.join(archive, MANUAL_PAYLOAD_NAME),
+             intent["payload_sha256"]),
+            (os.path.join(envelope, MANUAL_INTENT_NAME), os.path.join(archive, MANUAL_INTENT_NAME), intent_sha),
+        )
+        for src, dst, digest in pairs:
+            _assert_directory_pin(envelope, envelope_pin, private=True)
+            _assert_directory_pin(archive, archive_pin, private=True)
+            if os.path.lexists(dst):
+                if sha256_file(dst) != digest:
+                    raise ValueError("manual archive collision has different bytes")
+            else:
+                copy_contents(src, dst, inbox, expected_sha256=digest)
+            _assert_directory_pin(envelope, envelope_pin, private=True)
+            _assert_directory_pin(archive, archive_pin, private=True)
+        if _read_unique_regular_bytes(os.path.join(archive, MANUAL_INTENT_NAME)) != intent_raw:
+            raise ValueError("archived intent bytes changed")
+        _assert_directory_pin(archive, archive_pin, private=True)
+        _write_json_safe(os.path.join(archive, MANUAL_RESULT_NAME), result, inbox)
+        _assert_directory_pin(archive, archive_pin, private=True)
+
+        for src, _dst, digest in pairs:
+            _assert_directory_pin(envelope, envelope_pin, private=True)
+            if not os.path.lexists(src):
+                continue
+            observed, identity = _sha256_file_with_identity(src)
+            if observed != digest:
+                raise ValueError("manual request changed before archival cleanup")
+            _consume_source(src, identity, digest)
+            _assert_directory_pin(envelope, envelope_pin, private=True)
+    finally:
+        os.close(archive_pin[0]); os.close(envelope_pin[0])
+    try:
+        os.rmdir(envelope)
+    except OSError:
+        pass
+    return archive
+
+
+def _cleanup_replayed_manual_request(envelope, intent, archived, key, intent_sha, envelope_pin):
+    archive_pin = _pin_directory(archived, private=True)
+    if archive_pin is None:
+        return False
+    try:
+        _assert_directory_pin(envelope, envelope_pin, private=True)
+        _assert_directory_pin(archived, archive_pin, private=True)
+        result = _read_manual_result(archived, key, intent, intent_sha)
+        if result is None or result.get("status") != "routed_provenance_verified":
+            return False
+        expected = {
+            MANUAL_PAYLOAD_NAME: intent["payload_sha256"],
+            MANUAL_INTENT_NAME: intent_sha,
+        }
+        for name, digest in expected.items():
+            _assert_directory_pin(envelope, envelope_pin, private=True)
+            _assert_directory_pin(archived, archive_pin, private=True)
+            src = os.path.join(envelope, name)
+            if not os.path.lexists(src):
+                continue
+            observed, identity = _sha256_file_with_identity(src)
+            if observed != digest:
+                return False
+            _consume_source(src, identity, digest)
+        _assert_directory_pin(envelope, envelope_pin, private=True)
+    finally:
+        os.close(archive_pin[0])
+    try:
+        os.rmdir(envelope)
+    except OSError:
+        pass
+    return True
+
+
+def _process_manual_request(
+        envelope, inbox, pool, ep, key, ledger_path, dry_run=False, manual_authority=None):
+    envelope_pin = _pin_directory(envelope, private=True)
+    if envelope_pin is None:
+        return ("ignored", os.path.basename(envelope), "unsafe request envelope")
+    try:
+        _assert_directory_pin(envelope, envelope_pin, private=True)
+        parsed = _read_manual_intent(envelope, key)
+        _assert_directory_pin(envelope, envelope_pin, private=True)
+        if parsed is None:
+            return ("ignored", os.path.basename(envelope), "malformed or forged intent")
+        intent, intent_raw, intent_sha = parsed
+        return _process_manual_request_pinned(
+            envelope, inbox, pool, ep, key, ledger_path,
+            intent, intent_raw, intent_sha, envelope_pin, dry_run=dry_run,
+            manual_authority=manual_authority,
+        )
+    finally:
+        os.close(envelope_pin[0])
+
+
+def _process_manual_request_pinned(
+        envelope, inbox, pool, ep, key, ledger_path,
+        intent, intent_raw, intent_sha, envelope_pin, dry_run=False, manual_authority=None):
+    _assert_directory_pin(envelope, envelope_pin, private=True)
+    existing_result = _read_manual_result(envelope, key, intent, intent_sha)
+    if existing_result is not None:
+        if existing_result.get("status") in ("failed_tampered", "rejected_policy"):
+            return ("failed", intent["request_id"], existing_result.get("reason") or "terminal request failure")
+        return ("ignored", intent["request_id"], "unexpected active success result")
+    archive = os.path.join(inbox, ROUTED_DIR, MANUAL_REQUEST_DIR, intent["request_id"])
+    if os.path.lexists(archive):
+        archive_info = os.lstat(archive)
+        if (stat.S_ISDIR(archive_info.st_mode) and not stat.S_ISLNK(archive_info.st_mode)
+                and _safe_beneath(inbox, archive) is not None
+                and _cleanup_replayed_manual_request(
+                    envelope, intent, archive, key, intent_sha, envelope_pin)):
+            return ("skipped", intent["request_id"], "replay of an already-routed request")
+
+    try:
+        names = sorted(os.listdir(envelope))
+    except OSError:
+        return ("ignored", intent["request_id"], "unreadable request envelope")
+    if names != [MANUAL_INTENT_NAME, MANUAL_PAYLOAD_NAME]:
+        if not dry_run:
+            _write_manual_failure(envelope, intent, intent_sha, key, "tampered_request")
+        return ("failed", intent["request_id"], "unexpected or multiple files")
+    payload = os.path.join(envelope, MANUAL_PAYLOAD_NAME)
+    try:
+        info = os.lstat(payload)
+        digest = sha256_file(payload)
+    except (OSError, ValueError):
+        if not dry_run:
+            _write_manual_failure(envelope, intent, intent_sha, key, "tampered_request")
+        return ("failed", intent["request_id"], "payload is not a unique regular file")
+    if (not stat.S_ISREG(info.st_mode) or stat.S_ISLNK(info.st_mode) or info.st_nlink != 1
+            or info.st_size != intent["payload_size"] or digest != intent["payload_sha256"]):
+        if not dry_run:
+            _write_manual_failure(envelope, intent, intent_sha, key, "tampered_request")
+        return ("failed", intent["request_id"], "payload hash or size mismatch")
+
+    # All extraction/inference/publication consumes one private immutable snapshot. Revalidate the signed
+    # active inode before and after extraction so a rename/mutation (including a WILTW swap) fails closed.
+    snapshot_dir = os.path.realpath(tempfile.mkdtemp(prefix="nostra-manual-route-"))
+    os.chmod(snapshot_dir, 0o700)
+    snapshot = os.path.join(snapshot_dir, intent["filename"])
+    try:
+        copy_contents(payload, snapshot, snapshot_dir, expected_sha256=digest)
+        _assert_directory_pin(envelope, envelope_pin, private=True)
+        if sha256_file(payload) != digest:
+            raise ValueError("manual request changed before extraction")
+        sniff, fmt, read_error = _complete_identity_text(ep, snapshot)
+        if sha256_file(snapshot) != digest:
+            raise ValueError("manual payload snapshot changed during extraction")
+        _assert_directory_pin(envelope, envelope_pin, private=True)
+        if sha256_file(payload) != digest:
+            raise ValueError("manual request changed during extraction")
+        return _route_manual_snapshot(
+            envelope, inbox, pool, ep, key, ledger_path, intent, intent_raw, intent_sha,
+            envelope_pin, snapshot, digest, sniff, fmt, read_error, dry_run=dry_run,
+            manual_authority=manual_authority,
+        )
+    finally:
+        try:
+            os.unlink(snapshot)
+        except OSError:
+            pass
+        try:
+            os.rmdir(snapshot_dir)
+        except OSError:
+            pass
+
+
+def _route_manual_snapshot(
+        envelope, inbox, pool, ep, key, ledger_path, intent, intent_raw, intent_sha,
+        envelope_pin, snapshot, digest, sniff, fmt, read_error, dry_run=False,
+        manual_authority=None):
+    authority = manual_authority or _default_manual_authority
+    if not dry_run:
+        authorized, authority_reason = _manual_authority(authority, intent)
+        if not authorized:
+            return ("waiting", intent["request_id"], authority_reason)
+    base = intent["filename"]
+    methodology_reason = ep.methodology_only_source_reason(
+        base, sniff, {"origin": base, "routed_from": f"{INBOX_NAME}/{MANUAL_REQUEST_DIR}/{intent['request_id']}"},
+    )
+    if methodology_reason:
+        if not dry_run:
+            authorized, authority_reason = _manual_authority(authority, intent)
+            if not authorized:
+                return ("waiting", intent["request_id"], authority_reason)
+            if _write_manual_failure(envelope, intent, intent_sha, key, "policy_rejected"):
+                _consume_policy_rejected_payload(envelope, envelope_pin, intent)
+        return ("failed", intent["request_id"], "methodology-only source rejected")
+    if fmt in ("pdf", "image") and not sniff.strip() and intent["subject"] == "GOLD":
+        if not dry_run:
+            authorized, authority_reason = _manual_authority(authority, intent)
+            if not authorized:
+                return ("waiting", intent["request_id"], authority_reason)
+            if _write_manual_failure(envelope, intent, intent_sha, key, "policy_rejected"):
+                _consume_policy_rejected_payload(envelope, envelope_pin, intent)
+        return ("failed", intent["request_id"], read_error or "unreadable GOLD-sensitive visual")
+
+    subject = intent["subject"]
+    provider = intent["provider"]
+    # Request metadata (including provider, source URL, filename, and decision prose) is never allowed to
+    # upgrade evidence quality. Only readable payload CONTENT informs these four fields.
+    stype = infer_source_type("", sniff)
+    as_of, published = _parse_dates("", sniff)
+    sidecar = {
+        "provider": provider,
+        "source_type": stype,
+        "tier": TIER.get(stype, 9),
+        "as_of": as_of,
+        "published": published,
+        "received": date.today().isoformat(),
+        "tickers": [subject],
+        "license": infer_license(sniff),
+        "origin": base,
+        "sha256": digest,
+        "routed_by": "ingest_external.py",
+        "routed_from": f"{INBOX_NAME}/{MANUAL_REQUEST_DIR}/{intent['request_id']}/{MANUAL_PAYLOAD_NAME}",
+        "upload_intent_sha256": intent_sha,
+        "request_context": _manual_context(intent),
+    }
+    if dry_run:
+        return ("routed", intent["request_id"], f"would route to {subject}")
+
+    subject_dir = _ensure_owned_directory_chain(pool, (subject,))
+    destination_dir = _ensure_owned_directory_chain(subject_dir, ("external", slug(provider)))
+    first_dst = os.path.join(destination_dir, base)
+    if _safe_beneath(pool, first_dst) is None:
+        raise RuntimeError("manual routed destination contains a symlinked component")
+    index = 1
+    while True:
+        # Terminal CAS: no destination sidecar/payload/result becomes visible on an owner or standing
+        # decision answer that was true only when the HTTP request was staged. An ambiguous/mismatched
+        # answer is transient here — keep the signed envelope intact so an operator can resolve it.
+        authorized, authority_reason = _manual_authority(authority, intent)
+        if not authorized:
+            return ("waiting", intent["request_id"], authority_reason)
+        dst = first_dst if index == 1 else _next_suffixed(first_dst, index)
+        if len((os.path.basename(dst) + MANUAL_SIDECAR_SUFFIX).encode("utf-8")) > MANUAL_NAME_MAX_BYTES:
+            raise ValueError("manual routed filename exceeds destination NAME_MAX")
+        if os.path.lexists(dst):
+            if _existing_manual_route_complete(dst, sidecar, subject, intent, intent_sha, pool):
+                break
+            index += 1
+            continue
+        sidecar_path = dst + ".source.json"
+        if os.path.lexists(sidecar_path):
+            if not _manual_sidecar_binds(sidecar_path, sidecar, subject, intent, intent_sha):
+                index += 1
+                continue
+        else:
+            try:
+                _write_json_safe(sidecar_path, sidecar, pool)
+            except FileExistsError:
+                if not _manual_sidecar_binds(sidecar_path, sidecar, subject, intent, intent_sha):
+                    index += 1
+                    continue
+        try:
+            _assert_directory_pin(envelope, envelope_pin, private=True)
+            if sha256_file(os.path.join(envelope, MANUAL_PAYLOAD_NAME)) != digest:
+                raise ValueError("manual request changed before publication")
+            copy_contents(snapshot, dst, pool, expected_sha256=digest)
+        except FileExistsError:
+            continue
+        if not _manual_sidecar_binds(sidecar_path, sidecar, subject, intent, intent_sha):
+            raise ValueError("manual payload has no exact provenance sidecar")
+        break
+
+    hints = [_rerun_hint(stype, subject)]
+    _append_json_line_safe(
+        ledger_path, {**sidecar, "ts": int(time.time()), "suggested_reruns": hints}, inbox,
+    )
+    routed_path = "data/" + os.path.relpath(dst, pool).replace(os.sep, "/")
+    sidecar_digest = sha256_file(dst + ".source.json")
+    result = _manual_result(
+        intent, intent_sha, key, "routed_provenance_verified",
+        routed_path=routed_path, sidecar_sha256=sidecar_digest,
+    )
+    _archive_manual_request(envelope, inbox, intent, intent_raw, intent_sha, result)
+    return ("routed", intent["request_id"], routed_path)
+
+
+def process_manual_requests(
+        inbox, pool, ep, key_path, ledger_path, request_id=None, dry_run=False,
+        manual_authority=None):
+    lane = os.path.join(inbox, MANUAL_REQUEST_DIR)
+    if not os.path.isdir(lane) or _safe_beneath(inbox, lane) is None:
+        return []
+    key = _manual_key(key_path)
+    if key is None:
+        return [("ignored", request_id or "manual requests", "trusted intent key unavailable")]
+    if request_id is not None and not MANUAL_REQUEST_ID.fullmatch(request_id):
+        return [("ignored", request_id, "bad request id")]
+    names = [request_id] if request_id else sorted(os.listdir(lane))
+    outcomes = []
+    for name in names:
+        if not MANUAL_REQUEST_ID.fullmatch(name):
+            continue
+        envelope = os.path.join(lane, name)
+        try:
+            info = os.lstat(envelope)
+        except OSError:
+            continue
+        if (not stat.S_ISDIR(info.st_mode) or stat.S_ISLNK(info.st_mode)
+                or _safe_beneath(inbox, envelope) is None):
+            outcomes.append(("ignored", name, "unsafe request envelope"))
+            continue
+        try:
+            outcomes.append(_process_manual_request(
+                envelope, inbox, pool, ep, key, ledger_path, dry_run=dry_run,
+                manual_authority=manual_authority,
+            ))
+        except Exception as exc:
+            # An infrastructure/read/copy exception is not evidence that the signed request is bad.
+            # Leave its exact payload+intent pair committed so the next HTTP nudge/timer pass can retry.
+            outcomes.append(("retrying", name, f"temporary routing interruption ({type(exc).__name__})"))
+    return outcomes
+
+
+# ---------- singleton lock (LOCAL disk — O_EXCL on the FUSE mount is unreliable) ----------
+
+def acquire_lock(lock_path=None):
+    """Retained kernel singleton lease; never fail open or steal from a live process."""
+    lock = lock_path or os.path.join(tempfile.gettempdir(), "nostra-external-ingest.lock")
+    fd = None
+    try:
+        fd = os.open(lock, os.O_RDWR | os.O_CREAT | getattr(os, "O_NOFOLLOW", 0), 0o600)
+        opened = os.fstat(fd)
+        named = os.lstat(lock)
+        if (not stat.S_ISREG(opened.st_mode) or stat.S_ISLNK(named.st_mode)
+                or opened.st_uid != os.getuid() or opened.st_nlink != 1
+                or opened.st_mode & 0o077
+                or (opened.st_dev, opened.st_ino) != (named.st_dev, named.st_ino)):
+            os.close(fd)
+            return None
+        fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        os.ftruncate(fd, 0)
+        os.write(fd, (str(os.getpid()) + "\n").encode("ascii"))
+        os.fsync(fd)
+        return fd, lock, (opened.st_dev, opened.st_ino)
+    except (OSError, ValueError):
+        if fd is not None:
+            try:
+                os.close(fd)
+            except OSError:
+                pass
+        return None
+
+
+def release_lock(lease):
+    if lease is None:
+        return
+    fd, _lock, _identity = lease
+    # Keep the private lock inode persistent. Closing the retained descriptor atomically releases flock;
+    # unlinking before close would briefly allow a second process to lock a newly-created pathname inode.
+    try:
+        os.close(fd)
+    except OSError:
+        pass
 
 
 # ---------- main pass ----------
@@ -1064,7 +1954,9 @@ def _gold_sensitive_visual(base, forced, tickers, aliases):
     return any(ticker == "GOLD" for ticker, _score in match_tickers(base, "", tickers, aliases))
 
 
-def run(pool="data", dry_run=False, extractor=None):
+def run(
+        pool="data", dry_run=False, extractor=None, manual_request=None, intent_key_path=None,
+        manual_authority=None):
     ep = extractor or _load_extract_pool()
     pool = os.path.realpath(os.path.abspath(pool))
     inbox = os.path.join(pool, INBOX_NAME)
@@ -1080,6 +1972,19 @@ def run(pool="data", dry_run=False, extractor=None):
         raise RuntimeError("external inbox control file contains a symlinked component")
     if not os.path.exists(readme) and not dry_run:
         open(readme, "w", encoding="utf-8").write(README_TEXT)
+
+    manual = process_manual_requests(
+        inbox, pool, ep, intent_key_path or _default_manual_key_path(), ledger_path,
+        request_id=manual_request, dry_run=dry_run, manual_authority=manual_authority,
+    )
+    # The HTTP nudge names one committed envelope and must stay bounded. It uses this exact router and
+    # singleton lock, but does not make a freshly-uploaded user wait behind every unrelated loose inbox
+    # file. The ten-minute timer calls without --manual-request and continues through the ordinary lane.
+    if manual_request is not None:
+        tag = "[ingest_external]" + (" (dry-run)" if dry_run else "")
+        for status, request, detail in manual:
+            print(f"{tag} manual {status}: {request} — {detail}")
+        return {"routed": [], "unrouted": [], "skipped": [], "manual": manual}
 
     seen = load_ledger(ledger_path)
     tickers = pool_tickers(pool)
@@ -1244,8 +2149,10 @@ def run(pool="data", dry_run=False, extractor=None):
         print(f"{tag} UNROUTED: {base} — {why}")
     for base, why in skipped:
         print(f"{tag} skipped: {base} — {why}")
-    print(f"{tag} done: {len(routed)} routed, {len(unrouted)} unrouted, {len(skipped)} skipped")
-    return {"routed": routed, "unrouted": unrouted, "skipped": skipped}
+    for status, request, detail in manual:
+        print(f"{tag} manual {status}: {request} — {detail}")
+    print(f"{tag} done: {len(routed)} routed, {len(unrouted)} unrouted, {len(skipped)} skipped, {len(manual)} manual")
+    return {"routed": routed, "unrouted": unrouted, "skipped": skipped, "manual": manual}
 
 
 def _safe_ls(path):
@@ -1261,18 +2168,17 @@ def main(argv):
     if "--pool" in argv:
         pool = argv[argv.index("--pool") + 1]
     dry = "--dry-run" in argv
-    lock = acquire_lock()
-    if lock is None:
+    manual_request = argv[argv.index("--manual-request") + 1] if "--manual-request" in argv else None
+    intent_key_path = argv[argv.index("--intent-key") + 1] if "--intent-key" in argv else None
+    lease = acquire_lock()
+    if lease is None:
         print("[ingest_external] another ingester is running — skipping this pass")
         return 0
     try:
-        run(pool, dry_run=dry)
+        run(pool, dry_run=dry, manual_request=manual_request, intent_key_path=intent_key_path)
         return 0
     finally:
-        try:
-            os.unlink(lock)
-        except Exception:
-            pass
+        release_lock(lease)
 
 
 if __name__ == "__main__":

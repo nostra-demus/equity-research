@@ -218,11 +218,12 @@ try {
     const seed = (kind: 'sweep' | 'handoff', subjectId: string, writeTargetsAbs: string[]) => {
       const r = createRun({
         kind, ticker: subjectId, model: 'sonnet', prompt: '', user: 'test', userVia: 'local',
+        subjectId, swarmId: 'screener', unit: 'signal',
         runRoot: kind === 'sweep' ? 'screener/inbox' : 'screener/ledger', willCommitToMain: true,
         writeTargetsAbs, coveredModules: [], readDepsAbs: [], closeWatcher: undefined, expected: new Map(),
       })
       r.status = 'running'
-      setActiveSubjectRun(r.runId, subjectId)
+      setActiveSubjectRun(r.runId, subjectId, 'screener')
       return r
     }
     const sweep = seed('sweep', 'sweep', [path.join(REPO_ROOT, 'screener/inbox/2099-01-01_sweep.json'), boardAbs])

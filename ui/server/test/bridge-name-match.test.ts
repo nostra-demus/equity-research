@@ -7,7 +7,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { autoBridgeItem, matchTrackedSubjects, normaliseCompanyName, renderEventNote } from '../src/research-bridge'
+import { autoBridgeItem, matchTrackedSubjects as guardedMatchTrackedSubjects, normaliseCompanyName, renderEventNote } from '../src/research-bridge'
 import { readSubjectNames, wireNameMatching } from '../src/bridge-batch'
 
 let passed = 0
@@ -29,6 +29,8 @@ mkRun('NHY_2026-07-19', 'Norsk Hydro ASA')
 
 const item = (companies: any[]) => ({ event_id: 'EVT-0123456789ab', companies } as any)
 const NAMES = readSubjectNames(['AMZN', 'NHY'], analysesDir)
+const matchTrackedSubjects = (wireItem: any, pool: string, names?: Record<string, string>) =>
+  guardedMatchTrackedSubjects(wireItem, pool, names, () => true)
 
 check('reads each subject\'s canonical name from its newest decision record', () => {
   assert.deepEqual(NAMES, { AMZN: 'Amazon.com, Inc.', NHY: 'Norsk Hydro ASA' })
@@ -190,9 +192,9 @@ check('the STREAM per-item path (autoBridgeItem) gets the same name fallback the
   process.env.SCREENER_RESEARCH_BRIDGE = '1'
   try {
     // without subjectNames: ticker-only, exactly as before — no alias, no match
-    assert.deepEqual(autoBridgeItem(materialItem, { dataDir: streamDataDir, stateDir: streamDataDir }), [])
+    assert.deepEqual(autoBridgeItem(materialItem, { dataDir: streamDataDir, stateDir: streamDataDir, canAutoWriteSubject: () => true }), [])
     // with subjectNames supplied (mirrors bridge-scheduler's getBridgeSubjectNames): the name fallback fires
-    const written = autoBridgeItem(materialItem, { dataDir: streamDataDir, stateDir: streamDataDir }, undefined, { AMZN: 'Amazon.com, Inc.' })
+    const written = autoBridgeItem(materialItem, { dataDir: streamDataDir, stateDir: streamDataDir, canAutoWriteSubject: () => true }, undefined, { AMZN: 'Amazon.com, Inc.' })
     assert.deepEqual(written, ['AMZN'])
     const note = fs.readFileSync(path.join(streamDataDir, 'AMZN', 'screener_event_EVT-abcdef012345.md'), 'utf8')
     assert.ok(note.includes('the wire extracted no ticker, but named this tracked subject\'s company exactly ("Amazon")'), note)

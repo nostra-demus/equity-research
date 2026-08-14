@@ -16,7 +16,10 @@ const srcRB = path.resolve(here, '..', 'src', 'research-bridge')
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'bridge-mode-'))
 process.on('exit', () => { try { fs.rmSync(tmp, { recursive: true, force: true }) } catch { /* best-effort */ } })
-const probe = path.join(tmp, 'probe.ts')
+// Keep the subprocess probe explicitly ESM. The ownership-aware research bridge now reaches
+// ESM-only dependencies (via intake ownership/data-needs); a `.ts` file under the OS temp
+// directory has no enclosing `type: module` package and tsx may otherwise compile it as CJS.
+const probe = path.join(tmp, 'probe.mts')
 fs.writeFileSync(probe, [
   `import { shouldAutoBridge } from ${JSON.stringify(srcRB)}`,
   `const it = { caution: false, source_tier: 'wire', relevance: 'material', triage_score: 80 } as any`,

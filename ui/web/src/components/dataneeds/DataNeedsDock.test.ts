@@ -2,9 +2,10 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import type { DataNeed } from '../../lib/types'
+import type { DataNeed, DataNeedsRead, DataNeedUploadRead, IntakePlan } from '../../lib/types'
+import { validDataNeedUploadRead } from '../../lib/api'
 
-const { DataNeedsPanel, NeedCard } = await import('./DataNeedsDockView')
+const { analysisForUpload, DataNeedsPanel, latestUploadStatus, NeedCard } = await import('./DataNeedsDockView')
 
 const v2Need: DataNeed = {
   need_id: 'unit-growth',
@@ -40,6 +41,23 @@ function check(name: string, fn: () => void) {
 
 const renderNeed = (need: DataNeed, search?: { status: 'searching' } | { status: 'error'; message: string }) =>
   renderToStaticMarkup(createElement(NeedCard, { need, index: 0, search, onSearch: () => {} }))
+
+const hashA = 'a'.repeat(64)
+const hashB = 'b'.repeat(64)
+const selectedRead: DataNeedsRead = {
+  contract_version: 'data-needs-read/2', subject: 'TEST', swarm: 'research',
+  run_root: 'analyses/TEST/2026-08-13', decision_fingerprint: `sha256:${'c'.repeat(64)}`,
+  decided_at: '2026-08-13T09:00:00.000Z', needs: [v2Need], widened: [], data_needs_schema_version: '2.0',
+}
+const uploadRead = (status: DataNeedUploadRead['status'], item: Partial<DataNeedUploadRead['items'][number]> = {}): DataNeedUploadRead => ({
+  contract_version: 'data-need-upload/1', subject: selectedRead.subject, swarm: selectedRead.swarm,
+  run_root: selectedRead.run_root, decision_fingerprint: selectedRead.decision_fingerprint,
+  need_id: v2Need.need_id, series: v2Need.series, status,
+  items: status === 'none' ? [] : [{
+    request_id: `DNU-${'d'.repeat(32)}`, filename: 'evidence.csv', sha256: hashA,
+    staged_at: '2026-08-13T10:00:00.000Z', ...item,
+  }],
+})
 
 check('v2 card leads with priority, exact orb, two-sided impact, and a public-link result', () => {
   const html = renderNeed(v2Need)
@@ -115,9 +133,133 @@ check('legacy v1 needs remain useful without a promised cap-lift', () => {
 })
 
 check('filing-only needs do not offer connector discovery', () => {
-  const html = renderNeed({ ...v2Need, filing_required: true, source_lookup: undefined })
+  const html = renderToStaticMarkup(createElement(NeedCard, {
+    need: { ...v2Need, filing_required: true, source_lookup: undefined }, index: 0,
+    canUploadFiling: true, onSearch: () => {}, onUploadFiling: () => {},
+  }))
   assert.match(html, /Statutory filing required/)
+  assert.match(html, />Add filing</)
+  assert.match(html, /normal company-document lane/)
   assert.doesNotMatch(html, /Add the filing as a source|Find public source|Search again|Try again/)
+  assert.doesNotMatch(html, />Upload data</)
+})
+
+check('a staged file says only Uploaded and waits for secure routing', () => {
+  const html = renderToStaticMarkup(createElement(NeedCard, {
+    need: v2Need, index: 0, onSearch: () => {},
+    upload: { read: uploadRead('staged_waiting'), latestStatus: 'staged_waiting' },
+  }))
+  assert.match(html, /Uploaded · waiting for secure routing/)
+  assert.doesNotMatch(html, /Routed ✓|Read ✓|considered|resolved/i)
+})
+
+check('a provenance-verified route offers an explicit read and never an automatic rerun', () => {
+  const html = renderToStaticMarkup(createElement(NeedCard, {
+    need: v2Need, index: 0, onSearch: () => {},
+    upload: { read: uploadRead('routed_provenance_verified', { routed_path: 'data/TEST/external/example/evidence.csv' }), latestStatus: 'routed_provenance_verified' },
+  }))
+  assert.match(html, /Uploaded ✓ · Routed with provenance ✓/)
+  assert.match(html, />Read this data</)
+  assert.match(html, /Nothing reruns automatically/)
+  assert.doesNotMatch(html, /Read ✓|considered|resolved/i)
+})
+
+check('a policy-rejected file is not mislabeled as tampered or usable evidence', () => {
+  const rejected = uploadRead('rejected_policy', { reason: 'policy_rejected' })
+  const html = renderToStaticMarkup(createElement(NeedCard, {
+    need: v2Need, index: 0, onSearch: () => {},
+    upload: { read: rejected, latestStatus: latestUploadStatus(rejected) },
+  }))
+  assert.equal(latestUploadStatus(rejected), 'rejected_policy')
+  assert.match(html, /Not allowed as runtime evidence\./)
+  assert.doesNotMatch(html, /integrity check|Routed ✓|Read this data|considered|resolved/i)
+})
+
+check('a bytes-matched read shows only actual intake orbs and its exact normal rerun review', () => {
+  const command = {
+    command: '/research:rerun TEST demand actual-reader', module: 'demand', agent: 'actual-reader',
+    cascade_modules: ['demand'], triggered_by: ['data/TEST/external/example/evidence.csv'],
+  }
+  const html = renderToStaticMarkup(createElement(NeedCard, {
+    need: v2Need, index: 0, onSearch: () => {},
+    upload: {
+      read: uploadRead('routed_provenance_verified', { routed_path: 'data/TEST/external/example/evidence.csv' }),
+      latestStatus: 'routed_provenance_verified', readMatched: true,
+      analyzedOrbs: [{ module: 'demand', agent: 'actual-reader', why: 'The uploaded bytes map here', confidence: 0.9 }],
+      rerunCommands: [command],
+    },
+  }))
+  assert.match(html, /Uploaded ✓ · Routed ✓ · Read ✓/)
+  assert.match(html, /demand · actual-reader/)
+  assert.match(html, /Review rerun · demand \/ actual-reader/)
+  assert.doesNotMatch(html, /considered|resolved|conviction lift/i)
+})
+
+check('a bytes-matched note-only read clearly recommends no rerun', () => {
+  const html = renderToStaticMarkup(createElement(NeedCard, {
+    need: v2Need, index: 0, onSearch: () => {},
+    upload: {
+      read: uploadRead('routed_provenance_verified', { routed_path: 'data/TEST/external/example/evidence.csv' }),
+      latestStatus: 'routed_provenance_verified', readMatched: true, analyzedOrbs: [], rerunCommands: [], readVerdict: 'note_only',
+    },
+  }))
+  assert.match(html, /Uploaded ✓ · Routed ✓ · Read ✓/)
+  assert.match(html, /does not justify a rerun/)
+  assert.doesNotMatch(html, /Review rerun|considered|resolved/i)
+})
+
+check('newest append-only request owns the visible status', () => {
+  const read = uploadRead('routed_provenance_verified', { routed_path: 'data/TEST/external/example/old.csv' })
+  read.items.push({
+    request_id: `DNU-${'e'.repeat(32)}`, filename: 'new.csv', sha256: hashB,
+    staged_at: '2026-08-13T11:00:00.000Z',
+  })
+  assert.equal(latestUploadStatus(read), 'staged_waiting')
+})
+
+check('a newer policy rejection owns an older successful route without becoming tamper', () => {
+  const read = uploadRead('rejected_policy', { routed_path: 'data/TEST/external/example/old.csv' })
+  read.items.push({
+    request_id: `DNU-${'e'.repeat(32)}`, filename: 'forbidden.pdf', sha256: hashB,
+    staged_at: '2026-08-13T11:00:00.000Z', reason: 'policy_rejected',
+  })
+  assert.equal(latestUploadStatus(read), 'rejected_policy')
+  assert.equal(validDataNeedUploadRead(read, selectedRead, v2Need.need_id, v2Need.series), true)
+})
+
+check('the upload wire fails closed when policy status and reason disagree', () => {
+  const wrongStatus = uploadRead('failed_tampered', { reason: 'policy_rejected' })
+  const wrongReason = uploadRead('rejected_policy', { reason: 'routing_failed' })
+  assert.equal(validDataNeedUploadRead(wrongStatus, selectedRead, v2Need.need_id, v2Need.series), false)
+  assert.equal(validDataNeedUploadRead(wrongReason, selectedRead, v2Need.need_id, v2Need.series), false)
+})
+
+check('actual rerun authority requires the exact selected intake and uploaded bytes', () => {
+  const routed = uploadRead('routed_provenance_verified', { routed_path: 'data/TEST/external/example/evidence.csv' })
+  const plan: IntakePlan = {
+    schema_version: '1.0', swarm: 'research', subject: 'TEST', ticker: 'TEST', run_root: selectedRead.run_root,
+    decision_fingerprint: selectedRead.decision_fingerprint,
+    scan_date: '2026-08-13', new_docs: [{
+      path: 'data/TEST/external/example/evidence.csv', sha256: hashA, claims_summary: 'New evidence',
+      materiality_score: 80, impact_direction: 'mixed',
+      entry_orbs: [{ module: 'risk', agent: 'actual-reader', why: 'Actual file content', confidence: 0.9 }],
+    }],
+    rerun_plan: {
+      materiality_gate: 60, entry_orbs: [{ module: 'risk', agent: 'actual-reader' }],
+      commands: [{ command: '/research:rerun TEST risk actual-reader', module: 'risk', agent: 'actual-reader', cascade_modules: ['risk'], triggered_by: ['data/TEST/external/example/evidence.csv'] }],
+      note_only: [],
+    },
+    verdict: 'scoped_rerun', summary: 'One actual route', analyzed_at: '2026-08-13T11:10:00.000Z', widened: [],
+  }
+  const matched = analysisForUpload(routed, plan, selectedRead)
+  assert.equal(matched.readMatched, true)
+  assert.deepEqual(matched.analyzedOrbs?.map((orb) => `${orb.module}/${orb.agent}`), ['risk/actual-reader'])
+  assert.deepEqual(matched.rerunCommands?.map((command) => command.agent), ['actual-reader'])
+
+  const wrongBytes = { ...plan, new_docs: [{ ...plan.new_docs[0], sha256: hashB }] }
+  assert.deepEqual(analysisForUpload(routed, wrongBytes, selectedRead), {})
+  assert.deepEqual(analysisForUpload(routed, { ...plan, run_root: 'analyses/TEST/old' }, selectedRead), {})
+  assert.deepEqual(analysisForUpload(routed, { ...plan, decision_fingerprint: `sha256:${hashB}` }, selectedRead), {})
 })
 
 check('a built need does not search for a duplicate source or claim its connector is a public page', () => {
