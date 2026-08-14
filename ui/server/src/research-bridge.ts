@@ -378,14 +378,16 @@ export function bridgeEventToSubject(o: {
   // support POSIX hard links — every note would fail with EPERM/ENOTSUP in production, silently disabling
   // routing entirely (Codex #359 P1). 'wx' (O_CREAT|O_EXCL) is the same portable exclusive-create the
   // repo's own singleton-lock.ts already relies on: it throws EEXIST if `fp` now exists, so the loser here
-  // reports `already: true` instead of overwriting the winner's note, and it works the same on a
-  // Drive/FUSE mount as on local disk — no hard link, no temp file, no cross-device rename involved.
+  // preserves the winner instead of overwriting it, and it works the same on a Drive/FUSE mount as on
+  // local disk — no hard link, no temp file, no cross-device rename involved. The losing delivery is
+  // still reported as fresh so its downstream intake notification cannot be lost if the winner dies
+  // after writing the note but before notifying intake; the durable subject lease deduplicates work.
   let fd: number
   try {
     fd = fs.openSync(fp, 'wx')
   } catch (e: any) {
     if (e?.code === 'EEXIST') {
-      if (validRoutedNote(fp, dir, seg, o.item.event_id)) return { path: rel, already: true }
+      if (validRoutedNote(fp, dir, seg, o.item.event_id)) return { path: rel, already: false }
       const stat = fs.lstatSync(fp)
       if (stat.isSymbolicLink() || !stat.isFile()) throw new Error('saved company-news note is unsafe')
       repairRoutedNote(fp, md)

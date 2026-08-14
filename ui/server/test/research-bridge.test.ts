@@ -128,7 +128,7 @@ async function main() {
     assert.match(fs.readFileSync(abs, 'utf8'), /Event id: EVT-bbbbbbbbbbbb/)
   })
 
-  await check('a racing complete writer is never lost; any uncertainty is safely re-queued for analysis', () => {
+  await check('a racing complete writer is preserved and safely re-queued for analysis', () => {
     // Simulate the exact race the fix targets: another process (a stream-mode delivery, a second engine
     // sharing this pool) creates the destination note AFTER our own existence/dedup checks pass but
     // BEFORE our own write lands — a window a single synchronous test cannot literally race into, so
@@ -143,20 +143,57 @@ async function main() {
     const origOpen = fs.openSync
     ;(fs as any).openSync = (p: string, flags: string) => {
       if (flags === 'wx' && p === abs) {
+        // Restore the real primitive before the caller validates the concurrent winner. Leaving the
+        // monkeypatch installed changes readFileSync internals on some Node/platform combinations.
+        fs.openSync = origOpen
         const winnerFd = origOpen(p, 'wx')
         try { fs.writeFileSync(winnerFd, winner); fs.fsyncSync(winnerFd) } finally { fs.closeSync(winnerFd) }
+        const saved = fs.readFileSync(abs, 'utf8')
+        assert.ok(fs.lstatSync(abs).size >= 200)
+        assert.equal(path.dirname(fs.realpathSync(abs)), fs.realpathSync(path.dirname(abs)))
+        assert.match(saved, /CLAUDE\.md §4 tier 10/)
+        assert.match(saved, /Event id: EVT-aaaaaaaaaaaa/)
+        assert.match(saved, /Routed to AMZN:/)
+        assert.match(saved, /## Headline \(verbatim\)/)
+        assert.match(saved, /\(EVT-aaaaaaaaaaaa, indicative, unverified\)/)
         throw Object.assign(new Error('EEXIST'), { code: 'EEXIST' })
       }
       return origOpen(p, flags as any)
     }
     try {
       const r = bridgeEventToSubject({ item, ticker: 'AMZN', mode: 'auto', user: 'auto', userVia: 'local', opts })
-      assert.equal(r.already, false, 'an uncertain race is treated as fresh, so follow-up analysis cannot be skipped')
+      assert.equal(r.already, false, 'the losing delivery still notifies intake if the winner dies before doing so')
     } finally {
       fs.openSync = origOpen
     }
     assert.equal(fs.readFileSync(abs, 'utf8'), winner, 'the winner\'s complete note is preserved')
     // no stray temp files left behind by the aborted attempt (the exclusive-create rewrite has no temp file at all)
+    assert.deepEqual(fs.readdirSync(path.join(dataDir, 'AMZN')).filter((f) => f.includes('.tmp.')), [])
+  })
+
+  await check('an incomplete racing writer is repaired and safely re-queued for analysis', () => {
+    const item = fixtureItem({ event_id: 'EVT-cccccccccccc' })
+    const abs = path.join(dataDir, 'AMZN', 'screener_event_EVT-cccccccccccc.md')
+    assert.ok(!fs.existsSync(abs), 'precondition: the destination does not exist before the race')
+    const origOpen = fs.openSync
+    ;(fs as any).openSync = (p: string, flags: string, mode?: number) => {
+      if (flags === 'wx' && p === abs) {
+        fs.openSync = origOpen
+        const winnerFd = origOpen(p, 'wx')
+        try { fs.writeFileSync(winnerFd, '# partial\n'); fs.fsyncSync(winnerFd) } finally { fs.closeSync(winnerFd) }
+        throw Object.assign(new Error('EEXIST'), { code: 'EEXIST' })
+      }
+      return origOpen(p, flags as any, mode)
+    }
+    try {
+      const r = bridgeEventToSubject({ item, ticker: 'AMZN', mode: 'auto', user: 'auto', userVia: 'local', opts })
+      assert.equal(r.already, false, 'a partial winner is repaired and remains fresh work for automatic intake')
+    } finally {
+      fs.openSync = origOpen
+    }
+    const repaired = fs.readFileSync(abs, 'utf8')
+    assert.match(repaired, /Event id: EVT-cccccccccccc/)
+    assert.match(repaired, /## Headline \(verbatim\)/)
     assert.deepEqual(fs.readdirSync(path.join(dataDir, 'AMZN')).filter((f) => f.includes('.tmp.')), [])
   })
 
