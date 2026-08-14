@@ -100,6 +100,71 @@ export interface SurfacedIdea {
   promoted_signal_id: string | null
 }
 
+/** Durable audit copy written before an expired, unpromoted snapshot leaves the live store. */
+export interface ArchivedIdeaSnapshot {
+  schema_version: 'idea-archive/v1'
+  archived_at: string
+  archive_reason: 'expired_pruned'
+  snapshot: SurfacedIdea
+}
+
+/** Evidence-honest recovery row from a committed historical board. It is never a live SurfacedIdea. */
+export interface ImportedIdeaArchive {
+  schema_version: 'idea-board-recovery/v1'
+  recovered_at: string
+  recovery_reason: 'latest_board_current' | 'historical_board_expired'
+  provenance: {
+    source_path: 'screener/board/index.json'
+    source_commit: string
+    board_generated_at: string
+    source_row_sha256: string
+  }
+  board_row: Record<string, unknown>
+}
+
+interface SuppressedIdeaArchive {
+  schema_version: 'idea-archive-suppression/v1'
+  idea_id: string
+  idea_version: string
+  idea_version_started_at: string
+  direction: IdeaDirection
+  pair_with: string | null
+  suppressed_at: string
+  suppression_reason: 'withdrawn_unadmitted'
+}
+
+export type IdeaArchiveStoreStatus = 'missing' | 'ok' | 'degraded' | 'unreadable'
+export interface IdeaArchiveStoreRead {
+  snapshots: ArchivedIdeaSnapshot[]
+  imports: ImportedIdeaArchive[]
+  /** Internal recovery-current barriers; never projected as public archive rows. */
+  lifecycle_barriers: { idea_id: string; idea_version_started_at: string | null }[]
+  status: IdeaArchiveStoreStatus
+  file_count: number
+  suppression_count: number
+  corrupt_count: number
+  invalid_count: number
+  error: string | null
+  retention: IdeaArchiveRetention
+}
+
+export interface IdeaArchiveRetention {
+  truncated: boolean
+  evicted_count: number
+  oldest_retained_at: string | null
+  side_counts: {
+    long: { evicted_count: number; oldest_retained_at: string | null }
+    short: { evicted_count: number; oldest_retained_at: string | null }
+  }
+}
+
+interface IdeaArchiveRetentionFile {
+  schema_version: 'idea-archive-retention/v1'
+  evicted_count: number
+  side_counts: { long: { evicted_count: number }; short: { evicted_count: number } }
+  pending_evictions: string[]
+}
+
 export interface PriorCoverage {
   has_run: boolean // a finished analyses/<TICKER>_* run exists
   latest_run: string | null // repo-relative path of the newest run folder
@@ -137,6 +202,16 @@ export interface TopSweepFreshnessOptions {
 
 function ideasDir(repoRoot: string): string { return path.join(repoRoot, 'screener', 'ledger', 'ideas') }
 function ideasLog(repoRoot: string): string { return path.join(repoRoot, 'screener', 'ledger', 'ideas.ndjson') }
+function ideasArchiveDir(repoRoot: string): string { return path.join(repoRoot, 'screener', 'ledger', 'ideas_archive') }
+/** One stable file per id, retaining each side independently so a short-heavy feed cannot erase LONG audit history. */
+export const IDEA_ARCHIVE_STORAGE_LIMIT_PER_SIDE = 250
+const IDEA_ARCHIVE_MAX_OCCURRENCES_READ = IDEA_ARCHIVE_STORAGE_LIMIT_PER_SIDE * 2 + 100
+const IDEA_ARCHIVE_MAX_FILES_READ = IDEA_ARCHIVE_MAX_OCCURRENCES_READ * 3
+const IDEA_ARCHIVE_MAX_DIRECTORY_ENTRIES_READ = IDEA_ARCHIVE_MAX_FILES_READ + 64
+type IdeaArchiveFileKind = 'expired' | 'imported' | 'withdrawn'
+const IDEA_ARCHIVE_FILE_RE = /^(IDEA-[a-f0-9]{12})--(IDEAV-[a-f0-9]{16})--([a-f0-9]{64})--(long|short|pair)--(expired|imported|withdrawn)\.json$/
+const IDEA_ARCHIVE_RETENTION_FILE = 'retention.json'
+const IDEA_ARCHIVE_RETENTION_REQUIRED_FILE = '.retention-required'
 const IDEA_PROMOTION_STALE_MS = 30 * 60_000
 const IDEA_LOCK_WAIT_MS = 2_000
 const IDEA_LOCK_POLL_MS = 10
@@ -2007,7 +2082,11 @@ export function readIdeaSnapshotStore(repoRoot: string): IdeaSnapshotStoreRead {
     try {
       const o = JSON.parse(fs.readFileSync(path.join(dir, n), 'utf8'))
       const expectedIdeaId = n.slice(0, -'.json'.length)
-      if (isSurfacedIdeaSnapshot(o, expectedIdeaId)) out.push(o)
+      if (isSurfacedIdeaSnapshot(o, expectedIdeaId)) {
+        // A withdrawn occurrence becomes non-current as soon as its durable tombstone lands. This keeps
+        // an unlink/fsync fault from leaving that exact Theme version visible or promotable.
+        if (!ideaArchiveOccurrenceBlocksLive(repoRoot, o)) out.push(o)
+      }
       else invalid++
     } catch { corrupt++ }
   }
@@ -2026,6 +2105,561 @@ export function readIdeaSnapshots(repoRoot: string): SurfacedIdea[] {
   return readIdeaSnapshotStore(repoRoot).snapshots
 }
 
+export function isArchivedIdeaSnapshot(value: unknown, expectedIdeaId?: string): value is ArchivedIdeaSnapshot {
+  if (!record(value) || value.schema_version !== 'idea-archive/v1'
+    || value.archive_reason !== 'expired_pruned' || !record(value.snapshot)) return false
+  if (!Number.isFinite(parseRfc3339Ms(value.archived_at))) return false
+  if (!isSurfacedIdeaSnapshot(value.snapshot, expectedIdeaId)) return false
+  const archivedAt = parseRfc3339Ms(value.archived_at)
+  const decayAt = parseRfc3339Ms(value.snapshot.decay_at)
+  // Only expired, unpromoted leads belong here. Promotions retain their live lifecycle snapshot.
+  return value.snapshot.status === 'live' && value.snapshot.promoted_signal_id === null && decayAt <= archivedAt
+}
+
+function isSuppressedIdeaArchive(value: unknown, expectedIdeaId: string): value is SuppressedIdeaArchive {
+  if (!record(value) || value.schema_version !== 'idea-archive-suppression/v1'
+    || value.idea_id !== expectedIdeaId || value.suppression_reason !== 'withdrawn_unadmitted'
+    || !exactString(value.idea_version, 22) || !IDEA_VERSION_RE.test(value.idea_version)
+    || !Number.isFinite(parseRfc3339Ms(value.idea_version_started_at))
+    || !DIRECTIONS.has(value.direction as IdeaDirection)
+    || !Number.isFinite(parseRfc3339Ms(value.suppressed_at))) return false
+  return value.direction === 'pair'
+    ? typeof value.pair_with === 'string' && cleanTicker(value.pair_with) === value.pair_with
+    : value.pair_with === null
+}
+
+function exactObjectKeys(value: Record<string, unknown>, keys: string[]): boolean {
+  const actual = Object.keys(value).sort()
+  return actual.length === keys.length && actual.every((key, index) => key === [...keys].sort()[index])
+}
+
+export function isImportedIdeaArchive(value: unknown, expectedIdeaId?: string): value is ImportedIdeaArchive {
+  if (!record(value) || !exactObjectKeys(value, ['schema_version', 'recovered_at', 'recovery_reason', 'provenance', 'board_row'])
+    || value.schema_version !== 'idea-board-recovery/v1'
+    || (value.recovery_reason !== 'latest_board_current' && value.recovery_reason !== 'historical_board_expired')
+    || !record(value.provenance) || !exactObjectKeys(value.provenance, ['source_path', 'source_commit', 'board_generated_at', 'source_row_sha256'])
+    || value.provenance.source_path !== 'screener/board/index.json'
+    || !/^(?:[a-f0-9]{40}|[a-f0-9]{64})$/.test(String(value.provenance.source_commit))
+    || !/^[a-f0-9]{64}$/.test(String(value.provenance.source_row_sha256))
+    || !Number.isFinite(parseRfc3339Ms(value.recovered_at)) || !record(value.board_row)) return false
+  const row = value.board_row
+  if (createHash('sha256').update(canonicalJsonText(row)).digest('hex') !== value.provenance.source_row_sha256
+    || !/^IDEA-[a-f0-9]{12}$/.test(String(row.idea_id)) || (expectedIdeaId && row.idea_id !== expectedIdeaId)
+    || !IDEA_VERSION_RE.test(String(row.idea_version)) || !Number.isFinite(parseRfc3339Ms(row.idea_version_started_at))
+    || !DIRECTIONS.has(row.direction as IdeaDirection) || typeof row.ticker !== 'string' || !cleanTicker(row.ticker)
+    || (row.direction === 'pair' ? typeof row.pair_with !== 'string' || !cleanTicker(row.pair_with) : row.pair_with !== null)
+    || row.status !== 'live' || row.promoted_signal_id !== null
+    || ![row.decay_at, row.newest_source_at, row.surfaced_at, row.updated_at].every((clock) => Number.isFinite(parseRfc3339Ms(clock)))
+    || typeof row.reason !== 'string' || typeof row.why_now !== 'string'
+    || typeof row.company !== 'string' && row.company !== null || typeof row.exchange !== 'string' && row.exchange !== null
+    || !Array.isArray(row.source_event_ids) || !row.source_event_ids.every((item) => exactString(item, 256))
+    || !Array.isArray(row.source_headlines) || !row.source_headlines.every((item) => exactString(item, 500))
+    || typeof row.source_url !== 'string' && row.source_url !== null || typeof row.source_name !== 'string' && row.source_name !== null
+    || !Number.isFinite(Number(row.conviction)) || !Number.isFinite(Number(row.trade_score)) || !Number.isFinite(Number(row.materiality_max))
+    || typeof row.thesis_type !== 'string') return false
+  const legacyWire = row.origin_type === undefined && row.source_themes === undefined
+  const explicitWire = row.origin_type === 'wire' && Array.isArray(row.source_themes) && row.source_themes.length === 0
+  if (!legacyWire && !explicitWire) return false
+  const expiredAtBoard = parseRfc3339Ms(row.decay_at) <= parseRfc3339Ms(value.provenance.board_generated_at)
+  return value.recovery_reason === 'historical_board_expired'
+    ? row.stale === true && expiredAtBoard
+    : row.stale === false && !expiredAtBoard
+}
+
+type ManagedArchiveNames = {
+  names: string[]
+  status: 'missing' | 'ok' | 'unreadable' | 'overflow'
+}
+
+/**
+ * Enumerate at most the supported number of managed siblings plus one overflow sentinel. Directory
+ * damage must not turn either reads or writes into O(unbounded-files) work.
+ */
+function boundedManagedArchiveNames(repoRoot: string): ManagedArchiveNames {
+  const dir = ideasArchiveDir(repoRoot)
+  let handle: fs.Dir
+  try { handle = fs.opendirSync(dir) }
+  catch (error: any) {
+    return { names: [], status: error?.code === 'ENOENT' ? 'missing' : 'unreadable' }
+  }
+  const names: string[] = []
+  let entriesRead = 0
+  try {
+    let entry: fs.Dirent | null
+    while ((entry = handle.readSync()) !== null) {
+      entriesRead++
+      if (entriesRead > IDEA_ARCHIVE_MAX_DIRECTORY_ENTRIES_READ) return { names: [], status: 'overflow' }
+      if (!entry.isFile() || !IDEA_ARCHIVE_FILE_RE.test(entry.name)) continue
+      names.push(entry.name)
+      if (names.length > IDEA_ARCHIVE_MAX_FILES_READ) return { names: [], status: 'overflow' }
+    }
+    return { names, status: 'ok' }
+  } catch {
+    return { names: [], status: 'unreadable' }
+  } finally {
+    try { handle.closeSync() } catch { /* read status is already fail-closed */ }
+  }
+}
+
+function archiveOccurrenceHash(value: string): string {
+  return createHash('sha256').update(value).digest('hex')
+}
+
+function archiveFilename(ideaId: string, ideaVersion: string, versionStartedAt: string, direction: IdeaDirection, kind: IdeaArchiveFileKind): string {
+  return `${ideaId}--${ideaVersion}--${archiveOccurrenceHash(versionStartedAt)}--${direction}--${kind}.json`
+}
+
+function archiveFilenameParts(name: string): { ideaId: string; ideaVersion: string; occurrenceHash: string; direction: IdeaDirection; kind: IdeaArchiveFileKind } | null {
+  const match = IDEA_ARCHIVE_FILE_RE.exec(name)
+  if (!match) return null
+  return { ideaId: match[1], ideaVersion: match[2], occurrenceHash: match[3], direction: match[4] as IdeaDirection, kind: match[5] as IdeaArchiveFileKind }
+}
+
+function archiveOccurrenceKey(parts: { ideaId: string; ideaVersion: string; occurrenceHash: string; direction: IdeaDirection }): string {
+  return `${parts.ideaId}|${parts.ideaVersion}|${parts.occurrenceHash}|${parts.direction}`
+}
+
+function fsyncDirectory(dir: string): void {
+  // Directory fsync is POSIX-only durability (makes a rename/link into `dir` crash-safe). Windows has no
+  // directory file descriptors: fs.openSync(dir, 'r') raises EPERM there, and fs.fsyncSync on a directory
+  // handle is unsupported. Skip rather than crash the publish/mutation path on that platform.
+  if (process.platform === 'win32') return
+  const fd = fs.openSync(dir, 'r')
+  try { fs.fsyncSync(fd) } finally { fs.closeSync(fd) }
+}
+
+type IdeaArchiveRetentionRead = { value: IdeaArchiveRetentionFile; status: 'missing' | 'ok' | 'invalid' }
+function readIdeaArchiveRetentionFile(repoRoot: string): IdeaArchiveRetentionRead {
+  const empty: IdeaArchiveRetentionFile = {
+    schema_version: 'idea-archive-retention/v1', evicted_count: 0,
+    side_counts: { long: { evicted_count: 0 }, short: { evicted_count: 0 } },
+    pending_evictions: [],
+  }
+  try {
+    const value = JSON.parse(fs.readFileSync(path.join(ideasArchiveDir(repoRoot), IDEA_ARCHIVE_RETENTION_FILE), 'utf8'))
+    const counts = [value?.evicted_count, value?.side_counts?.long?.evicted_count, value?.side_counts?.short?.evicted_count]
+    const valid = value?.schema_version === 'idea-archive-retention/v1'
+      && counts.every((count) => Number.isInteger(count) && count >= 0)
+      && Array.isArray(value.pending_evictions)
+      && value.pending_evictions.length <= IDEA_ARCHIVE_MAX_FILES_READ
+      && value.pending_evictions.every((key: unknown) => {
+        if (typeof key !== 'string') return false
+        const parts = archiveFilenameParts(key)
+        // Withdrawals are terminal lifecycle barriers, never eviction candidates. Treat old/manual
+        // pending state that names one as invalid so reads scan it and writers cannot unlink it.
+        return parts !== null && parts.kind !== 'withdrawn'
+      })
+    return valid ? { value, status: 'ok' } : { value: empty, status: 'invalid' }
+  } catch (error: any) {
+    const required = fs.existsSync(path.join(ideasArchiveDir(repoRoot), IDEA_ARCHIVE_RETENTION_REQUIRED_FILE))
+    return { value: empty, status: error?.code === 'ENOENT' && !required ? 'missing' : 'invalid' }
+  }
+}
+
+function writeIdeaArchiveRetentionValue(repoRoot: string, next: IdeaArchiveRetentionFile): void {
+  const dir = ideasArchiveDir(repoRoot)
+  const fp = path.join(dir, IDEA_ARCHIVE_RETENTION_FILE)
+  const tmp = `${fp}.tmp.${process.pid}.${randomUUID()}`
+  let tmpFd: number | null = null
+  try {
+    tmpFd = fs.openSync(tmp, 'wx', 0o600)
+    fs.writeFileSync(tmpFd, JSON.stringify(next, null, 2) + '\n')
+    fs.fsyncSync(tmpFd)
+    fs.closeSync(tmpFd)
+    tmpFd = null
+    fs.renameSync(tmp, fp)
+    fsyncDirectory(dir)
+  } finally {
+    if (tmpFd !== null) try { fs.closeSync(tmpFd) } catch { /* best effort */ }
+    try { fs.unlinkSync(tmp) } catch (error: any) { if (error?.code !== 'ENOENT') throw error }
+  }
+}
+
+function ensureRetentionRequiredMarker(repoRoot: string): void {
+  const dir = ideasArchiveDir(repoRoot)
+  const fp = path.join(dir, IDEA_ARCHIVE_RETENTION_REQUIRED_FILE)
+  if (fs.existsSync(fp)) return
+  const fd = fs.openSync(fp, 'wx', 0o600)
+  try { fs.writeFileSync(fd, 'idea archive retention metadata required\n'); fs.fsyncSync(fd) }
+  finally { fs.closeSync(fd) }
+  fsyncDirectory(dir)
+}
+
+type IdeaArchiveState = ArchivedIdeaSnapshot | ImportedIdeaArchive | SuppressedIdeaArchive
+
+function archiveStateSides(row: IdeaArchiveState): ('long' | 'short')[] {
+  const direction = row.schema_version === 'idea-archive/v1' ? row.snapshot.direction
+    : row.schema_version === 'idea-board-recovery/v1' ? row.board_row.direction as IdeaDirection : row.direction
+  if (direction === 'pair') return ['long', 'short']
+  return [direction]
+}
+
+function archiveStateAt(row: IdeaArchiveState): number {
+  return parseRfc3339Ms(row.schema_version === 'idea-archive-suppression/v1' ? row.suppressed_at
+    : row.schema_version === 'idea-board-recovery/v1' ? row.recovered_at : row.archived_at)
+}
+
+function archiveStateLifecycleAt(row: IdeaArchiveState): number {
+  if (row.schema_version === 'idea-archive/v1') return parseRfc3339Ms(row.snapshot.decay_at)
+  if (row.schema_version === 'idea-board-recovery/v1') return parseRfc3339Ms(row.board_row.decay_at)
+  return parseRfc3339Ms(row.suppressed_at)
+}
+
+function archiveStateDisplayable(row: IdeaArchiveState): row is ArchivedIdeaSnapshot | ImportedIdeaArchive {
+  return row.schema_version !== 'idea-archive-suppression/v1'
+}
+
+function parseIdeaArchiveState(
+  file: string,
+  expected: { ideaId: string; ideaVersion: string; occurrenceHash: string; direction: IdeaDirection; kind: IdeaArchiveFileKind },
+): { row: IdeaArchiveState | null; corrupt: boolean } {
+  try {
+    const raw = JSON.parse(fs.readFileSync(file, 'utf8'))
+    if (isArchivedIdeaSnapshot(raw, expected.ideaId)
+      && raw.snapshot.idea_version === expected.ideaVersion
+      && archiveOccurrenceHash(raw.snapshot.idea_version_started_at) === expected.occurrenceHash
+      && raw.snapshot.direction === expected.direction && expected.kind === 'expired') return { row: raw, corrupt: false }
+    if (isImportedIdeaArchive(raw, expected.ideaId)
+      && raw.board_row.idea_version === expected.ideaVersion
+      && archiveOccurrenceHash(String(raw.board_row.idea_version_started_at)) === expected.occurrenceHash
+      && raw.board_row.direction === expected.direction && expected.kind === 'imported') return { row: raw, corrupt: false }
+    if (isSuppressedIdeaArchive(raw, expected.ideaId)
+      && raw.idea_version === expected.ideaVersion && archiveOccurrenceHash(raw.idea_version_started_at) === expected.occurrenceHash
+      && raw.direction === expected.direction && expected.kind === 'withdrawn') return { row: raw, corrupt: false }
+    return { row: null, corrupt: false }
+  } catch { return { row: null, corrupt: true } }
+}
+
+/** Strict, bounded archive read. Invalid/corrupt managed rows are exposed through health, never counts. */
+export function readIdeaArchiveStore(repoRoot: string): IdeaArchiveStoreRead {
+  const dir = ideasArchiveDir(repoRoot)
+  const emptyRetention: IdeaArchiveRetention = { truncated: false, evicted_count: 0, oldest_retained_at: null, side_counts: { long: { evicted_count: 0, oldest_retained_at: null }, short: { evicted_count: 0, oldest_retained_at: null } } }
+  const managed = boundedManagedArchiveNames(repoRoot)
+  if (managed.status !== 'ok') {
+    if (managed.status === 'missing') return { snapshots: [], imports: [], lifecycle_barriers: [], status: 'missing', file_count: 0, suppression_count: 0, corrupt_count: 0, invalid_count: 0, error: null, retention: emptyRetention }
+    // Overflow/unreadable means an unseen withdrawal is possible. Project no archive/import rows and
+    // expose only sanitized incomplete-health metadata; exact live lookups remain independently guarded.
+    return { snapshots: [], imports: [], lifecycle_barriers: [], status: 'unreadable', file_count: managed.status === 'overflow' ? IDEA_ARCHIVE_MAX_FILES_READ + 1 : 0, suppression_count: 0, corrupt_count: 0, invalid_count: 1, error: 'archive_store_unreadable', retention: emptyRetention }
+  }
+  const allNames = managed.names
+  const retentionRead = readIdeaArchiveRetentionFile(repoRoot)
+  const retentionFile = retentionRead.value
+  const pendingEvictions = new Set(retentionFile.pending_evictions)
+  // The hard enumeration bound already caps work. Parse every retained occurrence inside it so a newer
+  // withdrawal/lifecycle barrier can never be omitted by a display-oriented sample.
+  const names = allNames.filter((name) => !pendingEvictions.has(name))
+  const out: ArchivedIdeaSnapshot[] = []
+  const imports: ImportedIdeaArchive[] = []
+  const suppressedVersions = new Set<string>()
+  const lifecycleBarriers: { idea_id: string; idea_version_started_at: string | null }[] = []
+  const suppressionBarrierIndex = new Map<string, number>()
+  // A managed withdrawal filename is an exact occurrence barrier even when its bytes are corrupt or
+  // unreadable. Count only valid tombstones, but never let malformed evidence resurrect its siblings.
+  for (const name of names) {
+    const parts = archiveFilenameParts(name)!
+    if (parts.kind === 'withdrawn') {
+      const key = archiveOccurrenceKey(parts)
+      suppressedVersions.add(key)
+      suppressionBarrierIndex.set(key, lifecycleBarriers.length)
+      lifecycleBarriers.push({ idea_id: parts.ideaId, idea_version_started_at: null })
+    }
+  }
+  let suppressions = 0
+  let corrupt = 0
+  // More managed files than the writer's side-aware maximum is itself invalid store state. Do not read
+  // an unbounded attacker/corruption-created directory merely to make the diagnostics more granular.
+  let invalid = pendingEvictions.size
+  for (const name of names) {
+    const expected = archiveFilenameParts(name)!
+    const parsed = parseIdeaArchiveState(path.join(dir, name), expected)
+    if (parsed.corrupt) corrupt++
+    else if (!parsed.row) invalid++
+    else if (parsed.row.schema_version === 'idea-archive/v1') {
+      out.push(parsed.row)
+      lifecycleBarriers.push({ idea_id: parsed.row.snapshot.idea_id, idea_version_started_at: parsed.row.snapshot.idea_version_started_at })
+    }
+    else if (parsed.row.schema_version === 'idea-board-recovery/v1') imports.push(parsed.row)
+    else {
+      const suppressed = parsed.row
+      suppressions++
+      const barrier = lifecycleBarriers[suppressionBarrierIndex.get(archiveOccurrenceKey(expected)) ?? -1]
+      if (barrier) barrier.idea_version_started_at = suppressed.idea_version_started_at
+    }
+  }
+  const occurrenceFor = (idea: any): string => archiveOccurrenceKey({
+    ideaId: String(idea.idea_id), ideaVersion: String(idea.idea_version),
+    occurrenceHash: archiveOccurrenceHash(String(idea.idea_version_started_at)), direction: idea.direction as IdeaDirection,
+  })
+  const visible = out.filter((row) => !suppressedVersions.has(occurrenceFor(row.snapshot)))
+  const strictOccurrences = new Set(visible.map((row) => occurrenceFor(row.snapshot)))
+  // Preserve both immutable files, but prefer the complete strict snapshot for the API occurrence.
+  const visibleImports = imports.filter((row) => {
+    const key = occurrenceFor(row.board_row)
+    return !suppressedVersions.has(key) && !strictOccurrences.has(key)
+  })
+  const retainedStates: IdeaArchiveState[] = [...visible, ...visibleImports]
+  if (retentionRead.status === 'invalid' || (retentionRead.status === 'missing' && allNames.length > 0)) invalid++
+  const oldestFor = (side?: 'long' | 'short'): string | null => {
+    const eligible = retainedStates.filter((row) => !side || archiveStateSides(row).includes(side))
+    if (!eligible.length) return null
+    return new Date(Math.min(...eligible.map(archiveStateLifecycleAt))).toISOString().replace(/\.\d{3}Z$/, 'Z')
+  }
+  return {
+    snapshots: visible,
+    imports: visibleImports,
+    lifecycle_barriers: lifecycleBarriers,
+    status: corrupt || invalid ? 'degraded' : 'ok',
+    file_count: allNames.length,
+    suppression_count: suppressions,
+    corrupt_count: corrupt,
+    invalid_count: invalid,
+    error: null,
+    retention: {
+      truncated: retentionFile.evicted_count > 0,
+      evicted_count: retentionFile.evicted_count,
+      oldest_retained_at: oldestFor(),
+      side_counts: {
+        long: { evicted_count: retentionFile.side_counts.long.evicted_count, oldest_retained_at: oldestFor('long') },
+        short: { evicted_count: retentionFile.side_counts.short.evicted_count, oldest_retained_at: oldestFor('short') },
+      },
+    },
+  }
+}
+
+export function readArchivedIdeaSnapshots(repoRoot: string): ArchivedIdeaSnapshot[] {
+  return readIdeaArchiveStore(repoRoot).snapshots
+}
+
+function trimIdeaArchiveUnlocked(repoRoot: string, protectedName?: string): void {
+  const dir = ideasArchiveDir(repoRoot)
+  const retentionRead = readIdeaArchiveRetentionFile(repoRoot)
+  if (retentionRead.status === 'invalid') throw new Error('idea archive retention metadata is invalid')
+  let retention = retentionRead.value
+  // Finish a crash-interrupted eviction before selecting another. Its counters were already persisted.
+  if (retention.pending_evictions.length) {
+    for (const name of retention.pending_evictions) {
+      try { fs.unlinkSync(path.join(dir, name)); fsyncDirectory(dir) }
+      catch (error: any) { if (error?.code !== 'ENOENT') throw error }
+    }
+    retention = { ...retention, pending_evictions: [] }
+    writeIdeaArchiveRetentionValue(repoRoot, retention)
+  }
+  const managed = boundedManagedArchiveNames(repoRoot)
+  if (managed.status !== 'ok') throw new Error('idea archive exceeds its bounded managed-file policy')
+  const candidates = managed.names
+  const occurrenceCount = new Set(candidates.map(archiveFilenameParts).filter(Boolean)
+    .map((parts) => archiveOccurrenceKey(parts!))).size
+  if (occurrenceCount > IDEA_ARCHIVE_MAX_OCCURRENCES_READ) throw new Error('idea archive exceeds its bounded occurrence policy')
+  const states = candidates.map((name) => {
+    const expected = archiveFilenameParts(name)
+    return expected ? { name, ...parseIdeaArchiveState(path.join(dir, name), expected) }
+      : { name, row: null, corrupt: false }
+  })
+  const valid = states.filter((entry): entry is typeof entry & { row: IdeaArchiveState } => entry.row !== null)
+  const grouped = new Map<string, typeof valid>()
+  for (const entry of valid) {
+    const parts = archiveFilenameParts(entry.name)!
+    const key = archiveOccurrenceKey(parts)
+    const group = grouped.get(key) || []
+    group.push(entry); grouped.set(key, group)
+  }
+  const protectedParts = protectedName ? archiveFilenameParts(protectedName) : null
+  const protectedKey = protectedParts
+    ? archiveOccurrenceKey(protectedParts)
+    : null
+  const rawLiveOccurrences = new Set<string>()
+  try {
+    for (const file of fs.readdirSync(ideasDir(repoRoot)).filter((name) => /^IDEA-[a-f0-9]{12}\.json$/.test(name))) {
+      try {
+        const raw = JSON.parse(fs.readFileSync(path.join(ideasDir(repoRoot), file), 'utf8'))
+        if (!isSurfacedIdeaSnapshot(raw, file.slice(0, -5))) continue
+        rawLiveOccurrences.add(archiveOccurrenceKey({
+          ideaId: raw.idea_id, ideaVersion: raw.idea_version,
+          occurrenceHash: archiveOccurrenceHash(raw.idea_version_started_at), direction: raw.direction,
+        }))
+      } catch { /* damaged live bytes are handled by snapshot health; never infer an occurrence */ }
+    }
+  } catch { /* missing live dir */ }
+  const groups = [...grouped.entries()].map(([key, entries]) => {
+    const suppressed = entries.some((entry) => entry.row.schema_version === 'idea-archive-suppression/v1')
+    const evidence = entries.filter((entry) => archiveStateDisplayable(entry.row))
+    return {
+      key, entries, suppressed, displayable: evidence.length > 0 && !suppressed,
+      at: Math.max(...entries.map((entry) => archiveStateLifecycleAt(entry.row))),
+      sides: archiveStateSides(entries[0].row),
+    }
+  }).sort((a, b) => Number(b.displayable) - Number(a.displayable)
+    || b.at - a.at || a.key.localeCompare(b.key))
+  const keepGroups = new Set<string>()
+  const keptBySide = { long: 0, short: 0 }
+  for (const group of groups) {
+    if (!group.suppressed && group.key !== protectedKey && !rawLiveOccurrences.has(group.key)
+      && group.sides.some((side) => keptBySide[side] >= IDEA_ARCHIVE_STORAGE_LIMIT_PER_SIDE)) continue
+    keepGroups.add(group.key)
+    // Withdrawal barriers have their own hard total-store bound and never consume a side's 250 slots.
+    if (!group.suppressed) for (const side of group.sides) keptBySide[side]++
+  }
+  // Invalid/corrupt bytes are never selected above and remain repairable. For a valid eviction, persist
+  // counters + pending identity before unlink; retry recognizes the pending key and cannot double-count.
+  for (const group of groups.filter((entry) => !keepGroups.has(entry.key))) {
+    const names = group.entries.map((entry) => entry.name)
+    const next: IdeaArchiveRetentionFile = {
+      schema_version: 'idea-archive-retention/v1',
+      evicted_count: retention.evicted_count + 1,
+      side_counts: {
+        long: { evicted_count: retention.side_counts.long.evicted_count + (group.sides.includes('long') ? 1 : 0) },
+        short: { evicted_count: retention.side_counts.short.evicted_count + (group.sides.includes('short') ? 1 : 0) },
+      },
+      pending_evictions: names,
+    }
+    writeIdeaArchiveRetentionValue(repoRoot, next)
+    ensureRetentionRequiredMarker(repoRoot)
+    for (const name of names) {
+      try { fs.unlinkSync(path.join(dir, name)) }
+      catch (error: any) { if (error?.code !== 'ENOENT') throw error }
+    }
+    fsyncDirectory(dir)
+    retention = { ...next, pending_evictions: [] }
+    writeIdeaArchiveRetentionValue(repoRoot, retention)
+  }
+}
+
+function writeIdeaArchiveRecordUnlocked(repoRoot: string, row: IdeaArchiveState): void {
+  const dir = ideasArchiveDir(repoRoot)
+  const created = !fs.existsSync(dir)
+  fs.mkdirSync(dir, { recursive: true })
+  if (created) fsyncDirectory(path.dirname(dir))
+  const retention = readIdeaArchiveRetentionFile(repoRoot)
+  if (retention.status === 'invalid') throw new Error('idea archive retention metadata is invalid')
+  if (retention.status === 'missing') {
+    const existing = boundedManagedArchiveNames(repoRoot)
+    if (existing.status !== 'ok' || existing.names.length > 0) {
+      throw new Error('idea archive retention metadata is missing for existing records')
+    }
+    writeIdeaArchiveRetentionValue(repoRoot, retention.value)
+  }
+  ensureRetentionRequiredMarker(repoRoot)
+  const idea = row.schema_version === 'idea-archive/v1' ? row.snapshot
+    : row.schema_version === 'idea-board-recovery/v1' ? row.board_row : row
+  const kind: IdeaArchiveFileKind = row.schema_version === 'idea-archive/v1' ? 'expired'
+    : row.schema_version === 'idea-board-recovery/v1' ? 'imported' : 'withdrawn'
+  const name = archiveFilename(String(idea.idea_id), String(idea.idea_version), String(idea.idea_version_started_at), idea.direction as IdeaDirection, kind)
+  const fp = path.join(dir, name)
+  try {
+    fs.lstatSync(fp)
+    const parsed = parseIdeaArchiveState(fp, archiveFilenameParts(name)!)
+    if (!parsed.row) throw new Error('refusing to overwrite an invalid archive occurrence')
+    const compatible = row.schema_version === 'idea-archive/v1' && parsed.row.schema_version === 'idea-archive/v1'
+      ? canonicalJsonText(parsed.row.snapshot) === canonicalJsonText(row.snapshot)
+      : row.schema_version === 'idea-archive-suppression/v1' && parsed.row.schema_version === 'idea-archive-suppression/v1'
+        ? parsed.row.idea_id === row.idea_id && parsed.row.idea_version === row.idea_version
+          && parsed.row.idea_version_started_at === row.idea_version_started_at && parsed.row.direction === row.direction
+        : canonicalJsonText(parsed.row) === canonicalJsonText(row)
+    if (!compatible) throw new Error('refusing to overwrite conflicting archive evidence')
+    trimIdeaArchiveUnlocked(repoRoot, name)
+    return
+  } catch (error: any) {
+    if (error?.code !== 'ENOENT') throw error
+  }
+  const beforeWrite = boundedManagedArchiveNames(repoRoot)
+  if (beforeWrite.status !== 'ok' || beforeWrite.names.length >= IDEA_ARCHIVE_MAX_FILES_READ) {
+    throw new Error('idea archive has no bounded capacity for another managed file')
+  }
+  const newParts = archiveFilenameParts(name)!
+  const currentOccurrences = new Set(beforeWrite.names.map(archiveFilenameParts).filter(Boolean)
+    .map((parts) => archiveOccurrenceKey(parts!)))
+  if (!currentOccurrences.has(archiveOccurrenceKey(newParts))
+    && currentOccurrences.size >= IDEA_ARCHIVE_MAX_OCCURRENCES_READ) {
+    throw new Error('idea archive has no bounded capacity for another occurrence')
+  }
+  const tmp = path.join(dir, `.${name}.tmp.${process.pid}.${randomUUID()}`)
+  let tmpFd: number | null = null
+  try {
+    tmpFd = fs.openSync(tmp, 'wx', 0o600)
+    fs.writeFileSync(tmpFd, JSON.stringify(row, null, 2) + '\n')
+    fs.fsyncSync(tmpFd)
+    fs.closeSync(tmpFd)
+    tmpFd = null
+    fs.renameSync(tmp, fp)
+    // The archive directory entry must be durable before the live snapshot can be unlinked.
+    fsyncDirectory(dir)
+    trimIdeaArchiveUnlocked(repoRoot, name)
+  } finally {
+    if (tmpFd !== null) try { fs.closeSync(tmpFd) } catch { /* best effort */ }
+    try { fs.unlinkSync(tmp) } catch (error: any) { if (error?.code !== 'ENOENT') throw error }
+  }
+}
+
+/** Validated offline recovery sink. It never writes the live store and never overwrites a withdrawal. */
+export function recoverBoardIdeaOccurrence(
+  repoRoot: string,
+  recovery: ImportedIdeaArchive,
+): 'created' | 'existing' | 'suppressed' {
+  if (!isImportedIdeaArchive(recovery)) throw new Error('invalid historical board recovery record')
+  const row = recovery.board_row
+  const ideaId = String(row.idea_id)
+  const fp = path.join(ideasDir(repoRoot), `${ideaId}.json`)
+  const lease = acquireIdeaMutationLease(repoRoot, fp)
+  try {
+    const identity = [ideaId, String(row.idea_version), String(row.idea_version_started_at), row.direction as IdeaDirection] as const
+    for (const kind of ['withdrawn', 'expired', 'imported'] as const) {
+      const name = archiveFilename(...identity, kind)
+      const archivePath = path.join(ideasArchiveDir(repoRoot), name)
+      if (!fs.existsSync(archivePath)) continue
+      const current = parseIdeaArchiveState(archivePath, archiveFilenameParts(name)!)
+      if (!current.row) throw new Error('refusing to recover beside an invalid archive occurrence')
+      if (kind === 'withdrawn') return 'suppressed'
+      if (kind === 'expired') return 'existing'
+      if (canonicalJsonText(current.row) === canonicalJsonText(recovery)) return 'existing'
+      throw new Error('historical board recovery conflicts with an existing occurrence')
+    }
+    writeIdeaArchiveRecordUnlocked(repoRoot, recovery)
+    return 'created'
+  } finally { releaseIdeaMutationLease(fp, lease) }
+}
+
+function archiveExpiredIdeaUnlocked(repoRoot: string, idea: SurfacedIdea, nowMs: number): void {
+  const archivedAt = new Date(nowMs).toISOString().replace(/\.\d{3}Z$/, 'Z')
+  const row: ArchivedIdeaSnapshot = {
+    schema_version: 'idea-archive/v1',
+    archived_at: archivedAt,
+    archive_reason: 'expired_pruned',
+    snapshot: idea,
+  }
+  if (!isArchivedIdeaSnapshot(row, idea.idea_id)) throw new Error(`refusing to archive invalid or unexpired idea ${idea.idea_id}`)
+  writeIdeaArchiveRecordUnlocked(repoRoot, row)
+}
+
+function suppressWithdrawnIdeaArchiveUnlocked(repoRoot: string, idea: SurfacedIdea): void {
+  writeIdeaArchiveRecordUnlocked(repoRoot, {
+    schema_version: 'idea-archive-suppression/v1',
+    idea_id: idea.idea_id,
+    idea_version: idea.idea_version,
+    idea_version_started_at: idea.idea_version_started_at,
+    direction: idea.direction,
+    pair_with: idea.pair_with,
+    suppressed_at: new Date().toISOString().replace(/\.\d{3}Z$/, 'Z'),
+    suppression_reason: 'withdrawn_unadmitted',
+  })
+}
+
+function ideaArchiveOccurrenceBlocksLive(repoRoot: string, idea: SurfacedIdea): boolean {
+  const name = archiveFilename(idea.idea_id, idea.idea_version, idea.idea_version_started_at, idea.direction, 'withdrawn')
+  const fp = path.join(ideasArchiveDir(repoRoot), name)
+  try { fs.lstatSync(fp) }
+  catch (error: any) { return error?.code !== 'ENOENT' }
+  const parsed = parseIdeaArchiveState(fp, {
+    ideaId: idea.idea_id,
+    ideaVersion: idea.idea_version,
+    occurrenceHash: archiveOccurrenceHash(idea.idea_version_started_at),
+    direction: idea.direction,
+    kind: 'withdrawn',
+  })
+  // A valid expiry archive may coexist briefly with its already-stale live source during archive-first
+  // pruning. Only a suppression hides a current row. Malformed bytes at this exact occurrence fail closed.
+  return parsed.row?.schema_version === 'idea-archive-suppression/v1' || parsed.row === null
+}
+
 /** Read one idea snapshot by id (for the promote endpoint). Returns null when absent/corrupt. */
 export function readIdeaById(repoRoot: string, ideaId: string): SurfacedIdea | null {
   // Defence-in-depth at the sink: `ideaId` reaches here from a route param (`:id`). Reject anything that
@@ -2035,11 +2669,32 @@ export function readIdeaById(repoRoot: string, ideaId: string): SurfacedIdea | n
   if (!/^IDEA-[a-f0-9]{12}$/.test(ideaId)) return null
   const dir = path.resolve(ideasDir(repoRoot))
   const fp = path.resolve(dir, `${ideaId}.json`)
-  if (!fp.startsWith(dir + path.sep)) return null
+  // Normalise both sides to POSIX separators before the prefix check: on Windows, path.resolve returns
+  // backslash-separated paths, and a bare `startsWith(dir + path.sep)` is a correctness trap there (it is
+  // still a safe REJECT on a mismatch, never a false accept, but path.sep differs per platform and a stray
+  // mixed-separator input could slip past a naive comparison). Compare the same normalised form on both sides.
+  const posixFp = fp.replace(/\\/g, '/')
+  const posixDirPrefix = (dir + path.sep).replace(/\\/g, '/')
+  if (!posixFp.startsWith(posixDirPrefix)) return null
   try {
     const o = JSON.parse(fs.readFileSync(fp, 'utf8'))
-    return isSurfacedIdeaSnapshot(o, ideaId) ? o : null
+    return isSurfacedIdeaSnapshot(o, ideaId) && !ideaArchiveOccurrenceBlocksLive(repoRoot, o) ? o : null
   } catch { return null }
+}
+
+export type IdeaPromotionEligibility =
+  | { status: 'eligible' }
+  | { status: 'expired' }
+  | { status: 'already_promoted'; signal_id: string }
+
+/** Server-side promotion gate. Idempotent completed promotions win even after their old decay timestamp. */
+export function ideaPromotionEligibility(idea: SurfacedIdea, nowMs = Date.now()): IdeaPromotionEligibility {
+  if (idea.status === 'promoted' && idea.promoted_signal_id) {
+    return { status: 'already_promoted', signal_id: idea.promoted_signal_id }
+  }
+  const decayMs = parseRfc3339Ms(idea.decay_at)
+  if (!Number.isFinite(decayMs) || decayMs <= nowMs) return { status: 'expired' }
+  return { status: 'eligible' }
 }
 
 function writeIdeaUnlocked(repoRoot: string, idea: SurfacedIdea, fp: string, repositoryFd: number | null): void {
@@ -2079,7 +2734,12 @@ export function ideaSnapshotRevision(idea: SurfacedIdea | null): string {
 /** Compare-and-swap one snapshot. The current file is re-read immediately before the synchronous atomic
  * rename, so an in-process promotion/refresh cannot be overwritten from a snapshot captured before an
  * awaited listing lookup. A false result tells the caller to re-read, merge lifecycle state, and retry. */
-export function writeIdeaIfRevision(repoRoot: string, idea: SurfacedIdea, expectedRevision: string): boolean {
+export function writeIdeaIfRevision(
+  repoRoot: string,
+  idea: SurfacedIdea,
+  expectedRevision: string,
+  precondition?: () => boolean,
+): boolean {
   const dir = ideasDir(repoRoot)
   fs.mkdirSync(dir, { recursive: true })
   const fp = path.join(dir, `${idea.idea_id}.json`)
@@ -2091,6 +2751,9 @@ export function writeIdeaIfRevision(repoRoot: string, idea: SurfacedIdea, expect
   try {
     const current = readIdeaById(repoRoot, idea.idea_id)
     if (ideaSnapshotRevision(current) !== expectedRevision) return false
+    // Evaluated synchronously while the repository mutation lease and per-snapshot lock are both held.
+    // This closes the last revalidation -> rename gap without making a withdrawn version globally terminal.
+    if (precondition && !precondition()) return false
     writeIdeaUnlocked(repoRoot, idea, fp, lease.repositoryFd)
     return true
   } finally {
@@ -2125,9 +2788,13 @@ export function updateIdeaSnapshot(
 }
 
 export interface IdeaPromotionReservation { idea_id: string; token: string; started_at: string }
-function promotionReservationPath(repoRoot: string, ideaId: string): string {
-  return path.join(ideasDir(repoRoot), `${ideaId}.promotion`)
-}
+// The reservation path is built INLINE in each function below (never via a shared helper). CodeQL's
+// path-injection sanitizer does not follow a resolve+contain guard across a function-return boundary, so a
+// helper guard is invisible to the scanner at the fs sinks in its callers — two earlier attempts (a callee
+// guard, then an inline guard that checked a SEPARATE `path.resolve(fp)` value while the sink still consumed
+// the raw `path.join(...)` result) were both re-flagged. Each function therefore reproduces readIdeaById's
+// recognised idiom exactly: regex-gate the id, `path.resolve` the path, prefix-check THAT resolved value,
+// and pass the SAME resolved value to every fs call — guard and sink in one function, no intervening call.
 function readPromotionReservation(fp: string): IdeaPromotionReservation | null {
   try {
     const value = JSON.parse(fs.readFileSync(fp, 'utf8'))
@@ -2135,8 +2802,53 @@ function readPromotionReservation(fp: string): IdeaPromotionReservation | null {
   } catch { return null }
 }
 
+function writePromotionReservationAtomic(repoRoot: string, reservation: IdeaPromotionReservation): void {
+  // CodeQL barrier — mirror its documented safe pattern exactly: regex-gate the id, resolve the path,
+  // check that same resolved value against the resolved directory, then use it at every fs sink below.
+  if (!/^IDEA-[a-f0-9]{12}$/.test(reservation.idea_id)) throw new Error('invalid promotion idea id')
+  const dir = path.resolve(ideasDir(repoRoot))
+  const fp = path.resolve(dir, `${reservation.idea_id}.promotion`)
+  if (!fp.startsWith(dir + path.sep)) throw new Error('refusing to write promotion reservation outside ideas dir')
+  const tmp = `${fp}.tmp.${process.pid}.${randomUUID()}`
+  let fd: number | null = null
+  try {
+    fd = fs.openSync(tmp, 'wx', 0o600)
+    fs.writeFileSync(fd, JSON.stringify(reservation) + '\n')
+    fs.fsyncSync(fd)
+    fs.closeSync(fd); fd = null
+    fs.renameSync(tmp, fp)
+    fsyncDirectory(dir)
+  } finally {
+    if (fd !== null) try { fs.closeSync(fd) } catch { /* best effort */ }
+    try { fs.unlinkSync(tmp) } catch (error: any) { if (error?.code !== 'ENOENT') throw error }
+  }
+}
+
+/** Only a valid, recent reservation protects lifecycle state. */
+function activePromotionReservationUnlocked(repoRoot: string, ideaId: string, nowMs: number): boolean {
+  // CodeQL barrier — mirror readIdeaById: regex-gate, resolve, prefix-check, then sink the resolved value.
+  if (!/^IDEA-[a-f0-9]{12}$/.test(ideaId)) throw new Error('invalid promotion idea id')
+  const dir = path.resolve(ideasDir(repoRoot))
+  const reservationFile = path.resolve(dir, `${ideaId}.promotion`)
+  if (!reservationFile.startsWith(dir + path.sep)) throw new Error('refusing to touch promotion reservation outside ideas dir')
+  if (!fs.existsSync(reservationFile)) return false
+  const reservation = readPromotionReservation(reservationFile)
+  const startedAt = parseRfc3339Ms(reservation?.started_at)
+  if (reservation?.idea_id === ideaId && Number.isFinite(startedAt)
+    && nowMs >= startedAt && nowMs - startedAt <= IDEA_PROMOTION_STALE_MS) return true
+  try {
+    fs.unlinkSync(reservationFile)
+    fsyncDirectory(dir)
+  } catch (error: any) { if (error?.code !== 'ENOENT') throw error }
+  return false
+}
+
 /** Durable cross-request reservation made before a paid launch. A second request cannot spend twice. */
-export function reserveIdeaPromotion(repoRoot: string, ideaId: string, nowMs = Date.now()): IdeaPromotionReservation | null {
+export function reserveIdeaPromotion(
+  repoRoot: string,
+  ideaId: string,
+  nowMs = Date.now(),
+): IdeaPromotionReservation | null {
   if (!/^IDEA-[a-f0-9]{12}$/.test(ideaId)) return null
   const dir = ideasDir(repoRoot)
   fs.mkdirSync(dir, { recursive: true })
@@ -2148,18 +2860,16 @@ export function reserveIdeaPromotion(repoRoot: string, ideaId: string, nowMs = D
   }
   try {
     const current = readIdeaById(repoRoot, ideaId)
-    if (!current || current.status === 'promoted') return null
-    const reservationFile = promotionReservationPath(repoRoot, ideaId)
-    const prior = readPromotionReservation(reservationFile)
-    const priorAt = Date.parse(prior?.started_at || '')
-    if (prior && Number.isFinite(priorAt) && nowMs - priorAt <= IDEA_PROMOTION_STALE_MS) return null
-    try { fs.unlinkSync(reservationFile) } catch (e: any) { if (e?.code !== 'ENOENT') throw e }
+    // Eligibility is checked on the snapshot re-read under the same lock that creates the reservation.
+    // A route-level check is useful UX but cannot close the expiry/refresh TOCTOU window by itself.
+    if (!current || ideaPromotionEligibility(current, nowMs).status !== 'eligible') return null
+    if (activePromotionReservationUnlocked(repoRoot, ideaId, nowMs)) return null
     const reservation: IdeaPromotionReservation = {
       idea_id: ideaId,
       token: randomUUID(),
       started_at: new Date(nowMs).toISOString().replace(/\.\d{3}Z$/, 'Z'),
     }
-    fs.writeFileSync(reservationFile, JSON.stringify(reservation) + '\n', { flag: 'wx', mode: 0o600 })
+    writePromotionReservationAtomic(repoRoot, reservation)
     return reservation
   } finally {
     releaseIdeaMutationLease(fp, lease)
@@ -2173,9 +2883,14 @@ export function releaseIdeaPromotion(repoRoot: string, ideaId: string, token: st
   let lease: IdeaMutationLease
   try { lease = acquireIdeaMutationLease(repoRoot, fp) } catch { return }
   try {
-    const reservationFile = promotionReservationPath(repoRoot, ideaId)
-    if (readPromotionReservation(reservationFile)?.token === token) {
-      try { fs.unlinkSync(reservationFile) } catch { /* best effort */ }
+    // CodeQL barrier — resolve, prefix-check, then sink the same resolved value. (The id
+    // was already regex-gated at the top of this function.)
+    const dir = path.resolve(ideasDir(repoRoot))
+    const reservationFile = path.resolve(dir, `${ideaId}.promotion`)
+    if (!reservationFile.startsWith(dir + path.sep)) throw new Error('refusing to touch promotion reservation outside ideas dir')
+    const reservation = readPromotionReservation(reservationFile)
+    if (reservation?.token === token) {
+      try { fs.unlinkSync(reservationFile); fsyncDirectory(dir) } catch { /* best effort */ }
     }
   } finally {
     releaseIdeaMutationLease(fp, lease)
@@ -2191,16 +2906,22 @@ export function finalizeIdeaPromotion(
   updatedAt: string,
   fallback: SurfacedIdea,
 ): SurfacedIdea {
+  if (!/^IDEA-[a-f0-9]{12}$/.test(ideaId)) throw new Error('invalid promotion idea id')
   const fp = path.join(ideasDir(repoRoot), `${ideaId}.json`)
   const lease = acquireIdeaMutationLease(repoRoot, fp)
   try {
-    const reservationFile = promotionReservationPath(repoRoot, ideaId)
-    if (readPromotionReservation(reservationFile)?.token !== token) throw new Error('idea promotion reservation was lost')
+    // CodeQL barrier — after the local regex gate above, resolve, prefix-check, and sink the same value.
+    const reservationDir = path.resolve(ideasDir(repoRoot))
+    const reservationFile = path.resolve(reservationDir, `${ideaId}.promotion`)
+    if (!reservationFile.startsWith(reservationDir + path.sep)) throw new Error('refusing to touch promotion reservation outside ideas dir')
+    const reservation = readPromotionReservation(reservationFile)
+    if (!reservation || reservation.token !== token) throw new Error('idea promotion reservation was lost')
     const current = readIdeaById(repoRoot, ideaId) || fallback
     if (current.idea_id !== ideaId) throw new Error('idea promotion identity changed')
     const next: SurfacedIdea = { ...current, status: 'promoted', promoted_signal_id: signalId, updated_at: updatedAt }
     writeIdeaUnlocked(repoRoot, next, fp, lease.repositoryFd)
     fs.unlinkSync(reservationFile)
+    fsyncDirectory(ideasDir(repoRoot))
     return next
   } finally {
     releaseIdeaMutationLease(fp, lease)
@@ -2283,8 +3004,14 @@ export function retireUnadmittedThemeIdeas(repoRoot: string, admittedRows: IdeaI
         || (current.origin_type !== 'theme' && current.origin_type !== 'mixed')
         || themeDerivedIdeaIsAdmitted(current, edges)
         || mixedIdeaHasIndependentWireIssuerProof(current, admittedRows)
-        || fs.existsSync(promotionReservationPath(repoRoot, current.idea_id))) continue
-      try { fs.unlinkSync(fp); removed++ } catch { /* best effort */ }
+        || activePromotionReservationUnlocked(repoRoot, current.idea_id, Date.now())) continue
+      // A prior expired version of the same stable ticker+direction id must never reappear after the
+      // current Theme package is withdrawn. Persist a terminal suppression marker before unlinking; the
+      // marker is audit state, not an archive row, and a later valid expiry may safely overwrite it.
+      suppressWithdrawnIdeaArchiveUnlocked(repoRoot, current)
+      fs.unlinkSync(fp)
+      fsyncDirectory(path.dirname(fp))
+      removed++
     } finally {
       releaseIdeaMutationLease(fp, lease)
     }
@@ -2293,9 +3020,9 @@ export function retireUnadmittedThemeIdeas(repoRoot: string, admittedRows: IdeaI
 }
 
 /**
- * Delete snapshots whose decay is well past (older than `hardTtlMs` beyond decay_at) so the ledger can't
- * grow without bound. A still-fresh or recently-decayed idea is kept (the board shows decayed ones dimmed
- * for a while); a PROMOTED idea is always kept (it links to a real run). Returns how many were removed.
+ * Move snapshots whose decay is well past (older than `hardTtlMs` beyond decay_at) into the bounded audit
+ * archive, then remove them from the live store. Archive persistence is fail-closed: if its atomic write
+ * fails the live snapshot remains. A PROMOTED or in-flight idea is always kept. Returns removals.
  */
 export function pruneExpiredIdeas(repoRoot: string, nowMs: number, hardTtlMs: number): number {
   let removed = 0
@@ -2306,10 +3033,13 @@ export function pruneExpiredIdeas(repoRoot: string, nowMs: number, hardTtlMs: nu
     try {
       // Re-read inside the writer lock. A refresh/promotion that landed after the directory scan wins.
       const current = readIdeaById(repoRoot, idea.idea_id)
-      if (!current || current.status === 'promoted' || fs.existsSync(promotionReservationPath(repoRoot, idea.idea_id))) continue
+      if (!current || current.status === 'promoted' || activePromotionReservationUnlocked(repoRoot, idea.idea_id, nowMs)) continue
       const decay = Date.parse(current.decay_at)
       if (Number.isFinite(decay) && nowMs - decay > hardTtlMs) {
-        try { fs.unlinkSync(fp); removed++ } catch { /* best effort */ }
+        archiveExpiredIdeaUnlocked(repoRoot, current, nowMs)
+        fs.unlinkSync(fp)
+        fsyncDirectory(path.dirname(fp))
+        removed++
       }
     } finally {
       releaseIdeaMutationLease(fp, lease)

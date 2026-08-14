@@ -45,10 +45,11 @@ import { rerankCandidates } from './retrieval/rerank'
 import { markInboxConsumed, setDismissed } from './news/inbox-actions'
 import { refreshBoard } from './news/write-inbox'
 import {
-  appendIdeaFeedback, finalizeIdeaPromotion, readIdeaById, releaseIdeaPromotion, reserveIdeaPromotion,
+  appendIdeaFeedback, finalizeIdeaPromotion, ideaPromotionEligibility, readIdeaById, releaseIdeaPromotion, reserveIdeaPromotion,
   updateIdeaSnapshot,
 } from './news/ideas/ideas-store'
 import { auditInboxAction, hideSignal, moveThesis, MOVE_TARGETS, SIGNAL_ACTIONS } from './screener-actions'
+import { markIdeasPublicationPending } from './news/ideas/ideas-publisher'
 import { appendFeedbackRoute, FEEDBACK_TYPES, readAllFeedback, submitFeedback, summarizeFeedback, undoFeedback } from './screener-feedback'
 import { FEEDBACK_MAX_IMAGES, type FeedbackCategory, type FeedbackItemRecord, appendFeedbackEvent, foldFeedback, isFeedbackId, itemDir, newFeedbackId, readAllFeedback as readAllCockpitFeedback, saveFeedbackImage, writeFeedbackItem } from './feedback-store'
 import { dryRunFeedbackDispatch, startFeedbackDispatch } from './feedback-dispatch'
@@ -3700,19 +3701,18 @@ app.post('/api/screener/ideas/:id/promote', { config: { rateLimit: { max: 60, ti
   if (!IDEA_ID_RE.test(ideaId)) return reply.code(400).send({ error: 'invalid idea id' })
   const idea = readIdeaById(REPO_ROOT, ideaId)
   if (!idea) return reply.code(404).send({ error: 'idea not found' })
-  // Idempotent: an already-promoted idea returns its existing signal WITHOUT re-launching. The board rebuild
-  // is deferred (setImmediate), so the client card can briefly still read 'live' — a re-click (or an
-  // automated retry) must never spend a second paid run on the same idea.
-  if (idea.status === 'promoted' && idea.promoted_signal_id) {
-    return { sigId: idea.promoted_signal_id, runId: null, alreadyPromoted: true }
+  // Idempotent completed promotions win even after their source expiry. Every unpromoted expiry fails at
+  // the API boundary; hiding its button in the UI is not an authorization control for a paid launch.
+  const eligibility = ideaPromotionEligibility(idea)
+  if (eligibility.status === 'already_promoted') {
+    return { sigId: eligibility.signal_id, runId: null, alreadyPromoted: true }
+  }
+  if (eligibility.status === 'expired') {
+    return reply.code(410).send({ error: 'idea expired; refresh the news lead before promotion' })
   }
   const { user, userVia } = identify(req)
-  // Use the ORIGINAL-language headline (not the English translation) so the launched signal's SIG_ID
-  // byte-matches a wire launch of the same event — otherwise a non-English event double-folds a paid run.
   const headline = (idea.source_headline || idea.source_headlines?.[0] || idea.reason || '').trim().slice(0, 500)
   if (headline.length < 8) return reply.code(422).send({ error: 'idea has no usable source headline to launch' })
-  // A real on-list source anchors a news intake (Gate 0 checks it, and the SIG_ID byte-matches the wire
-  // event). Without one, fall back to a human-prompt intake carrying the skim's read as the note.
   const hasSource = Boolean(idea.source_url && idea.source_name)
   const intake = hasSource
     ? { headline, source_url: idea.source_url as string, source_name: idea.source_name as string, input_nature: 'news_headline' }
@@ -3720,18 +3720,25 @@ app.post('/api/screener/ideas/:id/promote', { config: { rateLimit: { max: 60, ti
   const reservation = reserveIdeaPromotion(REPO_ROOT, ideaId)
   if (!reservation) {
     const current = readIdeaById(REPO_ROOT, ideaId)
-    if (current?.status === 'promoted' && current.promoted_signal_id) {
-      return { sigId: current.promoted_signal_id, runId: null, alreadyPromoted: true }
+    if (current) {
+      const currentEligibility = ideaPromotionEligibility(current)
+      if (currentEligibility.status === 'already_promoted') {
+        return { sigId: currentEligibility.signal_id, runId: null, alreadyPromoted: true }
+      }
+      if (currentEligibility.status === 'expired') {
+        return reply.code(410).send({ error: 'idea expired; refresh the news lead before promotion' })
+      }
     }
-    return reply.code(409).send({ error: 'this idea is already being sent to the full machine' })
+    return reply.code(409).send({ error: 'idea changed or is already being sent; refresh before promotion' })
   }
   let launchCompleted = false
   try {
     const out = await launch({ kind: 'signal', intake, user, userVia })
     launchCompleted = true
-    const sigId = out.preflight?.ticker || sigIdFor({ headline, source_url: idea.source_url || '' } as Parameters<typeof sigIdFor>[0], todayDate())
+    const sigId = out.preflight.ticker
     // Merge only lifecycle fields into the newest provider snapshot under the reservation. A refresh or
     // feedback update that landed during the paid launch remains intact.
+    markIdeasPublicationPending(STATE_DIR)
     finalizeIdeaPromotion(
       REPO_ROOT, ideaId, reservation.token, sigId,
       new Date().toISOString().replace(/\.\d{3}Z$/, 'Z'), idea,
@@ -3739,8 +3746,6 @@ app.post('/api/screener/ideas/:id/promote', { config: { rateLimit: { max: 60, ti
     setImmediate(() => { try { refreshBoard(REPO_ROOT) } catch { /* best-effort */ } })
     return { sigId, runId: out.runId }
   } catch (e: any) {
-    // A completed paid launch must keep its durable reservation if the final stamp unexpectedly fails;
-    // allowing another click would spend twice. Pre-launch failures are safe to release and retry.
     if (!launchCompleted) releaseIdeaPromotion(REPO_ROOT, ideaId, reservation.token)
     const body = e?.body && typeof e.body === 'object' ? e.body : null
     return reply.code(e?.statusCode || 500).send({ error: e?.message || 'promote failed', ...(body || {}) })
@@ -3761,6 +3766,7 @@ app.post('/api/screener/ideas/:id/feedback', { config: { rateLimit: { max: 600, 
   const { user } = identify(req)
   const ts = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')
   try {
+    markIdeasPublicationPending(STATE_DIR)
     await appendIdeaFeedback(REPO_ROOT, { idea_feedback_id: `IFB-${randomUUID().slice(0, 12)}`, ts, idea_id: ideaId, ticker: idea.ticker, polarity: parsed.data.polarity, reason: parsed.data.reason || null, user })
     // a 👎 cools the idea toward the "Cooling off" lane within the grace window (never past its own decay).
     // RE-READ after the append (a promote or a skim-pass write may have landed during that await): merge the

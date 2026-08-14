@@ -328,6 +328,40 @@ def test_clean_rebase_second_push_race_retains_rebased_commit():
               and not os.path.exists(git_internal_path(agent, "rebase-apply", env)))
 
 
+def test_retry_push_is_exact_main_only_and_serialized():
+    """An ambiguous local commit can be retried without staging another commit or bypassing safety."""
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-retry-") as tmp:
+        env = git_env()
+        origin = os.path.join(tmp, "origin.git")
+        run(["git", "init", "--bare", "-q", "-b", "main", origin], cwd=tmp, env=env)
+        agent = os.path.join(tmp, "agent")
+        run(["git", "clone", "-q", origin, agent], cwd=tmp, env=env)
+        with open(os.path.join(agent, "base.txt"), "w") as f:
+            f.write("base\n")
+        run(["git", "add", "base.txt"], cwd=agent, env=env)
+        run(["git", "commit", "-q", "-m", "base"], cwd=agent, env=env)
+        run(["git", "push", "-q", "origin", "main"], cwd=agent, env=env)
+        with open(os.path.join(agent, "pending.txt"), "w") as f:
+            f.write("pending\n")
+        run(["git", "add", "pending.txt"], cwd=agent, env=env)
+        run(["git", "commit", "-q", "-m", "pending"], cwd=agent, env=env)
+        sha = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+
+        wrong = run(["bash", COMMIT_RUN, "--retry-push", "0" * 40], cwd=agent, env=env, check_rc=False)
+        check("retry mode refuses a target other than exact HEAD", wrong.returncode == 4,
+              f"rc={wrong.returncode} stderr={wrong.stderr!r}")
+        result = run(["bash", COMMIT_RUN, "--retry-push", sha], cwd=agent, env=env, check_rc=False)
+        run(["git", "fetch", "-q", "origin", "main"], cwd=agent, env=env)
+        remote = run(["git", "rev-parse", "origin/main"], cwd=agent, env=env).stdout.strip()
+        check("retry mode pushes the exact pending main commit under the shared helper",
+              result.returncode == 0 and remote == sha and f"COMMIT_SHA={sha}" in result.stdout,
+              f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
+
+        run(["git", "checkout", "-q", "-b", "code-branch"], cwd=agent, env=env)
+        rejected = run(["bash", COMMIT_RUN, "--retry-push", sha], cwd=agent, env=env, check_rc=False)
+        check("retry mode refuses a developer/code branch", rejected.returncode == 4, rejected.stderr)
+
+
 def test_invalid_new_decision_is_rejected_before_commit():
     with tempfile.TemporaryDirectory(prefix="commit-run-test-invalid-decision-") as tmp:
         _, agent, env = setup_stale_local_main_scenario(tmp)
@@ -478,6 +512,7 @@ if __name__ == "__main__":
     test_commit_hook_rejection_is_never_pushed_as_old_head()
     test_conflicting_rebase_is_aborted_cleanly()
     test_clean_rebase_second_push_race_retains_rebased_commit()
+    test_retry_push_is_exact_main_only_and_serialized()
     test_invalid_new_decision_is_rejected_before_commit()
     test_valid_decision_commits_staged_snapshot_not_later_worktree_bytes()
     test_unchanged_historical_decision_is_not_regraded()

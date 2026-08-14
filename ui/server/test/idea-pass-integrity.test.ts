@@ -45,7 +45,21 @@ const fetchFn = (async (input: Parameters<typeof fetch>[0]) => {
       lifecycleEditInjected = true
       // Simulate a user promotion while the pass is awaiting its independent listing lookup. The final
       // provider write must re-read this revision and preserve the promotion.
+      const sourceEventIds = [
+        eventIdFor('Acme wins a material contract', 'https://exchange.test/acme'),
+        eventIdFor('Peer demand rises into results', 'https://exchange.test/peer'),
+      ]
+      const reason = 'Contract and demand can lift estimates'
+      const whyNow = 'Results are inside the next month'
       writeIdea(root, validIdeaSnapshot('ACME', 'long', {
+        idea_version: ideaVersion({
+          ticker: 'ACME', direction: 'long', pairWith: null, thesisType: 'company_specific', reason, whyNow,
+          sourceEventIds, primarySourceEventId: sourceEventIds[0], sourceHeadline: 'Acme wins a material contract',
+          sourceUrl: 'https://exchange.test/acme', sourceName: 'Exchange', originType: 'wire', sourceThemes: [],
+        }),
+        reason, why_now: whyNow, source_event_ids: sourceEventIds, primary_source_event_id: sourceEventIds[0],
+        source_headlines: ['Acme wins a material contract', 'Peer demand rises into results'],
+        source_headline: 'Acme wins a material contract', source_url: 'https://exchange.test/acme', source_name: 'Exchange',
         status: 'promoted', promoted_signal_id: 'SIG-current',
         surfaced_at: '2026-08-03T09:30:00Z', idea_version_started_at: '2026-08-03T09:30:00Z',
         updated_at: '2026-08-03T11:45:00Z',
@@ -579,4 +593,50 @@ try {
   invalidateSymbolCache()
 }
 
-console.log('\n6 idea-pass integrity checks passed')
+// A human/source mutation during the awaited directory lookup invalidates the whole provider package.
+// No row from the old top-N may be persisted after an event is dismissed/withdrawn in that window.
+const raceRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'idea-pass-source-race-'))
+resetSharedLimiters()
+const raceState = path.join(raceRoot, '.state')
+const raceInbox = path.join(raceRoot, 'screener', 'inbox')
+fs.mkdirSync(raceInbox, { recursive: true })
+const raceSweepPath = path.join(raceInbox, '2026-08-03_sweep.json')
+const raceRows = [
+  { headline: 'Race Co wins a material contract', url: 'https://exchange.test/race', source_name: 'Exchange', found_at: '2026-08-03T10:00:00Z', triage_score: 91 },
+  { headline: 'Race peer demand rises', url: 'https://exchange.test/race-peer', source_name: 'Exchange', found_at: '2026-08-03T09:00:00Z', triage_score: 84 },
+]
+fs.writeFileSync(raceSweepPath, JSON.stringify({ updated_at: '2026-08-03T11:30:00Z', rows: raceRows }))
+let raceMutated = false
+const raceFetch = (async (input: Parameters<typeof fetch>[0]) => {
+  if (isYahooSymbolDirectoryUrl(input)) {
+    if (!raceMutated) {
+      raceMutated = true
+      fs.writeFileSync(raceSweepPath, JSON.stringify({
+        updated_at: '2026-08-03T11:31:00Z', rows: raceRows.slice(1),
+      }))
+    }
+    return new Response(JSON.stringify({ quotes: [{ quoteType: 'EQUITY', symbol: 'RACE', longname: 'Race Co', exchDisp: 'NYSE' }] }), { status: 200 })
+  }
+  return new Response(JSON.stringify({
+    choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [{
+      src: [0, 1], ticker: 'RACE', company: 'Race Co', exchange: 'NYSE', direction: 'long',
+      reason: 'The contract can lift estimates', why_now: 'The exchange disclosed it today',
+      conviction: 70, priced_in: 'room', thesis_type: 'company_specific',
+    }] }) } }], usage: { total_tokens: 100 },
+  }), { status: 200, headers: { 'content-type': 'application/json' } })
+}) as typeof fetch
+try {
+  const result = await runIdeaPass({
+    repoRoot: raceRoot, stateDir: raceState, config, refreshBoard: async () => {}, now: () => NOW,
+    fetchFn: raceFetch, sleep: async () => {}, persistHealth: true,
+  })
+  assert.equal(result.reason_code, 'inputs_changed')
+  assert.equal(result.produced, 0)
+  assert.equal(readIdeaById(raceRoot, ideaId('RACE', 'long')), null, 'stale provider output never reaches the canonical store')
+  assert.equal(readIdeasHealth(raceState, raceRoot, true, NOW).reason_code, 'inputs_changed')
+} finally {
+  fs.rmSync(raceRoot, { recursive: true, force: true })
+  invalidateSymbolCache()
+}
+
+console.log('\n7 idea-pass integrity checks passed')

@@ -231,6 +231,7 @@ await check('python board builder: effective_status + override + staleness appli
   fs.mkdirSync(path.join(root, 'scripts'), { recursive: true })
   fs.copyFileSync(path.join(REPO_ROOT, 'scripts', 'update_board_index.py'), path.join(root, 'scripts', 'update_board_index.py'))
   fs.copyFileSync(path.join(REPO_ROOT, 'scripts', 'canonical_json.py'), path.join(root, 'scripts', 'canonical_json.py'))
+  fs.copyFileSync(path.join(REPO_ROOT, 'scripts', 'recover_idea_board_history.py'), path.join(root, 'scripts', 'recover_idea_board_history.py'))
   await moveThesis('THS-SIG-20260612-test-v1', 'full_machine', 'promote it', 'tester@x', root)
   execFileSync('python3', [path.join(root, 'scripts', 'update_board_index.py')], { cwd: root, stdio: 'ignore' })
   const board = JSON.parse(fs.readFileSync(path.join(root, 'screener/board/index.json'), 'utf8'))

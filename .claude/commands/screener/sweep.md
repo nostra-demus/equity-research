@@ -51,7 +51,11 @@ Keep ≤ 25 rows/day among rows with NO human state (rank by plausible materiali
 ## 6. Commit and push to main
 
 ```
-bash scripts/commit-run.sh "Screener sweep: <DATE> (<N> rows)" -- "screener/inbox/" "screener/board/" "screener/ledger/themes.ndjson"
+bash scripts/commit-run.sh "Screener sweep: <DATE> (<N> rows)" -- \
+  "screener/inbox/" "screener/board/" \
+  "screener/ledger/themes.ndjson" \
+  "screener/ledger/ideas.ndjson" "screener/ledger/ideas_feedback.ndjson" \
+  "screener/ledger/ideas/" "screener/ledger/ideas_archive/"
 ```
 
 ## 7. Report
@@ -63,5 +67,5 @@ Print: rows found / new / possible-duplicate / total in today's file; the top 5 
 ## Hard rules
 
 - Off-list sources never enter the inbox.
-- The sweep authors ONLY `screener/inbox/<DATE>_sweep.json` + the board index. No runs, no event-ledger rows, no signals. Its commit also checkpoints `screener/ledger/themes.ndjson` when the running Theme stage advanced it, so the published board and its durable Theme state cannot drift apart.
+- The sweep authors ONLY `screener/inbox/<DATE>_sweep.json` + the board index. No runs, no event-ledger rows, no signals. Its commit also checkpoints the running Theme and Ideas stages: Theme state, Ideas history, active snapshots, feedback, and the expired audit archive. This keeps the published board aligned with durable state and prevents a deploy from losing previously surfaced leads.
 - Re-running the same day MERGES (idempotent) — existing rows' human state (`consumed`, `dismissed`, `launched_signal_id`) and ingester triage fields are preserved, and rows carrying human state are never dropped by the daily cap.

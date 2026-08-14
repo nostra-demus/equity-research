@@ -12,7 +12,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../../lib/store'
-import type { BoardIdea, QualifiedIdeaEvaluation, QualifiedIdeasBoard } from '../../lib/types'
+import type { ArchivedBoardIdea, BoardIdea, IdeasArchive, IdeasArchiveHealth, IdeasArchiveRetentionSide, IdeasArchiveSideCounts, QualifiedIdeaEvaluation, QualifiedIdeasBoard } from '../../lib/types'
 import { ideaIsStaleNow, qualifiedIdeaFreshnessNow } from '../../lib/ideasView'
 
 const MACRO_TYPES = new Set(['macro_conditional', 'commodity_conditional', 'policy_conditional', 'fx_rates', 'liquidity_positioning'])
@@ -88,6 +88,7 @@ const HEALTH_COUNT_KEYS = [
   'qualified_count', 'needs_research_count', 'does_not_clear_count', 'measured_count',
 ] as const
 const RFC3339 = /^(\d{4})-(\d{2})-(\d{2})[Tt](\d{2}):(\d{2}):(\d{2})(?:\.\d+)?(?:[Zz]|([+-])(\d{2}):(\d{2}))$/
+const IDEA_VERSION = /^IDEAV-[a-f0-9]{16}$/
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value) && typeof value === 'object' && !Array.isArray(value)
@@ -599,12 +600,234 @@ export function normalizeQualifiedIdeasBoard(value: unknown, nowMs = Date.now())
 }
 
 /** A pair is shown once for each explicit leg: its primary ticker is long and pair_with is short. */
+function ideaMatchesSide(idea: Pick<BoardIdea, 'direction' | 'pair_with'>, side: IdeaSide): boolean {
+  return idea.direction === side || (idea.direction === 'pair' && Boolean(idea.pair_with))
+}
+
 export function ideasForSide(ideas: readonly BoardIdea[], side: IdeaSide, nowMs = Date.now()): BoardIdea[] {
-  return ideas.filter((idea) => {
-    if (ideaIsStaleNow(idea, nowMs)) return false
-    if (idea.direction === side) return true
-    return idea.direction === 'pair' && Boolean(idea.pair_with)
-  })
+  return ideas.filter((idea) => !ideaIsStaleNow(idea, nowMs) && ideaMatchesSide(idea, side))
+}
+
+export interface ArchivedIdeasSideView {
+  ideas: ArchivedLeadViewRow[]
+  totalCount: number
+  shownCount: number
+  hiddenCount: number
+  unconfirmedCount: number | null
+  health: IdeasArchiveHealth | null
+  retention: IdeasArchiveRetentionSide | null
+  countsExact: boolean
+}
+
+type ArchivedLeadViewRow = Omit<ArchivedBoardIdea, 'idea_version' | 'idea_version_started_at'> & {
+  idea_version?: string
+  idea_version_started_at?: string
+}
+
+function nonNegativeInteger(value: unknown): value is number {
+  return Number.isInteger(value) && Number(value) >= 0
+}
+
+function archiveCounts(value: unknown): IdeasArchiveSideCounts | null {
+  if (!isRecord(value)
+    || !nonNegativeInteger(value.total_count)
+    || !nonNegativeInteger(value.shown_count)
+    || !nonNegativeInteger(value.hidden_count)
+    || value.shown_count + value.hidden_count !== value.total_count
+  ) return null
+  return value as unknown as IdeasArchiveSideCounts
+}
+
+function archiveUnconfirmedCounts(value: unknown): { long: number; short: number } | null {
+  if (!isRecord(value)
+    || !nonNegativeInteger(value.long)
+    || !nonNegativeInteger(value.short)
+  ) return null
+  return { long: value.long, short: value.short }
+}
+
+function archiveHealth(value: unknown): IdeasArchiveHealth | null {
+  if (!isRecord(value)
+    || !['missing', 'ok', 'degraded', 'unreadable'].includes(String(value.status))
+    || !nonNegativeInteger(value.file_count)
+    || !nonNegativeInteger(value.suppression_count)
+    || !nonNegativeInteger(value.corrupt_count)
+    || !nonNegativeInteger(value.invalid_count)
+    || !(value.error === null || typeof value.error === 'string')
+  ) return null
+  return value as unknown as IdeasArchiveHealth
+}
+
+function archiveRetentionSide(value: unknown): IdeasArchiveRetentionSide | null {
+  if (!isRecord(value)
+    || !nonNegativeInteger(value.evicted_count)
+    || !(value.oldest_retained_at === null || Number.isFinite(parseRfc3339Ms(value.oldest_retained_at)))
+  ) return null
+  return value as unknown as IdeasArchiveRetentionSide
+}
+
+function normalizedIdeasArchive(value: unknown): IdeasArchive | null {
+  if (!isRecord(value) || value.schema_version !== 'ideas-archive/v1' || !Array.isArray(value.rows)) return null
+  const long = isRecord(value.side_counts) ? archiveCounts(value.side_counts.long) : null
+  const short = isRecord(value.side_counts) ? archiveCounts(value.side_counts.short) : null
+  const health = archiveHealth(value.health)
+  const retention = isRecord(value.retention) ? archiveRetentionSide(value.retention) : null
+  const retainedLong = isRecord(value.retention) && isRecord(value.retention.side_counts)
+    ? archiveRetentionSide(value.retention.side_counts.long) : null
+  const retainedShort = isRecord(value.retention) && isRecord(value.retention.side_counts)
+    ? archiveRetentionSide(value.retention.side_counts.short) : null
+  const unconfirmedCounts = value.unconfirmed_counts === undefined
+    ? null
+    : archiveUnconfirmedCounts(value.unconfirmed_counts)
+  if (!long || !short || !health || !retention || !retainedLong || !retainedShort
+    || !isRecord(value.retention) || typeof value.retention.truncated !== 'boolean'
+    || value.retention.truncated !== (retention.evicted_count > 0)
+    || retainedLong.evicted_count > retention.evicted_count
+    || retainedShort.evicted_count > retention.evicted_count
+    || !nonNegativeInteger(value.total_count)
+    || !nonNegativeInteger(value.shown_count)
+    || !nonNegativeInteger(value.hidden_count)
+    || value.shown_count + value.hidden_count !== value.total_count
+    || value.rows.length !== value.shown_count
+  ) return null
+  const rows = value.rows.filter(archivedBoardIdea)
+  const rowKeys = rows.map(exactIdeaVersionKey)
+  if (rows.length !== value.rows.length
+    || new Set(rowKeys).size !== rows.length
+    || rows.filter((row) => ideaMatchesSide(row, 'long')).length !== long.shown_count
+    || rows.filter((row) => ideaMatchesSide(row, 'short')).length !== short.shown_count
+  ) return null
+  // History-audit counts are optional and independent from the saved rows. If only that metadata is
+  // absent or malformed, keep the valid timeline and expose the count as unknown rather than zero.
+  const { unconfirmed_counts: _discardedUnconfirmedCounts, ...archive } = value
+  return {
+    ...archive,
+    ...(unconfirmedCounts ? { unconfirmed_counts: unconfirmedCounts } : {}),
+  } as unknown as IdeasArchive
+}
+
+function archivedBoardIdea(value: unknown): value is ArchivedBoardIdea {
+  return isRecord(value)
+    && nonBlank(value.idea_id)
+    && typeof value.idea_version === 'string' && IDEA_VERSION.test(value.idea_version)
+    && Number.isFinite(parseRfc3339Ms(value.idea_version_started_at))
+    && nonBlank(value.ticker)
+    && (value.company === null || typeof value.company === 'string')
+    && (value.exchange === null || typeof value.exchange === 'string')
+    && ['long', 'short', 'pair'].includes(String(value.direction))
+    && (value.direction !== 'pair' || nonBlank(value.pair_with))
+    && typeof value.reason === 'string'
+    && typeof value.why_now === 'string'
+    && finiteNumber(value.trade_score)
+    && ['evidence_gate_v1', 'evidence_gate_v2', 'pre_edge_proxy_legacy'].includes(String(value.trade_score_basis))
+    && Array.isArray(value.missing_checks) && value.missing_checks.every((item) => typeof item === 'string')
+    && nonBlank(value.thesis_type)
+    && Array.isArray(value.source_headlines) && value.source_headlines.every((item) => typeof item === 'string')
+    && (value.source_url === null || typeof value.source_url === 'string')
+    && (value.source_name === null || typeof value.source_name === 'string')
+    && typeof value.newest_source_at === 'string'
+    && Number.isFinite(parseRfc3339Ms(value.decay_at))
+    && value.status === 'expired'
+    && value.stale === true
+    && value.promoted_signal_id === null
+    && Number.isFinite(parseRfc3339Ms(value.archived_at))
+    && value.audit_only === true
+    && ['expired', 'expired_pruned', 'historical_board_expired', 'latest_board_current'].includes(String(value.archive_reason))
+}
+
+function fallbackArchivedIdea(idea: BoardIdea): ArchivedLeadViewRow {
+  return {
+    ...idea,
+    ...(typeof idea.idea_version === 'string' && IDEA_VERSION.test(idea.idea_version) ? { idea_version: idea.idea_version } : {}),
+    ...(Number.isFinite(parseRfc3339Ms(idea.idea_version_started_at))
+      ? { idea_version_started_at: idea.idea_version_started_at }
+      : Number.isFinite(parseRfc3339Ms(idea.updated_at)) ? { idea_version_started_at: idea.updated_at } : {}),
+    status: 'expired',
+    stale: true,
+    promoted_signal_id: null,
+    archived_at: Number.isFinite(parseRfc3339Ms(idea.decay_at)) ? idea.decay_at : '',
+    archive_reason: 'expired',
+    audit_only: true,
+  }
+}
+
+function exactIdeaVersionKey(idea: Pick<BoardIdea, 'idea_id' | 'idea_version' | 'idea_version_started_at'>): string | null {
+  return typeof idea.idea_version === 'string' && IDEA_VERSION.test(idea.idea_version)
+    && Number.isFinite(parseRfc3339Ms(idea.idea_version_started_at))
+    ? `${idea.idea_id}|${idea.idea_version}|${idea.idea_version_started_at}`
+    : null
+}
+
+function archiveRenderKey(idea: ArchivedLeadViewRow): string {
+  return exactIdeaVersionKey(idea) || `${idea.idea_id}|legacy-current|${idea.idea_version_started_at || idea.updated_at || idea.decay_at}`
+}
+
+function archivedIdeaTime(idea: ArchivedLeadViewRow): number {
+  const decay = parseRfc3339Ms(idea.decay_at)
+  if (Number.isFinite(decay)) return decay
+  const archived = parseRfc3339Ms(idea.archived_at)
+  return Number.isFinite(archived) ? archived : 0
+}
+
+/** Merge the new bounded archive with stale rows from `board.ideas` during a rolling deploy. Any current
+ * snapshot suppresses only its exact immutable version; prior versions of the same ticker and direction
+ * remain visible as distinct audit history. */
+export function archivedIdeasForSide(
+  currentIdeas: readonly BoardIdea[],
+  archiveValue: unknown,
+  side: IdeaSide,
+  nowMs = Date.now(),
+): ArchivedIdeasSideView {
+  const archive = normalizedIdeasArchive(archiveValue)
+  const malformedHealth: IdeasArchiveHealth | null = archiveValue != null && !archive
+    ? {
+        status: 'unreadable', file_count: 0, suppression_count: 0,
+        corrupt_count: 0, invalid_count: 1, error: 'archive_payload_malformed',
+      }
+    : null
+  const currentVersions = new Set(currentIdeas.map(exactIdeaVersionKey).filter((key): key is string => Boolean(key)))
+  const byVersion = new Map<string, ArchivedLeadViewRow>()
+  const representedArchiveKeys = new Set<string>()
+  const suppressedWithoutFallback = new Set<string>()
+  const staleCurrentKeys = new Set(currentIdeas
+    .filter((idea) => idea.status !== 'promoted' && ideaMatchesSide(idea, side) && ideaIsStaleNow(idea, nowMs))
+    .map((idea) => exactIdeaVersionKey(idea) || `${idea.idea_id}|legacy-current`))
+
+  for (const candidate of archive?.rows || []) {
+    if (!archivedBoardIdea(candidate) || !ideaMatchesSide(candidate, side)) continue
+    const key = archiveRenderKey(candidate)
+    representedArchiveKeys.add(key)
+    if (currentVersions.has(key)) {
+      if (!staleCurrentKeys.has(key)) suppressedWithoutFallback.add(key)
+      continue
+    }
+    const prior = byVersion.get(key)
+    if (!prior || archivedIdeaTime(candidate) > archivedIdeaTime(prior)) byVersion.set(key, candidate)
+  }
+  // The client clock can expire a row before the next successful poll. Re-project that latest current
+  // snapshot into the earlier lane immediately; malformed decay also fails closed here.
+  for (const idea of currentIdeas) {
+    if (idea.status === 'promoted' || !ideaMatchesSide(idea, side) || !ideaIsStaleNow(idea, nowMs)) continue
+    const archived = fallbackArchivedIdea(idea)
+    byVersion.set(archiveRenderKey(archived), archived)
+  }
+
+  const ideas = [...byVersion.values()].sort((left, right) => archivedIdeaTime(right) - archivedIdeaTime(left)
+    || left.idea_id.localeCompare(right.idea_id) || String(left.idea_version || '').localeCompare(String(right.idea_version || '')))
+  const stated = archive?.side_counts[side]
+  const totalCount = Math.max(ideas.length, stated?.total_count || 0)
+  const fallbackOutsideArchive = [...staleCurrentKeys].some((key) => !representedArchiveKeys.has(key))
+  const countsExact = Boolean(archive) && !fallbackOutsideArchive && suppressedWithoutFallback.size === 0
+  return {
+    ideas,
+    totalCount,
+    shownCount: ideas.length,
+    hiddenCount: Math.max(0, totalCount - ideas.length),
+    unconfirmedCount: archive?.unconfirmed_counts?.[side] ?? null,
+    health: archive?.health || malformedHealth,
+    retention: archive?.retention.side_counts[side] || null,
+    countsExact,
+  }
 }
 
 export function qualifiedIdeasForSide(board: QualifiedIdeasBoard | null | undefined, side: IdeaSide): QualifiedIdeaEvaluation[] {
@@ -810,6 +1033,9 @@ function PromoteButton({ idea }: { idea: BoardIdea }) {
   useEffect(() => () => { if (armTimer.current) clearTimeout(armTimer.current) }, [])
 
   if (idea.status === 'promoted') return <span className="bidea__sent">In the machine</span>
+  if (idea.promotion_available === false) {
+    return <span className="bidea__sent" title="Recovered from a committed board snapshot; strict promotion inputs are unavailable">Read-only recovery</span>
+  }
 
   const rated = idea.prior_coverage?.has_run
   const onClick = () => {
@@ -1139,7 +1365,13 @@ export function QualifiedIdeaCard({
   )
 }
 
-export function NewsLeadCard({ idea, side }: { idea: BoardIdea; side: IdeaSide }) {
+type NewsLeadCardProps =
+  | { idea: BoardIdea; side: IdeaSide; auditOnly?: false; timelineStatus?: 'current' | 'promoted' }
+  | { idea: ArchivedLeadViewRow; side: IdeaSide; auditOnly: true; timelineStatus?: 'expired' }
+
+export function NewsLeadCard(props: NewsLeadCardProps) {
+  const { idea, side } = props
+  const auditOnly = props.auditOnly === true
   const macro = MACRO_TYPES.has(idea.thesis_type)
   const pc = idea.prior_coverage
   const rated = pc?.has_run
@@ -1149,8 +1381,17 @@ export function NewsLeadCard({ idea, side }: { idea: BoardIdea; side: IdeaSide }
   const company = pair && side === 'short' ? '' : [idea.company, idea.exchange].filter(Boolean).join(' · ')
   const scorePresentation = ideaScorePresentation(idea)
   const researchPriority = leadResearchPriorityValue(idea)
+  const expiredAt = auditOnly ? qualifiedShortDate(idea.decay_at) : null
+  const timelineStatus = props.timelineStatus
+  const statusLabel = timelineStatus === 'current'
+    ? 'Current'
+    : timelineStatus === 'promoted'
+      ? 'Sent to full research'
+      : timelineStatus === 'expired'
+        ? 'Expired'
+        : auditOnly ? 'expired lead · audit only' : 'unverified news-only lead'
   return (
-    <article className="bidea bidea--lead">
+    <article className={`bidea bidea--lead${auditOnly ? ' bidea--expired' : ''}`}>
       <div className="bidea__head">
         <span className="bidea__ticker">{ticker}</span>
         {company && <span className="bidea__co">{company}</span>}
@@ -1165,7 +1406,7 @@ export function NewsLeadCard({ idea, side }: { idea: BoardIdea; side: IdeaSide }
 
       {(idea.source_headlines?.[0] || idea.source_name) && (
         <p className="bidea__source">
-          <span>unverified lead · </span>
+          <span>{auditOnly ? 'expired unverified lead · ' : 'unverified lead · '}</span>
           {idea.source_url
             ? <a href={idea.source_url} target="_blank" rel="noreferrer">{idea.source_headlines?.[0] || idea.source_name}</a>
             : <span>{idea.source_headlines?.[0] || idea.source_name}</span>}
@@ -1175,7 +1416,11 @@ export function NewsLeadCard({ idea, side }: { idea: BoardIdea; side: IdeaSide }
       )}
 
       <div className="bidea__tags">
-        <span className="bidea__tag bidea__tag--lead">unverified news-only lead</span>
+        <span className={`bidea__tag ${auditOnly ? 'bidea__tag--expired' : 'bidea__tag--lead'}`}>
+          {statusLabel}
+        </span>
+        {timelineStatus === 'expired' && <span className="bidea__tag">Saved record · view only</span>}
+        {auditOnly && expiredAt && <span className="bidea__tag">past shelf life since {expiredAt}</span>}
         {themeAttribution && (
           <span className="bidea__tag bidea__tag--theme" title={themeAttribution.title}>
             {themeAttribution.label}
@@ -1195,16 +1440,134 @@ export function NewsLeadCard({ idea, side }: { idea: BoardIdea; side: IdeaSide }
 
       <div className="bidea__foot">
         <div className="bidea__read" title={scorePresentation.title}>
-          <span className="bidea__readlabel">{scorePresentation.label}</span>
+          <span className="bidea__readlabel">{auditOnly ? `historical ${scorePresentation.label}` : scorePresentation.label}</span>
           <span className="bidea__readnum">{researchPriority}<span className="bidea__readden">/100</span></span>
           <span className="bidea__bar" aria-hidden><span className="bidea__barfill" style={{ width: `${researchPriority}%` }} /></span>
         </div>
-        <div className="bidea__actions">
-          <IdeaFeedback idea={idea} />
-          <PromoteButton idea={idea} />
-        </div>
+        {!props.auditOnly && props.idea.status !== 'promoted' && (
+          <div className="bidea__actions">
+            {props.idea.promotion_available !== false && <IdeaFeedback idea={props.idea} />}
+            <PromoteButton idea={props.idea} />
+          </div>
+        )}
       </div>
     </article>
+  )
+}
+
+export interface NewsIdeasTimelineRow {
+  key: string
+  idea: BoardIdea | ArchivedLeadViewRow
+  status: 'current' | 'promoted' | 'expired'
+  auditOnly: boolean
+  timestamp: number
+}
+
+function timelineTime(idea: BoardIdea | ArchivedLeadViewRow): number {
+  for (const value of [idea.updated_at, idea.surfaced_at, idea.newest_source_at, idea.decay_at]) {
+    const parsed = parseRfc3339Ms(value)
+    if (Number.isFinite(parsed)) return parsed
+  }
+  return 0
+}
+
+/** One honest timeline: current, sent-to-research, then expired. Every exact saved occurrence appears once. */
+export function ideasTimelineForSide(
+  currentIdeas: readonly BoardIdea[],
+  archiveValue: unknown,
+  side: IdeaSide,
+  nowMs = Date.now(),
+): { rows: NewsIdeasTimelineRow[]; archive: ArchivedIdeasSideView } {
+  const archive = archivedIdeasForSide(currentIdeas, archiveValue, side, nowMs)
+  const rows: NewsIdeasTimelineRow[] = []
+  const seen = new Set<string>()
+  for (const idea of currentIdeas) {
+    if (!ideaMatchesSide(idea, side)) continue
+    const status = idea.status === 'promoted' ? 'promoted' : ideaIsStaleNow(idea, nowMs) ? null : 'current'
+    if (!status) continue
+    const key = exactIdeaVersionKey(idea) || `${idea.idea_id}|current|${idea.idea_version_started_at || idea.updated_at}`
+    if (seen.has(key)) continue
+    seen.add(key)
+    rows.push({ key, idea, status, auditOnly: false, timestamp: timelineTime(idea) })
+  }
+  for (const idea of archive.ideas) {
+    const key = archiveRenderKey(idea)
+    if (seen.has(key)) continue
+    seen.add(key)
+    rows.push({ key, idea, status: 'expired', auditOnly: true, timestamp: archivedIdeaTime(idea) })
+  }
+  const group = { current: 0, promoted: 1, expired: 2 }
+  rows.sort((a, b) => group[a.status] - group[b.status] || b.timestamp - a.timestamp || a.key.localeCompare(b.key))
+  return { rows, archive }
+}
+
+const IDEAS_TIMELINE_PAGE_SIZE = 20
+
+export function NewsIdeasTimeline({
+  currentIdeas,
+  archiveValue,
+  side,
+  nowMs = Date.now(),
+}: {
+  currentIdeas: readonly BoardIdea[]
+  archiveValue: unknown
+  side: IdeaSide
+  nowMs?: number
+}) {
+  const timeline = ideasTimelineForSide(currentIdeas, archiveValue, side, nowMs)
+  const [visibleCount, setVisibleCount] = useState(IDEAS_TIMELINE_PAGE_SIZE)
+  const sentinelRef = useRef<HTMLDivElement | null>(null)
+  const hasMore = visibleCount < timeline.rows.length
+  const showMore = () => setVisibleCount((count) => Math.min(timeline.rows.length, count + IDEAS_TIMELINE_PAGE_SIZE))
+
+  useEffect(() => setVisibleCount(IDEAS_TIMELINE_PAGE_SIZE), [side])
+  useEffect(() => {
+    if (!hasMore || !sentinelRef.current || typeof IntersectionObserver === 'undefined') return
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) showMore()
+    }, { rootMargin: '240px 0px' })
+    observer.observe(sentinelRef.current)
+    return () => observer.disconnect()
+  }, [hasMore, timeline.rows.length])
+
+  const incomplete = timeline.archive.health?.status !== 'ok' || !timeline.archive.countsExact
+  const omitted = timeline.archive.retention?.evicted_count || 0
+  const unconfirmed = timeline.archive.unconfirmedCount
+  const historyUnchecked = unconfirmed === null
+  return (
+    <section className="bideas__timeline" aria-labelledby={`ideas-${side}-timeline-heading`}>
+      <header className="bideas__sectionhead">
+        <div>
+          <h2 id={`ideas-${side}-timeline-heading`}>All saved {side.toUpperCase()} ideas</h2>
+          <p>Current, sent to full research, and expired ideas in one timeline.</p>
+        </div>
+        <span>{timeline.rows.length} saved</span>
+      </header>
+      {(incomplete || omitted > 0 || (unconfirmed || 0) > 0 || historyUnchecked) && (
+        <p className="bideas__archivewarning" role="status">
+          Showing the saved records that can be confirmed.
+          {(unconfirmed || 0) > 0 && ` ${unconfirmed} older record${unconfirmed === 1 ? '' : 's'} could not be confirmed.`}
+          {omitted > 0 && ` ${omitted} older record${omitted === 1 ? ' is' : 's are'} no longer stored.`}
+          {unconfirmed === null && (incomplete || historyUnchecked) && ' Some older records could not be checked.'}
+          {incomplete && unconfirmed !== null && ' The saved list may be incomplete.'}
+        </p>
+      )}
+      {timeline.rows.length > 0 ? (
+        <div className="bideas__list bideas__leadlist">
+          {timeline.rows.slice(0, visibleCount).map((row) => row.auditOnly
+            ? <NewsLeadCard key={row.key} idea={row.idea as ArchivedLeadViewRow} side={side} auditOnly timelineStatus="expired" />
+            : <NewsLeadCard key={row.key} idea={row.idea as BoardIdea} side={side} timelineStatus={row.status as 'current' | 'promoted'} />)}
+        </div>
+      ) : (
+        <p className="bideas__queueempty">No saved {side.toUpperCase()} ideas yet.</p>
+      )}
+      {hasMore && (
+        <div className="bideas__timeline-more" ref={sentinelRef}>
+          <button type="button" onClick={showMore}>Show more</button>
+          <span>{Math.min(visibleCount, timeline.rows.length)} of {timeline.rows.length}</span>
+        </div>
+      )}
+    </section>
   )
 }
 
@@ -1228,12 +1591,14 @@ export function NewsLeadResearchQueue({
   side,
   leadsAvailable,
   leadHealth,
+  expanded = false,
   loading = false,
 }: {
   ideas: readonly BoardIdea[]
   side: IdeaSide
   leadsAvailable: boolean
   leadHealth: unknown
+  expanded?: boolean
   loading?: boolean
 }) {
   const health = isRecord(leadHealth) && leadHealth.schema_version === 'ideas-health/v1'
@@ -1243,14 +1608,15 @@ export function NewsLeadResearchQueue({
   const countLabel = checking
     ? 'checking · unverified · not recommendations'
     : leadsAvailable && health?.status === 'healthy'
-      ? `${ideas.length} unverified news lead${ideas.length === 1 ? '' : 's'} · not recommendations`
+      ? `${ideas.length} within shelf life · not recommendations`
       : 'availability unknown · unverified · not recommendations'
-  return (
-    <details className="bideas__queue">
-      <summary>
-        <span>News lead research queue</span>
-        <small>{countLabel}</small>
-      </summary>
+  const heading = (
+    <>
+      <span>Current news leads · unverified</span>
+      <small>{countLabel}</small>
+    </>
+  )
+  const body = (
       <div className="bideas__queuebody">
         <p className="bideas__queuedisclaimer">
           <strong>Unverified news-only leads.</strong> These rank what to research next. They are not recommendations or qualified 3–6 month calls.
@@ -1263,6 +1629,58 @@ export function NewsLeadResearchQueue({
           <p className="bideas__queueempty">{newsLeadQueueEmptyMessage(leadsAvailable, leadHealth, loading)}</p>
         )}
       </div>
+  )
+  return expanded ? (
+    <section className="bideas__queue bideas__queue--expanded" aria-label="Current news leads">
+      <header className="bideas__queuehead">{heading}</header>
+      {body}
+    </section>
+  ) : (
+    <details className="bideas__queue">
+      <summary>{heading}</summary>
+      {body}
+    </details>
+  )
+}
+
+export function EarlierNewsLeadArchive({ view, side }: { view: ArchivedIdeasSideView; side: IdeaSide }) {
+  const incomplete = view.health?.status !== 'ok' || !view.countsExact
+  const evictedCount = view.retention?.evicted_count || 0
+  if (view.totalCount === 0 && view.health === null && evictedCount === 0) return null
+  const countLabel = incomplete
+    ? `${view.shownCount} available · inventory incomplete${evictedCount ? ` · at least ${evictedCount} older omitted` : ''} · audit only`
+    : `${view.shownCount} shown · ${view.hiddenCount} not shown · ${view.totalCount} retained${evictedCount ? ` · ${evictedCount} older omitted` : ''} · audit only`
+  const healthMessage = view.health?.status === 'missing'
+    ? 'Archive inventory is incomplete because stored earlier-lead history is missing. Retained expired board rows are shown when available.'
+    : view.health?.status === 'degraded'
+      ? 'Archive inventory is incomplete because some stored earlier leads could not be read.'
+      : view.health?.status === 'unreadable'
+        ? 'Archive inventory is incomplete because stored earlier-lead history could not be read. Retained expired board rows are shown when available.'
+        : !view.countsExact && view.health === null
+          ? 'Stored archive inventory is unavailable in this response. Retained expired board rows are shown when available.'
+          : !view.countsExact
+            ? 'Archive counts are catching up with leads that changed shelf-life state on this screen. Available audit rows are shown without claiming a complete total.'
+            : null
+  return (
+    <details className="bideas__queue bideas__queue--archive">
+      <summary>
+        <span>Earlier news leads · past shelf life</span>
+        <small>{countLabel}</small>
+      </summary>
+      <div className="bideas__queuebody">
+        {healthMessage && <p className="bideas__archivewarning" role="status">{healthMessage}</p>}
+        {evictedCount > 0 && (
+          <p className="bideas__archivewarning" role="status">
+            This is bounded history: {incomplete ? 'at least ' : ''}{evictedCount} older {side.toUpperCase()} lead revision{evictedCount === 1 ? ' was' : 's were'} omitted from retained history.
+          </p>
+        )}
+        <p className="bideas__queuedisclaimer">
+          <strong>Expired, audit-only news leads.</strong> These surfaced earlier but are no longer current. They are not recommendations and cannot be sent to full research from here.
+        </p>
+        {view.ideas.length > 0
+          ? <div className="bideas__list bideas__leadlist">{view.ideas.map((idea) => <NewsLeadCard key={`archive-${archiveRenderKey(idea)}`} idea={idea} side={side} auditOnly />)}</div>
+          : <p className="bideas__queueempty">Earlier lead details are not available in this response.</p>}
+      </div>
     </details>
   )
 }
@@ -1271,8 +1689,7 @@ export function IdeasSidePanel({
   panelSide,
   activeSide,
   leadRows,
-  leadsAvailable,
-  leadHealth,
+  leadArchive,
   qualifiedRuntime,
   loading = false,
   nowMs = Date.now(),
@@ -1280,6 +1697,7 @@ export function IdeasSidePanel({
   panelSide: IdeaSide
   activeSide: IdeaSide
   leadRows: readonly BoardIdea[]
+  leadArchive?: unknown
   leadsAvailable: boolean
   leadHealth: unknown
   qualifiedRuntime: QualifiedIdeasRuntime
@@ -1290,7 +1708,6 @@ export function IdeasSidePanel({
   const allQualified = qualifiedIdeasForSide(qualifiedBoard, panelSide)
   const qualified = allQualified.filter((idea) => !qualifiedIdeaFreshnessNow(idea, qualifiedBoard?.policy, nowMs).refreshRequired)
   const frozenQualified = allQualified.filter((idea) => qualifiedIdeaFreshnessNow(idea, qualifiedBoard?.policy, nowMs).refreshRequired)
-  const ideas = ideasForSide(leadRows, panelSide, nowMs)
   const emptyState = qualified.length === 0
     ? qualifiedIdeasEmptyState(panelSide, qualifiedRuntime, nowMs)
     : null
@@ -1351,13 +1768,9 @@ export function IdeasSidePanel({
           </details>
         )}
       </section>
-      <NewsLeadResearchQueue
-        ideas={ideas}
-        side={panelSide}
-        leadsAvailable={leadsAvailable}
-        leadHealth={leadHealth}
-        loading={loading}
-      />
+      {!loading && (
+        <NewsIdeasTimeline currentIdeas={leadRows} archiveValue={leadArchive} side={panelSide} nowMs={nowMs} />
+      )}
     </section>
   )
 }
@@ -1427,6 +1840,7 @@ export function BestIdeasView() {
           panelSide={panelSide}
           activeSide={side}
           leadRows={leadRows}
+          leadArchive={scBoard?.ideas_archive}
           leadsAvailable={leadsAvailable}
           leadHealth={scBoard?.ideas_health}
           qualifiedRuntime={qualifiedRuntime}

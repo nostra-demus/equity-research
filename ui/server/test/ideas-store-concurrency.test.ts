@@ -128,7 +128,12 @@ try {
     `import { writeIdea } from ${JSON.stringify(storeUrl)}`,
     `import { validIdeaSnapshot } from ${JSON.stringify(fixtureUrl)}`,
     'const [root, ticker] = process.argv.slice(1)',
-    'writeIdea(root, validIdeaSnapshot(ticker))',
+    // One acquisition deliberately gives up after two seconds so a checkout cannot wedge a caller.
+    // The complete burst takes longer than that on fsync-heavy hosts, so retry the explicitly retryable
+    // EBUSY result at the child boundary just as the production CAS writer does at its pass boundary.
+    'for (let attempt = 0; attempt < 4; attempt++) {',
+    " try { writeIdea(root, validIdeaSnapshot(ticker)); break } catch (error) { if (error?.code !== 'EBUSY' || attempt === 3) throw error }",
+    '}',
   ].join(';')
   const tickers = Array.from({ length: 8 }, (_, i) => `RACE${i}`)
   await Promise.all(tickers.map((ticker) => execFileAsync(process.execPath, [
