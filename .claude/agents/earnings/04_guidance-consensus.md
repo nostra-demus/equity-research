@@ -86,7 +86,7 @@ So, before any consensus number is used as a bar, fill this in:
 
 **Every downstream use of "the bar" — Section 3, Section 7, `05_beat-miss-setup`, and anything the synthesizer carries into kill criteria — uses the RESTATED figure, and labels it with its basis.** Where the vendor's period label is ambiguous (an "FQ2/H1-derived" style tag is the warning sign, not a resolution), resolve it against the company's own last comparable filing before proceeding: read what the company actually printed for the equivalent period last year and match the shape. If it cannot be resolved from the pool, state *"Consensus reporting basis unresolved — bar not comparable to the filing"*, do NOT quote a bar, and apply the consensus-setup cap.
 
-**Sanity check that catches this in one line:** divide the restated bar by the already-reported stub. For a half-year filing with one quarter reported, the ratio should be roughly 2, not roughly 1. A restated bar that is barely larger than the stub already reported means the vendor's standalone estimate was never converted.
+**Sanity check that catches this in one line (for positive-value metrics like revenue):** divide the restated bar by the already-reported stub. For a half-year filing with one quarter reported, the ratio should be roughly 2, not roughly 1. (For EPS, particularly if negative or near-zero, verify the absolute values directly instead of relying on this ratio.) A restated bar that is barely larger than the stub already reported means the vendor's standalone estimate was never converted.
 
 ## 2. Management Guidance
 

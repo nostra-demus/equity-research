@@ -720,10 +720,12 @@ RUN_ROOT = os.environ["RUN_ROOT"]
 dr_path = os.path.join(RUN_ROOT, "decision_record.json")
 ft_path = os.path.join(RUN_ROOT, "final_thesis.md")
 if os.path.exists(dr_path):
-    d = json.load(open(dr_path, encoding="utf-8"))
+    with open(dr_path, "r", encoding="utf-8") as f:
+        d = json.load(f)
     reasons, status = [], "pass"
     if os.path.exists(ft_path):
-        head = open(ft_path, encoding="utf-8").read(4000)
+        with open(ft_path, "r", encoding="utf-8") as f:
+            head = f.read(4000)
         if "PROVISIONAL — the automated finish-gate" in head:
             status = "provisional"
             # the banner is one blockquote; reasons are '; '-joined on its second line
@@ -732,7 +734,8 @@ if os.path.exists(dr_path):
             # which would shred any violation whose own text contains one.
             if m: reasons = [r.strip() for r in m.group(1).replace("\n> ", " ").split("; ") if r.strip()]
     d["integrity_gate"] = {"status": status, "violations": reasons, "gate": "research:full step 10B"}
-    json.dump(d, open(dr_path, "w", encoding="utf-8"), indent=2, ensure_ascii=False)
+    with open(dr_path, "w", encoding="utf-8") as f:
+        json.dump(d, f, indent=2, ensure_ascii=False)
     print(f"GATE-STAMP: integrity_gate.status={status} ({len(reasons)} violation(s)) → decision_record.json")
 else:
     print("GATE-STAMP: no decision_record.json — nothing to stamp")
