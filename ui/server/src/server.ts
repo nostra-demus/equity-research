@@ -18,7 +18,7 @@ import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, 
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
-import { assertClaudeCli, cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, launch, sigIdFor, todayDate, warmLaunchProbes } from './launcher'
+import { assertClaudeCli, cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, launch, sigIdFor, terminateEngineChildrenForShutdown, todayDate, warmLaunchProbes } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed, applyActiveWeightsTo } from './news/feed'
 import { getPulse } from './news/commodity-pulse'
@@ -56,7 +56,17 @@ import { notifyFeedbackResolved } from './feedback-email'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, swarmSubjectSummaries, terminalModuleName } from './roster'
-import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
+import {
+  isPublishedCallsArtifactPath,
+  listAllCalls,
+  listRunsForTicker,
+  readDecision,
+  readMarkdown,
+  readPrompt,
+  readPublishedCallsMarkdown,
+  resolveRunRoot,
+  runManifest,
+} from './outputs'
 import { readValuationSummary, readOverrides, appendOverride } from './valuation-levers'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
@@ -66,16 +76,46 @@ import { dataPoolPresent, deriveSignalState, readCandidates, readConviction, rea
 import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
 import { getNewsDiagnostics, getNewsStatus, startNewsIngester } from './news/scheduler'
 import { startConvictionLoop } from './conviction-dispatch'
-import { startReviewLoop } from './review-dispatch'
+import { getReviewDispatchStatus, startReviewLoop, stopReviewLoop } from './review-dispatch'
+import { recoverSavedReviewPublication } from './review-publication-recovery'
+import {
+  automaticCallPlanKey,
+  getAutomaticCallUpdateStatus,
+  startAutomaticCallUpdateLoop,
+  stopAutomaticCallUpdateLoop,
+  type AutomaticCallPlan,
+} from './call-update-loop'
+import {
+  claimAutomaticIntakeLease,
+  completeAutomaticIntakeLease,
+  getAutomaticIntakeStatus,
+  markAutomaticIntakeDone,
+  markAutomaticIntakeRetry,
+  recordAutomaticIntakeOutcome,
+  retryAutomaticIntakeLease,
+  settleAutomaticIntakeIdentity,
+  setAutomaticIntakeRuntime,
+  type AutomaticIntakeLease,
+} from './auto-intake-status'
 import { runAutotuneOnce, startAutotuneLoop } from './news/rank-weights-autotune'
 import { getAutotuneState, readChanges, revertChange, setAutotunePaused, setAutotunePins } from './news/rank-weights-audit'
 import { routeReason } from './news/triage/reason-router'
 import { startResumeSupervisor } from './resume-supervisor'
 import { listResumableRuns } from './resumable'
 import { carryForwardModules, carryForwardScoped, dataPoolNewest, prepareModuleResume, thesisPlan } from './completion'
-import { intakePoolNewest, latestPlanFileFor, readIntakePlan, resolveIntakeRunRoot, type IntakeReceiptIntent } from './intake'
+import { automaticIntakeOwnerKey, intakePlanCoversAutomaticPool, intakePlanSafelyAccountsForPool, intakePoolAuthorityAvailable, intakePoolNewest, latestPlanFileFor, readIntakePlan, resolveIntakeRunRoot, stagedIntakeResumeForTarget, type IntakeReceiptIntent } from './intake'
 import { finishedOwnerConflict, listFinishedIntakeOwners, resolveUniqueFinishedIntakeOwner, type FinishedIntakeOwner } from './intake-owner'
+import {
+  commitAndRecoverAutomaticCallWorktree,
+  clearMatchingScopedStageIntent,
+  inspectAutomaticCallRecoveryWorktree,
+  promoteAuditedAutomaticCallToProjectionSeal,
+  recoverCompletedAutomaticCallPublication,
+} from './publication-recovery'
+import { recoverAutomaticIntakePublication } from './intake-publication-recovery'
+import { publishAutomaticIntakeOutcomeReceipt, publishPendingAutomaticIntakeOutcomeReceipts, stageAutomaticIntakeOutcomeReceipt } from './intake-outcome-receipt'
 import { getBridgeStatus, getBridgeSubjectNames, startBridgeScheduler } from './bridge-scheduler'
+import { combineCallsAutomationStatus } from './calls-automation-status'
 import { readWhatChanged, whatChangedMarkdown, RUN_ROOT_RE } from './what-changed'
 import { readDataNeeds, resolveDataNeedsRunRoot } from './data-needs'
 import {
@@ -2079,6 +2119,255 @@ const IntakePlanRunBody = z.object({
   planSha256: z.string().regex(/^sha256:[a-f0-9]{64}$/),
   sourceDecisionFingerprint: z.string().regex(/^sha256:[a-f0-9]{64}$/),
 }).strict()
+
+type ExactIntakePlanInput = z.infer<typeof IntakePlanRunBody>
+type ExactIntakePlanResult = {
+  statusCode: number
+  body: Record<string, any>
+}
+
+const exactIntakeResult = (statusCode: number, body: Record<string, any>): ExactIntakePlanResult => ({ statusCode, body })
+
+// One execution authority for BOTH the browser endpoint and the unattended call updater. Every selected-
+// decision CAS, plan hash, roster/widening, freshness, completeness, CLI and subject-lock check therefore
+// stays identical. Automatic mode cannot grow a weaker "trusted internal" path around the paid-run gate.
+async function executeExactIntakePlan(
+  input: ExactIntakePlanInput,
+  actor: { user: string; userVia: 'cf-access' | 'local' },
+  onTerminal?: (status: RunStatus) => void,
+  publicationTargetRunRoot?: string | null,
+): Promise<ExactIntakePlanResult> {
+  const { ticker, swarm, runRoot, decisionFingerprint, planPath, planSha256, sourceDecisionFingerprint } = input
+  const { user, userVia } = actor
+  if (!isValidTicker(ticker)) return exactIntakeResult(400, { error: 'bad ticker' })
+  if (isReservedDataFolder(ticker) || !fs.existsSync(path.join(DATA_DIR, ticker))) {
+    return exactIntakeResult(400, { error: `unknown ticker ${ticker}` })
+  }
+  if (swarm !== RESEARCH_SWARM_ID) {
+    return exactIntakeResult(400, { error: 'Scoped reruns are research-only for now.', code: 'swarm_unsupported' })
+  }
+  try {
+    return await withSubjectLock(subjectMutationLockKey(RESEARCH_SWARM_ID, ticker), async () => {
+  let resumeUnstampedScopedStage = false
+  let unstampedScopedTarget: string | null = null
+  // Publication recovery belongs to the exact immutable plan that produced the saved commit, not merely
+  // to whichever plan is newest now. Run it before current-plan validation so plan B can be shared after a
+  // later document creates plan A; B is completed, while A remains queued for its own future run.
+  if (user === 'auto') {
+    const savedTarget = thesisPlan(ticker)
+    const recoveryTarget = publicationTargetRunRoot || (savedTarget.complete ? savedTarget.targetRunRoot : null)
+    if (recoveryTarget) {
+      const recovery = {
+        subject: ticker,
+        swarmId: swarm,
+        sourceRunRoot: runRoot,
+        targetRunRoot: recoveryTarget,
+        planPath,
+        planSha256,
+        sourceDecisionFingerprint,
+      }
+      try {
+        let published = await recoverCompletedAutomaticCallPublication(recovery)
+        let recoveryStage = published ? null : inspectAutomaticCallRecoveryWorktree(recovery)
+        if (!published && recoveryStage && recoveryStage !== 'unsafe' && recoveryStage !== 'unstamped_partial') {
+          // The staged plan rename is durable before its transaction marker is unlinked. Heal only this
+          // exact plan+intent crash cut while the subject lock is held; a mismatch remains unsafe above.
+          clearMatchingScopedStageIntent(recovery)
+        }
+        if (!published && recoveryStage === 'preseal_pair'
+            && await promoteAuditedAutomaticCallToProjectionSeal(recovery)) {
+          // The canonical producer found a complete, SHA-bound final audit trio. Resume at projection /
+          // admission rather than buying those same audits again; an incomplete trio simply remains on
+          // the ordinary terminal-pair recovery path below.
+          recoveryStage = inspectAutomaticCallRecoveryWorktree(recovery)
+        }
+        if (!published && recoveryStage === 'ready_worktree') {
+          published = await commitAndRecoverAutomaticCallWorktree(recovery)
+        }
+        if (published) {
+          onTerminal?.('done')
+          return exactIntakeResult(200, {
+            runId: `publication:${ticker}:${Date.now()}`,
+            publicationOnly: true,
+            targetRunRoot: recoveryTarget,
+            path: `${recoveryTarget}/final_thesis.md`,
+          })
+        }
+        if (recoveryStage === 'unsafe') {
+          return exactIntakeResult(503, {
+            error: 'The saved automatic call no longer matches its exact staged plan. It was stopped safely.',
+            code: 'publication_recovery_unsafe', targetRunRoot: recoveryTarget,
+          })
+        }
+        if (recoveryStage === 'unstamped_partial') {
+          // The server stamps launch authority last. A crash before that atomic rename leaves only
+          // idempotent carry/hole work, never a runnable result. Continue through the ordinary exact-plan
+          // checks below and stage the same shared plan again under the subject lock.
+          resumeUnstampedScopedStage = true
+          unstampedScopedTarget = recoveryTarget
+        } else if (recoveryStage && recoveryStage !== 'none' && recoveryStage !== 'ready_worktree') {
+          try {
+            const out = await launch({
+              kind: 'full', ticker, user, userVia,
+              recoveryRunRoot: recoveryTarget,
+              automaticRecovery: recovery,
+              onTerminal,
+            })
+            return exactIntakeResult(200, {
+              ...out, targetRunRoot: recoveryTarget, resumed: true,
+              recoveryStage, scoped: [], carried: [], dropped: [],
+            })
+          } catch (e: any) {
+            const body = e?.body && typeof e.body === 'object' ? e.body : null
+            return exactIntakeResult(e?.statusCode || 500, { error: e?.message || 'automatic recovery failed', ...(body || {}) })
+          }
+        }
+      } catch (error: any) {
+        return exactIntakeResult(503, {
+          error: `The finished call is safe on this machine but could not be shared yet. The system will retry saving it without rerunning research. (${String(error?.message || error)})`,
+          code: 'publication_pending',
+          targetRunRoot: recoveryTarget,
+          path: `${recoveryTarget}/final_thesis.md`,
+        })
+      }
+    }
+  }
+  const automaticOwner = user === 'auto' ? resolveUniqueFinishedIntakeOwner(ticker) : null
+  const selectedNeeds = readDataNeeds(swarm, ticker, runRoot)
+  const currentNeeds = user === 'auto'
+    ? (automaticOwner?.swarm === swarm ? readDataNeeds(swarm, ticker, automaticOwner.runRoot) : null)
+    : readDataNeeds(swarm, ticker)
+  if (!selectedNeeds || !currentNeeds || selectedNeeds.run_root !== currentNeeds.run_root
+      || selectedNeeds.decision_fingerprint !== decisionFingerprint
+      || currentNeeds.decision_fingerprint !== decisionFingerprint) {
+    return exactIntakeResult(409, { error: 'The selected call changed. Refresh before rerunning.', code: 'selected_decision_changed' })
+  }
+  const intake = readIntakePlan(ticker, { swarmId: swarm, runRoot })
+  if (!intake || intake.actionable !== true || intake.coverage_complete !== true
+      || intake.plan_path !== planPath || intake.plan_sha256 !== planSha256
+      || intake.decision_fingerprint !== sourceDecisionFingerprint || intake.rerun_plan.commands.length === 0) {
+    return exactIntakeResult(409, { error: 'No scoped rerun plan exists for this ticker — run the new-data analysis first.', code: 'no_plan' })
+  }
+  const freshnessProblem = (plan: NonNullable<typeof intake>): string | null => {
+    const stamp = plan.scanned_at ? Date.parse(plan.scanned_at) : NaN
+    if (!Number.isFinite(stamp)) {
+      return plan.pool_current === true ? null : 'this plan predates the precise freshness stamp and the pool has changed since'
+    }
+    const newest = intakePoolNewest(ticker, RESEARCH_SWARM_ID).newestMs
+    return !newest || newest <= stamp ? null : 'a document landed after this plan was scoped'
+  }
+  const staleWhy = freshnessProblem(intake)
+  if (staleWhy) {
+    return exactIntakeResult(409, { error: `${staleWhy} — re-run the new-data analysis first.`, code: 'plan_stale' })
+  }
+  if ((intake.widened?.length ?? 0) > 0) {
+    return exactIntakeResult(409, { error: 'Part of the plan no longer maps to the current roster — its documents are unscoped. Re-run the new-data analysis (fail-toward-blunt).', code: 'plan_widened', widened: intake.widened })
+  }
+      const busy = listRuns().some((r) => (r.swarmId || RESEARCH_SWARM_ID) === RESEARCH_SWARM_ID
+        && r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
+      if (busy) return exactIntakeResult(409, { error: `A run is already in flight on ${ticker}. Let it finish (or stop it) before re-running.`, code: 'subject_busy' })
+
+      const terminalNeeds = readDataNeeds(swarm, ticker, runRoot)
+      const terminalOwner = user === 'auto' ? resolveUniqueFinishedIntakeOwner(ticker) : null
+      const terminalCurrent = user === 'auto'
+        ? (terminalOwner?.swarm === swarm ? readDataNeeds(swarm, ticker, terminalOwner.runRoot) : null)
+        : readDataNeeds(swarm, ticker)
+      if (!terminalNeeds || !terminalCurrent || terminalNeeds.run_root !== terminalCurrent.run_root
+          || terminalNeeds.decision_fingerprint !== decisionFingerprint
+          || terminalCurrent.decision_fingerprint !== decisionFingerprint) {
+        return exactIntakeResult(409, { error: 'The selected call changed while preparing the rerun.', code: 'selected_decision_changed' })
+      }
+
+      const lockedIntake = readIntakePlan(ticker, { swarmId: swarm, runRoot })
+      const lockedCommands = lockedIntake?.rerun_plan?.commands ?? []
+      if (!lockedIntake || lockedIntake.actionable !== true || lockedIntake.coverage_complete !== true
+          || lockedIntake.plan_path !== planPath
+          || lockedIntake.plan_sha256 !== planSha256
+          || lockedIntake.decision_fingerprint !== sourceDecisionFingerprint || lockedCommands.length === 0) {
+        return exactIntakeResult(409, { error: 'No scoped rerun plan exists for this ticker — run the new-data analysis first.', code: 'no_plan' })
+      }
+      if ((lockedIntake.widened?.length ?? 0) > 0) {
+        return exactIntakeResult(409, { error: 'Part of the plan no longer maps to the current roster — re-run the new-data analysis (fail-toward-blunt).', code: 'plan_widened', widened: lockedIntake.widened })
+      }
+
+      // A staging crash can be retried after midnight. The durable job's exact target wins over today's
+      // freshly derived folder: otherwise we would abandon the partial old root and stage/pay again in a
+      // new one. The inspector above proved this target has no pair/seal or mismatched plan; only the exact
+      // shared source plan may reconstruct its copy/hole transaction.
+      const first = unstampedScopedTarget
+        ? thesisPlan(ticker, RESEARCH_SWARM_ID, undefined, unstampedScopedTarget)
+        : thesisPlan(ticker)
+      // The dated research folder has no established revision-root convention. Never overwrite a sealed
+      // same-day decision. The durable queue keeps this immutable plan active and retries after the next
+      // dated root becomes available; a later material event is delayed, never lost or written on top.
+      if (first.complete) {
+        return exactIntakeResult(409, { error: 'Today\'s call is already complete. This update is queued for the next safe run and will not overwrite it.', code: 'same_day_complete_queued', path: first.finalReportPath })
+      }
+      const reusableSet = new Set(first.reusable)
+      const unpriced = listModuleNames(RESEARCH_SWARM_ID).filter((m) => !reusableSet.has(m))
+      const stagedResume = unpriced.length > 0 && user === 'auto'
+        ? stagedIntakeResumeForTarget({ subject: ticker, swarmId: swarm, targetRunRoot: first.targetRunRoot })
+        : null
+      if (unpriced.length && !stagedResume && !resumeUnstampedScopedStage) {
+        return exactIntakeResult(409, { error: `This run is incomplete beyond the plan's scope (${unpriced.join(', ')} never finished) — a scoped rerun would silently run ${unpriced.length === 1 ? 'it' : 'them'} whole. Complete the thesis first.`, code: 'run_incomplete', unpriced })
+      }
+      try { await assertClaudeCli() } catch (e: any) {
+        return exactIntakeResult(e?.statusCode || 503, { error: e?.message || 'engine CLI unavailable', code: e?.code })
+      }
+      const lateWhy = freshnessProblem(lockedIntake)
+      if (lateWhy) {
+        return exactIntakeResult(409, { error: `${lateWhy} while this run was being prepared — re-run the new-data analysis first.`, code: 'plan_stale' })
+      }
+      const snap = thesisPlan(ticker, RESEARCH_SWARM_ID, first.reusable, unstampedScopedTarget ?? undefined)
+      const sourcePlanFile = latestPlanFileFor(ticker, { swarmId: swarm, runRoot })
+      if (!sourcePlanFile) {
+        return exactIntakeResult(409, { error: 'The selected call no longer has its intake plan. Re-run the new-data analysis.', code: 'no_plan' })
+      }
+
+      if (stagedResume) {
+        const newerPlanWaiting = stagedResume.planSha256 !== planSha256 || stagedResume.planPath !== planPath
+        try {
+          const out = await launch({ kind: 'full', ticker, user, userVia,
+            decisionRunRoot: runRoot, decisionFingerprint,
+            onTerminal: newerPlanWaiting && onTerminal
+              ? (status) => onTerminal(status === 'done' ? 'incomplete' : status)
+              : onTerminal })
+          return exactIntakeResult(200, { ...out, targetRunRoot: first.targetRunRoot, resumed: true, priorPlan: newerPlanWaiting, scoped: [], carried: [], staleModules: unpriced, dropped: [] })
+        } catch (e: any) {
+          const body = e?.body && typeof e.body === 'object' ? e.body : null
+          return exactIntakeResult(e?.statusCode || 500, { error: e?.message || 'resume failed', ...(body || {}) })
+        }
+      }
+
+      let staged: ReturnType<typeof carryForwardScoped>
+      try {
+        staged = carryForwardScoped(ticker, lockedCommands.map((c) => ({ module: c.module, agent: c.agent })), RESEARCH_SWARM_ID, snap, sourcePlanFile)
+      } catch (e: any) {
+        return exactIntakeResult(500, { error: `could not stage the scoped rerun: ${e?.message || e}` })
+      }
+      if (staged.scoped.length === 0 && staged.staleModules.length === 0) {
+        return exactIntakeResult(409, { error: 'The plan\'s entry orbs no longer match the roster — re-run the new-data analysis.', code: 'plan_stale', dropped: staged.droppedEntries })
+      }
+      if (staged.scoped.length === 0 && staged.carried.length === 0) {
+        return exactIntakeResult(409, { error: 'No finished run to scope against — this would be a plain full run. Use "Complete the thesis" for that.', code: 'nothing_to_scope' })
+      }
+
+      try {
+        const out = await launch({ kind: 'full', ticker, user, userVia,
+          decisionRunRoot: runRoot, decisionFingerprint, onTerminal })
+        return exactIntakeResult(200, { ...out, targetRunRoot: first.targetRunRoot, carried: staged.carried, scoped: staged.scoped, staleModules: staged.staleModules, dropped: staged.droppedEntries })
+      } catch (e: any) {
+        const body = e?.body && typeof e.body === 'object' ? e.body : null
+        return exactIntakeResult(e?.statusCode || 500, { error: e?.message || 'launch failed', carried: staged.carried, scoped: staged.scoped, ...(body || {}) })
+      }
+    })
+  } catch (e: any) {
+    if (e instanceof SubjectBusyError) {
+      return exactIntakeResult(409, { error: `Another completion request for ${ticker} is already in progress. Wait for it to finish before retrying.`, code: 'subject_busy' })
+    }
+    throw e
+  }
+}
 // Refuse old callers on a current server, and require new callers to use a path an old server cannot
 // possibly accept. This closes the server-change-between-estimate-and-POST window for the paid batch.
 app.post('/api/intake-plan/run', { config: { rateLimit: { max: 20, timeWindow: '1 minute' } } }, async (_req, reply) => (
@@ -2089,161 +2378,8 @@ app.post('/api/intake-plan/run-exact', { config: { rateLimit: { max: 20, timeWin
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
   const parsed = IntakePlanRunBody.safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
-  const { ticker, swarm, runRoot, decisionFingerprint, planPath, planSha256, sourceDecisionFingerprint } = parsed.data
-  const { user, userVia } = identify(req)
-  if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
-  if (isReservedDataFolder(ticker) || !fs.existsSync(path.join(DATA_DIR, ticker))) {
-    return reply.code(400).send({ error: `unknown ticker ${ticker}` })
-  }
-  if (swarm !== RESEARCH_SWARM_ID) {
-    return reply.code(400).send({ error: 'Scoped reruns are research-only for now.', code: 'swarm_unsupported' })
-  }
-  const selectedNeeds = readDataNeeds(swarm, ticker, runRoot)
-  const currentNeeds = readDataNeeds(swarm, ticker)
-  if (!selectedNeeds || !currentNeeds || selectedNeeds.run_root !== currentNeeds.run_root
-      || selectedNeeds.decision_fingerprint !== decisionFingerprint
-      || currentNeeds.decision_fingerprint !== decisionFingerprint) {
-    return reply.code(409).send({ error: 'The selected call changed. Refresh before rerunning.', code: 'selected_decision_changed' })
-  }
-  // The plan is the SERVER's exact selected-call read — roster-validated commands only.
-  const intake = readIntakePlan(ticker, { swarmId: swarm, runRoot })
-  if (!intake || intake.actionable !== true || intake.plan_path !== planPath || intake.plan_sha256 !== planSha256
-      || intake.decision_fingerprint !== sourceDecisionFingerprint || intake.rerun_plan.commands.length === 0) {
-    return reply.code(409).send({ error: 'No scoped rerun plan exists for this ticker — run the new-data analysis first.', code: 'no_plan' })
-  }
-  // Freshness for EXECUTION is the WITNESS half only: has anything landed since the analysis read the pool?
-  // NOT `pool_current`, which also ANDs the durable run-date floor (pool newer than the run folder). That
-  // floor is exactly TRUE in the normal case this feature exists for — a document arriving after an older
-  // finished run — so gating on pool_current would refuse every legitimate scoped rerun (Codex #358
-  // r3672541957). The floor's job is guarding the "nothing new" affirmative, not blocking execution.
-  // Fail-closed when the witness is unprovable (an old plan with no scanned_at): fall back to pool_current.
-  const freshnessProblem = (plan: NonNullable<typeof intake>): string | null => {
-    const stamp = plan.scanned_at ? Date.parse(plan.scanned_at) : NaN
-    if (!Number.isFinite(stamp)) {
-      return plan.pool_current === true ? null : 'this plan predates the precise freshness stamp and the pool has changed since'
-    }
-    const newest = dataPoolNewest(ticker).newestMs
-    return !newest || newest <= stamp ? null : 'a document landed after this plan was scoped'
-  }
-  const staleWhy = freshnessProblem(intake)
-  if (staleWhy) {
-    return reply.code(409).send({ error: `${staleWhy} — re-run the new-data analysis first.`, code: 'plan_stale' })
-  }
-  // Fail-toward-blunt on DROPPED mappings: a widened note means some document's orb mapping did not survive
-  // roster validation, so its impact is UNSCOPED. Executing only the surviving commands would carry the
-  // very module that document may invalidate (INTAKE.md §1; Codex #358 r3672206145 P1).
-  if ((intake.widened?.length ?? 0) > 0) {
-    return reply.code(409).send({ error: 'Part of the plan no longer maps to the current roster — its documents are unscoped. Re-run the new-data analysis (fail-toward-blunt).', code: 'plan_widened', widened: intake.widened })
-  }
-  try {
-    // Same lock KEY as the sibling thesis-plan routes, so a scoped rerun and a completion can never carry
-    // into the same target root concurrently.
-    return await withSubjectLock(subjectMutationLockKey(RESEARCH_SWARM_ID, ticker), async () => {
-      const busy = listRuns().some((r) => (r.swarmId || RESEARCH_SWARM_ID) === RESEARCH_SWARM_ID
-        && r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
-      if (busy) return reply.code(409).send({ error: `A run is already in flight on ${ticker}. Let it finish (or stop it) before re-running.`, code: 'subject_busy' })
-
-      const terminalNeeds = readDataNeeds(swarm, ticker, runRoot)
-      const terminalCurrent = readDataNeeds(swarm, ticker)
-      if (!terminalNeeds || !terminalCurrent || terminalNeeds.run_root !== terminalCurrent.run_root
-          || terminalNeeds.decision_fingerprint !== decisionFingerprint
-          || terminalCurrent.decision_fingerprint !== decisionFingerprint) {
-        return reply.code(409).send({ error: 'The selected call changed while preparing the rerun.', code: 'selected_decision_changed' })
-      }
-
-      // Re-read the exact plan INSIDE the same swarm-qualified mutation lock used by every doc-intake
-      // writer. The pre-lock read was only a cheap user-facing rejection; these bytes/commands are the
-      // sole execution authority, so a concurrent Analyze click can never mix one plan's commands with
-      // another plan file in the staged audit trail.
-      const lockedIntake = readIntakePlan(ticker, { swarmId: swarm, runRoot })
-      const lockedCommands = lockedIntake?.rerun_plan?.commands ?? []
-      if (!lockedIntake || lockedIntake.actionable !== true || lockedIntake.plan_path !== planPath
-          || lockedIntake.plan_sha256 !== planSha256
-          || lockedIntake.decision_fingerprint !== sourceDecisionFingerprint || lockedCommands.length === 0) {
-        return reply.code(409).send({ error: 'No scoped rerun plan exists for this ticker — run the new-data analysis first.', code: 'no_plan' })
-      }
-      if ((lockedIntake.widened?.length ?? 0) > 0) {
-        return reply.code(409).send({ error: 'Part of the plan no longer maps to the current roster — re-run the new-data analysis (fail-toward-blunt).', code: 'plan_widened', widened: lockedIntake.widened })
-      }
-
-      // ONE plan snapshot for the completeness check AND the carry (no time-of-check/time-of-use gap).
-      // Reuse override = every reusable module: stale ones included — the scoped carry stages their
-      // finished copy and punches holes in it.
-      const first = thesisPlan(ticker)
-      if (first.complete) {
-        return reply.code(409).send({ error: 'Today\'s run root already has a final thesis — a scoped rerun would overwrite the decision of record. Use the single-orb Re-run for a same-day refresh.', code: 'already_complete', path: first.finalReportPath })
-      }
-      // The confirm strip prices "the named orbs + syntheses"; a module that is NEITHER reusable (never
-      // finished anywhere) NOR in the plan's stale set would be run WHOLE by the launched full run — unpriced
-      // work with none of the full-run path's typed-ticker confirmation (Codex #358 r3672400188 P1). Set
-      // arithmetic on the plan's own server-recomputed cascades, so it runs BEFORE any disk write.
-      // EVERY module must have a finished synthesis somewhere on disk. A module inside the plan's cascade
-      // that never finished cannot be staged with holes (there is nothing to carry), so the launched full
-      // run would build it WHOLE — unpriced work the confirm strip never showed, without the full-run
-      // path's typed-ticker gate. Being in the cascade does not make it priced (Codex #358 r3672541961).
-      const reusableSet = new Set(first.reusable)
-      const unpriced = listModuleNames(RESEARCH_SWARM_ID).filter((m) => !reusableSet.has(m))
-      if (unpriced.length) {
-        return reply.code(409).send({ error: `This run is incomplete beyond the plan's scope (${unpriced.join(', ')} never finished) — a scoped rerun would silently run ${unpriced.length === 1 ? 'it' : 'them'} whole. Complete the thesis first.`, code: 'run_incomplete', unpriced })
-      }
-      // CLI presence BEFORE staging: the staging below punches holes in today's root; failing on a missing
-      // engine binary after that would leave a finished-today module partial for nothing (Codex #358
-      // r3672400207 — the remaining pre-spawn failures are admission races, which the resume machinery
-      // absorbs: the holes ARE the work a retry re-runs).
-      try { await assertClaudeCli() } catch (e: any) {
-        return reply.code(e?.statusCode || 503).send({ error: e?.message || 'engine CLI unavailable', code: e?.code })
-      }
-      // Re-check freshness HERE, after the subject lock and the CLI probe: both can take time, and a
-      // document that lands in that window would otherwise be scoped-out of a run we already approved
-      // (Codex #358 r3672541968). Cheap — one stat of the pool's newest file.
-      const lateWhy = freshnessProblem(lockedIntake)
-      if (lateWhy) {
-        return reply.code(409).send({ error: `${lateWhy} while this run was being prepared — re-run the new-data analysis first.`, code: 'plan_stale' })
-      }
-      const snap = thesisPlan(ticker, undefined, first.reusable)
-      // The plan file copied into today's staging root is provenance for THIS exact selected call. Never
-      // fall back to newest-run-wins here: a newer incomplete shell can carry a different plan even while
-      // the selected finished decision remains the current call.
-      const sourcePlanFile = latestPlanFileFor(ticker, { swarmId: swarm, runRoot })
-      if (!sourcePlanFile) {
-        return reply.code(409).send({ error: 'The selected call no longer has its intake plan. Re-run the new-data analysis.', code: 'no_plan' })
-      }
-
-      let staged: ReturnType<typeof carryForwardScoped>
-      try {
-        staged = carryForwardScoped(ticker, lockedCommands.map((c) => ({ module: c.module, agent: c.agent })), RESEARCH_SWARM_ID, snap, sourcePlanFile)
-      } catch (e: any) {
-        return reply.code(500).send({ error: `could not stage the scoped rerun: ${e?.message || e}` })
-      }
-      // Fail-closed end to end: if EVERY plan command was dropped by roster validation, nothing scoped was
-      // staged — launching now would silently run a plain full run the user never asked for.
-      if (staged.scoped.length === 0 && staged.staleModules.length === 0) {
-        return reply.code(409).send({ error: 'The plan\'s entry orbs no longer match the roster — re-run the new-data analysis.', code: 'plan_stale', dropped: staged.droppedEntries })
-      }
-      // Nothing on disk to scope AGAINST (no finished module was carried whole or with holes): the launch
-      // below would be a bare full run wearing a "scoped" label — a hidden $55-130 spend with none of the
-      // full-run path's typed-ticker confirmation. Refuse and point at the honest button for that.
-      if (staged.scoped.length === 0 && staged.carried.length === 0) {
-        return reply.code(409).send({ error: 'No finished run to scope against — this would be a plain full run. Use "Complete the thesis" for that.', code: 'nothing_to_scope' })
-      }
-
-      try {
-        const out = await launch({ kind: 'full', ticker, user, userVia,
-          decisionRunRoot: runRoot, decisionFingerprint })
-        return { ...out, carried: staged.carried, scoped: staged.scoped, staleModules: staged.staleModules, dropped: staged.droppedEntries }
-      } catch (e: any) {
-        // The carry already landed on disk; sources are untouched and a retry reuses the staging — the run
-        // root now exists, so the cockpit will offer this subject as resumable. Honest, nothing lost.
-        const body = e?.body && typeof e.body === 'object' ? e.body : null
-        return reply.code(e?.statusCode || 500).send({ error: e?.message || 'launch failed', carried: staged.carried, scoped: staged.scoped, ...(body || {}) })
-      }
-    })
-  } catch (e: any) {
-    if (e instanceof SubjectBusyError) {
-      return reply.code(409).send({ error: `Another completion request for ${ticker} is already in progress. Wait for it to finish before retrying.`, code: 'subject_busy' })
-    }
-    throw e
-  }
+  const result = await executeExactIntakePlan(parsed.data, identify(req))
+  return reply.code(result.statusCode).send(result.body)
 })
 
 // ---------- active runs list ----------
@@ -2267,6 +2403,10 @@ app.get('/api/output', async (req, reply) => {
   const allowed = ['analyses/', ...listSwarms().filter((s) => s.id !== 'research').map((s) => `${s.runsRoot}/`)]
   if (!p || !allowed.some((pre) => p.startsWith(pre))) return reply.code(400).send({ error: 'path must be under a runs folder' })
   try {
+    // Calls advertises immutable Git-backed artifacts. Read those links from the same authority so a
+    // sparse/failover checkout cannot 404—or serve dirty bytes different from the tracker projection.
+    // All other output paths remain live-worktree reads for in-progress cockpit activity.
+    if (isPublishedCallsArtifactPath(p)) return readPublishedCallsMarkdown(p)
     return readMarkdown(p, resolveInsideRuns)
   } catch (e: any) {
     return reply.code(e?.code === 'ENOENT' ? 404 : 400).send({ error: 'cannot read', detail: String(e?.message || e) })
@@ -3069,7 +3209,19 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
 })
 
 // ---------- calls tracker: cross-ticker ledger of every call + its since-the-call timeline ----------
-app.get('/api/calls', async () => listAllCalls())
+function callsAutomationStatus() {
+  const updates = getAutomaticCallUpdateStatus()
+  const reviews = getReviewDispatchStatus()
+  const intake = getAutomaticIntakeStatus()
+  const news = getBridgeStatus()
+  const newsSource = getNewsStatus()
+  return combineCallsAutomationStatus({ intake, updates, reviews, news, newsSource })
+}
+
+app.get('/api/calls', async () => ({
+  ...listAllCalls(),
+  automation: callsAutomationStatus(),
+}))
 
 // ---------- screener swarm (dedicated, sandboxed readers — /api/output stays locked to analyses/) ----------
 app.get('/api/screener/board', async (_req, reply) => {
@@ -4035,14 +4187,18 @@ app.get('/api/data-status/stream', (req, reply) => {
 
 // ---- auto-analyze document intake on landing (frameworks/INTAKE.md) ----
 // When new docs sync for a ticker that already has a FINISHED thesis, generate the scoped rerun plan
-// automatically so the cockpit is intelligent the moment it's opened — no manual "analyze" step. Only the
-// CHEAP analysis auto-fires; reruns stay a human one-click (CLAUDE.md §24). Debounced per ticker (wait out
-// the Drive-sync burst), deduped on the pool's newest-file date, and gated behind INTAKE_AUTO_ANALYZE
-// (default on; set to '0' to disable). Best-effort: any admission/capacity/offline error just skips a round.
-const AUTO_INTAKE_ON = process.env.INTAKE_AUTO_ANALYZE !== '0'
+// automatically so the cockpit is intelligent the moment it's opened — no manual "analyze" step. The cheap
+// analysis writes an exact affected-orb plan; the durable call-update loop then runs that plan automatically.
+// Debounced per ticker, deduped on the pool's newest-file date, and exact opt-in via INTAKE_AUTO_ANALYZE=1.
+// New-data analysis can spend a model turn and writes the shared research pool. It is therefore exact
+// opt-in, just like the automatic scoped rerun and scheduled-review loops. Production renders this only
+// on the permanent doer; admin, failover and ad-hoc servers stay read-only by default.
+const AUTO_INTAKE_ON = process.env.INTAKE_AUTO_ANALYZE === '1'
 const AUTO_INTAKE_DEBOUNCE_MS = 30_000
+const AUTO_INTAKE_RECONCILE_MS = 5 * 60_000
 const autoIntakeTimers = new Map<string, ReturnType<typeof setTimeout>>()
 const autoIntakeLastNewest = new Map<string, string>()
+let autoIntakeReconcileTimer: ReturnType<typeof setInterval> | null = null
 
 function scheduleAutoIntake(ticker: string) {
   // The watcher sees only a shared data/<SUBJECT> path, not its swarm. Admit the broad manifest-safe
@@ -4065,6 +4221,7 @@ function scheduleAutoIntake(ticker: string) {
 const resolveSwarmForSubject = resolveUniqueFinishedIntakeOwner
 
 async function fireAutoIntake(ticker: string, attempt = 0): Promise<void> {
+  let claimedLease: AutomaticIntakeLease | null = null
   try {
     if (!AUTO_INTAKE_ON) return
     // still mid-sync? wait out the burst and retry a few times, so we analyze the settled pool, not a half-copy.
@@ -4073,24 +4230,168 @@ async function fireAutoIntake(ticker: string, attempt = 0): Promise<void> {
     // namespace and use ITS terminal artifact (research: final_thesis.md; commodity: decision_record.json).
     const initialOwner = resolveSwarmForSubject(ticker)
     if (!initialOwner) return
-    const outcome = await withSubjectLock(subjectMutationLockKey(initialOwner.swarm, ticker), async (): Promise<'done' | 'retry'> => {
+    // Receipt recovery is independent of the latest plan. Plan v2 may replace v1 after v1 completed but
+    // before its model-free push succeeded; replay the source run's append-only journal oldest-first and
+    // stop before any paid admission if even one completed outcome still cannot be shared.
+    if (initialOwner.swarm === RESEARCH_SWARM_ID) {
+      try {
+        await publishPendingAutomaticIntakeOutcomeReceipts({ ticker, runRoot: initialOwner.runRoot })
+      } catch {
+        const retryAt = Date.now() + AUTO_INTAKE_RECONCILE_MS
+        markAutomaticIntakeRetry(ticker, retryAt)
+        setAutomaticIntakeRuntime({
+          timerActive: autoIntakeReconcileTimer !== null,
+          problem: `${ticker}'s completed new-data check is waiting to be shared. It will retry without running another check.`,
+        })
+        setTimeout(() => void fireAutoIntake(ticker), AUTO_INTAKE_RECONCILE_MS)
+        return
+      }
+    }
+    const outcome = await withSubjectLock(subjectMutationLockKey(initialOwner.swarm, ticker), async (): Promise<'settled' | 'launched' | 'retry'> => {
       // Ownership can change while a Drive event is settling. Re-resolve under the SAME mutation lock used
       // by manual intake and scoped reruns; never let an automatic launch race their staging/carry work.
       const owner = resolveSwarmForSubject(ticker)
       if (!owner || owner.swarm !== initialOwner.swarm || owner.runRoot !== initialOwner.runRoot
           || owner.decisionFingerprint !== initialOwner.decisionFingerprint) return 'retry'
+      if (!intakePoolAuthorityAvailable(ticker, owner.swarm)) {
+        markAutomaticIntakeRetry(ticker, Date.now() + AUTO_INTAKE_RECONCILE_MS)
+        setAutomaticIntakeRuntime({
+          timerActive: autoIntakeReconcileTimer !== null,
+          problem: `${ticker}'s company folder cannot be read safely. Automatic checks will resume when it is available.`,
+        })
+        return 'settled'
+      }
       // dedupe: skip if the pool has not gained a newer file since the last SUCCESSFULLY ADMITTED
       // auto-analysis. Keyed on the raw newest MTIME, not the calendar day — a day-granular key would
       // swallow a second document that lands the same day as a prior analysis.
       const newest = String(intakePoolNewest(ticker, owner.swarm).newestMs || 0)
-      const ownerKey = `${owner.swarm}\0${ticker}`
-      if (newest !== '0' && autoIntakeLastNewest.get(ownerKey) === newest) return 'done'
+      const ownerIdentity = {
+        swarm: owner.swarm, subject: ticker, runRoot: owner.runRoot,
+        decisionFingerprint: owner.decisionFingerprint,
+      }
+      const ownerKey = automaticIntakeOwnerKey(ownerIdentity)
+      const leaseIdentity = {
+        ticker,
+        swarm: owner.swarm,
+        runRoot: owner.runRoot,
+        decisionFingerprint: owner.decisionFingerprint,
+        poolNewestMs: Number(newest),
+      }
+      const recordOutcome = (plan: NonNullable<ReturnType<typeof readIntakePlan>>) => {
+        recordAutomaticIntakeOutcome({
+          ticker,
+          runRoot: owner.runRoot,
+          planPath: plan.plan_path,
+          planSha256: plan.plan_sha256,
+          decisionFingerprint: plan.decision_fingerprint!,
+          verdict: plan.verdict,
+          summary: plan.summary,
+        })
+      }
+      const receiptPublicationFailed = (lease?: AutomaticIntakeLease) => {
+        const retryAt = Date.now() + AUTO_INTAKE_RECONCILE_MS
+        const retryRecorded = lease
+          ? retryAutomaticIntakeLease(lease, retryAt)
+          : (markAutomaticIntakeRetry(ticker, retryAt), true)
+        setAutomaticIntakeRuntime({
+          timerActive: autoIntakeReconcileTimer !== null,
+          problem: `${ticker}'s completed new-data check is waiting to be shared. It will retry without running another check.`,
+        })
+        if (retryRecorded) setTimeout(() => void fireAutoIntake(ticker), AUTO_INTAKE_RECONCILE_MS)
+      }
+      const stageResearchOutcome = (plan: NonNullable<ReturnType<typeof readIntakePlan>>) =>
+        stageAutomaticIntakeOutcomeReceipt({
+          ticker,
+          swarm: owner.swarm,
+          runRoot: owner.runRoot,
+          decisionFingerprint: owner.decisionFingerprint,
+          poolNewestMs: Number(newest),
+          plan,
+        })
+      // No company evidence means there is nothing for the intake model to read. Settle this pass and let
+      // the file watcher wake it when the first real document lands; never spend every five minutes on an
+      // empty/missing pool that cannot produce a trustworthy plan.
+      if (newest === '0') {
+        autoIntakeLastNewest.set(ownerKey, newest)
+        markAutomaticIntakeDone(ticker)
+        return 'settled'
+      }
+      const existingPlan = readIntakePlan(ticker, { swarmId: owner.swarm, runRoot: owner.runRoot })
+      const existingCoversPool = intakePlanCoversAutomaticPool(existingPlan, ownerIdentity, Number(newest))
+      if (newest !== '0' && autoIntakeLastNewest.get(ownerKey) === newest && existingCoversPool) {
+        if (owner.swarm === RESEARCH_SWARM_ID) {
+          try {
+            const staged = stageResearchOutcome(existingPlan)
+            void publishAutomaticIntakeOutcomeReceipt(staged).then(() => {
+              // Clear a legacy publication wait if present, then settle only this exact owner/pool. A newer
+              // exact lease is retained and this late finalizer becomes inert.
+              markAutomaticIntakeDone(ticker)
+              if (settleAutomaticIntakeIdentity(leaseIdentity)) {
+                autoIntakeLastNewest.set(ownerKey, newest)
+                recordOutcome(existingPlan)
+              }
+            }).catch(() => receiptPublicationFailed())
+          } catch { receiptPublicationFailed() }
+        } else {
+          recordOutcome(existingPlan)
+          settleAutomaticIntakeIdentity(leaseIdentity)
+        }
+        return 'settled'
+      }
+      // Restart reconciliation: the in-memory watermark is intentionally empty after a bounce. A durable
+      // exact plan whose own scan witness covers the current pool is the proof that nothing was missed;
+      // seed the watermark from it instead of paying for the same intake analysis after every restart.
+      if (existingCoversPool) {
+        if (owner.swarm === RESEARCH_SWARM_ID) {
+          try {
+            const staged = stageResearchOutcome(existingPlan)
+            void publishAutomaticIntakeOutcomeReceipt(staged).then(() => {
+              markAutomaticIntakeDone(ticker)
+              if (settleAutomaticIntakeIdentity(leaseIdentity)) {
+                autoIntakeLastNewest.set(ownerKey, newest)
+                recordOutcome(existingPlan)
+              }
+            }).catch(() => receiptPublicationFailed())
+          } catch { receiptPublicationFailed() }
+        } else {
+          autoIntakeLastNewest.set(ownerKey, newest)
+          recordOutcome(existingPlan)
+          settleAutomaticIntakeIdentity(leaseIdentity)
+        }
+        return 'settled'
+      }
+      // The intake command may have finished and committed its exact plan before a Git/network failure.
+      // Publish those saved bytes first; never buy the same intake analysis again merely to retry a push.
+      // The next reconciliation reads the now-shared plan through the normal authoritative reader.
+      try {
+        const recovered = await recoverAutomaticIntakePublication({
+          ticker,
+          swarm: owner.swarm,
+          runRoot: owner.runRoot,
+          decisionFingerprint: owner.decisionFingerprint,
+          newestPoolMs: Number(newest),
+        })
+        if (recovered) {
+          markAutomaticIntakeRetry(ticker, Date.now() + 1_000)
+          return 'settled'
+        }
+      } catch {
+        markAutomaticIntakeRetry(ticker, Date.now() + AUTO_INTAKE_RECONCILE_MS)
+        return 'settled'
+      }
       // Never analyze while a real run or prior intake is already in flight on this swarm-qualified subject.
       if (listRuns().some((r) => r.subjectId === ticker && (r.swarmId || RESEARCH_SWARM_ID) === owner.swarm
           && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))) return 'retry'
       const priorPlanAnalyzedAt = readIntakePlan(ticker, {
         swarmId: owner.swarm, runRoot: owner.runRoot,
       })?.analyzed_at ?? null
+      // Durable paid admission is the last step before dispatch. It binds this exact call and settled pool
+      // watermark, and is persisted under a cross-process file lock. A restart or second host therefore
+      // observes the live lease and cannot buy the same doc-intake turn until it expires.
+      const admission = claimAutomaticIntakeLease(leaseIdentity)
+      if (admission.status !== 'claimed') return 'settled'
+      const lease = admission.lease
+      claimedLease = lease
       // doc-intake dispatches the OWNING swarm's `:intake` command. The launcher's intakeOwner proof
       // revalidates sole ownership before admission and immediately before the paid process starts.
       const terminalRetry = (status: RunStatus) => {
@@ -4099,6 +4400,7 @@ async function fireAutoIntake(ticker: string, attempt = 0): Promise<void> {
         // `pool_current`: it deliberately includes the older run-date floor, so it is false in the normal
         // case here (a new document landed after the finished call). `scanned_at` is the execution witness.
         let proved = false
+        let provedPlan: ReturnType<typeof readIntakePlan> = null
         try {
           const terminalOwner = resolveSwarmForSubject(ticker)
           const terminalPlan = readIntakePlan(ticker, { swarmId: owner.swarm, runRoot: owner.runRoot })
@@ -4107,34 +4409,180 @@ async function fireAutoIntake(ticker: string, attempt = 0): Promise<void> {
           proved = status === 'done' && terminalOwner?.swarm === owner.swarm
             && terminalOwner.runRoot === owner.runRoot
             && terminalOwner.decisionFingerprint === owner.decisionFingerprint
+            && intakePlanSafelyAccountsForPool(terminalPlan)
             && terminalPlan?.run_root === owner.runRoot
             && terminalPlan.decision_fingerprint === owner.decisionFingerprint
             && terminalPlan.analyzed_at !== priorPlanAnalyzedAt
             && Number.isFinite(scannedAtMs)
-            && Number(newest) <= scannedAtMs
+            && Math.floor(Number(newest)) <= scannedAtMs
             && terminalNewest === newest
+          if (proved) provedPlan = terminalPlan
         } catch { /* a transient read/projection error must retry, never swallow the landing */ }
-        if (proved) autoIntakeLastNewest.set(ownerKey, newest)
-        else if (attempt < 4) setTimeout(() => void fireAutoIntake(ticker, attempt + 1), SYNC_WINDOW_MS)
+        if (proved && provedPlan?.decision_fingerprint) {
+          if (owner.swarm === RESEARCH_SWARM_ID) {
+            // The append-only local receipt is created synchronously before this callback yields. Keep the
+            // paid lease until those exact bytes are visible in shared Git; a crash/push failure therefore
+            // retries only publication and cannot buy another doc-intake turn.
+            try {
+              const staged = stageResearchOutcome(provedPlan)
+              void publishAutomaticIntakeOutcomeReceipt(staged).then(() => {
+                if (completeAutomaticIntakeLease(lease)) {
+                  autoIntakeLastNewest.set(ownerKey, newest)
+                  recordOutcome(provedPlan)
+                }
+              }).catch(() => receiptPublicationFailed(lease))
+            } catch {
+              receiptPublicationFailed(lease)
+            }
+          } else if (completeAutomaticIntakeLease(lease)) {
+            autoIntakeLastNewest.set(ownerKey, newest)
+            recordOutcome(provedPlan)
+          }
+        } else {
+          const delay = attempt < 4 ? SYNC_WINDOW_MS : AUTO_INTAKE_RECONCILE_MS
+          if (retryAutomaticIntakeLease(lease, Date.now() + delay) && attempt < 4) {
+            setTimeout(() => void fireAutoIntake(ticker, attempt + 1), SYNC_WINDOW_MS)
+          }
+        }
       }
       await launch({ kind: 'doc-intake', ticker, runRoot: owner.runRoot,
         decisionRunRoot: owner.runRoot, decisionFingerprint: owner.decisionFingerprint,
         intakeOwner: owner, onTerminal: terminalRetry,
         ...(owner.swarm !== RESEARCH_SWARM_ID ? { swarm: owner.swarm } : {}), user: 'auto', userVia: 'local' })
       // No dedupe write here: launch() is only an early admission ACK. terminalRetry owns the true result.
-      return 'done'
+      return 'launched'
     })
     if (outcome === 'retry' && attempt < 4) {
+      markAutomaticIntakeRetry(ticker, Date.now() + SYNC_WINDOW_MS)
       setTimeout(() => void fireAutoIntake(ticker, attempt + 1), SYNC_WINDOW_MS)
+    } else if (outcome === 'retry') {
+      markAutomaticIntakeRetry(ticker, Date.now() + AUTO_INTAKE_RECONCILE_MS)
     }
   } catch {
     // Best-effort but self-healing: a subject-lock/admission/capacity/CLI race does not advance the dedupe
-    // watermark. Retry a bounded number of times; the manual Analyze button remains the final fallback.
-    if (attempt < 4) setTimeout(() => void fireAutoIntake(ticker, attempt + 1), SYNC_WINDOW_MS)
+    // watermark. Retry the fast path a bounded number of times; the five-minute reconciler remains the
+    // durable fallback, so no click or new file event is required.
+    const delay = attempt < 4 ? SYNC_WINDOW_MS : AUTO_INTAKE_RECONCILE_MS
+    const retryRecorded = claimedLease
+      ? retryAutomaticIntakeLease(claimedLease, Date.now() + delay)
+      : (markAutomaticIntakeRetry(ticker, Date.now() + delay), true)
+    if (retryRecorded && attempt < 4) setTimeout(() => void fireAutoIntake(ticker, attempt + 1), SYNC_WINDOW_MS)
   }
 }
 
-function broadcastData(fp: string, change: 'added' | 'removed') {
+function discoverAutomaticCallPlans(): AutomaticCallPlan[] {
+  const plans: AutomaticCallPlan[] = []
+  const calls: any[] = listAllCalls().calls
+  const tickers = new Set<string>()
+  for (const call of calls) {
+    const ticker = typeof call?.ticker === 'string' ? call.ticker : ''
+    if (isValidTicker(ticker)) tickers.add(ticker)
+  }
+  for (const ticker of tickers) {
+    const owner = resolveSwarmForSubject(ticker)
+    if (!owner || owner.swarm !== RESEARCH_SWARM_ID) continue
+    const runRoot = owner.runRoot
+    // Only the sole standing decision for a ticker may authorize new spending; readIntakePlan independently
+    // checks the current corrected decision fingerprint, committed bytes, consumption and live roster.
+    const plan = readIntakePlan(ticker, { swarmId: RESEARCH_SWARM_ID, runRoot })
+    if (!plan || plan.actionable !== true || plan.coverage_complete !== true
+        || plan.consumed || plan.widened.length > 0
+        || plan.rerun_plan.commands.length === 0 || !plan.decision_fingerprint) continue
+    const input: ExactIntakePlanInput = {
+      ticker,
+      swarm: RESEARCH_SWARM_ID,
+      runRoot,
+      decisionFingerprint: plan.decision_fingerprint,
+      planPath: plan.plan_path,
+      planSha256: plan.plan_sha256,
+      sourceDecisionFingerprint: plan.decision_fingerprint,
+    }
+    const base = {
+      ticker,
+      runRoot,
+      planSha256: plan.plan_sha256,
+      decisionFingerprint: plan.decision_fingerprint,
+    }
+    // Persist the intended dated target before launch. If this process dies after the paid child starts
+    // but before its early ACK returns, the durable job can still recover yesterday's exact result after
+    // midnight instead of paying to run the same plan again in today's folder.
+    plans.push({
+      ...base,
+      key: automaticCallPlanKey(base),
+      input,
+      targetRunRoot: thesisPlan(ticker, RESEARCH_SWARM_ID).targetRunRoot,
+    })
+  }
+  return plans
+}
+
+function reconcileIntakeAfterRestart(): void {
+  if (!AUTO_INTAKE_ON) return
+  setAutomaticIntakeRuntime({ timerActive: autoIntakeReconcileTimer !== null, passActive: true })
+  let authorityProblem: string | null = null
+  try {
+    const calls: any[] = listAllCalls().calls
+    const subjects = new Set<string>()
+    for (const call of calls) {
+      const ticker = typeof call?.ticker === 'string' ? call.ticker : ''
+      if (isValidTicker(ticker)) subjects.add(ticker)
+    }
+    // The live landing watcher is zero-touch across constellation swarms. Restart recovery must be too:
+    // otherwise a crashed commodity (or future swarm) lease could expire without ever being reconsidered.
+    for (const swarm of listSwarms()) {
+      if (swarm.id === RESEARCH_SWARM_ID) continue
+      for (const subject of swarmSubjects(swarm.id)) subjects.add(subject)
+    }
+    const unavailablePools: string[] = []
+    for (const subject of subjects) {
+      const owner = resolveSwarmForSubject(subject)
+      if (!owner) continue
+      if (!intakePoolAuthorityAvailable(subject, owner.swarm)) unavailablePools.push(subject)
+      else scheduleAutoIntake(subject)
+    }
+    if (unavailablePools.length) {
+      const shown = unavailablePools.slice(0, 3).join(', ')
+      const more = unavailablePools.length > 3 ? ` and ${unavailablePools.length - 3} more` : ''
+      authorityProblem = `Company folders cannot be read safely for ${shown}${more}. Automatic checks will resume when they are available.`
+    }
+  } catch (error: any) {
+    authorityProblem = `Saved Calls history cannot be read safely (${String(error?.message || error || 'read error').slice(0, 160)}).`
+  } finally {
+    setAutomaticIntakeRuntime({ timerActive: autoIntakeReconcileTimer !== null, passActive: false, problem: authorityProblem })
+  }
+}
+
+function startIntakeReconciler(): void {
+  if (!AUTO_INTAKE_ON) {
+    setAutomaticIntakeRuntime({ timerActive: false, problem: 'Automatic new-data checks are off.' })
+    return
+  }
+  if (autoIntakeReconcileTimer) return
+  // The watcher is a fast signal, not the authority. Re-scan standing calls forever so a subject that was
+  // busy/offline through the watcher's bounded retries heals without another file landing or any click.
+  try {
+    autoIntakeReconcileTimer = setInterval(reconcileIntakeAfterRestart, AUTO_INTAKE_RECONCILE_MS)
+    autoIntakeReconcileTimer.unref?.()
+    setAutomaticIntakeRuntime({ timerActive: true })
+    reconcileIntakeAfterRestart()
+  } catch (error: any) {
+    if (autoIntakeReconcileTimer) clearInterval(autoIntakeReconcileTimer)
+    autoIntakeReconcileTimer = null
+    setAutomaticIntakeRuntime({ timerActive: false,
+      problem: `Automatic new-data watcher could not start (${String(error?.message || error || 'scheduler error').slice(0, 160)}).` })
+  }
+}
+
+function stopIntakeReconciler(): void {
+  if (autoIntakeReconcileTimer) clearInterval(autoIntakeReconcileTimer)
+  autoIntakeReconcileTimer = null
+  setAutomaticIntakeRuntime({ timerActive: false, passActive: false,
+    problem: 'Automatic new-data watcher is not running on this machine.' })
+  for (const timer of autoIntakeTimers.values()) clearTimeout(timer)
+  autoIntakeTimers.clear()
+}
+
+function broadcastData(fp: string, change: 'added' | 'changed' | 'removed') {
   let rel: string
   try {
     rel = path.relative(DATA_DIR, fp)
@@ -4143,7 +4591,7 @@ function broadcastData(fp: string, change: 'added' | 'removed') {
   }
   const ticker = rel.split(path.sep)[0]
   if (!ticker || ticker.startsWith('..')) return
-  recordDataChange(ticker, change) // stamp Drive-sync activity so the UI can show a live "syncing…" state
+  recordDataChange(ticker, change === 'removed' ? 'removed' : 'added') // a changed file is fresh pool activity
   scheduleAutoIntake(ticker) // debounced, deduped, finished-run-gated auto-analysis of the scoped rerun plan
   const evt = { type: 'data-changed', ticker, change, ts: Date.now() }
   for (const c of dataClients) {
@@ -4167,6 +4615,9 @@ if (fs.existsSync(DATA_DIR)) {
   })
   dataWatcher.on('add', (f) => broadcastData(f, 'added'))
   dataWatcher.on('addDir', (f) => broadcastData(f, 'added'))
+  // A connector revision commonly updates an existing stable projection path. Watching only `add` made
+  // those new facts invisible until some unrelated file was created.
+  dataWatcher.on('change', (f) => broadcastData(f, 'changed'))
   dataWatcher.on('unlink', (f) => broadcastData(f, 'removed'))
   dataWatcher.on('unlinkDir', (f) => broadcastData(f, 'removed'))
 }
@@ -4257,8 +4708,18 @@ async function shutdown(signal: string, code = 0) {
   shuttingDown = true
   // eslint-disable-next-line no-console
   console.log(`[swarm-cockpit] ${signal} — draining ${liveResponses.size} live stream(s), exit ${code}`)
-  // hard cap: a wedged res.end()/app.close() must never hang the restart. unref so it isn't itself a reason to stay up.
+  stopAutomaticCallUpdateLoop()
+  stopReviewLoop()
+  stopIntakeReconciler()
+  // hard cap: a wedged child drain / res.end() / app.close() must never hang the restart. unref so it
+  // isn't itself a reason to stay up.
   setTimeout(() => process.exit(code), 4000).unref()
+  // Server restart is an interruption, not a deliberate user cancel: stop detached process GROUPS without
+  // writing `.aborted`, so their exact saved outputs or interrupted run roots remain recoverable on boot.
+  try { await terminateEngineChildrenForShutdown() } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('[swarm-cockpit] could not terminate every engine child group cleanly', error)
+  }
   for (const res of liveResponses) {
     try { res.end() } catch {} // fires each stream's own 'close' cleanup (clearInterval + unsubscribe)
   }
@@ -4287,6 +4748,30 @@ app
     console.log(`[swarm-cockpit] control plane on http://${HOST}:${PORT}  (${g.totals.modules} modules, ${g.totals.agents} agents)`)
     // warm the once-per-process claude CLI probes so the FIRST launch click doesn't pay them (~1-4s)
     void warmLaunchProbes()
+    // Reconcile the Drive-backed pool after every restart. Chokidar intentionally ignores its initial
+    // crawl, so this durable comparison is what catches documents that landed while the engine was down.
+    startIntakeReconciler()
+    // Material plans run themselves. The callback invokes the exact same executor as the browser's
+    // /api/intake-plan/run-exact route; non-2xx outcomes stay in the durable queue with bounded retry.
+    startAutomaticCallUpdateLoop({
+      discover: discoverAutomaticCallPlans,
+      requestAnalysis: scheduleAutoIntake,
+      execute: async (plan, onTerminal) => {
+        const result = await executeExactIntakePlan(plan.input, { user: 'auto', userVia: 'local' }, onTerminal, plan.targetRunRoot)
+        if (result.statusCode >= 400) {
+          throw Object.assign(new Error(String(result.body.error || 'automatic call update was refused')), {
+            statusCode: result.statusCode,
+            code: result.body.code,
+            body: result.body,
+          })
+        }
+        return {
+          runId: String(result.body.runId),
+          durable: result.body.publicationOnly === true,
+          targetRunRoot: typeof result.body.targetRunRoot === 'string' ? result.body.targetRunRoot : null,
+        }
+      },
+    })
     // autonomous news ingester (screener swarm): fills a ranked inbox 24/7 at ~$0 when GROQ_API_KEY
     // is set; stays dark otherwise. Never launches a paid run — promotion is the human's one click.
     startNewsIngester()
@@ -4296,12 +4781,14 @@ app
     // research review dispatcher: fire due 30/90/180/365d decision reviews from the always-on server,
     // so the outcome-measurement layer no longer depends on the single macOS hk-review timer. OFF unless
     // REVIEW_DISPATCH_ENABLED=1 — auto-spawning paid review runs is opt-in.
-    startReviewLoop()
+    startReviewLoop(async ({ ticker, runRoot, window }, onTerminal) => launch({
+      kind: 'review', ticker, runRoot, window, reviewOnlyIfDue: true, onTerminal, user: 'auto', userVia: 'local',
+    }), { recoverPublication: recoverSavedReviewPublication, authoritativeDiscovery: true })
     // company-news bridge (batch): route material wire events into covered subjects' pools every 12h and
     // run the CHEAP advisory analysis for any subject that gained a fresh note. OFF unless
-    // BRIDGE_MODE=batch. Paid re-runs stay behind the research tab's own click. The launcher is injected
-    // so the loop reuses this file's admission stack (subject lock + busy check) — the same gates the
-    // manual "Send to research" route applies, in one place.
+    // BRIDGE_MODE=batch. A fresh exact plan is then picked up by the durable automatic call-update loop.
+    // The launcher is injected so the cheap intake step reuses this file's admission stack (subject lock
+    // + busy check) — the same gates every scoped rerun uses, in one place.
     startBridgeScheduler(async (ticker: string) => {
       const owner = resolveSwarmForSubject(ticker)
       if (!owner) return false

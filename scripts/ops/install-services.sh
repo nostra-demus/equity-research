@@ -8,7 +8,7 @@
 #
 # ROLES (--role doer|admin, default doer):
 #   base agents  (BOTH roles): engine, deploy, watchdog, caffeinate
-#   doer-only agents         : tunnel, news-archive, news-ingester, + the 5 housekeeping timers (hk-*)
+#   doer-only agents         : tunnel, news-archive, news-ingester, + the 4 housekeeping timers (hk-*)
 #   Exactly ONE machine should be the doer — it owns the public tunnel and runs the autonomous daily
 #   jobs. Other machines install with --role admin (full local engine, no tunnel, no duplicate autonomy).
 #
@@ -18,7 +18,7 @@
 #   com.nostradamus.caffeinate   — keep the Mac awake (no idle sleep) on battery AND AC     (RunAtLoad+KeepAlive)   [base]
 #   com.nostradamus.tunnel       — cloudflared tunnel run                                 (RunAtLoad+KeepAlive)   [doer]
 #   com.nostradamus.news-archive — news -> Google Drive, every 3h                         (RunAtLoad+StartInterval) [doer]
-#   com.nostradamus.hk-*         — daily/monthly housekeeping (review/track/sweep/size/calibrate) [doer]
+#   com.nostradamus.hk-*         — daily/monthly housekeeping (track/sweep/size/calibrate) [doer]
 # Idempotent, no sudo. Engine + news-archive run from PROD; watchdog + deploy + housekeeping shell scripts from ~/.nostra-ops.
 #
 # RELIABILITY (why this is not a naive bootout;bootstrap loop):
@@ -93,6 +93,19 @@ if [ -z "$NEWS_ARCHIVE_DIR" ] && [ -f "$AGENTS/com.nostradamus.news-archive.plis
   NEWS_ARCHIVE_DIR="$(/usr/libexec/PlistBuddy -c 'Print :EnvironmentVariables:NEWS_ARCHIVE_DIR' "$AGENTS/com.nostradamus.news-archive.plist" 2>/dev/null || true)"
   [ -n "$NEWS_ARCHIVE_DIR" ] && echo "carried over NEWS_ARCHIVE_DIR from existing install"
 fi
+# The in-process research loops live in the BASE engine service, so role alone is not a safe owner test:
+# a serving failover is also `doer`, but deliberately sets NOSTRA_INSTALL_CONNECTORS=0 and must not run a
+# second paid research pipeline beside the permanent connector writer. One exact value renders every paid
+# loop below. Admins and serving-only failovers always get 0.
+INSTALL_CONNECTORS="${NOSTRA_INSTALL_CONNECTORS:-1}"
+case "$INSTALL_CONNECTORS" in
+  0|1) ;;
+  *) echo "ERROR: NOSTRA_INSTALL_CONNECTORS must be 0 or 1" >&2; exit 2 ;;
+esac
+AUTOMATION_OWNER_VALUE=0
+if [ "$ROLE" = doer ] && [ "$INSTALL_CONNECTORS" = 1 ]; then
+  AUTOMATION_OWNER_VALUE=1
+fi
 # Autonomous news-bridge sweep default (#359, role-scoped). ADMIN machines never get autonomous bridge
 # routing — same "no duplicate autonomy" reasoning as the doer-only agents above, applied to this
 # in-process opt-in loop too, since the engine plist is BASE (installed on every role) and its
@@ -100,7 +113,7 @@ fi
 # 'batch'; an EXISTING doer machine's prior explicit choice (the documented off/stream kill-switch)
 # is carried over from the installed plist so a routine reinstall never silently resets it back to
 # 'batch' — same carry-forward shape as NEWS_ARCHIVE_DIR just above.
-if [ "$ROLE" = admin ]; then
+if [ "$AUTOMATION_OWNER_VALUE" != 1 ]; then
   BRIDGE_MODE_VALUE="off"
 else
   BRIDGE_MODE_VALUE="batch"
@@ -111,6 +124,12 @@ else
       echo "carried over BRIDGE_MODE=$carried_bridge_mode from existing install"
     fi
   fi
+fi
+# Portable contract probe used only by scripts/ops/test-call-autonomy.sh. It stops before touching launchd,
+# copying runtime scripts, or resolving host binaries.
+if [ "${NOSTRA_TEST_PRINT_AUTOMATION_OWNER:-0}" = 1 ]; then
+  printf '%s %s\n' "$AUTOMATION_OWNER_VALUE" "$BRIDGE_MODE_VALUE"
+  exit 0
 fi
 # PATH baked into every agent — superset covering Apple-Silicon (/opt/homebrew) AND Intel (/usr/local) brew,
 # plus the user's ~/.local/bin (where the Claude CLI often installs).
@@ -131,14 +150,9 @@ CLOUDFLARED_BIN="$(resolve_bin cloudflared /usr/local/bin/cloudflared)"
 OPS="$HOME/.nostra-ops"; mkdir -p "$OPS"
 CONNECTOR_AUTONOMY_LOCK="$OPS/connector-autonomy.lock"
 CONNECTOR_FORCE_RESTART="${NOSTRA_CONNECTOR_FORCE_RESTART:-0}"
-INSTALL_CONNECTORS="${NOSTRA_INSTALL_CONNECTORS:-1}"
 case "$CONNECTOR_FORCE_RESTART" in
   0|1) ;;
   *) echo "ERROR: NOSTRA_CONNECTOR_FORCE_RESTART must be 0 or 1" >&2; exit 2 ;;
-esac
-case "$INSTALL_CONNECTORS" in
-  0|1) ;;
-  *) echo "ERROR: NOSTRA_INSTALL_CONNECTORS must be 0 or 1" >&2; exit 2 ;;
 esac
 [ "$ONLY" != connectors ] || [ "$INSTALL_CONNECTORS" = 1 ] \
   || { echo "ERROR: connector-only repair cannot disable connector installation" >&2; exit 2; }
@@ -361,10 +375,11 @@ xesc() {
   printf '%s' "$s" | sed -e 's/\\/\\\\/g' -e 's/[&#]/\\&/g'   # 2) sed-RHS escape
 }
 render() {
-  local f="$1" e_home e_prod e_state e_path e_npm e_node e_cf e_news e_bridge e_connector_config
+  local f="$1" e_home e_prod e_state e_path e_npm e_node e_cf e_news e_bridge e_auto e_connector_config
   e_home="$(xesc "$HOME")"; e_prod="$(xesc "$PROD")"; e_state="$(xesc "$STATE_DIR")"; e_path="$(xesc "$PLIST_PATH")"
   e_npm="$(xesc "$NPM_BIN")"; e_node="$(xesc "$NODE_BIN")"; e_cf="$(xesc "$CLOUDFLARED_BIN")"; e_news="$(xesc "$NEWS_ARCHIVE_DIR")"
   e_bridge="$(xesc "$BRIDGE_MODE_VALUE")"
+  e_auto="$(xesc "$AUTOMATION_OWNER_VALUE")"
   e_connector_config="$(xesc "$CONNECTOR_CONFIG_DIR")"
   sed -i '' \
     -e "s#{{HOME}}#$e_home#g" \
@@ -376,6 +391,7 @@ render() {
     -e "s#{{CLOUDFLARED_BIN}}#$e_cf#g" \
     -e "s#{{NEWS_ARCHIVE_DIR}}#$e_news#g" \
     -e "s#{{BRIDGE_MODE}}#$e_bridge#g" \
+    -e "s#{{AUTOMATION_OWNER}}#$e_auto#g" \
     -e "s#{{CONNECTOR_CONFIG_DIR}}#$e_connector_config#g" \
     "$f"
   if grep -q '{{' "$f"; then
@@ -533,10 +549,37 @@ remove_one() {
   fi
 }
 
+# Retire the old calendar review owner only after launchd proves it is gone. Removing the plist while a
+# stubborn loaded job survives would hide a second paid owner from the next repair, so that shape fails
+# closed and leaves the file in place for diagnosis/retry.
+retire_legacy_review_agent() {
+  local label=com.nostradamus.hk-review dst="$AGENTS/com.nostradamus.hk-review.plist" i
+  if loaded "$label"; then
+    launchctl bootout "$DOMAIN/$label" >/dev/null 2>&1 || true
+    for i in $(seq 1 40); do loaded "$label" || break; sleep 0.25; done
+  fi
+  if loaded "$label"; then
+    echo "  FAIL: retired review timer is still loaded; preserving its plist and disabling this install" >&2
+    return 1
+  fi
+  if [ -e "$dst" ] || [ -L "$dst" ]; then
+    if [ -L "$dst" ] || [ ! -f "$dst" ] || [ ! -O "$dst" ]; then
+      echo "  FAIL: retired review plist is unsafe; refusing to remove it" >&2
+      return 1
+    fi
+    rm -f "$dst" 2>/dev/null || return 1
+  fi
+  if [ -e "$dst" ] || [ -L "$dst" ]; then
+    echo "  FAIL: retired review plist remains after removal" >&2
+    return 1
+  fi
+  echo "  retired: $label"
+}
+
 BASE=(com.nostradamus.engine com.nostradamus.deploy com.nostradamus.watchdog com.nostradamus.caffeinate)
 DOER_ONLY=(com.nostradamus.tunnel com.nostradamus.news-archive com.nostradamus.external-ingest \
            com.nostradamus.connectors \
-           com.nostradamus.hk-review com.nostradamus.hk-track com.nostradamus.hk-sweep \
+           com.nostradamus.hk-track com.nostradamus.hk-sweep \
            com.nostradamus.hk-size com.nostradamus.hk-calibrate)
 NEWS_INGESTER=com.nostradamus.news-ingester   # doer-only AND opt-in (needs a real GROQ key in its plist)
 
@@ -584,6 +627,14 @@ else
     LABELS=("${filtered[@]}")
   fi
 fi
+# Reviews now have one owner: the engine's durable review dispatcher. Older installs may still carry the
+# retired daily timer. Remove and verify it BEFORE installing/restarting the engine that enables the new
+# owner, so there is no rollout window with two schedulers. Narrow `--only connectors` repair intentionally
+# leaves unrelated services untouched.
+if [ -z "$ONLY" ]; then
+  retire_legacy_review_agent || exit 1
+fi
+
 install_failed=0
 for label in "${LABELS[@]}"; do
   echo "installing $label"

@@ -79,6 +79,24 @@ async function main() {
     assert.match(md, /score 60 \(watch band\)/)
   })
 
+  await check('renderEventNote preserves an official filing as primary evidence and requires the orb to open it', () => {
+    const md = renderEventNote({
+      item: fixtureItem({
+        source_tier: 'primary_filing',
+        input_nature: 'exchange_announcement',
+        source_name: 'BSE / NSE Exchange Filing',
+        domain: 'www.bseindia.com',
+        url: 'https://www.bseindia.com/xml-data/corpfiling/example.pdf',
+      }),
+      ticker: 'EMAAR', mode: 'auto', user: 'auto', now: NOW,
+    })
+    assert.match(md, /primary evidence, tier 1–3/)
+    assert.match(md, /primary-source locator/)
+    assert.match(md, /must open and cite the linked/)
+    assert.doesNotMatch(md, /Not a filing/)
+    assert.doesNotMatch(md, /indicative, unverified/)
+  })
+
   await check('renderEventNote strips control chars and caps runaway fields', () => {
     const md = renderEventNote({
       item: fixtureItem({ headline: 'A\u0001B\u0007C', snippet: 'x'.repeat(5000) }),
@@ -101,7 +119,16 @@ async function main() {
     assert.deepEqual(fs.readdirSync(path.join(dataDir, 'EMAAR')).filter((f) => f.includes('.tmp.')), [])
   })
 
-  await check('a racing writer that wins the create is never clobbered — bridgeEventToSubject reports already:true instead of overwriting', () => {
+  await check('a blank note left by a crash is repaired and analyzed instead of counted as complete', () => {
+    const item = fixtureItem({ event_id: 'EVT-bbbbbbbbbbbb' })
+    const abs = path.join(dataDir, 'AMZN', 'screener_event_EVT-bbbbbbbbbbbb.md')
+    fs.writeFileSync(abs, '')
+    const result = bridgeEventToSubject({ item, ticker: 'AMZN', mode: 'auto', user: 'auto', userVia: 'local', opts })
+    assert.equal(result.already, false, 'repair is fresh work, so the automatic intake lane is notified')
+    assert.match(fs.readFileSync(abs, 'utf8'), /Event id: EVT-bbbbbbbbbbbb/)
+  })
+
+  await check('a racing complete writer is never lost; any uncertainty is safely re-queued for analysis', () => {
     // Simulate the exact race the fix targets: another process (a stream-mode delivery, a second engine
     // sharing this pool) creates the destination note AFTER our own existence/dedup checks pass but
     // BEFORE our own write lands — a window a single synchronous test cannot literally race into, so
@@ -111,27 +138,33 @@ async function main() {
     // never by falling through to clobber the path anyway.
     const item = fixtureItem({ event_id: 'EVT-aaaaaaaaaaaa' })
     const abs = path.join(dataDir, 'AMZN', 'screener_event_EVT-aaaaaaaaaaaa.md')
+    const winner = renderEventNote({ item, ticker: 'AMZN', mode: 'auto', user: 'auto', now: NOW })
     assert.ok(!fs.existsSync(abs), 'precondition: nothing there yet — this is not the pre-existing-file short-circuit')
     const origOpen = fs.openSync
     ;(fs as any).openSync = (p: string, flags: string) => {
-      if (flags === 'wx' && p === abs) throw Object.assign(new Error('EEXIST'), { code: 'EEXIST' })
+      if (flags === 'wx' && p === abs) {
+        const winnerFd = origOpen(p, 'wx')
+        try { fs.writeFileSync(winnerFd, winner); fs.fsyncSync(winnerFd) } finally { fs.closeSync(winnerFd) }
+        throw Object.assign(new Error('EEXIST'), { code: 'EEXIST' })
+      }
       return origOpen(p, flags as any)
     }
     try {
       const r = bridgeEventToSubject({ item, ticker: 'AMZN', mode: 'auto', user: 'auto', userVia: 'local', opts })
-      assert.equal(r.already, true, 'the loser of the race reports already:true, never a throw')
+      assert.equal(r.already, false, 'an uncertain race is treated as fresh, so follow-up analysis cannot be skipped')
     } finally {
       fs.openSync = origOpen
     }
-    assert.ok(!fs.existsSync(abs), 'the loser never wrote the destination via some other path either')
+    assert.equal(fs.readFileSync(abs, 'utf8'), winner, 'the winner\'s complete note is preserved')
     // no stray temp files left behind by the aborted attempt (the exclusive-create rewrite has no temp file at all)
     assert.deepEqual(fs.readdirSync(path.join(dataDir, 'AMZN')).filter((f) => f.includes('.tmp.')), [])
   })
 
   await check('audit ledger records the routing (once — the idempotent re-send adds nothing)', () => {
-    const ledger = fs.readFileSync(path.join(stateDir, 'research-bridge.ndjson'), 'utf8').trim().split('\n')
-    assert.equal(ledger.length, 1)
-    const rec = JSON.parse(ledger[0])
+    const ledger = fs.readFileSync(path.join(stateDir, 'research-bridge.ndjson'), 'utf8').trim().split('\n').map((line) => JSON.parse(line))
+    const matches = ledger.filter((row) => row.event_id === 'EVT-870c13fe70bd')
+    assert.equal(matches.length, 1)
+    const rec = matches[0]
     assert.equal(rec.event_id, 'EVT-870c13fe70bd')
     assert.equal(rec.ticker, 'EMAAR')
     assert.equal(rec.mode, 'manual')
@@ -142,6 +175,18 @@ async function main() {
     assert.throws(() => bridgeEventToSubject({ item: fixtureItem(), ticker: '..', mode: 'manual', user: 'u', userVia: 'local', opts }), /bad subject/)
     assert.throws(() => bridgeEventToSubject({ item: fixtureItem(), ticker: 'EXTERNAL-INBOX', mode: 'manual', user: 'u', userVia: 'local', opts }), /reserved|bad subject/)
     assert.throws(() => bridgeEventToSubject({ item: fixtureItem(), ticker: 'NOPE', mode: 'manual', user: 'u', userVia: 'local', opts }), /unknown subject/)
+  })
+
+  await check('automatic matching and writes reject a symlinked subject pool', () => {
+    const outside = fs.mkdtempSync(path.join(os.tmpdir(), 'rbridge-outside-'))
+    const linked = path.join(dataDir, 'LINK')
+    fs.symlinkSync(outside, linked)
+    const item = fixtureItem({ event_id: 'EVT-cccccccccccc', companies: [{ ticker: 'LINK', name: 'Linked Co' }] as any })
+    assert.deepEqual(matchTrackedSubjects(item, dataDir), [])
+    assert.throws(() => bridgeEventToSubject({ item, ticker: 'LINK', mode: 'auto', user: 'auto', userVia: 'local', opts }), /unknown subject/)
+    assert.deepEqual(fs.readdirSync(outside), [], 'no note is written outside the configured data pool')
+    fs.rmSync(linked)
+    fs.rmSync(outside, { recursive: true, force: true })
   })
 
   await check('listBridgedSubjects finds the routed note and skips reserved folders', () => {

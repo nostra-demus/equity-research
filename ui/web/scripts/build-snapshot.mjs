@@ -5,6 +5,7 @@
 // falls back to this snapshot (read-only showcase). Never modifies the engine.
 import fs from 'node:fs'
 import path from 'node:path'
+import { spawnSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -16,6 +17,7 @@ const DEST = path.join(WEB, 'public', 'data')
 
 const isFile = (p) => { try { return fs.statSync(p).isFile() } catch { return false } }
 const isDir = (p) => { try { return fs.statSync(p).isDirectory() } catch { return false } }
+const loadJSON = (p) => { try { return JSON.parse(fs.readFileSync(p, 'utf8')) } catch { return null } }
 const prettify = (s) => s.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 const trunc = (s, n = 240) => (s.length > n ? s.slice(0, n - 1).trimEnd() + '…' : s)
 
@@ -426,6 +428,28 @@ function copyInto(src, rel) {
   fs.copyFileSync(src, d)
 }
 
+// Calls metadata and opened artifacts must come from the same immutable build commit. Never copy these
+// paths from the mutable worktree: a sparse checkout could omit them and a dirty doer could serve bytes
+// different from the ledger the exporter projected.
+function copyPublishedCallsArtifact(rel) {
+  if (typeof rel !== 'string' || !rel.startsWith('analyses/') || rel.includes('\\') || path.isAbsolute(rel)) return null
+  const parts = rel.split('/')
+  if (parts.some((part) => !part || part === '.' || part === '..')) return null
+  if (!/\.(?:md|json)$/i.test(rel)) return null
+  const destination = path.resolve(DEST, rel)
+  const publicAnalyses = path.resolve(DEST, 'analyses')
+  if (destination !== publicAnalyses && !destination.startsWith(publicAnalyses + path.sep)) return null
+  const read = spawnSync('git', ['-C', REPO, 'show', `HEAD:${rel}`], {
+    encoding: null, maxBuffer: 16 * 1024 * 1024,
+  })
+  if (read.status !== 0 || !Buffer.isBuffer(read.stdout)) {
+    throw new Error(`Published Calls artifact is unavailable at HEAD: ${rel}`)
+  }
+  fs.mkdirSync(path.dirname(destination), { recursive: true })
+  fs.writeFileSync(destination, read.stdout)
+  return rel
+}
+
 function walkMd(dir, out = []) {
   if (!isDir(dir)) return out
   for (const e of fs.readdirSync(dir)) {
@@ -453,79 +477,29 @@ function copyPrompts() {
   return n
 }
 
-// ---- calls tracker (static): same shape + due/overdue rule as /api/calls, /research:track,
-// review_due.py (local date, lexical ISO compare, *_<window>_decision_review*.json glob). Walks ALL
-// run folders (not just the latest per ticker) and copies every file the tracker can open.
-function isISODateJ(s) { return typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s) }
-function loadJSON(p) { try { return JSON.parse(fs.readFileSync(p, 'utf8')) } catch { return null } }
-function todayISOJ() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}` }
-function reviewsForRun(runDirAbs, runRoot) {
-  const rdir = path.join(runDirAbs, 'reviews')
-  if (!isDir(rdir)) return []
-  const out = []
-  for (const n of fs.readdirSync(rdir).filter((f) => /_decision_review.*\.json$/.test(f)).sort()) {
-    const j = loadJSON(path.join(rdir, n)); if (!j) continue
-    const fr = Array.isArray(j.forecast_results) ? j.forecast_results : []
-    const conf = fr.filter((r) => String((r && r.status) || '').toLowerCase() === 'confirmed').length
-    const fals = fr.filter((r) => String((r && r.status) || '').toLowerCase() === 'falsified').length
-    out.push({ file: `${runRoot}/reviews/${n}`, basename: n, review_window: j.review_window || '', review_date: j.review_date || '',
-      review_price: typeof j.review_price === 'number' ? j.review_price : null, absolute_return_pct: typeof j.absolute_return_pct === 'number' ? j.absolute_return_pct : null,
-      thesis_status: j.thesis_status || null, forecasts_confirmed: conf, forecasts_falsified: fals })
-  }
-  return out
-}
-function winnerJ(files) { return files.length ? [...files].sort((a, b) => (a.review_date < b.review_date ? 1 : a.review_date > b.review_date ? -1 : a.basename < b.basename ? 1 : -1))[0] : null }
-function buildTimelineJ(schedule, reviews, today) {
-  const out = [], keys = Object.keys(schedule || {})
-  for (const w of keys) {
-    const dt = schedule[w]; if (!isISODateJ(dt)) continue
-    const matches = reviews.filter((r) => r.basename.includes(`_${w}_decision_review`))
-    const win = winnerJ(matches)
-    if (win) out.push({ window: w, due_date: dt, status: 'done', review_date: win.review_date, review_price: win.review_price, absolute_return_pct: win.absolute_return_pct, thesis_status: win.thesis_status, forecasts_confirmed: win.forecasts_confirmed, forecasts_falsified: win.forecasts_falsified, review_file: win.file, review_count: matches.length })
-    else out.push({ window: w, due_date: dt, status: dt < today ? 'overdue' : dt === today ? 'due' : 'upcoming' })
-  }
-  for (const r of reviews) {
-    if (keys.some((w) => r.basename.includes(`_${w}_decision_review`))) continue
-    out.push({ window: r.review_window || 'ad-hoc', due_date: r.review_date || null, status: 'done', review_date: r.review_date, review_price: r.review_price, absolute_return_pct: r.absolute_return_pct, thesis_status: r.thesis_status, forecasts_confirmed: r.forecasts_confirmed, forecasts_falsified: r.forecasts_falsified, review_file: r.file })
-  }
-  out.sort((a, b) => { const da = a.due_date || '9999-99-99', db = b.due_date || '9999-99-99'; return da < db ? -1 : da > db ? 1 : 0 })
-  return out
-}
 function buildCalls() {
-  const today = todayISOJ()
-  const calls = []
-  for (const name of fs.readdirSync(ANALYSES)) {
-    if (!/_\d{4}-\d{2}-\d{2}$/.test(name)) continue
-    const runDirAbs = path.join(ANALYSES, name), runRoot = `analyses/${name}`
-    const d = loadJSON(path.join(runDirAbs, 'decision_record.json')); if (!d) continue
-    if (!(d.ticker && d.decision && d.decision_date)) continue
-    const reviews = reviewsForRun(runDirAbs, runRoot)
-    const timeline = buildTimelineJ(d.review_schedule || {}, reviews, today)
-    const latest = winnerJ(reviews)
-    const entry = typeof d.entry_price === 'number' ? d.entry_price : null
-    const exp = typeof d.expected_return_pct === 'number' ? d.expected_return_pct : null
-    const fc = { open: 0, confirmed: 0, falsified: 0, expired: 0, other: 0 }
-    for (const f of (Array.isArray(d.forecast_ledger) ? d.forecast_ledger : [])) { const s = String((f && f.status) || 'open').toLowerCase(); if (s in fc) fc[s]++; else fc.other++ }
-    const pending = timeline.find((t) => t.status === 'overdue') || timeline.find((t) => t.status === 'due') || timeline.find((t) => t.status === 'upcoming') || null
-    const finalThesisPath = (typeof d.final_thesis_path === 'string' && d.final_thesis_path) ? d.final_thesis_path : `${runRoot}/final_thesis.md`
-    calls.push({ ticker: d.ticker, company: d.company_name ?? null, decision_date: d.decision_date, decision: d.decision, basket: d.basket ?? null,
-      confidence: typeof d.confidence_score === 'number' ? d.confidence_score : null, time_horizon: d.time_horizon ?? null, entry_price: entry, currency: d.currency ?? null,
-      expected_return_pct: exp, implied_target: entry != null && exp != null ? Math.round(entry * (1 + exp / 100) * 100) / 100 : null,
-      downside_risk_pct: typeof d.downside_risk_pct === 'number' ? d.downside_risk_pct : null, kill_criteria_count: Array.isArray(d.kill_criteria) ? d.kill_criteria.length : 0,
-      forecasts: fc, run_root: runRoot, final_thesis_path: finalThesisPath, latest_thesis_status: latest ? latest.thesis_status : null,
-      next_checkpoint: pending ? { window: pending.window, due_date: pending.due_date, status: pending.status } : null, review_count: reviews.length, timeline })
-    // copy every file the tracker can open (older runs aren't copied by the latest-only per-ticker loop)
-    const ftAbs = path.join(REPO, finalThesisPath); if (isFile(ftAbs)) copyInto(ftAbs, finalThesisPath)
-    for (const t of timeline) if (t.review_file) { const rfAbs = path.join(REPO, t.review_file); if (isFile(rfAbs)) copyInto(rfAbs, t.review_file) }
+  const tsx = path.join(WEB, 'node_modules', '.bin', 'tsx')
+  const exporter = path.join(REPO, 'ui', 'server', 'scripts', 'export-calls-snapshot.ts')
+  const run = spawnSync(tsx, [exporter], {
+    cwd: REPO,
+    encoding: 'utf8',
+    env: { ...process.env, ENGINE_ACTIVITY_LOG_DISABLED: '1', ENGINE_PUBLISHED_GIT_REF: 'HEAD' },
+  })
+  if (run.status !== 0) throw new Error(`Calls snapshot failed: ${(run.stderr || run.stdout || 'unknown error').trim()}`)
+  const data = JSON.parse(run.stdout)
+  // Copy every artifact the live projection lets the static reader open.
+  const paths = new Set()
+  for (const call of data.calls || []) {
+    if (call.final_thesis_path) paths.add(call.final_thesis_path)
+    for (const point of call.timeline || []) {
+      if (point.review_file) paths.add(point.review_file)
+      if (point.memo_delta_file) paths.add(point.memo_delta_file)
+    }
   }
-  calls.sort((a, b) => (a.decision_date < b.decision_date ? 1 : a.decision_date > b.decision_date ? -1 : 0))
-  let dashboard = null
-  const tdir = path.join(ANALYSES, 'tracking')
-  if (isDir(tdir)) {
-    const mds = fs.readdirSync(tdir).filter((f) => /_calls_tracker\.md$/.test(f)).sort()
-    if (mds.length) { dashboard = `analyses/tracking/${mds[mds.length - 1]}`; copyInto(path.join(tdir, mds[mds.length - 1]), dashboard) }
-  }
-  return { calls, dashboard }
+  for (const update of data.updates || []) if (update.source_path) paths.add(update.source_path)
+  for (const rel of paths) copyPublishedCallsArtifact(rel)
+  if (data.dashboard) copyPublishedCallsArtifact(data.dashboard)
+  return data
 }
 
 // ---- main ----
@@ -558,7 +532,7 @@ const callsData = buildCalls()
 const { swarms, swarmGraphs, swarmSubjects, swarmSubjectSummaries } = buildSwarms()
 fs.rmSync(path.join(DEST, 'screener'), { recursive: true, force: true })
 const screenerStatic = buildScreenerStatic()
-const snapshot = { static: true, swarmGraph, swarms, swarmGraphs, swarmSubjects, swarmSubjectSummaries, tickers, emptyState: tickers.length === 0, dataDir: 'bundled snapshot (static deploy)', dataStatus, runs, decisions, finalThesis, calls: callsData.calls, dashboard: callsData.dashboard, ...(screenerStatic || {}), generatedAt: new Date().toISOString() }
+const snapshot = { static: true, swarmGraph, swarms, swarmGraphs, swarmSubjects, swarmSubjectSummaries, tickers, emptyState: tickers.length === 0, dataDir: 'bundled snapshot (static deploy)', dataStatus, runs, decisions, finalThesis, calls: callsData.calls, updates: callsData.updates || [], dashboard: callsData.dashboard, ...(screenerStatic || {}), generatedAt: new Date().toISOString() }
 fs.writeFileSync(path.join(DEST, 'snapshot.json'), JSON.stringify(snapshot))
 const swarmSummary = swarms.filter((s) => s.id !== 'research').map((s) => `${s.id} (${swarmGraphs[s.id]?.totals.modules ?? 0}m / ${(swarmSubjects[s.id] || []).length} subj)`).join(', ')
 console.log(`[build-snapshot] swarm: ${swarmGraph.totals.modules} modules / ${swarmGraph.totals.agents} agents · ${promptCount} prompts · ${callsData.calls.length} calls · tickers: ${tickers.map((t) => t.ticker).join(', ')}${swarmSummary ? ` · swarms: ${swarmSummary}` : ''}${screenerStatic ? ` · screener runs: ${Object.keys(screenerStatic.screenerRuns).length}` : ''} -> ui/web/public/data/`)

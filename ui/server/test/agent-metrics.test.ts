@@ -69,6 +69,15 @@ check('argv: the session UUID is passed through verbatim (no mangling)', () => {
   assert.equal(argv[argv.indexOf('--session') + 1], uuid)
 })
 
+check('filename: unsafe session identifiers cannot escape or alias the append-only metrics basename', () => {
+  for (const invalid of ['', '../escape', 'nested/session', '.hidden', ' space', 'x'.repeat(129)]) {
+    assert.throws(() => agentMetricsFilename(invalid), /unsafe agent-metrics session id/)
+  }
+  assert.doesNotThrow(() => writeAgentMetrics({
+    runRoot: 'analyses/FOO_2099-01-01', sessionId: '../escape', ticker: 'FOO',
+  } as unknown as RunState))
+})
+
 // runRoot is repo-relative by contract, but if an absolute one is ever passed the --json path must be that
 // path itself — NOT silently nested under REPO_ROOT (path.join would produce REPO_ROOT + '/abs/run/...',
 // writing the metrics to a bogus location). path.resolve is what the rest of the launcher already does.

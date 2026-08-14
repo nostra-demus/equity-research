@@ -11,6 +11,7 @@ import {
   canonicalQualifiedIdeaJson,
   listFrozenQualifiedIdeaEvaluations,
   qualifiedIdeaJsonSha256,
+  validateCompletedIdeaPublication,
 } from '../src/qualified-ideas-store'
 import { qualifiedIdeaOutcomeHealthPath } from '../src/qualified-idea-outcome-runner'
 import { createRun, finishRun, setActiveTickerRun } from '../src/registry'
@@ -292,6 +293,64 @@ assert.equal(one.health.outcome, 'qualified')
 assert.equal(one.health.assessment_count, 1)
 assert.equal(one.qualified.length, 1)
 assert.equal(one.qualified[0].candidate.research.integrity_status, 'verified')
+
+const terminalProofRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-terminal-proof-'))
+const terminalProof = writeRun('TERMINAL_2026-08-03', { verify: true }, terminalProofRoot)
+assert.ok(validateCompletedIdeaPublication(terminalProof.dir, 'analyses/TERMINAL_2026-08-03'),
+  'canonical projection plus reconciled admission is terminal publication proof')
+const marketEvidencePath = path.join(terminalProof.dir, 'idea_market_evidence.json')
+const marketEvidenceBytes = fs.readFileSync(marketEvidencePath)
+fs.rmSync(marketEvidencePath)
+assert.equal(validateCompletedIdeaPublication(terminalProof.dir, 'analyses/TERMINAL_2026-08-03'), null,
+  'a missing canonical market-evidence snapshot cannot prove terminal publication')
+fs.writeFileSync(marketEvidencePath, marketEvidenceBytes)
+const driftedMarketEvidence = JSON.parse(marketEvidenceBytes.toString('utf8'))
+driftedMarketEvidence.evidence.quote.price += 1
+driftedMarketEvidence.evidence_sha256 = digest(driftedMarketEvidence.evidence)
+fs.writeFileSync(marketEvidencePath, JSON.stringify(driftedMarketEvidence))
+assert.equal(validateCompletedIdeaPublication(terminalProof.dir, 'analyses/TERMINAL_2026-08-03'), null,
+  'a rehashed market snapshot that drifts from the frozen admission cannot prove completion')
+fs.writeFileSync(marketEvidencePath, marketEvidenceBytes)
+fs.copyFileSync(
+  path.join(terminalProof.dir, 'verification_report.json'),
+  path.join(terminalProof.dir, 'verification_report_v2.json'),
+)
+assert.equal(validateCompletedIdeaPublication(terminalProof.dir, 'analyses/TERMINAL_2026-08-03'), null,
+  'a manifest pinned to v1 is stale when a newer audit version exists')
+fs.rmSync(terminalProofRoot, { recursive: true, force: true })
+
+const negativeTerminalRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-negative-terminal-proof-'))
+const negativeTerminal = writeRun('NEGATIVE_2026-08-03', { verify: false }, negativeTerminalRoot)
+assert.ok(validateCompletedIdeaPublication(negativeTerminal.dir, 'analyses/NEGATIVE_2026-08-03'),
+  'a fully reconciled not-admitted outcome is valid terminal publication proof')
+fs.rmSync(path.join(negativeTerminal.dir, 'idea_market_evidence.json'))
+assert.equal(validateCompletedIdeaPublication(negativeTerminal.dir, 'analyses/NEGATIVE_2026-08-03'), null,
+  'not-admitted completion still requires its canonical market-evidence witness')
+fs.rmSync(negativeTerminalRoot, { recursive: true, force: true })
+
+const lateNegativeRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-late-negative-terminal-proof-'))
+const lateNegative = writeRun(
+  'LATE_2026-08-03',
+  { verify: true, createdAt: '2026-08-05T10:00:00Z' },
+  lateNegativeRoot,
+)
+const lateAdmissionPath = path.join(lateNegative.dir, 'idea_admission.json')
+const lateAdmission = JSON.parse(fs.readFileSync(lateAdmissionPath, 'utf8'))
+lateAdmission.status = 'not_admitted'
+lateAdmission.gaps = ['manifest, candidate, and admission times must belong to the explicit dated run in publication order']
+delete lateAdmission.admission_sha256
+lateAdmission.admission_sha256 = digest(lateAdmission)
+fs.writeFileSync(lateAdmissionPath, JSON.stringify(lateAdmission))
+assert.ok(validateCompletedIdeaPublication(lateNegative.dir, 'analyses/LATE_2026-08-03'),
+  'the consumer accepts the freezer\'s ordered late not-admitted terminal witness')
+lateAdmission.status = 'admitted'
+lateAdmission.gaps = []
+delete lateAdmission.admission_sha256
+lateAdmission.admission_sha256 = digest(lateAdmission)
+fs.writeFileSync(lateAdmissionPath, JSON.stringify(lateAdmission))
+assert.equal(validateCompletedIdeaPublication(lateNegative.dir, 'analyses/LATE_2026-08-03'), null,
+  'an admitted candidate cannot escape the producer run-date window')
+fs.rmSync(lateNegativeRoot, { recursive: true, force: true })
 
 // Use a clean, isolated board so these health assertions cannot be satisfied by malformed fixtures
 // created elsewhere in this cumulative test file.

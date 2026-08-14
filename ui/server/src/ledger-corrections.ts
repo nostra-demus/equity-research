@@ -7,6 +7,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { ANALYSES_DIR } from './config'
+import { publishedBytes } from './git-publication'
 
 export const CORRECTIONS_SCHEMA = 'corrections/v1'
 
@@ -120,6 +121,29 @@ export function isSupersededRun(runRoot: string): boolean {
 export function normalizeRecord(runRoot: string, record: any): any {
   const abs = path.join(ANALYSES_DIR, path.basename(runRoot))
   return applyErrata(record, readCorrections(abs))
+}
+
+/** Shared-server correction authority. A corrections sidecar changes which call exists and may change its
+ * displayed fields, so an unpushed local sidecar must not split the live host from static/failover readers.
+ * Keep the disk reader above for authoring/audit tools; unattended work and Calls use these published forms. */
+export function readPublishedCorrections(runRoot: string): Corrections {
+  if (!/^analyses\/[A-Za-z0-9._-]+_\d{4}-\d{2}-\d{2}$/.test(runRoot)) return {}
+  try {
+    const bytes = publishedBytes(`${runRoot}/corrections.json`)
+    if (!bytes) return {}
+    const data = JSON.parse(bytes.toString('utf8'))
+    return data && typeof data === 'object' && data.schema === CORRECTIONS_SCHEMA ? data : {}
+  } catch {
+    return {}
+  }
+}
+
+export function isPublishedSupersededRun(runRoot: string): boolean {
+  return supersededTarget(readPublishedCorrections(runRoot)) !== null
+}
+
+export function normalizePublishedRecord(runRoot: string, record: any): any {
+  return applyErrata(record, readPublishedCorrections(runRoot))
 }
 
 // ── truth-integrity status (DECISION_LEDGER.md §18a) ────────────────────────────────────────────

@@ -178,6 +178,203 @@ check('a malformed manifest surfaces as manifestError, not a silent healthy zero
   assert.ok(out.manifestError, 'a malformed manifest is reported as a real config error, not swallowed into an empty enabled set')
 })
 
+check('a damaged saved news position surfaces as cursorError instead of a false healthy watcher', () => {
+  const repo = fs.mkdtempSync(path.join(os.tmpdir(), 'bridge-sched-cursor-repo-'))
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bridge-sched-cursor-state-'))
+  fs.mkdirSync(path.join(repo, 'data', 'AMZN'), { recursive: true })
+  const bridgeDir = path.join(repo, '.claude', 'bridge')
+  fs.mkdirSync(bridgeDir, { recursive: true })
+  fs.writeFileSync(path.join(bridgeDir, 'company-news-bridge.json'), JSON.stringify({ subjects: ['AMZN'] }))
+  fs.writeFileSync(path.join(stateDir, 'research-bridge-cursor.initialized'), 'research-bridge-cursor-v1\n')
+  fs.writeFileSync(path.join(stateDir, 'research-bridge-cursor.json'), '{truncated')
+
+  const probe = path.join(repo, 'cursor-probe.mts')
+  const src = path.resolve(here, '..', 'src', 'bridge-scheduler')
+  fs.writeFileSync(probe, [
+    `import { getBridgeStatus, runBridgeSweep } from ${JSON.stringify(src)}`,
+    `async function main() {`,
+    `  try { await runBridgeSweep(async () => true) } catch {}`,
+    `  console.log(JSON.stringify({ cursorError: getBridgeStatus().cursorError }))`,
+    `}`,
+    `void main()`,
+    '',
+  ].join('\n'))
+  const tsx = path.join(here, '..', 'node_modules', '.bin', process.platform === 'win32' ? 'tsx.cmd' : 'tsx')
+  const r = spawnSync(tsx, [probe], {
+    encoding: 'utf8',
+    env: { ...process.env, ENGINE_REPO_ROOT: repo, ENGINE_STATE_DIR: stateDir, ENGINE_ACTIVITY_LOG_DISABLED: '1' },
+  })
+  assert.equal(r.status, 0, `probe subprocess failed: ${r.stderr || r.error}`)
+  const out = JSON.parse(r.stdout.trim().split('\n').at(-1)!)
+  assert.match(out.cursorError, /position is damaged/)
+})
+
+check('an older-news retention gap survives cursor advancement and restart until explicitly resolved', () => {
+  const repo = fs.mkdtempSync(path.join(os.tmpdir(), 'bridge-sched-gap-repo-'))
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bridge-sched-gap-state-'))
+  fs.mkdirSync(path.join(repo, 'data', 'AMZN'), { recursive: true })
+  const runDir = path.join(repo, 'analyses', 'AMZN_2026-08-14')
+  fs.mkdirSync(runDir, { recursive: true })
+  fs.writeFileSync(path.join(runDir, 'final_thesis.md'), '# Finished AMZN thesis')
+  const bridgeDir = path.join(repo, '.claude', 'bridge')
+  fs.mkdirSync(bridgeDir, { recursive: true })
+  fs.writeFileSync(path.join(bridgeDir, 'company-news-bridge.json'), JSON.stringify({ subjects: ['AMZN'] }))
+
+  const now = new Date()
+  const oldCursor = new Date(now.getTime() - 20 * 24 * 60 * 60_000).toISOString()
+  fs.writeFileSync(path.join(stateDir, 'research-bridge-cursor.json'), JSON.stringify({ AMZN: oldCursor }))
+  const fhDir = path.join(repo, 'screener', 'inbox')
+  fs.mkdirSync(fhDir, { recursive: true })
+  const item = {
+    kind: 'item', ts: now.toISOString(), event_id: 'EVT-dddddddddddd',
+    headline: 'Amazon files a material company update', url: 'https://example.com/amzn-gap', domain: 'example.com',
+    source_name: 'Example', via: 'rss', region: 'OTHER', country: 'US', input_nature: 'news_headline',
+    triage_score: 80, band: 'act', triage_reason: 'material', relevance: 'material', event_types: ['company'],
+    issuer_linkage: 'direct', companies: [{ name: 'Amazon', ticker: 'AMZN' }], size_bucket: 'unknown',
+    source_tier: 'wire', caution: false,
+  }
+  fs.writeFileSync(path.join(fhDir, `${now.toISOString().slice(0, 10)}_firehose.ndjson`), JSON.stringify(item) + '\n')
+
+  const src = path.resolve(here, '..', 'src', 'bridge-scheduler')
+  const firstProbe = path.join(repo, 'gap-first.mts')
+  fs.writeFileSync(firstProbe, [
+    `import { getBridgeStatus, runBridgeSweep } from ${JSON.stringify(src)}`,
+    `async function main() {`,
+    `  await runBridgeSweep(async () => true)`,
+    `  const first = getBridgeStatus().retentionGaps`,
+    // A second clean sweep advances from the new cursor and emits no new retentionGapDays. The known
+    // uncovered period must remain active; ordinary cursor progress is not historical coverage.
+    `  await runBridgeSweep(async () => true)`,
+    `  console.log(JSON.stringify({ first, afterCleanSweep: getBridgeStatus().retentionGaps }))`,
+    `}`,
+    `void main()`,
+    '',
+  ].join('\n'))
+  const tsx = path.join(here, '..', 'node_modules', '.bin', process.platform === 'win32' ? 'tsx.cmd' : 'tsx')
+  const env = { ...process.env, ENGINE_REPO_ROOT: repo, ENGINE_STATE_DIR: stateDir, ENGINE_ACTIVITY_LOG_DISABLED: '1' }
+  const firstRun = spawnSync(tsx, [firstProbe], { encoding: 'utf8', env })
+  assert.equal(firstRun.status, 0, `gap probe failed: ${firstRun.stderr || firstRun.error}`)
+  const first = JSON.parse(firstRun.stdout.trim().split('\n').at(-1)!)
+  assert.equal(first.first.length, 1)
+  assert.equal(first.first[0].subject, 'AMZN')
+  assert.ok(first.first[0].days > 0)
+  assert.deepEqual(first.afterCleanSweep, first.first,
+    'a later clean sweep does not erase the older period that was never read')
+
+  const stateFile = path.join(stateDir, 'bridge-retention-gaps.json')
+  assert.equal(fs.existsSync(stateFile), true, 'the active gap has a durable state file')
+  assert.equal(JSON.parse(fs.readFileSync(stateFile, 'utf8')).records.AMZN.resolved_at, null)
+
+  // A new process proves restart persistence. Only an explicit, auditable truth statement resolves it.
+  const secondProbe = path.join(repo, 'gap-second.mts')
+  fs.writeFileSync(secondProbe, [
+    `import { getBridgeStatus, resolveBridgeRetentionGap } from ${JSON.stringify(src)}`,
+    `const before = getBridgeStatus().retentionGaps`,
+    `const resolved = resolveBridgeRetentionGap('AMZN', 'acknowledged')`,
+    `console.log(JSON.stringify({ before, resolved, after: getBridgeStatus().retentionGaps }))`,
+    '',
+  ].join('\n'))
+  const secondRun = spawnSync(tsx, [secondProbe], { encoding: 'utf8', env })
+  assert.equal(secondRun.status, 0, `gap restart probe failed: ${secondRun.stderr || secondRun.error}`)
+  const second = JSON.parse(secondRun.stdout.trim().split('\n').at(-1)!)
+  assert.equal(second.before.length, 1, 'the active gap survives a process restart')
+  assert.equal(second.resolved, true)
+  assert.deepEqual(second.after, [])
+  const saved = JSON.parse(fs.readFileSync(stateFile, 'utf8')).records.AMZN
+  assert.equal(saved.resolution, 'acknowledged', 'resolution remains on disk as an audit record')
+  assert.ok(saved.resolved_at)
+})
+
+check('a damaged durable older-news gap record is an explicit status error, never green by omission', () => {
+  const repo = fs.mkdtempSync(path.join(os.tmpdir(), 'bridge-sched-gap-bad-repo-'))
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bridge-sched-gap-bad-state-'))
+  fs.mkdirSync(path.join(repo, 'data'), { recursive: true })
+  fs.writeFileSync(path.join(stateDir, 'bridge-retention-gaps.initialized'), 'bridge-retention-gaps-v1\n')
+  fs.writeFileSync(path.join(stateDir, 'bridge-retention-gaps.json'), '{truncated')
+  const probe = path.join(repo, 'gap-bad.mts')
+  const src = path.resolve(here, '..', 'src', 'bridge-scheduler')
+  fs.writeFileSync(probe, [
+    `import { getBridgeStatus } from ${JSON.stringify(src)}`,
+    `console.log(JSON.stringify({ error: getBridgeStatus().retentionGapError }))`,
+    '',
+  ].join('\n'))
+  const tsx = path.join(here, '..', 'node_modules', '.bin', process.platform === 'win32' ? 'tsx.cmd' : 'tsx')
+  const run = spawnSync(tsx, [probe], {
+    encoding: 'utf8',
+    env: { ...process.env, ENGINE_REPO_ROOT: repo, ENGINE_STATE_DIR: stateDir, ENGINE_ACTIVITY_LOG_DISABLED: '1' },
+  })
+  assert.equal(run.status, 0, `damaged gap probe failed: ${run.stderr || run.error}`)
+  const out = JSON.parse(run.stdout.trim().split('\n').at(-1)!)
+  assert.match(out.error, /cannot be read safely/i)
+})
+
+check('a gap-ledger commit failure keeps the old cursor and the next process Calls status needs attention', () => {
+  const repo = fs.mkdtempSync(path.join(os.tmpdir(), 'bridge-sched-gap-fail-repo-'))
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'bridge-sched-gap-fail-state-'))
+  fs.mkdirSync(path.join(repo, 'data', 'AMZN'), { recursive: true })
+  const runDir = path.join(repo, 'analyses', 'AMZN_2026-08-14')
+  fs.mkdirSync(runDir, { recursive: true })
+  fs.writeFileSync(path.join(runDir, 'final_thesis.md'), '# Finished AMZN thesis')
+  const bridgeDir = path.join(repo, '.claude', 'bridge')
+  fs.mkdirSync(bridgeDir, { recursive: true })
+  fs.writeFileSync(path.join(bridgeDir, 'company-news-bridge.json'), JSON.stringify({ subjects: ['AMZN'] }))
+  const now = new Date()
+  const oldCursor = new Date(now.getTime() - 20 * 24 * 60 * 60_000).toISOString()
+  fs.writeFileSync(path.join(stateDir, 'research-bridge-cursor.json'), JSON.stringify({ AMZN: oldCursor }))
+  // Make only the gap journal target unwritable while leaving the cursor file itself writable. The
+  // pre-cursor barrier must still refuse to advance the cursor.
+  fs.mkdirSync(path.join(stateDir, 'bridge-retention-gaps.pending.json'))
+  const fhDir = path.join(repo, 'screener', 'inbox')
+  fs.mkdirSync(fhDir, { recursive: true })
+  const item = {
+    kind: 'item', ts: now.toISOString(), event_id: 'EVT-eeeeeeeeeeee',
+    headline: 'Amazon material filing during gap test', url: 'https://example.com/amzn-gap-fail', domain: 'example.com',
+    source_name: 'Example', via: 'rss', region: 'OTHER', country: 'US', input_nature: 'news_headline',
+    triage_score: 80, band: 'act', triage_reason: 'material', relevance: 'material', event_types: ['company'],
+    issuer_linkage: 'direct', companies: [{ name: 'Amazon', ticker: 'AMZN' }], size_bucket: 'unknown',
+    source_tier: 'wire', caution: false,
+  }
+  fs.writeFileSync(path.join(fhDir, `${now.toISOString().slice(0, 10)}_firehose.ndjson`), JSON.stringify(item) + '\n')
+  const src = path.resolve(here, '..', 'src', 'bridge-scheduler')
+  const firstProbe = path.join(repo, 'gap-fail-first.mts')
+  fs.writeFileSync(firstProbe, [
+    `import { getBridgeStatus, runBridgeSweep } from ${JSON.stringify(src)}`,
+    `await runBridgeSweep(async () => true)`,
+    `const s = getBridgeStatus()`,
+    `console.log(JSON.stringify({ cursorError: s.cursorError, gapError: s.retentionGapError }))`,
+    '',
+  ].join('\n'))
+  const tsx = path.join(here, '..', 'node_modules', '.bin', process.platform === 'win32' ? 'tsx.cmd' : 'tsx')
+  const env = {
+    ...process.env, ENGINE_REPO_ROOT: repo, ENGINE_STATE_DIR: stateDir, ENGINE_ACTIVITY_LOG_DISABLED: '1',
+    BRIDGE_MODE: 'stream',
+  }
+  const firstRun = spawnSync(tsx, [firstProbe], { encoding: 'utf8', env })
+  assert.equal(firstRun.status, 0, `gap failure probe failed: ${firstRun.stderr || firstRun.error}`)
+  const first = JSON.parse(firstRun.stdout.trim().split('\n').at(-1)!)
+  assert.ok(first.cursorError)
+  assert.ok(first.gapError)
+  assert.equal(JSON.parse(fs.readFileSync(path.join(stateDir, 'research-bridge-cursor.json'), 'utf8')).AMZN, oldCursor,
+    'the cursor remains before the unrecorded gap')
+
+  const secondProbe = path.join(repo, 'gap-fail-second.mts')
+  const callsStatus = path.resolve(here, '..', 'src', 'calls-automation-status')
+  fs.writeFileSync(secondProbe, [
+    `import { getBridgeStatus } from ${JSON.stringify(src)}`,
+    `import { combineCallsAutomationStatus } from ${JSON.stringify(callsStatus)}`,
+    `const part = { enabled:true, state:'watching' as const, message:'Watching.', last_checked_at:null, next_check_at:null, queued:0, running:0 }`,
+    `const newsSource = { enabled:true, running:false, readOnly:false, lastCycleAt:null, schedulerActive:true, schedulerStartedAt:null, sourceLastCycleAt:new Date().toISOString(), sourceLastError:null, intervalMin:15 }`,
+    `const status = combineCallsAutomationStatus({ intake:part, updates:part, reviews:part, news:getBridgeStatus(), newsSource })`,
+    `console.log(JSON.stringify({ state: status.state, message: status.message }))`,
+    '',
+  ].join('\n'))
+  const secondRun = spawnSync(tsx, [secondProbe], { encoding: 'utf8', env })
+  assert.equal(secondRun.status, 0, `gap restart status probe failed: ${secondRun.stderr || secondRun.error}`)
+  const second = JSON.parse(secondRun.stdout.trim().split('\n').at(-1)!)
+  assert.equal(second.state, 'needs_attention')
+  assert.match(second.message, /older-news check needs attention/i)
+})
+
 check('getBridgeStatus reports running:true when BRIDGE_MODE=stream, even with the batch timer never started', () => {
   // Codex #359, "Report stream mode as active without the legacy flag": running used to mean ONLY "is the
   // batch scheduler's own timer ticking", so a pure stream-mode deployment (per-item routing, no schedule)

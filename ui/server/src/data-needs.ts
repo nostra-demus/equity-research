@@ -18,7 +18,7 @@ import path from 'node:path'
 import { createHash } from 'node:crypto'
 import { REPO_ROOT } from './config'
 import { builtBySatisfies, CADENCE_MS, healthyBuiltBySatisfies, listConnectors } from './connector-registry'
-import { normalizeRecord } from './ledger-corrections'
+import { normalizePublishedRecord } from './ledger-corrections'
 import { resolveRunRoot } from './outputs'
 import { latestNeedLookup, type NeedLookupView } from './pipeline-store'
 import { agentNamesForModule, listModuleNames } from './roster'
@@ -293,7 +293,7 @@ export function readDataNeeds(swarmId: string, subject: string, requestedRunRoot
   const runRoot = relativeRunRoot(runRootAbs)
   // Research has an append-only correction projection. Read the same effective record as the other
   // research views; commodity/current swarm projections remain their exact archived bytes.
-  const raw = swarmId === RESEARCH_SWARM_ID ? normalizeRecord(runRoot, parsed) : parsed
+  const raw = swarmId === RESEARCH_SWARM_ID ? normalizePublishedRecord(runRoot, parsed) : parsed
   const decisionFingerprint = fingerprintDecision(runRoot, raw)
 
   const modules = new Set(listModuleNames(swarmId))

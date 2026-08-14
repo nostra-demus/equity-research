@@ -18,8 +18,13 @@ import {
 import { acquireSingletonLock, releaseSingletonLock } from './singleton-lock'
 import { accumulatedFor, bridgeManifestError, enabledSubjects, readBatchConfig, readSubjectNames, sweepOnce } from './bridge-batch'
 import { isPerItemBridgeActive } from './research-bridge'
+import { listAllCalls } from './outputs'
+import { isValidTicker, safeSubjectSegment } from './sandbox'
 
 const LOCK_FILE = 'bridge-batch.lock'
+const RETENTION_GAP_FILE = 'bridge-retention-gaps.json'
+const RETENTION_GAP_PENDING_FILE = 'bridge-retention-gaps.pending.json'
+const RETENTION_GAP_MARKER_FILE = 'bridge-retention-gaps.initialized'
 const log = (m: string) => console.log(`[bridge] ${m}`) // eslint-disable-line no-console
 
 let timer: ReturnType<typeof setInterval> | null = null
@@ -42,6 +47,39 @@ let pendingAnalysisSubjects = new Set<string>()
 // `running`/`idleReason` so a transient/malformed edit is never reported as a quiet, successful zero-subject
 // sweep (Codex #359, "Surface an unreadable bridge manifest as a configuration error").
 let manifestError: string | null = null
+// Cursor authority is separate from the bridge manifest. Losing/corrupting it can create an unseen news
+// gap, so it is a first-class status blocker rather than a logged best-effort warning.
+let cursorError: string | null = null
+let retentionGapError: string | null = null
+let retentionGapWriteUncertain = false
+
+type RetentionGapResolution = 'coverage_restored' | 'acknowledged'
+
+interface RetentionGapRecord {
+  subject: string
+  gap_days: number
+  detected_at: string
+  last_seen_at: string
+  resolved_at: string | null
+  resolution: RetentionGapResolution | null
+}
+
+interface RetentionGapState {
+  version: 1
+  records: Record<string, RetentionGapRecord>
+}
+
+interface RetentionGapPending {
+  version: 1
+  detected_at: string
+  gaps: Array<{ subject: string; gap_days: number }>
+}
+
+export interface BridgeRetentionGapStatus {
+  subject: string
+  days: number
+  detectedAt: string
+}
 
 export interface BridgeSubjectStatus {
   subject: string
@@ -69,6 +107,191 @@ export interface BridgeStatus {
   /** the manifest exists but is unreadable/malformed right now — a real config error, reported even while
    *  `running` is otherwise true, so a bad edit never reads as a quiet, valid zero-subject sweep */
   manifestError: string | null
+  cursorError: string | null
+  /** A known period older than the bounded news archive. It remains active after the cursor advances and
+   * only clears through an explicit coverage-restored/acknowledged resolution. */
+  retentionGaps: BridgeRetentionGapStatus[]
+  retentionGapError: string | null
+}
+
+function retentionPath(name: string): string {
+  return path.join(STATE_DIR, name)
+}
+
+function validIso(value: unknown): value is string {
+  return typeof value === 'string' && Number.isFinite(Date.parse(value))
+}
+
+function validateRetentionRecord(subject: string, raw: unknown): raw is RetentionGapRecord {
+  const row = raw as RetentionGapRecord
+  const resolution = row?.resolution
+  return !!row && typeof row === 'object' && !Array.isArray(row)
+    && isValidTicker(subject) && row.subject === subject
+    && Number.isInteger(row.gap_days) && row.gap_days > 0
+    && validIso(row.detected_at) && validIso(row.last_seen_at)
+    && ((row.resolved_at === null && resolution === null)
+      || (validIso(row.resolved_at) && (resolution === 'coverage_restored' || resolution === 'acknowledged')))
+}
+
+function validateRetentionState(raw: unknown): RetentionGapState {
+  const state = raw as RetentionGapState
+  if (!state || typeof state !== 'object' || Array.isArray(state) || state.version !== 1
+      || !state.records || typeof state.records !== 'object' || Array.isArray(state.records)
+      || Object.entries(state.records).some(([subject, row]) => !validateRetentionRecord(subject, row))) {
+    throw new Error('older-news gap record is damaged')
+  }
+  return { version: 1, records: { ...state.records } }
+}
+
+function validateRetentionPending(raw: unknown): RetentionGapPending {
+  const pending = raw as RetentionGapPending
+  if (!pending || typeof pending !== 'object' || Array.isArray(pending) || pending.version !== 1
+      || !validIso(pending.detected_at) || !Array.isArray(pending.gaps) || !pending.gaps.length
+      || pending.gaps.some((row) => !row || typeof row !== 'object' || !isValidTicker(row.subject)
+        || !Number.isInteger(row.gap_days) || row.gap_days <= 0)) {
+    throw new Error('pending older-news gap record is damaged')
+  }
+  return pending
+}
+
+function existsSafeFile(file: string): boolean {
+  try {
+    const stat = fs.lstatSync(file)
+    if (!stat.isFile() || stat.isSymbolicLink()) throw new Error('unsafe saved older-news gap record')
+    return true
+  } catch (error: any) {
+    if (error?.code === 'ENOENT') return false
+    throw error
+  }
+}
+
+function atomicWriteJson(file: string, value: unknown): void {
+  fs.mkdirSync(path.dirname(file), { recursive: true })
+  const tmp = `${file}.${process.pid}.${Date.now()}.${Math.random().toString(36).slice(2)}.tmp`
+  let fd: number | null = null
+  try {
+    fd = fs.openSync(tmp, 'wx', 0o600)
+    fs.writeFileSync(fd, JSON.stringify(value, null, 2) + '\n', 'utf8')
+    fs.fsyncSync(fd)
+    fs.closeSync(fd)
+    fd = null
+    fs.renameSync(tmp, file)
+    try {
+      const dir = fs.openSync(path.dirname(file), 'r')
+      try { fs.fsyncSync(dir) } finally { fs.closeSync(dir) }
+    } catch { /* directory fsync is not available on every filesystem */ }
+  } finally {
+    if (fd !== null) fs.closeSync(fd)
+    try { fs.unlinkSync(tmp) } catch { /* renamed away */ }
+  }
+}
+
+function ensureRetentionMarker(): void {
+  const file = retentionPath(RETENTION_GAP_MARKER_FILE)
+  if (existsSafeFile(file)) return
+  let fd: number | null = null
+  try {
+    fs.mkdirSync(STATE_DIR, { recursive: true })
+    fd = fs.openSync(file, 'wx', 0o600)
+    fs.writeFileSync(fd, 'bridge-retention-gaps-v1\n', 'utf8')
+    fs.fsyncSync(fd)
+  } catch (error: any) {
+    if (error?.code !== 'EEXIST') throw error
+    if (!existsSafeFile(file)) throw error
+  } finally {
+    if (fd !== null) fs.closeSync(fd)
+  }
+}
+
+function mergePendingGap(state: RetentionGapState, pending: RetentionGapPending): RetentionGapState {
+  const records = { ...state.records }
+  for (const gap of pending.gaps) {
+    const prior = records[gap.subject]
+    // A resolution written after this pending observation is authoritative. This also makes an unlink
+    // failure after a successful acknowledgement safe: the stale journal cannot reopen the old gap.
+    if (prior?.resolved_at && Date.parse(prior.resolved_at) >= Date.parse(pending.detected_at)) continue
+    records[gap.subject] = {
+      subject: gap.subject,
+      gap_days: Math.max(gap.gap_days, prior?.resolved_at ? 0 : prior?.gap_days ?? 0),
+      detected_at: prior && !prior.resolved_at ? prior.detected_at : pending.detected_at,
+      last_seen_at: pending.detected_at,
+      resolved_at: null,
+      resolution: null,
+    }
+  }
+  return { version: 1, records }
+}
+
+function readRetentionGapState(): RetentionGapState {
+  const stateFile = retentionPath(RETENTION_GAP_FILE)
+  const pendingFile = retentionPath(RETENTION_GAP_PENDING_FILE)
+  const markerFile = retentionPath(RETENTION_GAP_MARKER_FILE)
+  const hasState = existsSafeFile(stateFile)
+  const hasPending = existsSafeFile(pendingFile)
+  const hasMarker = existsSafeFile(markerFile)
+  if (!hasState && hasMarker && !hasPending) throw new Error('saved older-news gap record is missing')
+  let state: RetentionGapState = { version: 1, records: {} }
+  if (hasState) state = validateRetentionState(JSON.parse(fs.readFileSync(stateFile, 'utf8')))
+  if (hasPending) {
+    const pending = validateRetentionPending(JSON.parse(fs.readFileSync(pendingFile, 'utf8')))
+    state = mergePendingGap(state, pending)
+  }
+  return state
+}
+
+function writeRetentionGapState(state: RetentionGapState): void {
+  ensureRetentionMarker()
+  atomicWriteJson(retentionPath(RETENTION_GAP_FILE), validateRetentionState(state))
+}
+
+function recordRetentionGaps(gaps: Array<{ subject: string; gap_days: number }>, detectedAt: string): void {
+  if (!gaps.length) return
+  const pending = validateRetentionPending({ version: 1, detected_at: detectedAt, gaps })
+  // The journal is durable before the main state changes. If the process stops after sweepOnce advanced
+  // its cursor, the next process still sees this pending gap and cannot report green.
+  ensureRetentionMarker()
+  atomicWriteJson(retentionPath(RETENTION_GAP_PENDING_FILE), pending)
+  const merged = mergePendingGap(readRetentionGapState(), pending)
+  writeRetentionGapState(merged)
+  fs.unlinkSync(retentionPath(RETENTION_GAP_PENDING_FILE))
+  retentionGapWriteUncertain = false
+  retentionGapError = null
+}
+
+function activeRetentionGaps(): BridgeRetentionGapStatus[] {
+  try {
+    const state = readRetentionGapState()
+    // A repaired read error clears itself. A write error does not: a readable old main file is not proof
+    // that the newest detected gap reached durable storage.
+    if (!retentionGapWriteUncertain) retentionGapError = null
+    return Object.values(state.records)
+      .filter((row) => row.resolved_at === null)
+      .sort((a, b) => a.subject.localeCompare(b.subject))
+      .map((row) => ({ subject: row.subject, days: row.gap_days, detectedAt: row.detected_at }))
+  } catch (error: any) {
+    retentionGapError = `The saved older-news check cannot be read safely (${String(error?.message || error || 'read error').slice(0, 160)}).`
+    return []
+  }
+}
+
+/** Clear only with an explicit truth statement. Ordinary successful sweeps and cursor advancement never
+ * remove a known uncovered period. The resolved record stays on disk so the acknowledgement is auditable. */
+export function resolveBridgeRetentionGap(subject: string, resolution: RetentionGapResolution): boolean {
+  if (!isValidTicker(subject) || (resolution !== 'coverage_restored' && resolution !== 'acknowledged')) {
+    throw new Error('invalid older-news gap resolution')
+  }
+  const state = readRetentionGapState()
+  const row = state.records[subject]
+  if (!row || row.resolved_at) return false
+  const at = new Date().toISOString()
+  state.records[subject] = { ...row, resolved_at: at, resolution }
+  writeRetentionGapState(state)
+  try { fs.unlinkSync(retentionPath(RETENTION_GAP_PENDING_FILE)) } catch (error: any) {
+    if (error?.code !== 'ENOENT') throw error
+  }
+  retentionGapWriteUncertain = false
+  retentionGapError = null
+  return true
 }
 
 // ---- routed-note count cache --------------------------------------------------------------------------
@@ -115,6 +338,7 @@ export function getBridgeSubjectNames(): Record<string, string> {
 
 export function getBridgeStatus(): BridgeStatus {
   const subjects = subjectCounts(currentSubjects())
+  const retentionGaps = activeRetentionGaps()
   // 'running' must mean "is SOME automatic routing live", not just "is the batch timer ticking" — a
   // BRIDGE_MODE=stream deployment routes every material item through research-bridge.ts's per-item path,
   // with no timer of its own, and previously reported as fully idle here (Codex #359, "Report stream mode
@@ -135,6 +359,9 @@ export function getBridgeStatus(): BridgeStatus {
     last: lastSummary,
     idleReason: running ? null : idleReason,
     manifestError,
+    cursorError,
+    retentionGaps,
+    retentionGapError,
   }
 }
 
@@ -142,9 +369,28 @@ function manifestPath(): string {
   return path.join(BRIDGE_DIR, 'company-news-bridge.json')
 }
 
-/** The enabled set, re-read every tick: adding a name is a manifest edit, never a redeploy. */
+/**
+ * Every standing call is covered automatically. The manifest remains an additive way to watch a company
+ * before it has a recorded call; it is no longer the maintenance list for the Calls tracker.
+ */
+export function mergeBridgeSubjects(manifestSubjects: string[], calls: Array<{ ticker?: unknown }>, dataDir: string): string[] {
+  const out = new Set(manifestSubjects)
+  for (const call of calls) {
+    const ticker = typeof call?.ticker === 'string' ? call.ticker.trim() : ''
+    if (!isValidTicker(ticker)) continue
+    try {
+      const segment = safeSubjectSegment(ticker)
+      if (fs.statSync(path.join(dataDir, segment)).isDirectory()) out.add(segment)
+    } catch { /* a call with no research pool cannot receive a routed source yet */ }
+  }
+  return [...out].sort()
+}
+
+/** Re-read each tick so a newly published call is watched without a config edit or redeploy. */
 function currentSubjects(): string[] {
-  return enabledSubjects(manifestPath(), DATA_DIR)
+  let calls: Array<{ ticker?: unknown }> = []
+  try { calls = listAllCalls().calls } catch { /* corrected call projection fails closed to manifest */ }
+  return mergeBridgeSubjects(enabledSubjects(manifestPath(), DATA_DIR), calls, DATA_DIR)
 }
 
 /** One sweep + its follow-up analyses. `launchAnalysis` is injected so this stays testable without the
@@ -166,13 +412,36 @@ export async function runBridgeSweep(launchAnalysis: (ticker: string) => Promise
     return
   }
   const cfg = readBatchConfig(path.join(BRIDGE_DIR, 'bridge_config.json'))
-  const res = sweepOnce(subjects, cfg, {
-    repoRoot: REPO_ROOT,
-    dataDir: DATA_DIR,
-    stateDir: STATE_DIR,
-    archiveDir: NEWS.newsArchiveDir || '',
-    analysesDir: ANALYSES_DIR,
-  })
+  const detectedAt = new Date().toISOString()
+  let res: ReturnType<typeof sweepOnce>
+  try {
+    res = sweepOnce(subjects, cfg, {
+      repoRoot: REPO_ROOT,
+      dataDir: DATA_DIR,
+      stateDir: STATE_DIR,
+      archiveDir: NEWS.newsArchiveDir || '',
+      analysesDir: ANALYSES_DIR,
+      // A retention gap and the cursor that would cross it are one durability transaction. The batch
+      // layer invokes this barrier after note writes but before cursor publish; failure leaves the cursor
+      // old so another process can rediscover the gap instead of inheriting a false-green watermark.
+      preCursorCommit: (gaps) => recordRetentionGaps(
+        gaps.map((row) => ({ subject: row.subject, gap_days: row.gapDays })),
+        detectedAt,
+      ),
+    })
+  } catch (error: any) {
+    cursorError = error?.code === 'BRIDGE_CURSOR_UNAVAILABLE'
+      ? String(error?.message || 'Saved company-news position needs attention.')
+      : cursorError
+    throw error
+  }
+  const gapped = res.sweeps
+    .filter((row): row is typeof row & { retentionGapDays: number } => typeof row.retentionGapDays === 'number' && row.retentionGapDays > 0)
+    .map((row) => ({ subject: row.subject, gap_days: row.retentionGapDays }))
+  if (res.preCursorCommitError) {
+    retentionGapWriteUncertain = true
+    retentionGapError = `The older-news gap could not be saved safely (${res.preCursorCommitError.slice(0, 160)}).`
+  }
   const written = res.sweeps.reduce((a, s) => a + s.written.length, 0)
   const duplicates = res.sweeps.reduce((a, s) => a + s.duplicates, 0)
   // How many of the fresh notes only the NAME fallback found. Logged separately so the fallback's yield is
@@ -205,16 +474,16 @@ export async function runBridgeSweep(launchAnalysis: (ticker: string) => Promise
   // Honest disclosure, not a silent skip: a subject whose cursor predates the retention boundary had its
   // catch-up window intentionally clamped (bridge-batch.ts's RETENTION_BOUNDARY_DAYS) — surface it so an
   // operator can see it instead of the gap just vanishing (Codex review, PR #359).
-  const gapped = res.sweeps.filter((s) => s.retentionGapDays)
   if (gapped.length) {
-    log(`retention boundary hit for ${gapped.map((s) => `${s.subject} (~${s.retentionGapDays}d uncovered)`).join(', ')} — cursor older than the catch-up window; that gap is an intentional, disclosed limit, not routed`)
+    log(`retention boundary hit for ${gapped.map((s) => `${s.subject} (~${s.gap_days}d uncovered)`).join(', ')} — cursor older than the catch-up window; that gap is recorded until coverage is restored or acknowledged`)
   }
   // A cursor-persistence failure never erases the notes/analyses already landed above (sweepOnce always
   // returns subjectsWithFreshNotes even when writeCursors throws) — but it DOES mean the cursor didn't
   // advance, so say so instead of pretending the sweep was clean (Codex review, PR #359).
   if (res.cursorWriteError) {
+    cursorError = 'The saved company-news position could not be updated. The system will retry without skipping news.'
     log(`cursor persistence failed after this sweep (${res.cursorWriteError}) — the next sweep re-reads this same window (safe: on-disk note dedup makes the replay a no-op)`)
-  }
+  } else cursorError = null
 
   lastSweepAt = new Date().toISOString()
   lastSummary = { subjects: subjects.length, written, duplicates, analyses }
@@ -240,9 +509,9 @@ export function startBridgeScheduler(launchAnalysis: (ticker: string) => Promise
     return
   }
   if (timer) return
-  if (!fs.existsSync(manifestPath())) {
-    log(`idle — no bridge manifest at ${BRIDGE_DIR}/company-news-bridge.json (nothing declares which subjects are covered)`)
-    idleReason = 'no bridge manifest — nothing declares which subjects are covered'
+  if (!fs.existsSync(manifestPath()) && currentSubjects().length === 0) {
+    log('idle — there are no standing calls or extra bridge subjects to watch')
+    idleReason = 'no standing calls or extra bridge subjects to watch'
     return
   }
   // One sweeper per state dir: a second engine must not double-route into the same pools.

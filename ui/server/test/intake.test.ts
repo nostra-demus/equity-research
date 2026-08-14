@@ -21,6 +21,7 @@ import { fileURLToPath } from 'node:url'
 const SOURCE_REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..')
 const REPO = fs.mkdtempSync(path.join(os.tmpdir(), 'intake-'))
 process.env.ENGINE_REPO_ROOT = REPO
+process.env.ENGINE_PUBLISHED_GIT_REF = 'HEAD'
 
 execFileSync('git', ['-C', REPO, 'init', '-q'])
 execFileSync('git', ['-C', REPO, 'config', 'user.email', 'intake-test@example.invalid'])
@@ -32,7 +33,10 @@ function write(rel: string, body: string) {
   fs.writeFileSync(abs, body)
   // Prompt-authored plan bytes become execution authority only with their exact Git commit. Keep staged
   // transport copies uncommitted: their committed source plan is the authority tested below.
-  if (/\/intake\/\d{4}-\d{2}-\d{2}_intake_plan(?:_v\d+)?\.json$/.test(rel)) {
+  if (/\/(?:decision_record\.json|final_thesis\.md|corrections\.json)$/.test(rel)) {
+    execFileSync('git', ['-C', REPO, 'add', '--', rel])
+    execFileSync('git', ['-C', REPO, 'commit', '-q', '-m', `terminal ${path.basename(rel)}`, '--', rel])
+  } else if (/\/intake\/\d{4}-\d{2}-\d{2}_intake_plan(?:_v\d+)?\.json$/.test(rel)) {
     let staged = false
     try { staged = JSON.parse(body)?.staged_for_scoped_rerun === true } catch { /* malformed audit fixture */ }
     if (!staged) {
@@ -130,7 +134,11 @@ const planFixture = {
 }
 write(`${RUN}/intake/${TODAY}_intake_plan.json`, JSON.stringify(planFixture, null, 2))
 
-const { readIntakePlan, latestPlanFileFor, intakePlanSha256, intakeExecutionReceiptId } = await import('../src/intake')
+const {
+  readIntakePlan, latestPlanFileFor, intakePlanSha256, intakeExecutionReceiptId,
+  resolveIntakeRunRoot, stagedIntakePlanMatches, stagedIntakeResumeForTarget,
+  intakePlanCoversAutomaticPool, intakePoolNewest, intakePoolAuthorityAvailable,
+} = await import('../src/intake')
 const { listFinishedIntakeOwners, resolveUniqueFinishedIntakeOwner } = await import('../src/intake-owner')
 
 // ---- 1. valid ticker with a plan: hallucinated names dropped, cascade re-expanded ----
@@ -803,14 +811,197 @@ assert.equal(staleFpPlan.decision_fingerprint, `sha256:${'f'.repeat(64)}`, 'read
 // slash commands, so the executable contract belongs beside the reader tests).
 const commodityPrompt = fs.readFileSync(path.join(SOURCE_REPO, '.claude/commands/commodity/intake.md'), 'utf8')
 const captureAt = commodityPrompt.indexOf('SCANNED_AT="$(python3')
-const scanAt = commodityPrompt.indexOf('find "data/${COMMODITY}/"')
+const scanAt = commodityPrompt.indexOf("pathlib.Path('data') / commodity")
 assert.ok(captureAt >= 0 && scanAt > captureAt, 'commodity intake captures SCANNED_AT before its document scan')
 assert.ok(commodityPrompt.includes('isoformat(timespec="milliseconds")'), 'commodity intake uses sub-second canonical UTC, not whole-second date')
 assert.ok(commodityPrompt.includes('scanned_at: "<SCANNED_AT>"'), 'commodity intake writes the durable witness even on the empty-plan path')
-assert.ok(commodityPrompt.includes('decision_date') && commodityPrompt.includes('SINCE=(-newermt "$RUN_DATE 00:00:00")'), 'commodity intake has the checkout-safe decision-date fallback')
+assert.ok(
+  commodityPrompt.includes('decision_date') && commodityPrompt.includes("floor = day.timestamp() if wm >"),
+  'commodity intake has the checkout-safe decision-date fallback',
+)
 const researchPrompt = fs.readFileSync(path.join(SOURCE_REPO, '.claude/commands/research/intake.md'), 'utf8')
-assert.ok(researchPrompt.indexOf('SCANNED_AT="$(python3') < researchPrompt.indexOf('find "data/${TICKER}/"'), 'research intake captures its high-resolution witness before scanning')
+assert.ok(researchPrompt.indexOf('SCANNED_AT="$(python3') < researchPrompt.indexOf("pool = pathlib.Path('data') / ticker"), 'research intake captures its high-resolution witness before scanning')
 assert.ok(researchPrompt.includes('isoformat(timespec="milliseconds")'), 'research intake has the same sub-second ordering contract')
+assert.ok(researchPrompt.includes('if [ "$CURSOR_STATUS" -ne 0 ]'), 'every cursor helper failure stops instead of falling through to a false-fresh watermark')
+assert.ok(researchPrompt.includes('Legacy finished calls predate the run cursor'), 'legacy calls conservatively rescan from their run day')
+
+// A syntactically valid model answer cannot omit one scanner-observed file and settle the automatic
+// watermark as "nothing changed". The scanner index is independently reproduced by the server, and every
+// row must carry a complete classification plus the command implied by a material filing.
+const coveredRun = `analyses/COVERED_${TODAY}`
+const coveredDecision = { ticker: 'COVERED', decision: 'Watchlist', confidence_score: 50 }
+const coveredFp = writeDecision(coveredRun, coveredDecision)
+write(`${coveredRun}/final_thesis.md`, '# covered thesis\n')
+fs.mkdirSync(path.join(REPO, `${coveredRun}/intake`), { recursive: true })
+fs.writeFileSync(path.join(REPO, `${coveredRun}/intake/run_evidence_cursor.json`), JSON.stringify({
+  version: 1, ticker: 'COVERED', run_root: coveredRun, started_at: `${TODAY}T00:00:00.000Z`,
+}))
+write('data/COVERED/quarterly_filing.pdf', 'material filing bytes')
+const coveredArrival = Math.floor(Math.max(
+  fs.statSync(path.join(REPO, 'data/COVERED/quarterly_filing.pdf')).mtimeMs,
+  fs.statSync(path.join(REPO, 'data/COVERED/quarterly_filing.pdf')).ctimeMs,
+))
+const coveredScannedAt = new Date().toISOString()
+const coveredPlan = {
+  schema_version: '1.1', swarm: 'research', subject: 'COVERED', ticker: 'COVERED',
+  run_root: coveredRun, decision_fingerprint: coveredFp, scan_date: TODAY,
+  scanned_at: coveredScannedAt, watermark: `${coveredRun}/final_thesis.md`,
+  evidence_files: [{ path: 'data/COVERED/quarterly_filing.pdf', arrival_ms: coveredArrival }],
+  new_docs: [{
+    path: 'data/COVERED/quarterly_filing.pdf', provider: null, source_type: 'quarterly_filing', tier: 2,
+    as_of: TODAY, claims_summary: 'A material filing arrived.', materiality_score: 90,
+    impact_direction: 'mixed', entry_orbs: [
+      { module: 'alpha', agent: 'alpha-thing', why: 'The filing changes the operating evidence.', confidence: 0.95 },
+    ],
+  }],
+  rerun_plan: {
+    materiality_gate: 60, entry_orbs: [{ module: 'alpha', agent: 'alpha-thing' }],
+    commands: [{
+      command: '/research:rerun alpha alpha-thing COVERED', module: 'alpha', agent: 'alpha-thing',
+      cascade_modules: ['alpha', 'beta'], triggered_by: ['data/COVERED/quarterly_filing.pdf'],
+    }],
+    note_only: [],
+  },
+  verdict: 'scoped_rerun', summary: 'The filing requires a scoped update.',
+}
+write(`${coveredRun}/intake/${TODAY}_intake_plan.json`, JSON.stringify(coveredPlan, null, 2))
+const coveredRead = readIntakePlan('COVERED', { requireDecision: true })!
+assert.equal(coveredRead.coverage_complete, true, 'the exact deterministic evidence index is complete')
+assert.equal(intakePlanCoversAutomaticPool(coveredRead, {
+  swarm: 'research', subject: 'COVERED', runRoot: coveredRun, decisionFingerprint: coveredFp,
+}, intakePoolNewest('COVERED', 'research').newestMs), true, 'complete classified evidence can settle the automatic watermark')
+
+write(`${coveredRun}/intake/${TODAY}_intake_plan_v2.json`, JSON.stringify({
+  ...coveredPlan, evidence_files: [], new_docs: [],
+  rerun_plan: { materiality_gate: 60, entry_orbs: [], commands: [], note_only: [] },
+  verdict: 'note_only', summary: 'Nothing changed.',
+}, null, 2))
+const omittedEvidence = readIntakePlan('COVERED', { requireDecision: true })!
+assert.equal(omittedEvidence.coverage_complete, false, 'omitting one observed filing fails the no-omission proof')
+assert.equal(intakePlanCoversAutomaticPool(omittedEvidence, {
+  swarm: 'research', subject: 'COVERED', runRoot: coveredRun, decisionFingerprint: coveredFp,
+}, intakePoolNewest('COVERED', 'research').newestMs), false, 'an omitted filing never advances the automatic watermark')
+
+write(`${coveredRun}/intake/${TODAY}_intake_plan_v3.json`, JSON.stringify({
+  ...coveredPlan,
+  rerun_plan: {
+    materiality_gate: 101, entry_orbs: [], commands: [],
+    note_only: [{ path: 'data/COVERED/quarterly_filing.pdf', reason: 'below a model-raised gate' }],
+  },
+  verdict: 'note_only', summary: 'Nothing changed under a higher gate.',
+}, null, 2))
+assert.equal(
+  readIntakePlan('COVERED', { requireDecision: true })!.coverage_complete,
+  false,
+  'the model cannot raise the fixed materiality gate to suppress a material filing rerun',
+)
+
+// Automatic intake binds to the same visible, unsuperseded object decision as Calls. A newer partial
+// final_thesis shell, or a newer run corrected out of the append-only ledger, must never steal ownership.
+const partialOld = `analyses/PARTIAL_${YESTERDAY}`
+writeDecision(partialOld, { ticker: 'PARTIAL', decision: 'Watchlist', confidence_score: 50 })
+write(`${partialOld}/final_thesis.md`, '# standing call\n')
+write(`analyses/PARTIAL_${TODAY}/final_thesis.md`, '# incomplete newer run\n')
+assert.equal(
+  resolveIntakeRunRoot('PARTIAL', { requireDecision: true }, true)?.runRoot,
+  partialOld,
+  'a final-thesis-only partial cannot own unattended work',
+)
+
+const correctedOld = `analyses/CORRECTED_${YESTERDAY}`
+const correctedNew = `analyses/CORRECTED_${TODAY}`
+writeDecision(correctedOld, { ticker: 'CORRECTED', decision: 'Watchlist', confidence_score: 50 })
+write(`${correctedOld}/final_thesis.md`, '# corrected standing call\n')
+writeDecision(correctedNew, { ticker: 'CORRECTED', decision: 'Buy', confidence_score: 70 })
+write(`${correctedNew}/final_thesis.md`, '# superseded call\n')
+write(`${correctedNew}/corrections.json`, JSON.stringify({
+  schema: 'corrections/v1',
+  superseded_by: { run_root: correctedOld, reason: 'replaced', date: TODAY },
+}, null, 2))
+assert.equal(
+  resolveIntakeRunRoot('CORRECTED', { requireDecision: true }, true)?.runRoot,
+  correctedOld,
+  'automatic intake skips a superseded run just like the Calls ledger',
+)
+
+// A newer call written/committed only on this machine must not hide the older call that every host can
+// see. Simulate the push outage by writing terminal bytes after HEAD without committing them.
+const publishedOld = `analyses/PUBLISHSAFE_${YESTERDAY}`
+writeDecision(publishedOld, { ticker: 'PUBLISHSAFE', decision: 'Watchlist', confidence_score: 50 })
+write(`${publishedOld}/final_thesis.md`, '# shared standing call\n')
+const privateNew = `analyses/PUBLISHSAFE_${TODAY}`
+fs.mkdirSync(path.join(REPO, privateNew), { recursive: true })
+fs.writeFileSync(path.join(REPO, privateNew, 'decision_record.json'), JSON.stringify({ ticker: 'PUBLISHSAFE', decision: 'Buy', confidence_score: 75 }))
+fs.writeFileSync(path.join(REPO, privateNew, 'final_thesis.md'), '# local-only call after failed push\n')
+assert.equal(
+  resolveIntakeRunRoot('PUBLISHSAFE', { requireDecision: true }, true)?.runRoot,
+  publishedOld,
+  'a local-only newer call cannot replace the published automatic-work owner',
+)
+fs.writeFileSync(path.join(REPO, publishedOld, 'corrections.json'), JSON.stringify({
+  schema: 'corrections/v1',
+  superseded_by: { run_root: privateNew, reason: 'local-only correction after failed push', date: TODAY },
+}, null, 2))
+assert.equal(
+  resolveIntakeRunRoot('PUBLISHSAFE', { requireDecision: true }, true)?.runRoot,
+  publishedOld,
+  'an unpushed local correction cannot hide the published standing call',
+)
+
+const resumeSource = `analyses/RESUMEAUTO_${YESTERDAY}`
+const resumeTarget = `analyses/RESUMEAUTO_${TODAY}`
+const resumeFp = writeDecision(resumeSource, { ticker: 'RESUMEAUTO', decision: 'Watchlist', confidence_score: 50 })
+write(`${resumeSource}/final_thesis.md`, '# source call\n')
+const resumePlanPath = `${resumeSource}/intake/${TODAY}_intake_plan.json`
+const resumeRaw = {
+  ...atomicRaw, subject: 'RESUMEAUTO', ticker: 'RESUMEAUTO', run_root: resumeSource,
+  decision_fingerprint: resumeFp,
+  new_docs: [{ ...atomicRaw.new_docs[0], path: 'data/RESUMEAUTO/new.pdf' }],
+  rerun_plan: { ...atomicRaw.rerun_plan, commands: [{ ...atomicRaw.rerun_plan.commands[0], triggered_by: ['data/RESUMEAUTO/new.pdf'] }] },
+}
+write(resumePlanPath, JSON.stringify(resumeRaw, null, 2))
+const resumeHash = intakePlanSha256(resumeRaw)!
+write(`${resumeTarget}/intake/${TODAY}_intake_plan.json`, JSON.stringify({ ...resumeRaw, staged_for_scoped_rerun: true }, null, 2))
+assert.equal(stagedIntakePlanMatches({
+  subject: 'RESUMEAUTO', swarmId: 'research', sourceRunRoot: resumeSource, targetRunRoot: resumeTarget,
+  planPath: resumePlanPath, planSha256: resumeHash, sourceDecisionFingerprint: resumeFp,
+}), true, 'the exact server-staged partial can resume automatically')
+fs.writeFileSync(
+  path.join(REPO, resumeTarget, 'intake', `${TODAY}_intake_plan.json`),
+  JSON.stringify({ ...resumeRaw, summary: 'changed staged bytes', staged_for_scoped_rerun: true }, null, 2),
+)
+assert.equal(stagedIntakePlanMatches({
+  subject: 'RESUMEAUTO', swarmId: 'research', sourceRunRoot: resumeSource, targetRunRoot: resumeTarget,
+  planPath: resumePlanPath, planSha256: resumeHash, sourceDecisionFingerprint: resumeFp,
+}), false, 'changed staged bytes cannot authorize an automatic resume')
+// Even if a newer source plan arrives, the independently-authorized staged plan remains resumable first.
+// The newer job then stays retryable and runs from the next safe dated root.
+write(`${resumeSource}/intake/${TODAY}_intake_plan_v2.json`, JSON.stringify({ ...resumeRaw, summary: 'newer B plan' }, null, 2))
+assert.equal(stagedIntakeResumeForTarget({
+  subject: 'RESUMEAUTO', swarmId: 'research', targetRunRoot: resumeTarget,
+}), null, 'tampered staged bytes are never recovered')
+write(`${resumeTarget}/intake/${TODAY}_intake_plan.json`, JSON.stringify({ ...resumeRaw, staged_for_scoped_rerun: true }, null, 2))
+assert.equal(stagedIntakeResumeForTarget({
+  subject: 'RESUMEAUTO', swarmId: 'research', targetRunRoot: resumeTarget,
+})?.planSha256, resumeHash, 'staged plan A remains resumable while newer plan B waits')
+
+// The preflight must recurse through the whole evidence pool. A readable subject root with one nested
+// provider directory unavailable is not an empty/healthy pool: treating it as such would advance the
+// automatic watermark past evidence the intake command could not read.
+const nestedPool = path.join(REPO, 'data/NESTEDAUTH/external/provider')
+fs.mkdirSync(nestedPool, { recursive: true })
+fs.writeFileSync(path.join(nestedPool, 'filing.pdf'), 'new evidence')
+fs.chmodSync(nestedPool, 0o000)
+try {
+  assert.throws(() => fs.readdirSync(nestedPool), 'fixture must make the nested provider unreadable')
+  assert.equal(
+    intakePoolAuthorityAvailable('NESTEDAUTH', 'research'),
+    false,
+    'an unreadable nested evidence provider fails the whole company-pool authority closed',
+  )
+} finally {
+  fs.chmodSync(nestedPool, 0o700)
+}
 
 console.log('intake.test.ts: all assertions passed')
 fs.rmSync(REPO, { recursive: true, force: true })

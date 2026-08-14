@@ -287,8 +287,11 @@ requires a separate, explicit quality test; sample size alone can never grant it
    `not_applicable` exactly.
    If recovery finds only the valid manifest, a final post-manifest `not_assessable` wrapper proceeds
    directly to the freezer even when market capture is absent—the missing snapshot may be its honest gap.
-   Only the exact pre-manifest preliminary wrapper with no market snapshot may re-project; inconsistent
-   partial states fail as `IDEA-ADMISSION: error` and require a new dated run.
+   Only the exact pre-manifest preliminary wrapper may re-project. If a canonical snapshot already exists
+   because the producer died after its atomic rename but before replacing the wrapper, validate it
+   idempotently with `--write-idea-evidence` and continue; an unreadable, mismatched, or non-canonical
+   existing snapshot is not repairable. Other inconsistent partial states fail as `IDEA-ADMISSION: error`
+   and require a new dated run.
 7. Only after final reprojection/admission may the orchestrator generate derived memo and dossier files.
 8. Before the freezer, if the producer finds a required value absent or cannot reconcile it, use an honest
    `not_assessable` wrapper naming the gaps. The producer returns before the orchestrator invokes the

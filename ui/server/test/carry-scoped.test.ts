@@ -61,7 +61,9 @@ function finishedRun(ticker: string, date: string) {
   finishedModule(ticker, date, 'gamma', ['01_gamma-thing.md'])
 }
 
-const { carryForwardScoped } = await import('../src/completion')
+const { carryForwardScoped, thesisPlan } = await import('../src/completion')
+const { intakePlanSha256 } = await import('../src/intake')
+const { SCOPED_STAGE_INTENT_FILE, SCOPED_STAGE_INTENT_VERSION } = await import('../src/types')
 
 const at = (ticker: string, rel: string) => path.join(REPO, `analyses/${ticker}_${TODAY}`, rel)
 const yat = (ticker: string, rel: string) => path.join(REPO, `analyses/${ticker}_${YESTERDAY}`, rel)
@@ -72,7 +74,12 @@ const yat = (ticker: string, rel: string) => path.join(REPO, `analyses/${ticker}
   poolFile('ONE', 'filing.pdf', -3)
   // the plan file rides into the target root so a retry / the audit trail can still find it (the staging
   // makes TODAY the latest root, and readIntakePlan searches only the latest root)
-  write(`analyses/ONE_${YESTERDAY}/intake/${YESTERDAY}_intake_plan.json`, '{"ticker":"ONE"}')
+  const onePlan = {
+    ticker: 'ONE', subject: 'ONE', swarm: 'research', run_root: `analyses/ONE_${YESTERDAY}`,
+    decision_fingerprint: `sha256:${'1'.repeat(64)}`,
+    scanned_at: new Date(Date.now() - 2 * 86_400_000).toISOString(),
+  }
+  write(`analyses/ONE_${YESTERDAY}/intake/${YESTERDAY}_intake_plan.json`, JSON.stringify(onePlan))
   const planAbs = path.join(REPO, `analyses/ONE_${YESTERDAY}/intake/${YESTERDAY}_intake_plan.json`)
   const r = carryForwardScoped('ONE', [{ module: 'alpha', agent: 'alpha-one' }], undefined, undefined, planAbs)
   assert.deepEqual(r.staleModules, ['alpha', 'beta'], 'stale = entry module + its transitive downstream, topo order')
@@ -119,6 +126,7 @@ const yat = (ticker: string, rel: string) => path.join(REPO, `analyses/${ticker}
   const carriedPlan = JSON.parse(fs.readFileSync(carriedPlanAbs, 'utf8'))
   assert.equal(carriedPlan.staged_for_scoped_rerun, true, 'the copy is stamped so readIntakePlan can retire it once this root finishes')
   assert.equal(carriedPlan.ticker, 'ONE', 'the stamp is additive — the rest of the plan travels verbatim')
+  assert.equal(typeof carriedPlan.scanned_at, 'string', 'the exact pre-run evidence cursor travels with it')
 
   // the staged note is deliberately PROSPECTIVE — it must never assert the omitted work already reran,
   // since this is written at staging time, before launch admission or a single agent has executed
@@ -126,6 +134,38 @@ const yat = (ticker: string, rel: string) => path.join(REPO, `analyses/${ticker}
   assert.match(alphaNote, /staged for a scoped rerun/i, 'prospective wording, not a completion claim')
   assert.match(alphaNote, /written at staging time/i, 'the note discloses it predates execution')
   assert.doesNotMatch(alphaNote, /was\s+re-run\b/i, 'must never assert the rerun already happened')
+
+  // Crash matrix: the authority stamp is intentionally last. Simulate a kill after some holes/copies
+  // landed but before that final rename, then rerun the exact transaction. It must converge from the
+  // immutable source rather than treating the unstamped target as a runnable result or wedging it.
+  fs.rmSync(carriedPlanAbs)
+  write(`analyses/ONE_${TODAY}/${SCOPED_STAGE_INTENT_FILE}`, JSON.stringify({
+    schema_version: SCOPED_STAGE_INTENT_VERSION,
+    swarm: 'research',
+    subject: 'ONE',
+    source_run_root: `analyses/ONE_${YESTERDAY}`,
+    target_run_root: `analyses/ONE_${TODAY}`,
+    plan_path: `analyses/ONE_${YESTERDAY}/intake/${YESTERDAY}_intake_plan.json`,
+    plan_sha256: intakePlanSha256(onePlan),
+    source_decision_fingerprint: onePlan.decision_fingerprint,
+  }, null, 2) + '\n')
+  write(`analyses/ONE_${TODAY}/alpha/01_alpha-one.md`, '# stale orb restored by interrupted staging\n')
+  write(`analyses/ONE_${TODAY}/alpha/99_alpha-synthesis.md`, '# stale synthesis restored by interrupted staging\n')
+  fs.rmSync(at('ONE', 'beta'), { recursive: true, force: true })
+  const exactTarget = `analyses/ONE_${TODAY}`
+  const retryPlan = thesisPlan('ONE', undefined, undefined, exactTarget)
+  const retried = carryForwardScoped('ONE', [{ module: 'alpha', agent: 'alpha-one' }], undefined, retryPlan, planAbs)
+  assert.equal(retried.scoped.length, 2, 'the same scoped transaction is reconstructed once')
+  assert.ok(!fs.existsSync(at('ONE', 'alpha/01_alpha-one.md')), 'a partially restored entry orb is holed again')
+  assert.ok(!fs.existsSync(at('ONE', 'alpha/99_alpha-synthesis.md')), 'a partially restored synthesis is holed again')
+  assert.ok(fs.existsSync(at('ONE', 'alpha/02_alpha-two.md')), 'the valid sibling survives reconstruction')
+  assert.ok(fs.existsSync(at('ONE', 'beta/01_beta-thing.md')), 'a module lost before its rename is recopied')
+  assert.ok(!fs.existsSync(at('ONE', 'beta/99_beta-synthesis.md')), 'the downstream hole is reconstructed')
+  assert.equal(JSON.parse(fs.readFileSync(carriedPlanAbs, 'utf8')).staged_for_scoped_rerun, true,
+    'launch authority is atomically restamped only after reconstruction finishes')
+  assert.ok(!fs.existsSync(at('ONE', SCOPED_STAGE_INTENT_FILE)),
+    'the non-launch transaction witness is removed once the runnable plan stamp lands')
+  assert.ok(fs.existsSync(at('ONE', 'gamma/99_gamma-synthesis.md')), 'an already complete untouched carry remains intact')
   console.log('✅ one entry orb: holed entry module, synthesis-only downstream, whole-carry for the rest, plan carried + stamped')
 }
 
@@ -206,6 +246,22 @@ const yat = (ticker: string, rel: string) => path.join(REPO, `analyses/${ticker}
   assert.deepEqual(r.staleModules, ['alpha', 'beta'], 'the stale set is still reported (the route uses carried+scoped, not this)')
   assert.ok(!fs.existsSync(path.join(REPO, `analyses/EMPTY_${TODAY}`)), 'nothing staged, no folder created')
   console.log('✅ no finished run: nothing staged — the route refuses instead of hiding a full run')
+}
+
+// ---- 7. missing evidence cursor: staging fails before a paid run can start ----
+{
+  finishedRun('CURSOR', YESTERDAY)
+  poolFile('CURSOR', 'filing.pdf', -3)
+  write(`analyses/CURSOR_${YESTERDAY}/intake/${YESTERDAY}_intake_plan.json`, '{"ticker":"CURSOR"}')
+  const planAbs = path.join(REPO, `analyses/CURSOR_${YESTERDAY}/intake/${YESTERDAY}_intake_plan.json`)
+  assert.throws(
+    () => carryForwardScoped('CURSOR', [{ module: 'alpha', agent: 'alpha-one' }], undefined, undefined, planAbs),
+    /evidence cursor is missing or invalid/,
+    'a scoped run cannot launch without preserving the timestamp that separates read from unread evidence',
+  )
+  assert.ok(!fs.existsSync(path.join(REPO, `analyses/CURSOR_${TODAY}`)),
+    'the plan is validated before the first copy or hole mutates the target')
+  console.log('✅ missing evidence cursor: scoped staging fails closed')
 }
 
 fs.rmSync(REPO, { recursive: true, force: true })

@@ -24,6 +24,7 @@ import { buildSwarmGraph } from './roster'
 import { resolveInsideAnalyses, resolveInsideRuns } from './sandbox'
 import { listResumableSignals } from './screener'
 import { listSwarms, RESEARCH_SWARM_ID, runRootForSubject } from './swarms'
+import { completedResearchPublicationIsShared } from './publication-recovery'
 import type { RunKind, SwarmManifest } from './types'
 
 // One resumable unit the cockpit can re-launch. A row in the Activity log (or an orb-view subject) is
@@ -75,7 +76,12 @@ function baseOf(agentKey: string): string {
 // Collect resumable units from ONE non-screener swarm's run folders. Research folders are date-stamped
 // (`<TICKER>_<DATE>`) and — per the same-day scope — only today's are eligible; constellation swarms
 // (e.g. commodity) keep one stable folder per subject, so every folder is eligible.
-function collectSwarmResumable(swarm: SwarmManifest, live: Set<string>, out: ResumableRunInfo[]): void {
+function collectSwarmResumable(
+  swarm: SwarmManifest,
+  live: Set<string>,
+  out: ResumableRunInfo[],
+  researchComplete: (subject: string, runRoot: string) => boolean,
+): void {
   const isResearch = swarm.id === RESEARCH_SWARM_ID
   const resolve = isResearch ? resolveInsideAnalyses : resolveInsideRuns
   const runsRootAbs = path.join(REPO_ROOT, swarm.runsRoot)
@@ -116,7 +122,7 @@ function collectSwarmResumable(swarm: SwarmManifest, live: Set<string>, out: Res
     // Complete = the run reached its terminal deliverable. Research ends on final_thesis.md — key on that
     // (NOT the last module's synthesis, or an all-modules-done-but-master-pending run would look finished
     // and never offer resume). A constellation swarm (commodity) ends on decision_record.json.
-    const complete = isResearch ? manifest.finalThesis : manifest.decisionRecord
+    const complete = isResearch ? researchComplete(subject, runRoot) : manifest.decisionRecord
     if (complete) continue // finished — nothing to resume
 
     // Full-level entry (matches a `full` row, and a chained module/agent row that must resume the whole
@@ -138,7 +144,10 @@ function collectSwarmResumable(swarm: SwarmManifest, live: Set<string>, out: Res
 
 // The full set of runs the cockpit can resume right now, across every swarm. Recomputed from disk on
 // each call — the in-memory registry is wiped on restart, so the run folders are the only surviving truth.
-export function listResumableRuns(): ResumableRunInfo[] {
+export function listResumableRuns(
+  researchComplete: (subject: string, runRoot: string) => boolean =
+    (subject, runRoot) => completedResearchPublicationIsShared({ subject, targetRunRoot: runRoot }),
+): ResumableRunInfo[] {
   const live = liveSubjectSet()
   const out: ResumableRunInfo[] = []
   for (const swarm of listSwarms()) {
@@ -151,7 +160,7 @@ export function listResumableRuns(): ResumableRunInfo[] {
       }
       continue
     }
-    collectSwarmResumable(swarm, live, out)
+    collectSwarmResumable(swarm, live, out, researchComplete)
   }
   return out
 }

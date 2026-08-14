@@ -40,6 +40,7 @@ export { wireNameMatching }
 import { isValidTicker } from './sandbox'
 
 export const CURSOR_FILE = 'research-bridge-cursor.json'
+const CURSOR_INITIALIZED_FILE = 'research-bridge-cursor.initialized'
 
 /** Per-subject knobs. The ENABLED SET is not here — it is the connector manifest's `subjects` array (one
  *  source of truth); this file only tunes how selective the sweep is for a name that is already enabled. */
@@ -129,26 +130,87 @@ export function bridgeManifestError(manifestPath: string): string | null {
 
 export type Cursors = Record<string, string> // ticker → ISO timestamp of the last swept item
 
-export function readCursors(stateDir: string): Cursors {
+function cursorFile(stateDir: string): string { return path.join(stateDir, CURSOR_FILE) }
+function cursorMarker(stateDir: string): string { return path.join(stateDir, CURSOR_INITIALIZED_FILE) }
+
+function cursorMarkerExists(stateDir: string): boolean {
   try {
-    const raw = JSON.parse(fs.readFileSync(path.join(stateDir, CURSOR_FILE), 'utf8'))
-    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return {}
-    const out: Cursors = {}
-    for (const [k, v] of Object.entries(raw)) if (typeof v === 'string' && !Number.isNaN(Date.parse(v))) out[k] = v
-    return out
+    const stat = fs.lstatSync(cursorMarker(stateDir))
+    if (!stat.isFile() || stat.isSymbolicLink()) throw new Error('bridge cursor marker is unsafe')
+    return true
+  } catch (error: any) {
+    if (error?.code === 'ENOENT') return false
+    throw error
+  }
+}
+
+function ensureCursorMarker(stateDir: string): void {
+  const marker = cursorMarker(stateDir)
+  let fd: number | null = null
+  try {
+    fd = fs.openSync(marker, 'wx', 0o600)
+    fs.writeFileSync(fd, 'research-bridge-cursor-v1\n', 'utf8')
+    fs.fsyncSync(fd)
+  } catch (error: any) {
+    if (error?.code !== 'EEXIST') throw error
+    const stat = fs.lstatSync(marker)
+    if (!stat.isFile() || stat.isSymbolicLink()) throw new Error('bridge cursor marker is unsafe')
+  } finally { if (fd !== null) fs.closeSync(fd) }
+}
+
+function validateCursors(raw: unknown): Cursors {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) throw new Error('bridge cursor schema is invalid')
+  const out: Cursors = {}
+  for (const [ticker, value] of Object.entries(raw)) {
+    if (!isValidTicker(ticker) || typeof value !== 'string' || !Number.isFinite(Date.parse(value))) {
+      throw new Error('bridge cursor entry is invalid')
+    }
+    out[ticker] = value
+  }
+  return out
+}
+
+export function readCursors(stateDir: string): Cursors {
+  let text: string
+  try {
+    text = fs.readFileSync(cursorFile(stateDir), 'utf8')
+  } catch (error: any) {
+    if (error?.code === 'ENOENT') {
+      try {
+        if (!cursorMarkerExists(stateDir)) return {}
+      } catch { /* normalized below: every broken authority has one truthful status code */ }
+    }
+    throw Object.assign(new Error('saved company-news position cannot be read safely'), { code: 'BRIDGE_CURSOR_UNAVAILABLE' })
+  }
+  try {
+    return validateCursors(JSON.parse(text))
   } catch {
-    return {}
+    throw Object.assign(new Error('saved company-news position is damaged'), { code: 'BRIDGE_CURSOR_UNAVAILABLE' })
   }
 }
 
 export function writeCursors(stateDir: string, cursors: Cursors): void {
   fs.mkdirSync(stateDir, { recursive: true })
-  const fp = path.join(stateDir, CURSOR_FILE)
+  const fp = cursorFile(stateDir)
   const tmp = `${fp}.tmp.${process.pid}.${Math.random().toString(36).slice(2)}`
+  const checked = validateCursors(cursors)
+  let fd: number | null = null
   try {
-    fs.writeFileSync(tmp, JSON.stringify(cursors, null, 2))
+    fd = fs.openSync(tmp, 'wx', 0o600)
+    fs.writeFileSync(fd, JSON.stringify(checked, null, 2) + '\n', 'utf8')
+    fs.fsyncSync(fd)
+    fs.closeSync(fd)
+    fd = null
+    // Publish the durable "this ledger has existed" witness first. A crash between marker and cursor is
+    // safely unavailable; it can never reopen with a 48-hour default and skip an older unseen gap.
+    ensureCursorMarker(stateDir)
     fs.renameSync(tmp, fp)
+    try {
+      const dir = fs.openSync(stateDir, 'r')
+      try { fs.fsyncSync(dir) } finally { fs.closeSync(dir) }
+    } catch { /* directory fsync is not available on every filesystem */ }
   } finally {
+    if (fd !== null) fs.closeSync(fd)
     try { fs.unlinkSync(tmp) } catch { /* renamed away — the normal case */ }
   }
 }
@@ -193,12 +255,11 @@ export function accumulatedFor(dataDir: string, subject: string): { notes: numbe
 
 // ---- the sweep --------------------------------------------------------------------------------------
 
-// The most items one sweep's reader will return. Also passed as the dedup-clustering scan width (see
-// readFeed's dedupMaxScan) so a full 5,000-item catch-up page gets clustered in full — the wire-UI
-// default (NEWS.dedupMaxScan, 1,500) would otherwise leave the older ~3,500 rows un-reclustered and
-// overwrite their persisted `dedup_group`, un-clustering syndicated pairs the ingest-time pass had
-// already grouped (Codex review, PR #359: "Preserve dedup groups beyond the scan cap").
-const SWEEP_MAX_ITEMS = 5000
+// A company sweep must never cap the GLOBAL firehose before company matching. At normal wire volume,
+// 5,000 unrelated newer rows can otherwise hide an older event for a standing call; a later matching
+// event then advances that company's cursor past the hidden row forever. readFeed applies its predicate
+// before its cap, so this is a PER-SUBJECT safety bound rather than a global truncation point.
+const SWEEP_MAX_ITEMS_PER_SUBJECT = 5000
 
 // The explicit, documented catch-up retention boundary: a subject whose cursor is older than this many
 // days is NOT walked further back than this many days on this sweep. This is a DELIBERATE, disclosed
@@ -284,6 +345,22 @@ export interface BatchSweepResult {
    *  the cursors did NOT advance, so the next sweep re-reads this same window (safe: bridgeEventToSubject's
    *  on-disk dedup makes the replay a no-op). */
   cursorWriteError?: string
+  /** set when the caller could not durably record the retention-gap disclosure before cursor publish.
+   * The cursor is left unchanged and subjectsWithFreshNotes still survives for follow-up analysis. */
+  preCursorCommitError?: string
+}
+
+function itemMatchesSubject(
+  item: FeedItem,
+  subject: string,
+  dataDir: string,
+  subjectName: string | undefined,
+  canWriteSubject: (subject: string) => boolean,
+): boolean {
+  const tickerMatches = matchTrackedSubjects(item, dataDir, undefined, canWriteSubject)
+  if (tickerMatches.includes(subject)) return true
+  if (!subjectName) return false
+  return matchTrackedSubjects(item, dataDir, { [subject]: subjectName }, canWriteSubject).includes(subject)
 }
 
 export interface SweepOpts {
@@ -305,6 +382,9 @@ export interface SweepOpts {
    *  exactly one finished shared-pool owner, and that owner must be research. Injectable only so the
    *  filesystem sweep can be tested without manufacturing whole finished-run trees. */
   canAutoWriteSubject?: (subject: string) => boolean
+  /** Durability barrier for retention-gap disclosure. Called after notes are safe but BEFORE cursors can
+   * advance. If it throws, no cursor is published; the same old window is retried on the next sweep. */
+  preCursorCommit?: (gaps: Array<{ subject: string; gapDays: number }>) => void
 }
 
 /** Canonical company name per subject, from each one's NEWEST decision_record.json (`company_name`).
@@ -384,13 +464,27 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
   const lookbackDays = opts.lookbackDays ?? Math.min(RETENTION_BOUNDARY_DAYS, Math.max(2, neededDays))
   const windowStartMs = nowMs - lookbackDays * 86_400_000
 
-  const snap = readFeed(opts.repoRoot, lookbackDays, {
-    now,
-    archiveDir: opts.archiveDir ?? '',
-    maxItems: SWEEP_MAX_ITEMS,
-    dedupMaxScan: SWEEP_MAX_ITEMS,
-  })
-  const items: FeedItem[] = Array.isArray((snap as any)?.items) ? (snap as any).items : []
+  // Fill a bounded page for EACH standing call. The predicate runs while readFeed walks older files, so
+  // unrelated market traffic cannot consume the limit or hide a company event behind the global page.
+  // Re-cluster the complete company page so older firehose rows written before ingest-time clustering
+  // still converge with their syndicated copies. The page contains every match for that company (rather
+  // than an arbitrary global slice), so this recomputation is stable for the bridge's duplicate contract.
+  const byEvent = new Map<string, FeedItem>()
+  for (const subject of subjects) {
+    const snap = readFeed(opts.repoRoot, lookbackDays, {
+      now,
+      archiveDir: opts.archiveDir ?? '',
+      maxItems: SWEEP_MAX_ITEMS_PER_SUBJECT,
+      predicate: (item) => itemMatchesSubject(item, subject, opts.dataDir, subjectNames[subject], canWriteSubject),
+      applyActiveWeights: false,
+      dedupMaxScan: SWEEP_MAX_ITEMS_PER_SUBJECT,
+    })
+    for (const item of Array.isArray((snap as any)?.items) ? (snap as any).items : []) {
+      const key = String(item?.event_id || '')
+      if (key) byEvent.set(key, item)
+    }
+  }
+  const items = [...byEvent.values()]
   // oldest → newest, so a cursor is always the NEWEST thing we have seen for that subject
   const chrono = [...items].sort((a, b) => String(a.ts || '').localeCompare(String(b.ts || '')))
 
@@ -513,6 +607,20 @@ export function sweepOnce(subjects: string[], cfg: BridgeBatchConfig, opts: Swee
   // same notes are duplicates (never "fresh"), so the advertised advisory analysis is skipped forever with
   // INTAKE_AUTO_ANALYZE=0 (Codex #359 r3673881630). Report the result regardless of cursor-persist success.
   const result: BatchSweepResult = { sweeps, subjectsWithFreshNotes: fresh, scannedItems: items.length }
+  const retentionGaps = sweeps
+    .filter((row): row is typeof row & { retentionGapDays: number } => typeof row.retentionGapDays === 'number' && row.retentionGapDays > 0)
+    .map((row) => ({ subject: row.subject, gapDays: row.retentionGapDays }))
+  if (retentionGaps.length && opts.preCursorCommit) {
+    try {
+      opts.preCursorCommit(retentionGaps)
+    } catch (e: any) {
+      // This disclosure is part of the cursor's truth contract. Notes already written remain valid and
+      // still earn their analysis, but the cursor must not cross a gap the status ledger failed to keep.
+      result.preCursorCommitError = String(e?.message || e)
+      result.cursorWriteError = `older-news gap was not saved before cursor update: ${result.preCursorCommitError}`
+      return result
+    }
+  }
   try {
     writeCursors(opts.stateDir, nextCursors)
   } catch (e: any) {

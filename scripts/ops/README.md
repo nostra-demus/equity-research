@@ -15,7 +15,6 @@ fronted by Cloudflare Access). macOS `launchd` user agents keep it up — **and 
 | `com.nostradamus.external-ingest` | `ingest_external.py` every 10m — routes `data/EXTERNAL-INBOX/` drops into per-ticker pools (`frameworks/EXTERNAL_DATA.md`) | **doer** | ✅ `RunAtLoad` | — |
 | `com.nostradamus.connectors` | `run_connectors.py` every 15m — due-aware staged retrievals and connector health | **doer** | ✅ `RunAtLoad` | — |
 | `com.nostradamus.news-ingester` | `npm run ingest:once` every 15m (opt-in: set `GROQ_API_KEY`) | **doer** | ✅ `RunAtLoad` | — |
-| `com.nostradamus.hk-review` | `housekeeping.sh /research:review-decisions due` daily 06:10 (DUE-gated) | **doer** | — | — |
 | `com.nostradamus.hk-track` | `housekeeping.sh /research:track all` daily 06:30 | **doer** | — | — |
 | `com.nostradamus.hk-sweep` | `housekeeping.sh /screener:sweep` daily 06:50 | **doer** | — | — |
 | `com.nostradamus.hk-size` | `housekeeping.sh /research:size all` daily 07:10 | **doer** | — | — |
@@ -45,7 +44,9 @@ NOSTRA_ENGINE_CONFIG_DIR="$HOME/.config/nostra-engine" \
 The identities live at `~/.nostra-ops/connector-writer-host`, `pool-root`, and `connector-config-root`
 (mode `0600`; parent mode `0700`). Do not edit them to move the writer. Re-provision deliberately instead.
 Full installs fail closed if the configured writer host is not this Mac. A failover host installs the cockpit
-and tunnel with connectors explicitly excluded and removes any stale connector job before becoming doer.
+and tunnel with connectors explicitly excluded and removes any stale connector job before becoming doer. It
+also renders every paid in-process research loop off; serving the UI never makes a failover a second research
+owner.
 
 Any **other** machine (a laptop you also use as a full admin) installs with `--role admin` — it gets the
 local engine, auto-deploy, watchdog and caffeinate, but **NOT** the tunnel, news, or timers, so the two
@@ -76,14 +77,13 @@ Connector install/removal and watchdog recovery share retained kernel leases
 holding the lease, so it cannot undo a concurrent admin/failover stand-down.
 
 ### Housekeeping timers (`housekeeping.sh`)
-The five `hk-*` agents run one headless Claude slash command each, from the prod worktree, under a per-run
-USD cap. `track` / `size` / `calibrate` are pure-local aggregates (near-free, seconds); `sweep` and
-`review-decisions` make at most one web pass. `review-decisions` is **DUE-gated** — the wrapper runs
-`.claude/hooks/review_due.py` first and skips entirely when nothing is due, so it costs nothing on quiet days.
+The four `hk-*` agents run one headless Claude slash command each, from the prod worktree, under a per-run
+USD cap. `track` / `size` / `calibrate` are pure-local aggregates (near-free, seconds); `sweep` makes at
+most one web pass. Scheduled call reviews are owned only by the always-on server dispatcher, so two timers
+cannot file the same review.
 Tune the cap by adding `HOUSEKEEPING_BUDGET_USD` (default `8`) to any `hk-*` plist's `EnvironmentVariables`
 (also `HOUSEKEEPING_MODEL`, `HOUSEKEEPING_MAX_TURNS`, `HOUSEKEEPING_TIMEOUT_SEC`). All housekeeping runs log
-to `~/Library/Logs/nostradamus-housekeeping.log`. New full research runs are **never** scheduled — they stay
-human-initiated.
+to `~/Library/Logs/nostradamus-housekeeping.log`.
 
 **Connector repair boundary.** The fifteen-minute connector sweep only fetches a series when its manifest release
 clock is due, through the staged publication
@@ -119,29 +119,36 @@ touch "$HOME/.config/nostra-engine/providers.env"
 chmod 600 "$HOME/.config/nostra-engine/providers.env"
 ```
 
-**Server-side feedback loops (on for the doer).** The engine plist
-(`com.nostradamus.engine.plist`) now sets two more flags so the closed loops run from the always-on
-server, not only the macOS `hk-*` timers:
+**Automatic research (one owner, no buttons).** The base engine runs on every host, but the installer renders
+the automatic flags to `1` only when both facts are true: `--role doer` and
+`NOSTRA_INSTALL_CONNECTORS=1`. Admins and a serving-only failover (`NOSTRA_INSTALL_CONNECTORS=0`) get `0`
+for every flag. On the permanent owner:
+- `INTAKE_AUTO_ANALYZE=1` — checks new pool evidence and writes the exact list of research areas affected.
+- `CALL_UPDATE_AUTO_ENABLED=1` — runs that committed exact list and updates the standing call. It does not
+  widen the plan or start from a partial/corrupt ledger.
+- `REVIEW_DISPATCH_ENABLED=1` — files due 30/90/180/365-day outcome checks. Bounded by
+  `REVIEW_MAX_CONCURRENT` (1), `REVIEW_DAILY_CAP` (8), and `REVIEW_TICK_SEC` (3600). This is the only review
+  owner. The tracked `hk-review` timer is gone; install and deploy both boot out any legacy copy, prove it is
+  unloaded, and only then remove its plist, all before the engine review owner starts. The shared
+  housekeeping wrapper also refuses the retired review command during a rolling deploy.
 - `CONVICTION_LOOP_ENABLED=1` — the screener conviction reconciler (`conviction-dispatch.ts`)
   auto-fires `/screener:validate` on due checkpoints (+ a wire accelerant), so locked theses actually
   re-rate instead of sitting `scheduled`. Bounded by `CONVICTION_MAX_CONCURRENT` (2), `CONVICTION_DAILY_CAP`
   (12), `CONVICTION_TICK_SEC` (600).
-- `REVIEW_DISPATCH_ENABLED=1` — the research review tick (`review-dispatch.ts`) fires due
-  30/90/180/365d decision reviews from the server, so the outcome-measurement layer survives the doer
-  Mac being asleep (the first three 30d reviews slipped 10-12 days on the launchd-only path). It reuses
-  `listAllCalls()`'s DUE timeline (same `review_due` rule; honors the §4a supersession layer). Bounded by
-  `REVIEW_MAX_CONCURRENT` (1), `REVIEW_DAILY_CAP` (8), `REVIEW_TICK_SEC` (3600). It is a *superset* of the
-  `hk-review` launchd timer — running both is safe (per-ticker in-flight guard + the DUE gate), so the
-  timer can stay as a belt-and-braces fallback. **Reinstall the service to pick the flags up**
-  (`scripts/ops/install-services.sh`, then `launchctl kickstart -k gui/$UID/com.nostradamus.engine`).
-- `BRIDGE_MODE` — the company-news bridge (#359, `bridge-scheduler.ts`). Unlike the two flags above,
-  this one IS role-scoped by the installer (not just hardcoded in the plist): a fresh `--role doer`
-  install renders `batch` (routes material wire events into covered subjects' pools every 12h; paid
-  re-runs stay behind a click); every `--role admin` install renders `off`, always — an admin machine
-  never gets autonomous bridge routing, matching the doer-only "no duplicate autonomy" split the other
-  agents already get. An operator's own `off`/`stream` choice on an existing doer machine is carried
+- `BRIDGE_MODE` — the company-news bridge (#359, `bridge-scheduler.ts`). It is role-scoped by the same exact
+  owner test: a fresh permanent-owner install renders `batch` (routes material wire events into every
+  standing call's pool every 12h; validated
+  affected-orb updates then run automatically); every admin or serving-only failover renders `off`.
+  An operator's own `off`/`stream` choice on an existing permanent-owner machine is carried
   forward across reinstall (same shape as `NEWS_ARCHIVE_DIR` below), never silently reset to `batch`.
   See `install-services.sh`'s `BRIDGE_MODE_VALUE` computation.
+
+The first deploy after this change retires the old review timer, then updates only the installed engine
+LaunchAgent, reloads that engine, and checks `/api/health`. It does not run a full service reinstall, require
+manual reinstall, or restart the deploy job that is applying the migration. The deployed marker advances
+only after reconciliation works;
+otherwise the next deploy tick retries. A failed non-owner activation keeps the paid flags off rather than
+restoring a legacy plist that may have hardcoded them on.
 
 **Auth for the doer (required).** Both the cockpit and the `hk-*` timers spawn a headless `claude` under
 launchd, which cannot prompt for an interactive login — so the doer needs Anthropic credentials available

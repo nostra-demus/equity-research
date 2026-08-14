@@ -100,15 +100,30 @@ except Exception:
     print("")
 PY
 )"
-if [ -n "$RUN_DATE" ] && find "$WATERMARK" -newermt "$RUN_DATE 23:59:59" 2>/dev/null | grep -q .; then
-  SINCE=(-newermt "$RUN_DATE 00:00:00") # Git-rewritten watermark → durable decision-day floor
-else
-  SINCE=(-newer "$WATERMARK")           # trustworthy watermark → precise completion boundary
-fi
-find "data/${COMMODITY}/" -type f "${SINCE[@]}" -not -name '*.source.json' 2>/dev/null | while read -r f; do
-  [ -e "$(dirname "$f")/.nostradamus_output" ] && continue
-  echo "$f"
-done | sort
+EVIDENCE_INDEX="$(mktemp)"
+python3 - "$COMMODITY" "$WATERMARK" "$RUN_DATE" "$EVIDENCE_INDEX" <<'PY'
+import datetime, json, os, pathlib, sys
+commodity, watermark, run_date, index_path = sys.argv[1:]
+wm = os.stat(watermark).st_mtime
+try:
+    day = datetime.datetime.strptime(run_date, '%Y-%m-%d')
+    floor = day.timestamp() if wm > (day + datetime.timedelta(days=1)).timestamp() - 1 else wm
+except Exception:
+    floor = wm
+rows = []
+for file in sorted((pathlib.Path('data') / commodity).rglob('*')):
+    try:
+        if not file.is_file() or file.name.endswith('.source.json') or (file.parent / '.nostradamus_output').exists():
+            continue
+        stat = file.stat(); arrival = max(stat.st_mtime, stat.st_ctime)
+        if arrival > floor:
+            print(file.as_posix())
+            rows.append({'path': file.as_posix(), 'arrival_ms': int(arrival * 1000)})
+    except OSError:
+        continue
+with open(index_path, 'w', encoding='utf-8') as out:
+    json.dump(rows, out, separators=(',', ':'))
+PY
 ```
 
 - If **no** new documents: write a plan with `verdict: "note_only"`, empty `new_docs`, empty
@@ -198,7 +213,11 @@ fabricate). Include `scan_date: "<TODAY>"` and `scanned_at: "<SCANNED_AT>"`, plu
 fields `schema_version: "1.1"`, `swarm: "commodity"`, `subject: "<COMMODITY>"`,
 `ticker: "<COMMODITY>"`, `run_root: "<RUN_ROOT>"`, and
 `decision_fingerprint: "<DECISION_FINGERPRINT>"` — the durable witnesses
-captured before Step 2 — on **every** plan, including `note_only` and `insufficient`. Then validate:
+captured before Step 2 — on **every** plan, including `note_only` and `insufficient`. Copy the exact JSON
+array from `$EVIDENCE_INDEX` into required top-level `evidence_files` without editing or reordering it;
+put every row exactly once in `new_docs[]`, then reference the immaterial subset in
+`rerun_plan.note_only[]`. A non-tier-9 document at or above the gate must name a real entry orb and its
+matching triggered command. Then validate:
 
 ```bash
 python3 -m json.tool "$out" >/dev/null && echo "OK valid JSON" || echo "FAIL invalid JSON"

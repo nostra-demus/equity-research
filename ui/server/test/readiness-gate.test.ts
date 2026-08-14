@@ -5,7 +5,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { IN_FLIGHT_STATUSES, createRun, inFlightRunsForTicker, setActiveTickerRun, type RunState } from '../src/registry'
-import { cancel, decideReadiness, finalizeRunOnClose } from '../src/launcher'
+import { automaticReadinessAction, cancel, decideReadiness, finalizeRunOnClose } from '../src/launcher'
 import { REPO_ROOT } from '../src/config'
 import type { ReadinessReport } from '../src/types'
 
@@ -46,6 +46,8 @@ function mkAwaiting(rep: ReadinessReport): { run: RunState; spawned: () => boole
 }
 
 async function main() {
+  ok(automaticReadinessAction(report('degraded')) === 'proceed', 'automatic work proceeds with evidence caps when there is no hard blocker')
+  ok(automaticReadinessAction(report('blocked', true)) === 'stop', 'automatic work stops safely instead of waiting for a manual click')
   // 1. proceed on a DEGRADED (no-blocker) run -> spawns the deferred engine
   {
     const { run, spawned } = mkAwaiting(report('degraded'))

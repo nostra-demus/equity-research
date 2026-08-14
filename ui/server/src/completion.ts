@@ -36,13 +36,15 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { createHash } from 'node:crypto'
 import { ANALYSES_DIR, DATA_DIR, REPO_ROOT } from './config'
+import { canonicalJsonText } from './canonical-json'
 import { chainedResumePreflight, estimate } from './launcher'
 import { runManifest } from './outputs'
 import { buildSwarmGraph, findRunRootForSubject, moduleAncestors, terminalModuleName, transitiveDownstreamModules } from './roster'
 import { resolveInsideAnalyses, resolveInsideRuns, safeSubjectSegment } from './sandbox'
 import { RESEARCH_SWARM_ID, runRootForSubject, swarmById } from './swarms'
-import type { LaunchPreflight } from './types'
+import { SCOPED_STAGE_INTENT_FILE, SCOPED_STAGE_INTENT_VERSION, type LaunchPreflight } from './types'
 
 /** How a module stands relative to a thesis that still needs to be produced. */
 export type ModuleState =
@@ -120,7 +122,6 @@ export interface ThesisPlan {
 }
 
 const DATE_SUFFIX = /_(\d{4}-\d{2}-\d{2})$/
-
 export function todayDate(now: Date = new Date()): string {
   return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
 }
@@ -327,7 +328,12 @@ function stalenessOf(sourceDate: string | undefined, newestDate: string | null):
  *   re-run everything `stale`). Any module not in `reusable` is ignored — a caller can never reuse work
  *   that does not exist, and the server's own disk read always has the last word.
  */
-export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID, reuseOverride?: string[]): ThesisPlan {
+export function thesisPlan(
+  subject: string,
+  swarmId: string = RESEARCH_SWARM_ID,
+  reuseOverride?: string[],
+  targetRunRootOverride?: string,
+): ThesisPlan {
   const swarm = swarmById(swarmId)
   const graph = buildSwarmGraph(swarmId)
   const isResearch = swarmId === RESEARCH_SWARM_ID
@@ -339,9 +345,18 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
 
   // Where a completion writes. Research: today's dated folder — the one BOTH full-run paths seed their
   // skip-set from. Any other swarm: its single stable per-subject folder.
-  const targetRunRoot = isResearch
-    ? `analyses/${safe}_${todayDate()}`
-    : (swarm && runRootForSubject(swarm, safe)) || `analyses/${safe}`
+  let targetRunRoot: string
+  if (targetRunRootOverride !== undefined) {
+    const match = targetRunRootOverride.match(/^analyses\/([A-Z0-9.\-]{1,40})_(\d{4}-\d{2}-\d{2})$/)
+    if (!isResearch || !match || match[1] !== safe) {
+      throw new Error('target run root override is unsafe')
+    }
+    targetRunRoot = targetRunRootOverride
+  } else {
+    targetRunRoot = isResearch
+      ? `analyses/${safe}_${todayDate()}`
+      : (swarm && runRootForSubject(swarm, safe)) || `analyses/${safe}`
+  }
 
   const targetAbs = path.join(REPO_ROOT, targetRunRoot)
   const pool = dataPoolNewest(safe)
@@ -553,6 +568,30 @@ let carrySeq = 0
  *  vanished — a module that then looks finished, gets skipped by the run, and fails verify-evidence. */
 function copyDir(srcAbs: string, dstAbs: string): void {
   fs.cpSync(srcAbs, dstAbs, { recursive: true, dereference: true, force: true })
+}
+
+/**
+ * Make a staged tree crash-durable before its launch-authority stamp is published. A directory fsync only
+ * persists names; every regular file must be flushed first or a host loss can leave a stamped plan pointing
+ * at a torn carried synthesis. Symlinks and special files are never valid staged research evidence.
+ */
+function fsyncStagedTree(abs: string): void {
+  const stat = fs.lstatSync(abs)
+  if (stat.isSymbolicLink()) throw new Error(`staged research tree contains a symlink: ${path.basename(abs)}`)
+  if (stat.isFile()) {
+    const fd = fs.openSync(abs, 'r')
+    try { fs.fsyncSync(fd) } finally { fs.closeSync(fd) }
+    return
+  }
+  if (!stat.isDirectory()) throw new Error(`staged research tree contains a special file: ${path.basename(abs)}`)
+  for (const name of fs.readdirSync(abs).sort()) fsyncStagedTree(path.join(abs, name))
+  const fd = fs.openSync(abs, 'r')
+  try { fs.fsyncSync(fd) } finally { fs.closeSync(fd) }
+}
+
+function fsyncDirectory(abs: string): void {
+  const fd = fs.openSync(abs, 'r')
+  try { fs.fsyncSync(fd) } finally { fs.closeSync(fd) }
 }
 
 /** The provenance stamp. A carried module's numbers were read against an OLDER data pool, so the thesis
@@ -912,6 +951,97 @@ export function carryForwardScoped(
   const carriable = new Map(base.carry.map((c) => [c.module, c]))
   const mustReuse = new Set(base.mustReuse)
 
+  // Validate and prepare the exact launch-authority stamp BEFORE the first carry/hole mutation. The stamp
+  // still lands last, but a malformed/missing evidence cursor can no longer leave a half-staged target.
+  let stagedPlan: { name: string; text: string; intentText: string } | null = null
+  if (planFileAbs) {
+    const lst = fs.lstatSync(planFileAbs)
+    const realPlan = fs.realpathSync(planFileAbs)
+    const realRepo = fs.realpathSync(REPO_ROOT)
+    const realAnalyses = fs.realpathSync(ANALYSES_DIR)
+    const lexicalIntake = path.dirname(planFileAbs)
+    const lexicalRun = path.dirname(lexicalIntake)
+    const intakeLst = fs.lstatSync(lexicalIntake)
+    const runLst = fs.lstatSync(lexicalRun)
+    const realIntake = fs.realpathSync(lexicalIntake)
+    const realRun = fs.realpathSync(lexicalRun)
+    const rel = path.relative(realRepo, realPlan)
+    const repoPath = rel.split(path.sep).join('/')
+    const name = path.basename(realPlan)
+    if (!lst.isFile() || lst.isSymbolicLink() || rel.startsWith(`..${path.sep}`) || path.isAbsolute(rel)
+        || !intakeLst.isDirectory() || intakeLst.isSymbolicLink()
+        || !runLst.isDirectory() || runLst.isSymbolicLink()
+        || path.dirname(realIntake) !== realRun || path.dirname(realRun) !== realAnalyses
+        || !/_intake_plan(?:_v\d+)?\.json$/.test(name) || path.basename(planFileAbs) !== name) {
+      throw new Error('scoped rerun plan path is unsafe')
+    }
+    const planRaw = JSON.parse(fs.readFileSync(realPlan, 'utf8'))
+    if (!planRaw || typeof planRaw !== 'object' || Array.isArray(planRaw)
+        || typeof planRaw.scanned_at !== 'string' || !Number.isFinite(Date.parse(planRaw.scanned_at))
+        || planRaw.run_root !== path.relative(realRepo, realRun).split(path.sep).join('/')
+        || planRaw.run_root !== `analyses/${safe}_${String(planRaw.run_root).slice(-10)}`
+        || repoPath !== `${planRaw.run_root}/intake/${name}`
+        || !/^sha256:[a-f0-9]{64}$/.test(planRaw.decision_fingerprint)) {
+      throw new Error('scoped rerun evidence cursor is missing or invalid')
+    }
+    const authoredPlan = { ...planRaw }
+    delete authoredPlan.staged_for_scoped_rerun
+    const planSha256 = `sha256:${createHash('sha256').update(canonicalJsonText(authoredPlan), 'utf8').digest('hex')}`
+    const intent = {
+      schema_version: SCOPED_STAGE_INTENT_VERSION,
+      swarm: swarmId,
+      subject: safe,
+      source_run_root: planRaw.run_root,
+      target_run_root: base.targetRunRoot,
+      plan_path: repoPath,
+      plan_sha256: planSha256,
+      source_decision_fingerprint: planRaw.decision_fingerprint,
+    }
+    planRaw.staged_for_scoped_rerun = true
+    stagedPlan = {
+      name,
+      text: JSON.stringify(planRaw, null, 2) + '\n',
+      intentText: JSON.stringify(intent, null, 2) + '\n',
+    }
+  }
+
+  // The runnable plan stamp must remain LAST, but recovery also needs proof that bytes left before that
+  // stamp belong to this exact server-approved transaction. Persist a separate non-launch intent before
+  // the first copy/hole. A target without this witness is never reconstructed automatically.
+  const scopedStageWillMutate = base.reuse.some((module) => !stale.has(module) && carriable.has(module))
+    || staleModules.some((module) => mustReuse.has(module) || carriable.has(module))
+  if (stagedPlan && scopedStageWillMutate) {
+    const targetAbs = path.join(REPO_ROOT, base.targetRunRoot)
+    fs.mkdirSync(targetAbs, { recursive: true })
+    resolveInsideAnalyses(base.targetRunRoot)
+    // Persist the target directory entry before the intent inside it can authorize reconstruction.
+    fsyncDirectory(ANALYSES_DIR)
+    const intentAbs = path.join(targetAbs, SCOPED_STAGE_INTENT_FILE)
+    if (fs.existsSync(intentAbs)) {
+      const intentLst = fs.lstatSync(intentAbs)
+      if (!intentLst.isFile() || intentLst.isSymbolicLink()
+          || fs.readFileSync(intentAbs, 'utf8') !== stagedPlan.intentText) {
+        throw new Error('scoped rerun stage intent does not match this plan')
+      }
+    } else {
+      // Temp lives beside analyses/, not inside the run. A SIGKILL after fsync but before rename may leave
+      // the private temp behind, but it can never make the run manifest look nonempty/corrupt or block the
+      // exact intent retry. Rename is still same-filesystem and atomic.
+      const temp = path.join(ANALYSES_DIR, `.scoped-intent-${safe}-${process.pid}-${carrySeq++}.tmp`)
+      let fd: number | null = null
+      try {
+        fd = fs.openSync(temp, 'wx', 0o600)
+        fs.writeFileSync(fd, stagedPlan.intentText, 'utf8')
+        fs.fsyncSync(fd)
+      } finally {
+        if (fd !== null) fs.closeSync(fd)
+      }
+      try { fs.renameSync(temp, intentAbs) }
+      catch (error) { try { fs.rmSync(temp, { force: true }) } catch {}; throw error }
+      fsyncDirectory(targetAbs)
+    }
+  }
+
   // 1) untouched modules → carried whole
   const keepWhole = base.reuse.filter((m) => !stale.has(m))
   const { carried } = keepWhole.length ? carryForwardModules(safe, keepWhole, swarmId, base) : { carried: [] as { module: string; from: string }[] }
@@ -980,21 +1110,37 @@ export function carryForwardScoped(
   // simply happens to sit in a finished run (the common, intended case: INTAKE.md's plan deliberately lives
   // under the older run it invalidates). Once this root's own final deliverables land, that stamp is what
   // lets the reader retire it — serving a plan whose work is already done would tell the cockpit
-  // already-incorporated data still needs a rerun (Codex #358 r3673980745). Best-effort — a copy/stamp
-  // failure must not undo an otherwise-correct staging.
-  if (planFileAbs && (carried.length || scoped.length)) {
+  // already-incorporated data still needs a rerun (Codex #358 r3673980745). This copied plan is also the
+  // durable evidence cursor for documents that arrive WHILE the scoped run is working. It is therefore
+  // launch authority, not provenance decoration: fail closed if it cannot be saved.
+  if (stagedPlan && (carried.length || scoped.length)) {
     const intakeDir = path.join(targetAbs, 'intake')
-    const destAbs = path.join(intakeDir, path.basename(planFileAbs))
+    const destAbs = path.join(intakeDir, stagedPlan.name)
+    // The plan is the runnable authority and therefore lands only after every carried byte, hole deletion,
+    // provenance marker and directory rename is durable. If any flush fails the exact intent remains and
+    // automation fails closed; it never launches against a stamped but torn tree.
+    fsyncStagedTree(targetAbs)
+    fs.mkdirSync(intakeDir, { recursive: true })
+    fsyncDirectory(targetAbs)
+    // Same crash rule as the intent: never strand an uncommitted temp inside the authoritative run tree.
+    const temp = path.join(ANALYSES_DIR, `.scoped-plan-${safe}-${process.pid}-${carrySeq++}.tmp`)
+    let fd: number | null = null
     try {
-      fs.mkdirSync(intakeDir, { recursive: true })
-      const planRaw = JSON.parse(fs.readFileSync(planFileAbs, 'utf8'))
-      if (planRaw && typeof planRaw === 'object' && !Array.isArray(planRaw)) planRaw.staged_for_scoped_rerun = true
-      fs.writeFileSync(destAbs, JSON.stringify(planRaw, null, 2), 'utf8')
-    } catch {
-      // fall back to a plain verbatim copy — provenance convenience must never fail the staging itself,
-      // and an un-stamped copy is exactly today's (pre-fix) behaviour, never worse.
-      try { fs.copyFileSync(planFileAbs, destAbs) } catch { /* still provenance-only */ }
+      fd = fs.openSync(temp, 'wx', 0o600)
+      fs.writeFileSync(fd, stagedPlan.text, 'utf8')
+      fs.fsyncSync(fd)
+    } finally {
+      if (fd !== null) fs.closeSync(fd)
     }
+    try { fs.renameSync(temp, destAbs) }
+    catch (error) { try { fs.rmSync(temp, { force: true }) } catch {}; throw error }
+    fsyncDirectory(intakeDir)
+    fsyncDirectory(targetAbs)
+    // Once the launch-authority stamp exists the transaction witness is no longer needed. Removing it
+    // prevents a later manual deletion of the plan from turning partially-written model output back into
+    // restageable carry bytes.
+    fs.rmSync(path.join(targetAbs, SCOPED_STAGE_INTENT_FILE))
+    fsyncDirectory(targetAbs)
   }
 
   return { carried, scoped, staleModules, droppedEntries }

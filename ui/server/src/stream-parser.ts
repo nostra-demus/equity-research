@@ -206,9 +206,11 @@ export function handleStreamLine(run: RunState, line: string) {
           // so finalizeRunOnClose (the close handler) would later return immediately without ever writing
           // the .interrupted marker or RUN_FAILURE.md for what is the single most common budget/API-error
           // stop. Record the SAME failure note here, before finishRun, so it's never skipped.
-          recordStreamResultFailure(run, reason, message)
-          emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: message ? message.slice(0, 400) : undefined, ts })
-          finishRun(run, 'error')
+          const alreadyShared = recordStreamResultFailure(run, reason, message)
+          if (!alreadyShared) {
+            emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: message ? message.slice(0, 400) : undefined, ts })
+            finishRun(run, 'error')
+          }
         }
       }
       break

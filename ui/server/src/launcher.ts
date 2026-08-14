@@ -4,7 +4,7 @@ import path from 'node:path'
 import { execa, type ResultPromise } from 'execa'
 import { logLaunch } from './activity-log'
 import { admitRun, admissionMessage } from './admission'
-import { CLAUDE_BIN, DATA_DIR, DEFAULT_MODEL, ESTIMATES, FULL_PER_MODULE, LAUNCH_GUARDS, MAX_CONCURRENT_RUNS, REPO_ROOT, type LaunchKind } from './config'
+import { CLAUDE_BIN, DATA_DIR, DEFAULT_MODEL, ESTIMATES, FULL_PER_MODULE, LAUNCH_GUARDS, MAX_CONCURRENT_RUNS, REPO_ROOT, STATE_DIR, type LaunchKind } from './config'
 import { getCreditStatus, setCreditStatus } from './credit'
 import { writeAgentMetrics } from './agent-metrics'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
@@ -18,6 +18,9 @@ import { normalizeDataSubject } from './data-subject'
 import { resolveManifestRunRoot } from './swarm-run-root'
 import { readDataNeeds } from './data-needs'
 import { intakeReceiptIntentStillActionable, type IntakeReceiptIntent } from './intake'
+import { CORRECTIONS_SCHEMA, isPublishedSupersededRun, supersededTarget } from './ledger-corrections'
+import { ensureRunEvidenceCursor } from './run-evidence-cursor'
+import { bridgeMaterialReviewArtifact } from './review-evidence-bridge'
 import {
   isSharedDataPoolConsumer,
   listFinishedIntakeOwners,
@@ -29,7 +32,17 @@ import {
 } from './intake-owner'
 import { RESEARCH_SWARM_ID, swarmById } from './swarms'
 import { finalPaths, handleStreamLine } from './stream-parser'
-import type { LaunchPreflight, ReadinessDecision, ReadinessReport, RunKind, RunStatus } from './types'
+import { REVIEW_DATE_RE, REVIEW_WINDOW_RE, reviewArtifactNamePattern, validAuthoritativeReviewMemo, validCompleteReviewMemo, validateExactReviewArtifact } from './review-artifact'
+import { publishedBytesEqual, publishedTreeAuthority } from './git-publication'
+import {
+  automaticCallPublicationIsShared,
+  completedResearchPublicationIsShared,
+  inspectAutomaticCallRecoveryWorktree,
+  recoverCompletedAutomaticCallPublication,
+  type AutomaticCallPublicationRecovery,
+} from './publication-recovery'
+import { SCOPED_STAGE_INTENT_FILE, type LaunchPreflight, type ReadinessDecision, type ReadinessReport, type RunKind, type RunStatus } from './types'
+import { EngineChildLeaseRegistry, type EngineChildLease } from './engine-child-lease'
 
 // Screener kinds are swarm-scoped; everything else is the research default. Generic by design:
 // the kind->swarm mapping is the only place this file knows the screener exists, and it is driven
@@ -193,9 +206,42 @@ export function finalDeliverablesPresent(runRoot: string | null): boolean {
 // success-override branch, and the marker/failure-note clear guard in finalizeRunOnClose. The fix for
 // Findings 5, 12 and 14 is this ONE helper, not three separate patches.
 const DELIVERABLE_MTIME_SKEW_TOLERANCE_MS = 2000
+type TerminalDeliverableBaseline = { thesis: string | null; decision: string | null }
+const terminalDeliverableBaselineByRun = new WeakMap<RunState, TerminalDeliverableBaseline>()
+
+function terminalDeliverableDigest(runRoot: string | null, name: 'final_thesis.md' | 'decision_record.json'): string | null {
+  if (!runRoot) return null
+  try {
+    const root = path.isAbsolute(runRoot) ? runRoot : path.join(REPO_ROOT, runRoot)
+    const candidate = path.join(root, name)
+    const stat = fs.lstatSync(candidate)
+    if (!stat.isFile() || stat.isSymbolicLink() || fs.realpathSync(path.dirname(candidate)) !== fs.realpathSync(root)) return null
+    return createHash('sha256').update(fs.readFileSync(candidate)).digest('hex')
+  } catch { return null }
+}
+
+function captureTerminalDeliverableBaseline(run: RunState): void {
+  terminalDeliverableBaselineByRun.set(run, {
+    thesis: terminalDeliverableDigest(run.runRoot, 'final_thesis.md'),
+    decision: terminalDeliverableDigest(run.runRoot, 'decision_record.json'),
+  })
+}
+
+/** Test seam mirroring the launch-time snapshot taken immediately before the paid child is reserved. */
+export function __captureTerminalDeliverableBaselineForTest(run: RunState): void {
+  captureTerminalDeliverableBaseline(run)
+}
+
 export function finalDeliverablesShippedByThisAttempt(run: RunState): boolean {
   const runRoot = run.runRoot
   if (!finalDeliverablesPresent(runRoot)) return false
+  const baseline = terminalDeliverableBaselineByRun.get(run)
+  if (baseline) {
+    const thesis = terminalDeliverableDigest(runRoot, 'final_thesis.md')
+    const decision = terminalDeliverableDigest(runRoot, 'decision_record.json')
+    return thesis !== null && decision !== null
+      && (thesis !== baseline.thesis || decision !== baseline.decision)
+  }
   try {
     const root = path.isAbsolute(runRoot!) ? runRoot! : path.join(REPO_ROOT, runRoot!)
     const thesisM = fs.statSync(path.join(root, 'final_thesis.md')).mtimeMs
@@ -205,6 +251,55 @@ export function finalDeliverablesShippedByThisAttempt(run: RunState): boolean {
   } catch {
     return false // stat raced the existsSync check (e.g. removed mid-check) — treat conservatively as not shipped
   }
+}
+
+type ResearchPublicationProof = (input: { subject: string; targetRunRoot: string }) => boolean
+let researchPublicationProof: ResearchPublicationProof = completedResearchPublicationIsShared
+type AutomaticResearchPublicationProof = (input: AutomaticCallPublicationRecovery) => boolean
+let automaticResearchPublicationProof: AutomaticResearchPublicationProof = automaticCallPublicationIsShared
+
+/** Test seam for the immutable shared-publication postcondition. */
+export function __setResearchPublicationProof(fn: ResearchPublicationProof): ResearchPublicationProof {
+  const previous = researchPublicationProof
+  researchPublicationProof = fn
+  return previous
+}
+
+/** Test seam for exact automatic-plan attribution after shared publication. */
+export function __setAutomaticResearchPublicationProof(
+  fn: AutomaticResearchPublicationProof,
+): AutomaticResearchPublicationProof {
+  const previous = automaticResearchPublicationProof
+  automaticResearchPublicationProof = fn
+  return previous
+}
+
+/** Read-only canonical shared-Git terminal proof. A clean sealed recovery may legitimately leave the pair's
+ * mtimes untouched, so this says only that the run is shared—not that a failing attempt earned success. */
+export function terminalPublicationIsShared(run: RunState): boolean {
+  if (!run.runRoot) return false
+  try {
+    const targetRunRoot = path.isAbsolute(run.runRoot)
+      ? path.relative(REPO_ROOT, run.runRoot).split(path.sep).join('/')
+      : run.runRoot.split(path.sep).join('/')
+    return researchPublicationProof({ subject: run.ticker, targetRunRoot })
+  } catch { return false }
+}
+
+/** Trailing failure/error suppression requires attribution to this attempt. Fresh pair mtimes prove an
+ * ordinary terminal run wrote the pair; an exact automatic-recovery binding proves the old pair belongs to
+ * the immutable plan this run was admitted to finish. Mere pre-existing shared bytes never turn a new
+ * failed relaunch into DONE. */
+export function terminalPublicationShippedByThisAttempt(run: RunState): boolean {
+  const recovery = automaticRecoveryByRun.get(run)
+  if (recovery) {
+    if (!run.runRoot || run.ticker !== recovery.subject) return false
+    const runRoot = (path.isAbsolute(run.runRoot)
+      ? path.relative(REPO_ROOT, run.runRoot)
+      : run.runRoot).split(path.sep).join('/')
+    return runRoot === recovery.targetRunRoot && automaticResearchPublicationProof(recovery)
+  }
+  return terminalPublicationIsShared(run) && finalDeliverablesShippedByThisAttempt(run)
 }
 
 // Did a full/rerun exit cleanly WITHOUT its terminal deliverable? Research ends on final_thesis.md +
@@ -234,6 +329,14 @@ export function truncatedBeforeFinal(run: RunState): boolean {
 // deliberate single pieces (the user ran exactly that), so a break there is NOT auto-resumed.
 function isResumableResearchRun(run: RunState): boolean {
   return run.swarmId === 'research' && (run.kind === 'full' || run.chained === true)
+}
+
+// Canonical publication is a postcondition only for the terminal research process: a monolithic full
+// run, or the chained master. Chained module children share the run root but cannot publish its final
+// call; requiring the root publication from each child would turn every clean module into INCOMPLETE.
+function isTerminalResearchRun(run: RunState): boolean {
+  return run.swarmId === 'research'
+    && (run.kind === 'full' || (run.chained === true && run.kind === 'rerun' && run.module === 'master'))
 }
 
 // --- A2: commit a diagnosable failure note WITH the run (a DISTINCT file, never the success contract) ----
@@ -290,7 +393,7 @@ function recordRunFailure(run: RunState, reason: string, stderr: string): void {
   if (!runRoot) return
   // Finding 5: a stale final_thesis.md/decision_record.json from an EARLIER completed run in this same
   // folder must not suppress a genuinely NEW failure — only deliverables THIS attempt actually shipped do.
-  if (finalDeliverablesShippedByThisAttempt(run)) return // the run actually shipped — a trailing nonzero is not a failure
+  if (isTerminalResearchRun(run) && terminalPublicationShippedByThisAttempt(run)) return // exact shared publication is authoritative
   if (recordedFailure.has(runRoot)) return       // single-shot: dedup concurrent chained-module closes
   recordedFailure.add(runRoot)
   try {
@@ -394,14 +497,21 @@ const failureNote = (reason: string, stderr: string): string =>
 // only from inside function bodies (never at module top level), which is safe under native ESM — a
 // hoisted `export function` binding is live before either module's own top-level code runs.
 // Fully best-effort: never throws (mirrors every other A2/A3 call site).
-export function recordStreamResultFailure(run: RunState, reason: string, message: string): void {
+export function recordStreamResultFailure(run: RunState, reason: string, message: string): boolean {
   try {
-    if (isResumableResearchRun(run) && !finalDeliverablesShippedByThisAttempt(run)) {
+    const sharedTerminal = isTerminalResearchRun(run) && terminalPublicationShippedByThisAttempt(run)
+    // A structured error can arrive after the command's last tool call already published the exact
+    // canonical terminal tree. Do not finalize ERROR early in that case: leave the run claimed until the
+    // process-close single finalizer observes the same shared proof and emits DONE. Otherwise `endedAt`
+    // would permanently suppress the authoritative close path.
+    if (sharedTerminal) return true
+    if (isResumableResearchRun(run)) {
       writeRunMarker(run.runRoot, '.interrupted', { reason, module: run.module, message: redactSecrets((message || '').slice(-2000)) || undefined })
       recordRunFailure(run, reason, message)
     }
     run.note = failureNote(reason, message) // A3: durable reason in the activity log (shown on the row)
   } catch { /* best-effort: must never affect the stream parser or the run */ }
+  return false
 }
 
 // The SINGLE place a run's final status is decided on process close (exported for tests).
@@ -418,11 +528,14 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
   // `killed` property; checking only `killed` made an externally-killed run fall through to "done"
   // (and a killed handoff toast "memo seeded ✓" for a memo never written). `killed` kept for safety.
   const terminated = res?.isTerminated === true || res?.killed === true || !!res?.signal
+  const terminalShared = isTerminalResearchRun(run) && terminalPublicationIsShared(run)
+  const terminalEarned = terminalShared && terminalPublicationShippedByThisAttempt(run)
+  const cleanExit = !terminated && !(code && code !== 0) && res?.failed !== true
   if ((run.status as string) === 'cancelled') {
     if (isResumableResearchRun(run)) clearRunMarker(run.runRoot, '.interrupted') // a deliberate stop — cancel() wrote .aborted; never auto-resume
     emit(run, { type: 'run-error', runId: run.runId, status: 'cancelled', reason: 'cancelled', ts: Date.now() })
     finishRun(run, 'cancelled')
-  } else if (isResumableResearchRun(run) && finalDeliverablesShippedByThisAttempt(run)) {
+  } else if (terminalEarned || (terminalShared && cleanExit && !automaticRecoveryByRun.has(run))) {
     // SHIPPED before a trailing nonzero/kill: the terminal deliverables (final_thesis + decision_record) were
     // written by THIS attempt (Findings 12/14 — not just present, which a same-day stale relaunch could also
     // satisfy from an EARLIER completed run), so the research SUCCEEDED — a nonzero exit or a late kill on the
@@ -442,7 +555,7 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     // the broken full run back up and continue it (forever-living: a closed laptop / lost network resumes).
     const treason = `terminated_${res?.signal || 'signal'}`
     if (isResumableResearchRun(run)) {
-      if (!finalDeliverablesShippedByThisAttempt(run)) writeRunMarker(run.runRoot, '.interrupted', { reason: treason, module: run.module, message: redactSecrets(stderr.slice(-2000)) || undefined })
+      if (!(isTerminalResearchRun(run) && terminalPublicationShippedByThisAttempt(run))) writeRunMarker(run.runRoot, '.interrupted', { reason: treason, module: run.module, message: redactSecrets(stderr.slice(-2000)) || undefined })
       recordRunFailure(run, treason, stderr) // A2: diagnosable failure note (self-guards on deliverables + single-shot)
     }
     run.note = failureNote(treason, stderr) // A3: durable reason in the activity log (shown on the row)
@@ -456,12 +569,59 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     // nonzero_exit; it resumes on the next tick.)
     if (isResumableResearchRun(run)) {
       const resetsAt = reason === 'out_of_credits' ? getCreditStatus().resetsAt : undefined
-      if (!finalDeliverablesShippedByThisAttempt(run)) writeRunMarker(run.runRoot, '.interrupted', { reason, resetsAt, module: run.module, message: redactSecrets(stderr.slice(-2000)) || undefined })
+      if (!(isTerminalResearchRun(run) && terminalPublicationShippedByThisAttempt(run))) writeRunMarker(run.runRoot, '.interrupted', { reason, resetsAt, module: run.module, message: redactSecrets(stderr.slice(-2000)) || undefined })
       recordRunFailure(run, reason, stderr) // A2: diagnosable failure note (self-guards on deliverables + single-shot)
     }
     run.note = failureNote(reason, stderr) // A3: durable reason in the activity log (shown on the row)
     emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: stderr.slice(-400) || undefined, ts: Date.now() })
     finishRun(run, 'error')
+  } else if (run.kind === 'review' && scheduledReviewGuardByRun.has(run)
+      && !scheduledReviewProducedArtifact(scheduledReviewGuardByRun.get(run)!, run.startedAt)) {
+    // A zero exit is not a review. The exact scheduled child must have appended a parsed, call/window-bound
+    // JSON + memo pair after admission. A stale or malformed matching filename cannot close the dispatcher's
+    // durable key forever; report INCOMPLETE so its bounded retry remains live.
+    run.note = 'incomplete: scheduled review wrote no valid new review artifact'
+    emit(run, {
+      type: 'run-error', runId: run.runId, status: 'incomplete', reason: 'incomplete_review_artifact',
+      message: 'The scheduled check ended without saving a valid new review. It will retry automatically.',
+      ts: Date.now(),
+    })
+    finishRun(run, 'incomplete')
+  } else if (run.kind === 'review' && scheduledReviewGuardByRun.has(run)) {
+    try {
+      const guard = scheduledReviewGuardByRun.get(run)!
+      const artifact = validExactReviewArtifacts(guard.runRoot, guard.ticker, guard.window)
+        .find((candidate) => !guard.existingNames.has(candidate.file)
+          && !guard.existingNames.has(candidate.memoFile)
+          && candidate.mtimeMs >= run.startedAt - REVIEW_ARTIFACT_SKEW_MS)
+      if (!artifact) throw new Error('valid new review artifact is unavailable')
+      bridgeMaterialReviewArtifact(guard, artifact.file)
+    } catch (error: any) {
+      // A valid review that recommends a material rerun is not complete until its cited change is in the
+      // normal company-pool intake lane. Otherwise the Calls screen would say “checked” while the call can
+      // never update without a person. Retry the append-only review safely; existing names are ignored.
+      run.note = 'incomplete: material review change was not queued for automatic intake'
+      emit(run, {
+        type: 'run-error', runId: run.runId, status: 'incomplete', reason: 'review_evidence_not_queued',
+        message: 'The review was saved, but its material change could not be queued. It will retry automatically.',
+        ts: Date.now(),
+      })
+      finishBeforeEngineSpawn(run, 'incomplete')
+      return
+    }
+    emit(run, { type: 'run-done', runId: run.runId, status: 'done', costUsd: run.costUsd, durationMs: run.durationMs, numTurns: run.numTurns, ...finalPaths(run), ts: Date.now() })
+    finishRun(run, 'done')
+  } else if (isTerminalResearchRun(run) && finalDeliverablesPresent(run.runRoot)) {
+    // The master wrote its visible pair, but the final audit/admission/publication sequence did not prove
+    // completion in shared Git. Keep this exact run resumable; reporting DONE here would expose an ungated
+    // or local-only investment call and strand publication recovery after a clean CLI exit.
+    const reason = 'incomplete_publication'
+    const message = 'The call was written but its final checks or publication did not finish. It will resume automatically.'
+    writeRunMarker(run.runRoot, '.interrupted', { reason, module: run.module, message })
+    recordRunFailure(run, reason, message)
+    run.note = message
+    emit(run, { type: 'run-error', runId: run.runId, status: 'incomplete', reason, message, ts: Date.now() })
+    finishRun(run, 'incomplete')
   } else if (truncatedBeforeFinal(run)) {
     // The process exited cleanly, but a full/rerun that didn't write its terminal deliverable
     // (research: final thesis + decision record; constellation swarm: decision record) was almost
@@ -490,7 +650,7 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     // finalDeliverablesShippedByThisAttempt (not mere presence) — else a SIBLING chained module finishing
     // cleanly while stale deliverables sit in the folder from an earlier completed run could clear a
     // FRESH RUN_FAILURE.md that a different sibling's genuine failure just wrote for THIS same attempt.
-    if (isResumableResearchRun(run) && finalDeliverablesShippedByThisAttempt(run)) {
+    if (isTerminalResearchRun(run) && terminalPublicationShippedByThisAttempt(run)) {
       clearRunMarker(run.runRoot, '.interrupted')
       clearRunFailure(run.runRoot) // drop a stale RUN_FAILURE.md from an earlier break of this now-complete run
     }
@@ -722,11 +882,12 @@ export function buildPrompt(
     if (kind === 'doc-intake') return `/${ns}:intake ${ticker}${exactDecisionArgs}`
     return `/${ns}:full ${ticker}` // 'full' (default)
   }
-  if (kind === 'full') return `/research:full ${ticker}`
+  if (kind === 'full') return `/research:full ${ticker}${extra?.runRoot ? ` ${extra.runRoot}` : ''}`
   if (kind === 'module') return `/research:${module} ${ticker}`
   if (kind === 'rerun') return `/research:rerun ${module} ${agent} ${ticker}${exactDecisionArgs}${intakeReceiptArgs}`
-  // file one outcome review for this ticker's latest run (window defaults to ad-hoc — the "update now" snapshot).
-  if (kind === 'review') return `/research:review-decisions ${ticker} ${window || 'ad-hoc'}`
+  // Manual review keeps the ticker shorthand. Headless scheduled review supplies an already-contained exact
+  // run root, so an older still-due call cannot silently resolve to the ticker's newer standing decision.
+  if (kind === 'review') return `/research:review-decisions ${extra?.runRoot || ticker} ${window || 'ad-hoc'}`
   // rebuild the cross-ticker calls-tracker dashboard (ignores ticker — it is cross-ticker by design).
   if (kind === 'track') return `/research:track`
   // read the docs that landed since the ticker's last run + write a scoped rerun plan (advisory,
@@ -858,6 +1019,9 @@ export interface LaunchParams {
   module?: string
   agent?: string
   window?: string // review window (kind 'review'); ignored by other kinds
+  // Headless scheduled review only: re-check the exact run/window at admission and again immediately
+  // before spawn. Manual explicit reviews omit this and retain append-only versioning behavior.
+  reviewOnlyIfDue?: boolean
   model?: string
   intake?: SignalIntakeInput // kind 'signal' (new signal): materialized into <runRoot>/intake.json
   inboxId?: string // kind 'signal' launched from an Inbox card — recorded as the intake's provenance
@@ -896,6 +1060,10 @@ export interface LaunchParams {
   // Optional terminal observer for headless orchestration. launch() itself ACKs before readiness/CAS/spawn;
   // this callback fires only once the real command (or a pre-spawn failure) reaches a terminal status.
   onTerminal?: (status: RunStatus) => void
+  // Internal automatic-call recovery only. It resumes the exact historical staged target after a crash;
+  // public/manual full launches can never select an arbitrary dated root.
+  recoveryRunRoot?: string
+  automaticRecovery?: AutomaticCallPublicationRecovery
   // A command whose own run subject is NOT the shared-pool subject may still publish there. Screener
   // handoff runs are keyed by THESIS::TICKER but write data/<TICKER>; bind that target explicitly so the
   // owner is checked before admission and again immediately before the paid command can write.
@@ -918,6 +1086,254 @@ function decisionBindingStillCurrent(swarmId: string, subjectId: string, binding
   return !!exact && !!current && exact.run_root === current.run_root
     && exact.decision_fingerprint === binding.decisionFingerprint
     && current.decision_fingerprint === binding.decisionFingerprint
+}
+
+const REVIEW_ARTIFACT_SKEW_MS = 2_000
+
+interface ExactReviewContext {
+  realRun: string
+  reviewsDir: string
+  decisionDate: string
+  dueDate: string
+}
+
+function containedReviewsDir(realRun: string): string | null {
+  const lexical = path.join(realRun, 'reviews')
+  try {
+    const stat = fs.lstatSync(lexical)
+    if (!stat.isDirectory() || stat.isSymbolicLink()) return null
+    const real = fs.realpathSync(lexical)
+    return path.dirname(real) === realRun && path.basename(real) === 'reviews' ? real : null
+  } catch (error: any) {
+    // Absence is safe and represents “no review yet”; all other read errors are unavailable authority.
+    if (error?.code === 'ENOENT') return lexical
+    return null
+  }
+}
+
+export interface ExactReviewArtifact {
+  file: string
+  memoFile: string
+  mtimeMs: number
+  memoMtimeMs: number
+}
+
+export type ScheduledReviewAuthority = 'due' | 'settled' | 'not_due' | 'unavailable'
+
+export interface ScheduledReviewGuard {
+  runRoot: string
+  ticker: string
+  window: string
+  decisionDate: string
+  existingNames: Set<string>
+  published: (artifact: ExactReviewArtifact) => boolean
+}
+
+function exactReviewContext(runRoot: string, ticker: string, window: string): ExactReviewContext | null {
+  if (!/^analyses\/[A-Z0-9.\-]{1,15}_\d{4}-\d{2}-\d{2}$/.test(runRoot)
+      || !REVIEW_WINDOW_RE.test(window)) return null
+  if (isPublishedSupersededRun(runRoot)) return null
+  try {
+    const realRepo = fs.realpathSync(REPO_ROOT)
+    const realRun = fs.realpathSync(path.join(REPO_ROOT, runRoot))
+    const rel = path.relative(realRepo, realRun)
+    if (rel.startsWith(`..${path.sep}`) || path.isAbsolute(rel)) return null
+    const decision = JSON.parse(fs.readFileSync(path.join(realRun, 'decision_record.json'), 'utf8'))
+    if (!decision || typeof decision !== 'object' || Array.isArray(decision)
+        || decision.ticker !== ticker || decision.run_root !== runRoot
+        || !REVIEW_DATE_RE.test(decision.decision_date || '')) return null
+    const dueDate = decision.review_schedule?.[window]
+    if (!REVIEW_DATE_RE.test(dueDate || '')) return null
+    const reviewsDir = containedReviewsDir(realRun)
+    if (!reviewsDir) return null
+    return { realRun, reviewsDir, decisionDate: decision.decision_date, dueDate }
+  } catch {
+    return null
+  }
+}
+
+function reviewNames(context: ExactReviewContext): string[] {
+  try { return fs.readdirSync(context.reviewsDir) }
+  catch (error: any) {
+    if (error?.code === 'ENOENT') return []
+    throw error
+  }
+}
+
+function containedRegularFile(parent: string, name: string): { path: string; mtimeMs: number } | null {
+  if (!name || name.includes('/') || name.includes('\\') || name === '.' || name === '..') return null
+  try {
+    const candidate = path.join(parent, name)
+    const lst = fs.lstatSync(candidate)
+    if (!lst.isFile() || lst.isSymbolicLink()) return null
+    const realParent = fs.realpathSync(parent)
+    const realCandidate = fs.realpathSync(candidate)
+    const rel = path.relative(realParent, realCandidate)
+    if (!rel || rel.startsWith(`..${path.sep}`) || path.isAbsolute(rel)) return null
+    return { path: realCandidate, mtimeMs: fs.statSync(realCandidate).mtimeMs }
+  } catch {
+    return null
+  }
+}
+
+function validReviewArtifact(
+  context: ExactReviewContext,
+  runRoot: string,
+  ticker: string,
+  window: string,
+  name: string,
+  memoWitness: typeof validCompleteReviewMemo = validCompleteReviewMemo,
+): ExactReviewArtifact | null {
+  if (!reviewArtifactNamePattern(window)?.test(name)) return null
+  const file = containedRegularFile(context.reviewsDir, name)
+  if (!file) return null
+  try {
+    const raw = JSON.parse(fs.readFileSync(file.path, 'utf8'))
+    const memos: Array<{ path: string; mtimeMs: number }> = []
+    const valid = validateExactReviewArtifact(raw, {
+      runRoot, ticker, window, decisionDate: context.decisionDate, jsonBasename: name,
+      memoValid: (memoName) => {
+        const memo = containedRegularFile(context.reviewsDir, memoName)
+        if (!memo || !memoWitness(fs.readFileSync(memo.path), {
+          ticker,
+          reviewDate: String(raw.review_date || ''),
+          window,
+        })) return false
+        memos.push(memo)
+        return true
+      },
+    })
+    const memo = memos[0]
+    if (!valid || !memo) return null
+    return { file: name, memoFile: valid.memoBasename, mtimeMs: file.mtimeMs, memoMtimeMs: memo.mtimeMs }
+  } catch {
+    return null
+  }
+}
+
+function reviewArtifactIsPublished(runRoot: string, artifact: ExactReviewArtifact): boolean {
+  return publishedBytesEqual(`${runRoot}/reviews/${artifact.file}`, path.join(REPO_ROOT, runRoot, 'reviews', artifact.file))
+    && publishedBytesEqual(`${runRoot}/reviews/${artifact.memoFile}`, path.join(REPO_ROOT, runRoot, 'reviews', artifact.memoFile))
+}
+
+/** Parsed, contained review artifacts for exactly one immutable call/window. Filename-shaped or partial
+ * JSON is not evidence: both due detection and clean-exit success use this same predicate. */
+export function validExactReviewArtifacts(runRoot: string, ticker: string, window: string): ExactReviewArtifact[] {
+  const context = exactReviewContext(runRoot, ticker, window)
+  if (!context) return []
+  try {
+    return reviewNames(context)
+      .map((name) => validReviewArtifact(context, runRoot, ticker, window, name))
+      .filter((artifact): artifact is ExactReviewArtifact => !!artifact)
+      .sort((a, b) => a.file.localeCompare(b.file))
+  } catch { return [] }
+}
+
+function validArtifactsInContext(
+  context: ExactReviewContext,
+  runRoot: string,
+  ticker: string,
+  window: string,
+  memoWitness: typeof validCompleteReviewMemo = validCompleteReviewMemo,
+): ExactReviewArtifact[] {
+  return reviewNames(context)
+    .map((name) => validReviewArtifact(context, runRoot, ticker, window, name, memoWitness))
+    .filter((artifact): artifact is ExactReviewArtifact => !!artifact)
+}
+
+export function captureScheduledReviewGuard(
+  runRoot: string,
+  ticker: string,
+  window: string,
+  published?: (artifact: ExactReviewArtifact) => boolean,
+): ScheduledReviewGuard | null {
+  const context = exactReviewContext(runRoot, ticker, window)
+  if (!context) return null
+  try { return {
+    runRoot, ticker, window, decisionDate: context.decisionDate, existingNames: new Set(reviewNames(context)),
+    published: published ?? ((artifact) => reviewArtifactIsPublished(runRoot, artifact)),
+  } }
+  catch { return null }
+}
+
+/** A clean child exit earns success only with a new append-only JSON+memo pair for this exact call/window.
+ * Names already on disk at admission are never accepted, even if malformed bytes are later overwritten. */
+export function scheduledReviewProducedArtifact(guard: ScheduledReviewGuard, startedAt: number): boolean {
+  const context = exactReviewContext(guard.runRoot, guard.ticker, guard.window)
+  if (!context) return false
+  try {
+    const floor = startedAt - REVIEW_ARTIFACT_SKEW_MS
+    return validArtifactsInContext(context, guard.runRoot, guard.ticker, guard.window).some((artifact) =>
+      !guard.existingNames.has(artifact.file)
+      && !guard.existingNames.has(artifact.memoFile)
+      && artifact.mtimeMs >= floor
+      && artifact.memoMtimeMs >= floor
+      && guard.published(artifact))
+  } catch { return false }
+}
+
+/** Immutable shared-Git authority for an automatic scheduled review. The paid boundary must never infer
+ * “due” from mutable local files or from a helper that turns an unreadable ref/blob into ordinary absence:
+ * another host may already have published the exact pair. One pinned tree supplies the decision,
+ * supersession sidecar, review JSON and memo, so a concurrent fetch cannot mix revisions. */
+export function scheduledReviewAuthority(
+  runRoot: string,
+  ticker: string,
+  window: string,
+  today = todayDate(),
+): ScheduledReviewAuthority {
+  if (!/^analyses\/[A-Z0-9.\-]{1,15}_\d{4}-\d{2}-\d{2}$/.test(runRoot)
+      || !REVIEW_WINDOW_RE.test(window)) return 'unavailable'
+  try {
+    const authority = publishedTreeAuthority('analyses')
+    const decisionPath = `${runRoot}/decision_record.json`
+    if (!authority.paths.has(decisionPath)) return 'unavailable'
+    const decision = JSON.parse(authority.readRequired(decisionPath).toString('utf8'))
+    if (!decision || typeof decision !== 'object' || Array.isArray(decision)
+        || decision.ticker !== ticker || decision.run_root !== runRoot
+        || !REVIEW_DATE_RE.test(decision.decision_date || '')) return 'unavailable'
+    const dueDate = decision.review_schedule?.[window]
+    if (!REVIEW_DATE_RE.test(dueDate || '')) return 'unavailable'
+
+    const correctionsPath = `${runRoot}/corrections.json`
+    if (authority.paths.has(correctionsPath)) {
+      const corrections = JSON.parse(authority.readRequired(correctionsPath).toString('utf8'))
+      if (!corrections || typeof corrections !== 'object' || Array.isArray(corrections)
+          || corrections.schema !== CORRECTIONS_SCHEMA) return 'unavailable'
+      if (supersededTarget(corrections)) return 'settled'
+    }
+    if (dueDate > today) return 'not_due'
+
+    const prefix = `${runRoot}/reviews/`
+    const names = [...authority.paths]
+      .filter((repoPath) => repoPath.startsWith(prefix))
+      .map((repoPath) => repoPath.slice(prefix.length))
+      .filter((name) => !name.includes('/') && !!reviewArtifactNamePattern(window)?.test(name))
+      .sort()
+    for (const name of names) {
+      let raw: any
+      try { raw = JSON.parse(authority.readRequired(`${prefix}${name}`).toString('utf8')) }
+      catch (error: any) {
+        if (error?.code === 'CALLS_AUTHORITY_UNAVAILABLE') throw error
+        continue // immutable but malformed review content does not settle the checkpoint
+      }
+      const memoFile = name.replace('_decision_review', '_memo_delta').replace(/\.json$/, '.md')
+      const memoPath = `${prefix}${memoFile}`
+      const valid = validateExactReviewArtifact(raw, {
+        runRoot, ticker, window, decisionDate: decision.decision_date, jsonBasename: name,
+        memoValid: (candidate) => candidate === memoFile && authority.paths.has(memoPath)
+          && validAuthoritativeReviewMemo(authority.readRequired(memoPath), {
+            ticker, reviewDate: String(raw.review_date || ''), window,
+          }),
+      })
+      if (valid) return 'settled'
+    }
+    return 'due'
+  } catch { return 'unavailable' }
+}
+
+export function scheduledReviewStillDue(runRoot: string, ticker: string, window: string, today = todayDate()): boolean {
+  return scheduledReviewAuthority(runRoot, ticker, window, today) === 'due'
 }
 
 function launchBindingError(code: 'selected_decision_changed' | 'intake_plan_changed' | 'intake_owner_changed' | 'shared_pool_target_changed'): Error {
@@ -1029,6 +1445,14 @@ function acquireSharedDataPoolClaim(swarmId: string, subjectId: string, kind: Ru
  *  intentionally synchronous: after it returns, launch() reaches force cancellation without yielding the
  *  event loop, so a stale automatic intake A can never cancel a live B-bound run. */
 function assertLaunchBindingsStillCurrent(swarmId: string, subjectId: string, params: LaunchParams): void {
+  if (params.automaticRecovery) {
+    const recovery = params.automaticRecovery
+    const stage = inspectAutomaticCallRecoveryWorktree(recovery)
+    if (params.user !== 'auto' || params.kind !== 'full' || params.recoveryRunRoot !== recovery.targetRunRoot
+        || recovery.subject !== subjectId || recovery.swarmId !== swarmId || stage === 'none' || stage === 'unsafe') {
+      throw launchBindingError('intake_plan_changed')
+    }
+  }
   const decision = params.decisionFingerprint
     ? { decisionRunRoot: params.decisionRunRoot, decisionFingerprint: params.decisionFingerprint }
     : undefined
@@ -1067,6 +1491,68 @@ function assertLaunchBindingsStillCurrent(swarmId: string, subjectId: string, pa
 const intakeOwnerByRun = new WeakMap<RunState, IntakeOwner>()
 const sharedPoolTargetByRun = new WeakMap<RunState, { swarm: string; subject: string }>()
 const intakeReceiptByRun = new WeakMap<RunState, IntakeReceiptIntent>()
+const automaticRecoveryByRun = new WeakMap<RunState, AutomaticCallPublicationRecovery>()
+const scheduledReviewGuardByRun = new WeakMap<RunState, ScheduledReviewGuard>()
+const engineChildLeaseTokenByRun = new WeakMap<RunState, string>()
+const engineChildRunByToken = new Map<string, RunState>()
+
+/** Test-only binding seam for terminal attribution; production sets the same WeakMap from LaunchParams. */
+export function __bindAutomaticRecoveryForTest(run: RunState, recovery: AutomaticCallPublicationRecovery): void {
+  automaticRecoveryByRun.set(run, { ...recovery })
+}
+let engineChildLeaseRegistryInstance: EngineChildLeaseRegistry | null = null
+
+function engineChildLeaseRegistry(): EngineChildLeaseRegistry {
+  if (!engineChildLeaseRegistryInstance) engineChildLeaseRegistryInstance = new EngineChildLeaseRegistry(STATE_DIR)
+  return engineChildLeaseRegistryInstance
+}
+
+function locallyOwnedEngineChildTokens(): Set<string> {
+  return new Set([...engineChildRunByToken.entries()]
+    .filter(([, run]) => run.endedAt === undefined)
+    .map(([token]) => token))
+}
+
+function assertNoOrphanEngineChild(swarmId: string, subjectId: string): void {
+  engineChildLeaseRegistry().assertSubjectAvailable(swarmId, subjectId, locallyOwnedEngineChildTokens())
+}
+
+function rememberEngineChildLease(run: RunState, lease: EngineChildLease): void {
+  engineChildLeaseTokenByRun.set(run, lease.token)
+  engineChildRunByToken.set(lease.token, run)
+}
+
+function forgetEngineChildLease(run: RunState): string | null {
+  const token = engineChildLeaseTokenByRun.get(run) ?? null
+  if (token) engineChildRunByToken.delete(token)
+  engineChildLeaseTokenByRun.delete(run)
+  return token
+}
+
+function releasePreSpawnEngineChildReservation(run: RunState): void {
+  const token = forgetEngineChildLease(run)
+  if (!token) return
+  try { engineChildLeaseRegistry().releaseReservation(token) }
+  catch (error) { console.error('[engine-child-lease] could not release pre-spawn reservation', error) }
+}
+
+function finishBeforeEngineSpawn(run: RunState, status: RunStatus): void {
+  releasePreSpawnEngineChildReservation(run)
+  finishRun(run, status)
+}
+
+function releaseEngineChildAfterClose(run: RunState): void {
+  const token = forgetEngineChildLease(run)
+  if (!token) return
+  try { engineChildLeaseRegistry().releaseAfterClose(token) }
+  catch (error) { console.error('[engine-child-lease] close could not update the durable registry', error) }
+}
+
+/** Bind the immutable pre-launch directory snapshot to the admitted run. Kept as a small exported seam so
+ * the close-time postcondition can be regression-tested without ever spawning a paid CLI process. */
+export function bindScheduledReviewPostcondition(run: RunState, guard: ScheduledReviewGuard): void {
+  scheduledReviewGuardByRun.set(run, guard)
+}
 
 // ---- chained full run (per-module budgets), DAG-PARALLEL — opt-in via FULL_PER_MODULE ----
 // A full pipeline as a set of SEPARATE per-module runs (each its own budget + activity-log entry),
@@ -1120,6 +1606,9 @@ export interface FullChainDeps {
   // One stable bare-pool claim for the WHOLE chain, including child-transition and capacity-backoff gaps.
   // Optional so existing deterministic fake deps remain source-compatible; production always provides it.
   acquirePoolClaim?: (ticker: string) => () => void
+  // Persist the source-pool floor before the first paid module. Injected so scheduler tests never touch
+  // a real analyses folder; production always supplies it.
+  ensureEvidenceCursor?: (ticker: string) => void
 }
 const defaultFullChainDeps: FullChainDeps = {
   launchAndWire: async (params, onFinish) => {
@@ -1143,6 +1632,7 @@ const defaultFullChainDeps: FullChainDeps = {
   },
   scheduleRetry: (fn) => { setTimeout(fn, CAPACITY_RETRY_MS) },
   acquirePoolClaim: (ticker) => acquireSharedDataPoolClaim(RESEARCH_SWARM_ID, ticker, 'full'),
+  ensureEvidenceCursor: (ticker) => ensureRunEvidenceCursor({ ticker, runRoot: `analyses/${ticker}_${todayDate()}` }),
 }
 // A resume runs only the modules NOT already on disk (+ the master). Price and time-estimate just that
 // remaining work, not the whole pipeline — otherwise a resume that skips 4 of 6 modules still shows the
@@ -1171,6 +1661,7 @@ export async function launchFullChained(
   userVia: 'cf-access' | 'local',
   deps: FullChainDeps = defaultFullChainDeps,
   decisionBinding?: { decisionRunRoot: string; decisionFingerprint: string },
+  onTerminal?: (status: RunStatus) => void,
 ): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> {
   const datedRoot = `analyses/${ticker}_${todayDate()}`
   if (isSealedResearchRun(datedRoot)) throw sealedResearchRunError(datedRoot)
@@ -1194,6 +1685,9 @@ export async function launchFullChained(
   // and removes the marker. Keeps the ~2.5-min-per-module memo off the parallel critical path —
   // output-neutral, only the memo's timing moves. Injected so the test asserts it without touching disk.
   try {
+    // Capture the source-pool floor while the chain owns its pool claim and before the first module can
+    // launch. A filing arriving during the run must remain new after the later final_thesis write.
+    deps.ensureEvidenceCursor?.(ticker)
     deps.writeMarker(ticker)
   } catch (error) {
     releaseChainPool()
@@ -1209,7 +1703,8 @@ export async function launchFullChained(
   // a complete folder is left alone (this is then a fresh full, not a resume). Module = its 99 synthesis
   // present and non-empty (the same "module finished" test the screener resume uses).
   const resumeRoot = `analyses/${ticker}_${todayDate()}`
-  if (fs.existsSync(path.join(REPO_ROOT, resumeRoot)) && !finalDeliverablesPresent(resumeRoot)) {
+  if (fs.existsSync(path.join(REPO_ROOT, resumeRoot))
+      && !completedResearchPublicationIsShared({ subject: ticker, targetRunRoot: resumeRoot })) {
     for (const name of names) {
       try {
         if (fs.statSync(path.join(REPO_ROOT, resumeRoot, name, `99_${name}-synthesis.md`)).size > 0) { done.add(name); started.add(name) }
@@ -1231,6 +1726,12 @@ export async function launchFullChained(
   let stopped = false
   let masterLaunched = false
   let retryScheduled = false
+  let terminalReported = false
+  const reportTerminal = (status: RunStatus) => {
+    if (terminalReported) return
+    terminalReported = true
+    try { onTerminal?.(status) } catch { /* orchestration observers never break the chain */ }
+  }
   // stop-everything (haltAllChains) bumps the epoch; once it does, the scheduler launches nothing further.
   const chainAlive = captureChainEpoch()
 
@@ -1250,6 +1751,7 @@ export async function launchFullChained(
       (status) => {
         deps.clearMarker(ticker) // always clear the defer-memo marker once master exits — success path: rerun.md Step 9A also rm -f's it (idempotent); this is the safety net for an abnormal 'done' before Step 9A ran, or any failure
         releaseChainPool()
+        reportTerminal(status)
         // eslint-disable-next-line no-console
         console.log(`[full-chain] ${ticker}: ${status === 'done' ? 'pipeline complete' : `stopped at master — ${status}`}`)
       },
@@ -1257,6 +1759,9 @@ export async function launchFullChained(
     void launched.catch((e) => {
       deps.clearMarker(ticker)
       releaseChainPool()
+      // All modules already finished before the master launch. The chain's first ACK therefore happened
+      // long ago; this rejection is a real terminal failure, not an admission error returned to launch().
+      reportTerminal('error')
       // eslint-disable-next-line no-console
       console.error(`[full-chain] ${ticker}: failed to launch master synthesizer`, (e as any)?.message || e)
     })
@@ -1265,11 +1770,12 @@ export async function launchFullChained(
 
   const onModuleFinish = (name: string, status: RunStatus) => {
     inflight.delete(name)
-    if (!chainAlive()) { stopped = true; deps.clearMarker(ticker); releaseChainPool(); return } // stop-everything halted the chain — clear the defer-memo marker (no orphan) + launch nothing further
+    if (!chainAlive()) { stopped = true; deps.clearMarker(ticker); releaseChainPool(); reportTerminal('cancelled'); return } // stop-everything halted the chain — clear the defer-memo marker (no orphan) + launch nothing further
     if (status !== 'done') {
       stopped = true
       deps.clearMarker(ticker) // failed pipeline — don't leave an orphaned defer-memo marker
       releaseChainPool()
+      reportTerminal(status)
       // eslint-disable-next-line no-console
       console.log(`[full-chain] ${ticker}: stopped at module ${name} — ${status} (in-flight modules still finish)`)
       return
@@ -1286,7 +1792,7 @@ export async function launchFullChained(
     retryScheduled = true
     deps.scheduleRetry(() => {
       retryScheduled = false
-      if (!chainAlive()) { stopped = true; deps.clearMarker(ticker); releaseChainPool(); return }
+      if (!chainAlive()) { stopped = true; deps.clearMarker(ticker); releaseChainPool(); reportTerminal('cancelled'); return }
       pump()
     })
   }
@@ -1321,12 +1827,13 @@ export async function launchFullChained(
         // eslint-disable-next-line no-console
         console.error(`[full-chain] ${ticker}: failed to launch module ${name}`, (e as any)?.message || e)
         if (firstRunId === null) rejectFirst(e)
+        else reportTerminal('error')
       })
   }
 
   function pump() {
     if (stopped) return
-    if (!chainAlive()) { stopped = true; deps.clearMarker(ticker); releaseChainPool(); return }
+    if (!chainAlive()) { stopped = true; deps.clearMarker(ticker); releaseChainPool(); reportTerminal('cancelled'); return }
     for (const name of readyNow()) {
       if (inflight.size >= MAX_CONCURRENT_RUNS) break
       launchModule(name)
@@ -1373,6 +1880,31 @@ export async function cancelAll(): Promise<string[]> {
     }
   }
   return cancelled
+}
+
+/** Graceful server shutdown is an external interruption, not a user cancel. Signal every durable engine
+ * process group without calling cancel(), so no `.aborted` marker is written and exact saved-result/resume
+ * recovery remains available on the next server. */
+export async function terminateEngineChildrenForShutdown(): Promise<void> {
+  haltAllChains()
+  try {
+    await engineChildLeaseRegistry().terminateAll()
+    return
+  } catch (error) {
+    // A corrupt registry must keep future paid launches fail-closed, but shutdown still has the in-memory
+    // process handles needed to stop this server's own children rather than orphaning them.
+    console.error('[engine-child-lease] durable shutdown sweep unavailable; using live-run fallback', error)
+  }
+  const pids = [...new Set(listRuns()
+    .filter((run) => run.child?.pid && run.endedAt === undefined)
+    .map((run) => run.child!.pid!))]
+  for (const pid of pids) {
+    try { process.kill(-pid, 'SIGTERM') } catch {}
+  }
+  await new Promise((resolve) => setTimeout(resolve, 1_200))
+  for (const pid of pids) {
+    if (pidAlive(pid)) try { process.kill(-pid, 'SIGKILL') } catch {}
+  }
 }
 
 /** Stop ONE subject's in-flight work — a chained full run plus whatever module step is live for it.
@@ -1442,6 +1974,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   let subjectId: string
   let runRoot: string
   let pendingIntake: { path: string; body: any } | null = null
+  let scheduledReviewGuard: ScheduledReviewGuard | null = null
   // Finding 13: set below (research 'full' branch) when this is a deliberate same-day relaunch into an
   // existing, still-incomplete run root — the actual dedup/marker reset happens only after admission
   // succeeds, never here.
@@ -1548,9 +2081,20 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     subjectId = ticker
     // opt-in: run a full pipeline as a chain of per-module runs + master (each its own budget)
     const datedRoot = `analyses/${ticker}_${todayDate()}`
+    const recoveryRoot = params.recoveryRunRoot
+    if (recoveryRoot) {
+      const recovery = params.automaticRecovery
+      if (user !== 'auto' || kind !== 'full' || !recovery
+          || recovery.targetRunRoot !== recoveryRoot || recovery.subject !== ticker || recovery.swarmId !== RESEARCH_SWARM_ID
+          || !new RegExp(`^analyses/${ticker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}_\\d{4}-\\d{2}-\\d{2}$`).test(recoveryRoot)) {
+        throw Object.assign(new Error('The automatic recovery target is unsafe.'), { statusCode: 409, body: { code: 'intake_plan_changed' } })
+      }
+      const stage = inspectAutomaticCallRecoveryWorktree(recovery)
+      if (stage === 'none' || stage === 'unsafe') throw launchBindingError('intake_plan_changed')
+    }
     // A sealed full run uses full.md's read-only recovery route. Do not send it through the per-module
     // scheduler, which would begin rewriting modules before the command could observe the seal.
-    if (kind === 'full' && FULL_PER_MODULE && !isSealedResearchRun(datedRoot)) {
+    if (kind === 'full' && FULL_PER_MODULE && !recoveryRoot && !isSealedResearchRun(datedRoot)) {
       // launchFullChained writes its defer-memo marker before scheduling the first module. Validate the
       // selected-call CAS AND reserve the shared data-pool label first so even that benign scheduler
       // mutation cannot be authorized by a stale confirmation or race a first commodity run on the same
@@ -1558,17 +2102,65 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       const releasePoolClaim = acquireSharedDataPoolClaim(swarmId, ticker, kind)
       try {
         assertLaunchBindingsStillCurrent(swarmId, ticker, params)
+        assertNoOrphanEngineChild(swarmId, ticker)
         const binding = params.decisionRunRoot && params.decisionFingerprint
           ? { decisionRunRoot: params.decisionRunRoot, decisionFingerprint: params.decisionFingerprint }
           : undefined
         // Await inside the try: releasing before firstReady would reopen the zero-owner window while the
         // outer scheduler has written its marker but its first child has not registered yet.
-        return await launchFullChained(ticker, user, userVia, defaultFullChainDeps, binding)
+        return await launchFullChained(ticker, user, userVia, defaultFullChainDeps, binding, params.onTerminal)
       } finally {
         releasePoolClaim()
       }
     }
-    if (kind === 'rerun' || kind === 'doc-intake') {
+    if (kind === 'full' && recoveryRoot) {
+      runRoot = recoveryRoot
+      isFullRelaunch = true
+    } else if (kind === 'review' && params.runRoot) {
+      // Exact scheduled reviews are allowed to target an older unsuperseded call. Containment + subject
+      // binding are enforced here; dueReviews() remains the authority that says the window is currently due.
+      const exact = resolveRunRoot({ ticker, runRoot: params.runRoot })
+      const expectedPrefix = `analyses/${ticker}_`
+      if (!exact || exact !== params.runRoot || !exact.startsWith(expectedPrefix)
+          || !/^analyses\/[A-Z0-9.\-]{1,15}_\d{4}-\d{2}-\d{2}$/.test(exact)) {
+        throw Object.assign(new Error('The exact review run does not belong to this ticker.'), { statusCode: 409 })
+      }
+      let validDecision = false
+      try {
+        const abs = path.join(REPO_ROOT, exact)
+        const realRepo = fs.realpathSync(REPO_ROOT)
+        const realRun = fs.realpathSync(abs)
+        const rel = path.relative(realRepo, realRun)
+        const decision = JSON.parse(fs.readFileSync(path.join(realRun, 'decision_record.json'), 'utf8'))
+        validDecision = !rel.startsWith(`..${path.sep}`) && !path.isAbsolute(rel)
+          && !!decision && typeof decision === 'object' && !Array.isArray(decision)
+      } catch { /* fail closed below */ }
+      if (!validDecision) throw Object.assign(new Error('The exact review run is not a completed call.'), { statusCode: 409 })
+      if (params.reviewOnlyIfDue) {
+        const authority = scheduledReviewAuthority(exact, ticker, params.window || '')
+        if (authority !== 'due') {
+          const settled = authority === 'settled'
+          const code = settled ? 'review_no_longer_due'
+            : authority === 'not_due' ? 'review_not_due' : 'review_authority_unavailable'
+          throw Object.assign(new Error(settled
+            ? 'This scheduled review is already covered.'
+            : authority === 'not_due'
+              ? 'This scheduled review is not due yet.'
+              : 'The exact scheduled review could not be checked safely.'), {
+            statusCode: 409, code, body: { code },
+          })
+        }
+      }
+      if (params.reviewOnlyIfDue) {
+        scheduledReviewGuard = captureScheduledReviewGuard(exact, ticker, params.window || '')
+        if (!scheduledReviewGuard) {
+          throw Object.assign(new Error('The exact review folder could not be checked safely.'), {
+            statusCode: 409, code: 'review_authority_unavailable', body: { code: 'review_authority_unavailable' },
+          })
+        }
+      }
+      runRoot = exact
+    } else if (kind === 'rerun' || kind === 'doc-intake') {
       // An explicitly selected call always supplies runRoot and was already bound to its decision
       // fingerprint by the route. Internal chained-full master launches deliberately omit runRoot: they
       // must continue the newest (today's staged) root, not jump back to the older standing decision.
@@ -1594,7 +2186,8 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       // admission then REJECTS this attempt (capacity/lock): no run would start, yet the only marker that
       // makes the resume supervisor consider the folder resumable would already be gone. `isFullRelaunch`
       // just records the (cheap, side-effect-free) fact so the code after admission can act on it.
-      isFullRelaunch = kind === 'full' && fs.existsSync(path.join(REPO_ROOT, runRoot)) && !finalDeliverablesPresent(runRoot)
+      isFullRelaunch = kind === 'full' && fs.existsSync(path.join(REPO_ROOT, runRoot))
+        && !completedResearchPublicationIsShared({ subject: ticker, targetRunRoot: runRoot })
     }
   }
 
@@ -1605,7 +2198,8 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   const ticker = subjectId // RunState display/compat field: research = the ticker; swarms = the subject id
   const prompt = buildPrompt(swarmId, kind, ticker, module, agent, window, {
     thesisId: params.thesisId,
-    runRoot: (kind === 'rerun' || kind === 'doc-intake') && params.runRoot ? runRoot : undefined,
+    runRoot: kind === 'full' && params.recoveryRunRoot ? runRoot
+      : (kind === 'rerun' || kind === 'doc-intake' || kind === 'review') && params.runRoot ? runRoot : undefined,
     decisionFingerprint: (kind === 'rerun' || kind === 'doc-intake') ? params.decisionFingerprint : undefined,
     intakeReceipt: kind === 'rerun' ? params.intakeReceipt : undefined,
   })
@@ -1643,6 +2237,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   // subject; later blocks materialize files/markers. There is no await between this assertion and the
   // first force cancellation, so stale auto-intake owner A cannot cancel current B-bound work.
   assertLaunchBindingsStillCurrent(swarmId, subjectId, params)
+  assertNoOrphanEngineChild(swarmId, subjectId)
 
   // Self-heal first: finalize any run whose engine process has died but never closed, so a wedged lock can
   // never permanently block this launch (the "stuck forever" failure). Sweep ALL subjects, not just this
@@ -1683,6 +2278,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   // Force cancellation can yield while the plan is consumed/replaced. Re-read the exact plan/orb/hash
   // immediately before admission so a stale plan-origin request never claims a paid run slot.
   assertLaunchBindingsStillCurrent(swarmId, subjectId, params)
+  assertNoOrphanEngineChild(swarmId, subjectId)
 
   // Dependency-aware admission + register in ONE synchronous block (no await before
   // setActiveSubjectRun) so the check-and-claim is atomic under Node's single-threaded loop.
@@ -1702,6 +2298,13 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   if (isFullRelaunch) {
     clearRunMarker(runRoot, '.interrupted')
     resetForRelaunch(runRoot)
+  }
+
+  if (swarmId === RESEARCH_SWARM_ID && kind === 'full' && !params.recoveryRunRoot) {
+    // Plain (non-chained) full runs need the same durable pool floor as chained runs. This is intentionally
+    // after admission but before createRun/continueLaunch, so a rejected launch creates no authority file
+    // and a cursor persistence failure dispatches no paid work.
+    ensureRunEvidenceCursor({ ticker, runRoot })
   }
 
   // Materialize the signal intake AFTER admission passes (no orphan folders on rejection).
@@ -1759,9 +2362,28 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     chained: params.chained,
     onTerminal: params.onTerminal,
   })
+  // Snapshot exact terminal bytes before this attempt can spawn or write. A trailing nonzero may count as
+  // success only when the ordinary attempt actually changed the pair and the resulting tree is shared;
+  // sub-second mtime tolerance can never attribute a pre-existing same-day call to a new failed run.
+  captureTerminalDeliverableBaseline(run)
+  if (kind === 'review' && params.reviewOnlyIfDue && scheduledReviewGuard) {
+    bindScheduledReviewPostcondition(run, scheduledReviewGuard)
+  }
   if (params.intakeOwner) intakeOwnerByRun.set(run, { ...params.intakeOwner })
   if (params.sharedPoolTarget) sharedPoolTargetByRun.set(run, { ...params.sharedPoolTarget })
   if (params.intakeReceipt) intakeReceiptByRun.set(run, { ...params.intakeReceipt })
+  if (params.automaticRecovery) automaticRecoveryByRun.set(run, { ...params.automaticRecovery })
+  try {
+    // The reservation is durable BEFORE the early HTTP ACK below. If this server dies in readiness or
+    // argument construction, a fresh server can retire the old no-child reservation; once a PID is bound,
+    // the same token becomes the process-group fence that prevents a second paid turn after restart.
+    rememberEngineChildLease(run, engineChildLeaseRegistry().reserve({
+      runId: run.runId, swarm: swarmId, subject: subjectId,
+    }, locallyOwnedEngineChildTokens()))
+  } catch (error) {
+    finishRun(run, 'error')
+    throw error
+  }
 
   // seed expected agents as queued so the UI can show the planned swarm immediately
   for (const e of expected.values()) {
@@ -1771,7 +2393,8 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   setActiveSubjectRun(run.runId, subjectId, swarmId) // register the swarm-qualified claim; finishRun releases it
   startRunWatcher(run)
 
-  // EARLY ACK — respond the moment the claim is registered. Every outcome the caller can branch on
+  // EARLY ACK — respond only after the claim AND durable no-child reservation are registered. Every
+  // outcome the caller can branch on
   // synchronously (validation 4xx, admission 409/429, typed-confirm 412, CLI-missing 503, force-stop
   // 409) has already been decided above. The readiness gate and the spawn were ALWAYS async state to
   // the client: a gate-blocked launch returns this exact same {runId, preflight} shape, and the gate's
@@ -1801,17 +2424,92 @@ async function continueLaunch(run: RunState): Promise<void> {
     // runs). A finalized run is never revived or spawned — mirrors finalizeRunOnClose's endedAt guard.
     if (run.endedAt !== undefined) return
     if (run.readiness && run.readiness.overall !== 'clean') {
-      run.status = 'awaiting-readiness-decision'
-      run.deferredSpawn = () => spawnEngine(run)
-      emit(run, { type: 'readiness-blocked', runId: run.runId, report: run.readiness, ts: Date.now() })
+      if (run.user === 'auto') {
+        if (automaticReadinessAction(run.readiness) === 'stop') {
+          emit(run, {
+            type: 'run-error', runId: run.runId, status: 'incomplete', reason: 'automatic_readiness_blocked',
+            message: 'Automatic update paused because required source data is missing or unreadable.', ts: Date.now(),
+          })
+          finishBeforeEngineSpawn(run, 'incomplete')
+          return
+        }
+        // A degraded report contains no hard blocker. Continue with the engine's normal evidence caps;
+        // do not write a human override trace for a decision no human made.
+        run.status = 'running'
+      } else {
+        run.status = 'awaiting-readiness-decision'
+        run.deferredSpawn = () => spawnEngine(run)
+        emit(run, { type: 'readiness-blocked', runId: run.runId, report: run.readiness, ts: Date.now() })
+        return
+      }
+    }
+    const automaticRecovery = automaticRecoveryByRun.get(run)
+    // The intent is deliberately NOT launch authority. It only proves an interrupted server-side carry
+    // transaction may be reconstructed by the exact automatic-call ledger. A generic full/resume must
+    // never start against that half-staged tree and write manual/model bytes the retry would replace.
+    if (!automaticRecovery && run.swarmId === RESEARCH_SWARM_ID
+        && (run.kind === 'full' || run.kind === 'rerun') && run.runRoot
+        && fs.existsSync(path.join(REPO_ROOT, run.runRoot, SCOPED_STAGE_INTENT_FILE))) {
+      emit(run, {
+        type: 'run-error', runId: run.runId, status: 'incomplete', reason: 'intake_plan_changed',
+        message: 'This run root is reserved by an interrupted automatic call staging transaction.', ts: Date.now(),
+      })
+      finishBeforeEngineSpawn(run, 'incomplete')
       return
+    }
+    if (automaticRecovery) {
+      try {
+        if (await recoverCompletedAutomaticCallPublication(automaticRecovery)) {
+          emit(run, { type: 'run-activity', runId: run.runId, tool: 'Automatic call recovery', target: 'Already shared', ts: Date.now() })
+          finishBeforeEngineSpawn(run, 'done')
+          return
+        }
+      } catch (error: any) {
+        emit(run, {
+          type: 'run-error', runId: run.runId, status: 'incomplete', reason: 'publication_pending',
+          message: `The completed call still needs to be shared (${String(error?.message || error)}).`, ts: Date.now(),
+        })
+        finishBeforeEngineSpawn(run, 'incomplete')
+        return
+      }
+      const stage = inspectAutomaticCallRecoveryWorktree(automaticRecovery)
+      if (stage === 'none' || stage === 'unsafe') {
+        emit(run, {
+          type: 'run-error', runId: run.runId, status: 'incomplete', reason: 'intake_plan_changed',
+          message: 'The exact staged automatic call can no longer be recovered safely.', ts: Date.now(),
+        })
+        finishBeforeEngineSpawn(run, 'incomplete')
+        return
+      }
+    }
+    const scheduledReview = scheduledReviewGuardByRun.get(run)
+    if (scheduledReview) {
+      const authority = scheduledReviewAuthority(
+        scheduledReview.runRoot, scheduledReview.ticker, scheduledReview.window,
+      )
+      if (authority === 'settled') {
+        // A manual/legacy review may have completed while readiness was being checked. Treat that as a safe
+        // no-op completion: the exact window is already covered, so no paid process is spawned and the
+        // dispatcher's durable key closes normally.
+        emit(run, { type: 'run-activity', runId: run.runId, tool: 'Scheduled review already completed', target: 'No update needed', ts: Date.now() })
+        finishBeforeEngineSpawn(run, 'done')
+        return
+      }
+      if (authority !== 'due') {
+        emit(run, {
+          type: 'run-error', runId: run.runId, status: 'incomplete', reason: 'review_authority_unavailable',
+          message: 'The scheduled review could not be checked safely. It will retry automatically.', ts: Date.now(),
+        })
+        finishBeforeEngineSpawn(run, 'incomplete')
+        return
+      }
     }
     await spawnEngine(run)
   } catch (e: any) {
     // spawnEngine already emitted run-error + finalized on its own throw — only clean up if it didn't
     if (run.endedAt === undefined) {
       emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: 'launch_failed', message: String(e?.message || e), ts: Date.now() })
-      finishRun(run, 'error')
+      finishBeforeEngineSpawn(run, 'error')
     }
   }
 }
@@ -1829,9 +2527,28 @@ async function continueLaunch(run: RunState): Promise<void> {
 // Keys set in the REAL environment (launchd plist / shell) aren't in providerEnvKeys, so they pass through
 // regardless — this only matters for the providers.env path.
 const CLAUDE_AUTH_ENV_KEYS = new Set(['ANTHROPIC_API_KEY', 'CLAUDE_CODE_OAUTH_TOKEN'])
-export function childEnv(): NodeJS.ProcessEnv {
+const AUTOMATIC_RECOVERY_ENV = {
+  root: 'ENGINE_AUTOMATIC_RECOVERY_ROOT',
+  source: 'ENGINE_AUTOMATIC_RECOVERY_SOURCE_ROOT',
+  plan: 'ENGINE_AUTOMATIC_RECOVERY_PLAN_PATH',
+  planSha: 'ENGINE_AUTOMATIC_RECOVERY_PLAN_SHA256',
+  fingerprint: 'ENGINE_AUTOMATIC_RECOVERY_DECISION_FINGERPRINT',
+} as const
+
+export function childEnv(run?: RunState): NodeJS.ProcessEnv {
   const e: NodeJS.ProcessEnv = { ...process.env }
   for (const k of providerEnvKeys) if (!CLAUDE_AUTH_ENV_KEYS.has(k)) delete e[k]
+  // Optional exact-root mode is internal. Never inherit a shell/server spoof into ordinary runs; attach
+  // the five exact immutable bindings only for a RunState admitted through automaticRecovery.
+  for (const key of Object.values(AUTOMATIC_RECOVERY_ENV)) delete e[key]
+  const recovery = run ? automaticRecoveryByRun.get(run) : undefined
+  if (recovery) {
+    e[AUTOMATIC_RECOVERY_ENV.root] = recovery.targetRunRoot
+    e[AUTOMATIC_RECOVERY_ENV.source] = recovery.sourceRunRoot
+    e[AUTOMATIC_RECOVERY_ENV.plan] = recovery.planPath
+    e[AUTOMATIC_RECOVERY_ENV.planSha] = recovery.planSha256
+    e[AUTOMATIC_RECOVERY_ENV.fingerprint] = recovery.sourceDecisionFingerprint
+  }
   return e
 }
 
@@ -1866,6 +2583,16 @@ async function spawnEngine(run: RunState): Promise<void> {
         || !intakeReceiptIntentStillActionable(
           run.swarmId, run.subjectId, run.runRoot, run.module, run.agent, receipt,
         ))) return 'intake_plan_changed'
+    const automaticRecovery = automaticRecoveryByRun.get(run)
+    if (!automaticRecovery && run.swarmId === RESEARCH_SWARM_ID
+        && (run.kind === 'full' || run.kind === 'rerun') && run.runRoot
+        && fs.existsSync(path.join(REPO_ROOT, run.runRoot, SCOPED_STAGE_INTENT_FILE))) {
+      return 'intake_plan_changed'
+    }
+    if (automaticRecovery) {
+      const stage = inspectAutomaticCallRecoveryWorktree(automaticRecovery)
+      if (stage === 'none' || stage === 'unsafe') return 'intake_plan_changed'
+    }
     const owner = intakeOwnerByRun.get(run)
     if (owner) {
       if (owner.swarm !== run.swarmId) return 'intake_owner_changed'
@@ -1908,7 +2635,7 @@ async function spawnEngine(run: RunState): Promise<void> {
       message = `The owner of data/${run.subjectId} could not be verified. No analysis was started.`
     }
     emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message, ts: Date.now() })
-    finishRun(run, 'error')
+    finishBeforeEngineSpawn(run, 'error')
   }
   const beforeArgs = changedLaunchBinding()
   if (beforeArgs) {
@@ -1921,7 +2648,7 @@ async function spawnEngine(run: RunState): Promise<void> {
     // Guard the terminal emit on not-already-finalized: finishRun is idempotent but emit is not.
     if (run.endedAt === undefined) {
       emit(run, { type: 'run-error', runId: run.runId, status: 'cancelled', reason: 'cancelled', ts: Date.now() })
-      finishRun(run, 'cancelled')
+      finishBeforeEngineSpawn(run, 'cancelled')
     }
     return
   }
@@ -1933,11 +2660,22 @@ async function spawnEngine(run: RunState): Promise<void> {
     stopForChangedBinding(beforeSpawn)
     return
   }
-  let child: ResultPromise
+  // A registry repair/deletion or a previous-server orphan can appear while buildArgs probes the CLI.
+  // Re-read the durable process-group fence at the last synchronous boundary before any paid process.
+  assertNoOrphanEngineChild(run.swarmId, run.subjectId)
+  const leaseToken = engineChildLeaseTokenByRun.get(run)
+  if (!leaseToken) throw new Error('The durable engine child reservation is unavailable; no paid process was started.')
+
+  let child: ResultPromise | null = null
+  let activated = false
   try {
-    child = execa(CLAUDE_BIN, args, {
+    // The detached group leader stops itself before exec. That gives the parent a zero-spend interval in
+    // which it can bind PID/PGID + kernel birth identity to the pre-ACK token atomically. Only SIGCONT after
+    // the durable write lets /bin/sh exec the real Claude CLI; a parent crash before then leaves a harmless
+    // stopped wrapper which the next server identifies and kills.
+    child = execa('/bin/sh', ['-c', 'kill -STOP "$$"; exec "$@"', 'engine-child', CLAUDE_BIN, ...args], {
       cwd: REPO_ROOT,
-      env: childEnv(), // news-provider secrets scrubbed — see childEnv()
+      env: childEnv(run), // secrets scrubbed; exact recovery bindings attached only to this admitted run
       stdin: 'ignore',
       stdout: 'pipe',
       stderr: 'pipe',
@@ -1949,12 +2687,36 @@ async function spawnEngine(run: RunState): Promise<void> {
       // tracks the child for streaming + finalize, and on cancel we group-kill it explicitly.
       detached: true,
     })
+    if (!child.pid) throw new Error('spawned engine wrapper has no process id')
+    const activeLease = engineChildLeaseRegistry().activate(leaseToken, child.pid, child.pid)
+    activated = true
+    if (!engineChildLeaseRegistry().waitUntilStopped(activeLease)) {
+      throw new Error('engine wrapper did not reach its fenced pre-exec stop')
+    }
   } catch (e: any) {
+    if (child) {
+      run.child = child
+      const cleanup = () => {
+        const token = forgetEngineChildLease(run)
+        if (!token) return
+        try {
+          if (activated) engineChildLeaseRegistry().releaseAfterClose(token)
+          else engineChildLeaseRegistry().releaseReservation(token)
+        } catch (error) { console.error('[engine-child-lease] failed-spawn cleanup could not update registry', error) }
+      }
+      child.then(cleanup).catch(cleanup)
+      if (child.pid) {
+        try { process.kill(-child.pid, 'SIGKILL') } catch { try { child.kill('SIGKILL') } catch {} }
+      }
+    } else {
+      releasePreSpawnEngineChildReservation(run)
+    }
     emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: 'spawn_failed', message: String(e?.message || e), ts: Date.now() })
     finishRun(run, 'error')
     throw Object.assign(new Error('Failed to spawn claude CLI'), { statusCode: 500 })
   }
 
+  if (!child || !child.pid) throw new Error('The engine child could not be fenced safely.')
   run.child = child
   run.status = 'running'
   emit(run, { type: 'run-started', runId: run.runId, kind: run.kind, ticker: run.ticker, runRoot: run.runRoot, willCommitToMain: run.willCommitToMain, ...(run.swarmId !== 'research' ? { swarm: run.swarmId } : {}), ts: Date.now() })
@@ -1983,6 +2745,7 @@ async function spawnEngine(run: RunState): Promise<void> {
   })
 
   const onClose = (res: any) => {
+    releaseEngineChildAfterClose(run)
     if (buf.trim()) {
       handleStreamLine(run, buf)
       buf = ''
@@ -1999,6 +2762,12 @@ async function spawnEngine(run: RunState): Promise<void> {
     finalizeRunOnClose(run, res, stderr)
   }
   child.then(onClose).catch(onClose)
+  try {
+    process.kill(-child.pid, 'SIGCONT')
+  } catch (error) {
+    try { process.kill(-child.pid, 'SIGKILL') } catch { try { child.kill('SIGKILL') } catch {} }
+    console.error('[engine-child-lease] could not continue the fenced engine process group', error)
+  }
 }
 
 // Kill the run's WHOLE process tree promptly. The detached spawn put claude in its own process group, so
@@ -2057,7 +2826,7 @@ export async function cancel(runId: string): Promise<boolean> {
     }
     // parked at the gate (readiness-checking / awaiting-readiness-decision): finalize directly here.
     emit(run, { type: 'run-error', runId, status: 'cancelled', reason: 'cancelled_at_readiness_gate', ts: Date.now() })
-    finishRun(run, 'cancelled')
+    finishBeforeEngineSpawn(run, 'cancelled')
     return true
   }
 
@@ -2104,6 +2873,12 @@ async function runReadinessGate(run: RunState): Promise<void> {
   await checkReadiness(run, false)
 }
 
+/** Plain, deterministic policy for unattended work. Automatic jobs never wait for a button click. */
+export function automaticReadinessAction(report: ReadinessReport | undefined): 'proceed' | 'stop' {
+  if (!report || report.overall === 'clean') return 'proceed'
+  return report.issues.some((issue) => issue.severity === 'blocker') ? 'stop' : 'proceed'
+}
+
 // Resolve a run paused at the data-readiness gate (status awaiting-readiness-decision).
 export async function decideReadiness(
   runId: string,
@@ -2120,7 +2895,7 @@ export async function decideReadiness(
   if (action === 'cancel') {
     emit(run, { type: 'readiness-resolved', runId, action: 'cancel', ts: Date.now() })
     emit(run, { type: 'run-error', runId, status: 'cancelled', reason: 'cancelled_at_readiness_gate', ts: Date.now() })
-    finishRun(run, 'cancelled')
+    finishBeforeEngineSpawn(run, 'cancelled')
     return { ok: true, status: 'cancelled' }
   }
 
@@ -2183,7 +2958,7 @@ async function proceedSpawn(
   void Promise.resolve(run.deferredSpawn?.()).catch((e: any) => {
     if (run.endedAt === undefined) {
       emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: 'spawn_failed', message: String(e?.message || e), ts: Date.now() })
-      finishRun(run, 'error')
+      finishBeforeEngineSpawn(run, 'error')
     }
   })
   return { ok: true, status: 'running' }

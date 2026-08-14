@@ -257,6 +257,8 @@ jobs:
           bash scripts/ops/test-watchdog-cooldown.sh || rc=1
           echo "== test-connector-service-recovery.sh =="
           bash scripts/ops/test-connector-service-recovery.sh || rc=1
+          echo "== test-call-autonomy.sh =="
+          bash scripts/ops/test-call-autonomy.sh || rc=1
           echo "== test-connector-supervisor.py =="
           python3 scripts/ops/test-connector-supervisor.py || rc=1
           exit $rc
@@ -303,6 +305,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # The static Calls snapshot deliberately uses the live server's one corrected ledger serializer.
+      # Install that package too so the build cannot drift back to a second, weaker implementation.
+      - name: Install Calls projection dependencies
+        working-directory: ui/server
+        run: npm ci
+
       - name: Typecheck (tsc --noEmit)
         run: npm run typecheck
 
@@ -310,6 +318,8 @@ jobs:
         run: npm test
 
       - name: Build (vite build)
+        env:
+          ENGINE_PUBLISHED_GIT_REF: HEAD
         run: npm run build
 
   edge:

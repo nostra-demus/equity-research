@@ -107,9 +107,9 @@ assert.match(spawnBody, /currentSharedDataPoolConflict\(run\.swarmId, run\.subje
   'the final paid-process CAS includes generic shared-pool ownership')
 const buildArgs = spawnBody.indexOf('const args = await buildArgs(')
 const finalCas = spawnBody.indexOf('const beforeSpawn = changedLaunchBinding()', buildArgs)
-const paidSpawn = spawnBody.indexOf('child = execa(CLAUDE_BIN', finalCas)
+const paidSpawn = spawnBody.indexOf("child = execa('/bin/sh'", finalCas)
 assert.ok(buildArgs >= 0 && buildArgs < finalCas && finalCas < paidSpawn,
-  'shared-pool ownership is rechecked after the async flag probe and immediately before paid execa')
+  'shared-pool ownership is rechecked after the async flag probe and immediately before the fenced engine wrapper')
 const targetLookup = spawnBody.indexOf('const target = sharedPoolTargetByRun.get(run)')
 const targetOwners = spawnBody.indexOf('listFinishedIntakeOwners(target.subject)', targetLookup)
 assert.ok(targetLookup >= 0 && targetOwners > targetLookup && targetOwners < buildArgs,

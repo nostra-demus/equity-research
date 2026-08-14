@@ -7,25 +7,20 @@
 // writes the scoped rerun plan, and the IntakeDock shows the affected orbs. This module only builds
 // the note; it never launches anything.
 //
-// MANUAL-FIRST by design. The reader's "Send to research" action is the primary path: the HUMAN
-// asserts the event is relevant to a subject (a sector story like "Dubai housing sales fell 16%"
-// carries no EMAAR ticker, but the Emaar analyst knows it's evidence), and the click is the §24
-// consent for the follow-up intake analysis. Every send is recorded in the bridge ledger
-// (.state/research-bridge.ndjson: event, ticker, score, headline, who) — that ledger is the
-// TRAINING CORPUS for the eventual automatic mode: what the humans chose to route is the ground
-// truth for what auto-routing should learn to send, so no garbage gets in while it learns.
-// The automatic ticker-match path exists but ships OFF — opt in with SCREENER_RESEARCH_BRIDGE=1
-// once the manual ledger says it can be trusted.
+// Exact ticker and exact canonical-name matches can route automatically when this process is the
+// configured bridge owner. The reader's "Send to research" action remains an optional way to add a
+// sector story or another event whose issuer link needs human judgment. Every route is recorded in
+// the bridge ledger (.state/research-bridge.ndjson: event, ticker, score, headline, who).
 //
 // Noise discipline: one note per STORY per subject — syndicated copies of the same story (shared
 // `dedup_group`, different event_ids across outlets) dedupe against the notes already in the pool,
 // so re-sending the CBS copy of a story already routed via the Globe & Mail is a no-op that points
 // at the existing note.
 //
-// Truth discipline: the note self-declares CLAUDE.md §4 tier 10 (dated web source, unverified) in its
-// header — the same self-declaration the handoff memo makes at tier 9 — so /research:intake's tier
-// rules (a single uncorroborated web claim defaults to note_only) apply unchanged. The engine's own
-// enrichment read is included only when COMPLETE, and labelled as inference, never as the source.
+// Truth discipline: an event already classified by the source firewall as a primary filing keeps
+// that primary provenance and its official link. Every other event self-declares CLAUDE.md §4 tier
+// 10 (dated web source, unverified), so a single uncorroborated web claim defaults to note_only. The
+// engine's own enrichment read is included only when COMPLETE and labelled inference, never source.
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -63,6 +58,20 @@ const NOTE_RE = /^screener_event_(EVT-[0-9a-f]{12})\.md$/
 export function eventNoteName(eventId: string): string {
   if (!EVENT_ID_RE.test(eventId)) throw Object.assign(new Error('bad event id'), { statusCode: 400 })
   return `screener_event_${eventId}.md`
+}
+
+function resolveRealSubjectPool(dataDir: string, ticker: string): string | null {
+  try {
+    const segment = safeSubjectSegment(ticker)
+    const root = fs.realpathSync(dataDir)
+    const requested = path.join(dataDir, segment)
+    const stat = fs.lstatSync(requested)
+    if (stat.isSymbolicLink() || !stat.isDirectory()) return null
+    const real = fs.realpathSync(requested)
+    return path.dirname(real) === root && path.basename(real) === segment ? real : null
+  } catch {
+    return null
+  }
 }
 
 // ---- wire lookup (server-authoritative, anti-poisoning) ------------------------------------------
@@ -168,14 +177,25 @@ export function renderEventNote(o: RenderNoteOpts): string {
   // the article's own publication date beats the engine's triage time for the citation (§5); fall
   // back to the wire timestamp, which is when the scanner READ it, not when the outlet published it
   const citeDate = (enr?.published || '').slice(0, 10) || String(item.ts || '').slice(0, 10)
+  const primaryFiling = item.source_tier === 'primary_filing'
+  const evidenceHeader = primaryFiling
+    ? [
+        '> Official filing / exchange-disclosure alert (CLAUDE.md §4 primary evidence, tier 1–3).',
+        '> The stored headline and lede identify the disclosure; the URL below is the primary-source locator.',
+        '> A rerun may use this alert to select the affected orb, but that orb must open and cite the linked',
+        '> filing or attachment before changing any investment conclusion.',
+      ]
+    : [
+        '> Engine-routed news event from the screener wire — treat as a dated web-sourced input',
+        '> (CLAUDE.md §4 tier 10: web source, clearly dated, labelled unverified). Not a filing.',
+        '> Any claim below that would move a conclusion must first be corroborated against a filing',
+        '> or a second independent source (frameworks/INTAKE.md tier discipline).',
+      ]
 
   const lines: string[] = [
     `# Wire event: ${headline}`,
     '',
-    '> Engine-routed news event from the screener wire — treat as a dated web-sourced input',
-    '> (CLAUDE.md §4 tier 10: web source, clearly dated, labelled unverified). Not a filing.',
-    '> Any claim below that would move a conclusion must first be corroborated against a filing',
-    '> or a second independent source (frameworks/INTAKE.md tier discipline).',
+    ...evidenceHeader,
     '',
     `- Event id: ${item.event_id}`,
     `- Source: ${cap(item.source_name, 120) || 'unknown'}${item.domain ? ` (${cap(item.domain, 120)})` : ''} — via ${cap(item.via, 20) || 'wire'}`,
@@ -229,8 +249,10 @@ export function renderEventNote(o: RenderNoteOpts): string {
   lines.push(
     '',
     '---',
-    `Cite as: \`Web: ${cap(item.source_name, 120) || 'wire source'}, ${citeDate} (${item.event_id}, indicative, unverified)\`.`,
-    'Only the quoted Headline / Story blocks are verbatim from the wire record; the enrichment section is the engine’s own derived read. The article, not this note, is the source (§5).',
+    primaryFiling
+      ? `Primary-source locator: \`${cap(item.source_name, 120) || 'official filing source'}, ${citeDate} (${item.event_id})\`. Open the URL/attachment and cite the disclosure's real section or page; do not cite this routing note as the filing.`
+      : `Cite as: \`Web: ${cap(item.source_name, 120) || 'wire source'}, ${citeDate} (${item.event_id}, indicative, unverified)\`.`,
+    'Only the quoted Headline / Story blocks are verbatim from the stored source record; the enrichment section is the engine’s own derived read. The linked source, not this note, is the evidence (§5).',
   )
   return lines.join('\n') + '\n'
 }
@@ -243,6 +265,49 @@ function audit(stateDir: string, rec: Record<string, unknown>): void {
     fs.appendFileSync(path.join(stateDir, 'research-bridge.ndjson'), JSON.stringify(rec) + '\n')
   } catch {
     // the audit line is best-effort — losing it never fails the routing itself
+  }
+}
+
+function validRoutedNote(file: string, dir: string, ticker: string, eventId: string): boolean {
+  try {
+    const stat = fs.lstatSync(file)
+    if (stat.isSymbolicLink() || !stat.isFile() || stat.size < 200) return false
+    const realDir = fs.realpathSync(dir)
+    const real = fs.realpathSync(file)
+    if (path.dirname(real) !== realDir || path.basename(real) !== path.basename(file)) return false
+    const text = fs.readFileSync(real, 'utf8')
+    const evidenceMarker = text.includes('CLAUDE.md §4 tier 10')
+      || text.includes('CLAUDE.md §4 primary evidence, tier 1–3')
+    const citationMarker = text.includes(`(${eventId}, indicative, unverified)`)
+      || text.includes(`(${eventId})\`. Open the URL/attachment`)
+    return text.startsWith('# Wire event: ')
+      && evidenceMarker
+      && text.includes(`- Event id: ${eventId}`)
+      && text.includes(`- Routed to ${ticker}:`)
+      && text.includes('## Headline (verbatim)')
+      && citationMarker
+  } catch {
+    return false
+  }
+}
+
+function repairRoutedNote(file: string, body: string): void {
+  const temp = `${file}.${process.pid}.${Date.now()}.tmp`
+  let fd: number | null = null
+  try {
+    fd = fs.openSync(temp, 'wx', 0o600)
+    fs.writeFileSync(fd, body, 'utf8')
+    fs.fsyncSync(fd)
+    fs.closeSync(fd)
+    fd = null
+    fs.renameSync(temp, file)
+    try {
+      const dir = fs.openSync(path.dirname(file), 'r')
+      try { fs.fsyncSync(dir) } finally { fs.closeSync(dir) }
+    } catch { /* directory fsync is not available on every filesystem */ }
+  } finally {
+    if (fd !== null) fs.closeSync(fd)
+    try { fs.rmSync(temp, { force: true }) } catch { /* renamed away */ }
   }
 }
 
@@ -261,7 +326,9 @@ function findClusterDuplicate(dir: string, seg: string, item: FeedItem, noteName
     const m = NOTE_RE.exec(f)
     if (!m || f === noteName) continue
     try {
-      if (fs.readFileSync(path.join(dir, f), 'utf8').includes(`- Story cluster: ${cluster}`)) {
+      const candidate = path.join(dir, f)
+      if (validRoutedNote(candidate, dir, seg, m[1])
+          && fs.readFileSync(candidate, 'utf8').includes(`- Story cluster: ${cluster}`)) {
         return { path: `data/${seg}/${f}`, already: true, duplicateOf: m[1] }
       }
     } catch {
@@ -285,13 +352,20 @@ export function bridgeEventToSubject(o: {
   const seg = safeSubjectSegment(o.ticker) // throws 400 on anything that isn't provably one path segment
   if (isReservedDataFolder(seg)) throw Object.assign(new Error('reserved data folder'), { statusCode: 400 })
   const noteName = eventNoteName(o.item.event_id) // throws 400 on a malformed event id
-  const dir = path.join(o.opts.dataDir, seg)
-  if (!fs.existsSync(dir) || !fs.statSync(dir).isDirectory()) {
+  const dir = resolveRealSubjectPool(o.opts.dataDir, seg)
+  if (!dir) {
     throw Object.assign(new Error(`unknown subject ${seg} — no data/${seg}/ pool`), { statusCode: 400 })
   }
   const fp = path.join(dir, noteName)
   const rel = `data/${seg}/${noteName}`
-  if (fs.existsSync(fp)) return { path: rel, already: true }
+  if (fs.existsSync(fp)) {
+    if (validRoutedNote(fp, dir, seg, o.item.event_id)) return { path: rel, already: true }
+    const stat = fs.lstatSync(fp)
+    if (stat.isSymbolicLink() || !stat.isFile()) throw new Error('saved company-news note is unsafe')
+    const repaired = renderEventNote({ item: o.item, ticker: seg, mode: o.mode, user: o.user, enrichment: o.enrichment, matchedBy: o.matchedBy, matchedName: o.matchedName, now: o.opts.now })
+    repairRoutedNote(fp, repaired)
+    return { path: rel, already: false }
+  }
   const dup = findClusterDuplicate(dir, seg, o.item, noteName)
   if (dup) return dup
 
@@ -310,11 +384,18 @@ export function bridgeEventToSubject(o: {
   try {
     fd = fs.openSync(fp, 'wx')
   } catch (e: any) {
-    if (e?.code === 'EEXIST') return { path: rel, already: true }
+    if (e?.code === 'EEXIST') {
+      if (validRoutedNote(fp, dir, seg, o.item.event_id)) return { path: rel, already: true }
+      const stat = fs.lstatSync(fp)
+      if (stat.isSymbolicLink() || !stat.isFile()) throw new Error('saved company-news note is unsafe')
+      repairRoutedNote(fp, md)
+      return { path: rel, already: false }
+    }
     throw e
   }
   try {
-    fs.writeSync(fd, md)
+    fs.writeFileSync(fd, md, 'utf8')
+    fs.fsyncSync(fd)
   } finally {
     fs.closeSync(fd)
   }
@@ -419,12 +500,12 @@ export function matchTrackedSubjects(
     if (!isValidTicker(t) || isReservedDataFolder(t)) continue
     if (!canWriteSubject(t)) continue
     try {
-      if (fs.statSync(path.join(dataDir, t)).isDirectory()) out.push(t)
+      if (resolveRealSubjectPool(dataDir, t)) out.push(t)
     } catch {
       /* not a tracked subject */
     }
   }
-  if (out.length || !subjectNames) return out.sort()
+  if (!subjectNames) return out.sort()
 
   // NAME FALLBACK — only when no ticker matched, so a good ticker match is never overridden.
   // The wire's enrichment guesses companies from the headline and often names the company WITHOUT a
@@ -449,7 +530,7 @@ export function matchTrackedSubjects(
       .map((c) => normaliseCompanyName(String(c?.name || '')))
       .filter((n) => n.length >= 2),
   )
-  if (!wanted.size) return []
+  if (!wanted.size) return out.sort()
   const named: string[] = []
   for (const [t, name] of Object.entries(subjectNames)) {
     if (!isValidTicker(t) || isReservedDataFolder(t)) continue
@@ -461,10 +542,10 @@ export function matchTrackedSubjects(
     // would otherwise be handed a subject bridgeEventToSubject then rejects with "no data/<T>/ pool".
     // Asymmetric strictness between the two paths is a bug waiting for its caller.
     try {
-      if (fs.statSync(path.join(dataDir, t)).isDirectory()) named.push(t.toUpperCase())
+      if (resolveRealSubjectPool(dataDir, t)) named.push(t.toUpperCase())
     } catch { /* not a tracked subject */ }
   }
-  return named.sort()
+  return [...new Set([...out, ...named])].sort()
 }
 
 /** Strip a company name to the part that identifies it, so a wire headline's "Amazon" matches a pool's
@@ -534,14 +615,13 @@ export function autoBridgeItem(
   const written: string[] = []
   try {
     if (!shouldAutoBridge(item)) return written
-    // matchTrackedSubjects never mixes the two passes within one call: it returns the ticker matches alone
-    // when there are any, and only falls through to the name pass (all-or-nothing) when there are none — so
-    // one boolean covers every subject in `matched`, no per-subject re-derivation needed.
+    // Exact ticker matches and exact canonical-name matches for ticker-less company rows are both safe.
+    // Union them so one well-tagged acquirer cannot suppress an untagged target named in the same event.
+    // A non-empty but wrong ticker never enters the name set (matchTrackedSubjects keeps that guard).
     const canWrite = opts.canAutoWriteSubject ?? researchSolelyOwnsSharedPool
     const viaTicker = matchTrackedSubjects(item, opts.dataDir, undefined, canWrite)
-    const matched = viaTicker.length ? viaTicker : matchTrackedSubjects(item, opts.dataDir, subjectNames, canWrite)
+    const matched = matchTrackedSubjects(item, opts.dataDir, subjectNames, canWrite)
     if (!matched.length) return written
-    const byName = !viaTicker.length && matched.length > 0
     let enrichment: EventEnrichment | null = null
     try {
       enrichment = getEnrichment?.() ?? null
@@ -550,6 +630,7 @@ export function autoBridgeItem(
     }
     for (const ticker of matched) {
       try {
+        const byName = !viaTicker.includes(ticker)
         const res = bridgeEventToSubject({
           item, ticker, mode: 'auto', user: 'auto', userVia: 'local', enrichment,
           matchedBy: byName ? 'name' : 'ticker',

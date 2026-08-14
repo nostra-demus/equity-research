@@ -4,7 +4,61 @@ argument-hint: TICKER
 allowed-tools: Read, Write, Glob, Bash, Task
 ---
 
-You are the master orchestrator for a self-discovering multi-module equity research workflow. The ticker is `$ARGUMENTS`.
+You are the master orchestrator for a self-discovering multi-module equity research workflow. Parse
+`$ARGUMENTS` as one required `<TICKER>` token and, only when supplied, one optional
+`<EXACT_RECOVERY_RUN_ROOT>` token. Reject any other arity. The optional root must exactly equal
+`analyses/<TICKER>_YYYY-MM-DD`, already exist as a real non-symlink directory, and is an internal crash-
+recovery target selected by the server; it is never a request to create or overwrite an arbitrary run.
+
+When the optional exact root is present, prove the server binding **before any write or Task call**. Run
+the following check with the two parsed tokens substituted literally. Any failure is a hard stop. Ordinary
+interactive `/research:full` invocations do not receive these environment bindings and therefore cannot
+select a historical root with hindsight:
+
+```bash
+python3 - "<TICKER>" "<EXACT_RECOVERY_RUN_ROOT>" <<'PY'
+import hashlib, json, os, pathlib, re, sys
+from scripts.canonical_json import canonical_json_bytes
+
+ticker, target = sys.argv[1:]
+source = os.environ.get('ENGINE_AUTOMATIC_RECOVERY_SOURCE_ROOT', '')
+plan_path = os.environ.get('ENGINE_AUTOMATIC_RECOVERY_PLAN_PATH', '')
+plan_sha = os.environ.get('ENGINE_AUTOMATIC_RECOVERY_PLAN_SHA256', '')
+fingerprint = os.environ.get('ENGINE_AUTOMATIC_RECOVERY_DECISION_FINGERPRINT', '')
+if os.environ.get('ENGINE_AUTOMATIC_RECOVERY_ROOT') != target:
+    raise SystemExit('FULL-RECOVERY: missing server root authority')
+if not re.fullmatch(rf'analyses/{re.escape(ticker)}_\d{{4}}-\d{{2}}-\d{{2}}', target):
+    raise SystemExit('FULL-RECOVERY: unsafe target')
+if not re.fullmatch(rf'analyses/{re.escape(ticker)}_\d{{4}}-\d{{2}}-\d{{2}}', source):
+    raise SystemExit('FULL-RECOVERY: unsafe source')
+if not re.fullmatch(r'sha256:[a-f0-9]{64}', plan_sha) or not re.fullmatch(r'sha256:[a-f0-9]{64}', fingerprint):
+    raise SystemExit('FULL-RECOVERY: invalid immutable identity')
+repo = pathlib.Path.cwd().resolve(strict=True)
+target_real = (repo / target).resolve(strict=True)
+source_real = (repo / source).resolve(strict=True)
+if target_real.parent != (repo / 'analyses').resolve(strict=True) or source_real.parent != target_real.parent:
+    raise SystemExit('FULL-RECOVERY: run root escaped analyses')
+source_plan = (repo / plan_path).resolve(strict=True)
+if source_plan.parent != source_real / 'intake' or source_plan.name != pathlib.Path(plan_path).name:
+    raise SystemExit('FULL-RECOVERY: source plan escaped its run')
+staged_plan = (target_real / 'intake' / source_plan.name).resolve(strict=True)
+if staged_plan.parent != target_real / 'intake':
+    raise SystemExit('FULL-RECOVERY: staged plan escaped its run')
+with source_plan.open(encoding='utf-8') as fh: authored = json.load(fh)
+with staged_plan.open(encoding='utf-8') as fh: staged = json.load(fh)
+def digest(value):
+    value = dict(value)
+    value.pop('staged_for_scoped_rerun', None)
+    return 'sha256:' + hashlib.sha256(canonical_json_bytes(value)).hexdigest()
+if (authored.get('staged_for_scoped_rerun') is True or staged.get('staged_for_scoped_rerun') is not True
+        or authored.get('run_root') != source or staged.get('run_root') != source
+        or authored.get('decision_fingerprint') != fingerprint
+        or staged.get('decision_fingerprint') != fingerprint
+        or digest(authored) != plan_sha or digest(staged) != plan_sha):
+    raise SystemExit('FULL-RECOVERY: exact staged plan binding changed')
+print('FULL-RECOVERY: exact server binding verified')
+PY
+```
 
 This orchestrator:
 1. Discovers modules dynamically (does not hardcode `business-model` / `earnings` / any future module).
@@ -12,7 +66,7 @@ This orchestrator:
 3. Runs each module's pipeline inline, using the shared pipeline defined in `frameworks/MODULE_PIPELINE.md`.
 4. Continues past per-module fail-fast aborts; aborts the whole run only if **every** module aborts.
 5. Invokes the master synthesizer once all modules finish, completes the integrity audits and immutable Ideas admission, then generates two derived output tiers beside the deep-dive thesis — a ~10-page plain-English colleague `memo.md` and a deterministic, lossless `audit_dossier.md` (every agent and sub-agent output concatenated). Three tiers from one run: memo (share) → `final_thesis.md` (deep dive) → `audit_dossier.md` (audit everything).
-6. Makes **two** commits on `main` per run (per repo `CLAUDE.md` git policy: one run-artifacts commit, then one metadata-backfill commit that fills in the commit SHA of the first one). Per-module commits do NOT happen under this orchestrator — they only happen when a module command is invoked standalone.
+6. Makes **one** path-confined commit on `main` per run (per repo `CLAUDE.md` git policy). The commit SHA is reported by `commit-run.sh` and is already reconstructable from Git; it is not written back into its own input tree. Per-module commits do NOT happen under this orchestrator — they only happen when a module command is invoked standalone.
 
 Execute the applicable steps below in order. The only skips are the explicit sealed-recovery routes in
 step 3A; they protect immutable research rather than weakening the workflow.
@@ -21,7 +75,9 @@ step 3A; they protect immutable research rather than weakening the workflow.
 
 ## 1. Resolve today's date
 
-Run `date +%Y-%m-%d` via Bash and capture the result as `<DATE>`. Use this exact string everywhere `<DATE>` appears below.
+Without an exact recovery root, run `date +%Y-%m-%d` via Bash and capture the result as `<DATE>`. With an
+exact recovery root, derive `<DATE>` only from its final `YYYY-MM-DD` suffix. Use this exact string
+everywhere `<DATE>` appears below.
 
 Also capture `<STARTED_AT>` from `date -u +%Y-%m-%dT%H:%M:%SZ` for the metadata file.
 
@@ -29,23 +85,27 @@ Also capture `<STARTED_AT>` from `date -u +%Y-%m-%dT%H:%M:%SZ` for the metadata 
 
 ## 2. Verify the data pool
 
-Check that `data/$ARGUMENTS/` exists and contains at least one file:
+Check that `data/<TICKER>/` exists and contains at least one file:
 
 ```
-ls -1 data/$ARGUMENTS/ 2>/dev/null | head -n 1
+ls -1 data/<TICKER>/ 2>/dev/null | head -n 1
 ```
 
-If the directory is missing or empty, STOP. Tell the user: "No data found at `data/$ARGUMENTS/`. Populate the Drive folder for this ticker and re-run." Do not proceed to any later step.
+If the directory is missing or empty, STOP. Tell the user: "No data found at `data/<TICKER>/`. Populate the Drive folder for this ticker and re-run." Do not proceed to any later step.
 
 ---
 
 ## 3. Create the run root folder
 
+Without an exact recovery root only:
+
 ```
-mkdir -p "analyses/${ARGUMENTS}_<DATE>"
+mkdir -p "analyses/<TICKER>_<DATE>"
 ```
 
-Capture the path `analyses/${ARGUMENTS}_<DATE>` as `<RUN_ROOT>`. Every module and the master synthesizer will write inside this folder. Use `${ARGUMENTS}_<DATE>` (with braces) in Bash to avoid the `$ARGUMENTS_<DATE>` shell-parse ambiguity.
+Without an exact recovery root, capture `analyses/<TICKER>_<DATE>` as `<RUN_ROOT>`. With an exact recovery
+root, set `<RUN_ROOT>` to that already-existing path and do not create a different dated folder. Every
+module and the master synthesizer writes inside this one bound folder.
 
 ### 3A. Detect and protect a sealed run
 
@@ -63,19 +123,73 @@ Before writing metadata or dispatching any paid research task, inspect `<RUN_ROO
   `python3 scripts/create_idea_projection_manifest.py <RUN_ROOT>` and require `status: existing`. If that
   validation fails, record `IDEA-ADMISSION: error` and stop before market capture, re-projection, the
   freezer, or derived-output recovery; preserve the bytes and use a new dated run. Do not rerun modules,
-  synthesis, deterministic stamps, or audits. Skip to step 10B.4 and classify the assessment before doing
-  anything else:
+  synthesis, deterministic stamps, or audits. Run `python3 scripts/research_paid_completion.py
+  projection-recover <RUN_ROOT>` before inspecting the assessment. That helper is the sole recovery
+  writer: it validates a fsynced attempt whose unique staged output binds the exact manifest and the
+  still-byte-identical preliminary wrapper, then exact-hash promotes a valid staged final output or writes
+  the deterministic fail-closed fallback for an invalid staged Task output. It never attributes canonical
+  bytes by mtime. Unknown/changed canonical bytes remain untouched and are a hard stop. Skip to step 10B.4
+  and classify the assessment before doing anything else:
   - a schema-valid final `candidate`, newly timestamped no earlier than the manifest, may continue directly
     to parse/schema/freezer only when its canonical market snapshot exists and matches the manifest;
   - a schema-valid final `not_assessable` wrapper, newly timestamped no earlier than the manifest and no
     longer carrying the exact preliminary pending-manifest gap, continues directly to parse/schema/freezer.
     It does not require a market snapshot: snapshot unavailability may be the honest final gap;
-  - only the exact preliminary `not_assessable` wrapper with its pre-manifest timestamp and no market
-    snapshot may run the final re-projection Task; and
+  - only the exact preliminary `not_assessable` wrapper with its pre-manifest timestamp may run the final
+    re-projection Task. Require `projection-recover` to report `preliminary_armed` and use its exact
+    `output_path`; for `preliminary_unarmed`, first run `projection-arm` and use that exact `output_path`.
+    Never recompute the attempt path. If `idea_market_evidence.json` already exists (the process may have died after the
+    canonical snapshot rename but before replacing the wrapper), first run
+    `python3 scripts/market_prices.py --write-idea-evidence <TICKER> <RUN_ROOT>` and require its immutable
+    manifest/listing/digest validation to succeed. If the snapshot is absent, the final Task creates it in
+    the ordinary path. An unreadable, mismatched, or non-canonical existing snapshot is a hard stop; and
   - any other combination records `IDEA-ADMISSION: error`, preserves the bytes, and requires a new dated run.
   Under the atomic sequence in step 10B.4, any completed semantic gate already has
   `idea_admission.json`; if that file appears at any point, stop this branch and restart under
   `admission_sealed` rather than re-projecting.
+- Else, in an exact recovery root only, if either master attempt/promotion marker exists, OR neither paid
+  completion seal exists and any of `final_thesis.md`, `decision_record.json`, or `idea_3_6m.json` exists,
+  run `python3
+  scripts/research_paid_completion.py master-recover <RUN_ROOT>` **before** terminal-pair recovery. A
+  `promoted` / `complete_current` result continues immediately into the following paid-seal/terminal-pair branch
+  against the now-canonical trio (do not select this master branch a second time). A
+  `terminal_pair_recovery` result means the schema-valid canonical trio is paid work but has no completion
+  receipt matching today's evidence inputs (including a valid legacy/unreceipted trio): preserve it, skip
+  steps 4–10, and enter the same terminal-pair recovery below. Full-run crash recovery must never request
+  replacement merely because the pool manifest, CIQ sidecar, module, or generator changed during
+  downtime. An `armed_ready` /
+  `retry_ready` result sets `<RECOVERY_MODE>` to `master_recovery`, captures its exact `output_dir` and
+  `staged_outputs`, skips steps 4–9, and resumes at step 10. The Task reads the canonical run but writes
+  only those attempt-owned paths. Malformed, partial, or wrong-identity canonical bytes are never attempt
+  output and are a hard stop; only files inside the unique recorded staging directory may be retired.
+  `replace_needed` is not a valid result from this default command: it is reserved for the explicit
+  `/research:rerun` contract using `master-recover --replacement-requested`, and must never be converted
+  into a replacement Task here.
+- Else, in an exact recovery root only, if either paid-completion seal exists OR both `final_thesis.md` and
+  `decision_record.json` are non-empty, do not rerun modules or the master synthesizer. Recovery is selected
+  by the strongest durable boundary, in this order:
+  1. If `final_audit_inputs.json` exists, run `python3 scripts/research_paid_completion.py audit-plan
+     <RUN_ROOT>`. Require `status: sealed`; set `<RECOVERY_MODE>` to `final_audit_recovery`, skip steps 4–10
+     and 10B.1–10B.3-prewrite, and resume at 10B.3A. The final plan reuses each exact latest canonical final
+     audit and launches only missing/stale kinds.
+  2. Else if `diagnostic_audit_inputs.json` exists, run `python3
+     scripts/research_paid_completion.py diagnostic-plan <RUN_ROOT>`. A validation error, including unknown
+     live thesis/decision bytes, is a hard stop and the bytes must be preserved. If it reports `status:
+     derived_checkpointed`, set `<RECOVERY_MODE>` to `diagnostic_checkpoint_recovery`, skip steps 4–10 and
+     10B.1–10B.3-prewrite, and resume at 10B.3A. If it reports `status: input_sealed`, set
+     `<RECOVERY_MODE>` to `diagnostic_recovery`, skip steps 4–10 and 10B.1, and resume at 10B.2. An
+     `input_state: transform_incomplete` is an exact intent-authorized crash state: 10B.2 revalidates the
+     already-complete reports and `diagnostic-transform` finishes only the staged missing replacement. No
+     restore or writer may overwrite bytes outside that intent's enumerated input/output hashes.
+  3. Else require both terminal files to be non-empty, parse and require `ticker == <TICKER>`, `run_root ==
+     <RUN_ROOT>`, and `decision_date == <DATE>`, then run `python3 scripts/research_paid_completion.py
+     diagnostic-plan <RUN_ROOT>` and require `status: unsealed`. Set `<RECOVERY_MODE>` to
+     `terminal_pair_recovery`. Do not rerun modules or the master synthesizer; skip steps 4–10 and resume at
+     10B.1.
+
+  Any malformed/mismatched seal, snapshot, journal, report, checkpoint, or terminal pair is unsafe and must
+  stop; never reinterpret it as a fresh run. If the exact root has neither pair nor a paid-completion seal,
+  normal resumable steps 4–10 continue and reuse every finished module already present.
 - Otherwise set `<RECOVERY_MODE>` to `fresh` and continue normally.
 
 A manifest seals every artifact it pins. An admission seals the assessment result as well, including
@@ -107,7 +221,7 @@ Capture the ordered list as `<MODULES_PLANNED>`, and keep each module's `depends
 ## 5. Resolve prior run reference
 
 ```
-ls -1d analyses/${ARGUMENTS}_* 2>/dev/null | sort -r | grep -v "^analyses/${ARGUMENTS}_<DATE>$" | head -n 1
+ls -1d analyses/<TICKER>_* 2>/dev/null | sort -r | grep -v "^<RUN_ROOT>$" | head -n 1
 ```
 
 Capture the result as `<PRIOR_RUN>`. If empty, set it to the literal string `none`.
@@ -133,17 +247,17 @@ only the final recovery/status fields after the immutable validation succeeds:
 ```
 # Run Metadata
 
-- ticker: $ARGUMENTS
+- ticker: <TICKER>
 - run_date: <DATE>
 - started_at: <STARTED_AT>
 - orchestrator: /research:full
 - repo_sha: <REPO_SHA>
-- data_folder: data/$ARGUMENTS/
+- data_folder: data/<TICKER>/
 - prior_run: <PRIOR_RUN>
 
 ## Source files
 
-<one line per file from `ls -1 data/$ARGUMENTS/`>
+<one line per file from `ls -1 data/<TICKER>/`>
 
 ## Modules planned
 
@@ -173,9 +287,10 @@ only the final recovery/status fields after the immutable validation succeeds:
 
 (filled in at end of run)
 
-## Commit SHA
+## Publication
 
 (filled in at end of run)
+
 ```
 
 ---
@@ -197,13 +312,13 @@ Build `<CROSS_MODULE_CONTEXT>` for this module from its `depends_on` list (captu
 3. Join the sentences with a single space to form `<CROSS_MODULE_CONTEXT>`.
 4. If this module has no `depends_on`, or none of its dependencies completed in this run, set `<CROSS_MODULE_CONTEXT>` to the literal string `none`.
 
-**Important:** always use the **current run's** paths, never an older run's. Do not fall back to `ls analyses/${ARGUMENTS}_*/<dep>/ | sort -r | head -n 1` here — that is the standalone commands' behavior. Within a `/research:full` run the current run's path is the only correct value, and a dependency that aborted in this run is simply omitted (or yields `none` if it was the only dependency).
+**Important:** always use the **current run's** paths, never an older run's. Do not fall back to `ls analyses/<TICKER>_*/<dep>/ | sort -r | head -n 1` here — that is the standalone commands' behavior. Within a `/research:full` run the current run's path is the only correct value, and a dependency that aborted in this run is simply omitted (or yields `none` if it was the only dependency).
 
 ### 8B. Invoke the shared pipeline
 
 Follow every step in `frameworks/MODULE_PIPELINE.md` with these inputs:
 
-- `<TICKER>` = `$ARGUMENTS`
+- `<TICKER>` = the `<TICKER>` parsed from the arguments
 - `<DATE>` = the `<DATE>` resolved in step 1
 - `<MODULE>` = the current module name
 - `<RUN_ROOT>` = the run root from step 3
@@ -232,17 +347,41 @@ After all modules complete:
 
 ## 10. Run the master synthesizer
 
+Before dispatch, unless `<RECOVERY_MODE>` is `master_recovery`, run:
+
+```bash
+python3 scripts/research_paid_completion.py master-arm <RUN_ROOT>
+```
+
+Require `status: armed|existing|rearmed` and capture the returned `<MASTER_OUTPUT_DIR>` and exact
+`staged_outputs`. In `master_recovery`, use only the directory and paths returned by the preceding
+`master-recover`; never recompute them. The attempt binds every module `99` synthesis, the synthesizer
+contract, `_pool_extracts/manifest.json` and `_pool_extracts/ciq_facts.json` when present, and contained
+scoped intake plans when present.
+
 Dispatch a single Task call:
 
 - `subagent_type: "synthesizer"`
 - User message:
 
-  > Synthesize the analyses in <RUN_ROOT>/. Output the final thesis to <RUN_ROOT>/final_thesis.md.
+  > Master synthesis with two separate path authorities. CANONICAL_RUN_ROOT is `<RUN_ROOT>`: read module
+  > inputs only from that canonical root, and keep every embedded `run_root`, `decision_date`,
+  > `final_thesis_path`, assessment id, ticker, and other identity field bound to it. MASTER_OUTPUT_DIR is
+  > the exact helper-returned `<MASTER_OUTPUT_DIR>`: write exactly `final_thesis.md`,
+  > `decision_record.json`, and the preliminary `idea_3_6m.json` there. Do not infer canonical identity
+  > from MASTER_OUTPUT_DIR. Do not write or edit any canonical terminal path and do not run git.
 
-Wait for it to complete. Treat the synthesizer as failed if `<RUN_ROOT>/final_thesis.md` does not exist when it returns.
+Wait for it, then run `python3 scripts/research_paid_completion.py master-recover <RUN_ROOT>`. Only
+`promoted` / `complete_current` permits step 10.0. `armed_ready` / `retry_ready` means the Task produced no complete
+valid staged trio: use the newly returned exact output directory for at most one recovery Task with the
+same two-authority message, then run `master-recover` again. If it still does not promote, stop and leave
+the attempt for exact-root recovery. Never inspect, copy, or repair a partial staged pair by hand. The
+helper validates a `#` thesis, canonical decision identity/path, and exact preliminary assessment, fsyncs
+the three output hashes before CAS promotion, and resumes a crash between canonical renames. A third
+canonical hash is unsafe and is never overwritten.
 
-**10.0 — Preliminary idea-assessment existence and schema gate (forward runs only).** If the thesis exists,
-the same synthesizer must also have written `<RUN_ROOT>/idea_3_6m.json`. This is an early completeness
+**10.0 — Preliminary idea-assessment existence and schema gate (forward runs only).** Only after
+`master-recover` promoted the complete trio, the canonical `<RUN_ROOT>/idea_3_6m.json` is eligible. This is an early completeness
 check only. Step 10B.4 re-projects it from the post-audit decision and is the only version eligible for
 immutable admission. Run:
 
@@ -251,11 +390,12 @@ immutable admission. Run:
 - The preliminary result must be `not_assessable` with `candidate: null` and must name the pending
   post-audit projection manifest/canonical market evidence. Canonical market evidence cannot be written
   before the manifest, so a preliminary `candidate` is a production defect even when it passes JSON
-  Schema. Replace it with the minimal honest `not_assessable` wrapper for this run and the gap
-  `"Pending post-audit projection manifest and canonical market evidence."`, then rerun the validator.
-  Do not run `--write-idea-evidence`, upgrade it, or reach into an older run to fill the board.
-- If the file is missing, write one minimal `idea-assessment/v1` wrapper for THIS run with
-  `status: "not_assessable"`, `candidate: null`, and the single gap `"Master synthesizer did not emit the required 3–6 month assessment."`; use the current ticker/run root, company `null`, current UTC time, and stable assessment id `<TICKER>-<DATE>-3-6m`. Then rerun the validator. This fallback records the production defect without inventing an idea.
+  Schema. STOP and preserve it: the helper's promoted master trio can only contain the exact preliminary
+  wrapper, so a canonical candidate here proves bypass or later damage. Do not write a fallback, run
+  `--write-idea-evidence`, upgrade it, or reach into an older run to fill the board.
+- If the canonical file is missing, malformed, wrong-identity, or not the exact preliminary wrapper, the
+  master promotion contract was bypassed or damaged. STOP and preserve it; never synthesize a canonical
+  fallback for a partial master attempt.
 - If a present file fails schema validation, do not call it healthy and do not silently repair its
   candidate. Record `invalid (schema gate failed)` for step 11 and surface the validator errors in step 13.
 
@@ -270,7 +410,28 @@ semantic admission. This ordering prevents `memo.md`, module memos, or
 
 When step 10C invokes this procedure, run it only if `<RUN_ROOT>/final_thesis.md` exists (the synthesizer succeeded). If the synthesizer was skipped because every module aborted, skip the procedure entirely and record both tiers as `skipped (no final thesis)` in step 11.
 
-These are the other two tiers of the run, written **beside** `final_thesis.md` so the step-12 commit (`git add "analyses/${ARGUMENTS}_<DATE>/"`) picks them up automatically — no extra commit:
+Before any paid memo Task, require the immutable admission and projection authority and compute the
+per-output recovery plan:
+
+```bash
+python3 scripts/research_paid_completion.py memo-promote <RUN_ROOT>
+python3 scripts/research_paid_completion.py memo-plan <RUN_ROOT>
+```
+
+The helper validates the admission and manifest rather than trusting their presence. Each target is
+content-addressed over the exact authority bytes, exact source-file SHA-256 digest(s), output path,
+generator name/version, and generator-spec digest. `action: reuse` is valid only when a matching fsynced
+receipt and the exact current output hash both pass the persisted memo-content checks: decision/verdict
+reconciliation, the generator contract's required section topology, conservative word/byte floors, a
+top-level `#` header, a closed fence set, and no chat-confirmation block. `memo-promote` is model-free: it
+can create a missing receipt only when a complete output was written after an fsynced, content-addressed
+attempt that binds this exact authority/source/output/generator work spec. Thus a kill after the Task wrote
+the file but before the parent ran `memo-seal` does not buy the Task again. A pre-existing, truncated,
+unarmed, stale-authority, or unchanged output is never promoted. An authority-validation error is a hard
+stop: never weaken an immutable seal in order to regenerate a convenience output.
+
+These are the other two tiers of the run, written **beside** `final_thesis.md` so the step-12 commit of
+`<RUN_ROOT>/` picks them up automatically — no extra commit:
 
 - `memo.md` — the ~10-page, plain-English colleague memo (the shareable tier).
 - `audit_dossier.md` — the deterministic, lossless concatenation of every artifact in the run (the audit tier).
@@ -279,29 +440,71 @@ These are the other two tiers of the run, written **beside** `final_thesis.md` s
 
 In a full run the per-module memos were deferred from step 8 (Step 4.9A was skipped) so they don't pause the pipeline ~2.5 min after each module. When step 10C invokes this procedure, generate them from the final post-admission artifact set. They are leaf outputs nothing else reads.
 
-For **every** module folder `<RUN_ROOT>/<module>/` that has a `99_*-synthesis.md`, dispatch a `module-memo-writer` Task — **regenerate unconditionally**; do NOT skip a module just because a `<module>_memo.md` already exists. Derived memos are deliberately outside the sealed admission set and a recovery may have left one partial or stale. The module synthesis itself is never rewritten after sealing. **Issue all of these Task calls in a single message so they run concurrently** — the memos are independent, so batched they cost about one memo's time, not the sum of six. For each such module the user message is:
+From the `memo-plan` result, select only `work_kind: module_memo` targets with `action: run`. Reuse every
+`action: reuse` target without a Task call. Before issuing any selected Task, durably arm every selected
+target individually:
+
+```bash
+python3 scripts/research_paid_completion.py memo-arm <RUN_ROOT> 'module:<module>'
+```
+
+Every arm must succeed before dispatch. **Then issue all required module Task calls in a single message so
+they run concurrently** — the memos are independent, so batched they cost about one memo's time, not the
+sum of six. For each selected module the user message is:
 
 > Read `<RUN_ROOT>/<module>/99_<...>-synthesis.md` and write the module memo to `<RUN_ROOT>/<module>/<module>_memo.md`. Condense only what the synthesis already carries — do not add new analysis, numbers, or evidence, and do not change its verdict, scores, or caps. The saved file must start with its `#` header and contain no chat-confirmation block. Do not write any other file and do not run git.
 
-Best-effort: a module memo that fails to write is recorded as `failed` for that module but never aborts the run (the `99_*-synthesis.md` is the module's decision of record). Order does not matter versus the audit dossier (10A.2), which already excludes `*_memo.md`.
+Immediately after each Task returns, validate and durably acknowledge that one output:
+
+```bash
+python3 scripts/research_paid_completion.py memo-seal <RUN_ROOT> 'module:<module>'
+```
+
+This writes the content-addressed receipt with a temp-file + atomic rename, fsyncs the receipt and its
+directory, and never blesses a partial/stale output. If sealing rejects a returned output, rerun `memo-arm`
+for only that target, retry only that individual module Task once, then rerun `memo-seal`; do not replay
+successful siblings. A module memo or
+receipt that still fails is recorded as `failed` for that module but never aborts the run (the
+`99_*-synthesis.md` is the module's decision of record). Do not manufacture a receipt. On recovery, rerun
+`memo-promote` before `memo-plan`, then dispatch only the individual targets still marked `run`; a receipt
+completed before the crash or safely promoted from an armed complete output is never paid for twice. Order
+does not matter versus the audit dossier (10A.2), which already excludes `*_memo.md` and completion files.
 
 ### 10A.1 — Memo (LLM, via the memo-writer agent)
 
-Dispatch a single Task call:
+Rerun `python3 scripts/research_paid_completion.py memo-plan <RUN_ROOT>` after the module batch. If the
+`top-level` target is `action: reuse`, do not dispatch a Task. If it is `action: run`, dispatch a single
+Task call only after:
+
+```bash
+python3 scripts/research_paid_completion.py memo-arm <RUN_ROOT> top-level
+```
+
+Then dispatch:
 
 - `subagent_type: "memo-writer"`
 - User message:
 
   > Read <RUN_ROOT>/final_thesis.md and <RUN_ROOT>/decision_record.json and write the ~10-page colleague memo to <RUN_ROOT>/memo.md.
 
-Wait for it to complete. If `<RUN_ROOT>/memo.md` does not exist when it returns, record the memo as `failed` in step 11 — but do **NOT** fail the run. The memo is a derived convenience tier; `final_thesis.md` is the decision of record.
+Wait for it to complete, then run:
+
+```bash
+python3 scripts/research_paid_completion.py memo-seal <RUN_ROOT> top-level
+```
+
+If sealing rejects the returned output, re-arm, retry only this top-level Task once, and rerun `memo-seal`.
+If the Task or seal still fails, record the memo as `failed` in step 11 — but do **NOT** fail the run. A bare
+`memo.md` is not success without its exact receipt. The memo is a derived convenience tier;
+`final_thesis.md` is the decision of record. A recovery first runs `memo-promote`, and reruns this paid Task
+only while the following `memo-plan` continues to mark `top-level` as `action: run`.
 
 ### 10A.2 — Audit dossier (deterministic, no LLM)
 
 The audit dossier is a mechanical, lossless concatenation — never an LLM rewrite — so nothing can be omitted or paraphrased. Build it with this Bash step. It is read-only on every run artifact, writes only `audit_dossier.md`, is best-effort, and must never abort the run:
 
 ```bash
-RUN_ROOT="analyses/${ARGUMENTS}_<DATE>" python3 - <<'PY'
+RUN_ROOT="<RUN_ROOT>" python3 - <<'PY'
 import os, glob, re, datetime
 RUN = os.environ["RUN_ROOT"]
 OUT = os.path.join(RUN, "audit_dossier.md")
@@ -699,189 +902,61 @@ Record the printed `GATE:` line for step 11 ("Integrity gate") and step 13 (repo
 
 ### 10B.2 — Integrity audit + red-team (deeper, LLM)
 
-Then run the two standing audits IN the ship path, so the no-source-no-claim and §8 disconfirmation guarantees are enforced rather than left optional:
-
-- **Verify-evidence** — follow `.claude/commands/research/verify-evidence.md` against `<RUN_ROOT>`, producing `<RUN_ROOT>/verification_report.json` (every rating-driver number traced to the pool; scenario/EV math reconciled).
-- **Pre-mortem** — follow `.claude/commands/research/pre-mortem.md` against `<RUN_ROOT>`, producing `<RUN_ROOT>/pre_mortem.json` (adversarial red-team; can only HOLD or LOWER conviction).
-
-Produce ONLY the report JSON in each — **skip each command's own commit step**; full.md's step 12 commits the entire run folder (these reports included) in one place. Then:
-
-**Haircut propagation — patch `decision_record.json` with the pre-mortem's verdict** (fix F28). Run this immediately after `pre_mortem.json` is written:
+The diagnostic pass is paid work too. Cross its first-writer-wins boundary before dispatching any audit:
 
 ```bash
-python3 - "<RUN_ROOT>" <<'PY'
-import json, glob, os, re, sys
-run = sys.argv[1]
-dr_path = os.path.join(run, "decision_record.json")
-# find the latest pre_mortem (versioned as _v2, _v3, ...)
-pms = sorted(glob.glob(os.path.join(run, "pre_mortem*.json")),
-             key=lambda x: int(re.search(r"_v(\d+)\.json$", x).group(1)) if re.search(r"_v(\d+)\.json$", x) else 1)
-if not pms: print("HAIRCUT: no pre_mortem.json found — skipping"); sys.exit(0)
-try:
-    pm = json.load(open(pms[-1], encoding="utf-8"))
-    dr = json.load(open(dr_path, encoding="utf-8"))
-except Exception as e: print(f"HAIRCUT: read error ({e}) — skipping"); sys.exit(0)
-rec_conf   = pm.get("recommended_confidence")
-verdict    = pm.get("verdict") or ""
-orig_conf  = dr.get("confidence_score")
-def _isnum(x): return isinstance(x, (int, float)) and not isinstance(x, bool)
-# DERIVE the haircut from the confidence delta this propagation exists to enforce — do NOT trust a
-# possibly-null/zeroed self-reported `confidence_haircut` to decide whether a haircut happened. A null
-# field paired with a lowered `recommended_confidence` is a REAL cut, and `… or 0` would silently bury it
-# (writing confidence_haircut=0 while post_review_confidence_score reflects the real cut). Mirrors
-# scripts/eval.py check S exactly, so full.md writes the same haircut the gate re-derives (fix F28).
-pm_orig    = pm.get("original_confidence")
-if not _isnum(pm_orig): pm_orig = orig_conf
-haircut    = pm.get("confidence_haircut")
-if not _isnum(haircut):
-    haircut = (pm_orig - rec_conf) if (_isnum(pm_orig) and _isnum(rec_conf)) else 0
-dr["confidence_haircut"]        = haircut
-dr["pre_mortem_verdict"]        = verdict
-dr["post_review_confidence_score"] = rec_conf
-# Post-mortem rating-cap propagation — fix F28b.
-# A terminal pre-mortem verdict ("Thesis broken" / "Does not survive — downgrade") means the thesis
-# does not hold as a conviction position. The original `decision` and `basket` fields (the synthesizer's
-# immutable call, locked to final_thesis.md) stay unchanged so eval check I still passes; we instead
-# add the two new additive fields `post_mortem_decision` + `post_mortem_basket` that the calibration and
-# track commands prefer when present (size already gates long-eligibility on the pre-mortem verdict
-# directly, so it needs no separate basket override). Eval check U asserts these are set consistently.
-TERMINAL = {"Thesis broken", "Does not survive — downgrade"}
-orig_dec  = dr.get("decision") or ""
-orig_bask = dr.get("basket")   or ""
-if verdict in TERMINAL and orig_bask in ("Selected", "Short"):
-    dr["post_mortem_decision"] = "Watchlist"
-    dr["post_mortem_basket"]   = "Watchlist"
-    print(f"RATING-CAP: terminal pre-mortem '{verdict}' on '{orig_dec}' ({orig_bask}) → post_mortem_decision=Watchlist")
-else:
-    dr["post_mortem_decision"] = orig_dec
-    dr["post_mortem_basket"]   = orig_bask
-    print(f"RATING-CAP: non-terminal or already-conservative pre-mortem ('{verdict}') — post_mortem_decision={orig_dec!r}")
-with open(dr_path, "w", encoding="utf-8") as f:
-    json.dump(dr, f, indent=2, ensure_ascii=False)
-if isinstance(haircut, (int, float)) and haircut > 0:
-    print(f"HAIRCUT: confidence {orig_conf} → {rec_conf} (−{haircut}pt) | pre-mortem: '{verdict}'")
-else:
-    print(f"HAIRCUT: no reduction (pre-mortem: '{verdict}'; confidence stays {orig_conf})")
-PY
+python3 scripts/research_paid_completion.py diagnostic-seal <RUN_ROOT>
+python3 scripts/research_paid_completion.py diagnostic-plan <RUN_ROOT>
 ```
 
-Record BOTH the `RATING-CAP:` and `HAIRCUT:` lines for step 11 ("Integrity gate"). If the pre-mortem applied a haircut and/or a rating cap, the RUN_METADATA integrity-gate entry should read e.g. `pre-mortem: Survives with haircut (confidence 70 → 64); RATING-CAP: non-terminal` or `pre-mortem: Thesis broken (confidence 65 → 20); RATING-CAP: terminal → post_mortem_decision=Watchlist`.
+The seal snapshots the exact post-10B.1 thesis/decision bytes and reserves the next append-only version for
+all three audit kinds. For `input_state: ready`, dispatch only audit rows with `action: run`, using each
+row's exact `next_output_path`; `action: reuse` is a canonical, strict-schema report whose identity, paths,
+conclusion invariants, and two input SHA-256 bindings match the diagnostic snapshots. The three kinds are:
 
-**Stamp the thesis PROVISIONAL on a missing or non-clean truth-integrity audit (finish-gate F30).** A `Failed` / `Material issues` verdict — OR a verify-evidence that did not run at all — must mark the published thesis UNVERIFIED, not merely be noted in step 13. This is the exact hole the TMCV 2026-06-14 run fell through: no `verification_report.json` was produced and the thesis shipped clean, so all of its citation/anchor/math defects went unflagged. Run this deterministic stamp AFTER verify-evidence + pre-mortem complete; it composes with the 10B.1 banner (merges reasons) and is idempotent across re-runs:
+- **Verify-evidence** — follow `.claude/commands/research/verify-evidence.md`; every rating-driver number is
+  traced to the pool and scenario/EV math reconciled.
+- **Pre-mortem** — follow `.claude/commands/research/pre-mortem.md`; adversarial red-team that can only hold
+  or lower conviction.
+- **Expectations-gap** — follow `.claude/commands/research/expectations-gap.md`; independent §7 edge check,
+  rather than trusting the synthesizer's self-graded variant perception.
+
+Produce only each report JSON at the planned path and skip every command's commit step. The missing kinds
+may run concurrently. After they return, rerun `diagnostic-plan`; retry only an individual still-invalid
+kind once at its newly planned path, never its successful siblings. A newer malformed canonical version is
+authoritative for recovery classification; never fall back to an older valid version. While `input_state`
+is `ready`, then require:
 
 ```bash
-python3 - "<RUN_ROOT>" <<'PY'
-import json, glob, os, re, sys
-run = sys.argv[1]
-ft = os.path.join(run, "final_thesis.md")
-MARK = "PROVISIONAL — the automated finish-gate"
-# Latest truth-integrity report (versioned _v2/_v3…). MISSING or NOT-clean => PROVISIONAL.
-# Exact-name match only (verification_report.json or _v<n>), so an auxiliary like verification_report_summary_v2.json
-# is NOT mistaken for a report version; then sort by VERSION NUMBER, not lexically, so _v10 lands after _v2.
-_vn = lambda p: int(re.search(r"_v(\d+)\.json$", p).group(1)) if re.search(r"_v(\d+)\.json$", p) else 1
-vrs = sorted([p for p in glob.glob(os.path.join(run, "verification_report*.json"))
-              if re.fullmatch(r"verification_report(_v\d+)?", os.path.basename(p)[:-5])], key=_vn)
-verify_reason = None
-if not vrs:
-    verify_reason = "truth-integrity audit did NOT run (no verification_report.json) — citations, anchors, and §10/§15 math are unverified"
-else:
-    try:
-        v = json.load(open(vrs[-1], encoding="utf-8"))
-        verdict = (v.get("verdict") or "").strip()
-        # fail-CLOSED: anything that is not an explicit Clean / Minor-issues pass is PROVISIONAL —
-        # that covers Material issues, Failed, AND any blank / Error / Aborted / schema-drift verdict.
-        if verdict not in ("Clean", "Minor issues"):
-            verify_reason = f"verify-evidence verdict = {verdict or '(blank/unknown)'} (not Clean/Minor — integrity {v.get('integrity_score')}/100, see {os.path.basename(vrs[-1])})"
-    except Exception as e:
-        verify_reason = f"verification_report.json unreadable ({e}) — truth-integrity not confirmed"
-# Strip any existing finish-gate banner (from 10B.1), recover its reasons, merge, re-stamp (idempotent).
-reasons, body = [], open(ft, encoding="utf-8").read()
-lines = body.split("\n"); i = 0
-while i < len(lines) and lines[i].strip() == "": i += 1
-if i < len(lines) and lines[i].startswith(">") and MARK in "\n".join(lines[i:i+6]):
-    blk = []
-    while i < len(lines) and lines[i].startswith(">"): blk.append(lines[i]); i += 1
-    while i < len(lines) and lines[i].strip() == "": i += 1
-    body = "\n".join(lines[i:])
-    # Keep 10B.1's freshly-derived math reasons; DROP any stale verify-reason (re-derived below) so re-runs don't accumulate.
-    if len(blk) >= 2:
-        reasons = [r.strip() for r in blk[1].lstrip("> ").split(";")
-                   if r.strip() and not any(t in r for t in ("verify-evidence", "truth-integrity audit", "verification_report"))]
-if verify_reason and verify_reason not in reasons: reasons.append(verify_reason)
-if reasons:
-    banner = ("> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED.**\n> "
-              + "; ".join(reasons) + "\n>\n> Resolve the flagged items — re-run the synthesizer §14 math and/or the truth-integrity audit (`/research:verify-evidence`) — and re-publish before relying on these numbers. (CLAUDE.md §5/§10/§15; finish-gate F01/F17/F30.)\n\n")
-    open(ft, "w", encoding="utf-8").write(banner + body)
-    print("GATE-VERIFY: PROVISIONAL — " + "; ".join(reasons))
-else:
-    open(ft, "w", encoding="utf-8").write(body)
-    print("GATE-VERIFY: PASS — truth-integrity audit cleared (verdict Clean/Minor)")
-PY
+python3 scripts/research_paid_completion.py diagnostic-require-complete <RUN_ROOT>
 ```
 
-Record the printed `GATE-VERIFY:` line for step 11 ("Integrity gate") and step 13. A `PROVISIONAL` result here carries the same weight as a 10B.1 math break — the published thesis is UNVERIFIED until the flagged items are resolved. The deeper audits still never *abort* the run (a thesis is always produced), but a run that did not clear truth-integrity is **published with the PROVISIONAL banner, never clean** — "not run" is no longer a silent pass.
+If recovery reports `input_state: transformed` or `transform_incomplete`, the fsynced transform intent
+already binds the exact diagnostic reports and staged outputs; dispatch no diagnostic Task, skip the
+ready-state `diagnostic-require-complete` command, and continue with `diagnostic-transform` below. Unknown
+live bytes never qualify for either state and are a hard stop.
 
-### 10B.3 — Expectations-gap audit (independent §7 edge check, fix F-EG)
+### 10B.3 — Deterministic audit propagation and edge stamps
 
-`research:expectations-gap` was, until now, the one member of the audit trio (verify-evidence, pre-mortem, expectations-gap) never invoked in the ship path — it existed and worked, but nothing called it, so real committed runs almost never carried an `expectations_gap.json`. That left a real hole: the 10B.1 §7 edge gate (check V) only verifies the synthesizer's OWN self-reported `edge_score` / `edge_proof` are internally consistent — it cannot catch a self-graded "proven edge" when an INDEPENDENT re-read of the same reverse-DCF/consensus/scenario evidence would show no real variant perception. This closes that hole exactly the way pre-mortem independently red-teams confidence instead of trusting the synthesizer's own assessment.
-
-Follow `.claude/commands/research/expectations-gap.md` against `<RUN_ROOT>`, producing `<RUN_ROOT>/expectations_gap.json` — **skip its own commit step**; step 12 below commits the whole run folder. This never aborts the run.
-
-Then run this deterministic cross-check:
+Apply the pre-mortem haircut/rating-cap propagation, truth-integrity PROVISIONAL merge, and expectations-gap
+§7 PROVISIONAL merge through the shared deterministic helper:
 
 ```bash
-python3 - "<RUN_ROOT>" <<'PY'
-import json, glob, os, re, sys
-run = sys.argv[1]
-dr_path = os.path.join(run, "decision_record.json"); ft = os.path.join(run, "final_thesis.md")
-_vn = lambda p: int(re.search(r"_v(\d+)\.json$", p).group(1)) if re.search(r"_v(\d+)\.json$", p) else 1
-egs = sorted([p for p in glob.glob(os.path.join(run, "expectations_gap*.json"))
-              if re.fullmatch(r"expectations_gap(_v\d+)?", os.path.basename(p)[:-5])], key=_vn)
-MARK = "PROVISIONAL — the automated finish-gate"
-_isnum = lambda x: isinstance(x, (int, float)) and not isinstance(x, bool)
-reason = None
-try: dr = json.load(open(dr_path, encoding="utf-8"))
-except Exception as e: dr = {}
-cf = dr.get("confidence_score")
-if egs:
-    try:
-        eg = json.load(open(egs[-1], encoding="utf-8"))
-        vpq = str(eg.get("variant_perception_quality") or "").strip().lower()
-        no_edge = vpq in ("", "none", "weak") or eg.get("is_exploitable") is False
-        if no_edge and _isnum(cf) and cf > 60:
-            reason = (f"expectations-gap audit found variant_perception_quality={eg.get('variant_perception_quality')!r} "
-                       f"/ is_exploitable={eg.get('is_exploitable')!r} (no independently-proven edge) but "
-                       f"confidence_score={cf} > 60 — §7 bans a confident rating on unproven variant perception")
-    except Exception as e:
-        reason = f"expectations_gap.json unreadable ({e}) — §7 edge audit not confirmed"
-elif _isnum(cf) and cf > 60:
-    reason = (f"expectations-gap audit did NOT run (no expectations_gap.json) but confidence_score={cf} > 60 — "
-               "§7 requires the variant-perception edge be independently confirmed before shipping high conviction")
-if reason:
-    body = open(ft, encoding="utf-8").read()
-    lines = body.split("\n"); i = 0
-    while i < len(lines) and lines[i].strip() == "": i += 1
-    reasons = []
-    if i < len(lines) and lines[i].startswith(">") and MARK in "\n".join(lines[i:i+6]):
-        blk = []
-        while i < len(lines) and lines[i].startswith(">"): blk.append(lines[i]); i += 1
-        while i < len(lines) and lines[i].strip() == "": i += 1
-        body = "\n".join(lines[i:])
-        if len(blk) >= 2:
-            reasons = [r.strip() for r in blk[1].lstrip("> ").split(";")
-                       if r.strip() and "expectations-gap audit" not in r]
-    reasons.append(reason)
-    banner = ("> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED.**\n> "
-              + "; ".join(reasons) + "\n>\n> Resolve the flagged items before relying on these numbers. (CLAUDE.md §7; finish-gate F-EG.)\n\n")
-    open(ft, "w", encoding="utf-8").write(banner + body)
-    print("GATE-EXPECTATIONS: PROVISIONAL — " + reason)
-else:
-    print("GATE-EXPECTATIONS: PASS — expectations-gap audit found no confidence/edge contradiction"
-          + (" (no expectations_gap.json — confidence not above 60, so not required)" if not egs else ""))
-PY
+python3 scripts/research_paid_completion.py diagnostic-transform <RUN_ROOT>
 ```
 
-Record the printed `GATE-EXPECTATIONS:` line for step 11 ("Integrity gate") and step 13. This carries the same weight as the 10B.1/10B.2 stamps — a `PROVISIONAL` result here means a confident rating shipped with no independently-confirmed variant perception, the exact "fake variant perception" CLAUDE.md §7 bans.
+This command reproduces the required F28/F28b/F30/F-EG rules: it derives a missing self-reported haircut
+from the confidence delta; preserves the original decision while setting the post-mortem decision/basket
+cap; treats every verification result outside Clean/Minor issues as unverified; and stamps a high-confidence
+thesis when independent expectations work says the edge is None/Weak or not exploitable. It prints and
+returns the exact `RATING-CAP:`, `HAIRCUT:`, `GATE-VERIFY:`, and `GATE-EXPECTATIONS:` lines for steps 11 and
+13.
+
+Before either live file is replaced, the helper deterministically renders both outputs from the immutable
+diagnostic snapshots + exact report hashes, writes/fsyncs content-addressed output snapshots, and atomically
+writes an intent binding every allowed input/output SHA. A crash may therefore leave only an enumerated
+input/output combination, which the same command finishes model-free. Any other live bytes are preserved
+and fail closed; there is no blind restore.
 
 ### 10B.3-prewrite — Validate decision-guidance routes before sealing
 
@@ -897,23 +972,76 @@ unsealed decision record by rerunning the synthesizer; do not delete a valid nee
 is deliberately creation-time only. A sealed/recovery path never regrades an immutable historical route
 against today's mutable roster.
 
+After the visible prewrite pass, durably checkpoint the exact transform intent, diagnostic report hashes,
+derived thesis/decision hashes, and prewrite result:
+
+```bash
+python3 scripts/research_paid_completion.py diagnostic-checkpoint <RUN_ROOT>
+```
+
+The checkpoint command runs `eval.py --data-needs-prewrite` itself and refuses to write on failure; prompt
+ordering alone is not completion proof. It binds the validator digest and the exact derived decision SHA in
+its fsynced receipt. On recovery a valid checkpoint is historical creation-time authority and is not
+regraded against a later mutable orb roster.
+
 ### 10B.3A — Final immutable audit set
 
 The propagation and provisional-stamp steps above mutate `decision_record.json` and/or `final_thesis.md`
 after the first audit pass. Therefore the earlier reports are diagnostic history, not admission authority.
-Now rerun all three read-only audits against the final exact bytes, producing their next append-only
-versions (`verification_report_vN.json`, `pre_mortem_vN.json`, and `expectations_gap_vN.json`):
+First cross the durable final-pass boundary:
 
-1. follow `.claude/commands/research/verify-evidence.md`;
-2. follow `.claude/commands/research/pre-mortem.md`;
-3. follow `.claude/commands/research/expectations-gap.md`.
+```bash
+python3 scripts/research_paid_completion.py audit-seal <RUN_ROOT>
+```
 
-Skip each audit command's commit step. Every final report must carry the exact repo-relative thesis and
-decision paths plus lowercase SHA-256 digests of both input files. From this point until manifest creation,
-do not run haircut propagation, a provisional stamp, synthesis, or any other writer over those inputs.
-These final audit conclusions are authoritative even when they are adverse: the admission freezer uses the
+This first-writer-wins seal records the exact final `final_thesis.md` and `decision_record.json` SHA-256
+digests and reserves, per audit kind, the minimum next append-only version. It prevents a same-byte
+diagnostic report from being mistaken for the required final pass. When the diagnostic protocol exists,
+`audit-seal` itself requires the exact transform/prewrite checkpoint; it cannot be crossed by prompt order
+or by three merely well-shaped diagnostic reports. If a valid seal already exists (the
+`final_audit_recovery` path), the helper returns `status: existing`; any digest/identity mismatch is a hard
+stop. From this point until projection-manifest creation, do not run haircut propagation, a provisional
+stamp, synthesis, a deterministic gate writer, or any other writer over the two sealed inputs.
+
+Then compute the exact paid-work plan:
+
+```bash
+python3 scripts/research_paid_completion.py audit-plan <RUN_ROOT>
+```
+
+For each of `verification`, `pre_mortem`, and `expectations_gap`:
+
+- `action: reuse` means the **latest canonical version** is at or above its reserved final version and
+  passes the shared manifest-grade validator: canonical 1.0 schema, exact ticker/run identity, exact
+  repo-relative thesis/decision paths, exact lowercase SHA-256 bindings to both sealed files, and the
+  kind-specific conclusion invariants. Do not dispatch that paid Task.
+- `action: run` means only that kind is missing/stale/invalid. Follow its command file
+  (`verify-evidence.md`, `pre-mortem.md`, or `expectations-gap.md`) and bind it to the plan's exact
+  `next_output_path`; skip the command's commit step. Required kinds may be issued together in one message
+  so they run concurrently. Never overwrite or delete an older report.
+
+After the required Tasks return, rerun `audit-plan`. If a newly returned kind is still `action: run`, its
+output is not completion proof; retry only that individual kind once at the newly reported
+`next_output_path`. If it remains invalid/missing, STOP before projection rather than paying for the
+already-valid sibling kinds again. A newer malformed/stale canonical version always wins for recovery
+classification: never fall back to an older valid version. This preserves the projection manifest's
+fail-closed latest-version semantics.
+
+Finally require the complete exact set:
+
+```bash
+python3 scripts/research_paid_completion.py audit-require-complete <RUN_ROOT>
+python3 scripts/research_paid_completion.py projection-require-complete <RUN_ROOT>
+```
+
+These final audit conclusions are authoritative even when adverse: the admission freezer uses the
 pre-mortem verdict/cap and expectations-gap quality/exploitability/edge score directly. A malformed,
-missing, stale-input, or internally inconsistent final audit makes manifest creation fail closed.
+missing, stale-input, or internally inconsistent final audit makes this gate and manifest creation fail
+closed. A crash after any one of the three reports is recovered by its own validated report; only the
+remaining audit kinds launch again. `projection-require-complete` is the shared pre-promotion contract for
+the orchestrator and server recovery: exit 0 plus JSON `status: complete` proves the diagnostic checkpoint
+(when journaled), final input seal, and all three exact final reports. No report-presence heuristic may
+replace it.
 
 ---
 
@@ -931,29 +1059,38 @@ python3 scripts/create_idea_projection_manifest.py <RUN_ROOT>
 
 It pins the exact bytes of `final_thesis.md`, `decision_record.json`, the canonical verification report,
 pre-mortem, and expectations-gap audit. It also requires `decision_record.ticker` and `decision_date` to
-match the ticker/date encoded by `<RUN_ROOT>` exactly; an internally consistent audit set cannot bless the
-wrong listing or dated cohort. If it fails, record `IDEA-ADMISSION: error` with the exact manifest
+match the ticker/date encoded by `<RUN_ROOT>` exactly. For a journaled run, manifest creation additionally
+requires the valid diagnostic checkpoint, `final_audit_inputs.json`, and a complete receipt-valid final
+trio; a crash-time promoter can never promote the diagnostic trio alone. An internally consistent audit
+set cannot bless the wrong listing or dated cohort. If it fails, record `IDEA-ADMISSION: error` with the exact manifest
 error and STOP before market capture, final re-projection, parse/schema replacement, the freezer, or
 derived-output recovery. A missing/invalid projection seal cannot honestly become `not_applicable`.
 Preserve the failed run bytes and start a genuinely new dated run; never repair the audit/decision in
 place and retry this dated projection. Once creation succeeds, none of the pinned artifacts may be edited.
 A changed audit or decision artifact requires a new dated run, never an overwrite of the manifest or a
-mutation followed by retry.
+mutation followed by retry. Unless `projection_sealed` recovery already returned `promoted`, `complete`,
+or `schema_valid` for a final wrapper, run `python3 scripts/research_paid_completion.py projection-arm
+<RUN_ROOT>`, require `status: armed|existing`, and capture its exact `<PROJECTION_OUTPUT_PATH>`. The fsynced
+attempt binds the raw manifest bytes and raw canonical preliminary-wrapper bytes and creates one unique
+contained staging path. Never derive that path yourself.
 
-After manifest creation succeeds, dispatch one final Task call.
+After manifest creation succeeds, dispatch one final Task call only when the recovery state is the exact
+preliminary wrapper; an already final/promoted recovery skips directly to the canonical parse/schema gate.
 
 - `subagent_type: "synthesizer"`
 - User message:
 
-  > Final idea re-projection only for `<RUN_ROOT>`. A digest-valid post-audit
+  > Final idea re-projection only. CANONICAL_RUN_ROOT is `<RUN_ROOT>` and the only assessment write target
+  > is the exact helper-returned `<PROJECTION_OUTPUT_PATH>`. A digest-valid post-audit
   > `idea_projection_manifest.json` already exists. Do not edit the thesis, decision record, module
   > outputs, audit files, or manifest. Re-read the manifest-pinned standing/post-mortem decision and final
   > integrity state, including the final pre-mortem and expectations-gap conclusions. Normalize
   > `research.edge_score` to the lower of the decision-record and expectations-gap scores. Any final
   > pre-mortem non-survival/rating cap or expectations-gap result without a Moderate/Strong proven
   > exploitable edge is a binding hard cap; copy the exact canonical reason defined in
-  > `frameworks/ideas/README.md`. Run the canonical `--write-idea-evidence` command, then replace only this run's
-  > `idea_3_6m.json` with a reconciled candidate or honest `not_assessable` result under
+  > `frameworks/ideas/README.md`. Run the canonical `--write-idea-evidence` command against the canonical
+  > root (the market snapshot remains canonical), then write the reconciled candidate or honest
+  > `not_assessable` result only to `<PROJECTION_OUTPUT_PATH>` under
   > `frameworks/ideas/README.md`. A candidate must carry the manifest digest and exact decision authority:
   > set the replacement wrapper's `created_at` (and a candidate's `created_at`) to this final projection
   > time, no earlier than the manifest's `created_at`; never retain the preliminary wrapper's pre-manifest
@@ -963,19 +1100,23 @@ After manifest creation succeeds, dispatch one final Task call.
   > machine-resolvable forecast selected by
   > `forecast_id`, including its dates, source, metric/threshold, causal steps, and bullish/bearish triggers.
 
-After it returns, run the parse and JSON Schema checks first:
+After it returns, run `python3 scripts/research_paid_completion.py projection-recover <RUN_ROOT>`. It
+requires the canonical preliminary bytes still to equal the attempt, validates the unique staged output,
+and fsyncs an exact promotion intent before the one-file canonical rename. A parse/schema-invalid staged
+regular file is attempt-owned: the helper preserves its digest, writes the deterministic minimal
+`not_assessable` fallback using the attempt timestamp, and promotes that instead. If the Task wrote no
+staged output, `preliminary_armed` permits at most one retry to the same exact output path; otherwise any
+error is a hard stop. It never replaces malformed or changed canonical bytes. Only after `promoted` /
+`complete`, run the canonical parse and JSON Schema checks:
 
 ```bash
 python3 -m json.tool <RUN_ROOT>/idea_3_6m.json >/dev/null
 python3 scripts/validate_screener_json.py frameworks/ideas/idea-assessment.schema.json <RUN_ROOT>/idea_3_6m.json
 ```
 
-If JSON parsing or Schema validation fails, replace the broken final projection with one minimal
-`not_assessable` wrapper for this run whose gap names that production failure and whose `created_at` is the
-current final-projection time, no earlier than the manifest's `created_at`; never copy the preliminary
-wrapper's timestamp. Then rerun parse + Schema before proceeding. This is fail-closed quarantine before
-any semantic result exists, not a candidate repair. Once both checks pass, invoke the locked first-writer
-freezer exactly once:
+If the promoted canonical file now fails either check, the durable promotion/completion authority or live
+bytes were damaged. STOP and preserve it; never hand-repair canonical output. Once both checks pass,
+invoke the locked first-writer freezer exactly once:
 
 ```bash
 python3 scripts/freeze_idea_admission.py <RUN_ROOT>
@@ -1003,10 +1144,12 @@ reconstruct history from a mutable assessment or current verification report.
 
 ## 10C. Generate the memo and audit dossier from final state
 
-Only now execute the complete deferred procedure in step 10A (10A.0, 10A.1, and 10A.2). Regenerate the
-derived files unconditionally when their procedure says to do so; an older memo or dossier from a resumed
-run is stale. This is deliberately after final re-projection and admission, so no derived output can freeze
-or present the preliminary Ideas state as final.
+Only now execute the complete deferred procedure in step 10A (10A.0, 10A.1, and 10A.2). The memo planner
+reuses only exact receipt-backed module/top-level memo outputs and reruns missing/invalid targets
+individually. Continue to rebuild the deterministic audit dossier mechanically on every pass; it is cheap,
+contains no paid inference, and still excludes memo/receipt files. This is deliberately after final
+re-projection and admission, so no derived output can freeze or present the preliminary Ideas state as
+final.
 
 ---
 
@@ -1017,14 +1160,18 @@ Rewrite `<RUN_ROOT>/RUN_METADATA.md` via the Write tool to fill in the placehold
 - "Modules completed": list (one per line)
 - "Modules aborted": list with brief note per entry (one per line)
 - "Synthesizer status": `succeeded` (if `final_thesis.md` exists), `failed` (if it does not), or `skipped (all modules aborted)`
-- "Memo status": `succeeded` (if `memo.md` exists), `failed`, or `skipped (no final thesis)`
+- "Memo status": `succeeded` only if the final `memo-plan` reports the `top-level` target as
+  `action: reuse` (an exact output + receipt), `failed` if the file/receipt pair is absent or invalid, or
+  `skipped (no final thesis)`
 - "Audit dossier status": `succeeded` (if `audit_dossier.md` exists), `failed`, or `skipped (no final thesis)`
 - "3–6 month idea assessment": `candidate — admitted`, `candidate — not admitted (<reason>)`,
   `not_assessable`, `error (<admission validator reason>)`, `invalid (final schema gate failed)`, or
   `skipped (no final thesis)`, derived from the final step-10B.4 artifact/admission snapshot — never from
   whether the Ideas UI happens to be populated
 - "Integrity gate": the step-10B result — the `GATE: PASS|PROVISIONAL|ERROR` line from 10B.1, the verify-evidence verdict and the pre-mortem verdict / any confidence haircut from 10B.2, and the `GATE-EXPECTATIONS: PASS|PROVISIONAL` line from 10B.3 (e.g. `PASS; verify-evidence: Verified; pre-mortem: Survives (confidence 70→64); expectations-gap: PASS`). If 10B was skipped because no `final_thesis.md` exists, write `skipped (no final thesis)`.
-- "Commit SHA": leave as `(to be filled after commit)` — you'll patch it post-commit in step 12.
+- "Publication": write the exact line `ready for one path-confined commit` only after every final gate,
+  audit, immutable projection, memo, and dossier step above has finished. This line is the terminal producer
+  seal used for crash-safe publication recovery; never write it to a partial or pre-audit run.
 
 ---
 
@@ -1035,22 +1182,16 @@ Per repo `CLAUDE.md` git policy: commit straight to `main`. No branches. No PRs.
 First drop any stale failure note — the run has now completed, so a break-time `RUN_FAILURE.md` (written by the server if an earlier attempt of this run broke) must NOT ride along in the success commit:
 
 ```
-rm -f "analyses/${ARGUMENTS}_<DATE>/RUN_FAILURE.md"
+rm -f "<RUN_ROOT>/RUN_FAILURE.md"
 ```
 
 Commit through the serialized helper (it holds a global git lock so concurrent companies don't collide on `.git/index.lock`, commits only this run folder, and pushes):
 
 ```
-bash scripts/commit-run.sh "Research run: ${ARGUMENTS} <DATE>" -- "analyses/${ARGUMENTS}_<DATE>/"
+bash scripts/commit-run.sh "Research run: <TICKER> <DATE>" -- "<RUN_ROOT>/"
 ```
 
-The helper prints `COMMIT_SHA=<sha>` on success, or `NOOP=1` if nothing was staged (if `NOOP=1`, there is nothing to backfill — skip the rest of this step). Capture `<sha>` from that line and patch the "Commit SHA" field in `RUN_METADATA.md` by rewriting that file via the Write tool (read it, substitute `<sha>` in place of `(to be filled after commit)`, write the full new content). Do not use `git commit --amend`. Add the SHA patch as a second commit through the same helper:
-
-```
-bash scripts/commit-run.sh "Backfill commit SHA in RUN_METADATA for ${ARGUMENTS} <DATE>" -- "analyses/${ARGUMENTS}_<DATE>/RUN_METADATA.md"
-```
-
-(The two-commit approach is intentional: it keeps the run-artifacts commit clean of metadata about itself.)
+The helper prints `COMMIT_SHA=<sha>` on success, or `NOOP=1` if nothing was staged. Capture and report that SHA. Do not rewrite `RUN_METADATA.md` after the commit: the saved Git commit itself is the authority, and avoiding a circular SHA backfill removes a second failure window in which a complete call could remain private to one machine.
 
 ---
 
@@ -1066,7 +1207,7 @@ Print a final summary to the user containing:
   invalid with the schema error); never describe a missing/invalid/unadmitted artifact as “none clear”
 - **The integrity finish-gate result (step 10B):** the `GATE: PASS|PROVISIONAL` line, the verify-evidence verdict, any pre-mortem confidence haircut, and the `GATE-EXPECTATIONS:` result (10B.3). If any of these is `PROVISIONAL` or verify-evidence is `Failed`, say so prominently — the published thesis carries a PROVISIONAL banner and its numbers are not yet trusted.
 - The three output tiers and their paths: `<RUN_ROOT>/memo.md` (~10-page colleague memo), `<RUN_ROOT>/final_thesis.md` (deep-dive thesis), `<RUN_ROOT>/audit_dossier.md` (full audit concatenation) — noting any that were skipped or failed
-- The two commit SHAs pushed to `origin/main`
+- The commit SHA pushed to `origin/main`
 
 ---
 
@@ -1075,4 +1216,4 @@ Print a final summary to the user containing:
 - Do not hardcode any module name. Run order (step 4) and cross-module context (step 8A) are both derived from each module's `depends_on:` frontmatter — adding a module requires only its files plus its `depends_on` list, with zero edits to this orchestrator.
 - Adding a new module — e.g. dropping `.claude/agents/valuation/` with specialists and a `99_valuation-synthesis.md` — must require zero changes to this orchestrator beyond optionally updating the ordering rule in step 4 if cross-module dependencies need it.
 - Never invoke another slash command from within this command. The shared pipeline is followed *inline* via the instructions in `frameworks/MODULE_PIPELINE.md`; the standalone module commands at `.claude/commands/research/<module>.md` are NOT called.
-- Exactly two commits per run: one run-artifacts commit and one metadata-backfill commit that fills in the commit SHA of the first. Per-module commits do not happen here.
+- Exactly one path-confined run-artifacts commit per run. Per-module commits do not happen here.

@@ -58,6 +58,15 @@ mkRun('DONE_2026-06-24', { interrupted: { reason: 'out_of_credits', resetsAt: PA
 mkRun('NOMK_2026-06-24', { doneModule: 'business-model' }) // partial but unmarked = a clean budget `incomplete`
 mkRun('LIVE_2026-06-24', { interrupted: { reason: 'nonzero_exit' }, doneModule: 'business-model' })
 mkRun('STAL_2026-06-24', { interrupted: { reason: 'nonzero_exit' }, ageMs: 3 * 24 * 3600 * 1000 }) // 3 days old
+const automatic = mkRun('AUTO_2026-06-24', { interrupted: { reason: 'incomplete_publication' }, doneModule: 'business-model' })
+fs.mkdirSync(path.join(automatic, 'intake'), { recursive: true })
+fs.writeFileSync(path.join(automatic, 'intake', '2026-06-24_intake_plan.json'),
+  JSON.stringify({ staged_for_scoped_rerun: true }) + '\n')
+const unsafeAutomatic = mkRun('BADPLAN_2026-06-24', { interrupted: { reason: 'incomplete_publication' } })
+fs.mkdirSync(path.join(unsafeAutomatic, 'intake'), { recursive: true })
+fs.writeFileSync(path.join(unsafeAutomatic, 'intake', '2026-06-24_intake_plan.json'), '{broken\n')
+const intentAutomatic = mkRun('INTENT_2026-06-24', { interrupted: { reason: 'incomplete_publication' } })
+fs.writeFileSync(path.join(intentAutomatic, '.scoped-stage-intent.json'), '{}\n')
 mkRun('tracking', {}) // not a "<TICKER>_<DATE>" run folder at all
 
 const { listResumableResearchRuns, shouldHoldForCredit, isResumeDue } = await import('../src/resume-supervisor')
@@ -68,14 +77,15 @@ function check(name: string, fn: () => void) {
   catch (e: any) { console.error(`FAIL  ${name}\n      ${e?.stack || e?.message || e}`); process.exitCode = 1 }
 }
 
-const tickersFor = (live: Set<string>) => new Set(listResumableResearchRuns(live, now).map((r) => r.subject))
+const published = (subject: string) => subject === 'DONE'
+const tickersFor = (live: Set<string>) => new Set(listResumableResearchRuns(live, now, published).map((r) => r.subject))
 
 check('an interrupted, unfinished, recent run IS resumable', () => {
   assert.ok(tickersFor(new Set()).has('INTR'), 'INTR should be resumable')
 })
 
 check('an out_of_credits run IS resumable and carries its resetsAt + reason', () => {
-  const ooc = listResumableResearchRuns(new Set(), now).find((r) => r.subject === 'OOC')
+  const ooc = listResumableResearchRuns(new Set(), now, published).find((r) => r.subject === 'OOC')
   assert.ok(ooc, 'OOC should be resumable')
   assert.equal(ooc!.reason, 'out_of_credits')
   assert.equal(ooc!.resetsAt, FUTURE)
@@ -99,6 +109,18 @@ check('a currently-live run is NOT resumable', () => {
 
 check('a stale (3-day-old) break is NOT resumable', () => {
   assert.ok(!tickersFor(new Set()).has('STAL'), 'STAL is too old — left for the human')
+})
+
+check('a staged automatic scoped target is owned by the exact call ledger, not the bare supervisor', () => {
+  assert.ok(!tickersFor(new Set()).has('AUTO'), 'AUTO must retain its immutable plan/date binding')
+})
+
+check('a damaged staged-plan artifact fails closed instead of launching a generic full run', () => {
+  assert.ok(!tickersFor(new Set()).has('BADPLAN'), 'BADPLAN needs exact recovery/repair, never a bare full')
+})
+
+check('a pre-stamp automatic staging intent is owned by the exact call ledger', () => {
+  assert.ok(!tickersFor(new Set()).has('INTENT'), 'the non-launch intent must never authorize generic full resume')
 })
 
 check('exactly the two genuine interruptions are surfaced (LIVE excluded as in-flight)', () => {

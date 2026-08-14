@@ -25,7 +25,7 @@ const here = path.dirname(fileURLToPath(import.meta.url))
 const tmpdirs: string[] = []
 const tmp = (prefix: string) => { const d = fs.mkdtempSync(path.join(os.tmpdir(), prefix)); tmpdirs.push(d); return d }
 
-function probeDataNeeds(repo: string, subject = 'AAA', swarm = 'fixswarm', runRoot?: string): any {
+function probeDataNeeds(repo: string, subject = 'AAA', swarm = 'fixswarm', runRoot?: string, publishedRef?: string): any {
   const probe = path.join(repo, `probe-${subject}-${Math.random().toString(16).slice(2)}.ts`)
   const src = path.resolve(here, '..', 'src', 'data-needs')
   fs.writeFileSync(probe, [
@@ -38,6 +38,9 @@ function probeDataNeeds(repo: string, subject = 'AAA', swarm = 'fixswarm', runRo
     encoding: 'utf8',
     env: {
       ...process.env, ENGINE_REPO_ROOT: repo, ENGINE_STATE_DIR: path.join(repo, '.state'),
+      // Fixture repositories have no remote. HEAD is their explicit shared-authority seam; production
+      // continues to use origin/main and rejects unpushed correction sidecars.
+      ENGINE_PUBLISHED_GIT_REF: publishedRef || 'HEAD',
       ENGINE_ACTIVITY_LOG_DISABLED: '1',
     },
   })
@@ -618,7 +621,17 @@ check('fixture: research corrections are applied before decision fingerprint and
     }],
   }
   fs.writeFileSync(path.join(runDir, 'decision_record.json'), JSON.stringify(record))
-  const before = probeDataNeeds(repo, 'AAA', 'research', runRoot)
+  const commitAll = (message: string) => {
+    spawnSync('git', ['init', '-q'], { cwd: repo })
+    spawnSync('git', ['config', 'user.email', 'data-needs@example.invalid'], { cwd: repo })
+    spawnSync('git', ['config', 'user.name', 'Data Needs Test'], { cwd: repo })
+    spawnSync('git', ['add', '--', '.'], { cwd: repo })
+    const committed = spawnSync('git', ['commit', '-q', '-m', message], { cwd: repo, encoding: 'utf8' })
+    assert.equal(committed.status, 0, committed.stderr)
+    return spawnSync('git', ['rev-parse', 'HEAD'], { cwd: repo, encoding: 'utf8' }).stdout.trim()
+  }
+  let published = commitAll('fixture decision')
+  const before = probeDataNeeds(repo, 'AAA', 'research', runRoot, published)
   const statePipeline = path.join(repo, '.state', 'pipeline')
   fs.mkdirSync(statePipeline, { recursive: true })
   const sourceId = 'PIPE-20260813-aaaaaaaa'
@@ -643,7 +656,8 @@ check('fixture: research corrections are applied before decision fingerprint and
   fs.writeFileSync(path.join(runDir, 'corrections.json'), JSON.stringify({
     schema: 'corrections/v1', errata: [{ field: 'probability', kind: 'scale_fix' }],
   }))
-  const after = probeDataNeeds(repo, 'AAA', 'research', runRoot)
+  published = commitAll('fixture published correction')
+  const after = probeDataNeeds(repo, 'AAA', 'research', runRoot, published)
   assert.equal(after.needs[0].need_id, 'corrected-scope')
   assert.notEqual(after.decision_fingerprint, before.decision_fingerprint,
     'the effective corrected decision must receive a new immutable fingerprint')

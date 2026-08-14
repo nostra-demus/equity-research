@@ -38,6 +38,8 @@ import { DataNeedsDock } from './components/dataneeds/DataNeedsDock'
 import { DataPipelinePanel } from './components/pipeline/DataPipelinePanel'
 import { DecisionBanner } from './components/DecisionBanner'
 import { OfflineBanner } from './components/EngineStatus'
+import { api } from './lib/api'
+import { callUpdateToast, unseenCallUpdates } from './components/CallsTracker.logic'
 
 // The 3D globe view is lazy-loaded: this dynamic import is the chunk boundary that keeps three.js out of
 // the main bundle — it (and its three.js deps) only download when the user first opens the globe.
@@ -207,6 +209,7 @@ export function App() {
   const diagnosticsOpen = useStore((s) => s.diagnosticsOpen)
   const toast = useStore((s) => s.toast)
   const setToast = useStore((s) => s.setToast)
+  const openCalls = useStore((s) => s.openCalls)
   const activeSwarm = useStore((s) => s.activeSwarm)
   const swarms = useStore((s) => s.swarms)
   const warp = useStore((s) => s.warp)
@@ -222,6 +225,59 @@ export function App() {
   useEffect(() => {
     init().catch((e) => console.error('init failed', e))
   }, [init])
+
+  // Background call-change notifications. The update id is derived from the committed call/review
+  // artifact, so polling, reloads and multiple tabs cannot manufacture a new event. The first visit only
+  // establishes the watermark; later visits still alert if an automatic update landed while the app was
+  // closed. The Calls panel remains the durable notification history.
+  useEffect(() => {
+    let stopped = false
+    const key = 'nostra.calls.seen-updates.v2'
+    const check = async () => {
+      try {
+        const result = await api.calls()
+        if (stopped || result.automation?.enabled !== true) return
+        const updates = (result.updates || []).filter((update) => Boolean(update?.id))
+        if (!updates.length) return
+        const claim = () => {
+          let raw: string | null
+          try { raw = localStorage.getItem(key) } catch { return null /* private browsing */ }
+          if (!raw) {
+            // First visit establishes history; it must not announce every old call as if it just changed.
+            try { localStorage.setItem(key, JSON.stringify(updates.map((update) => update.id).slice(0, 300))) } catch {}
+            return null
+          }
+          let seen: string[] = []
+          try {
+            const parsed = JSON.parse(raw)
+            if (Array.isArray(parsed)) seen = parsed.filter((id): id is string => typeof id === 'string')
+          } catch { /* reset a malformed browser-only watermark from the authoritative API list below */ }
+          const seenSet = new Set(seen)
+          // Dates are day-granular, so a newly-written review can sort below an older same-day review.
+          // Keep the whole unseen batch. We announce it as one clear alert below before marking every id.
+          const unseen = unseenCallUpdates(updates, seenSet)
+          const merged = [...updates.map((update) => update.id), ...seen].filter((id, index, all) => all.indexOf(id) === index).slice(0, 300)
+          try { localStorage.setItem(key, JSON.stringify(merged)) } catch { return null }
+          return unseen
+        }
+        // Web Locks serializes the watermark across tabs. Older browsers still get the safe local
+        // fallback; the committed update id prevents polling from creating new history either way.
+        const unseen = navigator.locks?.request
+          ? await navigator.locks.request('nostra-calls-notification', claim)
+          : claim()
+        const alert = callUpdateToast(unseen || [])
+        if (!alert) return
+        setToast({
+          msg: alert.message,
+          tone: alert.tone,
+          action: { label: 'Open Calls', onClick: openCalls },
+        })
+      } catch { /* Calls owns the persistent error state; never spam a global error toast. */ }
+    }
+    void check()
+    const timer = window.setInterval(() => { void check() }, 60_000)
+    return () => { stopped = true; window.clearInterval(timer) }
+  }, [openCalls, setToast])
 
   return (
     <div className={`app${warp ? ` app--warp-${warp.phase}` : ''}${openOutput && chatOpen ? ' app--dual' : ''}`} data-swarm={activeSwarm} style={activeColor ? ({ ['--swarm-color' as any]: activeColor }) : undefined}>
@@ -265,7 +321,7 @@ export function App() {
 
       <AnimatePresence>
         {toast && (
-          <motion.div key="toast" className="toast" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 12 }}>
+          <motion.div key="toast" className="toast" role="status" aria-live="polite" aria-atomic="true" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 12 }}>
             <span className="creditbadge__dot" style={{ background: toast.tone === 'good' ? 'var(--accent)' : toast.tone === 'bad' ? 'var(--bad)' : 'var(--text-muted)' }} />
             <span className="toast__msg" title={toast.msg}>{toast.msg}</span>
             {toast.action && (

@@ -19,12 +19,14 @@ import type { RunState } from './registry'
 // swallowed. A run with no captured session id gets no metrics file — we do not fabricate one.
 
 const COST_REPORT = path.join(REPO_ROOT, 'scripts', 'run_cost_report.py')
+const SAFE_SESSION_ID = /^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/
 
 // Per-run filename, not a fixed 'agent_metrics.json': several launch kinds reuse a run root (agent reruns
 // target an existing run folder; sweep/handoff write under screener/inbox|ledger), so a fixed name would let
 // a later run silently overwrite an earlier run's metrics. Keying on sessionId (unique per run) makes a
 // reused folder accumulate one record per run instead of last-write-wins.
 export function agentMetricsFilename(sessionId: string): string {
+  if (!SAFE_SESSION_ID.test(sessionId)) throw new Error('unsafe agent-metrics session id')
   return `agent_metrics.${sessionId}.json`
 }
 
@@ -49,7 +51,8 @@ export function agentMetricsArgs(sessionId: string, runRoot: string): string[] {
 // (§28) — writeAgentMetrics itself never touches git, keeping this module a pure telemetry writer.
 export function writeAgentMetrics(run: RunState, onWritten?: (run: RunState, filename: string) => void): void {
   if (!run.runRoot || !run.sessionId) return // no session transcript to attribute → no metrics file (we don't fake one)
-  const filename = agentMetricsFilename(run.sessionId)
+  let filename: string
+  try { filename = agentMetricsFilename(run.sessionId) } catch { return }
   void execa('python3', agentMetricsArgs(run.sessionId, run.runRoot), {
     cwd: REPO_ROOT,
     timeout: 120_000,

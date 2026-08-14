@@ -1,63 +1,243 @@
-/* Calls tracker — a card per call with a visual since-the-call timeline (an amber progress line
-   running through dated review checkpoints). Reuses the app's tokens; own slide-in panel geometry. */
+/* Read-only automatic calls panel. Tokens only: this surface is shared by every swarm and theme. */
+.callslayer { position: fixed; inset: 0; z-index: 50; background: var(--scrim); }
 .calls {
-  position: absolute; top: 0; right: 0; bottom: 0; width: min(720px, 94%); z-index: 50;
-  background: var(--surface-1); border-left: 1px solid var(--hairline-strong); box-shadow: var(--shadow-2);
-  display: flex; flex-direction: column;
+  position: fixed;
+  inset: 0 0 0 auto;
+  z-index: 1;
+  width: min(700px, 100%);
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-1);
+  border-left: 1px solid var(--hairline-strong);
+  box-shadow: var(--shadow-2);
 }
-.calls__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 20px; border-bottom: 1px solid var(--hairline); }
-.calls__title { font-size: 15px; font-weight: 600; letter-spacing: 0.2px; }
-.calls__sub { font-size: 11.5px; color: var(--text-faint); margin-top: 3px; }
-.calls__tools { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
-.calls__body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
-.calls__count { font-size: 11.5px; color: var(--text-faint); padding: 0 2px; }
-.calls__empty { color: var(--text-faint); font-size: 13px; padding: 56px 28px; text-align: center; line-height: 1.7; }
 
-.callcard { border: 1px solid var(--hairline); border-radius: var(--r-lg); background: var(--surface-2); padding: 15px 18px 16px; transition: border-color var(--dur-fast); }
-.callcard:hover { border-color: var(--hairline-strong); }
+.calls__head {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--hairline);
+}
+.calls__title { margin: 0; font-size: 17px; line-height: 1.2; font-weight: 650; letter-spacing: -0.01em; }
+.calls__sub { margin: 3px 0 0; font-size: 11.5px; color: var(--text-faint); }
+.calls__close {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease-out);
+}
+.calls__close:active { transform: scale(0.97); }
 
-.callcard__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.callcard__id { min-width: 0; display: flex; align-items: baseline; gap: 9px; }
-.callcard__name { font-size: 15px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.callcard__tkr { font-size: 11px; font-weight: 600; color: var(--text-faint); font-family: var(--font-mono); flex-shrink: 0; }
-.callcard__when { text-align: right; font-size: 11px; color: var(--text-faint); white-space: nowrap; flex-shrink: 0; line-height: 1.55; }
+.calls__body {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
 
-.verdict { font-size: 10.5px; font-weight: 700; letter-spacing: 0.4px; padding: 3px 10px; border-radius: var(--r-pill); border: 1px solid currentColor; white-space: nowrap; flex-shrink: 0; }
+.callsintro {
+  padding: 18px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  background: var(--surface-2);
+}
+.callsintro__promise { margin: 0; color: var(--text); font-size: 20px; font-weight: 650; letter-spacing: -0.02em; }
+.callsintro__explain { margin: 6px 0 0; color: var(--text-muted); font-size: 12.5px; line-height: 1.55; }
 
-/* truth-integrity ("⚠ UNVERIFIED") and post-mortem rating-cap ("⚠ CAPPED") flags — DECISION_LEDGER.md
-   §18a: a human scanning this dashboard must be able to tell a flagged/capped call from a clean one. */
-.flag { font-size: 9.5px; font-weight: 700; letter-spacing: 0.3px; padding: 2px 8px; border-radius: var(--r-pill); border: 1px solid currentColor; white-space: nowrap; flex-shrink: 0; cursor: help; }
-.flag--bad { color: var(--bad); }
-.flag--warn { color: var(--accent-bright); }
+.callsauto { margin-top: 17px; padding-top: 14px; border-top: 1px solid var(--hairline); }
+.callsauto__summary { display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 12px; }
+.callsauto__summary strong { font-weight: 600; color: inherit; }
+.callsauto__dot { width: 8px; height: 8px; flex: none; border-radius: 50%; background: var(--text-faint); }
+.callsauto[data-state='watching'] .callsauto__summary { color: var(--live); }
+.callsauto[data-state='watching'] .callsauto__dot { background: var(--live); }
+.callsauto[data-state='checking'] .callsauto__summary { color: var(--accent-bright); }
+.callsauto[data-state='checking'] .callsauto__dot { background: var(--accent-bright); }
+.callsauto[data-state='needs_attention'] .callsauto__summary { color: var(--bad); }
+.callsauto[data-state='needs_attention'] .callsauto__dot { background: var(--bad); }
+.callsauto__message { margin: 6px 0 0 16px; color: var(--text-muted); font-size: 11.5px; line-height: 1.5; }
+.callsauto__times { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 13px 0 0; }
+.callsauto__times > div { min-width: 0; padding: 9px 10px; background: var(--surface-1); border-radius: var(--r-sm); }
+.callsauto__times dt { color: var(--text-faint); font-size: 10px; }
+.callsauto__times dd { margin: 4px 0 0; color: var(--text-muted); font-size: 11px; font-variant-numeric: tabular-nums; }
 
-.callcard__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; margin: 12px 0 2px; font-size: 12px; color: var(--text-muted); }
-.callcard__meta b { color: var(--text); font-weight: 600; }
-.pos { color: var(--accent-bright); } .neg { color: var(--bad); }
+.calls__sectionhead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 9px; }
+.calls__sectionhead h3 { margin: 0; color: var(--text); font-size: 12px; font-weight: 650; }
+.calls__sectionhead > span { color: var(--text-faint); font-size: 10.5px; white-space: nowrap; }
 
-.statuschip { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; }
-.statuschip .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.callupdates__feed { border: 1px solid var(--hairline); border-radius: var(--r-md); overflow: hidden; background: var(--surface-2); }
+.callupdate { display: grid; grid-template-columns: 8px minmax(0, 1fr); gap: 10px; padding: 12px 13px; }
+.callupdate + .callupdate { border-top: 1px solid var(--hairline); }
+.callupdate__mark { width: 7px; height: 7px; margin-top: 5px; border-radius: 50%; background: var(--text-faint); }
+.callupdate[data-tone='better'] .callupdate__mark { background: var(--live); }
+.callupdate[data-tone='worse'] .callupdate__mark { background: var(--bad); }
+.callupdate[data-tone='same'] .callupdate__mark { background: var(--neutral); }
+.callupdate[data-tone='info'] .callupdate__mark { background: var(--accent); }
+.callupdate__body { min-width: 0; }
+.callupdate__meta { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 8px; color: var(--text-faint); font-size: 10px; }
+.callupdate__meta strong { color: var(--text-muted); font-size: 11px; font-weight: 650; }
+.callupdate__tone { color: var(--text-muted); }
+.callupdate[data-tone='better'] .callupdate__tone { color: var(--live); }
+.callupdate[data-tone='worse'] .callupdate__tone { color: var(--bad); }
+.callupdate__headline { margin: 5px 0 0; color: var(--text); font-size: 12.5px; font-weight: 550; line-height: 1.45; }
+.callupdate__detail { margin: 3px 0 0; color: var(--text-muted); font-size: 11.5px; line-height: 1.5; }
+.callupdate__open { margin-top: 8px; min-height: 30px; padding: 4px 9px; font-size: 10.5px; }
+.callupdates__empty { margin: 0; padding: 14px; border: 1px solid var(--hairline); border-radius: var(--r-md); color: var(--text-faint); font-size: 11.5px; line-height: 1.5; }
+.callupdates__earlier { margin-top: 8px; border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-2); overflow: hidden; }
+.callupdates__earlier > summary {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 13px;
+  list-style: none;
+  color: var(--text-muted);
+  font-size: 11.5px;
+  cursor: pointer;
+}
+.callupdates__earlier > summary::-webkit-details-marker { display: none; }
+.callupdates__earlier > summary::before { content: '›'; color: var(--text-faint); font-size: 18px; transition: transform var(--dur-fast) var(--ease-out); }
+.callupdates__earlier[open] > summary::before { transform: rotate(90deg); }
+.callupdates__earlier > summary > :last-child { margin-left: auto; color: var(--text-faint); font-size: 10.5px; }
+.callupdates__earlier > .callupdates__feed { border-width: 1px 0 0; border-radius: 0; }
 
-/* timeline: a base line + an amber fill that reaches "now", with a dot per checkpoint */
-.tl { position: relative; margin-top: 18px; }
-.tl__base, .tl__fill { position: absolute; top: 7px; height: 2px; border-radius: 2px; }
-.tl__base { background: var(--hairline-strong); }
-.tl__fill { background: var(--accent); transition: width var(--dur-slow) var(--ease-out); }
-.tl__row { display: flex; position: relative; z-index: 1; }
-.tlnode { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0; padding: 0 2px; }
-.tlnode__dot { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--hairline-strong); background: var(--surface-2); box-sizing: border-box; transition: transform var(--dur-fast) var(--ease); }
-.tlnode--call .tlnode__dot, .tlnode--done .tlnode__dot { background: var(--accent); border-color: var(--accent); }
-.tlnode--overdue .tlnode__dot { background: var(--bad); border-color: var(--bad); }
-.tlnode--due .tlnode__dot { background: var(--surface-2); border-color: var(--accent-bright); box-shadow: 0 0 0 3px var(--accent-wash); animation: tlpulse 1.9s var(--ease) infinite; }
-.tlnode--upcoming .tlnode__dot { background: var(--surface-1); border-color: #bcb8af; }
-.tlnode.clickable { cursor: pointer; }
+.callgroups { display: flex; flex-direction: column; gap: 12px; }
+.callgroups > .calls__sectionhead { margin-bottom: -3px; }
+.callcard { padding: 16px; border: 1px solid var(--hairline); border-radius: var(--r-lg); background: var(--surface-2); }
+.callcard__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.callcard__company { min-width: 0; display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 8px; }
+.callcard__eyebrow { flex-basis: 100%; color: var(--text-faint); font-size: 10px; }
+.callcard__company h3 { min-width: 0; margin: 0; color: var(--text); font-size: 16px; font-weight: 650; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.callcard__ticker { color: var(--text-faint); font-family: var(--font-mono); font-size: 10.5px; }
+.callcard__decision { flex: none; padding: 4px 9px; border: 1px solid currentColor; border-radius: var(--r-pill); font-size: 10px; line-height: 1.2; font-weight: 700; letter-spacing: 0.3px; }
+
+.callstatus { display: flex; align-items: center; flex-wrap: wrap; gap: 5px 12px; margin-top: 12px; color: var(--text-faint); font-size: 11px; }
+.callstatus span { position: relative; }
+.callstatus span + span::before { content: '·'; position: absolute; left: -8px; color: var(--hairline-strong); }
+.callstatus strong { color: var(--text-muted); font-weight: 600; }
+.callstatus [data-state='verified'] strong { color: var(--live); }
+.callstatus [data-state='needs-verification'] strong,
+.callstatus [data-state='capped'] { color: var(--bad); }
+
+.callfacts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 14px 0 0; }
+.callfacts > div { min-width: 0; padding: 9px 10px; border-radius: var(--r-sm); background: var(--surface-1); }
+.callfacts > .callfacts__wide { grid-column: 1 / -1; }
+.callfacts dt { color: var(--text-faint); font-size: 9.5px; }
+.callfacts dd { margin: 4px 0 0; color: var(--text); font-size: 11.5px; font-weight: 550; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.callfacts dd[data-tone='negative'] { color: var(--bad); }
+
+.callreview { margin-top: 13px; padding: 11px 12px; border-left: 2px solid var(--accent); background: var(--surface-1); }
+.callreview__head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; color: var(--text-faint); font-size: 9.5px; }
+.callreview > strong { display: block; margin-top: 4px; color: var(--text); font-size: 11.5px; font-weight: 600; }
+.callreview > p { margin: 4px 0 0; color: var(--text-muted); font-size: 11.5px; line-height: 1.5; }
+.callcard__action { display: flex; justify-content: flex-end; margin-top: 14px; }
+.callcard__action .btn { min-width: 104px; }
+
+.callhistory { margin-top: 14px; border-top: 1px solid var(--hairline); }
+.callhistory > summary {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  list-style: none;
+  color: var(--text-muted);
+  font-size: 11.5px;
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease-out);
+}
+.callhistory > summary::-webkit-details-marker { display: none; }
+.callhistory > summary::before { content: '›'; color: var(--text-faint); font-size: 18px; transform: rotate(0); transition: transform var(--dur-fast) var(--ease-out); }
+.callhistory[open] > summary::before { transform: rotate(90deg); }
+.callhistory > summary > :first-child { margin-right: auto; }
+.callhistory > summary > :last-child { color: var(--text-faint); font-size: 10.5px; }
+.callhistory > summary:active { transform: scale(0.99); }
+.callhistory ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hairline); }
+.callhistory__row { padding: 14px 0; }
+.callhistory__row + .callhistory__row { border-top: 1px solid var(--hairline); }
+.callhistory__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.callhistory__head > div { display: flex; flex-direction: column; gap: 4px; }
+.callhistory__head strong { font-size: 11.5px; }
+.callhistory__head > time { color: var(--text-faint); font-size: 10.5px; }
+.callhistory__ordinal { color: var(--text-faint); font-size: 9.5px; }
+.callfacts--compact { margin-top: 10px; }
+.callfacts--compact > div { padding: 7px 8px; }
+.callreview--compact { margin-top: 10px; }
+.callhistory__action { display: flex; justify-content: flex-end; margin-top: 10px; }
+.callhistory__action .btn { min-height: 32px; padding: 5px 10px; font-size: 10.5px; }
+
+.calls__notice { margin: -10px 0 0; padding: 9px 11px; border: 1px solid var(--bad); border-radius: var(--r-sm); color: var(--text-muted); background: var(--bad-wash); font-size: 11.5px; line-height: 1.5; }
+.calls__empty { padding: 34px 24px; border: 1px solid var(--hairline); border-radius: var(--r-lg); color: var(--text-muted); text-align: center; font-size: 12px; line-height: 1.55; }
+.calls__empty strong { color: var(--text); font-size: 13px; }
+.calls__empty p { margin: 5px auto 14px; max-width: 420px; }
+
+.callsloading { display: flex; flex-direction: column; gap: 10px; }
+.callsloading__line,
+.callsloading__card { position: relative; overflow: hidden; border-radius: var(--r-md); background: var(--surface-2); }
+.callsloading__line { width: 34%; height: 14px; }
+.callsloading__card { height: 160px; border: 1px solid var(--hairline); }
+.callsloading__line::after,
+.callsloading__card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--surface-3);
+  opacity: 0.28;
+  animation: calls-loading 1.2s var(--ease) infinite alternate;
+}
+@keyframes calls-loading { from { opacity: 0.18; } to { opacity: 0.48; } }
+
+.calls :is(button, summary):focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 2px; }
 @media (hover: hover) and (pointer: fine) {
-  .tlnode.clickable:hover .tlnode__dot { transform: scale(1.18); }
+  .calls__close:hover { border-color: var(--hairline-strong); color: var(--text); }
+  .callhistory > summary:hover { color: var(--text); }
+  .callupdates__earlier > summary:hover { color: var(--text); }
 }
-.tlnode.clickable:active .tlnode__dot { transform: scale(0.92); }
-@keyframes tlpulse { 0%, 100% { box-shadow: 0 0 0 2px var(--accent-wash); } 50% { box-shadow: 0 0 0 6px var(--accent-wash-soft); } }
-.tlnode__label { font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-faint); }
-.tlnode__sub { font-size: 10.5px; color: var(--text-muted); text-align: center; line-height: 1.25; white-space: nowrap; }
 
-.callcard__foot { display: flex; align-items: center; gap: 8px; margin-top: 17px; flex-wrap: wrap; }
-.callcard__hint { font-size: 11px; color: var(--text-faint); margin-left: auto; white-space: nowrap; }
-.btn--mini { height: 28px; font-size: 12px; padding: 0 12px; }
+@media (max-width: 700px) {
+  .calls { width: 100%; border-left: none; }
+  .calls__head { padding: 12px 14px; }
+  .calls__close { width: 44px; height: 44px; }
+  .calls__body { padding: 12px; gap: 18px; }
+  .callsintro, .callcard { padding: 14px; }
+  .callsintro__promise { font-size: 18px; }
+  .callsauto__times { grid-template-columns: 1fr; }
+  .callcard__head { flex-direction: column; gap: 9px; }
+  .callcard__decision { align-self: flex-start; }
+  .callfacts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .callcard__action .btn { min-height: 44px; }
+  .callhistory > summary { min-height: 48px; }
+  .callupdates__earlier > summary { min-height: 48px; }
+}
+
+@media (max-width: 430px) {
+  .calls__sectionhead { align-items: flex-start; flex-direction: column; gap: 3px; }
+  .callupdate { padding: 11px; }
+  .callupdate__meta { gap: 3px 6px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .calls__close,
+  .callhistory > summary,
+  .callhistory > summary::before,
+  .callupdates__earlier > summary::before { transition: none; }
+  .calls__close:active,
+  .callhistory > summary:active { transform: none; }
+  .callsloading__line::after,
+  .callsloading__card::after { animation: none; opacity: 0.28; }
+}

@@ -126,12 +126,50 @@ You re-run only the `99` synthesis of each cascade module (then refresh that mod
 
 **Refresh the deterministic sidecar first — this is the only refresh the master-target path gets.** A `master synthesizer` rerun skips steps 5–7 (step 1 / step 4 jump straight here), so the Step-5 refresh never runs for it; yet the synthesizer now treats `<RUN_ROOT>/_pool_extracts/ciq_facts.json` as authoritative for scorecard and `decision_record` anchors. Without this, a master-only rerun after new data lands would tie the final thesis to the ORIGINAL run's stale CIQ facts. Run `frameworks/MODULE_PIPELINE.md` Step 1.5 once now — `python3 .claude/tools/extract_pool.py "data/<TICKER>/" "<RUN_ROOT>/_pool_extracts"` — which regenerates `ciq_facts.json` when the data changed (idempotent: it skips when the manifest is newer than every source, so on the normal cascade path — where Step 5 already refreshed it — this second call costs nothing).
 
-Dispatch a single Task call (per `/research:full` step 10):
+Before any master Task, reconcile the durable attempt-owned output boundary:
+
+```bash
+python3 scripts/research_paid_completion.py master-recover <RUN_ROOT> --replacement-requested
+```
+
+This explicit flag belongs only to a requested `/research:rerun`; `/research:full` crash recovery never
+uses it to reinterpret an already-paid terminal pair as permission to run the master again.
+
+- `complete_current` or `promoted`: the exact current master work is already canonical. Dispatch zero
+  master Tasks and continue to Step 8A.
+- `replace_needed`: run `python3 scripts/research_paid_completion.py master-arm <RUN_ROOT>
+  --allow-existing`, require `status: armed|existing|rearmed`, and capture its exact
+  `<MASTER_OUTPUT_DIR>` and `staged_outputs`.
+- `unarmed`: this is the normal fresh per-module-chain boundary—every module synthesis exists, but no
+  canonical master trio or attempt exists yet. Run `python3 scripts/research_paid_completion.py
+  master-arm <RUN_ROOT>` **without** `--allow-existing`, require `status: armed|existing|rearmed`, and
+  capture its exact `<MASTER_OUTPUT_DIR>` and `staged_outputs`.
+- `armed_ready` or `retry_ready`: capture the exact helper-returned `<MASTER_OUTPUT_DIR>` and
+  `staged_outputs`; this is a crash-safe retry of an already-fsynced attempt.
+- Any other state or validator error is a hard stop. Preserve every canonical byte and report the exact
+  helper error; never infer a staging path or copy a partial output by hand.
+
+Only when the helper state requires a Task, dispatch one call:
 
 - `subagent_type: "synthesizer"`
-- > Synthesize the analyses in <RUN_ROOT>/. Output the final thesis to <RUN_ROOT>/final_thesis.md.
+- User message:
 
-Wait for it. Treat as failed if `<RUN_ROOT>/final_thesis.md` does not exist when it returns (if so, STOP before committing and report the failure).
+  > Master synthesis with two separate path authorities. CANONICAL_RUN_ROOT is `<RUN_ROOT>`: read the
+  > module outputs and deterministic sidecar only from that canonical root, and keep every embedded
+  > `run_root`, `decision_date`, `final_thesis_path`, assessment id, ticker, and other identity field
+  > bound to it. MASTER_OUTPUT_DIR is the exact helper-returned `<MASTER_OUTPUT_DIR>`: write exactly
+  > `final_thesis.md`, `decision_record.json`, and the preliminary `idea_3_6m.json` there. Do not infer
+  > canonical identity from MASTER_OUTPUT_DIR. Do not write or edit any canonical terminal path and do
+  > not run git.
+
+After it returns, run `python3 scripts/research_paid_completion.py master-recover <RUN_ROOT> --replacement-requested`
+again. Only `promoted` or `complete_current` permits Step 8A. `armed_ready` /
+`retry_ready` permits at most one recovery Task using
+the newly returned exact staging directory and the same two-authority message; then run the helper once
+more and require promotion/completion. If it still does not complete, STOP and leave the durable attempt
+for the next exact retry. The helper validates the staged `#` thesis, canonical decision identity/path,
+and exact preliminary assessment; it fsyncs a hash-bound promotion intent, compare-and-swaps the prior
+unsealed trio, and resumes safely between canonical renames. A third canonical hash is never overwritten.
 
 ## 8A. Deterministic finish-gate (ALL master reruns — fix F-RRGATE)
 
@@ -181,11 +219,29 @@ Check for the marker file `<RUN_ROOT>/.defer_module_memos` (`test -f`). If it is
 ## Synthesizer status
 
 completed (master re-run)
+
+## Publication
+
+(filled in after the integrity audits)
 ```
 
-2. **Integrity finish-gate (LLM audit trio)** — Step 8A above already ran 10B.1 unconditionally for this rerun, so this step covers only the two LLM audits. Run `/research:full`'s **Step 10B.2 and 10B.3 verbatim** against `<RUN_ROOT>` (with `RUN_ROOT="<RUN_ROOT>"`), exactly as Step 9 above reuses `/research:full` step 10A.2: **10B.2** (verify-evidence → `verification_report.json`, pre-mortem → `pre_mortem.json`, and the haircut propagation that patches `decision_record.json`), then **10B.3** (expectations-gap → `expectations_gap.json`, and the independent §7 edge-consistency cross-check against `decision_record.json`'s confidence_score). Produce ONLY the report JSON in each command — skip each command's own commit step; Step 10 below commits the whole run folder in one place. Record the printed `GATE-VERIFY:` / `GATE-EXPECTATIONS:` lines for the report (Step 11) — a `PROVISIONAL` result is surfaced loudly, never hidden.
+2. **Integrity finish-gate + immutable projection** — Step 8A above already ran 10B.1 unconditionally for
+this rerun. Run `/research:full`'s **Steps 10B.2, 10B.3, 10B.3-prewrite, 10B.3A, and 10B.4 verbatim**
+against `<RUN_ROOT>` (with `RUN_ROOT="<RUN_ROOT>"`), exactly as Step 9 above reuses `/research:full` step
+10A.2. This performs the final verify-evidence, pre-mortem, and expectations-gap audits; re-runs those
+audits against the final pinned thesis/decision bytes; creates `idea_projection_manifest.json`; performs
+the final post-audit idea projection; and freezes `idea_admission.json`. Produce no independent commits—
+Step 10 below commits the whole run folder once. Record the printed `GATE-VERIFY:` /
+`GATE-EXPECTATIONS:` lines and the final `IDEA-ADMISSION:` status for Step 11. Any missing or invalid
+manifest/admission result stops before publication exactly as in the monolithic full command. A chained
+full must ship the same immutable terminal proof as a monolithic full; it may never substitute an earlier
+diagnostic audit for the final sealed artifact set.
 
 Then **delete the marker so it is never committed, and drop any stale failure note** — the run has now completed, so a break-time `RUN_FAILURE.md` (written by the server when an earlier attempt broke) must NOT ride along in this success commit: `rm -f "<RUN_ROOT>/.defer_module_memos" "<RUN_ROOT>/RUN_FAILURE.md"`.
+
+Finally, rewrite `RUN_METADATA.md` once with the completed audit results and set its `## Publication`
+value to the exact line `ready for one path-confined commit`. Write that line only after every audit and
+final artifact above exists; it is the crash-recovery seal and must never appear in a partial chain.
 
 ## 9C. Publication-time data-needs route gate
 

@@ -115,9 +115,15 @@ export function resolveUniqueFinishedIntakeOwner(subject: string): IntakeOwner |
 
   if (finished.length !== 1) return null
   const owner = finished[0]
-  const exact = readDataNeeds(owner.swarm, owner.subject, owner.runRoot)
-  const current = readDataNeeds(owner.swarm, owner.subject)
-  if (!exact || !current || exact.run_root !== current.run_root
-      || exact.decision_fingerprint !== current.decision_fingerprint) return null
+  // The pool may have a newer final_thesis-only partial folder. Automatic work must bind to the newest
+  // unsuperseded OBJECT decision — the same standing call users can see — never the partial shell.
+  const authoritative = resolveIntakeRunRoot(owner.subject, { swarmId: owner.swarm, requireDecision: true }, true)
+  if (!authoritative) return null
+  const exact = readDataNeeds(owner.swarm, owner.subject, authoritative.runRoot)
+  // Re-resolve after the read so a concurrent publication/correction cannot move the standing authority
+  // between selection and use. Do not use readDataNeeds() without an exact root here: its display-oriented
+  // resolver may see a newer local-only decision that is deliberately not yet allowed to own automation.
+  const current = resolveIntakeRunRoot(owner.subject, { swarmId: owner.swarm, requireDecision: true }, true)
+  if (!exact || !current || exact.run_root !== current.runRoot) return null
   return { swarm: owner.swarm, runRoot: exact.run_root, decisionFingerprint: exact.decision_fingerprint }
 }

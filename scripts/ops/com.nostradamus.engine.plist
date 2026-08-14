@@ -18,13 +18,14 @@
     <key>ENGINE_REPO_ROOT</key><string>{{ENGINE_REPO_ROOT}}</string>
     <key>ENGINE_STATE_DIR</key><string>{{STATE_DIR}}</string>
     <key>SCREENER_AUTOTUNE_ENABLED</key><string>1</string>
-    <!-- Close the two feedback loops the doer had left OFF. CONVICTION_LOOP_ENABLED turns on the
-         screener conviction-check reconciler (conviction-dispatch.ts) so locked theses' checkpoints
-         actually validate + rescore instead of sitting 'scheduled' forever. REVIEW_DISPATCH_ENABLED
-         turns on the platform-independent research-review tick (review-dispatch.ts) so 30/90/180/365d
-         decision reviews fire from the always-on server, not only the macOS hk-review launchd timer. -->
-    <key>CONVICTION_LOOP_ENABLED</key><string>1</string>
-    <key>REVIEW_DISPATCH_ENABLED</key><string>1</string>
+    <!-- One automatic research owner. The installer renders 1 only on the permanent doer that is also the
+         connector writer. Admin engines and a serving-only failover render 0, so they can never duplicate
+         paid research. INTAKE scopes changed evidence; CALL_UPDATE executes its committed exact plan;
+         REVIEW files due outcomes; CONVICTION checks the screener's due checkpoints. -->
+    <key>INTAKE_AUTO_ANALYZE</key><string>{{AUTOMATION_OWNER}}</string>
+    <key>CALL_UPDATE_AUTO_ENABLED</key><string>{{AUTOMATION_OWNER}}</string>
+    <key>REVIEW_DISPATCH_ENABLED</key><string>{{AUTOMATION_OWNER}}</string>
+    <key>CONVICTION_LOOP_ENABLED</key><string>{{AUTOMATION_OWNER}}</string>
     <!-- The company-news bridge (#359). BRIDGE_MODE is authoritative and the code ships OFF: an UNSET
          variable reads as 'off', so the installed service never ran the 12-hourly sweep even after the
          feature merged — the API reported "off" while the manifest listed covered subjects, and the only
@@ -32,11 +33,11 @@
          service is actually defined, beside the other loops this file enables.
          'batch' = the in-cockpit sweep (bridge-scheduler.ts). Cadence is left at its 12h default;
          BRIDGE_INTERVAL_MIN overrides it (clamped 15m-7d) and is for testing, not for this file.
-         Cost note (§24): a routed note triggers only the CHEAP, read-only intake analysis that scopes
-         which orbs are affected. The paid re-run stays behind a click.
+         Cost note (§24): a routed note first triggers the cheap intake analysis. The automatic owner then
+         runs only the exact affected orbs recorded in that committed plan.
          {{BRIDGE_MODE}} is rendered by install-services.sh, NOT hardcoded: 'batch' by default on a
-         fresh doer-role install, 'off' unconditionally on an admin-role install (this file is a BASE
-         service installed on every role, so an admin machine must not inherit autonomous routing —
+         fresh permanent-owner install, 'off' unconditionally on an admin or serving-only failover (this
+         file is a BASE service installed on every role, so another machine must not inherit routing —
          same "no duplicate autonomy" reasoning as the doer-only agents get from being installed only
          on the doer role), and an operator's prior explicit choice (off/stream) on a doer machine is
          carried forward across reinstall instead of being silently reset. See install-services.sh's

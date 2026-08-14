@@ -68,8 +68,8 @@ assert.ok(spawnStart >= 0 && spawnEnd > spawnStart, 'spawnEngine() source bounda
 const spawnBody = source.slice(spawnStart, spawnEnd)
 const buildArgs = spawnBody.indexOf('const args = await buildArgs(')
 const finalCas = spawnBody.indexOf('const beforeSpawn = changedLaunchBinding()', buildArgs)
-const paidSpawn = spawnBody.indexOf('child = execa(CLAUDE_BIN', finalCas)
-assert.ok(buildArgs >= 0 && buildArgs < finalCas && finalCas < paidSpawn, 'final CAS must sit after buildArgs and before paid execa')
+const paidSpawn = spawnBody.indexOf("child = execa('/bin/sh'", finalCas)
+assert.ok(buildArgs >= 0 && buildArgs < finalCas && finalCas < paidSpawn, 'final CAS must sit after buildArgs and before the fenced engine wrapper')
 assert.match(spawnBody, /intakeReceiptByRun\.get\(run\)[\s\S]*intakeReceiptIntentStillActionable/,
   'the immediately-pre-execa CAS re-reads the exact plan/orb and stops duplicate spend')
 

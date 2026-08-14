@@ -113,6 +113,9 @@ echo "$out"
 
 The **paired memo-delta markdown** (§8) shares the basename: take the resolved review-JSON path and replace `_decision_review` with `_memo_delta` and `.json` with `.md` (any `_vN` suffix carries over) — e.g. `2026-07-01_30d_decision_review_v2.json` → `2026-07-01_30d_memo_delta_v2.md`.
 
+Keep the exact resolved JSON and memo paths for every pair created in this invocation. These exact paths
+are the only paths Step 15 may pass to the commit helper; never rediscover outputs with a glob.
+
 ## 5. Gather review evidence
 
 For each record being reviewed, Read:
@@ -333,8 +336,14 @@ If no records were due/found (e.g. mode `due` with nothing scheduled yet), say s
 Per repo `CLAUDE.md` git policy: commit straight to `main`. No branches. No PRs. Only `git add` the review files you created (never the original records):
 
 ```bash
-bash scripts/commit-run.sh "Decision reviews: <N> review(s) on <REVIEW_DATE>" -- "analyses/*/reviews/*_decision_review*.json" "analyses/*/reviews/*_memo_delta*.md"
+bash scripts/commit-run.sh "Decision reviews: <N> review(s) on <REVIEW_DATE>" -- \
+  "<EXACT_REVIEW_JSON_1>" "<EXACT_MEMO_DELTA_1>" \
+  "<EXACT_REVIEW_JSON_2>" "<EXACT_MEMO_DELTA_2>"
 ```
+
+Include exactly the pairs this invocation created (two explicit path arguments per review; omit the second
+line when only one review was created). Globs are forbidden: they can sweep another concurrent or aborted
+review into this commit.
 
 Capture and report the commit SHA from `git rev-parse HEAD`. If no review files were created, skip the commit entirely.
 

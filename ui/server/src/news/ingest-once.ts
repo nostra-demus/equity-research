@@ -10,7 +10,8 @@ import { runIngestCycle } from './runCycle'
 import {
   acquireIngesterLock, releaseIngesterLock, runConfiguredIdeaPass, runConfiguredQualifiedIdeaOutcomes,
 } from './scheduler'
-import { NEWS, STATE_DIR } from '../config'
+import { NEWS, REPO_ROOT, STATE_DIR } from '../config'
+import { appendFirehoseSummary } from './write-inbox'
 import { pathToFileURL } from 'node:url'
 
 const log = (m: string) => console.log(`[news] ${m}`) // eslint-disable-line no-console
@@ -72,6 +73,14 @@ async function main(): Promise<void> {
       ideas: () => runConfiguredIdeaPass(log),
       outcomes: () => runConfiguredQualifiedIdeaOutcomes(log),
     })
+    if (result.ingestError) {
+      const failedAt = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')
+      appendFirehoseSummary(REPO_ROOT, failedAt.slice(0, 10), {
+        ts: failedAt, ok: false, fetched: 0, candidates: 0, picked: 0, watched: 0, dropped: 0,
+        inboxed: 0, groq_requests: 0, groq_tokens: 0, phase: 'fetch',
+        note: `cycle error: ${result.ingestError instanceof Error ? result.ingestError.message : String(result.ingestError)}`,
+      })
+    }
     if (result.error) console.error('[news] fatal', result.error) // eslint-disable-line no-console
     // Keep the machine-readable settlement result visible even on a failed ingest.
     console.log(JSON.stringify(result.summary // eslint-disable-line no-console

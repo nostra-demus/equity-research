@@ -14,8 +14,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
-import { execFileSync } from 'node:child_process'
 import { DATA_DIR, REPO_ROOT } from './config'
+import { publishedBytes, publishedBytesEqual } from './git-publication'
 import { dataPoolNewest, todayDate } from './completion'
 import { readDataNeeds } from './data-needs'
 import { normalizeDataSubject } from './data-subject'
@@ -23,6 +23,7 @@ import { finalDeliverablesPresent } from './launcher'
 import { listModuleNames, agentNamesForModule, downstreamCascade } from './roster'
 import { RESEARCH_SWARM_ID, swarmById } from './swarms'
 import { canonicalJsonText } from './canonical-json'
+import { isPublishedSupersededRun } from './ledger-corrections'
 import type { SwarmManifest } from './types'
 
 export interface IntakeEntryOrb {
@@ -75,6 +76,9 @@ export interface IntakePlan {
   scan_date: string
   scanned_at?: string // ISO wall-clock the command stamps BEFORE it reads the pool — the durable "as-of"
   watermark?: string
+  evidence_files: { path: string; arrival_ms: number }[]
+  /** Server-derived exact-list proof. Automatic work is forbidden unless true. */
+  coverage_complete: boolean
   new_docs: IntakeNewDoc[]
   rerun_plan: IntakeRerunPlan
   verdict: 'scoped_rerun' | 'note_only' | 'insufficient'
@@ -110,11 +114,132 @@ export interface IntakeReceiptIntent {
   sourceDecisionFingerprint: string
 }
 
+/**
+ * Prove that today's incomplete run is the exact server-staged continuation of this immutable plan.
+ * This is the only partial root automatic execution may resume; an unrelated/manual partial stays held.
+ */
+export function stagedIntakePlanMatches(input: {
+  subject: string
+  swarmId: string
+  sourceRunRoot: string
+  targetRunRoot: string
+  planPath: string
+  planSha256: string
+  sourceDecisionFingerprint: string
+}): boolean {
+  const safeSubject = normalizeDataSubject(input.swarmId, input.subject)
+  const swarm = swarmById(input.swarmId)
+  if (!safeSubject || !swarm || path.basename(input.planPath) !== input.planPath.split('/').pop()) return false
+  const source = exactRunRoot(swarm, safeSubject, input.sourceRunRoot)
+  const target = exactRunRoot(swarm, safeSubject, input.targetRunRoot)
+  if (!source || !target || relativeToRepo(source) !== input.sourceRunRoot || relativeToRepo(target) !== input.targetRunRoot) return false
+  const file = path.join(target, 'intake', path.basename(input.planPath))
+  try {
+    const realTarget = fs.realpathSync(target)
+    const realFile = fs.realpathSync(file)
+    if (path.dirname(realFile) !== fs.realpathSync(path.join(realTarget, 'intake')) || fs.lstatSync(file).isSymbolicLink()) return false
+    const raw = JSON.parse(fs.readFileSync(realFile, 'utf8'))
+    const hash = intakePlanSha256(raw)
+    return raw?.staged_for_scoped_rerun === true
+      && raw.run_root === input.sourceRunRoot
+      && raw.decision_fingerprint === input.sourceDecisionFingerprint
+      && hash === input.planSha256
+      && planHasCommittedAuthority(realFile, relativeToRepo(realFile), raw, hash)
+  } catch {
+    return false
+  }
+}
+
+export interface StagedIntakeResume {
+  planPath: string
+  planSha256: string
+  sourceRunRoot: string
+  sourceDecisionFingerprint: string
+}
+
+/** Find independently committed scoped work already staged in an incomplete target root. */
+export function stagedIntakeResumeForTarget(input: {
+  subject: string
+  swarmId: string
+  targetRunRoot: string
+}): StagedIntakeResume | null {
+  const safeSubject = normalizeDataSubject(input.swarmId, input.subject)
+  const swarm = swarmById(input.swarmId)
+  if (!safeSubject || !swarm) return null
+  const target = exactRunRoot(swarm, safeSubject, input.targetRunRoot)
+  if (!target || relativeToRepo(target) !== input.targetRunRoot) return null
+  let names: string[]
+  try { names = fs.readdirSync(path.join(target, 'intake')).filter((name) => /_intake_plan(?:_v\d+)?\.json$/.test(name)).sort().reverse() }
+  catch { return null }
+  for (const name of names) {
+    const file = path.join(target, 'intake', name)
+    try {
+      if (fs.lstatSync(file).isSymbolicLink() || !fs.lstatSync(file).isFile()) continue
+      const raw = JSON.parse(fs.readFileSync(file, 'utf8'))
+      const hash = intakePlanSha256(raw)
+      if (raw?.staged_for_scoped_rerun !== true || typeof raw.run_root !== 'string'
+          || typeof raw.decision_fingerprint !== 'string' || !SHA256_RE.test(raw.decision_fingerprint)
+          || !hash || !exactRunRoot(swarm, safeSubject, raw.run_root)
+          || !planHasCommittedAuthority(file, relativeToRepo(file), raw, hash)) continue
+      return {
+        planPath: `${raw.run_root}/intake/${name}`,
+        planSha256: hash,
+        sourceRunRoot: raw.run_root,
+        sourceDecisionFingerprint: raw.decision_fingerprint,
+      }
+    } catch { /* try the next independently-authorized staged plan */ }
+  }
+  return null
+}
+
 export interface IntakeReadOptions {
   swarmId?: string
   // Optional repo-relative (or contained absolute) run root for a point-in-time/historical read.
   // It must match this swarm's run_root_template with this exact subject in the placeholder.
   runRoot?: string
+  // Unattended work requires an object decision/fingerprint. A final_thesis-only partial is useful for
+  // manual recovery but can never own automatic paid work.
+  requireDecision?: boolean
+}
+
+/**
+ * Has this plan safely accounted for the pool it says it scanned?
+ *
+ * A committed note-only plan is actionable even though it has no paid commands. A consumed plan is also
+ * settled because its exact commands already ran. Any widened/unsafe projection is deliberately NOT
+ * settled: the automatic intake loop must analyze again instead of advancing its document watermark.
+ */
+export function intakePlanSafelyAccountsForPool(plan: IntakePlan | null | undefined): plan is IntakePlan {
+  return !!plan && plan.coverage_complete === true && plan.widened.length === 0
+    && (plan.actionable === true || plan.consumed === true)
+}
+
+export interface AutomaticIntakeOwnerIdentity {
+  swarm: string
+  subject: string
+  runRoot: string
+  decisionFingerprint: string
+}
+
+/** A pool watermark belongs to one exact standing call, not merely to its ticker. */
+export function automaticIntakeOwnerKey(owner: AutomaticIntakeOwnerIdentity): string {
+  return [owner.swarm, owner.subject, owner.runRoot, owner.decisionFingerprint].join('\0')
+}
+
+/** Prove that this exact standing call has safely classified every pool byte through `newestMs`. */
+export function intakePlanCoversAutomaticPool(
+  plan: IntakePlan | null | undefined,
+  owner: AutomaticIntakeOwnerIdentity,
+  newestMs: number,
+): plan is IntakePlan {
+  const scanned = plan?.scanned_at ? Date.parse(plan.scanned_at) : NaN
+  return Number.isFinite(newestMs) && newestMs > 0
+    && intakePlanSafelyAccountsForPool(plan)
+    && plan.swarm === owner.swarm
+    && plan.subject === owner.subject
+    && plan.run_root === owner.runRoot
+    && plan.decision_fingerprint === owner.decisionFingerprint
+    && Number.isFinite(scanned) && Math.floor(newestMs) <= scanned
 }
 
 // The downstream module set a single-orb rerun re-runs, recomputed from the live DAG. Mirrors
@@ -254,6 +379,80 @@ export function intakePoolNewest(subject: string, swarmId: string): { files: num
   return { files, newestDate: newestMtimeMs > 0 ? todayDate(new Date(newestMtimeMs)) : null, newestMs }
 }
 
+/** Deterministic source-of-truth for the prompt's no-omission evidence index. */
+export function intakePoolEvidenceFiles(
+  subject: string,
+  swarmId: string,
+  floorMs: number,
+  ceilingMs: number,
+): { path: string; arrival_ms: number }[] | null {
+  const safeSubject = normalizeDataSubject(swarmId, subject)
+  if (!safeSubject || !Number.isFinite(floorMs) || !Number.isFinite(ceilingMs) || floorMs < 0 || ceilingMs < floorMs) return null
+  const pool = path.join(DATA_DIR, safeSubject)
+  try {
+    if (fs.lstatSync(pool).isSymbolicLink() || !fs.lstatSync(pool).isDirectory()) return null
+  } catch { return null }
+  const repo = path.resolve(REPO_ROOT)
+  const rows: { path: string; arrival_ms: number }[] = []
+  const walk = (dir: string, depth: number): boolean => {
+    if (depth > 24) return false
+    let entries: fs.Dirent[]
+    try { entries = fs.readdirSync(dir, { withFileTypes: true }) } catch { return false }
+    for (const entry of entries.sort((a, b) => a.name.localeCompare(b.name))) {
+      if (entry.name.startsWith('.')) continue
+      const candidate = path.join(dir, entry.name)
+      if (entry.isSymbolicLink()) return false
+      if (entry.isDirectory()) { if (!walk(candidate, depth + 1)) return false; continue }
+      if (!entry.isFile() || entry.name.endsWith('.source.json') || fs.existsSync(path.join(dir, '.nostradamus_output'))) continue
+      try {
+        const stat = fs.statSync(candidate)
+        const arrival = Math.floor(Math.max(stat.mtimeMs, stat.ctimeMs))
+        if (arrival > floorMs && arrival <= ceilingMs) {
+          const repoPath = toRepoPath(path.relative(repo, candidate))
+          if (normalizePoolEvidencePath(safeSubject, repoPath) !== repoPath) return false
+          rows.push({ path: repoPath, arrival_ms: arrival })
+        }
+      } catch { return false }
+    }
+    return true
+  }
+  return walk(pool, 0) ? rows.sort((a, b) => a.path.localeCompare(b.path)) : null
+}
+
+export function intakePoolAuthorityAvailable(subject: string, swarmId: string): boolean {
+  const safeSubject = normalizeDataSubject(swarmId, subject)
+  if (!safeSubject) return false
+  try {
+    const pool = path.join(DATA_DIR, safeSubject)
+    const stat = fs.lstatSync(pool)
+    if (!stat.isDirectory() || stat.isSymbolicLink()) return false
+    const realData = fs.realpathSync(DATA_DIR)
+    const realPool = fs.realpathSync(pool)
+    if (path.dirname(realPool) !== realData) return false
+    const walk = (dir: string, depth: number): boolean => {
+      if (depth > 24) return false
+      let entries: fs.Dirent[]
+      try { entries = fs.readdirSync(dir, { withFileTypes: true }) } catch { return false }
+      for (const entry of entries) {
+        if (entry.name.startsWith('.')) continue
+        const candidate = path.join(dir, entry.name)
+        let stat: fs.Stats
+        try { stat = fs.lstatSync(candidate) } catch { return false }
+        if (stat.isSymbolicLink()) return false
+        if (stat.isDirectory()) {
+          if (!walk(candidate, depth + 1)) return false
+        } else if (stat.isFile()) {
+          try { fs.accessSync(candidate, fs.constants.R_OK) } catch { return false }
+        } else {
+          return false
+        }
+      }
+      return true
+    }
+    return walk(realPool, 0)
+  } catch { return false }
+}
+
 // Compile a swarm's run-root template for ONE exact subject. The manifest owns both the folder shape and
 // the subject placeholder; any other token (research's DATE, or a future version token) is one path segment.
 // This is also the subject-isolation guard on caller-supplied point-in-time roots: a valid root for another
@@ -385,6 +584,20 @@ function hasObjectDecision(runRootAbs: string): boolean {
   return !!raw && typeof raw === 'object' && !Array.isArray(raw)
 }
 
+/** Automatic work may bind only to a decision that every engine host can read from the shared Git
+ * authority. A successful local write/commit is not enough: a failed push must leave the older published
+ * call in charge until both terminal files are present there byte-for-byte. Non-research swarms have no
+ * master thesis, so their exact object decision is their terminal authority. */
+export function hasPublishedDecisionAuthority(swarm: SwarmManifest, runRootAbs: string): boolean {
+  if (!hasObjectDecision(runRootAbs)) return false
+  const runRoot = relativeToRepo(runRootAbs)
+  const decision = path.join(runRootAbs, 'decision_record.json')
+  if (!publishedBytesEqual(`${runRoot}/decision_record.json`, decision)) return false
+  if (swarm.id !== RESEARCH_SWARM_ID) return true
+  return hasContainedFile(runRootAbs, 'final_thesis.md')
+    && publishedBytesEqual(`${runRoot}/final_thesis.md`, path.join(runRootAbs, 'final_thesis.md'))
+}
+
 function hasContainedFile(runRootAbs: string, basename: string): boolean {
   try {
     const realRoot = fs.realpathSync(runRootAbs)
@@ -425,16 +638,21 @@ export function resolveIntakeRunRoot(subject: string, options: IntakeReadOptions
   if (!swarm || !/^[a-z0-9-]{1,40}$/.test(swarm.commandNs)) return null
   if (options.runRoot !== undefined) {
     const root = exactRunRoot(swarm, safeSubject, options.runRoot)
-    if (!root || (preferComplete ? !finishedForIntake(swarm, root)
+    if (!root || (swarm.id === RESEARCH_SWARM_ID && isPublishedSupersededRun(relativeToRepo(root)))
+      || (options.requireDecision && !hasPublishedDecisionAuthority(swarm, root))
+      || (preferComplete ? !finishedForIntake(swarm, root)
       : (swarm.id !== RESEARCH_SWARM_ID && !hasObjectDecision(root)))) return null
     return { swarm, subject: safeSubject, root, runRoot: relativeToRepo(root) }
   }
   const roots = runRootsForSubject(swarm, safeSubject)
+    .filter((root) => swarm.id !== RESEARCH_SWARM_ID || !isPublishedSupersededRun(relativeToRepo(root)))
   if (!roots.length) return null
   // Preserve research's standing-run rule, generalized to every manifest: display the newest run that
   // actually finished. Research can fall back to its newest in-flight/staged folder when nothing has ever
   // finished (backward-compatible retry behavior); manifest swarms require their decision record.
-  const finished = roots.find((root) => finishedForIntake(swarm, root))
+  const finished = roots.find((root) => options.requireDecision
+    ? hasPublishedDecisionAuthority(swarm, root)
+    : finishedForIntake(swarm, root))
   const root = preferComplete
     ? (finished ?? (swarm.id === RESEARCH_SWARM_ID ? roots[0] : null))
     : (swarm.id === RESEARCH_SWARM_ID ? roots[0] : finished)
@@ -498,29 +716,11 @@ function exactKeys(value: Record<string, unknown>, keys: Set<string>): boolean {
 }
 
 function committedBytesEqual(repoPath: string, diskBytes: Buffer): boolean {
-  try {
-    const committed = execFileSync('git', ['-C', REPO_ROOT, 'show', `HEAD:${repoPath}`], {
-      encoding: null,
-      stdio: ['ignore', 'pipe', 'ignore'],
-      maxBuffer: 128 * 1024,
-    })
-    return Buffer.isBuffer(committed) && committed.equals(diskBytes)
-  } catch {
-    return false
-  }
+  return publishedBytesEqual(repoPath, diskBytes)
 }
 
 function committedBytes(repoPath: string): Buffer | null {
-  try {
-    const value = execFileSync('git', ['-C', REPO_ROOT, 'show', `HEAD:${repoPath}`], {
-      encoding: null,
-      stdio: ['ignore', 'pipe', 'ignore'],
-      maxBuffer: 2 * 1024 * 1024,
-    })
-    return Buffer.isBuffer(value) ? value : null
-  } catch {
-    return null
-  }
+  return publishedBytes(repoPath)
 }
 
 function planHasCommittedAuthority(
@@ -674,6 +874,177 @@ function readExecutionReceipts(
   return { receipts, unsafe: false }
 }
 
+function localDayStartMs(value: unknown): number | null {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return null
+  const [year, month, day] = value.split('-').map(Number)
+  const date = new Date(year, month - 1, day)
+  return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day
+    ? date.getTime() : null
+}
+
+/** Mirror the command's durable discovery floor without trusting its prose or a mutable Git mtime. */
+function evidenceFloorForPlan(
+  swarm: SwarmManifest,
+  subject: string,
+  selectedRunRoot: string,
+  raw: any,
+  planSha256: string,
+  ceilingMs: number,
+): number | null {
+  const sourceRunRoot = raw?.staged_for_scoped_rerun === true && typeof raw.run_root === 'string'
+    ? raw.run_root : selectedRunRoot
+  const sourceAbs = exactRunRoot(swarm, subject, sourceRunRoot)
+  if (!sourceAbs) return null
+  let stagedFloor = -1
+  try {
+    const intakeDir = path.join(sourceAbs, 'intake')
+    for (const name of fs.readdirSync(intakeDir)) {
+      if (!/_intake_plan(?:_v\d+)?\.json$/.test(name)) continue
+      try {
+        const file = path.join(intakeDir, name)
+        if (fs.lstatSync(file).isSymbolicLink() || !fs.lstatSync(file).isFile()) return null
+        const candidate = JSON.parse(fs.readFileSync(file, 'utf8'))
+        if (candidate?.staged_for_scoped_rerun !== true || intakePlanSha256(candidate) === planSha256) continue
+        const ms = typeof candidate.scanned_at === 'string' && CANONICAL_UTC_RE.test(candidate.scanned_at)
+          ? Date.parse(candidate.scanned_at) : NaN
+        if (Number.isFinite(ms) && ms <= ceilingMs) stagedFloor = Math.max(stagedFloor, ms)
+      } catch { return null }
+    }
+  } catch (error: any) {
+    if (error?.code !== 'ENOENT') return null
+  }
+  if (stagedFloor >= 0) return stagedFloor
+
+  const marker = path.join(sourceAbs, 'intake', 'run_evidence_cursor.json')
+  try {
+    const cursor = JSON.parse(fs.readFileSync(marker, 'utf8'))
+    const ms = typeof cursor?.started_at === 'string' && CANONICAL_UTC_RE.test(cursor.started_at)
+      ? Date.parse(cursor.started_at) : NaN
+    if (cursor?.version !== 1 || cursor.ticker !== subject || cursor.run_root !== sourceRunRoot
+        || !Number.isFinite(ms) || ms > ceilingMs) return null
+    return ms
+  } catch (error: any) {
+    if (error?.code !== 'ENOENT') return null
+  }
+
+  // Legacy runs predate the cursor. Re-reading from their durable run/decision date may duplicate work,
+  // but it can never hide a file that landed while the original run was still being written.
+  const dated = /_(\d{4}-\d{2}-\d{2})$/.exec(sourceRunRoot)?.[1]
+  if (dated) return localDayStartMs(dated)
+  try { return localDayStartMs(readContainedDecision(sourceAbs)?.decision_date) }
+  catch { return null }
+}
+
+function exactEvidenceCoverage(
+  raw: any,
+  swarm: SwarmManifest,
+  subject: string,
+  selectedRunRoot: string,
+  planSha256: string,
+  scannedAtMs: number | null,
+): { rows: { path: string; arrival_ms: number }[]; complete: boolean } {
+  if (scannedAtMs === null || !Array.isArray(raw?.evidence_files)) return { rows: [], complete: false }
+  const floorMs = evidenceFloorForPlan(swarm, subject, selectedRunRoot, raw, planSha256, scannedAtMs)
+  if (floorMs === null) return { rows: [], complete: false }
+  const expected = intakePoolEvidenceFiles(subject, swarm.id, floorMs, scannedAtMs)
+  if (!expected) return { rows: [], complete: false }
+  const rows: { path: string; arrival_ms: number }[] = []
+  const indexed = new Set<string>()
+  for (const item of raw.evidence_files) {
+    const normalized = normalizePoolEvidencePath(subject, item?.path)
+    if (!normalized || typeof item?.arrival_ms !== 'number' || !Number.isSafeInteger(item.arrival_ms)
+        || item.arrival_ms < 0 || indexed.has(normalized)) return { rows: [], complete: false }
+    indexed.add(normalized); rows.push({ path: normalized, arrival_ms: item.arrival_ms })
+  }
+  const classified: Array<string | null> = (Array.isArray(raw.new_docs) ? raw.new_docs : [])
+    .map((item: any) => normalizePoolEvidencePath(subject, item?.path))
+  const notes: Array<string | null> = (Array.isArray(raw.rerun_plan?.note_only) ? raw.rerun_plan.note_only : [])
+    .map((item: any) => normalizePoolEvidencePath(subject, item?.path))
+  if (classified.some((value) => !value) || notes.some((value) => !value)
+      || new Set(classified as string[]).size !== classified.length
+      || new Set(notes as string[]).size !== notes.length
+      || (notes as string[]).some((value) => !(classified as string[]).includes(value))) {
+    return { rows, complete: false }
+  }
+  const expectedText = JSON.stringify(expected)
+  const authoredText = JSON.stringify(rows)
+  const expectedPaths = expected.map((item) => item.path).sort()
+  const classifiedPaths = (classified as string[]).sort()
+  return {
+    rows,
+    complete: authoredText === expectedText
+      && JSON.stringify(expectedPaths) === JSON.stringify(classifiedPaths)
+      && classificationSemanticsComplete(raw),
+  }
+}
+
+function classificationSemanticsComplete(raw: any): boolean {
+  const docs = Array.isArray(raw?.new_docs) ? raw.new_docs : []
+  const plan = raw?.rerun_plan
+  // The model classifies against the engine's fixed gate; it cannot raise the threshold to relabel a
+  // material filing as harmless and thereby suppress the required automatic rerun.
+  if (!plan || plan.materiality_gate !== 60) return false
+  const notes = new Set((Array.isArray(plan.note_only) ? plan.note_only : []).map((item: any) => item?.path))
+  const commands = Array.isArray(plan.commands) ? plan.commands : []
+  const docByPath = new Map(docs.map((doc: any) => [doc?.path, doc]))
+  for (const command of commands) {
+    if (!Array.isArray(command?.triggered_by) || command.triggered_by.length < 1) return false
+    for (const trigger of command.triggered_by) {
+      const doc: any = docByPath.get(trigger)
+      if (!doc || doc.materiality_score < plan.materiality_gate) return false
+      if (!Array.isArray(doc.entry_orbs) || !doc.entry_orbs.some((orb: any) =>
+        orb?.module === command.module && orb?.agent === command.agent)) return false
+    }
+  }
+  for (const doc of docs) {
+    const matches = commands.filter((command: any) => command.triggered_by?.includes(doc.path))
+    if (doc.materiality_score < plan.materiality_gate) {
+      if (!notes.has(doc.path) || matches.length) return false
+      continue
+    }
+    // A tier-9 single-source claim is explicitly allowed to stay note-only. Every other material row
+    // needs a real orb and a matching command, so a model cannot downgrade a filing by simply omitting it.
+    if (matches.length === 0) {
+      if (doc.tier !== 9 || !notes.has(doc.path)) return false
+      continue
+    }
+    if (notes.has(doc.path) || !Array.isArray(doc.entry_orbs) || doc.entry_orbs.length < 1) return false
+    if (doc.entry_orbs.some((orb: any) => !matches.some((command: any) =>
+      command.module === orb.module && command.agent === orb.agent))) return false
+  }
+  return (commands.length > 0 && raw.verdict === 'scoped_rerun')
+    || (commands.length === 0 && ['note_only', 'insufficient'].includes(raw.verdict))
+}
+
+/** Shared pre-publication/post-read safety contract for automatic intake plans. */
+export function automaticIntakeRawEvidenceIsComplete(input: {
+  raw: any
+  subject: string
+  swarmId: string
+  runRoot: string
+  decisionFingerprint: string
+  now?: number
+}): boolean {
+  const swarm = swarmById(input.swarmId)
+  const subject = normalizeDataSubject(input.swarmId, input.subject)
+  const raw = input.raw
+  if (!swarm || !subject || !raw || typeof raw !== 'object' || Array.isArray(raw)
+      || raw.schema_version !== '1.1' || raw.swarm !== input.swarmId
+      || raw.subject !== subject || raw.ticker !== subject || raw.run_root !== input.runRoot
+      || raw.decision_fingerprint !== input.decisionFingerprint || raw.staged_for_scoped_rerun !== undefined
+      || !Array.isArray(raw.new_docs) || !Array.isArray(raw.evidence_files)
+      || !raw.rerun_plan || typeof raw.rerun_plan !== 'object' || Array.isArray(raw.rerun_plan)
+      || !Array.isArray(raw.rerun_plan.entry_orbs) || !Array.isArray(raw.rerun_plan.commands)
+      || !Array.isArray(raw.rerun_plan.note_only) || typeof raw.summary !== 'string'
+      || !['scoped_rerun', 'note_only', 'insufficient'].includes(raw.verdict)) return false
+  const scannedAt = typeof raw.scanned_at === 'string' && CANONICAL_UTC_RE.test(raw.scanned_at)
+    ? Date.parse(raw.scanned_at) : NaN
+  if (!Number.isFinite(scannedAt) || scannedAt > (input.now ?? Date.now())) return false
+  const hash = intakePlanSha256(raw)
+  if (!hash) return false
+  return exactEvidenceCoverage(raw, swarm, subject, input.runRoot, hash, scannedAt).complete
+}
+
 // Read + normalize the latest scoped rerun plan for a subject. Returns null when there is no resolved
 // run, no plan yet, or the plan is unreadable/malformed (fail toward the honest floor, INTAKE.md §1).
 export function readIntakePlan(subject: string, options: IntakeReadOptions = {}): IntakePlan | null {
@@ -740,6 +1111,38 @@ export function readIntakePlan(subject: string, options: IntakeReadOptions = {})
   })()
 
   const rawPlan = raw.rerun_plan ?? {}
+  const authoredClassificationShape = Array.isArray(raw.new_docs) && raw.new_docs.every((doc: any) =>
+    doc && typeof doc === 'object' && !Array.isArray(doc)
+    && typeof doc.path === 'string' && typeof doc.claims_summary === 'string'
+    && typeof doc.materiality_score === 'number' && Number.isFinite(doc.materiality_score)
+    && doc.materiality_score >= 0 && doc.materiality_score <= 100
+    && ['positive', 'negative', 'mixed', 'neutral'].includes(doc.impact_direction)
+    && Array.isArray(doc.entry_orbs) && doc.entry_orbs.every((orb: any) =>
+      orb && typeof orb.module === 'string' && typeof orb.agent === 'string' && typeof orb.why === 'string'
+      && typeof orb.confidence === 'number' && Number.isFinite(orb.confidence)
+      && orb.confidence >= 0 && orb.confidence <= 1))
+    && Array.isArray(rawPlan.entry_orbs) && rawPlan.entry_orbs.every((orb: any) =>
+      orb && typeof orb.module === 'string' && typeof orb.agent === 'string')
+    && Array.isArray(rawPlan.commands) && rawPlan.commands.every((command: any) =>
+      command && typeof command.module === 'string' && typeof command.agent === 'string'
+      && Array.isArray(command.triggered_by)
+      && command.triggered_by.every((item: any) => typeof item === 'string'))
+    && Array.isArray(rawPlan.note_only) && rawPlan.note_only.every((item: any) =>
+      item && typeof item.path === 'string' && typeof item.reason === 'string' && item.reason.trim().length > 0)
+    && ((rawPlan.commands.length > 0 && raw.verdict === 'scoped_rerun')
+      || (rawPlan.commands.length === 0 && ['note_only', 'insufficient'].includes(raw.verdict)))
+  const authoredSchemaValid = raw.schema_version === '1.1'
+    && typeof raw.scan_date === 'string'
+    && typeof raw.scanned_at === 'string'
+    && Array.isArray(raw.new_docs)
+    && raw.rerun_plan && typeof raw.rerun_plan === 'object' && !Array.isArray(raw.rerun_plan)
+    && typeof raw.rerun_plan.materiality_gate === 'number' && Number.isFinite(raw.rerun_plan.materiality_gate)
+    && Array.isArray(raw.rerun_plan.entry_orbs)
+    && Array.isArray(raw.rerun_plan.commands)
+    && Array.isArray(raw.rerun_plan.note_only)
+    && ['scoped_rerun', 'note_only', 'insufficient'].includes(raw.verdict)
+    && typeof raw.summary === 'string'
+    && authoredClassificationShape
   // Evidence paths are untrusted prompt output. Validate every path before freshness/verdict work so one
   // cross-subject or traversal reference cannot survive as display text OR trigger a scoped command.
   if (Array.isArray(raw.new_docs)
@@ -768,6 +1171,7 @@ export function readIntakePlan(subject: string, options: IntakeReadOptions = {})
     if (!Number.isFinite(ms) || ms > nowMs) return null // a future stamp is a prompt/clock-skew bug → discard
     return ms
   })()
+  const coverage = exactEvidenceCoverage(raw, swarm, safeSubject, selectedRunRoot, planSha256, scannedAtMs)
   const scanDate = String(raw.scan_date ?? '')
   const scanDateValid = validIsoDate(scanDate, today) !== null // a malformed/future scan_date is not a witness
   // The run's DURABLE vintage — read from a date-valued manifest template token (research's `{DATE}`),
@@ -813,7 +1217,7 @@ export function readIntakePlan(subject: string, options: IntakeReadOptions = {})
   //      disagrees, that empty plan cannot be trusted → withhold the affirmative, and never contradict the
   //      stale badges the constellation already shows for the same document.
   let witnessCurrent: boolean
-  if (scannedAtMs !== null) witnessCurrent = !pool.newestMs || pool.newestMs <= scannedAtMs
+  if (scannedAtMs !== null) witnessCurrent = !pool.newestMs || Math.floor(pool.newestMs) <= scannedAtMs
   else if (scanDateValid) witnessCurrent = !pool.newestDate || pool.newestDate < scanDate
   else witnessCurrent = false
   // The cross-gate itself must be PROVABLE. A manifest whose root carries no date needs a valid terminal
@@ -845,6 +1249,9 @@ export function readIntakePlan(subject: string, options: IntakeReadOptions = {})
   }
 
   const widened: string[] = []
+  if (!authoredSchemaValid) {
+    widened.push('the intake plan is missing required classification fields — re-analyze new data')
+  }
   if (!planCommitted) {
     widened.push('the intake plan bytes are not committed proof — wait for completion or re-analyze before any paid rerun')
   }
@@ -951,7 +1358,7 @@ export function readIntakePlan(subject: string, options: IntakeReadOptions = {})
   }
   const receiptConsumed = commands.length > 0 && commands.every((command) => provedPairs.has(`${command.module}\0${command.agent}`))
   const consumed = scopedConsumed || receiptConsumed
-  const actionable = planCommitted && !consumed && !receiptState.unsafe && decisionCurrent
+  const actionable = authoredSchemaValid && planCommitted && !consumed && !receiptState.unsafe && decisionCurrent
 
   // A consumed plan remains visible for audit but has no executable commands. For a partially consumed
   // plan, filter exactly the proved orb(s); identical resulting decision bytes do not matter because the
@@ -1001,6 +1408,8 @@ export function readIntakePlan(subject: string, options: IntakeReadOptions = {})
     scan_date: String(raw.scan_date ?? ''),
     scanned_at: scannedAtMs !== null ? new Date(scannedAtMs).toISOString() : undefined,
     watermark: raw.watermark ? String(raw.watermark) : undefined,
+    evidence_files: coverage.rows,
+    coverage_complete: coverage.complete,
     new_docs: newDocs,
     rerun_plan: rerunPlan,
     verdict,
@@ -1026,7 +1435,7 @@ export function intakeReceiptIntentStillActionable(
   intent: IntakeReceiptIntent,
 ): boolean {
   const plan = readIntakePlan(subject, { swarmId, runRoot })
-  return plan?.actionable === true
+  return plan?.actionable === true && plan.coverage_complete === true && plan.widened.length === 0
     && plan.widened.length === 0
     && plan.plan_path === intent.planPath
     && plan.plan_sha256 === intent.planSha256

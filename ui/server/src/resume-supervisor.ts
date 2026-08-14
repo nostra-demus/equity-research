@@ -25,12 +25,13 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { ANALYSES_DIR, STATE_DIR } from './config'
 import { getCreditStatus } from './credit'
-import { finalDeliverablesPresent, launch } from './launcher'
+import { launch } from './launcher'
+import { completedResearchPublicationIsShared } from './publication-recovery'
 import { hasRunMarker, readRunMarker } from './outputs'
 import { IN_FLIGHT_STATUSES, listRuns } from './registry'
 import { listResumableSignals } from './screener'
 import { acquireSingletonLock, releaseSingletonLock } from './singleton-lock'
-import type { CreditPreflight } from './types'
+import { SCOPED_STAGE_INTENT_FILE, type CreditPreflight } from './types'
 
 const LOCK_FILE = 'resume-supervisor.lock'
 const ENABLED = process.env.RESUME_SUPERVISOR_ENABLED === '1'
@@ -51,13 +52,48 @@ const log = (m: string) => console.log(`[resume] ${m}`) // eslint-disable-line n
 export interface ResumableRun { kind: 'full' | 'signal'; subject: string; reason?: string; resetsAt?: number; runRoot?: string }
 
 const DATE_SUFFIX = /_(\d{4}-\d{2}-\d{2})$/
+const STAGED_INTAKE_PLAN = /_intake_plan(?:_v\d+)?\.json$/
+
+/** Automatic scoped targets carry a server-stamped plan and are owned exclusively by the durable
+ * call-update ledger. The generic supervisor starts three seconds earlier and launches by ticker only;
+ * letting it claim one of these roots would discard the exact plan/decision/old-date binding. Any
+ * matching but unreadable artifact fails closed so corruption cannot downgrade into a bare full run. */
+export function automaticScopedRecoveryOwnsRun(runAbs: string): boolean {
+  const intake = path.join(runAbs, 'intake')
+  try {
+    // Intent is deliberately non-runnable, but it reserves this exact root for the call ledger while an
+    // interrupted copy/hole transaction is reconstructed. Generic full resume must never race it.
+    if (fs.existsSync(path.join(runAbs, SCOPED_STAGE_INTENT_FILE))) return true
+    if (!fs.existsSync(intake)) return false
+    const lst = fs.lstatSync(intake)
+    const realRun = fs.realpathSync(runAbs)
+    const realIntake = fs.realpathSync(intake)
+    if (!lst.isDirectory() || lst.isSymbolicLink() || path.dirname(realIntake) !== realRun) return true
+    const names = fs.readdirSync(intake).filter((name) => STAGED_INTAKE_PLAN.test(name))
+    for (const name of names) {
+      try {
+        const file = path.join(intake, name)
+        const fileLst = fs.lstatSync(file)
+        if (!fileLst.isFile() || fileLst.isSymbolicLink() || fs.realpathSync(path.dirname(file)) !== realIntake) return true
+        const raw = JSON.parse(fs.readFileSync(file, 'utf8'))
+        if (raw?.staged_for_scoped_rerun === true) return true
+      } catch { return true }
+    }
+    return false
+  } catch { return true }
+}
 
 // Research run folders that broke and should be continued. Disk-truth, like the screener scan: a folder
 // is resumable iff it carries the .interrupted marker (a plan-limit / connection / kill break — NOT a
 // clean budget truncation, which is the honest `incomplete` outcome and is never marked), is NOT
 // deliberately aborted (.aborted), has NOT finished (no final thesis + decision record), is not currently
 // live, and broke recently. The marker carries the break reason + the plan resetsAt.
-export function listResumableResearchRuns(liveSubjects: Set<string>, now: number = Date.now()): ResumableRun[] {
+export function listResumableResearchRuns(
+  liveSubjects: Set<string>,
+  now: number = Date.now(),
+  isComplete: (subject: string, runRoot: string) => boolean =
+    (subject, runRoot) => completedResearchPublicationIsShared({ subject, targetRunRoot: runRoot }),
+): ResumableRun[] {
   let entries: string[] = []
   try { entries = fs.readdirSync(ANALYSES_DIR) } catch { return [] }
   const out: ResumableRun[] = []
@@ -72,7 +108,8 @@ export function listResumableResearchRuns(liveSubjects: Set<string>, now: number
     const marker = readRunMarker(runRoot, '.interrupted')
     if (!marker) continue // only a recorded interruption is auto-resumed
     if (hasRunMarker(runRoot, '.aborted')) continue // user stopped it on purpose
-    if (finalDeliverablesPresent(runRoot)) continue // already finished
+    if (isComplete(ticker, runRoot)) continue // exact canonical publication already finished
+    if (automaticScopedRecoveryOwnsRun(abs)) continue // exact call-update ledger owns this historical root
     try { if (now - fs.statSync(abs).mtimeMs > MAX_AGE_MS) continue } catch { /* unreadable mtime — treat as eligible */ }
     out.push({ kind: 'full', subject: ticker, reason: marker.reason, resetsAt: typeof marker.resetsAt === 'number' ? marker.resetsAt : undefined, runRoot })
   }

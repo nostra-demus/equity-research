@@ -67,9 +67,79 @@ WATERMARK="${RUN_ROOT}/final_thesis.md"
 [ -f "$WATERMARK" ] || WATERMARK="${RUN_ROOT}/decision_record.json"
 ```
 
+Also recover the **last evidence cursor** saved before this run began reading its source pool. Every full
+run writes `intake/run_evidence_cursor.json` before it can launch a paid module. A scoped automatic update
+has an even more precise earlier floor: the scoped runner copies the exact authorising plan and stamps
+`staged_for_scoped_rerun: true`. Its `scanned_at` is the last instant at which the data pool was actually
+listed. It is stronger than the new thesis file's later mtime: a second document can land while the scoped
+run is working, before that thesis is written. Treating the new thesis as the floor would silently call that
+second document old. Read only contained `intake/*_intake_plan*.json` files, require the boolean stamp and a
+valid non-future UTC `scanned_at`, and choose the newest such stamp. If no scoped-plan cursor exists, require
+the contained run cursor to match this ticker and run root and use its non-future `started_at`. A damaged
+run cursor is unsafe: STOP instead of calling new evidence old.
+
+```bash
+EVIDENCE_CURSOR="$(python3 - "$RUN_ROOT" "$SCANNED_AT" <<'PY'
+import datetime, glob, json, os, re, sys
+root, scan_now = sys.argv[1:]
+iso = re.compile(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$')
+try:
+    ceiling = datetime.datetime.fromisoformat(scan_now.replace('Z', '+00:00')).timestamp()
+except Exception:
+    raise SystemExit(0)
+seen = []
+for file in glob.glob(os.path.join(root, 'intake', '*_intake_plan*.json')):
+    try:
+        raw = json.load(open(file, encoding='utf-8'))
+        stamp = raw.get('scanned_at')
+        if raw.get('staged_for_scoped_rerun') is not True or not isinstance(stamp, str) or not iso.fullmatch(stamp):
+            continue
+        at = datetime.datetime.fromisoformat(stamp.replace('Z', '+00:00')).timestamp()
+        if at <= ceiling:
+            seen.append((at, stamp))
+    except Exception:
+        continue
+if seen:
+    print(max(seen)[1])
+    raise SystemExit(0)
+marker = os.path.join(root, 'intake', 'run_evidence_cursor.json')
+try:
+    raw = json.load(open(marker, encoding='utf-8'))
+    stamp = raw.get('started_at')
+    expected_ticker = os.path.basename(root).rsplit('_', 1)[0]
+    if (raw.get('version') != 1 or raw.get('ticker') != expected_ticker or raw.get('run_root') != root
+            or not isinstance(stamp, str) or not iso.fullmatch(stamp)):
+        raise ValueError('bad run evidence cursor')
+    at = datetime.datetime.fromisoformat(stamp.replace('Z', '+00:00')).timestamp()
+    if at > ceiling:
+        raise ValueError('future run evidence cursor')
+    print(stamp)
+except FileNotFoundError:
+    # Legacy finished calls predate the run cursor. Re-read from local midnight of their run date;
+    # duplicate evidence is safe, hiding evidence that landed during the old run is not.
+    try:
+        day = os.path.basename(root).rsplit('_', 1)[1]
+        floor = datetime.datetime.strptime(day, '%Y-%m-%d').astimezone()
+        print(floor.astimezone(datetime.timezone.utc).isoformat().replace('+00:00', 'Z'))
+    except Exception:
+        print('MISSING_RUN_EVIDENCE_CURSOR', file=sys.stderr)
+        raise SystemExit(42)
+except Exception:
+    print('INVALID_RUN_EVIDENCE_CURSOR', file=sys.stderr)
+    raise SystemExit(42)
+PY
+)"
+CURSOR_STATUS=$?
+if [ "$CURSOR_STATUS" -ne 0 ]; then
+  echo "The saved run start point is damaged. Automatic intake stopped so it cannot skip new evidence."
+  exit 1
+fi
+```
+
 ## 2. Find the documents that arrived since the run
 
-List pool files newer than `$WATERMARK`, RECURSIVELY (so externally-ingested docs under
+List pool files newer than the recovered `$EVIDENCE_CURSOR` when it exists; otherwise use
+`$WATERMARK`. Scan RECURSIVELY (so externally-ingested docs under
 `data/<TICKER>/external/<provider>/` are seen — they are the most likely delta, `EXTERNAL_DATA.md`).
 **Exclude engine-written output**: `extract_pool.py` marks a folder that holds the engine's own prior
 output (a routed copy of `final_thesis.md`/memo/dossier saved back into the data folder) with a
@@ -78,7 +148,8 @@ whose OWN DIRECTORY contains that sentinel. Also skip a document's provenance si
 (`<file>.source.json`, `EXTERNAL_DATA.md` §3) — it is metadata about a document, not new evidence
 itself:
 
-The "arrived since the run" baseline must be DURABLE. `$WATERMARK` (`final_thesis.md`) lives under
+The "arrived since the run" baseline must be DURABLE. A recovered evidence cursor is JSON content and
+survives checkout/rebase. When there is no scoped-run cursor, `$WATERMARK` (`final_thesis.md`) lives under
 `analyses/` (git-tracked), so a checkout/clone/worktree/rebase rewrites its mtime FORWARD to the
 materialisation time — and `-newer` against a forward-bumped watermark would silently MISS every document
 that landed between the real run and the checkout, writing a falsely-empty plan. Detect that (the
@@ -87,17 +158,38 @@ to the durable run-folder date; otherwise use the precise watermark:
 
 ```bash
 RUN_DATE="$(basename "$RUN_ROOT" | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}' | head -1)"
-# Is the watermark's mtime later than the run day (i.e. rewritten forward by a checkout)? `find -newermt`
-# is portable across BSD/macOS and GNU (avoid `date -r`, whose semantics differ between them).
-if [ -n "$RUN_DATE" ] && find "$WATERMARK" -newermt "$RUN_DATE 23:59:59" 2>/dev/null | grep -q .; then
-  SINCE=(-newermt "$RUN_DATE 00:00:00")   # watermark mtime looks rewritten-forward → durable run-folder floor
-else
-  SINCE=(-newer "$WATERMARK")             # trustworthy watermark → precise run-completion boundary
-fi
-find "data/${TICKER}/" -type f "${SINCE[@]}" -not -name '*.source.json' 2>/dev/null | while read -r f; do
-  [ -e "$(dirname "$f")/.nostradamus_output" ] && continue
-  echo "$f"
-done | sort
+# Use max(mtime, ctime), matching the server's freshness proof. This catches a Drive/rsync file whose
+# original mtime was preserved but whose local ctime proves it arrived after the last scan.
+EVIDENCE_INDEX="$(mktemp)"
+python3 - "$TICKER" "$WATERMARK" "$RUN_DATE" "$EVIDENCE_CURSOR" "$EVIDENCE_INDEX" <<'PY'
+import datetime, json, os, pathlib, sys
+ticker, watermark, run_date, cursor, index_path = sys.argv[1:]
+if cursor:
+    floor = datetime.datetime.fromisoformat(cursor.replace('Z', '+00:00')).timestamp()
+else:
+    wm = os.stat(watermark).st_mtime
+    try:
+        # Run-folder dates are local dates (the same contract as `date +%F`), so use local midnight.
+        day = datetime.datetime.strptime(run_date, '%Y-%m-%d')
+        floor = day.timestamp() if wm > (day + datetime.timedelta(days=1)).timestamp() - 1 else wm
+    except Exception:
+        floor = wm
+pool = pathlib.Path('data') / ticker
+rows = []
+for file in sorted(pool.rglob('*')):
+    try:
+        if not file.is_file() or file.name.endswith('.source.json') or (file.parent / '.nostradamus_output').exists():
+            continue
+        stat = file.stat()
+        arrival = max(stat.st_mtime, stat.st_ctime)
+        if arrival > floor:
+            print(file.as_posix())
+            rows.append({'path': file.as_posix(), 'arrival_ms': int(arrival * 1000)})
+    except OSError:
+        continue
+with open(index_path, 'w', encoding='utf-8') as out:
+    json.dump(rows, out, separators=(',', ':'))
+PY
 ```
 
 - If **no** new documents: write a plan with `verdict: "note_only"`, empty `new_docs`, empty
@@ -196,7 +288,12 @@ and `scanned_at: "<SCANNED_AT>"` (the durable as-of watermark captured in Step 1
 identity fields exactly: `schema_version: "1.1"`, `swarm: "research"`, `subject: "<TICKER>"`,
 `ticker: "<TICKER>"`, `run_root: "<RUN_ROOT>"`, and
 `decision_fingerprint: "<DECISION_FINGERPRINT>"`. These are **all required**,
-including on the no-new-documents path. Then validate:
+including on the no-new-documents path. Copy the exact JSON array from `$EVIDENCE_INDEX` into the required
+top-level `evidence_files` field without editing, summarising, or reordering it. Every row must appear
+exactly once in `new_docs[]`; `rerun_plan.note_only[]` additionally references the subset that was read but
+did not justify a rerun. A non-tier-9 document at or above the materiality gate must name at least one real
+entry orb and have the matching command(s), each triggered by that exact path.
+Then validate:
 
 ```bash
 python3 -m json.tool "$out" >/dev/null && echo "OK valid JSON" || echo "FAIL invalid JSON"
@@ -234,8 +331,11 @@ artifacts, like `reviews/`, are data, not code — so per `CLAUDE.md` §25 they 
 via `commit-run.sh`; never `git add` anything else):
 
 ```bash
-bash scripts/commit-run.sh "Intake plan: <TICKER> <SCAN_DATE>" -- "${RUN_ROOT}/intake/*_intake_plan*.json" "${RUN_ROOT}/intake/*_intake_plan*.md"
+bash scripts/commit-run.sh "Intake plan: <TICKER> <SCAN_DATE>" -- "<JSON_PLAN_PATH>" "<MARKDOWN_PLAN_PATH>"
 ```
+
+Substitute the two **exact literal paths printed in Step 6**. Do not use a wildcard, directory, or an
+earlier same-day version: this commit belongs only to the JSON + markdown pair chosen by this turn.
 
 Report the commit SHA. If no plan file was written (Step 1 stop), skip the commit.
 

@@ -25,17 +25,20 @@ over-approximation: any pool file newer than a module's vintage → `stale`. It 
 **cannot** falsely call something fresh — that is its safety property (CLAUDE.md §11, §24).
 
 An LLM document→orb mapper is a **judgment** that can false-negative (miss an orb the new data
-actually invalidated). Therefore the intake plan is **advisory only**:
+actually invalidated). Therefore the intake plan never weakens the deterministic floor:
 
 - It NEVER moves a module from `stale` to `done`. The floor's per-module `state` is unchanged and
   the stale badges stay visible.
-- It only ever **narrows the human's attention** and **pre-fills** the rerun (drives the default
-  selection of the existing `reuseOverride` knowing-keep set), and the "re-run everything stale"
-  escape hatch is always present.
+- It narrows the rerun to the exact invalidated orbs only after the server independently validates
+  the evidence inventory, source decision, live roster, dependency cascade, owner lease, and budget.
+  The "re-run everything stale" escape hatch remains available as an optional operator override.
 - **Fail toward blunt.** Low mapper confidence, an unvalidatable module/agent name, or a
   missing/over-budget analysis → the plan widens to blanket-stale. Never away from it.
-- **Reruns cost money and stay human-approved.** The intake *analysis* is cheap and may run
-  automatically; a *rerun* is only ever launched by an explicit human click (CLAUDE.md §24).
+- **Automatic means no routine click.** The intake analysis runs automatically when new evidence
+  arrives. A validated material plan then launches the exact scoped rerun automatically through the
+  single-owner, fenced, budgeted executor. Unsafe, ambiguous, corrupt, or over-budget work stops and
+  reports Needs attention; it never broadens or spends by guessing. Manual launch remains an override,
+  not a required step.
 
 ---
 
@@ -77,6 +80,10 @@ historical run the cockpit is showing; it never silently falls back to a differe
   "decision_fingerprint": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
   "scan_date": "2026-07-12",
   "scanned_at": "2026-07-12T09:14:02.137Z",
+  "evidence_files": [
+    {"path": "data/AMZN/external/yipitdata/panel_q2.xlsx", "arrival_ms": 1783847642000},
+    {"path": "data/AMZN/external/tegus/call_2026-07-02.txt", "arrival_ms": 1783847642100}
+  ],
   "watermark": "analyses/AMZN_2026-07-04/final_thesis.md",
   "new_docs": [
     {
@@ -94,6 +101,18 @@ historical run the cockpit is showing; it never silently falls back to a differe
           "why": "The panel is the leading read on NA GMV, which revenue-drivers models directly (its WHAT-TO-READ lists alt-data panels).",
           "confidence": 0.8 }
       ]
+    },
+    {
+      "path": "data/AMZN/external/tegus/call_2026-07-02.txt",
+      "sha256": "…",
+      "provider": "Tegus",
+      "source_type": "expert_call",
+      "tier": 9,
+      "as_of": "2026-07-02",
+      "claims_summary": "One customer described stable demand; this is colour, not a filing-backed change.",
+      "materiality_score": 38,
+      "impact_direction": "neutral",
+      "entry_orbs": []
     }
   ],
   "rerun_plan": {
@@ -136,10 +155,26 @@ historical run the cockpit is showing; it never silently falls back to a differe
   the analysis ran — but `scanned_at`, being JSON content, survives. The server uses it for `pool_current`
   (§4). Required on every plan, **including the no-new-documents plan** — it is what lets the cockpit safely
   affirm "no new data — everything read and considered" instead of staying silent.
+- **A run does not erase its evidence cursor.** Before an ordinary full run launches any paid module, the
+  launcher durably writes `intake/run_evidence_cursor.json`. `carryForwardScoped` also copies its authorising
+  plan into the new run with `staged_for_scoped_rerun: true`. The next intake uses the copied plan's newest
+  valid `scanned_at`, or otherwise the run cursor's `started_at`, as its discovery floor — never the later
+  mtime of the new thesis. This guarantees that a second document landing while any run is in flight remains
+  new and gets its own intake decision.
+  File discovery uses `max(mtime, ctime)`, matching the server, so preserved source mtimes cannot hide a
+  locally-arrived file.
 - `new_docs[]` — one row per document newer than the watermark. `provider` / `source_type` / `tier`
   / `as_of` come from the doc's `.source.json` sidecar or the extract manifest `provenance`
   (`frameworks/EXTERNAL_DATA.md`); a plain (non-external) filing has `external: false`-style nulls
   and a `tier` inferred from its document type (CLAUDE.md §4).
+- `evidence_files[]` — the deterministic scanner's complete list of eligible pool files newer than the
+  recovered run cursor, captured before any LLM classification. Each row has the canonical repo-relative
+  `path` and integer `arrival_ms = floor(max(mtimeMs, ctimeMs))`. The server independently re-lists the
+  pool and requires every eligible path through the plan's `scanned_at` to occur exactly once here and in
+  `new_docs[]`. `rerun_plan.note_only[]` then references the subset judged immaterial; it never replaces
+  the full `new_docs[]` evidence row. This is the no-omission witness: a valid-looking model
+  response cannot silently call a real filing “nothing changed.” It is required, including as `[]` on a
+  genuinely empty delta.
 - `materiality_score` (0–100) + `impact_direction` (`positive | negative | mixed | neutral`) — same
   calibration as `review-decisions` Step 11 / `DECISION_LEDGER.md` §8, so the two surfaces stay
   comparable.
@@ -150,7 +185,7 @@ historical run the cockpit is showing; it never silently falls back to a differe
   `cascade_modules`, but **the server recomputes them authoritatively** from
   `roster.ts downstreamCascade` at read time (single source of truth — a hand-written cascade can
   never drift from the live DAG).
-- `rerun_plan.note_only[]` — documents seen and judged immaterial (below the gate, or a tier-9
+- `rerun_plan.note_only[]` — references to `new_docs[]` documents seen and judged immaterial (below the gate, or a tier-9
   single-source anecdote): recorded honestly, no rerun. `verdict: "note_only"` when nothing clears
   the gate; `"insufficient"` when the run/data can't support a judgment.
 
@@ -256,23 +291,24 @@ The plan the server serves is therefore always roster-consistent, even if the co
   force a rerun of it (CLAUDE.md §4; `EXTERNAL_DATA.md` §4). It still appears as a `new_doc` and the
   floor still marks the run stale; the *recommended action* is calibrated to the tier.
 - A filing (tier 1–3) that changes a number an orb consumes clears the gate readily.
-- A **screener-bridged wire event** (`screener_event_<EVENT_ID>.md`, written by the cockpit's
-  "Send to research" action — `ui/server/src/research-bridge.ts`) self-declares **tier 10** (dated web
-  source, unverified) in its header, exactly as the handoff memo self-declares tier 9. Treat it like
-  any other tier-10 web input: it appears as a `new_doc`, the floor marks the run stale, and a single
-  uncorroborated wire claim defaults to `note_only` — unless a filing or a second **independent**
-  source in the pool backs the same fact (the note's "Related wire coverage" section lists
-  corroboration leads to check). Independence is by ORIGIN, not by file: the note's own "Screener
+- A **screener-bridged event** (`screener_event_<EVENT_ID>.md`, written automatically for an exact
+  tracked-company match or optionally by "Send to research" — `ui/server/src/research-bridge.ts`) is
+  source-aware. An event the news firewall classified as `primary_filing` keeps its official filing /
+  exchange-disclosure provenance and primary-source URL. It may clear the gate when its headline or
+  lede identifies a material changed input, so the affected web-capable orb can open, read, and cite
+  the linked disclosure. The note is only a locator: no thesis claim may cite it instead of the filing.
+  Every other bridged event self-declares **tier 10** (dated web source, unverified). It appears as a
+  `new_doc`, the floor marks the run stale, and a single uncorroborated wire claim defaults to
+  `note_only` unless a filing or second **independent** source in the pool backs the same fact (the
+  note's "Related wire coverage" section lists leads to check). Independence is by ORIGIN, not by
+  file: the note's own "Screener
   enrichment" section (the engine's inference from the same article — §6 level 1, never citable as
   the source), another outlet's syndicated copy of the same story (the note records its
   `Story cluster` id; the bridge already refuses to write two notes for one cluster), and a
   `screener_thesis_*.md` handoff memo built on the same event all share one origin — together they
-  are ONE source, not corroboration. Routing is **manual-first**: a human sends each event from the
-  reader, and those sends (logged in the engine's bridge ledger with score and outcome) are the
-  training data for the automatic ticker-match bridge, which stays OFF until enabled
-  (`SCREENER_RESEARCH_BRIDGE=1`). A fresh manual send also triggers this intake analysis
-  automatically — the send is the §24 consent for the cheap advisory scan; any re-run stays a
-  separate human click.
+  are ONE source, not corroboration. Exact automatic routing remains opt-in and single-owner
+  (`SCREENER_RESEARCH_BRIDGE=1`); every route is logged. Once a new note lands, intake and any exact
+  validated rerun proceed automatically. A manual send follows the same pipeline.
 
 ---
 

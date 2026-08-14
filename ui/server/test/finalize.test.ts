@@ -8,7 +8,14 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
 import { ANALYSES_DIR, REPO_ROOT } from '../src/config'
-import { finalizeRunOnClose, __setFailureNoteCommitter } from '../src/launcher'
+import {
+  __bindAutomaticRecoveryForTest,
+  __captureTerminalDeliverableBaselineForTest,
+  __setAutomaticResearchPublicationProof,
+  __setFailureNoteCommitter,
+  __setResearchPublicationProof,
+  finalizeRunOnClose,
+} from '../src/launcher'
 import { readRunMarker } from '../src/outputs'
 import { createRun, finishRun, inFlightRunsForSubject, setActiveSubjectRun, type RunState } from '../src/registry'
 import { handleStreamLine } from '../src/stream-parser'
@@ -45,6 +52,14 @@ const cleanResult = JSON.stringify({ type: 'result', subtype: 'success', is_erro
 const errorResult = JSON.stringify({ type: 'result', subtype: 'error_max_turns', is_error: true, total_cost_usd: 0.5 })
 
 const cleanupDirs: string[] = []
+let publicationShared = false
+let exactAutomaticPublicationShared = false
+// This test deliberately exercises failure-note creation. Fence the production committer for the
+// entire file before the first run is finalized: otherwise an early assertion can invoke
+// commit-run.sh against the developer's real origin before the narrower per-case stubs below apply.
+const productionFailureNoteCommitter = __setFailureNoteCommitter(() => undefined)
+const previousPublicationProof = __setResearchPublicationProof(() => publicationShared)
+const previousAutomaticPublicationProof = __setAutomaticResearchPublicationProof(() => exactAutomaticPublicationShared)
 try {
   // 1. THE regression: clean `result` + clean exit on a full run with NO final deliverables
   //    must end INCOMPLETE, not done (the stream parser used to finish it as done first).
@@ -62,8 +77,8 @@ try {
     assert.equal(evt?.reason, 'incomplete_deliverables')
   })
 
-  // 2. with the deliverables on disk, the same path ends done (and carries the final paths)
-  check('close marks a full run done when final_thesis + decision_record exist', () => {
+  // 2. a pair is only DONE after the canonical shared-publication proof passes.
+  check('close marks a fully published full run done', () => {
     const root = path.join(ANALYSES_DIR, `ZZFINB_${DATE}`)
     cleanupDirs.push(root)
     fs.mkdirSync(root, { recursive: true })
@@ -72,11 +87,198 @@ try {
     const { run, events } = mkRun('full', 'ZZFINB')
     handleStreamLine(run, cleanResult)
     assert.equal(run.status, 'running')
-    finalizeRunOnClose(run, { exitCode: 0 }, '')
+    publicationShared = true
+    try { finalizeRunOnClose(run, { exitCode: 0 }, '') } finally { publicationShared = false }
     assert.equal(run.status, 'done')
     const done = events.find((e) => e.type === 'run-done') as any
     assert.equal(done?.finalThesisPath, `analyses/ZZFINB_${DATE}/final_thesis.md`)
     assert.equal(inFlightRunsForSubject('ZZFINB').length, 0)
+  })
+
+  check('a fresh thesis/decision pair without shared terminal proof stays resumable', () => {
+    const root = path.join(ANALYSES_DIR, `ZZFINL_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    fs.writeFileSync(path.join(root, 'final_thesis.md'), '# ungated thesis\n')
+    fs.writeFileSync(path.join(root, 'decision_record.json'), '{}\n')
+    const { run, events } = mkRun('full', 'ZZFINL')
+    finalizeRunOnClose(run, { exitCode: 0 }, '')
+    assert.equal(run.status, 'incomplete')
+    assert.equal((events.find((event) => event.type === 'run-error') as any)?.reason, 'incomplete_publication')
+    assert.equal((readRunMarker(`analyses/ZZFINL_${DATE}`, '.interrupted') as any)?.reason, 'incomplete_publication')
+  })
+
+  check('a stale shared pair cannot turn an ordinary failing relaunch into success', () => {
+    const root = path.join(ANALYSES_DIR, `ZZFINM_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    const thesisPath = path.join(root, 'final_thesis.md')
+    const decisionPath = path.join(root, 'decision_record.json')
+    fs.writeFileSync(thesisPath, '# already sealed and shared\n')
+    fs.writeFileSync(decisionPath, '{}\n')
+    const old = new Date(Date.now() - 60 * 60_000)
+    fs.utimesSync(thesisPath, old, old)
+    fs.utimesSync(decisionPath, old, old)
+    const { run } = mkRun('full', 'ZZFINM')
+    publicationShared = true
+    try { finalizeRunOnClose(run, { exitCode: 1 }, 'the publication-recovery shell ended late') }
+    finally { publicationShared = false }
+    assert.equal(run.status, 'error', 'pre-existing shared bytes do not belong to this failing attempt')
+  })
+
+  check('a just-written shared pair cannot turn an unchanged ordinary failing relaunch into success', () => {
+    const root = path.join(ANALYSES_DIR, `ZZFINU_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    fs.writeFileSync(path.join(root, 'final_thesis.md'), '# shared one millisecond before relaunch\n')
+    fs.writeFileSync(path.join(root, 'decision_record.json'), '{}\n')
+    const { run } = mkRun('full', 'ZZFINU')
+    __captureTerminalDeliverableBaselineForTest(run)
+    publicationShared = true
+    try { finalizeRunOnClose(run, { exitCode: 1 }, 'new attempt failed without touching the pair') }
+    finally { publicationShared = false }
+    assert.equal(run.status, 'error')
+  })
+
+  check('an ordinary attempt that changes and shares the terminal pair earns trailing-nonzero success', () => {
+    const root = path.join(ANALYSES_DIR, `ZZFINV_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    fs.writeFileSync(path.join(root, 'final_thesis.md'), '# prior pair\n')
+    fs.writeFileSync(path.join(root, 'decision_record.json'), '{"version":1}\n')
+    const { run } = mkRun('full', 'ZZFINV')
+    __captureTerminalDeliverableBaselineForTest(run)
+    fs.writeFileSync(path.join(root, 'final_thesis.md'), '# pair written by this attempt\n')
+    fs.writeFileSync(path.join(root, 'decision_record.json'), '{"version":2}\n')
+    publicationShared = true
+    try { finalizeRunOnClose(run, { exitCode: 1 }, 'trailing handoff failed after exact publication') }
+    finally { publicationShared = false }
+    assert.equal(run.status, 'done')
+  })
+
+  check('a bound automatic recovery may finish a stale pair after exact shared publication', () => {
+    const root = path.join(ANALYSES_DIR, `ZZFINP_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    const thesisPath = path.join(root, 'final_thesis.md')
+    const decisionPath = path.join(root, 'decision_record.json')
+    fs.writeFileSync(thesisPath, '# exact recovery pair\n')
+    fs.writeFileSync(decisionPath, '{}\n')
+    const old = new Date(Date.now() - 60 * 60_000)
+    fs.utimesSync(thesisPath, old, old)
+    fs.utimesSync(decisionPath, old, old)
+    const { run } = mkRun('full', 'ZZFINP')
+    __bindAutomaticRecoveryForTest(run, {
+      subject: 'ZZFINP', swarmId: 'research', sourceRunRoot: `analyses/ZZFINP_${DATE}`,
+      targetRunRoot: `analyses/ZZFINP_${DATE}`, planPath: `analyses/ZZFINP_${DATE}/intake/plan.json`,
+      planSha256: `sha256:${'a'.repeat(64)}`, sourceDecisionFingerprint: `sha256:${'b'.repeat(64)}`,
+    })
+    publicationShared = true
+    exactAutomaticPublicationShared = true
+    try { finalizeRunOnClose(run, { exitCode: 1 }, 'trailing publication handoff error') }
+    finally {
+      publicationShared = false
+      exactAutomaticPublicationShared = false
+    }
+    assert.equal(run.status, 'done', 'the exact automatic recovery binding attributes shared success')
+  })
+
+  check('a different shared same-day plan cannot earn a failing automatic recovery success', () => {
+    const root = path.join(ANALYSES_DIR, `ZZFINS_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    const thesisPath = path.join(root, 'final_thesis.md')
+    const decisionPath = path.join(root, 'decision_record.json')
+    fs.writeFileSync(thesisPath, '# shared terminal for a different plan\n')
+    fs.writeFileSync(decisionPath, '{}\n')
+    const old = new Date(Date.now() - 60 * 60_000)
+    fs.utimesSync(thesisPath, old, old)
+    fs.utimesSync(decisionPath, old, old)
+    const { run } = mkRun('full', 'ZZFINS')
+    __bindAutomaticRecoveryForTest(run, {
+      subject: 'ZZFINS', swarmId: 'research', sourceRunRoot: `analyses/ZZFINS_${DATE}`,
+      targetRunRoot: `analyses/ZZFINS_${DATE}`, planPath: `analyses/ZZFINS_${DATE}/intake/plan.json`,
+      planSha256: `sha256:${'c'.repeat(64)}`, sourceDecisionFingerprint: `sha256:${'d'.repeat(64)}`,
+    })
+    publicationShared = true // the root is canonical, but the exact staged plan proof is false
+    try { finalizeRunOnClose(run, { exitCode: 1 }, 'the bound plan did not publish') }
+    finally { publicationShared = false }
+    assert.equal(run.status, 'error')
+  })
+
+  check('a different shared same-day plan cannot earn a clean automatic recovery success', () => {
+    const root = path.join(ANALYSES_DIR, `ZZFINT_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    const thesisPath = path.join(root, 'final_thesis.md')
+    const decisionPath = path.join(root, 'decision_record.json')
+    fs.writeFileSync(thesisPath, '# shared terminal for a different clean plan\n')
+    fs.writeFileSync(decisionPath, '{}\n')
+    const old = new Date(Date.now() - 60 * 60_000)
+    fs.utimesSync(thesisPath, old, old)
+    fs.utimesSync(decisionPath, old, old)
+    const { run, events } = mkRun('full', 'ZZFINT')
+    __bindAutomaticRecoveryForTest(run, {
+      subject: 'ZZFINT', swarmId: 'research', sourceRunRoot: `analyses/ZZFINT_${DATE}`,
+      targetRunRoot: `analyses/ZZFINT_${DATE}`, planPath: `analyses/ZZFINT_${DATE}/intake/plan.json`,
+      planSha256: `sha256:${'e'.repeat(64)}`, sourceDecisionFingerprint: `sha256:${'f'.repeat(64)}`,
+    })
+    publicationShared = true
+    try { finalizeRunOnClose(run, { exitCode: 0 }, '') } finally { publicationShared = false }
+    assert.equal(run.status, 'incomplete')
+    assert.equal((events.find((event) => event.type === 'run-error') as any)?.reason, 'incomplete_publication')
+  })
+
+  check('a clean sealed no-op may finish from canonical shared proof without rewriting the pair', () => {
+    const root = path.join(ANALYSES_DIR, `ZZFINR_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    const thesisPath = path.join(root, 'final_thesis.md')
+    const decisionPath = path.join(root, 'decision_record.json')
+    fs.writeFileSync(thesisPath, '# sealed no-op pair\n')
+    fs.writeFileSync(decisionPath, '{}\n')
+    const old = new Date(Date.now() - 60 * 60_000)
+    fs.utimesSync(thesisPath, old, old)
+    fs.utimesSync(decisionPath, old, old)
+    const { run } = mkRun('full', 'ZZFINR')
+    publicationShared = true
+    try { finalizeRunOnClose(run, { exitCode: 0 }, '') } finally { publicationShared = false }
+    assert.equal(run.status, 'done')
+  })
+
+  check('a stale shared pair does not suppress a structured error from an ordinary relaunch', () => {
+    const root = path.join(ANALYSES_DIR, `ZZFINQ_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    const thesisPath = path.join(root, 'final_thesis.md')
+    const decisionPath = path.join(root, 'decision_record.json')
+    fs.writeFileSync(thesisPath, '# stale shared pair\n')
+    fs.writeFileSync(decisionPath, '{}\n')
+    const old = new Date(Date.now() - 60 * 60_000)
+    fs.utimesSync(thesisPath, old, old)
+    fs.utimesSync(decisionPath, old, old)
+    const { run, events } = mkRun('full', 'ZZFINQ')
+    publicationShared = true
+    try { handleStreamLine(run, errorResult) } finally { publicationShared = false }
+    assert.equal(run.status, 'error')
+    assert.ok(events.some((event) => event.type === 'run-error'))
+  })
+
+  check('a clean recovery exit with an old local pair but no shared proof remains incomplete', () => {
+    const root = path.join(ANALYSES_DIR, `ZZFINN_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    const thesisPath = path.join(root, 'final_thesis.md')
+    const decisionPath = path.join(root, 'decision_record.json')
+    fs.writeFileSync(thesisPath, '# still local only\n')
+    fs.writeFileSync(decisionPath, '{}\n')
+    const old = new Date(Date.now() - 60 * 60_000)
+    fs.utimesSync(thesisPath, old, old)
+    fs.utimesSync(decisionPath, old, old)
+    const { run, events } = mkRun('full', 'ZZFINN')
+    finalizeRunOnClose(run, { exitCode: 0 }, '')
+    assert.equal(run.status, 'incomplete')
+    assert.equal((events.find((event) => event.type === 'run-error') as any)?.reason, 'incomplete_publication')
   })
 
   // 3. a cancel() sets status='cancelled' directly — close must STILL finalize and release the
@@ -174,7 +376,9 @@ try {
     const prev = __setFailureNoteCommitter((...a) => committed.push(a))
     try {
       const { run, events } = mkRun('full', 'ZZFING')
-      finalizeRunOnClose(run, { exitCode: 1 }, 'trailing nonzero after a completed run')
+      publicationShared = true
+      try { finalizeRunOnClose(run, { exitCode: 1 }, 'trailing nonzero after a completed run') }
+      finally { publicationShared = false }
       assert.equal(run.status, 'done', 'a shipped run that exits nonzero is DONE, not error')
       assert.ok(events.find((e) => e.type === 'run-done'), 'a run-done event is emitted for the shipped run')
       assert.doesNotMatch(String(run.note ?? ''), /nonzero_exit|terminated_/, 'no failure reason in the durable note')
@@ -240,6 +444,28 @@ try {
     } finally {
       __setFailureNoteCommitter(prev)
     }
+  })
+
+  check('a late stream error cannot override an exact terminal tree already shared by this run', () => {
+    const root = path.join(ANALYSES_DIR, `ZZFINO_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    fs.writeFileSync(path.join(root, 'final_thesis.md'), '# shared thesis\n')
+    fs.writeFileSync(path.join(root, 'decision_record.json'), '{}\n')
+    const { run, events } = mkRun('full', 'ZZFINO')
+    publicationShared = true
+    try {
+      handleStreamLine(run, JSON.stringify({
+        type: 'result', subtype: 'error_during_execution', is_error: true,
+        result: 'the shell reported a trailing handoff error after publication',
+      }))
+      assert.equal(run.status, 'running', 'shared authority leaves finalization to process close')
+      assert.equal(run.endedAt, undefined)
+      assert.equal(events.some((event) => event.type === 'run-error'), false)
+      finalizeRunOnClose(run, { exitCode: 1 }, 'trailing handoff error')
+      assert.equal(run.status, 'done')
+      assert.ok(events.some((event) => event.type === 'run-done'))
+    } finally { publicationShared = false }
   })
 
   // 10. Findings 5/12/14: a SAME-DAY relaunch into a folder that already holds final_thesis.md +
@@ -310,6 +536,9 @@ try {
     }
   })
 } finally {
+  __setFailureNoteCommitter(productionFailureNoteCommitter)
+  __setAutomaticResearchPublicationProof(previousAutomaticPublicationProof)
+  __setResearchPublicationProof(previousPublicationProof)
   for (const d of cleanupDirs) fs.rmSync(d, { recursive: true, force: true })
 }
 

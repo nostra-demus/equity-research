@@ -55,9 +55,19 @@ check('without the alias map, behaviour is EXACTLY as before (ticker-only)', () 
   assert.deepEqual(matchTrackedSubjects(item([{ name: 'Amazon', ticker: null }]), dataDir), [])
 })
 
-check('a real ticker match still wins and is never overridden by names', () => {
+check('real ticker matches and different exact ticker-less companies are both retained', () => {
+  assert.deepEqual(matchTrackedSubjects(item([{ name: 'Amazon', ticker: 'AMZN' }]), dataDir, NAMES), ['AMZN'],
+    'supplying aliases never drops an ordinary exact-ticker match')
   const both = item([{ name: 'Amazon', ticker: 'AMZN' }, { name: 'Norsk Hydro', ticker: null }])
-  assert.deepEqual(matchTrackedSubjects(both, dataDir, NAMES), ['AMZN'], 'name pass must not run when a ticker matched')
+  assert.deepEqual(matchTrackedSubjects(both, dataDir, NAMES), ['AMZN', 'NHY'])
+
+  fs.mkdirSync(path.join(dataDir, 'TGT'), { recursive: true })
+  const deal = item([
+    { name: 'Amazon', ticker: 'AMZN' },
+    { name: 'Target Inc.', ticker: null },
+  ])
+  assert.deepEqual(matchTrackedSubjects(deal, dataDir, { ...NAMES, TGT: 'Target Inc.' }), ['AMZN', 'TGT'],
+    'an exact ticker for one company does not suppress a different ticker-less company named exactly')
 })
 
 check('an untracked company never matches, however it is named', () => {

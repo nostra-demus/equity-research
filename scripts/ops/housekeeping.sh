@@ -5,17 +5,15 @@
 #
 #   Usage (from a com.nostradamus.hk-*.plist):  housekeeping.sh <slash-command> [args...]
 #     e.g.  housekeeping.sh /research:track all
-#           housekeeping.sh /research:review-decisions due
 #
-# The five daily/monthly jobs (see scripts/ops/com.nostradamus.hk-*.plist):
-#   /research:review-decisions due   — file due decision-outcome reviews (DUE-gated: skipped when nothing due)
+# The four daily/monthly jobs (see scripts/ops/com.nostradamus.hk-*.plist):
 #   /research:track all              — refresh the calls-tracker dashboard   (pure-local, ~free)
 #   /screener:sweep                  — scan approved sources into the inbox  (one web pass)
 #   /research:size all               — refresh the model paper-portfolio     (pure-local, ~free)
 #   /research:calibrate all          — refresh the calibration summary       (pure-local, ~free; monthly)
 #
 # Safety: single-flight lock per command (an overrun can't stack), a hard timeout, a --max-budget-usd
-# cap, --max-turns, bypassPermissions (headless — never hangs on a prompt), the review DUE gate, and it
+# cap, --max-turns, bypassPermissions (headless — never hangs on a prompt), and it
 # ALWAYS exits 0 (incidents live in the log, never mark the launchd job failed → no churn). These jobs
 # write ONLY §28 data (analyses/tracking/**, screener/**, analyses/**) and commit via the engine's own
 # commit-run.sh data lane, so they ride the same serialized-commit path as the cockpit.
@@ -42,6 +40,16 @@ ENGINE_CONFIG_DIR="${NOSTRA_ENGINE_CONFIG_DIR:-$HOME/.config/nostra-engine}"
 
 ts()  { date '+%Y-%m-%d %H:%M:%S'; }
 log() { echo "$(ts) $*" >> "$LOG"; }
+
+# The server dispatcher is the only review owner now. This guard is deliberately in the shared legacy
+# wrapper as well as the installer/deploy retirement: during a rolling deploy an already-installed old
+# hk-review timer can fire before launchd is reconciled, but it still cannot start a paid review command.
+case "${CMD%% *}" in
+  /research:review-decisions)
+    log "SKIP $CMD — retired timer; automatic reviews are owned by the engine"
+    exit 0
+    ;;
+esac
 
 # keep the log bounded (~last 1500 lines once it passes 6000)
 if [ -f "$LOG" ] && [ "$(wc -l < "$LOG" 2>/dev/null || echo 0)" -gt 6000 ]; then
@@ -85,15 +93,6 @@ if ! mkdir "$LOCK" 2>/dev/null; then
   fi
 fi
 trap 'rmdir "$LOCK" 2>/dev/null' EXIT
-
-# DUE gate (review-decisions only): review_due.py prints to stdout ONLY when something is due and ALWAYS
-# exits 0 — so gate on stdout being NON-EMPTY, never on the exit code. Skips the paid turn when nothing's due.
-case "$CMD" in
-  *review-decisions*)
-    if [ -z "$(python3 .claude/hooks/review_due.py 2>/dev/null)" ]; then
-      log "SKIP review-decisions — review_due reports nothing due"; exit 0
-    fi ;;
-esac
 
 # assemble flags the installed CLI actually supports (mirrors launcher.ts detectFlags), so a CLI without a
 # given flag degrades gracefully instead of erroring out. Build the supported-flag SET once from --help and

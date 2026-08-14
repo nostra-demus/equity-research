@@ -920,6 +920,7 @@ export interface BridgeStatus {
   /** the manifest exists but is unreadable/malformed right now — a real config error, reported even while
    *  `running` is otherwise true, so a bad edit never reads as a quiet, valid zero-subject sweep */
   manifestError: string | null
+  cursorError: string | null
 }
 
 export interface NewsStatus {
@@ -1921,6 +1922,8 @@ export interface CallTimelineEntry {
   review_count?: number
   memo_delta_file?: string // §8 memo delta — the "what changed since the memo" markdown, when the review filed one
   stage_one_comment?: string // paste-ready 100–200-word Stage-One sheet note from the same block
+  memo_delta_summary?: string
+  thesis_delta_verdict?: string
 }
 export interface CallSummary {
   ticker: string
@@ -1948,10 +1951,33 @@ export interface CallSummary {
   next_checkpoint: { window: string; due_date: string | null; status: string } | null
   review_count: number
   timeline: CallTimelineEntry[]
+  latest_review_summary?: string | null
+  latest_review_verdict?: string | null
+  latest_review_date?: string | null
+}
+export interface CallUpdate {
+  id: string
+  ticker: string
+  company: string | null
+  at: string | null
+  kind: 'call' | 'review' | 'data_check'
+  headline: string
+  detail?: string | null
+  tone: 'better' | 'worse' | 'same' | 'info'
+  run_root: string
+  source_path?: string | null
 }
 export interface CallsResult {
   calls: CallSummary[]
   dashboard: string | null
+  automation?: {
+    enabled: boolean
+    state: 'watching' | 'checking' | 'needs_attention'
+    message: string
+    last_checked_at: string | null
+    next_check_at: string | null
+  }
+  updates?: CallUpdate[]
 }
 
 // ---- activity / audit log ----

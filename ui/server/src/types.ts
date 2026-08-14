@@ -256,6 +256,11 @@ export interface SwarmSubjectSummary {
 // a ticker's data pool from a locked thesis (idempotent; never launches the research run itself).
 // 'doc-intake' is an advisory research kind (like 'review'/'track'): it reads the docs that landed
 // since the last run and writes a SCOPED rerun plan (frameworks/INTAKE.md) — it launches no run.
+// The intent is a non-launch transaction witness: carryForwardScoped writes it before any copy/hole and
+// writes the actual staged intake plan last. Keeping these constants in the dependency-free shared types
+// module avoids a completion -> launcher -> publication-recovery import cycle.
+export const SCOPED_STAGE_INTENT_FILE = '.scoped-stage-intent.json'
+export const SCOPED_STAGE_INTENT_VERSION = 'scoped-stage-intent/1' as const
 export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'doc-intake' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
 // 'incomplete' = the process exited cleanly but a full/rerun didn't produce its final deliverables
 // (thesis/decision) — almost always budget/turn truncation. Distinct from 'error' (a real failure).

@@ -35,6 +35,7 @@ function makeFake(opts?: { fail429Once?: string[] }) {
   let markerCleared = false
   let poolClaimHeld = false
   let poolClaimReleases = 0
+  let evidenceCursorWrites = 0
   const retries: Array<() => void> = []
   const fail429Once = new Set(opts?.fail429Once ?? [])
   const deps: FullChainDeps = {
@@ -64,6 +65,7 @@ function makeFake(opts?: { fail429Once?: string[] }) {
         poolClaimReleases++
       }
     },
+    ensureEvidenceCursor: () => { evidenceCursorWrites++ },
   }
   const mods = () => launches.filter((l) => l.kind === 'module').map((l) => l.module!)
   const finish = (key: string, status: RunStatus = 'done') => {
@@ -80,6 +82,7 @@ function makeFake(opts?: { fail429Once?: string[] }) {
     pendingRetries: () => retries.length,
     poolClaimHeld: () => poolClaimHeld,
     poolClaimReleases: () => poolClaimReleases,
+    evidenceCursorWrites: () => evidenceCursorWrites,
   }
 }
 
@@ -102,6 +105,7 @@ const sorted = (a: string[]) => [...a].sort()
 
     // the marker is dropped before any module launches
     assert.equal(f.getMarker(), 'TESTX', 'defer-module-memos marker written for the ticker')
+    assert.equal(f.evidenceCursorWrites(), 1, 'source-pool start point is saved before any module')
     // first wave: only the dep-free module
     assert.deepEqual(f.mods(), ['business-model'], 'only business-model launches first')
     assert.equal(out.runId, 'run-business-model', 'caller gets the first run id to follow')
@@ -151,13 +155,30 @@ const sorted = (a: string[]) => [...a].sort()
 
   await check('a failed module stops the chain — no further modules, no master', async () => {
     const f = makeFake()
-    await launchFullChained('TESTF', 'tester', 'local', f.deps)
+    const terminal: RunStatus[] = []
+    await launchFullChained('TESTF', 'tester', 'local', f.deps, undefined, (status) => terminal.push(status))
     assert.deepEqual(f.mods(), ['business-model'])
 
     f.finish('business-model', 'error') // business-model fails
     assert.deepEqual(f.mods(), ['business-model'], 'no module launches after a failure')
     assert.ok(!f.launches.some((l) => l.kind === 'rerun'), 'master is not launched after a failure')
     assert.equal(f.wasMarkerCleared(), true, 'a failed chain clears the defer-memo marker (no orphan poisoning later runs)')
+    assert.deepEqual(terminal, ['error'], 'the outer automatic job receives the real chained failure exactly once')
+  })
+
+  await check('the outer automatic job receives master completion exactly once', async () => {
+    const f = makeFake()
+    const terminal: RunStatus[] = []
+    await launchFullChained('TESTTERM', 'tester', 'local', f.deps, undefined, (status) => terminal.push(status))
+    f.finish('business-model')
+    f.finish('earnings')
+    f.finish('management-governance')
+    f.finish('balance-sheet-survival')
+    f.finish('valuation')
+    f.finish('catalyst')
+    assert.deepEqual(terminal, [], 'child completion does not finish the outer job')
+    f.finish('master')
+    assert.deepEqual(terminal, ['done'])
   })
 
   await check('an aborted SIBLING stops new scheduling but does not launch the master', async () => {
@@ -297,6 +318,10 @@ const sorted = (a: string[]) => [...a].sort()
         fs.mkdirSync(path.join(runRootAbs, m), { recursive: true })
         fs.writeFileSync(path.join(runRootAbs, m, `99_${m}-synthesis.md`), '# done\n')
       }
+      // The master pair is written before the final audit/admission/publication sequence. A crash in that
+      // interval must resume at the master finalization step, not repay every finished module.
+      fs.writeFileSync(path.join(runRootAbs, 'final_thesis.md'), '# pre-seal thesis\n')
+      fs.writeFileSync(path.join(runRootAbs, 'decision_record.json'), '{}\n')
       const f = makeFake()
       const out = await launchFullChained(TICK, 'tester', 'local', f.deps)
       assert.equal(out.runId, 'run-master', 'direct-master resume returns the registered master id, never an empty placeholder')

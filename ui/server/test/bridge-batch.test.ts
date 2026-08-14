@@ -155,11 +155,27 @@ check('a second sweep over the same window writes nothing (idempotent — two en
   const { stateDir, opts } = makeRepo(['NHY'], [e])
   const first = sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, opts)
   assert.equal(first.sweeps[0].written.length, 1)
-  // a concurrent engine that had NOT advanced its cursor re-considers the same window
-  fs.rmSync(path.join(stateDir, 'research-bridge-cursor.json'), { force: true })
-  const second = sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, opts)
+  // an independent fresh state (the shape of a concurrent pre-migration engine) reconsiders the window
+  const freshState = path.join(path.dirname(stateDir), '.state-second')
+  fs.mkdirSync(freshState)
+  const second = sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, { ...opts, stateDir: freshState })
   assert.deepEqual(second.sweeps[0].written, [], 'the on-disk note makes the retry a no-op')
   assert.deepEqual(second.subjectsWithFreshNotes, [])
+})
+
+check('missing or damaged saved cursor after use fails closed instead of skipping an unseen news gap', () => {
+  const e = item({ ticker: 'NHY' })
+  const { stateDir, opts } = makeRepo(['NHY'], [e])
+  sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, opts)
+  const cursor = path.join(stateDir, 'research-bridge-cursor.json')
+  const marker = path.join(stateDir, 'research-bridge-cursor.initialized')
+  assert.equal(fs.existsSync(marker), true, 'first publish durably records that cursor authority has existed')
+  fs.unlinkSync(cursor)
+  assert.throws(() => sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, opts), /position cannot be read safely/)
+  assert.equal(fs.existsSync(cursor), false, 'missing authority is not replaced with a 48-hour cursor')
+  fs.writeFileSync(cursor, '{truncated')
+  assert.throws(() => sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, opts), /position is damaged/)
+  assert.equal(fs.readFileSync(cursor, 'utf8'), '{truncated', 'damaged authority is preserved for recovery')
 })
 
 // ---- 6. cursor isolation + the capped backfill for a newly enabled name ----
@@ -290,6 +306,21 @@ check('an outage longer than the default window does not drop the gap: lookback 
   assert.ok(fs.existsSync(noteFor(dataDir, 'NHY', old.event_id)))
 })
 
+check('more than 5,000 newer market rows cannot hide an older standing-call event', () => {
+  const old = item({ ticker: 'NHY', ts: '2026-07-29T01:00:00Z', headline: 'NHY older material result' })
+  const newest = item({ ticker: 'NHY', ts: '2026-07-29T11:00:00Z', headline: 'NHY newer rating change' })
+  const noise = Array.from({ length: 5_000 }, (_, i) => item({
+    ticker: 'NOISE',
+    ts: new Date(Date.parse('2026-07-29T02:00:00Z') + i * 1_000).toISOString(),
+    headline: `Unrelated market item ${i}`,
+  }))
+  const { dataDir, opts } = makeRepo(['NHY'], [old, ...noise, newest])
+  const result = sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, opts)
+  assert.equal(result.sweeps[0].written.length, 2, 'the company page is capped after matching, not before it')
+  assert.ok(fs.existsSync(noteFor(dataDir, 'NHY', old.event_id)), 'the older company event is not lost behind global traffic')
+  assert.ok(fs.existsSync(noteFor(dataDir, 'NHY', newest.event_id)))
+})
+
 // ---- 14. review round: mixed ISO precision must not misorder the cursor ----
 check('cursor tracking is numeric: a ms-precision timestamp cannot park the cursor early', () => {
   const withMs = item({ ticker: 'NHY', ts: '2026-07-29T09:00:00.500Z', headline: 'NHY ms-precision story' })
@@ -347,11 +378,13 @@ check('writeCursors failure still reports fresh notes so the follow-up analysis 
   // so the scheduler launched no analysis and the next sweep saw only duplicates — the advisory analysis was
   // skipped forever with INTAKE_AUTO_ANALYZE=0 (Codex #359 r3673881630).
   const e = item({ ticker: 'NHY' })
-  const { repo, opts } = makeRepo(['NHY'], [e])
-  const wall = path.join(repo, 'not-a-dir'); fs.writeFileSync(wall, 'x')
-  const deadState = path.join(wall, 'state') // any write under here throws ENOTDIR
+  const { stateDir, opts } = makeRepo(['NHY'], [e])
+  // Keep the main cursor readable so admission is safe, but poison the not-yet-created durable marker.
+  // The note is written first; marker validation then makes only the final cursor publish fail.
+  fs.writeFileSync(path.join(stateDir, 'research-bridge-cursor.json'), '{}\n')
+  fs.mkdirSync(path.join(stateDir, 'research-bridge-cursor.initialized'))
   const writeNote = (a: { item: FeedItem }) => ({ already: false, path: `/fake/${a.item.event_id}.md` })
-  const r = sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, { ...opts, stateDir: deadState, writeNote })
+  const r = sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, { ...opts, writeNote })
   assert.deepEqual(r.subjectsWithFreshNotes, ['NHY'], 'the fresh-note result survives the cursor-persist failure')
   // the failure is surfaced, not silently swallowed — an operator can see the cursor did not advance
   // instead of the sweep quietly reporting as if it were clean (Codex review, PR #359).
@@ -369,6 +402,25 @@ check('a subject whose cursor predates the retention boundary is disclosed via r
   assert.ok(nhy.retentionGapDays && nhy.retentionGapDays > 0, 'the truncated gap is disclosed, not silently absorbed')
   assert.equal(nhy.written.length, 1, 'the item still inside the (clamped) window is still routed')
   assert.ok(fs.existsSync(noteFor(dataDir, 'NHY', withinWindow.event_id)))
+})
+
+check('a retention-gap disclosure failure stops cursor publish but preserves fresh notes for analysis', () => {
+  const withinWindow = item({ ticker: 'NHY', ts: iso(10 * 24 * HOUR) })
+  const { stateDir, opts } = makeRepo(['NHY'], [withinWindow])
+  const oldCursor = iso(20 * 24 * HOUR)
+  fs.writeFileSync(path.join(stateDir, 'research-bridge-cursor.json'), JSON.stringify({ NHY: oldCursor }))
+  let notices: Array<{ subject: string; gapDays: number }> = []
+  const result = sweepOnce(['NHY'], DEFAULT_BATCH_CONFIG, {
+    ...opts,
+    lookbackDays: undefined,
+    preCursorCommit: (gaps) => { notices = gaps; throw new Error('simulated gap-ledger outage') },
+  })
+  assert.deepEqual(result.subjectsWithFreshNotes, ['NHY'], 'the already-written note still earns analysis')
+  assert.deepEqual(notices.map((row) => row.subject), ['NHY'])
+  assert.ok(notices[0].gapDays > 0)
+  assert.match(result.preCursorCommitError || '', /gap-ledger outage/)
+  assert.equal(readCursors(stateDir).NHY, oldCursor,
+    'cursor stays on the old side of the uncovered period when its disclosure is not durable')
 })
 
 check('a fully-covered cursor (within the boundary) reports no retention gap', () => {

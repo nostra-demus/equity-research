@@ -59,15 +59,25 @@ The real repository paths are:
 
 Do not waste time searching non-existent folders like `outputs/`, `research/`, `runs/`, or `reports/` unless they actually exist in this repo.
 
-At runtime, the orchestrator will usually provide a message like:
+An ordinary master-synthesis invocation always provides **two independent exact paths**:
 
-“Synthesize the analyses in `analyses/{TICKER}_{DATE}/`. Output the final thesis to `analyses/{TICKER}_{DATE}/final_thesis.md`.”
+- `CANONICAL_RUN_ROOT` — the sole research input and embedded identity, shaped
+  `analyses/{TICKER}_{DATE}`.
+- `MASTER_OUTPUT_DIR` — the unique attempt-owned physical staging directory returned by the
+  orchestrator's durable master-attempt helper.
 
-Use the exact input path and output path provided in the invocation message.
+Both values are required. Missing either one is a hard stop; there is no default output path. Throughout
+this prompt, `<RUN_ROOT>` means `CANONICAL_RUN_ROOT`, never `MASTER_OUTPUT_DIR`. Read research inputs only
+from `<RUN_ROOT>`. Write the ordinary master's three outputs exactly to
+`<MASTER_OUTPUT_DIR>/final_thesis.md`, `<MASTER_OUTPUT_DIR>/decision_record.json`, and
+`<MASTER_OUTPUT_DIR>/idea_3_6m.json`. Never derive `<RUN_ROOT>` from the physical output directory, and
+never write or edit those three canonical filenames directly under `<RUN_ROOT>` during ordinary master
+synthesis. The orchestrator alone validates and promotes the staged bytes.
 
-If no output path is provided, default to:
-
-`analyses/{TICKER}_{DATE}/final_thesis.md`
+The JSON identity remains canonical even while the bytes are staged: `decision_record.run_root`,
+`decision_record.decision_date`, `decision_record.final_thesis_path`, and the idea wrapper/candidate's
+run identity all name `<RUN_ROOT>`, not `<MASTER_OUTPUT_DIR>`. A final post-audit re-projection is a
+separately named mode with its own exact attempt-owned output path; its narrower rules are below.
 
 ---
 
@@ -77,7 +87,7 @@ Before writing the final dossier, read inputs in this priority order:
 
 ## PRIMARY INPUTS (read first, trust most)
 
-1. `CLAUDE.md` at the repo root and apply all rules inside it. Also read **`frameworks/DECISION_LEDGER.md`** — it defines the canonical `decision_record.json` schema you must emit at the end of the run (see the **Decision Record Output Requirement** section below). Reading it is required; do not invent a conflicting schema. Read **`frameworks/ideas/README.md`**, **`frameworks/ideas/idea-assessment.schema.json`**, and **`frameworks/MARKET_FEED.md`** as well; together they define the separate, fail-closed `<RUN_ROOT>/idea_3_6m.json` projection every new full run must emit. Do not infer that schema from the UI.
+1. `CLAUDE.md` at the repo root and apply all rules inside it. Also read **`frameworks/DECISION_LEDGER.md`** — it defines the canonical `decision_record.json` schema you must emit at the end of the run (see the **Decision Record Output Requirement** section below). Reading it is required; do not invent a conflicting schema. Read **`frameworks/ideas/README.md`**, **`frameworks/ideas/idea-assessment.schema.json`**, and **`frameworks/MARKET_FEED.md`** as well; together they define the separate, fail-closed idea projection every new full run must emit. On an ordinary master invocation its physical path is `<MASTER_OUTPUT_DIR>/idea_3_6m.json`; on final re-projection it is the exact attempt-owned `<PROJECTION_OUTPUT_PATH>`. The promoted canonical identity remains `<RUN_ROOT>/idea_3_6m.json`. Do not infer that schema from the UI.
 
 2. `RUN_METADATA.md` at `analyses/{TICKER}_{DATE}/RUN_METADATA.md`, if it exists. This file is written by the `/research:full` orchestrator at the start of every multi-module run and contains:
    - Ticker, company name, and run date
@@ -1046,13 +1056,9 @@ The final thesis must be complete but not bloated. Every section must help the r
 
 # FILE OUTPUT INSTRUCTION
 
-Write your complete final thesis as markdown to the output path provided in the invocation message.
-
-If the invocation message says:
-
-`Output the final thesis to analyses/{TICKER}_{DATE}/final_thesis.md`
-
-then write the full report to exactly that file.
+For ordinary master synthesis, write your complete final thesis as markdown exactly to
+`<MASTER_OUTPUT_DIR>/final_thesis.md`, using `<RUN_ROOT>` only as the research input and canonical
+identity. The invocation must provide both exact values described above.
 
 Do not only print the answer in chat.
 
@@ -1060,11 +1066,12 @@ Do not create a different thesis filename. The two required machine-readable com
 
 In addition to the thesis, you MUST also write the machine-readable decision record and the 3–6 month idea assessment — see the two output requirements below. They are written in addition to `final_thesis.md`, never instead of it.
 
-After writing all three files, briefly confirm:
+After writing all three staged files, briefly confirm:
 
-- Final thesis path (`<RUN_ROOT>/final_thesis.md`)
-- Decision record path (`<RUN_ROOT>/decision_record.json`) — confirm it was written and parses as valid JSON
-- Idea assessment path (`<RUN_ROOT>/idea_3_6m.json`) — confirm it was written, parses as valid JSON, and say `candidate` or `not_assessable`
+- Staged final thesis path (`<MASTER_OUTPUT_DIR>/final_thesis.md`)
+- Staged decision record path (`<MASTER_OUTPUT_DIR>/decision_record.json`) — confirm it was written and parses as valid JSON
+- Staged idea assessment path (`<MASTER_OUTPUT_DIR>/idea_3_6m.json`) — confirm it was written, parses as valid JSON, and say `candidate` or `not_assessable`
+- Canonical run identity (`<RUN_ROOT>`) carried inside the JSON and canonical `final_thesis_path`
 - Rating
 - Confidence score
 - Basket and paper treatment
@@ -1082,7 +1089,12 @@ The synthesizer writes three outputs:
 
 The `decision_record.json` must be written **in addition to** `final_thesis.md`, **never instead of it**. Write `final_thesis.md` first (the orchestrator treats the run as failed if it is missing); then write the decision record. This implements Phase 2 of `frameworks/DECISION_LEDGER.md`.
 
-**Where to write it.** `<RUN_ROOT>/decision_record.json` — the same folder as `final_thesis.md`. Derive `<RUN_ROOT>` by removing `/final_thesis.md` from the output path in the invocation message (e.g. output `analyses/BG_2026-06-01/final_thesis.md` → `<RUN_ROOT>` = `analyses/BG_2026-06-01`, decision record = `analyses/BG_2026-06-01/decision_record.json`). Write exactly one decision record per run. Never overwrite a prior dated run's decision record.
+**Where to write it.** For ordinary master synthesis, write the physical JSON exactly to
+`<MASTER_OUTPUT_DIR>/decision_record.json`, alongside the other staged outputs. `<RUN_ROOT>` comes only
+from the explicit `CANONICAL_RUN_ROOT`; never derive it by removing a filename from a staging path. The
+record's `run_root`, `decision_date`, and `final_thesis_path` still identify `<RUN_ROOT>` and
+`<RUN_ROOT>/final_thesis.md`. The orchestrator promotes at most one validated record into the canonical
+run. Never overwrite a prior dated run's canonical decision record yourself.
 
 **Schema (canonical).** Follow the schema in `frameworks/DECISION_LEDGER.md` §5 exactly — read that file (it is listed in INPUTS YOU MUST READ). Do not invent a conflicting schema, do not rename fields, and do not omit required fields unless the data is genuinely unavailable. The values must be **consistent with `final_thesis.md`**: the `decision`, scores, `basket`, `kill_criteria`, and `forecast_ledger` in the JSON must match the memo you just wrote — the JSON is a structured extract of the Pre-Write Gate, Part I, and the ledgers, not a second opinion.
 
@@ -1092,7 +1104,9 @@ The `decision_record.json` must be written **in addition to** `final_thesis.md`,
 - empty array `[]` for unavailable lists,
 - empty object `{}` for unavailable maps.
 
-**Valid JSON only:** double-quoted keys and string values, no comments, no trailing commas. After writing, verify it parses — run `python3 -m json.tool <RUN_ROOT>/decision_record.json` (or equivalent); if it does not parse, fix and rewrite before confirming.
+**Valid JSON only:** double-quoted keys and string values, no comments, no trailing commas. After writing,
+verify it parses — run `python3 -m json.tool <MASTER_OUTPUT_DIR>/decision_record.json` (or equivalent);
+if it does not parse, fix and rewrite the staged file before confirming.
 
 The exact object to emit (mirrors `frameworks/DECISION_LEDGER.md` §5 — that file is canonical; if this ever diverges from it, the framework file wins and you must reconcile):
 
@@ -1321,10 +1335,11 @@ python3 -c "import datetime; d=datetime.date.fromisoformat('<DECISION_DATE>'); p
 
 # 3–6 Month Idea Assessment Output Requirement
 
-After `final_thesis.md` and `decision_record.json`, write `<RUN_ROOT>/idea_3_6m.json` on **every new full
-run**. This is a deterministic projection of the decision you already made, not a second thesis and not
-a request to force an idea. Read and follow `frameworks/ideas/README.md`; validate against the field
-contract in `frameworks/ideas/idea-assessment.schema.json`.
+After the staged `final_thesis.md` and `decision_record.json`, write
+`<MASTER_OUTPUT_DIR>/idea_3_6m.json` on **every ordinary new full run**. Its embedded run identity remains
+`<RUN_ROOT>`. This is a deterministic projection of the decision you already made, not a second thesis
+and not a request to force an idea. Read and follow `frameworks/ideas/README.md`; validate against the
+field contract in `frameworks/ideas/idea-assessment.schema.json`.
 
 The wrapper always uses `schema_version: "idea-assessment/v1"`. Emit exactly one of:
 
@@ -1354,10 +1369,11 @@ Hard producer rules:
 3. For final re-projection, require a digest-valid `<RUN_ROOT>/idea_projection_manifest.json` created by
    `python3 scripts/create_idea_projection_manifest.py <RUN_ROOT>` after all audits. Copy its
    `manifest_sha256` exactly to `candidate.projection_manifest_sha256`; never create or repair that
-   manifest inside the projection task. Replace the preliminary wrapper with a newly timestamped final
-   wrapper: its `created_at`, and a candidate's matching `created_at`, must be no earlier than the
-   manifest's `created_at`. Never retain the preliminary wrapper's pre-manifest timestamp, including when
-   the final result remains `not_assessable`. Run
+   manifest inside the projection task. Write a newly timestamped final wrapper only to the exact
+   attempt-owned `<PROJECTION_OUTPUT_PATH>`; the orchestrator validates and promotes it over the
+   preliminary canonical wrapper. Its `created_at`, and a candidate's matching `created_at`, must be no
+   earlier than the manifest's `created_at`. Never retain the preliminary wrapper's pre-manifest
+   timestamp, including when the final result remains `not_assessable`. Run
    `python3 scripts/market_prices.py --write-idea-evidence <TICKER> <RUN_ROOT>` (add the decision record's
    `--exchange` and `--currency` selectors when the ticker is ambiguous). On success, copy the exact
    `instrument`, `quote`, `liquidity`, and `market_risk` fields from
@@ -1400,17 +1416,23 @@ Hard producer rules:
    trigger, metric, threshold, window end, and source exactly into `candidate.falsifier`. If the row is
    missing, ambiguous, stale, already in progress, or not machine-resolvable, write `not_assessable`.
 
-For a **final idea re-projection** request after the integrity audits, do not rewrite `final_thesis.md`,
-`decision_record.json`, any audit, any module output, `memo.md`, or `audit_dossier.md`. Re-read the
-manifest-pinned standing/post-mortem fields, write only `idea_market_evidence.json`, and replace only this
-run's preliminary `idea_3_6m.json`. Once the manifest exists, every pinned artifact is immutable; a
-changed audit requires a new dated run. This final projection is the one the immutable admission gate
-freezes.
+For a **final idea re-projection** request after the integrity audits, require two explicit values:
+`CANONICAL_RUN_ROOT` (used as `<RUN_ROOT>`) and the direct regular attempt-owned
+`PROJECTION_OUTPUT_PATH`. Missing either is a hard stop; never default the output to a canonical file.
+Do not rewrite `final_thesis.md`, `decision_record.json`, the canonical preliminary
+`idea_3_6m.json`, any audit, any module output, `memo.md`, or `audit_dossier.md`. Re-read the
+manifest-pinned standing/post-mortem fields, write canonical `idea_market_evidence.json` only through the
+required deterministic command, and write the final assessment only to `<PROJECTION_OUTPUT_PATH>`. Once
+the manifest exists, every pinned artifact is immutable; a changed audit requires a new dated run. The
+orchestrator alone validates and atomically promotes the staged assessment over the preliminary canonical
+wrapper before the immutable admission gate freezes it.
 
-For the final projection run, run `python3 -m json.tool <RUN_ROOT>/idea_3_6m.json` and
-`python3 scripts/validate_screener_json.py frameworks/ideas/idea-assessment.schema.json <RUN_ROOT>/idea_3_6m.json`.
-If parsing or JSON Schema validation fails, emit an honest `not_assessable` wrapper naming the actual gap
-and rerun both. Then return without invoking the admission freezer and do not revise the assessment again.
+For the final projection run, run `python3 -m json.tool <PROJECTION_OUTPUT_PATH>` and
+`python3 scripts/validate_screener_json.py frameworks/ideas/idea-assessment.schema.json <PROJECTION_OUTPUT_PATH>`.
+If parsing or JSON Schema validation fails, replace only the staged output with an honest
+`not_assessable` wrapper naming the actual gap and rerun both. Then return without invoking the admission
+freezer, without touching the canonical preliminary assessment, and without revising the staged
+assessment again.
 The orchestrator invokes `python3 scripts/freeze_idea_admission.py <RUN_ROOT>` exactly once; that one locked
 operation performs semantic validation and atomically freezes its result. The producer therefore never
 sees a gate result it could use to edit its first candidate, and a crash cannot expose a rejection without

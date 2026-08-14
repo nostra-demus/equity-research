@@ -243,11 +243,15 @@ function admittedIntegrityIsSelfConsistent(integrity: z.infer<typeof integrityEv
     typeof integrity.final_thesis_sha256 === 'string'
 }
 
+const PRODUCER_RUN_WINDOW_GAP = 'manifest, candidate, and admission times must belong to the explicit dated run in publication order'
+
 function candidatePublicationOrderIsValid(
   expectedRoot: string,
   manifestCreatedAtText: unknown,
   candidateCreatedAtText: string,
   frozenAtText: string,
+  status: 'admitted' | 'not_admitted',
+  gaps: string[],
 ): boolean {
   const runDate = expectedRoot.match(/_(\d{4}-\d{2}-\d{2})$/)?.[1]
   if (!runDate || !isRfc3339(String(manifestCreatedAtText)) || !isRfc3339(candidateCreatedAtText) || !isRfc3339(frozenAtText)) return false
@@ -256,10 +260,16 @@ function candidatePublicationOrderIsValid(
   const candidateCreatedAt = Date.parse(candidateCreatedAtText)
   const frozenAt = Date.parse(frozenAtText)
   if (![dayStart, manifestCreatedAt, candidateCreatedAt, frozenAt].every(Number.isFinite)) return false
+  if (!(manifestCreatedAt <= candidateCreatedAt && candidateCreatedAt <= frozenAt)) return false
   const runMin = dayStart - 14 * 60 * 60_000
   const runMax = dayStart + (24 + 14) * 60 * 60_000
-  return runMin <= manifestCreatedAt && manifestCreatedAt <= candidateCreatedAt &&
-    candidateCreatedAt <= frozenAt && frozenAt <= runMax
+  const insideProducerWindow = runMin <= manifestCreatedAt && frozenAt <= runMax
+  if (insideProducerWindow) return true
+  // The freezer deliberately records a late/early but otherwise ordered candidate as a durable
+  // negative result. Its idempotent reader accepts that not-admitted witness on later recovery;
+  // the terminal consumer must not strand the producer's own valid output. A positive admission
+  // never receives this exception.
+  return status === 'not_admitted' && gaps.includes(PRODUCER_RUN_WINDOW_GAP)
 }
 
 /** Replay the producer's immutable sidecar contract for the live card. The admission remains the
@@ -331,14 +341,14 @@ function latestAuditName(runAbs: string, kind: AuditKind): string | null {
   return top.length === 1 ? top[0].name : null
 }
 
-interface ValidatedProjectionManifest {
+export interface ValidatedProjectionManifest {
   manifest: Record<string, any>
   decision: Record<string, any>
   audits: BoundAudits
 }
 
 /** Runtime mirror of create_idea_projection_manifest.py's complete trust boundary. */
-function validateProjectionManifest(runAbs: string, expectedRoot: string): ValidatedProjectionManifest | null {
+export function validateProjectionManifest(runAbs: string, expectedRoot: string): ValidatedProjectionManifest | null {
   try {
     const runIdentity = /^([-A-Z0-9.]{1,24})_(\d{4}-\d{2}-\d{2})$/.exec(path.posix.basename(expectedRoot))
     if (!runIdentity) return null
@@ -521,6 +531,7 @@ function readAdmission(runAbs: string, expectedRoot: string): { admission: IdeaA
       if (pinned?.manifest.manifest_sha256 === admission.projection_manifest_sha256) {
         if (!candidatePublicationOrderIsValid(
           expectedRoot, pinned.manifest.created_at, admission.candidate.created_at, admission.frozen_at,
+          admission.status, admission.gaps,
         )) return { admission: null, error: 'The post-audit admission snapshot failed producer publication order.' }
         const current = currentDecisionAuthority(
           runAbs, expectedRoot, admission.candidate, admission.projection_manifest_sha256,
@@ -535,6 +546,41 @@ function readAdmission(runAbs: string, expectedRoot: string): { admission: IdeaA
   } catch {
     return { admission: null, error: 'The post-audit admission snapshot is unreadable.' }
   }
+}
+
+/** Canonical terminal publication proof shared by the producer, launcher and crash recovery.
+ * A projection manifest is only an intermediate seal; completion additionally requires the frozen
+ * post-audit admission to reconcile to that exact manifest with no drift/error. */
+export function validateCompletedIdeaPublication(
+  runAbs: string,
+  expectedRoot: string,
+): { manifest: Record<string, any>; admission: IdeaAdmission } | null {
+  const projection = validateProjectionManifest(runAbs, expectedRoot)
+  if (!projection) return null
+  const frozen = readAdmission(runAbs, expectedRoot)
+  if (!frozen.admission || frozen.error
+      || frozen.admission.projection_manifest_sha256 !== projection.manifest.manifest_sha256) return null
+  // Board projection deliberately preserves a historical frozen outcome when later mutable sidecars
+  // drift, while reporting degraded health. Publication is a stricter boundary: both candidate outcomes
+  // must still replay the freezer's complete idempotent contract before they can prove a run finished.
+  // This applies equally to admitted and not-admitted candidates; a negative result is not permission to
+  // skip decision, integrity, market-evidence, or producer-order reconciliation.
+  if (frozen.admission.status !== 'not_applicable') {
+    const admission = frozen.admission
+    if (!candidatePublicationOrderIsValid(
+      expectedRoot, projection.manifest.created_at, admission.candidate.created_at, admission.frozen_at,
+      admission.status, admission.gaps,
+    )) return null
+    const current = currentDecisionAuthority(
+      runAbs, expectedRoot, admission.candidate, admission.projection_manifest_sha256,
+    )
+    if (
+      !current || digest(current.decision) !== admission.decision_authority_sha256 ||
+      digest(current.integrity) !== admission.integrity_evidence_sha256 ||
+      !currentMarketEvidenceMatchesAdmission(runAbs, expectedRoot, admission)
+    ) return null
+  }
+  return { manifest: projection.manifest, admission: frozen.admission }
 }
 
 // Keep corrupt or half-written producer output out of the evaluator. The evaluator still owns semantic

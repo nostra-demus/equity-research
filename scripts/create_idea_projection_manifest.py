@@ -23,6 +23,7 @@ from canonical_json import canonical_json, canonical_sha256
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCHEMA = "idea-projection-manifest/v1"
 OUTPUT = "idea_projection_manifest.json"
+PAID_COMPLETION_ROLLOUT_DATE = "2026-08-14"
 VERSIONED = {
     "verification": re.compile(r"^verification_report(?:_v(\d+))?\.json$"),
     "pre_mortem": re.compile(r"^pre_mortem(?:_v(\d+))?\.json$"),
@@ -36,6 +37,35 @@ PRE_MORTEM_VERDICTS = {
     "Thesis broken",
 }
 VARIANT_QUALITIES = {"None", "Weak", "Moderate", "Strong"}
+AUDIT_SCHEMA_KEYS = {
+    "verification": {
+        "schema_version", "ticker", "run_root", "verified_at", "verifier",
+        "final_thesis_path", "decision_record_path", "final_thesis_sha256",
+        "decision_record_sha256", "claims_checked", "claim_checks", "math_checks",
+        "anchor_checks", "integrity_score", "verdict", "blocking_findings", "notes",
+    },
+    "pre_mortem": {
+        "schema_version", "ticker", "run_root", "performed_at", "auditor",
+        "final_thesis_path", "decision_record_path", "final_thesis_sha256",
+        "decision_record_sha256", "original_decision", "original_confidence",
+        "adversarial_direction", "pre_mortem_narrative", "bear_case",
+        "bull_case_steelman", "killer_risk", "kill_criteria_attack",
+        "variant_perception_attack", "value_trap_check", "base_rate_check",
+        "overconfidence_flags", "disconfirming_evidence_present",
+        "what_would_change_the_call", "survives", "confidence_haircut",
+        "recommended_confidence", "recommended_rating_cap", "verdict", "notes",
+    },
+    "expectations_gap": {
+        "schema_version", "ticker", "run_root", "performed_at", "analyst",
+        "final_thesis_path", "decision_record_path", "final_thesis_sha256",
+        "decision_record_sha256", "current_price", "price_is_indicative",
+        "consensus_expectations", "market_implied_expectations", "engine_view",
+        "what_everyone_knows", "what_is_priced_in", "what_market_may_be_missing",
+        "evidence_engine_is_different", "base_rate_check", "variant_perception_quality",
+        "gap_direction", "gap_magnitude_pct", "gap_is_robust", "edge_score",
+        "is_exploitable", "notes",
+    },
+}
 
 
 def canonical(value):
@@ -117,81 +147,127 @@ def validate_decision_identity(decision, expected_root):
     return expected_ticker
 
 
+def require_paid_completion_authority(expected_root, run_abs, repo):
+    """Require the journaled final pass when this run entered the diagnostic protocol.
+
+    Positively dated pre-rollout runs without either seal retain their historical validator.  At or after
+    the rollout date, absence is not legacy proof: a new full run writes the diagnostic seal before any
+    audit Task, so neither a crash-time promoter nor a manual manifest call can mistake a no-seal or
+    diagnostic trio for the paid final trio.
+    """
+    diagnostic_seal = os.path.join(run_abs, "diagnostic_audit_inputs.json")
+    final_seal = os.path.join(run_abs, "final_audit_inputs.json")
+    match = re.fullmatch(r"analyses/[^/]+_(\d{4}-\d{2}-\d{2})", expected_root)
+    if not match:
+        raise ValueError("projection run root has no canonical decision date")
+    run_date = match.group(1)
+    if (
+        run_date < PAID_COMPLETION_ROLLOUT_DATE
+        and not os.path.lexists(diagnostic_seal)
+        and not os.path.lexists(final_seal)
+    ):
+        return None
+    # Lazy import avoids a module-load cycle: research_paid_completion imports this module's canonical
+    # audit validator, while manifest creation calls back only after both modules are fully defined.
+    from research_paid_completion import require_projection_paid_completion
+
+    try:
+        return require_projection_paid_completion(expected_root, repo)
+    except ValueError as exc:
+        raise ValueError(
+            "projection requires the exact diagnostic checkpoint, final-audit input seal, and "
+            "receipt-valid final trio; diagnostic reports alone are not final authority: " + str(exc)
+        ) from exc
+
+
+def validate_bound_audit(
+    kind, path, expected_root, ticker, thesis_sha, decision_sha, *, require_canonical_fields=False
+):
+    """Validate one canonical audit against the exact terminal-pair bytes it read."""
+    if kind not in AUDIT_KINDS:
+        raise ValueError(f"unknown canonical audit kind {kind!r}")
+    expected_thesis = expected_root + "/final_thesis.md"
+    expected_decision = expected_root + "/decision_record.json"
+    try:
+        audit = json.load(open(path, encoding="utf-8"))
+    except (OSError, TypeError, ValueError, json.JSONDecodeError) as exc:
+        raise ValueError(f"{kind} audit is not readable JSON") from exc
+    if not isinstance(audit, dict) or audit.get("schema_version") != "1.0":
+        raise ValueError(f"{kind} audit does not use the canonical 1.0 schema")
+    if require_canonical_fields and set(audit) != AUDIT_SCHEMA_KEYS[kind]:
+        raise ValueError(f"{kind} audit fields do not match the canonical 1.0 schema")
+    if audit.get("ticker") != ticker or audit.get("run_root") != expected_root:
+        raise ValueError(f"{kind} audit identity does not match this run")
+    if audit.get("final_thesis_path") != expected_thesis or audit.get("decision_record_path") != expected_decision:
+        raise ValueError(f"{kind} audit does not name this run's exact thesis and decision record")
+    if audit.get("final_thesis_sha256") != thesis_sha or audit.get("decision_record_sha256") != decision_sha:
+        raise ValueError(f"{kind} audit was not performed on the final pinned thesis and decision bytes")
+
+    if kind == "verification":
+        verdict = audit.get("verdict")
+        blocking = audit.get("blocking_findings")
+        if (
+            not _aware_timestamp(audit.get("verified_at"))
+            or audit.get("verifier") != "verify-evidence"
+            or verdict not in {"Clean", "Minor issues", "Material issues", "Failed"}
+            or not _finite_score(audit.get("integrity_score"))
+            or not isinstance(blocking, list)
+            or (verdict in {"Clean", "Minor issues"} and len(blocking) != 0)
+            or (verdict in {"Material issues", "Failed"} and len(blocking) == 0)
+        ):
+            raise ValueError("verification audit conclusion is malformed")
+    elif kind == "pre_mortem":
+        verdict = audit.get("verdict")
+        survives = audit.get("survives")
+        expected_survival = verdict in {"Survives", "Survives with haircut"}
+        original_confidence = audit.get("original_confidence")
+        confidence_haircut = audit.get("confidence_haircut")
+        recommended_confidence = audit.get("recommended_confidence")
+        if (
+            not _aware_timestamp(audit.get("performed_at"))
+            or audit.get("auditor") != "pre-mortem"
+            or verdict not in PRE_MORTEM_VERDICTS
+            or not isinstance(survives, bool)
+            or survives is not expected_survival
+            or not _finite_score(original_confidence)
+            or not _finite_nonnegative(confidence_haircut)
+            or not _finite_score(recommended_confidence)
+            or abs(recommended_confidence - max(0, original_confidence - confidence_haircut)) > 0.05
+            or not isinstance(audit.get("recommended_rating_cap"), str)
+            or (not survives and not audit.get("recommended_rating_cap", "").strip())
+        ):
+            raise ValueError("pre_mortem audit conclusion is malformed or internally inconsistent")
+    else:
+        quality = audit.get("variant_perception_quality")
+        exploitable = audit.get("is_exploitable")
+        if (
+            not _aware_timestamp(audit.get("performed_at"))
+            or audit.get("analyst") != "expectations-gap"
+            or quality not in VARIANT_QUALITIES
+            or not isinstance(exploitable, bool)
+            or not _finite_score(audit.get("edge_score"))
+            or (quality in {"None", "Weak"} and exploitable)
+            or (not exploitable and audit.get("edge_score") >= 50)
+        ):
+            raise ValueError("expectations_gap audit conclusion is malformed or internally inconsistent")
+    return audit
+
+
 def validate_bound_audits(paths, expected_root, ticker):
     """Read and validate the exact audit set that may authorize a projection."""
     thesis_sha = file_digest(paths["final_thesis"])
     decision_sha = file_digest(paths["decision_record"])
-    expected_thesis = expected_root + "/final_thesis.md"
-    expected_decision = expected_root + "/decision_record.json"
-    audits = {}
-    for name in AUDIT_KINDS:
-        try:
-            audit = json.load(open(paths[name], encoding="utf-8"))
-        except (OSError, TypeError, ValueError, json.JSONDecodeError) as exc:
-            raise ValueError(f"{name} audit is not readable JSON") from exc
-        if not isinstance(audit, dict) or audit.get("schema_version") != "1.0":
-            raise ValueError(f"{name} audit does not use the canonical 1.0 schema")
-        if audit.get("ticker") != ticker or audit.get("run_root") != expected_root:
-            raise ValueError(f"{name} audit identity does not match this run")
-        if audit.get("final_thesis_path") != expected_thesis or audit.get("decision_record_path") != expected_decision:
-            raise ValueError(f"{name} audit does not name this run's exact thesis and decision record")
-        if audit.get("final_thesis_sha256") != thesis_sha or audit.get("decision_record_sha256") != decision_sha:
-            raise ValueError(f"{name} audit was not performed on the final pinned thesis and decision bytes")
-        audits[name] = audit
-
-    verification = audits["verification"]
-    verification_verdict = verification.get("verdict")
-    blocking = verification.get("blocking_findings")
-    if (
-        not _aware_timestamp(verification.get("verified_at"))
-        or verification.get("verifier") != "verify-evidence"
-        or verification_verdict not in {"Clean", "Minor issues", "Material issues", "Failed"}
-        or not _finite_score(verification.get("integrity_score"))
-        or not isinstance(blocking, list)
-        or (verification_verdict in {"Clean", "Minor issues"} and len(blocking) != 0)
-        or (verification_verdict in {"Material issues", "Failed"} and len(blocking) == 0)
-    ):
-        raise ValueError("verification audit conclusion is malformed")
-
-    pre_mortem = audits["pre_mortem"]
-    verdict = pre_mortem.get("verdict")
-    survives = pre_mortem.get("survives")
-    expected_survival = verdict in {"Survives", "Survives with haircut"}
-    original_confidence = pre_mortem.get("original_confidence")
-    confidence_haircut = pre_mortem.get("confidence_haircut")
-    recommended_confidence = pre_mortem.get("recommended_confidence")
-    if (
-        not _aware_timestamp(pre_mortem.get("performed_at"))
-        or pre_mortem.get("auditor") != "pre-mortem"
-        or verdict not in PRE_MORTEM_VERDICTS
-        or not isinstance(survives, bool)
-        or survives is not expected_survival
-        or not _finite_score(original_confidence)
-        or not _finite_nonnegative(confidence_haircut)
-        or not _finite_score(recommended_confidence)
-        or abs(recommended_confidence - max(0, original_confidence - confidence_haircut)) > 0.05
-        or not isinstance(pre_mortem.get("recommended_rating_cap"), str)
-        or (not survives and not pre_mortem.get("recommended_rating_cap", "").strip())
-    ):
-        raise ValueError("pre_mortem audit conclusion is malformed or internally inconsistent")
-
-    expectations = audits["expectations_gap"]
-    quality = expectations.get("variant_perception_quality")
-    exploitable = expectations.get("is_exploitable")
-    if (
-        not _aware_timestamp(expectations.get("performed_at"))
-        or expectations.get("analyst") != "expectations-gap"
-        or quality not in VARIANT_QUALITIES
-        or not isinstance(exploitable, bool)
-        or not _finite_score(expectations.get("edge_score"))
-        or (quality in {"None", "Weak"} and exploitable)
-        or (not exploitable and expectations.get("edge_score") >= 50)
-    ):
-        raise ValueError("expectations_gap audit conclusion is malformed or internally inconsistent")
-    return audits
+    return {
+        name: validate_bound_audit(
+            name, paths[name], expected_root, ticker, thesis_sha, decision_sha
+        )
+        for name in AUDIT_KINDS
+    }
 
 
 def validate_manifest_or_raise(value, run_abs, expected_root):
+    repo = os.path.dirname(os.path.dirname(run_abs))
+    require_paid_completion_authority(expected_root, run_abs, repo)
     if not isinstance(value, dict) or value.get("schema_version") != SCHEMA or value.get("run_root") != expected_root:
         raise ValueError("projection manifest identity or schema is invalid")
     payload = dict(value)
@@ -280,6 +356,8 @@ def create(run_root, repo=REPO):
                 raise ValueError("existing idea_projection_manifest.json no longer matches its pinned artifacts")
             print(json.dumps({"status": "existing", "path": expected_root + "/" + OUTPUT, "manifest_sha256": existing["manifest_sha256"]}))
             return existing
+
+        require_paid_completion_authority(expected_root, run_abs, repo)
 
         paths = {
             "final_thesis": os.path.join(run_abs, "final_thesis.md"),

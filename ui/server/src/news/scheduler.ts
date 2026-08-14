@@ -12,7 +12,7 @@ import path from 'node:path'
 import { NEWS, REPO_ROOT, STATE_DIR } from '../config'
 import { acquireSingletonLock, releaseSingletonLock } from '../singleton-lock'
 import { readFeed } from './feed'
-import { refreshBoard } from './write-inbox'
+import { appendFirehoseSummary, refreshBoard } from './write-inbox'
 import { runIngestCycle } from './runCycle'
 import { healEnrichCache } from './enrich-heal'
 import { runIdeaPass } from './ideas/run-idea-pass'
@@ -136,6 +136,8 @@ let running = false
 let lastCycleAt: string | null = null
 let nextCycleAt: string | null = null
 let lastNote: string | null = null
+let schedulerStartedAt: string | null = null
+let sourceLastError: string | null = null
 // True when another engine owns the ingester lock for this data dir, so THIS process serves the cockpit but
 // never fetches/scores (read-only). Surfaced in status/diagnostics so "why am I not scanning?" is answerable.
 let readOnlyMode = false
@@ -399,6 +401,14 @@ function drainHasHeadroom(now = Date.now()): boolean {
 export interface NewsStatus {
   enabled: boolean
   running: boolean
+  /** True only while this process retains a recurring in-server fetch schedule (or its initial/active pass). */
+  schedulerActive: boolean
+  /** When this process acquired the recurring scheduler; used only for the bounded first-cycle grace. */
+  schedulerStartedAt: string | null
+  /** Newest durable FETCH cycle from either supported topology: in-server scheduler or standalone launchd. */
+  sourceLastCycleAt: string | null
+  /** Current in-process source-cycle failure. Cleared only by a completed successful fetch cycle. */
+  sourceLastError: string | null
   intervalMin: number
   model: string
   rssEnabled: boolean
@@ -430,9 +440,16 @@ export interface NewsStatus {
 export function getNewsStatus(): NewsStatus {
   const todayDate = new Date().toISOString().slice(0, 10)
   const today = { read: 0, kept: 0, dropped: 0, cycles: 0 }
+  let sourceLastCycleAt: string | null = null
+  let durableSourceLastError: string | null = null
   try {
-    const { cycles } = readFeed(REPO_ROOT, 1)
+    // Two dates keep the standalone heartbeat truthful across midnight. Today-only counters still filter
+    // by date below, so yesterday contributes only the latest-source proof.
+    const { cycles } = readFeed(REPO_ROOT, 2)
+    let latestSourceCycle: CycleSummary | null = null
     for (const c of cycles as CycleSummary[]) {
+      if ((c.phase === 'fetch' || c.phase === undefined) && Number.isFinite(Date.parse(c.ts || ''))
+          && (!latestSourceCycle || Date.parse(c.ts) > Date.parse(latestSourceCycle.ts))) latestSourceCycle = c
       if ((c.ts || '').slice(0, 10) !== todayDate) continue
       today.cycles++
       // read = items the scanner actually READ AND SCORED today = kept + dropped. We deliberately do
@@ -446,6 +463,8 @@ export function getNewsStatus(): NewsStatus {
       today.dropped += c.dropped || 0
       today.read += (c.picked || 0) + (c.watched || 0) + (c.dropped || 0)
     }
+    if (latestSourceCycle?.ok === true) sourceLastCycleAt = latestSourceCycle.ts
+    else if (latestSourceCycle) durableSourceLastError = latestSourceCycle.note || 'The latest company-news source check failed.'
   } catch {
     // a status read never throws
   }
@@ -490,6 +509,10 @@ export function getNewsStatus(): NewsStatus {
   return {
     enabled: NEWS.enabled,
     running,
+    schedulerActive: timer !== null || initialTickTimer !== null || running,
+    schedulerStartedAt,
+    sourceLastCycleAt,
+    sourceLastError: sourceLastError || durableSourceLastError,
     intervalMin: NEWS.pollIntervalMin,
     model: NEWS.groqModel,
     rssEnabled: NEWS.rssEnabled,
@@ -887,6 +910,7 @@ export function startNewsIngester(): void {
           () => log(`cycle exceeded ${Math.round(CYCLE_TIMEOUT_MS / 1000)}s guard — aborting in-flight work`),
         )
         lastNote = summary.note || null
+        sourceLastError = summary.ok ? null : (summary.note || 'The company-news source cycle did not complete.')
         // AUTO-FIX (under the SAME cycle lock so it can't overlap a drain and double-spend a budget file):
         // re-read any degraded THE STORY entries still on the wire, so a momentarily-missed article fixes
         // itself without a human reopening it. Budget-gated, capped, never throws, and bounded by its own
@@ -895,6 +919,12 @@ export function startNewsIngester(): void {
       } catch (e: any) {
         log(`cycle error: ${e?.message || e}`)
         lastNote = `cycle error: ${e?.message || e}`
+        sourceLastError = lastNote
+        const failedAt = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')
+        appendFirehoseSummary(REPO_ROOT, failedAt.slice(0, 10), {
+          ts: failedAt, ok: false, fetched: 0, candidates: 0, picked: 0, watched: 0, dropped: 0,
+          inboxed: 0, groq_requests: 0, groq_tokens: 0, phase: 'fetch', note: sourceLastError,
+        })
       }
       // This is deliberately outside the ingest try. runIdeaPass applies its own sweep + found_at age
       // ceiling, so a transient source failure does not suppress a safe pass over still-current inputs.
@@ -934,6 +964,7 @@ export function startNewsIngester(): void {
   initialTickTimer.unref?.()
   nextCycleAt = new Date(Date.now() + 5000).toISOString().replace(/\.\d{3}Z$/, 'Z')
   timer = setInterval(tick, NEWS.pollIntervalMin * 60_000)
+  schedulerStartedAt = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')
   timer.unref?.()
   drainTimer = setInterval(() => void drain(), DRAIN_INTERVAL_MS)
   drainTimer.unref?.()
@@ -947,5 +978,6 @@ export function stopNewsIngester(): void {
   if (ingesterRetryTimer) { clearTimeout(ingesterRetryTimer); ingesterRetryTimer = null }
   if (timer) { clearInterval(timer); timer = null }
   if (drainTimer) { clearInterval(drainTimer); drainTimer = null }
+  schedulerStartedAt = null
   stopQualifiedIdeaOutcomeLoop()
 }

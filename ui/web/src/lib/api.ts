@@ -427,7 +427,7 @@ export const api = {
   // the static showcase reports an honest "off" rather than failing the chip.
   bridgeStatus: async (): Promise<BridgeStatus> => {
     if ((await ensureMode()) === 'static')
-      return { mode: 'off', running: false, sweeping: false, intervalMin: 720, subjects: [], totalNotes: 0, lastSweepAt: null, nextSweepAt: null, last: null, idleReason: 'read-only showcase', manifestError: null }
+      return { mode: 'off', running: false, sweeping: false, intervalMin: 720, subjects: [], totalNotes: 0, lastSweepAt: null, nextSweepAt: null, last: null, idleReason: 'read-only showcase', manifestError: null, cursorError: null }
     return get(`/api/bridge/status`, 8_000) // small + polled every 60s, same budget as the news status
   },
   newsStatus: async (): Promise<NewsStatus> => {
@@ -856,7 +856,18 @@ export const api = {
   },
   // cross-ticker call ledger + since-the-call timelines (the Calls Tracker). Static -> bundled snapshot.
   calls: async (): Promise<CallsResult> => {
-    if ((await ensureMode()) === 'static') return { calls: snap.calls || [], dashboard: snap.dashboard || null }
+    if ((await ensureMode()) === 'static') return {
+      calls: snap.calls || [],
+      dashboard: snap.dashboard || null,
+      updates: snap.updates || [],
+      automation: {
+        enabled: false,
+        state: 'needs_attention',
+        message: 'Read-only copy. Automatic checks run in the live app.',
+        last_checked_at: typeof snap.generatedAt === 'string' ? snap.generatedAt : null,
+        next_check_at: null,
+      },
+    }
     return get(`/api/calls`)
   },
   history: async (ticker: string): Promise<{ history: RunHistoryEntry[] }> => {

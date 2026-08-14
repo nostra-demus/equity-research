@@ -52,6 +52,7 @@ write(`analyses/DYING_${TODAY}/.aborted`, JSON.stringify({ reason: 'cancelled' }
 
 const { listResumableRuns } = await import('../src/resumable')
 const { createRun, setActiveSubjectRun } = await import('../src/registry')
+const resumableRuns = () => listResumableRuns((subject) => subject === 'DONE')
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -60,7 +61,7 @@ function check(name: string, fn: () => void) {
 }
 
 check('an interrupted run surfaces a FULL entry — modules-done counted, subject + folder carried', () => {
-  const full = listResumableRuns().find((r) => r.subject === 'ACME' && r.kind === 'full')
+  const full = resumableRuns().find((r) => r.subject === 'ACME' && r.kind === 'full')
   assert.ok(full, 'no full entry for the interrupted ACME run')
   assert.equal(full!.swarm, 'research')
   assert.equal(full!.runRoot, `analyses/ACME_${TODAY}`)
@@ -70,7 +71,7 @@ check('an interrupted run surfaces a FULL entry — modules-done counted, subjec
 })
 
 check('the half-done module surfaces its own MODULE entry (agent-level resume target)', () => {
-  const mod = listResumableRuns().find((r) => r.subject === 'ACME' && r.kind === 'module')
+  const mod = resumableRuns().find((r) => r.subject === 'ACME' && r.kind === 'module')
   assert.ok(mod, 'no module entry for the half-done alpha module')
   assert.equal(mod!.module, 'alpha')
   assert.equal(mod!.unit, 'agent')
@@ -78,19 +79,19 @@ check('the half-done module surfaces its own MODULE entry (agent-level resume ta
 })
 
 check('a FINISHED module (beta) does NOT get a module entry', () => {
-  assert.equal(listResumableRuns().some((r) => r.subject === 'ACME' && r.kind === 'module' && r.module === 'beta'), false)
+  assert.equal(resumableRuns().some((r) => r.subject === 'ACME' && r.kind === 'module' && r.module === 'beta'), false)
 })
 
 check('a finished run (final_thesis present) is excluded', () => {
-  assert.equal(listResumableRuns().some((r) => r.subject === 'DONE'), false)
+  assert.equal(resumableRuns().some((r) => r.subject === 'DONE'), false)
 })
 
 check('a prior-day folder is excluded (same-day scope)', () => {
-  assert.equal(listResumableRuns().some((r) => r.subject === 'OLD'), false)
+  assert.equal(resumableRuns().some((r) => r.subject === 'OLD'), false)
 })
 
 check('a deliberately-aborted run (.aborted) is STILL offered for manual resume (Cancel = pause)', () => {
-  const runs = listResumableRuns()
+  const runs = resumableRuns()
   assert.equal(runs.some((r) => r.subject === 'ABRT' && r.kind === 'full'), true) // the whole-pipeline resume
   assert.equal(runs.some((r) => r.subject === 'ABRT' && r.kind === 'module' && r.module === 'alpha'), true) // its half-done module
 })
@@ -99,9 +100,9 @@ check('a cancelled run whose child has NOT yet exited is held out of resume unti
   const run = createRun({ kind: 'full', ticker: 'DYING', model: 'sonnet', prompt: '/research:full DYING', user: 'local', userVia: 'local', runRoot: `analyses/DYING_${TODAY}`, willCommitToMain: true, writeTargetsAbs: [], coveredModules: [], readDepsAbs: [] })
   run.status = 'cancelled' // cancel() set this synchronously; the child is only SIGTERM'd, endedAt still unset
   try {
-    assert.equal(listResumableRuns().some((r) => r.subject === 'DYING'), false, 'held out while the child is still shutting down')
+    assert.equal(resumableRuns().some((r) => r.subject === 'DYING'), false, 'held out while the child is still shutting down')
     run.endedAt = Date.now() // the close handler ran — the child is gone
-    assert.equal(listResumableRuns().some((r) => r.subject === 'DYING' && r.kind === 'full'), true, 'offered for manual resume once the child has exited')
+    assert.equal(resumableRuns().some((r) => r.subject === 'DYING' && r.kind === 'full'), true, 'offered for manual resume once the child has exited')
   } finally {
     run.status = 'done'
     run.endedAt = Date.now() // leave it finalized so it can't shadow later assertions
@@ -113,7 +114,7 @@ check('a currently-live subject is excluded (a resume would race admission)', ()
   run.status = 'running'
   setActiveSubjectRun(run.runId, 'ACME')
   try {
-    assert.equal(listResumableRuns().some((r) => r.subject === 'ACME'), false)
+    assert.equal(resumableRuns().some((r) => r.subject === 'ACME'), false)
   } finally {
     run.status = 'done' // release so it can't leak into other assertions
   }

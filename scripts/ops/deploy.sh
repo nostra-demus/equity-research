@@ -138,6 +138,313 @@ is_doer_host() {
   legacy_tunnel_contract "$tunnel"
 }
 
+# Paid in-process research has one permanent owner: the installed doer whose private writer identity matches
+# this host. A serving-only failover is deliberately a doer without that identity. Missing/unsafe identity
+# evidence therefore means OFF, never "probably the doer".
+is_permanent_automation_owner() {
+  local helper="$PROD/scripts/ops/connector-supervisor.py"
+  is_doer_host || return 1
+  [ -f "$helper" ] && [ ! -L "$helper" ] && [ -O "$helper" ] || return 1
+  ENGINE_REPO_ROOT="$PROD" "$PYTHON" -I "$helper" --writer-eligible >/dev/null 2>&1
+}
+
+# Produce an exact, private engine plist for owner=0|1 without printing any EnvironmentVariables (the
+# installed file can contain provider secrets). The strict no-follow read and identity checks make the
+# staged bytes a trustworthy snapshot; the caller re-checks the exact backup before activation.
+render_engine_autonomy_plist() {
+  local input="$1" staged="$2" backup="$3" owner="$4"
+  "$PYTHON" -I - "$input" "$staged" "$backup" "$owner" <<'PYENGINEAUTONOMY'
+import os
+import plistlib
+import re
+import stat
+import sys
+
+source, staged_path, backup_path, owner_raw = sys.argv[1:]
+if owner_raw not in {"0", "1"}:
+    raise SystemExit(2)
+
+def identity(value):
+    return (value.st_dev, value.st_ino, value.st_size, value.st_mtime_ns,
+            value.st_ctime_ns, value.st_mode, value.st_uid, value.st_nlink)
+
+fd = None
+try:
+    before = os.lstat(source)
+    if (not stat.S_ISREG(before.st_mode) or stat.S_ISLNK(before.st_mode)
+            or before.st_uid != os.getuid() or before.st_nlink != 1
+            or before.st_mode & 0o022 or not 0 < before.st_size <= 1024 * 1024):
+        raise OSError
+    fd = os.open(source, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+    opened = os.fstat(fd)
+    chunks = []
+    remaining = opened.st_size
+    while remaining:
+        chunk = os.read(fd, remaining)
+        if not chunk:
+            raise OSError
+        chunks.append(chunk)
+        remaining -= len(chunk)
+    if os.read(fd, 1):
+        raise OSError
+    raw = b"".join(chunks)
+    after = os.fstat(fd)
+    named = os.lstat(source)
+    if identity(before) != identity(opened) or identity(opened) != identity(after) \
+            or identity(after) != identity(named):
+        raise OSError
+finally:
+    if fd is not None:
+        os.close(fd)
+
+# Historical tracked templates contain human comments with command flags such as `--import`; XML forbids
+# a double hyphen inside comments even though macOS plutil accepts it. Comments carry no launchd state, so
+# strip them for the strict cross-platform parser while retaining the exact original bytes in `backup`.
+parseable = re.sub(br"<!--.*?-->", b"", raw, flags=re.S)
+value = plistlib.loads(parseable)
+if not isinstance(value, dict) or value.get("Label") != "com.nostradamus.engine":
+    raise ValueError("unexpected engine plist")
+if not isinstance(value.get("ProgramArguments"), list) or not value["ProgramArguments"]:
+    raise ValueError("missing engine executable")
+environment = value.get("EnvironmentVariables")
+if not isinstance(environment, dict) or any(not isinstance(k, str) or not isinstance(v, str)
+                                            for k, v in environment.items()):
+    raise ValueError("invalid engine environment")
+
+for key in ("CALL_UPDATE_AUTO_ENABLED", "REVIEW_DISPATCH_ENABLED",
+            "INTAKE_AUTO_ANALYZE", "CONVICTION_LOOP_ENABLED"):
+    environment[key] = owner_raw
+if owner_raw == "1":
+    # Preserve the owner's documented off/stream kill-switch. A missing or unknown legacy value safely
+    # enters the ordinary due-aware batch mode.
+    if environment.get("BRIDGE_MODE") not in {"off", "stream", "batch"}:
+        environment["BRIDGE_MODE"] = "batch"
+else:
+    environment["BRIDGE_MODE"] = "off"
+rendered = plistlib.dumps(value, fmt=plistlib.FMT_XML, sort_keys=False)
+
+def write_private(path, payload):
+    named = os.lstat(path)
+    if (not stat.S_ISREG(named.st_mode) or stat.S_ISLNK(named.st_mode)
+            or named.st_uid != os.getuid() or named.st_nlink != 1):
+        raise OSError
+    out = os.open(path, os.O_WRONLY | os.O_TRUNC | getattr(os, "O_NOFOLLOW", 0))
+    try:
+        os.fchmod(out, 0o600)
+        view = memoryview(payload)
+        while view:
+            written = os.write(out, view)
+            if written <= 0:
+                raise OSError
+            view = view[written:]
+        os.fsync(out)
+    finally:
+        os.close(out)
+
+write_private(backup_path, raw)
+write_private(staged_path, rendered)
+PYENGINEAUTONOMY
+}
+
+# The old calendar timer and the server dispatcher must never overlap. launchd bootout is asynchronous, so
+# prove the label is unloaded before removing its plist. A stubborn job or unsafe pathname fails closed and
+# remains visible for the next deploy/diagnosis.
+retire_legacy_review_agent() {
+  local label=com.nostradamus.hk-review
+  local installed="$HOME/Library/LaunchAgents/com.nostradamus.hk-review.plist"
+  local attempts="${REVIEW_RETIRE_WAIT_ATTEMPTS:-40}" delay="${REVIEW_RETIRE_WAIT_SECONDS:-0.25}" i
+  case "$attempts" in ''|*[!0-9]*) attempts=40 ;; esac
+  if loaded "$label"; then
+    launchctl bootout "gui/$UID_NUM/$label" >/dev/null 2>&1 || true
+    for i in $(seq 1 "$attempts"); do loaded "$label" || break; sleep "$delay"; done
+  fi
+  if loaded "$label"; then
+    log "WARN retired hk-review is still loaded; preserving its plist and refusing automatic-owner migration"
+    return 1
+  fi
+  if [ -e "$installed" ] || [ -L "$installed" ]; then
+    if [ -L "$installed" ] || [ ! -f "$installed" ] || [ ! -O "$installed" ]; then
+      log "WARN retired hk-review plist is unsafe; refusing removal"
+      return 1
+    fi
+    rm -f "$installed" 2>/dev/null || {
+      log "WARN retired hk-review plist could not be removed"
+      return 1
+    }
+  fi
+  if [ -e "$installed" ] || [ -L "$installed" ]; then
+    log "WARN retired hk-review plist remains after removal"
+    return 1
+  fi
+  return 0
+}
+
+# Full installs serialize role/connector transitions on this same lease. Deploy already owns fd8 (deploy)
+# then fd9 (repository), so taking fd7 here preserves the global deploy -> repository -> autonomy order and
+# prevents a manual role change from racing the owner decision or engine plist replacement.
+acquire_research_owner_lock() {
+  local lock="$OPS/connector-autonomy.lock"
+  [ ! -L "$lock" ] || return 1
+  umask 077
+  exec 7>>"$lock" || return 1
+  if "$PYTHON" -I - "$lock" 15000 7<&7 <<'PYRESEARCHOWNERLOCK'
+import fcntl
+import os
+import stat
+import sys
+import time
+
+path = sys.argv[1]
+deadline = time.monotonic() + int(sys.argv[2]) / 1000
+try:
+    opened = os.fstat(7)
+    named = os.lstat(path)
+    if (not stat.S_ISREG(opened.st_mode) or stat.S_ISLNK(named.st_mode)
+            or opened.st_uid != os.getuid() or opened.st_nlink != 1
+            or (opened.st_dev, opened.st_ino) != (named.st_dev, named.st_ino)):
+        raise OSError
+    os.fchmod(7, 0o600)
+    while True:
+        try:
+            fcntl.flock(7, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            break
+        except BlockingIOError:
+            if time.monotonic() >= deadline:
+                raise OSError
+            time.sleep(0.05)
+    locked = os.fstat(7)
+    named = os.lstat(path)
+    if (locked.st_uid != os.getuid() or locked.st_nlink != 1 or locked.st_mode & 0o077
+            or (locked.st_dev, locked.st_ino) != (named.st_dev, named.st_ino)):
+        raise OSError
+except OSError:
+    raise SystemExit(3)
+PYRESEARCHOWNERLOCK
+  then
+    return 0
+  fi
+  exec 7>&-
+  return 1
+}
+release_research_owner_lock() { exec 7>&-; }
+
+# Reconcile only the installed engine LaunchAgent after this code merges. Do not invoke the full installer
+# from deploy (it would replace the running deploy/watchdog scripts). The prior file is retained until the
+# new service is loaded and healthy; on a non-owner, failure still keeps the disabled plist in place so a
+# rollback can never resurrect a paid duplicate.
+migrate_engine_autonomy_v1() {
+  local agents="$HOME/Library/LaunchAgents"
+  local installed="$agents/com.nostradamus.engine.plist"
+  local marker="$OPS/.engine-autonomy-v1" owner=0 desired staged backup marker_stage i activated=0 replaced=0
+  is_permanent_automation_owner && owner=1
+  desired="version=1;owner=$owner"
+  if [ ! -f "$installed" ] || [ -L "$installed" ] || [ ! -O "$installed" ]; then
+    log "WARN engine automatic-owner migration requires a safe installed engine plist"
+    return 1
+  fi
+  staged="$(mktemp "$agents/.com.nostradamus.engine.plist.staged.XXXXXX")" || return 1
+  backup="$(mktemp "$agents/.com.nostradamus.engine.plist.backup.XXXXXX")" || {
+    rm -f "$staged" 2>/dev/null || true
+    return 1
+  }
+  if ! render_engine_autonomy_plist "$installed" "$staged" "$backup" "$owner"; then
+    rm -f "$staged" "$backup" 2>/dev/null || true
+    log "WARN engine automatic-owner migration refused the installed plist"
+    return 1
+  fi
+  if cmp -s "$installed" "$staged" \
+      && [ "$(cat "$marker" 2>/dev/null || true)" = "$desired" ] \
+      && loaded com.nostradamus.engine; then
+    rm -f "$staged" "$backup" 2>/dev/null || true
+    return 0
+  fi
+  # No installer or operator may have changed the path after the secure snapshot.
+  if ! cmp -s "$installed" "$backup"; then
+    rm -f "$staged" "$backup" 2>/dev/null || true
+    log "WARN engine plist changed during automatic-owner staging; retrying next deploy"
+    return 1
+  fi
+  launchctl bootout "gui/$UID_NUM/com.nostradamus.engine" >/dev/null 2>&1 || true
+  for i in $(seq 1 40); do loaded com.nostradamus.engine || break; sleep 0.25; done
+  if loaded com.nostradamus.engine || ! cmp -s "$installed" "$backup"; then
+    rm -f "$staged" "$backup" 2>/dev/null || true
+    log "WARN engine did not unload cleanly or its plist changed; prior service/file preserved"
+    return 1
+  fi
+  if mv "$staged" "$installed"; then
+    replaced=1
+  fi
+  if [ "$replaced" = 1 ] && chmod 600 "$installed"; then
+    for i in 1 2 3 4 5 6; do
+      launchctl bootstrap "gui/$UID_NUM" "$installed" >/dev/null 2>&1 && break
+      sleep 0.5
+    done
+    launchctl kickstart -k "gui/$UID_NUM/com.nostradamus.engine" >/dev/null 2>&1 || true
+    if loaded com.nostradamus.engine && health_gate; then activated=1; fi
+  fi
+  if [ "$activated" = 1 ]; then
+    rm -f "$backup" 2>/dev/null || true
+    marker_stage="$(mktemp "$OPS/.engine-autonomy-v1.staged.XXXXXX")" || return 1
+    if ! printf '%s\n' "$desired" > "$marker_stage" \
+        || ! chmod 600 "$marker_stage" || ! mv "$marker_stage" "$marker"; then
+      rm -f "$marker_stage" 2>/dev/null || true
+      log "WARN engine automatic owner is active but its migration marker could not be stored"
+      return 1
+    fi
+    log "engine automatic owner active: owner=$owner; legacy hk-review retired"
+    return 0
+  fi
+
+  launchctl bootout "gui/$UID_NUM/com.nostradamus.engine" >/dev/null 2>&1 || true
+  for i in $(seq 1 40); do loaded com.nostradamus.engine || break; sleep 0.25; done
+  if [ "$owner" = 0 ]; then
+    # Fail closed: never restore a legacy plist that may hardcode paid loops ON on an admin/failover host.
+    if [ "$replaced" != 1 ] && [ -f "$staged" ]; then
+      mv "$staged" "$installed" 2>/dev/null && replaced=1
+    fi
+    [ "$replaced" != 1 ] || chmod 600 "$installed" 2>/dev/null || true
+    if [ "$replaced" = 1 ]; then
+      for i in 1 2 3 4 5 6; do
+        launchctl bootstrap "gui/$UID_NUM" "$installed" >/dev/null 2>&1 && break
+        sleep 0.5
+      done
+      launchctl kickstart -k "gui/$UID_NUM/com.nostradamus.engine" >/dev/null 2>&1 || true
+    fi
+    rm -f "$backup" "$staged" 2>/dev/null || true
+    log "ALERT disabled engine plist could not become healthy; paid loops remain OFF and deploy will retry"
+    return 1
+  fi
+  if loaded com.nostradamus.engine || ! mv "$backup" "$installed"; then
+    log "ALERT engine automatic-owner activation failed and exact prior plist could not be restored"
+    return 1
+  fi
+  chmod 600 "$installed" 2>/dev/null || true
+  for i in 1 2 3 4 5 6; do
+    launchctl bootstrap "gui/$UID_NUM" "$installed" >/dev/null 2>&1 && break
+    sleep 0.5
+  done
+  launchctl kickstart -k "gui/$UID_NUM/com.nostradamus.engine" >/dev/null 2>&1 || true
+  if ! loaded com.nostradamus.engine || ! health_gate; then
+    log "ALERT engine automatic-owner activation and rollback both failed"
+  else
+    log "WARN engine automatic-owner activation failed; exact prior service restored"
+  fi
+  rm -f "$staged" 2>/dev/null || true
+  return 1
+}
+
+reconcile_research_owner() {
+  local rc=0
+  acquire_research_owner_lock || {
+    log "WARN automatic-owner transition lease is busy or unsafe"
+    return 1
+  }
+  retire_legacy_review_agent || rc=1
+  [ "$rc" != 0 ] || migrate_engine_autonomy_v1 || rc=1
+  release_research_owner_lock
+  return "$rc"
+}
+
 # One-time + continuously idempotent connector LaunchAgent migration. PR1 changes the connector scheduler
 # from six-hourly to a due-aware fifteen-minute floor and moves every declared CONNECTOR_* secret out of the
 # installed plist into ~/.config/nostra-engine/providers.env. Merely changing the tracked template does not
@@ -605,7 +912,15 @@ PYDIRTY
 
 # Narrow portable test hook: returns 0 when deployment must be blocked and 1
 # only when every dirty old/new path is inside the append-only data roots.
-if [ "${1:-}" = --check-dirty ]; then
+if [ "${1:-}" = --test-render-engine-autonomy ]; then
+  [ "$#" = 5 ] || exit 2
+  render_engine_autonomy_plist "$2" "$3" "$4" "$5"
+  exit $?
+elif [ "${1:-}" = --test-retire-review-agent ]; then
+  [ "$#" = 1 ] || exit 2
+  retire_legacy_review_agent
+  exit $?
+elif [ "${1:-}" = --check-dirty ]; then
   cd "$PROD" 2>/dev/null || exit 0
   has_nondata_dirty
   exit $?
@@ -822,7 +1137,11 @@ if [ "$LOCAL" = "$REMOTE" ]; then
   # the helper bytes cannot change between review, execution, and service
   # activation, even on an otherwise up-to-date deploy tick.
   if has_nondata_dirty; then
-    log "SKIP connector-agent reconciliation because a dirty non-data (code/ops) file is present (§28)"
+    log "SKIP service reconciliation because a dirty non-data (code/ops) file is present (§28)"
+    exit 0
+  fi
+  if ! reconcile_research_owner; then
+    log "WARN engine automatic-owner reconciliation failed — leaving the deployed marker unchanged for retry"
     exit 0
   fi
   if ! migrate_connector_launchagent_v2; then
@@ -896,8 +1215,43 @@ fi
 # origin/main must CONTAIN HEAD (pure fast-forward). If HEAD is ahead — a local data commit not
 # yet pushed — skip; the next push reconciles. Never reset.
 if ! "$GIT" merge-base --is-ancestor HEAD origin/main 2>/dev/null; then
-  log "SKIP HEAD not an ancestor of origin/main (unpushed local commit?) local=${LOCAL:0:9} remote=${REMOTE:0:9}"
-  exit 0
+  # Saved-research recovery publishes a synthetic commit parented only to current origin/main so private
+  # checkout ancestry can never leak. If origin moved concurrently, local HEAD and origin legitimately
+  # diverge even though every local committed byte is now present in the shared tree. Prove that exact
+  # condition before converging. reset --keep refuses rather than overwriting any concurrent worktree edit.
+  local_delta_shared=0
+  if "$PYTHON" -I - "$PROD" "$LOCAL" "$REMOTE" <<'PYSHARED'
+import subprocess, sys
+repo, local, remote = sys.argv[1:]
+def run(args, raw=False):
+    value = subprocess.run(['git', '-C', repo, *args], check=True, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL).stdout
+    return value if raw else value.decode().strip()
+try:
+    base = run(['merge-base', local, remote])
+    paths = [p.decode() for p in run(['diff', '--no-renames', '--name-only', '-z', base, local], True).split(b'\0') if p]
+    if not paths: raise SystemExit(1)
+    def entry(commit, path):
+        rows = [r for r in run(['ls-tree', '-z', commit, '--', path], True).split(b'\0') if r]
+        if not rows: return None
+        if len(rows) != 1: raise SystemExit(1)
+        meta, name = rows[0].split(b'\t', 1)
+        if name.decode() != path: raise SystemExit(1)
+        return tuple(meta.decode().split())
+    if any(entry(local, path) != entry(remote, path) for path in paths): raise SystemExit(1)
+except (subprocess.CalledProcessError, ValueError):
+    raise SystemExit(1)
+PYSHARED
+  then
+    local_delta_shared=1
+  fi
+  if [ "$local_delta_shared" = 1 ] && "$GIT" diff --cached --quiet -- \
+      && "$GIT" reset --keep "$REMOTE" >/dev/null 2>&1; then
+    log "HEAL converged isolated saved-research publication ${LOCAL:0:9} -> ${REMOTE:0:9} without overwriting worktree changes"
+    LOCAL="$REMOTE"
+  else
+    log "SKIP HEAD not an ancestor of origin/main (unpushed or worktree-conflicting local commit) local=${LOCAL:0:9} remote=${REMOTE:0:9}"
+    exit 0
+  fi
 fi
 
 # Debounce a burst of code merges into a single rebuild+restart (each restart is a ~15-30s offline blip in
@@ -967,9 +1321,13 @@ if [ "$mrc" -ne 0 ]; then
   exit 0
 fi
 
-# The fast-forwarded, reviewed source is now immutable under fd 9. Activate
-# its connector service contract before advancing any deployed marker; a
-# failure leaves the old service and marker in place so the next tick retries.
+# The fast-forwarded, reviewed source is now immutable under fd 9. Retire the duplicate review timer, then
+# activate the one-owner engine and connector contracts before advancing any deployed marker. A failure
+# leaves the marker in place so the next tick retries; deploy never full-reinstalls or restarts itself.
+if ! reconcile_research_owner; then
+  log "WARN engine automatic-owner reconciliation failed after fast-forward — leaving the deployed marker unchanged for retry"
+  exit 0
+fi
 if ! migrate_connector_launchagent_v2; then
   log "WARN connector-agent reconciliation failed after fast-forward — leaving the deployed marker unchanged for retry"
   exit 0

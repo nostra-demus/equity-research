@@ -72,7 +72,10 @@ def fixture(
     reconcile_audits=True,
     company_name=None,
 ):
-    now = dt.datetime.now(dt.timezone.utc).replace(microsecond=0)
+    # This suite exercises immutable admission compatibility for the pre-paid-completion protocol. New
+    # runs on/after 2026-08-14 are covered by test_research_paid_completion.py and must carry the diagnostic
+    # checkpoint plus final-audit seal before projection.
+    now = dt.datetime(2026, 8, 13, 12, 0, tzinfo=dt.timezone.utc)
     run_date = now.date().isoformat()
     run_root = f"analyses/{ticker}_{run_date}"
     run = os.path.join(repo, run_root)
