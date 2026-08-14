@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { api, isStatic } from '../lib/api'
 import { decisionColor } from '../lib/format'
-import type { CallSummary, CallTimelineEntry, CallsResult } from '../lib/types'
+import type { CallSummary, CallTimelineEntry, CallsResult, NeedsAttentionRow } from '../lib/types'
 import './CallsTracker.css'
 
 // every call the engine has made + what's happened since — a card per call with a visual timeline
@@ -59,7 +59,7 @@ export function CallsTracker() {
       const res = await api.calls()
       if (mounted.current && gen === reqGen.current) setData(res)
     } catch {
-      if (mounted.current && gen === reqGen.current) setData({ calls: [], dashboard: null })
+      if (mounted.current && gen === reqGen.current) setData({ calls: [], dashboard: null, needs_attention: [] })
     } finally {
       if (mounted.current && gen === reqGen.current) setLoading(false)
     }
@@ -76,6 +76,7 @@ export function CallsTracker() {
   }, [close])
 
   const calls = data?.calls ?? []
+  const needsAttention = data?.needs_attention ?? []
 
   return (
     <motion.div className="calls" initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
@@ -97,6 +98,7 @@ export function CallsTracker() {
         ) : (
           <>
             <div className="calls__count">Tracking <b style={{ color: 'var(--text-muted)' }}>{calls.length}</b> call{calls.length === 1 ? '' : 's'}{staticMode ? ' · read-only showcase' : ''}</div>
+            {needsAttention.length > 0 && <NeedsAttentionPanel rows={needsAttention} onOpen={openCallFile} />}
             {calls.map((c) => (
               <CallCard
                 key={c.run_root}
@@ -113,6 +115,40 @@ export function CallsTracker() {
         )}
       </div>
     </motion.div>
+  )
+}
+
+// Ranked "needs attention now" list — AS_forecast_overdue / AW_kill_criteria_overdue (scripts/eval.py),
+// live: a forecast whose window closed with no resolution, or a kill criterion whose named monitor
+// event already passed unchecked (CLAUDE.md §8/§19). Previously visible only by running
+// `/research:eval` by hand; this is what makes them actionable without leaving the cockpit.
+function NeedsAttentionPanel({ rows, onOpen }: { rows: NeedsAttentionRow[]; onOpen: (path: string, title: string) => void }) {
+  const [open, setOpen] = useState(true)
+  return (
+    <div className="needsattn">
+      <div className="needsattn__head" onClick={() => setOpen((o) => !o)}>
+        <span className="needsattn__title">⚠ Needs attention now</span>
+        <span className="needsattn__count">{rows.length}</span>
+        <span className="needsattn__toggle">{open ? '▾' : '▸'}</span>
+      </div>
+      {open && (
+        <div className="needsattn__list">
+          {rows.map((r, i) => (
+            <div
+              key={`${r.run_root}-${r.type}-${i}`}
+              className="needsattn__row"
+              title={r.description}
+              onClick={() => onOpen(r.final_thesis_path, `Investment Thesis — ${r.ticker}`)}
+            >
+              <span className="needsattn__kind">{r.type === 'forecast' ? 'forecast' : 'kill criterion'}</span>
+              <span className="needsattn__tkr">{r.ticker}</span>
+              <span className="needsattn__due">due {r.due_date}</span>
+              <span className="needsattn__desc">{r.description}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   )
 }
 

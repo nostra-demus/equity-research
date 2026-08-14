@@ -16,6 +16,10 @@ from data_need_contract import (
     check_live_orb_routes,
     text_leaves as _data_need_text_leaves,
 )
+from overdue_checks import (
+    eval_as_forecast_overdue as _overdue_as_forecast_overdue,
+    eval_aw_kill_criteria_overdue as _overdue_aw_kill_criteria_overdue,
+)
 scope = (sys.argv[1] if len(sys.argv)>1 else "").strip() or "all"
 today = subprocess.check_output(["date","+%F"]).decode().strip()
 
@@ -1266,114 +1270,28 @@ def _ao_days_after(decision_date, target):
 # The harness's own "now". Overridable so a fixture run is reproducible and the selftest needs no clock.
 TODAY = os.environ.get("EVAL_TODAY") or datetime.date.today().isoformat()
 
-_AS_RESOLVED = ("confirmed", "falsified", "expired", "resolved", "closed", "superseded", "void", "withdrawn")
-
-def _as_due_date(entry, decision_date):
-    """The date a forecast's window CLOSES, as an ISO string, or None when it cannot be dated. Prefers an
-    explicit resolve/due field; otherwise reads a date out of the free-text time_window (the ledger's own
-    convention, e.g. 'Q2 2026 earnings July 31, 2026' / 'FY2026 full year (confirmed Feb 2027 ...)')."""
-    for k in ("resolves_on", "due_date", "resolve_by"):
-        v = entry.get(k)
-        if isdate(v):
-            return v
-    tw = str(entry.get("time_window") or "")
-    m = re.search(r"(\d{4})-(\d{2})-(\d{2})", tw)
-    if m and isdate(m.group(0)):
-        return m.group(0)
-    # "July 31, 2026" / "Feb 2027" — month-name forms the ledger actually uses
-    months = {m_: i + 1 for i, m_ in enumerate(
-        ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"])}
-    m = re.search(r"([A-Za-z]{3,9})\s+(\d{1,2}),\s*(\d{4})", tw)
-    if m and m.group(1)[:3].lower() in months:
-        cand = f"{m.group(3)}-{months[m.group(1)[:3].lower()]:02d}-{int(m.group(2)):02d}"
-        # validate the constructed date (same guard as the ISO branch): 'Feb 30, 2026' / 'Sep 31, 2026'
-        # match the regex but are not real calendar dates — an unvalidated invalid date must not be
-        # returned as a due date. An invalid day-form falls through to undateable (None), never overdue.
-        if isdate(cand):
-            return cand
-    m = re.search(r"([A-Za-z]{3,9})\s+(\d{4})", tw)
-    if m and m.group(1)[:3].lower() in months:
-        mo = months[m.group(1)[:3].lower()]
-        # a bare month closes at its end — use the 28th, the only day every month has
-        return f"{m.group(2)}-{mo:02d}-28"
-    return None
-
+# Detection logic extracted to scripts/overdue_checks.py (importable, side-effect-free — eval.py
+# itself cannot be imported, it runs its whole suite and sys.exit()s at module scope), the same
+# closure already done for the §10 scenario-integrity detectors (scenario_integrity_checks.py
+# below): the SAME two checks now also run LIVE, in the calls-tracker dashboard and `GET /api/calls`
+# (`.claude/commands/research/track.md`, `ui/server/src/outputs.ts`), instead of only ever
+# surfacing when someone remembers to run `/research:eval` by hand.
+#
+# `decision_date` is accepted but unused (dead parameter carried over from before this
+# extraction — overdue_checks.py's due-date extraction never reads it) — kept here only so this
+# module's existing call sites and selftest fixtures below need no signature change.
 def eval_as_forecast_overdue(decision_date, forecast_ledger, today):
-    """Check AS. Returns None (undateable / empty ledger) or a list of overdue descriptions (empty = none
-    due). Pure — `today` is injected so the result is deterministic and the selftest needs no clock."""
-    if forecast_ledger is not None and not isinstance(forecast_ledger, list):
-        return None
-    fl = forecast_ledger or []
-    if not fl or not isdate(today):
-        return None
-    out = []
-    for i, e in enumerate(fl):
-        if not isinstance(e, dict):
-            continue
-        status = str(e.get("status") or e.get("outcome") or "").strip().lower()
-        # EXACT membership, not substring: a substring test settles a forecast on any status that merely
-        # CONTAINS a resolved word — 'unresolved' contains 'resolved', 'avoid' contains 'void', 'disclosed'
-        # contains 'closed' — which would silently skip a still-open forecast and defeat this whole check
-        # (§19: a forecast that cannot be checked later is not a forecast). Real ledger statuses are single
-        # tokens ('open'/'confirmed'/'falsified'/...), and an unrecognised status fails SAFE here: it stays
-        # checkable and, if overdue, is flagged advisory-only — never hard-failed.
-        if status in _AS_RESOLVED:
-            continue  # already settled — nothing owed
-        due = _as_due_date(e, decision_date)
-        if not due or due >= today:
-            continue  # not dateable, or not yet due
-        pred = str(e.get("prediction") or "")[:110]
-        out.append(f"forecast_ledger[{i}] came due {due} and is still unresolved (status {status or 'unset'!r}): {pred}")
-    return out
-
-
-# ── Check AW (kill-criteria overdue) — CLAUDE.md §8 says disconfirming evidence is "a required test the
-# thesis must survive," not a closing caveat, and §19 says "a forecast that cannot be checked later is
-# not a forecast" — the same discipline forecast_ledger gets from AS above, but nothing applied it to
-# kill_criteria. Unlike forecast_ledger, kill_criteria carries no `status` field and no structured due
-# date; the only date signal already on record is free text in each entry's `monitor` field (e.g. "FY2026
-# results release (~March 2027)", "EU Platform Work Directive national transposition (~Nov 2026
-# deadline)"). Reuses `_as_due_date`'s proven ISO/month-name extraction against that text — no new
-# required schema field, so every already-committed kill_criteria entry is checkable immediately.
-def _kc_monitor_text(entry):
-    if isinstance(entry, dict):
-        for f in ("monitor", "monitor_via"):
-            v = entry.get(f)
-            if isinstance(v, str) and v.strip():
-                return v.strip()
-    return ""
-
-def _kc_criterion_text(entry):
-    if isinstance(entry, str):
-        return entry.strip()
-    if isinstance(entry, dict):
-        for f in ("criterion", "condition", "trigger", "what_invalidates", "kill_criterion", "description", "text"):
-            v = entry.get(f)
-            if isinstance(v, str) and v.strip():
-                return v.strip()
-    return ""
+    """Check AS: a forecast_ledger entry whose window has ELAPSED with no resolution (§19: "a
+    forecast that cannot be checked later is not a forecast"). None = N/A; [] = nothing due."""
+    r = _overdue_as_forecast_overdue(forecast_ledger, today)
+    return None if r is None else [x["description"] for x in r]
 
 def eval_aw_kill_criteria_overdue(decision_date, kill_criteria, today):
-    """Check AW. Returns None (undateable / empty / malformed) or a list of overdue descriptions (empty =
-    none due). Pure — `today` is injected, same convention as eval_as_forecast_overdue. ADVISORY, never a
-    hard FAIL, for the same reason AS is advisory: overdue-ness is created by the calendar, not by a
-    defect in the run at the time it was written."""
-    if kill_criteria is not None and not isinstance(kill_criteria, list):
-        return None
-    kc = kill_criteria or []
-    if not kc or not isdate(today):
-        return None
-    out = []
-    for i, e in enumerate(kc):
-        mon = _kc_monitor_text(e)
-        if not mon:
-            continue  # no monitor text (e.g. a legacy plain-string entry) — undateable, never flagged
-        due = _as_due_date({"time_window": mon}, decision_date)
-        if not due or due >= today:
-            continue  # not dateable from the monitor text, or not yet due
-        crit = _kc_criterion_text(e)[:110] or "<empty criterion>"  # dict with monitor text but no criterion field → keep the message well-formed, never a dangling colon
-        out.append(f"kill_criteria[{i}] monitor event ({due}) has passed and was never checked: {crit}")
-    return out
+    """Check AW: a kill_criteria entry whose own named monitor event has ELAPSED, never checked
+    (§8: disconfirming evidence is "a required test the thesis must survive," not a closing
+    caveat). None = N/A; [] = nothing due."""
+    r = _overdue_aw_kill_criteria_overdue(kill_criteria, today)
+    return None if r is None else [x["description"] for x in r]
 
 
 # ── Checks AT/AU/AV (§10 scenario span + conjunction disclosure; sign-check presence) ───────────

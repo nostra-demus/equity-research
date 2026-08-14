@@ -1922,6 +1922,11 @@ export interface CallTimelineEntry {
   memo_delta_file?: string // §8 memo delta — the "what changed since the memo" markdown, when the review filed one
   stage_one_comment?: string // paste-ready 100–200-word Stage-One sheet note from the same block
 }
+// AS_forecast_overdue / AW_kill_criteria_overdue (scripts/eval.py), surfaced live — see outputs.ts.
+export interface OverdueItem {
+  due_date: string
+  description: string
+}
 export interface CallSummary {
   ticker: string
   company: string | null
@@ -1948,10 +1953,21 @@ export interface CallSummary {
   next_checkpoint: { window: string; due_date: string | null; status: string } | null
   review_count: number
   timeline: CallTimelineEntry[]
+  needs_attention: { forecasts_overdue: OverdueItem[]; kill_criteria_overdue: OverdueItem[] }
+}
+// ranked across ALL calls, oldest due_date first — the flattened, actionable form of every call's
+// needs_attention block, for the top-of-dashboard "needs attention now" panel.
+export interface NeedsAttentionRow extends OverdueItem {
+  type: 'forecast' | 'kill_criteria'
+  ticker: string
+  company: string | null
+  run_root: string
+  final_thesis_path: string
 }
 export interface CallsResult {
   calls: CallSummary[]
   dashboard: string | null
+  needs_attention: NeedsAttentionRow[]
 }
 
 // ---- activity / audit log ----

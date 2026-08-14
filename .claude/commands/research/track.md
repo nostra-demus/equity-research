@@ -26,6 +26,11 @@ sys.path.insert(0, "scripts")
 # append-only errata on read, so the tracker never double-counts a corrected-away call (e.g. an
 # EMAAR run replaced by a later correction) and never reads a defective legacy value verbatim.
 from ledger_records import load_standing_records
+# AS_forecast_overdue / AW_kill_criteria_overdue (scripts/overdue_checks.py — importable, side-effect-
+# free; scripts/eval.py itself cannot be imported here, it runs its whole suite and sys.exit()s at
+# module scope). Same two checks, live, without waiting for someone to run /research:eval by hand —
+# byte-identical due-date rule to the TypeScript port in ui/server/src/outputs.ts.
+from overdue_checks import eval_as_forecast_overdue, eval_aw_kill_criteria_overdue
 SCOPE = (os.environ.get("SCOPE") or "all").strip() or "all"
 today = subprocess.check_output(["date", "+%F"]).decode().strip()
 
@@ -110,6 +115,10 @@ for _e in load_standing_records():
                or next((t for t in timeline if t["status"] == "upcoming"), None))
     implied = round(entry * (1 + exp / 100.0), 2) if isinstance(entry, (int, float)) and isinstance(exp, (int, float)) else None
     integrity = _e.get("integrity") or {}
+    # checks AS / AW, live — same two checks eval.py otherwise only reports in retrospective_advisories
+    # when someone runs /research:eval by hand.
+    _fc_overdue = eval_as_forecast_overdue(d.get("forecast_ledger"), today) or []
+    _kc_overdue = eval_aw_kill_criteria_overdue(d.get("kill_criteria"), today) or []
     calls.append({
         "ticker": d.get("ticker"), "company": d.get("company_name"), "decision_date": d.get("decision_date"),
         # truth-integrity status (ledger_records.resolve_integrity_status): "verified" (verify-evidence
@@ -133,15 +142,28 @@ for _e in load_standing_records():
         "latest_thesis_status": (lat or {}).get("thesis_status"),
         "next_checkpoint": ({"window": pending["window"], "due_date": pending["due_date"], "status": pending["status"]} if pending else None),
         "review_count": len(reviews), "timeline": timeline,
+        "needs_attention": {"forecasts_overdue": _fc_overdue, "kill_criteria_overdue": _kc_overdue},
     })
 calls.sort(key=lambda c: c.get("decision_date") or "", reverse=True)
+
+# ranked "needs attention now" list across ALL calls: most-overdue (earliest due_date) first, then
+# ticker as a stable tiebreak — the same flattened shape GET /api/calls returns.
+needs_attention = []
+for c in calls:
+    for kind, items in (("forecast", c["needs_attention"]["forecasts_overdue"]),
+                         ("kill_criteria", c["needs_attention"]["kill_criteria_overdue"])):
+        for it in items:
+            needs_attention.append({"type": kind, "ticker": c["ticker"], "company": c["company"],
+                                     "run_root": c["run_root"], "final_thesis_path": c["final_thesis_path"], **it})
+needs_attention.sort(key=lambda n: (n["due_date"], n["ticker"]))
 
 os.makedirs("analyses/tracking", exist_ok=True)
 base = f"analyses/tracking/{today}_calls_tracker"
 jf, k = base + ".json", 2
 while os.path.exists(jf): jf = f"{base}_v{k}.json"; k += 1
 mf = jf[:-5] + ".md"
-json.dump({"schema_version": "1.0", "generated_at": today, "scope": SCOPE, "n_calls": len(calls), "calls": calls},
+json.dump({"schema_version": "1.0", "generated_at": today, "scope": SCOPE, "n_calls": len(calls),
+           "needs_attention": needs_attention, "calls": calls},
           open(jf, "w", encoding="utf-8"), indent=2, ensure_ascii=False)
 
 def cell(v, suf=""):
@@ -158,8 +180,19 @@ H = [f"# Calls Tracker — {today}\n",
      f"- `*` on a confidence score = post-red-team (pre-mortem haircut applied; fix F28)\n"
      f"- `⚠ UNVERIFIED` on Verdict = truth-integrity provisional (verify-evidence found the run's citations/"
      f"math/anchors not Clean/Minor, or the finish-gate stamped it PROVISIONAL) — resolve before trusting "
-     f"this call's numbers. Provisional calls: {sum(1 for c in calls if c.get('integrity_status') == 'provisional')}\n",
-     "## All calls\n",
+     f"this call's numbers. Provisional calls: {sum(1 for c in calls if c.get('integrity_status') == 'provisional')}\n"]
+if needs_attention:
+    H.append(f"## ⚠ Needs attention now ({len(needs_attention)})\n")
+    H.append("> A forecast whose window closed with no resolution, or a kill criterion whose named "
+              "monitor event already passed unchecked (`CLAUDE.md` §8/§19) — ranked oldest-due first. "
+              "Resolve with `/research:review-decisions <ticker> ad-hoc`.\n")
+    H.append("| Due | Type | Ticker | Detail |")
+    H.append("| --- | --- | --- | --- |")
+    for n in needs_attention:
+        H.append(f'| {n["due_date"]} | {"forecast" if n["type"] == "forecast" else "kill criterion"} | '
+                  f'{n["ticker"]} | {n["description"]} |')
+    H.append("")
+H += ["## All calls\n",
      "| Company | Ticker | Called | Verdict | Horizon | Latest status | Next checkpoint |",
      "| --- | --- | --- | --- | --- | --- | --- |"]
 for c in calls:
