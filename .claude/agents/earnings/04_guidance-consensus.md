@@ -68,6 +68,26 @@ If no VERBATIM transcript is available, apply the **Transcript Sourcing & Fallba
 
 If no consensus data is available, state so and skip to Section 2.
 
+## 1A. Reporting-Basis Reconciliation (mandatory — CLAUDE.md §27; do this BEFORE any bar is quoted)
+
+**A data vendor's "next quarter" estimate is often NOT the number the company is about to file.** Vendors normalise every issuer into standalone-quarter fields regardless of what the issuer actually reports. Many jurisdictions file **cumulative** interim periods: a Chinese A/H interim report covers the half-year, as do many European half-year reports; Japanese and Korean filings are commonly cumulative; an Indian LODR result shows the standalone quarter and the cumulative period side by side; a US 10-Q is a standalone quarter. Comparing a standalone-quarter estimate to a cumulative print — or the reverse — produces a beat/miss verdict that is wrong by roughly the size of the stub, and that verdict then propagates into the risk register, the kill criteria, and the forecast ledger.
+
+So, before any consensus number is used as a bar, fill this in:
+
+| Field | Value |
+|---|---|
+| Next period the company will actually FILE | e.g. "H1 FY2026 (six months to 30 Jun)" |
+| Expected filing date + source for that date | |
+| What that filing contains | **Standalone period** / **Cumulative (YTD)** / **Both, side by side** |
+| Vendor estimate as pulled (period label + value) | e.g. "FQ2-26 standalone: revenue 75,076 / EPS 0.58" |
+| Already-reported stub inside that period (period + actuals + citation) | e.g. "Q1 2026 actual: revenue 73,686.7 / EPS 0.50 [Q1 2026 report, p.2]" |
+| **Consensus restated onto the filing basis** — show the arithmetic | e.g. "H1 bar = 73,686.7 + 75,076 ≈ 148,763 revenue; 0.50 + 0.58 ≈ 1.08 EPS" |
+| Basis-restated bar vs the same period a year earlier | e.g. "H1 2025 actual was X — the restated bar is −5% revenue / −17% EPS YoY" |
+
+**Every downstream use of "the bar" — Section 3, Section 7, `05_beat-miss-setup`, and anything the synthesizer carries into kill criteria — uses the RESTATED figure, and labels it with its basis.** Where the vendor's period label is ambiguous (an "FQ2/H1-derived" style tag is the warning sign, not a resolution), resolve it against the company's own last comparable filing before proceeding: read what the company actually printed for the equivalent period last year and match the shape. If it cannot be resolved from the pool, state *"Consensus reporting basis unresolved — bar not comparable to the filing"*, do NOT quote a bar, and apply the consensus-setup cap.
+
+**Sanity check that catches this in one line (for positive-value metrics like revenue):** divide the restated bar by the already-reported stub. For a half-year filing with one quarter reported, the ratio should be roughly 2, not roughly 1. (For EPS, particularly if negative or near-zero, verify the absolute values directly instead of relying on this ratio.) A restated bar that is barely larger than the stub already reported means the vendor's standalone estimate was never converted.
+
 ## 2. Management Guidance
 
 | Metric | Period | Guidance | Type (Point / Range / Qualitative) | Source |
@@ -149,6 +169,7 @@ In 2–3 sentences, explain the rationale. Reference specific gaps and revision 
 
 # SELF-CHECK
 
+- [ ] **§1A Reporting-Basis Reconciliation is filled before any bar is quoted**: the next filing's period and whether it is standalone or cumulative; the vendor estimate's own period label; the already-reported stub with its citation; the consensus restated onto the filing basis with the arithmetic shown; and the restated-bar ÷ stub sanity ratio. Every downstream "bar" figure is the restated one, labelled with its basis. (CLAUDE.md §27, §15 no mixing of periods without reconciliation.)
 - [ ] Section 2 captures all guidance metrics the company provided. If none, this is stated.
 - [ ] If consensus data exists, the gap calculation is correct (Consensus − Guidance).
 - [ ] Revision momentum table uses actual data points, not estimates. Missing cells are marked "N/A."

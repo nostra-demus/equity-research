@@ -37,6 +37,33 @@ If `business-model/08_competitive-map.md` is unavailable: identify peers yoursel
 6. Place the gap in time: note whether the current premium/discount is in line with, wider than, or narrower than the company's typical relationship to these peers over ~3 years (relative-gap persistence). If peer-multiple history is unavailable, mark **Not assessable** — do not invent it.
 7. Judge whether the gap is **warranted**: use `business-model` quality/moat/leverage evidence. A company with lower margins, weaker moat, or higher leverage *should* trade at a discount.
 8. Apply the warranted peer multiple to the company's metric **on the same basis** (forward multiple → forward metric, trailing → trailing, adjusted → adjusted) to derive an implied value (a base-case point plus its dispersion).
+9. **Before shipping any quality haircut, run the double-count test (CLAUDE.md §16).** Ask: *is the gap I am haircutting for already sitting in this multiple's denominator?* Applying a peer multiple to the COMPANY'S OWN metric already charges the company for every weakness that metric carries. See the DOUBLE-COUNT TEST section below — this is a hard gate, not a style note.
+
+# DOUBLE-COUNT TEST (hard gate — CLAUDE.md §16)
+
+A "quality-adjusted" multiple is where relative valuation most often goes wrong, and the error is silent because the arithmetic is clean. The rule:
+
+**Applying a peer multiple to the company's OWN metric has already charged the company for every weakness that metric carries.** A company with a 8.7% EBITDA margin against a peer median of 11.5% produces a smaller EBITDA on the same revenue — so the peer-median EV/EBITDA applied to *that* EBITDA already lands ~24% below where an equal-margin peer would land. Multiplying the *multiple* by the margin ratio as well charges the same shortfall twice, and the value it destroys is exactly computable.
+
+So, before applying any haircut or premium to a peer multiple:
+
+| Multiple | Is the profitability gap already in the denominator? | Is a margin/quality haircut on the multiple legitimate? |
+|---|---|---|
+| EV/Sales | **No** — revenue is margin-blind | **Yes.** This is the multiple a margin haircut belongs on |
+| P/B, P/tangible book | **No** — book value is return-blind | **Yes**, sized off the ROE-vs-cost-of-equity gap |
+| EV/EBITDA, EV/EBIT, P/E, P/FCF | **Yes** — the weaker margin IS the smaller denominator | **No, not for the margin gap.** Any further discount must be for something else |
+
+**Never derive a haircut on an earnings-based multiple as `own margin ÷ peer margin`.** That formula is the double count in its purest form.
+
+A further discount on an earnings-based multiple IS legitimate — but only for what the denominator does *not* carry, and it must be named and sized by that reason, not by the margin ratio:
+- **durability / trajectory** — the margin is not just lower, it is still falling (cite the moat trajectory and the number of consecutive declining periods);
+- **growth** — lower forward growth than peers (cite the consensus or evidenced growth gap);
+- **returns on new capital** — incremental ROIC below peers or below the cost of capital;
+- **risk** — higher leverage, higher cyclicality, worse disclosure, a governance cap.
+
+State the reason, state the size, and state why that size. "Discount of 15% for a margin that has fallen in each of the last three years and is not yet stabilised" is a defensible sentence; "9.71x × (8.7% / 11.5%) = 7.35x" is not.
+
+**Independence check on any convergence you claim (CLAUDE.md §16).** If your adjusted multiple lands near the figure from `02_multiples-own-history`, that is NOT independent corroboration — `02` measures where the market has already priced this stock, so it cannot confirm a claim about whether the market is pricing it correctly. Say that plainly rather than presenting the coincidence as the strongest signal in the module. Genuine corroboration comes from a method with a different input set (a transaction comp, a cost-of-capital-based value, a segment build-up).
 
 # WHAT TO READ (priority for this agent)
 
@@ -89,6 +116,13 @@ Apply the warranted peer multiple (median, adjusted up/down for quality) to the 
 
 State ONE base-case implied value (a point — the warranted peer-multiple-implied value on the named primary multiple), AND the dispersion across multiples as its separate range — the point is what `07` weights. Show the quality adjustment you applied and why.
 
+**Quality-adjustment ledger (required whenever any multiple is adjusted off the peer median):**
+
+| Multiple adjusted | Peer median | Adjusted to | Gap already in the denominator? | What the extra adjustment pays for | How it was sized |
+|---|---:|---:|---|---|---|
+
+The fourth column is the DOUBLE-COUNT TEST gate. If it reads "Yes" (an earnings-based multiple) the fifth column may NOT say "lower margin" — the lower margin is already in the metric you are multiplying. Name the separate reason (durability, growth, incremental returns, risk) and size it by that reason. If no separate reason survives, apply the peer median unadjusted and let the company's own weaker metric do the work it already does.
+
 ## 6. Relative Read
 
 2–3 blunt sentences: cheap or expensive vs peers, whether the gap is warranted, and the implied value (base-case point + dispersion).
@@ -105,6 +139,8 @@ State ONE base-case implied value (a point — the warranted peer-multiple-impli
 - [ ] The warranted-gap judgement cites quality/moat/leverage evidence — it does not assume the company should trade at parity.
 - [ ] Each peer multiple is applied to the company metric on the same basis (forward↔forward, trailing↔trailing, adjusted↔adjusted).
 - [ ] Implied value is a base-case point (named multiple) plus a separate dispersion range, with the quality adjustment shown.
+- [ ] **DOUBLE-COUNT TEST run and the quality-adjustment ledger filled.** No haircut on an earnings-based multiple (EV/EBITDA, EV/EBIT, P/E, P/FCF) is sized by the margin gap, and no haircut anywhere is derived as `own margin ÷ peer margin`. Every adjustment names what it pays for beyond what the denominator already carries.
+- [ ] If the adjusted multiple lands near `02_multiples-own-history`'s band, that is stated as a coincidence to explain — NOT as independent corroboration (CLAUDE.md §16).
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION

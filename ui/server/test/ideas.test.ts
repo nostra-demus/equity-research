@@ -1,5 +1,5 @@
 // The PM-skim idea pass (news/ideas): the free-LLM idea extraction must be coerce-safe (model drift
-// degrades to a dropped idea, never a crash), the batched call must honor the same reliability contract as
+// fails the whole response so a fallback can recover every idea, never a partial success or crash), the batched call must honor the same reliability contract as
 // triage (never throw, defer on !ok, report truncation), and idea identity must be stable so a re-surfacing
 // updates in place. Pure + fetch-stubbed — spends no tokens, launches nothing.
 // Run: npx tsx test/ideas.test.ts
@@ -12,6 +12,7 @@ import {
   buildIdeaUserMessage, coerceIdea, estimateIdeaTokens, IDEA_SYSTEM, surfaceIdeasBatch,
   type IdeaInputRow, type IdeaThemeExpression, type RawIdea,
 } from '../src/news/ideas/surface-ideas'
+import { surfaceIdeasBatchGemini } from '../src/news/ideas/surface-ideas-gemini'
 import {
   finalizeIdeaPromotion, ideaDecayAt, ideaId, ideaPromotionEligibility, ideaSnapshotRevision, ideaVersion, pruneExpiredIdeas,
   isSurfacedIdeaSnapshot, readArchivedIdeaSnapshots, readIdeaArchiveStore, readIdeaById, readIdeaSnapshotStore, readTopSweep, readTopSweepRows, releaseIdeaPromotion,
@@ -56,6 +57,15 @@ const ROWS: IdeaInputRow[] = [
   { event_id: 'EVT-1', headline: 'A closes strait', headline_orig: 'A closes strait', url: 'http://a', source_name: 'Reuters', region: 'GLOBAL', materiality: 100, label: 'critical', event_types: ['macro_sector'], issuer_linkage: 'macro', companies: [], found_at: '2026-07-12T12:00:00Z' },
   { event_id: 'EVT-2', dedup_group: 'STORY-B', headline: 'B expands refinery', headline_orig: 'B expands refinery', url: 'http://b', source_name: 'BusinessLine', source_tier: 'official_data', region: 'IN', materiality: 88, materiality_pre_score: 71, label: 'high', event_types: ['capex'], issuer_linkage: 'primary', companies: [{ name: 'B', ticker: 'BBB', listing_country: 'IN' }], scheduled_events: ['results on 2026-08-13'], event_direction: 'positive', found_at: '2026-07-12T11:00:00Z' },
 ]
+const validProviderIdea = (ticker = 'STNG', src = 0) => ({
+  src: [src], ticker, direction: 'long', reason: `${ticker} revenue rises with the cited event`,
+  why_now: 'The catalyst is live on 2026-08-13', conviction: 61, priced_in: 'room',
+  thesis_type: 'company_specific',
+})
+const stubGeminiIdeas = (ideas: unknown[]): typeof fetch => (async () => new Response(JSON.stringify({
+  candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify({ ideas }) }] } }],
+  usageMetadata: { totalTokenCount: 321 },
+}), { status: 200, headers: { 'content-type': 'application/json' } })) as typeof fetch
 const qualifiedExpression = (
   evidenceEventIds: string[],
   patch: Partial<{
@@ -259,15 +269,29 @@ check('coerceIdea rejects missing mechanism/timing evidence and an incomplete pa
 })
 
 // ---- surfaceIdeasBatch (fetch-stubbed; never throws, honors the reliability contract) ----
-check('surfaceIdeasBatch parses ideas and drops the invalid ones', async () => {
+check('surfaceIdeasBatch rejects the whole response when one sibling idea is invalid', async () => {
   const r = await surfaceIdeasBatch(ROWS, OPTS, stubFetch({ ideas: [
     { src: [0], ticker: 'STNG', direction: 'long', reason: 'Freight disruption lifts tanker rates', why_now: 'The strait closure is live now', conviction: 61, thesis_type: 'macro_conditional' },
-    { src: [1], ticker: '', direction: 'long' },        // dropped: no ticker
-    { ticker: 'ZZZ' },                                    // dropped: no src
+    { src: [1], ticker: '', direction: 'long' },
   ] }), noSleep)
-  assert.equal(r.ok, true)
-  assert.equal(r.ideas.length, 1)
-  assert.equal(r.ideas[0].ticker, 'STNG')
+  assert.equal(r.ok, false)
+  assert.equal(r.failureKind, 'contract')
+  assert.equal(r.ideas.length, 0)
+})
+check('surfaceIdeasBatch rejects duplicate identities and responses above the six-idea contract', async () => {
+  const duplicate = await surfaceIdeasBatch(ROWS, OPTS, stubFetch({ ideas: [
+    validProviderIdea('AAA', 0),
+    { ...validProviderIdea('aaa', 1), reason: 'A different unclustered thesis would overwrite the first card' },
+  ] }), noSleep)
+  assert.equal(duplicate.ok, false)
+  assert.equal(duplicate.failureKind, 'contract')
+
+  const excess = await surfaceIdeasBatch(ROWS, OPTS, stubFetch({ ideas: (
+    ['AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'].map((ticker, index) => validProviderIdea(ticker, index % ROWS.length))
+  ) }), noSleep)
+  assert.equal(excess.ok, false)
+  assert.equal(excess.failureKind, 'contract')
+  assert.equal(excess.ideas.length, 0)
 })
 check('surfaceIdeasBatch forwards the canonical overflow provider transport fields', async () => {
   let seenUrl = ''
@@ -295,6 +319,98 @@ check('surfaceIdeasBatch forwards the canonical overflow provider transport fiel
   assert.deepEqual(body.models, ['primary', 'backup'])
   assert.equal(body.reasoning_effort, 'low')
 })
+check('surfaceIdeasBatchGemini uses generateContent and preserves the strict Ideas contract', async () => {
+  let seenUrl = ''
+  let seenInit: RequestInit | undefined
+  const r = await surfaceIdeasBatchGemini(ROWS, {
+    model: 'gemini-test', baseUrl: 'https://gemini.test/v1beta', apiKey: 'gemini-key', maxTokens: 700, maxAttempts: 1,
+  }, (async (input: Parameters<typeof fetch>[0], init?: RequestInit) => {
+    seenUrl = String(input)
+    seenInit = init
+    return new Response(JSON.stringify({
+      candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify({ ideas: [{
+        src: [0], ticker: 'STNG', direction: 'long', reason: 'Freight disruption lifts tanker rates',
+        why_now: 'The strait closure is live now', conviction: 61, thesis_type: 'macro_conditional',
+      }] }) }] } }],
+      usageMetadata: { totalTokenCount: 321 },
+    }), { status: 200, headers: { 'content-type': 'application/json' } })
+  }) as typeof fetch, noSleep)
+  assert.equal(r.ok, true)
+  assert.equal(r.requests, 1)
+  assert.equal(r.tokens, 321)
+  assert.equal(r.ideas[0]?.ticker, 'STNG')
+  assert.equal(seenUrl, 'https://gemini.test/v1beta/models/gemini-test:generateContent')
+  assert.equal(new Headers(seenInit?.headers).get('x-goog-api-key'), 'gemini-key')
+  const body = JSON.parse(String(seenInit?.body))
+  assert.equal(body.system_instruction.parts[0].text, IDEA_SYSTEM)
+  assert.equal(body.generationConfig.responseMimeType, 'application/json')
+  assert.equal(body.generationConfig.thinkingConfig.thinkingBudget, 0)
+})
+check('surfaceIdeasBatchGemini preserves exact retry clocks and per-model daily exhaustion', async () => {
+  const unavailable = await surfaceIdeasBatchGemini(ROWS, {
+    model: 'm', baseUrl: 'https://gemini.test', apiKey: 'k', maxAttempts: 1,
+  }, (async () => new Response('private account detail', { status: 503, headers: { 'retry-after': '17' } })) as typeof fetch, noSleep)
+  assert.equal(unavailable.failureKind, 'availability')
+  assert.equal(unavailable.httpStatus, 503)
+  assert.equal(unavailable.rate?.retryAfterMs, 17_000)
+  assert.doesNotMatch(unavailable.note || '', /private account detail/)
+
+  const daily = await surfaceIdeasBatchGemini(ROWS, {
+    model: 'm', baseUrl: 'https://gemini.test', apiKey: 'k', maxAttempts: 2,
+  }, (async () => new Response(JSON.stringify({ error: { details: [{
+    retryDelay: '35s', violations: [{ quotaId: 'GenerateRequestsPerDayPerProjectPerModel-FreeTier' }],
+  }] } }), { status: 429 })) as typeof fetch, noSleep)
+  assert.equal(daily.failureKind, 'rate_limit')
+  assert.equal(daily.dailyLimit, true)
+  assert.equal(daily.requests, 1, 'a per-day 429 is terminal for this model and is never retried')
+  assert.equal(daily.rate?.retryAfterMs, 35_000)
+})
+check('surfaceIdeasBatchGemini fails closed on schema drift and starts no pre-aborted request', async () => {
+  const malformed = await surfaceIdeasBatchGemini(ROWS, {
+    model: 'm', baseUrl: 'https://gemini.test', apiKey: 'k', maxAttempts: 1,
+  }, (async () => new Response(JSON.stringify({
+    candidates: [{ finishReason: 'STOP', content: { parts: [{ text: '{"wrong":[]}' }] } }],
+  }), { status: 200 })) as typeof fetch, noSleep)
+  assert.equal(malformed.ok, false)
+  assert.equal(malformed.failureKind, 'contract')
+
+  const controller = new AbortController()
+  controller.abort(new DOMException('chain ended', 'AbortError'))
+  let calls = 0
+  const aborted = await surfaceIdeasBatchGemini(ROWS, {
+    model: 'm', baseUrl: 'https://gemini.test', apiKey: 'k', maxAttempts: 2, signal: controller.signal,
+  }, (async () => { calls++; throw new Error('must not run') }) as unknown as typeof fetch, noSleep)
+  assert.equal(aborted.ok, false)
+  assert.equal(aborted.requests, 0)
+  assert.equal(calls, 0)
+})
+check('surfaceIdeasBatchGemini rejects invalid siblings, duplicate identities, and excess rows as whole-response failures', async () => {
+  const cases = [
+    [validProviderIdea('AAA'), { ...validProviderIdea('BBB', 1), why_now: '' }],
+    [validProviderIdea('AAA'), { ...validProviderIdea('aaa', 1), reason: 'A duplicate card with another thesis' }],
+    ['AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'].map((ticker, index) => validProviderIdea(ticker, index % ROWS.length)),
+  ]
+  for (const ideas of cases) {
+    const result = await surfaceIdeasBatchGemini(ROWS, {
+      model: 'm', baseUrl: 'https://gemini.test', apiKey: 'k', maxAttempts: 1,
+    }, stubGeminiIdeas(ideas), noSleep)
+    assert.equal(result.ok, false)
+    assert.equal(result.failureKind, 'contract')
+    assert.equal(result.ideas.length, 0)
+  }
+
+  const empty = await surfaceIdeasBatchGemini(ROWS, {
+    model: 'm', baseUrl: 'https://gemini.test', apiKey: 'k', maxAttempts: 1,
+  }, stubGeminiIdeas([]), noSleep)
+  assert.equal(empty.ok, true, 'a literal empty ideas array remains an honest success')
+  assert.deepEqual(empty.ideas, [])
+})
+check('Ideas prompt asks for every qualifying idea up to six, not only one or two', () => {
+  assert.match(IDEA_SYSTEM, /EVERY item/)
+  assert.match(IDEA_SYSTEM, /maximum of six/)
+  assert.doesNotMatch(IDEA_SYSTEM, /ONE or TWO/)
+  assert.match(buildIdeaUserMessage(ROWS), /every tradable stock idea that clears the bar, up to 6/)
+})
 check('surfaceIdeasBatch: empty rows is a no-op ok (no spend)', async () => {
   const r = await surfaceIdeasBatch([], OPTS, stubFetch({ ideas: [] }), noSleep)
   assert.equal(r.ok, true); assert.equal(r.requests, 0); assert.equal(r.ideas.length, 0)
@@ -310,6 +426,42 @@ check('surfaceIdeasBatch: a max_tokens truncation is reported, not half-parsed',
 check('surfaceIdeasBatch: a terminal HTTP error returns ok:false (deferred, not scored-zero)', async () => {
   const r = await surfaceIdeasBatch(ROWS, OPTS, stubFetch('bad', { ok: false, status: 400 }), noSleep, noSleep)
   assert.equal(r.ok, false); assert.equal(r.failureKind, 'request'); assert.equal(r.httpStatus, 400); assert.match(r.note || '', /HTTP 400/)
+})
+check('surfaceIdeasBatch exposes structured retry metadata without leaking provider bodies', async () => {
+  const secret = 'account acct-123 balance and prompt must stay private'
+  const unavailable = await surfaceIdeasBatch(ROWS, { ...OPTS, maxAttempts: 1 }, (async () => (
+    new Response(secret, { status: 503, headers: { 'retry-after': '25' } })
+  )) as typeof fetch, noSleep)
+  assert.equal(unavailable.failureKind, 'availability')
+  assert.equal(unavailable.httpStatus, 503)
+  assert.equal(unavailable.rate?.retryAfterMs, 25_000)
+  assert.doesNotMatch(unavailable.note || '', /acct-123|balance|prompt/)
+
+  const generic429 = await surfaceIdeasBatch(ROWS, { ...OPTS, maxAttempts: 1 }, (async () => (
+    new Response('minute window', { status: 429, headers: { 'x-ratelimit-remaining-requests': '0' } })
+  )) as typeof fetch, noSleep)
+  assert.equal(generic429.failureKind, 'rate_limit')
+  assert.equal(generic429.dailyLimit, undefined, 'a generic provider header may describe a minute window')
+
+  const knownDaily429 = await surfaceIdeasBatch(ROWS, {
+    ...OPTS, maxAttempts: 1, requestRemainingHeaderIsDaily: true,
+  }, (async () => (
+    new Response('daily window', { status: 429, headers: { 'x-ratelimit-remaining-requests': '0' } })
+  )) as typeof fetch, noSleep)
+  assert.equal(knownDaily429.failureKind, 'rate_limit')
+  assert.equal(knownDaily429.dailyLimit, true)
+
+  const cerebras429 = await surfaceIdeasBatch(ROWS, {
+    ...OPTS, maxAttempts: 1, requestRemainingHeaderIsDaily: true,
+  }, (async () => (
+    new Response('cerebras buckets', { status: 429, headers: {
+      'x-ratelimit-remaining-requests-day': '0',
+      'x-ratelimit-remaining-tokens-minute': '0',
+      'x-ratelimit-reset-tokens-minute': '7.5s',
+    } })
+  )) as typeof fetch, noSleep)
+  assert.equal(cerebras429.dailyLimit, true)
+  assert.equal(cerebras429.rate?.retryAfterMs, 7_500, 'provider-specific reset aliases retain the precise retry clock')
 })
 check('surfaceIdeasBatch: non-JSON content returns ok:false, never throws', async () => {
   const r = await surfaceIdeasBatch(ROWS, OPTS, stubFetch('not json at all'), noSleep)
@@ -335,7 +487,7 @@ check('surfaceIdeasBatch: a non-empty response with no valid rows fails closed',
   ] }), noSleep)
   assert.equal(r.ok, false)
   assert.equal(r.ideas.length, 0)
-  assert.match(r.note || '', /no valid idea rows/)
+  assert.match(r.note || '', /invalid, duplicate, or excess idea rows/)
 })
 check('surfaceIdeasBatch separates malformed HTTP-200 envelopes from provider availability', async () => {
   let jsonFetches = 0
@@ -367,8 +519,8 @@ check('surfaceIdeasBatch stops retries immediately when its parent operation is 
     throw init?.signal?.reason || new DOMException('aborted', 'AbortError')
   }) as typeof fetch, async () => { sleeps++ })
   assert.equal(r.ok, false)
-  assert.equal(r.failureKind, 'availability')
-  assert.equal(fetches, 1)
+  assert.equal(r.failureKind, 'request')
+  assert.equal(fetches, 0)
   assert.equal(sleeps, 0, 'a cancelled parent never pays retry backoff or starts a second request')
 })
 

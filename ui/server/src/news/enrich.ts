@@ -964,6 +964,9 @@ export interface EnrichDeps {
   // reach every article-read call site, not just the ingester's triage/overflow/Gemini seams in runCycle.ts.
   cooldownMs?: number
   cooldownMaxMs?: number
+  // Background heal/cold-discovery reads must obey the all-day provider release schedule. Human opens stay
+  // latency-first and use only hard caps. Threaded to every direct/alternate/corroboration article read.
+  backgroundPacing?: boolean
   // legacy single-Groq shape — still honoured (tests / older callers). When articleProviders is absent but
   // this is set, it's promoted to a one-element chain so behaviour is unchanged.
   groq?: { apiKey: string; model: string; baseUrl: string; maxTokens?: number; rpm?: number; tpm?: number; dailyReqCap?: number; dailyTokenCap?: number }
@@ -1386,6 +1389,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
         limiterWaitMs: deps.limiterWaitMs,
         cooldownMs: deps.cooldownMs,
         cooldownMaxMs: deps.cooldownMaxMs,
+        paceDailyAllowances: deps.backgroundPacing,
       })
       brief = r.brief
       // count this toward read_attempts ONLY if a provider actually ran an LLM call. A SKIP (all providers
@@ -1439,6 +1443,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
           stateDir: deps.stateDir, fetchFn, sleep: deps.sleep,
           now: () => now().getTime(), deadlineMs: readDeadline, limiterWaitMs: deps.limiterWaitMs,
           cooldownMs: deps.cooldownMs, cooldownMaxMs: deps.cooldownMaxMs,
+          paceDailyAllowances: deps.backgroundPacing,
         })
         if (r.attempted) attempted = true
         if (applyBrief(result, r.brief)) {
@@ -1471,6 +1476,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
             stateDir: deps.stateDir, fetchFn, sleep: deps.sleep,
             now: () => now().getTime(), deadlineMs: readDeadline, limiterWaitMs: deps.limiterWaitMs,
             cooldownMs: deps.cooldownMs, cooldownMaxMs: deps.cooldownMaxMs,
+            paceDailyAllowances: deps.backgroundPacing,
           })
           if (r.attempted) attempted = true
           applyBrief(result, r.brief)

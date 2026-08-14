@@ -5,19 +5,20 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { spawn } from 'node:child_process'
 import { allApprovedDomains, approvedDomains, lookupSource, normalizeDomain } from '../src/news/sources/approved-domains'
 import { buildQueries, fetchGdelt, fetchGdeltDoc, GDELT_MAX_QUERY_CHARS, resetGdeltBackoff } from '../src/news/sources/gdelt'
 import { eventIdFor, loadLedgerEventIds, normalizeAndFilter, parseSeendate } from '../src/news/normalize'
 import { SeenCache } from '../src/news/seen-cache'
-import { Budget, RateLimiter, armCooldown, clearCooldown, cooldownInfo, pacedHasHeadroom, readCooldownUntil, resetBudgetMemory, resetCooldownMemory, resetSharedLimiters } from '../src/news/triage/budget'
+import { Budget, RateLimiter, UsdBudget, armCooldown, clearCooldown, cooldownInfo, dailyQuotaAdmission, getNamedLimiter, pacedHasHeadroom, readCooldownUntil, resetBudgetMemory, resetCooldownMemory, resetSharedLimiters, selectDailyQuotaCandidate } from '../src/news/triage/budget'
 import { articleReadTokenBound, readArticleBrief } from '../src/news/triage/article-read'
-import { coerceTriage, estimateTokens, scoreToBand, triageBatch } from '../src/news/triage/groq'
-import { triageBatchGemini } from '../src/news/triage/gemini'
+import { analyzeArticle, coerceTriage, estimateTokens, parseRate, scoreToBand, triageBatch } from '../src/news/triage/groq'
+import { analyzeArticleGemini, triageBatchGemini } from '../src/news/triage/gemini'
 import { appendFeedItems, readFeed } from '../src/news/feed'
 import { mergeInbox, revisionClockRegistryDiagnostics } from '../src/news/write-inbox'
-import { runIngestCycle, triageGroqTokenBound } from '../src/news/runCycle'
-import { anthropicDrainReady, backlogTrend, drainBatchEst, getNewsDiagnostics, providerDrainUsable, tierHealth } from '../src/news/scheduler'
-import { buildOverflowProviders, NEWS } from '../src/config'
+import { loadDeferred, runIngestCycle, triageGroqTokenBound } from '../src/news/runCycle'
+import { anthropicDrainReady, backlogTrend, drainBatchEst, geminiPoolProviderDayExhausted, getNewsDiagnostics, providerDrainUsable, tierHealth } from '../src/news/scheduler'
+import { buildOverflowProviders, NEWS, STATE_DIR } from '../src/config'
 import { createTheme } from '../src/news/themes/discover'
 import { appendThemeMutations, loadThemes } from '../src/news/themes/store'
 import { themeStoryFamilyKey, themeStoryKey } from '../src/news/themes/story-key'
@@ -44,6 +45,15 @@ function res(body: any, status = 200): any {
 }
 const noSleep = async () => {}
 const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'news-'))
+function gdeltQueryHasDomain(rawUrl: string, domain: string): boolean {
+  try {
+    const query = new URL(rawUrl).searchParams.get('query') || ''
+    const clauses = query.replace(/^\(|\)$/g, '').split(' OR ')
+    return clauses.some((clause) => clause === `domain:${domain}`)
+  } catch {
+    return false
+  }
+}
 
 // ---- approved-domains firewall ----
 await check('lookupSource: exact + subdomain match, look-alike rejected, off-list null', () => {
@@ -233,6 +243,20 @@ await check('Budget: caps on requests AND tokens, persists, resets on a new UTC 
   assert.equal(b4.canSpend(100), false) // 950+100 > 1000
   assert.equal(b4.canSpend(40), true)
 })
+
+await check('Budget rotates a queued admission at provider midnight exactly once', () => {
+  resetBudgetMemory()
+  const dir = tmp()
+  const before = Date.parse('2026-06-12T23:59:59Z')
+  const after = Date.parse('2026-06-13T00:00:01Z')
+  const queued = Budget.load(dir, 1, 100, before, 'midnight-budget.json')
+  const first = queued.tryReserve(10, undefined, after)
+  assert.ok(first, 'the call waiting across reset uses the new provider day')
+  const fresh = Budget.load(dir, 1, 100, after, 'midnight-budget.json')
+  assert.equal(fresh.tryReserve(10, undefined, after), null, 'a fresh Budget sees that same new-day reservation; the cap cannot be spent twice')
+  const saved = JSON.parse(fs.readFileSync(path.join(dir, 'midnight-budget.json'), 'utf8'))
+  assert.deepEqual({ date: saved.date, requests: saved.requests, tokens: saved.tokens }, { date: '2026-06-13', requests: 1, tokens: 10 })
+})
 await check('Budget exhaustion is monotonic across active-reservation reconciliation until day rollover', () => {
   resetBudgetMemory()
   const dir = tmp()
@@ -243,14 +267,28 @@ await check('Budget exhaustion is monotonic across active-reservation reconcilia
   const terminator = Budget.load(dir, 5, 1_000, day1)
   terminator.exhaust()
   owner.reconcile(reservation!, 0, 0) // late abort/release from work admitted before the per-day 429
+  assert.equal(owner.providerDayExhausted, true)
   assert.equal(owner.canSpend(1), false)
   assert.equal(owner.remainingRequests, 0)
   assert.equal(owner.remainingTokens, 0)
   resetBudgetMemory()
   const persisted = Budget.load(dir, 5, 1_000, day1)
   assert.equal(persisted.canSpend(1), false, 'the terminal marker survives process-memory reload')
+  assert.equal(persisted.providerDayExhausted, true, 'the typed provider-day reason survives process-memory reload')
   const nextDay = Budget.load(dir, 5, 1_000, Date.parse('2026-06-13T00:30:00Z'))
   assert.equal(nextDay.canSpend(400), true, 'only the provider-day rollover clears exhaustion')
+  assert.equal(nextDay.providerDayExhausted, false)
+})
+await check('a legacy exhausted gate remains closed without being relabelled as a provider-reported day limit', () => {
+  resetBudgetMemory()
+  const dir = tmp()
+  const day1 = Date.parse('2026-06-12T02:00:00Z')
+  fs.writeFileSync(path.join(dir, 'groq-budget.json'), JSON.stringify({ date: '2026-06-12', requests: 2, tokens: 160, exhausted: true }))
+  const legacy = Budget.load(dir, 5, 1_000, day1)
+  assert.equal(legacy.canSpend(1), false, 'rolling-deploy compatibility keeps the old day gate closed')
+  assert.equal(legacy.providerDayExhausted, false, 'old generic 4xx state is not invented into provider-quota evidence')
+  assert.equal(legacy.requests, 2, 'the old ledger counters remain visible as recorded')
+  assert.equal(legacy.tokens, 160)
 })
 await check('late prior-day reconciliation cannot overwrite persisted current-day usage', () => {
   resetBudgetMemory()
@@ -285,6 +323,99 @@ await check('RateLimiter spaces calls to ~60s/rpm', async () => {
   await lim.acquire(0, sleep, now) // first call: real-clock-far-from-zero → no wait
   await lim.acquire(0, sleep, now) // immediate second → must wait ~1000ms
   assert.deepEqual(slept, [1000])
+})
+
+await check('request-only RateLimiter honors learned Retry-After with tpm=0', async () => {
+  const lim = new RateLimiter(0, 0)
+  let t = 1_000_000
+  const slept: number[] = []
+  lim.learn({ retryAfterMs: 17_000 }, () => t)
+  const acquired = await lim.acquire(500, async (ms) => { slept.push(ms); t += ms }, () => t, 20_000)
+  assert.equal(acquired, true)
+  assert.deepEqual(slept, [17_000], 'request-gated tiers wait for the provider reset even without a TPM window')
+})
+
+await check('RateLimiter serializes concurrent callers so one minute slot cannot be double-spent', async () => {
+  const lim = new RateLimiter(600, 0) // one call per 100ms
+  let t = 1_000_000
+  const slots: number[] = []
+  const now = () => t
+  const sleep = async (ms: number) => { t += ms; slots.push(t); await Promise.resolve() }
+  assert.equal(await lim.acquire(0, sleep, now), true)
+  await Promise.all([
+    lim.acquire(0, sleep, now).then((ok) => { assert.equal(ok, true) }),
+    lim.acquire(0, sleep, now).then((ok) => { assert.equal(ok, true) }),
+  ])
+  assert.deepEqual(slots, [1_000_100, 1_000_200], 'concurrent callers receive distinct request slots')
+})
+
+await check('RateLimiter maxWait bounds time spent queued behind another caller', async () => {
+  const lim = new RateLimiter(600, 0)
+  let releaseFirst!: () => void
+  let sleeps = 0
+  const heldSleep = () => new Promise<void>((resolve) => { releaseFirst = resolve; sleeps++ })
+  assert.equal(await lim.acquire(), true)
+  const first = lim.acquire(0, heldSleep)
+  while (!releaseFirst) await new Promise<void>((resolve) => setImmediate(resolve))
+  const started = Date.now()
+  const second = await lim.acquire(0, async () => {}, () => Date.now(), 15)
+  assert.equal(second, false)
+  assert.ok(Date.now() - started < 100, 'the user-facing deadline includes time waiting for the serialized gate')
+  assert.equal(sleeps, 1)
+  releaseFirst()
+  assert.equal(await first, true)
+})
+
+await check('daily quota pacer releases one call, follows provider reset clocks, and carries quiet allowance forward', () => {
+  const justAfterUtcMidnight = Date.parse('2026-06-12T00:10:00Z')
+  const tiny = dailyQuotaAdmission({ id: 'tiny', meter: 'requests', used: 0, cap: 5, cost: 1, floorFraction: 0 }, justAfterUtcMidnight)
+  assert.equal(tiny.pacedFit, true, 'one complete useful call is available even before the fractional clock release reaches one')
+  const usedFirst = dailyQuotaAdmission({ id: 'tiny', meter: 'requests', used: 1, cap: 5, cost: 1, floorFraction: 0 }, justAfterUtcMidnight)
+  assert.equal(usedFirst.hardCapFit, true)
+  assert.equal(usedFirst.pacedFit, false, 'the second call waits while preserving hard-cap headroom')
+
+  const noon = Date.parse('2026-06-12T12:00:00Z')
+  const carried = dailyQuotaAdmission({ id: 'quiet', meter: 'requests', used: 0, cap: 100, cost: 1 }, noon)
+  assert.equal(Math.round(carried.released), 50, 'unused morning allowance remains available at noon')
+  assert.equal(carried.pacedFit, true)
+  const pacific = dailyQuotaAdmission({ id: 'pt', meter: 'requests', used: 1, cap: 20, cost: 1, resetTimeZone: 'America/Los_Angeles' }, Date.parse('2026-06-12T07:10:00Z'))
+  assert.equal(pacific.pacedFit, false, 'the same instant is just after the Pacific provider reset, not 30% into its day')
+})
+
+await check('daily quota selector picks the usable provider furthest behind schedule with stable quality ties', () => {
+  const noon = Date.parse('2026-06-12T12:00:00Z')
+  const candidates = [
+    { id: 'quality-first', meter: 'requests' as const, used: 40, cap: 100, cost: 1, priority: 0 },
+    { id: 'underused', meter: 'requests' as const, used: 10, cap: 100, cost: 1, priority: 1 },
+    { id: 'hard-spent', meter: 'requests' as const, used: 100, cap: 100, cost: 1, priority: 2 },
+  ]
+  assert.equal(selectDailyQuotaCandidate(candidates, noon)?.id, 'underused')
+  candidates[1].used = 40
+  assert.equal(selectDailyQuotaCandidate(candidates, noon)?.id, 'quality-first', 'config order is only the equal-deficit tiebreak')
+})
+
+await check('daily quota scheduler releases every safe allowance by day end without overshooting', () => {
+  const start = Date.parse('2026-06-12T00:00:00Z')
+  const pools = [
+    { id: 'token-tier', meter: 'tokens' as const, used: 0, cap: 900_000, cost: 9_000, priority: 0 },
+    { id: 'small-request-tier', meter: 'requests' as const, used: 0, cap: 45, cost: 1, priority: 1 },
+    { id: 'large-request-tier', meter: 'requests' as const, used: 0, cap: 580, cost: 1, priority: 2 },
+  ]
+  // One backlog batch per minute is enough to consume these configured envelopes. This exercises the
+  // real cumulative selector shape across the entire day, including the otherwise-easy-to-strand final
+  // request immediately before reset.
+  for (let minute = 0; minute < 24 * 60; minute++) {
+    const selected = selectDailyQuotaCandidate(pools, start + minute * 60_000)
+    if (selected) selected.used += selected.cost
+  }
+  assert.deepEqual(pools.map(({ id, used, cap }) => ({ id, used, cap })), [
+    { id: 'token-tier', used: 900_000, cap: 900_000 },
+    { id: 'small-request-tier', used: 45, cap: 45 },
+    { id: 'large-request-tier', used: 580, cap: 580 },
+  ])
+  for (const pool of pools) {
+    assert.equal(dailyQuotaAdmission(pool, start + 23 * 60 * 60_000 + 59 * 60_000).hardCapFit, false, `${pool.id} cannot exceed its configured safe cap`)
+  }
 })
 
 // ---- groq triage ----
@@ -322,14 +453,65 @@ await check('triageBatch: HTTP error and non-JSON content both return ok:false (
     [{ title: 'Reuters headline long enough to pass', url: 'https://reuters.com/a', domain: 'reuters.com', seendate: '20260612T090000Z' }],
     { ledgerEventIds: new Set(), seen: new SeenCache(path.join(tmp(), 's.json')) },
   )
-  const err = await triageBatch(items, { model: 'm', baseUrl: 'https://g.test', apiKey: 'k' }, (async () => res('rate limited', 429)) as unknown as typeof fetch)
+  const err = await triageBatch(items, { model: 'm', baseUrl: 'https://g.test', apiKey: 'k' }, (async () => res('secret account id acct-123 and balance', 429)) as unknown as typeof fetch)
   assert.equal(err.ok, false)
   assert.equal(err.requests, 2) // a 429 is retried once; both attempts count against the daily request budget
+  assert.equal(err.failureKind, 'rate_limit')
+  assert.equal(err.httpStatus, 429)
+  assert.doesNotMatch(err.note || '', /acct-123|balance/, 'public failure notes never copy the upstream body')
   const bad = await triageBatch(items, { model: 'm', baseUrl: 'https://g.test', apiKey: 'k' }, (async () => res({ choices: [{ message: { content: 'not json' } }] })) as unknown as typeof fetch)
   assert.equal(bad.ok, false)
   assert.equal(bad.byIndex.size, 0)
+  assert.equal(bad.failureKind, 'contract')
   const noKey = await triageBatch(items, { model: 'm', baseUrl: 'https://g.test', apiKey: '' }, (async () => res({})) as unknown as typeof fetch)
   assert.equal(noKey.ok, false) // no key → no call
+  assert.equal(noKey.failureKind, 'request')
+})
+
+await check('a provider with known daily header semantics marks explicit zero remaining requests terminal', async () => {
+  const items = [{ headline: 'RBI cuts rates', source_name: 'Reuters', region: 'IN' } as any]
+  let calls = 0
+  const fetchFn = (async () => {
+    calls++
+    return {
+      ...res('private quota body', 429),
+      headers: { get: (key: string) => key.toLowerCase() === 'x-ratelimit-remaining-requests' ? '0' : null },
+    }
+  }) as unknown as typeof fetch
+  const result = await triageBatch(items, { model: 'm', baseUrl: 'https://provider.test', apiKey: 'k', maxAttempts: 2, requestRemainingHeaderIsDaily: true }, fetchFn, noSleep)
+  assert.equal(calls, 1, 'an explicitly exhausted provider day is not retried in-call')
+  assert.equal(result.dailyLimit, true)
+  assert.equal(result.failureKind, 'rate_limit')
+  assert.match(result.note || '', /daily quota reached/)
+  assert.doesNotMatch(result.note || '', /private quota body/)
+
+  calls = 0
+  const generic = await triageBatch(items, { model: 'm', baseUrl: 'https://generic.test', apiKey: 'k', maxAttempts: 1 }, fetchFn, noSleep)
+  assert.equal(generic.dailyLimit, undefined, 'a generic OpenAI-compatible minute-window header cannot falsely close its daily allowance')
+})
+
+await check('Cerebras window-suffixed headers drive exact minute retry and daily exhaustion', async () => {
+  const values: Record<string, string> = {
+    'x-ratelimit-limit-tokens-minute': '30000',
+    'x-ratelimit-remaining-tokens-minute': '0',
+    'x-ratelimit-reset-tokens-minute': '11.25',
+    'x-ratelimit-remaining-requests-day': '0',
+  }
+  const rate = parseRate({ headers: { get: (key: string) => values[key.toLowerCase()] ?? null } })
+  assert.equal(rate.tpmLimit, 30_000)
+  assert.equal(rate.tpmRemaining, 0)
+  assert.equal(rate.tpmResetMs, 11_250)
+  assert.equal(rate.retryAfterMs, 11_250, 'an empty minute bucket uses the provider reset instead of a generic hold')
+  assert.equal(rate.rpdRemaining, 0)
+
+  const result = await triageBatch(
+    [{ headline: 'RBI cuts rates', source_name: 'Reuters', region: 'IN' } as any],
+    { model: 'm', baseUrl: 'https://cerebras.test', apiKey: 'k', maxAttempts: 2, requestRemainingHeaderIsDaily: true },
+    (async () => ({ ...res('private quota body', 429), headers: { get: (key: string) => values[key.toLowerCase()] ?? null } })) as unknown as typeof fetch,
+    noSleep,
+  )
+  assert.equal(result.requests, 1)
+  assert.equal(result.dailyLimit, true, 'the documented requests-day zero closes only this provider day')
 })
 
 await check('Groq and Gemini adapters count malformed response reads exactly once per retry', async () => {
@@ -344,6 +526,7 @@ await check('Groq and Gemini adapters count malformed response reads exactly onc
     const decoded = await adapter(items, opts, malformedJson, noSleep)
     assert.equal(jsonFetches, 2, `${name}: malformed JSON retries only within maxAttempts`)
     assert.equal(decoded.requests, 2, `${name}: response.json failure is not double-counted by the broad catch`)
+    assert.equal(decoded.failureKind, 'contract', `${name}: malformed success payload is a contract failure`)
 
     let bodyFetches = 0
     const unreadableBody = (async () => {
@@ -353,6 +536,92 @@ await check('Groq and Gemini adapters count malformed response reads exactly onc
     const rejected = await adapter(items, opts, unreadableBody, noSleep)
     assert.equal(bodyFetches, 2, `${name}: unreadable transient error bodies remain retry-bounded`)
     assert.equal(rejected.requests, 2, `${name}: response.text failure is counted once per HTTP attempt`)
+    assert.equal(rejected.failureKind, 'availability', `${name}: 503 is a service-availability failure`)
+    assert.equal(rejected.httpStatus, 503)
+  }
+})
+
+await check('Groq and Gemini reject empty, partial, duplicate, or out-of-range batch coverage', async () => {
+  const items = [
+    { headline: 'RBI cuts rates', source_name: 'Reuters', region: 'IN' },
+    { headline: 'Company cuts guidance', source_name: 'NSE', region: 'IN' },
+  ] as any[]
+  const cases = [
+    { label: 'empty', rows: [] },
+    { label: 'partial', rows: [{ i: 0, materiality_pre_score: 90 }] },
+    { label: 'duplicate', rows: [{ i: 0, materiality_pre_score: 90 }, { i: 0, materiality_pre_score: 0 }] },
+    { label: 'out-of-range', rows: [{ i: 0, materiality_pre_score: 90 }, { i: 2, materiality_pre_score: 0 }] },
+  ]
+  const adapters = [
+    {
+      label: 'groq',
+      run: (rows: any[]) => triageBatch(items, { model: 'm', baseUrl: 'https://provider.test', apiKey: 'k', maxAttempts: 1 },
+        (async () => res({ usage: { total_tokens: 100 }, choices: [{ message: { content: JSON.stringify({ items: rows }) } }] })) as unknown as typeof fetch, noSleep),
+    },
+    {
+      label: 'gemini',
+      run: (rows: any[]) => triageBatchGemini(items, { model: 'm', baseUrl: 'https://provider.test', apiKey: 'k', maxAttempts: 1 },
+        (async () => res({ usageMetadata: { totalTokenCount: 100 }, candidates: [{ finishReason: 'STOP', content: { parts: [{ text: JSON.stringify({ items: rows }) }] } }] })) as unknown as typeof fetch, noSleep),
+    },
+  ]
+  for (const adapter of adapters) {
+    for (const c of cases) {
+      const result = await adapter.run(c.rows)
+      assert.equal(result.ok, false, `${adapter.label}: ${c.label} coverage cannot be a scored success`)
+      assert.equal(result.failureKind, 'contract')
+      assert.equal(result.byIndex.size, 0, `${adapter.label}: no partial rows escape on ${c.label} coverage`)
+    }
+    const explicitLow = await adapter.run([{ i: 0, materiality_pre_score: 90 }, { i: 1, materiality_pre_score: 0 }])
+    assert.equal(explicitLow.ok, true, `${adapter.label}: an explicit zero row is a valid complete decision`)
+    assert.equal(explicitLow.byIndex.get(1)?.materiality_pre_score, 0)
+  }
+})
+
+await check('Gemini preserves exact Retry-After headers on transient 503s for title and article routing', async () => {
+  const retry503 = (async () => ({
+    ...res('temporarily unavailable', 503),
+    headers: { get: (key: string) => key.toLowerCase() === 'retry-after' ? '19' : null },
+  })) as unknown as typeof fetch
+  const title = await triageBatchGemini(
+    [{ headline: 'RBI cuts rates', source_name: 'Reuters', region: 'IN' } as any],
+    { model: 'm', baseUrl: 'https://provider.test', apiKey: 'k', maxAttempts: 1 },
+    retry503, noSleep,
+  )
+  assert.equal(title.rate?.retryAfterMs, 19_000)
+  const article = await analyzeArticleGemini(
+    'The central bank cut rates by 50 basis points after inflation slowed materially across the economy.',
+    'RBI cuts rates',
+    { model: 'm', baseUrl: 'https://provider.test', apiKey: 'k', maxAttempts: 1 },
+    retry503, noSleep,
+  )
+  assert.equal(article.rate?.retryAfterMs, 19_000)
+})
+
+await check('article adapters expose structured, sanitized failures for routing', async () => {
+  const body = 'The central bank cut rates by 50 basis points in a surprise off-cycle move, citing softer inflation and slowing growth across the economy.'
+  const secretBody = JSON.stringify({ error: { message: 'account acct-secret has no access', details: [] } })
+  for (const [name, adapter] of [['groq', analyzeArticle], ['gemini', analyzeArticleGemini]] as const) {
+    const rejected = await adapter(
+      body,
+      'RBI surprise cut',
+      { model: 'm', baseUrl: 'https://provider.test', apiKey: 'k', maxAttempts: 1 },
+      (async () => res(secretBody, 400)) as unknown as typeof fetch,
+      noSleep,
+    )
+    assert.equal(rejected.failureKind, 'request', `${name}: terminal 4xx is a request failure`)
+    assert.equal(rejected.httpStatus, 400)
+    assert.doesNotMatch(rejected.note || '', /acct-secret|no access/, `${name}: upstream body is private`)
+
+    const malformed = await adapter(
+      body,
+      'RBI surprise cut',
+      { model: 'm', baseUrl: 'https://provider.test', apiKey: 'k', maxAttempts: 1 },
+      (async () => name === 'groq'
+        ? res({ choices: [{ finish_reason: 'stop', message: { content: 'not json' } }] })
+        : res({ candidates: [{ finishReason: 'STOP', content: { parts: [{ text: 'not json' }] } }] })) as unknown as typeof fetch,
+      noSleep,
+    )
+    assert.equal(malformed.failureKind, 'contract', `${name}: malformed model output is a contract failure`)
   }
 })
 
@@ -1411,7 +1680,7 @@ await check('runIngestCycle: fetch → triage → ranked inbox; second run skips
     const u = String(url)
     if (u.includes('groq')) return res(groqBody)
     // GDELT: the chunk containing reuters.com returns our two articles (so both runs get them)
-    if (u.includes('reuters.com')) return res({ articles: [
+    if (gdeltQueryHasDomain(u, 'reuters.com')) return res({ articles: [
       { url: 'https://reuters.com/x', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' },
       { url: 'https://cnbc.com/y', title: 'Columnist muses about weekend market vibes and little else', domain: 'cnbc.com', seendate: '20260612T090100Z' },
     ] })
@@ -1451,7 +1720,7 @@ await check('runIngestCycle: an aborted cycle skips triage (no provider grind) a
   const fetchFn = (async (url: string) => {
     const u = String(url)
     if (u.includes('groq')) { groqCalls++; return res({ usage: { total_tokens: 1 }, choices: [{ message: { content: '{"items":[]}' } }] }) }
-    if (u.includes('reuters.com')) return res({ articles: [
+    if (gdeltQueryHasDomain(u, 'reuters.com')) return res({ articles: [
       { url: 'https://reuters.com/x', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' },
       { url: 'https://cnbc.com/y', title: 'Federal Reserve holds rates steady amid inflation concerns', domain: 'cnbc.com', seendate: '20260612T090100Z' },
     ] })
@@ -1466,6 +1735,194 @@ await check('runIngestCycle: an aborted cycle skips triage (no provider grind) a
   // every fetched candidate is requeued to the deferred backlog — the abort must lose nothing
   const deferred = JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8'))
   assert.equal(deferred.length, 2, `the untriaged candidates are deferred, not dropped, got ${deferred.length}`)
+})
+
+await check('runIngestCycle threads its abort into Themes before provider admission', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp()
+  const themeNow = new Date('2026-06-12T09:00:00Z')
+  const company = (name: string, ticker: string) => ({ name, ticker, listing_country: 'US' })
+  const views: ThemeItemView[] = [
+    {
+      event_id: 'EVT-theme-abort-a', dedup_group: 'STORY-theme-abort-a',
+      headline: 'Alpha capacity shortage raises supplier orders', found_at: '2026-06-12T08:00:00Z',
+      companies: [company('Alpha', 'ALPH')], event_types: ['operations'], issuer_linkage: 'primary',
+      triage_score: 80, source_tier: 'news', source_name: 'Synthetic Wire', url: 'https://example.test/theme-abort-a',
+    },
+    {
+      event_id: 'EVT-theme-abort-b', dedup_group: 'STORY-theme-abort-b',
+      headline: 'Beta capacity shortage raises supplier orders', found_at: '2026-06-12T08:01:00Z',
+      companies: [company('Beta', 'BETA')], event_types: ['operations'], issuer_linkage: 'primary',
+      triage_score: 79, source_tier: 'news', source_name: 'Synthetic Wire', url: 'https://example.test/theme-abort-b',
+    },
+    {
+      event_id: 'EVT-theme-abort-c', dedup_group: 'STORY-theme-abort-c',
+      headline: 'Alpha and Beta capacity shortage persists', found_at: '2026-06-12T08:02:00Z',
+      companies: [company('Alpha', 'ALPH'), company('Beta', 'BETA')], event_types: ['operations'], issuer_linkage: 'primary',
+      triage_score: 78, source_tier: 'news', source_name: 'Synthetic Wire', url: 'https://example.test/theme-abort-c',
+    },
+  ]
+  const theme = createTheme(views, themeNow)
+  appendThemeMutations(root, [theme], () => themeNow)
+  let providerCalls = 0
+  const fetchFn = (async () => {
+    providerCalls++
+    throw new Error('pre-aborted Themes must never call a provider')
+  }) as unknown as typeof fetch
+  await runIngestCycle({
+    repoRoot: root, stateDir: state, skipFetch: true, fetchFn, sleep: noSleep,
+    now: () => new Date('2026-06-12T09:30:00Z'), signal: AbortSignal.abort(),
+    config: {
+      groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqRpm: 6000,
+      themesEnabled: true, themesMinScore: 0, themesDiscoverEveryCycles: 9999, themesDiscoverModel: 'groq',
+      anthropicFallbackEnabled: false,
+    } as any,
+  })
+  assert.equal(providerCalls, 0, 'the cycle abort reaches makeThemeNamer before its provider seam')
+  assert.equal(fs.existsSync(path.join(state, 'groq-budget.json')), false, 'Themes creates no provider reservation after parent abort')
+  assert.equal(readCooldownUntil(state, 'groq'), 0)
+  assert.equal(readCooldownUntil(state, 'themes:groq'), 0)
+  const persisted = loadThemes(root).find((candidate) => candidate.theme_id === theme.theme_id)
+  assert.equal(persisted?.validation_attempted_at, undefined, 'cancelled validation remains queued, not falsely attempted')
+  fs.rmSync(root, { recursive: true, force: true })
+  fs.rmSync(state, { recursive: true, force: true })
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+})
+
+await check('runIngestCycle: an abort during the first provider stops fallback burn and defers the batch', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp(), controller = new AbortController()
+  let gdeltServed = false, groqCalls = 0, overflowCalls = 0
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq.test')) {
+      groqCalls++
+      controller.abort()
+      throw new DOMException('Aborted', 'AbortError')
+    }
+    if (u.includes('overflow.test')) { overflowCalls++; throw new Error('fallback must not run after abort') }
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{ url: 'https://reuters.com/abort-mid-provider', title: 'Central bank emergency rate cut changes funding costs', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, fetchFn, sleep: noSleep, now: () => new Date('2026-06-12T09:30:00Z'), signal: controller.signal,
+    config: {
+      groqApiKey: 'k', groqBaseUrl: 'https://groq.test', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
+      rssEnabled: false, themesEnabled: false, anthropicFallbackEnabled: false,
+      overflowProviders: [{ id: 'overflow', label: 'Overflow', color: '--x', apiKey: 'k', baseUrl: 'https://overflow.test/v1', model: 'm', maxTokens: 900, rpm: 6000, dailyReqCap: 10, budgetFile: 'overflow-budget.json' }],
+    } as any,
+  })
+  assert.equal(groqCalls, 1)
+  assert.equal(overflowCalls, 0, 'an aborted request does not walk the rest of the provider chain')
+  assert.equal(summary.aborted, true)
+  assert.equal(summary.provider_attempts?.groq, 1)
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 1)
+  assert.equal(readCooldownUntil(state, 'groq'), 0, 'caller abort is not a provider outage')
+})
+
+await check('runIngestCycle: Anthropic API receives the cycle signal, never retries an abort, and counts one request', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp(), controller = new AbortController()
+  let gdeltServed = false, anthropicCalls = 0, reservedUsd = 0
+  const fetchFn = (async (url: string, init?: RequestInit) => {
+    const u = String(url)
+    if (u.includes('anthropic.test')) {
+      anthropicCalls++
+      const inFlight = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
+      assert.ok(inFlight.usd > 0, 'the conservative API dollar bound is durably charged before fetch')
+      reservedUsd = inFlight.usd
+      assert.equal(Object.keys(inFlight.reservations || {}).length, 1)
+      assert.ok(init?.signal, 'the paid API request receives a composed cycle/timeout signal')
+      controller.abort(new DOMException('cycle ended', 'AbortError'))
+      throw (init!.signal as AbortSignal).reason
+    }
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{ url: 'https://reuters.com/abort-anthropic', title: 'Central bank emergency rate cut changes funding costs', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, fetchFn, sleep: noSleep, now: () => new Date('2026-06-12T09:30:00Z'), signal: controller.signal,
+    config: {
+      groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
+      rssEnabled: false, themesEnabled: false, localProvider: null, overflowProviders: [], geminiEnabled: false,
+      anthropicFallbackEnabled: true, anthropicFallbackMode: 'api', anthropicApiKey: 'k',
+      anthropicBaseUrl: 'https://anthropic.test', anthropicRpm: 6000, anthropicMinPriority: 0,
+    } as any,
+  })
+  assert.equal(anthropicCalls, 1, 'the cancelled paid request is never retried')
+  assert.equal(summary.anthropic_requests, 1, 'one fetch invocation is reported once, not double-counted in catch')
+  assert.equal(summary.provider_attempts?.['anthropic-triage'], 1)
+  assert.equal(summary.aborted, true)
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 1)
+  const reconciled = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
+  assert.equal(reconciled.usd, reservedUsd, 'an in-flight abort keeps the conservative bound because actual cost is unknown')
+  assert.ok(Math.abs((summary.anthropic_cost_usd || 0) - reservedUsd) < 0.00005,
+    'the four-decimal cycle summary reports the same conservative charge as the hard ledger')
+  assert.equal(Object.keys(reconciled.reservations || {}).length, 0)
+  assert.equal(readCooldownUntil(state, 'anthropic-triage'), 0, 'caller abort is not an Anthropic outage')
+})
+
+await check('runIngestCycle: Anthropic API reconciles only positively known usage; missing/zero usage keeps the bound', async () => {
+  const runCase = async (label: string, usage?: { input_tokens: number; output_tokens: number }) => {
+    resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+    const root = tmp(), state = tmp()
+    let gdeltServed = false, reservedUsd = 0
+    const fetchFn = (async (url: string) => {
+      const u = String(url)
+      if (u.includes('anthropic.test')) {
+        const inFlight = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
+        reservedUsd = inFlight.usd
+        return res({
+          content: [{ type: 'text', text: JSON.stringify({ items: [{
+            i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'],
+            issuer_linkage: 'macro', why: `${label} usage reconciliation`, companies: [], size_bucket: 'unknown',
+          }] }) }],
+          ...(usage ? { usage } : {}), stop_reason: 'end_turn',
+        })
+      }
+      if (u.includes('gdelt') && !gdeltServed) {
+        gdeltServed = true
+        return res({ articles: [{ url: `https://reuters.com/anthropic-usage-${label}`, title: 'Central bank changes rates in an off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+      }
+      return res({ articles: [] })
+    }) as unknown as typeof fetch
+    const summary = await runIngestCycle({
+      repoRoot: root, stateDir: state, fetchFn, sleep: noSleep, now: () => new Date('2026-06-12T09:30:00Z'),
+      config: {
+        groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
+        rssEnabled: false, themesEnabled: false, localProvider: null, overflowProviders: [], geminiEnabled: false,
+        anthropicFallbackEnabled: true, anthropicFallbackMode: 'api', anthropicApiKey: 'k',
+        anthropicBaseUrl: 'https://anthropic.test', anthropicRpm: 6000, anthropicMinPriority: 0,
+        anthropicInPricePerMTok: 1, anthropicOutPricePerMTok: 5,
+      } as any,
+    })
+    const ledger = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
+    assert.equal(Object.keys(ledger.reservations || {}).length, 0, `${label}: completed admission is finalized`)
+    return { summary, ledger, reservedUsd }
+  }
+
+  const unknown = await runCase('missing')
+  assert.ok(unknown.reservedUsd > 0)
+  assert.equal(unknown.ledger.usd, unknown.reservedUsd, 'missing usage cannot refund a dispatched request to $0')
+  assert.ok(Math.abs((unknown.summary.anthropic_cost_usd || 0) - unknown.reservedUsd) < 0.00005,
+    'the four-decimal cycle summary keeps the conservative unknown-usage charge')
+
+  const zero = await runCase('zero', { input_tokens: 0, output_tokens: 0 })
+  assert.ok(zero.reservedUsd > 0)
+  assert.equal(zero.ledger.usd, zero.reservedUsd, 'zero-total usage cannot refund a dispatched request to $0')
+  assert.ok(Math.abs((zero.summary.anthropic_cost_usd || 0) - zero.reservedUsd) < 0.00005,
+    'the cycle summary keeps the conservative charge for unusable zero-total telemetry')
+
+  const known = await runCase('known', { input_tokens: 100, output_tokens: 20 })
+  const exact = (100 * 1 + 20 * 5) / 1_000_000
+  assert.ok(known.reservedUsd > exact, 'the conservative reservation is larger than this reported actual')
+  assert.ok(Math.abs(known.ledger.usd - exact) < 1e-12, `known usage ledger ${known.ledger.usd}`)
+  assert.ok(Math.abs((known.summary.anthropic_cost_usd || 0) - exact) < 1e-12)
 })
 
 // ---- the company/size guess: every new field coerces to a safe default (model drift ≠ crash) ----
@@ -1522,7 +1979,7 @@ await check('runIngestCycle writes kind:"item" feed lines for kept AND dropped, 
   const fetchFn = (async (url: string) => {
     const u = String(url)
     if (u.includes('groq')) return res(groqBody)
-    if (u.includes('reuters.com')) return res({ articles: [
+    if (gdeltQueryHasDomain(u, 'reuters.com')) return res({ articles: [
       { url: 'https://reuters.com/x', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' },
       { url: 'https://cnbc.com/y', title: 'Columnist muses about weekend market vibes and little else', domain: 'cnbc.com', seendate: '20260612T090100Z' },
     ] })
@@ -1772,6 +2229,55 @@ await check('LOCAL primary down (box unreachable) → the batch falls through to
   assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 0, 'nothing deferred — the fallback handled it')
 })
 
+await check('LOCAL telemetry lock contention cannot throw away an already-scored one-shot item', async () => {
+  resetSharedLimiters()
+  resetBudgetMemory()
+  resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const ready = path.join(state, 'local-lock-ready')
+  const lockFile = path.join(state, 'local-budget.json.lock')
+  const holder = spawn('python3', ['-c', [
+    'import fcntl, sys, time',
+    'f = open(sys.argv[1], "a+")',
+    'fcntl.flock(f.fileno(), fcntl.LOCK_EX)',
+    'open(sys.argv[2], "w").write("ready")',
+    'time.sleep(8)',
+  ].join('\n'), lockFile, ready])
+  const deadline = Date.now() + 5_000
+  while (!fs.existsSync(ready)) {
+    if (Date.now() >= deadline) throw new Error('local budget lock holder did not become ready')
+    await new Promise((resolve) => setTimeout(resolve, 10))
+  }
+  let gdeltServed = false
+  const localTriage = { usage: { total_tokens: 512 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A 50 bps cut lowers funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('local.test')) return res(localTriage)
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{ url: 'https://reuters.com/local-lock', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  try {
+    const summary = await runIngestCycle({
+      repoRoot: root, stateDir: state, fetchFn, sleep: noSleep,
+      now: () => new Date('2026-06-12T09:30:00Z'),
+      config: { groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false, anthropicFallbackEnabled: false, localProvider: localCfg() } as any,
+    })
+    assert.equal(summary.picked, 1, 'the successful local score survives telemetry contention')
+    assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 0)
+    const inbox = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+    assert.ok(inbox.rows.some((row: any) => row.url === 'https://reuters.com/local-lock'))
+  } finally {
+    holder.kill('SIGKILL')
+    await new Promise<void>((resolve) => holder.once('close', () => resolve()))
+  }
+})
+
 // ---- a token-gated overflow provider (Cerebras) paces on its daily TOKEN cap, not just requests ----
 await check('overflow paces on the daily TOKEN cap, not just requests (token-gated free tier like Cerebras)', async () => {
   const root = tmp()
@@ -1873,7 +2379,10 @@ await check('the overflow chain advances to the next provider on a NON-terminal 
   const fetchFn = (async (url: string) => {
     const u = String(url)
     if (u.includes('groq')) return res('upstream sad', 503) // Groq down all cycle → route to the overflow chain
-    if (u.includes('cerebras.test')) { cbHits++; return res('busy', 503) } // 1st overflow: NON-terminal fail (no budget exhaust)
+    if (u.includes('cerebras.test')) {
+      cbHits++
+      return { ...res('busy', 503), headers: { get: (key: string) => key.toLowerCase() === 'retry-after' ? '9' : null } }
+    } // 1st overflow: NON-terminal fail (no budget exhaust)
     if (u.includes('mistral.test')) { mlHits++; return res(goodTriage) } // 2nd overflow: picks up the batch in the SAME cycle
     if (u.includes('gdelt') && !gdeltServed) {
       gdeltServed = true
@@ -1892,6 +2401,253 @@ await check('the overflow chain advances to the next provider on a NON-terminal 
   assert.ok(mlHits >= 1, 'the chain advanced to Mistral in the SAME batch after Cerebras 503 — not deferred to re-trap next drain')
   assert.equal(s.picked, 1, 'the item was scored via the second provider, not lost to the dead first provider')
   assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 0, 'nothing deferred — the chain advanced past the 503')
+  assert.equal(readCooldownUntil(state, 'cerebras'), Date.parse('2026-06-12T09:30:09Z'), '503 Retry-After is authoritative instead of becoming a 5→60 minute exponential hold')
+})
+
+await check('finite free tiers share backlog work by clock deficit instead of fixed first-provider order', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp()
+  let gdeltServed = false
+  const hits = { a: 0, b: 0 }
+  const good = { usage: { total_tokens: 120 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'The policy change moves funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('a.test')) { hits.a++; return res(good) }
+    if (u.includes('b.test')) { hits.b++; return res(good) }
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: Array.from({ length: 4 }, (_, i) => ({
+        url: `https://reuters.com/fair-${i}`,
+        title: `Central bank policy decision number ${i} materially changes funding costs`,
+        domain: 'reuters.com', seendate: `20260612T12000${i}Z`,
+      })) })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const provider = (id: 'a' | 'b') => ({ id, label: id.toUpperCase(), color: '--x', apiKey: 'k', baseUrl: `https://${id}.test/v1`, model: 'm', maxTokens: 900, rpm: 6000, dailyReqCap: 10, budgetFile: `${id}-budget.json` })
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, fetchFn, sleep: noSleep, now: () => new Date('2026-06-12T12:00:00Z'),
+    config: { groqApiKey: 'k', groqDailyReqCap: 0, gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false, triageBatch: 1, geminiEnabled: false, anthropicFallbackEnabled: false, freeProviderPaceFloorFrac: 0, overflowProviders: [provider('a'), provider('b')] } as any,
+  })
+  assert.deepEqual(hits, { a: 2, b: 2 }, 'the second allowance catches up after the first provider gets one batch')
+  assert.equal(summary.picked, 4)
+  assert.deepEqual(summary.provider_attempts, { a: 2, b: 2 })
+  assert.deepEqual(summary.provider_scored_batches, { a: 2, b: 2 })
+})
+
+await check('finite-pool admission is rechecked after the limiter so another workload cannot steal its released unit', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp()
+  const at = Date.parse('2026-06-12T12:00:00Z')
+  // Prime A's shared request gap. While the router waits for that slot, simulate an article/Ideas caller
+  // consuming A's sole clock-released request. The router must reselect B, not spend A ahead of schedule.
+  assert.equal(await getNamedLimiter('paced-race-a', 60, 0).acquire(0, noSleep, () => at), true)
+  let gdeltServed = false, allowanceStolen = false
+  const hits = { a: 0, b: 0 }
+  const good = { usage: { total_tokens: 120 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'The policy change moves funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('race-a.test')) { hits.a++; return res(good) }
+    if (u.includes('race-b.test')) { hits.b++; return res(good) }
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{ url: 'https://reuters.com/paced-race', title: 'Central bank policy decision materially changes funding costs', domain: 'reuters.com', seendate: '20260612T120000Z' }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const sleep = async () => {
+    if (allowanceStolen) return
+    allowanceStolen = true
+    const competing = Budget.load(state, 2, 50_000_000, at, 'paced-race-a-budget.json')
+    competing.record(1, 0)
+    competing.save()
+  }
+  const provider = (id: 'a' | 'b') => ({
+    id: `paced-race-${id}`, label: id.toUpperCase(), color: '--x', apiKey: 'k', baseUrl: `https://race-${id}.test/v1`,
+    model: 'm', maxTokens: 900, rpm: id === 'a' ? 60 : 6000, dailyReqCap: 2,
+    budgetFile: `paced-race-${id}-budget.json`, paceFloorFrac: 0,
+  })
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, fetchFn, sleep, now: () => new Date(at),
+    config: { groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40, gdeltChunkGapMs: 0, rssEnabled: false, themesEnabled: false, triageBatch: 1, geminiEnabled: false, anthropicFallbackEnabled: false, freeProviderPaceFloorFrac: 0, overflowProviders: [provider('a'), provider('b')] } as any,
+  })
+  assert.equal(allowanceStolen, true)
+  assert.deepEqual(hits, { a: 0, b: 1 }, 'A is rechecked after waiting and the still-released B tier scores instead')
+  assert.equal(summary.picked, 1)
+  assert.equal(Budget.load(state, 2, 50_000_000, at, 'paced-race-a-budget.json').requests, 1)
+})
+
+await check('finite pool falls through when the selected route cannot persist its reservation', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp()
+  // A directory at the ledger pathname makes the atomic temp-file rename fail with EISDIR. The soft
+  // canSpend hint still sees an empty allowance, so a router that merely retries null reservations will
+  // select this first route forever and never reach the healthy second provider.
+  fs.mkdirSync(path.join(state, 'broken-budget.json'))
+  let gdeltServed = false
+  const hits = { broken: 0, healthy: 0 }
+  const good = { usage: { total_tokens: 120 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'The policy change moves funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('broken.test')) { hits.broken++; throw new Error('provider request must not start without a durable reservation') }
+    if (u.includes('healthy.test')) { hits.healthy++; return res(good) }
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{
+        url: 'https://reuters.com/reservation-fallback',
+        title: 'Central bank policy decision materially changes funding costs today',
+        domain: 'reuters.com', seendate: '20260612T120000Z',
+      }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const provider = (id: 'broken' | 'healthy') => ({
+    id, label: id, color: '--x', apiKey: 'k', baseUrl: `https://${id}.test/v1`, model: 'm',
+    maxTokens: 900, rpm: 60_000, dailyReqCap: 10, budgetFile: `${id}-budget.json`, paceFloorFrac: 0,
+  })
+  // Keep the regression bounded if the no-progress loop ever returns: yielding limiter sleeps let this
+  // abort fire instead of letting repeated already-resolved awaits monopolize the microtask queue.
+  const controller = new AbortController()
+  const abortTimer = setTimeout(() => controller.abort(), 500)
+  let summary
+  try {
+    summary = await runIngestCycle({
+      repoRoot: root, stateDir: state, fetchFn,
+      sleep: (ms) => new Promise<void>((resolve) => setTimeout(resolve, Math.min(ms, 5))),
+      now: () => new Date('2026-06-12T12:00:00Z'), signal: controller.signal,
+      config: {
+        groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
+        gdeltChunkGapMs: 0, rssEnabled: false, themesEnabled: false, triageBatch: 1,
+        geminiEnabled: false, anthropicFallbackEnabled: false, freeProviderPaceFloorFrac: 0,
+        overflowProviders: [provider('broken'), provider('healthy')],
+      } as any,
+    })
+  } finally {
+    clearTimeout(abortTimer)
+  }
+  assert.equal(controller.signal.aborted, false, 'route selection made progress instead of waiting for the abort guard')
+  assert.deepEqual(hits, { broken: 0, healthy: 1 }, 'no unreserved call was sent and the healthy later route scored the batch')
+  assert.equal(summary!.picked, 1)
+  assert.deepEqual(summary!.provider_attempts, { healthy: 1 })
+  assert.equal(readCooldownUntil(state, 'broken'), 0, 'a local ledger admission failure is not a provider outage')
+  assert.equal(readCooldownUntil(state, 'triage:broken'), 0, 'a local ledger admission failure does not arm a workload hold')
+})
+
+await check('a configured overflow provider can run the ingester without a Groq key', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp()
+  let gdeltServed = false, overflowCalls = 0
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('overflow-only.test')) {
+      overflowCalls++
+      return res({ usage: { total_tokens: 120 }, choices: [{ message: { content: JSON.stringify({ items: [
+        { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'The policy change moves funding costs.', companies: [], size_bucket: 'unknown' },
+      ] }) } }] })
+    }
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{ url: 'https://reuters.com/overflow-only', title: 'Central bank policy decision materially changes funding costs today', domain: 'reuters.com', seendate: '20260612T120000Z' }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, fetchFn, sleep: noSleep, now: () => new Date('2026-06-12T12:00:00Z'),
+    config: {
+      groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40, rssEnabled: false,
+      themesEnabled: false, triageBatch: 1, geminiEnabled: false, anthropicFallbackEnabled: false,
+      overflowProviders: [{ id: 'overflow-only', label: 'Overflow only', color: '--x', apiKey: 'k', baseUrl: 'https://overflow-only.test/v1', model: 'm', maxTokens: 900, rpm: 6000, dailyReqCap: 10, budgetFile: 'overflow-only-budget.json' }],
+    } as any,
+  })
+  assert.equal(overflowCalls, 1)
+  assert.equal(summary.picked, 1)
+  assert.doesNotMatch(summary.note || '', /idle|GROQ_API_KEY/)
+})
+
+await check('an incomplete triage batch holds only that workload and immediately falls through to a useful provider', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp()
+  let gdeltServed = false, malformedCalls = 0, healthyCalls = 0
+  const good = { usage: { total_tokens: 120 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'The policy change moves funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('malformed.test')) { malformedCalls++; return res({ choices: [{ message: { content: JSON.stringify({ items: [] }) } }] }) }
+    if (u.includes('healthy.test')) { healthyCalls++; return res(good) }
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [
+        { url: 'https://reuters.com/scope-a', title: 'Central bank policy decision materially changes funding costs today', domain: 'reuters.com', seendate: '20260612T120000Z' },
+        { url: 'https://reuters.com/scope-b', title: 'Government funding decision materially changes bank liquidity today', domain: 'reuters.com', seendate: '20260612T120001Z' },
+      ] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const mk = (id: string, baseUrl: string) => ({ id, label: id, color: '--x', apiKey: 'k', baseUrl, model: 'm', maxTokens: 900, rpm: 6000, dailyReqCap: 10, budgetFile: `${id}-budget.json` })
+  const at = Date.parse('2026-06-12T12:00:00Z')
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, fetchFn, sleep: noSleep, now: () => new Date(at),
+    config: { groqApiKey: 'k', groqDailyReqCap: 0, gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false, triageBatch: 1, geminiEnabled: false, anthropicFallbackEnabled: false, overflowProviders: [mk('malformed', 'https://malformed.test/v1'), mk('healthy', 'https://healthy.test/v1')] } as any,
+  })
+  assert.equal(malformedCalls, 1, 'a deterministic malformed reply is not retried or re-picked this cycle')
+  assert.equal(healthyCalls, 2, 'the next provider scores both batches')
+  assert.equal(summary.picked, 2)
+  assert.equal(readCooldownUntil(state, 'malformed'), 0, 'article/theme/idea workloads remain eligible on this provider')
+  assert.ok(readCooldownUntil(state, 'triage:malformed') > at, 'only triage is held after its unusable response')
+})
+
+await check('triage request Retry-After and workload timeout stay triage-scoped while the next provider scores', async () => {
+  const cases: Array<{ id: string; failure: () => Promise<any>; exactUntil?: number }> = [
+    {
+      id: 'request-retry',
+      failure: async () => ({
+        ...res('private rejected-request detail', 400),
+        headers: { get: (key: string) => key.toLowerCase() === 'retry-after' ? '25' : null },
+      }),
+      exactUntil: 25_000,
+    },
+    {
+      id: 'workload-timeout',
+      failure: async () => { const e = new Error('private socket detail'); e.name = 'TimeoutError'; throw e },
+    },
+  ]
+  const at = Date.parse('2026-06-12T12:00:00Z')
+  for (const c of cases) {
+    resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+    const root = tmp(), state = tmp()
+    let gdeltServed = false, healthyCalls = 0
+    const good = { usage: { total_tokens: 120 }, choices: [{ message: { content: JSON.stringify({ items: [
+      { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'The policy change moves funding costs.', companies: [], size_bucket: 'unknown' },
+    ] }) } }] }
+    const fetchFn = (async (url: string) => {
+      const u = String(url)
+      if (u.includes(`${c.id}.test`)) return c.failure()
+      if (u.includes('healthy-scope.test')) { healthyCalls++; return res(good) }
+      if (u.includes('gdelt') && !gdeltServed) {
+        gdeltServed = true
+        return res({ articles: [{ url: `https://reuters.com/${c.id}`, title: 'Central bank policy decision materially changes funding costs today', domain: 'reuters.com', seendate: '20260612T120000Z' }] })
+      }
+      return res({ articles: [] })
+    }) as unknown as typeof fetch
+    const mk = (id: string, baseUrl: string) => ({ id, label: id, color: '--x', apiKey: 'k', baseUrl, model: 'm', maxTokens: 900, rpm: 6000, dailyReqCap: 10, budgetFile: `${id}-budget.json` })
+    const summary = await runIngestCycle({
+      repoRoot: root, stateDir: state, fetchFn, sleep: noSleep, now: () => new Date(at),
+      config: { groqApiKey: 'k', groqDailyReqCap: 0, gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false, triageBatch: 1, geminiEnabled: false, anthropicFallbackEnabled: false, overflowProviders: [mk(c.id, `https://${c.id}.test/v1`), mk('healthy-scope', 'https://healthy-scope.test/v1')] } as any,
+    })
+    assert.equal(summary.picked, 1, `${c.id}: the healthy fallback scores the batch`)
+    assert.equal(healthyCalls, 1, `${c.id}: the chain falls through in the same cycle`)
+    assert.equal(readCooldownUntil(state, c.id), 0, `${c.id}: other workloads remain eligible`)
+    const scopedUntil = readCooldownUntil(state, `triage:${c.id}`)
+    assert.ok(scopedUntil > at, `${c.id}: triage alone is held`)
+    if (c.exactUntil) assert.equal(scopedUntil, at + c.exactUntil, `${c.id}: Retry-After stays exact on the triage circuit`)
+  }
 })
 
 await check('a failed Groq batch is DEFERRED (not zero-scored-and-seen) and is scored on the next cycle from spillover', async () => {
@@ -1968,16 +2724,17 @@ await check('a sustained Groq outage arms a cross-cycle cooldown — the next cy
   // themes off so the ONLY calls to the groq URL are triage probes (the themes namer hits the same baseUrl).
   // groqCooldownMs left at the NEWS default (300s).
   const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
-    anthropicFallbackEnabled: false } as any // FREE-chain test: keep the paid last-resort tier out (own file)
+    geminiEnabled: false, overflowProviders: [], anthropicFallbackEnabled: false } as any // isolate Groq: real developer keys must not leak extra tiers into this test
   let nowMs = Date.parse('2026-06-12T09:30:00Z')
   const now = () => new Date(nowMs)
   const groqReq = () => { try { return Number(JSON.parse(fs.readFileSync(path.join(state, 'groq-budget.json'), 'utf8')).requests) || 0 } catch { return 0 } }
 
-  // cycle 1: Groq down → it IS probed once (one batch, retried once = 2 requests charged), and the failure
+  // cycle 1: Groq down → it IS probed once, then the router gives another provider the batch rather than
+  // sleeping inside a second attempt; the failure
   // arms the outage marker
   const s1 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
   assert.equal(s1.picked + s1.watched + s1.dropped, 0) // nothing scored — Groq was down
-  assert.equal(groqCalls, 2, 'cycle 1 probes the down Groq (one batch, retried once = 2 requests)')
+  assert.equal(groqCalls, 1, 'cycle 1 probes the down Groq once, then releases the cycle to fallbacks')
   const burnedAfter1 = groqReq()
   assert.ok(burnedAfter1 >= 1, 'the failed probe was charged to the daily request budget')
   assert.ok(fs.existsSync(path.join(state, 'groq-health.json')), 'the failure armed the cross-cycle cooldown marker')
@@ -1986,9 +2743,9 @@ await check('a sustained Groq outage arms a cross-cycle cooldown — the next cy
   // cycle 2: STILL inside the cooldown window (clock unchanged) → Groq is NOT probed at all. THE FIX.
   const s2 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
   assert.equal(s2.candidates, 1, 'the item IS in the triage queue this cycle (so "no Groq call" is the cooldown, not "nothing to score")')
-  assert.equal(groqCalls, 2, 'THE FIX: cycle 2 made NO Groq call while cooling down (was 2, still 2)')
+  assert.equal(groqCalls, 1, 'THE FIX: cycle 2 made NO Groq call while retry-held (was 1, still 1)')
   assert.equal(groqReq(), burnedAfter1, 'and so it burned NO more of the daily request cap')
-  assert.match(s2.note || '', /cooldown/i) // the operator sees the honest reason, not a bogus "paced" note
+  assert.match(s2.note || '', /retries held|retry window/i) // engine retry hold, never a bogus provider-quota "cooling" claim
   assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 1, 'the item is still safely deferred (never lost)')
 
   // cycle 3: clock steps PAST the cooldown AND Groq has recovered → it re-probes once, scores the spillover,
@@ -1996,9 +2753,102 @@ await check('a sustained Groq outage arms a cross-cycle cooldown — the next cy
   groqUp = true
   nowMs += 7 * 60_000 // step past the 5-min cooldown armed by cycle 1
   const s3 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
-  assert.equal(groqCalls, 3, 'cycle 3 re-probes the recovered Groq exactly once after the window lapsed')
+  assert.equal(groqCalls, 2, 'cycle 3 re-probes the recovered Groq exactly once after the window lapsed')
   assert.equal(s3.picked, 1, 'the deferred item scores as soon as Groq is healthy again')
   assert.equal(fs.existsSync(path.join(state, 'groq-health.json')), false, 'a successful probe cleared the cooldown marker')
+})
+
+await check('a provider hold armed after batch one prevents batch two from dispatching in the same cycle', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const nowMs = Date.parse('2026-06-12T09:30:00Z')
+  const goodGroq = { usage: { total_tokens: 200 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'The policy change moves funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  let gdeltServed = false
+  let groqCalls = 0
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) {
+      groqCalls++
+      if (groqCalls === 1) armCooldown(state, nowMs, 60_000, 'groq', 60_000, 'availability')
+      return res(goodGroq)
+    }
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [
+        { url: 'https://reuters.com/live-hold-a', title: 'Central bank policy change materially lowers funding costs', domain: 'reuters.com', seendate: '20260612T090000Z' },
+        { url: 'https://reuters.com/live-hold-b', title: 'Government policy decision materially raises sector costs', domain: 'reuters.com', seendate: '20260612T090100Z' },
+      ] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, fetchFn, sleep: noSleep, now: () => new Date(nowMs),
+    config: {
+      groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqRpm: 6000,
+      gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40, rssEnabled: false,
+      themesEnabled: false, triageBatch: 1, geminiEnabled: false, overflowProviders: [], anthropicFallbackEnabled: false,
+    } as any,
+  })
+  assert.equal(groqCalls, 1, 'the second batch observes the newly armed provider hold before reservation/I/O')
+  assert.equal(summary.picked, 1)
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 1, 'the held batch is durably deferred, not skipped')
+})
+
+await check('an inbox atomic-write failure leaves a scored one-shot row retryable and unseen', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const now = () => new Date('2026-06-12T09:30:00Z')
+  let gdeltServed = false
+  let providerCalls = 0
+  const goodGroq = { usage: { total_tokens: 200 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'The policy change moves funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) { providerCalls++; return res(goodGroq) }
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{
+        url: 'https://reuters.com/write-retry', title: 'Central bank policy change materially lowers funding costs',
+        domain: 'reuters.com', seendate: '20260612T090000Z',
+      }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = {
+    groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqRpm: 6000,
+    gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40, rssEnabled: false,
+    themesEnabled: false, triageBatch: 1, geminiEnabled: false, overflowProviders: [], anthropicFallbackEnabled: false,
+  } as any
+  const originalRename = fs.renameSync
+  ;(fs as any).renameSync = (from: string, to: string) => {
+    if (String(to).endsWith('2026-06-12_sweep.json')) throw Object.assign(new Error('EPERM: injected sweep rename'), { code: 'EPERM' })
+    return (originalRename as any)(from, to)
+  }
+  let failed = false
+  try {
+    await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  } catch (error: any) {
+    failed = true
+    assert.match(String(error?.message || error), /EPERM/)
+  } finally {
+    ;(fs as any).renameSync = originalRename
+  }
+  assert.equal(failed, true)
+  assert.equal(providerCalls, 1)
+  assert.equal(fs.existsSync(path.join(state, 'news-seen.json')), false, 'failed projection is not durably marked seen')
+  assert.equal(loadDeferred(state).length, 1, 'the scored one-shot row is journaled before risky projection')
+
+  const retry = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(retry.candidates, 1, 'retry comes from the durable backlog; the source delivered only once')
+  assert.equal(providerCalls, 2, 'the row is actually retried instead of suppressed by Seen')
+  assert.equal(retry.picked, 1)
+  assert.ok(fs.existsSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json')))
+  assert.equal(loadDeferred(state).length, 0)
 })
 
 // ---- #1: the cooldown is now PER-PROVIDER — an overflow provider outage stops re-probing it too ----
@@ -2051,7 +2901,13 @@ await check('readArticleBrief: a 429 arms the shared cooldown (does NOT exhaust 
   const provider = { id: 'groq', kind: 'openai', apiKey: 'k', baseUrl: 'https://groq.test', model: 'm', rpm: 6000, tpm: 0, dailyReqCap: 13000, dailyTokenCap: 500000, budgetFile: 'groq-budget.json', limiter: 'groq' }
   const body = 'The central bank cut rates by 50 basis points in a surprise off-cycle move, citing softer inflation and slowing growth across the economy.'
   let calls = 0
-  const fetchFn = (async () => { calls++; return res('rate limited', 429) }) as unknown as typeof fetch
+  const fetchFn = (async () => {
+    calls++
+    return {
+      ...res('private account acct-secret is rate limited', 429),
+      headers: { get: (key: string) => key.toLowerCase() === 'retry-after' ? '17' : null },
+    }
+  }) as unknown as typeof fetch
   const at = Date.parse('2026-06-12T09:30:00Z')
   const r1 = await readArticleBrief(body, 'RBI surprise cut', [provider] as any, { stateDir: state, fetchFn, sleep: noSleep, now: () => at, deadlineMs: at + 12_000 })
   assert.equal(calls, 1, 'the reader tries Groq once (maxAttempts:1)')
@@ -2060,12 +2916,175 @@ await check('readArticleBrief: a 429 arms the shared cooldown (does NOT exhaust 
   assert.equal(gb.requests, 1, 'a per-MINUTE 429 records ONE request — it must NOT exhaust the whole daily budget to the cap')
   assert.ok(gb.requests < 13000, 'the daily request cap is intact (the old exhaust-on-429 slammed it to 13000, blocking recovery till midnight)')
   assert.ok(fs.existsSync(path.join(state, 'groq-health.json')), 'the 429 armed the shared cross-cycle cooldown instead')
+  assert.equal(readCooldownUntil(state, 'groq'), at + 17_000, 'Retry-After sets a flat exact provider cooldown instead of an inflated exponential window')
+  assert.equal(readCooldownUntil(state, 'article:groq/m'), 0, 'a real provider rate limit is shared, not article-only')
+  assert.doesNotMatch(r1.note || '', /acct-secret/, 'the article result never exposes the provider body')
 
   // a second read while still inside the window skips Groq entirely — the heal/on-demand path no longer re-probes a down provider
   const before = calls
   const r2 = await readArticleBrief(body, 'RBI surprise cut', [provider] as any, { stateDir: state, fetchFn, sleep: noSleep, now: () => at + 5_000, deadlineMs: at + 17_000 })
   assert.equal(calls, before, 'THE FIX (#2): a cooling-down Groq is skipped by the reader — no re-probe, no burn')
   assert.equal(r2.brief, null)
+})
+
+await check('readArticleBrief rechecks a provider hold after its limiter wait', async () => {
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const state = tmp()
+  const at = Date.parse('2026-06-12T09:30:00Z')
+  const provider = { id: 'article-live', kind: 'openai', apiKey: 'k', baseUrl: 'https://article-live.test', model: 'm', rpm: 6000, tpm: 0, dailyReqCap: 45, dailyTokenCap: 500_000, budgetFile: 'article-live-budget.json', limiter: 'article-live' }
+  const limiter = getNamedLimiter('article-live', 6000, 0)
+  const originalAcquire = limiter.acquire.bind(limiter)
+  ;(limiter as any).acquire = async () => {
+    armCooldown(state, at, 60_000, 'article-live', 60_000, 'availability')
+    return true
+  }
+  let calls = 0
+  try {
+    const result = await readArticleBrief(
+      'The central bank cut rates by 50 basis points in a surprise off-cycle move, citing softer inflation and slowing growth across the economy.',
+      'RBI surprise cut', [provider] as any,
+      { stateDir: state, fetchFn: (async () => { calls++; return res({}) }) as unknown as typeof fetch, sleep: noSleep, now: () => at, deadlineMs: at + 12_000 },
+    )
+    assert.equal(calls, 0, 'a hold learned during limiter wait blocks provider I/O')
+    assert.equal(result.attempted, false)
+    assert.equal(fs.existsSync(path.join(state, 'article-live-budget.json')), false, 'no stale reservation is charged')
+  } finally {
+    ;(limiter as any).acquire = originalAcquire
+  }
+})
+
+await check('readArticleBrief: request/contract/short-timeout failures stay article-scoped; service failures stay shared', async () => {
+  const body = 'The central bank cut rates by 50 basis points in a surprise off-cycle move, citing softer inflation and slowing growth across the economy.'
+  const at = Date.parse('2026-06-12T09:30:00Z')
+  const cases: Array<{
+    id: string
+    fetchFn: typeof fetch
+    expectedScope: 'article' | 'shared'
+  }> = [
+    {
+      id: 'request-shape', expectedScope: 'article',
+      fetchFn: (async () => ({
+        ...res('private account acct-request details', 400),
+        headers: { get: (key: string) => key.toLowerCase() === 'retry-after' ? '25' : null },
+      })) as unknown as typeof fetch,
+    },
+    {
+      id: 'access', expectedScope: 'shared',
+      fetchFn: (async () => res('private account access details', 401)) as unknown as typeof fetch,
+    },
+    {
+      id: 'contract', expectedScope: 'article',
+      fetchFn: (async () => res({ choices: [{ finish_reason: 'stop', message: { content: 'not json' } }] })) as unknown as typeof fetch,
+    },
+    {
+      id: 'short-timeout', expectedScope: 'article',
+      fetchFn: (async () => { const e = new Error('private socket detail'); e.name = 'TimeoutError'; throw e }) as unknown as typeof fetch,
+    },
+    {
+      id: 'service', expectedScope: 'shared',
+      fetchFn: (async () => res('private upstream deployment id', 503)) as unknown as typeof fetch,
+    },
+    {
+      id: 'network', expectedScope: 'shared',
+      fetchFn: (async () => { throw new Error('private DNS host detail') }) as unknown as typeof fetch,
+    },
+  ]
+
+  for (const c of cases) {
+    resetBudgetMemory()
+    resetCooldownMemory()
+    resetSharedLimiters()
+    const state = tmp()
+    const provider = {
+      id: c.id, kind: 'openai', apiKey: 'k', baseUrl: `https://${c.id}.test`, model: 'model-a',
+      rpm: 6000, tpm: 0, dailyReqCap: 45, dailyTokenCap: 500_000,
+      budgetFile: `${c.id}-budget.json`, limiter: c.id,
+    }
+    const result = await readArticleBrief(body, 'RBI surprise cut', [provider] as any, {
+      stateDir: state, fetchFn: c.fetchFn, sleep: noSleep, now: () => at,
+      deadlineMs: at + 12_000, cooldownMs: 30_000, cooldownMaxMs: 120_000,
+    })
+    const articleId = `article:${c.id}/model-a`
+    assert.equal(readCooldownUntil(state, articleId) > at, c.expectedScope === 'article', `${c.id}: article circuit scope`)
+    assert.equal(readCooldownUntil(state, c.id) > at, c.expectedScope === 'shared', `${c.id}: shared circuit scope`)
+    if (c.id === 'request-shape') assert.equal(readCooldownUntil(state, articleId), at + 25_000, 'request Retry-After stays exact on the article circuit')
+    assert.doesNotMatch(result.note || '', /acct-request|deployment id|DNS host|socket detail/, `${c.id}: public note is sanitized`)
+    const saved = JSON.parse(fs.readFileSync(path.join(state, `${c.id}-budget.json`), 'utf8'))
+    assert.equal(Boolean(saved.exhausted), false, `${c.id}: only an explicit daily-limit signal may exhaust the shared provider day`)
+  }
+})
+
+await check('readArticleBrief honors Retry-After on a 503 instead of inflating it to exponential minutes', async () => {
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const state = tmp()
+  const at = Date.parse('2026-06-12T09:30:00Z')
+  const provider = { id: 'retry-503', kind: 'openai', apiKey: 'k', baseUrl: 'https://retry.test', model: 'm', rpm: 6000, tpm: 0, dailyReqCap: 45, dailyTokenCap: 500_000, budgetFile: 'retry-503-budget.json', limiter: 'retry-503' }
+  const fetchFn = (async () => ({
+    ...res('private outage detail', 503),
+    headers: { get: (key: string) => key.toLowerCase() === 'retry-after' ? '9' : null },
+  })) as unknown as typeof fetch
+  await readArticleBrief(
+    'The central bank cut rates by 50 basis points in a surprise off-cycle move, citing softer inflation and slowing growth across the economy.',
+    'RBI surprise cut', [provider] as any,
+    { stateDir: state, fetchFn, sleep: noSleep, now: () => at, deadlineMs: at + 12_000, cooldownMs: 300_000, cooldownMaxMs: 3_600_000 },
+  )
+  assert.equal(readCooldownUntil(state, 'retry-503'), at + 9_000)
+  assert.equal(readCooldownUntil(state, 'article:retry-503/m'), 0, 'provider-declared availability reopening is shared, not article-contract scoped')
+})
+
+await check('readArticleBrief: a successful article response clears shared and workload-scoped markers', async () => {
+  resetBudgetMemory()
+  resetCooldownMemory()
+  resetSharedLimiters()
+  const state = tmp()
+  const at = Date.parse('2026-06-12T09:30:00Z')
+  const provider = {
+    id: 'recovering', kind: 'openai', apiKey: 'k', baseUrl: 'https://recovering.test', model: 'model-a',
+    rpm: 6000, tpm: 0, dailyReqCap: 45, dailyTokenCap: 500_000,
+    budgetFile: 'recovering-budget.json', limiter: 'recovering',
+  }
+  const articleId = 'article:recovering/model-a'
+  // Both markers have elapsed, so a recovery probe is allowed; success must delete both stale files and
+  // reset both fail counters, not merely make their timestamps old.
+  armCooldown(state, at - 2_000, 1_000, 'recovering', 1_000, 'availability')
+  armCooldown(state, at - 2_000, 1_000, articleId, 1_000, 'article-contract')
+  const content = JSON.stringify({ gist: ['The central bank cut rates by 50 basis points.'], companies: [], beneficiaries: [], exposed: [], theme: 'macro_sector' })
+  const result = await readArticleBrief(
+    'The central bank cut rates by 50 basis points in a surprise off-cycle move, citing softer inflation and slowing growth across the economy.',
+    'RBI surprise cut',
+    [provider] as any,
+    { stateDir: state, fetchFn: (async () => res({ choices: [{ finish_reason: 'stop', message: { content } }], usage: { total_tokens: 100 } })) as unknown as typeof fetch, sleep: noSleep, now: () => at, deadlineMs: at + 12_000 },
+  )
+  assert.ok(result.brief)
+  assert.deepEqual(cooldownInfo(state, 'recovering'), { until: 0, fails: 0 })
+  assert.deepEqual(cooldownInfo(state, articleId), { until: 0, fails: 0 })
+})
+
+await check('background article healing obeys daily release schedules and falls through to released capacity', async () => {
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const state = tmp()
+  const at = Date.parse('2026-06-12T00:10:00Z')
+  const firstBudget = Budget.load(state, 10, 500_000, at, 'first-paced-budget.json')
+  firstBudget.record(1, 100); firstBudget.save() // the one whole call released this early is already used
+  const provider = (id: string) => ({
+    id, kind: 'openai', apiKey: 'k', baseUrl: `https://${id}.test`, model: 'm', rpm: 6000, tpm: 0,
+    dailyReqCap: 10, dailyTokenCap: 500_000, budgetFile: `${id}-paced-budget.json`, limiter: id,
+    paceMeter: 'requests', paceCap: 10, paceFloorFrac: 0,
+  })
+  const hits = { first: 0, second: 0 }
+  const content = JSON.stringify({ gist: ['The central bank cut rates by 50 basis points.'], companies: [], beneficiaries: [], exposed: [], theme: 'macro_sector' })
+  const fetchFn = (async (url: string) => {
+    if (String(url).includes('first.test')) hits.first++
+    if (String(url).includes('second.test')) hits.second++
+    return res({ choices: [{ finish_reason: 'stop', message: { content } }], usage: { total_tokens: 100 } })
+  }) as unknown as typeof fetch
+  const result = await readArticleBrief(
+    'The central bank cut rates by 50 basis points in a surprise off-cycle move, citing softer inflation and slowing growth across the economy.',
+    'RBI surprise cut', [provider('first'), provider('second')] as any,
+    { stateDir: state, fetchFn, sleep: noSleep, now: () => at, deadlineMs: at + 12_000, paceDailyAllowances: true },
+  )
+  assert.ok(result.brief)
+  assert.deepEqual(hits, { first: 0, second: 1 }, 'background work cannot drain the first tier past schedule and immediately uses the next released allowance')
 })
 
 await check('article reads reserve the full prompt/output bound near cap for OpenAI and Gemini providers', async () => {
@@ -2145,10 +3164,33 @@ await check('readArticleBrief: a body too thin to read never contacts the provid
   const fullBody = 'The central bank cut rates by 50 basis points in a surprise off-cycle move, citing softer inflation and slowing growth across the economy.'
   const content = JSON.stringify({ gist: ['The central bank cut rates by 50 basis points.'], companies: [], beneficiaries: [], exposed: [], theme: 'macro_sector' })
   const realFetch = (async () => { realCalls++; return res({ choices: [{ finish_reason: 'stop', message: { content } }], usage: { total_tokens: 100 } }) }) as unknown as typeof fetch
-  const r3 = await readArticleBrief(fullBody, 'RBI surprise cut', [provider] as any, { stateDir: state, fetchFn: realFetch, sleep: noSleep, now: () => at + 1_000, deadlineMs: at + 13_000, limiterWaitMs: 0 })
+  const liveNow = at + 2_000
+  const r3 = await readArticleBrief(fullBody, 'RBI surprise cut', [provider] as any, { stateDir: state, fetchFn: realFetch, sleep: noSleep, now: () => liveNow, deadlineMs: liveNow + 13_000, limiterWaitMs: 0 })
   assert.equal(realCalls, 1, 'repeated thin reads did not consume the shared limiter slot')
   assert.ok(r3.brief)
   assert.equal(r3.attempted, true)
+})
+
+await check('readArticleBrief: corrupt usage authority needs attention, never masquerades as a daily cap', async () => {
+  resetBudgetMemory()
+  const state = tmp()
+  fs.writeFileSync(path.join(state, 'groq-budget.json'), '{"date":"2026-06-12","requests":')
+  const provider = { id: 'groq', kind: 'openai', apiKey: 'k', baseUrl: 'https://groq.test', model: 'm', rpm: 6000, tpm: 0, dailyReqCap: 13_000, dailyTokenCap: 500_000, budgetFile: 'groq-budget.json', limiter: 'groq', maxTokens: 500 }
+  let calls = 0
+  const result = await readArticleBrief(
+    'The central bank cut rates by 50 basis points in a surprise off-cycle move, citing softer inflation and slower growth across the economy.',
+    'RBI surprise cut', [provider] as any,
+    {
+      stateDir: state,
+      fetchFn: (async () => { calls++; return res({}) }) as unknown as typeof fetch,
+      sleep: noSleep,
+      now: () => Date.parse('2026-06-12T09:30:00Z'),
+      deadlineMs: Date.parse('2026-06-12T09:30:20Z'),
+    },
+  )
+  assert.equal(calls, 0)
+  assert.match(result.note || '', /usage record needs attention/i)
+  assert.doesNotMatch(result.note || '', /daily budget reached/i)
 })
 
 await check('article reservation reconciliation cannot reopen a concurrently exhausted provider day', async () => {
@@ -2156,19 +3198,35 @@ await check('article reservation reconciliation cannot reopen a concurrently exh
   resetSharedLimiters()
   const state = tmp()
   const budgetFile = 'article-exhaust-budget.json'
+  const at = Date.parse('2026-06-12T09:30:00Z')
+  const seeded = Budget.load(state, 5, 500_000, at, budgetFile)
+  seeded.record(2, 160)
+  seeded.save()
   const provider = { id: 'article-exhaust', kind: 'openai', apiKey: 'k', baseUrl: 'https://groq.test', model: 'm', rpm: 0, tpm: 0, dailyReqCap: 5, dailyTokenCap: 500_000, budgetFile, limiter: 'article-exhaust' }
   const body = 'The central bank cut rates by 50 basis points in a surprise off-cycle move, citing softer inflation and slowing growth across the economy.'
   const brief = JSON.stringify({ gist: ['The central bank cut rates by 50 basis points.'], companies: [], beneficiaries: [], exposed: [], theme: 'macro_sector' })
   const fetchFn = (async () => {
-    Budget.load(state, 5, 500_000, Date.now(), budgetFile).exhaust()
+    Budget.load(state, 5, 500_000, at, budgetFile).exhaust()
     return res({ choices: [{ finish_reason: 'stop', message: { content: brief } }], usage: { total_tokens: 100 } })
   }) as unknown as typeof fetch
-  const result = await readArticleBrief(body, 'RBI surprise cut', [provider] as any, { stateDir: state, fetchFn, sleep: noSleep, deadlineMs: Date.now() + 20_000 })
+  const result = await readArticleBrief(body, 'RBI surprise cut', [provider] as any, { stateDir: state, fetchFn, sleep: noSleep, now: () => at, deadlineMs: at + 20_000 })
   assert.ok(result.brief)
-  const ledger = Budget.load(state, 5, 500_000, Date.now(), budgetFile)
+  const saved = JSON.parse(fs.readFileSync(path.join(state, budgetFile), 'utf8'))
+  assert.equal(saved.requests, 3, 'provider-day exhaustion does not forge the configured request cap')
+  assert.equal(saved.tokens, 260, 'the concurrent reservation still reconciles to actual reported usage')
+  assert.equal(saved.providerDayExhausted, true, 'the provider-day reason is persisted explicitly')
+  assert.equal(saved.exhausted, true, 'the rolling-deploy gate remains for older engine processes')
+  const ledger = Budget.load(state, 5, 500_000, at, budgetFile)
   assert.equal(ledger.canSpend(1), false)
+  assert.equal(ledger.requests, 3, 'diagnostics retain actual recorded requests')
+  assert.equal(ledger.tokens, 260, 'diagnostics retain actual recorded tokens')
+  assert.equal(ledger.providerDayExhausted, true)
   assert.equal(ledger.remainingRequests, 0)
   assert.equal(ledger.remainingTokens, 0)
+  const nextDay = Budget.load(state, 5, 500_000, at + 26 * 60 * 60_000, budgetFile)
+  assert.equal(nextDay.providerDayExhausted, false, 'the explicit provider-day marker resets with the provider day')
+  assert.equal(nextDay.requests, 0)
+  assert.equal(nextDay.tokens, 0)
 })
 
 // ---- P2 fix (PR #223 review): readArticleBrief must honor the CALLER-supplied cooldownMs/cooldownMaxMs
@@ -2285,9 +3343,13 @@ await check('free brains exhausted → the subscription tier SCORES the batch in
   let cliCalls = 0
   const claudeCliRunner = async () => {
     cliCalls++
+    const inFlight = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
+    assert.ok(inFlight.usd > 0, 'the configured subscription per-call max is durably charged before spawn')
+    assert.equal(Object.keys(inFlight.reservations || {}).length, 1)
     return {
       text: JSON.stringify({ items: [{ i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A 50 bps cut lowers funding costs.', companies: [], size_bucket: 'unknown' }] }),
       costUsd: 0.006,
+      costUsdKnown: true,
     }
   }
   const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
@@ -2304,16 +3366,247 @@ await check('free brains exhausted → the subscription tier SCORES the batch in
   // and the $ ledger persisted what it spent, so a restart cannot reset the ceiling
   const led = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
   assert.ok(Math.abs(led.usd - 0.006) < 1e-9, `ledger usd ${led.usd}`)
+  assert.equal(Object.keys(led.reservations || {}).length, 0, 'actual cost replaced the in-flight estimate')
 })
 
-await check('daily $ ceiling reached → the tier stands down and the batch DEFERS (the operator\'s hard bound)', async () => {
+await check('subscription retry reserves two call bounds, then records only the exact known cost', async () => {
+  resetSharedLimiters()
+  resetBudgetMemory()
+  resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  let gdeltServed = false
+  const fetchFn = (async (url: string) => {
+    if (String(url).includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{
+        url: 'https://reuters.com/subscription-retry',
+        title: 'Central bank unexpectedly changes policy rates and bank funding costs',
+        domain: 'reuters.com', seendate: '20260612T090000Z',
+      }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  let cliCalls = 0
+  const claudeCliRunner = async () => {
+    cliCalls++
+    const inFlight = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
+    assert.equal(inFlight.usd, 0.20, 'both possible $0.10 calls are reserved before provider I/O')
+    if (cliCalls === 1) return { text: 'not json', costUsd: 0.01, costUsdKnown: true }
+    return {
+      text: JSON.stringify({ items: [{ i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A rate change moves bank funding costs.', companies: [], size_bucket: 'unknown' }] }),
+      costUsd: 0.02,
+      costUsdKnown: true,
+    }
+  }
+  const cfg = {
+    groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
+    rssEnabled: false, themesEnabled: false, localProvider: null, overflowProviders: [], geminiEnabled: false,
+    anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 0.20,
+    anthropicPerCallUsd: 0.10, anthropicRpm: 6000, anthropicMinPriority: 0,
+  } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+
+  const summary = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, claudeCliRunner })
+  assert.equal(cliCalls, 2, 'the exact-cost malformed first response gets one useful retry')
+  assert.equal(summary.anthropic_requests, 2, 'the meter counts both provider processes')
+  assert.equal(summary.picked, 1)
+  assert.ok(Math.abs((summary.anthropic_cost_usd ?? 0) - 0.03) < 1e-12)
+  const ledger = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
+  assert.ok(Math.abs(ledger.usd - 0.03) < 1e-12, 'the unused part of the two-call envelope is released')
+  assert.equal(ledger.calls, 2)
+  assert.equal(Object.keys(ledger.reservations || {}).length, 0)
+})
+
+await check('subscription valid zero-cost telemetry keeps one conservative dispatched-call bound', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp()
+  let gdeltServed = false, cliCalls = 0, reservedUsd = 0
+  const fetchFn = (async (url: string) => {
+    if (String(url).includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{
+        url: 'https://reuters.com/subscription-zero-cost',
+        title: 'Central bank unexpectedly changes policy rates and bank funding costs',
+        domain: 'reuters.com', seendate: '20260612T090000Z',
+      }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const claudeCliRunner = async () => {
+    cliCalls++
+    reservedUsd = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8')).usd
+    return {
+      text: JSON.stringify({ items: [{ i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'Rate change moves bank funding costs.', companies: [], size_bucket: 'unknown' }] }),
+      costUsd: 0, costUsdKnown: true,
+    }
+  }
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, fetchFn, sleep: noSleep, now: () => new Date('2026-06-12T09:30:00Z'), claudeCliRunner,
+    config: {
+      groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
+      rssEnabled: false, themesEnabled: false, localProvider: null, overflowProviders: [], geminiEnabled: false,
+      anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 1,
+      anthropicPerCallUsd: 0.10, anthropicRpm: 6000, anthropicMinPriority: 0,
+    } as any,
+  })
+  assert.equal(cliCalls, 1)
+  assert.equal(summary.picked, 1)
+  assert.equal(reservedUsd, 0.20, 'two attempts are admitted atomically before provider I/O')
+  assert.equal(summary.anthropic_cost_usd, 0.10)
+  const ledger = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
+  assert.equal(ledger.usd, 0.10, 'a real completion keeps one call bound but releases the unused retry')
+})
+
+await check('subscription near its daily ceiling still gets one safe call, never an unfunded retry', async () => {
+  resetSharedLimiters()
+  resetBudgetMemory()
+  resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  fs.mkdirSync(state, { recursive: true })
+  fs.writeFileSync(path.join(state, 'anthropic-triage-budget.json'), JSON.stringify({
+    date: '2026-06-12', usd: 0.05, calls: 1,
+  }))
+  let gdeltServed = false
+  const fetchFn = (async (url: string) => {
+    if (String(url).includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{
+        url: 'https://reuters.com/subscription-one-call-left',
+        title: 'Central bank unexpectedly changes policy rates and bank funding costs',
+        domain: 'reuters.com', seendate: '20260612T090000Z',
+      }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  let cliCalls = 0
+  const claudeCliRunner = async () => {
+    cliCalls++
+    return { text: 'not json', costUsd: 0.01, costUsdKnown: true }
+  }
+  const cfg = {
+    groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
+    rssEnabled: false, themesEnabled: false, localProvider: null, overflowProviders: [], geminiEnabled: false,
+    anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 0.15,
+    anthropicPerCallUsd: 0.10, anthropicRpm: 6000, anthropicMinPriority: 0,
+  } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+
+  const summary = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, claudeCliRunner })
+  assert.equal(cliCalls, 1, 'one-call headroom remains useful')
+  assert.equal(summary.picked + summary.watched + summary.dropped, 0)
+  const ledger = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
+  assert.ok(Math.abs(ledger.usd - 0.06) < 1e-12)
+})
+
+await check('subscription unknown-cost single dispatch releases the unused retry envelope', async () => {
+  resetSharedLimiters()
+  resetBudgetMemory()
+  resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  let gdeltServed = false
+  let cliCalls = 0
+  const fetchFn = (async (url: string) => {
+    if (String(url).includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{
+        url: 'https://reuters.com/subscription-unknown-one-of-two',
+        title: 'Central bank unexpectedly changes policy rates and bank funding costs',
+        domain: 'reuters.com', seendate: '20260612T090000Z',
+      }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const claudeCliRunner = async () => {
+    cliCalls++
+    return { text: 'not json', costUsd: 0, costUsdKnown: false }
+  }
+  const cfg = {
+    groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
+    rssEnabled: false, themesEnabled: false, localProvider: null, overflowProviders: [], geminiEnabled: false,
+    anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 0.20,
+    anthropicPerCallUsd: 0.10, anthropicRpm: 6000, anthropicMinPriority: 0,
+  } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+
+  const summary = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, claudeCliRunner })
+  assert.equal(cliCalls, 1, 'unknown cost prevents the second attempt from dispatching')
+  assert.equal(summary.anthropic_requests, 1)
+  assert.equal(summary.anthropic_cost_usd, 0.10, 'only the one dispatched call retains its conservative bound')
+  const ledger = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
+  assert.equal(ledger.usd, 0.10, 'the unused retry envelope is released at reconciliation')
+  assert.equal(UsdBudget.load(state, 0.20, now().getTime(), 'anthropic-triage-budget.json').canSpend(0.10), true,
+    'the remaining exact one-call headroom stays usable')
+})
+
+await check('subscription abort with unknown cost keeps the conservative $ reservation and closes further admission', async () => {
+  resetSharedLimiters()
+  resetBudgetMemory()
+  resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const controller = new AbortController()
+  let gdeltServed = false
+  let cliCalls = 0
+  let reservedUsd = 0
+  const fetchFn = (async (url: string) => {
+    if (String(url).includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{
+        url: 'https://reuters.com/subscription-unknown-cost',
+        title: 'Central bank unexpectedly changes policy rates and bank funding costs',
+        domain: 'reuters.com', seendate: '20260612T090000Z',
+      }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const claudeCliRunner = async () => {
+    cliCalls++
+    const inFlight = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
+    reservedUsd = inFlight.usd
+    assert.equal(Object.keys(inFlight.reservations || {}).length, 1)
+    controller.abort(new DOMException('cycle ended', 'AbortError'))
+    // Exact production shape when the child is cancelled before a result/total_cost_usd event arrives.
+    return { text: '', costUsd: 0, costUsdKnown: false, error: 'claude cli: cycle aborted' }
+  }
+  const cfg = {
+    groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
+    rssEnabled: false, themesEnabled: false, localProvider: null, overflowProviders: [], geminiEnabled: false,
+    anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 0.25,
+    anthropicPerCallUsd: 0.25, anthropicRpm: 6000, anthropicMinPriority: 0,
+  } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+
+  const first = await runIngestCycle({
+    repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now,
+    signal: controller.signal, claudeCliRunner,
+  })
+  assert.equal(cliCalls, 1)
+  assert.equal(first.aborted, true)
+  assert.equal(first.anthropic_requests, 1)
+  assert.equal(first.anthropic_cost_usd, reservedUsd, 'summary reports the same conservative charge as the hard ledger')
+  const ledger = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
+  assert.equal(ledger.usd, reservedUsd, 'unknown in-flight cost cannot refund the dispatched call to $0')
+  assert.equal(ledger.usd, 0.25)
+  assert.equal(Object.keys(ledger.reservations || {}).length, 0, 'the conservative charge is finalized, not left in flight')
+
+  // The retained bound reaches this test's daily ceiling. A later cycle sees the deferred row but cannot
+  // dispatch another subscription call, proving repeated unknown-cost calls cannot bypass the governor.
+  await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, claudeCliRunner })
+  assert.equal(cliCalls, 1, 'the hard daily ceiling blocks a second call after the uncertain first dispatch')
+})
+
+await check('daily $ ceiling cannot fit the next max-cost call → the tier stands down before provider I/O', async () => {
   resetSharedLimiters()
   resetCooldownMemory()
   const root = tmp()
   const state = tmp()
-  // pre-spend today's ceiling, exactly as an earlier cycle would have left it
+  // Leave $0.05 under the ceiling. The configured per-call maximum is $0.10, so a soft post-call ledger
+  // would overshoot here; authoritative reservation must refuse before spawning the CLI.
   fs.mkdirSync(state, { recursive: true })
-  fs.writeFileSync(path.join(state, 'anthropic-triage-budget.json'), JSON.stringify({ date: new Date('2026-06-12T09:30:00Z').toISOString().slice(0, 10), usd: 5, calls: 800 }))
+  fs.writeFileSync(path.join(state, 'anthropic-triage-budget.json'), JSON.stringify({ date: new Date('2026-06-12T09:30:00Z').toISOString().slice(0, 10), usd: 4.95, calls: 800 }))
   let gdeltServed = false
   const fetchFn = (async (url: string) => {
     const u = String(url)
@@ -2325,13 +3618,13 @@ await check('daily $ ceiling reached → the tier stands down and the batch DEFE
     return res({ articles: [] })
   }) as unknown as typeof fetch
   let cliCalls = 0
-  const claudeCliRunner = async () => { cliCalls++; return { text: '{"items":[]}', costUsd: 0.006 } }
+  const claudeCliRunner = async () => { cliCalls++; return { text: '{"items":[]}', costUsd: 0.006, costUsdKnown: true } }
   const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
-    overflowProviders: [], anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 5, anthropicRpm: 6000, anthropicMinPriority: 0 } as any
+    overflowProviders: [], anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 5, anthropicPerCallUsd: 0.10, anthropicRpm: 6000, anthropicMinPriority: 0 } as any
   const now = () => new Date('2026-06-12T09:30:00Z')
 
   const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, claudeCliRunner })
-  assert.equal(cliCalls, 0, 'the ceiling was already spent → NOT one more call')
+  assert.equal(cliCalls, 0, 'the final $0.05 cannot admit a max-$0.10 call')
   assert.equal(s.picked + s.watched + s.dropped, 0, 'nothing scored')
   assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 1, 'the item defers, exactly as before the tier existed')
 })
@@ -2349,7 +3642,7 @@ await check('plan usage limit → the batch defers AND a cross-cycle cooldown st
   }) as unknown as typeof fetch
   let cliCalls = 0
   // the plan's own 5-hour/weekly quota is spent — the CLI reports it and we must back off, not hammer
-  const claudeCliRunner = async () => { cliCalls++; return { text: '', costUsd: 0, error: 'claude cli: usage limit reached — plan quota spent' } }
+  const claudeCliRunner = async () => { cliCalls++; return { text: '', costUsd: 0, costUsdKnown: true, error: 'claude cli: usage limit reached — plan quota spent' } }
   const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
     overflowProviders: [], anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 5, anthropicRpm: 6000, anthropicMinPriority: 0 } as any
   let nowMs = Date.parse('2026-06-12T09:30:00Z')
@@ -2389,8 +3682,8 @@ await check('expired sign-in → the $ ceiling is NOT falsely burned, and the ti
   const claudeCliRunner = async () => {
     cliCalls++
     return signedIn
-      ? { text: '[{"i":0,"relevance":"material","materiality_pre_score":84,"issuer_linkage":"macro","why":"a 50 bps cut lowers funding costs"}]', costUsd: 0.004 }
-      : { text: '', costUsd: 0, error: 'claude cli: HTTP 401 — Failed to authenticate. API Error: 401 OAuth access token has expired. Re-authenticate to continue.' }
+      ? { text: '[{"i":0,"relevance":"material","materiality_pre_score":84,"issuer_linkage":"macro","why":"a 50 bps cut lowers funding costs"}]', costUsd: 0.004, costUsdKnown: true }
+      : { text: '', costUsd: 0, costUsdKnown: true, error: 'claude cli: HTTP 401 — Failed to authenticate. API Error: 401 OAuth access token has expired. Re-authenticate to continue.' }
   }
   const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
     overflowProviders: [], anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 5, anthropicRpm: 6000, anthropicMinPriority: 0 } as any
@@ -2427,43 +3720,138 @@ await check('expired sign-in → the $ ceiling is NOT falsely burned, and the ti
   assert.equal(readCooldownUntil(state, 'anthropic-triage'), 0, 'the marker is cleared once the tier recovers')
 })
 
-// The recoverable read above is SUBSCRIPTION-MODE ONLY (`claude login` fixes an expired OAuth token on the
-// host). In API mode a 401 means the metered key itself is bad/expired/revoked — `claude login` does nothing
-// for that — so it must stay on the terminal path: exhaust the day's $ ledger, same as any other terminal 4xx.
-// Regression guard for the PR #430 review fix (Gemini + Codex both flagged isAuthExpiredNote firing on ANY
-// 401 regardless of mode).
-await check('api-mode 401 (bad key) → stays TERMINAL, exhausts the $ ceiling, never reads as auth-expired', async () => {
+// Anthropic API failures must follow the same reason-scoped retry contract as the free providers. A normal
+// 429 is a window, 503 is availability, and 401 is provider access; none proves the whole dollar day was
+// spent. All three are provider-wide and an explicit 25-minute Retry-After must persist exactly — neither
+// collapsed to the old 60-second transient hold nor inflated by the exponential breaker.
+await check('Anthropic API 429/503/access persist an exact shared 25m hold without burning the dollar day', async () => {
+  for (const c of [
+    { label: 'rate limit', status: 429 },
+    { label: 'availability', status: 503 },
+    { label: 'access', status: 401 },
+  ]) {
+    resetSharedLimiters()
+    resetBudgetMemory()
+    resetCooldownMemory()
+    const root = tmp()
+    const state = tmp()
+    let anthropicCalls = 0
+    const fetchFn = (async (url: string) => {
+      const u = String(url)
+      if (u.includes('gdelt')) return res({ articles: [{ url: `https://reuters.com/anthropic-${c.status}`, title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+      if (u.includes('anthropic')) {
+        anthropicCalls++
+        return {
+          ...res(`private account detail for ${c.label}`, c.status),
+          headers: { get: (key: string) => key.toLowerCase() === 'retry-after' ? '1500' : null },
+        }
+      }
+      return res({ articles: [] })
+    }) as unknown as typeof fetch
+    const cfg = {
+      groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
+      rssEnabled: false, themesEnabled: false, localProvider: null, overflowProviders: [], geminiEnabled: false,
+      anthropicFallbackEnabled: true, anthropicFallbackMode: 'api', anthropicApiKey: 'k', anthropicBaseUrl: 'https://api.anthropic.test',
+      anthropicDailyUsd: 5, anthropicRpm: 6000, anthropicMinPriority: 0,
+    } as any
+    let nowMs = Date.parse('2026-06-12T09:30:00Z')
+    const now = () => new Date(nowMs)
+
+    const s1 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+    assert.equal(anthropicCalls, 1, `${c.label}: one paid-provider attempt`)
+    assert.equal(s1.picked + s1.watched + s1.dropped, 0, `${c.label}: failed batch remains unscored`)
+    assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 1, `${c.label}: item is deferred, not lost`)
+    assert.equal(readCooldownUntil(state, 'anthropic-triage'), nowMs + 1_500_000, `${c.label}: persisted provider hold is the exact 25-minute Retry-After`)
+    assert.equal(readCooldownUntil(state, 'triage:anthropic-triage'), 0, `${c.label}: provider-wide evidence does not become workload-only`)
+    const ledger = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
+    assert.equal(ledger.exhausted, undefined, `${c.label}: no explicit daily signal, so the dollar day stays open`)
+    assert.ok(ledger.usd < 5, `${c.label}: a generic HTTP failure must not falsely consume the $5 ceiling`)
+    assert.doesNotMatch(s1.note || '', /private account detail/, `${c.label}: upstream account text is never exposed`)
+
+    nowMs += 60_000
+    await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+    assert.equal(anthropicCalls, 1, `${c.label}: a second cycle inside Retry-After does not re-probe or spend`)
+  }
+})
+
+await check('Anthropic API request/contract/timeout failures stay on the triage workload circuit', async () => {
+  for (const c of [
+    { label: 'request', expectedMs: 11_000 },
+    { label: 'contract', expectedMs: 60_000 },
+    { label: 'timeout', expectedMs: 60_000 },
+  ]) {
+    resetSharedLimiters()
+    resetBudgetMemory()
+    resetCooldownMemory()
+    const root = tmp()
+    const state = tmp()
+    let anthropicCalls = 0
+    const fetchFn = (async (url: string) => {
+      const u = String(url)
+      if (u.includes('gdelt')) return res({ articles: [{ url: `https://reuters.com/anthropic-${c.label}`, title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+      if (u.includes('anthropic')) {
+        anthropicCalls++
+        if (c.label === 'request') return { ...res('private request detail', 400), headers: { get: (key: string) => key.toLowerCase() === 'retry-after' ? '11' : null } }
+        if (c.label === 'timeout') throw Object.assign(new Error('timed out'), { name: 'TimeoutError' })
+        return res({ content: [{ type: 'text', text: '{"items":[]}' }], usage: { input_tokens: 100, output_tokens: 10 }, stop_reason: 'end_turn' })
+      }
+      return res({ articles: [] })
+    }) as unknown as typeof fetch
+    const cfg = {
+      groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
+      rssEnabled: false, themesEnabled: false, localProvider: null, overflowProviders: [], geminiEnabled: false,
+      anthropicFallbackEnabled: true, anthropicFallbackMode: 'api', anthropicApiKey: 'k', anthropicBaseUrl: 'https://api.anthropic.test',
+      anthropicDailyUsd: 5, anthropicRpm: 6000, anthropicMinPriority: 0, anthropicTransientCooldownMs: 60_000,
+    } as any
+    let nowMs = Date.parse('2026-06-12T09:30:00Z')
+    const now = () => new Date(nowMs)
+
+    await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+    assert.equal(anthropicCalls, 1, `${c.label}: one provider attempt`)
+    assert.equal(readCooldownUntil(state, 'anthropic-triage'), 0, `${c.label}: workload evidence cannot sideline a shared provider circuit`)
+    assert.equal(readCooldownUntil(state, 'triage:anthropic-triage'), nowMs + c.expectedMs, `${c.label}: persisted hold has the correct workload-local clock`)
+    const ledger = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
+    assert.equal(ledger.exhausted, undefined, `${c.label}: workload failure does not close the dollar day`)
+
+    nowMs += 5_000
+    await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+    assert.equal(anthropicCalls, 1, `${c.label}: workload marker gates the next cycle without another paid call`)
+  }
+})
+
+await check('Anthropic API explicit requests-day exhaustion is the only HTTP signal that closes the dollar ledger', async () => {
   resetSharedLimiters()
+  resetBudgetMemory()
   resetCooldownMemory()
   const root = tmp()
   const state = tmp()
+  let anthropicCalls = 0
   const fetchFn = (async (url: string) => {
     const u = String(url)
-    if (u.includes('groq')) return res('upstream sad', 503)
-    if (u.includes('gdelt')) return res({ articles: [{ url: 'https://reuters.com/apikey', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
-    // the metered API key is revoked — same HTTP shape (401 + "authenticate"-free body) the CLI's expired
-    // OAuth token produces, but this is the Anthropic Messages API in 'api' mode, not the subscription CLI
-    if (u.includes('anthropic')) return res('authentication_error: invalid x-api-key', 401)
+    if (u.includes('gdelt')) return res({ articles: [{ url: 'https://reuters.com/anthropic-day-cap', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    if (u.includes('anthropic')) {
+      anthropicCalls++
+      return {
+        ...res('private quota detail', 429),
+        headers: { get: (key: string) => ({ 'retry-after': '1500', 'x-ratelimit-remaining-requests-day': '0' } as Record<string, string>)[key.toLowerCase()] ?? null },
+      }
+    }
     return res({ articles: [] })
   }) as unknown as typeof fetch
-  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
-    overflowProviders: [], anthropicFallbackEnabled: true, anthropicFallbackMode: 'api', anthropicApiKey: 'bad-key', anthropicBaseUrl: 'https://api.anthropic.test',
-    anthropicDailyUsd: 5, anthropicRpm: 6000, anthropicMinPriority: 0 } as any
-  let nowMs = Date.parse('2026-06-12T09:30:00Z')
-  const now = () => new Date(nowMs)
+  const cfg = {
+    groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
+    rssEnabled: false, themesEnabled: false, localProvider: null, overflowProviders: [], geminiEnabled: false,
+    anthropicFallbackEnabled: true, anthropicFallbackMode: 'api', anthropicApiKey: 'k', anthropicBaseUrl: 'https://api.anthropic.test',
+    anthropicDailyUsd: 5, anthropicRpm: 6000, anthropicMinPriority: 0,
+  } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
 
-  const s1 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
-  assert.equal(s1.picked + s1.watched + s1.dropped, 0, 'nothing scored — the key is bad')
-  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 1, 'the item is kept, not lost')
-  assert.notEqual(s1.last_resort, 'auth-expired', "a bad API key must never read as the recoverable sign-in state")
-  // the day's $ ledger IS force-marked spent — this is the correct terminal response, unchanged by the PR
+  await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(anthropicCalls, 1)
   const ledger = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
-  assert.ok(ledger.usd >= 5, `terminal 401 in api mode must exhaust the ceiling (got usd=${ledger.usd} of 5)`)
-
-  // and the ceiling being spent must suppress the very next cycle's call — the normal usd-cap behavior
-  nowMs += 30_000
-  const s2 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
-  assert.equal(s2.last_resort, 'usd-cap', 'next cycle reads the exhausted ledger as the ordinary $ ceiling, not auth-expired')
+  assert.equal(ledger.exhausted, true, 'the explicit day-zero signal closes admission durably')
+  assert.ok(ledger.usd >= 5)
+  assert.equal(readCooldownUntil(state, 'anthropic-triage'), 0, 'daily exhaustion uses the ledger, not a misleading transient cooldown')
 })
 
 // ---- end-to-end transparency: the defer note is honest about EVERY blocker, not just Groq ----
@@ -2483,7 +3871,7 @@ await check('the cycle summary carries the transparency fields (fresh/carryover/
     return res({ articles: [] })
   }) as unknown as typeof fetch
   const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
-    overflowProviders: [], anthropicFallbackEnabled: false } as any
+    geminiEnabled: false, overflowProviders: [], anthropicFallbackEnabled: false } as any
   const now = () => new Date('2026-06-12T09:30:00Z')
 
   const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
@@ -2520,9 +3908,9 @@ await check('honest defer note: Groq cooling + Haiku last-resort OFF names BOTH 
   // cycle 2: Groq is skipped (cooling), nothing else absorbs the batch → the note must name the cooldown AND the off fallback
   nowMs += 30_000
   const s2 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
-  assert.equal(s2.defer_reason, 'groq-cooldown', 'structured reason is the Groq cooldown')
+  assert.equal(s2.defer_reason, 'provider-retry-held', 'structured reason is the engine retry hold')
   assert.equal(s2.last_resort, 'off')
-  assert.match(s2.note || '', /Groq in failure cooldown/i)
+  assert.match(s2.note || '', /provider retries held after errors/i)
   assert.match(s2.note || '', /Haiku last-resort is off/i, 'the note no longer hides that the fallback was unavailable — the whole point')
 })
 
@@ -2543,14 +3931,96 @@ await check('honest defer note: Groq cooling + Haiku at its $50 ceiling names th
     return res({ articles: [] })
   }) as unknown as typeof fetch
   const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
-    overflowProviders: [], anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 50 } as any
+    geminiEnabled: false, overflowProviders: [], anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 50 } as any
   const now = () => new Date(nowMs)
 
   const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
-  assert.equal(s.defer_reason, 'groq-cooldown')
+  assert.equal(s.defer_reason, 'provider-retry-held')
   assert.equal(s.last_resort, 'usd-cap', 'the fallback is correctly reported at its $ ceiling')
-  assert.match(s.note || '', /Groq in failure cooldown/i)
+  assert.match(s.note || '', /provider retries held after errors/i)
   assert.match(s.note || '', /\$50\/day ceiling/i, 'the note surfaces the raised $50 Haiku ceiling as the second blocker')
+})
+
+await check('honest defer note: damaged free and USD ledgers need attention, never masquerade as spent caps', async () => {
+  resetSharedLimiters()
+  resetBudgetMemory()
+  resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  fs.mkdirSync(state, { recursive: true })
+  fs.writeFileSync(path.join(state, 'groq-budget.json'), '{"date":"2026-06-12","requests":1')
+  fs.writeFileSync(path.join(state, 'anthropic-triage-budget.json'), '{"date":"2026-06-12","usd":')
+  let providerCalls = 0
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('gdelt')) return res({ articles: [{ url: 'https://reuters.com/ledger-damage', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    if (u.includes('groq') || u.includes('anthropic')) providerCalls++
+    return res({ items: [] })
+  }) as unknown as typeof fetch
+  const cfg = {
+    groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test',
+    groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
+    localProvider: null, geminiEnabled: false, overflowProviders: [],
+    anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 5,
+    anthropicPerCallUsd: 0.10, anthropicRpm: 6000, anthropicMinPriority: 0,
+  } as any
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep,
+    now: () => new Date('2026-06-12T09:30:00Z'),
+    claudeCliRunner: async () => { providerCalls++; return { text: '{"items":[]}', costUsd: 0, costUsdKnown: true } },
+  })
+  assert.equal(providerCalls, 0, 'unreadable authorities fail closed before every scoring provider')
+  assert.equal(summary.defer_reason, 'usage-ledger-unavailable')
+  assert.equal(summary.last_resort, 'unavailable', 'a corrupt USD ledger is not called a spent $ ceiling')
+  assert.match(summary.note || '', /usage records need attention/i)
+  assert.doesNotMatch(summary.note || '', /allowances cannot fit|provider-day reset|\$5\/day ceiling/i)
+})
+
+await check('honest defer note: a busy USD authority needs attention, never masquerades as the $ ceiling', async () => {
+  resetSharedLimiters()
+  resetBudgetMemory()
+  resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const ready = path.join(state, 'usd-lock-ready')
+  const lockFile = path.join(state, 'anthropic-triage-budget.json.lock')
+  const holder = spawn('python3', ['-c', [
+    'import fcntl, sys, time',
+    'f = open(sys.argv[1], "a+")',
+    'fcntl.flock(f.fileno(), fcntl.LOCK_EX)',
+    'open(sys.argv[2], "w").write("ready")',
+    'time.sleep(8)',
+  ].join('\n'), lockFile, ready])
+  const deadline = Date.now() + 5_000
+  while (!fs.existsSync(ready)) {
+    if (Date.now() >= deadline) throw new Error('USD lock holder did not become ready')
+    await new Promise((resolve) => setTimeout(resolve, 10))
+  }
+  let cliCalls = 0
+  const fetchFn = (async (url: string) => String(url).includes('gdelt')
+    ? res({ articles: [{ url: 'https://reuters.com/usd-lock', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    : res({ articles: [] })) as unknown as typeof fetch
+  try {
+    const summary = await runIngestCycle({
+      repoRoot: root, stateDir: state, fetchFn, sleep: noSleep,
+      now: () => new Date('2026-06-12T09:30:00Z'),
+      claudeCliRunner: async () => { cliCalls++; return { text: '{"items":[]}', costUsd: 0.01, costUsdKnown: true } },
+      config: {
+        groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
+        rssEnabled: false, themesEnabled: false, localProvider: null, overflowProviders: [], geminiEnabled: false,
+        anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 1,
+        anthropicPerCallUsd: 0.10, anthropicRpm: 6000, anthropicMinPriority: 0,
+      } as any,
+    })
+    assert.equal(cliCalls, 0)
+    assert.equal(summary.defer_reason, 'usage-ledger-unavailable')
+    assert.equal(summary.last_resort, 'unavailable')
+    assert.match(summary.note || '', /usage record needs attention/i)
+    assert.doesNotMatch(summary.note || '', /\$1\/day ceiling|free-budget-spent/i)
+  } finally {
+    holder.kill('SIGKILL')
+    await new Promise<void>((resolve) => holder.once('close', () => resolve()))
+  }
 })
 
 // A shared setup for the Haiku-classification cases: Groq is down all cycle so triage falls to the last
@@ -2565,7 +4035,7 @@ async function runToHaikuFailure(cliError: string, state: string, root: string, 
   const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
     overflowProviders: [], anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 50,
     anthropicTransientCooldownMs: 60_000, llmCooldownMs: 300_000, llmCooldownMaxMs: 3_600_000, anthropicMinPriority: 0 } as any
-  const claudeCliRunner = async () => ({ text: '', costUsd: 0, error: cliError })
+  const claudeCliRunner = async () => ({ text: '', costUsd: 0, costUsdKnown: true, error: cliError })
   return runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now: () => new Date(nowMs), claudeCliRunner })
 }
 
@@ -2673,6 +4143,13 @@ await check('tierHealth: disabled → cooling → budget-spent → paced precede
   assert.equal(tierHealth(true, 0, false, false), 'healthy')
 })
 
+await check('Gemini pool reports a provider day limit only when every model bucket reported it', async () => {
+  assert.equal(geminiPoolProviderDayExhausted(0, 2), false)
+  assert.equal(geminiPoolProviderDayExhausted(1, 2), false, 'one closed model rotates to the still-eligible model')
+  assert.equal(geminiPoolProviderDayExhausted(2, 2), true)
+  assert.equal(geminiPoolProviderDayExhausted(0, 0), false, 'an absent pool never invents quota evidence')
+})
+
 await check('anthropicDrainReady: the drain gate counts the Haiku last-resort (enabled + not cooling + under the $ ceiling)', async () => {
   // The reported stall: on an overload day the free tiers are budget-spent, so the OLD drain gate returned
   // false and the frequent backlog drain never ran — even though the Haiku last-resort still had budget and
@@ -2682,6 +4159,8 @@ await check('anthropicDrainReady: the drain gate counts the Haiku last-resort (e
   assert.equal(anthropicDrainReady(true, true, 10, 50), false, 'in a cross-cycle failure cooldown → backing off, cannot take work')
   assert.equal(anthropicDrainReady(true, false, 50, 50), false, 'at its daily $ ceiling → spent')
   assert.equal(anthropicDrainReady(true, false, 60, 50), false, 'past the ceiling → spent')
+  assert.equal(anthropicDrainReady(true, false, 49.95, 50, Infinity, 0, 0.10), false, 'remaining dollars cannot fit the next conservative call → no zero-progress drain')
+  assert.equal(anthropicDrainReady(true, false, 49.90, 50, Infinity, 0, 0.10), true, 'an exactly fitting final call remains usable')
 })
 
 await check('anthropicDrainReady: respects the priority floor — Haiku-only headroom is false when the WHOLE backlog is sub-floor (no-progress-loop fix, PR #316 Codex P2)', async () => {
@@ -2727,6 +4206,38 @@ await check('getNewsDiagnostics: enumerates every tier in routing order, with th
   assert.equal(typeof d.backlog.nearLimit, 'boolean')
   for (const k of ['active', 'reason', 'plainNote', 'lastResort', 'blockingTiers'] as const) assert.ok(k in d.defer, `defer.${k} present`)
   assert.ok(Array.isArray(d.defer.blockingTiers))
+})
+
+await check('getNewsDiagnostics labels a provider-reported day limit separately and leaves actual meter counters intact', async () => {
+  if (!NEWS.overflowProviders.length) return
+  resetBudgetMemory()
+  const p = NEWS.overflowProviders[0]
+  const day = p.dayTz
+    ? new Intl.DateTimeFormat('en-CA', { timeZone: p.dayTz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(Date.now())
+    : new Date().toISOString().slice(0, 10)
+  const file = path.join(STATE_DIR, p.budgetFile)
+  let prior: string | null = null
+  try { prior = fs.readFileSync(file, 'utf8') } catch { /* no prior ledger */ }
+  try {
+    fs.mkdirSync(STATE_DIR, { recursive: true })
+    fs.writeFileSync(file, JSON.stringify({ date: day, requests: 16, tokens: 320, exhausted: true, providerDayExhausted: true }))
+    const d = getNewsDiagnostics()
+    const t = d.tiers.find((tier) => tier.id === p.id)
+    assert.ok(t)
+    assert.equal(t!.requestsToday, 16, 'diagnostics show recorded requests, not the configured request cap')
+    assert.equal(t!.tokensToday, 320, 'diagnostics show recorded tokens, not a synthetic cap')
+    assert.equal(t!.providerDayExhausted, true)
+    assert.equal(
+      d.defer.providerDayExhaustedTiers.includes(p.id),
+      t!.spendingAllowed !== false,
+      'the shared blocker list is actionable only while an engine owner is active',
+    )
+    assert.equal(d.defer.allowanceExhaustedTiers.includes(p.id), false, 'provider signal and engine allowance are disjoint reason groups')
+  } finally {
+    if (prior == null) fs.rmSync(file, { force: true })
+    else fs.writeFileSync(file, prior)
+    resetBudgetMemory()
+  }
 })
 
 console.log(`\n${passed} checks passed`)

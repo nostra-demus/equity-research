@@ -18,7 +18,7 @@
 //     one honest free-tier accounting and never collectively bust a quota.
 // Never throws. Returns the first usable brief, or null (→ the caller synthesises the floor).
 
-import { Budget, armCooldown, clearCooldown, conservativeChatTokenBound, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown } from './budget'
+import { Budget, armCooldown, clearCooldown, conservativeChatTokenBound, dailyQuotaAdmission, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown, rateInfoForLimiter } from './budget'
 import { ARTICLE_SYSTEM, analyzeArticle, articleMaxOutputTokens, buildArticleUserMessage, isArticleBodyEligible, type ArticleBrief } from './groq'
 import { analyzeArticleGemini } from './gemini'
 
@@ -49,6 +49,12 @@ export interface ArticleReadProvider {
   dayTz?: string
   headers?: Record<string, string>
   extraBody?: Record<string, unknown>
+  // Background repair/discovery uses the same clock-released daily envelopes as title triage. Interactive
+  // reads deliberately ignore this pacer (but still honor hard caps) because a human is waiting now.
+  paceMeter?: 'requests' | 'tokens'
+  paceCap?: number
+  paceFloorFrac?: number
+  requestRemainingHeaderIsDaily?: boolean
   // which process-wide limiter to share with the ingester: 'groq' | 'gemini' | <named overflow id>
   limiter: 'groq' | 'gemini' | string
 }
@@ -63,6 +69,7 @@ export interface ArticleReadDeps {
   cooldownMs?: number // base cross-cycle cooldown window armed on a provider failure (default COOLDOWN_MS)
   cooldownMaxMs?: number // exponential-backoff cap for the cooldown window (default COOLDOWN_MAX_MS)
   perCallTimeoutMs?: number // hard ceiling for a single provider HTTP call (default 9000, clamped to the deadline)
+  paceDailyAllowances?: boolean // background-only: preserve each provider's all-day release schedule
   log?: (m: string) => void
 }
 
@@ -84,6 +91,22 @@ export function articleReadTokenBound(body: string, headline: string, maxTokens?
   return conservativeChatTokenBound(ARTICLE_SYSTEM, buildArticleUserMessage(body, headline), articleMaxOutputTokens(maxTokens))
 }
 
+function backgroundPacedFit(
+  enabled: boolean | undefined, provider: ArticleReadProvider, budget: Budget, tokenCost: number, at: number, requestCap?: number,
+): boolean {
+  if (!enabled || !provider.paceMeter) return true
+  const meter = provider.paceMeter
+  return dailyQuotaAdmission({
+    id: provider.id,
+    meter,
+    used: meter === 'tokens' ? budget.tokens : budget.requests,
+    cap: requestCap ?? provider.paceCap ?? (meter === 'tokens' ? provider.dailyTokenCap : provider.dailyReqCap),
+    cost: meter === 'tokens' ? tokenCost : 1,
+    resetTimeZone: provider.dayTz,
+    floorFraction: provider.paceFloorFrac,
+  }, at).pacedFit
+}
+
 // A brief "has content" when it carries real signal — gist bullets, named firms, a beneficiary/exposed
 // read, a genuine news_impact verdict (analyst_takeaway is only non-empty when the LLM actually read
 // the article; coerceNewsImpact defaults it to "" on a missing/malformed block), OR a plain-English `story`
@@ -96,6 +119,64 @@ export function articleReadTokenBound(body: string, headline: string, maxTokens?
 // it still falls through as "no usable brief".
 function hasContent(b: ArticleBrief): boolean {
   return !!(b.gist.length || b.companies.length || b.beneficiaries.length || b.exposed.length || b.news_impact?.analyst_takeaway || b.story)
+}
+
+/** A provider/model can be healthy for short title triage yet unable to satisfy the much larger article
+ * contract. Keep those failures on an article-only circuit so they do not strand the provider's remaining
+ * daily capacity for every other workload. */
+function articleCooldownId(providerId: string, model: string): string {
+  return `article:${providerId}/${model}`
+}
+
+function sharedAccessStatus(status?: number): boolean {
+  return status != null && [401, 402, 403, 404].includes(status)
+}
+
+function articleFailureIsProviderWide(result: Awaited<ReturnType<typeof analyzeArticle>>): boolean {
+  return result.failureKind === 'rate_limit'
+    || (result.failureKind === 'availability' && !result.timedOut)
+    || sharedAccessStatus(result.httpStatus)
+}
+
+function armArticleFailure(
+  stateDir: string,
+  at: number,
+  sharedId: string,
+  articleId: string,
+  result: Awaited<ReturnType<typeof analyzeArticle>>,
+  cooldownMs: number,
+  cooldownMaxMs: number,
+): void {
+  if (result.attempted === false || result.dailyLimit) return
+  const providerWide = articleFailureIsProviderWide(result)
+  const scopedReason = result.timedOut ? 'article-timeout' : result.failureKind === 'request' ? 'article-request' : 'article-contract'
+  if (result.rate?.retryAfterMs != null && Number.isFinite(result.rate.retryAfterMs)) {
+    // Retry-After is the provider's explicit reopening time. Keep this window flat (base=max) rather
+    // than exponentially inflating a precise server instruction on every independently queued read. Some
+    // providers attach it to temporary 503s as well as 429s, so the header wins over the broad class.
+    const retryMs = Math.max(0, Math.round(result.rate.retryAfterMs))
+    const reason = providerWide
+      ? result.failureKind === 'rate_limit' ? 'rate-limit' : sharedAccessStatus(result.httpStatus) ? 'provider-access' : 'availability'
+      : scopedReason
+    if (retryMs > 0) armCooldown(stateDir, at, retryMs, providerWide ? sharedId : articleId, retryMs, reason)
+    return
+  }
+  if (result.failureKind === 'rate_limit') {
+    armCooldown(stateDir, at, cooldownMs, sharedId, cooldownMaxMs, 'rate-limit')
+    return
+  }
+  if (sharedAccessStatus(result.httpStatus)) {
+    armCooldown(stateDir, at, cooldownMs, sharedId, cooldownMaxMs, 'provider-access')
+    return
+  }
+  if (result.failureKind === 'availability' && !result.timedOut) {
+    // A real service/network outage affects every workload, so the process-wide provider circuit applies.
+    armCooldown(stateDir, at, cooldownMs, sharedId, cooldownMaxMs, 'availability')
+    return
+  }
+  // Contract drift, a bad article request shape, and this reader's deliberately short timeout say nothing
+  // about title triage health. Cool only this provider/model's article workload.
+  armCooldown(stateDir, at, cooldownMs, articleId, cooldownMaxMs, scopedReason)
 }
 
 /**
@@ -129,7 +210,9 @@ export async function readArticleBrief(
     // (the `<id>-health.json` marker is shared). Stops an opened event / the auto-heal pass from re-probing
     // a known-down provider and re-charging its daily budget on failures (the audit's ungated-drain hole).
     // The Gemini pool cools PER MODEL, so its check lives inside that branch below.
+    const openAiArticleCoolId = articleCooldownId(p.id, p.model)
     if (p.kind !== 'gemini' && isCoolingDown(deps.stateDir, p.id, now())) { lastNote = `${p.id} cooling down after a recent failure — skipped`; continue }
+    if (p.kind !== 'gemini' && isCoolingDown(deps.stateDir, openAiArticleCoolId, now())) { lastNote = `${p.id} article reader cooling down after a recent failure — skipped`; continue }
 
     // a single provider call must fit inside what's left of the deadline (minus the limiter-wait slice).
     // The 7s default is generous for Groq/Gemini-flash-lite (they answer in 1-3s) yet trims a stuck free
@@ -149,62 +232,85 @@ export async function readArticleBrief(
       for (const m of pool) {
         if (now() >= deadline) break
         const coolId = `${p.id}:${m.model}` // per-model cooldown id, shared with the ingester's Gemini pool
+        const articleCoolId = articleCooldownId(p.id, m.model)
         if (isCoolingDown(deps.stateDir, coolId, now())) { lastNote = `${coolId} cooling down after a recent failure — skipped`; continue }
+        if (isCoolingDown(deps.stateDir, articleCoolId, now())) { lastNote = `${coolId} article reader cooling down after a recent failure — skipped`; continue }
         const file = p.budgetFile.replace('{model}', m.model.replace(/[^a-z0-9]+/gi, '-'))
         const budget = Budget.load(deps.stateDir, m.dailyReqCap, p.dailyTokenCap, now(), file, p.dayTz)
-        if (!budget.canSpend(perAttemptTokens)) { lastNote = `${p.id}:${m.model} daily budget reached`; continue }
+        if (!budget.canSpend(perAttemptTokens)) {
+          lastNote = budget.ledgerAvailable
+            ? `${p.id}:${m.model} daily budget reached`
+            : `${p.id}:${m.model} usage record needs attention`
+          continue
+        }
+        if (!backgroundPacedFit(deps.paceDailyAllowances, p, budget, perAttemptTokens, now(), m.dailyReqCap)) { lastNote = `${p.id}:${m.model} engine allowance paced`; continue }
         const got = await limiter.acquire(EST_TOKENS, sleep, now, waitBudget())
         if (!got) { lastNote = `${p.id} rate-limited — skipped`; break } // shared minute window busy → next provider
-        const reservation = budget.tryReserve(perAttemptTokens)
-        if (!reservation) { lastNote = `${p.id}:${m.model} daily budget reached`; continue }
+        if (isCoolingDown(deps.stateDir, coolId, now()) || isCoolingDown(deps.stateDir, articleCoolId, now())) {
+          lastNote = `${coolId} retry held after a recent failure — skipped`
+          continue
+        }
+        if (!backgroundPacedFit(deps.paceDailyAllowances, p, budget, perAttemptTokens, now(), m.dailyReqCap)) { lastNote = `${p.id}:${m.model} engine allowance paced`; continue }
+        const reservation = budget.tryReserve(perAttemptTokens, undefined, now())
+        if (!reservation) {
+          lastNote = budget.lastReserveFailure === 'authority_unavailable'
+            ? `${p.id}:${m.model} usage record needs attention`
+            : `${p.id}:${m.model} daily budget reached`
+          continue
+        }
+        const attemptStartedAt = now()
         const r = await analyzeArticleGemini(body, headline, { model: m.model, baseUrl: p.baseUrl, apiKey: p.apiKey, maxTokens: p.maxTokens, timeoutMs: callTimeout, maxAttempts: 1 }, fetchFn, sleep)
         const requests = r.attempted === false ? 0 : 1
         if (requests) attempted = true // only a real provider call consumes the caller's read-attempt allowance
         budget.reconcile(reservation, requests, requests ? (r.tokens || perAttemptTokens) : 0)
-        limiter.learn(r.rate, now)
+        limiter.learn(rateInfoForLimiter(r.rate, r.brief != null || articleFailureIsProviderWide(r)), now)
         if (r.brief) {
-          clearCooldown(deps.stateDir, coolId) // this model answered → healthy, drop any marker
+          clearCooldown(deps.stateDir, coolId, attemptStartedAt) // do not erase a newer concurrent failure
+          clearCooldown(deps.stateDir, articleCoolId, attemptStartedAt)
           if (hasContent(r.brief)) { log(`article read via ${p.id}:${m.model}`); return { brief: r.brief, provider: `${p.id}:${m.model}`, attempted } }
           lastNote = `${p.id}:${m.model}: boilerplate article — no usable brief`; break // healthy but empty → next provider, don't penalise
         }
         lastNote = r.note || `${p.id}:${m.model} returned no usable brief`
-        if (r.note && /PerDay/i.test(r.note)) { budget.exhaust(); budget.save(); continue } // this model's day is spent → next pool model
-        // only a REAL provider-call failure (429/5xx/network) marks this model unhealthy. r.attempted === false
-        // means analyzeArticleGemini short-circuited BEFORE any network call (no key, or the body too thin to
-        // ever feed an LLM) — that says nothing about the provider's health and must not arm its cooldown (the
-        // #219-adjacent bug: a single thin article would otherwise sideline a perfectly healthy provider).
-        if (r.attempted !== false) armCooldown(deps.stateDir, now(), cooldownMs, coolId, cooldownMaxMs)
+        if (r.dailyLimit) { budget.exhaust(); budget.save(); continue } // this model's day is spent → next pool model
+        armArticleFailure(deps.stateDir, now(), coolId, articleCoolId, r, cooldownMs, cooldownMaxMs)
         break // a non-quota miss: don't churn the pool — fall through to the next provider
       }
     } else {
       const budget = Budget.load(deps.stateDir, p.dailyReqCap, p.dailyTokenCap, now(), p.budgetFile, p.dayTz)
-      if (!budget.canSpend(perAttemptTokens)) { lastNote = `${p.id} daily budget reached`; continue }
+      if (!budget.canSpend(perAttemptTokens)) {
+        lastNote = budget.ledgerAvailable ? `${p.id} daily budget reached` : `${p.id} usage record needs attention`
+        continue
+      }
+      if (!backgroundPacedFit(deps.paceDailyAllowances, p, budget, perAttemptTokens, now())) { lastNote = `${p.id} engine allowance paced`; continue }
       const got = await limiter.acquire(EST_TOKENS, sleep, now, waitBudget())
       if (!got) { lastNote = `${p.id} rate-limited — skipped`; continue } // minute window busy → next provider
-      const reservation = budget.tryReserve(perAttemptTokens)
-      if (!reservation) { lastNote = `${p.id} daily budget reached`; continue }
-      const r = await analyzeArticle(body, headline, { model: p.model, models: p.models, baseUrl: p.baseUrl, apiKey: p.apiKey, maxTokens: p.maxTokens, headers: p.headers, extraBody: p.extraBody, timeoutMs: callTimeout, maxAttempts: 1 }, fetchFn, sleep)
+      if (isCoolingDown(deps.stateDir, p.id, now()) || isCoolingDown(deps.stateDir, openAiArticleCoolId, now())) {
+        lastNote = `${p.id} retry held after a recent failure — skipped`
+        continue
+      }
+      if (!backgroundPacedFit(deps.paceDailyAllowances, p, budget, perAttemptTokens, now())) { lastNote = `${p.id} engine allowance paced`; continue }
+      const reservation = budget.tryReserve(perAttemptTokens, undefined, now())
+      if (!reservation) {
+        lastNote = budget.lastReserveFailure === 'authority_unavailable'
+          ? `${p.id} usage record needs attention`
+          : `${p.id} daily budget reached`
+        continue
+      }
+      const attemptStartedAt = now()
+      const r = await analyzeArticle(body, headline, { model: p.model, models: p.models, baseUrl: p.baseUrl, apiKey: p.apiKey, maxTokens: p.maxTokens, headers: p.headers, extraBody: p.extraBody, timeoutMs: callTimeout, maxAttempts: 1, requestRemainingHeaderIsDaily: p.id === 'groq' || p.requestRemainingHeaderIsDaily === true }, fetchFn, sleep)
       const requests = r.attempted === false ? 0 : 1
       if (requests) attempted = true // a thin/no-key preflight skip must never freeze future enrichment
       budget.reconcile(reservation, requests, requests ? (r.tokens || perAttemptTokens) : 0)
-      limiter.learn(r.rate, now)
+      limiter.learn(rateInfoForLimiter(r.rate, r.brief != null || articleFailureIsProviderWide(r)), now)
       if (r.brief) {
-        clearCooldown(deps.stateDir, p.id) // the provider ANSWERED (even a content-less brief = healthy) → drop any marker
+        clearCooldown(deps.stateDir, p.id, attemptStartedAt) // do not erase a newer concurrent failure
+        clearCooldown(deps.stateDir, openAiArticleCoolId, attemptStartedAt)
         if (hasContent(r.brief)) { log(`article read via ${p.id}`); return { brief: r.brief, provider: p.id, attempted } }
         lastNote = `${p.id}: boilerplate article — no usable brief` // healthy, just nothing to read → try the next, don't penalise
       } else {
         lastNote = r.note || `${p.id} returned no usable brief`
-        // a terminal 4xx (auth / out-of-credits / quota) won't recover today — exhaust the daily budget so the
-        // chain skips this provider across reads until the daily reset, exactly like the ingester does. A 429 is
-        // a PER-MINUTE rate limit, NOT per-day exhaustion: exhausting on it slammed the whole daily budget to the
-        // cap on ONE failed read and blocked triage's own recovery until UTC midnight (the #219 audit finding) —
-        // so a 429 / 5xx / network arms the shared cross-cycle cooldown instead (transient, backs off, self-clears).
-        // r.attempted === false means analyzeArticle short-circuited BEFORE any network call (no key, or the
-        // body too thin to ever feed an LLM) — never arm the cooldown on that: nothing about the provider
-        // failed, so marking it unhealthy would wrongly sideline it for the whole window on a single thin
-        // article (the P1 twin of the #219 audit finding, this time for the pre-flight path).
-        if (/HTTP (400|401|402|403|404|413)/.test(r.note || '')) { budget.exhaust(); budget.save() }
-        else if (r.attempted !== false) armCooldown(deps.stateDir, now(), cooldownMs, p.id, cooldownMaxMs)
+        if (r.dailyLimit) { budget.exhaust(); budget.save(); continue }
+        armArticleFailure(deps.stateDir, now(), p.id, openAiArticleCoolId, r, cooldownMs, cooldownMaxMs)
       }
     }
   }

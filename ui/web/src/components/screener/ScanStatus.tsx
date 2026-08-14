@@ -87,8 +87,7 @@ export function ScanStatus({ variant }: { variant: 'rail' | 'panel' }) {
         <span className="scanstat__live" aria-live="polite">{liveLine}</span>
       </div>
 
-      {/* LOCAL primary brain — the live token readout, right where the counters are. It is the unlimited $0
-          model carrying the whole scan; when the box is offline this flips to a warning (on capped fallback). */}
+      {/* Local is tried first and has no daily cap. A retry hold proves only that the last call failed. */}
       {status.local && (() => {
         const l = status.local
         const down = l.health === 'cooling' || (l.cooldownRemainingMs ?? 0) > 0
@@ -96,14 +95,14 @@ export function ScanStatus({ variant }: { variant: 'rail' | 'panel' }) {
           <div
             className={`scanstat__local${down ? ' scanstat__local--down' : ''}`}
             title={down
-              ? `Local primary brain (${l.model}) is offline — the box is asleep or unreachable, so the scan is running on the capped cloud fallback. Bring it back and it resumes carrying the whole scan, unlimited and $0.`
-              : `Local primary brain (${l.model}) — the unlimited, $0 model scoring the whole scan first, ahead of every cloud and paid tier. ${l.tokens.toLocaleString()} tokens over ${l.requests.toLocaleString()} requests today, no cap.`}
+              ? `The last local call (${l.model}) failed. This app will try again shortly and may use a cloud provider meanwhile.`
+              : `Local model (${l.model}) — tried first, free, with no daily limit. ${l.tokens.toLocaleString()} tokens over ${l.requests.toLocaleString()} requests today.`}
           >
             <span className="scanstat__localdot" data-tone={down ? 'bad' : 'live'} aria-hidden />
             {down ? (
-              <span>Local brain <b>offline</b> — on capped fallback, check the box</span>
+              <span>Local provider · <b>waiting to try again</b></span>
             ) : (
-              <span>Local brain · <b>{l.tokens.toLocaleString()}</b> tokens today · {l.requests.toLocaleString()} reqs<span className="scanstat__localinf"> · unlimited</span></span>
+              <span>Local provider · <b>{l.tokens.toLocaleString()}</b> tokens today · {l.requests.toLocaleString()} calls<span className="scanstat__localinf"> · no daily limit</span></span>
             )}
           </div>
         )
@@ -146,7 +145,7 @@ export function ScanStatus({ variant }: { variant: 'rail' | 'panel' }) {
                 <span className="scanstat__logbody">
                   read {c.fetched.toLocaleString()} · kept {c.picked + c.watched} · dropped {c.dropped.toLocaleString()}
                   {c.phase === 'drain' ? ' · backlog' : ''}
-                  {c.local_tokens ? <span className="scanstat__loglocal"> · local {ktok(c.local_tokens)} tok</span> : c.local_down ? <span className="scanstat__loglocal scanstat__loglocal--down"> · local offline</span> : ''}
+                  {c.local_tokens ? <span className="scanstat__loglocal"> · local {ktok(c.local_tokens)} tok</span> : c.local_down ? <span className="scanstat__loglocal scanstat__loglocal--down"> · local call failed</span> : ''}
                 </span>
               </div>
             ))}

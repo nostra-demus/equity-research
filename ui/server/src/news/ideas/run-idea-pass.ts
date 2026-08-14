@@ -1,23 +1,29 @@
-// The orchestrator: read the top-N -> first eligible provider in the existing free chain -> persist the
-// ideas -> refresh the board. It runs after triage so it reads the freshest ranked wire, but can flow around
-// a spent/busy tier instead of going dark behind it. Two cheap guards keep it from starving core triage:
-//   - CHANGE DETECTION: it only spends when the top-N event set actually shifts (a hash), or once every
+// The orchestrator: read every current eligible row, choose the next bounded provider chunk -> local/Groq
+// quality path, then the reset-clock-balanced free pool ->
+// persist the ideas -> refresh the board. It runs after triage so it reads the freshest ranked wire, but can
+// flow around a spent/busy tier instead of going dark behind it. Two cheap guards keep it from starving core triage:
+//   - CHANGE DETECTION: it only spends when an uncovered input chunk exists, or once every
 //     `refreshSec` as a heartbeat — a per-cycle call (288×/day) would blow the 500k token budget alone.
 //   - INTERVAL FLOOR: never more often than `minIntervalSec`, so even a churny wire can't hammer it.
 // It reuses every tier's exact budget file, limiter, and provider cooldown — never a parallel budget lane
 // (the :8799 double-count lesson). Ideas-contract errors use an idea-scoped cooldown so they cannot sideline
 // healthy core triage. The whole provider walk is deadline-bounded below stale-running detection. Never throws.
 
-import { Budget, NON_BINDING_DAILY_TOKEN_CAP, armCooldown, clearCooldown, conservativeChatTokenBound, getNamedLimiter, getSharedLimiter, isCoolingDown } from '../triage/budget'
+import {
+  Budget, NON_BINDING_DAILY_TOKEN_CAP, armCooldown, clearCooldown, conservativeChatTokenBound,
+  dailyQuotaAdmission, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown, selectDailyQuotaCandidate,
+  rateInfoForLimiter, type DailyQuotaCandidate, type DailyQuotaMeter,
+} from '../triage/budget'
 import {
   IDEA_SYSTEM, buildIdeaUserMessage, estimateIdeaTokens, surfaceIdeasBatch,
   type IdeaInputRow, type IdeaOriginType, type IdeaSourceTheme, type IdeaThemeExpression, type RawIdea, type SurfaceIdeasResult,
 } from './surface-ideas'
+import { surfaceIdeasBatchGemini } from './surface-ideas-gemini'
 import {
   ideaDecayAt, ideaId, ideaSnapshotRevision, ideaVersion, priorCoverage, pruneExpiredIdeas, readIdeaById,
   readIdeaSnapshots, readPassState, readTopSweep, retireUnadmittedThemeIdeas, topNEffectHash, topNHash,
   writeIdeaIfRevision, writePassState,
-  type SurfacedIdea,
+  type IdeaPassChunkState, type SurfacedIdea,
 } from './ideas-store'
 import { IDEA_LEARNING_HORIZON_DAYS, learnIdeaAdjustment } from './idea-learning'
 import { directionMatchesEvidence, scoreTradeCluster, TRADE_SCORE_POLICY_VERSION, type TradeEvidence } from '../trade-score'
@@ -29,6 +35,7 @@ import {
 } from './ideas-health'
 import type { OverflowProvider } from '../../config'
 import { markIdeasPublicationPending, publishPendingIdeas, type IdeasPublishResult } from './ideas-publisher'
+import { randomUUID } from 'node:crypto'
 
 export interface IdeaPassConfig {
   topN: number
@@ -48,6 +55,9 @@ export interface IdeaPassConfig {
   groqPaceFloorFrac: number
   groqRpm: number
   groqTpm: number
+  /** Default start-of-day release for finite overflow allowances. Production passes the same value used
+   * by news triage; optional keeps deploy/test callers compatible while defaulting to the production 6%. */
+  freeProviderPaceFloorFrac?: number
   llmCooldownMs: number
   llmCooldownMaxMs: number
   limiterWaitMs: number
@@ -55,6 +65,17 @@ export interface IdeaPassConfig {
    * already the final overflow entry, so the operational chain never hand-wires or duplicates a tier. */
   localProvider?: OverflowProvider | null
   overflowProviders?: OverflowProvider[]
+  /** Native Gemini free-tier rotation. Each model owns a separate request/day bucket but shares the same
+   * minute limiter, exactly like title triage. Optional keeps existing test/deploy callers compatible. */
+  geminiEnabled?: boolean
+  geminiApiKey?: string
+  geminiBaseUrl?: string
+  geminiModels?: { model: string; dailyReqCap: number }[]
+  geminiMaxTokens?: number
+  geminiDailyTokenCap?: number
+  geminiDayTz?: string
+  geminiRpm?: number
+  geminiTpm?: number
   localCooldownMs?: number
   /** Hard wall-clock bound for the whole sequential walk. Production is capped below health's 120s
    * stale-running threshold; the override exists for deterministic timeout tests. */
@@ -66,9 +87,10 @@ export interface IdeaPassConfig {
 }
 
 type RoutedIdeaProvider = OverflowProvider & {
-  /** Groq alone is clock-paced because its pool is shared with primary triage. Overflow providers use
-   * their ordinary hard caps, matching runCycle's existing routing contract. */
-  pace?: { targetTokens: number; floorFrac: number }
+  /** Groq predates the overflow registry and supplies its token target here. Every other finite cloud
+   * provider derives the same request/token pacing descriptor from its canonical OverflowProvider. */
+  pace?: { meter: DailyQuotaMeter; cap: number; floorFraction: number }
+  transport?: 'openai' | 'gemini'
 }
 
 export interface IdeaPassDeps {
@@ -83,6 +105,8 @@ export interface IdeaPassDeps {
   persistHealth?: boolean
   /** Test/embedding seam. Omitted uses the guarded production publisher (plain temp repos no-op). */
   publishIdeas?: () => Promise<IdeasPublishResult>
+  /** Internal durable hand-off invoked immediately before provider-budget reservation. */
+  markProviderDispatch?: (providerId: string, at: number) => void
 }
 
 export interface IdeaPassResult { ran: boolean; produced: number; note?: string; reason_code?: IdeasHealthReasonCode }
@@ -96,6 +120,80 @@ interface ProviderDecision {
 /** Worst-case billable tokens for one OpenAI-compatible idea-surfacing attempt. */
 export function ideaGroqTokenBound(rows: Parameters<typeof surfaceIdeasBatch>[0], maxOutputTokens: number): number {
   return conservativeChatTokenBound(IDEA_SYSTEM, buildIdeaUserMessage(rows), maxOutputTokens)
+}
+
+/** Split the complete eligible projection into bounded provider calls without tearing a two-role Theme
+ * package apart. A source row shared by two packages may intentionally appear in both chunks: each model
+ * call must carry its own complete causal proof, while stable idea identity dedupes any repeated output. */
+export function chunkIdeaRows(rows: IdeaInputRow[], configuredSize: number): IdeaInputRow[][] {
+  // Three is the smallest safe bound for a complete two-row Theme package plus the independent comparison
+  // row required by the lead skim. Production uses 12; this floor only repairs hostile/mistyped config.
+  const size = Math.max(3, Math.floor(Number(configuredSize) || 0))
+  const rowOrder = new Map(rows.map((row, index) => [row, index]))
+  const packages = new Map<string, IdeaInputRow[]>()
+  for (const row of rows) {
+    for (const context of row.theme_contexts || []) {
+      const key = `${context.theme_id}@${context.theme_rev}`
+      const group = packages.get(key) || []
+      if (!group.includes(row)) group.push(row)
+      packages.set(key, group)
+    }
+  }
+  const completePackages = [...packages.entries()].filter(([, group]) => (
+    group.some((row) => row.theme_contexts?.some((context) => context.role === 'WHY_NOW'))
+    && group.some((row) => row.theme_contexts?.some((context) => context.role === 'EXPRESSION_PROOF'))
+  ))
+  const packagedRows = new Set(completePackages.flatMap(([, group]) => group))
+  const units: { order: number; key: string; rows: IdeaInputRow[] }[] = []
+  for (const [key, group] of completePackages) {
+    const ordered = [...group].sort((a, b) => (rowOrder.get(a) ?? 0) - (rowOrder.get(b) ?? 0))
+    const why = ordered.filter((row) => row.theme_contexts?.some((context) => (
+      `${context.theme_id}@${context.theme_rev}` === key && context.role === 'WHY_NOW'
+    )))
+    const proofs = ordered.filter((row) => row.theme_contexts?.some((context) => (
+      `${context.theme_id}@${context.theme_rev}` === key && context.role === 'EXPRESSION_PROOF'
+    )))
+    // The canonical projection currently emits one why-now + one proof. Keep the splitter correct if a
+    // future projection admits several proofs: repeat the causal row and bound each complete unit to size.
+    const anchor = why[0]
+    if (!anchor) continue
+    for (let offset = 0; offset < proofs.length; offset += Math.max(1, size - 1)) {
+      const unitRows = [anchor, ...proofs.slice(offset, offset + size - 1)]
+      units.push({ order: Math.min(...unitRows.map((row) => rowOrder.get(row) ?? 0)), key: `${key}:${offset}`, rows: unitRows })
+    }
+  }
+  for (const [index, row] of rows.entries()) {
+    if (!packagedRows.has(row)) units.push({ order: index, key: `row:${index}`, rows: [row] })
+  }
+  units.sort((a, b) => a.order - b.order || a.key.localeCompare(b.key))
+
+  const chunks: IdeaInputRow[][] = []
+  let current: IdeaInputRow[] = []
+  for (const unit of units) {
+    if (current.length && current.length + unit.rows.length > size) {
+      chunks.push(current)
+      current = []
+    }
+    current.push(...unit.rows)
+  }
+  if (current.length) chunks.push(current)
+  // Comparative surfacing deliberately refuses a one-row input. Rebalance an ordinary tail when the
+  // preceding chunk has room to give up one independent row; otherwise overlap the nearest ordinary
+  // context row. The overlap is intentional and safe because stable idea identity dedupes provider
+  // output. Never split a Theme package just to make the arithmetic convenient.
+  const tail = chunks.at(-1)
+  if (tail?.length === 1 && chunks.length > 1) {
+    const prior = chunks[chunks.length - 2]
+    const ordinaryIndex = prior.findLastIndex((row) => !packagedRows.has(row))
+    if (ordinaryIndex >= 0 && prior.length > 2) tail.unshift(...prior.splice(ordinaryIndex, 1))
+    else if (ordinaryIndex >= 0) tail.unshift(prior[ordinaryIndex])
+    else {
+      // This is the only mathematically impossible bounded case (a size-two Theme package plus one
+      // ordinary row). Repeat the complete package rather than sending a malformed one-role Theme input.
+      tail.unshift(...prior)
+    }
+  }
+  return chunks
 }
 
 /** Preserve the raw evidence contract between the sweep and the strict scorer. */
@@ -331,8 +429,128 @@ function groqProvider(c: IdeaPassConfig): RoutedIdeaProvider {
     id: 'groq', label: 'Groq', color: '--provider-groq', apiKey: c.groqApiKey, baseUrl: c.groqBaseUrl, model: c.groqModel,
     maxTokens: c.groqMaxTokens, dailyReqCap: c.groqDailyReqCap, dailyTokenCap: c.groqDailyTokenCap,
     rpm: c.groqRpm, tpm: c.groqTpm, budgetFile: 'groq-budget.json',
-    pace: { targetTokens: c.groqDailyTokenTarget, floorFrac: c.groqPaceFloorFrac },
+    pace: { meter: 'tokens', cap: c.groqDailyTokenTarget, floorFraction: c.groqPaceFloorFrac },
   }
+}
+
+/** Materialize Gemini's native per-model pool into the same internal routing descriptor as the finite
+ * OpenAI-compatible tiers. This is internal only: the canonical public OverflowProvider registry remains
+ * correctly limited to OpenAI-compatible endpoints. */
+function geminiIdeaProviders(c: IdeaPassConfig): RoutedIdeaProvider[] {
+  if (!(c.geminiEnabled && c.geminiApiKey && c.geminiBaseUrl && c.geminiModels?.length)) return []
+  return c.geminiModels.map(({ model, dailyReqCap }) => ({
+    id: `gemini:${model}`,
+    label: `Gemini · ${model}`,
+    color: '--live',
+    apiKey: c.geminiApiKey!,
+    baseUrl: c.geminiBaseUrl!,
+    model,
+    dailyReqCap,
+    dailyTokenCap: c.geminiDailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP,
+    rpm: c.geminiRpm ?? 0,
+    tpm: c.geminiTpm ?? 0,
+    maxTokens: c.geminiMaxTokens ?? 2500,
+    maxAttempts: 1,
+    budgetFile: `gemini-budget-${model.replace(/[^a-z0-9]+/gi, '-')}.json`,
+    dayTz: c.geminiDayTz,
+    pace: { meter: 'requests', cap: dailyReqCap, floorFraction: c.freeProviderPaceFloorFrac ?? 0.06 },
+    transport: 'gemini',
+  }))
+}
+
+interface IdeaQuotaRoute extends DailyQuotaCandidate {
+  provider: RoutedIdeaProvider
+}
+
+/** One provider's binding daily meter. Local is deliberately unpaced: it is the unlimited $0 tier.
+ * Groq paces to its explicit token target; every finite overflow tier paces the same binding allowance
+ * as core triage (tokens when a token cap exists, otherwise requests), on the provider's reset clock. */
+function providerPace(p: RoutedIdeaProvider, c: IdeaPassConfig): RoutedIdeaProvider['pace'] | null {
+  if (p.id === 'local') return null
+  if (p.pace) return p.pace
+  return p.dailyTokenCap != null
+    ? { meter: 'tokens', cap: p.dailyTokenCap, floorFraction: p.paceFloorFrac ?? c.freeProviderPaceFloorFrac ?? 0.06 }
+    : { meter: 'requests', cap: p.dailyReqCap, floorFraction: p.paceFloorFrac ?? c.freeProviderPaceFloorFrac ?? 0.06 }
+}
+
+function quotaRoute(
+  rows: Parameters<typeof surfaceIdeasBatch>[0],
+  deps: IdeaPassDeps,
+  provider: RoutedIdeaProvider,
+  priority: number,
+): IdeaQuotaRoute | null {
+  const at = (deps.now || (() => Date.now()))()
+  if (!provider.apiKey || isCoolingDown(deps.stateDir, provider.id, at)
+    || isCoolingDown(deps.stateDir, `ideas:${provider.id}`, at)) return null
+  const pace = providerPace(provider, deps.config)
+  if (!pace) return null
+  const perAttemptTokens = ideaGroqTokenBound(rows, provider.maxTokens)
+  const budget = Budget.load(
+    deps.stateDir, provider.dailyReqCap, provider.dailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP,
+    at, provider.budgetFile, provider.dayTz,
+  )
+  if (!budget.canSpend(perAttemptTokens, 1)) return null
+  return {
+    id: provider.id,
+    meter: pace.meter,
+    used: pace.meter === 'tokens' ? budget.tokens : budget.requests,
+    cap: pace.cap,
+    cost: pace.meter === 'tokens' ? perAttemptTokens : 1,
+    resetTimeZone: provider.dayTz,
+    floorFraction: pace.floorFraction,
+    priority,
+    provider,
+  }
+}
+
+/** Explain a cloud route that was excluded from the fair selector without probing it. This preserves the
+ * health panel's per-tier reasons while guaranteeing a paced provider cannot re-enter through a fixed-order
+ * fallback walk a few lines later. Null means it is eligible and the caller should rebuild the selector. */
+function unavailableProviderDecision(
+  rows: Parameters<typeof surfaceIdeasBatch>[0],
+  deps: IdeaPassDeps,
+  p: RoutedIdeaProvider,
+): ProviderDecision | null {
+  const now = deps.now || (() => Date.now())
+  const at = now()
+  const label = p.label || p.id
+  if (!p.apiKey) return { result: null, reason_code: 'missing_api_key', note: providerReason('missing_api_key', label), provider: label }
+  if (isCoolingDown(deps.stateDir, p.id, at)) return { result: null, reason_code: 'provider_cooldown', note: providerReason('provider_cooldown', label), provider: label }
+  if (isCoolingDown(deps.stateDir, `ideas:${p.id}`, at)) return { result: null, reason_code: 'provider_cooldown', note: `${label} is cooling down for the Ideas response contract.`, provider: label }
+  const perAttemptTokens = ideaGroqTokenBound(rows, p.maxTokens)
+  const budget = Budget.load(deps.stateDir, p.dailyReqCap, p.dailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP, at, p.budgetFile, p.dayTz)
+  if (!budget.ledgerAvailable) {
+    return { result: null, reason_code: 'internal_error', note: `${label} usage record needs attention.`, provider: label }
+  }
+  if (!budget.canSpend(perAttemptTokens, 1)) {
+    return { result: null, reason_code: 'daily_budget', note: providerReason('daily_budget', label), provider: label }
+  }
+  if (!pacedCanSpend(p, deps.config, budget, perAttemptTokens, 1, at)) {
+    return { result: null, reason_code: 'paced_budget', note: providerReason('paced_budget', label), provider: label }
+  }
+  return null
+}
+
+function pacedCanSpend(
+  p: RoutedIdeaProvider,
+  c: IdeaPassConfig,
+  budget: Budget,
+  perAttemptTokens: number,
+  attempts: number,
+  at: number,
+): boolean {
+  if (!budget.canSpend(perAttemptTokens * attempts, attempts)) return false
+  const pace = providerPace(p, c)
+  if (!pace) return true
+  return dailyQuotaAdmission({
+    id: p.id,
+    meter: pace.meter,
+    used: pace.meter === 'tokens' ? budget.tokens : budget.requests,
+    cap: pace.cap,
+    cost: pace.meter === 'tokens' ? perAttemptTokens * attempts : attempts,
+    resetTimeZone: p.dayTz,
+    floorFraction: pace.floorFraction,
+  }, at).pacedFit
 }
 
 function providerReason(code: IdeasHealthReasonCode, label: string): string {
@@ -344,8 +562,7 @@ function providerReason(code: IdeasHealthReasonCode, label: string): string {
   return `${label} could not be used.`
 }
 
-/** One OpenAI-compatible provider attempt with the same budget file, limiter, and cooldown used by
- * news triage. The provider shape comes from config, so adding another overflow tier remains zero-touch. */
+/** One provider attempt with the same budget file, limiter, and cooldown used by news triage. */
 async function callProviderForIdeaPassDetailed(
   rows: Parameters<typeof surfaceIdeasBatch>[0],
   deps: IdeaPassDeps,
@@ -357,6 +574,7 @@ async function callProviderForIdeaPassDetailed(
   const label = p.label || p.id
   const ideaCooldownId = `ideas:${p.id}`
   if (!p.apiKey) return { result: null, reason_code: 'missing_api_key', note: providerReason('missing_api_key', label), provider: label }
+  if (chainSignal?.aborted) return { result: null, reason_code: 'provider_error', note: `${label}: provider-chain deadline reached`, provider: label }
   if (isCoolingDown(deps.stateDir, p.id, now())) return { result: null, reason_code: 'provider_cooldown', note: providerReason('provider_cooldown', label), provider: label }
   if (isCoolingDown(deps.stateDir, ideaCooldownId, now())) return { result: null, reason_code: 'provider_cooldown', note: `${label} is cooling down for the Ideas response contract.`, provider: label }
   const est = estimateIdeaTokens(rows.length)
@@ -367,31 +585,58 @@ async function callProviderForIdeaPassDetailed(
   // keeps its historical two-attempt contract because it has no next tier to try.
   const attemptCap = chainSignal ? 1 : Math.max(1, Math.min(2, p.maxAttempts ?? 2))
   const hardAttempts = Math.min(attemptCap, budget.remainingRequests, Math.floor(budget.remainingTokens / perAttemptTokens))
-  if (!hardAttempts) return { result: null, reason_code: 'daily_budget', note: providerReason('daily_budget', label), provider: label }
+  if (!budget.ledgerAvailable) {
+    return { result: null, reason_code: 'internal_error', note: `${label} usage record needs attention.`, provider: label }
+  }
+  if (!hardAttempts) {
+    return !budget.ledgerAvailable
+      ? { result: null, reason_code: 'internal_error', note: `${label} usage record needs attention.`, provider: label }
+      : { result: null, reason_code: 'daily_budget', note: providerReason('daily_budget', label), provider: label }
+  }
   let preflightAttempts = hardAttempts
   const preflightAt = now()
-  while (preflightAttempts > 0 && !(p.pace
-    ? budget.pacedCanSpend(perAttemptTokens * preflightAttempts, p.pace, preflightAt, preflightAttempts)
-    : budget.canSpend(perAttemptTokens * preflightAttempts, preflightAttempts))) preflightAttempts--
+  while (preflightAttempts > 0 && !pacedCanSpend(p, c, budget, perAttemptTokens, preflightAttempts, preflightAt)) preflightAttempts--
   if (!preflightAttempts) {
-    const code: IdeasHealthReasonCode = p.pace ? 'paced_budget' : 'daily_budget'
+    if (!budget.ledgerAvailable) {
+      return { result: null, reason_code: 'internal_error', note: `${label} usage record needs attention.`, provider: label }
+    }
+    const code: IdeasHealthReasonCode = providerPace(p, c) ? 'paced_budget' : 'daily_budget'
     return { result: null, reason_code: code, note: providerReason(code, label), provider: label }
   }
-  const limiter = p.id === 'groq' ? getSharedLimiter(p.rpm, p.tpm ?? 0) : getNamedLimiter(p.id, p.rpm, p.tpm ?? 0)
-  const got = await limiter.acquire(est, deps.sleep, now, c.limiterWaitMs)
+  const limiter = p.transport === 'gemini'
+    ? getSharedGeminiLimiter(p.rpm, p.tpm ?? 0)
+    : p.id === 'groq' ? getSharedLimiter(p.rpm, p.tpm ?? 0) : getNamedLimiter(p.id, p.rpm, p.tpm ?? 0)
+  const got = await limiter.acquire(est, deps.sleep, now, c.limiterWaitMs, chainSignal)
   if (!got) return { result: null, reason_code: 'rate_limiter_busy', note: providerReason('rate_limiter_busy', label), provider: label }
+  if (chainSignal?.aborted) return { result: null, reason_code: 'provider_error', note: `${label}: provider-chain deadline reached`, provider: label }
+  // Another workload can arm a provider-wide hold while this request waits for the shared limiter. Do not
+  // spend from a provider that is now waiting after an error, and do not create the durable dispatch marker.
+  const postLimiterAt = now()
+  if (isCoolingDown(deps.stateDir, p.id, postLimiterAt)
+    || isCoolingDown(deps.stateDir, ideaCooldownId, postLimiterAt)) {
+    return { result: null, reason_code: 'provider_cooldown', note: providerReason('provider_cooldown', label), provider: label }
+  }
   let attempts = Math.min(attemptCap, budget.remainingRequests, Math.floor(budget.remainingTokens / perAttemptTokens))
-  const reservationAt = now()
-  while (attempts > 0 && !(p.pace
-    ? budget.pacedCanSpend(perAttemptTokens * attempts, p.pace, reservationAt, attempts)
-    : budget.canSpend(perAttemptTokens * attempts, attempts))) attempts--
-  const reservation = attempts > 0 ? budget.tryReserve(perAttemptTokens * attempts, p.pace, reservationAt, attempts) : null
+  const reservationAt = postLimiterAt
+  while (attempts > 0 && !pacedCanSpend(p, c, budget, perAttemptTokens, attempts, reservationAt)) attempts--
+  // Authorize this exact envelope durably BEFORE reservation. A process death after tryReserve but before
+  // the old marker write left a retryable `prepared` checkpoint beside an orphaned reservation. Recovery
+  // could then double-count the same envelope in the day's ledger. `authorized` is deliberately
+  // conservative: it proves neither a reservation nor provider I/O, but it forbids an automatic retry.
+  deps.markProviderDispatch?.(p.id, now())
+  // The pacing check and hard-cap reservation are synchronous against Budget's process-shared state, so
+  // another workload cannot interleave and consume the same released unit between them. A normal failed
+  // reservation returns no result; runIdeaPass then clears the authorization in its existing no-I/O write.
+  const reservation = attempts > 0 ? budget.tryReserve(perAttemptTokens * attempts, undefined, reservationAt, attempts) : null
   if (!reservation) {
-    const code: IdeasHealthReasonCode = p.pace ? 'paced_budget' : 'daily_budget'
+    if (!budget.ledgerAvailable) {
+      return { result: null, reason_code: 'internal_error', note: `${label} usage record needs attention.`, provider: label }
+    }
+    const code: IdeasHealthReasonCode = providerPace(p, c) ? 'paced_budget' : 'daily_budget'
     return { result: null, reason_code: code, note: providerReason(code, label), provider: label }
   }
   let r: SurfaceIdeasResult | undefined
-  let ideaImposedTimeout = false
+  const attemptStartedAt = now()
   if (deps.persistHealth) {
     updateIdeasHealth(deps.stateDir, {
       enabled: true, status: 'running', outcome: 'not_run', reason_code: null,
@@ -404,25 +649,36 @@ async function callProviderForIdeaPassDetailed(
     const ideaTimeoutMs = chainSignal
       ? Math.min(c.providerAttemptTimeoutMs ?? 30_000, providerTimeoutMs)
       : providerTimeoutMs
-    ideaImposedTimeout = Boolean(chainSignal && ideaTimeoutMs < providerTimeoutMs)
-    r = await surfaceIdeasBatch(
-      rows,
-      {
-        model: p.model, models: p.models, baseUrl: p.baseUrl, apiKey: p.apiKey, maxTokens: p.maxTokens,
-        headers: p.headers, extraBody: p.extraBody,
-        timeoutMs: ideaTimeoutMs,
-        maxAttempts: attempts,
-        signal: chainSignal,
-      },
-      deps.fetchFn, deps.sleep,
-    )
+    r = p.transport === 'gemini'
+      ? await surfaceIdeasBatchGemini(
+          rows,
+          {
+            model: p.model, baseUrl: p.baseUrl, apiKey: p.apiKey, maxTokens: p.maxTokens,
+            timeoutMs: ideaTimeoutMs, maxAttempts: attempts, signal: chainSignal,
+          },
+          deps.fetchFn, deps.sleep,
+        )
+      : await surfaceIdeasBatch(
+          rows,
+          {
+            model: p.model, models: p.models, baseUrl: p.baseUrl, apiKey: p.apiKey, maxTokens: p.maxTokens,
+            headers: p.headers, extraBody: p.extraBody,
+            timeoutMs: ideaTimeoutMs,
+            maxAttempts: attempts,
+            signal: chainSignal,
+            requestRemainingHeaderIsDaily: p.id === 'groq' || p.requestRemainingHeaderIsDaily === true,
+          },
+          deps.fetchFn, deps.sleep,
+        )
   } catch (e: any) {
     // surfaceIdeasBatch is fail-soft by contract, but keep the orchestration boundary fail-soft too. If a
     // future adapter regression escapes unexpectedly, charge one conservative attempt and isolate the bug
     // to Ideas instead of crashing the scheduler or pretending the shared provider is unavailable.
     r = {
       ideas: [], requests: 1, tokens: perAttemptTokens, ok: false, failureKind: 'contract',
-      note: `idea: unexpected adapter failure: ${e?.message || String(e)}`,
+      // An escaped adapter exception may contain a provider body, account id, or request fragment. The
+      // operator needs the stable failure class, not raw third-party text in persisted/public health.
+      note: 'idea: unexpected adapter failure',
     }
   } finally {
     const sentRequests = Number.isFinite(r?.requests) ? Math.max(0, Math.floor(r!.requests)) : 0
@@ -434,10 +690,16 @@ async function callProviderForIdeaPassDetailed(
       : 0
     budget.reconcile(reservation, sentRequests, chargedTokens)
   }
-  limiter.learn(r.rate, now)
+  const providerTerminal = r.failureKind === 'request' && [401, 402, 403, 404].includes(r.httpStatus || 0)
+  const ideaDeadlineFailure = r.failureKind === 'availability' && r.timedOut === true
+  const providerWideFailure = r.ok
+    || r.failureKind === 'rate_limit'
+    || (r.failureKind === 'availability' && !ideaDeadlineFailure)
+    || providerTerminal
+  limiter.learn(rateInfoForLimiter(r.rate, providerWideFailure), now)
   if (r.ok) {
-    clearCooldown(deps.stateDir, p.id)
-    clearCooldown(deps.stateDir, ideaCooldownId)
+    clearCooldown(deps.stateDir, p.id, attemptStartedAt)
+    clearCooldown(deps.stateDir, ideaCooldownId, attemptStartedAt)
     return { result: r, reason_code: null, provider: label }
   }
   if (chainSignal?.aborted) {
@@ -447,20 +709,32 @@ async function callProviderForIdeaPassDetailed(
   }
   const localCooldown = p.id === 'local' ? (c.localCooldownMs ?? c.llmCooldownMs) : c.llmCooldownMs
   const localCooldownMax = p.id === 'local' ? localCooldown : c.llmCooldownMaxMs
-  const providerTerminal = r.failureKind === 'request' && [401, 402, 403, 404].includes(r.httpStatus || 0)
-  const ideaDeadlineFailure = ideaImposedTimeout
-    && r.failureKind === 'availability'
-    && /request timed out/i.test(r.note || '')
-  if (providerTerminal && p.id !== 'groq') {
-    // These are account/model-wide failures for the configured overflow descriptor, so mirror core triage's
-    // day-scoped terminal treatment. Groq retains its historical no-exhaust protection (#219).
+  const failureAt = now()
+  if (r.dailyLimit) {
+    // Only an explicit provider-day signal closes the ledger. A generic access or request error did not
+    // consume the configured allowance and must not make diagnostics falsely report it as spent.
     budget.exhaust()
+  } else if (r.rate?.retryAfterMs != null && Number.isFinite(r.rate.retryAfterMs)) {
+    // Retry-After is the provider's exact recovery clock. Keep this hold flat even when the provider has
+    // failed before; applying the generic exponential breaker here can turn a precise 25-second window into
+    // an unrelated 25-minute outage and strands capacity the provider has already said is available again.
+    const retryMs = Math.max(0, Math.floor(r.rate.retryAfterMs))
+    if (retryMs > 0) {
+      const holdId = providerWideFailure ? p.id : ideaCooldownId
+      const reason = providerWideFailure
+        ? r.failureKind === 'rate_limit' ? 'rate-limit' : providerTerminal ? 'provider-access' : 'availability'
+        : ideaDeadlineFailure ? 'idea-timeout' : r.failureKind === 'request' ? 'idea-request' : 'idea-contract'
+      armCooldown(deps.stateDir, failureAt, retryMs, holdId, retryMs, reason)
+    }
+  } else if (r.failureKind === 'rate_limit') {
+    armCooldown(deps.stateDir, failureAt, 60_000, p.id, 60_000, 'rate-limit')
   } else if ((r.failureKind === 'availability' && !ideaDeadlineFailure) || providerTerminal) {
-    // 429/5xx/timeout/network means the tier itself is unavailable; sharing this cooldown lets every workload
-    // route around it. Local retains its canonical short, flat recovery window.
-    armCooldown(deps.stateDir, now(), localCooldown, p.id, localCooldownMax)
+    // Service/network failures use the shared exponential breaker. Provider-wide access failures share it
+    // too, but unlike an explicit daily-limit signal they never forge a fully spent allowance.
+    armCooldown(deps.stateDir, failureAt, localCooldown, p.id, localCooldownMax,
+      providerTerminal ? 'provider-access' : r.timedOut ? 'timeout' : 'availability')
   } else {
-    // HTTP 400/413/422, malformed/truncated/schema-invalid output, and an Ideas-imposed shorter timeout may
+    // HTTP 400/413/422, malformed/truncated/schema-invalid output, and any Ideas request timeout may
     // be specific to this richer nonessential seam. Never poison the provider's shared triage health.
     armCooldown(deps.stateDir, now(), localCooldown, ideaCooldownId, localCooldownMax)
   }
@@ -468,30 +742,82 @@ async function callProviderForIdeaPassDetailed(
 }
 
 async function callIdeaProvidersDetailed(rows: Parameters<typeof surfaceIdeasBatch>[0], deps: IdeaPassDeps): Promise<ProviderDecision> {
-  const providers: RoutedIdeaProvider[] = [
+  const primary: RoutedIdeaProvider[] = [
     ...(deps.config.localProvider ? [deps.config.localProvider] : []),
     groqProvider(deps.config),
-    ...(deps.config.overflowProviders || []),
   ]
+  const overflow = deps.config.overflowProviders || []
+  const cloud: RoutedIdeaProvider[] = [
+    ...overflow.filter((provider) => provider.id !== 'local'),
+    ...geminiIdeaProviders(deps.config),
+  ]
+  const localTail = overflow.filter((provider) => provider.id === 'local')
   // Health declares a running attempt stale after 120s. Keep the full sequential walk below it even when
   // several providers hang; surfaceIdeasBatch combines this signal with each provider's own request timeout.
   const chainTimeoutMs = Math.min(90_000, Math.max(1, deps.config.providerChainTimeoutMs ?? 90_000))
   const chainSignal = AbortSignal.timeout(chainTimeoutMs)
   const skips: ProviderDecision[] = []
   const failures: ProviderDecision[] = []
-  for (const provider of providers) {
-    if (chainSignal.aborted) break
+  const tryProvider = async (provider: RoutedIdeaProvider): Promise<ProviderDecision | null> => {
+    if (chainSignal.aborted) return null
     const decision = await callProviderForIdeaPassDetailed(rows, deps, provider, chainSignal)
     if (decision.result?.ok) return decision // a literal valid [] is a real terminal success
     if (decision.result) failures.push(decision)
     else skips.push(decision)
+    return null
+  }
+
+  // Local primary and Groq retain their quality placement. Groq's own token target is still clock-paced;
+  // when it is ahead of schedule, the pass immediately reaches the finite cloud pool below.
+  for (const provider of primary) {
+    const success = await tryProvider(provider)
+    if (success) return success
+  }
+
+  // Finite free pool (OpenAI-compatible overflow + every Gemini model). Recompute after each failed attempt
+  // because its shared Budget was just charged, then choose the provider furthest behind its reset-clock
+  // target. Config order is only the quality tiebreak, never a license for one API family to starve another.
+  const pending = cloud.map((provider, priority) => ({ provider, priority }))
+  while (pending.length && !chainSignal.aborted) {
+    const routes = pending
+      .map(({ provider, priority }) => quotaRoute(rows, deps, provider, priority))
+      .filter((route): route is IdeaQuotaRoute => route !== null)
+    const pick = selectDailyQuotaCandidate(routes, (deps.now || (() => Date.now()))()) as IdeaQuotaRoute | null
+    if (pick) {
+      const index = pending.findIndex(({ provider }) => provider === pick.provider)
+      if (index >= 0) pending.splice(index, 1)
+      const success = await tryProvider(pick.provider)
+      if (success) return success
+      continue
+    }
+
+    // Every remaining route is missing, held, hard-capped, or ahead of its clock release. Record those
+    // reasons without calling in config order. If the clock moved across a release boundary, retry the fair
+    // selection instead of letting that timing race reintroduce fixed-order drain.
+    let removed = false
+    for (let index = pending.length - 1; index >= 0; index--) {
+      const decision = unavailableProviderDecision(rows, deps, pending[index].provider)
+      if (!decision) continue
+      skips.push(decision)
+      pending.splice(index, 1)
+      removed = true
+    }
+    if (!removed) continue
+  }
+
+  // A demoted local provider is unlimited and deliberately remains the final fallback, outside the finite
+  // reset-clock selector. In normal primary-local mode it appeared in `primary` and this list is empty.
+  for (const provider of localTail) {
+    const success = await tryProvider(provider)
+    if (success) return success
   }
   const failed = failures.at(-1) || null
   const deadlineNote = chainSignal.aborted ? 'The idea provider chain reached its safe runtime limit.' : ''
   const notes = [...failures, ...skips].map((d) => d.note).filter(Boolean).concat(deadlineNote).filter(Boolean).join(' ')
   if (failed?.result) return { ...failed, result: { ...failed.result, note: notes || failed.result.note } }
   const codes = new Set(skips.map((d) => d.reason_code))
-  const code: IdeasHealthReasonCode = codes.has('rate_limiter_busy') ? 'rate_limiter_busy'
+  const code: IdeasHealthReasonCode = codes.has('internal_error') ? 'internal_error'
+    : codes.has('rate_limiter_busy') ? 'rate_limiter_busy'
     : codes.has('provider_cooldown') ? 'provider_cooldown'
       : codes.has('paced_budget') ? 'paced_budget'
         : codes.has('daily_budget') ? 'daily_budget'
@@ -510,9 +836,9 @@ export async function callGroqForIdeaPass(rows: Parameters<typeof surfaceIdeasBa
 }
 
 /**
- * Read the wire's top-N, decide whether to spend, run the batch, and persist the surfaced ideas (updating
- * a same-ticker/direction call in place, preserving its first-seen stamp and any promoted state). Prunes
- * long-decayed snapshots and refreshes the board only when it actually produced ideas. Never throws.
+ * Read every current eligible wire row, resume the first unfinished bounded chunk, and persist surfaced
+ * ideas (updating a same-ticker/direction call in place, preserving its first-seen stamp and promoted
+ * state). Successful chunks are checkpointed; quota/provider failures remain pending. Never throws.
  */
 export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
   const c = deps.config
@@ -552,19 +878,21 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
       nowMs: inputAt,
       maxAgeMs: inputMaxAgeHrs * 3_600_000,
       themesEnabled: c.themesEnabled !== false,
+      allEligible: true,
     })
-    const rows = sweep.rows
+    const allRows = sweep.rows
+    const inputCount = allRows.length
     if (sweep.status === 'degraded') {
       const counts = inspectIdeaSnapshots(deps.repoRoot, inputAt)
       const cached = counts.live_count + counts.stale_count > 0
       const reason = 'A recent wire partition is unreadable or has no trustworthy clock; the lead skim is paused rather than ranking an incomplete source set.'
       health({
         enabled: true, status: cached ? 'degraded' : 'error', outcome: 'skipped', reason_code: 'stale_inputs',
-        reason, next_eligible_at: null, input_count: rows.length, produced_count: 0,
+        reason, next_eligible_at: null, input_count: inputCount, produced_count: 0,
       }, inputAt)
       return { ran: false, produced: 0, note: reason, reason_code: 'stale_inputs' }
     }
-    if (rows.length < 2) {
+    if (allRows.length < 2) {
       const staleInput = sweep.status === 'stale' || sweep.status === 'corrupt'
       const counts = inspectIdeaSnapshots(deps.repoRoot, inputAt)
       const cached = counts.live_count + counts.stale_count > 0
@@ -580,7 +908,7 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
         reason_code: staleInput ? 'stale_inputs' : 'insufficient_inputs',
         reason,
         next_eligible_at: null,
-        input_count: rows.length,
+        input_count: inputCount,
         produced_count: 0,
       }, inputAt)
       return { ran: false, produced: 0, note: reason, reason_code: staleInput ? 'stale_inputs' : 'insufficient_inputs' }
@@ -589,7 +917,7 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
     // Reconcile Theme-only snapshots only after the complete input set clears every integrity/freshness
     // guard. An unreadable partition must not make a valid theme appear withdrawn and trigger deletion.
     // Mixed calls retain independent wire support; promoted and in-flight calls remain lifecycle-owned.
-    const retired = retireUnadmittedThemeIdeas(deps.repoRoot, rows)
+    const retired = retireUnadmittedThemeIdeas(deps.repoRoot, allRows)
     if (retired > 0) {
       markIdeasPublicationPending(deps.stateDir, now())
       await deps.refreshBoard()
@@ -597,33 +925,134 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
       if (publication.status === 'failed') return publishFailure(publication)
     }
 
-    const hash = topNHash(rows)
-    const effectHash = topNEffectHash(rows)
+    const hash = topNHash(allRows)
+    const effectHash = topNEffectHash(allRows)
+    // Must mirror the initial sweep's options EXACTLY — `allEligible` included. `hash`/`effectHash` are
+    // computed over that read's rows, so a re-read on narrower options compares a different row set and
+    // would report a phantom input change on every pass whose candidate set is wider than one chunk.
     const sourceInputsStillCurrent = (): boolean => {
       const current = readTopSweep(deps.repoRoot, c.topN, {
         nowMs: now(), maxAgeMs: inputMaxAgeHrs * 3_600_000, themesEnabled: c.themesEnabled !== false,
+        allEligible: true,
       })
       return current.status === 'ok' && topNHash(current.rows) === hash && topNEffectHash(current.rows) === effectHash
     }
-    const prev = readPassState(deps.stateDir)
+    const inputKey = (row: IdeaInputRow) => `${topNHash([row])}:${topNEffectHash([row])}`
+    const rankedInputKeys = allRows.map(inputKey)
+    const currentInputKeySet = new Set(rankedInputKeys)
+    const rowByInputKey = new Map(allRows.map((row) => [inputKey(row), row]))
+    // This file decides which provider envelopes were already paid for. A clean first run has neither a
+    // progress record nor health evidence of a provider attempt. If health proves work was sent before,
+    // a missing progress record is authority loss—not a fresh queue—and must stop safely.
     const priorHealthRead = inspectPersistedIdeasHealth(deps.stateDir)
+    let prev = readPassState(deps.stateDir, true)
     const priorHealth = priorHealthRead.health
+    if (!prev && (priorHealthRead.status === 'corrupt'
+      || Boolean(priorHealth?.last_attempt_at || priorHealth?.last_success_at))) {
+      throw Object.assign(new Error('Ideas progress record needs attention.'), { code: 'EIDEA_PASS_STATE' })
+    }
+    const priorMarker = prev?.in_flight
+    const ambiguousDispatch = priorMarker && priorMarker.phase !== 'prepared'
+      && priorMarker.phase !== 'persisted'
+    let recoveredAmbiguousDispatch = false
+    if (ambiguousDispatch && prev) {
+      // There is no provider-wide idempotency key for this request. A sent request with no recorded result
+      // can neither be retried (duplicate spend) nor called successful (lost rows). Quarantine only its
+      // exact rows so later and newly arriving work can still flow. Preserve any idea this attempt
+      // demonstrably wrote by comparing the pre-dispatch snapshot baseline with current revisions and
+      // binding the claim only to marker source rows; never infer that an unknown empty result succeeded.
+      const claims = new Map<string, string[]>()
+      for (const claim of prev.completed_idea_claims || []) {
+        if (claim.input_keys.every((key) => currentInputKeySet.has(key))) claims.set(claim.idea_id, claim.input_keys)
+      }
+      const baseline = new Map((priorMarker.snapshot_revisions || []).map((entry) => [entry.idea_id, entry.revision]))
+      const markerSources = priorMarker.input_event_ids?.length === priorMarker.input_keys.length
+        ? priorMarker.input_keys.map((key, index) => ({ key, event_id: priorMarker.input_event_ids![index] }))
+        : priorMarker.input_keys.flatMap((key) => {
+            const row = rowByInputKey.get(key)
+            return row ? [{ key, event_id: row.event_id }] : []
+          })
+      if (priorMarker.snapshot_revisions !== undefined) {
+        for (const snapshot of readIdeaSnapshots(deps.repoRoot)) {
+          if (baseline.get(snapshot.idea_id) === ideaSnapshotRevision(snapshot)) continue
+          if (Date.parse(snapshot.updated_at) < priorMarker.started_at_ms - 1_000) continue
+          const events = new Set(snapshot.source_event_ids)
+          const supportKeys = markerSources.filter((source) => events.has(source.event_id)).map((source) => source.key)
+          if (supportKeys.length) claims.set(snapshot.idea_id, [...new Set(supportKeys)])
+        }
+      }
+      const uncertainInputKeys = [...new Set([
+        ...(prev.uncertain_input_keys || []),
+        ...priorMarker.input_keys,
+      ])].filter((key) => currentInputKeySet.has(key))
+      const { in_flight: _ambiguous, uncertain_input_keys: _oldUncertain, ...prior } = prev
+      const recovered = {
+        ...prior,
+        completed_idea_ids: [...claims.keys()],
+        completed_idea_claims: [...claims].map(([idea_id, input_keys]) => ({ idea_id, input_keys })),
+        ...(uncertainInputKeys.length ? { uncertain_input_keys: uncertainInputKeys } : {}),
+      }
+      writePassState(deps.stateDir, recovered)
+      prev = recovered
+      recoveredAmbiguousDispatch = true
+    }
+    const priorResultPersisted = prev?.in_flight?.phase === 'persisted'
+    if (priorResultPersisted && prev) {
+      // The result, completed inputs, and source-scoped claims are already durable. Finishing the
+      // interrupted terminal checkpoint is a local state repair and never calls the provider again.
+      const { in_flight: _settled, ...settled } = prev
+      writePassState(deps.stateDir, settled)
+      prev = settled
+    }
+    const priorUncertainInputKeys = prev?.uncertain_input_keys || []
+    const activeUncertainKeys = priorUncertainInputKeys.filter((key) => currentInputKeySet.has(key))
+    if (prev && (activeUncertainKeys.length !== priorUncertainInputKeys.length
+      || activeUncertainKeys.some((key, index) => key !== priorUncertainInputKeys[index]))) {
+      // Row identity includes both prompt and persistence effects. A changed/removed row releases only its
+      // own old identity; every unrelated uncertain row remains quarantined.
+      const { uncertain_input_keys: _staleUncertain, ...current } = prev
+      const reconciled = {
+        ...current,
+        ...(activeUncertainKeys.length ? { uncertain_input_keys: activeUncertainKeys } : {}),
+      }
+      writePassState(deps.stateDir, reconciled)
+      prev = reconciled
+    }
+    const uncertainInputKeySet = new Set(activeUncertainKeys)
+    const uncertaintyReason = activeUncertainKeys.length
+      ? `${activeUncertainKeys.length} ranked input${activeUncertainKeys.length === 1 ? '' : 's'} from an interrupted provider request ${activeUncertainKeys.length === 1 ? 'is' : 'are'} set aside. ${activeUncertainKeys.length === 1 ? 'It' : 'They'} will not be sent again automatically. Check provider use and saved ideas before clearing ${activeUncertainKeys.length === 1 ? 'it' : 'them'}.`
+      : null
     // The scheduler/standalone entrypoint serializes passes. Therefore a persisted `running` record at
     // the start of a new invocation is crash evidence, not an in-flight peer. Anchor the hard interval to
     // both lifecycle files: ideas-pass.json may already have been stamped after the provider returned,
     // while a crash before that stamp leaves only last_attempt_at. Losing either clock can cause an
     // immediate double-spend or, after a waiting transition, cache a result that never completed.
-    const priorUnfinished = priorHealthRead.status === 'ok' && priorHealth?.status === 'running'
+    const priorUnfinished = !priorResultPersisted && !recoveredAmbiguousDispatch
+      && ((priorHealthRead.status === 'ok' && priorHealth?.status === 'running')
+      && prev?.in_flight?.phase !== 'prepared')
     const priorAttemptAt = priorHealth?.last_attempt_at ? Date.parse(priorHealth.last_attempt_at) : NaN
     const intervalAnchor = Math.max(
       Number.isFinite(prev?.ran_at_ms) ? prev!.ran_at_ms : Number.NEGATIVE_INFINITY,
       Number.isFinite(priorAttemptAt) ? priorAttemptAt : Number.NEGATIVE_INFINITY,
     )
-    const priorFailed = priorHealthRead.status === 'corrupt' || priorHealth?.outcome === 'failed' || priorUnfinished
+    // The quarantine warning is deliberately a visible failed/stale-running health record, but it is not
+    // a failure of the safe rows that remain callable. Treating that warning like a provider failure resets
+    // nothing and suppresses their hourly heartbeat forever after the next scheduler tick.
+    const uncertaintyOnlyFailure = Boolean(uncertaintyReason
+      && priorHealth?.outcome === 'failed' && priorHealth.reason_code === 'stale_running')
+    const priorFailed = !priorResultPersisted
+      && (recoveredAmbiguousDispatch || priorHealthRead.status === 'corrupt'
+        || (priorHealth?.outcome === 'failed' && !uncertaintyOnlyFailure) || priorUnfinished)
     const elapsed = Number.isFinite(intervalAnchor) ? now() - intervalAnchor : Number.POSITIVE_INFINITY
     if (elapsed < c.minIntervalSec * 1000) {
       const next = intervalAnchor + c.minIntervalSec * 1000
-      if (priorUnfinished) {
+      if (uncertaintyReason) {
+        health({
+          enabled: true, status: 'degraded', outcome: 'failed', reason_code: 'stale_running',
+          reason: uncertaintyReason, next_eligible_at: new Date(next).toISOString(),
+          input_count: inputCount, produced_count: 0,
+        })
+      } else if (priorUnfinished) {
         const counts = inspectIdeaSnapshots(deps.repoRoot, now())
         health({
           enabled: true,
@@ -632,7 +1061,7 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
           reason_code: 'stale_running',
           reason: 'The prior provider attempt did not record a completion; it will retry after the minimum interval.',
           next_eligible_at: new Date(next).toISOString(),
-          input_count: rows.length,
+          input_count: inputCount,
           produced_count: 0,
         })
       } else if (priorFailed) {
@@ -642,15 +1071,17 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
           health({
             enabled: true, status: 'error', outcome: 'failed', reason_code: 'health_corrupt',
             reason: `The idea-pass health record is corrupt: ${priorHealthRead.error}`,
-            next_eligible_at: new Date(next).toISOString(), input_count: rows.length, produced_count: 0,
+            next_eligible_at: new Date(next).toISOString(), input_count: inputCount, produced_count: 0,
           })
         } else {
-          health({ enabled: true, next_eligible_at: new Date(next).toISOString(), input_count: rows.length })
+          health({ enabled: true, next_eligible_at: new Date(next).toISOString(), input_count: inputCount })
         }
       } else {
-        health({ enabled: true, status: 'waiting', outcome: 'skipped', reason_code: 'min_interval', reason: 'The last provider attempt is still inside the minimum interval.', next_eligible_at: new Date(next).toISOString(), input_count: rows.length, produced_count: 0 })
+        health({ enabled: true, status: 'waiting', outcome: 'skipped', reason_code: 'min_interval', reason: 'The last provider attempt is still inside the minimum interval.', next_eligible_at: new Date(next).toISOString(), input_count: inputCount, produced_count: 0 })
       }
-      return priorUnfinished
+      return uncertaintyReason
+        ? { ran: false, produced: 0, note: uncertaintyReason, reason_code: 'stale_running' }
+        : priorUnfinished
         ? { ran: false, produced: 0, note: 'prior provider attempt unfinished', reason_code: 'stale_running' }
         : { ran: false, produced: 0, note: 'within min interval', reason_code: 'min_interval' }
     }
@@ -663,13 +1094,162 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
     const dueRefresh = priorFailed
       ? elapsed >= c.minIntervalSec * 1000
       : elapsed >= c.refreshSec * 1000
-    if (!changed && !dueRefresh) {
+    const chunkKey = (chunk: IdeaPassChunkState) => `${chunk.hash}\0${chunk.effect_hash}`
+    // A provider/workload failure leaves completed chunks intact: the next paced attempt resumes at the
+    // first incomplete chunk instead of re-spending earlier coverage. A normal heartbeat deliberately
+    // starts a fresh coverage window only after every safe current input has completed. Otherwise a
+    // provider pause longer than refreshSec could repeatedly restart chunk one and starve the tail.
+    // An unresolved envelope must not stop normal hourly refreshes for every other row. Reset completed
+    // non-uncertain coverage on schedule while carrying the quarantine and its recovered exact claims.
+    const priorCompletedInputKeySet = new Set((prev?.completed_input_keys || []).filter((key) => (
+      currentInputKeySet.has(key) && !uncertainInputKeySet.has(key)
+    )))
+    const everySafeInputCompleted = rankedInputKeys
+      .filter((key) => !uncertainInputKeySet.has(key))
+      .every((key) => priorCompletedInputKeySet.has(key))
+    const resetCoverage = !priorFailed && !changed && dueRefresh && everySafeInputCompleted
+    // Keep one stable queue until its current rows have all cleared. Newly ranked rows append behind the
+    // unfinished queue instead of rebuilding every chunk from position zero; otherwise a busy wire can
+    // keep inserting a fresh rank-one row and starve the same lower-ranked evidence forever.
+    const priorOrder = resetCoverage ? [] : (prev?.coverage_order || [])
+    const coverageOrder: string[] = []
+    const queued = new Set<string>()
+    for (const key of [...priorOrder, ...rankedInputKeys]) {
+      if (!currentInputKeySet.has(key) || queued.has(key)) continue
+      queued.add(key)
+      coverageOrder.push(key)
+    }
+    // Uncertain rows are not complete, but sending them again could duplicate a real request. Remove only
+    // those exact identities from automatic envelopes; all other old and new rows keep their queue order.
+    const orderedRows = coverageOrder
+      .filter((key) => !uncertainInputKeySet.has(key))
+      .map((key) => rowByInputKey.get(key))
+      .filter((row): row is IdeaInputRow => Boolean(row))
+    const chunks = chunkIdeaRows(orderedRows, c.topN)
+    const chunkInputKeys = chunks.map((chunk) => chunk.map(inputKey))
+    const chunkStates = chunks.map((chunk): IdeaPassChunkState => ({
+      hash: topNHash(chunk),
+      effect_hash: topNEffectHash(chunk),
+    }))
+    const currentChunkKeys = new Set(chunkStates.map(chunkKey))
+    const legacyCompleted = !changed && !dueRefresh && chunks.length === 1 && prev && !prev.completed_chunks
+      ? [{ ...chunkStates[0] }]
+      : []
+    const reusableCompleted = resetCoverage
+      ? []
+      : (prev?.completed_chunks || legacyCompleted).filter((chunk) => currentChunkKeys.has(chunkKey(chunk)))
+    const completedByKey = new Map(reusableCompleted.map((chunk) => [chunkKey(chunk), chunk]))
+    const inferredCompletedInputs = resetCoverage ? [] : chunks.flatMap((chunk, index) => (
+      completedByKey.has(chunkKey(chunkStates[index])) ? chunkInputKeys[index] : []
+    ))
+    const completedInputKeys = new Set((resetCoverage
+      ? []
+      : (prev?.completed_input_keys || inferredCompletedInputs)).filter((key) => (
+      currentInputKeySet.has(key) && !uncertainInputKeySet.has(key)
+    )))
+    // A claim survives queue churn unless one of its own support rows changed or disappeared.
+    const completedIdeaClaims = new Map<string, string[]>()
+    if (!resetCoverage) {
+      if (prev?.completed_idea_claims !== undefined) {
+        for (const claim of prev.completed_idea_claims) {
+          // Only a change to this idea's own support can unlock it. Queue churn elsewhere is irrelevant.
+          if (claim.input_keys.every((key) => currentInputKeySet.has(key))) {
+            completedIdeaClaims.set(claim.idea_id, [...new Set(claim.input_keys)])
+          }
+        }
+      } else {
+        // Deploy-compatible migration: old checkpoints knew the accepted ids but not their source rows.
+        // Keep those claims until the next normal coverage reset rather than risk a weaker overwrite.
+        for (const id of prev?.completed_idea_ids || []) completedIdeaClaims.set(id, [])
+      }
+    } else {
+      for (const claim of prev?.completed_idea_claims || []) {
+        if (claim.input_keys.length > 0
+          && claim.input_keys.every((key) => currentInputKeySet.has(key))
+          && claim.input_keys.some((key) => uncertainInputKeySet.has(key))) {
+          completedIdeaClaims.set(claim.idea_id, [...new Set(claim.input_keys)])
+        }
+      }
+    }
+    const completedIdeaIds = new Set(completedIdeaClaims.keys())
+    const serializedIdeaClaims = () => [...completedIdeaClaims].map(([idea_id, input_keys]) => ({ idea_id, input_keys }))
+    const uncertainState = activeUncertainKeys.length ? { uncertain_input_keys: activeUncertainKeys } : {}
+    const chunkIsComplete = (index: number): boolean => completedByKey.has(chunkKey(chunkStates[index]))
+      || chunkInputKeys[index].every((key) => completedInputKeys.has(key))
+    const pendingChunkIndex = chunkStates.findIndex((_chunk, index) => !chunkIsComplete(index))
+    if (pendingChunkIndex < 0) {
+      // A rerank can change the whole-set hash without changing any exact provider envelope. Carry those
+      // proven completions forward under the new set identity; no provider call is needed.
+      if (changed || prev?.in_flight || !prev?.coverage_order || !prev.completed_input_keys) writePassState(deps.stateDir, {
+        hash, effect_hash: effectHash, ran_at_ms: prev?.ran_at_ms ?? inputAt,
+        completed_chunks: chunkStates.map((chunk) => completedByKey.get(chunkKey(chunk)) || chunk),
+        coverage_order: coverageOrder,
+        completed_input_keys: coverageOrder.filter((key) => completedInputKeys.has(key)),
+        completed_idea_ids: [...completedIdeaIds],
+        completed_idea_claims: serializedIdeaClaims(),
+        ...uncertainState,
+      })
+      if (uncertaintyReason) {
+        health({
+          enabled: true, status: 'degraded', outcome: 'failed', reason_code: 'stale_running',
+          reason: uncertaintyReason, next_eligible_at: null,
+          input_count: inputCount, produced_count: 0,
+        })
+        return { ran: false, produced: 0, note: uncertaintyReason, reason_code: 'stale_running' }
+      }
       const next = prev!.ran_at_ms + c.refreshSec * 1000
-      health({ enabled: true, status: 'waiting', outcome: 'skipped', reason_code: 'inputs_unchanged', reason: 'The ranked lead set is unchanged; the cached provider result remains current.', next_eligible_at: new Date(next).toISOString(), input_count: rows.length, produced_count: 0 })
-      return { ran: false, produced: 0, note: 'top-N unchanged', reason_code: 'inputs_unchanged' }
+      health({ enabled: true, status: 'waiting', outcome: 'skipped', reason_code: 'inputs_unchanged', reason: 'Every current ranked-input chunk has a completed provider result.', next_eligible_at: new Date(next).toISOString(), input_count: inputCount, produced_count: 0 })
+      return { ran: false, produced: 0, note: 'all current chunks complete', reason_code: 'inputs_unchanged' }
     }
 
-    const provider = await callIdeaProvidersDetailed(rows, deps)
+    const rows = chunks[pendingChunkIndex]
+    const currentChunkState = chunkStates[pendingChunkIndex]
+    const currentChunkInputKeys = chunkInputKeys[pendingChunkIndex]
+    const completedChunks = chunkStates.flatMap((chunk, index) => (
+      chunkIsComplete(index) ? [completedByKey.get(chunkKey(chunk)) || chunk] : []
+    ))
+    const preparedAt = now()
+    const attemptId = randomUUID()
+    const snapshotRevisionsAtStart = readIdeaSnapshots(deps.repoRoot).map((snapshot) => ({
+      idea_id: snapshot.idea_id,
+      revision: ideaSnapshotRevision(snapshot),
+    }))
+    // Prove the progress store is writable before any limiter reservation or provider request. The marker
+    // is intentionally durable: prepared safely retries, while a sent-but-unsettled envelope is set aside
+    // without stopping unrelated queue work.
+    writePassState(deps.stateDir, {
+      hash, effect_hash: effectHash, ran_at_ms: prev?.ran_at_ms ?? 0, completed_chunks: completedChunks,
+      coverage_order: coverageOrder,
+      completed_input_keys: coverageOrder.filter((key) => completedInputKeys.has(key)),
+      completed_idea_ids: [...completedIdeaIds],
+      completed_idea_claims: serializedIdeaClaims(),
+      ...uncertainState,
+      in_flight: {
+        chunk: currentChunkState, input_keys: currentChunkInputKeys,
+        input_event_ids: rows.map((row) => row.event_id), started_at_ms: preparedAt,
+        phase: 'prepared', attempt_id: attemptId, snapshot_revisions: snapshotRevisionsAtStart,
+      },
+    })
+    const provider = await callIdeaProvidersDetailed(rows, {
+      ...deps,
+      markProviderDispatch: (providerId, at) => {
+        writePassState(deps.stateDir, {
+          hash, effect_hash: effectHash, ran_at_ms: at, completed_chunks: completedChunks,
+          coverage_order: coverageOrder,
+          completed_input_keys: coverageOrder.filter((key) => completedInputKeys.has(key)),
+          completed_idea_ids: [...completedIdeaIds],
+          completed_idea_claims: serializedIdeaClaims(),
+          ...uncertainState,
+          in_flight: {
+            chunk: currentChunkState, input_keys: currentChunkInputKeys,
+            input_event_ids: rows.map((row) => row.event_id), started_at_ms: preparedAt,
+            phase: 'authorized', attempt_id: `${attemptId}:${providerId}`,
+            snapshot_revisions: snapshotRevisionsAtStart,
+          },
+        })
+        deps.markProviderDispatch?.(providerId, at)
+      },
+    })
     const r = provider.result
     if (r === null) {
       const code = provider.reason_code || 'internal_error'
@@ -682,27 +1262,58 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
             : code === 'paced_budget' ? 'The provider chain is holding paced capacity for later news triage.'
               : code === 'rate_limiter_busy' ? 'Every eligible provider currently has a busy per-minute window.'
                 : 'The idea pass could not determine provider eligibility.')
-      health({ enabled: true, status, outcome: 'skipped', reason_code: code, reason, next_eligible_at: null, input_count: rows.length, produced_count: 0 })
-      return { ran: false, produced: 0, note: reason, reason_code: code }
+      // No provider request was sent. Clear the prepared marker and restore the prior attempt clock so an
+      // eligibility-only skip does not consume the minimum interval.
+      writePassState(deps.stateDir, {
+        hash, effect_hash: effectHash, ran_at_ms: prev?.ran_at_ms ?? 0, completed_chunks: completedChunks,
+        coverage_order: coverageOrder,
+        completed_input_keys: coverageOrder.filter((key) => completedInputKeys.has(key)),
+        completed_idea_ids: [...completedIdeaIds],
+        completed_idea_claims: serializedIdeaClaims(),
+        ...uncertainState,
+      })
+      const fullReason = uncertaintyReason ? `${reason} ${uncertaintyReason}` : reason
+      health({
+        enabled: true, status: uncertaintyReason ? 'degraded' : status, outcome: 'skipped',
+        reason_code: uncertaintyReason ? 'stale_running' : code, reason: fullReason,
+        next_eligible_at: null, input_count: inputCount, produced_count: 0,
+      })
+      return { ran: false, produced: 0, note: fullReason, reason_code: uncertaintyReason ? 'stale_running' : code }
     }
-    // stamp the attempt regardless of outcome so a failing provider isn't re-probed every tick
-    writePassState(deps.stateDir, { hash, effect_hash: effectHash, ran_at_ms: now() })
     if (!r.ok) {
+      // Stamp the attempt but never the chunk completion, so the exact same envelope resumes after the
+      // minimum interval. Previously completed chunks stay durable and are not re-billed.
+      writePassState(deps.stateDir, {
+        hash, effect_hash: effectHash, ran_at_ms: now(), completed_chunks: completedChunks,
+        coverage_order: coverageOrder,
+        completed_input_keys: coverageOrder.filter((key) => completedInputKeys.has(key)),
+        completed_idea_ids: [...completedIdeaIds],
+        completed_idea_claims: serializedIdeaClaims(),
+        ...uncertainState,
+      })
       const counts = inspectIdeaSnapshots(deps.repoRoot, now())
-      health({ enabled: true, status: counts.live_count + counts.stale_count > 0 ? 'degraded' : 'error', outcome: 'failed', reason_code: 'provider_error', reason: r.note || 'The provider attempt failed.', next_eligible_at: null, input_count: rows.length, produced_count: 0 })
+      const failureReason = `${r.note || 'The provider attempt failed.'}${uncertaintyReason ? ` ${uncertaintyReason}` : ''}`
+      health({ enabled: true, status: counts.live_count + counts.stale_count > 0 || uncertaintyReason ? 'degraded' : 'error', outcome: 'failed', reason_code: 'provider_error', reason: failureReason, next_eligible_at: null, input_count: inputCount, produced_count: 0 })
       log(`idea pass: ${r.note || 'no ideas produced'}`)
-      return { ran: false, produced: 0, note: r.note, reason_code: 'provider_error' }
+      return { ran: false, produced: 0, note: failureReason, reason_code: 'provider_error' }
     }
 
     const snapshots = readIdeaSnapshots(deps.repoRoot)
     const nowIso = new Date(now()).toISOString().replace(/\.\d{3}Z$/, 'Z')
     const seen = new Set<string>()
+    const newRawIdeaCount = r.ideas.filter((raw) => !completedIdeaIds.has(ideaId(raw.ticker, raw.direction))).length
     const persistedVersions = new Map<string, string>()
-    const prepared: { id: string; version: string; template: SurfacedIdea }[] = []
+    // `input_keys` travels with each prepared row because persistence happens in a second loop, after the
+    // source rows that produced it have gone out of scope. The completion claim must name the exact inputs
+    // this call was paid for, so the next pass can tell a settled envelope from an unpaid one.
+    const prepared: { id: string; version: string; template: SurfacedIdea; input_keys: string[] }[] = []
     let sourceChangedDuringPass = false
     let writeConflicts = 0
     for (const raw of r.ideas) {
       const id = ideaId(raw.ticker, raw.direction)
+      // The server-ranked queue is strongest first. A later comparative chunk may repeat the same
+      // ticker+direction, but that weaker occurrence cannot replace the first valid call in this window.
+      if (completedIdeaIds.has(id)) continue
       if (seen.has(id)) continue // two raw rows collapsed to the same call — the model returned the best first
       const srcRows = raw.src.map((i) => rows[i]).filter(Boolean)
       if (!srcRows.length) continue
@@ -797,7 +1408,7 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
       if (!directionMatchesEvidence(raw.direction, boundDirection)) continue
       seen.add(id)
       const coverage = priorCoverage(deps.repoRoot, raw.ticker)
-      prepared.push({ id, version, template: {
+      prepared.push({ id, version, input_keys: [...new Set(srcRows.map(inputKey))], template: {
           idea_id: id,
           idea_version: version,
           idea_version_started_at: nowIso,
@@ -854,7 +1465,7 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
     // refresh. Mark before mutation; a no-op pass simply clears after a clean status check.
     markIdeasPublicationPending(deps.stateDir, now())
     let persistenceInputChanged = false
-    for (const { id, version, template } of prepared) {
+    for (const { id, version, template, input_keys: preparedInputKeys } of prepared) {
       let saved = false
       for (let attempt = 0; attempt < 3 && !saved; attempt++) {
         // All async listing work and one final input revalidation completed before this write phase.
@@ -880,7 +1491,11 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
           if (!valid) persistenceInputChanged = true
           return valid
         })
-        if (saved) persistedVersions.set(id, version)
+        if (saved) {
+          persistedVersions.set(id, version)
+          completedIdeaIds.add(id)
+          completedIdeaClaims.set(id, preparedInputKeys)
+        }
         if (persistenceInputChanged) break
       }
       if (persistenceInputChanged) break
@@ -908,22 +1523,63 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
     // leads but none became a valid projectable snapshot, the pass failed regardless of whether the cause
     // was a CAS conflict, a damaged store, or a later source/persistence invariant. Never collapse that into
     // "nothing cleared the bar."
-    const persistenceFailed = r.ideas.length > 0 && produced === 0
+    // An envelope containing only calls already accepted from an earlier chunk is a successful no-op.
+    // New returned calls still have to produce at least one valid snapshot or the chunk remains pending.
+    const persistenceFailed = newRawIdeaCount > 0 && produced === 0
     const persistenceFailureCode: IdeasHealthReasonCode = writeConflicts > 0
       ? 'write_conflict'
       : storeDegraded
         ? 'snapshot_store_error'
         : 'internal_error'
-    const status = persistenceFailed ? (snapshotState.live_count + snapshotState.stale_count ? 'degraded' : 'error')
+    const status = persistenceFailed ? (snapshotState.live_count + snapshotState.stale_count || uncertaintyReason ? 'degraded' : 'error')
       : storeDegraded || writeConflicts ? 'degraded'
-        : 'healthy'
+        : uncertaintyReason ? 'degraded'
+          : 'healthy'
     const outcome = persistenceFailed ? 'failed' : produced ? 'success_with_ideas' : 'success_empty'
     const reasonCode: IdeasHealthReasonCode | null = persistenceFailed ? persistenceFailureCode
       : writeConflicts ? 'write_conflict'
       : storeDegraded ? 'snapshot_store_error'
-        : null
+        : uncertaintyReason ? 'stale_running'
+          : null
     const providerName = provider.provider || 'The provider'
-    const reason = persistenceFailed
+    const nextCompletedChunks = persistenceFailed
+      ? completedChunks
+      : [...completedChunks, { ...currentChunkState, returned_count: r.ideas.length }]
+    const nextCompletedInputKeys = new Set(completedInputKeys)
+    if (!persistenceFailed) for (const key of currentChunkInputKeys) nextCompletedInputKeys.add(key)
+    // Completion is checkpointed only after the provider envelope has passed every source/listing/store
+    // invariant. A crash or persistence rejection cannot turn an uncommitted chunk into cached success.
+    if (!persistenceFailed) {
+      // Persist the successful result and its first-occurrence claims before removing the in-flight marker.
+      // If the final rename is interrupted, recovery can finish from these exact bytes without a provider
+      // retry and without allowing a lower-ranked duplicate to replace an already saved snapshot.
+      writePassState(deps.stateDir, {
+        hash, effect_hash: effectHash, ran_at_ms: finishedAt, completed_chunks: nextCompletedChunks,
+        coverage_order: coverageOrder,
+        completed_input_keys: coverageOrder.filter((key) => nextCompletedInputKeys.has(key)),
+        completed_idea_ids: [...completedIdeaIds],
+        completed_idea_claims: serializedIdeaClaims(),
+        ...uncertainState,
+        in_flight: {
+          chunk: { ...currentChunkState, returned_count: r.ideas.length },
+          input_keys: currentChunkInputKeys, input_event_ids: rows.map((row) => row.event_id),
+          started_at_ms: preparedAt,
+          phase: 'persisted', attempt_id: attemptId, snapshot_revisions: snapshotRevisionsAtStart,
+        },
+      })
+    }
+    writePassState(deps.stateDir, {
+      hash, effect_hash: effectHash, ran_at_ms: finishedAt, completed_chunks: nextCompletedChunks,
+      coverage_order: coverageOrder,
+      completed_input_keys: coverageOrder.filter((key) => nextCompletedInputKeys.has(key)),
+      completed_idea_ids: [...completedIdeaIds],
+      completed_idea_claims: serializedIdeaClaims(),
+      ...uncertainState,
+    })
+    const completedKeysAfter = new Set(nextCompletedChunks.map(chunkKey))
+    const remainingChunks = chunkStates.filter((chunk, index) => !completedKeysAfter.has(chunkKey(chunk))
+      && chunkInputKeys[index].some((key) => !nextCompletedInputKeys.has(key))).length
+    const providerResultReason = persistenceFailed
       ? writeConflicts > 0
         ? `${providerName} returned news leads, but none could be committed without overwriting a newer snapshot revision.`
         : storeDegraded
@@ -934,16 +1590,17 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
         : storeDegraded
           ? `${providerName} completed the pass, but ${snapshotState.snapshot_store.corrupt_count + snapshotState.snapshot_store.invalid_count + snapshotState.snapshot_store.unprojectable_count} snapshot file${snapshotState.snapshot_store.file_count === 1 ? '' : 's'} cannot be projected safely.`
           : produced
-            ? `${providerName} surfaced ${produced} unverified news lead${produced === 1 ? '' : 's'}.`
-            : `${providerName} completed successfully and returned no news leads.`
+            ? `${providerName} surfaced ${produced} unverified news lead${produced === 1 ? '' : 's'}${remainingChunks ? `; ${remainingChunks} ranked-input chunk${remainingChunks === 1 ? '' : 's'} remain queued.` : '.'}`
+            : `${providerName} completed successfully and returned no news leads${remainingChunks ? `; ${remainingChunks} ranked-input chunk${remainingChunks === 1 ? '' : 's'} remain queued.` : '.'}`
+    const reason = `${providerResultReason}${uncertaintyReason ? ` ${uncertaintyReason}` : ''}`
     health({
       enabled: true, status, outcome, reason_code: reasonCode,
       reason,
       ...(persistenceFailed ? {} : { last_success_at: new Date(finishedAt).toISOString() }),
       next_eligible_at: new Date(finishedAt + c.minIntervalSec * 1000).toISOString(),
-      input_count: rows.length, produced_count: produced,
+      input_count: inputCount, produced_count: produced,
     }, finishedAt)
-    log(`idea pass: ${providerName} surfaced ${produced} idea${produced === 1 ? '' : 's'} from ${rows.length} ranked items`)
+    log(`idea pass: ${providerName} surfaced ${produced} idea${produced === 1 ? '' : 's'} from chunk ${pendingChunkIndex + 1}/${chunks.length} (${rows.length} of ${inputCount} ranked items)`)
     return { ran: true, produced, note: persistenceFailed ? reason : undefined, reason_code: reasonCode || undefined }
   } catch (e: any) {
     log(`idea pass error: ${e?.message || e}`)

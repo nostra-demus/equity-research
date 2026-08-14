@@ -198,6 +198,10 @@ export interface TopSweepFreshnessOptions {
   futureSkewMs?: number
   /** Direct feature gate for the Themes → Ideas bridge. Omitted keeps legacy callers enabled. */
   themesEnabled?: boolean
+  /** Return every current eligible row after the same evidence-family, human-veto, and Theme-package
+   * projection. The Ideas orchestrator uses this to chunk complete coverage itself; ordinary callers keep
+   * the explicit `topN` cap. */
+  allEligible?: boolean
 }
 
 function ideasDir(repoRoot: string): string { return path.join(repoRoot, 'screener', 'ledger', 'ideas') }
@@ -1353,7 +1357,8 @@ function readActionableThemeRows(
 
 /**
  * Read every trustworthy curated sweep that overlaps the source-freshness window into skim input rows,
- * sorted by materiality and capped at `topN`. Daily files are storage partitions, not freshness
+ * sorted by materiality and normally capped at `topN`. `allEligible` lets the Ideas orchestrator read the
+ * complete current projection and apply the same `topN` as a provider-call chunk size instead. Daily files are storage partitions, not freshness
  * boundaries: a 23:59 story must remain eligible after midnight until its source timestamp ages out.
  * Drops consumed/dismissed rows, duplicate story families, and the low tail. Never throws — a missing
  * sweep yields []. Callers without a freshness contract keep the legacy newest-file-only read.
@@ -1764,7 +1769,6 @@ export function readTopSweep(
     })
     if (!eligible.length && candidates.length && (staleRowCount || invalidTimeCount)) status = 'stale'
   }
-  const cap = Math.max(1, Math.floor(topN))
   const revisionClockByRow = new WeakMap<IdeaInputRow, number>()
   const wireRows = eligible
     .map(({ row: r, partition }): IdeaInputRow => {
@@ -1816,6 +1820,12 @@ export function readTopSweep(
       }
       return ideaRow
     })
+  // With W wire rows, no more than floor(W/2) Theme rows can fit while Themes remain <= one-third of
+  // the final projection. This finite, data-derived bound returns every eligible wire family without a
+  // MAX_SAFE_INTEGER sentinel leaking into slice/ratio arithmetic.
+  const cap = freshness?.allEligible
+    ? Math.max(1, wireRows.length + Math.floor(wireRows.length / 2))
+    : Math.max(1, Math.floor(topN))
   const sameVetoObservation = (row: IdeaInputRow, veto: HumanVetoRecord): boolean => {
     const forcedFamily = '__human_veto_observation__'
     const exactText = (left: string, right: string): boolean => Boolean(left && right && sameThemeStoryObservation(
@@ -3105,21 +3115,141 @@ export async function appendIdeaFeedback(repoRoot: string, rec: IdeaFeedbackReco
 }
 
 // ---- pass state (change-detection + interval throttle) --------------------------------------------
-export interface IdeaPassState { hash: string; effect_hash?: string; ran_at_ms: number }
+export interface IdeaPassChunkState {
+  hash: string
+  effect_hash: string
+  /** Raw valid provider rows returned for this successfully persisted envelope. Zero is the literal
+   * empty-success contract; omitted is a legacy checkpoint whose outcome was not recorded. */
+  returned_count?: number
+}
+export interface IdeaPassInFlightState {
+  chunk: IdeaPassChunkState
+  /** Stable row identities in the prepared provider envelope. If the process loses the final checkpoint,
+   * the next owner treats these rows as already attempted instead of charging the same envelope again. */
+  input_keys: string[]
+  /** Event ids aligned with input_keys. This lets recovery bind a saved idea to its exact selected source
+   * rows even when another row has already left the current sweep. Optional only for rolling deploys. */
+  input_event_ids?: string[]
+  started_at_ms: number
+  /** prepared = dispatch is not authorized and no reservation exists; authorized = this exact envelope
+   * was durably approved immediately before reservation, so a crash may have happened before or after
+   * provider I/O; persisted = the result/snapshots are durable but final marker removal was interrupted.
+   * dispatched and missing are conservative rolling-deploy forms of authorized. */
+  phase?: 'prepared' | 'authorized' | 'dispatched' | 'persisted'
+  attempt_id?: string
+  /** Snapshot baseline captured before dispatch. A changed/new exact revision is local proof that this
+   * attempt persisted an idea even if the terminal progress write was interrupted. */
+  snapshot_revisions?: IdeaPassSnapshotRevision[]
+}
+export interface IdeaPassIdeaClaim {
+  idea_id: string
+  /** Stable identities of only the source rows that supported this accepted occurrence. */
+  input_keys: string[]
+}
+export interface IdeaPassSnapshotRevision {
+  idea_id: string
+  revision: string
+}
+export interface IdeaPassState {
+  hash: string
+  effect_hash?: string
+  ran_at_ms: number
+  /** Successfully persisted provider chunks for the current coverage window. Absent is the legacy
+   * single-call state; callers may treat it as complete only when the whole input still fits one chunk. */
+  completed_chunks?: IdeaPassChunkState[]
+  /** Stable row order for the current coverage window. New top-ranked rows append to this queue, so a
+   * busy wire cannot keep moving unfinished lower-ranked rows behind a freshly rebuilt first chunk. */
+  coverage_order?: string[]
+  /** Stable prompt+effect identities already covered in this window. Unlike positional chunk hashes,
+   * these survive inserts and removals elsewhere in the ranked input set. */
+  completed_input_keys?: string[]
+  /** First valid ticker+direction calls already committed in this window. Later chunks may repeat a call
+   * for comparison context, but must not replace the stronger occurrence admitted from an earlier chunk. */
+  completed_idea_ids?: string[]
+  /** Source-scoped form of completed_idea_ids. An unrelated row leaving the queue cannot unlock a claim;
+   * changing or removing one of its actual support rows does, so refreshed lineage can still be saved. */
+  completed_idea_claims?: IdeaPassIdeaClaim[]
+  /** Exact prompt+effect row identities from sent requests whose result checkpoint is unknown. They are
+   * quarantined, not completed: later/new rows keep flowing, but these rows are never sent again without
+   * an explicit audited recovery. Changed or removed rows naturally drop because their identity changes. */
+  uncertain_input_keys?: string[]
+  /** Durable request lifecycle marker. Recovery safely retries prepared, quarantines dispatched, and
+   * locally finishes persisted without another provider call. */
+  in_flight?: IdeaPassInFlightState
+}
 
-export function readPassState(stateDir: string): IdeaPassState | null {
+export function readPassState(stateDir: string, failOnCorrupt = false): IdeaPassState | null {
+  const file = path.join(stateDir, 'ideas-pass.json')
+  let raw: string
   try {
-    const o = JSON.parse(fs.readFileSync(path.join(stateDir, 'ideas-pass.json'), 'utf8'))
+    raw = fs.readFileSync(file, 'utf8')
+  } catch (error: any) {
+    if (error?.code === 'ENOENT') return null
+    if (failOnCorrupt) throw Object.assign(new Error('Ideas progress record needs attention.'), { code: 'EIDEA_PASS_STATE' })
+    return null
+  }
+  try {
+    const o = JSON.parse(raw)
+    const stringArray = (value: unknown): boolean => value === undefined || (Array.isArray(value)
+      && value.length <= 10_000 && value.every((entry) => typeof entry === 'string' && entry.length > 0 && entry.length <= 256))
+    const chunkValid = (chunk: any): boolean => Boolean(chunk && typeof chunk.hash === 'string'
+      && typeof chunk.effect_hash === 'string'
+      && (chunk.returned_count === undefined || (Number.isInteger(chunk.returned_count) && chunk.returned_count >= 0)))
+    const chunksValid = o?.completed_chunks === undefined || (Array.isArray(o.completed_chunks)
+      && o.completed_chunks.length <= 10_000
+      && o.completed_chunks.every(chunkValid))
+    const inFlightValid = o?.in_flight === undefined || Boolean(o.in_flight
+      && chunkValid(o.in_flight.chunk)
+      && stringArray(o.in_flight.input_keys)
+      && Array.isArray(o.in_flight.input_keys)
+      && stringArray(o.in_flight.input_event_ids)
+      && (o.in_flight.input_event_ids === undefined
+        || o.in_flight.input_event_ids.length === o.in_flight.input_keys.length)
+      && typeof o.in_flight.started_at_ms === 'number'
+      && Number.isFinite(o.in_flight.started_at_ms)
+      && (o.in_flight.phase === undefined || o.in_flight.phase === 'prepared'
+        || o.in_flight.phase === 'authorized' || o.in_flight.phase === 'dispatched'
+        || o.in_flight.phase === 'persisted')
+      && (o.in_flight.attempt_id === undefined || (typeof o.in_flight.attempt_id === 'string'
+        && o.in_flight.attempt_id.length > 0 && o.in_flight.attempt_id.length <= 128))
+      && (o.in_flight.snapshot_revisions === undefined || (Array.isArray(o.in_flight.snapshot_revisions)
+        && o.in_flight.snapshot_revisions.length <= 10_000
+        && o.in_flight.snapshot_revisions.every((snapshot: any) => snapshot
+          && typeof snapshot.idea_id === 'string' && snapshot.idea_id.length > 0 && snapshot.idea_id.length <= 256
+          && typeof snapshot.revision === 'string' && snapshot.revision.length > 0 && snapshot.revision.length <= 256))))
+    const claimsValid = o?.completed_idea_claims === undefined || (Array.isArray(o.completed_idea_claims)
+      && o.completed_idea_claims.length <= 10_000
+      && o.completed_idea_claims.every((claim: any) => claim
+        && typeof claim.idea_id === 'string' && claim.idea_id.length > 0 && claim.idea_id.length <= 256
+        && Array.isArray(claim.input_keys) && stringArray(claim.input_keys)))
     if (o && typeof o.hash === 'string'
       && (o.effect_hash === undefined || typeof o.effect_hash === 'string')
-      && typeof o.ran_at_ms === 'number') return o as IdeaPassState
-  } catch { /* fresh */ }
+      && typeof o.ran_at_ms === 'number' && Number.isFinite(o.ran_at_ms)
+      && chunksValid
+      && stringArray(o.coverage_order)
+      && stringArray(o.completed_input_keys)
+      && stringArray(o.completed_idea_ids)
+      && stringArray(o.uncertain_input_keys)
+      && claimsValid
+      && inFlightValid) return o as IdeaPassState
+  } catch { /* handled below */ }
+  if (failOnCorrupt) throw Object.assign(new Error('Ideas progress record needs attention.'), { code: 'EIDEA_PASS_STATE' })
   return null
 }
 
 export function writePassState(stateDir: string, state: IdeaPassState): void {
+  const file = path.join(stateDir, 'ideas-pass.json')
+  const tmp = `${file}.${process.pid}.${randomUUID()}.tmp`
   try {
     fs.mkdirSync(stateDir, { recursive: true })
-    fs.writeFileSync(path.join(stateDir, 'ideas-pass.json'), JSON.stringify(state))
-  } catch { /* a missed write only risks one redundant pass next tick */ }
+    fs.writeFileSync(tmp, JSON.stringify(state))
+    fs.renameSync(tmp, file)
+  } catch (error: any) {
+    try { fs.unlinkSync(tmp) } catch { /* absent temp */ }
+    // A missed checkpoint can rebill a provider envelope. Surface it so runIdeaPass fails before dispatch
+    // or leaves its durable in-flight marker for at-most-once recovery; never pretend this is best-effort.
+    throw Object.assign(new Error(`idea pass checkpoint failed: ${String(error?.message || error).slice(0, 200)}`), {
+      code: 'EIDEA_PASS_CHECKPOINT',
+    })
+  }
 }

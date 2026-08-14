@@ -181,14 +181,8 @@ const lineageFetch = (async (input: Parameters<typeof fetch>[0]) => {
     choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [
       {
         // Final input order is wire(91), unused WHY_NOW(88), unused EXPRESSION_PROOF(87), seven wire rows,
-        // used WHY_NOW(70), used EXPRESSION_PROOF(69). This first duplicate invents LINK from the complete
-        // UNUSED package and must fail closed without
-        // blocking the later correctly bound duplicate for the same ticker/direction.
-        src: [1, 2], ticker: 'LINK', company: 'Link Corp', exchange: 'NYSE', direction: 'long',
-        reason: 'The catalyst can lift revenue', why_now: 'The catalyst was reported today',
-        conviction: 68, priced_in: 'room', thesis_type: 'company_specific',
-      },
-      {
+        // used WHY_NOW(70), used EXPRESSION_PROOF(69). The exact selected package alone supplies lineage;
+        // provider envelopes now fail closed on duplicate ticker+direction rows before this stage.
         src: [0, 10, 11], ticker: 'LINK', company: 'Link Corp', exchange: 'NYSE', direction: 'long',
         reason: 'The contract and demand catalyst can lift revenue', why_now: 'Both catalysts were reported today',
         conviction: 68, priced_in: 'room', thesis_type: 'company_specific',
@@ -312,16 +306,6 @@ const packageFetch = (async (input: Parameters<typeof fetch>[0], init?: RequestI
   return new Response(JSON.stringify({
     choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [
       {
-        src: [4], ticker: 'ACME', company: 'Acme Corp', exchange: 'NYSE', direction: 'long',
-        reason: 'The backlog can extend transformer pricing', why_now: 'The regulator confirmed the backlog today',
-        conviction: 68, priced_in: 'room', thesis_type: 'company_specific',
-      },
-      {
-        src: [5], ticker: 'ACME', company: 'Acme Corp', exchange: 'NYSE', direction: 'long',
-        reason: 'The backlog can extend transformer pricing', why_now: 'The structural filing identifies the exposure',
-        conviction: 68, priced_in: 'room', thesis_type: 'company_specific',
-      },
-      {
         src: [4, 5], ticker: 'ACME', company: 'Acme Corp', exchange: 'NYSE', direction: 'long',
         reason: 'The live backlog can extend pricing for Acme transformer capacity', why_now: 'The regulator confirmed the backlog today',
         conviction: 68, priced_in: 'room', thesis_type: 'company_specific',
@@ -336,7 +320,7 @@ try {
     refreshBoard: async () => {}, now: () => NOW,
     fetchFn: packageFetch, sleep: async () => {}, persistHealth: true,
   })
-  assert.equal(result.produced, 1, `why-only and expression-only attempts fail; the complete two-row package clears: ${JSON.stringify(result)}`)
+  assert.equal(result.produced, 1, `the complete two-row package clears: ${JSON.stringify(result)}`)
   const persisted = readIdeaById(packageRoot, ideaId('ACME', 'long'))
   assert.deepEqual(persisted?.source_event_ids, [whyEvent, expressionEvent])
   assert.deepEqual(persisted?.source_themes, [{
@@ -520,7 +504,9 @@ const pairFetch = (async (input: Parameters<typeof fetch>[0]) => {
     directoryQueries.push(q)
     const quote = q === 'PAIRPRIM'
       ? { quoteType: 'EQUITY', symbol: 'PAIRPRIM', longname: 'Pair Primary Corp', exchDisp: 'NYSE' }
-      : q === 'GOODLEG'
+      : q === 'BADPAIR'
+        ? { quoteType: 'EQUITY', symbol: 'BADPAIR', longname: 'Bad Pair Corp', exchDisp: 'NYSE' }
+        : q === 'GOODLEG'
         // Wire-only has no server-authoritative pair company name. Exact ticker+venue is the safe path;
         // this intentionally unrelated directory name proves no provider-authored name was trusted.
         ? { quoteType: 'EQUITY', symbol: 'GOODLEG', longname: 'Directory Returned Name Plc', exchDisp: 'NASDAQ' }
@@ -543,7 +529,7 @@ const pairFetch = (async (input: Parameters<typeof fetch>[0]) => {
         conviction: 66, priced_in: 'room', thesis_type: 'company_specific',
       },
       {
-        src: [0, 1], ticker: 'PAIRPRIM', company: 'Pair Primary Corp', exchange: 'NYSE', direction: 'pair', pair_with: 'BADLEG',
+        src: [0, 1], ticker: 'BADPAIR', company: 'Bad Pair Corp', exchange: 'NYSE', direction: 'pair', pair_with: 'BADLEG',
         reason: 'The order shifts revenue toward the winner', why_now: 'The award was filed today',
         conviction: 66, priced_in: 'room', thesis_type: 'company_specific',
       },
@@ -574,6 +560,7 @@ try {
   assert.ok(directoryQueries.includes('BADPRIMARY'), 'an unlisted primary invalidates the whole pair')
   assert.equal(readIdeaById(pairRoot, ideaId('BADPRIMARY', 'pair')), null)
   assert.ok(directoryQueries.includes('BADLEG'), 'the unlisted second leg was independently checked')
+  assert.equal(readIdeaById(pairRoot, ideaId('BADPAIR', 'pair')), null)
   assert.ok(directoryQueries.includes('GOODLEG'), 'rejection did not block the later valid pair')
   assert.equal(readIdeaById(pairRoot, ideaId('ALIAS', 'pair')), null, 'matching directory issuer identities reject a verified cross-listing self-pair')
   const sameBaseDistinctIssuer = readIdeaById(pairRoot, ideaId('SHARED', 'pair'))

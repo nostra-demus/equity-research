@@ -5,7 +5,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { EventEmitter } from 'node:events'
 import { appendNewsChatFinalQuestion, bindNewsChatRequestAbort, compactNewsChatUserPrompt, newsChatTokenBound, NewsChatRequestGate, runNewsChatFallback, shouldUseNewsChatFallback } from '../src/news/chat-provider'
-import { Budget, resetBudgetMemory, resetSharedLimiters } from '../src/news/triage/budget'
+import { armCooldown, Budget, getSharedLimiter, readCooldownUntil, resetBudgetMemory, resetCooldownMemory, resetSharedLimiters } from '../src/news/triage/budget'
 import { callGroqForIdeaPass, ideaGroqTokenBound } from '../src/news/ideas/run-idea-pass'
 import { estimateIdeaTokens, type IdeaInputRow } from '../src/news/ideas/surface-ideas'
 import { triageGroqTokenBound, triageGroqWithReservation } from '../src/news/runCycle'
@@ -45,10 +45,42 @@ await check('backup stays closed-book and returns the provider answer', async ()
   assert.equal(budget.tokens, 123)
 })
 
+await check('invalid provider token telemetry cannot refund a sent chat request', async () => {
+  for (const reportedTokens of [-1, 0, Number.NaN]) {
+    resetBudgetMemory(); resetSharedLimiters()
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'news-chat-invalid-usage-'))
+    const expected = newsChatTokenBound('Use only cited evidence.', '[N1] evidence', config.maxTokens)
+    const result = await runNewsChatFallback({
+      system: 'Use only cited evidence.', user: '[N1] evidence', signal: new AbortController().signal,
+      onToken: () => {}, config: { ...config, stateDir: dir },
+      fetchImpl: async () => new Response(JSON.stringify({
+        choices: [{ finish_reason: 'stop', message: { content: 'The answer uses [N1].' } }],
+        usage: { total_tokens: reportedTokens },
+      }), { status: 200 }),
+    })
+    assert.equal(result.error, undefined)
+    const saved = JSON.parse(fs.readFileSync(path.join(dir, 'groq-budget.json'), 'utf8'))
+    assert.equal(saved.requests, 1)
+    assert.equal(saved.tokens, expected, `reported ${String(reportedTokens)} must keep the safe reservation`)
+  }
+})
+
 await check('backup is skipped without explicit configuration', async () => {
   const result = await runNewsChatFallback({ system: 'x', user: 'y', signal: new AbortController().signal, onToken: () => {}, config: { ...config, apiKey: '' } })
   assert.equal(result.attempted, false)
   assert.match(result.error || '', /not configured/i)
+})
+
+await check('a read-only replica never spends a shared provider slot', async () => {
+  let calls = 0
+  const result = await runNewsChatFallback({
+    system: 'x', user: 'y', signal: new AbortController().signal, onToken: () => {},
+    config: { ...config, providerSpendingAllowed: false },
+    fetchImpl: (async () => { calls++; return new Response('{}') }) as typeof fetch,
+  })
+  assert.equal(result.attempted, false)
+  assert.equal(calls, 0)
+  assert.match(result.error || '', /active news engine/i)
 })
 
 await check('only provider-availability errors trigger backup', () => {
@@ -88,16 +120,57 @@ await check('compaction preserves a question containing delimiter-like transcrip
 })
 
 await check('length-truncated provider output is rejected and never emitted', async () => {
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'news-chat-contract-'))
   let output = ''
+  let fetches = 0
   const result = await runNewsChatFallback({
     system: 'Use only evidence.', user: 'QUESTION:\nWhat changed?', signal: new AbortController().signal,
-    onToken: (text) => { output += text }, config,
-    fetchImpl: async () => new Response(JSON.stringify({
-      choices: [{ finish_reason: 'length', message: { content: 'A cut-off answer' } }], usage: { total_tokens: 50 },
-    }), { status: 200 }),
+    onToken: (text) => { output += text }, config: { ...config, stateDir: dir },
+    fetchImpl: async () => {
+      fetches++
+      return new Response(JSON.stringify({
+        choices: [{ finish_reason: 'length', message: { content: 'A cut-off answer' } }], usage: { total_tokens: 50 },
+      }), { status: 200 })
+    },
   })
   assert.match(result.error || '', /cut off/i)
   assert.equal(output, '')
+  assert.equal(readCooldownUntil(dir, 'groq'), 0)
+  assert.ok(readCooldownUntil(dir, 'chat:groq') > Date.now())
+  const retry = await runNewsChatFallback({
+    system: 'Use only evidence.', user: 'QUESTION:\nWhat changed?', signal: new AbortController().signal,
+    onToken: () => {}, config: { ...config, stateDir: dir }, fetchImpl: async () => { fetches++; throw new Error('must not fetch') },
+  })
+  assert.equal(retry.attempted, false)
+  assert.equal(fetches, 1)
+})
+
+await check('chat request failures stay chat-scoped while provider outages use exact shared retry timing', async () => {
+  for (const c of [
+    { name: 'request', status: 400, shared: false, retry: 9_000 },
+    { name: 'service', status: 503, shared: true, retry: 9_000 },
+  ]) {
+    resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), `news-chat-${c.name}-`))
+    const at = Date.now()
+    const result = await runNewsChatFallback({
+      system: 'Use only evidence.', user: 'QUESTION:\nWhat changed?', signal: new AbortController().signal,
+      onToken: () => {}, config: { ...config, stateDir: dir },
+      fetchImpl: async () => new Response('private account detail', { status: c.status, headers: c.retry ? { 'retry-after': String(c.retry / 1000) } : {} }),
+    })
+    const completedAt = Date.now()
+    assert.equal(result.attempted, true)
+    assert.equal(readCooldownUntil(dir, 'groq') > at, c.shared, `${c.name}: shared provider hold`)
+    assert.equal(readCooldownUntil(dir, 'chat:groq') > at, !c.shared, `${c.name}: chat-only hold`)
+    if (c.retry) {
+      const holdId = c.shared ? 'groq' : 'chat:groq'
+      const until = readCooldownUntil(dir, holdId)
+      assert.ok(until >= at + c.retry && until <= completedAt + c.retry + 100,
+        'Retry-After stays exact and scoped from the actual response time instead of becoming exponential minutes')
+    }
+    assert.doesNotMatch(result.error || '', /account detail/)
+  }
 })
 
 await check('aborting during shared-limiter wait never starts a backup request', async () => {
@@ -119,6 +192,34 @@ await check('aborting during shared-limiter wait never starts a backup request',
   assert.equal(result.attempted, false)
   assert.equal(requests, 0)
   resetSharedLimiters()
+})
+
+await check('a provider hold that starts during limiter wait stops chat before reservation or request', async () => {
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'news-chat-post-limiter-hold-'))
+  const holdConfig = { ...config, stateDir: dir }
+  const limiter = getSharedLimiter(holdConfig.rpm, holdConfig.tpm)
+  const originalAcquire = limiter.acquire.bind(limiter)
+  let requests = 0
+  limiter.acquire = (async () => {
+    armCooldown(dir, Date.now(), 60_000, 'groq', 60_000, 'availability')
+    return true
+  }) as typeof limiter.acquire
+  try {
+    const result = await runNewsChatFallback({
+      system: 'Use only evidence.', user: 'QUESTION:\nWhat changed?', signal: new AbortController().signal,
+      onToken: () => {}, config: holdConfig,
+      fetchImpl: async () => { requests++; return new Response('{}', { status: 200 }) },
+    })
+    assert.equal(result.attempted, false)
+    assert.match(result.error || '', /waiting to try again/i)
+    assert.equal(requests, 0)
+    assert.equal(fs.existsSync(path.join(dir, 'groq-budget.json')), false)
+  } finally {
+    limiter.acquire = originalAcquire
+    fs.rmSync(dir, { recursive: true, force: true })
+    resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  }
 })
 
 await check('chat abort reconciliation cannot reopen a concurrently exhausted provider day', async () => {

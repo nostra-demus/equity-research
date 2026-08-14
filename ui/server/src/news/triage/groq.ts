@@ -6,15 +6,20 @@
 
 import { isRegion } from '../geo'
 import type { Band, CompanyGuess, NewsItem, SizeBucket, Triage } from '../types'
-import { conservativeChatTokenBound, type RateInfo } from './budget'
+import { conservativeChatTokenBound, credibleTokenUsage, type RateInfo } from './budget'
 
-/** Parse Groq's reset/retry duration strings to ms: "7.66s", "1m30s", "2m59.56s", "120ms", or bare seconds. */
-export function durToMs(s: string | null | undefined): number | undefined {
+/** Parse reset/retry values to ms. Retry-After permits either delta-seconds or an RFC HTTP-date; provider
+ * reset headers also use compact durations such as "2m59.56s". `now` is injectable so date-form waits
+ * remain exact and testable instead of silently falling back to the generic breaker. */
+export function durToMs(s: string | null | undefined, now = Date.now()): number | undefined {
   if (!s) return undefined
   const str = String(s).trim()
   if (/^\d+(\.\d+)?$/.test(str)) return Math.round(parseFloat(str) * 1000) // bare seconds (retry-after)
   const parts = str.match(/\d+(?:\.\d+)?(?:ms|s|m|h)/g)
-  if (!parts) return undefined
+  if (!parts) {
+    const at = Date.parse(str)
+    return Number.isFinite(at) ? Math.max(0, at - now) : undefined
+  }
   let ms = 0
   for (const p of parts) {
     const v = parseFloat(p)
@@ -30,13 +35,34 @@ export function durToMs(s: string | null | undefined): number | undefined {
  *  tokens are PER-MINUTE; remaining-requests is the DAILY request budget. */
 export function parseRate(res: { headers?: { get(k: string): string | null } }): RateInfo {
   const h = (k: string) => res?.headers?.get?.(k) ?? null
-  const num = (k: string) => { const v = Number(h(k)); return Number.isFinite(v) ? v : undefined }
+  // `Number(null) === 0`; treating an absent remaining-requests header as literal zero falsely marks every
+  // ordinary 429 as a terminal daily exhaustion. Preserve missing as undefined before numeric coercion.
+  const first = (keys: string[]) => {
+    for (const key of keys) {
+      const raw = h(key)
+      if (raw != null && raw.trim() !== '') return raw
+    }
+    return null
+  }
+  const num = (...keys: string[]) => {
+    const raw = first(keys)
+    if (raw == null || raw.trim() === '') return undefined
+    const v = Number(raw)
+    return Number.isFinite(v) ? v : undefined
+  }
+  const duration = (...keys: string[]) => durToMs(first(keys))
+  // Cerebras uses window-suffixed names; Groq uses the generic aliases. Read both. The token-minute reset
+  // becomes an exact retry delay only when that minute bucket is empty, so a Cerebras 429 can reopen on the
+  // provider's own clock instead of being widened to the generic engine hold.
+  const tpmRemaining = num('x-ratelimit-remaining-tokens', 'x-ratelimit-remaining-tokens-minute')
+  const tpmResetMs = duration('x-ratelimit-reset-tokens', 'x-ratelimit-reset-tokens-minute')
+  const retryAfterMs = duration('retry-after') ?? (tpmRemaining === 0 ? tpmResetMs : undefined)
   return {
-    tpmLimit: num('x-ratelimit-limit-tokens'),
-    tpmRemaining: num('x-ratelimit-remaining-tokens'),
-    tpmResetMs: durToMs(h('x-ratelimit-reset-tokens')),
-    rpdRemaining: num('x-ratelimit-remaining-requests'),
-    retryAfterMs: durToMs(h('retry-after')),
+    tpmLimit: num('x-ratelimit-limit-tokens', 'x-ratelimit-limit-tokens-minute'),
+    tpmRemaining,
+    tpmResetMs,
+    rpdRemaining: num('x-ratelimit-remaining-requests', 'x-ratelimit-remaining-requests-day'),
+    retryAfterMs,
   }
 }
 
@@ -93,6 +119,10 @@ export interface TriageOptions {
   // (don't retry — fall through to the NEXT provider instead, which is faster and more resilient).
   timeoutMs?: number
   maxAttempts?: number
+  // `x-ratelimit-remaining-requests` has provider-specific units. Groq documents it as the daily request
+  // allowance; generic OpenAI-compatible services may use the same name for a minute window. Only known
+  // daily semantics may turn an explicit zero into `dailyLimit` and close the shared day ledger.
+  requestRemainingHeaderIsDaily?: boolean
 }
 
 export interface TriageResult {
@@ -102,6 +132,53 @@ export interface TriageResult {
   ok: boolean
   note?: string
   rate?: RateInfo // live rate-limit state from the response headers (drives the adaptive pacer)
+  failureKind?: ProviderFailureKind
+  httpStatus?: number
+  timedOut?: boolean
+  dailyLimit?: boolean
+}
+
+// Machine-readable failure metadata is the routing contract. Public notes intentionally contain only the
+// provider family, status, and failure class: upstream error bodies can contain account identifiers,
+// balances, request fragments, or other operator-only details and must never leak into cycle/UI notes.
+export type ProviderFailureKind = 'rate_limit' | 'availability' | 'request' | 'contract'
+
+export interface ProviderFailureMetadata {
+  failureKind?: ProviderFailureKind
+  httpStatus?: number
+  timedOut?: boolean
+  dailyLimit?: boolean
+}
+
+export interface ArticleAnalysisResult extends ProviderFailureMetadata {
+  brief: ArticleBrief | null
+  tokens: number
+  note?: string
+  rate?: RateInfo
+  attempted?: boolean
+}
+
+export function httpFailureKind(status: number): ProviderFailureKind {
+  if (status === 429) return 'rate_limit'
+  if (status >= 500) return 'availability'
+  return 'request'
+}
+
+export function publicHttpFailureNote(provider: string, status: number, dailyLimit = false): string {
+  if (status === 429) return `${provider} HTTP 429 — ${dailyLimit ? 'daily quota reached' : 'rate limited'}`
+  if (status >= 500) return `${provider} HTTP ${status} — service unavailable`
+  if (status === 401 || status === 403) return `${provider} HTTP ${status} — authentication rejected`
+  if (status === 402) return `${provider} HTTP 402 — account limit reached`
+  if (status === 404) return `${provider} HTTP 404 — endpoint or model unavailable`
+  if (status === 413) return `${provider} HTTP 413 — request too large`
+  return `${provider} HTTP ${status} — request rejected`
+}
+
+export function caughtFailure(e: any, provider: string): { note: string; failureKind: ProviderFailureKind; timedOut?: boolean } {
+  const timedOut = e?.name === 'TimeoutError' || e?.name === 'AbortError'
+  if (timedOut) return { note: `${provider}: request timed out`, failureKind: 'availability', timedOut: true }
+  if (e instanceof SyntaxError) return { note: `${provider}: malformed response`, failureKind: 'contract' }
+  return { note: `${provider}: network unavailable`, failureKind: 'availability' }
 }
 
 /** Token estimate for the budget pre-check + per-minute pacer reservation (input titles + structured
@@ -196,6 +273,26 @@ export function coerceTriage(raw: any): Triage {
 }
 
 /**
+ * Validate the batch-level index contract before any row reaches downstream ranking. A provider must
+ * return exactly one row for every requested input index. Accepting an empty/partial array as success
+ * makes runCycle interpret every omitted headline as an intentional zero and mark it seen permanently.
+ *
+ * Field coercion remains deliberately forgiving: an explicit low/zero score is a valid decision. Only
+ * the coverage identity is strict — missing, duplicate, invalid, or out-of-range indices reject the whole
+ * response so the router can try another provider (or defer the batch) without losing an idea.
+ */
+export function coerceCompleteTriageRows(rows: unknown, expectedCount: number): Map<number, Triage> | null {
+  if (!Array.isArray(rows) || rows.length !== expectedCount) return null
+  const byIndex = new Map<number, Triage>()
+  for (const row of rows) {
+    const i = row?.i
+    if (!Number.isInteger(i) || i < 0 || i >= expectedCount || byIndex.has(i)) return null
+    byIndex.set(i, coerceTriage(row))
+  }
+  return byIndex.size === expectedCount ? byIndex : null
+}
+
+/**
  * Triage one batch. Never throws. Transient failures (429/5xx/network) get ONE retry with backoff;
  * an output truncated at max_tokens is reported as such (finish_reason 'length') and NOT retried —
  * it's deterministic, the fix is a smaller batch or a bigger token budget. On ok:false the caller
@@ -209,11 +306,13 @@ export async function triageBatch(
 ): Promise<TriageResult> {
   const byIndex = new Map<number, Triage>()
   if (!items.length) return { byIndex, requests: 0, tokens: 0, ok: true }
-  if (!opts.apiKey) return { byIndex, requests: 0, tokens: 0, ok: false, note: 'no GROQ_API_KEY' }
+  if (!opts.apiKey) return { byIndex, requests: 0, tokens: 0, ok: false, note: 'groq: provider not configured', failureKind: 'request' }
 
   let requests = 0
   let tokens = 0
-  let lastNote = 'groq fetch error'
+  let lastFailure: Required<Pick<TriageResult, 'note' | 'failureKind'>> & Pick<TriageResult, 'timedOut'> = {
+    note: 'groq: network unavailable', failureKind: 'availability',
+  }
   const maxAttempts = opts.maxAttempts ?? 2
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
@@ -237,39 +336,42 @@ export async function triageBatch(
       })
       const rate = parseRate(res)
       if (!res.ok) {
-        const body = await res.text().catch(() => '')
-        lastNote = `groq HTTP ${res.status}${body ? ': ' + body.slice(0, 120) : ''}`
-        const transient = res.status === 429 || res.status >= 500
+        // Drain the body so the connection can be reused, but never copy it into a public note.
+        await res.text().catch(() => '')
+        const dailyLimit = opts.requestRemainingHeaderIsDaily === true && res.status === 429 && rate.rpdRemaining === 0
+        const failureKind = httpFailureKind(res.status)
+        const note = publicHttpFailureNote('groq', res.status, dailyLimit)
+        const transient = (res.status === 429 && !dailyLimit) || res.status >= 500
         if (transient && attempt < maxAttempts) {
           await sleep(rate.retryAfterMs || 1500 * attempt)
           continue
         }
-        return { byIndex, requests, tokens, ok: false, note: lastNote, rate }
+        return { byIndex, requests, tokens, ok: false, note, rate, failureKind, httpStatus: res.status, ...(dailyLimit ? { dailyLimit: true } : {}) }
       }
       const data: any = await res.json()
-      const used = Number(data?.usage?.total_tokens)
-        || conservativeChatTokenBound(SYSTEM, buildUserMessage(items), opts.maxTokens ?? 2000)
+      const used = credibleTokenUsage(
+        data?.usage?.total_tokens,
+        conservativeChatTokenBound(SYSTEM, buildUserMessage(items), opts.maxTokens ?? 2000),
+      )
       tokens += used
       // a max_tokens truncation is deterministic — report it loudly instead of half-parsing
       if (data?.choices?.[0]?.finish_reason === 'length') {
-        return { byIndex, requests, tokens, ok: false, note: 'groq: output truncated at max_tokens — lower NEWS_TRIAGE_BATCH or raise NEWS_TRIAGE_MAX_TOKENS', rate }
+        return { byIndex, requests, tokens, ok: false, note: 'groq: output truncated at max_tokens — lower NEWS_TRIAGE_BATCH or raise NEWS_TRIAGE_MAX_TOKENS', rate, failureKind: 'contract' }
       }
       const content = data?.choices?.[0]?.message?.content
-      if (typeof content !== 'string') return { byIndex, requests, tokens, ok: false, note: 'groq: empty content', rate }
+      if (typeof content !== 'string') return { byIndex, requests, tokens, ok: false, note: 'groq: empty content', rate, failureKind: 'contract' }
       let parsed: any
-      try { parsed = JSON.parse(content) } catch { return { byIndex, requests, tokens, ok: false, note: 'groq: non-JSON content', rate } }
+      try { parsed = JSON.parse(content) } catch { return { byIndex, requests, tokens, ok: false, note: 'groq: non-JSON content', rate, failureKind: 'contract' } }
       const arr: any[] = Array.isArray(parsed) ? parsed : Array.isArray(parsed?.items) ? parsed.items : []
-      for (const row of arr) {
-        const i = Number(row?.i)
-        if (Number.isInteger(i) && i >= 0 && i < items.length && !byIndex.has(i)) byIndex.set(i, coerceTriage(row))
-      }
-      return { byIndex, requests, tokens, ok: true, rate }
+      const complete = coerceCompleteTriageRows(arr, items.length)
+      if (!complete) return { byIndex, requests, tokens, ok: false, note: 'groq: incomplete batch response', rate, failureKind: 'contract' }
+      return { byIndex: complete, requests, tokens, ok: true, rate }
     } catch (e: any) {
-      lastNote = e?.name === 'TimeoutError' ? 'groq: request timed out' : e?.message || 'groq fetch error'
+      lastFailure = caughtFailure(e, 'groq')
       if (attempt < maxAttempts) await sleep(1500 * attempt)
     }
   }
-  return { byIndex, requests, tokens, ok: false, note: lastNote }
+  return { byIndex, requests, tokens, ok: false, ...lastFailure }
 }
 
 // ============================================================================
@@ -533,12 +635,14 @@ export async function analyzeArticle(
   opts: TriageOptions,
   fetchFn: typeof fetch = fetch,
   sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms)),
-): Promise<{ brief: ArticleBrief | null; tokens: number; note?: string; rate?: RateInfo; attempted?: boolean }> {
-  if (!opts.apiKey) return { brief: null, tokens: 0, note: 'no GROQ_API_KEY', attempted: false }
-  if (!isArticleBodyEligible(body)) return { brief: null, tokens: 0, note: 'body too thin to read', attempted: false }
+): Promise<ArticleAnalysisResult> {
+  if (!opts.apiKey) return { brief: null, tokens: 0, note: 'groq: provider not configured', attempted: false, failureKind: 'request' }
+  if (!isArticleBodyEligible(body)) return { brief: null, tokens: 0, note: 'body too thin to read', attempted: false, failureKind: 'request' }
   const user = buildArticleUserMessage(body, headline)
   let tokens = 0
-  let lastNote = 'groq fetch error'
+  let lastFailure: Required<Pick<ArticleAnalysisResult, 'note' | 'failureKind'>> & Pick<ArticleAnalysisResult, 'timedOut'> = {
+    note: 'groq: network unavailable', failureKind: 'availability',
+  }
   const maxAttempts = opts.maxAttempts ?? 2
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
@@ -566,23 +670,25 @@ export async function analyzeArticle(
       })
       const rate = parseRate(res)
       if (!res.ok) {
-        const t = await res.text().catch(() => '')
-        lastNote = `groq HTTP ${res.status}${t ? ': ' + t.slice(0, 120) : ''}`
-        if ((res.status === 429 || res.status >= 500) && attempt < maxAttempts) { await sleep(rate.retryAfterMs || 1200 * attempt); continue }
-        return { brief: null, tokens, note: lastNote, rate }
+        await res.text().catch(() => '')
+        const dailyLimit = opts.requestRemainingHeaderIsDaily === true && res.status === 429 && rate.rpdRemaining === 0
+        const failureKind = httpFailureKind(res.status)
+        const note = publicHttpFailureNote('groq', res.status, dailyLimit)
+        if (((res.status === 429 && !dailyLimit) || res.status >= 500) && attempt < maxAttempts) { await sleep(rate.retryAfterMs || 1200 * attempt); continue }
+        return { brief: null, tokens, note, rate, failureKind, httpStatus: res.status, ...(dailyLimit ? { dailyLimit: true } : {}) }
       }
       const data: any = await res.json()
-      tokens += Number(data?.usage?.total_tokens) || 0
-      if (data?.choices?.[0]?.finish_reason === 'length') return { brief: null, tokens, note: 'groq: output truncated', rate }
+      tokens += credibleTokenUsage(data?.usage?.total_tokens, 0)
+      if (data?.choices?.[0]?.finish_reason === 'length') return { brief: null, tokens, note: 'groq: output truncated', rate, failureKind: 'contract' }
       const content = data?.choices?.[0]?.message?.content
-      if (typeof content !== 'string') return { brief: null, tokens, note: 'groq: empty content', rate }
+      if (typeof content !== 'string') return { brief: null, tokens, note: 'groq: empty content', rate, failureKind: 'contract' }
       let parsed: any
-      try { parsed = JSON.parse(content) } catch { return { brief: null, tokens, note: 'groq: non-JSON content', rate } }
+      try { parsed = JSON.parse(content) } catch { return { brief: null, tokens, note: 'groq: non-JSON content', rate, failureKind: 'contract' } }
       return { brief: coerceArticleBrief(parsed), tokens, rate }
     } catch (e: any) {
-      lastNote = e?.name === 'TimeoutError' ? 'groq: request timed out' : e?.message || 'groq fetch error'
+      lastFailure = caughtFailure(e, 'groq')
       if (attempt < maxAttempts) await sleep(1200 * attempt)
     }
   }
-  return { brief: null, tokens, note: lastNote }
+  return { brief: null, tokens, ...lastFailure }
 }
