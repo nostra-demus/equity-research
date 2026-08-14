@@ -577,6 +577,8 @@ await check('durToMs parses Groq reset/retry formats', () => {
   assert.equal(durToMs('2m59.56s'), 179560)
   assert.equal(durToMs('120ms'), 120)
   assert.equal(durToMs('3'), 3000) // bare seconds (retry-after)
+  const responseAt = Date.parse('2026-08-13T12:00:00Z')
+  assert.equal(durToMs('Thu, 13 Aug 2026 12:00:25 GMT', responseAt), 25_000)
   assert.equal(durToMs(null), undefined)
 })
 
@@ -614,6 +616,18 @@ await check('RateLimiter.note429 backs off until the retry window', async () => 
   lim.note429(3000, now)
   await lim.acquire(100, sleep, now) // must wait out the 3s backoff before proceeding
   assert.ok(slept.reduce((a, b) => a + b, 0) >= 3000, 'honoured the 429 retry-after')
+})
+
+await check('RateLimiter reconciles provider-reported minute usage before admitting the next call', async () => {
+  const lim = new RateLimiter(0, 6_000)
+  let t = 1_000_000
+  const now = () => t
+  assert.equal(await lim.acquire(1_600, async () => {}, now), true)
+  // The response reveals richer output/account activity: only 1,000 tokens actually remain this minute.
+  lim.learn({ tpmLimit: 6_000, tpmRemaining: 1_000, tpmResetMs: 59_000 }, now)
+  assert.equal(await lim.acquire(1_600, async () => {}, now, 0), false, 'does not knowingly send a batch larger than live remaining TPM')
+  t += 59_001
+  assert.equal(await lim.acquire(1_600, async () => {}, now, 0), true, 'reopens on the provider reset clock')
 })
 
 await check('drain mode (skipFetch) triages the deferred backlog WITHOUT re-fetching the feeds', async () => {

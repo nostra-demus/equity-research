@@ -9,7 +9,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { buildThemeBrief, deterministicBrief, representativeMembers, themeBriefTokenBound, type BriefConfig } from '../src/news/themes/brief'
-import { Budget, resetBudgetMemory, resetSharedLimiters } from '../src/news/triage/budget'
+import { Budget, readCooldownUntil, resetBudgetMemory, resetCooldownMemory, resetSharedLimiters } from '../src/news/triage/budget'
 import type { Theme, ThemeCompany, ThemeMember } from '../src/news/themes/types'
 
 let passed = 0
@@ -214,6 +214,46 @@ await check('buildThemeBrief: a successful model read returns generation "groq"'
   assert.equal(out.note, undefined, 'a real model read carries no degraded note')
 })
 
+await check('buildThemeBrief keeps its safe bound for negative, zero, or malformed token telemetry', async () => {
+  for (const { label, totalTokens } of [
+    { label: 'negative', totalTokens: -17 },
+    { label: 'zero', totalTokens: 0 },
+    { label: 'non-finite', totalTokens: Number.POSITIVE_INFINITY },
+    { label: 'malformed', totalTokens: '17' },
+  ]) {
+    resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+    const dir = tmpState()
+    try {
+      const input = theme({ theme_id: `THM-invalid-usage-${label}` })
+      const bound = themeBriefTokenBound(input)
+      const modelText = JSON.stringify({
+        brief: `This model brief is long enough to prove the ${label} telemetry case completed as one real provider request.`,
+      })
+      let calls = 0
+      const fetchFn = (async () => {
+        calls++
+        return {
+          ok: true, status: 200,
+          json: async () => ({
+            choices: [{ message: { content: modelText } }], usage: { total_tokens: totalTokens },
+          }),
+        }
+      }) as unknown as typeof fetch
+
+      const out = await buildThemeBrief(input, GROQ_CFG, dir, fetchFn)
+      const ledger = JSON.parse(fs.readFileSync(path.join(dir, 'groq-budget.json'), 'utf8'))
+      assert.equal(calls, 1, `${label}: exactly one provider request was sent`)
+      assert.equal(out.generation, 'groq')
+      assert.equal(ledger.requests, 1)
+      assert.equal(ledger.tokens, bound, `${label}: unusable telemetry cannot refund the conservative reservation`)
+      assert.equal(Object.keys(ledger.reservations || {}).length, 0, `${label}: the completed safe charge is finalized`)
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true })
+    }
+  }
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+})
+
 await check('buildThemeBrief reserves the full prompt/output bound near the shared token cap', async () => {
   resetBudgetMemory()
   resetSharedLimiters()
@@ -274,11 +314,64 @@ await check('buildThemeBrief: model HTTP error degrades to deterministic + a not
   assert.equal(calls, 1, 'the next brief respects the shared Groq cooldown instead of probing again')
 })
 
+await check('buildThemeBrief: request errors use an exact workload-only Retry-After and are not re-probed', async () => {
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const dir = tmpState()
+  const cfg = { ...GROQ_CFG, llmCooldownMs: 60_000, llmCooldownMaxMs: 60_000 }
+  let calls = 0
+  const started = Date.now()
+  const requestError = (async () => {
+    calls++
+    return { ok: false, status: 400, headers: new Headers({ 'retry-after': '7' }), json: async () => ({ secret: 'must-not-surface' }) }
+  }) as unknown as typeof fetch
+  await buildThemeBrief(theme({ theme_id: 'THM-brief-request' }), cfg, dir, requestError)
+  const scopedUntil = readCooldownUntil(dir, 'theme-brief:groq')
+  assert.ok(scopedUntil >= started + 7_000 && scopedUntil <= Date.now() + 7_100, 'the workload hold follows the provider clock without exponential widening')
+  assert.equal(readCooldownUntil(dir, 'groq'), 0, 'a reachable request-shape failure does not sideline Groq for other work')
+  await buildThemeBrief(theme({ theme_id: 'THM-brief-request-2', name: 'A different theme' }), cfg, dir, requestError)
+  assert.equal(calls, 1, 'the scoped marker prevents another brief probe while it is live')
+})
+
+await check('buildThemeBrief: a 503 Retry-After is exact and shared across Groq workloads', async () => {
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const dir = tmpState()
+  let calls = 0
+  const started = Date.now()
+  const outage = (async () => {
+    calls++
+    return { ok: false, status: 503, headers: new Headers({ 'retry-after': '9' }), json: async () => ({ secret: 'must-not-surface' }) }
+  }) as unknown as typeof fetch
+  await buildThemeBrief(theme({ theme_id: 'THM-brief-outage' }), GROQ_CFG, dir, outage)
+  const sharedUntil = readCooldownUntil(dir, 'groq')
+  assert.ok(sharedUntil >= started + 9_000 && sharedUntil <= Date.now() + 9_100, 'the shared outage hold follows Retry-After exactly')
+  assert.equal(readCooldownUntil(dir, 'theme-brief:groq'), 0)
+  await buildThemeBrief(theme({ theme_id: 'THM-brief-outage-2', name: 'Another outage theme' }), GROQ_CFG, dir, outage)
+  assert.equal(calls, 1, 'the shared outage is not repeatedly probed')
+})
+
+await check('buildThemeBrief: malformed provider JSON is isolated to the brief workload', async () => {
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const dir = tmpState()
+  let calls = 0
+  const malformed = (async () => {
+    calls++
+    return { ok: true, status: 200, headers: new Headers(), json: async () => { throw new SyntaxError('sensitive raw body') } }
+  }) as unknown as typeof fetch
+  await buildThemeBrief(theme({ theme_id: 'THM-brief-malformed' }), { ...GROQ_CFG, llmCooldownMs: 20_000, llmCooldownMaxMs: 20_000 }, dir, malformed)
+  assert.equal(readCooldownUntil(dir, 'groq'), 0)
+  assert.ok(readCooldownUntil(dir, 'theme-brief:groq') > Date.now())
+  await buildThemeBrief(theme({ theme_id: 'THM-brief-malformed-2', name: 'Malformed second theme' }), GROQ_CFG, dir, malformed)
+  assert.equal(calls, 1)
+})
+
 // ---- a too-short model reply is rejected (no empty/garbage briefs) ----
 await check('buildThemeBrief: a too-short model reply falls back to deterministic', async () => {
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
   const dir = tmpState()
   const out = await buildThemeBrief(theme(), GROQ_CFG, dir, fakeFetch(JSON.stringify({ brief: 'too short' })))
   assert.equal(out.generation, 'deterministic')
+  assert.ok(readCooldownUntil(dir, 'theme-brief:groq') > Date.now(), 'a short contract is held only on the brief workload')
+  assert.equal(readCooldownUntil(dir, 'groq'), 0)
 })
 
 console.log(`\nbrief.test: ${passed} checks passed`)

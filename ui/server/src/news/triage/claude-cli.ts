@@ -19,7 +19,7 @@ import { execa } from 'execa'
 import { CLAUDE_BIN, REPO_ROOT } from '../../config'
 import { childEnv, detectFlags } from '../../launcher'
 import type { NewsItem, Triage } from '../types'
-import { buildUserMessage, coerceTriage, estimateTokens, SYSTEM, type TriageResult } from './groq'
+import { buildUserMessage, coerceCompleteTriageRows, estimateTokens, SYSTEM, type TriageResult } from './groq'
 
 export interface ClaudeCliTriageOptions {
   model: string
@@ -28,6 +28,9 @@ export interface ClaudeCliTriageOptions {
   maxAttempts?: number // in-call retries on a TRANSIENT failure (default 2) — parity with the free adapters
   signal?: AbortSignal // the cycle's wall-clock abort — checked before each (re)try so an aborted cycle stops billing/holding the lock
   budgetRemainingUsd?: number // $ left under the daily ceiling at call start; once this call's cumulative cost reaches it, stop retrying
+  /** Production hook used to admit the retry through the shared RPM limiter. The first attempt is admitted
+   * by runCycle before entering this adapter; a retry may not bypass that same provider-wide limit. */
+  beforeRetry?: () => Promise<boolean>
 }
 
 /** One CLI completion. Returns the assistant text + the cost the CLI reported for it. Injectable for tests
@@ -36,7 +39,19 @@ export type ClaudeCliRunner = (
   system: string,
   user: string,
   opts: ClaudeCliTriageOptions,
-) => Promise<{ text: string; costUsd: number; error?: string }>
+) => Promise<{
+  text: string
+  costUsd: number
+  /** True only when the CLI returned an exact total_cost_usd for this attempt. Missing metadata is
+   * deliberately unknown, even when costUsd is zero: an aborted/timed-out child may still have spent. */
+  costUsdKnown?: boolean
+  /** False proves the provider process was never started. Omitted is conservative: injected runners are
+   * treated as dispatched unless they explicitly prove otherwise. */
+  requestDispatched?: boolean
+  error?: string
+}>
+
+export type ClaudeCliTriageResult = TriageResult & { costUsd: number; costUsdKnown: boolean }
 
 /** True when the CLI's failure is the plan's own quota being spent (not a bug) — the caller backs off
  *  until the plan resets rather than re-spawning every cycle. Mirrors chat-llm.ts's friendlyResultError. */
@@ -49,7 +64,9 @@ export function isUsageLimit(o: any): boolean {
  *  exactly (cwd=REPO_ROOT, childEnv(), no --settings override) — that combination is what keeps the
  *  subscription auth working; a neutral cwd previously broke it (apiKeySource "none" → 401). */
 export const defaultClaudeCliRunner: ClaudeCliRunner = async (system, user, opts) => {
+  if (opts.signal?.aborted) return { text: '', costUsd: 0, costUsdKnown: true, requestDispatched: false, error: 'claude cli: cycle aborted' }
   const flags = await detectFlags()
+  if (opts.signal?.aborted) return { text: '', costUsd: 0, costUsdKnown: true, requestDispatched: false, error: 'claude cli: cycle aborted' }
   const args: string[] = ['--print', '--output-format', 'stream-json', '--verbose']
   if (flags.has('--no-session-persistence')) args.push('--no-session-persistence')
   if (flags.has('--system-prompt')) args.push('--system-prompt', system)
@@ -73,9 +90,12 @@ export const defaultClaudeCliRunner: ClaudeCliRunner = async (system, user, opts
       buffer: false,
       reject: false,
       timeout: opts.timeoutMs ?? 120_000,
+      // The cycle deadline is authoritative even after the process has started. Without forwarding its
+      // signal, the shared paid-tier lock could stay occupied until this separate 120s timeout elapsed.
+      cancelSignal: opts.signal,
     })
   } catch (e: any) {
-    return { text: '', costUsd: 0, error: `could not start the claude CLI: ${e?.message || e}` }
+    return { text: '', costUsd: 0, costUsdKnown: true, requestDispatched: false, error: `could not start the claude CLI: ${e?.message || e}` }
   }
   // stdin can emit an ASYNC EPIPE if the child dies before reading (e.g. auth failure) — an unhandled
   // stream error would crash the whole server, so swallow it; the result event decides the outcome.
@@ -84,6 +104,7 @@ export const defaultClaudeCliRunner: ClaudeCliRunner = async (system, user, opts
 
   let text = ''
   let costUsd = 0
+  let costUsdKnown = false
   let error: string | undefined
   const handle = (line: string) => {
     const t = line.trim()
@@ -97,7 +118,10 @@ export const defaultClaudeCliRunner: ClaudeCliRunner = async (system, user, opts
       return
     }
     if (o.type === 'result') {
-      if (typeof o.total_cost_usd === 'number') costUsd = o.total_cost_usd
+      if (typeof o.total_cost_usd === 'number' && Number.isFinite(o.total_cost_usd) && o.total_cost_usd >= 0) {
+        costUsd = o.total_cost_usd
+        costUsdKnown = true
+      }
       if (o.is_error || o.api_error_status) {
         const resultText = (typeof o.result === 'string' ? o.result : 'error').slice(0, 120)
         // Preserve a terminal HTTP status (bad/revoked key, no credits, …) IN the note text as "HTTP nnn" —
@@ -135,12 +159,16 @@ export const defaultClaudeCliRunner: ClaudeCliRunner = async (system, user, opts
   let res: any
   try { res = await child } catch (e: any) { res = e }
   if (buf.trim()) handle(buf)
-  if (res?.timedOut) return { text, costUsd, error: 'claude cli: timed out' }
+  if (opts.signal?.aborted || res?.isCanceled) return { text, costUsd, costUsdKnown, requestDispatched: true, error: 'claude cli: cycle aborted' }
+  if (res?.timedOut) return { text, costUsd, costUsdKnown, requestDispatched: true, error: 'claude cli: timed out' }
   if (!error && !text.trim()) {
     const tail = (stderr || '').trim().slice(-160)
     error = tail ? `claude cli: no output (${tail})` : 'claude cli: no output'
   }
-  return { text, costUsd, error }
+  // A nonempty dispatched completion cannot credibly have an exact $0 total. Treat zero telemetry like
+  // missing telemetry so the caller keeps its conservative reservation instead of reopening the plan cap.
+  if (!error && text.trim() && costUsdKnown && !(costUsd > 0)) costUsdKnown = false
+  return { text, costUsd, costUsdKnown, requestDispatched: true, error }
 }
 
 /** Pull the first {…} or […] JSON blob out of a text response — the CLI is not in JSON mode, so the model
@@ -168,21 +196,24 @@ function braceSlice(text: string): any {
  * real plan-quota exhaustion (re-asking a spent plan is waste — the caller wants that surfaced so it arms
  * the long backoff). A billed-but-unparseable reply (cost recorded, prose wrapping the JSON) is proof the
  * plan is alive, so the retry re-asks with a stricter "return only the JSON array" nudge. Every attempt's
- * cost is metered; `requests` stays 1 (one logical batch), matching the other adapters.
+ * cost is metered; `requests` is the number of provider processes actually dispatched, including a retry.
  */
 export async function triageBatchClaudeCli(
   items: NewsItem[],
   opts: ClaudeCliTriageOptions,
   run: ClaudeCliRunner = defaultClaudeCliRunner,
-): Promise<TriageResult & { costUsd: number }> {
+): Promise<ClaudeCliTriageResult> {
   const byIndex = new Map<number, Triage>()
-  if (!items.length) return { byIndex, requests: 0, tokens: 0, ok: true, costUsd: 0 }
+  if (!items.length) return { byIndex, requests: 0, tokens: 0, ok: true, costUsd: 0, costUsdKnown: true }
 
   const est = estimateTokens(items.length)
   const baseUser = buildUserMessage(items)
   const maxAttempts = Math.max(1, opts.maxAttempts ?? 2)
   let costUsd = 0
+  let costUsdKnown = true
+  let dispatchedAttempts = 0
   let note = 'claude cli: no output'
+  let failureKind: TriageResult['failureKind']
 
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     // Stop before a (re)try that must not run — both gates the caller's single pre-batch check cannot see
@@ -198,41 +229,61 @@ export async function triageBatchClaudeCli(
     //     check, and a second ~$0.10 attempt adds a SECOND overshoot past the operator's daily $ governor.
     //     Reserving the retry's max cost up front closes that gap (Codex review, PR #316).
     if (opts.signal?.aborted) { note = 'claude cli: cycle aborted before attempt'; break }
+    // One runCycle reservation bounds one CLI attempt. An attempt whose exact total never arrived must keep
+    // that whole bound, and cannot safely start a retry under the same reservation.
+    if (attempt > 1 && !costUsdKnown) break
     if (attempt > 1 && opts.budgetRemainingUsd != null && costUsd + (opts.budgetUsd ?? 0) > opts.budgetRemainingUsd) {
       note = 'claude cli: daily budget consumed — retry skipped'
       break
     }
+    if (attempt > 1 && opts.beforeRetry && !(await opts.beforeRetry())) {
+      note = opts.signal?.aborted ? 'claude cli: cycle aborted before retry' : 'claude cli: retry waiting for capacity'
+      break
+    }
+    if (opts.signal?.aborted) { note = 'claude cli: cycle aborted before attempt'; break }
     // after a billed-but-unparseable reply, push harder toward a bare JSON array on the retry
     const user = attempt === 1 ? baseUser : `${baseUser}\n\nReturn ONLY the JSON array — no prose, no markdown, no code fences.`
-    let out: { text: string; costUsd: number; error?: string }
+    let out: Awaited<ReturnType<ClaudeCliRunner>>
     try {
       out = await run(SYSTEM, user, opts)
     } catch (e: any) {
       // the runner is fail-soft by contract, but never let an unexpected throw kill the cycle
+      dispatchedAttempts++
+      costUsdKnown = false
       note = `claude cli: ${e?.message || e}`
       continue // transient (unexpected throw) → retry within the attempt budget
     }
-    costUsd += out.costUsd
+    const attemptCost = Number.isFinite(out.costUsd) ? Math.max(0, out.costUsd) : 0
+    const dispatched = out.requestDispatched !== false
+    if (dispatched) {
+      dispatchedAttempts++
+      // A non-error completion cannot credibly be an exact free call. Error/pre-dispatch shapes may report
+      // a real zero, but a usable or malformed model completion with zero telemetry remains unknown.
+      const exactAttemptCost = out.costUsdKnown === true && (out.error ? attemptCost >= 0 : attemptCost > 0)
+      costUsdKnown = costUsdKnown && exactAttemptCost
+      costUsd += attemptCost
+    }
     if (out.error) {
       note = out.error
       // a spent plan won't recover on retry — return now so the caller arms the LONG cooldown (wait for reset).
       // A terminal API error (bad/revoked key, no credits, …) is the same shape of "won't recover on retry":
       // re-asking an unauthenticated call bills nothing new but still spawns a second CLI process and holds
       // the lock for another timeout, only to fail again the same way (Codex review, PR #316).
-      if (isPlanQuotaNote(out.error) || isTerminalApiNote(out.error)) return { byIndex, requests: 1, tokens: est, ok: false, note, costUsd }
+      if (isPlanQuotaNote(out.error) || isTerminalApiNote(out.error)) return { byIndex, requests: dispatchedAttempts, tokens: dispatchedAttempts * est, ok: false, note, costUsd, costUsdKnown }
       continue // transient (timeout / no output / generic) → retry
     }
     let parsed: any
     try { parsed = JSON.parse(out.text) } catch { parsed = braceSlice(out.text) }
-    if (!parsed) { note = 'claude cli: non-JSON content'; continue } // formatting hiccup → retry with the stricter nudge
+    if (!parsed) { note = 'claude cli: non-JSON content'; failureKind = 'contract'; continue } // formatting hiccup → retry with the stricter nudge
     const arr: any[] = Array.isArray(parsed) ? parsed : Array.isArray(parsed?.items) ? parsed.items : []
-    for (const row of arr) {
-      const i = Number(row?.i)
-      if (Number.isInteger(i) && i >= 0 && i < items.length && !byIndex.has(i)) byIndex.set(i, coerceTriage(row))
-    }
-    return { byIndex, requests: 1, tokens: est, ok: true, costUsd }
+    const complete = coerceCompleteTriageRows(arr, items.length)
+    if (!complete) { note = 'claude cli: incomplete batch response'; failureKind = 'contract'; continue }
+    return { byIndex: complete, requests: dispatchedAttempts, tokens: dispatchedAttempts * est, ok: true, costUsd, costUsdKnown }
   }
-  return { byIndex, requests: 1, tokens: est, ok: false, note, costUsd }
+  return {
+    byIndex, requests: dispatchedAttempts, tokens: dispatchedAttempts * est,
+    ok: false, note, costUsd, costUsdKnown, ...(failureKind ? { failureKind } : {}),
+  }
 }
 
 /** A last-resort failure that is the PLAN's own quota being spent (not a transient blip) — the caller then

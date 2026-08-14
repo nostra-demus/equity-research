@@ -1,8 +1,11 @@
 import type { ChatTurnOutcome } from '../chat-llm'
-import { Budget, armCooldown, clearCooldown, conservativeChatTokenBound, getSharedLimiter, isCoolingDown, type BudgetReservation } from './triage/budget'
+import { Budget, armCooldown, clearCooldown, conservativeChatTokenBound, credibleTokenUsage, getSharedLimiter, isCoolingDown, rateInfoForLimiter, type BudgetReservation, type RateInfo } from './triage/budget'
+import { parseRate } from './triage/groq'
 
 export interface NewsChatFallbackConfig {
   enabled: boolean
+  /** False on a read-only replica. Only the retained news-engine owner may spend shared provider slots. */
+  providerSpendingAllowed?: boolean
   apiKey: string
   baseUrl: string
   model: string
@@ -123,6 +126,7 @@ export async function runNewsChatFallback(opts: {
 }): Promise<NewsChatFallbackOutcome> {
   const { config } = opts
   if (!config.enabled || !config.apiKey) return { attempted: false, costUsd: 0, error: 'News chat backup is not configured.' }
+  if (config.providerSpendingAllowed === false) return { attempted: false, costUsd: 0, error: 'News chat backup is waiting for the active news engine.' }
   if (opts.signal.aborted) return { attempted: false, costUsd: 0, error: 'aborted' }
 
   let compactUser: string
@@ -131,7 +135,8 @@ export async function runNewsChatFallback(opts: {
   const estimatedTokens = Math.max(1, Math.ceil((opts.system.length + compactUser.length) / 4) + Math.max(200, config.maxTokens))
   const perAttemptTokens = newsChatTokenBound(opts.system, compactUser, config.maxTokens)
   const now = Date.now()
-  if (isCoolingDown(config.stateDir, 'groq', now)) return { attempted: false, costUsd: 0, error: 'News chat backup is cooling down after a recent provider failure.' }
+  const chatHoldId = 'chat:groq'
+  if (isCoolingDown(config.stateDir, 'groq', now) || isCoolingDown(config.stateDir, chatHoldId, now)) return { attempted: false, costUsd: 0, error: 'News chat backup is waiting for its next engine retry after an error.' }
   const budget = Budget.load(config.stateDir, config.dailyReqCap, config.dailyTokenCap, now, 'groq-budget.json')
   if (!budget.pacedCanSpend(perAttemptTokens, { targetTokens: config.dailyTokenTarget, floorFrac: config.paceFloorFrac }, now)) {
     return { attempted: false, costUsd: 0, error: 'News chat backup has no shared Groq budget available right now.' }
@@ -154,13 +159,16 @@ export async function runNewsChatFallback(opts: {
   })
   let acquired = false
   try {
-    acquired = await limiter.acquire(estimatedTokens, abortableSleep, () => Date.now(), config.limiterWaitMs)
+    acquired = await limiter.acquire(estimatedTokens, abortableSleep, () => Date.now(), config.limiterWaitMs, opts.signal)
   } catch (error: any) {
     if (opts.signal.aborted || error?.name === 'AbortError') return { attempted: false, costUsd: 0, error: 'aborted' }
     throw error
   }
-  if (!acquired) return { attempted: false, costUsd: 0, error: 'News chat backup is busy with the shared Groq workload.' }
+  if (!acquired) return { attempted: false, costUsd: 0, error: opts.signal.aborted ? 'aborted' : 'News chat backup is busy with the shared Groq workload.' }
   if (opts.signal.aborted) return { attempted: false, costUsd: 0, error: 'aborted' }
+  if (isCoolingDown(config.stateDir, 'groq', Date.now()) || isCoolingDown(config.stateDir, chatHoldId, Date.now())) {
+    return { attempted: false, costUsd: 0, error: 'News chat backup is waiting to try again after an error.' }
+  }
 
   // Re-check and reserve only after the shared rate limiter admits this request. Concurrent chat and
   // ingester callers now see the reservation immediately instead of all spending from one stale snapshot.
@@ -180,10 +188,34 @@ export async function runNewsChatFallback(opts: {
   opts.signal.addEventListener('abort', stop, { once: true })
   const timer = setTimeout(stop, Math.max(1_000, config.timeoutMs))
   let requestMade = false
+  let requestStartedAt = 0
   let recordedTokens = 0
-  let providerHealthy = false
+  let providerReachable = false
+  let chatHealthy = false
+  let exhaustDay = false
+  let failureHold: { id: string; baseMs: number; maxMs: number; reason: string } | null = null
+  const classifyHttpFailure = (status: number, rate: RateInfo) => {
+    exhaustDay = status === 429 && rate.rpdRemaining === 0
+    if (exhaustDay) return
+    const sharedFailure = status === 429 || status >= 500 || [401, 402, 403, 404].includes(status)
+    if (!sharedFailure) {
+      providerReachable = true
+      const retryMs = rate.retryAfterMs != null && Number.isFinite(rate.retryAfterMs) ? Math.max(0, Math.floor(rate.retryAfterMs)) : null
+      failureHold = retryMs != null
+        ? retryMs > 0 ? { id: chatHoldId, baseMs: retryMs, maxMs: retryMs, reason: 'chat-request' } : null
+        : { id: chatHoldId, baseMs: config.cooldownMs, maxMs: config.cooldownMaxMs, reason: 'chat-request' }
+    } else if (rate.retryAfterMs != null && Number.isFinite(rate.retryAfterMs)) {
+      const retryMs = Math.max(0, Math.floor(rate.retryAfterMs))
+      failureHold = retryMs > 0 ? { id: 'groq', baseMs: retryMs, maxMs: retryMs, reason: status === 429 ? 'rate-limit' : 'availability' } : null
+    } else if (status === 429) {
+      failureHold = { id: 'groq', baseMs: 60_000, maxMs: 60_000, reason: 'rate-limit' }
+    } else if (status >= 500 || [401, 402, 403, 404].includes(status)) {
+      failureHold = { id: 'groq', baseMs: config.cooldownMs, maxMs: config.cooldownMaxMs, reason: status >= 500 ? 'availability' : 'provider-access' }
+    }
+  }
   try {
     requestMade = true
+    requestStartedAt = Date.now()
     const response = await (opts.fetchImpl || fetch)(endpoint(config.baseUrl), {
       method: 'POST',
       headers: { Authorization: `Bearer ${config.apiKey}`, 'Content-Type': 'application/json' },
@@ -199,27 +231,42 @@ export async function runNewsChatFallback(opts: {
       }),
       signal: timeout.signal,
     })
+    const rate = parseRate(response)
+    const providerWideHttp = response.status === 429 || response.status >= 500 || [401, 402, 403, 404].includes(response.status)
+    limiter.learn(rateInfoForLimiter(rate, response.ok || providerWideHttp))
     if (!response.ok) {
-      if (response.status === 429) limiter.note429()
+      classifyHttpFailure(response.status, rate)
       // Provider bodies can contain account or organisation identifiers. Keep them in neither the UI nor
       // logs; the status code is enough for the operator to diagnose the configured backup.
       return { attempted: true, costUsd: 0, error: `News chat backup failed (${response.status}).` }
     }
+    providerReachable = true
     const payload: any = await response.json()
-    recordedTokens = Number(payload?.usage?.total_tokens) || perAttemptTokens
+    // A provider-supplied count can lower the conservative reservation only when it is a credible,
+    // positive count for work that was actually sent. Negative, zero, NaN, or missing telemetry is not
+    // proof that the call was free; keeping the reservation protects the daily hard limit.
+    recordedTokens = credibleTokenUsage(payload?.usage?.total_tokens, perAttemptTokens)
     const choice = payload?.choices?.[0]
     const finishReason = String(choice?.finish_reason || '').toLowerCase()
-    providerHealthy = true
     if (finishReason === 'length' || finishReason === 'max_tokens') {
+      failureHold = { id: chatHoldId, baseMs: config.cooldownMs, maxMs: config.cooldownMaxMs, reason: 'chat-contract' }
       return { attempted: true, costUsd: 0, error: 'News chat backup answer was cut off by its output limit. Ask a narrower question.' }
     }
     const answer = choice?.message?.content
-    if (typeof answer !== 'string' || !answer.trim()) return { attempted: true, costUsd: 0, error: 'News chat backup returned no answer.' }
+    if (typeof answer !== 'string' || !answer.trim()) {
+      failureHold = { id: chatHoldId, baseMs: config.cooldownMs, maxMs: config.cooldownMaxMs, reason: 'chat-contract' }
+      return { attempted: true, costUsd: 0, error: 'News chat backup returned no answer.' }
+    }
+    chatHealthy = true
     opts.onToken(answer)
     return { attempted: true, costUsd: 0, model: `groq/${config.model}` }
   } catch (error: any) {
     if (opts.signal.aborted) return { attempted: true, costUsd: 0, error: 'aborted' }
-    const reason = error?.name === 'AbortError' ? 'timed out' : String(error?.message || error).slice(0, 180)
+    const timedOut = error?.name === 'AbortError' || error?.name === 'TimeoutError'
+    failureHold = timedOut || error instanceof SyntaxError
+      ? { id: chatHoldId, baseMs: config.cooldownMs, maxMs: config.cooldownMaxMs, reason: timedOut ? 'chat-timeout' : 'chat-contract' }
+      : { id: 'groq', baseMs: config.cooldownMs, maxMs: config.cooldownMaxMs, reason: 'availability' }
+    const reason = timedOut ? 'timed out' : 'provider unavailable'
     return { attempted: true, costUsd: 0, error: `News chat backup ${reason}.` }
   } finally {
     clearTimeout(timer)
@@ -229,8 +276,14 @@ export async function runNewsChatFallback(opts: {
       reservation = null
     }
     if (requestMade) {
-      if (providerHealthy) clearCooldown(config.stateDir, 'groq')
-      else if (!opts.signal.aborted) armCooldown(config.stateDir, Date.now(), config.cooldownMs, 'groq', config.cooldownMaxMs)
+      if (chatHealthy) {
+        clearCooldown(config.stateDir, 'groq', requestStartedAt)
+        clearCooldown(config.stateDir, chatHoldId, requestStartedAt)
+      } else if (!opts.signal.aborted) {
+        if (providerReachable && failureHold?.id !== 'groq') clearCooldown(config.stateDir, 'groq', requestStartedAt)
+        if (exhaustDay) budget.exhaust()
+        else if (failureHold) armCooldown(config.stateDir, Date.now(), failureHold.baseMs, failureHold.id, failureHold.maxMs, failureHold.reason)
+      }
     }
   }
 }

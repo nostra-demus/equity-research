@@ -7,7 +7,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { spawn, type ChildProcess } from 'node:child_process'
-import { acquireIngesterLock, releaseIngesterLock } from '../src/news/scheduler'
+import { acquireIngesterLock, providerDiagnosticsActiveForState, providerSpendingAllowedForState, releaseIngesterLock } from '../src/news/scheduler'
 
 let passed = 0
 async function check(name: string, fn: () => void | Promise<void>) {
@@ -127,6 +127,21 @@ await check('unexpected filesystem errors fail closed instead of admitting a dup
   try { assert.equal(acquireIngesterLock(notDirectory), false) }
   finally { console.error = originalError }
   assert.equal(logged, true)
+})
+
+await check('only the active ingester owner spends shared provider minute slots', () => {
+  assert.equal(providerSpendingAllowedForState(true, false, true), true)
+  assert.equal(providerSpendingAllowedForState(true, true, false), false, 'read-only replica degrades without provider spend')
+  assert.equal(providerSpendingAllowedForState(true, false, false), false, 'startup is fail-closed until the lease is owned')
+  assert.equal(providerSpendingAllowedForState(false, false, false), false, 'HTTP-only mode never opens an independent provider limiter')
+  assert.equal(providerSpendingAllowedForState(false, false, true), false, 'a stale owner bit cannot enable spend while ingestion is disabled')
+})
+
+await check('diagnostics distinguish a shared active owner from a globally disabled engine', () => {
+  assert.equal(providerDiagnosticsActiveForState(true, false, true), true, 'the local owner is active')
+  assert.equal(providerDiagnosticsActiveForState(true, true, false), true, 'a read-only cockpit observes another active owner')
+  assert.equal(providerDiagnosticsActiveForState(false, false, false), false, 'globally disabled has no actionable provider engine')
+  assert.equal(providerDiagnosticsActiveForState(false, true, false), false, 'a stale read-only bit cannot make an off scanner actionable')
 })
 
 console.log(`\n${passed} checks passed`)
