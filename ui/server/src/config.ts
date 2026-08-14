@@ -261,6 +261,14 @@ export interface OverflowProvider {
   // misread as a hang and doesn't arm the provider's cross-cycle cooldown for no reason.
   timeoutMs?: number
   maxAttempts?: number
+  // Optional start-of-day allowance for the shared daily pacer. The default comes from
+  // NEWS_FREE_PROVIDER_PACE_FLOOR_FRAC; a provider may override it when one useful call is unusually
+  // large relative to its daily cap. The router always releases at least one admissible call, so a tiny
+  // quota cannot be stranded by fractional arithmetic.
+  paceFloorFrac?: number
+  // True only when this provider documents its remaining-request header as a DAILY bucket. Generic
+  // OpenAI-compatible headers are often per-minute and must never exhaust a persisted provider day.
+  requestRemainingHeaderIsDaily?: boolean
   // Exclude this provider from the user-facing on-demand article read (buildArticleReadProviders below).
   // That path shares this provider's `id` (and so its cooldown marker) with the background triage/backlog
   // loop, but runs a short user-facing deadline (~7s, 1 attempt) — a provider that is legitimately slow
@@ -299,6 +307,7 @@ export function buildOverflowProviders(): OverflowProvider[] {
       maxTokens: capNum(process.env.NEWS_CEREBRAS_MAX_TOKENS, 3_500), // headroom for reasoning tokens + JSON output → never truncate
       extraBody: { reasoning_effort: process.env.NEWS_CEREBRAS_REASONING_EFFORT || 'low' }, // cap thinking so content stays whole JSON
       budgetFile: 'cerebras-budget.json',
+      requestRemainingHeaderIsDaily: true,
     })
   }
   // Mistral La Plateforme free ("Experiment") tier — RATE-gated, not token-gated: ~1 request/SECOND, with a
@@ -419,7 +428,8 @@ const CONFIGURED_OVERFLOW_PROVIDERS = buildOverflowProviders()
 const NEWS_IDEA_PROVIDER_CONFIGURED = Boolean(
   process.env.GROQ_API_KEY
   || CONFIGURED_LOCAL_PROVIDER
-  || CONFIGURED_OVERFLOW_PROVIDERS.length > 0,
+  || CONFIGURED_OVERFLOW_PROVIDERS.length > 0
+  || (process.env.GEMINI_API_KEY && process.env.NEWS_GEMINI_ENABLED !== '0')
 )
 const NEWS_PROVIDER_CONFIGURED = Boolean(
   NEWS_IDEA_PROVIDER_CONFIGURED
@@ -648,15 +658,22 @@ export const NEWS = {
   anthropicTransientCooldownMs: capNum(process.env.NEWS_ANTHROPIC_TRANSIENT_COOLDOWN_SEC, 60) * 1000,
   // Daily-budget PACER. The caps above stop us BUSTING the day's limit; the pacer stops us SPENDING IT
   // ALL AT ONCE. It releases the day's token TARGET on a linear schedule across the UTC day, so a heavy
-  // news morning can't drain the budget and leave the afternoon dark — and an explicit buffer is always
-  // held back (target < cap). On a normal-volume day the schedule outruns demand and the pacer never
+  // news morning can't drain the budget and leave the afternoon dark. On a normal-volume day the schedule outruns demand and the pacer never
   // bites (items triage promptly); only on overload days does it meter spend into an even all-day drip.
-  //   groqDailyTokenTarget — the day's spend goal (default ≈ 90% of the cap → ~10% buffer always held).
+  //   groqDailyTokenTarget — the day's spend goal (default = the configured engine allowance; that
+  //                          allowance itself should already sit safely below the provider's hard limit).
   //   groqPaceFloorFrac    — small always-available slice of the target for a start-of-day burst and to
   //                          keep tiny backlogs clearing when exactly on schedule.
-  // Set the target ≥ the cap (or to the cap) to effectively disable pacing and pace against the hard cap.
-  groqDailyTokenTarget: capNum(process.env.NEWS_GROQ_DAILY_TOKEN_TARGET, Math.round(capNum(process.env.NEWS_GROQ_DAILY_TOKEN_CAP, 500_000) * 0.9)),
+  // Set a smaller explicit target to retain more allowance; the default deliberately uses the whole
+  // configured safe allowance by reset rather than leaving an arbitrary second buffer unused.
+  groqDailyTokenTarget: capNum(process.env.NEWS_GROQ_DAILY_TOKEN_TARGET, capNum(process.env.NEWS_GROQ_DAILY_TOKEN_CAP, 500_000)),
   groqPaceFloorFrac: capNum(process.env.NEWS_GROQ_PACE_FLOOR_FRAC, 0.06),
+  // Shared pacer for every finite free overflow tier (Cerebras/Mistral/OpenRouter/NVIDIA/Gemini). Each
+  // provider's own reset clock linearly releases its configured safe allowance; the router selects the
+  // usable tier furthest behind that clock target. Quiet hours carry forward, busy hours cannot burn the
+  // whole day at once, and the complete configured allowance is available by reset. This is a floor, not
+  // an early-day quota: at least one safe call is always released when the daily cap can hold one.
+  freeProviderPaceFloorFrac: capNum(process.env.NEWS_FREE_PROVIDER_PACE_FLOOR_FRAC, 0.06),
   // Pacing. The binding free-tier limit is TOKENS-per-minute, not requests-per-minute — so we pace by
   // both, and (crucially) the pacer LEARNS the live ceiling from Groq's own x-ratelimit-* response
   // headers, auto-tuning to whatever this account actually allows. These are starting points / fallbacks:
@@ -672,7 +689,7 @@ export const NEWS = {
   // it spends only when the top-N event set changes (or once per ideasRefreshSec heartbeat), and never more
   // often than ideasMinIntervalSec. A per-cycle call would blow the 500k token budget alone.
   ideasEnabled: process.env.IDEAS_ENABLED !== '0',
-  ideasTopN: capNum(process.env.IDEAS_TOP_N, 12), // how many ranked rows the skim reads per pass (matches the triage batch size)
+  ideasTopN: capNum(process.env.IDEAS_TOP_N, 12), // provider-call chunk size; each pass covers every current eligible row
   ideasShelfLifeHrs: capNum(process.env.IDEAS_SHELF_LIFE_HRS, 36), // a surfaced idea ages off the fresh lane after this many hours
   ideasInputMaxAgeHrs: capNum(process.env.IDEAS_INPUT_MAX_AGE_HRS, 36), // fail closed: never turn an old sweep/source timestamp into a newly fresh lead
   ideasMinIntervalSec: capNum(process.env.IDEAS_MIN_INTERVAL_SEC, 900), // hard floor between passes (15 min) — even a churny wire can't hammer it
@@ -985,10 +1002,10 @@ export const NEWS = {
 export function buildArticleReadProviders(cfg: typeof NEWS = NEWS): ArticleReadProvider[] {
   const out: ArticleReadProvider[] = []
   if (cfg.groqApiKey) {
-    out.push({ id: 'groq', kind: 'openai', apiKey: cfg.groqApiKey, baseUrl: cfg.groqBaseUrl, model: cfg.groqModel, maxTokens: 3000, rpm: cfg.groqRpm, tpm: cfg.groqTpm, dailyReqCap: cfg.groqDailyReqCap, dailyTokenCap: cfg.groqDailyTokenCap, budgetFile: 'groq-budget.json', limiter: 'groq' })
+    out.push({ id: 'groq', kind: 'openai', apiKey: cfg.groqApiKey, baseUrl: cfg.groqBaseUrl, model: cfg.groqModel, maxTokens: 3000, rpm: cfg.groqRpm, tpm: cfg.groqTpm, dailyReqCap: cfg.groqDailyReqCap, dailyTokenCap: cfg.groqDailyTokenCap, budgetFile: 'groq-budget.json', limiter: 'groq', paceMeter: 'tokens', paceCap: cfg.groqDailyTokenTarget, paceFloorFrac: cfg.groqPaceFloorFrac })
   }
   if (cfg.geminiEnabled && cfg.geminiApiKey && cfg.geminiModels.length) {
-    out.push({ id: 'gemini', kind: 'gemini', apiKey: cfg.geminiApiKey, baseUrl: cfg.geminiBaseUrl, model: cfg.geminiModel, pool: cfg.geminiModels, maxTokens: cfg.geminiMaxTokens, rpm: cfg.geminiRpm, tpm: cfg.geminiTpm, dailyReqCap: cfg.geminiDailyReqCap, dailyTokenCap: cfg.geminiDailyTokenCap, budgetFile: 'gemini-budget-{model}.json', dayTz: cfg.geminiDayTz, limiter: 'gemini' })
+    out.push({ id: 'gemini', kind: 'gemini', apiKey: cfg.geminiApiKey, baseUrl: cfg.geminiBaseUrl, model: cfg.geminiModel, pool: cfg.geminiModels, maxTokens: cfg.geminiMaxTokens, rpm: cfg.geminiRpm, tpm: cfg.geminiTpm, dailyReqCap: cfg.geminiDailyReqCap, dailyTokenCap: cfg.geminiDailyTokenCap, budgetFile: 'gemini-budget-{model}.json', dayTz: cfg.geminiDayTz, limiter: 'gemini', paceMeter: 'requests', paceFloorFrac: cfg.freeProviderPaceFloorFrac })
   }
   for (const p of cfg.overflowProviders) {
     // A provider whose real answer time doesn't fit this path's short user-facing deadline opts out via
@@ -999,7 +1016,7 @@ export function buildArticleReadProviders(cfg: typeof NEWS = NEWS): ArticleReadP
     // TOKEN-gated provider (Cerebras) carries its own tpm + daily token cap, so the read paces on the SAME
     // binding limit as the ingester (they share the budget file + limiter); request-gated providers
     // (OpenRouter/NVIDIA) omit them → tpm 0 + a non-binding token cap, the prior behaviour byte-for-byte.
-    out.push({ id: p.id, kind: 'openai', apiKey: p.apiKey, baseUrl: p.baseUrl, model: p.model, models: p.models, maxTokens: p.maxTokens, rpm: p.rpm, tpm: p.tpm ?? 0, dailyReqCap: p.dailyReqCap, dailyTokenCap: p.dailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP, budgetFile: p.budgetFile, dayTz: p.dayTz, headers: p.headers, extraBody: p.extraBody, limiter: p.id })
+    out.push({ id: p.id, kind: 'openai', apiKey: p.apiKey, baseUrl: p.baseUrl, model: p.model, models: p.models, maxTokens: p.maxTokens, rpm: p.rpm, tpm: p.tpm ?? 0, dailyReqCap: p.dailyReqCap, dailyTokenCap: p.dailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP, budgetFile: p.budgetFile, dayTz: p.dayTz, headers: p.headers, extraBody: p.extraBody, limiter: p.id, paceMeter: p.dailyTokenCap != null ? 'tokens' : 'requests', paceCap: p.dailyTokenCap ?? p.dailyReqCap, paceFloorFrac: p.paceFloorFrac ?? cfg.freeProviderPaceFloorFrac, requestRemainingHeaderIsDaily: p.requestRemainingHeaderIsDaily })
   }
   return out
 }
@@ -1031,6 +1048,9 @@ export function buildFilingReadProviders(cfg: typeof NEWS = NEWS): ArticleReadPr
     dailyTokenCap: NON_BINDING_DAILY_TOKEN_CAP, // non-binding (request-gated)
     budgetFile: 'filing-read-budget.json', // its OWN budget — never shares the article firehose's Groq quota
     limiter: 'filing-read', // its OWN process-wide limiter, independent of the ingester's
+    paceMeter: 'requests',
+    paceCap: cfg.filingReadDailyReqCap,
+    paceFloorFrac: cfg.freeProviderPaceFloorFrac,
   }]
 }
 export const FILING_READ_PROVIDERS: ArticleReadProvider[] = buildFilingReadProviders()

@@ -64,7 +64,7 @@ import { computePlan, computedContextBlock, detectWhatIf, isNumberlessTargetFoll
 import { ChatTurnReservationError, deleteConversation, findCompletedTurnForUser, getConversation, isValidConversationId, isValidTurnId, listConversations, recordAssistantMessageForPending, recordPendingUserMessage, rollbackUserMessage, type UserMessageRollback } from './chat-store'
 import { dataPoolPresent, deriveSignalState, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
 import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
-import { getNewsDiagnostics, getNewsStatus, startNewsIngester } from './news/scheduler'
+import { getNewsDiagnostics, getNewsStatus, newsProviderSpendingAllowed, startNewsIngester } from './news/scheduler'
 import { startConvictionLoop } from './conviction-dispatch'
 import { startReviewLoop } from './review-dispatch'
 import { runAutotuneOnce, startAutotuneLoop } from './news/rank-weights-autotune'
@@ -3032,6 +3032,7 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
           system, user, signal: ac.signal, onToken: (t) => send({ type: 'news-chat-token', content: t }),
           config: {
             enabled: NEWS.chatGroqFallbackEnabled,
+            providerSpendingAllowed: newsProviderSpendingAllowed(),
             apiKey: NEWS.groqApiKey,
             baseUrl: NEWS.groqBaseUrl,
             model: NEWS.groqModel,
@@ -3387,7 +3388,11 @@ app.get('/api/news/themes/:id/brief', async (req, reply) => {
   if (!theme) return reply.code(404).send({ error: 'theme not found' })
   const force = String((req.query as any)?.force || '') === '1'
   try {
-    return await buildThemeBrief(theme, NEWS, STATE_DIR, fetch, { force })
+    // A second/control-plane process can serve this route while the retained ingester lease belongs to
+    // another process. Preserve cache + deterministic synthesis there, but keep all shared provider
+    // spending on the single lease owner so two process-local minute limiters cannot burst one account.
+    const cfg = newsProviderSpendingAllowed() ? NEWS : { ...NEWS, groqApiKey: '' }
+    return await buildThemeBrief(theme, cfg, STATE_DIR, fetch, { force })
   } catch (e: any) {
     // buildThemeBrief never throws; keep the route honest if something upstream does — without leaking
     // raw internal error text into the user-facing note.
@@ -3424,6 +3429,7 @@ app.get('/api/news/enrich', async (req, reply) => {
   const safeJson = (s?: string): any => { try { return s ? JSON.parse(s) : undefined } catch { return undefined } }
   const companies = Array.isArray(safeJson(q.companies)) ? safeJson(q.companies) : []
   const event_types = Array.isArray(safeJson(q.event_types)) ? safeJson(q.event_types) : []
+  const providerSpendingAllowed = newsProviderSpendingAllowed()
   try {
     const enrichment = await enrichEvent(
       { event_id: q.event_id, url: q.url, headline: q.headline, companies, event_types, scope: q.scope, ts: q.ts },
@@ -3435,8 +3441,8 @@ app.get('/api/news/enrich', async (req, reply) => {
         // the article-body read runs the multi-provider fallback chain (Groq → OpenRouter/NVIDIA → Gemini),
         // each sharing the ingester's daily budget + per-minute limiter so an opened event never blows the
         // per-minute ceiling alongside the scanner — under HARD time budgets so it can never hang the reader.
-        articleProviders: ARTICLE_READ_PROVIDERS,
-        filingReadProviders: FILING_READ_PROVIDERS, // optional stronger model for filing reads (unset => unchanged)
+        articleProviders: providerSpendingAllowed ? ARTICLE_READ_PROVIDERS : [],
+        filingReadProviders: providerSpendingAllowed ? FILING_READ_PROVIDERS : [], // optional stronger model for filing reads (unset => unchanged)
         llmBudgetMs: NEWS.enrichLlmBudgetMs,
         limiterWaitMs: NEWS.enrichLimiterWaitMs,
         // thread the OPERATOR-configured cooldown (NEWS_LLM_COOLDOWN_SEC / _MAX_SEC) through to the article
@@ -3810,7 +3816,9 @@ app.post('/api/screener/feedback', { config: { rateLimit: { max: 1000, timeWindo
     // the response goes out now; the router (LLM→keyword) then appends an additive feedback_route line so
     // the note also feeds the tuning loop. A failure here never affects the captured feedback.
     if (record.feedback_reason) {
-      void routeReason(record.feedback_reason)
+      void routeReason(record.feedback_reason, fetch, {
+        providerSpendingAllowed: newsProviderSpendingAllowed(),
+      })
         .then((r) => (r.scope ? appendFeedbackRoute(record.feedback_id, r.scope, r.confidence, r.via) : undefined))
         .catch(() => {})
     }

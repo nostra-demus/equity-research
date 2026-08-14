@@ -79,7 +79,22 @@ Bargaining power bands:
 
 ## 2. Input Cost Pass-Through
 
-One paragraph. Does the company pass input cost increases to customers? With what lag? Are there contractual pass-throughs (escalators, indexed pricing)?
+**Answer this on two separate axes, and never let one stand in for the other (CLAUDE.md §9).** The recurring failure is finding no escalator clause and concluding the company has no pricing power — a conclusion that then hardens into "no pass-through" in the thesis headline and drives the entire bear case.
+
+| Axis | What it asks | Verdict | Evidence |
+|---|---|---|---|
+| **Contractual pass-through** | Is there an escalator, indexed-pricing, or cost-plus clause that moves price automatically? | Yes / No / Partial (which contracts, what share of revenue) | |
+| **Realised recovery** | Of a given input-cost increase, how much did the company actually recover — through price, mix, hedging, re-sourcing, or a cost programme? | X% recovered, or Not computable from the pool | |
+
+The second row is the one that matters for earnings, and it is usually computable: take the company's own disclosed gross input-cost impact and compare it to the change that actually landed in the reported margin.
+
+> `realised recovery = 1 − (observed margin impact ÷ disclosed gross pre-mitigation impact)`
+>
+> Worked example: input inflation disclosed at −178bps of revenue before mitigation, gross margin down 110bps in the event → roughly 38% recovered. That is the number, not zero.
+
+Then one paragraph: does the company pass input cost increases to customers, with what lag, and through which mechanism? Name the mitigation tools the filings actually disclose (commodity hedging policies, supplier arrangements, procurement or standardisation programmes, shifting where products are made, premium/mix moves) and say how well each has worked, with numbers. Distinguish **cost absorption** (the company eats less of the increase because its own costs fell) from **price pass-through** (the customer pays more) — both are real recovery, and the thesis needs to know which it is, because a cost programme can run out and a price increase can stick.
+
+**Absolute language requires absolute evidence.** Write "no *contractual* pass-through" when that is what you found. Write bare "no pass-through" only where the realised recovery is genuinely measured at or near zero — and if you write it, show the measurement. This paragraph is quoted verbatim downstream by `07_business-quality`, the earnings sensitivity, and the master thesis, so a qualifier dropped here goes missing everywhere (CLAUDE.md §3).
 
 **Supplier / input concentration (quantify).** Beyond pass-through, size the supply-side dependency — the share of COGS or purchases from the largest supplier and the top 3 (where disclosed), any single-source / sole-source inputs or key components, and concentration in a critical raw material. Flag a single supplier or input that is a *material* dependency: this is the supply-side parallel to customer concentration, and a material single-source dependency is itself a bargaining risk to carry into §5. Where the disclosure does not quantify it, say so — do not invent a percentage.
 
@@ -105,6 +120,7 @@ One line: which value-chain relationship would, if it deteriorated, hurt the com
 - [ ] The company's role in each stage is stated in one sentence, with evidence.
 - [ ] Bargaining power scores are explicit (Strong / Mid / Weak) — no waffling.
 - [ ] Pass-through and pricing-power claims are evidenced by specific filings or transcript lines.
+- [ ] **§2 answers both axes separately** — contractual pass-through AND realised recovery — with the realised-recovery arithmetic shown wherever the filings allow it, and the disclosed mitigation tools named. The absence of an escalator clause is never reported as "no pass-through"; a bare "no pass-through" appears only with a measurement behind it (CLAUDE.md §3, §9).
 - [ ] The verdict is exactly one of {Controls economics, Mixed, Squeezed} — no hybrids.
 - [ ] No banned phrases.
 

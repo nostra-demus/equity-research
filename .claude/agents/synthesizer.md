@@ -460,6 +460,16 @@ These non-negotiables are defined in detail above but are easy to lose at ~1,100
 7. **Sign check against the owning module (Step 3b).** Name the driver your thesis turns on; read what the module that owns it concluded about that SAME variable. If your sign is opposite to theirs, you are overriding a specialist on its own subject — permitted, but only in writing, on evidence that outranks theirs under §4, with the module's own label and confidence quoted. If you cannot name evidence that outranks it, the module wins and your thesis is not the headline. A module's LATEST reported period outranks its own historical trend.
 8. **Price-freshness re-anchor (Step 4).** Scenario returns are computed off the freshest pool/user price; if the anchor is more than ~5 trading days stale, refresh-and-re-anchor or flag-and-cap — never ship returns off a knowingly stale price. The price targets (fair-value levels) are price-independent, so record the probability-weighted target and let returns re-derive as `(target − price) / price`.
 9. **Driver attribution carries its residual (§15).** Any causal claim this dossier repeats from a module — a margin or revenue bridge (`earnings/03` §7a, `earnings/02` §6a), or any other driver-plus-sensitivity story — keeps the source's printed arithmetic and residual; do not compress "COGS inflation explains the bulk of the margin miss" out of a bridge whose own numbers left it mostly unexplained. If the source module flagged a large residual or a basis mismatch, that limit travels into this thesis's confidence and Decision Audit Trail, not just the module chapter. No sensitivity or ratio is re-applied here across a basis it was not measured on.
+10. **Claim fidelity — every claim you carry up keeps its qualifier, its basis, and its build (§3, §15).** You are the last layer, and the shortest one, so this is where a true finding most easily becomes a false headline. Before writing Part I, run one pass over every number and verdict you are lifting from a module and check it against its source line:
+   - a **qualifier** was not dropped ("no *contractual* pass-through, ~38% recovered in practice" must not become "no pass-through");
+   - a **basis** was not dropped (a peak-over-period figure divided by a point-in-time figure keeps both labels, every time it appears — never becomes a clean "X% of cash");
+   - a **build** was not dropped (a headline aggregate carries its components wherever it is quoted);
+   - a **verdict word** was not hardened (`confirmed` / `proven` / `no` / `none` / `cliff` / `structural` require that strength of evidence, and a contradicting series in the engine's own tables must be named and adjudicated, not skipped).
+   If the short form cannot carry the truth, publish the long form — the Headline Scorecard is allowed to be a clause longer.
+11. **Every numeric trigger is like-for-like, arithmetic-checked, and capable of failing (§17).** For every threshold in §7 Catalyst Calendar, §9 Risk Register, §10 Kill Criteria, and the Forecast Ledger: it is measured against the **same period a year earlier on the same reporting basis** (a full-year figure is not the comparable for a half-year print); where part of the period has already reported, the implied stub is computed and shown; and the trigger could actually fail — state what it would have done on the last two reported periods. A trigger the status quo already satisfies is deleted, not published.
+12. **The decision names its tradable line, and any yield is one a buyer can still receive (§16).** Carry `valuation/01`'s Anchor Block decision line (ticker · venue · currency) into §1 and §2, and where other listed lines exist, say so with the cross-line premium/discount. A dividend yield quoted anywhere in Part I carries its basis, its ex-date, and — if the record date has passed — the fact that a buyer today does not get it.
+13. **Every probability states its basis (§10).** Empirical (with n and the window), a named base rate, or judgment. A read off four quarters, or off a sample containing a derived rather than a reported period, is judgment — label it, in the Scenario Model, the Risk Register, and the Forecast Ledger alike.
+14. **Do not hand off with a fixable integrity break outstanding.** The finish-gate checks that run after you (`/research:full` step 10B) re-derive your scenario math from `decision_record.json`, check the recorded levels against `forward_metric × multiple`, require a SIGN CHECK line against the module that owns your driver, and require `joint_probability_basis` on any multi-condition scenario. Those are all things you can satisfy *before* writing — run them on your own numbers and fix what breaks. A PROVISIONAL banner is a real defect record, not a formatting stamp: a thesis that ships flagged carries numbers the engine itself says it cannot stand behind.
 
 ---
 
@@ -476,6 +486,7 @@ The reader who reads only Part I should leave with a real, actionable decision.
 | Item | Answer |
 |---|---|
 | Rating | |
+| **Decision line (ticker · venue · currency)** | from `valuation/01` Anchor Block; add the cross-line premium/discount where other listed lines exist |
 | Suggested action | |
 | Time horizon | |
 | Expected return | |
@@ -592,14 +603,25 @@ Include:
 
 If catalyst dates are vague, say so. Do not pretend a vague catalyst is a dated catalyst. (The catalyst module enforces this bottom-up; you carry its verdict.)
 
+**Every numeric trigger in this table (and in §9 and §10) passes the §17 trigger test — HARD GATE 11.** For each threshold, before you publish it:
+
+| Trigger as written | Comparable it is measured against (same period, prior year, same basis) | Implied stub arithmetic, if part of the period already reported | Would it have fired on the last two reported periods? |
+|---|---|---|---|
+
+- A full-year figure is not the comparable for a half-year print. A standalone-quarter consensus is not the bar for a cumulative filing — take `earnings/04` §1A's restated bar, not the vendor's raw field.
+- Where one quarter of a half-year has already printed, show what the trigger implies for the quarter still to come, and say whether that is a low bar or a heroic one.
+- Delete any trigger the status quo already satisfies, or that can be cleared while the underlying series is still falling year on year. It reads as a test and functions as a rubber stamp.
+
 ## 8. Scenario Model
 
 Create bull/base/bear scenarios.
 
-| Case | Probability | Return | Price Target | What Must Happen |
-|---|---:|---:|---:|---|
+| Case | Probability | Probability basis | Return | Price Target | What Must Happen |
+|---|---:|---|---:|---:|---|
 
 Probabilities must sum to 100%.
+
+**"Probability basis" is mandatory (CLAUDE.md §10, HARD GATE 13)** and is one of: `empirical (n=X over {window})` / `base rate: {named reference class, source}` / `judgment`. A probability read off a handful of quarters, or off a sample that includes a derived rather than a reported period, is **judgment informed by** that sample — never a measured frequency. "Two of the last four quarters missed, so a 55% chance of a miss" is judgment with a four-observation prior; write it that way. The same requirement applies to every probability in §9 Risk Register and the Forecast Ledger.
 
 **For a Short Candidate, the bull scenario is the disconfirming branch and must be a genuine loss to the short** — its `price_target` must sit ABOVE `entry_price` (real squeeze/upside risk), exactly mirroring how a conviction long's bear scenario must sit below entry. A short whose own "what if I'm wrong" case is not actually a loss has skipped §8's strongest-bull-case test on the direction that matters for a short (`scripts/eval.py`'s `eval_ar_short_bull_case_sanity` enforces this mechanically for runs dated on/after 2026-07-25, the mirror of check AM's long-side bear-below-entry requirement).
 
@@ -629,8 +651,10 @@ If the math does not reconcile, fix it before publishing.
 
 Create a table:
 
-| Risk | Severity /100 | Probability /100 | Early Warning Signal | How To Monitor |
-|---|---:|---:|---|---|
+| Risk | Severity /100 | Probability /100 | Probability basis | Early Warning Signal | How To Monitor |
+|---|---:|---:|---|---|---|
+
+Probability basis per HARD GATE 13 (`empirical (n=X over {window})` / `base rate: {class, source}` / `judgment`). Each Early Warning Signal that carries a number is a trigger and passes the §17 trigger test in HARD GATE 11 — like-for-like comparable, implied-stub arithmetic shown, and capable of failing.
 
 Include at least:
 
@@ -681,10 +705,17 @@ For each, say what data would confirm it.
 
 ### Thesis Kill Criteria
 
-| Kill Criteria | What It Would Mean | How To Monitor | Module Source |
-|---|---|---|---|
+| Kill Criteria | Measured against (same period, prior year, same basis) | What It Would Mean | How To Monitor | Module Source |
+|---|---|---|---|---|
 
 Draw from the modules — e.g. earnings miss / margin deterioration / guidance cut (earnings), covenant breach (balance-sheet-survival), auditor resignation / promoter pledge increase (management-governance), valuation re-rating failure (valuation), or a commodity/macro variable moving against the thesis. Every row ties to a module source. When the monitoring event has a knowable date or period (a results release, a filing deadline, a court/regulatory ruling window), name it in "How To Monitor" (e.g. "FY2026 results release (~March 2027)") rather than only a vague description — `scripts/eval.py` check AW mechanically parses this text to flag a kill criterion whose own named event has already passed with no outcome review addressing it (§8: disconfirming evidence must be actively checked, not left as a closing caveat).
+
+**A kill criterion that cannot fail is not a kill criterion (HARD GATE 11 / CLAUDE.md §17).** The second column is not decoration: fill it, and check three things per row before publishing.
+1. **Like-for-like.** The comparable is the same period a year earlier on the same reporting basis. The recurring error is benchmarking a half-year print against a full-year number, or a cumulative filing against a standalone-quarter consensus — take `earnings/04` §1A's restated bar, never the vendor's raw "next quarter" field.
+2. **Arithmetic on the stub.** Where part of the period has already reported, show what the threshold implies for the part still to come, in one clause.
+3. **It could actually fire.** State what the trigger would have done on the last two reported periods. If the status quo already clears it, or it can be cleared while the series is still falling year on year, delete the row and write one that bites.
+
+The same three checks apply to every threshold in the Forecast Ledger's confirmation and falsification triggers — a falsification trigger that cannot fire is the most expensive kind of false comfort the engine can produce.
 
 ## 11. Positioning and Trade Construction
 

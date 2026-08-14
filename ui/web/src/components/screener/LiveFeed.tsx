@@ -9,7 +9,7 @@ import { groupByDedup, type StoryGroup } from '../../lib/dedup'
 import { displayHeadline, originalHeadline, plainBand, plainSize, plainTheme } from '../../lib/plain'
 import { dayDividerLabel, dayKeyLocal, hhmmLocal } from '../../lib/format'
 import { useStore } from '../../lib/store'
-import type { FeedItem, NewsStatus } from '../../lib/types'
+import type { FeedItem } from '../../lib/types'
 import { api, type ArchiveQuery, type CompanyFacet, type SearchCursor } from '../../lib/api'
 import { archiveFiltersActive, emptyFilters, FeedFilters, gicsEmptyMessage, keywordReadAsNote, matchesFilters, resolveKeywordCompanies, type FeedFilterState } from './FeedFilters'
 import { PulseMap } from './PulseMap'
@@ -29,70 +29,11 @@ const FEED_WINDOWS: { d: number; label: string }[] = [
   { d: 370, label: 'All' },
 ]
 
-// compact 405000 → "405k", 14 → "14"
-const kfmt = (n: number): string => (n >= 1000 ? `${(n / 1000).toFixed(n >= 100_000 ? 0 : 1)}k` : `${Math.round(n)}`)
-
 // A historical look-back window can hold up to ~6,000 items; painting all of them on every filter
 // toggle is what made the wire feel slow. We render in PAGE-sized chunks and reveal the next chunk as a
 // bottom sentinel scrolls into view, so a filter click only ever paints ~PAGE rows — independent of how
 // deep the archive in range is — while every row stays reachable by scrolling.
 const PAGE = 60
-
-// A small daily-budget pool readout: a label, a fill bar, used/cap. The fill animates with a GPU transform
-// (scaleX) so the poll-driven update never triggers layout. `color` is a CSS var name (per provider), so a
-// newly-wired provider gets its own colour with no code change. `active` tints the border (overflow firing).
-function BudgetChip({ label, used, cap, unit, color, active, title }: { label: string; used: number; cap: number; unit: string; color: string; active?: boolean; title: string }) {
-  const frac = cap > 0 ? Math.min(1, Math.max(0, used / cap)) : 0
-  const c = `var(${color})`
-  return (
-    <span className="poolchip" style={active ? { borderColor: `color-mix(in srgb, ${c} 40%, var(--hairline))` } : undefined} title={title}>
-      <span className="poolchip__label" style={{ color: c }}>{label}</span>
-      <span className="poolchip__bar" aria-hidden><span className="poolchip__fill" style={{ transform: `scaleX(${frac})`, background: c }} /></span>
-      <span className="poolchip__val mono">{kfmt(used)}<span className="poolchip__sep">/</span>{kfmt(cap)}<span className="poolchip__unit"> {unit}</span></span>
-    </span>
-  )
-}
-
-// The LOCAL primary brain — rendered FIRST and prominently. It is the unlimited, $0 tier that scores the WHOLE
-// scan ahead of every cloud/paid tier, so there is no cap to meter: we show the live tokens + requests it has
-// processed today (updates every cycle over SSE). When the box is unreachable it flips to a clear "offline"
-// warning — the scan is then burning capped cloud/paid budget and the operator needs to bring the box back.
-function LocalPrimaryChip({ local }: { local: NonNullable<NewsStatus['local']> }) {
-  const c = `var(${local.color})`
-  const down = local.health === 'cooling' || (local.cooldownRemainingMs ?? 0) > 0
-  return (
-    <span
-      className={`poolchip poolchip--local${down ? ' is-down' : ''}`}
-      title={down
-        ? `Local primary brain (${local.model}) is UNREACHABLE right now — the box is asleep or offline, so the scan is running on the capped cloud fallback. Bring it back and it resumes carrying the whole scan, unlimited and $0.`
-        : `Local primary brain (${local.model}) — the unlimited, $0 model that scores the WHOLE scan first, ahead of every cloud and paid tier. No daily cap, no ceiling. Today: ${local.tokens.toLocaleString()} tokens over ${local.requests.toLocaleString()} requests.`}
-    >
-      <span className="poolchip__dot" data-tone={down ? 'bad' : 'live'} aria-hidden />
-      <span className="poolchip__label" style={{ color: c }}>Local · primary brain</span>
-      {down ? (
-        <span className="poolchip__val poolchip__val--down mono">offline — check the box</span>
-      ) : (
-        <span className="poolchip__val mono">
-          <b className="poolchip__big" style={{ color: c }}>{kfmt(local.tokens)}</b><span className="poolchip__unit"> tok</span>
-          <span className="poolchip__sep">·</span>{kfmt(local.requests)}<span className="poolchip__unit"> req today</span>
-          <span className="poolchip__inf" title="no daily cap — unlimited, 24×7">∞</span>
-        </span>
-      )}
-    </span>
-  )
-}
-
-// Pick the BINDING dimension for a provider's budget chip — whichever of requests-vs-cap or tokens-vs-cap is
-// closer to its cap — so the bar tells the truth. A provider can be gated on EITHER limit, and which one bites
-// varies by day: a flaky Groq day burns the daily REQUEST cap on retries while token use stays tiny (13k/13k
-// requests, 14k/500k tokens), so a fixed "always show tokens" bar would read ~3% full while the provider is
-// actually out. Compares against the HARD caps; when tokens bind, displays against the paced target if given.
-function bindingDim(b: { requests: number; reqCap: number; tokens: number; tokenCap?: number; tokenTarget?: number }): { used: number; cap: number; unit: string } {
-  const reqFrac = b.reqCap > 0 ? b.requests / b.reqCap : 0
-  const tokFrac = b.tokenCap && b.tokenCap > 0 ? b.tokens / b.tokenCap : -1 // no token cap ⇒ request-gated only
-  if (tokFrac > reqFrac) return { used: b.tokens, cap: b.tokenTarget || b.tokenCap!, unit: 'tok' }
-  return { used: b.requests, cap: b.reqCap, unit: 'req' }
-}
 
 function ScorePill({ score }: { score: number }) {
   const tone = score >= 70 ? 'var(--live)' : score >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)'
@@ -166,6 +107,7 @@ const EMPTY_ARCHIVE: ArchiveState = { results: [], loading: false, loadingMore: 
 
 export function LiveFeed() {
   const close = useStore((s) => s.closeNewsFeed)
+  const openDiagnostics = useStore((s) => s.openDiagnostics)
   const liveItems = useStore((s) => s.newsItems)
   const status = useStore((s) => s.newsStatus)
   const refreshStatus = useStore((s) => s.refreshNewsStatus)
@@ -357,48 +299,9 @@ export function LiveFeed() {
         <div>
           <div className="pipeline__title">News wire — everything the scanner read</div>
           <ScanStatus variant="panel" />
-          {status?.enabled && status.budget && (
-            <div className="pipeline__pools">
-              {/* LOCAL primary brain FIRST and prominent — the unlimited $0 tier that carries the whole scan.
-                  When present, Groq + every overflow pool below are relabelled as its FALLBACK. */}
-              {status.local && <LocalPrimaryChip local={status.local} />}
-              {(() => {
-                // show whichever limit is actually biting (requests OR tokens) — Groq has both a daily request
-                // cap and a paced token budget, and either can max out first.
-                const g = bindingDim(status.budget)
-                return (
-                  <BudgetChip
-                    label={status.local ? 'Groq · fallback' : 'Groq'}
-                    used={g.used}
-                    cap={g.cap}
-                    unit={g.unit}
-                    color="--accent"
-                    title={`${status.local ? 'FALLBACK — used only when the local primary brain is down. ' : ''}Groq free-tier daily budget. Requests: ${status.budget.requests}/${status.budget.reqCap}. Tokens: ${kfmt(status.budget.tokens)}/${kfmt(status.budget.tokenCap)}${status.budget.tokenTarget ? ` (paced target ${kfmt(status.budget.tokenTarget)})` : ''}. The bar shows whichever is closer to its cap — when either is reached, triage flows to the free pools or defers to the next cycle.`}
-                  />
-                )
-              })()}
-              {(status.overflow || []).map((o) => {
-                // Show the BINDING limit — a provider can max its request cap before its token cap (e.g. a bad
-                // Groq day burns requests on retries), so a fixed "always tokens" bar would look nearly empty
-                // while the provider is out. bindingDim picks requests or tokens by whichever is closer to cap.
-                const d = bindingDim(o)
-                return (
-                  <BudgetChip
-                    key={o.id}
-                    label={`${o.label} ${status.local ? 'fallback' : 'overflow'}`}
-                    used={d.used}
-                    cap={d.cap}
-                    unit={d.unit}
-                    color={o.color}
-                    active={o.requests > 0 || o.tokens > 0}
-                    title={`${status.local ? 'FALLBACK — used only when the local primary brain is down. ' : ''}Free-tier overflow (${o.model}) — picks up triage when the tier above is paced or capped, so the day's throughput is every free pool combined. Requests: ${o.requests}/${o.reqCap}${o.tokenCap ? ` · Tokens: ${kfmt(o.tokens)}/${kfmt(o.tokenCap)}` : ''}. The bar shows whichever is closer to its cap.`}
-                  />
-                )
-              })}
-            </div>
-          )}
         </div>
         <div className="pipeline__tools">
+          <button className="btn btn--ghost" onClick={() => void openDiagnostics()}>Provider status</button>
           <button className="btn btn--ghost" onClick={() => void refresh()} disabled={feedWindowLoading}>
             {feedWindowLoading ? 'refreshing…' : 'refresh'}
           </button>

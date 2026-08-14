@@ -317,3 +317,16 @@ This document deliberately says nothing about git, commits, or downstream synthe
 - Do not hardcode any agent name. Every agent invocation, output filename, and layer assignment is derived from the discovered files and their frontmatter.
 - Adding a new file like `.claude/agents/<MODULE>/13_supply-chain.md` with `layer: 2` in its frontmatter must require zero changes to this pipeline — it should automatically be picked up, run in layer 2, and written to `<RUN_ROOT>/<MODULE>/13_supply-chain.md`.
 - The pipeline writes files only inside `<RUN_ROOT>/<MODULE>/`. It does not touch other module folders or the run-root itself.
+
+### Claim fidelity on the way up (CLAUDE.md §3) — binds every `99_*-synthesis` and every memo tier
+
+Findings get shorter as they climb: sub-agent → module synthesis → module memo → master thesis → scorecard line. That compression is the point of the layering, and it is also where the engine's worst errors are made — not by inventing anything, but by dropping what made an upstream finding *true*. Four failure shapes recur, and each is checkable in one pass:
+
+| Shape | What it looks like | What the restating layer must do |
+|---|---|---|
+| **Qualifier dropped** | `no *contractual* pass-through, though hedging and mix absorb ~38%` → `no pass-through` | Carry the qualifier, or quote the longer form. A hedged finding may not be compressed into an absolute |
+| **Basis dropped** | `maximum daily balance ÷ year-end cash = 57%` → `57% of cash` | Carry the basis label every time the figure appears (§15 matched-basis) |
+| **Build dropped** | `6.3bn factoring + 10.0bn bills + 8.7bn supplier-finance ≈ 25bn` → `~25bn of factoring and supplier finance` | Carry the itemised components wherever the total is quoted (§15 aggregates travel with their build) |
+| **Verdict hardened** | `eroding on the gross-margin line, offset below it` → `moat erosion confirmed` | Keep the verdict word the upstream evidence supports; `confirmed` / `proven` / `no` / `none` require that strength of evidence |
+
+Each `99_*-synthesis` runs one explicit pass over its own Specialist Roll-Up before publishing: for every claim it is carrying upward, check it against the four rows above and against the sub-agent's own words. A synthesis is an adjudication, not a compression — where the short form cannot carry the truth, publish the long form. The same check applies to the module memo (Step 4.9A) and to anything the master synthesizer lifts from a module.

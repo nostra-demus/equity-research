@@ -107,6 +107,26 @@ await check('saveDeferred is ATOMIC: a write failure keeps the last-good backlog
   assert.ok(!fs.existsSync(path.join(state, 'news-deferred.json.tmp')), 'no orphan temp file left behind')
 })
 
+await check('a malformed backlog fails closed and runCycle preserves its exact bytes without fetching', async () => {
+  resetSharedLimiters()
+  resetCooldownMemory()
+  const state = tmp()
+  const root = tmp()
+  const target = path.join(state, 'news-deferred.json')
+  const corrupt = '{"event_id":"truncated"'
+  fs.writeFileSync(target, corrupt)
+  let calls = 0
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state,
+    config: { groqApiKey: 'k', themesEnabled: false } as any,
+    fetchFn: (async () => { calls++; return res({ articles: [] }) }) as unknown as typeof fetch,
+    sleep: noSleep, now: () => new Date('2026-06-12T09:30:00Z'),
+  })
+  assert.equal(summary.deferred_read_failed, true)
+  assert.equal(calls, 0, 'bad backlog authority stops before one-shot fetch/provider work')
+  assert.equal(fs.readFileSync(target, 'utf8'), corrupt, 'corrupt authority is never overwritten as empty')
+})
+
 await check('finding 4: a cycle whose deferred write FAILS surfaces deferred_write_failed on the summary (counts describe intent, not disk)', async () => {
   resetSharedLimiters()
   resetCooldownMemory()
@@ -136,6 +156,8 @@ await check('finding 4: a cycle whose deferred write FAILS surfaces deferred_wri
   }
   assert.equal(s.deferred_write_failed, true, 'the failed backlog write is surfaced on the summary, not hidden behind a "waiting" count')
   assert.ok((s.deferred || 0) > 0, 'the cycle really did try to defer items (so the write mattered)')
+  assert.ok(loadDeferred(state).length > 0, 'the completed pending journal keeps newly fetched rows retryable')
+  assert.ok(fs.existsSync(path.join(state, 'news-deferred-pending.json')), 'canonical rename failure leaves a durable pending journal')
 })
 
 console.log(`\n${passed} checks passed`)

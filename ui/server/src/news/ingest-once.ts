@@ -46,10 +46,24 @@ export async function runStandalonePasses<TSummary, TIdea, TOutcomes>(deps: {
 
 async function main(): Promise<void> {
   if (!NEWS.enabled) {
-    const ideaPass = await runConfiguredIdeaPass(log)
-    const qualifiedOutcomes = await runConfiguredQualifiedIdeaOutcomes(log)
-    log('news ingestion is disabled; skipped fetching and ran only independent outcome settlement')
-    console.log(JSON.stringify({ ok: true, skipped: 'news_disabled', idea_pass: ideaPass, qualified_idea_outcomes: qualifiedOutcomes })) // eslint-disable-line no-console
+    // The Ideas pass can still spend provider capacity when title ingestion is explicitly disabled. Take
+    // the same lease as a full pass so two cron invocations cannot run independent minute limiters against
+    // one account. An HTTP-only cockpit never retains this lease; it degrades provider reads instead.
+    if (!acquireIngesterLock(STATE_DIR)) {
+      log('another standalone news pass owns the provider lease — skipping this cycle')
+      const qualifiedOutcomes = await runConfiguredQualifiedIdeaOutcomes(log)
+      console.log(JSON.stringify({ ok: true, skipped: 'ingester_lock_held', qualified_idea_outcomes: qualifiedOutcomes })) // eslint-disable-line no-console
+      return
+    }
+    process.once('exit', () => releaseIngesterLock(STATE_DIR))
+    try {
+      const ideaPass = await runConfiguredIdeaPass(log)
+      const qualifiedOutcomes = await runConfiguredQualifiedIdeaOutcomes(log)
+      log('news ingestion is disabled; skipped fetching and ran only independent outcome settlement')
+      console.log(JSON.stringify({ ok: true, skipped: 'news_disabled', idea_pass: ideaPass, qualified_idea_outcomes: qualifiedOutcomes })) // eslint-disable-line no-console
+    } finally {
+      releaseIngesterLock(STATE_DIR)
+    }
     return
   }
   // Single-instance lock keyed on the data dir, shared with the cockpit's in-process ingester

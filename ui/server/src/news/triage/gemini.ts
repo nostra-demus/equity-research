@@ -8,11 +8,11 @@
 // chat-completions. Never throws; one retry on a transient failure; FREE TIER ONLY (no billing).
 
 import type { NewsItem, Triage } from '../types'
-import { conservativeChatTokenBound, type RateInfo } from './budget'
-import { ARTICLE_SYSTEM, articleMaxOutputTokens, type ArticleBrief, buildArticleUserMessage, buildUserMessage, coerceArticleBrief, coerceTriage, durToMs, estimateTokens, isArticleBodyEligible, SYSTEM, type TriageOptions, type TriageResult } from './groq'
+import { conservativeChatTokenBound, credibleTokenUsage, type RateInfo } from './budget'
+import { ARTICLE_SYSTEM, articleMaxOutputTokens, type ArticleAnalysisResult, buildArticleUserMessage, buildUserMessage, caughtFailure, coerceArticleBrief, coerceCompleteTriageRows, durToMs, httpFailureKind, isArticleBodyEligible, publicHttpFailureNote, SYSTEM, type TriageOptions, type TriageResult } from './groq'
 
 /** Pull Gemini's RetryInfo.retryDelay (e.g. "35s") out of a 429/RESOURCE_EXHAUSTED error body → ms. */
-function parseGeminiRetry(body: any): RateInfo {
+export function parseGeminiRetry(body: any): RateInfo {
   try {
     const details: any[] = body?.error?.details || []
     for (const d of details) {
@@ -26,7 +26,7 @@ function parseGeminiRetry(body: any): RateInfo {
 }
 
 /** True when a 429 body's QuotaFailure is a per-DAY violation (RPD) — the model is done until midnight PT. */
-function isPerDayQuota(body: any): boolean {
+export function isPerDayQuota(body: any): boolean {
   try {
     for (const d of body?.error?.details || []) {
       for (const v of d?.violations || []) {
@@ -51,11 +51,13 @@ export async function triageBatchGemini(
 ): Promise<TriageResult> {
   const byIndex = new Map<number, Triage>()
   if (!items.length) return { byIndex, requests: 0, tokens: 0, ok: true }
-  if (!opts.apiKey) return { byIndex, requests: 0, tokens: 0, ok: false, note: 'no GEMINI_API_KEY' }
+  if (!opts.apiKey) return { byIndex, requests: 0, tokens: 0, ok: false, note: 'gemini: provider not configured', failureKind: 'request' }
 
   let requests = 0
   let tokens = 0
-  let lastNote = 'gemini fetch error'
+  let lastFailure: Required<Pick<TriageResult, 'note' | 'failureKind'>> & Pick<TriageResult, 'timedOut'> = {
+    note: 'gemini: network unavailable', failureKind: 'availability',
+  }
   const url = `${opts.baseUrl}/models/${opts.model}:generateContent`
   const maxAttempts = opts.maxAttempts ?? 2
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
@@ -78,42 +80,50 @@ export async function triageBatchGemini(
         const raw = await res.text().catch(() => '')
         let parsedErr: any
         try { parsedErr = JSON.parse(raw) } catch { parsedErr = null }
-        const rate = res.status === 429 ? parseGeminiRetry(parsedErr) : {}
+        const bodyRate = res.status === 429 ? parseGeminiRetry(parsedErr) : {}
+        // Google commonly puts RetryInfo in a 429 body, but gateways and transient 503s use the standard
+        // header. Preserve the provider's exact clock for either status; the header is authoritative when
+        // both exist so the outer cooldown policy never inflates a precise wait into generic minutes.
+        const headerRetryAfterMs = (res.status === 429 || res.status === 503)
+          ? durToMs(res.headers?.get?.('retry-after'))
+          : undefined
+        const rate: RateInfo = headerRetryAfterMs != null ? { ...bodyRate, retryAfterMs: headerRetryAfterMs } : bodyRate
         const perDay = res.status === 429 && isPerDayQuota(parsedErr)
-        lastNote = `gemini HTTP ${res.status}${perDay ? ' PerDay-quota-exhausted' : ''}${raw ? ': ' + raw.slice(0, 100) : ''}`
+        const note = publicHttpFailureNote('gemini', res.status, perDay)
+        const failureKind = httpFailureKind(res.status)
         // a per-DAY 429 won't clear by retrying this cycle — surface it so the caller skips this model
         const transient = (res.status === 429 && !perDay) || res.status >= 500
         if (transient && attempt < maxAttempts) {
           await sleep(rate.retryAfterMs || 1500 * attempt)
           continue
         }
-        return { byIndex, requests, tokens, ok: false, note: lastNote, rate }
+        return { byIndex, requests, tokens, ok: false, note, rate, failureKind, httpStatus: res.status, ...(perDay ? { dailyLimit: true } : {}) }
       }
       const data: any = await res.json()
-      tokens += Number(data?.usageMetadata?.totalTokenCount)
-        || conservativeChatTokenBound(SYSTEM, buildUserMessage(items), opts.maxTokens ?? 2000)
+      tokens += credibleTokenUsage(
+        data?.usageMetadata?.totalTokenCount,
+        conservativeChatTokenBound(SYSTEM, buildUserMessage(items), opts.maxTokens ?? 2000),
+      )
       const cand = data?.candidates?.[0]
       // a safety block or a max-output truncation is deterministic — report, don't half-parse
-      if (data?.promptFeedback?.blockReason) return { byIndex, requests, tokens, ok: false, note: `gemini blocked: ${data.promptFeedback.blockReason}` }
+      if (data?.promptFeedback?.blockReason) return { byIndex, requests, tokens, ok: false, note: 'gemini: response blocked', failureKind: 'contract' }
       if (cand?.finishReason && cand.finishReason !== 'STOP') {
-        return { byIndex, requests, tokens, ok: false, note: `gemini: finishReason ${cand.finishReason} (lower NEWS_TRIAGE_BATCH or raise NEWS_GEMINI_MAX_TOKENS)` }
+        return { byIndex, requests, tokens, ok: false, note: 'gemini: incomplete response (lower NEWS_TRIAGE_BATCH or raise NEWS_GEMINI_MAX_TOKENS)', failureKind: 'contract' }
       }
       const content = Array.isArray(cand?.content?.parts) ? cand.content.parts.map((p: any) => (typeof p?.text === 'string' ? p.text : '')).join('') : ''
-      if (!content) return { byIndex, requests, tokens, ok: false, note: 'gemini: empty content' }
+      if (!content) return { byIndex, requests, tokens, ok: false, note: 'gemini: empty content', failureKind: 'contract' }
       let parsed: any
-      try { parsed = JSON.parse(content) } catch { return { byIndex, requests, tokens, ok: false, note: 'gemini: non-JSON content' } }
+      try { parsed = JSON.parse(content) } catch { return { byIndex, requests, tokens, ok: false, note: 'gemini: non-JSON content', failureKind: 'contract' } }
       const arr: any[] = Array.isArray(parsed) ? parsed : Array.isArray(parsed?.items) ? parsed.items : []
-      for (const row of arr) {
-        const i = Number(row?.i)
-        if (Number.isInteger(i) && i >= 0 && i < items.length && !byIndex.has(i)) byIndex.set(i, coerceTriage(row))
-      }
-      return { byIndex, requests, tokens, ok: true }
+      const complete = coerceCompleteTriageRows(arr, items.length)
+      if (!complete) return { byIndex, requests, tokens, ok: false, note: 'gemini: incomplete batch response', failureKind: 'contract' }
+      return { byIndex: complete, requests, tokens, ok: true }
     } catch (e: any) {
-      lastNote = e?.name === 'TimeoutError' ? 'gemini: request timed out' : e?.message || 'gemini fetch error'
+      lastFailure = caughtFailure(e, 'gemini')
       if (attempt < maxAttempts) await sleep(1500 * attempt)
     }
   }
-  return { byIndex, requests, tokens, ok: false, note: lastNote }
+  return { byIndex, requests, tokens, ok: false, ...lastFailure }
 }
 
 /**
@@ -132,13 +142,15 @@ export async function analyzeArticleGemini(
   opts: TriageOptions,
   fetchFn: typeof fetch = fetch,
   sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms)),
-): Promise<{ brief: ArticleBrief | null; tokens: number; note?: string; rate?: RateInfo; attempted?: boolean }> {
-  if (!opts.apiKey) return { brief: null, tokens: 0, note: 'no GEMINI_API_KEY', attempted: false }
-  if (!isArticleBodyEligible(body)) return { brief: null, tokens: 0, note: 'body too thin to read', attempted: false }
+): Promise<ArticleAnalysisResult> {
+  if (!opts.apiKey) return { brief: null, tokens: 0, note: 'gemini: provider not configured', attempted: false, failureKind: 'request' }
+  if (!isArticleBodyEligible(body)) return { brief: null, tokens: 0, note: 'body too thin to read', attempted: false, failureKind: 'request' }
   const user = buildArticleUserMessage(body, headline)
   const url = `${opts.baseUrl}/models/${opts.model}:generateContent`
   let tokens = 0
-  let lastNote = 'gemini fetch error'
+  let lastFailure: Required<Pick<ArticleAnalysisResult, 'note' | 'failureKind'>> & Pick<ArticleAnalysisResult, 'timedOut'> = {
+    note: 'gemini: network unavailable', failureKind: 'availability',
+  }
   const maxAttempts = opts.maxAttempts ?? 2
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
@@ -159,27 +171,32 @@ export async function analyzeArticleGemini(
         const raw = await res.text().catch(() => '')
         let parsedErr: any
         try { parsedErr = JSON.parse(raw) } catch { parsedErr = null }
-        const rate = res.status === 429 ? parseGeminiRetry(parsedErr) : {}
+        const bodyRate = res.status === 429 ? parseGeminiRetry(parsedErr) : {}
+        const headerRetryAfterMs = (res.status === 429 || res.status === 503)
+          ? durToMs(res.headers?.get?.('retry-after'))
+          : undefined
+        const rate: RateInfo = headerRetryAfterMs != null ? { ...bodyRate, retryAfterMs: headerRetryAfterMs } : bodyRate
         const perDay = res.status === 429 && isPerDayQuota(parsedErr)
-        lastNote = `gemini HTTP ${res.status}${perDay ? ' PerDay-quota-exhausted' : ''}`
+        const note = publicHttpFailureNote('gemini', res.status, perDay)
+        const failureKind = httpFailureKind(res.status)
         const transient = (res.status === 429 && !perDay) || res.status >= 500
         if (transient && attempt < maxAttempts) { await sleep(rate.retryAfterMs || 1200 * attempt); continue }
-        return { brief: null, tokens, note: lastNote, rate }
+        return { brief: null, tokens, note, rate, failureKind, httpStatus: res.status, ...(perDay ? { dailyLimit: true } : {}) }
       }
       const data: any = await res.json()
-      tokens += Number(data?.usageMetadata?.totalTokenCount) || 0
+      tokens += credibleTokenUsage(data?.usageMetadata?.totalTokenCount, 0)
       const cand = data?.candidates?.[0]
-      if (data?.promptFeedback?.blockReason) return { brief: null, tokens, note: `gemini blocked: ${data.promptFeedback.blockReason}` }
-      if (cand?.finishReason && cand.finishReason !== 'STOP') return { brief: null, tokens, note: `gemini: finishReason ${cand.finishReason}` }
+      if (data?.promptFeedback?.blockReason) return { brief: null, tokens, note: 'gemini: response blocked', failureKind: 'contract' }
+      if (cand?.finishReason && cand.finishReason !== 'STOP') return { brief: null, tokens, note: 'gemini: incomplete response', failureKind: 'contract' }
       const content = Array.isArray(cand?.content?.parts) ? cand.content.parts.map((p: any) => (typeof p?.text === 'string' ? p.text : '')).join('') : ''
-      if (!content) return { brief: null, tokens, note: 'gemini: empty content' }
+      if (!content) return { brief: null, tokens, note: 'gemini: empty content', failureKind: 'contract' }
       let parsed: any
-      try { parsed = JSON.parse(content) } catch { return { brief: null, tokens, note: 'gemini: non-JSON content' } }
+      try { parsed = JSON.parse(content) } catch { return { brief: null, tokens, note: 'gemini: non-JSON content', failureKind: 'contract' } }
       return { brief: coerceArticleBrief(parsed), tokens }
     } catch (e: any) {
-      lastNote = e?.name === 'TimeoutError' ? 'gemini: request timed out' : e?.message || 'gemini fetch error'
+      lastFailure = caughtFailure(e, 'gemini')
       if (attempt < maxAttempts) await sleep(1200 * attempt)
     }
   }
-  return { brief: null, tokens, note: lastNote }
+  return { brief: null, tokens, ...lastFailure }
 }

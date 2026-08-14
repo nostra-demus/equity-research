@@ -11,6 +11,7 @@ const kfmt = (n: number): string => (n >= 1000 ? `${(n / 1000).toFixed(n >= 10_0
  *  is what lets a token-gated tier (tokenCap, no reqCap) report tokens even while idle, per the tokenCap contract
  *  ("set only for token-gated providers … its binding limit", TierDiagnostics.tokenCap / scheduler.ts). */
 export function tierMeter(t: TierDiagnostics): { label: string; frac: number } {
+  if (t.ledgerUnavailable) return { label: 'Usage unavailable', frac: -2 }
   if (t.meter === 'usd') {
     const used = t.usdToday ?? 0
     const cap = t.usdCap ?? 0

@@ -64,6 +64,21 @@ Detect the filing regime from triage `00` and read the local-equivalent document
 
 Skip rows that don't apply (e.g., a domestic-only retailer has no FX exposure to score). For each kept row, fill all four columns.
 
+## 1A. Named Policy & Subsidy Register — current status as of the run date
+
+Any row above that rests on a **named government programme** — a subsidy, a trade-in or replacement scheme, a tax incentive, a tariff, an export or import restriction, a price cap, a mandate — gets its own line here. A dependency claim on a policy is only as good as the policy's status *today*, and the recurring failure is describing a programme by its old terms, or calling a programme that was renewed at lower generosity a "cliff".
+
+| Programme (local name + English) | Status as of {DATE} | Terms in the reference period | Terms NOW (or successor programme) | Change, quantified | Stated end date? | Source + date |
+|---|---|---|---|---|---|---|
+
+- **Status** is exactly one of: **In force (unchanged)** / **In force (amended — terms changed)** / **Replaced by a successor programme** / **Lapsed on a dated, cited authority** / **Status not established from available sources**.
+- **Always look for the successor before concluding a programme ended.** A scheme that runs to the end of a calendar year is very often renewed on different terms for the next one. Check the issuing ministry/agency's own release for the current year before writing anything about expiry, and cite it with its date.
+- **Quantify the change rather than characterising it.** "Six categories at 15% support capped at RMB 1,500 per unit, against twelve categories at up to 20% capped at RMB 2,000 in the prior year" is a finding. "The subsidy cliff" is not — and where the programme in fact continues at reduced generosity, "cliff" is simply wrong (CLAUDE.md §3: *cliff* is a claim about evidence strength).
+- **Banned unless a dated primary source shows actual termination:** *cliff*, *expiry*, *ends*, *withdrawn*, *removed*. Where support was reduced, say **reduced**, and give the old and new numbers. Where the programme lapsed, cite the authority and the date it lapsed.
+- Where the status genuinely cannot be established, write **Status not established from available sources**, treat the dependency at its last-known terms, and say so — do not resolve the uncertainty toward whichever direction the thesis prefers.
+
+This register is what the catalyst module, the earnings drivers, and the master synthesizer quote. If a policy row is not in this table, it must not appear as a driver anywhere downstream.
+
 ## 2. Sensitivity, If Disclosed
 
 If the company publishes any sensitivity figures (e.g., "a 10% USD move impacts revenue by INR Xcr"), reproduce them here in a small table with citations. Otherwise skip.
@@ -96,6 +111,7 @@ One line: which external variable, if it moved 20% adverse, would do the most da
 - [ ] Direction is flagged: this score is INVERTED (higher = worse).
 - [ ] Every relevant variable has a Low / Mid / High decision and evidence.
 - [ ] Variables that don't apply are dropped, not scored "Low" by default.
+- [ ] **Every named policy / subsidy / tariff the analysis leans on appears in §1A** with a status as of the run date, the old and new terms quantified, and a dated source. A successor programme was searched for before any expiry was claimed. No use of *cliff / expiry / ends / withdrawn* without a dated primary source showing actual termination — a programme continuing at reduced generosity is described as **reduced**, with both sets of numbers.
 - [ ] The classification is exactly one of {Company-controlled, Partly externally driven, Mostly externally driven}.
 - [ ] The risk score matches the classification (low score with "Mostly externally driven" is contradictory).
 - [ ] Section 5 names ONE biggest lever, not three.

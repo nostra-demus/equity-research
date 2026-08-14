@@ -163,12 +163,17 @@ Narrative: what each layer is FOR, in one line each.
 
 ## 9. Cash & Funding Topology (A11-02, A11-03)
 
-| Question | Raw value | Verdict | Source |
-|---|---|---|---|
-| Where does consolidated cash sit (parent vs subs)? | | | |
-| Parent borrowing while subs hold the cash? | | | |
-| ICDs to group entities — amount, rate, tenor | | | |
-| Evergreen / rolled-over ICDs? | | | |
+**Matched-basis rule (CLAUDE.md §15).** Every ratio in this section names the basis of BOTH sides (maximum daily balance / approved cap / period-end / cumulative average) and compares like with like. A peak divided by a point-in-time balance is not a share — state the matched version, or label the mismatch inline and do not headline the unmatched number. Any monitoring threshold derived here must be stated on a basis that is measurable again the same way at the next reporting date.
+
+| Question | Raw value | Basis (both sides) | Matched ratio | Verdict | Source |
+|---|---|---|---|---|---|
+| Where does consolidated cash sit (parent vs subs)? | | | | | |
+| Share held with a related finance company / treasury vehicle | | | | | |
+| Parent borrowing while subs hold the cash? | | | | | |
+| ICDs to group entities — amount, rate, tenor | | | | | |
+| Evergreen / rolled-over ICDs? | | | | | |
+
+Where the counterparty is a related **financial** entity, also record the company's own equity interest in it, its regulatory supervision, the approved cap and its utilisation, and the independent-director / auditor review status — the exposure is not reported without the facts that determine how it reads.
 
 ## 10. Listed-vs-Private Sibling Leakage (A11-04)
 
@@ -256,6 +261,8 @@ Emit a machine-readable JSON code block per the Machine-Readable Outputs schema 
 - [ ] The >25% RPT hard lock was deferred to `business-model/01_disqualifier-scan` — ratio reported, lock not re-adjudicated.
 - [ ] Guarantees to group entities were flagged here AND cross-referenced to 10 (A7a-06) — counted once, not twice.
 - [ ] 07's related-entity web was read and reconciled; every transacting-but-undisclosed entity fired RF-PPL-005.
+- [ ] **Every RPT / topology ratio carries its matched-basis check** — both sides' bases named (maximum daily balance / approved cap / period-end / cumulative), the matched version given or the mismatch labelled inline, and any monitoring threshold stated on a basis that is measurable again at the next reporting date (CLAUDE.md §15).
+- [ ] For a related **financial** counterparty, the company's own equity interest in it, its regulatory supervision, the approved cap and utilisation, and the independent-director / auditor review status are all recorded — the exposure is not reported without the facts that determine how it reads.
 - [ ] The score direction is INVERTED and flagged in the table header; missing data was scored Insufficient Data, never as low risk.
 - [ ] Red-flag IDs applied where triggered: RF-RPT-001/002/003, RF-CAP-004, RF-PPL-005 — with severity, evidence, and a follow-up per row.
 - [ ] No banned phrases; every table cell carrying a claim cites [Source, Period, Page/Section]; denominators cite `earnings/01` or the filing they came from.

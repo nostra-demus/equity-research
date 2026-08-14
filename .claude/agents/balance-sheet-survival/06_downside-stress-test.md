@@ -84,6 +84,8 @@ State the reporting currency and the EBITDA basis.
 
 If floating exposure is immaterial or no working-capital data exists, still include the columns but label that shock "not applicable / not computable" and explain. For a deep cyclical, add a scenario calibrated to the historical trough and say so.
 
+**State the mitigation assumption explicitly (CLAUDE.md §9).** These scenarios are deliberately a **zero-mitigation survival bound**: management takes no offsetting action — no price rises, no cost programme, no hedging benefit, no discretionary capex or dividend cut beyond what the row names. That is the correct posture for a survival test (§24 Filter 3 — the question is whether the structure holds if nothing goes right), but it must be *labelled* rather than left implicit, because the same numbers read as a forecast if the label is missing and they travel into the thesis that way. Write one line under the table: *"All scenarios assume zero management mitigation — this is a survival bound, not a forecast; the earnings module's realised-offset case (`earnings/07` §2) is the expected-outcome read."*
+
 ## 3. Break Points
 
 | Break Point | EBITDA Decline That Triggers It |
