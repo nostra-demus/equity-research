@@ -1,0 +1,534 @@
+{
+  "schema_version": "1.0",
+  "ticker": "ORCL",
+  "company_name": "Oracle Corporation",
+  "exchange": "NYSE",
+  "currency": "USD",
+  "decision_date": "2026-08-14",
+  "run_root": "analyses/ORCL_2026-08-14",
+  "final_thesis_path": "analyses/ORCL_2026-08-14/final_thesis.md",
+  "decision": "Watchlist",
+  "suggested_action": "No new position. Do not buy at $153.94 (no margin of safety against the $133.77 base case). Do not short into the 2026-09-04 print (setup is explicitly balanced, not miss-tilted, and short interest is only 1.74% of float — no confirming crowd). Re-underwrite after the FQ1 FY2027 print (2026-09-04), the 2026 DEF 14A (due ~2026-09-28), and the OCI securities-fraud motion-to-dismiss outcome.",
+  "paper_treatment": "No trade, track opportunity cost",
+  "basket": "Watchlist",
+  "entry_price": 153.94,
+  "entry_price_source": "Capital IQ pool export — delayed NYSE quote (pool-verified)",
+  "entry_price_timestamp": "2026-08-13T14:26:00-05:00",
+  "benchmark": "S&P 500",
+  "sector_benchmark": "S&P 500 Information Technology / Nasdaq-100 (software & cloud-infrastructure peers)",
+  "time_horizon": "12 months, with a flagged 24–36 month structural-reset tail case",
+  "scenario_horizon_days": 365,
+  "expected_return_pct": -27.1,
+  "downside_risk_pct": 79.58,
+  "margin_of_safety_pct": -15.08,
+  "risk_reward": -0.34,
+  "scenarios": [
+    {
+      "scenario_id": "bull-margin-recovery-rerate",
+      "label": "bull",
+      "probability": 15,
+      "return_pct": 38.15,
+      "price_target": 212.67,
+      "conditions": [
+        "Gross margin snaps back toward FY25 levels as new data-center capacity reaches full contracted revenue",
+        "All four named >$8bn AI-infrastructure customers (AMD, Meta, NVIDIA, OpenAI, TikTok, xAI) keep converting RPO on or ahead of schedule with no pullback",
+        "The market re-rates the stock back toward its own 5-year mean NTM EV/EBITDA multiple (14.0x vs 11.65x today)"
+      ],
+      "source": "valuation/07_scenario-and-fair-value.md §3",
+      "joint_probability_basis": "A conjunction of three conditions (margin recovery AND customer follow-through AND multiple re-rating) must hold together for the $212.67 level; this is why Bull is weighted below Bear-cyclical, which needs only one adverse event (CLAUDE.md §10 conjunction check)."
+    },
+    {
+      "scenario_id": "base-consensus-holds-no-rerate",
+      "label": "base",
+      "probability": 32,
+      "return_pct": -13.1,
+      "price_target": 133.77,
+      "conditions": [
+        "Consensus NTM EBITDA ($49,996M) is roughly achieved",
+        "The market continues pricing Oracle's leverage (4.46x net debt/EBITDA) and eroding return on capital at a discount to its own recent multiple and to peers, with no further de-rating but no re-rating either"
+      ],
+      "source": "valuation/07_scenario-and-fair-value.md §3",
+      "joint_probability_basis": "Both clauses describe the same 'no material change from today's pricing dynamic' condition, not two independent bets."
+    },
+    {
+      "scenario_id": "bear-cyclical-customer-pullback-margin-miss",
+      "label": "bear_cyclical",
+      "probability": 33,
+      "return_pct": -38.53,
+      "price_target": 94.62,
+      "conditions": [
+        "At least one of the four named >$8bn AI-infrastructure customers pulls back materially on contracted RPO",
+        "The FY27 gross-margin step-down management has already flagged qualitatively lands harder than guided"
+      ],
+      "source": "valuation/07_scenario-and-fair-value.md §3",
+      "joint_probability_basis": "The $94.62 target combines both a customer-concentration pullback and a further margin step-down in the same NTM EBITDA calculation; in practice either alone would pressure the stock, but the modeled target reflects both landing together."
+    },
+    {
+      "scenario_id": "bear-structural-reset-moat-commoditized",
+      "label": "bear_structural",
+      "probability": 20,
+      "return_pct": -79.58,
+      "price_target": 31.44,
+      "conditions": [
+        "The confirmed-eroding moat trajectory (return on capital 12.35%→8.22% over four straight years) does not stabilize: OCI never develops AWS/Azure-level scale or switching-cost economics and becomes a fully commoditized, price-competed infrastructure line with no margin protection",
+        "The legacy software-support annuity (the one part of the business with a real, evidenced moat) keeps shrinking as a share of revenue faster than OCI can build a comparable-margin replacement"
+      ],
+      "source": "valuation/07_scenario-and-fair-value.md §3; business-model/09_moat.md §5",
+      "joint_probability_basis": "Both describe the same multi-year structural-reset path (the moat module's confirmed 'eroding' trajectory continuing to its logical endpoint), not two independent risks. This is a 24–36 month fundamental path; the price target is used here as the level the market could reprice toward within the 12-month scenario horizon once the reset becomes evident, not as proof the fundamentals fully resolve within 12 months — stated explicitly as a synthesizer judgment, not a module finding."
+    }
+  ],
+  "idea_valuation_bridge": {
+    "source_horizon_days": 365,
+    "method": "catalyst_partial_convergence",
+    "convergence_fraction": 0.35,
+    "rationale": "The FQ1 FY2027 earnings release (2026-09-04, ~21 days from the decision date) is the single most important near-term catalyst and falls inside a 90-183 day window; it can reveal whether the price-implied 51.3% FY27 revenue beat is on track, but the fuller 12-month re-rating (multiple normalization or a slide toward the DCF-anchored base case) plays out over the full scenario horizon, not from the FQ1 print alone.",
+    "source": "valuation/07_scenario-and-fair-value.md §3; catalyst/99_catalyst-synthesis.md §2 (2026-09-04 row)"
+  },
+  "confidence_score": 51.0,
+  "data_sufficiency_score": 78,
+  "confidence_inputs": {
+    "data_sufficiency": 78,
+    "corroboration": 70,
+    "evidence_tier": 75,
+    "staleness_penalty": 0,
+    "edge_score": 45,
+    "edge_proof_present": true,
+    "decision": "Watchlist",
+    "modules_absent": [],
+    "critical_governance_unresolved": true,
+    "catalyst_timing_weak": false,
+    "rating_cap_ceiling": null,
+    "downgrades": [
+      {
+        "type": "valuation_method_spread",
+        "points": 7,
+        "reason": "207.7% cross-method valuation spread; DCF terminal value 80.7% of EV; base case sensitive to the 02/03-vs-04 method-weighting judgment"
+      }
+    ],
+    "calibration_haircut": 0
+  },
+  "analysis_confidence": 75.2,
+  "conviction": 51.0,
+  "sizing_hint": {
+    "band": "watch",
+    "action": "monitor only — no position (track opportunity cost)"
+  },
+  "confidence_breakdown": {
+    "analysis_confidence": 75.2,
+    "analysis_confidence_build": "0.5*dataSuff(78) + 0.25*corrob(70) + 0.25*tier(75) - stale(0) = 75.2",
+    "direction": "neutral",
+    "documented_ceiling": 60.0,
+    "documented_ceiling_sources": [
+      100.0,
+      60.0,
+      100.0
+    ],
+    "direction_ceiling": 58.0,
+    "direction_ceiling_reason": "neutral: min(documented 60, non-committal 58) — 60 driven by critical_governance_unresolved (RF-MGT-005)",
+    "understanding_capped_to_ceiling": 58.0,
+    "downgrade_points_total": 7.0,
+    "conviction": 51.0,
+    "formula": "conviction = clamp( min( min(analysis_confidence, direction_ceiling) - sum(max(0,downgrades)) - max(0,calibration_haircut), direction_ceiling ), 0, hard_max )"
+  },
+  "rating_cap": "Watchlist ceiling — management-governance RF-MGT-005 (Critical, unresolved securities class action alleging Oracle overstated the AI-deal growth outlook) mechanically caps the rating at no better than Watchlist per CLAUDE.md §24 Filter 1, independently confirmed by valuation's negative margin of safety (-15.08%) and balance-sheet-survival's 'Stretched' solvency verdict.",
+  "thesis_type": [
+    "Company-specific",
+    "Sector-cycle",
+    "Balance-sheet survival"
+  ],
+  "variant_perception_summary": "The consensus view is that Oracle's AI-infrastructure buildout (RPO +363% to $638bn, 97.5% GPU utilization) validates a premium multiple. What the current $153.94 price actually requires — a 51.3% FY2027 revenue beat against management's own freshly issued +33.6% guidance, and a 61.9% terminal EBIT margin no named peer has ever posted — is not what most narratives around the stock are pricing explicitly; it is a specific, testable, and currently unmet bar. Combined with a balance sheet where the real constraint (the ~$70bn FY2027 capex program, not the covenant or the maturity wall) breaks at just a 2%–20% EBITDA decline, and an unresolved securities-fraud allegation naming the founder and both co-CEOs, the setup is priced for a cleaner execution path than the evidence currently supports.",
+  "what_everyone_knows": "Oracle is growing fast on AI-infrastructure demand (OCI +77% FY26, RPO +363% to $638bn) and is one of the named hyperscale-adjacent AI-capex beneficiaries alongside Microsoft and Amazon.",
+  "what_is_priced_in": "A continuation of hyper-growth: the reverse-DCF shows today's price already assumes a 22.6% FY26-34 revenue CAGR, a 51.3% FY27 print (18 points above guidance), and a 61.9% terminal EBIT margin (best peer, Microsoft, is 46.8%).",
+  "what_market_may_be_missing": "That the market-implied growth and margin path is quantifiably ahead of both management's own guidance and any peer precedent, at the same time the balance sheet's real fragility point (liquidity for the capex program, not debt service) sits inside normal-recession range, and that the same fiscal year carries two Critical governance red flags (unresolved securities-fraud allegation; dividend/capex not covered by free cash flow) that independently cap conviction regardless of the valuation call.",
+  "edge_score": 45,
+  "edge_proof": "If Oracle's FQ1 FY2027 print (2026-09-04) shows revenue growth materially above the guided 27-29% CC/USD range with gross margin not stepping down further — converging toward the 51.3% YoY pace and 61.9% terminal margin the current price already requires — the overvaluation call is wrong and should be dropped. If growth instead lands within or below the guided range and/or gross margin compresses further as management has already flagged, the overvaluation call is confirmed.",
+  "killer_risk": "A pullback, delay, or renegotiation by one of the four named >$8bn AI-infrastructure customers (AMD, Meta, NVIDIA, OpenAI, TikTok, xAI) inside the $638bn RPO backlog, which would hit revenue directly while $167.4bn of debt-funded data-center capacity built to serve that demand stays on the books — compounding with a ~$70bn FY2027 capex program that a downside-stress test shows exhausts committed liquidity at just a 2%–20% EBITDA decline.",
+  "kill_criteria": [
+    "FQ1 FY2027 revenue growth (reported 2026-09-04) prints below the guided 27-29% CC/USD range, or gross margin steps down materially more than management has already flagged — confirms the overvaluation and margin-timing-lag risk.",
+    "Any of the four named >$8bn AI-infrastructure customers pulls back, delays, or renegotiates contracted RPO — the single named killer risk across the earnings and business-model modules.",
+    "Committed liquidity is drawn down faster than the module's 2%-20% EBITDA-decline break point (e.g. the revolver is drawn, or a capex cut/fresh unsecured issuance is forced) — confirms balance-sheet-survival's 'Stretched' read.",
+    "The OCI securities class action (RF-MGT-005) survives the motion-to-dismiss stage (defendants respond by 2026-09-16; a ruling could land as late as ~2026-12-18) or is amended with stronger factual allegations — confirms the unresolved integrity signal.",
+    "The 2026 DEF 14A (due ~2026-09-28) discloses CEO/co-CEO pay metrics still built on revenue/size rather than per-share or ROIC measures, and/or say-on-pay opposition stays at or above the prior two years' 18-22% — confirms weak incentive alignment."
+  ],
+  "forecast_ledger": [
+    {
+      "forecast_id": "FC-ORCL-FQ1FY27-REVENUE-2026Q3",
+      "prediction": "Oracle's FQ1 FY2027 revenue print (due 2026-09-04) will land within or below management's own guided range of +27%–29% CC/USD growth, not accelerate toward the ~51% YoY pace the current $153.94 share price already requires per the reverse-DCF.",
+      "probability": 65,
+      "time_window": "2026-09-04 to 2026-09-04",
+      "window_start": "2026-09-04T00:00:00-04:00",
+      "window_end": "2026-09-04T23:59:59-04:00",
+      "status_as_of": "2026-08-14T05:23:00Z",
+      "evidence_today": "FY2027 guide: revenue +27-29% CC/USD, Non-GAAP EPS $1.72-$1.76 [earnings/04_guidance-consensus.md §2-3]; reverse-DCF shows the price already implies +51.3% YoY [valuation/05_reverse-dcf.md §2]; FQ1 FY2027 is Oracle's seasonally smallest, thinnest-margin quarter and the year-ago comp missed both lines [earnings/05_beat-miss-setup.md §5].",
+      "source_citation": "Oracle_Earnings Press Release Q4FY26.pdf, Guidance for FQ1 FY2027; earnings/04_guidance-consensus.md §2-3",
+      "metric": "FQ1 FY2027 total revenue YoY growth %, CC/USD basis",
+      "threshold": "27%-29% (management's guided range)",
+      "causal_steps": [
+        "The filed FQ1 FY2027 result reports total revenue YoY growth against the guided 27-29% range.",
+        "A print inside or below that range, versus the 51.3% the price already assumes, widens the gap between what is priced in and what is delivered, pressuring the multiple back toward the $133.77 base or lower.",
+        "A print materially above 35% YoY would instead begin closing that gap and support a re-rating toward the $212.67 bull case."
+      ],
+      "confirmation_trigger": "Reported FQ1 FY2027 revenue growth lands inside or below the 27%-29% guided range.",
+      "falsification_trigger": "Reported FQ1 FY2027 revenue growth exceeds 35% YoY.",
+      "stock_bullish_trigger": "Revenue clears 35%+ YoY and gross margin does not step down beyond flagged levels.",
+      "stock_bearish_trigger": "Revenue lands at or below the 27-29% guide, or gross margin steps down more than guided.",
+      "owner_module": "earnings",
+      "confidence_score": 65,
+      "status": "open",
+      "forecast_type": "revenue"
+    },
+    {
+      "forecast_id": "FC-ORCL-FQ1FY27-GROSSMARGIN-2026Q3",
+      "prediction": "Oracle's FQ1 FY2027 GAAP gross margin will show further quarter-over-quarter compression versus FQ4 FY2026, consistent with management's own guided FY2027 margin step-down, rather than the recovery the bull case requires.",
+      "probability": 60,
+      "time_window": "2026-09-04 to 2026-09-04",
+      "window_start": "2026-09-04T00:00:00-04:00",
+      "window_end": "2026-09-04T23:59:59-04:00",
+      "status_as_of": "2026-08-14T05:23:00Z",
+      "evidence_today": "Management has already guided FY2027 gross margin to 'step down' as new data-center capacity is expensed ahead of earning its full contracted revenue [earnings/03_margin-drivers.md §3]; FY2026 gross margin already compressed -469bps.",
+      "source_citation": "earnings/03_margin-drivers.md §3, §6, §8 (Q4 FY26 transcript, CFO Maxson prepared remarks)",
+      "metric": "GAAP gross margin, FQ1 FY2027 vs FQ4 FY2026",
+      "threshold": "Quarter-over-quarter decline (any magnitude)",
+      "causal_steps": [
+        "New data-center capacity is expensed as it commences before it earns full contracted revenue.",
+        "This continues to compress consolidated gross margin quarter over quarter, consistent with management's own guidance.",
+        "Continued compression confirms the margin-timing-lag risk the earnings module flags as the determining factor in the beat/miss setup."
+      ],
+      "confirmation_trigger": "FQ1 FY2027 GAAP gross margin is below FQ4 FY2026's level.",
+      "falsification_trigger": "FQ1 FY2027 GAAP gross margin is flat or higher than FQ4 FY2026.",
+      "stock_bullish_trigger": "Gross margin stabilizes or improves quarter over quarter.",
+      "stock_bearish_trigger": "Gross margin compresses further, beyond what management has already guided.",
+      "owner_module": "earnings",
+      "confidence_score": 60,
+      "status": "open",
+      "forecast_type": "margin_or_cost"
+    },
+    {
+      "forecast_id": "FC-ORCL-PROXY-PAYMETRICS-2026Q3",
+      "prediction": "Oracle's 2026 DEF 14A Proxy Statement (due on or before 2026-09-28) will disclose CEO/co-CEO compensation metrics that are primarily revenue- or size-based rather than per-share or returns-based, continuing the pattern already disclosed for the new CFO's performance stock options.",
+      "probability": 60,
+      "time_window": "2026-08-14 to 2026-09-28",
+      "window_start": "2026-08-14T00:00:00Z",
+      "window_end": "2026-09-28T23:59:59Z",
+      "status_as_of": "2026-08-14T05:23:00Z",
+      "evidence_today": "The only concretely disclosed performance metric in the current pool — the new CFO's PSOs — is a revenue target, not per-share or margin-based [management-governance/03_incentives-and-compensation.md, finding 03-004].",
+      "source_citation": "management-governance/03_incentives-and-compensation.md, finding 03-004; SEC EDGAR (pending 2026 DEF 14A)",
+      "metric": "Presence of a per-share/ROIC/FCF-per-share-weighted metric in CEO/co-CEO incentive design",
+      "threshold": "Majority of disclosed CEO/co-CEO performance equity tied to a per-share or returns metric",
+      "causal_steps": [
+        "The 2026 proxy discloses the CEO/co-CEO compensation structure for the first time.",
+        "If the disclosed metrics remain revenue/size-based, the incentive-alignment cap on the governance score is confirmed rather than resolved.",
+        "If per-share/ROIC metrics carry meaningful weight instead, the governance module's incentive-alignment score would improve materially."
+      ],
+      "confirmation_trigger": "The 2026 proxy discloses CEO/co-CEO incentive metrics that are majority revenue- or size-based.",
+      "falsification_trigger": "The 2026 proxy discloses CEO/co-CEO incentive metrics that are majority per-share, ROIC, or FCF-per-share based.",
+      "stock_bullish_trigger": "Per-share/returns-based metrics dominate the new pay structure.",
+      "stock_bearish_trigger": "Revenue/size-based metrics dominate, alongside continued high say-on-pay opposition.",
+      "owner_module": "management-governance",
+      "confidence_score": 55,
+      "status": "open",
+      "forecast_type": "governance_or_accounting"
+    },
+    {
+      "forecast_id": "FC-ORCL-NETLEVERAGE-FQ1FY27",
+      "prediction": "Oracle's strict net debt/EBITDA will be reported at or above 4.46x as of the FQ1 FY2027 balance-sheet date (2026-08-31), continuing to rise rather than stabilizing, as the ~$70bn FY2027 capex program continues.",
+      "probability": 65,
+      "time_window": "2026-09-04 to 2026-09-04",
+      "window_start": "2026-09-04T00:00:00-04:00",
+      "window_end": "2026-09-04T23:59:59-04:00",
+      "status_as_of": "2026-08-14T05:23:00Z",
+      "evidence_today": "Net debt/EBITDA rose from 3.83x (FY2024) to 4.46x (FY2026), entirely capex-funded; management has guided a further ~$40bn FY2027 financing plan (debt + a $20bn ATM equity program) [balance-sheet-survival/99 §1, §5].",
+      "source_citation": "balance-sheet-survival/01_capital-structure-and-leverage.md; earnings/04_guidance-consensus.md §2",
+      "metric": "Net debt / LTM EBITDA (strict basis)",
+      "threshold": "4.46x (FY2026 level)",
+      "causal_steps": [
+        "FQ1 FY2027 balance-sheet data is filed alongside the earnings release.",
+        "Continued capex funded by debt/equity issuance keeps net leverage flat-to-rising rather than declining.",
+        "A leverage ratio at or above 4.46x confirms the balance-sheet-survival module's 'Stretched, not stabilizing' read."
+      ],
+      "confirmation_trigger": "Reported net debt/EBITDA (strict) at FQ1 FY2027 is 4.46x or higher.",
+      "falsification_trigger": "Reported net debt/EBITDA (strict) at FQ1 FY2027 falls below 4.20x.",
+      "stock_bullish_trigger": "Leverage declines materially, signaling the capex program is being self-funded rather than debt-funded.",
+      "stock_bearish_trigger": "Leverage holds at or above 4.46x or rises further.",
+      "owner_module": "balance-sheet-survival",
+      "confidence_score": 65,
+      "status": "open",
+      "forecast_type": "balance_sheet_or_solvency"
+    },
+    {
+      "forecast_id": "FC-ORCL-FY27CAPEX-FQ2FY27",
+      "prediction": "Oracle's guided ~$70bn FY2027 net capex figure will not be cut by more than 10% by the time of the FQ2 FY2027 print (~late November 2026), i.e. management maintains the capital program rather than retrenching in response to funding pressure.",
+      "probability": 70,
+      "time_window": "2026-08-14 to 2026-11-30",
+      "window_start": "2026-08-14T00:00:00Z",
+      "window_end": "2026-11-30T23:59:59Z",
+      "status_as_of": "2026-08-14T05:23:00Z",
+      "evidence_today": "Management has signaled capex flexibility as an available lever but has not yet used it; the ~$70bn guide was reaffirmed at the June 2026 print [balance-sheet-survival/99 §6A].",
+      "source_citation": "balance-sheet-survival/06_downside-stress-test.md §4; earnings/04_guidance-consensus.md §2",
+      "metric": "Guided FY2027 net capex, most recent update vs. the ~$70bn figure issued 2026-06-10",
+      "threshold": "Cut of more than 10% from ~$70bn (i.e., below ~$63bn)",
+      "causal_steps": [
+        "Management updates or reaffirms the FY2027 capex guide at the FQ1 and/or FQ2 FY2027 prints.",
+        "A maintained or increased guide signals continued confidence in RPO conversion and continued reliance on debt/equity funding.",
+        "A cut of more than 10% would signal the capital program is under real funding stress — confirming the balance-sheet-survival module's fragility read is binding, not theoretical."
+      ],
+      "confirmation_trigger": "FY2027 net capex guidance remains within 10% of the ~$70bn figure through the FQ2 FY2027 print.",
+      "falsification_trigger": "FY2027 net capex guidance is cut by more than 10% from ~$70bn.",
+      "stock_bullish_trigger": "Capex is maintained AND funded on favorable terms (spreads not widening further).",
+      "stock_bearish_trigger": "Capex is cut materially, or funded only at a materially wider credit spread.",
+      "owner_module": "balance-sheet-survival",
+      "confidence_score": 55,
+      "status": "open",
+      "forecast_type": "balance_sheet_or_solvency"
+    }
+  ],
+  "module_scores": {
+    "business-model": {
+      "score": 48,
+      "verdict": "Cyclical business — worth deeper work only with a strong timing edge"
+    },
+    "earnings": {
+      "score": 78,
+      "verdict": "Mixed earnings setup (revenue accelerating, margins/quality unresolved)"
+    },
+    "valuation": {
+      "score": 85,
+      "verdict": "Modestly overvalued"
+    },
+    "balance-sheet-survival": {
+      "score": 88,
+      "verdict": "Stretched"
+    },
+    "management-governance": {
+      "score": 68,
+      "verdict": "Misaligned or weak stewardship"
+    },
+    "catalyst": {
+      "score": 78,
+      "verdict": "Dated, evidenced near-term catalysts"
+    }
+  },
+  "red_flags": [
+    {
+      "id": "RF-MGT-005",
+      "module": "management-governance",
+      "severity": "Critical",
+      "description": "Unresolved securities class action (filed 2026-02-03) alleging Oracle and named executives overstated the AI-infrastructure deal growth outlook; pre-motion-to-dismiss; not cleared, not proven. Caps management quality/candor at 60 and the rating at no better than Watchlist."
+    },
+    {
+      "id": "RF-CAP-003",
+      "module": "management-governance",
+      "severity": "Critical",
+      "description": "Dividend and total uses of capital not covered by free cash flow; FY2026 FCF/dividend coverage -409.4%; cumulative uses of capital FY2022-2026 equal 233% of cumulative CFO; total debt +53.7% in FY2026 to $167.4bn; S&P downgrade to BBB- on 2026-07-09."
+    },
+    {
+      "id": "RF-OBS-001",
+      "module": "balance-sheet-survival",
+      "severity": "High",
+      "description": "$260,000mn of additional, not-yet-on-balance-sheet data-center lease commitments (15-19 year terms, commencing FY2027-FY2029), roughly 1.9x Oracle's entire current all-in gross debt stack."
+    },
+    {
+      "id": "RF-DISC-001",
+      "module": "management-governance",
+      "severity": "High",
+      "description": "Prepared-remarks framing ('tremendous quarter', 'overdelivering') describes uniformly strong delivery while the clean (ex one-off) operating beat rate over the trailing four quarters is 50%, close to a coin flip."
+    },
+    {
+      "id": "RF-DISC-002",
+      "module": "management-governance",
+      "severity": "High",
+      "description": "Restructuring charges have recurred as excluded 'one-offs' under two consecutive, separately named plans (2024 Plan $374mn; 2026 Plan $1,838mn)."
+    },
+    {
+      "id": "RF-CAP-001",
+      "module": "management-governance",
+      "severity": "High",
+      "description": "FY2026 capex guidance overshoot of ~$15bn disclosed one quarter after the prior forecast; stock fell 10.8% the same week."
+    },
+    {
+      "id": "RF-CAP-002",
+      "module": "management-governance",
+      "severity": "High",
+      "description": "Buybacks have stopped offsetting dilution for three straight years; FY2026 buyback spend is 1.9% of stock-based compensation expense; diluted share count rising again (+5.3% off the FY2023 trough)."
+    },
+    {
+      "id": "RF-MGT-001",
+      "module": "management-governance",
+      "severity": "High",
+      "description": "Two CFO-seat changes in 8 months (Sept 2025-Apr 2026), landing in the same fiscal year total debt rose 54% to $167.4bn."
+    },
+    {
+      "id": "RF-BQ-005",
+      "module": "business-model",
+      "severity": "Medium",
+      "description": "CLAUDE.md §24 Filter 5 (fast-changing industry) tripped — industry rate-of-change/disruption-risk score 33/100 (≤40); caps business quality and flags the AI-infrastructure buildout as a sector/technology-cycle bet, not a durable compounder."
+    },
+    {
+      "id": "RF-SHR-001",
+      "module": "management-governance",
+      "severity": "Medium",
+      "description": "Say-on-pay opposition of 18-22% at each of the last two annual meetings, well below the >90% support typical of large-cap say-on-pay votes."
+    },
+    {
+      "id": "RF-EARN-08-MATERIAL",
+      "module": "earnings",
+      "severity": "High",
+      "description": "earnings/08_earnings-red-flags.md: 23 triggered red flags (11 High, 11 Medium, 2 Low, 1 Unclear) — 'Material concerns' verdict; gross-margin compression, EBITDA-margin D&A flattery, the 39-42% GAAP-to-non-GAAP gap, and customer/counterparty concentration are the dominant High-severity cluster."
+    }
+  ],
+  "missing_data": [
+    "2026 DEF 14A Proxy Statement (not yet filed; due ~2026-09-28) — resolves the incentive-alignment, board-disclosure, and related-party-transaction caps.",
+    "Full text of Exhibit 10.14 (Revolving Credit Agreement) and a standalone S&P/Moody's/Fitch rating-rationale report — resolves the covenant-EBITDA-addback quality cap.",
+    "Segment-level (OCI-specific) capital expenditure, invested-capital base, and forward margin/revenue guidance — the single input independently named by both business-model and valuation as the biggest missing data point; would let management's 'high-20s' steady-state ROIC claim be tested against filed evidence.",
+    "Verbatim FQ2 FY2026 (2025-12-10) earnings-call transcript — the only quarter with a genuine adverse print (capex guidance miss, stock -10.8%) has no verbatim record in the pool, capping the disclosure-candor 'tone in bad times' read.",
+    "Company-disclosed interest-rate sensitivity on the $167.4bn debt load and a quantified (not qualitative) capex-to-revenue margin-timing lag.",
+    "A quantified peer-governance benchmark (board independence %, insider holding %, AGM opposition %) for Microsoft, Amazon, and SAP — currently qualitative/web-sourced only.",
+    "Outcome of the motion-to-dismiss briefing on the OCI securities class action (defendants respond by 2026-09-16).",
+    "Outcome of the overdue Netherlands Supreme Court GDPR ruling (originally scheduled 2026-06-28, still pending) — unquantified damages exposure."
+  ],
+  "data_needs_schema_version": "2.0",
+  "data_needs": [
+    {
+      "need_id": "segment-level-oci-capex-margin",
+      "priority": 1,
+      "series": "Segment-level (OCI-specific) capital expenditure, invested-capital base, and forward margin/revenue guidance for Cloud & Software infrastructure",
+      "why_it_caps": "Oracle discloses only a consolidated capex figure and states it does not track assets by business [FY26 10-K, Note 13]; without this, management's 'high-20s' steady-state OCI ROIC claim and the reverse-DCF's implied 61.9% terminal margin cannot be independently tested against filed evidence — the single input two independent modules (business-model, valuation) each name as their biggest missing data point.",
+      "expected_impact": {
+        "if_supportive": "A filed OCI-specific margin trending toward AWS's 35-39% segment level and a project return on capital clearing the ~11.2% estimated cost of capital would directly weaken the moat-erosion and overvaluation calls, supporting a re-rating case.",
+        "if_adverse": "A filed OCI margin still well below AWS-level and a project return on capital below the ~11.2% estimated cost of capital would confirm the moat-erosion trend and the negative margin-of-safety read, reinforcing the Watchlist / downside case."
+      },
+      "filing_required": true,
+      "entry_orbs": [
+        {
+          "module": "valuation",
+          "agent": "intrinsic-dcf",
+          "why": "owns the terminal-margin assumption this data would test directly",
+          "confidence": 0.9
+        },
+        {
+          "module": "business-model",
+          "agent": "unit-economics",
+          "why": "owns the OCI unit-economics read this data would resolve",
+          "confidence": 0.85
+        }
+      ],
+      "suggested_source": {
+        "name": "Oracle segment-level disclosure (future 10-K/10-Q segment note or investor-day materials)",
+        "acquisition": "manual",
+        "access": "public",
+        "licensing_basis": "official public filing; confirm the applicable exchange terms when acquired"
+      },
+      "tier": 5,
+      "cadence": "quarterly",
+      "next_release": "2026-09-04"
+    },
+    {
+      "need_id": "2026-def14a-proxy",
+      "priority": 2,
+      "series": "Oracle's 2026 DEF 14A Proxy Statement — CEO/co-CEO compensation structure, board committee composition, Item 13 related-party-transaction detail",
+      "why_it_caps": "No 2026 proxy exists yet; incentive alignment cannot be judged for either co-CEO, board-independence/committee reads rely on unverified web-sourced FY2025-proxy synthesis, and RPT detail beyond the 10-K's own note is unconfirmed — caps management-governance's incentive-alignment and board-and-shareholder-rights scores.",
+      "expected_impact": {
+        "if_supportive": "Disclosed per-share/ROIC/FCF-per-share-weighted pay metrics for both co-CEOs and falling say-on-pay opposition would meaningfully improve the governance verdict and could lift the rating cap.",
+        "if_adverse": "Continued revenue/size-based metrics and say-on-pay opposition holding at 18-22% would confirm weak incentive alignment and keep the Watchlist ceiling in place."
+      },
+      "filing_required": true,
+      "entry_orbs": [
+        {
+          "module": "management-governance",
+          "agent": "incentives-and-compensation",
+          "why": "owns the incentive-alignment cap this filing resolves",
+          "confidence": 0.95
+        }
+      ],
+      "suggested_source": {
+        "name": "SEC EDGAR DEF 14A filing",
+        "acquisition": "official_api",
+        "access": "public",
+        "licensing_basis": "official public filing"
+      },
+      "tier": 5,
+      "cadence": "annual",
+      "next_release": "2026-09-28"
+    },
+    {
+      "need_id": "credit-agreement-covenant-addback-text",
+      "priority": 3,
+      "series": "Full text of Exhibit 10.14 (Revolving Credit Agreement) and a standalone S&P/Moody's/Fitch rating-rationale report",
+      "why_it_caps": "The credit agreement's own 'Consolidated EBITDA' addback definition is not reproduced in the pool, so covenant headroom (computed +121% to +166%) is capped at max 60/100 quality despite being wide on paper; a primary-source rating rationale would also replace the Capital IQ vendor-read credit rating.",
+      "expected_impact": {
+        "if_supportive": "A conservative addback definition (few or no add-backs beyond reported EBITDA) would confirm the wide headroom is real, supporting a less-alarming balance-sheet reading.",
+        "if_adverse": "An aggressive addback definition would mean real covenant headroom is narrower than the computed +121-166%, reinforcing the Stretched verdict."
+      },
+      "filing_required": true,
+      "entry_orbs": [
+        {
+          "module": "balance-sheet-survival",
+          "agent": "coverage-and-covenants",
+          "why": "owns the covenant-headroom quality cap this document resolves",
+          "confidence": 0.9
+        }
+      ],
+      "suggested_source": {
+        "name": "SEC EDGAR 10-K Exhibit 10.14 / rating agency rationale report (S&P/Moody's/Fitch)",
+        "acquisition": "manual",
+        "access": "restricted",
+        "licensing_basis": "exhibit is public via EDGAR; rating-rationale reports are typically subscriber-licensed"
+      },
+      "tier": 5,
+      "cadence": "event_driven"
+    },
+    {
+      "need_id": "fq2-fy2026-transcript",
+      "priority": 4,
+      "series": "Verbatim FQ2 FY2026 (2025-12-10) earnings-call transcript",
+      "why_it_caps": "Only FQ3 and FQ4 FY26 transcripts are in the data pool; the single worst quarter (the ~$15bn capex-guidance miss, stock -10.8%) has no verbatim record, so tone/Q&A-directness under stress cannot be scored — caps disclosure-candor confidence.",
+      "expected_impact": {
+        "if_supportive": "Direct, technical answers to hard questions in the worst-quarter call would strengthen the candor read.",
+        "if_adverse": "Evasive or deflecting answers would weaken the candor read and could raise the disclosure-quality red-flag count."
+      },
+      "filing_required": false,
+      "entry_orbs": [
+        {
+          "module": "management-governance",
+          "agent": "candor-and-disclosure-quality",
+          "why": "owns the tone-in-bad-times read this transcript would close",
+          "confidence": 0.9
+        }
+      ],
+      "suggested_source": {
+        "name": "Capital IQ / vendor transcript archive (2025-12-10 Oracle earnings call)",
+        "acquisition": "paid_api",
+        "access": "licensed",
+        "licensing_basis": "standard data-vendor transcript licensing"
+      },
+      "tier": 5,
+      "cadence": "event_driven"
+    }
+  ],
+  "review_schedule": {
+    "30d": "2026-09-13",
+    "90d": "2026-11-12",
+    "180d": "2027-02-10",
+    "365d": "2027-08-14"
+  },
+  "created_by": "synthesizer",
+  "notes": "No RUN_METADATA.md was found in the run root — non-blocking gap, likely a module-by-module invocation rather than the master /research:full orchestrator; noted, not treated as a data gap. This is the first dated ORCL run (no prior-run comparison available). Latest calibration summary read: analyses/performance/2026-08-01_calibration_summary.json, verdict 'Pre-data' (N=7 decisions, 1 resolved forecast) — no per-module/forecast-type/thesis-type slice has real signal yet and no error_taxonomy_distribution category has count>=2, so calibration_feedback.status='pre_data' and no haircut applied. A cross-module forensic mosaic (Pre-Write Gate 4B) was checked: RF-OBS-001 (balance-sheet-survival), RF-DISC-001 and RF-DISC-002 (management-governance) are three distinct tags spanning two modules — flagged as a compound accounting/disclosure-aggressiveness signal, capping conviction at 'Starter Position Only' if it were the binding constraint; RF-MGT-005's Watchlist cap is stricter and governs instead. Business-model's RF-DISQ-001 and RF-RFS-001 did NOT fire (0 of 5 near-miss disqualifiers in band; no red flag reached the >=50 severity threshold). Earnings' RF-EQ-001/RF-EQ-002 did NOT fire.",
+  "post_review_confidence_score": 47.0,
+  "confidence_haircut": 4,
+  "pre_mortem_verdict": "Survives with haircut",
+  "business_type": "SaaS / subscription software",
+  "primary_valuation_method": "Own-history EV/EBIT + peer NTM EV/EBITDA multiples (Multiples-First; 80% combined weight), with a terminal-value-dominated FCFF DCF cross-check weighted 20%",
+  "calibration_feedback": {
+    "source_summary": "analyses/performance/2026-08-01_calibration_summary.json",
+    "status": "pre_data",
+    "haircut_points": 0,
+    "modules_flagged": [],
+    "flagged_forecast_types": [],
+    "flagged_thesis_types": [],
+    "leading_error_categories_flagged": [],
+    "error_defense_evidence": {},
+    "rationale": "Latest summary's own verdict starts with 'Pre-data' (N=7 decisions, 1 resolved forecast, 1 resolved directional call) and no error_taxonomy_distribution category currently has count >= 2 (max count observed is 1, across 'bad base rate', 'valuation multiple error', 'bad causal inference', 'false negative'); calibration_by_module, calibration_by_forecast_type, and calibration_by_thesis_type are all empty ({}). Per the literal Pre-Write Gate 4C condition, status = 'pre_data' and no adjustment is applied."
+  },
+  "post_mortem_decision": "Watchlist",
+  "post_mortem_basket": "Watchlist"
+}

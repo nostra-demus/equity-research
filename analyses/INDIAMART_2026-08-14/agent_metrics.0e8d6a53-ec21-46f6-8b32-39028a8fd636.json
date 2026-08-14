@@ -1,0 +1,57 @@
+{
+  "agents": [
+    {
+      "agent": "memo-writer",
+      "model": "claude-opus-5",
+      "calls": 15,
+      "usage": {
+        "input_tokens": 30,
+        "output_tokens": 40792,
+        "cache_read_input_tokens": 1239929,
+        "cache_creation_input_tokens": 113110,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 113110,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 2.346852,
+      "runtime_ms": 641138,
+      "module": "(top-level)"
+    },
+    {
+      "agent": "synthesizer",
+      "model": "claude-sonnet-5",
+      "calls": 40,
+      "usage": {
+        "input_tokens": 80,
+        "output_tokens": 71193,
+        "cache_read_input_tokens": 6962292,
+        "cache_creation_input_tokens": 255354,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 255354,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 4.1144001,
+      "runtime_ms": 743609,
+      "module": "(top-level)"
+    }
+  ],
+  "orchestrator": {
+    "agent": "(orchestrator)",
+    "model": "claude-sonnet-5",
+    "calls": 18,
+    "usage": {
+      "input_tokens": 36,
+      "output_tokens": 13698,
+      "cache_read_input_tokens": 1627074,
+      "cache_creation_input_tokens": 89000,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 89000
+      }
+    },
+    "cost": 1.2277002000000001,
+    "runtime_ms": 0
+  }
+}
