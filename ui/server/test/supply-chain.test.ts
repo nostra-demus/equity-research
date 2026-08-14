@@ -323,4 +323,21 @@ const byName = (leads: SupplyChainLead[]) => new Map(leads.map((l) => [l.name, l
   assert.equal(board.health.graph_count, 1)
 }
 
-console.log('supply-chain: PASS (empty honesty, readiness gates, anchor verdict caps, standing run, third order only when evidenced, shortest chain wins, coverage match, invalid artifacts, related-party map)')
+// ---- 12. a chain with an unreadable graph is never reported as healthy/complete ----------------------
+// A valid graph that names no outside counterparty (no leads) alongside a SECOND graph that could not be
+// read must stay `degraded` — claiming "every disclosed relationship is inside the group" while a graph
+// was unreadable is a false complete-chain conclusion.
+{
+  const dir = repo()
+  writeRun(dir, 'ANC_2026-08-01', { anchorName: 'Anchor Corp', decision: 'Buy', counterparties: [] })
+  writeRun(dir, 'XYZ_2026-08-01', {
+    anchorName: 'Other Corp', decision: 'Buy',
+    graph: { schema_version: 'relationship-graph/v9', anchor: {}, counterparties: [], sources: [] },
+  })
+  const board = buildSupplyChainBoard(dir)
+  assert.equal(board.leads.length, 0)
+  assert.ok(board.health.invalid_count > 0, 'the unreadable graph must be counted')
+  assert.equal(board.health.status, 'degraded', 'a no-leads board with an unreadable graph must not read as healthy/complete')
+}
+
+console.log('supply-chain: PASS (empty honesty, readiness gates, anchor verdict caps, standing run, third order only when evidenced, shortest chain wins, coverage match, invalid artifacts, related-party map, degraded-when-unreadable)')

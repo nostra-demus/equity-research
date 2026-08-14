@@ -198,6 +198,53 @@ check(cb.sources and cb.sources[0]["orientation"] == "customers",
 check(cb.edges and cb.edges[0]["counterparty"] == rg.node_id("Anchor Corp"),
       "the Customers view put the wrong side in the counterparty column")
 
+# ---- 12. a non-Latin name keeps a distinct node id (§27: non-English is first-class) ------------------
+# An all-CJK/Arabic/Korean name has no [a-z0-9] to keep, so the ASCII fold is empty. Folding every such
+# name onto one "unnamed" node silently merges genuinely different companies. Distinct originals must stay
+# distinct.
+check(rg.node_id("海尔智家股份有限公司") != rg.node_id("青岛海尔生物医疗"),
+      "two distinct non-Latin names collapsed onto the same node id (§27 entity merge)")
+check(rg.node_id("삼성전자").startswith("x-"),
+      "a wholly non-Latin name did not fall back to a stable hashed id")
+check(rg.node_id("海尔智家股份有限公司") == rg.node_id(" 海尔智家股份有限公司 "),
+      "the non-Latin fallback id is not stable under surrounding whitespace")
+cjk = build([
+    ["海尔智家股份有限公司 (SHSE:600690)", "SHSE:600690", "Anchor Corp (NYSE:ANC)", "Self", "Supplier",
+     "Consumer Electronics", "Anchor Corp (NYSE:ANC) - Form Doc", "A supplier."],
+    ["青岛海尔生物医疗 (SHSE:688139)", "SHSE:688139", "Anchor Corp (NYSE:ANC)", "Self", "Supplier",
+     "Health Care Equipment", "Anchor Corp (NYSE:ANC) - Form Doc", "Another supplier."],
+])
+check(len(cjk["counterparties"]) == 2,
+      f"two distinct non-Latin counterparties merged into {len(cjk['counterparties'])} node(s)")
+
+# ---- 13. a relationship workbook for a DIFFERENT anchor is skipped, not merged ------------------------
+# A pool's external/ subtree can hold another company's export; merging its rows would attribute a foreign
+# issuer's suppliers/customers to this anchor (§3 unsupported counterparties).
+fb = rg.GraphBuilder()
+fb.add_sheet("Anchor Suppliers.xls", "Anchor Suppliers.xls", "Suppliers", suppliers_sheet([ROWS[0]]))
+foreign_sheet = [[""] * 8, ["Different Corp (NYSE:DIF) > Suppliers"] + [""] * 7,
+                 ["Recently disclosed suppliers only (within the last two years)"] + [""] * 7, HEADER,
+                 ["Some Supplier Inc. (NASDAQ:SSI)", "NASDAQ:SSI", "Different Corp (NYSE:DIF)", "Self", "Supplier",
+                  "Electrical Components and Equipment", "Different Corp (NYSE:DIF) - Form Doc", "x."]]
+foreign_added = fb.add_sheet("external/Different Suppliers.xls", "external/Different Suppliers.xls", "Suppliers", foreign_sheet)
+check(foreign_added is False, "a relationship workbook for a DIFFERENT anchor was merged instead of skipped")
+check(fb.anchor_name is not None and rg.node_id(fb.anchor_name) == rg.node_id("Anchor Corp"),
+      "a foreign-anchor sheet overwrote or contaminated the real anchor")
+check(any("different anchor" in w for w in fb.warnings),
+      "skipping a foreign-anchor sheet did not record a warning")
+rg.classify_affiliation(fb)
+_fb_cps = rg.build_counterparties(fb, rg.assign_orders(fb))
+check("Some Supplier Inc." not in {c["name"] for c in _fb_cps},
+      "a foreign issuer's counterparty leaked into this anchor's graph")
+
+# ---- 14. an unproven likely_group row is not counted as proven intra-group (§3) -----------------------
+# `kin` (built above) adds one likely_group counterparty on top of ROWS' single proven-group row. The
+# proven intra-group share must exclude the name-match heuristic and report it separately.
+check(kin["concentration"]["intragroup_rows"] == 1,
+      f"a likely_group (unproven name-match) row was counted as proven intra-group: {kin['concentration']['intragroup_rows']}")
+check(kin["concentration"].get("likely_group_rows") == 1,
+      "the suspected (likely_group) row was not surfaced separately from proven intra-group rows")
+
 if failures:
     for f in failures:
         print(f"  FAIL  {f}")

@@ -192,7 +192,7 @@ function ChainCard({ lead }: { lead: SupplyChainLead }) {
               className="bidea__cta"
               disabled={busy}
               title={`Create a data pool for ${lead.symbol} so its filings can be gathered and it can be researched properly.`}
-              onClick={async () => { setBusy(true); await addCompany(lead.symbol!); setBusy(false) }}
+              onClick={async () => { setBusy(true); try { await addCompany(lead.symbol!) } finally { setBusy(false) } }}
             >
               {busy ? 'Creating…' : 'Start a pool'}
             </button>

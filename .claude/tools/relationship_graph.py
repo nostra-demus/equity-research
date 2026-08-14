@@ -32,6 +32,7 @@ Usage:  python3 relationship_graph.py <DATA_DIR> [--json]
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import sys
@@ -187,7 +188,15 @@ def node_id(name: str) -> str:
     genuinely different companies together.
     """
     s = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
-    return s or "unnamed"
+    # A name written entirely in a non-Latin script (Chinese, Arabic, Korean, …) has no [a-z0-9] to keep,
+    # so the ASCII fold above yields "". Collapsing every such name onto one "unnamed" node would silently
+    # merge genuinely different companies — the exact §27 failure (non-English is first-class, not a gap).
+    # Fall back to a stable hash of the normalised original so distinct non-Latin names stay distinct
+    # without inventing any Latin text for them.
+    if s:
+        return s
+    folded = " ".join(name.strip().lower().split())
+    return "x-" + hashlib.sha1(folded.encode("utf-8")).hexdigest()[:12] if folded else "unnamed"
 
 
 def split_listing(display_name: str, listing_cell: Any) -> tuple[str, str | None, str | None, str | None]:
@@ -363,6 +372,15 @@ class GraphBuilder:
         if anchor_name and not self.anchor_name:
             self.anchor_name, self.anchor_listing = anchor_name, anchor_listing
             self.anchor_id = node_id(anchor_name)
+        elif anchor_name and self.anchor_name and node_id(anchor_name) != self.anchor_id:
+            # A pool's external/ subtree may hold a relationship workbook for a DIFFERENT company. Merging
+            # its rows into this anchor's graph would attribute another issuer's suppliers/customers to the
+            # anchor and let the Ideas lane publish unsupported counterparties (§3). Reject the foreign sheet.
+            self.warnings.append(
+                f"{pool_rel} [{sheet_name}]: relationship table names a different anchor "
+                f"({anchor_name!r}, not {self.anchor_name!r}); skipped to avoid cross-company merge."
+            )
+            return False
         # In a Suppliers view the counterparty is the supplier and the anchor-group entity is the
         # customer; a Customers view is the exact mirror.
         cp_col = cols["supplier"] if orientation == "suppliers" else cols["customer"]
@@ -700,14 +718,22 @@ def concentration(builder: GraphBuilder, counterparties: list[dict[str, Any]]) -
         kinds[node.get("affiliation", "third_party")] = kinds.get(node.get("affiliation", "third_party"), 0) + 1
     related = kinds["group"] + kinds["likely_group"]
     named = related + kinds["third_party"]
+    # `likely_group` is only a shared-name heuristic (ownership never proven), so it must NOT be counted as
+    # definitively "inside the group" — the UI prints intragroup_row_share_pct as fact (§3). Keep the share
+    # to PROVEN group rows (anchor/group) and report suspected name-matches separately.
     intragroup_rows = sum(
         1 for e in builder.edges
-        if builder.nodes[e["counterparty"]].get("affiliation") in ("anchor", "group", "likely_group")
+        if builder.nodes[e["counterparty"]].get("affiliation") in ("anchor", "group")
+    )
+    likely_group_rows = sum(
+        1 for e in builder.edges
+        if builder.nodes[e["counterparty"]].get("affiliation") == "likely_group"
     )
     listed = [c for c in counterparties if c["listing"] and c["affiliation"] == "third_party"]
     return {
         "relationship_rows": len(builder.edges),
         "intragroup_rows": intragroup_rows,
+        "likely_group_rows": likely_group_rows,
         "intragroup_row_share_pct": round(100 * intragroup_rows / len(builder.edges), 1) if builder.edges else None,
         "named_entities": named,
         "group_entities": kinds["group"],

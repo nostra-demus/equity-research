@@ -367,7 +367,8 @@ function coverageFor(repoRoot: string, index: Map<string, string>, symbol: strin
   } catch { /* absent */ }
   try {
     const runs = fs.readdirSync(path.resolve(repoRoot, 'analyses'))
-      .filter((f) => f.startsWith(`${subject}_`) && /_\d{4}-\d{2}-\d{2}$/.test(f))
+      .filter((f) => f.startsWith(`${subject}_`) && /_\d{4}-\d{2}-\d{2}$/.test(f)
+        && !isSupersededRun(path.posix.join('analyses', f)))
       .sort().reverse()
     if (runs.length) {
       out.has_run = true
@@ -622,8 +623,10 @@ export function buildSupplyChainBoard(repoRoot: string, opts: { nowMs?: number }
       ? `${researchNow} outside counterpart${researchNow === 1 ? 'y is' : 'ies are'} listed, trade with the company on an operating basis, and sit behind a company the engine has already decided on.`
       : `${leads.length} disclosed counterpart${leads.length === 1 ? 'y' : 'ies'} mapped, but none is both listed and operating behind a decided company — nothing here clears the bar to research yet.`
   } else if (found.graphs.length) {
-    status = 'healthy'; outcome = 'none_investable'
-    reason = 'The supplier and customer exports read so far name no outside counterparty at all — every disclosed relationship is inside the company’s own group.'
+    status = found.invalidCount > 0 ? 'degraded' : 'healthy'; outcome = 'none_investable'
+    reason = found.invalidCount > 0
+      ? `The exports read so far name no outside counterparty, but ${found.invalidCount} relationship graph${found.invalidCount === 1 ? '' : 's'} could not be read — the chain is not proven complete.`
+      : 'The supplier and customer exports read so far name no outside counterparty at all — every disclosed relationship is inside the company’s own group.'
   }
 
   return {
