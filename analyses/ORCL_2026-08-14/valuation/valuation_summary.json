@@ -1,0 +1,173 @@
+{
+  "schema_version": "1.4",
+  "ticker": "ORCL",
+  "basis": "ev",
+  "shares": 2914,
+  "net_debt": 136143,
+  "net_debt_basis": "strict",
+  "current_price": 153.94,
+  "price_as_of": "2026-08-13",
+  "price_state": "pool-verified",
+  "is_developed_mega_cap": true,
+  "discount_rate": {
+    "rf": 0.0465,
+    "erp": 0.0442,
+    "beta": 1.72,
+    "cost_of_equity": 0.1225,
+    "wacc": 0.0996,
+    "after_tax_kd": 0.0399
+  },
+  "methods": {
+    "own_history": 151.27,
+    "peers": 148.70,
+    "dcf": 68.92,
+    "sotp": 212.01
+  },
+  "method_weights": {
+    "own_history": 0.40,
+    "peers": 0.40,
+    "dcf": 0.20,
+    "sotp": 0.0
+  },
+  "method_basis": {
+    "own_history": "LTM",
+    "peers": "NTM",
+    "dcf": "FY+1",
+    "sotp": "NTM"
+  },
+  "scenarios": [
+    {
+      "label": "bull",
+      "forward_metric": "FY2027 (NTM) EBITDA, gross-margin-recovery + RPO-conversion adjusted",
+      "metric_basis": "NTM",
+      "multiple": 14.0,
+      "multiple_basis": "NTM EV/EBITDA",
+      "multiple_kind": "applied",
+      "basis": "ev",
+      "bridge": {
+        "net_debt": 136143,
+        "net_debt_basis": "strict",
+        "minority": 548,
+        "other": -4954,
+        "shares": 2914
+      },
+      "source": "07_scenario-and-fair-value.md §3 scenario table",
+      "level": 212.67
+    },
+    {
+      "label": "base",
+      "forward_metric": "FY2027 (NTM) consensus EBITDA",
+      "metric_basis": "NTM",
+      "multiple": 10.63,
+      "multiple_basis": "NTM EV/EBITDA (implied by the 40/40/20 blended base-case value, not independently applied)",
+      "multiple_kind": "implied",
+      "basis": "ev",
+      "bridge": {
+        "net_debt": 136143,
+        "net_debt_basis": "strict",
+        "minority": 548,
+        "other": -4954,
+        "shares": 2914
+      },
+      "source": "07_scenario-and-fair-value.md §2-3 (weighted blend of 02/03/04)",
+      "level": 133.77
+    },
+    {
+      "label": "bear_cyclical",
+      "forward_metric": "FY2027 (NTM) EBITDA, customer-concentration pullback + further gross-margin compression",
+      "metric_basis": "NTM",
+      "multiple": 10.46,
+      "multiple_basis": "NTM EV/EBITDA (compressed to own-history 5yr band floor)",
+      "multiple_kind": "applied",
+      "basis": "ev",
+      "bridge": {
+        "net_debt": 136143,
+        "net_debt_basis": "strict",
+        "minority": 548,
+        "other": -4954,
+        "shares": 2914
+      },
+      "source": "07_scenario-and-fair-value.md §3 scenario table",
+      "level": 94.62
+    },
+    {
+      "label": "bear_structural",
+      "forward_metric": null,
+      "metric_basis": "24-36 month structural reset — declining-perpetuity (impaired FCFF) DCF, not a metric x multiple construction",
+      "multiple": null,
+      "multiple_basis": null,
+      "multiple_kind": null,
+      "basis": "ev",
+      "bridge": {
+        "net_debt": 136143,
+        "net_debt_basis": "strict",
+        "minority": 548,
+        "other": -4954,
+        "shares": 2914
+      },
+      "source": "04_intrinsic-dcf.md §5c; 07_scenario-and-fair-value.md §3 structural-reset bridge",
+      "level": 31.44,
+      "derivation": {
+        "model": "ev_bridge",
+        "ev": 233267,
+        "net_debt": 136143,
+        "net_debt_basis": "strict",
+        "minority": 548,
+        "other": -4954,
+        "shares": 2914,
+        "stated_drivers": [
+          {"label": "terminal EBIT margin", "value": 0.22, "note": "below Oracle's own FY23 GAAP trough of 27.4% — full moat erosion / commoditized OCI scenario"},
+          {"label": "terminal ROIC", "value": 0.07, "note": "below WACC (9.96%) — value-destructive reinvestment, not merely at cost of capital"},
+          {"label": "terminal growth g", "value": 0.015, "note": "nominal, at/below current US inflation — a fading, non-recovering trajectory"}
+        ],
+        "source": "04_intrinsic-dcf.md §5c (declining-perpetuity / runoff terminal)"
+      }
+    }
+  ],
+  "dcf_grid": {
+    "wacc": [0.0896, 0.0996, 0.1096],
+    "growth": [0.03, 0.035, 0.04],
+    "values": [
+      [88.41, 68.46, 52.37],
+      [88.96, 68.92, 52.76],
+      [89.50, 69.38, 53.15]
+    ],
+    "base": {
+      "wacc": 0.0996,
+      "growth": 0.035,
+      "value": 68.92
+    },
+    "source": "04_intrinsic-dcf.md §7 Sensitivity Grid"
+  },
+  "sotp_segments": [
+    {
+      "segment": "Consolidated (collapsed proxy for Cloud & Software, 90.7% of FY26 segment profit)",
+      "metric_value": 49996,
+      "period_basis": "NTM / FY2027 consensus EBITDA",
+      "multiple": 15.19,
+      "comp": "SAP SE / Microsoft Corp average NTM EV/EBITDA",
+      "ev": 759439
+    }
+  ],
+  "sotp_bridge": {
+    "net_debt": 136143,
+    "net_debt_basis": "strict",
+    "minority": 548,
+    "other": -4954,
+    "shares": 2914,
+    "source": "06_sum-of-the-parts.md §3-4"
+  },
+  "peers_internals": {
+    "median_multiple": 15.19,
+    "applied_multiple": 11.5,
+    "discount_pct": 0.2429,
+    "anchors": [
+      {"multiple": 11.5, "implied_value": 148.70, "label": "NTM EV/EBITDA, quality-adjusted (base case)"},
+      {"multiple": 21.7, "implied_value": 118.10, "label": "LTM EV/EBIT, peer median (raw, 10-name)"},
+      {"multiple": 17.4, "implied_value": 133.49, "label": "LTM EV/EBITDA, peer median (raw, 10-name)"},
+      {"multiple": 6.08, "implied_value": 137.79, "label": "NTM EV/Revenue, peer median (raw, 10-name)"},
+      {"multiple": 23.82, "implied_value": 191.75, "label": "NTM Forward P/E, peer median (raw, 10-name)"}
+    ],
+    "source": "03_relative-valuation-peers.md §5 Implied Value from Peer Multiples table"
+  }
+}
