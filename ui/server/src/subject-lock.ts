@@ -20,6 +20,12 @@ export class SubjectBusyError extends Error {
 
 const held = new Set<string>()
 
+/** One mutation namespace for every operation that can write or launch work for a selected subject.
+ *  Subject labels are only unique inside a swarm (research GOLD !== commodity GOLD). */
+export function subjectMutationLockKey(swarmId: string, subjectId: string): string {
+  return `subject-mutation:${swarmId}:${subjectId}`
+}
+
 /** Runs `fn` exclusively for `key`. Throws `SubjectBusyError` (never runs `fn`) if `key` is already held.
  *  Always releases on the way out, including when `fn` throws or rejects. */
 export async function withSubjectLock<T>(key: string, fn: () => Promise<T>): Promise<T> {

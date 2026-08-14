@@ -1,0 +1,201 @@
+{
+  "agents": [
+    {
+      "agent": "price-and-capital-structure",
+      "model": "claude-sonnet-5",
+      "calls": 13,
+      "usage": {
+        "input_tokens": 26,
+        "output_tokens": 25369,
+        "cache_read_input_tokens": 906473,
+        "cache_creation_input_tokens": 114038,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 114038,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.0801973999999999,
+      "runtime_ms": 279359,
+      "module": "valuation"
+    },
+    {
+      "agent": "scenario-and-fair-value",
+      "model": "claude-sonnet-5",
+      "calls": 9,
+      "usage": {
+        "input_tokens": 18,
+        "output_tokens": 9259,
+        "cache_read_input_tokens": 721354,
+        "cache_creation_input_tokens": 155902,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 155902,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.9399776999999999,
+      "runtime_ms": 0,
+      "module": "valuation"
+    },
+    {
+      "agent": "multiples-own-history",
+      "model": "claude-sonnet-5",
+      "calls": 27,
+      "usage": {
+        "input_tokens": 54,
+        "output_tokens": 44876,
+        "cache_read_input_tokens": 2449213,
+        "cache_creation_input_tokens": 145947,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 145947,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.9553671499999998,
+      "runtime_ms": 0,
+      "module": "valuation"
+    },
+    {
+      "agent": "valuation-data-triage",
+      "model": "claude-sonnet-5",
+      "calls": 14,
+      "usage": {
+        "input_tokens": 28,
+        "output_tokens": 16283,
+        "cache_read_input_tokens": 995290,
+        "cache_creation_input_tokens": 113791,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 113791,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.96963225,
+      "runtime_ms": 162462,
+      "module": "valuation"
+    },
+    {
+      "agent": "sum-of-the-parts",
+      "model": "claude-sonnet-5",
+      "calls": 14,
+      "usage": {
+        "input_tokens": 28,
+        "output_tokens": 32712,
+        "cache_read_input_tokens": 1129753,
+        "cache_creation_input_tokens": 132795,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 132795,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.3276711499999998,
+      "runtime_ms": 0,
+      "module": "valuation"
+    },
+    {
+      "agent": "module-memo-writer",
+      "model": "claude-opus-5",
+      "calls": 4,
+      "usage": {
+        "input_tokens": 8,
+        "output_tokens": 5443,
+        "cache_read_input_tokens": 80678,
+        "cache_creation_input_tokens": 37074,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 37074,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.4081665,
+      "runtime_ms": 0,
+      "module": "(top-level)"
+    },
+    {
+      "agent": "intrinsic-dcf",
+      "model": "claude-sonnet-5",
+      "calls": 15,
+      "usage": {
+        "input_tokens": 30,
+        "output_tokens": 56827,
+        "cache_read_input_tokens": 2002776,
+        "cache_creation_input_tokens": 193712,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 193712,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 2.1797478,
+      "runtime_ms": 0,
+      "module": "valuation"
+    },
+    {
+      "agent": "relative-valuation-peers",
+      "model": "claude-sonnet-5",
+      "calls": 15,
+      "usage": {
+        "input_tokens": 30,
+        "output_tokens": 40726,
+        "cache_read_input_tokens": 1416710,
+        "cache_creation_input_tokens": 150904,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 150904,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.601883,
+      "runtime_ms": 0,
+      "module": "valuation"
+    },
+    {
+      "agent": "valuation-synthesis",
+      "model": "claude-sonnet-5",
+      "calls": 21,
+      "usage": {
+        "input_tokens": 42,
+        "output_tokens": 32302,
+        "cache_read_input_tokens": 2547666,
+        "cache_creation_input_tokens": 292690,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 292690,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 2.3465433,
+      "runtime_ms": 0,
+      "module": "valuation"
+    },
+    {
+      "agent": "reverse-dcf",
+      "model": "claude-sonnet-5",
+      "calls": 12,
+      "usage": {
+        "input_tokens": 24,
+        "output_tokens": 27413,
+        "cache_read_input_tokens": 1215498,
+        "cache_creation_input_tokens": 147138,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 147138,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.3276838999999998,
+      "runtime_ms": 0,
+      "module": "valuation"
+    }
+  ],
+  "orchestrator": {
+    "agent": "(orchestrator)",
+    "model": "claude-sonnet-5",
+    "calls": 50,
+    "usage": {
+      "input_tokens": 100,
+      "output_tokens": 24640,
+      "cache_read_input_tokens": 5306354,
+      "cache_creation_input_tokens": 111278,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 111278
+      }
+    },
+    "cost": 2.6294742,
+    "runtime_ms": 0
+  }
+}

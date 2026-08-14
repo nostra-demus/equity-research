@@ -249,6 +249,7 @@ function makeManifest(id: string) {
   return {
     id,
     wire: { pulse: 'frameworks/commodity/pulse_sources.json' },
+    runsRoot: 'commodity/runs',
     runRootTemplate: 'commodity/runs/{COMMODITY}',
     placeholder: 'COMMODITY',
     subjectsSource: 'frameworks/commodity/COMMODITY_PROFILES.md',

@@ -102,6 +102,103 @@ await check('selected historical runRoot crosses both data-needs GET and targete
   })
 })
 
+await check('scoped rerun POST carries the exact selected-call identity', async () => {
+  let posted: any = null
+  let requested = ''
+  globalThis.fetch = (async (input, init) => {
+    requested = String(input)
+    posted = JSON.parse(String(init?.body || '{}'))
+    return new Response(JSON.stringify({ runId: 'run-fixture', carried: [], scoped: [], staleModules: [] }), {
+      status: 200, headers: { 'content-type': 'application/json' },
+    })
+  }) as typeof fetch
+  const runRoot = 'analyses/ZZZ_2026-08-12'
+  const decisionFingerprint = `sha256:${'c'.repeat(64)}`
+  const plan = {
+    planPath: `${runRoot}/intake/2026-08-13_intake_plan.json`,
+    planSha256: `sha256:${'d'.repeat(64)}`,
+    sourceDecisionFingerprint: decisionFingerprint,
+  }
+  await api.runIntakePlan('ZZZ', 'research', runRoot, decisionFingerprint, plan)
+  assert.equal(new URL(requested, 'https://fixture.test').pathname, '/api/intake-plan/run-exact')
+  assert.deepEqual(posted, { ticker: 'ZZZ', swarm: 'research', runRoot, decisionFingerprint, ...plan })
+})
+
+await check('single-orb rerun POST uses only the versioned exact endpoint', async () => {
+  let requested = ''
+  let posted: any = null
+  globalThis.fetch = (async (input, init) => {
+    requested = String(input)
+    posted = JSON.parse(String(init?.body || '{}'))
+    return new Response(JSON.stringify({ runId: 'run-fixture', preflight: {} }), {
+      status: 200, headers: { 'content-type': 'application/json' },
+    })
+  }) as typeof fetch
+  const body = {
+    kind: 'rerun' as const, ticker: 'ZZZ', module: 'demand', agent: 'source-reader',
+    runRoot: 'analyses/ZZZ_2026-08-12', decisionFingerprint: `sha256:${'e'.repeat(64)}`,
+    planPath: 'analyses/ZZZ_2026-08-12/intake/2026-08-13_intake_plan.json',
+    planSha256: `sha256:${'a'.repeat(64)}`,
+    sourceDecisionFingerprint: `sha256:${'b'.repeat(64)}`,
+  }
+  await api.launchExact(body)
+  assert.equal(new URL(requested, 'https://fixture.test').pathname, '/api/launch/exact')
+  assert.deepEqual(posted, body)
+})
+
+await check('generic launch client cannot accidentally send a rerun to the legacy endpoint', async () => {
+  let fetched = false
+  globalThis.fetch = (async () => { fetched = true; throw new Error('must not fetch') }) as typeof fetch
+  await assert.rejects(() => api.launch({
+    kind: 'rerun', ticker: 'ZZZ', module: 'demand', agent: 'source-reader',
+    runRoot: 'analyses/ZZZ_2026-08-12', decisionFingerprint: `sha256:${'9'.repeat(64)}`,
+  }), /versioned launch endpoint/)
+  assert.equal(fetched, false)
+})
+
+await check('manual document analysis uses only the versioned exact endpoint', async () => {
+  let requested = ''
+  globalThis.fetch = (async (input) => {
+    requested = String(input)
+    return new Response(JSON.stringify({ runId: 'intake-fixture' }), {
+      status: 200, headers: { 'content-type': 'application/json' },
+    })
+  }) as typeof fetch
+  const runRoot = 'analyses/ZZZ_2026-08-12'
+  const decisionFingerprint = `sha256:${'f'.repeat(64)}`
+  await api.analyzeIntake('ZZZ', 'research', runRoot, decisionFingerprint)
+  const url = new URL(requested, 'https://fixture.test')
+  assert.equal(url.pathname, '/api/intake/ZZZ/analyze-exact')
+  assert.equal(url.searchParams.get('swarm'), 'research')
+  assert.equal(url.searchParams.get('runRoot'), runRoot)
+  assert.equal(url.searchParams.get('decisionFingerprint'), decisionFingerprint)
+})
+
+await check('rerun estimate asks the server to verify and echo the exact selected call', async () => {
+  let requested = ''
+  const runRoot = 'analyses/ZZZ_2026-08-12'
+  const decisionFingerprint = `sha256:${'d'.repeat(64)}`
+  globalThis.fetch = (async (input) => {
+    requested = String(input)
+    return new Response(JSON.stringify({
+      kind: 'rerun', ticker: 'ZZZ', module: 'demand', agent: 'source-reader', agentCount: 3,
+      estCostUsdRange: [1, 2], estMinutesRange: [1, 2], willCommitToMain: true,
+      estCommits: 1, requiresTypedConfirm: false, creditPreflight: { ok: true, checked: true },
+      exactDecisionBinding: { contractVersion: 'exact-decision-launch/1', runRoot, decisionFingerprint },
+    }), { status: 200, headers: { 'content-type': 'application/json' } })
+  }) as typeof fetch
+  const receipt = await api.estimate('rerun', 'ZZZ', 'demand', 'source-reader', undefined, {
+    runRoot, decisionFingerprint,
+  })
+  const url = new URL(requested, 'https://fixture.test')
+  assert.equal(url.pathname, '/api/launch/estimate')
+  assert.equal(url.searchParams.get('runRoot'), runRoot)
+  assert.equal(url.searchParams.get('decisionFingerprint'), decisionFingerprint)
+  assert.equal(receipt.exactDecisionBinding?.contractVersion, 'exact-decision-launch/1')
+  assert.equal(receipt.exactDecisionBinding?.runRoot, runRoot)
+  assert.equal(receipt.exactDecisionBinding?.decisionFingerprint, decisionFingerprint)
+})
+
 await check('new client fails closed against an old data-needs response', async () => {
   globalThis.fetch = (async () => new Response(JSON.stringify({ read: {
     subject: 'ZZZ', swarm: 'research', run_root: 'analyses/ZZZ_2026-08-12', decided_at: '2026-08-13T10:00:00Z',

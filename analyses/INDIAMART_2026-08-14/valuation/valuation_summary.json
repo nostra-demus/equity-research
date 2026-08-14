@@ -1,0 +1,166 @@
+{
+  "schema_version": "1.4",
+  "ticker": "INDIAMART",
+  "as_of": "2026-08-14",
+  "currency": "INR",
+  "business_type": "Operating",
+  "basis": "ev",
+  "shares": 60.29172,
+  "net_debt": -33670.3,
+  "net_debt_basis": "broad",
+  "current_price": 1784.60,
+  "price_as_of": "2026-08-12",
+  "price_state": "pool-verified",
+  "is_developed_mega_cap": false,
+  "discount_rate": {
+    "rf": 0.0685,
+    "erp": 0.0731,
+    "beta": 0.44,
+    "cost_of_equity": 0.1007,
+    "wacc": 0.1002,
+    "after_tax_kd": 0.0561
+  },
+  "methods": {
+    "own_history": 2526,
+    "peers": 1233,
+    "dcf": 1903.5,
+    "sotp": 1825.5
+  },
+  "method_weights": {
+    "own_history": 0.0,
+    "peers": 0.30,
+    "dcf": 0.70,
+    "sotp": 0.0
+  },
+  "method_basis": {
+    "own_history": "trailing",
+    "peers": "NTM",
+    "dcf": "FY+1",
+    "sotp": "NTM"
+  },
+  "method_weight_exception": "07_scenario-and-fair-value.md §1: 04 (intrinsic DCF) is weighted 70% and 03 (peers) 30% for the base point -- dcf alone exceeds the Scenario Construction Policy §1's ~1/3 cross-check cap for an Operating business -- because 02 (own-history) is excluded as illustrative-only on a too-short 5-quarter window and 03 (peers) is self-flagged low-confidence on a thin, partly-distorted 4-name comp set (2 of 4 names' EV multiples flagged not meaningful). This invokes Policy §1's own stated escape clause: 'no usable forward multiple exists' in credible form.",
+  "peers_internals": {
+    "metric_name": "NTM P/E (on FY27E consensus EPS ₹92.02)",
+    "median_multiple": 10.29,
+    "applied_multiple": 13.4,
+    "discount_pct": -30,
+    "anchors": [
+      {
+        "multiple": 13.4,
+        "value": 1233,
+        "label": "quality-adjusted (Just Dial NTM P/E 10.29x × 1.30) — base case"
+      },
+      {
+        "multiple": 15.4,
+        "value": 1417,
+        "label": "upper quality-adjustment bound (Just Dial NTM P/E 10.29x × 1.50)"
+      }
+    ],
+    "source": "03_relative-valuation-peers.md §5 (Implied Value from Peer Multiples table, verbatim)"
+  },
+  "sotp_segments": [
+    {
+      "segment": "Web and Related Services (proxied by consolidated NTM EBITDA, which already nets the Accounting Software Services drag per the single-segment collapse rule)",
+      "metric_name": "NTM EBITDA (consensus, consolidated)",
+      "metric": 5978.7,
+      "multiple": 12.32,
+      "comp": "IndiaMART's own current market-implied NTM TEV/EBITDA (self) — no independent peer multiple usable (Just Dial's EV cash-swamped; Info Edge's business mix non-comparable)",
+      "source": "06_sum-of-the-parts.md §2–§3"
+    }
+  ],
+  "sotp_bridge": {
+    "net_debt": -33670.3,
+    "minority": 0,
+    "other": 2746.89,
+    "source": "06_sum-of-the-parts.md §4 (Equity Bridge table; `other` = Simply Vyapar Apps equity-method investment at book value, not embedded in segment EBITDA)"
+  },
+  "scenarios": [
+    {
+      "label": "bull",
+      "forward_metric": 6557,
+      "metric_basis": "FY27E EBITDA (Street consensus ₹5,828.73mn + ₹728mn combined favorable levers)",
+      "multiple": 16.0,
+      "multiple_basis": "FY27E EV/EBITDA",
+      "multiple_kind": "applied",
+      "basis": "ev",
+      "level": 2298,
+      "drivers": "Customer-acquisition opex stays pulled back rather than resuming to the guided ₹10cr/qtr run-rate; ARPU keeps compounding at its observed ~8%/yr pace; Accounting Software Services sustains its 43% FY26 billing-growth pace with margin improving; multiple expands toward (not to) the translated own-history mean as the 3-quarter negative-net-supplier-adds trend visibly reverses. 12-month horizon.",
+      "bridge": {
+        "net_debt": -33670.3,
+        "net_debt_basis": "broad (canonical per 01_price-and-capital-structure.md §7)",
+        "minority": 0,
+        "other": 0,
+        "shares": 60.29172
+      },
+      "derivation": {
+        "model": "ev_bridge",
+        "ev": 104912,
+        "net_debt": -33670.3,
+        "net_debt_basis": "broad (canonical per 01_price-and-capital-structure.md §7)",
+        "minority": 0,
+        "other": 0,
+        "shares": 60.29172,
+        "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear Fair-Value Levels table) + §4 (iv_calc.py executed script)"
+      },
+      "source": "07_scenario-and-fair-value.md §3 scenario table"
+    },
+    {
+      "label": "base",
+      "forward_metric": 5828.73,
+      "metric_basis": "FY27E EBITDA (Street consensus, 15 analysts)",
+      "multiple": 11.8,
+      "multiple_basis": "FY27E EV/EBITDA",
+      "multiple_kind": "applied",
+      "basis": "ev",
+      "level": 1699,
+      "drivers": "Consensus FY27E revenue growth (+9.6%) and margin (~flat vs FY26) play out as forecast, with no resumption of the compounding-bear scenario (opex resumption plus SME softening together) and no bull-case re-rate; multiple sits modestly below today's already-compressed forward multiple (12.63x), reflecting the moat module's Narrow, borderline-durability verdict. 12-month horizon.",
+      "bridge": {
+        "net_debt": -33670.3,
+        "net_debt_basis": "broad (canonical per 01_price-and-capital-structure.md §7)",
+        "minority": 0,
+        "other": 0,
+        "shares": 60.29172
+      },
+      "derivation": {
+        "model": "ev_bridge",
+        "ev": 68779.014,
+        "net_debt": -33670.3,
+        "net_debt_basis": "broad (canonical per 01_price-and-capital-structure.md §7)",
+        "minority": 0,
+        "other": 0,
+        "shares": 60.29172,
+        "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear Fair-Value Levels table) + §4 (iv_calc.py executed script)"
+      },
+      "source": "07_scenario-and-fair-value.md §3 scenario table"
+    },
+    {
+      "label": "bear",
+      "forward_metric": 4041,
+      "metric_basis": "FY27E EBITDA (FY27E revenue ≈₹16,004mn, +2%, near-flat SME demand, × 24% EBIT margin — below the company's own FY23/FY24 prior-trough margin of 24.44%/24.64% — + ₹200mn D&A)",
+      "multiple": 10.0,
+      "multiple_basis": "FY27E EV/EBITDA",
+      "multiple_kind": "applied",
+      "basis": "ev",
+      "level": 1229,
+      "drivers": "Customer-acquisition opex resumes toward management's own guided ~₹10cr/qtr run-rate while SME demand softens (paying-supplier net adds, already negative in 3 of the last 4 quarters, stay negative) — the specific compounding scenario earnings/07 §5 names as plausible. EBIT margin compresses below the company's own last true operating trough. Multiple compresses further below today's level and below the translated own-history band minimum. 12-month horizon.",
+      "bridge": {
+        "net_debt": -33670.3,
+        "net_debt_basis": "broad (canonical per 01_price-and-capital-structure.md §7)",
+        "minority": 0,
+        "other": 0,
+        "shares": 60.29172
+      },
+      "derivation": {
+        "model": "ev_bridge",
+        "ev": 40410,
+        "net_debt": -33670.3,
+        "net_debt_basis": "broad (canonical per 01_price-and-capital-structure.md §7)",
+        "minority": 0,
+        "other": 0,
+        "shares": 60.29172,
+        "source": "07_scenario-and-fair-value.md §3 (Bull/Base/Bear Fair-Value Levels table) + §4 (iv_calc.py executed script)"
+      },
+      "source": "07_scenario-and-fair-value.md §3 scenario table"
+    }
+  ]
+}
