@@ -10,6 +10,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { type FullChainDeps, haltAllChains, launchFullChained } from '../src/launcher'
 import { REPO_ROOT } from '../src/config'
+import { sharedDataPoolConflict } from '../src/intake-owner'
 import { buildSwarmGraph } from '../src/roster'
 import type { LaunchPreflight, RunStatus } from '../src/types'
 
@@ -32,6 +33,8 @@ function makeFake(opts?: { fail429Once?: string[] }) {
   const onFinish = new Map<string, (s: RunStatus) => void>()
   let marker: string | null = null
   let markerCleared = false
+  let poolClaimHeld = false
+  let poolClaimReleases = 0
   const retries: Array<() => void> = []
   const fail429Once = new Set(opts?.fail429Once ?? [])
   const deps: FullChainDeps = {
@@ -50,6 +53,17 @@ function makeFake(opts?: { fail429Once?: string[] }) {
     writeMarker: (ticker) => { marker = ticker },
     clearMarker: () => { marker = null; markerCleared = true },
     scheduleRetry: (fn) => { retries.push(fn) },
+    acquirePoolClaim: () => {
+      assert.equal(poolClaimHeld, false, 'one chain acquires its stable pool claim once')
+      poolClaimHeld = true
+      let released = false
+      return () => {
+        if (released) return
+        released = true
+        poolClaimHeld = false
+        poolClaimReleases++
+      }
+    },
   }
   const mods = () => launches.filter((l) => l.kind === 'module').map((l) => l.module!)
   const finish = (key: string, status: RunStatus = 'done') => {
@@ -59,7 +73,14 @@ function makeFake(opts?: { fail429Once?: string[] }) {
   }
   const fireRetries = () => { for (const fn of retries.splice(0)) fn() }
   const tick = () => new Promise((r) => setTimeout(r, 0)) // flush the .catch microtasks
-  return { deps, launches, mods, finish, fireRetries, tick, getMarker: () => marker, wasMarkerCleared: () => markerCleared, pendingRetries: () => retries.length }
+  return {
+    deps, launches, mods, finish, fireRetries, tick,
+    getMarker: () => marker,
+    wasMarkerCleared: () => markerCleared,
+    pendingRetries: () => retries.length,
+    poolClaimHeld: () => poolClaimHeld,
+    poolClaimReleases: () => poolClaimReleases,
+  }
 }
 
 const sorted = (a: string[]) => [...a].sort()
@@ -180,6 +201,33 @@ const sorted = (a: string[]) => [...a].sort()
     assert.equal(f.mods().length, 6, 'all six modules launched despite the mid-wave 429')
   })
 
+  await check('the chain-wide pool claim survives child transitions and an all-child capacity backoff', async () => {
+    const f = makeFake({ fail429Once: ['balance-sheet-survival', 'management-governance'] })
+    await launchFullChained('TESTPOOL', 'tester', 'local', f.deps)
+    assert.equal(f.poolClaimHeld(), true, 'claim is held after the first child ACK')
+    f.finish('business-model')
+    assert.equal(f.poolClaimHeld(), true, 'claim survives the business-model → earnings transition')
+    f.finish('earnings')
+    await f.tick() // both next-wave attempts reject 429; no child RunState exists during backoff
+    assert.ok(f.pendingRetries() >= 1, 'the chain is waiting in a capacity backoff')
+    assert.equal(f.poolClaimHeld(), true, 'claim remains held while every child launch is backed off')
+    assert.equal(
+      sharedDataPoolConflict('commodity', [], f.poolClaimHeld() ? [{ swarm: 'research' }] : [] )?.code,
+      'shared_data_subject_busy',
+      'a commodity first launch is rejected during the zero-child transition/backoff gap',
+    )
+    f.fireRetries()
+    await f.tick()
+    f.finish('management-governance')
+    f.finish('balance-sheet-survival')
+    f.finish('valuation')
+    f.finish('catalyst')
+    assert.equal(f.poolClaimHeld(), true, 'master ACK does not release the chain claim')
+    f.finish('master')
+    assert.equal(f.poolClaimHeld(), false, 'master terminal releases the claim')
+    assert.equal(f.poolClaimReleases(), 1, 'the chain claim releases exactly once')
+  })
+
   await check('haltAllChains() stops the DAG — no further modules, no master (kill-switch wiring)', async () => {
     const f = makeFake()
     await launchFullChained('TESTHALT', 'tester', 'local', f.deps)
@@ -234,6 +282,27 @@ const sorted = (a: string[]) => [...a].sort()
       assert.ok(!f.mods().includes('business-model') && !f.mods().includes('earnings'), 'a finished module is NOT re-launched (the money the user was worried about)')
       // both deps of bss + mgov are seeded done, so they are the newly-ready wave and launch immediately
       assert.ok(f.mods().includes('balance-sheet-survival') && f.mods().includes('management-governance'), 'the next-ready modules launch straight away on resume')
+    } finally {
+      fs.rmSync(runRootAbs, { recursive: true, force: true })
+    }
+  })
+
+  await check('RESUME: when every module is done, wait for the direct master launch ACK and return its run id', async () => {
+    const TICK = 'ZZRSMMASTER'
+    const d = new Date()
+    const TODAY = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+    const runRootAbs = path.join(REPO_ROOT, 'analyses', `${TICK}_${TODAY}`)
+    try {
+      for (const m of buildSwarmGraph().modules.map((item) => item.name)) {
+        fs.mkdirSync(path.join(runRootAbs, m), { recursive: true })
+        fs.writeFileSync(path.join(runRootAbs, m, `99_${m}-synthesis.md`), '# done\n')
+      }
+      const f = makeFake()
+      const out = await launchFullChained(TICK, 'tester', 'local', f.deps)
+      assert.equal(out.runId, 'run-master', 'direct-master resume returns the registered master id, never an empty placeholder')
+      assert.equal(f.mods().length, 0, 'no finished module is relaunched')
+      assert.equal(f.launches.filter((item) => item.kind === 'rerun' && item.module === 'master').length, 1,
+        'the direct master is launched exactly once')
     } finally {
       fs.rmSync(runRootAbs, { recursive: true, force: true })
     }

@@ -4,6 +4,8 @@ import fg from 'fast-glob'
 import matter from 'gray-matter'
 import { AGENTS_DIR, ANALYSES_DIR, REPO_ROOT } from './config'
 import { RESEARCH_SWARM_ID, listSwarms, runRootForSubject, swarmById } from './swarms'
+import { normalizeDataSubject, MANIFEST_SUBJECT_RE } from './data-subject'
+import { resolveManifestRunRoot } from './swarm-run-root'
 import { resolveDisplayFields } from './ledger-corrections'
 import type { AgentNode, DataReadinessDecl, ModuleNode, SwarmGraph, SwarmManifest, SwarmSubjectSummary } from './types'
 
@@ -215,12 +217,7 @@ export function findLatestRunRoot(ticker: string): string | null {
 // folder (one run folder per subject — a signal's folder IS its identity).
 export function findRunRootForSubject(swarmId: string, subjectId: string): string | null {
   if (swarmId === RESEARCH_SWARM_ID) return findLatestRunRoot(subjectId)
-  const swarm = swarmById(swarmId)
-  if (!swarm) return null
-  const rel = runRootForSubject(swarm, subjectId)
-  if (!rel) return null
-  const abs = path.join(REPO_ROOT, rel)
-  return fs.existsSync(abs) ? abs : null
+  return resolveManifestRunRoot(swarmId, subjectId, { mustExist: true })?.absolute ?? null
 }
 
 // Subjects (units of work) of a NON-research swarm, for the cockpit subject picker: the union of
@@ -233,13 +230,14 @@ export function swarmSubjects(swarmId: string): string[] {
   const out = new Set<string>()
   try {
     for (const d of fs.readdirSync(path.join(REPO_ROOT, swarm.runsRoot), { withFileTypes: true })) {
-      if (d.isDirectory()) out.add(d.name)
+      if (d.isDirectory() && !d.isSymbolicLink() && normalizeDataSubject(swarmId, d.name)) out.add(d.name)
     }
   } catch { /* no runs yet */ }
   if (swarm.subjectsSource) {
     try {
       const txt = fs.readFileSync(path.join(REPO_ROOT, swarm.subjectsSource), 'utf8')
-      for (const m of txt.matchAll(/^##\s+([A-Z0-9][A-Z0-9.\-]{0,14})\s*$/gm)) out.add(m[1])
+      const heading = new RegExp(`^##\\s+(${MANIFEST_SUBJECT_RE.source.slice(1, -1)})\\s*$`, 'gm')
+      for (const m of txt.matchAll(heading)) if (normalizeDataSubject(swarmId, m[1])) out.add(m[1])
     } catch { /* no subjects source on disk */ }
   }
   return [...out].sort()

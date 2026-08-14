@@ -34,6 +34,8 @@ export interface RunState {
   user: string // who launched it — authenticated email (Cloudflare Access) or "local"
   userVia: 'cf-access' | 'local'
   runRoot: string | null // repo-relative, resolved on run-started
+  selectedDecisionRunRoot?: string // immutable call authorizing a staged/scoped launch
+  selectedDecisionFingerprint?: string // exact-call CAS, rechecked before a paid child starts
   child: ResultPromise | null
   status: RunStatus
   note?: string // optional finish note (e.g. why a run ended incomplete) — surfaced in the activity log
@@ -45,6 +47,7 @@ export interface RunState {
   // proceedSpawn->spawnEngine buildArgs window); spawnEngine honors it and bails before creating the child.
   // (The running-child cancel + SIGKILL fallback gate on endedAt — see finalizeRunOnClose / cancel().)
   onFinish?: (status: RunStatus) => void // chained full run: advance to the next step when this one ends
+  onTerminal?: (status: RunStatus) => void // headless orchestration hook; fires once with the real outcome
   chained?: boolean // this run is a step of a chained full run — cancelling it must also halt the chain
   startedAt: number
   endedAt?: number
@@ -71,7 +74,13 @@ const runs = new Map<string, RunState>()
 // Dependency-aware admission (admission.ts) governs same-subject concurrency; this map just tracks
 // the in-flight run ids per SUBJECT (research: the ticker; swarms: the unit id, e.g. a SIG id).
 // Different subjects always run concurrently.
-const activeRunsBySubject = new Map<string, Set<string>>() // subjectId -> set of in-flight runIds
+const activeRunsBySubject = new Map<string, Set<string>>() // `${swarmId}\0${subjectId}` -> in-flight runIds
+
+// A subject name is only unique inside its owning swarm. Research GOLD and commodity GOLD are different
+// units, with different run roots and different command namespaces; treating the bare label as the lock
+// identity made either one block the other. Keep the default for old research callers, but make every new
+// registry/admission path carry the owner explicitly.
+const subjectRunKey = (subjectId: string, swarmId = 'research'): string => `${swarmId}\0${subjectId}`
 
 // A run is IN FLIGHT — holds its subject claim + a concurrency slot — from launch through completion,
 // INCLUDING the pre-spawn gate pause. A run parked at readiness-checking / awaiting-readiness-decision
@@ -81,8 +90,9 @@ const activeRunsBySubject = new Map<string, Set<string>>() // subjectId -> set o
 export const IN_FLIGHT_STATUSES = new Set<RunStatus>(['starting', 'readiness-checking', 'awaiting-readiness-decision', 'running'])
 
 // All currently-live runs for a subject, self-healing any stale/ended ids.
-export function inFlightRunsForSubject(subjectId: string): RunState[] {
-  const ids = activeRunsBySubject.get(subjectId)
+export function inFlightRunsForSubject(subjectId: string, swarmId = 'research'): RunState[] {
+  const key = subjectRunKey(subjectId, swarmId)
+  const ids = activeRunsBySubject.get(key)
   if (!ids) return []
   const live: RunState[] = []
   for (const id of [...ids]) {
@@ -90,7 +100,7 @@ export function inFlightRunsForSubject(subjectId: string): RunState[] {
     if (r && IN_FLIGHT_STATUSES.has(r.status)) live.push(r)
     else ids.delete(id) // self-heal a stale entry
   }
-  if (ids.size === 0) activeRunsBySubject.delete(subjectId)
+  if (ids.size === 0) activeRunsBySubject.delete(key)
   return live
 }
 
@@ -99,11 +109,12 @@ export function inFlightRunsForTicker(ticker: string): RunState[] {
   return inFlightRunsForSubject(ticker)
 }
 
-export function setActiveSubjectRun(runId: string, subjectId: string) {
-  let ids = activeRunsBySubject.get(subjectId)
+export function setActiveSubjectRun(runId: string, subjectId: string, swarmId = runs.get(runId)?.swarmId ?? 'research') {
+  const key = subjectRunKey(subjectId, swarmId)
+  let ids = activeRunsBySubject.get(key)
   if (!ids) {
     ids = new Set<string>()
-    activeRunsBySubject.set(subjectId, ids)
+    activeRunsBySubject.set(key, ids)
   }
   ids.add(runId)
 }
@@ -226,10 +237,11 @@ export function unsubscribe(run: RunState, client: SseClient) {
 export function finishRun(run: RunState, status: RunStatus) {
   run.status = status
   run.endedAt = Date.now()
-  const ids = activeRunsBySubject.get(run.subjectId)
+  const key = subjectRunKey(run.subjectId, run.swarmId)
+  const ids = activeRunsBySubject.get(key)
   if (ids) {
     ids.delete(run.runId)
-    if (ids.size === 0) activeRunsBySubject.delete(run.subjectId)
+    if (ids.size === 0) activeRunsBySubject.delete(key)
   }
   // append the perpetual audit record once (finishRun can be reached from both the stream parser and
   // the process-close handler; the guard makes the write idempotent)
@@ -258,6 +270,9 @@ export function finishRun(run: RunState, status: RunStatus) {
     // advance a chained full run to its next step (fires once, inside the finishLogged guard)
     try {
       run.onFinish?.(status)
+    } catch {}
+    try {
+      run.onTerminal?.(status)
     } catch {}
   }
   void Promise.resolve(run.closeWatcher?.()).catch(() => {})

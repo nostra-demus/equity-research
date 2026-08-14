@@ -319,7 +319,7 @@ export function DecisionBanner() {
   const health = useStore((s) => s.health)
   const staticMode = useStore((s) => s.staticMode)
   const fullPending = useStore((s) => s.launchPending?.key === 'full:request')
-  // The one-pass scoped re-run. Already built (store.runScopedRerun → api.runIntakePlan, #358) and already
+  // The versioned exact one-pass re-run (store.runScopedRerun → api.runIntakePlan) is already
   // offered inside the left-rail "New data" dock — but the moment a reader actually faces the choice is
   // HERE, on the decision, where the blunt full re-run was the only button. Pointing at another panel is
   // worse than giving the action: same store call, surfaced where the decision is made.

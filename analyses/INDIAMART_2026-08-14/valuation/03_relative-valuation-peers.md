@@ -1,0 +1,88 @@
+# Relative Valuation — Peers — INDIAMART
+
+**Business type:** Operating company (India-focused, subscription-funded B2B online marketplace) [`analyses/INDIAMART_2026-08-14/valuation/00_valuation-data-triage.md` §6A]. Per the Business-Type Method Map, the primary multiples are EV/EBITDA, EV/EBIT, P/E and FCF yield.
+
+**Anchor used throughout:** price ₹1,784.60 (2026-08-12 close, pool-verified), market cap ₹107,314.35mn, EV ₹73,644.05mn (broad/canonical net-cash basis, net cash ₹33,670.3mn), 60,291,720 fully-diluted (LTM weighted-average) shares [`01_price-and-capital-structure.md` §7]. Company-side forward metrics (FY27E/NTM) are read in IndiaMART's own reporting currency, INR, from Capital IQ's Key Stats tab [`IndiaMART InterMESH Limited NSEI INDIAMART Financials (1).xls`, Key Stats tab]. Peer figures below are the Capital IQ comps-workbook export, priced in **US Dollar** (the workbook's own currency setting) at Capital IQ's own spot conversion, **as-of 2026-08-13** [`Company Comparable Analysis IndiaMART InterMESH Limited.xls`]. Cross-checking the workbook's own IndiaMART row (market cap $1,125.1mm vs ₹107,314.35mn) implies a CIQ conversion rate of ≈₹95.4/US$ on 2026-08-13 — noted for transparency; multiples themselves are currency-neutral ratios and are used directly without re-conversion, per §15/§27.
+
+## 1. Peer Set
+
+| Peer | Ticker | Why Comparable | Source of Inclusion |
+|---|---|---|---|
+| Just Dial Limited | NSEI:JUSTDIAL | India-focused local-search platform with a direct B2B product line (JD Mart); management itself estimates 5–10% buyer/supplier overlap; ~0.8x IndiaMART's LTM revenue scale, comfortably inside a credibility band. Same country, same regulatory/macro environment. | Named by the company itself on multiple earnings calls; carried forward from `business-model/08_competitive-map.md` §2, Competitor A |
+| Info Edge (India) Limited | NSEI:NAUKRI | India-based online-classifieds/subscription-lead-generation platform (Naukri.com jobs, 99acres real estate, Jeevansathi matrimony, Shiksha education) — same country, same functional archetype (tiered subscription fees, lead-gen classifieds economics), even though the end-markets are B2C verticals rather than IndiaMART's B2B trade marketplace. | Not named in `business-model/08_competitive-map.md`; added here from the Capital IQ auto-generated comp set on the basis of genuine business-model overlap (subscription-classifieds economics), flagged as **self-selected**, not competitive-map-sourced |
+| Zhejiang NetSun Co., Ltd. | SZSE:002095 | China-based B2B trading-platform operator for bulk raw materials (trading markets, corporate e-commerce, supply-chain financing) — a genuine same-business-type (B2B marketplace) international analog, different geography. | Self-selected from the Capital IQ comp set; not named by IndiaMART management |
+| Zarea Limited | KASE:ZAL | Pakistan-based B2B e-commerce trading platform connecting buyers and sellers of commodities (cement, steel, agri, chemicals) — closest genuine same-business-model (B2B classifieds/trading) international analog in the set, though tiny and thinly traded. | Self-selected from the Capital IQ comp set; not named by IndiaMART management |
+
+**Excluded from the multiples table (named but not usable):**
+- **TradeIndia (Infocom Network Private Limited)** — management's own repeatedly-named "nearest" like-for-like competitor (identical B2B classifieds/lead-gen model) [`08_competitive-map.md` §2, Competitor B], but it is a **private company with no public multiples** — cannot be compared quantitatively; flagged, not guessed.
+- **Alibaba.com / 1688.com (Alibaba Group Holding Limited)** — named by management as a strategic benchmark, not a same-market rival, and ~12x IndiaMART's scale on management's own unverified estimate [`08_competitive-map.md` §2, Competitor C]; Alibaba Group does not disclose standalone 1688.com segment multiples, so no comparable figure exists.
+- **Eternal Limited (NSEI:ETERNAL, formerly Zomato)** — appears in the Capital IQ auto-generated comp set (grouped as an "Indian internet company") but its business (food delivery, quick commerce/Blinkit, B2B food-ingredient supply) has fundamentally different unit economics (2.6% LTM EBITDA margin, +190.5% revenue growth off a hyper-growth quick-commerce base) from a mature, 33%-margin B2B subscription marketplace. Excluded as **not a comparable business type**, not merely a weak comp.
+- **Yangtze River Economy United Development (Group) Co., Ltd.** — a Shanghai logistics/commodity-trade conglomerate subsidiary with no current market-cap, share-price or multiples data in the export (all fields blank/NM, latest filing date 2021-08-30) [`Company Comparable Analysis..., Financial Data tab`]. Excluded — **no usable data**.
+
+**Set provenance.** Only one peer (Just Dial) is competitive-map-sourced; the remaining three (Info Edge, Zhejiang NetSun, Zarea) are **self-selected** from the Capital IQ auto-generated comp export on the basis of genuine business-model overlap, per the partial-data rule for a thin named-peer set. This is a small, heterogeneous four-name set — two India-listed names of very different business mix, and two thinly-traded foreign single-country analogs — and the comp-quality caveats in §2–§5 below should be read as a hard constraint on how much weight this method can carry.
+
+## 2. Peer Multiples & Operating Stats
+
+All figures LTM (Latest Twelve Months) unless marked NTM (Next Twelve Months, Capital IQ consensus). Currency: US Dollar, Capital IQ spot-converted. Data as-of 2026-08-13 [`Company Comparable Analysis IndiaMART InterMESH Limited.xls`, Trading Multiples + Operating Statistics + Financial Data tabs].
+
+| Company | P/E (LTM) | EV/EBITDA (LTM) | EV/EBIT (LTM) | EV/Sales (LTM) | FCF Yield | Rev Growth (LTM YoY) | EBITDA Margin (LTM) | ROIC / ROE | Net Debt/EBITDA | Data As-of |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
+| **INDIAMART** | 21.8 | 15.2 | 16.0 | 4.6 | 6.4%¹ | 12.75% | 33.0% | 13.51% (FY26); 11.23% 5-yr avg [`business-model/09_moat.md` §3] | NM — net cash | 2026-08-13 |
+| Just Dial (JUSTDIAL) | 11.6 | **0.2**² | **0.3**² | **0.1**² | N/A³ | 7.27% | 29.6% | ROE ~3.4–10.7% / ROCE ~7.0–13.1% (wide, web-sourced, unverified) [`08_competitive-map.md` §2] | NM — net cash (LTM net debt −$604.7mm) | 2026-08-13 |
+| Info Edge (NAUKRI) | 54.3 | 67.6 | 74.9 | 25.1 | N/A³ | 13.86% | 35.5% | Not available in this pool | NM — net cash | 2026-08-13 |
+| Zhejiang NetSun (002095) | NM | NM | NM | 6.3 | N/A³ | −18.68% | 0.4% | Not available in this pool | NM — net cash | 2026-08-13 |
+| Zarea (ZAL) | 8.7 | 24.4 | 25.9 | 3.5 | N/A³ | 178.41%⁴ | 14.5% | Not available in this pool | NM — net cash | 2026-08-13 |
+| **Peer median (all 4, incl. Just Dial's distorted EV lines)** | 11.6 | 24.4 | 25.9 | 4.9 | — | 10.57% | 22.05% | — | — | — |
+| **Peer median (EV lines only, Just Dial excluded — see ² below)** | — | 46.0 | 50.4 | 6.3 | — | — | — | — | — | — |
+
+¹ IndiaMART FCF yield computed as FY26 FCF ₹6,872.19mn ÷ market cap ₹107,314.35mn = 6.40% [`earnings/01_historical-financials.md` §1; `01_price-and-capital-structure.md` §3].
+² **Just Dial's EV-based multiples are flagged as not meaningful for comparison.** Its Total Enterprise Value is only $8.3mm against a $613mm market cap — TEV is 1.4% of market cap because LTM net debt is −$604.7mm (net cash almost equal to the whole market cap) [`Company Comparable Analysis..., Financial Data tab`]. Just Dial has also been a majority-owned, thin-free-float subsidiary of Reliance Retail Ventures Limited since October 2021 [`08_competitive-map.md` §2, Competitor A] — a structure that can itself suppress the market's pricing of the operating business independent of its underlying economics (CLAUDE.md §24 Filter 6 territory for Just Dial, not IndiaMART). Its P/E (price-based, not EV-based, so not subject to the same cash-netting mechanics) is retained as the more usable data point.
+³ No peer FCF figures were extracted into this pool's comps workbook — peer FCF yield is **not available**, not fabricated.
+⁴ Zarea's 178% revenue growth is off a very small base ($9.5mm LTM revenue) and is not a reliable growth signal for multiple-setting purposes.
+
+## 3. Premium / Discount to Peer Median
+
+| Multiple | Company | Peer Median | Premium / (Discount) |
+|---|---:|---:|---:|
+| P/E (LTM) | 21.8x | 11.6x (all 4) | **+87.9%** premium |
+| EV/EBITDA (LTM) | 15.2x | 24.4x (all 4, incl. distorted Just Dial) | **(37.7%)** discount |
+| EV/EBITDA (LTM) | 15.2x | 46.0x (Just Dial excluded) | **(67.0%)** discount |
+| EV/EBIT (LTM) | 16.0x | 25.9x (all 4) | **(38.2%)** discount |
+| EV/EBIT (LTM) | 16.0x | 50.4x (Just Dial excluded) | **(68.3%)** discount |
+| EV/Sales (LTM) | 4.6x | 4.9x (all 4) | **(6.1%)** discount |
+| EV/Sales (LTM) | 4.6x | 6.3x (Just Dial excluded) | **(27.0%)** discount |
+| FCF yield | 6.4% | Not assessable — no peer FCF data | Not assessable |
+
+Formula: `(company multiple − peer median) / peer median`; positive = premium, negative = discount.
+
+**These readings conflict with each other and neither is clean.** The P/E premium (+88%) is the more credible of the two directions because P/E is not distorted by the EV-based net-cash-compression mechanic (Note ² above) — but it is set almost entirely by Just Dial (11.6x) and Zarea (8.7x), two names with their own separate reasons to trade at compressed multiples (an ownership overhang for Just Dial; small-cap/thin-liquidity/emerging-market risk for Zarea), against Info Edge (54.3x) pulling the mean far higher. The EV-based "discounts" (37–68%) are driven almost entirely by Info Edge's EV/EBITDA (67.6x) and EV/EBIT (74.9x), which — per §4 below — likely price in something beyond IndiaMART's core marketplace economics; excluding Just Dial's distorted EV lines (as the more defensible adjustment) makes the apparent discount even larger, which is itself evidence the discount signal is an artifact of Info Edge's mix, not a genuine like-for-like read.
+
+**Is the gap typical or unusual?** **Not assessable.** The comps workbook's own "Valuation Chart" tab — the only place a historical peer-multiple series could sit in this pool — returned no rows (empty sheet) [`Company Comparable Analysis..., Valuation Chart tab`]. No peer-multiple history exists elsewhere in the data pool. This is a distinct gap from the stock's own multiple history (covered by `02_multiples-own-history`, not this agent) — it means the relative-gap-persistence question (is today's premium/discount typical, wider, or narrower than IndiaMART's usual relationship to these names) cannot be answered from available data, and is not invented here.
+
+## 4. Is the Gap Warranted?
+
+The credible signal — IndiaMART's P/E premium over Just Dial and Zarea — is only partly explained by fundamentals: IndiaMART's LTM EBITDA margin (33.0%) beats Just Dial's (29.6%) by ~340 basis points (bps) and its EBIT margin (32.0% vs 25.3%) by ~670 bps, and its revenue growth (12.75% vs Just Dial's 7.27%) is roughly 1.75x faster [Operating Statistics tab, as-of 2026-08-13] — genuine, evidenced quality advantages that argue for *some* premium multiple. But the business-model module's own read caps how much premium that quality gap should buy: IndiaMART's aggregate business-quality score is 55/100 (Mixed), its moat verdict is explicitly **Narrow** (no moat source clears the Strong band; the economic-moat test — 11.23% five-year average ROIC vs an estimated ≈8.75% WACC — is not robust to a more conventional beta assumption for a small/mid-cap Indian internet name, under which ROIC would sit at or below cost of capital) [`business-model/09_moat.md` §2–§5], customer stickiness scores 40/100 (no contractual lock-in; a Q4 FY26 price rise directly turned net paying-supplier additions negative) [`business-model/07_business-quality.md`], and paying-supplier growth has decelerated to +1.4% YoY in FY26 against an 8% five-year CAGR [`08_competitive-map.md` §3]. Applying even a generous +30–50% quality premium to Just Dial's own multiple (§5) does not reach IndiaMART's actual ~88% premium. On the EV-based multiples, the apparent large discount versus Info Edge is not credible as a like-for-like signal: Info Edge's own Capital IQ business description states it "acts as an investment advisor and manager, financial and management consultant, and sponsor of alternative investment funds" [`Company Comparable Analysis..., Business Description tab`] — a diversified multi-vertical classifieds platform with a disclosed investment-fund arm, which plausibly explains part of its outsized EV/EBITDA (67.6x) beyond core operating economics (**Inference, not from filings** — the precise value of that investment-portfolio optionality is not quantified anywhere in this pool). Conclusion: **premium is unjustified (relative downside)** on the one credible cross-section (P/E vs Just Dial/Zarea), but confidence in this specific finding is low — the peer set is thin (4 usable names, only one competitive-map-sourced) and two of the four names carry their own separate distortions (Just Dial's ownership overhang, Info Edge's non-comparable business mix).
+
+## 5. Implied Value from Peer Multiples
+
+**Basis discipline:** the base case uses NTM (forward, FY27E) peer and company multiples/metrics on the same basis; company metrics are IndiaMART's own consensus FY27E figures in INR [`Financials (1).xls`, Key Stats tab: FY27E diluted EPS ₹92.02, FY27E EBITDA ₹5,828.73mn].
+
+| Multiple | Applied Peer Multiple | Basis | Implied EV or Equity | Implied Price/Share | vs Current Price (₹1,784.60) |
+|---|---:|---|---:|---:|---:|
+| **P/E (NTM) — base case** | **13.4x** = Just Dial NTM P/E (10.29x) × 1.30 quality-premium adjustment (margin + growth edge, §4) — **Inference, not from filings** | NTM P/E on NTM (FY27E) EPS | Equity ≈ ₹80,832mn (13.4 × 92.02 × 60.29172mn shares, cross-check) | **≈ ₹1,233** | **(30.9%)** — current price is ~31% above this implied value; equivalently, current price trades at a ~45% premium to this implied value |
+| P/E (NTM) — upper quality-adjustment bound | 15.4x = Just Dial NTM P/E × 1.50 | NTM P/E on NTM EPS | — | ≈ ₹1,417 | (20.6%) |
+| P/E (LTM) — Just Dial, unadjusted | 11.6x | LTM P/E on FY26A EPS ₹78.77 | — | ≈ ₹914 | (48.8%) |
+| P/E (LTM) — Zarea, unadjusted | 8.7x | LTM P/E on FY26A EPS ₹78.77 | — | ≈ ₹685 | (61.6%) |
+| EV/EBITDA (NTM) — Just Dial (flagged not meaningful, §2 Note ²) | 0.22x | NTM EV/EBITDA on FY27E EBITDA | EV ≈ ₹1,282mn; Equity ≈ ₹34,953mn | ≈ ₹580 | (67.5%) — **excluded from base/dispersion, shown for transparency only** |
+| EV/EBITDA (NTM) — Info Edge (flagged non-comparable mix, §4) | 53.03x | NTM EV/EBITDA on FY27E EBITDA | EV ≈ ₹309,098mn; Equity ≈ ₹342,768mn | ≈ ₹5,685 | +218.6% — **excluded from base/dispersion, shown for transparency only** |
+| EV/EBITDA (LTM) — Zarea (thin, single tiny foreign name) | 24.4x | LTM EV/EBITDA on FY26A EBITDA | EV ≈ ₹127,025mn; Equity ≈ ₹160,695mn | ≈ ₹2,665 | +49.3% — **low-confidence cross-check only, not part of the credible range** |
+
+Equity bridge for all EV-based rows: `Equity = Implied EV − Net Debt (broad/canonical basis, −₹33,670.3mn net cash, per `01` §7)`; per-share divides by 60,291,720 fully-diluted shares [`01_price-and-capital-structure.md` §2, §7].
+
+**Base-case point: ≈ ₹1,233/share**, on NTM P/E (13.4x, Just Dial NTM P/E quality-adjusted +30%) applied to FY27E consensus EPS ₹92.02. This is the single most defensible read in this comp set: P/E is not subject to the EV/net-cash-compression distortion that makes Just Dial's own EV multiples unusable, and Just Dial is the only competitive-map-named, same-country, comparable-scale peer with public multiples.
+
+**Dispersion:** the P/E-based cross-checks span roughly **₹685–₹1,417** (Zarea LTM to the upper quality-adjustment bound) — a genuine, if wide, range. The EV/EBITDA-based reads span **₹580–₹5,685**, but that spread is dominated by comp-quality problems (Just Dial's cash-compressed EV at the low end, Info Edge's non-comparable business-mix premium at the high end) rather than real valuation uncertainty, and are shown for transparency only — they are **not** treated as part of the credible dispersion band feeding `07`.
+
+## 6. Relative Read
+
+On the one credible cross-section — P/E against Just Dial and Zarea, the two peers not distorted by the EV/net-cash mechanic — IndiaMART trades at an 87.9% premium to the peer median (21.8x vs 11.6x), and even after crediting IndiaMART's real margin (+340–670 bps) and growth (12.75% vs 7.27%) edge over Just Dial with a generous +30–50% quality adjustment, the peer-implied price (≈₹1,233–1,417) sits 21–31% below the current ₹1,784.60. The EV/EBITDA-, EV/EBIT- and EV/Sales-based reads point the opposite way (discounts of 6–68% to peer medians), but that signal is not credible: it is driven almost entirely by Info Edge's non-comparable, investment-portfolio-inflated multiple and by Just Dial's cash-compressed EV, not by a genuine like-for-like read on IndiaMART's core marketplace economics. Given the moat module's own verdict — Narrow moat, an economic-moat test that is not robust to a conventional beta assumption, and Mixed (55/100) business quality — there is no strong evidence the observed P/E premium is earned; call it **premium unjustified (relative downside), base-case implied value ≈₹1,233/share, credible P/E-based dispersion ≈₹685–₹1,417**, but flag this finding as **low-confidence**: the peer set is a thin, largely self-selected four-name comp with two of the four names carrying their own separate multiple distortions, and the true "nearest" competitor (TradeIndia, per management) has no public data at all.
