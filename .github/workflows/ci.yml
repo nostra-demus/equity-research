@@ -108,6 +108,9 @@ jobs:
       - name: Qualified-idea Python/TypeScript canonical-digest parity
         run: python3 scripts/test_canonical_json.py
 
+      - name: Intake execution-receipt identity, replay, and filesystem safety
+        run: python3 scripts/test_intake_execution_receipt.py
+
       - name: Commodity calibration-gate selftest (post-gate branches the --fixture N/A runs never exercise — fixture-free)
         run: python3 scripts/validate_screener_json.py --selftest
 
@@ -262,6 +265,10 @@ jobs:
           fi
           echo "== test-watchdog-cooldown.sh =="
           bash scripts/ops/test-watchdog-cooldown.sh || rc=1
+          echo "== test-connector-service-recovery.sh =="
+          bash scripts/ops/test-connector-service-recovery.sh || rc=1
+          echo "== test-connector-supervisor.py =="
+          python3 scripts/ops/test-connector-supervisor.py || rc=1
           exit $rc
 
       # Connector unit tests — zero-touch (§26): every .claude/connectors/*/test_*.py runs automatically, so

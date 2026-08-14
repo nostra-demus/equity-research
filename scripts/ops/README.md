@@ -21,13 +21,31 @@ fronted by Cloudflare Access). macOS `launchd` user agents keep it up — **and 
 | `com.nostradamus.hk-size` | `housekeeping.sh /research:size all` daily 07:10 | **doer** | — | — |
 | `com.nostradamus.hk-calibrate` | `housekeeping.sh /research:calibrate all` monthly (1st, 07:40) | **doer** | — | — |
 
-### Roles — one doer, N admins
-Exactly **one** machine is the **doer**: it owns the public tunnel and runs the autonomous daily jobs
+### Roles — one serving doer, one permanent connector writer, N admins
+Exactly **one** machine is the **serving doer**: it owns the public tunnel and runs the autonomous daily jobs
 (news + the `hk-*` housekeeping timers). Install it with the default role:
 
 ```
 bash scripts/ops/install-services.sh                 # role=doer (the always-on host)
 ```
+
+Connectors are stricter: they remain pinned to the dedicated Mac Pro even if UI/tunnel failover moves serving
+to another machine. On the Mac Pro only, mount the pool, make `data` resolve to it, then run the first install
+with the exact local hostname. These values become private, immutable machine identities; later repairs read
+them automatically. A custom provider directory must be an absolute owner-only directory.
+
+```
+MAC_PRO_HOST="$(hostname)"
+NOSTRA_CONNECTOR_WRITER_HOST="$MAC_PRO_HOST" \
+NOSTRA_POOL="/absolute/path/to/equity-research-data" \
+NOSTRA_ENGINE_CONFIG_DIR="$HOME/.config/nostra-engine" \
+  bash scripts/ops/install-services.sh --role doer
+```
+
+The identities live at `~/.nostra-ops/connector-writer-host`, `pool-root`, and `connector-config-root`
+(mode `0600`; parent mode `0700`). Do not edit them to move the writer. Re-provision deliberately instead.
+Full installs fail closed if the configured writer host is not this Mac. A failover host installs the cockpit
+and tunnel with connectors explicitly excluded and removes any stale connector job before becoming doer.
 
 Any **other** machine (a laptop you also use as a full admin) installs with `--role admin` — it gets the
 local engine, auto-deploy, watchdog and caffeinate, but **NOT** the tunnel, news, or timers, so the two
@@ -37,6 +55,25 @@ machines never fight over the tunnel or double-run the paid jobs. Re-running wit
 ```
 bash scripts/ops/install-services.sh --role admin    # secondary machine: engine only, no tunnel/timers
 ```
+
+A full install records the non-secret machine role in `~/.nostra-ops/role`: admin demotion intent is stamped
+before doer-only removal, while doer promotion is stamped only after every install succeeds. An explicit
+`admin` marker therefore wins even if an old tunnel plist remains after an interrupted demotion; only
+pre-marker machines infer the legacy doer role from a safe installed tunnel plist. Deploy uses that truth to
+repair a missing connector timer on a doer without adding it to an admin. The narrow recovery command is safe
+and idempotent:
+
+```
+bash scripts/ops/install-services.sh --role doer --only connectors
+```
+
+It installs only `com.nostradamus.connectors`; it does not copy or replace the currently executing
+`~/.nostra-ops/deploy.sh`, `watchdog.sh`, or `housekeeping.sh`. Full installs publish those runtime scripts by
+atomic rename so an executing script can never be truncated in place. Unknown installer options fail closed.
+Connector install/removal and watchdog recovery share retained kernel leases
+`~/.nostra-ops/connector-autonomy.lock`; role transitions that also take the deploy lease always acquire
+`.deploy.flock`, then the repository mutation lease, then this autonomy lease. Connector-only repair re-checks installed doer truth while
+holding the lease, so it cannot undo a concurrent admin/failover stand-down.
 
 ### Housekeeping timers (`housekeeping.sh`)
 The five `hk-*` agents run one headless Claude slash command each, from the prod worktree, under a per-run
@@ -55,6 +92,12 @@ repair agents are hard-disabled until the runtime has a separately reviewed OS/c
 The health and repair ledgers still identify broken feeds. Repair them through the normal human-authored
 `codex/...` branch → PR → CI/review workflow, then require a real post-merge refetch before the repair is
 marked verified. An environment flag or DNS preflight is not accepted as isolation.
+
+Every full automatic sweep (not `--dry-run`, `--only`, or manual ingest) also atomically updates the
+non-secret `data/_connectors/runner_status.json`: start time, last row progress, completion/failure state,
+host/PID, interval, and row/manifest counts. It never stores URLs, exception text, or credentials. This is an
+operational heartbeat, not evidence; a status write failure is logged and never blocks or rolls back connector
+publication.
 
 The first deploy after the connector-v2 upgrade atomically reconciles the already-installed connector
 LaunchAgent: it changes the scheduler to fifteen minutes, securely moves every historical `CONNECTOR_*` value
@@ -166,6 +209,20 @@ window with `WATCHDOG_TUNNEL_HEAL_COOLDOWN_SECONDS` (`0` disables suppression). 
 second engine** on a non-`:8787` port (the load-doubling failure mode). Every incident + repair is logged to
 `~/Library/Logs/nostradamus-watchdog.log`. **You do nothing; it fixes itself and keeps a track.**
 
+On the configured Mac Pro, the watchdog runs an independent connector supervisor. It proves, in order: exact
+writer host and role, the stable pool/config identities, the complete 15-minute plist contract, the loaded
+launchd job, then a fresh non-empty v2 sweep from the current deployed commit. Missing/unloaded first installs
+repair immediately. A single failed/invalid/stale heartbeat only shows `Starting`; disruptive repair requires
+the same failure on a second tick or persistence for one cadence. Admin, wrong-host, foreign-heartbeat, Drive,
+and unsafe states first fence and prove the local scheduler stopped. The Data Library then shows `Online`,
+`Checking`, `Starting`, `Paused — drive`, `Disabled — admin`, `Another Mac is writer`, or `Blocked — unsafe`;
+it never reports a stopped or unproven job as Online.
+
+After the first reviewed merge, acceptance is: the Data Library reaches `Checking`, then `Online` only after a
+completed sweep with at least one processed row; `connector-supervisor.json` stays fresh; the displayed host is
+the configured Mac Pro; and the desired/deployed/current commits match. Run four scheduled shadow sweeps and
+require zero provenance, schema, arithmetic, or reproducibility failures before treating the service as live.
+
 ### Keeping the Mac awake (`caffeinate`)
 `com.nostradamus.caffeinate` runs `caffeinate -i`, which holds `PreventUserIdleSystemSleep` — this is
 **not** AC-gated, so the engine + tunnel stay reachable on battery as well as on AC (lid open). Trade-off:
@@ -189,11 +246,13 @@ setup** creates the prod worktree, then installs the agents:
 git worktree add -B main "$HOME/nostra-prod" origin/main
 (cd "$HOME/nostra-prod/ui/server" && npm ci)
 (cd "$HOME/nostra-prod/ui/web" && npm ci && npm run build)
-# migrate the GITIGNORED runtime dirs the fresh worktree doesn't get from git (analyses/ + screener/ are
-# tracked, so they come with the checkout; .state/ and data/ are gitignored and must be copied from your
-# other machine or a Google Drive mirror):
+# Restore the gitignored runtime state the fresh worktree does not get from git (analyses/ + screener/ are
+# tracked). The data pool is shared through Drive: wait until Drive is signed in and the pool directory is
+# present, then create the canonical symlink. Never rsync/copy the pool into a real prod data/ directory.
 rsync -a <source>/ui/server/.state/ "$HOME/nostra-prod/ui/server/.state/"  # enrichment/news cache
-rsync -a <source>/data/             "$HOME/nostra-prod/data/"              # research data pool (uploads, extracts)
+NOSTRA_POOL="$HOME/Library/CloudStorage/GoogleDrive-<you>/My Drive/equity-research-data"
+test -d "$NOSTRA_POOL"                                                    # must succeed before continuing
+ln -s "$NOSTRA_POOL" "$HOME/nostra-prod/data"                            # uploads/extracts shared via Drive
 
 # install / refresh the launchd agents (idempotent, no sudo; safe to re-run). --role doer on the always-on
 # host, --role admin on a secondary machine. Set NEWS_ARCHIVE_DIR to your Google Drive mount to enable the

@@ -13,32 +13,6 @@ How we keep many people (and AI agents) shipping features into `main` without re
 
 You never hand-rebase for the normal case, and you never need to know whether your change is "big" or "small" — every PR takes the identical path.
 
-## ⚠️ ACTIVE OUTAGE — GitHub Actions is down org-wide (since 2026-07-23)
-
-**Red CI on a PR right now is NOT evidence of a code defect. Do not treat it as one, and do not try to "fix" it.**
-
-Every Actions job in this repo fails in **1–2 seconds with no log output** (the logs endpoint 404s, because the run never started). This is a **billing lockout on the `nostra-demus` org**, not a broken workflow, not a broken branch, and not anything a PR introduced:
-
-- The org account is disabled for non-payment. This is **deliberate** — the owner is disputing an incorrect invoice and has stopped paying it.
-- A downgrade to the **Free** plan is already scheduled and takes effect **2026-08-07**, which is expected to restore Actions. Until then every new PR will show the same false red.
-- Symptom signature, so you can tell it apart from a genuine failure at a glance: **all** jobs fail, **~1–2s** each, **no logs**, on **every** branch including `main`.
-
-### What to do until Actions comes back
-
-The §28 quality bar still has to be cleared — it just can't be cleared *by GitHub* right now. So clear it locally, then merge:
-
-1. **Run the CI jobs your diff actually touches.** `.github/workflows/ci.yml` is the authority on what those are — read it and mirror the steps. In practice:
-   - touched `ui/server/**` → `cd ui/server && npm ci && npm run typecheck && npm test`
-   - touched `ui/web/**` → `cd ui/web && npm ci && npm run typecheck && npm test && npm run build`
-   - touched `scripts/**`, `analyses/**`, `frameworks/**` → `python3 scripts/eval.py all && python3 scripts/eval.py selftest`, plus the other `scripts/test_*.py` the `eval-contracts` job lists
-   - touched `CLAUDE.md` / `AGENTS.md` → the doctrine-twins byte-diff from the `tools-tests` job
-   - touched `edge/**` → `node --test edge/offline-gate/test/*.test.mjs`
-2. **Still triage every bot-reviewer finding.** Gemini/CodeQL/Copilot reviews are unaffected by the billing lockout and keep posting — fix the real ones, reply with a reasoned won't-fix for the rest.
-3. **Then merge.** The engine identity bypasses the ruleset (§28), so a merge will succeed despite the red checks. That bypass is what keeps the repo moving during the outage — it is not permission to skip step 1.
-4. **Say so in the PR/merge trail** — note that CI was verified locally because Actions was down, so the record doesn't imply a green run that never happened.
-
-**When Actions is healthy again** (expect on/after 2026-08-07: jobs take minutes and produce logs), delete this section and go back to the normal flow above. Don't leave it standing once it's false.
-
 ## The engine's PR agent handles the whole PR (no human babysitting)
 
 The engine's PR agent owns a code PR end to end and never needs a human to advance it (§28, "Autonomous merge authority"). It is standing-authorized to:

@@ -9,12 +9,22 @@ import { fmtStampLocal } from '../../lib/format'
 import { displayHeadline } from '../../lib/plain'
 import { nextRovingRadioIndex, rovingRadioTabStopIndex } from '../../lib/rovingRadio'
 import { useStore } from '../../lib/store'
-import { heatOf, momentumOf, qualifiedThemeExpressions, recentFlow, radiusFor, sparklinePoints, tierColorVar, tierLabel, THEME_WINDOWS, THEMES_STAGE_MAX_AGE_MS, flowInWindow, groupThemeEvidence, heatInWindow, windowCoverage, windowLabel, groupThemesForBriefing, shouldHideThemeIntake, shouldResetThemeWindow, sourceTierLabel, themeBriefingEvidence, themeCompanyLabel, themeFlowDelta, themeForMapHover, themeMapMode, themeSliceDisplay, themeStageIsStale, themesForPmSurface, themeSurfaceAssessment, themeWindowForView, validatedThemeNarrative, type Theme, type ThemeActivity, type ThemeConviction, type ThemeExpressionRole, type ThemeSliceDisplay, type ThemeWindow, type ValidatedThemeEvidence, type ValidatedThemeQualifiedExpression, type WindowCoverage } from '../../lib/themes'
+import { formationCandidateEvidence, heatOf, momentumOf, qualifiedThemeExpressions, recentFlow, radiusFor, sparklinePoints, themeCompilerCapacityCopy, tierColorVar, tierLabel, THEME_WINDOWS, THEMES_STAGE_MAX_AGE_MS, flowInWindow, groupThemeEvidence, heatInWindow, windowCoverage, windowLabel, groupThemesForBriefing, shouldHideThemeIntake, shouldResetThemeWindow, sourceTierLabel, themeBriefingEvidence, themeCompanyLabel, themeFlowDelta, themeForMapHover, themeMapMode, themeSliceDisplay, themeStageIsStale, themesForPmSurface, themeSurfaceAssessment, themeWindowForView, validatedThemeNarrative, type Theme, type ThemeActivity, type ThemeCompilerHealth, type ThemeConviction, type ThemeExpressionRole, type ThemeFormationCandidate, type ThemeFormationQueue, type ThemeSliceDisplay, type ThemeWindow, type ValidatedThemeEvidence, type ValidatedThemeQualifiedExpression, type WindowCoverage } from '../../lib/themes'
 import type { FeedItem, IntensityWindow } from '../../lib/types'
 import { useWireConfig } from '../wire/WireContext'
 
 const TIERS = ['all', 'hot', 'active', 'cooling', 'parked'] as const
 const THEMES_PROJECTION_REFRESH_MS = 60_000
+
+function disclosedCompilerDebt(queue: ThemeFormationQueue | null): number {
+  return queue ? queue.awaiting_validation + queue.awaiting_revalidation + queue.blocked_incomplete_audit : 0
+}
+
+/** Formation total includes safely disclosed building-evidence rows; compiler health also includes unsafe
+ * debt withheld from that lane. Count their union instead of taking max() across different populations. */
+function totalFormationDebt(queue: ThemeFormationQueue | null, health: ThemeCompilerHealth | null): number {
+  return (queue?.total || 0) + Math.max(0, (health?.queue.total || 0) - disclosedCompilerDebt(queue))
+}
 
 export function themeMapEmptyCopy(tier: (typeof TIERS)[number], win: ThemeWindow | null): string {
   const heat = tier === 'all' ? '' : tierLabel(tier)
@@ -43,6 +53,8 @@ function handleRovingRadioKeyDown(event: ReactKeyboardEvent<HTMLButtonElement>) 
 
 export function ThemesView() {
   const themes = useStore((s) => s.themes)
+  const formationQueue = useStore((s) => s.themeFormationQueue)
+  const compilerHealth = useStore((s) => s.themeCompilerHealth)
   const view = useStore((s) => s.themesView)
   const status = useStore((s) => s.themesStatus)
   const selectedTheme = useStore((s) => s.selectedTheme)
@@ -88,6 +100,8 @@ export function ThemesView() {
     return byTier.filter((t) => flowInWindow(t, windowHours) > 0).sort((a, b) => heatInWindow(b, windowHours) - heatInWindow(a, windowHours))
   }, [pmThemes, tier, view, windowHours])
   const briefingCounts = useMemo(() => groupThemesForBriefing(themes).counts, [themes])
+  const formationDebt = totalFormationDebt(formationQueue, compilerHealth)
+  const formationDisclosureAvailable = formationQueue !== null || compilerHealth !== null
 
   // don't strand the user on a window that stops being honestly backed (history shrank — e.g. an engine
   // restart lost the in-memory rings): a still-selected but now-locked pill would show an empty view. Fall
@@ -111,7 +125,13 @@ export function ThemesView() {
   const stageStale = themeStageIsStale(generatedAt)
   // Missing/aged stage truth is stale even when the result set is empty. An empty old stage is not proof
   // that nothing qualifies now, and a cold error must never inherit the green/current presentation.
-  const stale = status === 'error' || stageStale
+  const stale = status !== 'ready' || stageStale
+  // A current thesis projection and an unavailable compiler are separate axes. Do not let a fresh
+  // generated_at paint a green live banner over formation debt that cannot currently be processed.
+  const compilerLimited = !stale && formationDebt > 0 && (compilerHealth?.state === 'blocked' || compilerHealth?.state === 'degraded')
+  const compilerStatusUnobserved = (compilerHealth?.queue.total || 0) > 0 && compilerHealth?.last_attempt === null
+    && (compilerHealth.state === 'ready' || compilerHealth.state === 'idle') && compilerHealth.blocker === null
+  const compilerStatusUnavailable = !stale && (compilerHealth === null || compilerStatusUnobserved)
 
   if (selectedTheme) return <ThemeDeepDive sourceSlice={slice} stale={stale} refreshFailed={status === 'error'} generatedAt={generatedAt} />
 
@@ -122,10 +142,11 @@ export function ThemesView() {
   const windowTabStopIndex = rovingRadioTabStopIndex(selectedWindowIndex, windowCoverages.map((coverage) => coverage.selectable))
   const generatedStamp = fmtStampLocal(generatedAt || undefined)
   const projectedStamp = fmtStampLocal(projectedAt || undefined)
+  const hasCachedDisclosure = themes.length > 0 || formationDebt > 0
   const freshnessCopy = status === 'error'
-    ? themes.length ? `stale · last successful index ${generatedStamp || 'time unknown'}` : 'refresh failed · no cached index'
+    ? hasCachedDisclosure ? `stale · last successful index ${generatedStamp || 'time unknown'}` : 'refresh failed · no cached index'
     : status === 'loading'
-      ? themes.length ? `refreshing · last good index ${generatedStamp || 'time unknown'}` : 'building first index…'
+      ? hasCachedDisclosure ? `refreshing · last good index ${generatedStamp || 'time unknown'}` : 'building first index…'
       : stageStale
         ? `saved screen · last successful stage ${generatedStamp || 'time unknown'} · older than ${THEMES_STAGE_MAX_AGE_MS / 60_000}m`
         : generatedStamp ? `stage ${generatedStamp}` : 'stage time unavailable'
@@ -136,7 +157,11 @@ export function ThemesView() {
       ? `loading${sliceSuffix}`
       : stageStale
         ? `last successful screen is not current${sliceSuffix}`
-      : `nothing formed${sliceSuffix}`
+      : formationDebt
+        ? `no validated thesis yet · ${formationDebt} developing pattern${formationDebt === 1 ? '' : 's'} outside validated theses${sliceSuffix}`
+        : !formationDisclosureAvailable
+          ? `no validated thesis · formation status unavailable${sliceSuffix}`
+          : `nothing formed${sliceSuffix}`
 
   return (
     <div className="themes" aria-busy={status === 'loading'}>
@@ -147,7 +172,7 @@ export function ThemesView() {
             <span className={`themes__freshness${status === 'error' || (status === 'ready' && stageStale) ? ' is-stale' : ''}`} role="status" aria-live="polite" title={projectedStamp ? `Read-time score projection: ${projectedStamp}. Thesis-stage freshness is based only on the successful-stage timestamp.` : undefined}>{freshnessCopy}</span>
           </div>
           <span className="themes__sub">
-            {!themes.length
+            {!themes.length && !formationDebt
               ? noRowsCopy
               : stale
                 ? view === 'map'
@@ -157,7 +182,7 @@ export function ThemesView() {
                 ? win
                   ? `Validated investment-thesis map${sliceSuffix} · ${win.full}`
                   : `${pmThemes.length} validated investment theme${pmThemes.length === 1 ? '' : 's'}${slice.active ? ` in ${slice.label}` : ''} · raw context clusters are excluded`
-                : `Current screen${sliceSuffix} · ${briefingCounts.worthChecking} actionable · ${briefingCounts.forming} forming · evidence-led theses, not investment ratings`}
+                : `Current screen${sliceSuffix} · ${briefingCounts.worthChecking} actionable · ${briefingCounts.forming} forming${formationDebt ? ` · ${formationDebt} developing pattern${formationDebt === 1 ? '' : 's'} outside validated theses` : ''} · evidence-led theses, not investment ratings`}
           </span>
         </div>
         <div className="themes__controls">
@@ -227,44 +252,67 @@ export function ThemesView() {
           </span>
         </div>
       ) : (
-        <div className={`themes__current${stale ? ' themes__current--stale' : ''}`} role={stale ? 'alert' : 'note'} aria-live="polite">
-          {!stale && <span className="themes__tldot themes__tldot--live" aria-hidden />}
+        <div className={`themes__current${stale ? ' themes__current--stale' : compilerLimited || compilerStatusUnavailable ? ' themes__current--compiler-limited' : ''}`} role={stale ? 'alert' : 'note'} aria-live="polite">
+          {!stale && !compilerLimited && !compilerStatusUnavailable && <span className="themes__tldot themes__tldot--live" aria-hidden />}
           <span>{stale
             ? status === 'error'
-              ? `Refresh failed. Showing the last successful briefing${generatedStamp ? ` from ${generatedStamp}` : ''}; its qualification and evidence are retained for audit, not current.`
-              : `The last successful thesis stage${generatedStamp ? ` was ${generatedStamp}` : ' has no valid timestamp'} and is older than ${THEMES_STAGE_MAX_AGE_MS / 60_000} minutes. A newer score projection${projectedStamp ? ` from ${projectedStamp}` : ''} does not make its evidence current.`
-            : `Current-only briefing${sliceSuffix} · supporting evidence in the last 6 hours compared with the prior 6 hours`}</span>
+              ? hasCachedDisclosure
+                ? `Refresh failed. Showing the last successful briefing${generatedStamp ? ` from ${generatedStamp}` : ''}; its qualification and evidence are retained for audit, not current.`
+                : 'Themes refresh failed before any briefing was cached.'
+              : status === 'loading'
+                ? hasCachedDisclosure
+                  ? `Refreshing Themes. The last successful disclosure${generatedStamp ? ` is from ${generatedStamp}` : ' has no valid timestamp'} and remains a saved snapshot until this refresh completes.`
+                  : 'Building the first Themes index. No prior briefing is cached.'
+                : `The last successful thesis stage${generatedStamp ? ` was ${generatedStamp}` : ' has no valid timestamp'} and is older than ${THEMES_STAGE_MAX_AGE_MS / 60_000} minutes. A newer score projection${projectedStamp ? ` from ${projectedStamp}` : ''} does not make its evidence current.`
+            : compilerLimited
+              ? `Validated thesis screen current${sliceSuffix}; developing-pattern compiler ${compilerHealth!.state}. ${compilerHealth!.message || 'Queued patterns remain non-investable until validation can run.'}`
+              : compilerStatusUnavailable
+                ? compilerHealth === null
+                  ? `Validated thesis screen current${sliceSuffix}; developing-pattern compiler status is not disclosed by this server.`
+                  : `Validated thesis screen current${sliceSuffix}; no compiler capacity check has been recorded for the queued patterns yet.`
+              : `Current-only briefing${sliceSuffix} · supporting evidence in the last 6 hours compared with the prior 6 hours`}</span>
           {stale && <button type="button" className="themes__retry" disabled={status === 'loading'} onClick={() => void retryThemes()}>{status === 'loading' ? 'Refreshing Themes…' : 'Retry Themes refresh'}</button>}
         </div>
       )}
 
-      {status === 'loading' && !themes.length ? (
+      {status === 'loading' && !themes.length && !formationDebt ? (
         <div className="themes__empty" role="status" aria-live="polite"><div className="themes__shimmer" /><p>Reading the wire and compiling investment themes…</p></div>
-      ) : status === 'error' && !themes.length ? (
+      ) : status === 'error' && !themes.length && !formationDebt ? (
         <div className="themes__empty" role="alert" aria-live="assertive">
           <div className="themes__emptyorb" />
           <p>The themes index could not refresh, and there is no cached briefing to show. The wire itself may still be available.</p>
           <button type="button" className="themes__retry" onClick={() => void retryThemes()}>Retry Themes</button>
         </div>
+      ) : view === 'board' ? (
+        <ThemeBoard themes={themes} formationQueue={formationQueue} compilerHealth={compilerHealth} onPick={selectTheme} sliceLabel={slice.active ? slice.label : ''} stale={stale} loading={status === 'loading'} />
       ) : !themes.length ? (
+        formationDebt ? (
+          <div className="themes__mapzero">
+            <div className="themes__empty themes__empty--compact">
+              <div className="themes__emptyorb" />
+              <p>No validated investment theme is available for the Explore map. The patterns below stay outside the map until they clear the current compiler contract.</p>
+            </div>
+            <FormationQueuePanel queue={formationQueue} compilerHealth={compilerHealth} stale={stale} loading={status === 'loading'} compact />
+          </div>
+        ) : (
         <div className="themes__empty">
           <div className="themes__emptyorb" />
           <p>{stale
             ? `The last successful Themes stage contained no validated investment theme${slice.active ? ` for ${slice.label}` : ''}, but that stage is no longer current. Refresh before treating the empty result as today's answer.`
             : slice.active
             ? `No themes are being driven by ${slice.label} news right now. Clear or change the active scope to widen the screen.`
+            : !formationDisclosureAvailable
+            ? 'No validated investment theme is available. This server did not disclose the formation queue or compiler status, so the presence of developing patterns is unknown.'
             : 'No theme evidence has cleared the briefing yet. As distinct current stories form a coherent narrative, this view will show what cleared the bar and what is still missing.'}</p>
-        </div>
+        </div>)
       ) : view === 'map' && !shown.length ? (
         <div className="themes__empty">
           <div className="themes__emptyorb" />
           <p>{themeMapEmptyCopy(tier, win)}</p>
           {tier !== 'all' && <button type="button" className="themes__retry" onClick={() => setTier('all')}>Show all heat tiers</button>}
         </div>
-      ) : view === 'map' ? (
-        <ThemeMap themes={shown} onPick={selectTheme} win={win} cov={cov} slice={slice} stale={stale} />
       ) : (
-        <ThemeBoard themes={themes} onPick={selectTheme} sliceLabel={slice.active ? slice.label : ''} stale={stale} />
+        <ThemeMap themes={shown} onPick={selectTheme} win={win} cov={cov} slice={slice} stale={stale} />
       )}
     </div>
   )
@@ -798,11 +846,106 @@ function hcurve(x1: number, y1: number, x2: number, y2: number): string {
 
 // ---------------- the BOARD ----------------
 
-function ThemeBoard({ themes, onPick, sliceLabel, stale }: { themes: Theme[]; onPick: (id: string) => void; sliceLabel: string; stale: boolean }) {
+const FORMATION_STATE_LABEL: Record<ThemeFormationCandidate['state'], string> = {
+  awaiting_validation: 'Awaiting first validation',
+  awaiting_revalidation: 'Awaiting revalidation',
+  blocked_incomplete_audit: 'Audit trail incomplete',
+  building_evidence: 'Building evidence',
+}
+
+export function FormationQueuePanel({ queue, compilerHealth, stale, loading = false, compact = false }: { queue: ThemeFormationQueue | null; compilerHealth: ThemeCompilerHealth | null; stale: boolean; loading?: boolean; compact?: boolean }) {
+  const disclosedCandidates = queue?.candidates || []
+  const queueTotal = totalFormationDebt(queue, compilerHealth)
+  if (!disclosedCandidates.length && !queueTotal) return null
+  const candidates = compact ? disclosedCandidates.slice(0, 3) : disclosedCandidates
+  const safelyDisclosedHidden = (queue?.hidden || 0) + Math.max(0, disclosedCandidates.length - candidates.length)
+  const clientWithheld = queue?.client_withheld || 0
+  const undisclosedCompilerDebt = Math.max(0, (compilerHealth?.queue.total || 0) - disclosedCompilerDebt(queue))
+  const capacityUnobserved = (compilerHealth?.queue.total || 0) > 0 && compilerHealth?.last_attempt === null
+    && (compilerHealth.state === 'ready' || compilerHealth.state === 'idle') && compilerHealth.blocker === null
+  const capacityTone = stale || capacityUnobserved ? 'unknown' : compilerHealth?.state || 'unknown'
+  const statusCopy = stale
+    ? loading
+      ? `Last disclosed compiler state · refresh in progress · ${themeCompilerCapacityCopy(compilerHealth)}`
+      : `Last disclosed compiler state · not current · ${themeCompilerCapacityCopy(compilerHealth)}`
+    : themeCompilerCapacityCopy(compilerHealth)
+  return (
+    <section className={`themeformation${compact ? ' themeformation--compact' : ''}${stale ? ' is-stale' : ''}`} aria-labelledby={compact ? 'themes-developing-map' : 'themes-developing'}>
+      <div className="themebriefing__sectionhead">
+        <div>
+          <h3 id={compact ? 'themes-developing-map' : 'themes-developing'}>Developing news patterns — not investment theses</h3>
+          <p>These rows have not cleared the current compiler contract and cannot seed Ideas or trades. First-validation labels are provisional clusters; revalidation labels may be prior theses awaiting classification of new evidence. An unclassified observation carries no thesis stance.</p>
+        </div>
+        <span>{queueTotal}</span>
+      </div>
+      <div className={`themeformation__capacity themeformation__capacity--${capacityTone}`} role="status" aria-live="polite">
+        <span className="themeformation__capacity-dot" aria-hidden />
+        <span>{statusCopy}</span>
+      </div>
+      {!candidates.length ? (
+        <div className="themeformation__undisclosed" role="note">
+          <b>{queueTotal} cluster{queueTotal === 1 ? '' : 's'} {(queue?.total || 0) > 0 ? 'remain outside validated themes' : 'await validation'}</b>
+          <span>{safelyDisclosedHidden > 0
+            ? `${safelyDisclosedHidden} safely sourced developing pattern${safelyDisclosedHidden === 1 ? ' is' : 's are'} outside this bounded excerpt; no exact row is available to show here.`
+            : clientWithheld > 0
+              ? 'No returned formation row passed this client’s exact-source validation. The UI will not invent a label or evidence row.'
+              : 'No pattern has enough exact source provenance for safe disclosure yet. The UI will not invent a label or evidence row.'}</span>
+        </div>
+      ) : (
+        <div className="themeformation__list" role="list" aria-label="Non-investable developing news patterns">
+          {candidates.map((candidate) => {
+          const evidence = formationCandidateEvidence(candidate)
+          return (
+            <article key={candidate.theme_id} className="themeformation__row" role="listitem">
+              <div className="themeformation__rowhead">
+                <div>
+                  <span className="themeformation__state">{FORMATION_STATE_LABEL[candidate.state]}</span>
+                  <h4>{candidate.provisional_label}</h4>
+                </div>
+                <span className="themeformation__not-investable">Not investable</span>
+              </div>
+              <div className="themeformation__metrics">
+                <span><b className="mono">{candidate.distinct_evidence_count}</b> distinct evidence</span>
+                <span><b className="mono">{candidate.high_quality_evidence_count}</b> higher-quality evidence</span>
+                {candidate.attempted_at && <span>last attempted {fmtStampLocal(candidate.attempted_at)}</span>}
+              </div>
+              {evidence.length ? (
+                <ul className="themeformation__evidence">
+                  {evidence.map((row) => (
+                    <li key={row.event_id}>
+                      <a href={row.url} target="_blank" rel="noreferrer">{row.headline}</a>
+                      {row.stance === 'unclassified' && <span className="themeformation__evidence-state"><i aria-hidden /> Awaiting classification · no thesis stance</span>}
+                      <span>{row.source_name} · {sourceTierLabel(row.source_tier)} · {fmtStampLocal(row.found_at)}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="themeformation__missing">No exact source link cleared this disclosure row.</p>
+              )}
+              <div className="themeformation__blockers">
+                <b>What is missing</b>
+                {candidate.blockers.length
+                  ? <ul>{candidate.blockers.map((blocker, index) => <li key={`${candidate.theme_id}-blocker-${index}`}>{blocker}</li>)}</ul>
+                  : <span>The compiler has not recorded a specific blocker yet.</span>}
+              </div>
+            </article>
+          )
+          })}
+        </div>
+      )}
+      {safelyDisclosedHidden > 0 && candidates.length > 0 && <p className="themeformation__hidden">{safelyDisclosedHidden} more safely sourced developing pattern{safelyDisclosedHidden === 1 ? ' remains' : 's remain'} outside this bounded first look.</p>}
+      {clientWithheld > 0 && <p className="themeformation__hidden">{clientWithheld} additional formation row{clientWithheld === 1 ? '' : 's'} failed this client's exact-source validation. No label or evidence row is shown for {clientWithheld === 1 ? 'it' : 'them'}.</p>}
+      {undisclosedCompilerDebt > 0 && candidates.length > 0 && <p className="themeformation__hidden">{undisclosedCompilerDebt} additional compiler-debt cluster{undisclosedCompilerDebt === 1 ? ' has' : 's have'} no safe exact-source disclosure. No label or evidence row is shown for that aggregate debt.</p>}
+    </section>
+  )
+}
+
+function ThemeBoard({ themes, formationQueue, compilerHealth, onPick, sliceLabel, stale, loading }: { themes: Theme[]; formationQueue: ThemeFormationQueue | null; compilerHealth: ThemeCompilerHealth | null; onPick: (id: string) => void; sliceLabel: string; stale: boolean; loading: boolean }) {
   const [showAllForming, setShowAllForming] = useState(false)
   const groups = groupThemesForBriefing(themes)
   const worth = groups.worthChecking
   const forming = showAllForming ? groups.forming : groups.forming.slice(0, 8)
+  const formationDebt = totalFormationDebt(formationQueue, compilerHealth)
   return (
     <div className="themebriefing">
       <section className="themebriefing__section" aria-labelledby="themes-worth-checking">
@@ -819,14 +962,18 @@ function ThemeBoard({ themes, onPick, sliceLabel, stale }: { themes: Theme[]; on
           <div className="themebriefing__zero">
             <b>{stale
               ? `No actionable thesis survived in the last successful theme screen${sliceLabel ? ` for ${sliceLabel}` : ''}.`
-              : `No complete investment thesis clears the screen${sliceLabel ? ` for ${sliceLabel}` : ''} right now.`}</b>
+              : `No validated investment thesis clears${sliceLabel ? ` for ${sliceLabel}` : ''} right now.`}</b>
             <span>{groups.counts.forming
               ? stale
                 ? `${groups.counts.forming} thesis${groups.counts.forming === 1 ? ' was' : 'es were'} forming at that index; the then-missing proof is shown below.`
                 : `${groups.counts.forming} thesis${groups.counts.forming === 1 ? ' is' : 'es are'} still forming; the missing proof is shown below.`
               : stale
-                ? 'No validated narrative had enough current proof and an evidence-bound expression at the last successful index.'
-                : 'The wire is still monitored. Raw clusters remain internal until they carry a complete narrative and current evidence.'}</span>
+                ? 'That stage is no longer current. No validated narrative had enough current proof and an evidence-bound expression at the last successful index.'
+                : formationDebt > 0
+                  ? 'Developing and quarantined patterns are shown separately below. They cannot seed Ideas or trades until they clear the current compiler contract.'
+                : formationQueue === null && compilerHealth === null
+                  ? 'No validated narrative cleared. This server did not disclose formation-queue or compiler status, so developing-pattern presence is unknown.'
+                  : 'The wire is still monitored. Raw clusters remain internal until they carry a complete narrative and current evidence.'}</span>
           </div>
         ) : (
           <div className="themebriefing__worth" id="themes-worth-list">
@@ -883,6 +1030,8 @@ function ThemeBoard({ themes, onPick, sliceLabel, stale }: { themes: Theme[]; on
           )}
         </section>
       )}
+
+      <FormationQueuePanel queue={formationQueue} compilerHealth={compilerHealth} stale={stale} loading={loading} />
     </div>
   )
 }

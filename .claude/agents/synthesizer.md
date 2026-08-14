@@ -407,7 +407,15 @@ Before writing `final_thesis.md`, run this gate and carry its results into the o
 7. **Thesis-type classification (per `CLAUDE.md` §14).** If the thesis is really macro/commodity/policy-driven, say so and downgrade conviction.
 8. **Math validation.** Scenario probabilities sum to 100%; probability-weighted target price and expected return reconcile; risk/reward via the WORKFLOW Step 4 formula; if price is missing, do not fake precision.
 9. **Kill criteria.** State what evidence would make the thesis wrong and what would force downgrade, exit, or rejection (record in Thesis Kill Criteria).
-10. **Highest-value next data request.** Exactly one next data item that would most improve confidence.
+10. **Highest-value next data request + ranked decision guidance.** If an active evidence cap exists,
+    state exactly its one highest-value next data item in the memo. In `decision_record.json`, that same
+    item is `data_needs[0]` / `priority: 1`; optionally record up to four lower-priority active caps behind
+    it. If no missing observation actively caps the call, state that plainly and emit `data_needs: []`.
+    Rank any emitted needs by decision value, not an imagined score lift: first the missing observation
+    most likely to change/reject the action or resolve
+    the largest active cap, with source quality and feasibility only as tie-breakers. Follow
+    `frameworks/DECISION_LEDGER.md` §5's v2 contract exactly. Evidence may strengthen, weaken, or leave the
+    call unchanged; never promise or quantify a conviction, rating, or score lift.
 
 If the gate cannot be satisfied (e.g., data sufficiency < 30, or no usable raw data), the decision is "Insufficient Data — Refuse To Rate."
 
@@ -673,7 +681,7 @@ For each, say what data would confirm it.
 | Kill Criteria | What It Would Mean | How To Monitor | Module Source |
 |---|---|---|---|
 
-Draw from the modules — e.g. earnings miss / margin deterioration / guidance cut (earnings), covenant breach (balance-sheet-survival), auditor resignation / promoter pledge increase (management-governance), valuation re-rating failure (valuation), or a commodity/macro variable moving against the thesis. Every row ties to a module source.
+Draw from the modules — e.g. earnings miss / margin deterioration / guidance cut (earnings), covenant breach (balance-sheet-survival), auditor resignation / promoter pledge increase (management-governance), valuation re-rating failure (valuation), or a commodity/macro variable moving against the thesis. Every row ties to a module source. When the monitoring event has a knowable date or period (a results release, a filing deadline, a court/regulatory ruling window), name it in "How To Monitor" (e.g. "FY2026 results release (~March 2027)") rather than only a vague description — `scripts/eval.py` check AW mechanically parses this text to flag a kill criterion whose own named event has already passed with no outcome review addressing it (§8: disconfirming evidence must be actively checked, not left as a closing caveat).
 
 ## 11. Positioning and Trade Construction
 
@@ -1136,6 +1144,8 @@ The exact object to emit (mirrors `frameworks/DECISION_LEDGER.md` §5 — that f
   "module_scores": {},
   "red_flags": [],
   "missing_data": [],
+  "data_needs_schema_version": "2.0",
+  "data_needs": [],
   "review_schedule": {
     "30d": "",
     "90d": "",
@@ -1212,6 +1222,8 @@ Populate each field as follows. All of these come from work you have already don
 | module_scores | module-level scores from module syntheses |
 | red_flags | critical/high/medium red flags |
 | missing_data | missing-data list from pre-write gate |
+| data_needs_schema_version | hardcode `"2.0"` for every publication made on/after 2026-08-14, including a rerun that preserves an older `decision_date` |
+| data_needs | Pre-Write Gate step 10 ranked decision-guidance queue; `[]` when no missing observation actively caps the call |
 | review_schedule | 30d, 90d, 180d, 365d dates from decision_date |
 | created_by | hardcode `"synthesizer"` |
 | notes | any caveats about missing price, missing data, or no paper trade |
@@ -1265,6 +1277,22 @@ python3 -c "import datetime; d=datetime.date.fromisoformat('<DECISION_DATE>'); p
 ## Field-type rules
 
 - `thesis_type`, `kill_criteria`, `red_flags`, `missing_data`, `forecast_ledger`, `scenarios` are JSON **arrays**.
+- For every new publication made on/after 2026-08-14, including a rerun whose `decision_date` stays older,
+  `data_needs_schema_version` is exactly `"2.0"` and
+  `data_needs` is present, including `[]` when the check finds no active need. Emit at most five entries.
+  Each entry follows `frameworks/DECISION_LEDGER.md` §5 exactly: stable `need_id`; array order exactly
+  matches integer priorities `1, 2, ... N`; non-empty `series` and `why_it_caps`; exact two-sided
+  `expected_impact: {if_supportive, if_adverse}`; boolean `filing_required`; one or more exact
+  `entry_orbs: [{module, agent, why, confidence}]` whose module/agent names come from the discovered roster
+  and whose routing confidence is a 0–1 number; exact source hint
+  `suggested_source: {name, acquisition, access, licensing_basis}`; tier `5|9|10`; an exact connector
+  cadence; and optional real ISO `next_release` on or after `decision_date`. The source is a hint, not
+  evidence that a source exists or that access/licensing is cleared. No URL appears anywhere. Do not emit
+  v1 `cap_lifted` or
+  `entry_modules`, endpoint/schema/host details, numeric/promised conviction lifts, promised rating
+  upgrades/downgrades, `100%` confidence/conviction language, or guarantee wording.
+  Priority `1` is the single highest-value item named in the memo; source quality and feasibility break
+  ties only after likely decision impact. Older records without this discriminator remain legacy-valid.
 - `scenarios` is an array of three to seven objects, one per §8 case:
   `{"scenario_id": <stable id>, "label": "bull|base|bear|…", "probability": <0–100 number>,
   "return_pct": <number>, "price_target": <positive source-horizon target>, "conditions": [<one or more>],

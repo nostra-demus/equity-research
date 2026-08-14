@@ -245,7 +245,22 @@ export function isPlanQuotaNote(note: string): boolean {
 /** A last-resort failure that is a TERMINAL API error (bad/revoked key, no credits, blocked, …) — same
  *  regex runCycle.ts matches on `ar.note` to skip the day rather than arm the short transient cooldown.
  *  Exported so the retry loop above (and its tests) can name the same condition it stops retrying on,
- *  instead of duplicating the pattern (Codex review, PR #316). */
+ *  instead of duplicating the pattern (Codex review, PR #316).
+ *
+ *  NB 401 is deliberately STILL matched here: in-call, an expired sign-in is exactly as un-retryable as a
+ *  revoked key, so the retry loop must stop on it. It is the CROSS-CYCLE response that differs — runCycle
+ *  tests `isAuthExpiredNote` FIRST and treats it as recoverable. Keep that ordering if you touch either. */
 export function isTerminalApiNote(note: string): boolean {
   return /HTTP (400|401|402|403|404|413)/.test(note || '')
+}
+
+/** A last-resort failure that is the host's Claude SIGN-IN having expired (HTTP 401 / an "authenticate"
+ *  message). It is split out of the terminal-4xx class above because it is the one failure here a human
+ *  repairs in seconds — `claude login` on the engine host — after which the tier works again immediately.
+ *  Treating it as terminal-for-the-day was the real defect: the day's $ ledger was force-marked spent, so
+ *  the tier stayed dark until the UTC rollover even once the sign-in was fixed, AND the cockpit reported
+ *  $50 of spend that never happened. chat-llm.ts's friendlyResultError already told chat users the exact
+ *  fix; this is the same judgement, finally applied on the news path. */
+export function isAuthExpiredNote(note: string): boolean {
+  return /HTTP 401|authenticat/i.test(note || '')
 }

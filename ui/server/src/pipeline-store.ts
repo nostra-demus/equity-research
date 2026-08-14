@@ -11,11 +11,13 @@
 // CODE lands via a PR (§28) — only the pipeline BOOK-KEEPING lives here.
 
 import { execFile } from 'node:child_process'
-import { randomUUID } from 'node:crypto'
+import { createHash, randomUUID } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { promisify } from 'node:util'
 import { REPO_ROOT, STATE_DIR } from './config'
+import { safeConnectorSourceUrl } from './connector-url-policy'
+import { isRfc3339 } from './rfc3339'
 
 // async execFile (never sync from a request handler — a sync bash spawn blocks the single event loop;
 // append-ndjson.sh's own kernel lock keeps concurrent async appends safe).
@@ -58,6 +60,10 @@ export interface PipelineSourceRecord {
   kind: 'pipeline_source'
   subject: string // uppercased ticker / commodity
   swarm: string // swarm id (research | commodity | …)
+  // Present for a source discovered against one exact selected decision. Legacy/free-form sources omit
+  // these; only decision-scoped sources may satisfy a data-need lookup overlay.
+  run_root?: string | null
+  decision_fingerprint?: string | null
   need_id: string | null // the data_need this source targets, or null = free-form "does this help anywhere?"
   series_hint: string // what the user thinks it provides (optional)
   source_url: string // the website / API endpoint
@@ -85,7 +91,45 @@ export interface PipelineEventRecord {
   submitted_at: string
 }
 
-export type PipelineRecord = PipelineSourceRecord | PipelineEventRecord
+export const NEED_LOOKUP_STATUSES = ['public_link_found', 'could_not_find'] as const
+export type NeedLookupStatus = (typeof NEED_LOOKUP_STATUSES)[number]
+
+// A source search is operational state, not part of the frozen investment decision.  The terminal
+// synthesizer may suggest a publisher, but only this server-owned row can say that an admissible public
+// HTTPS link was actually found.  A clean, completed search may also record the explicit no-result state;
+// timeouts, tool failures and aborted searches write nothing, so they can never masquerade as "not found".
+export interface PipelineLookupRecord {
+  pipeline_id: string
+  kind: 'pipeline_lookup'
+  subject: string
+  swarm: string
+  need_id: string
+  need_fingerprint: string
+  run_root: string
+  decision_fingerprint: string
+  // Request start time, not completion time. A slow older search that finishes after a newer one therefore
+  // cannot overwrite the newer terminal truth in an append-only ledger.
+  lookup_started_at: string
+  lookup_status: NeedLookupStatus
+  public_url: string | null
+  lookup_note: string
+  source_pipeline_id: string | null
+  user_id: string
+  submitted_at: string
+}
+
+export type PipelineRecord = PipelineSourceRecord | PipelineEventRecord | PipelineLookupRecord
+
+export interface NeedLookupView {
+  lookup_status: NeedLookupStatus
+  public_url: string | null
+  checked_at: string
+  lookup_note: string
+  stale: boolean
+  // Deliberately narrower than "reachable", "licensed" or "lawful": discovery validated HTTPS syntax,
+  // exact-host binding and public DNS only. It did not prove an HTTP response or reuse rights.
+  access_basis: 'https_url_public_dns'
+}
 
 // One source folded with its latest event — what the panel renders.
 export interface PipelineView {
@@ -119,12 +163,54 @@ export function newPipelineId(at: string = nowIso()): string {
   return `PIPE-${at.slice(0, 10).replace(/-/g, '')}-${randomUUID().slice(0, 8)}`
 }
 
+/** Stable join key for one authored need.  Including the series prevents an old link attaching when a
+ * later run accidentally reuses the same slug for a different question. */
+export function dataNeedFingerprint(needId: string, series: string): string {
+  const cleanSeries = String(series || '').trim().replace(/\s+/g, ' ')
+  return createHash('sha256').update(`${String(needId || '').trim()}\n${cleanSeries}`, 'utf8').digest('hex')
+}
+
 // PIPE-YYYYMMDD-<8hex>. Anchored, so a route param can't smuggle a path segment anywhere it is used.
 const PIPELINE_ID_RE = /^PIPE-\d{8}-[0-9a-f]{8}$/
 // A connector folder slug (mirrors the registry's own id rule) — anchored for the same reason.
 const CONNECTOR_SLUG_RE = /^[a-z0-9][a-z0-9_-]{0,120}$/
+const NEED_ID_RE = /^[a-z0-9][a-z0-9_-]{0,127}$/
+const CANONICAL_UTC_SECONDS_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/
+const CANONICAL_UTC_MILLIS_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/
+const DECISION_FINGERPRINT_RE = /^sha256:[a-f0-9]{64}$/
+const LOOKUP_STALE_MS = 30 * 24 * 60 * 60 * 1000
 export function isPipelineId(s: string): boolean {
   return PIPELINE_ID_RE.test(s)
+}
+
+function canonicalUtcSeconds(value: unknown): value is string {
+  return typeof value === 'string' && CANONICAL_UTC_SECONDS_RE.test(value) && isRfc3339(value)
+}
+
+function canonicalUtcMillis(value: unknown): value is string {
+  return typeof value === 'string' && CANONICAL_UTC_MILLIS_RE.test(value) && isRfc3339(value)
+}
+
+function validRunRootIdentity(value: unknown): value is string {
+  if (typeof value !== 'string' || !value || value.length > 300 || value.includes('\\') || path.isAbsolute(value)) return false
+  const parts = value.split('/')
+  return parts.every((part) => !!part && part !== '.' && part !== '..' && /^[A-Za-z0-9._-]+$/.test(part))
+}
+
+function lookupSourceMatches(
+  source: Partial<PipelineSourceRecord> | undefined,
+  input: {
+    subject: string; swarm: string; run_root: string; decision_fingerprint: string
+    need_id: string; public_url: string
+  },
+): boolean {
+  if (!source || source.kind !== 'pipeline_source' || !isPipelineId(String(source.pipeline_id || ''))) return false
+  const sourceUrl = safeConnectorSourceUrl(source.source_url)
+  const publicUrl = safeConnectorSourceUrl(input.public_url)
+  return !!sourceUrl && !!publicUrl && sourceUrl.url === publicUrl.url
+    && source.subject === input.subject.toUpperCase() && source.swarm === input.swarm
+    && source.run_root === input.run_root && source.decision_fingerprint === input.decision_fingerprint
+    && source.need_id === input.need_id
 }
 
 async function appendLedger(record: PipelineRecord, stateDir: string): Promise<void> {
@@ -136,11 +222,91 @@ async function appendLedger(record: PipelineRecord, stateDir: string): Promise<v
   )
 }
 
+/** Persist one terminal lookup outcome.  Invalid URL/status combinations fail closed before append. */
+export async function writeNeedLookup(
+  input: {
+    subject: string
+    swarm: string
+    run_root: string
+    decision_fingerprint: string
+    need_id: string
+    series: string
+    lookup_status: NeedLookupStatus
+    public_url?: string | null
+    lookup_note?: string
+    source_pipeline_id?: string | null
+    lookup_started_at: string
+  },
+  user: string,
+  stateDir: string = STATE_DIR,
+): Promise<PipelineLookupRecord> {
+  const needId = String(input.need_id || '').trim()
+  const subject = String(input.subject || '').trim().toUpperCase()
+  const swarm = String(input.swarm || '').trim()
+  const runRoot = String(input.run_root || '').trim()
+  const decisionFingerprint = String(input.decision_fingerprint || '').trim()
+  const series = String(input.series || '').trim()
+  if (!NEED_ID_RE.test(needId)) throw new Error('invalid need id')
+  if (!subject || subject.length > 64 || !swarm || swarm.length > 64 || !series || series.length > SERIES_MAX
+      || !validRunRootIdentity(runRoot) || !DECISION_FINGERPRINT_RE.test(decisionFingerprint)
+      || !canonicalUtcMillis(input.lookup_started_at)) {
+    throw new Error('invalid lookup identity')
+  }
+  if (!NEED_LOOKUP_STATUSES.includes(input.lookup_status)) throw new Error('invalid lookup status')
+  const safe = input.public_url == null ? null : safeConnectorSourceUrl(input.public_url)
+  if (input.lookup_status === 'public_link_found' && !safe) throw new Error('found lookup requires a safe public URL')
+  if (input.lookup_status === 'could_not_find' && input.public_url != null) throw new Error('no-result lookup cannot carry a URL')
+  const sourceId = input.source_pipeline_id == null ? null : String(input.source_pipeline_id)
+  if (sourceId !== null && !isPipelineId(sourceId)) throw new Error('invalid source pipeline id')
+  if (input.lookup_status === 'could_not_find' && sourceId !== null) throw new Error('no-result lookup cannot carry a source')
+  if (input.lookup_status === 'public_link_found') {
+    if (!sourceId) throw new Error('found lookup requires a persisted source')
+    const source = readAllPipeline(stateDir).find(
+      (r): r is PipelineSourceRecord => r.kind === 'pipeline_source' && r.pipeline_id === sourceId,
+    )
+    if (!lookupSourceMatches(source, {
+      subject, swarm, run_root: runRoot, decision_fingerprint: decisionFingerprint,
+      need_id: needId, public_url: safe!.url,
+    })) {
+      throw new Error('found lookup source does not match the need and URL')
+    }
+  }
+  const current = latestNeedLookupRecord({
+    swarm, subject, run_root: runRoot, decision_fingerprint: decisionFingerprint,
+    need_id: needId, series,
+  }, stateDir)
+  if (current && current.lookup_started_at > input.lookup_started_at) {
+    throw new Error('stale lookup attempt cannot replace a newer result')
+  }
+  const at = nowIso()
+  const record: PipelineLookupRecord = {
+    pipeline_id: newPipelineId(at),
+    kind: 'pipeline_lookup',
+    subject,
+    swarm,
+    need_id: needId,
+    need_fingerprint: dataNeedFingerprint(needId, series),
+    run_root: runRoot,
+    decision_fingerprint: decisionFingerprint,
+    lookup_started_at: input.lookup_started_at,
+    lookup_status: input.lookup_status,
+    public_url: safe?.url ?? null,
+    lookup_note: String(input.lookup_note || '').trim().slice(0, NOTE_MAX),
+    source_pipeline_id: sourceId,
+    user_id: user || 'local',
+    submitted_at: at,
+  }
+  await appendLedger(record, stateDir)
+  return record
+}
+
 /** Write a pipeline SOURCE. Every free-text field is clamped, like feedback/screener. Returns the record. */
 export async function writePipelineSource(
   input: {
     subject: string
     swarm: string
+    run_root?: string | null
+    decision_fingerprint?: string | null
     need_id: string | null
     series_hint?: string
     source_url: string
@@ -152,11 +318,18 @@ export async function writePipelineSource(
   stateDir: string = STATE_DIR,
 ): Promise<PipelineSourceRecord> {
   const at = nowIso()
+  const runRoot = input.run_root == null ? null : String(input.run_root).trim()
+  const decisionFingerprint = input.decision_fingerprint == null ? null : String(input.decision_fingerprint).trim()
+  if ((runRoot === null) !== (decisionFingerprint === null)
+      || (runRoot !== null && (!validRunRootIdentity(runRoot) || !DECISION_FINGERPRINT_RE.test(decisionFingerprint!)))) {
+    throw new Error('invalid decision source identity')
+  }
   const record: PipelineSourceRecord = {
     pipeline_id: newPipelineId(at),
     kind: 'pipeline_source',
     subject: (input.subject || '').toUpperCase().slice(0, 64),
     swarm: (input.swarm || '').slice(0, 64),
+    ...(runRoot !== null ? { run_root: runRoot, decision_fingerprint: decisionFingerprint } : {}),
     need_id: input.need_id ? String(input.need_id).slice(0, 128) : null,
     series_hint: (input.series_hint || '').trim().slice(0, SERIES_MAX),
     source_url: (input.source_url || '').trim().slice(0, URL_MAX),
@@ -241,6 +414,69 @@ export function readAllPipeline(stateDir: string = STATE_DIR): PipelineRecord[] 
     }
   }
   return out
+}
+
+interface NeedLookupIdentity {
+  swarm: string
+  subject: string
+  run_root: string
+  decision_fingerprint: string
+  need_id: string
+  series: string
+  cadence?: string
+}
+
+function latestNeedLookupRecord(identity: NeedLookupIdentity, stateDir: string): PipelineLookupRecord | undefined {
+  const fingerprint = dataNeedFingerprint(identity.need_id, identity.series)
+  const wantSubject = String(identity.subject || '').toUpperCase()
+  let best: PipelineLookupRecord | undefined
+  const sources = new Map<string, PipelineSourceRecord>()
+  for (const raw of readAllPipeline(stateDir)) {
+    if (raw.kind === 'pipeline_source') {
+      // Idempotency makes source ids unique. For a hand-edited ledger, keep the first well-formed source so
+      // a later duplicate id cannot rewrite the lookup join in place.
+      if (isPipelineId(raw.pipeline_id) && !sources.has(raw.pipeline_id)) sources.set(raw.pipeline_id, raw)
+      continue
+    }
+    if (raw.kind !== 'pipeline_lookup') continue
+    const r = raw as Partial<PipelineLookupRecord>
+    if (r.swarm !== identity.swarm || r.subject !== wantSubject || r.need_id !== identity.need_id
+        || r.need_fingerprint !== fingerprint || r.run_root !== identity.run_root
+        || r.decision_fingerprint !== identity.decision_fingerprint) continue
+    if (!NEED_LOOKUP_STATUSES.includes(r.lookup_status as NeedLookupStatus)
+        || !isPipelineId(String(r.pipeline_id || '')) || !canonicalUtcSeconds(r.submitted_at)
+        || !canonicalUtcMillis(r.lookup_started_at)) continue
+    if (r.lookup_status === 'public_link_found') {
+      if (typeof r.public_url !== 'string' || typeof r.source_pipeline_id !== 'string'
+          || !lookupSourceMatches(sources.get(r.source_pipeline_id), {
+            subject: wantSubject, swarm: identity.swarm, run_root: identity.run_root,
+            decision_fingerprint: identity.decision_fingerprint,
+            need_id: identity.need_id, public_url: r.public_url,
+          })) continue
+    } else if (r.public_url !== null || r.source_pipeline_id !== null) continue
+    // Request start time owns last-search-wins. Append order breaks a true same-millisecond tie only.
+    if (!best || r.lookup_started_at >= best.lookup_started_at) best = r as PipelineLookupRecord
+  }
+  return best
+}
+
+/** Latest valid lookup for one exact immutable decision+need. Malformed/unscoped historical lines are
+ * ignored, and URLs are re-admitted on read so a hand-edited ledger cannot surface an unsafe link. */
+export function latestNeedLookup(
+  identity: NeedLookupIdentity,
+  stateDir: string = STATE_DIR,
+): NeedLookupView | undefined {
+  const best = latestNeedLookupRecord(identity, stateDir)
+  if (!best) return undefined
+  const checkedMs = Date.parse(best.submitted_at)
+  return {
+    lookup_status: best.lookup_status,
+    public_url: best.lookup_status === 'public_link_found' ? safeConnectorSourceUrl(best.public_url)?.url ?? null : null,
+    checked_at: best.submitted_at,
+    lookup_note: String(best.lookup_note || '').slice(0, NOTE_MAX),
+    stale: !Number.isFinite(checkedMs) || Date.now() - checkedMs > LOOKUP_STALE_MS,
+    access_basis: 'https_url_public_dns',
+  }
 }
 
 /** Fold sources + their latest events into the list view, newest source first. */

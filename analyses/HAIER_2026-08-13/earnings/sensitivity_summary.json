@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0",
+  "ticker": "HAIER",
+  "as_of": "2026-08-13",
+  "currency": "CNY",
+  "base_metric": "ebitda_rmb_m",
+  "base_value": 26543.4,
+  "base_value_source": "FY2025 EBITDA (CapIQ-derived, non-GAAP construct; company does not report EBITDA as a standalone metric) — analyses/HAIER_2026-08-13/earnings/01_historical-financials.md §1, CapIQ export Financials.xls, data as of 2026-08-13",
+  "base_period": "FY2025",
+  "revenue_base": 302346.8,
+  "revenue_period": "FY2025",
+  "sensitivities": [
+    {
+      "variable": "raw_material_cost_excess_growth_pp",
+      "label": "Raw-material cost growth in excess of appliance-segment revenue growth",
+      "unit": "pp (excess YoY cost growth over revenue growth)",
+      "base_value": 3.69,
+      "coefficient": -1449.9,
+      "confidence": "medium",
+      "basis": "inferred",
+      "valid_range": {"low": 0, "high": 7.4},
+      "non_linearity": "No cost-plus/escalator pass-through clause exists (business-model 06_value-chain.md) — cost increases are absorbed, not passed through, so a positive move is not cushioned by pricing power.",
+      "source": "earnings/03_margin-drivers.md §7 bridge (FY2025 Annual Report (SSE, CAS), p.42, computed)"
+    },
+    {
+      "variable": "china_revenue_yoy_change_pct",
+      "label": "China domestic revenue growth rate (YoY %)",
+      "unit": "% YoY revenue growth",
+      "base_value": 3.06,
+      "coefficient": 422.2,
+      "confidence": "medium",
+      "basis": "inferred",
+      "valid_range": {"low": -10, "high": 5},
+      "non_linearity": "SG&A does not scale down proportionately with lower China volume — Q1 2026 admin-expense ratio worsened 80bps, partly attributed by the company to de-leveraging on the revenue decline itself (margin-drivers §5). The bear-case impact likely understates the true effect.",
+      "source": "earnings/02_revenue-drivers.md §4 (2026 First Quarter Report, p.3, AVC data); China gross margin 28.81% (earnings/03_margin-drivers.md §7)"
+    },
+    {
+      "variable": "north_america_revenue_yoy_change_pct",
+      "label": "North America revenue growth rate (YoY %)",
+      "unit": "% YoY revenue growth",
+      "base_value": 0.43,
+      "coefficient": 213.3,
+      "confidence": "low",
+      "basis": "inferred",
+      "valid_range": {"low": -10, "high": 5},
+      "non_linearity": "Q1 2026 weakness combines a one-time weather shock with a tariff-cost step-change; tariff rates can jump discretely rather than moving smoothly, so the true downside beyond the modelled range may not be linear. No North America segment margin is disclosed, so group gross margin (26.7%) is used as a proxy.",
+      "source": "earnings/02_revenue-drivers.md §4 (2026 First Quarter Report, p.3-4, AHAM data); group gross margin (earnings/03_margin-drivers.md §3)"
+    },
+    {
+      "variable": "cost_reduction_line_yoy_growth_rate_pp",
+      "label": "YoY growth rate of the cost-reduction / other-cost-items line (appliance segments)",
+      "unit": "pp (YoY % change in the cost line)",
+      "base_value": -19.46,
+      "coefficient": -166.14,
+      "confidence": "low",
+      "basis": "inferred",
+      "valid_range": {"low": -31.1, "high": 3.77},
+      "non_linearity": "This is a management-controlled lever (procurement/cost programs), not guaranteed to repeat at FY2025's magnitude — margin-drivers §8 flags it explicitly as 'not a structural cost advantage.' It is the mirror image of the raw-material-cost variable, not independent of it.",
+      "source": "earnings/03_margin-drivers.md §7 bridge (FY2025 Annual Report (SSE, CAS), p.42, computed)"
+    },
+    {
+      "variable": "floating_rate_interest_rate_pp",
+      "label": "Interest rate move on floating-rate borrowings",
+      "unit": "pp",
+      "base_value": null,
+      "coefficient": -273,
+      "impact_metric": "net_profit_attributable_rmb_m",
+      "confidence": "high",
+      "basis": "company-disclosed",
+      "valid_range": {"low": -1, "high": 1},
+      "non_linearity": "70% of FY2025 borrowings are floating-rate (RMB25,468m of RMB36,382m); Haier holds net cash on a broad basis, which caps the real damage a rate move can do (business-model 10_external-dependency.md §1).",
+      "source": "business-model/10_external-dependency.md §2 (FY2025 Annual Report (HKEX, IFRS), Note 43, p.301)"
+    },
+    {
+      "variable": "rmb_usd_fx_pct_change",
+      "label": "RMB move vs USD (appreciation positive)",
+      "unit": "% RMB move vs USD",
+      "base_value": null,
+      "coefficient": -25.6,
+      "impact_metric": "pretax_profit_rmb_m",
+      "confidence": "high",
+      "basis": "company-disclosed",
+      "valid_range": {"low": -5, "high": 5},
+      "non_linearity": "Disclosed sensitivity covers period-end monetary assets/liabilities only, not full P&L/margin translation exposure — FY2025's finance-expense ratio moved 36bps from Euro appreciation alone, larger than a static monetary-position table implies (business-model 10_external-dependency.md §2).",
+      "source": "business-model/10_external-dependency.md §2 (FY2025 Annual Report (HKEX, IFRS), Note 43, p.300)"
+    },
+    {
+      "variable": "rmb_eur_fx_pct_change",
+      "label": "RMB move vs EUR (appreciation positive)",
+      "unit": "% RMB move vs EUR",
+      "base_value": null,
+      "coefficient": -18.8,
+      "impact_metric": "pretax_profit_rmb_m",
+      "confidence": "high",
+      "basis": "company-disclosed",
+      "valid_range": {"low": -5, "high": 5},
+      "non_linearity": "Same monetary-position-only limitation as the RMB/USD row above.",
+      "source": "business-model/10_external-dependency.md §2 (FY2025 Annual Report (HKEX, IFRS), Note 43, p.300)"
+    }
+  ]
+}

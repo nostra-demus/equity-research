@@ -17,9 +17,10 @@
 import { deriveCommodities } from '../commodities'
 import { memberMatchesGeo, type ThemeGeo } from './geo-index'
 import { DAILY_WINDOWS, ensureDaily, scoreTheme, type ThemeScoreConfig } from './score'
-import type { Theme, ThemeMember, ThemesIndex, ThemeSummary, ThemeTier } from './types'
+import type { Theme, ThemeCompilerAttempt, ThemeMember, ThemesIndex, ThemeSummary, ThemeTier } from './types'
 import { buildSummary } from './store'
 import { compareThemeSummaries, companiesForMembers, firstSeenForMembers, uniqueThemeMembers } from './qualification'
+import { buildThemeCompilerHealth, buildThemeFormationQueue, compilerDebtForThemes } from './formation'
 
 /** The commodity slice to apply: `commodity` narrows to ONE canonical subject (e.g. 'GOLD');
  *  otherwise any commodity-tagged member counts. */
@@ -58,6 +59,7 @@ export function buildCommodityThemesIndex(
   filter: ThemeCommodityFilter,
   now: () => Date = () => new Date(),
   cfg?: ThemeScoreConfig,
+  compilerAttempt?: ThemeCompilerAttempt | null,
 ): ThemesIndex {
   const nowD = now()
   const nowMs = nowD.getTime()
@@ -67,7 +69,8 @@ export function buildCommodityThemesIndex(
 
   for (const t of themes) {
     if (t.status !== 'live') continue
-    const sliceMembers = uniqueThemeMembers(arr(t.members).filter((m) => memberMatchesCommodity(m, filter)))
+    const sliceObservations = arr(t.members).filter((m) => memberMatchesCommodity(m, filter))
+    const sliceMembers = uniqueThemeMembers(sliceObservations)
     if (!sliceMembers.length) continue // this theme isn't about the requested commodity → drop it
 
     // Rebuild company placement from the sliced proof. The old projection reused the theme's GLOBAL
@@ -84,7 +87,9 @@ export function buildCommodityThemesIndex(
     const flow_daily = holder.flow_daily || []
     const slicedTheme: Theme = {
       ...t,
-      members: sliceMembers,
+      // Keep the complete audit ring for family-state resolution; the explicit company projection below
+      // marks this as a scoped read, while scores/flow remain computed only from sliceMembers above.
+      members: t.members,
       companies: sliceCompanies,
       sectors: [],
       scores: scored.scores,
@@ -93,9 +98,9 @@ export function buildCommodityThemesIndex(
       flow_series: scored.flow_series,
       flow_daily,
       first_seen: t.first_seen,
-      last_flow: sliceMembers.reduce((mx, m) => (m.found_at > mx ? m.found_at : mx), ''),
+      last_flow: sliceObservations.reduce((mx, m) => (m.found_at > mx ? m.found_at : mx), ''),
     }
-    const summary = buildSummary(slicedTheme, nowD, sliceCompanies)
+    const summary = buildSummary(slicedTheme, nowD, sliceCompanies, sliceObservations)
     if (summary.narrative && summary.assessment.status !== 'context') {
       const firstNonZero = summary.flow_daily.findIndex((value) => value > 0)
       if (firstNonZero >= 0) history_days = Math.max(history_days, summary.flow_daily.length - firstNonZero)
@@ -107,5 +112,14 @@ export function buildCommodityThemesIndex(
 
   // Same evidence-first admission order as the global index; sliced heat only breaks later ties.
   out.sort(compareThemeSummaries)
-  return { generated_at: nowD.toISOString().replace(/\.\d{3}Z$/, 'Z'), themes: out, counts, history_days }
+  const projectMembers = (theme: Theme) => arr(theme.members).filter((member) => memberMatchesCommodity(member, filter))
+  const formation_queue = buildThemeFormationQueue(themes, nowD, projectMembers)
+  return {
+    generated_at: nowD.toISOString().replace(/\.\d{3}Z$/, 'Z'),
+    themes: out,
+    formation_queue,
+    compiler_health: buildThemeCompilerHealth(formation_queue, nowD, compilerAttempt, compilerDebtForThemes(themes, projectMembers)),
+    counts,
+    history_days,
+  }
 }

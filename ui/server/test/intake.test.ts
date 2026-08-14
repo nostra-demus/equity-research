@@ -1,4 +1,5 @@
-// readIntakePlan() — the SERVER-side authority over the scoped rerun plan (frameworks/INTAKE.md §4).
+// readIntakePlan() — the SERVER-side authority over every swarm's scoped rerun plan
+// (frameworks/INTAKE.md §4).
 //
 // The safety-critical guarantees this pins:
 //  1. A hallucinated module/agent name in the plan file is DROPPED (never handed to the client as a
@@ -6,20 +7,50 @@
 //  2. Each surviving command's downstream cascade is RE-EXPANDED from the live DAG (roster.downstreamCascade),
 //     so a stale/wrong hand-written `cascade_modules` in the file can never reach the client.
 //  3. No run / no plan / malformed plan → null (fail toward the honest staleness floor, INTAKE.md §1).
-// Isolated in a temp repo with a fake 2-module research graph. Run: npx tsx test/intake.test.ts
+// Isolated in a temp repo with a fake 2-module research graph + a manifest-declared singleton swarm.
+// Run: npx tsx test/intake.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
+import { createHash } from 'node:crypto'
+import { execFileSync } from 'node:child_process'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
+const SOURCE_REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..')
 const REPO = fs.mkdtempSync(path.join(os.tmpdir(), 'intake-'))
 process.env.ENGINE_REPO_ROOT = REPO
+
+execFileSync('git', ['-C', REPO, 'init', '-q'])
+execFileSync('git', ['-C', REPO, 'config', 'user.email', 'intake-test@example.invalid'])
+execFileSync('git', ['-C', REPO, 'config', 'user.name', 'Intake Test'])
 
 function write(rel: string, body: string) {
   const abs = path.join(REPO, rel)
   fs.mkdirSync(path.dirname(abs), { recursive: true })
   fs.writeFileSync(abs, body)
+  // Prompt-authored plan bytes become execution authority only with their exact Git commit. Keep staged
+  // transport copies uncommitted: their committed source plan is the authority tested below.
+  if (/\/intake\/\d{4}-\d{2}-\d{2}_intake_plan(?:_v\d+)?\.json$/.test(rel)) {
+    let staged = false
+    try { staged = JSON.parse(body)?.staged_for_scoped_rerun === true } catch { /* malformed audit fixture */ }
+    if (!staged) {
+      execFileSync('git', ['-C', REPO, 'add', '--', rel])
+      execFileSync('git', ['-C', REPO, 'commit', '-q', '-m', `plan ${path.basename(rel)}`, '--', rel])
+    }
+  }
+}
+const canonicalJson = (value: any): string => {
+  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(',')}]`
+  if (value && typeof value === 'object') return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${canonicalJson(value[key])}`).join(',')}}`
+  return JSON.stringify(value)
+}
+const decisionFingerprint = (runRoot: string, decision: any) =>
+  `sha256:${createHash('sha256').update(`${runRoot}\n${canonicalJson(decision)}`).digest('hex')}`
+const writeDecision = (runRoot: string, decision: any): string => {
+  write(`${runRoot}/decision_record.json`, JSON.stringify(decision))
+  return decisionFingerprint(runRoot, decision)
 }
 const fm = (name: string, layer: number, extra = '') => `---\nname: ${name}\nlayer: ${layer}\n${extra}---\n# ${name}\nbody\n`
 const day = (offset: number) => {
@@ -36,16 +67,40 @@ write('.claude/agents/alpha/99_alpha-synthesis.md', fm('alpha-synthesis', 99, 'd
 write('.claude/agents/beta/01_beta-thing.md', fm('beta-thing', 1))
 write('.claude/agents/beta/99_beta-synthesis.md', fm('beta-synthesis', 99, 'depends_on: [alpha]\n'))
 
+// A manifest-declared singleton constellation swarm. The reader must derive its root, namespace, roster,
+// and DAG from this file/tree; none of these names may live in intake.ts.
+write('.claude/agents/commodity/SWARM.md', `---
+id: commodity
+label: Commodities
+unit: commodity
+order: 3
+layout: constellation
+command_ns: commodity
+run_root_template: commodity/runs/{COMMODITY}
+placeholder: COMMODITY
+runs_root: commodity/runs
+---
+# fixture swarm
+`)
+write('.claude/agents/commodity/curve/01_curve.md', fm('commodity-curve', 1))
+write('.claude/agents/commodity/curve/99_curve-synthesis.md', fm('commodity-curve-synthesis', 99, 'depends_on: []\n'))
+write('.claude/agents/commodity/thesis/01_thesis.md', fm('commodity-thesis', 1))
+write('.claude/agents/commodity/thesis/99_thesis-synthesis.md', fm('commodity-thesis-synthesis', 99, 'depends_on: [curve]\n'))
+
 const RUN = `analyses/TEST_${YESTERDAY}`
 write(`${RUN}/final_thesis.md`, '# thesis\n')
+const TEST_DECISION = { ticker: 'TEST', decision: 'Watchlist', confidence_score: 50 }
+const TEST_FP = writeDecision(RUN, TEST_DECISION)
 
 // The fixture plan: one VALID entry (alpha/alpha-thing) + one HALLUCINATED entry (badmod/bad-agent);
 // the valid command carries a deliberately WRONG cascade_modules the reader must overwrite.
 const planFixture = {
-  schema_version: '1.0',
+  schema_version: '1.1',
   ticker: 'TEST',
   run_root: RUN,
+  decision_fingerprint: TEST_FP,
   scan_date: TODAY,
+  scanned_at: new Date().toISOString(),
   watermark: `${RUN}/final_thesis.md`,
   new_docs: [
     {
@@ -75,7 +130,8 @@ const planFixture = {
 }
 write(`${RUN}/intake/${TODAY}_intake_plan.json`, JSON.stringify(planFixture, null, 2))
 
-const { readIntakePlan, latestPlanFileFor } = await import('../src/intake')
+const { readIntakePlan, latestPlanFileFor, intakePlanSha256, intakeExecutionReceiptId } = await import('../src/intake')
+const { listFinishedIntakeOwners, resolveUniqueFinishedIntakeOwner } = await import('../src/intake-owner')
 
 // ---- 1. valid ticker with a plan: hallucinated names dropped, cascade re-expanded ----
 const plan = readIntakePlan('TEST')
@@ -99,6 +155,7 @@ assert.equal(cmd.command, '/research:rerun alpha alpha-thing TEST')
 // cascade RE-EXPANDED from the live DAG — the wrong ['WRONG'] is overwritten and beta (downstream) appears
 assert.ok(cmd.cascade_modules.includes('beta'), 'downstream beta must be recovered from the DAG')
 assert.ok(!cmd.cascade_modules.includes('WRONG'), 'the file cascade must not be trusted')
+assert.ok(!cmd.cascade_modules.includes('master'), 'the research-only master is never exposed as a module cascade')
 
 // plan-level entry_orbs also validated; verdict derived from surviving commands
 assert.equal(plan!.rerun_plan.entry_orbs.length, 1)
@@ -137,7 +194,7 @@ assert.equal(plan3!.verdict, 'insufficient', 'a dropped command on a doc that cl
 
 // ---- 6. a file-declared 'insufficient' verdict survives even though new_docs is non-empty ----
 write(`analyses/INSUF_${YESTERDAY}/final_thesis.md`, '# thesis\n')
-const insufFixture = { ...planFixture, ticker: 'INSUF', run_root: `analyses/INSUF_${YESTERDAY}`, verdict: 'insufficient', rerun_plan: { materiality_gate: 60, entry_orbs: [], commands: [], note_only: [] } }
+const insufFixture = { ...planFixture, ticker: 'INSUF', run_root: `analyses/INSUF_${YESTERDAY}`, verdict: 'insufficient', new_docs: [{ ...planFixture.new_docs[0], path: 'data/INSUF/external/prov/note.pdf' }], rerun_plan: { materiality_gate: 60, entry_orbs: [], commands: [], note_only: [] } }
 write(`analyses/INSUF_${YESTERDAY}/intake/${TODAY}_intake_plan.json`, JSON.stringify(insufFixture, null, 2))
 const planInsuf = readIntakePlan('INSUF')
 assert.equal(planInsuf!.verdict, 'insufficient', 'a file-declared insufficient verdict must not be overwritten to note_only just because new_docs is non-empty')
@@ -158,7 +215,11 @@ const emptyPlanFor = (t: string, runRoot: string, extra: Record<string, unknown>
 // ---- 7. a SCOPED plan whose scan_date predates a newer pool file → null (expired), off the DURABLE
 //         scan_date, immune to a forward-bumped plan mtime. ------------------------------------------
 write(`analyses/STALE_${YESTERDAY}/final_thesis.md`, '# thesis\n')
-const staleFixture = { ...planFixture, ticker: 'STALE', run_root: `analyses/STALE_${YESTERDAY}`, scan_date: YESTERDAY }
+const staleFixture = {
+  ...planFixture, ticker: 'STALE', run_root: `analyses/STALE_${YESTERDAY}`, scan_date: YESTERDAY,
+  new_docs: [{ ...planFixture.new_docs[0], path: 'data/STALE/external/prov/note.pdf' }],
+  rerun_plan: { ...planFixture.rerun_plan, commands: [{ ...planFixture.rerun_plan.commands[0], triggered_by: ['data/STALE/external/prov/note.pdf'] }] },
+}
 write(`analyses/STALE_${YESTERDAY}/intake/${TODAY}_intake_plan.json`, JSON.stringify(staleFixture, null, 2))
 write('data/STALE/new_doc_today.txt', 'landed after the analysis, cross-day') // dated TODAY
 bumpMtimeForward(`analyses/STALE_${YESTERDAY}/intake/${TODAY}_intake_plan.json`) // git checkout rewrote it forward
@@ -211,6 +272,20 @@ bumpMtimeForward(`analyses/AFTER_${TODAY}/intake/${TODAY}_intake_plan.json`) // 
 const planAfter = readIntakePlan('AFTER')
 assert.equal(planAfter!.pool_current, false, 'a pool ts after scanned_at → pool_current false, EVEN with the plan mtime bumped 5 days forward (the false-"already considered" bug is closed)')
 
+// Sub-second ordering regression: a document and scan can land in the SAME UTC second. Whole-second
+// `date` collapsed their order; the canonical millisecond witness must preserve "document came after".
+while (Date.now() % 1000 < 25) { /* keep the fixture safely inside one second */ }
+write('data/SAMESECOND/doc.txt', 'same-second landing')
+const sameSecondDocMs = Math.floor(poolMaxOf('data/SAMESECOND/doc.txt'))
+const sameSecondScanMs = sameSecondDocMs - 1
+assert.equal(Math.floor(sameSecondDocMs / 1000), Math.floor(sameSecondScanMs / 1000), 'fixture events share one wall-clock second')
+const sameSecondRun = `analyses/SAMESECOND_${TODAY}`
+write(`${sameSecondRun}/final_thesis.md`, '# thesis\n')
+write(`${sameSecondRun}/intake/${TODAY}_intake_plan.json`, JSON.stringify(emptyPlanFor('SAMESECOND', sameSecondRun, {
+  scan_date: TODAY, scanned_at: new Date(sameSecondScanMs).toISOString(),
+}), null, 2))
+assert.equal(readIntakePlan('SAMESECOND')!.pool_current, false, 'millisecond witness orders a same-second post-scan document correctly')
+
 // ---- 12. a FUTURE scanned_at (prompt/clock-skew bug) is discarded → falls to scan_date, never trusted. --
 write(`analyses/FUTURESTAMP_${TODAY}/final_thesis.md`, '# thesis\n')
 write('data/FUTURESTAMP/doc_today.txt', 'dated today')
@@ -234,7 +309,11 @@ assert.equal(planNoWit!.pool_current, false, 'no scanned_at and an invalid scan_
 const consumedRun = `analyses/CONSUMED_${TODAY}`
 write(`${consumedRun}/final_thesis.md`, '# thesis\n')
 write(`${consumedRun}/decision_record.json`, '{}')
-const consumedFixture = { ...planFixture, ticker: 'CONSUMED', run_root: consumedRun, scan_date: TODAY, staged_for_scoped_rerun: true }
+const consumedFixture = {
+  ...planFixture, ticker: 'CONSUMED', run_root: consumedRun, scan_date: TODAY, staged_for_scoped_rerun: true,
+  new_docs: [{ ...planFixture.new_docs[0], path: 'data/CONSUMED/external/prov/note.pdf' }],
+  rerun_plan: { ...planFixture.rerun_plan, commands: [{ ...planFixture.rerun_plan.commands[0], triggered_by: ['data/CONSUMED/external/prov/note.pdf'] }] },
+}
 write(`${consumedRun}/intake/${TODAY}_intake_plan.json`, JSON.stringify(consumedFixture, null, 2))
 const planConsumed = readIntakePlan('CONSUMED')
 assert.ok(planConsumed, 'a consumed plan is still SERVED (kept for the audit trail), never nulled')
@@ -245,20 +324,52 @@ assert.notEqual(planConsumed!.verdict, 'scoped_rerun', 'a consumed plan must nev
 // ---- 15. the SAME stamp, but the root has not actually finished yet (still in flight / launch never
 //          admitted) → NOT consumed: a retry after a failed launch must still find the plan's commands. --
 const pendingRun = `analyses/PENDING_${TODAY}`
-const pendingFixture = { ...planFixture, ticker: 'PENDING', run_root: pendingRun, scan_date: TODAY, staged_for_scoped_rerun: true }
+const pendingFixture = {
+  ...planFixture, ticker: 'PENDING', run_root: pendingRun, scan_date: TODAY, staged_for_scoped_rerun: true,
+  new_docs: [{ ...planFixture.new_docs[0], path: 'data/PENDING/external/prov/note.pdf' }],
+  rerun_plan: { ...planFixture.rerun_plan, commands: [{ ...planFixture.rerun_plan.commands[0], triggered_by: ['data/PENDING/external/prov/note.pdf'] }] },
+}
 write(`${pendingRun}/intake/${TODAY}_intake_plan.json`, JSON.stringify(pendingFixture, null, 2))
 const planPending = readIntakePlan('PENDING')
 assert.ok(planPending, 'plan still served while the run is in flight (no final deliverables yet)')
 assert.equal(planPending!.consumed, false, 'staged but not yet finished → not consumed, commands must survive for a retry')
-assert.equal(planPending!.rerun_plan.commands.length, 1)
+assert.equal(planPending!.rerun_plan.commands.length, 0, 'a legacy staged plan without a verifiable source fingerprint is audit-only')
+assert.equal(planPending!.actionable, false)
+
+// A real stamped copy retains the exact SOURCE run/fingerprint while it lives in the newer staging root.
+// The source identity, not the staging root's partial bytes, keeps its retry command actionable.
+const stagedSource = `analyses/STAGED_${YESTERDAY}`
+const stagedTarget = `analyses/STAGED_${TODAY}`
+const stagedSourceFp = writeDecision(stagedSource, { ticker: 'STAGED', decision: 'Watchlist', confidence_score: 41 })
+write(`${stagedSource}/final_thesis.md`, '# source thesis\n')
+writeDecision(stagedTarget, { ticker: 'STAGED', decision: 'Watchlist', confidence_score: 41 })
+const stagedFixture = {
+  ...planFixture, ticker: 'STAGED', run_root: stagedSource, decision_fingerprint: stagedSourceFp,
+  staged_for_scoped_rerun: true,
+  new_docs: [{ ...planFixture.new_docs[0], path: 'data/STAGED/external/prov/note.pdf' }],
+  rerun_plan: { ...planFixture.rerun_plan, commands: [{ ...planFixture.rerun_plan.commands[0], triggered_by: ['data/STAGED/external/prov/note.pdf'] }] },
+}
+const stagedSourceFixture = { ...stagedFixture }
+delete (stagedSourceFixture as any).staged_for_scoped_rerun
+write(`${stagedSource}/intake/${TODAY}_intake_plan.json`, JSON.stringify(stagedSourceFixture, null, 2))
+write(`${stagedTarget}/intake/${TODAY}_intake_plan.json`, JSON.stringify(stagedFixture, null, 2))
+const stagedRetry = readIntakePlan('STAGED')
+assert.ok(stagedRetry)
+assert.equal(stagedRetry!.run_root, stagedTarget)
+assert.equal(stagedRetry!.actionable, true, 'the stamped copy validates against its exact source decision')
+assert.equal(stagedRetry!.rerun_plan.commands.length, 1, 'an incomplete staged copy keeps its retry command')
 
 // ---- 16. an ORDINARY (un-stamped) plan sitting in the finished run it targets — the common, intended case
 //          (INTAKE.md: the plan deliberately lives under the OLDER run it invalidates) — must NEVER be
 //          treated as consumed just because that run happens to be finished. -----------------------------
 const ordinaryRun = `analyses/ORDINARY_${YESTERDAY}`
 write(`${ordinaryRun}/final_thesis.md`, '# thesis\n')
-write(`${ordinaryRun}/decision_record.json`, '{}')
-const ordinaryFixture = { ...planFixture, ticker: 'ORDINARY', run_root: ordinaryRun, scan_date: TODAY }
+const ordinaryFp = writeDecision(ordinaryRun, {})
+const ordinaryFixture = {
+  ...planFixture, ticker: 'ORDINARY', run_root: ordinaryRun, decision_fingerprint: ordinaryFp, scan_date: TODAY,
+  new_docs: [{ ...planFixture.new_docs[0], path: 'data/ORDINARY/external/prov/note.pdf' }],
+  rerun_plan: { ...planFixture.rerun_plan, commands: [{ ...planFixture.rerun_plan.commands[0], triggered_by: ['data/ORDINARY/external/prov/note.pdf'] }] },
+}
 write(`${ordinaryRun}/intake/${TODAY}_intake_plan.json`, JSON.stringify(ordinaryFixture, null, 2))
 const planOrdinary = readIntakePlan('ORDINARY')
 assert.ok(planOrdinary)
@@ -277,10 +388,11 @@ assert.equal(planOrdinary!.rerun_plan.commands.length, 1, 'the ordinary, not-yet
 // three orbs off a tier-5 alt-data panel. Writer and reader must agree on which folder IS the run.
 const SHADOW_COMPLETE = `analyses/SHADOW_${day(-3)}`
 write(`${SHADOW_COMPLETE}/final_thesis.md`, '# thesis\n')
-write(`${SHADOW_COMPLETE}/decision_record.json`, JSON.stringify({ ticker: 'SHADOW', decision: 'Watchlist', confidence_score: 57 })) // this run DECIDED → it is the standing run
+const shadowFp = writeDecision(SHADOW_COMPLETE, { ticker: 'SHADOW', decision: 'Watchlist', confidence_score: 57 }) // this run DECIDED → it is the standing run
 write(`${SHADOW_COMPLETE}/intake/${TODAY}_intake_plan.json`, JSON.stringify({
-  ...planFixture, ticker: 'SHADOW', run_root: SHADOW_COMPLETE, watermark: `${SHADOW_COMPLETE}/final_thesis.md`,
-  rerun_plan: { ...planFixture.rerun_plan, entry_orbs: [{ module: 'alpha', agent: 'alpha-thing' }], commands: [planFixture.rerun_plan.commands[0]] },
+  ...planFixture, ticker: 'SHADOW', run_root: SHADOW_COMPLETE, decision_fingerprint: shadowFp, watermark: `${SHADOW_COMPLETE}/final_thesis.md`,
+  new_docs: [{ ...planFixture.new_docs[0], path: 'data/SHADOW/external/prov/note.pdf' }],
+  rerun_plan: { ...planFixture.rerun_plan, entry_orbs: [{ module: 'alpha', agent: 'alpha-thing' }], commands: [{ ...planFixture.rerun_plan.commands[0], triggered_by: ['data/SHADOW/external/prov/note.pdf'] }] },
 }, null, 2))
 
 // …and a NEWER folder that never decided — exactly the production shape (AMZN_2026-07-20 held two
@@ -306,6 +418,399 @@ assert.ok(readIntakePlan('NODECISION'), 'a ticker with no decided run at all sti
 // just staged, #358) — the two resolutions are deliberately different and must not be unified.
 write(`analyses/SHADOW_${YESTERDAY}/intake/${TODAY}_intake_plan.json`, JSON.stringify(emptyPlanFor('SHADOW', `analyses/SHADOW_${YESTERDAY}`, { scan_date: TODAY }), null, 2))
 assert.ok(String(latestPlanFileFor('SHADOW')).includes(`SHADOW_${YESTERDAY}`), 'latestPlanFileFor still resolves the NEWEST root (the staged one), unchanged')
+
+// ---- GENERIC SWARM: a singleton run is resolved from SWARM.md, validated against its own nested roster,
+//      expanded through its own DAG, and rebuilt in its own command namespace. --------------------------
+const commodityRun = 'commodity/runs/GOLD'
+const commodityFp = writeDecision(commodityRun, { swarm: 'commodity', commodity: 'GOLD', decision_date: TODAY, action: 'Hold' })
+const commodityFixture = {
+  ...planFixture,
+  ticker: 'GOLD',
+  subject: 'GOLD',
+  swarm: 'commodity',
+  decision_fingerprint: commodityFp,
+  run_root: 'analyses/SPOOFED_1900-01-01', // never trusted: the server stamps the resolved root
+  watermark: `${commodityRun}/decision_record.json`,
+  new_docs: [{
+    ...planFixture.new_docs[0],
+    path: 'data/GOLD/external/exchange/curve.csv',
+    entry_orbs: [
+      { module: 'curve', agent: 'commodity-curve', why: 'valid singleton-swarm orb', confidence: 0.9 },
+      { module: 'alpha', agent: 'alpha-thing', why: 'valid only in the research roster', confidence: 0.8 },
+    ],
+  }],
+  rerun_plan: {
+    materiality_gate: 60,
+    entry_orbs: [
+      { module: 'curve', agent: 'commodity-curve' },
+      { module: 'alpha', agent: 'alpha-thing' },
+    ],
+    commands: [
+      { command: '/research:rerun WRONG', module: 'curve', agent: 'commodity-curve', cascade_modules: ['WRONG'], triggered_by: ['data/GOLD/external/exchange/curve.csv'] },
+      { command: '/research:rerun alpha alpha-thing GOLD', module: 'alpha', agent: 'alpha-thing', cascade_modules: [], triggered_by: [] },
+    ],
+    note_only: [],
+  },
+}
+write(`${commodityRun}/intake/${TODAY}_intake_plan.json`, JSON.stringify(commodityFixture, null, 2))
+const commodityPlan = readIntakePlan('GOLD', { swarmId: 'commodity' })
+assert.ok(commodityPlan, 'the manifest-derived singleton run plan is readable')
+assert.equal(commodityPlan!.swarm, 'commodity', 'swarm identity is server-stamped')
+assert.equal(commodityPlan!.subject, 'GOLD', 'generic subject identity is server-stamped')
+assert.equal(commodityPlan!.ticker, 'GOLD', 'schema-v1 ticker alias stays compatible and is server-stamped')
+assert.equal(commodityPlan!.run_root, commodityRun, 'run_root is the contained resolved root, never the file claim')
+assert.equal(commodityPlan!.new_docs[0].entry_orbs.length, 1, 'an orb from another swarm roster is rejected')
+assert.equal(commodityPlan!.rerun_plan.commands.length, 1, 'a command from another swarm roster is rejected')
+assert.equal(commodityPlan!.rerun_plan.commands[0].command, '/commodity:rerun curve commodity-curve GOLD', 'the command namespace comes from SWARM.md and the raw command is ignored')
+assert.ok(commodityPlan!.rerun_plan.commands[0].cascade_modules.includes('thesis'), 'the singleton-swarm DAG supplies downstream modules')
+assert.ok(!commodityPlan!.rerun_plan.commands[0].cascade_modules.includes('WRONG'), 'a prompt-written singleton cascade is never trusted')
+assert.equal(commodityPlan!.consumed, false, 'a singleton decision record predates intake and cannot falsely consume the plan')
+assert.ok(String(latestPlanFileFor('GOLD', { swarmId: 'commodity' })).includes(commodityRun), 'latestPlanFileFor resolves the same manifest-owned singleton root')
+
+// A shared pool label is ambiguous even when one finished owner is legacy and cannot provide a modern
+// data-needs projection. Never make the invalid/non-bindable owner disappear and route GOLD to commodity.
+const legacyResearchGold = `analyses/GOLD_${YESTERDAY}`
+write(`${legacyResearchGold}/final_thesis.md`, '# legacy research thesis\n')
+assert.deepEqual(
+  listFinishedIntakeOwners('GOLD').map(({ swarm, runRoot }) => ({ swarm, runRoot })),
+  [
+    { swarm: 'commodity', runRoot: commodityRun },
+    { swarm: 'research', runRoot: legacyResearchGold },
+  ],
+  'finished-owner enumeration includes legacy dossiers independently of a Data Needs projection',
+)
+assert.equal(resolveUniqueFinishedIntakeOwner('GOLD'), null,
+  'legacy finished research GOLD + finished commodity GOLD is ambiguous and auto-intake abstains')
+
+// The singleton counterpart of the durable floor regression: a precise scan can prove that no file landed
+// AFTER the scan, but an empty plan still cannot claim "all considered" when a pool file is newer than the
+// decision itself (the command may have missed it off a Git-bumped decision-record mtime).
+const silverRun = 'commodity/runs/SILVER'
+write(`${silverRun}/decision_record.json`, JSON.stringify({ decision_date: YESTERDAY, action: 'Hold' }))
+write('data/SILVER/post_decision.csv', 'landed after the singleton decision')
+const silverScannedAt = new Date(poolMaxOf('data/SILVER/post_decision.csv') + 60_000).toISOString()
+write(`${silverRun}/intake/${TODAY}_intake_plan.json`, JSON.stringify(emptyPlanFor('SILVER', silverRun, { scan_date: TODAY, scanned_at: silverScannedAt }), null, 2))
+const silverPlan = readIntakePlan('SILVER', { swarmId: 'commodity' })
+assert.ok(silverPlan, 'the singleton empty plan is served so the cockpit can prompt a re-analysis')
+assert.equal(silverPlan!.pool_current, false, 'a pool file dated after singleton decision_date forces the durable floor false')
+
+// No dated folder and no valid decision_date means the floor is unknowable. Even an empty pool + precise
+// scanned_at cannot earn an affirmative; fail closed to a recheck.
+const undatedRun = 'commodity/runs/UNDATED'
+write(`${undatedRun}/decision_record.json`, JSON.stringify({ action: 'Hold' }))
+write(`${undatedRun}/intake/${TODAY}_intake_plan.json`, JSON.stringify(emptyPlanFor('UNDATED', undatedRun, { scan_date: TODAY, scanned_at: new Date().toISOString() }), null, 2))
+assert.equal(readIntakePlan('UNDATED', { swarmId: 'commodity' })!.pool_current, false, 'a singleton with no durable decision vintage cannot claim the pool current')
+
+// A singleton subject can itself contain a date-shaped substring. That is identity text, not run vintage;
+// only a manifest date token or a strictly-valid decision_date may satisfy the floor.
+const dateLikeSubject = `DATE-LIKE-${TODAY}`
+const dateLikeRun = `commodity/runs/${dateLikeSubject}`
+write(`${dateLikeRun}/decision_record.json`, JSON.stringify({ decision_date: `${TODAY.slice(0, 4)}-00-10`, action: 'Hold' }))
+write(`${dateLikeRun}/intake/${TODAY}_intake_plan.json`, JSON.stringify(emptyPlanFor(dateLikeSubject, dateLikeRun, { scan_date: TODAY, scanned_at: new Date().toISOString() }), null, 2))
+assert.equal(readIntakePlan(dateLikeSubject, { swarmId: 'commodity' })!.pool_current, false, 'subject text cannot masquerade as a run date and an impossible decision_date fails closed')
+
+// ---- EXACT RUN ROOT / POINT IN TIME: an explicit historical root wins over standing/newest selection,
+//      while traversal, cross-subject, and cross-swarm roots fail closed. -------------------------------
+const exactOld = readIntakePlan('SHADOW', { runRoot: SHADOW_COMPLETE })
+assert.ok(exactOld, 'an exact contained historical run root is readable')
+assert.equal(exactOld!.run_root, SHADOW_COMPLETE, 'the exact root, not the default standing/newest root, is served')
+const exactOldPlanFile = latestPlanFileFor('SHADOW', { swarmId: 'research', runRoot: SHADOW_COMPLETE })
+assert.ok(String(exactOldPlanFile).includes(SHADOW_COMPLETE), 'scoped staging resolves the plan file from the exact approved call, never a newer shell')
+assert.equal(JSON.parse(fs.readFileSync(exactOldPlanFile!, 'utf8')).summary, 'test', 'the exact approved call supplies the plan provenance bytes')
+const exactNew = readIntakePlan('SHADOW', { runRoot: `analyses/SHADOW_${YESTERDAY}` })
+assert.equal(exactNew, null, 'an exact unfinished root cannot become the authority for a paid selected-call read')
+assert.ok(latestPlanFileFor('SHADOW', { runRoot: `analyses/SHADOW_${YESTERDAY}` }), 'the staging helper can still inspect a just-written exact plan')
+assert.equal(readIntakePlan('SHADOW', { runRoot: '../outside' }), null, 'path traversal is rejected')
+assert.equal(readIntakePlan('SHADOW', { runRoot: RUN }), null, 'a different subject\'s otherwise-valid research root is rejected')
+assert.equal(readIntakePlan('GOLD', { swarmId: 'commodity', runRoot: RUN }), null, 'a root in another swarm\'s runs tree is rejected')
+assert.equal(latestPlanFileFor('GOLD', { swarmId: 'missing' }), null, 'an unknown swarm fails closed')
+
+// Append-only versions sort numerically, so _v10 is newer than _v9 (the former lexical-max bug).
+write(`${commodityRun}/intake/${TODAY}_intake_plan_v9.json`, JSON.stringify(commodityFixture, null, 2))
+write(`${commodityRun}/intake/${TODAY}_intake_plan_v10.json`, JSON.stringify(commodityFixture, null, 2))
+assert.ok(String(latestPlanFileFor('GOLD', { swarmId: 'commodity' })).endsWith('_v10.json'), 'same-day versions use numeric ordering')
+
+// Research completion is writer-compatible: final_thesis alone is a finished intake baseline. A newer
+// thesis-only run must beat an older run that has a decision record, because /research:intake writes into
+// that newer finished root too.
+const FINAL_OLD = `analyses/FINALONLY_${day(-4)}`
+const FINAL_NEW = `analyses/FINALONLY_${day(-2)}`
+write(`${FINAL_OLD}/decision_record.json`, '{}')
+write(`${FINAL_OLD}/intake/${TODAY}_intake_plan.json`, JSON.stringify(emptyPlanFor('FINALONLY', FINAL_OLD, { summary: 'old decision root' }), null, 2))
+write(`${FINAL_NEW}/final_thesis.md`, '# final thesis only\n')
+write(`${FINAL_NEW}/intake/${TODAY}_intake_plan.json`, JSON.stringify(emptyPlanFor('FINALONLY', FINAL_NEW, { summary: 'new thesis-only root' }), null, 2))
+const finalOnly = readIntakePlan('FINALONLY')
+assert.ok(finalOnly)
+assert.equal(finalOnly!.run_root, FINAL_NEW, 'a newer final_thesis-only research run is the standing intake root')
+assert.equal(finalOnly!.summary, 'new thesis-only root')
+
+// Manifest swarms do require their exact object decision record. A stray plan under a merely-created
+// singleton folder is not a finished baseline and cannot be served, even through an exact-root selector.
+const unfinishedSingleton = 'commodity/runs/NODECISION'
+write(`${unfinishedSingleton}/intake/${TODAY}_intake_plan.json`, JSON.stringify(emptyPlanFor('NODECISION', unfinishedSingleton, {}), null, 2))
+assert.equal(readIntakePlan('NODECISION', { swarmId: 'commodity' }), null, 'a singleton plan without its decision record is not readable')
+assert.equal(readIntakePlan('NODECISION', { swarmId: 'commodity', runRoot: unfinishedSingleton }), null, 'an exact selector cannot bypass the singleton decision requirement')
+
+// The shared manifest subject contract, not research's 15-character ticker cap, governs non-research
+// subjects. This long unit is accepted by normalizeDataSubject and resolves through the manifest template.
+const longSubject = 'PHYSICAL-MARKET-SIGNAL-20260813'
+const longRun = `commodity/runs/${longSubject}`
+write(`${longRun}/decision_record.json`, JSON.stringify({ decision_date: TODAY, action: 'Hold' }))
+write(`${longRun}/intake/${TODAY}_intake_plan.json`, JSON.stringify(emptyPlanFor(longSubject, longRun, {}), null, 2))
+assert.equal(readIntakePlan(longSubject, { swarmId: 'commodity' })!.subject, longSubject, 'manifest-owned long subjects use the shared normalizer')
+
+// Plan identity is frozen to the server-selected swarm/subject. Any conflicting prompt-written identity
+// fails the whole plan closed; it is never silently relabelled as another subject's recommendation.
+const identityRun = `analyses/IDENTITY_${TODAY}`
+write(`${identityRun}/final_thesis.md`, '# thesis\n')
+write(`${identityRun}/intake/${TODAY}_intake_plan.json`, JSON.stringify(emptyPlanFor('OTHER', identityRun, {}), null, 2))
+assert.equal(readIntakePlan('IDENTITY'), null, 'a mismatched schema-v1 ticker is rejected')
+write(`${identityRun}/intake/${TODAY}_intake_plan_v2.json`, JSON.stringify({ ...emptyPlanFor('IDENTITY', identityRun, {}), subject: 'OTHER' }, null, 2))
+assert.equal(readIntakePlan('IDENTITY'), null, 'a mismatched explicit subject is rejected')
+write(`${identityRun}/intake/${TODAY}_intake_plan_v3.json`, JSON.stringify({ ...emptyPlanFor('IDENTITY', identityRun, {}), swarm: 'commodity' }, null, 2))
+assert.equal(readIntakePlan('IDENTITY'), null, 'a mismatched explicit swarm is rejected')
+
+// Every evidence/trigger path is canonical and subject-contained. Cross-subject, traversal, path aliases,
+// absolute paths, and nested symlinks fail the plan closed; a canonical absent audit path remains valid.
+const pathPlan = (subject: string, runRoot: string, docPath: string, triggerPath = docPath) => ({
+  ...planFixture,
+  ticker: subject,
+  run_root: runRoot,
+  new_docs: [{ ...planFixture.new_docs[0], path: docPath, entry_orbs: [{ module: 'alpha', agent: 'alpha-thing', why: 'valid', confidence: 0.8 }] }],
+  rerun_plan: {
+    materiality_gate: 60,
+    entry_orbs: [{ module: 'alpha', agent: 'alpha-thing' }],
+    commands: [{ ...planFixture.rerun_plan.commands[0], triggered_by: [triggerPath] }],
+    note_only: [],
+  },
+})
+for (const [subject, badDoc, badTrigger] of [
+  ['CROSSPATH', 'data/OTHER/doc.pdf', 'data/OTHER/doc.pdf'],
+  ['TRAVERSE', 'data/TRAVERSE/../OTHER/doc.pdf', 'data/TRAVERSE/../OTHER/doc.pdf'],
+  ['ALIASPATH', 'data/ALIASPATH//doc.pdf', 'data/ALIASPATH//doc.pdf'],
+  ['ABSPATH', '/tmp/doc.pdf', '/tmp/doc.pdf'],
+  ['BADTRIGGER', 'data/BADTRIGGER/doc.pdf', 'data/OTHER/doc.pdf'],
+] as const) {
+  const rr = `analyses/${subject}_${TODAY}`
+  write(`${rr}/final_thesis.md`, '# thesis\n')
+  write(`${rr}/intake/${TODAY}_intake_plan.json`, JSON.stringify(pathPlan(subject, rr, badDoc, badTrigger), null, 2))
+  assert.equal(readIntakePlan(subject), null, `${subject}: a non-contained/non-canonical evidence path is rejected`)
+}
+const linkRun = `analyses/LINKPATH_${TODAY}`
+write(`${linkRun}/final_thesis.md`, '# thesis\n')
+write('data/OTHER/secret.pdf', 'not LINKPATH evidence')
+fs.mkdirSync(path.join(REPO, 'data/LINKPATH'), { recursive: true })
+fs.symlinkSync(path.join(REPO, 'data/OTHER/secret.pdf'), path.join(REPO, 'data/LINKPATH/linked.pdf'))
+write(`${linkRun}/intake/${TODAY}_intake_plan.json`, JSON.stringify(pathPlan('LINKPATH', linkRun, 'data/LINKPATH/linked.pdf'), null, 2))
+assert.equal(readIntakePlan('LINKPATH'), null, 'a nested pool symlink cannot redirect evidence to another subject')
+
+const goodPathRun = `analyses/GOODPATH_${TODAY}`
+write(`${goodPathRun}/final_thesis.md`, '# thesis\n')
+write(`${goodPathRun}/intake/${TODAY}_intake_plan.json`, JSON.stringify(pathPlan('GOODPATH', goodPathRun, 'data/GOODPATH/external/provider/doc.pdf'), null, 2))
+assert.equal(readIntakePlan('GOODPATH')!.new_docs[0].path, 'data/GOODPATH/external/provider/doc.pdf', 'a canonical subject-contained audit path is retained')
+
+// ---- DURABLE ONE-TIME RECEIPTS ---------------------------------------------------------------
+// Two plan orbs, an unchanged resulting decision, and append-only receipts committed with the run.
+// The first receipt removes ONLY alpha; a second click can buy beta but cannot buy alpha again. The
+// second receipt retires the plan. Altering committed receipt bytes never re-opens either paid command.
+const receiptRun = `analyses/RECEIPT_${TODAY}`
+const receiptDecision = { ticker: 'RECEIPT', decision: 'Watchlist', confidence_score: 52 }
+const receiptSourceFp = writeDecision(receiptRun, receiptDecision)
+write(`${receiptRun}/final_thesis.md`, '# receipt thesis\n')
+const receiptPlanRaw = {
+  ...planFixture,
+  swarm: 'research', subject: 'RECEIPT', ticker: 'RECEIPT', run_root: receiptRun,
+  decision_fingerprint: receiptSourceFp,
+  new_docs: [{ ...planFixture.new_docs[0], path: 'data/RECEIPT/new.pdf', entry_orbs: [
+    { module: 'alpha', agent: 'alpha-thing', why: 'alpha input', confidence: 0.9 },
+    { module: 'beta', agent: 'beta-thing', why: 'beta input', confidence: 0.9 },
+  ] }],
+  rerun_plan: {
+    materiality_gate: 60,
+    entry_orbs: [{ module: 'alpha', agent: 'alpha-thing' }, { module: 'beta', agent: 'beta-thing' }],
+    commands: [
+      { command: 'ignored', module: 'alpha', agent: 'alpha-thing', cascade_modules: [], triggered_by: ['data/RECEIPT/new.pdf'] },
+      { command: 'ignored', module: 'beta', agent: 'beta-thing', cascade_modules: [], triggered_by: ['data/RECEIPT/new.pdf'] },
+    ],
+    note_only: [],
+  },
+}
+const receiptPlanPath = `${receiptRun}/intake/${TODAY}_intake_plan.json`
+write(receiptPlanPath, JSON.stringify(receiptPlanRaw, null, 2))
+const receiptPlanHash = intakePlanSha256(receiptPlanRaw)!
+assert.equal(readIntakePlan('RECEIPT')!.rerun_plan.commands.length, 2, 'both unconsumed receipt-plan orbs begin actionable')
+
+const commitReceipt = (payload: any, message: string): string => {
+  const receiptId = intakeExecutionReceiptId(payload)
+  const stamp = payload.completed_at.replace(/[-:.]/g, '')
+  const rel = `${payload.run_root}/intake/receipts/${stamp}_${receiptId.slice(7, 19)}.json`
+  write(rel, JSON.stringify({ ...payload, receipt_id: receiptId }, null, 2) + '\n')
+  execFileSync('git', ['-C', REPO, 'add', '--', rel])
+  execFileSync('git', ['-C', REPO, 'commit', '-q', '-m', message])
+  return rel
+}
+const receiptPayload = (module: string, agent: string, completedAt: string) => ({
+  schema_version: 'intake-execution-receipt/1' as const,
+  swarm: 'research', subject: 'RECEIPT', run_root: receiptRun,
+  plan_path: receiptPlanPath, plan_sha256: receiptPlanHash,
+  source_decision_fingerprint: receiptSourceFp,
+  executed_against_decision_fingerprint: receiptSourceFp,
+  executed_orbs: [{ module, agent }],
+  completed_at: completedAt,
+  // Intentionally identical decision bytes: consumption is proven by the receipt, never by a changed fp.
+  result_decision_fingerprint: receiptSourceFp,
+  result_decision_id: null,
+})
+const firstReceipt = commitReceipt(receiptPayload('alpha', 'alpha-thing', `${TODAY}T12:00:00.101Z`), 'first intake receipt')
+const afterFirstReceipt = readIntakePlan('RECEIPT')!
+assert.equal(afterFirstReceipt.consumed, false, 'one of two proved orbs is partial consumption')
+assert.deepEqual(afterFirstReceipt.rerun_plan.commands.map((command) => command.agent), ['beta-thing'], 'the same alpha orb cannot be bought twice; beta remains')
+assert.equal(afterFirstReceipt.actionable, true, 'identical resulting decision bytes do not strand the remaining orb')
+
+commitReceipt(receiptPayload('beta', 'beta-thing', `${TODAY}T12:00:00.102Z`), 'second intake receipt')
+const afterSecondReceipt = readIntakePlan('RECEIPT')!
+assert.equal(afterSecondReceipt.consumed, true, 'all exact plan orbs proved → plan consumed')
+assert.equal(afterSecondReceipt.rerun_plan.commands.length, 0)
+
+fs.appendFileSync(path.join(REPO, firstReceipt), ' ')
+const afterTamper = readIntakePlan('RECEIPT')!
+assert.equal(afterTamper.actionable, false, 'receipt bytes that differ from committed HEAD fail closed')
+assert.equal(afterTamper.rerun_plan.commands.length, 0, 'tampering never re-opens a paid command')
+assert.ok(afterTamper.widened.some((note) => note.includes('receipt')), 'tampered proof is explicit in the audit trail')
+
+// A receipt chain advances through the exact decision each orb executed against. Only a contiguous chain
+// ending at the current decision can prove consumption; reverting to an intermediate decision freezes the
+// plan and must not credit the later branch's orb. An unrelated historical plan receipt is ignored only
+// after its own structure/self-hash has been validated.
+const chainRun = `analyses/CHAIN_${TODAY}`
+const chainD0 = { ticker: 'CHAIN', decision: 'Watchlist', confidence_score: 40 }
+const chainD1 = { ...chainD0, confidence_score: 41 }
+const chainD2 = { ...chainD0, confidence_score: 42 }
+const chainFp0 = writeDecision(chainRun, chainD0)
+write(`${chainRun}/final_thesis.md`, '# chain thesis\n')
+const chainPlanPath = `${chainRun}/intake/${TODAY}_intake_plan.json`
+const chainPlanRaw = {
+  ...receiptPlanRaw, subject: 'CHAIN', ticker: 'CHAIN', run_root: chainRun,
+  decision_fingerprint: chainFp0,
+  new_docs: [{ ...receiptPlanRaw.new_docs[0], path: 'data/CHAIN/new.pdf' }],
+  rerun_plan: {
+    ...receiptPlanRaw.rerun_plan,
+    commands: receiptPlanRaw.rerun_plan.commands.map((command) => ({ ...command, triggered_by: ['data/CHAIN/new.pdf'] })),
+  },
+}
+write(chainPlanPath, JSON.stringify(chainPlanRaw, null, 2))
+const chainPlanHash = intakePlanSha256(chainPlanRaw)!
+commitReceipt({
+  schema_version: 'intake-execution-receipt/1' as const,
+  swarm: 'research', subject: 'CHAIN', run_root: chainRun,
+  plan_path: `${chainRun}/intake/${YESTERDAY}_intake_plan.json`, plan_sha256: `sha256:${'c'.repeat(64)}`,
+  source_decision_fingerprint: chainFp0, executed_against_decision_fingerprint: chainFp0,
+  executed_orbs: [{ module: 'gamma', agent: 'old-plan-orb' }],
+  completed_at: `${TODAY}T11:00:00.100Z`, result_decision_fingerprint: chainFp0, result_decision_id: null,
+}, 'unrelated historical plan receipt')
+const chainFp1 = writeDecision(chainRun, chainD1)
+commitReceipt({
+  schema_version: 'intake-execution-receipt/1' as const,
+  swarm: 'research', subject: 'CHAIN', run_root: chainRun,
+  plan_path: chainPlanPath, plan_sha256: chainPlanHash,
+  source_decision_fingerprint: chainFp0, executed_against_decision_fingerprint: chainFp0,
+  executed_orbs: [{ module: 'alpha', agent: 'alpha-thing' }],
+  completed_at: `${TODAY}T12:00:00.100Z`, result_decision_fingerprint: chainFp1, result_decision_id: null,
+}, 'chain receipt one')
+assert.deepEqual(readIntakePlan('CHAIN')!.rerun_plan.commands.map((command) => command.agent), ['beta-thing'])
+const chainFp2 = writeDecision(chainRun, chainD2)
+commitReceipt({
+  schema_version: 'intake-execution-receipt/1' as const,
+  swarm: 'research', subject: 'CHAIN', run_root: chainRun,
+  plan_path: chainPlanPath, plan_sha256: chainPlanHash,
+  source_decision_fingerprint: chainFp0, executed_against_decision_fingerprint: chainFp1,
+  executed_orbs: [{ module: 'beta', agent: 'beta-thing' }],
+  completed_at: `${TODAY}T12:00:00.200Z`, result_decision_fingerprint: chainFp2, result_decision_id: null,
+}, 'chain receipt two')
+assert.equal(readIntakePlan('CHAIN')!.consumed, true, 'the full D0→D1→D2 receipt chain consumes both orbs')
+writeDecision(chainRun, chainD1)
+const revertedChain = readIntakePlan('CHAIN')!
+assert.equal(revertedChain.consumed, false, 'a D1 reversion does not falsely consume the D1→D2 orb')
+assert.equal(revertedChain.actionable, false, 'a reverted branch freezes rather than re-spending an old orb')
+assert.equal(revertedChain.rerun_plan.commands.length, 0)
+assert.ok(revertedChain.widened.some((note) => note.includes('reverted')))
+
+// Prompt output is not execution authority until its exact bytes are in HEAD. Dirty/uncommitted bytes
+// remain visible for audit but expose no paid command; committing those exact bytes restores authority.
+const atomicRun = `analyses/ATOMIC_${TODAY}`
+const atomicFp = writeDecision(atomicRun, { ticker: 'ATOMIC', decision: 'Watchlist', confidence_score: 50 })
+write(`${atomicRun}/final_thesis.md`, '# atomic thesis\n')
+const atomicPath = `${atomicRun}/intake/${TODAY}_intake_plan.json`
+const atomicRaw = {
+  ...receiptPlanRaw, subject: 'ATOMIC', ticker: 'ATOMIC', run_root: atomicRun,
+  decision_fingerprint: atomicFp,
+  new_docs: [{ ...receiptPlanRaw.new_docs[0], path: 'data/ATOMIC/new.pdf', entry_orbs: [
+    { module: 'alpha', agent: 'alpha-thing', why: 'changed', confidence: 0.9 },
+  ] }],
+  rerun_plan: {
+    ...receiptPlanRaw.rerun_plan,
+    entry_orbs: [{ module: 'alpha', agent: 'alpha-thing' }],
+    commands: [{ ...receiptPlanRaw.rerun_plan.commands[0], triggered_by: ['data/ATOMIC/new.pdf'] }],
+  },
+}
+write(atomicPath, JSON.stringify(atomicRaw, null, 2))
+assert.equal(readIntakePlan('ATOMIC')!.actionable, true, 'exact committed plan begins actionable')
+fs.writeFileSync(path.join(REPO, atomicPath), JSON.stringify({ ...atomicRaw, summary: 'dirty bytes' }, null, 2))
+const dirtyPlan = readIntakePlan('ATOMIC')!
+assert.equal(dirtyPlan.actionable, false)
+assert.equal(dirtyPlan.rerun_plan.commands.length, 0, 'dirty plan bytes never authorize spend')
+execFileSync('git', ['-C', REPO, 'add', '--', atomicPath])
+execFileSync('git', ['-C', REPO, 'commit', '-q', '-m', 'commit exact atomic plan'])
+assert.equal(readIntakePlan('ATOMIC')!.actionable, true, 'committing the exact bytes restores authority')
+
+// A dangling receipts symlink is an extant unsafe entry, not "no receipts yet". Both the display reader
+// and paid launcher consume `actionable`; it must fail closed before spend even though existsSync is false.
+const danglingRun = `analyses/DANGLING_${TODAY}`
+const danglingFp = writeDecision(danglingRun, { ticker: 'DANGLING', decision: 'Watchlist', confidence_score: 50 })
+write(`${danglingRun}/final_thesis.md`, '# dangling thesis\n')
+write(`${danglingRun}/intake/${TODAY}_intake_plan.json`, JSON.stringify({
+  ...atomicRaw, subject: 'DANGLING', ticker: 'DANGLING', run_root: danglingRun,
+  decision_fingerprint: danglingFp,
+  new_docs: [{ ...atomicRaw.new_docs[0], path: 'data/DANGLING/new.pdf' }],
+  rerun_plan: { ...atomicRaw.rerun_plan, commands: [
+    { ...atomicRaw.rerun_plan.commands[0], triggered_by: ['data/DANGLING/new.pdf'] },
+  ] },
+}, null, 2))
+fs.symlinkSync(path.join(REPO, danglingRun, 'missing-receipts'), path.join(REPO, danglingRun, 'intake/receipts'))
+const danglingPlan = readIntakePlan('DANGLING')!
+assert.equal(danglingPlan.actionable, false, 'dangling receipts symlink freezes the plan before paid work')
+assert.equal(danglingPlan.rerun_plan.commands.length, 0)
+assert.ok(danglingPlan.widened.some((note) => note.includes('receipt')))
+
+// A well-formed but stale source fingerprint is likewise visible and non-actionable, never rebound to the
+// current decision by the HTTP/read layer.
+const staleFpRun = `analyses/STALEFP_${TODAY}`
+write(`${staleFpRun}/final_thesis.md`, '# stale-fp thesis\n')
+writeDecision(staleFpRun, { ticker: 'STALEFP', decision: 'Buy', confidence_score: 61 })
+write(`${staleFpRun}/intake/${TODAY}_intake_plan.json`, JSON.stringify({
+  ...receiptPlanRaw, subject: 'STALEFP', ticker: 'STALEFP', run_root: staleFpRun,
+  decision_fingerprint: `sha256:${'f'.repeat(64)}`,
+  new_docs: [{ ...receiptPlanRaw.new_docs[0], path: 'data/STALEFP/new.pdf' }],
+  rerun_plan: { ...receiptPlanRaw.rerun_plan, commands: [{ ...receiptPlanRaw.rerun_plan.commands[0], triggered_by: ['data/STALEFP/new.pdf'] }] },
+}, null, 2))
+const staleFpPlan = readIntakePlan('STALEFP')!
+assert.equal(staleFpPlan.actionable, false)
+assert.equal(staleFpPlan.rerun_plan.commands.length, 0)
+assert.equal(staleFpPlan.decision_fingerprint, `sha256:${'f'.repeat(64)}`, 'reader preserves authored stale identity for audit; it never rebinds')
+
+// The commodity command must create its precise durable witness BEFORE the pool scan and write it on every
+// plan. This static pin closes the prompt-only half of the false-fresh regression (there is no compiler for
+// slash commands, so the executable contract belongs beside the reader tests).
+const commodityPrompt = fs.readFileSync(path.join(SOURCE_REPO, '.claude/commands/commodity/intake.md'), 'utf8')
+const captureAt = commodityPrompt.indexOf('SCANNED_AT="$(python3')
+const scanAt = commodityPrompt.indexOf('find "data/${COMMODITY}/"')
+assert.ok(captureAt >= 0 && scanAt > captureAt, 'commodity intake captures SCANNED_AT before its document scan')
+assert.ok(commodityPrompt.includes('isoformat(timespec="milliseconds")'), 'commodity intake uses sub-second canonical UTC, not whole-second date')
+assert.ok(commodityPrompt.includes('scanned_at: "<SCANNED_AT>"'), 'commodity intake writes the durable witness even on the empty-plan path')
+assert.ok(commodityPrompt.includes('decision_date') && commodityPrompt.includes('SINCE=(-newermt "$RUN_DATE 00:00:00")'), 'commodity intake has the checkout-safe decision-date fallback')
+const researchPrompt = fs.readFileSync(path.join(SOURCE_REPO, '.claude/commands/research/intake.md'), 'utf8')
+assert.ok(researchPrompt.indexOf('SCANNED_AT="$(python3') < researchPrompt.indexOf('find "data/${TICKER}/"'), 'research intake captures its high-resolution witness before scanning')
+assert.ok(researchPrompt.includes('isoformat(timespec="milliseconds")'), 'research intake has the same sub-second ordering contract')
 
 console.log('intake.test.ts: all assertions passed')
 fs.rmSync(REPO, { recursive: true, force: true })

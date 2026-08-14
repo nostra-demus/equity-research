@@ -13,6 +13,7 @@ import os
 import shutil
 import sys
 import tempfile
+import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -24,6 +25,9 @@ def load_router():
     # tests must not wait on the Drive-sync stability window
     m.STABLE_AGE_S = 0
     m.STABLE_RECHECK_S = 0
+    # The router's production default shells into the canonical TypeScript owner/data-needs readers.
+    # These isolated pool fixtures test publication mechanics, so give them an explicit sole-owner seam.
+    m._default_manual_authority = lambda _intent: (True, None)
     return m
 
 
@@ -67,6 +71,46 @@ def check(name, cond, detail=""):
 def sidecar(root, ticker, provider, fname):
     p = os.path.join(root, ticker, "external", provider, fname + ".source.json")
     return json.load(open(p)) if os.path.exists(p) else None
+
+
+def stage_manual(m, root, key_path, request_id, payload=b"opaque observation", overrides=None,
+                 extra_files=None):
+    """Write the exact server/router request envelope used by focused router tests."""
+    key = bytes.fromhex("42" * 32)
+    with open(key_path, "wb") as fh:
+        fh.write(("42" * 32 + "\n").encode("ascii"))
+    os.chmod(key_path, 0o600)
+    envelope = os.path.join(root, "EXTERNAL-INBOX", m.MANUAL_REQUEST_DIR, request_id)
+    os.makedirs(envelope, mode=0o700)
+    payload_path = os.path.join(envelope, m.MANUAL_PAYLOAD_NAME)
+    with open(payload_path, "wb") as fh:
+        fh.write(payload)
+    base = {
+        "contract_version": m.MANUAL_INTENT_CONTRACT,
+        "request_id": request_id,
+        "subject": "AMZN",
+        "swarm": "research",
+        "run_root": "analyses/AMZN_2026-08-13",
+        "decision_fingerprint": "sha256:" + "a" * 64,
+        "need_id": "aws-growth",
+        "series": "AWS growth rate",
+        "provider": "YipitData / operator label",
+        "source_url": "https://example.test/report",
+        "source_url_basis": "user_supplied_unverified",
+        "filename": "Yipit FY30 panel.txt",
+        "payload_sha256": hashlib.sha256(payload).hexdigest(),
+        "payload_size": len(payload),
+        "staged_at": "2026-08-13T10:11:12.000Z",
+        "requested_by": "operator@example.test",
+    }
+    base.update(overrides or {})
+    intent = m._signed_value(base, key)
+    with open(os.path.join(envelope, m.MANUAL_INTENT_NAME), "w", encoding="utf-8") as fh:
+        json.dump(intent, fh, indent=2); fh.write("\n")
+    for name, contents in (extra_files or {}).items():
+        with open(os.path.join(envelope, name), "wb") as fh:
+            fh.write(contents)
+    return envelope, intent, key
 
 
 def main():
@@ -679,6 +723,326 @@ def main():
     finally:
         os.chdir(previous_cwd)
         shutil.rmtree(root)
+
+    # ---- 12. signed decision-scoped requests: forced context, conservative inference, archive/replay ----
+    root = tempfile.mkdtemp(); build_pool(root)
+    key_state = os.path.join(root, "state"); os.mkdir(key_state, 0o700)
+    key_path = os.path.join(key_state, "intent.key")
+    request_id = "DNU-" + "8" * 32
+    _envelope, intent, _key = stage_manual(m, root, key_path, request_id)
+    result = m.run(root, manual_request=request_id, intent_key_path=key_path)
+    check("manual request routes only through the signed router lane",
+          result["manual"] and result["manual"][0][0] == "routed", str(result))
+    provider_slug = m.slug(intent["provider"])
+    routed = os.path.join(root, "AMZN", "external", provider_slug, intent["filename"])
+    sc_path = routed + ".source.json"
+    sc = json.load(open(sc_path)) if os.path.exists(sc_path) else {}
+    check("manual request forces subject/provider and copies exact request context",
+          os.path.exists(routed) and sc.get("provider") == intent["provider"]
+          and sc.get("tickers") == ["AMZN"]
+          and sc.get("request_context", {}).get("decision_fingerprint") == intent["decision_fingerprint"]
+          and sc.get("request_context", {}).get("provider_basis") == "operator_supplied_unverified"
+          and sc.get("request_context", {}).get("source_url") == intent["source_url"]
+          and sc.get("request_context", {}).get("source_url_basis") == "user_supplied_unverified")
+    check("filename/provider metadata cannot upgrade inferred type/tier/date/license",
+          sc.get("source_type") == "external_other" and sc.get("tier") == 9
+          and sc.get("as_of") is None and sc.get("license") == "unspecified", str(sc))
+    archived = os.path.join(root, "EXTERNAL-INBOX", m.ROUTED_DIR, m.MANUAL_REQUEST_DIR, request_id)
+    result_value = json.load(open(os.path.join(archived, m.MANUAL_RESULT_NAME)))
+    check("manual archive has a signed hash-bound verified result",
+          m._valid_manual_result(result_value, bytes.fromhex("42" * 32), intent,
+                                 sc.get("upload_intent_sha256"))
+          and result_value.get("status") == "routed_provenance_verified"
+          and result_value.get("sidecar_sha256") == m.sha256_file(sc_path))
+
+    # A same-name sidecar may echo all identity fields yet lie about evidence quality. It must never be
+    # accepted by subset matching: exact router-generated bytes are required, so this poison wins no
+    # authority and the router publishes a clean suffixed pair instead.
+    poison_id = "DNU-" + "d" * 32
+    poison_payload = b"second opaque observation"
+    poison_envelope, poison_intent, _key = stage_manual(
+        m, root, key_path, poison_id, payload=poison_payload,
+    )
+    poison_first = os.path.join(root, "AMZN", "external", provider_slug, poison_intent["filename"])
+    os.unlink(poison_first)  # retain the original clean sidecar at the base name, then replace it below
+    clean = json.load(open(poison_first + ".source.json"))
+    poison = {
+        **clean,
+        "sha256": hashlib.sha256(poison_payload).hexdigest(),
+        "provider": poison_intent["provider"],
+        "tickers": ["AMZN"],
+        "source_type": "alt_data_panel", "tier": 5, "license": "public_domain",
+        "as_of": "2099-12-31",
+        "upload_intent_sha256": hashlib.sha256(open(
+            os.path.join(poison_envelope, m.MANUAL_INTENT_NAME), "rb").read()).hexdigest(),
+        "request_context": m._manual_context(poison_intent),
+    }
+    with open(poison_first + ".source.json", "w") as fh:
+        json.dump(poison, fh, indent=2)
+    poison_result = m.run(root, manual_request=poison_id, intent_key_path=key_path)
+    poison_status = json.load(open(os.path.join(
+        root, "EXTERNAL-INBOX", m.ROUTED_DIR, m.MANUAL_REQUEST_DIR, poison_id, m.MANUAL_RESULT_NAME)))
+    clean_routed = os.path.join(root, poison_status["routed_path"][len("data/"):])
+    clean_sc = json.load(open(clean_routed + ".source.json"))
+    check("pre-existing quality-poisoned sidecar is never accepted or reused",
+          poison_result["manual"][0][0] == "routed" and clean_routed != poison_first
+          and clean_sc.get("source_type") == "external_other" and clean_sc.get("tier") == 9
+          and clean_sc.get("as_of") is None and clean_sc.get("license") == "unspecified"
+          and poison_status.get("sidecar_sha256") == m.sha256_file(clean_routed + ".source.json"),
+          str({"result": poison_result, "sidecar": clean_sc}))
+
+    # Exact replay is consumed from the active lane without a second publication.
+    replay = os.path.join(root, "EXTERNAL-INBOX", m.MANUAL_REQUEST_DIR, request_id)
+    os.makedirs(replay, mode=0o700)
+    shutil.copyfile(os.path.join(archived, m.MANUAL_PAYLOAD_NAME), os.path.join(replay, m.MANUAL_PAYLOAD_NAME))
+    shutil.copyfile(os.path.join(archived, m.MANUAL_INTENT_NAME), os.path.join(replay, m.MANUAL_INTENT_NAME))
+    replay_result = m.run(root, manual_request=request_id, intent_key_path=key_path)
+    check("signed replay is idempotent and cannot create a second routed payload",
+          replay_result["manual"][0][0] == "skipped" and not os.path.exists(replay)
+          and len([name for name in os.listdir(os.path.dirname(routed))
+                   if name.startswith("Yipit FY30 panel") and not name.endswith(".source.json")]) == 1,
+          str(replay_result))
+    shutil.rmtree(root)
+
+    # The server staged this while research was sole owner; before the async router got here, a finished
+    # commodity run claimed the same AMZN label. The terminal CAS must publish zero bytes and must NOT turn
+    # a transient owner ambiguity into a signed terminal failure — the exact envelope stays retryable.
+    root = tempfile.mkdtemp(); build_pool(root)
+    key_state = os.path.join(root, "state"); os.mkdir(key_state, 0o700)
+    key_path = os.path.join(key_state, "intent.key")
+    ambiguous_id = "DNU-" + "4" * 32
+    ambiguous_envelope, _ambiguous_intent, _ambiguous_key = stage_manual(
+        m, root, key_path, ambiguous_id,
+    )
+    ambiguous = m.run(
+        root, manual_request=ambiguous_id, intent_key_path=key_path,
+        manual_authority=lambda _intent: (
+            False, "shared data-pool owner is absent or ambiguous",
+        ),
+    )
+    check("stage then second finished owner: terminal router CAS publishes zero bytes and stays staged",
+          ambiguous["manual"][0][0] == "waiting"
+          and sorted(os.listdir(ambiguous_envelope)) == [m.MANUAL_INTENT_NAME, m.MANUAL_PAYLOAD_NAME]
+          and not os.path.exists(os.path.join(ambiguous_envelope, m.MANUAL_RESULT_NAME))
+          and not os.path.exists(os.path.join(root, "AMZN", "external"))
+          and not os.path.exists(os.path.join(root, "EXTERNAL-INBOX", m.LEDGER_NAME)),
+          str(ambiguous))
+    shutil.rmtree(root)
+
+    # A forged signature is ignored; changed payload and multiple files get a signed failure and publish none.
+    root = tempfile.mkdtemp(); build_pool(root)
+    key_state = os.path.join(root, "state"); os.mkdir(key_state, 0o700)
+    key_path = os.path.join(key_state, "intent.key")
+    forged_id = "DNU-" + "9" * 32
+    forged, _intent, _key = stage_manual(m, root, key_path, forged_id)
+    intent_path = os.path.join(forged, m.MANUAL_INTENT_NAME)
+    forged_value = json.load(open(intent_path)); forged_value["signature"] = "hmac-sha256:" + "0" * 64
+    with open(intent_path, "w") as fh:
+        json.dump(forged_value, fh)
+    forged_result = m.run(root, manual_request=forged_id, intent_key_path=key_path)
+    check("forged manual intent is ignored and cannot publish",
+          forged_result["manual"][0][0] == "ignored"
+          and not os.path.exists(os.path.join(root, "AMZN", "external")), str(forged_result))
+    shutil.rmtree(root)
+
+    root = tempfile.mkdtemp(); build_pool(root)
+    key_state = os.path.join(root, "state"); os.mkdir(key_state, 0o700)
+    key_path = os.path.join(key_state, "intent.key")
+    changed_id = "DNU-" + "a" * 32
+    changed, _intent, key = stage_manual(m, root, key_path, changed_id,
+                                          extra_files={"second.txt": b"forged second file"})
+    changed_result = m.run(root, manual_request=changed_id, intent_key_path=key_path)
+    failure = json.load(open(os.path.join(changed, m.MANUAL_RESULT_NAME)))
+    check("multiple-file request fails closed with a signed tamper result",
+          changed_result["manual"][0][0] == "failed"
+          and failure.get("reason") == "tampered_request" and m._signature_valid(failure, key)
+          and not os.path.exists(os.path.join(root, "AMZN", "external")), str(changed_result))
+    shutil.rmtree(root)
+
+    root = tempfile.mkdtemp(); build_pool(root)
+    key_state = os.path.join(root, "state"); os.mkdir(key_state, 0o700)
+    key_path = os.path.join(key_state, "intent.key")
+    linked_id = "DNU-" + "b" * 32
+    linked, _intent, key = stage_manual(m, root, key_path, linked_id)
+    os.link(os.path.join(linked, m.MANUAL_PAYLOAD_NAME), os.path.join(linked, "payload-alias"))
+    os.unlink(os.path.join(linked, "payload-alias"))  # retain nlink==1 for the first control read
+    # Recreate an outside alias after the envelope shape is exact: the router must still reject nlink>1.
+    outside_alias = os.path.join(root, "payload-alias")
+    os.link(os.path.join(linked, m.MANUAL_PAYLOAD_NAME), outside_alias)
+    linked_result = m.run(root, manual_request=linked_id, intent_key_path=key_path)
+    linked_failure = json.load(open(os.path.join(linked, m.MANUAL_RESULT_NAME)))
+    check("manual router rejects a hardlinked payload before publication",
+          linked_result["manual"][0][0] == "failed"
+          and linked_failure.get("reason") == "tampered_request"
+          and m._signature_valid(linked_failure, key)
+          and not os.path.exists(os.path.join(root, "AMZN", "external")), str(linked_result))
+    shutil.rmtree(root)
+
+    root = tempfile.mkdtemp(); build_pool(root)
+    key_state = os.path.join(root, "state"); os.mkdir(key_state, 0o700)
+    key_path = os.path.join(key_state, "intent.key")
+    outside = tempfile.mkdtemp()
+    symlink_id = "DNU-" + "c" * 32
+    stage_manual(m, outside, os.path.join(outside, "intent.key"), symlink_id)
+    os.makedirs(os.path.join(root, "EXTERNAL-INBOX", m.MANUAL_REQUEST_DIR), exist_ok=True)
+    os.symlink(os.path.join(outside, "EXTERNAL-INBOX", m.MANUAL_REQUEST_DIR, symlink_id),
+               os.path.join(root, "EXTERNAL-INBOX", m.MANUAL_REQUEST_DIR, symlink_id))
+    with open(key_path, "w") as fh:
+        fh.write("42" * 32 + "\n")
+    symlink_result = m.run(root, manual_request=symlink_id, intent_key_path=key_path)
+    check("manual router ignores a symlinked request envelope",
+          symlink_result["manual"][0][0] == "ignored"
+          and not os.path.exists(os.path.join(root, "AMZN", "external")), str(symlink_result))
+    shutil.rmtree(root); shutil.rmtree(outside)
+
+    # ---- 13. manual retry/policy/identity security regressions ----
+    root = tempfile.mkdtemp(); build_pool(root)
+    key_state = os.path.join(root, "state"); os.mkdir(key_state, 0o700)
+    key_path = os.path.join(key_state, "intent.key")
+    retry_id = "DNU-" + "e" * 32
+    retry_envelope, _retry_intent, _retry_key = stage_manual(m, root, key_path, retry_id)
+    original_copy = m.copy_contents
+    failed_once = {"done": False}
+
+    def one_shot_eio(src, dst, safe_root=None, expected_sha256=None):
+        if not failed_once["done"]:
+            failed_once["done"] = True
+            raise OSError(5, "fixture EIO")
+        return original_copy(src, dst, safe_root, expected_sha256)
+
+    m.copy_contents = one_shot_eio
+    first = m.run(root, manual_request=retry_id, intent_key_path=key_path)
+    m.copy_contents = original_copy
+    check("one-shot router EIO stays staged and retryable without a terminal result",
+          first["manual"][0][0] == "retrying"
+          and sorted(os.listdir(retry_envelope)) == [m.MANUAL_INTENT_NAME, m.MANUAL_PAYLOAD_NAME]
+          and not os.path.exists(os.path.join(retry_envelope, m.MANUAL_RESULT_NAME)), str(first))
+    recovered = m.run(root, manual_request=retry_id, intent_key_path=key_path)
+    check("the next healthy scheduled pass recovers a transient manual request",
+          recovered["manual"][0][0] == "routed" and not os.path.exists(retry_envelope), str(recovered))
+    shutil.rmtree(root)
+
+    root = tempfile.mkdtemp(); build_pool(root)
+    key_state = os.path.join(root, "state"); os.mkdir(key_state, 0o700)
+    key_path = os.path.join(key_state, "intent.key")
+    policy_id = "DNU-" + "f" * 32
+    policy_envelope, policy_intent, policy_key = stage_manual(
+        m, root, key_path, policy_id, payload=b"point in time gold assertions",
+        overrides={"subject": "GOLD", "swarm": "commodity", "filename": "WILTW_2026-08-13.pdf"},
+    )
+    policy = m.run(root, manual_request=policy_id, intent_key_path=key_path)
+    policy_result = json.load(open(os.path.join(policy_envelope, m.MANUAL_RESULT_NAME)))
+    check("signed manual GOLD WILTW is a distinct terminal policy rejection",
+          policy["manual"][0][0] == "failed" and policy_result.get("status") == "rejected_policy"
+          and policy_result.get("reason") == "policy_rejected"
+          and m._valid_manual_result(policy_result, policy_key, policy_intent,
+                                     hashlib.sha256(open(os.path.join(policy_envelope, m.MANUAL_INTENT_NAME), "rb").read()).hexdigest())
+          and not os.path.exists(os.path.join(policy_envelope, m.MANUAL_PAYLOAD_NAME))
+          and not os.path.exists(os.path.join(root, "GOLD", "external"))
+          and not os.path.exists(os.path.join(root, "EXTERNAL-INBOX", m.LEDGER_NAME)), str(policy))
+
+    visual_id = "DNU-" + "1" * 31 + "f"
+    visual_envelope, visual_intent, visual_key = stage_manual(
+        m, root, key_path, visual_id, payload=b"\x89PNG\r\n\x1a\nfixture",
+        overrides={"subject": "GOLD", "swarm": "commodity", "filename": "unreadable-gold.png"},
+    )
+    ep = m._load_extract_pool(); ep._read_image_file = lambda _path: ("", None, "fixture unreadable")
+    visual = m.run(root, manual_request=visual_id, intent_key_path=key_path, extractor=ep)
+    visual_result = json.load(open(os.path.join(visual_envelope, m.MANUAL_RESULT_NAME)))
+    check("signed unreadable GOLD visual produces no runtime evidence",
+          visual["manual"][0][0] == "failed" and visual_result.get("status") == "rejected_policy"
+          and visual_result.get("reason") == "policy_rejected"
+          and not os.path.exists(os.path.join(visual_envelope, m.MANUAL_PAYLOAD_NAME))
+          and not os.path.exists(os.path.join(root, "GOLD", "external"))
+          and not os.path.exists(os.path.join(root, "EXTERNAL-INBOX", m.LEDGER_NAME)), str(visual))
+    shutil.rmtree(root)
+
+    root = tempfile.mkdtemp(); build_pool(root)
+    key_state = os.path.join(root, "state"); os.mkdir(key_state, 0o700)
+    key_path = os.path.join(key_state, "intent.key")
+    swap_id = "DNU-" + "2" * 31 + "f"
+    swap_envelope, _swap_intent, _swap_key = stage_manual(m, root, key_path, swap_id)
+    original_identity = m._complete_identity_text
+
+    def mutate_signed_payload_during_extract(ep, snapshot):
+        answer = original_identity(ep, snapshot)
+        with open(os.path.join(swap_envelope, m.MANUAL_PAYLOAD_NAME), "wb") as fh:
+            fh.write(b"What I Learned This Week renamed content")
+        return answer
+
+    m._complete_identity_text = mutate_signed_payload_during_extract
+    swapped = m.run(root, manual_request=swap_id, intent_key_path=key_path)
+    m._complete_identity_text = original_identity
+    check("payload mutation during extraction fails closed before WILTW can be published",
+          swapped["manual"][0][0] == "retrying"
+          and not os.path.exists(os.path.join(root, "AMZN", "external"))
+          and not os.path.exists(os.path.join(root, "EXTERNAL-INBOX", m.LEDGER_NAME))
+          and not os.path.exists(os.path.join(swap_envelope, m.MANUAL_RESULT_NAME)), str(swapped))
+    shutil.rmtree(root)
+
+    root = tempfile.mkdtemp(); build_pool(root)
+    key_state = os.path.join(root, "state"); os.mkdir(key_state, 0o700)
+    key_path = os.path.join(key_state, "intent.key")
+    parent_id = "DNU-" + "3" * 31 + "f"
+    parent_envelope, parent_intent, _parent_key = stage_manual(m, root, key_path, parent_id)
+    destination_parent = os.path.join(
+        os.path.realpath(root), "AMZN", "external", m.slug(parent_intent["provider"]),
+    )
+    outside_parent = os.path.join(os.path.realpath(root), "outside-destination")
+    os.mkdir(outside_parent, 0o700)
+    held_parent = destination_parent + ".held"
+    original_mkstemp = m.tempfile.mkstemp
+    swapped_parent = {"done": False}
+
+    def swap_destination_parent(*args, **kwargs):
+        target_dir = kwargs.get("dir")
+        if target_dir == destination_parent and not swapped_parent["done"]:
+            swapped_parent["done"] = True
+            os.rename(destination_parent, held_parent)
+            os.symlink(outside_parent, destination_parent)
+        return original_mkstemp(*args, **kwargs)
+
+    m.tempfile.mkstemp = swap_destination_parent
+    parent_swap = m.run(root, manual_request=parent_id, intent_key_path=key_path)
+    m.tempfile.mkstemp = original_mkstemp
+    check("destination parent symlink-swap is detected before payload/sidecar/result publication",
+          parent_swap["manual"][0][0] == "retrying"
+          and not os.path.exists(os.path.join(outside_parent, parent_intent["filename"]))
+          and not os.path.exists(os.path.join(outside_parent, parent_intent["filename"] + ".source.json"))
+          and not os.path.exists(os.path.join(parent_envelope, m.MANUAL_RESULT_NAME))
+          and not os.path.exists(os.path.join(root, "EXTERNAL-INBOX", m.LEDGER_NAME)), str(parent_swap))
+    shutil.rmtree(root)
+
+    root = tempfile.mkdtemp(); key_state = os.path.join(root, "state"); os.mkdir(key_state, 0o700)
+    key_path = os.path.join(key_state, "intent.key")
+    with open(key_path, "w") as fh: fh.write("42" * 32 + "\n")
+    os.chmod(key_path, 0o644)
+    check("world-readable HMAC key is rejected", m._manual_key(key_path) is None)
+    os.chmod(key_path, 0o600); os.chmod(key_state, 0o777)
+    check("world-writable HMAC state directory is rejected", m._manual_key(key_path) is None)
+    os.chmod(key_state, 0o700)
+    linked_state = os.path.join(root, "linked-state"); os.symlink(key_state, linked_state)
+    check("symlinked HMAC state directory is rejected",
+          m._manual_key(os.path.join(linked_state, "intent.key")) is None)
+    shutil.rmtree(root)
+
+    lock_root = tempfile.mkdtemp(); lock_path = os.path.join(lock_root, "ingest.lock")
+    first_lock = m.acquire_lock(lock_path)
+    os.utime(lock_path, (time.time() - 7200, time.time() - 7200))
+    second_lock = m.acquire_lock(lock_path)
+    check("a live retained singleton lease is never stolen merely because its mtime is old",
+          first_lock is not None and second_lock is None)
+    m.release_lock(first_lock)
+    third_lock = m.acquire_lock(lock_path)
+    check("singleton lock can be reacquired only after its retained owner releases", third_lock is not None)
+    m.release_lock(third_lock)
+    os.chmod(lock_path, 0o000)
+    check("singleton lock fails closed on a permission error", m.acquire_lock(lock_path) is None)
+    os.chmod(lock_path, 0o600)
+    os.unlink(lock_path)
+    os.symlink(os.path.join(lock_root, "elsewhere"), lock_path)
+    check("singleton lock fails closed on a symlink/open error", m.acquire_lock(lock_path) is None)
+    shutil.rmtree(lock_root)
 
     print()
     if failures:

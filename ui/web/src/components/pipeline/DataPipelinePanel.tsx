@@ -72,7 +72,7 @@ export function DataPipelinePanel() {
   const focusNeed = useStore((s) => s.dataPipelineFocusNeed)
 
   const needs: DataNeed[] = dataNeeds?.needs ?? []
-  const buildableNeeds = needs.filter((n) => !n.filing_required)
+  const buildableNeeds = needs.filter((n) => !n.filing_required && !n.built_by && n.entry_modules.length > 0)
 
   // gating — mirrors FeedbackPanel: hide the paid scan/build affordances unless the server says they're runnable.
   const [canScan, setCanScan] = useState(false)
@@ -160,6 +160,10 @@ export function DataPipelinePanel() {
       const res = await api.addPipelineSource(subject, swarm, {
         source_url: url.trim(), source_kind: kind,
         need_id: targetNeed || null,
+        ...(targetNeed && dataNeeds ? {
+          runRoot: dataNeeds.run_root,
+          decisionFingerprint: dataNeeds.decision_fingerprint,
+        } : {}),
         series_hint: seriesHint.trim() || undefined,
         sample: sample.trim() || undefined,
       })
@@ -221,9 +225,12 @@ export function DataPipelinePanel() {
                   <button
                     key={n.need_id}
                     className={`dpipe__need${targetNeed === n.need_id ? ' is-on' : ''}${n.filing_required ? ' is-filing' : ''}`}
-                    onClick={() => { if (!n.filing_required) { setTargetNeed(n.need_id); setSeriesHint(n.series) } }}
-                    title={n.filing_required ? 'Only a filing can close this — no connector can satisfy it.' : 'Target this need with a source below'}
-                    disabled={n.filing_required}
+                    onClick={() => { if (buildableNeeds.includes(n)) { setTargetNeed(n.need_id); setSeriesHint(n.series) } }}
+                    title={n.filing_required ? 'Only a filing can close this — no connector can satisfy it.'
+                      : n.built_by ? 'A current feed already covers this need.'
+                        : n.entry_modules.length === 0 ? 'The frozen orb route no longer exists; this cannot be rerun automatically.'
+                          : 'Target this exact decision need with a source below'}
+                    disabled={!buildableNeeds.includes(n)}
                   >
                     <span className="dpipe__needseries">{n.series}</span>
                     <span className="dpipe__needmeta">

@@ -69,8 +69,18 @@ export interface IntakeRerunPlan {
 }
 export interface IntakePlan {
   schema_version: string
+  // Server-stamped owner. Optional for deploy compatibility with the older research-only reader.
+  swarm?: string
+  subject?: string
   ticker: string
   run_root: string
+  // Raw authored identity of the exact decision whose new documents were read. Never server-rebound.
+  decision_fingerprint?: string
+  // New-reader content identity/action gate. Optional only for deploy compatibility; any paid scoped
+  // action requires positive `actionable === true` plus both valid hashes/path.
+  plan_path?: string
+  plan_sha256?: string
+  actionable?: boolean
   scan_date: string
   scanned_at?: string
   watermark?: string
@@ -94,16 +104,45 @@ export interface IntakePlan {
 export interface ThesisPlanIntake { affected: string[]; keep: string[]; scanDate: string; summary: string }
 
 // A structured data need the run's terminal synthesizer surfaced (decision_record.json data_needs[]) —
-// an external series whose absence caps conviction, so a durable connector can be built to feed it in.
-// Mirrors the DataNeed the server reader emits (ui/server/src/data-needs.ts).
+// evidence that would improve the call's understanding, but may support, weaken, or leave it unchanged.
+// Mirrors the versioned DataNeed projection the server emits (ui/server/src/data-needs.ts). The v2-only
+// fields stay optional so an old engine's v1 decision record remains readable during deploy skew.
+export interface DataNeedOrb {
+  module: string
+  agent: string
+  why: string
+  confidence: number
+  route_status?: 'current' | 'historical'
+}
+export interface DataNeedImpact {
+  if_supportive: string
+  if_adverse: string
+}
+export interface DataNeedSourceLookup {
+  lookup_status: 'public_link_found' | 'could_not_find'
+  public_url: string | null
+  checked_at: string
+  lookup_note: string
+  stale: boolean
+  access_basis: 'https_url_public_dns'
+}
 export interface DataNeed {
   need_id: string
   series: string
   why_it_caps: string
   cap_lifted?: string
+  priority?: number
+  expected_impact?: DataNeedImpact
+  entry_orbs?: DataNeedOrb[]
   filing_required: boolean
   entry_modules: string[]
-  suggested_source: { name: string; acquisition: string; licensing?: string }
+  suggested_source: {
+    name: string
+    acquisition: string
+    licensing?: string
+    access?: 'public' | 'licensed' | 'restricted' | 'unknown'
+    licensing_basis?: string
+  }
   tier: number
   cadence: string
   next_release?: string
@@ -112,14 +151,44 @@ export interface DataNeed {
   // visible through `connector_exists`, but the need stays open.
   built_by?: string
   connector_exists?: string
+  // Server-owned outcome of a completed, targeted public-source search. Failures and interrupted searches
+  // deliberately leave this absent, so the UI must never infer "Could not find" from a request error.
+  source_lookup?: DataNeedSourceLookup
 }
 export interface DataNeedsRead {
+  contract_version: 'data-needs-read/2'
   subject: string
   swarm: string
   run_root: string
+  decision_fingerprint: string
   decided_at: string
   needs: DataNeed[]
   widened: string[]
+  data_needs_schema_version?: '2.0'
+}
+
+// Exact selected-call manual evidence intake. Arrival is deliberately weaker than analysis: this wire
+// proves only that the server staged the bytes or that the existing external-data router published a
+// hash-bound payload + provenance sidecar. `IntakePlan` remains the authority on what the bytes mean.
+export type DataNeedUploadStatus = 'none' | 'staged_waiting' | 'routed_provenance_verified' | 'rejected_policy' | 'failed_tampered'
+export interface DataNeedUploadItem {
+  request_id: string
+  filename: string
+  sha256: string
+  staged_at: string
+  routed_path?: string
+  reason?: 'malformed_request' | 'tampered_request' | 'routing_failed' | 'policy_rejected'
+}
+export interface DataNeedUploadRead {
+  contract_version: 'data-need-upload/1'
+  subject: string
+  swarm: string
+  run_root: string
+  decision_fingerprint: string
+  need_id: string
+  series: string
+  status: DataNeedUploadStatus
+  items: DataNeedUploadItem[]
 }
 
 // ---- data pipeline: add a source → live relevance scan → build a connector → open a PR ----
@@ -162,6 +231,8 @@ export interface PipelineView {
 }
 export interface AddPipelineSourceInput {
   need_id?: string | null
+  runRoot?: string
+  decisionFingerprint?: string
   source_url: string
   source_kind?: PipelineSourceKind
   series_hint?: string
@@ -251,11 +322,17 @@ export interface RecommendedNeed {
   key: string
   swarm: string
   subject: string
+  // Optional only during an old-server/new-client deploy window. Targeted discovery refuses to run without both.
+  run_root?: string
+  decision_fingerprint?: string
   need_id: string
   series: string
   why_it_caps: string
   cap_lifted?: string
-  suggested_source: { name: string; acquisition: string; licensing?: string }
+  priority?: number
+  expected_impact?: DataNeedImpact
+  entry_orbs?: DataNeedOrb[]
+  suggested_source: DataNeed['suggested_source']
   tier: number
   cadence: string
   next_release?: string
@@ -265,6 +342,7 @@ export interface RecommendedNeed {
   // connector build merely because the existing one is unhealthy.
   built_by?: string
   connector_exists?: string
+  source_lookup?: DataNeedSourceLookup
 }
 export interface PipelinesRead {
   generatedAt: string
@@ -281,6 +359,22 @@ export interface RunnerStatus {
   autoRepairOn: boolean
   pollIntervalMin: number
   lastFetchSweepAt: string | null
+  fetcher?: {
+    contractVersion: 2
+    // Exact service projection. A future/unknown value is an incident in the UI, never a green fallback.
+    state: 'starting' | 'checking' | 'online' | 'paused_drive' | 'disabled_admin' | 'blocked_unsafe' | 'foreign_writer'
+    note: string
+    autoRetryArmed: boolean
+    intervalMin: number
+    host: string | null
+    lastStartedAt: string | null
+    lastProgressAt: string | null
+    lastCompletedAt: string | null
+    nextExpectedAt: string | null
+    processedRows: number
+    failedRows: number
+    skippedManifests: number
+  }
 }
 
 // ---- find feeds → build them → watch it happen (server: pipeline-discover.ts + the build stream) ----
@@ -774,7 +868,7 @@ export interface NewsCycle {
 // ui/server/src/news/types.ts). Kept as string unions so an older server sending an unknown value degrades
 // to the raw note rather than crashing the panel.
 export type DeferReason = 'aborted' | 'free-budget-spent' | 'groq-cooldown' | 'paced' | 'batch-failed'
-export type LastResortState = 'off' | 'scored' | 'usd-cap' | 'plan-quota' | 'cooling' | 'available'
+export type LastResortState = 'off' | 'scored' | 'usd-cap' | 'plan-quota' | 'auth-expired' | 'cooling' | 'available'
 
 // One ingest cycle's outcome, streamed live over /api/news/stream as `news-cycle`. Mirrors the server's
 // CycleSummary (ui/server/src/news/types.ts). Every field past `dropped` is optional so an OLDER engine
@@ -1206,6 +1300,7 @@ export interface QualifiedIdeaMetrics {
   scenario_returns: { label: string; probability_pct: number; return_pct: number }[]
 }
 export interface QualifiedIdeaRanking {
+  /** Runtime validation owns the policy allowlist so malformed/future payload tests remain expressible. */
   policy_version: string
   calibration_status: 'pre_data' | 'insufficient' | 'measured' | 'calibrated'
   raw_expected_return_pct: number
@@ -1222,7 +1317,7 @@ export interface QualifiedIdeaEvaluation {
   status: 'qualified' | 'needs_research' | 'does_not_clear'
   issues: QualifiedIdeaIssue[]
   metrics: QualifiedIdeaMetrics | null
-  /** Optional while old and new server bundles overlap during a deploy. */
+  /** Optional during a rolling server/web deploy; present on engines with conservative ranking. */
   ranking?: QualifiedIdeaRanking | null
   pareto_layer: number | null
   calibration_note: string
@@ -1587,6 +1682,19 @@ export interface LaunchPreflight {
   estCommits: number
   requiresTypedConfirm: boolean
   creditPreflight: { ok: boolean; reason?: string; rateLimitType?: string; checked: boolean }
+  // A server-minted, exact-identity receipt. Re-run controls fail closed when it is absent (including
+  // when a newly deployed browser is briefly talking to an older server that ignored the query fields).
+  exactDecisionBinding?: {
+    contractVersion: 'exact-decision-launch/1'
+    runRoot: string
+    decisionFingerprint: string
+    intakePlan?: {
+      contractVersion: 'exact-intake-orb/1'
+      planPath: string
+      planSha256: string
+      sourceDecisionFingerprint: string
+    }
+  }
 }
 
 // ---- pre-flight data-readiness gate (mirrors ui/server/src/types.ts) ----

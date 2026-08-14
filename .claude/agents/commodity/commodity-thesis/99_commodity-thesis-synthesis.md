@@ -189,6 +189,7 @@ Write exactly this shape (a commodity-scoped record — NOT the equity schema):
   "commodity": "{COMMODITY}",
   "commodity_family": "copy the exact family slug from frameworks/commodity/profiles/{COMMODITY}.json",
   "decision_date": "{DATE}",
+  "data_needs_schema_version": "2.0",
   "action": "Buy | Hold | Trim | Avoid | Research More",
   "target_exposure_risk_units": 0.5,
   "forecast_confidence": 58,
@@ -329,15 +330,30 @@ Write exactly this shape (a commodity-scoped record — NOT the equity schema):
   "data_needs": [
     {
       "need_id": "wasde-stocks-to-use",
+      "priority": 1,
       "series": "USDA WASDE US wheat ending stocks-to-use",
       "why_it_caps": "the balance verdict rests on the stocks-to-use trend; without the monthly print the deficit read is one release stale",
-      "cap_lifted": "confirms or updates the deficit → tightens the balance conviction",
+      "expected_impact": {
+        "if_supportive": "a lower stocks-to-use print would strengthen the deficit evidence, subject to the other balance inputs",
+        "if_adverse": "a higher stocks-to-use print would weaken or reject the deficit read"
+      },
       "filing_required": false,
-      "entry_modules": ["supply-demand"],
-      "suggested_source": { "name": "USDA FAS PSD Online", "acquisition": "free_key_api", "licensing": "public_domain" },
+      "entry_orbs": [
+        {
+          "module": "supply-demand",
+          "agent": "commodity-demand-inventory",
+          "why": "this orb owns the stocks-to-use balance and inventory buffer",
+          "confidence": 0.95
+        }
+      ],
+      "suggested_source": {
+        "name": "USDA FAS PSD Online",
+        "acquisition": "free_key_api",
+        "access": "public",
+        "licensing_basis": "US government public data; confirm current terms at connector approval"
+      },
       "tier": 5,
-      "cadence": "event_driven",
-      "next_release": "2026-08-12"
+      "cadence": "event_driven"
     }
   ]
 }
@@ -351,15 +367,31 @@ critical-risk override forces `Avoid`; do not invent currency, unit or as-of met
 
 ## data_needs — surface what would sharpen this call
 
-`data_needs[]` is OPTIONAL and forward-looking. Emit one entry per EXTERNAL data series whose absence is
-capping conviction *right now* — the same gaps you named under "what would flip the view" (§3) and the
-catalyst "what to wait for" (§17), plus any series a lens had to estimate or fetch ad-hoc. This is what the
-cockpit surfaces so a durable feed can be built for it. Rules:
+For every new publication made on or after **2026-08-14**, including a rerun whose `decision_date` remains
+older, emit `data_needs_schema_version: "2.0"` and `data_needs`, even when the honest result is `[]`.
+Emit at most five missing observations whose absence
+caps the decision *right now* — the same gaps named under "what would flip the view" (§3), the catalyst
+"what to wait for" (§17), or a lens that had to leave a required input unresolved. Rules:
 
-- Emit the NEED, **not a scraper**: `series` (what it is), `why_it_caps` (why its absence limits conviction),
-  `entry_modules` (which module consumes it — drives the scoped rerun), a `suggested_source` (prefer an
-  OFFICIAL / public-domain body — USDA, NOAA, CFTC, an exchange — over a redistributor), and the realistic
-  `cadence`. Do **not** invent endpoints, schemas, or scraper code — the human authors the connector spec later.
+- Rank by **decision value**, not an imagined score lift. `priority: 1` is the single missing observation
+  most likely to change or reject the action, or to resolve the largest active cap. Use source quality and
+  feasibility only as tie-breakers. Emit the array itself in exact priority order `1, 2, ... N`, so
+  `data_needs[0]` is priority `1`; never skip or reorder a rank.
+- Emit the NEED, **not a scraper**: `series` says exactly what is missing; `why_it_caps` names the unresolved
+  decision question and current cap. `expected_impact` is explicitly two-sided: `if_supportive` and
+  `if_adverse` say how the evidence would bear on the thesis. Evidence may strengthen, weaken, or leave the
+  call unchanged. Never promise a rating, score, conviction lift, upgrade or downgrade; never quantify
+  confidence/conviction, including as `100%`.
+- Route through exact `entry_orbs`: one or more `{module, agent, why, confidence}` objects. `module` and
+  `agent` must exactly match the discovered roster; `confidence` is routing confidence on a `0..1` scale,
+  not investment conviction. Do not emit the removed v1 `entry_modules` field.
+- `suggested_source` is a publisher/provider **hint only**, exactly
+  `{name, acquisition, access, licensing_basis}`. Prefer an official body — USDA, NOAA, CFTC, an exchange —
+  over a redistributor. `access` is exactly `public | licensed | restricted | unknown`; `licensing_basis`
+  states what is known or `unknown`. Do not put a URL anywhere in the need, assert that a source was found,
+  or claim that access/licensing is cleared. Discovery and rights checks happen after the decision.
+- Do **not** emit v1 `cap_lifted` or `entry_modules`. Do not invent endpoints, schemas, host allowlists,
+  credentials, scraper code, or source URLs — connector implementation is a later, separate decision.
 - `tier` is the §4 ceiling the series can earn: an API / vendor feed is `5`; a dated web scrape is `9` or `10`.
   **Never 1–4** — a live feed is not a filing.
 - **Enums are exact (fail-closed downstream):** `suggested_source.acquisition` MUST be one of
@@ -368,8 +400,10 @@ cockpit surfaces so a durable feed can be built for it. Rules:
   'free_public_data') fails the schema and the need never surfaces on the cockpit.
 - Set `filing_required: true` ONLY when the gap can be closed solely by a statutory filing (an audited figure,
   a formal disclosure). Such a need is advisory — no connector can satisfy it — so mark it and move on.
-- If nothing external is capping the call, omit the array or leave it empty. **Never manufacture needs** to
-  fill it (§24: a rejected/insufficient read is a valid output, not a gap to paper over).
+- `next_release` is optional and, when present, is a real `YYYY-MM-DD` date on or after `decision_date`,
+  proven by a schedule. Do not invent one. If nothing is capping the call, emit `data_needs: []`.
+  **Never manufacture needs** to fill it (§24: a rejected/insufficient read is a valid output, not a gap
+  to paper over).
 
 **Populate `key_levels` from the cost-curve orb.** Set `fair_value_range` to the orb's bear/base/bull band as a free-text string (e.g. `"bear 15.0 / base 19.5 / bull 24.0 ¢/lb, anchor-grade"`). Prefer the orb's cash-cost / floor level for `support` and its demand-destruction / incentive ceiling for `resistance` (fall back to the price-curve orb's technical levels only if the fundamental anchor is absent). If the fair-value orb was missing, leave all three `null` and mark margin of safety "Not assessable" in the prose (§11) — do not invent a level.
 
@@ -422,7 +456,11 @@ single-horizon fields are forbidden on fresh decisions because consumers could m
 - [ ] Risk summary names the killer risk and the flip condition; the relative read answers "are we in the right commodity?".
 - [ ] No forced Buy; conviction is capped as Commodity-conditional.
 - [ ] `calibration_feedback` was computed per WORKFLOW step 4 and written into `decision_record.json` — never omitted, never used to *raise* confidence, `status` one of the four literal strings, `haircut_points`/`flagged_slices` populated only when `status=="applied"`.
-- [ ] `data_needs[]` (if present) lists only EXTERNAL, connector-feedable gaps, each with a `why_it_caps`, an official-source-preferred `suggested_source` with `acquisition`/`cadence` exactly from the schema enums, and a §4 `tier` of 5/9/10; filing-only gaps are marked `filing_required: true`; no invented endpoints; nothing manufactured.
+- [ ] `data_needs_schema_version` is `"2.0"` and `data_needs` is present (possibly `[]`); at most five
+      needs appear in exact array order `1, 2, ... N` by decision value. Every need has two-sided
+      `expected_impact`, exact roster-valid `entry_orbs` with 0..1 routing confidence, a source hint with
+      `access`/`licensing_basis`, and a §4 tier of 5/9/10. There are no URLs, `cap_lifted`, `entry_modules`,
+      guarantees, or numeric/promised conviction lifts; filing-only gaps are marked `filing_required: true`.
 
 # CHAT CONFIRMATION
 

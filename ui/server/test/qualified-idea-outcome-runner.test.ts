@@ -69,7 +69,7 @@ function candidate(ticker = 'TEST'): QualifiedIdeaCandidate {
       causal_steps: ['Company files the KPI result.', 'Consensus revises the KPI and target.'],
       bullish_trigger: 'KPI is at least 112 against consensus 100.', bearish_trigger: 'KPI is below consensus 100.',
     },
-    falsifier: { condition: 'The edge is falsified when the filed KPI is below consensus 100.', metric: 'filed KPI', threshold: '< 100', deadline: '2026-03-20T00:00:00Z', source: 'Q1 filing' },
+    falsifier: { condition: 'The edge is falsified when the filed KPI is below consensus 100.', metric: 'filed KPI', threshold: '< 100', deadline: '2026-03-20T00:00:00Z', source: 'company calendar' },
     valuation_bridge: { source_horizon_days: 180, method: 'same_horizon', convergence_fraction: null, rationale: 'Targets resolve inside this exact event holding window.', source: 'event model' },
     scenarios: [
       { scenario_id: 'bull', label: 'bull', probability_pct: 25, price_target: 140, source_price_target: 140, conditions: ['KPI exceeds 120'], source: 'frozen event model' },

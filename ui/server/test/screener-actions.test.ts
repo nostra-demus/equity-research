@@ -9,7 +9,8 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { REPO_ROOT } from '../src/config'
-import { markInboxConsumed, setDismissed } from '../src/news/inbox-actions'
+import { markInboxConsumed, readInboxHumanActions, setDismissed } from '../src/news/inbox-actions'
+import { mergeInbox } from '../src/news/write-inbox'
 import { moveThesis } from '../src/screener-actions'
 
 let passed = 0
@@ -57,10 +58,79 @@ await check('inbox: dismiss → restore round-trip stamps and clears human state
   const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
   assert.equal(doc.rows[0].dismissed, true)
   assert.ok(doc.updated_at)
+  assert.deepEqual(readInboxHumanActions(root).rows.map((row) => row.action), ['dismissed'])
   const restored = setDismissed(root, 'INB-20260612-001', false, 'tester@x')
   assert.equal(restored?.dismissed, undefined)
   assert.equal(restored?.dismissed_at, undefined)
+  assert.deepEqual(readInboxHumanActions(root).rows, [], 'restore closes the durable dismissal record')
   assert.equal(setDismissed(root, 'INB-19990101-999', true, 'x'), null) // unknown id → null, no write
+})
+
+await check('inbox: ledger/projection divergence is repaired after sweep write failures without duplicate actions', () => {
+  const root = mkRepo()
+  const sweep = path.join(root, 'screener/inbox/2026-06-12_sweep.json')
+  const ledger = path.join(root, 'screener/ledger/inbox-human-actions.ndjson')
+  const failNextSweepWrite = (fn: () => void): void => {
+    const renameSync = fs.renameSync
+    let failed = false
+    fs.renameSync = ((oldPath, newPath) => {
+      if (!failed && String(newPath) === sweep) {
+        failed = true
+        throw new Error('injected sweep write failure')
+      }
+      return renameSync(oldPath, newPath)
+    }) as typeof fs.renameSync
+    try {
+      assert.throws(fn, /injected sweep write failure/)
+      assert.equal(failed, true, 'the injected failure reached the sweep rename after the ledger append')
+    } finally {
+      fs.renameSync = renameSync
+    }
+  }
+  const ledgerRows = (): any[] => fs.readFileSync(ledger, 'utf8').trim().split('\n').map((line) => JSON.parse(line))
+  const projectedRow = (): any => JSON.parse(fs.readFileSync(sweep, 'utf8')).rows
+    .find((row: any) => row.inbox_id === 'INB-20260612-001')
+
+  // The append is durable but the projection remains in its prior state. A later restore must consult
+  // the observation-keyed ledger instead of returning early just because the sweep already looks clear.
+  failNextSweepWrite(() => { setDismissed(root, 'INB-20260612-001', true, 'tester@x') })
+  assert.equal(projectedRow().dismissed, undefined)
+  assert.deepEqual(readInboxHumanActions(root).rows.map((row) => row.action), ['dismissed'])
+  mergeInbox(root, '2026-06-12', [{
+    event_id: 'EVT-ledger-cap-pressure', headline: 'New higher-scoring event under cap pressure',
+    url: 'https://reuters.com/cap-pressure', domain: 'reuters.com', source_name: 'Reuters',
+    region: 'GLOBAL', input_nature: 'news_headline', found_at: '2026-06-12T10:00:00Z',
+    dedup_status: 'new', triage_score: 99, triage_reason: 'material event', relevance: 'material',
+    materiality_pre_score: 99, event_types: ['mna'], issuer_linkage: 'primary', companies: [],
+    size_bucket: 'large', band: 'pick', event_materiality_label: 'critical',
+    event_direction: 'unknown', event_scope: 'single_name',
+  } as any], { maxRows: 1, now: () => new Date('2026-06-12T10:01:00Z') })
+  assert.equal(projectedRow().dismissed, true, 'merge repairs ledger-backed dismissal before cap selection')
+  assert.ok(JSON.parse(fs.readFileSync(sweep, 'utf8')).rows.some((row: any) => row.inbox_id === 'INB-20260612-001'),
+    'cap pressure cannot evict a durable human veto whose prior projection write failed')
+  const restored = setDismissed(root, 'INB-20260612-001', false, 'tester@x')
+  const restoreLedger = ledgerRows()
+  assert.deepEqual(restoreLedger.map((row) => row.action), ['dismissed', 'restored'])
+  assert.equal(new Set(restoreLedger.map((row) => row.observation_id)).size, 1)
+  assert.deepEqual(readInboxHumanActions(root).rows, [], 'the restore closes the durable dismissal')
+  assert.equal(restored?.human_action_id, restoreLedger[1].action_id)
+  assert.equal(projectedRow().human_action_id, restoreLedger[1].action_id)
+
+  // Same-action retries repair either projection direction from the already-durable transition. They
+  // must not append a second dismissal/restore merely because the sweep rename failed.
+  failNextSweepWrite(() => { setDismissed(root, 'INB-20260612-001', true, 'tester@x') })
+  const dismissalLedger = ledgerRows()
+  const retriedDismissal = setDismissed(root, 'INB-20260612-001', true, 'tester@x')
+  assert.equal(ledgerRows().length, dismissalLedger.length)
+  assert.equal(retriedDismissal?.dismissed, true)
+  assert.equal(projectedRow().human_action_id, dismissalLedger.at(-1).action_id)
+
+  failNextSweepWrite(() => { setDismissed(root, 'INB-20260612-001', false, 'tester@x') })
+  const restoredLedger = ledgerRows()
+  const retriedRestore = setDismissed(root, 'INB-20260612-001', false, 'tester@x')
+  assert.equal(ledgerRows().length, restoredLedger.length)
+  assert.equal(retriedRestore?.dismissed, undefined)
+  assert.equal(projectedRow().human_action_id, restoredLedger.at(-1).action_id)
 })
 
 await check('inbox: markInboxConsumed sets consumed + launched_signal_id (idempotent)', () => {
@@ -68,8 +138,72 @@ await check('inbox: markInboxConsumed sets consumed + launched_signal_id (idempo
   const row = markInboxConsumed(root, 'INB-20260612-002', 'SIG-20260612-abcd1234')
   assert.equal(row?.consumed, true)
   assert.equal(row?.launched_signal_id, 'SIG-20260612-abcd1234')
+  assert.ok(row?.consumed_at)
+  const consumedAt = row?.consumed_at
   const again = markInboxConsumed(root, 'INB-20260612-002', 'SIG-20260612-abcd1234')
   assert.equal(again?.consumed, true)
+  assert.equal(again?.consumed_at, consumedAt, 'an idempotent repeat preserves the original action clock')
+  assert.deepEqual(readInboxHumanActions(root).rows.map((record) => record.action), ['consumed'])
+})
+
+await check('inbox action ledger folds reused inbox slots by immutable observation', () => {
+  const root = mkRepo()
+  const file = path.join(root, 'screener/inbox/2026-06-12_sweep.json')
+  setDismissed(root, 'INB-20260612-001', true, 'tester@x')
+  markInboxConsumed(root, 'INB-20260612-002', 'SIG-old-observation')
+
+  // Simulate a restore/import that reuses the date+sequence slots for unrelated source observations.
+  // Actions on the replacement rows must neither restore nor overwrite the old vetoes.
+  const replacement = JSON.parse(fs.readFileSync(file, 'utf8'))
+  replacement.rows[0] = {
+    ...replacement.rows[0], headline: 'Replacement dismissal observation', url: 'https://reuters.com/replacement-dismiss',
+    found_at: '2026-06-12T10:00:00Z', consumed: false, launched_signal_id: null,
+  }
+  delete replacement.rows[0].dismissed
+  delete replacement.rows[0].dismissed_at
+  delete replacement.rows[0].dismissed_by
+  delete replacement.rows[0].human_action_id
+  replacement.rows[1] = {
+    ...replacement.rows[1], headline: 'Replacement consumed observation', url: 'https://reuters.com/replacement-consume',
+    found_at: '2026-06-12T10:01:00Z', consumed: false, launched_signal_id: null,
+  }
+  delete replacement.rows[1].consumed_at
+  delete replacement.rows[1].human_action_id
+  fs.writeFileSync(file, JSON.stringify(replacement, null, 2))
+
+  setDismissed(root, 'INB-20260612-001', true, 'tester@x')
+  setDismissed(root, 'INB-20260612-001', false, 'tester@x')
+  markInboxConsumed(root, 'INB-20260612-002', 'SIG-new-observation')
+
+  const actions = readInboxHumanActions(root)
+  assert.equal(actions.complete, true)
+  assert.deepEqual(actions.rows.map((row) => [row.action, row.headline]).sort(), [
+    ['consumed', 'A second headline long enough'],
+    ['consumed', 'Replacement consumed observation'],
+    ['dismissed', 'A first headline long enough'],
+  ].sort(), 'restore closes only the replacement dismissal and both consumed observations survive')
+  assert.equal(new Set(actions.rows.map((row) => row.observation_id)).size, 3)
+})
+
+await check('inbox action ledger derives legacy observation identity and rejects conflicting lineage', () => {
+  const root = mkRepo()
+  setDismissed(root, 'INB-20260612-001', true, 'tester@x')
+  const ledger = path.join(root, 'screener/ledger/inbox-human-actions.ndjson')
+  const legacy = JSON.parse(fs.readFileSync(ledger, 'utf8').trim())
+  delete legacy.observation_id
+  fs.writeFileSync(ledger, `${JSON.stringify(legacy)}\n`)
+  const recovered = readInboxHumanActions(root)
+  assert.equal(recovered.complete, true)
+  assert.ok(recovered.rows[0]?.observation_id, 'pre-lineage records derive identity from required source bytes')
+
+  fs.writeFileSync(ledger, `${JSON.stringify({ ...legacy, observation_id: 'EVT-conflicting-lineage' })}\n`)
+  assert.deepEqual(readInboxHumanActions(root), { rows: [], complete: false },
+    'an explicit identity that conflicts with source bytes fails closed')
+  const retried = setDismissed(root, 'INB-20260612-001', true, 'tester@x')
+  const lines = fs.readFileSync(ledger, 'utf8').trim().split('\n')
+  assert.equal(lines.length, 2, 'a malformed ledger cannot prove that a matching projection is a no-op')
+  assert.equal(retried?.human_action_id, JSON.parse(lines[1]).action_id)
+  assert.equal(readInboxHumanActions(root).complete, false, 'the appended witness does not hide earlier corruption')
 })
 
 await check('thesis move: override appended (engine status captured); engine thesis file untouched; unknown id → null', async () => {

@@ -19,6 +19,7 @@ import {
   feedHealthOf,
   ledgerIntegrityWarningOf,
   normalizeFeedHealth,
+  pipelineIsWaitingForFirstCheck,
   pipelineIsUsable,
   repairForSubject,
   REPAIR_DISPLAY,
@@ -28,6 +29,7 @@ import {
 import {
   AUTOMATIC_CONNECTOR_CODING_UNAVAILABLE,
   recommendedDiscoveryAction,
+  recommendedDiscoveryRequest,
 } from './buildAvailability'
 
 let passed = 0
@@ -117,6 +119,26 @@ check('usable means a fresh file plus current/no-new-release/manual health', () 
   assert.equal(pipelineIsUsable(mkPipeline(), 'OTHER'), false, 'an absent subject is never usable')
 })
 
+check('never-run and pending feeds are one waiting queue, while real failures still require action', () => {
+  assert.equal(pipelineIsWaitingForFirstCheck(mkPipeline({
+    statuses: [mkStatus('ZZZ', 'never_run', 'missing')], verdict: 'attention',
+  })), true)
+  assert.equal(pipelineIsWaitingForFirstCheck(mkPipeline({
+    subjects: ['AAA', 'ZZZ'],
+    statuses: [mkStatus('AAA', 'current', 'fresh'), mkStatus('ZZZ', 'pending', 'missing')],
+    verdict: 'attention',
+  })), true, 'a multi-subject feed may be partly current while its new subject waits')
+  assert.equal(pipelineIsWaitingForFirstCheck(mkPipeline({
+    statuses: [mkStatus('ZZZ', 'stalled', 'stale')], verdict: 'attention',
+  })), false)
+  assert.equal(pipelineIsWaitingForFirstCheck(mkPipeline({
+    statuses: [mkStatus('ZZZ', 'broken', 'fresh')], verdict: 'broken',
+  })), false)
+  assert.equal(pipelineIsWaitingForFirstCheck(mkPipeline({
+    statuses: [mkStatus('ZZZ', 'never_run', 'unknown')], verdict: 'unknown',
+  })), false, 'a pool-less host cannot turn invisible fetch health into a waiting claim')
+})
+
 check('a ledger-integrity warning remains visible independently of current usable health', () => {
   const warning = 'connector run ledger contains 1 malformed row; valid prior clocks were retained'
   const current = { ...mkStatus('ZZZ', 'current'), ledgerIntegrityWarning: warning }
@@ -134,6 +156,21 @@ check('scan-only mode never promises an automatic connector build', () => {
   assert.doesNotMatch(scanOnly.title, /send it to|builder/i)
   assert.match(AUTOMATIC_CONNECTOR_CODING_UNAVAILABLE, /manual branch and pull-request workflow/i)
   assert.doesNotMatch(AUTOMATIC_CONNECTOR_CODING_UNAVAILABLE, /admin-only/i)
+})
+
+check('recommended discovery uses its own swarm and immutable decision identity', () => {
+  const need = mkNeed({
+    swarm: 'second-swarm', run_root: 'second-swarm/runs/AAA',
+    decision_fingerprint: `sha256:${'a'.repeat(64)}`,
+  })
+  assert.deepEqual(recommendedDiscoveryRequest(need, true), {
+    swarm: 'second-swarm',
+    opts: {
+      need_id: need.need_id, runRoot: 'second-swarm/runs/AAA',
+      decisionFingerprint: `sha256:${'a'.repeat(64)}`, want: need.series, autoBuild: true,
+    },
+  })
+  assert.equal(recommendedDiscoveryRequest(mkNeed(), true), null, 'deploy-skew row must not launch targeted discovery')
 })
 
 check('repair copy covers every lifecycle state and does not call a PR-open feed fixed', () => {

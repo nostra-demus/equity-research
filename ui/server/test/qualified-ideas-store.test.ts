@@ -4,6 +4,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
+import { execFileSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import {
   buildQualifiedIdeasBoard,
@@ -12,6 +13,7 @@ import {
   qualifiedIdeaJsonSha256,
 } from '../src/qualified-ideas-store'
 import { qualifiedIdeaOutcomeHealthPath } from '../src/qualified-idea-outcome-runner'
+import { createRun, finishRun, setActiveTickerRun } from '../src/registry'
 import type { QualifiedIdeaCandidate } from '../src/qualified-ideas'
 
 const NOW = Date.parse('2026-08-03T12:00:00Z')
@@ -63,7 +65,7 @@ function candidate(runRoot: string, createdAt?: string): QualifiedIdeaCandidate 
       causal_steps: ['Company files the KPI result.', 'Consensus revises the same KPI and valuation.'],
       bullish_trigger: 'KPI is at least 112 against 100 consensus.', bearish_trigger: 'KPI is below 100 consensus.',
     },
-    falsifier: { condition: 'The edge is falsified when the filed KPI is below 100.', metric: 'filed KPI', threshold: '< 100', deadline: '2026-10-25T00:00:00Z', source: 'Q3 filing' },
+    falsifier: { condition: 'The edge is falsified when the filed KPI is below 100.', metric: 'filed KPI', threshold: '< 100', deadline: '2026-10-25T00:00:00Z', source: 'company calendar' },
     valuation_bridge: { source_horizon_days: 180, method: 'same_horizon', convergence_fraction: null, rationale: 'The targets come directly from the event payoff inside this holding window.', source: 'event model' },
     scenarios: [
       { scenario_id: 'bull', label: 'bull', probability_pct: 25, price_target: 140, source_price_target: 140, conditions: ['KPI is at least 120'], source: 'frozen event model' },
@@ -103,12 +105,17 @@ function writeRun(name: string, opts: {
   expectationsExploitable?: boolean
   expectationsEdge?: number
   unnamedNegative?: boolean
-} = {}) {
-  const dir = path.join(root, 'analyses', name)
+  lowConservativeReturn?: boolean
+} = {}, repoRoot = root) {
+  const dir = path.join(repoRoot, 'analyses', name)
   fs.mkdirSync(dir, { recursive: true })
   fs.writeFileSync(path.join(dir, 'final_thesis.md'), '# Thesis\n')
   const runRoot = `analyses/${name}`
   const c = candidate(runRoot, opts.createdAt)
+  if (!opts.lowConservativeReturn) {
+    c.scenarios[0].price_target = c.scenarios[0].source_price_target = 160
+    c.scenarios[1].price_target = c.scenarios[1].source_price_target = 138
+  }
   if (opts.entryStartsEarly) c.horizon.start = '2026-08-01T10:00:00Z'
   const authorityScenarios = c.scenarios.map((row) => ({
     scenario_id: row.scenario_id, label: row.label, probability_pct: row.probability_pct,
@@ -183,6 +190,12 @@ function writeRun(name: string, opts: {
   manifest.manifest_sha256 = digest(manifest)
   fs.writeFileSync(path.join(dir, 'idea_projection_manifest.json'), JSON.stringify(manifest))
   c.projection_manifest_sha256 = manifest.manifest_sha256
+  const evidence = marketEvidence(c)
+  fs.writeFileSync(path.join(dir, 'idea_market_evidence.json'), JSON.stringify({
+    schema_version: 'idea-market-evidence-snapshot/v1', captured_at: c.created_at,
+    projection_manifest_sha256: manifest.manifest_sha256,
+    evidence, evidence_sha256: digest(evidence),
+  }))
 
   const preCap = preMortem.recommended_rating_cap.trim() || null
   const auditCapReasons: string[] = []
@@ -280,6 +293,178 @@ assert.equal(one.health.assessment_count, 1)
 assert.equal(one.qualified.length, 1)
 assert.equal(one.qualified[0].candidate.research.integrity_status, 'verified')
 
+// Use a clean, isolated board so these health assertions cannot be satisfied by malformed fixtures
+// created elsewhere in this cumulative test file.
+const mutableDriftRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-mutable-drift-'))
+writeRun('STANDING_2026-08-03', { verify: true }, mutableDriftRoot)
+const mutableDrift = writeRun('MUTABLEDRIFT_2026-08-03', { verify: true }, mutableDriftRoot)
+const cleanMutableBoard = buildQualifiedIdeasBoard(mutableDriftRoot, { nowMs: NOW })
+assert.equal(cleanMutableBoard.health.status, 'healthy')
+assert.equal(cleanMutableBoard.health.invalid_count, 0)
+const mutableDriftAssessment = JSON.parse(fs.readFileSync(path.join(mutableDrift.dir, 'idea_3_6m.json'), 'utf8'))
+mutableDriftAssessment.candidate.scenarios[0].price_target = 190
+mutableDriftAssessment.candidate.scenarios[0].source_price_target = 190
+fs.writeFileSync(path.join(mutableDrift.dir, 'idea_3_6m.json'), JSON.stringify(mutableDriftAssessment))
+const mutableDriftBoard = buildQualifiedIdeasBoard(mutableDriftRoot, { nowMs: NOW })
+assert.equal(mutableDriftBoard.health.status, 'degraded', 'mutable assessment drift degrades current board health')
+assert.equal(mutableDriftBoard.health.invalid_count, 1)
+assert.equal(mutableDriftBoard.health.outcome, 'qualified', 'the unrelated clean standing idea still clears')
+assert.match(mutableDriftBoard.health.reason, /1 invalid current run/, 'the qualified warning tooltip names the integrity defect count')
+assert.ok(mutableDriftBoard.needs_research.find((x) => x.candidate.instrument.ticker === 'MUTABLEDRIFT')?.issues
+  .some((x) => x.code === 'authoritative_research_mismatch'))
+assert.equal(
+  listFrozenQualifiedIdeaEvaluations(mutableDriftRoot).find((x) => x.candidate.instrument.ticker === 'MUTABLEDRIFT')
+    ?.candidate.scenarios[0].price_target,
+  160,
+  'mutable drift does not rewrite the admitted scenario used for outcome grading',
+)
+fs.rmSync(mutableDriftRoot, { recursive: true, force: true })
+
+const authorityDriftRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-authority-drift-'))
+const authorityDrift = writeRun('AUTHORITYDRIFT_2026-08-03', { verify: true }, authorityDriftRoot)
+assert.equal(buildQualifiedIdeasBoard(authorityDriftRoot, { nowMs: NOW }).health.status, 'healthy')
+fs.appendFileSync(path.join(authorityDrift.dir, 'final_thesis.md'), '\nRetrospective edit.\n')
+const authorityDriftBoard = buildQualifiedIdeasBoard(authorityDriftRoot, { nowMs: NOW })
+assert.equal(authorityDriftBoard.health.status, 'degraded', 'current manifest or decision drift degrades board health')
+assert.equal(authorityDriftBoard.health.invalid_count, 1)
+assert.ok(authorityDriftBoard.needs_research[0]?.issues.some((x) => x.code === 'authoritative_research_mismatch'))
+assert.ok(listFrozenQualifiedIdeaEvaluations(authorityDriftRoot)
+  .some((x) => x.candidate.instrument.ticker === 'AUTHORITYDRIFT'), 'authority drift leaves the frozen outcome cohort intact')
+fs.rmSync(authorityDriftRoot, { recursive: true, force: true })
+
+const marketReplayRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-market-replay-'))
+const marketDrift = writeRun('MARKETDRIFT_2026-08-03', { verify: true }, marketReplayRoot)
+const marketMissing = writeRun('MARKETMISSING_2026-08-03', { verify: true }, marketReplayRoot)
+assert.equal(buildQualifiedIdeasBoard(marketReplayRoot, { nowMs: NOW }).health.status, 'healthy')
+const driftedSidecar = JSON.parse(fs.readFileSync(path.join(marketDrift.dir, 'idea_market_evidence.json'), 'utf8'))
+driftedSidecar.evidence.quote.price = 999
+driftedSidecar.evidence_sha256 = digest(driftedSidecar.evidence)
+fs.writeFileSync(path.join(marketDrift.dir, 'idea_market_evidence.json'), JSON.stringify(driftedSidecar))
+fs.unlinkSync(path.join(marketMissing.dir, 'idea_market_evidence.json'))
+const marketReplayBoard = buildQualifiedIdeasBoard(marketReplayRoot, { nowMs: NOW })
+assert.equal(marketReplayBoard.health.invalid_count, 2, 'a rehashed or missing current sidecar quarantines both live cards')
+assert.ok(marketReplayBoard.needs_research.every((row) => row.issues.some((issue) => issue.code === 'authoritative_research_mismatch')))
+const marketReplayFrozen = listFrozenQualifiedIdeaEvaluations(marketReplayRoot)
+assert.equal(marketReplayFrozen.length, 2, 'later sidecar drift cannot select a valid frozen admission out of outcomes')
+assert.equal(marketReplayFrozen.find((row) => row.candidate.instrument.ticker === 'MARKETDRIFT')?.candidate.quote.price, 100)
+fs.rmSync(marketReplayRoot, { recursive: true, force: true })
+
+const marketForgeryRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-market-forgery-'))
+const marketForgery = writeRun('MARKETFORGERY_2026-08-03', { verify: true }, marketForgeryRoot)
+const forgedMarketAdmission = JSON.parse(JSON.stringify(marketForgery.admission))
+forgedMarketAdmission.candidate.quote.price = 999
+forgedMarketAdmission.market_evidence.quote.price = 999
+forgedMarketAdmission.market_evidence_sha256 = digest(forgedMarketAdmission.market_evidence)
+forgedMarketAdmission.candidate.market_evidence_sha256 = forgedMarketAdmission.market_evidence_sha256
+forgedMarketAdmission.assessment.candidate = forgedMarketAdmission.candidate
+forgedMarketAdmission.candidate_sha256 = digest(forgedMarketAdmission.candidate)
+forgedMarketAdmission.assessment_sha256 = digest(forgedMarketAdmission.assessment)
+forgedMarketAdmission.admission_id = `${forgedMarketAdmission.candidate.idea_id}|${forgedMarketAdmission.candidate_sha256.slice(0, 16)}`
+delete forgedMarketAdmission.admission_sha256
+forgedMarketAdmission.admission_sha256 = digest(forgedMarketAdmission)
+fs.writeFileSync(path.join(marketForgery.dir, 'idea_3_6m.json'), JSON.stringify(forgedMarketAdmission.assessment))
+fs.writeFileSync(path.join(marketForgery.dir, 'idea_admission.json'), JSON.stringify(forgedMarketAdmission))
+const marketForgeryBoard = buildQualifiedIdeasBoard(marketForgeryRoot, { nowMs: NOW })
+assert.equal(marketForgeryBoard.qualified.length, 0, 'recomputed admission hashes cannot diverge from the canonical current sidecar live')
+assert.equal(marketForgeryBoard.health.invalid_count, 1)
+fs.rmSync(marketForgeryRoot, { recursive: true, force: true })
+
+const preManifestRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-pre-manifest-'))
+const preManifest = writeRun('PREMANIFEST_2026-08-03', { verify: true }, preManifestRoot)
+const preManifestAdmission = JSON.parse(JSON.stringify(preManifest.admission))
+preManifestAdmission.candidate.created_at = '2026-08-03T09:59:59Z'
+preManifestAdmission.assessment.created_at = preManifestAdmission.candidate.created_at
+preManifestAdmission.assessment.candidate = preManifestAdmission.candidate
+preManifestAdmission.candidate_sha256 = digest(preManifestAdmission.candidate)
+preManifestAdmission.assessment_sha256 = digest(preManifestAdmission.assessment)
+preManifestAdmission.admission_id = `${preManifestAdmission.candidate.idea_id}|${preManifestAdmission.candidate_sha256.slice(0, 16)}`
+delete preManifestAdmission.admission_sha256
+preManifestAdmission.admission_sha256 = digest(preManifestAdmission)
+fs.writeFileSync(path.join(preManifest.dir, 'idea_3_6m.json'), JSON.stringify(preManifestAdmission.assessment))
+fs.writeFileSync(path.join(preManifest.dir, 'idea_admission.json'), JSON.stringify(preManifestAdmission))
+const preManifestBoard = buildQualifiedIdeasBoard(preManifestRoot, { nowMs: NOW })
+assert.equal(preManifestBoard.qualified.length, 0, 'a fully rehashed candidate timestamp cannot precede its pinned manifest')
+assert.equal(preManifestBoard.health.invalid_count, 1)
+assert.equal(listFrozenQualifiedIdeaEvaluations(preManifestRoot).length, 0)
+fs.rmSync(preManifestRoot, { recursive: true, force: true })
+
+const forgedWrapperRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-forged-wrapper-'))
+const forgedWrapper = writeRun('FORGEDWRAPPER_2026-08-03', { verify: true }, forgedWrapperRoot)
+const forgedWrapperAssessment = JSON.parse(JSON.stringify(forgedWrapper.assessment))
+const forgedWrapperAdmission = JSON.parse(JSON.stringify(forgedWrapper.admission))
+forgedWrapperAssessment.ticker = 'DIFFERENT'
+forgedWrapperAdmission.assessment = forgedWrapperAssessment
+forgedWrapperAdmission.assessment_sha256 = digest(forgedWrapperAssessment)
+delete forgedWrapperAdmission.admission_sha256
+forgedWrapperAdmission.admission_sha256 = digest(forgedWrapperAdmission)
+fs.writeFileSync(path.join(forgedWrapper.dir, 'idea_3_6m.json'), JSON.stringify(forgedWrapperAssessment))
+fs.writeFileSync(path.join(forgedWrapper.dir, 'idea_admission.json'), JSON.stringify(forgedWrapperAdmission))
+const forgedWrapperBoard = buildQualifiedIdeasBoard(forgedWrapperRoot, { nowMs: NOW })
+assert.equal(forgedWrapperBoard.qualified.length, 0, 'a rehashed wrapper cannot name a different ticker from its candidate')
+assert.equal(forgedWrapperBoard.health.invalid_count, 1)
+assert.ok(!listFrozenQualifiedIdeaEvaluations(forgedWrapperRoot)
+  .some((x) => x.candidate.instrument.ticker === 'FORGEDWRAPPER'), 'an intrinsically forged wrapper never enters the frozen outcome cohort')
+fs.rmSync(forgedWrapperRoot, { recursive: true, force: true })
+
+const forgedAuthorityRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-forged-authority-'))
+const forgedAuthority = writeRun('FORGEDAUTHORITY_2026-08-03', { verify: true }, forgedAuthorityRoot)
+const forgedAdmission = JSON.parse(JSON.stringify(forgedAuthority.admission))
+const inflatedCandidate = forgedAdmission.candidate
+inflatedCandidate.research.data_sufficiency_score = 100
+inflatedCandidate.research.edge_score = 100
+inflatedCandidate.research.edge_proof = 'A forged edge claims certainty even though the pinned decision record still says 66.'
+inflatedCandidate.scenarios[0].price_target = inflatedCandidate.scenarios[0].source_price_target = 1_000
+inflatedCandidate.scenarios[1].price_target = inflatedCandidate.scenarios[1].source_price_target = 800
+forgedAdmission.decision_authority.data_sufficiency_score = 100
+forgedAdmission.decision_authority.edge_score = 100
+forgedAdmission.decision_authority.edge_proof = inflatedCandidate.research.edge_proof
+forgedAdmission.decision_authority.post_audit.expectations_gap.edge_score = 100
+forgedAdmission.decision_authority.scenarios = inflatedCandidate.scenarios.map((row: any) => ({
+  scenario_id: row.scenario_id, label: row.label, probability_pct: row.probability_pct,
+  source_price_target: row.source_price_target, conditions: row.conditions, source: row.source,
+  joint_probability_basis: row.joint_probability_basis ?? null,
+})).sort((a: any, b: any) => a.scenario_id.localeCompare(b.scenario_id))
+forgedAdmission.integrity_evidence.verification_report_sha256 = 'f'.repeat(64)
+forgedAdmission.integrity_evidence.final_thesis_sha256 = 'a'.repeat(64)
+forgedAdmission.assessment.candidate = inflatedCandidate
+forgedAdmission.candidate_sha256 = digest(inflatedCandidate)
+forgedAdmission.assessment_sha256 = digest(forgedAdmission.assessment)
+forgedAdmission.decision_authority_sha256 = digest(forgedAdmission.decision_authority)
+forgedAdmission.integrity_evidence_sha256 = digest(forgedAdmission.integrity_evidence)
+forgedAdmission.admission_id = `${inflatedCandidate.idea_id}|${forgedAdmission.candidate_sha256.slice(0, 16)}`
+delete forgedAdmission.admission_sha256
+forgedAdmission.admission_sha256 = digest(forgedAdmission)
+fs.writeFileSync(path.join(forgedAuthority.dir, 'idea_3_6m.json'), JSON.stringify(forgedAdmission.assessment))
+fs.writeFileSync(path.join(forgedAuthority.dir, 'idea_admission.json'), JSON.stringify(forgedAdmission))
+const forgedAuthorityBoard = buildQualifiedIdeasBoard(forgedAuthorityRoot, { nowMs: NOW })
+assert.equal(forgedAuthorityBoard.qualified.length, 0, 'recomputed hashes cannot replace the pinned decision and integrity evidence with an inflated admission')
+assert.equal(forgedAuthorityBoard.health.invalid_count, 1)
+assert.ok(!listFrozenQualifiedIdeaEvaluations(forgedAuthorityRoot)
+  .some((x) => x.candidate.instrument.ticker === 'FORGEDAUTHORITY'), 'a fully rehashed forged authority never enters the frozen outcome cohort')
+fs.rmSync(forgedAuthorityRoot, { recursive: true, force: true })
+
+const lowRankingRun = writeRun('LOWRANK_2026-08-01', { verify: true, lowConservativeReturn: true })
+const lowRankingBoard = buildQualifiedIdeasBoard(root, { nowMs: NOW })
+const lowRanking = lowRankingBoard.does_not_clear.find((x) => x.candidate.instrument.ticker === 'LOWRANK')
+assert.ok(lowRanking?.issues.some((x) => x.code === 'conservative_return_below_bar'), 'a raw-qualified prior cannot appear live when its calibration-adjusted return misses the bar')
+assert.equal(lowRanking?.metrics?.expected_return_pct, 17.5, 'the raw immutable scenario math remains visible and unchanged')
+assert.equal(lowRanking?.ranking?.conservative_expected_return_pct, 4.56)
+assert.ok(
+  listFrozenQualifiedIdeaEvaluations(root).some((x) => x.candidate.run_root === lowRankingRun.candidate.run_root),
+  'the live ranking gate must not rewrite the immutable admission or select the observation out of outcome grading',
+)
+
+writeRun('LOWRANKMIX_2026-08-01', {
+  verify: true,
+  lowConservativeReturn: true,
+  correction: { schema: 'corrections/v1', errata: [{ field: 'final_thesis', kind: 'research_correction' }] },
+})
+const mixedIssueBoard = buildQualifiedIdeasBoard(root, { nowMs: NOW })
+const mixedIssueLowReturn = mixedIssueBoard.does_not_clear.find((x) => x.candidate.instrument.ticker === 'LOWRANKMIX')
+assert.ok(mixedIssueLowReturn?.issues.some((x) => x.code === 'research_not_verified'), 'fixture carries an independent research-only defect')
+assert.ok(mixedIssueLowReturn?.issues.some((x) => x.code === 'conservative_return_below_bar'), 'a deterministic below-bar return remains a reject even when another issue already requires research')
+assert.equal(mixedIssueLowReturn?.status, 'does_not_clear')
+
 // The newest standing directional call wins; it cannot inherit the older run's clean verification.
 writeRun('TEST_2026-08-02', { createdAt: '2026-08-02T10:00:00Z' })
 const newerUnaudited = buildQualifiedIdeasBoard(root, { nowMs: NOW })
@@ -298,6 +483,21 @@ writeRun('GAP_2026-08-01', { notAssessable: true })
 const gap = buildQualifiedIdeasBoard(root, { nowMs: NOW })
 assert.equal(gap.health.not_assessable_count, 1)
 assert.deepEqual(gap.not_assessable[0].gaps, ['Fresh measured liquidity is missing.'])
+
+// A completed run that stopped before its projection manifest/admission is a production gap, not an
+// empty Ideas data plane. It stays out of candidate evaluation and makes board health visibly degraded
+// until a genuinely new run completes the immutable sequence.
+const unfinished = writeRun('UNFINISHED_2026-08-03', { notAssessable: true, createdAt: '2026-08-03T04:00:00Z' })
+fs.rmSync(path.join(unfinished.dir, 'idea_admission.json'))
+fs.rmSync(path.join(unfinished.dir, 'idea_projection_manifest.json'))
+const unfinishedBoard = buildQualifiedIdeasBoard(root, { nowMs: NOW })
+assert.equal(unfinishedBoard.health.incomplete_count, 1)
+assert.equal(unfinishedBoard.health.status, 'degraded')
+assert.match(unfinishedBoard.health.reason, /did not finish immutable publication/)
+const unfinishedGap = unfinishedBoard.not_assessable.find((x) => x.ticker === 'UNFINISHED')
+assert.ok(unfinishedGap?.gaps.some((message) => /immutable idea publication did not finish/i.test(message)))
+assert.ok(![...unfinishedBoard.qualified, ...unfinishedBoard.needs_research, ...unfinishedBoard.does_not_clear]
+  .some((x) => x.candidate.instrument.ticker === 'UNFINISHED'), 'a mutable preliminary result is never evaluated as an investment idea')
 
 // Python's authority normalizes a blank decision company to null. The reader must do the same so an
 // honestly unnamed not-assessable result does not become an integrity defect at recovery time.
@@ -555,7 +755,7 @@ fs.writeFileSync(mutableAssessmentPath, JSON.stringify(mutableAssessment))
 const mutatedBoard = buildQualifiedIdeasBoard(root, { nowMs: NOW })
 assert.ok(!mutatedBoard.qualified.some((x) => x.candidate.instrument.ticker === 'MUTATED'), 'post-admission scenario edits quarantine the live card')
 const frozenMutated = listFrozenQualifiedIdeaEvaluations(root).find((x) => x.candidate.instrument.ticker === 'MUTATED')
-assert.equal(frozenMutated?.candidate.scenarios[0].price_target, 140, 'outcomes retain the exact ex-ante admitted scenario')
+assert.equal(frozenMutated?.candidate.scenarios[0].price_target, 160, 'outcomes retain the exact ex-ante admitted scenario')
 
 writeRun('DELETED_2026-08-03', { verify: true })
 fs.unlinkSync(path.join(root, 'analyses', 'DELETED_2026-08-03', 'idea_3_6m.json'))
@@ -575,17 +775,313 @@ relabeled.status = 'not_assessable'; relabeled.gaps = ['Later mutable relabel'];
 fs.writeFileSync(relabeledPath, JSON.stringify(relabeled))
 assert.ok(listFrozenQualifiedIdeaEvaluations(root).some((x) => x.candidate.instrument.ticker === 'RELABELED'), 'changing a mutable wrapper to not_assessable cannot erase admission')
 
+// Isolated publication-grace regression: the synthesizer writes final_thesis/decision_record before
+// idea_3_6m. While the owning run has recent trustworthy progress, that normal interval must neither be
+// called a failure nor hide the prior sealed call. The exact same state fails closed once progress ages
+// beyond the six-hour publication window.
+const graceRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-publication-grace-'))
+writeRun('GRACE_2026-08-02', { verify: true, createdAt: '2026-08-02T10:00:00Z' }, graceRoot)
+const gracePendingDir = path.join(graceRoot, 'analyses', 'GRACE_2026-08-03')
+fs.mkdirSync(gracePendingDir, { recursive: true })
+fs.writeFileSync(path.join(gracePendingDir, 'final_thesis.md'), '# New GRACE thesis\n')
+fs.writeFileSync(path.join(gracePendingDir, 'decision_record.json'), JSON.stringify({ ticker: 'GRACE', company_name: 'Grace Holdings' }))
+const graceRun = createRun({
+  kind: 'full', ticker: 'GRACE', model: 'sonnet', prompt: '/research:full GRACE',
+  runRoot: 'analyses/GRACE_2026-08-03', willCommitToMain: true,
+  writeTargetsAbs: [gracePendingDir], coveredModules: [], readDepsAbs: [],
+})
+graceRun.status = 'running'
+graceRun.startedAt = NOW - 60 * 60_000
+setActiveTickerRun(graceRun.runId, 'GRACE')
+const insidePublicationGrace = buildQualifiedIdeasBoard(graceRoot, { nowMs: NOW })
+assert.equal(insidePublicationGrace.health.publishing_count, 1)
+assert.ok(insidePublicationGrace.qualified.some((row) => row.candidate.instrument.ticker === 'GRACE'), 'a missing preliminary assessment inside grace does not hide the prior sealed card')
+assert.ok(!insidePublicationGrace.not_assessable.some((row) => row.ticker === 'GRACE'), 'normal pre-assessment production is not mislabeled as failed')
+
+graceRun.startedAt = NOW - 7 * 60 * 60_000
+const afterPublicationGrace = buildQualifiedIdeasBoard(graceRoot, { nowMs: NOW })
+assert.equal(afterPublicationGrace.health.publishing_count, 0)
+assert.ok(!afterPublicationGrace.qualified.some((row) => row.candidate.instrument.ticker === 'GRACE'), 'the newer incomplete run shadows the old card after grace expires')
+assert.ok(afterPublicationGrace.not_assessable.some((row) => row.ticker === 'GRACE' && row.gaps.some((gap) => /publication did not finish/.test(gap))))
+finishRun(graceRun, 'done')
+fs.rmSync(graceRoot, { recursive: true, force: true })
+
+// Direct /research:full producers can write the terminal thesis and decision without ever entering the
+// cockpit registry/activity ledger. Their two still-uncommitted artifacts supply a durable restart-safe
+// grace clock, but only while their identities agree and their writes are close together. A clean
+// checkout/replay is not uncommitted, so refreshing its mtimes cannot revive grace.
+const directRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-direct-publication-'))
+for (const ticker of ['DIRECTA', 'DIRECTB']) {
+  writeRun(`${ticker}_2026-08-02`, { verify: true, createdAt: '2026-08-02T10:00:00Z' }, directRoot)
+  const pending = path.join(directRoot, 'analyses', `${ticker}_2026-08-03`)
+  fs.mkdirSync(pending, { recursive: true })
+  fs.writeFileSync(path.join(pending, 'final_thesis.md'), `# New ${ticker} thesis\n`)
+  fs.writeFileSync(path.join(pending, 'decision_record.json'), JSON.stringify({
+    run_root: `analyses/${ticker}_2026-08-03`, decision_date: '2026-08-03', ticker,
+    company_name: `${ticker} Holdings`,
+  }))
+  const fresh = new Date(NOW - 60 * 60_000)
+  fs.utimesSync(path.join(pending, 'final_thesis.md'), fresh, fresh)
+  fs.utimesSync(path.join(pending, 'decision_record.json'), fresh, fresh)
+}
+let activityReads = 0
+let uncommittedScans = 0
+const directFreshBoard = buildQualifiedIdeasBoard(directRoot, {
+  nowMs: NOW,
+  readActivityRows: (query) => {
+    activityReads++
+    assert.equal(query.limit, null, 'publication reads all rows only after applying its ticker batch')
+    assert.deepEqual(new Set(query.tickers), new Set(['DIRECTA', 'DIRECTB']))
+    return { rows: [], total: 0, allTime: 0, users: [], tickers: [], tickerLabels: {}, earliest: null }
+  },
+  readUncommittedPublicationRuns: () => {
+    uncommittedScans++
+    return new Set(['analyses/DIRECTA_2026-08-03', 'analyses/DIRECTB_2026-08-03'])
+  },
+})
+assert.equal(activityReads, 1, 'one board projection reads and groups the activity ledger once across unsealed tickers')
+assert.equal(uncommittedScans, 1, 'one board projection runs at most one bounded Git scan across unsealed tickers')
+assert.equal(directFreshBoard.health.publishing_count, 2)
+assert.ok(directFreshBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTA'), 'a fresh direct producer retains the older sealed card during grace')
+assert.ok(directFreshBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTB'))
+
+const truncatedLedgerBoard = buildQualifiedIdeasBoard(directRoot, {
+  nowMs: NOW,
+  readActivityRows: () => ({ rows: [], total: 5_001, allTime: 5_001, users: [], tickers: [], tickerLabels: {}, earliest: NOW - 1 }),
+  readUncommittedPublicationRuns: () => new Set(['analyses/DIRECTA_2026-08-03', 'analyses/DIRECTB_2026-08-03']),
+})
+assert.equal(truncatedLedgerBoard.health.publishing_count, 0, 'a truncated global ledger read cannot hide a terminal retry and grant artifact-clock grace')
+assert.ok(!truncatedLedgerBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTA'))
+
+const malformedLedgerBoard = buildQualifiedIdeasBoard(directRoot, {
+  nowMs: NOW,
+  readActivityRows: () => ({
+    rows: [{ runId: 'malformed-valid-json-row', ticker: null } as any], total: 1, allTime: 1,
+    users: [], tickers: [], tickerLabels: {}, earliest: NOW - 1,
+  }),
+  readUncommittedPublicationRuns: () => new Set(['analyses/DIRECTA_2026-08-03', 'analyses/DIRECTB_2026-08-03']),
+})
+assert.equal(malformedLedgerBoard.health.publishing_count, 0, 'a malformed activity row cannot crash the board or make the ledger look complete enough for direct grace')
+assert.ok(!malformedLedgerBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTA'))
+
+const unboundPublicationLedgerBoard = buildQualifiedIdeasBoard(directRoot, {
+  nowMs: NOW,
+  readActivityRows: () => ({
+    rows: [{
+      runId: 'unbound-publication-row', user: 'local', userVia: 'local', kind: 'full', ticker: 'DIRECTA',
+      launchedAt: NOW - 60_000, status: 'done',
+    }],
+    total: 1, allTime: 1, users: [], tickers: ['DIRECTA'], tickerLabels: {}, earliest: NOW - 60_000,
+  }),
+  readUncommittedPublicationRuns: () => new Set(['analyses/DIRECTA_2026-08-03', 'analyses/DIRECTB_2026-08-03']),
+})
+assert.equal(unboundPublicationLedgerBoard.health.publishing_count, 0, 'a publication row with no ticker-bound run root makes direct grace fail closed')
+assert.ok(!unboundPublicationLedgerBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTA'))
+
+const mislabeledTerminalLedgerBoard = buildQualifiedIdeasBoard(directRoot, {
+  nowMs: NOW,
+  readActivityRows: () => ({
+    rows: [{
+      runId: 'mislabeled-terminal-row', user: 'local', userVia: 'local', kind: 'full', ticker: 'DIRECTA',
+      swarm: 'commodity', runRoot: 'analyses/DIRECTA_2026-08-03', launchedAt: NOW - 120_000,
+      finishedAt: NOW - 60_000, status: 'error',
+    }],
+    total: 1, allTime: 1, users: [], tickers: ['DIRECTA'], tickerLabels: {}, earliest: NOW - 120_000,
+  }),
+  readUncommittedPublicationRuns: () => new Set(['analyses/DIRECTA_2026-08-03', 'analyses/DIRECTB_2026-08-03']),
+})
+assert.equal(mislabeledTerminalLedgerBoard.health.publishing_count, 0, 'a foreign swarm tag cannot hide a terminal retry for the exact research run root')
+assert.ok(!mislabeledTerminalLedgerBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTA'))
+
+const readerRejectedLedgerBoard = buildQualifiedIdeasBoard(directRoot, {
+  nowMs: NOW,
+  readActivityRows: () => ({
+    rows: [], total: 0, allTime: 0, invalid_event_count: 1,
+    users: [], tickers: [], tickerLabels: {}, earliest: NOW - 1,
+  }),
+  readUncommittedPublicationRuns: () => new Set(['analyses/DIRECTA_2026-08-03', 'analyses/DIRECTB_2026-08-03']),
+})
+assert.equal(readerRejectedLedgerBoard.health.publishing_count, 0, 'a runtime-rejected JSONL event makes the durable ledger incomplete and cannot grant direct grace')
+assert.ok(!readerRejectedLedgerBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTA'))
+
+const directGitRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-direct-git-positive-'))
+writeRun('DIRECTGIT_2026-08-02', { verify: true, createdAt: '2026-08-02T10:00:00Z' }, directGitRoot)
+execFileSync('git', ['init', '-q'], { cwd: directGitRoot })
+execFileSync('git', ['add', 'analyses'], { cwd: directGitRoot })
+execFileSync('git', ['-c', 'user.name=Test', '-c', 'user.email=test@example.invalid', 'commit', '-qm', 'sealed baseline'], { cwd: directGitRoot })
+const directGitPending = path.join(directGitRoot, 'analyses', 'DIRECTGIT_2026-08-03')
+fs.mkdirSync(directGitPending, { recursive: true })
+fs.writeFileSync(path.join(directGitPending, 'final_thesis.md'), '# New DIRECTGIT thesis\n')
+fs.writeFileSync(path.join(directGitPending, 'decision_record.json'), JSON.stringify({
+  run_root: 'analyses/DIRECTGIT_2026-08-03', decision_date: '2026-08-03', ticker: 'DIRECTGIT',
+  company_name: 'Direct Git Holdings',
+}))
+const directGitFresh = new Date(NOW - 60 * 60_000)
+fs.utimesSync(path.join(directGitPending, 'final_thesis.md'), directGitFresh, directGitFresh)
+fs.utimesSync(path.join(directGitPending, 'decision_record.json'), directGitFresh, directGitFresh)
+const directGitBoard = buildQualifiedIdeasBoard(directGitRoot, {
+  nowMs: NOW,
+  readActivityRows: () => ({ rows: [], total: 0, allTime: 0, users: [], tickers: [], tickerLabels: {}, earliest: null }),
+})
+assert.equal(directGitBoard.health.publishing_count, 1, 'the production Git parser recognizes two fresh untracked direct-producer artifacts')
+assert.ok(directGitBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTGIT'))
+fs.rmSync(directGitRoot, { recursive: true, force: true })
+
+const stale = new Date(NOW - 7 * 60 * 60_000)
+for (const ticker of ['DIRECTA', 'DIRECTB']) {
+  const pending = path.join(directRoot, 'analyses', `${ticker}_2026-08-03`)
+  fs.utimesSync(path.join(pending, 'final_thesis.md'), stale, stale)
+  fs.utimesSync(path.join(pending, 'decision_record.json'), stale, stale)
+}
+const directStaleBoard = buildQualifiedIdeasBoard(directRoot, {
+  nowMs: NOW,
+  readUncommittedPublicationRuns: () => new Set([
+    'analyses/DIRECTA_2026-08-03', 'analyses/DIRECTB_2026-08-03',
+  ]),
+})
+assert.equal(directStaleBoard.health.publishing_count, 0, 'an abandoned direct producer fails closed after grace')
+assert.ok(!directStaleBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTA'))
+assert.ok(directStaleBoard.not_assessable.some((row) => row.ticker === 'DIRECTA' && row.gaps.some((gap) => /publication did not finish/.test(gap))))
+
+const replayFresh = new Date(NOW - 10 * 60_000)
+execFileSync('git', ['init', '-q'], { cwd: directRoot })
+execFileSync('git', ['add', 'analyses'], { cwd: directRoot })
+execFileSync('git', ['-c', 'user.name=Test', '-c', 'user.email=test@example.invalid', 'commit', '-qm', 'fixture'], { cwd: directRoot })
+for (const ticker of ['DIRECTA', 'DIRECTB']) {
+  const pending = path.join(directRoot, 'analyses', `${ticker}_2026-08-03`)
+  fs.utimesSync(path.join(pending, 'final_thesis.md'), replayFresh, replayFresh)
+  fs.utimesSync(path.join(pending, 'decision_record.json'), replayFresh, replayFresh)
+}
+const replayBoard = buildQualifiedIdeasBoard(directRoot, {
+  nowMs: NOW,
+})
+assert.equal(replayBoard.health.publishing_count, 0, 'fresh checkout/replay mtimes cannot reset grace when Git reports clean artifacts')
+assert.ok(!replayBoard.qualified.some((row) => row.candidate.instrument.ticker === 'DIRECTA'))
+fs.rmSync(directRoot, { recursive: true, force: true })
+
+const terminalRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-terminal-publication-'))
+writeRun('TERMINAL_2026-08-02', { verify: true, createdAt: '2026-08-02T10:00:00Z' }, terminalRoot)
+const terminalPendingDir = path.join(terminalRoot, 'analyses', 'TERMINAL_2026-08-03')
+fs.mkdirSync(terminalPendingDir, { recursive: true })
+fs.writeFileSync(path.join(terminalPendingDir, 'final_thesis.md'), '# Terminal thesis\n')
+fs.writeFileSync(path.join(terminalPendingDir, 'decision_record.json'), JSON.stringify({ ticker: 'TERMINAL', company_name: 'Terminal Holdings' }))
+const terminalPublicationBoard = buildQualifiedIdeasBoard(terminalRoot, {
+  nowMs: NOW,
+  readActivityRows: () => ({
+    rows: [
+      {
+        runId: 'qualified-ideas-terminal-publication-newer', user: 'local', userVia: 'local', kind: 'full',
+        ticker: 'TERMINAL', runRoot: 'analyses/TERMINAL_2026-08-03', model: 'sonnet',
+        launchedAt: NOW - 2 * 60 * 60_000, finishedAt: NOW - 60 * 60_000, status: 'done',
+      },
+      {
+        runId: 'qualified-ideas-terminal-publication-orphan', user: 'local', userVia: 'local', kind: 'full',
+        ticker: 'TERMINAL', runRoot: 'analyses/TERMINAL_2026-08-03', model: 'sonnet',
+        launchedAt: NOW - 3 * 60 * 60_000, status: 'running',
+      },
+    ],
+    total: 2, allTime: 2, users: ['local'], tickers: ['TERMINAL'], tickerLabels: {}, earliest: NOW - 3 * 60 * 60_000,
+  }),
+})
+assert.equal(terminalPublicationBoard.health.publishing_count, 0, 'an older orphaned launch cannot hold grace open after a newer retry ended')
+assert.ok(!terminalPublicationBoard.qualified.some((row) => row.candidate.instrument.ticker === 'TERMINAL'), 'the latest terminal attempt fails closed instead of leaving the older sealed card active')
+assert.ok(terminalPublicationBoard.not_assessable.some((row) => row.ticker === 'TERMINAL' && row.gaps.some((gap) => /stopped before immutable idea publication finished/.test(gap))))
+fs.rmSync(terminalRoot, { recursive: true, force: true })
+
+const terminalPreliminaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-terminal-preliminary-'))
+writeRun('TERMPRE_2026-08-02', { verify: true, createdAt: '2026-08-02T10:00:00Z' }, terminalPreliminaryRoot)
+const terminalPreliminary = writeRun(
+  'TERMPRE_2026-08-03', { verify: true, createdAt: '2026-08-03T11:30:00Z' }, terminalPreliminaryRoot,
+)
+fs.unlinkSync(path.join(terminalPreliminary.dir, 'idea_admission.json'))
+const stoppedAfterPreliminary = buildQualifiedIdeasBoard(terminalPreliminaryRoot, {
+  nowMs: NOW,
+  readActivityRows: () => ({
+    rows: [{
+      runId: 'qualified-ideas-terminal-after-preliminary', user: 'local', userVia: 'local', kind: 'full',
+      ticker: 'TERMPRE', runRoot: 'analyses/TERMPRE_2026-08-03', model: 'sonnet',
+      launchedAt: NOW - 60 * 60_000, finishedAt: NOW - 10 * 60_000, status: 'error',
+    }],
+    total: 1, allTime: 1, users: ['local'], tickers: ['TERMPRE'], tickerLabels: {}, earliest: NOW - 60 * 60_000,
+  }),
+})
+assert.equal(stoppedAfterPreliminary.health.publishing_count, 0, 'a terminal producer closes grace even after writing a recent preliminary assessment')
+assert.ok(!stoppedAfterPreliminary.qualified.some((row) => row.candidate.instrument.ticker === 'TERMPRE'), 'a stopped newer producer quarantines the prior sealed card')
+assert.ok(stoppedAfterPreliminary.not_assessable.some((row) => (
+  row.ticker === 'TERMPRE' && row.gaps.some((gap) => /stopped before immutable idea publication finished/.test(gap))
+)))
+fs.rmSync(terminalPreliminaryRoot, { recursive: true, force: true })
+
 writeRun('MISSINGIDEA_2026-08-02', { verify: true, createdAt: '2026-08-02T10:00:00Z' })
 const missingIdeaNew = path.join(root, 'analyses', 'MISSINGIDEA_2026-08-03')
 fs.mkdirSync(missingIdeaNew, { recursive: true })
 fs.writeFileSync(path.join(missingIdeaNew, 'final_thesis.md'), '# Newer thesis\n')
 fs.writeFileSync(path.join(missingIdeaNew, 'decision_record.json'), JSON.stringify({ ticker: 'MISSINGIDEA', company_name: 'Newer Holdings' }))
-const incompleteDoesNotShadow = buildQualifiedIdeasBoard(root, { nowMs: NOW })
-assert.ok(incompleteDoesNotShadow.qualified.some((x) => x.candidate.instrument.ticker === 'MISSINGIDEA'), 'an incomplete newer run cannot indefinitely shadow the last finalized idea')
+const abandonedAt = new Date(NOW - 7 * 60 * 60_000)
+fs.utimesSync(path.join(missingIdeaNew, 'final_thesis.md'), abandonedAt, abandonedAt)
+fs.utimesSync(path.join(missingIdeaNew, 'decision_record.json'), abandonedAt, abandonedAt)
+const incompleteShadows = buildQualifiedIdeasBoard(root, { nowMs: NOW })
+assert.ok(!incompleteShadows.qualified.some((x) => x.candidate.instrument.ticker === 'MISSINGIDEA'), 'a newer unsealed research result quarantines the older live call')
+assert.ok(incompleteShadows.not_assessable.some((x) => x.ticker === 'MISSINGIDEA' && x.gaps.some((gap) => /publication did not finish/.test(gap))))
 fs.writeFileSync(path.join(missingIdeaNew, 'idea_projection_manifest.json'), JSON.stringify({ schema_version: 'idea-projection-manifest/v1' }))
-const shadowedByMissing = buildQualifiedIdeasBoard(root, { nowMs: NOW })
-assert.ok(!shadowedByMissing.qualified.some((x) => x.candidate.instrument.ticker === 'MISSINGIDEA'), 'a newer completed run missing its assessment shadows the old card')
-assert.ok(shadowedByMissing.not_assessable.some((x) => x.ticker === 'MISSINGIDEA' && x.gaps.some((gap) => /missing the required/.test(gap))))
+fs.utimesSync(path.join(missingIdeaNew, 'idea_projection_manifest.json'), abandonedAt, abandonedAt)
+const markerOnly = buildQualifiedIdeasBoard(root, { nowMs: NOW })
+assert.ok(!markerOnly.qualified.some((x) => x.candidate.instrument.ticker === 'MISSINGIDEA'), 'a post-cutoff marker without admission never authorizes mutable candidate data')
+assert.ok(markerOnly.not_assessable.some((x) => x.ticker === 'MISSINGIDEA' && x.gaps.some((gap) => /not available/.test(gap))))
+fs.writeFileSync(path.join(missingIdeaNew, 'idea_admission.json'), '{bad')
+const malformedAdmission = buildQualifiedIdeasBoard(root, { nowMs: NOW })
+assert.ok(!malformedAdmission.qualified.some((x) => x.candidate.instrument.ticker === 'MISSINGIDEA'))
+assert.ok(malformedAdmission.not_assessable.some((x) => x.ticker === 'MISSINGIDEA' && x.gaps.some((gap) => /publication failed/.test(gap))))
+fs.unlinkSync(path.join(missingIdeaNew, 'final_thesis.md'))
+const damagedMarkerChain = buildQualifiedIdeasBoard(root, { nowMs: NOW })
+assert.ok(!damagedMarkerChain.qualified.some((x) => x.candidate.instrument.ticker === 'MISSINGIDEA'), 'a downstream marker still quarantines the old card when an earlier completion witness is deleted')
+assert.ok(damagedMarkerChain.not_assessable.some((x) => x.ticker === 'MISSINGIDEA' && x.gaps.some((gap) => /downstream marker exists/.test(gap))))
+
+writeRun('MISSINGIDEA_2026-08-04', { verify: true, createdAt: '2026-08-04T10:00:00Z' })
+const recoveredPublication = buildQualifiedIdeasBoard(root, { nowMs: Date.parse('2026-08-04T12:00:00Z') })
+assert.ok(recoveredPublication.qualified.some((x) => x.candidate.instrument.ticker === 'MISSINGIDEA'), 'a later sealed run clears the older publication gap')
+assert.ok(!recoveredPublication.not_assessable.some((x) => x.ticker === 'MISSINGIDEA'), 'historical incomplete runs do not accumulate on the live board')
+const incompleteBeforePending = recoveredPublication.health.incomplete_count
+
+const pendingRun = path.join(root, 'analyses', 'PENDING_2026-08-04')
+fs.mkdirSync(pendingRun, { recursive: true })
+fs.writeFileSync(path.join(pendingRun, 'final_thesis.md'), '# Pending thesis\n')
+fs.writeFileSync(path.join(pendingRun, 'decision_record.json'), JSON.stringify({ ticker: 'PENDING', company_name: 'Pending Holdings' }))
+fs.writeFileSync(path.join(pendingRun, 'idea_3_6m.json'), JSON.stringify({
+  schema_version: 'idea-assessment/v1', assessment_id: 'PENDING-2026-08-04-3-6m',
+  run_root: 'analyses/PENDING_2026-08-04', created_at: '2026-08-04T11:00:00Z',
+  ticker: 'PENDING', company: 'Pending Holdings', status: 'not_assessable',
+  gaps: ['Pending post-audit projection manifest and canonical market evidence.'], candidate: null,
+}))
+const publicationPending = buildQualifiedIdeasBoard(root, { nowMs: Date.parse('2026-08-04T12:00:00Z') })
+assert.equal(publicationPending.health.publishing_count, 1)
+assert.ok(!publicationPending.not_assessable.some((x) => x.ticker === 'PENDING'))
+assert.equal(publicationPending.health.incomplete_count, incompleteBeforePending, 'a normal in-flight publication inside the grace window is not called failed')
+
+const publishingOnlyRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'qualified-board-publishing-'))
+const publishingOnlyRun = path.join(publishingOnlyRoot, 'analyses', 'PENDING_2026-08-04')
+fs.mkdirSync(publishingOnlyRun, { recursive: true })
+for (const name of ['final_thesis.md', 'decision_record.json', 'idea_3_6m.json']) {
+  fs.copyFileSync(path.join(pendingRun, name), path.join(publishingOnlyRun, name))
+}
+const publishingOnly = buildQualifiedIdeasBoard(publishingOnlyRoot, { nowMs: Date.parse('2026-08-04T12:00:00Z') })
+assert.equal(publishingOnly.health.outcome, 'publishing', 'an in-grace run is process state, not an investment rejection')
+assert.equal(publishingOnly.health.not_assessable_count, 0)
+fs.rmSync(publishingOnlyRoot, { recursive: true, force: true })
+
+fs.writeFileSync(path.join(pendingRun, 'idea_3_6m.json'), '{')
+const malformedPending = buildQualifiedIdeasBoard(root, { nowMs: Date.parse('2026-08-04T12:00:00Z') })
+assert.equal(malformedPending.health.publishing_count, 0)
+assert.ok(malformedPending.not_assessable.some((x) => x.ticker === 'PENDING'), 'a malformed preliminary write fails closed instead of exposing or reviving an idea')
+
+fs.writeFileSync(path.join(pendingRun, 'idea_3_6m.json'), JSON.stringify({
+  schema_version: 'idea-assessment/v1', assessment_id: 'PENDING-2026-08-04-3-6m',
+  run_root: 'analyses/PENDING_2026-08-04', created_at: '2099-08-04T11:00:00Z',
+  ticker: 'PENDING', company: 'Pending Holdings', status: 'not_assessable', gaps: ['Pending publication.'], candidate: null,
+}))
+const futurePublication = buildQualifiedIdeasBoard(root, { nowMs: Date.parse('2026-08-04T12:00:00Z') })
+assert.equal(futurePublication.health.publishing_count, 0, 'a future producer clock can never hold grace open forever')
+assert.ok(futurePublication.not_assessable.some((x) => x.ticker === 'PENDING' && x.gaps.some((gap) => /timestamp is in the future/.test(gap))))
 
 writeRun('SCHEMAFAIL_2026-08-03', { verify: true })
 const schemaFailPath = path.join(root, 'analyses', 'SCHEMAFAIL_2026-08-03', 'idea_3_6m.json')

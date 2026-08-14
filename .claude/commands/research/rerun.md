@@ -1,10 +1,18 @@
 ---
 description: Re-run ONE orb into the latest existing run, then re-run everything downstream of it (its module synthesis, every dependent module's synthesis, then the master thesis + memo + audit dossier) and commit. For refreshing a finished run after new data lands.
-argument-hint: MODULE AGENT TICKER
+argument-hint: MODULE AGENT TICKER [RUN_ROOT DECISION_FINGERPRINT [PLAN_PATH PLAN_SHA256 SOURCE_DECISION_FINGERPRINT]]
 allowed-tools: Read, Write, Glob, Bash, Task
 ---
 
-You re-run a single orb **and the synthesis chain its output flows into**, reusing every other existing output. `$ARGUMENTS` is `<MODULE> <AGENT> <TICKER>` (three space-separated tokens).
+You re-run a single orb **and the synthesis chain its output flows into**, reusing every other existing output.
+`$ARGUMENTS` has one of three exact shapes:
+
+- 3 tokens: `<MODULE> <AGENT> <TICKER>` (ordinary direct CLI rerun; no intake receipt);
+- 5 tokens: add `<EXACT_RUN_ROOT> <CURRENT_DECISION_FINGERPRINT>` (cockpit exact-call rerun); or
+- 8 tokens: add, after those five, `<PLAN_PATH> <PLAN_SHA256> <SOURCE_DECISION_FINGERPRINT>` (an exact
+  single-orb click from a live intake plan; write one one-time-consumption receipt).
+
+The exact forms must never replace the named run with a newer one discovered later.
 
 Use this after dropping new data into `data/<TICKER>/` to refresh one orb and everything downstream of it without re-running the whole pipeline. You re-run ONLY: the selected orb, then its module's `99_*-synthesis.md`, then each downstream module's `99_*-synthesis.md` (every module that transitively `depends_on` the selected orb's module), then the master synthesizer, then the memo and audit dossier. You do **NOT** re-run sibling specialists or downstream modules' specialists — their inputs did not change; only the synthesis that consumes the refreshed upstream is re-run (this matches the data-flow arrows in the cockpit graph).
 
@@ -14,7 +22,23 @@ Unlike `/research:agent` (one orb, no commit), this **commits once** at the end,
 
 ## 1. Parse arguments
 
-Split `$ARGUMENTS` into `<MODULE>`, `<AGENT>`, `<TICKER>`. If fewer than three tokens, STOP and give the form: `/research:rerun <MODULE> <AGENT> <TICKER>`.
+Split `$ARGUMENTS` using the 3/5/8-token forms above. Any other count must STOP. In either exact form,
+require every supplied fingerprint to match `^sha256:[a-f0-9]{64}$`; a run root without its current
+fingerprint is malformed. In the 8-token form, execute `frameworks/INTAKE.md` §7's deterministic plan
+path/hash/source-fingerprint/orb preflight **before Step 2 or any paid Task call**:
+
+```bash
+python3 scripts/intake_execution_receipt.py preflight \
+  --swarm research --subject "<TICKER>" --run-root "<EXACT_RUN_ROOT>" \
+  --current-decision-fingerprint "<CURRENT_DECISION_FINGERPRINT>" \
+  --plan-path "<PLAN_PATH>" --plan-sha256 "<PLAN_SHA256>" \
+  --source-decision-fingerprint "<SOURCE_DECISION_FINGERPRINT>" \
+  --module "<MODULE>" --agent "<AGENT>"
+```
+
+Only `INTAKE-RECEIPT-PREFLIGHT: OK` passes. On mismatch, STOP without writing. Set
+`<WRITE_INTAKE_RECEIPT>` true only for that validated 8-token form. Never reproduce the helper's
+canonical hashing or containment checks by hand.
 
 Run `date +%Y-%m-%d` via Bash and capture `<DATE>`.
 
@@ -29,6 +53,10 @@ ls -1 data/<TICKER>/ 2>/dev/null | head -n 1
 If missing or empty, STOP: "No data found at `data/<TICKER>/`. Populate the Drive folder for this ticker and re-run."
 
 ## 3. Resolve the run root (latest EXISTING run — never create one)
+
+When `<EXACT_RUN_ROOT>` is present, require it to match `analyses/<TICKER>_YYYY-MM-DD`, be a real direct
+child directory of `analyses/` (neither it nor its decision file may be a symlink), and carry an object
+`decision_record.json`; use it exactly or STOP. Never fall back to latest. Otherwise resolve with:
 
 ```
 ls -1d analyses/<TICKER>_* 2>/dev/null | sort -r | head -n 1
@@ -159,6 +187,37 @@ completed (master re-run)
 
 Then **delete the marker so it is never committed, and drop any stale failure note** — the run has now completed, so a break-time `RUN_FAILURE.md` (written by the server when an earlier attempt broke) must NOT ride along in this success commit: `rm -f "<RUN_ROOT>/.defer_module_memos" "<RUN_ROOT>/RUN_FAILURE.md"`.
 
+## 9C. Publication-time data-needs route gate
+
+After every applicable finish-gate writer above and before the commit, validate the final unsealed
+decision record against the versioned data-needs contract and today's self-discovered research orb roster:
+
+```bash
+python3 scripts/eval.py --data-needs-prewrite "<RUN_ROOT>/decision_record.json"
+```
+
+On `DATA-NEEDS-PREWRITE: FAIL`, STOP before commit and report the exact error. Rerun the synthesizer to
+repair the unsealed record; never silently drop a real need. Historical/sealed records are not regraded
+against today's mutable roster.
+
+## 9D. Write the one-time intake receipt (only the validated 8-token form)
+
+If `<WRITE_INTAKE_RECEIPT>` is false, skip this step and do not create or infer any receipt. If true,
+run the deterministic writer after every decision-writing/gating step succeeded:
+
+```bash
+python3 scripts/intake_execution_receipt.py create \
+  --swarm research --subject "<TICKER>" --run-root "<RUN_ROOT>" \
+  --plan-path "<PLAN_PATH>" --plan-sha256 "<PLAN_SHA256>" \
+  --source-decision-fingerprint "<SOURCE_DECISION_FINGERPRINT>" \
+  --executed-against-decision-fingerprint "<CURRENT_DECISION_FINGERPRINT>" \
+  --module "<MODULE>" --agent "<AGENT>"
+```
+
+Capture `INTAKE-RECEIPT: <PATH> <ID>` as `<INTAKE_RECEIPT_PATH>` / `<INTAKE_RECEIPT_ID>`. The helper
+applies research corrections before hashing the result and creates the file exclusively. A nonzero exit
+must STOP before commit.
+
 ## 10. Commit and push to main (one commit)
 
 Per repo `CLAUDE.md` git policy: commit straight to `main`, no branches, no PRs.
@@ -169,11 +228,20 @@ Commit through the serialized helper (global git lock so concurrent companies do
 bash scripts/commit-run.sh "Re-run: <TICKER> <MODULE>/<AGENT> + downstream <DATE>" -- "<RUN_ROOT>/"
 ```
 
+This same run-root pathspec includes `<INTAKE_RECEIPT_PATH>` when Step 9D ran. If `commit-run.sh` fails,
+delete only that newly-created uncommitted receipt, report the failed commit, and STOP. Never leave an
+uncommitted file that could look like consumption proof. Use only:
+
+```bash
+python3 scripts/intake_execution_receipt.py cleanup \
+  --receipt-path "<INTAKE_RECEIPT_PATH>" --receipt-id "<INTAKE_RECEIPT_ID>"
+```
+
 Capture the commit SHA (`git rev-parse HEAD`). This is a single commit. Every rerun — standalone or chained — now carries the Step 8A deterministic finish-gate result. A **standalone** `/research:rerun` does not backfill `RUN_METADATA` and does not get the LLM audit trio (Step 9B was skipped); a **per-module-chain** master step backfilled `RUN_METADATA` and ran the LLM audit trio in Step 9B, so its commit ships the same eval-complete artifact set as a monolithic `/research:full`.
 
 ## 11. Report
 
-Print: the resolved `<RUN_ROOT>`; the target orb that was re-run; the ordered cascade of syntheses re-run (and that each cascade module's `<M>_memo.md` + `<M>_dossier.md` tiers were refreshed); whether the master thesis, memo, and audit dossier regenerated; the master thesis's one-line decision/verdict; the Step 8A finish-gate `GATE:` result (every rerun); for a per-module-chain master step, additionally the `GATE-VERIFY:` / `GATE-EXPECTATIONS:` results and whether `RUN_METADATA.md` / `verification_report.json` / `pre_mortem.json` were written (Step 9B); and the commit SHA pushed to `origin/main`.
+Print: the resolved `<RUN_ROOT>`; the target orb that was re-run; the ordered cascade of syntheses re-run (and that each cascade module's `<M>_memo.md` + `<M>_dossier.md` tiers were refreshed); whether the master thesis, memo, and audit dossier regenerated; the master thesis's one-line decision/verdict; the Step 8A finish-gate `GATE:` result (every rerun); for a per-module-chain master step, additionally the `GATE-VERIFY:` / `GATE-EXPECTATIONS:` results and whether `RUN_METADATA.md` / `verification_report.json` / `pre_mortem.json` were written (Step 9B); the intake receipt path when Step 9D ran (otherwise `none`); and the commit SHA pushed to `origin/main`.
 
 ---
 
@@ -185,4 +253,6 @@ Print: the resolved `<RUN_ROOT>`; the target orb that was re-run; the ordered ca
 - Mutate the latest EXISTING **unsealed** run folder. A projection/admission seal is an absolute stop;
   new evidence then requires a new dated full run.
 - Exactly one commit at the end. The individual agents must not commit.
+- A validated intake-plan intent writes exactly one content-bound receipt before that same commit; no
+  intent means no receipt. Never consume an orb from timestamps, latest-plan lookup, or server memory.
 - Step 8A's deterministic finish-gate runs for EVERY rerun, standalone or chained — never skip it just because `.defer_module_memos` is absent. Only the LLM audit trio (verify-evidence + pre-mortem + expectations-gap, Step 9B) stays reserved for the per-module-chain path.

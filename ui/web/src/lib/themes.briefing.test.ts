@@ -9,6 +9,8 @@ import { useStore } from './store'
 import {
   groupThemesForBriefing,
   groupThemeEvidence,
+  normalizeThemeCompilerHealth,
+  normalizeThemeFormationQueue,
   qualifiedThemeExpressions,
   shouldHideThemeIntake,
   shouldResetThemeWindow,
@@ -25,6 +27,8 @@ import {
   validatedThemeNarrative,
   validThemeTicker,
   type Theme,
+  type ThemeCompilerHealth,
+  type ThemeFormationQueue,
   type ThemeSurfaceAssessment,
 } from './themes'
 
@@ -359,6 +363,65 @@ assert.equal(shouldResetThemeWindow('ready', 'map', sevenDays, 1), false)
 assert.equal(themeStageIsStale('2026-08-04T00:00:00Z', Date.parse('2026-08-04T00:09:59Z')), false)
 assert.equal(themeStageIsStale('2026-08-04T00:00:00Z', Date.parse('2026-08-04T00:10:01Z')), true, 'a read-time projection cannot extend the ten-minute successful-stage freshness window')
 
+const formationQueue = {
+  total: 2,
+  shown: 1,
+  hidden: 1,
+  awaiting_validation: 2,
+  awaiting_revalidation: 0,
+  blocked_incomplete_audit: 0,
+  building_evidence: 0,
+  candidates: [{
+    theme_id: 'THM-a1b2c3d4',
+    provisional_label: 'Grid equipment order pattern',
+    investable: false,
+    state: 'awaiting_validation',
+    queued_at: new Date().toISOString(),
+    attempted_at: null,
+    distinct_evidence_count: 4,
+    high_quality_evidence_count: 2,
+    evidence: [
+      { event_id: 'EV-PATTERN-1', headline: 'Utility files a new grid equipment order', found_at: new Date().toISOString(), score: 79, source_tier: 'primary_filing', source_name: 'Utility filing', url: 'https://example.test/grid-order', stance: 'supports' },
+      { event_id: 'EV-PATTERN-2', headline: 'Manufacturer reports a new observation awaiting review', found_at: new Date().toISOString(), score: 76, source_tier: 'company', source_name: 'Manufacturer filing', url: 'https://example.test/order-growth', stance: 'unclassified' },
+      { event_id: 'EV-PATTERN-3', headline: 'Unsafe link is not exact provenance', found_at: new Date().toISOString(), score: 74, source_tier: 'news', source_name: 'Bad source', url: 'javascript:alert(1)', stance: 'supports' },
+    ],
+    blockers: ['Needs a validated causal mechanism.', 'No evidence-bound listed-company direction yet.'],
+  }],
+} satisfies ThemeFormationQueue
+const compilerHealth = {
+  state: 'blocked',
+  observed_at: new Date().toISOString(),
+  provider: 'claude-haiku',
+  blocker: 'daily_cap',
+  message: 'Daily validation capacity is exhausted.',
+  queue: { total: 2, awaiting_validation: 2, awaiting_revalidation: 0, blocked_incomplete_audit: 0, oldest_queued_at: new Date().toISOString() },
+  last_attempt: null,
+} satisfies ThemeCompilerHealth
+assert.equal(normalizeThemeFormationQueue(formationQueue)?.candidates[0]?.investable, false)
+assert.equal(normalizeThemeFormationQueue({ ...formationQueue, candidates: [{ ...formationQueue.candidates[0], investable: true }] })?.candidates.length, 0, 'an investable formation row fails closed instead of crossing the thesis boundary')
+assert.equal(normalizeThemeFormationQueue({ ...formationQueue, candidates: [{ ...formationQueue.candidates[0], evidence: [{ ...formationQueue.candidates[0].evidence[0], url: 'javascript:alert(1)' }] }] })?.candidates.length, 0, 'a label with no exact safe source stays aggregate queue debt instead of becoming a disclosed pattern')
+assert.equal(normalizeThemeFormationQueue({ ...formationQueue, candidates: [{ ...formationQueue.candidates[0], evidence: formationQueue.candidates[0].evidence.slice(0, 2).map((row) => ({ ...row, url: 'https://' })) }] })?.candidates.length, 0, 'a scheme without a hostname is not exact provenance')
+const mixedMalformedQueue = normalizeThemeFormationQueue({
+  ...formationQueue,
+  total: 3,
+  shown: 2,
+  hidden: 1,
+  awaiting_validation: 3,
+  candidates: [
+    formationQueue.candidates[0],
+    {
+      ...formationQueue.candidates[0],
+      theme_id: 'THM-b1c2d3e4',
+      provisional_label: 'Client-rejected row',
+      evidence: formationQueue.candidates[0].evidence.slice(0, 2).map((row, index) => ({ ...row, event_id: `EV-REJECTED-${index}`, url: 'https://' })),
+    },
+  ],
+})
+assert.equal(mixedMalformedQueue?.hidden, 1, 'client rejection does not inflate the server safe-hidden count')
+assert.equal(mixedMalformedQueue?.client_withheld, 1, 'client-rejected shown rows have a separate fail-closed count')
+assert.equal(normalizeThemeCompilerHealth(compilerHealth)?.blocker, 'daily_cap')
+assert.equal(normalizeThemeCompilerHealth({ ...compilerHealth, state: 'invented' }), null, 'unknown compiler health cannot paint a trusted capacity state')
+
 const now = Date.now()
 useStore.setState({
   themes,
@@ -376,8 +439,150 @@ useStore.setState({
 const completeBoardHtml = renderThemesFromCurrentStore()
 assert.match(completeBoardHtml, /Additional actionable investment theses/)
 assert.match(completeBoardHtml, /actionable-0/, 'an actionable thesis outside the five full dossiers remains reachable from the briefing')
+assert.match(completeBoardHtml, /developing-pattern compiler status is not disclosed by this server/, 'a rolling old server does not paint unknown compiler capacity green')
+assert.doesNotMatch(completeBoardHtml, /themes__tldot--live/)
+
+useStore.setState({ themes: [], themeFormationQueue: null, themeCompilerHealth: null })
+const missingFormationContractHtml = renderThemesFromCurrentStore()
+assert.match(missingFormationContractHtml, /formation status unavailable/)
+assert.match(missingFormationContractHtml, /developing-pattern presence is unknown/)
+assert.doesNotMatch(missingFormationContractHtml, /nothing formed/, 'a missing additive contract is not normalized to an empty compiler queue')
 
 useStore.setState({
+  themes: [],
+  themeFormationQueue: formationQueue,
+  themeCompilerHealth: compilerHealth,
+  themesView: 'board',
+  themesStatus: 'ready',
+  themesGeneratedAt: new Date(now).toISOString(),
+  themesProjectedAt: new Date(now).toISOString(),
+  selectedTheme: null,
+})
+const formationBoardHtml = renderThemesFromCurrentStore()
+assert.match(formationBoardHtml, /No validated investment thesis clears/)
+assert.match(formationBoardHtml, /Developing news patterns — not investment theses/)
+assert.match(formationBoardHtml, /Not investable/)
+assert.match(formationBoardHtml, /Grid equipment order pattern/)
+assert.match(formationBoardHtml, /href="https:\/\/example\.test\/grid-order"/, 'a developing row links its exact source')
+assert.match(formationBoardHtml, /Awaiting classification · no thesis stance/, 'an unclassified observation is explicit and never presented as thesis support or challenge')
+assert.doesNotMatch(formationBoardHtml, /javascript:alert/, 'unsafe provenance is not rendered')
+assert.match(formationBoardHtml, /Compiler capacity blocked · claude-haiku · Daily validation capacity is exhausted\./)
+assert.match(formationBoardHtml, /Validated thesis screen current; developing-pattern compiler blocked\. Daily validation capacity is exhausted\./)
+assert.doesNotMatch(formationBoardHtml, /themes__tldot--live/, 'a fresh thesis screen does not paint compiler blockage green')
+assert.doesNotMatch(formationBoardHtml, /Open thesis dossier for Grid equipment/, 'a formation candidate is not a clickable theme dossier')
+
+useStore.setState({
+  themeCompilerHealth: {
+    ...compilerHealth,
+    state: 'ready', provider: 'none', blocker: null, last_attempt: null,
+    message: 'Two candidates are queued; no compiler attempt is recorded yet.',
+  },
+})
+const unobservedCapacityHtml = renderThemesFromCurrentStore()
+assert.match(unobservedCapacityHtml, /Compiler capacity not yet observed/)
+assert.match(unobservedCapacityHtml, /no compiler capacity check has been recorded/)
+assert.doesNotMatch(unobservedCapacityHtml, /themes__tldot--live/, 'unobserved capacity cannot inherit the current-stage green dot')
+assert.doesNotMatch(unobservedCapacityHtml, /themeformation__capacity--ready/, 'unobserved capacity cannot paint the formation diagnostic green')
+
+const buildingQueue = {
+  total: 1,
+  shown: 1,
+  hidden: 0,
+  awaiting_validation: 0,
+  awaiting_revalidation: 0,
+  blocked_incomplete_audit: 0,
+  building_evidence: 1,
+  candidates: [{ ...formationQueue.candidates[0], state: 'building_evidence', blockers: ['Still building enough evidence to enter the validation queue.'] }],
+} satisfies ThemeFormationQueue
+const buildingHealth = {
+  ...compilerHealth,
+  state: 'idle',
+  provider: 'none',
+  blocker: null,
+  message: '1 provisional pattern is still building evidence.',
+  queue: { total: 0, awaiting_validation: 0, awaiting_revalidation: 0, blocked_incomplete_audit: 0, oldest_queued_at: null },
+  last_attempt: null,
+} satisfies ThemeCompilerHealth
+useStore.setState({ themeFormationQueue: buildingQueue, themeCompilerHealth: buildingHealth })
+const buildingEvidenceHtml = renderThemesFromCurrentStore()
+assert.match(buildingEvidenceHtml, /1 developing pattern outside validated theses/)
+assert.match(buildingEvidenceHtml, /Compiler idle/)
+assert.doesNotMatch(buildingEvidenceHtml, /awaiting compiler checks|no compiler capacity check has been recorded/, 'evidence-building is not runnable compiler debt')
+assert.match(buildingEvidenceHtml, /themes__tldot--live/, 'an idle evidence-building lane does not make the current validated-thesis stage stale')
+
+useStore.setState({ themeFormationQueue: formationQueue, themeCompilerHealth: compilerHealth })
+
+useStore.setState({ themesView: 'map' })
+const formationMapHtml = renderThemesFromCurrentStore()
+assert.match(formationMapHtml, /No validated investment theme is available for the Explore map/)
+assert.match(formationMapHtml, /Developing news patterns — not investment theses/)
+assert.doesNotMatch(formationMapHtml, /class="thememap/, 'formation candidates never become map nodes')
+
+useStore.setState({
+  themesView: 'board',
+  themeFormationQueue: null,
+  themeCompilerHealth: { ...compilerHealth, queue: { ...compilerHealth.queue, total: 3, awaiting_validation: 3 } },
+})
+const healthOnlyQueueHtml = renderThemesFromCurrentStore()
+assert.match(healthOnlyQueueHtml, /3 clusters await validation/)
+assert.match(healthOnlyQueueHtml, /No pattern has enough exact source provenance for safe disclosure yet/)
+assert.doesNotMatch(healthOnlyQueueHtml, /role="list"/, 'a health-only diagnostic is not exposed as an empty ARIA list')
+assert.doesNotMatch(healthOnlyQueueHtml, /nothing formed/, 'undisclosed compiler debt is not presented as an empty formation pipeline')
+
+useStore.setState({
+  themeFormationQueue: { ...formationQueue, total: 1, shown: 1, hidden: 0, awaiting_validation: 1 },
+  themeCompilerHealth: { ...compilerHealth, queue: { ...compilerHealth.queue, total: 4, awaiting_validation: 4 } },
+})
+const mixedDisclosureHtml = renderThemesFromCurrentStore()
+assert.match(mixedDisclosureHtml, /3 additional compiler-debt clusters have no safe exact-source disclosure/)
+assert.doesNotMatch(mixedDisclosureHtml, /3 more queued patterns/, 'aggregate unsafe compiler debt is never called safely disclosed developing patterns')
+
+useStore.setState({
+  themeFormationQueue: mixedMalformedQueue,
+  themeCompilerHealth: { ...compilerHealth, queue: { ...compilerHealth.queue, total: 3, awaiting_validation: 3 } },
+})
+const clientWithheldHtml = renderThemesFromCurrentStore()
+assert.match(clientWithheldHtml, /1 more safely sourced developing pattern remains/)
+assert.match(clientWithheldHtml, /1 additional formation row failed this client&#x27;s exact-source validation/)
+assert.doesNotMatch(clientWithheldHtml, /2 more safely sourced/, 'a malformed shown row is never relabelled as a safe hidden pattern')
+
+useStore.setState({
+  themeFormationQueue: null,
+  themeCompilerHealth: { ...compilerHealth, queue: { ...compilerHealth.queue, total: 3, awaiting_validation: 3 } },
+})
+
+useStore.setState({ themesStatus: 'loading' })
+const cachedFormationLoadingHtml = renderThemesFromCurrentStore()
+assert.match(cachedFormationLoadingHtml, /refreshing · last good index/, 'a cached compiler queue is disclosure state, not a first index')
+assert.doesNotMatch(cachedFormationLoadingHtml, /building first index/)
+assert.match(cachedFormationLoadingHtml, /Last disclosed compiler state · refresh in progress/)
+
+useStore.setState({ themesStatus: 'error' })
+const cachedFormationErrorHtml = renderThemesFromCurrentStore()
+assert.match(cachedFormationErrorHtml, /stale · last successful index/, 'a failed refresh keeps cached queue disclosure visibly stale')
+assert.doesNotMatch(cachedFormationErrorHtml, /no cached index/)
+assert.match(cachedFormationErrorHtml, /Last disclosed compiler state · not current/)
+
+useStore.setState({
+  themeFormationQueue: formationQueue,
+  themeCompilerHealth: {
+    ...compilerHealth,
+    state: 'ready',
+    blocker: null,
+    last_attempt: {
+      attempted_at: new Date(now - 60_000).toISOString(), state: 'succeeded', provider: 'claude-haiku', blocker: null, message: '',
+      requested_count: 2, attempted_count: 2, validated_count: 0, rejected_count: 1, malformed_count: 0, omitted_count: 1,
+    },
+  },
+  themesStatus: 'error',
+})
+const staleReadyCapacityHtml = renderThemesFromCurrentStore()
+assert.doesNotMatch(staleReadyCapacityHtml, /themeformation__capacity--ready/, 'a historical ready state cannot keep a glowing green capacity dot')
+
+useStore.setState({
+  themes,
+  themeFormationQueue: null,
+  themeCompilerHealth: null,
   themesStatus: 'ready',
   themesGeneratedAt: new Date(now - 11 * 60_000).toISOString(),
   themesProjectedAt: new Date(now).toISOString(),
@@ -392,6 +597,8 @@ assert.doesNotMatch(agedStageHtml, /themes__tldot--live/)
 // or Worth-checking label that would make the outage look like a current qualification.
 useStore.setState({
   themes: [directional, hotNoise],
+  themeFormationQueue: null,
+  themeCompilerHealth: null,
   themesView: 'board',
   themesStatus: 'error',
   themesGeneratedAt: '2026-08-04T00:00:00Z',
@@ -456,10 +663,12 @@ const agedDetailHtml = renderThemesFromCurrentStore()
 assert.match(agedDetailHtml, /older than 10 minutes/, 'an aged successful stage explains age rather than inventing a transport failure')
 assert.doesNotMatch(agedDetailHtml, /Refresh failed\./)
 
-useStore.setState({ selectedTheme: null, themeDetail: null, themes: [], themesStatus: 'loading', themesGeneratedAt: null, themesProjectedAt: null })
+useStore.setState({ selectedTheme: null, themeDetail: null, themes: [], themeFormationQueue: null, themeCompilerHealth: null, themesStatus: 'loading', themesGeneratedAt: null, themesProjectedAt: null })
 const loadingHtml = renderThemesFromCurrentStore()
 assert.match(loadingHtml, /aria-busy="true"/)
 assert.match(loadingHtml, /role="status" aria-live="polite"/, 'the first load is announced without stealing focus')
+assert.match(loadingHtml, /No prior briefing is cached/)
+assert.doesNotMatch(loadingHtml, /remains a saved snapshot/, 'a cold load cannot claim a cached disclosure')
 
 useStore.setState({ themesStatus: 'error' })
 const coldErrorHtml = renderThemesFromCurrentStore()
@@ -467,6 +676,8 @@ assert.match(coldErrorHtml, /role="alert" aria-live="assertive"/)
 assert.match(coldErrorHtml, />Retry Themes</, 'a cold Themes failure has an in-place recovery action')
 assert.doesNotMatch(coldErrorHtml, /Current-only briefing/)
 assert.doesNotMatch(coldErrorHtml, /themes__tldot--live/)
+assert.match(coldErrorHtml, /failed before any briefing was cached/)
+assert.doesNotMatch(coldErrorHtml, /Showing the last successful briefing/, 'a cold failure cannot claim a last successful briefing')
 
 useStore.setState({ themesStatus: 'ready', themesGeneratedAt: new Date(now - 11 * 60_000).toISOString() })
 const agedEmptyHtml = renderThemesFromCurrentStore()

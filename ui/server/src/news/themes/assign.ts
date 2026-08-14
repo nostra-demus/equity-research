@@ -10,7 +10,7 @@ import { deriveCommodities } from '../commodities'
 import { companyKeys, themeNarrativeTokens, intersectionSize, topicTokens } from '../text-match'
 import { companyImpact } from './order'
 import { bumpDaily } from './score'
-import { themeStoryKey } from './story-key'
+import { boundThemeFamilyHistory, sameThemeStoryObservation, themeStoryFamilyKey } from './story-key'
 import { assignmentAnchors } from './core'
 import { sourcePriority } from './evidence'
 import type { Theme, ThemeItemView, ThemeMember, ThemeCompany } from './types'
@@ -23,22 +23,77 @@ export const DEFAULT_ASSIGN_CONFIG: AssignConfig = { maxThemesPerItem: 3, maxMem
 
 const isCompanyLinkage = (l?: string) => l === 'primary' || l === 'secondary'
 
-/** Keep the ordinary evidence excerpt bounded without evicting rows that have not yet been classified.
- * A burst may temporarily take the ring above maxMembers when pending debt alone exceeds the cap; that is
- * deliberate. Dropping an unreviewed row is silent data loss, while the validator drains the FIFO and the
- * next landing compacts the ordinary tail again. Existing sourced support/challenge rows are also pinned so
- * a quiet established contract cannot become invalid merely because raw context traffic was busy. */
-function boundMembers(theme: Theme, maxMembers: number): void {
-  const protectedIds = new Set([
-    ...(theme.pending_narrative_event_ids || []),
-    ...(theme.narrative?.evidence || []).map((row) => row.event_id),
+/** Canonical bytes for one persisted representative. Optional legacy fields are normalized to the
+ * values the assignment writer emits, so replaying the exact source item against a freshly discovered
+ * member is still a no-op (`undefined` country vs the writer's explicit `null`, for example). The same
+ * key is the final, order-independent tie-break for genuinely different representatives that arrive at
+ * the exact same source priority and clock. */
+function memberRepresentativeKey(member: ThemeMember): string {
+  return JSON.stringify([
+    member.event_id,
+    member.dedup_group ?? null,
+    member.headline,
+    member.headline_en ?? null,
+    member.found_at,
+    member.score,
+    member.tier,
+    member.source_name ?? null,
+    member.url ?? null,
+    (Array.isArray(member.companies) ? member.companies : []).map((company) => [
+      company.name,
+      company.ticker ?? null,
+      company.listing_country ?? null,
+    ]),
+    Array.isArray(member.event_types) ? member.event_types : [],
+    member.issuer_linkage ?? null,
+    member.country ?? null,
+    member.region ?? null,
+    Array.isArray(member.commodities) ? member.commodities : [],
   ])
-  const protectedMembers = theme.members.filter((member) => protectedIds.has(member.event_id))
-  const protectedMemberIds = new Set(protectedMembers.map((member) => member.event_id))
-  const ordinary = theme.members.filter((member) => !protectedMemberIds.has(member.event_id))
-  const ordinarySlots = Math.max(0, maxMembers - protectedMembers.length)
-  theme.members = [...(ordinarySlots ? ordinary.slice(-ordinarySlots) : []), ...protectedMembers]
-    .sort((a, b) => Date.parse(a.found_at) - Date.parse(b.found_at))
+}
+
+/** Keep a bounded audit ring: at most six observations per family and never more than maxMembers total.
+ * Pending debt is reconciled to the retained ring, so an update flood cannot create unbounded state. */
+export function narrativeReferenceEventIds(theme: Pick<Theme, 'narrative'>): Set<string> {
+  return new Set([
+    theme.narrative?.why_now_event_id,
+    ...(theme.narrative?.evidence || []).map((row) => row.event_id),
+    ...(theme.narrative?.context_event_ids || []),
+    ...(theme.narrative?.expressions || []).flatMap((expression) => expression.evidence_event_ids || []),
+  ].filter((eventId): eventId is string => typeof eventId === 'string' && Boolean(eventId)))
+}
+
+export function boundThemeMembers(theme: Theme, maxMembers: number): void {
+  const pendingBefore = [...new Set(theme.pending_narrative_event_ids || [])]
+  const pendingSet = new Set(pendingBefore)
+  const narrativeReferenceIds = narrativeReferenceEventIds(theme)
+  const hadNarrativeDebt = Boolean(theme.narrative && (
+    theme.needs_narrative_update === true
+    || theme.narrative_update_overflow === true
+    || pendingBefore.length > 0
+  ))
+  const stanceById = new Map((theme.narrative?.evidence || []).map((row) => [row.event_id, row.stance]))
+  theme.members = boundThemeFamilyHistory(theme.members, maxMembers, {
+    priority: (member) => sourcePriority(member.tier),
+    stance: (member) => stanceById.get(String(member.event_id)),
+    preferred: (member) => pendingSet.has(String(member.event_id)),
+  })
+  const retained = new Set(theme.members.map((member) => member.event_id))
+  const pending = pendingBefore.filter((eventId) => retained.has(eventId))
+  const lostNarrativeReference = Boolean(theme.narrative
+    && [...narrativeReferenceIds].some((eventId) => !retained.has(eventId)))
+  // `needs_narrative_update:true` with no corresponding FIFO is legacy evidence that an older bounded
+  // write already lost the row. Likewise, a cap that cannot retain every current pending ID must leave a
+  // durable quarantine marker. The same applies when the cap evicts why-now, classified evidence, context,
+  // or expression proof: persisting a narrative edge to a missing member makes that contract invalid at
+  // reload, so the loss must survive independently of the narrative object as explicit rebuild debt.
+  if ((theme.needs_narrative_update === true && pendingBefore.length === 0)
+    || pending.length < pendingBefore.length || lostNarrativeReference) theme.narrative_update_overflow = true
+  if (pending.length) theme.pending_narrative_event_ids = pending
+  else delete theme.pending_narrative_event_ids
+  // Losing a pending row to the hard cap is conservative data compression, not classification. Keep the
+  // thesis quarantined until the compiler explicitly clears the debt; never turn eviction into approval.
+  if (hadNarrativeDebt || theme.narrative_update_overflow) theme.needs_narrative_update = true
 }
 
 function narrativeKeywords(theme: Theme, generic?: Set<string>): Set<string> {
@@ -139,10 +194,14 @@ export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: Assig
     // theme merely because it names the same company (see text-match.ts).
     const itemTokens = themeNarrativeTokens(it.headline, it.companies, it.source_tier, generic)
     const evs = it.event_types || []
+    const family = themeStoryFamilyKey(it)
     const hits: { theme: Theme; score: number }[] = []
     for (const theme of live) {
       const { score, matched } = overlapScore(itemCompanyKeys, itemTokens, evs, theme, generic)
-      if (matched) hits.push({ theme, score })
+      // A correction/reversal/restoration may no longer repeat the thesis anchors. The wire family is an
+      // exact identity link, so route it back to the theme that already owns that family for adjudication.
+      const existingFamily = family && theme.members.some((member) => themeStoryFamilyKey(member) === family)
+      if (matched || existingFamily) hits.push({ theme, score: score + (existingFamily ? 10_000 : 0) })
     }
     if (!hits.length) {
       unclustered.push(it)
@@ -152,13 +211,14 @@ export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: Assig
     const chosen = hits.slice(0, cfg.maxThemesPerItem)
     const joined: string[] = []
     for (const { theme } of chosen) {
-      const storyKey = themeStoryKey(it)
       const member: ThemeMember = {
         event_id: it.event_id,
         dedup_group: it.dedup_group,
         headline: it.headline,
         headline_en: it.headline_en, // carry the translation so a member older than the feed window still renders in English
+        ...(it.source_is_english === true ? { source_is_english: true as const } : {}),
         found_at: it.found_at,
+        ...(it.observed_at ? { observed_at: it.observed_at } : {}),
         score: typeof it.triage_score === 'number' ? it.triage_score : it.materiality_pre_score || 0,
         tier: it.source_tier || 'news',
         source_name: it.source_name,
@@ -172,15 +232,39 @@ export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: Assig
         // like country/geo above — derived here (zero-cost) when the item didn't arrive pre-tagged
         ...(() => { const cs = it.commodities ?? deriveCommodities(it); return cs && cs.length ? { commodities: cs } : {} })(),
       }
-      const existingIndex = theme.members.findIndex((existing) => themeStoryKey(existing) === storyKey)
+      const existingIndex = theme.members.findIndex((existing) => sameThemeStoryObservation(existing, it))
       if (existingIndex >= 0) {
         const existing = theme.members[existingIndex]
         // One syndicated story is still one observation, but its canonical representative must improve
         // when a filing/official/company source arrives after a weaker publisher copy. Replacing rather
         // than double-counting preserves honest breadth. A changed event id is re-adjudicated because the
         // old classification cannot be silently transferred to different provenance.
-        if (sourcePriority(member.tier) > sourcePriority(existing.tier)) {
-          theme.members[existingIndex] = member
+        const memberMs = Date.parse(member.found_at)
+        const existingMs = Date.parse(existing.found_at)
+        const memberPriority = sourcePriority(member.tier)
+        const existingPriority = sourcePriority(existing.tier)
+        const memberKey = memberRepresentativeKey(member)
+        const existingKey = memberRepresentativeKey(existing)
+        const exactReplay = memberKey === existingKey
+        const memberIsNewer = Number.isFinite(memberMs)
+          && (!Number.isFinite(existingMs) || memberMs > existingMs)
+        const clocksTie = (Number.isFinite(memberMs) && Number.isFinite(existingMs) && memberMs === existingMs)
+          || (!Number.isFinite(memberMs) && !Number.isFinite(existingMs))
+        // Source hierarchy wins before recency. At an equal source clock, different canonical copies use
+        // a stable lexical winner so arrival order cannot change the ledger. An exact replay never mutates
+        // the member, revision, queue clock, or touched set.
+        const shouldReplace = !exactReplay && (memberPriority > existingPriority
+          || (memberPriority === existingPriority
+            && (memberIsNewer || (clocksTie && memberKey > existingKey))))
+        if (shouldReplace) {
+          // Triage refreshes can change score/metadata without creating a new source revision. The inbox
+          // clock is immutable for that exact observation, so never move it forward on replacement.
+          theme.members[existingIndex] = {
+            ...member,
+            observed_at: existing.observed_at || member.observed_at,
+            // Exact legacy observations cannot acquire positive language proof on a refresh.
+            ...(existing.source_is_english === true ? { source_is_english: true as const } : { source_is_english: undefined }),
+          }
           if (member.found_at > theme.last_flow) theme.last_flow = member.found_at
           theme.rev++
           if (theme.narrative && member.event_id !== existing.event_id) {
@@ -190,15 +274,18 @@ export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: Assig
             theme.needs_narrative_update = true
             if (!wasQueued) theme.validation_queued_at = now.toISOString().replace(/\.\d{3}Z$/, 'Z')
           }
-          boundMembers(theme, cfg.maxMembers)
+          boundThemeMembers(theme, cfg.maxMembers)
           touched.add(theme.theme_id)
         }
         joined.push(theme.theme_id) // already the same story — record membership, never count it twice
         continue
       }
+      const familyAlreadyPresent = theme.members.some((existing) => themeStoryFamilyKey(existing) === family)
       theme.members.push(member)
-      theme.member_count_total++
-      bumpDaily(theme, it.found_at, nowMs) // record this landing in the long-horizon daily ring (survives member eviction)
+      if (!familyAlreadyPresent) {
+        theme.member_count_total++
+        bumpDaily(theme, it.found_at, nowMs) // one underlying story contributes once, even when its audit history has updates
+      }
       if (it.found_at > theme.last_flow) theme.last_flow = it.found_at
       theme.rev++
       if (theme.narrative) {
@@ -207,7 +294,7 @@ export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: Assig
         theme.needs_narrative_update = true
         if (!wasQueued) theme.validation_queued_at = now.toISOString().replace(/\.\d{3}Z$/, 'Z')
       }
-      boundMembers(theme, cfg.maxMembers)
+      boundThemeMembers(theme, cfg.maxMembers)
       touched.add(theme.theme_id)
       joined.push(theme.theme_id)
     }

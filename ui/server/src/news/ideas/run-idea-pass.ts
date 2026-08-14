@@ -20,8 +20,8 @@ import {
   type SurfacedIdea,
 } from './ideas-store'
 import { IDEA_LEARNING_HORIZON_DAYS, learnIdeaAdjustment } from './idea-learning'
-import { scoreTradeCluster, type TradeEvidence } from '../trade-score'
-import { normTicker, verifyEquityListing } from '../symbology'
+import { directionMatchesEvidence, scoreTradeCluster, TRADE_SCORE_POLICY_VERSION, type TradeEvidence } from '../trade-score'
+import { baseTicker, coreCompanyName, normTicker, verifyEquityListing, type VerifiedEquityListing } from '../symbology'
 import { normName } from '../text-match'
 import { eventIdFor } from '../normalize'
 import {
@@ -111,6 +111,63 @@ export function tradeEvidenceForIdeaRows(rows: IdeaInputRow[]): TradeEvidence[] 
   }))
 }
 
+type EvidenceDirection = 'long' | 'short' | 'mixed' | 'unknown'
+
+/** Bind event sentiment to a proposed single-name position only when the server row names exactly that
+ * independently verified primary issuer. The triage label describes the event as a whole; it is not the
+ * sign of every supplier, customer, rival, or pair expression the PM may select. Ambiguous/secondary
+ * mappings therefore remain informational instead of falsely vetoing a valid beneficiary or harmed name. */
+export function directionBoundToVerifiedListing(
+  rows: IdeaInputRow[],
+  listing: VerifiedEquityListing | null,
+): EvidenceDirection {
+  if (!listing) return 'unknown'
+  const ticker = normTicker(listing.ticker)
+  const tickerBase = baseTicker(ticker)
+  // Keep identity-bearing words such as Group and Holdings. coreCompanyName removes only legal forms,
+  // so "Acme Corp" can match "Acme Corporation" without collapsing distinct issuers such as
+  // "Man Holdings" and "Man Group plc" onto the same generic stem.
+  const company = coreCompanyName(listing.companyName)
+  if (!ticker || !company) return 'unknown'
+  const boundRows = rows.filter((row) => {
+    if ((row.origin_type || 'wire') !== 'wire' || row.issuer_linkage !== 'primary') return false
+    const named = (row.companies || []).filter((candidate) => {
+      const candidateTicker = normTicker(candidate.ticker)
+      // An exact verified symbol is the stronger identity key and must not be defeated by harmless display-
+      // name differences ("Amazon" vs "Amazon.com Inc"). Triage may also carry the listing-agnostic base
+      // (NHY) while the independently verified directory returns its suffixed venue symbol (NHY.OL). Bind
+      // that one-way alias only when the verified symbol really has a known exchange suffix, the base is not
+      // degenerate, and the exact issuer core agrees. Never equate two suffixed venues or a same-base issuer
+      // with a different name. If triage honestly leaves ticker null, exact issuer-core identity may bind.
+      if (!candidateTicker) return coreCompanyName(candidate.name) === company
+      if (candidateTicker === ticker) return true
+      return tickerBase !== ticker && tickerBase.length >= 2 && candidateTicker === tickerBase &&
+        coreCompanyName(candidate.name) === company
+    })
+    // Multiple named issuers make an event-level sign ambiguous even if one happens to match the trade.
+    return row.companies.length === 1 && named.length === 1
+  })
+  const directions = new Set(boundRows
+    .map((row) => row.event_direction)
+    .filter((direction) => direction && direction !== 'neutral' && direction !== 'unknown'))
+  if (directions.size !== 1) return directions.size ? 'mixed' : 'unknown'
+  const direction = [...directions][0]
+  return direction === 'positive' ? 'long' : direction === 'negative' ? 'short' : 'mixed'
+}
+
+/** Self-trade detection requires either the exact normalized listing or an independently returned issuer
+ * identity on both legs. A shared base symbol across venues is deliberately absent: venues reuse symbols
+ * for unrelated companies, so baseTicker equality is not evidence of a cross-listing alias. */
+export function verifiedListingsIdentifySameIssuer(
+  primary: VerifiedEquityListing,
+  pair: VerifiedEquityListing,
+): boolean {
+  if (normTicker(primary.ticker) === normTicker(pair.ticker)) return true
+  const primaryCompany = coreCompanyName(primary.companyName)
+  const pairCompany = coreCompanyName(pair.companyName)
+  return Boolean(primaryCompany && pairCompany && primaryCompany === pairCompany)
+}
+
 /** Derive provenance only after the model has selected raw source indices. Theme rows elsewhere in the
  * batch cannot leak into the saved idea, and provider-authored JSON has no lineage field to trust. */
 type ThemeProofMap = Map<string, Set<string>>
@@ -160,6 +217,7 @@ export function themeProofForIdea(raw: RawIdea, rows: IdeaInputRow[]): ThemeIdea
   }
 
   const proofs: ThemeProofMap = new Map()
+  const coveredRows = new Set<IdeaInputRow>()
   let pairCompanyKey = ''
   let pairCompanyName: string | null = null
   for (const [key, group] of groups) {
@@ -170,7 +228,10 @@ export function themeProofForIdea(raw: RawIdea, rows: IdeaInputRow[]): ThemeIdea
     const proofRows = group.rows.filter((row) => row.event_id !== whyNowId
       && row.theme_contexts?.some((context) => context.theme_id === group.theme.theme_id
         && context.theme_rev === group.theme.theme_rev && context.role === 'EXPRESSION_PROOF'))
-    if (!whyNowId || whyRows.length !== 1 || !proofRows.length) return null
+    // A coalesced event can be WHY_NOW for several actionable Themes. Selecting that shared row plus
+    // Theme A's issuer proof must not make Theme B's absent proof mandatory. Treat each revision as an
+    // independent package and admit only complete packages that bind the returned issuer/side.
+    if (!whyNowId || whyRows.length !== 1 || !proofRows.length) continue
     const primaryMatch = proofRows.flatMap((row) => (row.theme_expressions || []).map((expression) => ({ row, expression })))
       .find(({ row, expression }) => (
         expression.theme_id === group.theme.theme_id
@@ -180,10 +241,11 @@ export function themeProofForIdea(raw: RawIdea, rows: IdeaInputRow[]): ThemeIdea
         && expression.name_key === companyKey
         && expression.evidence_event_ids.includes(row.event_id)
       ))
-    if (!primaryMatch) return null
+    if (!primaryMatch) continue
     const eventIds = new Set([whyNowId, primaryMatch.row.event_id])
+    let pairMatch: { row: IdeaInputRow; expression: IdeaThemeExpression } | undefined
     if (raw.direction === 'pair') {
-      const pairMatch = proofRows.flatMap((row) => (row.theme_expressions || []).map((expression) => ({ row, expression })))
+      pairMatch = proofRows.flatMap((row) => (row.theme_expressions || []).map((expression) => ({ row, expression })))
         .find(({ row, expression }) => (
           expression.theme_id === group.theme.theme_id
           && expression.theme_rev === group.theme.theme_rev
@@ -191,7 +253,7 @@ export function themeProofForIdea(raw: RawIdea, rows: IdeaInputRow[]): ThemeIdea
           && normTicker(expression.ticker) === pairTicker
           && expression.evidence_event_ids.includes(row.event_id)
         ))
-      if (!pairMatch) return null
+      if (!pairMatch) continue
       const pair = pairMatch.expression
       const matchedPairKey = pair.name_key || normName(pair.name)
       if (!matchedPairKey || (pairCompanyKey && pairCompanyKey !== matchedPairKey)) return null
@@ -199,43 +261,59 @@ export function themeProofForIdea(raw: RawIdea, rows: IdeaInputRow[]): ThemeIdea
       eventIds.add(pairMatch.row.event_id)
     }
     proofs.set(key, eventIds)
+    coveredRows.add(whyRows[0])
+    coveredRows.add(primaryMatch.row)
+    if (pairMatch) coveredRows.add(pairMatch.row)
   }
+  // Every selected Theme-bearing row must belong to at least one complete package that actually proves
+  // this idea. This keeps a shared WHY_NOW row package-separable while still failing closed on a selected
+  // expression-only row, a lone trigger, or an unrelated/partial second package.
+  if (!proofs.size || themeRows.some((row) => !coveredRows.has(row))) return null
   return { evidenceByTheme: proofs, pairCompanyName }
 }
 
 export function ideaLineageForRows(
   rows: IdeaInputRow[],
-  expressionProofs: ThemeProofMap = new Map(),
+  expressionProofs?: ThemeProofMap,
 ): { origin_type: IdeaOriginType; source_themes: IdeaSourceTheme[] } | null {
+  const restrictToProvenPackages = expressionProofs !== undefined
   let sawWire = false
   let sawTheme = false
   const sourceThemes: IdeaSourceTheme[] = []
   for (const row of rows) {
     const origin = row.origin_type || 'wire'
     if (origin === 'wire' || origin === 'mixed') sawWire = true
-    if (origin === 'theme' || origin === 'mixed') sawTheme = true
+    if (!restrictToProvenPackages && (origin === 'theme' || origin === 'mixed')) sawTheme = true
     for (const theme of row.source_themes || []) {
+      const key = themeProofKey(theme.theme_id, theme.theme_rev)
+      const provenEvidence = expressionProofs?.get(key)
+      // A shared row may carry contexts for multiple packages. Persistence must retain only the packages
+      // that passed the exact issuer/side proof above; otherwise an incidental Theme becomes a mandatory
+      // lineage edge and can later retire an otherwise valid idea.
+      if (restrictToProvenPackages && !provenEvidence) continue
       sawTheme = true
       if (!theme.why_now_event_id) return null
-      const evidenceIds = theme.evidence_event_ids?.length ? theme.evidence_event_ids : [row.event_id]
-      const expressionIds = expressionProofs.get(themeProofKey(theme.theme_id, theme.theme_rev)) || []
+      const evidenceIds = restrictToProvenPackages
+        ? [...provenEvidence!]
+        : (theme.evidence_event_ids?.length ? theme.evidence_event_ids : [row.event_id])
       const existing = sourceThemes.find((candidate) => candidate.theme_id === theme.theme_id)
       if (existing) {
         if (existing.theme_rev !== theme.theme_rev || existing.why_now_event_id !== theme.why_now_event_id) return null
         const merged = new Set(existing.evidence_event_ids || [])
         for (const eventId of evidenceIds) merged.add(eventId)
-        for (const eventId of expressionIds) merged.add(eventId)
         existing.evidence_event_ids = [...merged]
       } else if (sourceThemes.length < 64) {
         sourceThemes.push({
           theme_id: theme.theme_id,
           theme_rev: theme.theme_rev,
-          evidence_event_ids: [...new Set([...evidenceIds, ...expressionIds])],
+          evidence_event_ids: [...new Set(evidenceIds)],
           why_now_event_id: theme.why_now_event_id,
         })
       }
     }
   }
+  if (restrictToProvenPackages && rows.some((row) => row.origin_type === 'theme' || row.origin_type === 'mixed')
+    && !sourceThemes.length) return null
   if (sawTheme && sourceThemes.some((theme) => !theme.why_now_event_id
     || !theme.evidence_event_ids?.includes(theme.why_now_event_id))) return null
   return {
@@ -454,11 +532,16 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
       themesEnabled: c.themesEnabled !== false,
     })
     const rows = sweep.rows
-    // Reconcile Theme-only snapshots before every cache, interval, or row-count exit. A quiet provider
-    // lane must not leave a withdrawn Theme thesis looking live. Mixed calls retain independent wire
-    // support; promoted and in-flight calls remain lifecycle-owned and are never removed here.
-    const retired = retireUnadmittedThemeIdeas(deps.repoRoot, rows)
-    if (retired > 0) await deps.refreshBoard()
+    if (sweep.status === 'degraded') {
+      const counts = inspectIdeaSnapshots(deps.repoRoot, inputAt)
+      const cached = counts.live_count + counts.stale_count > 0
+      const reason = 'A recent wire partition is unreadable or has no trustworthy clock; the lead skim is paused rather than ranking an incomplete source set.'
+      health({
+        enabled: true, status: cached ? 'degraded' : 'error', outcome: 'skipped', reason_code: 'stale_inputs',
+        reason, next_eligible_at: null, input_count: rows.length, produced_count: 0,
+      }, inputAt)
+      return { ran: false, produced: 0, note: reason, reason_code: 'stale_inputs' }
+    }
     if (rows.length < 2) {
       const staleInput = sweep.status === 'stale' || sweep.status === 'corrupt'
       const counts = inspectIdeaSnapshots(deps.repoRoot, inputAt)
@@ -480,6 +563,12 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
       }, inputAt)
       return { ran: false, produced: 0, note: reason, reason_code: staleInput ? 'stale_inputs' : 'insufficient_inputs' }
     }
+
+    // Reconcile Theme-only snapshots only after the complete input set clears every integrity/freshness
+    // guard. An unreadable partition must not make a valid theme appear withdrawn and trigger deletion.
+    // Mixed calls retain independent wire support; promoted and in-flight calls remain lifecycle-owned.
+    const retired = retireUnadmittedThemeIdeas(deps.repoRoot, rows)
+    if (retired > 0) await deps.refreshBoard()
 
     const hash = topNHash(rows)
     const effectHash = topNEffectHash(rows)
@@ -630,11 +719,8 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
           pairCompanyName || undefined,
           deps.fetchFn || fetch,
         )
-        if (!verifiedPairListing) continue
+        if (!verifiedPairListing || verifiedListingsIdentifySameIssuer(verifiedListing, verifiedPairListing)) continue
       }
-      // Listing rejection must not reserve the stable idea id: a later provider row for the same primary
-      // call may carry a valid independently verified pair leg.
-      seen.add(id)
       const persistedPairTicker = raw.direction === 'pair' ? verifiedPairListing!.ticker : null
       const version = ideaVersion({
         ticker: verifiedListing?.ticker || raw.ticker,
@@ -664,6 +750,15 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
         whyNow: raw.why_now,
         learningAdjustment: learning.adjustment,
       })
+      // A Theme already binds beneficiary/harmed sides through its qualified expression proof. A wire pair
+      // necessarily maps two instruments, so one event-level sign cannot describe both legs. For a naked
+      // wire call, veto reversal only when the row uniquely names the exact verified primary issuer.
+      const boundDirection = lineage.origin_type === 'wire' && raw.direction !== 'pair'
+        ? directionBoundToVerifiedListing(srcRows, verifiedListing)
+        : 'unknown'
+      // A rejected row must not reserve the stable id: a later provider row may bind the issuer correctly.
+      if (!directionMatchesEvidence(raw.direction, boundDirection)) continue
+      seen.add(id)
       const coverage = priorCoverage(deps.repoRoot, raw.ticker)
       let saved = false
       for (let attempt = 0; attempt < 3 && !saved; attempt++) {
@@ -694,7 +789,7 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
           conviction: raw.conviction,
           conviction_basis: 'pre_edge_proxy',
           trade_score: trade.score,
-          trade_score_basis: 'evidence_gate_v1',
+          trade_score_basis: TRADE_SCORE_POLICY_VERSION,
           trade_score_breakdown: trade.breakdown,
           trade_readiness: trade.readiness,
           missing_checks: trade.missingChecks,

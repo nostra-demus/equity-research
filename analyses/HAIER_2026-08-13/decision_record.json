@@ -1,0 +1,366 @@
+{
+  "schema_version": "1.0",
+  "ticker": "HAIER",
+  "company_name": "Haier Smart Home Co., Ltd.",
+  "exchange": "SHSE:600690 (also HKEX-listed)",
+  "currency": "CNY",
+  "decision_date": "2026-08-13",
+  "run_root": "analyses/HAIER_2026-08-13",
+  "final_thesis_path": "analyses/HAIER_2026-08-13/final_thesis.md",
+  "decision": "Watchlist",
+  "suggested_action": "Monitor only — no position. Revisit after the 2026-08-27/28 H1 2026 print.",
+  "paper_treatment": "No trade, track opportunity cost",
+  "basket": "Watchlist",
+  "entry_price": 21.75,
+  "entry_price_source": "Capital IQ current price export, SHSE:600690 A-share, pool-verified",
+  "entry_price_timestamp": "2026-08-12",
+  "benchmark": "",
+  "sector_benchmark": "",
+  "time_horizon": "12 months (primary scenarios); structural-erosion tail plays out over 24-36 months",
+  "scenario_horizon_days": 365,
+  "expected_return_pct": 3.02,
+  "downside_risk_pct": 26.9,
+  "margin_of_safety_pct": 8.11,
+  "risk_reward": 0.11,
+  "scenarios": [
+    {
+      "scenario_id": "bull",
+      "label": "bull",
+      "probability": 20,
+      "return_pct": 46.11,
+      "price_target": 31.78,
+      "conditions": [
+        "Raw-material excess-cost growth reverts to 0pp",
+        "China domestic demand partially recovers to +5% YoY",
+        "EV/EBITDA multiple expands to the quality-adjusted/own-history-mean ceiling (7.4x)"
+      ],
+      "source": "valuation/07_scenario-and-fair-value.md §3 scenario table",
+      "joint_probability_basis": "Two conditions must hold simultaneously (commodity reversion AND China demand recovery) — a genuine conjunction, not independent draws."
+    },
+    {
+      "scenario_id": "base",
+      "label": "base",
+      "probability": 40,
+      "return_pct": 8.83,
+      "price_target": 23.67,
+      "conditions": [
+        "FY2026E consensus growth path holds roughly as guided (revenue +2.24%, EBITDA ~CNY 30.5bn)",
+        "Multiple sits modestly above the current LTM print but short of full reversion to own-history mean"
+      ],
+      "source": "valuation/07_scenario-and-fair-value.md §2 weighted triangulation (cross-checked at CNY 23.56 by §3 direct build, 0.5% gap)",
+      "joint_probability_basis": "This is one joint operating-and-valuation path: Haier must deliver roughly the consensus EBITDA while the market applies no further margin-erosion discount. The 40% probability is assigned to that combined outcome, not to either condition independently."
+    },
+    {
+      "scenario_id": "bear_cyclical",
+      "label": "bear_cyclical",
+      "probability": 25,
+      "return_pct": -22.8,
+      "price_target": 16.79,
+      "conditions": [
+        "Commodity-cost pressure, competitive intensity, and China property-cycle softness erase SG&A-driven margin gains posted since FY2021",
+        "EBIT margin reverts fully to the FY2021 5-year trough (5.91%)"
+      ],
+      "source": "valuation/07_scenario-and-fair-value.md §3 scenario table",
+      "joint_probability_basis": "The margin trough is the operating result of the same commodity-cost, competition, and China-demand pressures named in the first condition, not an independent draw. The 25% probability is assigned to that combined cyclical-trough path."
+    },
+    {
+      "scenario_id": "bear_structural",
+      "label": "bear_structural",
+      "probability": 15,
+      "return_pct": -26.9,
+      "price_target": 15.9,
+      "conditions": [
+        "Moat erosion continues without stabilizing (revenue growth cut to roughly half consensus)",
+        "EBIT margin fades to 5.00% by FY2030 (below the FY2021 trough)",
+        "Gross margin fades to 23.8%, capex pulled back, CCC deteriorates to +30.0d"
+      ],
+      "source": "valuation/07_scenario-and-fair-value.md §3 Structural-reset bridge (reproducing 04_intrinsic-dcf.md §5 runoff scenario); 24-36 month horizon",
+      "joint_probability_basis": "Represents the tail case where the already-confirmed moat-erosion trend (460bp 5-yr gross-margin decline, 2 consecutive ROIC declines) continues rather than stabilizes — correlated with, not independent of, bear_cyclical."
+    }
+  ],
+  "idea_valuation_bridge": {
+    "source_horizon_days": 365,
+    "method": "catalyst_partial_convergence",
+    "convergence_fraction": 0.3,
+    "rationale": "The nearest catalyst (H1 2026 results, 2026-08-27/28) and Q3 2026 print test the margin-erosion trajectory but full resolution requires multiple print cycles beyond a 90-183 day window; a partial convergence toward the 12-month scenario targets is used.",
+    "source": "catalyst/99_catalyst-synthesis.md; valuation/07_scenario-and-fair-value.md"
+  },
+  "confidence_score": 42.0,
+  "data_sufficiency_score": 76,
+  "confidence_inputs": {
+    "data_sufficiency": 76,
+    "corroboration": 70,
+    "evidence_tier": 80,
+    "staleness_penalty": 0,
+    "edge_score": 25,
+    "edge_proof_present": true,
+    "decision": "Watchlist",
+    "expected_return_pct": 3.02,
+    "modules_absent": [],
+    "critical_governance_unresolved": false,
+    "catalyst_timing_weak": true,
+    "rating_cap_ceiling": null,
+    "downgrades": [
+      {
+        "type": "macro/commodity-conditional thesis",
+        "points": 8,
+        "reason": "raw-material commodity cost inflation (84pct of appliance COGS, no pass-through) is the single largest earnings-sensitivity variable, one of four High-rated external dependencies"
+      },
+      {
+        "type": "scenario math sensitivity to one assumption",
+        "points": 8,
+        "reason": "the entire bull-to-bear spread (CNY 31.78 to CNY 15.90) hinges on whether the confirmed moat-erosion trajectory continues or stabilizes"
+      }
+    ],
+    "calibration_haircut": 0,
+    "exceptional_evidence": false
+  },
+  "analysis_confidence": 75.5,
+  "conviction": 42.0,
+  "sizing_hint": {
+    "band": "watch",
+    "action": "monitor only — no position (track opportunity cost)"
+  },
+  "confidence_breakdown": {
+    "analysis_confidence": 75.5,
+    "analysis_confidence_build": "0.5*dataSuff(76) + 0.25*corrob(70) + 0.25*tier(80) - stale(0) = 75.5",
+    "direction": "neutral",
+    "documented_ceiling": 70.0,
+    "documented_ceiling_sources": [
+      100.0,
+      70.0,
+      100.0
+    ],
+    "unknown_absent_keys": [],
+    "direction_ceiling": 58.0,
+    "direction_ceiling_reason": "neutral: min(documented 70, non-committal 58)",
+    "understanding_capped_to_ceiling": 58.0,
+    "downgrades": [
+      {
+        "type": "macro/commodity-conditional thesis",
+        "points": 8,
+        "reason": "raw-material commodity cost inflation (84pct of appliance COGS, no pass-through) is the single largest earnings-sensitivity variable, one of four High-rated external dependencies"
+      },
+      {
+        "type": "scenario math sensitivity to one assumption",
+        "points": 8,
+        "reason": "the entire bull-to-bear spread (CNY 31.78 to CNY 15.90) hinges on whether the confirmed moat-erosion trajectory continues or stabilizes"
+      }
+    ],
+    "calibration_haircut": 0,
+    "downgrade_points_total": 16.0,
+    "conviction_hard_max": 85.0,
+    "conviction": 42.0,
+    "formula": "conviction = clamp( min( min(analysis_confidence, direction_ceiling) - sum(max(0,downgrades)) - max(0,calibration_haircut), direction_ceiling ), 0, hard_max )"
+  },
+  "rating_cap": "Cross-module forensic mosaic (RF-EQ-001, RF-DISC-001, RF-DISC-002 across earnings and management-governance) caps ceiling at Starter Position Only; Watchlist chosen here is more conservative than that ceiling",
+  "thesis_type": [
+    "Company-specific",
+    "Commodity-conditional",
+    "Policy-conditional"
+  ],
+  "variant_perception_summary": "The valuation discount to peers is mostly, not fully, explained by fundamentals once quality-adjusted (residual +1.5%); it is an earnings-trajectory discount, not an ownership-driven value trap (no misaligned controlling owner found). A genuine but modest edge exists in a cross-module accounting-integrity mosaic (3 sub-threshold tags across 2 modules) that no single module flagged as material on its own.",
+  "what_everyone_knows": "Haier trades at a 25-38% discount to Midea/Gree/Whirlpool on every reported multiple; margins trail both named Chinese peers; the China trade-in subsidy is fading and raw-material costs are rising; the last two reported quarters both missed consensus.",
+  "what_is_priced_in": "Most of it — the peer-relative method finds the residual gap once quality-adjusted for margin and moat erosion shrinks to a modest +1.5% (CNY 22.08 fair value vs CNY 21.75 price).",
+  "what_market_may_be_missing": "That the discount is an earnings-trajectory discount, not an ownership-governance discount (RF-OWN-004 tested and not fired); and a cross-module forensic mosaic (RF-EQ-001 + RF-DISC-001 + RF-DISC-002, spanning earnings and management-governance) that individually sub-threshold signals compound into a real, monitorable caution.",
+  "edge_score": 25,
+  "edge_proof": "If the FY2026 annual report (~March 2027) shows Haier Group Finance Co. related-party borrowing continuing to climb past 37.7% of its RMB10,000mn cap AND the accrual-quality pattern (receivables/inventory outgrowing revenue/COGS) persists for a third year, the forensic-mosaic caution is confirmed. If borrowing utilization instead stabilizes or falls and the accrual pattern reverses, the caution is falsified.",
+  "killer_risk": "The confirmed moat-erosion trend (460bp 5-year gross-margin decline, 2 consecutive ROIC declines) continues rather than stabilizes — the H1 2026 print (2026-08-27/28) is the first live test.",
+  "kill_criteria": [
+    "A third consecutive earnings miss at the H1 2026 print (2026-08-27/28)",
+    "Gross margin falls below 26.3% at the H1 print",
+    "The ex-North-America >10% operating profit growth claim is never reconciled to a segment P&L, or is reconciled and found overstated",
+    "Related-party borrowing from Haier Group Finance Co. climbs further past 37.7% of its RMB10,000mn cap, or cash-parked-with-affiliate % rises above 57%",
+    "A GE Appliances goodwill impairment (25.3% of parent-company equity) is taken",
+    "Incremental ROIC stays negative for a second straight year (FY2026)"
+  ],
+  "forecast_ledger": [
+    {
+      "prediction": "H1 2026 revenue and EPS beat the pre-print next-Q consensus (revenue CNY 75,076mn / EPS CNY 0.58 as of 2026-08-13)",
+      "probability": 35,
+      "time_window": "By 2026-08-28",
+      "evidence_today": "Two consecutive quarters (FQ4 2025, FQ1 2026) already missed an already-cut consensus; revision breadth net negative into this print",
+      "confirmation_trigger": "Reported H1 2026 revenue AND EPS both exceed the pre-print consensus figures, per the H1 2026 results filing",
+      "falsification_trigger": "Reported H1 2026 revenue OR EPS falls below the pre-print consensus figures",
+      "owner_module": "earnings",
+      "confidence_score": 70,
+      "status": "open",
+      "forecast_type": "earnings_eps"
+    },
+    {
+      "prediction": "H1 2026 gross margin holds at or above FY2025 full-year 26.3%",
+      "probability": 35,
+      "time_window": "By 2026-08-28",
+      "evidence_today": "Q4 2025 copper/bulk-material inflation already cut gross margin 1.1pp; no disclosed pass-through mechanism",
+      "confirmation_trigger": "Reported H1 2026 gross margin >= 26.3%",
+      "falsification_trigger": "Reported H1 2026 gross margin < 26.3%",
+      "owner_module": "earnings",
+      "confidence_score": 65,
+      "status": "open",
+      "forecast_type": "margin_or_cost"
+    },
+    {
+      "prediction": "FY2026 EPS consensus (CNY 2.13 as of 2026-08-13) holds or is raised at the first post-H1-print Capital IQ refresh",
+      "probability": 30,
+      "time_window": "By ~2026-09-15",
+      "evidence_today": "Consensus has been cut in every measured window over the trailing 90 days and 6-12 months; revision breadth 1 up / 11 down",
+      "confirmation_trigger": "FY2026 EPS consensus at the first post-print refresh is >= CNY 2.13",
+      "falsification_trigger": "FY2026 EPS consensus at the first post-print refresh is < CNY 2.13",
+      "owner_module": "earnings",
+      "confidence_score": 65,
+      "status": "open",
+      "forecast_type": "catalyst_or_estimate_revision"
+    },
+    {
+      "prediction": "Haier Group Finance Co. related-party borrowing (RMB 3,767mn, 37.7% of cap as of FY2025) stabilizes or declines in the FY2026 annual report",
+      "probability": 50,
+      "time_window": "By ~March 2027",
+      "evidence_today": "Borrowing rose ~19x YoY in FY2025 (RMB196mn to RMB3,767mn); no evidence yet of the trend reversing",
+      "confirmation_trigger": "FY2026 annual report shows related-party borrowing <= RMB3,767mn AND/OR cash-parked-with-affiliate % <= 57%",
+      "falsification_trigger": "FY2026 annual report shows both figures higher than their FY2025 levels",
+      "owner_module": "management-governance",
+      "confidence_score": 55,
+      "status": "open",
+      "forecast_type": "governance_or_accounting"
+    },
+    {
+      "prediction": "Incremental ROIC (FY2025-FY2026 basis) turns positive again for FY2026",
+      "probability": 45,
+      "time_window": "By ~March 2027",
+      "evidence_today": "FY2025 incremental ROIC was -8.3%, the first negative reading after four straight positive years",
+      "confirmation_trigger": "FY2026 annual report data, computed on the same methodology, shows incremental ROIC > 0%",
+      "falsification_trigger": "FY2026 annual report data shows incremental ROIC <= 0% for a second straight year",
+      "owner_module": "management-governance",
+      "confidence_score": 55,
+      "status": "open",
+      "forecast_type": "governance_or_accounting"
+    }
+  ],
+  "module_scores": {
+    "business-model": {
+      "verdict": "Average business — worth deeper work only if cheap",
+      "overall_usefulness": 58,
+      "business_quality": 42,
+      "moat": 48
+    },
+    "earnings": {
+      "verdict": "Earnings decelerating",
+      "earnings_quality": 66,
+      "consensus_setup": 28,
+      "red_flag_severity": "Material concerns"
+    },
+    "balance-sheet-survival": {
+      "verdict": "Fortress balance sheet",
+      "solvency_strength": 85,
+      "overall_usefulness": 72
+    },
+    "management-governance": {
+      "verdict": "Standard / mixed",
+      "governance_score": 63,
+      "confidence_adjusted_governance_score": 50,
+      "governance_rating": "Watchlist"
+    },
+    "valuation": {
+      "verdict": "Fairly valued",
+      "valuation_attractiveness": 45,
+      "margin_of_safety": 40,
+      "overall_usefulness": 78
+    },
+    "catalyst": {
+      "verdict": "Dated, evidenced near-term catalysts",
+      "catalyst_strength": 58,
+      "timing_visibility": 62
+    }
+  },
+  "red_flags": [
+    {
+      "id": "RF-RPT-003",
+      "severity": "High",
+      "module": "management-governance",
+      "description": "Related-party borrowing from Haier Group Finance Co. up ~19x YoY (RMB196mn to RMB3,767mn, 37.7% of a RMB10,000mn cap); 57% of Group cash parked with the same affiliate"
+    },
+    {
+      "id": "RF-RPT-002",
+      "severity": "High",
+      "module": "management-governance",
+      "description": "Connected transactions with Haier Group = 5.0% of FY2025 revenue, recurring and promoter-linked"
+    },
+    {
+      "id": "RF-DISC-001",
+      "severity": "High",
+      "module": "management-governance",
+      "description": "Q1 2026 filing states >10% ex-North-America operating profit growth without reconciling it to a segment P&L, while the consolidated print missed consensus"
+    },
+    {
+      "id": "RF-CAP-002",
+      "severity": "High",
+      "module": "management-governance",
+      "description": "FY2026 CNY6,000mn buyback program is structurally an ESOP/SBC-dilution-offset vehicle, not primarily a capital-return vehicle"
+    },
+    {
+      "id": "RF-EQ-001",
+      "severity": "Medium",
+      "module": "earnings",
+      "description": "Rising-accruals pattern: revenue outgrowing CFO for 2 years running; receivables outgrowing revenue in 2 of 3 years; inventory outgrowing COGS in 2 of 3 years"
+    },
+    {
+      "id": "RF-DISC-002",
+      "severity": "Medium",
+      "module": "management-governance",
+      "description": "A recurring ~RMB1.1-1.3bn/year government-subsidy stream labelled non-recurring for three consecutive years (FY2023-FY2025)"
+    },
+    {
+      "id": "RF-CAP-001",
+      "severity": "Medium",
+      "module": "management-governance",
+      "description": "Undisclosed price on the 2018 Fisher & Paykel related-party asset injection from controlling shareholder Haier Group"
+    },
+    {
+      "id": "goodwill-concentration",
+      "severity": "Medium",
+      "module": "business-model",
+      "description": "Goodwill + indefinite-life intangibles are 25.3% of parent-company equity, 76% concentrated in the 2016 GE Appliances deal, sitting behind the North America segment currently absorbing tariff pressure (severity 50/100)"
+    },
+    {
+      "id": "forensic-mosaic-compound",
+      "severity": "High (compound)",
+      "module": "cross-module (earnings + management-governance)",
+      "description": "RF-EQ-001 + RF-DISC-001 + RF-DISC-002 — 3 distinct forensic tags spanning 2 distinct modules compound per CLAUDE.md §13 into a single High accounting-integrity flag, capping the rating ceiling at Starter Position Only"
+    }
+  ],
+  "missing_data": [
+    "No post-2019 earnings-call transcript or investor Q&A record anywhere in the pool (caps earnings clarity at 70, disclosure candor at 65)",
+    "No committed/undrawn bank credit-facility total disclosed anywhere in the pool (caps liquidity-runway confidence at 60)",
+    "No formal loan covenant package or indenture disclosed anywhere in the pool (covenant headroom Not assessable)",
+    "No credit rating (Moody's/S&P/local agency) exists anywhere in the pool",
+    "No unit-volume or average-selling-price data disclosed for any product segment (caps true per-unit value-creation analysis)",
+    "No fully diluted share count / options schedule in the pool (per-share values fall back to diluted weighted-average shares)",
+    "No segment-level P&L to reconcile the Q1 2026 ex-North-America >10% operating profit growth claim"
+  ],
+  "review_schedule": {
+    "30d": "2026-09-12",
+    "90d": "2026-11-11",
+    "180d": "2027-02-09",
+    "365d": "2027-08-13"
+  },
+  "created_by": "synthesizer",
+  "notes": "No RUN_METADATA.md exists for this run (non-blocking, module folders were run directly). No prior dated HAIER run exists for comparison. Rating cap: cross-module forensic mosaic (3 tags, 2 modules) caps the ceiling at Starter Position Only; the Watchlist rating is more conservative than, and not itself forced by, that ceiling. Edge gate: edge_score (25) < 50, so conviction is capped at 60 regardless; the actual computed conviction (42.0) sits well inside that cap.",
+  "business_type": "Generic operating company",
+  "primary_valuation_method": "Peer-relative valuation (EV/EBITDA)",
+  "calibration_feedback": {
+    "source_summary": "analyses/performance/2026-08-01_calibration_summary.json",
+    "status": "pre_data",
+    "haircut_points": 0,
+    "modules_flagged": [],
+    "flagged_forecast_types": [],
+    "flagged_thesis_types": [],
+    "leading_error_categories_flagged": [],
+    "error_defense_evidence": {},
+    "rationale": "As-of summary (2026-08-01) verdict is Pre-data (7 decisions, 7 reviews, 1 resolved forecast, 1 resolved directional call — all below their floors); calibration_by_module, calibration_by_forecast_type, and calibration_by_thesis_type are all empty ({}), so no slice check could run. error_taxonomy_distribution has 4 categories each at count=1 (bad base rate, valuation multiple error, bad causal inference, false negative) — none reaches the count>=2 leading-category threshold, so no error-taxonomy check fired either. No adjustment applied."
+  },
+  "confidence_haircut": 7.0,
+  "pre_mortem_verdict": "Survives with haircut",
+  "post_review_confidence_score": 35.0,
+  "post_mortem_decision": "Watchlist",
+  "post_mortem_basket": "Watchlist"
+}

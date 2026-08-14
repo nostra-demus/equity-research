@@ -106,7 +106,11 @@ export interface ThemeMember {
   dedup_group?: string
   headline: string
   headline_en?: string | null // English translation (news/lang.ts) — kept so a member older than the feed window still renders in English
+  source_is_english?: true // positive source-language proof; absent means unknown/legacy
   found_at: string // ISO
+  /** First local observation of this exact source revision. It is carried to Ideas only to order a
+   * correction against a human action; Theme freshness remains anchored to `found_at`. */
+  observed_at?: string
   score: number // the item's composite triage_score (0–100)
   tier: string // source_tier (primary_filing … unconfirmed)
   source_name?: string // exact publisher/filing source carried into the evidence projection
@@ -169,7 +173,10 @@ export interface Theme {
   merged_into: string | null
   first_seen: string // immutable lifecycle start; evidence excerpts/eviction must never move it forward
   last_flow: string // ISO of the most recent member item
-  generation: 'deterministic' | 'groq' | 'claude' // provenance of the discovery/naming
+  generation: 'deterministic' | 'groq' | 'claude' | 'llm' // provenance class of the discovery/naming
+  // Exact configured provider/model route when `generation:'llm'` is used for a self-describing overflow
+  // compiler. Legacy built-ins retain their historical `claude` / `groq` values for compatibility.
+  validator_provider?: string
   narrative?: ThemeNarrative // absent on raw/legacy clusters; those fail closed until revalidated
   rev: number // bumped on every mutation (SSE dedup / change detection)
   // server-only: set when a self-heal shifted an LLM-named theme's identity enough that its persisted
@@ -186,6 +193,10 @@ export interface Theme {
   // Exact rows awaiting the next bounded validator pass. A boolean alone lost rows beyond the prompt cap;
   // this FIFO drains across passes and keeps every arrival classifiable as support/challenge/context.
   pending_narrative_event_ids?: string[]
+  // Fail-closed marker: at least one unclassified row or narrative-linked proof could not fit in the
+  // hard-bounded audit ring. No later compiler reply may clear the quarantine because the evicted row can
+  // no longer be adjudicated from this theme record. Applies before and after the first narrative exists.
+  narrative_update_overflow?: boolean
   // Durable queue fairness: repeated updates on two early ledger rows cannot starve later validation debt.
   validation_queued_at?: string
   validation_attempted_at?: string
@@ -270,6 +281,75 @@ export interface ThemeEvidence {
   stance: ThemeEvidenceStance
 }
 
+/** Formation diagnostics may show the exact new observation that quarantined an existing thesis. Until
+ * the compiler classifies it, that row is neither support nor challenge and must remain explicitly so. */
+export interface ThemeFormationEvidence extends Omit<ThemeEvidence, 'stance'> {
+  stance: ThemeEvidenceStance | 'unclassified'
+}
+
+// Formation rows are intentionally a separate, non-investable contract from ThemeSummary. They expose
+// enough exact source evidence to explain why a pattern is waiting without promoting a lexical cluster to
+// an investment thesis, trade expression, dossier, or Ideas candidate.
+export type ThemeFormationState = 'awaiting_validation' | 'awaiting_revalidation' | 'blocked_incomplete_audit' | 'building_evidence'
+
+export interface ThemeFormationCandidate {
+  theme_id: string
+  provisional_label: string
+  investable: false
+  state: ThemeFormationState
+  queued_at: string | null
+  attempted_at: string | null
+  distinct_evidence_count: number
+  high_quality_evidence_count: number
+  evidence: ThemeFormationEvidence[] // exact-provenance excerpts only; pending rows stay unclassified
+  blockers: string[]
+}
+
+export interface ThemeFormationQueue {
+  total: number
+  shown: number
+  hidden: number
+  awaiting_validation: number
+  awaiting_revalidation: number
+  blocked_incomplete_audit: number
+  building_evidence: number
+  candidates: ThemeFormationCandidate[]
+}
+
+export type ThemeCompilerBlocker = 'not_configured' | 'daily_cap' | 'cooldown' | 'rate_limiter_busy' | 'provider_error' | 'invalid_response'
+
+/** One completed compiler seam invocation. The queue can remain non-empty after a successful bounded
+ * attempt, so the attempt result and current debt counts are deliberately separate. */
+export interface ThemeCompilerAttempt {
+  attempted_at: string
+  state: 'succeeded' | 'blocked' | 'failed' | 'skipped'
+  provider: string
+  blocker: ThemeCompilerBlocker | null
+  message: string
+  requested_count: number
+  attempted_count: number
+  validated_count: number
+  rejected_count: number
+  malformed_count: number
+  omitted_count: number
+}
+
+export interface ThemeCompilerHealth {
+  state: 'ready' | 'working' | 'blocked' | 'degraded' | 'idle'
+  observed_at: string
+  provider: string
+  blocker: ThemeCompilerBlocker | null
+  message: string
+  queue: {
+    total: number
+    awaiting_validation: number
+    awaiting_revalidation: number
+    blocked_incomplete_audit: number
+    oldest_queued_at: string | null
+  }
+  last_attempt: ThemeCompilerAttempt | null
+}
+
 export type ThemeAssessmentStatus = 'actionable' | 'forming' | 'context'
 
 /** Evidence counts used by the first-look admission gate. There is deliberately no weighted aggregate:
@@ -303,6 +383,8 @@ export interface ThemesIndex {
    * successful Themes pipeline stage, so a stopped scanner cannot look live merely because HTTP works. */
   projected_at?: string
   themes: ThemeSummary[]
+  formation_queue: ThemeFormationQueue
+  compiler_health: ThemeCompilerHealth
   counts: { hot: number; active: number; cooling: number; parked: number; retired: number; total: number }
   history_days: number // how many days of real daily-flow history exist (caps how far the window selector can honestly reach)
 }
@@ -331,7 +413,9 @@ export interface ThemeItemView {
   dedup_group?: string // canonical story family; persisted onto ThemeMember for evidence dedupe
   headline: string
   headline_en?: string | null // English translation (news/lang.ts) — carried onto the member so themes render in English
+  source_is_english?: true // positive source-language proof; preserved into Ideas ordering checks
   found_at: string // ISO
+  observed_at?: string // durable first-seen clock for this exact revision; never a freshness substitute
   companies?: CompanyGuess[]
   event_types?: string[]
   issuer_linkage?: string
@@ -346,9 +430,26 @@ export interface ThemeItemView {
   commodities?: string[] // canonical commodity tag(s) (news/commodities.ts) — persisted onto the member for commodity slicing
 }
 
-// One mutation line appended to screener/ledger/themes.ndjson (last-line-per-theme_id wins on rebuild).
-export interface ThemeMutation {
+// Ledger rows appended to screener/ledger/themes.ndjson. Legacy single-theme rows remain readable;
+// new engine cycles use one batch row so Theme mutations and their compiler/stage observation either
+// parse together or fail together after a torn write.
+export interface ThemeStateMutation {
   kind: 'theme'
   ts: string
   theme: Theme
 }
+
+export interface ThemeBatchMutation {
+  kind: 'theme_batch'
+  ts: string
+  themes: Theme[]
+  compiler_attempt?: ThemeCompilerAttempt
+}
+
+export interface ThemeStageMutation {
+  kind: 'theme_stage'
+  ts: string
+  compiler_attempt?: ThemeCompilerAttempt
+}
+
+export type ThemeMutation = ThemeStateMutation | ThemeBatchMutation | ThemeStageMutation

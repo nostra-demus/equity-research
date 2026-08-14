@@ -8,16 +8,16 @@ import os from 'node:os'
 import path from 'node:path'
 import { scoreTheme, ensureDaily, rollDaily, bumpDaily, DAILY_WINDOWS } from '../src/news/themes/score'
 import { companyImpact, orderTierFor } from '../src/news/themes/order'
-import { assignThemes } from '../src/news/themes/assign'
+import { assignThemes, boundThemeMembers } from '../src/news/themes/assign'
 import { clusterItems, discoverDeterministic, createTheme, linkThemes, mergeAndRetire, refreshThemeIdentity, coherenceOf, DEFAULT_DISCOVER_CONFIG } from '../src/news/themes/discover'
 import { updateTokenDf, buildGenericSet, loadTokenDf, saveTokenDf, DEFAULT_TOKEN_DF_CONFIG, type TokenDfState } from '../src/news/themes/token-df'
 import { topicTokens, themeTokens, isRoutineFiling } from '../src/news/text-match'
 import { stepThemes, runThemesCycle, DEFAULT_THEMES_CONFIG } from '../src/news/themes/engine'
-import { appendThemeMutations, buildSummary, buildThemesIndex, loadThemes, maybeCompactThemesLedger, readThemesIndex, writeThemesIndex } from '../src/news/themes/store'
-import { Budget, resetBudgetMemory } from '../src/news/triage/budget'
+import { appendThemeMutations, buildSummary, buildThemesIndex, loadThemes, maybeCompactThemesLedger, readRecentThemeItems, readThemesIndex, writeThemesIndex } from '../src/news/themes/store'
+import { Budget, readCooldownUntil, resetBudgetMemory, resetCooldownMemory, resetSharedLimiters } from '../src/news/triage/budget'
 import type { Theme, ThemeItemView } from '../src/news/themes/types'
 import { attachValidNarrative } from './themes-fixtures'
-import { uniqueThemeMembers } from '../src/news/themes/qualification'
+import { qualifyTheme, uniqueThemeMembers } from '../src/news/themes/qualification'
 
 let passed = 0
 function check(name: string, fn: () => void | Promise<void>): Promise<void> | void {
@@ -37,6 +37,7 @@ function item(id: string, headline: string, opts: Partial<ThemeItemView> = {}): 
   return {
     event_id: id, dedup_group: opts.dedup_group, headline, headline_en: opts.headline_en,
     found_at: opts.found_at || hoursAgo(0), companies: opts.companies || [], event_types: opts.event_types || [],
+    ...(opts.observed_at ? { observed_at: opts.observed_at } : {}),
     issuer_linkage: opts.issuer_linkage || 'primary', triage_score: opts.triage_score ?? 70,
     source_tier: opts.source_tier || 'news', source_name: opts.source_name ?? 'Synthetic theme fixture',
     url: opts.url ?? `https://example.test/themes/${encodeURIComponent(id)}`,
@@ -82,6 +83,28 @@ function llmThemeProposal(options: {
   }
 }
 
+await check('readRecentThemeItems fills its cap with eligible material rows after a busy raw-wire flood', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'themes-eligible-cap-'))
+  const inbox = path.join(root, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  const clock = new Date()
+  const day = clock.toISOString().slice(0, 10)
+  const wire = (event_id: string, offsetMs: number, score: number, band: 'pick' | 'drop') => ({
+    kind: 'item', event_id, dedup_group: event_id,
+    ts: new Date(clock.getTime() + offsetMs).toISOString(),
+    found_at: new Date(clock.getTime() + offsetMs).toISOString(),
+    headline: `${event_id} capacity shortage`, source_name: 'Synthetic Wire', url: `https://example.test/${event_id}`,
+    triage_score: score, band, companies: [{ name: event_id, ticker: null, listing_country: null }],
+    event_types: ['operations'], issuer_linkage: 'primary', source_tier: 'news', region: 'US', country: 'US',
+  })
+  const noisy = Array.from({ length: 1_005 }, (_, index) => wire(`drop-${index}`, index + 10_000, 5, 'drop'))
+  const eligible = [wire('eligible-1', 1, 75, 'pick'), wire('eligible-2', 2, 80, 'pick'), wire('eligible-3', 3, 85, 'pick')]
+  fs.writeFileSync(path.join(inbox, `${day}_firehose.ndjson`), [...noisy, ...eligible].map((row) => JSON.stringify(row)).join('\n') + '\n')
+  const rows = readRecentThemeItems(root, 50, 3)
+  assert.deepEqual(rows.map((row) => row.event_id), ['eligible-1', 'eligible-2', 'eligible-3'])
+  fs.rmSync(root, { recursive: true, force: true })
+})
+
 // ---- scoring + decay ----
 await check('scoreTheme: a fresh, broad, sustained theme is HOT; the same theme 48h later decays to parked', () => {
   const members = [0, 1, 2, 3, 4, 5].map((i) => ({ event_id: `e${i}`, found_at: hoursAgo(i * 2), score: 80, tier: 'primary_filing' }))
@@ -99,6 +122,88 @@ await check('scoreTheme: a one-name single-burst flash scores LOW on breadth + p
   const flash = scoreTheme({ members, companies: [{}] as any, sectors: [], first_seen: hoursAgo(0) } as any, NOW)
   assert.ok(flash.scores.breadth < 40, `one company → low breadth, got ${flash.scores.breadth}`)
   assert.ok(flash.tier !== 'hot', 'a flash is not hot')
+})
+
+await check('status updates stay visible without counting as independent theme corroboration', () => {
+  const original = { event_id: 'status-original', dedup_group: 'status-family', headline: 'Issuer confirms AGM', found_at: hoursAgo(0), score: 80, tier: 'news' }
+  const updates = [
+    { ...original, event_id: 'status-cancel', headline: 'Issuer cancels AGM', score: 95 },
+    { ...original, event_id: 'status-restore', headline: 'Issuer says AGM will proceed', score: 60 },
+  ]
+  const one = scoreTheme({ members: [updates[0]], companies: [{}] as any, sectors: [], first_seen: hoursAgo(0) } as any, NOW)
+  const family = scoreTheme({ members: [original, ...updates], companies: [{}] as any, sectors: [], first_seen: hoursAgo(0) } as any, NOW)
+  assert.deepEqual(family, one, 'three state observations from one dedup family still contribute exactly one score observation')
+})
+
+await check('one story family cannot clear the two-source theme qualification gate through status updates', () => {
+  const rows = [
+    item('family-cancel', 'Issuer cancels capacity expansion after shortage', { dedup_group: 'family-one', companies: [co('Issuer', 'ISSR')], source_tier: 'company' }),
+    item('family-correct', 'Correction: issuer revises capacity expansion shortage report', { dedup_group: 'family-two', companies: [co('Issuer', 'ISSR')], source_tier: 'primary_filing' }),
+  ]
+  const theme = createTheme(rows, NOW, 'claude')
+  attachValidNarrative(theme, { anchor_terms: ['capacity', 'shortage'] })
+  theme.members[1].dedup_group = 'family-one' // persisted legacy history can contain two states of one family
+  const result = qualifyTheme(theme, NOW)
+  assert.notEqual(result.assessment.status, 'actionable')
+  assert.equal(result.assessment.metrics.unique_evidence_count, 1)
+  assert.equal(result.assessment.metrics.narrative_support_count, 0)
+})
+
+await check('a challenge update quarantines its whole story family instead of being outvoted by the original', () => {
+  const rows = [
+    item('support-original', 'Alpha capacity shortage raises supplier demand', { dedup_group: 'family-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'primary_filing' }),
+    item('support-beta', 'Beta capacity shortage raises supplier demand', { dedup_group: 'family-beta', companies: [co('Beta', 'BETA')], source_tier: 'company' }),
+  ]
+  const theme = createTheme(rows, NOW, 'claude')
+  attachValidNarrative(theme, { anchor_terms: ['capacity', 'shortage'] })
+  const challenge = item('challenge-alpha', 'Alpha cancels capacity plan as shortage ends', {
+    dedup_group: 'family-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: new Date(NOW.getTime() + 1_000).toISOString(),
+  })
+  theme.members.push({ ...challenge, score: challenge.triage_score!, tier: challenge.source_tier! })
+  theme.narrative!.evidence.push({ event_id: 'challenge-alpha', stance: 'challenges' })
+  const result = qualifyTheme(theme, NOW)
+  assert.notEqual(result.assessment.status, 'actionable')
+  assert.equal(result.assessment.metrics.narrative_support_count, 0)
+  assert.deepEqual(result.challenging_members.map((member) => member.event_id), ['challenge-alpha'])
+})
+
+await check('an explicitly classified opaque same-family challenge reaches state resolution without English regex help', () => {
+  const rows = [
+    item('opaque-state-old', 'Alpha capacity shortage raises supplier demand', { dedup_group: 'opaque-state-family', companies: [co('Alpha', 'ALPH')], source_tier: 'primary_filing', found_at: hoursAgo(4) }),
+    item('opaque-state-peer', 'Beta capacity shortage raises supplier demand', { dedup_group: 'opaque-state-peer', companies: [co('Beta', 'BETA')], source_tier: 'company', found_at: hoursAgo(3) }),
+  ]
+  const theme = createTheme(rows, NOW, 'claude')
+  theme.name = 'Capacity Shortage Raises Supplier Demand'
+  theme.description = 'A recurring capacity shortage is raising demand for directly exposed suppliers.'
+  attachValidNarrative(theme, { anchor_terms: ['capacity', 'shortage'] })
+  const challenge = item('opaque-state-challenge', 'Alpha axes the project', {
+    dedup_group: 'opaque-state-family', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(1),
+  })
+  theme.members.push({ ...challenge, score: challenge.triage_score!, tier: challenge.source_tier! })
+  theme.narrative!.evidence.push({ event_id: challenge.event_id, stance: 'challenges' })
+  const result = qualifyTheme(theme, NOW)
+  assert.notEqual(result.assessment.status, 'actionable')
+  assert.deepEqual(result.challenging_members.map((member) => member.event_id), ['opaque-state-challenge'])
+  assert.ok(!result.supporting_members.some((member) => member.event_id === 'opaque-state-old'))
+})
+
+await check('same-text distinct event identities retain an explicit later family challenge', () => {
+  const rows = [
+    item('same-text-old', 'Alpha capacity shortage raises supplier demand', { dedup_group: 'same-text-family', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(4) }),
+    item('same-text-peer', 'Beta capacity shortage raises supplier demand', { dedup_group: 'same-text-peer', companies: [co('Beta', 'BETA')], source_tier: 'company', found_at: hoursAgo(3) }),
+  ]
+  const theme = createTheme(rows, NOW, 'claude')
+  theme.name = 'Capacity Shortage Raises Supplier Demand'
+  theme.description = 'A recurring capacity shortage is raising demand for directly exposed suppliers.'
+  attachValidNarrative(theme, { anchor_terms: ['capacity', 'shortage'] })
+  const challenge = item('same-text-later', 'Alpha capacity shortage raises supplier demand', {
+    dedup_group: 'same-text-family', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(1),
+  })
+  theme.members.push({ ...challenge, score: challenge.triage_score!, tier: challenge.source_tier! })
+  theme.narrative!.evidence.push({ event_id: challenge.event_id, stance: 'challenges' })
+  const result = qualifyTheme(theme, NOW)
+  assert.deepEqual(result.challenging_members.map((member) => member.event_id), ['same-text-later'])
+  assert.ok(!result.supporting_members.some((member) => member.event_id === 'same-text-old'))
 })
 
 // ---- order tiering (beneficiary-map 4×25) ----
@@ -169,13 +274,13 @@ await check('assignThemes upgrades a same-story representative without inventing
   ], [theme], undefined, NOW)
 
   assert.deepEqual(result.assignments.get('filing-copy'), [theme.theme_id])
-  assert.ok(result.touched.has(theme.theme_id), 'replacing the canonical representative is a real theme mutation')
-  assert.equal(theme.members.length, before.memberCount, 'one publisher family still occupies one member slot')
+  assert.ok(result.touched.has(theme.theme_id), 'adding stronger provenance to the family audit is a real theme mutation')
+  assert.equal(theme.members.length, before.memberCount + 1, 'different event identities keep a bounded provenance audit lane')
   assert.equal(uniqueThemeMembers(theme.members).length, before.uniqueCount, 'the stronger source does not create another evidence family')
   assert.equal(theme.member_count_total, before.lifetimeCount, 'the lifetime story count is not inflated by a publisher replacement')
   assert.deepEqual(theme.flow_daily, before.flowDaily, 'the durable flow ring is not bumped for the same story')
-  assert.ok(!theme.members.some((member) => member.event_id === 'wire-copy'))
-  const representative = theme.members.find((member) => member.dedup_group === 'story-upgrade')
+  assert.ok(theme.members.some((member) => member.event_id === 'wire-copy'), 'the prior provenance remains auditable')
+  const representative = uniqueThemeMembers(theme.members).find((member) => member.dedup_group === 'story-upgrade')
   assert.equal(representative?.event_id, 'filing-copy')
   assert.equal(representative?.tier, 'primary_filing')
 
@@ -186,6 +291,556 @@ await check('assignThemes upgrades a same-story representative without inventing
   const after = buildSummary(theme, NOW)
   assert.equal(after.assessment.metrics.unique_evidence_count, before.summary.assessment.metrics.unique_evidence_count)
   assert.notEqual(after.assessment.status, 'actionable', 'the replacement cannot contribute support until the validator classifies it')
+})
+
+await check('assignThemes treats an exact replay as a no-op', () => {
+  const replay = item('replay-source', 'Vertiv cooling bottleneck raises equipment orders', {
+    companies: [co('Vertiv', 'VRT')], dedup_group: 'replay-family', found_at: hoursAgo(3), source_tier: 'company',
+    source_name: 'Vertiv', url: 'https://example.test/replay-source', event_types: ['operations'],
+  })
+  const theme = createTheme([
+    replay,
+    item('replay-peer', 'Eaton cooling bottleneck raises equipment orders', {
+      companies: [co('Eaton', 'ETN')], dedup_group: 'replay-peer', found_at: hoursAgo(2), source_tier: 'company',
+    }),
+  ], NOW, 'claude')
+  theme.name = 'Cooling Bottleneck Raises Equipment Orders'
+  theme.description = 'A recurring cooling bottleneck is raising equipment orders for directly exposed suppliers.'
+  attachValidNarrative(theme, { anchor_terms: ['cooling', 'bottleneck'] })
+  const before = {
+    members: JSON.stringify(theme.members),
+    rev: theme.rev,
+    queuedAt: theme.validation_queued_at,
+    pending: [...(theme.pending_narrative_event_ids || [])],
+  }
+
+  const result = assignThemes([replay], [theme], undefined, NOW)
+
+  assert.deepEqual(result.assignments.get(replay.event_id), [theme.theme_id], 'the replay still reports existing membership')
+  assert.equal(result.touched.has(theme.theme_id), false)
+  assert.equal(theme.rev, before.rev)
+  assert.equal(JSON.stringify(theme.members), before.members)
+  assert.equal(theme.validation_queued_at, before.queuedAt)
+  assert.deepEqual(theme.pending_narrative_event_ids || [], before.pending)
+})
+
+await check('Theme members persist the first-seen revision clock and an exact refresh cannot advance it', () => {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-observed-clock-'))
+  const firstSeen = '2026-06-13T09:01:00Z'
+  const revision = item('observed-source', 'Vertiv cooling bottleneck raises equipment orders', {
+    companies: [co('Vertiv', 'VRT')], dedup_group: 'observed-family', found_at: hoursAgo(3),
+    observed_at: firstSeen, source_tier: 'company', source_name: 'Vertiv',
+    url: 'https://example.test/observed-source', event_types: ['operations'], triage_score: 70,
+  })
+  const theme = createTheme([
+    revision,
+    item('observed-peer', 'Eaton cooling bottleneck raises equipment orders', {
+      companies: [co('Eaton', 'ETN')], dedup_group: 'observed-peer', found_at: hoursAgo(2), source_tier: 'company',
+    }),
+  ], NOW, 'claude')
+  assert.equal(theme.members.find((member) => member.event_id === revision.event_id)?.observed_at, firstSeen)
+
+  assignThemes([{ ...revision, triage_score: 71, observed_at: '2026-06-13T09:04:00Z' }], [theme], undefined, NOW)
+  assert.equal(
+    theme.members.find((member) => member.event_id === revision.event_id)?.observed_at,
+    firstSeen,
+    'an exact source refresh keeps the clock of the first durable inbox lane',
+  )
+
+  appendThemeMutations(tmp, [theme], () => NOW)
+  const reloaded = loadThemes(tmp)[0]
+  assert.equal(Date.parse(reloaded.members.find((member) => member.event_id === revision.event_id)!.observed_at!), Date.parse(firstSeen))
+  fs.rmSync(tmp, { recursive: true, force: true })
+})
+
+await check('equal-time alternate representatives converge on one deterministic winner', () => {
+  const base = item('tie-representative-m', 'Vertiv cooling bottleneck raises equipment orders', {
+    companies: [co('Vertiv', 'VRT')], dedup_group: 'tie-family', found_at: hoursAgo(3), source_tier: 'company',
+    source_name: 'Vertiv', url: 'https://example.test/tie-representative-m',
+  })
+  const peer = item('tie-peer', 'Eaton cooling bottleneck raises equipment orders', {
+    companies: [co('Eaton', 'ETN')], dedup_group: 'tie-peer', found_at: hoursAgo(2), source_tier: 'company',
+  })
+  const alternate = (suffix: 'a' | 'z') => item(`tie-representative-${suffix}`, base.headline, {
+    companies: base.companies, dedup_group: base.dedup_group, found_at: base.found_at, source_tier: base.source_tier,
+    source_name: base.source_name, url: `https://example.test/tie-representative-${suffix}`,
+  })
+  const makeTheme = () => {
+    const theme = createTheme([base, peer], NOW, 'claude')
+    theme.name = 'Cooling Bottleneck Raises Equipment Orders'
+    theme.description = 'A recurring cooling bottleneck is raising equipment orders for directly exposed suppliers.'
+    attachValidNarrative(theme, { anchor_terms: ['cooling', 'bottleneck'] })
+    return theme
+  }
+  const first = makeTheme()
+  const second = makeTheme()
+
+  assignThemes([alternate('a'), alternate('z')], [first], undefined, NOW)
+  assignThemes([alternate('z'), alternate('a')], [second], undefined, NOW)
+
+  const representative = (theme: Theme) => theme.members.find((member) => member.dedup_group === 'tie-family')
+  assert.equal(representative(first)?.event_id, 'tie-representative-z')
+  assert.equal(representative(second)?.event_id, 'tie-representative-z')
+  assert.deepEqual(representative(first), representative(second))
+  assert.equal(first.rev, second.rev, 'arrival order does not create an extra mutation')
+  assert.deepEqual(first.pending_narrative_event_ids, second.pending_narrative_event_ids)
+})
+
+await check('a cap of three keeps a new pending cancellation ahead of three historical support families', () => {
+  const theme = createTheme([
+    item('cap-support-a', 'Alpha capacity shortage raises supplier demand', { dedup_group: 'cap-family-a', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(6) }),
+    item('cap-support-b', 'Beta capacity shortage raises supplier demand', { dedup_group: 'cap-family-b', companies: [co('Beta', 'BETA')], source_tier: 'company', found_at: hoursAgo(5) }),
+    item('cap-support-c', 'Gamma capacity shortage raises supplier demand', { dedup_group: 'cap-family-c', companies: [co('Gamma', 'GAMM')], source_tier: 'company', found_at: hoursAgo(4) }),
+  ], NOW, 'claude')
+  theme.name = 'Capacity Shortage Raises Supplier Demand'
+  theme.description = 'A recurring capacity shortage is raising demand for directly exposed suppliers.'
+  attachValidNarrative(theme, {
+    support_event_ids: ['cap-support-a', 'cap-support-b', 'cap-support-c'],
+    anchor_terms: ['capacity', 'shortage'], why_now_event_id: 'cap-support-c',
+  })
+  assignThemes([item('cap-cancellation', 'Alpha cancels expansion as capacity shortage ends', {
+    dedup_group: 'cap-family-a', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(0),
+  })], [theme], { maxThemesPerItem: 3, maxMembers: 3 }, NOW)
+  assert.equal(theme.members.length, 3)
+  assert.ok(theme.members.some((member) => member.event_id === 'cap-cancellation'), 'the unclassified thesis-changing row survives the hard cap')
+  assert.ok(!theme.members.some((member) => member.event_id === 'cap-support-a'), 'the old family state yields to its pending cancellation')
+  assert.deepEqual(theme.pending_narrative_event_ids, ['cap-cancellation'])
+  assert.equal(theme.needs_narrative_update, true, 'hard-cap compression cannot silently clear the quarantine flag')
+})
+
+await check('an exact-family update is reviewed even when its wording is outside the English status vocabulary', () => {
+  const theme = createTheme([
+    item('opaque-original', 'Alpha capacity shortage raises supplier demand', { dedup_group: 'opaque-family', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(3) }),
+    item('opaque-peer', 'Beta capacity shortage raises supplier demand', { dedup_group: 'opaque-peer', companies: [co('Beta', 'BETA')], source_tier: 'company', found_at: hoursAgo(2) }),
+  ], NOW, 'claude')
+  theme.name = 'Capacity Shortage Raises Supplier Demand'
+  theme.description = 'A recurring capacity shortage is raising demand for directly exposed suppliers.'
+  attachValidNarrative(theme, { anchor_terms: ['capacity', 'shortage'] })
+  assignThemes([item('opaque-update', '計画は中止されました', {
+    dedup_group: 'opaque-family', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(0),
+  })], [theme], { maxThemesPerItem: 3, maxMembers: 3 }, NOW)
+  assert.ok(theme.members.some((member) => member.event_id === 'opaque-update'))
+  assert.deepEqual(theme.pending_narrative_event_ids, ['opaque-update'])
+  assert.equal(theme.needs_narrative_update, true)
+  assert.equal(new Set(theme.members.map((member) => member.dedup_group || member.event_id)).size, 2, 'audit preservation does not inflate family breadth')
+})
+
+await check('a headline extension that reverses the fact is a new observation, not a substring duplicate', () => {
+  const theme = createTheme([
+    item('substring-original', 'Alpha confirms capacity expansion', { dedup_group: 'substring-family', companies: [co('Alpha', 'ALPH')], source_tier: 'primary_filing', found_at: hoursAgo(3) }),
+    item('substring-peer', 'Beta confirms capacity expansion', { dedup_group: 'substring-peer', companies: [co('Beta', 'BETA')], source_tier: 'company', found_at: hoursAgo(2) }),
+  ], NOW, 'claude')
+  theme.name = 'Capacity Expansion'
+  theme.description = 'Companies are confirming capacity expansion across the supplier group.'
+  attachValidNarrative(theme, { anchor_terms: ['capacity', 'expansion'] })
+  assignThemes([item('substring-cancel', 'Alpha confirms capacity expansion was cancelled', {
+    dedup_group: 'substring-family', companies: [co('Alpha', 'ALPH')], source_tier: 'news', found_at: hoursAgo(0),
+  })], [theme], { maxThemesPerItem: 3, maxMembers: 4 }, NOW)
+  assert.ok(theme.members.some((member) => member.event_id === 'substring-original'), 'the stronger original remains as history')
+  assert.ok(theme.members.some((member) => member.event_id === 'substring-cancel'), 'the later reversal gets its own review lane')
+  assert.deepEqual(theme.pending_narrative_event_ids, ['substring-cancel'])
+})
+
+await check('1000 same-family updates stay hard-bounded while the adverse and restorative states survive', () => {
+  const theme = createTheme([
+    item('bounded-original', 'Alpha capacity shortage raises supplier demand', {
+      dedup_group: 'bounded-family', companies: [co('Alpha', 'ALPH')], source_tier: 'primary_filing', found_at: hoursAgo(4),
+    }),
+    item('bounded-peer', 'Beta capacity shortage raises supplier demand', {
+      dedup_group: 'bounded-peer', companies: [co('Beta', 'BETA')], source_tier: 'company', found_at: hoursAgo(3),
+    }),
+  ], NOW, 'claude')
+  theme.name = 'Capacity Shortage Raises Supplier Demand'
+  theme.description = 'A recurring capacity shortage is raising demand for directly exposed suppliers.'
+  attachValidNarrative(theme, { anchor_terms: ['capacity', 'shortage'] })
+  const updates = Array.from({ length: 1_000 }, (_, index) => item(
+    `bounded-${index}`,
+    index === 10
+      ? 'Alpha cancels capacity expansion after shortage eases'
+      : index === 20
+        ? 'Alpha reinstates capacity expansion as shortage returns'
+        : `Alpha changes capacity shortage update number ${index}`,
+    {
+      dedup_group: 'bounded-family', companies: [co('Alpha', 'ALPH')], source_tier: 'news',
+      found_at: new Date(NOW.getTime() - (1_100 - index) * 1_000).toISOString(),
+    },
+  ))
+  assignThemes(updates, [theme], { maxThemesPerItem: 3, maxMembers: 6 }, NOW)
+  assert.equal(theme.members.length, 6)
+  assert.ok(theme.members.some((member) => member.event_id === 'bounded-10'), 'latest adverse state remains auditable')
+  assert.ok(theme.members.some((member) => member.event_id === 'bounded-20'), 'latest restoration remains auditable')
+  assert.ok((theme.pending_narrative_event_ids?.length || 0) <= 6)
+  assert.ok((theme.pending_narrative_event_ids || []).every((eventId) => theme.members.some((member) => member.event_id === eventId)))
+})
+
+await check('hard-cap pending eviction leaves a durable quarantine after every visible row is classified', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  const theme = createTheme([
+    item('overflow-old-a', 'Alpha capacity shortage raises supplier demand', { dedup_group: 'overflow-old-a', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(8) }),
+    item('overflow-old-b', 'Beta capacity shortage raises supplier demand', { dedup_group: 'overflow-old-b', companies: [co('Beta', 'BETA')], source_tier: 'company', found_at: hoursAgo(7) }),
+  ], NOW, 'claude')
+  theme.name = 'Capacity Shortage Raises Supplier Demand'
+  theme.description = 'A recurring capacity shortage is raising demand for directly exposed suppliers.'
+  attachValidNarrative(theme, { anchor_terms: ['capacity', 'shortage'] })
+  const arrivals = Array.from({ length: 5 }, (_, index) => item(
+    `overflow-${index}`,
+    `Supplier ${index} capacity shortage raises demand`,
+    { dedup_group: `overflow-family-${index}`, companies: [co(`Supplier ${index}`, `OV${index}`)], source_tier: 'company', found_at: new Date(NOW.getTime() - (5 - index) * 1_000).toISOString() },
+  ))
+  assignThemes(arrivals, [theme], { maxThemesPerItem: 3, maxMembers: 3 }, NOW)
+  assert.equal(theme.members.length, 3)
+  assert.equal(theme.narrative_update_overflow, true, 'evicted unclassified IDs leave durable fail-closed debt')
+  const visible = [...(theme.pending_narrative_event_ids || [])]
+  assert.equal(visible.length, 3)
+  const proposal = llmThemeProposal({
+    support: visible,
+    anchors: ['capacity', 'shortage'],
+    why: visible[0],
+  })
+  const fetchFn = (async () => ({ ok: true, status: 200, json: async () => ({
+    choices: [{ message: { content: JSON.stringify({ themes: [proposal] }) } }], usage: { total_tokens: 20 },
+  }) })) as unknown as typeof fetch
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-overflow-'))
+  await makeThemeNamer({ themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm' }, fetchFn, tmp)!([theme], NOW)
+  assert.equal(theme.needs_narrative_update, true, 'classifying the visible FIFO cannot approve evidence that was evicted')
+  assert.equal(theme.narrative_update_overflow, true)
+  assert.equal(buildSummary(theme, NOW).assessment.status, 'forming')
+  assert.ok(buildSummary(theme, NOW).assessment.blockers.some((blocker) => blocker.includes('fell outside the bounded audit ring')))
+  appendThemeMutations(tmp, [theme], () => NOW)
+  const reloaded = loadThemes(tmp)[0]
+  assert.equal(reloaded.narrative_update_overflow, true, 'the lost-debt quarantine survives the ledger boundary')
+  assert.equal(reloaded.needs_narrative_update, true)
+  fs.rmSync(tmp, { recursive: true, force: true })
+})
+
+await check('hard-cap proof eviction survives append and reload as fail-closed rebuild debt', () => {
+  const exercise = (count: number, maxMembers: number, prefix: string) => {
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), `thm-proof-cap-${prefix}-`))
+    const supports = Array.from({ length: count }, (_, index) => item(
+      `${prefix}-support-${String(index).padStart(3, '0')}`,
+      `Supplier ${index} capacity shortage raises equipment demand`,
+      {
+        dedup_group: `${prefix}-family-${index}`,
+        companies: [co(`Supplier ${index}`, `S${index}`)],
+        source_tier: 'company',
+        found_at: new Date(NOW.getTime() - (count + 1 - index) * 1_000).toISOString(),
+      },
+    ))
+    const theme = createTheme(supports, NOW, 'claude')
+    theme.name = 'Capacity Shortage Raises Equipment Demand'
+    theme.description = 'A recurring capacity shortage is raising equipment demand for directly exposed suppliers.'
+    attachValidNarrative(theme, {
+      anchor_terms: ['capacity', 'shortage'],
+      why_now_event_id: supports[0].event_id,
+    })
+    const pending = item(`${prefix}-pending`, 'Newcomer capacity shortage raises equipment demand', {
+      dedup_group: `${prefix}-pending-family`, companies: [co('Newcomer', 'NEWC')], source_tier: 'company', found_at: NOW.toISOString(),
+    })
+
+    assignThemes([pending], [theme], { maxThemesPerItem: 3, maxMembers }, NOW)
+
+    assert.equal(theme.members.length, maxMembers, 'the physical member ring never exceeds its hard cap')
+    assert.equal(theme.member_count_total, count + 1, 'the lifetime family count records the over-cap landing')
+    assert.ok(theme.members.some((member) => member.event_id === pending.event_id), 'pending evidence outranks classified history')
+    assert.ok(!theme.members.some((member) => member.event_id === supports[0].event_id), 'the oldest why-now proof is the classified row evicted by the cap')
+    assert.equal(theme.narrative_update_overflow, true, 'losing compiled proof creates durable rebuild debt')
+    assert.equal(theme.needs_narrative_update, true)
+    assert.deepEqual(theme.pending_narrative_event_ids, [pending.event_id])
+
+    appendThemeMutations(tmp, [theme], () => NOW)
+    const reloaded = loadThemes(tmp)[0]
+    assert.equal(reloaded.members.length, maxMembers)
+    assert.equal(reloaded.narrative, undefined, 'a contract whose why-now row is missing is rejected at the runtime boundary')
+    assert.equal(reloaded.narrative_update_overflow, true, 'proof-loss debt survives even after narrative normalization rejects the contract')
+    assert.equal(reloaded.needs_narrative_update, true)
+    assert.deepEqual(reloaded.pending_narrative_event_ids, [pending.event_id])
+    assert.notEqual(buildSummary(reloaded, NOW).assessment.status, 'actionable')
+    fs.rmSync(tmp, { recursive: true, force: true })
+  }
+
+  exercise(2, 2, 'tiny') // exact two-support + third-pending failure mode
+  exercise(400, 400, 'default') // the real 401st family at the production hard cap
+})
+
+await check('every compiled narrative edge creates overflow debt when its member is evicted', () => {
+  for (const edge of ['why-now', 'support', 'challenge', 'context', 'expression'] as const) {
+    const rows = [
+      item(`${edge}-old`, 'Alpha capacity shortage raises equipment demand', { dedup_group: `${edge}-old`, companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(6) }),
+      item(`${edge}-middle`, 'Beta capacity shortage raises equipment demand', { dedup_group: `${edge}-middle`, companies: [co('Beta', 'BETA')], source_tier: 'company', found_at: hoursAgo(4) }),
+      item(`${edge}-new`, 'Gamma capacity shortage raises equipment demand', { dedup_group: `${edge}-new`, companies: [co('Gamma', 'GAMM')], source_tier: 'company', found_at: hoursAgo(2) }),
+    ]
+    const theme = createTheme(rows, NOW, 'claude')
+    attachValidNarrative(theme, { anchor_terms: ['capacity', 'shortage'], why_now_event_id: rows[1].event_id })
+    const target = rows[0].event_id
+    if (edge === 'why-now') theme.narrative!.why_now_event_id = target
+    if (edge === 'challenge') {
+      const row = theme.narrative!.evidence.find((candidate) => candidate.event_id === target)!
+      row.stance = 'challenges'
+    }
+    if (edge === 'context') {
+      theme.narrative!.evidence = theme.narrative!.evidence.filter((candidate) => candidate.event_id !== target)
+      theme.narrative!.context_event_ids.push(target)
+    }
+    if (edge === 'expression') theme.narrative!.expressions[0].evidence_event_ids = [target]
+
+    boundThemeMembers(theme, 2)
+
+    assert.ok(!theme.members.some((member) => member.event_id === target), `${edge}: control row is evicted`)
+    assert.equal(theme.narrative_update_overflow, true, `${edge}: missing edge is durable rebuild debt`)
+    assert.equal(theme.needs_narrative_update, true)
+  }
+})
+
+await check('raw validation audit loss at cap or merge survives reload and cannot validate a subset', async () => {
+  const makeRaw = (prefix: string, offsetHours = 0) => createTheme(Array.from({ length: 3 }, (_, index) => item(
+    `${prefix}-${index}`,
+    `${prefix} supplier ${index} capacity shortage raises equipment demand`,
+    {
+      dedup_group: `${prefix}-family-${index}`, companies: [co(`${prefix} Supplier ${index}`, `${prefix.toUpperCase()}${index}`)],
+      source_tier: 'company', found_at: hoursAgo(offsetHours + 3 - index),
+    },
+  )), NOW)
+  const cfg = {
+    ...DEFAULT_THEMES_CONFIG,
+    assign: { ...DEFAULT_THEMES_CONFIG.assign, maxMembers: 2 },
+    discover: { ...DEFAULT_THEMES_CONFIG.discover, minClusterItems: 2, maxMembers: 2 },
+  }
+  const assertReloadedQuarantine = async (theme: Theme, label: string) => {
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), `thm-raw-overflow-${label}-`))
+    appendThemeMutations(tmp, [theme], () => NOW)
+    const reloaded = loadThemes(tmp).find((candidate) => candidate.status === 'live')!
+    assert.equal(reloaded.narrative, undefined)
+    assert.equal(reloaded.needs_validation, true)
+    assert.equal(reloaded.narrative_update_overflow, true)
+    assert.equal(reloaded.needs_narrative_update, true)
+    assert.equal(reloaded.pending_narrative_event_ids?.length, 2)
+    let compiled: string[] = []
+    await stepThemes({
+      themes: [reloaded], pool: [], items: [], runDiscovery: true, now: NOW, cfg,
+      llmNamer: async (batch) => { compiled = batch.map((candidate) => candidate.theme_id) },
+    })
+    assert.deepEqual(compiled, [], `${label}: compiler cannot approve the retained subset`)
+    fs.rmSync(tmp, { recursive: true, force: true })
+  }
+
+  const capped = makeRaw('capraw')
+  boundThemeMembers(capped, 2)
+  assert.equal(capped.members.length, 2)
+  assert.equal(capped.pending_narrative_event_ids?.length, 2)
+  assert.equal(capped.narrative_update_overflow, true)
+  await assertReloadedQuarantine(capped, 'cap')
+
+  const keep = makeRaw('mergerawa', 0)
+  const drop = makeRaw('mergerawb', 6)
+  keep.scores.composite = 90
+  drop.scores.composite = 10
+  mergeAndRetire([keep, drop], NOW, { ...DEFAULT_DISCOVER_CONFIG, minClusterItems: 2, maxMembers: 2 })
+  const merged = [keep, drop].find((candidate) => candidate.status === 'live')!
+  assert.equal([keep, drop].filter((candidate) => candidate.status === 'merged').length, 1, 'control clusters merge')
+  assert.equal(merged.members.length, 2)
+  assert.equal(merged.pending_narrative_event_ids?.length, 2)
+  assert.equal(merged.narrative_update_overflow, true)
+  assert.equal(merged.needs_narrative_update, true)
+  await assertReloadedQuarantine(merged, 'merge')
+})
+
+await check('validated merge proof loss survives append and reload without approving the retained subset', async () => {
+  const makeValidated = (prefix: string, offsetHours: number) => {
+    const rows = [
+      item(`${prefix}-a`, `${prefix} cooling bottleneck raises supplier orders`, {
+        dedup_group: `${prefix}-family-a`, companies: [co(`${prefix} Alpha`, `${prefix.toUpperCase()}A`)], source_tier: 'company', found_at: hoursAgo(offsetHours + 2),
+      }),
+      item(`${prefix}-b`, `${prefix} cooling bottleneck raises supplier orders`, {
+        dedup_group: `${prefix}-family-b`, companies: [co(`${prefix} Beta`, `${prefix.toUpperCase()}B`)], source_tier: 'company', found_at: hoursAgo(offsetHours + 1),
+      }),
+    ]
+    const theme = createTheme(rows, NOW, 'claude')
+    theme.name = 'Cooling Bottleneck Raises Supplier Orders'
+    theme.description = 'A recurring cooling bottleneck is raising supplier orders for directly exposed companies.'
+    attachValidNarrative(theme, { anchor_terms: ['cooling', 'bottleneck'], why_now_event_id: rows[0].event_id })
+    return theme
+  }
+  const keep = makeValidated('mergeproofkeep', 2)
+  const drop = makeValidated('mergeproofdrop', 6)
+  keep.scores.composite = 90
+  drop.scores.composite = 10
+  const pending = item('mergeproof-pending', 'Newcomer cooling bottleneck raises supplier orders', {
+    dedup_group: 'mergeproof-pending-family', companies: [co('Newcomer', 'NEWC')], source_tier: 'company', found_at: NOW.toISOString(),
+  })
+  assignThemes([pending], [keep], { maxThemesPerItem: 3, maxMembers: 3 }, NOW)
+  assert.ok(keep.narrative)
+  assert.deepEqual(keep.pending_narrative_event_ids, [pending.event_id])
+  assert.notEqual(keep.narrative_update_overflow, true, 'control keeper is complete before merge')
+
+  mergeAndRetire([keep, drop], NOW, { ...DEFAULT_DISCOVER_CONFIG, minClusterItems: 2, maxMembers: 2 })
+  const merged = [keep, drop].find((candidate) => candidate.status === 'live')!
+  assert.equal(merged.members.length, 2)
+  assert.ok(merged.members.some((member) => member.event_id === pending.event_id), 'pending evidence remains ahead of classified history')
+  assert.ok(!merged.members.some((member) => member.event_id === keep.narrative!.why_now_event_id), 'merge cap evicts keeper why-now proof')
+  assert.equal(merged.narrative_update_overflow, true)
+  assert.equal(merged.needs_narrative_update, true)
+
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-validated-merge-overflow-'))
+  appendThemeMutations(tmp, [merged], () => NOW)
+  const reloaded = loadThemes(tmp).find((candidate) => candidate.status === 'live')!
+  assert.equal(reloaded.narrative, undefined)
+  assert.equal(reloaded.narrative_update_overflow, true)
+  assert.equal(reloaded.needs_narrative_update, true)
+  assert.ok(reloaded.pending_narrative_event_ids?.includes(pending.event_id))
+  let compiled: string[] = []
+  await stepThemes({
+    themes: [reloaded], pool: [], items: [], runDiscovery: true, now: NOW,
+    cfg: {
+      ...DEFAULT_THEMES_CONFIG,
+      assign: { ...DEFAULT_THEMES_CONFIG.assign, maxMembers: 2 },
+      discover: { ...DEFAULT_THEMES_CONFIG.discover, minClusterItems: 2, maxMembers: 2 },
+    },
+    llmNamer: async (batch) => { compiled = batch.map((candidate) => candidate.theme_id) },
+  })
+  assert.deepEqual(compiled, [], 'overflowed rename/update debt cannot approve a bounded subset')
+  assert.notEqual(buildSummary(reloaded, NOW).assessment.status, 'actionable')
+  fs.rmSync(tmp, { recursive: true, force: true })
+})
+
+await check('family state resolves support to challenge to equal-quality restoration', () => {
+  const theme = createTheme([
+    item('state-original', 'Alpha capacity shortage raises supplier demand', {
+      dedup_group: 'state-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(3),
+    }),
+    item('state-peer', 'Beta capacity shortage raises supplier demand', {
+      dedup_group: 'state-beta', companies: [co('Beta', 'BETA')], source_tier: 'company', found_at: hoursAgo(3),
+    }),
+  ], NOW, 'claude')
+  theme.name = 'Capacity Shortage Raises Supplier Demand'
+  theme.description = 'A recurring capacity shortage is raising demand for directly exposed suppliers.'
+  attachValidNarrative(theme, { anchor_terms: ['capacity', 'shortage'] })
+  const challenge = item('state-challenge', 'Alpha cancels capacity plan as shortage eases', {
+    dedup_group: 'state-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(2),
+  })
+  const restoration = item('state-restoration', 'Alpha reinstates capacity plan as shortage returns', {
+    dedup_group: 'state-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(1),
+  })
+  theme.members.push(
+    { ...challenge, score: challenge.triage_score!, tier: challenge.source_tier! },
+    { ...restoration, score: restoration.triage_score!, tier: restoration.source_tier! },
+  )
+  theme.narrative!.evidence.push(
+    { event_id: challenge.event_id, stance: 'challenges' },
+    { event_id: restoration.event_id, stance: 'supports' },
+  )
+  theme.narrative!.why_now_event_id = restoration.event_id
+  theme.narrative!.expressions[0].evidence_event_ids = [restoration.event_id]
+  const result = qualifyTheme(theme, NOW)
+  assert.equal(result.assessment.status, 'actionable', JSON.stringify(result.assessment))
+  assert.ok(result.supporting_members.some((member) => member.event_id === restoration.event_id))
+  assert.ok(!result.challenging_members.some((member) => member.event_id === challenge.event_id))
+})
+
+await check('a weaker later challenge cannot lower the source threshold required for restoration', () => {
+  const theme = createTheme([
+    item('barrier-original', 'Alpha capacity shortage raises supplier demand', { dedup_group: 'barrier-family', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(5) }),
+    item('barrier-peer', 'Beta capacity shortage raises supplier demand', { dedup_group: 'barrier-peer', companies: [co('Beta', 'BETA')], source_tier: 'company', found_at: hoursAgo(5) }),
+  ], NOW, 'claude')
+  theme.name = 'Capacity Shortage Raises Supplier Demand'
+  theme.description = 'A recurring capacity shortage is raising demand for directly exposed suppliers.'
+  attachValidNarrative(theme, { anchor_terms: ['capacity', 'shortage'] })
+  const strongChallenge = item('barrier-filing-challenge', 'Exchange filing cancels capacity expansion', { dedup_group: 'barrier-family', companies: [co('Alpha', 'ALPH')], source_tier: 'primary_filing', found_at: hoursAgo(4) })
+  const weakChallenge = item('barrier-wire-challenge', 'Wire repeats cancellation of capacity expansion', { dedup_group: 'barrier-family', companies: [co('Alpha', 'ALPH')], source_tier: 'news', found_at: hoursAgo(3) })
+  const weakRestoration = item('barrier-wire-restoration', 'Wire says capacity expansion will proceed', { dedup_group: 'barrier-family', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(2) })
+  theme.members.push(...[strongChallenge, weakChallenge, weakRestoration].map((row) => ({ ...row, score: row.triage_score!, tier: row.source_tier! })))
+  theme.narrative!.evidence.push(
+    { event_id: strongChallenge.event_id, stance: 'challenges' },
+    { event_id: weakChallenge.event_id, stance: 'challenges' },
+    { event_id: weakRestoration.event_id, stance: 'supports' },
+  )
+  const result = qualifyTheme(theme, NOW)
+  assert.ok(result.challenging_members.some((member) => member.event_id === weakChallenge.event_id))
+  assert.ok(!result.supporting_members.some((member) => member.event_id === weakRestoration.event_id), 'company support cannot restore a family challenged by a filing')
+})
+
+await check('self-heal keeps the unresolved best-provenance challenge beside a pending same-family restoration', () => {
+  const supports = [
+    item('heal-barrier-old', 'Alpha capacity shortage raises supplier demand', { dedup_group: 'heal-barrier-family', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(8) }),
+    item('heal-barrier-b', 'Beta capacity shortage raises supplier demand', { dedup_group: 'heal-barrier-b', companies: [co('Beta', 'BETA')], source_tier: 'company', found_at: hoursAgo(7) }),
+    item('heal-barrier-c', 'Gamma capacity shortage raises supplier demand', { dedup_group: 'heal-barrier-c', companies: [co('Gamma', 'GAMM')], source_tier: 'company', found_at: hoursAgo(6) }),
+    item('heal-barrier-d', 'Delta capacity shortage raises supplier demand', { dedup_group: 'heal-barrier-d', companies: [co('Delta', 'DELT')], source_tier: 'company', found_at: hoursAgo(5) }),
+  ]
+  const theme = createTheme(supports, NOW, 'claude')
+  theme.name = 'Capacity Shortage Raises Supplier Demand'
+  theme.description = 'A recurring capacity shortage is raising demand for directly exposed suppliers.'
+  attachValidNarrative(theme, { anchor_terms: ['capacity', 'shortage'], why_now_event_id: 'heal-barrier-b' })
+  const challenge = item('heal-barrier-filing', 'Exchange filing terminates the expansion', {
+    dedup_group: 'heal-barrier-family', companies: [co('Alpha', 'ALPH')], source_tier: 'primary_filing', found_at: hoursAgo(4),
+  })
+  const pending = item('heal-barrier-pending', 'Alpha capacity shortage raises supplier demand again', {
+    dedup_group: 'heal-barrier-family', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(1),
+  })
+  theme.members.push(
+    { ...challenge, score: challenge.triage_score!, tier: challenge.source_tier! },
+    { ...pending, score: pending.triage_score!, tier: pending.source_tier! },
+  )
+  theme.narrative!.evidence.push({ event_id: challenge.event_id, stance: 'challenges' })
+  theme.pending_narrative_event_ids = [pending.event_id]
+  theme.needs_narrative_update = true
+  const healed = refreshThemeIdentity(theme, { ...DEFAULT_DISCOVER_CONFIG, maxMembers: 400 }, NOW)
+  assert.equal(healed.retire, false)
+  assert.ok(theme.members.some((member) => member.event_id === challenge.event_id), 'the filing challenge survives self-heal')
+  assert.ok(theme.members.some((member) => member.event_id === pending.event_id), 'the pending restoration remains reviewable')
+  assert.deepEqual(theme.pending_narrative_event_ids, [pending.event_id])
+})
+
+await check('self-heal keeps a valid three-family theme visible through a same-family challenge and restoration', () => {
+  const supports = [
+    item('lifecycle-a', 'Alpha capacity shortage raises supplier demand', {
+      dedup_group: 'lifecycle-family-a', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(8),
+    }),
+    item('lifecycle-b', 'Beta capacity shortage raises supplier demand', {
+      dedup_group: 'lifecycle-family-b', companies: [co('Beta', 'BETA')], source_tier: 'company', found_at: hoursAgo(7),
+    }),
+    item('lifecycle-c', 'Gamma capacity shortage raises supplier demand', {
+      dedup_group: 'lifecycle-family-c', companies: [co('Gamma', 'GAMM')], source_tier: 'company', found_at: hoursAgo(6),
+    }),
+  ]
+  const theme = createTheme(supports, NOW, 'claude')
+  theme.name = 'Capacity Shortage Raises Supplier Demand'
+  theme.description = 'A recurring capacity shortage is raising demand for directly exposed suppliers.'
+  attachValidNarrative(theme, { anchor_terms: ['capacity', 'shortage'], why_now_event_id: 'lifecycle-b' })
+
+  const cancellation = item('lifecycle-a-cancel', 'Alpha says the project was cancelled', {
+    dedup_group: 'lifecycle-family-a', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(4),
+  })
+  assert.deepEqual(assignThemes([cancellation], [theme], undefined, NOW).assignments.get(cancellation.event_id), [theme.theme_id])
+  theme.narrative!.evidence.push({ event_id: cancellation.event_id, stance: 'challenges' })
+  delete theme.pending_narrative_event_ids
+  theme.needs_narrative_update = false
+
+  const challenged = qualifyTheme(theme, NOW)
+  assert.equal(challenged.assessment.activity, 'challenged')
+  assert.notEqual(challenged.assessment.status, 'actionable')
+  assert.deepEqual(challenged.challenging_members.map((member) => member.event_id), [cancellation.event_id])
+  const healedChallenge = refreshThemeIdentity(theme, DEFAULT_DISCOVER_CONFIG, NOW)
+  assert.equal(healedChallenge.retire, false, 'a current challenge quarantines the valid theme instead of deleting it')
+  assert.equal(theme.status, 'live')
+  assert.ok(theme.members.some((member) => member.event_id === cancellation.event_id), 'the challenge audit remains routable')
+
+  const restoration = item('lifecycle-a-restore', 'Alpha says the project will proceed', {
+    dedup_group: 'lifecycle-family-a', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(2),
+  })
+  const routed = assignThemes([restoration], [theme], undefined, NOW)
+  assert.deepEqual(routed.assignments.get(restoration.event_id), [theme.theme_id], 'opaque restoration routes through exact family history')
+  assert.deepEqual(theme.pending_narrative_event_ids, [restoration.event_id])
+
+  theme.narrative!.evidence.push({ event_id: restoration.event_id, stance: 'supports' })
+  theme.narrative!.why_now_event_id = restoration.event_id
+  for (const expression of theme.narrative!.expressions) expression.evidence_event_ids = [restoration.event_id]
+  delete theme.pending_narrative_event_ids
+  theme.needs_narrative_update = false
+  const healedRestoration = refreshThemeIdentity(theme, DEFAULT_DISCOVER_CONFIG, NOW)
+  assert.equal(healedRestoration.retire, false, 'the classified restoration remains part of the same live theme')
+  const restored = qualifyTheme(theme, NOW)
+  assert.ok(theme.members.some((member) => member.event_id === restoration.event_id), 'the restored family state remains auditable')
+  assert.equal(restored.challenging_members.length, 0)
+  assert.notEqual(restored.assessment.status, 'actionable', 'opaque family routing alone cannot manufacture causal-anchor support')
 })
 
 // ---- discovery clustering ----
@@ -205,7 +860,49 @@ await check('clusterItems + discoverDeterministic: a 3-item, 2-company cluster f
   assert.ok(leftover.some((i) => i.event_id === 'z1'), 'the unrelated item stays in the pool')
 })
 
-await check('discoverDeterministic dedupes the whole pool before the scan cut', () => {
+await check('discoverDeterministic retains every family when a qualifying cluster exceeds maxMembers', () => {
+  const overCap = [
+    item('cap-alpha', 'Alpha liquid cooling bottleneck raises supplier orders', { dedup_group: 'cap-family-alpha', companies: [co('Alpha', 'ALPH')] }),
+    item('cap-beta', 'Beta liquid cooling bottleneck raises supplier orders', { dedup_group: 'cap-family-beta', companies: [co('Beta', 'BETA')] }),
+    item('cap-gamma', 'Gamma liquid cooling bottleneck raises supplier orders', { dedup_group: 'cap-family-gamma', companies: [co('Gamma', 'GAMM')] }),
+    item('cap-delta', 'Delta liquid cooling bottleneck raises supplier orders', { dedup_group: 'cap-family-delta', companies: [co('Delta', 'DELT')] }),
+  ]
+  const refused = discoverDeterministic(overCap, [], NOW, { ...DEFAULT_DISCOVER_CONFIG, maxMembers: 3 })
+  assert.equal(refused.created.length, 0, 'discovery cannot publish a theme that omits a selected family')
+  assert.deepEqual(
+    new Set(refused.leftover.map((row) => row.dedup_group)),
+    new Set(overCap.map((row) => row.dedup_group)),
+    'every excluded family remains durable discovery debt instead of disappearing with the consumed cluster',
+  )
+
+  const rebuilt = discoverDeterministic(refused.leftover, [], NOW, { ...DEFAULT_DISCOVER_CONFIG, maxMembers: 4 })
+  assert.equal(rebuilt.created.length, 1, 'the retained cluster can rebuild when the audit cap can represent it')
+  assert.equal(new Set(rebuilt.created[0].members.map((member) => member.dedup_group)).size, 4)
+
+  const stateHistory = [
+    item('cap-state-original', 'Alpha liquid cooling bottleneck raises supplier orders', {
+      dedup_group: 'cap-state-alpha', companies: [co('Alpha', 'ALPH')], found_at: hoursAgo(4),
+    }),
+    item('cap-state-cancel', 'Alpha cancels liquid cooling expansion as bottleneck ends', {
+      dedup_group: 'cap-state-alpha', companies: [co('Alpha', 'ALPH')], found_at: hoursAgo(3), source_tier: 'company',
+    }),
+    item('cap-state-beta', 'Beta liquid cooling bottleneck raises supplier orders', {
+      dedup_group: 'cap-state-beta', companies: [co('Beta', 'BETA')], found_at: hoursAgo(2),
+    }),
+    item('cap-state-gamma', 'Gamma liquid cooling bottleneck raises supplier orders', {
+      dedup_group: 'cap-state-gamma', companies: [co('Gamma', 'GAMM')], found_at: hoursAgo(1),
+    }),
+  ]
+  const stateRefused = discoverDeterministic(stateHistory, [], NOW, { ...DEFAULT_DISCOVER_CONFIG, maxMembers: 3 })
+  assert.equal(stateRefused.created.length, 0, 'a status-change audit row cannot be consumed merely because all three families fit')
+  assert.deepEqual(
+    new Set(stateRefused.leftover.map((row) => row.event_id)),
+    new Set(stateHistory.map((row) => row.event_id)),
+    'the original and cancellation remain in durable pool debt beside their peer families',
+  )
+})
+
+await check('discoverDeterministic keeps bounded family history in leftovers before the scan cut', () => {
   const pool = [
     item('old-copy', 'Old publisher copy of a solar capacity story', { dedup_group: 'story-solar' }),
     item('other-1', 'Unrelated steel tariff update'),
@@ -214,7 +911,102 @@ await check('discoverDeterministic dedupes the whole pool before the scan cut', 
   ]
   const { leftover } = discoverDeterministic(pool, [], NOW, { ...DEFAULT_DISCOVER_CONFIG, maxPoolScan: 3, minClusterItems: 99 })
   const copies = leftover.filter((row) => row.dedup_group === 'story-solar')
-  assert.deepEqual(copies.map((row) => row.event_id), ['new-copy'], 'an older copy cannot survive in skipped leftovers')
+  assert.deepEqual(new Set(copies.map((row) => row.event_id)), new Set(['old-copy', 'new-copy']), 'unconsumed family history survives for later disconfirmation review')
+})
+
+await check('two-pass discovery retains cancellation and restoration history until a third family arrives', () => {
+  const alphaHistory = [
+    item('pass-alpha-original', 'Alpha solar inverter shortage expands', { dedup_group: 'pass-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'news', found_at: hoursAgo(6) }),
+    item('pass-alpha-cancel', 'Alpha cancels solar inverter expansion as shortage ends', { dedup_group: 'pass-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(5) }),
+    item('pass-alpha-restore', 'Alpha reinstates solar inverter expansion as shortage returns', { dedup_group: 'pass-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(4) }),
+  ]
+  const beta = item('pass-beta', 'Beta solar inverter shortage expands', { dedup_group: 'pass-beta', companies: [co('Beta', 'BETA')], found_at: hoursAgo(2) })
+  const first = discoverDeterministic([...alphaHistory, beta], [], NOW, DEFAULT_DISCOVER_CONFIG)
+  assert.equal(first.created.length, 0)
+  assert.deepEqual(first.leftover.filter((row) => row.dedup_group === 'pass-alpha').map((row) => row.event_id), [
+    'pass-alpha-original', 'pass-alpha-cancel', 'pass-alpha-restore',
+  ])
+  const gamma = item('pass-gamma', 'Gamma solar inverter shortage expands', { dedup_group: 'pass-gamma', companies: [co('Gamma', 'GAMM')], found_at: hoursAgo(1) })
+  const second = discoverDeterministic([...first.leftover, gamma], [], NOW, DEFAULT_DISCOVER_CONFIG)
+  assert.equal(second.created.length, 1)
+  const ids = new Set(second.created[0].members.map((member) => member.event_id))
+  assert.ok(ids.has('pass-alpha-original'))
+  assert.ok(ids.has('pass-alpha-cancel'))
+  assert.ok(ids.has('pass-alpha-restore'))
+})
+
+await check('discovery scan budget counts 1000 updates as one family representative', () => {
+  const burst = Array.from({ length: 1_000 }, (_, index) => item(
+    `scan-family-${index}`,
+    `Alpha solar inverter shortage update ${index}`,
+    { dedup_group: 'scan-family', companies: [co('Alpha', 'ALPH')], found_at: new Date(NOW.getTime() - index * 1_000).toISOString() },
+  ))
+  const peers = [
+    item('scan-beta', 'Beta solar inverter shortage expands', { dedup_group: 'scan-beta', companies: [co('Beta', 'BETA')], found_at: hoursAgo(1) }),
+    item('scan-gamma', 'Gamma solar inverter shortage expands', { dedup_group: 'scan-gamma', companies: [co('Gamma', 'GAMM')], found_at: hoursAgo(1) }),
+  ]
+  const { created } = discoverDeterministic([...burst, ...peers], [], NOW, { ...DEFAULT_DISCOVER_CONFIG, maxPoolScan: 3 })
+  assert.equal(created.length, 1, 'one noisy family cannot crowd two independent families out of the scan')
+  assert.equal(new Set(created[0].members.map((member) => member.dedup_group || member.event_id)).size, 3)
+  assert.ok(created[0].members.length <= DEFAULT_DISCOVER_CONFIG.maxMembers, 'the selected family audit remains hard-bounded')
+})
+
+await check('discovery cardinality uses families but attaches bounded state and best-provenance history', () => {
+  const familyHistory = [
+    item('history-original', 'Alpha solar inverter shortage expands', { dedup_group: 'history-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'news', found_at: hoursAgo(5) }),
+    item('history-cancel', 'Alpha cancels solar inverter expansion as shortage ends', { dedup_group: 'history-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(4) }),
+    item('history-restore', 'Alpha reinstates solar inverter expansion as shortage returns', { dedup_group: 'history-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(3) }),
+    item('history-filing', 'Alpha solar inverter shortage expands', { dedup_group: 'history-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'primary_filing', found_at: hoursAgo(6) }),
+  ]
+  const peers = [
+    item('history-beta', 'Beta solar inverter shortage expands', { dedup_group: 'history-beta', companies: [co('Beta', 'BETA')], found_at: hoursAgo(2) }),
+    item('history-gamma', 'Gamma solar inverter shortage expands', { dedup_group: 'history-gamma', companies: [co('Gamma', 'GAMM')], found_at: hoursAgo(1) }),
+  ]
+  const { created } = discoverDeterministic([...familyHistory, ...peers], [], NOW, { ...DEFAULT_DISCOVER_CONFIG, maxMembers: 6 })
+  assert.equal(created.length, 1)
+  assert.equal(new Set(created[0].members.map((member) => member.dedup_group || member.event_id)).size, 3, 'updates never count as extra families')
+  assert.ok(created[0].members.some((member) => member.event_id === 'history-cancel'))
+  assert.ok(created[0].members.some((member) => member.event_id === 'history-restore'))
+  assert.ok(created[0].members.some((member) => member.event_id === 'history-filing'))
+  assert.ok(created[0].members.length <= 6)
+  assert.equal(created[0].member_count_total, 3)
+})
+
+await check('an exact observation collision chooses stronger provenance before a newer timestamp', () => {
+  const filing = item('collision-observation', 'Alpha solar inverter shortage expands', {
+    dedup_group: 'collision-family', companies: [co('Alpha', 'ALPH')], source_tier: 'primary_filing', found_at: hoursAgo(6),
+  })
+  const wire = item('collision-observation', 'Alpha solar inverter shortage expands', {
+    dedup_group: 'collision-family', companies: [co('Alpha', 'ALPH')], source_tier: 'news', found_at: hoursAgo(1),
+  })
+  const peers = [
+    item('collision-beta', 'Beta solar inverter shortage expands', { dedup_group: 'collision-beta', companies: [co('Beta', 'BETA')], found_at: hoursAgo(2) }),
+    item('collision-gamma', 'Gamma solar inverter shortage expands', { dedup_group: 'collision-gamma', companies: [co('Gamma', 'GAMM')], found_at: hoursAgo(1) }),
+  ]
+  const { created } = discoverDeterministic([filing, wire, ...peers], [], NOW, { ...DEFAULT_DISCOVER_CONFIG, maxMembers: 5 })
+  assert.equal(created.length, 1)
+  assert.equal(created[0].members.find((member) => member.event_id === 'collision-observation')?.tier, 'primary_filing')
+})
+
+await check('stepThemes preserves family history until discovery attaches its bounded audit excerpt', async () => {
+  const pool = [
+    item('step-history-original', 'Alpha solar inverter shortage expands', { dedup_group: 'step-history-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'news', found_at: hoursAgo(6) }),
+    item('step-history-cancel', 'Alpha cancels solar inverter expansion as shortage ends', { dedup_group: 'step-history-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(5) }),
+    item('step-history-restore', 'Alpha reinstates solar inverter expansion as shortage returns', { dedup_group: 'step-history-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(4) }),
+    item('step-history-filing', 'Alpha solar inverter shortage expands', { dedup_group: 'step-history-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'primary_filing', found_at: hoursAgo(7) }),
+    item('step-history-beta', 'Beta solar inverter shortage expands', { dedup_group: 'step-history-beta', companies: [co('Beta', 'BETA')], found_at: hoursAgo(2) }),
+    item('step-history-gamma', 'Gamma solar inverter shortage expands', { dedup_group: 'step-history-gamma', companies: [co('Gamma', 'GAMM')], found_at: hoursAgo(1) }),
+  ]
+  const result = await stepThemes({
+    themes: [], pool, items: [], runDiscovery: true, now: NOW,
+    cfg: { ...DEFAULT_THEMES_CONFIG, poolCap: 6, discover: { ...DEFAULT_THEMES_CONFIG.discover, maxPoolScan: 3, maxMembers: 6 } },
+  })
+  assert.equal(result.themes.length, 1)
+  const ids = new Set(result.themes[0].members.map((member) => member.event_id))
+  assert.ok(ids.has('step-history-cancel'))
+  assert.ok(ids.has('step-history-restore'))
+  assert.ok(ids.has('step-history-filing'))
+  assert.equal(result.themes[0].member_count_total, 3)
 })
 
 await check('discoverDeterministic sorts a newest-first cold pool before scanning its fresh tail', () => {
@@ -251,6 +1043,35 @@ await check('runThemesCycle normalizes a legacy newest-first pool before its pre
   const created = loadThemes(dir)
   assert.equal(created.length, 1, 'the fresh cluster survives the wrapper cap and is discovered')
   assert.deepEqual(new Set(created[0].members.map((m) => m.event_id)), new Set(['cycle-fresh-1', 'cycle-fresh-2', 'cycle-fresh-3']))
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+
+await check('runThemesCycle keeps bounded update history through the wrapper before discovery', async () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'themes-pool-history-'))
+  const stateDir = path.join(dir, 'state')
+  fs.mkdirSync(stateDir, { recursive: true })
+  const pool = [
+    item('cycle-history-original', 'Alpha solar inverter shortage expands', { dedup_group: 'cycle-history-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'news', found_at: hoursAgo(6) }),
+    item('cycle-history-cancel', 'Alpha cancels solar inverter expansion as shortage ends', { dedup_group: 'cycle-history-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(5) }),
+    item('cycle-history-restore', 'Alpha reinstates solar inverter expansion as shortage returns', { dedup_group: 'cycle-history-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(4) }),
+    item('cycle-history-filing', 'Alpha solar inverter shortage expands', { dedup_group: 'cycle-history-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'primary_filing', found_at: hoursAgo(7) }),
+    item('cycle-history-beta', 'Beta solar inverter shortage expands', { dedup_group: 'cycle-history-beta', companies: [co('Beta', 'BETA')], found_at: hoursAgo(2) }),
+    item('cycle-history-gamma', 'Gamma solar inverter shortage expands', { dedup_group: 'cycle-history-gamma', companies: [co('Gamma', 'GAMM')], found_at: hoursAgo(1) }),
+  ]
+  fs.writeFileSync(path.join(stateDir, 'themes-unclustered.json'), JSON.stringify(pool) + '\n')
+  const cfg = {
+    ...DEFAULT_THEMES_CONFIG,
+    poolCap: 6,
+    discover: { ...DEFAULT_THEMES_CONFIG.discover, maxPoolScan: 3, maxMembers: 6 },
+  }
+  await runThemesCycle({ repoRoot: dir, stateDir, items: [], runDiscovery: true, now: () => NOW, cfg })
+  const theme = loadThemes(dir)[0]
+  assert.ok(theme)
+  const ids = new Set(theme.members.map((member) => member.event_id))
+  assert.ok(ids.has('cycle-history-cancel'))
+  assert.ok(ids.has('cycle-history-restore'))
+  assert.ok(ids.has('cycle-history-filing'))
+  assert.equal(theme.member_count_total, 3)
   fs.rmSync(dir, { recursive: true, force: true })
 })
 
@@ -387,6 +1208,36 @@ await check('mergeAndRetire preserves explicit challenges and unclassified pendi
   assert.equal(keep.needs_rename, true)
 })
 
+await check('merge exact-observation collisions choose source hierarchy and preserve lifetime family count', () => {
+  const keep = createTheme([
+    item('merge-collision', 'Alpha capacity shortage raises supplier demand', { dedup_group: 'merge-collision-family', companies: [co('Alpha', 'ALPH')], source_tier: 'news', url: 'https://example.test/wire-collision' }),
+    item('merge-keep-b', 'Beta capacity shortage raises supplier demand', { dedup_group: 'merge-keep-b', companies: [co('Beta', 'BETA')], source_tier: 'company' }),
+    item('merge-keep-c', 'Gamma capacity shortage raises supplier demand', { dedup_group: 'merge-keep-c', companies: [co('Gamma', 'GAMM')], source_tier: 'company' }),
+  ], NOW, 'claude')
+  const drop = createTheme([
+    item('merge-collision', 'Alpha capacity shortage raises supplier demand', { dedup_group: 'merge-collision-family', companies: [co('Alpha', 'ALPH')], source_tier: 'primary_filing', url: 'https://example.test/filing-collision' }),
+    item('merge-drop-b', 'Delta capacity shortage raises supplier demand', { dedup_group: 'merge-drop-b', companies: [co('Beta', 'BETA')], source_tier: 'company' }),
+    item('merge-drop-c', 'Epsilon capacity shortage raises supplier demand', { dedup_group: 'merge-drop-c', companies: [co('Gamma', 'GAMM')], source_tier: 'company' }),
+  ], NOW, 'claude')
+  for (const theme of [keep, drop]) {
+    theme.name = 'Capacity Shortage Raises Supplier Demand'
+    theme.description = 'A recurring capacity shortage is raising demand for directly exposed suppliers.'
+    attachValidNarrative(theme, { anchor_terms: ['capacity', 'shortage'] })
+  }
+  drop.theme_id = `${keep.theme_id}-collision`
+  keep.scores.composite = 90
+  drop.scores.composite = 10
+  keep.member_count_total = 10
+  drop.member_count_total = 8
+  mergeAndRetire([keep, drop], NOW)
+  assert.equal(drop.status, 'merged')
+  const collision = keep.members.filter((member) => member.event_id === 'merge-collision')
+  assert.equal(collision.length, 1)
+  assert.equal(collision[0].tier, 'primary_filing', 'an older filing beats the keeper\'s newer/weaker wire provenance')
+  assert.equal(collision[0].url, 'https://example.test/filing-collision')
+  assert.equal(keep.member_count_total, 17, '10 + 8 lifetime families less the one known overlapping family')
+})
+
 await check('validated theses retire at the age limit even when stale magnitude leaves the heat tier hot', () => {
   const old = (days: number) => new Date(NOW.getTime() - days * 86_400_000).toISOString().replace(/\.\d{3}Z$/, 'Z')
   const theme = createTheme([
@@ -489,7 +1340,11 @@ await check('runThemesCycle emits a quiet-activity transition once without appen
   assert.equal(first.changed[0].assessment.status, 'actionable')
   assert.equal(first.changed[0].activity, 'quiet')
   const ledger = path.join(dir, 'screener', 'ledger', 'themes.ndjson')
-  assert.equal(fs.readFileSync(ledger, 'utf8').trim().split('\n').length, 1, 'projection-only decay does not duplicate a Theme mutation')
+  const persistedThemeRows = fs.readFileSync(ledger, 'utf8').trim().split('\n').flatMap((line) => {
+    const row = JSON.parse(line)
+    return row.kind === 'theme' ? [row.theme] : row.kind === 'theme_batch' ? row.themes : []
+  })
+  assert.equal(persistedThemeRows.length, 1, 'projection-only decay does not duplicate a Theme mutation; the separate stage record is health/freshness only')
 
   const unchanged = await runThemesCycle({ repoRoot: dir, stateDir, items: [], runDiscovery: false, now: () => later, cfg })
   assert.deepEqual(unchanged.changed, [], 'the same assessment is not emitted again on every cycle')
@@ -558,10 +1413,17 @@ await check('makeThemeNamer (groq path): renames a real theme, retires a non-the
     },
     { i: 1, is_theme: false },
   ] })
-  const fetchFn = (async () => ({ ok: true, status: 200, json: async () => ({ choices: [{ message: { content } }] }) })) as unknown as typeof fetch
+  let compilerCall = 0
+  const fetchFn = (async () => {
+    compilerCall++
+    const oneThemeContent = compilerCall === 1
+      ? JSON.stringify({ themes: [JSON.parse(content).themes[0]] })
+      : JSON.stringify({ themes: [{ i: 0, is_theme: false }] })
+    return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: oneThemeContent } }] }) }
+  }) as unknown as typeof fetch
   const namer = makeThemeNamer({ themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'llama' }, fetchFn, tmp)
   assert.ok(namer, 'a namer is returned when a key is present')
-  await namer!([real, junk], NOW)
+  const compilerOutcome = await namer!([real, junk], NOW)
   assert.equal(real.name, 'AI Data-Center Buildout')
   assert.equal(real.generation, 'groq')
   assert.equal(real.narrative?.version, 1)
@@ -572,6 +1434,28 @@ await check('makeThemeNamer (groq path): renames a real theme, retires a non-the
   assert.ok(real.keywords.includes('ai'), 'a proposed keyword recurring in the evidence is accepted')
   assert.ok(!real.keywords.includes('hyperscaler'), 'an unsupported model-written keyword cannot become a future join key')
   assert.equal(junk.status, 'retired') // is_theme:false → dropped
+  assert.deepEqual({
+    requested: compilerOutcome?.requested_count,
+    attempted: compilerOutcome?.attempted_count,
+    validated: compilerOutcome?.validated_count,
+    rejected: compilerOutcome?.rejected_count,
+  }, { requested: 2, attempted: 2, validated: 1, rejected: 1 }, 'health counts actual single-theme proposal outcomes')
+})
+
+await check('makeThemeNamer refuses a polished two-row proposal when both rows are one story family', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-family-gate-'))
+  const candidate = createTheme([
+    item('same-family-1', 'Alpha cancels capacity expansion after shortage eases', { dedup_group: 'same-family', companies: [co('Alpha', 'ALPH')], source_tier: 'company' }),
+    item('same-family-2', 'Correction: Alpha revises capacity expansion shortage report', { dedup_group: 'same-family', companies: [co('Alpha', 'ALPH')], source_tier: 'primary_filing' }),
+  ], NOW)
+  const proposal = llmThemeProposal({ support: ['same-family-1', 'same-family-2'], anchors: ['capacity', 'shortage'] })
+  const content = JSON.stringify({ themes: [proposal] })
+  const fetchFn = (async () => ({ ok: true, status: 200, json: async () => ({ choices: [{ message: { content } }], usage: { total_tokens: 20 } }) })) as unknown as typeof fetch
+  const namer = makeThemeNamer({ themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'llama', groqDailyReqCap: 10, groqDailyTokenCap: 10_000 }, fetchFn, tmp)
+  await namer!([candidate], NOW)
+  assert.equal(candidate.generation, 'deterministic')
+  assert.equal(candidate.narrative, undefined, 'one publisher-copy family cannot satisfy the validator\'s two-story causal core')
 })
 
 await check('makeThemeNamer: a malformed verdict never grants validator-approved generation', async () => {
@@ -659,10 +1543,294 @@ await check('makeThemeNamer: a polished proposal with a malformed narrative cont
   const fetchFn = (async () => ({ ok: true, status: 200, json: async () => ({ choices: [{ message: { content } }], usage: { total_tokens: 20 } }) })) as unknown as typeof fetch
   const namer = makeThemeNamer({ themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'llama', groqDailyReqCap: 10, groqDailyTokenCap: 10_000 }, fetchFn, tmp)
   await namer!([candidate], NOW)
-  assert.deepEqual({ name: candidate.name, description: candidate.description, generation: candidate.generation, rev: candidate.rev }, prior)
+  assert.deepEqual({ name: candidate.name, description: candidate.description, generation: candidate.generation }, {
+    name: prior.name, description: prior.description, generation: prior.generation,
+  })
+  assert.equal(candidate.rev, prior.rev + 1, 'a real sent request records queue fairness even when its proposal fails closed')
+  assert.equal(candidate.validation_attempted_at, NOW.toISOString().replace(/\.\d{3}Z$/, 'Z'))
   assert.equal(candidate.narrative, undefined)
   assert.equal(candidate.needs_validation, true)
   fs.rmSync(tmp, { recursive: true, force: true })
+})
+
+await check('theme compiler counts one malformed request once and does not smear it onto later blocked debt', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-malformed-count-'))
+  const makeCandidate = (tag: string) => createTheme([
+    item(`${tag}-1`, `${tag} Alpha capacity shortage raises orders`, { companies: [co(`${tag} Alpha`, `${tag}A`)] }),
+    item(`${tag}-2`, `${tag} Beta capacity shortage raises orders`, { companies: [co(`${tag} Beta`, `${tag}B`)] }),
+    item(`${tag}-3`, `${tag} Alpha and Beta capacity shortage persists`, { companies: [co(`${tag} Alpha`, `${tag}A`), co(`${tag} Beta`, `${tag}B`)] }),
+  ], NOW)
+  const first = makeCandidate('Malformed')
+  const second = makeCandidate('Blocked')
+  const malformed = (async () => ({ ok: true, status: 200, json: async () => ({ choices: [{ message: { content: '{bad-json' } }], usage: { total_tokens: 10 } }) })) as unknown as typeof fetch
+  const outcome = await makeThemeNamer({
+    themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm',
+    llmCooldownMs: 60_000, llmCooldownMaxMs: 60_000,
+  }, malformed, tmp)([first, second], NOW)
+  assert.equal(outcome?.requested_count, 2)
+  assert.equal(outcome?.attempted_count, 1)
+  assert.equal(outcome?.malformed_count, 1)
+  assert.equal(outcome?.omitted_count, 0)
+  assert.ok(first.validation_attempted_at)
+  assert.equal(second.validation_attempted_at, undefined)
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetSharedLimiters()
+})
+
+await check('Claude contract failures arm and consult the same theme-compiler cooldown id', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-claude-cooldown-'))
+  const makeCandidate = (tag: string) => createTheme([
+    item(`${tag}-1`, `${tag} Alpha capacity shortage raises orders`, { companies: [co(`${tag} Alpha`, `${tag}A`)] }),
+    item(`${tag}-2`, `${tag} Beta capacity shortage raises orders`, { companies: [co(`${tag} Beta`, `${tag}B`)] }),
+    item(`${tag}-3`, `${tag} Alpha and Beta capacity shortage persists`, { companies: [co(`${tag} Alpha`, `${tag}A`), co(`${tag} Beta`, `${tag}B`)] }),
+  ], NOW)
+  let fetches = 0
+  const malformed = (async () => {
+    fetches++
+    return { ok: true, status: 200, json: async () => ({ content: [{ type: 'text', text: '{bad-json' }] }) }
+  }) as unknown as typeof fetch
+  const namer = makeThemeNamer({
+    themesDiscoverModel: 'claude-haiku', themesClaudeApiKey: 'k', themesClaudeBaseUrl: 'https://claude.test',
+    themesClaudeDailyCap: 10, llmCooldownMs: 60_000, llmCooldownMaxMs: 60_000,
+  }, malformed, tmp)
+  const first = await namer([makeCandidate('First')], NOW)
+  const secondCandidate = makeCandidate('Second')
+  const second = await namer([secondCandidate], NOW)
+  assert.equal(first?.malformed_count, 1)
+  assert.equal(second?.state, 'blocked')
+  assert.equal(second?.blocker, 'cooldown')
+  assert.equal(second?.attempted_count, 0)
+  assert.equal(secondCandidate.validation_attempted_at, undefined)
+  assert.equal(fetches, 1, 'the second pass consults the same marker the malformed first reply armed')
+  assert.equal(readCooldownUntil(tmp, 'themes-claude'), NOW.getTime() + 60_000, 'cloud compiler failures use the configured LLM cooldown')
+  fs.rmSync(tmp, { recursive: true, force: true })
+})
+
+await check('theme compiler health never exposes a provider error response body', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-provider-body-'))
+  const candidate = createTheme([
+    item('secret-1', 'Alpha grid equipment shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('secret-2', 'Beta grid equipment shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('secret-3', 'Alpha and Beta grid equipment shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  const sentinel = 'org-private@example.test workspace-secret-123'
+  const failed = (async () => ({
+    ok: false, status: 401,
+    text: async () => `{"error":"${sentinel}"}`,
+  })) as unknown as typeof fetch
+  const outcome = await makeThemeNamer({
+    themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm',
+  }, failed, tmp)([candidate], NOW)
+  assert.equal(outcome?.state, 'failed')
+  assert.equal(outcome?.blocker, 'provider_error')
+  assert.match(outcome?.message || '', /Groq HTTP 401/)
+  assert.doesNotMatch(outcome?.message || '', /org-private|workspace-secret/)
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetSharedLimiters()
+})
+
+await check('a stalled local compiler obeys the lower theme-attempt timeout, cools down briefly, and falls through to Groq', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-local-timeout-'))
+  const candidate = createTheme([
+    item('local-timeout-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('local-timeout-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('local-timeout-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  const proposal = llmThemeProposal({
+    support: candidate.members.map((member) => member.event_id), anchors: ['capacity', 'shortage'],
+  })
+  const urls: string[] = []
+  const fetchFn = (async (url: string | URL | Request) => {
+    urls.push(String(url))
+    if (String(url).startsWith('https://local.test/')) return await new Promise<Response>(() => {})
+    return {
+      ok: true, status: 200,
+      json: async () => ({ choices: [{ message: { content: JSON.stringify({ themes: [proposal] }) } }], usage: { total_tokens: 100 } }),
+    }
+  }) as unknown as typeof fetch
+  const started = Date.now()
+  const outcome = await makeThemeNamer({
+    themesDiscoverModel: 'groq', themesProviderAttemptTimeoutMs: 20, themesProviderChainTimeoutMs: 500,
+    localCooldownMs: 1_234, llmCooldownMs: 60_000, llmCooldownMaxMs: 60_000,
+    localProvider: {
+      id: 'local', label: 'Local', color: '--local', apiKey: 'local', baseUrl: 'https://local.test/v1', model: 'local-model',
+      dailyReqCap: 100_000, rpm: 0, maxTokens: 3000, budgetFile: 'local-budget.json', timeoutMs: 120_000,
+    },
+    groqApiKey: 'groq', groqBaseUrl: 'https://groq.test', groqModel: 'groq-model',
+    groqDailyReqCap: 10, groqDailyTokenCap: 100_000,
+  }, fetchFn, tmp)([candidate], NOW)
+  const elapsed = Date.now() - started
+  assert.deepEqual(urls, ['https://local.test/v1/chat/completions', 'https://groq.test/chat/completions'])
+  assert.ok(elapsed < 400, `the provider's 120s timeout must not raise the 20ms Themes attempt cap (elapsed ${elapsed}ms)`)
+  assert.equal(readCooldownUntil(tmp, 'local'), NOW.getTime() + 1_234, 'local failures use one flat short cooldown')
+  assert.equal(outcome?.state, 'succeeded')
+  assert.equal(outcome?.attempted_count, 2)
+  assert.equal(outcome?.validated_count, 1)
+  assert.equal(candidate.generation, 'groq')
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+})
+
+await check('a stalled Claude compiler cannot outlive the remaining provider-chain deadline', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetCooldownMemory()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-claude-timeout-'))
+  const candidate = createTheme([
+    item('claude-timeout-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('claude-timeout-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('claude-timeout-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  let signal: AbortSignal | undefined
+  const stalled = (async (_url: string | URL | Request, init?: RequestInit) => {
+    signal = init?.signal || undefined
+    return await new Promise<Response>(() => {})
+  }) as unknown as typeof fetch
+  const started = Date.now()
+  const outcome = await makeThemeNamer({
+    themesDiscoverModel: 'claude-haiku', themesClaudeApiKey: 'claude', themesClaudeBaseUrl: 'https://claude.test',
+    themesClaudeDailyCap: 10, themesProviderAttemptTimeoutMs: 1_000, themesProviderChainTimeoutMs: 25,
+    llmCooldownMs: 60_000, llmCooldownMaxMs: 60_000,
+  }, stalled, tmp)([candidate], NOW)
+  const elapsed = Date.now() - started
+  assert.ok(elapsed < 400, `Claude must respect the 25ms remaining-chain deadline (elapsed ${elapsed}ms)`)
+  assert.equal(signal?.aborted, true)
+  assert.equal(outcome?.state, 'failed')
+  assert.equal(outcome?.provider, 'claude')
+  assert.equal(outcome?.blocker, 'provider_error')
+  assert.equal(outcome?.attempted_count, 1)
+  assert.equal(candidate.validation_attempted_at, NOW.toISOString().replace(/\.\d{3}Z$/, 'Z'))
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetCooldownMemory()
+})
+
+await check('terminal provider HTTP classes exhaust the provider day and retain only a sanitized reason on later cycles', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  for (const status of [400, 401, 402, 403, 404, 413]) {
+    resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), `thm-terminal-${status}-`))
+    const makeCandidate = (tag: string) => createTheme([
+      item(`${tag}-1`, `${tag} Alpha capacity shortage raises orders`, { companies: [co(`${tag} Alpha`, `${tag}A`)] }),
+      item(`${tag}-2`, `${tag} Beta capacity shortage raises orders`, { companies: [co(`${tag} Beta`, `${tag}B`)] }),
+      item(`${tag}-3`, `${tag} Alpha and Beta capacity shortage persists`, { companies: [co(`${tag} Alpha`, `${tag}A`), co(`${tag} Beta`, `${tag}B`)] }),
+    ], NOW)
+    let fetches = 0
+    const sentinel = `private-provider-body-${status}`
+    const failed = (async () => {
+      fetches++
+      return { ok: false, status, text: async () => sentinel }
+    }) as unknown as typeof fetch
+    const cfg = {
+      themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm',
+      groqDailyReqCap: 10, groqDailyTokenCap: 100_000,
+    }
+    const first = await makeThemeNamer(cfg, failed, tmp)([makeCandidate(`First${status}`)], NOW)
+    assert.equal(first?.provider, 'groq')
+    assert.equal(first?.blocker, 'provider_error')
+    assert.match(first?.message || '', new RegExp(`Groq HTTP ${status}`))
+    assert.doesNotMatch(first?.message || '', /private-provider-body/)
+    const persisted = JSON.parse(fs.readFileSync(path.join(tmp, 'groq-budget.json'), 'utf8'))
+    assert.equal(persisted.exhausted, true)
+    assert.equal(persisted.exhaustion_reason, `terminal_http_${status}`)
+
+    // Prove the reason survives process memory, not merely the in-process Budget object.
+    resetBudgetMemory()
+    const secondCandidate = makeCandidate(`Second${status}`)
+    const second = await makeThemeNamer(cfg, failed, tmp)([secondCandidate], new Date(NOW.getTime() + 1_000))
+    assert.equal(second?.state, 'blocked')
+    assert.equal(second?.provider, 'groq')
+    assert.equal(second?.blocker, 'daily_cap')
+    assert.match(second?.message || '', new RegExp(`rest of its provider day after HTTP ${status}`))
+    assert.doesNotMatch(second?.message || '', /private-provider-body/)
+    assert.equal(second?.attempted_count, 0)
+    assert.equal(secondCandidate.validation_attempted_at, undefined)
+    assert.equal(fetches, 1, 'a terminal day marker prevents another provider request on later cycles')
+    fs.rmSync(tmp, { recursive: true, force: true })
+  }
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+})
+
+await check('a terminal Claude response closes its dedicated provider day with the same sanitized durable reason', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetCooldownMemory()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-claude-terminal-'))
+  const makeCandidate = (tag: string) => createTheme([
+    item(`${tag}-1`, `${tag} Alpha capacity shortage raises orders`, { companies: [co(`${tag} Alpha`, `${tag}A`)] }),
+    item(`${tag}-2`, `${tag} Beta capacity shortage raises orders`, { companies: [co(`${tag} Beta`, `${tag}B`)] }),
+    item(`${tag}-3`, `${tag} Alpha and Beta capacity shortage persists`, { companies: [co(`${tag} Alpha`, `${tag}A`), co(`${tag} Beta`, `${tag}B`)] }),
+  ], NOW)
+  let fetches = 0
+  const failed = (async () => {
+    fetches++
+    return { ok: false, status: 403, text: async () => 'claude-private-account-body' }
+  }) as unknown as typeof fetch
+  const cfg = {
+    themesDiscoverModel: 'claude-haiku', themesClaudeApiKey: 'k', themesClaudeBaseUrl: 'https://claude.test',
+    themesClaudeDailyCap: 10,
+  }
+  const first = await makeThemeNamer(cfg, failed, tmp)([makeCandidate('FirstClaude')], NOW)
+  assert.equal(first?.state, 'failed')
+  assert.equal(first?.provider, 'claude')
+  assert.equal(first?.blocker, 'provider_error')
+  assert.match(first?.message || '', /Claude HTTP 403/)
+  assert.doesNotMatch(first?.message || '', /private-account-body/)
+  const persisted = JSON.parse(fs.readFileSync(path.join(tmp, 'themes-llm-budget.json'), 'utf8'))
+  assert.equal(persisted.exhausted, true)
+  assert.equal(persisted.exhaustion_reason, 'terminal_http_403')
+
+  const secondCandidate = makeCandidate('SecondClaude')
+  const second = await makeThemeNamer(cfg, failed, tmp)([secondCandidate], new Date(NOW.getTime() + 1_000))
+  assert.equal(second?.state, 'blocked')
+  assert.equal(second?.provider, 'claude')
+  assert.equal(second?.blocker, 'daily_cap')
+  assert.match(second?.message || '', /Claude.*provider day after HTTP 403/)
+  assert.doesNotMatch(second?.message || '', /private-account-body/)
+  assert.equal(second?.attempted_count, 0)
+  assert.equal(secondCandidate.validation_attempted_at, undefined)
+  assert.equal(fetches, 1)
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetCooldownMemory()
+})
+
+await check('compiler health keeps provider, blocker, and message from the same final fallback decision', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-coherent-blocker-'))
+  Budget.load(tmp, 1, 100_000, NOW.getTime(), 'groq-budget.json').exhaust('terminal_http_401')
+  const candidate = createTheme([
+    item('coherent-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('coherent-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('coherent-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  let fetches = 0
+  const localFailure = (async () => {
+    fetches++
+    return { ok: false, status: 500, text: async () => 'private-local-body' }
+  }) as unknown as typeof fetch
+  const outcome = await makeThemeNamer({
+    themesDiscoverModel: 'groq', localCooldownMs: 1_000,
+    localProvider: {
+      id: 'local', label: 'Local', color: '--local', apiKey: 'local', baseUrl: 'https://local.test/v1', model: 'local-model',
+      dailyReqCap: 100_000, rpm: 0, maxTokens: 3000, budgetFile: 'local-budget.json',
+    },
+    groqApiKey: 'groq', groqBaseUrl: 'https://groq.test', groqModel: 'groq-model',
+    groqDailyReqCap: 1, groqDailyTokenCap: 100_000,
+  }, localFailure, tmp)([candidate], NOW)
+  assert.equal(fetches, 1)
+  assert.equal(outcome?.attempted_count, 1)
+  assert.equal(outcome?.state, 'blocked')
+  assert.equal(outcome?.provider, 'groq')
+  assert.equal(outcome?.blocker, 'daily_cap')
+  assert.match(outcome?.message || '', /Groq.*provider day after HTTP 401/)
+  assert.doesNotMatch(outcome?.message || '', /Local|private-local-body/)
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
 })
 
 await check('makeThemeNamer accepts the model\'s exact dense semantic pair and rejects corpus-generic anchors', async () => {
@@ -835,6 +2003,24 @@ await check('a large fresh theme drains its full evidence ledger and can become 
   fs.rmSync(tmp, { recursive: true, force: true })
 })
 
+await check('reload floors lifetime count to story families, not same-family observation rows', () => {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-family-count-reload-'))
+  const theme = createTheme([
+    item('count-original', 'Alpha capacity shortage raises supplier demand', { dedup_group: 'count-family', companies: [co('Alpha', 'ALPH')], found_at: hoursAgo(3) }),
+    item('count-peer', 'Beta capacity shortage raises supplier demand', { dedup_group: 'count-peer', companies: [co('Beta', 'BETA')], found_at: hoursAgo(2) }),
+  ], NOW)
+  const update = item('count-cancel', 'Alpha cancels capacity expansion', {
+    dedup_group: 'count-family', companies: [co('Alpha', 'ALPH')], found_at: hoursAgo(1),
+  })
+  theme.members.push({ ...update, score: update.triage_score!, tier: update.source_tier! })
+  theme.member_count_total = 2
+  appendThemeMutations(tmp, [theme], () => NOW)
+  const reloaded = loadThemes(tmp)[0]
+  assert.equal(reloaded.members.length, 3, 'the bounded audit keeps all three observations')
+  assert.equal(reloaded.member_count_total, 2, 'two underlying families remain two lifetime stories')
+  fs.rmSync(tmp, { recursive: true, force: true })
+})
+
 await check('makeThemeNamer charges its strict bound when a malformed Groq reply has no usage', async () => {
   const { makeThemeNamer, themeNamerTokenBound } = await import('../src/news/themes/llm')
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-malformed-'))
@@ -889,10 +2075,118 @@ await check('makeThemeNamer reserves the full prompt/output bound near the share
   assert.ok(saved.tokens <= tokenCap)
 })
 
-await check('makeThemeNamer returns undefined when no key / model off (stays deterministic)', async () => {
+await check('theme compiler skips an unsafe TPM envelope and validates through configured overflow with honest provenance', async () => {
   const { makeThemeNamer } = await import('../src/news/themes/llm')
-  assert.equal(makeThemeNamer({ themesDiscoverModel: 'off' }, fetch, '/tmp'), undefined)
-  assert.equal(makeThemeNamer({ themesDiscoverModel: 'claude-haiku' }, fetch, '/tmp'), undefined) // no key
+  resetBudgetMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-overflow-route-'))
+  const candidate = createTheme([
+    item('overflow-route-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('overflow-route-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('overflow-route-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  const proposal = llmThemeProposal({
+    support: candidate.members.map((member) => member.event_id), anchors: ['capacity', 'shortage'],
+    expressions: [{
+      name_key: 'alpha', side: 'beneficiary', role: 'direct',
+      mechanism: 'Alpha receives equipment orders while the cited shortage constrains capacity.',
+      evidence_event_ids: ['overflow-route-1'],
+    }],
+  })
+  const urls: string[] = []
+  const fetchFn = (async (url: string | URL | Request) => {
+    urls.push(String(url))
+    return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: JSON.stringify({ themes: [proposal] }) } }], usage: { total_tokens: 100 } }) }
+  }) as unknown as typeof fetch
+  const outcome = await makeThemeNamer({
+    themesDiscoverModel: 'groq', groqApiKey: 'groq-key', groqBaseUrl: 'https://groq.test', groqModel: 'g',
+    groqRpm: 28, groqTpm: 1000, groqDailyReqCap: 10, groqDailyTokenCap: 100_000,
+    overflowProviders: [{
+      id: 'overflow-test', label: 'Overflow Test', color: '--test', apiKey: 'overflow-key',
+      baseUrl: 'https://overflow.test/v1', model: 'm', dailyReqCap: 10, rpm: 0, maxTokens: 3000,
+      budgetFile: 'overflow-test-budget.json',
+    }],
+  }, fetchFn, tmp)([candidate], NOW)
+  assert.deepEqual(urls, ['https://overflow.test/v1/chat/completions'], 'the unsafe Groq request is never acquired or sent')
+  assert.equal(outcome?.state, 'succeeded')
+  assert.equal(outcome?.attempted_count, 1)
+  assert.equal(outcome?.validated_count, 1)
+  assert.equal(candidate.generation, 'llm')
+  assert.equal(candidate.validator_provider, 'overflow-test')
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetSharedLimiters()
+})
+
+await check('theme compiler dynamically caps one Groq request inside its configured TPM envelope', async () => {
+  const { makeThemeNamer, themeNamerTokenBound } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-tpm-admit-'))
+  const candidate = createTheme([
+    item('tpm-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('tpm-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('tpm-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  const proposal = llmThemeProposal({ support: candidate.members.map((member) => member.event_id), anchors: ['capacity', 'shortage'] })
+  const inputBound = themeNamerTokenBound([candidate], undefined, 0)
+  let sentMaxTokens = 0
+  const fetchFn = (async (_url: string | URL | Request, init?: RequestInit) => {
+    sentMaxTokens = Number(JSON.parse(String(init?.body || '{}')).max_tokens)
+    return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: JSON.stringify({ themes: [proposal] }) } }], usage: { total_tokens: 100 } }) }
+  }) as unknown as typeof fetch
+  const outcome = await makeThemeNamer({
+    themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm',
+    groqRpm: 28, groqTpm: 6000, groqDailyReqCap: 10, groqDailyTokenCap: 100_000,
+  }, fetchFn, tmp)([candidate], NOW)
+  assert.ok(sentMaxTokens >= 1200 && sentMaxTokens < 3000, `expected a reduced but usable output cap, got ${sentMaxTokens}`)
+  assert.ok(inputBound + sentMaxTokens <= 6000, 'the admitted conservative request fits the configured TPM envelope')
+  assert.equal(outcome?.validated_count, 1)
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetSharedLimiters()
+})
+
+await check('partial compiler progress preserves the capacity blocker for remaining debt', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-partial-cap-'))
+  const makeCandidate = (tag: string) => createTheme([
+    item(`${tag}-1`, `${tag} Alpha capacity shortage raises orders`, { companies: [co(`${tag} Alpha`, `${tag}A`)] }),
+    item(`${tag}-2`, `${tag} Beta capacity shortage raises orders`, { companies: [co(`${tag} Beta`, `${tag}B`)] }),
+    item(`${tag}-3`, `${tag} Alpha and Beta capacity shortage persists`, { companies: [co(`${tag} Alpha`, `${tag}A`), co(`${tag} Beta`, `${tag}B`)] }),
+  ], NOW)
+  const first = makeCandidate('First')
+  const second = makeCandidate('Second')
+  const proposal = llmThemeProposal({ support: first.members.map((member) => member.event_id), anchors: ['capacity', 'shortage'] })
+  const fetchFn = (async () => ({
+    ok: true, status: 200,
+    json: async () => ({ choices: [{ message: { content: JSON.stringify({ themes: [proposal] }) } }], usage: { total_tokens: 100 } }),
+  })) as unknown as typeof fetch
+  const outcome = await makeThemeNamer({
+    themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm',
+    groqDailyReqCap: 1, groqDailyTokenCap: 100_000,
+  }, fetchFn, tmp)([first, second], NOW)
+  assert.equal(outcome?.validated_count, 1)
+  assert.equal(outcome?.state, 'blocked')
+  assert.equal(outcome?.blocker, 'daily_cap')
+  assert.match(outcome?.message || '', /processed 1 of 2.*no daily compiler capacity/i)
+  assert.equal(second.validation_attempted_at, undefined)
+  fs.rmSync(tmp, { recursive: true, force: true })
+  resetSharedLimiters()
+})
+
+await check('makeThemeNamer reports disabled or unconfigured capacity without fabricating an attempt', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  const candidate = createTheme([
+    item('off-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+    item('off-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+    item('off-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+  ], NOW)
+  const disabled = await makeThemeNamer({ themesDiscoverModel: 'off' }, fetch, '/tmp')([candidate], NOW)
+  assert.equal(disabled?.state, 'skipped')
+  assert.equal(disabled?.blocker, 'not_configured')
+  assert.equal(disabled?.attempted_count, 0)
+  assert.equal(candidate.validation_attempted_at, undefined)
+  const unconfigured = await makeThemeNamer({ themesDiscoverModel: 'claude-haiku' }, fetch, '/tmp')([candidate], NOW)
+  assert.equal(unconfigured?.state, 'skipped')
+  assert.equal(unconfigured?.attempted_count, 0)
 })
 
 // ---- the daily flow ring (long-horizon history for the time-window selector) ----
@@ -1572,6 +2866,41 @@ await check('new and legacy deterministic themes retry through the bounded migra
   assert.ok(legacy.narrative, 'migration completes only with the versioned narrative contract')
 })
 
+await check('existing validation debt retries on every scanner cycle, not only discovery cadence', async () => {
+  const queued = createTheme([
+    item('ordinary-v1', 'IonQ expands quantum qubit capacity', { companies: [co('IonQ', 'IONQ')] }),
+    item('ordinary-v2', 'Rigetti expands quantum qubit capacity', { companies: [co('Rigetti', 'RGTI')] }),
+    item('ordinary-v3', 'IonQ and Rigetti expand quantum qubit capacity', { companies: [co('IonQ', 'IONQ'), co('Rigetti', 'RGTI')] }),
+  ], NOW)
+  let seen: string[] = []
+  await stepThemes({
+    themes: [queued], pool: [], items: [], runDiscovery: false, now: NOW,
+    llmNamer: async (batch) => { seen = batch.map((theme) => theme.theme_id) },
+  })
+  assert.deepEqual(seen, [queued.theme_id], 'capacity returning on an ordinary cycle immediately reaches old validation debt')
+})
+
+await check('a capacity-only compiler result persists health without inventing a theme mutation', async () => {
+  const queued = createTheme([
+    item('blocked-v1', 'IonQ expands quantum qubit capacity', { companies: [co('IonQ', 'IONQ')] }),
+    item('blocked-v2', 'Rigetti expands quantum qubit capacity', { companies: [co('Rigetti', 'RGTI')] }),
+    item('blocked-v3', 'IonQ and Rigetti expand quantum qubit capacity', { companies: [co('IonQ', 'IONQ'), co('Rigetti', 'RGTI')] }),
+  ], NOW)
+  await stepThemes({ themes: [queued], pool: [], items: [], runDiscovery: false, now: NOW })
+  const before = JSON.stringify(queued)
+  const result = await stepThemes({
+    themes: [queued], pool: [], items: [], runDiscovery: false, now: NOW,
+    llmNamer: async (batch, now) => ({
+      attempted_at: now.toISOString().replace(/\.\d{3}Z$/, 'Z'), state: 'blocked', provider: 'groq',
+      blocker: 'daily_cap', message: 'Groq has no daily compiler capacity.', requested_count: batch.length,
+      attempted_count: 0, validated_count: 0, rejected_count: 0, malformed_count: 0, omitted_count: 0,
+    }),
+  })
+  assert.equal(JSON.stringify(queued), before)
+  assert.ok(!result.changedThemeIds.includes(queued.theme_id), 'health-only state does not append an unchanged ledger row')
+  assert.equal(result.compilerAttempt?.blocker, 'daily_cap')
+})
+
 await check('validation debt leads the four-theme compiler batch even when 8+ new clusters arrive', async () => {
   const pending = createTheme([
     item('debt-p1', 'IonQ expands quantum qubit production', { companies: [co('IonQ', 'IONQ')] }),
@@ -1652,7 +2981,7 @@ await check('compiler queue reserves the front of every batch for narrative upda
   }
 })
 
-await check('narrative updates run on ordinary scanner cycles and pending rows survive a bounded member ring', async () => {
+await check('pending overflow retires on the next scanner step so it cannot become a permanent zombie', async () => {
   const theme = createTheme([
     item('cycle-1', 'Vertiv cooling bottleneck raises orders', { companies: [co('Vertiv', 'VRT')] }),
     item('cycle-2', 'Eaton cooling bottleneck raises orders', { companies: [co('Eaton', 'ETN')] }),
@@ -1664,14 +2993,202 @@ await check('narrative updates run on ordinary scanner cycles and pending rows s
     { companies: [co(`Supplier ${index}`, `CP${index}`)] },
   ))
   assignThemes(arrivals, [theme], { maxThemesPerItem: 3, maxMembers: 3 }, NOW)
-  assert.equal(theme.pending_narrative_event_ids?.length, 5)
-  assert.ok(arrivals.every((row) => theme.members.some((member) => member.event_id === row.event_id)), 'no pending row is evicted even when debt exceeds the ordinary ring cap')
+  assert.equal(theme.members.length, 3)
+  assert.ok((theme.pending_narrative_event_ids?.length || 0) <= 3)
+  assert.ok((theme.pending_narrative_event_ids || []).every((eventId) => theme.members.some((member) => member.event_id === eventId)), 'pending debt always resolves inside the hard-capped ring')
   let seen: string[] = []
-  await stepThemes({
+  const recovery = await stepThemes({
     themes: [theme], pool: [], items: [], runDiscovery: false, now: NOW,
     llmNamer: async (batch) => { seen = batch.map((row) => row.theme_id) },
   })
-  assert.deepEqual(seen, [theme.theme_id], 'update classification does not wait for discovery cadence')
+  assert.deepEqual(seen, [], 'a compiler cannot classify the IDs the hard cap no longer carries')
+  assert.equal(theme.narrative_update_overflow, true)
+  assert.equal(theme.needs_narrative_update, true)
+  assert.equal(theme.status, 'retired', 'ordinary cadence retires an irrecoverably incomplete bounded record')
+  assert.deepEqual(recovery.removed, [{ theme_id: theme.theme_id, reason: 'retired', merged_into: null, rev: theme.rev }])
+  assert.equal(seen.length, 0, 'retirement never spends a compiler call on incomplete evidence')
+  assert.ok(recovery.pool.length > 0, 'the bounded retained audit is reclaimed for later successor discovery')
+  const fresh = [
+    item('cycle-fresh-a', 'Alpha liquid cooling bottleneck raises orders', {
+      dedup_group: 'STORY-cycle-fresh-a', companies: [co('Alpha Supplier', 'FRESHA')],
+    }),
+    item('cycle-fresh-b', 'Beta liquid cooling bottleneck raises orders', {
+      dedup_group: 'STORY-cycle-fresh-b', companies: [co('Beta Supplier', 'FRESHB')],
+    }),
+    item('cycle-fresh-c', 'Gamma liquid cooling bottleneck raises orders', {
+      dedup_group: 'STORY-cycle-fresh-c', companies: [co('Gamma Supplier', 'FRESHC')],
+    }),
+  ]
+  const successorSeed = await stepThemes({
+    themes: [theme], pool: [], items: fresh, runDiscovery: true,
+    now: new Date(NOW.getTime() + 120_000),
+  })
+  for (const row of fresh) {
+    assert.equal(successorSeed.assignments.get(row.event_id)?.includes(theme.theme_id) || false, false,
+      'fresh evidence is never stamped with a retired incomplete theme')
+  }
+  const successor = successorSeed.themes.find((candidate) => candidate.status === 'live')
+  assert.ok(successor, 'three genuinely new independent families can form a complete successor')
+  assert.notEqual(successor!.theme_id, theme.theme_id, 'the retired tombstone ID remains reserved')
+  assert.ok(successorSeed.changedThemeIds.includes(successor!.theme_id))
+  assert.equal(new Set(successor!.members.map((member) => member.dedup_group || member.event_id)).size, 3)
+
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-overflow-successor-'))
+  appendThemeMutations(root, [theme, successor!], () => new Date(NOW.getTime() + 120_000))
+  const persisted = loadThemes(root)
+  assert.equal(persisted.find((candidate) => candidate.theme_id === theme.theme_id)?.status, 'retired')
+  assert.equal(persisted.find((candidate) => candidate.theme_id === successor!.theme_id)?.status, 'live')
+  fs.rmSync(root, { recursive: true, force: true })
+})
+
+await check('assignment overflow retires in the same ordinary scanner pass and returns the triggering evidence to the pool', async () => {
+  const supports = [
+    item('same-pass-a', 'Alpha liquid cooling bottleneck raises supplier orders', {
+      dedup_group: 'same-pass-family-a', companies: [co('Alpha', 'ALPH')], found_at: hoursAgo(3),
+    }),
+    item('same-pass-b', 'Beta liquid cooling bottleneck raises supplier orders', {
+      dedup_group: 'same-pass-family-b', companies: [co('Beta', 'BETA')], found_at: hoursAgo(2),
+    }),
+    item('same-pass-c', 'Gamma liquid cooling bottleneck raises supplier orders', {
+      dedup_group: 'same-pass-family-c', companies: [co('Gamma', 'GAMM')], found_at: hoursAgo(1),
+    }),
+  ]
+  const theme = createTheme(supports, NOW, 'claude')
+  attachValidNarrative(theme, { anchor_terms: ['cooling', 'bottleneck'] })
+  const trigger = item('same-pass-d', 'Delta liquid cooling bottleneck raises supplier orders', {
+    dedup_group: 'same-pass-family-d', companies: [co('Delta', 'DELT')], found_at: NOW.toISOString(),
+  })
+  const cfg = {
+    ...DEFAULT_THEMES_CONFIG,
+    assign: { ...DEFAULT_THEMES_CONFIG.assign, maxMembers: 3 },
+    discover: { ...DEFAULT_THEMES_CONFIG.discover, maxMembers: 3 },
+  }
+  const result = await stepThemes({ themes: [theme], pool: [], items: [trigger], runDiscovery: false, now: NOW, cfg })
+
+  assert.equal(theme.status, 'retired', 'the assignment-created overflow cannot remain live until another cadence')
+  assert.equal(theme.narrative_update_overflow, true)
+  assert.ok(result.removed.some((row) => row.theme_id === theme.theme_id && row.reason === 'retired'))
+  assert.equal(result.assignments.get(trigger.event_id)?.includes(theme.theme_id) || false, false, 'the trigger is never stamped with the retired tombstone')
+  assert.ok(result.pool.some((row) => row.event_id === trigger.event_id), 'the row absorbed before overflow detection is reclaimed for successor discovery')
+  assert.equal(result.themes.filter((candidate) => candidate.status === 'live').length, 0, 'rebuild waits for the next cold-start to restore any evicted audit rows')
+})
+
+await check('overflow recovery suppresses only exact live observations, not a missing challenge from their shared family', async () => {
+  const sharedSupport = item('shared-live-support', 'Alpha liquid cooling bottleneck raises supplier orders', {
+    dedup_group: 'shared-recovery-family', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(4),
+  })
+  const missingChallenge = item('shared-missing-challenge', 'Alpha cancels liquid cooling expansion as bottleneck eases', {
+    dedup_group: 'shared-recovery-family', companies: [co('Alpha', 'ALPH')], source_tier: 'primary_filing', found_at: hoursAgo(3),
+  })
+  const doomedPeer = item('shared-doomed-peer', 'Beta liquid cooling bottleneck raises supplier orders', {
+    dedup_group: 'shared-doomed-peer-family', companies: [co('Beta', 'BETA')], source_tier: 'company', found_at: hoursAgo(2),
+  })
+  const doomed = createTheme([sharedSupport, doomedPeer], NOW, 'claude')
+  attachValidNarrative(doomed, { anchor_terms: ['cooling', 'bottleneck'] })
+  assignThemes([missingChallenge], [doomed], undefined, NOW)
+  attachValidNarrative(doomed, {
+    anchor_terms: ['cooling', 'bottleneck'],
+    support_event_ids: [sharedSupport.event_id, doomedPeer.event_id],
+    challenge_event_ids: [missingChallenge.event_id],
+  })
+  delete doomed.pending_narrative_event_ids
+  doomed.needs_narrative_update = true
+  doomed.narrative_update_overflow = true
+
+  const livePeer = item('shared-live-peer', 'Gamma liquid cooling bottleneck raises supplier orders', {
+    dedup_group: 'shared-live-peer-family', companies: [co('Gamma', 'GAMM')], source_tier: 'primary_filing', found_at: hoursAgo(1),
+  })
+  const survivor = createTheme([sharedSupport, livePeer], NOW, 'claude')
+  attachValidNarrative(survivor, { anchor_terms: ['cooling', 'bottleneck'] })
+  survivor.name = 'Liquid Cooling Capacity Bottleneck'
+  survivor.slug = 'liquid-cooling-capacity-bottleneck'
+  survivor.description = 'A liquid-cooling capacity bottleneck is raising supplier orders.'
+  assert.equal(qualifyTheme(survivor, NOW).assessment.status, 'actionable', 'the surviving theme begins publishable')
+
+  const first = await stepThemes({ themes: [doomed, survivor], pool: [], items: [], runDiscovery: false, now: NOW })
+  assert.equal(doomed.status, 'retired')
+  assert.equal(survivor.status, 'live')
+  assert.equal(qualifyTheme(survivor, NOW).assessment.status, 'actionable', 'recovery does not quarantine an independent live theme')
+  assert.deepEqual(
+    first.pool.filter((row) => row.dedup_group === 'shared-recovery-family').map((row) => row.event_id),
+    [missingChallenge.event_id],
+    'the absent challenge is reclaimed while the exact observation already held live is not duplicated',
+  )
+
+  const replay = await stepThemes({ themes: first.themes, pool: first.pool, items: [], runDiscovery: false, now: NOW })
+  assert.deepEqual(
+    replay.pool.map((row) => row.event_id),
+    first.pool.map((row) => row.event_id),
+    'replaying recovery is idempotent and does not duplicate an exact observation',
+  )
+  assert.ok(replay.pool.length <= DEFAULT_THEMES_CONFIG.poolCap, 'the recovered pool remains hard-bounded')
+})
+
+await check('cold-start excludes only live Theme families so retired overflow evidence forms a distinct successor after restart', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-overflow-cold-start-'))
+  const stateDir = path.join(root, 'state')
+  const original = [
+    item('restart-a', 'Alpha liquid cooling bottleneck raises supplier orders', {
+      dedup_group: 'restart-family-a', companies: [co('Alpha', 'ALPH')], found_at: hoursAgo(4),
+    }),
+    item('restart-b', 'Beta liquid cooling bottleneck raises supplier orders', {
+      dedup_group: 'restart-family-b', companies: [co('Beta', 'BETA')], found_at: hoursAgo(3),
+    }),
+    item('restart-c', 'Gamma liquid cooling bottleneck raises supplier orders', {
+      dedup_group: 'restart-family-c', companies: [co('Gamma', 'GAMM')], found_at: hoursAgo(2),
+    }),
+  ]
+  const retired = createTheme(original, NOW, 'claude')
+  attachValidNarrative(retired, { anchor_terms: ['cooling', 'bottleneck'] })
+  const replacement = item('restart-d', 'Delta liquid cooling bottleneck raises supplier orders', {
+    dedup_group: 'restart-family-d', companies: [co('Delta', 'DELT')], found_at: hoursAgo(1),
+  })
+  assignThemes([replacement], [retired], { maxThemesPerItem: 3, maxMembers: 3 }, NOW)
+  assert.equal(retired.narrative_update_overflow, true)
+  retired.status = 'retired'
+  retired.rev++
+  appendThemeMutations(root, [retired], () => NOW)
+
+  const retainedRows = retired.members.map((member): ThemeItemView => ({
+    event_id: member.event_id,
+    dedup_group: member.dedup_group,
+    headline: member.headline,
+    headline_en: member.headline_en,
+    found_at: member.found_at,
+    observed_at: member.observed_at,
+    companies: member.companies,
+    event_types: member.event_types,
+    issuer_linkage: member.issuer_linkage,
+    triage_score: member.score,
+    source_tier: member.tier,
+    source_name: member.source_name,
+    url: member.url,
+  }))
+  const inbox = path.join(root, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  const wallDay = new Date().toISOString().slice(0, 10)
+  fs.writeFileSync(
+    path.join(inbox, `${wallDay}_firehose.ndjson`),
+    retainedRows.map((row) => JSON.stringify({ kind: 'item', ts: row.found_at, band: 'pick', ...row })).join('\n') + '\n',
+  )
+
+  await runThemesCycle({
+    repoRoot: root,
+    stateDir,
+    items: [],
+    runDiscovery: true,
+    now: () => NOW,
+    cfg: { ...DEFAULT_THEMES_CONFIG, assign: { ...DEFAULT_THEMES_CONFIG.assign, maxMembers: 3 }, discover: { ...DEFAULT_THEMES_CONFIG.discover, maxMembers: 3 } },
+  })
+  const persisted = loadThemes(root)
+  const successor = persisted.find((candidate) => candidate.status === 'live')
+  assert.ok(successor, 'retired member families re-enter the cold-start pool and rebuild')
+  assert.notEqual(successor!.theme_id, retired.theme_id, 'the changed retained family set creates a new ID while the tombstone remains reserved')
+  assert.deepEqual(
+    new Set(successor!.members.map((member) => member.dedup_group)),
+    new Set(retainedRows.map((row) => row.dedup_group)),
+  )
+  fs.rmSync(root, { recursive: true, force: true })
 })
 
 await check('latest classifications override old support, challenges win conflicts, context survives reload, and bare false cannot erase an established theme', async () => {
@@ -1703,6 +3220,50 @@ await check('latest classifications override old support, challenges win conflic
   assert.ok(theme.narrative)
 })
 
+await check('makeThemeNamer promotes only the active restoration as why-now and expression proof', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  const theme = createTheme([
+    item('restore-original', 'Alpha capacity shortage raises supplier demand', {
+      dedup_group: 'restore-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(3),
+    }),
+    item('restore-peer', 'Beta capacity shortage raises supplier demand', {
+      dedup_group: 'restore-beta', companies: [co('Beta', 'BETA')], source_tier: 'company', found_at: hoursAgo(3),
+    }),
+  ], NOW, 'claude')
+  theme.name = 'Capacity Shortage Raises Supplier Demand'
+  theme.description = 'A recurring capacity shortage is raising demand for directly exposed suppliers.'
+  attachValidNarrative(theme, { anchor_terms: ['capacity', 'shortage'] })
+  const challenge = item('restore-challenge', 'Alpha cancels capacity plan as shortage eases', {
+    dedup_group: 'restore-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(2),
+  })
+  const restoration = item('restore-active', 'Alpha reinstates capacity plan as shortage returns', {
+    dedup_group: 'restore-alpha', companies: [co('Alpha', 'ALPH')], source_tier: 'company', found_at: hoursAgo(1),
+  })
+  theme.members.push(
+    { ...challenge, score: challenge.triage_score!, tier: challenge.source_tier! },
+    { ...restoration, score: restoration.triage_score!, tier: restoration.source_tier! },
+  )
+  theme.pending_narrative_event_ids = [challenge.event_id, restoration.event_id]
+  theme.needs_narrative_update = true
+  const proposal = llmThemeProposal({
+    support: [restoration.event_id, 'restore-peer'], challenges: [challenge.event_id],
+    anchors: ['capacity', 'shortage'], why: restoration.event_id,
+    expressions: [{
+      name_key: 'alpha', side: 'beneficiary', role: 'direct',
+      mechanism: 'Alpha is directly exposed to restored capacity spending.', evidence_event_ids: [restoration.event_id],
+    }],
+  })
+  const fetchFn = (async () => ({ ok: true, status: 200, json: async () => ({
+    choices: [{ message: { content: JSON.stringify({ themes: [proposal] }) } }], usage: { total_tokens: 30 },
+  }) })) as unknown as typeof fetch
+  await makeThemeNamer({ themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm' }, fetchFn, fs.mkdtempSync(path.join(os.tmpdir(), 'thm-restoration-')))!([theme], NOW)
+  assert.equal(theme.narrative!.why_now_event_id, restoration.event_id)
+  assert.deepEqual(theme.narrative!.expressions[0].evidence_event_ids, [restoration.event_id])
+  assert.ok(theme.narrative!.evidence.some((row) => row.event_id === restoration.event_id && row.stance === 'supports'))
+  assert.ok(theme.narrative!.evidence.some((row) => row.event_id === challenge.event_id && row.stance === 'challenges'), 'historical challenge classification remains auditable')
+  assert.ok(!qualifyTheme(theme, NOW).challenging_members.some((member) => member.event_id === challenge.event_id), 'the newer equal-quality restoration is the active family state')
+})
+
 check('validated retirement ignores fresh raw/context traffic and uses the latest support or challenge clock', () => {
   const oldNow = new Date(NOW.getTime() - 181 * 24 * 3_600_000)
   const theme = createTheme([
@@ -1718,14 +3279,14 @@ check('validated retirement ignores fresh raw/context traffic and uses the lates
   assert.equal(theme.status, 'retired')
 })
 
-check('canonical duplicates prefer the source hierarchy while corrections and reversals get review lanes', () => {
+check('canonical theme evidence counts one best representative per publisher-copy family', () => {
   const rows = [
     { event_id: 'wire-new', dedup_group: 'story-1', headline: 'Issuer reports capacity expansion', found_at: hoursAgo(0), score: 95, tier: 'unconfirmed', source_name: 'Wire', url: 'https://example.test/new' },
     { event_id: 'filing-old', dedup_group: 'story-1', headline: 'Issuer reports capacity expansion', found_at: hoursAgo(1), score: 70, tier: 'primary_filing', source_name: 'Exchange', url: 'https://example.test/filing' },
     { event_id: 'correction', dedup_group: 'story-1', headline: 'Correction: issuer revises capacity expansion', found_at: hoursAgo(0), score: 70, tier: 'company', source_name: 'Issuer', url: 'https://example.test/correction' },
     { event_id: 'reversal', dedup_group: 'story-1', headline: 'Issuer withdraws and reverses capacity expansion', found_at: hoursAgo(0), score: 70, tier: 'company', source_name: 'Issuer', url: 'https://example.test/reversal' },
   ] as any
-  assert.deepEqual(uniqueThemeMembers(rows).map((row) => row.event_id).sort(), ['correction', 'filing-old', 'reversal'])
+  assert.deepEqual(uniqueThemeMembers(rows).map((row) => row.event_id), ['filing-old'])
 })
 
 check('theme ids bind anchor/evidence identity and stay deterministic across input order', () => {

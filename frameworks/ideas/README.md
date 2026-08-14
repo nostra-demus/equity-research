@@ -201,7 +201,8 @@ The current pre-data policy requires:
 
 - at least 10% probability in a loss of 5% or one ordinary five-session move, whichever is larger;
 - a favorable case spanning at least one ordinary five-session move;
-- probability-weighted expected return of at least 10%; and
+- probability-weighted expected return of at least 10%;
+- policy-adjusted expected return of at least 10% for the live board, after retaining only 35% of positive scenario returns and keeping losses in full;
 - expected loss magnitude in the worst 20% of scenario probability no greater than 20%; and
 - no scenario with a position loss greater than 35%.
 
@@ -209,9 +210,12 @@ Favorable probability mass inside the selected 20% contributes zero loss. It nev
 catastrophic state.
 
 These are disclosed policy priors, not claimed empirical optima. The board does not collapse them into
-one opaque score. It assigns risk/return Pareto layers: another idea dominates only when it offers at
-least as much expected return with no more worst-20% loss, worst-case loss, or loss probability, and is
-strictly better on at least one dimension.
+one opaque score. Before ranking, it retains only 35% of every positive scenario return while keeping
+losses in full until exact-horizon outcomes justify a different versioned policy. It then assigns
+risk/return Pareto layers: another idea dominates only when it offers at least as much policy-adjusted
+expected return with no more worst-20% loss, worst-case loss, or loss probability, and is strictly better
+on at least one dimension. Within the same frontier, evidence confidence orders ideas before the remaining
+return and risk tie-breakers; it cannot rescue an idea that is strictly dominated on risk and return.
 
 ## Outcome and calibration loop
 

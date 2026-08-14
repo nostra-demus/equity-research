@@ -11,6 +11,10 @@ import { invalidateSymbolCache } from '../src/news/symbology'
 import { resetSharedLimiters } from '../src/news/triage/budget'
 import { validIdeaSnapshot } from './ideas-fixture'
 
+function isYahooSymbolDirectoryUrl(input: Parameters<typeof fetch>[0]): boolean {
+  try { return new URL(String(input)).hostname === 'query1.finance.yahoo.com' } catch { return false }
+}
+
 const NOW = Date.parse('2026-08-03T12:00:00Z')
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'idea-pass-integrity-'))
 const stateDir = path.join(root, '.state')
@@ -36,7 +40,7 @@ const id = ideaId('ACME', 'long')
 let lifecycleEditInjected = false
 const fetchFn = (async (input: Parameters<typeof fetch>[0]) => {
   const url = String(input)
-  if (url.includes('query1.finance.yahoo.com')) {
+  if (isYahooSymbolDirectoryUrl(input)) {
     if (!lifecycleEditInjected) {
       lifecycleEditInjected = true
       // Simulate a user promotion while the pass is awaiting its independent listing lookup. The final
@@ -155,7 +159,7 @@ fs.writeFileSync(path.join(lineageBoard, 'themes_index.json'), JSON.stringify({ 
 ] }))
 let lineageProviderCalls = 0
 const lineageFetch = (async (input: Parameters<typeof fetch>[0]) => {
-  if (String(input).includes('query1.finance.yahoo.com')) {
+  if (isYahooSymbolDirectoryUrl(input)) {
     return new Response(JSON.stringify({ quotes: [{ quoteType: 'EQUITY', symbol: 'LINK', longname: 'Link Corp', exchDisp: 'NYSE' }] }), { status: 200 })
   }
   lineageProviderCalls++
@@ -286,7 +290,7 @@ invalidateSymbolCache()
 resetSharedLimiters()
 let packagePrompt = ''
 const packageFetch = (async (input: Parameters<typeof fetch>[0], init?: RequestInit) => {
-  if (String(input).includes('query1.finance.yahoo.com')) {
+  if (isYahooSymbolDirectoryUrl(input)) {
     return new Response(JSON.stringify({ quotes: [{ quoteType: 'EQUITY', symbol: 'ACME', longname: 'Acme Corp', exchDisp: 'NYSE' }] }), { status: 200 })
   }
   const request = JSON.parse(String(init?.body || '{}'))
@@ -357,7 +361,7 @@ fs.writeFileSync(path.join(brokenInbox, '2026-08-03_sweep.json'), JSON.stringify
   ],
 }))
 const brokenFetch = (async (input: Parameters<typeof fetch>[0]) => {
-  if (String(input).includes('query1.finance.yahoo.com')) {
+  if (isYahooSymbolDirectoryUrl(input)) {
     return new Response(JSON.stringify({ quotes: [{ quoteType: 'EQUITY', symbol: 'BROKEN', longname: 'Broken Corp', exchDisp: 'NYSE' }] }), { status: 200 })
   }
   return new Response(JSON.stringify({
@@ -387,8 +391,101 @@ try {
   fs.rmSync(brokenRoot, { recursive: true, force: true })
 }
 
+// Event direction is a row-level impact label, not the sign of every related security. A negative event
+// must still persist a verified long secondary beneficiary, while a long that reverses a uniquely bound
+// negative primary-issuer row remains rejected.
+const directionRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'idea-pass-direction-binding-'))
+const directionState = path.join(directionRoot, '.state')
+const directionInbox = path.join(directionRoot, 'screener', 'inbox')
+const DIRECTION_NOW = NOW + 19 * 60_000
+fs.mkdirSync(directionInbox, { recursive: true })
+fs.writeFileSync(path.join(directionInbox, '2026-08-03_sweep.json'), JSON.stringify({
+  updated_at: '2026-08-03T12:10:00Z', rows: [
+    {
+      headline: 'Harmed Corp loses its only supply licence', url: 'https://regulator.test/harmed-licence',
+      source_name: 'Regulator', found_at: '2026-08-03T12:05:00Z', triage_score: 94,
+      issuer_linkage: 'primary', event_direction: 'negative',
+      companies: [{ name: 'Harmed Corp', ticker: null, listing_country: 'US' }],
+    },
+    {
+      headline: 'Licence loss shifts orders to the named secondary supplier', url: 'https://regulator.test/beneficiary-orders',
+      source_name: 'Regulator', found_at: '2026-08-03T12:04:00Z', triage_score: 93,
+      issuer_linkage: 'secondary', event_direction: 'negative', companies: [
+        { name: 'Harmed Corp', ticker: 'HARMED', listing_country: 'US' },
+        { name: 'Benefit Corp', ticker: 'BENEFIT', listing_country: 'US' },
+      ],
+    },
+    {
+      headline: 'Norsk Hydro loses a material power contract', url: 'https://exchange.test/norsk-hydro-contract',
+      source_name: 'Exchange', found_at: '2026-08-03T12:03:00Z', triage_score: 92,
+      issuer_linkage: 'primary', event_direction: 'negative',
+      companies: [{ name: 'Norsk Hydro ASA', ticker: 'NHY', listing_country: 'NO' }],
+    },
+  ],
+}))
+invalidateSymbolCache()
+const directionFetch = (async (input: Parameters<typeof fetch>[0]) => {
+  const url = String(input)
+  if (isYahooSymbolDirectoryUrl(input)) {
+    const q = new URL(url).searchParams.get('q') || ''
+    const quote = q === 'HARMED'
+      ? { quoteType: 'EQUITY', symbol: 'HARMED', longname: 'Harmed Corp', exchDisp: 'NYSE' }
+      : q === 'BENEFIT'
+        ? { quoteType: 'EQUITY', symbol: 'BENEFIT', longname: 'Benefit Corp', exchDisp: 'NASDAQ' }
+        : q === 'NHY.OL'
+          ? { quoteType: 'EQUITY', symbol: 'NHY.OL', longname: 'Norsk Hydro ASA', exchDisp: 'Oslo' }
+        : null
+    return new Response(JSON.stringify({ quotes: quote ? [quote] : [] }), { status: 200 })
+  }
+  return new Response(JSON.stringify({
+    choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [
+      {
+        src: [0], ticker: 'HARMED', company: 'Harmed Corp', exchange: 'NYSE', direction: 'long',
+        reason: 'The licence loss can lift revenue', why_now: 'The regulator filed the decision today',
+        conviction: 64, priced_in: 'room', thesis_type: 'company_specific',
+      },
+      {
+        src: [1], ticker: 'BENEFIT', company: 'Benefit Corp', exchange: 'NASDAQ', direction: 'long',
+        reason: 'Orders can shift to the named secondary supplier after its rival lost the licence',
+        why_now: 'The regulator filed the licence decision today',
+        conviction: 67, priced_in: 'room', thesis_type: 'company_specific',
+      },
+      {
+        src: [2], ticker: 'NHY.OL', company: 'Norsk Hydro ASA', exchange: 'Oslo', direction: 'long',
+        reason: 'The contract loss can lift revenue', why_now: 'The exchange disclosed the loss today',
+        conviction: 66, priced_in: 'room', thesis_type: 'company_specific',
+      },
+      {
+        src: [2], ticker: 'NHY.OL', company: 'Norsk Hydro ASA', exchange: 'Oslo', direction: 'short',
+        reason: 'The contract loss can reduce revenue', why_now: 'The exchange disclosed the loss today',
+        conviction: 66, priced_in: 'room', thesis_type: 'company_specific',
+      },
+    ] }) } }], usage: { total_tokens: 100 },
+  }), { status: 200, headers: { 'content-type': 'application/json' } })
+}) as typeof fetch
+try {
+  const result = await runIdeaPass({
+    repoRoot: directionRoot, stateDir: directionState, config, refreshBoard: async () => {}, now: () => DIRECTION_NOW,
+    fetchFn: directionFetch, sleep: async () => {}, persistHealth: true,
+  })
+  assert.equal(result.produced, 2, JSON.stringify(result))
+  assert.equal(readIdeaById(directionRoot, ideaId('HARMED', 'long')), null, 'an exact negative primary company still rejects a naked long when title triage omitted its ticker')
+  const beneficiary = readIdeaById(directionRoot, ideaId('BENEFIT', 'long'))
+  assert.equal(beneficiary?.ticker, 'BENEFIT', 'a negative event can persist its verified secondary beneficiary as a long')
+  assert.equal(beneficiary?.direction, 'long')
+  assert.deepEqual(beneficiary?.source_event_ids, [eventIdFor('Licence loss shifts orders to the named secondary supplier', 'https://regulator.test/beneficiary-orders')])
+  assert.equal(readIdeaById(directionRoot, ideaId('NHY.OL', 'long')), null, 'a negative issuer event cannot reverse direction just because triage used its unsuffixed base symbol')
+  const suffixedShort = readIdeaById(directionRoot, ideaId('NHY.OL', 'short'))
+  assert.equal(suffixedShort?.ticker, 'NHY.OL')
+  assert.equal(suffixedShort?.direction, 'short', 'the same safely bound evidence admits its aligned direction')
+} finally {
+  fs.rmSync(directionRoot, { recursive: true, force: true })
+  invalidateSymbolCache()
+}
+
 // A pair is persisted only after two independent exact-symbol directory checks. An unlisted first
-// second-leg candidate must not reserve the stable primary+direction id and block a later valid pair.
+// second-leg candidate or directory-proven self-pair must not reserve the stable primary+direction id.
+// Same-base symbols on different venues remain valid when the directory identifies unrelated issuers.
 const pairRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'idea-pass-pair-listing-'))
 const pairState = path.join(pairRoot, '.state')
 const pairInbox = path.join(pairRoot, 'screener', 'inbox')
@@ -404,7 +501,7 @@ invalidateSymbolCache()
 const directoryQueries: string[] = []
 const pairFetch = (async (input: Parameters<typeof fetch>[0]) => {
   const url = String(input)
-  if (url.includes('query1.finance.yahoo.com')) {
+  if (isYahooSymbolDirectoryUrl(input)) {
     const q = new URL(url).searchParams.get('q') || ''
     directoryQueries.push(q)
     const quote = q === 'PAIRPRIM'
@@ -413,6 +510,14 @@ const pairFetch = (async (input: Parameters<typeof fetch>[0]) => {
         // Wire-only has no server-authoritative pair company name. Exact ticker+venue is the safe path;
         // this intentionally unrelated directory name proves no provider-authored name was trusted.
         ? { quoteType: 'EQUITY', symbol: 'GOODLEG', longname: 'Directory Returned Name Plc', exchDisp: 'NASDAQ' }
+        : q === 'ALIAS'
+          ? { quoteType: 'EQUITY', symbol: 'ALIAS', longname: 'Alias Holdings Inc', exchDisp: 'NYSE' }
+          : q === 'ALIAS.NS'
+            ? { quoteType: 'EQUITY', symbol: 'ALIAS.NS', longname: 'Alias Holdings Limited', exchDisp: 'NSE' }
+            : q === 'SHARED'
+              ? { quoteType: 'EQUITY', symbol: 'SHARED', longname: 'Shared Systems Inc', exchDisp: 'NYSE' }
+              : q === 'SHARED.NS'
+                ? { quoteType: 'EQUITY', symbol: 'SHARED.NS', longname: 'Shared Motors Limited', exchDisp: 'NSE' }
         : null
     return new Response(JSON.stringify({ quotes: quote ? [quote] : [] }), { status: 200 })
   }
@@ -429,6 +534,16 @@ const pairFetch = (async (input: Parameters<typeof fetch>[0]) => {
         conviction: 66, priced_in: 'room', thesis_type: 'company_specific',
       },
       {
+        src: [0, 1], ticker: 'ALIAS', company: 'Alias Holdings Inc', exchange: 'NYSE', direction: 'pair', pair_with: 'ALIAS.NS',
+        reason: 'The order shifts revenue toward the winner', why_now: 'The award was filed today',
+        conviction: 66, priced_in: 'room', thesis_type: 'company_specific',
+      },
+      {
+        src: [0, 1], ticker: 'SHARED', company: 'Shared Systems Inc', exchange: 'NYSE', direction: 'pair', pair_with: 'SHARED.NS',
+        reason: 'The order shifts revenue toward one unrelated same-symbol company', why_now: 'The award was filed today',
+        conviction: 66, priced_in: 'room', thesis_type: 'company_specific',
+      },
+      {
         src: [0, 1], ticker: 'PAIRPRIM', company: 'Pair Primary Corp', exchange: 'NYSE', direction: 'pair', pair_with: 'GOODLEG',
         reason: 'The order shifts revenue toward the winner', why_now: 'The award was filed today',
         conviction: 66, priced_in: 'room', thesis_type: 'company_specific',
@@ -441,11 +556,14 @@ try {
     repoRoot: pairRoot, stateDir: pairState, config, refreshBoard: async () => {}, now: () => PAIR_NOW,
     fetchFn: pairFetch, sleep: async () => {}, persistHealth: true,
   })
-  assert.equal(result.produced, 1)
+  assert.equal(result.produced, 2)
   assert.ok(directoryQueries.includes('BADPRIMARY'), 'an unlisted primary invalidates the whole pair')
   assert.equal(readIdeaById(pairRoot, ideaId('BADPRIMARY', 'pair')), null)
   assert.ok(directoryQueries.includes('BADLEG'), 'the unlisted second leg was independently checked')
   assert.ok(directoryQueries.includes('GOODLEG'), 'rejection did not block the later valid pair')
+  assert.equal(readIdeaById(pairRoot, ideaId('ALIAS', 'pair')), null, 'matching directory issuer identities reject a verified cross-listing self-pair')
+  const sameBaseDistinctIssuer = readIdeaById(pairRoot, ideaId('SHARED', 'pair'))
+  assert.equal(sameBaseDistinctIssuer?.pair_with, 'SHARED.NS', 'same-base symbols across venues persist when verified company identities differ')
   const persisted = readIdeaById(pairRoot, ideaId('PAIRPRIM', 'pair'))
   assert.equal(persisted?.pair_with, 'GOODLEG')
   assert.equal(persisted?.listing_verified, true, 'the primary leg also had to verify')
@@ -461,4 +579,4 @@ try {
   invalidateSymbolCache()
 }
 
-console.log('\n5 idea-pass integrity checks passed')
+console.log('\n6 idea-pass integrity checks passed')

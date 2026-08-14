@@ -14,11 +14,16 @@ import { articleReadTokenBound, readArticleBrief } from '../src/news/triage/arti
 import { coerceTriage, estimateTokens, scoreToBand, triageBatch } from '../src/news/triage/groq'
 import { triageBatchGemini } from '../src/news/triage/gemini'
 import { appendFeedItems, readFeed } from '../src/news/feed'
-import { mergeInbox } from '../src/news/write-inbox'
+import { mergeInbox, revisionClockRegistryDiagnostics } from '../src/news/write-inbox'
 import { runIngestCycle, triageGroqTokenBound } from '../src/news/runCycle'
 import { anthropicDrainReady, backlogTrend, drainBatchEst, getNewsDiagnostics, providerDrainUsable, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS } from '../src/config'
+import { createTheme } from '../src/news/themes/discover'
+import { appendThemeMutations, loadThemes } from '../src/news/themes/store'
+import { themeStoryFamilyKey, themeStoryKey } from '../src/news/themes/story-key'
+import type { ThemeItemView } from '../src/news/themes/types'
 import type { FeedItem, RawArticle, TriagedItem } from '../src/news/types'
+import { attachValidNarrative } from './themes-fixtures'
 
 let passed = 0
 async function check(name: string, fn: () => void | Promise<void>) {
@@ -362,15 +367,607 @@ function triagedItem(url: string, score: number, headline: string): TriagedItem 
 }
 await check('mergeInbox: writes ranked rows, caps unconsumed, assigns INB ids', () => {
   const root = tmp()
-  const n = mergeInbox(root, '2026-06-12', [triagedItem('https://r/1', 80, 'H1'), triagedItem('https://r/2', 55, 'H2'), triagedItem('https://r/3', 72, 'H3')], { maxRows: 2 })
-  assert.equal(n, 2) // capped to 2 unconsumed
+  const result = mergeInbox(root, '2026-06-12', [triagedItem('https://r/1', 80, 'H1'), triagedItem('https://r/2', 55, 'H2'), triagedItem('https://r/3', 72, 'H3')], { maxRows: 2 })
+  assert.equal(result.rowCount, 2) // capped to 2 unconsumed
   const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
   assert.equal(doc.source, 'auto_ingester')
   assert.deepEqual(doc.rows.map((r: any) => r.triage_score), [80, 72]) // ranked desc, H2(55) dropped by cap
   assert.match(doc.rows[0].inbox_id, /^INB-20260612-\d{3}$/)
   assert.equal(doc.rows[0].prelim_note, 'score 80') // legacy field kept populated for old readers
 })
-await check('mergeInbox is idempotent by URL and PRESERVES human consumed/launched state', () => {
+await check('mergeInbox recovers immutable clocks from archive-only sweeps and a corrupt sweep firehose', () => {
+  const priorDate = '2026-08-03'
+  const replayDate = '2026-08-12'
+  const durableFoundAt = '2026-08-03T00:00:00Z'
+  const durableObservedAt = '2026-08-03T00:01:00Z'
+
+  const archiveOnlyRoot = tmp()
+  const archiveOnlyDir = tmp()
+  const archiveUrl = 'https://reuters.com/archive-only-clock'
+  const archiveHeadline = 'Acme archive-only exact observation remains active'
+  const archiveEventId = eventIdFor(archiveHeadline, archiveUrl)
+  mergeInbox(archiveOnlyRoot, priorDate, [{
+    ...triagedItem(archiveUrl, 80, archiveHeadline), found_at: durableFoundAt,
+  }], { now: () => new Date(durableObservedAt) })
+  const archivedSweepName = `${priorDate}_sweep.json`
+  const localArchivedSweep = path.join(archiveOnlyRoot, 'screener', 'inbox', archivedSweepName)
+  fs.copyFileSync(localArchivedSweep, path.join(archiveOnlyDir, archivedSweepName))
+  fs.unlinkSync(localArchivedSweep)
+  const archiveReplay = mergeInbox(archiveOnlyRoot, replayDate, [{
+    ...triagedItem(archiveUrl, 80, archiveHeadline), found_at: '2026-08-12T00:00:00Z',
+  }], { archiveDir: archiveOnlyDir, now: () => new Date('2026-08-12T00:01:00Z') })
+  assert.deepEqual(archiveReplay.revisionClocksByEvent.get(archiveEventId), {
+    foundAt: durableFoundAt, observedAt: durableObservedAt, sourceIsEnglish: false,
+  })
+
+  const corruptRoot = tmp()
+  const corruptArchiveDir = tmp()
+  const corruptUrl = 'https://reuters.com/corrupt-sweep-clock'
+  const corruptHeadline = 'Beta exact observation survives a corrupt sweep'
+  const corruptEventId = eventIdFor(corruptHeadline, corruptUrl)
+  mergeInbox(corruptRoot, priorDate, [{
+    ...triagedItem(corruptUrl, 80, corruptHeadline), found_at: durableFoundAt,
+  }], { now: () => new Date(durableObservedAt) })
+  const firehoseItem: FeedItem = {
+    kind: 'item', ts: durableObservedAt, found_at: durableFoundAt, observed_at: durableObservedAt,
+    event_id: corruptEventId, headline: corruptHeadline, url: corruptUrl, domain: 'reuters.com',
+    source_name: 'Reuters', via: 'gdelt', region: 'GLOBAL', input_nature: 'news_headline',
+    triage_score: 80, band: 'pick', triage_reason: 'material', relevance: 'material', event_types: [],
+    issuer_linkage: 'primary', companies: [], size_bucket: 'large', dedup_status: 'new', inboxed: true,
+  }
+  fs.writeFileSync(path.join(corruptArchiveDir, `${priorDate}_firehose.ndjson`), `${JSON.stringify(firehoseItem)}\n`)
+  fs.writeFileSync(path.join(corruptRoot, 'screener', 'inbox', `${priorDate}_sweep.json`), '{corrupt\n')
+  const corruptReplay = mergeInbox(corruptRoot, replayDate, [{
+    ...triagedItem(corruptUrl, 80, corruptHeadline), found_at: '2026-08-12T00:00:00Z',
+  }], { archiveDir: corruptArchiveDir, now: () => new Date('2026-08-12T00:01:00Z') })
+  assert.deepEqual(corruptReplay.revisionClocksByEvent.get(corruptEventId), {
+    foundAt: durableFoundAt, observedAt: durableObservedAt, sourceIsEnglish: false,
+  })
+
+  for (const dir of [archiveOnlyRoot, archiveOnlyDir, corruptRoot, corruptArchiveDir]) {
+    fs.rmSync(dir, { recursive: true, force: true })
+  }
+})
+await check('a malformed firehose item makes revision coverage incomplete while non-item lines remain ignorable', () => {
+  const priorDate = '2026-08-03'
+  const replayDate = '2026-08-12'
+  const summary = JSON.stringify({ kind: 'cycle_summary', ts: '2026-08-03T00:01:00Z' })
+  const badRoot = tmp()
+  const badInbox = path.join(badRoot, 'screener', 'inbox')
+  fs.mkdirSync(badInbox, { recursive: true })
+  fs.writeFileSync(path.join(badInbox, `${priorDate}_sweep.json`), JSON.stringify({
+    date: priorDate, updated_at: '2026-08-03T00:01:00Z', rows: [],
+  }))
+  fs.writeFileSync(path.join(badInbox, `${priorDate}_firehose.ndjson`), [
+    summary,
+    JSON.stringify({ kind: 'item', url: 'https://reuters.com/malformed-clock-item' }),
+    '',
+  ].join('\n'))
+  assert.throws(() => mergeInbox(badRoot, replayDate, [triagedItem(
+    'https://reuters.com/new-after-malformed-clock', 80, 'New evidence waits for valid historical coverage',
+  )], { now: () => new Date('2026-08-12T00:01:00Z') }), /coverage is incomplete/)
+  assert.equal(fs.existsSync(path.join(badInbox, `${replayDate}_sweep.json`)), false)
+
+  const controlRoot = tmp()
+  const controlInbox = path.join(controlRoot, 'screener', 'inbox')
+  fs.mkdirSync(controlInbox, { recursive: true })
+  fs.writeFileSync(path.join(controlInbox, `${priorDate}_sweep.json`), JSON.stringify({
+    date: priorDate, updated_at: '2026-08-03T00:01:00Z', rows: [],
+  }))
+  fs.writeFileSync(path.join(controlInbox, `${priorDate}_firehose.ndjson`), `${summary}\n`)
+  const control = mergeInbox(controlRoot, replayDate, [triagedItem(
+    'https://reuters.com/new-after-summary', 80, 'Valid summary rows do not poison revision coverage',
+  )], { now: () => new Date('2026-08-12T00:01:00Z') })
+  assert.equal(control.rowCount, 1)
+  fs.rmSync(badRoot, { recursive: true, force: true })
+  fs.rmSync(controlRoot, { recursive: true, force: true })
+})
+await check('a current-day legacy migration survives the final merge and a SQLite restart', () => {
+  const root = tmp()
+  const seedState = tmp()
+  const state = tmp()
+  const date = '2026-08-13'
+  const cappedUrl = 'https://reuters.com/current-legacy-capped-clock'
+  const cappedHeadline = 'Capped legacy firehose evidence keeps its first clock'
+  const cappedEventId = eventIdFor(cappedHeadline, cappedUrl)
+  mergeInbox(root, date, [triagedItem(
+    'https://reuters.com/current-legacy-visible', 70, 'Visible legacy sweep evidence remains active',
+  )], { stateDir: seedState, now: () => new Date('2026-08-13T00:01:00Z') })
+  const sweepPath = path.join(root, 'screener', 'inbox', `${date}_sweep.json`)
+  const legacy = JSON.parse(fs.readFileSync(sweepPath, 'utf8'))
+  delete legacy.revision_clock_version
+  delete legacy.revision_clocks
+  fs.writeFileSync(sweepPath, JSON.stringify(legacy))
+  const cappedFirehoseItem: FeedItem = {
+    kind: 'item', ts: '2026-08-13T00:03:00Z', found_at: '2026-08-13T00:02:00Z',
+    observed_at: '2026-08-13T00:03:00Z', event_id: cappedEventId, headline: cappedHeadline,
+    url: cappedUrl, domain: 'reuters.com', source_name: 'Reuters', via: 'gdelt', region: 'GLOBAL',
+    input_nature: 'news_headline', triage_score: 60, band: 'watch', triage_reason: 'material',
+    relevance: 'material', event_types: [], issuer_linkage: 'primary', companies: [],
+    size_bucket: 'large', dedup_status: 'new', inboxed: false,
+  }
+  fs.writeFileSync(path.join(root, 'screener', 'inbox', `${date}_firehose.ndjson`),
+    `${JSON.stringify(cappedFirehoseItem)}\n`)
+
+  mergeInbox(root, date, [triagedItem(
+    'https://reuters.com/current-legacy-new-winner', 99, 'New current evidence wins the visible inbox cap',
+  )], { maxRows: 1, stateDir: state, now: () => new Date('2026-08-13T00:05:00Z') })
+  const merged = JSON.parse(fs.readFileSync(sweepPath, 'utf8'))
+  assert.equal(merged.rows.length, 1)
+  assert.ok(merged.revision_clocks.some((row: any) => row.event_id === cappedEventId),
+    'the final merge preserves the capped firehose clock added by current-day legacy migration')
+
+  const registry = path.join(state, 'news-revision-clocks.sqlite')
+  for (const suffix of ['', '-wal', '-shm']) fs.rmSync(`${registry}${suffix}`, { force: true })
+  const replay = mergeInbox(root, '2026-08-14', [{
+    ...triagedItem(cappedUrl, 80, cappedHeadline), found_at: '2026-08-14T00:00:00Z',
+  }], { stateDir: state, now: () => new Date('2026-08-14T00:01:00Z') })
+  assert.deepEqual(replay.revisionClocksByEvent.get(cappedEventId), {
+    foundAt: '2026-08-13T00:02:00Z', observedAt: '2026-08-13T00:03:00Z', sourceIsEnglish: false,
+  })
+  fs.rmSync(root, { recursive: true, force: true })
+  fs.rmSync(seedState, { recursive: true, force: true })
+  fs.rmSync(state, { recursive: true, force: true })
+})
+await check('an empty merge migrates the current legacy firehose before installing its revision index', () => {
+  const root = tmp()
+  const seedState = tmp()
+  const state = tmp()
+  const date = '2026-08-13'
+  const cappedUrl = 'https://reuters.com/empty-merge-legacy-capped-clock'
+  const cappedHeadline = 'An empty merge cannot hide capped legacy firehose evidence'
+  const cappedEventId = eventIdFor(cappedHeadline, cappedUrl)
+  mergeInbox(root, date, [triagedItem(
+    'https://reuters.com/empty-merge-visible-row', 80, 'The retained legacy row remains visible',
+  )], { stateDir: seedState, now: () => new Date('2026-08-13T00:01:00Z') })
+  const sweepPath = path.join(root, 'screener', 'inbox', `${date}_sweep.json`)
+  const legacy = JSON.parse(fs.readFileSync(sweepPath, 'utf8'))
+  delete legacy.revision_clock_version
+  delete legacy.revision_clocks
+  fs.writeFileSync(sweepPath, JSON.stringify(legacy))
+  const cappedFirehoseItem: FeedItem = {
+    kind: 'item', ts: '2026-08-13T00:03:00Z', found_at: '2026-08-13T00:02:00Z',
+    observed_at: '2026-08-13T00:03:00Z', event_id: cappedEventId, headline: cappedHeadline,
+    url: cappedUrl, domain: 'reuters.com', source_name: 'Reuters', via: 'gdelt', region: 'GLOBAL',
+    input_nature: 'news_headline', triage_score: 60, band: 'watch', triage_reason: 'material',
+    relevance: 'material', event_types: [], issuer_linkage: 'primary', companies: [],
+    size_bucket: 'large', dedup_status: 'new', inboxed: false,
+  }
+  fs.writeFileSync(path.join(root, 'screener', 'inbox', `${date}_firehose.ndjson`),
+    `${JSON.stringify(cappedFirehoseItem)}\n`)
+
+  mergeInbox(root, date, [], { stateDir: state, now: () => new Date('2026-08-13T00:05:00Z') })
+  const migrated = JSON.parse(fs.readFileSync(sweepPath, 'utf8'))
+  assert.ok(migrated.revision_clocks.some((row: any) => row.event_id === cappedEventId),
+    'the empty merge preserves capped firehose clocks while converting a legacy wrapper')
+  const replay = mergeInbox(root, '2026-08-14', [{
+    ...triagedItem(cappedUrl, 80, cappedHeadline), found_at: '2026-08-14T00:00:00Z',
+  }], { stateDir: state, now: () => new Date('2026-08-14T00:01:00Z') })
+  assert.deepEqual(replay.revisionClocksByEvent.get(cappedEventId), {
+    foundAt: '2026-08-13T00:02:00Z', observedAt: '2026-08-13T00:03:00Z', sourceIsEnglish: false,
+  })
+  fs.rmSync(root, { recursive: true, force: true })
+  fs.rmSync(seedState, { recursive: true, force: true })
+  fs.rmSync(state, { recursive: true, force: true })
+})
+await check('a known-key write cannot promote an incomplete bootstrap or forget its corrupt partition', () => {
+  const root = tmp()
+  const seedState = tmp()
+  const state = tmp()
+  const knownUrl = 'https://reuters.com/known-during-incomplete-bootstrap'
+  const knownHeadline = 'Known exact evidence remains safe during incomplete bootstrap'
+  const knownEventId = eventIdFor(knownHeadline, knownUrl)
+  mergeInbox(root, '2026-08-01', [{
+    ...triagedItem(knownUrl, 80, knownHeadline), found_at: '2026-08-01T00:00:00Z',
+  }], { stateDir: seedState, now: () => new Date('2026-08-01T00:01:00Z') })
+  const badFirehose = path.join(root, 'screener', 'inbox', '2026-08-02_firehose.ndjson')
+  fs.writeFileSync(badFirehose, `${JSON.stringify({
+    kind: 'item', url: 'https://reuters.com/corrupt-bootstrap-partition',
+  })}\n`)
+
+  const knownReplay = mergeInbox(root, '2026-08-13', [{
+    ...triagedItem(knownUrl, 80, knownHeadline), found_at: '2026-08-13T00:00:00Z',
+  }], { stateDir: state, now: () => new Date('2026-08-13T00:01:00Z') })
+  assert.deepEqual(knownReplay.revisionClocksByEvent.get(knownEventId), {
+    foundAt: '2026-08-01T00:00:00Z', observedAt: '2026-08-01T00:01:00Z', sourceIsEnglish: false,
+  })
+  const pending = JSON.parse(fs.readFileSync(path.join(state, 'news-revision-clocks.coverage.json'), 'utf8'))
+  assert.equal(pending.complete, false, 'a safe known-key hit cannot promote an incomplete bootstrap')
+  assert.deepEqual(pending.partition_dates, ['2026-08-01', '2026-08-02', '2026-08-13'],
+    'pending coverage retains the corrupt date and the known-key write')
+
+  const heldFirehose = `${badFirehose}.held`
+  fs.renameSync(badFirehose, heldFirehose)
+  assert.throws(() => mergeInbox(root, '2026-08-14', [triagedItem(
+    'https://reuters.com/unknown-after-hidden-corruption', 80,
+    'Unknown evidence cannot pass after the corrupt partition disappears',
+  )], { stateDir: state, now: () => new Date('2026-08-14T00:01:00Z') }), /coverage is incomplete/)
+  assert.equal(fs.existsSync(path.join(root, 'screener', 'inbox', '2026-08-14_sweep.json')), false)
+  fs.rmSync(root, { recursive: true, force: true })
+  fs.rmSync(seedState, { recursive: true, force: true })
+  fs.rmSync(state, { recursive: true, force: true })
+})
+await check('mergeInbox indexes manual rows before eviction and preserves their clocks cross-day', () => {
+  const root = tmp()
+  const priorDate = '2026-08-03'
+  const replayDate = '2026-08-12'
+  const manualUrl = 'https://reuters.com/manual-sweep-exact'
+  const manualHeadline = 'Manual sweep exact observation remains active'
+  const manualEventId = eventIdFor(manualHeadline, manualUrl)
+  const manualFoundAt = '2026-08-03T00:02:00Z'
+  const manualObservedAt = '2026-08-03T00:03:00Z'
+  mergeInbox(root, priorDate, [triagedItem('https://reuters.com/auto-seed', 80, 'Auto seed observation')], {
+    maxRows: 10, now: () => new Date('2026-08-03T00:01:00Z'),
+  })
+  const priorPath = path.join(root, 'screener', 'inbox', `${priorDate}_sweep.json`)
+  const manualDoc = JSON.parse(fs.readFileSync(priorPath, 'utf8'))
+  manualDoc.rows.push({
+    ...manualDoc.rows[0], inbox_id: 'INB-20260803-999', headline: manualHeadline, url: manualUrl,
+    found_at: manualFoundAt, observed_at: manualObservedAt, triage_score: 70,
+    dedup_group: manualEventId, consumed: false, launched_signal_id: null,
+  })
+  fs.writeFileSync(priorPath, JSON.stringify(manualDoc))
+  mergeInbox(root, priorDate, [{
+    ...triagedItem('https://reuters.com/crowding-row', 99, 'Crowding row evicts visible manual evidence'),
+    found_at: '2026-08-03T00:04:00Z',
+  }], { maxRows: 1, now: () => new Date('2026-08-03T00:05:00Z') })
+  const capped = JSON.parse(fs.readFileSync(priorPath, 'utf8'))
+  assert.equal(capped.rows.some((row: any) => row.url === manualUrl), false)
+  assert.ok(capped.revision_clocks.some((row: any) => row.event_id === manualEventId),
+    'the first auto merge after a manual row indexes it before applying the UI cap')
+
+  const replay = mergeInbox(root, replayDate, [{
+    ...triagedItem(manualUrl, 80, manualHeadline), found_at: '2026-08-12T00:00:00Z',
+  }], { now: () => new Date('2026-08-12T00:01:00Z') })
+  assert.deepEqual(replay.revisionClocksByEvent.get(manualEventId), {
+    foundAt: manualFoundAt, observedAt: manualObservedAt, sourceIsEnglish: false,
+  })
+  fs.rmSync(root, { recursive: true, force: true })
+})
+await check('mergeInbox repairs a current-day clock when an older partition returns', () => {
+  const root = tmp()
+  const priorDate = '2026-08-03'
+  const replayDate = '2026-08-12'
+  const url = 'https://reuters.com/temporarily-unavailable-clock'
+  const headline = 'Exact observation survives temporary partition loss'
+  const eventId = eventIdFor(headline, url)
+  const durableFoundAt = '2026-08-03T00:00:00Z'
+  const durableObservedAt = '2026-08-03T00:01:00Z'
+  mergeInbox(root, priorDate, [{ ...triagedItem(url, 80, headline), found_at: durableFoundAt }], {
+    now: () => new Date(durableObservedAt),
+  })
+  const priorPath = path.join(root, 'screener', 'inbox', `${priorDate}_sweep.json`)
+  const heldPath = `${priorPath}.held`
+  fs.renameSync(priorPath, heldPath)
+  mergeInbox(root, replayDate, [{
+    ...triagedItem(url, 80, headline), found_at: '2026-08-12T00:00:00Z',
+  }], { now: () => new Date('2026-08-12T00:01:00Z') })
+  fs.renameSync(heldPath, priorPath)
+
+  const repaired = mergeInbox(root, replayDate, [{
+    ...triagedItem(url, 80, headline), found_at: '2026-08-12T00:02:00Z',
+  }], { now: () => new Date('2026-08-12T00:03:00Z') })
+  assert.deepEqual(repaired.revisionClocksByEvent.get(eventId), {
+    foundAt: durableFoundAt, observedAt: durableObservedAt, sourceIsEnglish: false,
+  })
+  const current = JSON.parse(fs.readFileSync(path.join(root, 'screener', 'inbox', `${replayDate}_sweep.json`), 'utf8'))
+  const repairedIndex = current.revision_clocks.find((row: any) => row.event_id === eventId)
+  assert.equal(repairedIndex.found_at, durableFoundAt, 'the current partition persists the repaired source clock')
+  assert.equal(repairedIndex.observed_at, durableObservedAt, 'the current partition persists the repaired observation clock')
+  fs.rmSync(root, { recursive: true, force: true })
+})
+await check('a deleted current-day sweep recovers its exact clock from the durable registry', () => {
+  const root = tmp()
+  const state = tmp()
+  const date = '2026-08-13'
+  const url = 'https://reuters.com/current-day-sweep-loss'
+  const headline = 'Exact observation survives current day sweep loss'
+  const eventId = eventIdFor(headline, url)
+  mergeInbox(root, date, [{
+    ...triagedItem(url, 80, headline), found_at: '2026-08-13T00:00:00Z',
+  }], { stateDir: state, now: () => new Date('2026-08-13T00:01:00Z') })
+  const sweepPath = path.join(root, 'screener', 'inbox', `${date}_sweep.json`)
+  fs.unlinkSync(sweepPath)
+
+  const replay = mergeInbox(root, date, [{
+    ...triagedItem(url, 80, headline), found_at: '2026-08-13T02:00:00Z',
+  }], { stateDir: state, now: () => new Date('2026-08-13T02:01:00Z') })
+  assert.deepEqual(replay.revisionClocksByEvent.get(eventId), {
+    foundAt: '2026-08-13T00:00:00Z', observedAt: '2026-08-13T00:01:00Z', sourceIsEnglish: false,
+  })
+  const repaired = JSON.parse(fs.readFileSync(sweepPath, 'utf8'))
+  assert.equal(repaired.revision_clocks[0].found_at, '2026-08-13T00:00:00Z')
+  assert.equal(repaired.revision_clocks[0].observed_at, '2026-08-13T00:01:00Z')
+  fs.rmSync(root, { recursive: true, force: true })
+  fs.rmSync(state, { recursive: true, force: true })
+})
+await check('current-day coverage fails closed when both its sweep and SQLite projection are lost', () => {
+  const root = tmp()
+  const state = tmp()
+  const date = '2026-08-13'
+  const url = 'https://reuters.com/current-day-source-and-projection-loss'
+  const headline = 'Current day exact evidence cannot be made fresh after durable source loss'
+  mergeInbox(root, date, [{
+    ...triagedItem(url, 80, headline), found_at: '2026-08-13T00:00:00Z',
+  }], { stateDir: state, now: () => new Date('2026-08-13T00:01:00Z') })
+  const sweepPath = path.join(root, 'screener', 'inbox', `${date}_sweep.json`)
+  fs.unlinkSync(sweepPath)
+  const registry = path.join(state, 'news-revision-clocks.sqlite')
+  for (const suffix of ['', '-wal', '-shm']) fs.rmSync(`${registry}${suffix}`, { force: true })
+
+  assert.throws(() => mergeInbox(root, date, [{
+    ...triagedItem(url, 80, headline), found_at: '2026-08-13T02:00:00Z',
+  }], { stateDir: state, now: () => new Date('2026-08-13T02:01:00Z') }), /coverage is incomplete/)
+  assert.equal(fs.existsSync(sweepPath), false,
+    'a manifest-listed current partition cannot be replaced with a falsely fresh sweep')
+
+  const newRoot = tmp()
+  const newState = tmp()
+  const genuinelyNew = mergeInbox(newRoot, date, [triagedItem(
+    'https://reuters.com/genuinely-new-current-key', 80,
+    'A current key is new when no manifest ever listed its partition',
+  )], { stateDir: newState, now: () => new Date('2026-08-13T03:01:00Z') })
+  assert.equal(genuinelyNew.rowCount, 1)
+  fs.rmSync(root, { recursive: true, force: true })
+  fs.rmSync(state, { recursive: true, force: true })
+  fs.rmSync(newRoot, { recursive: true, force: true })
+  fs.rmSync(newState, { recursive: true, force: true })
+})
+await check('mergeInbox repairs cached clocks when an older sweep is fixed in place', () => {
+  const root = tmp()
+  const priorDate = '2026-08-03'
+  const replayDate = '2026-08-12'
+  const url = 'https://reuters.com/repaired-in-place-clock'
+  const headline = 'Exact observation survives an in-place sweep repair'
+  const eventId = eventIdFor(headline, url)
+  mergeInbox(root, priorDate, [{
+    ...triagedItem(url, 80, headline), found_at: '2026-08-03T00:00:00Z',
+  }], { now: () => new Date('2026-08-03T00:01:00Z') })
+  const priorPath = path.join(root, 'screener', 'inbox', `${priorDate}_sweep.json`)
+  const goodBytes = fs.readFileSync(priorPath)
+  fs.writeFileSync(priorPath, '{corrupt\n')
+  mergeInbox(root, replayDate, [{
+    ...triagedItem(url, 80, headline), found_at: '2026-08-12T00:00:00Z',
+  }], { now: () => new Date('2026-08-12T00:01:00Z') })
+  fs.writeFileSync(priorPath, goodBytes)
+
+  const repaired = mergeInbox(root, replayDate, [{
+    ...triagedItem(url, 80, headline), found_at: '2026-08-12T00:02:00Z',
+  }], { now: () => new Date('2026-08-12T00:03:00Z') })
+  assert.deepEqual(repaired.revisionClocksByEvent.get(eventId), {
+    foundAt: '2026-08-03T00:00:00Z', observedAt: '2026-08-03T00:01:00Z', sourceIsEnglish: false,
+  })
+  fs.rmSync(root, { recursive: true, force: true })
+})
+await check('mergeInbox returns clocks under the canonical pre-truncation event id', () => {
+  const root = tmp()
+  const url = 'https://reuters.com/long-source-headline'
+  const fullHeadline = `${'Acme capacity expansion remains active '.repeat(16)}terminal source text`
+  assert.ok(fullHeadline.length > 500)
+  const storedHeadline = fullHeadline.slice(0, 500)
+  const canonicalEventId = eventIdFor(fullHeadline, url)
+  assert.notEqual(canonicalEventId, eventIdFor(storedHeadline, url))
+  const item = {
+    ...triagedItem(url, 80, storedHeadline), event_id: canonicalEventId,
+    found_at: '2026-08-03T00:00:00Z',
+  }
+  const merged = mergeInbox(root, '2026-08-03', [item], {
+    now: () => new Date('2026-08-03T00:01:00Z'),
+  })
+  assert.deepEqual(merged.revisionClocksByEvent.get(canonicalEventId), {
+    foundAt: '2026-08-03T00:00:00Z', observedAt: '2026-08-03T00:01:00Z', sourceIsEnglish: false,
+  })
+  assert.equal(merged.revisionClocksByEvent.has(eventIdFor(storedHeadline, url)), false)
+  fs.rmSync(root, { recursive: true, force: true })
+})
+await check('revision clock history stays disk-backed with a bounded hot-key cache', () => {
+  const root = tmp()
+  const state = tmp()
+  const originals = Array.from({ length: 600 }, (_, i) => ({
+    ...triagedItem(`https://reuters.com/disk-clock-${i}`, 80, `Disk-backed exact observation ${i}`),
+    found_at: '2026-08-03T00:00:00Z',
+  }))
+  mergeInbox(root, '2026-08-03', originals, {
+    maxRows: 1, stateDir: state, now: () => new Date('2026-08-03T00:01:00Z'),
+  })
+  const replays = originals.map((item) => ({ ...item, found_at: '2026-08-12T00:00:00Z' }))
+  const merged = mergeInbox(root, '2026-08-12', replays, {
+    maxRows: 1, stateDir: state, now: () => new Date('2026-08-12T00:01:00Z'),
+  })
+  assert.equal(merged.revisionClocksByEvent.size, originals.length)
+  assert.ok([...merged.revisionClocksByEvent.values()].every((clock) => clock.foundAt === '2026-08-03T00:00:00Z'))
+  const diagnostics = revisionClockRegistryDiagnostics(root, state)
+  assert.equal(diagnostics.backend, 'sqlite')
+  assert.equal(diagnostics.revisionCount, originals.length, 'historic keys live in SQLite, not a lifetime JS map')
+  assert.equal(diagnostics.partitionCount, 2)
+  assert.equal(diagnostics.queryCacheEntries, diagnostics.queryCacheMax,
+    'more than the hot-cache limit evicts old lookup entries instead of growing with history')
+  fs.rmSync(root, { recursive: true, force: true })
+  fs.rmSync(state, { recursive: true, force: true })
+})
+await check('a corrupt derived revision registry rebuilds from embedded durable clocks', () => {
+  const root = tmp()
+  const state = tmp()
+  const url = 'https://reuters.com/rebuild-clock-registry'
+  const headline = 'Embedded exact clocks rebuild a corrupt disk registry'
+  const eventId = eventIdFor(headline, url)
+  mergeInbox(root, '2026-08-03', [{
+    ...triagedItem(url, 80, headline), found_at: '2026-08-03T00:00:00Z',
+  }], { stateDir: state, now: () => new Date('2026-08-03T00:01:00Z') })
+  const registry = path.join(state, 'news-revision-clocks.sqlite')
+  for (const suffix of ['-wal', '-shm']) fs.rmSync(`${registry}${suffix}`, { force: true })
+  fs.writeFileSync(registry, 'not a sqlite database')
+  const replay = mergeInbox(root, '2026-08-12', [{
+    ...triagedItem(url, 80, headline), found_at: '2026-08-12T00:00:00Z',
+  }], { stateDir: state, now: () => new Date('2026-08-12T00:01:00Z') })
+  assert.deepEqual(replay.revisionClocksByEvent.get(eventId), {
+    foundAt: '2026-08-03T00:00:00Z', observedAt: '2026-08-03T00:01:00Z', sourceIsEnglish: false,
+  })
+  assert.equal(revisionClockRegistryDiagnostics(root, state).revisionCount, 1)
+  fs.rmSync(root, { recursive: true, force: true })
+  fs.rmSync(state, { recursive: true, force: true })
+})
+await check('registry loss with unavailable archive fails closed before persisting fresh clocks', () => {
+  const root = tmp()
+  const state = tmp()
+  const archive = tmp()
+  const url = 'https://reuters.com/hidden-archive-clock'
+  const headline = 'Hidden archived exact observation cannot be laundered'
+  mergeInbox(root, '2026-08-03', [{
+    ...triagedItem(url, 80, headline), found_at: '2026-08-03T00:00:00Z',
+  }], { stateDir: state, now: () => new Date('2026-08-03T00:01:00Z') })
+  const priorPath = path.join(root, 'screener', 'inbox', '2026-08-03_sweep.json')
+  fs.copyFileSync(priorPath, path.join(archive, '2026-08-03_sweep.json'))
+  fs.unlinkSync(priorPath)
+  for (const suffix of ['', '-wal', '-shm']) fs.rmSync(path.join(state, `news-revision-clocks.sqlite${suffix}`), { force: true })
+  const unavailableArchive = `${archive}.offline`
+  fs.renameSync(archive, unavailableArchive)
+
+  assert.throws(() => mergeInbox(root, '2026-08-12', [{
+    ...triagedItem(url, 80, headline), found_at: '2026-08-12T00:00:00Z',
+  }], { stateDir: state, archiveDir: archive, now: () => new Date('2026-08-12T00:01:00Z') }),
+  /archive.*available|coverage is incomplete/)
+  assert.equal(fs.existsSync(path.join(root, 'screener', 'inbox', '2026-08-12_sweep.json')), false,
+    'an uncovered miss cannot land a fresh current-day clock')
+
+  fs.renameSync(unavailableArchive, archive)
+  const recovered = mergeInbox(root, '2026-08-12', [{
+    ...triagedItem(url, 80, headline), found_at: '2026-08-12T00:02:00Z',
+  }], { stateDir: state, archiveDir: archive, now: () => new Date('2026-08-12T00:03:00Z') })
+  assert.ok([...recovered.revisionClocksByEvent.values()].every((clock) => clock.foundAt === '2026-08-03T00:00:00Z'))
+  fs.rmSync(root, { recursive: true, force: true })
+  fs.rmSync(state, { recursive: true, force: true })
+  fs.rmSync(archive, { recursive: true, force: true })
+})
+await check('an old partition restored after bootstrap is discovered outside the recent audit window', () => {
+  const root = tmp()
+  const seedState = tmp()
+  const state = tmp()
+  const oldDate = '2026-06-01'
+  const url = 'https://reuters.com/restored-old-partition-clock'
+  const headline = 'Old exact observation returns after registry bootstrap'
+  const eventId = eventIdFor(headline, url)
+  mergeInbox(root, oldDate, [{
+    ...triagedItem(url, 80, headline), found_at: '2026-06-01T00:00:00Z',
+  }], { stateDir: seedState, now: () => new Date('2026-06-01T00:01:00Z') })
+  const oldPath = path.join(root, 'screener', 'inbox', `${oldDate}_sweep.json`)
+  const heldPath = `${oldPath}.held`
+  fs.renameSync(oldPath, heldPath)
+
+  mergeInbox(root, '2026-08-13', [triagedItem(
+    'https://reuters.com/bootstrap-visible-row', 80, 'Visible row bootstraps the fresh bounded registry',
+  )], { stateDir: state, now: () => new Date('2026-08-13T00:01:00Z') })
+  fs.renameSync(heldPath, oldPath)
+
+  const replay = mergeInbox(root, '2026-08-14', [{
+    ...triagedItem(url, 80, headline), found_at: '2026-08-14T00:00:00Z',
+  }], { stateDir: state, now: () => new Date('2026-08-14T00:01:00Z') })
+  assert.deepEqual(replay.revisionClocksByEvent.get(eventId), {
+    foundAt: '2026-06-01T00:00:00Z', observedAt: '2026-06-01T00:01:00Z', sourceIsEnglish: false,
+  })
+  fs.rmSync(root, { recursive: true, force: true })
+  fs.rmSync(seedState, { recursive: true, force: true })
+  fs.rmSync(state, { recursive: true, force: true })
+})
+await check('a coverage manifest blocks a fresh registry while an expected old archive partition is hidden', () => {
+  const root = tmp()
+  const state = tmp()
+  const archive = tmp()
+  const date = '2026-06-01'
+  const url = 'https://reuters.com/manifest-hidden-partition-clock'
+  const headline = 'Coverage survives projection loss and a hidden archive partition'
+  const eventId = eventIdFor(headline, url)
+  mergeInbox(root, date, [{
+    ...triagedItem(url, 80, headline), found_at: '2026-06-01T00:00:00Z',
+  }], { stateDir: state, now: () => new Date('2026-06-01T00:01:00Z') })
+  const localPath = path.join(root, 'screener', 'inbox', `${date}_sweep.json`)
+  const archivePath = path.join(archive, `${date}_sweep.json`)
+  fs.copyFileSync(localPath, archivePath)
+  fs.unlinkSync(localPath)
+  const heldPath = `${archivePath}.held`
+  fs.renameSync(archivePath, heldPath)
+  const registry = path.join(state, 'news-revision-clocks.sqlite')
+  for (const suffix of ['', '-wal', '-shm']) fs.rmSync(`${registry}${suffix}`, { force: true })
+
+  assert.throws(() => mergeInbox(root, '2026-08-13', [{
+    ...triagedItem(url, 80, headline), found_at: '2026-08-13T00:00:00Z',
+  }], { stateDir: state, archiveDir: archive, now: () => new Date('2026-08-13T00:01:00Z') }),
+  /coverage is incomplete/)
+  assert.equal(fs.existsSync(path.join(root, 'screener', 'inbox', '2026-08-13_sweep.json')), false,
+    'an unknown key under incomplete expected coverage cannot persist a fresh clock')
+
+  fs.renameSync(heldPath, archivePath)
+  const recovered = mergeInbox(root, '2026-08-13', [{
+    ...triagedItem(url, 80, headline), found_at: '2026-08-13T00:02:00Z',
+  }], { stateDir: state, archiveDir: archive, now: () => new Date('2026-08-13T00:03:00Z') })
+  assert.deepEqual(recovered.revisionClocksByEvent.get(eventId), {
+    foundAt: '2026-06-01T00:00:00Z', observedAt: '2026-06-01T00:01:00Z', sourceIsEnglish: false,
+  })
+  fs.rmSync(root, { recursive: true, force: true })
+  fs.rmSync(state, { recursive: true, force: true })
+  fs.rmSync(archive, { recursive: true, force: true })
+})
+await check('an empty configured archive cannot establish initial revision-clock coverage', () => {
+  const root = tmp()
+  const state = tmp()
+  const archive = tmp()
+  assert.throws(() => mergeInbox(root, '2026-08-13', [triagedItem(
+    'https://reuters.com/empty-archive-coverage', 80, 'Fresh evidence waits for configured archive coverage',
+  )], { stateDir: state, archiveDir: archive, now: () => new Date('2026-08-13T00:01:00Z') }),
+  /cannot prove coverage from an empty configured archive/)
+  assert.equal(fs.existsSync(path.join(root, 'screener', 'inbox', '2026-08-13_sweep.json')), false)
+  fs.rmSync(root, { recursive: true, force: true })
+  fs.rmSync(state, { recursive: true, force: true })
+  fs.rmSync(archive, { recursive: true, force: true })
+})
+await check('mergeInbox persists only source-bound dated catalyst evidence', () => {
+  const root = tmp()
+  mergeInbox(root, '2026-08-02', [
+    triagedItem('https://r/future', 90, 'Amazon to report earnings on 2026-08-06'),
+    triagedItem('https://r/future-quarter-day', 90, 'Amazon earnings date for Q2 2026 is August 6, 2026'),
+    triagedItem('https://r/future-quarter-day-undated-neighbor', 90, 'Amazon earnings date for Q2 2026 is August 6, 2026, AGM announced'),
+    triagedItem('https://r/category', 89, 'Amazon to report earnings after the close'),
+    triagedItem('https://r/malformed', 88, 'Amazon to report earnings on 2026-02-30'),
+    triagedItem('https://r/negated', 87, 'Amazon says no earnings date within 30 days'),
+    triagedItem('https://r/cancelled', 86, 'Amazon to report earnings on 2026-09-09 cancelled'),
+    triagedItem('https://r/relative', 85, 'Amazon to report earnings tomorrow'),
+    triagedItem('https://r/two-events', 84, 'Amazon to report earnings on 2026-08-06, AGM on 2026-09-09'),
+    triagedItem('https://r/postpones', 83, 'Amazon postpones AGM scheduled for 2026-09-09'),
+    triagedItem('https://r/cancellation', 82, 'Amazon AGM cancellation on 2026-09-09'),
+    triagedItem('https://r/reschedules', 81, 'Amazon reschedules AGM previously set for 2026-09-09'),
+    triagedItem('https://r/moved', 80, 'Amazon AGM on 2026-09-09 moved to 2026-10-10'),
+    triagedItem('https://r/withdraws', 79, 'Amazon withdraws notice of AGM for 2026-09-09'),
+    triagedItem('https://r/moved-before', 78, 'Amazon moved the AGM from 2026-09-09 to 2026-10-10'),
+    triagedItem('https://r/shifted', 77, 'Amazon AGM shifted from 2026-09-09'),
+    triagedItem('https://r/deferred', 76, 'Amazon defers AGM scheduled for 2026-09-09'),
+    triagedItem('https://r/put-off', 75, 'Amazon puts off AGM scheduled for 2026-09-09'),
+    triagedItem('https://r/denies', 74, 'Amazon denies AGM on 2026-09-09'),
+    triagedItem('https://r/changed', 73, 'Amazon AGM date changed from 2026-09-09 to 2026-10-10'),
+    triagedItem('https://r/might', 72, 'Amazon might hold AGM on 2026-09-09'),
+    triagedItem('https://r/unconfirmed', 71, 'Amazon AGM date unconfirmed for 2026-09-09'),
+    triagedItem('https://r/cancelled-next-sentence', 70, 'Amazon AGM on 2026-09-09. The event was cancelled'),
+    {
+      ...triagedItem('https://r/translated', 69, 'アマゾン株主総会は2026-09-09に開催'),
+      headline_en: 'Amazon AGM confirmed for 2026-09-09',
+    },
+  ], { maxRows: 30, now: () => new Date('2026-08-02T12:00:00Z') })
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-08-02_sweep.json'), 'utf8'))
+  const events = new Map(doc.rows.map((row: any) => [row.url, row.scheduled_events]))
+  assert.deepEqual(events.get('https://r/future'), ['results_date on 2026-08-06'])
+  assert.deepEqual(events.get('https://r/future-quarter-day'), ['results_date on 2026-08-06'])
+  assert.deepEqual(events.get('https://r/future-quarter-day-undated-neighbor'), ['results_date on 2026-08-06'])
+  assert.deepEqual(events.get('https://r/category'), [])
+  assert.deepEqual(events.get('https://r/malformed'), [])
+  assert.deepEqual(events.get('https://r/negated'), [])
+  assert.deepEqual(events.get('https://r/cancelled'), [])
+  assert.deepEqual(events.get('https://r/relative'), [])
+  assert.deepEqual(events.get('https://r/two-events'), ['results_date on 2026-08-06', 'shareholder_meeting on 2026-09-09'])
+  assert.deepEqual(events.get('https://r/translated'), [], 'translated display copy cannot create scored timing evidence')
+  for (const slug of ['postpones', 'cancellation', 'reschedules', 'moved', 'withdraws', 'moved-before', 'shifted', 'deferred', 'put-off', 'denies', 'changed', 'might', 'unconfirmed', 'cancelled-next-sentence']) {
+    assert.deepEqual(events.get(`https://r/${slug}`), [], `${slug}: obsolete dates are not persisted`)
+  }
+})
+await check('mergeInbox keeps a same-URL reword as a new observation without mutating human history', () => {
   const root = tmp()
   mergeInbox(root, '2026-06-12', [triagedItem('https://r/1', 80, 'H1')], { maxRows: 10 })
   const fp = path.join(root, 'screener/inbox/2026-06-12_sweep.json')
@@ -378,13 +975,425 @@ await check('mergeInbox is idempotent by URL and PRESERVES human consumed/launch
   doc1.rows[0].consumed = true
   doc1.rows[0].launched_signal_id = 'SIG-20260612-deadbeef'
   fs.writeFileSync(fp, JSON.stringify(doc1))
-  // re-seen with a NEW score: the row updates its score but keeps consumed + launched id, and is not duplicated
-  mergeInbox(root, '2026-06-12', [triagedItem('https://r/1', 91, 'H1 updated')], { maxRows: 10 })
+  // A reword at the same URL is a NEW exact observation. The prior consumed row remains immutable and
+  // the new wording stays visible for readTopSweep's stable URL veto to block before idea generation.
+  const refreshed = {
+    ...triagedItem('https://r/1', 91, 'H1 updated'),
+    found_at: '2026-06-12T10:15:00Z', source_name: 'Reuters Updated', input_nature: 'exchange_announcement',
+  }
+  mergeInbox(root, '2026-06-12', [refreshed], { maxRows: 10 })
   const doc2 = JSON.parse(fs.readFileSync(fp, 'utf8'))
-  assert.equal(doc2.rows.length, 1)
-  assert.equal(doc2.rows[0].consumed, true)
-  assert.equal(doc2.rows[0].launched_signal_id, 'SIG-20260612-deadbeef')
-  assert.equal(doc2.rows[0].triage_score, 91) // score refreshed
+  assert.equal(doc2.rows.length, 2)
+  const historical = doc2.rows.find((row: any) => row.headline === 'H1')
+  const update = doc2.rows.find((row: any) => row.headline === 'H1 updated')
+  assert.equal(historical?.inbox_id, doc1.rows[0].inbox_id)
+  assert.equal(historical?.consumed, true)
+  assert.equal(historical?.launched_signal_id, 'SIG-20260612-deadbeef')
+  assert.equal(update?.consumed, false)
+  assert.equal(update?.triage_score, 91)
+  assert.equal(update?.found_at, '2026-06-12T10:15:00Z')
+  assert.equal(update?.source_name, 'Reuters Updated')
+  assert.equal(update?.input_nature, 'exchange_announcement')
+})
+await check('mergeInbox preserves ordinary, correction, and reversal lanes while choosing each lane\'s best source', () => {
+  const root = tmp()
+  const date = '2026-06-12'
+  const story = 'EVT-shared-story'
+  const revisionItem = (url: string, score: number, headline: string, inputNature: string): TriagedItem => ({
+    ...triagedItem(url, score, headline),
+    input_nature: inputNature,
+    dedup_group: story,
+  })
+
+  // The initial merge leaves the primary filing as the ordinary lane's representative even though the
+  // publisher copy has the higher score.
+  mergeInbox(root, date, [
+    revisionItem('https://news.test/original-copy', 98, 'Issuer reports approval', 'news_headline'),
+    revisionItem('https://filing.test/original', 80, 'Issuer reports approval', 'regulatory_filing'),
+  ], { maxRows: 10 })
+
+  // Later revisions share the same dedup family. Each lane still applies the source hierarchy locally.
+  mergeInbox(root, date, [
+    revisionItem('https://news.test/correction-copy', 96, 'Correction: approval remains conditional', 'news_headline'),
+    revisionItem('https://company.test/correction', 75, 'Correction: approval remains conditional', 'company_press_release'),
+    revisionItem('https://news.test/retraction-copy', 97, 'Issuer retracts approval report', 'news_headline'),
+    revisionItem('https://filing.test/retraction', 70, 'Issuer retracts approval report', 'exchange_announcement'),
+  ], { maxRows: 10 })
+
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  assert.equal(doc.rows.length, 3)
+  assert.deepEqual(
+    new Set(doc.rows.map((row: any) => row.url)),
+    new Set([
+      'https://filing.test/original',
+      'https://company.test/correction',
+      'https://filing.test/retraction',
+    ]),
+    'the original and both thesis-changing revision lanes remain downstream-readable',
+  )
+  assert.deepEqual(
+    new Set(doc.rows.map((row: any) => row.source_tier)),
+    new Set(['primary_filing', 'company']),
+    'each lane selects its own highest-ranked source rather than the family-wide highest score',
+  )
+})
+await check('mergeInbox preserves an in-place correction or reversal that reuses the original URL', () => {
+  const root = tmp()
+  const date = '2026-06-12'
+  const url = 'https://news.test/live-article'
+  const story = 'EVT-in-place-revision'
+  const revision = (headline: string, score: number, foundAt = '2026-06-12T09:00:00Z'): TriagedItem => ({
+    ...triagedItem(url, score, headline),
+    found_at: foundAt,
+    dedup_group: story,
+  })
+
+  mergeInbox(root, date, [revision('Issuer reports approval', 80)], {
+    maxRows: 10, now: () => new Date('2026-06-12T09:01:00Z'),
+  })
+  mergeInbox(root, date, [revision('Correction: approval remains conditional', 90)], {
+    maxRows: 10, now: () => new Date('2026-06-12T09:02:00Z'),
+  })
+  mergeInbox(root, date, [revision('Issuer retracts approval report', 95)], {
+    maxRows: 10, now: () => new Date('2026-06-12T09:03:00Z'),
+  })
+  mergeInbox(root, date, [{
+    ...revision('Correction: final approval remains conditional', 99, '2026-06-12T11:45:00Z'),
+    headline_en: 'Correction: final approval remains conditional',
+    source_name: 'Updated Exchange Wire',
+    input_nature: 'exchange_announcement',
+  }], { maxRows: 10, now: () => new Date('2026-06-12T11:46:00Z') })
+  mergeInbox(root, date, [{
+    ...revision('Correction: final approval remains conditional', 100, '2026-06-12T12:00:00Z'),
+    headline_en: 'Correction: final approval remains conditional',
+    source_name: 'Final Exchange Wire',
+    input_nature: 'exchange_announcement',
+  }], { maxRows: 10, now: () => new Date('2026-06-12T12:01:00Z') })
+
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  assert.equal(doc.rows.length, 4, 'one URL keeps every differently worded status update, while an exact repeat remains idempotent')
+  assert.deepEqual(
+    new Set(doc.rows.map((row: any) => row.headline)),
+    new Set(['Issuer reports approval', 'Correction: approval remains conditional', 'Correction: final approval remains conditional', 'Issuer retracts approval report']),
+  )
+  const correction = doc.rows.find((row: any) => row.headline === 'Correction: final approval remains conditional')
+  assert.equal(correction?.triage_score, 100, 're-seeing the exact observation remains idempotent and refreshes its score')
+  assert.equal(correction?.found_at, '2026-06-12T11:45:00Z', 'an exact refresh cannot re-date the evidence or reset its freshness')
+  assert.equal(correction?.observed_at, '2026-06-12T11:46:00Z', 'an exact refresh preserves the revision first-seen clock')
+  assert.equal(
+    doc.rows.find((row: any) => row.headline === 'Correction: approval remains conditional')?.observed_at,
+    '2026-06-12T09:02:00Z',
+    'each distinct in-place revision receives its own durable first-seen clock',
+  )
+  assert.equal(correction?.headline_en, 'Correction: final approval remains conditional')
+  assert.equal(correction?.source_name, 'Final Exchange Wire')
+  assert.equal(correction?.input_nature, 'exchange_announcement')
+})
+
+await check('mergeInbox preserves differently worded exact-family observations without a status keyword', () => {
+  const root = tmp()
+  const family = 'EVT-expansion-state'
+  const observation = (headline: string, score: number, foundAt: string): TriagedItem => ({
+    ...triagedItem('https://company.test/expansion', score, headline),
+    dedup_group: family,
+    found_at: foundAt,
+  })
+  mergeInbox(root, '2026-06-12', [
+    observation('Issuer confirms expansion into Europe', 80, '2026-06-12T09:00:00Z'),
+    observation('Issuer abandons expansion into Europe', 70, '2026-06-12T10:00:00Z'),
+  ], { maxRows: 10 })
+  // An exact replay refreshes only its own observation; it cannot overwrite the differently worded row.
+  mergeInbox(root, '2026-06-12', [
+    observation('Issuer abandons expansion into Europe', 75, '2026-06-12T10:05:00Z'),
+  ], { maxRows: 10 })
+
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  assert.deepEqual(
+    new Set(doc.rows.map((row: any) => row.headline)),
+    new Set(['Issuer confirms expansion into Europe', 'Issuer abandons expansion into Europe']),
+  )
+  assert.equal(doc.rows.find((row: any) => row.headline.startsWith('Issuer abandons'))?.triage_score, 75)
+})
+
+await check('story identity preserves every status update but counts one underlying story family', () => {
+  const updates = [
+    'Issuer announces AGM cancellations',
+    'Issuer announces results postponements',
+    'Issuer issues corrections',
+    'Issuer publishes revisions',
+    'Issuer files restatements',
+    'Issuer announces retractions',
+    'Issuer withdrew guidance',
+    'Issuer delays AGM',
+    'Issuer defers AGM',
+    'Issuer suspends AGM',
+    'Issuer scraps AGM',
+    'Issuer calls off AGM',
+    'Correction: issuer AGM was not cancelled',
+    'Issuer says AGM is no longer cancelled',
+    'Issuer says AGM will not be cancelled',
+    "Issuer says AGM won't be delayed",
+    "Issuer says AGM isn't cancelled",
+    "Issuer says AGM wasn't cancelled",
+    "Issuer says AGM hasn't been cancelled",
+    "Issuer says AGM wouldn't be cancelled",
+    'Issuer says AGM is not being postponed',
+    'Issuer denies AGM was cancelled',
+    'Issuer denies AGM cancellation',
+    'Issuer denies it cancelled the AGM',
+    'Issuer denies reports that AGM and EGM were cancelled',
+    'Issuer denies AGM and EGM cancellation',
+    'Reports of AGM cancellation denied',
+    'AGM cancellation claims are false',
+    'Reported AGM cancellation is incorrect',
+    'Issuer restores AGM after cancellation',
+    'Issuer reinstates its postponed AGM',
+    'Issuer withdraws the AGM cancellation notice',
+    'Issuer reverses decision to cancel AGM',
+    'Issuer cancels postponement of AGM',
+    'Issuer says AGM will go ahead as planned',
+    'Issuer says AGM is going ahead',
+    'Issuer says AGM will proceed as scheduled',
+    'AGM to go ahead as planned',
+    'AGM set to go ahead',
+    'AGM will still go ahead',
+    'AGM can proceed',
+    'Earnings call to proceed',
+    'Production resumes after suspension',
+    'Trading resumes after suspension',
+    'Talks resumed after postponement',
+    'Service restored after outage',
+    'Cancellation claims are false',
+    'Reported cancellation is incorrect',
+    // Ambiguous update wording is deliberately retained rather than semantically guessed. It remains
+    // one family for corroboration, so a false-positive preservation cannot lift conviction.
+    'Issuer restores investor confidence after AGM',
+    'Issuer denies wrongdoing after supplier contract was cancelled',
+    'Issuer denies reports of wrongdoing after supplier cancellation',
+    'Issuer denies wrongdoing and says supplier contract was cancelled',
+    'Issuer denies wrongdoing as supplier contract was cancelled',
+    'Issuer denies wrongdoing when supplier contract was cancelled',
+    'Issuer denies wrongdoing and supplier contract cancellation',
+    'Issuer cancels AGM to avoid delays',
+    'Issuer withdraws offer to prevent postponement',
+    'Issuer rescinds guidance over delays',
+    'Issuer cancels AGM citing delays',
+    'Issuer withdraws bid upon cancellation concerns',
+    'AGM cancellation sees guidance withdrawn',
+    'Offer proceeds will fund expansion',
+    'Dividend proceeds rose 10%',
+    'Meeting proceeds remain in escrow',
+  ]
+  const observationKeys = updates.map((headline) => themeStoryKey({ dedup_group: 'EVT-status', headline }))
+  assert.ok(observationKeys.every((key) => key.startsWith('EVT-status:update:')))
+  assert.equal(new Set(observationKeys).size, updates.length, 'one update can never replace a differently worded update')
+  assert.ok(updates.every((headline) => themeStoryFamilyKey({ dedup_group: 'EVT-status', headline }) === 'EVT-status'))
+  assert.equal(themeStoryKey({ dedup_group: 'EVT-status', headline: 'Issuer confirms AGM for September 9' }), 'EVT-status')
+})
+
+await check('one status-heavy family is bounded and cannot starve a higher-ranked unrelated story', () => {
+  const root = tmp()
+  const date = '2026-06-12'
+  const family = Array.from({ length: 45 }, (_, index): TriagedItem => ({
+    ...triagedItem(`https://news.test/status-${index}`, 70 - (index % 10), `Issuer changes AGM status update ${index}`),
+    dedup_group: 'EVT-status-heavy',
+    found_at: new Date(Date.parse('2026-06-12T09:00:00Z') + index * 60_000).toISOString(),
+  }))
+  const restoration: TriagedItem = {
+    ...triagedItem('https://news.test/status-restored', 20, 'Issuer says AGM will proceed as scheduled'),
+    dedup_group: 'EVT-status-heavy',
+    found_at: '2026-06-12T10:00:00Z',
+  }
+  const independent = triagedItem('https://filing.test/earnings', 99, 'Independent issuer reports quarterly earnings')
+  mergeInbox(root, date, [...family, restoration, independent], { maxRows: 10 })
+
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  const heavy = doc.rows.filter((row: any) => row.dedup_group === 'EVT-status-heavy')
+  assert.equal(heavy.length, 6, 'one story family keeps a bounded strongest-plus-newest audit trail')
+  assert.ok(doc.rows.some((row: any) => row.url === independent.url), 'global re-ranking keeps the higher-scoring unrelated story')
+  assert.ok(doc.rows.some((row: any) => row.url === restoration.url), 'the newest restoration survives even with the family\'s lowest score')
+})
+
+await check('bounded story history pins adverse and restorative states ahead of ambiguous update rewrites', () => {
+  const root = tmp()
+  const date = '2026-06-12'
+  const story = 'EVT-crowded-status-history'
+  const revision = (url: string, score: number, headline: string, foundAt: string, inputNature = 'news_headline'): TriagedItem => ({
+    ...triagedItem(url, score, headline),
+    dedup_group: story,
+    found_at: foundAt,
+    input_nature: inputNature,
+  })
+  const original = revision('https://filing.test/agm-original', 60, 'Issuer confirms AGM for September 9', '2026-06-12T08:00:00Z', 'regulatory_filing')
+  const cancellation = revision('https://news.test/agm-cancelled', 18, 'Issuer cancels AGM', '2026-06-12T08:01:00Z')
+  const restoration = revision('https://news.test/agm-restored', 17, 'Issuer says AGM will proceed as scheduled', '2026-06-12T08:02:00Z')
+  const ambiguous = Array.from({ length: 20 }, (_, index) => revision(
+    `https://news.test/proceeds-${index}`,
+    90 - index,
+    `Offer proceeds will fund expansion update ${index}`,
+    new Date(Date.parse('2026-06-12T09:00:00Z') + index * 60_000).toISOString(),
+  ))
+  const independent = triagedItem('https://filing.test/unrelated', 99, 'Independent issuer reports quarterly earnings')
+
+  mergeInbox(root, date, [original, cancellation, restoration, ...ambiguous, independent], { maxRows: 10 })
+
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  const family = doc.rows.filter((row: any) => row.dedup_group === story)
+  assert.equal(family.length, 6, 'the family remains hard-bounded even when broad preservation sees many updates')
+  assert.ok(family.some((row: any) => row.url === original.url), 'the best-source observation is pinned')
+  assert.ok(family.some((row: any) => row.url === cancellation.url), 'the sole adverse state cannot be crowded out')
+  assert.ok(family.some((row: any) => row.url === restoration.url), 'the sole restoration cannot be crowded out')
+  assert.ok(family.some((row: any) => row.url === ambiguous.at(-1)?.url), 'the newest observation is pinned')
+  assert.ok(doc.rows.some((row: any) => row.url === independent.url), 'family bounding still leaves the unrelated high-score story visible')
+})
+
+await check('global inbox cap keeps each chosen family source winner before extra status rows', () => {
+  const root = tmp()
+  const date = '2026-06-12'
+  const family = 'EVT-global-source-pin'
+  const row = (url: string, headline: string, score: number, inputNature: string): TriagedItem => ({
+    ...triagedItem(url, score, headline), dedup_group: family, input_nature: inputNature,
+  })
+  const filing = row('https://filing.test/global-pin', 'Exchange confirms approval remains conditional', 20, 'regulatory_filing')
+  const adverse = row('https://news.test/global-pin-cancel', 'Regulator cancels approval', 100, 'news_headline')
+  const restoration = row('https://news.test/global-pin-restore', 'Company says approval was not cancelled', 99, 'news_headline')
+  const independent = {
+    ...triagedItem('https://filing.test/global-pin-independent', 80, 'Independent issuer files audited results'),
+    dedup_group: 'EVT-global-pin-independent', input_nature: 'regulatory_filing',
+  }
+  mergeInbox(root, date, [filing, adverse, restoration, independent], { maxRows: 3 })
+
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  assert.ok(doc.rows.some((item: any) => item.url === filing.url), 'the global cap cannot discard the family source winner')
+  assert.ok(doc.rows.some((item: any) => item.url === independent.url), 'the unrelated high-value family gets its first-round slot')
+  assert.ok(doc.rows.some((item: any) => item.url === adverse.url), 'the second family round retains the adverse state')
+  assert.equal(doc.rows.some((item: any) => item.url === restoration.url), false, 'the deterministic third slot is the adverse state')
+})
+
+await check('bounded inbox state uses English translation and pins official adverse plus restorative denial', () => {
+  const root = tmp()
+  const date = '2026-06-12'
+  const family = 'EVT-translated-family-state'
+  const translated = (
+    url: string, headline: string, headlineEn: string, score: number, inputNature: string, foundAt: string,
+  ): TriagedItem => ({
+    ...triagedItem(url, score, headline), headline_en: headlineEn, dedup_group: family,
+    input_nature: inputNature, found_at: foundAt,
+  })
+  const original = translated(
+    'https://filing.test/translated-original', '取引所は審査中と発表', 'Exchange confirms review remains open',
+    50, 'regulatory_filing', '2026-06-12T08:00:00Z',
+  )
+  const adverse = translated(
+    'https://official.test/translated-adverse', '規制当局が承認を撤回', 'Regulator cancels approval',
+    40, 'macro_data_release', '2026-06-12T08:01:00Z',
+  )
+  const restoration = translated(
+    'https://company.test/translated-restoration', '会社は取り消しを否定', 'Company denies approval was cancelled',
+    30, 'company_press_release', '2026-06-12T08:02:00Z',
+  )
+  const rewrites = Array.from({ length: 10 }, (_, index): TriagedItem => ({
+    ...triagedItem(`https://news.test/translated-rewrite-${index}`, 95 - index, `承認状況 ${index}`),
+    headline_en: `Approval status update ${index}`, dedup_group: family,
+    found_at: new Date(Date.parse('2026-06-12T09:00:00Z') + index * 60_000).toISOString(),
+  }))
+  const independent = {
+    ...triagedItem('https://filing.test/translated-independent', 35, 'Independent issuer files results'),
+    dedup_group: 'EVT-translated-independent', input_nature: 'regulatory_filing',
+  }
+  mergeInbox(root, date, [original, adverse, restoration, ...rewrites, independent], { maxRows: 5 })
+
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  assert.ok(doc.rows.some((item: any) => item.url === original.url), 'the best primary source is pinned')
+  assert.ok(doc.rows.some((item: any) => item.url === adverse.url), 'model-visible English preserves the official adverse state')
+  assert.ok(doc.rows.some((item: any) => item.url === restoration.url), 'the translated denial is restorative before the broad adverse grammar')
+  assert.ok(doc.rows.some((item: any) => item.url === independent.url), 'the family remains globally bounded')
+})
+
+await check('mergeInbox keeps lower-score real restorations when unrelated denials or double reversals share a family', () => {
+  const root = tmp()
+  const date = '2026-06-12'
+  const revision = (group: string, url: string, headline: string, score: number): TriagedItem => ({
+    ...triagedItem(url, score, headline),
+    dedup_group: group,
+  })
+  const rows = [
+    revision('EVT-passive', 'https://news.test/passive-false', 'Issuer denies wrongdoing after supplier contract was cancelled', 90),
+    revision('EVT-passive', 'https://news.test/passive-real', 'Issuer says supplier contract cancellation was withdrawn', 40),
+    revision('EVT-nominal', 'https://news.test/nominal-false', 'Issuer denies reports of wrongdoing after supplier cancellation', 89),
+    revision('EVT-nominal', 'https://news.test/nominal-real', 'Issuer denies supplier cancellation', 39),
+    revision('EVT-direct', 'https://news.test/direct-cancel', 'Issuer AGM cancelled', 88),
+    revision('EVT-direct', 'https://news.test/direct-restore', 'Issuer denies AGM cancellation', 38),
+    revision('EVT-decision', 'https://news.test/decision-cancel', 'Issuer plans to cancel AGM', 87),
+    revision('EVT-decision', 'https://news.test/decision-restore', 'Issuer reverses decision to cancel AGM', 37),
+    revision('EVT-postpone', 'https://news.test/postponed', 'Issuer postpones AGM', 86),
+    revision('EVT-postpone', 'https://news.test/postpone-restore', 'Issuer cancels postponement of AGM', 36),
+    revision('EVT-coordinated', 'https://news.test/coordinated-false', 'Issuer denies wrongdoing and says supplier contract was cancelled', 85),
+    revision('EVT-coordinated', 'https://news.test/coordinated-real', 'Issuer says supplier contract cancellation was withdrawn', 35),
+    revision('EVT-contraction', 'https://news.test/contraction-cancel', 'Issuer AGM cancelled', 84),
+    revision('EVT-contraction', 'https://news.test/contraction-restore', "Issuer says AGM hasn't been cancelled", 34),
+    revision('EVT-purpose', 'https://news.test/purpose-false', 'Issuer cancels AGM to avoid delays', 83),
+    revision('EVT-purpose', 'https://news.test/purpose-real', 'Issuer says AGM will proceed as scheduled', 33),
+    revision('EVT-coordinate', 'https://news.test/coordinate-cancel', 'Issuer AGM and EGM cancelled', 82),
+    revision('EVT-coordinate', 'https://news.test/coordinate-restore', 'Issuer denies reports that AGM and EGM were cancelled', 32),
+  ]
+  mergeInbox(root, date, rows, { maxRows: 30 })
+
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  assert.deepEqual(
+    new Set(doc.rows.map((row: any) => row.headline)),
+    new Set(rows.map((row) => row.headline)),
+    'a higher-score unrelated denial cannot occupy the restoration lane or suppress the real update',
+  )
+})
+
+await check('mergeInbox never collapses cancelled, postponed, or corrective-restoration updates', () => {
+  const root = tmp()
+  const date = '2026-06-12'
+  const revision = (group: string, url: string, headline: string, score: number): TriagedItem => ({
+    ...triagedItem(url, score, headline),
+    dedup_group: group,
+  })
+  mergeInbox(root, date, [
+    revision('EVT-cancel', 'https://filing.test/agm-original', 'Issuer confirms AGM for September 9', 99),
+    revision('EVT-cancel', 'https://news.test/agm-cancelled', 'Issuer AGM cancelled', 70),
+    revision('EVT-cancel', 'https://news.test/agm-restored', 'Issuer denies AGM was cancelled', 60),
+    revision('EVT-postpone', 'https://filing.test/results-original', 'Issuer confirms results for September 10', 98),
+    revision('EVT-postpone', 'https://news.test/results-postponed', 'Issuer results have been postponed', 69),
+    revision('EVT-guidance', 'https://filing.test/guidance-original', 'Issuer confirms full-year guidance', 97),
+    revision('EVT-guidance', 'https://news.test/guidance-withdrawn', 'Issuer withdrew full-year guidance', 59),
+    revision('EVT-accounts', 'https://filing.test/accounts-original', 'Issuer publishes annual accounts', 96),
+    revision('EVT-accounts', 'https://news.test/accounts-restated', 'Issuer files annual-account restatements', 58),
+    revision('EVT-delay', 'https://filing.test/delay-original', 'Issuer confirms AGM for September 12', 95),
+    revision('EVT-delay', 'https://news.test/delay', 'Issuer delays AGM', 57),
+    revision('EVT-delay', 'https://news.test/delay-restored', 'Issuer says AGM will not be delayed', 47),
+    revision('EVT-denial', 'https://filing.test/dispute-original', 'Issuer reports supplier dispute', 94),
+    revision('EVT-denial', 'https://news.test/unrelated-denial', 'Issuer denies wrongdoing after supplier cancelled contract', 56),
+    revision('EVT-denial', 'https://news.test/contract-restored', 'Issuer says supplier contract cancellation was withdrawn', 46),
+  ], { maxRows: 20 })
+
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  assert.deepEqual(
+    new Set(doc.rows.map((row: any) => row.headline)),
+    new Set([
+      'Issuer confirms AGM for September 9',
+      'Issuer AGM cancelled',
+      'Issuer denies AGM was cancelled',
+      'Issuer confirms results for September 10',
+      'Issuer results have been postponed',
+      'Issuer confirms full-year guidance',
+      'Issuer withdrew full-year guidance',
+      'Issuer publishes annual accounts',
+      'Issuer files annual-account restatements',
+      'Issuer confirms AGM for September 12',
+      'Issuer delays AGM',
+      'Issuer says AGM will not be delayed',
+      'Issuer reports supplier dispute',
+      'Issuer denies wrongdoing after supplier cancelled contract',
+      'Issuer says supplier contract cancellation was withdrawn',
+    ]),
+    'lower-score thesis-falsifying updates and their corrective restoration remain visible beside the original',
+  )
 })
 
 // ---- orchestrator (end-to-end with mocked GDELT + Groq) ----
@@ -479,6 +1488,11 @@ await check('coerceTriage: companies/size_bucket hard-coerce (bogus ticker → n
   const empty = coerceTriage({ relevance: 'material', materiality_pre_score: 50 })
   assert.deepEqual(empty.companies, [])
   assert.equal(empty.size_bucket, 'unknown')
+  assert.equal(empty.source_is_english, undefined, 'omitted language keys are unknown, not proven English')
+  assert.equal(coerceTriage({ headline_en: null, headline_lang: null }).source_is_english, true,
+    'the explicit model-contract null pair positively identifies an already-English source')
+  assert.equal(coerceTriage({ headline_en: null }).source_is_english, undefined,
+    'a partial/malformed language response cannot open a human-veto exception')
 })
 
 await check('coerceTriage: a non-lowercase event_materiality_label ("High"/"CRITICAL") is normalized, not defaulted to low (Thread E)', () => {
@@ -535,6 +1549,131 @@ await check('runIngestCycle writes kind:"item" feed lines for kept AND dropped, 
   assert.deepEqual(doc.rows[0].event_types, ['macro_sector'])
   assert.equal(doc.rows[0].companies[0].name, 'Can Fin Homes')
   assert.equal(doc.rows[0].size_bucket, 'mid')
+})
+
+await check('runIngestCycle keeps exact revision clocks across daily partitions when the replay is capped out', async () => {
+  resetSharedLimiters()
+  resetBudgetMemory()
+  const root = tmp()
+  const state = tmp()
+  const priorDate = '2026-08-03'
+  const date = '2026-08-04'
+  const url = 'https://reuters.com/acme-capacity-live'
+  const headline = 'Acme capacity expansion approval remains active'
+  const eventId = eventIdFor(headline, url)
+  const company = { name: 'Acme', ticker: 'ACME', listing_country: 'US' }
+  const crowdUrl = 'https://reuters.com/gamma-transformative-acquisition'
+  const crowdHeadline = 'Gamma announces transformative acquisition of a global software platform'
+  const durableFoundAt = '2026-08-03T00:00:00Z'
+  const durableObservedAt = '2026-08-03T00:01:00Z'
+
+  const original: TriagedItem = {
+    ...triagedItem(url, 90, headline),
+    event_id: eventId,
+    found_at: durableFoundAt,
+    companies: [company],
+    event_types: ['capex'],
+    issuer_linkage: 'primary',
+    dedup_group: eventId,
+  }
+  mergeInbox(root, priorDate, [original], {
+    maxRows: 10, now: () => new Date(durableObservedAt),
+  })
+  const priorInboxPath = path.join(root, 'screener', 'inbox', `${priorDate}_sweep.json`)
+  mergeInbox(root, priorDate, [{
+    ...triagedItem('https://reuters.com/prior-day-crowd', 99, 'Gamma closes transformative acquisition'),
+    found_at: '2026-08-03T00:04:00Z',
+  }], { maxRows: 1, now: () => new Date('2026-08-03T00:05:00Z') })
+  const priorSweep = JSON.parse(fs.readFileSync(priorInboxPath, 'utf8'))
+  assert.equal(priorSweep.rows.length, 1)
+  assert.notEqual(priorSweep.rows[0].url, url, 'the original observation is evicted from the visible prior-day rows')
+  assert.ok(priorSweep.revision_clocks.some((row: any) => row.event_id === eventId),
+    'the uncapped wrapper index retains the original clocks after row eviction')
+
+  const themeViews: ThemeItemView[] = [
+    {
+      event_id: 'EVT-acme-theme-seed', dedup_group: 'STORY-acme-theme-seed',
+      headline: 'Acme capacity expansion increases supplier orders', found_at: '2026-08-03T23:00:00Z',
+      companies: [company], event_types: ['capex'], issuer_linkage: 'primary', triage_score: 88,
+      source_tier: 'company', source_name: 'Acme', url: 'https://company.test/acme-capacity-seed',
+      region: 'US', country: 'US',
+    },
+    {
+      event_id: 'EVT-beta-theme-seed', dedup_group: 'STORY-beta-theme-seed',
+      headline: 'Beta capacity expansion increases supplier orders', found_at: '2026-08-03T23:01:00Z',
+      companies: [{ name: 'Beta', ticker: 'BETA', listing_country: 'US' }], event_types: ['capex'],
+      issuer_linkage: 'primary', triage_score: 86, source_tier: 'company', source_name: 'Beta',
+      url: 'https://company.test/beta-capacity-seed', region: 'US', country: 'US',
+    },
+  ]
+  const theme = attachValidNarrative(createTheme(themeViews, new Date('2026-08-03T23:05:00Z'), 'claude'), {
+    anchor_terms: ['capacity', 'expansion'],
+    validated_at: '2026-08-03T23:05:00Z',
+  })
+  theme.name = 'Capacity Expansion Increases Supplier Orders'
+  theme.description = 'Capacity expansion is increasing orders for directly exposed suppliers.'
+  appendThemeMutations(root, [theme], () => new Date('2026-08-03T23:06:00Z'))
+
+  const triageReply = {
+    usage: { total_tokens: 120 },
+    choices: [{ message: { content: JSON.stringify({ items: [{
+      i: 0, relevance: 'material', materiality_pre_score: 99, event_types: ['mna'],
+      issuer_linkage: 'primary', why: 'The acquisition is a larger new event.',
+      companies: [{ name: 'Gamma', ticker: 'GAMM', listing_country: 'US' }], size_bucket: 'large',
+    }, {
+      i: 1, relevance: 'material', materiality_pre_score: 45, event_types: ['capex'],
+      issuer_linkage: 'primary', why: 'The approval affects Acme capacity expansion.',
+      companies: [company], size_bucket: 'mid',
+    }] }) } }],
+  }
+  const fetchFn = (async (requestUrl: string) => {
+    const request = String(requestUrl)
+    if (request.includes('groq')) return res(triageReply)
+    const gdeltQuery = new URL(request).searchParams.get('query') ?? ''
+    if (/(?:^|[()\s])domain:reuters\.com(?:[()\s]|$)/.test(gdeltQuery)) return res({ articles: [
+      {
+        url, title: headline, domain: 'reuters.com',
+        // The exact refresh advertises a newer provider timestamp. It must not replace the source clock
+        // retained outside the prior day's capped visible rows.
+        seendate: '20260804T000900Z',
+      },
+      { url: crowdUrl, title: crowdHeadline, domain: 'reuters.com', seendate: '20260804T000930Z' },
+    ] })
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const now = () => new Date('2026-08-04T00:10:00Z')
+  await runIngestCycle({
+    repoRoot: root,
+    stateDir: state,
+    fetchFn,
+    sleep: noSleep,
+    now,
+    config: {
+      groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test',
+      groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, inboxMaxRows: 1, themesEnabled: true,
+      themesMinScore: 0, themesDiscoverEveryCycles: 9999, themesDiscoverModel: 'off',
+      anthropicFallbackEnabled: false,
+    } as any,
+  })
+
+  const inboxPath = path.join(root, 'screener', 'inbox', `${date}_sweep.json`)
+  const currentRows = JSON.parse(fs.readFileSync(inboxPath, 'utf8')).rows
+  assert.equal(currentRows.length, 1)
+  assert.equal(currentRows[0].url, crowdUrl, 'the lower-ranked exact replay is absent from today\'s capped UI sweep')
+
+  const feedRow = readFeed(root, 1, { now, applyActiveWeights: false }).items.find((row) => row.event_id === eventId)
+  assert.equal(feedRow?.found_at, durableFoundAt, 'even a capped-out replay cannot publish as newer feed evidence')
+  assert.equal(feedRow?.observed_at, durableObservedAt)
+  assert.equal(feedRow?.source_is_english, undefined, 'the firehose follows the durable inbox language proof')
+
+  const persistedMember = loadThemes(root)
+    .find((candidate) => candidate.theme_id === theme.theme_id)?.members
+    .find((member) => member.event_id === eventId)
+  assert.equal(Date.parse(persistedMember!.found_at), Date.parse(durableFoundAt), 'Theme freshness stays bound to the acted-on source clock')
+  assert.equal(Date.parse(persistedMember!.observed_at!), Date.parse(durableObservedAt), 'Theme ordering uses the matching durable first-seen clock')
+  assert.equal(persistedMember!.source_is_english, undefined, 'Theme evidence cannot upgrade legacy source-language certainty')
+  fs.rmSync(root, { recursive: true, force: true })
+  fs.rmSync(state, { recursive: true, force: true })
 })
 
 await check('appendFeedItems honors the daily cap; readFeed skips corrupt lines', () => {
@@ -1226,6 +2365,105 @@ await check('plan usage limit → the batch defers AND a cross-cycle cooldown st
   nowMs += 30_000
   await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, claudeCliRunner })
   assert.equal(cliCalls, 1, 'still 1 — the cooldown suppressed the re-spawn while the plan is out')
+})
+
+// An EXPIRED SIGN-IN is the one last-resort failure a human fixes in seconds (`claude login` on the host),
+// so it must not be handled like a revoked key. It used to match the terminal-4xx branch, which force-marks
+// the day's $ ledger as fully spent: the tier then stayed dark until the UTC rollover even after the sign-in
+// was repaired, AND the cockpit reported the entire daily ceiling as spent when the failing calls cost $0.
+// This is the regression guard for all three halves — the $ ledger, the recovery, and the honest message.
+await check('expired sign-in → the $ ceiling is NOT falsely burned, and the tier RECOVERS once signed back in', async () => {
+  resetSharedLimiters()
+  resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return res('upstream sad', 503)
+    if (u.includes('gdelt')) return res({ articles: [{ url: 'https://reuters.com/auth', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  let cliCalls = 0
+  let signedIn = false // flipped when the operator runs `claude login` on the host
+  // the EXACT note the real CLI produces for an expired OAuth token (reproduced against claude 2.1.150)
+  const claudeCliRunner = async () => {
+    cliCalls++
+    return signedIn
+      ? { text: '[{"i":0,"relevance":"material","materiality_pre_score":84,"issuer_linkage":"macro","why":"a 50 bps cut lowers funding costs"}]', costUsd: 0.004 }
+      : { text: '', costUsd: 0, error: 'claude cli: HTTP 401 — Failed to authenticate. API Error: 401 OAuth access token has expired. Re-authenticate to continue.' }
+  }
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
+    overflowProviders: [], anthropicFallbackEnabled: true, anthropicFallbackMode: 'subscription', anthropicDailyUsd: 5, anthropicRpm: 6000, anthropicMinPriority: 0 } as any
+  let nowMs = Date.parse('2026-06-12T09:30:00Z')
+  const now = () => new Date(nowMs)
+
+  const s1 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, claudeCliRunner })
+  assert.equal(cliCalls, 1)
+  assert.equal(s1.picked + s1.watched + s1.dropped, 0, 'nothing scored — the sign-in was dead')
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 1, 'the item is kept, not lost')
+  // (a) the $0 actually spent stays $0 — red on old: exhaust() wrote usd == the $5 cap
+  const ledger = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
+  assert.ok(ledger.usd < 5, `the daily ceiling must not be falsely marked spent (got usd=${ledger.usd} of 5)`)
+  // (b) the state + note name the real cause and the fix — red on old: 'cooling' / "backing off after an error"
+  assert.equal(s1.last_resort, 'auth-expired', "the state names the expired sign-in, not a vague 'cooling'")
+  assert.match(s1.note || '', /claude login/, 'the operator is told the one command that fixes it')
+
+  // while still signed out it must not hammer the host — the short cooldown holds the very next cycle
+  nowMs += 30_000
+  await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, claudeCliRunner })
+  assert.equal(cliCalls, 1, 'still 1 — the cooldown suppressed the re-spawn')
+
+  // a LATER cycle keeps naming the real cause, read off the cooldown marker rather than this cycle's note
+  const s2 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, claudeCliRunner })
+  assert.equal(s2.last_resort, 'auth-expired', 'the reason survives the cycle that produced it')
+
+  // the operator signs back in; past the short cooldown the tier re-probes and the backlog drains itself.
+  // Red on old: the ledger was marked spent, so canSpend() stayed false and the tier never fired again today.
+  signedIn = true
+  nowMs += 61_000
+  const s3 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, claudeCliRunner })
+  assert.equal(cliCalls, 2, 're-probed after the short cooldown instead of staying dark until the UTC rollover')
+  assert.equal(s3.picked + s3.watched + s3.dropped, 1, 'the deferred item finally scores — recovery is automatic')
+  assert.equal(readCooldownUntil(state, 'anthropic-triage'), 0, 'the marker is cleared once the tier recovers')
+})
+
+// The recoverable read above is SUBSCRIPTION-MODE ONLY (`claude login` fixes an expired OAuth token on the
+// host). In API mode a 401 means the metered key itself is bad/expired/revoked — `claude login` does nothing
+// for that — so it must stay on the terminal path: exhaust the day's $ ledger, same as any other terminal 4xx.
+// Regression guard for the PR #430 review fix (Gemini + Codex both flagged isAuthExpiredNote firing on ANY
+// 401 regardless of mode).
+await check('api-mode 401 (bad key) → stays TERMINAL, exhausts the $ ceiling, never reads as auth-expired', async () => {
+  resetSharedLimiters()
+  resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return res('upstream sad', 503)
+    if (u.includes('gdelt')) return res({ articles: [{ url: 'https://reuters.com/apikey', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    // the metered API key is revoked — same HTTP shape (401 + "authenticate"-free body) the CLI's expired
+    // OAuth token produces, but this is the Anthropic Messages API in 'api' mode, not the subscription CLI
+    if (u.includes('anthropic')) return res('authentication_error: invalid x-api-key', 401)
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
+    overflowProviders: [], anthropicFallbackEnabled: true, anthropicFallbackMode: 'api', anthropicApiKey: 'bad-key', anthropicBaseUrl: 'https://api.anthropic.test',
+    anthropicDailyUsd: 5, anthropicRpm: 6000, anthropicMinPriority: 0 } as any
+  let nowMs = Date.parse('2026-06-12T09:30:00Z')
+  const now = () => new Date(nowMs)
+
+  const s1 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(s1.picked + s1.watched + s1.dropped, 0, 'nothing scored — the key is bad')
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 1, 'the item is kept, not lost')
+  assert.notEqual(s1.last_resort, 'auth-expired', "a bad API key must never read as the recoverable sign-in state")
+  // the day's $ ledger IS force-marked spent — this is the correct terminal response, unchanged by the PR
+  const ledger = JSON.parse(fs.readFileSync(path.join(state, 'anthropic-triage-budget.json'), 'utf8'))
+  assert.ok(ledger.usd >= 5, `terminal 401 in api mode must exhaust the ceiling (got usd=${ledger.usd} of 5)`)
+
+  // and the ceiling being spent must suppress the very next cycle's call — the normal usd-cap behavior
+  nowMs += 30_000
+  const s2 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(s2.last_resort, 'usd-cap', 'next cycle reads the exhausted ledger as the ordinary $ ceiling, not auth-expired')
 })
 
 // ---- end-to-end transparency: the defer note is honest about EVERY blocker, not just Groq ----

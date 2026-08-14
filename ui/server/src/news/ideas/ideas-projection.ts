@@ -120,6 +120,10 @@ export function projectLiveIdeas(repoRoot: string, index: any = {}, nowMs = Date
     const status = rec.status === 'promoted' ? 'promoted' : 'live'
     const promotedSignalId = typeof rec.promoted_signal_id === 'string' && rec.promoted_signal_id ? rec.promoted_signal_id : null
     const conviction = safeInt(rec.conviction)
+    const legacyEvidenceGate = rec.trade_score_basis === 'evidence_gate_v1'
+    const legacyMissingChecks = legacyEvidenceGate
+      ? ['live price, liquidity, and consensus', ...stringArray(rec.missing_checks)]
+      : stringArray(rec.missing_checks)
     const row = {
       idea_id: rec.idea_id,
       ticker: rec.ticker.trim(),
@@ -131,11 +135,16 @@ export function projectLiveIdeas(repoRoot: string, index: any = {}, nowMs = Date
       why_now: typeof rec.why_now === 'string' ? rec.why_now : '',
       conviction,
       conviction_basis: 'pre_edge_proxy',
-      trade_score: safeInt(rec.trade_score, conviction),
-      trade_score_basis: rec.trade_score_basis === 'evidence_gate_v1' ? 'evidence_gate_v1' : 'pre_edge_proxy_legacy',
+      // V1 could call directory presence "liquidity" and emit check_now. During a rolling deploy its
+      // cached score is not comparable with V2's always-needs-live-data ceiling, so demote it explicitly.
+      trade_score: legacyEvidenceGate ? Math.min(safeInt(rec.trade_score, conviction), 44) : safeInt(rec.trade_score, conviction),
+      trade_score_basis: rec.trade_score_basis === 'evidence_gate_v1' || rec.trade_score_basis === 'evidence_gate_v2'
+        ? rec.trade_score_basis : 'pre_edge_proxy_legacy',
       trade_score_breakdown: rec.trade_score_breakdown && typeof rec.trade_score_breakdown === 'object' ? rec.trade_score_breakdown : null,
-      trade_readiness: READINESS.has(rec.trade_readiness) ? rec.trade_readiness : 'needs_data',
-      missing_checks: stringArray(rec.missing_checks),
+      trade_readiness: legacyEvidenceGate
+        ? 'watch_only'
+        : READINESS.has(rec.trade_readiness) ? rec.trade_readiness : 'needs_data',
+      missing_checks: [...new Set(legacyMissingChecks)],
       learning: rec.learning && typeof rec.learning === 'object' ? rec.learning : null,
       priced_in: PRICED_IN.has(rec.priced_in) ? rec.priced_in : 'unknown',
       thesis_type: typeof rec.thesis_type === 'string' ? rec.thesis_type : 'company_specific',

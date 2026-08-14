@@ -1,11 +1,11 @@
 import { create } from 'zustand'
-import { api, ensureMode, isStatic, snapshotGeneratedAt } from './api'
+import { api, ensureMode, EXACT_DECISION_LAUNCH_CONTRACT, isStatic, snapshotGeneratedAt } from './api'
 import type { ArchiveQuery, FeedFacets, SearchCursor } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
 import { moduleLabel, preferRunRoot, resolveVerdict } from './format'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
-import type { Theme, ThemeDetail, ThemeBrief, ThemeRemoval } from './themes'
-import { compareBriefingThemes, intensityWindowForHours, themeSurfaceStatus, themeWindowForView } from './themes'
+import type { Theme, ThemeCompilerHealth, ThemeDetail, ThemeBrief, ThemeFormationQueue, ThemeRemoval } from './themes'
+import { compareBriefingThemes, intensityWindowForHours, normalizeThemeCompilerHealth, normalizeThemeFormationQueue, themeSurfaceStatus, themeWindowForView } from './themes'
 import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
 import { archiveErrorNote } from './archiveError'
 import { selectNewsChatHandoffEvidence } from './newsChatHandoff'
@@ -218,8 +218,74 @@ const themeDetailContractKey = (theme: Theme | null | undefined): string | null 
     }))
   : null
 
+/** Reconcile one exact formation-row invalidation from SSE. The formation excerpt and compiler-health
+ * debt are separate totals: building-evidence rows are disclosed formation patterns but are not runnable
+ * compiler debt, so only the three compiler states decrement health. */
+function withoutFormationCandidate(
+  formation: ThemeFormationQueue | null,
+  health: ThemeCompilerHealth | null,
+  themeId: string,
+): { formation: ThemeFormationQueue | null; health: ThemeCompilerHealth | null } {
+  const candidate = formation?.candidates.find((row) => row.theme_id === themeId)
+  if (!formation || !candidate) return { formation, health }
+
+  const candidates = formation.candidates.filter((row) => row.theme_id !== themeId)
+  const nextFormation: ThemeFormationQueue = {
+    ...formation,
+    total: candidates.length + formation.hidden + (formation.client_withheld || 0),
+    shown: candidates.length,
+    ...(candidate.state === 'awaiting_validation' ? { awaiting_validation: Math.max(0, formation.awaiting_validation - 1) } : {}),
+    ...(candidate.state === 'awaiting_revalidation' ? { awaiting_revalidation: Math.max(0, formation.awaiting_revalidation - 1) } : {}),
+    ...(candidate.state === 'blocked_incomplete_audit' ? { blocked_incomplete_audit: Math.max(0, formation.blocked_incomplete_audit - 1) } : {}),
+    ...(candidate.state === 'building_evidence' ? { building_evidence: Math.max(0, formation.building_evidence - 1) } : {}),
+    candidates,
+  }
+
+  if (!health || candidate.state === 'building_evidence') return { formation: nextFormation, health }
+  const awaitingValidation = Math.max(0, health.queue.awaiting_validation - (candidate.state === 'awaiting_validation' ? 1 : 0))
+  const awaitingRevalidation = Math.max(0, health.queue.awaiting_revalidation - (candidate.state === 'awaiting_revalidation' ? 1 : 0))
+  const blockedIncompleteAudit = Math.max(0, health.queue.blocked_incomplete_audit - (candidate.state === 'blocked_incomplete_audit' ? 1 : 0))
+  const total = awaitingValidation + awaitingRevalidation + blockedIncompleteAudit
+  const removedOldest = candidate.queued_at && health.queue.oldest_queued_at
+    ? Date.parse(candidate.queued_at) === Date.parse(health.queue.oldest_queued_at)
+    : false
+  // Recompute from the remaining queue rather than blanking it: other candidates can still be waiting.
+  // Mirrors the server's own ordering (formation.ts buildThemeCompilerHealth / compilerDebtForThemes) —
+  // only the three compiler-debt states carry queue age; a still-building candidate isn't durable
+  // compiler work, so it must not seed the recomputed oldest_queued_at either.
+  const oldestQueuedAt = removedOldest
+    ? candidates
+        .filter((row) => row.state !== 'building_evidence' && row.queued_at)
+        .map((row) => row.queued_at as string)
+        .sort()[0] || null
+    : health.queue.oldest_queued_at
+  return {
+    formation: nextFormation,
+    health: {
+      ...health,
+      ...(total === 0 ? {
+        state: 'idle' as const,
+        blocker: null,
+        message: nextFormation.building_evidence
+          ? `${nextFormation.building_evidence} provisional pattern${nextFormation.building_evidence === 1 ? ' is' : 's are'} still building evidence.`
+          : 'No theme compilation work is queued.',
+      } : {}),
+      queue: {
+        ...health.queue,
+        total,
+        awaiting_validation: awaitingValidation,
+        awaiting_revalidation: awaitingRevalidation,
+        blocked_incomplete_audit: blockedIncompleteAudit,
+        oldest_queued_at: oldestQueuedAt,
+      },
+    },
+  }
+}
+
 const cancelThemeDetailRequest = () => { themeDetailRequestSeq++ }
 let selectGen = 0 // bumped on every selectTicker; async work bails if it changed (fast-switch guard)
+let dataNeedsRequestSeq = 0 // same-selection refreshes can also race; newest exact-run request owns the dock
+export const DATA_NEEDS_RETRY_MS = 750 // one bounded cold-read recovery; exact selection is rechecked around it
 let archiveToken = 0 // bumped on every archive search; a stale slow response bails if it changed (last-write-wins)
 let facetsToken = 0 // same guard for a standalone facets load (contextless / on dropdown open)
 let creditProbed = false
@@ -293,14 +359,38 @@ export interface ActiveRun {
 // becomes a one-click recovery. A toast with an action stays up longer (the user has to read + click it).
 export interface Toast { msg: string; tone: 'info' | 'good' | 'bad'; action?: { label: string; onClick: () => void } }
 
+// A priced launch belongs to one exact cockpit selection. The estimate and the confirmation retain this
+// identity instead of re-reading selectedTicker/activeSwarm after an await, when the user may already be
+// looking at another company or swarm.
+export interface LaunchSelectionBinding {
+  subject: string
+  swarm: string
+  selectToken: number
+  runRoot?: string
+  decisionFingerprint?: string
+  planOrigin?: {
+    planPath: string
+    planSha256: string
+    sourceDecisionFingerprint: string
+  }
+}
+
 // A run is "live" (counts for launch guards) only while starting/running. Finished runs linger in
 // activeRuns for the panel until the next ticker switch prunes them.
 // Every server status a run holds while in flight — INCLUDING the pre-spawn gate states, which the
 // early-acked launch now surfaces to the client (heartbeat/snapshot) instead of hiding inside a held
 // HTTP response. Dropping them here would evict a gate-parked run from the live view.
 const LIVE_RUN = new Set(['starting', 'readiness-checking', 'awaiting-readiness-decision', 'running'])
-const runsForTicker = (runs: Record<string, ActiveRun>, t: string | null): ActiveRun[] =>
-  t ? Object.values(runs).filter((r) => r.ticker === t && LIVE_RUN.has(r.status)) : []
+// Subject labels are only unique INSIDE a swarm (research GOLD and commodity GOLD are different work).
+// Every live-run decision therefore uses the compound identity. A missing swarm id fails closed: current
+// engines always return it, and guessing "research" during deploy skew can reconnect/paint another swarm.
+const runMatchesSubject = (run: { ticker: string; swarmId?: string }, subject: string | null, swarm: string): boolean =>
+  !!subject && run.ticker === subject && run.swarmId === swarm
+const runsForSubject = (runs: Record<string, ActiveRun>, subject: string | null, swarm: string): ActiveRun[] =>
+  subject ? Object.values(runs).filter((r) => runMatchesSubject(r, subject, swarm) && LIVE_RUN.has(r.status)) : []
+const runningSubjectsForSwarm = (runs: { ticker: string; swarmId?: string }[], swarm: string): Set<string> =>
+  new Set(runs.filter((r) => r.swarmId === swarm).map((r) => r.ticker))
+const runSubjectKey = (swarm: string, subject: string): string => `${swarm}\0${subject}`
 
 interface State {
   connected: boolean
@@ -325,8 +415,8 @@ interface State {
   now: number // shared 1s clock for every live timer (orb/module/panel/tooltip); ticked only while orbs run
   activeRuns: Record<string, ActiveRun> // selected-ticker live runs (+ just-finished, until next switch)
   resumableRuns: ResumableRunInfo[] // disk-truth set of interrupted runs the cockpit can resume (all swarms)
-  activeRunsByTicker: Set<string>
-  chainTickers: Set<string> // tickers whose full run is a per-module CHAIN — defer the "complete" celebration to the master step
+  activeRunsByTicker: Set<string> // live subject labels in activeSwarm only; globalActive remains unfiltered
+  chainTickers: Set<string> // swarm\0subject keys whose full run is a per-module CHAIN
   selectToken: number
   runStream: StreamRow[]
   coreBloom: boolean
@@ -375,11 +465,11 @@ interface State {
   valuationPlaygroundOpen: boolean
   callsOpen: boolean
   selectedNodeKey: string | null
-  launchConfirm: { kind: 'full' | 'rerun'; preflight: LaunchPreflight; cascade?: CascadeNode[]; node?: { module: string; name: string; key: string } } | null
+  launchConfirm: { kind: 'full' | 'rerun'; selection: LaunchSelectionBinding; preflight: LaunchPreflight; cascade?: CascadeNode[]; node?: { module: string; name: string; key: string } } | null
   // Synchronous click→feedback state: set BEFORE any launch-family await so every Run control renders
   // an instant pending state (spinner + disabled), cleared in the action's finally. `key` identifies
   // the specific control so only IT spins; `ticker` scopes stage-level ambient indicators.
-  launchPending: { key: string; label: string; ticker: string } | null
+  launchPending: { key: string; label: string; ticker: string; selection?: LaunchSelectionBinding } | null
   // Runs the user asked to stop, before the terminal SSE lands — drives "Stopping…" button states.
   stoppingRuns: Record<string, true>
   toast: Toast | null
@@ -488,7 +578,7 @@ interface State {
   launchModule: (module: string, force?: boolean) => Promise<void>
   requestFull: () => Promise<void>
   confirmFull: () => Promise<void>
-  launchRerun: (node: { module: string; name: string; key: string }) => Promise<void>
+  launchRerun: (node: { module: string; name: string; key: string }, planOrigin?: LaunchSelectionBinding['planOrigin']) => Promise<void>
   confirmRerun: () => Promise<void>
   cancelLaunch: () => void
   cancelRun: (runId: string) => Promise<void>
@@ -527,7 +617,7 @@ interface State {
   // The structured data needs the run's terminal synthesizer surfaced (decision_record.json data_needs[]),
   // refreshed on select + on data-changed — read by the read-only "Data needs" dock. Null = none / no run.
   dataNeeds: DataNeedsRead | null
-  refreshDataNeeds: () => Promise<void>
+  refreshDataNeeds: (runRoot?: string) => Promise<void>
   refreshPipelines: () => Promise<void>
   openDataLibrary: () => void
   closeDataLibrary: () => void
@@ -551,8 +641,9 @@ interface State {
   resetThesisReuse: () => void // the "re-run everything" escape hatch — drop the intake scoping, re-run all stale
   completeThesis: () => Promise<void>
   resumeThesisModule: (module: string) => Promise<void> // the RUN pill — launch one module, resuming its orbs
-  // the New-data dock's one-pass scoped rerun (POST /api/intake-plan/run) — attaches to the run immediately
+  // the New-data dock's one-pass scoped rerun (POST /api/intake-plan/run-exact) — attaches immediately
   scopedRerunPending: boolean
+  prepareScopedRerun: () => Promise<boolean>
   runScopedRerun: () => Promise<void>
 
   openReport: (tier: 'memo' | 'thesis' | 'dossier') => Promise<void>
@@ -775,6 +866,10 @@ interface State {
 
   // ---- dynamic themes (the firehose bucketed into living, ranked investment themes) ----
   themes: Theme[]
+  // A separate, non-investable disclosure lane. It never feeds map nodes, dossier selection, or Ideas.
+  // Null means the server did not disclose this contract (rolling deploy), not that the queue is empty.
+  themeFormationQueue: ThemeFormationQueue | null
+  themeCompilerHealth: ThemeCompilerHealth | null
   themesView: 'map' | 'board' | null // null = themes view closed (gauntlet/idle canvas shows)
   // "Best ideas" tab — the PM skim. A sibling of Themes in the wire's tab row: when true, the main pane
   // shows BestIdeasView instead of the home/gauntlet. Mutually exclusive with Themes (opening one closes
@@ -1006,6 +1101,97 @@ const NEWS_CHAT_RESET = {
   newsChatRetryText: undefined as string | undefined,
 }
 
+function captureLaunchSelection(state: State): LaunchSelectionBinding | null {
+  if (!state.selectedTicker) return null
+  const read = state.dataNeeds
+  const exactDecision = read && state.runRoot && read.subject === state.selectedTicker
+    && read.swarm === state.activeSwarm && read.run_root === state.runRoot
+    && /^sha256:[a-f0-9]{64}$/.test(read.decision_fingerprint)
+    ? { runRoot: read.run_root, decisionFingerprint: read.decision_fingerprint }
+    : {}
+  return { subject: state.selectedTicker, swarm: state.activeSwarm, selectToken: state.selectToken, ...exactDecision }
+}
+
+function hasExactDecisionBinding(
+  selection: LaunchSelectionBinding,
+): selection is LaunchSelectionBinding & { runRoot: string; decisionFingerprint: string } {
+  return !!selection.runRoot && !!selection.decisionFingerprint
+    && /^sha256:[a-f0-9]{64}$/.test(selection.decisionFingerprint)
+}
+
+function launchSelectionIsCurrent(state: State, selection: LaunchSelectionBinding): boolean {
+  // A warp starts before activeSwarm changes. Treat that transition itself as navigation so an estimate
+  // resolving during the animation cannot reopen a confirmation for the stage being left.
+  if (state.warp || state.selectedTicker !== selection.subject || state.activeSwarm !== selection.swarm
+      || state.selectToken !== selection.selectToken) return false
+  if (!selection.runRoot && !selection.decisionFingerprint) return true
+  const read = state.dataNeeds
+  return !!selection.runRoot && !!selection.decisionFingerprint && state.runRoot === selection.runRoot
+    && read?.subject === selection.subject && read.swarm === selection.swarm
+    && read.run_root === selection.runRoot && read.decision_fingerprint === selection.decisionFingerprint
+}
+
+function launchPreflightMatches(
+  preflight: LaunchPreflight | null | undefined,
+  selection: LaunchSelectionBinding,
+  kind: 'full' | 'rerun',
+  node?: { module: string; name: string },
+): boolean {
+  if (!preflight) return false
+  const swarmMatches = selection.swarm === 'research'
+    ? preflight.swarm === undefined || preflight.swarm === 'research'
+    : preflight.swarm === selection.swarm
+  const exactReceiptMatches = kind !== 'rerun' || (hasExactDecisionBinding(selection)
+    && preflight.exactDecisionBinding?.contractVersion === EXACT_DECISION_LAUNCH_CONTRACT
+    && preflight.exactDecisionBinding.runRoot === selection.runRoot
+    && preflight.exactDecisionBinding.decisionFingerprint === selection.decisionFingerprint)
+  const planReceiptMatches = !selection.planOrigin || (kind === 'rerun'
+    && preflight.exactDecisionBinding?.intakePlan?.contractVersion === 'exact-intake-orb/1'
+    && preflight.exactDecisionBinding.intakePlan.planPath === selection.planOrigin.planPath
+    && preflight.exactDecisionBinding.intakePlan.planSha256 === selection.planOrigin.planSha256
+    && preflight.exactDecisionBinding.intakePlan.sourceDecisionFingerprint === selection.planOrigin.sourceDecisionFingerprint)
+  return preflight.kind === kind && preflight.ticker === selection.subject && swarmMatches
+    && exactReceiptMatches && planReceiptMatches
+    && (kind !== 'rerun' || (!!node && preflight.module === node.module && preflight.agent === node.name))
+}
+
+async function verifyScopedRerunCapability(
+  get: () => State,
+  selection: LaunchSelectionBinding & { runRoot: string; decisionFingerprint: string },
+): Promise<NonNullable<LaunchSelectionBinding['planOrigin']>> {
+  const plan = get().intake
+  if (!plan || (plan.subject ?? plan.ticker) !== selection.subject
+      || (plan.swarm ?? 'research') !== selection.swarm || plan.run_root !== selection.runRoot
+      || plan.actionable !== true
+      || !/^sha256:[a-f0-9]{64}$/.test(plan.decision_fingerprint ?? '')
+      || !/^sha256:[a-f0-9]{64}$/.test(plan.plan_sha256 ?? '')
+      || typeof plan.plan_path !== 'string' || !plan.plan_path) {
+    throw new Error('The scoped plan is not tied to this exact call. Re-analyze the data first.')
+  }
+  const firstCommand = plan.rerun_plan?.commands?.[0]
+  if (!firstCommand) throw new Error('The scoped plan has no exact orb to verify. Re-analyze the data first.')
+  const planOrigin = {
+    planPath: plan.plan_path,
+    planSha256: plan.plan_sha256!,
+    sourceDecisionFingerprint: plan.decision_fingerprint!,
+  }
+  const capability = await api.estimate(
+    'rerun', selection.subject, firstCommand.module, firstCommand.agent,
+    selection.swarm !== 'research' ? selection.swarm : undefined,
+    { runRoot: selection.runRoot, decisionFingerprint: selection.decisionFingerprint, ...planOrigin },
+  )
+  if (!launchSelectionIsCurrent(get(), selection)) {
+    throw new Error('The selected call changed. Nothing was launched.')
+  }
+  if (!launchPreflightMatches(capability, { ...selection, planOrigin }, 'rerun', {
+    module: firstCommand.module,
+    name: firstCommand.agent,
+  })) {
+    throw new Error('This engine cannot verify the exact call before spending. Refresh after the Mac Pro update; nothing was launched.')
+  }
+  return planOrigin
+}
+
 export const useStore = create<State>((set, get) => ({
   connected: true,
   health: 'connecting',
@@ -1180,6 +1366,8 @@ export const useStore = create<State>((set, get) => ({
   bridgeStatus: null,
   newsStreamOnline: false,
   themes: [],
+  themeFormationQueue: null,
+  themeCompilerHealth: null,
   themesView: null,
   ideasOpen: false,
   calendarOpen: false,
@@ -1233,7 +1421,11 @@ export const useStore = create<State>((set, get) => ({
         dataSource.addEventListener('data-changed', (ev: MessageEvent) => {
           try {
             const d = JSON.parse(ev.data)
-            if (d.ticker === get().selectedTicker) { get().refreshData(); void get().refreshIntake(); void get().refreshDataNeeds() }
+            // data/ is the research pool. A commodity with the same label is a different subject and must
+            // not receive its status/intake refresh merely because the ticker string matches.
+            if (get().activeSwarm === 'research' && d.ticker === get().selectedTicker) {
+              get().refreshData(); void get().refreshIntake(); void get().refreshDataNeeds()
+            }
             refreshTickersSoon(get, set) // live count update + keep polling while Drive is still syncing
           } catch {}
         })
@@ -1274,14 +1466,12 @@ export const useStore = create<State>((set, get) => ({
     chatPendingBaseline = null
     chatAbort?.abort(); chatAbort = null // a new subject → drop any in-flight chat + its thread
     // the completion plan is per-subject disk truth — never let a previous subject's plan survive a switch
-    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, dataNeeds: null, whatChanged: null, whatChangedOpen: false, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, runActivity: {}, thesisPlanIntake: null, liveQuote: null, liveQuoteAt: null, ...CHAT_RESET })
+    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, dataNeeds: null, whatChanged: null, whatChangedOpen: false, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, runActivity: {}, thesisPlanIntake: null, liveQuote: null, liveQuoteAt: null, launchConfirm: null, launchPending: get().launchPending?.selection ? null : get().launchPending, ...CHAT_RESET })
     const graph = isResearch ? await api.swarm(t) : await api.swarmGraph(sw, t)
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
     void get().refreshResumable() // so the orb-view Resume chip knows if this subject has an interrupted run
     if (isResearch) await get().refreshData()
-    if (isResearch) void get().refreshIntake() // the scoped rerun plan (if one exists) — non-blocking
-    void get().refreshDataNeeds() // the surfaced data needs (research + commodity) — non-blocking, fail-closed
     void get().refreshPipelines() // the cross-swarm pipeline library (the Data button gates on this, §5)
     if (get().selectToken !== token) return
     // seed prior-run results into the swarm
@@ -1295,6 +1485,13 @@ export const useStore = create<State>((set, get) => ({
       if (manifest.finalThesis) seed['master/synthesizer'] = { status: 'done', outputPath: `${manifest.runRoot}/final_thesis.md` }
       set({ nodeRuntime: seed, runRoot: manifest.runRoot ?? null, reports: { memo: !!manifest.memo, thesis: !!manifest.finalThesis, dossier: !!manifest.fullDossier }, moduleReports: manifest.moduleReports ?? {} })
     } catch {}
+    // AFTER the manifest sets runRoot: document intake is a manifest capability shared by research and
+    // constellation swarms. An exact historical research selection must read that run, while a singleton
+    // swarm echoes its server-owned root. The reader fails closed when the swarm has no intake command/plan.
+    void get().refreshIntake()
+    // AFTER the manifest sets runRoot: a historical research selection must read that exact call's gaps.
+    // Passing the original selection is the fail-closed fallback if the manifest vanished mid-read.
+    void get().refreshDataNeeds(isResearch ? (get().runRoot ?? runRoot) : undefined)
     // AFTER the manifest set runRoot: the version delta must target the run the banner is about to show,
     // not whatever run resolving the bare ticker would pick.
     if (isResearch) void get().refreshWhatChanged()
@@ -1313,9 +1510,11 @@ export const useStore = create<State>((set, get) => ({
     // reconnect to EVERY run in flight for this company (concurrent runs are supported)
     try {
       const { active } = await api.activeRuns()
-      if (get().selectToken !== token) return
-      set({ activeRunsByTicker: new Set(active.map((r) => r.ticker)) })
-      for (const r of active.filter((r) => r.ticker === t)) await reconnectRun(set, get, r.runId, token)
+      if (get().selectToken !== token || get().activeSwarm !== sw || get().selectedTicker !== t) return
+      set({ activeRunsByTicker: runningSubjectsForSwarm(active, sw), globalActive: active as ActiveRunLite[] })
+      for (const r of active.filter((r) => runMatchesSubject(r, t, sw))) {
+        await reconnectRun(set, get, r.runId, token, { subject: t, swarm: sw })
+      }
       schedulePoll(get, active.length > 0)
     } catch {}
   },
@@ -1394,14 +1593,19 @@ export const useStore = create<State>((set, get) => ({
     if (get().staticMode) return
     try {
       const { active } = await api.activeRuns()
-      set({ activeRunsByTicker: new Set(active.map((r) => r.ticker)), globalActive: active as ActiveRunLite[] })
+      const activeSwarm = get().activeSwarm
+      set({ activeRunsByTicker: runningSubjectsForSwarm(active, activeSwarm), globalActive: active as ActiveRunLite[] })
       // live-follow: connect to any active run for the SELECTED ticker we're not already streaming. A
       // chained full run launches each step under a new runId server-side; without this the swarm would
       // go dark between steps. Benign for normal runs (it only attaches to this ticker's own live runs).
       const sel = get().selectedTicker
       if (sel) {
         const token = get().selectToken
-        for (const r of active) if (r.ticker === sel && !runSources.has(r.runId)) reconnectRun(set, get, r.runId, token)
+        for (const r of active) {
+          if (runMatchesSubject(r, sel, activeSwarm) && !runSources.has(r.runId)) {
+            reconnectRun(set, get, r.runId, token, { subject: sel, swarm: activeSwarm })
+          }
+        }
       }
       schedulePoll(get, active.length > 0)
     } catch {}
@@ -1436,7 +1640,7 @@ export const useStore = create<State>((set, get) => ({
         // The engine reports the resume split: `skipped` = modules already finished on disk (NOT re-run),
         // `planned` = modules this relaunch will actually run. Use it to keep the UI honest.
         const { runId, chained, skipped, planned: plannedMods, resumed } = await api.launch(body)
-        if (chained) set({ chainTickers: new Set(get().chainTickers).add(info.subject) })
+        if (chained) set({ chainTickers: new Set(get().chainTickers).add(runSubjectKey(info.swarm || 'research', info.subject)) })
         // If the resumed subject is the one on screen, light up its orbs and follow live (beginRun keys off
         // the selected ticker). Otherwise just attach the stream + refresh — the Activity log row settles on
         // its own, and the user can select the subject to watch it run.
@@ -1541,11 +1745,11 @@ export const useStore = create<State>((set, get) => ({
   },
 
   // LIVE runs for a ticker (launch-guard truth); finished runs are excluded.
-  activeRunsForTicker: (t) => runsForTicker(get().activeRuns, t),
-  anyRunForTicker: (t) => runsForTicker(get().activeRuns, t).length > 0,
+  activeRunsForTicker: (t) => runsForSubject(get().activeRuns, t, get().activeSwarm),
+  anyRunForTicker: (t) => runsForSubject(get().activeRuns, t, get().activeSwarm).length > 0,
   // is any of these orb keys already queued/running for this ticker? (disjoint-target client guard)
   targetInFlight: (t, keys) => {
-    if (!runsForTicker(get().activeRuns, t).length) return false
+    if (!runsForSubject(get().activeRuns, t, get().activeSwarm).length) return false
     const rt = get().nodeRuntime
     return keys.some((k) => rt[k]?.status === 'queued' || rt[k]?.status === 'running')
   },
@@ -1615,85 +1819,175 @@ export const useStore = create<State>((set, get) => ({
   requestFull: async () => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — a full run executes on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
-    const t = get().selectedTicker
-    if (!t) return
-    if (get().anyRunForTicker(t)) return get().setToast({ msg: `Finish the in-flight run on ${t} first — a full run needs exclusive access`, tone: 'info' })
-    set({ launchPending: { key: 'full:request', label: 'Preparing the run plan…', ticker: t } })
+    const selection = captureLaunchSelection(get())
+    if (!selection) return
+    if (get().anyRunForTicker(selection.subject)) return get().setToast({ msg: `Finish the in-flight run on ${selection.subject} first — a full run needs exclusive access`, tone: 'info' })
+    const pending = { key: 'full:request', label: 'Preparing the run plan…', ticker: selection.subject, selection }
+    set({ launchPending: pending })
     try {
-      const preflight = await api.estimate('full', t, undefined, undefined, get().activeSwarm !== 'research' ? get().activeSwarm : undefined)
-      set({ launchConfirm: { kind: 'full', preflight } })
+      const preflight = await api.estimate('full', selection.subject, undefined, undefined, selection.swarm !== 'research' ? selection.swarm : undefined)
+      if (!launchSelectionIsCurrent(get(), selection)) return
+      if (!launchPreflightMatches(preflight, selection, 'full')) {
+        return get().setToast({ msg: 'Couldn\'t verify that this run plan belongs to the call on screen. Refresh and try again.', tone: 'bad' })
+      }
+      set({ launchConfirm: { kind: 'full', selection, preflight } })
     } catch (e: any) {
+      if (!launchSelectionIsCurrent(get(), selection)) return
       // was an unhandled rejection — the button just did nothing on a failed estimate
       get().setToast({ msg: `Couldn't prepare the run: ${e?.message || 'the estimate failed'}`, tone: 'bad' })
     } finally {
-      set({ launchPending: null })
+      // A late estimate must not clear feedback for a newer launch request.
+      if (get().launchPending === pending) set({ launchPending: null })
     }
   },
 
   confirmFull: async () => {
-    const t = get().selectedTicker
-    if (!t) return
+    const lc = get().launchConfirm
+    if (!lc || lc.kind !== 'full') return
+    const selection = lc.selection
+    if (!launchSelectionIsCurrent(get(), selection) || get().launchConfirm !== lc) {
+      set({ launchConfirm: null })
+      return get().setToast({ msg: 'The selected call changed. Nothing was launched.', tone: 'info' })
+    }
     if (HARD_DOWN.has(get().health)) { set({ launchConfirm: null }); return get().setToast({ msg: 'Engine offline — the run was not started.', tone: 'bad' }) }
     const planned = [...get().nodesByKey.keys()]
     // keep the confirm modal OPEN with its Launch button spinning until the server acks — closing it
     // immediately read as "dismissed", not "launching" (the old dead-air window)
-    set({ launchPending: { key: 'confirm', label: `Starting the full run on ${t}…`, ticker: t } })
+    const pending = { key: 'confirm', label: `Starting the full run on ${selection.subject}…`, ticker: selection.subject, selection }
+    set({ launchPending: pending })
     try {
-      const { runId, chained } = await api.launch({ kind: 'full', ticker: t, confirmTicker: t, swarm: get().activeSwarm !== 'research' ? get().activeSwarm : undefined })
+      // Recheck immediately before constructing the paid request. The body uses the captured identity;
+      // current store fields are never re-read as launch authority after the confirmation was priced.
+      if (!launchSelectionIsCurrent(get(), selection) || get().launchConfirm !== lc) {
+        set({ launchConfirm: null })
+        return get().setToast({ msg: 'The selected call changed. Nothing was launched.', tone: 'info' })
+      }
+      const { runId, chained, preflight } = await api.launch({ kind: 'full', ticker: selection.subject, confirmTicker: selection.subject, swarm: selection.swarm !== 'research' ? selection.swarm : undefined })
+      // The paid request may finish after navigation. It still targeted the captured subject, but must not
+      // paint that run onto the newly selected graph.
+      if (!launchSelectionIsCurrent(get(), selection)) {
+        void get().refreshActiveRuns()
+        return get().setToast({ msg: `The full run started on ${selection.subject}. Follow it in Activity.`, tone: 'good' })
+      }
+      if (!launchPreflightMatches(preflight, selection, 'full')) {
+        void get().refreshActiveRuns()
+        return get().setToast({ msg: 'The run started, but its receipt did not match this call. Check Activity before doing anything else.', tone: 'bad' })
+      }
       // a chained full run is a sequence of per-module runs + master; mark the ticker so run-done defers
       // the "complete" celebration to the master step and the cockpit live-follows every step.
-      if (chained) set({ chainTickers: new Set(get().chainTickers).add(t) })
+      if (chained) set({ chainTickers: new Set(get().chainTickers).add(runSubjectKey(selection.swarm, selection.subject)) })
       set({ launchConfirm: null })
       beginRun(set, get, runId, { kind: 'full', willCommitToMain: true }, planned)
-      get().setToast({ msg: `Launched full run on ${t}${chained ? ' (per-module)' : ''}`, tone: 'good' })
+      get().setToast({ msg: `Launched full run on ${selection.subject}${chained ? ' (per-module)' : ''}`, tone: 'good' })
     } catch (e: any) {
-      set({ launchConfirm: null }) // close so the error toast (and its "Run anyway" action) is unobstructed
-      launchErrorToast(get, e, t, 'full run')
+      if (get().launchConfirm === lc) set({ launchConfirm: null }) // close so the error toast is unobstructed
+      launchErrorToast(get, e, selection.subject, 'full run')
     } finally {
-      set({ launchPending: null })
+      if (get().launchPending === pending) set({ launchPending: null })
     }
   },
 
   // re-run one orb + everything downstream of it (its module synthesis -> dependent module syntheses -> master Memo).
   // opens the cascade confirm dialog; confirmRerun() actually launches. Live-only.
-  launchRerun: async (node) => {
+  launchRerun: async (node, planOrigin) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — re-runs happen on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
-    const t = get().selectedTicker
-    if (!t) return
+    const selection = captureLaunchSelection(get())
+    if (!selection) return
+    // A re-run changes an existing call, so it must be bound to that call's immutable run folder and
+    // decision fingerprint. If the projection is still loading/missing, stop before even pricing work.
+    // Full runs remain available because they create a new call rather than mutate this one.
+    if (!hasExactDecisionBinding(selection)) {
+      return get().setToast({ msg: 'I can’t safely re-run this call yet — its exact evidence record is missing. Refresh the call and try again.', tone: 'bad' })
+    }
+    if (planOrigin) selection.planOrigin = { ...planOrigin }
     const cascade = downstreamCascade(get().graph, node.module, node.name)
     if (!cascade.length) return get().setToast({ msg: `Can't resolve the downstream of ${node.name}`, tone: 'bad' })
-    if (get().targetInFlight(t, cascade.map((c) => c.key))) return get().setToast({ msg: `${node.name} or its downstream is already running`, tone: 'info' })
+    if (get().targetInFlight(selection.subject, cascade.map((c) => c.key))) return get().setToast({ msg: `${node.name} or its downstream is already running`, tone: 'info' })
+    const pending = { key: `rerun:request:${node.key}`, label: `Preparing the re-run of ${node.name}…`, ticker: selection.subject, selection }
+    set({ launchPending: pending })
     try {
-      const preflight = await api.estimate('rerun', t, node.module, node.name, get().activeSwarm !== 'research' ? get().activeSwarm : undefined)
-      set({ launchConfirm: { kind: 'rerun', preflight, cascade, node } })
+      const preflight = await api.estimate(
+        'rerun', selection.subject, node.module, node.name,
+        selection.swarm !== 'research' ? selection.swarm : undefined,
+        { runRoot: selection.runRoot, decisionFingerprint: selection.decisionFingerprint, ...selection.planOrigin },
+      )
+      if (!launchSelectionIsCurrent(get(), selection)) return
+      const liveNode = get().nodesByKey.get(node.key)
+      if (!liveNode || liveNode.module !== node.module || liveNode.name !== node.name
+          || !launchPreflightMatches(preflight, selection, 'rerun', node)) {
+        return get().setToast({ msg: 'Couldn\'t verify that this re-run belongs to the live orb on screen. Refresh and try again.', tone: 'bad' })
+      }
+      set({ launchConfirm: { kind: 'rerun', selection, preflight, cascade, node } })
     } catch (e: any) {
+      if (!launchSelectionIsCurrent(get(), selection)) return
       get().setToast({ msg: `Re-run estimate failed: ${e?.message || e}`, tone: 'bad' })
+    } finally {
+      if (get().launchPending === pending) set({ launchPending: null })
     }
   },
 
   confirmRerun: async () => {
-    const t = get().selectedTicker
     const lc = get().launchConfirm
-    if (!t || !lc?.node) return
+    if (!lc?.node || lc.kind !== 'rerun') return
+    const selection = lc.selection
+    if (!hasExactDecisionBinding(selection)) {
+      set({ launchConfirm: null })
+      return get().setToast({ msg: 'This re-run is not tied to an exact call. Nothing was launched.', tone: 'bad' })
+    }
+    if (!launchSelectionIsCurrent(get(), selection) || get().launchConfirm !== lc) {
+      set({ launchConfirm: null })
+      return get().setToast({ msg: 'The selected call changed. Nothing was launched.', tone: 'info' })
+    }
     if (HARD_DOWN.has(get().health)) { set({ launchConfirm: null }); return get().setToast({ msg: 'Engine offline — the run was not started.', tone: 'bad' }) }
     const node = lc.node
+    const liveNode = get().nodesByKey.get(node.key)
+    if (!liveNode || liveNode.module !== node.module || liveNode.name !== node.name) {
+      set({ launchConfirm: null })
+      return get().setToast({ msg: 'That orb is no longer part of the live graph. Nothing was launched.', tone: 'info' })
+    }
+    // Recheck the server-minted capability at the final spend boundary too. This covers a confirmation
+    // restored from stale client state or crafted by an old bundle: immutable local identity alone does
+    // not prove the server understood it, and an old server would silently strip the binding fields.
+    if (!launchPreflightMatches(lc.preflight, selection, 'rerun', node)) {
+      set({ launchConfirm: null })
+      return get().setToast({ msg: 'This engine did not verify the exact call. Nothing was launched.', tone: 'bad' })
+    }
     const planned = (lc.cascade ?? downstreamCascade(get().graph, node.module, node.name)).map((c) => c.key)
     // Local launcher so the conflict "Run anyway" retry can re-fire with force AFTER the confirm dialog is
     // gone — node + planned are captured here, not re-read from the (now-cleared) launchConfirm.
     // The modal stays open with its Launch button spinning until the server acks (same as confirmFull).
     const doRerun = async (force?: boolean) => {
-      set({ launchPending: { key: 'confirm', label: `Starting the re-run of ${node.name}…`, ticker: t } })
+      if (!launchSelectionIsCurrent(get(), selection)) {
+        set({ launchConfirm: null })
+        return get().setToast({ msg: 'The selected call changed. Nothing was launched.', tone: 'info' })
+      }
+      const pending = { key: 'confirm', label: `Starting the re-run of ${node.name}…`, ticker: selection.subject, selection }
+      set({ launchPending: pending })
       try {
-        const { runId } = await api.launch({ kind: 'rerun', ticker: t, module: node.module, agent: node.name, force, swarm: get().activeSwarm !== 'research' ? get().activeSwarm : undefined })
+        const { runId, preflight } = await api.launchExact({
+          kind: 'rerun', ticker: selection.subject, module: node.module, agent: node.name, force,
+          swarm: selection.swarm !== 'research' ? selection.swarm : undefined,
+          runRoot: selection.runRoot,
+          decisionFingerprint: selection.decisionFingerprint,
+          ...selection.planOrigin,
+        })
+        if (!launchSelectionIsCurrent(get(), selection)) {
+          void get().refreshActiveRuns()
+          return get().setToast({ msg: `The re-run of ${node.name} started on ${selection.subject}. Follow it in Activity.`, tone: 'good' })
+        }
+        if (!launchPreflightMatches(preflight, selection, 'rerun', node)) {
+          void get().refreshActiveRuns()
+          return get().setToast({ msg: 'The re-run started, but its receipt did not match this call. Check Activity before doing anything else.', tone: 'bad' })
+        }
         set({ launchConfirm: null })
         beginRun(set, get, runId, { kind: 'rerun', module: node.module, agent: node.name, willCommitToMain: true }, planned)
-        get().setToast({ msg: `Re-running ${node.name} + downstream on ${t}`, tone: 'good' })
+        get().setToast({ msg: `Re-running ${node.name} + downstream on ${selection.subject}`, tone: 'good' })
       } catch (e: any) {
-        set({ launchConfirm: null })
-        launchErrorToast(get, e, t, `re-run of ${node.name}`, force ? undefined : () => doRerun(true))
+        if (get().launchConfirm === lc) set({ launchConfirm: null })
+        launchErrorToast(get, e, selection.subject, `re-run of ${node.name}`, force ? undefined : () => doRerun(true))
       } finally {
-        set({ launchPending: null })
+        if (get().launchPending === pending) set({ launchPending: null })
       }
     }
     await doRerun()
@@ -1711,7 +2005,7 @@ export const useStore = create<State>((set, get) => ({
     // A chained full run advances through a NEW runId per module. Stop the WHOLE chain by subject so the
     // live step is cancelled no matter which id the panel is following — cancelling a single (possibly
     // already-ended) step id could 404 while the next module keeps spending. A plain run cancels by id.
-    const chained = !!ticker && get().chainTickers.has(ticker)
+    const chained = !!ticker && get().chainTickers.has(runSubjectKey(swarm, ticker))
     // instant "Stopping…" state; cleared by the terminal run-error/run-done SSE (or rolled back on failure)
     set({ stoppingRuns: { ...get().stoppingRuns, [runId]: true } })
     try {
@@ -1884,29 +2178,66 @@ export const useStore = create<State>((set, get) => ({
   // Fails to null — the cockpit then shows the honest staleness floor, never a fabricated plan.
   refreshIntake: async () => {
     const t = get().selectedTicker
-    if (!t || get().staticMode || get().activeSwarm !== 'research') return
+    const sw = get().activeSwarm
+    if (!t || get().staticMode || sw === 'screener') return
     const token = get().selectToken
+    const runRoot = get().runRoot ?? undefined
+    const exactRead = get().dataNeeds
+    const decisionFingerprint = runRoot && exactRead?.subject === t && exactRead.swarm === sw
+      && exactRead.run_root === runRoot && /^sha256:[a-f0-9]{64}$/.test(exactRead.decision_fingerprint)
+      ? exactRead.decision_fingerprint
+      : undefined
     try {
-      const plan = await api.intake(t)
-      if (get().selectToken !== token) return // a newer selection superseded this fetch
+      const plan = await api.intake(t, sw, runRoot, decisionFingerprint)
+      if (get().selectToken !== token || get().selectedTicker !== t || get().activeSwarm !== sw
+          || (runRoot !== undefined && get().runRoot !== runRoot)) return
+      // Positive identity match for the new generic wire. During deploy skew, an old research-only server
+      // omits `swarm`; accept that only for research. Never paint a commodity plan from a defaulted equity read.
+      if (plan && ((plan.swarm !== undefined && plan.swarm !== sw)
+          || (plan.subject !== undefined && plan.subject !== t)
+          || (runRoot !== undefined && plan.run_root !== runRoot))) return
       // recompute which orbs the plan lights (nodesByKey is already set by selectTicker before this runs)
       set({ intake: plan, intakePlanKeys: focusKeysFor(plan, get().nodesByKey) })
     } catch {
-      if (get().selectToken === token) set({ intake: null, intakePlanKeys: new Set() })
+      if (get().selectToken === token && get().selectedTicker === t && get().activeSwarm === sw) {
+        set({ intake: null, intakePlanKeys: new Set() })
+      }
     }
   },
-  refreshDataNeeds: async () => {
+  refreshDataNeeds: async (selectedRunRoot) => {
     const t = get().selectedTicker
     const sw = get().activeSwarm
     // constellation swarms only (research + commodity); the screener has no decision_record with data_needs.
     if (!t || get().staticMode || sw === 'screener') return
     const token = get().selectToken
-    try {
-      const read = await api.dataNeeds(t, sw)
-      if (get().selectToken !== token) return // a newer selection superseded this fetch
+    const requestSeq = ++dataNeedsRequestSeq
+    const expectedRunRoot = sw === 'research' ? (selectedRunRoot ?? get().runRoot ?? undefined) : get().runRoot ?? undefined
+    const startingFingerprint = get().dataNeeds?.run_root === expectedRunRoot
+      ? get().dataNeeds?.decision_fingerprint
+      : undefined
+    const runRoot = sw === 'research' ? expectedRunRoot : undefined
+    const requestStillOwnsSelection = () => get().selectToken === token && requestSeq === dataNeedsRequestSeq
+      && get().selectedTicker === t && get().activeSwarm === sw
+      && (expectedRunRoot === undefined || get().runRoot === expectedRunRoot)
+      && (startingFingerprint === undefined || get().dataNeeds?.decision_fingerprint === startingFingerprint)
+    const commit = (read: DataNeedsRead | null) => {
+      if (!requestStillOwnsSelection()
+          || get().selectedTicker !== t || get().activeSwarm !== sw
+          || (read !== null && expectedRunRoot !== undefined && read.run_root !== expectedRunRoot)) return false
       set({ dataNeeds: read })
+      return true
+    }
+    try {
+      commit(await api.dataNeeds(t, sw, runRoot))
     } catch {
-      if (get().selectToken === token) set({ dataNeeds: null })
+      // Keep the last known exact-decision projection on a transient timeout/500. A successful `{read:null}`
+      // above is still authoritative and clears it; transport failure is not evidence that the needs vanished.
+      // One delayed retry covers the measured cold-host path. Every boundary is exact-selection guarded,
+      // so switching ticker/run while it waits (or while the retry is in flight) makes it a no-op.
+      if (!requestStillOwnsSelection()) return
+      await new Promise<void>((resolve) => setTimeout(resolve, DATA_NEEDS_RETRY_MS))
+      if (!requestStillOwnsSelection()) return
+      try { commit(await api.dataNeeds(t, sw, runRoot)) } catch { /* keep the last exact-decision projection */ }
     }
   },
 
@@ -1962,15 +2293,22 @@ export const useStore = create<State>((set, get) => ({
   // covers the common case silently; this is the on-demand button.
   analyzeIntake: async () => {
     const t = get().selectedTicker
-    if (!t || get().staticMode || get().activeSwarm !== 'research' || get().intakeAnalyzing) return
+    const sw = get().activeSwarm
+    const runRoot = get().runRoot ?? undefined
+    if (!t || get().staticMode || sw === 'screener' || get().intakeAnalyzing) return
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — analysis is paused until it reconnects.', tone: 'info' })
     set({ intakeAnalyzing: true })
     get().setToast({ msg: 'Reading the new documents — I’ll light up the orbs to re-run when it’s done (about a minute).', tone: 'info' })
     const token = get().selectToken
+    const exactRead = get().dataNeeds
+    const decisionFingerprint = runRoot && exactRead?.subject === t && exactRead.swarm === sw
+      && exactRead.run_root === runRoot && /^sha256:[a-f0-9]{64}$/.test(exactRead.decision_fingerprint)
+      ? exactRead.decision_fingerprint
+      : undefined
     const before = get().intake?.analyzed_at
     try {
       try {
-        await api.analyzeIntake(t)
+        await api.analyzeIntake(t, sw, runRoot, decisionFingerprint)
         // Attach to the run's live stream NOW rather than waiting for the next background poll: this is
         // what feeds the dock's reading list, and the run starts reading the moment it spawns. (The
         // server replays its activity ring on subscribe, so the steps taken in this gap are not lost —
@@ -1990,7 +2328,7 @@ export const useStore = create<State>((set, get) => ({
         // synchronously when refreshActiveRuns resolves, unlike activeRuns (reconciled async via
         // reconnectRun).
         await get().refreshActiveRuns()
-        const runsForTicker = get().globalActive.filter((r) => r.ticker === t)
+        const runsForTicker = get().globalActive.filter((r) => runMatchesSubject(r, t, sw))
         if (runsForTicker.length > 0 && !runsForTicker.some((r) => r.kind === 'doc-intake')) {
           get().setToast({ msg: `A run is already in progress on ${t} — finish or stop it before analyzing new documents.`, tone: 'info' })
           return
@@ -2073,19 +2411,67 @@ export const useStore = create<State>((set, get) => ({
   // named omitted specialists + its synthesis are queued — staging carries every sibling/downstream
   // specialist forward untouched, so queuing the whole module would leave those carried orbs looking stuck
   // "queued" forever with no agent events ever arriving for them (Codex #358 r3673980749).
+  prepareScopedRerun: async () => {
+    const selection = captureLaunchSelection(get())
+    if (!selection || get().scopedRerunPending) return false
+    if (selection.swarm !== 'research') {
+      get().setToast({ msg: 'This swarm reruns each affected orb through its normal confirmation.', tone: 'info' })
+      return false
+    }
+    if (!hasExactDecisionBinding(selection)) {
+      get().setToast({ msg: 'I can’t safely prepare this scoped re-run — the exact call record is missing. Refresh and try again.', tone: 'bad' })
+      return false
+    }
+    if (get().staticMode) {
+      get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
+      return false
+    }
+    set({ scopedRerunPending: true })
+    try {
+      await verifyScopedRerunCapability(get, selection)
+      return true
+    } catch (e: any) {
+      get().setToast({ msg: e?.message || 'Could not verify this scoped re-run. Nothing was launched.', tone: 'bad' })
+      return false
+    } finally {
+      set({ scopedRerunPending: false })
+    }
+  },
+
   runScopedRerun: async () => {
-    const t = get().selectedTicker
-    if (!t || get().scopedRerunPending) return
+    const selection = captureLaunchSelection(get())
+    if (!selection || get().scopedRerunPending) return
+    if (selection.swarm !== 'research') {
+      get().setToast({ msg: 'This swarm reruns each affected orb through its normal confirmation.', tone: 'info' })
+      return
+    }
+    // A scoped pass is still a paid mutation of ONE completed call. Never let a bare ticker resolve to
+    // whatever call happens to be newest by the time the POST reaches the server.
+    if (!hasExactDecisionBinding(selection)) {
+      get().setToast({ msg: 'I can’t safely start this scoped re-run — the exact call record is missing. Refresh and try again.', tone: 'bad' })
+      return
+    }
+    const t = selection.subject
     if (get().staticMode) { get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' }); return }
     // Captured BEFORE the request: if the user switches tickers while this is in flight, `nodesByKey` and
     // `beginRun` (which reads `selectedTicker` itself) would both resolve against the NEW ticker — silently
     // registering and rendering ticker A's scoped run as ticker B's (Codex #358 r3673980759).
-    const token = get().selectToken
+    const token = selection.selectToken
     set({ scopedRerunPending: true })
     try {
-      const { runId, staleModules, carried, scoped, chained } = await api.runIntakePlan(t, 'research')
-      if (chained) set({ chainTickers: new Set(get().chainTickers).add(t) })
-      if (get().selectToken !== token) {
+      // During deploy skew an old server would strip runRoot/fingerprint from the legacy scoped body and
+      // spend against whatever plan was current. Ask the same versioned estimate boundary used by one-orb
+      // reruns first; only its exact identity echo unlocks the versioned POST.
+      const planOrigin = await verifyScopedRerunCapability(get, selection)
+      const { runId, staleModules, carried, scoped, chained } = await api.runIntakePlan(
+        t,
+        selection.swarm,
+        selection.runRoot,
+        selection.decisionFingerprint,
+        planOrigin,
+      )
+      if (chained) set({ chainTickers: new Set(get().chainTickers).add(runSubjectKey('research', t)) })
+      if (!launchSelectionIsCurrent(get(), selection)) {
         // Selection moved on — attach the run in the background (mirrors resumeRun's "not onScreen" path)
         // instead of mutating whatever ticker is now selected with A's run info.
         if (runId) { connectRun(get, runId); void get().refreshActiveRuns() }
@@ -2176,7 +2562,7 @@ export const useStore = create<State>((set, get) => ({
       }
 
       const { runId, chained, carried, willRun } = await api.runThesisPlan(t, plan.reuse, plan.swarm)
-      if (chained) set({ chainTickers: new Set(get().chainTickers).add(t) })
+      if (chained) set({ chainTickers: new Set(get().chainTickers).add(runSubjectKey(plan.swarm, t)) })
 
       // Light up ONLY the modules that will actually run; show the reused ones as done (green), never as
       // "starting" — the client lying about that is the exact scare this feature exists to remove.
@@ -2779,6 +3165,7 @@ export const useStore = create<State>((set, get) => ({
       set({
         health: 'session-expired', connected: false,
         themesView: null, themesStatus: 'idle', themesLoading: false, themeBriefLoading: false,
+        themeFormationQueue: null, themeCompilerHealth: null,
         selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null,
       })
     } else {
@@ -2809,9 +3196,16 @@ export const useStore = create<State>((set, get) => ({
 
   _handleEvent: (e) => {
     const selected = get().selectedTicker
-    // only run-started carries ticker; for every other event derive it from the owning run
-    const evTicker = e.type === 'run-started' ? e.ticker : get().activeRuns[e.runId]?.ticker
-    const forSelected = !evTicker || evTicker === selected
+    const activeSwarm = get().activeSwarm
+    // A label is not a global identity. Derive both halves from the owning run and fail closed if either
+    // is absent; otherwise a research GOLD event can paint the commodity GOLD graph (and vice versa).
+    const eventRun = get().activeRuns[e.runId]
+    const evTicker = eventRun?.ticker ?? (e.type === 'run-started' ? e.ticker : undefined)
+    const evSwarm = eventRun?.swarmId
+    const forSelected = !!selected && evTicker === selected && evSwarm === activeSwarm
+    const selectionToken = get().selectToken
+    const eventSelectionStillOwnsView = () => get().selectToken === selectionToken
+      && get().selectedTicker === selected && get().activeSwarm === activeSwarm
 
     const patch: Partial<State> = {}
     const rt = { ...get().nodeRuntime }
@@ -2894,10 +3288,11 @@ export const useStore = create<State>((set, get) => ({
         // below is gated on r.ticker === selected, so without this the picker keeps GOLD's stale pill until a
         // swarm re-entry. loadSwarmSubjects self-guards on activeSwarm, so this is a no-op off the swarm.
         if (r && r.swarmId && r.swarmId !== 'research') {
-          const bgFinal = !get().chainTickers.has(r.ticker) || r.module === 'master'
+          const bgFinal = !get().chainTickers.has(runSubjectKey(r.swarmId, r.ticker)) || r.module === 'master'
           if (bgFinal) void get().loadSwarmSubjects(r.swarmId)
         }
-        if (r && r.ticker === selected) {
+        const runOnScreen = !!r && runMatchesSubject(r, selected, activeSwarm)
+        if (runOnScreen) {
           // A finished DOC-INTAKE (the "Analyze new data" advisory read) wrote/refreshed the scoped
           // re-run plan under analyses/ — which the data/ watcher can't see, so nothing else refreshes
           // the "New data" panel for an auto-launched read. Refresh it HERE and tell the user the
@@ -2924,7 +3319,8 @@ export const useStore = create<State>((set, get) => ({
             break
           }
           // a chained full run finishes once PER STEP; only the master step (the last) is "complete".
-          const chained = get().chainTickers.has(r.ticker)
+          const chainKey = r.swarmId ? runSubjectKey(r.swarmId, r.ticker) : ''
+          const chained = get().chainTickers.has(chainKey)
           const isFinal = !chained || r.module === 'master'
           // resolve the finished run's OWN swarm (positive match only — an absent swarmId means an
           // older engine, which only ever runs research; never default a swarm in permissively)
@@ -2932,7 +3328,8 @@ export const useStore = create<State>((set, get) => ({
           // keep reports/decision current as each step lands (memo/thesis stay false until the master).
           // target the run's OWN folder (r.runRoot, from run-started) so a module-only re-run surfaces what
           // just landed instead of the by-ticker refresh resolving back to the older standing run.
-          api.runManifest(selected, r.runRoot ?? undefined, rSw).then((m) => {
+          api.runManifest(selected!, r.runRoot ?? undefined, rSw).then((m) => {
+            if (!eventSelectionStillOwnsView()) return
             if (m.finalThesis) set({ nodeRuntime: { ...get().nodeRuntime, ['master/synthesizer']: { status: 'done', outputPath: `${m.runRoot}/final_thesis.md` } } })
             set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier }, moduleReports: m.moduleReports ?? get().moduleReports })
           }).catch(() => {})
@@ -2940,7 +3337,9 @@ export const useStore = create<State>((set, get) => ({
             patch.coreBloom = true
             if (bloomTimer) clearTimeout(bloomTimer)
             bloomTimer = setTimeout(() => set({ coreBloom: false }), 4500)
-            api.decision(selected, rSw, r.runRoot ?? undefined).then((d) => set({ decision: d })).catch(() => {})
+            api.decision(selected!, rSw, r.runRoot ?? undefined).then((d) => {
+              if (eventSelectionStillOwnsView()) set({ decision: d })
+            }).catch(() => {})
             // A finished run means a NEW entry price and expected return, so the re-based numbers beside
             // them must be recomputed against it — forced past the TTL for exactly that reason. Pass the
             // finished run's OWN root (the same one the decision above was fetched with): the manifest
@@ -2958,7 +3357,7 @@ export const useStore = create<State>((set, get) => ({
             // fired: the chip would sit stale until the next company switch, quietly describing the run
             // before the one that just finished.
             if (!rSw) void get().refreshWhatChanged()
-            if (chained) set({ chainTickers: new Set([...get().chainTickers].filter((x) => x !== r.ticker)) })
+            if (chained) set({ chainTickers: new Set([...get().chainTickers].filter((x) => x !== chainKey)) })
             get().setToast({ msg: 'Run complete', tone: 'good' })
           } else {
             // mid-chain step done — the next module auto-starts (and is now being streamed); show progress
@@ -2976,24 +3375,31 @@ export const useStore = create<State>((set, get) => ({
         if (r) patch.activeRuns = { ...get().activeRuns, [e.runId]: { ...r, status: e.status } }
         // a chained full run stops advancing when a step fails/cancels/comes back incomplete — the engine
         // won't launch the next step, so clear the chain and say exactly where it stopped.
-        if (r && get().chainTickers.has(r.ticker)) {
-          set({ chainTickers: new Set([...get().chainTickers].filter((x) => x !== r.ticker)) })
-          if (r.ticker === selected) {
+        const chainKey = r?.swarmId ? runSubjectKey(r.swarmId, r.ticker) : ''
+        const runOnScreen = !!r && runMatchesSubject(r, selected, activeSwarm)
+        if (r && get().chainTickers.has(chainKey)) {
+          set({ chainTickers: new Set([...get().chainTickers].filter((x) => x !== chainKey)) })
+          if (runOnScreen) {
             const msg = e.status === 'incomplete'
               ? (e.message || 'The pipeline finished but the final thesis & memo were not produced.')
               : `Pipeline stopped at ${r.module || 'a step'} (${e.status}) — fix it and re-run from there.`
             get().setToast({ msg, tone: 'bad' })
-            api.runManifest(selected, r.runRoot ?? undefined).then((m) => set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier }, moduleReports: m.moduleReports ?? get().moduleReports })).catch(() => {})
+            const rSw = r.swarmId && r.swarmId !== 'research' ? r.swarmId : undefined
+            api.runManifest(selected!, r.runRoot ?? undefined, rSw).then((m) => {
+              if (eventSelectionStillOwnsView()) set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier }, moduleReports: m.moduleReports ?? get().moduleReports })
+            }).catch(() => {})
           }
           break
         }
-        if (!r || r.ticker === selected) {
+        if ((!r && !selected) || runOnScreen) {
           if (e.status === 'incomplete') {
             // honest signal: the process exited but the final memos weren't produced (budget/turn cut-off)
             get().setToast({ msg: e.message || 'Run finished but the final thesis & memo were not produced — re-run from the master to finish.', tone: 'bad' })
             // surface whatever DID get written so the cockpit isn't blank (in the run's OWN swarm)
             const rSw = r?.swarmId && r.swarmId !== 'research' ? r.swarmId : undefined
-            if (r && r.ticker === selected) api.runManifest(selected, r.runRoot ?? undefined, rSw).then((m) => set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier }, moduleReports: m.moduleReports ?? get().moduleReports })).catch(() => {})
+            if (runOnScreen) api.runManifest(selected!, r.runRoot ?? undefined, rSw).then((m) => {
+              if (eventSelectionStillOwnsView()) set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier }, moduleReports: m.moduleReports ?? get().moduleReports })
+            }).catch(() => {})
           } else {
             get().setToast({ msg: e.reason === 'out_of_credits' ? 'Out of credits — run could not execute' : `Run ${e.status}: ${e.reason}`, tone: 'bad' })
             if (e.reason === 'out_of_credits') patch.credit = { ok: false, reason: 'out_of_credits', checked: true }
@@ -3004,7 +3410,7 @@ export const useStore = create<State>((set, get) => ({
       case 'readiness-blocked':
         // the pre-flight gate paused the run before any token spend — open the panel for the run's OWN
         // ticker (authoritative from the report, not the activeRuns lookup which may not have it yet)
-        if (!selected || e.report.ticker === selected) patch.readinessGate = { runId: e.runId, report: e.report }
+        if (forSelected && e.report.ticker === selected) patch.readinessGate = { runId: e.runId, report: e.report }
         break
       case 'readiness-checking': {
         // a re-check is running for the OPEN gate — mark it so the panel shows a spinner and disables
@@ -3045,18 +3451,21 @@ export const useStore = create<State>((set, get) => ({
     newsChatAbort?.abort(); newsChatAbort = null
     newsChatPendingBaseline = null
     if (reduced) {
-      set({ activeSwarm: to, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, signalIntakeSeed: null, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ideasOpen: false, diagnosticsOpen: false, ...CHAT_RESET, ...NEWS_CHAT_RESET })
+      set({ activeSwarm: to, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, signalIntakeSeed: null, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ideasOpen: false, diagnosticsOpen: false, launchConfirm: null, launchPending: get().launchPending?.selection ? null : get().launchPending, ...CHAT_RESET, ...NEWS_CHAT_RESET })
       get()._enterSwarm(to)
       if (opts?.landTicker) void get().selectTicker(opts.landTicker)
       return
     }
-    set({ warp: { from, to, payloadTicker: opts?.payloadTicker, landTicker: opts?.landTicker, phase: 'collapse' }, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, signalIntakeSeed: null, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ideasOpen: false, diagnosticsOpen: false, ...CHAT_RESET, ...NEWS_CHAT_RESET })
+    set({ warp: { from, to, payloadTicker: opts?.payloadTicker, landTicker: opts?.landTicker, phase: 'collapse' }, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, signalIntakeSeed: null, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ideasOpen: false, diagnosticsOpen: false, launchConfirm: null, launchPending: get().launchPending?.selection ? null : get().launchPending, ...CHAT_RESET, ...NEWS_CHAT_RESET })
     if (warpTimer) clearTimeout(warpTimer)
     warpTimer = setTimeout(() => get()._advanceWarp(), 420) // collapse -> traverse
   },
 
   _enterSwarm: (to) => {
     if (to !== 'screener') invalidateScreenerBootstrap()
+    // Picker dots follow the cockpit being viewed; Activity keeps the unfiltered globalActive list.
+    // Recompute synchronously on entry so a same-named subject from the previous swarm never flashes live.
+    set({ activeRunsByTicker: runningSubjectsForSwarm(get().globalActive, to) })
     const layout = get().swarms.find((s) => s.id === to)?.layout
     if (layout === 'flow') {
       get()._enterWire(to)
@@ -3106,7 +3515,7 @@ export const useStore = create<State>((set, get) => ({
       scArchiveQuery: {}, scArchiveResults: [], scArchiveCursor: null, scArchiveLoading: false,
       scArchiveLoadingMore: false, scArchiveScannedThrough: null, scArchiveExhausted: false, scArchiveError: null,
       scFacets: null, scFacetsLoading: false,
-      themes: [], themesStatus: 'idle', themesView: null, themesWindow: null, themesHistoryDays: 0, themesGeneratedAt: null, themesProjectedAt: null,
+      themes: [], themeFormationQueue: null, themeCompilerHealth: null, themesStatus: 'idle', themesView: null, themesWindow: null, themesHistoryDays: 0, themesGeneratedAt: null, themesProjectedAt: null,
       themesGeo: { country: '', geoRegion: '', label: '' }, themesSubject: null,
       selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false,
       feedWindowDays: 2,
@@ -3296,6 +3705,17 @@ export const useStore = create<State>((set, get) => ({
         if (Number.isFinite(t.rev) && t.rev > removedAt) { themeRemovalRevs.delete(t.theme_id); return true }
         return false
       })
+      // A global removal deliberately lets an already-useful index read settle. Apply the same session
+      // tombstones to its additive formation excerpt before commit, otherwise a pre-removal HTTP response
+      // can resurrect the exact non-investable row that SSE just invalidated.
+      let nextFormation = normalizeThemeFormationQueue(idx.formation_queue)
+      let nextCompilerHealth = normalizeThemeCompilerHealth(idx.compiler_health)
+      for (const candidate of nextFormation?.candidates || []) {
+        if (!themeRemovalRevs.has(candidate.theme_id)) continue
+        const reconciled = withoutFormationCandidate(nextFormation, nextCompilerHealth, candidate.theme_id)
+        nextFormation = reconciled.formation
+        nextCompilerHealth = reconciled.health
+      }
       // The full index is also the authoritative removal reconciliation after a lossy SSE gap. If the
       // currently open detail no longer belongs to this exact owner/slice, close every piece of its cached
       // state in the same synchronous write. The request/owner guard above makes an older response unable
@@ -3319,6 +3739,8 @@ export const useStore = create<State>((set, get) => ({
       if (selectedMissing || selectedContractChanged) cancelThemeDetailRequest()
       set({
         themes: currentThemes,
+        themeFormationQueue: nextFormation,
+        themeCompilerHealth: nextCompilerHealth,
         themesHistoryDays: idx.history_days || 0,
         themesGeneratedAt: idx.generated_at || null,
         themesProjectedAt: idx.projected_at || null,
@@ -3361,7 +3783,7 @@ export const useStore = create<State>((set, get) => ({
     // label, so clear it instead of briefly (or after a failed fetch, indefinitely) relabelling it.
     set({
       themesSubject: s,
-      themes: [], themesHistoryDays: 0, themesGeneratedAt: null, themesProjectedAt: null,
+      themes: [], themeFormationQueue: null, themeCompilerHealth: null, themesHistoryDays: 0, themesGeneratedAt: null, themesProjectedAt: null,
       themesStatus: open ? 'loading' : 'idle',
       selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false,
     })
@@ -3386,7 +3808,7 @@ export const useStore = create<State>((set, get) => ({
     // label. Clearing is intentionally blunt and honest; a matching fresh index replaces it shortly.
     set({
       themesGeo: geo,
-      themes: [], themesHistoryDays: 0, themesGeneratedAt: null, themesProjectedAt: null,
+      themes: [], themeFormationQueue: null, themeCompilerHealth: null, themesHistoryDays: 0, themesGeneratedAt: null, themesProjectedAt: null,
       themesStatus: open ? 'loading' : 'idle',
       selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false,
     })
@@ -4621,8 +5043,11 @@ export const useStore = create<State>((set, get) => ({
       if (refetchSlice) themesRequestSeq++
       const selected = get().selectedTheme === removal.theme_id
       if (selected) cancelThemeDetailRequest()
+      const reconciledFormation = withoutFormationCandidate(get().themeFormationQueue, get().themeCompilerHealth, removal.theme_id)
       set({
         themes: get().themes.filter((t) => t.theme_id !== removal.theme_id),
+        themeFormationQueue: reconciledFormation.formation,
+        themeCompilerHealth: reconciledFormation.health,
         ...(selected ? { selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false } : {}),
       })
       // Global removal is exact, so the delete above is sufficient. A sliced projection may also need
@@ -4671,8 +5096,16 @@ export const useStore = create<State>((set, get) => ({
       // Match the server's evidence-first index contract. Composite-only sorting would let a hot Context
       // row jump above an actionable pattern after any live patch until the next full refresh.
       next.sort(compareBriefingThemes)
+      // A validated SSE summary can be the promotion of one disclosed formation candidate. Remove only
+      // that exact candidate; unrelated compiler debt stays visible until the authoritative index refresh.
+      // A Context update is not a promotion and must not erase its own developing-pattern disclosure.
+      const reconciledFormation = themeSurfaceStatus(t) !== 'context'
+        ? withoutFormationCandidate(get().themeFormationQueue, get().themeCompilerHealth, t.theme_id)
+        : { formation: get().themeFormationQueue, health: get().themeCompilerHealth }
       set({
         themes: next,
+        themeFormationQueue: reconciledFormation.formation,
+        themeCompilerHealth: reconciledFormation.health,
         ...(selectedInvalid ? {
           selectedTheme: null, themeDetail: null, themeDetailError: null, themeBrief: null, themesLoading: false, themeBriefLoading: false,
         } : selectedChanged ? {
@@ -4921,6 +5354,7 @@ if (import.meta.env?.DEV && typeof window !== 'undefined') (window as any).__sto
 
 function beginRun(set: any, get: () => State, runId: string, info: { kind: string; module?: string; agent?: string; willCommitToMain?: boolean }, plannedKeys: string[], doneKeys: string[] = []) {
   const ticker = get().selectedTicker || ''
+  const swarmId = get().constellationSwarm
   const rt = { ...get().nodeRuntime }
   // Resume: modules already finished on disk are shown as done, NOT queued — so the constellation doesn't
   // read as "starting… / 0-of-N" for work that isn't being redone (the "it's reprocessing everything and
@@ -4930,10 +5364,11 @@ function beginRun(set: any, get: () => State, runId: string, info: { kind: strin
   if (info.kind === 'full') rt['master/synthesizer'] = { status: 'queued', runId }
   const plannedCount = plannedKeys.length + (info.kind === 'full' ? 1 : 0)
   // drop finished runs for this ticker, add the new live one (other tickers' / other runs' state kept)
-  const activeRuns = Object.fromEntries(Object.entries(get().activeRuns).filter(([, r]) => r.ticker !== ticker || LIVE_RUN.has(r.status)))
+  const activeRuns = Object.fromEntries(Object.entries(get().activeRuns).filter(([, r]) =>
+    !runMatchesSubject(r, ticker, swarmId) || LIVE_RUN.has(r.status)))
   // the run belongs to the selection's swarm (constellationSwarm at launch), so the run-done refresh
   // can resolve the manifest/decision against the run's OWN run root (e.g. commodity/runs/<subject>)
-  activeRuns[runId] = { runId, ticker, swarmId: get().constellationSwarm, ...info, status: 'running', plannedCount, startedAt: Date.now() }
+  activeRuns[runId] = { runId, ticker, swarmId, ...info, status: 'running', plannedCount, startedAt: Date.now() }
   // close the output panel so the user is dropped back to the swarm to watch the run live; keep
   // other concurrent runs' stream rows, just clear any stale rows from this runId
   set({ activeRuns, nodeRuntime: rt, runStream: get().runStream.filter((r) => r.runId !== runId), coreBloom: false, selectedNodeKey: null, openOutput: null })
@@ -4960,10 +5395,17 @@ function connectRun(get: () => State, runId: string) {
 
 // rebuild the live view for one in-flight run from its snapshot, then attach the stream.
 // Merges into the existing view so multiple concurrent runs for the ticker coexist.
-async function reconnectRun(set: any, get: () => State, runId: string, token: number) {
+async function reconnectRun(
+  set: any,
+  get: () => State,
+  runId: string,
+  token: number,
+  expected: { subject: string; swarm: string },
+) {
   try {
     const snap = await api.runSnapshot(runId)
-    if (get().selectToken !== token) return
+    if (get().selectToken !== token || get().selectedTicker !== expected.subject
+        || get().activeSwarm !== expected.swarm || !runMatchesSubject(snap, expected.subject, expected.swarm)) return
     const rt = { ...get().nodeRuntime }
     const stream = get().runStream.filter((r) => r.runId !== runId)
     for (const a of snap.agents || []) {

@@ -27,7 +27,7 @@ For each candidate event keep: headline (verbatim), URL, source_name (canonical 
 ## 4. Dedup
 
 - Against the ledger: grep `screener/ledger/events.ndjson` for each URL and for normalized-headline tokens of the same issuer — a hit marks the row `dedup_status: possible_duplicate` (keep the row; the gauntlet decides).
-- Within today's inbox: if `screener/inbox/<DATE>_sweep.json` already exists, read it; merge by URL. **Existing rows keep ALL their human + triage state untouched: `consumed`, `launched_signal_id`, `dismissed` / `dismissed_at` / `dismissed_by`, and any `triage_*` / `event_types` / `companies` / `size_bucket` fields the auto-ingester wrote.** Re-read the file IMMEDIATELY before writing (the cockpit and the auto-ingester may have updated it while this sweep ran — a stale read loses a human's dismissals). Never produce a second file for the same day.
+- Within today's inbox: if `screener/inbox/<DATE>_sweep.json` already exists, read it; merge by URL. **Existing rows keep ALL their human + triage state untouched: `consumed`, `launched_signal_id`, `dismissed` / `dismissed_at` / `dismissed_by`, and any `triage_*` / `event_types` / `companies` / `size_bucket` fields the auto-ingester wrote.** Preserve the top-level `revision_clock_version` and `revision_clocks` fields byte-for-byte when present; the auto-ingester owns this uncapped provenance index, and a manual sweep must neither edit nor discard it. Re-read the file IMMEDIATELY before writing (the cockpit and the auto-ingester may have updated it while this sweep ran — a stale read loses a human's dismissals or immutable revision clocks). Never produce a second file for the same day.
 
 ## 5. Write the inbox (one file per day, idempotent)
 
@@ -51,7 +51,7 @@ Keep ≤ 25 rows/day among rows with NO human state (rank by plausible materiali
 ## 6. Commit and push to main
 
 ```
-bash scripts/commit-run.sh "Screener sweep: <DATE> (<N> rows)" -- "screener/inbox/" "screener/board/"
+bash scripts/commit-run.sh "Screener sweep: <DATE> (<N> rows)" -- "screener/inbox/" "screener/board/" "screener/ledger/themes.ndjson"
 ```
 
 ## 7. Report
@@ -63,5 +63,5 @@ Print: rows found / new / possible-duplicate / total in today's file; the top 5 
 ## Hard rules
 
 - Off-list sources never enter the inbox.
-- The sweep writes ONLY `screener/inbox/<DATE>_sweep.json` + the board index. No runs, no ledger events, no signals.
+- The sweep authors ONLY `screener/inbox/<DATE>_sweep.json` + the board index. No runs, no event-ledger rows, no signals. Its commit also checkpoints `screener/ledger/themes.ndjson` when the running Theme stage advanced it, so the published board and its durable Theme state cannot drift apart.
 - Re-running the same day MERGES (idempotent) — existing rows' human state (`consumed`, `dismissed`, `launched_signal_id`) and ingester triage fields are preserved, and rows carrying human state are never dropped by the daily cap.

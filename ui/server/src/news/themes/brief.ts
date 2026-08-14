@@ -147,6 +147,7 @@ function briefSig(theme: Theme): string {
     expressions: theme.narrative.expressions,
     validated_at: theme.narrative.validated_at,
     pending_event_ids: theme.needs_narrative_update ? theme.pending_narrative_event_ids || [] : [],
+    update_overflow: theme.narrative_update_overflow === true,
   } : null
   return createHash('sha256').update(JSON.stringify({ n: theme.name, h: heads, c: cos, narrative })).digest('hex').slice(0, 16)
 }
@@ -183,6 +184,9 @@ function momentumPhrase(theme: Theme): string {
  *  total: tolerant of a malformed (undefined members/companies) theme so it can never throw. */
 export function deterministicBrief(theme: Theme): string {
   if (theme.narrative && theme.needs_narrative_update) {
+    if (theme.narrative_update_overflow) {
+      return `Provisional — at least one unclassified matching evidence row fell outside the bounded audit record. The theme remains quarantined until its evidence is rebuilt. The last validated thesis was: ${theme.narrative.thesis}`
+    }
     const pending = theme.pending_narrative_event_ids?.length || 1
     return `Provisional — ${pending} new matching evidence row${pending === 1 ? '' : 's'} still need support, challenge or context classification. The last validated thesis was: ${theme.narrative.thesis}`
   }

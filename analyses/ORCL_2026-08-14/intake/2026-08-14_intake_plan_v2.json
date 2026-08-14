@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.1",
+  "swarm": "research",
+  "subject": "ORCL",
+  "ticker": "ORCL",
+  "run_root": "analyses/ORCL_2026-08-14",
+  "decision_fingerprint": "sha256:92baf1954a0ee6c603249e38d22c8d4b1b4e1284d9444f155a64be4f82b23e88",
+  "scan_date": "2026-08-14",
+  "scanned_at": "2026-08-14T06:22:38.799Z",
+  "watermark": "analyses/ORCL_2026-08-14/final_thesis.md",
+  "new_docs": [
+    {
+      "path": "data/ORCL/Oracle Corporation, Q2 2026 Earnings Call, Dec 10, 2025.rtf",
+      "sha256": null,
+      "provider": null,
+      "source_type": "earnings_transcript",
+      "tier": 6,
+      "as_of": "2025-12-10",
+      "claims_summary": "FQ2 FY26 (Dec 10, 2025) earnings call transcript: RPO $523.3B (+433% YoY, +$68B since end-Aug on Meta/NVIDIA contracts), total cloud revenue $8.0B (+33%), OCI revenue $4.1B (+66%, GPU revenue +177%), total revenue $16.1B (+13%), GAAP EPS $2.10 (+86%, includes $2.7B Ampere Computing sale gain), FY26 capex raised ~$15B above the post-Q1 forecast, FY27 revenue guide raised +$4B from backlog conversion, Q3 FY26 guidance issued (cloud revenue +37-41% CC), plus qualitative color on the 30-40% OCI AI-margin claim, funding/financing structure (customer-brought chips, vendor rental models), and data-center capacity fungibility.",
+      "materiality_score": 15,
+      "impact_direction": "neutral",
+      "entry_orbs": [
+        {
+          "module": "earnings",
+          "agent": "historical-financials",
+          "why": "The transcript's FQ2 FY26 quarterly figures (revenue, EPS, RPO) are the same numbers already in the run's quarterly baseline, sourced from the FY26 10-K rather than this transcript.",
+          "confidence": 0.3
+        },
+        {
+          "module": "earnings",
+          "agent": "guidance-consensus",
+          "why": "The transcript is the primary source for the Q3 FY26 guidance already tracked in the run's guidance-vs-actual table (labeled 'Q-3 = FQ2 FY2026 (Nov 2025)' in 04_guidance-consensus.md), including the Ampere-gain-driven EPS beat already flagged as a quality issue.",
+          "confidence": 0.3
+        }
+      ]
+    }
+  ],
+  "rerun_plan": {
+    "materiality_gate": 60,
+    "entry_orbs": [],
+    "commands": [],
+    "note_only": [
+      {
+        "path": "data/ORCL/Oracle Corporation, Q2 2026 Earnings Call, Dec 10, 2025.rtf",
+        "reason": "Materiality 15 < gate 60 — every figure and management claim in this transcript (RPO $523.3B, cloud/OCI growth rates, the Ampere-sale-inflated EPS beat, the Q3 FY26 guidance, and the '30% to 40%' OCI AI-margin claim) is already cited in the finished run, sourced from the FY26 10-K and reiterated in the already-pooled, chronologically LATER Q3 FY26 (Mar-10-2026) and Q4 FY26 (Jun-10-2026) transcripts that supersede it. This is a backfilled historical document, not new evidence."
+      }
+    ]
+  },
+  "verdict": "note_only",
+  "summary": "One new document landed since the run finished: the FQ2 FY26 (Dec 10, 2025) earnings call transcript. It is a historical backfill — every material figure and claim it contains (RPO growth, cloud/OCI growth, the Ampere-gain-driven EPS beat, Q3 FY26 guidance, and the unaudited '30-40% OCI margin' claim) is already reflected in the finished thesis via the FY26 10-K and the later Q3/Q4 FY26 transcripts already in the pool. Nothing clears the materiality gate; no rerun is recommended."
+}

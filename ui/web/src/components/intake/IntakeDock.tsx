@@ -47,14 +47,17 @@ export function IntakeDock() {
   // The one-pass scoped rerun lives in the STORE (runScopedRerun) so the returned run is attached via
   // beginRun immediately — readiness/progress/cancel on screen at once, same as every other launch path.
   const runScoped = useStore((s) => s.runScopedRerun)
+  const prepareScoped = useStore((s) => s.prepareScopedRerun)
+  const launchRerun = useStore((s) => s.launchRerun)
+  const setToast = useStore((s) => s.setToast)
   const scopedPending = useStore((s) => s.scopedRerunPending)
 
   // The live document-intake run for this company — this click, an auto-analysis on landing, or one
   // started in another tab. Its steps ARE the reading list. Positive `kind` match, never a fallback:
   // an older server that doesn't report the kind must show no feed rather than a wrong one.
   const intakeRun = useMemo(
-    () => globalActive.find((r) => r.ticker === ticker && r.kind === 'doc-intake') ?? null,
-    [globalActive, ticker],
+    () => globalActive.find((r) => r.ticker === ticker && r.kind === 'doc-intake' && (r.swarmId || 'research') === activeSwarm) ?? null,
+    [activeSwarm, globalActive, ticker],
   )
   const steps = intakeRun ? runActivity[intakeRun.runId] ?? [] : []
   // An analysis is running — this tab's click (`analyzing`) OR a live doc-intake run (auto-on-landing, an
@@ -75,11 +78,28 @@ export function IntakeDock() {
   const upToDate = !busy && resting === 'up-to-date'
   const needsRecheck = !busy && resting === 'recheck'
 
-  // Gate: research swarm only. Show the panel when there's an analysis running, documents to show, or a
+  // Gate: constellation swarms only. Show the panel when there's an analysis running, documents to show, or a
   // terminal verdict to state. Absent/old server with an empty plan → none of these → nothing renders
   // (fail-closed, the honest floor stands).
-  if (activeSwarm !== 'research') return null
+  if (activeSwarm === 'screener') return null
   if (!docCards.length && !busy && !upToDate && !needsRecheck) return null
+
+  const runOne = (module: string, agent: string) => {
+    const node = [...nodesByKey.values()].find((n) => n.module === module && (n.name === agent || n.slug === agent))
+    if (!node) {
+      setToast({ msg: `The ${module} / ${agent} route is no longer in this swarm. Re-analyze the document.`, tone: 'bad' })
+      return
+    }
+    if (!intake?.actionable || !intake.plan_path || !intake.plan_sha256 || !intake.decision_fingerprint) {
+      setToast({ msg: 'This data plan is no longer actionable. Re-analyze the documents first.', tone: 'bad' })
+      return
+    }
+    void launchRerun({ module: node.module, name: node.name, key: node.key }, {
+      planPath: intake.plan_path,
+      planSha256: intake.plan_sha256,
+      sourceDecisionFingerprint: intake.decision_fingerprint,
+    })
+  }
 
   return (
     <div className="intake" onMouseLeave={clear}>
@@ -170,7 +190,10 @@ export function IntakeDock() {
               onRowEnter={setFocus}
               onLeave={clear}
               onRun={() => void openPlan()}
+              onPrepareScoped={prepareScoped}
               onRunScoped={() => void runScoped()}
+              batchSupported={activeSwarm === 'research'}
+              onRunOrb={runOne}
               scopedPending={scopedPending}
               running={false}
             />

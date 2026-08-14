@@ -1,84 +1,193 @@
-/* The "Data needs" dock — the external data series a run said were capping conviction, surfaced so a durable
-   connector can be built. Sits top-right (below the view toggle), opposite the doc-intake dock (top-left).
-   Motion budget: transform/opacity only, <300ms, --ease-out; enter-only (it refreshes on data-changed, so it
-   follows the instant-close rule — no exit animation). Themes entirely from the accent family, so it resolves
-   in light + dark and for any swarm's accent. */
+/* Selected-call evidence gaps. Cross-swarm: all emphasis comes from the inherited accent family. */
 .dneeds {
-  position: absolute; right: 18px; top: 56px; z-index: 21;
-  width: 330px; max-width: 38vw;
-  background: var(--datafiles-bg);
-  border: 1px solid var(--accent-wash);
-  border-radius: var(--r-md);
-  box-shadow: var(--shadow-2); backdrop-filter: blur(8px);
+  position: absolute; right: 18px; top: 56px; z-index: 19;
+  display: flex; flex-direction: column;
+  width: min(440px, calc(100vw - 36px));
+  max-height: calc(100% - 56px - var(--dneeds-bottom-reserve, 18px));
+  background: var(--datafiles-bg); border: 1px solid var(--accent-wash);
+  border-radius: var(--r-md); box-shadow: var(--shadow-2); backdrop-filter: blur(8px);
   overflow: hidden; font-size: 12px;
   animation: dneeds-in 260ms var(--ease-out) both;
 }
 @keyframes dneeds-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 
 .dneeds__head {
-  display: flex; align-items: center; gap: 8px; width: 100%;
-  padding: 9px 12px; text-align: left; cursor: pointer;
-  background: transparent; border: 0; color: inherit;
-  transition: background var(--dur-fast) var(--ease);
+  display: flex; flex: none; align-items: flex-start; gap: 9px; width: 100%; padding: 11px 12px;
+  text-align: left; cursor: pointer; background: transparent; border: 0; color: inherit;
+  transition: background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.dneeds__head:active { transform: scale(0.99); }
+.dneeds__head:focus-visible, .dneed__find:focus-visible, .dneed__add-source:focus-visible,
+.dneeds__add:focus-visible, .dneed__source-link:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: -2px;
 }
 @media (hover: hover) and (pointer: fine) { .dneeds__head:hover { background: var(--surface-3); } }
-.dneeds__chev { font-size: 9px; color: var(--accent-bright); transition: transform var(--dur-fast) var(--ease); }
+.dneeds__chev { margin-top: 3px; font-size: 9px; color: var(--accent-bright); transition: transform var(--dur-fast) var(--ease); }
 .dneeds__chev[data-open="true"] { transform: rotate(90deg); }
-.dneeds__title { font-weight: 600; color: var(--text); letter-spacing: 0.2px; }
-.dneeds__count { margin-left: auto; font-size: 11px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.dneeds__heading { min-width: 0; display: flex; flex: 1; flex-direction: column; gap: 3px; }
+.dneeds__title { font-size: 12.5px; font-weight: 650; color: var(--text); letter-spacing: 0.1px; }
+.dneeds__subtitle { color: var(--text-muted); font-size: 10.5px; line-height: 1.42; max-width: 54ch; }
+.dneeds__count {
+  flex: none; min-width: 21px; padding: 2px 6px; text-align: center; font-size: 10.5px;
+  color: var(--accent-bright); background: var(--accent-wash); border-radius: var(--r-pill);
+  font-variant-numeric: tabular-nums;
+}
 
-/* Bound the dock so a run with many needs scrolls WITHIN it rather than growing past the viewport (the
-   stage clips at .app overflow:hidden — an unbounded dock would put the tail cards out of reach). */
-.dneeds__body { padding: 4px 12px 12px; display: flex; flex-direction: column; gap: 7px; max-height: min(62vh, 500px); overflow-y: auto; }
+.dneeds__body {
+  display: flex; min-height: 0; flex: 1 1 auto; flex-direction: column; gap: 8px;
+  padding: 2px 12px 12px; overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.dneeds__integrity, .dneeds__empty {
+  padding: 8px 9px; border-radius: var(--r-sm); border: 1px solid var(--hairline);
+  color: var(--text-muted); background: var(--surface-2); font-size: 10px; line-height: 1.4;
+}
+.dneeds__integrity--blocked {
+  display: grid; gap: 2px; color: var(--conv-warn);
+  border-color: color-mix(in srgb, var(--conv-warn) 42%, var(--hairline));
+}
+.dneeds__integrity--blocked span:first-child { color: var(--text); font-weight: 650; font-size: 11px; }
 .dneeds__body::-webkit-scrollbar { width: 7px; }
-.dneeds__body::-webkit-scrollbar-thumb { background: var(--hairline-strong); border-radius: var(--r-pill); border: 2px solid transparent; background-clip: padding-box; }
+.dneeds__body::-webkit-scrollbar-thumb {
+  background: var(--hairline-strong); border: 2px solid transparent; border-radius: var(--r-pill); background-clip: padding-box;
+}
 
 .dneed {
-  background: var(--surface-2); border: 1px solid var(--hairline); border-left: 3px solid var(--accent-bright);
-  border-radius: var(--r-sm); padding: 9px 11px;
-  transition: transform var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+  padding: 10px 11px; background: var(--surface-2); border: 1px solid var(--hairline);
+  border-left: 3px solid var(--hairline-strong); border-radius: var(--r-sm);
   animation: dneed-in 240ms var(--ease-out) both; animation-delay: calc(var(--i) * 45ms);
 }
-@keyframes dneed-in { from { opacity: 0; transform: translateY(6px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
-@media (hover: hover) and (pointer: fine) { .dneed:hover { transform: translateX(-2px); border-color: var(--accent-wash); } }
-/* a filing-only gap is advisory — no connector can satisfy it, so it reads muted rather than accent-lit.
-   Mute via content colour, NOT a container opacity (the entrance animation's forwards-fill lands on
-   opacity:1 and would override a card-level opacity, dropping the dim once the animation settled). */
-.dneed--filing { border-left-color: var(--text-faint); }
-.dneed--filing .dneed__series { color: var(--text-muted); }
+.dneed--priority {
+  border-color: var(--accent-deep); border-left-color: var(--accent-bright);
+  background: color-mix(in srgb, var(--surface-2) 88%, var(--accent-wash));
+}
+.dneed--filing:not(.dneed--priority) { border-left-color: var(--text-faint); }
+@keyframes dneed-in { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-.dneed__top { display: flex; align-items: baseline; gap: 8px; }
-.dneed__series { min-width: 0; flex: 1; color: var(--text); font-weight: 600; line-height: 1.35; }
-.dneed__tier {
-  flex: none; font-size: 10px; line-height: 1; padding: 3px 6px; border-radius: var(--r-pill);
-  background: var(--accent-wash); color: var(--accent-bright); font-variant-numeric: tabular-nums; white-space: nowrap;
+.dneed__top { display: flex; align-items: flex-start; gap: 9px; }
+.dneed__series { min-width: 0; flex: 1; color: var(--text); font-size: 12.5px; font-weight: 650; line-height: 1.4; }
+.dneed__priority {
+  flex: none; padding: 3px 7px; border-radius: var(--r-pill); color: var(--text-muted);
+  background: var(--surface-3); font-size: 9.5px; line-height: 1.1; white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
-.dneed--filing .dneed__tier { background: var(--surface-3); color: var(--text-muted); }
-.dneed__why { margin: 5px 0 0; color: var(--text-muted); line-height: 1.45; }
-.dneed__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 5px 8px; margin-top: 7px; font-size: 10.5px; }
-.dneed__src { min-width: 0; color: var(--text); overflow: hidden; text-overflow: ellipsis; }
-.dneed__acq { color: var(--text-muted); }
-.dneed__cadence { color: var(--text-faint); font-variant-numeric: tabular-nums; }
-.dneed__buildable { margin-left: auto; color: var(--good); font-size: 10px; letter-spacing: 0.2px; white-space: nowrap; }
-.dneed__flag { margin-left: auto; color: var(--text-faint); font-size: 10px; letter-spacing: 0.2px; white-space: nowrap; }
-.dneed__built { margin-left: auto; color: var(--good); font-size: 10px; letter-spacing: 0.2px; white-space: nowrap; }
-/* "Build a feed →" — the per-need entry into the pipeline builder. A quiet accent link that lifts on hover. */
-.dneed__build {
-  margin-left: auto; font: inherit; font-size: 10px; letter-spacing: 0.2px; white-space: nowrap; cursor: pointer;
-  color: var(--accent-bright); background: transparent; border: 0; padding: 2px 4px; border-radius: var(--r-sm);
-  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+.dneed--priority .dneed__priority { color: var(--accent-ink); background: var(--accent); font-weight: 700; }
+.dneed__label, .dneed__source-label {
+  margin-top: 7px; color: var(--text-faint); font-size: 9.5px; font-weight: 600;
+  letter-spacing: 0.35px; text-transform: uppercase;
 }
-@media (hover: hover) and (pointer: fine) { .dneed__build:hover { background: var(--accent-wash); } }
-/* the dock's free-form "add a source" footer action */
+.dneed__why { margin: 2px 0 0; color: var(--text-muted); line-height: 1.45; }
+
+.dneed__orbs { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 7px; }
+.dneed__orb {
+  max-width: 100%; padding: 2px 6px; overflow: hidden; color: var(--accent-bright);
+  background: var(--accent-wash-soft); border: 1px solid var(--accent-wash); border-radius: var(--r-sm);
+  font-family: var(--font-mono); font-size: 9.5px; line-height: 1.3; text-overflow: ellipsis; white-space: nowrap;
+}
+.dneed__orb--legacy { color: var(--text-muted); background: var(--surface-3); border-color: var(--hairline); }
+.dneed__orb--historical { color: var(--text-muted); border-style: dashed; }
+
+.dneed__impact {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px;
+}
+.dneed__impact-side {
+  display: flex; min-width: 0; flex-direction: column; gap: 3px; padding: 7px 8px;
+  color: var(--text-muted); background: var(--accent-wash-soft); border-left: 2px solid var(--accent-bright);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0; font-size: 10.5px; line-height: 1.4;
+}
+.dneed__impact-side--adverse { background: var(--bad-wash); border-left-color: var(--bad); }
+.dneed__impact-label { color: var(--text); font-size: 9.5px; font-weight: 650; letter-spacing: 0.2px; text-transform: uppercase; }
+
+.dneed__source {
+  display: flex; min-height: 24px; flex-wrap: wrap; align-items: center; gap: 6px 9px; margin-top: 8px;
+  padding-top: 7px; border-top: 1px solid var(--hairline);
+}
+.dneed__source-label { margin: 0; }
+.dneed__source-found { display: inline-flex; min-width: 0; flex-wrap: wrap; align-items: center; gap: 4px 7px; color: var(--live); font-size: 10.5px; }
+.dneed__access-caveat { flex-basis: 100%; color: var(--text-muted); font-size: 9px; }
+.dneed__checked { flex-basis: 100%; color: var(--text-muted); font-size: 9px; }
+.dneed__checked.is-stale { color: var(--conv-warn); }
+.dneed__source-link { min-width: 0; color: var(--accent-bright); font-weight: 600; overflow-wrap: anywhere; text-decoration: none; }
+@media (hover: hover) and (pointer: fine) { .dneed__source-link:hover { text-decoration: underline; } }
+.dneed__not-found { color: var(--text-muted); font-size: 10.5px; }
+.dneed__filing-required { color: var(--text-muted); font-size: 10.5px; font-weight: 600; }
+.dneed__source-error { flex-basis: 100%; color: var(--bad); font-size: 10.5px; line-height: 1.4; }
+.dneed__search-skeleton {
+  display: inline-block; width: 42px; height: 7px; border-radius: var(--r-pill); background: var(--accent-wash);
+  animation: dneed-search 900ms var(--ease) infinite alternate;
+}
+@keyframes dneed-search { from { opacity: 0.35; } to { opacity: 1; } }
+
+.dneed__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 6px; }
+.dneed__find, .dneed__add-source, .dneeds__add {
+  font: inherit; cursor: pointer; border-radius: var(--r-sm);
+  transition: background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.dneed__find {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 3px 6px; color: var(--accent-bright); background: transparent; border: 1px solid var(--accent-wash);
+  font-size: 10.5px;
+}
+.dneed__find:disabled { cursor: progress; opacity: 0.72; }
+.dneed__add-source {
+  margin-left: auto; padding: 3px 6px; color: var(--text-muted); background: transparent;
+  border: 1px solid var(--hairline); font-size: 10.5px;
+}
+.dneed__built { color: var(--live); font-size: 10px; }
+.dneed__find:active, .dneed__add-source:active, .dneeds__add:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .dneed__find:hover { background: var(--accent-wash); }
+  .dneed__add-source:hover { color: var(--text); background: var(--surface-3); }
+}
+
+.dneed__evidence { margin-top: 8px; padding-top: 1px; border-top: 1px solid var(--hairline); }
+.dneed__upload-open, .dneed__read-upload, .dneed__review-rerun {
+  margin-top: 5px; padding: 4px 7px; color: var(--accent-bright); background: var(--accent-wash-soft);
+  border: 1px solid var(--accent-wash); border-radius: var(--r-sm); font: inherit; font-size: 10.5px;
+  cursor: pointer;
+}
+.dneed__upload-open:focus-visible, .dneed__read-upload:focus-visible, .dneed__review-rerun:focus-visible,
+.dneed__upload-form input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.dneed__upload-form { display: grid; gap: 6px; margin-top: 6px; }
+.dneed__upload-form label { display: grid; gap: 3px; color: var(--text-muted); font-size: 10px; }
+.dneed__upload-form input[type="text"], .dneed__upload-form input[type="url"], .dneed__upload-form input:not([type]) {
+  min-width: 0; padding: 5px 7px; color: var(--text); background: var(--surface-1);
+  border: 1px solid var(--hairline); border-radius: var(--r-sm); font: inherit;
+}
+.dneed__upload-form em { color: var(--text-faint); font-style: normal; font-weight: 400; }
+.dneed__filing-copy { margin: 4px 0 0; color: var(--text-muted); font-size: 10.5px; line-height: 1.4; }
+.dneed__file { position: relative; display: inline-flex !important; width: fit-content; padding: 5px 7px;
+  color: var(--accent-bright) !important; background: var(--accent-wash-soft); border: 1px dashed var(--accent-deep);
+  border-radius: var(--r-sm); cursor: pointer;
+}
+.dneed__file.is-disabled { color: var(--text-faint) !important; cursor: not-allowed; opacity: .7; }
+.dneed__file input { position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0; }
+.dneed__upload-state, .dneed__upload-result { display: grid; gap: 5px; margin-top: 5px; color: var(--text-muted); font-size: 10.5px; line-height: 1.4; }
+.dneed__upload-state progress { width: 100%; height: 5px; accent-color: var(--accent); }
+.dneed__upload-ok { color: var(--live); font-weight: 650; }
+.dneed__upload-error { margin-top: 5px; color: var(--bad); font-size: 10.5px; }
+.dneed__upload-caveat { color: var(--text-faint); font-size: 9px; line-height: 1.4; }
+.dneed__actual-orbs { display: flex; flex-wrap: wrap; gap: 4px; }
+.dneed__review-rerun { width: fit-content; }
+@media (hover: hover) and (pointer: fine) {
+  .dneed__upload-open:hover, .dneed__read-upload:hover, .dneed__review-rerun:hover { background: var(--accent-wash); }
+}
+
 .dneeds__add {
-  margin-top: 2px; width: 100%; font: inherit; font-size: 11px; cursor: pointer; color: var(--accent-bright);
-  background: var(--accent-wash-soft); border: 1px dashed var(--accent-deep); border-radius: var(--r-sm); padding: 7px 10px;
-  transition: background var(--dur-fast) var(--ease);
+  width: 100%; margin-top: 1px; padding: 7px 10px; color: var(--accent-bright);
+  background: var(--accent-wash-soft); border: 1px dashed var(--accent-deep); font-size: 11px;
 }
 @media (hover: hover) and (pointer: fine) { .dneeds__add:hover { background: var(--accent-wash); } }
 
+@media (max-width: 760px) {
+  .dneeds {
+    position: fixed; top: 52px; right: 10px; left: 10px; width: auto;
+    max-height: calc(100dvh - 52px - var(--dneeds-bottom-reserve, 18px));
+  }
+  .dneed__impact { grid-template-columns: 1fr; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .dneeds, .dneed { animation: none; }
-  .dneed:hover { transform: none; }
-  .dneed__build, .dneeds__add { transition: none; }
+  .dneeds, .dneed, .dneed__search-skeleton { animation: none; }
+  .dneeds__head, .dneeds__chev, .dneed__find, .dneed__add-source, .dneeds__add { transition: none; }
 }

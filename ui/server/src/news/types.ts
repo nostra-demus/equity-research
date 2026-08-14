@@ -82,6 +82,9 @@ export interface Triage {
   // gated by news/lang.ts before it's stored (the wire shows it).
   headline_en?: string | null
   headline_lang?: string | null // the source language the model named (e.g. "Finnish") — for the "original · X" label
+  /** Positive, model-contract proof that the original source headline was English. Missing is unknown,
+   * not English: old Latin-script rows cannot safely open a human-veto revision exception. */
+  source_is_english?: true
   // the market the event is ABOUT / where the affected, tradable parties are listed or operate — NOT
   // where the news outlet is based. One of the Region enum, or null when unsure. Resolved against the
   // domain region by news/geo.ts (resolveEventRegion) at the merge site, and the result becomes the
@@ -94,6 +97,7 @@ export interface TriagedItem extends NewsItem {
   triage_reason: string
   headline_en?: string | null // English translation of a non-English headline (news/lang.ts); null/absent when the original is English
   headline_lang?: string | null // the source language named, for the "original · X" label
+  source_is_english?: true // positive proof from an explicit null translation/language triage response
   source_region?: Region // the PUBLISHER's region (the domain-registry value) — kept after `region` is overridden with the event region (news/geo.ts), so the override stays debuggable
   relevance: Triage['relevance']
   materiality_pre_score: number // the RAW Groq title read, before the composite re-rank
@@ -121,14 +125,22 @@ export interface InboxRow {
   headline: string
   headline_en?: string | null // English translation of a non-English headline (news/lang.ts) — the cockpit shows it
   headline_lang?: string | null // the source language named, for the "original · X" label
+  source_is_english?: true // absent on legacy/unknown-language rows; never inferred from Latin script alone
   url: string
   source_name: string
   input_nature: string
   found_at: string
+  /** First local observation of this exact URL/content revision. Publisher timestamps can remain fixed
+   * across an in-place correction, so this durable clock proves revision order without re-dating news. */
+  observed_at?: string
   prelim_note: string
   dedup_status: 'new' | 'possible_duplicate'
   consumed: boolean
   launched_signal_id: string | null
+  consumed_at?: string // durable human-action clock; legacy rows may omit it
+  /** Stable append-only human-action identity. Daily sweep JSON remains the UI projection; this record
+   * id lets the Ideas reader recover future vetoes even if an old projection file is later damaged. */
+  human_action_id?: string
   // --- additive: the autonomous ingester's pre-triage ---
   triage_score?: number
   triage_reason?: string
@@ -145,6 +157,10 @@ export interface InboxRow {
   event_materiality_label?: EventMaterialityLabel
   event_direction?: EventDirection
   event_scope?: EventScope
+  // Source-bound, validated dated/window evidence for the Ideas timing gate. Unlike the wire's derived
+  // category chips, these strings are persisted only when the ORIGINAL source headline contains both a
+  // forward-event term and a complete date/window (news/schedule.ts).
+  scheduled_events?: string[]
   rank_factors?: import('./rank').RankFactors // composite-priority breakdown (triage_score is the composite)
   dedup_group?: string // story-cluster id (news/dedup.ts) — collapse rows sharing it to one
   // --- additive: human state (set only via the cockpit; merge/eviction must preserve these) ---
@@ -160,10 +176,14 @@ export interface FeedItem {
   kind: 'item'
   ts: string // ISO 8601 — when triaged
   found_at?: string // ISO 8601 — source publication/discovery time; absent on legacy firehose lines
+  /** First local observation of this exact source revision, copied from the durable inbox lane. This is
+   * ordering metadata only; source freshness and decay remain anchored to `found_at`. */
+  observed_at?: string
   event_id: string
   headline: string
   headline_en?: string | null // English translation of a non-English headline (news/lang.ts); absent/null when the original is English
   headline_lang?: string | null // the source language named, for the "original · X" label
+  source_is_english?: true // source-language proof used only by the guarded human-veto transition path
   url: string
   domain: string
   source_name: string
@@ -228,6 +248,7 @@ export type LastResortState =
   | 'scored' // it fired and scored ≥1 batch this cycle, still under its ceiling
   | 'usd-cap' // reached its daily $ ceiling (anthropicDailyUsd) — the rest deferred
   | 'plan-quota' // the shared Claude plan's own usage limit hit → backing off until the plan resets
+  | 'auth-expired' // the host's Claude sign-in expired → re-probes every drain, recovers on `claude login`
   | 'cooling' // in its cross-cycle cooldown from an earlier error
   | 'available' // on and under budget, but not needed this cycle (the free tiers absorbed everything)
 

@@ -5,10 +5,15 @@ import { QUOTE_CLIENT_TIMEOUT_MS } from './quoteTimeout'
 import type { ValuationLeversResponse, ValuationOverride } from './valuationLevers'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
 import type { BridgeStatus } from './types'
-import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 
 // Vite supplies `import.meta.env` in the app; standalone tsx regression tests do not.
 const BASE = import.meta.env?.BASE_URL || '/'
+// The first data-needs read warms filesystem/manifest caches and has been observed at ~14s on the
+// always-on host. Keep this bounded, but above that measured cold path so a healthy engine is not
+// mistaken for an empty decision contract.
+export const DATA_NEEDS_CLIENT_TIMEOUT_MS = 20_000
+export const EXACT_DECISION_LAUNCH_CONTRACT = 'exact-decision-launch/1' as const
 
 // ---- live/static mode detection ----
 // Local dev (Fastify backend up) -> live. Cloudflare Pages (no backend) -> static snapshot, read-only.
@@ -98,6 +103,48 @@ async function put<T>(url: string, body?: any): Promise<T> {
 }
 
 const STATIC_ERR = () => Object.assign(new Error('static-deploy'), { static: true })
+
+// Manual evidence is a write surface, so deploy skew must fail closed. TypeScript types do not validate
+// a response from an older or malformed server; positively match the immutable selected-call binding and
+// the small status vocabulary before the cockpit renders it or offers a follow-on read.
+export function validDataNeedUploadRead(
+  value: unknown,
+  selected: DataNeedsRead,
+  needId: string,
+  series: string,
+): value is DataNeedUploadRead {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+  const v = value as Record<string, any>
+  if (v.contract_version !== 'data-need-upload/1' || v.subject !== selected.subject || v.swarm !== selected.swarm
+      || v.run_root !== selected.run_root || v.decision_fingerprint !== selected.decision_fingerprint
+      || v.need_id !== needId || v.series !== series
+      || !['none', 'staged_waiting', 'routed_provenance_verified', 'rejected_policy', 'failed_tampered'].includes(v.status)
+      || !Array.isArray(v.items)) return false
+  const itemOk = v.items.every((item: any) => {
+    if (!item || typeof item !== 'object' || Array.isArray(item)
+        || !/^DNU-[a-f0-9]{32}$/.test(item.request_id)
+        || typeof item.filename !== 'string' || !item.filename || item.filename.length > 255
+        || !/^[a-f0-9]{64}$/.test(item.sha256)
+        || typeof item.staged_at !== 'string' || !Number.isFinite(Date.parse(item.staged_at))) return false
+    const routed = item.routed_path !== undefined
+    const failed = item.reason !== undefined
+    if (routed && (typeof item.routed_path !== 'string' || !item.routed_path.startsWith('data/')
+        || item.routed_path.includes('\\') || item.routed_path.split('/').includes('..'))) return false
+    if (failed && !['malformed_request', 'tampered_request', 'routing_failed', 'policy_rejected'].includes(item.reason)) return false
+    return !(routed && failed)
+  })
+  if (!itemOk) return false
+  if (v.status === 'none') return v.items.length === 0
+  if (!v.items.length) return false
+  // The ledger is append-only and the top-level status belongs to the newest request. Validate that
+  // exact relationship; an older successful route may legitimately precede a newer policy rejection.
+  const latest = [...v.items].sort((a: any, b: any) => a.staged_at.localeCompare(b.staged_at)
+    || a.request_id.localeCompare(b.request_id)).at(-1)
+  if (v.status === 'routed_provenance_verified') return typeof latest.routed_path === 'string'
+  if (v.status === 'staged_waiting') return latest.routed_path === undefined && latest.reason === undefined
+  if (v.status === 'rejected_policy') return latest.routed_path === undefined && latest.reason === 'policy_rejected'
+  return latest.routed_path === undefined && latest.reason !== undefined && latest.reason !== 'policy_rejected'
+}
 
 /**
  * Read an SSE body off a fetch (the browser's EventSource is GET-only, and several of these streams are
@@ -485,10 +532,14 @@ export const api = {
     return post(`/api/valuation-levers/override`, body)
   },
   // One-pass scoped rerun of the intake plan (the New-data dock's confirm strip). The server re-reads and
-  // re-validates the plan itself — the client sends only the subject, never orb lists.
-  runIntakePlan: async (ticker: string, swarm: string): Promise<{ runId: string; carried: { module: string; from: string }[]; scoped: { module: string; omittedOrbs: string[]; synthesisOnly: boolean }[]; staleModules: string[]; chained?: boolean }> => {
+  // re-validates the plan itself. The exact run root + decision fingerprint bind the click to the call
+  // the user reviewed; the client still never sends orb lists.
+  runIntakePlan: async (
+    ticker: string, swarm: string, runRoot: string, decisionFingerprint: string,
+    plan: { planPath: string; planSha256: string; sourceDecisionFingerprint: string },
+  ): Promise<{ runId: string; carried: { module: string; from: string }[]; scoped: { module: string; omittedOrbs: string[]; synthesisOnly: boolean }[]; staleModules: string[]; chained?: boolean }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return post(`/api/intake-plan/run`, { ticker, swarm })
+    return post(`/api/intake-plan/run-exact`, { ticker, swarm, runRoot, decisionFingerprint, ...plan })
   },
   // the living themes the firehose is bucketed into (ranked index + one theme's deep-dive). An optional
   // geography (country ISO alpha-2 and/or continent) slices the SAME themes to that geography's news flow —
@@ -703,13 +754,44 @@ export const api = {
     if ((await ensureMode()) === 'static') return { ok: true, checked: false }
     return post(`/api/credit-check`)
   },
-  estimate: async (kind: string, ticker: string, module?: string, agent?: string, swarm?: string): Promise<LaunchPreflight> => {
+  estimate: async (
+    kind: string,
+    ticker: string,
+    module?: string,
+    agent?: string,
+    swarm?: string,
+    exactDecision?: {
+      runRoot: string
+      decisionFingerprint: string
+      planPath?: string
+      planSha256?: string
+      sourceDecisionFingerprint?: string
+    },
+  ): Promise<LaunchPreflight> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return get(`/api/launch/estimate?kind=${kind}&ticker=${encodeURIComponent(ticker)}${module ? `&module=${module}` : ''}${agent ? `&agent=${agent}` : ''}${swarm ? `&swarm=${encodeURIComponent(swarm)}` : ''}`)
+    const qs = new URLSearchParams({ kind, ticker })
+    if (module) qs.set('module', module)
+    if (agent) qs.set('agent', agent)
+    if (swarm) qs.set('swarm', swarm)
+    if (exactDecision) {
+      qs.set('runRoot', exactDecision.runRoot)
+      qs.set('decisionFingerprint', exactDecision.decisionFingerprint)
+      if (exactDecision.planPath) qs.set('planPath', exactDecision.planPath)
+      if (exactDecision.planSha256) qs.set('planSha256', exactDecision.planSha256)
+      if (exactDecision.sourceDecisionFingerprint) qs.set('sourceDecisionFingerprint', exactDecision.sourceDecisionFingerprint)
+    }
+    return get(`/api/launch/estimate?${qs.toString()}`)
   },
-  launch: async (body: { kind: string; ticker: string; module?: string; agent?: string; window?: string; model?: string; confirmTicker?: string; force?: boolean; swarm?: string }): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> => {
+  launch: async (body: { kind: string; ticker: string; module?: string; agent?: string; window?: string; model?: string; confirmTicker?: string; force?: boolean; swarm?: string; runRoot?: string; decisionFingerprint?: string }): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    if (body.kind === 'rerun') throw new Error('exact reruns require the versioned launch endpoint')
     return post(`/api/launch`, body)
+  },
+  // Versioned exact-rerun path. Never fall back to /api/launch: an older server must 404 rather than
+  // ignore runRoot/fingerprint and spend against a different current call during rolling deploy skew.
+  launchExact: async (body: { kind: 'rerun'; ticker: string; module: string; agent: string; model?: string; force?: boolean; swarm?: string; runRoot: string; decisionFingerprint: string; planPath?: string; planSha256?: string; sourceDecisionFingerprint?: string }): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/launch/exact`, body)
   },
   cancel: async (runId: string) => {
     if ((await ensureMode()) === 'static') return {}
@@ -837,10 +919,13 @@ export const api = {
   // The latest scoped plan for a ticker (roster-validated + downstream re-expanded server-side), or null
   // when there's no run/plan yet. A 404 / old server / static deploy → null (fail-closed: the cockpit then
   // shows the honest staleness floor, never a fabricated plan).
-  intake: async (ticker: string): Promise<IntakePlan | null> => {
+  intake: async (ticker: string, swarm: string, runRoot?: string, decisionFingerprint?: string): Promise<IntakePlan | null> => {
     if ((await ensureMode()) === 'static') return null
     try {
-      const r = await get<{ plan: IntakePlan | null }>(`/api/intake/${encodeURIComponent(ticker)}`, 8_000)
+      const qs = new URLSearchParams({ swarm })
+      if (runRoot) qs.set('runRoot', runRoot)
+      if (decisionFingerprint) qs.set('decisionFingerprint', decisionFingerprint)
+      const r = await get<{ plan: IntakePlan | null }>(`/api/intake/${encodeURIComponent(ticker)}?${qs}`, DATA_NEEDS_CLIENT_TIMEOUT_MS)
       return r.plan ?? null
     } catch {
       return null
@@ -848,9 +933,12 @@ export const api = {
   },
   // Trigger the cheap, advisory analysis that (re)writes the scoped plan. Launches NO rerun (reruns stay a
   // human one-click). Returns the run id of the doc-intake run.
-  analyzeIntake: async (ticker: string): Promise<{ runId: string }> => {
+  analyzeIntake: async (ticker: string, swarm: string, runRoot?: string, decisionFingerprint?: string): Promise<{ runId: string }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return post(`/api/intake/${encodeURIComponent(ticker)}/analyze`)
+    const qs = new URLSearchParams({ swarm })
+    if (runRoot) qs.set('runRoot', runRoot)
+    if (decisionFingerprint) qs.set('decisionFingerprint', decisionFingerprint)
+    return post(`/api/intake/${encodeURIComponent(ticker)}/analyze-exact?${qs}`)
   },
 
   // ---- data needs (the "surface a data gap → build a durable connector → re-score" loop) ----
@@ -891,14 +979,89 @@ export const api = {
     }
   },
 
-  dataNeeds: async (subject: string, swarm: string): Promise<DataNeedsRead | null> => {
+  dataNeeds: async (subject: string, swarm: string, runRoot?: string): Promise<DataNeedsRead | null> => {
     if ((await ensureMode()) === 'static') return null
-    try {
-      const r = await get<{ read: DataNeedsRead | null }>(`/api/data-needs/${encodeURIComponent(subject)}?swarm=${encodeURIComponent(swarm)}`, 8_000)
-      return r.read ?? null
-    } catch {
-      return null
-    }
+    const query = new URLSearchParams({ swarm })
+    if (runRoot) query.set('runRoot', runRoot)
+    const r = await get<{ read: DataNeedsRead | null }>(
+      `/api/data-needs/${encodeURIComponent(subject)}?${query}`,
+      DATA_NEEDS_CLIENT_TIMEOUT_MS,
+    )
+    const read = r.read
+    // Positive-match deploy contract. A new client talking to an old server hides this action surface;
+    // it never sends a targeted write without immutable decision identity.
+    if (!read || read.contract_version !== 'data-needs-read/2'
+        || read.subject !== subject.toUpperCase() || read.swarm !== swarm
+        || typeof read.run_root !== 'string' || (runRoot !== undefined && read.run_root !== runRoot)
+        || !/^sha256:[a-f0-9]{64}$/.test(read.decision_fingerprint)
+        || !Array.isArray(read.needs) || !Array.isArray(read.widened)) return null
+    return read
+  },
+
+  dataNeedUploadStatus: async (read: DataNeedsRead, needId: string, series: string): Promise<DataNeedUploadRead> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    const query = new URLSearchParams({
+      swarm: read.swarm,
+      runRoot: read.run_root,
+      decisionFingerprint: read.decision_fingerprint,
+      need_id: needId,
+      series,
+    })
+    const upload = await get<unknown>(`/api/data-needs/${encodeURIComponent(read.subject)}/upload-status?${query}`, 12_000)
+    if (!validDataNeedUploadRead(upload, read, needId, series)) throw new Error('upload status could not be verified')
+    return upload
+  },
+
+  uploadDataNeed: async (
+    read: DataNeedsRead,
+    needId: string,
+    series: string,
+    provider: string,
+    sourceUrl: string,
+    file: File,
+    onProgress?: (fraction: number) => void,
+    signal?: AbortSignal,
+  ): Promise<{ ok: true; upload: DataNeedUploadRead }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    const query = new URLSearchParams({ swarm: read.swarm })
+    const fd = new FormData()
+    fd.append('run_root', read.run_root)
+    fd.append('decision_fingerprint', read.decision_fingerprint)
+    fd.append('need_id', needId)
+    fd.append('series', series)
+    fd.append('provider', provider)
+    if (sourceUrl.trim()) fd.append('source_url', sourceUrl.trim())
+    fd.append('file', file, file.name)
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest()
+      let settled = false
+      const cleanup = () => signal?.removeEventListener('abort', abort)
+      const fail = (error: Error & { status?: number; body?: unknown }) => {
+        if (settled) return
+        settled = true; cleanup(); reject(error)
+      }
+      const abort = () => { xhr.abort(); fail(Object.assign(new Error('upload cancelled'), { name: 'AbortError' })) }
+      if (signal?.aborted) return abort()
+      signal?.addEventListener('abort', abort, { once: true })
+      xhr.open('POST', `/api/data-needs/${encodeURIComponent(read.subject)}/upload?${query}`)
+      xhr.upload.onprogress = (event) => {
+        if (event.lengthComputable) onProgress?.(event.loaded / event.total)
+      }
+      xhr.onload = () => {
+        let body: any = {}
+        try { body = JSON.parse(xhr.responseText || '{}') } catch {}
+        if (xhr.status >= 200 && xhr.status < 300) {
+          if (body?.ok !== true || !validDataNeedUploadRead(body.upload, read, needId, series)) {
+            return fail(new Error('upload receipt could not be verified'))
+          }
+          if (settled) return
+          settled = true; cleanup(); resolve(body)
+        } else fail(Object.assign(new Error(body?.error || `${xhr.status}`), { status: xhr.status, body }))
+      }
+      xhr.onerror = () => fail(new Error('network error during upload'))
+      xhr.onabort = () => fail(Object.assign(new Error('upload cancelled'), { name: 'AbortError' }))
+      xhr.send(fd)
+    })
   },
 
   // ---- data pipeline: find/add a source → live relevance scan → build a connector → PR → live feed ----
@@ -982,17 +1145,24 @@ export const api = {
   pipelineDiscoverStream: async (
     subject: string,
     swarm: string,
-    opts: { need_id?: string | null; want?: string; autoBuild?: boolean },
+    opts: { need_id?: string | null; runRoot?: string; decisionFingerprint?: string; want?: string; autoBuild?: boolean },
     cb: {
       onStatus?: (s: { stage?: string; model?: string; openNeeds?: number; wired?: number }) => void
       onActivity?: (a: { tool: string; target: string }) => void
       onFound: (f: DiscoveredFeed) => void
-      onDone: (d: { found: number; autoBuilt: number }) => void
+      onDone: (d: { found: number; autoBuilt: number; decisionFingerprint?: string; superseded?: boolean }) => void
       onError: (msg: string) => void
+      // A clean stream always supplies discover-done. EOF without a terminal frame is a transport failure,
+      // not evidence that no source exists; callers use this hook to keep those states distinct.
+      onEnd?: () => void
       signal: AbortSignal
     },
   ): Promise<void> => {
     if ((await ensureMode()) === 'static') { cb.onError('static-deploy'); return }
+    if (opts.need_id && (!opts.runRoot || !/^sha256:[a-f0-9]{64}$/.test(opts.decisionFingerprint || ''))) {
+      cb.onError('selected-decision-contract-unavailable')
+      return
+    }
     await readSse(
       `/api/pipelines/discover?swarm=${encodeURIComponent(swarm)}`,
       { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ subject, ...opts }), signal: cb.signal },
@@ -1006,10 +1176,22 @@ export const api = {
             verdict: parsed.verdict, building: parsed.building === true,
             connector_exists: typeof parsed.connector_exists === 'string' ? parsed.connector_exists : undefined,
           })
-        } else if (ev === 'discover-done') { cb.onDone({ found: parsed.found ?? 0, autoBuilt: parsed.autoBuilt ?? 0 }); return 'stop' }
+        } else if (ev === 'discover-done') {
+          if (opts.need_id && parsed.decisionFingerprint !== opts.decisionFingerprint) {
+            cb.onError('selected-decision-changed')
+            return 'stop'
+          }
+          cb.onDone({
+            found: parsed.found ?? 0, autoBuilt: parsed.autoBuilt ?? 0,
+            decisionFingerprint: typeof parsed.decisionFingerprint === 'string' ? parsed.decisionFingerprint : undefined,
+            superseded: parsed.superseded === true,
+          })
+          return 'stop'
+        }
         else if (ev === 'discover-error') { cb.onError(parsed.message || 'the search failed'); return 'stop' }
       },
       cb.onError,
+      cb.onEnd,
     )
   },
 

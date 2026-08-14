@@ -16,21 +16,21 @@ import { fetchNse } from './sources/nse'
 import { fetchExchangeIntl } from './sources/exchange-intl'
 import { fetchGovData } from './sources/gov-data'
 import { fetchReddit } from './sources/reddit'
-import { loadLedgerEventIds, normalizeAndFilter } from './normalize'
+import { eventIdFor, loadLedgerEventIds, normalizeAndFilter } from './normalize'
 import { pickTranslation } from './lang'
 import { resolveEventRegion } from './geo'
 import { resolveCountry } from './geography'
 import { invalidateFacets } from './facets'
 import { SeenCache } from './seen-cache'
-import { Budget, NON_BINDING_DAILY_TOKEN_CAP, UsdBudget, armCooldown, clearCooldown, conservativeChatTokenBound, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown, readCooldownUntil, type PaceCfg } from './triage/budget'
+import { Budget, NON_BINDING_DAILY_TOKEN_CAP, UsdBudget, armCooldown, clearCooldown, conservativeChatTokenBound, cooldownInfo, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown, readCooldownUntil, type PaceCfg } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
 import { triageBatchAnthropic } from './triage/anthropic'
-import { isPlanQuotaNote, isTerminalApiNote, triageBatchClaudeCli, type ClaudeCliRunner } from './triage/claude-cli'
+import { isAuthExpiredNote, isPlanQuotaNote, isTerminalApiNote, triageBatchClaudeCli, type ClaudeCliRunner } from './triage/claude-cli'
 import { SYSTEM, buildUserMessage, estimateTokens, scoreToBand, triageBatch, type TriageOptions, type TriageResult } from './triage/groq'
 import { rankScore, preTriagePriority, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
 import { deriveScope, deriveSourceTier, toEventScope } from './scope'
 import { deriveCommodities } from './commodities'
-import { appendFirehoseSummary, mergeInbox, refreshBoard } from './write-inbox'
+import { appendFirehoseSummary, mergeInbox, refreshBoard, type InboxRevisionClocks } from './write-inbox'
 import { runThemesCycle, bumpCycleCounter, themesConfigFromNews } from './themes/engine'
 import { makeThemeNamer } from './themes/llm'
 import type { ThemeItemView } from './themes/types'
@@ -187,31 +187,40 @@ async function runThemesStage(input: {
   fetchFn: typeof fetch
   now: () => Date
   log: (m: string) => void
+  revisionClocksByEvent?: ReadonlyMap<string, InboxRevisionClocks>
 }): Promise<void> {
-  const { cfg, repoRoot, stateDir, picks, fetchFn, now, log } = input
+  const { cfg, repoRoot, stateDir, picks, fetchFn, now, log, revisionClocksByEvent } = input
   if (!cfg.themesEnabled) return
   try {
     const themeItems: ThemeItemView[] = picks
       .filter((t) => t.triage_score >= cfg.themesMinScore)
-      .map((t) => ({
-        event_id: t.event_id,
-        dedup_group: t.dedup_group, // one underlying story across publisher copies — Themes counts it once
-        headline: t.headline,
-        headline_en: t.headline_en,
-        found_at: t.found_at,
-        companies: t.companies,
-        event_types: t.event_types,
-        issuer_linkage: t.issuer_linkage,
-        triage_score: t.triage_score,
-        materiality_pre_score: t.materiality_pre_score,
-        source_tier: deriveSourceTier(t),
-        source_name: t.source_name,
-        url: t.url,
-        scope: deriveScope(t),
-        region: t.region,
-        country: resolveCountry(t.headline, t.headline_en, t.companies, t.region, t.issuer_linkage),
-        commodities: deriveCommodities(t),
-      }))
+      .map((t) => {
+        const clocks = revisionClocksByEvent?.get(t.event_id)
+        const sourceIsEnglish = clocks ? clocks.sourceIsEnglish : t.source_is_english === true
+        return {
+          event_id: t.event_id,
+          dedup_group: t.dedup_group, // one underlying story across publisher copies — Themes counts it once
+          headline: t.headline,
+          headline_en: t.headline_en,
+          ...(sourceIsEnglish ? { source_is_english: true as const } : {}),
+          // The inbox row is the durable exact-revision record. An acted-on refresh may carry a newer
+          // provider timestamp in `t`, but mergeInbox deliberately keeps the source clock the human saw.
+          found_at: clocks?.foundAt || t.found_at,
+          ...(clocks?.observedAt ? { observed_at: clocks.observedAt } : {}),
+          companies: t.companies,
+          event_types: t.event_types,
+          issuer_linkage: t.issuer_linkage,
+          triage_score: t.triage_score,
+          materiality_pre_score: t.materiality_pre_score,
+          source_tier: deriveSourceTier(t),
+          source_name: t.source_name,
+          url: t.url,
+          scope: deriveScope(t),
+          region: t.region,
+          country: resolveCountry(t.headline, t.headline_en, t.companies, t.region, t.issuer_linkage),
+          commodities: deriveCommodities(t),
+        }
+      })
     const n = bumpCycleCounter(stateDir)
     let themesTimeout: ReturnType<typeof setTimeout> | undefined
     const res = await Promise.race([
@@ -413,6 +422,11 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const anthropicLimiter = anthropicOn ? getNamedLimiter('anthropic-triage', cfg.anthropicRpm, 0) : null
   const anthropicCooldownWasSet = anthropicOn ? readCooldownUntil(stateDir, 'anthropic-triage') : 0
   const anthropicCoolingDown = anthropicOn && isCoolingDown(stateDir, 'anthropic-triage', now().getTime())
+  // WHY the tier is cooling, carried on the marker itself. The failure note only exists in the cycle that
+  // actually failed, so a later cycle — the one the operator is usually looking at — could otherwise only
+  // say "backing off after an error". With this, an expired sign-in keeps naming itself (and its fix) on
+  // every subsequent cycle until it clears.
+  const anthropicCooldownReason = anthropicOn ? cooldownInfo(stateDir, 'anthropic-triage').reason || '' : ''
   // LOCAL PRIMARY BRAIN. cfg.localProvider is non-null ONLY when local is enabled AND primary (the default once
   // enabled) — it is then tried FIRST for every batch below, ahead of Groq, with NO daily cap and no per-minute
   // spacing. Its budget file (local-budget.json) is still recorded so the cockpit can show live tokens/requests
@@ -646,17 +660,29 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       } else {
         anthropicDownThisCycle = true // bad cycle → skip this tier for the rest of it (don't burn the budget)
         anthropicFailNote = ar.note || '' // keep the reason so the cycle note can say plan-quota vs a transient error
-        // THREE failure classes, three responses — because this is the LAST line of defence and its cooldown
+        // FOUR failure classes, four responses — because this is the LAST line of defence and its cooldown
         // must fit the actual cause (all keep the same 'anthropic-triage' marker id, so the diagnostics + the
         // drain's anthropicHasHeadroom read it unchanged):
-        //   1. terminal 4xx (api mode: bad key / no credits) — won't recover today → exhaust the day's ledger.
-        //   2. real plan-quota ("usage limit reached" — the plan's 5-hour/weekly pool is spent) → the LONG
+        //   1. an EXPIRED SIGN-IN (HTTP 401 / "authenticate"), SUBSCRIPTION MODE ONLY — checked FIRST, because
+        //      the terminal-4xx regex below also matches 401 and used to swallow it. It is not terminal at all:
+        //      `claude login` on the host fixes it in seconds. Treating it as terminal did real damage —
+        //      exhaust() force-marks the day's $ ledger as fully spent, so (a) the tier stayed dark until the
+        //      UTC rollover even after the sign-in was repaired, and (b) the cockpit reported the whole daily
+        //      ceiling as SPENT when the failing calls cost $0. So: the SHORT flat cooldown instead, tagged
+        //      with its reason. The tier then re-probes ~once a drain and resumes on its own within one drain
+        //      of the operator signing back in — and the $0 it actually spent stays $0. Gated to subscription
+        //      mode: in api mode a 401 means a bad/revoked API key, which `claude login` cannot fix and which
+        //      genuinely IS terminal — that falls through to branch 2 below.
+        //   2. terminal 4xx (api mode: bad/expired/revoked key, or no credits) — won't recover today → exhaust
+        //      the day's ledger.
+        //   3. real plan-quota ("usage limit reached" — the plan's 5-hour/weekly pool is spent) → the LONG
         //      exponential backoff, so later cycles wait for the plan to reset instead of re-spawning the CLI.
-        //   3. a TRANSIENT blip (timeout / rate-limit / one-off non-JSON, after the adapter's own in-call
+        //   4. a TRANSIENT blip (timeout / rate-limit / one-off non-JSON, after the adapter's own in-call
         //      retry already failed) → a SHORT, FLAT cooldown (base==max flattens the exponential to a
         //      constant), so the paid tier re-probes ~once a drain and keeps draining the backlog rather than
         //      going dark for up to an hour while data drops past the cap.
-        if (isTerminalApiNote(ar.note || '')) anthropicBudget!.exhaust()
+        if (cfg.anthropicFallbackMode === 'subscription' && isAuthExpiredNote(ar.note || '')) armCooldown(stateDir, now().getTime(), cfg.anthropicTransientCooldownMs, 'anthropic-triage', cfg.anthropicTransientCooldownMs, 'auth-expired')
+        else if (isTerminalApiNote(ar.note || '')) anthropicBudget!.exhaust()
         else if (isPlanQuotaNote(ar.note || '')) armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, 'anthropic-triage', cfg.llmCooldownMaxMs)
         else armCooldown(stateDir, now().getTime(), cfg.anthropicTransientCooldownMs, 'anthropic-triage', cfg.anthropicTransientCooldownMs)
       }
@@ -724,6 +750,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         headline_en,
         // the source language named — only when a translation was actually kept (for the "original · X" label)
         ...(headline_en && t?.headline_lang ? { headline_lang: t.headline_lang } : {}),
+        ...(t?.source_is_english === true ? { source_is_english: true as const } : {}),
         // Geography = where the EVENT is, not where it was published: re-derive region from the triage
         // read (news/geo.ts), keeping the publisher's domain region as source_region. Falls back to the
         // domain region when the read gives no signal, so an unscored/omitted item never regresses.
@@ -764,57 +791,73 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const watched = triaged.filter((t) => t.band === 'watch').length
   const dropped = triaged.filter((t) => t.band === 'drop').length
   let inboxed = 0
+  let revisionClocksByEvent = new Map<string, InboxRevisionClocks>()
   if (picks.length) {
-    inboxed = mergeInbox(repoRoot, date, picks, { maxRows: cfg.inboxMaxRows, now })
+    const merged = mergeInbox(repoRoot, date, picks, {
+      maxRows: cfg.inboxMaxRows,
+      now,
+      archiveDir: cfg.newsArchiveDir,
+      stateDir,
+    })
+    inboxed = merged.rowCount
+    revisionClocksByEvent = merged.revisionClocksByEvent
     await refreshBoard(repoRoot, log)
   }
 
   // per-item feed records — for KEPT and DROPPED alike, so the live wire shows everything the
   // scanner read and why; then stream each to live listeners
-  const feedItems: FeedItem[] = triaged.map((t) => ({
-    kind: 'item',
-    ts,
-    found_at: t.found_at, // source publication/discovery time; `ts` above remains the triage audit clock
-    event_id: t.event_id,
-    headline: t.headline,
-    headline_en: t.headline_en, // English translation of a non-English headline (news/lang.ts); null when English
-    ...(t.headline_lang ? { headline_lang: t.headline_lang } : {}),
-    url: t.url,
-    domain: t.domain,
-    source_name: t.source_name,
-    via: t.via || 'gdelt',
-    region: t.region, // the EVENT's market (news/geo.ts) — the legacy 8-bucket region
-    // the publisher's region, persisted only when it differs from the event region (e.g. an SCMP/CN
-    // domain piece about Bangladesh → region OTHER, source_region CN) — the override's audit trail
-    ...(t.source_region && t.source_region !== t.region ? { source_region: t.source_region } : {}),
-    // the EVENT's country (ISO alpha-2, news/geography.ts) — the country-level Geography filter's key.
-    // null when no confident signal ("Global / unspecified"). Re-derived on read for older lines (feed.ts).
-    country: resolveCountry(t.headline, t.headline_en, t.companies, t.region, t.issuer_linkage),
-    input_nature: t.input_nature,
-    triage_score: t.triage_score,
-    band: t.band,
-    triage_reason: t.triage_reason,
-    relevance: t.relevance,
-    event_types: t.event_types,
-    issuer_linkage: t.issuer_linkage,
-    companies: t.companies,
-    size_bucket: t.size_bucket,
-    // derived, zero-cost classification — persisted so the wire + a later backfill agree
-    scope: deriveScope(t),
-    source_tier: deriveSourceTier(t),
-    // canonical commodity tag(s) (news/commodities.ts) — absent when the headline names none
-    ...(() => { const cs = deriveCommodities(t); return cs ? { commodity: cs[0], commodities: cs } : {} })(),
-    // event-materiality classifier's final fields — already resolved onto t in the TRIAGE loop above
-    event_materiality_label: t.event_materiality_label,
-    event_direction: t.event_direction,
-    event_scope: t.event_scope,
-    snippet: t.snippet, // the feed's own lede — fetch-free body for on-open enrichment
-    rank_factors: t.rank_factors, // the composite-priority breakdown (rank.ts) — for the WHY in the UI
-    dedup_status: t.dedup_status,
-    dedup_group: t.dedup_group, // story-cluster id (news/dedup.ts) — the live wire collapses on it
-    inboxed: t.band !== 'drop',
-    caution: t.caution, // caution_only social — preserved so the display re-rank (feed.ts) re-applies the lowest cap
-  }))
+  const feedItems: FeedItem[] = triaged.map((t) => {
+    const clocks = revisionClocksByEvent.get(t.event_id)
+    const sourceIsEnglish = clocks ? clocks.sourceIsEnglish : t.source_is_english === true
+    return {
+      kind: 'item',
+      ts,
+      // Exact kept revisions use the pair mergeInbox persisted. Dropped rows have no inbox lane and retain
+      // their raw source clock; `ts` above remains the separate triage audit clock in either case.
+      found_at: clocks?.foundAt || t.found_at,
+      ...(clocks?.observedAt ? { observed_at: clocks.observedAt } : {}),
+      event_id: t.event_id,
+      headline: t.headline,
+      headline_en: t.headline_en, // English translation of a non-English headline (news/lang.ts); null when English
+      ...(t.headline_lang ? { headline_lang: t.headline_lang } : {}),
+      ...(sourceIsEnglish ? { source_is_english: true as const } : {}),
+      url: t.url,
+      domain: t.domain,
+      source_name: t.source_name,
+      via: t.via || 'gdelt',
+      region: t.region, // the EVENT's market (news/geo.ts) — the legacy 8-bucket region
+      // the publisher's region, persisted only when it differs from the event region (e.g. an SCMP/CN
+      // domain piece about Bangladesh → region OTHER, source_region CN) — the override's audit trail
+      ...(t.source_region && t.source_region !== t.region ? { source_region: t.source_region } : {}),
+      // the EVENT's country (ISO alpha-2, news/geography.ts) — the country-level Geography filter's key.
+      // null when no confident signal ("Global / unspecified"). Re-derived on read for older lines (feed.ts).
+      country: resolveCountry(t.headline, t.headline_en, t.companies, t.region, t.issuer_linkage),
+      input_nature: t.input_nature,
+      triage_score: t.triage_score,
+      band: t.band,
+      triage_reason: t.triage_reason,
+      relevance: t.relevance,
+      event_types: t.event_types,
+      issuer_linkage: t.issuer_linkage,
+      companies: t.companies,
+      size_bucket: t.size_bucket,
+      // derived, zero-cost classification — persisted so the wire + a later backfill agree
+      scope: deriveScope(t),
+      source_tier: deriveSourceTier(t),
+      // canonical commodity tag(s) (news/commodities.ts) — absent when the headline names none
+      ...(() => { const cs = deriveCommodities(t); return cs ? { commodity: cs[0], commodities: cs } : {} })(),
+      // event-materiality classifier's final fields — already resolved onto t in the TRIAGE loop above
+      event_materiality_label: t.event_materiality_label,
+      event_direction: t.event_direction,
+      event_scope: t.event_scope,
+      snippet: t.snippet, // the feed's own lede — fetch-free body for on-open enrichment
+      rank_factors: t.rank_factors, // the composite-priority breakdown (rank.ts) — for the WHY in the UI
+      dedup_status: t.dedup_status,
+      dedup_group: t.dedup_group, // story-cluster id (news/dedup.ts) — the live wire collapses on it
+      inboxed: t.band !== 'drop',
+      caution: t.caution, // caution_only social — preserved so the display re-rank (feed.ts) re-applies the lowest cap
+    }
+  })
   // emit exactly what was persisted, so the live wire and a later backfill agree
   const written = appendFeedItems(repoRoot, date, feedItems, cfg.feedItemsDailyCap)
   if (written) invalidateFacets() // a fresh cycle changed the archive — drop the facet index so new items/countries show up before the TTL
@@ -857,10 +900,23 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // api-mode billing/credit error is NOT the shared plan resetting — those fall through to 'cooling', so we
   // don't tell the operator to "wait for the plan to reset" when there is no plan quota to reset.
   const planQuotaHit = isPlanQuotaNote(anthropicFailNote)
+  // An expired sign-in is named from this cycle's own failure note when there IS one, and otherwise from the
+  // reason carried on the cooldown marker — so every cycle after the first keeps telling the operator the real
+  // cause (and the one-line fix) instead of degrading to a nameless "backing off after an error". The live
+  // note takes precedence deliberately: once the tier probes again and fails a DIFFERENT way (a timeout, say),
+  // that new cause is the honest one to show, not the stale reason left on the marker by the previous failure.
+  // Gated to subscription mode, matching the armCooldown call above: in api mode a 401 is a bad/revoked key
+  // (terminal, §2 above), never a recoverable sign-in, so it must never read as 'auth-expired' here either.
+  // (The cooldown-marker branch is already safe by construction — the marker can only carry the 'auth-expired'
+  // reason if the gated armCooldown call above set it — but the note-present branch checks the raw note text
+  // independent of mode and needs its own gate.)
+  const authExpiredHit = anthropicFailNote
+    ? (cfg.anthropicFallbackMode === 'subscription' && isAuthExpiredNote(anthropicFailNote))
+    : anthropicCooldownReason === 'auth-expired'
   const lastResort: CycleSummary['last_resort'] = !anthropicOn
     ? 'off'
     : anthropicCoolingDown || anthropicDownThisCycle
-      ? (planQuotaHit ? 'plan-quota' : 'cooling')
+      ? (planQuotaHit ? 'plan-quota' : authExpiredHit ? 'auth-expired' : 'cooling')
       : !anthropicBudget?.canSpend()
         ? 'usd-cap'
         : anthropicRequests > 0
@@ -877,9 +933,11 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         ? ` · Haiku last-resort at its $${cfg.anthropicDailyUsd}/day ceiling`
         : lastResort === 'plan-quota'
           ? ' · Haiku last-resort paused — Claude plan quota spent, waiting for it to reset'
-          : lastResort === 'cooling'
-            ? ' · Haiku last-resort backing off after an error'
-            : ''
+          : lastResort === 'auth-expired'
+            ? " · Haiku last-resort paused — the engine's Claude sign-in has expired; run `claude login` on the engine host and it resumes on the next look"
+            : lastResort === 'cooling'
+              ? ' · Haiku last-resort backing off after an error'
+              : ''
 
   const defCount = deferred.length
   const defPlural = defCount === 1 ? '' : 's'
@@ -962,6 +1020,6 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
 
   // 5. THEMES — bucket material items and run the same maintenance clock used by quiet cycles. Fully
   // guarded so a themes bug can never block or corrupt the core wire.
-  await runThemesStage({ cfg, repoRoot, stateDir, picks, fetchFn, now, log })
+  await runThemesStage({ cfg, repoRoot, stateDir, picks, fetchFn, now, log, revisionClocksByEvent })
   return summary
 }
