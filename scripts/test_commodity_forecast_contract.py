@@ -149,6 +149,8 @@ def _record() -> dict:
         "forecast_horizons": {"tactical": tactical, "strategic": strategic},
         "relative_view": "Synthetic relative view.",
         "sources": ["Synthetic primary source"],
+        "data_needs_schema_version": "2.0",
+        "data_needs": [],
     }
 
 
