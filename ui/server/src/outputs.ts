@@ -248,6 +248,123 @@ export function isISODate(s: unknown): s is string {
   return typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s)
 }
 
+// ---- needs-attention (AS forecast-overdue / AW kill-criteria-overdue) ----
+// The EXACT port of scripts/eval.py's isdate() + _as_due_date() + eval_as_forecast_overdue() +
+// eval_aw_kill_criteria_overdue() — same convention as the review_due.py port above: keep them
+// byte-identical so the eval harness's retrospective advisories and the live cockpit never disagree.
+// eval.py only reports these in `retrospective_advisories` when someone runs `/research:eval` by
+// hand (PR #435); this port is what makes the SAME two checks visible live, in GET /api/calls and
+// /research:track, without waiting for a manual eval run.
+
+// a real calendar date, not merely regex-shaped (mirrors python's datetime.date.fromisoformat, which
+// rejects e.g. '2026-02-30' — new Date() would silently roll that over to March and must not be used).
+function isValidCalendarISODate(s: unknown): s is string {
+  if (!isISODate(s)) return false
+  const y = Number(s.slice(0, 4))
+  const mo = Number(s.slice(5, 7))
+  const da = Number(s.slice(8, 10))
+  if (mo < 1 || mo > 12) return false
+  const leap = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0)
+  const daysInMonth = [31, leap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+  return da >= 1 && da <= daysInMonth[mo - 1]
+}
+
+const MONTH_NUM: Record<string, number> = {
+  jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12,
+}
+
+// the date a window CLOSES, read out of free text (the ledger's own convention, e.g. 'Q2 2026 earnings
+// July 31, 2026' / 'FY2026 results release (~March 2027)') — ISO date, 'Month DD, YYYY', or bare
+// 'Month YYYY' (closes on the 28th, the only day every month has). Returns null when undateable.
+function dueDateFromFreeText(text: string): string | null {
+  let m = /(\d{4})-(\d{2})-(\d{2})/.exec(text)
+  if (m && isValidCalendarISODate(m[0])) return m[0]
+  m = /([A-Za-z]{3,9})\s+(\d{1,2}),\s*(\d{4})/.exec(text)
+  if (m) {
+    const mon = MONTH_NUM[m[1].slice(0, 3).toLowerCase()]
+    if (mon) {
+      const cand = `${m[3]}-${String(mon).padStart(2, '0')}-${String(Number(m[2])).padStart(2, '0')}`
+      if (isValidCalendarISODate(cand)) return cand
+    }
+  }
+  m = /([A-Za-z]{3,9})\s+(\d{4})/.exec(text)
+  if (m) {
+    const mon = MONTH_NUM[m[1].slice(0, 3).toLowerCase()]
+    if (mon) return `${m[2]}-${String(mon).padStart(2, '0')}-28`
+  }
+  return null
+}
+
+// forecast_ledger prefers a structured due field; falls back to free-text time_window (mirrors
+// _as_due_date's field-then-freetext order exactly).
+function forecastDueDate(entry: any): string | null {
+  for (const k of ['resolves_on', 'due_date', 'resolve_by']) {
+    if (isValidCalendarISODate(entry?.[k])) return entry[k]
+  }
+  return dueDateFromFreeText(String(entry?.time_window ?? ''))
+}
+
+const AS_RESOLVED = new Set(['confirmed', 'falsified', 'expired', 'resolved', 'closed', 'superseded', 'void', 'withdrawn'])
+
+interface OverdueItem {
+  due_date: string
+  description: string
+}
+
+// check AS — CLAUDE.md §19: "a forecast that cannot be checked later is not a forecast."
+function forecastsOverdue(forecastLedger: unknown, today: string): OverdueItem[] {
+  if (!Array.isArray(forecastLedger) || !isISODate(today)) return []
+  const out: OverdueItem[] = []
+  forecastLedger.forEach((e: any, i: number) => {
+    if (!e || typeof e !== 'object') return
+    const status = String(e.status ?? e.outcome ?? '').trim().toLowerCase()
+    if (AS_RESOLVED.has(status)) return // already settled
+    const due = forecastDueDate(e)
+    if (!due || due >= today) return // undateable, or not yet due
+    const pred = String(e.prediction ?? '').slice(0, 110)
+    out.push({ due_date: due, description: `forecast_ledger[${i}] came due ${due} and is still unresolved (status ${status || 'unset'}): ${pred}` })
+  })
+  return out
+}
+
+function killCriterionMonitorText(entry: any): string {
+  if (entry && typeof entry === 'object') {
+    for (const f of ['monitor', 'monitor_via']) {
+      const v = entry[f]
+      if (typeof v === 'string' && v.trim()) return v.trim()
+    }
+  }
+  return ''
+}
+
+function killCriterionText(entry: any): string {
+  if (typeof entry === 'string') return entry.trim()
+  if (entry && typeof entry === 'object') {
+    for (const f of ['criterion', 'condition', 'trigger', 'what_invalidates', 'kill_criterion', 'description', 'text']) {
+      const v = entry[f]
+      if (typeof v === 'string' && v.trim()) return v.trim()
+    }
+  }
+  return ''
+}
+
+// check AW — CLAUDE.md §8: disconfirming evidence is "a required test the thesis must survive," not a
+// closing caveat. Reuses forecast_ledger's own date-extraction against kill_criteria's free-text
+// `monitor` field (kill_criteria carries no structured due-date field of its own).
+function killCriteriaOverdue(killCriteria: unknown, today: string): OverdueItem[] {
+  if (!Array.isArray(killCriteria) || !isISODate(today)) return []
+  const out: OverdueItem[] = []
+  killCriteria.forEach((e: any, i: number) => {
+    const mon = killCriterionMonitorText(e)
+    if (!mon) return // no monitor text (e.g. a legacy plain-string entry) — undateable, never flagged
+    const due = dueDateFromFreeText(mon)
+    if (!due || due >= today) return
+    const crit = killCriterionText(e).slice(0, 110) || '<empty criterion>'
+    out.push({ due_date: due, description: `kill_criteria[${i}] monitor event (${due}) has passed and was never checked: ${crit}` })
+  })
+  return out
+}
+
 interface ReviewFile {
   file: string // repo-relative path under analyses/
   basename: string
@@ -451,6 +568,9 @@ export function listAllCalls() {
     // was the one ledger consumer still showing the synthesizer's original, unflagged, uncapped call.
     const integrity = resolveIntegrityStatusForRun(runRoot)
     const disp = resolveDisplayFields(d)
+    // checks AS / AW (scripts/eval.py) ported live — see the block above `isISODate`.
+    const forecastsDue = forecastsOverdue(d?.forecast_ledger, today)
+    const killCriteriaDue = killCriteriaOverdue(d?.kill_criteria, today)
     calls.push({
       ticker: d?.ticker ?? name.replace(/_\d{4}-\d{2}-\d{2}$/, ''),
       company: d?.company_name ?? null,
@@ -477,9 +597,26 @@ export function listAllCalls() {
       next_checkpoint: pending ? { window: pending.window, due_date: pending.due_date, status: pending.status } : null,
       review_count: reviews.length,
       timeline,
+      // AS_forecast_overdue / AW_kill_criteria_overdue, live — same two checks eval.py otherwise only
+      // reports when someone runs `/research:eval` by hand.
+      needs_attention: { forecasts_overdue: forecastsDue, kill_criteria_overdue: killCriteriaDue },
     })
   }
   // newest call first
   calls.sort((a, b) => (String(a.decision_date) < String(b.decision_date) ? 1 : String(a.decision_date) > String(b.decision_date) ? -1 : 0))
-  return { calls, dashboard: newestDashboard() }
+  // ranked "needs attention now" list across ALL calls: most-overdue (earliest due_date) first, then
+  // ticker as a stable tiebreak. This is what makes AS/AW actionable without running the eval harness.
+  const needsAttention = calls
+    .flatMap((c) => [
+      ...c.needs_attention.forecasts_overdue.map((it: OverdueItem) => ({ type: 'forecast' as const, ...it })),
+      ...c.needs_attention.kill_criteria_overdue.map((it: OverdueItem) => ({ type: 'kill_criteria' as const, ...it })),
+    ].map((it) => ({
+      ticker: c.ticker,
+      company: c.company,
+      run_root: c.run_root,
+      final_thesis_path: c.final_thesis_path,
+      ...it,
+    })))
+    .sort((a, b) => (a.due_date < b.due_date ? -1 : a.due_date > b.due_date ? 1 : a.ticker < b.ticker ? -1 : a.ticker > b.ticker ? 1 : 0))
+  return { calls, dashboard: newestDashboard(), needs_attention: needsAttention }
 }

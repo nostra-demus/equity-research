@@ -710,6 +710,16 @@ a { color: inherit; }
 
 .reader__body { flex: 1; overflow-y: auto; padding: 22px 28px 60px; }
 
+/* A plain warning above an unfinished report. The exact machine reasons stay available on demand. */
+.reportcheck { margin: 0 0 20px; padding: 14px 16px; border: 1px solid var(--warning-deep, #8d6424); border-radius: var(--r-md); background: color-mix(in srgb, var(--warning, #e6a638) 9%, var(--surface-1)); }
+.reportcheck > strong { display: block; color: var(--text); font-size: 14px; line-height: 1.4; }
+.reportcheck > p { margin: 5px 0 10px; color: var(--text-muted); font-size: 12.5px; line-height: 1.5; }
+.reportcheck summary { width: fit-content; cursor: pointer; color: var(--text-muted); font-size: 11.5px; font-weight: 600; }
+.reportcheck summary:hover { color: var(--text); }
+.reportcheck__details { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--hairline); color: var(--text-muted); font-size: 11.5px; }
+.reportcheck__details > :first-child { margin-top: 0; }
+.reportcheck__details > :last-child { margin-bottom: 0; }
+
 /* prompt view — explainer banner + frontmatter card sit above the rendered prompt */
 .promptbanner { border: 1px solid var(--accent-deep); background: linear-gradient(180deg, var(--accent-wash), var(--accent-wash-soft));
   border-radius: var(--r-md); padding: 12px 14px; margin-bottom: 20px; animation: promptbanner-in 200ms var(--ease-out) both; }
@@ -1716,31 +1726,6 @@ a { color: inherit; }
 .pipeline__refresh { width: 32px; padding: 0; font-size: 14px; }
 .pipeline__refresh.is-spinning { animation: spin 0.6s var(--ease-out); }
 @media (prefers-reduced-motion: reduce) { .pipeline__refresh.is-spinning { animation: none; } }
-
-/* daily-budget pool readout — Groq (paced primary) + Gemini + OpenRouter (free-tier overflow) */
-.pipeline__pools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-.poolchip { display: inline-flex; align-items: center; gap: 7px; padding: 3px 9px; border: 1px solid var(--hairline); border-radius: 999px; background: var(--surface-2); line-height: 1; }
-.poolchip__label { font-size: 10px; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase; color: var(--text-faint); }
-.poolchip__bar { position: relative; width: 48px; height: 4px; border-radius: 999px; overflow: hidden; background: color-mix(in srgb, var(--text-faint) 20%, transparent); flex-shrink: 0; }
-/* fill + label colour are set INLINE per provider (a CSS var), so a new provider needs no CSS — its
-   chip just supplies its --provider-* token. The base bar fill colour falls back to the accent. */
-.poolchip__fill { display: block; height: 100%; width: 100%; border-radius: inherit; transform-origin: left center; transform: scaleX(0); background: var(--accent); transition: transform 360ms cubic-bezier(0.23, 1, 0.32, 1); }
-.poolchip__val { color: var(--text-faint); font-size: 10.5px; font-variant-numeric: tabular-nums; }
-.poolchip__sep { opacity: 0.45; margin: 0 1px; }
-.poolchip__unit { opacity: 0.65; }
-@media (prefers-reduced-motion: reduce) { .poolchip__fill { transition: none; } }
-
-/* LOCAL primary brain chip — rendered first, given more presence than the small fallback budget chips: a
-   stronger azure border + wash, a live health dot, and a prominent live token count. There is no cap bar
-   because the tier is unlimited — the numbers ARE the readout (tokens + requests processed today). */
-.poolchip--local { padding: 4px 11px; border-color: color-mix(in srgb, var(--provider-local) 55%, var(--hairline)); background: color-mix(in srgb, var(--provider-local) 10%, var(--surface-2)); }
-.poolchip--local.is-down { border-color: color-mix(in srgb, var(--bad) 55%, var(--hairline)); background: var(--bad-wash); }
-.poolchip__dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; background: var(--text-faint); }
-.poolchip__dot[data-tone="live"] { background: var(--live); box-shadow: 0 0 0 3px var(--live-wash); }
-.poolchip__dot[data-tone="bad"] { background: var(--bad); box-shadow: 0 0 0 3px var(--bad-wash); }
-.poolchip__big { font-weight: 700; font-size: 12px; }
-.poolchip__inf { margin-left: 4px; opacity: 0.55; font-weight: 700; }
-.poolchip__val--down { color: var(--bad); font-weight: 600; }
 
 /* time-travel window selector — surface news over 14d / 1mo / 6mo / all, from the on-disk archive */
 .wirewindow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 10px 20px; border-bottom: 1px solid var(--hairline); }

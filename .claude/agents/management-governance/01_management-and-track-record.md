@@ -22,6 +22,10 @@ You DO NOT:
 - `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/management-governance/01_management-and-track-record.md`, `DATE`
 - `UPSTREAM_INPUTS` — none in-module. Optionally cross-module: `business-model/02_business-identity.md` (control context), `earnings/04_guidance-consensus.md` (guidance/beat-miss history).
 
+# CHECKLIST OWNERSHIP
+
+You own Governance Checklist Registry items (MODULE_RULES): **A13-04** (top-management team vintage — bands: median tenure ≥4y with orderly additions vs <2y from churn or serial exits at one role) and **A13-05** (second-level team quality & bench). Each appears in your Universal Findings Table with its ID in the Question/Test column; if unanswerable, mark Not Applicable with the reason — never skip. Person-level integrity (who these people ARE beyond the résumé) is owned by `07_people-integrity-dossiers`; read its grades if present, and never duplicate its sweeps.
+
 # PARTIAL-DATA RULE
 
 If there are no prior shareholder letters, transcripts, or guidance to check against: build the team profile from filings, state that promise-vs-delivery cannot be assessed from the data pool, and cap accordingly. Use the web only to confirm executive background/tenure (label as web-sourced); do not infer character from it.
@@ -139,6 +143,7 @@ Emit a machine-readable JSON code block per the Machine-Readable Outputs schema 
 - [ ] Turnaround test applied: if the thesis is a turnaround without ≥2–3 yrs of delivered operating inflection, the base-rate penalty and conviction cap are noted (§24 Filter 2).
 - [ ] Any routed integrity "buzz" from the disqualifier scan is recorded and reflected in the read, not discarded (§24 Filter 1); if it remains unresolved after investigation, `RF-MGT-005` is emitted as a standalone line.
 - [ ] Web is used only to confirm background, labeled as web-sourced.
+- [ ] Checklist items A13-04 and A13-05 are answered in the Universal Findings Table with their IDs.
 - [ ] The read is grounded in the record, not the narrative.
 - [ ] No banned phrases (no naked "experienced team" / "proven track record").
 

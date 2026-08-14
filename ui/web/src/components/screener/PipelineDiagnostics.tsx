@@ -1,6 +1,6 @@
 // Pipeline diagnostics — the full, honest end-to-end view of the news/triage scanner, so a defer / cooldown
 // / backlog state is never a surprise. It answers, in one place: which tier is scoring right now, how much of
-// each tier's budget is spent, which tiers are cooling down (and for how long), how deep the deferred backlog
+// each tier's engine allowance has been used, which tiers are held after errors (and for how long), how deep the deferred backlog
 // is against its loss boundary, and — the piece that used to be hidden — exactly WHY anything is waiting,
 // including the Haiku last-resort's state. Read-only. Same right-slide-in family as the Data Pipeline panel;
 // live-tick-safe (polled + refreshed on every cycle, so it is mounted WITHOUT <AnimatePresence> in App.tsx —
@@ -12,17 +12,8 @@ import { motion } from 'framer-motion'
 import { useStore } from '../../lib/store'
 import type { DeferReason, LastResortState, NewsDiagnostics, TierDiagnostics, TierHealth } from '../../lib/types'
 import { tierMeter } from './pipelineMeter'
+import { tierStatusCopy } from './pipelineDiagnosticsView'
 import './PipelineDiagnostics.css'
-
-/** A short, human duration for a cooldown countdown. Minute granularity above 90s (calm, not frantic). */
-function fmtDur(ms: number): string {
-  const s = Math.max(0, Math.round(ms / 1000))
-  if (s < 90) return `${s}s`
-  const m = Math.round(s / 60)
-  if (m < 60) return `${m}m`
-  const h = Math.floor(m / 60)
-  return `${h}h ${m % 60}m`
-}
 
 /** Plain time-UNTIL a future instant. The scheduler keeps nextCycleAt ahead of now, so this is the correct
  *  direction; a past-clamping ago() would always read "just now"/"imminently" here (the bug this replaces). */
@@ -35,37 +26,47 @@ function until(iso: string | null): string {
   return m < 1 ? 'in under a minute' : m < 60 ? `in ~${m}m` : `in ~${Math.round(m / 60)}h`
 }
 
-const HEALTH: Record<TierHealth, { label: string; tone: string }> = {
-  healthy: { label: 'Healthy', tone: 'live' },
-  paced: { label: 'Pacing', tone: 'warn' },
-  cooling: { label: 'Cooling down', tone: 'bad' },
-  'budget-spent': { label: 'Daily cap reached', tone: 'muted' },
-  disabled: { label: 'Off', tone: 'off' },
+const HEALTH_TONE: Record<TierHealth, string> = {
+  healthy: 'live',
+  paced: 'warn',
+  cooling: 'bad',
+  'budget-spent': 'muted',
+  unavailable: 'bad',
+  disabled: 'off',
 }
 
 const ROLE_LABEL: Record<TierDiagnostics['role'], string> = {
-  primary: 'primary',
-  overflow: 'free overflow',
-  gemini: 'free overflow',
-  'last-resort': 'paid last resort',
+  primary: 'first choice',
+  overflow: 'free backup',
+  gemini: 'free backup',
+  'last-resort': 'paid backup',
 }
 
 const DEFER_WHY: Record<DeferReason, string> = {
-  aborted: 'the last look hit its time guard and dumped the rest to the backlog',
-  'free-budget-spent': 'every free tier reached its daily cap',
-  'groq-cooldown': 'Groq is in a failure cooldown',
-  paced: 'the daily budget is being spread evenly across the day (not stuck — just paced)',
-  'batch-failed': 'a scoring call errored — a transient hiccup, retried next look',
+  aborted: 'the last check ran out of time; the rest were saved for another check',
+  'usage-ledger-unavailable': "this app can't read one or more provider usage files, so it paused safely",
+  'free-budget-spent': "this app's set daily limits could not fit another group",
+  'provider-day-limit': "one or more providers said today's limit is used, and no backup could take the work",
+  'provider-retry-held': 'one or more providers are waiting to try again after an error',
+  'groq-cooldown': 'Groq is waiting to try again after an error',
+  'allowance-paced': 'some use is saved for later today',
+  paced: 'some use is saved for later today',
+  'batch-failed': 'a provider call failed; this work was saved for another try',
+}
+
+function deferWhy(reason: DeferReason): string {
+  return DEFER_WHY[reason] || 'the last look could not score the remaining batch; the tier states below show the current blockers'
 }
 
 const LAST_RESORT_WHY: Record<LastResortState, string> = {
-  off: 'the Haiku last-resort is off',
-  scored: 'the Haiku last-resort is scoring the overflow',
-  'usd-cap': 'the Haiku last-resort hit its daily $ ceiling',
-  'plan-quota': 'the Haiku last-resort is paused — the Claude plan quota is spent, waiting for it to reset',
-  'auth-expired': "the Haiku last-resort is paused — the engine's Claude sign-in has expired. Run `claude login` on the engine host; it resumes on the next look.",
-  cooling: 'the Haiku last-resort is backing off after an error',
-  available: 'the Haiku last-resort is ready (it was not needed)',
+  off: 'the paid Haiku backup is off',
+  unavailable: "this app can't read the paid Haiku backup's usage",
+  scored: 'the paid Haiku backup is scoring the waiting work',
+  'usd-cap': "this app's daily Haiku dollar limit is used",
+  'plan-quota': 'the Claude plan limit is used; Haiku is waiting for it to reset',
+  'auth-expired': "the Claude sign-in has expired. Run `claude login` on the engine host.",
+  cooling: 'the paid Haiku backup is waiting to try again after an error',
+  available: 'the paid Haiku backup is ready to try',
 }
 
 /** Look up the reason text, tolerating a state this bundle has never heard of. A NEWER engine can stream a
@@ -73,29 +74,35 @@ const LAST_RESORT_WHY: Record<LastResortState, string> = {
  *  would then render `undefined` — a blank where the explanation belongs. Fall back to saying plainly that
  *  the tier is held, rather than showing nothing. */
 function lastResortWhy(state: LastResortState): string {
-  return LAST_RESORT_WHY[state] || 'the Haiku last-resort is not scoring right now'
+  return LAST_RESORT_WHY[state] || 'the paid Haiku backup is not scoring right now'
 }
 
 function TierRow({ tier, coolLeftMs }: { tier: TierDiagnostics; coolLeftMs: number }) {
   const c = `var(${tier.color})`
   const meter = tierMeter(tier)
-  const health = HEALTH[tier.health]
-  const cooling = coolLeftMs > 0
+  const tone = tier.spendingAllowed === false ? 'off' : HEALTH_TONE[tier.health]
+  const status = tierStatusCopy(tier, coolLeftMs)
+  const consecutive = tier.consecutiveFailures ?? tier.fails
+  const retryScope = tier.retryScope === 'triage' ? 'This hold applies only to triage work.' : tier.retryScope === 'shared' ? 'This provider-wide hold applies to every workload.' : ''
+  const nextAt = tier.nextEligibleAt && Number.isFinite(Date.parse(tier.nextEligibleAt))
+    ? `Next eligible at ${new Date(tier.nextEligibleAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}.`
+    : ''
+  const statusTitle = [status, retryScope, nextAt].filter(Boolean).join(' ')
   return (
     <div className="diagtier" data-health={tier.health} style={{ borderLeftColor: c }}>
       <div className="diagtier__top">
-        <span className="diagtier__dot" data-tone={health.tone} aria-hidden />
-        <span className="diagtier__label" style={{ color: tier.enabled ? c : 'var(--text-faint)' }}>{tier.label}</span>
-        {/* local is unlimited in EITHER role — keep "· unlimited" but take the role text from tier.role, so a
-            demoted (NEWS_LOCAL_PRIMARY=0) local reads "free overflow · unlimited", never a contradictory "primary". */}
-        <span className="diagtier__role">{tier.id === 'local' ? (tier.role === 'primary' ? 'primary brain · unlimited' : `${ROLE_LABEL[tier.role]} · unlimited`) : ROLE_LABEL[tier.role]}</span>
-        <span className="diagtier__health" data-tone={health.tone}>
-          {cooling ? `Cooling · back in ~${fmtDur(coolLeftMs)}` : health.label}
+        <span className="diagtier__dot" data-tone={tone} aria-hidden />
+        <span className="diagtier__label" style={{ color: tier.enabled && tier.spendingAllowed !== false ? c : 'var(--text-faint)' }}>{tier.label}</span>
+        <span className="diagtier__health" data-tone={tone} title={statusTitle}>
+          {status}
         </span>
       </div>
       <div className="diagtier__meter">
+        <span className="diagtier__role">{tier.id === 'local' ? `${ROLE_LABEL[tier.role]} · no daily limit` : ROLE_LABEL[tier.role]}</span>
         {/* an unlimited tier (local primary brain) has no cap to meter — show "∞ no cap" instead of a bar */}
-        {meter.frac < 0 ? (
+        {meter.frac === -2 ? (
+          <span className="diagtier__unlimited" title="The durable usage record needs attention">—</span>
+        ) : meter.frac < 0 ? (
           <span className="diagtier__unlimited" style={{ color: c }} title="unlimited — no daily cap, processes 24×7">∞ no cap</span>
         ) : (
           <span className="diagtier__bar" aria-hidden>
@@ -106,15 +113,41 @@ function TierRow({ tier, coolLeftMs }: { tier: TierDiagnostics; coolLeftMs: numb
         {typeof tier.lastCycleRequests === 'number' && tier.lastCycleRequests > 0 && (
           <span className="diagtier__last" title="batches this tier scored in the most recent look">· {tier.lastCycleRequests} this look</span>
         )}
-        {typeof tier.fails === 'number' && tier.fails > 0 && (
-          <span className="diagtier__fails" title="consecutive failures driving the current backoff">{tier.fails} fail{tier.fails === 1 ? '' : 's'}</span>
-        )}
       </div>
+      {(typeof tier.triageAttemptsToday === 'number' || (typeof tier.failuresToday === 'number' && tier.failuresToday > 0) || (typeof consecutive === 'number' && consecutive > 0)) && (
+        <div className="diagtier__stats">
+          {typeof tier.triageAttemptsToday === 'number' && (
+            <span className="diagtier__work" title="Actual provider calls made by triage today, including in-call retries">{typeof tier.triageScoredBatchesToday === 'number' ? `${tier.triageScoredBatchesToday} batches scored · ${tier.triageAttemptsToday} calls today` : `${tier.triageAttemptsToday} triage calls today`}</span>
+          )}
+          {typeof tier.failuresToday === 'number' && tier.failuresToday > 0 && (
+            <span className="diagtier__fails" title="Failed provider attempts recorded today">{tier.failuresToday} failed today</span>
+          )}
+          {typeof consecutive === 'number' && consecutive > 0 && (
+            <span className="diagtier__fails" title="Consecutive failures in the current streak; not a daily total">{consecutive} consecutive</span>
+          )}
+        </div>
+      )}
     </div>
   )
 }
 
 function BacklogGauge({ b }: { b: NewsDiagnostics['backlog'] }) {
+  if (b.unavailable) {
+    return (
+      <div className="diagbacklog is-unavailable" role="status">
+        <div className="diagbacklog__top">
+          <span className="diagbacklog__count mono">—</span>
+          <span className="diagbacklog__of">waiting list</span>
+        </div>
+        <div className="diagbacklog__note">Can’t read the saved waiting list. Needs attention.</div>
+        {b.lostToday > 0 && (
+          <div className="diagbacklog__lost" role="alert">
+            {b.lostToday.toLocaleString()} item{b.lostToday === 1 ? '' : 's'} lost today.
+          </div>
+        )}
+      </div>
+    )
+  }
   const frac = b.cap > 0 ? Math.min(1, b.count / b.cap) : 0
   const trend = b.trend === 'growing' ? '↑ growing' : b.trend === 'shrinking' ? '↓ shrinking' : b.trend === 'flat' ? '→ steady' : ''
   return (
@@ -165,9 +198,9 @@ export function PipelineDiagnostics() {
     return () => window.removeEventListener('keydown', onKey)
   }, [close])
 
-  // Live cooldown countdown WITHOUT mixing server + client clocks (the bug that made every tier read
-  // "cooling"): "cooling" is decided purely by the server's snapshot (cooldownRemainingMs — a healthy tier
-  // is 0/absent and can never count as cooling), and we only DECREMENT it locally by how long we've held
+  // Live retry countdown WITHOUT mixing server + client clocks (the bug that made every tier read
+  // "cooling"): the retry hold is decided purely by the server's snapshot (cooldownRemainingMs — an eligible
+  // tier is 0/absent and can never count as held), and we only DECREMENT it locally by how long we've held
   // this snapshot (client elapsed since the diag was fetched). A value change, not motion — fine under
   // reduced-motion.
   const hasCountdown = !!diag?.tiers.some((t) => (t.cooldownRemainingMs ?? 0) > 0)
@@ -193,7 +226,6 @@ export function PipelineDiagnostics() {
   }, [diag])
 
   const lc = diag?.lastCycle
-
   return (
     <motion.div className="diag" initial={{ x: '100%' }} animate={{ x: 0 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
       <div className="diag__head">
@@ -234,35 +266,33 @@ export function PipelineDiagnostics() {
               <div className={`diagwhy${diag.backlog.nearLimit ? ' is-alert' : ''}`}>
                 <div className="diagwhy__head">
                   <span aria-hidden>⚠</span>
-                  <span>{diag.backlog.count.toLocaleString()} item{diag.backlog.count === 1 ? '' : 's'} waiting — here's why</span>
+                  <span>{diag.backlog.count.toLocaleString()} item{diag.backlog.count === 1 ? '' : 's'} waiting</span>
                 </div>
                 <ul className="diagwhy__list">
-                  {diag.defer.reason && <li>{DEFER_WHY[diag.defer.reason]}</li>}
+                  {diag.defer.reason && <li>{deferWhy(diag.defer.reason)}</li>}
                   {diag.defer.lastResort && diag.defer.lastResort !== 'scored' && diag.defer.lastResort !== 'available' && (
                     <li>{lastResortWhy(diag.defer.lastResort)}</li>
                   )}
-                  {diag.defer.blockingTiers.length > 0 && (
-                    <li>tapped out right now: {diag.defer.blockingTiers.join(', ')}</li>
-                  )}
                 </ul>
-                {diag.defer.plainNote && <div className="diagwhy__note">{diag.defer.plainNote}</div>}
+                <div className="diagwhy__foot">See each provider below.</div>
               </div>
             </section>
           )}
 
           {/* backlog gauge — depth vs the loss boundary */}
           <section className="diag__sec">
-            <div className="diag__sechead">Deferred backlog</div>
+            <div className="diag__sechead">Items waiting</div>
             <BacklogGauge b={diag.backlog} />
           </section>
 
           {/* the fallback ladder — Groq → overflow → Gemini → Haiku */}
           <section className="diag__sec">
-            <div className="diag__sechead">Scoring tiers <span className="diag__count">{diag.tiers.length}</span></div>
+            <div className="diag__sechead">Providers <span className="diag__count">{diag.tiers.length}</span></div>
             <div className="diag__tiers">
               {diag.tiers.map((t) => <TierRow key={t.id} tier={t} coolLeftMs={coolLeft(t)} />)}
             </div>
-            {diag.tiers.length === 0 && <div className="diag__hint">No scoring tiers configured — set a GROQ_API_KEY to turn the scanner on.</div>}
+            <div className="diag__hint">These bars show how much this app has used. They are not live limits from the provider.</div>
+            {diag.tiers.length === 0 && <div className="diag__hint">No scoring tiers configured — configure any supported local or cloud provider to turn the scanner on.</div>}
           </section>
 
           {/* last look — the flow */}

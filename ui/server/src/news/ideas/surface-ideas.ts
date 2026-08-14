@@ -17,7 +17,10 @@
 // event->idea leap, not on re-deriving materiality.
 
 import { conservativeChatTokenBound, type RateInfo } from '../triage/budget'
-import { EVENT_TYPES } from '../triage/groq'
+import {
+  EVENT_TYPES, caughtFailure, httpFailureKind, publicHttpFailureNote,
+  parseRate, type ProviderFailureKind,
+} from '../triage/groq'
 import { cleanTicker, normTicker } from '../symbology'
 
 // §14 thesis-type classification — the surface skim must name when a "stock idea" is really a macro /
@@ -132,10 +135,13 @@ export interface SurfaceIdeasResult {
   ok: boolean
   note?: string
   rate?: RateInfo
-  /** Structured failure policy for callers that share provider health with other workloads. Contract or
-   * request-shape failures are idea-scoped; only availability failures may cool the provider globally. */
-  failureKind?: 'availability' | 'request' | 'contract'
+  /** Structured failure policy for callers that share provider health with other workloads. Contract and
+   * payload-shape failures stay idea-scoped; rate limits, availability, and provider-access failures may
+   * hold the shared provider according to their exact recovery semantics. */
+  failureKind?: ProviderFailureKind
   httpStatus?: number
+  timedOut?: boolean
+  dailyLimit?: boolean
 }
 
 // Input-token estimate for the per-minute limiter. Each row carries the title, evidence tier, separate
@@ -146,7 +152,7 @@ export function estimateIdeaTokens(rowCount: number): number {
   return 1_100 + rowCount * 180
 }
 
-export const IDEA_SYSTEM = `You are the sharpest portfolio manager on a buy-side desk, skimming a ranked news wire the way a human PM does in the morning: reading fast, ignoring most of it, and pulling out the ONE or TWO items where there is a specific, tradable stock idea worth acting on RIGHT NOW — long or short.
+export const IDEA_SYSTEM = `You are the sharpest portfolio manager on a buy-side desk, skimming a ranked news wire the way a human PM does in the morning: reading fast, ignoring most of it, and pulling out EVERY item where there is a specific, tradable stock idea worth acting on RIGHT NOW — long or short, up to a maximum of six.
 
 You are given the desk's already-ranked top items, each with the wire's composite materiality read (0-100), its separate raw economic-impact score when measured, source tier, server-read event direction, scheduled events, severity label, event types, and any companies it guessed. Treat these as evidence, not decoration: prefer primary/official sources, do not substitute the composite materiality score for raw economic impact, and use a scheduled event only when it supplies a real date or window. Event direction describes the event-level effect and is informational unless the row clearly binds it to the exact primary issuer you select. A negative event may support a long in a secondary beneficiary, a positive event may support a short in a harmed rival, and either may support a clean pair; explain that transmission instead of blindly copying or reversing the event label. Your ONLY job is the leap the wire cannot make: from an event to a concrete position — which exact listed stock to play, which way, why, and how sure you are.
 
@@ -233,7 +239,7 @@ export function buildIdeaUserMessage(rows: IdeaInputRow[]): string {
     ].filter(Boolean).join(' · ')
     return `${i}. [${r.source_name} · ${r.region}] ${r.headline}\n   (${bits})`
   })
-  return `Skim these ${rows.length} top-ranked wire items and surface only the best 1-2 tradable stock ideas (or none):\n${lines.join('\n')}`
+  return `Skim these ${rows.length} top-ranked wire items and surface every tradable stock idea that clears the bar, up to 6 (or none):\n${lines.join('\n')}`
 }
 
 const DIRECTIONS: IdeaDirection[] = ['long', 'short', 'pair']
@@ -288,6 +294,26 @@ export function coerceIdea(raw: any, rowCount: number): RawIdea | null {
   }
 }
 
+/** Validate one provider answer as a whole. A partial answer is not safe: if one sibling row is malformed,
+ * filtering it out turns a provider-contract failure into a healthy result and prevents the fallback chain
+ * from recovering the missing trade. Duplicate trade identities are invalid too — the persistence layer has
+ * one card per ticker+direction, so accepting both would silently overwrite one thesis. A literal [] remains
+ * the provider's honest "nothing clears the bar" result. */
+export function coerceCompleteIdeaRows(rawIdeas: unknown[], rowCount: number): RawIdea[] | null {
+  if (rawIdeas.length > 6) return null
+  const ideas: RawIdea[] = []
+  const identities = new Set<string>()
+  for (const raw of rawIdeas) {
+    const idea = coerceIdea(raw, rowCount)
+    if (!idea) return null
+    const identity = `${normTicker(idea.ticker)}\u0000${idea.direction}`
+    if (identities.has(identity)) return null
+    identities.add(identity)
+    ideas.push(idea)
+  }
+  return ideas
+}
+
 /**
  * One free-LLM call over the ranked top-N -> candidate ideas. Never throws. Mirrors triageBatch's
  * reliability contract exactly: JSON mode, one retry on a transient 429/5xx, a max_tokens truncation is
@@ -297,35 +323,21 @@ export function coerceIdea(raw: any, rowCount: number): RawIdea | null {
  */
 export async function surfaceIdeasBatch(
   rows: IdeaInputRow[],
-  opts: { model: string; baseUrl: string; apiKey: string; maxTokens?: number; models?: string[]; headers?: Record<string, string>; extraBody?: Record<string, unknown>; timeoutMs?: number; maxAttempts?: number; signal?: AbortSignal },
+  opts: { model: string; baseUrl: string; apiKey: string; maxTokens?: number; models?: string[]; headers?: Record<string, string>; extraBody?: Record<string, unknown>; timeoutMs?: number; maxAttempts?: number; signal?: AbortSignal; requestRemainingHeaderIsDaily?: boolean },
   fetchFn: typeof fetch = fetch,
   sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms)),
 ): Promise<SurfaceIdeasResult> {
   if (!rows.length) return { ideas: [], requests: 0, tokens: 0, ok: true }
   if (!opts.apiKey) return { ideas: [], requests: 0, tokens: 0, ok: false, note: 'no api key', failureKind: 'request' }
-
-  // parseRate lives in groq.ts; import lazily-free by re-reading headers here to avoid a cross-module cycle
-  const readRate = (res: { headers?: { get(k: string): string | null } }): RateInfo => {
-    const h = (k: string) => res?.headers?.get?.(k) ?? null
-    const num = (k: string) => { const v = Number(h(k)); return Number.isFinite(v) ? v : undefined }
-    const durMs = (s: string | null): number | undefined => {
-      if (!s) return undefined
-      const t = String(s).trim()
-      if (/^\d+(\.\d+)?$/.test(t)) return Math.round(parseFloat(t) * 1000)
-      const parts = t.match(/\d+(?:\.\d+)?(?:ms|s|m|h)/g)
-      if (!parts) return undefined
-      let ms = 0
-      for (const p of parts) { const v = parseFloat(p); ms += p.endsWith('ms') ? v : p.endsWith('h') ? v * 3_600_000 : p.endsWith('m') ? v * 60_000 : v * 1000 }
-      return Math.round(ms)
-    }
-    return { tpmLimit: num('x-ratelimit-limit-tokens'), tpmRemaining: num('x-ratelimit-remaining-tokens'), tpmResetMs: durMs(h('x-ratelimit-reset-tokens')), rpdRemaining: num('x-ratelimit-remaining-requests'), retryAfterMs: durMs(h('retry-after')) }
-  }
+  if (opts.signal?.aborted) return { ideas: [], requests: 0, tokens: 0, ok: false, note: 'idea: provider-chain deadline reached', failureKind: 'request' }
 
   let requests = 0
   let tokens = 0
   let lastNote = 'idea fetch error'
+  let lastFailure: { failureKind: ProviderFailureKind; timedOut?: boolean } = { failureKind: 'availability' }
   const maxAttempts = opts.maxAttempts ?? 2
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    if (opts.signal?.aborted) break
     try {
       requests++ // one count per fetch invocation, including network/response-decoding failures below
       const requestSignal = AbortSignal.timeout(opts.timeoutMs ?? 30_000)
@@ -346,14 +358,21 @@ export async function surfaceIdeasBatch(
           ...(opts.extraBody || {}),
         }),
       })
-      const rate = readRate(res)
+      const rate = parseRate(res)
       if (!res.ok) {
-        const body = await res.text().catch(() => '')
-        lastNote = `idea HTTP ${res.status}${body ? ': ' + body.slice(0, 120) : ''}`
-        if ((res.status === 429 || res.status >= 500) && attempt < maxAttempts) { await sleep(rate.retryAfterMs || 1500 * attempt); continue }
+        // Drain the body for connection reuse, but never copy provider/account details into public health.
+        await res.text().catch(() => '')
+        const dailyLimit = opts.requestRemainingHeaderIsDaily === true && res.status === 429 && rate.rpdRemaining === 0
+        const failureKind = httpFailureKind(res.status)
+        lastNote = publicHttpFailureNote('idea', res.status, dailyLimit)
+        lastFailure = { failureKind }
+        if (((res.status === 429 && !dailyLimit) || res.status >= 500) && attempt < maxAttempts) {
+          await sleep(rate.retryAfterMs || 1500 * attempt)
+          continue
+        }
         return {
           ideas: [], requests, tokens, ok: false, note: lastNote, rate, httpStatus: res.status,
-          failureKind: res.status === 429 || res.status >= 500 ? 'availability' : 'request',
+          failureKind, ...(dailyLimit ? { dailyLimit: true } : {}),
         }
       }
       let data: any
@@ -383,20 +402,18 @@ export async function surfaceIdeasBatch(
       if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed) || !Array.isArray(parsed.ideas)) {
         return { ideas: [], requests, tokens, ok: false, note: 'idea: invalid response schema (expected top-level ideas array)', rate, failureKind: 'contract' }
       }
-      const arr: any[] = parsed.ideas
-      const ideas = arr.map((r) => coerceIdea(r, rows.length)).filter((x): x is RawIdea => x !== null).slice(0, 6)
-      // A non-empty model answer whose every row fails the source/ticker gates is broken output, not a
-      // successful rejection. Partial drift remains usable when at least one row survives; a literal []
-      // remains the only success_empty result.
-      if (arr.length > 0 && ideas.length === 0) {
-        return { ideas: [], requests, tokens, ok: false, note: 'idea: response contained no valid idea rows', rate, failureKind: 'contract' }
+      const ideas = coerceCompleteIdeaRows(parsed.ideas, rows.length)
+      if (!ideas) {
+        return { ideas: [], requests, tokens, ok: false, note: 'idea: invalid, duplicate, or excess idea rows', rate, failureKind: 'contract' }
       }
       return { ideas, requests, tokens, ok: true, rate }
     } catch (e: any) {
-      lastNote = e?.name === 'TimeoutError' ? 'idea: request timed out' : e?.message || 'idea fetch error'
+      const failure = caughtFailure(e, 'idea')
+      lastNote = failure.note
+      lastFailure = failure
       if (opts.signal?.aborted) break
       if (attempt < maxAttempts) await sleep(1500 * attempt)
     }
   }
-  return { ideas: [], requests, tokens, ok: false, note: lastNote, failureKind: 'availability' }
+  return { ideas: [], requests, tokens, ok: false, note: lastNote, ...lastFailure }
 }

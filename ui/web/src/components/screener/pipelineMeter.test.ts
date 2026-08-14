@@ -67,4 +67,10 @@ check('usd-metered tier (Haiku last-resort) → shows $', () => {
   assert.equal(m.frac, 0.25)
 })
 
+check('unreadable ledger never renders invented zero usage', () => {
+  const m = tierMeter(base({ ledgerUnavailable: true, reqCap: 1000 }))
+  assert.equal(m.label, 'Usage unavailable')
+  assert.equal(m.frac, -2)
+})
+
 console.log(`\npipelineMeter.test: ${passed} checks passed`)

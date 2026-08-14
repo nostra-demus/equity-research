@@ -137,12 +137,22 @@ await check('below the 20-flag floor → no apply (insufficient_data)', async ()
 await check('reason router: empty → none; LLM failure → keyword; LLM success → llm', async () => {
   assert.deepEqual(await routeReason(''), { scope: null, confidence: 0, via: 'none' })
 
-  const kw = await routeReason('some vague note', (async () => { throw new Error('provider down') }) as any)
+  const routerConfig = {
+    groqApiKey: 'test-key', groqBaseUrl: 'https://groq.test', groqModel: 'm',
+    groqRpm: 1_000_000, groqTpm: 1_000_000_000,
+    groqDailyReqCap: 100, groqDailyTokenCap: 1_000_000,
+    groqDailyTokenTarget: 1_000_000, groqPaceFloorFrac: 1,
+    llmCooldownMs: 5_000, llmCooldownMaxMs: 60_000,
+  }
+
+  const kwState = fs.mkdtempSync(path.join(os.tmpdir(), 'reason-route-kw-'))
+  const kw = await routeReason('some vague note', (async () => { throw new Error('provider down') }) as any, { stateDir: kwState, config: routerConfig })
   assert.equal(kw.via, 'keyword')
   assert.ok(SCOPES.includes(String(kw.scope)))
 
-  const okFetch = (async () => ({ ok: true, json: async () => ({ choices: [{ message: { content: JSON.stringify({ scope: 'macro', confidence: 0.9 }) } }] }) })) as any
-  const llm = await routeReason('the central bank raised rates', okFetch)
+  const okFetch = (async () => ({ ok: true, status: 200, json: async () => ({ choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ scope: 'macro', confidence: 0.9 }) } }] }) })) as any
+  const okState = fs.mkdtempSync(path.join(os.tmpdir(), 'reason-route-ok-'))
+  const llm = await routeReason('the central bank raised rates', okFetch, { stateDir: okState, config: routerConfig })
   assert.equal(llm.via, 'llm')
   assert.equal(llm.scope, 'macro')
   assert.equal(llm.confidence, 0.9)

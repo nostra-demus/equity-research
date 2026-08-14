@@ -221,6 +221,7 @@ export async function healEnrichCache(deps: HealDeps = {}): Promise<HealSummary>
           // / _MAX_SEC), not fall back to readArticleBrief's hardcoded default.
           cooldownMs: NEWS.llmCooldownMs,
           cooldownMaxMs: NEWS.llmCooldownMaxMs,
+          backgroundPacing: true,
         },
       )
       if (isEnrichmentComplete(r)) healed++

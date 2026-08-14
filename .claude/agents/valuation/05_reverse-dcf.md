@@ -74,6 +74,23 @@ Solve for the value the price requires. Present the primary solve and, where use
 
 State exactly what was held fixed and what was solved for.
 
+## 2A. Implied Discount Rate — the dual solve (always run this)
+
+The §2 solve holds the discount rate fixed and asks what growth the price needs. Run the **mirror** solve too: hold `04`'s own base-case cash-flow path fixed and solve for the **discount rate** that makes the present value equal today's EV. Same executed solver, same evidence rules.
+
+| Solve | Held fixed | Solved value |
+|---|---|---:|
+| Implied discount rate at `04`'s base-case cash flows | `04`'s FCF path, terminal `g`, horizon, convention | |
+| `04`'s model WACC (for comparison) | — | |
+| Ratio (implied ÷ model) | — | |
+
+**This number is an input to the Cost-of-Capital Reality Test in `04` §3A — report it there too, and say which way it cuts.** A DCF is one equation with two unknowns (the cash flows and the rate); a price that will not reconcile is telling you one of them is wrong, and it does not say which. So when the implied rate comes out **more than ~1.5x the model WACC**, do NOT default to "the market is pricing an unprecedented collapse in cash flows." State BOTH readings explicitly and say which the evidence supports:
+
+- *Reading A — the cash flows are wrong:* the market expects a contraction the model does not. Test it against the company's own history (has revenue or FCF ever fallen that far?) and the earnings-module evidence.
+- *Reading B — the rate is wrong:* the model discounts too cheaply. Test it against the low-side floors and the company's own disclosed discount rate in `04` §3A.
+
+If `04`'s WACC failed any low-side floor, or sits far below the company's own disclosed rate, **Reading B is the default** and the "market is too pessimistic" conclusion may not be published as the module's read. A model rate so low that the market appears to be pricing an unprecedented collapse is usually evidence about the rate, not about the market.
+
 ## 3. Implied vs Achievable
 
 | Implied Requirement | Company History | Earnings-Module Evidence | Achievable? |
@@ -109,6 +126,7 @@ Also stress the **FCF base**, not just the discount rate — in every output tha
 - [ ] The achievable/stretch/no judgement is evidence-backed, not asserted.
 - [ ] Robustness is shown across BOTH the discount rate AND the FCF base (and terminal `g` ±0.5% when terminal value is >~60% of EV), with the dominant input named — not the discount rate alone.
 - [ ] The implied-growth solve **and** the two robustness re-solves were produced by an executed Bash/Python solver, with the command and the root shown — not hand-computed. *(fix F11)*
+- [ ] **§2A dual solve run**: the implied discount rate is solved (executed solver, root shown), compared to `04`'s model WACC as a ratio, and reported into `04` §3A. Where the ratio exceeds ~1.5x, BOTH readings (cash flows wrong / rate wrong) are stated and one is chosen on evidence — and Reading B is taken as the default whenever `04`'s WACC failed a low-side floor or sits far below the company's own disclosed rate.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION

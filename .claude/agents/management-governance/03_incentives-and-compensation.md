@@ -22,6 +22,10 @@ You DO NOT:
 - `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/management-governance/03_incentives-and-compensation.md`, `DATE`
 - `UPSTREAM_INPUTS` — `01_management-and-track-record.md`. Optionally cross-module: `business-model/11_capital-allocation-governance.md`.
 
+# CHECKLIST OWNERSHIP
+
+You own Governance Checklist Registry items (MODULE_RULES): **A6-01 … A6-09** (remuneration: statutory caps and the SEBI promoter-pay gates, peer benchmarking, pay-for-performance, equity dilution/pricing, CEO-to-median and severance, clawback, family on payroll, NED pay structure, problematic practices & dissent response) and **A12-01 … A12-04** (human capital: attrition, median-employee pay vs executive pay, ESOP pool breadth, workplace-conduct record). Every item appears in your Universal Findings Table with its ID in the Question/Test column; unanswerable items are Not Applicable with the reason — never skipped. The registry's bands are the thresholds; restate them, do not invent others.
+
 # PARTIAL-DATA RULE
 
 If no proxy / compensation disclosure exists in the pool: state that incentive alignment cannot be assessed, attempt only high-level structure from any available filing, and cap per `MODULE_RULES.md`. Use the web only for peer-comp benchmarking context (label as web-sourced); do not fabricate metric weights.
@@ -78,6 +82,28 @@ Classify each metric explicitly. Note any that reward absolute size (revenue, EB
 | Pay-for-performance alignment | | |
 | Say-on-pay support (%) | | |
 
+## 3A. Statutory & Code Pay Gates (A6-01, A6-02, A6-05, A6-06, A6-09)
+
+| Test | Raw value | Band applied | Verdict | Source |
+|---|---:|---|---|---|
+| Aggregate managerial pay vs the statutory cap (India: Sec 197 — 11% aggregate; ≤5% single MD/WTD, ≤10% all executives, NEDs ≤1%/3%; loss years per Schedule V) | | | | |
+| Promoter-executive pay vs the extra gates (India: LODR Reg 17(6)(e) — ₹5cr or 2.5% of net profit individually, 5% aggregate) | | | | |
+| MD/CEO pay growth vs 3-year PAT CAGR | | | | |
+| CEO-to-median ratio + trend of the MEDIAN (rising exec pay on a falling median is the flag) | | | | |
+| Severance / change-of-control terms (double-trigger only; ≤2 years' pay) | | | | |
+| Clawback / malus policy (and: was any trigger acted on?) | | | | |
+| Problematic practices (repricing without a vote, gross-ups, single-trigger vesting, guaranteed multi-year bonuses) | | | | |
+| Dissent response (any ≥20% vote against pay met with a disclosed response ≤6 months?) | | | | |
+
+## 3B. Human Capital (A12-01 … A12-04)
+
+| Test | Raw value | Band applied | Verdict | Source |
+|---|---:|---|---|---|
+| Attrition vs industry median | | | | |
+| Median-employee pay level & change vs executive change | | | | |
+| ESOP pool breadth (broad-based vs top-concentrated); promoters excluded? | | | | |
+| Workplace-conduct record (POSH / labor / safety, disclosed + resolved) | | | | |
+
 ## 4. Incentive Alignment Read
 
 2–3 blunt sentences: what the pay actually rewards, whether that aligns with per-share value, and the single biggest incentive signal. State the conclusion as one of: "well-aligned (returns/per-share)," "mixed," or "misaligned (size-based)."
@@ -118,6 +144,8 @@ Emit a machine-readable JSON code block per the Machine-Readable Outputs schema 
 - [ ] Each metric is classified per-share/returns vs size-based.
 - [ ] Pay magnitude is placed against performance/peers where data allows.
 - [ ] Say-on-pay opposition is noted if disclosed.
+- [ ] Every owned checklist item (A6-01…09, A12-01…04) is answered in the Universal Findings Table with its ID.
+- [ ] The statutory gates use the actual caps with the pay figures shown (no "compliant" without the numbers).
 - [ ] If no proxy, incentive alignment is marked not-assessable and capped.
 - [ ] No banned phrases (no naked "aligned with shareholders").
 

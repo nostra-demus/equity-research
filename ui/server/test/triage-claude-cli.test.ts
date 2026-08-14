@@ -11,7 +11,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { triageBatchClaudeCli, isUsageLimit, isAuthExpiredNote, isPlanQuotaNote, isTerminalApiNote, type ClaudeCliRunner } from '../src/news/triage/claude-cli'
-import { UsdBudget } from '../src/news/triage/budget'
+import { UsdBudget, conservativeChatUsdBound } from '../src/news/triage/budget'
 import { NEWS } from '../src/config'
 import { DEFERRED_CAP } from '../src/news/runCycle'
 import type { NewsItem } from '../src/news/types'
@@ -37,6 +37,7 @@ await check('scores every index and surfaces the CLI-reported costUsd (what the 
       { i: 1, relevance: 'irrelevant', materiality_pre_score: 2 },
     ] }),
     costUsd: 0.0061,
+    costUsdKnown: true,
   })
   const r = await triageBatchClaudeCli(items, opts, run)
   assert.equal(r.ok, true)
@@ -45,20 +46,76 @@ await check('scores every index and surfaces the CLI-reported costUsd (what the 
   assert.equal(r.byIndex.get(0)!.issuer_linkage, 'primary')
   assert.equal(r.byIndex.get(1)!.materiality_pre_score, 2)
   assert.equal(r.costUsd, 0.0061)
+  assert.equal(r.costUsdKnown, true)
   assert.equal(r.requests, 1)
+})
+
+await check('a dispatched reply without an exact total cost stays conservatively unknown', async () => {
+  const run: ClaudeCliRunner = async () => ({
+    text: '[{"i":0,"materiality_pre_score":61},{"i":1,"materiality_pre_score":0}]',
+    costUsd: 0,
+    costUsdKnown: false,
+  })
+  const r = await triageBatchClaudeCli(items, { ...opts, maxAttempts: 1 }, run)
+  assert.equal(r.ok, true)
+  assert.equal(r.requests, 1)
+  assert.equal(r.costUsd, 0)
+  assert.equal(r.costUsdKnown, false, 'missing total_cost_usd is not proof of a free call')
+})
+
+await check('a valid nonempty reply with reported zero cost keeps the conservative bound', async () => {
+  const run: ClaudeCliRunner = async () => ({
+    text: '[{"i":0,"materiality_pre_score":61},{"i":1,"materiality_pre_score":0}]',
+    costUsd: 0,
+    costUsdKnown: true,
+  })
+  const r = await triageBatchClaudeCli(items, { ...opts, maxAttempts: 1 }, run)
+  assert.equal(r.ok, true)
+  assert.equal(r.requests, 1)
+  assert.equal(r.costUsd, 0)
+  assert.equal(r.costUsdKnown, false, 'zero telemetry cannot make a real dispatched completion free')
+})
+
+await check('an unknown-cost dispatched attempt cannot retry under the same one-call reservation', async () => {
+  let calls = 0
+  const run: ClaudeCliRunner = async () => {
+    calls++
+    return { text: '', costUsd: 0, costUsdKnown: false, error: 'claude cli: timed out' }
+  }
+  const r = await triageBatchClaudeCli(items, { ...opts, maxAttempts: 2, budgetUsd: 0.25, budgetRemainingUsd: 0.25 }, run)
+  assert.equal(calls, 1, 'a second uncertain call would exceed the single conservative reservation')
+  assert.equal(r.ok, false)
+  assert.equal(r.requests, 1)
+  assert.equal(r.costUsdKnown, false)
 })
 
 // ---- prose-wrapped JSON (the CLI has no JSON mode) still parses ----
 await check('parses JSON even when the model wraps it in prose', async () => {
-  const run: ClaudeCliRunner = async () => ({ text: 'Sure:\n{"items":[{"i":0,"materiality_pre_score":61}]}\n', costUsd: 0.002 })
+  const run: ClaudeCliRunner = async () => ({ text: 'Sure:\n{"items":[{"i":0,"materiality_pre_score":61},{"i":1,"materiality_pre_score":0}]}\n', costUsd: 0.002, costUsdKnown: true })
   const r = await triageBatchClaudeCli(items, opts, run)
   assert.equal(r.ok, true)
   assert.equal(r.byIndex.get(0)!.materiality_pre_score, 61)
 })
 
+await check('empty, partial, duplicate, and out-of-range coverage is a contract failure, never a partial score', async () => {
+  const cases = [
+    { label: 'empty', rows: [] },
+    { label: 'partial', rows: [{ i: 0, materiality_pre_score: 84 }] },
+    { label: 'duplicate', rows: [{ i: 0, materiality_pre_score: 84 }, { i: 0, materiality_pre_score: 0 }] },
+    { label: 'out-of-range', rows: [{ i: 0, materiality_pre_score: 84 }, { i: 2, materiality_pre_score: 0 }] },
+  ]
+  for (const c of cases) {
+    const run: ClaudeCliRunner = async () => ({ text: JSON.stringify({ items: c.rows }), costUsd: 0.001, costUsdKnown: true })
+    const r = await triageBatchClaudeCli(items, { ...opts, maxAttempts: 1 }, run)
+    assert.equal(r.ok, false, `${c.label} coverage cannot be a scored success`)
+    assert.equal(r.failureKind, 'contract')
+    assert.equal(r.byIndex.size, 0, 'no partial rows escape downstream')
+  }
+})
+
 // ---- THE load-bearing case: the plan's quota is spent → defer + a note the caller matches for cooldown ----
 await check('plan usage limit → ok:false (defer), note matches the caller\'s /usage limit/ cooldown trigger', async () => {
-  const run: ClaudeCliRunner = async () => ({ text: '', costUsd: 0, error: 'claude cli: usage limit reached — plan quota spent' })
+  const run: ClaudeCliRunner = async () => ({ text: '', costUsd: 0, costUsdKnown: true, error: 'claude cli: usage limit reached — plan quota spent' })
   const r = await triageBatchClaudeCli(items, opts, run)
   assert.equal(r.ok, false)
   assert.equal(r.byIndex.size, 0) // nothing scored → caller defers; never scored zero
@@ -76,7 +133,7 @@ await check('isUsageLimit recognises 429 / usage-limit / rate-limit results, not
 
 // ---- a non-JSON reply defers rather than half-scoring ----
 await check('non-JSON reply → ok:false (defer), never a partial score', async () => {
-  const run: ClaudeCliRunner = async () => ({ text: 'I cannot help with that.', costUsd: 0.001 })
+  const run: ClaudeCliRunner = async () => ({ text: 'I cannot help with that.', costUsd: 0.001, costUsdKnown: true })
   const r = await triageBatchClaudeCli(items, opts, run)
   assert.equal(r.ok, false)
   assert.equal(r.byIndex.size, 0)
@@ -85,26 +142,26 @@ await check('non-JSON reply → ok:false (defer), never a partial score', async 
 
 // ---- RETRY (the last-line-of-defence resilience fix): a transient blip retries in-call instead of
 // deferring the whole batch and sidelining the paid tier. Parity with the free adapters' maxAttempts=2. ----
-await check('a transient failure (timeout) retries in-call and succeeds on attempt 2 — one logical batch scored', async () => {
+await check('a transient failure (timeout) retries in-call and reports both provider attempts', async () => {
   let calls = 0
   const run: ClaudeCliRunner = async () => {
     calls++
-    if (calls === 1) return { text: '', costUsd: 0, error: 'claude cli: timed out' }
-    return { text: JSON.stringify([{ i: 0, materiality_pre_score: 77 }, { i: 1, materiality_pre_score: 3 }]), costUsd: 0.004 }
+    if (calls === 1) return { text: '', costUsd: 0, costUsdKnown: true, error: 'claude cli: timed out' }
+    return { text: JSON.stringify([{ i: 0, materiality_pre_score: 77 }, { i: 1, materiality_pre_score: 3 }]), costUsd: 0.004, costUsdKnown: true }
   }
   const r = await triageBatchClaudeCli(items, opts, run)
   assert.equal(calls, 2, 'retried once after the transient timeout')
   assert.equal(r.ok, true)
   assert.equal(r.byIndex.get(0)!.materiality_pre_score, 77)
-  assert.equal(r.requests, 1, 'still ONE logical batch, not two')
+  assert.equal(r.requests, 2, 'diagnostics count both provider processes, including the retry')
 })
 
 await check('a billed non-JSON reply retries with a stricter JSON-only nudge, then parses — cost of BOTH attempts metered', async () => {
   const seen: string[] = []
   const run: ClaudeCliRunner = async (_sys, user) => {
     seen.push(user)
-    if (seen.length === 1) return { text: 'Here you go: (thinking...)', costUsd: 0.002 } // billed, unparseable
-    return { text: '[{"i":0,"materiality_pre_score":88}]', costUsd: 0.003 }
+    if (seen.length === 1) return { text: 'Here you go: (thinking...)', costUsd: 0.002, costUsdKnown: true } // billed, unparseable
+    return { text: '[{"i":0,"materiality_pre_score":88},{"i":1,"materiality_pre_score":0}]', costUsd: 0.003, costUsdKnown: true }
   }
   const r = await triageBatchClaudeCli(items, opts, run)
   assert.equal(r.ok, true)
@@ -115,7 +172,7 @@ await check('a billed non-JSON reply retries with a stricter JSON-only nudge, th
 
 await check('plan quota is NOT retried — one call, deferred, so the caller arms the LONG cooldown', async () => {
   let calls = 0
-  const run: ClaudeCliRunner = async () => { calls++; return { text: '', costUsd: 0, error: 'claude cli: usage limit reached — plan quota spent' } }
+  const run: ClaudeCliRunner = async () => { calls++; return { text: '', costUsd: 0, costUsdKnown: true, error: 'claude cli: usage limit reached — plan quota spent' } }
   const r = await triageBatchClaudeCli(items, opts, run)
   assert.equal(calls, 1, 're-asking a spent plan is waste — stop after one')
   assert.equal(r.ok, false)
@@ -147,7 +204,7 @@ await check('isTerminalApiNote recognises the "HTTP nnn" shape a terminal API fa
 
 await check('a terminal API note (HTTP 401) is NOT retried — one call, deferred, so the caller exhausts the day instead of a short cooldown', async () => {
   let calls = 0
-  const run: ClaudeCliRunner = async () => { calls++; return { text: '', costUsd: 0, error: 'claude cli: HTTP 401 — invalid api key' } }
+  const run: ClaudeCliRunner = async () => { calls++; return { text: '', costUsd: 0, costUsdKnown: true, error: 'claude cli: HTTP 401 — invalid api key' } }
   const r = await triageBatchClaudeCli(items, opts, run)
   assert.equal(calls, 1, 're-asking a revoked/expired key is waste and holds the lock for nothing — stop after one')
   assert.equal(r.ok, false)
@@ -165,7 +222,7 @@ await check('an unexpected throw in the runner degrades to ok:false, never propa
 // ---- empty batch is a no-op, not a spawn ----
 await check('empty batch never spawns', async () => {
   let calls = 0
-  const run: ClaudeCliRunner = async () => { calls++; return { text: '', costUsd: 0 } }
+  const run: ClaudeCliRunner = async () => { calls++; return { text: '', costUsd: 0, costUsdKnown: true } }
   const r = await triageBatchClaudeCli([], opts, run)
   assert.equal(r.ok, true)
   assert.equal(calls, 0)
@@ -193,6 +250,88 @@ await check('UsdBudget spends to the $ ceiling then refuses — and is restart-s
   assert.equal(tomorrow.canSpend(), true)
   assert.equal(tomorrow.usd, 0)
   fs.rmSync(dir, { recursive: true, force: true })
+})
+
+await check('UsdBudget reserves before provider I/O, so a near-cap call cannot overshoot', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'usdbudget-near-cap-'))
+  const at = Date.parse('2026-08-13T12:00:00Z')
+  const b = UsdBudget.load(dir, 1, at, 'anthropic-triage-budget.json')
+  b.record(0.95)
+  assert.equal(b.tryReserve(0.10, at), null, 'the worst-case call does not fit in the final $0.05')
+  const saved = JSON.parse(fs.readFileSync(path.join(dir, 'anthropic-triage-budget.json'), 'utf8'))
+  assert.equal(saved.usd, 0.95, 'refused admission does not mutate spend')
+  assert.equal(saved.calls, 1)
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+
+await check('UsdBudget keeps an in-flight reservation charged across a crash/restart', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'usdbudget-crash-'))
+  const at = Date.parse('2026-08-13T12:00:00Z')
+  const owner = UsdBudget.load(dir, 1, at, 'anthropic-triage-budget.json')
+  const reservation = owner.tryReserve(0.60, at)
+  assert.ok(reservation)
+  // Simulate a process dying after admission but before it can reconcile provider usage.
+  const restarted = UsdBudget.load(dir, 1, at, 'anthropic-triage-budget.json')
+  assert.equal(restarted.usd, 0.60)
+  assert.equal(restarted.calls, 1)
+  assert.equal(restarted.tryReserve(0.50, at), null, 'uncertain work stays charged after restart')
+  const saved = JSON.parse(fs.readFileSync(path.join(dir, 'anthropic-triage-budget.json'), 'utf8'))
+  assert.ok(saved.reservations[reservation!.id], 'reservation identity is durable')
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+
+await check('UsdBudget reconciliation replaces the estimate with exact actual cost exactly once', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'usdbudget-reconcile-'))
+  const at = Date.parse('2026-08-13T12:00:00Z')
+  const b = UsdBudget.load(dir, 1, at, 'anthropic-triage-budget.json')
+  const reservation = b.tryReserve(0.40, at)
+  assert.ok(reservation)
+  const replay = { ...reservation!, active: true }
+  b.reconcile(reservation!, 0.073, 1)
+  b.reconcile(replay, 0, 0)
+  assert.ok(Math.abs(b.usd - 0.073) < 1e-12)
+  assert.equal(b.calls, 1)
+  const saved = JSON.parse(fs.readFileSync(path.join(dir, 'anthropic-triage-budget.json'), 'utf8'))
+  assert.equal(Object.keys(saved.reservations).length, 0)
+  assert.equal(saved.revision, 2)
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+
+await check('UsdBudget terminal exhaustion stays closed across an in-flight reconciliation', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'usdbudget-exhaust-race-'))
+  const at = Date.parse('2026-08-13T12:00:00Z')
+  const owner = UsdBudget.load(dir, 1, at, 'anthropic-triage-budget.json')
+  const active = owner.tryReserve(0.40, at)
+  assert.ok(active)
+  UsdBudget.load(dir, 1, at, 'anthropic-triage-budget.json').exhaust()
+  owner.reconcile(active!, 0.05, 1)
+  const restarted = UsdBudget.load(dir, 1, at, 'anthropic-triage-budget.json')
+  assert.equal(restarted.canSpend(0.01), false, 'a late success cannot reopen a terminally exhausted day')
+  assert.ok(restarted.usd >= 1)
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+
+await check('UsdBudget rotates on its configured provider timezone and ignores a late prior-day reconcile', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'usdbudget-tz-'))
+  const beforePacificMidnight = Date.parse('2026-08-13T06:59:00Z')
+  const afterPacificMidnight = Date.parse('2026-08-13T07:01:00Z')
+  const b = UsdBudget.load(dir, 1, beforePacificMidnight, 'anthropic-triage-budget.json', 'America/Los_Angeles')
+  const oldReservation = b.tryReserve(0.80, beforePacificMidnight)
+  assert.equal(oldReservation?.date, '2026-08-12')
+  const newReservation = b.tryReserve(0.80, afterPacificMidnight)
+  assert.equal(newReservation?.date, '2026-08-13', 'the new provider-local day gets a fresh ceiling')
+  b.reconcile(oldReservation!, 0, 0)
+  assert.equal(b.usd, 0.80, 'yesterday completion cannot reopen or overwrite the new day')
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+
+await check('API dollar reservation prices conservative input and output bounds separately', () => {
+  const system = 'system'
+  const user = 'two-byte: é'
+  const maxOutput = 2_400
+  const actual = conservativeChatUsdBound(system, user, maxOutput, 1, 5)
+  const expected = ((Buffer.byteLength(system) + Buffer.byteLength(user) + 256) * 1 + maxOutput * 5) / 1_000_000
+  assert.ok(Math.abs(actual - expected) < 1e-12)
 })
 
 // ---- exhaust(): a terminal error parks the tier for the day ----
@@ -231,7 +370,7 @@ await check('deferred backlog cap clears the observed real-world peaks (deferrin
 // real bound") + the retry must not out-spend the remaining allowance. ----
 await check('finding 1: a billed transient retry is SKIPPED once the first attempt consumed the remaining daily budget (no second overshoot)', async () => {
   let calls = 0
-  const run: ClaudeCliRunner = async () => { calls++; return { text: 'thinking…', costUsd: 0.30, error: undefined } } // billed, unparseable → transient (would retry)
+  const run: ClaudeCliRunner = async () => { calls++; return { text: 'thinking…', costUsd: 0.30, costUsdKnown: true, error: undefined } } // billed, unparseable → transient (would retry)
   // remaining allowance is 0.25; the first (billed 0.30) attempt has already met/passed it → attempt 2 must NOT run
   const r = await triageBatchClaudeCli(items, { ...opts, budgetRemainingUsd: 0.25 }, run)
   assert.equal(calls, 1, 'the retry that would push cumulative spend past the remaining daily allowance is skipped (red-on-old: 2 calls)')
@@ -243,8 +382,8 @@ await check('finding 1 control: with ample remaining budget the transient retry 
   let calls = 0
   const run: ClaudeCliRunner = async () => {
     calls++
-    if (calls === 1) return { text: 'thinking…', costUsd: 0.01 } // billed, unparseable → transient
-    return { text: '[{"i":0,"materiality_pre_score":80}]', costUsd: 0.01 }
+    if (calls === 1) return { text: 'thinking…', costUsd: 0.01, costUsdKnown: true } // billed, unparseable → transient
+    return { text: '[{"i":0,"materiality_pre_score":80},{"i":1,"materiality_pre_score":0}]', costUsd: 0.01, costUsdKnown: true }
   }
   const r = await triageBatchClaudeCli(items, { ...opts, budgetRemainingUsd: 5 }, run)
   assert.equal(calls, 2, 'plenty of budget left → the retry proceeds exactly as before the guard')
@@ -260,7 +399,7 @@ await check('finding 1 control: with ample remaining budget the transient retry 
 // STARTED unless its worst case still fits. ----
 await check('finding 1 follow-up: a retry is skipped when its OWN max cost (budgetUsd) would blow the remaining allowance, even though spend-so-far has not', async () => {
   let calls = 0
-  const run: ClaudeCliRunner = async () => { calls++; return { text: 'thinking…', costUsd: 0.10, error: undefined } } // billed, unparseable → transient
+  const run: ClaudeCliRunner = async () => { calls++; return { text: 'thinking…', costUsd: 0.10, costUsdKnown: true, error: undefined } } // billed, unparseable → transient
   // remaining allowance 0.15; spend-so-far after attempt 1 is 0.10 (< 0.15, old guard would retry) but
   // 0.10 + the 0.10 per-call cap = 0.20 > 0.15 → the retry's own worst case does not fit → skip
   const r = await triageBatchClaudeCli(items, { ...opts, budgetRemainingUsd: 0.15, budgetUsd: 0.10 }, run)
@@ -273,8 +412,8 @@ await check('finding 1 follow-up control: a retry proceeds when its own max cost
   let calls = 0
   const run: ClaudeCliRunner = async () => {
     calls++
-    if (calls === 1) return { text: 'thinking…', costUsd: 0.01 } // billed, unparseable → transient
-    return { text: '[{"i":0,"materiality_pre_score":42}]', costUsd: 0.01 }
+    if (calls === 1) return { text: 'thinking…', costUsd: 0.01, costUsdKnown: true } // billed, unparseable → transient
+    return { text: '[{"i":0,"materiality_pre_score":42},{"i":1,"materiality_pre_score":0}]', costUsd: 0.01, costUsdKnown: true }
   }
   // remaining allowance 1.00; spend-so-far 0.01 + the 0.10 per-call cap = 0.11 <= 1.00 → fits, retry proceeds
   const r = await triageBatchClaudeCli(items, { ...opts, budgetRemainingUsd: 1.0, budgetUsd: 0.10 }, run)
@@ -289,12 +428,14 @@ await check('finding 1 follow-up control: a retry proceeds when its own max cost
 // Authority: runCycle's abort guard intent — defer the remainder and STOP, don't hold the lock past abort. ----
 await check('finding 2: a pre-aborted signal makes the adapter bill NOTHING and defer (red-on-old: it would spawn once)', async () => {
   let calls = 0
-  const run: ClaudeCliRunner = async () => { calls++; return { text: '[{"i":0,"materiality_pre_score":9}]', costUsd: 0.01 } }
+  const run: ClaudeCliRunner = async () => { calls++; return { text: '[{"i":0,"materiality_pre_score":9},{"i":1,"materiality_pre_score":0}]', costUsd: 0.01, costUsdKnown: true } }
   const ac = new AbortController()
   ac.abort()
   const r = await triageBatchClaudeCli(items, { ...opts, signal: ac.signal }, run)
   assert.equal(calls, 0, 'already aborted → never spawn a billed CLI')
   assert.equal(r.ok, false, 'aborted before any score → defer the batch')
+  assert.equal(r.requests, 0, 'a pre-dispatch abort releases the caller reservation')
+  assert.equal(r.costUsdKnown, true)
   assert.match(r.note || '', /abort/i, 'the note names the abort')
 })
 
@@ -304,7 +445,7 @@ await check('finding 2: an abort DURING attempt 1 stops the retry (one call, not
   const run: ClaudeCliRunner = async () => {
     calls++
     ac.abort() // the wall-clock guard fires while this attempt is in flight
-    return { text: 'thinking…', costUsd: 0.01 } // billed, unparseable → would normally retry
+    return { text: 'thinking…', costUsd: 0.01, costUsdKnown: true } // billed, unparseable → would normally retry
   }
   const r = await triageBatchClaudeCli(items, { ...opts, signal: ac.signal }, run)
   assert.equal(calls, 1, 'the second attempt is skipped because the cycle was aborted mid-flight (red-on-old: 2 calls)')
@@ -337,7 +478,7 @@ await check('a 401 is STILL terminal in-call, so the adapter stops rather than r
 
 await check('an expired sign-in defers the batch after ONE call (no wasted second spawn)', async () => {
   let calls = 0
-  const run: ClaudeCliRunner = async () => { calls++; return { text: '', costUsd: 0, error: AUTH_NOTE } }
+  const run: ClaudeCliRunner = async () => { calls++; return { text: '', costUsd: 0, costUsdKnown: true, error: AUTH_NOTE } }
   const r = await triageBatchClaudeCli(items, opts, run)
   assert.equal(calls, 1, 'a dead sign-in will not fix itself between two spawns — do not retry in-call')
   assert.equal(r.ok, false, 'the batch DEFERS (unscored), never scored zero')

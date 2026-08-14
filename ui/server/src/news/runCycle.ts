@@ -22,7 +22,7 @@ import { resolveEventRegion } from './geo'
 import { resolveCountry } from './geography'
 import { invalidateFacets } from './facets'
 import { SeenCache } from './seen-cache'
-import { Budget, NON_BINDING_DAILY_TOKEN_CAP, UsdBudget, armCooldown, clearCooldown, conservativeChatTokenBound, cooldownInfo, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown, readCooldownUntil, type PaceCfg } from './triage/budget'
+import { Budget, NON_BINDING_DAILY_TOKEN_CAP, UsdBudget, armCooldown, clearCooldown, conservativeChatTokenBound, conservativeChatUsdBound, cooldownInfo, dailyQuotaAdmission, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown, rateInfoForLimiter, readCooldownUntil, selectDailyQuotaCandidate, type DailyQuotaCandidate, type PaceCfg } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
 import { triageBatchAnthropic } from './triage/anthropic'
 import { isAuthExpiredNote, isPlanQuotaNote, isTerminalApiNote, triageBatchClaudeCli, type ClaudeCliRunner } from './triage/claude-cli'
@@ -42,6 +42,7 @@ import fs from 'node:fs'
 // retry) spill into this file and are re-queued next cycle. Without it they'd be silently lost:
 // the sources won't hand them back (GDELT's lookback ages out; an unchanged RSS feed answers 304).
 const DEFERRED_FILE = 'news-deferred.json'
+const DEFERRED_PENDING_FILE = 'news-deferred-pending.json'
 
 /** Worst-case billable tokens for one primary-Groq triage attempt. */
 export function triageGroqTokenBound(items: NewsItem[], options: TriageOptions): number {
@@ -59,6 +60,84 @@ function chargedAttemptTokens(result: TriageResult | undefined, perAttemptTokens
     ? (reportedTokens > 0 ? reportedTokens + perAttemptTokens * Math.max(0, requests - 1) : perAttemptTokens * requests)
     : 0
   return { requests, tokens }
+}
+
+function addProviderCount(target: Record<string, number>, id: string, value: number): void {
+  const n = Number.isFinite(value) ? Math.max(0, Math.floor(value)) : 0
+  if (n > 0) target[id] = (target[id] || 0) + n
+}
+
+/** A model-output/request-shape failure belongs to this prompt/workload, not to the provider as a whole.
+ * Keeping a separate marker prevents one malformed triage answer from sidelining article reads, Themes,
+ * and Ideas that the same endpoint may still serve correctly. Availability/rate-limit failures continue
+ * to use the shared provider id because every workload would hit the same outage/window. */
+function triageCooldownId(providerId: string): string { return `triage:${providerId}` }
+
+function clearTriageCooldowns(stateDir: string, providerId: string, attemptStartedAt?: number): void {
+  clearCooldown(stateDir, providerId, attemptStartedAt)
+  clearCooldown(stateDir, triageCooldownId(providerId), attemptStartedAt)
+}
+
+function triageIsHeld(stateDir: string, providerId: string, at: number): boolean {
+  return isCoolingDown(stateDir, providerId, at) || isCoolingDown(stateDir, triageCooldownId(providerId), at)
+}
+
+function triageFailureIsProviderWide(result: TriageResult): boolean {
+  if (result.ok) return true
+  const accessFailure = result.httpStatus != null && [401, 402, 403, 404].includes(result.httpStatus)
+  return result.failureKind === 'rate_limit'
+    || (result.failureKind === 'availability' && !result.timedOut)
+    || accessFailure
+}
+
+/** Persist the narrowest retry hold that matches a failed triage call. Retry-After is authoritative and
+ * flat; service/network failures use the shared exponential breaker; request/JSON failures remain scoped
+ * to triage. Only an explicit provider day-limit signal closes the daily ledger — a generic error must not
+ * be laundered into a false "quota spent" reading. */
+function holdAfterTriageFailure(args: {
+  stateDir: string
+  providerId: string
+  result: TriageResult
+  at: number
+  cooldownMs: number
+  cooldownMaxMs: number
+  aborted: boolean
+  budget?: Budget
+}): void {
+  const { stateDir, providerId, result, at, cooldownMs, cooldownMaxMs, aborted, budget } = args
+  if (aborted) return
+  if (result.dailyLimit) {
+    budget?.exhaust()
+    return
+  }
+  const scopedId = triageCooldownId(providerId)
+  const accessFailure = result.httpStatus != null && [401, 402, 403, 404].includes(result.httpStatus)
+  const providerWide = triageFailureIsProviderWide(result)
+  const scopedReason = result.timedOut ? 'timeout'
+    : result.failureKind === 'contract' ? 'triage-contract' : 'triage-request'
+  if (result.rate?.retryAfterMs != null && Number.isFinite(result.rate.retryAfterMs)) {
+    const retryMs = Math.max(0, Math.floor(result.rate.retryAfterMs))
+    // A header does not widen the failure's scope. Request/contract responses can carry Retry-After too;
+    // honor their exact clock on the triage circuit without sidelining every other provider workload.
+    const reason = providerWide
+      ? result.failureKind === 'rate_limit' ? 'rate-limit' : accessFailure ? 'provider-access' : 'availability'
+      : scopedReason
+    if (retryMs > 0) armCooldown(stateDir, at, retryMs, providerWide ? providerId : scopedId, retryMs, reason)
+    return
+  }
+  if (result.failureKind === 'rate_limit') {
+    armCooldown(stateDir, at, 60_000, providerId, 60_000, 'rate-limit')
+    return
+  }
+  if (result.failureKind === 'availability') {
+    armCooldown(stateDir, at, cooldownMs, result.timedOut ? scopedId : providerId, cooldownMaxMs, result.timedOut ? 'timeout' : 'availability')
+    return
+  }
+  if (accessFailure) {
+    armCooldown(stateDir, at, cooldownMs, providerId, cooldownMaxMs, 'provider-access')
+    return
+  }
+  armCooldown(stateDir, at, cooldownMs, scopedId, cooldownMaxMs, scopedReason)
 }
 
 /** One primary-Groq ingester batch with an atomic reservation shared by chat/read/idea callers. */
@@ -103,13 +182,41 @@ export async function triageGroqWithReservation(args: {
 // rewritten each cycle), which is why it stays bounded and env-tunable rather than unlimited.
 export const DEFERRED_CAP = (() => { const n = Number(process.env.NEWS_DEFERRED_CAP); return Number.isFinite(n) && n > 0 ? n : 5000 })()
 
-export function loadDeferred(stateDir: string): NewsItem[] {
+export type DeferredBacklogInspection = { available: true; items: NewsItem[] } | { available: false; items: [] }
+
+function readDeferredFile(file: string): { status: 'missing' } | { status: 'ok'; items: NewsItem[] } | { status: 'unavailable' } {
+  let text: string
+  try { text = fs.readFileSync(file, 'utf8') }
+  catch (error: any) { return error?.code === 'ENOENT' ? { status: 'missing' } : { status: 'unavailable' } }
   try {
-    const arr = JSON.parse(fs.readFileSync(path.join(stateDir, DEFERRED_FILE), 'utf8'))
-    return Array.isArray(arr) ? arr : []
-  } catch {
-    return []
+    const value = JSON.parse(text)
+    if (!Array.isArray(value) || value.some((row) => !row || typeof row !== 'object'
+      || typeof row.event_id !== 'string' || !row.event_id
+      || typeof row.headline !== 'string')) return { status: 'unavailable' }
+    return { status: 'ok', items: value as NewsItem[] }
+  } catch { return { status: 'unavailable' } }
+}
+
+export function inspectDeferredBacklog(stateDir: string): DeferredBacklogInspection {
+  const primary = readDeferredFile(path.join(stateDir, DEFERRED_FILE))
+  const pending = readDeferredFile(path.join(stateDir, DEFERRED_PENDING_FILE))
+  if (primary.status === 'unavailable' || pending.status === 'unavailable') return { available: false, items: [] }
+  const merged: NewsItem[] = []
+  const seen = new Set<string>()
+  for (const item of [
+    ...(primary.status === 'ok' ? primary.items : []),
+    ...(pending.status === 'ok' ? pending.items : []),
+  ]) {
+    if (seen.has(item.event_id)) continue
+    seen.add(item.event_id)
+    merged.push(item)
   }
+  return { available: true, items: merged }
+}
+
+export function loadDeferred(stateDir: string): NewsItem[] {
+  const snapshot = inspectDeferredBacklog(stateDir)
+  return snapshot.available ? snapshot.items : []
 }
 
 // ATOMIC write: this file OWNS the loss boundary — the whole backlog lives here. A plain truncating write
@@ -124,14 +231,23 @@ export function loadDeferred(stateDir: string): NewsItem[] {
 export function saveDeferred(stateDir: string, items: NewsItem[], log: (m: string) => void = () => {}): boolean {
   const target = path.join(stateDir, DEFERRED_FILE)
   const tmp = `${target}.tmp`
+  const pending = path.join(stateDir, DEFERRED_PENDING_FILE)
+  const pendingTmp = `${pending}.tmp`
+  const bytes = JSON.stringify(items.slice(0, DEFERRED_CAP)) + '\n'
   try {
     fs.mkdirSync(stateDir, { recursive: true })
-    fs.writeFileSync(tmp, JSON.stringify(items.slice(0, DEFERRED_CAP)) + '\n')
+    // Write-ahead journal: if the canonical rename fails after one-shot sources have already delivered new
+    // rows, the next cycle can still merge and retry them instead of losing them with process memory.
+    fs.writeFileSync(pendingTmp, bytes)
+    fs.renameSync(pendingTmp, pending)
+    fs.writeFileSync(tmp, bytes)
     fs.renameSync(tmp, target)
+    try { fs.rmSync(pending, { force: true }) } catch { /* duplicate journal is harmless; reads dedupe ids */ }
     return true
   } catch (e: any) {
-    log(`saveDeferred failed (${e?.message || e}) — kept the last-good backlog; ${items.length} item(s) not re-persisted this cycle`)
+    log(`saveDeferred failed (${e?.message || e}) — kept the last-good backlog and any completed pending journal; ${items.length} item(s) need a retry`)
     try { fs.rmSync(tmp, { force: true }) } catch { /* best-effort temp cleanup */ }
+    try { fs.rmSync(pendingTmp, { force: true }) } catch { /* completed pending journal is intentionally kept */ }
     return false
   }
 }
@@ -187,9 +303,10 @@ async function runThemesStage(input: {
   fetchFn: typeof fetch
   now: () => Date
   log: (m: string) => void
+  signal?: AbortSignal
   revisionClocksByEvent?: ReadonlyMap<string, InboxRevisionClocks>
 }): Promise<void> {
-  const { cfg, repoRoot, stateDir, picks, fetchFn, now, log, revisionClocksByEvent } = input
+  const { cfg, repoRoot, stateDir, picks, fetchFn, now, log, signal, revisionClocksByEvent } = input
   if (!cfg.themesEnabled) return
   try {
     const themeItems: ThemeItemView[] = picks
@@ -232,7 +349,7 @@ async function runThemesStage(input: {
         minScore: cfg.themesMinScore,
         now,
         cfg: themesConfigFromNews(cfg),
-        llmNamer: makeThemeNamer(cfg, fetchFn, stateDir, log),
+        llmNamer: makeThemeNamer(cfg, fetchFn, stateDir, log, signal),
       }),
       new Promise<never>((_, reject) => {
         themesTimeout = setTimeout(() => reject(new Error('themes stage exceeded 90s — skipped')), 90_000)
@@ -261,9 +378,27 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const phase: 'fetch' | 'drain' = deps.skipFetch ? 'drain' : 'fetch'
   const blank: CycleSummary = { ts, ok: false, fetched: 0, candidates: 0, picked: 0, watched: 0, dropped: 0, inboxed: 0, groq_requests: 0, groq_tokens: 0, phase }
 
-  if (!cfg.groqApiKey) {
-    await runThemesStage({ cfg, repoRoot, stateDir, picks: [], fetchFn, now, log })
-    return { ...blank, note: 'no GROQ_API_KEY — ingester idle' }
+  const hasScoringProvider = Boolean(
+    cfg.groqApiKey
+    || cfg.localProvider
+    || cfg.overflowProviders.some((provider) => provider.apiKey)
+    || (cfg.geminiEnabled && cfg.geminiApiKey && cfg.geminiModels.length)
+    || (cfg.anthropicFallbackEnabled && (cfg.anthropicFallbackMode === 'subscription' || cfg.anthropicApiKey)),
+  )
+  if (!hasScoringProvider) {
+    await runThemesStage({ cfg, repoRoot, stateDir, picks: [], fetchFn, now, log, signal: deps.signal })
+    return { ...blank, note: 'no scoring provider configured — ingester idle' }
+  }
+
+  // The backlog is durable authority for one-shot fetched rows. Bad JSON/schema or an unreadable file may
+  // conceal work, so stop before fetching or spending and never overwrite it as an invented empty queue.
+  const backlogSnapshot = inspectDeferredBacklog(stateDir)
+  if (!backlogSnapshot.available) {
+    return {
+      ...blank,
+      deferred_read_failed: true,
+      note: 'news backlog record needs attention — fetch and scoring paused; existing files were preserved',
+    }
   }
 
   // Announce the cycle BEFORE any network work, so the cockpit can say "looking now" for its whole
@@ -344,7 +479,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const ledgerIds = loadLedgerEventIds(path.join(repoRoot, 'screener', 'ledger', 'events.ndjson'))
   const fresh = normalizeAndFilter(raws, { ledgerEventIds: ledgerIds, seen, now })
   const freshIds = new Set(fresh.map((i) => i.event_id))
-  const requeued = loadDeferred(stateDir).filter((d) => d?.event_id && !freshIds.has(d.event_id) && !seen.has(d.event_id))
+  const requeued = backlogSnapshot.items.filter((d) => d?.event_id && !freshIds.has(d.event_id) && !seen.has(d.event_id))
   // Order the triage queue by a cheap deterministic pre-priority so the SCARCE Groq budget scores the
   // most promising items first (a material keyword / primary filing / fresh item before routine news).
   // Whatever the budget can't reach this cycle defers to the next — never lost, but now the tail that
@@ -357,7 +492,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     const summary: CycleSummary = { ...blank, ok: true, fetched: raws.length, fresh: fresh.length, carryover: requeued.length, backlog: 0, backlog_cap: DEFERRED_CAP, note: 'no new on-list items', ...(sources ? { sources } : {}) }
     appendFirehoseSummary(repoRoot, date, summary)
     newsBus.emit({ type: 'news-cycle', summary })
-    await runThemesStage({ cfg, repoRoot, stateDir, picks: [], fetchFn, now, log })
+    await runThemesStage({ cfg, repoRoot, stateDir, picks: [], fetchFn, now, log, signal: deps.signal })
     return summary
   }
 
@@ -380,8 +515,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         model: e.model,
         budget: Budget.load(stateDir, e.dailyReqCap, cfg.geminiDailyTokenCap, now().getTime(), `gemini-budget-${e.model.replace(/[^a-z0-9]+/gi, '-')}.json`, cfg.geminiDayTz),
         failed: false,
-        coolingDown: isCoolingDown(stateDir, `gemini:${e.model}`, now().getTime()),
-        cooldownWasSet: readCooldownUntil(stateDir, `gemini:${e.model}`),
+        coolingDown: triageIsHeld(stateDir, `gemini:${e.model}`, now().getTime()),
+        cooldownWasSet: readCooldownUntil(stateDir, `gemini:${e.model}`) || readCooldownUntil(stateDir, triageCooldownId(`gemini:${e.model}`)),
       }))
     : []
   const geminiLimiter = geminiOn ? getSharedGeminiLimiter(cfg.geminiRpm, cfg.geminiTpm) : null
@@ -398,8 +533,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     failed: false, // set when a call errors this cycle → skip it so the batch flows to the next provider
     // cross-cycle cooldown (read once at cycle start, same as Groq's): skip a provider that a PRIOR cycle
     // marked unhealthy so a sustained outage can't re-probe it every cycle and drain its (small) daily cap.
-    coolingDown: isCoolingDown(stateDir, p.id, now().getTime()),
-    cooldownWasSet: readCooldownUntil(stateDir, p.id), // >0 → a marker existed at start; clear it if we recover
+    coolingDown: triageIsHeld(stateDir, p.id, now().getTime()),
+    cooldownWasSet: readCooldownUntil(stateDir, p.id) || readCooldownUntil(stateDir, triageCooldownId(p.id)), // >0 → a marker existed at start; clear it if we recover
   }))
   // The overflow chain runs in TWO segments around Gemini. A DEMOTED local tier (NEWS_LOCAL_PRIMARY=0) joins
   // this chain as its last entry (config.buildOverflowProviders), but "last in the array" was still ahead of
@@ -420,13 +555,17 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     ? UsdBudget.load(stateDir, cfg.anthropicDailyUsd, now().getTime(), 'anthropic-triage-budget.json')
     : null
   const anthropicLimiter = anthropicOn ? getNamedLimiter('anthropic-triage', cfg.anthropicRpm, 0) : null
-  const anthropicCooldownWasSet = anthropicOn ? readCooldownUntil(stateDir, 'anthropic-triage') : 0
-  const anthropicCoolingDown = anthropicOn && isCoolingDown(stateDir, 'anthropic-triage', now().getTime())
+  const anthropicSharedCooldown = anthropicOn ? cooldownInfo(stateDir, 'anthropic-triage') : { until: 0, fails: 0 }
+  const anthropicWorkloadCooldown = anthropicOn ? cooldownInfo(stateDir, triageCooldownId('anthropic-triage')) : { until: 0, fails: 0 }
+  const anthropicCooldownWasSet = anthropicSharedCooldown.until || anthropicWorkloadCooldown.until
+  const anthropicCoolingDown = anthropicOn && triageIsHeld(stateDir, 'anthropic-triage', now().getTime())
   // WHY the tier is cooling, carried on the marker itself. The failure note only exists in the cycle that
   // actually failed, so a later cycle — the one the operator is usually looking at — could otherwise only
   // say "backing off after an error". With this, an expired sign-in keeps naming itself (and its fix) on
   // every subsequent cycle until it clears.
-  const anthropicCooldownReason = anthropicOn ? cooldownInfo(stateDir, 'anthropic-triage').reason || '' : ''
+  const anthropicCooldownReason = anthropicOn
+    ? (anthropicSharedCooldown.until >= anthropicWorkloadCooldown.until ? anthropicSharedCooldown : anthropicWorkloadCooldown).reason || ''
+    : ''
   // LOCAL PRIMARY BRAIN. cfg.localProvider is non-null ONLY when local is enabled AND primary (the default once
   // enabled) — it is then tried FIRST for every batch below, ahead of Groq, with NO daily cap and no per-minute
   // spacing. Its budget file (local-budget.json) is still recorded so the cockpit can show live tokens/requests
@@ -436,8 +575,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const localOn = !!localProvider
   const localLimiter = localOn ? getNamedLimiter('local', localProvider!.rpm, localProvider!.tpm ?? 0) : null
   const localBudget = localOn ? Budget.load(stateDir, localProvider!.dailyReqCap, localProvider!.dailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP, now().getTime(), localProvider!.budgetFile, localProvider!.dayTz) : null
-  const localCoolingDown = localOn && isCoolingDown(stateDir, 'local', now().getTime())
-  const localCooldownWasSet = localOn ? readCooldownUntil(stateDir, 'local') : 0
+  const localCoolingDown = localOn && triageIsHeld(stateDir, 'local', now().getTime())
+  const localCooldownWasSet = localOn ? readCooldownUntil(stateDir, 'local') || readCooldownUntil(stateDir, triageCooldownId('local')) : 0
   let localRequests = 0
   let localTokens = 0
   let localDownThisCycle = false // once the local box fails this cycle, stop poking it and use the cloud fallback
@@ -450,10 +589,16 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   let anthropicRequests = 0
   let anthropicTokens = 0
   let anthropicCostUsd = 0
+  const providerAttempts: Record<string, number> = {}
+  const providerScoredBatches: Record<string, number> = {}
   let anthropicDownThisCycle = false // once the paid tier fails this cycle, stop poking it (save the cap)
+  let anthropicBudgetBlocked = false // remaining dollars cannot fit one conservative provider call
   let anthropicFailNote = '' // the Haiku tier's failure note this cycle → distinguishes plan-quota from a transient error
+  let usageLedgerUnavailable = false // durable authority damage is not a spent allowance/provider quota
   let budgetHit = false
+  let providerDayLimitHit = false
   let paceHit = false
+  let providerRetryHeld = false
   let batchFailed = false
   let aborted = false // the wall-clock guard killed this cycle mid-way and dumped the remainder to the backlog
   // Once Groq fails this cycle (org 429 / network), STOP poking it for the rest of the cycle and go
@@ -467,11 +612,18 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // this cycle (straight to overflow / defer) and don't touch the marker (it decays by time). We read it
   // once here: `groqCooldownUntil` is the persisted value (0 = none) — kept so that when the window has
   // lapsed (marker present but NOT in the future) we probe once and clear the stale marker if it recovers.
-  const groqCooldownUntil = readCooldownUntil(stateDir, 'groq')
+  const groqCooldownUntil = Math.max(readCooldownUntil(stateDir, 'groq'), readCooldownUntil(stateDir, triageCooldownId('groq')))
   const groqCoolingDown = groqCooldownUntil > now().getTime()
   const pace = { targetTokens: cfg.groqDailyTokenTarget, floorFrac: cfg.groqPaceFloorFrac }
+  const configuredFreeLedgerUnavailable = (): boolean =>
+    (!!cfg.groqApiKey && (!budget.ledgerAvailable || budget.lastReserveFailure === 'authority_unavailable'))
+    || (!!localBudget && (!localBudget.ledgerAvailable || localBudget.lastReserveFailure === 'authority_unavailable'))
+    || overflow.some((ov) => !ov.budget.ledgerAvailable || ov.budget.lastReserveFailure === 'authority_unavailable')
+    || geminiPool.some((gem) => !gem.budget.ledgerAvailable || gem.budget.lastReserveFailure === 'authority_unavailable')
+  const anthropicLedgerUnavailable = (): boolean => anthropicOn
+    && (anthropicBudget?.ledgerAvailable !== true || anthropicBudget.lastReserveFailure === 'authority_unavailable')
 
-  for (let i = 0; i < items.length; i += cfg.triageBatch) {
+  batchLoop: for (let i = 0; i < items.length; i += cfg.triageBatch) {
     // The wall-clock guard fired: stop starting new batches. The wrapped fetchFn already fails fast, but
     // without this the loop walks every remaining batch retrying each provider (burning daily LLM quota on
     // doomed calls and holding the cycle lock past the abort). Requeue the untriaged remainder to the
@@ -484,86 +636,118 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     }
     const batch = items.slice(i, i + cfg.triageBatch)
     const est = estimateTokens(batch.length)
-    const groqOptions: TriageOptions = { model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.triageMaxTokens }
+    const groqOptions: TriageOptions = { model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.triageMaxTokens, requestRemainingHeaderIsDaily: true }
     const groqAttemptTokenBound = triageGroqTokenBound(batch, groqOptions)
     // PROVIDER PICK. Prefer Groq while it's on-schedule (the pacer keeps it spread across the day); when
     // Groq is paced/capped, overflow to Gemini's separate free pool; defer only when BOTH are out.
     // PROVIDER PICK, in order: Groq (primary, paced across the day) → OpenAI-compatible overflow registry
     // (OpenRouter, NVIDIA, …, best first) → Gemini pool → defer when all are out.
-    let groqAttempts = Math.min(2, budget.remainingRequests, Math.floor(budget.remainingTokens / groqAttemptTokenBound))
+    // One attempt per provider per batch. A Retry-After can be minutes long; sleeping inside Groq's second
+    // retry held the global cycle lock and prevented the same batch from reaching healthy overflow capacity.
+    // The outer router persists the exact retry window and falls through immediately, so an in-call retry is
+    // both slower and less sustainable than giving the next allowance its turn.
+    let groqAttempts = Math.min(1, budget.remainingRequests, Math.floor(budget.remainingTokens / groqAttemptTokenBound))
     const groqAdmissionAt = now().getTime()
     while (groqAttempts > 0 && !budget.pacedCanSpend(groqAttemptTokenBound * groqAttempts, pace, groqAdmissionAt, groqAttempts)) groqAttempts--
-    const groqOk = groqAttempts > 0
+    const groqOk = !!cfg.groqApiKey && groqAttempts > 0
     // RESILIENT PROVIDER CHAIN: try Groq (primary) → overflow registry → Gemini pool, falling to the
     // NEXT provider whenever the current one is unavailable OR was tried and FAILED. The old code only
     // reached overflow when Groq was capped — so a Groq outage (org 429 / network blip) just deferred
     // every batch AND burned the daily request cap on failures. Now a single provider being down can
     // never stall triage: the batch flows to whoever is up. `res` stays undefined only when NOTHING
     // was even attempted (all daily budgets out) → that's the genuine "defer the rest" case.
-    let res
+    let res: TriageResult | undefined
+    const stopAbortedBatch = (): boolean => {
+      if (!deps.signal?.aborted || res?.ok) return false
+      aborted = true
+      deferred.push(...items.slice(i))
+      log(`cycle aborted during scoring — deferring ${items.length - i} unscored item(s) to the next cycle`)
+      return true
+    }
     // LOCAL PRIMARY BRAIN, tried FIRST: unlimited, $0, no cap. When the local box is up it scores the WHOLE
     // scan and the Groq → overflow → Gemini → Haiku chain below never fires — no ceiling, no daily-cap loss.
     // When it is down this cycle (box asleep / unreachable / error), we arm a SHORT cooldown and fall straight
     // through to that chain, exactly as before. Inert when local is off or demoted (localProvider is null),
     // so the Groq-first path is unchanged: `res` stays undefined and the gate below runs Groq first.
-    if (localProvider && !localDownThisCycle && !localCoolingDown) {
-      await localLimiter!.acquire(est, sleep, () => now().getTime()) // rpm 0 → returns immediately (no spacing)
-      res = await triageBatch(batch, { model: localProvider.model, models: localProvider.models, baseUrl: localProvider.baseUrl, apiKey: localProvider.apiKey, maxTokens: localProvider.maxTokens, headers: localProvider.headers, extraBody: localProvider.extraBody, timeoutMs: localProvider.timeoutMs, maxAttempts: localProvider.maxAttempts }, fetchFn, sleep)
-      localRequests += res.requests
-      localTokens += res.tokens
-      localBudget!.record(res.requests, res.tokens) // record to local-budget.json so the cockpit shows live throughput
-      localLimiter!.learn(res.rate, () => now().getTime())
-      if (res.ok) {
-        if (localCooldownWasSet) clearCooldown(stateDir, 'local') // box recovered after a prior failure → drop the marker
-      } else {
-        localDownThisCycle = true // box is down this cycle → stop poking it, fall through to the cloud fallback chain
-        // SHORT, FLAT cooldown (base == max flattens the exponential) so the NEXT cycle re-probes quickly when the
-        // box wakes — local has no daily cap to protect from failed-probe burn, so fast recovery beats sparing a probe.
-        armCooldown(stateDir, now().getTime(), cfg.localCooldownMs, 'local', cfg.localCooldownMs)
+    if (localProvider && !localDownThisCycle && !triageIsHeld(stateDir, 'local', now().getTime())) {
+      const acquired = await localLimiter!.acquire(est, sleep, () => now().getTime(), undefined, deps.signal) // rpm 0 → returns immediately (no spacing)
+      if (stopAbortedBatch()) break batchLoop
+      if (!acquired) continue
+      // The limiter can wait while another workload learns a provider failure. Never dispatch from a stale
+      // pre-wait hold snapshot; leave `res` empty so the same batch can fall through to a healthy cloud tier.
+      if (!triageIsHeld(stateDir, 'local', now().getTime())) {
+        const attemptStartedAt = now().getTime()
+        res = await triageBatch(batch, { model: localProvider.model, models: localProvider.models, baseUrl: localProvider.baseUrl, apiKey: localProvider.apiKey, maxTokens: localProvider.maxTokens, headers: localProvider.headers, extraBody: localProvider.extraBody, timeoutMs: localProvider.timeoutMs, maxAttempts: localProvider.maxAttempts }, fetchFn, sleep)
+        localRequests += res.requests
+        localTokens += res.tokens
+        addProviderCount(providerAttempts, 'local', res.requests)
+        localBudget!.record(res.requests, res.tokens) // record to local-budget.json so the cockpit shows live throughput
+        localLimiter!.learn(rateInfoForLimiter(res.rate, triageFailureIsProviderWide(res)), () => now().getTime())
+        if (res.ok) {
+          addProviderCount(providerScoredBatches, 'local', 1)
+          if (localCooldownWasSet) clearTriageCooldowns(stateDir, 'local', attemptStartedAt) // do not erase a newer concurrent failure
+        } else {
+          localDownThisCycle = true // box is down this cycle → stop poking it, fall through to the cloud fallback chain
+          // SHORT, FLAT cooldown (base == max flattens the exponential) so the NEXT cycle re-probes quickly when the
+          // box wakes — local has no daily cap to protect from failed-probe burn, so fast recovery beats sparing a probe.
+          holdAfterTriageFailure({ stateDir, providerId: 'local', result: res, at: now().getTime(), cooldownMs: cfg.localCooldownMs, cooldownMaxMs: cfg.localCooldownMs, aborted: !!deps.signal?.aborted, budget: localBudget! })
+        }
       }
+      if (stopAbortedBatch()) break batchLoop
     }
     // Groq (now the FIRST FALLBACK when local is primary; the primary when local is off/demoted). Gated on
     // `!res || !res.ok` so it runs only when local didn't already score the batch — when local is off, `res` is
     // undefined here and this is byte-for-byte the old Groq-first behaviour.
-    if ((!res || !res.ok) && groqOk && !groqDownThisCycle && !groqCoolingDown) {
-      await limiter.acquire(est, sleep, () => now().getTime())
-      const reservedResult = await triageGroqWithReservation({
-        budget, pace, estimatedTokens: est, items: batch,
-        options: groqOptions,
-        now: () => now().getTime(), fetchFn, sleep, maxAttempts: 2,
-      })
-      if (reservedResult) {
-        res = reservedResult
-        groqRequests += res.requests
-        groqTokens += res.tokens
-        limiter.learn(res.rate, () => now().getTime()) // track the live per-minute ceiling + back off on 429
-        if (!res.ok) {
-          groqDownThisCycle = true // Groq is having a bad cycle → skip it for the rest of THIS cycle, save the cap
-          // …and across cycles until the window lapses — EXCEPT on a cycle abort, where the wall-clock guard
-          // cancelled an in-flight call. That is not a Groq failure, and cooling on it strands the primary tier.
-          if (!deps.signal?.aborted) armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, 'groq', cfg.llmCooldownMaxMs)
-        } else if (groqCooldownUntil) {
-          clearCooldown(stateDir, 'groq') // a probe after the window lapsed SUCCEEDED → Groq recovered, drop the stale marker
+    if ((!res || !res.ok) && groqOk && !groqDownThisCycle && !triageIsHeld(stateDir, 'groq', now().getTime())) {
+      const acquired = await limiter.acquire(est, sleep, () => now().getTime(), undefined, deps.signal)
+      if (stopAbortedBatch()) break batchLoop
+      if (!acquired) continue
+      if (!triageIsHeld(stateDir, 'groq', now().getTime())) {
+        const attemptStartedAt = now().getTime()
+        const reservedResult = await triageGroqWithReservation({
+          budget, pace, estimatedTokens: est, items: batch,
+          options: groqOptions,
+          now: () => now().getTime(), fetchFn, sleep, maxAttempts: 1,
+        })
+        if (reservedResult) {
+          res = reservedResult
+          groqRequests += res.requests
+          groqTokens += res.tokens
+          addProviderCount(providerAttempts, 'groq', res.requests)
+          limiter.learn(rateInfoForLimiter(res.rate, triageFailureIsProviderWide(res)), () => now().getTime()) // track live minute ceilings; only provider-wide Retry-After enters the shared limiter
+          if (!res.ok) {
+            groqDownThisCycle = true // Groq is having a bad cycle → skip it for the rest of THIS cycle, save the cap
+            // …and across cycles until the window lapses — EXCEPT on a cycle abort, where the wall-clock guard
+            // cancelled an in-flight call. That is not a Groq failure, and cooling on it strands the primary tier.
+            holdAfterTriageFailure({ stateDir, providerId: 'groq', result: res, at: now().getTime(), cooldownMs: cfg.llmCooldownMs, cooldownMaxMs: cfg.llmCooldownMaxMs, aborted: !!deps.signal?.aborted, budget })
+          } else if (groqCooldownUntil) {
+            addProviderCount(providerScoredBatches, 'groq', 1)
+            clearTriageCooldowns(stateDir, 'groq', attemptStartedAt) // do not erase a newer concurrent failure
+          } else {
+            addProviderCount(providerScoredBatches, 'groq', 1)
+          }
         }
       }
+      if (stopAbortedBatch()) break batchLoop
     }
-    // Walk a SEGMENT of the overflow chain for THIS SAME batch: a failing/exhausted provider advances to the
-    // NEXT one in order, rather than stopping at the first pick. Without this, a one-batch backlog could trap
-    // on a dead first provider — its in-cycle `failed` flag resets on the next drain, so the rebuilt chain
-    // picks the same dead provider again and never reaches Mistral/OpenRouter (the drain just re-cycles
-    // news-deferred.json). The 4xx-exhaust below persists the skip across drains; this loop covers the
-    // non-terminal failures (429 / 5xx / network) that don't exhaust, by trying the rest in the same batch.
+    // The demoted local tier is the only caller left for this sequential segment. Finite cloud allowances
+    // are routed by the reset-clock quota selector below; local is unlimited and deliberately remains last.
     const walkOverflow = async (segment: typeof overflow) => {
       for (const ov of segment) {
+        if (deps.signal?.aborted) return
         // skip already-failed (this cycle), cross-cycle cooling-down, or out-of-budget providers
-        if (ov.failed || ov.coolingDown) continue
+        if (ov.failed || triageIsHeld(stateDir, ov.p.id, now().getTime())) continue
         const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: ov.p.maxAttempts }
         const perAttemptTokens = triageGroqTokenBound(batch, options)
         if (!hardCapAttempts(ov.budget, perAttemptTokens, ov.p.maxAttempts ?? 2)) continue
-        await ov.limiter.acquire(est, sleep, () => now().getTime())
+        const acquired = await ov.limiter.acquire(est, sleep, () => now().getTime(), undefined, deps.signal)
+        if (deps.signal?.aborted) return
+        if (!acquired) return
+        if (triageIsHeld(stateDir, ov.p.id, now().getTime())) continue
         const attempts = hardCapAttempts(ov.budget, perAttemptTokens, ov.p.maxAttempts ?? 2)
         const reservation = attempts > 0 ? ov.budget.tryReserve(perAttemptTokens * attempts, undefined, now().getTime(), attempts) : null
         if (!reservation) continue
+        const attemptStartedAt = now().getTime()
         // timeoutMs/maxAttempts: undefined for every provider except one that opts into a longer-than-generic
         // call guard (e.g. the local tier — see its OverflowProvider entry) — triageBatch's own defaults
         // (30_000ms, 2 attempts) apply exactly as before when omitted.
@@ -577,120 +761,320 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         }
         ov.requests += res.requests
         ov.tokens += res.tokens
+        addProviderCount(providerAttempts, ov.p.id, res.requests)
+        ov.limiter.learn(rateInfoForLimiter(res.rate, triageFailureIsProviderWide(res)), () => now().getTime())
         if (res.ok) {
-          if (ov.cooldownWasSet) clearCooldown(stateDir, ov.p.id) // recovered after a prior cycle's failure → drop the marker
+          addProviderCount(providerScoredBatches, ov.p.id, 1)
+          if (ov.cooldownWasSet) clearTriageCooldowns(stateDir, ov.p.id, attemptStartedAt) // do not erase a newer concurrent failure
           break // scored — stop walking the chain
         }
         ov.failed = true // skip this provider for the rest of the cycle so the batch can flow to the next
-        // a terminal 4xx (auth / out-of-credits / quota) won't recover today — exhaust its daily budget so it's
-        // skipped across cycles too (e.g. NVIDIA's finite credit pool running dry), until the daily reset.
-        if (/HTTP (400|401|402|403|404|413)/.test(res.note || '')) ov.budget.exhaust()
-        // not terminal (429 / 5xx / network): arm the CROSS-CYCLE cooldown so later cycles stop re-probing this
-        // provider (draining its small daily cap on failures), then fall through to the NEXT provider this batch.
-        // NOT when the cycle was ABORTED: the wall-clock guard cancels an in-flight call, which surfaces here as
-        // a generic failure even though the provider is perfectly healthy. Cooling it then strands a good tier in
-        // "cooling" for the whole window — the tier never actually failed, the cycle just ran out of time.
-        else if (!deps.signal?.aborted) armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, ov.p.id, cfg.llmCooldownMaxMs)
+        holdAfterTriageFailure({ stateDir, providerId: ov.p.id, result: res, at: now().getTime(), cooldownMs: ov.p.id === 'local' ? cfg.localCooldownMs : cfg.llmCooldownMs, cooldownMaxMs: ov.p.id === 'local' ? cfg.localCooldownMs : cfg.llmCooldownMaxMs, aborted: !!deps.signal?.aborted, budget: ov.budget })
+        if (deps.signal?.aborted) return
       }
     }
-    // Cloud overflow FIRST — everything except the local tier.
-    if (!res || !res.ok) await walkOverflow(overflowCloud)
-    if ((!res || !res.ok) && geminiOn) {
-      // first pool model with daily room that isn't failed-this-cycle or cross-cycle cooling down
-      const geminiOptions: TriageOptions = { model: '', baseUrl: cfg.geminiBaseUrl, apiKey: cfg.geminiApiKey, maxTokens: cfg.geminiMaxTokens }
-      const geminiAttemptTokenBound = triageGroqTokenBound(batch, geminiOptions)
-      const gemPick = geminiPool.find((g) => !g.failed && !g.coolingDown && hardCapAttempts(g.budget, geminiAttemptTokenBound, 2) > 0)
-      if (gemPick) {
-        await geminiLimiter!.acquire(est, sleep, () => now().getTime())
-        const attempts = hardCapAttempts(gemPick.budget, geminiAttemptTokenBound, 2)
-        const reservation = attempts > 0 ? gemPick.budget.tryReserve(geminiAttemptTokenBound * attempts, undefined, now().getTime(), attempts) : null
-        if (reservation) {
-          let geminiResult: TriageResult | undefined
-          try {
-            geminiResult = await triageBatchGemini(batch, { ...geminiOptions, model: gemPick.model, maxAttempts: attempts }, fetchFn, sleep)
-            res = geminiResult
-          } finally {
-            const charged = chargedAttemptTokens(geminiResult, geminiAttemptTokenBound)
-            gemPick.budget.reconcile(reservation, charged.requests, charged.tokens)
-          }
-          geminiRequests += res.requests
-          geminiTokens += res.tokens
-          geminiLimiter!.learn(res.rate, () => now().getTime())
-          if (res.ok) {
-            if (gemPick.cooldownWasSet) clearCooldown(stateDir, `gemini:${gemPick.model}`) // recovered → drop the marker
-          } else {
-            gemPick.failed = true // don't re-pick this model for the rest of THIS cycle (the intra-cycle burn fix)
-            if (/PerDay/i.test(res.note || '')) gemPick.budget.exhaust() // model's free day is spent → rotation skips it until midnight PT
-            // transient → cross-cycle backoff, but NOT on a cycle abort (see the overflow loop above: an aborted
-            // in-flight call is not a provider failure, and cooling on it strands a healthy Gemini model).
-            else if (!deps.signal?.aborted) armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, `gemini:${gemPick.model}`, cfg.llmCooldownMaxMs)
-          }
+
+    // FINITE FREE CAPACITY POOL. The old fixed walk always started at Cerebras, then Mistral, then
+    // OpenRouter/NVIDIA, and only then Gemini. That is priority, not utilization: early tiers consumed or
+    // failed repeatedly while later allowances sat untouched. Build the exact one-call admission for every
+    // finite tier, release each against its provider-day clock, and select the tier furthest behind target.
+    // One provider call per selection is deliberate: on failure the SAME batch immediately moves to another
+    // tier instead of spending a second scarce request retrying the first.
+    type OverflowRoute = DailyQuotaCandidate & {
+      kind: 'overflow'
+      ov: (typeof overflowCloud)[number]
+      options: TriageOptions
+      perAttemptTokens: number
+      otherHardFit: boolean
+    }
+    type GeminiRoute = DailyQuotaCandidate & {
+      kind: 'gemini'
+      gem: (typeof geminiPool)[number]
+      options: TriageOptions
+      perAttemptTokens: number
+      otherHardFit: boolean
+    }
+    type FreePoolRoute = OverflowRoute | GeminiRoute
+    const freePoolRoutes = (): FreePoolRoute[] => {
+      const routes: FreePoolRoute[] = overflowCloud.map((ov, priority) => {
+        const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: 1, requestRemainingHeaderIsDaily: ov.p.requestRemainingHeaderIsDaily }
+        const perAttemptTokens = triageGroqTokenBound(batch, options)
+        const tokenMeter = ov.p.dailyTokenCap != null
+        return {
+          kind: 'overflow' as const,
+          id: ov.p.id,
+          meter: tokenMeter ? 'tokens' as const : 'requests' as const,
+          used: tokenMeter ? ov.budget.tokens : ov.budget.requests,
+          cap: tokenMeter ? ov.p.dailyTokenCap! : ov.p.dailyReqCap,
+          cost: tokenMeter ? perAttemptTokens : 1,
+          resetTimeZone: ov.p.dayTz,
+          floorFraction: ov.p.paceFloorFrac ?? cfg.freeProviderPaceFloorFrac,
+          priority,
+          ov,
+          options,
+          perAttemptTokens,
+          otherHardFit: ov.budget.canSpend(perAttemptTokens, 1),
         }
+      })
+      if (geminiOn) {
+        for (let index = 0; index < geminiPool.length; index++) {
+          const gem = geminiPool[index]
+          const options: TriageOptions = { model: gem.model, baseUrl: cfg.geminiBaseUrl, apiKey: cfg.geminiApiKey, maxTokens: cfg.geminiMaxTokens, maxAttempts: 1 }
+          const perAttemptTokens = triageGroqTokenBound(batch, options)
+          routes.push({
+            kind: 'gemini', id: `gemini:${gem.model}`, meter: 'requests',
+            used: gem.budget.requests, cap: cfg.geminiModels[index].dailyReqCap, cost: 1,
+            resetTimeZone: cfg.geminiDayTz, floorFraction: cfg.freeProviderPaceFloorFrac,
+            priority: overflowCloud.length + index, gem, options, perAttemptTokens,
+            otherHardFit: gem.budget.canSpend(perAttemptTokens, 1),
+          })
+        }
+      }
+      return routes
+    }
+    if (!res || !res.ok) {
+      // A failed atomic reservation is an admission failure for this batch, not evidence that the provider
+      // itself is unhealthy. Exclude only this route from the current selection loop so a broken/busy ledger
+      // cannot be picked forever and starve healthy later allowances; the next batch may safely re-probe it.
+      const reservationUnavailable = new Set<string>()
+      while (true) {
+        const routes = freePoolRoutes()
+        const available = routes.filter((route) => !reservationUnavailable.has(route.id) && route.otherHardFit && (
+          route.kind === 'overflow'
+            ? !route.ov.failed && !triageIsHeld(stateDir, route.ov.p.id, now().getTime())
+            : !route.gem.failed && !triageIsHeld(stateDir, route.id, now().getTime())
+        ))
+        const pick = selectDailyQuotaCandidate(available, now().getTime()) as FreePoolRoute | null
+        if (!pick) break
+        if (pick.kind === 'overflow') {
+          const { ov } = pick
+          const acquired = await ov.limiter.acquire(est, sleep, () => now().getTime(), undefined, deps.signal)
+          if (stopAbortedBatch()) break batchLoop
+          if (!acquired) continue
+          if (triageIsHeld(stateDir, ov.p.id, now().getTime())) { reservationUnavailable.add(pick.id); continue }
+          const refreshedAdmission = dailyQuotaAdmission({
+            ...pick,
+            used: pick.meter === 'tokens' ? ov.budget.tokens : ov.budget.requests,
+          }, now().getTime())
+          if (!refreshedAdmission.pacedFit || !ov.budget.canSpend(pick.perAttemptTokens, 1)) continue
+          const reservation = ov.budget.tryReserve(pick.perAttemptTokens, undefined, now().getTime(), 1)
+          if (!reservation) { reservationUnavailable.add(pick.id); continue }
+          const attemptStartedAt = now().getTime()
+          let result: TriageResult | undefined
+          try {
+            result = await triageBatch(batch, pick.options, fetchFn, sleep)
+            res = result
+          } finally {
+            const charged = chargedAttemptTokens(result, pick.perAttemptTokens)
+            ov.budget.reconcile(reservation, charged.requests, charged.tokens)
+          }
+          ov.requests += res.requests
+          ov.tokens += res.tokens
+          addProviderCount(providerAttempts, ov.p.id, res.requests)
+          ov.limiter.learn(rateInfoForLimiter(res.rate, triageFailureIsProviderWide(res)), () => now().getTime())
+          if (res.ok) {
+            addProviderCount(providerScoredBatches, ov.p.id, 1)
+            if (ov.cooldownWasSet) clearTriageCooldowns(stateDir, ov.p.id, attemptStartedAt)
+            break
+          }
+          ov.failed = true
+          holdAfterTriageFailure({ stateDir, providerId: ov.p.id, result: res, at: now().getTime(), cooldownMs: cfg.llmCooldownMs, cooldownMaxMs: cfg.llmCooldownMaxMs, aborted: !!deps.signal?.aborted, budget: ov.budget })
+          if (stopAbortedBatch()) break batchLoop
+          continue
+        }
+
+        const { gem } = pick
+        const acquired = await geminiLimiter!.acquire(est, sleep, () => now().getTime(), undefined, deps.signal)
+        if (stopAbortedBatch()) break batchLoop
+        if (!acquired) continue
+        if (triageIsHeld(stateDir, pick.id, now().getTime())) { reservationUnavailable.add(pick.id); continue }
+        const refreshedAdmission = dailyQuotaAdmission({ ...pick, used: gem.budget.requests }, now().getTime())
+        if (!refreshedAdmission.pacedFit || !gem.budget.canSpend(pick.perAttemptTokens, 1)) continue
+        const reservation = gem.budget.tryReserve(pick.perAttemptTokens, undefined, now().getTime(), 1)
+        if (!reservation) { reservationUnavailable.add(pick.id); continue }
+        const attemptStartedAt = now().getTime()
+        let result: TriageResult | undefined
+        try {
+          result = await triageBatchGemini(batch, pick.options, fetchFn, sleep)
+          res = result
+        } finally {
+          const charged = chargedAttemptTokens(result, pick.perAttemptTokens)
+          gem.budget.reconcile(reservation, charged.requests, charged.tokens)
+        }
+        geminiRequests += res.requests
+        geminiTokens += res.tokens
+        addProviderCount(providerAttempts, 'gemini', res.requests)
+        geminiLimiter!.learn(rateInfoForLimiter(res.rate, triageFailureIsProviderWide(res)), () => now().getTime())
+        if (res.ok) {
+          addProviderCount(providerScoredBatches, 'gemini', 1)
+          if (gem.cooldownWasSet) clearTriageCooldowns(stateDir, pick.id, attemptStartedAt)
+          break
+        }
+        gem.failed = true
+        holdAfterTriageFailure({ stateDir, providerId: pick.id, result: res, at: now().getTime(), cooldownMs: cfg.llmCooldownMs, cooldownMaxMs: cfg.llmCooldownMaxMs, aborted: !!deps.signal?.aborted, budget: gem.budget })
+        if (stopAbortedBatch()) break batchLoop
       }
     }
     // LOCAL LAST: a demoted local tier is unlimited but slow, so it only gets the batch once Gemini has passed.
     if (!res || !res.ok) await walkOverflow(overflowLocal)
+    if (stopAbortedBatch()) break batchLoop
     // LAST-RESORT: every free brain is paced/capped/cooling/failed for this batch → score it on Claude Haiku
     // (the host's subscription by default) rather than deferring and risking the 1,000-cap drop under
     // sustained overload. This is what keeps RECENCY: the item is scored now, not next reset. Gated: enabled
     // + not-already-failed-this-cycle + not cross-cycle cooling + daily $ ceiling not reached + the batch's
     // lead item clears the priority floor. The queue is priority-sorted, so batch[0] is this batch's most
     // material item — gating on it spends the scarce budget on what matters first.
+    const anthropicCallBoundUsd = cfg.anthropicFallbackMode === 'subscription'
+      ? Math.max(0, cfg.anthropicPerCallUsd)
+      : conservativeChatUsdBound(
+          SYSTEM,
+          buildUserMessage(batch),
+          cfg.anthropicMaxTokens,
+          cfg.anthropicInPricePerMTok,
+          cfg.anthropicOutPricePerMTok,
+        )
+    const anthropicCanReserve = !!anthropicBudget?.canSpend(anthropicCallBoundUsd)
+    const anthropicLedgerAvailable = !anthropicLedgerUnavailable()
+    if (!anthropicLedgerAvailable) usageLedgerUnavailable = true
+    else if (anthropicOn && !anthropicCanReserve) anthropicBudgetBlocked = true
     if (
-      (!res || !res.ok) && anthropicOn && !anthropicDownThisCycle && !anthropicCoolingDown &&
-      anthropicBudget!.canSpend() && preTriagePriority(batch[0], nowDate) >= cfg.anthropicMinPriority
+      (!res || !res.ok) && anthropicOn && !anthropicDownThisCycle && !triageIsHeld(stateDir, 'anthropic-triage', now().getTime()) &&
+      anthropicCanReserve && preTriagePriority(batch[0], nowDate) >= cfg.anthropicMinPriority
     ) {
-      await anthropicLimiter!.acquire(est, sleep, () => now().getTime())
+      const acquired = await anthropicLimiter!.acquire(est, sleep, () => now().getTime(), undefined, deps.signal)
+      if (stopAbortedBatch()) break batchLoop
+      if (!acquired) continue
+      if (triageIsHeld(stateDir, 'anthropic-triage', now().getTime())) {
+        providerRetryHeld = true
+        deferred.push(...items.slice(i))
+        break batchLoop
+      }
+      // The subscription adapter may make one bounded retry when the first exact response is unusable.
+      // Reserve both possible calls atomically when the day still has room. Near the ceiling, keep the
+      // useful one-call fallback instead of refusing the tier altogether. The USD ledger's `calls` value
+      // remains one logical triage batch; the reserved dollar envelope is what bounds provider attempts.
+      let subscriptionMaxAttempts = 1
+      let usdReservation = cfg.anthropicFallbackMode === 'subscription'
+        ? anthropicBudget!.tryReserve(anthropicCallBoundUsd * 2, now().getTime(), 2)
+        : null
+      if (usdReservation) subscriptionMaxAttempts = 2
+      // Retry a smaller envelope only when the two-call estimate genuinely did not fit. A busy/corrupt
+      // authority must not be polled again until its lock releases and then mistaken for fresh permission.
+      else if (anthropicBudget!.lastReserveFailure !== 'authority_unavailable') {
+        usdReservation = anthropicBudget!.tryReserve(anthropicCallBoundUsd, now().getTime(), 1)
+      }
+      // Another server process may have reserved the last dollars after our unlocked routing hint. The
+      // locked reservation is authoritative; without it no paid/subscription provider I/O may start.
+      if (!usdReservation) {
+        usageLedgerUnavailable = usageLedgerUnavailable
+          || configuredFreeLedgerUnavailable()
+          || anthropicLedgerUnavailable()
+        if (!usageLedgerUnavailable) budgetHit = true
+        deferred.push(...items.slice(i))
+        break batchLoop
+      }
+      const attemptStartedAt = now().getTime()
       const ar = cfg.anthropicFallbackMode === 'subscription'
-        ? await triageBatchClaudeCli(batch, { model: cfg.anthropicModel, timeoutMs: cfg.anthropicTimeoutMs, budgetUsd: cfg.anthropicPerCallUsd, budgetRemainingUsd: anthropicBudget!.remaining(), signal: deps.signal }, deps.claudeCliRunner)
+        ? await triageBatchClaudeCli(batch, {
+            model: cfg.anthropicModel,
+            timeoutMs: cfg.anthropicTimeoutMs,
+            budgetUsd: cfg.anthropicPerCallUsd,
+            budgetRemainingUsd: usdReservation.usd,
+            maxAttempts: subscriptionMaxAttempts,
+            signal: deps.signal,
+            beforeRetry: subscriptionMaxAttempts > 1
+              ? async () => {
+                  const acquired = await anthropicLimiter!.acquire(est, sleep, () => now().getTime(), undefined, deps.signal)
+                  return acquired && !triageIsHeld(stateDir, 'anthropic-triage', now().getTime())
+                }
+              : undefined,
+          }, deps.claudeCliRunner)
         : await triageBatchAnthropic(
             batch,
-            { model: cfg.anthropicApiModel, baseUrl: cfg.anthropicBaseUrl, apiKey: cfg.anthropicApiKey, maxTokens: cfg.anthropicMaxTokens, inPricePerMTok: cfg.anthropicInPricePerMTok, outPricePerMTok: cfg.anthropicOutPricePerMTok },
+            { model: cfg.anthropicApiModel, baseUrl: cfg.anthropicBaseUrl, apiKey: cfg.anthropicApiKey, maxTokens: cfg.anthropicMaxTokens, inPricePerMTok: cfg.anthropicInPricePerMTok, outPricePerMTok: cfg.anthropicOutPricePerMTok, maxAttempts: 1, signal: deps.signal },
             fetchFn,
             sleep,
           )
       res = ar
       anthropicRequests += ar.requests
       anthropicTokens += ar.tokens
-      anthropicCostUsd += ar.costUsd
-      anthropicBudget!.record(ar.costUsd) // the $ ledger meters on what the call actually reported
-      anthropicLimiter!.learn(ar.rate, () => now().getTime())
+      // A paid API/CLI dispatch is not free merely because the response omitted usage or the socket/parent
+      // aborted before usage arrived. Keep one conservative per-call bound for each proven dispatch, while
+      // releasing any reserved retry that never ran. Use actual cost only when the provider reported it.
+      const reconciledAnthropicUsd = ar.requests <= 0
+        ? 0
+        : ar.costUsdKnown === true
+          ? ar.costUsd
+          : Math.min(usdReservation.usd, ar.requests * anthropicCallBoundUsd)
+      anthropicCostUsd += reconciledAnthropicUsd
+      addProviderCount(providerAttempts, 'anthropic-triage', ar.requests)
+      anthropicBudget!.reconcile(usdReservation, reconciledAnthropicUsd, ar.requests)
+      anthropicLimiter!.learn(rateInfoForLimiter(ar.rate, triageFailureIsProviderWide(ar)), () => now().getTime())
       if (ar.ok) {
-        if (anthropicCooldownWasSet) clearCooldown(stateDir, 'anthropic-triage') // recovered → drop the marker
-      } else {
+        addProviderCount(providerScoredBatches, 'anthropic-triage', 1)
+        if (anthropicCooldownWasSet) clearTriageCooldowns(stateDir, 'anthropic-triage', attemptStartedAt) // do not erase a newer concurrent failure
+      } else if (!deps.signal?.aborted) {
         anthropicDownThisCycle = true // bad cycle → skip this tier for the rest of it (don't burn the budget)
         anthropicFailNote = ar.note || '' // keep the reason so the cycle note can say plan-quota vs a transient error
-        // FOUR failure classes, four responses — because this is the LAST line of defence and its cooldown
-        // must fit the actual cause (all keep the same 'anthropic-triage' marker id, so the diagnostics + the
-        // drain's anthropicHasHeadroom read it unchanged):
-        //   1. an EXPIRED SIGN-IN (HTTP 401 / "authenticate"), SUBSCRIPTION MODE ONLY — checked FIRST, because
-        //      the terminal-4xx regex below also matches 401 and used to swallow it. It is not terminal at all:
-        //      `claude login` on the host fixes it in seconds. Treating it as terminal did real damage —
-        //      exhaust() force-marks the day's $ ledger as fully spent, so (a) the tier stayed dark until the
-        //      UTC rollover even after the sign-in was repaired, and (b) the cockpit reported the whole daily
-        //      ceiling as SPENT when the failing calls cost $0. So: the SHORT flat cooldown instead, tagged
-        //      with its reason. The tier then re-probes ~once a drain and resumes on its own within one drain
-        //      of the operator signing back in — and the $0 it actually spent stays $0. Gated to subscription
-        //      mode: in api mode a 401 means a bad/revoked API key, which `claude login` cannot fix and which
-        //      genuinely IS terminal — that falls through to branch 2 below.
-        //   2. terminal 4xx (api mode: bad/expired/revoked key, or no credits) — won't recover today → exhaust
-        //      the day's ledger.
-        //   3. real plan-quota ("usage limit reached" — the plan's 5-hour/weekly pool is spent) → the LONG
-        //      exponential backoff, so later cycles wait for the plan to reset instead of re-spawning the CLI.
-        //   4. a TRANSIENT blip (timeout / rate-limit / one-off non-JSON, after the adapter's own in-call
-        //      retry already failed) → a SHORT, FLAT cooldown (base==max flattens the exponential to a
-        //      constant), so the paid tier re-probes ~once a drain and keeps draining the backlog rather than
-        //      going dark for up to an hour while data drops past the cap.
-        if (cfg.anthropicFallbackMode === 'subscription' && isAuthExpiredNote(ar.note || '')) armCooldown(stateDir, now().getTime(), cfg.anthropicTransientCooldownMs, 'anthropic-triage', cfg.anthropicTransientCooldownMs, 'auth-expired')
+        if (cfg.anthropicFallbackMode === 'api') {
+          // API failures use the same typed reason router as every free provider. 429/503/access evidence is
+          // provider-wide; request/contract/attempt-timeout failures stay on the Anthropic-triage workload.
+          // Retry-After is an exact flat clock in either scope. Critically, a generic 429/4xx does NOT spend
+          // the durable $ day — only the adapter's explicit dailyLimit signal is allowed to close that ledger.
+          if (ar.dailyLimit) anthropicBudget!.exhaust()
+          else {
+            const providerWide = triageFailureIsProviderWide(ar)
+            holdAfterTriageFailure({
+              stateDir, providerId: 'anthropic-triage', result: ar, at: now().getTime(),
+              cooldownMs: providerWide ? cfg.llmCooldownMs : cfg.anthropicTransientCooldownMs,
+              cooldownMaxMs: providerWide ? cfg.llmCooldownMaxMs : cfg.anthropicTransientCooldownMs,
+              aborted: false,
+            })
+          }
+        // Subscription CLI failures have no typed HTTP response. Keep its purpose-built sign-in/plan-quota
+        // policy: recoverable sign-in and transient/contract failures re-probe quickly, while an explicit
+        // plan quota waits on the long breaker. Other terminal CLI API errors retain the legacy day stop.
+        } else if (isAuthExpiredNote(ar.note || '')) armCooldown(stateDir, now().getTime(), cfg.anthropicTransientCooldownMs, 'anthropic-triage', cfg.anthropicTransientCooldownMs, 'auth-expired')
         else if (isTerminalApiNote(ar.note || '')) anthropicBudget!.exhaust()
         else if (isPlanQuotaNote(ar.note || '')) armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, 'anthropic-triage', cfg.llmCooldownMaxMs)
         else armCooldown(stateDir, now().getTime(), cfg.anthropicTransientCooldownMs, 'anthropic-triage', cfg.anthropicTransientCooldownMs)
       }
+      if (stopAbortedBatch()) break batchLoop
     }
     if (!res) {
-      // NOTHING was attempted: Groq capped/paced AND no overflow or Gemini has daily room left → all out.
-      budgetHit = !budget.canSpend(est)
-      paceHit = !budgetHit
+      // NOTHING was attempted. Distinguish three states that the old `!budget.canSpend(est)` collapsed:
+      // configured allowance genuinely cannot fit a call; allowance exists but is clock-paced; or allowance
+      // is released but an engine retry hold is protecting it after an error. This is operator truth, and it
+      // stops "every quota spent" appearing while OpenRouter/NVIDIA/Gemini still have unused allowance.
+      const routes = freePoolRoutes()
+      const routeState = routes.map((route) => ({
+        route,
+        admission: dailyQuotaAdmission(route, now().getTime()),
+        blocked: route.kind === 'overflow'
+          ? route.ov.failed || triageIsHeld(stateDir, route.ov.p.id, now().getTime())
+          : route.gem.failed || triageIsHeld(stateDir, route.id, now().getTime()),
+      }))
+      const groqHard = !!cfg.groqApiKey && budget.canSpend(groqAttemptTokenBound, 1)
+      const groqReleased = groqOk
+      const groqBlocked = groqDownThisCycle || triageIsHeld(stateDir, 'groq', now().getTime())
+      const localPrimaryHard = !!localProvider && localBudget!.canSpend(triageGroqTokenBound(batch, { model: localProvider.model, baseUrl: localProvider.baseUrl, apiKey: localProvider.apiKey, maxTokens: localProvider.maxTokens }), 1)
+      const localPrimaryBlocked = localPrimaryHard && (localDownThisCycle || triageIsHeld(stateDir, 'local', now().getTime()))
+      const localFallbackHard = overflowLocal.some((ov) => ov.budget.canSpend(triageGroqTokenBound(batch, { model: ov.p.model, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens }), 1))
+      const localFallbackBlocked = localFallbackHard && overflowLocal.every((ov) => ov.failed || triageIsHeld(stateDir, ov.p.id, now().getTime()))
+      const anyHard = groqHard || localPrimaryHard || localFallbackHard || routeState.some(({ route, admission }) => route.otherHardFit && admission.hardCapFit)
+      const anyReleased = groqReleased || localPrimaryHard || localFallbackHard || routeState.some(({ route, admission }) => route.otherHardFit && admission.pacedFit)
+      const anyRetryBlock = (groqReleased && groqBlocked) || localPrimaryBlocked || localFallbackBlocked || routeState.some(({ route, admission, blocked }) => route.otherHardFit && admission.pacedFit && blocked)
+      providerRetryHeld = anyReleased && anyRetryBlock
+      paceHit = !providerRetryHeld && anyHard && !anyReleased
+      usageLedgerUnavailable = usageLedgerUnavailable
+        || configuredFreeLedgerUnavailable()
+        || anthropicLedgerUnavailable()
+      const anyProviderDayLimit = (!!cfg.groqApiKey && budget.providerDayExhausted)
+        || Boolean(localBudget?.providerDayExhausted)
+        || overflow.some((ov) => ov.budget.providerDayExhausted)
+        || geminiPool.some((gem) => gem.budget.providerDayExhausted)
+      providerDayLimitHit = !usageLedgerUnavailable && !anyHard && anyProviderDayLimit
+      budgetHit = !usageLedgerUnavailable && !anyHard && !providerDayLimitHit
       deferred.push(...items.slice(i)) // everything from here on waits for the next cycle / drain
       break
     }
@@ -725,7 +1109,6 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       const caution = it.caution === true
       const cappedScore = capSocialScore(ranked.rank_score, ranked.rank_factors.source_tier_id, cfg.pickThreshold, cfg.watchThreshold, caution)
       const band = capSocialBand(scoreToBand(cappedScore, cfg.pickThreshold, cfg.watchThreshold), ranked.rank_factors.source_tier_id, caution)
-      seen.add(it.event_id, score)
       // English translation of a non-English headline — kept for a non-Latin original OR a model-named
       // non-English source language (news/lang.ts pickTranslation); else null → the UI shows the original.
       const headline_en = pickTranslation(it.headline, t?.headline_en, t?.headline_lang)
@@ -764,8 +1147,10 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   for (const g of geminiPool) g.budget.save()
   for (const o of overflow) o.budget.save()
   if (anthropicBudget) anthropicBudget.save()
-  seen.save()
-  const deferredPersisted = saveDeferred(stateDir, deferred, log)
+  // Journal every scored row alongside the true deferred tail BEFORE any inbox/feed projection. A failed
+  // atomic inbox rename or process crash can then retry one-shot source rows; successful projection removes
+  // these temporary safety entries below. Seen is deliberately not persisted until projection succeeds.
+  let deferredPersisted = saveDeferred(stateDir, [...triaged, ...deferred], log)
 
   // 3b. DEDUP — micro-cluster this cycle's items against the recent firehose into STORIES (finer than
   // themes), so the firehose line + the SSE event each carry a stable story-cluster id and the wire
@@ -862,6 +1247,12 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const written = appendFeedItems(repoRoot, date, feedItems, cfg.feedItemsDailyCap)
   if (written) invalidateFacets() // a fresh cycle changed the archive — drop the facet index so new items/countries show up before the TTL
   for (const fi of feedItems.slice(0, written)) newsBus.emit({ type: 'news-item', item: fi })
+  // A kept row now has a durable inbox projection; a dropped row has its durable firehose audit record.
+  // Only now may the optimization cache suppress a future source delivery. If any write above throws, the
+  // safety backlog remains and the item is neither seen nor silently lost.
+  for (const t of triaged) seen.add(t.event_id, t.materiality_pre_score)
+  seen.save()
+  deferredPersisted = saveDeferred(stateDir, deferred, log)
   // Optional neural index. It runs only when explicitly configured, only over newly persisted items, and
   // is fully fail-open: provider trouble can never block the wire or turn an item into a false non-match.
   if (written && cfg.retrievalEmbeddingEnabled) {
@@ -915,13 +1306,15 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     : anthropicCooldownReason === 'auth-expired'
   const lastResort: CycleSummary['last_resort'] = !anthropicOn
     ? 'off'
-    : anthropicCoolingDown || anthropicDownThisCycle
-      ? (planQuotaHit ? 'plan-quota' : authExpiredHit ? 'auth-expired' : 'cooling')
-      : !anthropicBudget?.canSpend()
-        ? 'usd-cap'
-        : anthropicRequests > 0
-          ? 'scored'
-          : 'available'
+    : anthropicLedgerUnavailable()
+      ? 'unavailable'
+      : triageIsHeld(stateDir, 'anthropic-triage', now().getTime()) || anthropicDownThisCycle
+        ? (planQuotaHit ? 'plan-quota' : authExpiredHit ? 'auth-expired' : 'cooling')
+        : anthropicBudgetBlocked || !anthropicBudget?.canSpend()
+          ? 'usd-cap'
+          : anthropicRequests > 0
+            ? 'scored'
+            : 'available'
   // When items deferred, name the LAST-RESORT tier's state too, so a defer note can't read as if Groq were
   // the only blocker. Added only when the tier genuinely could NOT absorb the spillover (never for
   // 'scored'/'available', which weren't the reason anything deferred).
@@ -929,15 +1322,17 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     ? ''
     : lastResort === 'off'
       ? ' · Haiku last-resort is off'
-      : lastResort === 'usd-cap'
-        ? ` · Haiku last-resort at its $${cfg.anthropicDailyUsd}/day ceiling`
-        : lastResort === 'plan-quota'
-          ? ' · Haiku last-resort paused — Claude plan quota spent, waiting for it to reset'
-          : lastResort === 'auth-expired'
-            ? " · Haiku last-resort paused — the engine's Claude sign-in has expired; run `claude login` on the engine host and it resumes on the next look"
-            : lastResort === 'cooling'
-              ? ' · Haiku last-resort backing off after an error'
-              : ''
+      : lastResort === 'unavailable'
+        ? ' · Haiku last-resort usage record needs attention'
+        : lastResort === 'usd-cap'
+          ? ` · Haiku last-resort at its $${cfg.anthropicDailyUsd}/day ceiling`
+          : lastResort === 'plan-quota'
+            ? ' · Haiku last-resort paused — Claude plan quota spent, waiting for it to reset'
+            : lastResort === 'auth-expired'
+              ? " · Haiku last-resort paused — the engine's Claude sign-in has expired; run `claude login` on the engine host and it resumes on the next look"
+              : lastResort === 'cooling'
+                ? ' · Haiku last-resort backing off after an error'
+                : ''
 
   const defCount = deferred.length
   const defPlural = defCount === 1 ? '' : 's'
@@ -952,19 +1347,19 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   }
   const baseNote = aborted && defCount
     ? `cycle hit its time guard — ${defCount} item${defPlural} dumped to the backlog for the next look${lastResortClause}`
-    : budgetHit
-      ? `free-tier daily LLM budget reached — ${defCount} item${defPlural} deferred; they clear when the daily quotas reset${lastResortClause}`
-      : groqCoolingDown && defCount
-        // A prior cycle failed and armed the cross-cycle cooldown; we skipped Groq this cycle and had no
-        // overflow room. Say so honestly (and name the fallback's state) — otherwise this reads as the
-        // "paced for the day" note below, wrongly implying a healthy budget being spread rather than a Groq
-        // outage being ridden out with the paid fallback also tapped.
-        ? `Groq in failure cooldown — ${defCount} item${defPlural} deferred (protecting the daily request cap after a Groq outage)${lastResortClause}`
-        : paceHit
-          ? `paced for the day — ${defCount} item${defPlural} held for the next drain (spreading the budget evenly)${lastResortClause}`
-          : batchFailed
-            ? `${defCount} item${defPlural} not scored (LLM hiccup) — deferred to next cycle${lastResortClause}`
-            : undefined
+    : usageLedgerUnavailable
+      ? `one or more provider usage records need attention — ${defCount} item${defPlural} deferred; no allowance or quota exhaustion is claimed${lastResortClause}`
+      : providerDayLimitHit
+        ? `one or more free providers reported their day limit and no other scoring tier could fit — ${defCount} item${defPlural} deferred until provider-day reset${lastResortClause}`
+        : budgetHit
+          ? `configured free-tier engine allowances cannot fit another safe batch — ${defCount} item${defPlural} deferred until their provider-day reset${lastResortClause}`
+          : providerRetryHeld && defCount
+            ? `provider retries held after errors — ${defCount} item${defPlural} deferred until the next eligible retry window${lastResortClause}`
+            : paceHit
+              ? `engine allowances paced for the day — ${defCount} item${defPlural} held for the next drain so every usable tier lasts to its reset${lastResortClause}`
+              : batchFailed
+                ? `${defCount} item${defPlural} not scored (LLM hiccup) — deferred to next cycle${lastResortClause}`
+                : undefined
   // Append the honest loss clause so a defer note never reads as if everything was merely postponed when part
   // of it was actually dropped (the reported "clears when quotas reset" is false for the lost tail).
   const coreNote = droppedAtCap > 0
@@ -982,15 +1377,19 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     ? undefined
     : aborted
       ? 'aborted'
-      : budgetHit
-        ? 'free-budget-spent'
-        : groqCoolingDown
-          ? 'groq-cooldown'
-          : paceHit
-            ? 'paced'
-            : batchFailed
-              ? 'batch-failed'
-              : undefined
+      : usageLedgerUnavailable
+        ? 'usage-ledger-unavailable'
+        : providerDayLimitHit
+          ? 'provider-day-limit'
+          : budgetHit
+            ? 'free-budget-spent'
+            : providerRetryHeld
+              ? 'provider-retry-held'
+              : paceHit
+                ? 'allowance-paced'
+                : batchFailed
+                  ? 'batch-failed'
+                  : undefined
 
   const summary: CycleSummary = {
     ts, ok: true, fetched: raws.length, candidates: items.length,
@@ -1010,6 +1409,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     ...(geminiRequests ? { gemini_requests: geminiRequests, gemini_tokens: geminiTokens } : {}),
     ...(overflowReq ? { overflow_requests: overflowReq, overflow_tokens: overflowTok } : {}),
     ...(anthropicRequests ? { anthropic_requests: anthropicRequests, anthropic_tokens: anthropicTokens, anthropic_cost_usd: Math.round(anthropicCostUsd * 10_000) / 10_000 } : {}),
+    ...(Object.keys(providerAttempts).length ? { provider_attempts: providerAttempts } : {}),
+    ...(Object.keys(providerScoredBatches).length ? { provider_scored_batches: providerScoredBatches } : {}),
     ...(sources ? { sources } : {}),
     phase,
     note,
@@ -1020,6 +1421,6 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
 
   // 5. THEMES — bucket material items and run the same maintenance clock used by quiet cycles. Fully
   // guarded so a themes bug can never block or corrupt the core wire.
-  await runThemesStage({ cfg, repoRoot, stateDir, picks, fetchFn, now, log, revisionClocksByEvent })
+  await runThemesStage({ cfg, repoRoot, stateDir, picks, fetchFn, now, log, signal: deps.signal, revisionClocksByEvent })
   return summary
 }

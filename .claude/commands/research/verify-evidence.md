@@ -109,6 +109,12 @@ Re-derive and tie out the key quantities from the raw statements and module numb
 - the **scenario block** (§8/§14 of the thesis): probabilities sum to 100%; `expected return = Σ(prob × scenario return)`; probability-weighted target price; expected return reconciles from `(target − price)/price`; `risk/reward = (target − price)/(price − bear)`;
 - **currency / FX sanity (§15/§27).** For any figure converted from a foreign currency, the implied rate must match THAT currency's period rate — flag a EUR amount carried at the USD rate, or any conversion whose implied rate is off the stated currency's spot by a wide margin (rough anchors: EUR≈₹110, USD≈₹86, GBP≈₹130). When the filing itself states the home-currency (reporting-currency) equivalent of a foreign amount, that filed figure is canonical: a module-derived number that diverges from it is `miscited` / `high`. (The IVECO case — the filing states *"₹41,691 crore (€3.8 billion)"*, yet a module re-converted €3.8bn at the USD rate to ₹34,000 cr, understating the deal by ~₹7,700 cr.)
 
+- **matched-basis ratios (§15).** For every ratio quoted anywhere in the thesis or a module synthesis, check the top and the bottom are measured the same way — the same period basis (point-in-time / period-average / period-peak / cumulative) and the same definitional scope. The recurring break: a **maximum daily balance** or an **approved annual cap** divided by a **year-end** balance, published as a clean "X% of cash". Where both bases are labelled inline and a matched version is given, that is a pass; a clean percentage over a hidden basis mismatch is `high`, and `critical` where the ratio was then used as a monitoring or kill threshold (a threshold you cannot measure the same way twice cannot fire).
+- **itemised aggregates (§15).** For every headline total built from parts — off-balance-sheet financing, related-party exposure, contingent liabilities, a cost bridge — check the components and their sum appear alongside the total *at every layer that quotes it*, not only in the sub-agent that computed it, and that the parts are the same kind of thing. A drawn balance summed with an undrawn facility limit, or an asset-side derecognition summed with a liability-side programme size, is a mixed-basis aggregate: `medium` if labelled, `high` if presented as one clean exposure. A total the reader cannot rebuild from what the report shows is `high`.
+- **period-basis of any beat/miss bar (§27).** Where the thesis states a consensus bar for an upcoming print, check it is on the basis the company will actually file. Divide the stated bar by the already-reported stub inside the same period: for a half-year filing with one quarter reported, the ratio should be roughly 2, not roughly 1. (For EPS, particularly a negative or near-zero bar, the ratio is unstable — verify the restatement arithmetic directly, `stub + standalone ≈ restated bar`, instead of relying on it, exactly as `earnings/04` §1A directs.) A standalone-quarter estimate carried as the bar for a cumulative (half-year / nine-month) filing is `critical` — it is wrong by the size of the stub and it propagates into the risk register, the kill criteria, and the forecast ledger.
+- **cost-of-capital reality (§16).** Where a DCF or reverse-DCF drives a published value, check the discount rate against the company's own disclosed rate (impairment / lease / pension notes — search the corpus for it) and the market-implied rate. A model WACC more than ~3pp below the company's own disclosed rate, or below ~two-thirds of the market-implied rate, with no stated escalation branch taken, is `high`.
+- **quality-haircut double count (§16).** Where a peer multiple was adjusted, check the adjustment is not charging a gap the multiple's denominator already carries. A margin haircut applied to EV/EBITDA, EV/EBIT, P/E, or P/FCF — and above all one sized as `own margin ÷ peer margin` — is a double count: `high`, and `critical` where that method carries the majority weight in the base-case fair value.
+
 For each: `quantity`, `reported`, `recomputed`, `ties` (bool, within a small rounding tolerance), `detail`. A broken scenario-math, or a net-debt / EV bridge that does not tie, is `high`/`critical`. If current price is `null`/indicative, mark return-based checks "not assessable (no pool price)" rather than failing them.
 
 ## 4. Section C — Cross-module anchor reconciliation
@@ -124,6 +130,20 @@ Extract the shared anchors from each module synthesis + the final thesis + the d
 For each anchor: `values_by_module` (object: module → value), `consistent` (bool), `detail`. Flag any divergence beyond rounding, naming the conflicting values and their sources. Compare net debt like-for-like on the same §15 basis: a labelled strict-vs-broad pair is not a divergence; two unlabelled mismatched figures, or a basis switch with no label, is. (Identical anchors across modules are a pass; a quietly contradictory dossier is exactly what this section exists to catch.)
 
 Two anchors fail most often and get a HARD assertion: **(a) strict net debt** = `total debt − cash & equivalents` ONLY (§15; the strict net-*cash* figure is just its negation, `cash − total debt`, positive when cash exceeds debt — keep the §15 sign, do not flip it) — flag as a mislabel any figure tagged *"strict"* that nets in deposits or short-term investments (that is the broad basis), and flag as an anchor conflict the same *"strict"* label carrying two or more different values across modules (the TMCV run had four: ₹2,082 / ₹2,959 / ₹7,433 / ₹13,713, all tagged "strict"). **(b) EBITDA provenance** — flag a conflict when modules carry different values for the SAME EBITDA basis, OR attribute the same metric to mismatched source *types* (a data-vendor standardized EBITDA in one module under a filing-note citation in another). A deliberately different, clearly-labelled basis is NOT a conflict (covenant/segment EBITDA for survival vs the filing's underlying EBITDA for valuation can legitimately differ) — so name the value, its source, AND its basis, so a real vendor-vs-filing mis-citation is distinguishable from a legitimate basis difference; the 3–4% vendor-vs-filing gap is what silently re-rates every leverage and EV/EBITDA ratio downstream.
+
+### Section C2 — Claim fidelity on the way up (`CLAUDE.md` §3)
+
+Anchors can all agree while the *words* wrapped around them drift. Findings get shorter as they climb — sub-agent → module synthesis → memo → final thesis → Headline Scorecard — and that compression is where a true finding becomes a false headline, without a single number changing. Take every load-bearing claim in Part I of the thesis (the scorecard lines, the killer risk, the scenario drivers, the kill criteria) and diff it against the sub-agent sentence it came from:
+
+| Break | What to look for | Severity |
+|---|---|---|
+| Qualifier dropped | the sub-agent hedged and the thesis did not — `no *contractual* pass-through, ~38% recovered in practice` arriving as `no pass-through` | `high` |
+| Basis dropped | a §15 basis label present upstream and absent downstream (peak vs point-in-time, strict vs broad, gross vs net) | `high` |
+| Build dropped | a headline aggregate quoted without the components that were shown upstream | `medium` |
+| Verdict hardened | `confirmed` / `proven` / `no` / `none` / `cliff` / `structural` in the thesis where the upstream evidence was mixed or split — including a directional verdict whose contradicting series is named upstream and silently absent downstream | `high` |
+| Policy status stale | a named subsidy / tariff / incentive described by its old terms, or called expired / a "cliff", where the register shows it in force or replaced at different terms | `high` |
+
+For each: `claim` (as published), `upstream_source` (file + section), `upstream_wording`, `break_type`, `severity`, `detail`. A Part I claim that cannot be traced to any upstream sentence at all is not a fidelity break — it is a `no-source-no-claim` finding for Section A.
 
 ## 5. Score & verdict
 
@@ -154,6 +174,7 @@ Write to `<RUN_ROOT>/verification_report.json`. If it already exists, DO NOT ove
   "claim_checks": [],
   "math_checks": [],
   "anchor_checks": [],
+  "fidelity_checks": [],
   "integrity_score": null,
   "verdict": "",
   "blocking_findings": [],
@@ -164,6 +185,7 @@ Write to `<RUN_ROOT>/verification_report.json`. If it already exists, DO NOT ove
 `claim_checks[]` element: `{ "claim": "", "citation": "", "source_checked": "", "status": "", "evidence": "", "severity": "" }`.
 `math_checks[]` element: `{ "quantity": "", "reported": "", "recomputed": "", "ties": null, "detail": "" }`.
 `anchor_checks[]` element: `{ "anchor": "", "values_by_module": {}, "consistent": null, "detail": "" }`.
+`fidelity_checks[]` element (Section C2): `{ "claim": "", "upstream_source": "", "upstream_wording": "", "break_type": "", "severity": "", "detail": "" }` — `break_type` is one of `qualifier_dropped` / `basis_dropped` / `build_dropped` / `verdict_hardened` / `policy_status_stale`. Emit `[]` when Part I's claims all match their upstream wording; an empty array is a pass, not a skipped section.
 
 Immediately before writing the report, compute SHA-256 over the exact `final_thesis_path` and
 `decision_record_path` bytes you audited (`sha256sum` on Linux or `shasum -a 256` on macOS) and record both

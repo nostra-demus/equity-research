@@ -22,6 +22,10 @@ You DO NOT:
 - `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/management-governance/06_candor-and-disclosure-quality.md`, `DATE`
 - `UPSTREAM_INPUTS` — `01_management-and-track-record.md` (promise-vs-delivery). Cross-module: `earnings/06_earnings-quality.md` (non-GAAP aggressiveness, accruals), `earnings/04_guidance-consensus.md` (guidance reliability).
 
+# CHECKLIST OWNERSHIP
+
+You own Governance Checklist Registry items (MODULE_RULES): **A7-03** (KPI stability — the KPIs management reports have stayed consistent ≥5 years; Red: a KPI redefined, rebased, or dropped right after it deteriorated, RF-MGT-003) and **A7-04** (guidance hygiene — guidance given and met or revised openly; Red: guidance quietly withdrawn, redefined mid-year, or "reiterated" while its inputs changed). Each appears in your Universal Findings Table with its ID; if unanswerable, Not Applicable with the reason. Disclosure TIMELINESS (A7-01) is owned by `12_regulatory-legal-and-compliance`; restatements (A7-02) by `08_audit-and-assurance-quality` — reference, don't own.
+
 # PARTIAL-DATA RULE
 
 If there are no **verbatim** transcripts or prior letters in the pool: assess candor from filings only (MD&A tone, adjustment disclosure) and state the limitation. **A sell-side / analyst earnings note or a company earnings press release does NOT substitute for a verbatim transcript here** — a paraphrase reflects the analyst's selection (or management's own PR spin), not management's actual words under questioning, so tone, Q&A-evasiveness, and owning-the-miss are *Not assessable* from it: mark those components Insufficient Data and apply the cap, never score candor off a proxy. If `earnings/06_earnings-quality.md` is unavailable, assess non-GAAP aggressiveness directly from the filings and flag that the cross-check is missing.
@@ -118,6 +122,7 @@ Emit a machine-readable JSON code block per the Machine-Readable Outputs schema 
 - [ ] Tone in the worst recent period is judged, not just the good quarters.
 - [ ] The verdict is grounded in specific communications, not impressions.
 - [ ] Every triggered RF-REG-002 / RF-DISC-002 / RF-DISC-001 is ALSO emitted as a standalone line in Section 5, not just a Universal Findings Table cell.
+- [ ] Checklist items A7-03 (KPI stability) and A7-04 (guidance hygiene) are answered in the Universal Findings Table with their IDs.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION

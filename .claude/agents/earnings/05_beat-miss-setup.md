@@ -58,9 +58,11 @@ If any upstream is missing, note at the top:
 ```
 # Beat / Miss Setup — {TICKER}
 
-## 1. Next Quarter Context
+## 1. Next Reporting Period Context
 
-In 2–3 sentences: what quarter is next, is it seasonally important, and what is the consensus bar (from 04)?
+In 2–3 sentences: what period the company will actually FILE next (not "next quarter" by default — read `04` §1A: it may be a cumulative half-year or nine-month report), whether it is seasonally important, and what the consensus bar is **on that filing's basis**.
+
+**Carry `04` §1A's restated bar verbatim, with its basis label** — e.g. "H1 FY2026 bar: revenue ≈ 148,763 / EPS ≈ 1.08 (cumulative six-month basis; vendor's standalone-Q2 estimate of 75,076 / 0.58 plus the already-reported Q1 actual)". Never quote a standalone-quarter estimate as the bar for a cumulative print, and never restate `04`'s work yourself — if `04` §1A is missing or marked unresolved, say so and cap the setup at Unclear per the partial-data rule.
 
 ## 2. Beat Scenarios
 
@@ -132,7 +134,8 @@ Answer in 2–3 sentences: "If this earnings setup fails, what was the most like
 - [ ] Likelihoods (High / Mid / Low) are supported by evidence, not vibes.
 - [ ] The setup verdict is exactly one of {Favors beat, Favors miss, Balanced, Unclear}.
 - [ ] If consensus data was missing, the verdict is capped at "Unclear" per partial-data rules.
-- [ ] Beat/miss threshold is linked to consensus where available.
+- [ ] Beat/miss threshold is linked to consensus where available, **on the basis the company will actually file** — `04` §1A's restated bar is carried verbatim with its basis label, and no standalone-quarter estimate is used as the bar for a cumulative (half-year / nine-month) print. If `04` §1A is missing or unresolved, the verdict is capped at Unclear.
+- [ ] Any beat/miss probability or likelihood states its basis per CLAUDE.md §10 — empirical (with the sample size and window), a named base rate, or judgment. A read off four quarters, or off a sample containing a derived rather than a reported period, is labelled judgment, not a measured frequency.
 - [ ] Setup does not rely only on next-quarter EPS; guidance and quality are considered.
 - [ ] The agent explicitly considers the case where the current quarter is fine but forward guidance disappoints.
 - [ ] Section 8 names ONE most important factor, not a list.

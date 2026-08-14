@@ -236,8 +236,12 @@ export interface FeedItem {
 // WHY without parsing free text. Absent when nothing deferred. Ordered by the note's own precedence.
 export type DeferReason =
   | 'aborted' // the wall-clock guard killed the cycle mid-way and dumped the remainder to the backlog
-  | 'free-budget-spent' // every free tier's DAILY cap reached (Groq hard cap + no overflow/Gemini room)
-  | 'groq-cooldown' // Groq in a cross-cycle failure cooldown and nothing else absorbed the batch
+  | 'usage-ledger-unavailable' // a configured provider's durable usage authority needs attention; no cap claim is safe
+  | 'free-budget-spent' // configured free-tier engine allowances cannot fit another safe call (not a live provider-quota claim)
+  | 'provider-day-limit' // at least one provider explicitly reported its day limit; recorded usage stays actual
+  | 'groq-cooldown' // legacy persisted value: Groq retry hold and nothing else absorbed the batch
+  | 'provider-retry-held' // usable allowance exists, but every eligible route is inside an engine retry hold after an error
+  | 'allowance-paced' // hard allowance remains, but its reset-clock release cannot yet admit the next call
   | 'paced' // under the daily cap but over the clock-prorated pacer ceiling — holding budget for later
   | 'batch-failed' // a provider was reached but returned an error (an LLM hiccup, not a budget state)
 
@@ -245,6 +249,7 @@ export type DeferReason =
 // failure cooldown" printed with no hint the paid fallback had ALSO tapped out (the reported surprise).
 export type LastResortState =
   | 'off' // tier disabled (NEWS_ANTHROPIC_FALLBACK_ENABLED=0, or api mode with no key)
+  | 'unavailable' // its durable USD usage record needs attention; do not call this a spent $ ceiling
   | 'scored' // it fired and scored ≥1 batch this cycle, still under its ceiling
   | 'usd-cap' // reached its daily $ ceiling (anthropicDailyUsd) — the rest deferred
   | 'plan-quota' // the shared Claude plan's own usage limit hit → backing off until the plan resets
@@ -274,6 +279,11 @@ export interface CycleSummary {
   anthropic_requests?: number // batches scored by the metered Anthropic-Haiku last-resort tier (0 / absent when unused)
   anthropic_tokens?: number
   anthropic_cost_usd?: number // metered USD spent on the Anthropic fallback this cycle (0 / absent when unused)
+  // Per-tier triage work. Daily budget request counters can also include article/theme/idea calls and count
+  // failed attempts, so they cannot answer the operator's real question: how much useful scanner work did
+  // each allowance buy? These additive maps keep attempted network calls separate from scored batches.
+  provider_attempts?: Record<string, number>
+  provider_scored_batches?: Record<string, number>
   note?: string // a human-readable reason when ok=false or a cap was hit
   // --- end-to-end transparency (additive; every field optional so an older client degrades cleanly) ---
   // candidates = fresh + carryover. Splitting them stops the "read balloon": a budget-deferred item is
@@ -285,6 +295,7 @@ export interface CycleSummary {
   backlog_cap?: number // the loss boundary (DEFERRED_CAP): backlog past this is silently dropped
   dropped_at_cap?: number // items lost this cycle because the backlog overran backlog_cap (deferred = backlog + dropped_at_cap). Present only when >0 — the honest twin of "the tail is dropped, not deferred"
   deferred_write_failed?: boolean // saveDeferred's atomic write failed this cycle — the in-memory backlog was NOT persisted (last-good kept); backlog/deferred describe intent, not what is on disk. Present only when true
+  deferred_read_failed?: boolean // malformed/unreadable backlog authority; fetch/scoring paused and existing bytes preserved
   aborted?: boolean // the wall-clock guard killed this cycle and dumped the untriaged remainder to the backlog
   defer_reason?: DeferReason // structured twin of the defer `note`
   last_resort?: LastResortState // the Haiku fallback's state at cycle end — makes "why nothing scored" honest

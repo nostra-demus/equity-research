@@ -22,6 +22,10 @@ You DO NOT:
 - `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/management-governance/04_ownership-and-insider-behavior.md`, `DATE`
 - `UPSTREAM_INPUTS` — `01_management-and-track-record.md`. Optionally cross-module: `business-model/11_capital-allocation-governance.md` (pledging/related-party context), `business-model/01_disqualifier-scan.md` (pledging disqualifier).
 
+# CHECKLIST OWNERSHIP
+
+You own Governance Checklist Registry items (MODULE_RULES): **A3-01 … A3-10** (promoter & ownership structure: holding trend, pledge with the graded SAST thresholds, pyramiding and the control-vs-cash-flow wedge, DVR, cheap insider equity, free float & MPS, marquee investors, classification hygiene, beneficial-ownership transparency, takeover-code disclosure hygiene) and **A15-01 … A15-04** (stock & market characteristics: exchange-surveillance status, liquidity, research coverage, pre-announcement price conduct). Every item appears in your Universal Findings Table with its ID; unanswerable items are Not Applicable with the reason. The registry's bands are the thresholds.
+
 # PARTIAL-DATA RULE
 
 If no ownership table or insider-transaction data is in the pool: state that and attempt the web for the beneficial-ownership and insider (Form 4 / equivalent) record, labeled as web-sourced and unverified; if still unavailable, cap per `MODULE_RULES.md`. Distinguish ownership (a static %) from insider transactions (the behavior signal) — report each separately.
@@ -90,16 +94,27 @@ If none disclosed, write "No pledging disclosed." If material pledging exists, f
 
 **Unaligned-owner test (CLAUDE.md §24, Filter 6).** Judge whether the controlling owner's objective is long-term per-share value creation. Three structures create an inherent conflict with the minority holder and are structural caps, not discounts to arbitrage: (a) **government control** (the state pursues multiple non-profit objectives — e.g. directed lending, loan waivers, social policy — and such names are often perennially cheap and stay cheap); (b) a **listed subsidiary of a parent** that maximizes value at its own listing / a wholly-owned sibling (best managers and economics can be steered to the parent's vehicle); (c) a **sprawling unrelated-diversified conglomerate** where capital is spread across businesses with no sustained focus. If any applies, flag RF-OWN-004, lower the Control-structure-fairness component, and note the shareholder-friendliness cap (MODULE_RULES). State plainly that persistent cheapness under a misaligned owner is a value trap, not a margin of safety, and hand that read to the valuation module.
 
-## 4A. Market Conduct
+## 4A. Market Conduct & Stock Characteristics (A15-01 … A15-04)
 
 | Signal | Detail | Source |
 |---|---|---|
 | Insider buys/sells vs subsequent results (timing) | | |
-| Unusual price / volume before announcements | | |
+| Unusual price / volume before announcements (A15-04) | | |
 | Exchange clarification sought for a price move | | |
+| Exchange surveillance status (India: ASM/GSM lists, 24 months) (A15-01) | | |
+| Liquidity / average daily traded value — adequate for institutional exit? (A15-02) | | |
+| Independent research coverage (count) (A15-03) | | |
 | Institutional (FII/DII/MF) holding trend; any sharp high-quality-holder exit | | |
 
 Flag insider selling that preceded weak results, or buying that preceded good news, as a market-conduct red flag (per the Red-Flag Trigger Engine). If trade-timing data is unavailable, state so.
+
+## 4B. Ownership-Structure Hygiene (A3-08, A3-09, A3-10)
+
+| Test | Finding | Source |
+|---|---|---|
+| Promoter-group classification (any reclassification to "public"? persons-acting-in-concert complete?) | | |
+| Beneficial-ownership chain (ultimate owners identifiable? trusts/offshore layers?) | | |
+| Takeover-code disclosure hygiene (India: SAST Reg 29 timeliness, creeping-acquisition limits, promoter ≤75%) | | |
 
 ## 5. Ownership / Insider Read
 
@@ -144,6 +159,8 @@ Emit a machine-readable JSON code block per the Machine-Readable Outputs schema 
 - [ ] Ownership (static) and insider behavior (signal) are reported separately.
 - [ ] Web-sourced ownership/transaction data is labeled unverified.
 - [ ] Every RF-OWN red flag traces to a pool filing — no red flag is fired on a web/memory figure. *(fix F20)*
+- [ ] Every owned checklist item (A3-01…10, A15-01…04) is answered in the Universal Findings Table with its ID.
+- [ ] Pledge is tested against the graded thresholds (25% warning / 50%-of-holding or 20%-of-capital declaration trigger / invocation = Critical), not a single flat line.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION

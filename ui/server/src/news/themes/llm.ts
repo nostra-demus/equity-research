@@ -11,7 +11,8 @@ import { companyKeys, themeNarrativeTokens } from '../text-match'
 import { cleanTicker } from '../symbology'
 import {
   Budget, NON_BINDING_DAILY_TOKEN_CAP, armCooldown, clearCooldown, conservativeChatTokenBound,
-  getNamedLimiter, getSharedLimiter, isCoolingDown, type PaceCfg,
+  dailyQuotaAdmission, getNamedLimiter, getSharedLimiter, isCoolingDown, rateInfoForLimiter,
+  selectDailyQuotaCandidate, type DailyQuotaCandidate, type RateInfo,
 } from '../triage/budget'
 import { parseRate } from '../triage/groq'
 import type { LlmNamer } from './engine'
@@ -39,6 +40,7 @@ interface NamerCfg {
   groqPaceFloorFrac?: number
   groqRpm?: number
   groqTpm?: number
+  freeProviderPaceFloorFrac?: number
   localProvider?: OverflowProvider | null
   overflowProviders?: OverflowProvider[]
   localCooldownMs?: number
@@ -66,6 +68,9 @@ const SYSTEM =
 const NARRATIVE_BATCH = 4 // richer contract than the old label-only pass; keep one reply below truncation
 
 const budgetPath = (stateDir: string) => path.join(stateDir, 'themes-llm-budget.json')
+// Same-process deletion guard. The provider-spending lease admits one owner, so remembering a ledger that
+// this process already used prevents an external/unexpected unlink from reopening the daily call cap.
+const claudeBudgetMemory = new Map<string, ClaudeBudgetState>()
 
 interface ClaudeBudgetState {
   date: string
@@ -74,60 +79,81 @@ interface ClaudeBudgetState {
   exhaustion_reason?: string
 }
 
-const TERMINAL_PROVIDER_STATUSES = new Set([400, 401, 402, 403, 404, 413])
-
-function terminalReason(status: number): string | undefined {
-  return TERMINAL_PROVIDER_STATUSES.has(status) ? `terminal_http_${status}` : undefined
-}
-
-function terminalStatus(reason: string | undefined): number | undefined {
-  const match = /^terminal_http_(400|401|402|403|404|413)$/.exec(reason || '')
-  return match ? Number(match[1]) : undefined
-}
-
 function terminalDayMessage(label: string, reason: string | undefined): string {
-  const status = terminalStatus(reason)
-  return status
-    ? `${label} is unavailable for the rest of its provider day after HTTP ${status}.`
+  return reason
+    ? `${label} reported that its provider-day allowance is exhausted.`
     : `${label} has no daily compiler capacity.`
 }
 
-function readClaudeBudget(stateDir: string, todayISO: string): ClaudeBudgetState {
+function readClaudeBudget(stateDir: string, todayISO: string): ClaudeBudgetState | null {
+  const file = budgetPath(stateDir)
   const fresh: ClaudeBudgetState = { date: todayISO, calls: 0 }
+  const prior = claudeBudgetMemory.get(file)
   try {
-    const raw = JSON.parse(fs.readFileSync(budgetPath(stateDir), 'utf8'))
-    if (raw?.date !== todayISO) return fresh
-    const reason = typeof raw.exhaustion_reason === 'string' && terminalStatus(raw.exhaustion_reason)
-      ? raw.exhaustion_reason
-      : undefined
-    return {
+    const raw = JSON.parse(fs.readFileSync(file, 'utf8'))
+    const dayMs = typeof raw?.date === 'string' ? Date.parse(`${raw.date}T00:00:00Z`) : NaN
+    if (!raw || typeof raw !== 'object' || typeof raw.date !== 'string' ||
+        !/^\d{4}-\d{2}-\d{2}$/.test(raw.date) || !Number.isFinite(dayMs) ||
+        new Date(dayMs).toISOString().slice(0, 10) !== raw.date ||
+        typeof raw.calls !== 'number' || !Number.isSafeInteger(raw.calls) || raw.calls < 0 ||
+        (raw.exhausted !== undefined && typeof raw.exhausted !== 'boolean') ||
+        (raw.exhaustion_reason !== undefined && typeof raw.exhaustion_reason !== 'string')) return null
+    if (raw.date > todayISO) return null
+    if (raw.date < todayISO) {
+      if (prior?.date === todayISO && (prior.calls > 0 || prior.exhausted)) return null
+      claudeBudgetMemory.set(file, fresh)
+      return fresh
+    }
+    // The process already persisted/observed this high-water mark. A valid-looking lower counter (or a
+    // cleared exhaustion bit) is still a rollback, not fresh authority, and must stay latched unavailable.
+    if (prior?.date === todayISO && (
+      raw.calls < prior.calls || (prior.exhausted === true && raw.exhausted !== true)
+    )) return null
+    const reason = typeof raw.exhaustion_reason === 'string' ? raw.exhaustion_reason : undefined
+    const state = {
       date: todayISO,
-      calls: Math.max(0, Number(raw.calls) || 0),
+      calls: raw.calls,
       ...(raw.exhausted === true ? { exhausted: true } : {}),
       ...(reason ? { exhaustion_reason: reason } : {}),
     }
-  } catch {}
-  return fresh
+    claudeBudgetMemory.set(file, state)
+    return state
+  } catch (error: any) {
+    // A missing ledger is the normal first-call case. Every other read/parse failure is unsafe: treating
+    // an unreadable or corrupt counter as zero would silently reopen the daily cap.
+    if (error?.code !== 'ENOENT') return null
+    if (prior?.date === todayISO && (prior.calls > 0 || prior.exhausted)) return null
+    claudeBudgetMemory.set(file, fresh)
+    return fresh
+  }
 }
 
-function saveClaudeBudget(stateDir: string, state: ClaudeBudgetState): void {
+function saveClaudeBudget(stateDir: string, state: ClaudeBudgetState): boolean {
+  const file = budgetPath(stateDir)
   try {
     fs.mkdirSync(stateDir, { recursive: true })
-    fs.writeFileSync(budgetPath(stateDir), JSON.stringify(state) + '\n')
-  } catch {}
+    fs.writeFileSync(file, JSON.stringify(state) + '\n')
+    claudeBudgetMemory.set(file, { ...state })
+    return true
+  } catch {
+    return false
+  }
 }
 
-function recordClaudeSpend(stateDir: string, todayISO: string): void {
+function reserveClaudeSpend(
+  stateDir: string,
+  todayISO: string,
+  cap: number,
+): { status: 'reserved' | 'cap' | 'unavailable'; state?: ClaudeBudgetState } {
   const state = readClaudeBudget(stateDir, todayISO)
+  if (!state) return { status: 'unavailable' }
+  if (!Number.isFinite(cap) || cap <= 0 || state.exhausted || state.calls >= cap) return { status: 'cap', state }
   state.calls++
-  saveClaudeBudget(stateDir, state)
-}
-
-function exhaustClaudeDay(stateDir: string, todayISO: string, reason: string): void {
-  const state = readClaudeBudget(stateDir, todayISO)
-  state.exhausted = true
-  state.exhaustion_reason = terminalStatus(reason) ? reason : undefined
-  saveClaudeBudget(stateDir, state)
+  // Persist the reservation before provider I/O. If the write fails, fail closed and send no request;
+  // otherwise a read-only disk or an EISDIR collision could bypass the cap on every cycle.
+  return saveClaudeBudget(stateDir, state)
+    ? { status: 'reserved', state }
+    : { status: 'unavailable' }
 }
 
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60)
@@ -210,22 +236,59 @@ export function themeNamerTokenBound(created: Theme[], generic?: Set<string>, ma
 /** AbortSignal is advisory for injected/local fetch adapters, so race the complete response read with our
  * own timer as well. A provider that ignores abort, or stalls after headers, can never hold the compiler
  * beyond its per-attempt/remaining-chain budget. */
-async function withProviderTimeout<T>(timeoutMs: number, run: (signal: AbortSignal) => Promise<T>): Promise<T> {
+class ThemeProviderTimeoutError extends Error {
+  constructor() {
+    super('theme provider request timed out')
+    this.name = 'ThemeProviderTimeoutError'
+  }
+}
+
+/** The outer ingest-cycle guard is an operation boundary, not evidence that any provider is unhealthy.
+ * Keep it distinct from this workload's own timeout so the router can stop without arming a provider hold
+ * or walking the rest of the fallback chain after the parent has already cancelled the whole cycle. */
+class ThemeParentAbortError extends Error {
+  constructor() {
+    super('parent theme operation aborted')
+    this.name = 'ThemeParentAbortError'
+  }
+}
+
+async function withProviderTimeout<T>(
+  timeoutMs: number,
+  run: (signal: AbortSignal) => Promise<T>,
+  parentSignal?: AbortSignal,
+): Promise<T> {
+  // Do not even invoke the provider seam when the parent was already cancelled. This check happens before
+  // `run`, so a pre-dispatch abort cannot be mistaken for an uncertain/sent provider request.
+  if (parentSignal?.aborted) throw new ThemeParentAbortError()
   const controller = new AbortController()
   const boundedMs = Math.max(1, Math.floor(timeoutMs))
   let timer: ReturnType<typeof setTimeout> | undefined
+  let onParentAbort: (() => void) | undefined
   try {
-    return await Promise.race([
-      run(controller.signal),
+    const attempts: Promise<T>[] = [
+      run(parentSignal ? AbortSignal.any([controller.signal, parentSignal]) : controller.signal),
       new Promise<T>((_resolve, reject) => {
         timer = setTimeout(() => {
           controller.abort()
-          reject(new Error('theme provider request timed out'))
+          reject(new ThemeProviderTimeoutError())
         }, boundedMs)
       }),
-    ])
+    ]
+    if (parentSignal) {
+      attempts.push(new Promise<T>((_resolve, reject) => {
+        onParentAbort = () => {
+          controller.abort()
+          reject(new ThemeParentAbortError())
+        }
+        parentSignal.addEventListener('abort', onParentAbort, { once: true })
+        if (parentSignal.aborted) onParentAbort()
+      }))
+    }
+    return await Promise.race(attempts)
   } finally {
     if (timer) clearTimeout(timer)
+    if (parentSignal && onParentAbort) parentSignal.removeEventListener('abort', onParentAbort)
   }
 }
 
@@ -242,9 +305,16 @@ interface ClaudeCallResult {
   ok: boolean
   status: number
   note: string
+  rate: RateInfo
 }
 
-async function callClaude(cfg: NamerCfg, user: string, fetchFn: typeof fetch, timeoutMs: number): Promise<ClaudeCallResult> {
+async function callClaude(
+  cfg: NamerCfg,
+  user: string,
+  fetchFn: typeof fetch,
+  timeoutMs: number,
+  parentSignal?: AbortSignal,
+): Promise<ClaudeCallResult> {
   return withProviderTimeout(timeoutMs, async (signal) => {
     const res = await fetchFn(`${cfg.themesClaudeBaseUrl}/v1/messages`, {
       method: 'POST',
@@ -252,17 +322,18 @@ async function callClaude(cfg: NamerCfg, user: string, fetchFn: typeof fetch, ti
       signal,
       body: JSON.stringify({ model: cfg.themesClaudeModel || 'claude-haiku-4-5', max_tokens: 3000, system: SYSTEM, messages: [{ role: 'user', content: user }] }),
     })
-    if (!res.ok) return { text: null, ok: false, status: res.status, note: `Claude HTTP ${res.status}` }
+    const rate = parseRate(res)
+    if (!res.ok) return { text: null, ok: false, status: res.status, note: `Claude HTTP ${res.status}`, rate }
     try {
       const data: any = await res.json()
       const text = Array.isArray(data?.content) ? data.content.filter((c: any) => c?.type === 'text').map((c: any) => c.text).join('') : ''
       return typeof text === 'string' && text
-        ? { text, ok: true, status: res.status, note: '' }
-        : { text: null, ok: false, status: res.status, note: 'Claude returned empty theme content.' }
+        ? { text, ok: true, status: res.status, note: '', rate }
+        : { text: null, ok: false, status: res.status, note: 'Claude returned empty theme content.', rate }
     } catch {
-      return { text: null, ok: false, status: res.status, note: 'Claude returned invalid response JSON.' }
+      return { text: null, ok: false, status: res.status, note: 'Claude returned invalid response JSON.', rate }
     }
-  })
+  }, parentSignal)
 }
 
 interface OpenAiThemeProvider {
@@ -282,7 +353,10 @@ interface OpenAiThemeProvider {
   headers?: Record<string, string>
   extraBody?: Record<string, unknown>
   timeoutMs?: number
-  pace?: PaceCfg
+  paceMeter: 'requests' | 'tokens'
+  paceCap: number
+  paceFloorFrac: number
+  requestRemainingHeaderIsDaily: boolean
 }
 
 interface OpenAiCallResult {
@@ -294,7 +368,46 @@ interface OpenAiCallResult {
   rate: ReturnType<typeof parseRate>
 }
 
-async function callOpenAi(provider: OpenAiThemeProvider, user: string, maxTokens: number, fetchFn: typeof fetch, timeoutMs: number): Promise<OpenAiCallResult> {
+type ThemeFailureScope = 'provider' | 'workload'
+type ThemeFailureKind = 'rate_limit' | 'availability' | 'access' | 'request' | 'contract' | 'timeout'
+
+interface ThemeFailureClass {
+  scope: ThemeFailureScope
+  kind: ThemeFailureKind
+}
+
+const PROVIDER_ACCESS_STATUSES = new Set([401, 402, 403, 404])
+
+/** Scope is a routing fact, not a prose guess. Only failures that say the provider itself cannot serve
+ * other work may close the shared provider circuit. A bad Themes request/contract (including a large
+ * payload or the compiler's own timeout) stays on `themes:<provider>` so title triage and Ideas continue. */
+function classifyThemeHttpFailure(status: number): ThemeFailureClass {
+  if (status === 429) return { scope: 'provider', kind: 'rate_limit' }
+  if (status >= 500) return { scope: 'provider', kind: 'availability' }
+  if (PROVIDER_ACCESS_STATUSES.has(status)) return { scope: 'provider', kind: 'access' }
+  return { scope: 'workload', kind: 'request' }
+}
+
+function exactRetryMs(rate: RateInfo | undefined): number | undefined {
+  return rate?.retryAfterMs != null && Number.isFinite(rate.retryAfterMs)
+    ? Math.max(0, Math.floor(rate.retryAfterMs))
+    : undefined
+}
+
+/** Only exact provider telemetry may replace the conservative pre-dispatch token reservation. Coerced,
+ * fractional, zero, negative, or non-finite values are not proof that a real request used fewer tokens. */
+function credibleTotalTokens(value: unknown): number {
+  return typeof value === 'number' && Number.isSafeInteger(value) && value > 0 ? value : 0
+}
+
+async function callOpenAi(
+  provider: OpenAiThemeProvider,
+  user: string,
+  maxTokens: number,
+  fetchFn: typeof fetch,
+  timeoutMs: number,
+  parentSignal?: AbortSignal,
+): Promise<OpenAiCallResult> {
   return withProviderTimeout(timeoutMs, async (signal) => {
     const res = await fetchFn(`${provider.baseUrl}/chat/completions`, {
       method: 'POST',
@@ -320,12 +433,13 @@ async function callOpenAi(provider: OpenAiThemeProvider, user: string, maxTokens
     try {
       const data: any = await res.json()
       const text = data?.choices?.[0]?.message?.content
+      const tokens = credibleTotalTokens(data?.usage?.total_tokens)
       if (data?.choices?.[0]?.finish_reason === 'length') {
-        return { text: null, tokens: Number(data?.usage?.total_tokens) || 0, ok: false, status: res.status, note: `${provider.label}: output truncated`, rate }
+        return { text: null, tokens, ok: false, status: res.status, note: `${provider.label}: output truncated`, rate }
       }
       return {
         text: typeof text === 'string' ? text : null,
-        tokens: Number(data?.usage?.total_tokens) || 0,
+        tokens,
         ok: typeof text === 'string',
         status: res.status,
         note: typeof text === 'string' ? '' : `${provider.label}: empty content`,
@@ -334,7 +448,7 @@ async function callOpenAi(provider: OpenAiThemeProvider, user: string, maxTokens
     } catch {
       return { text: null, tokens: 0, ok: false, status: res.status, note: `${provider.label}: invalid response JSON`, rate }
     }
-  })
+  }, parentSignal)
 }
 
 /** Apply LLM proposals to the created themes in place. Model prose is never trusted as provenance: IDs,
@@ -598,6 +712,10 @@ function openAiProviders(cfg: NamerCfg): OpenAiThemeProvider[] {
     dailyReqCap: p.dailyReqCap, dailyTokenCap: p.dailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP,
     budgetFile: p.budgetFile, dayTz: p.dayTz, headers: p.headers, extraBody: p.extraBody,
     timeoutMs: p.timeoutMs,
+    paceMeter: p.dailyTokenCap != null ? 'tokens' : 'requests',
+    paceCap: p.dailyTokenCap ?? p.dailyReqCap,
+    paceFloorFrac: p.paceFloorFrac ?? cfg.freeProviderPaceFloorFrac ?? 0.06,
+    requestRemainingHeaderIsDaily: p.requestRemainingHeaderIsDaily === true,
   })
   if (cfg.localProvider) add(fromConfig(cfg.localProvider))
   if (cfg.groqApiKey) add({
@@ -605,9 +723,8 @@ function openAiProviders(cfg: NamerCfg): OpenAiThemeProvider[] {
     model: cfg.groqModel || 'llama-3.1-8b-instant', maxTokens: 3000, rpm: cfg.groqRpm ?? 0,
     tpm: cfg.groqTpm ?? 0, dailyReqCap: cfg.groqDailyReqCap ?? 13_000,
     dailyTokenCap: cfg.groqDailyTokenCap ?? 500_000, budgetFile: 'groq-budget.json',
-    ...(cfg.groqDailyTokenTarget && cfg.groqPaceFloorFrac != null
-      ? { pace: { targetTokens: cfg.groqDailyTokenTarget, floorFrac: cfg.groqPaceFloorFrac } }
-      : {}),
+    paceMeter: 'tokens', paceCap: cfg.groqDailyTokenTarget ?? cfg.groqDailyTokenCap ?? 500_000,
+    paceFloorFrac: cfg.groqPaceFloorFrac ?? 0.06, requestRemainingHeaderIsDaily: true,
   })
   for (const provider of cfg.overflowProviders || []) add(fromConfig(provider))
   return out
@@ -626,9 +743,47 @@ function providerOutputCap(provider: OpenAiThemeProvider, theme: Theme, generic?
   return cap >= MIN_THEME_OUTPUT_TOKENS ? cap : 0
 }
 
+/** `tryReserve()` returns null for both a real concurrent allowance race and an unavailable ledger
+ * lock/write path. Re-read the durable authority after the miss so only a newly used provider day is
+ * called a daily cap; a still-fit or unreadable ledger means no reservation authority was obtained. */
+function themeReservationMiss(
+  stateDir: string,
+  provider: OpenAiThemeProvider,
+  tokens: number,
+  at: number,
+  tokenPace?: { targetTokens: number; floorFrac: number },
+): { blocker: 'provider_error' | 'daily_cap' | 'rate_limiter_busy'; message: string } {
+  const observed = Budget.load(
+    stateDir, provider.dailyReqCap, provider.dailyTokenCap, at, provider.budgetFile, provider.dayTz,
+  )
+  const hardCapFit = observed.canSpend(tokens, 1)
+  if (!observed.ledgerAvailable) {
+    return { blocker: 'provider_error', message: `${provider.label} usage record needs attention. No request was sent.` }
+  }
+  if (!hardCapFit) {
+    return { blocker: 'daily_cap', message: terminalDayMessage(provider.label, observed.exhaustionReason) }
+  }
+  if (tokenPace) {
+    const pacedFit = observed.pacedCanSpend(tokens, tokenPace, at, 1)
+    if (!observed.ledgerAvailable) {
+      return { blocker: 'provider_error', message: `${provider.label} usage record needs attention. No request was sent.` }
+    }
+    if (!pacedFit) {
+      return { blocker: 'rate_limiter_busy', message: `${provider.label}'s engine allowance is paced for later in its provider day.` }
+    }
+  }
+  return { blocker: 'provider_error', message: `${provider.label} usage record needs attention. No request was sent.` }
+}
+
 /** Build the bounded validator. It always returns a callable so a disabled/unconfigured compiler becomes
  * explicit health state instead of an empty index that falsely says no narrative formed. */
-export function makeThemeNamer(cfg: NamerCfg, fetchFn: typeof fetch, stateDir: string, log: (m: string) => void = () => {}): LlmNamer {
+export function makeThemeNamer(
+  cfg: NamerCfg,
+  fetchFn: typeof fetch,
+  stateDir: string,
+  log: (m: string) => void = () => {},
+  parentSignal?: AbortSignal,
+): LlmNamer {
   const model = cfg.themesDiscoverModel || 'claude-haiku'
   const useClaude = model !== 'off' && model.startsWith('claude') && !!cfg.themesClaudeApiKey
   const providers = model === 'off' ? [] : openAiProviders(cfg)
@@ -646,8 +801,15 @@ export function makeThemeNamer(cfg: NamerCfg, fetchFn: typeof fetch, stateDir: s
       result.message = model === 'off' ? 'Theme compilation is disabled.' : 'No configured theme compiler provider is available.'
       return result
     }
+    if (parentSignal?.aborted) {
+      result.state = 'blocked'
+      result.blocker = 'rate_limiter_busy'
+      result.message = 'Theme compiler stopped because the parent news cycle was aborted.'
+      return result
+    }
 
     const deadline = Date.now() + Math.min(80_000, Math.max(1, cfg.themesProviderChainTimeoutMs ?? 80_000))
+    let parentAborted = false
     type CompilerConstraint = {
       provider: string
       blocker: Exclude<ThemeCompilerAttempt['blocker'], null>
@@ -659,11 +821,24 @@ export function makeThemeNamer(cfg: NamerCfg, fetchFn: typeof fetch, stateDir: s
       // the same final routing decision even when an earlier provider was actually sent a request.
       constraints.push({ provider, blocker, message })
     }
-    const armProviderFailure = (provider: OpenAiThemeProvider, id: string) => {
-      const local = provider.id === 'local'
-      const base = local ? (cfg.localCooldownMs ?? 45_000) : (cfg.llmCooldownMs ?? 300_000)
-      const max = local ? base : (cfg.llmCooldownMaxMs ?? 3_600_000)
-      armCooldown(stateDir, now.getTime(), base, id, max)
+    const scopedHoldId = (providerId: string) => `themes:${providerId}`
+    const armFailure = (
+      providerId: string,
+      local: boolean,
+      failure: ThemeFailureClass,
+      rate?: RateInfo,
+    ) => {
+      const retryMs = exactRetryMs(rate)
+      // Retry-After is the provider's exact reopening clock, including an explicit zero. Do not replace a
+      // zero with the generic exponential window and do not widen a non-zero value through backoff.
+      if (retryMs === 0) return
+      const fallbackBase = local ? (cfg.localCooldownMs ?? 45_000) : (cfg.llmCooldownMs ?? 300_000)
+      const fallbackMax = local ? fallbackBase : (cfg.llmCooldownMaxMs ?? 3_600_000)
+      const base = retryMs ?? fallbackBase
+      const max = retryMs ?? fallbackMax
+      const id = failure.scope === 'provider' ? providerId : scopedHoldId(providerId)
+      const at = Math.max(now.getTime(), Date.now())
+      armCooldown(stateDir, at, base, id, max, `theme-${failure.kind}`)
     }
 
     const markSent = (theme: Theme, provider: string) => {
@@ -687,7 +862,50 @@ export function makeThemeNamer(cfg: NamerCfg, fetchFn: typeof fetch, stateDir: s
       return theme.rev > beforeRev ? 'validated' : 'malformed'
     }
 
-    for (const theme of batch) {
+    /** Local remains the low-latency primary from #437. Every finite cloud allowance is then ordered by
+     * clock-released deficit, not a fixed vendor walk, so useful backlog draws from all healthy daily pools
+     * instead of repeatedly consuming the first provider while later allowances expire unused. */
+    const orderedOpenAiProviders = (theme: Theme): OpenAiThemeProvider[] => {
+      const local = providers.filter((provider) => provider.id === 'local')
+      const pending = providers
+        .map((provider, priority) => ({ provider, priority }))
+        .filter(({ provider }) => provider.id !== 'local')
+      const ordered: OpenAiThemeProvider[] = []
+      while (pending.length) {
+        type ThemeQuotaRoute = DailyQuotaCandidate & { provider: OpenAiThemeProvider }
+        const at = now.getTime()
+        const routes: ThemeQuotaRoute[] = []
+        for (const { provider, priority } of pending) {
+          if (isCoolingDown(stateDir, provider.id, at) || isCoolingDown(stateDir, scopedHoldId(provider.id), at)) continue
+          const maxTokens = providerOutputCap(provider, theme, generic)
+          if (!maxTokens) continue
+          const tokenCost = themeNamerTokenBound([theme], generic, maxTokens)
+          const budget = Budget.load(stateDir, provider.dailyReqCap, provider.dailyTokenCap, at, provider.budgetFile, provider.dayTz)
+          if (!budget.canSpend(tokenCost, 1)) continue
+          routes.push({
+            id: provider.id,
+            meter: provider.paceMeter,
+            used: provider.paceMeter === 'tokens' ? budget.tokens : budget.requests,
+            cap: provider.paceCap,
+            cost: provider.paceMeter === 'tokens' ? tokenCost : 1,
+            resetTimeZone: provider.dayTz,
+            floorFraction: provider.paceFloorFrac,
+            priority,
+            provider,
+          })
+        }
+        const pick = selectDailyQuotaCandidate(routes, at) as ThemeQuotaRoute | null
+        if (!pick) break
+        ordered.push(pick.provider)
+        pending.splice(pending.findIndex(({ provider }) => provider === pick.provider), 1)
+      }
+      // Retain every ineligible route at the tail so the existing structured-health path records its exact
+      // cooldown, minute-window, pacing, or hard-cap reason without sending it a request.
+      return [...local, ...ordered, ...pending.map(({ provider }) => provider)]
+    }
+
+    themeLoop: for (const theme of batch) {
+      if (parentSignal?.aborted) { parentAborted = true; break }
       if (Date.now() >= deadline) {
         constrain('none', 'rate_limiter_busy', 'The theme compiler reached its bounded runtime window.')
         break
@@ -696,60 +914,86 @@ export function makeThemeNamer(cfg: NamerCfg, fetchFn: typeof fetch, stateDir: s
 
       if (useClaude) {
         const claudeId = 'claude'
+        const claudeScopedId = scopedHoldId(claudeId)
         const todayISO = now.toISOString().slice(0, 10)
-        const claudeBudget = readClaudeBudget(stateDir, todayISO)
         const claudeCap = cfg.themesClaudeDailyCap ?? 60
-        if (isCoolingDown(stateDir, 'themes-claude', now.getTime())) {
+        if (isCoolingDown(stateDir, claudeId, now.getTime()) || isCoolingDown(stateDir, claudeScopedId, now.getTime())) {
           constrain(claudeId, 'cooldown', 'Claude is cooling down.')
-        } else if (claudeCap <= 0 || claudeBudget.exhausted || claudeBudget.calls >= claudeCap) {
-          constrain(claudeId, 'daily_cap', claudeBudget.exhausted
-            ? terminalDayMessage('Claude', claudeBudget.exhaustion_reason)
-            : 'Claude reached its theme-compilation daily cap.')
         } else {
-          markSent(theme, claudeId)
-          let response: ClaudeCallResult
-          try {
-            response = await callClaude(
-              cfg,
-              buildUserMessage([theme], generic),
-              fetchFn,
-              boundedAttemptTimeout(cfg, deadline),
-            )
-          } catch {
-            response = { text: null, ok: false, status: 0, note: 'Claude request failed.' }
-          }
-          recordClaudeSpend(stateDir, todayISO)
-          if (!response.ok || !response.text) {
-            const dayReason = terminalReason(response.status)
-            if (dayReason) exhaustClaudeDay(stateDir, todayISO, dayReason)
-            if (response.status >= 200 && response.status < 300) {
-              terminal = 'malformed'; result.malformed_count++
-              constrain(claudeId, 'invalid_response', response.note || 'Claude returned an incomplete theme contract.')
-              armCooldown(stateDir, now.getTime(), cfg.llmCooldownMs ?? 300_000, 'themes-claude', cfg.llmCooldownMaxMs ?? 3_600_000)
-            } else {
-              constrain(claudeId, 'provider_error', response.note || 'Claude request failed.')
-              if (!dayReason) armCooldown(stateDir, now.getTime(), cfg.llmCooldownMs ?? 300_000, 'themes-claude', cfg.llmCooldownMaxMs ?? 3_600_000)
-            }
+          // No await separates this guard from reserve+dispatch, so a pre-dispatch parent abort cannot
+          // consume the Claude call unit. Once fetch has begun, the unit remains charged conservatively.
+          if (parentSignal?.aborted) { parentAborted = true; break themeLoop }
+          // The cap is on calls SENT, not successful replies. Charge immediately before the network seam so
+          // a 4xx, timeout, malformed body, or process exit after dispatch cannot silently reopen the unit.
+          const reservation = reserveClaudeSpend(stateDir, todayISO, claudeCap)
+          if (reservation.status !== 'reserved') {
+            constrain(claudeId, reservation.status === 'unavailable' ? 'provider_error' : 'daily_cap', reservation.status === 'unavailable'
+              ? 'Claude usage record needs attention. No request was sent.'
+              : reservation.state?.exhausted
+                ? terminalDayMessage('Claude', reservation.state.exhaustion_reason)
+                : 'Claude reached its theme-compilation daily cap.')
           } else {
-            terminal = classify(theme, response.text, 'claude', claudeId)
-            if (terminal === 'validated' || terminal === 'rejected') clearCooldown(stateDir, 'themes-claude')
-            else {
-              if (terminal === 'omitted') result.omitted_count++
-              else result.malformed_count++
-              constrain(claudeId, 'invalid_response', 'Claude returned an incomplete theme contract.')
-              armCooldown(stateDir, now.getTime(), cfg.llmCooldownMs ?? 300_000, 'themes-claude', cfg.llmCooldownMaxMs ?? 3_600_000)
+            markSent(theme, claudeId)
+            const attemptStartedAt = Date.now()
+            let response: ClaudeCallResult
+            let thrownFailure: ThemeFailureClass | null = null
+            try {
+              response = await callClaude(
+                cfg,
+                buildUserMessage([theme], generic),
+                fetchFn,
+                boundedAttemptTimeout(cfg, deadline),
+                parentSignal,
+              )
+            } catch (error) {
+              if (parentSignal?.aborted || error instanceof ThemeParentAbortError) {
+                parentAborted = true
+                break themeLoop
+              }
+              thrownFailure = error instanceof ThemeProviderTimeoutError
+                ? { scope: 'workload', kind: 'timeout' }
+                : { scope: 'provider', kind: 'availability' }
+              response = { text: null, ok: false, status: 0, note: 'Claude request failed.', rate: {} }
+            }
+            if (parentSignal?.aborted) { parentAborted = true; break themeLoop }
+            if (!response.ok || !response.text) {
+              if (response.status >= 200 && response.status < 300) {
+                terminal = 'malformed'; result.malformed_count++
+                constrain(claudeId, 'invalid_response', response.note || 'Claude returned an incomplete theme contract.')
+                clearCooldown(stateDir, claudeId, attemptStartedAt)
+                armFailure(claudeId, false, { scope: 'workload', kind: 'contract' }, response.rate)
+              } else {
+                constrain(claudeId, 'provider_error', response.note || 'Claude request failed.')
+                const failure = thrownFailure || classifyThemeHttpFailure(response.status)
+                if (failure.scope === 'workload') clearCooldown(stateDir, claudeId, attemptStartedAt)
+                armFailure(claudeId, false, failure, response.rate)
+              }
+            } else {
+              terminal = classify(theme, response.text, 'claude', claudeId)
+              if (terminal === 'validated' || terminal === 'rejected') {
+                clearCooldown(stateDir, claudeId, attemptStartedAt)
+                clearCooldown(stateDir, claudeScopedId, attemptStartedAt)
+              }
+              else {
+                if (terminal === 'omitted') result.omitted_count++
+                else result.malformed_count++
+                constrain(claudeId, 'invalid_response', 'Claude returned an incomplete theme contract.')
+                clearCooldown(stateDir, claudeId, attemptStartedAt)
+                armFailure(claudeId, false, { scope: 'workload', kind: 'contract' }, response.rate)
+              }
             }
           }
         }
       }
 
       if (terminal !== 'validated' && terminal !== 'rejected') {
-        for (const provider of providers) {
+        for (const provider of orderedOpenAiProviders(theme)) {
+          if (parentSignal?.aborted) { parentAborted = true; break themeLoop }
           if (Date.now() >= deadline) {
             constrain('none', 'rate_limiter_busy', 'The theme compiler reached its bounded runtime window.')
             break
           }
-          if (isCoolingDown(stateDir, provider.id, now.getTime()) || isCoolingDown(stateDir, `themes:${provider.id}`, now.getTime())) {
+          if (isCoolingDown(stateDir, provider.id, now.getTime()) || isCoolingDown(stateDir, scopedHoldId(provider.id), now.getTime())) {
             constrain(provider.id, 'cooldown', `${provider.label} is cooling down.`)
             continue
           }
@@ -760,35 +1004,99 @@ export function makeThemeNamer(cfg: NamerCfg, fetchFn: typeof fetch, stateDir: s
           }
           const perAttemptTokens = themeNamerTokenBound([theme], generic, maxTokens)
           const budget = Budget.load(stateDir, provider.dailyReqCap, provider.dailyTokenCap, now.getTime(), provider.budgetFile, provider.dayTz)
-          if (!(provider.pace
-            ? budget.pacedCanSpend(perAttemptTokens, provider.pace, now.getTime())
-            : budget.canSpend(perAttemptTokens))) {
+          if (!budget.ledgerAvailable) {
+            constrain(provider.id, 'provider_error', `${provider.label} usage record needs attention. No request was sent.`)
+            continue
+          }
+          if (!budget.canSpend(perAttemptTokens, 1)) {
             constrain(provider.id, 'daily_cap', terminalDayMessage(provider.label, budget.exhaustionReason))
+            continue
+          }
+          if (provider.id !== 'local' && !dailyQuotaAdmission({
+            id: provider.id,
+            meter: provider.paceMeter,
+            used: provider.paceMeter === 'tokens' ? budget.tokens : budget.requests,
+            cap: provider.paceCap,
+            cost: provider.paceMeter === 'tokens' ? perAttemptTokens : 1,
+            resetTimeZone: provider.dayTz,
+            floorFraction: provider.paceFloorFrac,
+          }, now.getTime()).pacedFit) {
+            constrain(provider.id, 'rate_limiter_busy', `${provider.label}'s engine allowance is paced for later in its provider day.`)
             continue
           }
           const limiter = provider.id === 'groq'
             ? getSharedLimiter(provider.rpm, provider.tpm)
             : getNamedLimiter(provider.id, provider.rpm, provider.tpm)
           const remaining = Math.max(1, deadline - Date.now())
-          const got = await limiter.acquire(perAttemptTokens, undefined, Date.now, Math.min(cfg.themesLimiterWaitMs ?? 2500, remaining))
+          const limiterWaitStartedAt = Date.now()
+          const got = await limiter.acquire(
+            perAttemptTokens, undefined, Date.now,
+            Math.min(cfg.themesLimiterWaitMs ?? 2500, remaining), parentSignal,
+          )
           if (!got) {
+            if (parentSignal?.aborted) { parentAborted = true; break themeLoop }
             constrain(provider.id, 'rate_limiter_busy', `${provider.label}'s shared limiter is busy.`)
             continue
           }
+          // Cancellation can race the limiter's final wake-up. Re-check before reopening or reserving the
+          // daily ledger even when acquire reported success; a cancelled parent must never create a call
+          // reservation for work it will not dispatch.
+          if (parentSignal?.aborted) { parentAborted = true; break themeLoop }
           if (Date.now() >= deadline) {
             constrain('none', 'rate_limiter_busy', 'The theme compiler reached its bounded runtime window.')
             break
           }
-          const reservation = budget.tryReserve(perAttemptTokens, provider.pace, now.getTime())
+          // Re-open the ledger after the minute limiter wait. Another workload may have spent the room, or
+          // the provider day may have rolled while this request waited. Advance the injected cycle clock by
+          // only the real wait duration so deterministic tests retain their simulated provider day.
+          const admissionAt = now.getTime() + Math.max(0, Date.now() - limiterWaitStartedAt)
+          if (isCoolingDown(stateDir, provider.id, admissionAt)
+            || isCoolingDown(stateDir, scopedHoldId(provider.id), admissionAt)) {
+            constrain(provider.id, 'cooldown', `${provider.label} is waiting to try again after an error.`)
+            continue
+          }
+          const admissionBudget = Budget.load(
+            stateDir, provider.dailyReqCap, provider.dailyTokenCap, admissionAt, provider.budgetFile, provider.dayTz,
+          )
+          if (!admissionBudget.ledgerAvailable) {
+            constrain(provider.id, 'provider_error', `${provider.label} usage record needs attention. No request was sent.`)
+            continue
+          }
+          if (!admissionBudget.canSpend(perAttemptTokens, 1)) {
+            constrain(provider.id, 'daily_cap', terminalDayMessage(provider.label, admissionBudget.exhaustionReason))
+            continue
+          }
+          if (provider.id !== 'local' && !dailyQuotaAdmission({
+            id: provider.id,
+            meter: provider.paceMeter,
+            used: provider.paceMeter === 'tokens' ? admissionBudget.tokens : admissionBudget.requests,
+            cap: provider.paceCap,
+            cost: provider.paceMeter === 'tokens' ? perAttemptTokens : 1,
+            resetTimeZone: provider.dayTz,
+            floorFraction: provider.paceFloorFrac,
+          }, admissionAt).pacedFit) {
+            constrain(provider.id, 'rate_limiter_busy', `${provider.label}'s engine allowance is paced for later in its provider day.`)
+            continue
+          }
+          // Token-metered routes can put the pacing frontier inside Budget's cross-process reservation.
+          // Request-metered routes use the same atomic hard-cap reservation after the reset-clock gate.
+          const tokenPace = provider.id !== 'local' && provider.paceMeter === 'tokens'
+            ? { targetTokens: provider.paceCap, floorFrac: provider.paceFloorFrac }
+            : undefined
+          const reservation = admissionBudget.tryReserve(perAttemptTokens, tokenPace, admissionAt, 1)
           if (!reservation) {
-            constrain(provider.id, 'daily_cap', terminalDayMessage(provider.label, budget.exhaustionReason))
+            const miss = themeReservationMiss(stateDir, provider, perAttemptTokens, admissionAt, tokenPace)
+            constrain(provider.id, miss.blocker, miss.message)
             continue
           }
 
           markSent(theme, provider.id)
+          const attemptStartedAt = Date.now()
           let response: OpenAiCallResult = {
             text: null, tokens: 0, ok: false, status: 0, note: `${provider.label}: request failed`, rate: {},
           }
+          let thrownFailure: ThemeFailureClass | null = null
+          let cancelledByParent = false
           try {
             response = await callOpenAi(
               provider,
@@ -796,35 +1104,56 @@ export function makeThemeNamer(cfg: NamerCfg, fetchFn: typeof fetch, stateDir: s
               maxTokens,
               fetchFn,
               boundedAttemptTimeout(cfg, deadline, provider.timeoutMs),
+              parentSignal,
             )
-          } catch {}
-          budget.reconcile(reservation, 1, response.tokens || perAttemptTokens)
-          limiter.learn(response.rate, Date.now)
+          } catch (error) {
+            if (parentSignal?.aborted || error instanceof ThemeParentAbortError) cancelledByParent = true
+            else {
+              thrownFailure = error instanceof ThemeProviderTimeoutError
+                ? { scope: 'workload', kind: 'timeout' }
+                : { scope: 'provider', kind: 'availability' }
+            }
+          }
+          admissionBudget.reconcile(reservation, 1, response.tokens > 0 ? response.tokens : perAttemptTokens)
+          // The request was already dispatched, so keep its conservative ledger charge. Cancellation is not
+          // a provider failure, though: do not learn a retry, arm either cooldown scope, or try another tier.
+          if (cancelledByParent || parentSignal?.aborted) { parentAborted = true; break themeLoop }
           if (!response.ok || !response.text) {
-            const dayReason = terminalReason(response.status)
-            if (dayReason) budget.exhaust(dayReason)
+            const failure = thrownFailure || classifyThemeHttpFailure(response.status)
+            const explicitDailyLimit = provider.requestRemainingHeaderIsDaily
+              && response.status === 429
+              && response.rate.rpdRemaining === 0
+            limiter.learn(rateInfoForLimiter(response.rate, failure.scope === 'provider'), Date.now)
+            if (explicitDailyLimit) admissionBudget.exhaust('provider_daily_limit')
             if (response.status >= 200 && response.status < 300) {
               terminal = 'malformed'; result.malformed_count++
               constrain(provider.id, 'invalid_response', response.note || `${provider.label} returned an incomplete theme contract.`)
-              armProviderFailure(provider, `themes:${provider.id}`)
+              clearCooldown(stateDir, provider.id, attemptStartedAt)
+              armFailure(provider.id, provider.id === 'local', { scope: 'workload', kind: 'contract' }, response.rate)
             } else {
               constrain(provider.id, 'provider_error', response.note || `${provider.label}: provider error`)
-              if (!dayReason) {
-                const sharedFailure = response.status === 0 || response.status === 429 || response.status >= 500
-                armProviderFailure(provider, sharedFailure ? provider.id : `themes:${provider.id}`)
+              // A concrete workload-scoped HTTP response proves the provider is reachable; clear only an
+              // older shared generation. A timeout does not prove reachability and therefore cannot erase a
+              // concurrent/newer provider-wide outage marker.
+              if (!explicitDailyLimit && failure.scope === 'workload' && response.status > 0) {
+                clearCooldown(stateDir, provider.id, attemptStartedAt)
               }
+              if (!explicitDailyLimit) armFailure(provider.id, provider.id === 'local', failure, response.rate)
             }
             continue
           }
+          limiter.learn(response.rate, Date.now)
           terminal = classify(theme, response.text, provider.id === 'groq' ? 'groq' : 'llm', provider.id)
           if (terminal === 'validated' || terminal === 'rejected') {
-            clearCooldown(stateDir, provider.id); clearCooldown(stateDir, `themes:${provider.id}`)
+            clearCooldown(stateDir, provider.id, attemptStartedAt)
+            clearCooldown(stateDir, scopedHoldId(provider.id), attemptStartedAt)
             break
           }
           if (terminal === 'omitted') result.omitted_count++
           else result.malformed_count++
           constrain(provider.id, 'invalid_response', `${provider.label} returned an incomplete theme contract.`)
-          armProviderFailure(provider, `themes:${provider.id}`)
+          clearCooldown(stateDir, provider.id, attemptStartedAt)
+          armFailure(provider.id, provider.id === 'local', { scope: 'workload', kind: 'contract' }, response.rate)
         }
       }
 
@@ -834,7 +1163,14 @@ export function makeThemeNamer(cfg: NamerCfg, fetchFn: typeof fetch, stateDir: s
 
     const processed = result.validated_count + result.rejected_count
     const constraint = constraints[constraints.length - 1]
-    if (processed === result.requested_count) {
+    if (parentAborted) {
+      result.state = 'blocked'
+      result.provider = 'none'
+      result.blocker = 'rate_limiter_busy'
+      result.message = processed > 0
+        ? `Theme compiler processed ${processed} of ${result.requested_count}; the parent news cycle was aborted.`
+        : 'Theme compiler stopped because the parent news cycle was aborted.'
+    } else if (processed === result.requested_count) {
       result.state = 'succeeded'; result.blocker = null
       result.message = `Theme compiler processed ${processed} of ${result.requested_count} queued candidate${result.requested_count === 1 ? '' : 's'} in bounded single-theme requests.`
     } else if (constraint) {

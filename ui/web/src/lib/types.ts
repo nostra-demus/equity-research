@@ -865,10 +865,19 @@ export interface NewsCycle {
 }
 
 // The structured reason a cycle deferred items + the Haiku fallback's state (mirrors the server enums in
-// ui/server/src/news/types.ts). Kept as string unions so an older server sending an unknown value degrades
-// to the raw note rather than crashing the panel.
-export type DeferReason = 'aborted' | 'free-budget-spent' | 'groq-cooldown' | 'paced' | 'batch-failed'
-export type LastResortState = 'off' | 'scored' | 'usd-cap' | 'plan-quota' | 'auth-expired' | 'cooling' | 'available'
+// ui/server/src/news/types.ts). Kept as string unions; the panel still has a generic fallback at runtime so
+// a newer engine's unknown value explains that the batch is blocked rather than rendering a blank sentence.
+export type DeferReason =
+  | 'aborted'
+  | 'usage-ledger-unavailable'
+  | 'free-budget-spent'
+  | 'provider-day-limit'
+  | 'provider-retry-held'
+  | 'groq-cooldown' // legacy summary during a rolling deploy
+  | 'allowance-paced'
+  | 'paced' // legacy summary during a rolling deploy
+  | 'batch-failed'
+export type LastResortState = 'off' | 'unavailable' | 'scored' | 'usd-cap' | 'plan-quota' | 'auth-expired' | 'cooling' | 'available'
 
 // One ingest cycle's outcome, streamed live over /api/news/stream as `news-cycle`. Mirrors the server's
 // CycleSummary (ui/server/src/news/types.ts). Every field past `dropped` is optional so an OLDER engine
@@ -932,22 +941,36 @@ export interface NewsStatus {
   nextCycleAt: string | null
   lastNote: string | null
   readOnly?: boolean // another engine owns the ingester → this one serves but never scans (optional: deploy-skew)
-  backlog?: { count: number; cap: number } // deferred spillover depth + its loss boundary (optional: deploy-skew)
+  backlog?: { count: number; cap: number; unavailable?: boolean } // deferred spillover depth + its loss boundary; unavailable means the durable queue needs attention
   today: { read: number; kept: number; dropped: number; cycles: number }
-  budget: { requests: number; tokens: number; reqCap: number; tokenCap: number; tokenTarget?: number; paceCeiling?: number }
+  budget: {
+    requests: number; tokens: number; reqCap: number; tokenCap: number; tokenTarget?: number; paceCeiling?: number
+    enabled?: boolean; unlimited?: false; spendingAllowed?: boolean; health?: TierHealth
+    providerDayExhausted?: boolean; ledgerUnavailable?: boolean
+    cooldownRemainingMs?: number; cooldownReason?: string; nextEligibleAt?: string
+  }
   // every free OVERFLOW pool (Gemini + each OpenAI-compatible provider) — one entry per provider; the
   // cockpit renders a chip per entry, so a newly-wired key appears automatically. color = a CSS var name.
   // tokenCap is present only for TOKEN-gated providers (Cerebras) — the chip then reads tokens (its
   // binding limit) instead of requests, so the number shown is ground truth.
-  overflow?: { id: string; label: string; color: string; model: string; requests: number; reqCap: number; tokens: number; tokenCap?: number }[]
+  overflow?: {
+    id: string; label: string; color: string; model: string; requests: number; reqCap: number; tokens: number; tokenCap?: number
+    enabled?: boolean; unlimited?: boolean; spendingAllowed?: boolean; health?: TierHealth
+    providerDayExhausted?: boolean; ledgerUnavailable?: boolean
+    cooldownRemainingMs?: number; cooldownReason?: string; nextEligibleAt?: string
+  }[]
   // the LOCAL primary brain — the unlimited $0 tier tried FIRST for every batch when enabled AND primary.
   // Absent when local is off OR demoted to a fallback (it then appears in `overflow`). The cockpit renders this
   // FIRST and prominently, showing live tokens/requests processed today — there is no cap to show.
-  local?: { id: string; label: string; color: string; model: string; requests: number; tokens: number; health: TierHealth; cooldownRemainingMs?: number }
+  local?: {
+    id: string; label: string; color: string; model: string; requests: number; tokens: number
+    enabled?: true; unlimited?: true; spendingAllowed?: boolean; health: TierHealth
+    providerDayExhausted?: boolean; cooldownRemainingMs?: number; cooldownReason?: string; nextEligibleAt?: string; ledgerUnavailable?: boolean
+  }
 }
 
 // ---- full pipeline diagnostics (GET /api/news/diagnostics) — mirrors server NewsDiagnostics ----
-export type TierHealth = 'healthy' | 'paced' | 'cooling' | 'budget-spent' | 'disabled'
+export type TierHealth = 'healthy' | 'paced' | 'cooling' | 'budget-spent' | 'unavailable' | 'disabled'
 
 export interface TierDiagnostics {
   id: string
@@ -956,8 +979,11 @@ export interface TierDiagnostics {
   role: 'primary' | 'overflow' | 'gemini' | 'last-resort'
   order: number // routing order in the fallback chain (0 = tried first)
   enabled: boolean
+  spendingAllowed?: boolean // false only when the shared news engine is off or has no active lease owner
   meter: 'requests' | 'usd'
   health: TierHealth
+  providerDayExhausted?: boolean // explicit provider-day signal; usage meters remain actual engine records
+  ledgerUnavailable?: boolean // durable usage record cannot be trusted; admission is closed and counters are omitted
   requestsToday?: number
   reqCap?: number
   tokensToday?: number
@@ -966,7 +992,14 @@ export interface TierDiagnostics {
   usdCap?: number
   callsToday?: number
   cooldownRemainingMs?: number
-  fails?: number
+  cooldownReason?: string
+  retryScope?: 'shared' | 'triage'
+  nextEligibleAt?: string
+  consecutiveFailures?: number
+  failuresToday?: number
+  fails?: number // legacy alias; consecutive streak, never a day total
+  triageAttemptsToday?: number
+  triageScoredBatchesToday?: number
   lastCycleRequests?: number
 }
 
@@ -979,7 +1012,7 @@ export interface NewsDiagnostics {
   lastCycleAt: string | null
   nextCycleAt: string | null
   tiers: TierDiagnostics[]
-  backlog: { count: number; cap: number; pctOfCap: number; nearLimit: boolean; trend: 'growing' | 'shrinking' | 'flat' | null; lostToday: number }
+  backlog: { unavailable?: boolean; count: number; cap: number; pctOfCap: number; nearLimit: boolean; trend: 'growing' | 'shrinking' | 'flat' | null; lostToday: number }
   today: { read: number; kept: number; dropped: number; cycles: number }
   lastCycle: {
     ts: string
@@ -1005,6 +1038,11 @@ export interface NewsDiagnostics {
     plainNote: string | null
     lastResort: LastResortState | null
     blockingTiers: string[]
+    retryHeldTiers?: string[] // optional while an older engine is still serving
+    providerDayExhaustedTiers?: string[]
+    allowanceExhaustedTiers?: string[]
+    unavailableTiers?: string[]
+    pacedTiers?: string[]
   }
 }
 
@@ -2022,6 +2060,11 @@ export interface CallTimelineEntry {
   memo_delta_file?: string // §8 memo delta — the "what changed since the memo" markdown, when the review filed one
   stage_one_comment?: string // paste-ready 100–200-word Stage-One sheet note from the same block
 }
+// AS_forecast_overdue / AW_kill_criteria_overdue (scripts/eval.py), surfaced live — see outputs.ts.
+export interface OverdueItem {
+  due_date: string
+  description: string
+}
 export interface CallSummary {
   ticker: string
   company: string | null
@@ -2048,10 +2091,21 @@ export interface CallSummary {
   next_checkpoint: { window: string; due_date: string | null; status: string } | null
   review_count: number
   timeline: CallTimelineEntry[]
+  needs_attention: { forecasts_overdue: OverdueItem[]; kill_criteria_overdue: OverdueItem[] }
+}
+// ranked across ALL calls, oldest due_date first — the flattened, actionable form of every call's
+// needs_attention block, for the top-of-dashboard "needs attention now" panel.
+export interface NeedsAttentionRow extends OverdueItem {
+  type: 'forecast' | 'kill_criteria'
+  ticker: string
+  company: string | null
+  run_root: string
+  final_thesis_path: string
 }
 export interface CallsResult {
   calls: CallSummary[]
   dashboard: string | null
+  needs_attention: NeedsAttentionRow[]
 }
 
 // ---- activity / audit log ----
