@@ -17,6 +17,7 @@ const TYPE_LABEL: Record<string, string> = {
   proxy_comp: 'Proxy',
   financials: 'Financials',
   guidance: 'Guidance',
+  business_relationships: 'Suppliers/Customers',
   user_note: 'Note',
   external_data: 'External',
   other: 'Other',

@@ -1501,6 +1501,105 @@ export interface SignalState {
   hasCandidates?: boolean
   doneModules?: string[]
 }
+// ---- the chain lane -------------------------------------------------------------------------------
+// Outside suppliers, customers, and distributors read out of the Capital IQ relationship exports in each
+// company's data pool. These are research LEADS with a cited evidence chain, never ideas: the export
+// proves a relationship exists, and says nothing about how big it is — so a lead carries the ANCHOR's
+// verdict and which way the link transmits, and never a direction of its own.
+export type SupplyChainReadiness = 'research_now' | 'needs_anchor' | 'not_directional' | 'not_investable' | 'related_party'
+export type SupplyChainTransmission = 'same_direction' | 'inverse' | 'none'
+
+export interface SupplyChainPathStep {
+  name: string
+  listing: string | null
+  role: string | null // how this step relates to the previous one; null on the anchor itself
+}
+
+export interface SupplyChainCoverage {
+  subject: string
+  has_run: boolean
+  latest_run: string | null
+  latest_decision: string | null
+  data_pool_present: boolean
+}
+
+export interface SupplyChainLead {
+  lead_id: string
+  anchor_ticker: string
+  anchor_name: string | null
+  anchor_listing: string | null
+  anchor_run_root: string
+  anchor_decision: string | null
+  anchor_decision_date: string | null
+  name: string
+  listing: string | null
+  exchange: string | null
+  symbol: string | null
+  country: string | null
+  industry: string | null
+  description: string | null
+  order: number
+  path: SupplyChainPathStep[]
+  role: string
+  role_kind: 'operating' | 'financing' | 'other'
+  transmission: SupplyChainTransmission
+  mechanism: string
+  disclosed_by: 'counterparty' | 'anchor_group' | null
+  source_ref: string | null
+  source_file: string | null
+  link_strength: number
+  link_strength_components: Record<string, number>
+  lead_score: number
+  lead_score_basis: 'chain_evidence_v1'
+  lead_score_cap: number | null
+  lead_score_cap_reason: string | null
+  readiness: SupplyChainReadiness
+  evidence_gaps: string[]
+  prior_coverage: SupplyChainCoverage | null
+}
+
+export interface SupplyChainAnchorMap {
+  ticker: string
+  name: string | null
+  listing: string | null
+  run_root: string
+  decision: string | null
+  decision_date: string | null
+  sheets: number
+  scope_notes: string[]
+  relationship_rows: number
+  intragroup_rows: number
+  intragroup_row_share_pct: number | null
+  third_party_entities: number
+  listed_third_parties: number
+  listed_suppliers: number
+  listed_customers: number
+  exchanges: string[]
+  industry_clusters: Array<{ industry: string; counterparty_count: number; third_party_count: number; listed_count: number; counterparties: string[] }>
+  warnings: string[]
+}
+
+export interface SupplyChainBoard {
+  schema_version: 'supply-chain-board/v1'
+  generated_at: string
+  score_basis: 'chain_evidence_v1'
+  health: {
+    status: 'healthy' | 'pre_data' | 'degraded'
+    outcome: 'no_exports' | 'leads' | 'none_investable' | 'storage_error' | 'invalid_artifacts'
+    reason: string
+    run_count: number
+    graph_count: number
+    invalid_count: number
+    sheet_count: number
+    anchors_without_export: string[]
+    lead_count: number
+    research_now_count: number
+    third_order_count: number
+  }
+  anchors: SupplyChainAnchorMap[]
+  leads: SupplyChainLead[]
+}
+
 export interface ScreenerBoard {
   generated_at: string | null
   inbox: BoardInboxRow[]
@@ -1514,6 +1613,7 @@ export interface ScreenerBoard {
   ideas_scorecard?: IdeasScorecard // the skim's honest track record (absent on an older engine)
   ideas_health?: IdeasHealth // absent on a legacy engine; the UI must not infer success from `ideas: []`
   qualified_ideas?: QualifiedIdeasBoard // full-research 3-6 month gate; never inferred from news leads
+  supply_chain?: SupplyChainBoard // the chain lane: outside counterparties read from the CIQ relationship exports
   counts: Record<string, number>
   book_momentum?: BookMomentum
   live?: { runId: string; kind: string; subjectId: string; runRoot: string | null; startedAt: number }[]
@@ -2009,6 +2109,11 @@ export interface CallTimelineEntry {
   memo_delta_file?: string // §8 memo delta — the "what changed since the memo" markdown, when the review filed one
   stage_one_comment?: string // paste-ready 100–200-word Stage-One sheet note from the same block
 }
+// AS_forecast_overdue / AW_kill_criteria_overdue (scripts/eval.py), surfaced live — see outputs.ts.
+export interface OverdueItem {
+  due_date: string
+  description: string
+}
 export interface CallSummary {
   ticker: string
   company: string | null
@@ -2035,10 +2140,21 @@ export interface CallSummary {
   next_checkpoint: { window: string; due_date: string | null; status: string } | null
   review_count: number
   timeline: CallTimelineEntry[]
+  needs_attention: { forecasts_overdue: OverdueItem[]; kill_criteria_overdue: OverdueItem[] }
+}
+// ranked across ALL calls, oldest due_date first — the flattened, actionable form of every call's
+// needs_attention block, for the top-of-dashboard "needs attention now" panel.
+export interface NeedsAttentionRow extends OverdueItem {
+  type: 'forecast' | 'kill_criteria'
+  ticker: string
+  company: string | null
+  run_root: string
+  final_thesis_path: string
 }
 export interface CallsResult {
   calls: CallSummary[]
   dashboard: string | null
+  needs_attention: NeedsAttentionRow[]
 }
 
 // ---- activity / audit log ----

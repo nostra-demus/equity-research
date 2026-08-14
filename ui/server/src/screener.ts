@@ -9,6 +9,7 @@ import { extractRouting, extractVerdict } from './verdict'
 import { ideasHealthLivenessMs, readIdeasHealth } from './news/ideas/ideas-health'
 import { projectLiveIdeas } from './news/ideas/ideas-projection'
 import { buildQualifiedIdeasBoard } from './qualified-ideas-store'
+import { buildSupplyChainBoard } from './supply-chain'
 
 // Read-only API surface over the screener swarm's canonical stores. Every path is derived from the
 // SWARM.md manifest (never hardcoded beyond the swarm id this API is named for) and sandboxed to
@@ -59,6 +60,10 @@ export function screenerBoard() {
       ideasHealthLivenessMs(NEWS.pollIntervalMin * 60_000),
     ),
     qualified_ideas: buildQualifiedIdeasBoard(REPO_ROOT),
+    // The chain lane: outside suppliers, customers, and distributors read out of the CIQ relationship
+    // exports in each standing run's pool. Deterministic and free — no provider call, no ledger — so it
+    // is recomputed here for the same reason qualified_ideas is, rather than cached into the index.
+    supply_chain: buildSupplyChainBoard(REPO_ROOT),
     live,
     resumable,
   }
