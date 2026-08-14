@@ -122,7 +122,7 @@ One list, all years, names matched across roles:
 | Name | Years as customer | Years as vendor | Both roles? | Sales ≈ purchases (circular)? | Verdict | Source |
 |---|---|---|---|---|---|---|
 
-Any both-roles match is the DHFL/Gensol circle — Red pending a priced, disclosed operating explanation.
+Any both-roles match is a LEAD (Amber + investigate), not a verdict — per step 7 it escalates to Red ONLY on circularity evidence (mirrored/matched amounts or timing across the two legs, off-market pricing on either leg, a funds-flow circle — the DHFL/Gensol pattern — or a material match management cannot explain when asked); a genuine two-way trade exists, so the burden is on the evidence of circularity, and an explained-and-priced match closes as Amber-resolved.
 
 ## 5. Approval & Disclosure Hygiene (A5-05, A5-06, A5-07, A5-08)
 
