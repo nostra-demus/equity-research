@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.1",
+  "swarm": "research",
+  "subject": "ORCL",
+  "ticker": "ORCL",
+  "run_root": "analyses/ORCL_2026-08-14",
+  "decision_fingerprint": "sha256:92baf1954a0ee6c603249e38d22c8d4b1b4e1284d9444f155a64be4f82b23e88",
+  "scan_date": "2026-08-14",
+  "scanned_at": "2026-08-14T05:49:37.985Z",
+  "watermark": "analyses/ORCL_2026-08-14/final_thesis.md",
+  "new_docs": [],
+  "rerun_plan": {
+    "materiality_gate": 60,
+    "entry_orbs": [],
+    "commands": [],
+    "note_only": []
+  },
+  "verdict": "note_only",
+  "summary": "No new documents since the last run. The only pool files newer than the watermark are the engine's own routed memo output (Memos 2026-08-14 11-18-40/, sentinel-marked), correctly excluded from the delta scan."
+}
