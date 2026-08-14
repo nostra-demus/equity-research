@@ -18,7 +18,7 @@ import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, 
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
-import { assertClaudeCli, cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, finalDeliverablesPresent, launch, sigIdFor, todayDate, warmLaunchProbes } from './launcher'
+import { assertClaudeCli, cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, launch, sigIdFor, todayDate, warmLaunchProbes } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed, applyActiveWeightsTo } from './news/feed'
 import { getPulse } from './news/commodity-pulse'
@@ -73,10 +73,17 @@ import { routeReason } from './news/triage/reason-router'
 import { startResumeSupervisor } from './resume-supervisor'
 import { listResumableRuns } from './resumable'
 import { carryForwardModules, carryForwardScoped, dataPoolNewest, prepareModuleResume, thesisPlan } from './completion'
-import { latestPlanFileFor, readIntakePlan } from './intake'
+import { intakePoolNewest, latestPlanFileFor, readIntakePlan, resolveIntakeRunRoot, type IntakeReceiptIntent } from './intake'
+import { finishedOwnerConflict, listFinishedIntakeOwners, resolveUniqueFinishedIntakeOwner, type FinishedIntakeOwner } from './intake-owner'
 import { getBridgeStatus, getBridgeSubjectNames, startBridgeScheduler } from './bridge-scheduler'
 import { readWhatChanged, whatChangedMarkdown, RUN_ROOT_RE } from './what-changed'
 import { readDataNeeds, resolveDataNeedsRunRoot } from './data-needs'
+import {
+  DATA_NEED_UPLOAD_MAX_BYTES, commitDataNeedUpload, discardReceivedDataNeedUpload,
+  manualDataNeedUploadWriterReady,
+  normalizeDataNeedSourceUrl, readDataNeedUploadStatus, receiveDataNeedUploadFile,
+  selectCurrentDataNeedForUpload, triggerDataNeedUploadRouter, type ReceivedDataNeedUpload,
+} from './data-need-upload'
 import { appendPipelineEvent, getPipelineSource, getPipelineView, isPipelineId, listPipelineForSubject, listRecentPipeline, writeNeedLookup, writePipelineSource, type PipelineSourceKind } from './pipeline-store'
 import { runRelevanceScan, type ScanSignal } from './pipeline-scan'
 import { admitDiscoveredForOpenNeeds, discoverWant, openDiscoverNeeds, planTargetedNeedLookup, runFeedDiscovery, shouldSkipFeedDiscovery, type AdmittedLookupMatch } from './pipeline-discover'
@@ -86,12 +93,12 @@ import { getConnector } from './connector-registry'
 import { startConnectorRunner, lastLedgerError } from './connector-runner'
 import { startConnectorRepair } from './connector-repair'
 import { readPipelines } from './pipelines'
-import { SubjectBusyError, withSubjectLock } from './subject-lock'
+import { SubjectBusyError, subjectMutationLockKey, withSubjectLock } from './subject-lock'
 import { acquireSingletonLock, releaseSingletonLock } from './singleton-lock'
 import { shellForUrl } from './static-shell'
 import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
-import type { RunKind } from './types'
-import { normalizeDataSubject } from './data-subject'
+import type { RunKind, RunStatus } from './types'
+import { MANIFEST_SUBJECT_RE, normalizeDataSubject } from './data-subject'
 
 // async execFile (never execFileSync in a request handler — a python board rebuild takes seconds and
 // execFileSync would freeze the single event loop, stalling every other request incl. SSE pings; see
@@ -262,8 +269,9 @@ app.get('/api/swarm', async (req, reply) => {
     // application/json content type — that is the sanitizer barrier for js/stored-xss (a JSON response can
     // never execute a reflected/stored value as script), on top of the regex validation above.
     if (subject !== undefined) {
-      if (!SIG_RE.test(subject) && !TICKER_RE.test(subject)) return reply.code(400).send({ error: 'bad subject' })
-      return reply.type('application/json').send(graphForSubject(swarm, subject))
+      const normalized = normalizeDataSubject(swarm, subject)
+      if (!normalized) return reply.code(400).send({ error: 'bad subject' })
+      return reply.type('application/json').send(graphForSubject(swarm, normalized))
     }
     return buildSwarmGraph(swarm)
   }
@@ -290,6 +298,64 @@ app.get('/api/swarm/subjects', async (req, reply) => {
 // explicit per-route rate-limit (same budget as the global cap) so CodeQL recognizes the limiter on this
 // filesystem-reading handler (js/missing-rate-limiting); the global @fastify/rate-limit still applies too.
 app.get('/api/tickers', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => ({ ...listTickers(), driveEnabled: GDRIVE_ENABLED }))
+
+type ManualPoolOwnerError = NonNullable<ReturnType<typeof finishedOwnerConflict>> | { code: 'shared_data_owner_unavailable'; owners: string[] }
+type SelectedManualOwnerConflict = ManualPoolOwnerError
+  | { code: 'shared_data_owner_required'; owners: string[] }
+  | { code: 'shared_data_owner_run_mismatch'; owners: string[] }
+
+function manualPoolOwnerError(expectedSwarm: string, subject: string): ManualPoolOwnerError | null {
+  try {
+    return finishedOwnerConflict(expectedSwarm, listFinishedIntakeOwners(subject))
+  } catch {
+    return { code: 'shared_data_owner_unavailable', owners: [] }
+  }
+}
+
+function manualPoolOwnerReply(reply: FastifyReply, subject: string, conflict: ManualPoolOwnerError) {
+  const message = conflict.code === 'shared_data_owner_ambiguous'
+    ? `${subject} has finished ideas in more than one cockpit (${conflict.owners.join(', ')}). Separate or rename the shared data folder before adding data.`
+    : conflict.code === 'shared_data_owner_mismatch'
+      ? `data/${subject} belongs to the ${conflict.owners[0]} cockpit, not this cockpit.`
+      : `The owner of data/${subject} could not be verified. Nothing was written.`
+  return reply.code(409).send({ error: message, code: conflict.code, subject, owners: conflict.owners })
+}
+
+/** A selected-call manual upload is stricter than an ordinary producer: exactly one finished owner must
+ *  match BOTH the selected swarm and run root. Zero-owner uploads cannot be decision-scoped, and a newer
+ *  standing call may not reuse an old card's authority. */
+function selectedManualUploadOwner(
+  swarmId: string,
+  subject: string,
+  runRoot?: string,
+): { owner?: FinishedIntakeOwner; conflict?: SelectedManualOwnerConflict } {
+  let owners: FinishedIntakeOwner[]
+  try { owners = listFinishedIntakeOwners(subject) } catch {
+    return { conflict: { code: 'shared_data_owner_unavailable', owners: [] } }
+  }
+  const base = finishedOwnerConflict(swarmId, owners)
+  if (base) return { conflict: base }
+  if (owners.length !== 1) return { conflict: { code: 'shared_data_owner_required', owners: [] } }
+  const owner = owners[0]!
+  if (runRoot !== undefined && owner.runRoot !== runRoot) {
+    return { conflict: { code: 'shared_data_owner_run_mismatch', owners: [owner.swarm] } }
+  }
+  return { owner }
+}
+
+function selectedManualUploadOwnerReply(
+  reply: FastifyReply,
+  subject: string,
+  result: Exclude<ReturnType<typeof selectedManualUploadOwner>['conflict'], undefined>,
+) {
+  if (result.code === 'shared_data_owner_required') {
+    return reply.code(409).send({ error: `No finished ${subject} call owns this upload. Finish the idea first.`, code: result.code, subject, owners: result.owners })
+  }
+  if (result.code === 'shared_data_owner_run_mismatch') {
+    return reply.code(409).send({ error: `The selected ${subject} call is no longer the data-pool owner. Refresh the idea.`, code: result.code, subject, owners: result.owners })
+  }
+  return manualPoolOwnerReply(reply, subject, result)
+}
 
 // Add a company = create a <TICKER> folder in the shared Drive (the cloud twin of local data/). The
 // engine keeps reading the local mount, so the new company surfaces in the picker once Drive syncs the
@@ -321,6 +387,11 @@ app.post('/api/tickers/:ticker/files', async (req, reply) => {
   if (!GDRIVE_ENABLED) return reply.code(400).send({ error: 'Drive uploads are not configured on this server' })
   const ticker = (req.params as any).ticker as string
   if (!isValidTicker(ticker) || isReservedDataFolder(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  // This is the standard COMPANY document lane. A legacy/modern commodity dossier with the same label
+  // owns that shared pool too; refuse before consuming multipart bytes instead of silently filing its
+  // evidence as equity research. Zero owners remains valid for a genuinely new company.
+  const ownerConflict = manualPoolOwnerError(RESEARCH_SWARM_ID, ticker)
+  if (ownerConflict) return manualPoolOwnerReply(reply, ticker, ownerConflict)
   const { user, userVia } = identify(req)
   const written: string[] = []
   const errors: { filename: string; reason: string }[] = []
@@ -417,6 +488,115 @@ app.get('/api/activity', async (req) => {
 // ---------- launch estimate ----------
 // Discriminated by kind: research kinds require a TICKER; screener kinds validate their own
 // subject shape (signal: optional SIG id / none for a new signal; sweep: nothing; handoff: ticker).
+const EXACT_DECISION_LAUNCH_CONTRACT = 'exact-decision-launch/1' as const
+const EXACT_INTAKE_ORB_CONTRACT = 'exact-intake-orb/1' as const
+const ExactPlanBindingFields = {
+  planPath: z.string().min(1).max(700).optional(),
+  planSha256: z.string().regex(/^sha256:[a-f0-9]{64}$/).optional(),
+  sourceDecisionFingerprint: z.string().regex(/^sha256:[a-f0-9]{64}$/).optional(),
+}
+const exactPlanFieldsAreComplete = (value: Record<string, unknown>): boolean => {
+  const count = ['planPath', 'planSha256', 'sourceDecisionFingerprint'].filter((key) => value[key] !== undefined).length
+  return count === 0 || count === 3
+}
+const ExactDecisionEstimateQuery = z.object({
+  runRoot: z.string().min(1).max(300).optional(),
+  decisionFingerprint: z.string().regex(/^sha256:[a-f0-9]{64}$/).optional(),
+  ...ExactPlanBindingFields,
+}).refine(exactPlanFieldsAreComplete, { message: 'intake plan binding must be complete' })
+
+function exactDecisionLaunchReceipt(
+  binding: { runRoot: string; decisionFingerprint: string },
+  intakePlan?: IntakeReceiptIntent,
+) {
+  return {
+    contractVersion: EXACT_DECISION_LAUNCH_CONTRACT,
+    runRoot: binding.runRoot,
+    decisionFingerprint: binding.decisionFingerprint,
+    ...(intakePlan ? { intakePlan: { contractVersion: EXACT_INTAKE_ORB_CONTRACT, ...intakePlan } } : {}),
+  }
+}
+
+function exactActionableIntakeOrb(
+  swarmId: string,
+  subject: string,
+  runRoot: string,
+  module: string | undefined,
+  agent: string | undefined,
+  requested?: IntakeReceiptIntent,
+): IntakeReceiptIntent | null {
+  if (!module || !agent) return null
+  const intake = readIntakePlan(subject, { swarmId, runRoot })
+  const actionable = intake?.actionable === true && intake.widened.length === 0
+    && intake.rerun_plan.commands.some((command) => command.module === module && command.agent === agent)
+  if (!actionable || !intake?.decision_fingerprint) return null
+  const actual = {
+    planPath: intake.plan_path,
+    planSha256: intake.plan_sha256,
+    sourceDecisionFingerprint: intake.decision_fingerprint,
+  }
+  if (requested && (requested.planPath !== actual.planPath || requested.planSha256 !== actual.planSha256
+      || requested.sourceDecisionFingerprint !== actual.sourceDecisionFingerprint)) return null
+  return actual
+}
+
+function exactDecisionLaunchBinding(
+  swarmId: string, subject: string, runRoot: string | undefined, decisionFingerprint: string | undefined,
+): { runRoot: string; decisionFingerprint: string } | null {
+  // Every user-paid rerun is call-bound. Missing identity is not a legacy convenience: during a rolling
+  // web/server deploy it would silently turn an old UI request into "rerun whatever is current now".
+  if (!runRoot || !decisionFingerprint) return null
+  const exact = readDataNeeds(swarmId, subject, runRoot)
+  const current = readDataNeeds(swarmId, subject)
+  if (!exact || !current || exact.run_root !== current.run_root
+      || exact.decision_fingerprint !== decisionFingerprint
+      || current.decision_fingerprint !== decisionFingerprint) return null
+  return { runRoot: exact.run_root, decisionFingerprint }
+}
+
+function boundLaunchEstimate(
+  reply: FastifyReply,
+  kind: RunKind,
+  subject: string,
+  module: string | undefined,
+  agent: string | undefined,
+  swarm: string | undefined,
+  rawRunRoot: unknown,
+  rawDecisionFingerprint: unknown,
+  rawPlanPath?: unknown,
+  rawPlanSha256?: unknown,
+  rawSourceDecisionFingerprint?: unknown,
+) {
+  const parsed = ExactDecisionEstimateQuery.safeParse({
+    runRoot: rawRunRoot,
+    decisionFingerprint: rawDecisionFingerprint,
+    planPath: rawPlanPath,
+    planSha256: rawPlanSha256,
+    sourceDecisionFingerprint: rawSourceDecisionFingerprint,
+  })
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid exact decision binding' })
+  const { runRoot, decisionFingerprint, planPath, planSha256, sourceDecisionFingerprint } = parsed.data
+  if (kind !== 'rerun') {
+    if (runRoot || decisionFingerprint || planPath || planSha256 || sourceDecisionFingerprint) {
+      return reply.code(400).send({ error: 'exact call binding is rerun-only' })
+    }
+    return estimate(kind, subject, module, agent, swarm)
+  }
+  const binding = exactDecisionLaunchBinding(swarm || RESEARCH_SWARM_ID, subject, runRoot, decisionFingerprint)
+  if (!binding) return reply.code(409).send({ error: 'selected_decision_required' })
+  const requestedPlan = planPath && planSha256 && sourceDecisionFingerprint
+    ? { planPath, planSha256, sourceDecisionFingerprint }
+    : undefined
+  const intakePlan = requestedPlan
+    ? exactActionableIntakeOrb(swarm || RESEARCH_SWARM_ID, subject, binding.runRoot, module, agent, requestedPlan)
+    : undefined
+  if (requestedPlan && !intakePlan) return reply.code(409).send({ error: 'intake_plan_changed' })
+  return {
+    ...estimate(kind, subject, module, agent, swarm),
+    exactDecisionBinding: exactDecisionLaunchReceipt(binding, intakePlan ?? undefined),
+  }
+}
+
 app.get('/api/launch/estimate', async (req, reply) => {
   const q = req.query as any
   const kind = q.kind as RunKind
@@ -425,19 +605,28 @@ app.get('/api/launch/estimate', async (req, reply) => {
   if (swarm && swarm !== 'research') {
     if (!listSwarms().some((s) => s.id === swarm)) return reply.code(400).send({ error: 'unknown swarm' })
     if (!['full', 'module', 'agent', 'rerun'].includes(kind)) return reply.code(400).send({ error: 'bad kind for swarm' })
-    if (!TICKER_RE.test(q.ticker || '')) return reply.code(400).send({ error: 'bad subject' })
-    return estimate(kind, q.ticker, q.module, q.agent, swarm)
+    const subject = normalizeDataSubject(swarm, q.ticker)
+    if (!subject) return reply.code(400).send({ error: 'bad subject' })
+    if (kind === 'module' || kind === 'agent' || kind === 'rerun') {
+      if (!q.module || !listModuleNames(swarm).includes(q.module)) return reply.code(400).send({ error: 'unknown module' })
+    }
+    if ((kind === 'agent' || (kind === 'rerun' && q.agent))
+        && !agentNamesForModule(q.module, swarm).includes(q.agent)) return reply.code(400).send({ error: 'unknown agent for module' })
+    return boundLaunchEstimate(reply, kind, subject, q.module, q.agent, swarm, q.runRoot, q.decisionFingerprint,
+      q.planPath, q.planSha256, q.sourceDecisionFingerprint)
   }
   const researchKinds = ['full', 'module', 'agent', 'rerun', 'review', 'track']
   const screenerKinds = ['signal', 'sweep', 'screener-agent', 'handoff']
   if (![...researchKinds, ...screenerKinds].includes(kind)) return reply.code(400).send({ error: 'bad kind' })
   if (researchKinds.includes(kind)) {
     if (!TICKER_RE.test(q.ticker || '')) return reply.code(400).send({ error: 'bad ticker' })
-    return estimate(kind, q.ticker, q.module, q.agent)
+    return boundLaunchEstimate(reply, kind, q.ticker, q.module, q.agent, undefined, q.runRoot, q.decisionFingerprint,
+      q.planPath, q.planSha256, q.sourceDecisionFingerprint)
   }
   if (kind === 'screener-agent' && !SIG_RE.test(q.ticker || '')) return reply.code(400).send({ error: 'bad signal id' })
   if (kind === 'handoff' && !TICKER_RE.test(q.ticker || '')) return reply.code(400).send({ error: 'bad ticker' })
-  return estimate(kind, q.ticker || '', q.module, q.agent)
+  return boundLaunchEstimate(reply, kind, q.ticker || '', q.module, q.agent, undefined, q.runRoot, q.decisionFingerprint,
+    q.planPath, q.planSha256, q.sourceDecisionFingerprint)
 })
 
 // ---------- launch ----------
@@ -454,6 +643,8 @@ const ResearchLaunchBody = z.object({
   confirmTicker: z.string().optional(),
   // "Run anyway": stop any in-flight run on this ticker that holds the lock, then launch (overwrite OK).
   force: z.boolean().optional(),
+  runRoot: z.string().min(1).max(300).optional(),
+  decisionFingerprint: z.string().regex(/^sha256:[a-f0-9]{64}$/).optional(),
 })
 
 const INB_RE = /^INB-\d{8}-\d{3,}$/
@@ -531,17 +722,90 @@ const SWARM_ID_RE = /^[a-z0-9-]{1,40}$/
 const SwarmLaunchBody = z.object({
   kind: z.enum(['full', 'module', 'agent', 'rerun']),
   swarm: z.string().regex(SWARM_ID_RE),
-  ticker: z.string().regex(TICKER_RE),
+  // A manifest owns its unit id. Research keeps the stricter ticker grammar below; a discovered swarm
+  // may legitimately surface a longer (but still single-segment) subject. The shared normalizer after
+  // parsing is the authority, so Data Library / Data Needs / launch all admit the same exact ids.
+  ticker: z.string().min(1).max(64),
   module: z.string().regex(MODULE_RE).optional(),
   agent: z.string().regex(AGENT_RE).optional(),
   model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
   confirmTicker: z.string().optional(),
+  runRoot: z.string().min(1).max(300).optional(),
+  decisionFingerprint: z.string().regex(/^sha256:[a-f0-9]{64}$/).optional(),
+})
+
+// The versioned paid-rerun route is deliberately a DIFFERENT path from the legacy launch route. A new
+// browser can therefore never price against a current server, then POST to an older server that silently
+// strips exact-decision fields during a rolling restart: the older server has no path and returns 404.
+const ExactRerunLaunchBody = z.object({
+  kind: z.literal('rerun'),
+  ticker: z.string().min(1).max(64),
+  swarm: z.string().regex(SWARM_ID_RE).optional(),
+  module: z.string().regex(MODULE_RE),
+  agent: z.string().regex(AGENT_RE),
+  model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
+  force: z.boolean().optional(),
+  runRoot: z.string().min(1).max(300),
+  decisionFingerprint: z.string().regex(/^sha256:[a-f0-9]{64}$/),
+  ...ExactPlanBindingFields,
+}).strict().refine(exactPlanFieldsAreComplete, { message: 'intake plan binding must be complete' })
+
+app.post('/api/launch/exact', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  const parsed = ExactRerunLaunchBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid exact rerun body', detail: parsed.error.flatten() })
+  const { ticker: rawSubject, module, agent, model, force, runRoot, decisionFingerprint,
+    planPath, planSha256, sourceDecisionFingerprint } = parsed.data
+  const swarmId = parsed.data.swarm ?? RESEARCH_SWARM_ID
+  if (!listSwarms().some((s) => s.id === swarmId)) return reply.code(400).send({ error: `unknown swarm ${swarmId}` })
+  const subject = normalizeDataSubject(swarmId, rawSubject)
+  if (!subject || isReservedDataFolder(subject)) return reply.code(400).send({ error: 'bad subject' })
+  if (swarmId === RESEARCH_SWARM_ID) {
+    if (!isValidTicker(subject) || !fs.existsSync(path.join(DATA_DIR, subject))) {
+      return reply.code(400).send({ error: `unknown ticker ${subject}` })
+    }
+    if (module !== 'master') {
+      if (!listModuleNames(RESEARCH_SWARM_ID).includes(module)) return reply.code(400).send({ error: 'unknown module' })
+      if (!agentNamesForModule(module, RESEARCH_SWARM_ID).includes(agent)) return reply.code(400).send({ error: 'unknown agent for module' })
+    }
+  } else {
+    if (!listModuleNames(swarmId).includes(module)) return reply.code(400).send({ error: 'unknown module' })
+    if (!agentNamesForModule(module, swarmId).includes(agent)) return reply.code(400).send({ error: 'unknown agent for module' })
+  }
+  const binding = exactDecisionLaunchBinding(swarmId, subject, runRoot, decisionFingerprint)
+  if (!binding) return reply.code(409).send({ error: 'selected_decision_required' })
+  const requestedPlan = planPath && planSha256 && sourceDecisionFingerprint
+    ? { planPath, planSha256, sourceDecisionFingerprint }
+    : undefined
+  // A plan-origin request is an exact one-time command: consumed/replaced/tampered means REJECT, never
+  // silently downgrade it to an ordinary graph rerun. An ordinary graph click may omit these fields.
+  const intakeReceipt = requestedPlan
+    ? exactActionableIntakeOrb(swarmId, subject, binding.runRoot, module, agent, requestedPlan) ?? undefined
+    : undefined
+  if (requestedPlan && !intakeReceipt) {
+    return reply.code(409).send({ error: 'That intake-plan orb was already consumed or the plan changed.', code: 'intake_plan_changed' })
+  }
+  const { user, userVia } = identify(req)
+  try {
+    const out = await launch({
+      kind: 'rerun', ticker: subject, module, agent, model, force,
+      ...(swarmId !== RESEARCH_SWARM_ID ? { swarm: swarmId } : {}),
+      ...binding, decisionRunRoot: binding.runRoot, intakeReceipt, user, userVia,
+    })
+    return { ...out, preflight: { ...out.preflight, exactDecisionBinding: exactDecisionLaunchReceipt(binding, requestedPlan ? intakeReceipt : undefined) } }
+  } catch (e: any) {
+    const body = e?.body && typeof e.body === 'object' ? e.body : null
+    return reply.code(e?.statusCode || 500).send({ error: e?.message || 'launch failed', ...(body || {}) })
+  }
 })
 
 // explicit per-route rate limit: launches are human clicks (a handful a minute at most) and the
 // handler touches the filesystem, so cap it well above real usage but below abuse levels
 app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
   const kind = (req.body as any)?.kind as RunKind | undefined
+  // Exact reruns moved to /api/launch/exact. Keeping this explicit refusal makes current-server/old-UI
+  // skew fail closed too; no legacy body can regain paid rerun authority by adding fields here.
+  if (kind === 'rerun') return reply.code(426).send({ error: 'exact_launch_endpoint_required' })
   const { user, userVia } = identify(req)
   const fail = (e: any) => {
     // Forward the discriminated admission-rejection body (code/reason/detail) so the client can
@@ -602,8 +866,11 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
   if (kind === 'handoff') {
     const parsed = HandoffLaunchBody.safeParse(req.body)
     if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+    const ownerConflict = manualPoolOwnerError(RESEARCH_SWARM_ID, parsed.data.ticker)
+    if (ownerConflict) return manualPoolOwnerReply(reply, parsed.data.ticker, ownerConflict)
     try {
-      return await launch({ kind, ticker: parsed.data.ticker, thesisId: parsed.data.thesisId, model: parsed.data.model, user, userVia })
+      return await launch({ kind, ticker: parsed.data.ticker, thesisId: parsed.data.thesisId, model: parsed.data.model,
+        sharedPoolTarget: { swarm: RESEARCH_SWARM_ID, subject: parsed.data.ticker }, user, userVia })
     } catch (e: any) {
       return fail(e)
     }
@@ -616,9 +883,11 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
   if (bodySwarm && bodySwarm !== 'research') {
     const parsed = SwarmLaunchBody.safeParse(req.body)
     if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
-    const { swarm, ticker: subject, module, agent, model, confirmTicker } = parsed.data
+    const { swarm, ticker: rawSubject, module, agent, model, confirmTicker, runRoot, decisionFingerprint } = parsed.data
     const skind = parsed.data.kind
     if (!listSwarms().some((s) => s.id === swarm)) return reply.code(400).send({ error: `unknown swarm ${swarm}` })
+    const subject = normalizeDataSubject(swarm, rawSubject)
+    if (!subject || isReservedDataFolder(subject)) return reply.code(400).send({ error: 'bad subject' })
     if (skind === 'module' || skind === 'agent' || skind === 'rerun') {
       if (!module || !listModuleNames(swarm).includes(module)) return reply.code(400).send({ error: 'unknown module' })
     }
@@ -632,8 +901,20 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
     if (skind === 'full' && confirmTicker !== subject) {
       return reply.code(412).send({ error: 'full run requires typed confirmation', detail: 'send confirmTicker === subject' })
     }
+    if (skind !== 'rerun' && (runRoot || decisionFingerprint)) return reply.code(400).send({ error: 'exact call binding is rerun-only' })
+    // The selected-call form is intentionally single-orb. A rooted whole-module command would have three
+    // whitespace tokens and is ambiguous with the legacy MODULE AGENT SUBJECT grammar.
+    if (skind === 'rerun' && !agent) return reply.code(400).send({ error: 'exact rerun requires an agent' })
+    const exactBinding = skind === 'rerun'
+      ? exactDecisionLaunchBinding(swarm, subject, runRoot, decisionFingerprint)
+      : null
+    if (skind === 'rerun' && !exactBinding) return reply.code(409).send({ error: 'selected_decision_required' })
     try {
-      return await launch({ kind: skind, swarm, ticker: subject, module, agent, model, user, userVia })
+      const out = await launch({ kind: skind, swarm, ticker: subject, module, agent, model, user, userVia,
+        ...(exactBinding ? { ...exactBinding, decisionRunRoot: exactBinding.runRoot } : {}) })
+      return exactBinding
+        ? { ...out, preflight: { ...out.preflight, exactDecisionBinding: exactDecisionLaunchReceipt(exactBinding) } }
+        : out
     } catch (e: any) {
       return fail(e)
     }
@@ -642,7 +923,7 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
   // ---- research kinds (pre-swarm contract, unchanged) ----
   const parsed = ResearchLaunchBody.safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
-  const { ticker, module, agent, model, confirmTicker } = parsed.data
+  const { ticker, module, agent, model, confirmTicker, runRoot, decisionFingerprint } = parsed.data
   const rkind = parsed.data.kind
   // review (file an outcome review) and track (rebuild the calls dashboard) need no upstream deps and
   // ignore module/agent — they follow the dep-free `full` admission path. review defaults to ad-hoc.
@@ -672,10 +953,18 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
   if (rkind === 'full' && confirmTicker !== ticker) {
     return reply.code(412).send({ error: 'full run requires typed confirmation', detail: 'send confirmTicker === ticker' })
   }
+  if (rkind !== 'rerun' && (runRoot || decisionFingerprint)) return reply.code(400).send({ error: 'exact call binding is rerun-only' })
+  const exactBinding = rkind === 'rerun'
+    ? exactDecisionLaunchBinding(RESEARCH_SWARM_ID, ticker, runRoot, decisionFingerprint)
+    : null
+  if (rkind === 'rerun' && !exactBinding) return reply.code(409).send({ error: 'selected_decision_required' })
 
   try {
-    const out = await launch({ kind: rkind, ticker, module, agent, window, model, user, userVia, force: parsed.data.force })
-    return out
+    const out = await launch({ kind: rkind, ticker, module, agent, window, model, user, userVia, force: parsed.data.force,
+      ...(exactBinding ? { ...exactBinding, decisionRunRoot: exactBinding.runRoot } : {}) })
+    return exactBinding
+      ? { ...out, preflight: { ...out.preflight, exactDecisionBinding: exactDecisionLaunchReceipt(exactBinding) } }
+      : out
   } catch (e: any) {
     return fail(e)
   }
@@ -782,15 +1071,31 @@ app.get('/api/resumable', { config: { rateLimit: { max: 1000, timeWindow: '1 min
 // Route-param barrier: the SAME zod regex the launch routes use (ThesisPlanRunBody etc.). It shapes the
 // param AND acts as the taint sanitizer CodeQL recognizes, so `ticker` never reaches path.join / launch()
 // as an untrusted value. isValidTicker below is the stricter real guard (TICKER_RE admits '..').
-const IntakeParams = z.object({ ticker: z.string().regex(TICKER_RE) })
+const IntakeParams = z.object({ subject: z.string().min(1).max(64) })
+const IntakeQuery = z.object({
+  swarm: z.string().min(1).max(120).optional(),
+  runRoot: z.string().min(1).max(300).optional(),
+  decisionFingerprint: z.string().regex(/^sha256:[a-f0-9]{64}$/).optional(),
+}).strict()
 
-app.get('/api/intake/:ticker', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req, reply) => {
+app.get('/api/intake/:subject', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req, reply) => {
   const parsed = IntakeParams.safeParse(req.params)
-  if (!parsed.success) return reply.code(400).send({ error: 'bad ticker' })
-  const { ticker } = parsed.data
-  if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  const query = IntakeQuery.safeParse(req.query ?? {})
+  if (!parsed.success || !query.success) return reply.code(400).send({ error: 'bad intake request' })
+  const swarmId = query.data.swarm ?? RESEARCH_SWARM_ID
+  const subject = normalizeDataSubject(swarmId, parsed.data.subject)
+  if (!subject || isReservedDataFolder(subject)) return reply.code(400).send({ error: 'bad subject' })
   try {
-    return { plan: readIntakePlan(ticker) }
+    const plan = readIntakePlan(subject, { swarmId, runRoot: query.data.runRoot })
+    if (!plan) return { plan: null }
+    const needs = readDataNeeds(swarmId, subject, plan.run_root)
+    if (query.data.decisionFingerprint && needs?.decision_fingerprint !== query.data.decisionFingerprint) {
+      return reply.code(409).send({ error: 'selected_decision_changed' })
+    }
+    // Never "helpfully" attach the current call to old prompt output. The plan's own authored fingerprint
+    // is part of its immutable identity; readIntakePlan independently verifies it and leaves legacy/stale
+    // plans audit-readable with actionable=false and zero commands.
+    return { plan }
   } catch (e: any) {
     return reply.code(500).send({ error: e?.message || 'could not read the intake plan' })
   }
@@ -853,6 +1158,7 @@ app.get('/api/data-needs/:subject', { config: { rateLimit: { max: 600, timeWindo
   if (!swarmById(swarmId)) return reply.code(400).send({ error: 'unknown swarm' })
   const subject = normalizeDataSubject(swarmId, parsed.data.subject)
   if (!subject) return reply.code(400).send({ error: 'bad subject' })
+
   if (query.data.runRoot !== undefined && !resolveDataNeedsRunRoot(swarmId, subject, query.data.runRoot)) {
     return reply.code(400).send({ error: 'runRoot does not match this subject and swarm' })
   }
@@ -861,6 +1167,212 @@ app.get('/api/data-needs/:subject', { config: { rateLimit: { max: 600, timeWindo
   } catch (e: any) {
     return reply.code(500).send({ error: e?.message || 'could not read data needs' })
   }
+})
+
+// One manual source document for ONE exact open data need. The server only stages a signed request
+// envelope; ingest_external.py remains the sole publisher into data/<SUBJECT>/external/**. Both the
+// selected historical read and the bare standing/current read must agree before bytes are accepted, and
+// the same compare-and-set runs again immediately before the signed intent becomes visible to the router.
+// A filing-required need stays on the ordinary filing-upload lane: that Drive publisher has no safe way to
+// carry this decision-scoped request/provenance contract, so this endpoint reports the limitation instead
+// of disguising a filing as external evidence.
+const DataNeedUploadQuery = z.object({ swarm: z.string().min(1).max(120).optional() }).strict()
+const DataNeedUploadFields = z.object({
+  run_root: z.string().min(1).max(300),
+  decision_fingerprint: z.string().regex(/^sha256:[a-f0-9]{64}$/),
+  need_id: z.string().regex(/^[a-z0-9][a-z0-9_-]{0,127}$/),
+  series: z.string().min(1).max(1000),
+  provider: z.string().trim().min(1).max(200).refine((value) => !/[\x00-\x1f\x7f]/.test(value)),
+  source_url: z.string().max(2048).optional(),
+}).strict()
+
+function exactUploadSelection(
+  swarmId: string, subject: string,
+  binding: { run_root: string; decision_fingerprint: string; need_id: string; series: string },
+): ReturnType<typeof selectCurrentDataNeedForUpload> {
+  const selected = readDataNeeds(swarmId, subject, binding.run_root)
+  // A historical card can still be read, but it may not feed today's shared pool as though its old call
+  // were current. Bare readDataNeeds is the server's standing/current projection for every swarm.
+  const current = readDataNeeds(swarmId, subject)
+  return selectCurrentDataNeedForUpload(selected, current, binding)
+}
+
+app.post('/api/data-needs/:subject/upload', { config: { rateLimit: { max: 10, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const parsed = DataNeedsParams.safeParse(req.params)
+  if (!parsed.success) return reply.code(400).send({ error: 'bad subject' })
+  const query = DataNeedUploadQuery.safeParse(req.query ?? {})
+  if (!query.success) return reply.code(400).send({ error: 'bad upload query' })
+  const swarmId = query.data.swarm ?? RESEARCH_SWARM_ID
+  if (!swarmById(swarmId)) return reply.code(400).send({ error: 'unknown swarm' })
+  const subject = normalizeDataSubject(swarmId, parsed.data.subject)
+  if (!subject) return reply.code(400).send({ error: 'bad subject' })
+
+  // Refuse BEFORE reading the multipart stream unless exactly one finished call owns this label and it
+  // belongs to the selected cockpit. The exact run-root comparison follows after fields are available.
+  const initialOwner = selectedManualUploadOwner(swarmId, subject)
+  if (initialOwner.conflict) return selectedManualUploadOwnerReply(reply, subject, initialOwner.conflict)
+
+  // The Drive pool has one permanent writer: the dedicated Mac Pro. Check this before consuming even
+  // one multipart byte, so an admin/standby cockpit cannot mint an HMAC envelope that the writer cannot
+  // verify. The same authority is re-attested at the terminal compare-and-set below and by the router
+  // trigger itself; a role/pool change during a large upload therefore fails closed.
+  if (!manualDataNeedUploadWriterReady()) {
+    return reply.code(503).send({
+      error: 'manual_upload_writer_unavailable',
+      message: 'Additional-data uploads are accepted only by the configured Mac Pro data writer.',
+    })
+  }
+
+  let received: ReceivedDataNeedUpload | null = null
+  const fields: Record<string, string> = {}
+  let fileCount = 0
+  let malformed = ''
+  try {
+    for await (const part of req.parts({ limits: {
+      fileSize: DATA_NEED_UPLOAD_MAX_BYTES, files: 2, fields: 7, fieldSize: 4096, parts: 9,
+    } })) {
+      if (part.type === 'file') {
+        fileCount++
+        if (part.fieldname !== 'file' || fileCount !== 1) {
+          malformed = 'exactly one file field is required'; part.file.resume(); continue
+        }
+        received = await receiveDataNeedUploadFile(part.file, part.filename || '', part.mimetype || 'application/octet-stream')
+      } else {
+        if (!['run_root', 'decision_fingerprint', 'need_id', 'series', 'provider', 'source_url'].includes(part.fieldname)
+            || Object.prototype.hasOwnProperty.call(fields, part.fieldname) || typeof part.value !== 'string') {
+          malformed = 'unexpected or duplicate multipart field'; continue
+        }
+        fields[part.fieldname] = part.value
+      }
+    }
+  } catch (error: any) {
+    discardReceivedDataNeedUpload(received)
+    return reply.code(400).send({ error: /limit|too many|parts/i.test(String(error?.message || error))
+      ? 'upload limits exceeded' : 'malformed multipart upload' })
+  }
+  if (malformed || fileCount !== 1 || !received) {
+    discardReceivedDataNeedUpload(received)
+    return reply.code(400).send({ error: malformed || 'exactly one file is required' })
+  }
+  const body = DataNeedUploadFields.safeParse(fields)
+  if (!body.success) {
+    discardReceivedDataNeedUpload(received)
+    return reply.code(400).send({ error: 'invalid upload binding' })
+  }
+  const suppliedSourceUrl = normalizeDataNeedSourceUrl(body.data.source_url)
+  if (suppliedSourceUrl === undefined) {
+    discardReceivedDataNeedUpload(received)
+    return reply.code(400).send({ error: 'source_url must be an absolute HTTP(S) URL without credentials' })
+  }
+  const binding = {
+    run_root: body.data.run_root, decision_fingerprint: body.data.decision_fingerprint,
+    need_id: body.data.need_id, series: body.data.series,
+  }
+  const boundOwner = selectedManualUploadOwner(swarmId, subject, binding.run_root)
+  if (boundOwner.conflict) {
+    discardReceivedDataNeedUpload(received)
+    return selectedManualUploadOwnerReply(reply, subject, boundOwner.conflict)
+  }
+  if (!initialOwner.owner || !boundOwner.owner || initialOwner.owner.swarm !== boundOwner.owner.swarm
+      || initialOwner.owner.runRoot !== boundOwner.owner.runRoot) {
+    discardReceivedDataNeedUpload(received)
+    return reply.code(409).send({ error: 'The data-pool owner changed during upload. Refresh the idea.', code: 'shared_data_owner_changed' })
+  }
+  const first = exactUploadSelection(swarmId, subject, binding)
+  if (typeof first === 'string') {
+    discardReceivedDataNeedUpload(received)
+    return reply.code(409).send({ error: first })
+  }
+  if (first.need.filing_required) {
+    discardReceivedDataNeedUpload(received)
+    return reply.code(409).send({
+      error: 'filing_required_use_standard_upload',
+      message: 'This need requires a statutory filing. Upload it through the company filing/document lane; it cannot be staged as external evidence.',
+    })
+  }
+
+  // Prefer the latest exact decision-scoped lookup URL: that record was server-admitted against public
+  // DNS and the persisted pipeline source. A URL typed alongside the file is syntax-admitted only, is
+  // stamped user_supplied_unverified, and never feeds evidence-tier/date/licensing inference.
+  const lookupUrl = first.need.source_lookup?.lookup_status === 'public_link_found'
+    && !first.need.source_lookup.stale ? first.need.source_lookup.public_url : null
+  const sourceUrl = lookupUrl ?? suppliedSourceUrl
+  const sourceUrlBasis = lookupUrl ? 'server_lookup_public_dns' as const
+    : sourceUrl ? 'user_supplied_unverified' as const : 'absent' as const
+
+  const { user, userVia } = identify(req)
+  let committed: Awaited<ReturnType<typeof commitDataNeedUpload>>
+  try {
+    committed = await commitDataNeedUpload(received, {
+      // Provider is an operator label, not an evidence-quality claim. It is bounded + signed for
+      // provenance and selects only the destination folder/label; the router deliberately excludes it
+      // from source_type, tier, licence, and as-of inference.
+      subject, swarm: swarmId, ...binding, provider: body.data.provider,
+      source_url: sourceUrl, source_url_basis: sourceUrlBasis, requested_by: user,
+    }, () => {
+      if (!manualDataNeedUploadWriterReady()) throw new Error('manual_upload_writer_unavailable')
+      const terminalOwner = selectedManualUploadOwner(swarmId, subject, binding.run_root)
+      if (terminalOwner.conflict || !terminalOwner.owner
+          || terminalOwner.owner.swarm !== initialOwner.owner?.swarm
+          || terminalOwner.owner.runRoot !== initialOwner.owner?.runRoot) {
+        throw new Error(terminalOwner.conflict?.code || 'shared_data_owner_changed')
+      }
+      const terminal = exactUploadSelection(swarmId, subject, binding)
+      if (typeof terminal === 'string') throw new Error(terminal)
+      if (terminal.need.filing_required) {
+        throw new Error('selected_need_changed')
+      }
+      // URL provenance is mutable operational state beside the frozen decision. Bind the label to the
+      // terminal read too: a lookup that was superseded or expired while a large file uploaded must not
+      // retain the stronger server_lookup_public_dns basis in the signed intent.
+      const terminalLookupUrl = terminal.need.source_lookup?.lookup_status === 'public_link_found'
+        && !terminal.need.source_lookup.stale ? terminal.need.source_lookup.public_url : null
+      if (terminalLookupUrl !== lookupUrl) throw new Error('selected_source_lookup_changed')
+    })
+  } catch (error: any) {
+    discardReceivedDataNeedUpload(received)
+    const message = String(error?.message || error)
+    if (message === 'manual_upload_writer_unavailable') {
+      return reply.code(503).send({ error: message })
+    }
+    if (['selected_decision_changed', 'selected_call_not_current', 'selected_need_changed', 'selected_source_lookup_changed',
+      'shared_data_owner_ambiguous', 'shared_data_owner_mismatch', 'shared_data_owner_required',
+      'shared_data_owner_run_mismatch', 'shared_data_owner_unavailable', 'shared_data_owner_changed'].includes(message)) {
+      return reply.code(409).send({ error: message })
+    }
+    return reply.code(503).send({ error: 'could not stage upload safely' })
+  }
+  // The move into the request envelope consumed the temp file. This call is harmless and closes every
+  // error path uniformly if a future filesystem returns after only a partial move.
+  discardReceivedDataNeedUpload(received)
+  await triggerDataNeedUploadRouter(committed.request_id, { keyFile: committed.key_file })
+  const upload = readDataNeedUploadStatus({ subject, swarm: swarmId, ...binding })
+  console.log(`[data-need-upload] ${user} (${userVia}) staged ${committed.request_id} for ${swarmId}/${subject}/${binding.need_id}; status=${upload.status}`)
+  return reply.code(202).send({ ok: true, upload })
+})
+
+const DataNeedUploadStatusQuery = z.object({
+  swarm: z.string().min(1).max(120).optional(),
+  runRoot: z.string().min(1).max(300),
+  decisionFingerprint: z.string().regex(/^sha256:[a-f0-9]{64}$/),
+  need_id: z.string().regex(/^[a-z0-9][a-z0-9_-]{0,127}$/),
+  series: z.string().min(1).max(1000),
+}).strict()
+app.get('/api/data-needs/:subject/upload-status', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const parsed = DataNeedsParams.safeParse(req.params)
+  if (!parsed.success) return reply.code(400).send({ error: 'bad subject' })
+  const query = DataNeedUploadStatusQuery.safeParse(req.query ?? {})
+  if (!query.success) return reply.code(400).send({ error: 'bad upload-status query' })
+  const swarmId = query.data.swarm ?? RESEARCH_SWARM_ID
+  if (!swarmById(swarmId)) return reply.code(400).send({ error: 'unknown swarm' })
+  const subject = normalizeDataSubject(swarmId, parsed.data.subject)
+  if (!subject) return reply.code(400).send({ error: 'bad subject' })
+  return readDataNeedUploadStatus({
+    subject, swarm: swarmId, run_root: query.data.runRoot,
+    decision_fingerprint: query.data.decisionFingerprint,
+    need_id: query.data.need_id, series: query.data.series,
+  })
 })
 
 // ---------- data pipeline: add a source → live relevance scan → build a connector → open a PR ----------
@@ -1284,18 +1796,49 @@ app.get('/api/pipelines', { config: { rateLimit: { max: 600, timeWindow: '1 minu
 // Analyze the documents that landed since the last run and (re)write the scoped rerun plan. This is
 // the cheap, advisory 'doc-intake' launch (clone of 'review'): it reads + reasons + writes a plan and
 // launches NO rerun (reruns stay a human one-click, CLAUDE.md §24). Same CSRF + data-pool allow-list
-// guards as /api/thesis-plan/run. Auto-analyze-on-landing (PR3) calls launch({kind:'doc-intake'})
+// guards as /api/thesis-plan/run. Auto-analyze-on-landing calls launch({kind:'doc-intake'})
 // directly through the same path.
-app.post('/api/intake/:ticker/analyze', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (req, reply) => {
+// Legacy path is a hard refusal. The versioned path below is the protocol guarantee: an older server
+// cannot accept a new browser's paid doc-intake request after a rolling deploy changes the origin.
+app.post('/api/intake/:subject/analyze', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (_req, reply) => (
+  reply.code(426).send({ error: 'exact_intake_endpoint_required' })
+))
+app.post('/api/intake/:subject/analyze-exact', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (req, reply) => {
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
   const parsed = IntakeParams.safeParse(req.params)
-  if (!parsed.success) return reply.code(400).send({ error: 'bad ticker' })
-  const { ticker } = parsed.data
+  const query = IntakeQuery.safeParse(req.query ?? {})
+  if (!parsed.success || !query.success) return reply.code(400).send({ error: 'bad intake request' })
+  const swarmId = query.data.swarm ?? RESEARCH_SWARM_ID
+  const subject = normalizeDataSubject(swarmId, parsed.data.subject)
   const { user, userVia } = identify(req)
-  if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
-  // Data-pool allow-list — `launch()` does not re-check it for a research kind (route-enforced only).
-  if (isReservedDataFolder(ticker) || !fs.existsSync(path.join(DATA_DIR, ticker))) {
-    return reply.code(400).send({ error: `unknown ticker ${ticker}` })
+  if (!subject || isReservedDataFolder(subject)) return reply.code(400).send({ error: 'bad subject' })
+
+  // Analyze only the standing/current call. A historical card remains readable, but the swarm command
+  // resolves its own current run; accepting an old selector here would read current bytes and then show
+  // the result on a different historical call. Require both selectors to resolve to the same canonical
+  // run and an object decision record before spending anything.
+  const selected = resolveIntakeRunRoot(subject, { swarmId, runRoot: query.data.runRoot }, true)
+  const current = resolveIntakeRunRoot(subject, { swarmId }, true)
+  const selectedNeeds = selected ? readDataNeeds(swarmId, subject, selected.runRoot) : null
+  if (!query.data.runRoot || !query.data.decisionFingerprint || !selected || !current
+      || selected.root !== current.root
+      || selectedNeeds?.decision_fingerprint !== query.data.decisionFingerprint) {
+    return reply.code(409).send({ error: 'Open the current completed call before reading new data.', code: 'selected_call_not_current' })
+  }
+
+  // Existing pool membership, contained under the configured data root. DATA_DIR itself may be the
+  // production Drive symlink; the subject child may not be another symlink or escape that resolved root.
+  let poolOk = false
+  try {
+    const dataRoot = fs.realpathSync(DATA_DIR)
+    const poolPath = path.join(DATA_DIR, subject)
+    if (!fs.lstatSync(poolPath).isSymbolicLink() && fs.statSync(poolPath).isDirectory()) {
+      const realPool = fs.realpathSync(poolPath)
+      poolOk = realPool.startsWith(dataRoot + path.sep) && path.basename(realPool) === subject
+    }
+  } catch { /* missing / unsafe pool */ }
+  if (!poolOk) {
+    return reply.code(400).send({ error: `unknown subject ${subject}` })
   }
   // Serialize intake per subject. `doc-intake` declares no write targets, so admission's own
   // per-subject exclusivity has nothing to key on — two concurrent POSTs (a double-click, or the
@@ -1305,11 +1848,19 @@ app.post('/api/intake/:ticker/analyze', { config: { rateLimit: { max: 30, timeWi
   // the first caller registers an in-flight run via `launch()`; the second then sees it (or is
   // rejected outright by the held lock) and 409s instead of racing.
   try {
-    return await withSubjectLock(`intake:${ticker}`, async () => {
-      const busy = listRuns().some((r) => r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
-      if (busy) return reply.code(409).send({ error: `A run is already in flight on ${ticker}. Let it finish (or stop it) before analyzing new documents.`, code: 'subject_busy' })
+    return await withSubjectLock(subjectMutationLockKey(swarmId, subject), async () => {
+      const busy = listRuns().some((r) => r.subjectId === subject && (r.swarmId || RESEARCH_SWARM_ID) === swarmId
+        && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
+      if (busy) return reply.code(409).send({ error: `A run is already in flight on ${subject}. Let it finish (or stop it) before analyzing new documents.`, code: 'subject_busy' })
       try {
-        const out = await launch({ kind: 'doc-intake', ticker, user, userVia })
+        const out = await launch({
+          kind: 'doc-intake', ticker: subject,
+          ...(swarmId !== RESEARCH_SWARM_ID ? { swarm: swarmId } : {}),
+          runRoot: selected.runRoot,
+          decisionRunRoot: selected.runRoot,
+          decisionFingerprint: selectedNeeds.decision_fingerprint,
+          user, userVia,
+        })
         return out
       } catch (e: any) {
         const body = e?.body && typeof e.body === 'object' ? e.body : null
@@ -1318,7 +1869,7 @@ app.post('/api/intake/:ticker/analyze', { config: { rateLimit: { max: 30, timeWi
     })
   } catch (e: any) {
     if (e instanceof SubjectBusyError) {
-      return reply.code(409).send({ error: `Another intake analysis for ${ticker} is already in progress. Wait for it to finish before retrying.`, code: 'subject_busy' })
+      return reply.code(409).send({ error: `Another intake analysis for ${subject} is already in progress. Wait for it to finish before retrying.`, code: 'subject_busy' })
     }
     throw e
   }
@@ -1386,12 +1937,13 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
   // handler's body ever runs, and both would then see "not busy" and both carry into the same target root.
   // `withSubjectLock` closes that race in-process: see subject-lock.ts for why check-and-set order is enough.
   try {
-    return await withSubjectLock(`thesis-plan:${ticker}`, async () => {
+    return await withSubjectLock(subjectMutationLockKey(RESEARCH_SWARM_ID, ticker), async () => {
       // Never write into a run root another run currently owns. `carryForwardModules` copies module folders in
       // BEFORE admission runs, so a live run on this subject would silently absorb them: its own per-module skip
       // test would see a `99_*-synthesis.md` it did not write and skip that module, synthesizing over evidence
       // read against an older data pool. Admission would reject us a moment later — too late, the files are there.
-      const busy = listRuns().some((r) => r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
+      const busy = listRuns().some((r) => (r.swarmId || RESEARCH_SWARM_ID) === RESEARCH_SWARM_ID
+        && r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
       if (busy) return reply.code(409).send({ error: `A run is already in flight on ${ticker}. Let it finish (or stop it) before completing the thesis.`, code: 'subject_busy' })
 
       // ONE disk snapshot decides everything below: the already-complete check, the reuse validation, and what
@@ -1459,8 +2011,9 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
   }
 
   try {
-    return await withSubjectLock(`thesis-plan:${ticker}`, async () => {
-      const busy = listRuns().some((r) => r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
+    return await withSubjectLock(subjectMutationLockKey(RESEARCH_SWARM_ID, ticker), async () => {
+      const busy = listRuns().some((r) => (r.swarmId || RESEARCH_SWARM_ID) === RESEARCH_SWARM_ID
+        && r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
       if (busy) return reply.code(409).send({ error: `A run is already in flight on ${ticker}. Let it finish (or stop it) before running a module.`, code: 'subject_busy' })
 
       // ONE snapshot decides everything: complete-check, runnability, blockedBy, and what gets carried.
@@ -1520,13 +2073,23 @@ const IntakePlanRunBody = z.object({
   ticker: z.string().regex(TICKER_RE),
   // REQUIRED for the same reason as ThesisPlanRunBody — an omitted swarm must never default to research.
   swarm: z.string().regex(MODULE_RE),
-})
-app.post('/api/intake-plan/run', { config: { rateLimit: { max: 20, timeWindow: '1 minute' } } }, async (req, reply) => {
+  runRoot: z.string().min(1).max(300),
+  decisionFingerprint: z.string().regex(/^sha256:[a-f0-9]{64}$/),
+  planPath: z.string().min(1).max(700),
+  planSha256: z.string().regex(/^sha256:[a-f0-9]{64}$/),
+  sourceDecisionFingerprint: z.string().regex(/^sha256:[a-f0-9]{64}$/),
+}).strict()
+// Refuse old callers on a current server, and require new callers to use a path an old server cannot
+// possibly accept. This closes the server-change-between-estimate-and-POST window for the paid batch.
+app.post('/api/intake-plan/run', { config: { rateLimit: { max: 20, timeWindow: '1 minute' } } }, async (_req, reply) => (
+  reply.code(426).send({ error: 'exact_intake_plan_endpoint_required' })
+))
+app.post('/api/intake-plan/run-exact', { config: { rateLimit: { max: 20, timeWindow: '1 minute' } } }, async (req, reply) => {
   // Same CSRF class as /api/thesis-plan/run: a paid, disk-writing plain POST.
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
   const parsed = IntakePlanRunBody.safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
-  const { ticker, swarm } = parsed.data
+  const { ticker, swarm, runRoot, decisionFingerprint, planPath, planSha256, sourceDecisionFingerprint } = parsed.data
   const { user, userVia } = identify(req)
   if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
   if (isReservedDataFolder(ticker) || !fs.existsSync(path.join(DATA_DIR, ticker))) {
@@ -1535,10 +2098,17 @@ app.post('/api/intake-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
   if (swarm !== RESEARCH_SWARM_ID) {
     return reply.code(400).send({ error: 'Scoped reruns are research-only for now.', code: 'swarm_unsupported' })
   }
-  // The plan is the SERVER's read of the latest intake analysis — roster-validated commands only.
-  const intake = readIntakePlan(ticker)
-  const commands = intake?.rerun_plan?.commands ?? []
-  if (!intake || commands.length === 0) {
+  const selectedNeeds = readDataNeeds(swarm, ticker, runRoot)
+  const currentNeeds = readDataNeeds(swarm, ticker)
+  if (!selectedNeeds || !currentNeeds || selectedNeeds.run_root !== currentNeeds.run_root
+      || selectedNeeds.decision_fingerprint !== decisionFingerprint
+      || currentNeeds.decision_fingerprint !== decisionFingerprint) {
+    return reply.code(409).send({ error: 'The selected call changed. Refresh before rerunning.', code: 'selected_decision_changed' })
+  }
+  // The plan is the SERVER's exact selected-call read — roster-validated commands only.
+  const intake = readIntakePlan(ticker, { swarmId: swarm, runRoot })
+  if (!intake || intake.actionable !== true || intake.plan_path !== planPath || intake.plan_sha256 !== planSha256
+      || intake.decision_fingerprint !== sourceDecisionFingerprint || intake.rerun_plan.commands.length === 0) {
     return reply.code(409).send({ error: 'No scoped rerun plan exists for this ticker — run the new-data analysis first.', code: 'no_plan' })
   }
   // Freshness for EXECUTION is the WITNESS half only: has anything landed since the analysis read the pool?
@@ -1547,15 +2117,15 @@ app.post('/api/intake-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
   // finished run — so gating on pool_current would refuse every legitimate scoped rerun (Codex #358
   // r3672541957). The floor's job is guarding the "nothing new" affirmative, not blocking execution.
   // Fail-closed when the witness is unprovable (an old plan with no scanned_at): fall back to pool_current.
-  const freshnessProblem = (): string | null => {
-    const stamp = intake.scanned_at ? Date.parse(intake.scanned_at) : NaN
+  const freshnessProblem = (plan: NonNullable<typeof intake>): string | null => {
+    const stamp = plan.scanned_at ? Date.parse(plan.scanned_at) : NaN
     if (!Number.isFinite(stamp)) {
-      return intake.pool_current === true ? null : 'this plan predates the precise freshness stamp and the pool has changed since'
+      return plan.pool_current === true ? null : 'this plan predates the precise freshness stamp and the pool has changed since'
     }
     const newest = dataPoolNewest(ticker).newestMs
     return !newest || newest <= stamp ? null : 'a document landed after this plan was scoped'
   }
-  const staleWhy = freshnessProblem()
+  const staleWhy = freshnessProblem(intake)
   if (staleWhy) {
     return reply.code(409).send({ error: `${staleWhy} — re-run the new-data analysis first.`, code: 'plan_stale' })
   }
@@ -1568,9 +2138,33 @@ app.post('/api/intake-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
   try {
     // Same lock KEY as the sibling thesis-plan routes, so a scoped rerun and a completion can never carry
     // into the same target root concurrently.
-    return await withSubjectLock(`thesis-plan:${ticker}`, async () => {
-      const busy = listRuns().some((r) => r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
+    return await withSubjectLock(subjectMutationLockKey(RESEARCH_SWARM_ID, ticker), async () => {
+      const busy = listRuns().some((r) => (r.swarmId || RESEARCH_SWARM_ID) === RESEARCH_SWARM_ID
+        && r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
       if (busy) return reply.code(409).send({ error: `A run is already in flight on ${ticker}. Let it finish (or stop it) before re-running.`, code: 'subject_busy' })
+
+      const terminalNeeds = readDataNeeds(swarm, ticker, runRoot)
+      const terminalCurrent = readDataNeeds(swarm, ticker)
+      if (!terminalNeeds || !terminalCurrent || terminalNeeds.run_root !== terminalCurrent.run_root
+          || terminalNeeds.decision_fingerprint !== decisionFingerprint
+          || terminalCurrent.decision_fingerprint !== decisionFingerprint) {
+        return reply.code(409).send({ error: 'The selected call changed while preparing the rerun.', code: 'selected_decision_changed' })
+      }
+
+      // Re-read the exact plan INSIDE the same swarm-qualified mutation lock used by every doc-intake
+      // writer. The pre-lock read was only a cheap user-facing rejection; these bytes/commands are the
+      // sole execution authority, so a concurrent Analyze click can never mix one plan's commands with
+      // another plan file in the staged audit trail.
+      const lockedIntake = readIntakePlan(ticker, { swarmId: swarm, runRoot })
+      const lockedCommands = lockedIntake?.rerun_plan?.commands ?? []
+      if (!lockedIntake || lockedIntake.actionable !== true || lockedIntake.plan_path !== planPath
+          || lockedIntake.plan_sha256 !== planSha256
+          || lockedIntake.decision_fingerprint !== sourceDecisionFingerprint || lockedCommands.length === 0) {
+        return reply.code(409).send({ error: 'No scoped rerun plan exists for this ticker — run the new-data analysis first.', code: 'no_plan' })
+      }
+      if ((lockedIntake.widened?.length ?? 0) > 0) {
+        return reply.code(409).send({ error: 'Part of the plan no longer maps to the current roster — re-run the new-data analysis (fail-toward-blunt).', code: 'plan_widened', widened: lockedIntake.widened })
+      }
 
       // ONE plan snapshot for the completeness check AND the carry (no time-of-check/time-of-use gap).
       // Reuse override = every reusable module: stale ones included — the scoped carry stages their
@@ -1602,15 +2196,22 @@ app.post('/api/intake-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
       // Re-check freshness HERE, after the subject lock and the CLI probe: both can take time, and a
       // document that lands in that window would otherwise be scoped-out of a run we already approved
       // (Codex #358 r3672541968). Cheap — one stat of the pool's newest file.
-      const lateWhy = freshnessProblem()
+      const lateWhy = freshnessProblem(lockedIntake)
       if (lateWhy) {
         return reply.code(409).send({ error: `${lateWhy} while this run was being prepared — re-run the new-data analysis first.`, code: 'plan_stale' })
       }
       const snap = thesisPlan(ticker, undefined, first.reusable)
+      // The plan file copied into today's staging root is provenance for THIS exact selected call. Never
+      // fall back to newest-run-wins here: a newer incomplete shell can carry a different plan even while
+      // the selected finished decision remains the current call.
+      const sourcePlanFile = latestPlanFileFor(ticker, { swarmId: swarm, runRoot })
+      if (!sourcePlanFile) {
+        return reply.code(409).send({ error: 'The selected call no longer has its intake plan. Re-run the new-data analysis.', code: 'no_plan' })
+      }
 
       let staged: ReturnType<typeof carryForwardScoped>
       try {
-        staged = carryForwardScoped(ticker, commands.map((c) => ({ module: c.module, agent: c.agent })), RESEARCH_SWARM_ID, snap, latestPlanFileFor(ticker))
+        staged = carryForwardScoped(ticker, lockedCommands.map((c) => ({ module: c.module, agent: c.agent })), RESEARCH_SWARM_ID, snap, sourcePlanFile)
       } catch (e: any) {
         return reply.code(500).send({ error: `could not stage the scoped rerun: ${e?.message || e}` })
       }
@@ -1627,7 +2228,8 @@ app.post('/api/intake-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
       }
 
       try {
-        const out = await launch({ kind: 'full', ticker, user, userVia })
+        const out = await launch({ kind: 'full', ticker, user, userVia,
+          decisionRunRoot: runRoot, decisionFingerprint })
         return { ...out, carried: staged.carried, scoped: staged.scoped, staleModules: staged.staleModules, dropped: staged.droppedEntries }
       } catch (e: any) {
         // The carry already landed on disk; sources are untouched and a retry reuses the staging — the run
@@ -1715,8 +2317,8 @@ function resolveOutputRun(q: any): { runRoot: string | null; swarm: string; reso
   const swarm = q?.swarm as string | undefined
   if (swarm && swarm !== 'research') {
     if (!listSwarms().some((s) => s.id === swarm)) return { runRoot: null, swarm, unknownSwarm: true }
-    const subject = (q?.subject || q?.ticker) as string
-    if (!subject || !TICKER_RE.test(subject)) return { runRoot: null, swarm, badSubject: true }
+    const subject = normalizeDataSubject(swarm, q?.subject || q?.ticker)
+    if (!subject) return { runRoot: null, swarm, badSubject: true }
     const abs = findRunRootForSubject(swarm, subject)
     return { runRoot: abs ? path.relative(REPO_ROOT, abs) : null, swarm, resolve: resolveInsideRuns }
   }
@@ -2568,10 +3170,13 @@ app.post('/api/screener/handoff', async (req, reply) => {
   const parsed = HandoffLaunchBody.omit({ kind: true }).safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
   const { user, userVia } = identify(req)
+  const ownerConflict = manualPoolOwnerError(RESEARCH_SWARM_ID, parsed.data.ticker)
+  if (ownerConflict) return manualPoolOwnerReply(reply, parsed.data.ticker, ownerConflict)
   try {
     const existing = readHandoffs(parsed.data.thesisId).find((h: any) => h.ticker === parsed.data.ticker)
     if (existing) return { alreadyHandedOff: true, handoff: existing }
-    const out = await launch({ kind: 'handoff', ticker: parsed.data.ticker, thesisId: parsed.data.thesisId, user, userVia })
+    const out = await launch({ kind: 'handoff', ticker: parsed.data.ticker, thesisId: parsed.data.thesisId,
+      sharedPoolTarget: { swarm: RESEARCH_SWARM_ID, subject: parsed.data.ticker }, user, userVia })
     return { alreadyHandedOff: false, ...out }
   } catch (e: any) {
     const body = e?.body && typeof e.body === 'object' ? e.body : null
@@ -2906,32 +3511,48 @@ app.post('/api/screener/event/:eventId/send-to-research', { config: { rateLimit:
   const item = findWireItem(REPO_ROOT, parsed.data.eventId, { archiveDir: NEWS.newsArchiveDir })
   if (!item) return reply.code(404).send({ error: 'event not found on the wire or in the archive' })
   try {
-    const res = bridgeEventToSubject({
-      item, ticker, mode: 'manual', user, userVia,
-      enrichment: peekCachedEnrichment(STATE_DIR, parsed.data.eventId),
-      opts: { dataDir: DATA_DIR, stateDir: STATE_DIR },
-    })
-    // The send click IS the human consent (§24): after a FRESH note lands, launch the cheap advisory
-    // intake analysis right away, so the tier/materiality quality gate vets the event before anything
-    // re-runs (re-runs stay a separate human click). Same subject-lock + busy gates as the sibling
-    // /api/intake/:ticker/analyze; best-effort — a busy subject or no finished run just means the
-    // note sits in the pool and the manual "Analyze new data" button remains.
-    const owner = resolveSwarmForSubject(ticker)
-    let analyzing = false
-    if (res.already !== true && owner) {
-      try {
-        analyzing = await withSubjectLock(`intake:${ticker}`, async () => {
-          const busy = listRuns().some((r) => r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
-          if (busy) return false
-          await launch({ kind: 'doc-intake', ticker, ...(owner.swarm !== RESEARCH_SWARM_ID ? { swarm: owner.swarm } : {}), user, userVia })
-          return true
-        })
-      } catch {
-        analyzing = false // admission/capacity/lock conflict — the note is still in place
-      }
+    // This route is explicitly "send to research". Resolve once only to choose the swarm-qualified lock,
+    // then re-resolve INSIDE it. The owner proof, pool write, and launch now form one critical section;
+    // scoped staging/manual intake cannot slip between "research owns GOLD" and the actual note write.
+    const initialOwner = resolveSwarmForSubject(ticker)
+    if (!initialOwner || initialOwner.swarm !== RESEARCH_SWARM_ID) {
+      return reply.code(409).send({ error: 'This label is not owned unambiguously by a finished research call.', code: 'shared_data_owner_ambiguous' })
     }
-    return { ok: true, ...res, analyzing, swarm: owner?.swarm ?? null }
+    return await withSubjectLock(subjectMutationLockKey(initialOwner.swarm, ticker), async () => {
+      const owner = resolveSwarmForSubject(ticker)
+      if (!owner || owner.swarm !== initialOwner.swarm || owner.runRoot !== initialOwner.runRoot
+          || owner.decisionFingerprint !== initialOwner.decisionFingerprint) {
+        return reply.code(409).send({ error: 'The data-pool owner changed before the note could be added.', code: 'shared_data_owner_changed' })
+      }
+      const res = bridgeEventToSubject({
+        item, ticker, mode: 'manual', user, userVia,
+        enrichment: peekCachedEnrichment(STATE_DIR, parsed.data.eventId),
+        opts: { dataDir: DATA_DIR, stateDir: STATE_DIR },
+      })
+      // The send click IS the human consent (§24): after a FRESH note lands, launch the cheap advisory
+      // intake analysis right away. This is already inside the one shared subject lock — never acquire it
+      // recursively. A busy/admission failure leaves the note in place for the manual Analyze button.
+      let analyzing = false
+      if (res.already !== true) {
+        try {
+          const busy = listRuns().some((r) => r.subjectId === ticker && (r.swarmId || RESEARCH_SWARM_ID) === owner.swarm
+            && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
+          if (!busy) {
+            await launch({ kind: 'doc-intake', ticker,
+              runRoot: owner.runRoot, decisionRunRoot: owner.runRoot,
+              decisionFingerprint: owner.decisionFingerprint, intakeOwner: owner, user, userVia })
+            analyzing = true
+          }
+        } catch {
+          analyzing = false
+        }
+      }
+      return { ok: true, ...res, analyzing, swarm: owner.swarm }
+    })
   } catch (e: any) {
+    if (e instanceof SubjectBusyError) {
+      return reply.code(409).send({ error: 'This idea is already being updated. Try again when it finishes.', code: 'subject_busy' })
+    }
     return reply.code(e?.statusCode || 500).send({ error: e?.message || 'could not route the event' })
   }
 })
@@ -3432,7 +4053,9 @@ const autoIntakeTimers = new Map<string, ReturnType<typeof setTimeout>>()
 const autoIntakeLastNewest = new Map<string, string>()
 
 function scheduleAutoIntake(ticker: string) {
-  if (!AUTO_INTAKE_ON || !TICKER_RE.test(ticker) || isValidTicker(ticker) === false || isReservedDataFolder(ticker)) return
+  // The watcher sees only a shared data/<SUBJECT> path, not its swarm. Admit the broad manifest-safe
+  // segment here; fireAutoIntake resolves the actual owner and applies that swarm's exact normalizer.
+  if (!AUTO_INTAKE_ON || !MANIFEST_SUBJECT_RE.test(ticker) || isReservedDataFolder(ticker)) return
   const prev = autoIntakeTimers.get(ticker)
   if (prev) clearTimeout(prev)
   autoIntakeTimers.set(ticker, setTimeout(() => { autoIntakeTimers.delete(ticker); void fireAutoIntake(ticker) }, AUTO_INTAKE_DEBOUNCE_MS))
@@ -3443,22 +4066,11 @@ function scheduleAutoIntake(ticker: string) {
 // swarm (commodity) ends on decision_record.json alone (there is no final_thesis.md outside research,
 // launcher.ts). Never use finalDeliverablesPresent for a non-research swarm — its `&&` would reject a
 // legitimately-finished commodity run.
-function hasFinishedRun(swarmId: string, runRoot: string): boolean {
-  if (swarmId === RESEARCH_SWARM_ID) return finalDeliverablesPresent(runRoot)
-  return fs.existsSync(path.join(runRoot, 'decision_record.json'))
-}
-
 // `data/<SUBJECT>/` is a shared namespace across research (tickers) + constellation swarms (e.g. commodity
-// subjects), so a pool change alone doesn't say which swarm owns it. Resolve it by finding the swarm that
-// has a FINISHED run for the subject (first match wins; research is ordered first, so a subject that is
-// somehow both resolves to research — an unlikely edge). Returns null when no swarm has a finished run.
-function resolveSwarmForSubject(subject: string): { swarm: string; runRoot: string } | null {
-  for (const s of listSwarms()) {
-    const rr = findRunRootForSubject(s.id, subject)
-    if (rr && hasFinishedRun(s.id, rr)) return { swarm: s.id, runRoot: rr }
-  }
-  return null
-}
+// subjects), so a pool change alone doesn't say which swarm owns it. Resolve it only when exactly one
+// FINISHED owner exists. A shared label such as GOLD can legitimately be both an equity ticker and a
+// commodity; guessing by manifest order would read/write the wrong thesis, so ambiguity abstains.
+const resolveSwarmForSubject = resolveUniqueFinishedIntakeOwner
 
 async function fireAutoIntake(ticker: string, attempt = 0): Promise<void> {
   try {
@@ -3467,22 +4079,66 @@ async function fireAutoIntake(ticker: string, attempt = 0): Promise<void> {
     if (syncingState(ticker).syncing && attempt < 4) { setTimeout(() => void fireAutoIntake(ticker, attempt + 1), SYNC_WINDOW_MS); return }
     // intake only makes sense against a finished run — resolve the OWNING swarm from the shared data/<SUBJECT>/
     // namespace and use ITS terminal artifact (research: final_thesis.md; commodity: decision_record.json).
-    const owner = resolveSwarmForSubject(ticker)
-    if (!owner) return
-    // dedupe: skip if the pool has not gained a newer file since the last auto-analysis (a restart re-fires
-    // once). Keyed on the raw newest MTIME, not the calendar day — a day-granular key would swallow a second
-    // document that lands the same day as a prior auto-analysis, defeating the self-heal that a same-day
-    // landing is supposed to trigger (and that the pool_current re-analysis nudge relies on resolving).
-    const newest = String(dataPoolNewest(ticker).newestMs || 0)
-    if (newest !== '0' && autoIntakeLastNewest.get(ticker) === newest) return
-    // never analyze while a run (a real run OR a prior intake) is already in flight on this subject.
-    if (listRuns().some((r) => r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))) return
-    autoIntakeLastNewest.set(ticker, newest)
-    // doc-intake dispatches the OWNING swarm's `:intake` command (research → /research:intake,
-    // commodity → /commodity:intake) via buildPrompt; research omits `swarm` to match the existing default.
-    await launch({ kind: 'doc-intake', ticker, ...(owner.swarm !== RESEARCH_SWARM_ID ? { swarm: owner.swarm } : {}), user: 'auto', userVia: 'local' })
+    const initialOwner = resolveSwarmForSubject(ticker)
+    if (!initialOwner) return
+    const outcome = await withSubjectLock(subjectMutationLockKey(initialOwner.swarm, ticker), async (): Promise<'done' | 'retry'> => {
+      // Ownership can change while a Drive event is settling. Re-resolve under the SAME mutation lock used
+      // by manual intake and scoped reruns; never let an automatic launch race their staging/carry work.
+      const owner = resolveSwarmForSubject(ticker)
+      if (!owner || owner.swarm !== initialOwner.swarm || owner.runRoot !== initialOwner.runRoot
+          || owner.decisionFingerprint !== initialOwner.decisionFingerprint) return 'retry'
+      // dedupe: skip if the pool has not gained a newer file since the last SUCCESSFULLY ADMITTED
+      // auto-analysis. Keyed on the raw newest MTIME, not the calendar day — a day-granular key would
+      // swallow a second document that lands the same day as a prior analysis.
+      const newest = String(intakePoolNewest(ticker, owner.swarm).newestMs || 0)
+      const ownerKey = `${owner.swarm}\0${ticker}`
+      if (newest !== '0' && autoIntakeLastNewest.get(ownerKey) === newest) return 'done'
+      // Never analyze while a real run or prior intake is already in flight on this swarm-qualified subject.
+      if (listRuns().some((r) => r.subjectId === ticker && (r.swarmId || RESEARCH_SWARM_ID) === owner.swarm
+          && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))) return 'retry'
+      const priorPlanAnalyzedAt = readIntakePlan(ticker, {
+        swarmId: owner.swarm, runRoot: owner.runRoot,
+      })?.analyzed_at ?? null
+      // doc-intake dispatches the OWNING swarm's `:intake` command. The launcher's intakeOwner proof
+      // revalidates sole ownership before admission and immediately before the paid process starts.
+      const terminalRetry = (status: RunStatus) => {
+        // `done` is necessary but not sufficient. Prove the SAME owner/call is still current and that the
+        // command wrote a NEW exact plan after reading this settled pool watermark. Do not use
+        // `pool_current`: it deliberately includes the older run-date floor, so it is false in the normal
+        // case here (a new document landed after the finished call). `scanned_at` is the execution witness.
+        let proved = false
+        try {
+          const terminalOwner = resolveSwarmForSubject(ticker)
+          const terminalPlan = readIntakePlan(ticker, { swarmId: owner.swarm, runRoot: owner.runRoot })
+          const terminalNewest = String(intakePoolNewest(ticker, owner.swarm).newestMs || 0)
+          const scannedAtMs = terminalPlan?.scanned_at ? Date.parse(terminalPlan.scanned_at) : NaN
+          proved = status === 'done' && terminalOwner?.swarm === owner.swarm
+            && terminalOwner.runRoot === owner.runRoot
+            && terminalOwner.decisionFingerprint === owner.decisionFingerprint
+            && terminalPlan?.run_root === owner.runRoot
+            && terminalPlan.decision_fingerprint === owner.decisionFingerprint
+            && terminalPlan.analyzed_at !== priorPlanAnalyzedAt
+            && Number.isFinite(scannedAtMs)
+            && Number(newest) <= scannedAtMs
+            && terminalNewest === newest
+        } catch { /* a transient read/projection error must retry, never swallow the landing */ }
+        if (proved) autoIntakeLastNewest.set(ownerKey, newest)
+        else if (attempt < 4) setTimeout(() => void fireAutoIntake(ticker, attempt + 1), SYNC_WINDOW_MS)
+      }
+      await launch({ kind: 'doc-intake', ticker, runRoot: owner.runRoot,
+        decisionRunRoot: owner.runRoot, decisionFingerprint: owner.decisionFingerprint,
+        intakeOwner: owner, onTerminal: terminalRetry,
+        ...(owner.swarm !== RESEARCH_SWARM_ID ? { swarm: owner.swarm } : {}), user: 'auto', userVia: 'local' })
+      // No dedupe write here: launch() is only an early admission ACK. terminalRetry owns the true result.
+      return 'done'
+    })
+    if (outcome === 'retry' && attempt < 4) {
+      setTimeout(() => void fireAutoIntake(ticker, attempt + 1), SYNC_WINDOW_MS)
+    }
   } catch {
-    /* best-effort — admission conflict / capacity / CLI-missing just skip; the manual Analyze button remains */
+    // Best-effort but self-healing: a subject-lock/admission/capacity/CLI race does not advance the dedupe
+    // watermark. Retry a bounded number of times; the manual Analyze button remains the final fallback.
+    if (attempt < 4) setTimeout(() => void fireAutoIntake(ticker, attempt + 1), SYNC_WINDOW_MS)
   }
 }
 
@@ -3657,11 +4313,39 @@ app
     startBridgeScheduler(async (ticker: string) => {
       const owner = resolveSwarmForSubject(ticker)
       if (!owner) return false
-      return withSubjectLock(`intake:${ticker}`, async () => {
-        const busy = listRuns().some((r) => r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
+      return withSubjectLock(subjectMutationLockKey(owner.swarm, ticker), async () => {
+        const before = readIntakePlan(ticker, { swarmId: owner.swarm, runRoot: owner.runRoot })?.analyzed_at ?? null
+        const newest = intakePoolNewest(ticker, owner.swarm).newestMs
+        const busy = listRuns().some((r) => r.subjectId === ticker && (r.swarmId || RESEARCH_SWARM_ID) === owner.swarm
+          && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
         if (busy) return false
-        await launch({ kind: 'doc-intake', ticker, ...(owner.swarm !== RESEARCH_SWARM_ID ? { swarm: owner.swarm } : {}), user: 'auto', userVia: 'local' })
-        return true
+        // Bridge accounting waits for the REAL terminal outcome. launch() returns after admission only;
+        // its later identity CAS/spawn/command can still fail. Resolve true only when the same call owns
+        // the pool and a newly-written exact plan proves it scanned the settled bridge watermark.
+        const terminal = new Promise<boolean>((resolve) => {
+          const onTerminal = (status: RunStatus) => {
+            try {
+              const current = resolveSwarmForSubject(ticker)
+              const plan = readIntakePlan(ticker, { swarmId: owner.swarm, runRoot: owner.runRoot })
+              const currentNewest = intakePoolNewest(ticker, owner.swarm).newestMs
+              const scannedAtMs = plan?.scanned_at ? Date.parse(plan.scanned_at) : NaN
+              resolve(status === 'done' && current?.swarm === owner.swarm
+                && current.runRoot === owner.runRoot
+                && current.decisionFingerprint === owner.decisionFingerprint
+                && plan?.run_root === owner.runRoot
+                && plan.decision_fingerprint === owner.decisionFingerprint
+                && plan.analyzed_at !== before
+                && Number.isFinite(scannedAtMs) && newest <= scannedAtMs
+                && currentNewest === newest)
+            } catch { resolve(false) }
+          }
+          void launch({ kind: 'doc-intake', ticker, runRoot: owner.runRoot,
+            decisionRunRoot: owner.runRoot, decisionFingerprint: owner.decisionFingerprint,
+            intakeOwner: owner, onTerminal,
+            ...(owner.swarm !== RESEARCH_SWARM_ID ? { swarm: owner.swarm } : {}), user: 'auto', userVia: 'local' })
+            .catch(() => resolve(false))
+        })
+        return terminal
       })
     })
     // feedback auto-tune (screener): once a day, apply the tuner's guardrailed, backtest-passing rank-weight

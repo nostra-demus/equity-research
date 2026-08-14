@@ -1,6 +1,6 @@
 ---
 description: Read the documents that landed since the last run and write a SCOPED rerun plan — which specific orbs the new evidence actually invalidates, instead of re-running everything. Recommend-only; launches nothing.
-argument-hint: TICKER
+argument-hint: TICKER RUN_ROOT DECISION_FINGERPRINT
 allowed-tools: Read, Write, Glob, Grep, Bash
 ---
 
@@ -24,34 +24,40 @@ Step 11 (`memo_delta.changed_sections[]`) — reuse that judgment logic; do not 
 - **No source = no claim** (§3). Every entry cites the document it came from.
 - This command spawns no subagents.
 
-The argument is `$ARGUMENTS` — a single `<TICKER>`. Execute the steps below in order.
+The argument is `$ARGUMENTS` — `<TICKER> <EXACT_RUN_ROOT> <DECISION_FINGERPRINT>`. All three values are
+supplied by the cockpit from one exact selected call. The fingerprint is an opaque
+`sha256:<64 lowercase hex>` decision identity; write it verbatim into the plan. Missing/invalid identity
+must STOP before reading or writing — a legacy unbound plan may remain readable for audit, but can never
+authorize a paid rerun. Execute the steps below in order.
 
 ---
 
-## 1. Resolve the ticker and the latest run root
+## 1. Resolve the ticker and its exact decision-bound run root
 
-`<TICKER>` = the first token of `$ARGUMENTS`, upper-cased. Resolve `<TODAY>` once: `date +%F`. Also
-capture `<SCANNED_AT>` once, **NOW — before you list any documents in Step 2**: `date -u +%FT%TZ`. This is
+`<TICKER>` = the first token of `$ARGUMENTS`, upper-cased. `<EXACT_RUN_ROOT>` = the second token and
+`<DECISION_FINGERPRINT>` = the third. Require exactly three tokens and require the fingerprint to match
+`^sha256:[a-f0-9]{64}$`; otherwise STOP as malformed. Resolve `<TODAY>` once: `date +%F`. Also capture
+`<SCANNED_AT>` once, **NOW — before you list any documents in Step 2**, with Python so two scans inside
+the same wall-clock second remain strictly ordered:
+
+```bash
+SCANNED_AT="$(python3 - <<'PY'
+import datetime
+print(datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z"))
+PY
+)"
+```
+
+This is
 the durable "as-of" watermark the cockpit uses to prove the analysis saw the whole pool (it survives the
 git checkout/rebase that rewrites the plan file's own mtime). It MUST be taken *before* the Step 2 `find`,
 never after writing the plan — a document that lands after this instant is correctly treated as unread.
 
-Find the **latest FINISHED run root** for the ticker — the newest run directory that actually carries
-a `final_thesis.md` or a `decision_record.json`. Skip over a newer but incomplete/failed run folder
-(an in-progress run with no thesis yet) rather than scoping against it — intake only makes sense
-against a real, finished thesis:
-
-```bash
-RUN_ROOT=""
-for d in $(ls -1d analyses/${TICKER}_*/ 2>/dev/null | sort -r); do
-  d="${d%/}"
-  if [ -f "$d/final_thesis.md" ] || [ -f "$d/decision_record.json" ]; then
-    RUN_ROOT="$d"
-    break
-  fi
-done
-echo "$RUN_ROOT"
-```
+Require `<EXACT_RUN_ROOT>` to match `analyses/<TICKER>_YYYY-MM-DD` exactly, be a
+real direct child directory of `analyses/` (not a symlink), and carry `final_thesis.md` or an object-valued
+`decision_record.json`; use that exact root. The object-valued decision record is required because it is
+the decision the supplied fingerprint identifies. If any check fails, STOP without writing. Never fall
+back to a newer or "latest" run.
 
 - If there is **no** finished run root, STOP: print `No finished run for <TICKER> — nothing to scope against. Run the pipeline first.` and exit **without writing anything**. (Intake only makes sense against an existing thesis; a newer but incomplete run folder does not count.)
 - The watermark is `<RUN_ROOT>/final_thesis.md` if present, else `<RUN_ROOT>/decision_record.json` (both are only ever written once the run is finished, so this is never a partial/in-progress file). Note which one was used in the plan `summary`.
@@ -186,7 +192,10 @@ echo "$out"     # the JSON path; the .md twin shares the basename with .json -> 
 Write the JSON to that path with the Write tool using the **exact** `intake_plan.json` schema from
 `INTAKE.md` §3 (valid JSON; no fences, comments, or trailing commas; `null` for unknown numbers,
 `""` for unknown strings, `[]`/`{}` for empties; never fabricate a value). Include `scan_date: "<TODAY>"`
-and `scanned_at: "<SCANNED_AT>"` (the durable as-of watermark captured in Step 1) — **both are required**,
+and `scanned_at: "<SCANNED_AT>"` (the durable as-of watermark captured in Step 1), and author these
+identity fields exactly: `schema_version: "1.1"`, `swarm: "research"`, `subject: "<TICKER>"`,
+`ticker: "<TICKER>"`, `run_root: "<RUN_ROOT>"`, and
+`decision_fingerprint: "<DECISION_FINGERPRINT>"`. These are **all required**,
 including on the no-new-documents path. Then validate:
 
 ```bash

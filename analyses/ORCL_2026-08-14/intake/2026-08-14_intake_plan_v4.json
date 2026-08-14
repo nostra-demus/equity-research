@@ -1,0 +1,136 @@
+{
+  "schema_version": "1.1",
+  "swarm": "research",
+  "subject": "ORCL",
+  "ticker": "ORCL",
+  "run_root": "analyses/ORCL_2026-08-14",
+  "decision_fingerprint": "sha256:92baf1954a0ee6c603249e38d22c8d4b1b4e1284d9444f155a64be4f82b23e88",
+  "scan_date": "2026-08-14",
+  "scanned_at": "2026-08-14T06:31:01.433Z",
+  "watermark": "analyses/ORCL_2026-08-14/final_thesis.md",
+  "new_docs": [
+    {
+      "path": "data/ORCL/Oracle_Corporation_-_Form_DEF_14A(Sep-26-2025).doc",
+      "sha256": "c49d369fd257dcdc2abb972f8e1950673b2c7d5b76c8d3efe130f893cd73987f",
+      "provider": null,
+      "source_type": "proxy_statement",
+      "tier": 4,
+      "as_of": "2025-09-19",
+      "claims_summary": "Oracle's DEF 14A (2025 Annual Meeting, filed 2025-09-26, record date 2025-09-19): beneficial-ownership table shows Founder/Executive Chair/CTO Lawrence J. Ellison holding 40.6% of class, of which 346,000,000 shares were pledged as collateral for personal indebtedness as of 2025-09-19 — Ellison is the sole named exception to Oracle's otherwise-blanket anti-pledging policy, with the Governance Committee reviewing his pledging arrangements quarterly [DEF 14A, p.'Review of Pledging Arrangements']. The filing also carries the fiscal-2025 Compensation Discussion & Analysis, Summary Compensation Table, CEO pay ratio, clawback policy, say-on-pay history, 13-nominee board slate with independence breakdown, and committee-independence detail — the exact filing several current-run findings cite only via an unverified web-search synthesis or mark as absent from the pool.",
+      "materiality_score": 90,
+      "impact_direction": "negative",
+      "entry_orbs": [
+        {
+          "module": "management-governance",
+          "agent": "ownership-and-insider-behavior",
+          "why": "Finding 04-005 in the current run scores Pledge/Encumbrance Green 20/20 stating 'No pledging disclosed... no pledge disclosure found anywhere in the pool' [04_ownership-and-insider-behavior.md]; the DEF 14A directly contradicts this with a dated, quantified disclosure that Ellison pledged 346,000,000 shares and is the named sole carve-out from the anti-pledging policy.",
+          "confidence": 0.95
+        },
+        {
+          "module": "business-model",
+          "agent": "disqualifier-scan",
+          "why": "Item 2 (>50% promoter/insider shares pledged) currently reads 'No pledge disclosure of any kind found in the pool... computed ratio: not measurable / effectively 0%' [01_disqualifier-scan.md]; the proxy supplies an actual, computable pledge figure. The verdict likely still clears (well under the 50% threshold) but the evidence basis it rests on is factually wrong today.",
+          "confidence": 0.9
+        },
+        {
+          "module": "business-model",
+          "agent": "capital-allocation-governance",
+          "why": "The promoter-share-pledging line currently reads 'Not applicable — ORCL is a US NYSE-listed domestic filer; no promoter-pledging disclosure regime applies (this is an India/SEBI-specific concept)' [11_capital-allocation-governance.md]; the proxy shows Oracle does have an applicable, disclosed insider-pledging fact this line currently dismisses by category rather than by evidence.",
+          "confidence": 0.85
+        },
+        {
+          "module": "management-governance",
+          "agent": "board-and-shareholder-rights",
+          "why": "This agent already cites 'Web: Oracle FY2025 DEF 14A (filed 2025-09-26, sec.gov), search synthesis, 2026-08-14 (unverified)' as its source for board composition, committee independence, and say-on-pay detail [05_board-and-shareholder-rights.md] — the actual filing is now in the pool as a primary Tier-4 source to replace that web synthesis, and adds the Ellison pledging-oversight detail relevant to the entrenchment/self-dealing analysis.",
+          "confidence": 0.85
+        },
+        {
+          "module": "management-governance",
+          "agent": "incentives-and-compensation",
+          "why": "This agent is explicitly capped: 'No proxy/compensation disclosure -> Incentive alignment max 50' with several findings noting no CD&A/Summary Compensation Table in the pool [03_incentives-and-compensation.md]; this filing supplies a CD&A, Summary Compensation Table, CEO pay ratio, and clawback policy for FY2025. It predates the Sept-2025 co-CEO transition so it does not fully resolve the agent's FY26 co-CEO gap — lower confidence than the ownership/board orbs.",
+          "confidence": 0.7
+        }
+      ]
+    },
+    {
+      "path": "data/ORCL/Oracle Corporation, Q2 2026 Earnings Call, Dec 10, 2025.rtf",
+      "sha256": "6c0c71b055029a6ddbdbf11c3239ecc1b25fe85e95ebcbcd3fcdd5b4d2ceb862",
+      "provider": null,
+      "source_type": "earnings_transcript",
+      "tier": 6,
+      "as_of": "2025-12-10",
+      "claims_summary": "FQ2 FY26 (Dec 10, 2025) earnings call transcript: RPO $523.3B (+433% YoY, +$68B since end-Aug on Meta/NVIDIA and other contracts), total cloud revenue $8.0B (+33%), OCI revenue $4.1B (+66%, GPU revenue +177%), total revenue $16.1B (+13%), GAAP EPS $2.10 (+86%, includes a $2.7B Ampere Computing sale gain), FY26 capex raised ~$15B above the post-Q1 forecast, FY27 revenue guide raised +$4B from backlog conversion, Q3 FY26 guidance issued (cloud revenue +37-41% CC), plus qualitative color on the 30-40% OCI AI-margin claim and data-center funding/fungibility.",
+      "materiality_score": 15,
+      "impact_direction": "neutral",
+      "entry_orbs": [
+        {
+          "module": "earnings",
+          "agent": "historical-financials",
+          "why": "The transcript's FQ2 FY26 quarterly figures (revenue, EPS, RPO) are the same numbers already reflected in the run's quarterly baseline, which is sourced from the FY26 10-K rather than this transcript.",
+          "confidence": 0.3
+        },
+        {
+          "module": "earnings",
+          "agent": "guidance-consensus",
+          "why": "The transcript is the primary source for the Q3 FY26 guidance already tracked in the run's guidance-vs-actual table, including the Ampere-gain-driven EPS beat already flagged there as a quality issue.",
+          "confidence": 0.3
+        }
+      ]
+    }
+  ],
+  "rerun_plan": {
+    "materiality_gate": 60,
+    "entry_orbs": [
+      { "module": "business-model", "agent": "disqualifier-scan" },
+      { "module": "business-model", "agent": "capital-allocation-governance" },
+      { "module": "management-governance", "agent": "ownership-and-insider-behavior" },
+      { "module": "management-governance", "agent": "board-and-shareholder-rights" },
+      { "module": "management-governance", "agent": "incentives-and-compensation" }
+    ],
+    "commands": [
+      {
+        "command": "/research:rerun business-model disqualifier-scan ORCL",
+        "module": "business-model",
+        "agent": "disqualifier-scan",
+        "cascade_modules": ["business-model", "earnings", "balance-sheet-survival", "management-governance", "valuation", "catalyst"],
+        "triggered_by": ["data/ORCL/Oracle_Corporation_-_Form_DEF_14A(Sep-26-2025).doc"]
+      },
+      {
+        "command": "/research:rerun business-model capital-allocation-governance ORCL",
+        "module": "business-model",
+        "agent": "capital-allocation-governance",
+        "cascade_modules": ["business-model", "earnings", "balance-sheet-survival", "management-governance", "valuation", "catalyst"],
+        "triggered_by": ["data/ORCL/Oracle_Corporation_-_Form_DEF_14A(Sep-26-2025).doc"]
+      },
+      {
+        "command": "/research:rerun management-governance ownership-and-insider-behavior ORCL",
+        "module": "management-governance",
+        "agent": "ownership-and-insider-behavior",
+        "cascade_modules": ["management-governance", "valuation", "catalyst"],
+        "triggered_by": ["data/ORCL/Oracle_Corporation_-_Form_DEF_14A(Sep-26-2025).doc"]
+      },
+      {
+        "command": "/research:rerun management-governance board-and-shareholder-rights ORCL",
+        "module": "management-governance",
+        "agent": "board-and-shareholder-rights",
+        "cascade_modules": ["management-governance", "valuation", "catalyst"],
+        "triggered_by": ["data/ORCL/Oracle_Corporation_-_Form_DEF_14A(Sep-26-2025).doc"]
+      },
+      {
+        "command": "/research:rerun management-governance incentives-and-compensation ORCL",
+        "module": "management-governance",
+        "agent": "incentives-and-compensation",
+        "cascade_modules": ["management-governance", "valuation", "catalyst"],
+        "triggered_by": ["data/ORCL/Oracle_Corporation_-_Form_DEF_14A(Sep-26-2025).doc"]
+      }
+    ],
+    "note_only": [
+      {
+        "path": "data/ORCL/Oracle Corporation, Q2 2026 Earnings Call, Dec 10, 2025.rtf",
+        "reason": "Materiality 15 < gate 60 -- every figure and management claim in this transcript (RPO $523.3B, cloud/OCI growth rates, the Ampere-sale-inflated EPS beat, the Q3 FY26 guidance, and the 30%-40% OCI AI-margin claim) is already cited in the finished run, sourced from the FY26 10-K and reiterated in the already-pooled, chronologically LATER Q3 FY26 (Mar-10-2026) and Q4 FY26 (Jun-10-2026) transcripts that supersede it. A backfilled historical document, not new evidence."
+      }
+    ]
+  },
+  "verdict": "scoped_rerun",
+  "summary": "Two documents landed since the run finished. The material one is Oracle's DEF 14A proxy (2025 Annual Meeting, filed 2025-09-26) -- it discloses that founder/Executive Chair Lawrence Ellison pledged 346,000,000 shares as loan collateral, directly contradicting the current run's 'Green 20/20, no pledging disclosed' governance finding, and it upgrades several other findings from an unverified web summary or 'not applicable'/'insufficient data' to a primary Tier-4 filing. Scope reruns to the two business-model orbs and three management-governance orbs that finding touches, plus their downstream cascade. The second document, a Dec-2025 earnings call transcript, is a historical backfill already superseded by later transcripts already in the pool -- no rerun recommended."
+}

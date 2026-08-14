@@ -26,6 +26,7 @@ import { resolveInsideAnalyses } from './sandbox'
 import { RESEARCH_SWARM_ID, runRootForSubject, swarmById } from './swarms'
 import { RUN_ROOT_RE } from './what-changed'
 import { normalizeDataSubject } from './data-subject'
+import { canonicalJsonText } from './canonical-json'
 
 export interface DataNeedSource {
   name: string
@@ -181,14 +182,7 @@ function pathContained(child: string, parent: string): boolean {
   return rel === '' || (!path.isAbsolute(rel) && rel !== '..' && !rel.startsWith(`..${path.sep}`))
 }
 
-function canonicalJson(value: unknown): string {
-  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(',')}]`
-  if (value && typeof value === 'object') {
-    return `{${Object.keys(value as Record<string, unknown>).sort()
-      .map((key) => `${JSON.stringify(key)}:${canonicalJson((value as Record<string, unknown>)[key])}`).join(',')}}`
-  }
-  return JSON.stringify(value)
-}
+const canonicalJson = canonicalJsonText
 
 function fingerprintDecision(runRoot: string, record: unknown): string {
   return `sha256:${createHash('sha256').update(`${runRoot}\n${canonicalJson(record)}`, 'utf8').digest('hex')}`

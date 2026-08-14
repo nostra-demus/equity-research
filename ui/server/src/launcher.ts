@@ -14,6 +14,19 @@ import { runReadiness } from './readiness'
 import { providerEnvKeys } from './load-env'
 import { buildSwarmGraph, downstreamCascade } from './roster'
 import { resolveInsideScreener } from './sandbox'
+import { normalizeDataSubject } from './data-subject'
+import { resolveManifestRunRoot } from './swarm-run-root'
+import { readDataNeeds } from './data-needs'
+import { intakeReceiptIntentStillActionable, type IntakeReceiptIntent } from './intake'
+import {
+  isSharedDataPoolConsumer,
+  listFinishedIntakeOwners,
+  resolveUniqueFinishedIntakeOwner,
+  sharedDataPoolConflict,
+  type IntakeOwner,
+  type SharedDataPoolClaim,
+  type SharedDataPoolConflict,
+} from './intake-owner'
 import { RESEARCH_SWARM_ID, swarmById } from './swarms'
 import { finalPaths, handleStreamLine } from './stream-parser'
 import type { LaunchPreflight, ReadinessDecision, ReadinessReport, RunKind, RunStatus } from './types'
@@ -524,9 +537,9 @@ export async function awaitRunsExited(
 // (run.child === null: readiness-checking / awaiting-readiness-decision) are LEGITIMATELY waiting for the
 // user, not dead — left untouched (a deliberate force stops those instead). Returns the reaped run ids.
 // Called on every launch attempt so a stuck subject auto-recovers with zero user action.
-export function reapDeadSubjectRuns(subjectId: string): string[] {
+export function reapDeadSubjectRuns(subjectId: string, swarmId = RESEARCH_SWARM_ID): string[] {
   const reaped: string[] = []
-  for (const r of inFlightRunsForSubject(subjectId)) {
+  for (const r of inFlightRunsForSubject(subjectId, swarmId)) {
     if (reapDeadRun(r)) reaped.push(r.runId)
   }
   return reaped
@@ -679,7 +692,21 @@ export function screenerMarkerDir(swarmId: string | undefined, sigId: string): s
 }
 
 // Exported for the build-prompt routing test (test/build-prompt.test.ts).
-export function buildPrompt(swarmId: string, kind: RunKind, ticker: string, module?: string, agent?: string, window?: string, extra?: { thesisId?: string }): string {
+export function buildPrompt(
+  swarmId: string,
+  kind: RunKind,
+  ticker: string,
+  module?: string,
+  agent?: string,
+  window?: string,
+  extra?: { thesisId?: string; runRoot?: string; decisionFingerprint?: string; intakeReceipt?: IntakeReceiptIntent },
+): string {
+  const exactDecisionArgs = extra?.runRoot && extra?.decisionFingerprint
+    ? ` ${extra.runRoot} ${extra.decisionFingerprint}`
+    : ''
+  const intakeReceiptArgs = extra?.intakeReceipt
+    ? ` ${extra.intakeReceipt.planPath} ${extra.intakeReceipt.planSha256} ${extra.intakeReceipt.sourceDecisionFingerprint}`
+    : ''
   // Generic constellation swarm (e.g. commodity): full/module/agent through the manifest's command
   // namespace — never hardcode the swarm's literal beyond reading commandNs (CLAUDE.md §26).
   if (swarmId !== 'research' && !SCREENER_KINDS.has(kind)) {
@@ -688,23 +715,23 @@ export function buildPrompt(swarmId: string, kind: RunKind, ticker: string, modu
     if (kind === 'agent') return `/${ns}:agent ${module} ${agent} ${ticker}`
     // rerun on a constellation swarm: AGENT is optional (whole-module vs single-orb). Never fall through
     // to the research `/research:rerun` line below — dispatch the swarm's own command namespace (§26).
-    if (kind === 'rerun') return `/${ns}:rerun ${module}${agent ? ' ' + agent : ''} ${ticker}`
+    if (kind === 'rerun') return `/${ns}:rerun ${module}${agent ? ' ' + agent : ''} ${ticker}${exactDecisionArgs}${intakeReceiptArgs}`
     // doc-intake is the CHEAP advisory plan-writer (clone of 'review'), NOT a full run. Route it to the
     // swarm's own `:intake` command; without this branch it fell through to `/${ns}:full` below — so a
     // single landed file (the auto-analyze-on-landing signal) would trigger a full PAID run. (§26 namespace)
-    if (kind === 'doc-intake') return `/${ns}:intake ${ticker}`
+    if (kind === 'doc-intake') return `/${ns}:intake ${ticker}${exactDecisionArgs}`
     return `/${ns}:full ${ticker}` // 'full' (default)
   }
   if (kind === 'full') return `/research:full ${ticker}`
   if (kind === 'module') return `/research:${module} ${ticker}`
-  if (kind === 'rerun') return `/research:rerun ${module} ${agent} ${ticker}`
+  if (kind === 'rerun') return `/research:rerun ${module} ${agent} ${ticker}${exactDecisionArgs}${intakeReceiptArgs}`
   // file one outcome review for this ticker's latest run (window defaults to ad-hoc — the "update now" snapshot).
   if (kind === 'review') return `/research:review-decisions ${ticker} ${window || 'ad-hoc'}`
   // rebuild the cross-ticker calls-tracker dashboard (ignores ticker — it is cross-ticker by design).
   if (kind === 'track') return `/research:track`
   // read the docs that landed since the ticker's last run + write a scoped rerun plan (advisory,
   // launches nothing). The command resolves the latest run root itself, like 'review'.
-  if (kind === 'doc-intake') return `/research:intake ${ticker}`
+  if (kind === 'doc-intake') return `/research:intake ${ticker}${exactDecisionArgs}`
   // screener swarm — namespace from the manifest (never hardcode the literal beyond the kind map)
   if (SCREENER_KINDS.has(kind)) {
     const ns = swarmById(swarmId)?.commandNs || 'screener'
@@ -851,7 +878,195 @@ export interface LaunchParams {
   // event records chained=false for every chained module step, and the cockpit can't tell a chained-full
   // module from a standalone module run when deciding whether Resume should continue the whole pipeline.
   chained?: boolean
+  // Exact, already-selected run identity for a data-need intake/rerun. It is revalidated in launch()
+  // against the swarm manifest/research folder before it enters a prompt; ordinary launches omit it.
+  runRoot?: string
+  // A scoped carry may launch into a fresh staging root while still being authorized by the selected
+  // decision it copied. Single-orb reruns use the same path for both.
+  decisionRunRoot?: string
+  decisionFingerprint?: string
+  // Optional one-time-consumption proof for an exact single-orb rerun selected from a live intake plan.
+  // Ordinary constellation clicks omit it and therefore create no intake receipt.
+  intakeReceipt?: IntakeReceiptIntent
+  // Automatic landed-document intake is authorized only while this remains the ONE finished owner of
+  // the shared data/<SUBJECT> pool. Subject labels are swarm-local (research GOLD and commodity GOLD can
+  // both exist), so the launcher re-resolves this binding before any force cancellation and again at the
+  // final paid-process boundary. Manual launches omit it.
+  intakeOwner?: IntakeOwner
+  // Optional terminal observer for headless orchestration. launch() itself ACKs before readiness/CAS/spawn;
+  // this callback fires only once the real command (or a pre-spawn failure) reaches a terminal status.
+  onTerminal?: (status: RunStatus) => void
+  // A command whose own run subject is NOT the shared-pool subject may still publish there. Screener
+  // handoff runs are keyed by THESIS::TICKER but write data/<TICKER>; bind that target explicitly so the
+  // owner is checked before admission and again immediately before the paid command can write.
+  sharedPoolTarget?: { swarm: string; subject: string }
 }
+
+type DecisionBinding = { decisionRunRoot?: string; decisionFingerprint: string }
+
+/** Pure equality check exported for the force-order regression. A stale owner A must not be treated as
+ *  authority once the filesystem resolves a different/ambiguous owner B (null is ambiguity). */
+export function intakeOwnerBindingMatches(bound: IntakeOwner, current: IntakeOwner | null): boolean {
+  return !!current && current.swarm === bound.swarm && current.runRoot === bound.runRoot
+    && current.decisionFingerprint === bound.decisionFingerprint
+}
+
+function decisionBindingStillCurrent(swarmId: string, subjectId: string, binding?: DecisionBinding): boolean {
+  if (!binding?.decisionFingerprint) return true
+  const exact = binding.decisionRunRoot ? readDataNeeds(swarmId, subjectId, binding.decisionRunRoot) : null
+  const current = readDataNeeds(swarmId, subjectId)
+  return !!exact && !!current && exact.run_root === current.run_root
+    && exact.decision_fingerprint === binding.decisionFingerprint
+    && current.decision_fingerprint === binding.decisionFingerprint
+}
+
+function launchBindingError(code: 'selected_decision_changed' | 'intake_plan_changed' | 'intake_owner_changed' | 'shared_pool_target_changed'): Error {
+  const selected = code === 'selected_decision_changed'
+  const err: any = new Error(selected
+    ? 'The selected call changed before launch. Refresh it and review the rerun again.'
+    : code === 'intake_plan_changed'
+      ? 'That intake-plan orb is no longer actionable. Refresh or re-analyze before rerunning.'
+    : code === 'intake_owner_changed'
+      ? 'The data-pool owner changed before launch. Refresh the idea before analyzing the landed data.'
+      : 'The destination data-pool owner changed before launch. Refresh the handoff and try again.')
+  err.statusCode = 409
+  err.body = { code }
+  return err
+}
+
+type SharedDataPoolBoundaryConflict = SharedDataPoolConflict | {
+  code: 'shared_data_owner_unavailable'
+  owners: string[]
+}
+
+// A launch has several asynchronous pre-registration steps (CLI capability probes, and the outer
+// chained-full scheduler waiting for its first module). While no finished owner exists, an in-memory
+// pending claim closes that otherwise-unowned window: research GOLD and commodity GOLD cannot both pass
+// the zero-owner check before either has registered a RunState. Counts permit the chained launcher's
+// nested same-swarm module launch; cross-swarm claims are always rejected by sharedDataPoolConflict().
+const pendingSharedDataPoolClaims = new Map<string, Map<string, number>>()
+
+function sharedDataPoolClaims(subjectId: string, ignoreRunId?: string): SharedDataPoolClaim[] {
+  const claims: SharedDataPoolClaim[] = []
+  for (const run of listRuns()) {
+    if (run.runId === ignoreRunId || !IN_FLIGHT_STATUSES.has(run.status)) continue
+    if (run.subjectId === subjectId && isSharedDataPoolConsumer(run.kind, swarmById(run.swarmId)?.layout)) {
+      claims.push({ swarm: run.swarmId, runId: run.runId })
+    }
+    // Handoff is keyed in the screener registry by THESIS::TICKER, not by its data destination. Count its
+    // explicit target as a research claim so a commodity launch is blocked for the handoff's full life.
+    const target = sharedPoolTargetByRun.get(run)
+    if (target?.subject === subjectId) claims.push({ swarm: target.swarm, runId: run.runId })
+  }
+  for (const [swarm, count] of pendingSharedDataPoolClaims.get(subjectId) ?? []) {
+    if (count > 0) claims.push({ swarm })
+  }
+  return claims
+}
+
+function currentSharedDataPoolConflict(
+  swarmId: string,
+  subjectId: string,
+  kind: RunKind,
+  ignoreRunId?: string,
+): SharedDataPoolBoundaryConflict | null {
+  if (!isSharedDataPoolConsumer(kind, swarmById(swarmId)?.layout)) return null
+  try {
+    return sharedDataPoolConflict(
+      swarmId,
+      listFinishedIntakeOwners(subjectId),
+      sharedDataPoolClaims(subjectId, ignoreRunId),
+    )
+  } catch {
+    // A filesystem/manifest read failure must never be interpreted as "zero owners".
+    return { code: 'shared_data_owner_unavailable', owners: [] }
+  }
+}
+
+function sharedDataPoolLaunchError(subjectId: string, conflict: SharedDataPoolBoundaryConflict): Error {
+  let message: string
+  if (conflict.code === 'shared_data_owner_ambiguous') {
+    message = `${subjectId} has finished ideas in more than one cockpit (${conflict.owners.join(', ')}). Separate or rename the shared data folder before running it.`
+  } else if (conflict.code === 'shared_data_owner_mismatch') {
+    message = `data/${subjectId} belongs to the ${conflict.owners[0]} cockpit, not this cockpit.`
+  } else if (conflict.code === 'shared_data_subject_busy') {
+    message = `${subjectId} is already being analyzed by the ${conflict.blockingSwarm} cockpit. Wait for that first run to finish.`
+  } else {
+    message = `The owner of data/${subjectId} could not be verified. No analysis was started.`
+  }
+  const err: any = new Error(message)
+  err.statusCode = 409
+  err.body = { ...conflict, subject: subjectId }
+  return err
+}
+
+/** Atomically check ownership + reserve the bare data-pool label until launch() has either registered its
+ *  RunState or failed. The returned release is idempotent so every throw/return path can use finally. */
+function acquireSharedDataPoolClaim(swarmId: string, subjectId: string, kind: RunKind): () => void {
+  if (!isSharedDataPoolConsumer(kind, swarmById(swarmId)?.layout)) return () => {}
+  const conflict = currentSharedDataPoolConflict(swarmId, subjectId, kind)
+  if (conflict) throw sharedDataPoolLaunchError(subjectId, conflict)
+  let bySwarm = pendingSharedDataPoolClaims.get(subjectId)
+  if (!bySwarm) {
+    bySwarm = new Map()
+    pendingSharedDataPoolClaims.set(subjectId, bySwarm)
+  }
+  bySwarm.set(swarmId, (bySwarm.get(swarmId) ?? 0) + 1)
+  let released = false
+  return () => {
+    if (released) return
+    released = true
+    const current = pendingSharedDataPoolClaims.get(subjectId)
+    if (!current) return
+    const next = (current.get(swarmId) ?? 1) - 1
+    if (next > 0) current.set(swarmId, next)
+    else current.delete(swarmId)
+    if (current.size === 0) pendingSharedDataPoolClaims.delete(subjectId)
+  }
+}
+
+/** The paid launch is a compare-and-set against BOTH identities that can authorize it. This assertion is
+ *  intentionally synchronous: after it returns, launch() reaches force cancellation without yielding the
+ *  event loop, so a stale automatic intake A can never cancel a live B-bound run. */
+function assertLaunchBindingsStillCurrent(swarmId: string, subjectId: string, params: LaunchParams): void {
+  const decision = params.decisionFingerprint
+    ? { decisionRunRoot: params.decisionRunRoot, decisionFingerprint: params.decisionFingerprint }
+    : undefined
+  if (!decisionBindingStillCurrent(swarmId, subjectId, decision)) {
+    throw launchBindingError('selected_decision_changed')
+  }
+  if (params.intakeReceipt && (!params.runRoot || !params.module || !params.agent
+      || !intakeReceiptIntentStillActionable(
+        swarmId, subjectId, params.runRoot, params.module, params.agent, params.intakeReceipt,
+      ))) {
+    throw launchBindingError('intake_plan_changed')
+  }
+  if (params.intakeOwner) {
+    if (params.intakeOwner.swarm !== swarmId) throw launchBindingError('intake_owner_changed')
+    let current: IntakeOwner | null = null
+    try { current = resolveUniqueFinishedIntakeOwner(subjectId) } catch { /* fail closed */ }
+    if (!intakeOwnerBindingMatches(params.intakeOwner, current)) throw launchBindingError('intake_owner_changed')
+  }
+  if (params.sharedPoolTarget) {
+    let conflict: SharedDataPoolBoundaryConflict | null
+    try {
+      conflict = sharedDataPoolConflict(
+        params.sharedPoolTarget.swarm,
+        listFinishedIntakeOwners(params.sharedPoolTarget.subject),
+        sharedDataPoolClaims(params.sharedPoolTarget.subject),
+      )
+    } catch {
+      conflict = { code: 'shared_data_owner_unavailable', owners: [] }
+    }
+    if (conflict) throw launchBindingError('shared_pool_target_changed')
+  }
+}
+
+// LaunchParams is not part of RunState's durable/public contract. Keep this short-lived launch-only CAS
+// binding off the registry object; WeakMap also guarantees it cannot leak after a run is collected.
+const intakeOwnerByRun = new WeakMap<RunState, IntakeOwner>()
+const sharedPoolTargetByRun = new WeakMap<RunState, { swarm: string; subject: string }>()
+const intakeReceiptByRun = new WeakMap<RunState, IntakeReceiptIntent>()
 
 // ---- chained full run (per-module budgets), DAG-PARALLEL — opt-in via FULL_PER_MODULE ----
 // A full pipeline as a set of SEPARATE per-module runs (each its own budget + activity-log entry),
@@ -902,6 +1117,9 @@ export interface FullChainDeps {
   clearMarker: (ticker: string) => void
   // schedule a re-pump after a transient 429 capacity rejection (default: setTimeout; tests fire it directly).
   scheduleRetry: (fn: () => void) => void
+  // One stable bare-pool claim for the WHOLE chain, including child-transition and capacity-backoff gaps.
+  // Optional so existing deterministic fake deps remain source-compatible; production always provides it.
+  acquirePoolClaim?: (ticker: string) => () => void
 }
 const defaultFullChainDeps: FullChainDeps = {
   launchAndWire: async (params, onFinish) => {
@@ -924,6 +1142,7 @@ const defaultFullChainDeps: FullChainDeps = {
     try { fs.rmSync(deferMarkerPath(ticker), { force: true }) } catch { /* best-effort */ }
   },
   scheduleRetry: (fn) => { setTimeout(fn, CAPACITY_RETRY_MS) },
+  acquirePoolClaim: (ticker) => acquireSharedDataPoolClaim(RESEARCH_SWARM_ID, ticker, 'full'),
 }
 // A resume runs only the modules NOT already on disk (+ the master). Price and time-estimate just that
 // remaining work, not the whole pipeline — otherwise a resume that skips 4 of 6 modules still shows the
@@ -946,7 +1165,13 @@ export function chainedResumePreflight(ticker: string, plannedModules: string[],
   }
 }
 
-export async function launchFullChained(ticker: string, user: string, userVia: 'cf-access' | 'local', deps: FullChainDeps = defaultFullChainDeps): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> {
+export async function launchFullChained(
+  ticker: string,
+  user: string,
+  userVia: 'cf-access' | 'local',
+  deps: FullChainDeps = defaultFullChainDeps,
+  decisionBinding?: { decisionRunRoot: string; decisionFingerprint: string },
+): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> {
   const datedRoot = `analyses/${ticker}_${todayDate()}`
   if (isSealedResearchRun(datedRoot)) throw sealedResearchRunError(datedRoot)
   const g = buildSwarmGraph()
@@ -954,12 +1179,26 @@ export async function launchFullChained(ticker: string, user: string, userVia: '
   const known = new Set(names)
   const depsOf = new Map(g.modules.map((m) => [m.name, m.dependsOn.filter((d) => known.has(d))]))
   const total = names.length
+  // Acquire after all read-only graph construction but BEFORE the first marker/filesystem mutation. The
+  // claim lives until master terminal or abort; child ACKs/finishes never release it.
+  const releasePool = deps.acquirePoolClaim?.(ticker) ?? (() => {})
+  let poolReleased = false
+  const releaseChainPool = () => {
+    if (poolReleased) return
+    poolReleased = true
+    releasePool()
+  }
 
   // Drop a marker in the shared run root so each per-module run SKIPS its inline memo (MODULE_PIPELINE
   // Step 4.9A); the master step regenerates all module memos in ONE batch at the end (rerun.md Step 9A)
   // and removes the marker. Keeps the ~2.5-min-per-module memo off the parallel critical path —
   // output-neutral, only the memo's timing moves. Injected so the test asserts it without touching disk.
-  deps.writeMarker(ticker)
+  try {
+    deps.writeMarker(ticker)
+  } catch (error) {
+    releaseChainPool()
+    throw error
+  }
 
   const done = new Set<string>()
   const started = new Set<string>()
@@ -1003,29 +1242,34 @@ export async function launchFullChained(ticker: string, user: string, userVia: '
   // modules whose every (known) upstream is done and which we have not yet started
   const readyNow = () => names.filter((n) => !started.has(n) && (depsOf.get(n) ?? []).every((d) => done.has(d)))
 
-  const launchMaster = () => {
-    if (masterLaunched) return
+  const launchMaster = (): Promise<{ runId: string; preflight: LaunchPreflight }> | null => {
+    if (masterLaunched) return null
     masterLaunched = true
-    void deps.launchAndWire(
-      { kind: 'rerun', ticker, module: 'master', agent: 'synthesizer', user, userVia, chained: true },
+    const launched = deps.launchAndWire(
+      { kind: 'rerun', ticker, module: 'master', agent: 'synthesizer', user, userVia, chained: true, ...decisionBinding },
       (status) => {
         deps.clearMarker(ticker) // always clear the defer-memo marker once master exits — success path: rerun.md Step 9A also rm -f's it (idempotent); this is the safety net for an abnormal 'done' before Step 9A ran, or any failure
+        releaseChainPool()
         // eslint-disable-next-line no-console
         console.log(`[full-chain] ${ticker}: ${status === 'done' ? 'pipeline complete' : `stopped at master — ${status}`}`)
       },
-    ).catch((e) => {
+    )
+    void launched.catch((e) => {
       deps.clearMarker(ticker)
+      releaseChainPool()
       // eslint-disable-next-line no-console
       console.error(`[full-chain] ${ticker}: failed to launch master synthesizer`, (e as any)?.message || e)
     })
+    return launched
   }
 
   const onModuleFinish = (name: string, status: RunStatus) => {
     inflight.delete(name)
-    if (!chainAlive()) { stopped = true; deps.clearMarker(ticker); return } // stop-everything halted the chain — clear the defer-memo marker (no orphan) + launch nothing further
+    if (!chainAlive()) { stopped = true; deps.clearMarker(ticker); releaseChainPool(); return } // stop-everything halted the chain — clear the defer-memo marker (no orphan) + launch nothing further
     if (status !== 'done') {
       stopped = true
       deps.clearMarker(ticker) // failed pipeline — don't leave an orphaned defer-memo marker
+      releaseChainPool()
       // eslint-disable-next-line no-console
       console.log(`[full-chain] ${ticker}: stopped at module ${name} — ${status} (in-flight modules still finish)`)
       return
@@ -1040,14 +1284,18 @@ export async function launchFullChained(ticker: string, user: string, userVia: '
   const scheduleRetry = () => {
     if (retryScheduled || stopped) return
     retryScheduled = true
-    deps.scheduleRetry(() => { retryScheduled = false; pump() })
+    deps.scheduleRetry(() => {
+      retryScheduled = false
+      if (!chainAlive()) { stopped = true; deps.clearMarker(ticker); releaseChainPool(); return }
+      pump()
+    })
   }
 
   const launchModule = (name: string) => {
     started.add(name)
     inflight.add(name) // reserve the slot synchronously so the cap holds within one pump() pass
     void deps.launchAndWire(
-      { kind: 'module', ticker, module: name, user, userVia, chained: true },
+      { kind: 'module', ticker, module: name, user, userVia, chained: true, ...decisionBinding },
       (status) => onModuleFinish(name, status),
     )
       .then((out) => {
@@ -1069,6 +1317,7 @@ export async function launchFullChained(ticker: string, user: string, userVia: '
         }
         stopped = true
         deps.clearMarker(ticker)
+        releaseChainPool()
         // eslint-disable-next-line no-console
         console.error(`[full-chain] ${ticker}: failed to launch module ${name}`, (e as any)?.message || e)
         if (firstRunId === null) rejectFirst(e)
@@ -1076,7 +1325,8 @@ export async function launchFullChained(ticker: string, user: string, userVia: '
   }
 
   function pump() {
-    if (stopped || !chainAlive()) return
+    if (stopped) return
+    if (!chainAlive()) { stopped = true; deps.clearMarker(ticker); releaseChainPool(); return }
     for (const name of readyNow()) {
       if (inflight.size >= MAX_CONCURRENT_RUNS) break
       launchModule(name)
@@ -1085,11 +1335,24 @@ export async function launchFullChained(ticker: string, user: string, userVia: '
 
   // No modules to run — either an empty graph, or a resume where every module was already finished and
   // only the master synthesis remains. Launch the master directly (firstReady would never resolve here).
-  if (total === 0 || done.size === total) { launchMaster(); return { runId: '', preflight, chained: true, skipped: skippedModules, planned: plannedModules, resumed } }
+  if (total === 0 || done.size === total) {
+    const master = launchMaster()
+    if (!master) { releaseChainPool(); throw new Error(`[full-chain] ${ticker}: master launch was already claimed`) }
+    // Wait only for the launch ACK, not terminal completion. Besides returning a real runId, this keeps
+    // launch()'s pending shared-pool reservation held until the direct-resume master has registered its
+    // RunState; returning the historical empty id here reopened a zero-owner cross-swarm race.
+    try {
+      const first = await master
+      return { runId: first.runId, preflight, chained: true, skipped: skippedModules, planned: plannedModules, resumed }
+    } catch (error) {
+      releaseChainPool()
+      throw error
+    }
+  }
   pump()
   // business-model has no deps, so something is always runnable; if not, the graph has a cycle — fail loud
   // rather than hang on the firstReady promise below.
-  if (started.size === 0) { deps.clearMarker(ticker); throw new Error(`[full-chain] ${ticker}: no module is runnable at start (depends_on cycle?)`) }
+  if (started.size === 0) { deps.clearMarker(ticker); releaseChainPool(); throw new Error(`[full-chain] ${ticker}: no module is runnable at start (depends_on cycle?)`) }
   // `chained: true` -> the cockpit live-follows the WHOLE pipeline (each module + master), celebrating only
   // when the master finishes — not after each module.
   const first = await firstReady
@@ -1150,6 +1413,25 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   const manifest = swarmById(swarmId)
   if (!manifest) {
     throw Object.assign(new Error(`swarm '${swarmId}' is not installed`), { statusCode: 404 })
+  }
+  if (params.intakeOwner && kind !== 'doc-intake') {
+    throw Object.assign(new Error('An automatic intake-owner binding is valid only for doc-intake.'), { statusCode: 400 })
+  }
+  if (params.sharedPoolTarget && (kind !== 'handoff' || params.sharedPoolTarget.swarm !== RESEARCH_SWARM_ID
+      || !normalizeDataSubject(RESEARCH_SWARM_ID, params.sharedPoolTarget.subject))) {
+    throw Object.assign(new Error('A shared-pool target binding is valid only for a research handoff destination.'), { statusCode: 400 })
+  }
+  if (params.decisionFingerprint && SCREENER_KINDS.has(kind)) {
+    throw Object.assign(new Error('A selected decision binding is not valid for screener launches.'), { statusCode: 400 })
+  }
+  if (params.intakeReceipt) {
+    const receipt = params.intakeReceipt
+    if (kind !== 'rerun' || !params.runRoot || !params.decisionFingerprint
+        || !/^[A-Za-z0-9._/-]{1,500}$/.test(receipt.planPath)
+        || !/^sha256:[a-f0-9]{64}$/.test(receipt.planSha256)
+        || !/^sha256:[a-f0-9]{64}$/.test(receipt.sourceDecisionFingerprint)) {
+      throw Object.assign(new Error('The intake receipt binding is invalid.'), { statusCode: 400 })
+    }
   }
 
   // Fail fast with an actionable message if the engine CLI isn't installed (the #1 silent "error"):
@@ -1247,11 +1529,17 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     // per subject (not date-stamped), resolved from the manifest template, mirroring the screener-agent
     // branch. Reused kinds full/module/agent all write into this same folder; the slash command creates
     // it. The subject id must already be the canonical (uppercase) folder name the command will use.
-    subjectId = params.ticker || ''
-    runRoot = manifest.runRootTemplate.replace(`{${manifest.placeholder}}`, subjectId)
+    subjectId = normalizeDataSubject(swarmId, params.ticker) || ''
+    if (!subjectId) throw Object.assign(new Error('This swarm received an invalid subject id.'), { statusCode: 400 })
+    const resolved = resolveManifestRunRoot(swarmId, subjectId, {
+      mustExist: kind === 'rerun' || kind === 'doc-intake',
+      requestedRunRoot: params.runRoot,
+    })
+    if (!resolved) throw Object.assign(new Error('The swarm run-root contract is unsafe or does not match this subject.'), { statusCode: 400 })
+    runRoot = resolved.relative
     // A rerun refreshes an EXISTING dossier — never create one. Fail fast before spawning the paid CLI
     // if the subject has no run folder yet (mirrors the research rerun guard).
-    if (kind === 'rerun' && !fs.existsSync(path.join(REPO_ROOT, runRoot))) {
+    if ((kind === 'rerun' || kind === 'doc-intake') && !fs.existsSync(path.join(REPO_ROOT, runRoot))) {
       throw Object.assign(new Error(`No existing run to re-run for ${subjectId}. Run the full pipeline first.`), { statusCode: 400 })
     }
   } else {
@@ -1262,14 +1550,35 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     const datedRoot = `analyses/${ticker}_${todayDate()}`
     // A sealed full run uses full.md's read-only recovery route. Do not send it through the per-module
     // scheduler, which would begin rewriting modules before the command could observe the seal.
-    if (kind === 'full' && FULL_PER_MODULE && !isSealedResearchRun(datedRoot)) return launchFullChained(ticker, user, userVia)
-    if (kind === 'rerun') {
-      const latest = resolveRunRoot({ ticker })
+    if (kind === 'full' && FULL_PER_MODULE && !isSealedResearchRun(datedRoot)) {
+      // launchFullChained writes its defer-memo marker before scheduling the first module. Validate the
+      // selected-call CAS AND reserve the shared data-pool label first so even that benign scheduler
+      // mutation cannot be authorized by a stale confirmation or race a first commodity run on the same
+      // label. Every child module validates the same ownership/binding again in its own launch().
+      const releasePoolClaim = acquireSharedDataPoolClaim(swarmId, ticker, kind)
+      try {
+        assertLaunchBindingsStillCurrent(swarmId, ticker, params)
+        const binding = params.decisionRunRoot && params.decisionFingerprint
+          ? { decisionRunRoot: params.decisionRunRoot, decisionFingerprint: params.decisionFingerprint }
+          : undefined
+        // Await inside the try: releasing before firstReady would reopen the zero-owner window while the
+        // outer scheduler has written its marker but its first child has not registered yet.
+        return await launchFullChained(ticker, user, userVia, defaultFullChainDeps, binding)
+      } finally {
+        releasePoolClaim()
+      }
+    }
+    if (kind === 'rerun' || kind === 'doc-intake') {
+      // An explicitly selected call always supplies runRoot and was already bound to its decision
+      // fingerprint by the route. Internal chained-full master launches deliberately omit runRoot: they
+      // must continue the newest (today's staged) root, not jump back to the older standing decision.
+      const latest = resolveRunRoot({ ticker, runRoot: params.runRoot })
       if (!latest) {
         const err: any = new Error(`No existing run to re-run for ${ticker}. Run a module or the full pipeline first.`)
         err.statusCode = 400
         throw err
       }
+      if (params.runRoot && latest !== params.runRoot) throw Object.assign(new Error('The selected run no longer matches this subject.'), { statusCode: 409 })
       runRoot = latest
     } else if (kind === 'agent') {
       runRoot = resolveAgentRunRoot(ticker)
@@ -1294,7 +1603,12 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   }
 
   const ticker = subjectId // RunState display/compat field: research = the ticker; swarms = the subject id
-  const prompt = buildPrompt(swarmId, kind, ticker, module, agent, window, { thesisId: params.thesisId })
+  const prompt = buildPrompt(swarmId, kind, ticker, module, agent, window, {
+    thesisId: params.thesisId,
+    runRoot: (kind === 'rerun' || kind === 'doc-intake') && params.runRoot ? runRoot : undefined,
+    decisionFingerprint: (kind === 'rerun' || kind === 'doc-intake') ? params.decisionFingerprint : undefined,
+    intakeReceipt: kind === 'rerun' ? params.intakeReceipt : undefined,
+  })
   const expected = buildExpected(swarmId, kind, module, agent)
 
   // Admission metadata — derived once here, stored on the run, reused by admitRun.
@@ -1312,6 +1626,23 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   const readDepsAbs = kind === 'agent' || kind === 'screener-agent'
     ? agentRequiredUpstream(swarmId, module, agent).map((relp) => path.join(REPO_ROOT, runRoot, relp))
     : []
+
+  // Reserve the bare shared-pool label before ANY launch-side mutation. For an unowned label this is the
+  // atomic "first cockpit wins" claim; once setActiveSubjectRun() runs, the durable in-flight claim takes
+  // over and this short-lived pending claim can be released in finally.
+  const releasePoolClaim = acquireSharedDataPoolClaim(swarmId, subjectId, kind)
+  let releaseTargetPoolClaim = () => {}
+  try {
+  if (params.sharedPoolTarget) {
+    releaseTargetPoolClaim = acquireSharedDataPoolClaim(
+      params.sharedPoolTarget.swarm, params.sharedPoolTarget.subject, 'full',
+    )
+  }
+  // FIRST compare-and-set boundary. Keep this immediately before every launch-side mutation below:
+  // reapAllDeadRuns can finalize registry state; force can cancel a current run; admission claims the
+  // subject; later blocks materialize files/markers. There is no await between this assertion and the
+  // first force cancellation, so stale auto-intake owner A cannot cancel current B-bound work.
+  assertLaunchBindingsStillCurrent(swarmId, subjectId, params)
 
   // Self-heal first: finalize any run whose engine process has died but never closed, so a wedged lock can
   // never permanently block this launch (the "stuck forever" failure). Sweep ALL subjects, not just this
@@ -1332,7 +1663,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   // tickers' runs, so the global capacity cap (D5) still binds — force overrides a LOCK, never the cost guard.
   if (params.force) {
     const stopping: RunState[] = []
-    for (const e of inFlightRunsForSubject(subjectId)) {
+    for (const e of inFlightRunsForSubject(subjectId, swarmId)) {
       const r = getRun(e.runId)
       if (r) stopping.push(r)
       try { await cancel(e.runId) } catch { /* keep stopping the rest — one stuck run must not shield the others */ }
@@ -1343,6 +1674,15 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       throw err
     }
   }
+
+  // Force-stop can await a process-tree exit. Re-read ownership after that yield and before admission or
+  // any run-root materialization; the pending claim blocks other local cockpits, while this catches an
+  // owner published by another process/checkout during the wait.
+  const afterForcePoolConflict = currentSharedDataPoolConflict(swarmId, subjectId, kind)
+  if (afterForcePoolConflict) throw sharedDataPoolLaunchError(subjectId, afterForcePoolConflict)
+  // Force cancellation can yield while the plan is consumed/replaced. Re-read the exact plan/orb/hash
+  // immediately before admission so a stale plan-origin request never claims a paid run slot.
+  assertLaunchBindingsStillCurrent(swarmId, subjectId, params)
 
   // Dependency-aware admission + register in ONE synchronous block (no await before
   // setActiveSubjectRun) so the check-and-claim is atomic under Node's single-threaded loop.
@@ -1408,6 +1748,8 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     user,
     userVia,
     runRoot,
+    selectedDecisionRunRoot: params.decisionRunRoot,
+    selectedDecisionFingerprint: params.decisionFingerprint,
     willCommitToMain: kind !== 'agent' && kind !== 'screener-agent',
     writeTargetsAbs,
     coveredModules,
@@ -1415,14 +1757,18 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     closeWatcher: undefined,
     expected,
     chained: params.chained,
+    onTerminal: params.onTerminal,
   })
+  if (params.intakeOwner) intakeOwnerByRun.set(run, { ...params.intakeOwner })
+  if (params.sharedPoolTarget) sharedPoolTargetByRun.set(run, { ...params.sharedPoolTarget })
+  if (params.intakeReceipt) intakeReceiptByRun.set(run, { ...params.intakeReceipt })
 
   // seed expected agents as queued so the UI can show the planned swarm immediately
   for (const e of expected.values()) {
     run.agents.set(e.key, { key: e.key, module: e.module, name: e.name, layer: e.layer, status: 'queued' })
   }
 
-  setActiveSubjectRun(run.runId, subjectId) // register the in-flight run; finishRun() releases it
+  setActiveSubjectRun(run.runId, subjectId, swarmId) // register the swarm-qualified claim; finishRun releases it
   startRunWatcher(run)
 
   // EARLY ACK — respond the moment the claim is registered. Every outcome the caller can branch on
@@ -1435,6 +1781,10 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   // it could outlive the edge's ~100s proxy timeout, showing a FAILED launch for a run that started.
   void continueLaunch(run)
   return { runId: run.runId, preflight: estimate(kind, ticker, module, agent, swarmId) }
+  } finally {
+    releaseTargetPoolClaim()
+    releasePoolClaim()
+  }
 }
 
 // The post-ack half of launch(): readiness gate, then spawn (or park at the gate for a human decision).
@@ -1497,6 +1847,74 @@ export async function warmLaunchProbes(): Promise<void> {
 }
 
 async function spawnEngine(run: RunState): Promise<void> {
+  // A confirmation can stay open while another process publishes a newer call; likewise, a shared
+  // data/<SUBJECT> pool can acquire a second finished swarm owner after an automatic intake was queued.
+  // Re-read both identities at the final process boundary. A stale/ambiguous authorization never spends.
+  type LaunchBoundaryChange = 'selected_decision_changed' | 'intake_owner_changed'
+    | 'intake_plan_changed' | 'shared_pool_target_changed'
+    | 'shared_data_owner_ambiguous' | 'shared_data_owner_mismatch'
+    | 'shared_data_subject_busy' | 'shared_data_owner_unavailable'
+  const changedLaunchBinding = (): LaunchBoundaryChange | null => {
+    const poolConflict = currentSharedDataPoolConflict(run.swarmId, run.subjectId, run.kind, run.runId)
+    if (poolConflict) return poolConflict.code
+    const decision = run.selectedDecisionFingerprint
+      ? { decisionRunRoot: run.selectedDecisionRunRoot ?? run.runRoot ?? undefined, decisionFingerprint: run.selectedDecisionFingerprint }
+      : undefined
+    if (!decisionBindingStillCurrent(run.swarmId, run.subjectId, decision)) return 'selected_decision_changed'
+    const receipt = intakeReceiptByRun.get(run)
+    if (receipt && (!run.runRoot || !run.module || !run.agent
+        || !intakeReceiptIntentStillActionable(
+          run.swarmId, run.subjectId, run.runRoot, run.module, run.agent, receipt,
+        ))) return 'intake_plan_changed'
+    const owner = intakeOwnerByRun.get(run)
+    if (owner) {
+      if (owner.swarm !== run.swarmId) return 'intake_owner_changed'
+      let current: IntakeOwner | null = null
+      try { current = resolveUniqueFinishedIntakeOwner(run.subjectId) } catch { /* fail closed */ }
+      if (!intakeOwnerBindingMatches(owner, current)) return 'intake_owner_changed'
+    }
+    const target = sharedPoolTargetByRun.get(run)
+    if (target) {
+      try {
+        const conflict = sharedDataPoolConflict(
+          target.swarm,
+          listFinishedIntakeOwners(target.subject),
+          sharedDataPoolClaims(target.subject, run.runId),
+        )
+        if (conflict) return 'shared_pool_target_changed'
+      } catch {
+        return 'shared_pool_target_changed'
+      }
+    }
+    return null
+  }
+  const stopForChangedBinding = (reason: LaunchBoundaryChange): void => {
+    let message: string
+    if (reason === 'selected_decision_changed') {
+      message = 'The selected call changed before launch. Refresh it and review the rerun again.'
+    } else if (reason === 'intake_plan_changed') {
+      message = 'That intake-plan orb was already consumed or the plan changed. No rerun was started.'
+    } else if (reason === 'intake_owner_changed') {
+      message = 'The data-pool owner changed before launch. Refresh the idea before analyzing the landed data.'
+    } else if (reason === 'shared_pool_target_changed') {
+      message = 'The destination data-pool owner changed before launch. Refresh the handoff and try again.'
+    } else if (reason === 'shared_data_owner_ambiguous') {
+      message = `${run.subjectId} now has finished ideas in more than one cockpit. No analysis was started.`
+    } else if (reason === 'shared_data_owner_mismatch') {
+      message = `data/${run.subjectId} now belongs to another cockpit. No analysis was started.`
+    } else if (reason === 'shared_data_subject_busy') {
+      message = `${run.subjectId} is now being analyzed by another cockpit. No analysis was started.`
+    } else {
+      message = `The owner of data/${run.subjectId} could not be verified. No analysis was started.`
+    }
+    emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message, ts: Date.now() })
+    finishRun(run, 'error')
+  }
+  const beforeArgs = changedLaunchBinding()
+  if (beforeArgs) {
+    stopForChangedBinding(beforeArgs)
+    return
+  }
   const args = await buildArgs(run.prompt, run.kind, run.model)
   if (run.cancelRequested) {
     // cancelled during the gate / the buildArgs window — finish WITHOUT creating the child (no orphan).
@@ -1505,6 +1923,14 @@ async function spawnEngine(run: RunState): Promise<void> {
       emit(run, { type: 'run-error', runId: run.runId, status: 'cancelled', reason: 'cancelled', ts: Date.now() })
       finishRun(run, 'cancelled')
     }
+    return
+  }
+  // buildArgs can cold-probe `claude --help` for several seconds. Re-check BOTH call bindings plus the
+  // generic shared-pool owner/claim AFTER that await and immediately before execa: neither a new decision
+  // nor a newly-ambiguous/cross-swarm owner in the probe/readiness window can spend.
+  const beforeSpawn = changedLaunchBinding()
+  if (beforeSpawn) {
+    stopForChangedBinding(beforeSpawn)
     return
   }
   let child: ResultPromise

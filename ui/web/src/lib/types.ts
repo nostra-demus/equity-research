@@ -69,8 +69,18 @@ export interface IntakeRerunPlan {
 }
 export interface IntakePlan {
   schema_version: string
+  // Server-stamped owner. Optional for deploy compatibility with the older research-only reader.
+  swarm?: string
+  subject?: string
   ticker: string
   run_root: string
+  // Raw authored identity of the exact decision whose new documents were read. Never server-rebound.
+  decision_fingerprint?: string
+  // New-reader content identity/action gate. Optional only for deploy compatibility; any paid scoped
+  // action requires positive `actionable === true` plus both valid hashes/path.
+  plan_path?: string
+  plan_sha256?: string
+  actionable?: boolean
   scan_date: string
   scanned_at?: string
   watermark?: string
@@ -155,6 +165,30 @@ export interface DataNeedsRead {
   needs: DataNeed[]
   widened: string[]
   data_needs_schema_version?: '2.0'
+}
+
+// Exact selected-call manual evidence intake. Arrival is deliberately weaker than analysis: this wire
+// proves only that the server staged the bytes or that the existing external-data router published a
+// hash-bound payload + provenance sidecar. `IntakePlan` remains the authority on what the bytes mean.
+export type DataNeedUploadStatus = 'none' | 'staged_waiting' | 'routed_provenance_verified' | 'rejected_policy' | 'failed_tampered'
+export interface DataNeedUploadItem {
+  request_id: string
+  filename: string
+  sha256: string
+  staged_at: string
+  routed_path?: string
+  reason?: 'malformed_request' | 'tampered_request' | 'routing_failed' | 'policy_rejected'
+}
+export interface DataNeedUploadRead {
+  contract_version: 'data-need-upload/1'
+  subject: string
+  swarm: string
+  run_root: string
+  decision_fingerprint: string
+  need_id: string
+  series: string
+  status: DataNeedUploadStatus
+  items: DataNeedUploadItem[]
 }
 
 // ---- data pipeline: add a source → live relevance scan → build a connector → open a PR ----
@@ -1586,6 +1620,19 @@ export interface LaunchPreflight {
   estCommits: number
   requiresTypedConfirm: boolean
   creditPreflight: { ok: boolean; reason?: string; rateLimitType?: string; checked: boolean }
+  // A server-minted, exact-identity receipt. Re-run controls fail closed when it is absent (including
+  // when a newly deployed browser is briefly talking to an older server that ignored the query fields).
+  exactDecisionBinding?: {
+    contractVersion: 'exact-decision-launch/1'
+    runRoot: string
+    decisionFingerprint: string
+    intakePlan?: {
+      contractVersion: 'exact-intake-orb/1'
+      planPath: string
+      planSha256: string
+      sourceDecisionFingerprint: string
+    }
+  }
 }
 
 // ---- pre-flight data-readiness gate (mirrors ui/server/src/types.ts) ----

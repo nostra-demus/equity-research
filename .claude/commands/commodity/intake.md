@@ -1,6 +1,6 @@
 ---
 description: Read the documents that landed since the last commodity run and write a SCOPED rerun plan — which specific orbs the new evidence actually invalidates, instead of re-running the whole dossier. Recommend-only; launches nothing.
-argument-hint: COMMODITY
+argument-hint: COMMODITY RUN_ROOT DECISION_FINGERPRINT
 allowed-tools: Read, Write, Glob, Grep, Bash
 ---
 
@@ -24,15 +24,36 @@ command namespace). Read it first and follow it exactly.
 - **No source = no claim** (§3). Every entry cites the document it came from.
 - This command spawns no subagents.
 
-The argument is `$ARGUMENTS` — a single `<COMMODITY>` (e.g. `WHEAT`). Execute the steps below in order.
+The argument is `$ARGUMENTS` — `<COMMODITY> <EXACT_RUN_ROOT> <DECISION_FINGERPRINT>` (for example,
+`WHEAT commodity/runs/WHEAT sha256:…`). All three values come from one cockpit-selected call. Missing or
+invalid identity must STOP before any read/write; a legacy unbound plan stays audit-readable but can never
+authorize a paid rerun. Execute the steps below in order.
 
 ---
 
 ## 1. Resolve the commodity and its run root
 
-`<COMMODITY>` = the first token of `$ARGUMENTS`, upper-cased. Resolve `<TODAY>` once: `date +%F`.
+`<COMMODITY>` = the first token of `$ARGUMENTS`, upper-cased. `<EXACT_RUN_ROOT>` is the second token and
+`<DECISION_FINGERPRINT>` the third. Require exactly three tokens and require the fingerprint to match
+`^sha256:[a-f0-9]{64}$`; otherwise STOP. Resolve `<TODAY>` once: `date +%F`. Also capture
+`<SCANNED_AT>` once, **NOW — before you list any documents in Step 2**, using Python so two scans inside
+one wall-clock second remain strictly ordered. This is
+the durable "as-of" witness the cockpit uses to prove the analysis saw the whole pool (it survives a Git
+checkout/rebase that rewrites the plan file's own mtime). It MUST be taken before the Step 2 `find`, never
+after the scan or while writing the plan — a document that lands after this instant is correctly unread.
 
-A commodity has ONE run folder (not dated): `commodity/runs/<COMMODITY>/`. It counts as a FINISHED run
+```bash
+TODAY="$(date +%F)"
+SCANNED_AT="$(python3 - <<'PY'
+import datetime
+print(datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z"))
+PY
+)"
+```
+
+A commodity has ONE run folder (not dated): `commodity/runs/<COMMODITY>/`. `<EXACT_RUN_ROOT>` MUST
+byte-equal that path; require the folder and decision file to be real non-symlinks directly
+under the declared runs tree, or STOP without writing. It counts as a FINISHED run
 only once it carries a `decision_record.json` (the commodity terminal artifact — there is no
 `final_thesis.md` outside research):
 
@@ -53,22 +74,48 @@ WATERMARK="${RUN_ROOT}/decision_record.json"
 
 ## 2. Find the documents that arrived since the run
 
-List pool files newer than `$WATERMARK`, RECURSIVELY (so externally-ingested docs under
+List pool files newer than the run, RECURSIVELY (so externally-ingested docs under
 `data/<COMMODITY>/external/<provider>/` are seen — they are the most likely delta, and exactly what a
 connector writes, `EXTERNAL_DATA.md` §7). **Exclude engine-written output** (skip any file whose OWN
 directory contains a `.nostradamus_output` sentinel file) and a document's provenance sidecar
 (`<file>.source.json`, metadata not evidence):
 
+The "arrived since the run" baseline must be DURABLE. `$WATERMARK` is Git-tracked, so a
+checkout/clone/worktree/rebase can rewrite its mtime FORWARD and make a plain `-newer "$WATERMARK"`
+silently miss documents that really arrived after the decision. A singleton run has no date in its folder
+name, so read the terminal record's own `decision_date` (JSON content survives materialisation). If the
+watermark's mtime is later than that decision day, treat it as rewritten and fall back to the start of the
+decision date. Otherwise keep the precise watermark boundary. If `decision_date` is absent or malformed,
+do not invent one; use the watermark and make the plan `insufficient` if that leaves the delta unknowable.
+
 ```bash
-find "data/${COMMODITY}/" -type f -newer "$WATERMARK" -not -name '*.source.json' 2>/dev/null | while read -r f; do
+RUN_DATE="$(python3 - "$WATERMARK" <<'PY'
+import datetime, json, re, sys
+try:
+    value = json.load(open(sys.argv[1], encoding="utf-8")).get("decision_date", "")
+    valid = isinstance(value, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", value)
+    valid = valid and datetime.date.fromisoformat(value) <= datetime.date.today()
+    print(value if valid else "")
+except Exception:
+    print("")
+PY
+)"
+if [ -n "$RUN_DATE" ] && find "$WATERMARK" -newermt "$RUN_DATE 23:59:59" 2>/dev/null | grep -q .; then
+  SINCE=(-newermt "$RUN_DATE 00:00:00") # Git-rewritten watermark → durable decision-day floor
+else
+  SINCE=(-newer "$WATERMARK")           # trustworthy watermark → precise completion boundary
+fi
+find "data/${COMMODITY}/" -type f "${SINCE[@]}" -not -name '*.source.json' 2>/dev/null | while read -r f; do
   [ -e "$(dirname "$f")/.nostradamus_output" ] && continue
   echo "$f"
 done | sort
 ```
 
 - If **no** new documents: write a plan with `verdict: "note_only"`, empty `new_docs`, empty
-  `rerun_plan.commands`, and a one-line `summary` ("No new documents since the last run."). Still write
-  the file (so the cockpit can show "nothing to re-run"), then go to Step 6.
+  `rerun_plan.commands`, `scan_date: "<TODAY>"`, `scanned_at: "<SCANNED_AT>"`, and a one-line `summary`
+  ("No new documents since the last run."). Still write the file (so the cockpit can safely affirm
+  "no new data — everything read and considered"), then go to Step 6. **`scanned_at` is required on this
+  empty path** — without it the server must fail closed and prompt another analysis.
 - A routed/connector COPY's file date is its write date, so an old-as-of document can still be "new to
   the engine" — that is correct (staleness means "the engine has not read this yet").
 
@@ -147,7 +194,11 @@ echo "$out"
 Write the JSON to that path with the Write tool using the **exact** `intake_plan.json` schema from
 `INTAKE.md` §3 — with `ticker` set to `<COMMODITY>` and every rerun command in the `/commodity:rerun …`
 namespace (valid JSON; no fences/comments/trailing commas; `null`/`""`/`[]` for unknowns; never
-fabricate). Then validate:
+fabricate). Include `scan_date: "<TODAY>"` and `scanned_at: "<SCANNED_AT>"`, plus the exact identity
+fields `schema_version: "1.1"`, `swarm: "commodity"`, `subject: "<COMMODITY>"`,
+`ticker: "<COMMODITY>"`, `run_root: "<RUN_ROOT>"`, and
+`decision_fingerprint: "<DECISION_FINGERPRINT>"` — the durable witnesses
+captured before Step 2 — on **every** plan, including `note_only` and `insufficient`. Then validate:
 
 ```bash
 python3 -m json.tool "$out" >/dev/null && echo "OK valid JSON" || echo "FAIL invalid JSON"
