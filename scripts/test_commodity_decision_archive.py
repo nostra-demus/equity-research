@@ -20,6 +20,13 @@ def main() -> int:
     with tempfile.TemporaryDirectory() as temporary:
         root = Path(temporary) / "GOLD"
         record = _record()
+        # Any live (creation-time) archive is stamped with today's publication_date, so from
+        # COMMODITY_DATA_NEEDS_V2_DATE (2026-08-14) onward every fresh publication must carry the v2
+        # data-needs discriminator — an explicit empty check (`data_needs: []`) rather than an omitted
+        # contract. Make the base fixture a compliant fresh record so the archive path is exercised, not
+        # tripped, by the now-live gate (validate_screener_json.check_commodity_data_needs_v2).
+        record["data_needs_schema_version"] = "2.0"
+        record["data_needs"] = []
         _write(root / "decision_record.json", record)
         vintage = "sha256:" + "a" * 64
         graph = {
