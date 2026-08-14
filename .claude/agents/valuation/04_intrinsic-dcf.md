@@ -105,6 +105,25 @@ Label every cell as company-guided, peer-derived, or analyst assumption.
 
 **Sanity-bound the result before using it (MODULE_RULES Economic Consistency Gate 4).** A WACC is a weighted average of the after-tax cost of debt and the cost of equity, so it MUST satisfy `after-tax k_d ≤ WACC < k_e`. Print `k_e` (the CAPM cost of equity) next to the WACC and confirm the WACC is **strictly below** it — a WACC at or above `k_e` is an assembly error (fix the blend, do not ship it). For a developed-market (USD / EUR / GBP) large- or mega-cap, also confirm `k_e` is not implausibly high: a `k_e` materially above `rf + 1.4 × ERP` (≈ an equity beta > 1.4) needs the actual sourced beta or a stated capital-access reason. Do not apply a high discount rate to a low-risk, market-leading mega-cap by default — it silently understates fair value and is the recurring reverse-engineered-answer failure.
 
+**Now bound it from BELOW — the mirror failure, and it applies in every currency (MODULE_RULES Gate 4, low-side floors).** A too-low rate manufactures upside out of arithmetic and every gate above can pass while it does. Confirm and print all three:
+- `k_e − rf ≥ ~4pp`. An equity cost of capital sitting a couple of points above the local government bond is not an equity cost of capital. A low local sovereign yield does not license a low `k_e`.
+- Beta ≥ ~0.8 for a cyclical / commodity-input / price-competed business, with its source, window, and reference index stated. A raw local-index beta below that is a measurement artefact — floor it at 1.0 or re-lever a peer/industry unlevered beta, and show both.
+- A stated country-risk premium (or sovereign-spread-adjusted ERP) where cash flows are concentrated in one emerging or non-reserve-currency market. Omitting it must be a stated choice, not an oversight.
+
+## 3A. Cost-of-Capital Reality Test (mandatory — CLAUDE.md §16, MODULE_RULES Gate 4)
+
+Before the WACC is used, reconcile it against the outside reads. **Search the filings for the company's OWN disclosed discount rate first** — it is usually there, and it is usually the best-evidenced cost-of-capital figure in the pool because it is management's own rate on the company's own cash flows and the auditor has examined it. Look in the **goodwill / non-financial-asset impairment note** (IAS 36 and ASC 350 both require the rate where the test is a critical estimate or a Key Audit Matter), the **lease note** (incremental borrowing rate), and the **pension note**. A pre-tax impairment rate is not directly comparable to an after-tax WACC — state the basis and convert or bracket it, never ignore it.
+
+| Reference | Rate | Source (cite per §5) | Gap vs model WACC |
+|---|---:|---|---:|
+| Model WACC (CAPM build, §3) | | this agent | — |
+| Company's own disclosed discount rate | | impairment / lease / pension note, or **Not disclosed anywhere in the pool** | |
+| Market-implied rate | | `05_reverse-dcf` (or "runs after this agent — reconcile there") | |
+| Company's own trailing FCF yield / earnings yield | | `01_price-and-capital-structure`, `earnings/01` | |
+| Peer / industry cost of capital, if evidenced | | named source | |
+
+**Escalation (state which branch you took, in one line).** If the model WACC sits more than ~3pp BELOW the company's own disclosed rate, or below ~two-thirds of the market-implied rate, the model rate is **presumed wrong**. Take one of: (a) rebuild it with the floors above; (b) re-run the DCF at the company's own disclosed rate and publish THAT as the base intrinsic value, with the CAPM build shown beside it; or (c) mark this DCF a labelled cross-check, tell `07` to hold it at the cross-check weight cap, and say why in one sentence. Publishing the low-rate value as the headline with the divergence noted only as a caveat is NOT one of the options.
+
 ## 4. Free Cash Flow Forecast & Discounting
 
 | Year | Revenue | EBIT | NOPAT | Capex | ΔWC | FCF | Discount Factor | PV of FCF |
@@ -162,6 +181,8 @@ WACC across columns, terminal growth (or exit multiple) down rows:
 - [ ] Every forecast assumption is labeled company-guided / peer-derived / analyst assumption.
 - [ ] WACC components are all shown with sources; web-sourced rates are labeled. Any analyst override of the computed WACC shows both figures, is justified, stays within ±1.5pp, and is cross-checked against the moat module's cost of capital (Gate 4).
 - [ ] The computed WACC satisfies `after-tax k_d ≤ WACC < k_e` (the CAPM cost of equity printed beside it); a WACC ≥ the cost of equity is fixed, not shipped. For a developed-market large/mega-cap, a `k_e` above `rf + 1.4 × ERP` (β > 1.4) carries a cited justification (MODULE_RULES Gate 4).
+- [ ] The low-side floors are printed and cleared: `k_e − rf ≥ ~4pp`; beta ≥ ~0.8 for a cyclical/commodity-input business (with source, window, index — floored or re-levered if not); a country-risk premium stated or its omission deliberately stated (MODULE_RULES Gate 4).
+- [ ] **§3A Cost-of-Capital Reality Test table is filled**, including an explicit search of the impairment / lease / pension notes for a company-disclosed discount rate (recorded with its citation, or "Not disclosed anywhere in the pool"). Where the model WACC is >~3pp below the company's own rate, or below ~two-thirds of the market-implied rate, the escalation branch taken is named in one line.
 - [ ] Terminal value is disclosed as a % of EV and flagged if >75%.
 - [ ] For a cyclical business, the terminal/normalized margin is benchmarked against peer-normal AND the company's own prior-trough — each cited — not merely set "below the recent peak" (Cyclicality Gate).
 - [ ] The working-capital change is forecast from a revenue-linked driver (% of revenue or days-of-sales), not a flat absolute held constant — unless the company discloses a different driver.

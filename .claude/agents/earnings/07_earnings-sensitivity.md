@@ -67,9 +67,21 @@ One paragraph: how the 3–7 variables were selected (from upstream driver table
 
 ## 2. Sensitivity Table
 
-| Variable | Base Case | Move Basis | Bull Case | EPS/EBITDA Impact (bull) | Bear Case | EPS/EBITDA Impact (bear) | Confidence | Evidence |
-|---|---|---|---|---:|---|---:|---|---|
-| ... | ... | ... | ... | ... | ... | ... | ... | ... |
+| Variable | Base Case | Move Basis | Bull Case | EPS/EBITDA Impact (bull) | Bear Case | EPS/EBITDA Impact (bear) | Mitigation assumed | Confidence | Evidence |
+|---|---|---|---|---:|---|---:|---|---|---|
+| ... | ... | ... | ... | ... | ... | ... | 0% (bound) / X% (realised) | ... | ... |
+
+**The "Mitigation assumed" column is mandatory (CLAUDE.md §9).** A sensitivity that holds management's response at zero — no price rises, no hedging, no re-sourcing, no cost programme — is a **bound**, not a forecast. It is a legitimate and useful number, but it must be labelled `0% — bound`, and it may not be the only case shown for any variable where the company has a track record of responding.
+
+For every variable where the filings show what the company actually absorbed in a past episode, add a second row (or a second impact figure) at the **realised offset rate**, computed from the numbers and cited:
+
+> `realised offset = 1 − (observed impact on the reported metric ÷ the gross pre-mitigation impact)`
+>
+> Worked example: input-cost inflation disclosed at −178bps of revenue before mitigation, against a gross margin that actually fell 110bps → realised offset ≈ 38%. The bear case runs at that 38%; the zero-mitigation figure stays beside it, labelled as the bound.
+
+Where the company discloses hedging, indexed sourcing, or a cost programme but the offset cannot be computed from the pool, say so and label the zero-mitigation figure `bound — realised offset not computable from the pool`, rather than presenting it as the expected outcome.
+
+**Do not conflate contracts with outcomes.** "No contractual pass-through" is a fact about contracts. It is not a measurement of realised pass-through, and a company with no escalator clause can still recover cost through price, mix, hedging, and where it manufactures. Cite the contractual fact as a contractual fact; measure the realised recovery separately.
 
 Move sizes must be realistic and variable-specific. Use this hierarchy for determining move size:
 1. Company-disclosed sensitivity (highest priority)
@@ -145,6 +157,7 @@ OMIT a variable that has only a guidance range or a scenario impact with **no** 
 - [ ] Every variable connects to a driver from 02 or 03 (not invented).
 - [ ] Bull and bear move sizes are realistic, not arbitrary.
 - [ ] Company-disclosed sensitivities are used where available.
+- [ ] **Every row carries its "Mitigation assumed" value.** A zero-mitigation figure is labelled `0% — bound`, never presented as the expected outcome, and wherever the filings allow the realised offset to be computed, the realised-offset case is shown beside it with the arithmetic and the citation (CLAUDE.md §9). No row uses "no contractual pass-through" as if it were a measurement of realised pass-through.
 - [ ] Inferences are labeled explicitly.
 - [ ] Impact is in the correct unit (EPS in currency, EBITDA in currency).
 - [ ] The ranking table is sorted by absolute impact.

@@ -59,9 +59,19 @@ Detect the listing jurisdiction from the `00` triage and use the local-equivalen
 
 | Field | Value | Source | As-of Date |
 |---|---|---|---|
+| **Decision line** (ticker · venue · currency) | | | |
 | Current price | | | |
 | Currency | | | |
 | Price basis (last close / intraday / indicative) | | | |
+
+**Name the tradable line the whole valuation runs on (CLAUDE.md §16).** Where the issuer has more than one listed line — a domestic and a foreign share class, a dual A/H listing, an ADR or GDR, a second venue — pick ONE as the **decision line** and say so in the Anchor Block. Everything downstream (fair-value range, margin of safety, downside to bear, yield, the rating itself) is denominated in that line's price and currency; the other lines are different instruments and a fair value derived on one is not a fair value on another. State the reason for the choice (the primary/most liquid listing, or the line the user actually holds if the run says so).
+
+Then list every other line and what a holder of it would see:
+
+| Listed line | Ticker · venue | Currency | Price | As-of | Premium / (discount) vs decision line, same-currency | Notes for a holder of this line |
+|---|---|---|---:|---|---:|---|
+
+Convert at a stated FX date and rate, and adjust for the ADR/GDR **ratio** (an ADR is often several or a fraction of an ordinary share — get the ratio from the depositary's own disclosure before comparing prices). Where the gap between lines is material, say so in one line — it is a real, tradable fact about which line a reader should buy, and the decision does not silently transfer across it. If there is only one listed line, write "Single listed line — no cross-line issue" and move on.
 
 **Price staleness (quantitative, not just a caveat).** Compute the price's age = run date − quote as-of date, in **trading days** (≈ calendar days × 5/7). If it exceeds **5 trading days** (about one week), first **attempt a refresh** — prefer a fresher pool/user-provided quote if one exists; state the attempt and its result in the Anchor Summary. If no fresher price is available, keep the price `pool-verified` (it still anchors margin of safety / downside-to-bear) but record the age and hand the staleness cap to `99` (MODULE_RULES → Score-Cap: stale pool-verified price → valuation confidence max 70, or max 60 with an inline staleness flag beyond 15 trading days). A price whose as-of date is genuinely UNCONFIRMED (only a download date known) stays a data-quality caveat, not this cap; a price whose as-of date IS known and stale triggers it. (Calibration: EMAAR's 12-calendar-day ≈ 8–9-trading-day anchor trips this first tier.)
 
@@ -124,6 +134,21 @@ State any adjustment you did NOT make (operating leases, pensions, contingent cl
 | Tangible book value per share | | |
 | Net cash (or net debt) per share | | |
 
+## 6A. Distribution Basis (only if a dividend / distribution yield is quoted anywhere in this run)
+
+A yield is only a yield a buyer can still receive (CLAUDE.md §16). If any agent in this run will quote one, this agent fixes its basis here, once, and downstream agents use it verbatim:
+
+| Field | Value | Source |
+|---|---|---|
+| Yield basis (trailing / forward-declared / forward-estimated) | | |
+| Amount per share and the period it covers | | |
+| Ex-date and record date of the most recent distribution | | |
+| Is the next distribution still available to a buyer today? (Y / N — if the record date has passed, N) | | |
+| Gross or net (withholding tax rate; depositary fee per share for an ADR/GDR) | | |
+| Yield on the **decision line** at the decision-line price | | |
+
+A trailing yield whose record date has already passed is **not** income available to a buyer today — mark it N and never let it be used as a reason to own the stock. For an ADR/GDR the net yield can differ materially from the domestic headline: the depositary fee and the local withholding tax both come out before the holder sees it, and the ADR ratio changes the per-share amount. If no yield will be quoted, omit this section — its absence is not a gap.
+
 ## 7. Anchor Summary (canonical numbers for downstream agents)
 
 State, in a tight block, the numbers every other valuation agent should use verbatim:
@@ -138,9 +163,12 @@ If any anchor number is missing or indicative, say so here so downstream agents 
 
 ### Anchor Block (copy-forward)
 
+- Decision line: {ticker · venue · currency} — every downstream fair value, margin of safety, and yield is on THIS line ({"Single listed line" if only one})
+- Other listed lines: {ticker · venue · premium/(discount) vs decision line, same-currency, FX date} — or `None`
 - Price: {value or Not available} ({as-of}, {basis})
 - Price-state: {pool-verified | indicative | none} — the canonical tag `05`/`07`/`99` read
 - Currency: {currency}
+- Distribution basis: {trailing | forward | none quoted} — {amount/period}, ex-date {date}, still available to a buyer today: {Y/N}, {gross | net of X% withholding + depositary fee}
 - Shares (market cap): {number} (source)
 - Shares (per-share fair value): {number} (source / limitation)
 - Market cap: {number or Not computable}
@@ -162,6 +190,8 @@ Do not add any valuation judgment.
 - [ ] Adjustments NOT made (leases, pensions) are named.
 - [ ] The Anchor Summary gives downstream agents a single canonical set of numbers.
 - [ ] Currency is stated.
+- [ ] **A single decision line is named** (ticker · venue · currency) and carried in the Anchor Block; every other listed line is tabled with its same-currency premium/discount at a stated FX date and rate, ADR/GDR ratio applied. Where only one line exists, this is stated, not silently skipped (CLAUDE.md §16).
+- [ ] If any yield will be quoted in this run, §6A fixes its basis: trailing vs forward, ex/record date, whether a buyer today still receives it, and gross vs net of withholding and depositary fees.
 - [ ] No valuation judgement is made (no cheap/expensive call — that is not this agent's job).
 - [ ] No banned phrases.
 

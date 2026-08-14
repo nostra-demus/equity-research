@@ -128,6 +128,23 @@ State ONE of:
 In 2–3 sentences, name the strongest moat (if any) and the durability test it would need to pass over the next 5 years. **Hard rule: if the company's return on capital is at or below its cost of capital (the §3 economic test), the verdict cannot be "Strong moat" regardless of peer-relative superiority — classify it as a moat in structure, not economics, and cap at Narrow or No-moat.** If the industry is fast-changing (cross-check `07_business-quality.md` rate-of-change / disruption row), discount durability accordingly: a moat in a fast-changing industry decays faster and is harder to underwrite than the same moat in a stable, boring one (CLAUDE.md §24, Filter 5).
 
 **Moat trajectory — widening / stable / eroding / not assessable.** Separate from the *level* (Strong / Narrow / No-moat / Insufficient data): which way is the moat moving? Judge the direction over the last 3–5 years — return on capital vs cost of capital (rising / flat / falling), market-share trend, pricing-power trend, and entry / disruption pressure (cross-check `07_business-quality.md` rate-of-change). State **widening**, **stable**, or **eroding** with evidence — or **not assessable** when the moat verdict is *Insufficient data*, or the entity is too young / the history too thin to evidence a direction (do not force a direction the data cannot support; §11). An **eroding** moat — even one still scored Narrow today — is the early-warning signal that feeds the permanent-impairment / declining-perpetuity trigger in `valuation/04` §5 and `valuation/07` (CLAUDE.md §24, Filter 5); a widening moat supports a longer durable-advantage period in the DCF.
+
+**Trajectory evidence panel — required, and it must show the metrics that DISAGREE (CLAUDE.md §3).** A direction called off one metric while other series in the engine's own tables point the other way is not a finding, it is a selection. Fill this before stating the trajectory:
+
+| Metric (same 3–5 year window) | Start | Latest | Direction | Supports / contradicts the stated trajectory |
+|---|---:|---:|---|---|
+| Gross margin | | | | |
+| EBITDA margin | | | | |
+| EBIT or operating margin | | | | |
+| Return on capital (ROIC / ROCE) vs cost of capital | | | | |
+| Market share (or the closest disclosed volume/position proxy) | | | | |
+| Cash conversion (CFO ÷ EBITDA) | | | | |
+| Pricing / realised price or mix | | | | |
+
+Then, in the trajectory paragraph:
+- **Name every contradicting row and adjudicate it.** If gross margin is down 460bps but EBITDA margin, net margin, cash conversion, and share are all higher over the same window, say so with the numbers and explain why the erosion read still holds (for example: the bottom line was held up by falling operating costs and a demand-support programme that is now fading, so the underlying pricing line is the cleaner read). That explanation may well be right — but it has to be made, not skipped.
+- **Calibrate the word to the evidence.** Reserve **confirmed** for a direction where the majority of the panel points the same way. Where the panel is split, the honest verdict is *eroding on the pricing line, offset so far below it* or *mixed — direction not established* — and the downstream language must match. A split panel does NOT license "erosion confirmed" as a headline, a scenario driver, or a kill criterion.
+- **Say which way you would be wrong.** One line: what the single next data point is that would flip the trajectory read, and by when it lands.
 ```
 
 # SELF-CHECK
@@ -145,6 +162,7 @@ In 2–3 sentences, name the strongest moat (if any) and the durability test it 
 - [ ] The "where the company sits" line uses real data from Section 3, not impression.
 - [ ] The verdict is exactly one of {Strong / Narrow / No moat proven / Insufficient data}.
 - [ ] The moat **trajectory** (widening / stable / eroding / not assessable) is stated with evidence, separate from the level.
+- [ ] **The trajectory evidence panel is filled across all seven metrics**, every contradicting row is named and adjudicated in the paragraph, and the verdict word matches the panel: "confirmed" only where the majority points one way; a split panel returns *mixed / offset* and is never carried downstream as confirmed erosion (CLAUDE.md §3). The one data point that would flip the read, and its date, is stated.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION
