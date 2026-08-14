@@ -69,6 +69,12 @@ check('parseWire: empty block → undefined; blank strings → undefined; partia
   writeSwarm(agents, 'wireblank', 'wire:\n  event_scope: ""\n  group_by: "   "\n') // set but content-free
   writeSwarm(agents, 'wirepartial', 'wire:\n  event_scope: commodity\n') // only event_scope
   writeSwarm(agents, 'wirenone', '') // no wire key at all
+  const unsafeDir = path.join(agents, 'wireunsafe')
+  fs.mkdirSync(unsafeDir, { recursive: true })
+  fs.writeFileSync(path.join(unsafeDir, 'SWARM.md'), [
+    '---', 'id: wireunsafe', 'run_root_template: ../outside/{X}', 'placeholder: X',
+    'runs_root: ../outside', '---', '', 'unsafe manifest', '',
+  ].join('\n'))
 
   // the probe imports listSwarms fresh in a child process whose ENGINE_REPO_ROOT is the tmp repo
   const probe = path.join(repo, 'probe.ts')
@@ -93,6 +99,7 @@ check('parseWire: empty block → undefined; blank strings → undefined; partia
   assert.equal(by('wireblank')!.wire, null, 'a wire block of empty/whitespace strings parses to NO wire')
   assert.equal(by('wirenone')!.wire, null, 'no wire key → no wire')
   assert.deepEqual(by('wirepartial')!.wire, { eventScope: 'commodity' }, 'a partial block keeps just the declared key (others absent)')
+  assert.equal(by('wireunsafe'), undefined, 'a manifest whose runs root escapes the repo is dropped at discovery')
   assert.equal(out[0].id, 'research', 'the synthetic research default still heads the list in the tmp repo')
 })
 

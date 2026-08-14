@@ -1,0 +1,90 @@
+{
+  "schema_version": "1.0",
+  "ticker": "ORCL",
+  "as_of": "2026-08-14",
+  "currency": "USD",
+  "base_metric": "ebitda_usd_m",
+  "base_value": 30494,
+  "base_value_source": "01_historical-financials.md §1 (FY2026 EBITDA); Oracle Corporation NYSE ORCL Financials_Annual.xls, Income Statement tab — Capital IQ, data as of 2026-08-13 (not separately disclosed by Oracle itself)",
+  "base_period": "FY2026",
+  "revenue_base": 67357,
+  "revenue_period": "FY2026",
+  "sensitivities": [
+    {
+      "variable": "ai_customer_concentration_pullback_pct",
+      "label": "AI-infrastructure customer/counterparty concentration pullback (% of implied 12-month cRPO)",
+      "unit": "% pullback of implied next-12-month cRPO",
+      "base_value": null,
+      "coefficient": -346.87,
+      "confidence": "low",
+      "basis": "inferred",
+      "valid_range": {"low": 0, "high": 20},
+      "non_linearity": "Asymmetric and lumpy: no quantified upside beyond the OCI-conversion-pace variable; concentrated in 4 customers each contracting >$8B in a single quarter (named: AMD, Meta, NVIDIA, OpenAI, TikTok, xAI), so a pullback from one counterparty could clear much of this range on its own rather than moving smoothly with %.",
+      "source": "business-model/10_external-dependency.md §5 (20% stress test); FY26 10-K, Item 7 MD&A, p.55 (RPO conversion schedule, implied ~$76.6B 12-month cRPO)"
+    },
+    {
+      "variable": "gross_margin_bps_move",
+      "label": "Consolidated gross margin (cost-of-revenue ratio) change",
+      "unit": "bps",
+      "base_value": 6583,
+      "coefficient": 6.7357,
+      "impact_metric": "ebit_usd_m",
+      "confidence": "medium",
+      "basis": "inferred",
+      "valid_range": {"low": -469, "high": 469},
+      "non_linearity": "Management guides FY2027 gross margin to 'step down' further due to a data-center capex-to-revenue timing lag (cost recognized before contracted revenue ramps, lag unquantified in quarters) — downside moves are directionally more likely near-term than upside per guidance.",
+      "source": "03_margin-drivers.md §3, §7; Q4 FY26 transcript, CFO Maxson"
+    },
+    {
+      "variable": "usd_fx_rate_change_pct",
+      "label": "USD vs foreign-currency basket, % change in FX rates",
+      "unit": "% change in FX rates",
+      "base_value": null,
+      "coefficient": 276.7,
+      "impact_metric": "pretax_earnings_usd_m",
+      "confidence": "high",
+      "basis": "company-disclosed",
+      "valid_range": {"low": -10, "high": 10},
+      "non_linearity": "Oracle's FX-forward hedging program 'may not fully offset' currency moves [FY26 10-K, Item 1A, p.19]; disclosed sensitivity is linear at ±10%, not tested by the company beyond that band.",
+      "source": "FY26 10-K, Item 7A, Sensitivity Analysis table, p.56"
+    },
+    {
+      "variable": "opex_leverage_bps_move",
+      "label": "Combined S&M + R&D + G&A ratio-of-revenue change",
+      "unit": "bps",
+      "base_value": null,
+      "coefficient": 6.7357,
+      "impact_metric": "ebit_usd_m",
+      "confidence": "medium",
+      "basis": "inferred",
+      "valid_range": {"low": -200, "high": 200},
+      "non_linearity": "Blended coefficient across three lines with different flex — S&M/G&A are more variable, R&D is constrained by product/competitive needs — the combined rate does not separate them.",
+      "source": "03_margin-drivers.md §2, §7"
+    },
+    {
+      "variable": "oci_revenue_growth_usd_m",
+      "label": "Cloud infrastructure (OCI) revenue / RPO conversion pace, incremental USD",
+      "unit": "USD millions",
+      "base_value": 18101,
+      "coefficient": 0.4527,
+      "confidence": "medium",
+      "basis": "inferred",
+      "valid_range": {"low": -2715, "high": 2715},
+      "non_linearity": "OCI is currently supply-constrained (97.5% GPU utilization, 98% of AI datacenter capacity already contracted per Q4 FY26 transcript) — near-term upside is capped by build-out speed, not demand; downside is uncapped if a named large customer pulls back (see ai_customer_concentration_pullback_pct).",
+      "source": "02_revenue-drivers.md §7; FY26 10-K, Item 7 MD&A, p.45, p.55"
+    },
+    {
+      "variable": "new_debt_financing_rate_bps",
+      "label": "Rate on ~$20B assumed new FY2027 debt issuance",
+      "unit": "bps",
+      "base_value": null,
+      "coefficient": -2.0,
+      "impact_metric": "pretax_earnings_usd_m",
+      "confidence": "low",
+      "basis": "inferred",
+      "valid_range": {"low": -100, "high": 100},
+      "non_linearity": "Applies only to new debt issued at FY2027 market rates, not the existing $129.5B stock, which is largely fixed-rate at issuance (only one $500M floating-rate tranche identified) and insulated from rate moves until refinanced. A credit-rating downgrade would compound this by raising the base rate AND, per the 10-K, could 'limit eligibility to contract with certain customers' — a direct link from financing cost to revenue.",
+      "source": "business-model/10_external-dependency.md §1-§2; 04_guidance-consensus.md §2; FY26 10-K, Item 1A, p.19"
+    }
+  ]
+}

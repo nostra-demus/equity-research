@@ -8,7 +8,7 @@ import os from 'node:os'
 import path from 'node:path'
 import {
   autoBridgeItem, bridgeEventToSubject, eventNoteName, findWireItem, listBridgedSubjects,
-  matchTrackedSubjects, renderEventNote, shouldAutoBridge,
+  matchTrackedSubjects as guardedMatchTrackedSubjects, renderEventNote, shouldAutoBridge,
 } from '../src/research-bridge'
 import type { FeedItem } from '../src/news/types'
 
@@ -21,6 +21,8 @@ function check(name: string, fn: () => void | Promise<void>): Promise<void> {
 }
 
 const NOW = () => new Date('2026-07-16T10:00:00Z')
+const matchTrackedSubjects = (item: FeedItem, dataDir: string, names?: Record<string, string>) =>
+  guardedMatchTrackedSubjects(item, dataDir, names, () => true)
 
 function fixtureItem(over: Partial<FeedItem> = {}): FeedItem {
   return {
@@ -53,7 +55,7 @@ function fixtureItem(over: Partial<FeedItem> = {}): FeedItem {
 async function main() {
   const dataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'rbridge-data-'))
   const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'rbridge-state-'))
-  const opts = { dataDir, stateDir, now: NOW }
+  const opts = { dataDir, stateDir, now: NOW, canAutoWriteSubject: () => true }
   fs.mkdirSync(path.join(dataDir, 'EMAAR'))
   fs.mkdirSync(path.join(dataDir, 'AMZN'))
   fs.mkdirSync(path.join(dataDir, 'EXTERNAL-INBOX')) // reserved — must never match or accept a note
@@ -200,6 +202,26 @@ async function main() {
     assert.deepEqual(autoBridgeItem(low, opts, () => { peeks++; return null }), [])
     assert.equal(peeks, 0)
     assert.ok(!fs.existsSync(path.join(dataDir, 'AMZN', 'screener_event_EVT-22222d1dbfe4.md')))
+    delete process.env.SCREENER_RESEARCH_BRIDGE
+  })
+
+  await check('stream auto-routing writes zero bytes when shared-pool ownership is not solely research', () => {
+    process.env.SCREENER_RESEARCH_BRIDGE = '1'
+    const id = 'EVT-abcdef123456'
+    const it = fixtureItem({
+      event_id: id,
+      triage_score: 90,
+      companies: [{ name: 'Amazon', ticker: 'AMZN', listing_country: 'US' }],
+    })
+    let checks = 0
+    const denied = autoBridgeItem(it, {
+      dataDir, stateDir, now: NOW,
+      // Represents either commodity-only ownership or an ambiguous research+commodity label.
+      canAutoWriteSubject: () => { checks++; return false },
+    })
+    assert.deepEqual(denied, [])
+    assert.ok(checks > 0, 'the owner gate is consulted before routing')
+    assert.ok(!fs.existsSync(path.join(dataDir, 'AMZN', `screener_event_${id}.md`)))
     delete process.env.SCREENER_RESEARCH_BRIDGE
   })
 

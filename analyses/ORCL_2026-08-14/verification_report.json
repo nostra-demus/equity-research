@@ -1,0 +1,329 @@
+{
+  "schema_version": "1.0",
+  "ticker": "ORCL",
+  "run_root": "analyses/ORCL_2026-08-14",
+  "verified_at": "2026-08-14T05:40:52Z",
+  "verifier": "verify-evidence",
+  "final_thesis_path": "analyses/ORCL_2026-08-14/final_thesis.md",
+  "decision_record_path": "analyses/ORCL_2026-08-14/decision_record.json",
+  "final_thesis_sha256": "081ef31bf789ffa00055fa04f0892057d33424258b4d562dbbf67c0de994870e",
+  "decision_record_sha256": "89c4748550b24b76ae447f1f58d137be68d2e6e6392795a0a328cca98109e705",
+  "claims_checked": 15,
+  "claim_checks": [
+    {
+      "claim": "Net debt (strict basis) = $136,143M FY2026 (total debt $167,432M − cash & equivalents $31,289M)",
+      "citation": "valuation/01_price-and-capital-structure.md §5; earnings/01_historical-financials.md §1; balance-sheet-survival/01",
+      "source_checked": "CIQ Financials_Annual.xls Balance Sheet tab (corpus extract) + FY26 10-K balance sheet text",
+      "status": "verified",
+      "evidence": "Total debt 167432 found in corpus (resolve_citations.py hit_count=16); cash and equivalents 31289 found (hit_count=6, incl. literal 10-K line 'Cash and cash equivalents $ 31,289 $ 10,786'). Net debt itself ($136,143M) is a derived figure (167,432 − 31,289 = 136,143, ties exactly) and is not expected to appear as a literal filed line item — components are individually verified. Consistent across earnings, balance-sheet-survival, and valuation modules and the final thesis (§18).",
+      "severity": "info"
+    },
+    {
+      "claim": "Total debt = $167,432M FY2026, up 53.7%–54% from $108,952M FY2025 (S&P downgrade to BBB- followed, 2026-07-09)",
+      "citation": "business-model/11_capital-allocation-governance.md; management-governance finding 02-012; Key Developments.xls 2026-07-09 entry",
+      "source_checked": "CIQ Financials_Annual.xls Capital-Structure-Summary/Balance Sheet tabs; CIQ Key-Developments.xls",
+      "status": "verified",
+      "evidence": "167432 and 108952 both found literally in the corpus's Total Debt row (resolve_citations.py hit_count=16 and 10 respectively). (167432-108952)/108952 = 53.68%, matches the cited 53.7%/54%. S&P downgrade found verbatim: 'Oracle Corporation, Standard & Poor's Downgrade Issuer Credit Rating: BBB-; Stable from BBB... Jul-09-2026' at corpus line 7010-7012.",
+      "severity": "info"
+    },
+    {
+      "claim": "EBITDA (FY2026, GAAP/reported basis) = $30,494M; used as the denominator for net debt/EBITDA 4.46x throughout",
+      "citation": "earnings/01_historical-financials.md §1; balance-sheet-survival/01 §4",
+      "source_checked": "CIQ Financials_Annual.xls Income Statement tab (corpus extract)",
+      "status": "verified",
+      "evidence": "30494 found literally 6 times in corpus, including the 'EBITDA' row (15888...22333, 30494 — FY2026 final column) and the Public Company Profile summary row. 136,143/30,494 = 4.463x, ties the reported 4.46x.",
+      "severity": "info"
+    },
+    {
+      "claim": "Vendor (CIQ) Total Debt/EBITDA of 5.03x / EBITDAR $33,288M is a different basis than the plain-GAAP-EBITDA 4.46x/5.49x figures used as canonical — flagged, not silently substituted",
+      "citation": "valuation/01_price-and-capital-structure.md §5; balance-sheet-survival/99 §3 reconciliation item 2",
+      "source_checked": "CIQ Financials_Annual.xls Capital-Structure-Summary tab (corpus extract)",
+      "status": "verified",
+      "evidence": "EBITDAR row = 33288 found at corpus line 4228 (last column, FY2026). 33288/30494=1.0916 (+9.16%), matching the module's own 'roughly 9% above' claim. 167432/33288=5.030x, matching the cited 5.03x vendor ratio.",
+      "severity": "info"
+    },
+    {
+      "claim": "Current price $153.94 (Aug-13-2026, 02:26 PM GMT-5, delayed NYSE quote, pool-verified)",
+      "citation": "valuation/01_price-and-capital-structure.md §1",
+      "source_checked": "Oracle Corporation NYSE ORCL Public Company Profile.rtf (corpus extract)",
+      "status": "verified",
+      "evidence": "153.94 found literally in corpus (resolve_citations.py hit_count=1, exact token match).",
+      "severity": "info"
+    },
+    {
+      "claim": "EV bridge: market cap $443,424.2M + total debt $167,432.0M + minority interest $548.0M + preferred $4,954.0M − cash & ST investments $31,894.0M = EV $584,464.2M (canonical, lease-inclusive)",
+      "citation": "valuation/01_price-and-capital-structure.md §4",
+      "source_checked": "Arithmetic recomputation from components already verified in the corpus (total debt, minority interest, preferred, cash all independently sourced to CIQ Balance Sheet tab)",
+      "status": "verified",
+      "evidence": "443424.2+167432.0+548.0+4954.0-31894.0 = 584464.2, ties exactly to the reported EV. Market cap (2,880.5M basic shares x $153.94 = $443,424.2M) also ties. Cross-checked against the vendor's own (stale, prior-day-price) EV box of $582,558.6M — the module explicitly reconciles the ~$1.9M... actually $1,905.6M gap to the one-day price difference, and that reconciliation itself checks out (153.94-153.28)*2880.5 = $1,901.1M, close to the stated $1,905.6M gap).",
+      "severity": "info"
+    },
+    {
+      "claim": "Return on capital fell every year for four straight years: 12.35% (FY22) to 8.22% (FY26), at/below an estimated ~11.2% cost of capital",
+      "citation": "business-model/09_moat.md §3; final_thesis.md §4, §6",
+      "source_checked": "CIQ Financials_Annual.xls 'Return on Capital %' row (corpus extract)",
+      "status": "verified",
+      "evidence": "Corpus row 'Return on Capital %  0.08225 0.078984 0.093919 0.108292 0.111948 0.123496 0.105395 0.10065 0.096206 0.082198' — the FY2022 value (6th of 10 annual columns) is 0.123496 = 12.35% and the FY2026 value (10th/last column) is 0.082198 = 8.2198%, which rounds to the cited 8.22% (the exact literal string '8.22' does not appear as a substring because the underlying figure is 8.2198%, a rounding presentation, not a miscite). The ~11.2% cost of capital / WACC figure is explicitly and correctly labeled 'Inference, not from filings' throughout — not a filed number, appropriately flagged.",
+      "severity": "info"
+    },
+    {
+      "claim": "RPO (remaining performance obligations) grew 363% YoY to $638bn (from $138bn)",
+      "citation": "business-model/02_business-identity.md; earnings/02_revenue-drivers.md; final_thesis.md §4, §6",
+      "source_checked": "FY26 10-K text and Q4 FY26 earnings-call transcript (corpus extract)",
+      "status": "verified",
+      "evidence": "Verbatim in the FY26 10-K (corpus line 44280): 'Remaining performance obligations were $638 billion and $138 billion as of May 31, 2026 and 2025, respectively.' Verbatim in the Q4 FY26 transcript (corpus line 19403): '...RPO, finished at $638 billion, up 363%.' Also confirmed in the earnings press release (corpus line 208056): 'Remaining Performance Obligations, or RPO, ended the quarter at $638 billion, up 363% USD year-over-year.'",
+      "severity": "info"
+    },
+    {
+      "claim": "Four named customers each contracted more than $8bn in Q4 FY2026 alone (customer-concentration killer risk)",
+      "citation": "earnings/07_earnings-sensitivity.md; business-model/05_customer-geography.md; decision_record.json killer_risk",
+      "source_checked": "Q4 FY26 earnings-call transcript (corpus extract)",
+      "status": "verified",
+      "evidence": "Verbatim in the transcript (corpus line 19403): 'We continue to diversify across our largest customers with 4 customers contracting for more than $8 billion this quarter.'",
+      "severity": "info"
+    },
+    {
+      "claim": "Reverse-DCF: price implies a 51.3% FY2027 YoY revenue beat (vs management's own +33.6% guidance) and a 61.9% terminal EBIT margin with no peer precedent",
+      "citation": "valuation/05_reverse-dcf.md §2, §5",
+      "source_checked": "valuation/05_reverse-dcf.md executed Python solver output, cross-checked against valuation/04_intrinsic-dcf.md replication",
+      "status": "verified",
+      "evidence": "Correctly labeled as a MODEL-DERIVED figure (Level 4/5 per the thesis's own Claim Quality Ledger), not a filed number. The module shows its full executed solver code (scipy.optimize.brentq), a replication check against 04's independently-printed EV/PV figures (matches to the dollar), and robustness sweeps across WACC/anchor/terminal-g. Management's own guidance figure (+33.6% / EPS $8.05, revenue $90,000M) is independently confirmed verbatim in the Q4 FY26 transcript ('growth in total revenues of between 27% and 29% in U.S. dollars' for Q1, '$8.05, up 18% in constant currency, excluding the net onetime investment gains'). This is a transparent, reproducible derivation, correctly flagged as inference/model output, not a filing fact.",
+      "severity": "info"
+    },
+    {
+      "claim": "Scenario math: probabilities sum to 100% (15/32/33/20); expected return −27.10%; weighted target price $112.22; risk/reward −0.34; downside risk 79.58%",
+      "citation": "final_thesis.md §8, §14; decision_record.json scenarios[]",
+      "source_checked": "Independent recomputation from the four disclosed price targets and probabilities",
+      "status": "verified",
+      "evidence": "Recomputed independently: returns = [(212.67-153.94)/153.94, (133.77-153.94)/153.94, (94.62-153.94)/153.94, (31.44-153.94)/153.94]*100 = [38.15%, -13.10%, -38.53%, -79.58%] (bear-structural computed as -79.577%, rounds to -79.58% as reported). Expected return = 0.15*38.15+0.32*(-13.10)+0.33*(-38.53)+0.20*(-79.58) = -27.10%, ties exactly. Weighted target = 0.15*212.67+0.32*133.77+0.33*94.62+0.20*31.44 = $112.2195 ≈ $112.22, ties. Expected return from target = (112.22-153.94)/153.94 = -27.10%, reconciles with the direct calculation. Risk/reward = (112.22-153.94)/(153.94-31.44) = -0.341 ≈ -0.34, ties. Downside risk = -min(returns) = 79.58%, ties. Margin of safety -15.08% = (133.77-153.94)/133.77 (i.e., discount stated as a % of fair value rather than of price) = -15.08%, ties on that convention.",
+      "severity": "info"
+    },
+    {
+      "claim": "Confidence/conviction math: analysis_confidence 75.2 = 0.5*78+0.25*70+0.25*75; conviction 51.0 = min(min(75.2,58.0)-7.0,58.0)",
+      "citation": "decision_record.json confidence_breakdown",
+      "source_checked": "Independent recomputation from the disclosed formula and inputs",
+      "status": "verified",
+      "evidence": "0.5*78 + 0.25*70 + 0.25*75 = 39.0+17.5+18.75 = 75.25, rounds to the reported 75.2 (minor rounding, ties). min(75.2,58.0)=58.0; 58.0-7.0(downgrade points)-0(haircut)=51.0; min(51.0,58.0)=51.0; clamp(51.0,0,100)=51.0. Ties exactly to reported conviction 51.0.",
+      "severity": "info"
+    },
+    {
+      "claim": "Governance Score 50/100 = weighted sum of six component scores; Confidence-Adjusted Governance Score 34/100 = 50 × 0.68",
+      "citation": "management-governance/99_management-governance-synthesis.md §1",
+      "source_checked": "Independent recomputation from the disclosed formula and component scores",
+      "status": "verified",
+      "evidence": "0.20*40 + 0.18*37 + 0.18*63 + 0.16*60 + 0.16*57 + 0.12*(100-58) = 8.00+6.66+11.34+9.60+9.12+5.04 = 49.76, rounds to the reported 50. 50 * (68/100) = 34.0, ties exactly to the reported 34/100.",
+      "severity": "info"
+    },
+    {
+      "claim": "Say-on-pay opposition 18-22% at the last two AGMs (FY2024/FY2025)",
+      "citation": "management-governance/05_board-and-shareholder-rights.md finding 05-013",
+      "source_checked": "Corpus search (no pool hit expected — explicitly labeled web-sourced)",
+      "status": "inference-labeled",
+      "evidence": "No hit for '18%'/'22%'/'say-on-pay' in the CIQ/filing corpus (expected — this figure is not in the data pool). The module itself correctly labels the source as 'Web: Oracle 8-K FY2025 annual-meeting voting results, sec.gov, search synthesis, 2026-08-14 (unverified)' throughout, consistent with CLAUDE.md §3/§4 — this is properly disclosed as an unverified secondary source, not presented as filing-sourced.",
+      "severity": "info"
+    },
+    {
+      "claim": "decision_record.json scenario entries carry complete forward_metric+multiple pairs and non-empty sotp_segments / peers_internals.anchors arrays, satisfying MODULE_RULES §2 finish-gate checks",
+      "citation": "final_thesis.md PROVISIONAL banner (top of file); MODULE_RULES §2",
+      "source_checked": "analyses/ORCL_2026-08-14/decision_record.json (direct grep for the fields the finish-gate complained about)",
+      "status": "unsupported",
+      "evidence": "grep for 'forward_metric', '\"multiple\"', 'sotp_segments', 'peers_internals' in decision_record.json returns ZERO matches — none of these fields exist anywhere in the file. This confirms the automated finish-gate's own banner ('this thesis was committed UNVERIFIED... scenario bull/base/bear_cyclical records only half of the metric×multiple pair... sotp_segments must be a non-empty array... peers_internals.anchors must hold >=2 numeric rows') is accurate and the flagged schema-completeness gap remains UNRESOLVED as of this audit. This does not corrupt the actual published scenario probabilities/returns/targets (independently verified above, and they all reconcile), but it is a genuine, currently-unresolved violation of the module's own required-fields rule, self-disclosed by the run rather than hidden.",
+      "severity": "high"
+    }
+  ],
+  "math_checks": [
+    {
+      "quantity": "Net debt (strict) = total debt − cash & equivalents",
+      "reported": "$136,143M",
+      "recomputed": "167,432 − 31,289 = 136,143",
+      "ties": true,
+      "detail": "Ties exactly. Consistent basis (§15 strict) used identically across earnings, balance-sheet-survival, and valuation modules and the final thesis."
+    },
+    {
+      "quantity": "Net debt / EBITDA (strict)",
+      "reported": "4.46x",
+      "recomputed": "136,143 / 30,494 = 4.4645x",
+      "ties": true,
+      "detail": "Ties (rounds to 4.46x). Vendor's alternate 4.07x/5.03x figures use EBITDAR ($33,288M), explicitly flagged as a different basis in valuation/01 and balance-sheet-survival/99 — not silently substituted."
+    },
+    {
+      "quantity": "Enterprise value bridge",
+      "reported": "$584,464.2M",
+      "recomputed": "443,424.2 (mkt cap) + 167,432.0 (total debt) + 548.0 (minority) + 4,954.0 (preferred) − 31,894.0 (cash+ST inv) = 584,464.2",
+      "ties": true,
+      "detail": "Ties exactly. Market cap itself recomputes cleanly: 2,880.5M shares x $153.94 = $443,424.22M ≈ $443,424.2M."
+    },
+    {
+      "quantity": "Total debt YoY growth, FY2025→FY2026",
+      "reported": "53.7% (management-governance finding 02-012) / '54%' (business-model, rounded)",
+      "recomputed": "(167,432 − 108,952) / 108,952 = 53.68%",
+      "ties": true,
+      "detail": "Ties to both the precise 53.7% figure and the rounded '54%' figure used elsewhere."
+    },
+    {
+      "quantity": "Scenario probabilities sum",
+      "reported": "100%",
+      "recomputed": "15% + 32% + 33% + 20% = 100%",
+      "ties": true,
+      "detail": "Ties exactly."
+    },
+    {
+      "quantity": "Scenario returns from price targets",
+      "reported": "Bull +38.15%, Base −13.10%, Bear-cyclical −38.53%, Bear-structural −79.58%",
+      "recomputed": "(212.67-153.94)/153.94=38.15%; (133.77-153.94)/153.94=-13.10%; (94.62-153.94)/153.94=-38.53%; (31.44-153.94)/153.94=-79.577%→-79.58%",
+      "ties": true,
+      "detail": "All four tie to the reported figures within standard rounding."
+    },
+    {
+      "quantity": "Probability-weighted expected return",
+      "reported": "-27.10%",
+      "recomputed": "0.15*38.15 + 0.32*(-13.10) + 0.33*(-38.53) + 0.20*(-79.58) = -27.10%",
+      "ties": true,
+      "detail": "Ties exactly."
+    },
+    {
+      "quantity": "Probability-weighted target price",
+      "reported": "$112.22",
+      "recomputed": "0.15*212.67 + 0.32*133.77 + 0.33*94.62 + 0.20*31.44 = $112.2195",
+      "ties": true,
+      "detail": "Ties (rounds to $112.22). Expected return from this target, (112.22-153.94)/153.94 = -27.10%, reconciles exactly with the direct probability-weighted-return calculation, as CLAUDE.md §10 requires."
+    },
+    {
+      "quantity": "Risk/reward",
+      "reported": "-0.34",
+      "recomputed": "(112.22-153.94)/(153.94-31.44) = -41.72/122.50 = -0.3406",
+      "ties": true,
+      "detail": "Ties (rounds to -0.34)."
+    },
+    {
+      "quantity": "Downside risk (to worst-case scenario)",
+      "reported": "79.58%",
+      "recomputed": "-min(38.15,-13.10,-38.53,-79.58) = 79.58%",
+      "ties": true,
+      "detail": "Ties exactly."
+    },
+    {
+      "quantity": "Margin of safety",
+      "reported": "-15.08%",
+      "recomputed": "(133.77-153.94)/133.77 = -15.081%",
+      "ties": true,
+      "detail": "Ties. Note the basis: this is (fair value − price)/fair value (discount expressed as a % of fair value), NOT (fair value − price)/price (which would give -13.10%, the Base scenario's own return figure). The convention is internally consistent (same formula CLAUDE.md's own worked examples use) but readers should note the denominator is fair value, not price."
+    },
+    {
+      "quantity": "analysis_confidence build",
+      "reported": "75.2",
+      "recomputed": "0.5*78 + 0.25*70 + 0.25*75 - 0 = 75.25",
+      "ties": true,
+      "detail": "Ties within rounding (75.25 vs reported 75.2)."
+    },
+    {
+      "quantity": "conviction formula",
+      "reported": "51.0",
+      "recomputed": "clamp(min(min(75.2,58.0)-7.0-0, 58.0), 0, 100) = clamp(51.0,0,100) = 51.0",
+      "ties": true,
+      "detail": "Ties exactly."
+    },
+    {
+      "quantity": "Governance Score (weighted)",
+      "reported": "50/100 (49.76 pre-round)",
+      "recomputed": "0.20*40+0.18*37+0.18*63+0.16*60+0.16*57+0.12*(100-58) = 49.76",
+      "ties": true,
+      "detail": "Ties exactly."
+    },
+    {
+      "quantity": "Confidence-Adjusted Governance Score",
+      "reported": "34/100",
+      "recomputed": "50 * (68/100) = 34.0",
+      "ties": true,
+      "detail": "Ties exactly."
+    }
+  ],
+  "anchor_checks": [
+    {
+      "anchor": "Net debt (strict basis)",
+      "values_by_module": {
+        "valuation": "$136,143M",
+        "earnings": "$136,143M",
+        "balance-sheet-survival": "$136,143mn",
+        "final_thesis (§18)": "$136,143mn"
+      },
+      "consistent": true,
+      "detail": "Identical across all four sources, all on the explicitly-stated §15 strict basis (total debt − cash & equivalents only). The broad-basis figure ($135,538M) is separately and consistently labeled everywhere it appears."
+    },
+    {
+      "anchor": "EBITDA (FY2026, plain GAAP basis)",
+      "values_by_module": {
+        "earnings": "$30,494M",
+        "balance-sheet-survival": "$30,494mn",
+        "valuation": "$30,494M"
+      },
+      "consistent": true,
+      "detail": "Identical across all three modules. The vendor EBITDAR-based alternate ($33,288M) is separately and consistently flagged as a different basis everywhere it is mentioned (price-and-capital-structure §5, balance-sheet-survival §3 reconciliation item 2)."
+    },
+    {
+      "anchor": "Net debt / EBITDA (strict)",
+      "values_by_module": {
+        "earnings": "4.46x",
+        "balance-sheet-survival": "4.46x",
+        "valuation": "4.46x",
+        "final_thesis": "4.46x"
+      },
+      "consistent": true,
+      "detail": "Identical everywhere it appears as the headline leverage figure."
+    },
+    {
+      "anchor": "Total Debt/EBITDA (comparative, used in the peer-comp table)",
+      "values_by_module": {
+        "final_thesis peer comp table / valuation/03_relative-valuation-peers.md": "5.0x (sourced from the CIQ Comparable-Analysis 'Trading Multiples' tab)",
+        "balance-sheet-survival/valuation/01 (gross debt/EBITDA, plain GAAP EBITDA basis)": "5.49x (all-in, incl. leases) / 4.50x (interest-bearing only)"
+      },
+      "consistent": false,
+      "detail": "The 5.0x figure in the peer-comparison table (final_thesis.md §6 and valuation/03_relative-valuation-peers.md §2) is numerically close to the EBITDAR-based 5.03x that price-and-capital-structure/01 and balance-sheet-survival/99 explicitly flag elsewhere in the SAME run as a vendor-EBITDAR artifact (167,432/33,288=5.03x), NOT the plain-GAAP-EBITDA figure (167,432/30,494=5.49x all-in, or 4.50x interest-bearing-only) used as the module's own canonical leverage read. The peer-comp table presents its '5.0' column simply as 'Total Debt/EBITDA (LTM, gross)' with no basis label, so a reader comparing this table's 5.0x against the module's own headline 4.46x/5.49x could reasonably read them as the same metric when they likely are not (a CLAUDE.md §15 hygiene defect — a figure using a different EBITDA basis presented without an inline label). This is a secondary/comparative data point, not the leverage figure that drives the rating (the headline net debt/EBITDA of 4.46x, which IS consistent everywhere) — severity medium, not high."
+    },
+    {
+      "anchor": "Return on capital (ROIC), consolidated",
+      "values_by_module": {
+        "business-model/moat (own-computed)": "8.5% (ending-capital) / 10.5% (average-capital)",
+        "business-model (CIQ cross-check) / final_thesis": "8.22% (CIQ headline figure, FY2026)"
+      },
+      "consistent": true,
+      "detail": "Explicitly reconciled and labeled as two different capital-base definitions in business-model/99 §3 ('the small divergence is attributed to a different, undisclosed capital-base definition in the vendor series, not a misread'). Not a silent conflict — a disclosed, legitimate basis difference. Both figures independently corroborate the same directional finding (ROIC at/below the ~11.2% estimated cost of capital)."
+    },
+    {
+      "anchor": "Current price",
+      "values_by_module": {
+        "valuation": "$153.94",
+        "decision_record.json entry_price": "153.94",
+        "final_thesis": "$153.94"
+      },
+      "consistent": true,
+      "detail": "Identical everywhere, same as-of timestamp (Aug-13-2026, 02:26 PM GMT-5) and source (Capital IQ pool export)."
+    },
+    {
+      "anchor": "Diluted / basic share count",
+      "values_by_module": {
+        "valuation/01 (market cap basis)": "2,880.5M basic",
+        "valuation/01, /03, /05 (per-share fair-value basis)": "2,914M GAAP diluted weighted-average"
+      },
+      "consistent": true,
+      "detail": "Three distinct, explicitly-labeled share-count bases (2,880.5M basic for market cap, 2,914M diluted weighted-average for per-share fair value, ~2,965.7M fully-diluted estimate as an alternate) are used consistently per their stated purpose across valuation/01, /03, and /05 — not a silent inconsistency."
+    },
+    {
+      "anchor": "Bull/Base/Bear-cyclical/Bear-structural fair-value levels",
+      "values_by_module": {
+        "valuation/07_scenario-and-fair-value.md": "$212.67 / $133.77 / $94.62 / $31.44",
+        "decision_record.json scenarios[]": "$212.67 / $133.77 / $94.62 / $31.44",
+        "final_thesis.md §8": "$212.67 / $133.77 / $94.62 / $31.44"
+      },
+      "consistent": true,
+      "detail": "Identical across all three sources, copied verbatim as the valuation module's explicit handoff instructs."
+    }
+  ],
+  "integrity_score": 72,
+  "verdict": "Material issues",
+  "blocking_findings": [
+    "The final thesis's own PROVISIONAL banner (top of final_thesis.md) discloses that the automated finish-gate found decision_record.json's scenarios[] entries incomplete against MODULE_RULES §2 (each case must carry both a forward_metric label AND a numeric multiple; sotp_segments and peers_internals.anchors must be present and non-empty) and committed the thesis UNVERIFIED as a result. This audit independently confirms via direct grep of decision_record.json that none of these fields (forward_metric, multiple, sotp_segments, peers_internals) exist anywhere in the file — the flagged gap is real and remains unresolved as of this verification pass. This does not corrupt the actual published scenario probabilities, returns, targets, or expected-return math (all independently re-derived and tied out exactly in this audit's math_checks), but it is a genuine, self-disclosed, currently-open violation of the module's own required-schema rule, which per CLAUDE.md §12/§18 should keep the rating provisional until resolved.",
+    "The Total Debt/EBITDA figure in the final thesis's peer-comparison table (5.0x for Oracle) is presented without a basis label and is numerically consistent with the vendor's EBITDAR-based ratio (5.03x) that two other parts of the SAME run explicitly flag as a non-canonical basis different from the module's own headline plain-GAAP-EBITDA leverage figures (4.46x net / 5.49x gross). This is a §15 hygiene defect in a secondary/comparative table, not in the headline leverage figure that drives the rating (which is consistent at 4.46x everywhere) — contributes to, but does not independently drive, the Material-issues verdict."
+  ],
+  "notes": "All rating-driver figures checked (net debt, total debt, EBITDA, net debt/EBITDA, current price, EV bridge, ROIC trend, RPO growth, four->$8bn-customer concentration figure, S&P downgrade date, reverse-DCF implied growth/margin, and all scenario/confidence/governance-score math) were independently verified against the pool corpus or recomputed and tie out exactly, with no fabricated or unsupported rating-driver number found. ciq_facts.json (the deterministic CIQ cross-check sidecar from .claude/tools/extract_pool.py) was UNAVAILABLE for this audit -- best-effort generation failed with 'AttributeError: module enum has no attribute StrEnum' because the local python3 (3.9.6) predates the Python 3.11 stdlib enum.StrEnum the ciq_facts module requires; per the command's Section 1c this step was skipped and Section A's manual/regex corpus-grep verification was used instead, which is more conservative (every material figure was independently confirmed against the extracted CIQ/filing text, not merely cross-checked against a second automated parse). Pool extraction itself succeeded cleanly: 21 sources, 11 workbooks, 56 tabs, 66 extracts, 0 failures (manifest.json totals), so no figure was left unverifiable purely for extraction reasons. The verdict is 'Material issues' rather than 'Clean' solely because of the pre-existing, self-disclosed, still-open finish-gate schema-completeness flag on decision_record.json's scenario/SOTP/peer-anchor fields (see blocking_findings) -- the underlying financial analysis, citations, and math are sound and well-evidenced throughout."
+}
