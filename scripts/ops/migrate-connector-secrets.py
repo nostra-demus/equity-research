@@ -61,6 +61,9 @@ REPLACEMENT_ANCHOR_NAME = "replacement-anchor.plist"
 CAPTURE_PREFIX = "capture-"
 CAPTURE_FILE_NAME = "public-entry"
 OWNER_LEASE_NAME = "owner-lease.json"
+# Terminal receipt namespaces that reclaim themselves once their outcome is re-proved on disk. "retained" is
+# deliberately absent: it exists precisely because something in that transaction could not be classified.
+RECLAIMABLE_DISPOSITIONS = ("committed", "restored")
 
 
 class MigrationError(RuntimeError):
@@ -621,7 +624,7 @@ def _same_transaction_contents(left: str, right: str) -> bool:
 def _claim_and_migrate_locked(plist_path: str, providers_path: str,
                               installed_directory: str,
                               owner_pid: int | None = None) -> tuple[str, list[str]]:
-    _reconcile_committed_transactions(installed_directory, plist_path, providers_path)
+    _reconcile_receipt_transactions(installed_directory, plist_path, providers_path)
     orphan_directories = _claim_directories(installed_directory, plist_path)
     if len(orphan_directories) > 1:
         raise MigrationError("multiple connector credential transactions exist; refusing ambiguous recovery")
@@ -801,32 +804,39 @@ def _archive_transaction(claim_directory: str, plist_path: str, disposition: str
     return retained
 
 
-def _purge_committed_transaction(transaction: str, plist_path: str, providers_path: str) -> bool:
-    """Remove a verified committed receipt; retain any malformed or unclassified residue."""
+def _purge_receipt_transaction(transaction: str, plist_path: str, providers_path: str,
+                               disposition: str = "committed") -> bool:
+    """Remove a verified terminal receipt; retain any malformed or unclassified residue."""
+    if disposition not in RECLAIMABLE_DISPOSITIONS:
+        raise MigrationError("only a terminal connector receipt may be reclaimed")
     transaction = os.path.abspath(transaction)
     archive_directory = os.path.dirname(transaction)
     installed_directory = os.path.dirname(plist_path)
-    archive_prefix = f".{os.path.basename(plist_path)}.credential-committed-"
+    archive_prefix = f".{os.path.basename(plist_path)}.credential-{disposition}-"
     if (
         os.path.dirname(archive_directory) != installed_directory
         or not os.path.basename(archive_directory).startswith(archive_prefix)
         or os.path.basename(transaction) != "transaction"
     ):
-        raise MigrationError("committed connector receipt is outside its installed directory")
+        raise MigrationError(f"{disposition} connector receipt is outside its installed directory")
     for directory in (archive_directory, transaction):
         info = os.lstat(directory)
         if (not stat.S_ISDIR(info.st_mode) or stat.S_ISLNK(info.st_mode)
                 or info.st_uid != os.getuid() or info.st_mode & 0o077):
-            raise MigrationError("committed connector receipt must remain owner-only")
+            raise MigrationError(f"{disposition} connector receipt must remain owner-only")
     claims = _claim_entries(transaction) if any(
         os.path.lexists(os.path.join(transaction, name))
         for name in (CLAIM_FILE_NAME, ABSENT_CLAIM_NAME)
     ) else []
+    restored = disposition == "restored"
     if claims:
         claim = claims[0]
         if _claim_is_absent(claim):
             _owner_only_regular(claim)
-        _verify_claim_is_durable(claim, providers_path)
+        # A restored receipt rolled the prior bytes BACK to the public pathname, so providers.env is not the
+        # surviving copy and must not gate reclamation. Its redundancy proof is the byte comparison below.
+        if not restored:
+            _verify_claim_is_durable(claim, providers_path)
     guard = os.path.join(transaction, PUBLIC_GUARD_NAME)
     anchor = os.path.join(transaction, REPLACEMENT_ANCHOR_NAME)
     anchor_contents: bytes | None = None
@@ -835,15 +845,29 @@ def _purge_committed_transaction(transaction: str, plist_path: str, providers_pa
     if os.path.lexists(guard):
         guard_info = os.lstat(guard)
         if not _safe_regular_metadata(guard_info) or guard_info.st_size != len(GUARD_BYTES):
-            raise MigrationError("committed connector guard is malformed")
+            raise MigrationError(f"{disposition} connector guard is malformed")
     captures = _capture_paths(transaction)
+    prior_claim = claims[0] if (restored and claims and not _claim_is_absent(claims[0])) else None
     owned_captures = [
         capture for capture in captures
-        if _capture_is_owned(capture, guard, anchor_contents)
+        if _capture_is_owned(capture, guard, anchor_contents, prior_claim)
     ]
     unknown = _unknown_claim_artifacts(transaction)
     unknown.extend(capture for capture in captures if capture not in owned_captures)
-    if anchor_contents is not None:
+    claim_is_redundant = True
+    if restored:
+        # The rollback is finished exactly when the claimed prior bytes are back at the public pathname. An
+        # absent-state claim carries no recoverable bytes, so its sentinel is reclaimable unconditionally.
+        if prior_claim is not None:
+            try:
+                claim_is_redundant = (
+                    _read_transaction_regular(plist_path) == _read_transaction_regular(prior_claim)
+                )
+            except MigrationError:
+                claim_is_redundant = False
+            if not claim_is_redundant:
+                unknown.append(plist_path)
+    elif anchor_contents is not None:
         try:
             if _read_transaction_regular(plist_path) != anchor_contents:
                 unknown.append(plist_path)
@@ -853,8 +877,11 @@ def _purge_committed_transaction(transaction: str, plist_path: str, providers_pa
         unknown.append(plist_path)
     # The committed namespace is the irreversible receipt. Only after re-verifying providers.env may its
     # historical credential-bearing claim be purged, so providers.env becomes the sole normal persisted copy.
-    for claim in claims:
-        os.unlink(claim)
+    # A restored claim is released only against its own proof: never drop the last copy of prior bytes that
+    # did not make it back to the public pathname.
+    if claim_is_redundant:
+        for claim in claims:
+            os.unlink(claim)
     # Drop every securely classified private hard link even when unrelated residue must be retained. This
     # returns the published plist to a single link so a later claim can validate it independently.
     for capture in owned_captures:
@@ -873,11 +900,20 @@ def _purge_committed_transaction(transaction: str, plist_path: str, providers_pa
     return True
 
 
-def _reconcile_committed_transactions(installed_directory: str, plist_path: str,
-                                      providers_path: str) -> None:
-    prefix = f".{os.path.basename(plist_path)}.credential-committed-"
+def _reconcile_receipt_transactions(installed_directory: str, plist_path: str,
+                                    providers_path: str) -> None:
+    """Reclaim every terminal receipt namespace, so a steady-state cycle leaves no residue behind."""
+    prefixes = {
+        f".{os.path.basename(plist_path)}.credential-{disposition}-": disposition
+        for disposition in RECLAIMABLE_DISPOSITIONS
+    }
     for entry in list(os.scandir(installed_directory)):
-        if not entry.name.startswith(prefix) or not entry.is_dir(follow_symlinks=False):
+        if not entry.is_dir(follow_symlinks=False):
+            continue
+        disposition = next(
+            (value for prefix, value in prefixes.items() if entry.name.startswith(prefix)), None
+        )
+        if disposition is None:
             continue
         transaction = os.path.join(entry.path, "transaction")
         if not os.path.lexists(transaction):
@@ -887,9 +923,9 @@ def _reconcile_committed_transactions(installed_directory: str, plist_path: str,
                 pass
             continue
         try:
-            _purge_committed_transaction(transaction, plist_path, providers_path)
+            _purge_receipt_transaction(transaction, plist_path, providers_path, disposition)
         except (MigrationError, OSError):
-            # A committed receipt is outside the active-claim namespace. Any uncertainty is retained for
+            # A terminal receipt is outside the active-claim namespace. Any uncertainty is retained for
             # later reconciliation and must not create a second live transaction or erase recovery bytes.
             pass
 
@@ -908,7 +944,6 @@ def _restore_prior_state(claim_path: str, plist_path: str) -> None:
 def restore_claim(claim_path: str, plist_path: str, providers_path: str,
                   replacement_anchor: str | None = None) -> None:
     """Rollback independently of providers; classify every retained public capture before deletion."""
-    del providers_path
     claim_path, plist_path, claim_directory = _require_private_claim(claim_path, plist_path)
     guard = _ensure_guard_file(claim_directory)
     anchor_contents: bytes | None = None
@@ -931,6 +966,15 @@ def restore_claim(claim_path: str, plist_path: str, providers_path: str,
     retained = _archive_transaction(claim_directory, plist_path, disposition)
     if unknown:
         print(f"connector transaction artifacts retained at {retained}", file=sys.stderr)
+        return
+    # A clean rollback is a finished transaction, not a durable record: the prior bytes are back at the
+    # public pathname and every artifact was classified. Reclaim it now so the ordinary no-op reconcile
+    # cycle cannot accumulate receipts in the installed directory; a failure here is retried by the next
+    # claim's reconcile rather than being escalated, since the rollback itself already succeeded.
+    try:
+        _purge_receipt_transaction(retained, plist_path, providers_path, "restored")
+    except (MigrationError, OSError):
+        pass
 
 
 def commit_claim(claim_path: str, plist_path: str, providers_path: str, installed_state: str,
@@ -963,7 +1007,7 @@ def commit_claim(claim_path: str, plist_path: str, providers_path: str, installe
             raise MigrationError(f"public connector changed before prior-claim release; retained at {captured}")
         committed = _archive_transaction(claim_directory, plist_path, "committed")
         try:
-            _purge_committed_transaction(committed, plist_path, providers_path)
+            _purge_receipt_transaction(committed, plist_path, providers_path, "committed")
         except (MigrationError, OSError):
             pass
         return
@@ -984,7 +1028,7 @@ def commit_claim(claim_path: str, plist_path: str, providers_path: str, installe
         raise MigrationError("public connector pathname was recreated before removal commit")
     committed = _archive_transaction(claim_directory, plist_path, "committed")
     try:
-        _purge_committed_transaction(committed, plist_path, providers_path)
+        _purge_receipt_transaction(committed, plist_path, providers_path, "committed")
     except (MigrationError, OSError):
         pass
 
