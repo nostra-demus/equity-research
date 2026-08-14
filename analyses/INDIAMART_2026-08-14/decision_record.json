@@ -1,0 +1,478 @@
+{
+  "schema_version": "1.0",
+  "ticker": "INDIAMART",
+  "company_name": "IndiaMART InterMESH Limited",
+  "exchange": "NSE (also listed BSE:542726)",
+  "currency": "INR",
+  "decision_date": "2026-08-14",
+  "run_root": "analyses/INDIAMART_2026-08-14",
+  "final_thesis_path": "analyses/INDIAMART_2026-08-14/final_thesis.md",
+  "decision": "Watchlist",
+  "suggested_action": "Do not initiate today. Track paying-supplier net additions at the next two prints (Q2 FY27 ~21-Oct-2026, Q3 FY27 ~Jan-2027); revisit if price falls toward the ₹1,699 base fair value or below, or if net adds turn positive for 2 consecutive quarters.",
+  "paper_treatment": "No trade, track opportunity cost",
+  "basket": "Watchlist",
+  "entry_price": 1784.60,
+  "entry_price_source": "Capital IQ Company Comparable Analysis export (NSEI:INDIAMART Market Summary), pool-verified",
+  "entry_price_timestamp": "2026-08-12",
+  "benchmark": "NIFTY 50",
+  "sector_benchmark": "NIFTY IT / India internet & digital-platforms peer set (Just Dial)",
+  "time_horizon": "12 months",
+  "scenario_horizon_days": 365,
+  "expected_return_pct": -4.31,
+  "downside_risk_pct": 31.13,
+  "margin_of_safety_pct": -5.04,
+  "risk_reward": -0.14,
+  "scenarios": [
+    {
+      "scenario_id": "bull-net-adds-resolve-spend-stays-deferred",
+      "label": "bull",
+      "probability": 25,
+      "return_pct": 28.77,
+      "price_target": 2298,
+      "conditions": [
+        "Customer-acquisition opex stays deferred rather than resuming to management's guided ~₹10cr/quarter run-rate",
+        "ARPU keeps compounding at its observed ~8%/year pace",
+        "Accounting Software Services (Busy Infotech) sustains its ~43% FY26 billing-growth pace with margin improving",
+        "EV/EBITDA multiple expands toward (not to) the own-history mean as the 3-of-4-quarter negative net-supplier-adds trend visibly reverses"
+      ],
+      "source": "valuation/07_scenario-and-fair-value.md §3 (Bull/Base/Bear Fair-Value Levels table)",
+      "joint_probability_basis": "All four conditions are tied to the same underlying variable -- the SME-demand/renewal cycle turning favourable at once (opex staying deferred, ARPU compounding, Busy Infotech's momentum continuing, and the multiple re-rating) -- not four independent bets."
+    },
+    {
+      "scenario_id": "base-consensus-plays-out",
+      "label": "base",
+      "probability": 45,
+      "return_pct": -4.80,
+      "price_target": 1699,
+      "conditions": [
+        "Consensus FY27E revenue growth (+9.6%) and margin (~flat vs FY26) play out roughly as forecast",
+        "No resumption of the compounding-bear scenario (opex resumption plus SME softening together)",
+        "No bull-case re-rate"
+      ],
+      "source": "valuation/07_scenario-and-fair-value.md §3 (Bull/Base/Bear Fair-Value Levels table)",
+      "joint_probability_basis": null
+    },
+    {
+      "scenario_id": "bear-compounding-demand-and-spend",
+      "label": "bear",
+      "probability": 30,
+      "return_pct": -31.13,
+      "price_target": 1229,
+      "conditions": [
+        "Customer-acquisition opex resumes toward management's guided ~₹10cr/quarter run-rate",
+        "SME demand stays soft and paying-supplier net adds stay negative"
+      ],
+      "source": "valuation/07_scenario-and-fair-value.md §3 (Bull/Base/Bear Fair-Value Levels table)",
+      "joint_probability_basis": "Both conditions are the same underlying SME-demand weakness expressed through two channels (earnings/08_earnings-red-flags §2.6, flagged Critical) -- not two independent risks that must both separately go wrong."
+    }
+  ],
+  "idea_valuation_bridge": {
+    "source_horizon_days": 365,
+    "method": "catalyst_partial_convergence",
+    "convergence_fraction": 0.35,
+    "rationale": "The nearest dated print (Q2 FY27 results, ~21-Oct-2026, ~68 days out) can reveal whether the compounding-bear or bull mechanism is underway, but the full 12-month scenario spread requires 2-3 quarters of confirmed subscriber-trend data (management's own stated window) to fully resolve, so only a partial share of the one-year valuation gap should be expected to close within a 3-6 month window.",
+    "source": "catalyst/99_catalyst-synthesis.md §2 (Q2 FY27 results row; core-platform net-add resolution row); valuation/07_scenario-and-fair-value.md §3"
+  },
+  "confidence_score": 58,
+  "data_sufficiency_score": 80,
+  "confidence_inputs": {
+    "data_sufficiency": 80,
+    "corroboration": 70,
+    "evidence_tier": 80,
+    "staleness_penalty": 2,
+    "edge_score": 55,
+    "edge_proof_present": true,
+    "decision": "Watchlist",
+    "modules_absent": [],
+    "critical_governance_unresolved": false,
+    "catalyst_timing_weak": true,
+    "rating_cap_ceiling": null,
+    "downgrades": [],
+    "calibration_haircut": 0
+  },
+  "analysis_confidence": 75.5,
+  "conviction": 58,
+  "sizing_hint": {
+    "band": "watch",
+    "action": "monitor only -- no position (track opportunity cost)"
+  },
+  "confidence_breakdown": {
+    "analysis_confidence": 75.5,
+    "analysis_confidence_build": "0.5*dataSuff(80) + 0.25*corrob(70) + 0.25*tier(80) - stale(2) = 75.5",
+    "direction": "neutral",
+    "direction_ceiling": 58.0,
+    "direction_ceiling_reason": "neutral: min(documented 70 [catalyst-timing-weak cap], non-committal 58)",
+    "downgrades": [],
+    "calibration_haircut": 0,
+    "conviction": 58.0,
+    "formula": "conviction = clamp( min( min(analysis_confidence, direction_ceiling) - downgrades - calibration_haircut, direction_ceiling ), 0, hard_max )"
+  },
+  "rating_cap": "None mechanically triggered (no Critical red flag, no hard disqualifier, data sufficiency 80, balance sheet Fortress). Watchlist is a judgment call from negative expected return (-4.3%), negative margin of safety (-5.0%), vague catalyst timing, and a Critical earnings compounding-risk flag -- not a mechanical §18/§24 lock.",
+  "thesis_type": [
+    "Company-specific",
+    "Sector-cycle"
+  ],
+  "variant_perception_summary": "Sell-side consensus (mean target ₹2,093.72, +17.3% implied upside, 18 analysts) has not caught up to the compounding-bear mechanism this engine's own earnings module flags as Critical: the margin tailwind (deferred acquisition spend) and the revenue drag (falling paying-supplier net adds) may be the same underlying SME-demand weakness expressed twice, not two offsetting forces. This engine's triangulated base case (₹1,699, -4.8%) and bear case (₹1,229, -31.1%) sit materially below the Street's target, while target-price revisions are already 16-down/1-up over 3 months -- consensus is de-rating but has not moved as far as the fundamental read here.",
+  "what_everyone_knows": "Revenue growth has decelerated every year since FY23 (30.8% to 11.4% YoY in the latest quarter); paying-supplier net additions have been negative in 3 of the last 4 quarters; management itself said on the Q1 FY27 call that buyer growth is stagnating; sell-side target-price revisions are 16 down vs 1 up over 3 months and the average recommendation has drifted from Outperform to Hold.",
+  "what_is_priced_in": "The current price (₹1,784.60) implies (per the reverse-DCF) only a conservative ~6.0% flat revenue CAGR over the next 8 years -- below every year of the company's actual growth in the last 5 years -- so the market has already priced in a real slowdown, just not (per the sell-side mean target of ₹2,093.72) the specific compounding-bear scenario where the margin tailwind and the revenue drag turn out to be the same problem.",
+  "what_market_may_be_missing": "That the FY26-Q1 FY27 margin cushion (35.35% EBITDA margin) is a management-labelled temporary policy choice (deferred acquisition spend) set to unwind within management's own stated '2, 3 more quarters' -- so if subscriber net adds do not turn by then, both the revenue driver and the margin driver miss together, not separately, which is a materially worse and more correlated outcome than the Street's positioned optimism (a Hold-leaning but still +17%-upside mean target) implies.",
+  "edge_score": 55,
+  "edge_proof": "If in the next two reported quarters (Q2 FY27 ~21-Oct-2026, Q3 FY27 ~Jan-2027) paying-supplier net adds turn and stay positive for 2 consecutive quarters WHILE EBITDA margin holds at or above ~33-34% as acquisition spend resumes on schedule, this engine's bear-leaning read is wrong and the Street's ~+17% upside target is closer to correct. If net adds instead stay negative through that window while acquisition spend is forced to resume, the compounding-bear read is confirmed and the bear case (₹1,229) becomes the more probable outcome.",
+  "killer_risk": "The margin tailwind (deferred customer-acquisition spend) and the revenue drag (falling paying-subscriber net adds) are not two independent, offsetting forces but the same underlying SME-demand weakness expressed through two channels -- if so, revenue and margin miss together at the next print that forces acquisition spend to resume, rather than one offsetting the other.",
+  "kill_criteria": [
+    "Paying-supplier net additions stay negative for a 4th consecutive quarter (Q2 FY27, ~21-Oct-2026 results) -- would confirm the demand problem is not a transitional soft patch",
+    "Customer-acquisition opex (Advertisement + Outsourced sales) resumes toward management's guided ~₹10cr/quarter run-rate while net adds are still negative -- the named compounding-bear trigger",
+    "EBITDA margin falls back toward or below the FY26 full-year average (33.18%) at the same time revenue growth decelerates further below Q1 FY27's 11.37% YoY",
+    "A further RPT self-dealing appointment draws a repeat high (>20%) shareholder vote against at the FY27 AGM (~by Sep-2027), echoing the 21.72%-against Amit Agarwal vote",
+    "CEO cash pay rises again in FY27 while diluted EPS and share price both stay negative -- confirming the FY26 pay-for-performance divergence is a pattern, not a one-off"
+  ],
+  "forecast_ledger": [
+    {
+      "forecast_id": "INDIAMART-2026-08-14-fc1",
+      "prediction": "Q2 FY27 (Jul-Sep 2026) results show consolidated paying-supplier net additions >= 0, i.e., not a further net decline from Q1 FY27's -1,850",
+      "probability": 35,
+      "time_window": "By 2026-11-05 (Q2 FY27 results, CIQ-modeled ~21-Oct-2026)",
+      "window_start": "2026-08-14",
+      "window_end": "2026-11-05",
+      "status_as_of": "2026-08-14",
+      "evidence_today": "Net adds negative in 3 of the last 4 disclosed quarters (Q3 FY26 -1,000, Q4 FY26 -1,200, Q1 FY27 -1,850); management gave no timeline for an immediate turn, only a '2, 3 more quarters' window from the Jul-2026 call",
+      "confirmation_trigger": "Q2 FY27 exchange filing / earnings call (NSE/BSE, expected ~21-Oct-2026) discloses paying-supplier net addition >= 0 vs the Q1 FY27 base",
+      "falsification_trigger": "Q2 FY27 filing discloses a continued net decline (negative net adds) for the quarter",
+      "source_citation": "Q1 FY27 results filing (2026-07-21) and earnings call (2026-07-18); Q2 FY27 results filing expected ~2026-10-21 (NSE/BSE)",
+      "metric": "Consolidated paying-supplier net additions (quarter-over-quarter change in paying-supplier count)",
+      "threshold": "0 (net adds >= 0)",
+      "causal_steps": [
+        "SME demand normalizes / buyer-side funnel stabilizes as management's demand-side initiatives (re-testing Google as an acquisition channel, cutting non-quality buyer ad spend) take effect",
+        "Silver-tier price resistance eases as suppliers adjust to the FY26 price increase, reducing downgrade/churn pressure"
+      ],
+      "stock_bullish_trigger": "Confirmed non-negative net adds removes the revenue-side drag flagged as the earnings module's Critical compounding-bear risk, plausibly triggering a positive re-rate toward the bull case (₹2,298)",
+      "stock_bearish_trigger": "A 4th consecutive quarter of negative net adds confirms the compounding-bear scenario is structural, not transitional, plausibly triggering further target-price cuts and a de-rating toward the bear case (₹1,229)",
+      "owner_module": "earnings",
+      "confidence_score": 65,
+      "status": "open",
+      "forecast_type": "revenue"
+    },
+    {
+      "prediction": "Q2 FY27 consolidated EBITDA margin remains >= 33%, roughly in line with Q1 FY27's 'elevated' 35.35% level, rather than reverting toward or below the FY26 full-year 33.18% average",
+      "probability": 60,
+      "time_window": "By 2026-11-05 (Q2 FY27 results, ~21-Oct-2026)",
+      "evidence_today": "Management explicitly labelled the Q1 FY27 35.35% margin 'elevated' and temporary, but stated it plans to hold the deferred-spend stance for roughly '2, 3 more quarters' -- Q2 FY27 sits inside that window",
+      "confirmation_trigger": "Q2 FY27 exchange filing shows consolidated EBITDA margin >= 33%",
+      "falsification_trigger": "Q2 FY27 filing shows consolidated EBITDA margin < 33%",
+      "owner_module": "earnings",
+      "confidence_score": 60,
+      "status": "open",
+      "forecast_type": "margin_or_cost"
+    },
+    {
+      "prediction": "By 2026-11-12, Capital IQ consensus mean target price for INDIAMART falls below ₹2,000 (from ₹2,093.72 as of the current data pull)",
+      "probability": 50,
+      "time_window": "By 2026-11-12",
+      "evidence_today": "Target-price revisions over the last 3 months are 16 down vs 1 up of 18 analysts; average recommendation has drifted from Outperform to Hold",
+      "confirmation_trigger": "Capital IQ Estimates Consensus export as of ~2026-11-12 shows mean target price < ₹2,000",
+      "falsification_trigger": "Mean target price stays >= ₹2,000 as of ~2026-11-12",
+      "owner_module": "earnings",
+      "confidence_score": 50,
+      "status": "open",
+      "forecast_type": "catalyst_or_estimate_revision"
+    },
+    {
+      "prediction": "Paying-supplier net additions are positive in at least 2 of the 3 quarters Q2 FY27-Q4 FY27, resolving management's own '2, 3 more quarters' window",
+      "probability": 35,
+      "time_window": "By 2027-04-30 (Q4 FY27 / FY27 annual results)",
+      "evidence_today": "Net adds negative in 3 of the last 4 quarters through Q1 FY27; no confirmed inflection yet",
+      "confirmation_trigger": "At least 2 of the Q2 FY27, Q3 FY27, Q4 FY27 exchange filings show positive net paying-supplier additions",
+      "falsification_trigger": "At most 1 of those 3 quarters shows positive net adds",
+      "owner_module": "earnings",
+      "confidence_score": 55,
+      "status": "open",
+      "forecast_type": "revenue"
+    },
+    {
+      "prediction": "IndiaMART's share price is below ₹1,784.60 (the 2026-08-12 close) at the 12-month review on/around 2027-08-14",
+      "probability": 75,
+      "time_window": "By 2027-08-14",
+      "evidence_today": "The base (45% probability, -4.8%) and bear (30% probability, -31.1%) scenarios together carry 75% of this thesis's own probability mass, both below today's price; the bull case (25%, +28.8%) is the only scenario above today's price",
+      "confirmation_trigger": "Closing price on or nearest to 2027-08-14 is below ₹1,784.60",
+      "falsification_trigger": "Closing price on or nearest to 2027-08-14 is at or above ₹1,784.60",
+      "owner_module": "valuation",
+      "confidence_score": 55,
+      "status": "open",
+      "forecast_type": "valuation_or_price_return"
+    },
+    {
+      "prediction": "In the FY27 Annual Report (Section 197(12) remuneration table, expected ~Jun-2027), CEO cash pay growth is NOT positive while both diluted EPS and share price are simultaneously negative for FY27 -- i.e., the FY26 pay-for-performance divergence does not repeat",
+      "probability": 55,
+      "time_window": "By 2027-06-30 (FY27 Annual Report)",
+      "evidence_today": "In FY26, CEO cash pay rose +11.17% while diluted EPS fell -14.0% and the share price fell -9.75% -- the one year checkable in the record shows a direct divergence",
+      "confirmation_trigger": "FY27 Annual Report shows CEO cash pay flat/down, OR diluted EPS and share price are not both simultaneously negative for FY27",
+      "falsification_trigger": "FY27 Annual Report shows CEO cash pay up again while both diluted EPS and share price are down for FY27",
+      "owner_module": "management-governance",
+      "confidence_score": 45,
+      "status": "open",
+      "forecast_type": "governance_or_accounting"
+    }
+  ],
+  "module_scores": {
+    "business-model": {
+      "verdict": "Average business -- worth deeper work only if valuation is cheap",
+      "overall_usefulness": 58,
+      "business_quality": 55,
+      "moat": 55,
+      "capital_allocation_governance": 74
+    },
+    "earnings": {
+      "verdict": "Mixed earnings setup",
+      "earnings_quality": 72,
+      "consensus_setup": 48,
+      "earnings_volatility_inverted": 66,
+      "red_flag_severity": "Material concerns"
+    },
+    "valuation": {
+      "verdict": "Fairly valued",
+      "valuation_attractiveness": 35,
+      "margin_of_safety": 20,
+      "downside_risk_inverted": 55,
+      "valuation_confidence": 55,
+      "overall_usefulness": 78
+    },
+    "balance-sheet-survival": {
+      "verdict": "Fortress balance sheet",
+      "solvency_strength": 96,
+      "liquidity_runway": 98,
+      "refinancing_risk_inverted": 3,
+      "overall_usefulness": 95
+    },
+    "management-governance": {
+      "verdict": "Standard / mixed",
+      "governance_score": 62,
+      "confidence_adjusted_governance_score": 55,
+      "governance_rating": "Watchlist",
+      "incentive_alignment": 32
+    },
+    "catalyst": {
+      "verdict": "Catalysts exist but timing vague",
+      "catalyst_strength": 45,
+      "timing_visibility": 25,
+      "catalyst_risk_inverted": 50
+    }
+  },
+  "red_flags": [
+    {
+      "id": "earnings-08-critical-compounding",
+      "severity": "Critical",
+      "module": "earnings",
+      "description": "The 'balanced' beat/miss setup (margin tailwind from deferred acquisition spend vs. revenue drag from falling net adds) may be one underlying SME-demand weakness expressed through two channels -- if so, they miss together, not offsetting one another"
+    },
+    {
+      "id": "RF-MGT-003",
+      "severity": "High",
+      "module": "management-governance",
+      "description": "Core paying-supplier net-add guidance (8,000-9,000/quarter, set Apr-2024) was abandoned within the same fiscal year, with no replacement figure given for over a year; consolidated growth aspiration was walked from 33% to ~10% over four quarters"
+    },
+    {
+      "id": "RF-RPT-002",
+      "severity": "High",
+      "module": "management-governance",
+      "description": "Promoter-family related-party 'office or place of profit' appointment (Amit Agarwal); FY26 remuneration ₹10.14mn, up from ₹4.72mn FY25"
+    },
+    {
+      "id": "RF-SHR-001",
+      "severity": "High",
+      "module": "management-governance",
+      "description": "The Amit Agarwal RPT postal-ballot resolution drew 21.72% votes against -- the clearest minority-dissent signal in the record"
+    },
+    {
+      "id": "RF-DISC-002",
+      "severity": "High",
+      "module": "management-governance",
+      "description": "Investment-revaluation gains repeatedly labelled 'onetime' on calls while recurring at material size every year for 5 straight years (₹1,038mn FY22 to ₹2,669mn FY25 to ₹1,907mn FY26)"
+    },
+    {
+      "id": "unregistered-pay-for-performance",
+      "severity": "High",
+      "module": "management-governance",
+      "description": "CEO cash pay rose +11.17% in FY26 while diluted EPS fell -14.0% and the share price fell -9.75% in the same fiscal year, against an undisclosed annual-bonus 'Balanced Scorecard'"
+    },
+    {
+      "id": "bm-12-buyer-stagnation",
+      "severity": "High",
+      "module": "business-model",
+      "description": "Management confirmed on the Q1 FY27 call that buyer growth is stagnating, the same quarter a Silver-tier price rise pushed net paying-supplier additions negative -- the most severe finding in the business-model red-flag sweep (severity 55/100)"
+    }
+  ],
+  "missing_data": [
+    "Quantified subscriber retention / net-revenue-retention / gross-churn-by-tier metric (Gold/Platinum vs Silver) -- the company discloses net subscriber change only, not gross additions, tier-level churn, or customer acquisition cost",
+    "A 3-5 year own-history multiples series for IndiaMART (only 5 quarters exist in this pool) -- excludes the own-history reversion method from the base-case valuation input",
+    "NRC Balanced Scorecard KPI list and weights for the annual executive bonus -- without it, the FY26 pay-for-performance divergence cannot be confirmed as a one-off vs. a structural feature of an undisclosed, scale-weighted pay design",
+    "A resolved, single beta / cost-of-equity estimate (vendor dispersion 0.24-0.91, a 4x spread that alone flips the DCF from above to below today's price)",
+    "A filed NSE/BSE board-meeting intimation for the Q2 FY27 results date, and a filed FY27 AGM date (only the statutory ~Sep-2027 deadline is currently known)",
+    "A dedicated SAST/PIT per-transaction insider-trading filing (the pool's insider-activity view is a lower-confidence vendor flow table)"
+  ],
+  "data_needs_schema_version": "2.0",
+  "data_needs": [
+    {
+      "need_id": "q2-fy27-net-add-print",
+      "priority": 1,
+      "series": "Filed Q2 FY27 (Jul-Sep 2026) consolidated paying-supplier net-addition figure",
+      "why_it_caps": "Both the bull and bear fair-value cases, and the earnings module's Critical compounding-risk flag, turn on whether subscriber net adds stay negative a 4th straight quarter or start reversing -- this single filed number is the most decision-relevant fact not yet available",
+      "expected_impact": {
+        "if_supportive": "Non-negative net adds would weaken the compounding-bear case and support upgrading toward the bull scenario at the next review",
+        "if_adverse": "A 4th consecutive negative quarter would strengthen the bear case and support holding or tightening the Watchlist stance rather than upgrading"
+      },
+      "filing_required": true,
+      "entry_orbs": [
+        {
+          "module": "earnings",
+          "agent": "revenue-drivers",
+          "why": "this agent owns the paying-subscriber net-add tracking and revenue-driver decomposition",
+          "confidence": 0.95
+        },
+        {
+          "module": "business-model",
+          "agent": "unit-economics",
+          "why": "this agent owns the subscriber-count reconciliation and net-add trend read",
+          "confidence": 0.85
+        }
+      ],
+      "suggested_source": {
+        "name": "NSE/BSE Q2 FY27 exchange filing + investor earnings call transcript",
+        "acquisition": "manual",
+        "access": "public",
+        "licensing_basis": "official public exchange filing"
+      },
+      "tier": 5,
+      "cadence": "quarterly",
+      "next_release": "2026-10-21"
+    },
+    {
+      "need_id": "tier-level-retention-disclosure",
+      "priority": 2,
+      "series": "Quantified subscriber retention / gross-churn rate by tier (Silver vs Gold vs Platinum)",
+      "why_it_caps": "The business-model module's single biggest missing data point -- without it, whether Gold/Platinum is structurally immune to the pricing pushback already seen in Silver cannot be confirmed",
+      "expected_impact": {
+        "if_supportive": "A disclosed retention figure showing Gold/Platinum durably insulated from the Silver-tier dynamic would support upgrading the moat/business-quality read",
+        "if_adverse": "A disclosed retention figure showing Gold/Platinum churn also rising would confirm the single killer risk named in the business-model synthesis and support a downgrade"
+      },
+      "filing_required": true,
+      "entry_orbs": [
+        {
+          "module": "business-model",
+          "agent": "unit-economics",
+          "why": "this agent owns the unit-economics and retention-metric gap",
+          "confidence": 0.9
+        }
+      ],
+      "suggested_source": {
+        "name": "Company voluntary MD&A disclosure (not currently standard) or investor-day disclosure",
+        "acquisition": "manual",
+        "access": "public",
+        "licensing_basis": "would require company voluntary disclosure beyond current filings"
+      },
+      "tier": 5,
+      "cadence": "annual"
+    },
+    {
+      "need_id": "balanced-scorecard-kpi-disclosure",
+      "priority": 3,
+      "series": "NRC Balanced Scorecard KPI list and weights underlying the annual executive cash bonus",
+      "why_it_caps": "Without this, the FY26 divergence (CEO cash pay +11.17% while diluted EPS fell 14.0% and share price fell 9.75%) cannot be confirmed as a one-off vs. a structural, non-per-share-linked pay design -- the module's weakest score (Incentive alignment 32/100)",
+      "expected_impact": {
+        "if_supportive": "Disclosure showing per-share or ROIC-linked metrics would support upgrading the incentive-alignment score and the governance rating",
+        "if_adverse": "Disclosure showing the scorecard is purely scale/revenue-weighted would confirm the incentive-misalignment concern"
+      },
+      "filing_required": true,
+      "entry_orbs": [
+        {
+          "module": "management-governance",
+          "agent": "incentives-and-compensation",
+          "why": "this agent owns the compensation-structure disclosure gap",
+          "confidence": 0.95
+        }
+      ],
+      "suggested_source": {
+        "name": "AGM Notice / Nomination & Remuneration Committee disclosure",
+        "acquisition": "manual",
+        "access": "public",
+        "licensing_basis": "would require company voluntary disclosure beyond the current Section 197(12) table"
+      },
+      "tier": 5,
+      "cadence": "annual"
+    },
+    {
+      "need_id": "resolved-beta-estimate",
+      "priority": 4,
+      "series": "A single resolved / reconciled beta (cost-of-equity) estimate for IndiaMART",
+      "why_it_caps": "The DCF -- weighted 70% of the base fair value -- is dominated by a beta input with a 4x vendor dispersion (0.24 to 0.91) that alone flips the DCF answer from above to below today's price; no other input moves the number nearly as much",
+      "expected_impact": {
+        "if_supportive": "A resolved low beta (toward 0.24-0.44) would lift the DCF base case materially above today's price, supporting an upgrade",
+        "if_adverse": "A resolved conventional beta (toward 0.8-1.0, WACC ~13%) would confirm the DCF sits below today's price, supporting the Watchlist / de-rating stance"
+      },
+      "filing_required": false,
+      "entry_orbs": [
+        {
+          "module": "valuation",
+          "agent": "intrinsic-dcf",
+          "why": "this agent owns the DCF's cost-of-equity/WACC build and flagged the beta as the single largest fragility",
+          "confidence": 0.95
+        }
+      ],
+      "suggested_source": {
+        "name": "Capital IQ / Bloomberg vendor-consensus beta reconciliation",
+        "acquisition": "paid_api",
+        "access": "licensed",
+        "licensing_basis": "Capital IQ / Bloomberg subscription"
+      },
+      "tier": 5,
+      "cadence": "monthly"
+    },
+    {
+      "need_id": "extended-own-history-multiples",
+      "priority": 5,
+      "series": "A 3-5 year own-history quarterly trading-multiples series for IndiaMART (EV/EBITDA, EV/EBIT, EV/Sales, P/E)",
+      "why_it_caps": "Only 5 quarters exist in this pool, so the own-history reversion method is excluded from the base-case valuation as illustrative-only -- extending the series would let it either confirm or reject the current ~31% EV/EBITDA de-rating as a floor vs. a new normal",
+      "expected_impact": {
+        "if_supportive": "A longer series showing the current multiple sits near a historical floor would support the bull-case re-rating thesis",
+        "if_adverse": "A longer series showing further room to de-rate would support the bear-case / value-trap read"
+      },
+      "filing_required": false,
+      "entry_orbs": [
+        {
+          "module": "valuation",
+          "agent": "multiples-own-history",
+          "why": "this agent owns the own-history multiple series and explicitly flagged the 5-quarter window as too short",
+          "confidence": 0.9
+        }
+      ],
+      "suggested_source": {
+        "name": "Capital IQ extended-lookback Trading Multiples export",
+        "acquisition": "paid_api",
+        "access": "licensed",
+        "licensing_basis": "Capital IQ subscription"
+      },
+      "tier": 5,
+      "cadence": "quarterly"
+    }
+  ],
+  "review_schedule": {
+    "30d": "2026-09-13",
+    "90d": "2026-11-12",
+    "180d": "2027-02-10",
+    "365d": "2027-08-14"
+  },
+  "created_by": "synthesizer",
+  "notes": "Four of six modules (business-model, earnings, management-governance, balance-sheet-survival) are carried forward verbatim from the 2026-08-13 run (CARRIED_FORWARD.md stamps in each folder) -- their evidence is vintage 2026-08-13, one day old, immaterial staleness. Valuation and catalyst ran fresh on 2026-08-14. The valuation module's own synthesis states the management-governance module 'does not exist in this run root' and defers its RF-OWN-004 (unaligned owner) check to the master synthesizer -- this is corrected here: management-governance IS present in this run root (carried forward) and its row 04-013 explicitly finds RF-OWN-004 NOT triggered (standalone founder-operated company, not government-controlled, not a listed subsidiary, not a sprawling conglomerate). No forensic mosaic (CLAUDE.md §13) fired -- only 1 of 8 tracked forensic tags (RF-DISC-002) fired across all modules, below the 3-tags/2-modules compounding threshold.",
+  "business_type": "SaaS / subscription software (nearest analog applied by judgment -- IndiaMART is an online B2B marketplace/classifieds platform, not a software vendor, but its subscription-tier/deferred-revenue/ARPU mechanics are functionally identical; see business-model/02_business-identity.md §3a)",
+  "primary_valuation_method": "FCFF DCF (intrinsic-dcf, weighted 70%), cross-checked by reverse-DCF; peer P/E carries the remaining 30% weight",
+  "calibration_feedback": {
+    "source_summary": "analyses/performance/2026-08-01_calibration_summary.json",
+    "status": "pre_data",
+    "haircut_points": 0,
+    "modules_flagged": [],
+    "flagged_forecast_types": [],
+    "flagged_thesis_types": [],
+    "leading_error_categories_flagged": [],
+    "error_defense_evidence": {},
+    "rationale": "As-of summary (2026-08-01) verdict is Pre-data (7 decisions, 7 reviews, 1 resolved forecast, 1 resolved directional call -- all below their floors); calibration_by_module, calibration_by_forecast_type, and calibration_by_thesis_type are all empty ({}), so no slice check could run against this run's modules (earnings, valuation, business-model, balance-sheet-survival, management-governance, catalyst) or this run's forecast_type / thesis_type values. error_taxonomy_distribution has 4 categories each at count=1 (bad base rate, valuation multiple error, bad causal inference, false negative) -- none reaches the count>=2 leading-category threshold, so no error-taxonomy check fired either. No adjustment applied."
+  }
+}

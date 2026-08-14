@@ -1,0 +1,39 @@
+{
+  "agents": [
+    {
+      "agent": "module-memo-writer",
+      "model": "claude-opus-5",
+      "calls": 4,
+      "usage": {
+        "input_tokens": 8,
+        "output_tokens": 6944,
+        "cache_read_input_tokens": 101084,
+        "cache_creation_input_tokens": 37746,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 37746,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.4600945,
+      "runtime_ms": 76512,
+      "module": "(top-level)"
+    }
+  ],
+  "orchestrator": {
+    "agent": "(orchestrator)",
+    "model": "claude-sonnet-5",
+    "calls": 15,
+    "usage": {
+      "input_tokens": 30,
+      "output_tokens": 9310,
+      "cache_read_input_tokens": 1211485,
+      "cache_creation_input_tokens": 72101,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 72101
+      }
+    },
+    "cost": 0.9357915,
+    "runtime_ms": 0
+  }
+}
