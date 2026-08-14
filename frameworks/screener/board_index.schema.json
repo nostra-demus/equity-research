@@ -4,7 +4,7 @@
   "title": "Screener board index",
   "description": "The single canonical machine-readable state of the screener pipeline board, at screener/board/index.json. Rebuilt deterministically by scripts/update_board_index.py from the ledger + run folders + inbox. The cockpit board reads THIS file (plus live in-memory runs) — it never crawls agent prose.",
   "type": "object",
-  "required": ["generated_at", "inbox", "signals", "theses", "handoffs", "counts"],
+  "required": ["generated_at", "inbox", "signals", "theses", "handoffs", "ideas", "ideas_scorecard", "counts"],
   "properties": {
     "generated_at": { "type": "string" },
     "inbox": {
@@ -232,7 +232,7 @@
             }
           },
           "source_event_ids": { "type": "array", "minItems": 1, "maxItems": 64, "uniqueItems": true, "items": { "type": "string", "pattern": "^EVT-[a-f0-9]{12}$" }, "description": "EVT-* — the join key back to the wire events that produced this idea." },
-          "primary_source_event_id": { "type": "string", "pattern": "^EVT-[a-f0-9]{12}$", "description": "Exact member of source_event_ids recomputed from source_headline + source_url. It supplies the promotion launch source." },
+          "primary_source_event_id": { "type": ["string", "null"], "pattern": "^EVT-[a-f0-9]{12}$", "description": "Exact member of source_event_ids recomputed from source_headline + source_url. Null is emitted only for deploy-compatible legacy wire rows that predate exact launch lineage." },
           "source_headlines": { "type": "array", "items": { "type": "string" } },
           "source_headline": { "type": ["string", "null"], "description": "Original-language headline bound to primary_source_event_id." },
           "source_url": { "type": ["string", "null"], "description": "The primary source URL — so a promotion's SIG_ID byte-matches the wire event." },
@@ -256,6 +256,8 @@
           "promoted_signal_id": { "type": ["string", "null"] },
           "feedback": { "type": ["string", "null"], "enum": ["up", "down", null], "description": "The human's latest 👍/👎 on this idea (self-grading loop); null = no vote. From screener/ledger/ideas_feedback.ndjson, last vote per idea wins." },
           "stale": { "type": "boolean", "description": "Derived at build time: decay_at is in the past." }
+          ,"recovery_only": { "type": "boolean", "description": "True only for a committed-board row preserved without fabricating missing strict SurfacedIdea fields." }
+          ,"promotion_available": { "type": "boolean", "description": "False on read-only recovery rows; the UI must not offer a promotion action." }
         },
         "allOf": [
           {
@@ -306,7 +308,10 @@
             }
           },
           {
-            "if": { "required": ["primary_source_event_id"] },
+            "if": {
+              "required": ["primary_source_event_id"],
+              "properties": { "primary_source_event_id": { "type": "string" } }
+            },
             "then": {
               "required": ["origin_type", "source_themes", "source_headline", "source_url", "source_name"],
               "properties": {
@@ -319,12 +324,99 @@
         ]
       }
     },
+    "ideas_archive": {
+      "type": "object",
+      "description": "Bounded, audit-only inventory of expired news leads. This is not a recommendation list and its rows are never promotable. Exact occurrences are keyed by idea_id + idea_version + idea_version_started_at, so a repeated thesis hash in a later epoch remains visible.",
+      "required": ["schema_version", "health", "total_count", "shown_count", "hidden_count", "side_counts", "retention", "rows"],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": { "const": "ideas-archive/v1" },
+        "health": {
+          "type": "object",
+          "required": ["status", "file_count", "suppression_count", "corrupt_count", "invalid_count", "error"],
+          "additionalProperties": false,
+          "properties": {
+            "status": { "type": "string", "enum": ["missing", "ok", "degraded", "unreadable"] },
+            "file_count": { "type": "integer", "minimum": 0 },
+            "suppression_count": { "type": "integer", "minimum": 0 },
+            "corrupt_count": { "type": "integer", "minimum": 0 },
+            "invalid_count": { "type": "integer", "minimum": 0 },
+            "error": { "type": ["string", "null"] }
+          }
+        },
+        "total_count": { "type": "integer", "minimum": 0, "description": "Valid retained occurrences before the static/API display cap; not a lifetime count." },
+        "shown_count": { "type": "integer", "minimum": 0 },
+        "hidden_count": { "type": "integer", "minimum": 0 },
+        "side_counts": {
+          "type": "object",
+          "required": ["long", "short"],
+          "additionalProperties": false,
+          "properties": {
+            "long": { "$ref": "#/definitions/ideasArchiveCount" },
+            "short": { "$ref": "#/definitions/ideasArchiveCount" }
+          }
+        },
+        "unconfirmed_counts": {
+          "type": "object",
+          "description": "Optional board-history occurrences seen by the recovery audit but omitted because committed expiry evidence was missing. These are not expired rows.",
+          "required": ["long", "short"],
+          "additionalProperties": false,
+          "properties": {
+            "long": { "type": "integer", "minimum": 0 },
+            "short": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "retention": {
+          "type": "object",
+          "required": ["truncated", "evicted_count", "oldest_retained_at", "side_counts"],
+          "additionalProperties": false,
+          "properties": {
+            "truncated": { "type": "boolean" },
+            "evicted_count": { "type": "integer", "minimum": 0 },
+            "oldest_retained_at": { "type": ["string", "null"] },
+            "side_counts": {
+              "type": "object",
+              "required": ["long", "short"],
+              "additionalProperties": false,
+              "properties": {
+                "long": { "$ref": "#/definitions/ideasArchiveRetentionSide" },
+                "short": { "$ref": "#/definitions/ideasArchiveRetentionSide" }
+              }
+            }
+          }
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["idea_id", "idea_version", "idea_version_started_at", "ticker", "direction", "pair_with", "decay_at", "status", "promoted_signal_id", "stale", "archived_at", "archive_reason", "audit_only"],
+            "properties": {
+              "idea_id": { "type": "string", "pattern": "^IDEA-[a-f0-9]{12}$" },
+              "idea_version": { "type": "string", "pattern": "^IDEAV-[a-f0-9]{16}$" },
+              "idea_version_started_at": { "type": "string" },
+              "ticker": { "type": "string" },
+              "direction": { "type": "string", "enum": ["long", "short", "pair"] },
+              "pair_with": { "type": ["string", "null"] },
+              "decay_at": { "type": "string" },
+              "status": { "const": "expired" },
+              "promoted_signal_id": { "type": "null" },
+              "stale": { "const": true },
+              "archived_at": { "type": "string" },
+              "archive_reason": { "type": "string", "enum": ["expired", "expired_pruned", "historical_board_expired", "latest_board_current"] },
+              "audit_only": { "const": true },
+              "recovery_only": { "type": "boolean" },
+              "promotion_available": { "const": false }
+            }
+          }
+        }
+      }
+    },
     "ideas_scorecard": {
       "type": "object",
       "description": "The PM skim's HONEST track record (no price, no P&L): how many ideas it surfaced, how many the human ran, how the DEEP machine graded the ones that were run, and the 👍/👎 tally. The UI refuses to quote a confirmation rate until `resolved` clears a small floor.",
       "properties": {
-        "surfaced_total": { "type": "integer", "description": "Ideas currently tracked (live + recently cooled + all promoted)." },
-        "live_count": { "type": "integer" },
+        "surfaced_total": { "type": "integer", "description": "Known surfaced occurrences across current, retained audit, withdrawn, and retention-evicted history. Exact occurrence identity is idea_id + idea_version + idea_version_started_at; this is cumulative known history, not a current-card count." },
+        "live_count": { "type": "integer", "description": "Current within-shelf-life rows, including read-only latest-board recovery rows." },
         "promoted_total": { "type": "integer", "description": "Ideas the human ran through the paid gauntlet." },
         "machine_confirmed": { "type": "integer", "description": "Promoted ideas whose signal reached provisional / full_machine — the deep machine agreed with the skim." },
         "machine_passed": { "type": "integer", "description": "Promoted ideas the deep machine passed on (watchlist / logged / parked)." },
@@ -363,6 +455,27 @@
         "fading_count": { "type": "integer" },
         "stale_count": { "type": "integer" },
         "archived_count": { "type": "integer" }
+      }
+    }
+  },
+  "definitions": {
+    "ideasArchiveCount": {
+      "type": "object",
+      "required": ["total_count", "shown_count", "hidden_count"],
+      "additionalProperties": false,
+      "properties": {
+        "total_count": { "type": "integer", "minimum": 0 },
+        "shown_count": { "type": "integer", "minimum": 0 },
+        "hidden_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "ideasArchiveRetentionSide": {
+      "type": "object",
+      "required": ["evicted_count", "oldest_retained_at"],
+      "additionalProperties": false,
+      "properties": {
+        "evicted_count": { "type": "integer", "minimum": 0 },
+        "oldest_retained_at": { "type": ["string", "null"] }
       }
     }
   }

@@ -50,6 +50,7 @@ export function screenerBoard() {
   return {
     ...index,
     ideas: liveIdeas.ideas,
+    ideas_archive: liveIdeas.ideas_archive,
     ideas_scorecard: liveIdeas.scorecard,
     ideas_health: readIdeasHealth(
       STATE_DIR,

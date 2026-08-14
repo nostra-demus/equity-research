@@ -6,6 +6,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { normalizeStaticBoardArchive } from './ideas-archive-static.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const WEB = path.resolve(__dirname, '..')
@@ -310,7 +311,7 @@ function buildScreenerStatic() {
   const SCREENER = path.join(REPO, 'screener')
   let board = null
   const boardPath = path.join(SCREENER, 'board', 'index.json')
-  if (isFile(boardPath)) board = loadJSON(boardPath)
+  if (isFile(boardPath)) board = normalizeStaticBoardArchive(loadJSON(boardPath))
   // bundle ledger records + run markdown for every thesis on the board
   const theses = {}, candidates = {}, runs = {}
   const thesesDir = path.join(SCREENER, 'ledger', 'theses')

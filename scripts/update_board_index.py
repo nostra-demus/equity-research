@@ -25,10 +25,23 @@ import hashlib
 import json
 import os
 import re
+import stat
 import sys
 from datetime import datetime, timezone
+from pathlib import Path
 
 from canonical_json import canonical_sha256
+from recover_idea_board_history import (
+    ARCHIVE_FILE_RE as IDEA_ARCHIVE_FILE_RE,
+    IDEA_ARCHIVE_MAX_DIRECTORY_ENTRIES_READ,
+    IDEA_ARCHIVE_MAX_FILES_READ,
+    RECOVERY_SCHEMA as IDEA_BOARD_RECOVERY_SCHEMA,
+    bounded_managed_archive_names,
+    occurrence_filename,
+    occurrence_filename_key,
+    occurrence_filename_parts,
+    validate_recovery_record,
+)
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LEDGER = os.path.join(REPO, "screener", "ledger")
@@ -43,6 +56,23 @@ CONV_TICKS = os.path.join(LEDGER, "conviction", "conviction.ndjson")
 # The PM skim's surfaced ideas (news/ideas). One snapshot per idea; the board projects them as a pure,
 # read-only feed, deriving `stale` at build time from decay_at (no paid pass). Missing dir = empty.
 IDEAS = os.path.join(LEDGER, "ideas")
+IDEAS_ARCHIVE = os.path.join(LEDGER, "ideas_archive")
+IDEAS_ARCHIVE_RETENTION = os.path.join(IDEAS_ARCHIVE, "retention.json")
+IDEAS_BOARD_HISTORY_RECOVERY_MANIFEST = os.path.join(
+    IDEAS_ARCHIVE, "board-history-recovery-manifest.json",
+)
+IDEAS_ARCHIVE_MAX_PER_SIDE = 250
+IDEAS_BOARD_HISTORY_RECOVERY_MANIFEST_MAX_BYTES = 1_000_000
+IDEAS_BOARD_HISTORY_RECOVERY_MAX_OCCURRENCES = IDEAS_ARCHIVE_MAX_PER_SIDE * 2 + 100
+IDEAS_BOARD_HISTORY_RECOVERY_SCHEMA = "idea-board-recovery-manifest/v1"
+IDEAS_BOARD_HISTORY_RECOVERY_SOURCE = "screener/board/index.json"
+IDEAS_BOARD_HISTORY_RECOVERY_DECISIONS = {"imported", "skipped", "suppressed", "active"}
+IDEA_ARCHIVE_RETENTION_SCHEMA = "idea-archive-retention/v1"
+IDEA_ARCHIVE_RETENTION_REQUIRED = os.path.join(IDEAS_ARCHIVE, ".retention-required")
+IDEA_ARCHIVE_SCHEMA = "idea-archive/v1"
+IDEA_ARCHIVE_SUPPRESSION_SCHEMA = "idea-archive-suppression/v1"
+IDEA_ID_RE = re.compile(r"^IDEA-[a-f0-9]{12}$")
+IDEA_VERSION_RE = re.compile(r"^IDEAV-[a-f0-9]{16}$")
 
 # Thesis statuses count as "watchlist" for the funnel header. watchlist_manual is a HUMAN move
 # (an overrides.ndjson record), distinct from the engine's three watchlist reasons.
@@ -346,6 +376,511 @@ def valid_idea_version(rec: dict, lineage: dict) -> bool:
     # were rejected above; field-absent pre-lineage uses the original pair-unbound migration recipe.
     legacy = _legacy_idea_version_for_record(rec, lineage, bind_pair=bool(lineage))
     return legacy is not None and rec.get("idea_version") == legacy
+
+
+def parse_rfc3339(value: object) -> datetime | None:
+    """Strict timezone-aware clock parser. Invalid shelf-life data fails closed at projection."""
+    if not isinstance(value, str) or not value or value != value.strip():
+        return None
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    return parsed if parsed.tzinfo is not None else None
+
+
+def idea_occurrence_key(rec: dict) -> tuple[str, str, str] | None:
+    idea_id, version, started = (rec.get("idea_id"), rec.get("idea_version"),
+                                 rec.get("idea_version_started_at"))
+    if (not isinstance(idea_id, str) or IDEA_ID_RE.fullmatch(idea_id) is None
+            or not isinstance(version, str) or IDEA_VERSION_RE.fullmatch(version) is None
+            or parse_rfc3339(started) is None):
+        return None
+    return idea_id, version, started
+
+
+def project_board_idea(rec: dict, idea_fb: dict[str, str], now: str,
+                       *, validate_version: bool = True) -> dict | None:
+    """Project one strict/live snapshot (or an already validated historical board row)."""
+    if (not isinstance(rec, dict) or idea_occurrence_key(rec) is None
+            or not rec.get("ticker") or rec.get("direction") not in ("long", "short", "pair")
+            or parse_rfc3339(rec.get("decay_at")) is None or parse_rfc3339(now) is None):
+        return None
+    lineage = project_idea_lineage(rec)
+    if lineage is None or (validate_version and not valid_idea_version(rec, lineage)):
+        return None
+    pair_with = rec.get("pair_with")
+    if rec.get("direction") == "pair":
+        if not valid_idea_ticker(pair_with):
+            return None
+    elif pair_with is not None:
+        return None
+    decay_at = rec["decay_at"]
+    pc = rec.get("prior_coverage") if isinstance(rec.get("prior_coverage"), dict) else None
+    fb = idea_fb.get(rec.get("idea_id"))
+    fb = fb if fb in ("up", "down") else None
+    status = rec.get("status") or "live"
+    if status not in ("live", "promoted"):
+        return None
+    trade_basis = rec.get("trade_score_basis") or "pre_edge_proxy_legacy"
+    trade_score = safe_int(rec.get("trade_score"), safe_int(rec.get("conviction"), 0))
+    trade_readiness = rec.get("trade_readiness") or "needs_data"
+    missing_checks = rec.get("missing_checks") if isinstance(rec.get("missing_checks"), list) else []
+    # Exact twin of the live projection's evidence_gate_v1 safety demotion. V1 did not bind verified
+    # live market inputs, so a cached 62 can never survive as current research readiness.
+    if trade_basis == "evidence_gate_v1":
+        trade_score = min(trade_score, 44)
+        trade_readiness = "watch_only"
+        missing_checks = list(dict.fromkeys([
+            "live price, liquidity, and consensus",
+            *missing_checks,
+        ]))
+    return {
+        "idea_id": rec["idea_id"],
+        "idea_version": rec["idea_version"],
+        "idea_version_started_at": rec["idea_version_started_at"],
+        "ticker": rec.get("ticker") or "",
+        "company": rec.get("company"),
+        "exchange": rec.get("exchange"),
+        "direction": rec.get("direction"),
+        "pair_with": pair_with,
+        "reason": rec.get("reason") or "",
+        "why_now": rec.get("why_now") or "",
+        "conviction": safe_int(rec.get("conviction"), 0),
+        "conviction_basis": rec.get("conviction_basis") or "pre_edge_proxy",
+        "trade_score": trade_score,
+        "trade_score_basis": trade_basis,
+        "trade_score_breakdown": (rec.get("trade_score_breakdown")
+                                  if isinstance(rec.get("trade_score_breakdown"), dict) else None),
+        "trade_readiness": trade_readiness,
+        "missing_checks": missing_checks,
+        "learning": rec.get("learning") if isinstance(rec.get("learning"), dict) else None,
+        "priced_in": rec.get("priced_in") or "unknown",
+        "thesis_type": rec.get("thesis_type") or "company_specific",
+        **lineage,
+        "source_event_ids": rec.get("source_event_ids") if isinstance(rec.get("source_event_ids"), list) else [],
+        "primary_source_event_id": rec.get("primary_source_event_id"),
+        "source_headlines": rec.get("source_headlines") if isinstance(rec.get("source_headlines"), list) else [],
+        "source_headline": rec.get("source_headline"),
+        "source_url": rec.get("source_url"),
+        "source_name": rec.get("source_name"),
+        "materiality_max": safe_int(rec.get("materiality_max"), 0),
+        "newest_source_at": rec.get("newest_source_at") or "",
+        "prior_coverage": pc,
+        "surfaced_at": rec.get("surfaced_at") or "",
+        "updated_at": rec.get("updated_at") or "",
+        "decay_at": decay_at,
+        "status": status,
+        "promoted_signal_id": rec.get("promoted_signal_id"),
+        "feedback": fb,
+        "stale": parse_rfc3339(decay_at) <= parse_rfc3339(now),
+    }
+
+
+def archive_sides(row: dict) -> tuple[str, ...]:
+    if row.get("direction") == "long":
+        return ("long",)
+    if row.get("direction") == "short":
+        return ("short",)
+    return ("long", "short") if valid_idea_ticker(row.get("pair_with")) else ()
+
+
+def idea_sort_key(row: dict) -> tuple:
+    updated = parse_rfc3339(row.get("updated_at"))
+    return (bool(row.get("stale")), -safe_int(row.get("trade_score")),
+            -safe_int(row.get("materiality_max")),
+            -updated.timestamp() if updated is not None else 0,
+            row.get("idea_id") or "")
+
+
+def idea_blocked_by_withdrawal(rec: dict, archive_dir: str = IDEAS_ARCHIVE) -> bool:
+    """A tombstone wins before unlink, and malformed exact tombstone bytes fail closed.
+
+    The filename is already bound to the exact three-part occurrence and side. If that exact withdrawn
+    path exists, the static board must not resurrect the raw live snapshot even when the tombstone body
+    is corrupt; archive health separately exposes the invalid/corrupt store.
+    """
+    key = idea_occurrence_key(rec)
+    if key is None or rec.get("direction") not in ("long", "short", "pair"):
+        return False
+    full_key = (*key, rec["direction"])
+    path = os.path.join(archive_dir, occurrence_filename(full_key, "withdrawn"))
+    try:
+        os.lstat(path)
+        return True
+    except FileNotFoundError:
+        return False
+    except OSError:
+        # An exact path that cannot be resolved must never be interpreted as proof of absence.
+        return True
+
+
+def filename_blocks_row(parts: tuple[str, str, str, str, str], rec: dict) -> bool:
+    key = idea_occurrence_key(rec)
+    return (key is not None and parts[4] == "withdrawn"
+            and (key[0], key[1], rec.get("direction")) == (parts[0], parts[1], parts[3])
+            and hashlib.sha256(key[2].encode("utf-8")).hexdigest() == parts[2])
+
+
+def recovery_current_shadowed(rec: dict, recovery_reason: str, expired_now: bool,
+                              current_ids: set[str],
+                              lifecycle_barriers: dict[str, list[str | None]] | None = None) -> bool:
+    """A refreshed canonical stable ID owns the current lane; older occurrences remain audit history."""
+    if recovery_reason != "latest_board_current" or expired_now:
+        return False
+    idea_id = rec.get("idea_id")
+    if idea_id in current_ids:
+        return True
+    started = parse_rfc3339(rec.get("idea_version_started_at"))
+    if started is None:
+        return True
+    for barrier in (lifecycle_barriers or {}).get(idea_id, []):
+        barrier_at = parse_rfc3339(barrier)
+        # A malformed withdrawal supplies a stable-ID terminal barrier without a trusted epoch.
+        if barrier is None or (barrier_at is not None and barrier_at > started):
+            return True
+    return False
+
+
+def recovery_projection_lane(recovery_reason: str, expired_now: bool,
+                             shadowed_current: bool) -> str:
+    if recovery_reason == "latest_board_current" and not expired_now:
+        return "hidden" if shadowed_current else "current"
+    return "archive"
+
+
+def empty_archive_retention() -> dict:
+    return {
+        "truncated": False, "evicted_count": 0, "oldest_retained_at": None,
+        "side_counts": {
+            "long": {"evicted_count": 0, "oldest_retained_at": None},
+            "short": {"evicted_count": 0, "oldest_retained_at": None},
+        },
+    }
+
+
+def valid_archive_retention_value(value: object) -> bool:
+    return (isinstance(value, dict) and value.get("schema_version") == IDEA_ARCHIVE_RETENTION_SCHEMA
+            and isinstance(value.get("evicted_count"), int) and value["evicted_count"] >= 0
+            and isinstance(value.get("side_counts"), dict)
+            and all(isinstance(value["side_counts"].get(side), dict)
+                    and isinstance(value["side_counts"][side].get("evicted_count"), int)
+                    and value["side_counts"][side]["evicted_count"] >= 0
+                    for side in ("long", "short"))
+            and isinstance(value.get("pending_evictions"), list)
+            and len(value["pending_evictions"]) <= IDEA_ARCHIVE_MAX_FILES_READ
+            and all(isinstance(name, str)
+                    and (parts := occurrence_filename_parts(name)) is not None
+                    and parts[4] != "withdrawn"
+                    for name in value["pending_evictions"]))
+
+
+def read_archive_retention() -> dict:
+    value = read_json(IDEAS_ARCHIVE_RETENTION)
+    if not valid_archive_retention_value(value):
+        return empty_archive_retention()
+    side_counts = value["side_counts"]
+    return {
+        "truncated": value["evicted_count"] > 0,
+        "evicted_count": value["evicted_count"],
+        "oldest_retained_at": None,
+        "side_counts": {
+            side: {"evicted_count": side_counts[side]["evicted_count"], "oldest_retained_at": None}
+            for side in ("long", "short")
+        },
+    }
+
+
+def archive_retention_invalid(managed_files_present: bool = False) -> bool:
+    value = read_json(IDEAS_ARCHIVE_RETENTION)
+    if value is None:
+        return managed_files_present or os.path.exists(IDEA_ARCHIVE_RETENTION_REQUIRED)
+    return not valid_archive_retention_value(value)
+
+
+def names_after_pending_evictions(names: list[str], retention: object) -> tuple[list[str], set[str]]:
+    pending = set(retention["pending_evictions"]) if valid_archive_retention_value(retention) else set()
+    return [name for name in names if name not in pending], pending
+
+
+def read_unconfirmed_history_counts(path: str | None = None) -> dict[str, int] | None:
+    """Count history rows that were seen but could not be proved expired.
+
+    Missing, oversized, symlinked, or malformed manifests return ``None``.  That distinction is
+    deliberate: callers may omit the optional field, but must never turn unknown history into zero.
+    """
+    manifest_path = path or IDEAS_BOARD_HISTORY_RECOVERY_MANIFEST
+    try:
+        file_stat = os.lstat(manifest_path)
+        if (not stat.S_ISREG(file_stat.st_mode) or file_stat.st_size <= 0
+                or file_stat.st_size > IDEAS_BOARD_HISTORY_RECOVERY_MANIFEST_MAX_BYTES):
+            return None
+        with open(manifest_path, encoding="utf-8") as handle:
+            value = json.load(handle)
+    except (OSError, UnicodeError, json.JSONDecodeError):
+        return None
+    if (not isinstance(value, dict)
+            or value.get("schema_version") != IDEAS_BOARD_HISTORY_RECOVERY_SCHEMA
+            or value.get("source_path") != IDEAS_BOARD_HISTORY_RECOVERY_SOURCE
+            or not isinstance(value.get("occurrences"), list)
+            or len(value["occurrences"]) > IDEAS_BOARD_HISTORY_RECOVERY_MAX_OCCURRENCES):
+        return None
+    counts = {"long": 0, "short": 0}
+    seen: set[tuple[str, str, str, str]] = set()
+    for occurrence in value["occurrences"]:
+        occurrence_base = (idea_occurrence_key(occurrence)
+                           if isinstance(occurrence, dict) else None)
+        occurrence_identity = ((*occurrence_base, occurrence.get("direction"))
+                               if occurrence_base is not None else None)
+        if (not isinstance(occurrence, dict) or occurrence_identity is None
+                or occurrence.get("direction") not in ("long", "short", "pair")
+                or occurrence.get("decision") not in IDEAS_BOARD_HISTORY_RECOVERY_DECISIONS
+                or not isinstance(occurrence.get("reason"), str)
+                or occurrence_identity in seen):
+            return None
+        seen.add(occurrence_identity)
+        if (occurrence["decision"] != "skipped"
+                or occurrence["reason"] != "no_committed_expiry_evidence"):
+            continue
+        if occurrence["direction"] in ("long", "pair"):
+            counts["long"] += 1
+        if occurrence["direction"] in ("short", "pair"):
+            counts["short"] += 1
+    return counts
+
+
+def build_ideas_archive(ideas: list[dict], idea_fb: dict[str, str], now: str) -> tuple[dict, list[dict], set[tuple[str, str, str]]]:
+    """Static twin of the API archive projection, including read-only board recovery rows."""
+    rows: list[dict] = []
+    unconfirmed_counts = read_unconfirmed_history_counts()
+    recovered_current: list[dict] = []
+    current_keys = {idea_occurrence_key(row) for row in ideas}
+    current_ids = {row.get("idea_id") for row in ideas if isinstance(row.get("idea_id"), str)}
+    for idea in ideas:
+        if idea.get("status") == "live" and idea.get("stale"):
+            rows.append({**idea, "status": "expired", "promoted_signal_id": None, "stale": True,
+                         "archived_at": idea["decay_at"], "archive_reason": "expired",
+                         "audit_only": True})
+
+    health = {"status": "missing", "file_count": 0, "suppression_count": 0,
+              "corrupt_count": 0, "invalid_count": 0, "error": None}
+    try:
+        names, archive_overflow, archive_missing = bounded_managed_archive_names(
+            Path(IDEAS_ARCHIVE), IDEA_ARCHIVE_MAX_FILES_READ,
+            IDEA_ARCHIVE_MAX_DIRECTORY_ENTRIES_READ,
+        )
+        health["status"] = "missing" if archive_missing else "ok"
+        health["file_count"] = len(names)
+    except FileNotFoundError:
+        names = []
+        archive_overflow = False
+    except OSError:
+        names = []
+        archive_overflow = False
+        health.update(status="unreadable", error="archive_store_unreadable")
+
+    # Stop after the first over-bound managed sibling.  Reading even one evidence row would be unsafe:
+    # a later, unseen sibling may be the withdrawal tombstone for that exact occurrence.  Canonical
+    # current snapshots remain independently protected by their directly-addressed tombstone lstat.
+    if archive_overflow:
+        health.update(status="degraded", invalid_count=1, error="archive_store_overflow")
+        retention = read_archive_retention()
+        empty_counts = {side: {"total_count": 0, "shown_count": 0, "hidden_count": 0}
+                        for side in ("long", "short")}
+        return {
+            "schema_version": "ideas-archive/v1", "health": health,
+            "total_count": 0, "shown_count": 0, "hidden_count": 0,
+            "side_counts": empty_counts,
+            **({"unconfirmed_counts": unconfirmed_counts} if unconfirmed_counts is not None else {}),
+            "retention": retention, "rows": [],
+        }, [], set()
+
+    retention_value = read_json(IDEAS_ARCHIVE_RETENTION)
+    valid_retention = not archive_retention_invalid(bool(names))
+    process_names, pending_evictions = names_after_pending_evictions(names, retention_value)
+    if not valid_retention:
+        process_names, pending_evictions = names, set()
+    health["invalid_count"] += len(pending_evictions)
+
+    archive_values = {name: read_json(os.path.join(IDEAS_ARCHIVE, name)) for name in process_names}
+    suppressed_keys: set[tuple[str, str, str]] = set()
+    # Withdrawal filenames are terminal evidence even if damaged retention metadata lists one as
+    # pending. The writer never intentionally evicts a tombstone; hiding it from parsing must not
+    # resurrect the raw/imported/expired occurrence it suppresses.
+    withdrawal_parts = [parts for name in names
+                        if (parts := occurrence_filename_parts(name)) is not None and parts[4] == "withdrawn"]
+    withdrawal_barriers: dict[str, tuple[str, str | None]] = {
+        name: (parts[0], None) for name in names
+        if (parts := occurrence_filename_parts(name)) is not None and parts[4] == "withdrawn"
+    }
+    # Derive the block from the managed filename before parsing bytes. A crash/corruption in the exact
+    # tombstone body can degrade health, but must never resurrect its raw/imported/expired occurrence.
+    for idea in ideas:
+        if any(filename_blocks_row(parts, idea) for parts in withdrawal_parts):
+            key = idea_occurrence_key(idea)
+            if key is not None:
+                suppressed_keys.add(key)
+    for name in process_names:
+        value = archive_values[name]
+        if not isinstance(value, dict):
+            health["corrupt_count"] += 1
+            continue
+        schema = value.get("schema_version")
+        if schema == IDEA_ARCHIVE_SUPPRESSION_SCHEMA:
+            expected = occurrence_filename_key(name, value, "withdrawn")
+            if (expected is None or value.get("suppression_reason") != "withdrawn_unadmitted"
+                    or parse_rfc3339(value.get("suppressed_at")) is None):
+                health["invalid_count"] += 1
+            else:
+                health["suppression_count"] += 1
+                suppressed_keys.add(expected[:3])
+                withdrawal_barriers[name] = (expected[0], expected[2])
+            continue
+    lifecycle_barriers: dict[str, list[str | None]] = {}
+    for idea_id, started in withdrawal_barriers.values():
+        lifecycle_barriers.setdefault(idea_id, []).append(started)
+    pending_recoveries: list[tuple[dict, dict]] = []
+    for name in process_names:
+        value = archive_values[name]
+        if not isinstance(value, dict) or value.get("schema_version") == IDEA_ARCHIVE_SUPPRESSION_SCHEMA:
+            continue
+        schema = value.get("schema_version")
+        if schema == IDEA_ARCHIVE_SCHEMA:
+            snapshot = value.get("snapshot")
+            projected = (project_board_idea(snapshot, idea_fb, now)
+                         if isinstance(snapshot, dict) else None)
+            expected = (occurrence_filename_key(name, snapshot, "expired")
+                        if isinstance(snapshot, dict) else None)
+            if (projected is None or expected is None or value.get("archive_reason") != "expired_pruned"
+                    or parse_rfc3339(value.get("archived_at")) is None
+                    or projected.get("status") != "live" or projected.get("promoted_signal_id") is not None
+                    or parse_rfc3339(projected["decay_at"]) > parse_rfc3339(value["archived_at"])):
+                health["invalid_count"] += 1
+                continue
+            lifecycle_barriers.setdefault(projected["idea_id"], []).append(
+                projected["idea_version_started_at"])
+            if (idea_occurrence_key(projected) in current_keys
+                    or idea_occurrence_key(projected) in suppressed_keys
+                    or any(filename_blocks_row(parts, projected) for parts in withdrawal_parts)):
+                continue
+            rows.append({**projected, "status": "expired", "promoted_signal_id": None, "stale": True,
+                         "archived_at": value["archived_at"], "archive_reason": "expired_pruned",
+                         "audit_only": True})
+            continue
+        if schema == IDEA_BOARD_RECOVERY_SCHEMA:
+            if not validate_recovery_record(value, name):
+                health["invalid_count"] += 1
+                continue
+            board_row = value["board_row"]
+            projected = project_board_idea(board_row, idea_fb, now, validate_version=False)
+            if projected is None:
+                health["invalid_count"] += 1
+                continue
+            if (idea_occurrence_key(projected) in current_keys
+                    or idea_occurrence_key(projected) in suppressed_keys
+                    or any(filename_blocks_row(parts, projected) for parts in withdrawal_parts)):
+                continue
+            pending_recoveries.append((projected, value))
+            continue
+        if schema not in (IDEA_ARCHIVE_SCHEMA, IDEA_BOARD_RECOVERY_SCHEMA):
+            health["invalid_count"] += 1
+
+    # Resolve latest-board current imports only after every strict/tombstone lifecycle barrier has
+    # been inspected; filename ordering must never decide whether an older occurrence resurfaces.
+    for projected, value in pending_recoveries:
+        expired_now = parse_rfc3339(projected["decay_at"]) <= parse_rfc3339(now)
+        shadowed_current = recovery_current_shadowed(
+            projected, value["recovery_reason"], expired_now, current_ids,
+            lifecycle_barriers,
+        )
+        recovery_lane = recovery_projection_lane(
+            value["recovery_reason"], expired_now, shadowed_current,
+        )
+        if recovery_lane == "current":
+            # A canonical refresh owns the stable ID's live lane. Keep the older recovery bytes,
+            # but do not mislabel a still-within-shelf-life occurrence as expired audit history.
+            recovered_current.append({**projected, "status": "live", "stale": False,
+                                      "recovery_only": True, "promotion_available": False})
+        elif recovery_lane == "archive":
+            rows.append({**projected, "status": "expired", "promoted_signal_id": None,
+                         "stale": True, "archived_at": value["recovered_at"],
+                         "archive_reason": value["recovery_reason"], "audit_only": True,
+                         "recovery_only": True, "promotion_available": False})
+
+    retained_lifecycle: dict[tuple[str, str, str], tuple[str, tuple[str, ...]]] = {}
+    for name in process_names:
+        value = archive_values[name]
+        if (isinstance(value, dict) and value.get("schema_version") == IDEA_BOARD_RECOVERY_SCHEMA
+                and validate_recovery_record(value, name)):
+            key = idea_occurrence_key(value["board_row"])
+            if (key is not None and key not in suppressed_keys
+                    and not any(filename_blocks_row(parts, value["board_row"])
+                                for parts in withdrawal_parts)):
+                retained_lifecycle[key] = (value["board_row"]["decay_at"],
+                                           archive_sides(value["board_row"]))
+        elif isinstance(value, dict) and value.get("schema_version") == IDEA_ARCHIVE_SCHEMA:
+            snapshot = value.get("snapshot")
+            key = idea_occurrence_key(snapshot) if isinstance(snapshot, dict) else None
+            if (key is not None and key not in suppressed_keys
+                    and parse_rfc3339(snapshot.get("decay_at")) is not None
+                    and not any(filename_blocks_row(parts, snapshot) for parts in withdrawal_parts)):
+                retained_lifecycle[key] = (snapshot["decay_at"], archive_sides(snapshot))
+
+    rows = [row for row in rows if idea_occurrence_key(row) not in suppressed_keys
+            and not any(filename_blocks_row(parts, row) for parts in withdrawal_parts)]
+    recovered_current = [row for row in recovered_current if idea_occurrence_key(row) not in suppressed_keys
+                         and not any(filename_blocks_row(parts, row) for parts in withdrawal_parts)]
+
+    if health["status"] == "ok" and (health["corrupt_count"] or health["invalid_count"]):
+        health["status"] = "degraded"
+    if health["status"] == "ok" and not valid_retention:
+        health["status"] = "degraded"
+        health["invalid_count"] += 1
+    # Exact-occurrence de-duplication. A repeated thesis hash with a new epoch remains a distinct audit row.
+    deduped: dict[tuple[str, str, str], dict] = {}
+    for row in rows:
+        key = idea_occurrence_key(row)
+        if key is not None and key not in deduped:
+            deduped[key] = row
+    rows = list(deduped.values())
+    rows.sort(key=lambda row: (tuple(-ord(char) for char in (row.get("decay_at") or "")),
+                               tuple(-ord(char) for char in (row.get("archived_at") or "")),
+                               -safe_int(row.get("trade_score")), row.get("idea_id") or ""))
+    shown_keys: set[tuple[str, str, str]] = set()
+    shown_by_side = {"long": 0, "short": 0}
+    for row in rows:
+        sides = archive_sides(row)
+        if not sides or any(shown_by_side[side] >= IDEAS_ARCHIVE_MAX_PER_SIDE for side in sides):
+            continue
+        key = idea_occurrence_key(row)
+        if key is None:
+            continue
+        shown_keys.add(key)
+        for side in sides:
+            shown_by_side[side] += 1
+    shown_rows = [row for row in rows if idea_occurrence_key(row) in shown_keys]
+    side_counts = {}
+    for side in ("long", "short"):
+        eligible = [row for row in rows if side in archive_sides(row)]
+        shown = [row for row in eligible if idea_occurrence_key(row) in shown_keys]
+        side_counts[side] = {"total_count": len(eligible), "shown_count": len(shown),
+                             "hidden_count": len(eligible) - len(shown)}
+    retention = read_archive_retention()
+    for side in ("long", "short"):
+        retention["side_counts"][side]["oldest_retained_at"] = min(
+            (decay for decay, sides in retained_lifecycle.values() if side in sides), default=None)
+    retention["oldest_retained_at"] = min(
+        (decay for decay, _sides in retained_lifecycle.values()), default=None)
+    wrapper = {
+        "schema_version": "ideas-archive/v1", "health": health,
+        "total_count": len(rows), "shown_count": len(shown_rows),
+        "hidden_count": len(rows) - len(shown_rows), "side_counts": side_counts,
+        **({"unconfirmed_counts": unconfirmed_counts} if unconfirmed_counts is not None else {}),
+        "retention": retention, "rows": shown_rows,
+    }
+    recovered_current.sort(key=lambda row: (-safe_int(row.get("trade_score")),
+                                             -safe_int(row.get("materiality_max"))))
+    return wrapper, recovered_current, set(deduped)
 
 
 def read_ndjson(path: str) -> list[dict]:
@@ -718,57 +1253,15 @@ def build() -> dict:
           "up_votes": 0, "down_votes": 0}
     for fp in sorted(glob.glob(os.path.join(IDEAS, "*.json"))):
         rec = read_json(fp)
-        if not isinstance(rec, dict) or not rec.get("idea_id") or not rec.get("ticker"):
+        if isinstance(rec, dict) and idea_blocked_by_withdrawal(rec):
             continue
-        lineage = project_idea_lineage(rec)
-        if lineage is None or not valid_idea_version(rec, lineage):
+        projected = project_board_idea(rec, idea_fb, now) if isinstance(rec, dict) else None
+        if projected is None:
             continue
-        decay_at = rec.get("decay_at") or ""
-        pc = rec.get("prior_coverage") if isinstance(rec.get("prior_coverage"), dict) else None
-        fb = idea_fb.get(rec.get("idea_id"))
-        fb = fb if fb in ("up", "down") else None  # 'clear'/absent -> no live vote
-        stale = bool(decay_at) and decay_at < now
-        status = rec.get("status") or "live"
-        ideas.append({
-            "idea_id": rec.get("idea_id"),
-            "idea_version": rec.get("idea_version"),
-            "idea_version_started_at": rec.get("idea_version_started_at") or "",
-            "ticker": rec.get("ticker") or "",
-            "company": rec.get("company"),
-            "exchange": rec.get("exchange"),
-            "direction": rec.get("direction") or "long",
-            "pair_with": rec.get("pair_with"),
-            "reason": rec.get("reason") or "",
-            "why_now": rec.get("why_now") or "",
-            "conviction": safe_int(rec.get("conviction"), 0),
-            "conviction_basis": rec.get("conviction_basis") or "pre_edge_proxy",
-            "trade_score": safe_int(rec.get("trade_score"), safe_int(rec.get("conviction"), 0)),
-            "trade_score_basis": rec.get("trade_score_basis") or "pre_edge_proxy_legacy",
-            "trade_score_breakdown": rec.get("trade_score_breakdown") if isinstance(rec.get("trade_score_breakdown"), dict) else None,
-            "trade_readiness": rec.get("trade_readiness") or "needs_data",
-            "missing_checks": rec.get("missing_checks") if isinstance(rec.get("missing_checks"), list) else [],
-            "learning": rec.get("learning") if isinstance(rec.get("learning"), dict) else None,
-            "priced_in": rec.get("priced_in") or "unknown",
-            "thesis_type": rec.get("thesis_type") or "company_specific",
-            **lineage,
-            "source_event_ids": rec.get("source_event_ids") if isinstance(rec.get("source_event_ids"), list) else [],
-            **({"primary_source_event_id": rec.get("primary_source_event_id")}
-               if "primary_source_event_id" in rec else {}),
-            "source_headlines": rec.get("source_headlines") if isinstance(rec.get("source_headlines"), list) else [],
-            "source_headline": rec.get("source_headline"),
-            "source_url": rec.get("source_url"),
-            "source_name": rec.get("source_name"),
-            "materiality_max": safe_int(rec.get("materiality_max"), 0),
-            "newest_source_at": rec.get("newest_source_at") or "",
-            "prior_coverage": pc,
-            "surfaced_at": rec.get("surfaced_at") or "",
-            "updated_at": rec.get("updated_at") or "",
-            "decay_at": decay_at,
-            "status": status,
-            "promoted_signal_id": rec.get("promoted_signal_id"),
-            "feedback": fb,
-            "stale": stale,
-        })
+        ideas.append(projected)
+        fb = projected["feedback"]
+        stale = projected["stale"]
+        status = projected["status"]
         sc["surfaced_total"] += 1
         if not stale:
             sc["live_count"] += 1
@@ -795,7 +1288,15 @@ def build() -> dict:
             else:
                 sc["machine_pending"] += 1
     sc["resolved"] = sc["machine_confirmed"] + sc["machine_passed"]
-    ideas.sort(key=lambda i: (i["stale"], -i["trade_score"], -i["materiality_max"]))
+    ideas.sort(key=idea_sort_key)
+    ideas_archive, recovered_current, archive_occurrences = build_ideas_archive(ideas, idea_fb, now)
+    ideas.extend(recovered_current)
+    ideas.sort(key=idea_sort_key)
+    current_occurrences = {idea_occurrence_key(idea) for idea in ideas}
+    sc["live_count"] = sum(not idea["stale"] for idea in ideas)
+    sc["surfaced_total"] = (len({key for key in current_occurrences | archive_occurrences if key is not None})
+                             + ideas_archive["health"]["suppression_count"]
+                             + ideas_archive["retention"]["evicted_count"])
 
     return {
         "generated_at": now,
@@ -804,6 +1305,7 @@ def build() -> dict:
         "theses": theses,
         "handoffs": handoff_rows,
         "ideas": ideas,
+        "ideas_archive": ideas_archive,
         "ideas_scorecard": sc,
         "counts": counts,
         "book_momentum": book_momentum,
@@ -821,6 +1323,35 @@ USAGE = """usage: update_board_index.py [--check | --selftest]
 
 Any other argument is rejected — this script mutates the board, so an accidental
 flag (e.g. a typo'd --help) must never trigger a rebuild."""
+
+
+def write_board_index(idx: dict, board_path: str = BOARD) -> None:
+    """Crash-durably publish the generated board without exposing partial JSON to readers."""
+    directory = os.path.dirname(board_path)
+    os.makedirs(directory, exist_ok=True)
+    # Per-process temp file: concurrent rebuilds (a sweep + a handoff each refresh the board) must
+    # never interleave writes into one shared temp. Last durable rename wins from canonical stores.
+    tmp = f"{board_path}.tmp.{os.getpid()}"
+    try:
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(idx, f, indent=2, ensure_ascii=False)
+            f.write("\n")
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(tmp, board_path)
+        # Directory fsync is POSIX-only durability: Windows has no directory file descriptors, and
+        # os.open() on a directory there raises PermissionError. Skip it rather than crash the publish.
+        if os.name != "nt":
+            directory_fd = os.open(directory, os.O_RDONLY)
+            try:
+                os.fsync(directory_fd)
+            finally:
+                os.close(directory_fd)
+    finally:
+        try:
+            os.unlink(tmp)
+        except FileNotFoundError:
+            pass
 
 
 def _selftest() -> int:
@@ -942,6 +1473,177 @@ def _selftest() -> int:
     check("legacy Theme lineage without exact launch identity fails closed",
           project_idea_lineage(legacy_theme) is None)
 
+    # A withdrawal published before the raw snapshot unlink must already block the static board. The
+    # exact filename is sufficient to fail closed even if a crash left malformed tombstone bytes.
+    import tempfile
+    from unittest import mock
+    with tempfile.TemporaryDirectory() as manifest_dir:
+        manifest_path = os.path.join(manifest_dir, "board-history-recovery-manifest.json")
+        occurrence = {
+            "idea_id": "IDEA-123456789abc", "idea_version": "IDEAV-1234567890abcdef",
+            "idea_version_started_at": "2026-08-01T00:00:00Z", "direction": "pair",
+            "decision": "skipped", "reason": "no_committed_expiry_evidence",
+        }
+        with open(manifest_path, "w", encoding="utf-8") as handle:
+            json.dump({
+                "schema_version": IDEAS_BOARD_HISTORY_RECOVERY_SCHEMA,
+                "source_path": IDEAS_BOARD_HISTORY_RECOVERY_SOURCE,
+                "occurrences": [occurrence, {
+                    **occurrence, "idea_id": "IDEA-abcdef123456", "direction": "short",
+                }, {
+                    **occurrence, "idea_id": "IDEA-fedcba654321", "direction": "long",
+                    "decision": "imported", "reason": "historical_board_expired",
+                }],
+            }, handle)
+        check("history audit counts only skipped unproven expiry, with pairs in both tabs",
+              read_unconfirmed_history_counts(manifest_path) == {"long": 1, "short": 2})
+        with open(manifest_path, "w", encoding="utf-8") as handle:
+            handle.write("{")
+        check("malformed history audit stays unknown instead of becoming zero",
+              read_unconfirmed_history_counts(manifest_path) is None)
+
+    with tempfile.TemporaryDirectory() as archive_dir:
+        withdrawal_key = ("IDEA-123456789abc", "IDEAV-1234567890abcdef",
+                          "2026-08-01T00:00:00Z", "long")
+        withdrawal = {"idea_id": withdrawal_key[0], "idea_version": withdrawal_key[1],
+                      "idea_version_started_at": withdrawal_key[2], "direction": withdrawal_key[3]}
+        check("no exact withdrawal path leaves the current occurrence visible",
+              not idea_blocked_by_withdrawal(withdrawal, archive_dir))
+        open(os.path.join(archive_dir, occurrence_filename(withdrawal_key, "withdrawn")), "w").close()
+        check("an exact even-malformed withdrawal path fails closed before raw unlink",
+              idea_blocked_by_withdrawal(withdrawal, archive_dir))
+        parts = occurrence_filename_parts(occurrence_filename(withdrawal_key, "withdrawn"))
+        check("managed withdrawal filename alone blocks the exact occurrence across archive lanes",
+              parts is not None and filename_blocks_row(parts, withdrawal))
+        check("managed withdrawal filename does not block a different occurrence epoch",
+              parts is not None and not filename_blocks_row(parts, {
+                  **withdrawal, "idea_version_started_at": "2026-08-01T00:00:01Z",
+              }))
+        with mock.patch("os.lstat", side_effect=PermissionError("unreadable")):
+            check("an unreadable exact withdrawal lookup fails closed",
+                  idea_blocked_by_withdrawal(withdrawal, archive_dir))
+
+    check("a canonical refresh shadows recovered-current by stable id across versions",
+          recovery_current_shadowed(
+              {"idea_id": "IDEA-123456789abc", "idea_version_started_at": "2026-08-01T00:00:00Z"},
+              "latest_board_current", False,
+              {"IDEA-123456789abc"},
+          ))
+    check("stable-id shadow does not erase historical recovery audit rows",
+          not recovery_current_shadowed(
+              {"idea_id": "IDEA-123456789abc"}, "historical_board_expired", True,
+              {"IDEA-123456789abc"},
+          ))
+    check("a newer strict/archive lifecycle barrier shadows older recovered-current bytes",
+          recovery_current_shadowed(
+              {"idea_id": "IDEA-123456789abc", "idea_version_started_at": "2026-08-01T00:00:00Z"},
+              "latest_board_current", False, set(),
+              {"IDEA-123456789abc": ["2026-08-02T00:00:00Z"]},
+          ))
+    check("an older lifecycle barrier cannot shadow a newer recovered occurrence",
+          not recovery_current_shadowed(
+              {"idea_id": "IDEA-123456789abc", "idea_version_started_at": "2026-08-02T00:00:00Z"},
+              "latest_board_current", False, set(),
+              {"IDEA-123456789abc": ["2026-08-01T00:00:00Z"]},
+          ))
+    check("a malformed terminal withdrawal blocks stable-ID recovery without inventing an epoch",
+          recovery_current_shadowed(
+              {"idea_id": "IDEA-123456789abc", "idea_version_started_at": "2026-08-02T00:00:00Z"},
+              "latest_board_current", False, set(), {"IDEA-123456789abc": [None]},
+          ))
+    check("shadowed recovery stays hidden until its own shelf life ends",
+          recovery_projection_lane("latest_board_current", False, True) == "hidden")
+    check("shadowed recovery enters audit only after its own decay",
+          recovery_projection_lane("latest_board_current", True, True) == "archive")
+    pending_name = occurrence_filename(withdrawal_key, "imported")
+    pending_retention = {
+        "schema_version": IDEA_ARCHIVE_RETENTION_SCHEMA,
+        "evicted_count": 1,
+        "side_counts": {"long": {"evicted_count": 1}, "short": {"evicted_count": 0}},
+        "pending_evictions": [pending_name],
+    }
+    kept_names, pending_names = names_after_pending_evictions(
+        [pending_name, occurrence_filename(withdrawal_key, "withdrawn")], pending_retention,
+    )
+    check("pending evictions are excluded from retained archive parsing",
+          pending_names == {pending_name} and kept_names == [occurrence_filename(withdrawal_key, "withdrawn")])
+    pending_withdrawal = occurrence_filename(withdrawal_key, "withdrawn")
+    invalid_pending_withdrawal = {
+        **pending_retention, "pending_evictions": [pending_withdrawal],
+    }
+    check("retention rejects a pending terminal withdrawal tombstone",
+          not valid_archive_retention_value(invalid_pending_withdrawal))
+    rejected_names, rejected_pending = names_after_pending_evictions(
+        [pending_name, pending_withdrawal], invalid_pending_withdrawal,
+    )
+    check("invalid pending-withdrawal retention filters no archive names",
+          rejected_names == [pending_name, pending_withdrawal] and rejected_pending == set())
+    pending_only = [parts for name in [pending_withdrawal]
+                    if (parts := occurrence_filename_parts(name)) is not None and parts[4] == "withdrawn"]
+    check("a pending withdrawal filename remains terminal suppression evidence",
+          len(pending_only) == 1 and filename_blocks_row(pending_only[0], withdrawal))
+
+    with tempfile.TemporaryDirectory() as archive_dir:
+        for index in range(3):
+            epoch = f"2026-08-01T00:00:0{index}Z"
+            key = ("IDEA-123456789abc", "IDEAV-1234567890abcdef", epoch, "long")
+            open(os.path.join(archive_dir, occurrence_filename(key, "imported")), "w").close()
+        bounded_names, overflow, missing = bounded_managed_archive_names(
+            Path(archive_dir), 2, 10,
+        )
+        check("managed archive enumeration stops at the bound plus one sentinel",
+              overflow and not missing and len(bounded_names) == 3)
+        absent_names, absent_overflow, absent_missing = bounded_managed_archive_names(
+            Path(archive_dir) / "absent", 2,
+        )
+        check("a missing archive directory stays missing rather than healthy",
+              absent_names == [] and not absent_overflow and absent_missing)
+        clutter_dir = Path(archive_dir) / "clutter"
+        clutter_dir.mkdir()
+        for index in range(3):
+            (clutter_dir / f"unmanaged-{index}").touch()
+        clutter_names, clutter_overflow, clutter_missing = bounded_managed_archive_names(
+            clutter_dir, 10, 2,
+        )
+        check("unmanaged sibling flooding is bounded by total directory entries",
+              clutter_names == [] and clutter_overflow and not clutter_missing)
+        with (mock.patch.object(sys.modules[__name__], "IDEA_ARCHIVE_MAX_FILES_READ", 2),
+              mock.patch.object(sys.modules[__name__], "IDEAS_ARCHIVE", archive_dir),
+              mock.patch.object(sys.modules[__name__], "IDEAS_ARCHIVE_RETENTION",
+                                os.path.join(archive_dir, "retention.json")),
+              mock.patch.object(sys.modules[__name__], "IDEA_ARCHIVE_RETENTION_REQUIRED",
+                                os.path.join(archive_dir, ".retention-required"))):
+            overflow_archive, overflow_current, overflow_occurrences = build_ideas_archive(
+                [{**withdrawal, "status": "live", "stale": True,
+                  "decay_at": "2026-08-01T00:00:00Z"}], {}, "2026-08-02T00:00:00Z",
+            )
+        check("overflow fails closed with no archive or recovered-current projection",
+              overflow_archive["health"]["status"] == "degraded"
+              and overflow_archive["health"]["error"] == "archive_store_overflow"
+              and overflow_archive["rows"] == [] and overflow_current == []
+              and overflow_occurrences == set())
+
+    v1_row = {
+        **wire_rec, "idea_id": "IDEA-123456789abc", "idea_version_started_at": "2026-08-01T00:00:00Z",
+        "decay_at": "2026-08-03T00:00:00Z", "status": "live", "promoted_signal_id": None,
+        "trade_score": 62, "trade_score_basis": "evidence_gate_v1", "trade_readiness": "check_now",
+        "missing_checks": ["dated catalyst"],
+    }
+    v1_projection = project_board_idea(v1_row, {}, "2026-08-02T00:00:00Z")
+    check("legacy V1 recovery is demoted to 44/watch-only with missing market checks",
+          v1_projection is not None and v1_projection["trade_score"] == 44
+          and v1_projection["trade_readiness"] == "watch_only"
+          and v1_projection["missing_checks"][0] == "live price, liquidity, and consensus")
+
+    with tempfile.TemporaryDirectory() as board_dir:
+        board_path = os.path.join(board_dir, "index.json")
+        with (mock.patch("os.fsync", wraps=os.fsync) as fsync,
+              mock.patch("os.replace", wraps=os.replace) as replace):
+            write_board_index({"generated_at": "2026-08-02T00:00:00Z"}, board_path)
+        check("board publication fsyncs bytes, atomically replaces, then fsyncs its directory",
+              read_json(board_path)["generated_at"] == "2026-08-02T00:00:00Z"
+              and fsync.call_count == 2 and replace.call_count == 1)
+
     print(f"update_board_index selftest: {'ALL OK' if bad == 0 else f'{bad} FAILED'}")
     return 1 if bad else 0
 
@@ -975,19 +1677,7 @@ def main(argv: list | None = None) -> int:
             return 0
         print(f"STALE {os.path.relpath(BOARD, REPO)} — rerun without --check to rebuild")
         return 1
-    os.makedirs(os.path.dirname(BOARD), exist_ok=True)
-    # per-process temp file: concurrent rebuilds (a sweep + a handoff each refresh the board) must
-    # never interleave writes into one shared .tmp and rename a corrupt board into place. Each
-    # rebuild is deterministic from the stores, so last-rename-wins converges to the truth.
-    tmp = f"{BOARD}.tmp.{os.getpid()}"
-    try:
-        with open(tmp, "w", encoding="utf-8") as f:
-            json.dump(idx, f, indent=2, ensure_ascii=False)
-            f.write("\n")
-        os.replace(tmp, BOARD)  # atomic swap so a reader never sees a half-written board
-    finally:
-        if os.path.exists(tmp):
-            os.unlink(tmp)  # never leave a stray temp file on failure
+    write_board_index(idx)
     c = idx["counts"]
     print(
         f"WROTE {os.path.relpath(BOARD, REPO)} — {c['signals_total']} signals, "

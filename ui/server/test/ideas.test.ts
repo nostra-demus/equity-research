@@ -14,10 +14,12 @@ import {
 } from '../src/news/ideas/surface-ideas'
 import { surfaceIdeasBatchGemini } from '../src/news/ideas/surface-ideas-gemini'
 import {
-  finalizeIdeaPromotion, ideaDecayAt, ideaId, ideaSnapshotRevision, ideaVersion, pruneExpiredIdeas,
-  isSurfacedIdeaSnapshot, readIdeaById, readIdeaSnapshotStore, readTopSweep, readTopSweepRows, releaseIdeaPromotion,
-  reserveIdeaPromotion, retireUnadmittedThemeIdeas, topNEffectHash, topNHash, updateIdeaSnapshot, writeIdea, writeIdeaIfRevision,
+  finalizeIdeaPromotion, ideaDecayAt, ideaId, ideaPromotionEligibility, ideaSnapshotRevision, ideaVersion, pruneExpiredIdeas,
+  isSurfacedIdeaSnapshot, readArchivedIdeaSnapshots, readIdeaArchiveStore, readIdeaById, readIdeaSnapshotStore, readTopSweep, readTopSweepRows, releaseIdeaPromotion,
+  recoverBoardIdeaOccurrence, reserveIdeaPromotion, retireUnadmittedThemeIdeas, topNEffectHash, topNHash, updateIdeaSnapshot, writeIdea, writeIdeaIfRevision,
+  type ImportedIdeaArchive,
 } from '../src/news/ideas/ideas-store'
+import { canonicalJsonText } from '../src/canonical-json'
 import {
   directionBoundToVerifiedListing, ideaLineageForRows, themeProofForIdea, tradeEvidenceForIdeaRows,
   verifiedListingsIdentifySameIssuer,
@@ -3186,6 +3188,11 @@ check('withdrawn Theme admission retires every unpromoted Theme-derived snapshot
     source_themes: [sourceTheme],
     ...patch,
   })
+  // A prior, legitimately expired wire call with this stable id must not resurrect after the later Theme
+  // thesis is withdrawn. Retirement overwrites its archive row with a non-projectable suppression marker.
+  writeIdea(dir, validIdeaSnapshot('RETIRE', 'long', { decay_at: '2026-08-03T06:30:00Z' }))
+  assert.equal(pruneExpiredIdeas(dir, Date.parse('2026-08-04T00:00:00Z'), 0), 1)
+  assert.equal(readArchivedIdeaSnapshots(dir).length, 1)
   writeIdea(dir, themeSnapshot('RETIRE', 'theme'))
   writeIdea(dir, themeSnapshot('MIXED', 'mixed'))
   writeIdea(dir, themeSnapshot('PROMOTED', 'theme', {
@@ -3210,6 +3217,10 @@ check('withdrawn Theme admission retires every unpromoted Theme-derived snapshot
   assert.equal(readIdeaById(dir, ideaId('RETIRE', 'long')), null)
   assert.equal(readIdeaById(dir, ideaId('MIXED', 'long')), null, 'a historical mixed label is not independent current wire proof')
   assert.equal(readIdeaById(dir, ideaId('PROMOTED', 'long'))?.status, 'promoted')
+  const archive = readIdeaArchiveStore(dir)
+  assert.equal(archive.snapshots.length, 1, 'withdrawing a Theme version does not erase a distinct prior wire thesis version')
+  assert.equal(archive.snapshots[0].snapshot.origin_type, 'wire')
+  assert.equal(archive.suppression_count, 2)
   fs.rmSync(dir, { recursive: true, force: true })
 })
 
@@ -3264,12 +3275,184 @@ check('snapshot CAS refuses to overwrite a newer lifecycle edit', () => {
   assert.equal(readIdeaById(dir, id)?.promoted_signal_id, 'SIG-new')
   fs.rmSync(dir, { recursive: true, force: true })
 })
-check('promotion reservation prevents double spend and merges into the newest snapshot', () => {
+check('expired prune archives the complete strict snapshot before deleting it and fails closed on archive errors', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-archive-'))
+  const original = validIdeaSnapshot('EXPIRED', 'long', { decay_at: '2026-08-03T06:30:00Z' })
+  writeIdea(dir, original)
+  assert.equal(pruneExpiredIdeas(dir, Date.parse('2026-08-04T00:00:00Z'), 0), 1)
+  assert.equal(readIdeaById(dir, original.idea_id), null)
+  const archive = readIdeaArchiveStore(dir)
+  assert.equal(archive.status, 'ok')
+  assert.equal(archive.snapshots.length, 1)
+  assert.deepEqual(archive.snapshots[0].snapshot, original)
+  assert.equal(archive.snapshots[0].archive_reason, 'expired_pruned')
+  const originalArchivePath = path.join(dir, 'screener', 'ledger', 'ideas_archive',
+    fs.readdirSync(path.join(dir, 'screener', 'ledger', 'ideas_archive')).find((name) => name.startsWith(`${original.idea_id}--`) && name.endsWith('--expired.json'))!)
+  const originalArchiveBytes = fs.readFileSync(originalArchivePath, 'utf8')
+  writeIdea(dir, original)
+  assert.equal(pruneExpiredIdeas(dir, Date.parse('2026-08-05T00:00:00Z'), 0), 1)
+  assert.equal(fs.readFileSync(originalArchivePath, 'utf8'), originalArchiveBytes,
+    'an idempotent retry preserves the first immutable archive timestamp and bytes')
+  const retentionMarker = path.join(dir, 'screener', 'ledger', 'ideas_archive', '.retention-required')
+  fs.unlinkSync(retentionMarker)
+  writeIdea(dir, original)
+  assert.equal(pruneExpiredIdeas(dir, Date.parse('2026-08-06T00:00:00Z'), 0), 1)
+  assert.equal(fs.existsSync(retentionMarker), true, 'a valid retention file repairs its durable required marker')
+
+  const duplicate = validIdeaSnapshot('DUPEARCH', 'short', { decay_at: '2026-08-03T06:30:00Z' })
+  const duplicateBoardRow = { ...duplicate, stale: true }
+  const duplicateRecovery: ImportedIdeaArchive = {
+    schema_version: 'idea-board-recovery/v1', recovered_at: '2026-08-04T00:00:00Z',
+    recovery_reason: 'historical_board_expired',
+    provenance: {
+      source_path: 'screener/board/index.json', source_commit: 'b'.repeat(40),
+      board_generated_at: '2026-08-04T00:00:00Z',
+      source_row_sha256: createHash('sha256').update(canonicalJsonText(duplicateBoardRow)).digest('hex'),
+    },
+    board_row: duplicateBoardRow,
+  }
+  assert.equal(recoverBoardIdeaOccurrence(dir, duplicateRecovery), 'created')
+  writeIdea(dir, duplicate)
+  assert.equal(pruneExpiredIdeas(dir, Date.parse('2026-08-04T00:00:00Z'), 0), 1)
+  const duplicateRead = readIdeaArchiveStore(dir)
+  assert.equal(duplicateRead.snapshots.filter((row) => row.snapshot.idea_id === duplicate.idea_id).length, 1)
+  assert.equal(duplicateRead.imports.some((row) => row.board_row.idea_id === duplicate.idea_id), false,
+    'a complete strict archive wins API projection over the same imported occurrence')
+  const duplicateImportedName = fs.readdirSync(path.join(dir, 'screener', 'ledger', 'ideas_archive'))
+    .find((name) => name.startsWith(`${duplicate.idea_id}--`) && name.endsWith('--imported.json'))!
+  const malformedWithdrawal = duplicateImportedName.replace(/--imported\.json$/, '--withdrawn.json')
+  fs.writeFileSync(path.join(dir, 'screener', 'ledger', 'ideas_archive', malformedWithdrawal), '{')
+  const suppressedDuplicateRead = readIdeaArchiveStore(dir)
+  assert.equal(suppressedDuplicateRead.status, 'degraded')
+  assert.equal(suppressedDuplicateRead.snapshots.some((row) => row.snapshot.idea_id === duplicate.idea_id), false)
+  assert.equal(suppressedDuplicateRead.imports.some((row) => row.board_row.idea_id === duplicate.idea_id), false,
+    'a malformed exact withdrawal filename blocks every sibling occurrence fail closed')
+  writeIdea(dir, duplicate)
+  assert.equal(readIdeaById(dir, duplicate.idea_id), null, 'malformed exact withdrawal bytes also block live resurrection')
+  fs.unlinkSync(path.join(dir, 'screener', 'ledger', 'ideas_archive', malformedWithdrawal))
+  fs.unlinkSync(path.join(dir, 'screener', 'ledger', 'ideas', `${duplicate.idea_id}.json`))
+
+  const offsetEpoch = validIdeaSnapshot('OFFSET', 'long', {
+    idea_version_started_at: '2026-08-03T05:30:00.123+00:00', decay_at: '2026-08-03T06:30:00Z',
+  })
+  writeIdea(dir, offsetEpoch)
+  assert.equal(pruneExpiredIdeas(dir, Date.parse('2026-08-04T00:00:00Z'), 0), 1)
+  const offsetArchive = readIdeaArchiveStore(dir)
+  assert.equal(offsetArchive.status, 'ok')
+  assert.ok(offsetArchive.snapshots.some((row) => row.snapshot.idea_version_started_at === offsetEpoch.idea_version_started_at),
+    'any valid fractional/offset RFC3339 epoch remains a managed hashed archive occurrence')
+
+  const withdrawnBase = validIdeaSnapshot('AUDITKEEP', 'long', { decay_at: '2026-08-03T06:30:00Z' })
+  const proofHeadline = 'AUDITKEEP filing proves direct exposure'
+  const proofUrl = 'https://filings.test/auditkeep-proof'
+  const proofEventId = eventIdFor(proofHeadline, proofUrl)
+  const withdrawn = validIdeaSnapshot('AUDITKEEP', 'long', {
+    decay_at: '2026-08-03T06:30:00Z', origin_type: 'theme',
+    source_event_ids: [...withdrawnBase.source_event_ids, proofEventId],
+    source_headlines: [...withdrawnBase.source_headlines, proofHeadline],
+    source_themes: [{
+      theme_id: 'THM-abcdef12', theme_rev: 1,
+      evidence_event_ids: [...withdrawnBase.source_event_ids, proofEventId],
+      why_now_event_id: withdrawnBase.source_event_ids[0],
+    }],
+  })
+  writeIdea(dir, withdrawn)
+  assert.equal(pruneExpiredIdeas(dir, Date.parse('2026-08-04T00:00:00Z'), 0), 1)
+  writeIdea(dir, withdrawn)
+  assert.equal(retireUnadmittedThemeIdeas(dir, []), 1)
+  const withdrawnFiles = fs.readdirSync(path.join(dir, 'screener', 'ledger', 'ideas_archive'))
+    .filter((name) => name.startsWith(`${withdrawn.idea_id}--${withdrawn.idea_version}--`))
+  assert.equal(withdrawnFiles.length, 2, 'withdrawal tombstone coexists with the immutable expired evidence bytes')
+  assert.ok(withdrawnFiles.some((name) => name.endsWith('--expired.json')))
+  assert.ok(withdrawnFiles.some((name) => name.endsWith('--withdrawn.json')))
+  assert.ok(!readIdeaArchiveStore(dir).snapshots.some((row) => row.snapshot.idea_id === withdrawn.idea_id),
+    'the tombstone suppresses projection without destroying its audit record')
+  writeIdea(dir, withdrawn) // simulate crash residue / a stale writer recreating the exact raw projection
+  assert.equal(readIdeaById(dir, withdrawn.idea_id), null,
+    'a durable withdrawal keeps its exact raw occurrence non-current even when unlink did not stick')
+
+  const retentionPath = path.join(dir, 'screener', 'ledger', 'ideas_archive', 'retention.json')
+  const validRetention = fs.readFileSync(retentionPath, 'utf8')
+  fs.writeFileSync(retentionPath, '{')
+  const damagedRetention = readIdeaArchiveStore(dir)
+  assert.equal(damagedRetention.status, 'degraded')
+  assert.ok(damagedRetention.invalid_count > 0, 'malformed required retention never reports false zero coverage')
+  fs.writeFileSync(retentionPath, validRetention)
+
+  const blocked = validIdeaSnapshot('BLOCKED', 'short', { decay_at: '2026-08-03T06:30:00Z' })
+  writeIdea(dir, blocked)
+  fs.rmSync(path.join(dir, 'screener', 'ledger', 'ideas_archive'), { recursive: true, force: true })
+  fs.writeFileSync(path.join(dir, 'screener', 'ledger', 'ideas_archive'), 'not a directory')
+  assert.equal(pruneExpiredIdeas(dir, Date.parse('2026-08-04T00:00:00Z'), 0), 0)
+  assert.equal(fs.existsSync(path.join(dir, 'screener', 'ledger', 'ideas', `${blocked.idea_id}.json`)), true,
+    'an unreadable archive fails closed without deleting canonical bytes')
+  assert.equal(readIdeaById(dir, blocked.idea_id), null,
+    'unreadable exact tombstone state cannot expose the row until archive storage is repaired')
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('archive enumeration is hard-bounded and overflow refuses further lifecycle mutation', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-archive-overflow-'))
+  const archiveDir = path.join(dir, 'screener', 'ledger', 'ideas_archive')
+  fs.mkdirSync(archiveDir, { recursive: true })
+  for (let i = 0; i <= 1800; i++) {
+    const id = `IDEA-${i.toString(16).padStart(12, '0')}`
+    const occurrence = i.toString(16).padStart(64, '0')
+    fs.writeFileSync(path.join(archiveDir, `${id}--IDEAV-${'a'.repeat(16)}--${occurrence}--long--imported.json`), '{}')
+  }
+  const overflow = readIdeaArchiveStore(dir)
+  assert.equal(overflow.status, 'unreadable')
+  assert.equal(overflow.snapshots.length + overflow.imports.length, 0)
+  assert.equal(overflow.file_count, 1801, 'only the hard cap plus one sentinel is enumerated')
+  const raw = validIdeaSnapshot('OVERFLOW', 'long', { decay_at: '2026-08-03T06:30:00Z' })
+  writeIdea(dir, raw)
+  assert.throws(() => pruneExpiredIdeas(dir, Date.parse('2026-08-04T00:00:00Z'), 0))
+  assert.deepEqual(readIdeaById(dir, raw.idea_id), raw, 'overflow cannot grow the store or unlink canonical bytes')
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('archive writer refuses occurrence 601 before publishing any new bytes', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-archive-occurrence-cap-'))
+  const archiveDir = path.join(dir, 'screener', 'ledger', 'ideas_archive')
+  fs.mkdirSync(archiveDir, { recursive: true })
+  fs.writeFileSync(path.join(archiveDir, 'retention.json'), JSON.stringify({
+    schema_version: 'idea-archive-retention/v1', evicted_count: 0,
+    side_counts: { long: { evicted_count: 0 }, short: { evicted_count: 0 } }, pending_evictions: [],
+  }))
+  fs.writeFileSync(path.join(archiveDir, '.retention-required'), 'required\n')
+  for (let i = 0; i < 600; i++) {
+    const id = `IDEA-${i.toString(16).padStart(12, '0')}`
+    const occurrence = i.toString(16).padStart(64, '0')
+    fs.writeFileSync(path.join(archiveDir, `${id}--IDEAV-${'a'.repeat(16)}--${occurrence}--long--imported.json`), '{}')
+  }
+  const raw = validIdeaSnapshot('CAPFULL', 'long', { decay_at: '2026-08-03T06:30:00Z' })
+  writeIdea(dir, raw)
+  const before = fs.readdirSync(archiveDir).length
+  assert.throws(() => pruneExpiredIdeas(dir, Date.parse('2026-08-04T00:00:00Z'), 0))
+  assert.equal(fs.readdirSync(archiveDir).length, before, 'capacity refusal happens before archive rename')
+  assert.equal(fs.existsSync(path.join(dir, 'screener', 'ledger', 'ideas', `${raw.idea_id}.json`)), true)
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('promotion eligibility and the locked reservation both reject expiry while completed promotion stays idempotent', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-promote-expiry-'))
+  const expiry = Date.parse('2026-08-03T08:00:00Z')
+  const original = validIdeaSnapshot('TOCTOU', 'long', { decay_at: '2026-08-03T08:00:00Z' })
+  writeIdea(dir, original)
+  assert.deepEqual(ideaPromotionEligibility(original, expiry - 1), { status: 'eligible' })
+  assert.deepEqual(ideaPromotionEligibility(original, expiry), { status: 'expired' })
+  assert.equal(reserveIdeaPromotion(dir, original.idea_id, expiry), null, 'locked re-read cannot reserve at the expiry boundary')
+  assert.equal(fs.existsSync(path.join(dir, 'screener', 'ledger', 'ideas', `${original.idea_id}.promotion`)), false)
+  const promoted = { ...original, status: 'promoted' as const, promoted_signal_id: 'SIG-existing' }
+  writeIdea(dir, promoted)
+  assert.deepEqual(ideaPromotionEligibility(promoted, expiry + 86_400_000), {
+    status: 'already_promoted', signal_id: 'SIG-existing',
+  })
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('promotion reservation preserves a concurrent provider refresh when finalizing', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-'))
   const id = ideaId('PROMO', 'long')
   const original = validIdeaSnapshot('PROMO', 'long', {
     reason: 'Old evidence supports the earnings catalyst', updated_at: '2026-08-03T10:00:00Z',
-    decay_at: '2026-08-03T06:30:00Z',
+    decay_at: '2026-08-03T10:05:00Z',
   })
   writeIdea(dir, original)
   const reservation = reserveIdeaPromotion(dir, id, Date.parse('2026-08-03T10:01:00Z'))
@@ -3293,10 +3476,10 @@ check('promotion reservation prevents double spend and merges into the newest sn
     }
   })
   assert.equal(refreshed?.reason, 'New evidence supports the earnings catalyst')
-  assert.equal(pruneExpiredIdeas(dir, Date.parse('2026-08-10T00:00:00Z'), 0), 0, 'an in-flight paid launch cannot be pruned')
+  assert.equal(pruneExpiredIdeas(dir, Date.parse('2026-08-03T10:20:00Z'), 0), 0, 'an in-flight paid launch cannot be pruned')
   finalizeIdeaPromotion(dir, id, reservation!.token, 'SIG-paid', '2026-08-03T10:04:00Z', original)
   const promoted = readIdeaById(dir, id)
-  assert.equal(promoted?.reason, 'New evidence supports the earnings catalyst', 'finalization preserves provider fields refreshed during launch')
+  assert.equal(promoted?.reason, 'New evidence supports the earnings catalyst')
   assert.equal(promoted?.status, 'promoted')
   assert.equal(promoted?.promoted_signal_id, 'SIG-paid')
   fs.rmSync(dir, { recursive: true, force: true })
@@ -3304,13 +3487,41 @@ check('promotion reservation prevents double spend and merges into the newest sn
 check('only a reservation owner can release a pending promotion', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-'))
   const id = ideaId('RELEASE', 'long')
-  const original = validIdeaSnapshot('RELEASE', 'long', { decay_at: '2026-08-03T06:30:00Z' })
+  const original = validIdeaSnapshot('RELEASE', 'long', { decay_at: '2026-08-04T06:30:00Z' })
   writeIdea(dir, original)
   const reservation = reserveIdeaPromotion(dir, id, Date.parse('2026-08-03T10:00:00Z'))!
   releaseIdeaPromotion(dir, id, 'wrong-token')
   assert.equal(reserveIdeaPromotion(dir, id, Date.parse('2026-08-03T10:01:00Z')), null)
   releaseIdeaPromotion(dir, id, reservation.token)
   assert.ok(reserveIdeaPromotion(dir, id, Date.parse('2026-08-03T10:02:00Z')))
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+
+// ---- promotion-reservation path-traversal barrier (security: CodeQL flagged 7 sink sites in
+// writePromotionReservationAtomic / activePromotionReservationUnlocked / releaseIdeaPromotion, all fed by
+// promotionReservationPath(repoRoot, ideaId) — the SAME class of `:id`-route-param-to-filesystem-path flow
+// as readIdeaById above, with no prior regression test). Pins the security contract end to end: a crafted
+// traversal-shaped id can never create, read, or delete anything outside the ideas dir via the promotion
+// API, while a well-formed id still reserves/releases exactly one `.promotion` file INSIDE that dir.
+check('promotion reservation/release refuses a path-traversal id and never escapes the ideas dir', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-promo-traversal-'))
+  const ideasLedgerDir = path.join(dir, 'screener', 'ledger', 'ideas')
+  const outside = path.join(dir, 'screener', 'ledger', 'evil.promotion')
+  const now = Date.parse('2026-08-03T10:00:00Z')
+  for (const evil of ['../evil', '../../../../etc/passwd', 'IDEA-not12hex', 'IDEA-AAAAAAAAAAAA']) {
+    assert.equal(reserveIdeaPromotion(dir, evil, now), null, `reserve must refuse ${evil}`)
+    assert.doesNotThrow(() => releaseIdeaPromotion(dir, evil, 'any-token'), `release must no-op, not throw, for ${evil}`)
+    assert.equal(fs.existsSync(outside), false, `${evil} must never create a file outside the ideas dir`)
+  }
+  // Positive control: a well-formed id still reserves/releases exactly the intended file INSIDE the dir.
+  const id = ideaId('PROMOTRAV', 'long')
+  writeIdea(dir, validIdeaSnapshot('PROMOTRAV', 'long', { decay_at: '2026-08-04T06:30:00Z' }))
+  const reservation = reserveIdeaPromotion(dir, id, now)!
+  assert.ok(reservation)
+  const reservedFile = path.join(ideasLedgerDir, `${id}.promotion`)
+  assert.equal(fs.existsSync(reservedFile), true, 'legitimate reservation lands exactly under the ideas dir')
+  releaseIdeaPromotion(dir, id, reservation.token)
+  assert.equal(fs.existsSync(reservedFile), false, 'legitimate release removes exactly that file')
   fs.rmSync(dir, { recursive: true, force: true })
 })
 

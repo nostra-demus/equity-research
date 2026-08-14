@@ -1189,6 +1189,8 @@ export interface BoardHandoff { handoff_id: string; thesis_id: string; ticker: s
 export interface BoardIdeaPriorCoverage { has_run: boolean; latest_run: string | null; latest_decision: string | null; data_pool_present: boolean }
 export interface BoardIdea {
   idea_id: string
+  idea_version?: string // immutable snapshot key; optional only for a rolling deploy from an older engine
+  idea_version_started_at?: string // version epoch; distinguishes an A→B→A recurrence of the same hash
   ticker: string
   company: string | null
   exchange: string | null // the model's guess, UNVERIFIED
@@ -1222,9 +1224,55 @@ export interface BoardIdea {
   promoted_signal_id: string | null
   feedback: 'up' | 'down' | null // the human's latest 👍/👎 (self-grading loop); null = no vote
   stale: boolean
+  // A committed board-only row can be preserved without inventing the missing strict SurfacedIdea fields.
+  // It remains visible until decay and counts in surfaced/live inventory, but is deliberately read-only.
+  recovery_only?: boolean
+  promotion_available?: boolean
 }
-// The skim's honest track record (no price / no P&L) — surfaced/run counts, how the deep machine graded the
-// runs, and the vote tally. The header shows a confirmation rate only once `resolved` clears a small floor.
+// Earlier news leads are a separate, audit-only projection. They retain the card evidence needed to
+// explain what surfaced, but their expired lifecycle cannot be promoted back into paid research.
+export interface ArchivedBoardIdea extends Omit<BoardIdea, 'idea_version' | 'idea_version_started_at' | 'status' | 'stale' | 'promoted_signal_id'> {
+  idea_version: string
+  idea_version_started_at: string
+  status: 'expired'
+  stale: true
+  promoted_signal_id: null
+  archived_at: string
+  archive_reason: 'expired' | 'expired_pruned' | 'historical_board_expired' | 'latest_board_current'
+  audit_only: true
+}
+export interface IdeasArchiveSideCounts { total_count: number; shown_count: number; hidden_count: number }
+export interface IdeasArchiveHealth {
+  status: 'missing' | 'ok' | 'degraded' | 'unreadable'
+  file_count: number
+  suppression_count: number
+  corrupt_count: number
+  invalid_count: number
+  error: string | null
+}
+export interface IdeasArchiveRetentionSide {
+  evicted_count: number
+  oldest_retained_at: string | null
+}
+export interface IdeasArchiveRetention extends IdeasArchiveRetentionSide {
+  truncated: boolean
+  side_counts: { long: IdeasArchiveRetentionSide; short: IdeasArchiveRetentionSide }
+}
+export interface IdeasArchive {
+  schema_version: 'ideas-archive/v1'
+  health: IdeasArchiveHealth
+  retention: IdeasArchiveRetention
+  total_count: number
+  shown_count: number
+  hidden_count: number
+  side_counts: { long: IdeasArchiveSideCounts; short: IdeasArchiveSideCounts }
+  /** Seen in board history, but not shown as expired because expiry could not be proved. */
+  unconfirmed_counts?: { long: number; short: number }
+  rows: ArchivedBoardIdea[]
+}
+// The skim's honest track record (no price / no P&L). surfaced_total is cumulative known exact occurrences
+// across current, retained, withdrawn, and evicted history; live_count is current within-shelf-life rows.
+// The header shows a confirmation rate only once `resolved` clears a small floor.
 export interface IdeasScorecard {
   surfaced_total: number
   live_count: number
@@ -1561,6 +1609,7 @@ export interface ScreenerBoard {
   // The PM skim's surfaced ideas. Optional: an engine build before this feature emits no `ideas` key, so
   // the cockpit fails closed — the "Best ideas" tab only shows when the server positively sends the array.
   ideas?: BoardIdea[]
+  ideas_archive?: IdeasArchive // expired, audit-only news leads; absent on an older engine
   ideas_scorecard?: IdeasScorecard // the skim's honest track record (absent on an older engine)
   ideas_health?: IdeasHealth // absent on a legacy engine; the UI must not infer success from `ideas: []`
   qualified_ideas?: QualifiedIdeasBoard // full-research 3-6 month gate; never inferred from news leads

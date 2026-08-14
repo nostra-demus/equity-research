@@ -31,6 +31,8 @@ export type IdeasHealthReasonCode =
   | 'stale_health'
   | 'health_corrupt'
   | 'stale_inputs'
+  | 'inputs_changed'
+  | 'publish_failed'
   | 'snapshot_store_error'
   | 'write_conflict'
 
@@ -87,7 +89,7 @@ const REASONS = new Set<IdeasHealthReasonCode>([
   'disabled', 'never_run', 'ingester_disabled', 'insufficient_inputs', 'min_interval', 'inputs_unchanged',
   'missing_api_key', 'provider_cooldown', 'daily_budget', 'paced_budget', 'rate_limiter_busy',
   'provider_error', 'internal_error', 'stale_running', 'stale_health', 'health_corrupt', 'stale_inputs',
-  'snapshot_store_error', 'write_conflict',
+  'inputs_changed', 'publish_failed', 'snapshot_store_error', 'write_conflict',
 ])
 
 function iso(ms: number): string { return new Date(ms).toISOString().replace(/\.\d{3}Z$/, 'Z') }

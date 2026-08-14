@@ -16,6 +16,7 @@ import { refreshBoard } from './write-inbox'
 import { DEFERRED_CAP, inspectDeferredBacklog, loadDeferred, runIngestCycle, triageGroqTokenBound } from './runCycle'
 import { healEnrichCache } from './enrich-heal'
 import { runIdeaPass } from './ideas/run-idea-pass'
+import { publishPendingIdeas } from './ideas/ideas-publisher'
 import { initializeIdeasHealth, inspectIdeaSnapshots, updateIdeasHealth } from './ideas/ideas-health'
 import { runQualifiedIdeaOutcomePass } from '../qualified-idea-outcome-runner'
 import {
@@ -68,6 +69,22 @@ const IDEA_PASS_CONFIG = {
  * standalone launchd cycle). Keeping this in one place prevents production from silently omitting a
  * feature the cockpit-hosted scheduler happens to run. */
 export async function runConfiguredIdeaPass(log: (m: string) => void = () => {}) {
+  // Publication recovery is independent of provider availability. Retry old local Ideas dirt before an
+  // enabled/health early return so disabling the skim cannot strand already-produced canonical data.
+  const publication = await publishPendingIdeas(REPO_ROOT, STATE_DIR, {
+    beforePublish: () => refreshBoard(REPO_ROOT, log, { throwOnFailure: true }),
+  })
+  if (publication.status === 'failed') {
+    const at = Date.now()
+    updateIdeasHealth(STATE_DIR, {
+      enabled: NEWS.ideasEnabled, status: 'degraded', outcome: 'failed', reason_code: 'publish_failed',
+      reason: publication.reason === 'unsafe_branch'
+        ? 'Idea data publication is pending because this checkout is not the production main branch.'
+        : 'Idea data publication is pending after a durable commit/push failure.',
+      next_eligible_at: null, input_count: 0, produced_count: 0,
+    }, at, inspectIdeaSnapshots(REPO_ROOT, at))
+    return { ran: false, produced: 0, note: 'publish_failed', reason_code: 'publish_failed' as const }
+  }
   // The standalone entrypoint deliberately runs Ideas under the provider lease even when title ingestion
   // is disabled. Ideas consumes an already-persisted, freshness-checked sweep and has its own provider
   // registry; NEWS_INGEST_ENABLED must not silently disable this independent coverage path.
@@ -91,7 +108,7 @@ export async function runConfiguredIdeaPass(log: (m: string) => void = () => {})
   }
   return runIdeaPass({
     repoRoot: REPO_ROOT, stateDir: STATE_DIR, config: IDEA_PASS_CONFIG,
-    refreshBoard: () => refreshBoard(REPO_ROOT, log), log, persistHealth: true,
+    refreshBoard: () => refreshBoard(REPO_ROOT, log, { throwOnFailure: true }), log, persistHealth: true,
   })
 }
 

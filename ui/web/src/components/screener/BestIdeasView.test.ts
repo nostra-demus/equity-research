@@ -1,16 +1,20 @@
 import assert from 'node:assert/strict'
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import type { BoardIdea, QualifiedIdeaEvaluation, QualifiedIdeasBoard } from '../../lib/types'
+import type { ArchivedBoardIdea, BoardIdea, IdeasArchive, QualifiedIdeaEvaluation, QualifiedIdeasBoard } from '../../lib/types'
 import {
+  archivedIdeasForSide,
   currentQualifiedIdeasForSide,
+  EarlierNewsLeadArchive,
   IdeasSidePanel,
   IdeasTabs,
   NewsLeadCard,
+  NewsIdeasTimeline,
   QualifiedIdeaCard,
   ideaScorePresentation,
   ideaThemeAttribution,
   ideasForSide,
+  ideasTimelineForSide,
   leadResearchPriorityValue,
   newsLeadQueueEmptyMessage,
   normalizeQualifiedIdeaRow,
@@ -57,6 +61,11 @@ const mixedIdeas = [
 
 assert.deepEqual(ideasForSide(mixedIdeas, 'long', nowMs).map((row) => row.idea_id), ['long-live', 'pair-live'])
 assert.deepEqual(ideasForSide(mixedIdeas, 'short', nowMs).map((row) => row.idea_id), ['short-live', 'pair-live'])
+const clockLead = idea('clock-transition', 'long', { decay_at: '2026-08-12T12:00:01Z' })
+assert.deepEqual(ideasForSide([clockLead], 'long', nowMs).map((row) => row.idea_id), ['clock-transition'])
+assert.deepEqual(ideasForSide([clockLead], 'long', nowMs + 1_000), [], 'the client clock removes a lead at its shelf-life boundary')
+const malformedExpiryLead = idea('malformed-expiry', 'long', { decay_at: 'not-rfc3339' })
+assert.deepEqual(ideasForSide([malformedExpiryLead], 'long', nowMs), [], 'a malformed shelf-life timestamp fails closed out of current leads')
 
 const qualified = (ideaId: string, direction: 'long' | 'short', horizonEnd = '2026-12-10T10:00:00Z') => {
   const ticker = ideaId.toUpperCase().replace(/[^-A-Z0-9.]/g, '').slice(0, 20)
@@ -657,6 +666,8 @@ assert.equal(leadResearchPriorityValue({ trade_score: 62, conviction: 80, trade_
 assert.equal(leadResearchPriorityValue({ trade_score: 88, conviction: 90, trade_score_basis: 'pre_edge_proxy_legacy' }), 88, 'the unversioned legacy proxy is labelled rather than silently reinterpreted')
 
 const newsLead = idea('lead-jazz', 'long', {
+  idea_version: 'IDEAV-1111111111111111',
+  idea_version_started_at: '2026-08-12T08:00:00Z',
   ticker: 'JAZZ', company: 'Jazz Pharmaceuticals', exchange: 'NASDAQ',
   reason: 'A new filing may change the earnings path.', why_now: 'The next results window is approaching.',
   conviction: 58, conviction_basis: 'pre_edge_proxy', trade_score: 62, trade_score_basis: 'evidence_gate_v2',
@@ -665,6 +676,7 @@ const newsLead = idea('lead-jazz', 'long', {
   priced_in: 'unknown', thesis_type: 'company_specific', status: 'live',
   source_headlines: ['Jazz files an operating update'], source_name: 'Primary filing',
   source_url: 'https://example.test/jazz-update', newest_source_at: '2026-08-12T11:00:00Z',
+  surfaced_at: '2026-08-12T08:00:00Z', updated_at: '2026-08-12T08:00:00Z',
 })
 const newsLeadHtml = renderToStaticMarkup(createElement(NewsLeadCard, { idea: newsLead, side: 'long' }))
 assert.match(newsLeadHtml, /unverified news-only lead/)
@@ -672,31 +684,251 @@ assert.match(newsLeadHtml, /lead research priority/)
 assert.match(newsLeadHtml, />62<span class="bidea__readden">\/100/)
 assert.doesNotMatch(newsLeadHtml, /trade readiness/i)
 
+const recoveredCurrentLead = {
+  ...newsLead,
+  recovery_only: true,
+  promotion_available: false,
+}
+const recoveredCurrentHtml = renderToStaticMarkup(createElement(NewsLeadCard, {
+  idea: recoveredCurrentLead, side: 'long',
+}))
+assert.match(recoveredCurrentHtml, /Read-only recovery/)
+assert.doesNotMatch(recoveredCurrentHtml, /Run the full machine|Confirm · run the machine|Rate this idea/, 'a board-only recovery has no mutation action')
+
+const secondNewsLead = { ...newsLead, idea_id: 'lead-incy', ticker: 'INCY', company: 'Incyte' }
+const thirdNewsLead = { ...newsLead, idea_id: 'lead-biib', ticker: 'BIIB', company: 'Biogen' }
+const archivedLead = (
+  ideaId: string,
+  direction: BoardIdea['direction'],
+  patch: Partial<ArchivedBoardIdea> = {},
+): ArchivedBoardIdea => ({
+  ...newsLead,
+  idea_id: ideaId,
+  idea_version: 'IDEAV-1111111111111111',
+  idea_version_started_at: '2026-08-10T08:00:00Z',
+  direction,
+  pair_with: direction === 'pair' ? 'PAIR-SHORT' : null,
+  decay_at: '2026-08-11T12:00:00Z',
+  status: 'expired',
+  stale: true,
+  promoted_signal_id: null,
+  archived_at: '2026-08-11T12:00:00Z',
+  archive_reason: 'expired_pruned',
+  audit_only: true,
+  ...patch,
+})
+const archiveLong = archivedLead('archive-long', 'long', { ticker: 'OLDLONG', decay_at: '2026-08-11T11:30:00Z', archived_at: '2026-08-11T11:30:00Z' })
+const recoveredArchiveLong = archivedLead('archive-recovered', 'long', {
+  ticker: 'RECOVERED', archive_reason: 'historical_board_expired',
+  recovery_only: true, promotion_available: false,
+})
+const archiveShort = archivedLead('archive-short', 'short', { ticker: 'OLDSHORT', archived_at: '2026-08-11T12:00:00Z' })
+const archivePair = archivedLead('archive-pair', 'pair', { ticker: 'PAIR-LONG', pair_with: 'PAIR-SHORT', decay_at: '2026-08-11T10:30:00Z', archived_at: '2026-08-11T10:30:00Z' })
+const staleCurrentLead = { ...newsLead, idea_id: 'current-stale', ticker: 'STALE', decay_at: '2026-08-11T11:00:00Z' }
+const malformedCurrentLead = { ...newsLead, idea_id: 'current-malformed', ticker: 'BADDATE', decay_at: 'not-rfc3339' }
+const promotedStaleLead = { ...newsLead, idea_id: 'promoted-stale', ticker: 'PROMOTED', status: 'promoted' as const, stale: true, promoted_signal_id: 'signal-1' }
+const refreshedCurrentLead = { ...newsLead, idea_id: 'refreshed', ticker: 'FRESH', decay_at: '2026-08-13T12:00:00Z' }
+const ideasArchive: IdeasArchive = {
+  schema_version: 'ideas-archive/v1',
+  health: {
+    status: 'ok', file_count: 5, suppression_count: 0, corrupt_count: 0, invalid_count: 0, error: null,
+  },
+  retention: {
+    truncated: false, evicted_count: 0, oldest_retained_at: '2026-08-11T10:00:00Z',
+    side_counts: {
+      long: { evicted_count: 0, oldest_retained_at: '2026-08-11T10:00:00Z' },
+      short: { evicted_count: 0, oldest_retained_at: '2026-08-11T10:30:00Z' },
+    },
+  },
+  total_count: 7,
+  shown_count: 7,
+  hidden_count: 0,
+  side_counts: {
+    long: { total_count: 6, shown_count: 6, hidden_count: 0 },
+    short: { total_count: 2, shown_count: 2, hidden_count: 0 },
+  },
+  unconfirmed_counts: { long: 0, short: 7 },
+  rows: [
+    archiveLong,
+    archiveShort,
+    archivePair,
+    archivedLead('current-stale', 'long', { idea_version_started_at: '2026-08-12T08:00:00Z', ticker: 'STALE-DUPLICATE' }),
+    archivedLead('refreshed', 'long', { idea_version_started_at: '2026-08-12T08:00:00Z', ticker: 'EXPIRED-DUPLICATE' }),
+    archivedLead('refreshed', 'long', { idea_version: 'IDEAV-2222222222222222', idea_version_started_at: '2026-08-09T08:00:00Z', ticker: 'FRESH', decay_at: '2026-08-10T12:00:00Z', archived_at: '2026-08-10T12:00:00Z' }),
+    archivedLead('refreshed', 'long', { idea_version: 'IDEAV-3333333333333333', idea_version_started_at: '2026-08-08T08:00:00Z', ticker: 'FRESH', decay_at: '2026-08-09T12:00:00Z', archived_at: '2026-08-09T12:00:00Z' }),
+  ],
+}
+const currentLeadRows = [newsLead, staleCurrentLead, malformedCurrentLead, promotedStaleLead, refreshedCurrentLead]
+const longArchiveView = archivedIdeasForSide(currentLeadRows, ideasArchive, 'long', nowMs)
+const shortArchiveView = archivedIdeasForSide(currentLeadRows, ideasArchive, 'short', nowMs)
+assert.deepEqual(longArchiveView.ideas.map((row) => `${row.idea_id}|${row.idea_version || 'legacy'}|${row.idea_version_started_at}`), [
+  'archive-long|IDEAV-1111111111111111|2026-08-10T08:00:00Z',
+  'current-stale|IDEAV-1111111111111111|2026-08-12T08:00:00Z',
+  'archive-pair|IDEAV-1111111111111111|2026-08-10T08:00:00Z',
+  'refreshed|IDEAV-2222222222222222|2026-08-09T08:00:00Z',
+  'refreshed|IDEAV-3333333333333333|2026-08-08T08:00:00Z',
+  'current-malformed|IDEAV-1111111111111111|2026-08-12T08:00:00Z',
+])
+assert.deepEqual(shortArchiveView.ideas.map((row) => row.idea_id), ['archive-short', 'archive-pair'])
+assert.deepEqual(
+  { total: longArchiveView.totalCount, shown: longArchiveView.shownCount, hidden: longArchiveView.hiddenCount },
+  { total: 6, shown: 6, hidden: 0 },
+  'archive counts come from the active side rather than the global unique-row wrapper',
+)
+assert.equal(new Set(longArchiveView.ideas.map((row) => `${row.idea_id}|${row.idea_version || 'legacy'}|${row.idea_version_started_at}`)).size, longArchiveView.ideas.length, 'archive rows dedupe by exact thesis-version epoch')
+assert.equal(longArchiveView.ideas.filter((row) => row.idea_id === 'refreshed').length, 2, 'a new current epoch suppresses only its exact archive duplicate, not prior thesis versions')
+assert.doesNotMatch(longArchiveView.ideas.map((row) => `${row.idea_id}|${row.idea_version}|${row.idea_version_started_at}`).join(','), /refreshed\|IDEAV-1111111111111111\|2026-08-12T08:00:00Z|promoted-stale/, 'the exact current epoch and promoted snapshots stay out of audit history')
+
+const repeatedHashArchive = {
+  ...ideasArchive,
+  total_count: 8,
+  shown_count: 8,
+  side_counts: { ...ideasArchive.side_counts, long: { total_count: 7, shown_count: 7, hidden_count: 0 } },
+  rows: [...ideasArchive.rows, archivedLead('refreshed', 'long', {
+    idea_version: 'IDEAV-1111111111111111',
+    idea_version_started_at: '2026-08-01T08:00:00Z',
+    ticker: 'FRESH', decay_at: '2026-08-02T12:00:00Z', archived_at: '2026-08-02T12:00:00Z',
+  })],
+}
+assert.equal(archivedIdeasForSide(currentLeadRows, repeatedHashArchive, 'long', nowMs).ideas.filter((row) => row.idea_id === 'refreshed').length, 3, 'A→B→A hash reuse remains distinct by version-start epoch')
+assert.deepEqual(archivedIdeasForSide([clockLead], null, 'long', nowMs).ideas, [])
+assert.deepEqual(archivedIdeasForSide([clockLead], null, 'long', nowMs + 1_000).ideas.map((row) => row.idea_id), ['clock-transition'], 'the same clock tick moves an expired row into the audit lane')
+assert.deepEqual(archivedIdeasForSide([malformedExpiryLead], null, 'long', nowMs).ideas.map((row) => row.idea_id), ['malformed-expiry'], 'malformed expiry fails closed into audit-only history')
+assert.deepEqual(archivedIdeasForSide([staleCurrentLead], null, 'long', nowMs).ideas.map((row) => row.idea_id), ['current-stale'], 'older servers without the wrapper retain currently stale board rows')
+assert.equal(archivedIdeasForSide([staleCurrentLead], undefined, 'long', nowMs).health, null, 'an absent legacy wrapper is not falsely called corrupt')
+
+const archivedCardHtml = renderToStaticMarkup(createElement(NewsLeadCard, { idea: archiveLong, side: 'long', auditOnly: true }))
+assert.match(archivedCardHtml, /expired lead · audit only/)
+assert.match(archivedCardHtml, /past shelf life since/)
+assert.match(archivedCardHtml, /historical lead research priority/)
+assert.doesNotMatch(archivedCardHtml, /Rate this idea|Run the full machine|bidea__actions/, 'audit cards have no feedback or promotion action')
+assert.deepEqual(
+  archivedIdeasForSide([], {
+    ...ideasArchive,
+    total_count: 1, shown_count: 1, hidden_count: 0,
+    side_counts: {
+      long: { total_count: 1, shown_count: 1, hidden_count: 0 },
+      short: { total_count: 0, shown_count: 0, hidden_count: 0 },
+    },
+    rows: [recoveredArchiveLong],
+  }, 'long', nowMs).ideas.map((row) => row.idea_id),
+  ['archive-recovered'],
+  'strict archive normalization retains historical board recovery reasons',
+)
+
+const degradedArchiveView = archivedIdeasForSide([], {
+  ...ideasArchive,
+  health: { ...ideasArchive.health, status: 'degraded', corrupt_count: 1, error: 'one corrupt record' },
+}, 'long', nowMs)
+const degradedArchiveHtml = renderToStaticMarkup(createElement(EarlierNewsLeadArchive, { view: degradedArchiveView, side: 'long' }))
+assert.match(degradedArchiveHtml, /inventory incomplete · audit only/)
+assert.match(degradedArchiveHtml, /Archive inventory is incomplete because some stored earlier leads could not be read\./)
+assert.doesNotMatch(degradedArchiveHtml, /6 retained/, 'an incomplete archive does not claim an exact complete retained count')
+
+const truncatedArchiveView = archivedIdeasForSide([], {
+  ...ideasArchive,
+  retention: {
+    ...ideasArchive.retention,
+    truncated: true,
+    evicted_count: 9,
+    side_counts: {
+      ...ideasArchive.retention.side_counts,
+      long: { ...ideasArchive.retention.side_counts.long, evicted_count: 7 },
+    },
+  },
+}, 'long', nowMs)
+const truncatedArchiveHtml = renderToStaticMarkup(createElement(EarlierNewsLeadArchive, { view: truncatedArchiveView, side: 'long' }))
+assert.match(truncatedArchiveHtml, /6 retained · 7 older omitted · audit only/)
+assert.match(truncatedArchiveHtml, /This is bounded history: 7 older LONG lead revisions were omitted from retained history\./)
+assert.doesNotMatch(truncatedArchiveHtml, /6 total/)
+
+const malformedWrapperFallback = archivedIdeasForSide([staleCurrentLead], {
+  ...ideasArchive,
+  shown_count: 4,
+}, 'long', nowMs)
+assert.deepEqual(malformedWrapperFallback.ideas.map((row) => row.idea_id), ['current-stale'], 'invalid global counts reject the wrapper without losing rolling-deploy fallback rows')
+assert.equal(malformedWrapperFallback.health?.status, 'unreadable', 'a malformed new wrapper is visibly incomplete rather than mistaken for a legacy omission')
+assert.equal(archivedIdeasForSide([staleCurrentLead], {
+  ...ideasArchive,
+  side_counts: { ...ideasArchive.side_counts, long: { total_count: 6, shown_count: 5, hidden_count: 1 } },
+}, 'long', nowMs).health?.status, 'unreadable', 'side counts must reconcile with the actual side-partitioned rows')
+assert.equal(archivedIdeasForSide([staleCurrentLead], {
+  ...ideasArchive,
+  rows: ideasArchive.rows.map((row, index) => index === 0 ? { ...row, idea_version: 'bad-version' } : row),
+}, 'long', nowMs).health?.status, 'unreadable', 'archive rows require an immutable version key')
+const malformedHistoryCounts = archivedIdeasForSide([], {
+  ...ideasArchive,
+  unconfirmed_counts: { long: 0, short: -1 },
+}, 'short', nowMs)
+assert.equal(malformedHistoryCounts.health?.status, 'ok', 'invalid optional history metadata does not hide valid saved rows')
+assert.equal(malformedHistoryCounts.unconfirmedCount, null, 'invalid history metadata stays unknown rather than becoming zero')
+
+const longTimeline = ideasTimelineForSide(currentLeadRows, ideasArchive, 'long', nowMs)
+assert.ok(longTimeline.rows.some((row) => row.idea.idea_id === 'promoted-stale' && row.status === 'promoted'), 'a stale promoted lead remains visible as sent to full research')
+assert.ok(longTimeline.rows.some((row) => row.idea.idea_id === 'archive-long' && row.status === 'expired'), 'expired history is in the same timeline')
+assert.equal(new Set(longTimeline.rows.map((row) => row.key)).size, longTimeline.rows.length, 'the unified timeline never repeats an exact occurrence')
+assert.ok(longTimeline.rows.findIndex((row) => row.status === 'promoted') < longTimeline.rows.findIndex((row) => row.status === 'expired'), 'sent-to-research rows stay above expired history')
+
+const pagedTimelineRows = Array.from({ length: 25 }, (_, index) => ({
+  ...newsLead,
+  idea_id: `timeline-${index}`,
+  idea_version_started_at: `2026-08-12T${String(index % 24).padStart(2, '0')}:00:00Z`,
+  ticker: `ROW${index}`,
+}))
+const pagedTimelineHtml = renderToStaticMarkup(createElement(NewsIdeasTimeline, {
+  currentIdeas: pagedTimelineRows, archiveValue: null, side: 'long', nowMs,
+}))
+assert.equal(pagedTimelineHtml.match(/<article/g)?.length, 20, 'the timeline starts with a small 20-row page')
+assert.match(pagedTimelineHtml, /Show more/)
+assert.match(pagedTimelineHtml, /20 of 25/)
+assert.match(pagedTimelineHtml, /Some older records could not be checked\./,
+  'missing history-audit metadata is visibly unknown rather than a false complete-history claim')
+
+const shortHistoryWarningHtml = renderToStaticMarkup(createElement(NewsIdeasTimeline, {
+  currentIdeas: [], archiveValue: ideasArchive, side: 'short', nowMs,
+}))
+assert.match(shortHistoryWarningHtml, /7 older records could not be confirmed\./)
+assert.doesNotMatch(shortHistoryWarningHtml, /7 expired/, 'unconfirmed history is never called expired')
+
 const emptyWithLeadHtml = renderToStaticMarkup(createElement(IdeasSidePanel, {
-  panelSide: 'long', activeSide: 'long', leadRows: [newsLead], leadsAvailable: true,
+  panelSide: 'long', activeSide: 'long', leadRows: [newsLead, secondNewsLead, thirdNewsLead], leadsAvailable: true,
   leadHealth: { schema_version: 'ideas-health/v1', status: 'healthy' },
   qualifiedRuntime: checkedEmptyQualifiedBoard, nowMs,
 }))
 assert.match(emptyWithLeadHtml, /Qualified 3–6 month ideas/)
 assert.match(emptyWithLeadHtml, /No qualified LONG 3–6 month idea\./)
 assert.match(emptyWithLeadHtml, /For this side, default to no position\./)
-assert.match(emptyWithLeadHtml, /<details class="bideas__queue">/, 'the unverified queue is collapsed by default')
-assert.match(emptyWithLeadHtml, /News lead research queue/)
-assert.match(emptyWithLeadHtml, /1 unverified news lead · not recommendations/)
+assert.match(emptyWithLeadHtml, /All saved LONG ideas/)
+assert.match(emptyWithLeadHtml, /3 saved/)
+assert.doesNotMatch(emptyWithLeadHtml, /Earlier news leads · past shelf life/)
+assert.match(emptyWithLeadHtml, /Jazz Pharmaceuticals/)
+assert.match(emptyWithLeadHtml, /Incyte/)
+assert.match(emptyWithLeadHtml, /Biogen/)
 assert.ok(
   emptyWithLeadHtml.indexOf('No qualified LONG 3–6 month idea.') < emptyWithLeadHtml.indexOf('Jazz Pharmaceuticals'),
   'a live 62/100 lead remains secondary to the explicit no-qualified result',
 )
 
+const archivePanelHtml = renderToStaticMarkup(createElement(IdeasSidePanel, {
+  panelSide: 'long', activeSide: 'long', leadRows: currentLeadRows, leadArchive: ideasArchive, leadsAvailable: true,
+  leadHealth: { schema_version: 'ideas-health/v1', status: 'healthy' },
+  qualifiedRuntime: checkedEmptyQualifiedBoard, nowMs,
+}))
+assert.match(archivePanelHtml, /All saved LONG ideas/)
+assert.match(archivePanelHtml, /Sent to full research/, 'a promoted stale idea is visible in the timeline')
+assert.match(archivePanelHtml, /Saved record · view only/)
+assert.match(archivePanelHtml, /The saved list may be incomplete\./)
+
 const qualifiedWithLeadHtml = renderToStaticMarkup(createElement(IdeasSidePanel, {
-  panelSide: 'long', activeSide: 'long', leadRows: [newsLead], leadsAvailable: true,
+  panelSide: 'long', activeSide: 'long', leadRows: [newsLead, secondNewsLead, thirdNewsLead], leadsAvailable: true,
   leadHealth: { schema_version: 'ideas-health/v1', status: 'healthy' },
   qualifiedRuntime: normalizedQualifiedBoard, nowMs,
 }))
 assert.match(qualifiedWithLeadHtml, /2 current/)
 assert.match(qualifiedWithLeadHtml, /Ranked on risk\/return frontiers: policy-adjusted return against tail loss, worst case, and loss probability; evidence confidence orders each frontier\./)
+assert.match(qualifiedWithLeadHtml, /All saved LONG ideas/)
 assert.ok(
-  qualifiedWithLeadHtml.indexOf('QUALIFIED-LONG') < qualifiedWithLeadHtml.indexOf('News lead research queue'),
+  qualifiedWithLeadHtml.indexOf('QUALIFIED-LONG') < qualifiedWithLeadHtml.indexOf('All saved LONG ideas'),
   'qualified risk/return ordering remains the primary surface when research calls exist',
 )
 
@@ -716,8 +948,7 @@ const unavailableQueueHtml = renderToStaticMarkup(createElement(IdeasSidePanel, 
   panelSide: 'long', activeSide: 'long', leadRows: [], leadsAvailable: false,
   leadHealth: null, qualifiedRuntime: checkedEmptyQualifiedBoard, nowMs,
 }))
-assert.match(unavailableQueueHtml, /availability unknown · unverified · not recommendations/)
-assert.doesNotMatch(unavailableQueueHtml, /0 unverified news leads/)
+assert.match(unavailableQueueHtml, /No saved LONG ideas yet\./)
 
 const qualifiedCardIdea = qualified('XYZ', 'long')
 qualifiedCardIdea.candidate.run_root = 'analyses/XYZ_2026-08-12'

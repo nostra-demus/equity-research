@@ -9,18 +9,31 @@
 # run's commit can't sweep in another run's in-flight files.
 #
 # Usage:  commit-run.sh "<commit message>" -- <pathspec> [<pathspec> ...]
+#         commit-run.sh --retry-push <expected-head-sha>
 # Prints: COMMIT_SHA=<sha>   on a successful commit (and push)
 #         NOOP=1             when nothing matched the pathspecs (idempotent)
 # Exit:   0 ok/noop; 2 usage; 3 unrelated staged changes; 4 committed locally but
 #         not pushed (origin moved + unsafe to auto-rebase); 5 add/validation/commit failed.
 set -u
 
-MSG="${1:-}"
-shift || true
-[ "${1:-}" = "--" ] && shift
-if [ -z "$MSG" ] || [ "$#" -eq 0 ]; then
-  echo "usage: commit-run.sh \"<message>\" -- <pathspec> [<pathspec> ...]" >&2
-  exit 2
+RETRY_SHA=""
+if [ "${1:-}" = "--retry-push" ]; then
+  RETRY_SHA="${2:-}"
+  case "$RETRY_SHA" in
+    *[!0-9a-f]*|'') echo "commit-run: retry needs a lowercase commit SHA" >&2; exit 2 ;;
+  esac
+  [ "${#RETRY_SHA}" -eq 40 ] || [ "${#RETRY_SHA}" -eq 64 ] || { echo "commit-run: retry needs a 40/64-char commit SHA" >&2; exit 2; }
+  shift 2
+  [ "$#" -eq 0 ] || { echo "commit-run: retry mode accepts no pathspecs" >&2; exit 2; }
+  MSG=""
+else
+  MSG="${1:-}"
+  shift || true
+  [ "${1:-}" = "--" ] && shift
+  if [ -z "$MSG" ] || [ "$#" -eq 0 ]; then
+    echo "usage: commit-run.sh \"<message>\" -- <pathspec> [<pathspec> ...]" >&2
+    exit 2
+  fi
 fi
 
 TOP="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo "commit-run: not a git repo" >&2; exit 2; }
@@ -71,6 +84,25 @@ then
 fi
 
 # ---- commit only these pathspecs, safely ----
+if [ -n "$RETRY_SHA" ]; then
+  [ "$(git symbolic-ref --quiet HEAD 2>/dev/null)" = "refs/heads/main" ] || {
+    echo "commit-run: retry refused outside the production main branch" >&2
+    exit 4
+  }
+  CURRENT_SHA="$(git rev-parse HEAD 2>/dev/null)" || exit 4
+  [ "$CURRENT_SHA" = "$RETRY_SHA" ] || {
+    echo "commit-run: retry target no longer matches HEAD" >&2
+    echo "COMMIT_SHA=$CURRENT_SHA"
+    exit 4
+  }
+  if git fetch -q origin main 2>/dev/null && git merge-base --is-ancestor HEAD origin/main 2>/dev/null; then
+    echo "COMMIT_SHA=$CURRENT_SHA"
+    exit 0
+  fi
+  # Continue into the same authenticated, serialized push/rebase path below. No staging or commit is
+  # allowed in retry mode; the expected SHA proves exactly which ambiguous local commit is being retried.
+  SHA="$CURRENT_SHA"
+else
 # the engine never pre-stages; anything already staged means something is wrong, so refuse.
 if ! git diff --cached --quiet; then
   echo "commit-run: refusing — unrelated changes are already staged" >&2
@@ -151,11 +183,12 @@ if ! git commit -q -m "$MSG"; then
   exit 5
 fi
 SHA="$(git rev-parse HEAD)"
+fi
 
 # Validation / dry-run: commit locally but DO NOT push to origin/main. Lets the cheap real validations
 # (a single-module run, a master rerun) produce their outputs on the CURRENT branch without touching
 # main. Enable by setting ENGINE_NO_PUSH=1 in the run's environment.
-if [ "${ENGINE_NO_PUSH:-}" = "1" ]; then
+if [ -z "$RETRY_SHA" ] && [ "${ENGINE_NO_PUSH:-}" = "1" ]; then
   echo "commit-run: ENGINE_NO_PUSH=1 — committed locally ($SHA); NOT pushing to origin/main" >&2
   echo "COMMIT_SHA=$SHA"
   exit 0

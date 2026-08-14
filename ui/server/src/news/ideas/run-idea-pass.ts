@@ -34,6 +34,7 @@ import {
   inspectIdeaSnapshots, inspectPersistedIdeasHealth, updateIdeasHealth, type IdeasHealthReasonCode,
 } from './ideas-health'
 import type { OverflowProvider } from '../../config'
+import { markIdeasPublicationPending, publishPendingIdeas, type IdeasPublishResult } from './ideas-publisher'
 import { randomUUID } from 'node:crypto'
 
 export interface IdeaPassConfig {
@@ -102,6 +103,8 @@ export interface IdeaPassDeps {
   sleep?: (ms: number) => Promise<void>
   log?: (m: string) => void
   persistHealth?: boolean
+  /** Test/embedding seam. Omitted uses the guarded production publisher (plain temp repos no-op). */
+  publishIdeas?: () => Promise<IdeasPublishResult>
   /** Internal durable hand-off invoked immediately before provider-budget reservation. */
   markProviderDispatch?: (providerId: string, at: number) => void
 }
@@ -844,7 +847,26 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
   const health = (patch: Parameters<typeof updateIdeasHealth>[1], at = now()) => {
     if (deps.persistHealth) updateIdeasHealth(deps.stateDir, patch, at, inspectIdeaSnapshots(deps.repoRoot, at))
   }
+  const publish = deps.publishIdeas || (() => publishPendingIdeas(deps.repoRoot, deps.stateDir, {
+    nowMs: now(), beforePublish: deps.refreshBoard,
+  }))
+  const publishFailure = (result: Extract<IdeasPublishResult, { status: 'failed' }>, at = now()): IdeaPassResult => {
+    const counts = inspectIdeaSnapshots(deps.repoRoot, at)
+    const reason = result.reason === 'unsafe_branch'
+      ? 'Idea data publication is pending because this checkout is not the production main branch.'
+      : 'Idea data publication is pending after a durable commit/push failure.'
+    health({
+      enabled: true, status: counts.live_count + counts.stale_count > 0 ? 'degraded' : 'error',
+      outcome: 'failed', reason_code: 'publish_failed', reason, next_eligible_at: null,
+      input_count: 0, produced_count: 0,
+    }, at)
+    return { ran: false, produced: 0, note: reason, reason_code: 'publish_failed' }
+  }
   try {
+    // Retry a prior crash/failure (and bootstrap pre-marker dirty Ideas data) before every provider/hash/
+    // health early return. A publication fault stops new mutations instead of widening local-only drift.
+    const recoveredPublication = await publish()
+    if (recoveredPublication.status === 'failed') return publishFailure(recoveredPublication)
     const inputAt = now()
     const configuredInputMaxAgeHrs = Number.isFinite(c.inputMaxAgeHrs) && Number(c.inputMaxAgeHrs) > 0
       ? Number(c.inputMaxAgeHrs)
@@ -896,10 +918,25 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
     // guard. An unreadable partition must not make a valid theme appear withdrawn and trigger deletion.
     // Mixed calls retain independent wire support; promoted and in-flight calls remain lifecycle-owned.
     const retired = retireUnadmittedThemeIdeas(deps.repoRoot, allRows)
-    if (retired > 0) await deps.refreshBoard()
+    if (retired > 0) {
+      markIdeasPublicationPending(deps.stateDir, now())
+      await deps.refreshBoard()
+      const publication = await publish()
+      if (publication.status === 'failed') return publishFailure(publication)
+    }
 
     const hash = topNHash(allRows)
     const effectHash = topNEffectHash(allRows)
+    // Must mirror the initial sweep's options EXACTLY — `allEligible` included. `hash`/`effectHash` are
+    // computed over that read's rows, so a re-read on narrower options compares a different row set and
+    // would report a phantom input change on every pass whose candidate set is wider than one chunk.
+    const sourceInputsStillCurrent = (): boolean => {
+      const current = readTopSweep(deps.repoRoot, c.topN, {
+        nowMs: now(), maxAgeMs: inputMaxAgeHrs * 3_600_000, themesEnabled: c.themesEnabled !== false,
+        allEligible: true,
+      })
+      return current.status === 'ok' && topNHash(current.rows) === hash && topNEffectHash(current.rows) === effectHash
+    }
     const inputKey = (row: IdeaInputRow) => `${topNHash([row])}:${topNEffectHash([row])}`
     const rankedInputKeys = allRows.map(inputKey)
     const currentInputKeySet = new Set(rankedInputKeys)
@@ -1266,6 +1303,11 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
     const seen = new Set<string>()
     const newRawIdeaCount = r.ideas.filter((raw) => !completedIdeaIds.has(ideaId(raw.ticker, raw.direction))).length
     const persistedVersions = new Map<string, string>()
+    // `input_keys` travels with each prepared row because persistence happens in a second loop, after the
+    // source rows that produced it have gone out of scope. The completion claim must name the exact inputs
+    // this call was paid for, so the next pass can tell a settled envelope from an unpaid one.
+    const prepared: { id: string; version: string; template: SurfacedIdea; input_keys: string[] }[] = []
+    let sourceChangedDuringPass = false
     let writeConflicts = 0
     for (const raw of r.ideas) {
       const id = ideaId(raw.ticker, raw.direction)
@@ -1309,6 +1351,7 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
       })
       const tradeEvidence = tradeEvidenceForIdeaRows(srcRows)
       const verifiedListing = await verifyEquityListing(raw.ticker, raw.company, deps.fetchFn || fetch)
+      if (!sourceInputsStillCurrent()) { sourceChangedDuringPass = true; break }
       let verifiedPairListing: Awaited<ReturnType<typeof verifyEquityListing>> = null
       if (raw.direction === 'pair') {
         // A pair asserts that BOTH legs are tradable listed equities. Theme/mixed inputs bind the second
@@ -1323,6 +1366,7 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
           pairCompanyName || undefined,
           deps.fetchFn || fetch,
         )
+        if (!sourceInputsStillCurrent()) { sourceChangedDuringPass = true; break }
         if (!verifiedPairListing || verifiedListingsIdentifySameIssuer(verifiedListing, verifiedPairListing)) continue
       }
       const persistedPairTicker = raw.direction === 'pair' ? verifiedPairListing!.ticker : null
@@ -1364,21 +1408,10 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
       if (!directionMatchesEvidence(raw.direction, boundDirection)) continue
       seen.add(id)
       const coverage = priorCoverage(deps.repoRoot, raw.ticker)
-      let saved = false
-      for (let attempt = 0; attempt < 3 && !saved; attempt++) {
-        // Listing verification awaited above. Re-read lifecycle state now, then CAS the exact revision so
-        // a concurrent promote/decay edit cannot be silently reverted by this older provider result.
-        const current = readIdeaById(deps.repoRoot, id)
-        const versionStartedAt = current?.idea_version === version
-          ? (current.idea_version_started_at || current.updated_at || nowIso)
-          : nowIso
-        const currentUpdated = current?.updated_at && Date.parse(current.updated_at) > Date.parse(nowIso)
-          ? current.updated_at
-          : nowIso
-        const idea: SurfacedIdea = {
+      prepared.push({ id, version, input_keys: [...new Set(srcRows.map(inputKey))], template: {
           idea_id: id,
           idea_version: version,
-          idea_version_started_at: versionStartedAt,
+          idea_version_started_at: nowIso,
           ticker: verifiedListing?.ticker || raw.ticker,
           company: raw.company,
           exchange: verifiedListing?.exchange || raw.exchange,
@@ -1411,23 +1444,77 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
           materiality_max: materialityMax,
           newest_source_at: newestAt,
           prior_coverage: coverage,
+          surfaced_at: nowIso,
+          updated_at: nowIso,
+          decay_at: decayIso,
+          status: 'live',
+          promoted_signal_id: null,
+        } })
+    }
+    if (sourceChangedDuringPass || !sourceInputsStillCurrent()) {
+      const counts = inspectIdeaSnapshots(deps.repoRoot, now())
+      const reason = 'The ranked lead set changed while listings were being verified; the stale provider result was discarded before persistence.'
+      health({
+        enabled: true, status: counts.live_count + counts.stale_count > 0 ? 'degraded' : 'error',
+        outcome: 'failed', reason_code: 'inputs_changed', reason, next_eligible_at: null,
+        input_count: rows.length, produced_count: 0,
+      })
+      return { ran: true, produced: 0, note: reason, reason_code: 'inputs_changed' }
+    }
+    // Covers snapshot writes, archive-first prune/deletions, journal appends, and the following board
+    // refresh. Mark before mutation; a no-op pass simply clears after a clean status check.
+    markIdeasPublicationPending(deps.stateDir, now())
+    let persistenceInputChanged = false
+    for (const { id, version, template, input_keys: preparedInputKeys } of prepared) {
+      let saved = false
+      for (let attempt = 0; attempt < 3 && !saved; attempt++) {
+        // All async listing work and one final input revalidation completed before this write phase.
+        // Re-read lifecycle state for each CAS so a promotion/feedback edit still wins.
+        const current = readIdeaById(deps.repoRoot, id)
+        const versionStartedAt = current?.idea_version === version
+          ? (current.idea_version_started_at || current.updated_at || nowIso)
+          : nowIso
+        const currentUpdated = current?.updated_at && Date.parse(current.updated_at) > Date.parse(nowIso)
+          ? current.updated_at
+          : nowIso
+        const sameOccurrence = current?.idea_version === version && current?.idea_version_started_at === versionStartedAt
+        const idea: SurfacedIdea = {
+          ...template,
+          idea_version_started_at: versionStartedAt,
           surfaced_at: current?.surfaced_at || nowIso,
           updated_at: currentUpdated,
-          decay_at: decayIso,
-          status: current?.status === 'promoted' ? 'promoted' : 'live',
-          promoted_signal_id: current?.promoted_signal_id || null,
+          status: sameOccurrence && current?.status === 'promoted' ? 'promoted' : 'live',
+          promoted_signal_id: sameOccurrence ? (current?.promoted_signal_id || null) : null,
         }
-        saved = writeIdeaIfRevision(deps.repoRoot, idea, ideaSnapshotRevision(current))
+        saved = writeIdeaIfRevision(deps.repoRoot, idea, ideaSnapshotRevision(current), () => {
+          const valid = sourceInputsStillCurrent()
+          if (!valid) persistenceInputChanged = true
+          return valid
+        })
         if (saved) {
           persistedVersions.set(id, version)
           completedIdeaIds.add(id)
-          completedIdeaClaims.set(id, [...new Set(srcRows.map(inputKey))])
+          completedIdeaClaims.set(id, preparedInputKeys)
         }
+        if (persistenceInputChanged) break
       }
+      if (persistenceInputChanged) break
       if (!saved) writeConflicts++
+    }
+    if (persistenceInputChanged) {
+      const counts = inspectIdeaSnapshots(deps.repoRoot, now())
+      const reason = 'The ranked lead set changed at the persistence boundary; the stale provider result was discarded.'
+      health({
+        enabled: true, status: counts.live_count + counts.stale_count > 0 ? 'degraded' : 'error',
+        outcome: 'failed', reason_code: 'inputs_changed', reason, next_eligible_at: null,
+        input_count: rows.length, produced_count: 0,
+      })
+      return { ran: true, produced: 0, note: reason, reason_code: 'inputs_changed' }
     }
     pruneExpiredIdeas(deps.repoRoot, now(), c.shelfLifeHrs * 3_600_000) // delete only well past decay (one extra shelf-life)
     await deps.refreshBoard()
+    const publication = await publish()
+    if (publication.status === 'failed') return publishFailure(publication)
     const finishedAt = now()
     const snapshotState = inspectIdeaSnapshots(deps.repoRoot, finishedAt)
     const produced = [...persistedVersions].filter(([id, version]) => readIdeaById(deps.repoRoot, id)?.idea_version === version).length
