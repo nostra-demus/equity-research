@@ -150,6 +150,7 @@ export async function routeReason(
       (ms) => abortableSleep(ms, opts.signal, sleep),
       now,
       opts.limiterWaitMs ?? LIMITER_WAIT_MS,
+      opts.signal,
     )
   } catch (error: any) {
     if (opts.signal?.aborted || error?.name === 'AbortError') return kw

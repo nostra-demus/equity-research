@@ -279,4 +279,38 @@ await check('caller abort is safe before and during I/O, with no retry hold', as
   assert.ok(budget.tokens > 0)
 })
 
+// Regression: the caller's AbortSignal must reach the shared limiter as acquire()'s 5th argument, so a
+// caller queued behind another in-flight acquire on the SHARED limiter cancels immediately instead of
+// waiting out LIMITER_WAIT_MS on the FIFO queue node. Every other acquire() call site forwards the signal
+// (runCycle.ts, chat-provider.ts); reason-router must too. Pinned to that convention, not to code behaviour.
+await check('caller AbortSignal is forwarded to the shared limiter (queued-caller cancellation)', async () => {
+  reset()
+  const stateDir = dir()
+  const limiter = getSharedLimiter(config.groqRpm, config.groqTpm)
+  const originalAcquire = limiter.acquire.bind(limiter)
+  let seenSignal: AbortSignal | 'MISSING' = 'MISSING'
+  ;(limiter as any).acquire = (
+    est: number,
+    sleep: (ms: number) => Promise<void>,
+    nowFn: () => number,
+    maxWait?: number,
+    signal?: AbortSignal,
+  ) => {
+    seenSignal = signal ?? 'MISSING'
+    return originalAcquire(est, sleep, nowFn, maxWait, signal)
+  }
+  const ac = new AbortController()
+  try {
+    const out = await routeReason(
+      'the central bank raised rates',
+      (async () => success()) as typeof fetch,
+      { ...opts(stateDir), signal: ac.signal },
+    )
+    assert.equal(out.via, 'llm')
+  } finally {
+    ;(limiter as any).acquire = originalAcquire
+  }
+  assert.equal(seenSignal, ac.signal, 'reason-router must forward opts.signal as acquire()\'s 5th argument')
+})
+
 console.log(`\nreason-router.test: ${passed} checks passed`)
