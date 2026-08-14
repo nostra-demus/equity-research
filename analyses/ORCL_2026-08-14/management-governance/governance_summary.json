@@ -1,0 +1,35 @@
+{
+  "ticker": "ORCL",
+  "date": "2026-08-14",
+  "module": "management-governance",
+  "stewardship_verdict": "Misaligned or weak stewardship",
+  "hard_disqualifier_flagged": false,
+  "scores": {
+    "management_quality": 57,
+    "capital_allocation": 40,
+    "incentive_alignment": 37,
+    "shareholder_friendliness": 63,
+    "disclosure_candor": 60,
+    "governance_risk_inverted_higher_worse": 58,
+    "data_quality": 62,
+    "overall_usefulness": 68
+  },
+  "governance_score_formula": "0.20xCapAlloc + 0.18xIncentive + 0.18xShFriendliness + 0.16xCandor + 0.16xMgmtQuality + 0.12x(100-GovRisk)",
+  "governance_score": 50,
+  "confidence_score": 68,
+  "confidence_adjusted_governance_score": 34,
+  "governance_rating": "Weak",
+  "red_flag_count": 9,
+  "critical_red_flag_count": 2,
+  "insider_ownership_pct": 40.21,
+  "insider_ownership_holder": "Lawrence J. Ellison, Executive Chair and CTO, co-founder",
+  "trailing_12m_insider_activity": "Net selling -- every dollar-material named-executive Form 4 is a sale; zero open-market cash purchases by Ellison or either co-CEO on record at any point",
+  "score_caps_applied": [
+    "Incentive alignment: no-proxy cap max 50 (natural score 37, not binding)",
+    "Disclosure candor: RF-MGT-005 conviction cap max 60 (natural score 65, cap binding, reduced to 60)",
+    "Management quality: RF-MGT-005 conviction cap max 60 (natural score 57, not binding)",
+    "Overall usefulness: no-proxy cap max 70 (set at 68, not binding)",
+    "Governance rating: RF-MGT-005 conviction cap -- no rating above Watchlist until resolved (natural rating already Weak, cap not the binding constraint but confirms ceiling)"
+  ],
+  "supersedes": "business-model/11_capital-allocation-governance.md (quick-read); this module is the primary governance read for the master synthesizer"
+}
