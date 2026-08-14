@@ -1,6 +1,6 @@
 # Balance-Sheet-Survival Module Memo — ORCL
 
-**Verdict: Stretched** — Oracle can pay its debts, but its ~$70bn FY2027 building program cannot be funded from money already in hand if profits dip even slightly.
+**Verdict: Stretched** — Oracle's debt payments survive a shut capital market for 12 months, but the AI-data-centre building program it is actually running does not, unless it cuts spending or raises fresh money.
 
 Memo date: 2026-08-14. Source: `99_balance-sheet-survival-synthesis.md` (this module's synthesis). Every number below is carried from that file.
 
@@ -10,80 +10,84 @@ Memo date: 2026-08-14. Source: `99_balance-sheet-survival-synthesis.md` (this mo
 
 | Score | /100 | What drove it (from the synthesis) |
 |---|---|---|
-| Solvency strength | **38** | Net debt / EBITDA up from 3.83x to 4.46x in two years; debt raised to fund capex; S&P cut to BBB− on 2026-07-09; CDS spreads near an 18-year high |
-| Liquidity runway | **42** | ~20.1 months on the narrow module formula, but ~5.8–6.9 months once guided capex is counted |
-| Refinancing risk *(inverted — higher is worse)* | **58** | Near-term wall is small, but the ~$70bn FY2027 program needs open debt/equity markets during active rating deterioration |
-| Covenant headroom | **55** | Wide computed headroom (+166.2% / +121.0%), but **capped at max 60** because the credit agreement's own EBITDA-addback definition is not in the pool |
-| Downside resilience | **45** | Debt service and the covenant survive a 12-month market closure; the capital program does not survive a normal 2–20% EBITDA decline |
-| Data quality | **92** | `00` triage verdict "Sufficient" — debt note, maturity schedule, cash flow statement, revolver terms and contingencies all present |
-| Overall usefulness | **88** | All six sections ran on primary filing data |
+| Solvency strength | **45** | Rising leverage; funded by capex not covenants; S&P at BBB−, one notch above junk; $260bn of signed-but-unrecognized lease commitments on top |
+| Liquidity runway | **42** | Headline 20.1 months is real cash in hand, but the decision-relevant figure once guided capex is included is 5.8–6.9 months |
+| Refinancing risk *(inverted — higher is worse)* | **58** | The near-term wall is thin and manageable; the live constraint is continued market access, given a +180bp to +300bp refinancing cost step-up, the BBB− downgrade and an 18-year-high CDS spread |
+| Covenant headroom | **55** | Nominal headroom is wide (+166.2% / +121.0%), but quality is unverified — **capped at max 60** because the credit agreement's own EBITDA-addback definition is not in the data pool |
+| Downside resilience | **38** | Debt service and the disclosed covenant survive a 60% EBITDA haircut and a 12-month market closure; the capex program does not survive a shallow, plausible EBITDA decline |
+| Data quality | **85** | Full audited debt note, instrument-level maturity schedule, cash flow statement, lease note and contingency note all present; only the covenant-EBITDA addback text is missing |
+| Overall usefulness | **85** | A complete, reproducible survival picture with one soft gap |
 
-**Score caps applied:** one — covenant headroom capped at max 60 (`04` §2: reported EBITDA used as a stand-in for the credit agreement's own undisclosed "Consolidated EBITDA"). No other MODULE_RULES cap fired; no data-sufficiency cap applies.
+**Score caps applied:** one. Covenant headroom is capped at max 60/100 because reported EBITDA was used as a stand-in for the credit agreement's own undefined "Consolidated EBITDA" (Exhibit 10.14 is not in the pool). No other hard cap applies; the module's data sufficiency is otherwise uncapped per the `00` triage verdict.
 
-**§24 Avoid-Big-Risks:** the synthesis carried no separate filter-trip list for this module. It did raise one red flag: **RF-OBS-001 (contingent-liability spike)** — $260,000mn of signed but not-yet-recorded data-centre lease commitments [`05` §1].
+**§24 Avoid-Big-Risks:** the synthesis carried no separate filter-trip list for this module. It raised one red flag — **RF-OBS-001 (contingent-liability spike)**: $260,000mn of additional, not-yet-recognized data-centre lease commitments, roughly 1.9x current all-in gross debt, converting over FY2027–FY2029.
 
 ---
 
 ## What This Module Found
 
-Oracle owes more, relative to what it earns, than at any recent point, and the direction is still worsening. Net debt (all borrowings minus cash) is $136,143mn — gross debt of $167,432mn including leases, less $31,289mn of cash — against FY2026 EBITDA (rough cash profit before interest, tax and depreciation) of $30,494mn. That is 4.46x, up from 3.83x in FY2024 and 4.40x in FY2025 [`01` §4, §5, §6, §7]. The rise came entirely from borrowing to build AI data centres, not from takeovers or share buybacks: total debt rose 54% in FY2026 alone on $42.7bn of new senior notes plus $5.0bn of preferred stock [`01` §6].
+Oracle owes much more against what it earns than it did two years ago, and the trend is still worsening. Net debt — all borrowings minus cash — is $136,143mn on the strict basis (§15): all-in gross debt of $167,432mn including capitalized operating leases, less $31,289mn of cash and equivalents. Against reported EBITDA of $30,494mn (rough cash profit before interest, tax and depreciation), that is 4.46x, up from 3.83x in FY2024 and 4.40x in FY2025. On an inferred adjusted EBITDA of ~$37,035mn it is 3.68x — but that adjusted figure is inference, not company-disclosed.
 
-The near-term repayment schedule is not the problem. Only 5.5% of the notes-payable book ($7,210mn) falls due within 12 months and 13.3% ($17,355mn) within 24 months, covered several times over by cash plus a fully available, undrawn $10.0bn revolving credit line [`02` §2, §4].
+The rise came entirely from borrowing to build AI data centres, not from takeovers or buybacks: FY2026 total debt rose 54% in one year on $42.7bn of new senior notes plus $5.0bn of preferred stock, and management has guided a further ~$70bn of net capex (spending on buildings and equipment) for FY2027. That matters for the shape of the risk: the fragility is largely optional — capex can be cut — rather than structural.
 
-The problem is the building program. The headline ~20.1-month liquidity runway (how long committed cash covers hard obligations) assumes only maintenance-level spending. Substitute Oracle's guided ~$70bn FY2027 capex — roughly 2.3x FY2026 EBITDA — and the runway falls to ~5.8–6.9 months [`03` §3]. On that basis, committed money runs out at an EBITDA decline of roughly **2%–20%** (~2.2% on §15-normalised FY2026 free cash flow, ~19.6% on reported free cash flow) [`06` §3]. That is inside ordinary recession range, not a tail case. Meanwhile the one disclosed maintenance covenant — a promise to keep EBITDA at 3.0x or more of net interest, tested each quarter — does not break until EBITDA falls 54.8% (gross-interest basis) to 62.4% (net-interest basis) [`04` §2, §3; `06` §3].
+The near-term repayment schedule is not the problem. Only 5.5% ($7,210mn) of the $130,105mn notes-payable-and-term-loan base falls due within 12 months and 13.3% ($17,355mn) within 24 months, covered several times over by cash plus the undrawn $10.0bn revolving credit line, even under a 12-month market-closure test with zero new unsecured issuance.
 
-The single biggest risk in one line: the ~$70bn FY2027 spend depends on continued access to debt and equity markets at the exact moment S&P has cut Oracle to BBB− (one notch above junk, 2026-07-09) and CDS spreads — the cost of insuring Oracle's debt — sit near an 18-year high, above 2008 levels [`01` §6; `02` §5].
+The problem is the building program measured against the same pot of money. The headline liquidity runway — how long committed cash covers unavoidable obligations — is ~20.1 months on a maintenance-spending basis (debt maturities, cash interest, a maintenance-capex proxy and committed dividends, with no free-cash-flow netting because free cash flow is negative). Fold Oracle's guided ~$70bn FY2027 growth capex back in and the same $41,894mn of committed liquidity lasts ~5.8–6.9 months and is exhausted at an EBITDA decline of just **−2.2% to −19.6%**, provided capex is not cut. That is inside normal-recession range, not a tail event.
 
-Two things cut the other way. The $31.3bn of cash plus the undrawn revolver cover debt service even through a 12-month market shutdown, and the EBITDA behind the coverage ratios is genuinely cash-backed (cash from operations was ~90%–105% of EBITDA in FY2026) [`06` §4; `04` §1]. And the capex figure is a plan, not a contract — the liquidity break is a discretionary-spending outcome, not a forced default path [`06` §4].
+The one contractual guardrail will not stop it. The only maintenance covenant disclosed anywhere in Oracle's debt terms is the Revolving Credit Agreement's minimum interest coverage — EBITDA of at least 3.0x net interest expense. Actual coverage is 7.98x on the net-interest basis that matches the covenant's wording, 6.63x on the more conservative gross-interest basis, so headroom is +166.2% / +121.0% and the covenant does not break until EBITDA falls 62.4% (net-interest) or 54.8% (gross-interest). Coverage after capex tells the opposite story: (EBITDA − capex) / interest is −5.47x, because the build is funded by new debt and preferred issuance, not operating cash.
+
+Biggest single risk, in one line: committed liquidity is being measured against a maintenance-spending bucket while Oracle actually runs a ~$56–95bn capex program roughly double its EBITDA — so liquidity, not the covenant and not the maturity wall, is the first thing that breaks. The killer version is a capital-markets closure that lands while Oracle keeps spending at the guided pace [`06`, Section 3–4].
+
+Two things cut the other way. Debt service itself survives a full 12-month market closure without default [`02`, Section 5; `06`, Section 4]. And the most plausible fix — a capex retrenchment — is entirely inside management's control and has already been signalled as available [`06`, Section 4].
 
 ---
 
 ## The Specialists, Briefly
 
-- **solvency-data-triage** — Sufficient; all six sections can run, no hard caps triggered. Only the credit agreement's EBITDA-addback definition (Exhibit 10.14) and a standalone rating-rationale report are missing.
-- **capital-structure-and-leverage** — Net debt / EBITDA 4.46x strict, up from 3.83x; net debt went from $83,960mn to $136,143mn in two years, all capex-funded; S&P downgrade to BBB−.
-- **maturity-wall-and-refinancing** — Exposed; the small wall is covered only in isolation from the ~$70bn capex program drawing on the same $41.3bn liquidity pool.
-- **liquidity-runway** — ~20.1 months narrow basis, ~5.8–6.9 months with real capex; the $31.3bn cash is freshly-raised debt and preferred proceeds, not retained operating cash (FY2026 levered free cash flow was −$23,686mn).
-- **coverage-and-covenants** — EBITDA/interest wide at 6.63x–7.98x, but after capex it is −5.47x and fixed-charge coverage is −1.89x; no maximum-leverage covenant exists to restrain the debt-funded ramp.
-- **off-balance-sheet-and-contingencies** — RF-OBS-001: $260,000mn of additional data-centre lease commitments (15–19 years, mostly starting FY2027–FY2029), about 1.9x the entire current gross debt stack; maximum contingent exposure is 7.13x total equity.
-- **downside-stress-test** — Marginal survival: debt service holds, the capital program does not; real break at a 2%–20% EBITDA decline.
+- **solvency-data-triage** — Sufficient; all six sections ran, no hard caps triggered. One soft flag: the revolver's covenant-EBITDA addback definition (Exhibit 10.14) is not in the pool.
+- **capital-structure-and-leverage** — Net debt / EBITDA 4.46x, up from 3.83x two years ago; all-in gross debt $167,432mn. The increase is entirely debt-funded AI-infrastructure capex, not M&A or buybacks; S&P cut to BBB− on 2026-07-09.
+- **maturity-wall-and-refinancing** — Exposed, because it depends on open markets. The near-term wall (5.5% / 13.3%) is covered in isolation, but the same liquidity pool must also fund the ~$70bn FY2027 capex program.
+- **liquidity-runway** — ~20.1 months on the maintenance basis, ~5.8–6.9 months with guided growth capex. The $31.3bn cash is freshly raised debt and preferred proceeds — pre-funded capex dry powder, not surplus liquidity.
+- **coverage-and-covenants** — EBITDA / interest is wide at 6.63x–7.98x, but (EBITDA − capex) / interest is −5.47x; coverage is negative on every basis once capex is netted.
+- **off-balance-sheet-and-contingencies** — RF-OBS-001: $260,000mn of not-yet-recognized data-centre lease commitments dwarf the recognized $167,432mn debt stack — a second wave of debt-like obligations, roughly 1.9x current all-in gross debt, converting over FY2027–FY2029.
+- **downside-stress-test** — Marginal and basis-dependent: the covenant survives to −62.4%, but real liquidity breaks at −2.2% to −19.6%. The disclosed covenant is a false comfort signal.
 
-**Main disagreement, as resolved by the synthesis:** the triage agent treated the missing covenant-EBITDA addback definition as a soft flag, while the covenant specialist applied the hard cap. The synthesis applied the cap (covenant headroom max 60) as the more conservative reading. It also kept the filing-anchored EBITDA of $30,494mn over a Capital IQ tab implying ~$33.3bn (which makes leverage look higher, not lower), and treated a −60% EBITDA case as a marginal covenant breach rather than a clean pass.
+**Disagreements, as the synthesis resolved them.** The most important: Capital IQ's own Capital Structure Summary tab computes total debt / EBITDA of 5.03x, implying an EBITDA base near $33.3bn — about 9% above the $30,494mn this module uses. The synthesis kept $30,494mn, because it traces line-by-line to the 10-K's own operating income and depreciation, and flagged the higher vendor figure as an unexplained internal convention rather than adopting it. It also treated the 2026-07-09 S&P downgrade (BBB− from BBB, A-3 from A-2) as confirmed while leaving the forward outlook unresolved, since the underlying feed carries conflicting "Stable" and "Negative" labels for the same entry; and it read the −60% EBITDA stress case as not a breach under the covenant's literal wording (+6.5% net-interest headroom) but flagged it as marginal and basis-dependent (−11.6% on the gross-interest basis).
 
 ---
 
 ## What Would Change This Read
 
-**Would strengthen it:** a disclosed, executed capex-flexibility plan (for example, a stated ability to defer or cancel a specific part of the $260,000mn of lease commitments without penalty); a rating stabilisation or upgrade; net debt / EBITDA trending back toward 3.5x–4.0x; the full Exhibit 10.14 text confirming the covenant's EBITDA addbacks are not aggressive.
+**Would strengthen it:** a disclosed, executed capex-flexing plan — evidence Oracle can and will cut the ~$70bn FY2027 guide if funding tightens; successful completion of the ~$40bn FY2027 financing plan at reasonable spreads; a stabilized or upgraded credit rating; EBITDA margin holding at or above the FY2026 45.3% high-water mark through a full cycle.
 
-**Would weaken it:** a further S&P, Moody's or Fitch downgrade; the Netherlands GDPR Supreme Court ruling (already overdue as of this report's date) landing as a material loss; the $20bn at-the-market equity program failing to price on reasonable terms; any sign the FY2027 capex is being funded by drawing the revolver instead of new issuance.
+**Would weaken it:** a further S&P or Moody's downgrade into speculative grade; failure to complete the ~$40bn financing plan; the Netherlands GDPR class action or the OCI securities class action resolving adversely with a material damages award; the $260bn of lease commitments converting onto the balance sheet faster than guided; EBITDA margin reverting to the FY2023–FY2025 38–41% band.
 
-**Data needed:** Exhibit 10.14 (the Revolving Credit Agreement) in full; a standalone Moody's/S&P/Fitch rating-rationale report; a disclosed capex-deferral plan; the Netherlands GDPR outcome.
+**Data needed:** the credit agreement's own "Consolidated EBITDA" and "Consolidated Net Interest Expense" addback definitions (Exhibit 10.14); a standalone Moody's / S&P / Fitch rating-rationale report; management's disclosed capex-flexing commitments, if any, beyond earnings-call commentary.
 
 ---
 
 ## Bottom Line
 
-- **Verdict: Stretched** — solvent on debt service alone, but the capital program depends on capital markets staying open while S&P holds Oracle one notch above junk.
-- **Could be better than it looks:** the capex number is guidance, not a contract. Management has signalled capex retrenchment as the lever, the $10.0bn revolver is undrawn and available to 2031-03-06, and a ~$40bn FY2027 financing plan (including a $20bn at-the-market equity program) is already disclosed [`03` §1, §4; `06` §4].
-- **Could be worse than it looks:** $260,000mn of signed data-centre leases start converting onto the balance sheet from FY2027 — nearly double the entire current debt stack — and no maximum-leverage covenant exists to slow any of it.
-- **Missing evidence:** the credit agreement's own EBITDA-addback definition (which is why covenant headroom is capped at 60) and a primary rating-agency rationale; the S&P BBB− is a Capital IQ vendor read.
-- **Watch next:** whether guided capex is funded by new issuance or by drawing the revolver — the second would be the early sign the 2%–20% break point is arriving.
+- **Verdict: Stretched.** Debt service survives a closed capital market for 12 months; the AI-infrastructure buildout does not, without a capex cut, a fresh capital raise or — least likely — a covenant waiver.
+- **Could be better than it looks:** the leverage is discretionary growth capex, not a debt-funded acquisition or an operating deterioration, so the fix is in management's own hands. The $10.0bn revolver is committed, unsecured, non-borrowing-base and $0 drawn as of 2026-05-31, and a ≈$40bn FY2027 financing plan including a $20bn at-the-market equity program is already flagged [`03`, Sections 1 and 4].
+- **Could be worse than it looks:** $260,000mn of signed data-centre lease commitments start converting onto the balance sheet from FY2027 — about 1.9x the entire current recognized debt stack — and Oracle has no contractual maximum-leverage covenant to slow the borrowing. A further downgrade could itself raise collateral and credit-support requirements.
+- **Missing evidence:** the credit agreement's own EBITDA-addback definition — the reason covenant headroom is capped at 60 — and a primary rating-agency rationale; the S&P BBB− read comes from the Capital IQ vendor feed. This is the single highest-value next data request.
+- **Watch next:** whether the guided ~$70bn FY2027 capex is actually flexed down or funded with new issuance, because liquidity — not the covenant, not the maturity wall — is what breaks first, at an EBITDA decline as shallow as 2%–20%.
 
 ---
 
 ## Plain-English Glossary
 
-- **EBITDA** — rough cash profit before interest, tax and depreciation; here $30,494mn for FY2026.
-- **Net debt** — all borrowings minus cash; $136,143mn on the strict basis.
+- **EBITDA** — rough cash profit before interest, tax and depreciation; $30,494mn reported for FY2026.
+- **Net debt (strict basis)** — all borrowings minus cash; $136,143mn.
 - **Net debt / EBITDA (net leverage)** — years of that cash profit needed to repay net debt; 4.46x.
-- **Maturity wall** — how much debt comes due, and when; 5.5% within 12 months.
-- **Revolver (revolving credit line)** — a pre-agreed bank facility a company can draw on; Oracle's $10.0bn is undrawn.
-- **Liquidity runway** — how many months committed cash covers unavoidable obligations; ~20.1 months narrow, ~5.8–6.9 months with real capex.
+- **Maturity wall** — how much debt comes due and when; 5.5% within 12 months, 13.3% within 24 months.
+- **Revolver (revolving credit line)** — a pre-agreed bank facility a company may draw on; Oracle's $10.0bn is undrawn.
+- **Liquidity runway** — how many months committed cash covers unavoidable obligations; ~20.1 months on maintenance spending, ~5.8–6.9 months with guided capex.
 - **Capex** — spending on buildings and equipment; guided ~$70bn for FY2027.
-- **Covenant / covenant headroom** — a promise in a loan agreement and the slack before it is broken; here EBITDA must stay at 3.0x net interest, with +166.2% / +121.0% slack.
-- **Free cash flow (FCF)** — operating cash left after capex; FY2026 levered FCF was −$23,686mn.
-- **CDS spread** — the annual cost of insuring a company's debt against default; near an 18-year high.
-- **BBB−** — the lowest investment-grade credit rating, one notch above junk.
-- **At-the-market (ATM) equity program** — selling new shares gradually into the open market; $20bn planned.
-- **Fixed-charge coverage** — profit measured against all fixed payments due; −1.89x.
+- **Covenant / covenant headroom** — a promise written into a loan agreement, and the slack before it is broken; EBITDA must stay at or above 3.0x net interest, with +166.2% / +121.0% slack.
+- **Free cash flow** — operating cash left after capex; negative here, which is why no free cash flow is netted against the runway.
+- **CDS spread** — the annual cost of insuring a company's debt against default; roughly an 18-year high in August 2026.
+- **BBB−** — the lowest investment-grade credit rating, one notch above non-investment grade ("junk").
+- **Basis points (bp)** — hundredths of a percentage point; the refinancing cost step-up is +180bp to +300bp.
+- **At-the-market equity program** — selling new shares gradually into the open market; $20bn planned.

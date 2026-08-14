@@ -1,8 +1,8 @@
 # Management-Governance Module Memo — ORCL
 
-**Verdict: Misaligned or weak stewardship** — Oracle is now paying its dividend and much of its AI-data-center spending with borrowed and newly raised money rather than the cash the business makes, pay design cannot be checked because no 2026 proxy exists, and an unresolved lawsuit alleges the AI-deal growth outlook behind the whole spending program was overstated.
+**Verdict: Misaligned or weak stewardship** — Oracle now funds its dividend and part of its AI-infrastructure buildout with $115.8 billion of new debt and equity rather than the cash the business generates, the only disclosed pay metric rewards revenue rather than per-share value, and an unresolved lawsuit alleges the AI-deal growth outlook behind the whole spending program was overstated.
 
-Memo date: 2026-08-14. Source: `99_management-governance-synthesis.md` (this module's adjudicated synthesis).
+Memo date: 2026-08-14. Source: this module's adjudicated synthesis, `99_management-governance-synthesis.md`.
 
 ---
 
@@ -12,114 +12,100 @@ All scores are out of 100. Higher is better unless marked **inverted**.
 
 | Score | Value | Source |
 |---|---:|---|
-| Management quality | **57** | `01_management-and-track-record.md` |
-| Capital allocation | **40** | `02_capital-allocation-scorecard.md` |
-| Incentive alignment | **37** | `03_incentives-and-compensation.md` |
-| Shareholder friendliness | **63** | `04`/`05` |
-| Disclosure candor | **60** (capped, from a natural 65) | `06_candor-and-disclosure-quality.md` |
-| Governance risk — **inverted, higher is worse** | **58** | Module synthesis §1 |
-| Data quality | **62** | Module synthesis §1 |
-| Overall usefulness | **68** | Module synthesis §1 |
-| **Governance Score** (`0.20×CapAlloc + 0.18×Incentive + 0.18×ShFriendliness + 0.16×Candor + 0.16×MgmtQuality + 0.12×(100−GovRisk)`) | **50** | Module synthesis §1 |
-| Confidence score | **68** | Module synthesis §1 |
-| **Confidence-adjusted Governance Score** (50 × 68/100) | **34** | Module synthesis §1 |
-| **Governance rating** | **Weak** (40–54 band) | Module synthesis §1 |
-| Red flags / of which critical | **9 / 2** | Red-Flag Register §5A |
+| Management quality | **57** | `01_management-and-track-record` |
+| Capital allocation | **40** | `02_capital-allocation-scorecard` |
+| Incentive alignment | **37** | `03_incentives-and-compensation` |
+| Shareholder friendliness | **53** (reconciled down from `05`'s raw 57) | `05_board-and-shareholder-rights`, adjusted in synthesis §3 |
+| Disclosure candor | **60** (raw 65, capped at 60 by the RF-MGT-005 rule) | `06_candor-and-disclosure-quality` |
+| Governance risk — **inverted, higher is worse** | **62** | Synthesis §1 |
+| Data quality | **65** | `00_governance-data-triage` |
+| Overall usefulness | **68** (cap of 70 not binding) | Synthesis §1 |
+| Ownership alignment (specialist-level) | **73** | `04_ownership-and-insider-behavior` |
+| **Governance Score** — `0.20×40 + 0.18×37 + 0.18×53 + 0.16×60 + 0.16×57 + 0.12×(100−62)` | **47** (47.48) | Synthesis §1 |
+| Confidence score (source quality) | **60** | Synthesis §1 |
+| **Confidence-adjusted Governance Score** (47 × 60/100) | **28** | Synthesis §1 |
+| **Governance rating** | **Weak** (40–54 band) | Synthesis §1 |
+| Red flags / of which Critical | **10 / 2** (RF-MGT-005, RF-CAP-003) | Red-Flag Register §5A |
 
 **Score caps applied**
 
-- Disclosure candor: capped at 60 by the unresolved-integrity flag RF-MGT-005 — **this cap bound**, cutting the natural 65 to 60.
-- Management quality: RF-MGT-005 cap of 60 — not binding (natural score 57).
-- Incentive alignment: no-proxy cap of 50 — not binding (natural score 37).
-- Overall usefulness: no-proxy cap of 70 — not binding (set at 68).
-- Governance rating: RF-MGT-005 conviction cap — no rating above **Watchlist** until the lawsuit resolves. The natural rating (Weak) already sits below that ceiling, so the cap confirms rather than changes the result.
-- Hard disqualifier: **none**. `business-model/01_disqualifier-scan.md` found no triggered hard disqualifier, so no verdict lock applies from that scan.
+- **Filter 1 (integrity), RF-MGT-005 — binding.** Disclosure candor cut from 65 to **60**. Management quality capped at 60 (natural 57, not binding). Conviction capped at "no rating above Watchlist" — already satisfied, since the natural score of 47 sits in the Weak band, below Watchlist.
+- **No 2026 proxy** — incentive alignment capped at 50, overall usefulness capped at 70. Neither binds; the natural scores (37 and 68) already sit below.
+- **No board disclosure (partial)** — board/shareholder-rights read reconciled from 57 to **53**, both for the thin evidence base and for the missed Ellison pledge.
+- **Critical red flag in the module** — rating no better than "Weak" until disproven; the natural 47 already lands there.
+- Caps that did **not** apply: no ownership/insider-data cap, no capital-allocation-history cap, no hard-disqualifier floor.
 
-**§24 Avoid-Big-Risks filters (the standing "walk away" tests)**
-
-- **Filter 1 — integrity: TRIPPED** (RF-MGT-005). Caps management quality and candor at 60 and conviction at Watchlist.
-- Filter 2 — turnaround: did not trip. Oracle is a growing incumbent (FY2026 revenue +17%, RPO +363%), not a distressed turnaround.
-- Filter 4 — serial acquirer: did not trip. Two material deals in ten years (NetSuite FY2017, Cerner FY2023), six years apart.
-- Filter 6 — unaligned owner: did not trip. Ellison is the founder with his wealth concentrated in Oracle stock, the opposite of the filter's target profile.
+**§24 Avoid-Big-Risks filters:** **Filter 1 (crooks and integrity) tripped** on RF-MGT-005. Filter 2 (turnarounds), Filter 4 (serial acquirers) and Filter 6 (unaligned owners) do **not** trip. No hard disqualifier was flagged by `business-model/01_disqualifier-scan`.
 
 ---
 
 ## 2. What This Module Found
 
-The main read is that this leadership team is **not yet a trustworthy steward of shareholder capital**, though the record is mixed rather than uniformly bad.
+Oracle's stewardship record is mixed and tilts weak. Capital allocation was genuinely value-creative for six years — buybacks cut the diluted share count (shares counted as if all options converted) by 34.4% from FY2017 to FY2023 [`02`, finding 02-005]. That has reversed. Over FY2022–FY2026 the company's total uses of capital ran $130.5 billion above the cash its operations produced, and the gap was closed entirely with new debt and equity issuance, not operating cash [`02`, Section 5]. FY2026 free cash flow — operating cash minus capital spending — was **−$23.7 billion**, and levered free cash flow **−$24.5 billion** [`01`, finding 01-013]. The $5.8 billion dividend was not covered by cash flow for the second year running (RF-CAP-003). Total debt rose 54% to $167.4 billion, and S&P cut the credit rating to BBB− on 2026-07-09 [Key Developments.xls, 2026-07-09]. Buybacks fell to 1.9% of the stock-based compensation expense they used to offset, so the diluted share count has risen 5.3% off its FY2023 low (RF-CAP-002).
 
-The single most important driver is how the spending is being paid for. Over FY2022–FY2026, total uses of capital came to **233% of the cash the business generated from operations** — a gap of $130.5bn closed by **$115.8bn of new debt, preferred stock, and equity-plan proceeds** [`02_capital-allocation-scorecard.md`, findings 02-001, 02-009]. In FY2026 free cash flow (operating cash minus all capital spending — the cash actually left over) was **−$23.7bn** against **$5.8bn of dividends paid**, a coverage ratio of **−409.4%**. Total debt rose **53.7% in one year to $167.4bn**, and S&P cut Oracle's credit rating to **BBB-** on 2026-07-09 [finding 02-012].
+The single most important driver of the weak read is that spending pattern. The single most important risk is different: an unresolved securities class action filed 2026-02-03 alleging Oracle overstated its AI-deal growth outlook, naming the CTO, both co-CEOs, and one director [FY26 10-K, Note 15]. It is unproven — nothing in the pool contains a ruling, settlement, or admission — but live, and it is what caps this module's conviction.
 
-That is a reversal, not a constant. Buybacks cut the diluted share count (the share count including shares that could be issued from options and similar) by **34.4% from FY2017 to the FY2023 trough** — real per-share value creation. Since then the share count has risen **5.3%** to 2,914mm, and FY2026 buyback spend of **$93mm was 1.9% of the $4,811mm stock-based-compensation expense** [findings 02-005, 02-006, 02-007].
+Pay design cannot be judged at the CEO level at all: no 2026 proxy statement (the yearly pay-and-board disclosure) has been filed, and it is due around 2026-09-28 [`00`]. The one metric visible anywhere in the pool is the new CFO's performance stock options, which pay on **revenue** — a size measure, not per-share value — with 80% of his equity purely time-vested [Exhibit 10.15]. Insiders hold a large stake: Ellison at 40.21% (1,158,232,353 shares), total insider class 40.45% [Ownership Summary.rtf]. But that stake was built through exercising options rather than buying shares with cash, every dollar-material insider trade in the past year was a sale with zero open-market buys (RF-MKT-001), and Ellison has pledged 346,000,000 shares as loan collateral — 29.9% of his own holding, roughly 12.0% of all shares outstanding [FY25 DEF 14A, "Review of Pledging Arrangements", p.16031, via `business-model/01`].
 
-The single most important risk is **RF-MGT-005**: an unresolved securities class action (filed 2026-02-03, D. Delaware) alleging Oracle and named executives overstated the AI-infrastructure deal growth outlook — the same demand story funding the borrowing. It is pre-motion-to-dismiss, **neither cleared nor proven** [FY26 10-K, Note 15]. If substantiated, it would invalidate both the capital-allocation bull case and the candor read at once.
-
-The bull side is genuine and cited. Founder Lawrence Ellison holds **40.21%** (~$168.5bn), still active as Executive Chair and CTO [`04_ownership-and-insider-behavior.md`, finding 04-001]. Remaining performance obligations (RPO — signed contract work not yet billed, a disclosed audited backlog figure) grew **363% to $638bn** in one year [finding 01-012]. There is no dual-class share structure, no disclosed pledging (company policy bans it), and the CFO volunteered the less-flattering ex-one-off EPS of **$6.83 vs. the $7.63 headline** unprompted on the Q4 FY26 call [finding 06-002].
-
-Against that: **two CFO-seat changes in eight months**, an untested co-CEO structure, **zero disclosed pay metrics for either co-CEO**, and management's own capex guidance breaking by about **$15bn within a single quarter** — the stock fell **10.8%** on the disclosure [findings 01-004, 01-008].
+The offsetting evidence is real and is not dismissed. The audit has been clean and unqualified since 2002, there is no dual-class stock, current-period related-party dealings run at about 0.02–0.04% of revenue, and only two material acquisitions occurred in ten years. Demand delivery is verifiable: the remaining performance obligation backlog — contracted revenue not yet booked — grew 363% to $638 billion [FY26 10-K, MD&A]. And the CFO volunteered the less-flattering ex-one-off EPS figure of $6.83 against the $7.63 headline, unprompted, in prepared remarks [`06`, finding 06-002].
 
 ---
 
 ## 3. The Specialists, Briefly
 
-- **governance-data-triage** — Partial data. Ownership, insider, and capital-allocation records are strong; the **2026 Proxy Statement does not exist yet** (due ~Sept 28, 2026) and is the single highest-value missing document.
-- **management-and-track-record (57/100)** — Deep internal bench for succession, but a real CFO-stability warning: two CFO changes in 8 months landed in the same year debt rose 54% and the credit rating was cut.
-- **capital-allocation-scorecard (40/100)** — Value-creative earlier, value-destructive over the last two years; uses of capital ran to 233% of operating cash flow FY2022–FY2026.
-- **incentives-and-compensation (37/100)** — Cannot be judged for either co-CEO (no proxy). Only **20% of the disclosed CFO equity grant** carries any performance condition, and that condition is a **revenue** target — a size measure, not returns or per-share value. The other 80% vests on time served alone.
-- **ownership-and-insider-behavior** — Founder stake is a real anchor, but **every dollar-material Form 4 from a named executive in the trailing 12 months is a sale**, with zero open-market cash buys by Ellison or either co-CEO on record at any point in the 2009–2026 history.
-- **board-and-shareholder-rights (57/100)** — Weak / entrenched: **18–22% of votes cast against executive pay** at each of the last two annual meetings, **5 of 13 board seats** held by founder/former-CEO/current-CEO insiders, and two independent directors with **29–32 years** of tenure.
-- **candor-and-disclosure-quality (60/100, capped)** — Specific and numbers-heavy where it discloses, but prepared remarks called the quarters "tremendous" / "overdelivering" while the clean (ex one-off) operating beat rate over four quarters is **50%** — roughly a coin flip.
+- **governance-data-triage (`00`)** — Data sufficiency partial: ownership, insider and capital-allocation data are strong, but there is no DEF 14A in the pool at all; pay and board detail run on 10-K and web substitutes until the proxy is filed.
+- **management-and-track-record (`01`)** — 57/100. Deep internal bench (co-CEOs of 11 and 16.5 years' tenure), but two CFO-seat changes in eight months and an unresolved integrity allegation neither cleared nor proven.
+- **capital-allocation-scorecard (`02`)** — 40/100, "mixed, leaning value-destructive on the most recent two years." Uses of capital exceeded cumulative operating cash flow by $130.5 billion over FY2022–2026.
+- **incentives-and-compensation (`03`)** — 37/100, "mixed," mainly because almost nothing is disclosed. The only concrete performance metric in the pool is revenue.
+- **ownership-and-insider-behavior (`04`)** — 73/100. Large, stable founder stake, but built via options rather than cash purchases, and net-selling over the trailing twelve months.
+- **board-and-shareholder-rights (`05`)** — 57/100, "weak / entrenched," mostly on structure: 18–22% opposition to the say-on-pay vote across the last two annual meetings, a board where 5 of 13 seats are current or former executives, and two "independent" directors seated 29–32 years.
+- **candor-and-disclosure-quality (`06`)** — 65/100, "mixed": specific and numbers-heavy where it counts, but recurring "one-off" adjustments and a gap between promotional language and the numbers.
 
-**The disagreement worth naming.** Agent 04 read Oracle as *not a formally controlled company* (Ellison sits below the 50% threshold, so §24 Filter 6 does not trip); agent 05 read minority protection as *weak / entrenched* because a 40.21% vote plus 5 insider board seats plus a plurality (not majority) director-election standard leaves dissatisfied minorities no reliable way to remove a nominee. The synthesis resolved this the conservative way and did not average it: **Filter 6 correctly does not trip, but board entrenchment risk is real and materially discounts shareholder friendliness.** Carried as adjudicated.
+**The disagreement that mattered.** `04` reported zero pledged shares and scored that item 20/20, saying `business-model/01` had independently cleared it. `business-model/01` says the opposite in the very item cited: 346,000,000 shares pledged, 29.9% of Ellison's holding, sourced to the FY25 proxy. `05` and `business-model/11` did not address pledging at all. The synthesis resolved this in favour of the higher-tier, proxy-sourced disclosure: the pledge is real, sits below the 50% hard-disqualifier threshold, and is recorded as finding 99-001 / RF-OWN-001. Shareholder friendliness was cut from 57 to 53 for it. A second, softer disagreement — capital allocation at 40 versus ownership alignment at 73 — was held apart rather than averaged: a large founder stake is a real alignment signal, and it does not offset two years of per-share value destruction.
 
 ---
 
 ## 4. What Would Change This Read
 
-**Would strengthen the verdict**
+**Would strengthen it**
 
-- The 2026 Proxy Statement discloses per-share or returns-based metrics (ROIC / EPS / free-cash-flow-per-share / total shareholder return) for both co-CEOs with meaningful weight.
-- The securities class action is dismissed or settled with no finding of wrongdoing.
-- FY2027 free cash flow recovers to cover the dividend without further debt issuance.
-- Buybacks resume at a scale that offsets stock-based-compensation dilution.
-- Say-on-pay opposition falls toward single digits at the 2026 AGM.
+- The 2026 proxy shows CEO and CFO pay gated on per-share or returns metrics, not just revenue.
+- FY2027 free cash flow turns positive and the dividend regains cash-flow coverage.
+- The securities class action is dismissed or settled with no finding of misstatement.
+- Buybacks resume at material scale once capital spending peaks.
 
 **Would weaken it**
 
-- The class action survives a motion to dismiss, or is amended with stronger factual allegations.
-- A further CFO or senior-executive departure inside FY2027.
-- FY2027 capex again overshoots guidance by a material margin.
-- The dividend is cut, or debt is raised again to fund it.
-- Insider selling accelerates ahead of a weak print.
+- The class action survives a motion to dismiss or moves toward a proven-fraud finding — this would trigger the Disqualifier Deference lock to "Serious governance concerns."
+- A third consecutive "restructuring" plan is named in FY2027, confirming the recurring-one-off pattern.
+- The Ellison pledge grows, or a margin call forces him to sell.
+- FY2027 capital spending again overshoots guidance mid-year.
 
-**Data needed:** the 2026 Proxy Statement (DEF 14A, due ~Sept 28, 2026); FQ1 FY2027 results (due Sept 4, 2026); the FQ2 FY2026 (Dec 10, 2025) verbatim transcript to close the candor gap; the motion-to-dismiss ruling.
+**Data needed:** the 2026 Proxy Statement (DEF 14A, due ~2026-09-28); the FQ2 FY2026 earnings-call transcript; FY2027 quarterly cash-flow and dividend-coverage figures; the motion-to-dismiss ruling on the class action.
 
 ---
 
 ## 5. Bottom Line
 
-- **Verdict: Misaligned or weak stewardship.** Governance Score 50/100; confidence-adjusted 34/100; rating **Weak**. Conviction cannot exceed **Watchlist** while RF-MGT-005 is unresolved.
-- **Why it could be better than it looks:** the demand is real and audited, not a claim — RPO +363% to $638bn — and the founder's 40.21% stake means his own money rides on the outcome. The earlier record shows this company *can* create per-share value (share count −34.4%, FY2017–FY2023).
-- **Why it could be worse:** two Critical-materiality flags reinforce the same ceiling — RF-MGT-005 (unresolved integrity allegation) and RF-CAP-003 (dividend and uses of capital not covered by free cash flow, −409.4% coverage, debt +53.7% to $167.4bn, downgrade to BBB-).
-- **What is missing:** the 2026 Proxy Statement — it would resolve the pay-metric gap, the board-composition gap, and the related-party detail in one document. Also missing: the FQ2 FY2026 transcript, the one quarter with the worst news and no verbatim record. No quantified peer governance table was pulled for MSFT / AMZN / SAP.
-- **The one thing to watch next:** the motion-to-dismiss ruling on the securities class action — it is the single item that both caps conviction today and could lift or sink the read.
-- **Not found:** no hard disqualifier (no audit qualification, going concern, pledging above threshold, related-party abuse, repeated auditor changes, restatement, or regulatory enforcement).
+- **Verdict: Misaligned or weak stewardship.** Governance Score 47/100 (Weak band), confidence-adjusted to 28/100. Capped short of a full verdict lock only because no hard disqualifier has been proven.
+- **Biggest reason it could be better than it looks:** no hard disqualifier exists — clean unqualified audit since 2002, no dual-class stock, no serial-acquirer pattern, immaterial related-party dealing — and the demand is real, with the contracted backlog up 363% to $638 billion. Both co-CEOs are long-tenured internal operators, not outside hires.
+- **Biggest reason it could be worse:** the unresolved securities class action alleging the AI-deal growth outlook itself was overstated. If a court validates it, this converts from a capped-conviction read into a proven-integrity failure and locks the verdict at "Serious governance concerns."
+- **What evidence is missing:** the 2026 proxy — no CEO pay, no board roster, no committee table, no current-period related-party detail. Most of `05`'s board findings run on unverified web sources at confidence 2–3. The one quarter that actually went badly (FQ2 FY26) has no transcript in the pool, so management's tone in bad times cannot be tested.
+- **The one thing to watch next:** the 2026 DEF 14A, due on or before 2026-09-28. It resolves the pay cap, the board gap, and the related-party detail in one document, and lets the Ellison pledge be re-verified against a current filing rather than the FY25 vintage.
+- **Handoff note:** this module supersedes the `business-model/11_capital-allocation-governance` quick-read and should be treated as the primary governance read.
 
 ---
 
 ## 6. Plain-English Glossary
 
-- **Free cash flow (FCF):** operating cash flow minus all capital spending — the cash actually left over after keeping and growing the business.
-- **Capex:** money spent on long-lived assets, here mostly AI data centres.
-- **Dividend coverage:** free cash flow divided by dividends paid. Negative means the dividend was not funded by the business's own cash.
-- **Diluted share count:** shares outstanding including shares that could be issued from options and similar. If it rises, each existing share owns less.
-- **Stock-based compensation (SBC):** pay given in shares. It issues new shares, so it dilutes existing owners unless buybacks offset it.
-- **Buyback:** the company purchasing its own shares, which lifts value per remaining share.
-- **EPS:** earnings per share, profit divided by share count. "Ex-one-off" means with one-time gains stripped out.
-- **RPO (remaining performance obligations):** signed contract work not yet billed — a disclosed, audited backlog figure.
-- **Return on capital (ROIC):** the profit earned on each dollar invested in the business.
-- **Say-on-pay:** the shareholder vote on executive pay. It is advisory, so a high "against" vote signals unhappiness without forcing a change.
-- **Form 4:** the filing an executive makes when buying or selling company shares.
-- **Pledging:** an insider borrowing against their shares as collateral — a forced-sale risk. Oracle policy bans it and none is disclosed.
-- **Motion to dismiss:** the defendants' early request to throw a lawsuit out before evidence is exchanged.
-- **BBB-:** the lowest investment-grade credit rating band; below it, debt is rated speculative.
+- **Free cash flow (FCF)** — operating cash minus capital spending; the cash left over after keeping and growing the asset base. Oracle's was −$23.7 billion in FY2026.
+- **Levered free cash flow** — the same measure after debt service; −$24.5 billion in FY2026.
+- **Diluted share count** — shares counted as if all outstanding options and awards converted into stock; the honest denominator for per-share value.
+- **Stock-based compensation (SBC)** — pay issued as shares rather than cash; it adds shares, which buybacks are meant to offset. Oracle's FY2026 buybacks were 1.9% of it.
+- **Performance stock options (PSOs)** — options that only pay out if a stated target is hit; the new CFO's target is revenue.
+- **Say-on-pay** — the yearly, non-binding shareholder vote on executive pay. Opposition ran 18% (FY2025) and ~22% (FY2024).
+- **Proxy statement / DEF 14A** — the yearly filing that discloses executive pay, the board roster, and related-party dealings. Oracle's 2026 edition is not yet filed.
+- **Pledged shares** — stock posted as collateral for a personal loan; if the price falls far enough, the lender can force a sale. Ellison has pledged 29.9% of his holding.
+- **Remaining performance obligation (RPO)** — contracted revenue signed but not yet recognised; Oracle's grew 363% to $638 billion.
+- **Non-GAAP / ex-one-off figures** — company-adjusted numbers that strip out items management calls one-time. Oracle has named "one-off" restructuring plans in two consecutive years ($374mm in FY2025, $1,838mm in FY2026).
+- **Incremental ROIC** — the return earned on newly invested capital; 5.3–7.0% over the last several years, thin against the scale of the AI-capex ramp.

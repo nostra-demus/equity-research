@@ -1,6 +1,9 @@
 {
   "schema_version": "1.4",
   "ticker": "ORCL",
+  "as_of": "2026-08-14",
+  "currency": "USD",
+  "business_type": "Operating",
   "basis": "ev",
   "shares": 2914,
   "net_debt": 136143,
@@ -38,8 +41,8 @@
   "scenarios": [
     {
       "label": "bull",
-      "forward_metric": "FY2027 (NTM) EBITDA, gross-margin-recovery + RPO-conversion adjusted",
-      "metric_basis": "NTM",
+      "forward_metric": 54384,
+      "metric_basis": "NTM (FY2027) EBITDA, gross-margin-recovery + RPO-conversion adjusted",
       "multiple": 14.0,
       "multiple_basis": "NTM EV/EBITDA",
       "multiple_kind": "applied",
@@ -49,17 +52,19 @@
         "net_debt_basis": "strict",
         "minority": 548,
         "other": -4954,
-        "shares": 2914
+        "shares": 2914,
+        "source": "01_price-and-capital-structure.md §4, §7 (canonical bridge, reused by 07)"
       },
       "source": "07_scenario-and-fair-value.md §3 scenario table",
-      "level": 212.67
+      "level": 212.67,
+      "drivers": "Gross margin snaps back toward FY25 levels as data centers hit full contracted revenue; mega-customer RPO conversion runs ~15% above current run-rate with no pullback; market re-rates toward the own-history NTM mean multiple (14.71x)."
     },
     {
       "label": "base",
-      "forward_metric": "FY2027 (NTM) consensus EBITDA",
-      "metric_basis": "NTM",
+      "forward_metric": 49996,
+      "metric_basis": "NTM (FY2027) consensus EBITDA",
       "multiple": 10.63,
-      "multiple_basis": "NTM EV/EBITDA (implied by the 40/40/20 blended base-case value, not independently applied)",
+      "multiple_basis": "NTM EV/EBITDA (implied by the 40/40/20 weighted blend of 02/03/04, not independently applied)",
       "multiple_kind": "implied",
       "basis": "ev",
       "bridge": {
@@ -67,17 +72,19 @@
         "net_debt_basis": "strict",
         "minority": 548,
         "other": -4954,
-        "shares": 2914
+        "shares": 2914,
+        "source": "01_price-and-capital-structure.md §4, §7 (canonical bridge, reused by 07)"
       },
-      "source": "07_scenario-and-fair-value.md §2-3 (weighted blend of 02/03/04)",
-      "level": 133.77
+      "source": "07_scenario-and-fair-value.md §2 (0.40×151.27 + 0.40×148.70 + 0.20×68.92 = 133.77)",
+      "level": 133.77,
+      "drivers": "Consensus NTM EBITDA is roughly achieved, but the market continues to price Oracle's leverage (net debt/EBITDA 4.46x) and eroding return on capital at a discount to its own recent multiple and to peers — no further de-rating, no re-rating."
     },
     {
       "label": "bear_cyclical",
-      "forward_metric": "FY2027 (NTM) EBITDA, customer-concentration pullback + further gross-margin compression",
-      "metric_basis": "NTM",
+      "forward_metric": 39900,
+      "metric_basis": "NTM (FY2027) EBITDA, customer-concentration pullback + further gross-margin compression",
       "multiple": 10.46,
-      "multiple_basis": "NTM EV/EBITDA (compressed to own-history 5yr band floor)",
+      "multiple_basis": "NTM EV/EBITDA (compressed to the own-history 5yr band floor)",
       "multiple_kind": "applied",
       "basis": "ev",
       "bridge": {
@@ -85,10 +92,12 @@
         "net_debt_basis": "strict",
         "minority": 548,
         "other": -4954,
-        "shares": 2914
+        "shares": 2914,
+        "source": "01_price-and-capital-structure.md §4, §7 (canonical bridge, reused by 07)"
       },
       "source": "07_scenario-and-fair-value.md §3 scenario table",
-      "level": 94.62
+      "level": 94.62,
+      "drivers": "A 12-month, print-driven demand shock: one of the four >$8bn named AI-infrastructure customers cuts contracted RPO ~20%, and the FY27 gross-margin step-down management has already flagged lands harder than guided."
     },
     {
       "label": "bear_structural",
@@ -103,10 +112,12 @@
         "net_debt_basis": "strict",
         "minority": 548,
         "other": -4954,
-        "shares": 2914
+        "shares": 2914,
+        "source": "01_price-and-capital-structure.md §4, §7 (canonical bridge, reused by 07)"
       },
       "source": "04_intrinsic-dcf.md §5c; 07_scenario-and-fair-value.md §3 structural-reset bridge",
       "level": 31.44,
+      "drivers": "Moat erosion (ROIC below WACC, 4 straight years) does not stabilize: OCI never reaches AWS/Azure-level scale or switching-cost economics and becomes fully commoditized, while the shrinking legacy annuity — the one segment with a real moat — cannot offset the loss.",
       "derivation": {
         "model": "ev_bridge",
         "ev": 233267,
@@ -142,11 +153,12 @@
   "sotp_segments": [
     {
       "segment": "Consolidated (collapsed proxy for Cloud & Software, 90.7% of FY26 segment profit)",
-      "metric_value": 49996,
-      "period_basis": "NTM / FY2027 consensus EBITDA",
+      "metric_name": "NTM / FY2027 consensus EBITDA",
+      "metric": 49996,
+      "period_basis": "NTM / FY2027",
       "multiple": 15.19,
       "comp": "SAP SE / Microsoft Corp average NTM EV/EBITDA",
-      "ev": 759439
+      "source": "06_sum-of-the-parts.md §2-3"
     }
   ],
   "sotp_bridge": {
@@ -154,19 +166,19 @@
     "net_debt_basis": "strict",
     "minority": 548,
     "other": -4954,
-    "shares": 2914,
-    "source": "06_sum-of-the-parts.md §3-4"
+    "source": "06_sum-of-the-parts.md §4"
   },
   "peers_internals": {
+    "metric_name": "NTM EV/EBITDA",
     "median_multiple": 15.19,
     "applied_multiple": 11.5,
-    "discount_pct": 0.2429,
+    "discount_pct": 24.29,
     "anchors": [
-      {"multiple": 11.5, "implied_value": 148.70, "label": "NTM EV/EBITDA, quality-adjusted (base case)"},
-      {"multiple": 21.7, "implied_value": 118.10, "label": "LTM EV/EBIT, peer median (raw, 10-name)"},
-      {"multiple": 17.4, "implied_value": 133.49, "label": "LTM EV/EBITDA, peer median (raw, 10-name)"},
-      {"multiple": 6.08, "implied_value": 137.79, "label": "NTM EV/Revenue, peer median (raw, 10-name)"},
-      {"multiple": 23.82, "implied_value": 191.75, "label": "NTM Forward P/E, peer median (raw, 10-name)"}
+      {"multiple": 11.5, "value": 148.70, "label": "NTM EV/EBITDA, quality-adjusted (base case)"},
+      {"multiple": 21.7, "value": 118.10, "label": "LTM EV/EBIT, peer median (raw, 10-name)"},
+      {"multiple": 17.4, "value": 133.49, "label": "LTM EV/EBITDA, peer median (raw, 10-name)"},
+      {"multiple": 6.08, "value": 137.79, "label": "NTM EV/Revenue, peer median (raw, 10-name)"},
+      {"multiple": 23.82, "value": 191.75, "label": "NTM Forward P/E, peer median (raw, 10-name)"}
     ],
     "source": "03_relative-valuation-peers.md §5 Implied Value from Peer Multiples table"
   }
