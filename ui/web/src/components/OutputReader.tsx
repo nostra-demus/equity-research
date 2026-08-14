@@ -380,7 +380,7 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
         ) : (
           <>
             {reportView.warning && (
-              <section className="reportcheck" role="alert">
+              <section className="reportcheck" role="region" aria-label="Report integrity warning">
                 <strong>This report is not ready to use</strong>
                 <p>Some checks failed. Fix them, then run the report again.</p>
                 <details>
