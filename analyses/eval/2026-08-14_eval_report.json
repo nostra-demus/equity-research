@@ -1,0 +1,4317 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-08-14",
+  "scope": "all",
+  "n_runs": 15,
+  "suite_pass": true,
+  "runs": {
+    "AMZN_2026-07-10": {
+      "run_root": "analyses/AMZN_2026-07-10",
+      "ticker": "AMZN",
+      "decision": "Watchlist",
+      "pass": false,
+      "gate_eligible": false,
+      "warn_only": true,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "FAIL",
+          "detail": "final_thesis>1KB=True; RUN_METADATA=False; modules_missing_99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]; schema_version=1.0"
+        },
+        {
+          "check": "B2_decision_date",
+          "status": "PASS",
+          "detail": "decision_date='2026-07-10' valid_iso=True"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "decision='Watchlist' basket='Watchlist' (expected 'Watchlist'); paper_treatment ok=True"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "N/A",
+          "detail": "entry_price present"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": "{'expected_return_pct': -16.1, 'downside_risk_pct': 38.7, 'margin_of_safety_pct': -13.5, 'risk_reward': -0.41, 'confidence_score': 57, 'data_sufficiency_score': 82}"
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "all 30/90/180/365 = decision_date+N from 2026-07-10"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "N/A",
+          "detail": "absent"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "N/A",
+          "detail": "absent"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "N/A",
+          "detail": "absent"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": "decision 'Watchlist' stated in a Decision: line / Rating cell of final_thesis.md=True"
+        },
+        {
+          "check": "K_s24_in_thesis",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; §24 roll-up present in final_thesis=True"
+        },
+        {
+          "check": "L_three_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; memo.md=True audit_dossier.md=True"
+        },
+        {
+          "check": "M_scenario_math",
+          "status": "PASS",
+          "detail": "prob sum=100; expected_return=Sum(p*ret); target & risk/reward reconcile"
+        },
+        {
+          "check": "N_no_scratch_leak",
+          "status": "PASS",
+          "detail": "scratch-reasoning phrases in final_thesis.md=[]"
+        },
+        {
+          "check": "O_integrity_gate",
+          "status": "N/A",
+          "detail": "N/A (not a post-gate Selected/Short run)"
+        },
+        {
+          "check": "P_disconfirmation",
+          "status": "PASS",
+          "detail": "edge non-tautological; kill_criteria present"
+        },
+        {
+          "check": "Q_module_tiers",
+          "status": "FAIL",
+          "detail": "run dated >= 2026-06-08; modules missing a tier=['valuation/memo', 'catalyst/memo', 'earnings/memo', 'business-model/memo']"
+        },
+        {
+          "check": "R_memo_delta",
+          "status": "PASS",
+          "detail": "memo_delta blocks valid; paired markdown present; rerun targets are real modules"
+        },
+        {
+          "check": "AL_pre_mortem_check",
+          "status": "PASS",
+          "detail": "pre_mortem_check present, enum valid, consistent with pre_mortem*.json presence"
+        },
+        {
+          "check": "S_haircut_propagated",
+          "status": "N/A",
+          "detail": "no pre_mortem.json — N/A"
+        },
+        {
+          "check": "T_forecast_ledger_quality",
+          "status": "PASS",
+          "detail": "all 5 forecast_ledger entries have required fields + valid status + valid probability"
+        },
+        {
+          "check": "U_postMortem_cap",
+          "status": "PASS",
+          "detail": "pre_mortem_verdict=''; post_mortem_decision=None; post_mortem_basket=None"
+        },
+        {
+          "check": "V_edge_gate",
+          "status": "PASS",
+          "detail": "edge_score=35; edge_proof=set; confidence=57"
+        },
+        {
+          "check": "X_verify_floor",
+          "status": "N/A",
+          "detail": "N/A (not a post-2026-06-19 conviction run)"
+        },
+        {
+          "check": "W_sector_valuation",
+          "status": "PASS",
+          "detail": "business_type='Multi-sided platform and cloud infrastructure conglomerate'; primary_valuation_method='SOTP + DCF exit multiple + peer NTM EV/EBITDA blend' — no forbidden method detected"
+        },
+        {
+          "check": "Y_data_sufficiency_cap",
+          "status": "PASS",
+          "detail": "data_sufficiency_score=82; decision='Watchlist' — §11 thresholds satisfied"
+        },
+        {
+          "check": "Z_thesis_type_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Company-specific', 'Sector-cycle']; all values in CLAUDE.md §14 enum; has_external=False; proven_edge=no (35); decision='Watchlist' — within §14 constraints"
+        },
+        {
+          "check": "AA_module_verdict_lock",
+          "status": "PASS",
+          "detail": "BSS verdict='Fortress balance sheet'; MG verdict='Aligned & competent'; decision='Watchlist' — §18 caps satisfied"
+        },
+        {
+          "check": "AB_bm_disqualifier_lock",
+          "status": "PASS",
+          "detail": "BM verdict='High-quality business — worth deeper work'; decision='Watchlist' — BM disqualifier cap satisfied"
+        },
+        {
+          "check": "AC_turnaround_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Company-specific', 'Sector-cycle']; decision='Watchlist' — §24 Filter 2 turnaround cap satisfied"
+        },
+        {
+          "check": "AD_filter_4_6_cap",
+          "status": "PASS",
+          "detail": "RF-CAP-004 (BM/MG)=not fired; MG RF-OWN-004=not fired; decision='Watchlist' — §24 Filter 4+6 caps satisfied"
+        },
+        {
+          "check": "AE_filter5_cap",
+          "status": "PASS",
+          "detail": "RF-BQ-005 (BM synth/07 source)=not fired; edge_score=35 (not proven or absent); decision='Watchlist' — §24 Filter 5 cap satisfied"
+        },
+        {
+          "check": "AF_filter1_integrity_cap",
+          "status": "PASS",
+          "detail": "RF-MGT-005 (MG synth/01 source)=not fired; decision='Watchlist' — §24 Filter 1 cap satisfied"
+        },
+        {
+          "check": "AQ_forensic_mosaic_cap",
+          "status": "N/A",
+          "detail": "run predates §13 forensic-mosaic gate (2026-07-10) — N/A"
+        },
+        {
+          "check": "AG_calibration_feedback_gate",
+          "status": "PASS",
+          "detail": "calibration_feedback.status='pre_data' consistent with as-of calibration_summary (verdict='Pre-data — learning loop live; inventory + process metrics computed; calibration awaits resolved reviews.')"
+        },
+        {
+          "check": "AH_expectations_gap_gate",
+          "status": "N/A",
+          "detail": "run predates the gate or confidence_score=57 not above the §7 conviction floor (2026-07-10) — N/A"
+        },
+        {
+          "check": "AI_headline_scorecard_reconciliation",
+          "status": "PASS",
+          "detail": "Headline Scorecard cells reconcile with expected_return_pct/downside_risk_pct/risk_reward/confidence_score/data_sufficiency_score"
+        },
+        {
+          "check": "AJ_decision_audit_trail",
+          "status": "PASS",
+          "detail": "Decision Audit Trail table present with 7 populated rows"
+        },
+        {
+          "check": "AK_red_flag_severity_reconciliation",
+          "status": "N/A",
+          "detail": "run predates the gate (2026-07-10) — N/A"
+        },
+        {
+          "check": "AN_supersession_integrity",
+          "status": "N/A",
+          "detail": "no supersession sidecar — N/A"
+        },
+        {
+          "check": "AM_bear_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Selected long with a usable bear price target — N/A"
+        },
+        {
+          "check": "AR_bull_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Short Candidate with a usable bull price target — N/A"
+        },
+        {
+          "check": "AO_forecast_resolvability",
+          "status": "N/A",
+          "detail": "run predates resolvability gate, or forecast_ledger is [] — N/A"
+        },
+        {
+          "check": "AT_scenario_span",
+          "status": "N/A",
+          "detail": "run predates the span gate, or carries no usable scenario returns — N/A"
+        },
+        {
+          "check": "AU_sign_check_recorded",
+          "status": "N/A",
+          "detail": "run predates the sign-check gate, or no thesis text — N/A"
+        },
+        {
+          "check": "AV_conjunction_disclosure",
+          "status": "N/A",
+          "detail": "run predates structured-scenario-authority rollout, or scenarios aren't in that shape — N/A"
+        },
+        {
+          "check": "AX_data_needs_v2",
+          "status": "N/A",
+          "detail": "record predates the v2 decision-guidance gate and has no discriminator — N/A"
+        }
+      ],
+      "warn_nonschema_files": [
+        "corrections.json"
+      ],
+      "retrospective_advisories": [
+        {
+          "check": "AK_red_flag_severity_reconciliation",
+          "status": "FAIL",
+          "detail": "Headline Scorecard 'Rating cap' cell denies a Critical red flag ('None from §24 filters; edge-score gate (edge_score 35 < 50) caps confidence at 60 per Confidence Scoring Rules; no verdict-lock or Critical red flag') but earnings declares 2; earnings declares 2 Critical red flag(s) but decision_record.json's red_flags array carries only 0 entries with severity=Critical (modules declaring a Critical count: {'earnings': 2})",
+          "note": "retrospective — decision_date '2026-07-10' predates AK_DATE (2026-07-11); informational only, does not affect pass/gate_eligible/suite_pass"
+        },
+        {
+          "check": "AS_forecast_overdue",
+          "status": "DUE",
+          "detail": "forecast_ledger[1] came due 2026-07-31 and is still unresolved (status open): Q2 2026 consolidated EBIT lands in the $23-25B range (above $23.4B consensus mid-point) driven by AWS accelera",
+          "note": "the ledger owes a resolution — run /research:review-decisions for this ticker (§19: a forecast that cannot be checked later is not a forecast); informational only, does not affect pass/gate_eligible/suite_pass"
+        }
+      ]
+    },
+    "BG_2026-06-01": {
+      "run_root": "analyses/BG_2026-06-01",
+      "ticker": "BG",
+      "decision": "Watchlist",
+      "pass": true,
+      "gate_eligible": true,
+      "warn_only": false,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "PASS",
+          "detail": "final_thesis>1KB=True; RUN_METADATA=True; modules_missing_99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]; schema_version=1.0"
+        },
+        {
+          "check": "B2_decision_date",
+          "status": "PASS",
+          "detail": "decision_date='2026-06-01' valid_iso=True"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "decision='Watchlist' basket='Watchlist' (expected 'Watchlist'); paper_treatment ok=True"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "PASS",
+          "detail": "entry_price null; notes addresses missing/indicative price=True"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": "{'expected_return_pct': -11.5, 'downside_risk_pct': -31.1, 'risk_reward': -0.37, 'confidence_score': 46, 'data_sufficiency_score': 68}"
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "all 30/90/180/365 = decision_date+N from 2026-06-01"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "PASS",
+          "detail": "using verification_report.json; verdict=Clean"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "PASS",
+          "detail": "using pre_mortem.json; verdict=Survives"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "PASS",
+          "detail": "using expectations_gap.json; verdict=None"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": "decision 'Watchlist' stated in a Decision: line / Rating cell of final_thesis.md=True"
+        },
+        {
+          "check": "K_s24_in_thesis",
+          "status": "N/A",
+          "detail": "run predates §24 (2026-06-01) — N/A"
+        },
+        {
+          "check": "L_three_tiers",
+          "status": "N/A",
+          "detail": "run predates three-tier feature (2026-06-01) — N/A"
+        },
+        {
+          "check": "M_scenario_math",
+          "status": "N/A",
+          "detail": "run predates scenario-math gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "N_no_scratch_leak",
+          "status": "N/A",
+          "detail": "run predates scratch-leak gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "O_integrity_gate",
+          "status": "N/A",
+          "detail": "N/A (not a post-gate Selected/Short run)"
+        },
+        {
+          "check": "P_disconfirmation",
+          "status": "N/A",
+          "detail": "run predates disconfirmation-quality gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "Q_module_tiers",
+          "status": "N/A",
+          "detail": "run predates module-tiers feature (2026-06-01) — N/A"
+        },
+        {
+          "check": "R_memo_delta",
+          "status": "PASS",
+          "detail": "memo_delta blocks valid; paired markdown present; rerun targets are real modules"
+        },
+        {
+          "check": "AL_pre_mortem_check",
+          "status": "PASS",
+          "detail": "pre_mortem_check present, enum valid, consistent with pre_mortem*.json presence"
+        },
+        {
+          "check": "S_haircut_propagated",
+          "status": "N/A",
+          "detail": "run predates haircut-propagation gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "T_forecast_ledger_quality",
+          "status": "N/A",
+          "detail": "run predates forecast-ledger quality gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "U_postMortem_cap",
+          "status": "N/A",
+          "detail": "run predates post-mortem cap gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "V_edge_gate",
+          "status": "N/A",
+          "detail": "run predates the §7 edge gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "X_verify_floor",
+          "status": "N/A",
+          "detail": "N/A (not a post-2026-06-19 conviction run)"
+        },
+        {
+          "check": "W_sector_valuation",
+          "status": "N/A",
+          "detail": "run predates the sector-valuation gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "Y_data_sufficiency_cap",
+          "status": "PASS",
+          "detail": "data_sufficiency_score=68; decision='Watchlist' — §11 thresholds satisfied"
+        },
+        {
+          "check": "Z_thesis_type_cap",
+          "status": "N/A",
+          "detail": "run predates thesis-type gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AA_module_verdict_lock",
+          "status": "N/A",
+          "detail": "run predates §18 module-verdict-lock gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AB_bm_disqualifier_lock",
+          "status": "N/A",
+          "detail": "run predates BM disqualifier gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AC_turnaround_cap",
+          "status": "N/A",
+          "detail": "run predates turnaround-cap gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AD_filter_4_6_cap",
+          "status": "N/A",
+          "detail": "run predates §24 Filter 4+6 gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AE_filter5_cap",
+          "status": "N/A",
+          "detail": "run predates §24 Filter 5 gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AF_filter1_integrity_cap",
+          "status": "N/A",
+          "detail": "run predates §24 Filter 1 gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AQ_forensic_mosaic_cap",
+          "status": "N/A",
+          "detail": "run predates §13 forensic-mosaic gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AG_calibration_feedback_gate",
+          "status": "N/A",
+          "detail": "run predates Phase 6 calibration-feedback gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AH_expectations_gap_gate",
+          "status": "N/A",
+          "detail": "run predates the gate or confidence_score=46 not above the §7 conviction floor (2026-06-01) — N/A"
+        },
+        {
+          "check": "AI_headline_scorecard_reconciliation",
+          "status": "N/A",
+          "detail": "run predates the gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AJ_decision_audit_trail",
+          "status": "N/A",
+          "detail": "run predates the gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AK_red_flag_severity_reconciliation",
+          "status": "N/A",
+          "detail": "run predates the gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AN_supersession_integrity",
+          "status": "N/A",
+          "detail": "no supersession sidecar — N/A"
+        },
+        {
+          "check": "AM_bear_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Selected long with a usable bear price target — N/A"
+        },
+        {
+          "check": "AR_bull_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Short Candidate with a usable bull price target — N/A"
+        },
+        {
+          "check": "AO_forecast_resolvability",
+          "status": "N/A",
+          "detail": "run predates resolvability gate, or forecast_ledger is [] — N/A"
+        },
+        {
+          "check": "AT_scenario_span",
+          "status": "N/A",
+          "detail": "run predates the span gate, or carries no usable scenario returns — N/A"
+        },
+        {
+          "check": "AU_sign_check_recorded",
+          "status": "N/A",
+          "detail": "run predates the sign-check gate, or no thesis text — N/A"
+        },
+        {
+          "check": "AV_conjunction_disclosure",
+          "status": "N/A",
+          "detail": "run predates structured-scenario-authority rollout, or scenarios aren't in that shape — N/A"
+        },
+        {
+          "check": "AX_data_needs_v2",
+          "status": "N/A",
+          "detail": "record predates the v2 decision-guidance gate and has no discriminator — N/A"
+        }
+      ],
+      "warn_nonschema_files": [
+        "corrections.json"
+      ],
+      "retrospective_advisories": [
+        {
+          "check": "AS_forecast_overdue",
+          "status": "DUE",
+          "detail": "forecast_ledger[1] came due 2026-07-28 and is still unresolved (status open): Q2 FY2026 beats on the quarter but management does not raise the full-year guide.",
+          "note": "the ledger owes a resolution — run /research:review-decisions for this ticker (§19: a forecast that cannot be checked later is not a forecast); informational only, does not affect pass/gate_eligible/suite_pass"
+        }
+      ]
+    },
+    "DHER_2026-08-12": {
+      "run_root": "analyses/DHER_2026-08-12",
+      "ticker": "DHER",
+      "decision": "Avoid",
+      "pass": true,
+      "gate_eligible": true,
+      "warn_only": false,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "PASS",
+          "detail": "final_thesis>1KB=True; RUN_METADATA=True; modules_missing_99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]; schema_version=1.0"
+        },
+        {
+          "check": "B2_decision_date",
+          "status": "PASS",
+          "detail": "decision_date='2026-08-12' valid_iso=True"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "decision='Avoid' basket='Rejected' (expected 'Rejected'); paper_treatment ok=True"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "N/A",
+          "detail": "entry_price present"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": "{'expected_return_pct': -8.68, 'downside_risk_pct': 89.25, 'margin_of_safety_pct': 10.36, 'risk_reward': -0.17, 'confidence_score': 35.0, 'data_sufficiency_score': 72, 'post_review_confidence_score': 27.0, 'confidence_haircut': 8.0}"
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "all 30/90/180/365 = decision_date+N from 2026-08-12"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "PASS",
+          "detail": "using verification_report.json; verdict=Material issues"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "PASS",
+          "detail": "using pre_mortem.json; verdict=Survives with haircut"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "PASS",
+          "detail": "using expectations_gap.json; verdict=None"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": "decision 'Avoid' stated in a Decision: line / Rating cell of final_thesis.md=True"
+        },
+        {
+          "check": "K_s24_in_thesis",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; §24 roll-up present in final_thesis=True"
+        },
+        {
+          "check": "L_three_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; memo.md=True audit_dossier.md=True"
+        },
+        {
+          "check": "M_scenario_math",
+          "status": "PASS",
+          "detail": "prob sum=100; expected_return=Sum(p*ret); target & risk/reward reconcile"
+        },
+        {
+          "check": "N_no_scratch_leak",
+          "status": "PASS",
+          "detail": "scratch-reasoning phrases in final_thesis.md=[]"
+        },
+        {
+          "check": "O_integrity_gate",
+          "status": "N/A",
+          "detail": "N/A (not a post-gate Selected/Short run)"
+        },
+        {
+          "check": "P_disconfirmation",
+          "status": "PASS",
+          "detail": "edge non-tautological; kill_criteria present"
+        },
+        {
+          "check": "Q_module_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-08; modules missing a tier=[]"
+        },
+        {
+          "check": "R_memo_delta",
+          "status": "N/A",
+          "detail": "no reviews filed on/after 2026-06-10 — N/A"
+        },
+        {
+          "check": "AL_pre_mortem_check",
+          "status": "N/A",
+          "detail": "no reviews filed on/after 2026-07-17 — N/A"
+        },
+        {
+          "check": "S_haircut_propagated",
+          "status": "PASS",
+          "detail": "haircut=8.0; post_review_confidence_score=27.0; pre_mortem_verdict='Survives with haircut'"
+        },
+        {
+          "check": "T_forecast_ledger_quality",
+          "status": "PASS",
+          "detail": "all 6 forecast_ledger entries have required fields + valid status + valid probability"
+        },
+        {
+          "check": "U_postMortem_cap",
+          "status": "PASS",
+          "detail": "pre_mortem_verdict='Survives with haircut'; post_mortem_decision='Avoid'; post_mortem_basket='Rejected'"
+        },
+        {
+          "check": "V_edge_gate",
+          "status": "PASS",
+          "detail": "edge_score=45; edge_proof=set; confidence=35.0"
+        },
+        {
+          "check": "X_verify_floor",
+          "status": "N/A",
+          "detail": "N/A (not a post-2026-06-19 conviction run)"
+        },
+        {
+          "check": "W_sector_valuation",
+          "status": "PASS",
+          "detail": "business_type=\"On-demand delivery marketplace + quick-commerce retailer (no exact SECTOR_OVERLAYS.md match; nearest analogue Retail/consumer; company's own GMV/take-rate/Adjusted EBITDA framework used as primary KPI grammar)\"; primary_valuation_method='Own-history EV/Sales reversion, cross-validated by FCFF DCF and sum-of-the-parts (peer-relative method discounted for peer-set composition effects)' — no forbidden method detected"
+        },
+        {
+          "check": "Y_data_sufficiency_cap",
+          "status": "PASS",
+          "detail": "data_sufficiency_score=72; decision='Avoid' — §11 thresholds satisfied"
+        },
+        {
+          "check": "Z_thesis_type_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Company-specific', 'Policy-conditional', 'Balance-sheet survival']; all values in CLAUDE.md §14 enum; has_external=True; proven_edge=no (45); decision='Avoid' — within §14 constraints"
+        },
+        {
+          "check": "AA_module_verdict_lock",
+          "status": "PASS",
+          "detail": "BSS verdict=None; MG verdict='Serious governance concerns'; decision='Avoid' — §18 caps satisfied"
+        },
+        {
+          "check": "AB_bm_disqualifier_lock",
+          "status": "N/A",
+          "detail": "BM verdict=None; BM module absent — N/A"
+        },
+        {
+          "check": "AC_turnaround_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Company-specific', 'Policy-conditional', 'Balance-sheet survival']; decision='Avoid' — §24 Filter 2 turnaround cap satisfied"
+        },
+        {
+          "check": "AD_filter_4_6_cap",
+          "status": "PASS",
+          "detail": "RF-CAP-004 (BM/MG)=fired; MG RF-OWN-004=not fired; decision='Avoid' — §24 Filter 4+6 caps satisfied"
+        },
+        {
+          "check": "AE_filter5_cap",
+          "status": "PASS",
+          "detail": "RF-BQ-005 (BM synth/07 source)=fired; edge_score=45 (not proven or absent); decision='Avoid' — §24 Filter 5 cap satisfied"
+        },
+        {
+          "check": "AF_filter1_integrity_cap",
+          "status": "PASS",
+          "detail": "RF-MGT-005 (MG synth/01 source)=not fired; decision='Avoid' — §24 Filter 1 cap satisfied"
+        },
+        {
+          "check": "AQ_forensic_mosaic_cap",
+          "status": "PASS",
+          "detail": "forensic tags fired: ['RF-DISC-001', 'RF-DISC-002', 'RF-DISQ-001', 'RF-EQ-002', 'RF-OBS-001']; decision='Avoid' — §13 forensic-mosaic cap satisfied"
+        },
+        {
+          "check": "AG_calibration_feedback_gate",
+          "status": "PASS",
+          "detail": "calibration_feedback.status='pre_data' consistent with as-of calibration_summary (verdict='Pre-data — 7 decisions, 7 reviews, 1 resolved forecasts, 1 resolved directional calls. Inventory, process metrics, and the flat error/pre-mortem tallies are reported; every skill metric (hit rate, Brier, Selected−Rejected spread) is below floor and explicitly withheld, not estimated.')"
+        },
+        {
+          "check": "AH_expectations_gap_gate",
+          "status": "N/A",
+          "detail": "run predates the gate or confidence_score=35.0 not above the §7 conviction floor (2026-08-12) — N/A"
+        },
+        {
+          "check": "AI_headline_scorecard_reconciliation",
+          "status": "PASS",
+          "detail": "Headline Scorecard cells reconcile with expected_return_pct/downside_risk_pct/risk_reward/confidence_score/data_sufficiency_score"
+        },
+        {
+          "check": "AJ_decision_audit_trail",
+          "status": "PASS",
+          "detail": "Decision Audit Trail table present with 5 populated rows"
+        },
+        {
+          "check": "AK_red_flag_severity_reconciliation",
+          "status": "PASS",
+          "detail": "module-declared Critical red-flag counts reconcile with decision_record.json red_flags and the Headline Scorecard Rating-cap cell does not deny one"
+        },
+        {
+          "check": "AN_supersession_integrity",
+          "status": "N/A",
+          "detail": "no supersession sidecar — N/A"
+        },
+        {
+          "check": "AM_bear_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Selected long with a usable bear price target — N/A"
+        },
+        {
+          "check": "AR_bull_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Short Candidate with a usable bull price target — N/A"
+        },
+        {
+          "check": "AO_forecast_resolvability",
+          "status": "PASS",
+          "detail": "every forecast carries a pinned/settleable, partitioned trigger and the record has a ≤90-day proof point"
+        },
+        {
+          "check": "AT_scenario_span",
+          "status": "PASS",
+          "detail": "the scenario set spans a real good outcome, not only degrees of bad"
+        },
+        {
+          "check": "AU_sign_check_recorded",
+          "status": "PASS",
+          "detail": "the thesis records its sign check against the module owning its driver"
+        },
+        {
+          "check": "AV_conjunction_disclosure",
+          "status": "PASS",
+          "detail": "every scenario's conditions[] / joint_probability_basis pair is schema-consistent (§10)"
+        },
+        {
+          "check": "AX_data_needs_v2",
+          "status": "N/A",
+          "detail": "record predates the v2 decision-guidance gate and has no discriminator — N/A"
+        }
+      ],
+      "warn_nonschema_files": [
+        "idea_3_6m.json",
+        "agent_metrics.040b0738-3e07-4b7f-a8ff-22c0948aeaaa.json",
+        "agent_metrics.af60940a-c77c-4989-9133-4ab6af459650.json",
+        "agent_metrics.ad893030-3a48-457c-bc22-725015d871eb.json",
+        "agent_metrics.0b941e2a-76dd-4df1-89ce-ec080e719572.json",
+        "agent_metrics.672152a5-eedc-4e8a-875c-c93aa04eb7fa.json",
+        "agent_metrics.2c918671-b8fa-4df5-a2b2-e223752457b2.json",
+        "agent_metrics.5e7788a2-36d8-4327-be3f-cd6b0a06843a.json"
+      ],
+      "retrospective_advisories": [
+        {
+          "check": "AS_forecast_overdue",
+          "status": "DUE",
+          "detail": "forecast_ledger[2] came due 2026-03-26 and is still unresolved (status open): FY2026 reported (unadjusted) free cash flow misses the >EUR200m guided floor, repeating the same 'extraordinar",
+          "note": "the ledger owes a resolution — run /research:review-decisions for this ticker (§19: a forecast that cannot be checked later is not a forecast); informational only, does not affect pass/gate_eligible/suite_pass"
+        }
+      ]
+    },
+    "EMAAR_2026-07-03": {
+      "run_root": "analyses/EMAAR_2026-07-03",
+      "ticker": "EMAAR",
+      "decision": "Starter Position Only",
+      "pass": false,
+      "gate_eligible": false,
+      "warn_only": true,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "FAIL",
+          "detail": "final_thesis>1KB=True; RUN_METADATA=False; modules_missing_99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]; schema_version=1.0"
+        },
+        {
+          "check": "B2_decision_date",
+          "status": "PASS",
+          "detail": "decision_date='2026-07-03' valid_iso=True"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "decision='Starter Position Only' basket='Selected' (expected 'Selected'); paper_treatment ok=True"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "N/A",
+          "detail": "entry_price present"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": "{'expected_return_pct': 118.8, 'downside_risk_pct': -63.9, 'risk_reward': 1.9, 'confidence_score': 52, 'data_sufficiency_score': 72}"
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "all 30/90/180/365 = decision_date+N from 2026-07-03"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "N/A",
+          "detail": "absent"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "N/A",
+          "detail": "absent"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "N/A",
+          "detail": "absent"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": "decision 'Starter Position Only' stated in a Decision: line / Rating cell of final_thesis.md=True"
+        },
+        {
+          "check": "K_s24_in_thesis",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; §24 roll-up present in final_thesis=True"
+        },
+        {
+          "check": "L_three_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; memo.md=True audit_dossier.md=True"
+        },
+        {
+          "check": "M_scenario_math",
+          "status": "PASS",
+          "detail": "prob sum=100; expected_return=Sum(p*ret); target & risk/reward reconcile"
+        },
+        {
+          "check": "N_no_scratch_leak",
+          "status": "PASS",
+          "detail": "scratch-reasoning phrases in final_thesis.md=[]"
+        },
+        {
+          "check": "O_integrity_gate",
+          "status": "FAIL",
+          "detail": "Selected/Short run dated >= 2026-06-08 must carry verification_report.json(False) + pre_mortem.json(False) from the finish-gate"
+        },
+        {
+          "check": "P_disconfirmation",
+          "status": "PASS",
+          "detail": "edge non-tautological; kill_criteria present"
+        },
+        {
+          "check": "Q_module_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-08; modules missing a tier=[]"
+        },
+        {
+          "check": "R_memo_delta",
+          "status": "PASS",
+          "detail": "memo_delta blocks valid; paired markdown present; rerun targets are real modules"
+        },
+        {
+          "check": "AL_pre_mortem_check",
+          "status": "PASS",
+          "detail": "pre_mortem_check present, enum valid, consistent with pre_mortem*.json presence"
+        },
+        {
+          "check": "S_haircut_propagated",
+          "status": "N/A",
+          "detail": "no pre_mortem.json — N/A"
+        },
+        {
+          "check": "T_forecast_ledger_quality",
+          "status": "PASS",
+          "detail": "all 6 forecast_ledger entries have required fields + valid status + valid probability"
+        },
+        {
+          "check": "U_postMortem_cap",
+          "status": "PASS",
+          "detail": "pre_mortem_verdict=''; post_mortem_decision=None; post_mortem_basket=None"
+        },
+        {
+          "check": "V_edge_gate",
+          "status": "PASS",
+          "detail": "edge_score=40; edge_proof=set; confidence=52"
+        },
+        {
+          "check": "X_verify_floor",
+          "status": "N/A",
+          "detail": "no verification_report.json — N/A (existence gated by check O for runs dated>=2026-06-08)"
+        },
+        {
+          "check": "W_sector_valuation",
+          "status": "PASS",
+          "detail": "business_type='Generic operating company'; primary_valuation_method='SOTP + FCFF DCF' — no forbidden method detected"
+        },
+        {
+          "check": "Y_data_sufficiency_cap",
+          "status": "PASS",
+          "detail": "data_sufficiency_score=72; decision='Starter Position Only' — §11 thresholds satisfied"
+        },
+        {
+          "check": "Z_thesis_type_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Company-specific', 'Sector-cycle', 'Policy-conditional']; all values in CLAUDE.md §14 enum; has_external=True; proven_edge=no (40); decision='Starter Position Only' — within §14 constraints"
+        },
+        {
+          "check": "AA_module_verdict_lock",
+          "status": "PASS",
+          "detail": "BSS verdict='Fortress balance sheet'; MG verdict='Misaligned or weak stewardship'; decision='Starter Position Only' — §18 caps satisfied"
+        },
+        {
+          "check": "AB_bm_disqualifier_lock",
+          "status": "PASS",
+          "detail": "BM verdict='Average business — worth deeper work only if valuation is cheap'; decision='Starter Position Only' — BM disqualifier cap satisfied"
+        },
+        {
+          "check": "AC_turnaround_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Company-specific', 'Sector-cycle', 'Policy-conditional']; decision='Starter Position Only' — §24 Filter 2 turnaround cap satisfied"
+        },
+        {
+          "check": "AD_filter_4_6_cap",
+          "status": "FAIL",
+          "detail": "§24 Filter 6 (RF-OWN-004 unaligned owner) fired in MG synthesis but decision='Starter Position Only' exceeds the Watchlist cap (synthesizer.md Rating Cap Rules: max Watchlist for unaligned controlling owner; CLAUDE.md §24 Filter 6)"
+        },
+        {
+          "check": "AE_filter5_cap",
+          "status": "PASS",
+          "detail": "RF-BQ-005 (BM synth/07 source)=not fired; edge_score=40 (not proven or absent); decision='Starter Position Only' — §24 Filter 5 cap satisfied"
+        },
+        {
+          "check": "AF_filter1_integrity_cap",
+          "status": "PASS",
+          "detail": "RF-MGT-005 (MG synth/01 source)=not fired; decision='Starter Position Only' — §24 Filter 1 cap satisfied"
+        },
+        {
+          "check": "AQ_forensic_mosaic_cap",
+          "status": "N/A",
+          "detail": "run predates §13 forensic-mosaic gate (2026-07-03) — N/A"
+        },
+        {
+          "check": "AG_calibration_feedback_gate",
+          "status": "N/A",
+          "detail": "run predates Phase 6 calibration-feedback gate (2026-07-03) — N/A"
+        },
+        {
+          "check": "AH_expectations_gap_gate",
+          "status": "N/A",
+          "detail": "run predates the gate or confidence_score=52 not above the §7 conviction floor (2026-07-03) — N/A"
+        },
+        {
+          "check": "AI_headline_scorecard_reconciliation",
+          "status": "N/A",
+          "detail": "run predates the gate (2026-07-03) — N/A"
+        },
+        {
+          "check": "AJ_decision_audit_trail",
+          "status": "N/A",
+          "detail": "run predates the gate (2026-07-03) — N/A"
+        },
+        {
+          "check": "AK_red_flag_severity_reconciliation",
+          "status": "N/A",
+          "detail": "run predates the gate (2026-07-03) — N/A"
+        },
+        {
+          "check": "AN_supersession_integrity",
+          "status": "PASS",
+          "detail": "superseded_by → analyses/EMAAR_2026-07-10 (exists, has a decision record)"
+        },
+        {
+          "check": "AM_bear_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Selected long with a usable bear price target — N/A"
+        },
+        {
+          "check": "AR_bull_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Short Candidate with a usable bull price target — N/A"
+        },
+        {
+          "check": "AO_forecast_resolvability",
+          "status": "N/A",
+          "detail": "run predates resolvability gate, or forecast_ledger is [] — N/A"
+        },
+        {
+          "check": "AT_scenario_span",
+          "status": "N/A",
+          "detail": "run predates the span gate, or carries no usable scenario returns — N/A"
+        },
+        {
+          "check": "AU_sign_check_recorded",
+          "status": "N/A",
+          "detail": "run predates the sign-check gate, or no thesis text — N/A"
+        },
+        {
+          "check": "AV_conjunction_disclosure",
+          "status": "N/A",
+          "detail": "run predates structured-scenario-authority rollout, or scenarios aren't in that shape — N/A"
+        },
+        {
+          "check": "AX_data_needs_v2",
+          "status": "N/A",
+          "detail": "record predates the v2 decision-guidance gate and has no discriminator — N/A"
+        }
+      ],
+      "warn_nonschema_files": [
+        "corrections.json"
+      ],
+      "retrospective_advisories": [
+        {
+          "check": "AK_red_flag_severity_reconciliation",
+          "status": "FAIL",
+          "detail": "decision_record.json records 1 Critical red flag(s) but decision='Starter Position Only' exceeds the 'Watchlist' cap, and not every Critical is explicitly resolved (CLAUDE.md §13: a critical governance/solvency/accounting red flag must cap the final rating unless explicitly resolved by primary evidence; §18: a critical flag caps the headline at Watchlist or lower)",
+          "note": "retrospective — decision_date '2026-07-03' predates AK_DATE (2026-07-11); informational only, does not affect pass/gate_eligible/suite_pass"
+        }
+      ]
+    },
+    "EMAAR_2026-07-10": {
+      "run_root": "analyses/EMAAR_2026-07-10",
+      "ticker": "EMAAR",
+      "decision": "Watchlist",
+      "pass": true,
+      "gate_eligible": true,
+      "warn_only": false,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "PASS",
+          "detail": "final_thesis>1KB=True; RUN_METADATA=True; modules_missing_99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]; schema_version=1.0"
+        },
+        {
+          "check": "B2_decision_date",
+          "status": "PASS",
+          "detail": "decision_date='2026-07-10' valid_iso=True"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "decision='Watchlist' basket='Watchlist' (expected 'Watchlist'); paper_treatment ok=True"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "N/A",
+          "detail": "entry_price present"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": "{'expected_return_pct': 17.7, 'downside_risk_pct': 20.1, 'margin_of_safety_pct': 18.7, 'risk_reward': 0.88, 'confidence_score': 52, 'data_sufficiency_score': 80}"
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "all 30/90/180/365 = decision_date+N from 2026-07-10"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "N/A",
+          "detail": "absent"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "N/A",
+          "detail": "absent"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "N/A",
+          "detail": "absent"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": "decision 'Watchlist' stated in a Decision: line / Rating cell of final_thesis.md=True"
+        },
+        {
+          "check": "K_s24_in_thesis",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; §24 roll-up present in final_thesis=True"
+        },
+        {
+          "check": "L_three_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; memo.md=True audit_dossier.md=True"
+        },
+        {
+          "check": "M_scenario_math",
+          "status": "PASS",
+          "detail": "prob sum=100; expected_return=Sum(p*ret); target & risk/reward reconcile"
+        },
+        {
+          "check": "N_no_scratch_leak",
+          "status": "PASS",
+          "detail": "scratch-reasoning phrases in final_thesis.md=[]"
+        },
+        {
+          "check": "O_integrity_gate",
+          "status": "N/A",
+          "detail": "N/A (not a post-gate Selected/Short run)"
+        },
+        {
+          "check": "P_disconfirmation",
+          "status": "PASS",
+          "detail": "edge non-tautological; kill_criteria present"
+        },
+        {
+          "check": "Q_module_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-08; modules missing a tier=[]"
+        },
+        {
+          "check": "R_memo_delta",
+          "status": "PASS",
+          "detail": "memo_delta blocks valid; paired markdown present; rerun targets are real modules"
+        },
+        {
+          "check": "AL_pre_mortem_check",
+          "status": "PASS",
+          "detail": "pre_mortem_check present, enum valid, consistent with pre_mortem*.json presence"
+        },
+        {
+          "check": "S_haircut_propagated",
+          "status": "N/A",
+          "detail": "no pre_mortem.json — N/A"
+        },
+        {
+          "check": "T_forecast_ledger_quality",
+          "status": "PASS",
+          "detail": "all 6 forecast_ledger entries have required fields + valid status + valid probability"
+        },
+        {
+          "check": "U_postMortem_cap",
+          "status": "PASS",
+          "detail": "pre_mortem_verdict=''; post_mortem_decision=None; post_mortem_basket=None"
+        },
+        {
+          "check": "V_edge_gate",
+          "status": "PASS",
+          "detail": "edge_score=38; edge_proof=set; confidence=52"
+        },
+        {
+          "check": "X_verify_floor",
+          "status": "N/A",
+          "detail": "N/A (not a post-2026-06-19 conviction run)"
+        },
+        {
+          "check": "W_sector_valuation",
+          "status": "PASS",
+          "detail": "business_type='REIT / real estate'; primary_valuation_method='Sum-of-the-parts / NAV (corroborated by normalized FCFF DCF)' — no forbidden method detected"
+        },
+        {
+          "check": "Y_data_sufficiency_cap",
+          "status": "PASS",
+          "detail": "data_sufficiency_score=80; decision='Watchlist' — §11 thresholds satisfied"
+        },
+        {
+          "check": "Z_thesis_type_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Sector-cycle', 'Company-specific']; all values in CLAUDE.md §14 enum; has_external=False; proven_edge=no (38); decision='Watchlist' — within §14 constraints"
+        },
+        {
+          "check": "AA_module_verdict_lock",
+          "status": "PASS",
+          "detail": "BSS verdict='**Fortress balance sheet**'; MG verdict='**Standard / mixed** — competent, promise-keeping operators with a value-creative per-share record, held back from \"aligned & competent\" by structurally thin, government-anchored alignment (0.03% insider ownership, a government controller, a founder-MD who chairs a competitor with no disclosed succession plan, and a related-party channel left unquantified).'; decision='Watchlist' — §18 caps satisfied"
+        },
+        {
+          "check": "AB_bm_disqualifier_lock",
+          "status": "PASS",
+          "detail": "BM verdict='**Cyclical business — worth deeper work only with a strong timing edge**'; decision='Watchlist' — BM disqualifier cap satisfied"
+        },
+        {
+          "check": "AC_turnaround_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Sector-cycle', 'Company-specific']; decision='Watchlist' — §24 Filter 2 turnaround cap satisfied"
+        },
+        {
+          "check": "AD_filter_4_6_cap",
+          "status": "PASS",
+          "detail": "RF-CAP-004 (BM/MG)=not fired; MG RF-OWN-004=fired; decision='Watchlist' — §24 Filter 4+6 caps satisfied"
+        },
+        {
+          "check": "AE_filter5_cap",
+          "status": "PASS",
+          "detail": "RF-BQ-005 (BM synth/07 source)=fired; edge_score=38 (not proven or absent); decision='Watchlist' — §24 Filter 5 cap satisfied"
+        },
+        {
+          "check": "AF_filter1_integrity_cap",
+          "status": "PASS",
+          "detail": "RF-MGT-005 (MG synth/01 source)=not fired; decision='Watchlist' — §24 Filter 1 cap satisfied"
+        },
+        {
+          "check": "AQ_forensic_mosaic_cap",
+          "status": "N/A",
+          "detail": "run predates §13 forensic-mosaic gate (2026-07-10) — N/A"
+        },
+        {
+          "check": "AG_calibration_feedback_gate",
+          "status": "PASS",
+          "detail": "calibration_feedback.status='pre_data' consistent with as-of calibration_summary (verdict='Pre-data — learning loop live; inventory + process metrics computed; calibration awaits resolved reviews.')"
+        },
+        {
+          "check": "AH_expectations_gap_gate",
+          "status": "N/A",
+          "detail": "run predates the gate or confidence_score=52 not above the §7 conviction floor (2026-07-10) — N/A"
+        },
+        {
+          "check": "AI_headline_scorecard_reconciliation",
+          "status": "PASS",
+          "detail": "Headline Scorecard cells reconcile with expected_return_pct/downside_risk_pct/risk_reward/confidence_score/data_sufficiency_score"
+        },
+        {
+          "check": "AJ_decision_audit_trail",
+          "status": "PASS",
+          "detail": "Decision Audit Trail table present with 5 populated rows"
+        },
+        {
+          "check": "AK_red_flag_severity_reconciliation",
+          "status": "N/A",
+          "detail": "run predates the gate (2026-07-10) — N/A"
+        },
+        {
+          "check": "AN_supersession_integrity",
+          "status": "N/A",
+          "detail": "no supersession sidecar — N/A"
+        },
+        {
+          "check": "AM_bear_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Selected long with a usable bear price target — N/A"
+        },
+        {
+          "check": "AR_bull_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Short Candidate with a usable bull price target — N/A"
+        },
+        {
+          "check": "AO_forecast_resolvability",
+          "status": "N/A",
+          "detail": "run predates resolvability gate, or forecast_ledger is [] — N/A"
+        },
+        {
+          "check": "AT_scenario_span",
+          "status": "N/A",
+          "detail": "run predates the span gate, or carries no usable scenario returns — N/A"
+        },
+        {
+          "check": "AU_sign_check_recorded",
+          "status": "N/A",
+          "detail": "run predates the sign-check gate, or no thesis text — N/A"
+        },
+        {
+          "check": "AV_conjunction_disclosure",
+          "status": "N/A",
+          "detail": "run predates structured-scenario-authority rollout, or scenarios aren't in that shape — N/A"
+        },
+        {
+          "check": "AX_data_needs_v2",
+          "status": "N/A",
+          "detail": "record predates the v2 decision-guidance gate and has no discriminator — N/A"
+        }
+      ],
+      "warn_nonschema_files": [
+        "agent_metrics.dbe77352-cf32-4980-9e8e-b1a2c2700ee2.json",
+        "corrections.json"
+      ],
+      "retrospective_advisories": []
+    },
+    "HAIER_2026-08-13": {
+      "run_root": "analyses/HAIER_2026-08-13",
+      "ticker": "HAIER",
+      "decision": "Watchlist",
+      "pass": true,
+      "gate_eligible": true,
+      "warn_only": false,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "PASS",
+          "detail": "final_thesis>1KB=True; RUN_METADATA=True; modules_missing_99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]; schema_version=1.0"
+        },
+        {
+          "check": "B2_decision_date",
+          "status": "PASS",
+          "detail": "decision_date='2026-08-13' valid_iso=True"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "decision='Watchlist' basket='Watchlist' (expected 'Watchlist'); paper_treatment ok=True"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "N/A",
+          "detail": "entry_price present"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": "{'expected_return_pct': 3.02, 'downside_risk_pct': 26.9, 'margin_of_safety_pct': 8.11, 'risk_reward': 0.11, 'confidence_score': 42.0, 'data_sufficiency_score': 76, 'post_review_confidence_score': 35.0, 'confidence_haircut': 7.0}"
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "all 30/90/180/365 = decision_date+N from 2026-08-13"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "PASS",
+          "detail": "using verification_report.json; verdict=Minor issues"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "PASS",
+          "detail": "using pre_mortem.json; verdict=Survives with haircut"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "PASS",
+          "detail": "using expectations_gap.json; verdict=None"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": "decision 'Watchlist' stated in a Decision: line / Rating cell of final_thesis.md=True"
+        },
+        {
+          "check": "K_s24_in_thesis",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; §24 roll-up present in final_thesis=True"
+        },
+        {
+          "check": "L_three_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; memo.md=True audit_dossier.md=True"
+        },
+        {
+          "check": "M_scenario_math",
+          "status": "PASS",
+          "detail": "prob sum=100; expected_return=Sum(p*ret); target & risk/reward reconcile"
+        },
+        {
+          "check": "N_no_scratch_leak",
+          "status": "PASS",
+          "detail": "scratch-reasoning phrases in final_thesis.md=[]"
+        },
+        {
+          "check": "O_integrity_gate",
+          "status": "N/A",
+          "detail": "N/A (not a post-gate Selected/Short run)"
+        },
+        {
+          "check": "P_disconfirmation",
+          "status": "PASS",
+          "detail": "edge non-tautological; kill_criteria present"
+        },
+        {
+          "check": "Q_module_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-08; modules missing a tier=[]"
+        },
+        {
+          "check": "R_memo_delta",
+          "status": "N/A",
+          "detail": "no reviews filed on/after 2026-06-10 — N/A"
+        },
+        {
+          "check": "AL_pre_mortem_check",
+          "status": "N/A",
+          "detail": "no reviews filed on/after 2026-07-17 — N/A"
+        },
+        {
+          "check": "S_haircut_propagated",
+          "status": "PASS",
+          "detail": "haircut=7.0; post_review_confidence_score=35.0; pre_mortem_verdict='Survives with haircut'"
+        },
+        {
+          "check": "T_forecast_ledger_quality",
+          "status": "PASS",
+          "detail": "all 5 forecast_ledger entries have required fields + valid status + valid probability"
+        },
+        {
+          "check": "U_postMortem_cap",
+          "status": "PASS",
+          "detail": "pre_mortem_verdict='Survives with haircut'; post_mortem_decision='Watchlist'; post_mortem_basket='Watchlist'"
+        },
+        {
+          "check": "V_edge_gate",
+          "status": "PASS",
+          "detail": "edge_score=25; edge_proof=set; confidence=42.0"
+        },
+        {
+          "check": "X_verify_floor",
+          "status": "N/A",
+          "detail": "N/A (not a post-2026-06-19 conviction run)"
+        },
+        {
+          "check": "W_sector_valuation",
+          "status": "PASS",
+          "detail": "business_type='Generic operating company'; primary_valuation_method='Peer-relative valuation (EV/EBITDA)' — no forbidden method detected"
+        },
+        {
+          "check": "Y_data_sufficiency_cap",
+          "status": "PASS",
+          "detail": "data_sufficiency_score=76; decision='Watchlist' — §11 thresholds satisfied"
+        },
+        {
+          "check": "Z_thesis_type_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Company-specific', 'Commodity-conditional', 'Policy-conditional']; all values in CLAUDE.md §14 enum; has_external=True; proven_edge=no (25); decision='Watchlist' — within §14 constraints"
+        },
+        {
+          "check": "AA_module_verdict_lock",
+          "status": "PASS",
+          "detail": "BSS verdict=None; MG verdict='Standard / mixed'; decision='Watchlist' — §18 caps satisfied"
+        },
+        {
+          "check": "AB_bm_disqualifier_lock",
+          "status": "PASS",
+          "detail": "BM verdict='Average business — worth deeper work only if valuation is cheap'; decision='Watchlist' — BM disqualifier cap satisfied"
+        },
+        {
+          "check": "AC_turnaround_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Company-specific', 'Commodity-conditional', 'Policy-conditional']; decision='Watchlist' — §24 Filter 2 turnaround cap satisfied"
+        },
+        {
+          "check": "AD_filter_4_6_cap",
+          "status": "PASS",
+          "detail": "RF-CAP-004 (BM/MG)=not fired; MG RF-OWN-004=not fired; decision='Watchlist' — §24 Filter 4+6 caps satisfied"
+        },
+        {
+          "check": "AE_filter5_cap",
+          "status": "PASS",
+          "detail": "RF-BQ-005 (BM synth/07 source)=not fired; edge_score=25 (not proven or absent); decision='Watchlist' — §24 Filter 5 cap satisfied"
+        },
+        {
+          "check": "AF_filter1_integrity_cap",
+          "status": "PASS",
+          "detail": "RF-MGT-005 (MG synth/01 source)=not fired; decision='Watchlist' — §24 Filter 1 cap satisfied"
+        },
+        {
+          "check": "AQ_forensic_mosaic_cap",
+          "status": "PASS",
+          "detail": "forensic tags fired: ['RF-DISC-001', 'RF-DISC-002', 'RF-DISQ-001', 'RF-EQ-001']; decision='Watchlist' — §13 forensic-mosaic cap satisfied"
+        },
+        {
+          "check": "AG_calibration_feedback_gate",
+          "status": "PASS",
+          "detail": "calibration_feedback.status='pre_data' consistent with as-of calibration_summary (verdict='Pre-data — 7 decisions, 7 reviews, 1 resolved forecasts, 1 resolved directional calls. Inventory, process metrics, and the flat error/pre-mortem tallies are reported; every skill metric (hit rate, Brier, Selected−Rejected spread) is below floor and explicitly withheld, not estimated.')"
+        },
+        {
+          "check": "AH_expectations_gap_gate",
+          "status": "N/A",
+          "detail": "run predates the gate or confidence_score=42.0 not above the §7 conviction floor (2026-08-13) — N/A"
+        },
+        {
+          "check": "AI_headline_scorecard_reconciliation",
+          "status": "PASS",
+          "detail": "Headline Scorecard cells reconcile with expected_return_pct/downside_risk_pct/risk_reward/confidence_score/data_sufficiency_score"
+        },
+        {
+          "check": "AJ_decision_audit_trail",
+          "status": "PASS",
+          "detail": "Decision Audit Trail table present with 6 populated rows"
+        },
+        {
+          "check": "AK_red_flag_severity_reconciliation",
+          "status": "PASS",
+          "detail": "module-declared Critical red-flag counts reconcile with decision_record.json red_flags and the Headline Scorecard Rating-cap cell does not deny one"
+        },
+        {
+          "check": "AN_supersession_integrity",
+          "status": "N/A",
+          "detail": "no supersession sidecar — N/A"
+        },
+        {
+          "check": "AM_bear_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Selected long with a usable bear price target — N/A"
+        },
+        {
+          "check": "AR_bull_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Short Candidate with a usable bull price target — N/A"
+        },
+        {
+          "check": "AO_forecast_resolvability",
+          "status": "PASS",
+          "detail": "every forecast carries a pinned/settleable, partitioned trigger and the record has a ≤90-day proof point"
+        },
+        {
+          "check": "AT_scenario_span",
+          "status": "PASS",
+          "detail": "the scenario set spans a real good outcome, not only degrees of bad"
+        },
+        {
+          "check": "AU_sign_check_recorded",
+          "status": "PASS",
+          "detail": "the thesis records its sign check against the module owning its driver"
+        },
+        {
+          "check": "AV_conjunction_disclosure",
+          "status": "PASS",
+          "detail": "every scenario's conditions[] / joint_probability_basis pair is schema-consistent (§10)"
+        },
+        {
+          "check": "AX_data_needs_v2",
+          "status": "N/A",
+          "detail": "record predates the v2 decision-guidance gate and has no discriminator — N/A"
+        }
+      ],
+      "warn_nonschema_files": [
+        "agent_metrics.10304703-c4e1-4183-a3d6-94256ddf8f9a.json",
+        "idea_3_6m.json",
+        "agent_metrics.e112e5b9-8802-4f7e-8cc3-0d4ef4f1558a.json",
+        "agent_metrics.57352fed-0703-4707-a347-2d5a4e8a2b05.json",
+        "agent_metrics.e3fc8516-34ce-48a3-8b47-283004874cb7.json",
+        "agent_metrics.eba7b001-2249-4034-bf0a-14b3b9c6e6a3.json",
+        "agent_metrics.341dc8bc-0e2a-4963-b2b5-dd4806d59565.json",
+        "agent_metrics.6264e4e4-b92c-4448-9b6d-b1d5693349f2.json",
+        "agent_metrics.d2e3c847-cdb4-48e9-8973-82a85ac6e6db.json",
+        "agent_metrics.98a82454-4072-4273-ba92-edc3bdefc199.json"
+      ],
+      "retrospective_advisories": []
+    },
+    "HCG_2026-06-01": {
+      "run_root": "analyses/HCG_2026-06-01",
+      "ticker": "HCG",
+      "decision": "Avoid",
+      "pass": true,
+      "gate_eligible": true,
+      "warn_only": false,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "PASS",
+          "detail": "final_thesis>1KB=True; RUN_METADATA=True; modules_missing_99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]; schema_version=1.0"
+        },
+        {
+          "check": "B2_decision_date",
+          "status": "PASS",
+          "detail": "decision_date='2026-06-01' valid_iso=True"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "decision='Avoid' basket='Rejected' (expected 'Rejected'); paper_treatment ok=True"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "N/A",
+          "detail": "entry_price present"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": "{'expected_return_pct': -13.4, 'downside_risk_pct': -31.9, 'risk_reward': -0.42, 'confidence_score': 70, 'data_sufficiency_score': 69}"
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "all 30/90/180/365 = decision_date+N from 2026-06-01"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "PASS",
+          "detail": "using verification_report_v3.json; verdict=Minor issues"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "PASS",
+          "detail": "using pre_mortem.json; verdict=Survives with haircut"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "PASS",
+          "detail": "using expectations_gap.json; verdict=None"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": "decision 'Avoid' stated in a Decision: line / Rating cell of final_thesis.md=True"
+        },
+        {
+          "check": "K_s24_in_thesis",
+          "status": "N/A",
+          "detail": "run predates §24 (2026-06-01) — N/A"
+        },
+        {
+          "check": "L_three_tiers",
+          "status": "N/A",
+          "detail": "run predates three-tier feature (2026-06-01) — N/A"
+        },
+        {
+          "check": "M_scenario_math",
+          "status": "N/A",
+          "detail": "run predates scenario-math gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "N_no_scratch_leak",
+          "status": "N/A",
+          "detail": "run predates scratch-leak gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "O_integrity_gate",
+          "status": "N/A",
+          "detail": "N/A (not a post-gate Selected/Short run)"
+        },
+        {
+          "check": "P_disconfirmation",
+          "status": "N/A",
+          "detail": "run predates disconfirmation-quality gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "Q_module_tiers",
+          "status": "N/A",
+          "detail": "run predates module-tiers feature (2026-06-01) — N/A"
+        },
+        {
+          "check": "R_memo_delta",
+          "status": "PASS",
+          "detail": "memo_delta blocks valid; paired markdown present; rerun targets are real modules"
+        },
+        {
+          "check": "AL_pre_mortem_check",
+          "status": "PASS",
+          "detail": "pre_mortem_check present, enum valid, consistent with pre_mortem*.json presence"
+        },
+        {
+          "check": "S_haircut_propagated",
+          "status": "N/A",
+          "detail": "run predates haircut-propagation gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "T_forecast_ledger_quality",
+          "status": "N/A",
+          "detail": "run predates forecast-ledger quality gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "U_postMortem_cap",
+          "status": "N/A",
+          "detail": "run predates post-mortem cap gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "V_edge_gate",
+          "status": "N/A",
+          "detail": "run predates the §7 edge gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "X_verify_floor",
+          "status": "N/A",
+          "detail": "N/A (not a post-2026-06-19 conviction run)"
+        },
+        {
+          "check": "W_sector_valuation",
+          "status": "N/A",
+          "detail": "run predates the sector-valuation gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "Y_data_sufficiency_cap",
+          "status": "PASS",
+          "detail": "data_sufficiency_score=69; decision='Avoid' — §11 thresholds satisfied"
+        },
+        {
+          "check": "Z_thesis_type_cap",
+          "status": "N/A",
+          "detail": "run predates thesis-type gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AA_module_verdict_lock",
+          "status": "N/A",
+          "detail": "run predates §18 module-verdict-lock gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AB_bm_disqualifier_lock",
+          "status": "N/A",
+          "detail": "run predates BM disqualifier gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AC_turnaround_cap",
+          "status": "N/A",
+          "detail": "run predates turnaround-cap gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AD_filter_4_6_cap",
+          "status": "N/A",
+          "detail": "run predates §24 Filter 4+6 gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AE_filter5_cap",
+          "status": "N/A",
+          "detail": "run predates §24 Filter 5 gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AF_filter1_integrity_cap",
+          "status": "N/A",
+          "detail": "run predates §24 Filter 1 gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AQ_forensic_mosaic_cap",
+          "status": "N/A",
+          "detail": "run predates §13 forensic-mosaic gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AG_calibration_feedback_gate",
+          "status": "N/A",
+          "detail": "run predates Phase 6 calibration-feedback gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AH_expectations_gap_gate",
+          "status": "N/A",
+          "detail": "run predates the gate or confidence_score=70 not above the §7 conviction floor (2026-06-01) — N/A"
+        },
+        {
+          "check": "AI_headline_scorecard_reconciliation",
+          "status": "N/A",
+          "detail": "run predates the gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AJ_decision_audit_trail",
+          "status": "N/A",
+          "detail": "run predates the gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AK_red_flag_severity_reconciliation",
+          "status": "N/A",
+          "detail": "run predates the gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "AN_supersession_integrity",
+          "status": "N/A",
+          "detail": "no supersession sidecar — N/A"
+        },
+        {
+          "check": "AM_bear_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Selected long with a usable bear price target — N/A"
+        },
+        {
+          "check": "AR_bull_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Short Candidate with a usable bull price target — N/A"
+        },
+        {
+          "check": "AO_forecast_resolvability",
+          "status": "N/A",
+          "detail": "run predates resolvability gate, or forecast_ledger is [] — N/A"
+        },
+        {
+          "check": "AT_scenario_span",
+          "status": "N/A",
+          "detail": "run predates the span gate, or carries no usable scenario returns — N/A"
+        },
+        {
+          "check": "AU_sign_check_recorded",
+          "status": "N/A",
+          "detail": "run predates the sign-check gate, or no thesis text — N/A"
+        },
+        {
+          "check": "AV_conjunction_disclosure",
+          "status": "N/A",
+          "detail": "run predates structured-scenario-authority rollout, or scenarios aren't in that shape — N/A"
+        },
+        {
+          "check": "AX_data_needs_v2",
+          "status": "N/A",
+          "detail": "record predates the v2 decision-guidance gate and has no discriminator — N/A"
+        }
+      ],
+      "warn_nonschema_files": [
+        "final_thesis_expanded.md"
+      ],
+      "retrospective_advisories": [
+        {
+          "check": "AS_forecast_overdue",
+          "status": "DUE",
+          "detail": "forecast_ledger[2] came due 2026-07-30 and is still unresolved (status open): FQ1 FY27 revenue misses the ~INR 7,340.9M (~+20% implied) consensus bar",
+          "note": "the ledger owes a resolution — run /research:review-decisions for this ticker (§19: a forecast that cannot be checked later is not a forecast); informational only, does not affect pass/gate_eligible/suite_pass"
+        }
+      ]
+    },
+    "INDIAMART_2026-08-14": {
+      "run_root": "analyses/INDIAMART_2026-08-14",
+      "ticker": "INDIAMART",
+      "decision": "Watchlist",
+      "pass": false,
+      "gate_eligible": false,
+      "warn_only": true,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "FAIL",
+          "detail": "final_thesis>1KB=True; RUN_METADATA=False; modules_missing_99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]; schema_version=1.0"
+        },
+        {
+          "check": "B2_decision_date",
+          "status": "PASS",
+          "detail": "decision_date='2026-08-14' valid_iso=True"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "decision='Watchlist' basket='Watchlist' (expected 'Watchlist'); paper_treatment ok=True"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "N/A",
+          "detail": "entry_price present"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": "{'expected_return_pct': -4.31, 'downside_risk_pct': 31.13, 'margin_of_safety_pct': -5.04, 'risk_reward': -0.14, 'confidence_score': 58, 'data_sufficiency_score': 80}"
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "all 30/90/180/365 = decision_date+N from 2026-08-14"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "N/A",
+          "detail": "absent"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "N/A",
+          "detail": "absent"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "N/A",
+          "detail": "absent"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": "decision 'Watchlist' stated in a Decision: line / Rating cell of final_thesis.md=True"
+        },
+        {
+          "check": "K_s24_in_thesis",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; §24 roll-up present in final_thesis=True"
+        },
+        {
+          "check": "L_three_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; memo.md=True audit_dossier.md=True"
+        },
+        {
+          "check": "M_scenario_math",
+          "status": "PASS",
+          "detail": "prob sum=100; expected_return=Sum(p*ret); target & risk/reward reconcile"
+        },
+        {
+          "check": "N_no_scratch_leak",
+          "status": "PASS",
+          "detail": "scratch-reasoning phrases in final_thesis.md=[]"
+        },
+        {
+          "check": "O_integrity_gate",
+          "status": "N/A",
+          "detail": "N/A (not a post-gate Selected/Short run)"
+        },
+        {
+          "check": "P_disconfirmation",
+          "status": "PASS",
+          "detail": "edge non-tautological; kill_criteria present"
+        },
+        {
+          "check": "Q_module_tiers",
+          "status": "FAIL",
+          "detail": "run dated >= 2026-06-08; modules missing a tier=['management-governance/memo', 'earnings/memo', 'business-model/memo', 'balance-sheet-survival/memo']"
+        },
+        {
+          "check": "R_memo_delta",
+          "status": "N/A",
+          "detail": "no reviews filed on/after 2026-06-10 — N/A"
+        },
+        {
+          "check": "AL_pre_mortem_check",
+          "status": "N/A",
+          "detail": "no reviews filed on/after 2026-07-17 — N/A"
+        },
+        {
+          "check": "S_haircut_propagated",
+          "status": "N/A",
+          "detail": "no pre_mortem.json — N/A"
+        },
+        {
+          "check": "T_forecast_ledger_quality",
+          "status": "PASS",
+          "detail": "all 6 forecast_ledger entries have required fields + valid status + valid probability"
+        },
+        {
+          "check": "U_postMortem_cap",
+          "status": "PASS",
+          "detail": "pre_mortem_verdict=''; post_mortem_decision=None; post_mortem_basket=None"
+        },
+        {
+          "check": "V_edge_gate",
+          "status": "PASS",
+          "detail": "edge_score=55; edge_proof=set; confidence=58"
+        },
+        {
+          "check": "X_verify_floor",
+          "status": "N/A",
+          "detail": "N/A (not a post-2026-06-19 conviction run)"
+        },
+        {
+          "check": "W_sector_valuation",
+          "status": "PASS",
+          "detail": "business_type='SaaS / subscription software (nearest analog applied by judgment -- IndiaMART is an online B2B marketplace/classifieds platform, not a software vendor, but its subscription-tier/deferred-revenue/ARPU mechanics are functionally identical; see business-model/02_business-identity.md §3a)'; primary_valuation_method='FCFF DCF (intrinsic-dcf, weighted 70%), cross-checked by reverse-DCF; peer P/E carries the remaining 30% weight' — no forbidden method detected"
+        },
+        {
+          "check": "Y_data_sufficiency_cap",
+          "status": "PASS",
+          "detail": "data_sufficiency_score=80; decision='Watchlist' — §11 thresholds satisfied"
+        },
+        {
+          "check": "Z_thesis_type_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Company-specific', 'Sector-cycle']; all values in CLAUDE.md §14 enum; has_external=False; proven_edge=yes (55); decision='Watchlist' — within §14 constraints"
+        },
+        {
+          "check": "AA_module_verdict_lock",
+          "status": "PASS",
+          "detail": "BSS verdict='Fortress balance sheet'; MG verdict='Standard / mixed'; decision='Watchlist' — §18 caps satisfied"
+        },
+        {
+          "check": "AB_bm_disqualifier_lock",
+          "status": "PASS",
+          "detail": "BM verdict='Average business — worth deeper work only if valuation is cheap'; decision='Watchlist' — BM disqualifier cap satisfied"
+        },
+        {
+          "check": "AC_turnaround_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Company-specific', 'Sector-cycle']; decision='Watchlist' — §24 Filter 2 turnaround cap satisfied"
+        },
+        {
+          "check": "AD_filter_4_6_cap",
+          "status": "PASS",
+          "detail": "RF-CAP-004 (BM/MG)=not fired; MG RF-OWN-004=not fired; decision='Watchlist' — §24 Filter 4+6 caps satisfied"
+        },
+        {
+          "check": "AE_filter5_cap",
+          "status": "PASS",
+          "detail": "RF-BQ-005 (BM synth/07 source)=not fired; edge_score=55 (proven); decision='Watchlist' — §24 Filter 5 cap satisfied"
+        },
+        {
+          "check": "AF_filter1_integrity_cap",
+          "status": "PASS",
+          "detail": "RF-MGT-005 (MG synth/01 source)=not fired; decision='Watchlist' — §24 Filter 1 cap satisfied"
+        },
+        {
+          "check": "AQ_forensic_mosaic_cap",
+          "status": "PASS",
+          "detail": "forensic tags fired: ['RF-DISC-002', 'RF-DISQ-001']; decision='Watchlist' — §13 forensic-mosaic cap satisfied"
+        },
+        {
+          "check": "AG_calibration_feedback_gate",
+          "status": "PASS",
+          "detail": "calibration_feedback.status='pre_data' consistent with as-of calibration_summary (verdict='Pre-data — 7 decisions, 7 reviews, 1 resolved forecasts, 1 resolved directional calls. Inventory, process metrics, and the flat error/pre-mortem tallies are reported; every skill metric (hit rate, Brier, Selected−Rejected spread) is below floor and explicitly withheld, not estimated.')"
+        },
+        {
+          "check": "AH_expectations_gap_gate",
+          "status": "N/A",
+          "detail": "run predates the gate or confidence_score=58 not above the §7 conviction floor (2026-08-14) — N/A"
+        },
+        {
+          "check": "AI_headline_scorecard_reconciliation",
+          "status": "FAIL",
+          "detail": "Headline Scorecard 'Suggested sizing'='Monitor only — no position (track opportunity cost)' does not match sizing_hint.action='monitor only -- no position (track opportunity cost)' in decision_record.json — the position size the reader sees must be the recorded one, in full (synthesizer.md §2); post-split run: sizing_hint.action='monitor only -- no position (track opportunity cost)' does not match the size scripts/confidence.py derives for decision='Watchlist' + conviction=58 ('monitor only — no position (track opportunity cost)') — the reader is shown an unsupported position size"
+        },
+        {
+          "check": "AJ_decision_audit_trail",
+          "status": "PASS",
+          "detail": "Decision Audit Trail table present with 5 populated rows"
+        },
+        {
+          "check": "AK_red_flag_severity_reconciliation",
+          "status": "FAIL",
+          "detail": "Headline Scorecard 'Rating cap' cell denies a Critical red flag ('None mechanically triggered (no Critical red flag anywhere in the pool, no hard disqualifier, data sufficiency 80/100, balance sheet Fortress). Watchlist is a judgment call from negative expected return, negative margin of safety, a Critical earnings compounding-risk flag, and vague catalyst timing — not a §18/§24 lock.') but decision_record.json records 1 Critical red flag(s); decision_record.json rating_cap field denies a Critical red flag ('None mechanically triggered (no Critical red flag, no hard disqualifier, data sufficiency 80, balance sheet Fortress). Watchlist is a judgment call from negative expected return (-4.3%), negative margin of safety (-5.0%), vague catalyst timing, and a Critical earnings compounding-risk flag -- not a mechanical §18/§24 lock.') but decision_record.json records 1 Critical red flag(s)"
+        },
+        {
+          "check": "AN_supersession_integrity",
+          "status": "N/A",
+          "detail": "no supersession sidecar — N/A"
+        },
+        {
+          "check": "AM_bear_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Selected long with a usable bear price target — N/A"
+        },
+        {
+          "check": "AR_bull_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Short Candidate with a usable bull price target — N/A"
+        },
+        {
+          "check": "AO_forecast_resolvability",
+          "status": "PASS",
+          "detail": "every forecast carries a pinned/settleable, partitioned trigger and the record has a ≤90-day proof point"
+        },
+        {
+          "check": "AT_scenario_span",
+          "status": "PASS",
+          "detail": "the scenario set spans a real good outcome, not only degrees of bad"
+        },
+        {
+          "check": "AU_sign_check_recorded",
+          "status": "PASS",
+          "detail": "the thesis records its sign check against the module owning its driver"
+        },
+        {
+          "check": "AV_conjunction_disclosure",
+          "status": "FAIL",
+          "detail": "scenario 'base' has 3 conditions that must hold simultaneously but joint_probability_basis is empty — CLAUDE.md §10 requires stating why all conditions genuinely move together, or decomposing the conjunction into separate cases"
+        },
+        {
+          "check": "AX_data_needs_v2",
+          "status": "PASS",
+          "detail": "v2 data_needs is explicit, exact, ranked 1..N, two-sided, URL-free and carries no promised/numeric conviction lift"
+        }
+      ],
+      "warn_nonschema_files": [
+        "idea_3_6m.json",
+        "agent_metrics.6560bd4f-ccfc-4522-a140-1ace0d4164ce.json",
+        "agent_metrics.50f59f3e-c4b4-4b4d-9555-72a926c47696.json",
+        "agent_metrics.838f7b92-4e9e-4b5a-9a33-bb985ee4199e.json",
+        "agent_metrics.63b00bea-07ee-4f38-837c-4e7d107593ad.json",
+        "agent_metrics.0e8d6a53-ec21-46f6-8b32-39028a8fd636.json"
+      ],
+      "retrospective_advisories": []
+    },
+    "NHY_2026-07-19": {
+      "run_root": "analyses/NHY_2026-07-19",
+      "ticker": "NHY",
+      "decision": "Watchlist",
+      "pass": true,
+      "gate_eligible": true,
+      "warn_only": false,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "PASS",
+          "detail": "final_thesis>1KB=True; RUN_METADATA=True; modules_missing_99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]; schema_version=1.0"
+        },
+        {
+          "check": "B2_decision_date",
+          "status": "PASS",
+          "detail": "decision_date='2026-07-19' valid_iso=True"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "decision='Watchlist' basket='Watchlist' (expected 'Watchlist'); paper_treatment ok=True"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "N/A",
+          "detail": "entry_price present"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": "{'expected_return_pct': -8.4, 'downside_risk_pct': 46.89, 'margin_of_safety_pct': -3.83, 'risk_reward': -0.18, 'confidence_score': 35.0, 'data_sufficiency_score': 78, 'post_review_confidence_score': 25.0, 'confidence_haircut': 10.0}"
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "all 30/90/180/365 = decision_date+N from 2026-07-19"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "PASS",
+          "detail": "using verification_report.json; verdict=Minor issues"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "PASS",
+          "detail": "using pre_mortem.json; verdict=Survives with haircut"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "PASS",
+          "detail": "using expectations_gap.json; verdict=None"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": "decision 'Watchlist' stated in a Decision: line / Rating cell of final_thesis.md=True"
+        },
+        {
+          "check": "K_s24_in_thesis",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; §24 roll-up present in final_thesis=True"
+        },
+        {
+          "check": "L_three_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; memo.md=True audit_dossier.md=True"
+        },
+        {
+          "check": "M_scenario_math",
+          "status": "PASS",
+          "detail": "prob sum=100; expected_return=Sum(p*ret); target & risk/reward reconcile"
+        },
+        {
+          "check": "N_no_scratch_leak",
+          "status": "PASS",
+          "detail": "scratch-reasoning phrases in final_thesis.md=[]"
+        },
+        {
+          "check": "O_integrity_gate",
+          "status": "N/A",
+          "detail": "N/A (not a post-gate Selected/Short run)"
+        },
+        {
+          "check": "P_disconfirmation",
+          "status": "PASS",
+          "detail": "edge non-tautological; kill_criteria present"
+        },
+        {
+          "check": "Q_module_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-08; modules missing a tier=[]"
+        },
+        {
+          "check": "R_memo_delta",
+          "status": "PASS",
+          "detail": "memo_delta blocks valid; paired markdown present; rerun targets are real modules"
+        },
+        {
+          "check": "AL_pre_mortem_check",
+          "status": "PASS",
+          "detail": "pre_mortem_check present, enum valid, consistent with pre_mortem*.json presence"
+        },
+        {
+          "check": "S_haircut_propagated",
+          "status": "PASS",
+          "detail": "haircut=10.0; post_review_confidence_score=25.0; pre_mortem_verdict='Weakened — apply haircut'"
+        },
+        {
+          "check": "T_forecast_ledger_quality",
+          "status": "PASS",
+          "detail": "all 6 forecast_ledger entries have required fields + valid status + valid probability"
+        },
+        {
+          "check": "U_postMortem_cap",
+          "status": "PASS",
+          "detail": "pre_mortem_verdict='Weakened — apply haircut'; post_mortem_decision='Watchlist'; post_mortem_basket='Watchlist'"
+        },
+        {
+          "check": "V_edge_gate",
+          "status": "PASS",
+          "detail": "edge_score=30; edge_proof=set; confidence=35.0"
+        },
+        {
+          "check": "X_verify_floor",
+          "status": "N/A",
+          "detail": "N/A (not a post-2026-06-19 conviction run)"
+        },
+        {
+          "check": "W_sector_valuation",
+          "status": "PASS",
+          "detail": "business_type='Commodity producer / miner'; primary_valuation_method='Sum-of-the-parts (SOTP, 40% weight, dominant), cross-checked against mid-cycle FCFF DCF (35%) and quality-adjusted NTM EV/EBITDA peer relative (25%)' — no forbidden method detected"
+        },
+        {
+          "check": "Y_data_sufficiency_cap",
+          "status": "PASS",
+          "detail": "data_sufficiency_score=78; decision='Watchlist' — §11 thresholds satisfied"
+        },
+        {
+          "check": "Z_thesis_type_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Commodity-conditional', 'FX / rates', 'Company-specific']; all values in CLAUDE.md §14 enum; has_external=True; proven_edge=no (30); decision='Watchlist' — within §14 constraints"
+        },
+        {
+          "check": "AA_module_verdict_lock",
+          "status": "PASS",
+          "detail": "BSS verdict=None; MG verdict='Standard / mixed'; decision='Watchlist' — §18 caps satisfied"
+        },
+        {
+          "check": "AB_bm_disqualifier_lock",
+          "status": "PASS",
+          "detail": "BM verdict='Cyclical business — worth deeper work only with a strong timing edge'; decision='Watchlist' — BM disqualifier cap satisfied"
+        },
+        {
+          "check": "AC_turnaround_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Commodity-conditional', 'FX / rates', 'Company-specific']; decision='Watchlist' — §24 Filter 2 turnaround cap satisfied"
+        },
+        {
+          "check": "AD_filter_4_6_cap",
+          "status": "PASS",
+          "detail": "RF-CAP-004 (BM/MG)=not fired; MG RF-OWN-004=fired; decision='Watchlist' — §24 Filter 4+6 caps satisfied"
+        },
+        {
+          "check": "AE_filter5_cap",
+          "status": "PASS",
+          "detail": "RF-BQ-005 (BM synth/07 source)=not fired; edge_score=30 (not proven or absent); decision='Watchlist' — §24 Filter 5 cap satisfied"
+        },
+        {
+          "check": "AF_filter1_integrity_cap",
+          "status": "PASS",
+          "detail": "RF-MGT-005 (MG synth/01 source)=not fired; decision='Watchlist' — §24 Filter 1 cap satisfied"
+        },
+        {
+          "check": "AQ_forensic_mosaic_cap",
+          "status": "N/A",
+          "detail": "run predates §13 forensic-mosaic gate (2026-07-19) — N/A"
+        },
+        {
+          "check": "AG_calibration_feedback_gate",
+          "status": "PASS",
+          "detail": "calibration_feedback.status='pre_data' consistent with as-of calibration_summary (verdict='Pre-data -- 5 decisions on the ledger, 3 with a first review filed, 0 resolved forecasts. Inventory and process metrics are reported; cohort returns, hit rate, Selected-Rejected spread, and Brier/reliability calibration all remain unsupported by the data and are explicitly withheld rather than estimated.')"
+        },
+        {
+          "check": "AH_expectations_gap_gate",
+          "status": "N/A",
+          "detail": "run predates the gate or confidence_score=35.0 not above the §7 conviction floor (2026-07-19) — N/A"
+        },
+        {
+          "check": "AI_headline_scorecard_reconciliation",
+          "status": "PASS",
+          "detail": "Headline Scorecard cells reconcile with expected_return_pct/downside_risk_pct/risk_reward/confidence_score/data_sufficiency_score"
+        },
+        {
+          "check": "AJ_decision_audit_trail",
+          "status": "PASS",
+          "detail": "Decision Audit Trail table present with 5 populated rows"
+        },
+        {
+          "check": "AK_red_flag_severity_reconciliation",
+          "status": "PASS",
+          "detail": "module-declared Critical red-flag counts reconcile with decision_record.json red_flags and the Headline Scorecard Rating-cap cell does not deny one"
+        },
+        {
+          "check": "AN_supersession_integrity",
+          "status": "N/A",
+          "detail": "no supersession sidecar — N/A"
+        },
+        {
+          "check": "AM_bear_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Selected long with a usable bear price target — N/A"
+        },
+        {
+          "check": "AR_bull_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Short Candidate with a usable bull price target — N/A"
+        },
+        {
+          "check": "AO_forecast_resolvability",
+          "status": "PASS",
+          "detail": "every forecast carries a pinned/settleable, partitioned trigger and the record has a ≤90-day proof point"
+        },
+        {
+          "check": "AT_scenario_span",
+          "status": "N/A",
+          "detail": "run predates the span gate, or carries no usable scenario returns — N/A"
+        },
+        {
+          "check": "AU_sign_check_recorded",
+          "status": "N/A",
+          "detail": "run predates the sign-check gate, or no thesis text — N/A"
+        },
+        {
+          "check": "AV_conjunction_disclosure",
+          "status": "N/A",
+          "detail": "run predates structured-scenario-authority rollout, or scenarios aren't in that shape — N/A"
+        },
+        {
+          "check": "AX_data_needs_v2",
+          "status": "N/A",
+          "detail": "record predates the v2 decision-guidance gate and has no discriminator — N/A"
+        }
+      ],
+      "warn_nonschema_files": [
+        "agent_metrics.aed1b928-1d52-43ba-abb3-7e33da730f34.json",
+        "agent_metrics.701c3e50-6271-4731-8378-db9396921162.json",
+        "agent_metrics.b8d79bc3-8f01-4ded-85fb-1867373ae96a.json",
+        "agent_metrics.a53fe98d-c1ce-4018-8946-77b7845db5da.json",
+        "agent_metrics.42e6c4b1-9ff5-4182-8cf9-f389762133f2.json",
+        "agent_metrics.fd484cf2-f278-493c-ae8e-06bbe6f708b9.json",
+        "agent_metrics.f396dbb5-950d-4286-b0c5-2dfc1d20a542.json",
+        "agent_metrics.c5cd518b-5bf3-4e1a-8c45-af07c49ae732.json"
+      ],
+      "retrospective_advisories": [
+        {
+          "check": "AS_forecast_overdue",
+          "status": "DUE",
+          "detail": "forecast_ledger[0] came due 2026-07-22 and is still unresolved (status open): FQ2 2026 (30-Jun-2026 quarter) reported revenue beats the Capital IQ consensus of NOK 55,954.2m (as of 2026-07; forecast_ledger[1] came due 2026-07-22 and is still unresolved (status open): FQ2 2026 Adjusted EBITDA does NOT clearly beat the Capital IQ consensus of NOK 8,581.8m (as of 2026-07-15); forecast_ledger[2] came due 2026-07-22 and is still unresolved (status open): FQ2 2026's cash-flow statement shows receivables normalizing (DSO falling back toward FY2025's 33.0-day level); forecast_ledger[3] came due 2026-07-22 and is still unresolved (status open): NHY's strict-basis net debt/EBITDA continues rising past the latest 1.02x reading at the next reported balance",
+          "note": "the ledger owes a resolution — run /research:review-decisions for this ticker (§19: a forecast that cannot be checked later is not a forecast); informational only, does not affect pass/gate_eligible/suite_pass"
+        }
+      ]
+    },
+    "ORCL_2026-08-14": {
+      "run_root": "analyses/ORCL_2026-08-14",
+      "ticker": "ORCL",
+      "decision": "Watchlist",
+      "pass": true,
+      "gate_eligible": true,
+      "warn_only": false,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "PASS",
+          "detail": "final_thesis>1KB=True; RUN_METADATA=True; modules_missing_99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]; schema_version=1.0"
+        },
+        {
+          "check": "B2_decision_date",
+          "status": "PASS",
+          "detail": "decision_date='2026-08-14' valid_iso=True"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "decision='Watchlist' basket='Watchlist' (expected 'Watchlist'); paper_treatment ok=True"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "N/A",
+          "detail": "entry_price present"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": "{'expected_return_pct': -27.1, 'downside_risk_pct': 79.58, 'margin_of_safety_pct': -15.08, 'risk_reward': -0.34, 'confidence_score': 51.0, 'data_sufficiency_score': 78, 'post_review_confidence_score': 47.0, 'confidence_haircut': 4}"
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "all 30/90/180/365 = decision_date+N from 2026-08-14"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "PASS",
+          "detail": "using verification_report.json; verdict=Material issues"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "PASS",
+          "detail": "using pre_mortem.json; verdict=Survives with haircut"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "PASS",
+          "detail": "using expectations_gap.json; verdict=None"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": "decision 'Watchlist' stated in a Decision: line / Rating cell of final_thesis.md=True"
+        },
+        {
+          "check": "K_s24_in_thesis",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; §24 roll-up present in final_thesis=True"
+        },
+        {
+          "check": "L_three_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; memo.md=True audit_dossier.md=True"
+        },
+        {
+          "check": "M_scenario_math",
+          "status": "PASS",
+          "detail": "prob sum=100; expected_return=Sum(p*ret); target & risk/reward reconcile"
+        },
+        {
+          "check": "N_no_scratch_leak",
+          "status": "PASS",
+          "detail": "scratch-reasoning phrases in final_thesis.md=[]"
+        },
+        {
+          "check": "O_integrity_gate",
+          "status": "N/A",
+          "detail": "N/A (not a post-gate Selected/Short run)"
+        },
+        {
+          "check": "P_disconfirmation",
+          "status": "PASS",
+          "detail": "edge non-tautological; kill_criteria present"
+        },
+        {
+          "check": "Q_module_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-08; modules missing a tier=[]"
+        },
+        {
+          "check": "R_memo_delta",
+          "status": "N/A",
+          "detail": "no reviews filed on/after 2026-06-10 — N/A"
+        },
+        {
+          "check": "AL_pre_mortem_check",
+          "status": "N/A",
+          "detail": "no reviews filed on/after 2026-07-17 — N/A"
+        },
+        {
+          "check": "S_haircut_propagated",
+          "status": "PASS",
+          "detail": "haircut=4; post_review_confidence_score=47.0; pre_mortem_verdict='Survives with haircut'"
+        },
+        {
+          "check": "T_forecast_ledger_quality",
+          "status": "PASS",
+          "detail": "all 5 forecast_ledger entries have required fields + valid status + valid probability"
+        },
+        {
+          "check": "U_postMortem_cap",
+          "status": "PASS",
+          "detail": "pre_mortem_verdict='Survives with haircut'; post_mortem_decision='Watchlist'; post_mortem_basket='Watchlist'"
+        },
+        {
+          "check": "V_edge_gate",
+          "status": "PASS",
+          "detail": "edge_score=45; edge_proof=set; confidence=51.0"
+        },
+        {
+          "check": "X_verify_floor",
+          "status": "N/A",
+          "detail": "N/A (not a post-2026-06-19 conviction run)"
+        },
+        {
+          "check": "W_sector_valuation",
+          "status": "PASS",
+          "detail": "business_type='SaaS / subscription software'; primary_valuation_method='Own-history EV/EBIT + peer NTM EV/EBITDA multiples (Multiples-First; 80% combined weight), with a terminal-value-dominated FCFF DCF cross-check weighted 20%' — no forbidden method detected"
+        },
+        {
+          "check": "Y_data_sufficiency_cap",
+          "status": "PASS",
+          "detail": "data_sufficiency_score=78; decision='Watchlist' — §11 thresholds satisfied"
+        },
+        {
+          "check": "Z_thesis_type_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Company-specific', 'Sector-cycle', 'Balance-sheet survival']; all values in CLAUDE.md §14 enum; has_external=False; proven_edge=no (45); decision='Watchlist' — within §14 constraints"
+        },
+        {
+          "check": "AA_module_verdict_lock",
+          "status": "PASS",
+          "detail": "BSS verdict='Stretched'; MG verdict='Misaligned or weak stewardship'; decision='Watchlist' — §18 caps satisfied"
+        },
+        {
+          "check": "AB_bm_disqualifier_lock",
+          "status": "PASS",
+          "detail": "BM verdict='Cyclical business — worth deeper work only with a strong timing edge'; decision='Watchlist' — BM disqualifier cap satisfied"
+        },
+        {
+          "check": "AC_turnaround_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Company-specific', 'Sector-cycle', 'Balance-sheet survival']; decision='Watchlist' — §24 Filter 2 turnaround cap satisfied"
+        },
+        {
+          "check": "AD_filter_4_6_cap",
+          "status": "PASS",
+          "detail": "RF-CAP-004 (BM/MG)=not fired; MG RF-OWN-004=not fired; decision='Watchlist' — §24 Filter 4+6 caps satisfied"
+        },
+        {
+          "check": "AE_filter5_cap",
+          "status": "PASS",
+          "detail": "RF-BQ-005 (BM synth/07 source)=fired; edge_score=45 (not proven or absent); decision='Watchlist' — §24 Filter 5 cap satisfied"
+        },
+        {
+          "check": "AF_filter1_integrity_cap",
+          "status": "PASS",
+          "detail": "RF-MGT-005 (MG synth/01 source)=fired; decision='Watchlist' — §24 Filter 1 cap satisfied"
+        },
+        {
+          "check": "AQ_forensic_mosaic_cap",
+          "status": "PASS",
+          "detail": "forensic tags fired: ['RF-DISC-001', 'RF-DISC-002', 'RF-OBS-001']; decision='Watchlist' — §13 forensic-mosaic cap satisfied"
+        },
+        {
+          "check": "AG_calibration_feedback_gate",
+          "status": "PASS",
+          "detail": "calibration_feedback.status='pre_data' consistent with as-of calibration_summary (verdict='Pre-data — 7 decisions, 7 reviews, 1 resolved forecasts, 1 resolved directional calls. Inventory, process metrics, and the flat error/pre-mortem tallies are reported; every skill metric (hit rate, Brier, Selected−Rejected spread) is below floor and explicitly withheld, not estimated.')"
+        },
+        {
+          "check": "AH_expectations_gap_gate",
+          "status": "N/A",
+          "detail": "run predates the gate or confidence_score=51.0 not above the §7 conviction floor (2026-08-14) — N/A"
+        },
+        {
+          "check": "AI_headline_scorecard_reconciliation",
+          "status": "PASS",
+          "detail": "Headline Scorecard cells reconcile with expected_return_pct/downside_risk_pct/risk_reward/confidence_score/data_sufficiency_score"
+        },
+        {
+          "check": "AJ_decision_audit_trail",
+          "status": "PASS",
+          "detail": "Decision Audit Trail table present with 4 populated rows"
+        },
+        {
+          "check": "AK_red_flag_severity_reconciliation",
+          "status": "PASS",
+          "detail": "module-declared Critical red-flag counts reconcile with decision_record.json red_flags and the Headline Scorecard Rating-cap cell does not deny one"
+        },
+        {
+          "check": "AN_supersession_integrity",
+          "status": "N/A",
+          "detail": "no supersession sidecar — N/A"
+        },
+        {
+          "check": "AM_bear_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Selected long with a usable bear price target — N/A"
+        },
+        {
+          "check": "AR_bull_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Short Candidate with a usable bull price target — N/A"
+        },
+        {
+          "check": "AO_forecast_resolvability",
+          "status": "PASS",
+          "detail": "every forecast carries a pinned/settleable, partitioned trigger and the record has a ≤90-day proof point"
+        },
+        {
+          "check": "AT_scenario_span",
+          "status": "PASS",
+          "detail": "the scenario set spans a real good outcome, not only degrees of bad"
+        },
+        {
+          "check": "AU_sign_check_recorded",
+          "status": "PASS",
+          "detail": "the thesis records its sign check against the module owning its driver"
+        },
+        {
+          "check": "AV_conjunction_disclosure",
+          "status": "PASS",
+          "detail": "every scenario's conditions[] / joint_probability_basis pair is schema-consistent (§10)"
+        },
+        {
+          "check": "AX_data_needs_v2",
+          "status": "PASS",
+          "detail": "v2 data_needs is explicit, exact, ranked 1..N, two-sided, URL-free and carries no promised/numeric conviction lift"
+        }
+      ],
+      "warn_nonschema_files": [
+        "agent_metrics.5403ede6-e3eb-47f9-aa79-b65d3e3556fa.json",
+        "agent_metrics.505450d1-debf-4b42-80ec-ba9c1e0167d1.json",
+        "agent_metrics.7fc57f5e-0a0d-48a0-b92e-a4274689c22e.json",
+        "idea_3_6m.json",
+        "agent_metrics.8a2d7b8f-76c2-4205-b4e8-a55e7879087e.json",
+        "agent_metrics.d22888a5-f408-4978-b3c3-2fb3b133c3dc.json",
+        "agent_metrics.cb536205-246d-4469-92c4-6fa5f4a8adae.json",
+        "agent_metrics.67d3b77b-7420-4afd-81d3-f99833bf1daf.json",
+        "agent_metrics.9becbb04-85c4-47d9-9de8-e5d1ee813e47.json",
+        "agent_metrics.22aacd91-6c6f-4f58-85c6-71435319a217.json",
+        "agent_metrics.6ddcaae9-feda-4a87-9472-272577fbb763.json",
+        "agent_metrics.542f0ca9-8e84-4d75-ac0e-628a89c80507.json",
+        "agent_metrics.230d2a02-79e8-4dff-871b-d6b38a9950f7.json",
+        "agent_metrics.6b384b06-3e85-4086-9685-78593c9d659e.json",
+        "agent_metrics.4cdadce2-364f-40d9-bf03-4e51d956fa7f.json",
+        "agent_metrics.3da23943-db6c-4f34-8cb3-dbb8a2b634b0.json",
+        "agent_metrics.ee2d2d2e-f421-4e13-91fc-8b7531ea581d.json",
+        "agent_metrics.fc0d2748-1b54-4c1e-8190-44f2c55ec248.json",
+        "agent_metrics.35e8a5c7-6e81-4dfe-b8ac-961439107eb0.json",
+        "agent_metrics.59c3f4cc-0ffe-4af4-88ea-1e9c0af548ca.json",
+        "agent_metrics.88f959e6-2c52-474d-a7a2-bce7a85bbd65.json",
+        "agent_metrics.f0ca75c0-aff8-4aa5-ad18-7b5a34b01026.json",
+        "agent_metrics.f1b9ebc5-920c-4c06-a2df-2f35c1ca0177.json"
+      ],
+      "retrospective_advisories": []
+    },
+    "SMPL_2026-08-06": {
+      "run_root": "analyses/SMPL_2026-08-06",
+      "ticker": "SMPL",
+      "decision": "Watchlist",
+      "pass": true,
+      "gate_eligible": true,
+      "warn_only": false,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "PASS",
+          "detail": "final_thesis>1KB=True; RUN_METADATA=True; modules_missing_99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]; schema_version=1.0"
+        },
+        {
+          "check": "B2_decision_date",
+          "status": "PASS",
+          "detail": "decision_date='2026-08-06' valid_iso=True"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "decision='Watchlist' basket='Watchlist' (expected 'Watchlist'); paper_treatment ok=True"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "N/A",
+          "detail": "entry_price present"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": "{'expected_return_pct': 22.63, 'downside_risk_pct': 25.68, 'margin_of_safety_pct': 25.8, 'risk_reward': 0.88, 'confidence_score': 40.0, 'data_sufficiency_score': 80, 'post_review_confidence_score': 30.0, 'confidence_haircut': 10.0}"
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "all 30/90/180/365 = decision_date+N from 2026-08-06"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "PASS",
+          "detail": "using verification_report.json; verdict=Minor issues"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "PASS",
+          "detail": "using pre_mortem.json; verdict=Survives with haircut"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "PASS",
+          "detail": "using expectations_gap.json; verdict=None"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": "decision 'Watchlist' stated in a Decision: line / Rating cell of final_thesis.md=True"
+        },
+        {
+          "check": "K_s24_in_thesis",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; §24 roll-up present in final_thesis=True"
+        },
+        {
+          "check": "L_three_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; memo.md=True audit_dossier.md=True"
+        },
+        {
+          "check": "M_scenario_math",
+          "status": "PASS",
+          "detail": "prob sum=100; expected_return=Sum(p*ret); target & risk/reward reconcile"
+        },
+        {
+          "check": "N_no_scratch_leak",
+          "status": "PASS",
+          "detail": "scratch-reasoning phrases in final_thesis.md=[]"
+        },
+        {
+          "check": "O_integrity_gate",
+          "status": "N/A",
+          "detail": "N/A (not a post-gate Selected/Short run)"
+        },
+        {
+          "check": "P_disconfirmation",
+          "status": "PASS",
+          "detail": "edge non-tautological; kill_criteria present"
+        },
+        {
+          "check": "Q_module_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-08; modules missing a tier=[]"
+        },
+        {
+          "check": "R_memo_delta",
+          "status": "N/A",
+          "detail": "no reviews filed on/after 2026-06-10 — N/A"
+        },
+        {
+          "check": "AL_pre_mortem_check",
+          "status": "N/A",
+          "detail": "no reviews filed on/after 2026-07-17 — N/A"
+        },
+        {
+          "check": "S_haircut_propagated",
+          "status": "PASS",
+          "detail": "haircut=10.0; post_review_confidence_score=30.0; pre_mortem_verdict='Survives with haircut'"
+        },
+        {
+          "check": "T_forecast_ledger_quality",
+          "status": "PASS",
+          "detail": "all 5 forecast_ledger entries have required fields + valid status + valid probability"
+        },
+        {
+          "check": "U_postMortem_cap",
+          "status": "PASS",
+          "detail": "pre_mortem_verdict='Survives with haircut'; post_mortem_decision='Watchlist'; post_mortem_basket='Watchlist'"
+        },
+        {
+          "check": "V_edge_gate",
+          "status": "PASS",
+          "detail": "edge_score=35; edge_proof=set; confidence=40.0"
+        },
+        {
+          "check": "X_verify_floor",
+          "status": "N/A",
+          "detail": "N/A (not a post-2026-06-19 conviction run)"
+        },
+        {
+          "check": "W_sector_valuation",
+          "status": "PASS",
+          "detail": "business_type='Branded, asset-light consumer-packaged-food company selling protein/low-carb snacking brands (Quest, Atkins, OWYN) through third-party retailers, currently mid-way through a management-acknowledged operating turnaround'; primary_valuation_method='Peer relative valuation (quality-adjusted NTM EV/EBITDA, 60% weight), corroborated by intrinsic DCF (40% weight)' — no forbidden method detected"
+        },
+        {
+          "check": "Y_data_sufficiency_cap",
+          "status": "PASS",
+          "detail": "data_sufficiency_score=80; decision='Watchlist' — §11 thresholds satisfied"
+        },
+        {
+          "check": "Z_thesis_type_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Company-specific', 'Governance turnaround']; all values in CLAUDE.md §14 enum; has_external=False; proven_edge=no (35); decision='Watchlist' — within §14 constraints"
+        },
+        {
+          "check": "AA_module_verdict_lock",
+          "status": "PASS",
+          "detail": "BSS verdict=None; MG verdict='Standard / mixed'; decision='Watchlist' — §18 caps satisfied"
+        },
+        {
+          "check": "AB_bm_disqualifier_lock",
+          "status": "PASS",
+          "detail": "BM verdict='Average business — worth deeper work only if valuation is cheap'; decision='Watchlist' — BM disqualifier cap satisfied"
+        },
+        {
+          "check": "AC_turnaround_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Company-specific', 'Governance turnaround']; decision='Watchlist' — §24 Filter 2 turnaround cap satisfied"
+        },
+        {
+          "check": "AD_filter_4_6_cap",
+          "status": "PASS",
+          "detail": "RF-CAP-004 (BM/MG)=fired; MG RF-OWN-004=not fired; decision='Watchlist' — §24 Filter 4+6 caps satisfied"
+        },
+        {
+          "check": "AE_filter5_cap",
+          "status": "PASS",
+          "detail": "RF-BQ-005 (BM synth/07 source)=not fired; edge_score=35 (not proven or absent); decision='Watchlist' — §24 Filter 5 cap satisfied"
+        },
+        {
+          "check": "AF_filter1_integrity_cap",
+          "status": "PASS",
+          "detail": "RF-MGT-005 (MG synth/01 source)=not fired; decision='Watchlist' — §24 Filter 1 cap satisfied"
+        },
+        {
+          "check": "AQ_forensic_mosaic_cap",
+          "status": "PASS",
+          "detail": "forensic tags fired: ['RF-DISC-002', 'RF-EQ-001']; decision='Watchlist' — §13 forensic-mosaic cap satisfied"
+        },
+        {
+          "check": "AG_calibration_feedback_gate",
+          "status": "PASS",
+          "detail": "calibration_feedback.status='pre_data' consistent with as-of calibration_summary (verdict='Pre-data — 7 decisions, 7 reviews, 1 resolved forecasts, 1 resolved directional calls. Inventory, process metrics, and the flat error/pre-mortem tallies are reported; every skill metric (hit rate, Brier, Selected−Rejected spread) is below floor and explicitly withheld, not estimated.')"
+        },
+        {
+          "check": "AH_expectations_gap_gate",
+          "status": "N/A",
+          "detail": "run predates the gate or confidence_score=40.0 not above the §7 conviction floor (2026-08-06) — N/A"
+        },
+        {
+          "check": "AI_headline_scorecard_reconciliation",
+          "status": "PASS",
+          "detail": "Headline Scorecard cells reconcile with expected_return_pct/downside_risk_pct/risk_reward/confidence_score/data_sufficiency_score"
+        },
+        {
+          "check": "AJ_decision_audit_trail",
+          "status": "PASS",
+          "detail": "Decision Audit Trail table present with 5 populated rows"
+        },
+        {
+          "check": "AK_red_flag_severity_reconciliation",
+          "status": "PASS",
+          "detail": "module-declared Critical red-flag counts reconcile with decision_record.json red_flags and the Headline Scorecard Rating-cap cell does not deny one"
+        },
+        {
+          "check": "AN_supersession_integrity",
+          "status": "N/A",
+          "detail": "no supersession sidecar — N/A"
+        },
+        {
+          "check": "AM_bear_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Selected long with a usable bear price target — N/A"
+        },
+        {
+          "check": "AR_bull_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Short Candidate with a usable bull price target — N/A"
+        },
+        {
+          "check": "AO_forecast_resolvability",
+          "status": "PASS",
+          "detail": "every forecast carries a pinned/settleable, partitioned trigger and the record has a ≤90-day proof point"
+        },
+        {
+          "check": "AT_scenario_span",
+          "status": "PASS",
+          "detail": "the scenario set spans a real good outcome, not only degrees of bad"
+        },
+        {
+          "check": "AU_sign_check_recorded",
+          "status": "PASS",
+          "detail": "the thesis records its sign check against the module owning its driver"
+        },
+        {
+          "check": "AV_conjunction_disclosure",
+          "status": "PASS",
+          "detail": "every scenario's conditions[] / joint_probability_basis pair is schema-consistent (§10)"
+        },
+        {
+          "check": "AX_data_needs_v2",
+          "status": "N/A",
+          "detail": "record predates the v2 decision-guidance gate and has no discriminator — N/A"
+        }
+      ],
+      "warn_nonschema_files": [
+        "agent_metrics.f4494eb0-bb0e-4c67-897d-25ddff2d0d72.json",
+        "idea_3_6m.json",
+        "agent_metrics.bc737b30-8ea4-4a53-92c6-8670840e78e5.json",
+        "agent_metrics.667550bd-9443-45de-9fcb-e6351bb56208.json",
+        "agent_metrics.751ee2c7-11f9-400a-b712-c99923cb0563.json",
+        "agent_metrics.07add946-859b-4f9f-b4dd-97d706147406.json",
+        "agent_metrics.05523cce-ca2a-447e-836f-f9ed381ad2aa.json",
+        "agent_metrics.a42dd934-ad94-471c-a7b6-952409c771e4.json",
+        "agent_metrics.d86c8f6a-2595-4fc2-827c-c412ea1385ac.json"
+      ],
+      "retrospective_advisories": []
+    },
+    "TMCV_2026-06-07": {
+      "run_root": "analyses/TMCV_2026-06-07",
+      "ticker": "TMCV",
+      "decision": "Watchlist",
+      "pass": true,
+      "gate_eligible": true,
+      "warn_only": false,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "PASS",
+          "detail": "final_thesis>1KB=True; RUN_METADATA=True; modules_missing_99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]; schema_version=1.0"
+        },
+        {
+          "check": "B2_decision_date",
+          "status": "PASS",
+          "detail": "decision_date='2026-06-07' valid_iso=True"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "decision='Watchlist' basket='Watchlist' (expected 'Watchlist'); paper_treatment ok=True"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "N/A",
+          "detail": "entry_price present"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": "{'expected_return_pct': -4.4, 'downside_risk_pct': -81.0, 'risk_reward': -0.23, 'confidence_score': 47, 'data_sufficiency_score': 68}"
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "all 30/90/180/365 = decision_date+N from 2026-06-07"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "N/A",
+          "detail": "absent"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "N/A",
+          "detail": "absent"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "N/A",
+          "detail": "absent"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": "decision 'Watchlist' stated in a Decision: line / Rating cell of final_thesis.md=True"
+        },
+        {
+          "check": "K_s24_in_thesis",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; §24 roll-up present in final_thesis=True"
+        },
+        {
+          "check": "L_three_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; memo.md=True audit_dossier.md=True"
+        },
+        {
+          "check": "M_scenario_math",
+          "status": "N/A",
+          "detail": "run predates scenario-math gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "N_no_scratch_leak",
+          "status": "N/A",
+          "detail": "run predates scratch-leak gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "O_integrity_gate",
+          "status": "N/A",
+          "detail": "N/A (not a post-gate Selected/Short run)"
+        },
+        {
+          "check": "P_disconfirmation",
+          "status": "N/A",
+          "detail": "run predates disconfirmation-quality gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "Q_module_tiers",
+          "status": "N/A",
+          "detail": "run predates module-tiers feature (2026-06-07) — N/A"
+        },
+        {
+          "check": "R_memo_delta",
+          "status": "PASS",
+          "detail": "memo_delta blocks valid; paired markdown present; rerun targets are real modules"
+        },
+        {
+          "check": "AL_pre_mortem_check",
+          "status": "N/A",
+          "detail": "no reviews filed on/after 2026-07-17 — N/A"
+        },
+        {
+          "check": "S_haircut_propagated",
+          "status": "N/A",
+          "detail": "run predates haircut-propagation gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "T_forecast_ledger_quality",
+          "status": "N/A",
+          "detail": "run predates forecast-ledger quality gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "U_postMortem_cap",
+          "status": "N/A",
+          "detail": "run predates post-mortem cap gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "V_edge_gate",
+          "status": "N/A",
+          "detail": "run predates the §7 edge gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "X_verify_floor",
+          "status": "N/A",
+          "detail": "N/A (not a post-2026-06-19 conviction run)"
+        },
+        {
+          "check": "W_sector_valuation",
+          "status": "N/A",
+          "detail": "run predates the sector-valuation gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "Y_data_sufficiency_cap",
+          "status": "PASS",
+          "detail": "data_sufficiency_score=68; decision='Watchlist' — §11 thresholds satisfied"
+        },
+        {
+          "check": "Z_thesis_type_cap",
+          "status": "N/A",
+          "detail": "run predates thesis-type gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "AA_module_verdict_lock",
+          "status": "N/A",
+          "detail": "run predates §18 module-verdict-lock gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "AB_bm_disqualifier_lock",
+          "status": "N/A",
+          "detail": "run predates BM disqualifier gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "AC_turnaround_cap",
+          "status": "N/A",
+          "detail": "run predates turnaround-cap gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "AD_filter_4_6_cap",
+          "status": "N/A",
+          "detail": "run predates §24 Filter 4+6 gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "AE_filter5_cap",
+          "status": "N/A",
+          "detail": "run predates §24 Filter 5 gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "AF_filter1_integrity_cap",
+          "status": "N/A",
+          "detail": "run predates §24 Filter 1 gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "AQ_forensic_mosaic_cap",
+          "status": "N/A",
+          "detail": "run predates §13 forensic-mosaic gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "AG_calibration_feedback_gate",
+          "status": "N/A",
+          "detail": "run predates Phase 6 calibration-feedback gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "AH_expectations_gap_gate",
+          "status": "N/A",
+          "detail": "run predates the gate or confidence_score=47 not above the §7 conviction floor (2026-06-07) — N/A"
+        },
+        {
+          "check": "AI_headline_scorecard_reconciliation",
+          "status": "N/A",
+          "detail": "run predates the gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "AJ_decision_audit_trail",
+          "status": "N/A",
+          "detail": "run predates the gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "AK_red_flag_severity_reconciliation",
+          "status": "N/A",
+          "detail": "run predates the gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "AN_supersession_integrity",
+          "status": "N/A",
+          "detail": "no supersession sidecar — N/A"
+        },
+        {
+          "check": "AM_bear_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Selected long with a usable bear price target — N/A"
+        },
+        {
+          "check": "AR_bull_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Short Candidate with a usable bull price target — N/A"
+        },
+        {
+          "check": "AO_forecast_resolvability",
+          "status": "N/A",
+          "detail": "run predates resolvability gate, or forecast_ledger is [] — N/A"
+        },
+        {
+          "check": "AT_scenario_span",
+          "status": "N/A",
+          "detail": "run predates the span gate, or carries no usable scenario returns — N/A"
+        },
+        {
+          "check": "AU_sign_check_recorded",
+          "status": "N/A",
+          "detail": "run predates the sign-check gate, or no thesis text — N/A"
+        },
+        {
+          "check": "AV_conjunction_disclosure",
+          "status": "N/A",
+          "detail": "run predates structured-scenario-authority rollout, or scenarios aren't in that shape — N/A"
+        },
+        {
+          "check": "AX_data_needs_v2",
+          "status": "N/A",
+          "detail": "record predates the v2 decision-guidance gate and has no discriminator — N/A"
+        }
+      ],
+      "warn_nonschema_files": [
+        "corrections.json"
+      ],
+      "retrospective_advisories": [
+        {
+          "check": "AI_headline_scorecard_reconciliation",
+          "status": "FAIL",
+          "detail": "Headline Scorecard 'Expected return'='+4.3% (see §8 Scenario Model)' does not reconcile with expected_return_pct=-4.4; Headline Scorecard 'Risk/reward'='0.72× upside/downside in base case; binary risk makes this ratio misleading' does not reconcile with risk_reward=-0.23",
+          "note": "retrospective — decision_date '2026-06-07' predates AI_DATE (2026-07-09); informational only, does not affect pass/gate_eligible/suite_pass"
+        },
+        {
+          "check": "AS_forecast_overdue",
+          "status": "DUE",
+          "detail": "forecast_ledger[3] came due 2026-06-29 and is still unresolved (status open): TMF Holdings amalgamation will face material institutional opposition at 2nd AGM (June 29, 2026)",
+          "note": "the ledger owes a resolution — run /research:review-decisions for this ticker (§19: a forecast that cannot be checked later is not a forecast); informational only, does not affect pass/gate_eligible/suite_pass"
+        }
+      ]
+    },
+    "TSLA_2026-07-25": {
+      "run_root": "analyses/TSLA_2026-07-25",
+      "ticker": "TSLA",
+      "decision": "Short Candidate",
+      "pass": true,
+      "gate_eligible": true,
+      "warn_only": false,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "PASS",
+          "detail": "final_thesis>1KB=True; RUN_METADATA=True; modules_missing_99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]; schema_version=1.0"
+        },
+        {
+          "check": "B2_decision_date",
+          "status": "PASS",
+          "detail": "decision_date='2026-07-25' valid_iso=True"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "decision='Short Candidate' basket='Short' (expected 'Short'); paper_treatment ok=True"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "N/A",
+          "detail": "entry_price present"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": "{'expected_return_pct': 56.57, 'downside_risk_pct': 30.56, 'margin_of_safety_pct': -887.7, 'risk_reward': 1.85, 'confidence_score': 60.0, 'data_sufficiency_score': 76, 'post_review_confidence_score': 50.0, 'confidence_haircut': 10.0}"
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "all 30/90/180/365 = decision_date+N from 2026-07-25"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "PASS",
+          "detail": "using verification_report.json; verdict=Minor issues"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "PASS",
+          "detail": "using pre_mortem.json; verdict=Survives with haircut"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "PASS",
+          "detail": "using expectations_gap.json; verdict=None"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": "decision 'Short Candidate' stated in a Decision: line / Rating cell of final_thesis.md=True"
+        },
+        {
+          "check": "K_s24_in_thesis",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; §24 roll-up present in final_thesis=True"
+        },
+        {
+          "check": "L_three_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; memo.md=True audit_dossier.md=True"
+        },
+        {
+          "check": "M_scenario_math",
+          "status": "PASS",
+          "detail": "prob sum=100; expected_return=Sum(p*ret); target & risk/reward reconcile"
+        },
+        {
+          "check": "N_no_scratch_leak",
+          "status": "PASS",
+          "detail": "scratch-reasoning phrases in final_thesis.md=[]"
+        },
+        {
+          "check": "O_integrity_gate",
+          "status": "PASS",
+          "detail": "Selected/Short run dated >= 2026-06-08 must carry verification_report.json(True) + pre_mortem.json(True) from the finish-gate"
+        },
+        {
+          "check": "P_disconfirmation",
+          "status": "PASS",
+          "detail": "edge non-tautological; kill_criteria present"
+        },
+        {
+          "check": "Q_module_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-08; modules missing a tier=[]"
+        },
+        {
+          "check": "R_memo_delta",
+          "status": "N/A",
+          "detail": "no reviews filed on/after 2026-06-10 — N/A"
+        },
+        {
+          "check": "AL_pre_mortem_check",
+          "status": "N/A",
+          "detail": "no reviews filed on/after 2026-07-17 — N/A"
+        },
+        {
+          "check": "S_haircut_propagated",
+          "status": "PASS",
+          "detail": "haircut=10.0; post_review_confidence_score=50.0; pre_mortem_verdict='Survives with haircut'"
+        },
+        {
+          "check": "T_forecast_ledger_quality",
+          "status": "PASS",
+          "detail": "all 7 forecast_ledger entries have required fields + valid status + valid probability"
+        },
+        {
+          "check": "U_postMortem_cap",
+          "status": "PASS",
+          "detail": "pre_mortem_verdict='Survives with haircut'; post_mortem_decision='Short Candidate'; post_mortem_basket='Short'"
+        },
+        {
+          "check": "V_edge_gate",
+          "status": "PASS",
+          "detail": "edge_score=40; edge_proof=set; confidence=60.0"
+        },
+        {
+          "check": "X_verify_floor",
+          "status": "PASS",
+          "detail": "verdict='Minor issues' — evidence integrity gate cleared for conviction run"
+        },
+        {
+          "check": "W_sector_valuation",
+          "status": "PASS",
+          "detail": "business_type='Operating company (vertically-integrated EV manufacturer + energy storage)'; primary_valuation_method=\"Blended peer relative valuation (45%) + segment sum-of-the-parts (30%) + capped-weight intrinsic DCF cross-check (25%); Tesla's own trading-history multiple excluded (0% weight) as a circular anchor\" — no forbidden method detected"
+        },
+        {
+          "check": "Y_data_sufficiency_cap",
+          "status": "PASS",
+          "detail": "data_sufficiency_score=76; decision='Short Candidate' — §11 thresholds satisfied"
+        },
+        {
+          "check": "Z_thesis_type_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Company-specific', 'Sector-cycle']; all values in CLAUDE.md §14 enum; has_external=False; proven_edge=no (40); decision='Short Candidate' — within §14 constraints"
+        },
+        {
+          "check": "AA_module_verdict_lock",
+          "status": "PASS",
+          "detail": "BSS verdict='Solid'; MG verdict=None; decision='Short Candidate' — §18 caps satisfied"
+        },
+        {
+          "check": "AB_bm_disqualifier_lock",
+          "status": "PASS",
+          "detail": "BM verdict='Cyclical business — worth deeper work only with a strong timing edge'; decision='Short Candidate' — BM disqualifier cap satisfied"
+        },
+        {
+          "check": "AC_turnaround_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Company-specific', 'Sector-cycle']; decision='Short Candidate' — §24 Filter 2 turnaround cap satisfied"
+        },
+        {
+          "check": "AD_filter_4_6_cap",
+          "status": "PASS",
+          "detail": "RF-CAP-004 (BM/MG)=not fired; MG RF-OWN-004=not fired; decision='Short Candidate' — §24 Filter 4+6 caps satisfied"
+        },
+        {
+          "check": "AE_filter5_cap",
+          "status": "PASS",
+          "detail": "RF-BQ-005 (BM synth/07 source)=fired; edge_score=40 (not proven or absent); decision='Short Candidate' — §24 Filter 5 cap satisfied"
+        },
+        {
+          "check": "AF_filter1_integrity_cap",
+          "status": "PASS",
+          "detail": "RF-MGT-005 (MG synth/01 source)=fired; decision='Short Candidate' — §24 Filter 1 cap satisfied"
+        },
+        {
+          "check": "AQ_forensic_mosaic_cap",
+          "status": "PASS",
+          "detail": "forensic tags fired: ['RF-DISC-001', 'RF-DISC-002']; decision='Short Candidate' — §13 forensic-mosaic cap satisfied"
+        },
+        {
+          "check": "AG_calibration_feedback_gate",
+          "status": "PASS",
+          "detail": "calibration_feedback.status='pre_data' consistent with as-of calibration_summary (verdict='Pre-data -- 5 decisions on the ledger, 3 with a first review filed, 0 resolved forecasts. Inventory and process metrics are reported; cohort returns, hit rate, Selected-Rejected spread, and Brier/reliability calibration all remain unsupported by the data and are explicitly withheld rather than estimated.')"
+        },
+        {
+          "check": "AH_expectations_gap_gate",
+          "status": "N/A",
+          "detail": "run predates the gate or confidence_score=60.0 not above the §7 conviction floor (2026-07-25) — N/A"
+        },
+        {
+          "check": "AI_headline_scorecard_reconciliation",
+          "status": "PASS",
+          "detail": "Headline Scorecard cells reconcile with expected_return_pct/downside_risk_pct/risk_reward/confidence_score/data_sufficiency_score"
+        },
+        {
+          "check": "AJ_decision_audit_trail",
+          "status": "PASS",
+          "detail": "Decision Audit Trail table present with 5 populated rows"
+        },
+        {
+          "check": "AK_red_flag_severity_reconciliation",
+          "status": "PASS",
+          "detail": "module-declared Critical red-flag counts reconcile with decision_record.json red_flags and the Headline Scorecard Rating-cap cell does not deny one"
+        },
+        {
+          "check": "AN_supersession_integrity",
+          "status": "N/A",
+          "detail": "no supersession sidecar — N/A"
+        },
+        {
+          "check": "AM_bear_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Selected long with a usable bear price target — N/A"
+        },
+        {
+          "check": "AR_bull_case_sanity",
+          "status": "PASS",
+          "detail": "bull-case price target is above entry_price — a genuine upside/squeeze branch (a real loss to the short)"
+        },
+        {
+          "check": "AO_forecast_resolvability",
+          "status": "PASS",
+          "detail": "every forecast carries a pinned/settleable, partitioned trigger and the record has a ≤90-day proof point"
+        },
+        {
+          "check": "AT_scenario_span",
+          "status": "N/A",
+          "detail": "run predates the span gate, or carries no usable scenario returns — N/A"
+        },
+        {
+          "check": "AU_sign_check_recorded",
+          "status": "N/A",
+          "detail": "run predates the sign-check gate, or no thesis text — N/A"
+        },
+        {
+          "check": "AV_conjunction_disclosure",
+          "status": "N/A",
+          "detail": "run predates structured-scenario-authority rollout, or scenarios aren't in that shape — N/A"
+        },
+        {
+          "check": "AX_data_needs_v2",
+          "status": "N/A",
+          "detail": "record predates the v2 decision-guidance gate and has no discriminator — N/A"
+        }
+      ],
+      "warn_nonschema_files": [
+        "agent_metrics.c3ff685a-adef-4ed0-bdee-6a823a5f4698.json",
+        "agent_metrics.65de5443-de47-4f16-9c5a-dd503a28e297.json",
+        "agent_metrics.fb3eddc8-ea1a-457e-9ef0-71758a20d4f2.json"
+      ],
+      "retrospective_advisories": []
+    },
+    "UBER_2026-08-06": {
+      "run_root": "analyses/UBER_2026-08-06",
+      "ticker": "UBER",
+      "decision": "Watchlist",
+      "pass": true,
+      "gate_eligible": true,
+      "warn_only": false,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "PASS",
+          "detail": "final_thesis>1KB=True; RUN_METADATA=True; modules_missing_99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]; schema_version=1.0"
+        },
+        {
+          "check": "B2_decision_date",
+          "status": "PASS",
+          "detail": "decision_date='2026-08-06' valid_iso=True"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "decision='Watchlist' basket='Watchlist' (expected 'Watchlist'); paper_treatment ok=True"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "N/A",
+          "detail": "entry_price present"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": "{'expected_return_pct': 8.15, 'downside_risk_pct': 40.99, 'margin_of_safety_pct': 8.98, 'risk_reward': 0.2, 'confidence_score': 48.0, 'data_sufficiency_score': 70, 'post_review_confidence_score': 42.0, 'confidence_haircut': 6.0}"
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "all 30/90/180/365 = decision_date+N from 2026-08-06"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "PASS",
+          "detail": "using verification_report.json; verdict=Material issues"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "PASS",
+          "detail": "using pre_mortem.json; verdict=Survives with haircut"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "PASS",
+          "detail": "using expectations_gap.json; verdict=None"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": "decision 'Watchlist' stated in a Decision: line / Rating cell of final_thesis.md=True"
+        },
+        {
+          "check": "K_s24_in_thesis",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; §24 roll-up present in final_thesis=True"
+        },
+        {
+          "check": "L_three_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; memo.md=True audit_dossier.md=True"
+        },
+        {
+          "check": "M_scenario_math",
+          "status": "PASS",
+          "detail": "prob sum=100; expected_return=Sum(p*ret); target & risk/reward reconcile"
+        },
+        {
+          "check": "N_no_scratch_leak",
+          "status": "PASS",
+          "detail": "scratch-reasoning phrases in final_thesis.md=[]"
+        },
+        {
+          "check": "O_integrity_gate",
+          "status": "N/A",
+          "detail": "N/A (not a post-gate Selected/Short run)"
+        },
+        {
+          "check": "P_disconfirmation",
+          "status": "PASS",
+          "detail": "edge non-tautological; kill_criteria present"
+        },
+        {
+          "check": "Q_module_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-08; modules missing a tier=[]"
+        },
+        {
+          "check": "R_memo_delta",
+          "status": "N/A",
+          "detail": "no reviews filed on/after 2026-06-10 — N/A"
+        },
+        {
+          "check": "AL_pre_mortem_check",
+          "status": "N/A",
+          "detail": "no reviews filed on/after 2026-07-17 — N/A"
+        },
+        {
+          "check": "S_haircut_propagated",
+          "status": "PASS",
+          "detail": "haircut=6.0; post_review_confidence_score=42.0; pre_mortem_verdict='Survives with haircut'"
+        },
+        {
+          "check": "T_forecast_ledger_quality",
+          "status": "PASS",
+          "detail": "all 5 forecast_ledger entries have required fields + valid status + valid probability"
+        },
+        {
+          "check": "U_postMortem_cap",
+          "status": "PASS",
+          "detail": "pre_mortem_verdict='Survives with haircut'; post_mortem_decision='Watchlist'; post_mortem_basket='Watchlist'"
+        },
+        {
+          "check": "V_edge_gate",
+          "status": "PASS",
+          "detail": "edge_score=40; edge_proof=set; confidence=48.0"
+        },
+        {
+          "check": "X_verify_floor",
+          "status": "N/A",
+          "detail": "N/A (not a post-2026-06-19 conviction run)"
+        },
+        {
+          "check": "W_sector_valuation",
+          "status": "PASS",
+          "detail": "business_type='Operating'; primary_valuation_method='Relative valuation (peer multiples) — 68% weight on the four-name core marketplace peer set (Lyft, DoorDash, DiDi, Grab); FCFF DCF (16%) and sum-of-the-parts (16%) as capped cross-checks.' — no forbidden method detected"
+        },
+        {
+          "check": "Y_data_sufficiency_cap",
+          "status": "PASS",
+          "detail": "data_sufficiency_score=70; decision='Watchlist' — §11 thresholds satisfied"
+        },
+        {
+          "check": "Z_thesis_type_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Company-specific', 'Sector-cycle']; all values in CLAUDE.md §14 enum; has_external=False; proven_edge=no (40); decision='Watchlist' — within §14 constraints"
+        },
+        {
+          "check": "AA_module_verdict_lock",
+          "status": "PASS",
+          "detail": "BSS verdict='Adequate'; MG verdict=None; decision='Watchlist' — §18 caps satisfied"
+        },
+        {
+          "check": "AB_bm_disqualifier_lock",
+          "status": "PASS",
+          "detail": "BM verdict='Average business — worth deeper work only if valuation is cheap'; decision='Watchlist' — BM disqualifier cap satisfied"
+        },
+        {
+          "check": "AC_turnaround_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Company-specific', 'Sector-cycle']; decision='Watchlist' — §24 Filter 2 turnaround cap satisfied"
+        },
+        {
+          "check": "AD_filter_4_6_cap",
+          "status": "PASS",
+          "detail": "RF-CAP-004 (BM/MG)=fired; MG RF-OWN-004=not fired; decision='Watchlist' — §24 Filter 4+6 caps satisfied"
+        },
+        {
+          "check": "AE_filter5_cap",
+          "status": "PASS",
+          "detail": "RF-BQ-005 (BM synth/07 source)=fired; edge_score=40 (not proven or absent); decision='Watchlist' — §24 Filter 5 cap satisfied"
+        },
+        {
+          "check": "AF_filter1_integrity_cap",
+          "status": "PASS",
+          "detail": "RF-MGT-005 (MG synth/01 source)=not fired; decision='Watchlist' — §24 Filter 1 cap satisfied"
+        },
+        {
+          "check": "AQ_forensic_mosaic_cap",
+          "status": "PASS",
+          "detail": "forensic tags fired: ['RF-DISC-002', 'RF-OBS-001']; decision='Watchlist' — §13 forensic-mosaic cap satisfied"
+        },
+        {
+          "check": "AG_calibration_feedback_gate",
+          "status": "PASS",
+          "detail": "calibration_feedback.status='pre_data' consistent with as-of calibration_summary (verdict='Pre-data — 7 decisions, 7 reviews, 1 resolved forecasts, 1 resolved directional calls. Inventory, process metrics, and the flat error/pre-mortem tallies are reported; every skill metric (hit rate, Brier, Selected−Rejected spread) is below floor and explicitly withheld, not estimated.')"
+        },
+        {
+          "check": "AH_expectations_gap_gate",
+          "status": "N/A",
+          "detail": "run predates the gate or confidence_score=48.0 not above the §7 conviction floor (2026-08-06) — N/A"
+        },
+        {
+          "check": "AI_headline_scorecard_reconciliation",
+          "status": "PASS",
+          "detail": "Headline Scorecard cells reconcile with expected_return_pct/downside_risk_pct/risk_reward/confidence_score/data_sufficiency_score"
+        },
+        {
+          "check": "AJ_decision_audit_trail",
+          "status": "PASS",
+          "detail": "Decision Audit Trail table present with 5 populated rows"
+        },
+        {
+          "check": "AK_red_flag_severity_reconciliation",
+          "status": "PASS",
+          "detail": "module-declared Critical red-flag counts reconcile with decision_record.json red_flags and the Headline Scorecard Rating-cap cell does not deny one"
+        },
+        {
+          "check": "AN_supersession_integrity",
+          "status": "N/A",
+          "detail": "no supersession sidecar — N/A"
+        },
+        {
+          "check": "AM_bear_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Selected long with a usable bear price target — N/A"
+        },
+        {
+          "check": "AR_bull_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Short Candidate with a usable bull price target — N/A"
+        },
+        {
+          "check": "AO_forecast_resolvability",
+          "status": "PASS",
+          "detail": "every forecast carries a pinned/settleable, partitioned trigger and the record has a ≤90-day proof point"
+        },
+        {
+          "check": "AT_scenario_span",
+          "status": "PASS",
+          "detail": "the scenario set spans a real good outcome, not only degrees of bad"
+        },
+        {
+          "check": "AU_sign_check_recorded",
+          "status": "PASS",
+          "detail": "the thesis records its sign check against the module owning its driver"
+        },
+        {
+          "check": "AV_conjunction_disclosure",
+          "status": "PASS",
+          "detail": "every scenario's conditions[] / joint_probability_basis pair is schema-consistent (§10)"
+        },
+        {
+          "check": "AX_data_needs_v2",
+          "status": "N/A",
+          "detail": "record predates the v2 decision-guidance gate and has no discriminator — N/A"
+        }
+      ],
+      "warn_nonschema_files": [
+        "agent_metrics.3398b1c5-fefd-4c2a-b500-12e1a26b53c8.json",
+        "idea_3_6m.json",
+        "agent_metrics.7caeb470-55cb-4a11-8f3a-c992549eb699.json",
+        "agent_metrics.9181c1b3-1808-4049-b260-af90b674835e.json",
+        "agent_metrics.64ed5696-2685-4dfb-ace6-c0a05c751bf9.json",
+        "agent_metrics.03d3f3c7-2f21-403b-a47a-4347b4ad6072.json",
+        "agent_metrics.c5c57cc5-1e1c-47db-83d6-e5c89e741ddf.json",
+        "agent_metrics.81135f35-0986-494a-9049-67d5633de686.json",
+        "agent_metrics.d7524200-38ae-4b25-a98d-37044b9182c9.json"
+      ],
+      "retrospective_advisories": []
+    },
+    "UBER_2026-08-09": {
+      "run_root": "analyses/UBER_2026-08-09",
+      "ticker": "UBER",
+      "decision": "Watchlist",
+      "pass": true,
+      "gate_eligible": true,
+      "warn_only": false,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "PASS",
+          "detail": "final_thesis>1KB=True; RUN_METADATA=True; modules_missing_99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]; schema_version=1.0"
+        },
+        {
+          "check": "B2_decision_date",
+          "status": "PASS",
+          "detail": "decision_date='2026-08-09' valid_iso=True"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "decision='Watchlist' basket='Watchlist' (expected 'Watchlist'); paper_treatment ok=True"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "N/A",
+          "detail": "entry_price present"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": "{'expected_return_pct': 1.57, 'downside_risk_pct': 36.37, 'margin_of_safety_pct': 8.82, 'risk_reward': 0.05, 'confidence_score': 53, 'data_sufficiency_score': 80, 'post_review_confidence_score': 47, 'confidence_haircut': 6}"
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "all 30/90/180/365 = decision_date+N from 2026-08-09"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "PASS",
+          "detail": "using verification_report.json; verdict=Material issues"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "PASS",
+          "detail": "using pre_mortem.json; verdict=Survives with haircut"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "PASS",
+          "detail": "using expectations_gap.json; verdict=None"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": "decision 'Watchlist' stated in a Decision: line / Rating cell of final_thesis.md=True"
+        },
+        {
+          "check": "K_s24_in_thesis",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; §24 roll-up present in final_thesis=True"
+        },
+        {
+          "check": "L_three_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; memo.md=True audit_dossier.md=True"
+        },
+        {
+          "check": "M_scenario_math",
+          "status": "PASS",
+          "detail": "prob sum=100; expected_return=Sum(p*ret); target & risk/reward reconcile"
+        },
+        {
+          "check": "N_no_scratch_leak",
+          "status": "PASS",
+          "detail": "scratch-reasoning phrases in final_thesis.md=[]"
+        },
+        {
+          "check": "O_integrity_gate",
+          "status": "N/A",
+          "detail": "N/A (not a post-gate Selected/Short run)"
+        },
+        {
+          "check": "P_disconfirmation",
+          "status": "PASS",
+          "detail": "edge non-tautological; kill_criteria present"
+        },
+        {
+          "check": "Q_module_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-08; modules missing a tier=[]"
+        },
+        {
+          "check": "R_memo_delta",
+          "status": "N/A",
+          "detail": "no reviews filed on/after 2026-06-10 — N/A"
+        },
+        {
+          "check": "AL_pre_mortem_check",
+          "status": "N/A",
+          "detail": "no reviews filed on/after 2026-07-17 — N/A"
+        },
+        {
+          "check": "S_haircut_propagated",
+          "status": "PASS",
+          "detail": "haircut=6; post_review_confidence_score=47; pre_mortem_verdict='Survives with haircut'"
+        },
+        {
+          "check": "T_forecast_ledger_quality",
+          "status": "PASS",
+          "detail": "all 7 forecast_ledger entries have required fields + valid status + valid probability"
+        },
+        {
+          "check": "U_postMortem_cap",
+          "status": "PASS",
+          "detail": "pre_mortem_verdict='Survives with haircut'; post_mortem_decision='Watchlist'; post_mortem_basket='Watchlist'"
+        },
+        {
+          "check": "V_edge_gate",
+          "status": "PASS",
+          "detail": "edge_score=35; edge_proof=set; confidence=53"
+        },
+        {
+          "check": "X_verify_floor",
+          "status": "N/A",
+          "detail": "N/A (not a post-2026-06-19 conviction run)"
+        },
+        {
+          "check": "W_sector_valuation",
+          "status": "PASS",
+          "detail": "business_type='Generic operating company (two-sided on-demand mobility/delivery/freight marketplace platform; no SECTOR_OVERLAYS.md row matches)'; primary_valuation_method='Peer-relative NTM EV/EBITDA (quality-and-growth-adjusted, 38% weight), cross-checked within 1.2% by an independent own-history EV/Sales-implied multiple' — no forbidden method detected"
+        },
+        {
+          "check": "Y_data_sufficiency_cap",
+          "status": "PASS",
+          "detail": "data_sufficiency_score=80; decision='Watchlist' — §11 thresholds satisfied"
+        },
+        {
+          "check": "Z_thesis_type_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Company-specific', 'Sector-cycle']; all values in CLAUDE.md §14 enum; has_external=False; proven_edge=no (35); decision='Watchlist' — within §14 constraints"
+        },
+        {
+          "check": "AA_module_verdict_lock",
+          "status": "PASS",
+          "detail": "BSS verdict='Adequate'; MG verdict=None; decision='Watchlist' — §18 caps satisfied"
+        },
+        {
+          "check": "AB_bm_disqualifier_lock",
+          "status": "PASS",
+          "detail": "BM verdict='Average business — worth deeper work only if valuation is cheap'; decision='Watchlist' — BM disqualifier cap satisfied"
+        },
+        {
+          "check": "AC_turnaround_cap",
+          "status": "PASS",
+          "detail": "thesis_type=['Company-specific', 'Sector-cycle']; decision='Watchlist' — §24 Filter 2 turnaround cap satisfied"
+        },
+        {
+          "check": "AD_filter_4_6_cap",
+          "status": "PASS",
+          "detail": "RF-CAP-004 (BM/MG)=fired; MG RF-OWN-004=not fired; decision='Watchlist' — §24 Filter 4+6 caps satisfied"
+        },
+        {
+          "check": "AE_filter5_cap",
+          "status": "PASS",
+          "detail": "RF-BQ-005 (BM synth/07 source)=fired; edge_score=35 (not proven or absent); decision='Watchlist' — §24 Filter 5 cap satisfied"
+        },
+        {
+          "check": "AF_filter1_integrity_cap",
+          "status": "PASS",
+          "detail": "RF-MGT-005 (MG synth/01 source)=fired; decision='Watchlist' — §24 Filter 1 cap satisfied"
+        },
+        {
+          "check": "AQ_forensic_mosaic_cap",
+          "status": "PASS",
+          "detail": "forensic tags fired: ['RF-DISC-001', 'RF-DISC-002', 'RF-DISQ-001', 'RF-REG-002', 'RF-RFS-001']; decision='Watchlist' — §13 forensic-mosaic cap satisfied"
+        },
+        {
+          "check": "AG_calibration_feedback_gate",
+          "status": "PASS",
+          "detail": "calibration_feedback.status='pre_data' consistent with as-of calibration_summary (verdict='Pre-data — 7 decisions, 7 reviews, 1 resolved forecasts, 1 resolved directional calls. Inventory, process metrics, and the flat error/pre-mortem tallies are reported; every skill metric (hit rate, Brier, Selected−Rejected spread) is below floor and explicitly withheld, not estimated.')"
+        },
+        {
+          "check": "AH_expectations_gap_gate",
+          "status": "N/A",
+          "detail": "run predates the gate or confidence_score=53 not above the §7 conviction floor (2026-08-09) — N/A"
+        },
+        {
+          "check": "AI_headline_scorecard_reconciliation",
+          "status": "PASS",
+          "detail": "Headline Scorecard cells reconcile with expected_return_pct/downside_risk_pct/risk_reward/confidence_score/data_sufficiency_score"
+        },
+        {
+          "check": "AJ_decision_audit_trail",
+          "status": "PASS",
+          "detail": "Decision Audit Trail table present with 7 populated rows"
+        },
+        {
+          "check": "AK_red_flag_severity_reconciliation",
+          "status": "PASS",
+          "detail": "module-declared Critical red-flag counts reconcile with decision_record.json red_flags and the Headline Scorecard Rating-cap cell does not deny one"
+        },
+        {
+          "check": "AN_supersession_integrity",
+          "status": "N/A",
+          "detail": "no supersession sidecar — N/A"
+        },
+        {
+          "check": "AM_bear_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Selected long with a usable bear price target — N/A"
+        },
+        {
+          "check": "AR_bull_case_sanity",
+          "status": "N/A",
+          "detail": "not a post-gate Short Candidate with a usable bull price target — N/A"
+        },
+        {
+          "check": "AO_forecast_resolvability",
+          "status": "PASS",
+          "detail": "every forecast carries a pinned/settleable, partitioned trigger and the record has a ≤90-day proof point"
+        },
+        {
+          "check": "AT_scenario_span",
+          "status": "PASS",
+          "detail": "the scenario set spans a real good outcome, not only degrees of bad"
+        },
+        {
+          "check": "AU_sign_check_recorded",
+          "status": "PASS",
+          "detail": "the thesis records its sign check against the module owning its driver"
+        },
+        {
+          "check": "AV_conjunction_disclosure",
+          "status": "PASS",
+          "detail": "every scenario's conditions[] / joint_probability_basis pair is schema-consistent (§10)"
+        },
+        {
+          "check": "AX_data_needs_v2",
+          "status": "N/A",
+          "detail": "record predates the v2 decision-guidance gate and has no discriminator — N/A"
+        }
+      ],
+      "warn_nonschema_files": [
+        "agent_metrics.da70d222-b3b1-4c4b-8985-cc7f99d4632f.json",
+        "idea_3_6m.json",
+        "agent_metrics.421bb68c-3c6b-4596-af0b-87b49771ec6d.json",
+        "agent_metrics.a7bb81d1-eff7-4598-a3f3-d29d11de027b.json",
+        "agent_metrics.145d6688-6a96-452b-b709-de3e082a8269.json",
+        "agent_metrics.a7ba7714-a5e5-40c6-86f2-e9ab9b51829b.json",
+        "agent_metrics.6d753222-efcf-4052-8c6e-9cf8b2b18acb.json",
+        "agent_metrics.736e4299-9eed-4e09-92d2-f8a62e5f3958.json",
+        "agent_metrics.f19eef14-3f1f-47b4-a398-e379a55d7d1e.json",
+        "agent_metrics.f356d940-56a6-46f7-add7-9e62aa596e97.json",
+        "agent_metrics.f767dc04-e074-4472-9bea-96fe4dd93462.json",
+        "agent_metrics.6d144ab0-3de2-4679-bb29-1efe40c0ffcb.json",
+        "corrections.json"
+      ],
+      "retrospective_advisories": []
+    }
+  },
+  "source_contracts_s24": [
+    {
+      "file": "CLAUDE.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": "frameworks/SECTOR_OVERLAYS.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/business-model/02_business-identity.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/business-model/MODULE_RULES.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/business-model/07_business-quality.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/business-model/99_business-model-synthesis.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/earnings/03_margin-drivers.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/business-model/09_moat.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/earnings/MODULE_RULES.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/earnings/06_earnings-quality.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/earnings/99_earnings-synthesis.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/balance-sheet-survival/05_off-balance-sheet-and-contingencies.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/balance-sheet-survival/99_balance-sheet-survival-synthesis.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/management-governance/06_candor-and-disclosure-quality.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/valuation/07_scenario-and-fair-value.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/business-model/08_competitive-map.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/balance-sheet-survival/06_downside-stress-test.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/balance-sheet-survival/01_capital-structure-and-leverage.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/valuation/04_intrinsic-dcf.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/business-model/01_disqualifier-scan.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/business-model/12_red-flags-sweep.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/business-model/11_capital-allocation-governance.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/management-governance/MODULE_RULES.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/management-governance/01_management-and-track-record.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/management-governance/99_management-governance-synthesis.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/management-governance/04_ownership-and-insider-behavior.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/balance-sheet-survival/MODULE_RULES.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/valuation/MODULE_RULES.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/synthesizer.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/catalyst/MODULE_RULES.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/catalyst/01_catalyst-calendar.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/catalyst/99_catalyst-synthesis.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/memo-writer.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/commands/research/full.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": "scripts/rating_caps.py",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": "scripts/headline_checks.py",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": "scripts/valuation_summary_checks.py",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/module-memo-writer.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": "frameworks/MODULE_PIPELINE.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/commands/research/rerun.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/commands/research/track.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/settings.json",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/hooks/review_due.py",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": "frameworks/DECISION_LEDGER.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/commands/research/review-decisions.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/commands/research/eval.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/commands/research/calibrate.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": "scripts/calibrate.py",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": "scripts/test_calibrate.py",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": "scripts/market_prices.py",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": "frameworks/MARKET_FEED.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": "frameworks/EXTERNAL_DATA.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": "scripts/eval.py",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": "scripts/data_need_contract.py",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "status": "PASS",
+      "missing": []
+    }
+  ],
+  "valuation_summary_integrity": {
+    "checked": 14,
+    "failures": []
+  }
+}
