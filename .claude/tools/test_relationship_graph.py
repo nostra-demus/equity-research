@@ -245,6 +245,27 @@ check(kin["concentration"]["intragroup_rows"] == 1,
 check(kin["concentration"].get("likely_group_rows") == 1,
       "the suspected (likely_group) row was not surfaced separately from proven intra-group rows")
 
+# ---- 15. an RTF relationship export is not silently dropped ----------------------------------------
+# `_pool_files` used to accept only .xls/.xlsx/.xlsm, so a CIQ export saved as e.g.
+# "Amazon com Inc NasdaqGS AMZN Customers.rtf" never even reached the parser and produced a clean-looking
+# but WRONG empty graph — indistinguishable from "no export was provided" (§3, §20 bad extraction). There
+# is still no RTF table reader, so the file cannot be turned into rows, but it must now be picked up and
+# must leave a stated, readable gap rather than silence.
+with tempfile.TemporaryDirectory() as tmp:
+    rtf_path = Path(tmp) / "Anchor Corp NyseANC Suppliers.rtf"
+    rtf_path.write_text(r"{\rtf1\ansi Anchor Corp Suppliers export, not a table.}")
+    check(rtf_path in rg._pool_files(Path(tmp)), "an RTF file named like a relationship export was not picked up by _pool_files")
+    rtf_graph = rg.build_graph(Path(tmp), "ANCHOR")
+    check(rtf_graph["sources"] == [] and rtf_graph["counterparties"] == [],
+          "an unparseable RTF export produced fabricated rows instead of an honest empty graph")
+    check(any("unsupported format" in w and "Suppliers.rtf" in w for w in rtf_graph["warnings"]),
+          f"an RTF relationship export was dropped with no explanatory warning: {rtf_graph['warnings']}")
+    # An .rtf file that does NOT look like a relationship export (by name) must stay silent, exactly like
+    # the pre-existing notes.txt case in check 10 — most .rtf files in a pool are unrelated filings.
+    (Path(tmp) / "10-K excerpt.rtf").write_text(r"{\rtf1\ansi some filing text.}")
+    check(not any("10-K excerpt" in w for w in rg.build_graph(Path(tmp), "ANCHOR")["warnings"]),
+          "an unrelated .rtf file (not named like a relationship export) triggered a spurious warning")
+
 if failures:
     for f in failures:
         print(f"  FAIL  {f}")
@@ -252,5 +273,5 @@ if failures:
     sys.exit(1)
 print("  PASS: group/anchor classification, no invented tickers, scope carried, discloser side, "
       "financing capped, conditional mechanism, header-shift tolerance, related-party read, "
-      "brand withholding, empty-pool honesty, customers mirror")
+      "brand withholding, empty-pool honesty, customers mirror, RTF export gap surfaced")
 sys.exit(0)

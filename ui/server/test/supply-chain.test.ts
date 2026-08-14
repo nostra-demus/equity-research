@@ -340,4 +340,45 @@ const byName = (leads: SupplyChainLead[]) => new Map(leads.map((l) => [l.name, l
   assert.equal(board.health.status, 'degraded', 'a no-leads board with an unreadable graph must not read as healthy/complete')
 }
 
-console.log('supply-chain: PASS (empty honesty, readiness gates, anchor verdict caps, standing run, third order only when evidenced, shortest chain wins, coverage match, invalid artifacts, related-party map, degraded-when-unreadable)')
+// ---- 14. a third-order lead is discounted for the extra hop, not reused at its order-2 strength -----------
+// `cp.link_strength` for a company reached through another analysed company's export was computed INSIDE
+// that middle company's own graph, where the counterparty is a direct (order-2) relationship — including
+// the full order-2 "directness" component. Reusing it unchanged at order 3 lets a two-hop lead keep
+// directness it has not earned and outrank a genuinely direct counterparty.
+{
+  const dir = repo()
+  writeRun(dir, 'ANC_2026-08-01', {
+    anchorName: 'Anchor Corp', decision: 'Buy',
+    counterparties: [
+      counterparty({ node_id: 'widget-motors', name: 'Widget Motors', listing: 'NASDAQ:WMI' }),
+      // a real, direct order-2 counterparty whose own evidence is weaker than Copper Mill's raw score
+      // inside WMI's graph, but which must NOT be outranked by a two-hop lead scored as if it were direct
+      counterparty({ node_id: 'direct-supplier', name: 'Direct Supplier', listing: 'NASDAQ:DSP', link_strength: 88 }),
+    ],
+  })
+  writeRun(dir, 'WMI_2026-08-02', {
+    anchorName: 'Widget Motors', anchorListing: 'NASDAQ:WMI', decision: 'Watchlist',
+    counterparties: [
+      // link_strength (96) matches the default components' sum (30+24+14+14+14+0), so the order-3
+      // recompute below is checked against a value actually derivable from the components, not an
+      // arbitrary override.
+      counterparty({ node_id: 'copper-mill', name: 'Copper Mill', listing: 'SHSE:601609', anchor_side_entity: 'Widget Motors', link_strength: 96 }),
+    ],
+  })
+  const board = buildSupplyChainBoard(dir)
+  const wmiDirect = board.leads.find((l) => l.anchor_ticker === 'WMI' && l.name === 'Copper Mill' && l.order === 2)!
+  const ancThird = board.leads.find((l) => l.anchor_ticker === 'ANC' && l.name === 'Copper Mill' && l.order === 3)!
+  const directSupplier = board.leads.find((l) => l.anchor_ticker === 'ANC' && l.name === 'Direct Supplier')!
+  assert.ok(wmiDirect && ancThird && directSupplier, 'all three leads must be present')
+
+  assert.equal(wmiDirect.link_strength, 96, 'the direct order-2 lead must keep the graph-computed strength unchanged')
+  assert.equal(ancThird.link_strength_components.directness, 10,
+    'a third-order lead must carry the order-3 directness component (10), not the order-2 one (24) it was scored with inside the middle company\'s own graph')
+  assert.equal(ancThird.link_strength, 82,
+    'a third-order lead must be recomputed with the discounted directness (96 - 24 + 10 = 82), not reuse the order-2 strength (96) unchanged')
+  assert.ok(ancThird.link_strength < wmiDirect.link_strength, 'a two-hop lead must score below the same company\'s direct order-2 link')
+  assert.ok(ancThird.lead_score < directSupplier.lead_score,
+    'once discounted for the extra hop, the two-hop lead must no longer outrank a genuinely direct counterparty it would otherwise have beaten (82 < 88)')
+}
+
+console.log('supply-chain: PASS (empty honesty, readiness gates, anchor verdict caps, standing run, third order only when evidenced, shortest chain wins, coverage match, invalid artifacts, related-party map, degraded-when-unreadable, order-discounted third-order scoring)')

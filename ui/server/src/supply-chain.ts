@@ -37,6 +37,13 @@ const NO_ANCHOR_VERDICT_CAP = 60
 const PRIOR_COVERAGE_BONUS = 6
 /** Beyond this the lane stops walking outward: evidence quality falls faster than the list grows. */
 const MAX_ORDER = 3
+/** Mirrors `_SCORE_ORDER` in relationship_graph.py — the "directness" points a link earns for how many
+ *  hops it took to reach the counterparty. A third-order lead's `cp.link_strength` was computed inside
+ *  the MIDDLE company's own graph, where that counterparty is a direct (order-2) link; `buildLead` has to
+ *  re-derive directness for the order it is actually reporting here, or a two-hop lead keeps the
+ *  directness points of a direct one and can outrank a genuinely direct counterparty. */
+const SCORE_ORDER: Record<number, number> = { 2: 24, 3: 10 }
+const SCORE_ORDER_DEFAULT = 6
 
 export type SupplyChainReadiness =
   | 'research_now' // listed, operating link, and the anchor has a standing verdict
@@ -435,6 +442,25 @@ function buildLead(
 ): SupplyChainLead {
   const readiness = readinessFor(cp, src.decision)
   const bonus = coverage && (coverage.has_run || coverage.data_pool_present) ? PRIOR_COVERAGE_BONUS : 0
+  // `cp.link_strength` (and its `directness` component) were computed against `cp.order` — the number of
+  // hops inside the graph that actually produced this counterparty row. A third-order lead reuses a
+  // counterparty pulled from the MIDDLE company's own graph, where it is a direct (order-2) link; if the
+  // order this lead is being reported at (`order`) is deeper than that, the extra hop has to cost
+  // directness points here, or a two-hop lead keeps the score of a direct one. Recompute the component
+  // and re-sum, mirroring `_SCORE_ORDER` / the `raw = min(100, sum(components.values()))` step in
+  // relationship_graph.py, rather than passing `cp.link_strength` straight through.
+  let strength = cp.link_strength
+  let components = cp.link_strength_components
+  const cpOrder = num(cp.order, 2)
+  if (order > cpOrder) {
+    const oldDirectness = cp.link_strength_components.directness ?? (SCORE_ORDER[cpOrder] ?? SCORE_ORDER_DEFAULT)
+    const newDirectness = SCORE_ORDER[order] ?? SCORE_ORDER_DEFAULT
+    if (newDirectness < oldDirectness) {
+      components = { ...cp.link_strength_components, directness: newDirectness }
+      const recomputed = Object.values(components).reduce((sum, v) => sum + v, 0)
+      strength = Math.min(100, recomputed)
+    }
+  }
   // One cap, one reason. `link_strength` already carries the graph's own caps (unlisted / financing /
   // possibly-related); the only thing this layer knows that the graph did not is whether the anchor has
   // actually been decided.
@@ -442,7 +468,7 @@ function buildLead(
   const capReason = readiness === 'needs_anchor'
     ? `${src.ticker} has no standing research verdict yet, so which way this link points is unknown`
     : cp.link_strength_cap_reason
-  const score = Math.max(0, Math.min(cap ?? 100, Math.round(cp.link_strength) + bonus))
+  const score = Math.max(0, Math.min(cap ?? 100, Math.round(strength) + bonus))
   const gaps = [...cp.evidence_gaps, ...extraGaps]
   if (readiness === 'needs_anchor') {
     gaps.push(`no standing research verdict on ${src.name || src.ticker} — the chain has no direction until the anchor has one`)
@@ -471,8 +497,8 @@ function buildLead(
     disclosed_by: cp.disclosed_by,
     source_ref: cp.source_ref,
     source_file: cp.source_file,
-    link_strength: Math.round(cp.link_strength),
-    link_strength_components: cp.link_strength_components || {},
+    link_strength: Math.round(strength),
+    link_strength_components: components || {},
     lead_score: score,
     lead_score_basis: SUPPLY_CHAIN_SCORE_BASIS,
     lead_score_cap: cap ?? null,

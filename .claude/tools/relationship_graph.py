@@ -64,6 +64,13 @@ _LISTING_CELL = re.compile(r"^(?P<exch>[A-Za-z][A-Za-z0-9.]{1,12}):(?P<sym>[A-Za
 # are the suppliers" and "these are the suppliers disclosed somewhere in the last two years", so they are
 # captured verbatim rather than dropped as chrome.
 _SCOPE_PREFIXES = ("recently disclosed", "include suppliers for", "include customers for", "all disclosed", "relationship type:")
+
+# A CIQ relationship export's FILENAME says what it is even when its bytes cannot be read as a spreadsheet
+# — e.g. "Amazon com Inc NasdaqGS AMZN Customers.rtf". Mirrors the same naming heuristic `data-status.ts`
+# uses to route these files to the reader in the first place, so a file this pattern matches but this
+# module cannot parse gets a stated gap instead of silently becoming zero relationships (§3 — do not hide
+# missing data).
+_RELATIONSHIP_FILENAME = re.compile(r"suppliers?|customers?|relationship", re.I)
 # …but the table's own section headings start with the same words and say nothing about scope.
 _SCOPE_HEADINGS = frozenset({"recently disclosed suppliers", "recently disclosed customers", "suppliers", "customers"})
 
@@ -751,14 +758,21 @@ def concentration(builder: GraphBuilder, counterparties: list[dict[str, Any]]) -
 # --------------------------------------------------------------------------------------------------
 
 def _pool_files(data_path: Path) -> list[Path]:
-    """Every spreadsheet in the pool, including external/ drops, newest last for stable ordering."""
+    """Every spreadsheet in the pool, including external/ drops, newest last for stable ordering.
+
+    Also picks up `.rtf` files whose NAME looks like a relationship export (CIQ sometimes saves these as
+    Suppliers/Customers.rtf rather than a workbook). This module has no RTF table reader — see the
+    unsupported-format warning in `build_graph` — but the file still has to reach that check to produce
+    one; dropped here, it would silently become an empty graph with no error (§3, §20 bad extraction)."""
     out: list[Path] = []
     for p in sorted(data_path.rglob("*")):
         if not p.is_file() or p.name.startswith("."):
             continue
-        if p.suffix.lower() not in (".xls", ".xlsx", ".xlsm"):
-            continue
-        out.append(p)
+        suffix = p.suffix.lower()
+        if suffix in (".xls", ".xlsx", ".xlsm"):
+            out.append(p)
+        elif suffix == ".rtf" and _RELATIONSHIP_FILENAME.search(p.stem):
+            out.append(p)
     return out
 
 
@@ -770,6 +784,16 @@ def build_graph(data_path: Path, ticker: str) -> dict[str, Any]:
         try:
             fmt = classify(path)
             if fmt not in (CiqFormat.BIFF_XLS, CiqFormat.OOXML):
+                # No table reader exists for this format (RTF text, PDF, HTML, …). A file whose NAME says
+                # it is a relationship export gets a stated gap rather than silently contributing zero
+                # rows — the difference between "no relationship export was provided" and "one was
+                # provided and this tool could not read it" matters to data sufficiency (§11, §20).
+                if _RELATIONSHIP_FILENAME.search(path.stem):
+                    builder.warnings.append(
+                        f"{rel}: looks like a relationship export but is in an unsupported format "
+                        f"({fmt.value}) — no table reader for this format is implemented, so it was NOT "
+                        f"parsed; treat this as a missing export, not zero disclosed relationships."
+                    )
                 continue
             sheets = read_sheets(path, fmt)
         except (CiqParseError, OSError, ValueError) as exc:
