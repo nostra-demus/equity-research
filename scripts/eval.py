@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Deterministic eval harness for the equity-research engine.
 
-Checks invariants A-Z, AA-AX, and J (framework-source contracts) against every committed
+Checks invariants A-Z, AA-AY, and J (framework-source contracts) against every committed
 decision record in analyses/. Called by /research:eval and by CI.
 
 Usage:
@@ -261,6 +261,18 @@ if scope=="--data-needs-prewrite":
     print("DATA-NEEDS-PREWRITE: PASS")
     raise SystemExit(0)
 
+# ── Deferred sibling imports (below the --data-needs-prewrite exit above) ──────────────────────
+# Everything past this point runs only in the full suite / selftest, never in the lightweight
+# `--data-needs-prewrite` path (which exits above). The prewrite is intentionally invoked in a
+# minimal environment — commit-run.sh's temp workspace and test_commit_run.py's prewrite fixture
+# copy ONLY eval.py + data_need_contract.py + overdue_checks.py — so any heavier sibling import
+# (rating_caps, headline_checks, ledger_records, …) MUST live below this line, or the prewrite
+# crashes with ModuleNotFoundError before it can validate. Check AY reuses
+# ledger_records.resolve_integrity_status (CLAUDE.md §2 — do not reimplement the same
+# PROVISIONAL-banner / verification_report-verdict resolution; it is the SAME signal
+# /research:calibrate and /research:track already read) and is used only in the main scan loop.
+from ledger_records import resolve_integrity_status
+
 # ── Check W (sector ↔ valuation-method consistency) — module-level so the `selftest` scope can drive it ──
 # Method substrings SECTOR_OVERLAYS.md forbids per sector type, matched against a SEPARATOR-STRIPPED,
 # lowercased primary_valuation_method so "EBITDA-DCF" / "EBITDA DCF" / "ebitdadcf" all collapse to one
@@ -308,6 +320,35 @@ def eval_x_verify_floor(decision, decision_date, verdict):
         return "na"
     if verdict is None: return "na"
     return "pass" if str(verdict).strip() in ACCEPTABLE_VERDICTS else "fail"
+
+# ── Check AY (golden-fixture truth-integrity floor) — module-level so `eval.py selftest` can drive it ──
+# eval.py's own docstring says it exists "so framework/agent/command changes can't silently regress the
+# engine" against the committed runs "(the golden fixtures)" — but until now it never read the ONE signal
+# that says a golden fixture might itself be wrong: the finish-gate's own PROVISIONAL banner on
+# final_thesis.md (stamped by full.md 10B.1 / rerun.md 8A when scenario math, headline reconciliation, or
+# verify-evidence doesn't check out) or a non-Clean/Minor verify-evidence verdict. Checks G/O/X already
+# touch the same evidence but only for the Selected/Short CONVICTION baskets (checks O/X: DECISIONS.get in
+# ("Selected","Short")) — a Watchlist/Avoid/Insufficient-Data run's live PROVISIONAL banner had zero
+# mechanical check anywhere in this suite, so `eval.py all` could print PASS while a third of the committed
+# fixture set was unverified-possibly-wrong. `ledger_records.resolve_integrity_status()` already computes
+# this exact status for /research:calibrate and /research:track (see its module docstring); this check
+# reuses it rather than re-deriving the banner/verdict logic here (CLAUDE.md §2).
+#
+# Basket-independent by design (unlike X/O) — that is the gap this closes. Date-gated like AI/AK: the
+# underlying signal (the banner text, the verify-evidence verdict) already fully existed before this check
+# was written, so — mirroring AI/AK's own precedent — a run dated BEFORE AY_DATE that is already
+# `provisional` is surfaced only as a retrospective advisory (see the retro block below), never a hard
+# FAIL; a run dated on/after AY_DATE gates normally. This makes the check bite going forward without
+# retroactively failing CI on pre-existing data a code PR is not the place to remediate (that is a data
+# commit under CLAUDE.md §25, not a code change).
+AY_DATE="2026-08-15"
+def eval_ay_fixture_integrity(decision_date, status):
+    """Core of check AY. `status` is ledger_records.resolve_integrity_status(run_dir)["status"] —
+    one of 'verified' | 'provisional' | 'unaudited'. Returns 'pass' | 'fail' | 'na'. Side-effect-free +
+    module-level so the selftest can drive the date gate without a run fixture."""
+    if not (isdate(decision_date) and decision_date>=AY_DATE):
+        return "na"
+    return "fail" if status=="provisional" else "pass"
 
 # ── Check Y (§11 data-sufficiency cap) — module-level so `eval.py selftest` can drive it ──
 # CLAUDE.md §11 / synthesizer.md Rating Cap Rules: data_sufficiency_score < 30 → the decision MUST be the
@@ -1473,6 +1514,21 @@ if scope=="selftest":
         got=X(dec_,dt_,vd_); ok=(got==exp)
         if not ok: bad+=1
         print(f"  [{'ok' if ok else 'XX'}] X({dec_!r},{dt_!r},{vd_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
+    # check AY — basket-independent, unlike X; drive the date gate + all three ledger_records statuses here.
+    AY=eval_ay_fixture_integrity
+    aycases=[  # (decision_date, status, expect: "pass"|"fail"|"na")
+        ("2026-08-15","provisional","fail"),
+        ("2026-08-16","provisional","fail"),   # any decision/basket — no HIGH_CONVICTION_DECISIONS gate
+        ("2026-08-15","verified","pass"),
+        ("2026-08-15","unaudited","pass"),     # no audit ever ran — not itself a defect (CLAUDE.md §11)
+        ("2026-08-14","provisional","na"),     # predates AY_DATE — surfaced only as a retrospective advisory
+        ("not-a-date","provisional","na"),     # unparseable decision_date
+        (None,"provisional","na"),
+    ]
+    for dt_,st_,exp in aycases:
+        got=AY(dt_,st_); ok=(got==exp)
+        if not ok: bad+=1
+        print(f"  [{'ok' if ok else 'XX'}] AY({dt_!r},{st_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
     # check Y — the golden suite can't reach the cap branches (every fixture is score 68-69 / Watchlist-Avoid
     # → trivial pass), so drive the full §11 gate here. Note the F1 cases: weak data caps a Short (matching
     # checks O/U/X), but a Pair hedge is intentionally exempt.
@@ -3524,7 +3580,7 @@ if scope=="selftest":
     # AP — valuation-summary lever-sidecar integrity: reuse the module's own fixture-free selftest (DRY),
     # covering soft-presence, structure, blend, and the decision_record non-contradiction check.
     if _vs_selftest() != 0: bad += 1
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -4026,6 +4082,18 @@ for drp in runs:
             add("X_verify_floor", True, "no verification_report.json — N/A (existence gated by check O for runs dated>=2026-06-08)", na=True)
     else:
         add("X_verify_floor", True, f"N/A (not a post-{VERIFY_FLOOR_DATE} conviction run)", na=True)
+    # AY golden-fixture truth-integrity floor (forward-looking; landing 2026-08-15) — basket-independent,
+    # unlike X above: reuses ledger_records.resolve_integrity_status(run) so a PROVISIONAL finish-gate
+    # banner or an unresolved verify-evidence verdict fails the suite regardless of decision/basket. See
+    # the AY_DATE / eval_ay_fixture_integrity comment block near VERIFY_FLOOR_DATE for the full rationale.
+    _ay_status = resolve_integrity_status(run)["status"]
+    _ayresult = eval_ay_fixture_integrity(ddte, _ay_status)
+    if _ayresult=="fail":
+        add("AY_fixture_integrity", False, f"truth-integrity status={_ay_status!r} (decision_date {ddte!r}) — this fixture carries the finish-gate's own PROVISIONAL banner or a non-Clean/Minor verify-evidence verdict; resolve (rerun the affected module + downstream synthesis) before it can be treated as a clean golden fixture")
+    elif _ayresult=="pass":
+        add("AY_fixture_integrity", True, f"truth-integrity status={_ay_status!r}")
+    else:
+        add("AY_fixture_integrity", True, f"N/A (decision_date {ddte!r} predates AY_DATE {AY_DATE!r}, or invalid) — see retrospective advisory below if status=='provisional'", na=True)
     # W sector ↔ valuation-method consistency (forward-looking; landing SECTOR_DATE / SECTOR_OVERLAYS.md).
     #   When business_type AND primary_valuation_method are both set, verify the method is not one
     #   SECTOR_OVERLAYS.md forbids for that sector type (logic + forbidden list live in SECTOR_FORBIDDEN /
@@ -4501,6 +4569,12 @@ for drp in runs:
         if r:
             retro.append({"check":"AK_red_flag_severity_reconciliation","status":"FAIL","detail":"; ".join(r),
                           "note":f"retrospective — decision_date {ddte!r} predates AK_DATE ({AK_DATE}); informational only, does not affect pass/gate_eligible/suite_pass"})
+    # AY: same pattern as AI/AK — the underlying signal (the finish-gate's own PROVISIONAL banner, the
+    # verify-evidence verdict) already fully existed on this run before AY_DATE; only the date gate on the
+    # PRIMARY check above is bypassed here, not the status computed by resolve_integrity_status.
+    if _ayresult=="na" and _ay_status=="provisional":
+        retro.append({"check":"AY_fixture_integrity","status":"FAIL","detail":f"truth-integrity status=provisional (decision_date {ddte!r})",
+                      "note":f"retrospective — decision_date {ddte!r} predates AY_DATE ({AY_DATE}); informational only, does not affect pass/gate_eligible/suite_pass; resolve with a data commit (rerun the affected module + downstream synthesis), not a code change"})
     # AS: forecasts whose window has ELAPSED and were never resolved. Advisory by construction — see the
     # function's own note: overdue-ness is made by the calendar, not by a defect in the run.
     _asr=eval_as_forecast_overdue(ddte,d.get("forecast_ledger"),TODAY)
@@ -4603,7 +4677,7 @@ FRAMEWORK_CONTRACTS={
  "scripts/market_prices.py":["data/_market","close_on","total_return","beta_adjusted_excess","raw_excess_pct","beta_adjusted_excess_pct","available","as_of","date,symbol,close"],
  "frameworks/MARKET_FEED.md":["date,symbol,close","_symbols.json","beta_adjusted_excess","close_on","EXTERNAL_DATA"],
  "frameworks/EXTERNAL_DATA.md":["data/_market","market_prices.py","beta-adjusted","tracking_price","date,symbol,close"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","eval_forecast_entry_completeness","OWNERCONF_DATE","owner_module","confidence_score","evidence_today","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_FTYPE_DATE","AG_TTYPE_DATE","AG_ERRTAX_DATE","AG_STATUSES","_ag_leading_error_categories","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","AL_pre_mortem_check","PRE_MORTEM_CHECK_DATE","PM_OUTCOMES","eval_am_bear_case_sanity","AM_DATE","eval_an_supersession_integrity","eval_ar_short_bull_case_sanity","AR_DATE","AO_forecast_resolvability","AO_DATE","eval_ao_forecast_resolvability","_ao_earliest_date","eval_ap_valuation_summary_integrity","scan_committed"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","eval_forecast_entry_completeness","OWNERCONF_DATE","owner_module","confidence_score","evidence_today","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_FTYPE_DATE","AG_TTYPE_DATE","AG_ERRTAX_DATE","AG_STATUSES","_ag_leading_error_categories","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM","AL_pre_mortem_check","PRE_MORTEM_CHECK_DATE","PM_OUTCOMES","eval_am_bear_case_sanity","AM_DATE","eval_an_supersession_integrity","eval_ar_short_bull_case_sanity","AR_DATE","AO_forecast_resolvability","AO_DATE","eval_ao_forecast_resolvability","_ao_earliest_date","eval_ap_valuation_summary_integrity","scan_committed","eval_ay_fixture_integrity","AY_DATE","resolve_integrity_status"],
  "scripts/data_need_contract.py":["DATA_NEED_PROMISE_RE","DATA_NEED_URL_RE","check_live_orb_routes","discover_orb_roster"],
 
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
