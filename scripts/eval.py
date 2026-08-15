@@ -20,10 +20,6 @@ from overdue_checks import (
     eval_as_forecast_overdue as _overdue_as_forecast_overdue,
     eval_aw_kill_criteria_overdue as _overdue_aw_kill_criteria_overdue,
 )
-# Check AY reuses ledger_records.resolve_integrity_status (CLAUDE.md §2 — do not reimplement the same
-# PROVISIONAL-banner / verification_report-verdict resolution eval.py's own X check partially duplicates;
-# this is the SAME signal /research:calibrate and /research:track already read for the identical reason).
-from ledger_records import resolve_integrity_status
 scope = (sys.argv[1] if len(sys.argv)>1 else "").strip() or "all"
 today = subprocess.check_output(["date","+%F"]).decode().strip()
 
@@ -264,6 +260,18 @@ if scope=="--data-needs-prewrite":
         raise SystemExit(1)
     print("DATA-NEEDS-PREWRITE: PASS")
     raise SystemExit(0)
+
+# ── Deferred sibling imports (below the --data-needs-prewrite exit above) ──────────────────────
+# Everything past this point runs only in the full suite / selftest, never in the lightweight
+# `--data-needs-prewrite` path (which exits above). The prewrite is intentionally invoked in a
+# minimal environment — commit-run.sh's temp workspace and test_commit_run.py's prewrite fixture
+# copy ONLY eval.py + data_need_contract.py + overdue_checks.py — so any heavier sibling import
+# (rating_caps, headline_checks, ledger_records, …) MUST live below this line, or the prewrite
+# crashes with ModuleNotFoundError before it can validate. Check AY reuses
+# ledger_records.resolve_integrity_status (CLAUDE.md §2 — do not reimplement the same
+# PROVISIONAL-banner / verification_report-verdict resolution; it is the SAME signal
+# /research:calibrate and /research:track already read) and is used only in the main scan loop.
+from ledger_records import resolve_integrity_status
 
 # ── Check W (sector ↔ valuation-method consistency) — module-level so the `selftest` scope can drive it ──
 # Method substrings SECTOR_OVERLAYS.md forbids per sector type, matched against a SEPARATOR-STRIPPED,
