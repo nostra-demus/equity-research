@@ -16,7 +16,7 @@ import { analyzeArticle, coerceTriage, estimateTokens, parseRate, scoreToBand, t
 import { analyzeArticleGemini, triageBatchGemini } from '../src/news/triage/gemini'
 import { appendFeedItems, readFeed } from '../src/news/feed'
 import { mergeInbox, revisionClockRegistryDiagnostics } from '../src/news/write-inbox'
-import { loadDeferred, runIngestCycle, triageGroqTokenBound } from '../src/news/runCycle'
+import { buildTriageQueue, expireBacklog, loadDeferred, runIngestCycle, triageGroqTokenBound } from '../src/news/runCycle'
 import { anthropicDrainReady, backlogTrend, drainBatchEst, geminiPoolProviderDayExhausted, getNewsDiagnostics, providerDrainUsable, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS, STATE_DIR } from '../src/config'
 import { createTheme } from '../src/news/themes/discover'
@@ -4238,6 +4238,82 @@ await check('getNewsDiagnostics labels a provider-reported day limit separately 
     else fs.writeFileSync(file, prior)
     resetBudgetMemory()
   }
+})
+
+// ---- backlog starvation: the 2026-08-13→16 outage that emptied the wire -------------------------------
+// The engine scored 540 items across three days and kept ZERO. Every one was a stale routine exchange
+// filing; not one newswire item was scored at all. Not a triage misjudgement — a strict-priority queue
+// starving its low-priority class. preTriagePriority = tier*3 + keyword + recency, so a stale filing
+// scores 5*3+0+0 = 15 and a fresh keyword-free headline 2*3+0+5 = 11: once the backlog held thousands of
+// filings, no news item could ever reach the head of the queue again, at any provider health.
+const queueItem = (over: Partial<any>): any => ({
+  event_id: `EVT-${Math.random().toString(16).slice(2, 10)}`,
+  headline: 'Routine disclosure',
+  input_nature: 'exchange_announcement',
+  found_at: '2026-08-16T00:00:00Z',
+  ...over,
+})
+const staleFiling = (n: number, at = '2026-08-14T00:00:00Z') =>
+  Array.from({ length: n }, (_, i) => queueItem({ event_id: `EVT-old-${i}`, headline: `Newspaper advertisement for results ${i}`, found_at: at }))
+const freshNews = (n: number, at = '2026-08-16T09:55:00Z') =>
+  Array.from({ length: n }, (_, i) => queueItem({ event_id: `EVT-new-${i}`, headline: `Company reports quarterly numbers ${i}`, input_nature: 'news', found_at: at }))
+
+await check('buildTriageQueue: a deep stale backlog cannot starve this cycle\'s fresh news out of every prefix', () => {
+  const now = new Date('2026-08-16T10:00:00Z')
+  const q = buildTriageQueue(staleFiling(5000), freshNews(500), now, 0.5)
+  assert.equal(q.length, 5500, 'every item is queued — the reservation reorders, it never drops')
+  // the cycle only ever consumes a PREFIX, so the guarantee has to hold of the prefix, not just the whole
+  // queue. One degraded cycle scored 36 items (3 batches of 12) — that is the prefix that matters.
+  const isFresh = (it: any) => String(it.event_id).startsWith('EVT-new-')
+  for (const prefix of [12, 36, 120, 1200]) {
+    const n = q.slice(0, prefix).filter(isFresh).length
+    // the reservation is bounded by supply: a prefix past the fresh pool (500) can only carry all of it
+    const want = Math.min(Math.floor(prefix * 0.5), 500)
+    assert.ok(n >= want, `prefix ${prefix} carries ${n} fresh items, expected at least ${want}`)
+  }
+  // the exact regression: under the old flat sort the first 36 slots were 36 stale filings and 0 news
+  assert.ok(q.slice(0, 36).some(isFresh), 'a degraded cycle that scores only 36 items still scores news')
+})
+
+await check('buildTriageQueue: preserves §4 priority order WITHIN each pool, and freshShare 0 restores the old strict-priority queue', () => {
+  const now = new Date('2026-08-16T10:00:00Z')
+  // a material keyword lifts an item inside its own pool (+12) — that ordering must survive the interleave
+  const material = queueItem({ event_id: 'EVT-new-material', headline: 'Company announces fraud probe', input_nature: 'news', found_at: '2026-08-16T09:55:00Z' })
+  const q = buildTriageQueue(staleFiling(4), [...freshNews(3), material], now, 0.5)
+  const freshOrder = q.filter((it) => String(it.event_id).startsWith('EVT-new-')).map((it) => it.event_id)
+  assert.equal(freshOrder[0], 'EVT-new-material', 'the highest-priority fresh item still leads its own pool')
+  // freshShare 0 = the pre-fix behaviour, byte-for-byte: pure priority, backlog filings first
+  const strict = buildTriageQueue(staleFiling(4), freshNews(3), now, 0)
+  assert.ok(strict.slice(0, 4).every((it) => String(it.event_id).startsWith('EVT-old-')), 'freshShare 0 restores the strict-priority order')
+})
+
+await check('expireBacklog: retires what can no longer reach the 2-day wire, and never loses an item to a missing timestamp', () => {
+  const now = new Date('2026-08-16T10:00:00Z')
+  const { live, expired } = expireBacklog([
+    queueItem({ event_id: 'EVT-live', found_at: '2026-08-15T10:00:00Z' }), // 24h — still inside the window
+    queueItem({ event_id: 'EVT-old', found_at: '2026-08-13T09:00:00Z' }), // 73h — past it
+    queueItem({ event_id: 'EVT-nostamp', found_at: '' }),
+    queueItem({ event_id: 'EVT-badstamp', found_at: 'not-a-date' }),
+  ], now, 48 * 3_600_000)
+  assert.deepEqual(expired.map((i) => i.event_id), ['EVT-old'])
+  assert.deepEqual(live.map((i) => i.event_id), ['EVT-live', 'EVT-nostamp', 'EVT-badstamp'], 'an unparseable stamp is kept, never retired')
+})
+
+await check('runIngestCycle: a backlog past the wire\'s own window is retired unscored, counted, and named in the note', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp()
+  // 3 days of unscored backlog, exactly the shape the outage left behind
+  fs.writeFileSync(path.join(state, 'news-deferred.json'), JSON.stringify([
+    { event_id: 'EVT-stale-1', headline: 'Newspaper advertisement for results', found_at: '2026-08-13T00:00:00Z', input_nature: 'exchange_announcement' },
+    { event_id: 'EVT-stale-2', headline: 'Newspaper advertisement for results', found_at: '2026-08-13T01:00:00Z', input_nature: 'exchange_announcement' },
+  ]))
+  const fetchFn = (async () => res({ articles: [] })) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000 } as any
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now: () => new Date('2026-08-16T10:00:00Z') })
+  assert.equal(s.backlog_expired, 2, 'both aged-out items are counted')
+  assert.equal(s.carryover, 0, 'a retired item never competes for a triage slot again')
+  assert.match(String(s.note), /RETIRED unscored/, 'the loss is named in the note, never silent')
+  assert.equal(loadDeferred(state).length, 0, 'the retired backlog is gone from disk — it cannot regrow the wall')
 })
 
 console.log(`\n${passed} checks passed`)

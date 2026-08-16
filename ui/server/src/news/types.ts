@@ -294,6 +294,7 @@ export interface CycleSummary {
   backlog?: number // deferred backlog depth held on disk after this cycle (≤ backlog_cap)
   backlog_cap?: number // the loss boundary (DEFERRED_CAP): backlog past this is silently dropped
   dropped_at_cap?: number // items lost this cycle because the backlog overran backlog_cap (deferred = backlog + dropped_at_cap). Present only when >0 — the honest twin of "the tail is dropped, not deferred"
+  backlog_expired?: number // backlog items retired UNSCORED this cycle for being older than the wire's own 2-day window (DEFERRED_MAX_AGE_MS). Present only when >0 — a real loss, reported like dropped_at_cap, never silent
   deferred_write_failed?: boolean // saveDeferred's atomic write failed this cycle — the in-memory backlog was NOT persisted (last-good kept); backlog/deferred describe intent, not what is on disk. Present only when true
   deferred_read_failed?: boolean // malformed/unreadable backlog authority; fetch/scoring paused and existing bytes preserved
   aborted?: boolean // the wall-clock guard killed this cycle and dumped the untriaged remainder to the backlog

@@ -761,6 +761,7 @@ export interface NewsDiagnostics {
     nearLimit: boolean // ≥80% of the cap — approaching silent data loss
     trend: 'growing' | 'shrinking' | 'flat' | null // over today's recent cycles (null = too few to tell)
     lostToday: number // items ACTUALLY dropped past the cap so far today (sum of cycle dropped_at_cap) — real, not projected, data loss
+    retiredToday: number // items retired UNSCORED so far today for being older than the wire's own window (sum of cycle backlog_expired) — the OTHER real loss; a gauge that showed only the cap would read 0 while thousands aged out
   }
   today: { read: number; kept: number; dropped: number; cycles: number }
   lastCycle: {
@@ -1071,6 +1072,10 @@ export function getNewsDiagnostics(): NewsDiagnostics {
   // real data loss so far today = sum of each cycle's dropped_at_cap (backlog overran the cap). Restart-safe
   // (read from the firehose on disk), same today-window as the read/kept/dropped totals.
   const lostToday = cyclesToday.reduce((s, c) => s + (typeof c.dropped_at_cap === 'number' ? c.dropped_at_cap : 0), 0)
+  // the age boundary's twin of lostToday: items retired unscored for outliving the wire's own 2-day window.
+  // Counted separately because the two losses have different fixes — the cap wants a bigger cap, the age
+  // bound wants more scoring capacity — and a single merged number would hide which one is actually biting.
+  const retiredToday = cyclesToday.reduce((s, c) => s + (typeof c.backlog_expired === 'number' ? c.backlog_expired : 0), 0)
   const backlog = {
     ...((status.backlog.unavailable ?? false) ? { unavailable: true } : {}),
     count,
@@ -1079,6 +1084,7 @@ export function getNewsDiagnostics(): NewsDiagnostics {
     nearLimit: !(status.backlog.unavailable ?? false) && pctOfCap >= 80,
     trend: (status.backlog.unavailable ?? false) ? null : backlogTrend(cyclesToday),
     lostToday,
+    retiredToday,
   }
 
   // per-tier "who scored the last cycle" (overflow is summed across providers, so it shows as one row)

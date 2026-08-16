@@ -173,6 +173,14 @@ function BacklogGauge({ b }: { b: NewsDiagnostics['backlog'] }) {
           {b.lostToday.toLocaleString()} item{b.lostToday === 1 ? '' : 's'} lost today — dropped past the {b.cap.toLocaleString()} cap, not deferred; gone once the source window ages out.
         </div>
       )}
+      {/* The OTHER real loss, kept separate from the cap: items retired unscored for outliving the wire's own
+          2-day window. Silence here is what let a 23,000-item wall of stale filings look healthy while it
+          starved live news off the wire — a gauge reading only the cap would have shown 0 throughout. */}
+      {(b.retiredToday ?? 0) > 0 && (
+        <div className="diagbacklog__lost" role="alert">
+          {b.retiredToday!.toLocaleString()} item{b.retiredToday === 1 ? '' : 's'} retired today — waited longer than the wire’s own 2-day window, so they were never scored. The scanner is behind, not the sources.
+        </div>
+      )}
     </div>
   )
 }

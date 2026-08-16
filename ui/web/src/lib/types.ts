@@ -1012,7 +1012,8 @@ export interface NewsDiagnostics {
   lastCycleAt: string | null
   nextCycleAt: string | null
   tiers: TierDiagnostics[]
-  backlog: { unavailable?: boolean; count: number; cap: number; pctOfCap: number; nearLimit: boolean; trend: 'growing' | 'shrinking' | 'flat' | null; lostToday: number }
+  // retiredToday is optional so a cockpit talking to an older server degrades cleanly (reads as absent, not 0-with-confidence)
+  backlog: { unavailable?: boolean; count: number; cap: number; pctOfCap: number; nearLimit: boolean; trend: 'growing' | 'shrinking' | 'flat' | null; lostToday: number; retiredToday?: number }
   today: { read: number; kept: number; dropped: number; cycles: number }
   lastCycle: {
     ts: string
