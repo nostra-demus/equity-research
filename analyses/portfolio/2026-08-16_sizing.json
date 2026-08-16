@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-08-16",
+  "scope": "all",
+  "disclaimer": "Illustrative model paper-portfolio for research process-tracking — not investment advice, not real orders.",
+  "n_decisions": 14,
+  "positions": [],
+  "watch": [
+    {
+      "ticker": "AMZN",
+      "decision": "Watchlist",
+      "size_in_trigger": "Track at $190-200 for re-entry (>12% margin of safety on base fair value $210). July 31 2026 Q2 print was the first real test of the AWS D&A billing-lag hypothesis — outcome not yet folded into a new run.",
+      "next_review": "2026-10-08 (90d checkpoint; 30d checkpoint of 2026-08-09 elapsed with no new run)"
+    },
+    {
+      "ticker": "BG",
+      "decision": "Watchlist",
+      "size_in_trigger": "Re-rate to Starter Position Only only on a pool-confirmed price below ~$100, or on a clean post-Viterra FY2026 cash-conversion print.",
+      "next_review": "2026-08-30"
+    },
+    {
+      "ticker": "DHER",
+      "decision": "Avoid",
+      "size_in_trigger": "Do not initiate a position. Track as a merger-arbitrage watch item pending (1) primary confirmation of Uber's offer price/terms and (2) the FY2025 audited Annual Report's going-concern language on Glovo Spain. Truth-integrity status is 'provisional', which would independently gate any re-rate regardless of the price trigger clearing.",
+      "next_review": "2026-09-11"
+    },
+    {
+      "ticker": "EMAAR",
+      "decision": "Watchlist",
+      "size_in_trigger": "Revisit toward a starter long only if pre-sales hold >=+16% YoY and the discount begins to close, or on primary evidence the Government-of-Dubai owner (or founder-MD) treats minorities as value-owners.",
+      "next_review": "2026-10-08 (90d checkpoint; 30d checkpoint of 2026-08-09 elapsed with no new run)"
+    },
+    {
+      "ticker": "HAIER",
+      "decision": "Watchlist",
+      "size_in_trigger": "Monitor only — no position. Revisit after the 2026-08-27/28 H1 2026 print. Truth-integrity status is 'provisional'; separately, a cross-module forensic mosaic (RF-EQ-001, RF-DISC-001, RF-DISC-002) caps the ceiling at Starter Position Only even once integrity clears.",
+      "next_review": "2026-09-12"
+    },
+    {
+      "ticker": "HCG",
+      "decision": "Avoid",
+      "size_in_trigger": "Only re-underwrite at/below INR 520 (base-case low, where a margin of safety begins), or on two consecutive clean prints showing ROIC rising toward the cost of capital.",
+      "next_review": "2026-08-30"
+    },
+    {
+      "ticker": "INDIAMART",
+      "decision": "Watchlist",
+      "size_in_trigger": "Do not initiate today. Track paying-supplier net additions at the next two prints (Q2 FY27 ~21-Oct-2026, Q3 FY27 ~Jan-2027); revisit if price falls toward the ₹1,699 base fair value or below, or if net adds turn positive for 2 consecutive quarters. Truth-integrity status is 'provisional'.",
+      "next_review": "2026-09-13"
+    },
+    {
+      "ticker": "NHY",
+      "decision": "Watchlist",
+      "size_in_trigger": "Revisit only if price falls toward or below the NOK 70-82 weighted fair-value band, or if the Alumetal impairment / Brazil tax risk clears without damage.",
+      "next_review": "2026-08-18"
+    },
+    {
+      "ticker": "ORCL",
+      "decision": "Watchlist",
+      "size_in_trigger": "Do not buy at $153.94 (no margin of safety against the $133.77 base case). Do not short into the 2026-09-04 print (setup is balanced, not miss-tilted; short interest only 1.74% of float). Re-underwrite after the FQ1 FY2027 print (2026-09-04), the 2026 DEF 14A (due ~2026-09-28, re-verifies the Ellison pledge level), and the OCI securities-fraud motion-to-dismiss outcome. Truth-integrity status is 'provisional'.",
+      "next_review": "2026-09-13"
+    },
+    {
+      "ticker": "SMPL",
+      "decision": "Watchlist",
+      "size_in_trigger": "Revisit after the Oct-23-2026 FQ4 print and the Sept-2026 price increase's elasticity result (visible in the FQ1 FY2027 print).",
+      "next_review": "2026-09-05"
+    },
+    {
+      "ticker": "TMCV",
+      "decision": "Watchlist",
+      "size_in_trigger": "No position now; re-rate when Iveco financing structure is confirmed and TMF Holdings AGM vote outcome is known.",
+      "next_review": "2026-09-05"
+    },
+    {
+      "ticker": "TSLA",
+      "decision": "Short Candidate",
+      "size_in_trigger": "Would otherwise be the only edge-eligible paper short (edge_score 40, expected_return +56.6% to the short). Excluded because entry.integrity.status is 'provisional' — the same gate applied symmetrically to shorts and longs. Re-test once the run's finish-gate banner clears; small, defined-risk short (long-dated puts / put spreads, not naked short stock) is the thesis's own stated preference if it ever sizes in.",
+      "next_review": "2026-08-24"
+    },
+    {
+      "ticker": "UBER",
+      "decision": "Watchlist",
+      "size_in_trigger": "Do not initiate a position now. Track the FQ3 2026 print (~Oct 2026) and the Delivery Hero bridge-facility covenant terms once disclosed; revisit at the next scheduled review. (Record dated 2026-08-06.)",
+      "next_review": "2026-09-05"
+    },
+    {
+      "ticker": "UBER",
+      "decision": "Watchlist",
+      "size_in_trigger": "Do not initiate a position. Track the Q3 FY2026 print (Nov-03-2026) and the Delivery Hero bridge-facility terms (expected by end-Sep-2026); revisit once the derivative lawsuit reaches a motion-to-dismiss ruling or the bridge is termed out. (Record dated 2026-08-09, supersedes the 08-06 read operationally though both remain in the standing ledger.)",
+      "next_review": "2026-09-08"
+    }
+  ],
+  "book": {
+    "gross_pct": 0,
+    "cash_pct": 100,
+    "max_name_pct": 0,
+    "concentration_note": "No positions held this cycle — the book is 100% cash. Zero names cleared the Selected-basket + positive-expected-return + evidence-backed-edge + non-provisional-integrity bar for a long; the one Short Candidate (TSLA) was excluded by the provisional-integrity gate applied symmetrically to shorts.",
+    "correlation_flags": "Not applicable at the position level (no positions). UBER and DHER are a direct corporate-event correlation, not merely thematic: DHER's thesis tracks confirmation of Uber's offer price/terms and both UBER records track the Delivery Hero bridge-facility covenant terms — acquirer and target in the same live event, so if either ever sizes in, treat the pair as one correlated bet. BG and NHY are both commodity/policy-conditional theses (different commodities); HAIER and ORCL each add a separate commodity/policy-conditional or sector-cycle angle with no direct linkage to the BG/NHY pair. SMPL, TMCV, and both UBER records all carry an active RF-CAP-004 serial-acquirer capital-allocation flag (CLAUDE.md §24 Filter 4). EMAAR and NHY both carry an RF-OWN-004 unaligned-controlling-owner cap (§24 Filter 6). ORCL and TSLA are both large-cap AI-capex-cycle names (Oracle as an AI-infrastructure vendor/lessor, Tesla's thesis independent of that channel) — a loose sector-cycle overlap, not a direct mechanism link. The two UBER records (2026-08-06, 2026-08-09) are the same company, not two separate names — treat as a single correlation unit if either ever sizes in."
+  },
+  "notes": "All 14 standing-ledger decision records are Watchlist, Avoid, or Short Candidate — none carry a 'Selected' basket (Strong Buy / Buy / Starter), so the long-eligibility bar (§2) is never reached. TSLA (Short Candidate, edge_score 40, expected_return +56.6% to the short) would otherwise be the only eligible paper short, but entry.integrity.status is 'provisional' (active finish-gate banner), which the sizing rule gates identically for shorts and longs — so it is excluded and carried on the watch list instead. AMZN, EMAAR, and TMCV carry unaudited (not provisional) integrity — unaudited is not penalised per the rules, but none clears basket/edge/expected-return eligibility regardless. No new decision records landed since the 2026-08-15 refresh — the standing ledger is identical (same 14 records, same 12 unique tickers); the ORCL working-tree edits visible in git status this session are already reflected in the ledger snapshot both days (decision_record.json values match) and did not change the basket or decision. Portfolio conclusion: 0 positions, 100% cash, 14 records on watch across 12 unique tickers. Model/illustrative only — not investment advice, not real orders."
+}
