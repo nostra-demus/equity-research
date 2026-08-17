@@ -26,7 +26,7 @@ import { Budget, NON_BINDING_DAILY_TOKEN_CAP, UsdBudget, armCooldown, clearCoold
 import { triageBatchGemini } from './triage/gemini'
 import { triageBatchAnthropic } from './triage/anthropic'
 import { isAuthExpiredNote, isPlanQuotaNote, isTerminalApiNote, triageBatchClaudeCli, type ClaudeCliRunner } from './triage/claude-cli'
-import { SYSTEM, buildUserMessage, estimateTokens, scoreToBand, triageBatch, type TriageOptions, type TriageResult } from './triage/groq'
+import { SYSTEM, buildUserMessage, estimateTokens, scoreToBand, triageBatch, triageMaxOutputTokens, type TriageOptions, type TriageResult } from './triage/groq'
 import { rankScore, preTriagePriority, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
 import { deriveScope, deriveSourceTier, toEventScope } from './scope'
 import { deriveCommodities } from './commodities'
@@ -44,9 +44,19 @@ import fs from 'node:fs'
 const DEFERRED_FILE = 'news-deferred.json'
 const DEFERRED_PENDING_FILE = 'news-deferred-pending.json'
 
-/** Worst-case billable tokens for one primary-Groq triage attempt. */
+/** Worst-case billable tokens for one primary-Groq triage attempt. Reads the output ceiling through
+ *  triageMaxOutputTokens — the same batch-sized function the adapter puts on the wire — so the reservation can
+ *  never under-state what the call is allowed to emit. A bound computed off the raw config value would
+ *  under-reserve for a large batch, which is exactly how a hard daily cap gets busted. */
 export function triageGroqTokenBound(items: NewsItem[], options: TriageOptions): number {
-  return conservativeChatTokenBound(SYSTEM, buildUserMessage(items), options.maxTokens ?? 2000)
+  return conservativeChatTokenBound(SYSTEM, buildUserMessage(items), triageMaxOutputTokens(items.length, options.maxTokens))
+}
+
+/** The CALIBRATED expected tokens for one triage attempt — what a successful batch really costs, as opposed to
+ *  the worst case above. Only the pacing admission test uses it (DailyQuotaCandidate.paceCost); the hard cap
+ *  and every reservation keep the conservative bound. */
+export function triagePaceTokenBound(items: NewsItem[]): number {
+  return estimateTokens(items.length)
 }
 
 function hardCapAttempts(budget: Budget, perAttemptTokens: number, maxAttempts: number): number {
@@ -115,6 +125,9 @@ function holdAfterTriageFailure(args: {
   const providerWide = triageFailureIsProviderWide(result)
   const scopedReason = result.timedOut ? 'timeout'
     : result.failureKind === 'contract' ? 'triage-contract' : 'triage-request'
+  // How long the failing call actually ran. Rides onto the marker so a LATER cycle — which sees only the
+  // marker, never the failure note — can still tell the operator "timed out at 30.0s" instead of "an error".
+  const took = result.elapsedMs
   if (result.rate?.retryAfterMs != null && Number.isFinite(result.rate.retryAfterMs)) {
     const retryMs = Math.max(0, Math.floor(result.rate.retryAfterMs))
     // A header does not widen the failure's scope. Request/contract responses can carry Retry-After too;
@@ -122,22 +135,22 @@ function holdAfterTriageFailure(args: {
     const reason = providerWide
       ? result.failureKind === 'rate_limit' ? 'rate-limit' : accessFailure ? 'provider-access' : 'availability'
       : scopedReason
-    if (retryMs > 0) armCooldown(stateDir, at, retryMs, providerWide ? providerId : scopedId, retryMs, reason)
+    if (retryMs > 0) armCooldown(stateDir, at, retryMs, providerWide ? providerId : scopedId, retryMs, reason, took)
     return
   }
   if (result.failureKind === 'rate_limit') {
-    armCooldown(stateDir, at, 60_000, providerId, 60_000, 'rate-limit')
+    armCooldown(stateDir, at, 60_000, providerId, 60_000, 'rate-limit', took)
     return
   }
   if (result.failureKind === 'availability') {
-    armCooldown(stateDir, at, cooldownMs, result.timedOut ? scopedId : providerId, cooldownMaxMs, result.timedOut ? 'timeout' : 'availability')
+    armCooldown(stateDir, at, cooldownMs, result.timedOut ? scopedId : providerId, cooldownMaxMs, result.timedOut ? 'timeout' : 'availability', took)
     return
   }
   if (accessFailure) {
-    armCooldown(stateDir, at, cooldownMs, providerId, cooldownMaxMs, 'provider-access')
+    armCooldown(stateDir, at, cooldownMs, providerId, cooldownMaxMs, 'provider-access', took)
     return
   }
-  armCooldown(stateDir, at, cooldownMs, scopedId, cooldownMaxMs, scopedReason)
+  armCooldown(stateDir, at, cooldownMs, scopedId, cooldownMaxMs, scopedReason, took)
 }
 
 /** One primary-Groq ingester batch with an atomic reservation shared by chat/read/idea callers. */
@@ -154,9 +167,11 @@ export async function triageGroqWithReservation(args: {
 }): Promise<TriageResult | null> {
   const now = args.now || (() => Date.now())
   const perAttemptTokens = triageGroqTokenBound(args.items, args.options)
+  const pacePerAttempt = triagePaceTokenBound(args.items)
   let attempts = hardCapAttempts(args.budget, perAttemptTokens, args.maxAttempts ?? 2)
   const at = now()
-  while (attempts > 0 && !args.budget.pacedCanSpend(perAttemptTokens * attempts, args.pace, at, attempts)) attempts--
+  // Admission on the calibrated cost, reservation (below) on the conservative bound — see triagePaceTokenBound.
+  while (attempts > 0 && !args.budget.pacedCanSpend(perAttemptTokens * attempts, args.pace, at, attempts, pacePerAttempt * attempts)) attempts--
   if (!attempts) return null
   const reservation = args.budget.tryReserve(perAttemptTokens * attempts, args.pace, at, attempts)
   if (!reservation) return null
@@ -742,7 +757,11 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // both slower and less sustainable than giving the next allowance its turn.
     let groqAttempts = Math.min(1, budget.remainingRequests, Math.floor(budget.remainingTokens / groqAttemptTokenBound))
     const groqAdmissionAt = now().getTime()
-    while (groqAttempts > 0 && !budget.pacedCanSpend(groqAttemptTokenBound * groqAttempts, pace, groqAdmissionAt, groqAttempts)) groqAttempts--
+    const groqPaceBound = triagePaceTokenBound(batch)
+    // Admission on the calibrated cost, hard cap + reservation on the conservative bound. Groq's bound is
+    // ~11,800 tokens against a measured successful batch of ~1,554-4,000, so demanding the worst case as
+    // admission headroom is what stranded a tier that still had allowance ("Saved for later today").
+    while (groqAttempts > 0 && !budget.pacedCanSpend(groqAttemptTokenBound * groqAttempts, pace, groqAdmissionAt, groqAttempts, groqPaceBound * groqAttempts)) groqAttempts--
     const groqOk = !!cfg.groqApiKey && groqAttempts > 0
     // RESILIENT PROVIDER CHAIN: try Groq (primary) → overflow registry → Gemini pool, falling to the
     // NEXT provider whenever the current one is unavailable OR was tried and FAILED. The old code only
@@ -901,6 +920,10 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
           used: tokenMeter ? ov.budget.tokens : ov.budget.requests,
           cap: tokenMeter ? ov.p.dailyTokenCap! : ov.p.dailyReqCap,
           cost: tokenMeter ? perAttemptTokens : 1,
+          // ADMISSION is tested against the calibrated expected cost; the hard cap and the reservation below
+          // keep the conservative worst case. On a token-metered tier those differ 3-8x, and gating admission
+          // on the worst case is what made a tier with allowance in hand read "Saved for later today".
+          paceCost: tokenMeter ? triagePaceTokenBound(batch) : 1,
           resetTimeZone: ov.p.dayTz,
           floorFraction: ov.p.paceFloorFrac ?? cfg.freeProviderPaceFloorFrac,
           priority,
@@ -931,7 +954,17 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       // itself is unhealthy. Exclude only this route from the current selection loop so a broken/busy ledger
       // cannot be picked forever and starve healthy later allowances; the next batch may safely re-probe it.
       const reservationUnavailable = new Set<string>()
+      // Contract failures on THIS batch, across every free provider it has been offered to. A `contract`
+      // failure means the call returned and the body was unusable — evidence about the batch at least as much
+      // as about the provider — so re-sending the identical text around the whole pool spends N requests for
+      // zero rows. Capped, not banned: the cross-model retry does sometimes rescue a batch, so keep the first
+      // one and drop the rest. (cfg.contractRetriesPerBatch; see config.ts for the measured rationale.)
+      let contractFailures = 0
       while (true) {
+        if (contractFailures > cfg.contractRetriesPerBatch) {
+          log(`triage batch @${i}: ${contractFailures} unusable-response failure${contractFailures === 1 ? '' : 's'} — not re-sending this batch to more free providers (cap ${cfg.contractRetriesPerBatch})`)
+          break
+        }
         const routes = freePoolRoutes()
         const available = routes.filter((route) => !reservationUnavailable.has(route.id) && route.otherHardFit && (
           route.kind === 'overflow'
@@ -972,6 +1005,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
             break
           }
           ov.failed = true
+          if (res.failureKind === 'contract') contractFailures++
           holdAfterTriageFailure({ stateDir, providerId: ov.p.id, result: res, at: now().getTime(), cooldownMs: cfg.llmCooldownMs, cooldownMaxMs: cfg.llmCooldownMaxMs, aborted: !!deps.signal?.aborted, budget: ov.budget })
           if (stopAbortedBatch()) break batchLoop
           continue
@@ -997,14 +1031,23 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         }
         geminiRequests += res.requests
         geminiTokens += res.tokens
+        // BOTH keys, always: the aggregate 'gemini' row the cockpit's pool chip reads, AND the per-model
+        // `gemini:<model>` row. The pool is five separate daily buckets behind one chip, so an aggregate-only
+        // count cannot answer "WHICH of the five failed 24 times?" — the question the panel's own numbers
+        // provoke. Additive keys, so every existing reader is unchanged.
         addProviderCount(providerAttempts, 'gemini', res.requests)
+        addProviderCount(providerAttempts, pick.id, res.requests)
         geminiLimiter!.learn(rateInfoForLimiter(res.rate, triageFailureIsProviderWide(res)), () => now().getTime())
         if (res.ok) {
           addProviderCount(providerScoredBatches, 'gemini', 1)
+          addProviderCount(providerScoredBatches, pick.id, 1)
           if (gem.cooldownWasSet) clearTriageCooldowns(stateDir, pick.id, attemptStartedAt)
           break
         }
         gem.failed = true
+        if (res.failureKind === 'contract') contractFailures++
+        // name the MODEL, not the pool — five models sit behind one chip and they fail for different reasons
+        log(`triage batch @${i}: ${pick.id} ${res.note || 'failed'}`)
         holdAfterTriageFailure({ stateDir, providerId: pick.id, result: res, at: now().getTime(), cooldownMs: cfg.llmCooldownMs, cooldownMaxMs: cfg.llmCooldownMaxMs, aborted: !!deps.signal?.aborted, budget: gem.budget })
         if (stopAbortedBatch()) break batchLoop
       }

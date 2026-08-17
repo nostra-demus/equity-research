@@ -13,7 +13,7 @@ import { NEWS, REPO_ROOT, STATE_DIR } from '../config'
 import { acquireSingletonLock, releaseSingletonLock } from '../singleton-lock'
 import { readFeed } from './feed'
 import { refreshBoard } from './write-inbox'
-import { DEFERRED_CAP, inspectDeferredBacklog, loadDeferred, runIngestCycle, triageGroqTokenBound } from './runCycle'
+import { DEFERRED_CAP, inspectDeferredBacklog, loadDeferred, runIngestCycle, triageGroqTokenBound, triagePaceTokenBound } from './runCycle'
 import { healEnrichCache } from './enrich-heal'
 import { runIdeaPass } from './ideas/run-idea-pass'
 import { publishPendingIdeas } from './ideas/ideas-publisher'
@@ -296,6 +296,13 @@ function diagnosticBatchTokenBound(batch: ReturnType<typeof loadDeferred>, maxTo
   return triageGroqTokenBound(batch, { model: '', baseUrl: '', apiKey: '', maxTokens })
 }
 
+/** The CALIBRATED pacing cost for the same batch — the drain gate's mirror of the triage loop's admission
+ *  argument. It MUST be computed the same way here as there (runCycle triagePaceTokenBound), or the gate
+ *  reports "no headroom" for a batch the loop would happily admit and the frequent drain silently stops. */
+function diagnosticBatchPaceBound(batch: ReturnType<typeof loadDeferred>): number {
+  return batch.length ? triagePaceTokenBound(batch) : 0
+}
+
 /** Pure: can a request/token-gated free provider (overflow provider OR one Gemini pool model) score a batch
  *  RIGHT NOW? Not in a failure cooldown, under its request cap, and — when token-gated — with room for one
  *  more batch (tokens + est), not merely strictly under the token cap. This mirrors the triage loop's real
@@ -373,6 +380,9 @@ function overflowHasHeadroom(now = Date.now()): boolean {
       // is checked again by its own reservation. A one-unit probe preserves the broad "some allowance"
       // answer instead of disabling healing whenever the triage queue happens to be empty.
       cost: p.dailyTokenCap != null ? (strictCost || 1) : 1,
+      // mirror the loop's admission argument (runCycle freePoolRoutes) so this gate can't refuse a batch the
+      // loop would take; the `|| 1` probe above keeps the empty-queue healing case unchanged
+      paceCost: p.dailyTokenCap != null ? (diagnosticBatchPaceBound(batch) || 1) : 1,
       resetTimeZone: p.dayTz,
       floorFraction: p.paceFloorFrac ?? NEWS.freeProviderPaceFloorFrac,
     }, now).pacedFit
@@ -388,13 +398,14 @@ export function budgetHasHeadroom(now = Date.now()): boolean {
   const today = new Date(now).toISOString().slice(0, 10)
   const batch = loadDeferred(STATE_DIR).slice(0, NEWS.triageBatch)
   const strictCost = diagnosticBatchTokenBound(batch, NEWS.triageMaxTokens)
+  const paceCost = diagnosticBatchPaceBound(batch)
   let groqOk = Boolean(NEWS.groqApiKey) && triageRetryInfo('groq', now).until <= now
   if (groqOk) {
     const b = readDailyBudget('groq-budget.json', today)
     // Groq is drain-usable only if its durable authority is valid, it is not day-closed, and one complete
     // batch fits the same hard-cap+pacer predicate used by admission. A missing file is the sole fresh case.
     groqOk = !b.ledgerUnavailable && !b.dayUnavailable
-      && pacedHasHeadroom(b.tokens, b.requests, NEWS.groqDailyReqCap, NEWS.groqDailyTokenCap, PACE, now, strictCost)
+      && pacedHasHeadroom(b.tokens, b.requests, NEWS.groqDailyReqCap, NEWS.groqDailyTokenCap, PACE, now, strictCost, paceCost)
   }
   return groqOk || geminiHasHeadroom(now) || overflowHasHeadroom(now)
 }
@@ -576,7 +587,7 @@ export function getNewsStatus(): NewsStatus {
     || groqLedger.tokens >= NEWS.groqDailyTokenCap
     || (diagnosticBatch.length > 0 && groqLedger.tokens + groqEst > NEWS.groqDailyTokenCap)
   const groqPaced = groqEnabled && !groqSpent && diagnosticBatch.length > 0
-    && !pacedHasHeadroom(groqLedger.tokens, groqLedger.requests, NEWS.groqDailyReqCap, NEWS.groqDailyTokenCap, PACE, statusNow, groqEst)
+    && !pacedHasHeadroom(groqLedger.tokens, groqLedger.requests, NEWS.groqDailyReqCap, NEWS.groqDailyTokenCap, PACE, statusNow, groqEst, diagnosticBatchPaceBound(diagnosticBatch))
   const budget: NewsStatus['budget'] = {
     requests: groqLedger.requests, tokens: groqLedger.tokens, reqCap: NEWS.groqDailyReqCap, tokenCap: NEWS.groqDailyTokenCap,
     tokenTarget: NEWS.groqDailyTokenTarget, paceCeiling: Math.round(pacedCeiling(statusNow, PACE)),
@@ -584,7 +595,7 @@ export function getNewsStatus(): NewsStatus {
     health: tierHealth(groqEnabled, groqCoolMs, groqSpent, groqPaced, groqLedger.ledgerUnavailable),
     ...(groqLedger.providerDayExhausted ? { providerDayExhausted: true } : {}),
     ...(groqLedger.ledgerUnavailable ? { ledgerUnavailable: true } : {}),
-    ...retryDiagnostics(groqRetry, statusNow),
+    ...retryDiagnostics(groqRetry, statusNow, 'GROQ_API_KEY'),
   }
   const overflow: NewsStatus['overflow'] = []
   const pool = geminiPoolUsage()
@@ -623,7 +634,7 @@ export function getNewsStatus(): NewsStatus {
       health: tierHealth(true, coolMs, spent, paced, pool.ledgerUnavailable),
       ...(pool.providerDayExhausted ? { providerDayExhausted: true } : {}),
       ...(pool.ledgerUnavailable ? { ledgerUnavailable: true } : {}),
-      ...(coolMs > 0 ? retryDiagnostics(retry, statusNow) : {}),
+      ...(coolMs > 0 ? retryDiagnostics(retry, statusNow, 'GEMINI_API_KEY') : {}),
     })
   }
   for (const p of NEWS.overflowProviders) {
@@ -639,6 +650,9 @@ export function getNewsStatus(): NewsStatus {
       id: p.id, meter: p.dailyTokenCap != null ? 'tokens' : 'requests',
       used: p.dailyTokenCap != null ? u.tokens : u.used, cap: p.dailyTokenCap ?? u.cap,
       cost: p.dailyTokenCap != null ? strictCost : 1, resetTimeZone: p.dayTz,
+      // mirror the triage loop's admission argument exactly (runCycle freePoolRoutes), or this panel reports
+      // a tier as "Saved for later today" that the loop would in fact admit
+      paceCost: p.dailyTokenCap != null ? diagnosticBatchPaceBound(diagnosticBatch) : 1,
       floorFraction: p.paceFloorFrac ?? NEWS.freeProviderPaceFloorFrac,
     }, statusNow).pacedFit
     // token-gated providers (Cerebras) carry tokenCap so the chip reports tokens (the binding limit); a
@@ -649,7 +663,7 @@ export function getNewsStatus(): NewsStatus {
       health: tierHealth(true, coolMs, !hardFit, hardFit && !admission, u.ledgerUnavailable),
       ...(u.providerDayExhausted ? { providerDayExhausted: true } : {}),
       ...(u.ledgerUnavailable ? { ledgerUnavailable: true } : {}),
-      ...retryDiagnostics(retry, statusNow),
+      ...retryDiagnostics(retry, statusNow, p.keyEnvVar),
     })
   }
   // LOCAL primary brain live readout — its daily tokens/requests (from local-budget.json, the file runCycle
@@ -736,6 +750,10 @@ export interface TierDiagnostics {
   cooldownReason?: string // failure-class tag carried by the health marker (never a provider quota claim)
   retryScope?: 'shared' | 'triage' // whether the hold affects every workload or only triage requests
   nextEligibleAt?: string // ISO instant at which the engine may probe this tier again
+  credentialRejected?: boolean // the provider is rejecting this tier's CREDENTIAL (repeated 401/402/403/404) — waiting cannot fix it; a human must replace the key/entitlement. Present only when true
+  keyEnvVar?: string // the env-var NAME holding that credential (never the value) — so the operator knows what to fix
+  failingForMs?: number // how long the CURRENT unbroken failure streak has run. The backoff window pins flat at its ceiling from the 5th failure, so it stops distinguishing "down an hour" from "down two days"; this does not
+  lastFailureMs?: number // how long the last failing call ran before it failed. At/near the configured deadline => WE cut it off and a longer one may work; far below => the provider refused and a longer deadline changes nothing
   consecutiveFailures?: number // failure streak behind the current retry policy; NOT failures today
   failuresToday?: number // only when a future attempt ledger can prove this day-scoped total
   fails?: number // legacy alias for old cockpit bundles during a rolling deploy
@@ -795,6 +813,10 @@ export interface NewsDiagnostics {
     allowanceExhaustedTiers: string[]
     unavailableTiers: string[]
     pacedTiers: string[]
+    // Tiers whose CREDENTIAL the provider is rejecting. Disjoint from every group above on purpose: those
+    // are all states that clear themselves, and this one never does. Merging it into `unavailableTiers`
+    // ("Can't read today's usage") would file a dead key under a disk problem.
+    needsCredentialTiers: string[]
     blockingTiers: string[]
   }
 }
@@ -802,7 +824,22 @@ export interface NewsDiagnostics {
 /** Optional retry metadata shared by every diagnostics row. Keeping the legacy `fails` alias lets an old
  * cockpit render a new engine, while the explicit field stops a new cockpit from mistaking a consecutive
  * streak for a day-scoped failure count. */
-interface RetryInfo { until: number; fails: number; reason?: string; scope?: 'shared' | 'triage' }
+interface RetryInfo { until: number; fails: number; reason?: string; scope?: 'shared' | 'triage'; firstFailureAt?: number; observedMs?: number }
+
+/** How many consecutive `provider-access` rejections make a credential DEAD rather than unlucky.
+ *
+ *  HTTP 401/402/403/404 is an answer about the account, not about load: a revoked key, an unpaid balance, a
+ *  missing entitlement, or a wrong model id. None of those clear by waiting, and the engine has no give-up
+ *  state — `armCooldown` has no failure threshold and no marker TTL, so it re-probes forever. Three in a row
+ *  is deliberately conservative: it rules out a one-off gateway 403 or a key rotated mid-cycle, while still
+ *  naming the fault within minutes instead of after 46 failures and two days of silent countdowns. */
+export const CREDENTIAL_DEAD_AFTER_FAILS = 3
+
+/** Does this tier's live marker say its CREDENTIAL is being rejected (as opposed to the provider being busy,
+ *  down, or slow)? Pure, so it is unit-testable and the threshold is stated in exactly one place. */
+export function credentialRejected(reason: string | undefined, fails: number): boolean {
+  return reason === 'provider-access' && fails >= CREDENTIAL_DEAD_AFTER_FAILS
+}
 
 /** A triage call is blocked by either the provider-wide availability hold or its triage-workload hold.
  * If both are live, the later gate wins because that is the true next eligibility instant. */
@@ -816,9 +853,13 @@ function triageRetryInfo(id: string, now: number): RetryInfo {
 }
 
 function retryDiagnostics(
-  cd: RetryInfo, now: number,
-): Pick<TierDiagnostics, 'cooldownRemainingMs' | 'cooldownReason' | 'retryScope' | 'nextEligibleAt' | 'consecutiveFailures' | 'fails'> {
+  cd: RetryInfo, now: number, keyEnvVar?: string,
+): Pick<TierDiagnostics, 'cooldownRemainingMs' | 'cooldownReason' | 'retryScope' | 'nextEligibleAt' | 'consecutiveFailures' | 'fails' | 'credentialRejected' | 'keyEnvVar' | 'failingForMs' | 'lastFailureMs'> {
   const remaining = Math.max(0, cd.until - now)
+  // The streak's own duration, not the current backoff window. The window pins flat at maxMs from the 5th
+  // failure, so it is the one number that stops carrying information exactly when the outage gets long.
+  const failingForMs = cd.firstFailureAt && cd.firstFailureAt > 0 ? Math.max(0, now - cd.firstFailureAt) : undefined
+  const dead = credentialRejected(cd.reason, cd.fails)
   return {
     ...(remaining > 0 ? {
       cooldownRemainingMs: remaining,
@@ -827,6 +868,11 @@ function retryDiagnostics(
       ...(cd.scope ? { retryScope: cd.scope } : {}),
     } : {}),
     ...(cd.fails > 0 ? { consecutiveFailures: cd.fails, fails: cd.fails } : {}),
+    ...(failingForMs != null ? { failingForMs } : {}),
+    ...(cd.observedMs != null ? { lastFailureMs: cd.observedMs } : {}),
+    // Reported whether or not the retry timer is currently live: a rejected credential is a standing fault,
+    // and hiding it in the gaps between countdowns is how it stayed invisible for two days.
+    ...(dead ? { credentialRejected: true, ...(keyEnvVar ? { keyEnvVar } : {}) } : {}),
   }
 }
 
@@ -946,7 +992,7 @@ export function getNewsDiagnostics(): NewsDiagnostics {
     const coolMs = Math.max(0, cd.until - now)
     const est = diagnosticBatchTokenBound(diagnosticBatch, NEWS.triageMaxTokens)
     const spent = b.dayUnavailable || b.requests >= NEWS.groqDailyReqCap || b.tokens >= NEWS.groqDailyTokenCap || b.tokens + est > NEWS.groqDailyTokenCap
-    const paced = enabled && !spent && !pacedHasHeadroom(b.tokens, b.requests, NEWS.groqDailyReqCap, NEWS.groqDailyTokenCap, PACE, now, est)
+    const paced = enabled && !spent && !pacedHasHeadroom(b.tokens, b.requests, NEWS.groqDailyReqCap, NEWS.groqDailyTokenCap, PACE, now, est, diagnosticBatchPaceBound(diagnosticBatch))
     tiers.push({
       id: 'groq', label: 'Groq', color: '--accent', role: localPrimary ? 'overflow' : 'primary', order: order++, enabled, spendingAllowed, meter: 'requests',
       health: tierHealth(enabled, coolMs, spent, paced, b.ledgerUnavailable),
@@ -954,7 +1000,7 @@ export function getNewsDiagnostics(): NewsDiagnostics {
       ...(b.providerDayExhausted ? { providerDayExhausted: true } : {}),
       ...(!b.ledgerUnavailable ? { requestsToday: b.requests, tokensToday: b.tokens } : {}),
       reqCap: NEWS.groqDailyReqCap, tokenCap: NEWS.groqDailyTokenCap,
-      ...retryDiagnostics(cd, now), ...providerWorkDiagnostics(cyclesToday, 'groq'), lastCycleRequests: last?.groq_requests,
+      ...retryDiagnostics(cd, now, 'GROQ_API_KEY'), ...providerWorkDiagnostics(cyclesToday, 'groq'), lastCycleRequests: last?.groq_requests,
     })
   }
 
@@ -976,6 +1022,7 @@ export function getNewsDiagnostics(): NewsDiagnostics {
       used: p.dailyTokenCap != null ? u.tokens : u.used,
       cap: p.dailyTokenCap ?? u.cap,
       cost: p.dailyTokenCap != null ? strictCost : 1,
+      paceCost: p.dailyTokenCap != null ? diagnosticBatchPaceBound(diagnosticBatch) : 1, // mirror the loop
       resetTimeZone: p.dayTz,
       floorFraction: p.paceFloorFrac ?? NEWS.freeProviderPaceFloorFrac,
     }, now)
@@ -988,7 +1035,7 @@ export function getNewsDiagnostics(): NewsDiagnostics {
       ...(u.providerDayExhausted ? { providerDayExhausted: true } : {}),
       ...(!u.ledgerUnavailable ? { requestsToday: u.used, tokensToday: u.tokens } : {}),
       reqCap: u.cap, tokenCap: p.dailyTokenCap,
-      ...retryDiagnostics(cd, now), ...providerWorkDiagnostics(cyclesToday, p.id),
+      ...retryDiagnostics(cd, now, p.keyEnvVar), ...providerWorkDiagnostics(cyclesToday, p.id),
     })
   }
 
@@ -1043,7 +1090,7 @@ export function getNewsDiagnostics(): NewsDiagnostics {
       ...(pool.providerDayExhausted ? { providerDayExhausted: true } : {}),
       ...(!pool.ledgerUnavailable ? { requestsToday: pool.used, tokensToday: pool.tokens } : {}),
       reqCap: pool.cap,
-      ...retryDiagnostics(coolMs > 0 && soonestRetry ? soonestRetry : { until: 0, fails: 0 }, now),
+      ...retryDiagnostics(coolMs > 0 && soonestRetry ? soonestRetry : { until: 0, fails: 0 }, now, 'GEMINI_API_KEY'),
       ...providerWorkDiagnostics(cyclesToday, 'gemini'), lastCycleRequests: last?.gemini_requests,
     })
   }
@@ -1125,6 +1172,7 @@ export function getNewsDiagnostics(): NewsDiagnostics {
   const allowanceExhaustedTiers = tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.health === 'budget-spent' && !t.providerDayExhausted).map((t) => t.id)
   const unavailableTiers = tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.health === 'unavailable').map((t) => t.id)
   const pacedTiers = tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.health === 'paced').map((t) => t.id)
+  const needsCredentialTiers = tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.credentialRejected === true).map((t) => t.id)
   const blockingTiers = [...retryHeldTiers, ...providerDayExhaustedTiers, ...allowanceExhaustedTiers, ...unavailableTiers] // rolling-deploy compatibility
 
   return {
@@ -1149,6 +1197,7 @@ export function getNewsDiagnostics(): NewsDiagnostics {
       allowanceExhaustedTiers,
       unavailableTiers,
       pacedTiers,
+      needsCredentialTiers,
       blockingTiers,
     },
   }

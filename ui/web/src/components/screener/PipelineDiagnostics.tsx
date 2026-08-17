@@ -12,7 +12,7 @@ import { motion } from 'framer-motion'
 import { useStore } from '../../lib/store'
 import type { DeferReason, LastResortState, NewsDiagnostics, TierDiagnostics, TierHealth } from '../../lib/types'
 import { tierMeter } from './pipelineMeter'
-import { tierStatusCopy } from './pipelineDiagnosticsView'
+import { fmtFailingFor, tierStatusCopy } from './pipelineDiagnosticsView'
 import './PipelineDiagnostics.css'
 
 /** Plain time-UNTIL a future instant. The scheduler keeps nextCycleAt ahead of now, so this is the correct
@@ -234,6 +234,9 @@ export function PipelineDiagnostics() {
   }, [diag])
 
   const lc = diag?.lastCycle
+  // Tiers the provider is refusing the key for. Read off the per-tier flag rather than the defer group so this
+  // still renders against an engine that has the flag but not yet the group (rolling deploy).
+  const credentialBlocked = (diag?.tiers || []).filter((t) => t.enabled && t.spendingAllowed !== false && t.credentialRejected === true)
   return (
     <motion.div className="diag" initial={{ x: '100%' }} animate={{ x: 0 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
       <div className="diag__head">
@@ -267,6 +270,32 @@ export function PipelineDiagnostics() {
               <span className="diag__today mono">read {diag.today.read.toLocaleString()} · kept {(diag.today.kept).toLocaleString()} · dropped {diag.today.dropped.toLocaleString()}</span>
             )}
           </div>
+
+          {/* A REJECTED CREDENTIAL, ABOVE EVERYTHING ELSE. Every other state on this panel resolves itself
+              given time — a quota resets, a rate limit lapses, an outage ends. This one never does, and it is
+              the only one that needs a human. It is drawn here, outside `defer.active`, because a dead tier
+              does not necessarily make the CYCLE defer: with other providers coping, the panel would look
+              healthy while the largest allowance on the roster sat dark. That is exactly what happened. */}
+          {credentialBlocked.length > 0 && (
+            <section className="diag__sec">
+              <div className="diagwhy is-alert" role="alert">
+                <div className="diagwhy__head">
+                  <span aria-hidden>⚠</span>
+                  <span>{credentialBlocked.map((t) => t.label).join(', ')}: key rejected</span>
+                </div>
+                <ul className="diagwhy__list">
+                  {credentialBlocked.map((t) => (
+                    <li key={t.id}>
+                      {t.label} — the provider is refusing this key{t.failingForMs != null ? `, failing for ${fmtFailingFor(t.failingForMs)}` : ''}
+                      {t.triageScoredBatchesToday === 0 ? ' with nothing scored today' : ''}.
+                      {t.keyEnvVar ? ` Check ${t.keyEnvVar} on the engine host.` : ' Check its API key on the engine host.'}
+                    </li>
+                  ))}
+                </ul>
+                <div className="diagwhy__foot">Retrying cannot fix this — the countdown beside each one is only when the engine will next check.</div>
+              </div>
+            </section>
+          )}
 
           {/* the honest "why is anything waiting" surface — the whole point */}
           {diag.defer.active && (

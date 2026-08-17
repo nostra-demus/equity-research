@@ -12,12 +12,12 @@ import { eventIdFor, loadLedgerEventIds, normalizeAndFilter, parseSeendate } fro
 import { SeenCache } from '../src/news/seen-cache'
 import { Budget, RateLimiter, UsdBudget, armCooldown, clearCooldown, cooldownInfo, dailyQuotaAdmission, getNamedLimiter, pacedHasHeadroom, readCooldownUntil, resetBudgetMemory, resetCooldownMemory, resetSharedLimiters, selectDailyQuotaCandidate } from '../src/news/triage/budget'
 import { articleReadTokenBound, readArticleBrief } from '../src/news/triage/article-read'
-import { analyzeArticle, coerceTriage, estimateTokens, parseRate, scoreToBand, triageBatch } from '../src/news/triage/groq'
-import { analyzeArticleGemini, triageBatchGemini } from '../src/news/triage/gemini'
+import { analyzeArticle, coerceTriage, estimateTokens, parseRate, scoreToBand, triageBatch, triageMaxOutputTokens } from '../src/news/triage/groq'
+import { analyzeArticleGemini, geminiSchemaEnabled, TRIAGE_RESPONSE_SCHEMA, triageBatchGemini } from '../src/news/triage/gemini'
 import { appendFeedItems, readFeed } from '../src/news/feed'
 import { mergeInbox, revisionClockRegistryDiagnostics } from '../src/news/write-inbox'
 import { buildTriageQueue, expireBacklog, loadDeferred, runIngestCycle, triageGroqTokenBound } from '../src/news/runCycle'
-import { anthropicDrainReady, backlogTrend, drainBatchEst, geminiPoolProviderDayExhausted, getNewsDiagnostics, providerDrainUsable, tierHealth } from '../src/news/scheduler'
+import { anthropicDrainReady, backlogTrend, credentialRejected, CREDENTIAL_DEAD_AFTER_FAILS, drainBatchEst, geminiPoolProviderDayExhausted, getNewsDiagnostics, providerDrainUsable, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS, STATE_DIR } from '../src/config'
 import { createTheme } from '../src/news/themes/discover'
 import { appendThemeMutations, loadThemes } from '../src/news/themes/store'
@@ -4238,6 +4238,189 @@ await check('getNewsDiagnostics labels a provider-reported day limit separately 
     else fs.writeFileSync(file, prior)
     resetBudgetMemory()
   }
+})
+
+// ---- provider capacity: the failures the engine was inflicting on itself ------------------------------
+// Live board, one day: Mistral 46 consecutive failures / 0 batches ever scored / "rejected provider access";
+// OpenRouter 26 consecutive and NVIDIA 54, both 100% timeouts, both with most of their allowance unused;
+// Gemini 24 of 25 calls failed on "an unusable triage response" for 1 scored batch; Groq and Cerebras — the
+// only two working — both "Saved for later today" while 26,539 items waited and the cycle scored zero.
+
+await check('triageMaxOutputTokens: the output ceiling scales with the batch, and never lowers a provider\'s own', () => {
+  // the reply is one JSON row per headline, so a FLAT ceiling truncates the larger batches; a truncated answer
+  // fails the completeness contract and the whole call is wasted (request spent, tokens charged, 0 rows scored)
+  assert.equal(triageMaxOutputTokens(12), 2440, '12 items need more than the old flat 2000 default')
+  assert.ok(triageMaxOutputTokens(24) > triageMaxOutputTokens(12), 'a bigger batch gets a bigger ceiling')
+  // a provider configured ABOVE the need keeps its own value — this only ever raises a too-low ceiling
+  assert.equal(triageMaxOutputTokens(12, 3500), 3500, "Cerebras/OpenRouter's 3500 is untouched")
+  assert.equal(triageMaxOutputTokens(12, 2000), 2440, "Groq/NVIDIA's 2000 is raised to what 12 rows actually need")
+  assert.equal(triageMaxOutputTokens(0, 2000), 2000, 'an empty batch cannot demand more than the configured value')
+  assert.equal(triageMaxOutputTokens(-5, 2000), 2000, 'a negative count cannot shrink the ceiling below the config')
+})
+
+await check('a triage timeout MEASURES itself, names the ceiling, and puts the number on the cooldown marker', async () => {
+  resetCooldownMemory()
+  const state = tmp()
+  // a fake clock the adapter reads through opts.nowMs — so the measurement is deterministic, not wall-clock
+  let t = 1_000
+  const fetchFn = (async () => { t += 30_000; const e: any = new Error('aborted'); e.name = 'TimeoutError'; throw e }) as unknown as typeof fetch
+  const items = [{ event_id: 'E1', headline: 'X', source_name: 'Reuters', region: 'US' } as any]
+  const res = await triageBatch(items, { model: 'm', baseUrl: 'https://x.test', apiKey: 'k', timeoutMs: 30_000, maxAttempts: 1, nowMs: () => t }, fetchFn, noSleep)
+  assert.equal(res.ok, false)
+  assert.equal(res.timedOut, true)
+  assert.equal(res.elapsedMs, 30_000, 'the elapsed time is recorded, not discarded')
+  assert.match(String(res.note), /timed out after 30\.0s \(our 30\.0s ceiling\)/, 'the note says WE cut it off — the actionable half')
+  // and it reaches the marker, so a LATER cycle (which never sees the note) can still show it
+  armCooldown(state, 5_000, 300_000, 'openrouter', 3_600_000, 'timeout', res.elapsedMs)
+  assert.equal(cooldownInfo(state, 'openrouter').observedMs, 30_000)
+})
+
+await check('the cooldown marker carries the STREAK START, so a flat-pinned backoff can still say how long it has been dead', () => {
+  resetCooldownMemory()
+  const state = tmp()
+  // 300s base / 3600s max: the window pins flat at 60 min from the 5th failure, so `fails` alone stops
+  // distinguishing "down an hour" from "down two days" — which is why 46 consecutive meant nothing.
+  const base = 300_000, max = 3_600_000
+  let at = 1_000_000
+  for (let i = 0; i < 6; i++) { armCooldown(state, at, base, 'mistral', max, 'provider-access'); at += 3_600_000 }
+  const info = cooldownInfo(state, 'mistral')
+  assert.equal(info.fails, 6)
+  assert.equal(info.reason, 'provider-access')
+  assert.equal(info.firstFailureAt, 1_000_000, 'the FIRST failure of the unbroken streak, not the latest re-arm')
+  // a success clears it: the next streak starts fresh rather than inheriting a two-day-old start instant
+  clearCooldown(state, 'mistral')
+  armCooldown(state, 9_000_000, base, 'mistral', max, 'provider-access')
+  assert.equal(cooldownInfo(state, 'mistral').firstFailureAt, 9_000_000)
+  assert.equal(cooldownInfo(state, 'mistral').fails, 1)
+})
+
+await check('credentialRejected: repeated 401/403 is a dead key; one is bad luck; a timeout never is', () => {
+  assert.equal(CREDENTIAL_DEAD_AFTER_FAILS, 3)
+  assert.equal(credentialRejected('provider-access', 3), true, 'three in a row is a standing fault a human must fix')
+  assert.equal(credentialRejected('provider-access', 46), true)
+  assert.equal(credentialRejected('provider-access', 2), false, 'a rotated key or a one-off gateway 403 is not blamed')
+  // every other failure class clears itself — none of them may ever be reported as a credential problem
+  for (const reason of ['timeout', 'availability', 'rate-limit', 'triage-contract', 'triage-request', undefined]) {
+    assert.equal(credentialRejected(reason, 99), false, `${reason} is not a credential fault however often it repeats`)
+  }
+})
+
+await check('dailyQuotaAdmission: ADMISSION uses the calibrated cost, the HARD CAP keeps the conservative bound', () => {
+  // The live shape: a token-metered tier whose conservative per-call bound (~11,800) is 3-8x what a successful
+  // batch really costs (~1,700). Demanding the worst case as admission headroom is what left a provider with
+  // allowance in hand reading "Saved for later today".
+  const at = Date.parse('2026-08-17T12:00:00Z') // mid-day → ~50% of the day released
+  const base = { id: 't', meter: 'tokens' as const, used: 249_000, cap: 500_000, resetTimeZone: 'UTC' }
+  const worstOnly = dailyQuotaAdmission({ ...base, cost: 11_797 }, at)
+  const calibrated = dailyQuotaAdmission({ ...base, cost: 11_797, paceCost: 1_700 }, at)
+  assert.equal(worstOnly.pacedFit, false, 'the worst-case bound does not fit under the released frontier')
+  assert.equal(calibrated.pacedFit, true, 'the calibrated cost does — the tier is admitted instead of stranded')
+  assert.equal(calibrated.hardCapFit, worstOnly.hardCapFit, 'the HARD CAP is unchanged — still the conservative bound')
+  assert.equal(calibrated.released, worstOnly.released, 'the release frontier is unchanged (still cost-aligned)')
+  // safety: paceCost can never be used to squeeze past the real ceiling
+  const overCap = dailyQuotaAdmission({ ...base, used: 495_000, cost: 11_797, paceCost: 100 }, at)
+  assert.equal(overCap.hardCapFit, false, 'a tiny paceCost cannot admit a call the hard cap refuses')
+  assert.equal(overCap.pacedFit, false, 'pacedFit is AND-ed with hardCapFit, so it cannot bust the cap either')
+  // and a paceCost above the conservative bound is clamped down to it, never made stricter than the cap
+  const clamped = dailyQuotaAdmission({ ...base, cost: 1_000, paceCost: 999_999 }, at)
+  assert.equal(clamped.pacedFit, dailyQuotaAdmission({ ...base, cost: 1_000 }, at).pacedFit, 'an absurd paceCost degrades to cost')
+  // omitting paceCost is byte-for-byte the previous behaviour
+  assert.deepEqual(dailyQuotaAdmission({ ...base, cost: 11_797 }, at), worstOnly)
+})
+
+await check('pacedHasHeadroom mirrors Budget.pacedCanSpend argument-for-argument, calibrated cost included', () => {
+  resetBudgetMemory()
+  const state = tmp()
+  const pace = { targetTokens: 500_000, floorFrac: 0 }
+  const at = Date.parse('2026-08-17T12:00:00Z')
+  const b = Budget.load(state, 14_400, 500_000, at)
+  b.record(1, 249_000)
+  // the drain gate (pacedHasHeadroom) and the triage loop (Budget.pacedCanSpend) MUST agree, or the gate
+  // refuses batches the loop would take and the frequent backlog drain silently stops running
+  for (const [strict, calibrated] of [[11_797, 1_700], [11_797, 11_797]] as const) {
+    assert.equal(
+      pacedHasHeadroom(b.tokens, b.requests, 14_400, 500_000, pace, at, strict, calibrated),
+      b.pacedCanSpend(strict, pace, at, 1, calibrated),
+      `gate and loop disagree at strict=${strict} calibrated=${calibrated}`,
+    )
+  }
+})
+
+await check('a batch that returns an UNUSABLE body is not re-sent around the whole free pool', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp()
+  // Every provider answers HTTP 200 with a body that fails the completeness contract (0 rows for 2 items).
+  // Pre-fix the identical batch walked the entire pool: one bad batch, N spent requests, 0 rows scored.
+  // FIVE pool models, exactly the live shape, so the batch genuinely HAS somewhere to walk to. Without a real
+  // pool this test would pass vacuously on a one-provider chain and prove nothing.
+  let contractCalls = 0
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('generateContent')) {
+      contractCalls++
+      // HTTP 200, valid JSON, and 0 rows for a 2-item batch → fails the completeness contract
+      return res({ usageMetadata: { totalTokenCount: 10 }, candidates: [{ finishReason: 'STOP', content: { parts: [{ text: '{"items":[]}' }] } }] })
+    }
+    if (gdeltQueryHasDomain(u, 'reuters.com')) return res({ articles: [
+      { url: 'https://reuters.com/a', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260817T090000Z' },
+      { url: 'https://cnbc.com/b', title: 'Federal Reserve holds rates steady amid inflation concerns', domain: 'cnbc.com', seendate: '20260817T090100Z' },
+    ] })
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = {
+    groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
+    geminiEnabled: true, geminiApiKey: 'g', geminiBaseUrl: 'https://gemini.test', geminiMaxTokens: 2400,
+    geminiModels: ['a', 'b', 'c', 'd', 'e'].map((m) => ({ model: `gemini-${m}`, dailyReqCap: 500 })),
+    contractRetriesPerBatch: 1, triageBatch: 12,
+  } as any
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now: () => new Date('2026-08-17T09:30:00Z') })
+  assert.equal(s.picked + s.watched + s.dropped, 0, 'an unusable body scores nothing — never scored-zero')
+  // the batch is DEFERRED, not lost: capping the retries stops wasting requests, it does not discard items
+  assert.equal(loadDeferred(state).length, 2, 'both items wait for the next look')
+  assert.ok(contractCalls >= 1, 'the batch was genuinely offered to a provider')
+  assert.equal(contractCalls, 1 + cfg.contractRetriesPerBatch, `one try plus one capped retry — got ${contractCalls} of a possible 5`)
+  assert.ok(contractCalls < cfg.geminiModels.length, 'the remaining pool models were spared the identical doomed batch')
+})
+
+await check('Gemini enforces the row contract at the provider only when explicitly switched on', () => {
+  // A schema the API rejects returns 400 -> failureKind 'request' -> a silent 5-60 minute hold, i.e. a
+  // recoverable contract failure traded for a harder one. So it ships ready to enable, not enabled blind.
+  assert.equal(geminiSchemaEnabled({}), false, 'off by default')
+  assert.equal(geminiSchemaEnabled({ NEWS_GEMINI_RESPONSE_SCHEMA: '0' }), false)
+  assert.equal(geminiSchemaEnabled({ NEWS_GEMINI_RESPONSE_SCHEMA: '1' }), true)
+  // the schema must describe the shape coerceCompleteTriageRows actually reads, or enabling it breaks scoring
+  const row: any = (TRIAGE_RESPONSE_SCHEMA as any).properties.items.items
+  assert.equal((TRIAGE_RESPONSE_SCHEMA as any).properties.items.type, 'ARRAY')
+  assert.ok(row.required.includes('i'), 'the index is required — it IS the coverage contract')
+  for (const k of ['relevance', 'materiality_pre_score', 'event_materiality_label', 'issuer_linkage', 'companies', 'size_bucket', 'headline_en', 'event_region']) {
+    assert.ok(row.properties[k], `the schema is missing ${k}, which coerceTriage reads`)
+  }
+  assert.deepEqual(row.properties.relevance.enum, ['material', 'relevant_non_material', 'irrelevant'], 'the enum must match coerceTriage exactly')
+})
+
+await check('a Gemini batch failure is attributed to the MODEL, not just the pool', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp()
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('generateContent')) return res({ usageMetadata: { totalTokenCount: 10 }, candidates: [{ finishReason: 'STOP', content: { parts: [{ text: '{"items":[{"i":0,"relevance":"material","materiality_pre_score":80,"why":"x"}]}' }] } }] })
+    if (gdeltQueryHasDomain(u, 'reuters.com')) return res({ articles: [
+      { url: 'https://reuters.com/c', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260817T090000Z' },
+    ] })
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  // no Groq key → the batch goes straight to the Gemini pool
+  const cfg = {
+    groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
+    geminiEnabled: true, geminiApiKey: 'g', geminiBaseUrl: 'https://gemini.test',
+    geminiModels: [{ model: 'gemini-flash-a', dailyReqCap: 500 }], geminiMaxTokens: 2400,
+  } as any
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now: () => new Date('2026-08-17T09:30:00Z') })
+  // BOTH keys are present: the aggregate the pool chip reads, and the per-model row that answers
+  // "WHICH of the five models?" — the question 24-failures-of-25 on one chip cannot answer
+  assert.equal(s.provider_attempts?.gemini, 1, 'the aggregate pool count is unchanged for existing readers')
+  assert.equal(s.provider_attempts?.['gemini:gemini-flash-a'], 1, 'the model is named')
+  assert.equal(s.provider_scored_batches?.['gemini:gemini-flash-a'], 1, 'scored batches are keyed per model too')
 })
 
 // ---- backlog starvation: the 2026-08-13→16 outage that emptied the wire -------------------------------

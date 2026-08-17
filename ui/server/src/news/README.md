@@ -79,7 +79,11 @@ never widen the shelf-life limit) ·
 `NEWS_GDELT_LOOKBACK_MIN` · `NEWS_INBOX_MAX_ROWS` · `NEWS_PICK_THRESHOLD` · `NEWS_WATCH_THRESHOLD` ·
 `NEWS_RSS_ENABLED` · `NEWS_RSS_FEEDS_PATH` · `NEWS_RSS_USER_AGENT` · `NEWS_RSS_CONCURRENCY` ·
 `NEWS_RSS_PER_HOST_GAP_MS` · `NEWS_NSE_ENABLED` · `NEWS_NSE_BASE_URL` · `NEWS_NSE_LOOKBACK_HOURS` ·
-`NEWS_FEED_ITEMS_DAILY_CAP`.
+`NEWS_FEED_ITEMS_DAILY_CAP` · `NEWS_DEFERRED_CAP` · `NEWS_DEFERRED_MAX_AGE_HOURS` (48 — the wire's own live
+window; an older backlog item is retired unscored and reported) · `NEWS_FRESH_RESERVE_FRAC` (0.5 — the share of
+each cycle's triage slots reserved for items fetched this cycle, so a deep backlog cannot starve live news) ·
+`NEWS_CONTRACT_RETRIES_PER_BATCH` (1) · `NEWS_OPENROUTER_TIMEOUT_MS` / `NEWS_NVIDIA_TIMEOUT_MS` (75,000) ·
+`NEWS_GEMINI_RESPONSE_SCHEMA` (off).
 
 ### News chat retrieval
 
@@ -152,7 +156,58 @@ engine allowances rather than claiming live account-quota knowledge.
   under 1 req/s) · `NEWS_MISTRAL_DAILY_REQ_CAP` (2000 soft backstop) · `NEWS_MISTRAL_MAX_TOKENS` ·
   `MISTRAL_BASE_URL` · `NEWS_MISTRAL_ENABLED=0` to force off.
 - **OpenRouter** (`OPENROUTER_API_KEY`) / **NVIDIA NIM** (`NVIDIA_API_KEY`) — request-gated free pools
-  participating in the same reset-clock allocator instead of waiting behind Cerebras + Mistral.
+  participating in the same reset-clock allocator instead of waiting behind Cerebras + Mistral. Both run a
+  **75s** call deadline (`NEWS_OPENROUTER_TIMEOUT_MS` / `NEWS_NVIDIA_TIMEOUT_MS`) rather than the generic 30s:
+  the request is not streamed, so one clock covers queue wait + prefill + the whole decode, and a free `:free`
+  model on a shared gateway queues before it generates. Both also set `skipArticleRead`, keeping them out of
+  the ~7s interactive read that shares their cooldown marker. NVIDIA's free grant is a **finite credit pool
+  that expires in ~30 days**, so a call lost to our own deadline is spend destroyed, not deferred.
+
+## Why a provider goes red — and what the engine does about it
+
+A free tier is shared and best-effort: it will queue you, rate-limit you and go down, so **zero errors at 100%
+utilisation is not reachable.** The target is errors that cost one round-trip, block nothing else, and teach the
+router something. Three properties already hold and must not regress: a failed batch is **unscored, never
+scored-zero** (it defers, nothing is lost); a cooling provider is filtered out **before** any fetch, so it costs
+nothing; and a failure moves the same batch to the next tier **in the same pass**.
+
+On top of that:
+
+- **A rejected credential is named, not waited out.** HTTP 401/402/403/404 (`provider-access`) is an answer about
+  the account — a revoked key, an unpaid balance, a missing entitlement, a wrong model id. None of it clears by
+  retrying, and there is no give-up state in the backoff. After `CREDENTIAL_DEAD_AFTER_FAILS` (3) consecutive
+  such failures the tier reports `credentialRejected` plus the **name** of the env var holding its key
+  (`keyEnvVar` — never the value), and the cockpit leads with *"Key rejected … check `X_API_KEY`"* instead of a
+  countdown. Three, not one, so a rotated key or a one-off gateway 403 isn't blamed.
+- **Failures are timed.** Every failing call records `elapsedMs`, and the cooldown marker carries it. A timeout
+  *at* the configured deadline means the engine cut the call off and a longer one may work; far below it means
+  the provider refused and the deadline is irrelevant. Read it in the tier row: *"a request timeout at 30.0s"*.
+- **The streak's age is kept.** `firstFailureAt` survives every re-arm and clears only on a success. The backoff
+  window pins flat at its ceiling from the 5th failure, so the consecutive count alone stops distinguishing
+  "down an hour" from "down two days"; `failingForMs` does.
+- **An unusable body is not walked around the whole pool.** A `contract` failure — the call returned, the body
+  failed the row/coverage contract — is evidence about the **batch** at least as much as the provider, so
+  re-sending identical text to five pool models spends five requests for zero rows.
+  `NEWS_CONTRACT_RETRIES_PER_BATCH` (default **1**) caps it: keep the one cross-model retry that does sometimes
+  rescue a batch, drop the rest. `0` never re-sends. Availability / rate-limit / request failures are
+  unaffected — those *are* about the provider.
+- **The output ceiling scales with the batch.** `triageMaxOutputTokens` — one JSON row per headline, so a flat
+  ceiling truncates larger batches and the completeness contract then discards the entire answer. It only ever
+  raises a ceiling that is too low; a provider configured above the need keeps its own value.
+- **Admission is paced on the calibrated cost, the hard cap on the conservative bound.** The worst-case
+  per-call bound is 3–8× a measured successful batch, so gating *admission* on it made tiers with allowance in
+  hand read "Saved for later today". `DailyQuotaCandidate.paceCost` splits the two; the hard cap and every
+  reservation still use the conservative bound, so the real provider ceiling cannot be busted.
+- **Gemini row-schema enforcement** is available but **off** (`NEWS_GEMINI_RESPONSE_SCHEMA=1`): a schema the API
+  rejects returns 400, which arms a silent hold — trading a recoverable contract failure for a harder one. It
+  constrains row *shape*, not *coverage*, so `coerceCompleteTriageRows` stays the authority either way.
+- **Per-model attribution.** The Gemini pool is five daily buckets behind one chip, so cycle counters carry both
+  the aggregate `gemini` key and a per-model `gemini:<model>` key — otherwise "24 of 25 failed" can't say which.
+
+What is deliberately *not* done: the batch-completeness rule is never relaxed to accept partial rows (a missing
+index on an `ok:true` response is scored 0 **and marked seen for 7 days**, so partial credit turns visible waste
+into silent permanent loss), and triage never gets its own Groq budget file (the configured cap *is* Groq's real
+daily limit; two ledgers would authorise double against one ceiling).
 
 ## What this is not
 

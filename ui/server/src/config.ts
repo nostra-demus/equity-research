@@ -239,6 +239,12 @@ export interface OverflowProvider {
   label: string // human label for status/log
   color: string // CSS var for the cockpit chip (defined in tokens.css)
   apiKey: string
+  // The NAME of the environment variable this provider's key comes from — never the key itself. Exists so a
+  // repeated provider-access rejection (HTTP 401/402/403/404) can tell the operator WHICH credential to go and
+  // fix. Without it the cockpit can only show a countdown, which reads as patience over a fault that will
+  // never clear on its own: a dead key was retried on a timer for 46 consecutive failures and 42+ hours while
+  // the panel said "try again in ~43m". Safe to display — it is a variable name, not a secret.
+  keyEnvVar?: string
   baseUrl: string // OpenAI-compatible base (…/v1)
   model: string // primary model
   models?: string[] // optional fallback chain (OpenRouter only; OpenAI standard ignores it)
@@ -298,7 +304,7 @@ export function buildOverflowProviders(): OverflowProvider[] {
   if (cbKey && process.env.NEWS_CEREBRAS_ENABLED !== '0') {
     out.push({
       id: 'cerebras', label: 'Cerebras', color: '--provider-cb',
-      apiKey: cbKey, baseUrl: process.env.CEREBRAS_BASE_URL || 'https://api.cerebras.ai/v1',
+      apiKey: cbKey, keyEnvVar: 'CEREBRAS_API_KEY', baseUrl: process.env.CEREBRAS_BASE_URL || 'https://api.cerebras.ai/v1',
       model: process.env.NEWS_CEREBRAS_MODEL || 'gpt-oss-120b',
       dailyReqCap: capNum(process.env.NEWS_CEREBRAS_DAILY_REQ_CAP, 2_300), // under the verified 2400 req/day backstop (token cap binds first)
       rpm: capNum(process.env.NEWS_CEREBRAS_RPM, 4), // under the verified 5 req/min ceiling (override up on a paid key)
@@ -320,7 +326,7 @@ export function buildOverflowProviders(): OverflowProvider[] {
   if (mlKey && process.env.NEWS_MISTRAL_ENABLED !== '0') {
     out.push({
       id: 'mistral', label: 'Mistral', color: '--provider-ml',
-      apiKey: mlKey, baseUrl: process.env.MISTRAL_BASE_URL || 'https://api.mistral.ai/v1',
+      apiKey: mlKey, keyEnvVar: 'MISTRAL_API_KEY', baseUrl: process.env.MISTRAL_BASE_URL || 'https://api.mistral.ai/v1',
       model: process.env.NEWS_MISTRAL_MODEL || 'mistral-small-latest',
       dailyReqCap: capNum(process.env.NEWS_MISTRAL_DAILY_REQ_CAP, 2000), // soft daily backstop — the 1 req/s rate is the real limit
       rpm: capNum(process.env.NEWS_MISTRAL_RPM, 45), // under the ~1 req/s free ceiling (≈1.3s spacing) with margin
@@ -335,11 +341,22 @@ export function buildOverflowProviders(): OverflowProvider[] {
     const models = (process.env.NEWS_OPENROUTER_MODELS || 'openai/gpt-oss-120b:free,openai/gpt-oss-20b:free,meta-llama/llama-3.3-70b-instruct:free').split(',').map((s) => s.trim()).filter(Boolean).slice(0, 3)
     out.push({
       id: 'openrouter', label: 'OpenRouter', color: '--provider-or',
-      apiKey: orKey, baseUrl: process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1',
+      apiKey: orKey, keyEnvVar: 'OPENROUTER_API_KEY', baseUrl: process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1',
       model: models[0] || 'openai/gpt-oss-120b:free', models,
       dailyReqCap: capNum(process.env.NEWS_OPENROUTER_DAILY_REQ_CAP, 45),
       rpm: capNum(process.env.NEWS_OPENROUTER_RPM, 18),
       maxTokens: capNum(process.env.NEWS_OPENROUTER_MAX_TOKENS, 3500),
+      // A free `:free` model on a shared gateway queues before it generates, and the request is NOT streamed —
+      // so one deadline has to cover queue wait + prefill + the whole decode + parse. The generic 30s default
+      // is tight for that: a 12-row reply is ~1,650 output tokens, which needs ~59 tok/s sustained inside 28s
+      // of usable decode. Give it 75s so a SLOW-but-valid answer is not misread as a hang; the cycle guard is
+      // 480s, so two providers at 75s still fit. `elapsedMs` on the failure note now records what actually
+      // happens, so this number can be tuned from evidence instead of guessed at again.
+      timeoutMs: capNum(process.env.NEWS_OPENROUTER_TIMEOUT_MS, 75_000),
+      // Keep it OUT of the interactive article read, which runs a ~7s deadline. That path shares this id (and
+      // therefore this cooldown marker) with the background scan, so a legitimately-slow provider timing out
+      // there would arm the very hold the backlog drain depends on — sidelining it for both workloads.
+      skipArticleRead: true,
       extraBody: { reasoning: { effort: 'low' } }, // gpt-oss is a reasoning model — keep thinking minimal
       headers: { 'HTTP-Referer': 'https://app.nostra-demus.com', 'X-Title': 'Nostradamus Screener' },
       budgetFile: 'openrouter-budget.json',
@@ -351,7 +368,7 @@ export function buildOverflowProviders(): OverflowProvider[] {
     // (llama-3.3-70b); the nemotron/gpt-oss reasoning models are slow + flaky there. No fallback array.
     out.push({
       id: 'nvidia', label: 'NVIDIA NIM', color: '--provider-nv',
-      apiKey: nvKey, baseUrl: process.env.NVIDIA_BASE_URL || 'https://integrate.api.nvidia.com/v1',
+      apiKey: nvKey, keyEnvVar: 'NVIDIA_API_KEY', baseUrl: process.env.NVIDIA_BASE_URL || 'https://integrate.api.nvidia.com/v1',
       model: process.env.NEWS_NVIDIA_MODEL || 'meta/llama-3.3-70b-instruct',
       // NVIDIA free is a FINITE credit pool (~1,000, →5,000 with a business email) that EXPIRES in ~30 days,
       // not a daily-resetting tier — so it's a temporary high-quality boost. Ration ~150/day so a 5,000 pool
@@ -359,6 +376,12 @@ export function buildOverflowProviders(): OverflowProvider[] {
       dailyReqCap: capNum(process.env.NEWS_NVIDIA_DAILY_REQ_CAP, 150),
       rpm: capNum(process.env.NEWS_NVIDIA_RPM, 36),
       maxTokens: capNum(process.env.NEWS_NVIDIA_MAX_TOKENS, 2000),
+      // Same reasoning as OpenRouter above: non-streamed, one deadline for queue + prefill + full decode, and
+      // the generic 30s is tight for a batched structured reply. It matters MORE here than anywhere else on the
+      // roster: NVIDIA's free pool is a FINITE credit grant that EXPIRES in ~30 days, so a request lost to a
+      // deadline we set is not deferred spend, it is spend destroyed.
+      timeoutMs: capNum(process.env.NEWS_NVIDIA_TIMEOUT_MS, 75_000),
+      skipArticleRead: true, // see the OpenRouter note — the ~7s interactive read shares this cooldown marker
       budgetFile: 'nvidia-budget.json',
     })
   }
@@ -751,6 +774,18 @@ export const NEWS = {
   // fast when the box wakes matters more than sparing a failed call.
   localCooldownMs: capNum(process.env.NEWS_LOCAL_COOLDOWN_SEC, 45) * 1000,
   triageBatch: capNum(process.env.NEWS_TRIAGE_BATCH, 12),
+  // How many times ONE batch may be re-sent to a DIFFERENT free provider after a `contract` failure — a call
+  // that returned but whose body was unusable (malformed JSON, wrong envelope, missing rows, truncation).
+  //
+  // A contract failure is evidence about the BATCH at least as much as about the provider, so re-sending the
+  // identical text around a five-model pool converts one bad batch into five spent requests and zero scored
+  // rows. Observed live: 24 of 25 Gemini pool calls in a day failed this way for 1 scored batch. But the
+  // cross-model retry is not worthless either — a different model genuinely does sometimes parse a batch the
+  // first one mangled, and that is where the 1 scored batch came from. So this is a CAP, not a ban: keep the
+  // retry that works, drop the four that don't. 0 = never re-send a contract failure elsewhere.
+  // Availability, rate-limit and request failures are unaffected — those ARE about the provider, and the
+  // batch should keep flowing down the chain as before.
+  contractRetriesPerBatch: capNum(process.env.NEWS_CONTRACT_RETRIES_PER_BATCH, 1),
   // GDELT look-back per cycle (minutes; > pollInterval gives overlap so nothing slips the gap).
   gdeltLookbackMin: capNum(process.env.NEWS_GDELT_LOOKBACK_MIN, 40),
   gdeltBaseUrl: process.env.NEWS_GDELT_BASE_URL || 'https://api.gdeltproject.org/api/v2/doc/doc',
