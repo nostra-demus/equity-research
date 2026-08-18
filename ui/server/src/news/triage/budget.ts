@@ -931,7 +931,7 @@ export function resetBudgetMemory(): void {
 // information exactly when the operator most needs it. `observedMs` is how long the last failing call actually
 // took before it failed — the one number that answers "is our timeout too short, or did the provider refuse?".
 // All three are optional and absent-tolerant: a marker written by an older build reads exactly as it did before.
-interface CooldownState { unhealthyUntil: number; fails: number; reason?: string; armedAt?: number; firstFailureAt?: number; observedMs?: number }
+interface CooldownState { unhealthyUntil: number; fails: number; accessFails?: number; reason?: string; armedAt?: number; firstFailureAt?: number; observedMs?: number }
 const cooldownMem = new Map<string, CooldownState>() // `${stateDir}\0${id}` → state; process-lifetime fallback
 
 function healthFile(id: string): string { return `${id.replace(/[^a-z0-9]+/gi, '-')}-health.json` }
@@ -950,6 +950,7 @@ function readCooldownState(stateDir: string, id: string): CooldownState {
       disk = {
         unhealthyUntil: until,
         fails: Number.isFinite(fails) && fails > 0 ? fails : 1,
+        ...(Number.isFinite(Number(s?.accessFails)) && Number(s.accessFails) > 0 ? { accessFails: Number(s.accessFails) } : {}),
         ...(typeof s?.reason === 'string' && s.reason ? { reason: s.reason } : {}),
         ...(Number.isFinite(Number(s?.armedAt)) ? { armedAt: Number(s.armedAt) } : {}),
         ...(Number.isFinite(Number(s?.firstFailureAt)) && Number(s.firstFailureAt) > 0 ? { firstFailureAt: Number(s.firstFailureAt) } : {}),
@@ -976,11 +977,12 @@ export function isCoolingDown(stateDir: string, id = 'groq', now = Date.now()): 
 /** The live cooldown snapshot for a provider — its unhealthy-until epoch (0 = healthy) plus the consecutive
  *  failure count driving the current backoff window. For status/diagnostics readers that need the fail count
  *  `readCooldownUntil` doesn't expose. Never throws. */
-export function cooldownInfo(stateDir: string, id = 'groq'): { until: number; fails: number; reason?: string; firstFailureAt?: number; observedMs?: number } {
+export function cooldownInfo(stateDir: string, id = 'groq'): { until: number; fails: number; accessFails?: number; reason?: string; firstFailureAt?: number; observedMs?: number } {
   const s = readCooldownState(stateDir, id)
   return {
     until: s.unhealthyUntil,
     fails: s.fails,
+    ...(s.accessFails ? { accessFails: s.accessFails } : {}),
     ...(s.reason ? { reason: s.reason } : {}),
     ...(s.firstFailureAt ? { firstFailureAt: s.firstFailureAt } : {}),
     ...(s.observedMs != null ? { observedMs: s.observedMs } : {}),
@@ -995,12 +997,18 @@ export function armCooldown(stateDir: string, now: number, baseMs: number, id = 
   if (!(baseMs > 0)) return
   const prior = readCooldownState(stateDir, id)
   const fails = prior.fails + 1 // consecutive failures so far (0 when healthy/cleared) + this one
+  // A SEPARATE streak for provider-access rejections. `fails` counts every failure class and drives the
+  // backoff window, so reading it as an access streak meant two ordinary timeouts followed by one 403
+  // declared the credential dead on the FIRST access rejection. Resetting `fails` on a reason change would
+  // fix the count and break the backoff, so the access streak is tracked apart.
+  const accessFails = reason === 'provider-access' ? (prior.accessFails ?? 0) + 1 : 0
   const window = Math.min(baseMs * Math.pow(2, fails - 1), Math.max(baseMs, maxMs))
   // Carry the streak's START forward. The backoff window pins flat at maxMs from the 5th failure, so `fails`
   // alone cannot tell the operator whether a provider has been down for an hour or for two days.
   const firstFailureAt = prior.firstFailureAt && prior.fails > 0 ? prior.firstFailureAt : now
   const state: CooldownState = {
     unhealthyUntil: now + window, fails, armedAt: now, firstFailureAt,
+    ...(accessFails ? { accessFails } : {}),
     ...(reason ? { reason } : {}),
     ...(Number.isFinite(observedMs as number) && (observedMs as number) >= 0 ? { observedMs: Math.round(observedMs as number) } : {}),
   }

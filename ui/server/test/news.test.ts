@@ -16,7 +16,7 @@ import { analyzeArticle, coerceTriage, estimateTokens, parseRate, scoreToBand, t
 import { analyzeArticleGemini, geminiSchemaEnabled, TRIAGE_RESPONSE_SCHEMA, triageBatchGemini } from '../src/news/triage/gemini'
 import { appendFeedItems, readFeed } from '../src/news/feed'
 import { mergeInbox, revisionClockRegistryDiagnostics } from '../src/news/write-inbox'
-import { buildTriageQueue, expireBacklog, loadDeferred, runIngestCycle, triageGroqTokenBound } from '../src/news/runCycle'
+import { buildTriageQueue, expireBacklog, loadDeferred, runIngestCycle, stampDeferred, triageGroqTokenBound } from '../src/news/runCycle'
 import { anthropicDrainReady, backlogTrend, credentialRejected, CREDENTIAL_DEAD_AFTER_FAILS, drainBatchEst, geminiPoolProviderDayExhausted, getNewsDiagnostics, providerDrainUsable, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS, STATE_DIR } from '../src/config'
 import { createTheme } from '../src/news/themes/discover'
@@ -4303,6 +4303,33 @@ await check('credentialRejected: repeated 401/403 is a dead key; one is bad luck
   for (const reason of ['timeout', 'availability', 'rate-limit', 'triage-contract', 'triage-request', undefined]) {
     assert.equal(credentialRejected(reason, 99), false, `${reason} is not a credential fault however often it repeats`)
   }
+  // 402 (spent balance) and 404 (retired model) hold the provider like a 401 but are NOT broken credentials
+  for (const reason of ['provider-credits', 'provider-endpoint']) {
+    assert.equal(credentialRejected(reason, 99), false, `${reason} must never send an operator to rotate a working key`)
+  }
+})
+
+await check('armCooldown: the credential streak counts ACCESS rejections only, not every failure before one', () => {
+  const state = tmp(); const base = 60_000, max = 3_600_000
+  let at = 1_000_000
+  // the exact live shape: two ordinary failures, then the FIRST access rejection
+  armCooldown(state, at, base, 'mistral', max, 'availability'); at += 3_600_000
+  armCooldown(state, at, base, 'mistral', max, 'timeout'); at += 3_600_000
+  armCooldown(state, at, base, 'mistral', max, 'provider-access')
+  const info = cooldownInfo(state, 'mistral')
+  assert.equal(info.fails, 3, 'the general streak still counts all three — it drives the backoff window')
+  assert.equal(info.accessFails, 1, 'but only one of them was an access rejection')
+  assert.equal(credentialRejected(info.reason, info.accessFails ?? 0), false, 'so the key is not blamed on its first 403')
+  at += 3_600_000; armCooldown(state, at, base, 'mistral', max, 'provider-access')
+  at += 3_600_000; armCooldown(state, at, base, 'mistral', max, 'provider-access')
+  const dead = cooldownInfo(state, 'mistral')
+  assert.equal(dead.accessFails, 3)
+  assert.equal(credentialRejected(dead.reason, dead.accessFails ?? 0), true, 'three ACCESS rejections in a row still names the fault')
+  // a different failure class resets the access streak without disturbing the backoff streak
+  at += 3_600_000; armCooldown(state, at, base, 'mistral', max, 'availability')
+  const mixed = cooldownInfo(state, 'mistral')
+  assert.equal(mixed.accessFails, undefined, 'the access streak is broken')
+  assert.equal(mixed.fails, 6, 'the backoff streak is not — resetting it would reopen the request burn')
 })
 
 await check('dailyQuotaAdmission: ADMISSION uses the calibrated cost, the HARD CAP keeps the conservative bound', () => {
@@ -4381,6 +4408,46 @@ await check('a batch that returns an UNUSABLE body is not re-sent around the who
   assert.equal(contractCalls, 1 + cfg.contractRetriesPerBatch, `one try plus one capped retry — got ${contractCalls} of a possible 5`)
   assert.ok(contractCalls < cfg.geminiModels.length, 'the remaining pool models were spared the identical doomed batch')
 })
+
+for (const cap of [0, 1]) {
+  await check(`contract-retry cap ${cap}: an upstream contract failure counts toward the cap, so the pool sees exactly ${cap} more offer(s)`, async () => {
+    resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+    const root = tmp(), state = tmp()
+    // The path the previous test could not reach: it set groqApiKey:'' so `res` was always undefined
+    // entering the pool loop. Here GROQ produces the first unusable body, exactly as it does live. The
+    // counter used to start at 0 regardless, so the cap under-counted by one — and cap 0, documented in
+    // config.ts and the README as "never re-sends", still handed the batch to one pool provider.
+    let groqCalls = 0, poolCalls = 0
+    const fetchFn = (async (url: string) => {
+      const u = String(url)
+      if (u.includes('groq.test')) {
+        groqCalls++
+        return res({ usage: { total_tokens: 10 }, choices: [{ message: { content: '{"items":[]}' } }] })
+      }
+      if (u.includes('generateContent')) {
+        poolCalls++
+        return res({ usageMetadata: { totalTokenCount: 10 }, candidates: [{ finishReason: 'STOP', content: { parts: [{ text: '{"items":[]}' }] } }] })
+      }
+      if (gdeltQueryHasDomain(u, 'reuters.com')) return res({ articles: [
+        { url: 'https://reuters.com/a', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260817T090000Z' },
+        { url: 'https://cnbc.com/b', title: 'Federal Reserve holds rates steady amid inflation concerns', domain: 'cnbc.com', seendate: '20260817T090100Z' },
+      ] })
+      return res({ articles: [] })
+    }) as unknown as typeof fetch
+    const cfg = {
+      groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqRpm: 6000,
+      gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
+      geminiEnabled: true, geminiApiKey: 'g', geminiBaseUrl: 'https://gemini.test', geminiMaxTokens: 2400,
+      geminiModels: ['a', 'b', 'c', 'd', 'e'].map((m) => ({ model: `gemini-${m}`, dailyReqCap: 500 })),
+      contractRetriesPerBatch: cap, triageBatch: 12,
+    } as any
+    const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now: () => new Date('2026-08-17T09:30:00Z') })
+    assert.ok(groqCalls >= 1, 'groq was offered the batch first and returned an unusable body')
+    assert.equal(poolCalls, cap, `the upstream failure is already one against the cap — got ${poolCalls} pool offer(s), expected ${cap}`)
+    assert.equal(s.picked + s.watched + s.dropped, 0, 'an unusable body scores nothing')
+    assert.equal(loadDeferred(state).length, 2, 'and the items are deferred, never discarded')
+  })
+}
 
 await check('Gemini enforces the row contract at the provider only when explicitly switched on', () => {
   // A schema the API rejects returns 400 -> failureKind 'request' -> a silent 5-60 minute hold, i.e. a
@@ -4470,16 +4537,39 @@ await check('buildTriageQueue: preserves §4 priority order WITHIN each pool, an
   assert.ok(strict.slice(0, 4).every((it) => String(it.event_id).startsWith('EVT-old-')), 'freshShare 0 restores the strict-priority order')
 })
 
-await check('expireBacklog: retires what can no longer reach the 2-day wire, and never loses an item to a missing timestamp', () => {
+await check('expireBacklog: retires on RESIDENCE, not on when the source published, and never loses an item to a missing timestamp', () => {
   const now = new Date('2026-08-16T10:00:00Z')
   const { live, expired } = expireBacklog([
-    queueItem({ event_id: 'EVT-live', found_at: '2026-08-15T10:00:00Z' }), // 24h — still inside the window
-    queueItem({ event_id: 'EVT-old', found_at: '2026-08-13T09:00:00Z' }), // 73h — past it
+    queueItem({ event_id: 'EVT-live', deferred_at: '2026-08-15T10:00:00Z' }), // waited 24h — inside the window
+    queueItem({ event_id: 'EVT-old', deferred_at: '2026-08-13T09:00:00Z' }), // waited 73h — past it
+    // The bug this rule exists to prevent: gov-data stamps found_at with the FDA report date under a
+    // 21-day lookback, so a legitimately fresh discovery carries a publication date well past the bound.
+    // Keying on found_at retired it on its FIRST deferral, unscored.
+    { ...queueItem({ event_id: 'EVT-old-news-new-to-us', found_at: '2026-08-06T00:00:00Z' }), deferred_at: '2026-08-16T09:45:00Z' },
+    // and the converse: recent publication does not buy an item a longer wait
+    { ...queueItem({ event_id: 'EVT-new-news-long-wait', found_at: '2026-08-16T09:00:00Z' }), deferred_at: '2026-08-13T09:00:00Z' },
+    queueItem({ event_id: 'EVT-legacy', found_at: '2026-08-15T10:00:00Z' }), // no deferred_at — falls back to found_at
     queueItem({ event_id: 'EVT-nostamp', found_at: '' }),
     queueItem({ event_id: 'EVT-badstamp', found_at: 'not-a-date' }),
   ], now, 48 * 3_600_000)
-  assert.deepEqual(expired.map((i) => i.event_id), ['EVT-old'])
-  assert.deepEqual(live.map((i) => i.event_id), ['EVT-live', 'EVT-nostamp', 'EVT-badstamp'], 'an unparseable stamp is kept, never retired')
+  assert.deepEqual(expired.map((i) => i.event_id), ['EVT-old', 'EVT-new-news-long-wait'])
+  assert.deepEqual(
+    live.map((i) => i.event_id),
+    ['EVT-live', 'EVT-old-news-new-to-us', 'EVT-legacy', 'EVT-nostamp', 'EVT-badstamp'],
+    'an item discovered 15 minutes ago survives however old its source says it is; an unparseable stamp is kept, never retired',
+  )
+})
+
+await check('expireBacklog: a re-deferred item keeps its original residence stamp — it cannot restart its clock', () => {
+  const at = '2026-08-16T10:00:00Z'
+  const rows = stampDeferred([
+    queueItem({ event_id: 'EVT-first-time' }),
+    { ...queueItem({ event_id: 'EVT-waiting' }), deferred_at: '2026-08-14T00:00:00Z' },
+  ], at)
+  assert.equal(rows[0].deferred_at, at, 'a new arrival is stamped now')
+  assert.equal(rows[1].deferred_at, '2026-08-14T00:00:00Z', 'an item already waiting keeps its first stamp')
+  const { expired } = expireBacklog(rows, new Date('2026-08-16T10:00:00Z'), 48 * 3_600_000)
+  assert.deepEqual(expired.map((i) => i.event_id), ['EVT-waiting'], 'so it still ages out on schedule')
 })
 
 await check('runIngestCycle: a backlog past the wire\'s own window is retired unscored, counted, and named in the note', async () => {

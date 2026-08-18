@@ -122,6 +122,13 @@ function holdAfterTriageFailure(args: {
   }
   const scopedId = triageCooldownId(providerId)
   const accessFailure = result.httpStatus != null && [401, 402, 403, 404].includes(result.httpStatus)
+  // All four statuses hold the whole provider, but they do not mean the same thing to the operator, and
+  // groq.ts already draws the distinction the engine used to throw away. Telling someone to rotate a key
+  // when the real fault is an exhausted balance or a model id that no longer exists sends them to fix a
+  // credential that was never broken. The SCOPE is unchanged; only the reason narrows.
+  const accessReason = result.httpStatus === 402 ? 'provider-credits'
+    : result.httpStatus === 404 ? 'provider-endpoint'
+    : 'provider-access'
   const providerWide = triageFailureIsProviderWide(result)
   const scopedReason = result.timedOut ? 'timeout'
     : result.failureKind === 'contract' ? 'triage-contract' : 'triage-request'
@@ -133,7 +140,7 @@ function holdAfterTriageFailure(args: {
     // A header does not widen the failure's scope. Request/contract responses can carry Retry-After too;
     // honor their exact clock on the triage circuit without sidelining every other provider workload.
     const reason = providerWide
-      ? result.failureKind === 'rate_limit' ? 'rate-limit' : accessFailure ? 'provider-access' : 'availability'
+      ? result.failureKind === 'rate_limit' ? 'rate-limit' : accessFailure ? accessReason : 'availability'
       : scopedReason
     if (retryMs > 0) armCooldown(stateDir, at, retryMs, providerWide ? providerId : scopedId, retryMs, reason, took)
     return
@@ -147,7 +154,7 @@ function holdAfterTriageFailure(args: {
     return
   }
   if (accessFailure) {
-    armCooldown(stateDir, at, cooldownMs, providerId, cooldownMaxMs, 'provider-access', took)
+    armCooldown(stateDir, at, cooldownMs, providerId, cooldownMaxMs, accessReason, took)
     return
   }
   armCooldown(stateDir, at, cooldownMs, scopedId, cooldownMaxMs, scopedReason, took)
@@ -203,9 +210,12 @@ export const DEFERRED_CAP = (() => { const n = Number(process.env.NEWS_DEFERRED_
 // provider outage let it grow without limit (11,000 items on 2026-08-13 → 23,422 on 2026-08-16) and every
 // later cycle hit its wall-clock guard re-queuing the same wall. It can then never drain: at the ~36
 // items/cycle the degraded tiers managed, a 23,000-item backlog outlives every item in it.
-// 48h is not arbitrary — the live wire is a 2-DAY window (feed.ts readFeed default), so an item held past
-// it can no longer reach the wire even if it were scored AND kept. Holding it costs queue position and
-// scoring budget that today's news needs, and buys nothing. Bounded and env-tunable, like the cap.
+// 48h of RESIDENCE — measured from when an item entered the backlog, never from when its source published
+// it. An item that has waited two days behind the queue has lost to two days of fresher news and will keep
+// losing; holding it costs queue position and scoring budget that today's news needs. Bounded and
+// env-tunable, like the cap.
+// NOT a wire-window argument: readFeed windows the wire by the FIREHOSE FILE DATE, which is the cycle date,
+// so an item scored today reaches the wire today however old its `found_at` is.
 export const DEFERRED_MAX_AGE_MS = (() => {
   const n = Number(process.env.NEWS_DEFERRED_MAX_AGE_HOURS)
   return (Number.isFinite(n) && n > 0 ? n : 48) * 3_600_000
@@ -217,8 +227,8 @@ export const FRESH_RESERVE_FRAC = (() => {
   return Number.isFinite(n) && n >= 0 && n <= 1 ? n : 0.5
 })()
 
-/** Split a backlog into what can still reach the 2-day wire and what has aged out of it (DEFERRED_MAX_AGE_MS).
- *  An absent or unparseable `found_at` is KEPT — an item is never lost to a missing timestamp. */
+/** Split a backlog into what has waited less than DEFERRED_MAX_AGE_MS and what has aged out of it.
+ *  An absent or unparseable timestamp is KEPT — an item is never lost to a missing timestamp. */
 export function expireBacklog(
   items: NewsItem[],
   now: Date,
@@ -228,11 +238,21 @@ export function expireBacklog(
   const expired: NewsItem[] = []
   const at = now.getTime()
   for (const it of items) {
-    const t = Date.parse(String(it?.found_at || ''))
+    // RESIDENCE time, not publication time. `found_at` is the SOURCE's clock — gov-data stamps it with the
+    // FDA report date under a 21-day lookback (config govDataLookbackDays), so keying on it retired items
+    // discovered minutes ago, unscored, on their first deferral. `deferred_at` is stamped when an item
+    // first enters the backlog; `found_at` is the fallback for rows written before that field existed.
+    const t = Date.parse(String(it?.deferred_at || it?.found_at || ''))
     if (Number.isFinite(t) && at - t > maxAgeMs) expired.push(it)
     else live.push(it)
   }
   return { live, expired }
+}
+
+/** Stamp the residence clock on anything entering the backlog, leaving an existing stamp alone — an item
+ *  that has already waited a day does not get a fresh start by being re-deferred. */
+export function stampDeferred(rows: NewsItem[], at: string): NewsItem[] {
+  return rows.map((it) => (it?.deferred_at ? it : { ...it, deferred_at: at }))
 }
 
 /**
@@ -584,7 +604,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // Reported, never silent: an aged-out item is a real loss, exactly like the dropped_at_cap tail.
   const { live: requeued, expired: backlogExpired } = expireBacklog(carried, nowDate)
   if (backlogExpired.length) {
-    log(`backlog: ${backlogExpired.length} item${backlogExpired.length === 1 ? '' : 's'} retired — older than ${Math.round(DEFERRED_MAX_AGE_MS / 3_600_000)}h, past the wire's own window; never scored`)
+    log(`backlog: ${backlogExpired.length} item${backlogExpired.length === 1 ? '' : 's'} retired — waited longer than ${Math.round(DEFERRED_MAX_AGE_MS / 3_600_000)}h behind the queue; never scored`)
   }
   // Order the triage queue by a cheap deterministic pre-priority so the SCARCE Groq budget scores the
   // most promising items first (a material keyword / primary filing / fresh item before routine news),
@@ -595,14 +615,20 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const items = buildTriageQueue(requeued, fresh, nowDate)
 
   if (!items.length) {
-    saveDeferred(stateDir, [], log) // any stale spillover was consumed by the filters above
+    // saveDeferred keeps the last-good file and returns false when the write fails (ENOSPC, permissions, a
+    // failed rename). Every other call site propagates that; dropping it here reported `backlog: 0` on a
+    // full disk while the same rows stayed on disk to be re-loaded, re-expired and re-counted every cycle —
+    // inflating retiredToday without bound behind a gauge that read "caught up".
+    const cleared = saveDeferred(stateDir, [], log) // any stale spillover was consumed by the filters above
     const summary: CycleSummary = {
-      ...blank, ok: true, fetched: raws.length, fresh: fresh.length, carryover: requeued.length, backlog: 0, backlog_cap: DEFERRED_CAP,
+      ...blank, ok: true, fetched: raws.length, fresh: fresh.length, carryover: requeued.length,
+      backlog: cleared ? 0 : carried.length, backlog_cap: DEFERRED_CAP,
+      ...(cleared ? {} : { deferred_write_failed: true }),
       // a cycle whose whole queue was the expired backlog still has to REPORT the retirement — this is
       // precisely the cycle whose note would otherwise read "no new on-list items" over a real loss
       ...(backlogExpired.length ? { backlog_expired: backlogExpired.length } : {}),
       note: backlogExpired.length
-        ? `no new on-list items · ${backlogExpired.length} backlog item${backlogExpired.length === 1 ? '' : 's'} RETIRED unscored — older than ${Math.round(DEFERRED_MAX_AGE_MS / 3_600_000)}h, past the wire's own window`
+        ? `no new on-list items · ${backlogExpired.length} backlog item${backlogExpired.length === 1 ? '' : 's'} RETIRED unscored — waited longer than ${Math.round(DEFERRED_MAX_AGE_MS / 3_600_000)}h behind the queue`
         : 'no new on-list items',
       ...(sources ? { sources } : {}),
     }
@@ -966,7 +992,11 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       // as about the provider — so re-sending the identical text around the whole pool spends N requests for
       // zero rows. Capped, not banned: the cross-model retry does sometimes rescue a batch, so keep the first
       // one and drop the rest. (cfg.contractRetriesPerBatch; see config.ts for the measured rationale.)
-      let contractFailures = 0
+      // Seed from the failure that has ALREADY happened: `res` may hold a contract failure from the local
+      // primary or from Groq, and the cap counts re-sends of THIS batch whoever produced the first unusable
+      // body. Starting at 0 under-counted by one, and made `NEWS_CONTRACT_RETRIES_PER_BATCH=0` still send
+      // the batch to one pool provider — which config.ts and the README both document as "never re-sends".
+      let contractFailures = res?.failureKind === 'contract' ? 1 : 0
       while (true) {
         if (contractFailures > cfg.contractRetriesPerBatch) {
           log(`triage batch @${i}: ${contractFailures} unusable-response failure${contractFailures === 1 ? '' : 's'} — not re-sending this batch to more free providers (cap ${cfg.contractRetriesPerBatch})`)
@@ -1296,7 +1326,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // Journal every scored row alongside the true deferred tail BEFORE any inbox/feed projection. A failed
   // atomic inbox rename or process crash can then retry one-shot source rows; successful projection removes
   // these temporary safety entries below. Seen is deliberately not persisted until projection succeeds.
-  let deferredPersisted = saveDeferred(stateDir, [...triaged, ...deferred], log)
+  let deferredPersisted = saveDeferred(stateDir, stampDeferred([...triaged, ...deferred], ts), log)
 
   // 3b. DEDUP — micro-cluster this cycle's items against the recent firehose into STORIES (finer than
   // themes), so the firehose line + the SSE event each carry a stable story-cluster id and the wire
@@ -1398,7 +1428,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // safety backlog remains and the item is neither seen nor silently lost.
   for (const t of triaged) seen.add(t.event_id, t.materiality_pre_score)
   seen.save()
-  deferredPersisted = saveDeferred(stateDir, deferred, log)
+  deferredPersisted = saveDeferred(stateDir, stampDeferred(deferred, ts), log)
   // Optional neural index. It runs only when explicitly configured, only over newly persisted items, and
   // is fully fail-open: provider trouble can never block the wire or turn an item into a false non-match.
   if (written && cfg.retrievalEmbeddingEnabled) {
@@ -1514,7 +1544,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // Same honesty for the age boundary: a retired item was never scored and never will be. Reported even on
   // a cycle that deferred nothing, because that is exactly the cycle whose note would otherwise read clean.
   const coreNote = backlogExpired.length > 0
-    ? `${capNote ? `${capNote} · ` : ''}${backlogExpired.length} backlog item${backlogExpired.length === 1 ? '' : 's'} RETIRED unscored — older than ${Math.round(DEFERRED_MAX_AGE_MS / 3_600_000)}h, past the wire's own window`
+    ? `${capNote ? `${capNote} · ` : ''}${backlogExpired.length} backlog item${backlogExpired.length === 1 ? '' : 's'} RETIRED unscored — waited longer than ${Math.round(DEFERRED_MAX_AGE_MS / 3_600_000)}h behind the queue`
     : capNote
   // Surface a down PRIMARY brain even when the fallback coped and nothing deferred: the operator wants to know the
   // local box is asleep/unreachable, because the scan is then spending capped cloud/paid budget and risks a ceiling.

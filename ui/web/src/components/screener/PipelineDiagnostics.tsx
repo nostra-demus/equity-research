@@ -132,6 +132,18 @@ function TierRow({ tier, coolLeftMs }: { tier: TierDiagnostics; coolLeftMs: numb
 }
 
 function BacklogGauge({ b }: { b: NewsDiagnostics['backlog'] }) {
+  // The OTHER real loss, kept separate from the cap: items retired unscored for waiting out the backlog's
+  // own age bound. Silence here is what let a 23,000-item wall of stale filings look healthy while it
+  // starved live news off the wire — a gauge reading only the cap would have shown 0 throughout.
+  // Hoisted ABOVE the unavailable branch because retiredToday is summed from cycle summaries, not read
+  // from the deferred file: it survives exactly the failure that branch reports, and an unreadable
+  // waiting list is when an operator most needs to know items were being retired.
+  const retired = b.retiredToday ?? 0
+  const retiredAlert = retired > 0 ? (
+    <div className="diagbacklog__lost" role="alert">
+      {retired.toLocaleString()} item{retired === 1 ? '' : 's'} retired today — waited longer than the backlog’s age bound, so they were never scored. The scanner is behind, not the sources.
+    </div>
+  ) : null
   if (b.unavailable) {
     return (
       <div className="diagbacklog is-unavailable" role="status">
@@ -145,6 +157,7 @@ function BacklogGauge({ b }: { b: NewsDiagnostics['backlog'] }) {
             {b.lostToday.toLocaleString()} item{b.lostToday === 1 ? '' : 's'} lost today.
           </div>
         )}
+        {retiredAlert}
       </div>
     )
   }
@@ -173,14 +186,7 @@ function BacklogGauge({ b }: { b: NewsDiagnostics['backlog'] }) {
           {b.lostToday.toLocaleString()} item{b.lostToday === 1 ? '' : 's'} lost today — dropped past the {b.cap.toLocaleString()} cap, not deferred; gone once the source window ages out.
         </div>
       )}
-      {/* The OTHER real loss, kept separate from the cap: items retired unscored for outliving the wire's own
-          2-day window. Silence here is what let a 23,000-item wall of stale filings look healthy while it
-          starved live news off the wire — a gauge reading only the cap would have shown 0 throughout. */}
-      {(b.retiredToday ?? 0) > 0 && (
-        <div className="diagbacklog__lost" role="alert">
-          {b.retiredToday!.toLocaleString()} item{b.retiredToday === 1 ? '' : 's'} retired today — waited longer than the wire’s own 2-day window, so they were never scored. The scanner is behind, not the sources.
-        </div>
-      )}
+      {retiredAlert}
     </div>
   )
 }

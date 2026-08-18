@@ -21,6 +21,11 @@ export function retryReasonLabel(reason?: string): string {
     case 'request': return 'a rejected request'
     case 'contract': return 'an unusable response'
     case 'provider-access': return 'rejected provider access'
+    // Both hold the whole provider like a 401/403, but neither is a broken credential: 402 is a spent
+    // balance, 404 a retired model or endpoint. Naming them apart is what stops an operator rotating a
+    // key that was fine.
+    case 'provider-credits': return 'the account credit limit'
+    case 'provider-endpoint': return 'a retired model or endpoint'
     case 'triage-contract': return 'an unusable triage response'
     case 'triage-request': return 'a rejected triage request'
     case 'auth-expired': return 'an expired sign-in'

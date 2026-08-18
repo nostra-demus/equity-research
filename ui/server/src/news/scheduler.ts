@@ -779,7 +779,7 @@ export interface NewsDiagnostics {
     nearLimit: boolean // ≥80% of the cap — approaching silent data loss
     trend: 'growing' | 'shrinking' | 'flat' | null // over today's recent cycles (null = too few to tell)
     lostToday: number // items ACTUALLY dropped past the cap so far today (sum of cycle dropped_at_cap) — real, not projected, data loss
-    retiredToday: number // items retired UNSCORED so far today for being older than the wire's own window (sum of cycle backlog_expired) — the OTHER real loss; a gauge that showed only the cap would read 0 while thousands aged out
+    retiredToday: number // items retired UNSCORED so far today for waiting longer than the backlog age bound (sum of cycle backlog_expired) — the OTHER real loss; a gauge that showed only the cap would read 0 while thousands aged out
   }
   today: { read: number; kept: number; dropped: number; cycles: number }
   lastCycle: {
@@ -824,7 +824,7 @@ export interface NewsDiagnostics {
 /** Optional retry metadata shared by every diagnostics row. Keeping the legacy `fails` alias lets an old
  * cockpit render a new engine, while the explicit field stops a new cockpit from mistaking a consecutive
  * streak for a day-scoped failure count. */
-interface RetryInfo { until: number; fails: number; reason?: string; scope?: 'shared' | 'triage'; firstFailureAt?: number; observedMs?: number }
+interface RetryInfo { until: number; fails: number; accessFails?: number; reason?: string; scope?: 'shared' | 'triage'; firstFailureAt?: number; observedMs?: number }
 
 /** How many consecutive `provider-access` rejections make a credential DEAD rather than unlucky.
  *
@@ -832,13 +832,17 @@ interface RetryInfo { until: number; fails: number; reason?: string; scope?: 'sh
  *  missing entitlement, or a wrong model id. None of those clear by waiting, and the engine has no give-up
  *  state — `armCooldown` has no failure threshold and no marker TTL, so it re-probes forever. Three in a row
  *  is deliberately conservative: it rules out a one-off gateway 403 or a key rotated mid-cycle, while still
- *  naming the fault within minutes instead of after 46 failures and two days of silent countdowns. */
+ *  naming the fault within minutes instead of after 46 failures and two days of silent countdowns.
+ *
+ *  The count is the ACCESS streak, not the general failure streak: `fails` counts timeouts and outages too,
+ *  so reading it here declared a key dead on its first 403 whenever two ordinary failures happened to
+ *  precede it. */
 export const CREDENTIAL_DEAD_AFTER_FAILS = 3
 
 /** Does this tier's live marker say its CREDENTIAL is being rejected (as opposed to the provider being busy,
  *  down, or slow)? Pure, so it is unit-testable and the threshold is stated in exactly one place. */
-export function credentialRejected(reason: string | undefined, fails: number): boolean {
-  return reason === 'provider-access' && fails >= CREDENTIAL_DEAD_AFTER_FAILS
+export function credentialRejected(reason: string | undefined, accessFails: number): boolean {
+  return reason === 'provider-access' && accessFails >= CREDENTIAL_DEAD_AFTER_FAILS
 }
 
 /** A triage call is blocked by either the provider-wide availability hold or its triage-workload hold.
@@ -859,7 +863,7 @@ function retryDiagnostics(
   // The streak's own duration, not the current backoff window. The window pins flat at maxMs from the 5th
   // failure, so it is the one number that stops carrying information exactly when the outage gets long.
   const failingForMs = cd.firstFailureAt && cd.firstFailureAt > 0 ? Math.max(0, now - cd.firstFailureAt) : undefined
-  const dead = credentialRejected(cd.reason, cd.fails)
+  const dead = credentialRejected(cd.reason, cd.accessFails ?? 0)
   return {
     ...(remaining > 0 ? {
       cooldownRemainingMs: remaining,
@@ -1048,9 +1052,16 @@ export function getNewsDiagnostics(): NewsDiagnostics {
     let anyPacedFit = false
     let soonestRecoverMs = Infinity
     let soonestRetry: RetryInfo | null = null
+    let credentialFault: RetryInfo | null = null
     const strictCost = diagnosticBatchTokenBound(diagnosticBatch, NEWS.geminiMaxTokens)
     for (const e of NEWS.geminiModels) {
       const cd = triageRetryInfo(`gemini:${e.model}`, now)
+      // Collect the credential fault BEFORE any of the `continue` guards below, and independently of the
+      // health countdown. The pool reports one aggregate tier, so a model whose credential is being
+      // rejected used to vanish two ways: another usable model forced coolMs to 0, and when every model was
+      // held, soonestRecoverMs picked the SHORTEST hold, hiding the rejected one behind a transient one.
+      // Either way the tier never reached needsCredentialTiers and nobody was told which model to fix.
+      if (!credentialFault && credentialRejected(cd.reason, cd.accessFails ?? 0)) credentialFault = cd
       const coolMs = Math.max(0, cd.until - now)
       // A model is usable NOW only if it is neither cooling NOR out of its daily request budget. A PerDay 429
       // exhausts a model's budget WITHOUT arming a cooldown, so checking the cooldown alone would call an
@@ -1091,6 +1102,7 @@ export function getNewsDiagnostics(): NewsDiagnostics {
       ...(!pool.ledgerUnavailable ? { requestsToday: pool.used, tokensToday: pool.tokens } : {}),
       reqCap: pool.cap,
       ...retryDiagnostics(coolMs > 0 && soonestRetry ? soonestRetry : { until: 0, fails: 0 }, now, 'GEMINI_API_KEY'),
+      ...(credentialFault ? { credentialRejected: true, keyEnvVar: 'GEMINI_API_KEY' } : {}),
       ...providerWorkDiagnostics(cyclesToday, 'gemini'), lastCycleRequests: last?.gemini_requests,
     })
   }
@@ -1119,7 +1131,7 @@ export function getNewsDiagnostics(): NewsDiagnostics {
   // real data loss so far today = sum of each cycle's dropped_at_cap (backlog overran the cap). Restart-safe
   // (read from the firehose on disk), same today-window as the read/kept/dropped totals.
   const lostToday = cyclesToday.reduce((s, c) => s + (typeof c.dropped_at_cap === 'number' ? c.dropped_at_cap : 0), 0)
-  // the age boundary's twin of lostToday: items retired unscored for outliving the wire's own 2-day window.
+  // the age boundary's twin of lostToday: items retired unscored for waiting out the backlog age bound.
   // Counted separately because the two losses have different fixes — the cap wants a bigger cap, the age
   // bound wants more scoring capacity — and a single merged number would hide which one is actually biting.
   const retiredToday = cyclesToday.reduce((s, c) => s + (typeof c.backlog_expired === 'number' ? c.backlog_expired : 0), 0)
