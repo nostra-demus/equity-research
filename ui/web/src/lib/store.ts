@@ -3,7 +3,7 @@ import { api, ensureMode, EXACT_DECISION_LAUNCH_CONTRACT, isStatic, snapshotGene
 import type { ArchiveQuery, FeedFacets, SearchCursor } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
 import { moduleLabel, preferRunRoot, resolveVerdict } from './format'
-import { coerceViewForWebgl, normalizeStoredView, type ResearchView } from './researchView'
+import { coerceViewForWebgl, isPersistableView, normalizeStoredView, type ResearchView } from './researchView'
 import type { WatchRowInput, WatchlistRead } from './types'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeCompilerHealth, ThemeDetail, ThemeBrief, ThemeFormationQueue, ThemeRemoval } from './themes'
@@ -1749,7 +1749,9 @@ export const useStore = create<State>((set, get) => ({
   // the morph target, which the scene animates as one continuous wrap/unwrap. No renderer swap.
   setResearchView: (v) => {
     if (v === 'globe' && !get().webglOK) return // never strand into a view WebGL can't render
-    try { localStorage.setItem(VIEW_KEY, v) } catch {}
+    // The watchlist is a destination, not a home — see isPersistableView. Selecting it leaves the
+    // remembered stage view alone, so a reload returns you to the constellation or globe you were on.
+    try { if (isPersistableView(v)) localStorage.setItem(VIEW_KEY, v) } catch {}
     set({ researchView: v })
   },
 

@@ -504,6 +504,13 @@ function buildTimelineJ(schedule, reviews, today) {
  * kept deliberately thin — membership and the archive fold only — so the two paths cannot disagree about
  * anything a reader would act on.
  */
+/** sizing.json's next_review is PROSE ("2026-10-08 (90d checkpoint; …)"). The server pulls the date out
+ *  of it; the snapshot must do the same or the showcase renders a paragraph in a date column. */
+function reviewDateFromText(text) {
+  const m = String(text || '').match(/\d{4}-\d{2}-\d{2}/)
+  return m ? m[0] : null
+}
+
 function buildWatchlist(calls) {
   const dir = path.join(REPO, 'watchlist', 'entries')
   const entries = []
@@ -552,14 +559,17 @@ function buildWatchlist(calls) {
     const row = {
       listing_key: key, ticker: t, company_name: c.company ?? null, currency: c.currency ?? null, exchange: null,
       origin: e ? 'both' : 'engine', entry_id: e ? e.entry_id : null, why: e ? e.why : '',
-      conviction: e ? e.conviction : null, review_date: (e && e.review_date) || w.next_review || null,
+      conviction: e ? e.conviction : null,
+      review_date: (e && e.review_date) || reviewDateFromText(w.next_review) || w.next_review || null,
       tags: e ? e.tags : [], triggers: e ? e.triggers : [], attachments: e ? e.attachments : [],
       engine: { run_root: c.run_root, decision: c.decision ?? null, decision_date: c.decision_date ?? null,
         size_in_trigger: w.size_in_trigger ?? null, next_review: w.next_review ?? null,
-        entry_price: c.entry_price ?? null, final_thesis_path: c.final_thesis_path ?? null, fingerprint: '' },
+        entry_price: c.entry_price ?? null, final_thesis_path: c.final_thesis_path ?? null, fingerprint: '',
+        next_review_text: w.next_review ?? null },
       resurfaced: false, archive: e ? e.archive : null,
-      quote: null, quote_reason: null, evals: [], state: 'watching',
+      quote: null, quote_reason: null, evals: [], state: 'watching', nearest_gap_pct: null,
       run_root: c.run_root, final_thesis_path: c.final_thesis_path ?? null,
+      added_at: e ? e.created_at : null, updated_at: e ? e.updated_at : null, engine_since: c.decision_date ?? null,
     }
     ;(row.archive ? archived : rows).push(row)
   }
@@ -569,7 +579,9 @@ function buildWatchlist(calls) {
       currency: e.listing.currency, exchange: e.listing.exchange, origin: 'manual', entry_id: e.entry_id,
       why: e.why, conviction: e.conviction, review_date: e.review_date, tags: e.tags, triggers: e.triggers,
       attachments: e.attachments, engine: null, resurfaced: false, archive: e.archive,
-      quote: null, quote_reason: null, evals: [], state: 'watching', run_root: null, final_thesis_path: null,
+      quote: null, quote_reason: null, evals: [], state: 'watching', nearest_gap_pct: null,
+      run_root: null, final_thesis_path: null,
+      added_at: e.created_at ?? null, updated_at: e.updated_at ?? null, engine_since: null,
     }
     ;(row.archive ? archived : rows).push(row)
   }

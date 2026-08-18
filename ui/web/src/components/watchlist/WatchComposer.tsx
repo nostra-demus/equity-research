@@ -35,6 +35,8 @@ export function WatchComposer() {
   const driveEnabled = useStore((s) => s.driveEnabled)
   const close = useStore((s) => s.closeWatchComposer)
   const save = useStore((s) => s.saveWatchRow)
+  const detach = useStore((s) => s.detachWatchFile)
+  const watchlist = useStore((s) => s.watchlist)
   const prefill = composer?.prefill ?? null
 
   const [ticker, setTicker] = useState(prefill?.ticker ?? '')
@@ -156,6 +158,12 @@ export function WatchComposer() {
       .sort((a, b) => Number(b.ticker.startsWith(q)) - Number(a.ticker.startsWith(q)) || a.ticker.localeCompare(b.ticker))
       .slice(0, 5)
   }, [tickers, query])
+
+  // What is already attached, as opposed to what is queued for upload. Without this the composer showed
+  // a file the moment you picked it and then never again, and detaching one was impossible.
+  const existing = composer?.entryId
+    ? ([...(watchlist?.rows ?? []), ...(watchlist?.archived ?? [])].find((r) => r.entry_id === composer.entryId)?.attachments ?? [])
+    : []
 
   const trgCtx = { currency: currency || '', reference, today: todayISO() }
 
@@ -342,6 +350,17 @@ export function WatchComposer() {
               Everything else on this row saves normally.
             </div>
           )}
+          {existing.map((a) => (
+            <div key={a.attachment_id} className="wlc__file">
+              <a href={api.watchAttachmentUrl(composer!.entryId!, a.attachment_id)} target="_blank" rel="noreferrer">{a.filename}</a>
+              <span className="wlc__filesize">{Math.round(a.bytes / 1024)} KB · {a.added_at.slice(0, 10)}</span>
+              <button
+                className="btn btn--mini btn--danger"
+                title={`Remove ${a.filename} from this row`}
+                onClick={() => void detach(composer!.entryId!, a.attachment_id)}
+              >✕</button>
+            </div>
+          ))}
           {files.map((f, i) => (
             <div key={`${f.name}-${i}`} className="wlc__file">
               <span>{f.name}</span>

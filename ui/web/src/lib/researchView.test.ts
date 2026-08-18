@@ -4,17 +4,25 @@
 // the ones the old code got wrong: a stored 'watchlist' surviving a reload, and surviving a browser with
 // no WebGL. Run: npx tsx src/lib/researchView.test.ts
 import assert from 'node:assert/strict'
-import { coerceViewForWebgl, effectiveResearchView, normalizeStoredView } from './researchView'
+import { coerceViewForWebgl, effectiveResearchView, isPersistableView, normalizeStoredView } from './researchView'
 
 let passed = 0
 function check(name: string, fn: () => void): void {
   try { fn(); passed++; console.log('  ok ', name) } catch (e) { console.error('  FAIL', name); console.error('   ', e); process.exitCode = 1 }
 }
 
-check('every known view round-trips through storage', () => {
+check('the two stage views round-trip through storage', () => {
   assert.equal(normalizeStoredView('constellation'), 'constellation')
   assert.equal(normalizeStoredView('globe'), 'globe')
-  assert.equal(normalizeStoredView('watchlist'), 'watchlist', 'the bug this replaces: watchlist became globe on reload')
+})
+
+check('the watchlist is never restored as a landing view', () => {
+  // it is a destination, not a home — restoring it made a list the app's home screen for anyone who
+  // opened it once, instead of the company they were actually working on
+  assert.equal(normalizeStoredView('watchlist'), 'constellation')
+  assert.equal(isPersistableView('watchlist'), false, 'so it is never written in the first place')
+  assert.equal(isPersistableView('constellation'), true)
+  assert.equal(isPersistableView('globe'), true)
 })
 
 check('anything unrecognised falls back to the globe default', () => {

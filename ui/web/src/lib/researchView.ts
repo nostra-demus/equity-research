@@ -14,9 +14,23 @@ export type ResearchView = 'constellation' | 'globe' | 'watchlist'
 
 const VIEWS: readonly ResearchView[] = ['constellation', 'globe', 'watchlist']
 
-/** An allow-list, not a two-way guess. Anything unrecognised falls back to the globe default. */
+/**
+ * An allow-list, not a two-way guess.
+ *
+ * The watchlist is deliberately NOT restorable as a landing view. It is a place you go — a
+ * cross-company list — where the stage is where you work on the company you have selected. Restoring it
+ * means every reload drops you into a list instead of the thing you were looking at, and it quietly
+ * became the app's home screen for anyone who visited it once. A stored watchlist resolves to the
+ * constellation; the globe stays the default for anyone who has never chosen.
+ */
 export function normalizeStoredView(raw: unknown): ResearchView {
+  if (raw === 'watchlist') return 'constellation'
   return VIEWS.includes(raw as ResearchView) ? (raw as ResearchView) : 'globe'
+}
+
+/** Which views are worth remembering between visits. The watchlist is not one (see above). */
+export function isPersistableView(v: ResearchView): boolean {
+  return v !== 'watchlist'
 }
 
 /** Only the globe needs WebGL, so only the globe may be coerced away from it. */
