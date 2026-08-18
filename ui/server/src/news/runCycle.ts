@@ -255,6 +255,35 @@ export function stampDeferred(rows: NewsItem[], at: string): NewsItem[] {
   return rows.map((it) => (it?.deferred_at ? it : { ...it, deferred_at: at }))
 }
 
+/** Give rows written by the previous version a residence clock the first time this one sees them.
+ *
+ *  Without this, the very first load after deploy has no `deferred_at` anywhere, every row falls through to
+ *  the `found_at` fallback, and the transition reproduces exactly the bug the fallback exists to survive —
+ *  a gov-data row discovered yesterday but published three weeks ago is retired unscored on cycle one. The
+ *  fallback is for reading a legacy row, not for expiring one.
+ *
+ *  The cost is one bounded, one-time 48h extension for a pre-existing backlog. That is the right trade: the
+ *  wall this PR drains is capped by DEFERRED_CAP and ages out a day or two later anyway, whereas silently
+ *  deleting freshly-discovered items is the P1 this whole change exists to stop. */
+export function migrateDeferred(rows: NewsItem[], at: string): NewsItem[] {
+  return stampDeferred(rows, at)
+}
+
+/** Carry an existing residence stamp across a source REDELIVERY. Overnight and weekend cycles routinely
+ *  re-serve an unscored item, and it arrives on the fresh path with no `deferred_at` — so without this the
+ *  item re-enters the backlog as a new arrival and its clock restarts every time the source repeats it,
+ *  which is precisely how an item outlives an age bound forever. Keyed on `event_id`, the dedup identity. */
+export function preserveResidence(fresh: NewsItem[], backlog: NewsItem[]): NewsItem[] {
+  if (!backlog.length) return fresh
+  const held = new Map<string, string>()
+  for (const b of backlog) if (b?.event_id && b.deferred_at) held.set(b.event_id, b.deferred_at)
+  if (!held.size) return fresh
+  return fresh.map((f) => {
+    const prior = f?.event_id ? held.get(f.event_id) : undefined
+    return prior && !f.deferred_at ? { ...f, deferred_at: prior } : f
+  })
+}
+
 /**
  * Order the triage queue so a deep backlog can NEVER starve the items fetched THIS cycle.
  *
@@ -596,10 +625,15 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // 2. NORMALIZE + FILTER + DEDUP — plus the previous cycle's deferred (unscored) spillover
   const seen = SeenCache.load(stateDir)
   const ledgerIds = loadLedgerEventIds(path.join(repoRoot, 'screener', 'ledger', 'events.ndjson'))
-  const fresh = normalizeAndFilter(raws, { ledgerEventIds: ledgerIds, seen, now })
+  // Migrate before anything reads a residence stamp: rows written by the previous version carry none, and
+  // reading them through the `found_at` fallback would expire them by publication date — the bug this
+  // replaced. Then carry each stamp across a source REDELIVERY, so an item a source keeps re-serving does
+  // not restart its clock every time it reappears on the fresh path.
+  const backlogRows = migrateDeferred(backlogSnapshot.items, ts)
+  const fresh = preserveResidence(normalizeAndFilter(raws, { ledgerEventIds: ledgerIds, seen, now }), backlogRows)
   const freshIds = new Set(fresh.map((i) => i.event_id))
   const nowDate = now()
-  const carried = backlogSnapshot.items.filter((d) => d?.event_id && !freshIds.has(d.event_id) && !seen.has(d.event_id))
+  const carried = backlogRows.filter((d) => d?.event_id && !freshIds.has(d.event_id) && !seen.has(d.event_id))
   // Retire the part of the backlog that can no longer reach the 2-day wire, BEFORE it competes for a slot.
   // Reported, never silent: an aged-out item is a real loss, exactly like the dropped_at_cap tail.
   const { live: requeued, expired: backlogExpired } = expireBacklog(carried, nowDate)
@@ -625,9 +659,12 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       backlog: cleared ? 0 : carried.length, backlog_cap: DEFERRED_CAP,
       ...(cleared ? {} : { deferred_write_failed: true }),
       // a cycle whose whole queue was the expired backlog still has to REPORT the retirement — this is
-      // precisely the cycle whose note would otherwise read "no new on-list items" over a real loss
-      ...(backlogExpired.length ? { backlog_expired: backlogExpired.length } : {}),
-      note: backlogExpired.length
+      // precisely the cycle whose note would otherwise read "no new on-list items" over a real loss.
+      // Counted only once the clear actually succeeded: if the write failed the rows are still on disk and
+      // will be re-loaded, re-expired and re-counted next cycle, so counting them now double-counts the
+      // same loss into retiredToday every cycle until the disk recovers.
+      ...(backlogExpired.length && cleared ? { backlog_expired: backlogExpired.length } : {}),
+      note: backlogExpired.length && cleared
         ? `no new on-list items · ${backlogExpired.length} backlog item${backlogExpired.length === 1 ? '' : 's'} RETIRED unscored — waited longer than ${Math.round(DEFERRED_MAX_AGE_MS / 3_600_000)}h behind the queue`
         : 'no new on-list items',
       ...(sources ? { sources } : {}),

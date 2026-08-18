@@ -16,7 +16,7 @@ import { analyzeArticle, coerceTriage, estimateTokens, parseRate, scoreToBand, t
 import { analyzeArticleGemini, geminiSchemaEnabled, TRIAGE_RESPONSE_SCHEMA, triageBatchGemini } from '../src/news/triage/gemini'
 import { appendFeedItems, readFeed } from '../src/news/feed'
 import { mergeInbox, revisionClockRegistryDiagnostics } from '../src/news/write-inbox'
-import { buildTriageQueue, expireBacklog, loadDeferred, runIngestCycle, stampDeferred, triageGroqTokenBound } from '../src/news/runCycle'
+import { buildTriageQueue, expireBacklog, loadDeferred, migrateDeferred, preserveResidence, runIngestCycle, stampDeferred, triageGroqTokenBound } from '../src/news/runCycle'
 import { anthropicDrainReady, backlogTrend, credentialRejected, CREDENTIAL_DEAD_AFTER_FAILS, drainBatchEst, geminiPoolProviderDayExhausted, getNewsDiagnostics, providerDrainUsable, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS, STATE_DIR } from '../src/config'
 import { createTheme } from '../src/news/themes/discover'
@@ -4560,6 +4560,35 @@ await check('expireBacklog: retires on RESIDENCE, not on when the source publish
   )
 })
 
+await check('migrateDeferred: the first load after deploy does NOT expire a legacy backlog by publication date', () => {
+  // The transition case. Rows written by the previous version have no deferred_at at all, so reading them
+  // through the found_at fallback reproduces exactly the bug the fallback exists to survive.
+  const legacy = [
+    queueItem({ event_id: 'EVT-old-news-new-to-us', found_at: '2026-08-06T00:00:00Z' }), // 21-day gov-data lookback
+    queueItem({ event_id: 'EVT-recent', found_at: '2026-08-16T09:00:00Z' }),
+  ]
+  const bare = expireBacklog(legacy, new Date('2026-08-16T10:00:00Z'), 48 * 3_600_000)
+  assert.deepEqual(bare.expired.map((i) => i.event_id), ['EVT-old-news-new-to-us'], 'unmigrated, the fallback retires it')
+  const migrated = migrateDeferred(legacy, '2026-08-16T10:00:00Z')
+  const after = expireBacklog(migrated, new Date('2026-08-16T10:00:00Z'), 48 * 3_600_000)
+  assert.deepEqual(after.expired, [], 'migrated, every legacy row gets one bounded residence window instead')
+  assert.deepEqual(after.live.map((i) => i.event_id), ['EVT-old-news-new-to-us', 'EVT-recent'])
+  // and the extension is one-time: 48h later they age out normally
+  const later = expireBacklog(migrated, new Date('2026-08-18T11:00:00Z'), 48 * 3_600_000)
+  assert.equal(later.expired.length, 2, 'the migration buys one window, not immunity')
+})
+
+await check('preserveResidence: a source redelivering an unscored item does not restart its clock', () => {
+  const backlog = [{ ...queueItem({ event_id: 'EVT-repeat' }), deferred_at: '2026-08-14T00:00:00Z' }]
+  const fresh = [queueItem({ event_id: 'EVT-repeat' }), queueItem({ event_id: 'EVT-genuinely-new' })]
+  const out = preserveResidence(fresh, backlog)
+  assert.equal(out[0].deferred_at, '2026-08-14T00:00:00Z', 'the redelivered item keeps the clock it already had')
+  assert.equal(out[1].deferred_at, undefined, 'a genuinely new item is untouched — it gets stamped when it defers')
+  // without this an overnight re-serve would refresh the stamp every cycle and the item would never age out
+  const { expired } = expireBacklog(stampDeferred(out, '2026-08-16T10:00:00Z'), new Date('2026-08-16T10:00:00Z'), 48 * 3_600_000)
+  assert.deepEqual(expired.map((i) => i.event_id), ['EVT-repeat'])
+})
+
 await check('expireBacklog: a re-deferred item keeps its original residence stamp — it cannot restart its clock', () => {
   const at = '2026-08-16T10:00:00Z'
   const rows = stampDeferred([
@@ -4572,13 +4601,15 @@ await check('expireBacklog: a re-deferred item keeps its original residence stam
   assert.deepEqual(expired.map((i) => i.event_id), ['EVT-waiting'], 'so it still ages out on schedule')
 })
 
-await check('runIngestCycle: a backlog past the wire\'s own window is retired unscored, counted, and named in the note', async () => {
+await check('runIngestCycle: a backlog that waited past the age bound is retired unscored, counted, and named in the note', async () => {
   resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
   const root = tmp(), state = tmp()
-  // 3 days of unscored backlog, exactly the shape the outage left behind
+  // 3 days of unscored backlog, exactly the shape the outage left behind. `deferred_at` is what the bound
+  // is measured on — items that genuinely SAT for three days, not merely items published three days ago.
+  // (A row with only `found_at` is a pre-deploy legacy row and is migrated, not expired — covered above.)
   fs.writeFileSync(path.join(state, 'news-deferred.json'), JSON.stringify([
-    { event_id: 'EVT-stale-1', headline: 'Newspaper advertisement for results', found_at: '2026-08-13T00:00:00Z', input_nature: 'exchange_announcement' },
-    { event_id: 'EVT-stale-2', headline: 'Newspaper advertisement for results', found_at: '2026-08-13T01:00:00Z', input_nature: 'exchange_announcement' },
+    { event_id: 'EVT-stale-1', headline: 'Newspaper advertisement for results', found_at: '2026-08-13T00:00:00Z', deferred_at: '2026-08-13T00:00:00Z', input_nature: 'exchange_announcement' },
+    { event_id: 'EVT-stale-2', headline: 'Newspaper advertisement for results', found_at: '2026-08-13T01:00:00Z', deferred_at: '2026-08-13T01:00:00Z', input_nature: 'exchange_announcement' },
   ]))
   const fetchFn = (async () => res({ articles: [] })) as unknown as typeof fetch
   const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000 } as any
