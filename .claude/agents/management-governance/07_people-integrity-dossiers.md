@@ -74,8 +74,12 @@ A bio, litigation note, or disclosure written in the company's home language is 
    **Boundary with `12` (do not run the company sweep twice).** The listco itself is NOT swept here — `12` owns the company-level legal/regulator sweep, and that boundary is unchanged. The same applies to the listco's former names and any predecessor ENTITY: you establish their IDENTITY and lineage facts (registry status, incorporation, previous names, founders, whether they failed, whether the business continued) because the lineage and phoenix tests need them, and you hand the resulting name list to `12`, which runs the canonical legal/enforcement sweep against each. Log what you ran and hand `12` your Sweep Log rows so it reuses them rather than re-querying — duplicate queries burn rate limits and produce two coverage logs that can disagree.
 14. **Run the lineage & phoenix test (A17-02, A17-03).** Did the predecessor fail? Did assets, brands, staff, address, products or customers continue into the current entity? On what disclosed basis and for what consideration? Two live entities trading the same brand is an unresolved ambiguity to flag — never assumed benign.
 15. **Grade each person** (Clean / Minor concerns / Material concerns / Disqualifying, per the Protocol) with the single decisive fact, then apply the **transitive-exposure floors** — hop-1 link to a Disqualifying-equivalent fact floors at Material; hop-1 to a Material-equivalent fact floors at Minor; a Disqualifying-equivalent fact on the founder/controller of a lineage or predecessor entity is hop-1-equivalent for the LISTCO. **Every exposure-derived grade states in the same sentence that the basis is the linkage, not a record against the person** (§3). Then compose the roll-up (A1-05) and the People & Network Integrity Score.
-16. **Reconcile the whole register against the filings (A17-08).** Everything discovery found should also appear in the RPT note, the subsidiary/associate list, the promoter-group disclosure, or the directors' declared other-directorships. Report the `independently discovered` count against the `filing-supplied` count — that delta IS the disclosure-integrity finding.
-17. **Write the Scope-Boundary Register and the Provenance block**, then the single highest-value next data request.
+16. **Reconcile the register against the filings using the A17-08 four-class test (A17-08).** Classify EVERY discovered subject as `not-disclosable` / `disclosable-and-disclosed` / `disclosable-and-omitted` / `obligation-unclear` per Section 4 — do not assume a discovered subject belongs in the filings, because most do not (a founder of a linked entity, a co-director, a charge-holder, an unrelated past directorship and an uncorroborated address lead carry no disclosure obligation at all). **Only `disclosable-and-omitted` is a finding**, and it names the obligation it breaches. Report `{n} independently discovered` as a COVERAGE statistic and `{n} disclosable-and-omitted` as the finding — the two are different numbers and are labelled as such.
+17. **Predecessor legal facts you handed to `12` still bind your grade (Hard Rule).** You hand the predecessor / former-name list to `12` for the canonical legal sweep (step 13), but you grade the network — and `99` carries YOUR score rather than re-deriving it. So a Material-or-worse fact that only `12` finds against a predecessor must not be stranded. Do one of these, and say which:
+   - **Run it yourself before grading** where the lineage read needs it: an insolvency-register and securities-regulator check on the predecessor is cheap, in scope for the phoenix test, and is logged once and reused by `12`; or
+   - **Grade provisionally and mark the subject `pending-12-reconciliation`** in the Discovery Register and `entity_network.json`, stating the grade is provisional on `12`'s predecessor sweep. The synthesis (`99`) then re-applies the transitive-exposure floors and the banded RF-NET-003 cap on `12`'s result before publishing the score.
+   Never let a predecessor fact land in `12`'s register alone: an exposure whose lineage basis exists in this module but whose adverse fact was found next door is the exact hand-off gap the module is built to close.
+18. **Write the Scope-Boundary Register and the Provenance block**, then the single highest-value next data request.
 
 # WHAT TO READ (priority for this agent)
 
@@ -117,7 +121,7 @@ Below the table, state in one line each: which Phase-1 recipes ran (D-1 … D-5,
 | Registered address → co-address cluster found? | | |
 | Self-disclosed lineage language found on own site | | |
 
-A17-02 / A17-04 / A17-05 are answered from this block. A mismatch between the claimed founding year and the incorporation date is a finding, not a rounding difference.
+A17-02 / A17-04 / A17-05 are answered from this block. A mismatch between the claimed founding year and the incorporation date is a **LEAD that obliges you to find and verify the predecessor** — it is not itself a finding. A newly incorporated subsidiary accurately citing its disclosed group's founding year reconciles cleanly and is Green. It becomes adverse (A17-02, RF-NET-001) only where the resulting lineage stays **unexplained or undisclosed** after you have looked.
 
 ## 1. Person Register & Grades (the roll-up)
 
@@ -181,14 +185,14 @@ One subsection per non-listco entity at Tier E-A or E-B, in register order. Enti
 | **Transacts with the listco?** | Yes / No / Unknown | |
 | **Named in the listco's RPT / subsidiary / promoter-group disclosures?** | Yes / No | |
 
-Then two sentences: what this entity is, and why it matters to the listco. A "transacts = Yes, disclosed = No" row is RF-PPL-005 / RF-NET-005 and goes to `09` and the synthesis.
+Then two sentences: what this entity is, and why it matters to the listco. A "transacts = Yes, disclosed = No" row is classified under the A17-08 four-class test first: where the transaction is material and the entity falls under a named disclosure obligation, it is `disclosable-and-omitted` → RF-PPL-005 / RF-NET-005, routed to `09` and the synthesis. Where no obligation is engaged, record it and say so — an entity we found is not thereby an entity that should have been disclosed.
 
 ## 3. Network Map (handoff to 09)
 
 | Subject | Type | Hop | Linked person / entity | Relationship | Discovery method | Registry status | Transacts with listco? | In RPT disclosures? | Exposure basis (if any) | Source |
 |---|---|---:|---|---|---|---|---|---|---|---|
 
-Any "Yes + No" row (transacts, undisclosed) is a Red finding (RF-PPL-005) and is called out to `09` and the synthesis. Uncorroborated co-address entities appear here as **leads**, labelled as such — never as relationships.
+A "Yes + No" row (transacts, undisclosed) is a Red finding (RF-PPL-005) **once the A17-08 test classifies it `disclosable-and-omitted`** — i.e. the transaction is material and a named obligation is engaged; it is then called out to `09` and the synthesis. Rows that classify `not-disclosable` are recorded, not flagged. Uncorroborated co-address entities appear here as **leads**, labelled as such — never as relationships.
 
 ## 3B. Lineage & Phoenix Read (A17-02, A17-03)
 
@@ -217,7 +221,7 @@ Then state the counts: {n} filing-supplied, {n} independently discovered, of whi
 | # | Subject | Why it is in scope | Why it was not swept | What would close it |
 |---|---|---|---|---|
 
-"A Disqualifying-equivalent finding was already established elsewhere, so further expansion would not change the decision" is a legitimate reason — and must be written here, never acted on silently. If nothing was left unexplored, say "No unexpanded branches — the loop terminated on {rule}."
+Permitted reasons are exactly those in MODULE_RULES: `budget` (hop cap or breadth budget), `unreachable database`, `branch closed` (a Disqualifying-equivalent finding settled THAT branch — it never justifies closing the others), and `decision settled`, which is available ONLY where a direct finding has actually failed the target company's Non-Negotiable Gate. **A finding "established elsewhere" — on an independent director's branch, or on a linked entity — is not a reason to leave the controller/KMP network unswept**, because under the transitive-exposure rule it does not fail the target's gate and settles nothing about the part that decides the rating. Every reason is written here, never acted on silently. If nothing was left unexplored, say "No unexpanded branches — the loop terminated on {rule}."
 
 ## 6. Provenance & Next Data Request
 
@@ -301,7 +305,7 @@ Permitted values:
 - `provenance` ∈ `filing-supplied` · `independently_discovered`
 - `tier` ∈ `A` · `B` · `C` · `E-A` · `E-B` · `E-C`
 - `transacts_with_listco`, `in_rpt_disclosures` — `true`, `false`, or `null` where genuinely unknown (**`null` means unknown, never "no"**)
-- `sweep_status` ∈ `full` · `refresh` · `scoped` · `not_run`
+- `sweep_status` ∈ `full` · `refresh` · `scoped` · `not_run` · `pending-12-reconciliation` (a lineage subject whose legal sweep `12` owns — the grade is provisional until `99` re-applies the exposure floors on `12`'s result)
 - `exposure_basis` — empty string where the grade rests on the subject's own record; otherwise the linkage in one clause
 
 Then emit a fourth fenced JSON block labeled `discovery_summary.json`:
@@ -320,7 +324,8 @@ Then apply the canonical **Hard Self-Check** in MODULE_RULES before returning.
 
 - [ ] **The Discovery Register was written BEFORE sweeping**, and every subject on it carries an enumerated discovery method — no free text, no blanks.
 - [ ] **Phase 1 ran in full**, including the required fetch of the company's own About / History pages and the founding-year-vs-incorporation test.
-- [ ] **Phase 2 (the founder loop) ran on every entity Phase 1 surfaced** — founders identified by name distinct from the current board, and swept as individuals even where the entity itself was clean.
+- [ ] **Phase 2 (the founder loop) ran on every CORROBORATED entity (Tier E-A / E-B)** — founders identified by name distinct from the current board, and swept as individuals even where the entity itself was clean. Uncorroborated E-C address leads were NOT founder-swept; any that escalated (second link found, or adverse hit) did enter Phase 2.
+- [ ] The **breadth budget** was applied in the stated priority order, and every overflow subject is on the Scope-Boundary Register with reason `breadth budget` — the limit used and the overflow count are stated.
 - [ ] The loop **terminated on a stated rule** (no new subject / hop cap / Disqualifying finding already established), and the rule is written in Section 0.
 - [ ] Every branch left unexpanded is **named** on the Scope-Boundary Register with its reason — nothing silently dropped (A17-09).
 - [ ] Every transitive-exposure grade **says in the same sentence that the basis is the linkage**, not a record against the person — and no live linkage was dropped because "nothing was found against them personally" (§3).

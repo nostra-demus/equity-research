@@ -273,6 +273,15 @@ Carry 07's register roll-up (never re-derive it):
 
 **Carry the Basis column verbatim (CLAUDE.md §3).** A grade floored by transitive exposure travels with its qualifier at every layer: restate it as *"{grade} — no adverse record against this person; the grade reflects {the linkage}"*, never as *"{person} is linked to fraud"*. A qualifier dropped between 07 and here is the exact defect §3 exists to prevent. Equally, never drop a live linkage because nothing was found against the person personally.
 
+### Predecessor reconciliation (Hard Rule — run BEFORE reporting the score)
+
+`07` grades the network, but `12` runs the canonical legal sweep on the listco's former names and predecessor entities. Any subject `07` marked `pending-12-reconciliation` must be closed here before its score is published:
+
+| Subject | 07's provisional grade | What 12's sweep found | Re-applied floor / cap | Final |
+|---|---|---|---|---|
+
+Where `12` found a Material-or-worse fact against a predecessor, re-apply the transitive-exposure floor and the banded RF-NET-003 cap yourself — **carrying the lineage basis with it** (§3: the exposure is via the company's own lineage claim, not a record against any person). Where `12` found nothing, close the row as resolved-clean and say the sweep ran. If `12` did not run, the provisional grades stay provisional and the coverage cap binds — never promote a provisional grade to clean because the confirming sweep is missing.
+
 ### Network & lineage read (from 07's Sections 0, 3, 3B, 5)
 
 | Item | Value |
@@ -282,7 +291,9 @@ Carry 07's register roll-up (never re-derive it):
 | Entities swept (E-A / E-B / E-C) | |
 | Predecessor / lineage entity found? | |
 | Brands traded under but not owned by the listco? | |
-| Subjects filing-supplied vs independently discovered | {n} / {n} |
+| Subjects filing-supplied vs independently discovered *(coverage statistic — NOT a finding)* | {n} / {n} |
+| Subjects classified `disclosable-and-omitted` *(this is the A17-08 finding)* | {n} |
+| Breadth budget: limit used / subjects overflowed to Scope-Boundary | {n} / {n} |
 | Unexpanded branches declared on the Scope-Boundary Register | {n} |
 | RF-NET flags fired | |
 
