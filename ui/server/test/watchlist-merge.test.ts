@@ -220,4 +220,34 @@ await check('a quote is matched to its own listing, never another currency of th
   assert.equal(byCur.get('INR'), 604.2, 'each row kept its OWN listing price')
 })
 
+await check('a manual row archived BEFORE the engine covered it comes back when the engine speaks', () => {
+  // archived while nothing engine-side existed, so there was no assertion to fingerprint
+  const e = entry({
+    ticker: 'META', currency: 'USD',
+    archive: { at: '2026-08-01T00:00:00Z', by: 'me', reason: 'too rich', muted_fingerprint: null, mute_scope: 'assertion' },
+  })
+  // nothing from the engine yet -> stays archived
+  const before = mergeWatchlist({ entries: [e], engine: [], today: TODAY })
+  assert.equal(before.rows.length, 0)
+  assert.equal(before.archived.length, 1)
+
+  // a research run now produces a call on it -> the one event most worth seeing must not stay hidden
+  const eng = readEngineWatch([call({ ticker: 'META', run_root: 'analyses/META_2026-08-20' })], deco([{ ticker: 'META' }]))
+  const after = mergeWatchlist({ entries: [e], engine: eng, today: TODAY })
+  assert.equal(after.archived.length, 0)
+  assert.equal(after.rows.length, 1)
+  assert.equal(after.rows[0].resurfaced, true, 'null fingerprint vs a real one IS a material change')
+})
+
+await check('an explicit listing mute still outranks a first engine call', () => {
+  const e = entry({
+    ticker: 'META', currency: 'USD',
+    archive: { at: '2026-08-01T00:00:00Z', by: 'me', reason: 'never again', muted_fingerprint: null, mute_scope: 'listing' },
+  })
+  const eng = readEngineWatch([call({ ticker: 'META', run_root: 'analyses/META_2026-08-20' })], deco([{ ticker: 'META' }]))
+  const { rows, archived } = mergeWatchlist({ entries: [e], engine: eng, today: TODAY })
+  assert.equal(rows.length, 0, 'a deliberate permanent mute is still honoured')
+  assert.equal(archived.length, 1)
+})
+
 console.log(`\nwatchlist-merge.test.ts: ${passed} passed`)

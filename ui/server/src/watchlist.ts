@@ -623,8 +623,12 @@ export function mergeWatchlist(input: MergeInput): { rows: MergedWatchRow[]; arc
     const arch = entry?.archive ?? null
     // Re-surface test: the archive muted a specific assertion; if the engine now says something else,
     // the mute no longer applies to what is on screen.
+    // A manual row archived while the engine had nothing to say records muted_fingerprint: null. The
+    // truthiness check that used to sit here meant such a row could NEVER come back — so the moment the
+    // engine started covering that name, the one event most worth seeing was the one guaranteed to stay
+    // hidden. null !== fingerprint is itself a material change, which is exactly the §8 case.
     const resurfaced = !!(
-      arch && engine && arch.mute_scope === 'assertion' && arch.muted_fingerprint && arch.muted_fingerprint !== engine.fingerprint
+      arch && engine && arch.mute_scope === 'assertion' && arch.muted_fingerprint !== engine.fingerprint
     )
     return {
       listing_key: listing.listing_key,

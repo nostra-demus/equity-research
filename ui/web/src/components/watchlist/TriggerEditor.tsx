@@ -18,10 +18,21 @@ export const TRIGGER_LABEL: Record<DraftTrigger['kind'], string> = {
   event_date: 'Event or date',
 }
 
-export function newTrigger(kind: DraftTrigger['kind'], ctx: { currency: string; reference: number | null; today: string }): DraftTrigger {
+export function newTrigger(
+  kind: DraftTrigger['kind'],
+  ctx: {
+    currency: string
+    reference: number | null
+    today: string
+    /** The date the reference price is actually AS-OF. A last close from Friday added on Monday is a
+     *  Friday figure; stamping it "today" is a §5 defect — a number carrying a date it is not as-of. */
+    referenceAsOf?: string | null
+    referenceSource?: string
+  },
+): DraftTrigger {
   if (kind === 'price_level') return { kind, direction: 'at_or_below', level: ctx.reference ?? 0, currency: ctx.currency }
   if (kind === 'pct_drop') {
-    return { kind, drop_pct: 15, reference: { value: ctx.reference ?? 0, currency: ctx.currency, as_of: ctx.today, source: 'price now' } }
+    return { kind, drop_pct: 15, reference: { value: ctx.reference ?? 0, currency: ctx.currency, as_of: ctx.referenceAsOf ?? ctx.today, source: ctx.referenceSource ?? 'price now' } }
   }
   if (kind === 'valuation_mos') {
     // Seeded from the current price so the field starts at a real number you edit down, never at 0 —

@@ -44,6 +44,8 @@ export function WatchComposer() {
   const [currency, setCurrency] = useState(prefill?.currency ?? '')
   const [exchange, setExchange] = useState(prefill?.exchange ?? '')
   const [reference, setReference] = useState<number | null>(null)
+  const [referenceAsOf, setReferenceAsOf] = useState<string | null>(null)
+  const [referenceSource, setReferenceSource] = useState<string>('price now')
   const [why, setWhy] = useState(prefill?.why ?? '')
   const [conviction, setConviction] = useState<'high' | 'medium' | 'low' | null>(prefill?.conviction ?? null)
   const [reviewDate, setReviewDate] = useState(prefill?.review_date ?? '')
@@ -73,6 +75,8 @@ export function WatchComposer() {
     setCurrency(prefill?.currency ?? '')
     setExchange(prefill?.exchange ?? '')
     setReference(null)
+    setReferenceAsOf(null)
+    setReferenceSource('price now')
     setWhy(prefill?.why ?? '')
     setConviction(prefill?.conviction ?? null)
     setReviewDate(prefill?.review_date ?? '')
@@ -115,6 +119,10 @@ export function WatchComposer() {
     setExchange(c.exchange ?? '')
     setCurrency(c.currency ?? '')
     setReference(c.price)
+    // Carry the quote's OWN date and what kind of price it is. A settled close is not "the price now",
+    // and a reference frozen under the wrong date can never be checked back against anything.
+    setReferenceAsOf(c.as_of ? c.as_of.slice(0, 10) : null)
+    setReferenceSource(c.as_of_is_close ? 'last close' : 'price now')
     setCandidates(null)
   }
 
@@ -165,7 +173,7 @@ export function WatchComposer() {
     ? ([...(watchlist?.rows ?? []), ...(watchlist?.archived ?? [])].find((r) => r.entry_id === composer.entryId)?.attachments ?? [])
     : []
 
-  const trgCtx = { currency: currency || '', reference, today: todayISO() }
+  const trgCtx = { currency: currency || '', reference, today: todayISO(), referenceAsOf, referenceSource }
 
   return (
     <motion.div

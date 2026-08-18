@@ -22,14 +22,14 @@ import { assertClaudeCli, cancel, cancelAll, cancelSubject, creditCheck, decideR
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed, applyActiveWeightsTo } from './news/feed'
 import { getPulse } from './news/commodity-pulse'
-import { callVsLive, getQuotes, resolveUnits } from './news/equity-quote'
+import { callVsLive, getQuotes, resolveUnits, symbolCandidates } from './news/equity-quote'
 import { getCalendar } from './news/events-calendar'
 import type { FeedItem } from './news/types'
 import { matchesFeedFilters, parseFeedFilterQuery, explainFeedFilterMatch, hasAnyFilter, type FeedFilterQuery } from './news/feed-filter'
 import { computeFacets } from './news/facets'
 import { searchSymbolsEnriched } from './news/symbology'
 import { fetchCnbcRows } from './news/cnbc-quote'
-import { cleanTicker } from './news/symbology'
+import { baseTicker, cleanTicker } from './news/symbology'
 import { getIntensity, INTENSITY_WINDOWS, type IntensityWindow } from './news/intensity'
 import { getRankWeights, defaultRankWeights, saveRankWeights, resetRankWeights, rankWeightsCustomised, type RankWeights } from './news/rank-weights'
 import { buildSourcesReport } from './news/source-health'
@@ -2557,14 +2557,22 @@ app.get('/api/watchlist/resolve', { config: { rateLimit: { max: 120, timeWindow:
     return { query: q, candidates: [], reason: 'directory_unavailable' }
   }
   if (!groups.length) return { query: q, candidates: [], reason: 'no_match' }
+  // The directory speaks Yahoo ("NHY.OL", exchange "Oslo"); the quote feed speaks CNBC ("NHY-NO"). Asking
+  // the feed for a Yahoo symbol returns nothing, which showed up as a price-less row for every non-US
+  // listing — and this engine's book is majority non-US. Translate the same way the quote lane does:
+  // strip the venue suffix, then re-attach the country the exchange implies.
+  const cnbcFor = (g: { symbol: string; exchange: string }): string[] =>
+    symbolCandidates({ ticker: baseTicker(g.symbol), exchange: g.exchange, currency: 'X' })
   let rows: Map<string, any> | null = null
   try {
-    rows = await fetchCnbcRows(fetch, groups.map((g) => g.symbol), NEWS.quoteTimeoutMs)
+    const wanted = [...new Set(groups.flatMap(cnbcFor))]
+    rows = await fetchCnbcRows(fetch, wanted, NEWS.quoteTimeoutMs)
   } catch {
     rows = null
   }
   const candidates = groups.map((g) => {
-    const r = rows?.get(g.symbol)
+    // first candidate the feed actually priced — most specific first, exactly as the quote lane orders them
+    const r = cnbcFor(g).map((sym) => rows?.get(sym)).find((row) => row && Number.isFinite(row.last))
     // Normalise the minor unit HERE. The feed returns "GBp" (pence) verbatim, and makeListing/normCurrency
     // upper-case it to "GBP" — so handing the raw pence price to the composer would prefill a trigger
     // level 100x off, the exact unit error this whole lane exists to prevent.
