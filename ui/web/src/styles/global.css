@@ -3356,12 +3356,15 @@ a { color: inherit; }
 /* The list is the app's standard .atable (sticky head, row hover) — the same table the activity log and
    the screener's candidates use. It was briefly a bespoke grid; that was a needless second table style. */
 .wl__table { table-layout: fixed; }
-.wl__table th:nth-child(1), .wl__table td:nth-child(1) { width: 156px; }
-.wl__table th:nth-child(2), .wl__table td:nth-child(2) { width: 132px; }
-.wl__table th:nth-child(4), .wl__table td:nth-child(4) { width: 128px; }
-.wl__table th:nth-child(5), .wl__table td:nth-child(5) { width: 92px; }
-.wl__table th:nth-child(6), .wl__table td:nth-child(6) { width: 84px; }
-.wl__table th:nth-child(7), .wl__table td:nth-child(7) { width: 108px; }
+/* Widths measured from the widest real content, not guessed. Cells carry 20px of horizontal padding, so
+   each track is (content it must hold + 20). Undersizing the actions track is what let the button row
+   spill LEFT across the review date. */
+.wl__table th:nth-child(1), .wl__table td:nth-child(1) { width: 168px; }  /* ticker + company line */
+.wl__table th:nth-child(2), .wl__table td:nth-child(2) { width: 126px; }  /* "Short Candidate" is the longest verdict */
+.wl__table th:nth-child(4), .wl__table td:nth-child(4) { width: 148px; }  /* "price now · delayed" needs 117 */
+.wl__table th:nth-child(5), .wl__table td:nth-child(5) { width: 84px; }
+.wl__table th:nth-child(6), .wl__table td:nth-child(6) { width: 78px; }
+.wl__table th:nth-child(7), .wl__table td:nth-child(7) { width: 164px; } /* Thesis + Edit + ⋯ needs 139 */
 .wl__table td { vertical-align: top; }
 .wl__tr--met { background: var(--accent-wash); box-shadow: inset 2px 0 0 var(--accent); }
 .wl__tr--due { box-shadow: inset 2px 0 0 var(--text-muted); }
@@ -3404,7 +3407,7 @@ a { color: inherit; }
 .wl__gap--none { color: var(--text-faint); }
 
 /* One primary action per row, everything else in a menu — the density .atable is built for. */
-.wl__act { position: relative; display: flex; gap: 4px; justify-content: flex-end; }
+.wl__act { position: relative; display: flex; gap: 4px; justify-content: flex-end; white-space: nowrap; }
 .wl__act .btn { height: 24px; padding: 0 8px; font-size: 11px; }
 .wl__more { font-size: 13px; line-height: 1; padding: 0 7px; }
 .wl__menu {

@@ -69,7 +69,7 @@ export function WatchRowCard({ row }: { row: Row }) {
           {/* a mark, not a column: origin only distinguishes anything once you have your own names */}
           {row.origin !== 'engine' && <span className="wl__mine" aria-label="you added this">·</span>}
         </div>
-        <div className="wl__co">{row.company_name || '—'}</div>
+        <div className="wl__co" title={row.company_name ?? undefined}>{row.company_name || '—'}</div>
       </td>
 
       <td>
