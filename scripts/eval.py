@@ -4700,6 +4700,81 @@ for jf,subs in FRAMEWORK_CONTRACTS.items():
     if jmiss: suite_pass=False
     jchecks.append({"file":jf,"status":("PASS" if not jmiss else "FAIL"),"missing":jmiss})
 
+# AZ — governance flag/cap correspondence (structural, fixture-free).
+#   The management-governance module encodes its severity ladder in FOUR places that must agree:
+#   the Red-Flag ID Registry (the trigger), the Transitive-exposure grading rule (the grade floor),
+#   the Score Cap Rules (the numeric cap), and agent 99's Score Cap Application table (where the cap
+#   is actually applied). A flag whose trigger fires but whose cap row does not exist — or exists in
+#   MODULE_RULES but was never mirrored into 99 — is silently unenforced: the module reports the red
+#   flag and publishes an uncapped score. That is not a hypothetical; every one of these was a real
+#   review finding on the network-discovery change, caught by hand one at a time.
+#   Scope: the RF-NET family (the flags this contract introduced) plus the discovery termination
+#   enum. Deliberately NOT retrofitted to the legacy registry, which carries pre-existing orphans
+#   that are out of scope here and would turn this check into noise.
+def check_az_governance_flag_cap_correspondence():
+    import re as _re, glob as _glob
+    D = ".claude/agents/management-governance"
+    fails = []
+    try:
+        MR  = open(f"{D}/MODULE_RULES.md", encoding="utf-8").read()
+        S99 = open(f"{D}/99_management-governance-synthesis.md", encoding="utf-8").read()
+        A07 = open(f"{D}/07_people-integrity-dossiers.md", encoding="utf-8").read()
+    except Exception as e:
+        return [f"unreadable module file: {str(e)[:80]}"]
+
+    def _expand(txt):
+        """Concrete ids plus range notation (RF-PPL-001…008) expanded to members."""
+        seen = set(_re.findall(r"RF-[A-Z]+-\d+", txt))
+        for fam, lo, hi in _re.findall(r"RF-([A-Z]+)-(\d+)\s*(?:…|\.\.\.|–)\s*(\d+)\b", txt):
+            for n in range(int(lo), int(hi) + 1):
+                seen.add(f"RF-{fam}-{n:03d}")
+        return seen
+
+    try:
+        reg  = MR[MR.index("### Red-Flag ID Registry"):MR.index("## Stewardship Verdict Categories")]
+        caps = MR[MR.index("## Score Cap Rules"):MR.index("## Cross-Module Inputs")]
+    except ValueError as e:
+        return [f"MODULE_RULES section anchor missing: {str(e)[:80]}"]
+
+    net_ids = [i for i in _re.findall(r"^\| (RF-NET-\d+) \|", reg, _re.M)]
+    if not net_ids:
+        return ["RF-NET family absent from the Red-Flag ID Registry"]
+
+    # (1) every RF-NET trigger has at least one Score Cap row
+    nocap = [i for i in net_ids if i not in caps]
+    if nocap:
+        fails.append(f"RF-NET ids with a trigger but no Score Cap row (silently unenforced): {nocap}")
+
+    # (2) every RF-NET cap row is mirrored into 99, which is where caps are applied
+    unmirrored = [i for i in net_ids if i in caps and i not in S99]
+    if unmirrored:
+        fails.append(f"RF-NET cap rows never mirrored into 99's Score Cap Application: {unmirrored}")
+
+    # (3) every RF-NET trigger is actually emitted by an owning agent
+    agents = "".join(open(f, encoding="utf-8").read()
+                     for f in sorted(_glob.glob(f"{D}/[0-9][0-9]_*.md")))
+    emitted = _expand(agents)
+    unemitted = [i for i in net_ids if i not in emitted]
+    if unemitted:
+        fails.append(f"RF-NET ids no agent emits (dead triggers): {unemitted}")
+
+    # (4) the discovery loop must offer no GLOBAL stop on a non-target finding. A linked-entity or
+    #     independent-director hit closes its own branch; only a target-gate failure stops the loop.
+    m = _re.search(r"`termination_rule` ∈ ([^—\n]+)", A07)
+    if not m:
+        fails.append("07 no longer declares a termination_rule enum")
+    else:
+        vals = set(_re.findall(r"`([a-z_]+)`", m.group(1)))
+        banned = vals & {"disqualifying_finding_established"}
+        if banned:
+            fails.append(f"termination_rule offers a global stop on a non-target finding: {sorted(banned)}")
+        if "target_gate_failed" not in vals:
+            fails.append("termination_rule lacks 'target_gate_failed' (the only legitimate global stop)")
+    return fails
+
+azfails = check_az_governance_flag_cap_correspondence()
+if azfails: suite_pass = False
+
 # AP — valuation-summary lever-sidecar integrity (GLOBAL scan of every committed sidecar, including partial
 # no-decision-record runs the per-run loop skips). Soft-presence + strict-validity; a sidecar whose scenario
 # levels contradict its own frozen decision_record HARD-FAILs the suite, because the cockpit Playground
@@ -4709,6 +4784,7 @@ if apfailures: suite_pass=False
 
 out={"schema_version":"1.0","generated_at":today,"scope":scope,"n_runs":len(results),
      "suite_pass":suite_pass,"runs":results,"source_contracts_s24":jchecks,
+     "governance_flag_cap_correspondence":{"pass":not azfails,"failures":azfails},
      "valuation_summary_integrity":{"checked":apchecked,"failures":[{"run":r,"violations":v} for r,v in apfailures]}}
 os.makedirs("analyses/eval",exist_ok=True)
 of=f"analyses/eval/{today}_eval_report.json"; k=2
@@ -4720,6 +4796,8 @@ for nm,r in results.items():
     status = "WARN" if r.get("warn_only") else ("PASS" if r["pass"] else "FAIL")
     note = " — incomplete run (no RUN_METADATA); not gating CI" if r.get("warn_only") else ""
     print(f"  {nm}: {status} ({r['decision']})", ("fails="+",".join(fails)) if fails else "", ("extras="+",".join(r['warn_nonschema_files'])) if r['warn_nonschema_files'] else "", note)
+print("  governance flag/cap correspondence (AZ: RF-NET trigger ↔ cap ↔ 99 ↔ agent):",
+      "PASS" if not azfails else "FAIL " + "; ".join(azfails))
 jfails=[j["file"] for j in jchecks if j["status"]=="FAIL"]
 print("  framework source contracts (J: §24 + catalyst + tiers):", "PASS" if not jfails else "FAIL "+";".join(jfails))
 for j in jchecks:

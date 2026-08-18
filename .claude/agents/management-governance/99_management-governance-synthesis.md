@@ -214,6 +214,12 @@ If specialists disagreed (e.g., good capital-allocation record but misaligned in
 | Hop-1 cross-link to an entity carrying a **Disqualifying-equivalent** fact — proven fraud, active debarment, sanctions, fugitive status (RF-NET-003) | | People & network integrity; Governance risk | PeopleNetworkIntegrity max 35; GovRisk floor 60; no rating above "Watchlist" | | | |
 | Hop-1 cross-link to an entity carrying a **Material-equivalent** fact — admitted CIRP/liquidation, live enforcement, credible fraud allegation (RF-NET-003) | | People & network integrity; Governance risk | PeopleNetworkIntegrity max 50; GovRisk floor 55; no rating above "Watchlist" | | | |
 | Discovery truncated with no Scope-Boundary declaration (RF-NET-006) | | Data quality; Confidence | DataQuality max 60; Confidence max 70 | | | |
+| Undisclosed corroborated address-cluster entity that transacts (RF-NET-005) | | Disclosure candor; Governance risk | Candor max 50; GovRisk floor 60 | | | |
+| Declared breadth overflow — named E-A/E-B subjects unswept because the 25/15 budget bound (A17-09, reason `breadth budget`) | | People & network integrity; Confidence | PeopleNetworkIntegrity max 70 (max 60 if the overflow includes a lineage/predecessor or Tier-A-controlled entity); Confidence max 80 | | | |
+| Core brands owned by a CONTROLLER-LINKED entity (RF-NET-004) | | RPT & leakage risk | RPTRisk floor 55 | | | |
+| Core brands owned outside the group with no disclosed licence terms, or no identifiable licence (RF-NET-004) | | RPT & leakage risk; Disclosure candor | RPTRisk floor 50; Candor max 65 | | | |
+| Core-brand licence in dispute or short-terminable while material revenue depends on it (RF-NET-004) | | RPT & leakage risk | RPTRisk floor 45; note to valuation as a durability dependency | | | |
+| Same marks in live use by an unrelated company (RF-NET-004) | | RPT & leakage risk; Disclosure candor | RPTRisk floor 45; Candor max 65 until explained | | | |
 | Undisclosed material litigation / related entity found (RF-CMP-001 / RF-PPL-005) | | Disclosure candor; Governance risk | Candor max 50; GovRisk floor 60 | | | |
 | Accounting-forensics battery red (RF-ACC-001 ≥3 components / RF-ACC-002) | | Accounting-forensics risk; Governance risk | ForensicsRisk floor 70; GovRisk floor 60 | | | |
 
@@ -280,7 +286,9 @@ Carry 07's register roll-up (never re-derive it):
 | Subject | 07's provisional grade | What 12's sweep found | Re-applied floor / cap | Final |
 |---|---|---|---|---|
 
-Where `12` found a Material-or-worse fact against a predecessor, re-apply the transitive-exposure floor and the banded RF-NET-003 cap yourself — **carrying the lineage basis with it** (§3: the exposure is via the company's own lineage claim, not a record against any person). Where `12` found nothing, close the row as resolved-clean and say the sweep ran. If `12` did not run, the provisional grades stay provisional and the coverage cap binds — never promote a provisional grade to clean because the confirming sweep is missing.
+Where `12` found a Material-or-worse fact against a predecessor, re-apply the transitive-exposure floor and the banded RF-NET-003 cap yourself — **carrying the lineage basis with it** (§3: the exposure is via the company's own lineage claim, not a record against any person).
+
+**Check the classification before you score it.** `12` separates `former_name_of_listco` (the SAME legal entity, renamed — its record is this company's record, scored directly in A9) from `predecessor_entity` (a DIFFERENT legal entity — lineage exposure only). A predecessor's old enforcement action must NOT be counted a second time as direct company enforcement under A9-01/A9-02, and must not be allowed to fire a Critical company-level gate: that would manufacture a gate failure against this company for something another company did. If `12`'s register does not make the split explicit, treat the fact as exposure (the conservative reading for the gate) and record the ambiguity. Where `12` found nothing, close the row as resolved-clean and say the sweep ran. If `12` did not run, the provisional grades stay provisional and the coverage cap binds — never promote a provisional grade to clean because the confirming sweep is missing.
 
 ### Network & lineage read (from 07's Sections 0, 3, 3B, 5)
 
@@ -344,7 +352,7 @@ Bullet list, no prose paragraphs. **Surface what the scores MEAN — do not rest
 Emit the consolidated exports as fenced code blocks, each labeled with its target filename, for the command to write to disk:
 - `governance_summary.json` — verdict, gate (PASS/FAIL + tripping fact), all specialist scores (old and new), Checklist Risk, Governance Score, Confidence-Adjusted Score, rating, red-flag counts, checklist coverage counts.
 - `governance_checklist.csv` — the assembled checklist (Section 2B): one row per registry item — `id,section,test,flag,finding,confidence,source,owner_agent`.
-- `people_register.csv` — one row per person from 5E: `name,identifier,role,grade,decisive_fact,coverage`.
+- `people_register.csv` — one row per person from 5E: `name,identifier,role,grade,grade_basis,decisive_fact,coverage`. **`grade_basis` is not optional**: it carries `own_record` or `exposure_via:{entity}`, and dropping it from the persisted sidecar is how a linkage-derived Material grade gets read downstream as an adverse record against a named individual (§3). The CSV is the artifact that outlives the run — the qualifier has to survive in it.
 - `governance_findings.csv` — the Consolidated Governance Findings (one row per finding, MODULE_RULES finding schema).
 - `red_flags.csv` — the Red-Flag Register (ID, trigger, severity, evidence, source+date, score impact, follow-up).
 - `source_log.csv` — the union of every specialist's Source Log.
