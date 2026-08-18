@@ -4841,6 +4841,51 @@ def check_az_governance_flag_cap_correspondence():
         in_grading = term in grading.lower()
         if (in_trigger or in_caps) and not in_grading:
             fails.append(f"fact '{term}' fires RF-NET-003 (trigger/cap) but has no Transitive-exposure grade band")
+
+    # (6) band-AWARE grading check. (5) only proves a fact term appears SOMEWHERE in the grading
+    #     section, so moving `liquidation` from the Material-equivalent row up into the
+    #     Disqualifying-equivalent row still passed (5) even though the grade floor no longer matches
+    #     the RF-NET-003 band it fires. Pin each term to its expected band, and to NOT be in the other.
+    disq_row = " ".join(ln for ln in grading.splitlines()
+                        if "Disqualifying-equivalent" in ln and "Material-equivalent" not in ln).lower()
+    mat_row  = " ".join(ln for ln in grading.splitlines()
+                        if "Material-equivalent" in ln and "Disqualifying-equivalent" not in ln).lower()
+    if not disq_row or not mat_row:
+        fails.append("Transitive-exposure grading: could not isolate the Disqualifying- and Material-equivalent band rows")
+    else:
+        BANDS = {"Disqualifying-equivalent": (disq_row, mat_row,
+                                              ["proven fraud", "debarment", "sanctions", "fugitive"]),
+                 "Material-equivalent":      (mat_row, disq_row,
+                                              ["liquidation", "live enforcement", "credible fraud allegation"])}
+        for band, (own, other, terms) in BANDS.items():
+            for term in terms:
+                if term not in own:
+                    fails.append(f"grade band: '{term}' is missing from the {band} row")
+                elif term in other:
+                    fails.append(f"grade band: '{term}' appears in the wrong band (found outside {band})")
+
+    # (7) mirrored-cap PAYLOAD check. (2) proves an RF-NET id has a ROW in both cap tables; it does not
+    #     prove the numbers agree. Changing 99's RF-NET-003 cap from `max 35` to `max 65` — the exact
+    #     silent-weakening this whole check exists to stop — kept an RF-NET-003 row in place and passed (2).
+    #     Compare the actual max/floor bounds per id between MODULE_RULES and 99, wording-independent.
+    def _az_cap_bounds(section, rf_id):
+        # Match the row by its SUBJECT (first cell), like (1)/(2) — an id merely NAMED in another
+        # row's explanatory prose (e.g. the breadth-overflow row referencing RF-NET-006) is not a cap
+        # row FOR that id. Then read the max/floor bounds from anywhere in that row.
+        b = []
+        for ln in section.splitlines():
+            st = ln.strip()
+            if not st.startswith("|") or rf_id not in (_az_row_first_cell(ln) or ""):
+                continue
+            b += [(k.lower(), int(n)) for k, n in re.findall(r"(max|floor)\s+(\d+)", st, re.I)]
+        return sorted(b)
+    for i in net_ids:
+        if i not in cap_keys or i not in mir_keys:
+            continue  # ID-presence gaps already reported by (1)/(2); don't double-report
+        mr_b, n99_b = _az_cap_bounds(caps, i), _az_cap_bounds(cap99, i)
+        if mr_b != n99_b:
+            fails.append(f"{i}: cap bounds drift between MODULE_RULES {mr_b} and 99 {n99_b} "
+                         f"(row present but numbers disagree — enforcement silently weakened)")
     return fails
 
 azfails = check_az_governance_flag_cap_correspondence()
