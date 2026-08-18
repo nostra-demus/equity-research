@@ -4,6 +4,8 @@ import { useStore } from './lib/store'
 import { CommandBar } from './components/CommandBar'
 import { SwarmField } from './components/swarm/SwarmField'
 import { ViewToggle } from './components/swarm/ViewToggle'
+import { WatchlistStage } from './components/watchlist/WatchlistStage'
+import { effectiveResearchView } from './lib/researchView'
 import { GLOBE } from './components/swarm/globe/globe-consts'
 import { ScreenerField } from './components/screener/ScreenerField'
 import { WireSurface } from './components/wire/WireSurface'
@@ -74,18 +76,36 @@ function useActiveWireConfig() {
 function ResearchStage() {
   const view = useStore((s) => s.researchView)
   const webglOK = useStore((s) => s.webglOK)
+  const isResearch = useStore((s) => s.constellationSwarm === 'research')
   const wireConfig = useActiveWireConfig()
   const reduced = useMemo(
     () => typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches,
     [],
   )
-  const onGlobe = webglOK && view === 'globe'
+  // researchView is one preference shared by every constellation swarm; the watchlist is research-only,
+  // so a commodity swarm falls back rather than rendering an empty stage. Not written back — the research
+  // preference has to survive the detour.
+  const effective = effectiveResearchView(view, isResearch)
+  const onWatchlist = effective === 'watchlist'
+  const onGlobe = webglOK && effective === 'globe'
   const ease = [0.23, 1, 0.32, 1] as const
   const W = GLOBE.WRAP_SECONDS // wrap/unwrap duration, shared with GlobeScene's morph
   const home = (
     <>
       <AnimatePresence>
-        {onGlobe ? (
+        {onWatchlist ? (
+          // A plain fade, NOT the wrap/unwrap choreography: that timing exists because the constellation
+          // and the globe are pixel-matched scenes. Borrowing it for unrelated content reads as a stutter.
+          <motion.div
+            key="watchlist"
+            className="stageview"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { duration: reduced ? 0 : 0.26, ease: [0.23, 1, 0.32, 1] } }}
+            exit={{ opacity: 0, transition: { duration: reduced ? 0 : 0.18, ease } }}
+          >
+            <WatchlistStage />
+          </motion.div>
+        ) : onGlobe ? (
           // The globe's FLAT state is the EXACT constellation (GlobeStage feeds it as the flat override), so
           // at morph 0 the globe orbs sit pixel-on-pixel over the constellation. Entering = WRAP: cross-fade
           // over the SAME duration the constellation fades out (identical pixels → invisible swap) while the
@@ -118,18 +138,24 @@ function ResearchStage() {
         )}
       </AnimatePresence>
       <ViewToggle />
-      <DataUploadEmptyState />
+      {/* Every dock below is about the ONE selected company — its pool, its intake, its call. Beside a
+          cross-company list they would be stale-but-plausible at best, and a verdict banner under a list
+          of names it does not describe is a provenance failure. Not rendering the rail's children also
+          releases the stage's reserved left column, so the list gets full width with no extra CSS. */}
+      {!onWatchlist && <DataUploadEmptyState />}
       {/* The left rail. These two docks are about the SAME subject — this company's documents — and
           share the left edge. They used to be two independent absolute overlays anchored to OPPOSITE
           edges (the pool at bottom:18px, intake at top:70px): expand both and they grew into each
           other until z-index picked a winner. One flex column cannot overlap itself. Intake sits on
           top (it is the transient, "look at this now" surface); the pool keeps its bottom anchor. */}
-      <div className="stagerail">
-        <IntakeDock />
-        <DataFilesPanel />
-      </div>
-      <DataNeedsDock />
-      <DecisionBanner />
+      {!onWatchlist && (
+        <div className="stagerail">
+          <IntakeDock />
+          <DataFilesPanel />
+        </div>
+      )}
+      {!onWatchlist && <DataNeedsDock />}
+      {!onWatchlist && <DecisionBanner />}
     </>
   )
   // A constellation swarm whose manifest DECLARES a wire (SWARM.md `wire:` → /api/swarms) renders the

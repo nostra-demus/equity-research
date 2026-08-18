@@ -3340,6 +3340,51 @@ a { color: inherit; }
 .themes__tierbtn:active, .themes__vbtn:active { transform: scale(0.97); }
 .themes__tierbtn.is-on, .themes__vbtn.is-on { background: var(--accent-wash); color: var(--accent-bright); }
 
+/* ---- watchlist: the research stage's third view ---- */
+/* A cross-company list rather than a rendering of one company's swarm. Padding clears the stage-anchored
+   view toggle (top:14px, ~30px tall) the same way the constellation's label block does. */
+.wl { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 58px 24px 20px; gap: 10px; }
+.wl__head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.wl__title { font-size: 15px; font-weight: 600; }
+.wl__count { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 11.5px; color: var(--text-muted); }
+.wl__count b { color: var(--accent-bright); font-weight: 600; }
+.wl__spacer { flex: 1; }
+.wl__sub { font-size: 11px; color: var(--text-faint); }
+.wl__list { flex: 1; overflow: auto; display: flex; flex-direction: column; border-top: 1px solid var(--hairline); }
+.wl__empty { color: var(--text-faint); font-size: 13px; padding: 44px 24px; text-align: center; line-height: 1.6; max-width: 62ch; margin: 0 auto; }
+
+.wl__row { display: flex; gap: 14px; padding: 11px 10px; border-bottom: 1px solid var(--hairline); align-items: flex-start; transition: background var(--dur-fast) var(--ease); }
+.wl__row:hover { background: var(--surface-2); }
+/* a met condition is the one state worth colouring — everything else stays quiet */
+.wl__row--met { background: var(--accent-wash); border-inline-start: 2px solid var(--accent); }
+.wl__row--due { border-inline-start: 2px solid var(--text-muted); }
+.wl__row--archived { opacity: 0.62; }
+.wl__sym { width: 104px; flex: none; }
+.wl__mid { flex: 1; min-width: 0; }
+.wl__end { width: 150px; flex: none; text-align: right; }
+
+.wl__origin { display: inline-block; margin-top: 4px; font-size: 10px; padding: 1px 6px; border-radius: var(--r-pill); border: 1px solid var(--hairline); color: var(--text-muted); }
+.wl__origin--manual { color: var(--accent-bright); border-color: var(--accent-deep); }
+.wl__origin--both { color: var(--accent-bright); border-color: var(--accent-deep); border-style: dashed; }
+
+.wl__why { font-size: 12.5px; line-height: 1.5; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.wl__why--engine { color: var(--text-muted); }
+.wl__triggers { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 6px; }
+.wl__trg { font-size: 10px; padding: 2px 7px; border-radius: var(--r-pill); border: 1px solid var(--hairline); color: var(--text-muted); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wl__trg--met { background: var(--accent-wash); color: var(--accent-bright); border-color: var(--accent-deep); }
+.wl__trg--due { background: var(--surface-3); color: var(--text); }
+.wl__trg--armed { color: var(--text-muted); }
+/* absence must LOOK different from a negative, never like a quiet pass */
+.wl__trg--unevaluable { color: var(--text-faint); border-style: dashed; }
+.wl__trg--resurfaced { color: var(--rerun); border-color: var(--rerun); }
+
+.wl__price { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 13px; }
+.wl__price--absent { color: var(--text-faint); }
+.wl__meta { font-size: 10px; color: var(--text-faint); margin-top: 2px; }
+.wl__rowbtns { display: flex; gap: 5px; justify-content: flex-end; margin-top: 6px; opacity: 0; transition: opacity var(--dur-fast) var(--ease); }
+.wl__row:hover .wl__rowbtns, .wl__row:focus-within .wl__rowbtns { opacity: 1; }
+@media (hover: none) { .wl__rowbtns { opacity: 1; } }
+
 /* ---- research stage view toggle (Constellation | Globe) — stage-anchored, clones themes__viewtoggle ---- */
 .viewtoggle {
   position: absolute; top: 14px; right: 14px; z-index: 21; /* above DataFilesPanel/DecisionBanner (z20), below overlays */
