@@ -1673,6 +1673,9 @@ export interface DataStatus {
   fileCount: number
   files: {
     filename: string
+    // pool-relative POSIX path when the document sits in a SUBFOLDER of the company folder (e.g.
+    // "Filings 4/annual.pdf"); absent for a top-level file. `filename` stays the basename.
+    path?: string
     type: string
     periodHint: string | null
     ageMonths: number | null

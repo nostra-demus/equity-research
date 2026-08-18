@@ -127,6 +127,13 @@ export interface WorkbookSheet {
 
 export interface ClassifiedFile {
   filename: string
+  // pool-relative POSIX path when the document sits in a SUBFOLDER of the company folder (e.g.
+  // "Filings 4/annual.pdf"); absent for a top-level file. `filename` stays the basename so
+  // classification and every name-regex behave identically whether nested or not. Mirrors
+  // extract_pool.py's manifest, which keeps `file` as the basename and adds `path` when nested so
+  // duplicate basenames across subfolders stay distinguishable — the cockpit now lists the SAME
+  // recursive pool the research orbs read (extract_pool.py walks the whole tree).
+  path?: string
   ext: string
   sizeBytes: number
   mtime: string

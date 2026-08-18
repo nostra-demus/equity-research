@@ -1606,6 +1606,8 @@ a { color: inherit; }
 }
 .datafiles__badge[data-conf="high"] { color: var(--accent-bright); border-color: var(--accent-wash); background: var(--accent-wash-soft); }
 .datafiles__name { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text); }
+/* subfolder prefix for a nested pool document ("Filings 4/") — quiet, so the filename still reads first */
+.datafiles__folder { color: var(--text-faint); }
 .datafiles__tabsn { flex: none; font-size: 10.5px; color: var(--accent-bright); white-space: nowrap; }
 .datafiles__period { flex: none; font-size: 10.5px; color: var(--text-muted); white-space: nowrap; }
 /* external-data provenance chip (provider · §4 tier) — quiet accent so routed external docs read
