@@ -119,7 +119,9 @@ const watchInflight = new Map<string, Promise<string>>()
 
 async function findChildFolder(name: string, parentId: string): Promise<string | null> {
   const r = await client().files.list({
-    q: `name = '${name.replace(/'/g, "\\'")}' and mimeType = '${FOLDER_MIME}' and '${parentId}' in parents and trashed = false`,
+    // escapeQ, not a hand-rolled replace: it escapes BACKSLASHES before quotes, so a name carrying a
+    // backslash cannot break out of the quoted Drive query. Rolling my own here dropped that half.
+    q: `name='${escapeQ(name)}' and mimeType='${FOLDER_MIME}' and '${escapeQ(parentId)}' in parents and trashed=false`,
     fields: 'files(id,name)',
     pageSize: 10,
     ...sharedDriveListParams(),
