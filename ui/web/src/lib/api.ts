@@ -1,5 +1,5 @@
 import { staticPromptPath } from './prompts'
-import type { PipelinesRead } from './types'
+import type { PipelinesRead, WatchResolveRead, WatchRowInput, WatchlistRead } from './types'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
 import { QUOTE_CLIENT_TIMEOUT_MS } from './quoteTimeout'
 import type { ValuationLeversResponse, ValuationOverride } from './valuationLevers'
@@ -94,6 +94,17 @@ async function post<T>(url: string, body?: any): Promise<T> {
 async function put<T>(url: string, body?: any): Promise<T> {
   const r = await fetch(url, {
     method: 'PUT',
+    headers: body !== undefined ? { 'content-type': 'application/json' } : undefined,
+    body: body !== undefined ? JSON.stringify(body) : undefined,
+  })
+  const j = await r.json().catch(() => ({}))
+  if (!r.ok) throw Object.assign(new Error((j as any)?.error || `${r.status}`), { status: r.status, body: j })
+  return j as T
+}
+
+async function patch<T>(url: string, body?: any): Promise<T> {
+  const r = await fetch(url, {
+    method: 'PATCH',
     headers: body !== undefined ? { 'content-type': 'application/json' } : undefined,
     body: body !== undefined ? JSON.stringify(body) : undefined,
   })
@@ -203,6 +214,10 @@ async function readSse(
   }
 }
 
+const EMPTY_WATCHLIST: WatchlistRead = {
+  rows: [], archived: [], engine_source: { file: null, generated_at: null }, unreadable: [],
+  quotes_enabled: false, as_of: '',
+}
 const EMPTY_BOARD: ScreenerBoard = { generated_at: null, inbox: [], signals: [], theses: [], handoffs: [], counts: {}, live: [] }
 const EMPTY_FEEDBACK_SUMMARY: FeedbackSummary = { total: 0, active_total: 0, by_type: {} as Record<FeedbackType, number>, top_reasons: [], clustered_reasons: [], generated_at: '' }
 
@@ -963,6 +978,34 @@ export const api = {
   // showing, for the same reason whatChanged does: a ticker-only fetch could describe a different run's
   // entry price. A static snapshot has no live feed by definition, and an older engine mid-deploy 404s —
   // both return null, and the banner then renders exactly as it did before this feature existed.
+  // ---- watchlist ----
+  // Reads degrade to an empty list in the static showcase; every write throws so the caller can say
+  // "this needs the live engine" rather than silently appearing to work.
+  watchlist: async (): Promise<WatchlistRead> => {
+    if ((await ensureMode()) === 'static') return EMPTY_WATCHLIST
+    return get<WatchlistRead>('/api/watchlist', 20_000)
+  },
+  watchResolve: async (q: string): Promise<WatchResolveRead> => {
+    if ((await ensureMode()) === 'static') return { query: q, candidates: [], reason: 'directory_unavailable' }
+    return get<WatchResolveRead>(`/api/watchlist/resolve?q=${encodeURIComponent(q)}`, 12_000)
+  },
+  watchCreate: async (input: WatchRowInput) => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post<{ ok: boolean }>('/api/watchlist', input)
+  },
+  watchUpdate: async (entryId: string, input: Partial<WatchRowInput>) => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return patch<{ ok: boolean }>(`/api/watchlist/${encodeURIComponent(entryId)}`, input)
+  },
+  watchArchive: async (ticker: string, currency: string | null, reason: string, muteScope: 'assertion' | 'listing' = 'assertion') => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post<{ ok: boolean }>('/api/watchlist/archive', { ticker, currency, reason, mute_scope: muteScope })
+  },
+  watchRestore: async (ticker: string, currency: string | null) => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post<{ ok: boolean }>('/api/watchlist/restore', { ticker, currency })
+  },
+
   quote: async (ticker: string, runRoot?: string): Promise<QuoteRead | null> => {
     if ((await ensureMode()) === 'static') return null
     try {

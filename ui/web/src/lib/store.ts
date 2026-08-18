@@ -3,6 +3,8 @@ import { api, ensureMode, EXACT_DECISION_LAUNCH_CONTRACT, isStatic, snapshotGene
 import type { ArchiveQuery, FeedFacets, SearchCursor } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
 import { moduleLabel, preferRunRoot, resolveVerdict } from './format'
+import { coerceViewForWebgl, normalizeStoredView, type ResearchView } from './researchView'
+import type { WatchlistRead } from './types'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeCompilerHealth, ThemeDetail, ThemeBrief, ThemeFormationQueue, ThemeRemoval } from './themes'
 import { compareBriefingThemes, intensityWindowForHours, normalizeThemeCompilerHealth, normalizeThemeFormationQueue, themeSurfaceStatus, themeWindowForView } from './themes'
@@ -112,8 +114,8 @@ function saveRead(s: Set<string>): void {
 // the default; only an explicit 'constellation' choice opts out. init() coerces a stored/default 'globe'
 // back to 'constellation' when WebGL is unavailable (no strand).
 const VIEW_KEY = 'nsw.researchView'
-function loadView(): 'constellation' | 'globe' {
-  try { return localStorage.getItem(VIEW_KEY) === 'constellation' ? 'constellation' : 'globe' } catch { return 'globe' }
+function loadView(): ResearchView {
+  try { return normalizeStoredView(localStorage.getItem(VIEW_KEY)) } catch { return 'globe' }
 }
 // One-time, cached WebGL capability probe (a context creation, immediately released). The globe needs it;
 // the toggle disables the Globe option and we coerce away from it when this is false.
@@ -493,8 +495,21 @@ interface State {
   swarmSubjectsLoading: boolean
   loadSwarmSubjects: (swarmId: string) => Promise<void>
   // research stage renderer: the 3D globe (default) or the flat 2D constellation. Persisted.
-  researchView: 'constellation' | 'globe'
-  setResearchView: (v: 'constellation' | 'globe') => void
+  researchView: ResearchView
+  // ---- watchlist (the research stage's third view) ----
+  watchlist: WatchlistRead | null
+  watchlistLoading: boolean
+  watchlistError: string | null
+  watchlistAt: number | null
+  /** How many conditions are met right now — the count badge on the pill, visible from the other views. */
+  watchlistMetCount: number
+  watchlistShowArchived: boolean
+  watchlistPending: string | null
+  loadWatchlist: (force?: boolean) => Promise<void>
+  setWatchlistShowArchived: (v: boolean) => void
+  archiveWatch: (ticker: string, currency: string | null, reason: string, muteScope?: 'assertion' | 'listing') => Promise<boolean>
+  restoreWatch: (ticker: string, currency: string | null) => Promise<boolean>
+  setResearchView: (v: ResearchView) => void
   webglOK: boolean // WebGL available — gates the globe; when false the flat DOM constellation is shown instead
   // the warp transition between swarms; landing carries an optional research ticker to preselect
   warp: { from: string; to: string; payloadTicker?: string; landTicker?: string; phase: 'collapse' | 'traverse' | 'bloom' } | null
@@ -1297,6 +1312,13 @@ export const useStore = create<State>((set, get) => ({
   swarmSubjectRuns: {},
   swarmSubjectsLoading: false,
   researchView: loadView(),
+  watchlist: null,
+  watchlistLoading: false,
+  watchlistError: null,
+  watchlistAt: null,
+  watchlistMetCount: 0,
+  watchlistShowArchived: false,
+  watchlistPending: null,
   webglOK: true, // optimistic; init() probes and corrects + coerces the view if WebGL is missing
   warp: null,
   scGraph: null,
@@ -1395,7 +1417,8 @@ export const useStore = create<State>((set, get) => ({
     // WebGL capability gates the 3D globe. Probe once; if it's unavailable, disable the option and coerce
     // a previously-persisted 'globe' back to the flat constellation so a no-WebGL browser is never stranded.
     const webglOK = detectWebGL()
-    set({ webglOK, ...(webglOK ? {} : { researchView: 'constellation' as const }) })
+    // Coerce ONLY a globe view — a stored 'watchlist' must survive a WebGL-less browser.
+    set({ webglOK, researchView: coerceViewForWebgl(get().researchView, webglOK) })
     // Resolve live/static FIRST — independent of the heavy company data — and start the engine heartbeat
     // immediately in live mode. The heartbeat (not these data loads) owns `connected`/`health`, so a slow
     // or failing /api/swarm or /api/tickers can no longer pin the whole UI at "connecting"/"offline".
@@ -1720,6 +1743,63 @@ export const useStore = create<State>((set, get) => ({
     if (v === 'globe' && !get().webglOK) return // never strand into a view WebGL can't render
     try { localStorage.setItem(VIEW_KEY, v) } catch {}
     set({ researchView: v })
+  },
+
+  setWatchlistShowArchived: (v) => set({ watchlistShowArchived: v }),
+
+  // Mirrors refreshLiveQuote: a TTL gate unless forced, a static-mode early return, and FAIL TO NULL
+  // rather than fabricate — a stale list beside a live price would be worse than an honest gap.
+  loadWatchlist: async (force) => {
+    if (get().staticMode) return
+    const at = get().watchlistAt
+    if (!force && at && Date.now() - at < 60_000) return
+    set({ watchlistLoading: true })
+    try {
+      const read = await api.watchlist()
+      set({
+        watchlist: read,
+        watchlistAt: Date.now(),
+        watchlistError: null,
+        watchlistLoading: false,
+        watchlistMetCount: read.rows.filter((r) => r.state === 'condition_met').length,
+      })
+    } catch (e: any) {
+      // an engine older than this bundle has no route yet: feature off, never an error surface
+      if (e?.status === 404) { set({ watchlist: null, watchlistError: null, watchlistLoading: false, watchlistMetCount: 0 }); return }
+      set({ watchlistError: e?.message ? String(e.message) : 'could not load the watchlist', watchlistLoading: false })
+    }
+  },
+
+  archiveWatch: async (ticker, currency, reason, muteScope = 'assertion') => {
+    if (get().staticMode) { get().setToast({ msg: 'Archiving needs the live engine.', tone: 'bad' }); return false }
+    set({ watchlistPending: ticker })
+    try {
+      await api.watchArchive(ticker, currency, reason, muteScope)
+      await get().loadWatchlist(true)
+      get().setToast({ msg: `${ticker} archived.`, tone: 'good' })
+      return true
+    } catch (e: any) {
+      get().setToast({ msg: e?.message === 'static-deploy' ? 'Archiving needs the live engine.' : `Could not archive ${ticker}.`, tone: 'bad' })
+      return false
+    } finally {
+      set({ watchlistPending: null })
+    }
+  },
+
+  restoreWatch: async (ticker, currency) => {
+    if (get().staticMode) { get().setToast({ msg: 'Restoring needs the live engine.', tone: 'bad' }); return false }
+    set({ watchlistPending: ticker })
+    try {
+      await api.watchRestore(ticker, currency)
+      await get().loadWatchlist(true)
+      get().setToast({ msg: `${ticker} restored.`, tone: 'good' })
+      return true
+    } catch {
+      get().setToast({ msg: `Could not restore ${ticker}.`, tone: 'bad' })
+      return false
+    } finally {
+      set({ watchlistPending: null })
+    }
   },
 
   selectNode: (key) => set({ selectedNodeKey: key }),

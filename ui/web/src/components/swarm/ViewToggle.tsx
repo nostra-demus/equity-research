@@ -1,36 +1,58 @@
 import { useStore } from '../../lib/store'
+import { handleRovingRadioKeyDown, rovingRadioTabStopIndex } from '../../lib/rovingRadio'
+import type { ResearchView } from '../../lib/researchView'
 
-// Stage-anchored segmented control to switch the research stage between the 3D globe (default) and the flat
-// constellation. Both are the SAME WebGL scene at morph 1 / 0 — clicking just changes the morph target and
-// the scene animates one continuous wrap/unwrap (no renderer swap). The Globe option is disabled when WebGL
-// is unavailable (then the flat DOM constellation is shown instead).
+// Stage-anchored segmented control for what the research stage is showing.
+//
+// Constellation and Globe are the SAME WebGL scene at morph 0 / 1 — clicking between them changes the
+// morph target and the scene animates one continuous wrap/unwrap (no renderer swap). The Globe option is
+// disabled when WebGL is unavailable (then the flat DOM constellation is shown instead).
+//
+// Watchlist is a different kind of thing: not a rendering of this company's swarm but a cross-company
+// list of names you are waiting on. It is RESEARCH-ONLY — the commodity swarm shares this stage, and a
+// watchlist of commodities would need a different price feed — so the pill is gated the same way
+// CoreOrb and DecisionBanner gate their research-only surfaces.
+//
+// Keyboard: the group is one tab stop and arrows move between the pills, skipping a disabled Globe.
+// It declared role="radiogroup" long before it behaved like one; adopting the shared roving-radio helper
+// fixes that as a side effect of adding the third option.
 export function ViewToggle() {
   const view = useStore((s) => s.researchView)
   const setView = useStore((s) => s.setResearchView)
   const webglOK = useStore((s) => s.webglOK)
+  const isResearch = useStore((s) => s.constellationSwarm === 'research')
+  const metCount = useStore((s) => s.watchlistMetCount)
+
+  const options: { id: ResearchView; label: string; enabled: boolean; title?: string }[] = [
+    { id: 'constellation', label: 'Constellation', enabled: true },
+    { id: 'globe', label: 'Globe', enabled: webglOK, title: webglOK ? undefined : '3D view needs WebGL — unavailable in this browser' },
+    ...(isResearch ? [{ id: 'watchlist' as const, label: 'Watchlist', enabled: true }] : []),
+  ]
+  const tabStop = rovingRadioTabStopIndex(options.findIndex((o) => o.id === view), options.map((o) => o.enabled))
 
   return (
     <div className="viewtoggle" role="radiogroup" aria-label="Research stage view">
-      <button
-        type="button"
-        role="radio"
-        aria-checked={view === 'constellation'}
-        className={`viewtoggle__btn${view === 'constellation' ? ' is-on' : ''}`}
-        onClick={() => setView('constellation')}
-      >
-        Constellation
-      </button>
-      <button
-        type="button"
-        role="radio"
-        aria-checked={view === 'globe'}
-        disabled={!webglOK}
-        title={webglOK ? undefined : '3D view needs WebGL — unavailable in this browser'}
-        className={`viewtoggle__btn${view === 'globe' ? ' is-on' : ''}`}
-        onClick={() => setView('globe')}
-      >
-        Globe
-      </button>
+      {options.map((o, i) => (
+        <button
+          key={o.id}
+          type="button"
+          role="radio"
+          aria-checked={view === o.id}
+          disabled={!o.enabled}
+          tabIndex={i === tabStop ? 0 : -1}
+          title={o.title}
+          className={`viewtoggle__btn${view === o.id ? ' is-on' : ''}`}
+          onKeyDown={handleRovingRadioKeyDown}
+          onClick={() => setView(o.id)}
+        >
+          {o.label}
+          {/* How many conditions are met right now, so a fired trigger is visible from the other two
+              views rather than only once you go looking. Same badge the wire's refine control uses. */}
+          {o.id === 'watchlist' && metCount > 0 && (
+            <span className="evrefine__badge" title={`${metCount} watchlist ${metCount === 1 ? 'condition has' : 'conditions have'} been met`}>{metCount}</span>
+          )}
+        </button>
+      ))}
     </div>
   )
 }
