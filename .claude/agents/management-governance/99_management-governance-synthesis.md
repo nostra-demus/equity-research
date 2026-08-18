@@ -215,11 +215,12 @@ If specialists disagreed (e.g., good capital-allocation record but misaligned in
 | Hop-1 cross-link to an entity carrying a **Material-equivalent** fact — admitted CIRP/liquidation, live enforcement, credible fraud allegation (RF-NET-003) | | People & network integrity; Governance risk | PeopleNetworkIntegrity max 50; GovRisk floor 55; no rating above "Watchlist" | | | |
 | Discovery truncated with no Scope-Boundary declaration (RF-NET-006) | | Data quality; Confidence | DataQuality max 60; Confidence max 70 | | | |
 | Undisclosed corroborated address-cluster entity that transacts (RF-NET-005) | | Disclosure candor; Governance risk | Candor max 50; GovRisk floor 60 | | | |
-| Declared breadth overflow — named E-A/E-B subjects unswept because the 25/15 budget bound (A17-09, reason `breadth budget`) | | People & network integrity; Confidence | PeopleNetworkIntegrity max 70 (max 60 if the overflow includes a lineage/predecessor or Tier-A-controlled entity); Confidence max 80 | | | |
+| Declared breadth overflow — named E-A/E-B subjects unswept because the 25/15 budget bound (A17-09, reason `breadth_budget`) | | People & network integrity; Confidence | PeopleNetworkIntegrity max 70 (max 60 if the overflow includes a lineage/predecessor or Tier-A-controlled entity); Confidence max 80 | | | |
 | Core brands owned by a CONTROLLER-LINKED entity (RF-NET-004) | | RPT & leakage risk | RPTRisk floor 55 | | | |
 | Core brands owned outside the group with no disclosed licence terms, or no identifiable licence (RF-NET-004) | | RPT & leakage risk; Disclosure candor | RPTRisk floor 50; Candor max 65 | | | |
 | Core-brand licence in dispute or short-terminable while material revenue depends on it (RF-NET-004) | | RPT & leakage risk | RPTRisk floor 45; note to valuation as a durability dependency | | | |
 | Same marks in live use by an unrelated company (RF-NET-004) | | RPT & leakage risk; Disclosure candor | RPTRisk floor 45; Candor max 65 until explained | | | |
+| Unresolved `pending-12-reconciliation` subject — `07` deferred a predecessor legal check and `12` did not run or did not report it | | People & network integrity; Confidence | PeopleNetworkIntegrity max 65; Confidence max 80; grade stays PROVISIONAL | | | |
 | Undisclosed material litigation / related entity found (RF-CMP-001 / RF-PPL-005) | | Disclosure candor; Governance risk | Candor max 50; GovRisk floor 60 | | | |
 | Accounting-forensics battery red (RF-ACC-001 ≥3 components / RF-ACC-002) | | Accounting-forensics risk; Governance risk | ForensicsRisk floor 70; GovRisk floor 60 | | | |
 
