@@ -262,7 +262,12 @@ export function readEntries(dir: string = WATCHLIST_ENTRIES_DIR): { entries: Wat
   for (const n of names.sort()) {
     try {
       const j = JSON.parse(fs.readFileSync(path.join(dir, n), 'utf8'))
-      if (j && typeof j === 'object' && !Array.isArray(j) && typeof j.entry_id === 'string') entries.push(j as WatchEntry)
+      // A row without a usable listing has no identity: every consumer keys on listing_key, so letting
+      // it through turns "degrades one row" into a 500 for the whole read.
+      const ok = j && typeof j === 'object' && !Array.isArray(j)
+        && typeof j.entry_id === 'string'
+        && j.listing && typeof j.listing === 'object' && typeof j.listing.listing_key === 'string' && j.listing.listing_key
+      if (ok) entries.push(j as WatchEntry)
       else unreadable.push(n)
     } catch {
       unreadable.push(n)
@@ -507,6 +512,20 @@ export function rollupState(evals: TriggerEval[]): RowState {
   return 'watching'
 }
 
+/**
+ * The entry a listing_key means. Two live entries for one listing are only reachable by hand-editing the
+ * folder, but when it happens the merge and the archive button must pick the SAME one — otherwise the
+ * button acts on a row that is not on screen and appears to do nothing. Newest by created_at wins.
+ */
+export function pickEntryForListing(entries: WatchEntry[], key: string): WatchEntry | null {
+  let best: WatchEntry | null = null
+  for (const e of entries) {
+    if (e.listing?.listing_key !== key) continue
+    if (!best || String(e.created_at) > String(best.created_at)) best = e
+  }
+  return best
+}
+
 // ---------- the merge ----------
 
 export interface MergeInput {
@@ -535,10 +554,7 @@ export function mergeWatchlist(input: MergeInput): { rows: MergedWatchRow[]; arc
   const byKey = new Map<string, WatchEntry>()
   for (const e of input.entries) {
     const k = e.listing?.listing_key
-    if (!k) continue
-    const prev = byKey.get(k)
-    // only reachable by hand-editing the folder; keep the newest rather than picking arbitrarily
-    if (!prev || String(e.created_at) > String(prev.created_at)) byKey.set(k, e)
+    if (k && !byKey.has(k)) byKey.set(k, pickEntryForListing(input.entries, k)!)
   }
 
   const rows: MergedWatchRow[] = []
@@ -595,7 +611,8 @@ export function mergeWatchlist(input: MergeInput): { rows: MergedWatchRow[]; arc
   }
 
   for (const e of input.entries) {
-    if (usedEntries.has(e.entry_id)) continue
+    if (usedEntries.has(e.entry_id) || !e.listing?.listing_key) continue
+    if (byKey.get(e.listing.listing_key)?.entry_id !== e.entry_id) continue // superseded duplicate
     const row = build(e.listing, e, null)
     if (row.archive) archived.push(row)
     else rows.push(row)

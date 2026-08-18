@@ -22,7 +22,7 @@ import { assertClaudeCli, cancel, cancelAll, cancelSubject, creditCheck, decideR
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed, applyActiveWeightsTo } from './news/feed'
 import { getPulse } from './news/commodity-pulse'
-import { callVsLive, getQuotes } from './news/equity-quote'
+import { callVsLive, getQuotes, resolveUnits } from './news/equity-quote'
 import { getCalendar } from './news/events-calendar'
 import type { FeedItem } from './news/types'
 import { matchesFeedFilters, parseFeedFilterQuery, explainFeedFilterMatch, hasAnyFilter, type FeedFilterQuery } from './news/feed-filter'
@@ -62,7 +62,7 @@ import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt
 import {
   WATCHLIST_ENTRIES_DIR, WATCHLIST_MAX_ROWS, WATCHLIST_MAX_TAGS, WATCHLIST_MAX_TRIGGERS,
   deleteEntry, fingerprintEngineRow, isWatchId, listingKey, makeListing, mergeWatchlist, newEntryId,
-  readEngineWatch, readEntries, readSizingDecoration, writeEntry,
+  pickEntryForListing, readEngineWatch, readEntries, readSizingDecoration, writeEntry,
   type StandingCall, type WatchEntry, type WatchTrigger,
 } from './watchlist'
 import { readValuationSummary, readOverrides, appendOverride } from './valuation-levers'
@@ -2460,9 +2460,16 @@ const WatchTargetBody = z.object({
   mute_scope: z.enum(['assertion', 'listing']).default('assertion'),
 }).strip()
 
-/** Mint trigger ids server-side so a client cannot collide or forge one. */
-function withTriggerIds(triggers: z.infer<typeof TriggerBody>[]): WatchTrigger[] {
-  return triggers.map((t, i) => ({ ...t, trigger_id: `TRG-${Date.now().toString(36)}-${i}` }) as WatchTrigger)
+/**
+ * Mint trigger ids server-side so a client cannot forge one — but KEEP an existing id when the edit is
+ * positional, so a trigger keeps its identity across saves (its evaluation history is keyed on it). Ids
+ * are random rather than time-based: two entries edited in the same millisecond would otherwise collide.
+ */
+function withTriggerIds(triggers: z.infer<typeof TriggerBody>[], prev: WatchTrigger[] = []): WatchTrigger[] {
+  return triggers.map((t, i) => {
+    const keep = prev[i]?.kind === t.kind ? prev[i].trigger_id : null
+    return { ...t, trigger_id: keep ?? `TRG-${randomUUID().replace(/-/g, '').slice(0, 12)}` } as WatchTrigger
+  })
 }
 
 /** The standing calls that feed the engine half, cached briefly: listAllCalls walks every run folder,
@@ -2480,22 +2487,31 @@ async function buildWatchlist() {
   const decoration = readSizingDecoration()
   const engine = readEngineWatch(standingCalls(), decoration)
 
-  // One batched quote call for the whole list. Subjects are de-duplicated by LISTING (ticker+currency)
-  // because getQuotes keys its result Map on the ticker alone — two same-ticker subjects would collide
-  // and the survivor could be the other currency's answer.
-  const subjects = new Map<string, { ticker: string; currency: string | null; exchange: string | null; companyName: string | null; entryPrice: number | null }>()
+  // One batched quote call for the whole list — but getQuotes keys its result Map on the TICKER alone
+  // (equity-quote.ts), so two listings of the SAME ticker in one batch collide and the survivor could be
+  // the other currency's answer: the GBP row would show the USD listing's price. Group by ticker and run
+  // one round per collision depth. With distinct tickers — the normal case, and what today's data is —
+  // that is exactly one call, so the batching is preserved.
+  type Subj = { ticker: string; currency: string | null; exchange: string | null; companyName: string | null; entryPrice: number | null }
+  const byTicker = new Map<string, { key: string; subj: Subj }[]>()
+  const seenKeys = new Set<string>()
   const consider = (key: string, ticker: string, currency: string | null, exchange: string | null, companyName: string | null, entryPrice: number | null) => {
-    if (!currency || subjects.has(key)) return
-    subjects.set(key, { ticker, currency, exchange, companyName, entryPrice })
+    if (!currency || seenKeys.has(key)) return
+    seenKeys.add(key)
+    const list = byTicker.get(ticker) ?? []
+    list.push({ key, subj: { ticker, currency, exchange, companyName, entryPrice } })
+    byTicker.set(ticker, list)
   }
   for (const e of engine) consider(e.listing.listing_key, e.listing.ticker, e.listing.currency, e.listing.exchange, e.listing.company_name, e.entry_price)
   for (const e of entries) consider(e.listing.listing_key, e.listing.ticker, e.listing.currency, e.listing.exchange, e.listing.company_name, null)
 
   const quotes = new Map<string, { quote: any; reason: any }>()
-  if (subjects.size) {
-    const list = [...subjects.entries()]
-    const outcomes = await getQuotes(list.map(([, s]) => s))
-    for (const [key, s] of list) quotes.set(key, outcomes.get(s.ticker) ?? { quote: null, reason: null })
+  const depth = Math.max(0, ...[...byTicker.values()].map((g) => g.length))
+  for (let round = 0; round < depth; round++) {
+    const batch = [...byTicker.values()].map((g) => g[round]).filter(Boolean)
+    if (!batch.length) continue
+    const outcomes = await getQuotes(batch.map((b) => b.subj))
+    for (const b of batch) quotes.set(b.key, outcomes.get(b.subj.ticker) ?? { quote: null, reason: null })
   }
 
   const merged = mergeWatchlist({ entries, engine, quotes, today: todayISO() })
@@ -2518,6 +2534,8 @@ app.get('/api/watchlist', { config: { rateLimit: { max: 600, timeWindow: '1 minu
 app.get('/api/watchlist/resolve', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
   const q = String((req.query as any)?.q ?? '').trim()
   if (q.length < 1 || q.length > 40) return reply.code(400).send({ error: 'q required' })
+  // Honour the same kill switch getQuotes does — with quotes off this route must not reach the provider.
+  if (!NEWS.quoteEnabled) return { query: q, candidates: [], reason: 'quotes_disabled' }
   let groups: { symbol: string; name: string; exchange: string }[] = []
   try {
     groups = (await searchSymbolsEnriched(q)).slice(0, 8)
@@ -2533,12 +2551,17 @@ app.get('/api/watchlist/resolve', { config: { rateLimit: { max: 120, timeWindow:
   }
   const candidates = groups.map((g) => {
     const r = rows?.get(g.symbol)
+    // Normalise the minor unit HERE. The feed returns "GBp" (pence) verbatim, and makeListing/normCurrency
+    // upper-case it to "GBP" — so handing the raw pence price to the composer would prefill a trigger
+    // level 100x off, the exact unit error this whole lane exists to prevent.
+    const units = r?.currency ? resolveUnits(String(r.currency)) : null
+    const raw = typeof r?.last === 'number' && Number.isFinite(r.last) ? r.last : null
     return {
       symbol: g.symbol,
       name: r?.name || g.name,
       exchange: r?.exchange || g.exchange || null,
-      currency: r?.currency ?? null,
-      price: typeof r?.last === 'number' && Number.isFinite(r.last) ? r.last : null,
+      currency: units ? units.currency : null,
+      price: raw != null && units ? Math.round((raw / units.divisor) * 100) / 100 : null,
       as_of: r?.asOf ?? null,
       as_of_is_close: !!r?.dateOnly,
     }
@@ -2559,11 +2582,24 @@ app.post('/api/watchlist', { config: { rateLimit: { max: 120, timeWindow: '1 min
   if (!TICKER_RE.test(listing.ticker)) return reply.code(400).send({ error: 'ticker not usable' })
   const { entries } = readEntries()
   if (entries.length >= WATCHLIST_MAX_ROWS) return reply.code(413).send({ error: 'watchlist is full' })
-  if (entries.some((e) => e.listing.listing_key === listing.listing_key && !e.archive)) {
-    return reply.code(409).send({ error: 'already on the watchlist' })
-  }
+  const existing = pickEntryForListing(entries, listing.listing_key)
+  if (existing && !existing.archive) return reply.code(409).send({ error: 'already on the watchlist' })
   const { user } = identify(req)
   const now = new Date()
+  // Re-adding a name you archived is an un-archive, not a second row. Creating another file would put the
+  // same listing in BOTH the active and the archived views at once.
+  if (existing?.archive) {
+    existing.archive = null
+    existing.why = parsed.data.why || existing.why
+    if (parsed.data.conviction !== undefined) existing.conviction = parsed.data.conviction ?? null
+    if (parsed.data.review_date !== undefined) existing.review_date = parsed.data.review_date ?? null
+    if (parsed.data.tags.length) existing.tags = [...new Set(parsed.data.tags.map((t) => t.toLowerCase()))]
+    if (parsed.data.triggers.length) existing.triggers = withTriggerIds(parsed.data.triggers, existing.triggers)
+    existing.updated_at = now.toISOString()
+    existing.history = [...existing.history, { at: now.toISOString(), by: user, action: 'restored', detail: 're-added' }].slice(-50)
+    writeEntry(existing)
+    return reply.code(200).send({ ok: true, entry: existing })
+  }
   const engine = readEngineWatch(standingCalls(), readSizingDecoration()).find((e) => e.listing.listing_key === listing.listing_key) ?? null
   const entry: WatchEntry = {
     schema_version: 'watchlist-entry/v1',
@@ -2602,7 +2638,7 @@ app.patch('/api/watchlist/:id', { config: { rateLimit: { max: 240, timeWindow: '
   if (d.conviction !== undefined) entry.conviction = d.conviction ?? null
   if (d.review_date !== undefined) entry.review_date = d.review_date ?? null
   if (d.tags !== undefined) entry.tags = [...new Set(d.tags.map((t) => t.toLowerCase()))]
-  if (d.triggers !== undefined) entry.triggers = withTriggerIds(d.triggers)
+  if (d.triggers !== undefined) entry.triggers = withTriggerIds(d.triggers, entry.triggers)
   if (d.company_name !== undefined) entry.listing.company_name = d.company_name ?? null
   if (d.exchange !== undefined) entry.listing.exchange = d.exchange ?? null
   entry.updated_at = new Date().toISOString()
@@ -2625,7 +2661,7 @@ app.post('/api/watchlist/archive', { config: { rateLimit: { max: 120, timeWindow
   const now = new Date()
   const engine = readEngineWatch(standingCalls(), readSizingDecoration()).find((e) => e.listing.listing_key === key) ?? null
   const { entries } = readEntries()
-  let entry = entries.find((e) => e.listing.listing_key === key) ?? null
+  let entry = pickEntryForListing(entries, key)
   if (!entry) {
     if (!engine) return reply.code(404).send({ error: 'not found' })
     entry = {
@@ -2657,7 +2693,7 @@ app.post('/api/watchlist/restore', { config: { rateLimit: { max: 120, timeWindow
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
   const key = listingKey(parsed.data.ticker, parsed.data.currency ?? null)
   const { entries } = readEntries()
-  const entry = entries.find((e) => e.listing.listing_key === key)
+  const entry = pickEntryForListing(entries, key)
   if (!entry) return reply.code(404).send({ error: 'not found' })
   const { user } = identify(req)
   const now = new Date().toISOString()

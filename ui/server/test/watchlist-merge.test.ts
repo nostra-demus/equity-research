@@ -196,4 +196,28 @@ await check('the fingerprint is whitespace-stable but content-sensitive', () => 
   assert.notEqual(a, c, 'a different number is')
 })
 
+// ---- regression: the quote fan-out must not cross listings ----
+// getQuotes keys its result Map on the TICKER alone, so the route batches one listing per ticker per
+// round. This pins the property the route depends on: a row is only ever handed the quote for ITS OWN
+// listing_key, so a GBP row can never display the USD listing's price.
+
+await check('a quote is matched to its own listing, never another currency of the same ticker', () => {
+  const usd = makeListing({ ticker: 'HCG', currency: 'USD' })
+  const inr = makeListing({ ticker: 'HCG', currency: 'INR' })
+  assert.notEqual(usd.listing_key, inr.listing_key, 'the two listings are distinct keys')
+  const q = (price: number, currency: string) => ({
+    quote: { ticker: 'HCG', symbol: 'HCG', name: 'HCG', exchange: 'X', currency, price, as_of: null, as_of_is_close: false, delayed: false, source: 'cnbc' as const, stale: false },
+    reason: null,
+  })
+  const quotes = new Map([[usd.listing_key, q(12.5, 'USD')], [inr.listing_key, q(604.2, 'INR')]])
+  const { rows } = mergeWatchlist({
+    entries: [entry({ ticker: 'HCG', currency: 'USD' }), entry({ ticker: 'HCG', currency: 'INR', entry_id: 'WL-20260818-99999999' })],
+    engine: [], quotes, today: TODAY,
+  })
+  assert.equal(rows.length, 2)
+  const byCur = new Map(rows.map((r) => [r.currency, r.quote?.price]))
+  assert.equal(byCur.get('USD'), 12.5)
+  assert.equal(byCur.get('INR'), 604.2, 'each row kept its OWN listing price')
+})
+
 console.log(`\nwatchlist-merge.test.ts: ${passed} passed`)

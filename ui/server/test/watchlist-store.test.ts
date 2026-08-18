@@ -9,7 +9,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { WATCH_ID_RE, isWatchId, newEntryId, readEntries, readSizingDecoration, writeEntry, makeListing, type WatchEntry } from '../src/watchlist'
+import { WATCH_ID_RE, isWatchId, newEntryId, pickEntryForListing, readEntries, readSizingDecoration, writeEntry, makeListing, type WatchEntry } from '../src/watchlist'
 
 let passed = 0
 function check(name: string, fn: () => void): void {
@@ -99,6 +99,30 @@ check('no portfolio folder at all is empty decoration, not a throw', () => {
   const deco = readSizingDecoration(tmp())
   assert.equal(deco.file, null)
   assert.equal(deco.byTicker.size, 0)
+})
+
+// ---- regressions: defects found in review, pinned so they cannot return ----
+
+check('an entry with no listing is quarantined, not allowed to 500 the whole read', () => {
+  const d = tmp()
+  writeEntry(mk('WL-20260818-aaaaaaaa', 'AMZN'), d)
+  // a valid entry_id but no listing: every consumer keys on listing_key
+  fs.writeFileSync(path.join(d, 'WL-20260818-eeeeeeee.json'), JSON.stringify({ entry_id: 'WL-20260818-eeeeeeee', why: 'x' }))
+  fs.writeFileSync(path.join(d, 'WL-20260818-ffffffff.json'), JSON.stringify({ entry_id: 'WL-20260818-ffffffff', listing: { ticker: 'X' } }))
+  const { entries, unreadable } = readEntries(d)
+  assert.equal(entries.length, 1, 'the good row survives')
+  assert.equal(unreadable.length, 2, 'both malformed rows are reported')
+  assert.doesNotThrow(() => entries.map((e) => e.listing.listing_key))
+})
+
+check('two entries for one listing resolve to the SAME one everywhere (newest by created_at)', () => {
+  const older = { ...mk('WL-20260818-11111111', 'BG'), created_at: '2026-08-01T00:00:00Z' }
+  const newer = { ...mk('WL-20260818-22222222', 'BG'), created_at: '2026-08-09T00:00:00Z' }
+  // deliberately out of filename order, so "first found" and "newest" differ
+  const picked = pickEntryForListing([older, newer], older.listing.listing_key)
+  assert.equal(picked?.entry_id, 'WL-20260818-22222222', 'the archive button and the merge must agree')
+  assert.equal(pickEntryForListing([newer, older], older.listing.listing_key)?.entry_id, 'WL-20260818-22222222')
+  assert.equal(pickEntryForListing([], 'NOPE|USD'), null)
 })
 
 console.log(`\nwatchlist-store.test.ts: ${passed} passed`)
