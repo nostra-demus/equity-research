@@ -259,9 +259,46 @@ If several apply, the most restrictive binds.
 |---|---|---|---|---|---|---:|---|
 
 ## Machine-Readable Findings
-Emit a machine-readable JSON code block per the Machine-Readable Outputs schema in MODULE_RULES — one finding object per Universal Findings Table row. Additionally emit a second fenced JSON block labeled `people_register.json`: an array of `{ "name", "identifier", "role", "grade", "grade_basis", "decisive_fact", "coverage", "directorships_current", "directorships_struck_off", "red_flag_ids": [] }` — one object per person, where `grade_basis` is `"own_record"` or `"exposure_via:{entity}"`.
 
-Emit a **third** fenced JSON block labeled `entity_network.json` — the handoff `09` and `12` consume: an array of `{ "subject", "type": "entity"|"person", "hop", "discovery_method", "provenance": "filing-supplied"|"independently_discovered", "tier", "registry_status", "former_names": [], "founders": [], "grade", "exposure_basis", "transacts_with_listco": true|false|null, "in_rpt_disclosures": true|false|null, "red_flag_ids": [], "sweep_status" }`. Include a top-level companion object `{ "discovery": { "phase1_recipes_run": [], "phase2_ran": true|false, "entities_founder_swept": n, "max_hop_reached": n, "termination_rule": "...", "filing_supplied_count": n, "independently_discovered_count": n, "scope_boundary_rows": n } }`.
+Emit a machine-readable JSON code block per the Machine-Readable Outputs schema in MODULE_RULES — one finding object per Universal Findings Table row.
+
+Additionally emit a second fenced JSON block labeled `people_register.json` — an array of one object per person, using this template (house style: empty string / null / false placeholders, valid JSON as written):
+
+```
+{ "name":"", "identifier":"", "role":"", "grade":"", "grade_basis":"", "decisive_fact":"",
+  "coverage":"", "directorships_current":null, "directorships_struck_off":null,
+  "red_flag_ids":[] }
+```
+
+Permitted values: `grade` ∈ `Clean` · `Minor concerns` · `Material concerns` · `Disqualifying`. `grade_basis` ∈ `own_record` · `exposure_via:{entity}` — an exposure basis names the entity, so the qualifier survives into the machine layer exactly as it does in the prose (§3).
+
+Emit a **third** fenced JSON block labeled `entity_network.json` — the handoff `09` and `12` consume — an array of one object per subject on the Discovery Register:
+
+```
+{ "subject":"", "type":"", "hop":null, "discovery_method":"", "provenance":"", "tier":"",
+  "registry_status":"", "former_names":[], "founders":[], "grade":"", "exposure_basis":"",
+  "transacts_with_listco":null, "in_rpt_disclosures":null, "red_flag_ids":[], "sweep_status":"" }
+```
+
+Permitted values:
+- `type` ∈ `entity` · `person`
+- `hop` — integer 0–3
+- `discovery_method` ∈ the enumerated list in Section 0 (`filing/user-supplied` · `current directorship` · `past directorship` · `brand lineage (self-disclosed)` · `name-change trail` · `registered-address cluster` · `founder of a linked entity` · `trademark/brand owner` · `co-director network` · `RPT counterparty` · `registry charge-holder`) — free text is not permitted
+- `provenance` ∈ `filing-supplied` · `independently_discovered`
+- `tier` ∈ `A` · `B` · `C` · `E-A` · `E-B` · `E-C`
+- `transacts_with_listco`, `in_rpt_disclosures` — `true`, `false`, or `null` where genuinely unknown (**`null` means unknown, never "no"**)
+- `sweep_status` ∈ `full` · `refresh` · `scoped` · `not_run`
+- `exposure_basis` — empty string where the grade rests on the subject's own record; otherwise the linkage in one clause
+
+Then emit a fourth fenced JSON block labeled `discovery_summary.json`:
+
+```
+{ "phase1_recipes_run":[], "phase2_ran":false, "entities_founder_swept":null,
+  "max_hop_reached":null, "termination_rule":"", "filing_supplied_count":null,
+  "independently_discovered_count":null, "scope_boundary_rows":null }
+```
+
+`termination_rule` ∈ `no_new_subjects` · `hop_cap` · `disqualifying_finding_established` · `budget_exhausted` — and whichever it is must match what Section 0 states in prose. `phase1_recipes_run` lists the recipe IDs that actually ran (`D-1` … `D-9`); a recipe that did not run is absent from the array AND accounted for in the Scope-Boundary Register, never silently missing from both.
 
 Then apply the canonical **Hard Self-Check** in MODULE_RULES before returning.
 
@@ -277,6 +314,7 @@ Then apply the canonical **Hard Self-Check** in MODULE_RULES before returning.
 - [ ] **Aggregator conflicts were kept in scope and flagged**, never resolved by adopting the shorter roster (A17-10).
 - [ ] The lineage & phoenix test was answered — including a swept "no predecessor exists" with the evidence checked, not a silent absence.
 - [ ] Provenance counts reported: {n} filing-supplied vs {n} independently discovered (A17-08).
+- [ ] All four machine-readable blocks emitted and each parses as valid JSON — findings, `people_register.json`, `entity_network.json`, `discovery_summary.json` — with every enum value drawn from its permitted list, and `null` used only where a fact is genuinely unknown (never as a stand-in for "no").
 - [ ] Every person on the Person Register has a dossier and a grade — nobody skipped.
 - [ ] No adverse record is attributed on a bare name-match: every attribution names the identifier or ≥2 corroborators; unanchorable hits say "possible namesake — not attributed."
 - [ ] Party posture is verbatim (petitioner / respondent / accused); allegations and convictions are never conflated — in either direction.
