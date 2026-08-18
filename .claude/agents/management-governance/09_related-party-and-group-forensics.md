@@ -200,11 +200,19 @@ company- or executive-sponsored SPEs, or exposure >10% of net worth (Enron Rapto
 
 ## 13. Disclosure Reconciliation (07's web vs the RPT note)
 
-| Registry-derived related entity (from 07) | Transacts with listco? | In the RPT note? | If not — why it matters |
-|---|---|---|---|
+| Registry-derived related entity (from 07) | Transacts with listco? | In the RPT note? | A17-08 class | Obligation named + materiality | If not — why it matters |
+|---|---|---|---|---|---|
 
-Any "Yes + No" row fires RF-PPL-005 (propagated) and a disclosure-candor cap note to the synthesis —
-the non-disclosure outweighs the underlying item.
+A "Yes + No" row is **not** itself a finding. Classify it first under the A17-08 four-class test —
+`not-disclosable` / `disclosable-and-disclosed` / `disclosable-and-omitted` / `obligation-unclear`.
+RF-PPL-005 (propagated) and the disclosure-candor cap note fire **only** on `disclosable-and-omitted`:
+a named obligation (the RPT definition in the governing regime, the subsidiary/associate list, the
+promoter-group disclosure) is engaged AND the transaction clears the materiality threshold. State the
+obligation and the amount in the row. An ordinary arm's-length supplier reached through a founder or
+past-directorship search transacts and is absent from the RPT note because it is not a related party —
+record it `not-disclosable` and say so. Where the obligation is genuinely unclear, record
+`obligation-unclear` with the follow-up; an unresolved question is not a finding. Where the flag does
+fire, the non-disclosure outweighs the underlying item.
 
 ## 14. Read
 
@@ -261,7 +269,7 @@ Emit a machine-readable JSON code block per the Machine-Readable Outputs schema 
 - [ ] Aborted / withdrawn related-party M&A was swept (board outcomes, exchange announcements, AGM/postal-ballot notices) and any hit treated as PERMANENT (A5-09, Satyam-Maytas).
 - [ ] The >25% RPT hard lock was deferred to `business-model/01_disqualifier-scan` — ratio reported, lock not re-adjudicated.
 - [ ] Guarantees to group entities were flagged here AND cross-referenced to 10 (A7a-06) — counted once, not twice.
-- [ ] 07's related-entity web was read and reconciled; every transacting-but-undisclosed entity fired RF-PPL-005.
+- [ ] 07's related-entity web was read and reconciled; **every** discovered entity carries an A17-08 class, and RF-PPL-005 fired **only** on `disclosable-and-omitted` rows, each naming its obligation and amount.
 - [ ] **Every RPT / topology ratio carries its matched-basis check** — both sides' bases named (maximum daily balance / approved cap / period-end / cumulative), the matched version given or the mismatch labelled inline, and any monitoring threshold stated on a basis that is measurable again at the next reporting date (CLAUDE.md §15).
 - [ ] For a related **financial** counterparty, the company's own equity interest in it, its regulatory supervision, the approved cap and utilisation, and the independent-director / auditor review status are all recorded — the exposure is not reported without the facts that determine how it reads.
 - [ ] The score direction is INVERTED and flagged in the table header; missing data was scored Insufficient Data, never as low risk.

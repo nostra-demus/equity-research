@@ -120,7 +120,8 @@ You DO NOT:
 | No auditor-fee / audit-detail disclosure | | 08, 99 | A4-06/07 Not Available with reason |
 | Under 2 years of financials | | 11, 99 | Beneish/Dechow battery not computable — single-year checks only |
 | Web/database sweep unavailable this run | | 07, 12, 99 | dossiers & legal sweep "coverage-limited"; People & network integrity max 65; confidence capped |
-| No company website / no lineage anchors reachable | | 07, 99 | entity-discovery loop cannot run; A17-01 Insufficient Data; People & network integrity max 60; confidence max 75 |
+| No company website (D-1 unreachable), other discovery sources available | | 07 | Discovery loop RUNS on the surviving recipes — D-2 founding-year, D-3 previous names, D-4 trademark, D-5 address cluster, D-8 past directorships. Record D-1 unavailable on its own line with a proportionate confidence note. NOT A17-01 Insufficient Data, and no discovery cap on this ground alone |
+| Discovery loop cannot run at all — no company website AND the registry, trademark and address sources all unreachable | | 07, 99 | A17-01 Insufficient Data, naming what failed; People & network integrity max 60; confidence max 75; the seed roster is swept anyway and reported as a statement about the filings, not about the company |
 
 ## 5E. Person & Entity Register (feeds 07 — Hard Rule)
 
