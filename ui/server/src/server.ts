@@ -28,6 +28,7 @@ import type { FeedItem } from './news/types'
 import { matchesFeedFilters, parseFeedFilterQuery, explainFeedFilterMatch, hasAnyFilter, type FeedFilterQuery } from './news/feed-filter'
 import { computeFacets } from './news/facets'
 import { searchSymbolsEnriched } from './news/symbology'
+import { fetchCnbcRows } from './news/cnbc-quote'
 import { getIntensity, INTENSITY_WINDOWS, type IntensityWindow } from './news/intensity'
 import { getRankWeights, defaultRankWeights, saveRankWeights, resetRankWeights, rankWeightsCustomised, type RankWeights } from './news/rank-weights'
 import { buildSourcesReport } from './news/source-health'
@@ -57,7 +58,13 @@ import { notifyFeedbackResolved } from './feedback-email'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, swarmSubjectSummaries, terminalModuleName } from './roster'
-import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
+import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest, todayISO } from './outputs'
+import {
+  WATCHLIST_ENTRIES_DIR, WATCHLIST_MAX_ROWS, WATCHLIST_MAX_TAGS, WATCHLIST_MAX_TRIGGERS,
+  deleteEntry, fingerprintEngineRow, isWatchId, listingKey, makeListing, mergeWatchlist, newEntryId,
+  readEngineWatch, readEntries, readSizingDecoration, writeEntry,
+  type StandingCall, type WatchEntry, type WatchTrigger,
+} from './watchlist'
 import { readValuationSummary, readOverrides, appendOverride } from './valuation-levers'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
@@ -2384,6 +2391,284 @@ app.get('/api/quote', { config: { rateLimit: { max: 600, timeWindow: '1 minute' 
       })
     : null
   return { ticker, quote: o.quote, call, reason: o.reason }
+})
+
+// ---------- watchlist (watchlist.ts) ----------
+// Sits beside /api/quote because it shares the quote lane: one batched getQuotes call prices the whole
+// list. Membership + the archive rule live in watchlist.ts; these routes only validate, call, and shape.
+
+const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/
+
+// Every trigger is a closed shape. Direction, reference source and scenario are CHOICES, never free
+// text, and a number always arrives beside the currency it is measured in — the ambiguity this removes
+// is the reason a target price can never be 100x wrong from a mistyped unit.
+const TriggerBody = z.discriminatedUnion('kind', [
+  z.object({
+    kind: z.literal('price_level'),
+    direction: z.enum(['at_or_below', 'at_or_above']).default('at_or_below'),
+    level: z.number().finite().positive(),
+    currency: z.string().trim().min(1).max(8),
+    note: z.string().max(500).optional(),
+  }).strip(),
+  z.object({
+    kind: z.literal('pct_drop'),
+    drop_pct: z.number().finite().gt(0).lte(99),
+    reference: z.object({
+      value: z.number().finite().positive(),
+      currency: z.string().trim().min(1).max(8),
+      as_of: z.string().regex(ISO_DATE_RE).nullable().default(null),
+      source: z.string().trim().max(120).default('my number'),
+    }).strip(),
+    note: z.string().max(500).optional(),
+  }).strip(),
+  z.object({
+    kind: z.literal('valuation_mos'),
+    run_root: z.string().trim().min(1).max(300),
+    scenario_label: z.string().trim().min(1).max(60),
+    anchor_value: z.number().finite().positive(),
+    anchor_currency: z.string().trim().min(1).max(8),
+    anchor_as_of: z.string().regex(ISO_DATE_RE).nullable().default(null),
+    required_mos_pct: z.number().finite().gte(0).lte(95),
+    direction: z.enum(['at_or_below', 'at_or_above']).default('at_or_below'),
+    note: z.string().max(500).optional(),
+  }).strip(),
+  z.object({
+    kind: z.literal('event_date'),
+    due_date: z.string().regex(ISO_DATE_RE),
+    label: z.string().trim().min(1).max(160),
+    acknowledged_at: z.string().max(40).nullable().optional(),
+    note: z.string().max(500).optional(),
+  }).strip(),
+])
+
+const WatchRowBody = z.object({
+  ticker: z.string().trim().min(1).max(15),
+  company_name: z.string().trim().max(160).nullable().optional(),
+  currency: z.string().trim().max(8).nullable().optional(),
+  exchange: z.string().trim().max(80).nullable().optional(),
+  why: z.string().trim().max(4000).default(''),
+  conviction: z.enum(['high', 'medium', 'low']).nullable().optional(),
+  review_date: z.string().regex(ISO_DATE_RE).nullable().optional(),
+  tags: z.array(z.string().trim().min(1).max(24)).max(WATCHLIST_MAX_TAGS).default([]),
+  triggers: z.array(TriggerBody).max(WATCHLIST_MAX_TRIGGERS).default([]),
+}).strip()
+
+const WatchTargetBody = z.object({
+  ticker: z.string().trim().min(1).max(15),
+  currency: z.string().trim().max(8).nullable().optional(),
+  reason: z.string().trim().max(500).default(''),
+  mute_scope: z.enum(['assertion', 'listing']).default('assertion'),
+}).strip()
+
+/** Mint trigger ids server-side so a client cannot collide or forge one. */
+function withTriggerIds(triggers: z.infer<typeof TriggerBody>[]): WatchTrigger[] {
+  return triggers.map((t, i) => ({ ...t, trigger_id: `TRG-${Date.now().toString(36)}-${i}` }) as WatchTrigger)
+}
+
+/** The standing calls that feed the engine half, cached briefly: listAllCalls walks every run folder,
+ *  and the watchlist read is polled. */
+let callsCache: { at: number; calls: StandingCall[] } | null = null
+function standingCalls(): StandingCall[] {
+  if (callsCache && Date.now() - callsCache.at < 30_000) return callsCache.calls
+  const calls = (listAllCalls().calls ?? []) as unknown as StandingCall[]
+  callsCache = { at: Date.now(), calls }
+  return calls
+}
+
+async function buildWatchlist() {
+  const { entries, unreadable } = readEntries()
+  const decoration = readSizingDecoration()
+  const engine = readEngineWatch(standingCalls(), decoration)
+
+  // One batched quote call for the whole list. Subjects are de-duplicated by LISTING (ticker+currency)
+  // because getQuotes keys its result Map on the ticker alone — two same-ticker subjects would collide
+  // and the survivor could be the other currency's answer.
+  const subjects = new Map<string, { ticker: string; currency: string | null; exchange: string | null; companyName: string | null; entryPrice: number | null }>()
+  const consider = (key: string, ticker: string, currency: string | null, exchange: string | null, companyName: string | null, entryPrice: number | null) => {
+    if (!currency || subjects.has(key)) return
+    subjects.set(key, { ticker, currency, exchange, companyName, entryPrice })
+  }
+  for (const e of engine) consider(e.listing.listing_key, e.listing.ticker, e.listing.currency, e.listing.exchange, e.listing.company_name, e.entry_price)
+  for (const e of entries) consider(e.listing.listing_key, e.listing.ticker, e.listing.currency, e.listing.exchange, e.listing.company_name, null)
+
+  const quotes = new Map<string, { quote: any; reason: any }>()
+  if (subjects.size) {
+    const list = [...subjects.entries()]
+    const outcomes = await getQuotes(list.map(([, s]) => s))
+    for (const [key, s] of list) quotes.set(key, outcomes.get(s.ticker) ?? { quote: null, reason: null })
+  }
+
+  const merged = mergeWatchlist({ entries, engine, quotes, today: todayISO() })
+  return {
+    ...merged,
+    engine_source: { file: decoration.file, generated_at: decoration.generated_at },
+    unreadable,
+    quotes_enabled: NEWS.quoteEnabled,
+    as_of: new Date().toISOString(),
+  }
+}
+
+app.get('/api/watchlist', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async () => buildWatchlist())
+
+/**
+ * Resolve a typed ticker to real, PRICED listings so the composer never asks a person to type a currency.
+ * The currency is returned exactly as the feed gave it — the case is load-bearing (GBp is pence, GBP is
+ * pounds, a factor of 100), so it is passed through rather than normalised here.
+ */
+app.get('/api/watchlist/resolve', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const q = String((req.query as any)?.q ?? '').trim()
+  if (q.length < 1 || q.length > 40) return reply.code(400).send({ error: 'q required' })
+  let groups: { symbol: string; name: string; exchange: string }[] = []
+  try {
+    groups = (await searchSymbolsEnriched(q)).slice(0, 8)
+  } catch {
+    return { query: q, candidates: [], reason: 'directory_unavailable' }
+  }
+  if (!groups.length) return { query: q, candidates: [], reason: 'no_match' }
+  let rows: Map<string, any> | null = null
+  try {
+    rows = await fetchCnbcRows(fetch, groups.map((g) => g.symbol), NEWS.quoteTimeoutMs)
+  } catch {
+    rows = null
+  }
+  const candidates = groups.map((g) => {
+    const r = rows?.get(g.symbol)
+    return {
+      symbol: g.symbol,
+      name: r?.name || g.name,
+      exchange: r?.exchange || g.exchange || null,
+      currency: r?.currency ?? null,
+      price: typeof r?.last === 'number' && Number.isFinite(r.last) ? r.last : null,
+      as_of: r?.asOf ?? null,
+      as_of_is_close: !!r?.dateOnly,
+    }
+  })
+  return { query: q, candidates, reason: rows ? null : 'feed_unavailable' }
+})
+
+app.post('/api/watchlist', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const parsed = WatchRowBody.safeParse(req.body ?? {})
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const listing = makeListing({
+    ticker: parsed.data.ticker,
+    currency: parsed.data.currency ?? null,
+    exchange: parsed.data.exchange ?? null,
+    companyName: parsed.data.company_name ?? null,
+  })
+  if (!TICKER_RE.test(listing.ticker)) return reply.code(400).send({ error: 'ticker not usable' })
+  const { entries } = readEntries()
+  if (entries.length >= WATCHLIST_MAX_ROWS) return reply.code(413).send({ error: 'watchlist is full' })
+  if (entries.some((e) => e.listing.listing_key === listing.listing_key && !e.archive)) {
+    return reply.code(409).send({ error: 'already on the watchlist' })
+  }
+  const { user } = identify(req)
+  const now = new Date()
+  const engine = readEngineWatch(standingCalls(), readSizingDecoration()).find((e) => e.listing.listing_key === listing.listing_key) ?? null
+  const entry: WatchEntry = {
+    schema_version: 'watchlist-entry/v1',
+    entry_id: newEntryId(now),
+    origin: engine ? 'engine' : 'manual',
+    listing,
+    engine_ref: engine ? { run_root: engine.run_root, decision: engine.decision, decision_date: engine.decision_date, fingerprint: engine.fingerprint } : null,
+    why: parsed.data.why,
+    conviction: parsed.data.conviction ?? null,
+    review_date: parsed.data.review_date ?? null,
+    tags: [...new Set(parsed.data.tags.map((t) => t.toLowerCase()))],
+    triggers: withTriggerIds(parsed.data.triggers),
+    attachments: [],
+    archive: null,
+    history: [{ at: now.toISOString(), by: user, action: 'created', detail: '' }],
+    created_at: now.toISOString(),
+    created_by: user,
+    updated_at: now.toISOString(),
+  }
+  writeEntry(entry)
+  return reply.code(201).send({ ok: true, entry })
+})
+
+app.patch('/api/watchlist/:id', { config: { rateLimit: { max: 240, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = String((req.params as any).id ?? '')
+  if (!isWatchId(id)) return reply.code(400).send({ error: 'bad id' })
+  const parsed = WatchRowBody.partial().safeParse(req.body ?? {})
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const { entries } = readEntries()
+  const entry = entries.find((e) => e.entry_id === id)
+  if (!entry) return reply.code(404).send({ error: 'not found' })
+  const { user } = identify(req)
+  const d = parsed.data
+  if (d.why !== undefined) entry.why = d.why
+  if (d.conviction !== undefined) entry.conviction = d.conviction ?? null
+  if (d.review_date !== undefined) entry.review_date = d.review_date ?? null
+  if (d.tags !== undefined) entry.tags = [...new Set(d.tags.map((t) => t.toLowerCase()))]
+  if (d.triggers !== undefined) entry.triggers = withTriggerIds(d.triggers)
+  if (d.company_name !== undefined) entry.listing.company_name = d.company_name ?? null
+  if (d.exchange !== undefined) entry.listing.exchange = d.exchange ?? null
+  entry.updated_at = new Date().toISOString()
+  entry.history = [...entry.history, { at: entry.updated_at, by: user, action: 'edited', detail: '' }].slice(-50)
+  writeEntry(entry)
+  return { ok: true, entry }
+})
+
+/**
+ * Archive and restore key on the LISTING, not on an entry id — that is the only identity a pure engine
+ * row has, and keying on it is what lets the mute survive the engine file being regenerated. Archiving
+ * an engine row that has no file yet CREATES one; that is the moment the row becomes user-touched.
+ */
+app.post('/api/watchlist/archive', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const parsed = WatchTargetBody.safeParse(req.body ?? {})
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const key = listingKey(parsed.data.ticker, parsed.data.currency ?? null)
+  const { user } = identify(req)
+  const now = new Date()
+  const engine = readEngineWatch(standingCalls(), readSizingDecoration()).find((e) => e.listing.listing_key === key) ?? null
+  const { entries } = readEntries()
+  let entry = entries.find((e) => e.listing.listing_key === key) ?? null
+  if (!entry) {
+    if (!engine) return reply.code(404).send({ error: 'not found' })
+    entry = {
+      schema_version: 'watchlist-entry/v1',
+      entry_id: newEntryId(now),
+      origin: 'engine',
+      listing: engine.listing,
+      engine_ref: { run_root: engine.run_root, decision: engine.decision, decision_date: engine.decision_date, fingerprint: engine.fingerprint },
+      why: '', conviction: null, review_date: null, tags: [], triggers: [], attachments: [],
+      archive: null, history: [], created_at: now.toISOString(), created_by: user, updated_at: now.toISOString(),
+    }
+  }
+  entry.archive = {
+    at: now.toISOString(),
+    by: user,
+    reason: parsed.data.reason,
+    muted_fingerprint: engine?.fingerprint ?? null,
+    mute_scope: parsed.data.mute_scope,
+  }
+  entry.updated_at = now.toISOString()
+  entry.history = [...entry.history, { at: now.toISOString(), by: user, action: 'archived', detail: parsed.data.reason }].slice(-50)
+  writeEntry(entry)
+  return { ok: true, entry }
+})
+
+app.post('/api/watchlist/restore', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const parsed = WatchTargetBody.safeParse(req.body ?? {})
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const key = listingKey(parsed.data.ticker, parsed.data.currency ?? null)
+  const { entries } = readEntries()
+  const entry = entries.find((e) => e.listing.listing_key === key)
+  if (!entry) return reply.code(404).send({ error: 'not found' })
+  const { user } = identify(req)
+  const now = new Date().toISOString()
+  entry.archive = null
+  entry.updated_at = now
+  entry.history = [...entry.history, { at: now, by: user, action: 'restored', detail: '' }].slice(-50)
+  // An engine row that carries nothing of its own is not worth a file once it is un-archived.
+  const bare = entry.origin === 'engine' && !entry.why && !entry.triggers.length && !entry.attachments.length && !entry.tags.length
+  if (bare) { deleteEntry(entry.entry_id); return { ok: true, entry: null } }
+  writeEntry(entry)
+  return { ok: true, entry }
 })
 
 app.get('/api/output/run', async (req, reply) => {
