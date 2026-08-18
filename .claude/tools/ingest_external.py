@@ -131,6 +131,7 @@ JUNK_SUFFIXES = (".tmp", ".crdownload", ".partial")
 # source_type -> CLAUDE.md §4 tier (the frameworks/EXTERNAL_DATA.md mapping)
 TIER = {
     "alt_data_panel": 5, "vendor_export": 5, "paid_api": 5, "official_data": 5,
+    "peer_transcript": 6,  # a competitor's own earnings-call transcript — tier 6 about the PEER (§4)
     "broker_research": 7,
     "expert_call": 9, "channel_check": 9, "management_meeting": 9, "external_other": 9,
 }
@@ -143,6 +144,7 @@ RERUN_HINT = {
     "expert_call": ("business-model", "business-quality"),
     "channel_check": ("earnings", "revenue-drivers"),
     "management_meeting": ("management-governance", "management-and-track-record"),
+    "peer_transcript": ("competitive-intel", "peer-readthrough-to-subject"),
     "external_other": ("earnings", "guidance-consensus"),
 }
 

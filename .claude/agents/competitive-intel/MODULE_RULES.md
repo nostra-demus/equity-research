@@ -106,11 +106,38 @@ Language is not a data gap (§27): a peer call in Mandarin, Korean, Japanese, Ge
 
 ## Timing Rule (Hard Rule)
 
-The read-through's whole edge is the calendar spread in reporting dates. Enforce it:
+The read-through's whole edge is the calendar spread in reporting dates. Date-gate every peer against the SUBJECT's next-filing window (G1), and classify each into one of THREE states — the binary "reported / not reported" is not enough, because a peer can report a period that only PARTLY overlaps the subject's window:
 
-- A peer contributes to the **current-quarter read-through** ONLY if its call covering the comparable calendar window (G1) has ALREADY been published as of the run date. Date-gate every peer.
-- A peer whose comparable-window call is not yet out contributes only historical / structural context, clearly separated from the current-quarter read-through.
-- State plainly which peers are "already reported (read-through-eligible)" and which are "not yet reported (context only)". A read-through built on a peer that has not actually reported the comparable window is fabricated timing.
+- **Reported — full window.** The peer's published call covers the same calendar window as the subject's next filing, on a comparable basis (e.g. both cumulative H1, or both a standalone quarter for the same three months). Full read-through weight (subject to scope, G3).
+- **Reported — partial / sub-window.** The peer's published call covers only PART of the subject's window — the classic case is a peer filing a **standalone quarter** when the subject files a **cumulative half-year** (§27): the peer's Q2 call reads into the *second quarter of* the subject's half only, not the whole half. Mark it eligible for a read-through **into the covered sub-period only**, flag on every affected line that the rest of the subject's window is not covered by this peer, and — where the peer's earlier stub call for the same window IS in the pool — reconstruct the full window with the §27 cumulative-stub arithmetic and show it. Never silently treat a sub-window call as a full-window read.
+- **Not yet reported — context only.** The peer's comparable-window call is not out as of the run date: it contributes historical / structural context, clearly separated from the current-window read-through, never a current read.
+
+A read-through built on a peer that has not actually reported the covered window is fabricated timing. State each peer's state plainly in the calendar table.
+
+**A no-transcript peer is NOT a Timing state.** A private company (or any competitor that will never file a call) is a **coverage gap**, handled by the Coverage-of-Exposure rule — never tabulate it as "not-yet reported / context-only", which is reserved for a company whose call is simply not out yet.
+
+**Falsifier-basis rule (the sub-window trap).** When a **sub-window** read targets a period the subject will NOT isolate in its next filing — the classic case being a peer's standalone quarter read against a subject that files only a cumulative half — the subject's reported line **blends the covered sub-period with the uncovered stub** (e.g. the subject's cumulative-H1 line contains both the Q2 the peer covered and the Q1 no peer covered). Say so on the falsifier: the read can be only **partially** checked against the subject's print, because the subject never reports the isolated sub-period the read speaks to. Never present a sub-quarter read-through as if the subject's cumulative print cleanly confirms or refutes it.
+
+---
+
+## Coverage of the Subject's Exposure (Hard Rule)
+
+A read-through is only as good as the share of the subject it actually SPANS. The reporting peer set almost never covers the whole subject — a peer set of Western appliance makers says nothing about a subject whose revenue is mostly domestic-China, however clean each peer read is.
+
+- Every run states, up front, **what fraction of the subject's revenue / segments / geographies the reporting (read-through-eligible) peer set actually covers**, using the subject's own `segment-map` weights. Name the uncovered majority explicitly.
+- Where a large share of the subject's exposure has NO reporting-peer vantage (a dominant segment or geography with only a private / non-reporting / absent competitor), the read-through for that exposure is **Not assessable** — say so, and cap the *net* read-through weight accordingly. A confident read on the minority of the business is not a confident read on the business.
+- This is the generalisation of the "private China rival ⇒ the China core is unrepresented" gap: make the coverage-of-exposure statement a required output, not a lucky catch.
+
+---
+
+## Confidence and Weight are Two Different Axes (Hard Rule)
+
+A read-through row carries TWO numbers that must never be merged, because they answer different questions. Reporting only one — or blending them into a single High/Med/Low — is the defect this rule exists to prevent.
+
+1. **Direction confidence** — a CLAUDE.md §10 numeric band (with its basis: empirical / named base-rate / judgment). This answers *"how likely is the DIRECTION of this read-through correct?"* A peer read across companies is almost always **judgment** (a handful of observations, a different company). **Hard ceiling:** because a peer read-through is Level-1 inference *about a different company* (§6, G2), its Direction confidence is capped at **"Likely (60–75%)"** — never "Very likely" or above, however many peers corroborate it. Corroboration and window match raise the read-through's *weight*, not the ceiling on its *direction* probability.
+2. **Read-through weight** — High / Med / Low. This answers *"how much should this read-through move the subject view?"* and is set by three factors: **scope overlap** (G3), **window match** (full / partial-sub-window, Timing Rule), and the **number of corroborating peers** (dispersion). A single peer, a partial window, or a Medium/Low scope overlap each pull the weight down.
+
+The MODULE_RULES score caps below act on **weight**, never on the §10 probability — a "Low-weight" read-through can still have a directionally-confident band; the two coexist without contradiction. The `99` synthesis and the master synthesizer (which absorbs this module into its beat/miss & scenario view, §22) size a read-through by its **weight** and read its **direction** from the §10 band. Never collapse the two into one figure, and never let a Low weight silently rewrite a §10 band (or vice-versa).
 
 ---
 
@@ -118,13 +145,16 @@ The read-through's whole edge is the calendar spread in reporting dates. Enforce
 
 All scores are out of 100 (§12). Any score where higher = worse is INVERTED and must be flagged inverted in the header of every table that uses it.
 
+Caps act on the read-through **weight** (High/Med/Low), never on the §10 direction band (see the two-axes rule above).
+
 | Trigger | Cap |
 |---|---|
 | No peer transcripts in the pool at all | Triage `00` returns **Insufficient** — module does not run (a valid, decision-useful result: "no competitor calls provided"). |
-| Only ONE peer transcript available | Read-through confidence capped **Low**; dispersion (job 3) marked *Not assessable* (needs ≥2 peers). |
-| No peer with a comparable-window call already published | Current-quarter read-through = *Not assessable*; only structural context is produced. |
-| Peer set is self-selected (no `competitive-map` upstream) | Flag it; cap read-through confidence at **Medium** — the peer set was not independently established. |
-| A read-through dimension rests on a peer whose scope barely overlaps the subject (G3) | That dimension's confidence capped **Low**; say why. |
+| Only ONE peer transcript available | Read-through weight capped **Low**; dispersion (job 3) marked *Not assessable* (needs ≥2 peers). |
+| No peer with a comparable-window call already published (full or sub-window) | Current-window read-through = *Not assessable*; only structural context is produced. |
+| A dominant segment / geography of the subject has NO reporting-peer vantage (coverage-of-exposure rule) | The read-through for that exposure = *Not assessable*; the NET read-through weight is capped to reflect the uncovered majority. |
+| Peer set is self-selected (no `competitive-map` upstream) | Flag it; cap net read-through weight at **Medium** — the peer set was not independently established. |
+| A read-through dimension rests on a peer whose scope barely overlaps the subject (G3), or only a partial / sub-window call (Timing Rule) | That dimension's weight capped **Low**; say why (scope and/or window). |
 | Peer commentary available ONLY via broker paraphrase (no verbatim, G5) | That peer's tone/emphasis *Not assessable*; its read-through flagged `via unverified sell-side paraphrase`. |
 
 Data sufficiency caps conviction and never silently lifts it. A completed benchmark does not raise the subject's rating on its own (G2).
@@ -197,8 +227,8 @@ Add lines only if applicable: `Out-of-scope: ...`, `Insufficient data: ...`, `Pa
 
 ## Subagent List & Execution Layers
 
-Layer 0 (sequential, fail-fast):
-- `00_competitive-intel-triage` — inventories peer transcripts, resolves the peer set + per-peer calendar-window / basis / currency map, issues Sufficient / Partial / Insufficient.
+Layer 0 (sequential; `fail_fast: false` — "no peer calls" is a valid result, so the module always produces its chapter):
+- `00_competitive-intel-triage` — inventories peer transcripts, resolves the peer set + per-peer calendar-window / basis / currency / timing map, states coverage-of-exposure, issues Sufficient / Partial / Insufficient (never aborts the run).
 
 Layer 1 (parallel):
 - `01_peer-claim-extraction` — per peer, the standardised claim set on the fixed benchmark dimensions, each with scope tags, normalised + native period, currency, speaker, and citation.

@@ -40,12 +40,13 @@ You DO NOT:
 1. Read the repo-root `CLAUDE.md` (cross-cutting doctrine), then `.claude/agents/competitive-intel/MODULE_RULES.md` (this module's rules — especially the FIVE GUARDRAILS), and apply both.
 2. **Find the peer transcripts.** Look in `data/{TICKER}/external/**` first (the primary path — competitor transcripts the user dropped for this subject's benchmark), then any `data/<PEER>/` sibling pools referenced by the peer set. If `analyses/{TICKER}_{DATE}/_pool_extracts/manifest.md` exists, use it to find the external transcript extracts. Identify each peer from the transcript's OWN content (company name / speaker list) and cross-check against `competitive-map`. Never invent a peer, quote, or number.
 3. **Establish the subject's next filing (the target).** From `earnings/*` or the subject's pool, state what period the subject will FILE next, on what basis (standalone / cumulative), and the calendar window it covers. The read-through targets THAT print.
-4. **Normalise every peer's most-recent call to a common calendar window (G1).** Record each peer's native fiscal label, its interim basis, its reporting currency/standard, and whether its comparable-window call is ALREADY published (the Timing Rule). Only already-reported peers feed the current-quarter read-through.
-5. **Extract management signals on the benchmark dimensions (G5).** For each already-reported peer, pull what MANAGEMENT said (strip analyst questions/assertions) on: demand direction + magnitude, pricing / ASP, volume / units, input-cost commentary, gross / operating margin trajectory, channel / dealer inventory, capacity / capex, market-share claims, guidance direction (+ numbers), and capital return. Tag each with scope (geography / segment / product tier), the normalised window, currency, and a citation.
-6. **Scope-match (G3).** Keep only the signals whose scope overlaps the subject's exposure (per `segment-map`); flag and set aside the rest. Prefer rate-of-change / margin comparisons over absolute levels (G4).
-7. **Derive the read-through (G2).** For each surviving signal, write: peer evidence → transmission mechanism (why it reaches the subject) → directional implication for a NAMED subject metric → a numeric confidence band (§10) WITH its basis (empirical / named base-rate / judgment) → the subject line-item whose actual will confirm or falsify it (§8, §17). Label every read-through line as inference.
-8. **Dispersion (job 3, needs ≥2 already-reported peers).** Per dimension, state the peer consensus and the NAMED outlier, each with quote + number. If fewer than two peers, mark *Not assessable*.
-9. Write the net read-through verdict, the caps that bind, and the data gaps.
+4. **Normalise every peer's most-recent call to a common calendar window (G1) and classify its timing.** Record each peer's native fiscal label, interim basis, reporting currency/standard, and its Timing-Rule state against the SUBJECT's next-filing window: **reported — full window**, **reported — partial / sub-window** (e.g. a peer's standalone quarter inside the subject's cumulative half — reads into the covered sub-period only, flagged; reconstruct the full window with §27 stub arithmetic if the earlier stub call is in the pool), or **not yet reported — context only**. Only the first two feed the current read-through; the third is context.
+5. **State coverage of the subject's exposure (Coverage-of-Exposure rule).** Using `segment-map`, state what share of the subject's revenue / segments / geographies the reporting peer set actually spans, and name the uncovered majority. Where a dominant segment or geography has no reporting-peer vantage, its read-through is *Not assessable* and the net weight is capped — say so.
+6. **Extract management signals on the benchmark dimensions (G5).** For each already-reported peer, pull what MANAGEMENT said (strip analyst questions/assertions) on: demand direction + magnitude, pricing / ASP, volume / units, input-cost commentary, gross / operating margin trajectory, channel / dealer inventory, capacity / capex, market-share claims, guidance direction (+ numbers), and capital return. Tag each with scope (geography / segment / product tier), the normalised window, currency, and a citation.
+7. **Scope-match (G3).** Keep only the signals whose scope overlaps the subject's exposure (per `segment-map`); flag and set aside the rest. Prefer rate-of-change / margin comparisons over absolute levels (G4).
+8. **Derive the read-through (G2), with BOTH confidence axes.** For each surviving signal, write: peer evidence → transmission mechanism (why it reaches the subject) → directional implication for a NAMED subject metric → **Direction confidence** (a §10 numeric band WITH its basis: empirical / named base-rate / judgment) → **Read-through weight** (High / Med / Low, set by scope overlap × window match × corroborating peers) → the subject line-item whose actual will confirm or falsify it (§8, §17). Keep the two axes separate (MODULE_RULES two-axes rule); caps act on WEIGHT, never on the §10 band. Label every read-through line as inference.
+9. **Dispersion (job 3, needs ≥2 already-reported peers).** Per dimension, state the peer consensus and the NAMED outlier, each with quote + number. If fewer than two peers, mark *Not assessable*.
+10. Write the net read-through verdict, the caps that bind, and the data gaps.
 
 # WHAT TO READ (priority)
 
@@ -65,11 +66,13 @@ You DO NOT:
 
 State the subject's next filing first: *"{SUBJECT} files next: {period}, {standalone/cumulative} basis, covering ~{calendar window}."*
 
-| Peer | Ticker / venue | Std / currency | Most-recent call (native label) | Normalised window | Interim basis | Already reported comparable window? | Scope overlap with subject | Source |
+| Peer | Ticker / venue | Std / currency | Most-recent call (native label) | Normalised window | Interim basis | Timing vs subject window | Scope overlap with subject | Source |
 |---|---|---|---|---|---|---|---|---|
-| ... | ... | ... | e.g. Q2 FY26 | ~3m to Jun-2026 | standalone / cumulative | Y / N | High / Med / Low | [transcript cite] |
+| ... | ... | ... | e.g. Q2 FY26 | ~3m to Jun-2026 | standalone / cumulative | reported-full / reported-sub-window / not-yet | High / Med / Low | [transcript cite] |
 
-Below the table: list which peers are **read-through-eligible** (already reported the comparable window) and which are **context-only** (not yet reported). Note any private/no-transcript competitors as a coverage gap.
+Below the table:
+- List which peers are **read-through-eligible** (reported the full or a sub-window of the subject's window) and which are **context-only** (not yet reported). For any sub-window peer, state the covered sub-period and that the rest of the subject's window is uncovered (Timing Rule).
+- **Coverage of the subject's exposure (required):** using `segment-map`, state what share of the subject's revenue / segments / geographies the reporting peer set actually spans, and name the uncovered majority (e.g. "peers cover the ~40% overseas appliance exposure; the ~60% domestic core has no reporting-peer vantage — that read-through is Not assessable"). Note any private / no-transcript competitor as the coverage gap it creates.
 
 ## 1. Peer Management Signals (already-reported peers only)
 
@@ -94,11 +97,13 @@ Include only dimensions with at least one sourced peer signal. Set aside (do not
 
 Each row is an INFERENCE. Header must read: *"Every row below is inference from peer read-through — NOT a filing fact about {SUBJECT} (§6 Level 1, Guardrail G2)."*
 
-| Peer evidence | Transmission mechanism | Implication for {SUBJECT} (named metric, direction) | Confidence (§10 band + basis) | Subject line-item that confirms / falsifies |
-|---|---|---|---|---|
-| ... | shared {geo/segment/channel} | e.g. {SUBJECT} NA appliance revenue likely down low-single-digits | Likely (60–75%), judgment | {SUBJECT} NA segment revenue in the {period} print |
+The two confidence axes are separate columns (MODULE_RULES two-axes rule): **Direction confidence** is a §10 band (how likely the direction is right); **Weight** is High/Med/Low (how much it should move the subject view — set by scope overlap × window match × corroborating peers). Caps act on Weight, never on the §10 band.
 
-If any peers are context-only (not yet reported), add a clearly-separated **"Context only — not a current-quarter read-through"** sub-table for their structural signals.
+| Peer evidence | Transmission mechanism | Implication for {SUBJECT} (named metric, direction) | Direction confidence (§10 band + basis) | Weight (H/M/L + why) | Subject line-item that confirms / falsifies |
+|---|---|---|---|---|---|
+| ... | shared {geo/segment/channel} | e.g. {SUBJECT} NA appliance revenue likely down low-single-digits | Likely (60–75%), judgment | Low — NA is a minority of overseas + sub-window | {SUBJECT} NA segment revenue in the {period} print |
+
+If any peers are context-only (not yet reported), add a clearly-separated **"Context only — not a current read-through"** sub-table for their structural signals.
 
 ## 3. Cross-Sectional Dispersion
 
@@ -116,7 +121,7 @@ In 2–3 sentences: the SINGLE most important peer signal, and the one that coul
 
 ## 5. What Would Change This
 
-Name the specific {SUBJECT} line-items in the upcoming print whose actuals would confirm or refute each material read-through (the falsifier, §8 / §17).
+Name the specific {SUBJECT} line-items in the upcoming print whose actuals would confirm or refute each material read-through (the falsifier, §8 / §17). **For any sub-window read (Timing Rule falsifier-basis rule):** state that the subject's reported line blends the covered sub-period with the uncovered stub (e.g. a cumulative-H1 line contains both the peer-covered Q2 and the uncovered Q1), so the read can be only PARTIALLY checked — never present a sub-quarter read as cleanly confirmed/refuted by a cumulative print.
 
 ## 6. Data Gaps & Caps
 
@@ -132,9 +137,13 @@ Name the specific {SUBJECT} line-items in the upcoming print whose actuals would
 - [ ] **G3** — only scope-overlapping signals feed the read-through; scope mismatches are flagged, not silently lined up.
 - [ ] **G4** — comparisons prefer growth rates / margins; any absolute-level cross-peer comparison carries its FX date and basis.
 - [ ] **G5** — only management statements are used as peer evidence; analyst questions/assertions are stripped; broker paraphrases labelled `via unverified sell-side paraphrase`.
-- [ ] **Timing** — only already-reported peers feed the current-quarter read-through; not-yet-reported peers are context-only and separated.
+- [ ] **Timing** — each peer classified reported-full / reported-sub-window / not-yet; sub-window peers read into the covered sub-period only, flagged; not-yet peers are context-only and separated; a private / no-transcript peer is a coverage gap, NOT tabulated as not-yet.
+- [ ] **Falsifier basis** — every sub-window read states that the subject's cumulative print blends the covered sub-period with the uncovered stub, so it is only partially checkable (not presented as cleanly confirmed/refuted).
+- [ ] **Direction ceiling** — no read-through's Direction confidence exceeds "Likely (60–75%)"; corroboration raised Weight, not the direction ceiling (G2/§6).
+- [ ] **Coverage of exposure** — Section 0 states what share of the subject the reporting peer set spans and names the uncovered majority; any dominant segment/geography with no peer vantage is marked Not assessable and caps the net weight.
+- [ ] **Two axes** — every Section-2 row carries BOTH a §10 Direction-confidence band AND a High/Med/Low Weight; the two are not merged; caps act on Weight, not on the §10 band.
 - [ ] Every peer claim, quote, and number literally appears in a transcript in the pool (§5) — nothing invented.
-- [ ] Every confidence band states its basis (empirical with N + window / named base-rate / judgment) per §10.
+- [ ] Every direction-confidence band states its basis (empirical with N + window / named base-rate / judgment) per §10 — a cross-company peer read is judgment.
 - [ ] Each material read-through names the subject line-item that would confirm or falsify it.
 - [ ] Non-English peer calls were read and translated, figures verbatim (§27) — not marked missing.
 - [ ] No banned phrases (MODULE_RULES) — no "peers confirm", "in line with peers", or bare "peers are cautious" without a named peer + quote + number.
