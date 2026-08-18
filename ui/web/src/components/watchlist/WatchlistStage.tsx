@@ -16,6 +16,7 @@ export function WatchlistStage() {
   const showArchived = useStore((s) => s.watchlistShowArchived)
   const setShowArchived = useStore((s) => s.setWatchlistShowArchived)
   const staticMode = useStore((s) => s.staticMode)
+  const openComposer = useStore((s) => s.openWatchComposer)
   const [q, setQ] = useState('')
   const [origin, setOrigin] = useState<'all' | 'engine' | 'manual'>('all')
 
@@ -70,6 +71,7 @@ export function WatchlistStage() {
         <button className="btn btn--ghost" title="Re-check every price now" disabled={loading} onClick={() => void load(true)}>
           {loading ? 'Checking…' : 'Refresh ↻'}
         </button>
+        <button className="btn btn--amber" onClick={() => openComposer(null)} title="Add a name — including one the engine has never researched">+ Add</button>
       </div>
 
       {/* Provenance, always on screen: which engine artifact this half of the list came from, and how

@@ -3385,6 +3385,47 @@ a { color: inherit; }
 .wl__row:hover .wl__rowbtns, .wl__row:focus-within .wl__rowbtns { opacity: 1; }
 @media (hover: none) { .wl__rowbtns { opacity: 1; } }
 
+/* ---- watchlist composer — the .activity panel shell, plus a form ---- */
+.wlc { width: min(580px, 56%); z-index: 56; }
+.wlc__body { flex: 1; overflow: auto; padding: 16px 18px 24px; display: flex; flex-direction: column; gap: 15px; }
+.wlc__field { display: flex; flex-direction: column; gap: 5px; }
+.wlc__label { font-size: 10.5px; color: var(--text-muted); letter-spacing: 0.02em; }
+.wlc__labelnote { color: var(--text-faint); font-family: var(--font-mono); }
+.wlc__req { color: var(--accent-bright); }
+.wlc__row { display: flex; gap: 10px; align-items: flex-end; }
+.wlc__hint { font-size: 10.5px; color: var(--text-faint); line-height: 1.5; }
+.wlc__hint b { color: var(--accent-bright); font-family: var(--font-mono); }
+.wlc__why { min-height: 62px; resize: vertical; line-height: 1.5; padding: 8px 9px; }
+
+/* the resolved identity strip: what the feed said, not what anyone typed */
+.wlc__ident { display: flex; gap: 16px; align-items: flex-end; padding: 10px 12px; background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-md); }
+.wlc__identv { font-family: var(--font-mono); font-size: 12.5px; margin-top: 2px; }
+.wlc__identv--missing { color: var(--text-faint); }
+.wlc__warn { font-size: 11px; color: var(--accent-bright); background: var(--accent-wash); border: 1px solid var(--accent-deep); border-radius: var(--r-md); padding: 9px 11px; line-height: 1.5; }
+
+.wlc__cands { display: flex; flex-direction: column; gap: 2px; margin-top: 4px; }
+.wlc__cand { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; padding: 8px 9px; border-radius: var(--r-md); border: 1px solid transparent; transition: background var(--dur-fast) var(--ease); }
+.wlc__cand:hover { background: var(--surface-2); border-color: var(--hairline); }
+.wlc__candsym { font-family: var(--font-mono); font-weight: 600; font-size: 12.5px; width: 88px; flex: none; }
+.wlc__candname { flex: 1; min-width: 0; font-size: 12px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wlc__candprice { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12px; color: var(--accent-bright); }
+
+.wlc__tags { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; }
+.wlc__taginput { width: 92px; height: 24px; font-size: 11px; padding: 0 8px; }
+
+.wlc__trg { border: 1px solid var(--hairline-strong); border-radius: var(--r-md); padding: 11px; background: var(--surface-1); display: flex; flex-direction: column; gap: 9px; }
+.wlc__trghead { display: flex; align-items: center; gap: 8px; }
+.wlc__trgname { font-size: 11.5px; color: var(--accent-bright); }
+.wlc__trgmode { font-size: 9.5px; color: var(--text-faint); font-family: var(--font-mono); margin-inline-start: auto; }
+.wlc__trgbody { display: flex; flex-direction: column; gap: 8px; }
+/* a number ALWAYS carries the unit it is measured in — the whole reason the currency is not typeable */
+.wlc__num { display: flex; align-items: center; gap: 8px; }
+.wlc__num .fld { width: 120px; }
+.wlc__unit { font-size: 11px; color: var(--text-muted); }
+.wlc__addtrg { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 4px; }
+
+.wlc__foot { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 18px; border-top: 1px solid var(--hairline); background: var(--surface-1); }
+
 /* ---- research stage view toggle (Constellation | Globe) — stage-anchored, clones themes__viewtoggle ---- */
 .viewtoggle {
   position: absolute; top: 14px; right: 14px; z-index: 21; /* above DataFilesPanel/DecisionBanner (z20), below overlays */

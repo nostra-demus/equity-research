@@ -4,7 +4,7 @@ import type { ArchiveQuery, FeedFacets, SearchCursor } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
 import { moduleLabel, preferRunRoot, resolveVerdict } from './format'
 import { coerceViewForWebgl, normalizeStoredView, type ResearchView } from './researchView'
-import type { WatchlistRead } from './types'
+import type { WatchRowInput, WatchlistRead } from './types'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeCompilerHealth, ThemeDetail, ThemeBrief, ThemeFormationQueue, ThemeRemoval } from './themes'
 import { compareBriefingThemes, intensityWindowForHours, normalizeThemeCompilerHealth, normalizeThemeFormationQueue, themeSurfaceStatus, themeWindowForView } from './themes'
@@ -505,10 +505,16 @@ interface State {
   watchlistMetCount: number
   watchlistShowArchived: boolean
   watchlistPending: string | null
+  /** The add/edit panel. `prefill` carries what the decision record already knows, so a researched name
+   *  needs nothing retyped and is quotable the moment it is saved. */
+  watchComposer: { open: boolean; entryId: string | null; prefill: WatchRowInput | null; openedAt: number } | null
   loadWatchlist: (force?: boolean) => Promise<void>
   setWatchlistShowArchived: (v: boolean) => void
   archiveWatch: (ticker: string, currency: string | null, reason: string, muteScope?: 'assertion' | 'listing') => Promise<boolean>
   restoreWatch: (ticker: string, currency: string | null) => Promise<boolean>
+  openWatchComposer: (prefill?: WatchRowInput | null, entryId?: string | null) => void
+  closeWatchComposer: () => void
+  saveWatchRow: (input: WatchRowInput, entryId?: string | null) => Promise<boolean>
   setResearchView: (v: ResearchView) => void
   webglOK: boolean // WebGL available — gates the globe; when false the flat DOM constellation is shown instead
   // the warp transition between swarms; landing carries an optional research ticker to preselect
@@ -1319,6 +1325,7 @@ export const useStore = create<State>((set, get) => ({
   watchlistMetCount: 0,
   watchlistShowArchived: false,
   watchlistPending: null,
+  watchComposer: null,
   webglOK: true, // optimistic; init() probes and corrects + coerces the view if WebGL is missing
   warp: null,
   scGraph: null,
@@ -1746,6 +1753,32 @@ export const useStore = create<State>((set, get) => ({
   },
 
   setWatchlistShowArchived: (v) => set({ watchlistShowArchived: v }),
+
+  // Opening from the decision banner switches to the view AND opens the form, so the button lands you
+  // where the thing you just created will appear rather than leaving you to go find it.
+  openWatchComposer: (prefill, entryId) => {
+    set({ watchComposer: { open: true, entryId: entryId ?? null, prefill: prefill ?? null, openedAt: Date.now() } })
+    if (get().constellationSwarm === 'research') get().setResearchView('watchlist')
+  },
+  closeWatchComposer: () => set({ watchComposer: null }),
+
+  saveWatchRow: async (input, entryId) => {
+    if (get().staticMode) { get().setToast({ msg: 'Adding to the watchlist needs the live engine.', tone: 'bad' }); return false }
+    try {
+      if (entryId) await api.watchUpdate(entryId, input)
+      else await api.watchCreate(input)
+      await get().loadWatchlist(true)
+      set({ watchComposer: null })
+      get().setToast({ msg: entryId ? `${input.ticker} updated.` : `${input.ticker} added to the watchlist.`, tone: 'good' })
+      return true
+    } catch (e: any) {
+      const msg = e?.status === 409 ? `${input.ticker} is already on the watchlist.`
+        : e?.message === 'static-deploy' ? 'Adding to the watchlist needs the live engine.'
+        : e?.message ? String(e.message) : 'Could not save.'
+      get().setToast({ msg, tone: 'bad' })
+      return false
+    }
+  },
 
   // Mirrors refreshLiveQuote: a TTL gate unless forced, a static-mode early return, and FAIL TO NULL
   // rather than fabricate — a stale list beside a live price would be worse than an honest gap.

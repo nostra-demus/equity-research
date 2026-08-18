@@ -2379,6 +2379,9 @@ export interface WatchResolveRead {
   reason: 'no_match' | 'directory_unavailable' | 'feed_unavailable' | 'quotes_disabled' | null
 }
 
+/** Omit over a union must DISTRIBUTE, or the four trigger shapes collapse into their common keys. */
+export type DistributiveOmit<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never
+
 export interface WatchRowInput {
   ticker: string
   company_name?: string | null
@@ -2388,5 +2391,5 @@ export interface WatchRowInput {
   conviction?: 'high' | 'medium' | 'low' | null
   review_date?: string | null
   tags?: string[]
-  triggers?: Omit<WatchTrigger, 'trigger_id'>[]
+  triggers?: DistributiveOmit<WatchTrigger, 'trigger_id'>[]
 }

@@ -5,6 +5,7 @@ import { CommandBar } from './components/CommandBar'
 import { SwarmField } from './components/swarm/SwarmField'
 import { ViewToggle } from './components/swarm/ViewToggle'
 import { WatchlistStage } from './components/watchlist/WatchlistStage'
+import { WatchComposer } from './components/watchlist/WatchComposer'
 import { effectiveResearchView } from './lib/researchView'
 import { GLOBE } from './components/swarm/globe/globe-consts'
 import { ScreenerField } from './components/screener/ScreenerField'
@@ -221,6 +222,7 @@ export function App() {
   const valuationPlaygroundOpen = useStore((s) => s.valuationPlaygroundOpen)
   const reviewOpen = useStore((s) => s.reviewOpen)
   const cockpitFeedbackOpen = useStore((s) => s.cockpitFeedbackOpen)
+  const watchComposerOpen = useStore((s) => !!s.watchComposer?.open)
   const callsOpen = useStore((s) => s.callsOpen)
   const dataLibraryOpen = useStore((s) => s.dataLibraryOpen)
   const pipelineOpen = useStore((s) => s.pipelineOpen)
@@ -271,6 +273,7 @@ export function App() {
       <AnimatePresence>{valuationPlaygroundOpen && <ValuationPlayground />}</AnimatePresence>
       <AnimatePresence>{reviewOpen && <ReviewPanel />}</AnimatePresence>
       <AnimatePresence>{cockpitFeedbackOpen && <FeedbackPanel />}</AnimatePresence>
+      <AnimatePresence>{watchComposerOpen && <WatchComposer />}</AnimatePresence>
       <AnimatePresence>{dataPipelineOpen && <DataPipelinePanel />}</AnimatePresence>
       <AnimatePresence>{callsOpen && <CallsTracker />}</AnimatePresence>
       <AnimatePresence>{dataLibraryOpen && <DataLibrary />}</AnimatePresence>

@@ -263,6 +263,7 @@ export function DecisionBanner() {
   const openThesis = useStore((s) => s.openThesis)
   const openReport = useStore((s) => s.openReport)
   const openValuationPlayground = useStore((s) => s.openValuationPlayground)
+  const openWatchComposer = useStore((s) => s.openWatchComposer)
   const reports = useStore((s) => s.reports)
   const setToast = useStore((s) => s.setToast)
   const dataStatus = useStore((s) => s.dataStatus)
@@ -596,6 +597,27 @@ export function DecisionBanner() {
             <Metric label="Price now" value="—" title={ABSENT_PRICE_COPY[absentReason]} />
           )}
         </div>
+        {isResearch && (
+          <button
+            type="button"
+            className="tierbtn"
+            title="Add this company to the Watchlist — a reason, a buy trigger and a review date, checked against the live price. Everything the run already knows is filled in."
+            onClick={(e) => {
+              // stopPropagation is REQUIRED: the whole banner is a click target that opens the thesis.
+              e.stopPropagation()
+              openWatchComposer({
+                ticker: decision.ticker ?? selectedTicker ?? '',
+                company_name: decision.company_name ?? null,
+                currency: decision.currency ?? null,
+                exchange: decision.exchange ?? null,
+                why: '',
+                review_date: decision.next_checkpoint?.due_date ?? null,
+              })
+            }}
+          >
+            ☆ Watch
+          </button>
+        )}
         {isResearch && (
           <button
             type="button"
