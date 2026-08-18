@@ -514,7 +514,8 @@ interface State {
   restoreWatch: (ticker: string, currency: string | null) => Promise<boolean>
   openWatchComposer: (prefill?: WatchRowInput | null, entryId?: string | null) => void
   closeWatchComposer: () => void
-  saveWatchRow: (input: WatchRowInput, entryId?: string | null) => Promise<boolean>
+  saveWatchRow: (input: WatchRowInput, entryId?: string | null, files?: File[]) => Promise<boolean>
+  detachWatchFile: (entryId: string, attachmentId: string) => Promise<void>
   setResearchView: (v: ResearchView) => void
   webglOK: boolean // WebGL available — gates the globe; when false the flat DOM constellation is shown instead
   // the warp transition between swarms; landing carries an optional research ticker to preselect
@@ -1762,11 +1763,23 @@ export const useStore = create<State>((set, get) => ({
   },
   closeWatchComposer: () => set({ watchComposer: null }),
 
-  saveWatchRow: async (input, entryId) => {
+  saveWatchRow: async (input, entryId, files) => {
     if (get().staticMode) { get().setToast({ msg: 'Adding to the watchlist needs the live engine.', tone: 'bad' }); return false }
     try {
-      if (entryId) await api.watchUpdate(entryId, input)
-      else await api.watchCreate(input)
+      // A PDF needs an entry to hang off, so the row is written first and the files follow. A failed
+      // upload therefore never loses the row — it says the row saved and the file did not.
+      const saved: any = entryId ? await api.watchUpdate(entryId, input) : await api.watchCreate(input)
+      const id = entryId ?? saved?.entry?.entry_id ?? null
+      if (files?.length && id) {
+        try {
+          const r = await api.watchAttach(id, files)
+          if (r.fileErrors?.length) {
+            get().setToast({ msg: `${input.ticker} saved, but ${r.fileErrors.length} file${r.fileErrors.length === 1 ? '' : 's'} did not attach: ${r.fileErrors[0].reason}`, tone: 'bad' })
+          }
+        } catch (e: any) {
+          get().setToast({ msg: `${input.ticker} saved, but the file did not attach: ${e?.message ?? 'upload failed'}`, tone: 'bad' })
+        }
+      }
       await get().loadWatchlist(true)
       set({ watchComposer: null })
       get().setToast({ msg: entryId ? `${input.ticker} updated.` : `${input.ticker} added to the watchlist.`, tone: 'good' })
@@ -1801,6 +1814,16 @@ export const useStore = create<State>((set, get) => ({
       // an engine older than this bundle has no route yet: feature off, never an error surface
       if (e?.status === 404) { set({ watchlist: null, watchlistError: null, watchlistLoading: false, watchlistMetCount: 0 }); return }
       set({ watchlistError: e?.message ? String(e.message) : 'could not load the watchlist', watchlistLoading: false })
+    }
+  },
+
+  detachWatchFile: async (entryId, attachmentId) => {
+    if (get().staticMode) { get().setToast({ msg: 'Removing a file needs the live engine.', tone: 'bad' }); return }
+    try {
+      await api.watchDetach(entryId, attachmentId)
+      await get().loadWatchlist(true)
+    } catch {
+      get().setToast({ msg: 'Could not remove the file.', tone: 'bad' })
     }
   },
 

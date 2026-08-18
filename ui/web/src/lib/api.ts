@@ -102,6 +102,13 @@ async function put<T>(url: string, body?: any): Promise<T> {
   return j as T
 }
 
+async function del<T>(url: string): Promise<T> {
+  const r = await fetch(url, { method: 'DELETE' })
+  const j = await r.json().catch(() => ({}))
+  if (!r.ok) throw Object.assign(new Error((j as any)?.error || `${r.status}`), { status: r.status, body: j })
+  return j as T
+}
+
 async function patch<T>(url: string, body?: any): Promise<T> {
   const r = await fetch(url, {
     method: 'PATCH',
@@ -1003,6 +1010,33 @@ export const api = {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post<{ ok: boolean }>('/api/watchlist/archive', { ticker, currency, reason, mute_scope: muteScope })
   },
+  // XHR rather than fetch so the composer can show progress on a large PDF, the same shape
+  // submitCockpitFeedback uses.
+  watchAttach: async (entryId: string, files: File[], onProgress?: (frac: number) => void): Promise<{ ok: boolean; fileErrors: { filename: string; reason: string }[] }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    const fd = new FormData()
+    for (const f of files) fd.append('files', f, f.name)
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest()
+      xhr.open('POST', `/api/watchlist/${encodeURIComponent(entryId)}/attachments`)
+      if (onProgress) xhr.upload.onprogress = (e) => { if (e.lengthComputable) onProgress(e.loaded / e.total) }
+      xhr.onload = () => {
+        let j: any = {}
+        try { j = JSON.parse(xhr.responseText) } catch { /* keep {} */ }
+        if (xhr.status >= 200 && xhr.status < 300) resolve(j)
+        else reject(Object.assign(new Error(j?.error || `${xhr.status}`), { status: xhr.status, body: j }))
+      }
+      xhr.onerror = () => reject(new Error('upload failed'))
+      xhr.send(fd)
+    })
+  },
+  watchDetach: async (entryId: string, attachmentId: string) => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return del<{ ok: boolean }>(`/api/watchlist/${encodeURIComponent(entryId)}/attachment/${encodeURIComponent(attachmentId)}`)
+  },
+  watchAttachmentUrl: (entryId: string, attachmentId: string) =>
+    `/api/watchlist/${encodeURIComponent(entryId)}/attachment/${encodeURIComponent(attachmentId)}`,
+
   watchRestore: async (ticker: string, currency: string | null) => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post<{ ok: boolean }>('/api/watchlist/restore', { ticker, currency })

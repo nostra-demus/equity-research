@@ -17,7 +17,7 @@ import { buildReportHtml, parseMeta, safeName } from './export'
 import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, connectorDispatchReady, feedbackDispatchReady, feedbackEmailReady, isDispatchAdmin, isReservedDataFolder, pipelineScanReady } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
-import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
+import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED, readWatchlistFile, uploadToWatchlist } from './drive'
 import { assertClaudeCli, cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, launch, sigIdFor, todayDate, warmLaunchProbes } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed, applyActiveWeightsTo } from './news/feed'
@@ -61,7 +61,7 @@ import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseC
 import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, swarmSubjectSummaries, terminalModuleName } from './roster'
 import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest, todayISO } from './outputs'
 import {
-  WATCHLIST_ENTRIES_DIR, WATCHLIST_MAX_ROWS, WATCHLIST_MAX_TAGS, WATCHLIST_MAX_TRIGGERS,
+  WATCHLIST_ENTRIES_DIR, WATCHLIST_MAX_ATTACHMENTS, WATCHLIST_MAX_ROWS, WATCHLIST_MAX_TAGS, WATCHLIST_MAX_TRIGGERS,
   deleteEntry, fingerprintEngineRow, isWatchId, listingKey, makeListing, mergeWatchlist, newEntryId,
   pickEntryForListing, readEngineWatch, readEntries, readSizingDecoration, triggerSetProblem, writeEntry,
   type StandingCall, type WatchEntry, type WatchTrigger,
@@ -2740,6 +2740,113 @@ app.post('/api/watchlist/restore', { config: { rateLimit: { max: 120, timeWindow
   // An engine row that carries nothing of its own is not worth a file once it is un-archived.
   const bare = entry.origin === 'engine' && !entry.why && !entry.triggers.length && !entry.attachments.length && !entry.tags.length
   if (bare) { deleteEntry(entry.entry_id); return { ok: true, entry: null } }
+  writeEntry(entry)
+  return { ok: true, entry }
+})
+
+// ---- watchlist attachments ----
+// PDFs only, and they go to their own Drive folder keyed by ENTRY ID — never data/<TICKER>/. That is the
+// difference between a note you wrote and evidence a run may cite (§4), and it is enforced by calling a
+// function that takes no ticker at all rather than by remembering not to.
+
+const WATCH_ATTACH_MAX_BYTES = 25 * 1024 * 1024
+
+app.post('/api/watchlist/:id/attachments', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = String((req.params as any).id ?? '')
+  if (!isWatchId(id)) return reply.code(400).send({ error: 'bad id' })
+  if (!req.isMultipart()) return reply.code(400).send({ error: 'expected multipart' })
+  const { entries } = readEntries()
+  const entry = entries.find((e) => e.entry_id === id)
+  if (!entry) return reply.code(404).send({ error: 'not found' })
+  // Asked AFTER the request is validated: whether Drive is up has no bearing on whether the request was
+  // well-formed, and a 503 masking a 400 makes a client bug look like an outage.
+  if (!GDRIVE_ENABLED) return reply.code(503).send({ error: 'attachments need the Drive integration' })
+  const { user } = identify(req)
+
+  const added: typeof entry.attachments = []
+  const fileErrors: { filename: string; reason: string }[] = []
+  for await (const part of req.parts()) {
+    if (part.type !== 'file') continue
+    const raw = part.filename || 'thesis.pdf'
+    if (entry.attachments.length + added.length >= WATCHLIST_MAX_ATTACHMENTS) {
+      part.file.resume()
+      fileErrors.push({ filename: raw, reason: `at most ${WATCHLIST_MAX_ATTACHMENTS} files per name` })
+      continue
+    }
+    const safe = sanitizeUploadFilename(raw)
+    if (!safe.ok) { part.file.resume(); fileErrors.push({ filename: raw, reason: safe.reason }); continue }
+    // Narrower than UPLOAD_ALLOWED_EXTS on purpose: that list includes md/csv/json, the very types the
+    // pool extractor treats as evidence. A watchlist attachment is a document you read, nothing more.
+    if (!/\.pdf$/i.test(safe.name)) { part.file.resume(); fileErrors.push({ filename: raw, reason: 'PDF only' }); continue }
+
+    let bytes = 0
+    let tooBig = false
+    part.file.on('data', (c: Buffer) => {
+      bytes += c.length
+      if (bytes > WATCH_ATTACH_MAX_BYTES && !tooBig) { tooBig = true; part.file.destroy(new Error('too large')) }
+    })
+    try {
+      const up = await uploadToWatchlist(id, safe.name, part.file as any)
+      // @fastify/multipart can TRUNCATE without throwing, so a "successful" upload of a truncated stream
+      // must still be rejected — and the partial removed from Drive rather than left as a short PDF.
+      if (tooBig || (part.file as any).truncated) {
+        await deleteDriveFile(up.id)
+        fileErrors.push({ filename: raw, reason: `larger than ${Math.round(WATCH_ATTACH_MAX_BYTES / 1024 / 1024)}MB` })
+        continue
+      }
+      added.push({ attachment_id: up.id, filename: up.name, bytes, added_at: new Date().toISOString(), added_by: user })
+    } catch (e: any) {
+      fileErrors.push({ filename: raw, reason: tooBig ? 'too large' : driveErrorMessage(e) })
+    }
+  }
+
+  if (added.length) {
+    entry.attachments = [...entry.attachments, ...added]
+    entry.updated_at = new Date().toISOString()
+    entry.history = [...entry.history, { at: entry.updated_at, by: user, action: 'attached', detail: added.map((a) => a.filename).join(', ') }].slice(-50)
+    writeEntry(entry)
+  }
+  return reply.code(added.length ? 201 : 400).send({ ok: added.length > 0, entry, fileErrors })
+})
+
+app.get('/api/watchlist/:id/attachment/:attachmentId', { config: { rateLimit: { max: 300, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const id = String((req.params as any).id ?? '')
+  const attachmentId = String((req.params as any).attachmentId ?? '')
+  if (!isWatchId(id)) return reply.code(404).send({ error: 'not found' })
+  const { entries } = readEntries()
+  const entry = entries.find((e) => e.entry_id === id)
+  // The id must be one this entry actually lists — that, not the string's shape, is the containment
+  // barrier here: a Drive file id is only reachable if a record we wrote points at it.
+  const att = entry?.attachments.find((a) => a.attachment_id === attachmentId)
+  if (!att) return reply.code(404).send({ error: 'not found' })
+  if (!GDRIVE_ENABLED) return reply.code(503).send({ error: 'attachments need the Drive integration' })
+  let stream: import('node:stream').Readable
+  try { stream = await readWatchlistFile(attachmentId) } catch { return reply.code(502).send({ error: 'could not read the file' }) }
+  // `attachment`, never inline: an inline user-supplied PDF can run script in some viewers, and this
+  // origin holds the whole cockpit session. The filename is rebuilt from validated data, never echoed.
+  const safeName = `${entry!.listing.ticker.replace(/[^A-Za-z0-9._-]/g, '')}-${att.filename.replace(/[^A-Za-z0-9._-]/g, '')}`
+  return reply
+    .header('content-type', 'application/pdf')
+    .header('x-content-type-options', 'nosniff')
+    .header('content-disposition', `attachment; filename="${safeName}"`)
+    .header('cache-control', 'private, no-store')
+    .send(stream)
+})
+
+app.delete('/api/watchlist/:id/attachment/:attachmentId', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = String((req.params as any).id ?? '')
+  const attachmentId = String((req.params as any).attachmentId ?? '')
+  if (!isWatchId(id)) return reply.code(400).send({ error: 'bad id' })
+  const { entries } = readEntries()
+  const entry = entries.find((e) => e.entry_id === id)
+  if (!entry?.attachments.some((a) => a.attachment_id === attachmentId)) return reply.code(404).send({ error: 'not found' })
+  const { user } = identify(req)
+  await deleteDriveFile(attachmentId)
+  entry.attachments = entry.attachments.filter((a) => a.attachment_id !== attachmentId)
+  entry.updated_at = new Date().toISOString()
+  entry.history = [...entry.history, { at: entry.updated_at, by: user, action: 'detached', detail: attachmentId }].slice(-50)
   writeEntry(entry)
   return { ok: true, entry }
 })

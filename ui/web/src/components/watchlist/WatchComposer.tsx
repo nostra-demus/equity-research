@@ -48,6 +48,9 @@ export function WatchComposer() {
   const [tagDraft, setTagDraft] = useState('')
   const [triggers, setTriggers] = useState<DraftTrigger[]>(prefill?.triggers ?? [])
   const [saving, setSaving] = useState(false)
+  const [files, setFiles] = useState<File[]>([])
+  const [isDrag, setIsDrag] = useState(false)
+  const fileInput = useRef<HTMLInputElement>(null)
 
   // resolve
   const [query, setQuery] = useState('')
@@ -75,6 +78,7 @@ export function WatchComposer() {
     setTags(prefill?.tags ?? [])
     setTagDraft('')
     setTriggers(prefill?.triggers ?? [])
+    setFiles([])
     setQuery('')
     setCandidates(null)
     setResolveReason(null)
@@ -136,9 +140,14 @@ export function WatchComposer() {
       review_date: reviewDate || null,
       tags,
       triggers,
-    }, composer?.entryId ?? null)
+    }, composer?.entryId ?? null, files)
     setSaving(false)
     if (!ok) return
+  }
+
+  function addFiles(next: File[]) {
+    const pdfs = next.filter((f) => /\.pdf$/i.test(f.name))
+    setFiles((cur) => [...cur, ...pdfs].slice(0, 5))
   }
 
   const trgCtx = { currency: currency || '', reference, today: todayISO() }
@@ -305,6 +314,31 @@ export function WatchComposer() {
           {!triggers.length && (
             <div className="wlc__hint">Without a trigger this is a reminder — it will not be checked against the price.</div>
           )}
+        </div>
+        <div className="wlc__field">
+          <span className="wlc__label">Thesis <span className="wlc__labelnote">{files.length}/5</span></span>
+          <div
+            className={`wlc__drop${isDrag ? ' is-drag' : ''}`}
+            onDragOver={(e) => { e.preventDefault(); setIsDrag(true) }}
+            onDragLeave={() => setIsDrag(false)}
+            onDrop={(e) => { e.preventDefault(); setIsDrag(false); addFiles(Array.from(e.dataTransfer.files)) }}
+            onClick={() => fileInput.current?.click()}
+          >
+            <input ref={fileInput} type="file" accept="application/pdf" multiple hidden
+              onChange={(e) => { addFiles(Array.from(e.target.files || [])); e.target.value = '' }} />
+            {files.length
+              ? `${files.length} file${files.length === 1 ? '' : 's'} ready — click to add more`
+              : 'Drop or click to attach your write-up — PDF, up to 5'}
+          </div>
+          {files.map((f, i) => (
+            <div key={`${f.name}-${i}`} className="wlc__file">
+              <span>{f.name}</span>
+              <span className="wlc__filesize">{Math.round(f.size / 1024)} KB</span>
+              <button className="btn btn--mini" onClick={() => setFiles(files.filter((_, j) => j !== i))}>✕</button>
+            </div>
+          ))}
+          {/* The distinction that matters: this is a document you read, not a source a run may cite. */}
+          <div className="wlc__hint">Kept with this row, not added to the company's research documents — so no run can cite it as evidence.</div>
         </div>
       </div>
 

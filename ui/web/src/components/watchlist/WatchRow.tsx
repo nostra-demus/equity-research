@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useStore } from '../../lib/store'
 import { ABSENT_PRICE_COPY, livePriceLabel, money, priceQualifier } from '../../lib/format'
+import { api } from '../../lib/api'
 import type { WatchRow as Row, WatchTriggerEval } from '../../lib/types'
 
 const ORIGIN_LABEL: Record<Row['origin'], string> = { engine: 'engine', manual: 'you', both: 'engine + you' }
@@ -57,6 +58,7 @@ export function WatchRowCard({ row }: { row: Row }) {
   const requestFullForSubject = useStore((s) => s.requestFullForSubject)
   const anyRunForTicker = useStore((s) => s.anyRunForTicker)
   const openCalls = useStore((s) => s.openCalls)
+  const openThesis = useStore((s) => s.openThesis)
   const pending = useStore((s) => s.watchlistPending) === row.ticker
   const running = anyRunForTicker(row.ticker)
   const isArchived = !!row.archive
@@ -90,7 +92,26 @@ export function WatchRowCard({ row }: { row: Row }) {
             </span>
           )}
           {row.review_date && <span className="wl__trg">review {row.review_date}</span>}
-          {row.attachments.map((a) => <span key={a.attachment_id} className="wl__trg">{a.filename}</span>)}
+          {/* One affordance, two sources. A researched name opens the engine's own thesis; a name you
+              added opens the PDF you attached. A row with both lists both, labelled, so your write-up
+              and an audited run are never confused for one another. */}
+          {row.final_thesis_path && (
+            <a className="wl__trg wl__trg--thesis" href={`#thesis`} onClick={(e) => { e.preventDefault(); openThesis() }} title="The engine's own thesis for this run">
+              Thesis ▸ engine
+            </a>
+          )}
+          {row.entry_id && row.attachments.map((a) => (
+            <a
+              key={a.attachment_id}
+              className="wl__trg wl__trg--thesis"
+              href={api.watchAttachmentUrl(row.entry_id!, a.attachment_id)}
+              target="_blank"
+              rel="noreferrer"
+              title={`Your write-up · ${Math.round(a.bytes / 1024)} KB · added ${a.added_at.slice(0, 10)}`}
+            >
+              Thesis ▸ {a.filename}
+            </a>
+          ))}
           {row.tags.map((t) => <span key={t} className="wl__trg">{t}</span>)}
         </div>
       </div>
