@@ -3388,21 +3388,33 @@ a { color: inherit; }
 .wl__why { font-size: 12px; line-height: 1.45; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .wl__why--engine { color: var(--text-muted); font-style: italic; }
 .wl__chips { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 5px; }
-.wl__trg { font-size: 9.5px; padding: 1px 6px; border-radius: var(--r-pill); border: 1px solid var(--hairline); color: var(--text-muted); white-space: nowrap; }
-.wl__trg--met { background: var(--accent-wash); color: var(--accent-bright); border-color: var(--accent-deep); }
+/* Trigger state and the review date are what you ACT on, so they carry the weight the ticker does.
+   Support text — the company line, "last close", the delayed flag — stays quiet on purpose: lifting
+   everything would leave no hierarchy at all, which is the same problem in the other direction. */
+.wl__trg { font-size: 10.5px; font-weight: 500; padding: 2px 8px; border-radius: var(--r-pill); border: 1px solid var(--hairline-strong); color: var(--text); white-space: nowrap; }
+.wl__trg--met { background: var(--accent-wash); color: var(--accent-bright); border-color: var(--accent); font-weight: 600; }
 .wl__trg--due { background: var(--surface-3); color: var(--text); }
-.wl__trg--armed { color: var(--text-muted); }
+.wl__trg--armed { color: var(--text); background: var(--surface-3); }
 /* absence must LOOK different from a negative, never like a quiet pass */
-.wl__trg--unevaluable { color: var(--text-faint); border-style: dashed; }
+.wl__trg--unevaluable { color: var(--text-muted); border-style: dashed; border-color: var(--hairline); font-weight: 400; }
 .wl__trg--resurfaced { color: var(--rerun); border-color: var(--rerun); }
 .wl__trg--add { color: var(--accent-bright); border-color: var(--accent-deep); border-style: dashed; cursor: pointer; }
 .wl__trg--add:hover { background: var(--accent-wash); }
 
 .wl__price { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12.5px; color: var(--text); white-space: nowrap; }
 .wl__price--absent { color: var(--text-faint); }
+.wl__review { display: inline-flex; flex-direction: column; align-items: flex-end; gap: 1px; font-size: 12px; color: var(--text); white-space: nowrap; }
+.wl__review--none { color: var(--text-faint); }
+.wl__review--set { color: var(--text-muted); }
+.wl__review--soon { color: var(--text); font-weight: 500; }
+.wl__review--today { color: var(--accent-bright); font-weight: 600; }
+/* a date you have already passed is the most actionable thing on the row */
+.wl__review--overdue { color: var(--bad); font-weight: 600; }
+.wl__reviewnote { font-size: 9px; font-weight: 400; letter-spacing: 0.2px; opacity: 0.85; }
+
 .wl__meta { font-size: 10px; color: var(--text-faint); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 /* the only figure comparable DOWN the column — the price column holds six currencies */
-.wl__gap { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12px; color: var(--text-muted); }
+.wl__gap { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12.5px; color: var(--text); }
 .wl__gap--met { color: var(--accent-bright); font-weight: 600; }
 .wl__gap--none { color: var(--text-faint); }
 

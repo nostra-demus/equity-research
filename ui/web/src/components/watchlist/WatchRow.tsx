@@ -4,6 +4,22 @@ import { api } from '../../lib/api'
 import { ABSENT_PRICE_COPY, decisionColor, livePriceLabel, money, shortDay } from '../../lib/format'
 import type { WatchRow as Row } from '../../lib/types'
 
+const todayISO = () => {
+  const d = new Date()
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+
+/** A review date is not decoration — it is the date you said you would look again. Past due outranks
+ *  soon, which outranks a date that is simply set. */
+function reviewTone(date: string | null): 'overdue' | 'today' | 'soon' | 'set' | 'none' {
+  if (!date) return 'none'
+  const today = todayISO()
+  if (date < today) return 'overdue'
+  if (date === today) return 'today'
+  const soon = new Date(Date.now() + 7 * 86_400_000).toISOString().slice(0, 10)
+  return date <= soon ? 'soon' : 'set'
+}
+
 /** The shortest true thing about a trigger; the arithmetic rides in the hover. */
 function chipText(kind: string, state: string, due?: boolean, reason?: string | null): string {
   if (state === 'condition_met') return 'met'
@@ -123,7 +139,19 @@ export function WatchRowCard({ row }: { row: Row }) {
       </td>
 
       <td className="atable__num">
-        <span className="wl__meta" title={row.engine?.next_review_text ?? undefined}>{row.review_date ? shortDay(row.review_date) : '—'}</span>
+        {(() => {
+          const tone = reviewTone(row.review_date)
+          const label = tone === 'overdue' ? 'was due' : tone === 'today' ? 'due today' : null
+          return (
+            <span
+              className={`wl__review wl__review--${tone}`}
+              title={row.engine?.next_review_text ?? (row.review_date ? `You said you would look again on ${row.review_date}` : undefined)}
+            >
+              {row.review_date ? shortDay(row.review_date) : '—'}
+              {label && <span className="wl__reviewnote">{label}</span>}
+            </span>
+          )
+        })()}
       </td>
 
       <td className="atable__num">
