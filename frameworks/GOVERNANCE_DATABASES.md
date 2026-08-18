@@ -51,6 +51,8 @@ The failure mode these exist for: a company whose own board, and the company its
 
 Database recipes are per-source. This battery is per-SUBJECT: run it against **every entity and every person on the Discovery Register**, at the depth their tier requires. A subject that got the databases but not the battery has not been checked — the battery is what catches matters that never reached a court or a regulator's index.
 
+**Language (Hard Rule).** The terms below are written in English; that is a convenience of this document, not the language the evidence is in. Where the subject sits in a jurisdiction that does not work in English, run the battery **in the local language too** — translate each term, and query the subject's name in its local script AND its common transliterations, including the spelling variants a registry and a newspaper would each use. An English-only sweep of a non-English jurisdiction returns nothing and reads as clean, which is a bad-extraction error (§20), not an absence of findings. CLAUDE.md §27 is explicit that language is never a data gap: a court order, a regulator notice or an adverse-media report in the local language is a full-tier source. Log the language of every query in the Sweep Log; a battery run only in English against a non-English subject is `coverage-limited`, never `Clean (swept)`.
+
 **Core terms** (every jurisdiction), each combined with the quoted subject name:
 
 > lawsuit · legal notice · court · criminal · civil suit · fraud · default · defaulter · wilful defaulter · police complaint · arrest · disqualified director · strike off · insolvency · tribunal
