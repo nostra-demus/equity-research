@@ -147,6 +147,11 @@ RERUN_HINT = {
     "peer_transcript": ("competitive-intel", "peer-readthrough-to-subject"),
     "external_other": ("earnings", "guidance-consensus"),
 }
+# source_types whose new evidence invalidates the WHOLE module, not one orb: a new peer call changes the
+# peer SET, so a single-orb `/research:rerun` (which reruns only that orb + the synthesis, not the sibling
+# triage/extraction/matrix/triangulation) would leave the module internally inconsistent. Hint the full
+# module command instead.
+WHOLE_MODULE_RERUN = {"peer_transcript"}
 
 # A pool folder can be a COMMODITY (GOLD, SUGAR) rather than an equity ticker — the commodity
 # swarm shares data/<SUBJECT>/ and its subjects are the `## <NAME>` headings of the profiles file
@@ -173,6 +178,8 @@ def _rerun_hint(stype, subject):
     if _is_commodity_subject(subject):
         return f"/commodity:rerun supply-demand {subject}"
     module, agent = RERUN_HINT.get(stype, RERUN_HINT["external_other"])
+    if stype in WHOLE_MODULE_RERUN:
+        return f"/research:{module} {subject}"
     return f"/research:rerun {module} {agent} {subject}"
 
 KNOWN_PROVIDERS = {
@@ -530,6 +537,13 @@ def infer_source_type(name, sniff):
     if re.search(r"target[\s\-]?price|price[\s\-]?target", hay) and \
        re.search(r"(?<!credit )\brating\b|recommendation|overweight|underweight", hay):
         return "broker_research"
+    # a competitor's own earnings-call transcript, dropped to benchmark the subject (competitive-intel).
+    # AFTER broker detection, so a sell-side "earnings call insight" note (target price + rating block)
+    # stays broker_research. A verbatim CIQ/company transcript has a call title / prepared-remarks + Q&A
+    # structure, not a verdict block — that is what CIQ's "Competitor Transcripts" export drops here.
+    if re.search(r"earnings call|earnings conference call|conference call transcript", hay) or \
+       (re.search(r"prepared remarks", hay) and re.search(r"question[\s\-]?and[\s\-]?answer|\bq\s*&\s*a\b", hay)):
+        return "peer_transcript"
     # measured panel / dataset language, or a known alt-data vendor name
     if re.search(r"\bpanel\b|margin of error|backtest|our estimates? (vs|versus|against)|"
                  r"yipit|m science|second measure|similarweb|sensor tower|consumer edge|earnest analytics", hay):

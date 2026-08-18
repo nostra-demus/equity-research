@@ -9,9 +9,9 @@ fail_fast: false
 # result — so nothing is strictly required (CLAUDE.md §26 zero-touch).
 data_readiness:
   required: []
-  sufficient: [transcript]
+  sufficient: ["external:peer_transcript"]
   caps:
-    transcript: "no competitor transcripts in the pool — peer read-through and triangulation are Not assessable; the module reports the coverage gap rather than a benchmark"
+    "external:peer_transcript": "no competitor transcripts in the pool — peer read-through and triangulation are Not assessable; the module reports the coverage gap rather than a benchmark"
 ---
 
 # ROLE
@@ -41,7 +41,7 @@ You DO NOT:
    python3 .claude/tools/extract_pool.py "data/{TICKER}/" "analyses/{TICKER}_{DATE}/_pool_extracts"
    ```
 
-   Then inventory `data/{TICKER}/external/**` (the primary peer-transcript location) and any sibling `data/<PEER>/` pools for competitor earnings-call transcripts. Read `_pool_extracts/manifest.json`: a source whose `status` is `fail`/`fallback-text`/`missing-dependency` counts as NOT present.
+   Then inventory `data/{TICKER}/external/**` — the peer transcripts MUST live here to be auditable, because `extract_pool.py` and `verify-evidence` cover only `data/{TICKER}/` (MODULE_RULES Auditable-corpus rule). Read `_pool_extracts/manifest.json`: a source whose `status` is `fail`/`fallback-text`/`missing-dependency` counts as NOT present. If a peer's call is found only in a sibling `data/<PEER>/` pool, record it as a POINTER and flag that it must be copied into the subject's `external/` area to be citable — a sibling-pool quote is not in this run's audit corpus and cannot lift the read-through weight.
 3. **Resolve the peer set.** Prefer the named competitors in `business-model/08_competitive-map.md` (cross-module). If absent, self-select from the peer transcripts present and the subject's filings, and flag it (binds the self-selected cap). For each peer transcript, identify the peer from the transcript's OWN content (company name / speaker list) and match it to the peer set. A transcript for a company NOT in the peer set is a candidate end-market peer (add, flagged self-selected) or off-topic (note and skip). Never invent a peer or a transcript.
 4. **Establish the subject's next filing** (from `earnings/*` or the subject's pool): the period, the basis (standalone / cumulative), and the calendar window it covers — the target the read-through will aim at (§27).
 5. **Build the per-peer reporting-calendar map (G1 + Timing Rule).** For EACH peer transcript record: listing jurisdiction, reporting standard (US GAAP / IFRS / Ind AS / local), currency, fiscal-year end, native fiscal label of the most-recent call, the normalised calendar window, the interim basis (standalone / cumulative), the language (read + translate non-English — §27, never "missing"), and its Timing-Rule state vs the subject's window: **reported-full / reported-sub-window / not-yet**.

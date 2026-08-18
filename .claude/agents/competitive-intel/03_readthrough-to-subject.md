@@ -32,13 +32,13 @@ You DO NOT:
 # DEPENDENCIES
 
 - If `02_dimension-matrix.md` / `01_peer-claim-extraction.md` are present, build ON them (do not re-extract from scratch). If they are ABSENT (MVP / standalone run), read the peer transcripts DIRECTLY from the pool and do the extraction + period-normalisation inline yourself — this agent is self-sufficient.
-- If `business-model/08_competitive-map.md` is missing, self-select the peer set from the pool's peer transcripts and the subject's filings, and flag it: *"Peer set self-selected — not independently established by competitive-map; read-through confidence capped Medium (MODULE_RULES cap)."*
+- If `business-model/08_competitive-map.md` is missing, self-select the peer set from the pool's peer transcripts and the subject's filings, and flag it: *"Peer set self-selected — not independently established by competitive-map; net read-through WEIGHT capped Medium (MODULE_RULES cap)."* The cap acts on Weight (High/Med/Low), never on the §10 Direction-confidence band — the two axes stay separate (MODULE_RULES two-axes rule).
 - If NO peer transcript exists in the pool, you cannot run: state *"Verdict: Insufficient data — no competitor transcripts in the pool"* and stop.
 
 # WORKFLOW
 
 1. Read the repo-root `CLAUDE.md` (cross-cutting doctrine), then `.claude/agents/competitive-intel/MODULE_RULES.md` (this module's rules — especially the FIVE GUARDRAILS), and apply both.
-2. **Find the peer transcripts.** Look in `data/{TICKER}/external/**` first (the primary path — competitor transcripts the user dropped for this subject's benchmark), then any `data/<PEER>/` sibling pools referenced by the peer set. If `analyses/{TICKER}_{DATE}/_pool_extracts/manifest.md` exists, use it to find the external transcript extracts. Identify each peer from the transcript's OWN content (company name / speaker list) and cross-check against `competitive-map`. Never invent a peer, quote, or number.
+2. **Find the peer transcripts.** Look in `data/{TICKER}/external/**` — the auditable location (`extract_pool.py` + `verify-evidence` cover only `data/{TICKER}/`; MODULE_RULES Auditable-corpus rule). If `analyses/{TICKER}_{DATE}/_pool_extracts/manifest.md` exists, use it to find the external transcript extracts. A peer call found only in a sibling `data/<PEER>/` pool is a POINTER, not a citable source — it must be routed into the subject's `external/` area to be used; a quote taken from an un-routed sibling pool is unverifiable and cannot lift the weight. Identify each peer from the transcript's OWN content (company name / speaker list) and cross-check against `competitive-map`. Never invent a peer, quote, or number.
 3. **Establish the subject's next filing (the target).** From `earnings/*` or the subject's pool, state what period the subject will FILE next, on what basis (standalone / cumulative), and the calendar window it covers. The read-through targets THAT print.
 4. **Normalise every peer's most-recent call to a common calendar window (G1) and classify its timing.** Record each peer's native fiscal label, interim basis, reporting currency/standard, and its Timing-Rule state against the SUBJECT's next-filing window: **reported — full window**, **reported — partial / sub-window** (e.g. a peer's standalone quarter inside the subject's cumulative half — reads into the covered sub-period only, flagged; reconstruct the full window with §27 stub arithmetic if the earlier stub call is in the pool), or **not yet reported — context only**. Only the first two feed the current read-through; the third is context.
 5. **State coverage of the subject's exposure (Coverage-of-Exposure rule).** Using `segment-map`, state what share of the subject's revenue / segments / geographies the reporting peer set actually spans, and name the uncovered majority. Where a dominant segment or geography has no reporting-peer vantage, its read-through is *Not assessable* and the net weight is capped — say so.
@@ -99,9 +99,11 @@ Each row is an INFERENCE. Header must read: *"Every row below is inference from 
 
 The two confidence axes are separate columns (MODULE_RULES two-axes rule): **Direction confidence** is a §10 band (how likely the direction is right); **Weight** is High/Med/Low (how much it should move the subject view — set by scope overlap × window match × corroborating peers). Caps act on Weight, never on the §10 band.
 
-| Peer evidence | Transmission mechanism | Implication for {SUBJECT} (named metric, direction) | Direction confidence (§10 band + basis) | Weight (H/M/L + why) | Subject line-item that confirms / falsifies |
+Each row's **Confirms if / Falsifies if** must be TESTABLE against the coming print — not just a line-item name. State the line-item, an explicit directional or numeric boundary, its like-for-like comparable (the same period a year earlier, on the same reporting basis — §17), and the reporting basis; then say which outcome confirms and which falsifies. "Watch NA revenue" is not testable; "NA segment revenue YoY below −2% on the H1 cumulative basis confirms; flat-or-up falsifies" is.
+
+| Peer evidence | Transmission mechanism | Implication for {SUBJECT} (named metric, direction) | Direction confidence (§10 band + basis) | Weight (H/M/L + why) | Confirms if / Falsifies if (line-item · boundary · comparable · basis) |
 |---|---|---|---|---|---|
-| ... | shared {geo/segment/channel} | e.g. {SUBJECT} NA appliance revenue likely down low-single-digits | Likely (60–75%), judgment | Low — NA is a minority of overseas + sub-window | {SUBJECT} NA segment revenue in the {period} print |
+| ... | shared {geo/segment/channel} | e.g. {SUBJECT} NA appliance revenue likely down low-single-digits | Likely (60–75%), judgment | Low — NA is a minority of overseas + sub-window | NA segment revenue · YoY < −2% confirms / ≥ flat falsifies · vs H1-2025 · cumulative-H1 basis |
 
 If any peers are context-only (not yet reported), add a clearly-separated **"Context only — not a current read-through"** sub-table for their structural signals.
 
@@ -121,7 +123,7 @@ In 2–3 sentences: the SINGLE most important peer signal, and the one that coul
 
 ## 5. What Would Change This
 
-Name the specific {SUBJECT} line-items in the upcoming print whose actuals would confirm or refute each material read-through (the falsifier, §8 / §17). **For any sub-window read (Timing Rule falsifier-basis rule):** state that the subject's reported line blends the covered sub-period with the uncovered stub (e.g. a cumulative-H1 line contains both the peer-covered Q2 and the uncovered Q1), so the read can be only PARTIALLY checked — never present a sub-quarter read as cleanly confirmed/refuted by a cumulative print.
+Restate, for each material read-through, the TESTABLE confirm/falsify boundary from Section 2 (line-item · directional-or-numeric boundary · like-for-like comparable · reporting basis) — the falsifier (§8 / §17), scoreable against the print with no further judgement. **For any sub-window read (Timing Rule falsifier-basis rule):** state that the subject's reported line blends the covered sub-period with the uncovered stub (e.g. a cumulative-H1 line contains both the peer-covered Q2 and the uncovered Q1), so the read can be only PARTIALLY checked — never present a sub-quarter read as cleanly confirmed/refuted by a cumulative print.
 
 ## 6. Data Gaps & Caps
 
@@ -144,7 +146,7 @@ Name the specific {SUBJECT} line-items in the upcoming print whose actuals would
 - [ ] **Two axes** — every Section-2 row carries BOTH a §10 Direction-confidence band AND a High/Med/Low Weight; the two are not merged; caps act on Weight, not on the §10 band.
 - [ ] Every peer claim, quote, and number literally appears in a transcript in the pool (§5) — nothing invented.
 - [ ] Every direction-confidence band states its basis (empirical with N + window / named base-rate / judgment) per §10 — a cross-company peer read is judgment.
-- [ ] Each material read-through names the subject line-item that would confirm or falsify it.
+- [ ] Each material read-through states a TESTABLE confirm/falsify condition — the subject line-item, an explicit directional or numeric boundary, its like-for-like comparable (year-ago, same basis — §17), and the reporting basis — not merely the line-item name; a reader can score it against the print with no further judgement.
 - [ ] Non-English peer calls were read and translated, figures verbatim (§27) — not marked missing.
 - [ ] No banned phrases (MODULE_RULES) — no "peers confirm", "in line with peers", or bare "peers are cautious" without a named peer + quote + number.
 

@@ -109,13 +109,20 @@ export type FileType =
   | 'external_data'
   | 'other'
 
+// A readiness rule token. Either a top-level FileType, OR an `external:<sourceType>` token that matches a
+// document under data/<TICKER>/external/ carrying that granular source_type (frameworks/EXTERNAL_DATA.md) —
+// external files are all typed the readiness-NEUTRAL 'external_data', so a module whose evidence lives in
+// external/ (e.g. competitive-intel's `external:peer_transcript` competitor calls) declares the external
+// token to see them, and a subject-side 'transcript' can no longer masquerade as that evidence.
+export type ReadinessToken = FileType | `external:${string}`
+
 // A module's OPTIONAL self-declared data-readiness rule (in its 00-triage frontmatter as
 // `data_readiness:`). Lets a NEW module get a tailored readiness verdict with zero central edits —
 // the engine interprets this generically (data-status.ts evalDecl). Absent => generic fallback.
 export interface DataReadinessDecl {
-  required?: FileType[] // any missing => Insufficient
-  sufficient?: FileType[] // all present (and all required) => Sufficient; else Partial
-  caps?: Partial<Record<FileType, string>> // Partial-state note shown when that type is missing
+  required?: ReadinessToken[] // any missing => Insufficient
+  sufficient?: ReadinessToken[] // all present (and all required) => Sufficient; else Partial
+  caps?: Partial<Record<ReadinessToken, string>> // Partial-state note shown when that token is missing
 }
 
 export interface WorkbookSheet {

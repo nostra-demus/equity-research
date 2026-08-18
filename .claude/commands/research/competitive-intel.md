@@ -38,22 +38,25 @@ mkdir -p "analyses/${ARGUMENTS}_<DATE>"
 
 Capture `analyses/${ARGUMENTS}_<DATE>` as `<RUN_ROOT>`.
 
-## 4. Resolve business-model cross-module path
+## 4. Resolve cross-module paths (business-model AND earnings)
 
-The peer set is inherited from `business-model/08_competitive-map.md`. Resolve the business-model upstream folder — prefer THIS run's date, else the latest prior-dated run (and then state "using prior-run business-model dated X"):
+This module declares `depends_on: [business-model, earnings]`: the peer set + segment-map come from `business-model/08_competitive-map.md` and `03_segment-map.md`, while the subject's next-filing basis and its own management claims (for the read-through target and the narrative triangulation) come from `earnings/*`. Resolve BOTH upstream folders — prefer THIS run's date, else the latest prior-dated run (and then state "using prior-run <module> dated X"):
 
 ```
 ls -1d analyses/${ARGUMENTS}_*/business-model/ 2>/dev/null | sort -r | head -n 1
+ls -1d analyses/${ARGUMENTS}_*/earnings/ 2>/dev/null | sort -r | head -n 1
 ```
 
-Capture as `<BUSINESS_MODEL_PATH>`. If empty, set it to `not available`.
+Capture the results as `<BUSINESS_MODEL_PATH>` and `<EARNINGS_PATH>`. Set either to `not available` if its command returns empty.
 
-Build the cross-module context string:
+Build the cross-module context string by joining one labelled sentence per resolved dependency (the exact format `frameworks/MODULE_PIPELINE.md` expects — the dependency name, first letter capitalised):
 
-- If `<BUSINESS_MODEL_PATH>` is `not available`: `<CROSS_MODULE_CONTEXT>` = `none`.
-- Otherwise: `<CROSS_MODULE_CONTEXT>` = the literal text `Business-model cross-module path: <BUSINESS_MODEL_PATH>` (with the path substituted).
+- Start with an empty list of sentences.
+- If `<BUSINESS_MODEL_PATH>` is not `not available`, append: `Business-model cross-module path: <BUSINESS_MODEL_PATH>.`
+- If `<EARNINGS_PATH>` is not `not available`, append: `Earnings cross-module path: <EARNINGS_PATH>.`
+- `<CROSS_MODULE_CONTEXT>` = the appended sentences joined by a single space; if the list is empty (neither resolved), set it to the literal string `none`.
 
-The triage and read-through agents parse this label for the peer set and segment-map; if it is `none` they self-select the peer set from the pool and flag it.
+Agents parse the label(s) for the dependencies they read: the triage and read-through use the business-model peer set / segment-map and the earnings next-filing basis; narrative triangulation uses the earnings subject-claims. If a label is absent, the affected agent self-serves from the pool and flags it (a peer set self-selected without competitive-map caps the net read-through WEIGHT at Medium).
 
 ## 5. Run the shared module pipeline
 

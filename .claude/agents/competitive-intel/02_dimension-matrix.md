@@ -36,7 +36,7 @@ If `01` is missing, note it and re-read the transcripts directly (degraded). If 
 2. Read `01` (claims) and `00` (calendar + coverage-of-exposure).
 3. **Align (G1).** Group each dimension's peer claims by the common calendar window. Where peers' windows differ (e.g. a standalone quarter vs a cumulative half), keep them in the same dimension row but FLAG the mismatch on the cell — never present mismatched-window figures as one comparable series.
 4. **Scope-tag (G3).** Carry each cell's scope (geography / segment / tier). Prefer rate-of-change / margin comparisons across peers; an absolute-level comparison carries its currency/period (G4).
-5. **Per dimension, compute consensus + dispersion.** State what MOST peers said (the consensus) and NAME the outlier — the peer uniquely upbeat or uniquely worried — each with a quote and a number. If fewer than two peers addressed the dimension, mark it *Not assessable*.
+5. **Per dimension, compute consensus + dispersion.** State what MOST peers said (the consensus) — or, where the peers split with no majority, state **"Mixed — no consensus"** and name each side. Then NAME the outlier — the peer uniquely upbeat or uniquely worried — with a quote and a number; or, where the peers are materially aligned with no genuine standout, state **"No material outlier"** (do NOT manufacture an outlier from indistinguishable evidence). If fewer than two peers addressed the dimension, mark it *Not assessable*. These three — Mixed, No material outlier, Not assessable — are valid outcomes, not gaps.
 
 # REPORT STRUCTURE
 
@@ -64,7 +64,7 @@ Mark a cell `— (window: {native}, does not align to {common window})` where G1
 
 ## 2. Consensus & Dispersion (per dimension)
 
-For each dimension with ≥2 peers: one line for the **consensus** (what most peers said) and one line naming the **outlier** (uniquely upbeat / worried), each with a quote + number. Dimensions with <2 peers: *"Not assessable — fewer than two peers."*
+For each dimension with ≥2 peers: one line for the **consensus** (what most peers said) — or **"Mixed — no consensus"** with each side named where the peers split evenly — and one line naming the **outlier** (uniquely upbeat / worried) with a quote + number, or **"No material outlier"** where the peers are materially aligned. Dimensions with <2 peers: *"Not assessable — fewer than two peers."*
 
 - **Demand:** Consensus — {...}. Outlier — {Peer}: "{quote}" ({number}) [cite].
 - **Pricing / promo:** ...
@@ -85,7 +85,7 @@ For each dimension with ≥2 peers: one line for the **consensus** (what most pe
 - [ ] Every extracted peer claim from `01` appears in the matrix or is explicitly "not addressed".
 - [ ] Window mismatches are flagged on the cell (G1); no mismatched-window figures are presented as one comparable series.
 - [ ] Scope tags are carried (G3); comparisons prefer ratios (G4).
-- [ ] Every dimension with ≥2 peers has a consensus line AND a named outlier with quote + number; <2-peer dimensions are marked Not assessable.
+- [ ] Every dimension with ≥2 peers has a consensus line (or an explicit "Mixed — no consensus") AND either a named outlier with quote + number or an explicit "No material outlier"; no split is forced into a false consensus and no outlier is manufactured from indistinguishable evidence; <2-peer dimensions are marked Not assessable.
 - [ ] Every quote/number traces to `01` (and thus to a transcript, §5) — nothing invented.
 - [ ] No banned phrases (MODULE_RULES) — no bare "peers are cautious" without a named peer + quote + number.
 

@@ -76,13 +76,30 @@ Write this LAST.
 ## 1. Verdict Block
 
 - **Net read-through direction** (pick one): Favors a beat / Favors a miss / Mixed / Not assessable *(from `03`)*
-- **Read-through weight** (High / Med / Low, from `03`) — how much this should move the subject view (§ two-axes rule; caps act here)
+- **Read-through weight** (High / Med / Low, from `03`) — how much this should move the subject view (two-axes rule; caps act here)
 - **Narrative triangulation verdict** *(from `04`)*: Corroborated / Partly contradicted / Materially contradicted / Not testable
-- **Peer-coverage of subject /100** *(higher = the reporting peers span more of the subject's revenue/segments/geographies)*: *(from `00`/`03`)*
-- **Benchmark data-sufficiency /100**: *(from `00` — number and quality of peer calls)*
+- **Peer-coverage of subject /100** *(higher = the reporting peers span more of the subject's revenue/segments/geographies)*: *(built per §1B — do NOT invent it)*
+- **Benchmark data-sufficiency /100**: *(built per §1B — number and quality of peer calls)*
 - **Dispersion:** assessable / Not assessable *(from `02`)*
 - **Single most important peer signal (one line):**
 - **Biggest contradiction or corroboration of the subject's narrative (one line):**
+
+## 1B. Score Builds (reproducible — CLAUDE.md §12)
+
+Both `/100` scores above MUST be rebuilt from the evidence rows below, not assigned by feel — two runs on the same pool must produce the same number. Print each component with its value.
+
+**Peer-coverage of subject /100** = `round(covered_exposure_pct)`, where `covered_exposure_pct` is the share of the subject's revenue (using `business-model/03_segment-map` weights) spoken to by at least one **read-through-eligible** (already-reported, Timing Rule) and **scope-overlapping** (G3) peer on a matched window (G1). List the covered segments/geographies and their weights so the sum is auditable. A private / non-reporting / scope-mismatched competitor adds NOTHING to coverage.
+
+**Benchmark data-sufficiency /100** = the sum of four printed components (floor at 0 if no peer transcripts exist at all — then the module reports the coverage gap, not a benchmark):
+
+| Component | Points | Rule |
+|---|---:|---|
+| Reporting-peer breadth | 0–40 | 0 eligible peers = 0; 1 = 20; 2 = 30; ≥3 = 40. A partial / sub-window peer counts as half a peer. |
+| Exposure coverage | 0–30 | `round(covered_exposure_pct × 0.30)`. |
+| Source quality | 0–20 | 20 if every eligible peer is a verbatim transcript; −10 if any eligible peer is broker-paraphrase-only (G5); 0 if no verbatim transcript at all. |
+| Peer-set provenance | 0–10 | 10 if the peer set is from `competitive-map`; 5 if self-selected. |
+
+Show the four component values and their sum. Neither score is inverted (higher = better coverage / more sufficiency).
 
 ## 1A. Module Disconfirmation (CLAUDE.md §8)
 

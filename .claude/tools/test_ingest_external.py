@@ -269,6 +269,32 @@ def main():
           hints and hints[0].startswith("/research:rerun "), str(hints))
     shutil.rmtree(root)
 
+    # ---- 8b-peer: competitor earnings-call transcript -> peer_transcript (tier 6) + whole-module hint ----
+    # A CIQ "Competitor Transcripts" drop must classify as peer_transcript (tier 6 about the peer), broker
+    # precedence must hold (a sell-side earnings-call NOTE with a verdict block stays broker_research), and a
+    # new peer call must hint the WHOLE competitive-intel module — a single-orb rerun would leave the sibling
+    # triage/extraction/matrix/triangulation stale against a changed peer set.
+    check("infer_source_type: verbatim earnings-call transcript -> peer_transcript",
+          m.infer_source_type("Whirlpool_Q2-2026_EarningsCall.txt",
+                              "Whirlpool Corporation, Q2 2026 Earnings Call. Prepared remarks. "
+                              "Question-and-Answer session with analysts.") == "peer_transcript",
+          m.infer_source_type("Whirlpool_Q2-2026_EarningsCall.txt", "earnings call prepared remarks q&a"))
+    check("infer_source_type: prepared-remarks + Q&A structure -> peer_transcript",
+          m.infer_source_type("call.txt", "Prepared Remarks by the CEO. Q & A.") == "peer_transcript",
+          m.infer_source_type("call.txt", "prepared remarks q & a"))
+    check("infer_source_type: sell-side earnings-call NOTE stays broker_research (precedence)",
+          m.infer_source_type("WHR_EarningsCallInsight.pdf",
+                              "Equity Research. Rating: Overweight. Target Price $130. "
+                              "Our summary of the Whirlpool earnings call.") == "broker_research",
+          "broker precedence over transcript")
+    check("TIER: peer_transcript maps to §4 tier 6", m.TIER["peer_transcript"] == 6, str(m.TIER.get("peer_transcript")))
+    check("rerun hint: a new peer_transcript hints the WHOLE module",
+          m._rerun_hint("peer_transcript", "MIDEA") == "/research:competitive-intel MIDEA",
+          m._rerun_hint("peer_transcript", "MIDEA"))
+    check("rerun hint: an ordinary single-orb type stays /research:rerun",
+          m._rerun_hint("expert_call", "MIDEA").startswith("/research:rerun "),
+          m._rerun_hint("expert_call", "MIDEA"))
+
     # ---- 8c. GOLD methodology boundary: WILTW is never routed; ordinary reports remain admissible ----
     root = tempfile.mkdtemp()
     build_pool(root)
