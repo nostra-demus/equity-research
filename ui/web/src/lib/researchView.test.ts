@@ -25,10 +25,13 @@ check('the watchlist is never restored as a landing view', () => {
   assert.equal(isPersistableView('globe'), true)
 })
 
-check('anything unrecognised falls back to the globe default', () => {
+check('nothing stored, or junk, opens on the flat constellation', () => {
+  // the globe is the same scene wrapped onto a sphere and the costlier one to paint; it is remembered
+  // once chosen, but it is not what a first visit lands on
   for (const junk of [null, undefined, '', 'GLOBE', 'nonsense', 42, {}]) {
-    assert.equal(normalizeStoredView(junk as unknown), 'globe', String(junk))
+    assert.equal(normalizeStoredView(junk as unknown), 'constellation', String(junk))
   }
+  assert.equal(normalizeStoredView('globe'), 'globe', 'an explicit choice is still honoured')
 })
 
 check('no WebGL coerces the globe away — and ONLY the globe', () => {

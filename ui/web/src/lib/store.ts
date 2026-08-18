@@ -110,12 +110,12 @@ function saveRead(s: Set<string>): void {
 }
 
 // The research stage's renderer: the 3D globe (default) or the flat 2D constellation. A per-browser
-// presentation preference like the theme — persisted to localStorage, never leaves the machine. Globe is
-// the default; only an explicit 'constellation' choice opts out. init() coerces a stored/default 'globe'
-// back to 'constellation' when WebGL is unavailable (no strand).
+// presentation preference like the theme — persisted to localStorage, never leaves the machine. The flat
+// constellation is the default; the globe is an explicit choice and is remembered once made. init()
+// coerces a stored 'globe' back to 'constellation' when WebGL is unavailable (no strand).
 const VIEW_KEY = 'nsw.researchView'
 function loadView(): ResearchView {
-  try { return normalizeStoredView(localStorage.getItem(VIEW_KEY)) } catch { return 'globe' }
+  try { return normalizeStoredView(localStorage.getItem(VIEW_KEY)) } catch { return 'constellation' }
 }
 // One-time, cached WebGL capability probe (a context creation, immediately released). The globe needs it;
 // the toggle disables the Globe option and we coerce away from it when this is false.

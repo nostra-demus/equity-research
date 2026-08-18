@@ -20,12 +20,15 @@ const VIEWS: readonly ResearchView[] = ['constellation', 'globe', 'watchlist']
  * The watchlist is deliberately NOT restorable as a landing view. It is a place you go — a
  * cross-company list — where the stage is where you work on the company you have selected. Restoring it
  * means every reload drops you into a list instead of the thing you were looking at, and it quietly
- * became the app's home screen for anyone who visited it once. A stored watchlist resolves to the
- * constellation; the globe stays the default for anyone who has never chosen.
+ * became the app's home screen for anyone who visited it once.
+ *
+ * The default with nothing stored is the CONSTELLATION. The globe is the same scene wrapped onto a
+ * sphere and it is the more expensive one to paint; opening flat means the first thing drawn is the
+ * thing you read, and the globe is one click away for anyone who prefers it.
  */
 export function normalizeStoredView(raw: unknown): ResearchView {
   if (raw === 'watchlist') return 'constellation'
-  return VIEWS.includes(raw as ResearchView) ? (raw as ResearchView) : 'globe'
+  return VIEWS.includes(raw as ResearchView) ? (raw as ResearchView) : 'constellation'
 }
 
 /** Which views are worth remembering between visits. The watchlist is not one (see above). */
