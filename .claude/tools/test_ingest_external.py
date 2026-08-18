@@ -272,8 +272,8 @@ def main():
     # ---- 8b-peer: competitor earnings-call transcript -> peer_transcript (tier 6) + whole-module hint ----
     # A CIQ "Competitor Transcripts" drop must classify as peer_transcript (tier 6 about the peer), broker
     # precedence must hold (a sell-side earnings-call NOTE with a verdict block stays broker_research), and a
-    # new peer call must hint the WHOLE competitive-intel module — a single-orb rerun would leave the sibling
-    # triage/extraction/matrix/triangulation stale against a changed peer set.
+    # new peer call must hint a FULL rerun — a single-orb rerun leaves the sibling orbs stale and the module
+    # command alone never re-synthesises the master thesis/decision the new peer set should update.
     check("infer_source_type: verbatim earnings-call transcript -> peer_transcript",
           m.infer_source_type("Whirlpool_Q2-2026_EarningsCall.txt",
                               "Whirlpool Corporation, Q2 2026 Earnings Call. Prepared remarks. "
@@ -288,8 +288,8 @@ def main():
                               "Our summary of the Whirlpool earnings call.") == "broker_research",
           "broker precedence over transcript")
     check("TIER: peer_transcript maps to §4 tier 6", m.TIER["peer_transcript"] == 6, str(m.TIER.get("peer_transcript")))
-    check("rerun hint: a new peer_transcript hints the WHOLE module",
-          m._rerun_hint("peer_transcript", "MIDEA") == "/research:competitive-intel MIDEA",
+    check("rerun hint: a new peer_transcript hints a FULL rerun (module orbs + master cascade)",
+          m._rerun_hint("peer_transcript", "MIDEA") == "/research:full MIDEA",
           m._rerun_hint("peer_transcript", "MIDEA"))
     check("rerun hint: an ordinary single-orb type stays /research:rerun",
           m._rerun_hint("expert_call", "MIDEA").startswith("/research:rerun "),

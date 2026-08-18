@@ -147,11 +147,13 @@ RERUN_HINT = {
     "peer_transcript": ("competitive-intel", "peer-readthrough-to-subject"),
     "external_other": ("earnings", "guidance-consensus"),
 }
-# source_types whose new evidence invalidates the WHOLE module, not one orb: a new peer call changes the
-# peer SET, so a single-orb `/research:rerun` (which reruns only that orb + the synthesis, not the sibling
-# triage/extraction/matrix/triangulation) would leave the module internally inconsistent. Hint the full
-# module command instead.
-WHOLE_MODULE_RERUN = {"peer_transcript"}
+# source_types whose new evidence invalidates the WHOLE module AND the decision built on it. A new peer call
+# changes the peer SET, so (a) every competitive-intel orb must rerun — a single-orb `/research:rerun` reruns
+# only that orb + the syntheses, leaving the sibling triage/extraction/matrix/triangulation stale — AND (b) the
+# master thesis / decision_record / memo / audit dossier must re-synthesise, which the standalone module command
+# does NOT do (it commits only the module folder). Only the whole-pipeline `/research:full` does both, so that
+# is the honest hint for a newly added peer transcript.
+FULL_RERUN = {"peer_transcript"}
 
 # A pool folder can be a COMMODITY (GOLD, SUGAR) rather than an equity ticker — the commodity
 # swarm shares data/<SUBJECT>/ and its subjects are the `## <NAME>` headings of the profiles file
@@ -178,8 +180,8 @@ def _rerun_hint(stype, subject):
     if _is_commodity_subject(subject):
         return f"/commodity:rerun supply-demand {subject}"
     module, agent = RERUN_HINT.get(stype, RERUN_HINT["external_other"])
-    if stype in WHOLE_MODULE_RERUN:
-        return f"/research:{module} {subject}"
+    if stype in FULL_RERUN:
+        return f"/research:full {subject}"
     return f"/research:rerun {module} {agent} {subject}"
 
 KNOWN_PROVIDERS = {

@@ -75,16 +75,21 @@ A transcript is management's ANSWERS (tier-6 evidence) plus analysts' QUESTIONS 
 
 ## Source Hierarchy (module refinement — consistent with CLAUDE.md §4)
 
-Most trusted to least, for THIS module's sources:
+Route by ROLE — the results disclosure and the call are strong at opposite things, so "most trusted" differs for a figure vs for commentary:
 
-1. **Peer verbatim earnings-call transcript** (CIQ / company) — tier 6 about that peer, full trust for what its management said. Prepared remarks + Q&A.
-2. **Peer earnings press release / results filing** — the peer's own NUMBERS anchor (thin on driver colour). Cite it for the peer's own figures.
-3. **Peer investor deck / results presentation** — tier 7.
-4. **Broker "peer earnings insight / call summary"** — a verdict-stripped transcript-proxy (G5). Commentary role only; never the verbatim call, never for the peer's tone/candor.
-5. **The subject's own transcript and filings** — read ONLY to triangulate the subject's narrative against peers (G2 still applies in reverse: the subject's claim is a claim, the peers are the cross-check).
+**For a peer's reported FIGURES (the numbers):**
+1. **Peer earnings press release / results filing** — the peer's own NUMBERS anchor. In ANY conflict with the call, the filed/released figure wins (§4/§5).
+2. **Peer verbatim earnings-call transcript** — quotes the same numbers; use it for a figure ONLY where the release does not give it.
+
+**For a peer's management COMMENTARY, drivers, and tone (the colour):**
+1. **Peer verbatim earnings-call transcript** (CIQ / company) — tier 6 about that peer, full trust for what its management said (prepared remarks + Q&A). The primary source for driver colour and tone.
+2. **Broker "peer earnings insight / call summary"** — a verdict-stripped transcript-proxy (G5). Commentary role only; never the verbatim call, never for the peer's tone/candor.
+
+(A peer investor deck / results presentation sits at tier 7.) **The subject's own transcript and filings** are read ONLY to triangulate the subject's narrative against peers (G2 still applies in reverse: the subject's claim is a claim, the peers are the cross-check).
 
 Rules:
 
+- **A peer's reported NUMBER is cited from its results filing / press release, not from the transcript, in any conflict (§4/§5).** The transcript is cited for what management SAID, never re-cited as the source of a figure the release already carries.
 - A peer transcript is tier 6 about the PEER and Level-1 inference about the SUBJECT (G2). Never cite it as a source ABOUT the subject.
 - A peer transcript NEVER substitutes for a filing the subject's own sufficiency rules require. It is enrichment for the benchmark, not a unit that fills a missing-subject-filing slot (§11).
 - When sources conflict, use the more conservative reading (§4). Do not give the subject's narrative the benefit of the doubt because a peer's words are ambiguous.

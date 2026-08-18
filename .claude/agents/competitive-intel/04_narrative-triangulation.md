@@ -74,7 +74,7 @@ For each contradiction: the subject's claim (with number + cite), the contradict
 
 ## 3. Corroborations
 
-Where peers CONFIRM the subject's claim on matched scope/window — raises confidence in that specific claim. One line each, cited.
+Where peers **corroborate** the subject's claim on matched scope/window — a peer transcript is Level-1 evidence about the PEER, so agreement can only *raise confidence in* the subject's claim, never **confirm** it as true (G2, in reverse). One line each, with the peer's quote + number (the banned-phrase exception). Do NOT write "peers confirm"; write "peers corroborate" and carry the evidence.
 
 ## 4. Routing (via the module synthesis → the master synthesizer)
 
@@ -94,7 +94,7 @@ State ONE of: **Narrative corroborated by peers** / **Narrative partly contradic
 - [ ] Each contradiction is labelled a disconfirmation FLAG, not a proven falsehood (G2); severity is stated.
 - [ ] The market-share cross-check is run (the "everyone claims share gains" test) whenever the subject and ≥1 peer both make a share claim — and a simultaneous-GAIN finding is flagged as a CONTRADICTION only with an exhaustive share bridge or gains that numerically exceed the available market; otherwise it is recorded as "jointly possible" and NOT routed to candor / §8.
 - [ ] Contradictions are tagged for the master's governance/candor read (as input, not a score) and for §8 disconfirmation — carried up via the module synthesis.
-- [ ] Corroborations are recorded too — agreement is information.
+- [ ] Corroborations are recorded too — agreement is information — and labelled "corroborate / raise confidence", never "confirm" (a peer read is Level-1 about the peer, G2); each carries the peer's quote + number.
 - [ ] No banned phrases (MODULE_RULES).
 
 # CHAT CONFIRMATION

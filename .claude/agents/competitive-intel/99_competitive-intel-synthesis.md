@@ -77,6 +77,7 @@ Write this LAST.
 
 - **Net read-through direction** (pick one): Favors a beat / Favors a miss / Mixed / Not assessable *(from `03`)*
 - **Read-through weight** (High / Med / Low, from `03`) — how much this should move the subject view (two-axes rule; caps act here)
+- **Read-through direction confidence** (§10 band + basis, from `03`) — the numeric probability the direction is right (e.g. Likely 60–75%, judgment). Carry it SEPARATELY from Weight (two-axes rule): the master needs both to tell a toss-up read from a 60–75% one. Where the read spans several signals, carry the band of the load-bearing one and note the range.
 - **Narrative triangulation verdict** *(from `04`)*: Corroborated / Partly contradicted / Materially contradicted / Not testable
 - **Peer-coverage of subject /100** *(higher = the reporting peers span more of the subject's revenue/segments/geographies)*: *(built per §1B — do NOT invent it)*
 - **Benchmark data-sufficiency /100**: *(built per §1B — number and quality of peer calls)*
@@ -94,7 +95,7 @@ Both `/100` scores above MUST be rebuilt from the evidence rows below, not assig
 
 | Component | Points | Rule |
 |---|---:|---|
-| Reporting-peer breadth | 0–40 | 0 eligible peers = 0; 1 = 20; 2 = 30; ≥3 = 40. A partial / sub-window peer counts as half a peer. |
+| Reporting-peer breadth | 0–40 | Let N = the count of read-through-eligible peers, a partial / sub-window peer counting as 0.5. N = 0 → 0; 0 < N < 2 → 20; 2 ≤ N < 3 → 30; N ≥ 3 → 40. (Every half-step is defined: 0.5 and 1.5 → 20, 2.5 → 30.) |
 | Exposure coverage | 0–30 | `round(covered_exposure_pct × 0.30)`. |
 | Source quality | 0–20 | 20 if every eligible peer is a verbatim transcript; −10 if any eligible peer is broker-paraphrase-only (G5); 0 if no verbatim transcript at all. |
 | Peer-set provenance | 0–10 | 10 if the peer set is from `competitive-map`; 5 if self-selected. |
@@ -107,6 +108,8 @@ Show the four component values and their sum. Neither score is inverted (higher 
 - **Strongest bull read-through:** the peer signal that most supports it.
 - **Single killer contradiction** from `04` (or "none material").
 - **Disconfirming evidence already visible** in the peer calls (or "none").
+- **What data would change this conclusion:** the specific subject line-item actuals — carried up verbatim from `03`'s per-read-through confirm/falsify boundaries (line-item · boundary · comparable · basis) — whose print would flip the net read-through. These falsifiers must survive the module boundary, not stay buried in `03` (§8).
+- **What would force a downgrade / rejection:** the peer evidence or narrative contradiction that, if it holds at the subject's print, should cap or withdraw the read-through's contribution to the master view.
 
 ## 2. Specialist Roll-Up
 
@@ -138,7 +141,8 @@ Caps act on WEIGHT, never on the §10 direction band.
 ## 5. Note To The Final Synthesizer
 
 Bullet list. Surface what the read-through MEANS — do not restate scores.
-- The net read-through and its weight, with the single most important peer signal — for the master's beat/miss & scenario view (a leading indicator from already-reported competitors; keep its weight and inference caveats).
+- The net read-through carrying BOTH axes — its **weight** (H/M/L) AND its **direction-confidence band** (§10 + basis), kept separate — with the single most important peer signal, for the master's beat/miss & scenario view (a leading indicator from already-reported competitors; keep its weight and inference caveats). The master must be able to tell a toss-up read from a 60–75% one without reopening `03`.
+- The **falsifiers and downgrade/rejection triggers** from §1A — the specific subject line-item boundaries (line-item · boundary · comparable · basis, from `03`) whose print would flip or cap the read-through — so the master's §8 kill-criteria inherit a testable check, not just a direction.
 - Whether the subject's narrative was corroborated or contradicted by peers, and the sharpest contradiction (route to §8 kill criteria and to the master's governance/candor read).
 - The coverage gap: what share of the subject the peers CANNOT speak to (so the read-through is not mistaken for a whole-company read — G2/coverage rule).
 - Whether any cap bound the weight, and why.
@@ -157,7 +161,8 @@ Bullet list. Surface what the read-through MEANS — do not restate scores.
 
 - [ ] Every specialist output (`00`–`04`) was read and appears in Section 2.
 - [ ] The five-guardrail + claim-fidelity pass was run; no read-through hardened into a subject fact (G2); no qualifier/basis/build dropped (§3).
-- [ ] The read-through direction (§10-style) and its weight (H/M/L) are BOTH reported and kept separate (two-axes rule); caps act on weight only.
+- [ ] The read-through's numeric direction-confidence band (§10 + basis) and its weight (H/M/L) are BOTH reported in the verdict AND carried to the §5 handoff, kept separate (two-axes rule); caps act on weight only.
+- [ ] §1A carries the §8 "what would change the conclusion" (the `03` falsifier boundaries) and "what would force a downgrade/rejection" — they survive the module boundary into the §5 handoff, not left buried in `03`.
 - [ ] Peer-coverage /100 and benchmark data-sufficiency /100 are stated; the uncovered majority is named (coverage rule).
 - [ ] The narrative-triangulation verdict from `04` is carried, with the sharpest contradiction routed to §8 and to candor.
 - [ ] Direction flags: Peer-coverage and data-sufficiency are NOT inverted (higher = better); read-through weight is a materiality axis, not a probability.

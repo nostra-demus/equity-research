@@ -6,7 +6,12 @@ layer: 0
 fail_fast: false
 # Self-declared data-readiness for the cockpit's pre-run readiness dots (the server reads this; absent =>
 # generic fallback). This module never hard-aborts the run — "no peer calls" is a valid, decision-useful
-# result — so nothing is strictly required (CLAUDE.md §26 zero-touch).
+# result — so nothing is strictly required (CLAUDE.md §26 zero-touch). NOTE: the server's evalDecl is a
+# PRESENCE test (it cannot count peers or judge window/scope usability), so this dot is a COARSE pre-run
+# signal — "at least one peer call is present, the benchmark can run" — not the benchmark's quality. The
+# SUFFICIENCY RULE below is authoritative: the triage agent computes the real Sufficient/Partial/Insufficient
+# from eligible-peer count, window match, and coverage at runtime. (A count/usability-aware dot would need a
+# count-aware readiness predicate in the engine — out of scope for this module.)
 data_readiness:
   required: []
   sufficient: ["external:peer_transcript"]
@@ -52,7 +57,9 @@ You DO NOT:
 
 - **Sufficient:** at least TWO competitor transcripts whose comparable-window call (full or sub-window) is already published, with scope that overlaps the subject, AND `competitive-map` (or a defensible self-selected peer set) to anchor them. Dispersion and a multi-peer read-through are possible.
 - **Partial:** exactly ONE such peer transcript, OR two-plus but only broker paraphrases (no verbatim, G5), OR peers whose windows/scope only weakly overlap the subject. A read-through is possible but weight-capped; dispersion may be Not assessable.
-- **Insufficient:** NO competitor transcript in the pool (or none covering the comparable window). The read-through and triangulation are Not assessable. This is a valid result — the module still runs and reports the coverage gap; it does NOT abort the run.
+- **Insufficient:** NO usable competitor call at all — neither a verbatim transcript NOR a permitted broker paraphrase (G5) covering the comparable window. The read-through and triangulation are Not assessable. This is a valid result — the module still runs and reports the coverage gap; it does NOT abort the run.
+
+**Precedence (resolve the broker-only overlap):** the Partial rule wins wherever it applies. A pool that holds ANY usable call — a verbatim transcript OR a permitted broker paraphrase — is at least Partial; Insufficient is reserved for a pool with NO usable call. So a broker-paraphrase-only pool is **Partial** (broker paraphrases carry the G5 weight-strip and cap, but they are usable), never Insufficient.
 
 A non-English peer call is NOT a gap (§27) — it is read and translated, counted at the tier its type earns. Only a FAILED extraction is a real gap.
 
