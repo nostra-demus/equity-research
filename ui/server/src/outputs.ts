@@ -238,7 +238,7 @@ export function runManifest(runRoot: string, resolve: (p: string) => string = re
 // `*_<window>_decision_review*.json`) — keep them byte-identical so the hook, command, and UI agree.
 
 // local YYYY-MM-DD, matching review_due.py's datetime.date.today() (local, NOT UTC).
-function todayISO(): string {
+export function todayISO(): string {
   const d = new Date()
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 }
@@ -258,7 +258,7 @@ export function isISODate(s: unknown): s is string {
 
 // a real calendar date, not merely regex-shaped (mirrors python's datetime.date.fromisoformat, which
 // rejects e.g. '2026-02-30' — new Date() would silently roll that over to March and must not be used).
-function isValidCalendarISODate(s: unknown): s is string {
+export function isValidCalendarISODate(s: unknown): s is string {
   if (!isISODate(s)) return false
   const y = Number(s.slice(0, 4))
   const mo = Number(s.slice(5, 7))
