@@ -4881,31 +4881,53 @@ def check_az_governance_flag_cap_correspondence():
         if "data quality" in pre or "dataquality" in pre: return "DQ"
         if "audit" in pre: return "AUDIT"
         return "?"
-    def _az_cap_payload(section, rf_id):
-        # Match the row by its SUBJECT (first cell), like (1)/(2). Each bound carries its BAND
-        # (RF-NET-003's Disqualifying-/Material-equivalent rows) and its normalized SCORE, so
-        # moving a cap to the wrong score, or swapping the two 003 bands, changes the payload.
-        out = []
+    def _az_trigger_key(cell):
+        # A cap row's identity WITHIN its RF id is its TRIGGER text, not its position in the table.
+        # The old form keyed only on the literal strings "disqualifying-equivalent"/"material-equivalent",
+        # which separated RF-NET-003's two bands and gave all four RF-NET-004 rows the same empty key —
+        # so two 004 rows could swap triggers and leave the identical sorted collection of bounds.
+        # Reduced to content tokens because the two tables paraphrase each other ("sanctions match" vs
+        # "sanctions", "terminable at short notice" vs "short-terminable"), so exact text would false-fail.
+        txt = re.sub(r"RF-[A-Z]+-\d+", " ", cell).lower()
+        stop = {"the", "and", "for", "its", "not", "any", "all", "with", "that", "while", "from"}
+        return frozenset(t for t in re.findall(r"[a-z0-9]+", txt) if len(t) > 2 and t not in stop)
+    def _az_cap_rows(section, rf_id):
+        # One entry per cap ROW: (trigger key, its sorted score bounds). Moving a cap to the wrong
+        # score, changing a number, or swapping two rows' triggers all change the result.
+        rows = []
         for ln in section.splitlines():
-            st = ln.strip()
-            if not st.startswith("|") or rf_id not in (_az_row_first_cell(ln) or ""):
+            first = _az_row_first_cell(ln)
+            if first is None or rf_id not in first:
                 continue
-            low = ln.lower()
-            band = "disq" if "disqualifying-equivalent" in low else ("mat" if "material-equivalent" in low else "")
+            bounds = []
             for m in re.finditer(r"(max|floor)\s+(\d+)", ln, re.I):
                 # attach to the NEAREST score: the clause since the last ';' or '|', not a fixed
                 # window that could reach back past it to an earlier score in the same cell.
                 seg = ln[:m.start()]
                 clause = seg[max(seg.rfind(";"), seg.rfind("|")) + 1:]
-                out.append((band, _az_score_of(clause), m.group(1).lower(), int(m.group(2))))
-        return sorted(out)
+                bounds.append((_az_score_of(clause), m.group(1).lower(), int(m.group(2))))
+            rows.append((_az_trigger_key(first), sorted(bounds)))
+        return rows
     for i in net_ids:
         if i not in cap_keys or i not in mir_keys:
             continue  # ID-presence gaps already reported by (1)/(2); don't double-report
-        mr_b, n99_b = _az_cap_payload(caps, i), _az_cap_payload(cap99, i)
-        if mr_b != n99_b:
-            fails.append(f"{i}: cap payload drifts between MODULE_RULES {mr_b} and 99 {n99_b} "
-                         f"(band / score / number disagree — enforcement silently weakened or misdirected)")
+        mr_rows, n99_rows = _az_cap_rows(caps, i), _az_cap_rows(cap99, i)
+        if len(mr_rows) != len(n99_rows):
+            fails.append(f"{i}: {len(mr_rows)} cap row(s) in MODULE_RULES vs {len(n99_rows)} in 99 "
+                         f"(a trigger condition was added or dropped on one side only)")
+            continue
+        pool = list(n99_rows)
+        for key, bounds in mr_rows:
+            # Pair each MODULE_RULES row with the 99 row whose TRIGGER overlaps it most — the tables
+            # paraphrase, so identity is nearest-trigger, never exact text.
+            j = max(range(len(pool)), key=lambda k: len(key & pool[k][0]))
+            k99, b99 = pool.pop(j)
+            if not key & k99:
+                fails.append(f"{i}: cap row '{' '.join(sorted(key))[:70]}' has no counterpart trigger in 99")
+            elif bounds != b99:
+                fails.append(f"{i}: cap payload drifts for trigger '{' '.join(sorted(key & k99))[:70]}' — "
+                             f"MODULE_RULES {bounds} vs 99 {b99} (score / number disagree, or two rows' "
+                             f"triggers were swapped — enforcement silently weakened or misdirected)")
     return fails
 
 azfails = check_az_governance_flag_cap_correspondence()
