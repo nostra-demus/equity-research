@@ -32,6 +32,7 @@ const ABSENT_RESOLVE: Record<string, string> = {
 export function WatchComposer() {
   const composer = useStore((s) => s.watchComposer)
   const tickers = useStore((s) => s.tickers)
+  const driveEnabled = useStore((s) => s.driveEnabled)
   const close = useStore((s) => s.closeWatchComposer)
   const save = useStore((s) => s.saveWatchRow)
   const prefill = composer?.prefill ?? null
@@ -318,19 +319,29 @@ export function WatchComposer() {
         </div>
         <div className="wlc__field">
           <span className="wlc__label">Thesis <span className="wlc__labelnote">{files.length}/5</span></span>
-          <div
-            className={`wlc__drop${isDrag ? ' is-drag' : ''}`}
-            onDragOver={(e) => { e.preventDefault(); setIsDrag(true) }}
-            onDragLeave={() => setIsDrag(false)}
-            onDrop={(e) => { e.preventDefault(); setIsDrag(false); addFiles(Array.from(e.dataTransfer.files)) }}
-            onClick={() => fileInput.current?.click()}
-          >
-            <input ref={fileInput} type="file" accept="application/pdf" multiple hidden
-              onChange={(e) => { addFiles(Array.from(e.target.files || [])); e.target.value = '' }} />
-            {files.length
-              ? `${files.length} file${files.length === 1 ? '' : 's'} ready — click to add more`
-              : 'Drop or click to attach your write-up — PDF, up to 5'}
-          </div>
+          {/* Attachments live in Drive. Offering a drop target on a machine with no Drive credential
+              produces a file that silently never arrives — the row saves, the upload 503s, and the only
+              trace is a toast. Say it up front instead. */}
+          {driveEnabled ? (
+            <div
+              className={`wlc__drop${isDrag ? ' is-drag' : ''}`}
+              onDragOver={(e) => { e.preventDefault(); setIsDrag(true) }}
+              onDragLeave={() => setIsDrag(false)}
+              onDrop={(e) => { e.preventDefault(); setIsDrag(false); addFiles(Array.from(e.dataTransfer.files)) }}
+              onClick={() => fileInput.current?.click()}
+            >
+              <input ref={fileInput} type="file" accept="application/pdf" multiple hidden
+                onChange={(e) => { addFiles(Array.from(e.target.files || [])); e.target.value = '' }} />
+              {files.length
+                ? `${files.length} file${files.length === 1 ? '' : 's'} ready — click to add more`
+                : 'Drop or click to attach your write-up — PDF, up to 5'}
+            </div>
+          ) : (
+            <div className="wlc__drop wlc__drop--off">
+              Attaching needs the Drive connection, which this engine does not have.
+              Everything else on this row saves normally.
+            </div>
+          )}
           {files.map((f, i) => (
             <div key={`${f.name}-${i}`} className="wlc__file">
               <span>{f.name}</span>

@@ -53,6 +53,7 @@ export function WatchRowCard({ row }: { row: Row }) {
       row.entry_id,
     )
 
+  const thesisHref = row.entry_id && row.attachments.length ? api.watchAttachmentUrl(row.entry_id, row.attachments[0].attachment_id) : null
   const rowClass = row.state === 'condition_met' ? 'wl__tr--met' : row.state === 'due' ? 'wl__tr--due' : ''
 
   return (
@@ -131,6 +132,12 @@ export function WatchRowCard({ row }: { row: Row }) {
             <button className="btn btn--mini" disabled={pending} onClick={() => void restoreWatch(row.ticker, row.currency)}>{pending ? '…' : 'Restore'}</button>
           ) : (
             <>
+              {/* Reading the case comes before changing it — Thesis first, then Edit. */}
+              {thesisHref ? (
+                <a className="btn btn--mini" href={thesisHref} target="_blank" rel="noreferrer" title="Your write-up">Thesis</a>
+              ) : row.final_thesis_path ? (
+                <button className="btn btn--mini" onClick={openThesis} title="The engine's own thesis for this run">Thesis</button>
+              ) : null}
               <button className="btn btn--mini" onClick={edit} title="Change the reason, the triggers or the review date">Edit</button>
               <button className="btn btn--mini wl__more" aria-label={`More actions for ${row.ticker}`} aria-expanded={menu} onClick={() => setMenu(!menu)}>⋯</button>
               {menu && (
@@ -138,14 +145,6 @@ export function WatchRowCard({ row }: { row: Row }) {
                   <button className="wl__opt" role="menuitem" disabled={running} onClick={() => { setMenu(false); void requestFullForSubject(row.ticker) }}>
                     {running ? 'Run in flight…' : `Run the full pipeline on ${row.ticker}`}
                   </button>
-                  {row.attachments.length > 0 && row.entry_id && (
-                    <a className="wl__opt" role="menuitem" href={api.watchAttachmentUrl(row.entry_id, row.attachments[0].attachment_id)} target="_blank" rel="noreferrer" onClick={() => setMenu(false)}>
-                      Open your write-up
-                    </a>
-                  )}
-                  {row.final_thesis_path && (
-                    <button className="wl__opt" role="menuitem" onClick={() => { setMenu(false); openThesis() }}>Open the engine's thesis</button>
-                  )}
                   {/* Armed confirm, worded like the rest of the app: the second click restates the act. */}
                   <button
                     className={`wl__opt wl__opt--danger${armed ? ' wl__opt--armed' : ''}`}

@@ -158,7 +158,7 @@ export function WatchlistStage() {
                 <th className="atable__num">Price</th>
                 <SortTh id="gap" sort={sort} setSort={setSort} num title="How far the price still has to move for the nearest trigger to fire">To trigger</SortTh>
                 <SortTh id="review" sort={sort} setSort={setSort} num>Review</SortTh>
-                <th className="atable__num" />
+                <th className="atable__num">Actions</th>
               </tr>
             </thead>
             <tbody>
