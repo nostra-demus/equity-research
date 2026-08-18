@@ -4706,13 +4706,41 @@ for jf,subs in FRAMEWORK_CONTRACTS.items():
 #   the Score Cap Rules (the numeric cap), and agent 99's Score Cap Application table (where the cap
 #   is actually applied). A flag whose trigger fires but whose cap row does not exist — or exists in
 #   MODULE_RULES but was never mirrored into 99 — is silently unenforced: the module reports the red
-#   flag and publishes an uncapped score. That is not a hypothetical; every one of these was a real
-#   review finding on the network-discovery change, caught by hand one at a time.
-#   Scope: the RF-NET family (the flags this contract introduced) plus the discovery termination
-#   enum. Deliberately NOT retrofitted to the legacy registry, which carries pre-existing orphans
-#   that are out of scope here and would turn this check into noise.
+#   flag and publishes an uncapped score.
+#
+#   [review fix] The first version of this check was substantially weaker than its own docstring
+#   claimed, and its mutation tests passed only because of how the mutations were chosen:
+#     - the cap test was a substring search over the whole Score Cap slice, so an explanatory FOOTER
+#       naming RF-NET-003 kept it passing after both cap ROWS were deleted;
+#     - the mirror test searched all of 99, so reconciliation prose naming an ID masked a deleted
+#       Score Cap Application row;
+#     - the emitter glob `[0-9][0-9]_*.md` includes 99 itself, so the mirror assertion made the
+#       emitter assertion vacuous;
+#     - the enum test was a one-token denylist, so a NEW global-stop spelling passed;
+#     - the grading rule was named in the docstring but never parsed at all.
+#   All five are now row-aware, section-scoped, allowlist-based, and the grading bands are compared.
+#   Scope stays the RF-NET family this contract introduces; the legacy registry carries pre-existing
+#   orphans that are out of scope here.
+def _az_slice(txt, start_head, end_head, what):
+    """Section text between two headings. Raises if either anchor moved — a renamed heading must
+    fail loudly, never silently narrow the check's scope to nothing."""
+    i = txt.index(start_head)
+    j = txt.index(end_head, i)
+    return txt[i:j]
+
+def _az_table_keys(section, pattern):
+    """IDs appearing in the FIRST COLUMN of a markdown table row — not anywhere in the prose."""
+    keys = set()
+    for ln in section.splitlines():
+        st = ln.strip()
+        if not st.startswith("|"):
+            continue
+        first = st.strip("|").split("|")[0]
+        keys.update(re.findall(pattern, first))
+    return keys
+
 def check_az_governance_flag_cap_correspondence():
-    import re as _re, glob as _glob
+    import glob as _glob
     D = ".claude/agents/management-governance"
     fails = []
     try:
@@ -4722,54 +4750,71 @@ def check_az_governance_flag_cap_correspondence():
     except Exception as e:
         return [f"unreadable module file: {str(e)[:80]}"]
 
-    def _expand(txt):
-        """Concrete ids plus range notation (RF-PPL-001…008) expanded to members."""
-        seen = set(_re.findall(r"RF-[A-Z]+-\d+", txt))
-        for fam, lo, hi in _re.findall(r"RF-([A-Z]+)-(\d+)\s*(?:…|\.\.\.|–)\s*(\d+)\b", txt):
-            for n in range(int(lo), int(hi) + 1):
-                seen.add(f"RF-{fam}-{n:03d}")
-        return seen
-
     try:
-        reg  = MR[MR.index("### Red-Flag ID Registry"):MR.index("## Stewardship Verdict Categories")]
-        caps = MR[MR.index("## Score Cap Rules"):MR.index("## Cross-Module Inputs")]
+        reg     = _az_slice(MR,  "### Red-Flag ID Registry", "## Stewardship Verdict Categories", "registry")
+        caps    = _az_slice(MR,  "## Score Cap Rules", "## Cross-Module Inputs", "caps")
+        grading = _az_slice(MR,  "### Transitive-exposure grading", "### Scope-Boundary Register", "grading")
+        cap99   = _az_slice(S99, "## 4. Score Cap Application", "## 5. Stewardship Summary", "cap99")
     except ValueError as e:
-        return [f"MODULE_RULES section anchor missing: {str(e)[:80]}"]
+        return [f"section anchor missing (heading renamed?): {str(e)[:90]}"]
 
-    net_ids = [i for i in _re.findall(r"^\| (RF-NET-\d+) \|", reg, _re.M)]
+    net_ids = sorted(_az_table_keys(reg, r"RF-NET-\d+"))
     if not net_ids:
         return ["RF-NET family absent from the Red-Flag ID Registry"]
 
-    # (1) every RF-NET trigger has at least one Score Cap row
-    nocap = [i for i in net_ids if i not in caps]
+    # (1) every RF-NET trigger has a real cap ROW (first column), not just a prose mention
+    cap_keys = _az_table_keys(caps, r"RF-NET-\d+")
+    nocap = [i for i in net_ids if i not in cap_keys]
     if nocap:
-        fails.append(f"RF-NET ids with a trigger but no Score Cap row (silently unenforced): {nocap}")
+        fails.append(f"RF-NET ids with a trigger but no Score Cap ROW (silently unenforced): {nocap}")
 
-    # (2) every RF-NET cap row is mirrored into 99, which is where caps are applied
-    unmirrored = [i for i in net_ids if i in caps and i not in S99]
+    # (2) every capped RF-NET id is mirrored as a ROW in 99's Score Cap Application table
+    mir_keys = _az_table_keys(cap99, r"RF-NET-\d+")
+    unmirrored = [i for i in net_ids if i in cap_keys and i not in mir_keys]
     if unmirrored:
-        fails.append(f"RF-NET cap rows never mirrored into 99's Score Cap Application: {unmirrored}")
+        fails.append(f"cap rows never mirrored as rows in 99's Score Cap Application: {unmirrored}")
 
-    # (3) every RF-NET trigger is actually emitted by an owning agent
-    agents = "".join(open(f, encoding="utf-8").read()
-                     for f in sorted(_glob.glob(f"{D}/[0-9][0-9]_*.md")))
-    emitted = _expand(agents)
+    # (3) every RF-NET trigger is emitted by an owning SPECIALIST — 99 is excluded, since it is
+    #     already required to carry every mirrored id and would make this assertion vacuous.
+    specialists = "".join(open(f, encoding="utf-8").read()
+                          for f in sorted(_glob.glob(f"{D}/[0-9][0-9]_*.md"))
+                          if not os.path.basename(f).startswith("99_"))
+    emitted = set(re.findall(r"RF-[A-Z]+-\d+", specialists))
+    for fam, lo, hi in re.findall(r"RF-([A-Z]+)-(\d+)\s*(?:…|\.\.\.|–)\s*(\d+)\b", specialists):
+        for n in range(int(lo), int(hi) + 1):
+            emitted.add(f"RF-{fam}-{n:03d}")
     unemitted = [i for i in net_ids if i not in emitted]
     if unemitted:
-        fails.append(f"RF-NET ids no agent emits (dead triggers): {unemitted}")
+        fails.append(f"RF-NET ids no specialist emits (dead triggers): {unemitted}")
 
-    # (4) the discovery loop must offer no GLOBAL stop on a non-target finding. A linked-entity or
-    #     independent-director hit closes its own branch; only a target-gate failure stops the loop.
-    m = _re.search(r"`termination_rule` ∈ ([^—\n]+)", A07)
+    # (4) termination enum validated against the complete allowlist, not a one-token denylist —
+    #     any NEW global-stop spelling must fail, not just the historical one.
+    ALLOWED = {"no_new_subjects", "hop_cap", "breadth_budget", "target_gate_failed", "budget_exhausted"}
+    m = re.search(r"`termination_rule` ∈ ([^—\n]+)", A07)
     if not m:
         fails.append("07 no longer declares a termination_rule enum")
     else:
-        vals = set(_re.findall(r"`([a-z_]+)`", m.group(1)))
-        banned = vals & {"disqualifying_finding_established"}
-        if banned:
-            fails.append(f"termination_rule offers a global stop on a non-target finding: {sorted(banned)}")
+        vals = set(re.findall(r"`([a-z_]+)`", m.group(1)))
+        extra = vals - ALLOWED
+        if extra:
+            fails.append(f"termination_rule declares values outside the contract allowlist: {sorted(extra)}")
         if "target_gate_failed" not in vals:
             fails.append("termination_rule lacks 'target_gate_failed' (the only legitimate global stop)")
+
+    # (5) the grading rule is the fourth representation AZ claims to protect — so parse it. Every
+    #     fact term the RF-NET-003 trigger and the cap rows enumerate must also appear in the
+    #     Transitive-exposure grading bands, or a fact fires a flag and a cap with no grade floor.
+    FACT_TERMS = ["proven fraud", "debarment", "sanctions", "fugitive",
+                  "liquidation", "live enforcement", "credible fraud allegation"]
+    trigger_row = " ".join(ln for ln in reg.splitlines() if "RF-NET-003" in ln)
+    cap_rows    = " ".join(ln for ln in caps.splitlines()
+                           if ln.strip().startswith("|") and "RF-NET-003" in ln.strip("|").split("|")[0])
+    for term in FACT_TERMS:
+        in_trigger = term in trigger_row.lower()
+        in_caps    = term in cap_rows.lower()
+        in_grading = term in grading.lower()
+        if (in_trigger or in_caps) and not in_grading:
+            fails.append(f"fact '{term}' fires RF-NET-003 (trigger/cap) but has no Transitive-exposure grade band")
     return fails
 
 azfails = check_az_governance_flag_cap_correspondence()
