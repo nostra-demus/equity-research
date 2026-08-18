@@ -1167,7 +1167,10 @@ export function getNewsDiagnostics(): NewsDiagnostics {
 
   // Keep retry policy, configured allowance, and deliberate pacing separate. They have different remedies,
   // and collapsing them into "tapped out" falsely implied that a retry timer was provider quota state.
-  const retryHeldTiers = tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.health === 'cooling' && !t.providerDayExhausted).map((t) => t.id)
+  // A rejected credential arms a cooldown too, so without this exclusion the same tier appears both as
+  // the credential alert and under "retry held" — and the two have opposite remedies (rotate a key vs
+  // simply wait). needsCredentialTiers documents itself as disjoint from these groups; this makes it so.
+  const retryHeldTiers = tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.health === 'cooling' && !t.providerDayExhausted && t.credentialRejected !== true).map((t) => t.id)
   const providerDayExhaustedTiers = tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.providerDayExhausted).map((t) => t.id)
   const allowanceExhaustedTiers = tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.health === 'budget-spent' && !t.providerDayExhausted).map((t) => t.id)
   const unavailableTiers = tiers.filter((t) => t.enabled && t.spendingAllowed !== false && t.health === 'unavailable').map((t) => t.id)

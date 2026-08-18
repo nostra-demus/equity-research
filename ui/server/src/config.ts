@@ -785,7 +785,7 @@ export const NEWS = {
   // retry that works, drop the four that don't. 0 = never re-send a contract failure elsewhere.
   // Availability, rate-limit and request failures are unaffected — those ARE about the provider, and the
   // batch should keep flowing down the chain as before.
-  contractRetriesPerBatch: capNum(process.env.NEWS_CONTRACT_RETRIES_PER_BATCH, 1),
+  contractRetriesPerBatch: capNumOrZero(process.env.NEWS_CONTRACT_RETRIES_PER_BATCH, 1),
   // GDELT look-back per cycle (minutes; > pollInterval gives overlap so nothing slips the gap).
   gdeltLookbackMin: capNum(process.env.NEWS_GDELT_LOOKBACK_MIN, 40),
   gdeltBaseUrl: process.env.NEWS_GDELT_BASE_URL || 'https://api.gdeltproject.org/api/v2/doc/doc',

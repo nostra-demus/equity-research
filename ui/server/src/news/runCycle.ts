@@ -261,6 +261,11 @@ export function buildTriageQueue(
   const freshQ = [...fresh].sort(byPriority)
   const backQ = [...requeued].sort(byPriority)
   const share = Math.max(0, Math.min(1, Number.isFinite(freshShare) ? freshShare : FRESH_RESERVE_FRAC))
+  // Share 0 is the documented rollback lever (NEWS_FRESH_RESERVE_FRAC=0), so it must restore the ORIGINAL
+  // behaviour — one priority sort across both pools. The interleave below would instead append fresh
+  // items only once the backlog drained, whatever their priority: an absolute version of the starvation
+  // this reserve exists to prevent, reached by the switch meant to undo it.
+  if (share <= 0) return [...backQ, ...freshQ].sort(byPriority)
   const out: NewsItem[] = []
   let f = 0
   let b = 0

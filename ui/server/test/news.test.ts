@@ -4499,4 +4499,20 @@ await check('runIngestCycle: a backlog past the wire\'s own window is retired un
   assert.equal(loadDeferred(state).length, 0, 'the retired backlog is gone from disk — it cannot regrow the wall')
 })
 
+await check('buildTriageQueue: share 0 restores ONE priority sort, it does not invert the starvation', () => {
+  // NEWS_FRESH_RESERVE_FRAC=0 is the documented rollback lever for the reserve, so it has to UNDO the
+  // reserve — a single global priority sort, which is what shipped before it. Appending fresh only after
+  // the backlog drains is a third behaviour, and a worse one: a high-priority fresh filing would sit
+  // behind every low-priority stale item, which is an absolute version of the starvation the reserve
+  // exists to prevent, reached by the switch meant to turn the reserve off.
+  const now = new Date('2026-08-16T10:00:00Z')
+  // a fresh FILING outranks stale news on preTriagePriority (tier*3 dominates recency)
+  const backlog = Array.from({ length: 3 }, (_, i) =>
+    queueItem({ event_id: `EVT-old-${i}`, headline: `Company reports quarterly numbers ${i}`, input_nature: 'news', found_at: '2026-08-14T00:00:00Z' }))
+  const fresh = [queueItem({ event_id: 'EVT-new-0', headline: 'Routine disclosure', input_nature: 'exchange_announcement', found_at: '2026-08-16T09:55:00Z' })]
+  const q = buildTriageQueue(backlog, fresh, now, 0).map((it: any) => it.event_id)
+  assert.equal(q.length, 4, 'nothing is dropped')
+  assert.equal(q[0], 'EVT-new-0', 'the higher-priority item leads, whichever pool it came from')
+})
+
 console.log(`\n${passed} checks passed`)
