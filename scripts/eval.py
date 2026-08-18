@@ -4684,6 +4684,9 @@ FRAMEWORK_CONTRACTS={
 }
 FRAMEWORK_CONTRACTS["scripts/eval.py"] += [
     "eval_ax_data_needs_v2", "DATA_NEEDS_V2_DATE", "AX_data_needs_v2",
+    # AZ was the only check in this file not registered here, so the whole thing could be deleted and the
+    # suite would still report PASS — the exact hole this self-anchor exists to close.
+    "check_az_governance_flag_cap_correspondence", "_az_slice", "_az_table_keys", "_az_row_first_cell", "azfails",
 ]
 jchecks=[]
 for jf,subs in FRAMEWORK_CONTRACTS.items():
@@ -4723,19 +4726,33 @@ for jf,subs in FRAMEWORK_CONTRACTS.items():
 #   orphans that are out of scope here.
 def _az_slice(txt, start_head, end_head, what):
     """Section text between two headings. Raises if either anchor moved — a renamed heading must
-    fail loudly, never silently narrow the check's scope to nothing."""
-    i = txt.index(start_head)
-    j = txt.index(end_head, i)
+    fail loudly, never silently narrow the check's scope to nothing. `what` names the slice in the
+    error: str.index raises a bare "substring not found", which on a repo-blocking gate tells the
+    person nothing about which heading in which file moved."""
+    i = txt.find(start_head)
+    if i < 0:
+        raise ValueError(f"{what}: start heading '{start_head}' not found")
+    j = txt.find(end_head, i)
+    if j < 0:
+        raise ValueError(f"{what}: end heading '{end_head}' not found after '{start_head}'")
     return txt[i:j]
+
+def _az_row_first_cell(ln):
+    """The first cell of a markdown table row, or None if the line is not one. Shared so every caller
+    computes it the SAME way: stripping the line before stripping pipes matters, because an indented
+    row leaves the indent as cell 0 and silently exempts itself from whatever the caller was checking."""
+    st = ln.strip()
+    if not st.startswith("|"):
+        return None
+    return st.strip("|").split("|")[0]
 
 def _az_table_keys(section, pattern):
     """IDs appearing in the FIRST COLUMN of a markdown table row — not anywhere in the prose."""
     keys = set()
     for ln in section.splitlines():
-        st = ln.strip()
-        if not st.startswith("|"):
+        first = _az_row_first_cell(ln)
+        if first is None:
             continue
-        first = st.strip("|").split("|")[0]
         keys.update(re.findall(pattern, first))
     return keys
 
@@ -4776,9 +4793,14 @@ def check_az_governance_flag_cap_correspondence():
 
     # (3) every RF-NET trigger is emitted by an owning SPECIALIST — 99 is excluded, since it is
     #     already required to carry every mirrored id and would make this assertion vacuous.
-    specialists = "".join(open(f, encoding="utf-8").read()
-                          for f in sorted(_glob.glob(f"{D}/[0-9][0-9]_*.md"))
-                          if not os.path.basename(f).startswith("99_"))
+    #     Guarded like the three opens above: an unreadable specialist (a stray directory, a non-UTF-8
+    #     byte, a broken symlink) must report one finding, not crash the gate for the whole repo.
+    try:
+        specialists = "".join(open(f, encoding="utf-8").read()
+                              for f in sorted(_glob.glob(f"{D}/[0-9][0-9]_*.md"))
+                              if not os.path.basename(f).startswith("99_"))
+    except Exception as e:
+        return fails + [f"unreadable specialist file: {str(e)[:80]}"]
     emitted = set(re.findall(r"RF-[A-Z]+-\d+", specialists))
     for fam, lo, hi in re.findall(r"RF-([A-Z]+)-(\d+)\s*(?:…|\.\.\.|–)\s*(\d+)\b", specialists):
         for n in range(int(lo), int(hi) + 1):
@@ -4790,7 +4812,11 @@ def check_az_governance_flag_cap_correspondence():
     # (4) termination enum validated against the complete allowlist, not a one-token denylist —
     #     any NEW global-stop spelling must fail, not just the historical one.
     ALLOWED = {"no_new_subjects", "hop_cap", "breadth_budget", "target_gate_failed", "budget_exhausted"}
-    m = re.search(r"`termination_rule` ∈ ([^—\n]+)", A07)
+    # Bounded by the TOKEN RUN, not by punctuation. The previous form captured to the first em dash or
+    # newline, and the prose immediately after this enum names `disqualifying_finding_established` — the
+    # exact token the check exists to ban. Rewrapping that line, or writing ": note" instead of " — note",
+    # would have made this gate fail for every PR in the repo. Stop at the first non-token instead.
+    m = re.search(r"`termination_rule`\s*∈\s*((?:\s*`[a-z_]+`\s*[·,]?)+)", A07)
     if not m:
         fails.append("07 no longer declares a termination_rule enum")
     else:
@@ -4808,7 +4834,7 @@ def check_az_governance_flag_cap_correspondence():
                   "liquidation", "live enforcement", "credible fraud allegation"]
     trigger_row = " ".join(ln for ln in reg.splitlines() if "RF-NET-003" in ln)
     cap_rows    = " ".join(ln for ln in caps.splitlines()
-                           if ln.strip().startswith("|") and "RF-NET-003" in ln.strip("|").split("|")[0])
+                           if "RF-NET-003" in (_az_row_first_cell(ln) or ""))
     for term in FACT_TERMS:
         in_trigger = term in trigger_row.lower()
         in_caps    = term in cap_rows.lower()
