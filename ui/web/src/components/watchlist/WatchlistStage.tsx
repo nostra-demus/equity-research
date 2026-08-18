@@ -80,13 +80,19 @@ export function WatchlistStage() {
         {read?.engine_source.generated_at
           ? <>From the {read.engine_source.generated_at} model portfolio · {engineCount} from the engine, {mineCount} you added</>
           : <>No model portfolio found — showing what you have added</>}
-        {read && !read.quotes_enabled && <> · prices are off in this engine</>}
+        {read && !read.quotes_enabled && (
+          staticMode
+            // The showcase can show WHAT you are waiting for, but not whether it has happened — that
+            // needs a live price. Saying so is better than a column of dashes with no explanation.
+            ? <> · read-only snapshot — no live prices, so nothing is evaluated</>
+            : <> · prices are off in this engine</>
+        )}
         {read?.unreadable.length ? <> · {read.unreadable.length} entr{read.unreadable.length === 1 ? 'y' : 'ies'} could not be read</> : null}
       </div>
 
       <div className="wl__list">
-        {staticMode ? (
-          <div className="wl__empty">The watchlist lives on the live engine. This is the read-only showcase.</div>
+        {staticMode && !rows.length ? (
+          <div className="wl__empty">Nothing on the watchlist in this snapshot.</div>
         ) : error ? (
           <div className="wl__empty">{error}</div>
         ) : loading && !read ? (

@@ -982,7 +982,9 @@ export const api = {
   // Reads degrade to an empty list in the static showcase; every write throws so the caller can say
   // "this needs the live engine" rather than silently appearing to work.
   watchlist: async (): Promise<WatchlistRead> => {
-    if ((await ensureMode()) === 'static') return EMPTY_WATCHLIST
+    // The showcase carries the list but NO prices and no trigger states — see build-snapshot.mjs. A
+    // baked "condition met" would be a build-time assertion rendered as a current one.
+    if ((await ensureMode()) === 'static') return (snap.watchlist as WatchlistRead) || EMPTY_WATCHLIST
     return get<WatchlistRead>('/api/watchlist', 20_000)
   },
   watchResolve: async (q: string): Promise<WatchResolveRead> => {

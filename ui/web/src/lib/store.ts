@@ -1783,7 +1783,8 @@ export const useStore = create<State>((set, get) => ({
   // Mirrors refreshLiveQuote: a TTL gate unless forced, a static-mode early return, and FAIL TO NULL
   // rather than fabricate — a stale list beside a live price would be worse than an honest gap.
   loadWatchlist: async (force) => {
-    if (get().staticMode) return
+    // NOT gated on staticMode: the showcase carries the list (without prices) and api.watchlist serves it
+    // from the snapshot. Only the WRITES are gated, below.
     const at = get().watchlistAt
     if (!force && at && Date.now() - at < 60_000) return
     set({ watchlistLoading: true })

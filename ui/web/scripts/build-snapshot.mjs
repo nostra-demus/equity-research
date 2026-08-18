@@ -492,6 +492,89 @@ function buildTimelineJ(schedule, reviews, today) {
   out.sort((a, b) => { const da = a.due_date || '9999-99-99', db = b.due_date || '9999-99-99'; return da < db ? -1 : da > db ? 1 : 0 })
   return out
 }
+/**
+ * The watchlist, for the read-only showcase.
+ *
+ * Deliberately WITHOUT prices and without any trigger state. getQuotes needs a live server, so a
+ * snapshot-baked "condition met" would be a build-time assertion rendered as a current one — exactly the
+ * defect the whole lane avoids. Each trigger still shows its own threshold and its frozen reference (both
+ * are facts the entry itself carries); the state reads "not evaluated" and the row shows no price.
+ *
+ * The merge is re-implemented here in plain JS because this script cannot import the TS module. It is
+ * kept deliberately thin — membership and the archive fold only — so the two paths cannot disagree about
+ * anything a reader would act on.
+ */
+function buildWatchlist(calls) {
+  const dir = path.join(REPO, 'watchlist', 'entries')
+  const entries = []
+  try {
+    for (const n of fs.readdirSync(dir)) {
+      if (!n.endsWith('.json')) continue
+      const j = loadJSON(path.join(dir, n))
+      if (j && j.entry_id && j.listing && j.listing.listing_key) entries.push(j)
+    }
+  } catch { /* no folder yet — an empty watchlist is a valid state, not an error */ }
+
+  // engine half: the same basket rule the server applies, decorated by the newest whole-book sizing file
+  const deco = new Map()
+  let engineSource = { file: null, generated_at: null }
+  try {
+    const pdir = path.join(REPO, 'analyses', 'portfolio')
+    const files = fs.readdirSync(pdir).filter((n) => /_sizing\.json$/.test(n)).sort().reverse()
+    for (const n of files) {
+      const j = loadJSON(path.join(pdir, n))
+      if (!j || !Array.isArray(j.watch)) continue
+      if (j.scope && j.scope !== 'all') continue
+      for (const w of j.watch) if (w && w.ticker) if (!deco.has(String(w.ticker).toUpperCase())) deco.set(String(w.ticker).toUpperCase(), w)
+      engineSource = { file: n, generated_at: String(j.generated_at || n.slice(0, 10)) }
+      break
+    }
+  } catch { /* no portfolio folder */ }
+
+  const POSITION = new Set(['Selected', 'Short'])
+  const seen = new Set()
+  const rows = []
+  const archived = []
+  const byKey = new Map(entries.map((e) => [e.listing.listing_key, e]))
+
+  for (const c of calls) {
+    const t = String(c.ticker || '').toUpperCase()
+    if (!t || seen.has(t)) continue
+    const inDeco = deco.has(t)
+    if (!inDeco && POSITION.has(String(c.basket || ''))) continue
+    seen.add(t)
+    const key = `${t}|${String(c.currency || '').toUpperCase()}`
+    const e = byKey.get(key) || null
+    if (e) byKey.delete(key)
+    const w = deco.get(t) || {}
+    const row = {
+      listing_key: key, ticker: t, company_name: c.company ?? null, currency: c.currency ?? null, exchange: null,
+      origin: e ? 'both' : 'engine', entry_id: e ? e.entry_id : null, why: e ? e.why : '',
+      conviction: e ? e.conviction : null, review_date: (e && e.review_date) || w.next_review || null,
+      tags: e ? e.tags : [], triggers: e ? e.triggers : [], attachments: e ? e.attachments : [],
+      engine: { run_root: c.run_root, decision: c.decision ?? null, decision_date: c.decision_date ?? null,
+        size_in_trigger: w.size_in_trigger ?? null, next_review: w.next_review ?? null,
+        entry_price: c.entry_price ?? null, final_thesis_path: c.final_thesis_path ?? null, fingerprint: '' },
+      resurfaced: false, archive: e ? e.archive : null,
+      quote: null, quote_reason: null, evals: [], state: 'watching',
+      run_root: c.run_root, final_thesis_path: c.final_thesis_path ?? null,
+    }
+    ;(row.archive ? archived : rows).push(row)
+  }
+  for (const e of byKey.values()) {
+    const row = {
+      listing_key: e.listing.listing_key, ticker: e.listing.ticker, company_name: e.listing.company_name,
+      currency: e.listing.currency, exchange: e.listing.exchange, origin: 'manual', entry_id: e.entry_id,
+      why: e.why, conviction: e.conviction, review_date: e.review_date, tags: e.tags, triggers: e.triggers,
+      attachments: e.attachments, engine: null, resurfaced: false, archive: e.archive,
+      quote: null, quote_reason: null, evals: [], state: 'watching', run_root: null, final_thesis_path: null,
+    }
+    ;(row.archive ? archived : rows).push(row)
+  }
+  // quotes_enabled false is the honest signal: this build has no live prices to offer at all
+  return { rows, archived, engine_source: engineSource, unreadable: [], quotes_enabled: false, as_of: '' }
+}
+
 function buildCalls() {
   const today = todayISOJ()
   const calls = []
@@ -559,7 +642,7 @@ const callsData = buildCalls()
 const { swarms, swarmGraphs, swarmSubjects, swarmSubjectSummaries } = buildSwarms()
 fs.rmSync(path.join(DEST, 'screener'), { recursive: true, force: true })
 const screenerStatic = buildScreenerStatic()
-const snapshot = { static: true, swarmGraph, swarms, swarmGraphs, swarmSubjects, swarmSubjectSummaries, tickers, emptyState: tickers.length === 0, dataDir: 'bundled snapshot (static deploy)', dataStatus, runs, decisions, finalThesis, calls: callsData.calls, dashboard: callsData.dashboard, ...(screenerStatic || {}), generatedAt: new Date().toISOString() }
+const snapshot = { static: true, swarmGraph, swarms, swarmGraphs, swarmSubjects, swarmSubjectSummaries, tickers, emptyState: tickers.length === 0, dataDir: 'bundled snapshot (static deploy)', dataStatus, runs, decisions, finalThesis, calls: callsData.calls, dashboard: callsData.dashboard, watchlist: buildWatchlist(callsData.calls), ...(screenerStatic || {}), generatedAt: new Date().toISOString() }
 fs.writeFileSync(path.join(DEST, 'snapshot.json'), JSON.stringify(snapshot))
 const swarmSummary = swarms.filter((s) => s.id !== 'research').map((s) => `${s.id} (${swarmGraphs[s.id]?.totals.modules ?? 0}m / ${(swarmSubjects[s.id] || []).length} subj)`).join(', ')
 console.log(`[build-snapshot] swarm: ${swarmGraph.totals.modules} modules / ${swarmGraph.totals.agents} agents · ${promptCount} prompts · ${callsData.calls.length} calls · tickers: ${tickers.map((t) => t.ticker).join(', ')}${swarmSummary ? ` · swarms: ${swarmSummary}` : ''}${screenerStatic ? ` · screener runs: ${Object.keys(screenerStatic.screenerRuns).length}` : ''} -> ui/web/public/data/`)
