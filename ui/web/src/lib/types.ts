@@ -2300,7 +2300,7 @@ export type WatchRowState = 'condition_met' | 'due' | 'armed' | 'not_evaluable' 
 export type WatchTrigger =
   | { kind: 'price_level'; trigger_id: string; direction: WatchTriggerDirection; level: number; currency: string; note?: string }
   | { kind: 'pct_drop'; trigger_id: string; drop_pct: number; reference: { value: number; currency: string; as_of: string | null; source: string }; note?: string }
-  | { kind: 'valuation_mos'; trigger_id: string; run_root: string; scenario_label: string; anchor_value: number; anchor_currency: string; anchor_as_of: string | null; required_mos_pct: number; direction: WatchTriggerDirection; note?: string }
+  | { kind: 'valuation_mos'; trigger_id: string; run_root: string | null; scenario_label: string; anchor_value: number; anchor_currency: string; anchor_as_of: string | null; required_mos_pct: number; direction: WatchTriggerDirection; note?: string }
   | { kind: 'event_date'; trigger_id: string; due_date: string; label: string; acknowledged_at?: string | null; note?: string }
 
 export interface WatchTriggerEval {
@@ -2391,5 +2391,6 @@ export interface WatchRowInput {
   conviction?: 'high' | 'medium' | 'low' | null
   review_date?: string | null
   tags?: string[]
-  triggers?: DistributiveOmit<WatchTrigger, 'trigger_id'>[]
+  /** `trigger_id` is carried when editing so the server can keep a trigger's identity. */
+  triggers?: (DistributiveOmit<WatchTrigger, 'trigger_id'> & { trigger_id?: string })[]
 }

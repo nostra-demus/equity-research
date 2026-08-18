@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '../../lib/store'
 import { api } from '../../lib/api'
-import { TriggerEditor, TRIGGER_LABEL, canAddTrigger, newTrigger, type DraftTrigger } from './TriggerEditor'
+import { TriggerEditor, TRIGGER_LABEL, canAddTrigger, newTrigger, triggerDraftProblem, type DraftTrigger } from './TriggerEditor'
 import { CompanyPicker } from '../CompanyPicker'
 import type { WatchResolveCandidate } from '../../lib/types'
 
@@ -46,7 +46,7 @@ export function WatchComposer() {
   const [reviewDate, setReviewDate] = useState(prefill?.review_date ?? '')
   const [tags, setTags] = useState<string[]>(prefill?.tags ?? [])
   const [tagDraft, setTagDraft] = useState('')
-  const [triggers, setTriggers] = useState<DraftTrigger[]>([])
+  const [triggers, setTriggers] = useState<DraftTrigger[]>(prefill?.triggers ?? [])
   const [saving, setSaving] = useState(false)
 
   // resolve
@@ -74,7 +74,7 @@ export function WatchComposer() {
     setReviewDate(prefill?.review_date ?? '')
     setTags(prefill?.tags ?? [])
     setTagDraft('')
-    setTriggers([])
+    setTriggers(prefill?.triggers ?? [])
     setQuery('')
     setCandidates(null)
     setResolveReason(null)
@@ -115,7 +115,14 @@ export function WatchComposer() {
     setCandidates(null)
   }
 
-  const canSave = !!ticker.trim() && !!why.trim() && !saving
+  // Everything the server would refuse, caught here — a 400 discards the whole entry behind an opaque
+  // "invalid body", which is a bad way to learn that one field was blank.
+  const triggerProblems = triggers.map((t) => triggerDraftProblem(t, currency))
+  const blocker =
+    !ticker.trim() ? 'Pick a listing first.'
+    : !why.trim() ? 'Say why you are watching it.'
+    : triggerProblems.find((p): p is string => !!p) ?? null
+  const canSave = !blocker && !saving
   async function submit() {
     if (!canSave) return
     setSaving(true)
@@ -303,7 +310,8 @@ export function WatchComposer() {
 
       <div className="wlc__foot">
         <button className="btn btn--ghost" onClick={close}>Cancel</button>
-        <button className="btn btn--amber" disabled={!canSave} onClick={() => void submit()}>
+        {blocker && <span className="wlc__blocker">{blocker}</span>}
+        <button className="btn btn--amber" disabled={!canSave} title={blocker ?? undefined} onClick={() => void submit()}>
           {saving ? 'Saving…' : composer?.entryId ? 'Save changes' : 'Add to watchlist'}
         </button>
       </div>

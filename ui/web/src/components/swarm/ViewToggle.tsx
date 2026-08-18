@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useStore } from '../../lib/store'
 import { handleRovingRadioKeyDown, rovingRadioTabStopIndex } from '../../lib/rovingRadio'
 import type { ResearchView } from '../../lib/researchView'
@@ -22,6 +23,17 @@ export function ViewToggle() {
   const webglOK = useStore((s) => s.webglOK)
   const isResearch = useStore((s) => s.constellationSwarm === 'research')
   const metCount = useStore((s) => s.watchlistMetCount)
+  const loadWatchlist = useStore((s) => s.loadWatchlist)
+
+  // The badge is the whole point of showing a count here — it has to be right while you are looking at
+  // the constellation or the globe, not only once you open the list. The load is TTL-gated, so calling it
+  // on mount and on a slow interval costs one request a few minutes at most.
+  useEffect(() => {
+    if (!isResearch) return
+    void loadWatchlist()
+    const id = setInterval(() => void loadWatchlist(), 5 * 60_000)
+    return () => clearInterval(id)
+  }, [isResearch, loadWatchlist])
 
   const options: { id: ResearchView; label: string; enabled: boolean; title?: string }[] = [
     { id: 'constellation', label: 'Constellation', enabled: true },

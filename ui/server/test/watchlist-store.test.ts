@@ -10,6 +10,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { WATCH_ID_RE, isWatchId, newEntryId, pickEntryForListing, readEntries, readSizingDecoration, writeEntry, makeListing, type WatchEntry } from '../src/watchlist'
+import { cleanTicker } from '../src/news/symbology'
 
 let passed = 0
 function check(name: string, fn: () => void): void {
@@ -123,6 +124,25 @@ check('two entries for one listing resolve to the SAME one everywhere (newest by
   assert.equal(picked?.entry_id, 'WL-20260818-22222222', 'the archive button and the merge must agree')
   assert.equal(pickEntryForListing([newer, older], older.listing.listing_key)?.entry_id, 'WL-20260818-22222222')
   assert.equal(pickEntryForListing([], 'NOPE|USD'), null)
+})
+
+check('an NSE symbol with an ampersand survives the listing grammar', () => {
+  // TICKER_RE (used for PATH segments) has no '&', but cleanTicker deliberately admits it for NSE and
+  // /resolve returns such symbols. Watchlist files are named by entry_id, never by ticker, so the
+  // stricter path grammar must not be what gates adding one.
+  assert.ok(cleanTicker('M&M.NS'), 'M&M.NS is a real listing')
+  assert.equal(makeListing({ ticker: 'M&M.NS', currency: 'INR' }).listing_key, 'M&M.NS|INR')
+  assert.equal(makeListing({ ticker: 'm&m.ns', currency: 'inr' }).listing_key, 'M&M.NS|INR', 'normalised either way')
+})
+
+check('the newest sizing file is chosen by generated_at, not by filename', () => {
+  const d = tmp()
+  // _v10 sorts UNDER _v9 by filename — the reason the server keys on the in-file date
+  writeSizing(d, '2026-08-16_sizing_v9.json', { scope: 'all', generated_at: '2026-08-16', watch: [{ ticker: 'OLD' }] })
+  writeSizing(d, '2026-08-16_sizing_v10.json', { scope: 'all', generated_at: '2026-08-17', watch: [{ ticker: 'NEW' }] })
+  const deco = readSizingDecoration(d)
+  assert.equal(deco.generated_at, '2026-08-17')
+  assert.ok(deco.byTicker.has('NEW'), 'the genuinely newer run decorates')
 })
 
 console.log(`\nwatchlist-store.test.ts: ${passed} passed`)

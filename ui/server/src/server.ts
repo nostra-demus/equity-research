@@ -29,6 +29,7 @@ import { matchesFeedFilters, parseFeedFilterQuery, explainFeedFilterMatch, hasAn
 import { computeFacets } from './news/facets'
 import { searchSymbolsEnriched } from './news/symbology'
 import { fetchCnbcRows } from './news/cnbc-quote'
+import { cleanTicker } from './news/symbology'
 import { getIntensity, INTENSITY_WINDOWS, type IntensityWindow } from './news/intensity'
 import { getRankWeights, defaultRankWeights, saveRankWeights, resetRankWeights, rankWeightsCustomised, type RankWeights } from './news/rank-weights'
 import { buildSourcesReport } from './news/source-health'
@@ -2405,6 +2406,7 @@ const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/
 const TriggerBody = z.discriminatedUnion('kind', [
   z.object({
     kind: z.literal('price_level'),
+    trigger_id: z.string().trim().max(40).optional(),
     direction: z.enum(['at_or_below', 'at_or_above']).default('at_or_below'),
     level: z.number().finite().positive(),
     currency: z.string().trim().min(1).max(8),
@@ -2412,6 +2414,7 @@ const TriggerBody = z.discriminatedUnion('kind', [
   }).strip(),
   z.object({
     kind: z.literal('pct_drop'),
+    trigger_id: z.string().trim().max(40).optional(),
     drop_pct: z.number().finite().gt(0).lte(99),
     reference: z.object({
       value: z.number().finite().positive(),
@@ -2423,7 +2426,10 @@ const TriggerBody = z.discriminatedUnion('kind', [
   }).strip(),
   z.object({
     kind: z.literal('valuation_mos'),
-    run_root: z.string().trim().min(1).max(300),
+    trigger_id: z.string().trim().max(40).optional(),
+    // nullable: a fair value you assert yourself is legitimate — it is labelled as YOUR number, not the
+    // engine's. Requiring a run here made the whole trigger type unsavable.
+    run_root: z.string().trim().max(300).nullable().default(null),
     scenario_label: z.string().trim().min(1).max(60),
     anchor_value: z.number().finite().positive(),
     anchor_currency: z.string().trim().min(1).max(8),
@@ -2434,6 +2440,7 @@ const TriggerBody = z.discriminatedUnion('kind', [
   }).strip(),
   z.object({
     kind: z.literal('event_date'),
+    trigger_id: z.string().trim().max(40).optional(),
     due_date: z.string().regex(ISO_DATE_RE),
     label: z.string().trim().min(1).max(160),
     acknowledged_at: z.string().max(40).nullable().optional(),
@@ -2466,9 +2473,16 @@ const WatchTargetBody = z.object({
  * are random rather than time-based: two entries edited in the same millisecond would otherwise collide.
  */
 function withTriggerIds(triggers: z.infer<typeof TriggerBody>[], prev: WatchTrigger[] = []): WatchTrigger[] {
-  return triggers.map((t, i) => {
-    const keep = prev[i]?.kind === t.kind ? prev[i].trigger_id : null
-    return { ...t, trigger_id: keep ?? `TRG-${randomUUID().replace(/-/g, '').slice(0, 12)}` } as WatchTrigger
+  const known = new Set(prev.map((t) => t.trigger_id))
+  const used = new Set<string>()
+  return triggers.map((t) => {
+    // Keep the id the client is editing, but only if this entry actually has it — that stops a forged or
+    // duplicated id, and stops a deleted trigger's id being inherited by whatever took its place.
+    const sent = (t as { trigger_id?: string }).trigger_id
+    const keep = sent && known.has(sent) && !used.has(sent) ? sent : null
+    const id = keep ?? `TRG-${randomUUID().replace(/-/g, '').slice(0, 12)}`
+    used.add(id)
+    return { ...t, trigger_id: id } as WatchTrigger
   })
 }
 
@@ -2579,7 +2593,7 @@ app.post('/api/watchlist', { config: { rateLimit: { max: 120, timeWindow: '1 min
     exchange: parsed.data.exchange ?? null,
     companyName: parsed.data.company_name ?? null,
   })
-  if (!TICKER_RE.test(listing.ticker)) return reply.code(400).send({ error: 'ticker not usable' })
+  if (!cleanTicker(listing.ticker)) return reply.code(400).send({ error: 'ticker not usable' })
   const dupe = triggerSetProblem(parsed.data.triggers ?? [])
   if (dupe) return reply.code(400).send({ error: dupe })
 
@@ -2648,6 +2662,22 @@ app.patch('/api/watchlist/:id', { config: { rateLimit: { max: 240, timeWindow: '
   if (d.triggers !== undefined) entry.triggers = withTriggerIds(d.triggers, entry.triggers)
   if (d.company_name !== undefined) entry.listing.company_name = d.company_name ?? null
   if (d.exchange !== undefined) entry.listing.exchange = d.exchange ?? null
+  // Currency is the field that decides whether a row can be priced at all, so it MUST be fixable after
+  // the fact. It is part of the listing identity, so changing it re-keys the row — refuse if that would
+  // collide with an entry that already exists.
+  if (d.currency !== undefined) {
+    const next = makeListing({
+      ticker: entry.listing.ticker,
+      currency: d.currency ?? null,
+      exchange: entry.listing.exchange,
+      companyName: entry.listing.company_name,
+    })
+    if (next.listing_key !== entry.listing.listing_key) {
+      const clash = entries.find((e) => e.entry_id !== entry.entry_id && e.listing.listing_key === next.listing_key)
+      if (clash) return reply.code(409).send({ error: 'another entry already tracks that listing' })
+      entry.listing = next
+    }
+  }
   entry.updated_at = new Date().toISOString()
   entry.history = [...entry.history, { at: entry.updated_at, by: user, action: 'edited', detail: '' }].slice(-50)
   writeEntry(entry)

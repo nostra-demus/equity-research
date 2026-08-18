@@ -3429,6 +3429,10 @@ a { color: inherit; }
 .coco__freetext { display: block; width: 100%; text-align: left; padding: 8px 10px; border-radius: var(--r-md); color: var(--accent-bright); border: 1px dashed var(--accent-deep); font-size: 12px; }
 .coco__freetext:hover { background: var(--accent-wash); }
 
+/* a field-level refusal, said where the field is rather than as a 400 after the fact */
+.wlc__err { font-size: 10.5px; color: var(--bad); line-height: 1.5; }
+.wlc__blocker { font-size: 11px; color: var(--text-muted); margin-inline-end: auto; align-self: center; }
+
 .wlc__foot { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 18px; border-top: 1px solid var(--hairline); background: var(--surface-1); }
 
 /* ---- research stage view toggle (Constellation | Globe) — stage-anchored, clones themes__viewtoggle ---- */

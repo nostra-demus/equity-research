@@ -520,11 +520,13 @@ function buildWatchlist(calls) {
   let engineSource = { file: null, generated_at: null }
   try {
     const pdir = path.join(REPO, 'analyses', 'portfolio')
-    const files = fs.readdirSync(pdir).filter((n) => /_sizing\.json$/.test(n)).sort().reverse()
-    for (const n of files) {
-      const j = loadJSON(path.join(pdir, n))
-      if (!j || !Array.isArray(j.watch)) continue
-      if (j.scope && j.scope !== 'all') continue
+    // Sorted by the in-file generated_at, NOT the filename: size.md mandates a _v2 suffix when today's
+    // file already exists, and filename order stops being right at _v10 (it sorts under _v9).
+    const files = fs.readdirSync(pdir).filter((n) => /_sizing(_v\d+)?\.json$/.test(n))
+      .map((n) => ({ n, j: loadJSON(path.join(pdir, n)) }))
+      .filter((f) => f.j && Array.isArray(f.j.watch) && (!f.j.scope || f.j.scope === 'all'))
+      .sort((a, b) => String(b.j.generated_at || b.n.slice(0, 10)).localeCompare(String(a.j.generated_at || a.n.slice(0, 10))) || b.n.localeCompare(a.n))
+    for (const { n, j } of files) {
       for (const w of j.watch) if (w && w.ticker) if (!deco.has(String(w.ticker).toUpperCase())) deco.set(String(w.ticker).toUpperCase(), w)
       engineSource = { file: n, generated_at: String(j.generated_at || n.slice(0, 10)) }
       break

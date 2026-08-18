@@ -7,7 +7,9 @@ import type { DistributiveOmit, WatchTrigger } from '../../lib/types'
 // change. That constraint is the point: a level typed in the wrong unit is silently 100x off (a London
 // listing quotes in pence), and the only defence that actually works is never letting the two drift.
 
-export type DraftTrigger = DistributiveOmit<WatchTrigger, 'trigger_id'>
+/** A trigger being edited. `trigger_id` is present when editing an existing one — the server keeps it
+ *  only if the entry really has it, so identity survives a reorder or a deletion. */
+export type DraftTrigger = DistributiveOmit<WatchTrigger, 'trigger_id'> & { trigger_id?: string }
 
 export const TRIGGER_LABEL: Record<DraftTrigger['kind'], string> = {
   price_level: 'Price level',
@@ -22,7 +24,10 @@ export function newTrigger(kind: DraftTrigger['kind'], ctx: { currency: string; 
     return { kind, drop_pct: 15, reference: { value: ctx.reference ?? 0, currency: ctx.currency, as_of: ctx.today, source: 'price now' } }
   }
   if (kind === 'valuation_mos') {
-    return { kind, run_root: '', scenario_label: 'base', anchor_value: 0, anchor_currency: ctx.currency, anchor_as_of: null, required_mos_pct: 20, direction: 'at_or_below' }
+    // Seeded from the current price so the field starts at a real number you edit down, never at 0 —
+    // which the server rejects. run_root is null until a run pins it: a fair value you assert yourself is
+    // legitimate, it is just labelled as YOUR number rather than the engine's.
+    return { kind, run_root: null, scenario_label: 'base', anchor_value: ctx.reference ?? 0, anchor_currency: ctx.currency, anchor_as_of: null, required_mos_pct: 20, direction: 'at_or_below' }
   }
   return { kind, due_date: ctx.today, label: '' }
 }
@@ -63,6 +68,27 @@ export function canAddTrigger(kind: DraftTrigger['kind'], existing: DraftTrigger
   return { ok: true }
 }
 
+/**
+ * What is still wrong with this trigger, in words the person can act on. The composer gates saving on it
+ * and shows it under the offending field — without this, a level left at 0 (which is what the ☆ Watch
+ * path produces, since it has no price to seed from) is refused by the server and the WHOLE entry is
+ * lost behind an opaque "invalid body".
+ */
+export function triggerDraftProblem(t: DraftTrigger, currency: string): string | null {
+  if (t.kind !== 'event_date' && !currency) return 'This row has no currency, so a price trigger cannot be checked.'
+  if (t.kind === 'price_level') return t.level > 0 ? null : 'Set the price level.'
+  if (t.kind === 'pct_drop') {
+    if (!(t.reference.value > 0)) return 'Set the reference price this drop is measured from.'
+    return t.drop_pct > 0 && t.drop_pct < 100 ? null : 'The drop must be between 0 and 100%.'
+  }
+  if (t.kind === 'valuation_mos') {
+    if (!(t.anchor_value > 0)) return 'Set the fair value this discount is measured against.'
+    return t.required_mos_pct >= 0 && t.required_mos_pct <= 95 ? null : 'The discount must be between 0 and 95%.'
+  }
+  if (!t.label.trim()) return 'Say what happens on that date.'
+  return /^\d{4}-\d{2}-\d{2}$/.test(t.due_date) ? null : 'Pick a date.'
+}
+
 export function TriggerEditor({
   trigger, currency, onChange, onRemove,
 }: {
@@ -72,6 +98,7 @@ export function TriggerEditor({
   onRemove: () => void
 }) {
   const t = trigger
+  const problem = triggerDraftProblem(t, currency)
   return (
     <div className="wlc__trg">
       <div className="wlc__trghead">
@@ -79,6 +106,8 @@ export function TriggerEditor({
         <span className="wlc__trgmode">{t.kind === 'event_date' ? 'reminder' : 'checked live'}</span>
         <button className="btn btn--mini btn--danger" onClick={onRemove} title="Remove this trigger">✕</button>
       </div>
+
+      {problem && <div className="wlc__err">{problem}</div>}
 
       {t.kind === 'price_level' && (
         <div className="wlc__trgbody">

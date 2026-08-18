@@ -312,7 +312,8 @@ export function readSizingDecoration(analysesDir: string = ANALYSES_DIR): {
   const dir = path.join(analysesDir, 'portfolio')
   let names: string[] = []
   try {
-    names = fs.readdirSync(dir).filter((n) => /_sizing\.json$/.test(n))
+    // `_v2` suffix when today's file already exists (size.md §6) — a re-run's book must not be invisible
+    names = fs.readdirSync(dir).filter((n) => /_sizing(_v\d+)?\.json$/.test(n))
   } catch {
     return empty
   }
