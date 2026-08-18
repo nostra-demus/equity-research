@@ -29,6 +29,7 @@ import path from 'node:path'
 import { ANALYSES_DIR, REPO_ROOT } from './config'
 import { cleanTicker, normTicker } from './news/symbology'
 import { normCurrency } from './news/equity-quote'
+import { dueDateFromFreeText } from './outputs'
 import type { AbsentReason, LiveQuote } from './news/equity-quote'
 
 export const WATCHLIST_DIR = path.join(REPO_ROOT, 'watchlist')
@@ -156,7 +157,10 @@ export interface EngineWatchRow {
   decision_date: string | null
   /** The engine's own words. Displayed verbatim, never parsed. */
   size_in_trigger: string | null
+  /** A real date, extracted from the prose below. */
   next_review: string | null
+  /** The prose as written, for the hover — it often explains WHY that date. */
+  next_review_text: string | null
   entry_price: number | null
   final_thesis_path: string | null
   fingerprint: string
@@ -199,6 +203,12 @@ export interface MergedWatchRow {
   state: RowState
   run_root: string | null
   final_thesis_path: string | null
+  /** When YOU added it (null for a row the engine projected and you have never touched) and when it was
+   *  last changed — a watchlist is read over months, so how old an entry is is part of reading it. */
+  added_at: string | null
+  updated_at: string | null
+  /** The engine's own call date, for a row you never touched. */
+  engine_since: string | null
 }
 
 // ---------- identity ----------
@@ -385,7 +395,13 @@ export function readEngineWatch(
     seen.add(t)
     const deco = decoration.byTicker.get(t)?.[0]
     const size_in_trigger = deco?.size_in_trigger == null ? null : String(deco.size_in_trigger)
-    const next_review = deco?.next_review == null ? (c.next_checkpoint?.due_date ?? null) : String(deco.next_review)
+    // sizing.json's next_review is PROSE, not a date — e.g. "2026-10-08 (90d checkpoint; 30d checkpoint
+    // of 2026-08-09 elapsed with no new run)". Keep the prose for display, but pull the date out of it
+    // for anything that treats it as one, or a date column ends up rendering a paragraph.
+    const next_review_text = deco?.next_review == null ? null : String(deco.next_review)
+    const next_review = next_review_text
+      ? (dueDateFromFreeText(next_review_text) ?? next_review_text)
+      : (c.next_checkpoint?.due_date ?? null)
     rows.push({
       listing: makeListing({ ticker: t, currency: c.currency, companyName: c.company }),
       run_root: c.run_root,
@@ -393,6 +409,7 @@ export function readEngineWatch(
       decision_date: c.decision_date ?? null,
       size_in_trigger,
       next_review,
+      next_review_text,
       entry_price: typeof c.entry_price === 'number' ? c.entry_price : null,
       final_thesis_path: c.final_thesis_path ?? null,
       fingerprint: fingerprintEngineRow({ run_root: c.run_root, decision: c.decision, size_in_trigger, next_review }),
@@ -619,6 +636,9 @@ export function mergeWatchlist(input: MergeInput): { rows: MergedWatchRow[]; arc
       state: rollupState(evals),
       run_root: engine?.run_root ?? null,
       final_thesis_path: engine?.final_thesis_path ?? null,
+      added_at: entry?.created_at ?? null,
+      updated_at: entry?.updated_at ?? null,
+      engine_since: engine?.decision_date ?? null,
     }
   }
 

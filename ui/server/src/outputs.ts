@@ -276,7 +276,7 @@ const MONTH_NUM: Record<string, number> = {
 // the date a window CLOSES, read out of free text (the ledger's own convention, e.g. 'Q2 2026 earnings
 // July 31, 2026' / 'FY2026 results release (~March 2027)') — ISO date, 'Month DD, YYYY', or bare
 // 'Month YYYY' (closes on the 28th, the only day every month has). Returns null when undateable.
-function dueDateFromFreeText(text: string): string | null {
+export function dueDateFromFreeText(text: string): string | null {
   let m = /(\d{4})-(\d{2})-(\d{2})/.exec(text)
   if (m && isValidCalendarISODate(m[0])) return m[0]
   m = /([A-Za-z]{3,9})\s+(\d{1,2}),\s*(\d{4})/.exec(text)

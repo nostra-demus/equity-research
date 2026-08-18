@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '../../lib/store'
 import { api } from '../../lib/api'
 import { TriggerEditor, TRIGGER_LABEL, canAddTrigger, newTrigger, triggerDraftProblem, type DraftTrigger } from './TriggerEditor'
-import { CompanyPicker } from '../CompanyPicker'
 import type { WatchResolveCandidate } from '../../lib/types'
 
 const todayISO = () => {
@@ -32,6 +31,7 @@ const ABSENT_RESOLVE: Record<string, string> = {
  */
 export function WatchComposer() {
   const composer = useStore((s) => s.watchComposer)
+  const tickers = useStore((s) => s.tickers)
   const close = useStore((s) => s.closeWatchComposer)
   const save = useStore((s) => s.saveWatchRow)
   const prefill = composer?.prefill ?? null
@@ -150,6 +150,17 @@ export function WatchComposer() {
     setFiles((cur) => [...cur, ...pdfs].slice(0, 5))
   }
 
+  // The companies the engine already has documents for, filtered by the same box. Prefix matches first,
+  // which is what someone typing a ticker means.
+  const poolMatches = useMemo(() => {
+    const q = query.trim().toUpperCase()
+    if (!q) return []
+    return tickers
+      .filter((t) => t.ticker.includes(q))
+      .sort((a, b) => Number(b.ticker.startsWith(q)) - Number(a.ticker.startsWith(q)) || a.ticker.localeCompare(b.ticker))
+      .slice(0, 5)
+  }, [tickers, query])
+
   const trgCtx = { currency: currency || '', reference, today: todayISO() }
 
   return (
@@ -161,8 +172,16 @@ export function WatchComposer() {
     >
       <div className="activity__head">
         <div>
-          <div className="activity__title">{composer?.entryId ? 'Edit watchlist entry' : 'Add to watchlist'}</div>
-          <div className="activity__sub">{ticker ? `${ticker}${company ? ` · ${company}` : ''}` : 'Find a listing, then say why you are watching it'}</div>
+          {/* An engine row has no entry file until you touch it, so "Edit" on one is really "add your own
+              layer to it". Saying "Add to watchlist" after the person clicked Edit is just wrong. */}
+          <div className="activity__title">
+            {composer?.entryId ? `Edit ${ticker}` : prefill?.ticker ? `Track ${ticker} yourself` : 'Add to watchlist'}
+          </div>
+          <div className="activity__sub">
+            {composer?.entryId ? (company || 'Change the reason, the triggers or the review date')
+              : prefill?.ticker ? 'The engine already lists this — add your own reason and a trigger it can check'
+              : 'Find a listing, then say why you are watching it'}
+          </div>
         </div>
         <button className="btn btn--ghost" style={{ height: 30 }} onClick={close}>Close ✕</button>
       </div>
@@ -171,39 +190,46 @@ export function WatchComposer() {
         {/* 1 — identity. Resolved, never typed. */}
         {!resolved && !composer?.entryId && (
           <div className="wlc__field">
-            {/* Two ways to name it, because there are two cases. A company the engine already has a pool
-                for is picked from the roster — the same picker the empty state uses, so the two surfaces
-                cannot drift. Anything else is resolved against the symbol directory, which is what makes
-                a never-researched name possible at all. */}
-            <span className="wlc__label">Pick a company you already have</span>
-            <div className="wlc__picker">
-              <CompanyPicker
-                allowFreeText
-                onPick={(t) => { setQuery(t); setTicker(t); void resolveFor(t) }}
-              />
-            </div>
-            <span className="wlc__label">Or look up any listing</span>
+            {/* ONE search, not two lists. Typing filters the companies you already have (instant, local)
+                and the same box looks the name up against the symbol directory when it is not one of
+                them. Two stacked sections asked the person to know which kind of name they were adding
+                before they had typed it. */}
+            <span className="wlc__label">Which company?</span>
             <div className="wlc__row">
               <input
-                className="fld" placeholder="Ticker, e.g. V" value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                className="fld" placeholder="Ticker or name — e.g. V, or AMZN" value={query}
+                onChange={(e) => { setQuery(e.target.value); setCandidates(null) }}
                 onKeyDown={(e) => { if (e.key === 'Enter') void runResolve() }}
-                aria-label="Ticker to look up" autoFocus
+                aria-label="Company to add" autoFocus
               />
               <button className="btn" disabled={!query.trim() || resolving} onClick={() => void runResolve()}>
-                {resolving ? 'Looking…' : 'Find'}
+                {resolving ? 'Looking…' : 'Look up'}
               </button>
             </div>
+
+            {/* the pool first: these are names the engine already has documents for */}
+            {!!poolMatches.length && !candidates && (
+              <div className="wlc__cands">
+                <div className="wlc__candhead">Companies you already have</div>
+                {poolMatches.map((t) => (
+                  <button key={t.ticker} className="wlc__cand" onClick={() => { setQuery(t.ticker); void resolveFor(t.ticker) }}>
+                    <span className="wlc__candsym">{t.ticker}</span>
+                    <span className="wlc__candname">{t.fileCount} file{t.fileCount === 1 ? '' : 's'}{t.latestRun?.decision ? ` · ${t.latestRun.decision}` : ''}</span>
+                    <span className="wlc__candprice">in your pool</span>
+                  </button>
+                ))}
+              </div>
+            )}
+
             {candidates && (
               candidates.length ? (
                 <div className="wlc__cands">
+                  <div className="wlc__candhead">Listings matching “{query.trim()}”</div>
                   {candidates.map((c) => (
                     <button key={c.symbol} className="wlc__cand" onClick={() => pick(c)}>
                       <span className="wlc__candsym">{c.symbol}</span>
                       <span className="wlc__candname">{c.name}{c.exchange ? ` · ${c.exchange}` : ''}</span>
-                      <span className="wlc__candprice">
-                        {c.price != null && c.currency ? `${c.currency} ${c.price.toFixed(2)}` : '—'}
-                      </span>
+                      <span className="wlc__candprice">{c.price != null && c.currency ? `${c.currency} ${c.price.toFixed(2)}` : '—'}</span>
                     </button>
                   ))}
                 </div>
@@ -211,8 +237,8 @@ export function WatchComposer() {
                 <div className="wlc__hint">{ABSENT_RESOLVE[resolveReason ?? 'no_match'] ?? 'No listing found.'}</div>
               )
             )}
-            {candidates && resolveReason === 'feed_unavailable' && (
-              <div className="wlc__hint">{ABSENT_RESOLVE.feed_unavailable}</div>
+            {!candidates && !poolMatches.length && query.trim() && (
+              <div className="wlc__hint">Press Look up to search every listing, including names the engine has never researched.</div>
             )}
           </div>
         )}
@@ -346,7 +372,7 @@ export function WatchComposer() {
         <button className="btn btn--ghost" onClick={close}>Cancel</button>
         {blocker && <span className="wlc__blocker">{blocker}</span>}
         <button className="btn btn--amber" disabled={!canSave} title={blocker ?? undefined} onClick={() => void submit()}>
-          {saving ? 'Saving…' : composer?.entryId ? 'Save changes' : 'Add to watchlist'}
+          {saving ? 'Saving…' : composer?.entryId ? 'Save changes' : prefill?.ticker ? `Track ${ticker}` : 'Add to watchlist'}
         </button>
       </div>
     </motion.div>

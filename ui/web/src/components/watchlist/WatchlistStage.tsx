@@ -91,6 +91,12 @@ export function WatchlistStage() {
       </div>
 
       <div className="wl__list">
+        {!!rows.length && (
+          <div className="wl__grid wl__hdr">
+            <div>Name</div><div>Why / triggers</div><div style={{ textAlign: 'right' }}>Price</div>
+            <div>State</div><div style={{ textAlign: 'right' }}>Added / review</div><div />
+          </div>
+        )}
         {staticMode && !rows.length ? (
           <div className="wl__empty">Nothing on the watchlist in this snapshot.</div>
         ) : error ? (

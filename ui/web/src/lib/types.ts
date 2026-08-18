@@ -2323,6 +2323,8 @@ export interface WatchEngineRow {
   /** The engine's own words. Displayed verbatim, never parsed into a condition. */
   size_in_trigger: string | null
   next_review: string | null
+  /** The engine's prose as written — often explains WHY that date. */
+  next_review_text?: string | null
   entry_price: number | null
   final_thesis_path: string | null
   fingerprint: string
@@ -2352,6 +2354,11 @@ export interface WatchRow {
   state: WatchRowState
   run_root: string | null
   final_thesis_path: string | null
+  /** When you added it (null if you have never touched this engine row), and when it last changed. */
+  added_at: string | null
+  updated_at: string | null
+  /** The engine's own call date, for a row you never touched. */
+  engine_since: string | null
 }
 
 export interface WatchlistRead {

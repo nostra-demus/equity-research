@@ -264,6 +264,7 @@ export function DecisionBanner() {
   const openReport = useStore((s) => s.openReport)
   const openValuationPlayground = useStore((s) => s.openValuationPlayground)
   const openWatchComposer = useStore((s) => s.openWatchComposer)
+  const watchlist = useStore((s) => s.watchlist)
   const reports = useStore((s) => s.reports)
   const setToast = useStore((s) => s.setToast)
   const dataStatus = useStore((s) => s.dataStatus)
@@ -307,6 +308,7 @@ export function DecisionBanner() {
     }
   }, [refreshLiveQuote])
   // research records carry `decision`; a swarm's record carries its SWARM.md verdict field
+  const onWatchlist = watchlist?.rows.find((r) => r.ticker === (decision?.ticker ?? '')) ?? null
   const verdict = resolveVerdict(decision, verdictField)
 
   // Is a newer, decision-less re-run sitting on TOP of the run we're showing? `summary` is a stable
@@ -601,12 +603,30 @@ export function DecisionBanner() {
           <button
             type="button"
             className="tierbtn"
-            title="Add this company to the Watchlist — a reason, a buy trigger and a review date, checked against the live price. Everything the run already knows is filled in."
+            title={onWatchlist
+              ? 'Already on the Watchlist — open it to change the reason, the triggers or the review date'
+              : 'Add this company to the Watchlist — a reason, a buy trigger and a review date, checked against the live price. Everything the run already knows is filled in.'}
             onClick={(e) => {
               // stopPropagation is REQUIRED: the whole banner is a click target that opens the thesis.
               e.stopPropagation()
+              // A name already on the list opens for EDITING. Sending it through the create path again
+              // would 409 and toast "already on the watchlist", which is a dead end dressed as an error.
+              if (onWatchlist) {
+                openWatchComposer({
+                  ticker: onWatchlist.ticker,
+                  company_name: onWatchlist.company_name,
+                  currency: onWatchlist.currency,
+                  exchange: onWatchlist.exchange,
+                  why: onWatchlist.why,
+                  conviction: onWatchlist.conviction,
+                  review_date: onWatchlist.review_date,
+                  tags: onWatchlist.tags,
+                  triggers: onWatchlist.triggers,
+                }, onWatchlist.entry_id)
+                return
+              }
               openWatchComposer({
-                ticker: decision.ticker ?? selectedTicker ?? '',
+                ticker: decision.ticker ?? '',
                 company_name: decision.company_name ?? null,
                 currency: decision.currency ?? null,
                 exchange: decision.exchange ?? null,
@@ -615,7 +635,7 @@ export function DecisionBanner() {
               })
             }}
           >
-            ☆ Watch
+            {onWatchlist ? '★ Watching' : '☆ Watch'}
           </button>
         )}
         {isResearch && (
