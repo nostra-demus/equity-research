@@ -3353,27 +3353,36 @@ a { color: inherit; }
 .wl__list { flex: 1; overflow: auto; display: flex; flex-direction: column; border-top: 1px solid var(--hairline); }
 .wl__empty { color: var(--text-faint); font-size: 13px; padding: 44px 24px; text-align: center; line-height: 1.6; max-width: 62ch; margin: 0 auto; }
 
-/* One grid template shared by the header and every row, so the columns line up by construction rather
-   than by two lists of widths agreeing with each other. Cards were replaced by a grid because a price in
-   one card cannot be compared against a price in the next when they sit at different heights. */
-/* Every track is FIXED except the reason. An `auto` actions column resolves to 0 on the header (its cell
-   is empty) and to the buttons' width on a row, so the two would not line up — the one thing a grid is
-   for. */
-.wl__grid { display: grid; grid-template-columns: 150px minmax(0, 1fr) 118px 104px 124px 212px; gap: 14px; align-items: start; }
-.wl__hdr { padding: 7px 10px; border-bottom: 1px solid var(--hairline-strong); font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-faint); position: sticky; top: 0; background: var(--bg); z-index: 1; }
-.wl__row { padding: 10px 10px; border-bottom: 1px solid var(--hairline); transition: background var(--dur-fast) var(--ease); }
-.wl__row:hover { background: var(--surface-2); }
-.wl__row--met { background: var(--accent-wash); box-shadow: inset 2px 0 0 var(--accent); }
-.wl__row--due { box-shadow: inset 2px 0 0 var(--text-muted); }
-.wl__row--archived { opacity: 0.62; }
-.wl__c { min-width: 0; }
-.wl__c--price, .wl__c--dates { text-align: right; }
-.wl__sub2 { font-size: 10.5px; color: var(--text-faint); margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.wl__origin { display: inline-block; margin-top: 4px; font-size: 9.5px; padding: 0 6px; border-radius: var(--r-pill); border: 1px solid var(--hairline); color: var(--text-muted); }
-.wl__origin--manual { color: var(--accent-bright); border-color: var(--accent-deep); }
-.wl__origin--both { color: var(--accent-bright); border-color: var(--accent-deep); border-style: dashed; }
+/* The list is the app's standard .atable (sticky head, row hover) — the same table the activity log and
+   the screener's candidates use. It was briefly a bespoke grid; that was a needless second table style. */
+.wl__table { table-layout: fixed; }
+.wl__table th:nth-child(1), .wl__table td:nth-child(1) { width: 156px; }
+.wl__table th:nth-child(2), .wl__table td:nth-child(2) { width: 132px; }
+.wl__table th:nth-child(4), .wl__table td:nth-child(4) { width: 128px; }
+.wl__table th:nth-child(5), .wl__table td:nth-child(5) { width: 92px; }
+.wl__table th:nth-child(6), .wl__table td:nth-child(6) { width: 84px; }
+.wl__table th:nth-child(7), .wl__table td:nth-child(7) { width: 108px; }
+.wl__table td { vertical-align: top; }
+.wl__tr--met { background: var(--accent-wash); box-shadow: inset 2px 0 0 var(--accent); }
+.wl__tr--due { box-shadow: inset 2px 0 0 var(--text-muted); }
+.wl__tr--archived { opacity: 0.62; }
 
-.wl__why { font-size: 12.5px; line-height: 1.45; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.wl__sort { display: inline-flex; align-items: center; gap: 4px; font: inherit; color: inherit; letter-spacing: inherit; text-transform: inherit; }
+.wl__sort:hover { color: var(--text-muted); }
+.wl__sort--on { color: var(--accent-bright); }
+.wl__caret { font-size: 7px; }
+
+.wl__td--name .sym { font-family: var(--font-mono); font-size: 12.5px; font-weight: 600; }
+.wl__mine { color: var(--accent-bright); margin-inline-start: 3px; }
+.wl__co { font-size: 10.5px; color: var(--text-faint); margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* the engine's own call — the most consequential thing on the row, and it was missing entirely */
+.wl__verdict { font-size: 11.5px; font-weight: 600; }
+.wl__verdict--none { color: var(--text-faint); font-weight: 400; }
+
+/* No max-width:0 here — that is an auto-layout trick, and under table-layout:fixed it collapses the
+   column to nothing. Fixed layout already gives an unsized column the remaining width. */
+.wl__td--why { overflow: hidden; }
+.wl__why { font-size: 12px; line-height: 1.45; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .wl__why--engine { color: var(--text-muted); font-style: italic; }
 .wl__chips { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 5px; }
 .wl__trg { font-size: 9.5px; padding: 1px 6px; border-radius: var(--r-pill); border: 1px solid var(--hairline); color: var(--text-muted); white-space: nowrap; }
@@ -3383,21 +3392,37 @@ a { color: inherit; }
 /* absence must LOOK different from a negative, never like a quiet pass */
 .wl__trg--unevaluable { color: var(--text-faint); border-style: dashed; }
 .wl__trg--resurfaced { color: var(--rerun); border-color: var(--rerun); }
+.wl__trg--add { color: var(--accent-bright); border-color: var(--accent-deep); border-style: dashed; cursor: pointer; }
+.wl__trg--add:hover { background: var(--accent-wash); }
 
-.wl__price { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 13px; white-space: nowrap; }
+.wl__price { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12.5px; color: var(--text); white-space: nowrap; }
 .wl__price--absent { color: var(--text-faint); }
 .wl__meta { font-size: 10px; color: var(--text-faint); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.wl__state { font-size: 10px; padding: 2px 8px; border-radius: var(--r-pill); border: 1px solid var(--hairline); color: var(--text-muted); white-space: nowrap; }
-.wl__state--condition_met { background: var(--accent-wash); color: var(--accent-bright); border-color: var(--accent-deep); }
-.wl__state--due { background: var(--surface-3); color: var(--text); }
-.wl__state--not_evaluable { color: var(--text-faint); border-style: dashed; }
+/* the only figure comparable DOWN the column — the price column holds six currencies */
+.wl__gap { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12px; color: var(--text-muted); }
+.wl__gap--met { color: var(--accent-bright); font-weight: 600; }
+.wl__gap--none { color: var(--text-faint); }
 
-/* Actions are always visible. Hiding them until hover hides the fact that a row IS actionable, and on a
-   list you scan that reads as "nothing to do here". */
-/* One line, always: four row-specific actions. A wrapped fifth made every row taller for a button
-   that opened a global panel rather than anything about this row. */
-.wl__c--act { display: flex; gap: 4px; justify-content: flex-end; }
-.wl__c--act .btn { height: 24px; padding: 0 8px; font-size: 11px; }
+/* One primary action per row, everything else in a menu — the density .atable is built for. */
+.wl__act { position: relative; display: flex; gap: 4px; justify-content: flex-end; }
+.wl__act .btn { height: 24px; padding: 0 8px; font-size: 11px; }
+.wl__more { font-size: 13px; line-height: 1; padding: 0 7px; }
+.wl__menu {
+  position: absolute; top: calc(100% + 5px); right: 0; z-index: 30; min-width: 232px;
+  display: flex; flex-direction: column; padding: 5px; border-radius: var(--r-md);
+  background: var(--surface-2); border: 1px solid var(--hairline-strong); box-shadow: var(--shadow-2);
+  transform-origin: top right; animation: evdropin 150ms var(--ease-out) both;
+}
+.wl__opt {
+  display: block; width: 100%; text-align: left; padding: 6px 9px; border-radius: var(--r-md);
+  color: var(--text-muted); font-size: 11.5px; text-decoration: none;
+  transition: background var(--dur-fast), color var(--dur-fast);
+}
+.wl__opt:hover { background: var(--surface-3); color: var(--text); }
+.wl__opt:disabled { opacity: 0.45; }
+.wl__opt--danger { color: var(--bad); }
+.wl__opt--armed { background: var(--bad-wash); color: var(--bad); font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .wl__menu { animation: none; } }
 
 /* ---- watchlist composer — the .activity panel shell, plus a form ---- */
 .wlc { width: min(580px, 56%); z-index: 56; }

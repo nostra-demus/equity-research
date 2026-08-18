@@ -44,8 +44,6 @@ export function WatchComposer() {
   const [why, setWhy] = useState(prefill?.why ?? '')
   const [conviction, setConviction] = useState<'high' | 'medium' | 'low' | null>(prefill?.conviction ?? null)
   const [reviewDate, setReviewDate] = useState(prefill?.review_date ?? '')
-  const [tags, setTags] = useState<string[]>(prefill?.tags ?? [])
-  const [tagDraft, setTagDraft] = useState('')
   const [triggers, setTriggers] = useState<DraftTrigger[]>(prefill?.triggers ?? [])
   const [saving, setSaving] = useState(false)
   const [files, setFiles] = useState<File[]>([])
@@ -75,8 +73,6 @@ export function WatchComposer() {
     setWhy(prefill?.why ?? '')
     setConviction(prefill?.conviction ?? null)
     setReviewDate(prefill?.review_date ?? '')
-    setTags(prefill?.tags ?? [])
-    setTagDraft('')
     setTriggers(prefill?.triggers ?? [])
     setFiles([])
     setQuery('')
@@ -138,7 +134,6 @@ export function WatchComposer() {
       why: why.trim(),
       conviction,
       review_date: reviewDate || null,
-      tags,
       triggers,
     }, composer?.entryId ?? null, files)
     setSaving(false)
@@ -286,26 +281,6 @@ export function WatchComposer() {
           <div className="wlc__field">
             <span className="wlc__label">Review date</span>
             <input className="fld fld--date" type="date" value={reviewDate} onChange={(e) => setReviewDate(e.target.value)} aria-label="Review date" />
-          </div>
-        </div>
-
-        <div className="wlc__field">
-          <span className="wlc__label">Tags</span>
-          <div className="wlc__tags">
-            {tags.map((t) => (
-              <button key={t} className="wl__trg" onClick={() => setTags(tags.filter((x) => x !== t))} title="Remove">{t} ✕</button>
-            ))}
-            <input
-              className="fld wlc__taginput" placeholder="+ tag" value={tagDraft}
-              onChange={(e) => setTagDraft(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key !== 'Enter') return
-                const v = tagDraft.trim().toLowerCase()
-                if (v && !tags.includes(v) && tags.length < 12) setTags([...tags, v])
-                setTagDraft('')
-              }}
-              aria-label="Add a tag"
-            />
           </div>
         </div>
 

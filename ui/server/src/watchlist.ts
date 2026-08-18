@@ -173,6 +173,12 @@ export interface TriggerEval {
   state: EvalState
   /** The arithmetic, in words, so "not met" is checkable rather than trusted (§15). */
   detail: string
+  /**
+   * How far the price still has to move, as a signed percent of the threshold. Negative = the price must
+   * FALL by that much. Comparable across rows in a way the price itself is not — six currencies sit in
+   * this list, so a price column cannot be read downwards but a distance can.
+   */
+  gap_pct: number | null
   reason: AbsentReason | 'no_reference' | 'currency_mismatch_trigger' | 'no_anchor' | null
   due?: boolean
 }
@@ -201,6 +207,8 @@ export interface MergedWatchRow {
   quote_reason: AbsentReason | null
   evals: TriggerEval[]
   state: RowState
+  /** The smallest move still needed by any auto trigger. Null when nothing is checkable. */
+  nearest_gap_pct: number | null
   run_root: string | null
   final_thesis_path: string | null
   /** When YOU added it (null for a row the engine projected and you have never touched) and when it was
@@ -442,6 +450,7 @@ export function evaluateTrigger(t: WatchTrigger, ctx: EvalContext): TriggerEval 
       ...base,
       mode: 'reminder',
       state: 'not_met', // a date is never "met" — it comes due, and only a human clears it
+      gap_pct: null,
       detail: t.acknowledged_at
         ? `${t.label} — acknowledged ${t.acknowledged_at.slice(0, 10)}`
         : due
@@ -454,7 +463,7 @@ export function evaluateTrigger(t: WatchTrigger, ctx: EvalContext): TriggerEval 
 
   const q = ctx.quote
   if (!q) {
-    return { ...base, mode: 'auto', state: 'not_evaluable', detail: 'No live price to check against.', reason: ctx.quoteReason }
+    return { ...base, mode: 'auto', state: 'not_evaluable', detail: 'No live price to check against.', reason: ctx.quoteReason, gap_pct: null }
   }
 
   // The trigger's currency and the quote's must be the same measurement. There is no FX module here, and
@@ -468,6 +477,7 @@ export function evaluateTrigger(t: WatchTrigger, ctx: EvalContext): TriggerEval 
       state: 'not_evaluable',
       detail: `Set in ${want}, priced in ${q.currency} — comparing them needs an FX rate and date this row does not carry.`,
       reason: 'currency_mismatch_trigger',
+      gap_pct: null,
     }
   }
 
@@ -482,12 +492,13 @@ export function evaluateTrigger(t: WatchTrigger, ctx: EvalContext): TriggerEval 
         ? `${money(q.currency, q.price)} is ${t.direction === 'at_or_below' ? 'at or below' : 'at or above'} ${money(t.currency, t.level)}`
         : `${money(q.currency, q.price)} is ${Math.abs(gap)}% ${gap > 0 ? 'above' : 'below'} ${money(t.currency, t.level)}`,
       reason: null,
+      gap_pct: met ? 0 : pct1(((t.level - q.price) / q.price) * 100),
     }
   }
 
   if (t.kind === 'pct_drop') {
     if (!(t.reference.value > 0)) {
-      return { ...base, mode: 'auto', state: 'not_evaluable', detail: 'The reference price is missing or not positive.', reason: 'no_reference' }
+      return { ...base, mode: 'auto', state: 'not_evaluable', detail: 'The reference price is missing or not positive.', reason: 'no_reference', gap_pct: null }
     }
     const threshold = r2(t.reference.value * (1 - t.drop_pct / 100))
     const met = q.price <= threshold
@@ -498,12 +509,13 @@ export function evaluateTrigger(t: WatchTrigger, ctx: EvalContext): TriggerEval 
       state: met ? 'condition_met' : 'not_met',
       detail: `${t.drop_pct}% below ${money(t.reference.currency, t.reference.value)}${t.reference.as_of ? ` (${t.reference.as_of})` : ''} = ${money(t.reference.currency, threshold)}; now ${money(q.currency, q.price)}, ${fell >= 0 ? 'down' : 'up'} ${Math.abs(fell)}%`,
       reason: null,
+      gap_pct: met ? 0 : pct1(((threshold - q.price) / q.price) * 100),
     }
   }
 
   // valuation_mos
   if (!(t.anchor_value > 0)) {
-    return { ...base, mode: 'reminder', state: 'not_evaluable', detail: 'No fair value is pinned to this trigger.', reason: 'no_anchor' }
+    return { ...base, mode: 'reminder', state: 'not_evaluable', detail: 'No fair value is pinned to this trigger.', reason: 'no_anchor', gap_pct: null }
   }
   const mos = pct1(((t.anchor_value - q.price) / t.anchor_value) * 100)
   const met = t.direction === 'at_or_below' ? mos >= t.required_mos_pct : -mos >= t.required_mos_pct
@@ -513,6 +525,7 @@ export function evaluateTrigger(t: WatchTrigger, ctx: EvalContext): TriggerEval 
     state: met ? 'condition_met' : 'not_met',
     detail: `(${money(t.anchor_currency, t.anchor_value)} − ${money(q.currency, q.price)}) ÷ ${t.anchor_value} = ${mos}% vs ${t.required_mos_pct}% required`,
     reason: null,
+    gap_pct: met ? 0 : pct1(((t.anchor_value * (1 - t.required_mos_pct / 100) - q.price) / q.price) * 100),
   }
 }
 
@@ -634,6 +647,11 @@ export function mergeWatchlist(input: MergeInput): { rows: MergedWatchRow[]; arc
       quote_reason: q.reason,
       evals,
       state: rollupState(evals),
+      nearest_gap_pct: (() => {
+        const gaps = evals.map((e) => e.gap_pct).filter((g): g is number => g != null)
+        if (!gaps.length) return null
+        return gaps.reduce((a, b) => (Math.abs(b) < Math.abs(a) ? b : a))
+      })(),
       run_root: engine?.run_root ?? null,
       final_thesis_path: engine?.final_thesis_path ?? null,
       added_at: entry?.created_at ?? null,

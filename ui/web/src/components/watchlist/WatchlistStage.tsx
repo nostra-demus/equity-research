@@ -8,6 +8,31 @@ import { WatchRowCard } from './WatchRow'
 // cross-company list, the first this stage has had. That is why App.tsx hides the company-scoped docks
 // while it is showing: a document pool or a verdict banner belonging to whichever company happened to be
 // selected, sitting beside a list of other names, would be worse than absent.
+type SortKey = 'name' | 'verdict' | 'gap' | 'review'
+
+/** A header cell that sorts. Ascending first, then descending, then back to the default order. */
+function SortTh({ id, sort, setSort, children, num, title }: {
+  id: SortKey
+  sort: { key: SortKey | null; dir: 1 | -1 }
+  setSort: (s: { key: SortKey | null; dir: 1 | -1 }) => void
+  children: React.ReactNode
+  num?: boolean
+  title?: string
+}) {
+  const on = sort.key === id
+  return (
+    <th className={num ? 'atable__num' : undefined} title={title}>
+      <button
+        className={`wl__sort${on ? ' wl__sort--on' : ''}`}
+        onClick={() => setSort(on && sort.dir === 1 ? { key: id, dir: -1 } : on ? { key: null, dir: 1 } : { key: id, dir: 1 })}
+        aria-label={`Sort by ${id}`}
+      >
+        {children}{on && <span className="wl__caret">{sort.dir === 1 ? '▲' : '▼'}</span>}
+      </button>
+    </th>
+  )
+}
+
 export function WatchlistStage() {
   const read = useStore((s) => s.watchlist)
   const loading = useStore((s) => s.watchlistLoading)
@@ -19,6 +44,7 @@ export function WatchlistStage() {
   const openComposer = useStore((s) => s.openWatchComposer)
   const [q, setQ] = useState('')
   const [origin, setOrigin] = useState<'all' | 'engine' | 'manual'>('all')
+  const [sort, setSort] = useState<{ key: SortKey | null; dir: 1 | -1 }>({ key: null, dir: 1 })
 
   useEffect(() => { void load() }, [load])
 
@@ -37,6 +63,23 @@ export function WatchlistStage() {
       )
     })
   }, [source, q, origin])
+
+  const sorted = useMemo(() => {
+    if (!sort.key) return rows // the server's own order: anything actionable first
+    const k = sort.key
+    // A verdict is not alphabetical — it is an ordered scale from "own it" to "do not".
+    const VERDICT_RANK: Record<string, number> = { 'Strong Buy': 0, Buy: 1, 'Starter Position Only': 2, Watchlist: 3, 'Pair Trade / Hedge Required': 4, Avoid: 5, 'Short Candidate': 6 }
+    const val = (r: typeof rows[number]) =>
+      k === 'name' ? r.ticker
+      : k === 'verdict' ? String(VERDICT_RANK[String(r.engine?.decision)] ?? 9).padStart(2, '0')
+      : k === 'gap' ? (r.nearest_gap_pct == null ? Infinity : Math.abs(r.nearest_gap_pct))
+      : (r.review_date ?? '9999-12-31')
+    return [...rows].sort((a, b) => {
+      const av = val(a), bv = val(b)
+      if (av === bv) return a.ticker.localeCompare(b.ticker)
+      return (av < bv ? -1 : 1) * sort.dir
+    })
+  }, [rows, sort])
 
   const met = read?.rows.filter((r) => r.state === 'condition_met').length ?? 0
   const engineCount = read?.rows.filter((r) => r.origin !== 'manual').length ?? 0
@@ -91,19 +134,13 @@ export function WatchlistStage() {
       </div>
 
       <div className="wl__list">
-        {!!rows.length && (
-          <div className="wl__grid wl__hdr">
-            <div>Name</div><div>Why / triggers</div><div style={{ textAlign: 'right' }}>Price</div>
-            <div>State</div><div style={{ textAlign: 'right' }}>Added / review</div><div />
-          </div>
-        )}
         {staticMode && !rows.length ? (
           <div className="wl__empty">Nothing on the watchlist in this snapshot.</div>
         ) : error ? (
           <div className="wl__empty">{error}</div>
         ) : loading && !read ? (
           <div className="wl__empty">Loading the watchlist…</div>
-        ) : !rows.length ? (
+        ) : !sorted.length ? (
           <div className="wl__empty">
             {showArchived
               ? 'Nothing archived. Names you hide from the watchlist are kept here and can be restored.'
@@ -112,7 +149,22 @@ export function WatchlistStage() {
                 : 'Nothing on the watchlist yet. Names the engine holds no position in appear here automatically, and you can add your own.'}
           </div>
         ) : (
-          rows.map((r) => <WatchRowCard key={r.listing_key} row={r} />)
+          <table className="atable wl__table">
+            <thead>
+              <tr>
+                <SortTh id="name" sort={sort} setSort={setSort}>Name</SortTh>
+                <SortTh id="verdict" sort={sort} setSort={setSort}>Verdict</SortTh>
+                <th>Why / triggers</th>
+                <th className="atable__num">Price</th>
+                <SortTh id="gap" sort={sort} setSort={setSort} num title="How far the price still has to move for the nearest trigger to fire">To trigger</SortTh>
+                <SortTh id="review" sort={sort} setSort={setSort} num>Review</SortTh>
+                <th className="atable__num" />
+              </tr>
+            </thead>
+            <tbody>
+              {sorted.map((r) => <WatchRowCard key={r.listing_key} row={r} />)}
+            </tbody>
+          </table>
         )}
       </div>
     </div>
