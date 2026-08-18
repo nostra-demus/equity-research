@@ -4821,11 +4821,12 @@ def check_az_governance_flag_cap_correspondence():
         fails.append("07 no longer declares a termination_rule enum")
     else:
         vals = set(re.findall(r"`([a-z_]+)`", m.group(1)))
-        extra = vals - ALLOWED
+        extra   = vals - ALLOWED
+        missing = ALLOWED - vals
         if extra:
             fails.append(f"termination_rule declares values outside the contract allowlist: {sorted(extra)}")
-        if "target_gate_failed" not in vals:
-            fails.append("termination_rule lacks 'target_gate_failed' (the only legitimate global stop)")
+        if missing:
+            fails.append(f"termination_rule is missing contract values: {sorted(missing)}")
 
     # (5) the grading rule is the fourth representation AZ claims to protect — so parse it. Every
     #     fact term the RF-NET-003 trigger and the cap rows enumerate must also appear in the
@@ -4868,24 +4869,43 @@ def check_az_governance_flag_cap_correspondence():
     #     prove the numbers agree. Changing 99's RF-NET-003 cap from `max 35` to `max 65` — the exact
     #     silent-weakening this whole check exists to stop — kept an RF-NET-003 row in place and passed (2).
     #     Compare the actual max/floor bounds per id between MODULE_RULES and 99, wording-independent.
-    def _az_cap_bounds(section, rf_id):
-        # Match the row by its SUBJECT (first cell), like (1)/(2) — an id merely NAMED in another
-        # row's explanatory prose (e.g. the breadth-overflow row referencing RF-NET-006) is not a cap
-        # row FOR that id. Then read the max/floor bounds from anywhere in that row.
-        b = []
+    def _az_score_of(pre):
+        # Which score a `max/floor N` attaches to, normalized across the two tables' vocabularies
+        # ("People & network integrity"/"PeopleNetworkIntegrity", "Governance risk"/"GovRisk", ...).
+        pre = pre.lower()
+        if "integrity" in pre: return "PNI"
+        if "candor" in pre: return "CANDOR"
+        if "govrisk" in pre or "governance risk" in pre: return "GOV"
+        if "confidence" in pre: return "CONF"
+        if "rptrisk" in pre or "leakage" in pre: return "RPT"
+        if "data quality" in pre or "dataquality" in pre: return "DQ"
+        if "audit" in pre: return "AUDIT"
+        return "?"
+    def _az_cap_payload(section, rf_id):
+        # Match the row by its SUBJECT (first cell), like (1)/(2). Each bound carries its BAND
+        # (RF-NET-003's Disqualifying-/Material-equivalent rows) and its normalized SCORE, so
+        # moving a cap to the wrong score, or swapping the two 003 bands, changes the payload.
+        out = []
         for ln in section.splitlines():
             st = ln.strip()
             if not st.startswith("|") or rf_id not in (_az_row_first_cell(ln) or ""):
                 continue
-            b += [(k.lower(), int(n)) for k, n in re.findall(r"(max|floor)\s+(\d+)", st, re.I)]
-        return sorted(b)
+            low = ln.lower()
+            band = "disq" if "disqualifying-equivalent" in low else ("mat" if "material-equivalent" in low else "")
+            for m in re.finditer(r"(max|floor)\s+(\d+)", ln, re.I):
+                # attach to the NEAREST score: the clause since the last ';' or '|', not a fixed
+                # window that could reach back past it to an earlier score in the same cell.
+                seg = ln[:m.start()]
+                clause = seg[max(seg.rfind(";"), seg.rfind("|")) + 1:]
+                out.append((band, _az_score_of(clause), m.group(1).lower(), int(m.group(2))))
+        return sorted(out)
     for i in net_ids:
         if i not in cap_keys or i not in mir_keys:
             continue  # ID-presence gaps already reported by (1)/(2); don't double-report
-        mr_b, n99_b = _az_cap_bounds(caps, i), _az_cap_bounds(cap99, i)
+        mr_b, n99_b = _az_cap_payload(caps, i), _az_cap_payload(cap99, i)
         if mr_b != n99_b:
-            fails.append(f"{i}: cap bounds drift between MODULE_RULES {mr_b} and 99 {n99_b} "
-                         f"(row present but numbers disagree — enforcement silently weakened)")
+            fails.append(f"{i}: cap payload drifts between MODULE_RULES {mr_b} and 99 {n99_b} "
+                         f"(band / score / number disagree — enforcement silently weakened or misdirected)")
     return fails
 
 azfails = check_az_governance_flag_cap_correspondence()
