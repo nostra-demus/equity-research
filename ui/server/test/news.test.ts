@@ -4515,4 +4515,48 @@ await check('buildTriageQueue: share 0 restores ONE priority sort, it does not i
   assert.equal(q[0], 'EVT-new-0', 'the higher-priority item leads, whichever pool it came from')
 })
 
+await check('the pacing admission and the reservation can never disagree', () => {
+  // The bug this pins: pacedCanSpend took the CALIBRATED cost while tryReserve was never given it, so
+  // the admission paced on what a batch really costs and the reservation paced on the worst case. On a
+  // paced day the admission said yes, the reservation said no, and the batch was dropped — with
+  // groqReleased still true, so nothing reported a reason and the panel called the tier healthy.
+  const PACE = { targetTokens: 300_000, floorFrac: 0.25 } as any
+  const NOON = new Date('2026-08-18T12:00:00Z').getTime()
+  const STRICT = 30_000   // conservative worst-case bound
+  const CALIB = 9_000     // what a successful batch really costs
+  const budgetWith = (used: number) => {
+    resetBudgetMemory()
+    const f = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'paceagree-')), 'b.json')
+    const b = new Budget(f, 10_000, 1_000_000, NOON)
+    if (used > 0) { const r = b.tryReserve(used, undefined, NOON, 1); if (r) b.reconcile(r, 1, used) }
+    return b
+  }
+  for (const used of [0, 50_000, 100_000, 140_000, 160_000, 200_000, 249_000, 290_000]) {
+    const admit = budgetWith(used).pacedCanSpend(STRICT, PACE, NOON, 1, CALIB)
+    const reserved = budgetWith(used).tryReserve(STRICT, PACE, NOON, 1, CALIB) !== null
+    assert.equal(reserved, admit, `at used=${used} the reservation must answer as the admission did`)
+  }
+})
+
+await check('the calibrated pace cost cannot bust the hard daily cap', () => {
+  // The reason the reservation kept the conservative bound in the first place. Threading the calibrated
+  // cost must move ONLY the pacer: the cap test and the amount debited stay on the worst case, or a
+  // generous pace figure would let a batch through the daily ceiling.
+  const PACE = { targetTokens: 300_000, floorFrac: 0.25 } as any
+  const NOON = new Date('2026-08-18T12:00:00Z').getTime()
+  resetBudgetMemory()
+  const f = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'pacecap-')), 'b.json')
+  const b = new Budget(f, 10_000, 1_000_000, NOON)
+  const spent = b.tryReserve(995_000, undefined, NOON, 1)
+  if (spent) b.reconcile(spent, 1, 995_000)
+  // 5,000 tokens of hard cap left; ask for 30,000 with a pace cost of 1 — maximally permissive
+  assert.equal(b.tryReserve(30_000, PACE, NOON, 1, 1), null, 'the hard cap still refuses it')
+
+  resetBudgetMemory()
+  const f2 = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'pacedebit-')), 'b.json')
+  const fresh = new Budget(f2, 10_000, 1_000_000, NOON)
+  const r = fresh.tryReserve(30_000, PACE, NOON, 1, 9_000)
+  assert.equal(r?.tokens, 30_000, 'what is DEBITED is the conservative bound, never the calibrated one')
+})
+
 console.log(`\n${passed} checks passed`)

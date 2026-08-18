@@ -170,10 +170,12 @@ export async function triageGroqWithReservation(args: {
   const pacePerAttempt = triagePaceTokenBound(args.items)
   let attempts = hardCapAttempts(args.budget, perAttemptTokens, args.maxAttempts ?? 2)
   const at = now()
-  // Admission on the calibrated cost, reservation (below) on the conservative bound — see triagePaceTokenBound.
+  // Both gates PACE on the calibrated cost and hold the HARD CAP on the conservative bound — see
+  // triagePaceTokenBound and tryReserve. They must agree: when only the admission was calibrated, it
+  // admitted batches the reservation then refused, and the cycle dropped them reporting nothing.
   while (attempts > 0 && !args.budget.pacedCanSpend(perAttemptTokens * attempts, args.pace, at, attempts, pacePerAttempt * attempts)) attempts--
   if (!attempts) return null
-  const reservation = args.budget.tryReserve(perAttemptTokens * attempts, args.pace, at, attempts)
+  const reservation = args.budget.tryReserve(perAttemptTokens * attempts, args.pace, at, attempts, pacePerAttempt * attempts)
   if (!reservation) return null
   let result: TriageResult | undefined
   try {

@@ -747,8 +747,16 @@ export class Budget {
     return this.pacedCanSpendState(this.state, estTokens, pace, now, requests, paceTokens)
   }
 
-  /** Atomically reserve across every process sharing this ledger, then release the lock before network I/O. */
-  tryReserve(estTokens: number, pace?: PaceCfg, now = Date.now(), requests = 1): BudgetReservation | null {
+  /**
+   * Atomically reserve across every process sharing this ledger, then release the lock before network I/O.
+   *
+   * `paceTokens` is the CALIBRATED cost, forwarded only to the pacer. The hard cap
+   * (`canSpendState`) and the amount actually debited both stay on the conservative `estTokens`, so a
+   * daily ceiling still cannot be busted. Without it the reservation paced on the worst case while the
+   * admission test paced on the real cost, and the two disagreed: admission said yes, the reservation
+   * said no, and the batch was dropped with nothing reporting why.
+   */
+  tryReserve(estTokens: number, pace?: PaceCfg, now = Date.now(), requests = 1, paceTokens?: number): BudgetReservation | null {
     this.reserveFailure = null
     this.rotateDay(now)
     if (!this.ownsCurrentState() || !this.ledgerReadable) {
@@ -763,7 +771,7 @@ export class Budget {
         const next = this.stateForMutation(date)
         if (!next) { this.reserveFailure = 'authority_unavailable'; return null }
         const allowed = pace
-          ? this.pacedCanSpendState(next, tokens, pace, now, requestCount)
+          ? this.pacedCanSpendState(next, tokens, pace, now, requestCount, paceTokens)
           : this.canSpendState(next, tokens, requestCount)
         if (!allowed) { this.reserveFailure = 'allowance_unavailable'; this.installState(next); return null }
         const id = randomUUID()
