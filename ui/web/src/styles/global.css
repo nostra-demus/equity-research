@@ -3424,6 +3424,11 @@ a { color: inherit; }
 .wlc__unit { font-size: 11px; color: var(--text-muted); }
 .wlc__addtrg { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 4px; }
 
+.wlc__picker { max-height: 240px; overflow: auto; border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-2); }
+.wlc__picker .coco { padding: 8px; }
+.coco__freetext { display: block; width: 100%; text-align: left; padding: 8px 10px; border-radius: var(--r-md); color: var(--accent-bright); border: 1px dashed var(--accent-deep); font-size: 12px; }
+.coco__freetext:hover { background: var(--accent-wash); }
+
 .wlc__foot { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 18px; border-top: 1px solid var(--hairline); background: var(--surface-1); }
 
 /* ---- research stage view toggle (Constellation | Globe) — stage-anchored, clones themes__viewtoggle ---- */

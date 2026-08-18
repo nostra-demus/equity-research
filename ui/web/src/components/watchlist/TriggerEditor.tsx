@@ -33,6 +33,36 @@ export function dropThreshold(t: Extract<DraftTrigger, { kind: 'pct_drop' }>): n
   return Math.round(t.reference.value * (1 - t.drop_pct / 100) * 100) / 100
 }
 
+/**
+ * Whether another trigger of this kind would say anything new.
+ *
+ * Not a blanket one-of-each: several DATED reminders on one name are ordinary (a print, then a court
+ * date), and two price levels can be a buy level and a take-profit — which is why direction is stored
+ * rather than inferred. But a second drop-from-reference or a second margin-of-safety on the same row is
+ * the same question asked twice: whichever is looser fires first and the other can never say anything
+ * the first has not already said.
+ */
+export function canAddTrigger(kind: DraftTrigger['kind'], existing: DraftTrigger[]): { ok: boolean; why?: string } {
+  const of = existing.filter((t) => t.kind === kind)
+  if (kind === 'event_date') return { ok: true }
+  if (kind === 'price_level') {
+    // one per direction: a floor and a ceiling are different questions, two floors are not
+    const dirs = new Set(of.map((t) => (t as Extract<DraftTrigger, { kind: 'price_level' }>).direction))
+    if (dirs.has('at_or_below') && dirs.has('at_or_above')) return { ok: false, why: 'Already has a level in both directions.' }
+    if (of.length >= 2) return { ok: false, why: 'Already has two price levels.' }
+    return { ok: true }
+  }
+  if (of.length) {
+    return {
+      ok: false,
+      why: kind === 'pct_drop'
+        ? 'Already has a drop trigger — the looser one fires first, so a second says nothing new.'
+        : 'Already has a margin-of-safety trigger against this row.',
+    }
+  }
+  return { ok: true }
+}
+
 export function TriggerEditor({
   trigger, currency, onChange, onRemove,
 }: {

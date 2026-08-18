@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '../../lib/store'
 import { api } from '../../lib/api'
-import { TriggerEditor, TRIGGER_LABEL, newTrigger, type DraftTrigger } from './TriggerEditor'
+import { TriggerEditor, TRIGGER_LABEL, canAddTrigger, newTrigger, type DraftTrigger } from './TriggerEditor'
+import { CompanyPicker } from '../CompanyPicker'
 import type { WatchResolveCandidate } from '../../lib/types'
 
 const todayISO = () => {
@@ -86,8 +87,10 @@ export function WatchComposer() {
     return () => window.removeEventListener('keydown', onKey)
   }, [close])
 
-  async function runResolve() {
-    const q = query.trim()
+  async function runResolve() { await resolveFor(query) }
+
+  async function resolveFor(raw: string) {
+    const q = raw.trim()
     if (!q) return
     const gen = ++reqGen.current
     setResolving(true)
@@ -152,7 +155,18 @@ export function WatchComposer() {
         {/* 1 — identity. Resolved, never typed. */}
         {!resolved && !composer?.entryId && (
           <div className="wlc__field">
-            <span className="wlc__label">Find the listing</span>
+            {/* Two ways to name it, because there are two cases. A company the engine already has a pool
+                for is picked from the roster — the same picker the empty state uses, so the two surfaces
+                cannot drift. Anything else is resolved against the symbol directory, which is what makes
+                a never-researched name possible at all. */}
+            <span className="wlc__label">Pick a company you already have</span>
+            <div className="wlc__picker">
+              <CompanyPicker
+                allowFreeText
+                onPick={(t) => { setQuery(t); setTicker(t); void resolveFor(t) }}
+              />
+            </div>
+            <span className="wlc__label">Or look up any listing</span>
             <div className="wlc__row">
               <input
                 className="fld" placeholder="Ticker, e.g. V" value={query}
@@ -265,11 +279,20 @@ export function WatchComposer() {
           ))}
           {triggers.length < 6 && (
             <div className="wlc__addtrg">
-              {(Object.keys(TRIGGER_LABEL) as DraftTrigger['kind'][]).map((k) => (
-                <button key={k} className="btn btn--mini" onClick={() => setTriggers([...triggers, newTrigger(k, trgCtx)])}>
-                  + {TRIGGER_LABEL[k]}
-                </button>
-              ))}
+              {(Object.keys(TRIGGER_LABEL) as DraftTrigger['kind'][]).map((k) => {
+                const can = canAddTrigger(k, triggers)
+                return (
+                  <button
+                    key={k}
+                    className="btn btn--mini"
+                    disabled={!can.ok}
+                    title={can.why ?? `Add a trigger: ${TRIGGER_LABEL[k].toLowerCase()}`}
+                    onClick={() => setTriggers([...triggers, newTrigger(k, trgCtx)])}
+                  >
+                    + {TRIGGER_LABEL[k]}
+                  </button>
+                )
+              })}
             </div>
           )}
           {!triggers.length && (

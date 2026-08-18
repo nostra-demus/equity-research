@@ -7,7 +7,7 @@
 // Run: npx tsx test/watchlist-triggers.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
-import { evaluateTrigger, rollupState, type EvalContext, type WatchTrigger } from '../src/watchlist'
+import { evaluateTrigger, rollupState, triggerSetProblem, type EvalContext, type WatchTrigger } from '../src/watchlist'
 import type { LiveQuote } from '../src/news/equity-quote'
 
 let passed = 0
@@ -142,6 +142,46 @@ check('rollup ranks anything actionable above anything quiet', () => {
   assert.equal(rollupState([un, armed]), 'armed')
   assert.equal(rollupState([un]), 'not_evaluable')
   assert.equal(rollupState([]), 'watching')
+})
+
+// ---- the same question must not be asked twice ----
+
+check('a second drop or margin-of-safety trigger is refused', () => {
+  assert.equal(triggerSetProblem([{ kind: 'pct_drop' }]), null)
+  assert.match(String(triggerSetProblem([{ kind: 'pct_drop' }, { kind: 'pct_drop' }])), /only one drop/)
+  assert.match(String(triggerSetProblem([{ kind: 'valuation_mos' }, { kind: 'valuation_mos' }])), /only one margin/)
+})
+
+check('repeats that MEAN something stay allowed', () => {
+  // several dated reminders on one name is ordinary — a print, then a court date
+  assert.equal(triggerSetProblem([{ kind: 'event_date' }, { kind: 'event_date' }, { kind: 'event_date' }]), null)
+  // a floor and a ceiling are two different questions
+  assert.equal(triggerSetProblem([
+    { kind: 'price_level', direction: 'at_or_below' },
+    { kind: 'price_level', direction: 'at_or_above' },
+  ]), null)
+})
+
+check('two price levels pointing the SAME way are refused', () => {
+  assert.match(String(triggerSetProblem([
+    { kind: 'price_level', direction: 'at_or_below' },
+    { kind: 'price_level', direction: 'at_or_below' },
+  ])), /different directions/)
+  assert.match(String(triggerSetProblem([
+    { kind: 'price_level', direction: 'at_or_below' },
+    { kind: 'price_level', direction: 'at_or_above' },
+    { kind: 'price_level', direction: 'at_or_below' },
+  ])), /at most two/)
+})
+
+check('a mixed, sensible set passes', () => {
+  assert.equal(triggerSetProblem([
+    { kind: 'price_level', direction: 'at_or_below' },
+    { kind: 'pct_drop' },
+    { kind: 'valuation_mos' },
+    { kind: 'event_date' },
+    { kind: 'event_date' },
+  ]), null)
 })
 
 console.log(`\nwatchlist-triggers.test.ts: ${passed} passed`)

@@ -13,10 +13,17 @@ import { RunHistory } from './RunHistory'
 // Default order is opinionated: a running company first, then most-recently-touched (the re-open path),
 // then the rest, with syncing and invalid folders sinking to the bottom. Picking an invalid folder is NOT
 // a dead click — it routes to the existing "rename the folder" explainer.
-export function CompanyPicker() {
+export function CompanyPicker({ onPick, allowFreeText }: {
+  /** What a pick DOES. Defaults to selecting the company, which is what the empty state wants. The
+   *  watchlist passes its own so a pick fills its form instead of switching the whole cockpit. */
+  onPick?: (ticker: string) => void
+  /** Offer a name that has no data pool at all — the watchlist can watch something never researched. */
+  allowFreeText?: boolean
+} = {}) {
   const tickers = useStore((s) => s.tickers)
   const selectTicker = useStore((s) => s.selectTicker)
   const openAddCompany = useStore((s) => s.openAddCompany)
+  const pick = onPick ?? ((t: string) => { void selectTicker(t) })
   const activeRuns = useStore((s) => s.activeRunsByTicker)
   const globalActive = useStore((s) => s.globalActive)
   const activeSwarm = useStore((s) => s.activeSwarm)
@@ -116,7 +123,7 @@ export function CompanyPicker() {
     if ((e.target as HTMLElement).closest?.('.coco__resume, .runhist')) return
     if (e.key === 'ArrowDown') { e.preventDefault(); setHi((h) => Math.min(h + 1, filtered.length - 1)) }
     else if (e.key === 'ArrowUp') { e.preventDefault(); setHi((h) => Math.max(h - 1, 0)) }
-    else if (e.key === 'Enter') { e.preventDefault(); const t = filtered[hi]; if (t) selectTicker(t.ticker) }
+    else if (e.key === 'Enter') { e.preventDefault(); const t = filtered[hi]; if (t) pick(t.ticker); else if (allowFreeText && q.trim()) pick(q.trim().toUpperCase()) }
     // keyboard path to the run-history expander (the chevron is a pointer-only affordance): →/Space-less
     // open on the highlighted ticker, ← close. Gives non-pointer users the same access to per-ticker history.
     else if (e.key === 'ArrowRight') { const t = filtered[hi]; if (t && t.valid !== false && t.runCount > 1 && expanded !== t.ticker) { e.preventDefault(); toggleExpand(t.ticker) } }
@@ -152,7 +159,7 @@ export function CompanyPicker() {
                 key={g.ticker}
                 type="button"
                 className="coco__resume-row"
-                onClick={() => selectTicker(g.ticker)}
+                onClick={() => pick(g.ticker)}
                 title={`Reconnect to the live run on ${g.ticker} — it never stopped, this just shows it again`}
               >
                 <span className="coco__resume-sym">{g.ticker}</span>
@@ -198,7 +205,7 @@ export function CompanyPicker() {
                 onClick={(e) => {
                   // the chevron (a span, not a nested button) toggles history in place; the rest of the row opens the company
                   if ((e.target as HTMLElement).closest('.rh-disc')) { toggleExpand(t.ticker); return }
-                  selectTicker(t.ticker)
+                  pick(t.ticker)
                 }}
               >
                 <span className="coco__sym">
@@ -268,7 +275,12 @@ export function CompanyPicker() {
         })}
 
         {!filtered.length && (
-          <div className="coco__nomatch">No company matches “{q.trim()}”</div>
+          allowFreeText ? (
+            // A name with no research run is a legitimate thing to watch — the pool is not the universe.
+            <button className="coco__row coco__freetext" onClick={() => pick(q.trim().toUpperCase())}>
+              Watch <b>{q.trim().toUpperCase()}</b> anyway — no research run yet
+            </button>
+          ) : <div className="coco__nomatch">No company matches “{q.trim()}”</div>
         )}
       </div>
 

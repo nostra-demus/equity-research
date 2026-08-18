@@ -526,6 +526,26 @@ export function pickEntryForListing(entries: WatchEntry[], key: string): WatchEn
   return best
 }
 
+/**
+ * Reject a trigger set that asks the same question twice. The UI disables the buttons, but a body can
+ * arrive from anywhere, and a redundant trigger is not harmless: whichever is looser fires first and the
+ * row then shows two chips saying the same thing, one of which can never be the reason it fired.
+ *
+ * Repeats that ARE meaningful stay allowed: several dated reminders on one name is ordinary, and a price
+ * floor plus a ceiling are two different questions (which is why direction is stored, not inferred).
+ */
+export function triggerSetProblem(triggers: { kind: TriggerKind; direction?: TriggerDirection }[]): string | null {
+  const count = (k: TriggerKind) => triggers.filter((t) => t.kind === k).length
+  if (count('pct_drop') > 1) return 'only one drop-from-reference trigger per row'
+  if (count('valuation_mos') > 1) return 'only one margin-of-safety trigger per row'
+  const levels = triggers.filter((t) => t.kind === 'price_level')
+  if (levels.length > 2) return 'at most two price levels per row'
+  if (levels.length === 2 && levels[0].direction === levels[1].direction) {
+    return 'two price levels must point in different directions'
+  }
+  return null
+}
+
 // ---------- the merge ----------
 
 export interface MergeInput {

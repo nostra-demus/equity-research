@@ -62,7 +62,7 @@ import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt
 import {
   WATCHLIST_ENTRIES_DIR, WATCHLIST_MAX_ROWS, WATCHLIST_MAX_TAGS, WATCHLIST_MAX_TRIGGERS,
   deleteEntry, fingerprintEngineRow, isWatchId, listingKey, makeListing, mergeWatchlist, newEntryId,
-  pickEntryForListing, readEngineWatch, readEntries, readSizingDecoration, writeEntry,
+  pickEntryForListing, readEngineWatch, readEntries, readSizingDecoration, triggerSetProblem, writeEntry,
   type StandingCall, type WatchEntry, type WatchTrigger,
 } from './watchlist'
 import { readValuationSummary, readOverrides, appendOverride } from './valuation-levers'
@@ -2580,6 +2580,9 @@ app.post('/api/watchlist', { config: { rateLimit: { max: 120, timeWindow: '1 min
     companyName: parsed.data.company_name ?? null,
   })
   if (!TICKER_RE.test(listing.ticker)) return reply.code(400).send({ error: 'ticker not usable' })
+  const dupe = triggerSetProblem(parsed.data.triggers ?? [])
+  if (dupe) return reply.code(400).send({ error: dupe })
+
   const { entries } = readEntries()
   if (entries.length >= WATCHLIST_MAX_ROWS) return reply.code(413).send({ error: 'watchlist is full' })
   const existing = pickEntryForListing(entries, listing.listing_key)
@@ -2632,6 +2635,10 @@ app.patch('/api/watchlist/:id', { config: { rateLimit: { max: 240, timeWindow: '
   const { entries } = readEntries()
   const entry = entries.find((e) => e.entry_id === id)
   if (!entry) return reply.code(404).send({ error: 'not found' })
+  if (parsed.data.triggers) {
+    const problem = triggerSetProblem(parsed.data.triggers)
+    if (problem) return reply.code(400).send({ error: problem })
+  }
   const { user } = identify(req)
   const d = parsed.data
   if (d.why !== undefined) entry.why = d.why
