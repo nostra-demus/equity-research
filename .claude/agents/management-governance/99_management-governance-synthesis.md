@@ -1,7 +1,7 @@
 ---
 name: management-governance-synthesis
 depends_on: [business-model, earnings]
-description: Reads ALL upstream management-governance outputs and produces the final module report — Abstract, Verdict block (14 scores, the Non-Negotiable Gate, and a stewardship verdict), the assembled Governance Checklist (every registry item Green/Amber/Red/NA), People Integrity summary, Specialist roll-up, Reconciliation, Score Cap application, Note to Final Synthesizer, and Simple Summary. The master synthesizer reads this as a module chapter and treats its governance verdict as primary (superseding the business-model quick-read).
+description: Reads ALL upstream management-governance outputs and produces the final module report — Abstract, Verdict block (14 scores, the Non-Negotiable Gate, and a stewardship verdict), the assembled Governance Checklist (every registry item Green/Amber/Red/NA), People & Network Integrity summary, Specialist roll-up, Reconciliation, Score Cap application, Note to Final Synthesizer, and Simple Summary. The master synthesizer reads this as a module chapter and treats its governance verdict as primary (superseding the business-model quick-read).
 tools: Read, Glob, Grep, Bash
 layer: 3
 ---
@@ -106,7 +106,7 @@ Write this LAST.
 - Incentive alignment /100:
 - Shareholder friendliness /100:
 - Disclosure candor /100:
-- People integrity /100: *(from 07)*
+- People & network integrity /100: *(from 07 — persons, plus network/lineage discovery completeness and the network reconciliation)*
 - Audit & assurance quality /100: *(from 08)*
 - RPT & leakage risk /100 *(higher = worse)*: *(from 09)*
 - Contingent-liability risk /100 *(higher = worse)*: *(from 10)*
@@ -119,7 +119,7 @@ Write this LAST.
 - Insider ownership (one line): *(from 04)*
 - Biggest governance signal (one line):
 - **Checklist Risk** = max(RPT & leakage, Contingent-liability, Accounting-forensics, Legal & regulatory) — the worst risk is never averaged away (§12):
-- **Governance Score /100** — compute with the exact MODULE_RULES formula: `0.14×CapAlloc + 0.11×Incentive + 0.11×ShFriendliness + 0.10×Candor + 0.11×MgmtQuality + 0.09×AuditAssurance + 0.11×PeopleIntegrity + 0.11×(100 − GovRisk) + 0.12×(100 − ChecklistRisk)`; show the inputs. (Six-component fallback ONLY if ALL of 07–12 are absent; a partial run keeps this formula with the conservative missing-component substitutions, named.)
+- **Governance Score /100** — compute with the exact MODULE_RULES formula: `0.14×CapAlloc + 0.11×Incentive + 0.11×ShFriendliness + 0.10×Candor + 0.11×MgmtQuality + 0.09×AuditAssurance + 0.11×PeopleNetworkIntegrity + 0.11×(100 − GovRisk) + 0.12×(100 − ChecklistRisk)`; show the inputs. (Six-component fallback ONLY if ALL of 07–12 are absent; a partial run keeps this formula with the conservative missing-component substitutions, named.)
 - **Confidence-Adjusted Governance Score /100** (= Governance Score × Confidence Score / 100):
 - **Governance Rating** (Excellent / Good / Watchlist / Weak / Avoid):
 - **Confidence Score /100** (source quality):
@@ -166,7 +166,7 @@ If an upstream agent did not provide a valid Universal Findings Table, write: *"
 
 Assemble the complete Governance Checklist Registry (MODULE_RULES) from the specialists' Universal Findings Tables — every item, mechanically matched by its ID, in registry order. This is the module's item-by-item audit trail; the CSV export reads this table.
 
-Per section (A1, A2, A3, A4, A5, A6, A7, A7a, A8, A9, A10, A11, A12, A13, A14, A15, A16), a header row with the section's Green/Amber/Red/N-A counts, then:
+Per section (A1, A2, A3, A4, A5, A6, A7, A7a, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17), a header row with the section's Green/Amber/Red/N-A counts, then:
 
 | ID | Test | Flag (Green/Amber/Red/NA/Insufficient) | Finding (raw value) | Confidence 1–5 | Source | Owner agent |
 |---|---|---|---|---:|---|---|
@@ -204,11 +204,15 @@ If specialists disagreed (e.g., good capital-allocation record but misaligned in
 | Unresolved adverse integrity signal routed from business-model/01 (§24 Filter 1, RF-MGT-005) | | Management quality; Disclosure candor | each max 60; conviction cap — no rating above "Watchlist" | | | |
 | Checklist coverage <50% | | Data quality; Confidence | each max 60 | | | |
 | No auditor-fee / audit-detail disclosure (A4-06/07 N-A) | | Audit & assurance quality; Confidence | AuditAssurance max 65; Confidence max 80 | | | |
-| Legal-database sweep did not run (07/12 coverage-limited) | | People integrity; Legal & regulatory risk; Confidence | PeopleIntegrity max 65; LegalRisk floor 40; Confidence max 70 | | | |
+| Legal-database sweep did not run (07/12 coverage-limited) | | People & network integrity; Legal & regulatory risk; Confidence | PeopleNetworkIntegrity max 65; LegalRisk floor 40; Confidence max 70 | | | |
 | No related-party note / RPT disclosure (A5 not quantifiable) | | RPT & leakage risk; Confidence | RPTRisk floor 40; Confidence max 80 | | | |
 | No contingent-liability note (A7a not quantifiable) | | Contingent-liability risk; Confidence | ContingentRisk floor 40; Confidence max 80 | | | |
 | Disqualifying-graded controller / CEO / CFO / chair (07) | | Gate; Governance risk; verdict | GATE FAIL; GovRisk floor 80; rating ≤ "Weak"; verdict ≤ "Serious governance concerns" | | | |
-| Material-concerns grade on a controller/KMP, unresolved (07) | | People integrity; Governance risk | PeopleIntegrity max 50; GovRisk floor 55; no rating above "Watchlist" | | | |
+| Material-concerns grade on a controller/KMP, unresolved (07) | | People & network integrity; Governance risk | PeopleNetworkIntegrity max 50; GovRisk floor 55; no rating above "Watchlist" | | | |
+| Entity/network discovery loop did not run — no Discovery Register, or Phase 2 never ran (A17-01) | | People & network integrity; Confidence | PeopleNetworkIntegrity max 60; Confidence max 75 | | | |
+| Undisclosed predecessor / lineage entity, or phoenix continuity with no disclosed basis (RF-NET-001 / RF-NET-002) | | Disclosure candor; Governance risk | Candor max 50; GovRisk floor 60 | | | |
+| Live hop-1 cross-link to an entity carrying a proven fraud / enforcement fact (RF-NET-003) | | People & network integrity; Governance risk | PeopleNetworkIntegrity max 35; GovRisk floor 60; no rating above "Watchlist". *EXPOSURE — state the basis; does NOT by itself fail the gate* | | | |
+| Discovery truncated with no Scope-Boundary declaration (RF-NET-006) | | Data quality; Confidence | DataQuality max 60; Confidence max 70 | | | |
 | Undisclosed material litigation / related entity found (RF-CMP-001 / RF-PPL-005) | | Disclosure candor; Governance risk | Candor max 50; GovRisk floor 60 | | | |
 | Accounting-forensics battery red (RF-ACC-001 ≥3 components / RF-ACC-002) | | Accounting-forensics risk; Governance risk | ForensicsRisk floor 70; GovRisk floor 60 | | | |
 
@@ -259,14 +263,29 @@ If a prior dated run exists for this ticker (`analyses/{TICKER}_{prior-date}/man
 
 State whether any change moves the governance score and what to investigate next.
 
-## 5E. People Integrity Summary
+## 5E. People & Network Integrity Summary
 
 Carry 07's register roll-up (never re-derive it):
 
-| Name | Identifier | Role | Grade | Decisive fact | Coverage |
-|---|---|---|---|---|---|
+| Name | Identifier | Role | Grade | Basis (own record / EXPOSURE via {link}) | Decisive fact | Coverage |
+|---|---|---|---|---|---|---|
 
-One line below the table: the riskiest person and whether any grade trips a gate/cap. If 07 did not run: "People dossiers not run — person-level integrity unassessed; confidence capped."
+**Carry the Basis column verbatim (CLAUDE.md §3).** A grade floored by transitive exposure travels with its qualifier at every layer: restate it as *"{grade} — no adverse record against this person; the grade reflects {the linkage}"*, never as *"{person} is linked to fraud"*. A qualifier dropped between 07 and here is the exact defect §3 exists to prevent. Equally, never drop a live linkage because nothing was found against the person personally.
+
+### Network & lineage read (from 07's Sections 0, 3, 3B, 5)
+
+| Item | Value |
+|---|---|
+| Discovery loop: Phase 1 / Phase 2 ran? | |
+| Max hop reached, and the rule the loop terminated on | |
+| Entities swept (E-A / E-B / E-C) | |
+| Predecessor / lineage entity found? | |
+| Brands traded under but not owned by the listco? | |
+| Subjects filing-supplied vs independently discovered | {n} / {n} |
+| Unexpanded branches declared on the Scope-Boundary Register | {n} |
+| RF-NET flags fired | |
+
+One line below: the riskiest person or entity and whether any grade trips a gate/cap; one line on how far the check actually reached and what it did not cover. If 07 did not run: "People dossiers not run — person-level and network integrity unassessed; confidence capped." If 07 ran but the discovery loop did not: "Roster swept as filed; entity/network discovery did not run — this is a statement about the filings, not about the company. A17-01 Insufficient Data; caps applied."
 
 ## 5D. Analyst Follow-Up Questions
 

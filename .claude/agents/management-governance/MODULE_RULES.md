@@ -18,7 +18,11 @@ It is the deep-dive behind the single `business-model/11_capital-allocation-gove
 
 1. **Stewardship judgment** (agents 01–06): management quality and track record, the capital-allocation scorecard, incentive/compensation alignment, ownership and insider behavior, board quality and shareholder rights, and disclosure candor.
 2. **The Governance Checklist** (all specialists, assembled by `99`): the canonical item-by-item audit defined in the Governance Checklist Registry below — every item answered Green / Amber / Red / Not Applicable with evidence, banded thresholds, and a per-item confidence, the way a forensic governance auditor would work through a company. No item is skipped; an unanswerable item is recorded as Not Available with the reason, and coverage is counted.
-3. **Person-level integrity** (agent 07, consumed by 05 and the synthesis): a forensic dossier on EVERY named individual — each director, each KMP, each promoter-group individual — built from filings PLUS the public legal/regulatory databases in `frameworks/GOVERNANCE_DATABASES.md` (corporate registries, court and tribunal records, regulator enforcement lists, disqualification registers, sanctions lists, dated adverse media). People commit frauds; companies are the instrument. The engine checks the people.
+3. **Person- and network-level integrity** (agent 07, consumed by 05, 09, 12 and the synthesis), in two steps that must run in this order:
+   - **Discovery first** — the Entity & Network Discovery Protocol below works out who and what is actually in scope: past as well as current directorships, the company's own self-disclosed lineage and former names, the owners of the brands it trades under, corroborated registered-address clusters, and the **founders of every linked entity**, walked recursively to hop 2. The filings list who the company chose to list; the loop finds the rest.
+   - **Then the sweep** — a forensic dossier on EVERY named individual AND every surfaced entity, built from filings PLUS the public legal/regulatory databases in `frameworks/GOVERNANCE_DATABASES.md` (corporate registries, court and tribunal records, regulator enforcement lists, insolvency registers, disqualification registers, sanctions lists, dated adverse media), with hop-banded exposure floors for cross-linkage.
+
+   People commit frauds; companies are the instrument — and usually more than one company. The engine checks the people, and the network they sit in.
 
 This module DOES:
 - judge management's track record — have they delivered on what they promised?
@@ -28,7 +32,7 @@ This module DOES:
 - assess board independence, shareholder rights, and minority-shareholder protection
 - judge disclosure candor — do they tell the truth in good times and bad?
 - run the full Governance Checklist Registry (board, committees, ownership, auditor, related parties, remuneration, contingent liabilities, forensic accounting, regulatory/legal, minority treatment, group structure, human capital)
-- build a per-person integrity dossier on every director, KMP, and promoter individual, swept against public legal and regulatory databases
+- run the entity-discovery loop (brand lineage, former names, trademark ownership, address clusters, past directorships, founder trails) and then build an integrity dossier on every person AND every surfaced entity, swept against public legal and regulatory databases
 - audit audit itself — auditor calibre, rotation, fees, resignations, subsidiary auditors, internal/secretarial audit, restatements
 - reconcile what the court/regulator databases show against what the filings disclose (an undisclosed material case is itself a finding)
 
@@ -125,7 +129,7 @@ The §24 rejector filters still apply on top (government control remains a struc
 | `04_ownership-and-insider-behavior` | A3 (promoter & ownership, all), A15 (stock & market characteristics, all) |
 | `05_board-and-shareholder-rights` | A1 (board, all except A1-05), A2 (committees, all), A10-02/03/04/06 (swap ratios, voting patterns, issue-pricing fairness, delisting conduct) |
 | `06_candor-and-disclosure-quality` | A7-03, A7-04 (KPI stability, guidance hygiene) |
-| `07_people-integrity-dossiers` | A1-05, A9-04, A13-01/02/03/06/07/08/09, A16 (person-level integrity, all) |
+| `07_people-integrity-dossiers` | A1-05, A9-04, A13-01/02/03/06/07/08/09, A16 (person-level integrity, all), A17 (shadow network, lineage & cross-linkage, all) |
 | `08_audit-and-assurance-quality` | A4 (auditor & audit quality, all), A7-02 (restatements) |
 | `09_related-party-and-group-forensics` | A5 (related-party, all), A11 (group & subsidiary structure, all) |
 | `10_contingent-liabilities-and-commitments` | A7a (contingent liabilities & commitments, all) |
@@ -261,6 +265,23 @@ The §24 rejector filters still apply on top (government control remains a struc
 | A16-19 | Professional-licence discipline | Licences (CA/CS/CFA/bar or local equivalents) active and clean | Struck off, suspended, or reprimanded by the professional body — gravest for a CFO or audit-committee member with an accounting-body sanction |
 | A16-20 | Public claims vs filed numbers | Revenue/growth/order-book claims in interviews and conferences match filed numbers within rounding; no stock promotion | Numbers claimed in media that never appear in any filing ("run-rate" inflation), price-target promotion of their own stock, or lifestyle/asset displays flagrantly beyond disclosed income |
 
+### A17 — Shadow Network, Lineage & Cross-Linkage *(owner: 07 — see the Entity & Network Discovery Protocol)*
+
+The A16 items test the people the filings name. These test whether the filings named everyone — and everything. Bands are judged on the discovery loop that actually ran, not on how clean the result looked.
+
+| ID | Test | Green band | Red band |
+|---|---|---|---|
+| A17-01 | Discovery completeness | Phase 1 AND Phase 2 both ran; every subject on the Discovery Register carries an enumerated discovery method; the loop terminated on a stated rule | Discovery stopped at the filings' own list of directors and subsidiaries; subjects present with no recorded discovery method; Phase 2 (founder loop) never ran |
+| A17-02 | Corporate lineage & former names | Incorporation date and the registry's previous-names field reconcile with every public claim the company makes about its own history; any group lineage is disclosed in filings | A claimed founding year older than the entity with no disclosed predecessor, an undisclosed former name, or a self-disclosed "formerly / erstwhile / part of ___" lineage absent from the filings (RF-NET-001) |
+| A17-03 | Predecessor / phoenix test | No predecessor, or the business was acquired from it through a formal process with the basis and consideration disclosed | Assets, brands, staff, address or customers continued out of a failed, struck-off or resolved entity with no disclosed legal basis; or a related party re-bought the assets (RF-NET-002) |
+| A17-04 | Brand & trademark ownership | Every mark the company trades under is owned by the company or a consolidated subsidiary, per the IP registry | Marks owned by a promoter entity or a third party and licensed in (route the economics to A5-02), or the SAME marks in live use by an unrelated company — an unresolved ambiguity, never assumed benign (RF-NET-004) |
+| A17-05 | Registered-address cluster | No unexplained cluster, or clusters explained (shared office / group campus) and disclosed | A co-address entity with a **corroborated second link** (common director, founder, brand, or transaction) that is absent from the filings (RF-NET-005). *Co-address alone is a lead — never Red on the address by itself* |
+| A17-06 | Founder & past-controller trail | Founders and past controllers of the company AND of every lineage entity identified by name and identifier, and swept | A founder or past controller never identified; or one identified, found to carry a Material-or-worse fact, and not carried into the exposure grading |
+| A17-07 | Cross-linkage to adverse networks | No person or entity on the register carries a live hop-1 link to an entity with a Material-or-worse fact | A live hop-1 link to a fraud / enforcement / insolvency network — stated with its **exposure basis** and never written as a personal finding (RF-NET-003) |
+| A17-08 | Undisclosed-network reconciliation | Everything the discovery loop found also appears in the filings — RPT note, subsidiary/associate list, promoter-group disclosure, directors' other-directorships | A material network fact visible in public records but absent from filings; report the `independently discovered` count against the `filing-supplied` count (the non-disclosure outweighs the underlying item — same logic as RF-PPL-005) |
+| A17-09 | Scope boundary declared | Every branch left unexpanded is named on the Scope-Boundary Register with its reason and what would close it | Expansion truncated silently; a subject in scope that simply stops appearing (RF-NET-006) |
+| A17-10 | Aggregator-conflict resolution | Roster conflicts between mirrors resolved on the primary registry, or the extra name kept in scope and the conflict flagged | A name that appears on one mirror and not another, dropped without a record — the roster equivalent of resolving uncertainty in the target's favour |
+
 ### A4 — Auditor & Audit Quality *(owner: 08)*
 
 | ID | Test | Green band | Red band |
@@ -383,7 +404,116 @@ The §24 rejector filters still apply on top (government control remains a struc
 
 ---
 
+## Entity & Network Discovery Protocol (Hard Rule — agent 07, consumed by 09 and 12)
+
+The Person-Level Integrity Protocol below answers *"is there anything against this name?"* This protocol answers the question that comes first and is easier to get wrong: **which names?** A sweep is only ever as good as the subject list it runs against, and the subject list the filings hand us is the one the company chose to give.
+
+*The miss this exists for:* a botanical-extracts manufacturer whose three current directors, and the company itself, came back clean on every registry, court, regulator and defaulter list. Its own website said "formerly OLS, established 2007" against a 2020 incorporation date, and reused another live company's brand names. That predecessor had been through insolvency; the predecessor's founder — off every board for years — had been arrested under money-laundering law over a separate ₹1,500 crore prosecution. Three links, none of them reachable from a directorship search, all of them reachable from the company's own About page. **Discovery, not sweeping, was the binding constraint.**
+
+### The Discovery Register (Hard Rule)
+
+Before ANY sweep runs, `07` writes a Discovery Register: one row per subject — entity or person — carrying:
+
+| Field | Rule |
+|---|---|
+| Subject | The name, with variants |
+| Type | Entity / Person |
+| Hop | 0 (the listco and its own register) · 1 · 2 · 3 |
+| **Discovery method** | One of the enumerated values below — free text is not permitted |
+| Provenance | `filing-supplied` (the company disclosed it) / `independently discovered` (we found it) |
+| Tier | Person A/B/C or Entity E-A/E-B/E-C |
+| Sweep status | Full / Refresh / Scoped / **Not run (Scope-Boundary row #n)** |
+
+**Enumerated discovery methods:** `filing/user-supplied` · `current directorship` · `past directorship` · `brand lineage (self-disclosed)` · `name-change trail` · `registered-address cluster` · `founder of a linked entity` · `trademark/brand owner` · `co-director network` · `RPT counterparty` · `registry charge-holder`.
+
+**The forcing rule:** *if you cannot write down how a subject was found, you have not found it.* No subject enters a sweep without a discovery-method cell; no subject leaves scope without a Scope-Boundary row (below). Writing the register is not documentation after the fact — it is the step that makes the loop actually run instead of being silently skipped.
+
+### Phase 1 — the target and its people (every step required)
+
+1. Current directorships for every person on the Person Register (§ Person-Level Integrity Protocol).
+2. **Past / resigned** directorships for each — the current-board snapshot is not the roster (recipe D-8).
+3. **Fetch the company's own About / History / Milestones pages** and read them for lineage language (recipe D-1). This is a required fetch. It is the single most common way a related entity is missed, because a predecessor appears in no directorship search.
+4. The founding-year mismatch test (D-2) and the registry previous-names field (D-3).
+5. `"{company}" ("formerly" OR "erstwhile" OR "part of")` even when the About page said nothing.
+6. Trademark / brand proprietor search (D-4) and the registered-address cluster (D-5).
+
+### Phase 2 — for every entity Phase 1 surfaced (every step required)
+
+7. Identify the entity's **founder(s), distinct from its current board** (D-6).
+8. Confirm whether each founder is still a director. **If not, that is a reason to look harder, not to drop them.**
+9. Run the person core set AND the Adverse-Keyword Battery on **each founder's own name and identifier** — even when the entity itself came back clean. *A clean entity with a compromised founder is exactly the pattern this protocol exists to catch.*
+10. If a founder search surfaces an adverse finding tied to a *different* company, that company enters scope at the next hop; repeat Phase 2 on it.
+
+### Hop budget & termination (Hard Rule)
+
+- **Hop 0** = the listco and its own Person Register. **Hop 1** = directly linked entities and people (current/past directorships, lineage entities, corroborated address-cluster entities, RPT counterparties). **Hop 2** = founders and controllers of hop-1 entities, and the entities THEY control.
+- **Default cap: hop 2.** Extend to **hop 3 only along a branch where a hop-2 subject grades Material or worse** — depth follows evidence, not curiosity.
+- **Terminate** when: no new subject surfaces, the hop cap binds, or a Disqualifying-equivalent finding is already established (further expansion becomes optional at that point, per §24 — the decision is already made).
+- **No silent truncation.** Every branch left unexpanded, for any reason including budget, gets a named Scope-Boundary row. A register that quietly stops reads as "we covered everything" when it did not — the same defect the engine bans everywhere else.
+
+### Entity sweep tiering
+
+| Tier | Who | Depth |
+|---|---|---|
+| **E-A** | The listco itself · any entity that transacts with it · any entity a Tier-A person controls · **any lineage / predecessor entity** | Full: registry master data + previous names + charges, insolvency, courts, regulator, statutory dues, keyword battery, adverse media, brand/trademark, address |
+| **E-B** | Other entities a register person directs | Registry + insolvency + securities/banking regulator + keyword battery |
+| **E-C** | Address-cluster-only links with no second corroborator | Registry status + a scoped keyword pass — **escalate to E-A on any hit** |
+
+Unlisted entities are swept per the **Unlisted / Private-Entity Sweep Protocol** in `frameworks/GOVERNANCE_DATABASES.md`. An unlisted entity filing nothing beyond its statutory minimum is the regime, not opacity (§27) — the finding must be specific.
+
+### Address-cluster corroboration (Hard Rule)
+
+**A shared registered address alone is a LEAD, not a relationship.** Co-working spaces, virtual offices, chartered-accountant offices and industrial estates cluster hundreds of unrelated companies; treating co-address as kinship manufactures a network that does not exist — the entity-level twin of the namesake error. Require a **second independent link** — common director, common founder, brand overlap, or an actual transaction — before recording a co-address entity as related. An uncorroborated co-address entity is recorded as a **lead with the ambiguity stated**: neither dropped, nor asserted as a relationship.
+
+### Lineage & phoenix test (Hard Rule)
+
+Where the company's own materials claim a history older than its incorporation, or reuse another entity's brands, **the predecessor is in scope at Tier E-A.** Test, in order:
+
+1. Did the predecessor fail — insolvency, liquidation, strike-off, or a resolution process?
+2. Did assets, brands, staff, address, products or customers continue into the current entity?
+3. On what **disclosed legal basis and for what consideration**?
+
+A clean acquisition through a formal process is a legitimate outcome and is recorded as such. The flag is continuity **without** a disclosed basis (RF-NET-002), or a related party re-buying the assets (the same round-trip A16-08 tests at the person level). **Two live entities trading on the same brand is an unresolved ambiguity to flag** — possible business split, IP dispute, or informal succession — and is never assumed benign.
+
+### Transitive-exposure grading (Hard Rule)
+
+Cross-linkage changes what we know about a person; it does not invent a record against them. Both errors are banned, and CLAUDE.md §3 governs the wording — **a claim keeps its qualifier at every layer it travels.**
+
+| Situation | Effect on the person's grade |
+|---|---|
+| **Hop-1** link (currently controls, directs, or transacts with) to an entity carrying a **Disqualifying-equivalent** fact — proven fraud, active debarment, sanctions match, fugitive status | Grade **floors at Material concerns** |
+| **Hop-1** link to a **Material-equivalent** fact — admitted CIRP, live enforcement, credible fraud allegation | Grade **floors at Minor concerns** |
+| **Hop-2** links | Inform the read and sit on the register; they do not float a grade on their own |
+| **Exception (the one that matters):** a Disqualifying-equivalent fact attaching to the **founder or controller of a lineage / predecessor entity** | Treated as **hop-1-equivalent for the LISTCO**, because the listco's own lineage claim IS the direct link. This is the clause that reaches two hops out on the company's own say-so |
+
+**Wording rule (Hard).** Every exposure-derived grade states, in the same sentence, that the basis is the linkage and not a record against the person — e.g. *"Minor concerns — no adverse record found against this person; the grade reflects their current directorship of {entity}, which is in {process}."* Two failures are banned in both directions:
+- writing an exposure floor as though the person has the finding ("the CFO is linked to a fraud" when the fraud is the linked entity's and the person is not named in it);
+- dropping a live linkage because "nothing was found against them personally."
+
+**Gate interaction.** Exposure floors cap conviction and module confidence. They do **not**, by themselves, fail the Non-Negotiable Gate — the gate stays reserved for facts about *this* company's own controllers and KMP, consistent with the allegation-vs-proof rule below. An exposure floor that later resolves into a direct finding against the person is re-graded on that finding, not on the linkage.
+
+### Scope-Boundary Register (Hard Rule)
+
+Every in-scope subject not swept to its tier depth is listed **by name**, with:
+
+| Subject | Why it is in scope | Why it was not swept | What would close it |
+|---|---|---|---|
+
+Permitted reasons include budget, an unreachable database, and *"a Disqualifying-equivalent finding was already established elsewhere, so further expansion would not change the decision"* — that last one is legitimate and must be **stated**, never used silently. An unexpanded branch that is not on this register is a process failure against our own report (RF-NET-006).
+
+### Provenance (Hard Rule)
+
+Every subject is marked `filing-supplied` or `independently discovered`. **The delta between the two is the disclosure-integrity payload** — it is the direct measure of what the engine found that the company did not disclose, and it feeds A17-08 and the reconciliation duty. Report it as a count, not just a column.
+
+### Delta-refresh for the network
+
+A rerun carries the Discovery Register forward. Re-run discovery only where something moved: a new name on the register, a role change, a new filing or website change, a fresh hit, or a new lineage claim. Carry stable rows forward with their original as-of dates shown. The same never-thin-coverage-silently rule as the person sweep applies.
+
+---
+
 ## Person-Level Integrity Protocol (Hard Rule — agent 07, referenced by 05 and 99)
+
+**Read this together with the Entity & Network Discovery Protocol above.** That protocol builds the subject list; this one sweeps it. The roster below is the FLOOR, not the ceiling: the discovery loop adds founders of linked entities, past controllers, and people surfaced by lineage or corroborated address clusters, and each of those is a full subject here.
 
 The module builds a forensic dossier on EVERY named individual: each board director, each KMP (CEO, CFO, COO, Company Secretary, and any officer named in filings), and each promoter-group individual with ≥1% holding or an operating role. The roster comes from triage (`00`)'s Person Register; nobody on the register is skipped. This is the engine's implementation of §24 Filter 1: crooks are a reason to walk away, and the way you find a crook is to check the person, not the press release.
 
@@ -399,7 +529,7 @@ The module builds a forensic dossier on EVERY named individual: each board direc
 8. **Related-entity web:** family members' and associates' entities, cross-checked against RPT disclosures (feeds `09`).
 9. **Grade:** Clean / Minor concerns / Material concerns / Disqualifying — with the single decisive fact.
 
-**Grades.** *Clean* = swept, nothing material. *Minor* = stale, small, or peripheral items (an old dismissed case, a struck-off dormant shell with no creditors harmed). *Material* = unresolved criminal proceedings, regulator orders, wilful-defaulter listings, credible fraud allegations, undisclosed directorships/litigation — anything a rational minority holder would want to know before trusting this person with capital. *Disqualifying* = proven fraud on any stakeholder group, an active debarment/disqualification, or sanctions — for a controller/CEO/CFO/chair this fails the Non-Negotiable Gate and escalates per §24 Filter 1 / the disqualifier scan.
+**Grades.** *Clean* = swept, nothing material. *Minor* = stale, small, or peripheral items (an old dismissed case, a struck-off dormant shell with no creditors harmed). *Material* = unresolved criminal proceedings, regulator orders, wilful-defaulter listings, credible fraud allegations, undisclosed directorships/litigation — anything a rational minority holder would want to know before trusting this person with capital. *Disqualifying* = proven fraud on any stakeholder group, an active debarment/disqualification, or sanctions — for a controller/CEO/CFO/chair this fails the Non-Negotiable Gate and escalates per §24 Filter 1 / the disqualifier scan. **Exposure floors** from the Transitive-exposure grading rule (above) can RAISE a grade to Minor or Material on linkage alone — when they do, the dossier says so in the same sentence, and the grade is never written as though the person carries the linked entity's finding (§3).
 
 **Namesake protocol (Hard Rule).** Common names collide. Before ANY adverse record is attributed to a person, anchor the match on the unique identifier (DIN or equivalent) or on ≥2 corroborating identifiers (company linkage, age, city, photo, co-parties). The IndiaMART precedent is instructive: a "Dinesh Agarwal" in political news was a different individual. An adverse record that cannot be anchored is recorded as "possible namesake — not attributed," never as a finding against the person. Attribution on a bare name-match is a protocol breach that the synthesis must treat as an upstream quality failure.
 
@@ -425,6 +555,7 @@ The module builds a forensic dossier on EVERY named individual: each board direc
 **Sweep budget, tiering & delta-refresh (Hard Rule — depth follows materiality; a rerun refreshes, it does not restart).**
 - **Role-tiered depth.** Sweep depth is proportional to the person's power over the company's capital: **Tier A** (controller/promoter individuals, CEO, CFO, board chair, company secretary) = the FULL core set for their jurisdiction plus the global overlay. **Tier B** (other executive/non-independent directors, named KMP) = the core registry + courts + securities-regulator set. **Tier C** (independent directors, minor promoter-group holders with no operating role) = registry/directorship map + disqualification + securities-regulator screen + a scoped adverse-media pass; escalate any Tier-C person to a full sweep the moment a hit or a cross-link to a Tier-A person appears. The dossier states each person's tier and records the core integrity axes NOT run at Tier C (criminal/tribunal A16-04/05, wilful-defaulter A16-07, insolvency A16-08, sanctions A16-09) as "not assessed (Tier-C scope) — Insufficient Data," never graded Clean on those axes, and caps People-integrity confidence accordingly; a Tier-C scope is a stated, coverage-limited scope, not a swept-clean result.
 - **Delta-refresh across runs.** If a prior run's `07_people-integrity-dossiers.md` exists for this ticker (any prior dated run folder), REUSE it: people unchanged in role get a REFRESH — re-run only the volatile axes (litigation, regulator actions, exchange actions, adverse media, pledge-linked structures, and the current directorship/registry map — re-queried every refresh) for the window since the prior sweep date, and carry forward the stable axes (identity anchor, credential verification, CLOSED historical directorships, past-failure associations) with their original as-of dates clearly shown. A NEW person, a role change (e.g., director → CFO), or any fresh hit triggers a full sweep for that person. The dossier's Coverage column says "full sweep {date}" or "refresh of {prior date}, volatile axes {date}". The same rule applies to `12`'s company-level sweep (refresh enforcement/fines/ratings since the prior run; carry the historical record forward, dated).
+- **Entities are tiered and budgeted the same way.** The Entity & Network Discovery Protocol's E-A / E-B / E-C tiers and its hop budget (default hop 2, hop 3 only along a Material-or-worse branch) govern entity sweeps exactly as A/B/C governs person sweeps. A rerun carries the Discovery Register forward and re-runs discovery only on a new name, a role change, a new filing or website change, a fresh hit, or a new lineage claim.
 - **Never trade rigor for the budget silently.** A sweep cut short by rate limits or outages is coverage-limited (caps apply) — the budget shapes WHERE depth goes, never whether gaps are admitted.
 
 ---
@@ -594,7 +725,7 @@ All scores are out of 100, whole numbers. Bands:
 | Incentive alignment /100 | higher = better | Whether pay rewards per-share value vs size/empire-building |
 | Shareholder friendliness /100 | higher = better | Board independence, voting rights, minority-shareholder protection |
 | Disclosure candor /100 | higher = better | Truth-telling in good and bad times |
-| People integrity /100 | higher = better | The person-dossier read across every director/KMP/promoter (07) |
+| People & network integrity /100 | higher = better | The person-dossier read across every director/KMP/promoter, PLUS the completeness of the entity/lineage discovery loop and the network reconciliation against filings (07). *Formerly "People integrity" — same 0.11 weight in the composite; the network components were folded in rather than added as a separate score* |
 | Audit & assurance quality /100 | higher = better | Auditor calibre, independence, opinions, internal/secretarial audit (08) |
 | RPT & leakage risk /100 | **higher = WORSE** (inverted) | Related-party value leakage and group-structure risk (09) |
 | Contingent-liability risk /100 | **higher = WORSE** (inverted) | Off-P&L obligations, crystallization, provisioning honesty (10) |
@@ -617,9 +748,9 @@ First compute the conservative checklist-risk roll-up — the WORST of the four 
 
 Then roll the specialist scores into a single **Governance Score /100** using this exact formula:
 
-`Governance Score = 0.14×Capital Allocation + 0.11×Incentive Alignment + 0.11×Shareholder Friendliness + 0.10×Disclosure Candor + 0.11×Management Quality + 0.09×Audit & Assurance Quality + 0.11×People Integrity + 0.11×(100 − Governance Risk) + 0.12×(100 − Checklist Risk)`
+`Governance Score = 0.14×Capital Allocation + 0.11×Incentive Alignment + 0.11×Shareholder Friendliness + 0.10×Disclosure Candor + 0.11×Management Quality + 0.09×Audit & Assurance Quality + 0.11×People & Network Integrity + 0.11×(100 − Governance Risk) + 0.12×(100 − Checklist Risk)`
 
-(The weights sum to 1.00; the two risk terms are inverted, so use `100 − risk`.) **Missing-component treatment:** the prior six-component formula (`0.20×CapAlloc + 0.18×Incentive + 0.18×ShFriendliness + 0.16×Candor + 0.16×MgmtQuality + 0.12×(100 − GovRisk)`) is used ONLY when ALL of the new specialist scores (07–12) are absent — a genuinely pre-expansion run. In a PARTIAL run (some of 07–12 completed), keep the nine-component formula and enter each missing component conservatively: a missing positive score (People integrity, Audit & assurance) enters at 50 (mid-band), and a missing inverted risk enters the Checklist Risk max at 40 (unknown is not safe — consistent with the sweep-not-run floor); cap the Confidence Score at 80 and name every substituted component. Never discard completed specialists' scores because a sibling is missing, and never fabricate a missing one as clean. Then compute:
+(The weights sum to 1.00; the two risk terms are inverted, so use `100 − risk`.) **Missing-component treatment:** the prior six-component formula (`0.20×CapAlloc + 0.18×Incentive + 0.18×ShFriendliness + 0.16×Candor + 0.16×MgmtQuality + 0.12×(100 − GovRisk)`) is used ONLY when ALL of the new specialist scores (07–12) are absent — a genuinely pre-expansion run. In a PARTIAL run (some of 07–12 completed), keep the nine-component formula and enter each missing component conservatively: a missing positive score (People & network integrity, Audit & assurance) enters at 50 (mid-band), and a missing inverted risk enters the Checklist Risk max at 40 (unknown is not safe — consistent with the sweep-not-run floor); cap the Confidence Score at 80 and name every substituted component. Never discard completed specialists' scores because a sibling is missing, and never fabricate a missing one as clean. Then compute:
 
 `Confidence-Adjusted Governance Score = Governance Score × (Confidence Score / 100)`
 
@@ -694,6 +825,12 @@ Every Red finding cites a Red Flag ID. Severity uses the Materiality Thresholds.
 | RF-PPL-006 | Sanctions / watchlist match, or an undisclosed PEP conflict (A16-09, A16-10) |
 | RF-PPL-007 | Fabricated credentials — affirmative contradiction, not a mere verification gap (A16-11) |
 | RF-PPL-008 | "Smart rat" resignation pattern or repeated association with accounting failures (A16-17, A16-18) |
+| RF-NET-001 | Undisclosed predecessor / lineage entity — a self-disclosed "formerly / erstwhile / part of ___" claim, a former name, or a claimed history older than the entity, absent from the filings (A17-02) |
+| RF-NET-002 | Phoenix pattern — assets, brands, staff, address or customers continued out of a failed, struck-off or resolved entity with no disclosed legal basis or consideration (A17-03) |
+| RF-NET-003 | Live hop-1 cross-link from a register person or the listco to an entity carrying a proven fraud / enforcement / insolvency fact — recorded with its exposure basis, never as a personal finding (A17-07) |
+| RF-NET-004 | Brand or trademark the company trades under is owned outside the listco, or the same marks are in live use by an unrelated company (A17-04) |
+| RF-NET-005 | Undisclosed registered-address-cluster entity with a corroborated second link (A17-05) |
+| RF-NET-006 | Discovery truncated with no Scope-Boundary declaration — a process flag against our own report, not against the company (A17-01, A17-09) |
 | RF-AUD-004 | Non-audit fees ≥ audit fees, or prohibited services rendered by the auditor (A4-06) |
 | RF-AUD-005 | Material components audited by unknown firms or left unaudited (A4-03, A4-14) |
 | RF-AUD-006 | Gatekeeper exit cluster — CFO + auditor/CS within 12 months (A4-15) |
@@ -764,12 +901,17 @@ When data is missing or weak, these hard caps override an agent's own scoring. T
 | **Unresolved adverse integrity signal** routed from `business-model/01_disqualifier-scan` and not cleared (§24 Filter 1) | Management quality max 60; Disclosure candor max 60; RF-MGT-005; conviction cap — no rating above "Watchlist" until the signal is cleared by primary evidence or escalates to the hard disqualifier lock (no hard lock at this stage unless proven) |
 | **Checklist coverage <50%** (registry items answered ÷ total) | Data quality max 60; Confidence Score max 60 — a checklist mostly made of "Not Available" is not a governance read |
 | **No auditor-fee / audit-detail disclosure** (A4-06/07 Not Available) | Audit & assurance quality max 65; Confidence Score max 80 — economic independence unassessable caps the audit read numerically, not just in prose |
-| **Legal-database sweep did not run** (07/12 coverage-limited) | People integrity max 65; Legal & regulatory risk floor 40 (unknown is not safe); Confidence Score max 70 |
+| **Legal-database sweep did not run** (07/12 coverage-limited) | People & network integrity max 65; Legal & regulatory risk floor 40 (unknown is not safe); Confidence Score max 70 |
 | **No related-party note / RPT disclosure** (A5 not quantifiable) | RPT & leakage risk floor 40 (unknown is not safe); Confidence Score max 80 |
 | **No contingent-liability note** (A7a not quantifiable) | Contingent-liability risk floor 40 (unknown is not safe); Confidence Score max 80 |
 | **Any person graded "Disqualifying"** who is a controller, CEO, CFO, or board chair | Non-Negotiable Gate FAIL: Governance risk floor 80; rating no better than "Weak"; verdict no better than "Serious governance concerns"; escalate per §24 Filter 1 |
-| **Person graded "Material concerns"** (controller or KMP), unresolved | People integrity max 50; Governance risk floor 55; conviction cap — no rating above "Watchlist" until resolved |
+| **Person graded "Material concerns"** (controller or KMP), unresolved | People & network integrity max 50; Governance risk floor 55; conviction cap — no rating above "Watchlist" until resolved |
 | **Undisclosed material litigation / related entity found in the sweep** (RF-CMP-001 / RF-PPL-005) | Disclosure candor max 50; Governance risk floor 60 — the non-disclosure outweighs the underlying item |
+| **Entity/network discovery loop did not run** — no Discovery Register, or Phase 2 (founder loop) never ran (A17-01) | People & network integrity max 60; Confidence Score max 75 — a roster taken from the filings' own list is a profile, not a check |
+| **Undisclosed predecessor / lineage entity, or phoenix continuity with no disclosed basis** (RF-NET-001 / RF-NET-002) | Disclosure candor max 50; Governance risk floor 60 — same logic as RF-PPL-005: the non-disclosure outweighs the underlying item |
+| **Live hop-1 cross-link to an entity carrying a proven fraud / enforcement fact** (RF-NET-003) | People & network integrity max 35; Governance risk floor 60; conviction cap — no rating above "Watchlist" until the linkage is explained by primary evidence. *Recorded as EXPOSURE, with its basis named; it does not by itself fail the Non-Negotiable Gate* |
+| **Discovery truncated with no Scope-Boundary declaration** (RF-NET-006) | Data quality max 60; Confidence Score max 70 — a check that silently stopped reads as complete when it is not |
+| **Core brands the listco trades under are owned outside the group, with no disclosed licence terms** (RF-NET-004) | RPT & leakage risk floor 50 — an unpriced licence from a controller-linked owner is a leakage channel whether or not a fee is currently charged; `09` prices it under A5-02 and states the rate, or states that no fee is disclosed |
 | **Accounting-forensics battery red** (RF-ACC-001 with ≥3 manipulator-zone components, or RF-ACC-002) | Accounting-forensics risk floor 70; Governance risk floor 60; route to `earnings/06` cross-check in the synthesis |
 
 If multiple caps affect the same score, use the most restrictive.
@@ -896,11 +1038,11 @@ A good Management-Governance module output should let the master synthesizer ans
 ## Subagent List & Execution Layers
 
 Layer 0 (sequential, fail-fast):
-- `00_governance-data-triage` — also builds the Person Register (every director, KMP, promoter individual) that 07 iterates
+- `00_governance-data-triage` — also builds the Person & Entity Register (every director, KMP, promoter individual, former officer, and disclosed entity) plus the company's lineage anchors, which SEED 07's discovery loop
 
 Layer 1 (parallel — the foundations):
 - `01_management-and-track-record`
-- `07_people-integrity-dossiers` — the per-person forensic dossiers (A16 + person-level A-items), swept against `frameworks/GOVERNANCE_DATABASES.md`
+- `07_people-integrity-dossiers` — the entity-discovery loop and Discovery Register (A17), then the per-person AND per-entity forensic dossiers (A16 + person-level A-items), swept against `frameworks/GOVERNANCE_DATABASES.md`
 
 Layer 2 (parallel, depend on `01` and/or `07`):
 - `02_capital-allocation-scorecard` *(+ A10-01, A10-05)*
@@ -909,10 +1051,10 @@ Layer 2 (parallel, depend on `01` and/or `07`):
 - `05_board-and-shareholder-rights` *(+ A1, A2, A10-02/03/04 — reads 07's per-person grades for A1-04/05)*
 - `06_candor-and-disclosure-quality` *(+ A7-03, A7-04)*
 - `08_audit-and-assurance-quality` *(A4, A7-02)*
-- `09_related-party-and-group-forensics` *(A5, A11 — reads 07's related-entity web)*
+- `09_related-party-and-group-forensics` *(A5, A11 — reads 07's discovered network and `entity_network.json`)*
 - `10_contingent-liabilities-and-commitments` *(A7a)*
 - `11_accounting-forensics` *(A8, A14-01/02)*
-- `12_regulatory-legal-and-compliance` *(A9, A7-01, A14-03 — company-level database sweep)*
+- `12_regulatory-legal-and-compliance` *(A9, A7-01, A14-03 — company-level database sweep, run against every former name and predecessor as well as the current one)*
 
 Layer 3 (sequential, synthesizer):
 - `99_management-governance-synthesis` (depends on all prior — assembles the full Governance Checklist, computes the Non-Negotiable Gate, applies all caps)

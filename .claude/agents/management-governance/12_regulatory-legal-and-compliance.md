@@ -22,7 +22,7 @@ You DO NOT:
 # RUNTIME INPUTS
 
 - `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/management-governance/12_regulatory-legal-and-compliance.md`, `DATE`
-- `UPSTREAM_INPUTS` — `00_governance-data-triage.md` (jurisdiction/regime block, listing exchanges), `07_people-integrity-dossiers.md` (person-sweep hits that touch the company). Optionally cross-module: `business-model/01_disqualifier-scan.md` (the regulatory-enforcement hard lock — reference, never re-decide), `balance-sheet-survival/01_capital-structure-and-leverage.md` (the lender roster for A14-03).
+- `UPSTREAM_INPUTS` — `00_governance-data-triage.md` (jurisdiction/regime block, listing exchanges), `07_people-integrity-dossiers.md` (person-sweep hits that touch the company, **plus its Section 0A identity block: the company's former names and any predecessor entity — see the mandatory step below**). Optionally cross-module: `business-model/01_disqualifier-scan.md` (the regulatory-enforcement hard lock — reference, never re-decide), `balance-sheet-survival/01_capital-structure-and-leverage.md` (the lender roster for A14-03).
 
 # CHECKLIST OWNERSHIP
 
@@ -42,7 +42,9 @@ A related-party, compensation, covenant, ownership, or contingency note written 
 
 # WORKFLOW
 
-1. Read the repo root `CLAUDE.md`, then `.claude/agents/management-governance/MODULE_RULES.md` (especially the **Legal & Regulatory Database Sweeps**, **Materiality Thresholds**, and **Score Cap Rules** sections), then `frameworks/GOVERNANCE_DATABASES.md`. Apply all three.
+1. Read the repo root `CLAUDE.md`, then `.claude/agents/management-governance/MODULE_RULES.md` (especially the **Legal & Regulatory Database Sweeps**, **Entity & Network Discovery Protocol**, **Materiality Thresholds**, and **Score Cap Rules** sections), then `frameworks/GOVERNANCE_DATABASES.md`. Apply all three.
+
+1A. **Sweep every name the company has ever traded under, not just its current one (Hard Rule).** Take the former names and any predecessor entity from `07`'s Section 0A identity block (or, if `07` did not run, from the registry's own previous-names field). Run the **full company sweep separately against each former name and each predecessor entity**, with its own Sweep Log rows. Enforcement, litigation, defaults and exchange actions are indexed under the name that was current when they happened — a rename hides all of it from a present-name search, and reporting "no records" after searching only the current name is a bad-extraction error (§20), not a clean result. If the company has never been renamed and has no predecessor, log that as a checked fact with the source, not as a silent absence.
 2. **Regime.** Take the jurisdiction and listing exchanges from triage (`00`). Sweep that jurisdiction's core database set; add the US/global set for a cross-listed company. Note EVERY exchange the stock trades on — A9-06 and A7-01 run per exchange.
 3. **Disclosed register first.** Before sweeping, build the company's own account: legal-proceedings and contingency disclosures (US: 10-K Item 3 + the contingency note; India: Board's Report + notes to accounts), the material-event stream (US: 8-K; India: Reg 30 intimations to NSE & BSE), and any regulator matters the annual report admits. This is the baseline the sweep is reconciled against in step 12.
 4. **Company-level database sweep.** Run the sweep from `frameworks/GOVERNANCE_DATABASES.md` for the COMPANY name (and its CIN/registration number, and material subsidiaries where the group is small enough to matter): securities-regulator orders and settlements, courts and tribunals (including insolvency benches and cause lists), exchange fine/compliance pages, rating-agency pages, sanctions and debarment screens. Log every query in the Sweep Log — "no result" rows included. Aggregators discover; primary sources confirm; cite what you actually read (§5).
@@ -195,6 +197,7 @@ Emit a machine-readable JSON code block per the Machine-Readable Outputs schema 
 
 - [ ] Every owned checklist item (A9-01/02/03/05/06/07/08/09/10/11, A7-01, A14-03) appears in the Universal Findings Table with its ID; unanswerable items are Not Applicable (no data) with the reason and what was checked.
 - [ ] Every "clean" or "none found" claim traces to a Sweep Log row; unreachable databases are logged coverage-limited and the caps applied — "no result" was never counted as clean.
+- [ ] The sweep ran against **every former name and every predecessor entity**, each with its own Sweep Log rows — a "no records" built only from the current name is not a clean result (§20). If there is no former name, that is logged as a checked fact with its source.
 - [ ] The A9-10 reconciliation ran both ways: every material sweep hit checked against the filings, and any material case absent from the filings marked Red regardless of merits (RF-CMP-001) — amounts handed to `10`, not sized here.
 - [ ] Exchange fines were pulled as quarterly disclosures from BOTH/ALL listing exchanges — not just one.
 - [ ] Rating history covers the agencies' own pages: "issuer not cooperating" tags and company-requested withdrawals with debt outstanding were hunted deliberately, not just current ratings quoted (RF-CMP-004 where tripped).

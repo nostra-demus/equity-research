@@ -119,16 +119,44 @@ You DO NOT:
 | No contingent-liability note | | 10, 99 | CL read limited to the auditor's report |
 | No auditor-fee / audit-detail disclosure | | 08, 99 | A4-06/07 Not Available with reason |
 | Under 2 years of financials | | 11, 99 | Beneish/Dechow battery not computable — single-year checks only |
-| Web/database sweep unavailable this run | | 07, 12, 99 | dossiers & legal sweep "coverage-limited"; People integrity max 65; confidence capped |
+| Web/database sweep unavailable this run | | 07, 12, 99 | dossiers & legal sweep "coverage-limited"; People & network integrity max 65; confidence capped |
+| No company website / no lineage anchors reachable | | 07, 99 | entity-discovery loop cannot run; A17-01 Insufficient Data; People & network integrity max 60; confidence max 75 |
 
-## 5E. Person Register (feeds 07 — Hard Rule)
+## 5E. Person & Entity Register (feeds 07 — Hard Rule)
 
-Enumerate EVERY named individual from the pool — each board director, each KMP (CEO, CFO, COO, Company Secretary, officers named in filings), each promoter-group individual with ≥1% holding or an operating role. `07_people-integrity-dossiers` iterates this register; a person missed here is a person never checked.
+This is the SEED for `07`'s discovery loop, not the finished roster. You read the filings; the filings list who and what the company chose to list. `07` expands from here per the Entity & Network Discovery Protocol (MODULE_RULES) — your job is to hand it every name and every anchor the pool already contains, so it starts warm.
 
-| # | Name | Identifier (DIN / registry ID, if disclosed) | Role | Category (Director / KMP / Promoter individual) | Source (filing + section) |
+### 5E.1 Person Register
+
+Enumerate EVERY named individual from the pool — each board director, each KMP (CEO, CFO, COO, Company Secretary, officers named in filings), each promoter-group individual with ≥1% holding or an operating role. Include **former** directors and KMP named anywhere in the pool (resignation announcements, prior-year filings, signatory pages) with a `Former` category — a person who left before the current snapshot is exactly who a check is looking for.
+
+| # | Name | Identifier (DIN / registry ID, if disclosed) | Role | Category (Director / KMP / Promoter individual / Former) | Source (filing + section) |
 |---|---|---|---|---|---|
 
 If a role is known to exist but the person is unnamed in the pool (e.g., no CS named), add a row with "UNNAMED — {role}" so 07 records the gap instead of skipping it.
+
+### 5E.2 Entity Register
+
+Enumerate every ENTITY the pool names: subsidiaries, associates, JVs, promoter-group companies, RPT counterparties, and any predecessor or group entity mentioned. Mark each `filing-supplied`.
+
+| # | Entity | Registry identifier (CIN / company number), if disclosed | Relationship as disclosed | Source (filing + section) |
+|---|---|---|---|---|
+
+### 5E.3 Company identity & lineage anchors (feeds 07's discovery loop)
+
+Record these from the pool — they are what `07`'s recipes D-1 … D-5 start from. Leave a cell "not in pool" rather than guessing; `07` will fetch it.
+
+| Anchor | Value | Source |
+|---|---|---|
+| Registry identifier (CIN / company number / CIK) | | |
+| Incorporation date | | |
+| Any founding year the company CLAIMS (annual report cover, MD&A, "since 19xx") | | |
+| Former names, if disclosed anywhere in the pool | | |
+| Company website URL | | |
+| Principal brand / product names the company trades under | | |
+| Registered-office address | | |
+
+A **claimed founding year that predates the incorporation date** is flagged here in one line — it means a predecessor entity exists, and `07` must find it (A17-02).
 
 ## 5A. Jurisdiction & Filing Regime
 
@@ -199,7 +227,8 @@ Write a source manifest to `analyses/{TICKER}_{DATE}/management-governance/sourc
 - [ ] Cross-module availability is checked against the actual filesystem.
 - [ ] Governance usability check table is fully populated (every row has Y/N).
 - [ ] Partial-data flags table is fully populated (every row has Y/N).
-- [ ] The Person Register (5E) lists every director, KMP, and promoter individual found in the pool — with an UNNAMED row for any known-but-unnamed role.
+- [ ] The Person Register (5E.1) lists every director, KMP, promoter individual, AND every former director/KMP named anywhere in the pool — with an UNNAMED row for any known-but-unnamed role.
+- [ ] The Entity Register (5E.2) lists every entity the pool names, and the lineage anchors (5E.3) are filled or explicitly marked "not in pool" — including the incorporation date and any founding year the company claims.
 - [ ] Whether `business-model/01_disqualifier-scan` flagged a hard disqualifier is noted.
 - [ ] Jurisdiction, filing regime, and sector are detected (Section 5A) so downstream agents apply the right source map and overlay.
 - [ ] Verdict matches the sufficiency rule exactly.

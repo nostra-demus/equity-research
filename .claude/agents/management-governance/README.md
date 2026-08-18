@@ -4,7 +4,7 @@ A module of a multi-module equity research system. This module answers:
 
 > "Are the people running this company competent stewards of shareholder capital, and are their incentives and governance aligned with minority shareholders?"
 
-It is the deep-dive behind the single `business-model/11_capital-allocation-governance` quick-read, and it works through three lenses (MODULE_RULES `## Scope`): the **stewardship judgment** (track record, capital allocation, incentives, ownership, board, candor), the **Governance Checklist** (a canonical ~150-item banded audit — board, committees, ownership, auditor, related parties, remuneration, contingent liabilities, forensic accounting, regulatory/legal, minority treatment — every item answered Green/Amber/Red/NA with evidence, assembled item-by-item in the synthesis with a Non-Negotiable Gate), and **person-level integrity** (a forensic dossier on every director, KMP, and promoter individual, swept against the public legal/regulatory databases in `frameworks/GOVERNANCE_DATABASES.md`).
+It is the deep-dive behind the single `business-model/11_capital-allocation-governance` quick-read, and it works through three lenses (MODULE_RULES `## Scope`): the **stewardship judgment** (track record, capital allocation, incentives, ownership, board, candor), the **Governance Checklist** (a canonical ~180-item banded audit — board, committees, ownership, auditor, related parties, remuneration, contingent liabilities, forensic accounting, regulatory/legal, minority treatment, shadow network & lineage — every item answered Green/Amber/Red/NA with evidence, assembled item-by-item in the synthesis with a Non-Negotiable Gate), and **person-and-network integrity** (first a discovery loop that works out who and what is actually in scope — brand lineage, former names, trademark ownership, registered-address clusters, past directorships, and the founders of every linked entity, walked recursively to hop 2 — then a forensic dossier on every person and every surfaced entity, swept against the public legal/regulatory databases and discovery recipes in `frameworks/GOVERNANCE_DATABASES.md`).
 
 It does NOT value the company (that's **valuation**), forecast earnings (that's **earnings**), re-adjudicate hard disqualifiers (those live in `business-model/01_disqualifier-scan`), or assign probabilities / size positions / issue a rating (that's the **master synthesizer**). It produces the stewardship *read*; the synthesizer folds it into the verdict and risk register.
 
@@ -43,19 +43,19 @@ The master synthesizer reads `99_management-governance-synthesis.md` as a module
 
 | # | Sub-agent | Depends on | Output |
 |---|---|---|---|
-| 00 | `governance-data-triage` | — | Inventory + Person Register + fail-fast |
+| 00 | `governance-data-triage` | — | Inventory + Person & Entity Register + lineage anchors + fail-fast |
 | 01 | `management-and-track-record` | — | Who runs it; promises vs delivery *(+ A13-04/05)* |
 | 02 | `capital-allocation-scorecard` | 01 | M&A / buybacks / dividends / reinvestment record *(+ A10-01/05)* |
 | 03 | `incentives-and-compensation` | 01 | What the pay actually rewards *(+ A6, A12)* |
 | 04 | `ownership-and-insider-behavior` | 01 | Ownership, insider buying/selling, control *(+ A3, A15)* |
 | 05 | `board-and-shareholder-rights` | 01, 07 | Board independence, voting rights, minority protection *(+ A1, A2, A10-02/03/04)* |
 | 06 | `candor-and-disclosure-quality` | 01 | Truth-telling in good and bad times *(+ A7-03/04)* |
-| 07 | `people-integrity-dossiers` | 00 | Per-person forensic dossiers + grades *(A16, A1-05, A9-04, A13)* |
+| 07 | `people-integrity-dossiers` | 00 | Entity-discovery loop + Discovery Register, then per-person AND per-entity forensic dossiers, grades, and hop-banded exposure floors *(A16, A17, A1-05, A9-04, A13)* |
 | 08 | `audit-and-assurance-quality` | 00 | Auditor calibre, independence, opinions, restatements *(A4, A7-02)* |
-| 09 | `related-party-and-group-forensics` | 01, 07 | RPT quantification + group-structure leakage *(A5, A11)* |
+| 09 | `related-party-and-group-forensics` | 01, 07 | RPT quantification + group-structure leakage, reconciled against 07's discovered network *(A5, A11)* |
 | 10 | `contingent-liabilities-and-commitments` | 01 | Off-P&L exposure + provisioning honesty *(A7a)* |
 | 11 | `accounting-forensics` | 01 | Computed Beneish/Dechow batteries + hygiene *(A8, A14-01/02)* |
-| 12 | `regulatory-legal-and-compliance` | 00, 07 | Company-level legal/regulator sweep + compliance hygiene *(A9, A7-01, A14-03)* |
+| 12 | `regulatory-legal-and-compliance` | 00, 07 | Company-level legal/regulator sweep — current name AND every former name/predecessor — + compliance hygiene *(A9, A7-01, A14-03)* |
 | 99 | `management-governance-synthesis` | ALL | Stewardship verdict + 14 scores + the assembled checklist + the Non-Negotiable Gate |
 
 ## Execution layers
