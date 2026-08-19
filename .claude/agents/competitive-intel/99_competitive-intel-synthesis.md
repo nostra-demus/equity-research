@@ -33,7 +33,7 @@ Do NOT carry a foreign-language peer call as a data gap or a conviction cap — 
 
 # DEPENDENCIES
 
-`depends_on: [business-model]` makes this module run after business-model (for the peer set) and — under `/research:full` — before earnings, so the earnings module can read this module's read-through. If a specialist output is missing, proceed with what's available and flag it in the Abstract.
+`depends_on: [business-model, earnings]` makes this module run after BOTH business-model (for the peer set) and earnings (whose guidance/beat-miss outputs specialists `03` and `04` read) — so under `/research:full` it is a downstream sink: nothing else depends on it, and the MASTER synthesizer (not the earnings module) absorbs this module's read-through into its beat/miss, scenario, and §8 view, exactly as the `description` frontmatter states. If a specialist output is missing, proceed with what's available and flag it in the Abstract.
 
 # WORKFLOW
 
