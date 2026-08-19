@@ -819,6 +819,85 @@ await check('a firehose item with a PRESENT but malformed found_at still fails c
   )], { now: () => new Date('2026-08-19T00:01:00Z') }), /coverage is incomplete/)
   fs.rmSync(root, { recursive: true, force: true })
 })
+await check('a legacy firehose row keeps the SWEEP\'s earlier clock, never the later append-time ts', () => {
+  // The two clocks are not interchangeable: `found_at` is when the SOURCE published, `ts` is when our
+  // ingester appended the line. On the retained 2026-07-13 partition ts was later for 40 of 40 rows — one
+  // FDA row by twelve days — so a fallback that let the firehose win would replay every legacy item as
+  // days newer than it is, and stale evidence would read as fresh.
+  const root = tmp(), state = tmp()
+  const date = '2026-08-13'
+  const url = 'https://reuters.com/legacy-clock-precedence'
+  const headline = 'The sweep clock outranks the firehose append stamp'
+  mergeInbox(root, date, [triagedItem(url, 70, headline)],
+    { stateDir: tmp(), now: () => new Date('2026-08-13T00:01:00Z') })
+  const sweepPath = path.join(root, 'screener', 'inbox', `${date}_sweep.json`)
+  const legacy = JSON.parse(fs.readFileSync(sweepPath, 'utf8'))
+  // strip the embedded clocks so the row is reachable only through the legacy path
+  delete legacy.revision_clock_version
+  delete legacy.revision_clocks
+  const sweepFoundAt = legacy.rows[0].found_at
+  fs.writeFileSync(sweepPath, JSON.stringify(legacy))
+  // the SAME revision in the firehose, carrying only the later append stamp
+  const item: FeedItem = {
+    kind: 'item', ts: '2026-08-13T23:59:00Z',
+    observed_at: '2026-08-13T23:59:00Z', event_id: eventIdFor(headline, url), headline, url,
+    domain: 'reuters.com', source_name: 'Reuters', via: 'gdelt', region: 'GLOBAL',
+    input_nature: 'news_headline', triage_score: 60, band: 'watch', triage_reason: 'material',
+    relevance: 'material', event_types: [], issuer_linkage: 'primary', companies: [],
+    size_bucket: 'large', dedup_status: 'new', inboxed: false,
+  } as FeedItem
+  fs.writeFileSync(path.join(root, 'screener', 'inbox', `${date}_firehose.ndjson`), `${JSON.stringify(item)}\n`)
+
+  mergeInbox(root, date, [triagedItem('https://reuters.com/unrelated-new', 99, 'An unrelated later item')],
+    { stateDir: state, now: () => new Date('2026-08-13T00:05:00Z') })
+  const merged = JSON.parse(fs.readFileSync(sweepPath, 'utf8'))
+  const clock = merged.revision_clocks.find((r: any) => r.event_id === eventIdFor(headline, url))
+  assert.ok(clock, 'the legacy row is registered')
+  assert.equal(clock.found_at, sweepFoundAt, 'the sweep clock survives')
+  assert.notEqual(clock.found_at, item.ts, 'the firehose append stamp never replaces it')
+})
+
+await check('a legacy firehose row with a MALFORMED found_at fails closed rather than falling back to ts', () => {
+  // The fallback exists for rows written before found_at was added — an ABSENT stamp. A present-but-
+  // malformed one is corruption, and letting it through would substitute the triage time and mark the
+  // partition provable, so bad source-clock data would enter an immutable registry looking authoritative.
+  const root = tmp(), state = tmp()
+  const date = '2026-08-13'
+  mergeInbox(root, date, [triagedItem('https://reuters.com/keeps-partition-alive', 70, 'A normal row')],
+    { stateDir: tmp(), now: () => new Date('2026-08-13T00:01:00Z') })
+  const sweepPath = path.join(root, 'screener', 'inbox', `${date}_sweep.json`)
+  const legacy = JSON.parse(fs.readFileSync(sweepPath, 'utf8'))
+  delete legacy.revision_clock_version
+  delete legacy.revision_clocks
+  fs.writeFileSync(sweepPath, JSON.stringify(legacy))
+  const corruptUrl = 'https://reuters.com/corrupt-source-clock'
+  const corruptHeadline = 'A corrupted source clock must not be laundered through ts'
+  const corrupt = {
+    kind: 'item', ts: '2026-08-13T00:03:00Z', found_at: 'not-a-date',
+    observed_at: '2026-08-13T00:03:00Z', event_id: eventIdFor(corruptHeadline, corruptUrl),
+    headline: corruptHeadline, url: corruptUrl, domain: 'reuters.com', source_name: 'Reuters',
+    via: 'gdelt', region: 'GLOBAL', input_nature: 'news_headline', triage_score: 60, band: 'watch',
+    triage_reason: 'material', relevance: 'material', event_types: [], issuer_linkage: 'primary',
+    companies: [], size_bucket: 'large', dedup_status: 'new', inboxed: false,
+  }
+  fs.writeFileSync(path.join(root, 'screener', 'inbox', `${date}_firehose.ndjson`), `${JSON.stringify(corrupt)}\n`)
+
+  // Refusing the row is only half of failing closed. The partition cannot be PROVEN complete while one of
+  // its rows is unreadable, so the merge declines to assign fresh clocks at all and says which partition —
+  // louder than dropping the row silently, and the reason the wedge this PR fixes was visible in the first
+  // place. Asserted on the message so a future change that quietly downgrades this to a skip is caught.
+  assert.throws(
+    () => mergeInbox(root, date, [triagedItem('https://reuters.com/another-new', 99, 'Another later item')],
+      { stateDir: state, now: () => new Date('2026-08-13T00:05:00Z') }),
+    /unprovable partition\(s\): 2026-08-13/,
+    'a corrupted source clock makes the partition unprovable rather than being rescued with the triage time',
+  )
+  // and nothing was laundered into the registry on the way out
+  const merged = JSON.parse(fs.readFileSync(sweepPath, 'utf8'))
+  const leaked = (merged.revision_clocks || []).find((r: any) => r.event_id === eventIdFor(corruptHeadline, corruptUrl))
+  assert.equal(leaked, undefined, 'the corrupted row never reaches the immutable registry')
+})
+
 await check('a current-day legacy migration survives the final merge and a SQLite restart', () => {
   const root = tmp()
   const seedState = tmp()
