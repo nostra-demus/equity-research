@@ -39,6 +39,35 @@ write('Memos 2026-08/.nostradamus_output', 'engine output — excluded from the 
 // externally-ingested doc — owned by listExternalFiles (typed external_data), never double-listed
 write('external/yipit/panel.txt', 'alt-data panel body')
 
+// ---- a second company exercising the extractor PARITY edge cases (Codex #457 findings) ----
+// The PR's contract is "mirror extract_pool.py's exact skip rules so the two never disagree". These prove
+// the four gaps Codex surfaced are closed, each pinned to the extractor's actual behaviour, not to code.
+const dirY = path.join(TMP, 'data', 'TESTY')
+const writeY = (rel: string, body = 'x') => {
+  const full = path.join(dirY, rel)
+  fs.mkdirSync(path.dirname(full), { recursive: true })
+  fs.writeFileSync(full, body)
+}
+// (1) dot-DIRECTORY: extract_pool.py's os.walk descends into ".archive/" and yields the filing (it skips a
+//     document only by its OWN basename). The cockpit pruned the dot-dir subtree and missed it. Must be SEEN.
+writeY('.archive/Legacy_Annual_Report_FY23.pdf')
+// (5) derived extractor cache: extract_pool.py skips a file whose immediate parent ends "_pool_extracts".
+//     The cockpit counted them. Must be EXCLUDED.
+writeY('INDIA_pool_extracts/manifest.json', '{"derived":true}')
+writeY('INDIA_pool_extracts/annual.txt', 'extracted text — derived, not a source')
+// (2) duplicate-basename UNDATED calls in two subfolders: the "<2 recent calls" cap keys distinctness on a
+//     per-file fallback; keyed on the BASENAME these collapse to one and mis-fire the cap. Must count as TWO.
+writeY('Calls A/Earnings Call.rtf', 'management earnings call — no date in name or body')
+writeY('Calls B/Earnings Call.rtf', 'a different quarter earnings call — also undated')
+// (3) multiply-linked file (st_nlink != 1): extract_pool.py rejects it; the cockpit admitted it. Both the
+//     original and the hard link have nlink=2, so BOTH must be EXCLUDED. Guarded — skip if the FS refuses links.
+let hardlinkMade = false
+try {
+  writeY('orig.txt', 'a real file')
+  fs.linkSync(path.join(dirY, 'orig.txt'), path.join(dirY, 'dup.txt'))
+  hardlinkMade = true
+} catch { /* filesystem without hard-link support — the two files below simply won't exist */ }
+
 async function main() {
   const status = await analyzeTicker('TESTX')
   const byPath = (p: string) => status.files.find((f) => (f.path ?? f.filename) === p)
@@ -100,6 +129,44 @@ async function main() {
     const t = listTickers().tickers.find((x) => x.ticker === 'TESTX')
     assert.ok(t, 'TESTX is a listed company')
     assert.equal(t?.fileCount, 6, `picker fileCount should match analyzeTicker, got ${t?.fileCount}`)
+  })
+
+  // ---- extractor PARITY edge cases (Codex #457) — each pinned to extract_pool.py's actual behaviour ----
+  const statusY = await analyzeTicker('TESTY')
+  const byPathY = (p: string) => statusY.files.find((f) => (f.path ?? f.filename) === p)
+
+  await check('(1) a filing inside a dot-DIRECTORY (".archive/") is listed — extractor descends into it', () => {
+    const a = byPathY('.archive/Legacy_Annual_Report_FY23.pdf')
+    assert.ok(a, 'the .archive filing is read (dot-dir descended, only dot-FILES are skipped)')
+    assert.equal(a?.type, 'annual_filing', 'classified from its basename')
+  })
+
+  await check('(5) derived "_pool_extracts" cache files are EXCLUDED — extractor skips that parent', () => {
+    assert.ok(!statusY.files.some((f) => (f.path ?? f.filename).includes('_pool_extracts')),
+      'no file whose immediate parent ends in _pool_extracts is listed')
+  })
+
+  await check('(3) a multiply-linked file (nlink!=1) is EXCLUDED — both the original and its hard link', () => {
+    if (!hardlinkMade) { console.log('       (skipped — filesystem has no hard-link support)'); return }
+    assert.equal(byPathY('orig.txt'), undefined, 'the hard-linked original is not listed')
+    assert.equal(byPathY('dup.txt'), undefined, 'the hard link is not listed')
+  })
+
+  await check('(2) two UNDATED same-basename calls in different subfolders count as TWO recent calls', () => {
+    // both listed, distinct by path
+    assert.ok(byPathY('Calls A/Earnings Call.rtf') && byPathY('Calls B/Earnings Call.rtf'), 'both calls listed')
+    // and the earnings module must NOT fire the "<2 recent calls" cap — distinctness keys on path, not basename
+    const earningsCaps = statusY.modules['earnings']?.caps ?? []
+    assert.ok(!earningsCaps.some((c) => c.includes('fewer than 2 recent earnings calls')),
+      `two distinct undated calls must not trip the <2-calls cap; caps=${JSON.stringify(earningsCaps)}`)
+  })
+
+  await check('TESTY fileCount excludes _pool_extracts + hard links (dot-dir filing + 2 calls counted)', () => {
+    // .archive/Legacy_Annual + Calls A/call + Calls B/call = 3 ; the 2 _pool_extracts files contribute 0.
+    // When hard links were made, orig.txt + dup.txt are both excluded (nlink=2) → 3. When the FS refused
+    // links, orig.txt is a normal nlink=1 file and is legitimately counted → 4.
+    const expected = hardlinkMade ? 3 : 4
+    assert.equal(statusY.fileCount, expected, `expected ${expected}, got ${statusY.fileCount}`)
   })
 }
 

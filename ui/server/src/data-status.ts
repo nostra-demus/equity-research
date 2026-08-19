@@ -606,13 +606,20 @@ function listPoolFiles(tickerDirRaw: string): string[] {
   if (root !== DATA_DIR && !root.startsWith(DATA_DIR + path.sep)) return []
   const out: string[] = []
   const walk = (absDir: string, relDir: string): void => {
+    // Confine absDir to DATA_DIR IN THIS SCOPE before any fs use — a pure startsWith against the constant
+    // safe root is the js/path-injection barrier CodeQL recognizes. The recursive call below guards `abs`
+    // in the caller's scope, but the dataflow did not carry that barrier across the recursive call into the
+    // `absDir` parameter (it flagged readdirSync(absDir) and path.join(absDir, …) at code-scanning/186-187).
+    // The ticker dir and every subfolder start with DATA_DIR + sep, so this rejects nothing valid; the
+    // functional confinement to the ticker dir is still done by `abs.startsWith(root + path.sep)` on each
+    // child below.
+    if (!absDir.startsWith(DATA_DIR + path.sep)) return
     let names: string[]
     try { names = fs.readdirSync(absDir) } catch { return }
     // A file whose immediate parent holds the sentinel is engine output, never pool input (launcher.ts
     // writes it into every written-back "Memos …"/dossier folder). Matches extract_pool.py exactly.
     const isOutputDir = fs.existsSync(path.join(absDir, '.nostradamus_output'))
     for (const name of names) {
-      if (name.startsWith('.')) continue
       if (relDir === '' && name === 'external') continue // provenance-aware listExternalFiles owns external/
       const abs = path.resolve(absDir, name)
       if (!abs.startsWith(root + path.sep)) continue
@@ -620,10 +627,17 @@ function listPoolFiles(tickerDirRaw: string): string[] {
       try { st = fs.lstatSync(abs) } catch { continue }
       if (st.isSymbolicLink()) continue // never follow a symlink (extractor: followlinks=False)
       if (st.isDirectory()) {
+        // Descend into EVERY real subfolder, including dot-prefixed ones (".archive/"): the extractor's
+        // os.walk descends into all non-symlink dirs and skips a document only by its OWN basename. Pruning
+        // a dot-DIRECTORY here made the cockpit miss filings the orbs read — the exact disagreement this PR
+        // exists to remove, just in reverse (Codex parity finding).
         walk(abs, relDir ? path.join(relDir, name) : name)
       } else if (st.isFile()) {
-        if (isOutputDir) continue // engine-written output — excluded from the data pool
+        if (name.startsWith('.')) continue // dot-FILE (incl. the .nostradamus_output sentinel) — matches the extractor's basename skip
+        if (isOutputDir) continue // engine-written output folder (.nostradamus_output sentinel) — excluded from the pool
         if (name.endsWith(SIDECAR_SUFFIX)) continue // provenance sidecar, not a document
+        if (st.nlink !== 1) continue // multiply-linked file — the extractor rejects st_nlink != 1 (iter_pool_files)
+        if (path.basename(absDir).endsWith('_pool_extracts')) continue // derived extractor cache, not a source doc (extract_pool.py)
         out.push(relDir ? path.join(relDir, name) : name)
       }
     }
@@ -783,7 +797,7 @@ export function evaluateModules(files: ClassifiedFile[], moduleNames: string[]):
     const recentCalls = files.filter(
       (f) => (f.type === 'transcript' || f.type === 'sell_side_earnings_note') && (f.ageMonths == null || f.ageMonths <= 6),
     )
-    const distinctRecentCalls = new Set(recentCalls.map((f) => f.periodHint ?? `__file:${f.filename}`)).size
+    const distinctRecentCalls = new Set(recentCalls.map((f) => f.periodHint ?? `__file:${f.path ?? f.filename}`)).size
     const recentTranscripts = recentCalls.filter((f) => f.type === 'transcript').length
     const recentProxies = recentCalls.filter((f) => f.type === 'sell_side_earnings_note').length
     const caps: string[] = []
