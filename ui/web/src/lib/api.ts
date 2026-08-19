@@ -462,7 +462,7 @@ export const api = {
   // panel. Read-only + fail-soft server-side; a short budget keeps the panel poll snappy.
   newsDiagnostics: async (): Promise<NewsDiagnostics> => {
     if ((await ensureMode()) === 'static')
-      return { ts: new Date().toISOString(), enabled: false, running: false, readOnly: false, intervalMin: 15, lastCycleAt: null, nextCycleAt: null, tiers: [], backlog: { count: 0, cap: 0, pctOfCap: 0, nearLimit: false, trend: null, lostToday: 0 }, today: { read: 0, kept: 0, dropped: 0, cycles: 0 }, lastCycle: null, defer: { active: false, reason: null, plainNote: null, lastResort: null, blockingTiers: [] } }
+      return { ts: new Date().toISOString(), enabled: false, running: false, readOnly: false, intervalMin: 15, lastCycleAt: null, nextCycleAt: null, tiers: [], backlog: { count: 0, cap: 0, pctOfCap: 0, nearLimit: false, trend: null, lostToday: 0, retiredToday: 0 }, today: { read: 0, kept: 0, dropped: 0, cycles: 0 }, lastCycle: null, defer: { active: false, reason: null, plainNote: null, lastResort: null, blockingTiers: [] } }
     return get(`/api/news/diagnostics`, 8_000)
   },
   newsSources: async (): Promise<SourcesReport> => {

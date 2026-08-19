@@ -9,7 +9,7 @@ Usage:
 
 Exit 0 = all checks PASS; 1 = at least one FAIL.
 """
-import json, glob, os, re, sys, subprocess, datetime, math, tempfile
+import json, glob, os, re, sys, subprocess, datetime, math, tempfile, ast
 from data_need_contract import (
     DATA_NEED_PROMISE_RE as _DATA_NEED_PROMISE_RE,
     DATA_NEED_URL_RE as _DATA_NEED_URL_RE,
@@ -4684,6 +4684,9 @@ FRAMEWORK_CONTRACTS={
 }
 FRAMEWORK_CONTRACTS["scripts/eval.py"] += [
     "eval_ax_data_needs_v2", "DATA_NEEDS_V2_DATE", "AX_data_needs_v2",
+    # AZ was the only check in this file not registered here, so the whole thing could be deleted and the
+    # suite would still report PASS — the exact hole this self-anchor exists to close.
+    "check_az_governance_flag_cap_correspondence", "_az_slice", "_az_table_keys", "_az_row_first_cell", "azfails",
 ]
 jchecks=[]
 for jf,subs in FRAMEWORK_CONTRACTS.items():
@@ -4700,6 +4703,321 @@ for jf,subs in FRAMEWORK_CONTRACTS.items():
     if jmiss: suite_pass=False
     jchecks.append({"file":jf,"status":("PASS" if not jmiss else "FAIL"),"missing":jmiss})
 
+# AZ — governance flag/cap correspondence (structural, fixture-free).
+#   The management-governance module encodes its severity ladder in FOUR places that must agree:
+#   the Red-Flag ID Registry (the trigger), the Transitive-exposure grading rule (the grade floor),
+#   the Score Cap Rules (the numeric cap), and agent 99's Score Cap Application table (where the cap
+#   is actually applied). A flag whose trigger fires but whose cap row does not exist — or exists in
+#   MODULE_RULES but was never mirrored into 99 — is silently unenforced: the module reports the red
+#   flag and publishes an uncapped score.
+#
+#   [review fix] The first version of this check was substantially weaker than its own docstring
+#   claimed, and its mutation tests passed only because of how the mutations were chosen:
+#     - the cap test was a substring search over the whole Score Cap slice, so an explanatory FOOTER
+#       naming RF-NET-003 kept it passing after both cap ROWS were deleted;
+#     - the mirror test searched all of 99, so reconciliation prose naming an ID masked a deleted
+#       Score Cap Application row;
+#     - the emitter glob `[0-9][0-9]_*.md` includes 99 itself, so the mirror assertion made the
+#       emitter assertion vacuous;
+#     - the enum test was a one-token denylist, so a NEW global-stop spelling passed;
+#     - the grading rule was named in the docstring but never parsed at all.
+#   All five are now row-aware, section-scoped, allowlist-based, and the grading bands are compared.
+#   Scope stays the RF-NET family this contract introduces; the legacy registry carries pre-existing
+#   orphans that are out of scope here.
+def _az_slice(txt, start_head, end_head, what):
+    """Section text between two headings. Raises if either anchor moved — a renamed heading must
+    fail loudly, never silently narrow the check's scope to nothing. `what` names the slice in the
+    error: str.index raises a bare "substring not found", which on a repo-blocking gate tells the
+    person nothing about which heading in which file moved."""
+    i = txt.find(start_head)
+    if i < 0:
+        raise ValueError(f"{what}: start heading '{start_head}' not found")
+    j = txt.find(end_head, i)
+    if j < 0:
+        raise ValueError(f"{what}: end heading '{end_head}' not found after '{start_head}'")
+    return txt[i:j]
+
+def _az_row_first_cell(ln):
+    """The first cell of a markdown table row, or None if the line is not one. Shared so every caller
+    computes it the SAME way: stripping the line before stripping pipes matters, because an indented
+    row leaves the indent as cell 0 and silently exempts itself from whatever the caller was checking."""
+    st = ln.strip()
+    if not st.startswith("|"):
+        return None
+    return st.strip("|").split("|")[0]
+
+def _az_table_keys(section, pattern):
+    """IDs appearing in the FIRST COLUMN of a markdown table row — not anywhere in the prose."""
+    keys = set()
+    for ln in section.splitlines():
+        first = _az_row_first_cell(ln)
+        if first is None:
+            continue
+        keys.update(re.findall(pattern, first))
+    return keys
+
+def check_az_governance_flag_cap_correspondence():
+    import glob as _glob
+    D = ".claude/agents/management-governance"
+    fails = []
+    try:
+        MR  = open(f"{D}/MODULE_RULES.md", encoding="utf-8").read()
+        S99 = open(f"{D}/99_management-governance-synthesis.md", encoding="utf-8").read()
+        A07 = open(f"{D}/07_people-integrity-dossiers.md", encoding="utf-8").read()
+    except Exception as e:
+        return [f"unreadable module file: {str(e)[:80]}"]
+
+    try:
+        reg     = _az_slice(MR,  "### Red-Flag ID Registry", "## Stewardship Verdict Categories", "registry")
+        caps    = _az_slice(MR,  "## Score Cap Rules", "## Cross-Module Inputs", "caps")
+        grading = _az_slice(MR,  "### Transitive-exposure grading", "### Scope-Boundary Register", "grading")
+        cap99   = _az_slice(S99, "## 4. Score Cap Application", "## 5. Stewardship Summary", "cap99")
+    except ValueError as e:
+        return [f"section anchor missing (heading renamed?): {str(e)[:90]}"]
+
+    net_ids = sorted(_az_table_keys(reg, r"RF-NET-\d+"))
+    if not net_ids:
+        return ["RF-NET family absent from the Red-Flag ID Registry"]
+
+    # (1) every RF-NET trigger has a real cap ROW (first column), not just a prose mention
+    cap_keys = _az_table_keys(caps, r"RF-NET-\d+")
+    nocap = [i for i in net_ids if i not in cap_keys]
+    if nocap:
+        fails.append(f"RF-NET ids with a trigger but no Score Cap ROW (silently unenforced): {nocap}")
+
+    # (2) every capped RF-NET id is mirrored as a ROW in 99's Score Cap Application table
+    mir_keys = _az_table_keys(cap99, r"RF-NET-\d+")
+    unmirrored = [i for i in net_ids if i in cap_keys and i not in mir_keys]
+    if unmirrored:
+        fails.append(f"cap rows never mirrored as rows in 99's Score Cap Application: {unmirrored}")
+
+    # (3) every RF-NET trigger is emitted by an owning SPECIALIST — 99 is excluded, since it is
+    #     already required to carry every mirrored id and would make this assertion vacuous.
+    #     Guarded like the three opens above: an unreadable specialist (a stray directory, a non-UTF-8
+    #     byte, a broken symlink) must report one finding, not crash the gate for the whole repo.
+    try:
+        specialists = "".join(open(f, encoding="utf-8").read()
+                              for f in sorted(_glob.glob(f"{D}/[0-9][0-9]_*.md"))
+                              if not os.path.basename(f).startswith("99_"))
+    except Exception as e:
+        return fails + [f"unreadable specialist file: {str(e)[:80]}"]
+    emitted = set(re.findall(r"RF-[A-Z]+-\d+", specialists))
+    for fam, lo, hi in re.findall(r"RF-([A-Z]+)-(\d+)\s*(?:…|\.\.\.|–)\s*(\d+)\b", specialists):
+        for n in range(int(lo), int(hi) + 1):
+            emitted.add(f"RF-{fam}-{n:03d}")
+    unemitted = [i for i in net_ids if i not in emitted]
+    if unemitted:
+        fails.append(f"RF-NET ids no specialist emits (dead triggers): {unemitted}")
+
+    # (4) termination enum validated against the complete allowlist, not a one-token denylist —
+    #     any NEW global-stop spelling must fail, not just the historical one.
+    ALLOWED = {"no_new_subjects", "hop_cap", "breadth_budget", "target_gate_failed", "budget_exhausted",
+               "sources_unavailable"}
+    # Bounded by the TOKEN RUN, not by punctuation. The previous form captured to the first em dash or
+    # newline, and the prose immediately after this enum names `disqualifying_finding_established` — the
+    # exact token the check exists to ban. Rewrapping that line, or writing ": note" instead of " — note",
+    # would have made this gate fail for every PR in the repo. Stop at the first non-token instead.
+    m = re.search(r"`termination_rule`\s*∈\s*((?:\s*`[a-z_]+`\s*[·,]?)+)", A07)
+    if not m:
+        fails.append("07 no longer declares a termination_rule enum")
+    else:
+        vals = set(re.findall(r"`([a-z_]+)`", m.group(1)))
+        extra   = vals - ALLOWED
+        missing = ALLOWED - vals
+        if extra:
+            fails.append(f"termination_rule declares values outside the contract allowlist: {sorted(extra)}")
+        if missing:
+            fails.append(f"termination_rule is missing contract values: {sorted(missing)}")
+
+    # (5) the grading rule is the fourth representation AZ claims to protect — so parse it. Every
+    #     fact term the RF-NET-003 trigger enumerates must ALSO appear in the cap rows AND the
+    #     Transitive-exposure grading bands — the doctrine's own claim is that trigger, cap and grade
+    #     cover exactly the same two fact sets, so a term missing from ANY one of the three is a drift,
+    #     not just a term missing from grading. [review fix] The previous form was a union test —
+    #     `(in_trigger or in_caps) and not in_grading` — which only ever required grading to be a
+    #     superset of trigger∪caps. Deleting `sanctions` from BOTH RF-NET-003 cap rows while leaving it
+    #     in the registry trigger and in grading passed silently: in_trigger=True, in_caps=False,
+    #     in_grading=True, and the union test only fires when grading is the odd one out. A trigger
+    #     term with no matching cap condition is exactly the "flag fires, cap doesn't cover it" defect
+    #     AZ exists to catch — so require presence in all three surfaces, not just trigger-or-caps→grading.
+    FACT_TERMS = ["proven fraud", "debarment", "sanctions", "fugitive",
+                  "liquidation", "live enforcement", "credible fraud allegation"]
+    trigger_row = " ".join(ln for ln in reg.splitlines() if "RF-NET-003" in ln)
+    cap_rows    = " ".join(ln for ln in caps.splitlines()
+                           if "RF-NET-003" in (_az_row_first_cell(ln) or ""))
+    for term in FACT_TERMS:
+        in_trigger = term in trigger_row.lower()
+        in_caps    = term in cap_rows.lower()
+        in_grading = term in grading.lower()
+        present = {"trigger": in_trigger, "cap": in_caps, "grading": in_grading}
+        missing_from = [k for k, v in present.items() if not v]
+        if missing_from and any(present.values()):
+            fails.append(f"fact '{term}' present in {[k for k,v in present.items() if v]} but "
+                         f"missing from {missing_from} — RF-NET-003 trigger/cap/grade must cover the same facts")
+
+    # (6) band-AWARE grading check. (5) only proves a fact term appears SOMEWHERE in the grading
+    #     section, so moving `liquidation` from the Material-equivalent row up into the
+    #     Disqualifying-equivalent row still passed (5) even though the grade floor no longer matches
+    #     the RF-NET-003 band it fires. Pin each term to its expected band, and to NOT be in the other.
+    disq_row = " ".join(ln for ln in grading.splitlines()
+                        if "Disqualifying-equivalent" in ln and "Material-equivalent" not in ln).lower()
+    mat_row  = " ".join(ln for ln in grading.splitlines()
+                        if "Material-equivalent" in ln and "Disqualifying-equivalent" not in ln).lower()
+    if not disq_row or not mat_row:
+        fails.append("Transitive-exposure grading: could not isolate the Disqualifying- and Material-equivalent band rows")
+    else:
+        BANDS = {"Disqualifying-equivalent": (disq_row, mat_row,
+                                              ["proven fraud", "debarment", "sanctions", "fugitive"]),
+                 "Material-equivalent":      (mat_row, disq_row,
+                                              ["liquidation", "live enforcement", "credible fraud allegation"])}
+        for band, (own, other, terms) in BANDS.items():
+            for term in terms:
+                if term not in own:
+                    fails.append(f"grade band: '{term}' is missing from the {band} row")
+                elif term in other:
+                    fails.append(f"grade band: '{term}' appears in the wrong band (found outside {band})")
+
+    # (7) mirrored-cap PAYLOAD check. (2) proves an RF-NET id has a ROW in both cap tables; it does not
+    #     prove the numbers agree. Changing 99's RF-NET-003 cap from `max 35` to `max 65` — the exact
+    #     silent-weakening this whole check exists to stop — kept an RF-NET-003 row in place and passed (2).
+    #     Compare the actual max/floor bounds per id between MODULE_RULES and 99, wording-independent.
+    def _az_score_of(pre):
+        # Which score a `max/floor N` attaches to, normalized across the two tables' vocabularies
+        # ("People & network integrity"/"PeopleNetworkIntegrity", "Governance risk"/"GovRisk", ...).
+        pre = pre.lower()
+        if "integrity" in pre: return "PNI"
+        if "candor" in pre: return "CANDOR"
+        if "govrisk" in pre or "governance risk" in pre: return "GOV"
+        if "confidence" in pre: return "CONF"
+        if "rptrisk" in pre or "leakage" in pre: return "RPT"
+        if "data quality" in pre or "dataquality" in pre: return "DQ"
+        if "audit" in pre: return "AUDIT"
+        return "?"
+    def _az_trigger_key(cell):
+        # A cap row's identity WITHIN its RF id is its TRIGGER text, not its position in the table.
+        # The old form keyed only on the literal strings "disqualifying-equivalent"/"material-equivalent",
+        # which separated RF-NET-003's two bands and gave all four RF-NET-004 rows the same empty key —
+        # so two 004 rows could swap triggers and leave the identical sorted collection of bounds.
+        # Reduced to content tokens because the two tables paraphrase each other ("sanctions match" vs
+        # "sanctions", "terminable at short notice" vs "short-terminable"), so exact text would false-fail.
+        txt = re.sub(r"RF-[A-Z]+-\d+", " ", cell).lower()
+        stop = {"the", "and", "for", "its", "not", "any", "all", "with", "that", "while", "from"}
+        return frozenset(t for t in re.findall(r"[a-z0-9]+", txt) if len(t) > 2 and t not in stop)
+    def _az_cap_rows(section, rf_id):
+        # One entry per cap ROW: (trigger key, its sorted score bounds). Moving a cap to the wrong
+        # score, changing a number, or swapping two rows' triggers all change the result.
+        rows = []
+        for ln in section.splitlines():
+            first = _az_row_first_cell(ln)
+            if first is None or rf_id not in first:
+                continue
+            bounds = []
+            for m in re.finditer(r"(max|floor)\s+(\d+)", ln, re.I):
+                # attach to the NEAREST score: the clause since the last ';' or '|', not a fixed
+                # window that could reach back past it to an earlier score in the same cell.
+                seg = ln[:m.start()]
+                clause = seg[max(seg.rfind(";"), seg.rfind("|")) + 1:]
+                bounds.append((_az_score_of(clause), m.group(1).lower(), int(m.group(2))))
+            rows.append((_az_trigger_key(first), sorted(bounds)))
+        return rows
+    for i in net_ids:
+        if i not in cap_keys or i not in mir_keys:
+            continue  # ID-presence gaps already reported by (1)/(2); don't double-report
+        mr_rows, n99_rows = _az_cap_rows(caps, i), _az_cap_rows(cap99, i)
+        if len(mr_rows) != len(n99_rows):
+            fails.append(f"{i}: {len(mr_rows)} cap row(s) in MODULE_RULES vs {len(n99_rows)} in 99 "
+                         f"(a trigger condition was added or dropped on one side only)")
+            continue
+        pool = list(n99_rows)
+        for key, bounds in mr_rows:
+            # Pair each MODULE_RULES row with the 99 row whose TRIGGER overlaps it most — the tables
+            # paraphrase, so identity is nearest-trigger, never exact text.
+            j = max(range(len(pool)), key=lambda k: len(key & pool[k][0]))
+            k99, b99 = pool.pop(j)
+            if not key & k99:
+                fails.append(f"{i}: cap row '{' '.join(sorted(key))[:70]}' has no counterpart trigger in 99")
+            elif bounds != b99:
+                fails.append(f"{i}: cap payload drifts for trigger '{' '.join(sorted(key & k99))[:70]}' — "
+                             f"MODULE_RULES {bounds} vs 99 {b99} (score / number disagree, or two rows' "
+                             f"triggers were swapped — enforcement silently weakened or misdirected)")
+
+    # (9) registry TRIGGER conditions vs the cap ROWS — (7) only proves the two cap TABLES
+    #     (MODULE_RULES vs 99) agree with EACH OTHER; it never checks either against the registry's
+    #     own trigger text. [review fix] Removing a named adverse condition from an RF-NET registry
+    #     row (e.g. "same marks in live use") while leaving its cap rows in both cap tables untouched
+    #     passed every earlier check — (1)/(2) only test ID PRESENCE, (7) only tests MODULE_RULES-caps
+    #     vs 99-caps against each other. Pin each id's enumerated conditions and require each to
+    #     appear in BOTH the registry trigger row and the cap rows — the same asymmetry (5) closes for
+    #     RF-NET-003's fact terms, extended here to RF-NET-004's own condition list.
+    COND_TERMS = {
+        "RF-NET-004": ["controller-linked", "no identifiable licence", "licence terms",
+                       "terminable at short notice", "same marks in live use"],
+    }
+    for rf_id, terms in COND_TERMS.items():
+        trow = " ".join(ln for ln in reg.splitlines()
+                        if rf_id in (_az_row_first_cell(ln) or "")).lower()
+        crow = " ".join(ln for ln in caps.splitlines()
+                        if rf_id in (_az_row_first_cell(ln) or "")).lower()
+        for term in terms:
+            in_t, in_c = term in trow, term in crow
+            if in_t != in_c:
+                fails.append(f"{rf_id}: condition '{term}' present in {'the registry trigger' if in_t else 'the cap rows'} "
+                             f"but missing from {'the cap rows' if in_t else 'the registry trigger'} — a named adverse "
+                             f"condition drifted between the registry row and its cap rows")
+    return fails
+
+# (8) Self-anchor is STRUCTURAL, not a substring search over a list that supplies its own matches.
+#     [review fix] FRAMEWORK_CONTRACTS["scripts/eval.py"] (above) lists these same identifiers as
+#     plain quoted strings so the general J-check (a substring search of this file's own text) can
+#     confirm they exist — but that list literal is itself part of this file's text. Deleting the
+#     real `def check_az_governance_flag_cap_correspondence(...):` body, its call, and the
+#     `if azfails: suite_pass = False` gate, while leaving the FRAMEWORK_CONTRACTS list entry
+#     untouched, still makes the substring search find every anchor string (in the list itself) and
+#     report PASS. No anchor TEXT fixes this, because whatever string is chosen would also have to
+#     appear in the list to be checked, which places it in the file regardless of whether the real
+#     code exists. Parse the actual AST instead: a bare string constant inside a list can never be
+#     mistaken for a real FunctionDef, Call, or If node, so this cannot be satisfied by anything
+#     other than the real definitions and wiring being present.
+def _az_self_anchor_fails():
+    try:
+        tree = ast.parse(open(__file__, encoding="utf-8").read())
+    except Exception as e:
+        return [f"AZ self-anchor: could not parse {__file__}: {str(e)[:80]}"]
+    fails = []
+    funcs = {n.name for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)}
+    for fn in ("check_az_governance_flag_cap_correspondence", "_az_slice", "_az_table_keys", "_az_row_first_cell"):
+        if fn not in funcs:
+            fails.append(f"AZ self-anchor: def {fn}(...) not found by AST parse (structural, not substring)")
+    # The call may sit anywhere inside the assigned expression (e.g. `azfails = f() + g()`), not only
+    # as the bare top-level value — so walk the RHS subtree for the call rather than requiring it to
+    # be n.value itself.
+    called = any(
+        isinstance(n, ast.Assign)
+        and any(isinstance(t, ast.Name) and t.id == "azfails" for t in n.targets)
+        and any(
+            isinstance(c, ast.Call) and isinstance(c.func, ast.Name)
+            and c.func.id == "check_az_governance_flag_cap_correspondence"
+            for c in ast.walk(n.value)
+        )
+        for n in ast.walk(tree)
+    )
+    if not called:
+        fails.append("AZ self-anchor: 'azfails = check_az_governance_flag_cap_correspondence()' not found by AST parse")
+    gated = any(
+        isinstance(n, ast.If) and isinstance(n.test, ast.Name) and n.test.id == "azfails"
+        and any(isinstance(s, ast.Assign)
+                and any(isinstance(t, ast.Name) and t.id == "suite_pass" for t in s.targets)
+                and isinstance(s.value, ast.Constant) and s.value.value is False
+                for s in n.body)
+        for n in ast.walk(tree)
+    )
+    if not gated:
+        fails.append("AZ self-anchor: 'if azfails: suite_pass = False' gate not found by AST parse")
+    return fails
+
+azfails = check_az_governance_flag_cap_correspondence() + _az_self_anchor_fails()
+if azfails: suite_pass = False
+
 # AP — valuation-summary lever-sidecar integrity (GLOBAL scan of every committed sidecar, including partial
 # no-decision-record runs the per-run loop skips). Soft-presence + strict-validity; a sidecar whose scenario
 # levels contradict its own frozen decision_record HARD-FAILs the suite, because the cockpit Playground
@@ -4709,6 +5027,7 @@ if apfailures: suite_pass=False
 
 out={"schema_version":"1.0","generated_at":today,"scope":scope,"n_runs":len(results),
      "suite_pass":suite_pass,"runs":results,"source_contracts_s24":jchecks,
+     "governance_flag_cap_correspondence":{"pass":not azfails,"failures":azfails},
      "valuation_summary_integrity":{"checked":apchecked,"failures":[{"run":r,"violations":v} for r,v in apfailures]}}
 os.makedirs("analyses/eval",exist_ok=True)
 of=f"analyses/eval/{today}_eval_report.json"; k=2
@@ -4720,6 +5039,8 @@ for nm,r in results.items():
     status = "WARN" if r.get("warn_only") else ("PASS" if r["pass"] else "FAIL")
     note = " — incomplete run (no RUN_METADATA); not gating CI" if r.get("warn_only") else ""
     print(f"  {nm}: {status} ({r['decision']})", ("fails="+",".join(fails)) if fails else "", ("extras="+",".join(r['warn_nonschema_files'])) if r['warn_nonschema_files'] else "", note)
+print("  governance flag/cap correspondence (AZ: RF-NET trigger ↔ cap ↔ 99 ↔ agent):",
+      "PASS" if not azfails else "FAIL " + "; ".join(azfails))
 jfails=[j["file"] for j in jchecks if j["status"]=="FAIL"]
 print("  framework source contracts (J: §24 + catalyst + tiers):", "PASS" if not jfails else "FAIL "+";".join(jfails))
 for j in jchecks:
