@@ -3,7 +3,7 @@
 // The grid trades completeness for glanceability, and this panel is the other half of that trade — the
 // why, every trigger with its arithmetic, the price and its provenance, and the actions. It shows ONE
 // name, which is the honest shape: a grid that tried to show fifty whys is the row list again.
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useStore } from '../../lib/store'
 import { api } from '../../lib/api'
 import { ABSENT_PRICE_COPY, decisionColor, money, shortDay } from '../../lib/format'
@@ -16,6 +16,64 @@ function chipClass(e: WatchTriggerEval): string {
   if (e.due) return 'wl__trg wl__trg--due'
   if (e.state === 'not_evaluable') return 'wl__trg wl__trg--unevaluable'
   return 'wl__trg wl__trg--armed'
+}
+
+interface Scen { label: string; price_target: number; probability: number | null; source: string | null }
+
+/**
+ * The scenario targets the engine's own run recorded, offered as a pre-filled trigger.
+ *
+ * Three rules this obeys, each learned from the committed records rather than assumed:
+ *  - It picks NOTHING. Labels are not a fixed vocabulary (`bear`, `bear_cyclical`, `bear_structural`,
+ *    `deal_breaks_standalone`, `tail_structural_avoid_ruin` all occur), and the lowest number is often a
+ *    ruin tail rather than an entry — one record's cheapest scenario is 4.00 against an 18.59 bear.
+ *  - It states each row's citation honestly. Many scenario rows carry no `source`, so a blanket
+ *    provenance line would imply something nobody wrote (§5).
+ *  - It does not infer DIRECTION. The trigger schema is explicit that guessing "below = good" fires a
+ *    short candidate's trigger backwards, so the card says which way it will draft and the composer
+ *    still shows the control before anything is armed.
+ */
+function ScenarioAdopt({ row, onUse }: { row: WatchRow; onUse: (s: Scen, currency: string) => void }) {
+  const [state, setState] = useState<{ loading: boolean; record: boolean; scenarios: Scen[]; currency: string | null }>(
+    { loading: true, record: false, scenarios: [], currency: null },
+  )
+  const runRoot = row.run_root
+  useEffect(() => {
+    let live = true
+    if (!runRoot) { setState({ loading: false, record: false, scenarios: [], currency: null }); return }
+    setState((p) => ({ ...p, loading: true }))
+    api.watchScenarios(runRoot)
+      .then((r) => { if (live) setState({ loading: false, record: !!r.record, scenarios: r.scenarios ?? [], currency: r.currency ?? null }) })
+      .catch(() => { if (live) setState({ loading: false, record: false, scenarios: [], currency: null }) })
+    return () => { live = false }
+  }, [runRoot])
+
+  if (state.loading || !state.record || !state.scenarios.length) return null
+  const currency = state.currency || row.currency || ''
+  return (
+    <section className="wdet__sec">
+      <h4 className="wdet__seclabel">The engine priced {state.scenarios.length} scenario{state.scenarios.length === 1 ? '' : 's'}</h4>
+      <div className="wdet__scens">
+        {state.scenarios.map((sc) => (
+          <div key={sc.label} className="wdet__scen">
+            <span className="wdet__scenlabel" title={sc.label}>{sc.label.replace(/_/g, ' ')}</span>
+            <span className="wdet__scenval">{sc.price_target.toFixed(2)}</span>
+            <span className="wdet__scenprob">{sc.probability != null ? `${sc.probability}%` : ''}</span>
+            <span className={`wdet__scencite${sc.source ? '' : ' wdet__scencite--none'}`} title={sc.source ?? 'This run did not record where this target came from.'}>
+              {sc.source ? 'cited' : 'no source'}
+            </span>
+            <button className="btn btn--mini" onClick={() => onUse(sc, currency)} title={`Draft a buy-at-or-below trigger at ${sc.price_target.toFixed(2)} — you confirm it before it arms`}>
+              Use
+            </button>
+          </div>
+        ))}
+      </div>
+      <p className="wdet__runnote">
+        Drafts a buy-at-or-below trigger you confirm before it arms — change the level or the direction there.
+        The engine's target answers what this is worth, which is not the same question as when you want to own it.
+      </p>
+    </section>
+  )
 }
 
 export function WatchDetail({ row }: { row: WatchRow | null }) {
@@ -111,7 +169,7 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
             <span className="wdet__factlabel">Nearest target</span>
             {target ? (
               <>
-                <span className="wdet__factval">{target.value.toFixed(2)}</span>
+                <span className={`wdet__factval${row.state === 'condition_met' ? ' wdet__factval--met' : ''}`}>{target.value.toFixed(2)}</span>
                 <span className="wdet__factnote">{target.how}</span>
               </>
             ) : (
@@ -192,6 +250,32 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
           {row.engine?.next_review_text && <span className="wdet__factnote">{row.engine.next_review_text}</span>}
         </div>
       </section>
+
+      {/* Offered only where a decision record exists — which today is a minority of runs, so most panels
+          are unchanged. Adopting is still a human act: the click is what records that YOU chose this
+          number on this date, so a later run changing its mind resurfaces the name rather than silently
+          rewriting a condition you are holding. */}
+      {!isArchived && !staticMode && (
+        <ScenarioAdopt
+          row={row}
+          onUse={(sc, currency) =>
+            openComposer(
+              {
+                ticker: row.ticker, company_name: row.company_name, currency: currency || row.currency, exchange: row.exchange,
+                why: row.why, conviction: row.conviction, review_date: row.review_date,
+                triggers: [
+                  ...(row.triggers ?? []),
+                  // level and currency come from the record; DIRECTION is a draft the composer shows for
+                  // confirmation, never an inference — the schema is explicit that guessing it backwards
+                  // is how a short candidate's trigger ends up firing the wrong way.
+                  { kind: 'price_level', direction: 'at_or_below', level: sc.price_target, currency: currency || row.currency || '', note: `engine ${sc.label.replace(/_/g, ' ')} target${sc.source ? ` — ${sc.source}` : ' — the run recorded no source for this target'}` },
+                ],
+              },
+              row.entry_id,
+            )
+          }
+        />
+      )}
 
       {/* The rerun affordance the grid lost: it lived in the table row's ⋯ menu and was never carried into
           this panel. Restored WITH the staleness facts beside it, because the old button only asked "does

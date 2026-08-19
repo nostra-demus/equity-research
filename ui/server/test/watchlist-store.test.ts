@@ -9,7 +9,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { WATCH_ID_RE, isWatchId, newEntryId, pickEntryForListing, readEntries, readSizingDecoration, writeEntry, makeListing, type WatchEntry } from '../src/watchlist'
+import { WATCH_ID_RE, isWatchId, newEntryId, pickEntryForListing, readEntries, readRunScenarios, readSizingDecoration, writeEntry, makeListing, type WatchEntry } from '../src/watchlist'
 import { cleanTicker } from '../src/news/symbology'
 
 let passed = 0
@@ -146,3 +146,52 @@ check('the newest sizing file is chosen by generated_at, not by filename', () =>
 })
 
 console.log(`\nwatchlist-store.test.ts: ${passed} passed`)
+
+// ── readRunScenarios: the structured targets behind the adopt prompt ────────────────────────────────
+{
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'wl-scen-'))
+  const write = (run: string, body: unknown) => {
+    fs.mkdirSync(path.join(dir, run), { recursive: true })
+    fs.writeFileSync(path.join(dir, run, 'decision_record.json'), JSON.stringify(body))
+  }
+
+  // the real shape, including the two things the UI must not paper over: labels are NOT a fixed
+  // vocabulary, and many scenario rows carry no `source` at all
+  write('HAIER_2026-08-13', { currency: 'CNY', decision_date: '2026-08-13', scenarios: [
+    { label: 'bull', price_target: 31.78, probability: 20, source: 'valuation/07 §3' },
+    { label: 'bear_cyclical', price_target: 16.79, probability: 25 },
+    { label: 'tail_structural_avoid_ruin', price_target: 4, probability: 5, source: 'valuation/07 §3' },
+    { label: 'no target here', probability: 10 },
+  ] })
+  const got = readRunScenarios('HAIER_2026-08-13', dir)
+  assert.equal(got?.currency, 'CNY')
+  assert.deepEqual(got?.scenarios.map((x) => x.label), ['bull', 'bear_cyclical', 'tail_structural_avoid_ruin'],
+    'a scenario with no usable target is dropped, not shown blank')
+  assert.equal(got?.scenarios[1].source, null, 'an absent source stays null — never defaulted into a citation')
+  assert.equal(got?.scenarios[0].source, 'valuation/07 §3')
+  // the ruin tail is present and NOT singled out: picking the lowest would offer 4.00 as an entry price
+  assert.equal(got?.scenarios[2].price_target, 4)
+
+  // a record with no scenarios is a fact about the RUN; a missing record is a fact about our coverage
+  write('BG_2026-06-01', { currency: 'USD', scenarios: [] })
+  assert.deepEqual(readRunScenarios('BG_2026-06-01', dir)?.scenarios, [], 'record present, nothing priced')
+  assert.equal(readRunScenarios('NOPE_2026-01-01', dir), null, 'no record at all')
+
+  // the row carries the ledger's repo-relative form, which must resolve to the same record
+  assert.equal(readRunScenarios('analyses/HAIER_2026-08-13', dir)?.scenarios.length, 3,
+    'the "analyses/" prefix the row actually carries is accepted')
+
+  // run_root arrives from a client parameter, so traversal must not resolve outside analyses/
+  fs.writeFileSync(path.join(dir, 'decision_record.json'), JSON.stringify({ scenarios: [{ label: 'x', price_target: 9 }] }))
+  for (const bad of ['../', '..', 'a/../..', '/etc', 'HAIER_2026-08-13/../HAIER_2026-08-13', '.hidden',
+                     'analyses/../..', 'analyses/a/b', 'other/HAIER_2026-08-13']) {
+    assert.equal(readRunScenarios(bad, dir), null, `refused: ${bad}`)
+  }
+
+  // a corrupt or non-JSON record degrades to "no record", never throws
+  write('BAD_2026-01-01', 'not json' as never)
+  fs.writeFileSync(path.join(dir, 'BAD_2026-01-01', 'decision_record.json'), '{ not json')
+  assert.equal(readRunScenarios('BAD_2026-01-01', dir), null)
+  console.log('  ok  readRunScenarios: structured targets, honest absences, and no path traversal')
+  fs.rmSync(dir, { recursive: true, force: true })
+}

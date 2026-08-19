@@ -385,6 +385,70 @@ interface SizingWatchRow { ticker?: unknown; decision?: unknown; size_in_trigger
  * than taking the decoration down. Sorted by the in-file generated_at, because size.md mandates a `_v2`
  * suffix when today's file already exists and filename order stops being reliable at `_v10`.
  */
+/**
+ * The scenario price targets a finished run recorded, for the "adopt a trigger" prompt.
+ *
+ * This reads a STRUCTURED field. It is deliberately not the same act as mining a number out of
+ * `size_in_trigger`, which is prose written for a human ("Track at $190-200 for re-entry (>12% margin of
+ * safety on base fair value $210)") — choosing between 190, 200 and 210 there, and dropping the condition
+ * attached to each, would manufacture a figure with no source and no date and hand it engine authority
+ * (§3/§5). A scenario row states its own number, and often its own `source`.
+ *
+ * `source` is passed through as written and NOT defaulted: across the committed records many scenario rows
+ * carry none, and printing a citation line for those would imply a provenance nobody recorded — the §5
+ * failure inverted. The UI says which rows are cited and which are not.
+ *
+ * No scenario is chosen here. Labels are not a fixed vocabulary across runs (`bear`, `bear_cyclical`,
+ * `bear_structural`, `deal_breaks_standalone`, `tail_structural_avoid_ruin` all occur), and the lowest is
+ * frequently a ruin tail rather than an entry — one record's cheapest scenario is $4.00 against a $18.59
+ * bear. Picking for the reader would be picking wrong.
+ */
+export interface RunScenario {
+  label: string
+  price_target: number
+  probability: number | null
+  source: string | null
+}
+
+export function readRunScenarios(
+  runRoot: string,
+  analysesDir: string = ANALYSES_DIR,
+): { scenarios: RunScenario[]; currency: string | null; decision_date: string | null } | null {
+  // runRoot reaches this from a client parameter, so it is treated as untrusted. The row carries it in the
+  // repo-relative form the ledger writes ("analyses/HAIER_2026-08-13"), so that one prefix is accepted and
+  // stripped — after which the remainder must still be a SINGLE segment. Nothing else is allowed through:
+  // no traversal, no absolute path, no nested path, no dotfile.
+  const rel = String(runRoot || '').replace(/^analyses[/\\]/, '')
+  const seg = path.basename(rel)
+  if (!seg || seg !== rel || seg.startsWith('.')) return null
+  const file = path.resolve(analysesDir, seg, 'decision_record.json')
+  const base = path.resolve(analysesDir)
+  if (file !== path.join(base, seg, 'decision_record.json')) return null
+  let raw: string
+  try { raw = fs.readFileSync(file, 'utf8') } catch { return null }
+  let j: any
+  try { j = JSON.parse(raw) } catch { return null }
+  const rows = Array.isArray(j?.scenarios) ? j.scenarios : []
+  const scenarios: RunScenario[] = []
+  for (const r of rows) {
+    const v = Number(r?.price_target)
+    // a scenario without a usable target is not an option to offer — skipped rather than shown as blank
+    if (!Number.isFinite(v) || v <= 0) continue
+    const p = Number(r?.probability)
+    scenarios.push({
+      label: typeof r?.label === 'string' && r.label ? r.label : 'unlabelled',
+      price_target: v,
+      probability: Number.isFinite(p) ? p : null,
+      source: typeof r?.source === 'string' && r.source.trim() ? r.source.trim() : null,
+    })
+  }
+  return {
+    scenarios,
+    currency: typeof j?.currency === 'string' && j.currency ? j.currency : null,
+    decision_date: typeof j?.decision_date === 'string' && j.decision_date ? j.decision_date : null,
+  }
+}
+
 export function readSizingDecoration(analysesDir: string = ANALYSES_DIR): {
   file: string | null
   generated_at: string | null
