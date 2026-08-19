@@ -33,7 +33,7 @@ You DO NOT:
 
 - If `02_dimension-matrix.md` / `01_peer-claim-extraction.md` are present, build ON them (do not re-extract from scratch). If they are ABSENT (MVP / standalone run), read the peer transcripts DIRECTLY from the pool and do the extraction + period-normalisation inline yourself — this agent is self-sufficient.
 - If `business-model/08_competitive-map.md` is missing, self-select the peer set from the pool's peer transcripts and the subject's filings, and flag it: *"Peer set self-selected — not independently established by competitive-map; net read-through WEIGHT capped Medium (MODULE_RULES cap)."* The cap acts on Weight (High/Med/Low), never on the §10 Direction-confidence band — the two axes stay separate (MODULE_RULES two-axes rule).
-- If NO peer transcript exists in the pool, you cannot run: state *"Verdict: Insufficient data — no competitor transcripts in the pool"* and stop.
+- If the pool holds a permitted broker paraphrase but NO verbatim transcript, produce a WEIGHT-capped read from it (verdict-stripped, labelled `via unverified sell-side paraphrase`, tone/candor not assessable) — triage classes a broker-paraphrase-only pool **Partial**, so do NOT stop. Stop only when there is NO usable call at all — neither a verbatim transcript NOR a permitted broker proxy: state *"Verdict: Insufficient data — no usable competitor call in the pool"* and stop.
 
 # WORKFLOW
 

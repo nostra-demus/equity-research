@@ -152,7 +152,10 @@ RERUN_HINT = {
 # only that orb + the syntheses, leaving the sibling triage/extraction/matrix/triangulation stale — AND (b) the
 # master thesis / decision_record / memo / audit dossier must re-synthesise, which the standalone module command
 # does NOT do (it commits only the module folder). Only the whole-pipeline `/research:full` does both, so that
-# is the honest hint for a newly added peer transcript.
+# is the honest hint for a newly added peer transcript. Caveat (recommend-only): if a full run ALREADY
+# completed for the subject earlier the SAME day, `/research:full` resolves that dated (and possibly sealed)
+# run root and will not mutate a sealed run — the operator then re-runs on a new date (or uses the correction
+# ledger). The hint is a human-triaged recommendation, not an auto-launch, so this residual is acceptable.
 FULL_RERUN = {"peer_transcript"}
 
 # A pool folder can be a COMMODITY (GOLD, SUGAR) rather than an equity ticker — the commodity

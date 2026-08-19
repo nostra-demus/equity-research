@@ -78,6 +78,7 @@ Write this LAST.
 - **Net read-through direction** (pick one): Favors a beat / Favors a miss / Mixed / Not assessable *(from `03`)*
 - **Read-through weight** (High / Med / Low, from `03`) — how much this should move the subject view (two-axes rule; caps act here)
 - **Read-through direction confidence** (§10 band + basis, from `03`) — the numeric probability the direction is right (e.g. Likely 60–75%, judgment). Carry it SEPARATELY from Weight (two-axes rule): the master needs both to tell a toss-up read from a 60–75% one. Where the read spans several signals, carry the band of the load-bearing one and note the range.
+- **When the net direction is _Not assessable_ (no eligible peer), Read-through weight AND Direction confidence are BOTH _Not assessable_ too** — do not invent an H/M/L weight or a §10 band; the three move together (`03` produced no read to carry).
 - **Narrative triangulation verdict** *(from `04`)*: Corroborated / Partly contradicted / Materially contradicted / Not testable
 - **Peer-coverage of subject /100** *(higher = the reporting peers span more of the subject's revenue/segments/geographies)*: *(built per §1B — do NOT invent it)*
 - **Benchmark data-sufficiency /100**: *(built per §1B — number and quality of peer calls)*
@@ -89,7 +90,7 @@ Write this LAST.
 
 Both `/100` scores above MUST be rebuilt from the evidence rows below, not assigned by feel — two runs on the same pool must produce the same number. Print each component with its value.
 
-**Peer-coverage of subject /100** = `round(covered_exposure_pct)`, where `covered_exposure_pct` is the share of the subject's revenue (using `business-model/03_segment-map` weights) spoken to by at least one **read-through-eligible** (already-reported, Timing Rule) and **scope-overlapping** (G3) peer on a matched window (G1). List the covered segments/geographies and their weights so the sum is auditable. A private / non-reporting / scope-mismatched competitor adds NOTHING to coverage.
+**Peer-coverage of subject /100** = `round(covered_exposure_pct)`, where `covered_exposure_pct` is the share of the subject's revenue (using `business-model/03_segment-map` weights) spoken to by at least one **read-through-eligible** (already-reported, Timing Rule) and **scope-overlapping** (G3) peer on a matched window (G1). List the covered segments/geographies and their weights so the sum is auditable. A private / non-reporting / scope-mismatched competitor adds NOTHING to coverage. **If no `business-model/03_segment-map` is available (a degraded standalone run without the segment weights), `covered_exposure_pct` is _Not assessable_:** report Peer-coverage /100 as *Not assessable* with a "segment weights unavailable" note — never treat unknown exposure as 0, and never invent a percentage — and in the data-sufficiency build below set the Exposure-coverage component to 0 with the same note (so the sum still builds, honestly).
 
 **Benchmark data-sufficiency /100** = the sum of four printed components (floor at 0 if no peer transcripts exist at all — then the module reports the coverage gap, not a benchmark):
 
