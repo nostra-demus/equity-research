@@ -131,6 +131,11 @@ JUNK_SUFFIXES = (".tmp", ".crdownload", ".partial")
 # source_type -> CLAUDE.md §4 tier (the frameworks/EXTERNAL_DATA.md mapping)
 TIER = {
     "alt_data_panel": 5, "vendor_export": 5, "paid_api": 5, "official_data": 5,
+    # A peer's own results release / earnings filing: its REPORTED numbers, so §4 tier 2 (exchange filing)
+    # about the PEER. It must outrank peer_transcript, because competitive-intel MODULE_RULES ranks the
+    # release first in its own source hierarchy — "in ANY conflict with the call, the filed/released figure
+    # wins" — and a document the module treats as its numbers anchor cannot be ingested at tier 9.
+    "peer_results": 2,
     "peer_transcript": 6,  # a competitor's own earnings-call transcript — tier 6 about the PEER (§4)
     "broker_research": 7,
     "expert_call": 9, "channel_check": 9, "management_meeting": 9, "external_other": 9,
@@ -144,6 +149,7 @@ RERUN_HINT = {
     "expert_call": ("business-model", "business-quality"),
     "channel_check": ("earnings", "revenue-drivers"),
     "management_meeting": ("management-governance", "management-and-track-record"),
+    "peer_results": ("competitive-intel", "peer-claim-extraction"),
     "peer_transcript": ("competitive-intel", "peer-readthrough-to-subject"),
     "external_other": ("earnings", "guidance-consensus"),
 }
@@ -156,7 +162,11 @@ RERUN_HINT = {
 # completed for the subject earlier the SAME day, `/research:full` resolves that dated (and possibly sealed)
 # run root and will not mutate a sealed run — the operator then re-runs on a new date (or uses the correction
 # ledger). The hint is a human-triaged recommendation, not an auto-launch, so this residual is acceptable.
-FULL_RERUN = {"peer_transcript"}
+# `peer_results` joins for the same reason and one of its own: the module's source hierarchy makes the
+# release SUPERSEDE any transcript figure it conflicts with, so a release landing after a call does not
+# merely add evidence — it retro-invalidates numbers already extracted into the matrix and the
+# read-through, and the decision built on them.
+FULL_RERUN = {"peer_transcript", "peer_results"}
 
 # A pool folder can be a COMMODITY (GOLD, SUGAR) rather than an equity ticker — the commodity
 # swarm shares data/<SUBJECT>/ and its subjects are the `## <NAME>` headings of the profiles file
@@ -552,6 +562,18 @@ def infer_source_type(name, sniff):
     if re.search(r"\b(?:earnings|conference|results)?\s*call transcript\b", hay) or \
        (re.search(r"prepared remarks", hay) and re.search(r"question[\s\-]?and[\s\-]?answer|\bq\s*&\s*a\b", hay)):
         return "peer_transcript"
+    # A peer's own results release / earnings filing — the module's NUMBERS anchor, which outranks the
+    # call. Deliberately AFTER the transcript check so a document carrying an actual call body stays
+    # peer_transcript; this catches the release itself, including the common shape the transcript rule
+    # explicitly excludes (a release that merely SCHEDULES a call). Requires results-announcement
+    # language, not a bare mention of "results", so an analyst note or a slide deck referring to someone
+    # else's results does not claim filing tier.
+    if re.search(r"\b(?:reports?|reported|announce[sd]?|posts?)\b[^.\n]{0,60}"
+                 r"\b(?:first|second|third|fourth|q[1-4]|full[\s\-]?year|fiscal|quarterly|annual)\b"
+                 r"[^.\n]{0,40}\bresults\b", hay) or \
+       re.search(r"\bresults for the (?:quarter|period|year|three|six|nine|twelve) [^.\n]{0,40}ended\b", hay) or \
+       re.search(r"\b(?:earnings|results)[\s\-]?(?:press[\s\-]?)?release\b", hay):
+        return "peer_results"
     # measured panel / dataset language, or a known alt-data vendor name
     if re.search(r"\bpanel\b|margin of error|backtest|our estimates? (vs|versus|against)|"
                  r"yipit|m science|second measure|similarweb|sensor tower|consumer edge|earnest analytics", hay):

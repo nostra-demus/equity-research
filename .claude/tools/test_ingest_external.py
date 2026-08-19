@@ -290,6 +290,42 @@ def main():
                               "earnings conference call on August 5, 2026 at 8:00 a.m. ET; to access the "
                               "call, dial 1-800-000-0000.") != "peer_transcript",
           m.infer_source_type("WHR_Q2-2026_Results.pdf", "will host an earnings conference call"))
+    # ---- 8c-peer: a peer RESULTS RELEASE is the module's numbers anchor, not external_other ----
+    # competitive-intel MODULE_RULES ranks the release FIRST in its own source hierarchy — "in ANY conflict
+    # with the call, the filed/released figure wins" — so a release landing after a transcript retro-
+    # invalidates figures already extracted. Falling through to external_other put a tier-9 label and an
+    # earnings/guidance-consensus hint on the one document the module treats as authoritative.
+    check("infer_source_type: a peer results release -> peer_results",
+          m.infer_source_type("WHR_Q2-2026_Results.pdf",
+                              "Whirlpool Corporation announces Q2 2026 results. The company will host an "
+                              "earnings conference call on August 5, 2026 at 8:00 a.m. ET.") == "peer_results",
+          m.infer_source_type("WHR_Q2-2026_Results.pdf", "announces Q2 2026 results"))
+    check("infer_source_type: 'results for the year ended' -> peer_results",
+          m.infer_source_type("MIDEA_FY25.pdf",
+                              "Midea Group reports results for the year ended December 31, 2025.") == "peer_results",
+          "results for the year ended")
+    # precedence in BOTH directions: a real call body stays a transcript, a verdict block stays broker
+    check("infer_source_type: a transcript is never demoted to peer_results",
+          m.infer_source_type("WHR_call.txt",
+                              "Whirlpool announces Q2 2026 results. Earnings Call Transcript. Prepared "
+                              "remarks. Question-and-Answer session.") == "peer_transcript",
+          "transcript precedence over release")
+    check("infer_source_type: a broker note about a peer's results stays broker_research",
+          m.infer_source_type("WHR_note.pdf",
+                              "Equity Research. Rating: Overweight. Target Price $130. Whirlpool reports "
+                              "Q2 2026 results below our estimate.") == "broker_research",
+          "broker precedence over release")
+    # the tier is the whole point: the release outranks the call it supersedes
+    check("TIER: peer_results is §4 tier 2 and outranks peer_transcript",
+          m.TIER["peer_results"] == 2 and m.TIER["peer_results"] < m.TIER["peer_transcript"],
+          f'peer_results={m.TIER.get("peer_results")} peer_transcript={m.TIER.get("peer_transcript")}')
+    check("rerun hint: a new peer_results hints a FULL rerun, like a new peer call",
+          m._rerun_hint("peer_results", "MIDEA") == "/research:full MIDEA",
+          m._rerun_hint("peer_results", "MIDEA"))
+    check("rerun hint: peer_results no longer falls through to earnings/guidance-consensus",
+          m.RERUN_HINT["peer_results"][0] == "competitive-intel",
+          str(m.RERUN_HINT.get("peer_results")))
+
     check("infer_source_type: sell-side earnings-call NOTE stays broker_research (precedence)",
           m.infer_source_type("WHR_EarningsCallInsight.pdf",
                               "Equity Research. Rating: Overweight. Target Price $130. "
