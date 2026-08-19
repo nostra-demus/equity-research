@@ -189,4 +189,23 @@ check("the panel and the trigger line can never quote two prices for one thresho
   assert.equal(nearestTarget(legacy)?.value, 327.83, 'the fallback matches the server to the last digit')
 })
 
+check('a malformed frozen reference is an absence, and a NaN gap cannot decide "nearest"', () => {
+  for (const bad of [null, undefined, { value: NaN, currency: 'USD', as_of: null, source: 'x' }]) {
+    assert.equal(triggerTarget({ kind: 'pct_drop', trigger_id: 'D', drop_pct: 10, reference: bad } as never), null)
+  }
+  // a NaN gap used to pass the `!= null` filter and then make the comparator inconsistent, so the row it
+  // called "nearest" was whichever the sort happened to leave first
+  const r = row({
+    triggers: [
+      { kind: 'price_level', trigger_id: 'BAD', direction: 'at_or_below', level: 10, currency: 'USD' },
+      { kind: 'price_level', trigger_id: 'REAL', direction: 'at_or_below', level: 195, currency: 'USD' },
+    ] as never,
+    evals: [
+      { trigger_id: 'BAD', kind: 'price_level', mode: 'auto', state: 'not_met', detail: '', gap_pct: NaN, reason: null },
+      { trigger_id: 'REAL', kind: 'price_level', mode: 'auto', state: 'not_met', detail: '', gap_pct: -2.1, reason: null },
+    ] as never,
+  })
+  assert.equal(nearestTarget(r)?.value, 195, 'the only measurable trigger is the nearest one')
+})
+
 console.log(`\nwatchlistView.test.ts: ${passed} passed`)

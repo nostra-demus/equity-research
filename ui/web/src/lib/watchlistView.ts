@@ -79,6 +79,9 @@ export function triggerTarget(t: WatchTrigger): { value: number; currency: strin
     return { value: t.level, currency: t.currency, how: t.direction === 'at_or_below' ? 'at or below' : 'at or above' }
   }
   if (t.kind === 'pct_drop') {
+    // the reference crosses the wire (and is rebuilt by the snapshot builder), so a missing or
+    // non-numeric one is reachable without a bug here — and it must be an absence, not a NaN target
+    if (!t.reference || !Number.isFinite(t.reference.value)) return null
     // Rounded to 2dp exactly as the server rounds it. Unrounded, 364.25 × 0.9 = 327.825 rendered as
     // "327.82" here while the server's own r2 gave "327.83" — the same quantity, two values, three
     // centimetres apart on one panel (§15). This path is only a fallback for an engine that predates
@@ -90,8 +93,11 @@ export function triggerTarget(t: WatchTrigger): { value: number; currency: strin
 
 /** The nearest trigger's target — the one the "still to move" figure is measured against. */
 export function nearestTarget(row: WatchRow): { value: number; currency: string; how: string } | null {
+  // `!= null` lets a NaN through, and a NaN difference makes the comparator inconsistent — which V8 does
+  // not error on, it just returns an arbitrary order. Require a finite number instead of merely a present
+  // one, so the "nearest" trigger is actually the nearest rather than whichever the sort happened to leave.
   const scored = (row.evals ?? [])
-    .filter((e) => e.gap_pct != null)
+    .filter((e) => Number.isFinite(e.gap_pct as number))
     .sort((a, b) => Math.abs(a.gap_pct as number) - Math.abs(b.gap_pct as number))
   const first = scored[0]
   if (!first) return null
