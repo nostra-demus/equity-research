@@ -3441,6 +3441,84 @@ a { color: inherit; }
 .wl__opt--armed { background: var(--bad-wash); color: var(--bad); font-weight: 600; }
 @media (prefers-reduced-motion: reduce) { .wl__menu { animation: none; } }
 
+/* ── the tile grid (the watchlist's default reading) ─────────────────────────
+   Fifty names as rows is four screens of prose; as tiles it is one screen of positions. The grid buys that
+   by showing one figure per name and moving everything else into the detail panel, so nothing here should
+   grow back toward a row: no why-text, no verdict wording, no second number. */
+.wgrid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 14px; align-items: start; }
+.wgrid__tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 7px; align-content: start; }
+
+.wgrid__legend { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin: 8px 0 10px; font-size: 10.5px; color: var(--text-faint); }
+.wgrid__key { font-weight: 500; }
+.wgrid__key--met { color: var(--accent-bright); font-weight: 600; }
+.wgrid__key--due { color: var(--bad); font-weight: 600; }
+.wgrid__key--near { color: var(--conv-warn); font-weight: 600; }
+.wgrid__key--noeval { font-style: italic; }
+.wgrid__note { margin-left: auto; }
+.wgrid__note b { color: var(--text-muted); font-weight: 600; }
+
+.wtile {
+  display: flex; flex-direction: column; gap: 3px; align-items: stretch; text-align: left;
+  background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-md);
+  padding: 8px 9px 7px; min-height: 74px; font: inherit; color: inherit; cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+.wtile:hover { border-color: var(--hairline-strong); background: var(--surface-3); }
+.wtile:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 1px; }
+.wtile__top { display: flex; align-items: center; gap: 2px; font-size: 11.5px; }
+.wtile__sym { font-family: var(--font-mono); font-size: 12px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wtile__mine { color: var(--accent-bright); }
+.wtile__hot { color: var(--bad); font-size: 7px; margin-inline-start: auto; }
+.wtile__big { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 600; letter-spacing: 0.2px; white-space: nowrap; }
+.wtile__big--met { color: var(--accent-bright); }
+.wtile__big--near { color: var(--conv-warn); }
+/* absence must LOOK different from a number, never like a quiet zero */
+.wtile__big--none { color: var(--text-faint); font-weight: 400; }
+.wtile__cap { font-family: var(--font-mono); font-size: 9px; color: var(--text-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wtile__foot { display: flex; align-items: center; gap: 5px; font-size: 9.5px; color: var(--text-faint); margin-top: auto; }
+.wtile__vdot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.wtile__rev { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Band styling carries the same meaning as the table's row accents, so the two views never disagree. */
+.wtile--met { background: var(--accent-wash); border-color: var(--accent); }
+.wtile--met:hover { background: var(--accent-wash); border-color: var(--accent-bright); }
+.wtile--due { border-color: var(--hairline-strong); box-shadow: inset 2px 0 0 var(--bad); }
+.wtile--near { border-color: var(--conv-warn); }
+.wtile--noeval { border-style: dashed; }
+.wtile--noeval .wtile__sym { color: var(--text-muted); }
+.wtile--archived { opacity: 0.62; }
+.wtile--sel { outline: 2px solid var(--accent-bright); outline-offset: 1px; }
+
+/* ── the detail panel: what one tile deliberately left out ── */
+.wdet {
+  position: sticky; top: 8px; display: flex; flex-direction: column; gap: 9px;
+  background: var(--surface-1); border: 1px solid var(--hairline-strong); border-radius: var(--r-lg); padding: 14px;
+}
+.wdet--empty { justify-content: center; min-height: 160px; }
+.wdet__hint { font-size: 11.5px; color: var(--text-faint); line-height: 1.5; }
+.wdet__head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.wdet__sym { font-family: var(--font-mono); font-size: 14px; font-weight: 600; }
+.wdet__co { font-size: 10.5px; color: var(--text-faint); }
+.wdet__pricerow { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.wdet__meta { font-size: 10px; color: var(--text-faint); }
+.wdet__dist { margin-left: auto; font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12.5px; color: var(--text-muted); }
+.wdet__dist--met { color: var(--accent-bright); font-weight: 600; }
+.wdet__why { font-size: 12px; line-height: 1.5; color: var(--text); }
+.wdet__trigs { display: flex; flex-direction: column; gap: 6px; }
+.wdet__trig { display: flex; align-items: flex-start; gap: 6px; }
+.wdet__trigtext { font-size: 11px; line-height: 1.45; color: var(--text-muted); }
+.wdet__absent { font-size: 10.5px; line-height: 1.45; color: var(--text-muted); font-style: italic; }
+.wdet__facts { display: flex; gap: 5px; flex-wrap: wrap; font-size: 10.5px; color: var(--text-faint); }
+.wdet__actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* One column under the dock width: the panel stops being a sidebar and becomes a header above the tiles,
+   which keeps the selected name visible instead of pushing it off the bottom of a narrow screen. */
+@media (max-width: 1080px) {
+  .wgrid { grid-template-columns: minmax(0, 1fr); }
+  .wdet { position: static; order: -1; }
+  .wgrid__note { margin-left: 0; }
+}
+
 /* ---- watchlist composer — the .activity panel shell, plus a form ---- */
 .wlc { width: min(580px, 56%); z-index: 56; }
 .wlc__body { flex: 1; overflow: auto; padding: 16px 18px 24px; display: flex; flex-direction: column; gap: 15px; }

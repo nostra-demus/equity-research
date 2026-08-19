@@ -2322,6 +2322,9 @@ export interface WatchTriggerEval {
   detail: string
   /** Signed move still needed, as a percent of the current price. Comparable across rows; the price is not. */
   gap_pct: number | null
+  /** Days until a DATED trigger comes due (0 = today, negative = passed). Null for price-family triggers,
+   *  as gap_pct is null for dated ones — the two units are never merged. */
+  days_to?: number | null
   reason: QuoteAbsentReason | 'no_reference' | 'currency_mismatch_trigger' | 'no_anchor' | null
   due?: boolean
 }
@@ -2366,6 +2369,8 @@ export interface WatchRow {
   state: WatchRowState
   /** The smallest move any auto trigger still needs. Null when nothing is checkable. */
   nearest_gap_pct: number | null
+  /** The closest trigger's distance carrying its own unit. Optional: an older engine omits it. */
+  nearest?: { unit: 'pct' | 'days'; value: number } | null
   run_root: string | null
   final_thesis_path: string | null
   /** When you added it (null if you have never touched this engine row), and when it last changed. */
