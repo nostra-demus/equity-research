@@ -250,6 +250,10 @@ assert.deepEqual(qualifiedIdeasRuntimeWarning(partlyMalformedQualifiedBoard), {
   title: 'Those rows could not be shown safely. Refresh the research board before relying on this list.',
 })
 assert.equal(normalizeQualifiedIdeaRow({ candidate: null }), null)
+// Pin evaluatedAtMs to the fixture's own clock (nowMs) rather than the real Date.now() default: the row's
+// quote.as_of is fixed at 2026-08-12T08:00:00Z and the frozen policy's quoteMaxAgeDays is 7, so leaving this
+// on the wall clock silently fails once real time crosses 2026-08-19T08:00 UTC — a ticking-clock flake, not
+// a behaviour change. Every other freshness-sensitive call below already pins nowMs; this one had not.
 assert.ok(normalizeQualifiedIdeaRow(qualified('row-only-defaults', 'long'), undefined, nowMs), 'row-only validation uses the server tolerance defaults')
 assert.equal(normalizeQualifiedIdeasBoard({ schema_version: 'qualified-ideas-board/v99' }).board, null)
 assert.equal(normalizeQualifiedIdeasBoard({ ...qualifiedBoard, schema_version: 'qualified-ideas-board/v2' }).board, null, 'a future board schema cannot silently widen the trusted contract')
@@ -258,42 +262,48 @@ assert.equal(normalizeQualifiedIdeasBoard({
   policy: { ...qualifiedBoard.policy, probabilityTolerancePct: 100, returnReconciliationTolerancePct: 100 },
 }).board, null, 'a payload cannot widen the frozen server tolerances')
 
+// Every row below pins evaluatedAtMs to nowMs (rather than the real Date.now() default) for the same
+// reason as the row-only-defaults case above: each row's quote.as_of sits at 2026-08-12T08:00:00Z, inside
+// the frozen policy's 7-day quoteMaxAgeDays window only relative to the fixture's own clock. Without the
+// pin, every one of these mutation-specific assertions degenerates to testing freshness expiry instead of
+// the actual defect it names — the `assert.equal(..., null)` cases would still "pass", but for the wrong
+// reason, and would stop covering what their label says the moment real time moved on.
 const rejectedQualifiedRow = structuredClone(qualified('rejected-row', 'long')) as unknown as Record<string, unknown>
 rejectedQualifiedRow.status = 'does_not_clear'
 rejectedQualifiedRow.issues = [{ code: 'expected_return_below_bar', message: 'Below bar.', disposition: 'reject' }]
-assert.equal(normalizeQualifiedIdeaRow(rejectedQualifiedRow, qualifiedBoard.policy), null, 'a rejected evaluation cannot render from the qualified array')
+assert.equal(normalizeQualifiedIdeaRow(rejectedQualifiedRow, qualifiedBoard.policy, nowMs), null, 'a rejected evaluation cannot render from the qualified array')
 
 const badProbabilityRow = structuredClone(qualified('bad-probability', 'long')) as unknown as QualifiedIdeaEvaluation
 badProbabilityRow.candidate.scenarios[0].probability_pct = 15
-assert.equal(normalizeQualifiedIdeaRow(badProbabilityRow, qualifiedBoard.policy), null, 'scenario probabilities must reconcile to 100%')
+assert.equal(normalizeQualifiedIdeaRow(badProbabilityRow, qualifiedBoard.policy, nowMs), null, 'scenario probabilities must reconcile to 100%')
 
 const duplicateScenarioRow = structuredClone(qualified('duplicate-scenario', 'long')) as unknown as QualifiedIdeaEvaluation
 duplicateScenarioRow.candidate.scenarios[1].scenario_id = duplicateScenarioRow.candidate.scenarios[0].scenario_id
-assert.equal(normalizeQualifiedIdeaRow(duplicateScenarioRow, qualifiedBoard.policy), null, 'scenario IDs must be unique')
+assert.equal(normalizeQualifiedIdeaRow(duplicateScenarioRow, qualifiedBoard.policy, nowMs), null, 'scenario IDs must be unique')
 const duplicateLabelRow = structuredClone(qualified('duplicate-label', 'long')) as unknown as QualifiedIdeaEvaluation
 duplicateLabelRow.candidate.scenarios[1].label = duplicateLabelRow.candidate.scenarios[0].label
-assert.equal(normalizeQualifiedIdeaRow(duplicateLabelRow, qualifiedBoard.policy), null, 'scenario labels must be unique')
+assert.equal(normalizeQualifiedIdeaRow(duplicateLabelRow, qualifiedBoard.policy, nowMs), null, 'scenario labels must be unique')
 
 const badExpectedReturnRow = structuredClone(qualified('bad-expected-return', 'long')) as unknown as QualifiedIdeaEvaluation
 badExpectedReturnRow.metrics!.expected_return_pct = 30
-assert.equal(normalizeQualifiedIdeaRow(badExpectedReturnRow, qualifiedBoard.policy), null, 'aggregate expected return must reconcile to the scenario distribution')
+assert.equal(normalizeQualifiedIdeaRow(badExpectedReturnRow, qualifiedBoard.policy, nowMs), null, 'aggregate expected return must reconcile to the scenario distribution')
 
 const badLossProbabilityRow = structuredClone(qualified('bad-loss-probability', 'long')) as unknown as QualifiedIdeaEvaluation
 badLossProbabilityRow.metrics!.loss_probability_pct = 0
-assert.equal(normalizeQualifiedIdeaRow(badLossProbabilityRow, qualifiedBoard.policy), null, 'loss probability must reconcile to the scenario distribution')
+assert.equal(normalizeQualifiedIdeaRow(badLossProbabilityRow, qualifiedBoard.policy, nowMs), null, 'loss probability must reconcile to the scenario distribution')
 const badWorstCaseRow = structuredClone(qualified('bad-worst-case', 'long')) as unknown as QualifiedIdeaEvaluation
 badWorstCaseRow.metrics!.worst_case_loss_pct = 0
-assert.equal(normalizeQualifiedIdeaRow(badWorstCaseRow, qualifiedBoard.policy), null, 'worst-case loss must reconcile to the scenario distribution')
+assert.equal(normalizeQualifiedIdeaRow(badWorstCaseRow, qualifiedBoard.policy, nowMs), null, 'worst-case loss must reconcile to the scenario distribution')
 const badTailLossRow = structuredClone(qualified('bad-tail-loss', 'long')) as unknown as QualifiedIdeaEvaluation
 badTailLossRow.metrics!.tail_loss_pct = 0
-assert.equal(normalizeQualifiedIdeaRow(badTailLossRow, qualifiedBoard.policy), null, 'tail loss must use the server expected-shortfall calculation')
+assert.equal(normalizeQualifiedIdeaRow(badTailLossRow, qualifiedBoard.policy, nowMs), null, 'tail loss must use the server expected-shortfall calculation')
 const badBestCaseRow = structuredClone(qualified('bad-best-case', 'long')) as unknown as QualifiedIdeaEvaluation
 badBestCaseRow.metrics!.best_case_return_pct = 99
-assert.equal(normalizeQualifiedIdeaRow(badBestCaseRow, qualifiedBoard.policy), null, 'best-case return must reconcile even when it is not printed')
+assert.equal(normalizeQualifiedIdeaRow(badBestCaseRow, qualifiedBoard.policy, nowMs), null, 'best-case return must reconcile even when it is not printed')
 
 const badTargetReturnRow = structuredClone(qualified('bad-target-return', 'long')) as unknown as QualifiedIdeaEvaluation
 badTargetReturnRow.metrics!.scenario_returns[0].return_pct = -5
-assert.equal(normalizeQualifiedIdeaRow(badTargetReturnRow, qualifiedBoard.policy), null, 'scenario return must reconcile to the frozen quote and target')
+assert.equal(normalizeQualifiedIdeaRow(badTargetReturnRow, qualifiedBoard.policy, nowMs), null, 'scenario return must reconcile to the frozen quote and target')
 
 const reorderedMetricRows = structuredClone(qualified('stable-label-match', 'long')) as unknown as QualifiedIdeaEvaluation
 reorderedMetricRows.metrics!.scenario_returns.reverse()
@@ -301,39 +311,39 @@ assert.ok(normalizeQualifiedIdeaRow(reorderedMetricRows, qualifiedBoard.policy, 
 
 const legacyNoRankingRow = structuredClone(qualified('legacy-no-ranking', 'long')) as unknown as QualifiedIdeaEvaluation
 legacyNoRankingRow.ranking = null
-assert.equal(normalizeQualifiedIdeaRow(legacyNoRankingRow, qualifiedBoard.policy), null, 'an older row without ranking cannot headline an unadjusted return')
+assert.equal(normalizeQualifiedIdeaRow(legacyNoRankingRow, qualifiedBoard.policy, nowMs), null, 'an older row without ranking cannot headline an unadjusted return')
 const missingRankingContractRow = structuredClone(qualified('missing-ranking-contract', 'long')) as unknown as QualifiedIdeaEvaluation
 delete (missingRankingContractRow.ranking as unknown as Record<string, unknown>).policy_version
-assert.equal(normalizeQualifiedIdeaRow(missingRankingContractRow, qualifiedBoard.policy), null, 'a partial ranking object fails closed')
+assert.equal(normalizeQualifiedIdeaRow(missingRankingContractRow, qualifiedBoard.policy, nowMs), null, 'a partial ranking object fails closed')
 const impossibleRankingScoreRow = structuredClone(qualified('ranking-score-999', 'long')) as unknown as QualifiedIdeaEvaluation
 impossibleRankingScoreRow.ranking!.evidence_confidence_score = 999
-assert.equal(normalizeQualifiedIdeaRow(impossibleRankingScoreRow, qualifiedBoard.policy), null, 'an impossible 999 evidence-confidence score fails closed')
+assert.equal(normalizeQualifiedIdeaRow(impossibleRankingScoreRow, qualifiedBoard.policy, nowMs), null, 'an impossible 999 evidence-confidence score fails closed')
 const mismatchedRankingMathRow = structuredClone(qualified('ranking-math-mismatch', 'long')) as unknown as QualifiedIdeaEvaluation
 mismatchedRankingMathRow.ranking!.conservative_expected_return_pct = 11.9
 assert.equal(
-  normalizeQualifiedIdeaRow(mismatchedRankingMathRow, qualifiedBoard.policy),
+  normalizeQualifiedIdeaRow(mismatchedRankingMathRow, qualifiedBoard.policy, nowMs),
   null,
   'the client rejects the old net-return haircut because it softens losses instead of retaining only positive scenario returns',
 )
 const mismatchedRankingHaircutRow = structuredClone(qualified('ranking-haircut-mismatch', 'long')) as unknown as QualifiedIdeaEvaluation
 mismatchedRankingHaircutRow.ranking!.return_haircut_pct = 5
-assert.equal(normalizeQualifiedIdeaRow(mismatchedRankingHaircutRow, qualifiedBoard.policy), null, 'the printed haircut must reconcile to retention')
+assert.equal(normalizeQualifiedIdeaRow(mismatchedRankingHaircutRow, qualifiedBoard.policy, nowMs), null, 'the printed haircut must reconcile to retention')
 const unknownRankingPolicyRow = structuredClone(qualified('ranking-policy-mismatch', 'long')) as unknown as QualifiedIdeaEvaluation
 unknownRankingPolicyRow.ranking!.policy_version = 'ideas-ranking/future-v99'
-assert.equal(normalizeQualifiedIdeaRow(unknownRankingPolicyRow, qualifiedBoard.policy), null, 'an unknown ranking policy cannot be presented as policy-adjusted')
+assert.equal(normalizeQualifiedIdeaRow(unknownRankingPolicyRow, qualifiedBoard.policy, nowMs), null, 'an unknown ranking policy cannot be presented as policy-adjusted')
 const unshrunkRankingRow = structuredClone(qualified('ranking-no-shrinkage', 'long')) as unknown as QualifiedIdeaEvaluation
 unshrunkRankingRow.ranking!.positive_return_retention = 1
 unshrunkRankingRow.ranking!.return_haircut_pct = 0
 unshrunkRankingRow.ranking!.conservative_expected_return_pct = 12.5
-assert.equal(normalizeQualifiedIdeaRow(unshrunkRankingRow, qualifiedBoard.policy), null, 'a payload cannot remove the frozen 65% positive-return haircut')
+assert.equal(normalizeQualifiedIdeaRow(unshrunkRankingRow, qualifiedBoard.policy, nowMs), null, 'a payload cannot remove the frozen 65% positive-return haircut')
 const detachedConfidenceRow = structuredClone(qualified('ranking-confidence-mismatch', 'long')) as unknown as QualifiedIdeaEvaluation
 detachedConfidenceRow.ranking!.uncapped_evidence_confidence_score = 90
 detachedConfidenceRow.ranking!.evidence_confidence_score = 48
-assert.equal(normalizeQualifiedIdeaRow(detachedConfidenceRow, qualifiedBoard.policy), null, 'evidence confidence must derive from the weaker research score')
+assert.equal(normalizeQualifiedIdeaRow(detachedConfidenceRow, qualifiedBoard.policy, nowMs), null, 'evidence confidence must derive from the weaker research score')
 const unsupportedCalibratedRow = structuredClone(qualified('unsupported-calibrated', 'long')) as unknown as QualifiedIdeaEvaluation
 unsupportedCalibratedRow.candidate.research.calibration_status = 'calibrated'
 unsupportedCalibratedRow.ranking!.calibration_status = 'calibrated'
-assert.equal(normalizeQualifiedIdeaRow(unsupportedCalibratedRow, qualifiedBoard.policy), null, 'calibrated remains reserved until the server implements its quality gate')
+assert.equal(normalizeQualifiedIdeaRow(unsupportedCalibratedRow, qualifiedBoard.policy, nowMs), null, 'calibrated remains reserved until the server implements its quality gate')
 
 const eligibilityDefects: Array<[string, (row: QualifiedIdeaEvaluation) => void]> = [
   ['a v1 short has no verified borrow contract', (row) => {

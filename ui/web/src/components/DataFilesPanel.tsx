@@ -90,7 +90,10 @@ export function DataFilesPanel() {
             {files.map((f, i) => {
               const tabs = f.sheets ?? []
               const hasTabs = tabs.length > 0
-              const isOpen = !!expanded[f.filename]
+              // Identify a row by its full pool location, not its basename: two filings named "annual.pdf"
+              // in different subfolders (e.g. "Filings 3/" and "Filings 4/") must expand independently.
+              const rowId = f.path ?? f.filename
+              const isOpen = !!expanded[rowId]
               // external rows (data/<T>/external/**): show the document's own name (the full
               // pool-relative path stays in the tooltip) + a compact provider · §4-tier chip.
               // A routed wire-event note shows its news HEADLINE (server-parsed `displayName`) instead of
@@ -98,21 +101,27 @@ export function DataFilesPanel() {
               // event is identifiable at a glance.
               const ext = f.external
               const displayName = f.displayName || (ext ? f.filename.split('/').pop() || f.filename : f.filename)
-              const rowTitle = f.note ? `${f.note}\n${f.filename}` : f.filename
+              // a nested pool document (server `path`) shows its containing subfolder as a quiet prefix, so
+              // "which folder is this in" is answered at a glance; the tooltip carries the full location.
+              const folder = !ext && f.path ? f.path.split('/').slice(0, -1).join('/') : ''
+              const rowTitle = f.note ? `${f.note}\n${f.path ?? f.filename}` : (f.path ?? f.filename)
               const extChip = ext ? [ext.provider, ext.tier ? `T${ext.tier}` : null].filter(Boolean).join(' · ') : ''
               const extTitle = ext
                 ? [ext.provider, ext.sourceType, ext.tier ? `§4 tier ${ext.tier}` : null, ext.asOf ? `as-of ${ext.asOf}` : null]
                     .filter(Boolean).join(' · ')
                 : ''
               return (
-                <div className="datafiles__file" key={`${f.filename}:${i}`}>
+                <div className="datafiles__file" key={`${rowId}:${i}`}>
                   <div
                     className={`datafiles__row${hasTabs ? ' datafiles__row--btn' : ''}`}
-                    onClick={hasTabs ? () => setExpanded((e) => ({ ...e, [f.filename]: !e[f.filename] })) : undefined}
+                    onClick={hasTabs ? () => setExpanded((e) => ({ ...e, [rowId]: !e[rowId] })) : undefined}
                   >
                     {/* a routed wire-event note is NEWS, not an opaque "other" file */}
                     <span className="datafiles__badge" data-conf={f.confidence}>{f.displayName ? 'NEWS' : TYPE_LABEL[f.type] || f.type}</span>
-                    <span className="datafiles__name" title={rowTitle}>{displayName}</span>
+                    <span className="datafiles__name" title={rowTitle}>
+                      {folder && <span className="datafiles__folder">{folder}/</span>}
+                      {displayName}
+                    </span>
                     {extChip && <span className="datafiles__ext" title={extTitle}>{extChip}</span>}
                     {hasTabs ? (
                       <span className="datafiles__tabsn">{tabs.length} tabs {isOpen ? '▾' : '▸'}</span>

@@ -4724,14 +4724,16 @@ function broadcastData(fp: string, change: 'added' | 'removed') {
 
 if (fs.existsSync(DATA_DIR)) {
   // data/ is a Google Drive CloudStorage mount -> polling is the robust choice across the FUSE boundary.
-  // depth 3 (not 2): external data lands at data/<T>/external/<provider>/<file> (frameworks/
-  // EXTERNAL_DATA.md) — at depth 2 a file routed into an EXISTING provider folder emits no event at
-  // all (only the folder's own creation did), so the cockpit never heard about later drops.
+  // No `depth` cap: data-status.ts's listPoolFiles walks the WHOLE tree with no depth limit (a filing can
+  // sit at data/<T>/Filings/2026/Q1/report.pdf or deeper), so a fixed depth here would silently stop
+  // watching below that bound — a nested drop would satisfy readiness/coverage on the next listing but
+  // never fire the live "data-changed" event or auto-intake until an unrelated shallower change, or a
+  // manual refresh, happened to trigger one (PR #457 review). Unbounded matches the recursive contract
+  // exactly; the cost is the same per-poll-cycle FUSE walk the recursive pool scan already performs.
   const dataWatcher = chokidar.watch(DATA_DIR, {
     ignoreInitial: true,
     usePolling: true,
     interval: 1500,
-    depth: 3,
     awaitWriteFinish: { stabilityThreshold: 2000, pollInterval: 500 },
   })
   dataWatcher.on('add', (f) => broadcastData(f, 'added'))
