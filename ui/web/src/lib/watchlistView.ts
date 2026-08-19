@@ -5,7 +5,7 @@
 // if the number is honest about its unit: a price trigger's distance is a percentage of today's price, a
 // dated trigger's is a count of days, and there is no exchange rate between them. So nothing here ever
 // returns a bare number — a distance travels with its unit or it does not travel.
-import type { WatchRow, WatchTriggerEval } from './types'
+import type { WatchTrigger, WatchRow, WatchTriggerEval } from './types'
 
 /** A price trigger this close, or a date this near, is "near" — the equivalence is a judgment, made once. */
 export const NEAR_PCT = 5
@@ -64,6 +64,36 @@ export function urgencyRank(row: WatchRow): number {
 function rankOrInfinity(row: WatchRow): number {
   const r = urgencyRank(row)
   return Number.isFinite(r) ? r : Number.POSITIVE_INFINITY
+}
+
+/**
+ * The price a trigger actually fires at, in its own currency — the number the panel labels "target".
+ *
+ * Read off the STRUCTURED trigger, never off the eval's prose sentence: `price_level` states its level
+ * outright, and `pct_drop` fires at a fixed fraction of a reference frozen at save time, so both are exact
+ * rather than parsed. A dated trigger has no price and says so; a valuation trigger's anchor is a value, not
+ * a price a quote can be compared to, so it is left to the eval line rather than mislabelled as a target.
+ */
+export function triggerTarget(t: WatchTrigger): { value: number; currency: string; how: string } | null {
+  if (t.kind === 'price_level') {
+    return { value: t.level, currency: t.currency, how: t.direction === 'at_or_below' ? 'at or below' : 'at or above' }
+  }
+  if (t.kind === 'pct_drop') {
+    // the reference is frozen with its own date and source, so this multiplication is reproducible later
+    return { value: t.reference.value * (1 - t.drop_pct / 100), currency: t.reference.currency, how: `\u2212${t.drop_pct}% from ${t.reference.value}` }
+  }
+  return null
+}
+
+/** The nearest trigger's target — the one the "still to move" figure is measured against. */
+export function nearestTarget(row: WatchRow): { value: number; currency: string; how: string } | null {
+  const scored = (row.evals ?? [])
+    .filter((e) => e.gap_pct != null)
+    .sort((a, b) => Math.abs(a.gap_pct as number) - Math.abs(b.gap_pct as number))
+  const first = scored[0]
+  if (!first) return null
+  const t = (row.triggers ?? []).find((x) => x.trigger_id === first.trigger_id)
+  return t ? triggerTarget(t) : null
 }
 
 /** Fired first, then nearest, then everything unmeasurable — ties broken by ticker so the grid is stable. */

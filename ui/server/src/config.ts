@@ -1147,6 +1147,10 @@ export const GDRIVE = {
   // Drive it's a member of (files are owned by the Shared Drive). Leave empty ONLY when using an OAuth
   // refresh token for a real account.
   sharedDriveId: process.env.GDRIVE_SHARED_DRIVE_ID || '',
+  // The child folder watchlist thesis PDFs are written to, under dataFolderId. Configurable because the
+  // lookup is an EXACT, case-sensitive Drive name query: an operator who has already made a folder by
+  // another name would otherwise get a second, empty `WATCHLIST` created beside it and never notice.
+  watchlistFolder: process.env.GDRIVE_WATCHLIST_FOLDER || 'WATCHLIST',
   uploadMaxBytes: capNum(process.env.ENGINE_UPLOAD_MAX_BYTES, 40 * 1024 * 1024), // 40 MB per file
   uploadMaxFiles: capNum(process.env.ENGINE_UPLOAD_MAX_FILES, 20), // files per upload request
 }

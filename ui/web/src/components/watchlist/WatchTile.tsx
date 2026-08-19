@@ -40,6 +40,11 @@ export function WatchTile({ row, selected, onSelect }: {
         {row.origin !== 'engine' && <span className="wtile__mine" aria-label="you added this">·</span>}
         {reviewHot && <span className="wtile__hot" aria-label="review due">●</span>}
       </span>
+      {/* The name the tile is ABOUT. It lived only in the title attribute, which is invisible while
+          scanning and unreachable on touch — on a grid whose whole job is recognising a name at a glance,
+          that was the one thing not designed for. Truncated rather than wrapped so the tile keeps its
+          height and the grid stays even. */}
+      <span className="wtile__co">{row.company_name ?? '\u2014'}</span>
       <span className={`wtile__big${band === 'met' ? ' wtile__big--met' : band === 'near' ? ' wtile__big--near' : ''}${label === '—' ? ' wtile__big--none' : ''}`}>
         {label}
       </span>

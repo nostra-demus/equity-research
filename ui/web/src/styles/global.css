@@ -3460,16 +3460,22 @@ a { color: inherit; }
 .wtile {
   display: flex; flex-direction: column; gap: 3px; align-items: stretch; text-align: left;
   background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-md);
-  padding: 8px 9px 7px; min-height: 74px; font: inherit; color: inherit; cursor: pointer;
+  padding: 8px 9px 7px; min-height: 82px; font: inherit; color: inherit; cursor: pointer;
   transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
 }
 .wtile:hover { border-color: var(--hairline-strong); background: var(--surface-3); }
 .wtile:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 1px; }
 .wtile__top { display: flex; align-items: center; gap: 2px; font-size: 11.5px; }
-.wtile__sym { font-family: var(--font-mono); font-size: 12px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* The ticker is the tile's identity and must outrank every other glyph on it — it used to render SMALLER
+   than the distance figure beneath it. Size and weight carry the emphasis, deliberately NOT colour: on this
+   grid colour already means state (accent = fired, warn = near, dashed = not evaluable), so tinting every
+   ticker would make a fired tile stop standing out from a waiting one. Identity by weight, state by hue. */
+.wtile__sym { font-family: var(--font-mono); font-size: 16px; font-weight: 700; letter-spacing: 0.3px; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* the company the ticker stands for — quiet, but present rather than hidden in a tooltip */
+.wtile__co { font-size: 9.5px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: -1px; }
 .wtile__mine { color: var(--accent-bright); }
 .wtile__hot { color: var(--bad); font-size: 7px; margin-inline-start: auto; }
-.wtile__big { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 600; letter-spacing: 0.2px; white-space: nowrap; }
+.wtile__big { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 13.5px; font-weight: 600; letter-spacing: 0.2px; white-space: nowrap; margin-top: 2px; }
 .wtile__big--met { color: var(--accent-bright); }
 .wtile__big--near { color: var(--conv-warn); }
 /* absence must LOOK different from a number, never like a quiet zero */
@@ -3508,7 +3514,23 @@ a { color: inherit; }
 .wdet__trig { display: flex; align-items: flex-start; gap: 6px; }
 .wdet__trigtext { font-size: 11px; line-height: 1.45; color: var(--text-muted); }
 .wdet__absent { font-size: 10.5px; line-height: 1.45; color: var(--text-muted); font-style: italic; }
-.wdet__facts { display: flex; gap: 5px; flex-wrap: wrap; font-size: 10.5px; color: var(--text-faint); }
+/* Labelled sections. The panel used to be a flat stack of unlabelled divs — price and distance shared one
+   line with nothing saying which was which, and the target price appeared only inside a prose sentence. */
+.wdet__sec { border-top: 1px solid var(--hairline); padding-top: 9px; }
+.wdet__seclabel { font-size: 9.5px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-faint); margin: 0 0 6px; }
+/* The three numbers that answer "where is it, where do I want it, how far" — equal billing, each labelled. */
+.wdet__facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
+.wdet__fact { display: flex; flex-direction: column; min-width: 0; }
+.wdet__factlabel { font-size: 9.5px; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); }
+.wdet__factval { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 14px; font-weight: 600; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wdet__factval--met { color: var(--accent-bright); }
+.wdet__factval--none { color: var(--text-faint); font-weight: 400; }
+.wdet__factnote { font-size: 9.5px; color: var(--text-faint); margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wdet__next { display: flex; align-items: baseline; gap: 7px; flex-wrap: wrap; }
+.wdet__nextdate { font-family: var(--font-mono); font-size: 12.5px; }
+.wdet__runfacts { display: flex; gap: 5px; flex-wrap: wrap; font-size: 10.5px; color: var(--text-muted); }
+.wdet__runrow { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 7px; }
+.wdet__runnote { font-size: 10px; line-height: 1.5; color: var(--text-faint); margin: 6px 0 0; }
 .wdet__actions { display: flex; gap: 6px; flex-wrap: wrap; }
 
 /* One column under the dock width: the panel stops being a sidebar and becomes a header above the tiles,

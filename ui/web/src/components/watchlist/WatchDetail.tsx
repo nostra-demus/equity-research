@@ -8,7 +8,7 @@ import { useStore } from '../../lib/store'
 import { api } from '../../lib/api'
 import { ABSENT_PRICE_COPY, decisionColor, livePriceLabel, money, shortDay } from '../../lib/format'
 import type { WatchRow, WatchTriggerEval } from '../../lib/types'
-import { absenceReason, distanceLabel } from '../../lib/watchlistView'
+import { absenceReason, distanceLabel, nearestTarget } from '../../lib/watchlistView'
 
 /** A trigger's chip state — the same three-valued vocabulary the table uses, so the two views agree. */
 function chipClass(e: WatchTriggerEval): string {
@@ -25,8 +25,15 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
   const archiveWatch = useStore((s) => s.archiveWatch)
   const restoreWatch = useStore((s) => s.restoreWatch)
   const staticMode = useStore((s) => s.staticMode)
+  const tickers = useStore((s) => s.tickers)
+  const selectTicker = useStore((s) => s.selectTicker)
+  const setResearchView = useStore((s) => s.setResearchView)
+  const requestFullForSubject = useStore((s) => s.requestFullForSubject)
   const pending = useStore((s) => s.watchlistPending) === row?.ticker
 
+  const target = row ? nearestTarget(row) : null
+  const pool = row ? tickers.find((t) => t.ticker === row.ticker) : undefined
+  const lastRunAt = pool?.latestRun?.decisionDate ?? row?.engine?.decision_date ?? null
   if (!row) {
     return (
       <aside className="wdet wdet--empty">
@@ -65,28 +72,65 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
           : <span className="wl__verdict wl__verdict--none" title="You added this — the engine has not researched it">yours</span>}
       </div>
       <div className="wdet__co">
-        {row.company_name || '—'}
-        {row.exchange ? ` · ${row.exchange}` : ''}{row.currency ? ` · ${row.currency}` : ''}
+        {row.exchange ? `${row.exchange} · ` : ''}{row.currency ?? '—'}
+        {` · ${row.origin === 'engine' ? 'engine' : row.origin === 'both' ? 'engine + you' : 'you added this'}`}
+        {row.conviction ? ` · conviction ${row.conviction}` : ''}
       </div>
 
-      <div className="wdet__pricerow">
-        {row.quote ? (
-          <>
-            <span className="wl__price">{money(row.quote.currency, row.quote.price)}</span>
-            <span className="wdet__meta">{livePriceLabel(row.quote)}</span>
-          </>
-        ) : (
-          <span className="wl__price wl__price--absent" title={row.quote_reason ? ABSENT_PRICE_COPY[row.quote_reason] : undefined}>
-            — {row.quote_reason ? String(row.quote_reason).replace(/_/g, ' ') : 'no price'}
-          </span>
-        )}
-        <span className={`wdet__dist${row.state === 'condition_met' ? ' wdet__dist--met' : ''}`}>{distanceLabel(row)}</span>
-      </div>
+      {/* The three numbers, each LABELLED. They used to share one unlabelled line, so nothing said which
+          was the price and which was the distance — and the target appeared only inside a prose sentence.
+          Every figure here is read off the structured trigger, so the panel answers "where is it, where do
+          I want it, how far is that" without the reader parsing English. */}
+      <section className="wdet__sec">
+        <h4 className="wdet__seclabel">Where the price stands</h4>
+        <div className="wdet__facts">
+          <div className="wdet__fact">
+            <span className="wdet__factlabel">Price now</span>
+            {row.quote ? (
+              <>
+                <span className="wdet__factval">{money(row.quote.currency, row.quote.price)}</span>
+                <span className="wdet__factnote">{livePriceLabel(row.quote)}</span>
+              </>
+            ) : (
+              <>
+                <span className="wdet__factval wdet__factval--none">—</span>
+                <span className="wdet__factnote" title={row.quote_reason ? ABSENT_PRICE_COPY[row.quote_reason] : undefined}>
+                  {row.quote_reason ? String(row.quote_reason).replace(/_/g, ' ') : 'no price'}
+                </span>
+              </>
+            )}
+          </div>
+          <div className="wdet__fact">
+            <span className="wdet__factlabel">Nearest target</span>
+            {target ? (
+              <>
+                <span className="wdet__factval">{money(target.currency, target.value)}</span>
+                <span className="wdet__factnote">{target.how}</span>
+              </>
+            ) : (
+              <>
+                <span className="wdet__factval wdet__factval--none">—</span>
+                <span className="wdet__factnote">{row.evals?.some((e) => e.kind === 'event_date') ? 'a date, not a price' : 'no price target set'}</span>
+              </>
+            )}
+          </div>
+          <div className="wdet__fact">
+            <span className="wdet__factlabel">Still to move</span>
+            <span className={`wdet__factval${row.state === 'condition_met' ? ' wdet__factval--met' : ''}`}>{distanceLabel(row)}</span>
+            <span className="wdet__factnote">{target ? 'to that target' : 'nothing measurable'}</span>
+          </div>
+        </div>
+      </section>
 
-      <div className={`wdet__why${row.why ? '' : ' wl__why--engine'}`}>{reason || 'No reason recorded yet.'}</div>
+      <section className="wdet__sec">
+        <h4 className="wdet__seclabel">Why you're watching</h4>
+        <div className={`wdet__why${row.why ? '' : ' wl__why--engine'}`}>{reason || 'No reason recorded yet.'}</div>
+      </section>
 
       {/* Every trigger, with the arithmetic the server computed — "not met" stays checkable rather than
           trusted (§15). The tile showed only the nearest one; this is the full set. */}
+      <section className="wdet__sec">
+      <h4 className="wdet__seclabel">Triggers{row.evals?.length ? ` · ${row.evals.length}` : ''}</h4>
       <div className="wdet__trigs">
         {row.evals?.length ? row.evals.map((e) => (
           <div key={e.trigger_id} className="wdet__trig">
@@ -105,12 +149,53 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
           </div>
         )}
       </div>
+      </section>
 
-      <div className="wdet__facts">
-        <span>Review {row.review_date ? shortDay(row.review_date) : '—'}</span>
-        <span>· conviction {row.conviction}</span>
-        <span>· {row.origin === 'engine' ? 'engine' : row.origin === 'both' ? 'engine + you' : 'you added this'}</span>
-      </div>
+      <section className="wdet__sec">
+        <h4 className="wdet__seclabel">Next look</h4>
+        <div className="wdet__next">
+          <span className="wdet__nextdate">{row.review_date ? shortDay(row.review_date) : 'no review date set'}</span>
+          {row.engine?.next_review_text && <span className="wdet__factnote">{row.engine.next_review_text}</span>}
+        </div>
+      </section>
+
+      {/* The rerun affordance the grid lost: it lived in the table row's ⋯ menu and was never carried into
+          this panel. Restored WITH the staleness facts beside it, because the old button only asked "does
+          this ticker have documents" — never whether anything had changed since the last run, so it would
+          happily re-read an unchanged pool and reach the same thesis.
+          What is NOT claimed here is a freshness verdict. The only per-ticker change stamp the client has
+          (`lastChangeAt`) is an in-memory fs-watcher value that is null after any server restart, so
+          "nothing new" would be a false negative most of the time. So the panel states the two DURABLE
+          facts — when the engine last ran, how many documents are in the pool — and makes the scoped
+          new-data analysis the primary action, which is the check that can actually answer it. */}
+      {!isArchived && !staticMode && (
+        <section className="wdet__sec">
+          <h4 className="wdet__seclabel">Engine run</h4>
+          {pool ? (
+            <>
+              <div className="wdet__runfacts">
+                <span>{lastRunAt ? `Last run ${shortDay(lastRunAt)}` : 'Never run'}</span>
+                <span>· {pool.fileCount} {pool.fileCount === 1 ? 'document' : 'documents'} in the pool</span>
+              </div>
+              <div className="wdet__runrow">
+                <button
+                  className="btn btn--mini"
+                  title="Open this name in the research view, where the new-data analysis scopes which orbs the fresh evidence actually invalidates"
+                  onClick={() => { setResearchView('constellation'); void selectTicker(row.ticker) }}
+                >
+                  Check for new data
+                </button>
+                <button className="btn btn--mini" onClick={() => void requestFullForSubject(row.ticker)}>Rerun everything</button>
+              </div>
+              <p className="wdet__runnote">
+                A rerun over unchanged documents reads the same evidence and reaches the same thesis — check first.
+              </p>
+            </>
+          ) : (
+            <p className="wdet__runnote">No documents for {row.ticker} yet — a run needs something to read.</p>
+          )}
+        </section>
+      )}
 
       <div className="wdet__actions">
         {isArchived ? (

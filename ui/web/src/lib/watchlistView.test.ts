@@ -5,7 +5,7 @@
 // whichever is genuinely nearer. Run: npx tsx src/lib/watchlistView.test.ts
 import assert from 'node:assert/strict'
 import type { WatchRow, WatchTriggerEval } from './types'
-import { absenceReason, distanceLabel, rowDistance, sortForGrid, tileBand, triggerCaption, urgencyRank } from './watchlistView'
+import { absenceReason, distanceLabel, rowDistance, sortForGrid, tileBand, triggerCaption, urgencyRank , triggerTarget, nearestTarget } from './watchlistView'
 
 let passed = 0
 function check(name: string, fn: () => void): void {
@@ -136,6 +136,37 @@ check('a row missing evals entirely still reports an absence rather than throwin
   const r = row({ evals: undefined as unknown as [] })
   assert.equal(absenceReason(r), 'No trigger set — reminder only.')
   assert.equal(triggerCaption(r), 'no trigger')
+})
+
+check('triggerTarget reads the price off the STRUCTURED trigger, never off the prose', () => {
+  const lvl = triggerTarget({ kind: 'price_level', trigger_id: 'T1', direction: 'at_or_below', level: 195, currency: 'USD' } as never)
+  assert.deepEqual(lvl, { value: 195, currency: 'USD', how: 'at or below' })
+  // a drop fires at a fixed fraction of a reference FROZEN at save time, so the arithmetic is reproducible
+  const drop = triggerTarget({ kind: 'pct_drop', trigger_id: 'T2', drop_pct: 12,
+    reference: { value: 216.14, currency: 'USD', as_of: '2026-08-18', source: 'Capital IQ' } } as never)
+  assert.equal(drop?.currency, 'USD')
+  assert.ok(Math.abs((drop?.value ?? 0) - 190.2032) < 1e-6, 'fires at reference × (1 − 12%)')
+  // a date has no price, and a valuation anchor is a VALUE not a quote-comparable price — neither is a target
+  assert.equal(triggerTarget({ kind: 'event_date', trigger_id: 'T3', due_date: '2026-08-27', label: 'Q2' } as never), null)
+})
+
+check('nearestTarget follows the SAME trigger the distance figure is measured against', () => {
+  const r = row({
+    triggers: [
+      { kind: 'price_level', trigger_id: 'FAR', direction: 'at_or_below', level: 150, currency: 'USD' },
+      { kind: 'price_level', trigger_id: 'NEAR', direction: 'at_or_below', level: 195, currency: 'USD' },
+    ] as never,
+    evals: [
+      { trigger_id: 'FAR', kind: 'price_level', mode: 'auto', state: 'not_met', detail: '', gap_pct: -30, reason: null },
+      { trigger_id: 'NEAR', kind: 'price_level', mode: 'auto', state: 'not_met', detail: '', gap_pct: -2.1, reason: null },
+    ] as never,
+  })
+  assert.equal(nearestTarget(r)?.value, 195, 'the nearest trigger, not the first one listed')
+  // a row whose only trigger is dated has a distance in days but no price target to label
+  const dated = row({ triggers: [{ kind: 'event_date', trigger_id: 'D', due_date: '2026-08-27', label: 'Q2' }] as never,
+    evals: [{ trigger_id: 'D', kind: 'event_date', mode: 'reminder', state: 'not_met', detail: '', gap_pct: null, days_to: 3, reason: null }] as never })
+  assert.equal(nearestTarget(dated), null)
+  assert.equal(nearestTarget(row({ triggers: [] as never, evals: [] as never })), null)
 })
 
 console.log(`\nwatchlistView.test.ts: ${passed} passed`)
