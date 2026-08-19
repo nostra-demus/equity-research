@@ -3340,6 +3340,160 @@ a { color: inherit; }
 .themes__tierbtn:active, .themes__vbtn:active { transform: scale(0.97); }
 .themes__tierbtn.is-on, .themes__vbtn.is-on { background: var(--accent-wash); color: var(--accent-bright); }
 
+/* ---- watchlist: the research stage's third view ---- */
+/* A cross-company list rather than a rendering of one company's swarm. Padding clears the stage-anchored
+   view toggle (top:14px, ~30px tall) the same way the constellation's label block does. */
+.wl { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 58px 24px 20px; gap: 10px; }
+.wl__head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.wl__title { font-size: 15px; font-weight: 600; }
+.wl__count { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 11.5px; color: var(--text-muted); }
+.wl__count b { color: var(--accent-bright); font-weight: 600; }
+.wl__spacer { flex: 1; }
+.wl__sub { font-size: 11px; color: var(--text-faint); }
+.wl__list { flex: 1; overflow: auto; display: flex; flex-direction: column; border-top: 1px solid var(--hairline); }
+.wl__empty { color: var(--text-faint); font-size: 13px; padding: 44px 24px; text-align: center; line-height: 1.6; max-width: 62ch; margin: 0 auto; }
+
+/* The list is the app's standard .atable (sticky head, row hover) — the same table the activity log and
+   the screener's candidates use. It was briefly a bespoke grid; that was a needless second table style. */
+.wl__table { table-layout: fixed; }
+/* Widths measured from the widest real content, not guessed. Cells carry 20px of horizontal padding, so
+   each track is (content it must hold + 20). Undersizing the actions track is what let the button row
+   spill LEFT across the review date. */
+.wl__table th:nth-child(1), .wl__table td:nth-child(1) { width: 168px; }  /* ticker + company line */
+.wl__table th:nth-child(2), .wl__table td:nth-child(2) { width: 126px; }  /* "Short Candidate" is the longest verdict */
+.wl__table th:nth-child(4), .wl__table td:nth-child(4) { width: 148px; }  /* "price now · delayed" needs 117 */
+.wl__table th:nth-child(5), .wl__table td:nth-child(5) { width: 84px; }
+.wl__table th:nth-child(6), .wl__table td:nth-child(6) { width: 78px; }
+.wl__table th:nth-child(7), .wl__table td:nth-child(7) { width: 164px; } /* Thesis + Edit + ⋯ needs 139 */
+.wl__table td { vertical-align: top; }
+.wl__tr--met { background: var(--accent-wash); box-shadow: inset 2px 0 0 var(--accent); }
+.wl__tr--due { box-shadow: inset 2px 0 0 var(--text-muted); }
+.wl__tr--archived { opacity: 0.62; }
+
+.wl__sort { display: inline-flex; align-items: center; gap: 4px; font: inherit; color: inherit; letter-spacing: inherit; text-transform: inherit; }
+.wl__sort:hover { color: var(--text-muted); }
+.wl__sort--on { color: var(--accent-bright); }
+.wl__caret { font-size: 7px; }
+
+.wl__td--name .sym { font-family: var(--font-mono); font-size: 12.5px; font-weight: 600; }
+.wl__mine { color: var(--accent-bright); margin-inline-start: 3px; }
+.wl__co { font-size: 10.5px; color: var(--text-faint); margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* the engine's own call — the most consequential thing on the row, and it was missing entirely */
+.wl__verdict { font-size: 11.5px; font-weight: 600; }
+.wl__verdict--none { color: var(--text-faint); font-weight: 400; }
+
+/* No max-width:0 here — that is an auto-layout trick, and under table-layout:fixed it collapses the
+   column to nothing. Fixed layout already gives an unsized column the remaining width. */
+.wl__td--why { overflow: hidden; }
+.wl__why { font-size: 12px; line-height: 1.45; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.wl__why--engine { color: var(--text-muted); font-style: italic; }
+.wl__chips { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 5px; }
+/* Trigger state and the review date are what you ACT on, so they carry the weight the ticker does.
+   Support text — the company line, "last close", the delayed flag — stays quiet on purpose: lifting
+   everything would leave no hierarchy at all, which is the same problem in the other direction. */
+.wl__trg { font-size: 10.5px; font-weight: 500; padding: 2px 8px; border-radius: var(--r-pill); border: 1px solid var(--hairline-strong); color: var(--text); white-space: nowrap; }
+.wl__trg--met { background: var(--accent-wash); color: var(--accent-bright); border-color: var(--accent); font-weight: 600; }
+.wl__trg--due { background: var(--surface-3); color: var(--text); }
+.wl__trg--armed { color: var(--text); background: var(--surface-3); }
+/* absence must LOOK different from a negative, never like a quiet pass */
+.wl__trg--unevaluable { color: var(--text-muted); border-style: dashed; border-color: var(--hairline); font-weight: 400; }
+.wl__trg--resurfaced { color: var(--rerun); border-color: var(--rerun); }
+.wl__trg--add { color: var(--accent-bright); border-color: var(--accent-deep); border-style: dashed; cursor: pointer; }
+.wl__trg--add:hover { background: var(--accent-wash); }
+
+.wl__price { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12.5px; color: var(--text); white-space: nowrap; }
+.wl__price--absent { color: var(--text-faint); }
+.wl__review { display: inline-flex; flex-direction: column; align-items: flex-end; gap: 1px; font-size: 12px; color: var(--text); white-space: nowrap; }
+.wl__review--none { color: var(--text-faint); }
+.wl__review--set { color: var(--text-muted); }
+.wl__review--soon { color: var(--text); font-weight: 500; }
+.wl__review--today { color: var(--accent-bright); font-weight: 600; }
+/* a date you have already passed is the most actionable thing on the row */
+.wl__review--overdue { color: var(--bad); font-weight: 600; }
+.wl__reviewnote { font-size: 9px; font-weight: 400; letter-spacing: 0.2px; opacity: 0.85; }
+
+.wl__meta { font-size: 10px; color: var(--text-faint); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* the only figure comparable DOWN the column — the price column holds six currencies */
+.wl__gap { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12.5px; color: var(--text); }
+.wl__gap--met { color: var(--accent-bright); font-weight: 600; }
+.wl__gap--none { color: var(--text-faint); }
+
+/* One primary action per row, everything else in a menu — the density .atable is built for. */
+.wl__act { position: relative; display: flex; gap: 4px; justify-content: flex-end; white-space: nowrap; }
+.wl__act .btn { height: 24px; padding: 0 8px; font-size: 11px; }
+.wl__more { font-size: 13px; line-height: 1; padding: 0 7px; }
+.wl__menu {
+  position: absolute; top: calc(100% + 5px); right: 0; z-index: 30; min-width: 232px;
+  display: flex; flex-direction: column; padding: 5px; border-radius: var(--r-md);
+  background: var(--surface-2); border: 1px solid var(--hairline-strong); box-shadow: var(--shadow-2);
+  transform-origin: top right; animation: evdropin 150ms var(--ease-out) both;
+}
+.wl__opt {
+  display: block; width: 100%; text-align: left; padding: 6px 9px; border-radius: var(--r-md);
+  color: var(--text-muted); font-size: 11.5px; text-decoration: none;
+  transition: background var(--dur-fast), color var(--dur-fast);
+}
+.wl__opt:hover { background: var(--surface-3); color: var(--text); }
+.wl__opt:disabled { opacity: 0.45; }
+.wl__opt--danger { color: var(--bad); }
+.wl__opt--armed { background: var(--bad-wash); color: var(--bad); font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .wl__menu { animation: none; } }
+
+/* ---- watchlist composer — the .activity panel shell, plus a form ---- */
+.wlc { width: min(580px, 56%); z-index: 56; }
+.wlc__body { flex: 1; overflow: auto; padding: 16px 18px 24px; display: flex; flex-direction: column; gap: 15px; }
+.wlc__field { display: flex; flex-direction: column; gap: 5px; }
+.wlc__label { font-size: 10.5px; color: var(--text-muted); letter-spacing: 0.02em; }
+.wlc__labelnote { color: var(--text-faint); font-family: var(--font-mono); }
+.wlc__req { color: var(--accent-bright); }
+.wlc__row { display: flex; gap: 10px; align-items: flex-end; }
+.wlc__hint { font-size: 10.5px; color: var(--text-faint); line-height: 1.5; }
+.wlc__hint b { color: var(--accent-bright); font-family: var(--font-mono); }
+.wlc__why { min-height: 62px; resize: vertical; line-height: 1.5; padding: 8px 9px; }
+
+/* the resolved identity strip: what the feed said, not what anyone typed */
+.wlc__ident { display: flex; gap: 16px; align-items: flex-end; padding: 10px 12px; background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-md); }
+.wlc__identv { font-family: var(--font-mono); font-size: 12.5px; margin-top: 2px; }
+.wlc__identv--missing { color: var(--text-faint); }
+.wlc__warn { font-size: 11px; color: var(--accent-bright); background: var(--accent-wash); border: 1px solid var(--accent-deep); border-radius: var(--r-md); padding: 9px 11px; line-height: 1.5; }
+
+.wlc__candhead { font-size: 10px; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); padding: 6px 2px 2px; }
+.wlc__cands { display: flex; flex-direction: column; gap: 2px; margin-top: 4px; }
+.wlc__cand { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; padding: 8px 9px; border-radius: var(--r-md); border: 1px solid transparent; transition: background var(--dur-fast) var(--ease); }
+.wlc__cand:hover { background: var(--surface-2); border-color: var(--hairline); }
+.wlc__candsym { font-family: var(--font-mono); font-weight: 600; font-size: 12.5px; width: 88px; flex: none; }
+.wlc__candname { flex: 1; min-width: 0; font-size: 12px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wlc__candprice { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12px; color: var(--accent-bright); }
+
+
+.wlc__trg { border: 1px solid var(--hairline-strong); border-radius: var(--r-md); padding: 11px; background: var(--surface-1); display: flex; flex-direction: column; gap: 9px; }
+.wlc__trghead { display: flex; align-items: center; gap: 8px; }
+.wlc__trgname { font-size: 11.5px; color: var(--accent-bright); }
+.wlc__trgmode { font-size: 9.5px; color: var(--text-faint); font-family: var(--font-mono); margin-inline-start: auto; }
+.wlc__trgbody { display: flex; flex-direction: column; gap: 8px; }
+/* a number ALWAYS carries the unit it is measured in — the whole reason the currency is not typeable */
+.wlc__num { display: flex; align-items: center; gap: 8px; }
+.wlc__num .fld { width: 120px; }
+.wlc__unit { font-size: 11px; color: var(--text-muted); }
+.wlc__addtrg { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 4px; }
+
+.coco__freetext { display: block; width: 100%; text-align: left; padding: 8px 10px; border-radius: var(--r-md); color: var(--accent-bright); border: 1px dashed var(--accent-deep); font-size: 12px; }
+.coco__freetext:hover { background: var(--accent-wash); }
+
+/* a field-level refusal, said where the field is rather than as a 400 after the fact */
+.wlc__err { font-size: 10.5px; color: var(--bad); line-height: 1.5; }
+.wlc__blocker { font-size: 11px; color: var(--text-muted); margin-inline-end: auto; align-self: center; }
+
+.wlc__drop { border: 1px dashed var(--hairline-strong); border-radius: var(--r-md); padding: 14px; text-align: center; color: var(--text-faint); font-size: 11.5px; cursor: pointer; transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease); }
+.wlc__drop:hover, .wlc__drop.is-drag { border-color: var(--accent-deep); background: var(--accent-wash); color: var(--accent-bright); }
+.wlc__drop--off { cursor: default; border-style: solid; color: var(--text-faint); line-height: 1.5; }
+.wlc__drop--off:hover { border-color: var(--hairline-strong); background: transparent; color: var(--text-faint); }
+.wlc__file { display: flex; align-items: center; gap: 8px; font-size: 11.5px; padding: 5px 2px; }
+.wlc__file > span:first-child { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wlc__filesize { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-faint); }
+
+.wlc__foot { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 18px; border-top: 1px solid var(--hairline); background: var(--surface-1); }
+
 /* ---- research stage view toggle (Constellation | Globe) — stage-anchored, clones themes__viewtoggle ---- */
 .viewtoggle {
   position: absolute; top: 14px; right: 14px; z-index: 21; /* above DataFilesPanel/DecisionBanner (z20), below overlays */

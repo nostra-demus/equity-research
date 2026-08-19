@@ -17,6 +17,7 @@ export function CompanyPicker() {
   const tickers = useStore((s) => s.tickers)
   const selectTicker = useStore((s) => s.selectTicker)
   const openAddCompany = useStore((s) => s.openAddCompany)
+  const pick = (t: string) => { void selectTicker(t) }
   const activeRuns = useStore((s) => s.activeRunsByTicker)
   const globalActive = useStore((s) => s.globalActive)
   const activeSwarm = useStore((s) => s.activeSwarm)
@@ -116,7 +117,7 @@ export function CompanyPicker() {
     if ((e.target as HTMLElement).closest?.('.coco__resume, .runhist')) return
     if (e.key === 'ArrowDown') { e.preventDefault(); setHi((h) => Math.min(h + 1, filtered.length - 1)) }
     else if (e.key === 'ArrowUp') { e.preventDefault(); setHi((h) => Math.max(h - 1, 0)) }
-    else if (e.key === 'Enter') { e.preventDefault(); const t = filtered[hi]; if (t) selectTicker(t.ticker) }
+    else if (e.key === 'Enter') { e.preventDefault(); const t = filtered[hi]; if (t) pick(t.ticker) }
     // keyboard path to the run-history expander (the chevron is a pointer-only affordance): →/Space-less
     // open on the highlighted ticker, ← close. Gives non-pointer users the same access to per-ticker history.
     else if (e.key === 'ArrowRight') { const t = filtered[hi]; if (t && t.valid !== false && t.runCount > 1 && expanded !== t.ticker) { e.preventDefault(); toggleExpand(t.ticker) } }
@@ -152,7 +153,7 @@ export function CompanyPicker() {
                 key={g.ticker}
                 type="button"
                 className="coco__resume-row"
-                onClick={() => selectTicker(g.ticker)}
+                onClick={() => pick(g.ticker)}
                 title={`Reconnect to the live run on ${g.ticker} — it never stopped, this just shows it again`}
               >
                 <span className="coco__resume-sym">{g.ticker}</span>
@@ -198,7 +199,7 @@ export function CompanyPicker() {
                 onClick={(e) => {
                   // the chevron (a span, not a nested button) toggles history in place; the rest of the row opens the company
                   if ((e.target as HTMLElement).closest('.rh-disc')) { toggleExpand(t.ticker); return }
-                  selectTicker(t.ticker)
+                  pick(t.ticker)
                 }}
               >
                 <span className="coco__sym">
@@ -267,9 +268,7 @@ export function CompanyPicker() {
           )
         })}
 
-        {!filtered.length && (
-          <div className="coco__nomatch">No company matches “{q.trim()}”</div>
-        )}
+        {!filtered.length && <div className="coco__nomatch">No company matches “{q.trim()}”</div>}
       </div>
 
       <div className="coco__foot">
