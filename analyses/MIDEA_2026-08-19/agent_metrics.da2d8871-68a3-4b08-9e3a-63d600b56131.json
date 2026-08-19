@@ -1,0 +1,39 @@
+{
+  "agents": [
+    {
+      "agent": "data-triage",
+      "model": "claude-sonnet-5",
+      "calls": 22,
+      "usage": {
+        "input_tokens": 44,
+        "output_tokens": 24001,
+        "cache_read_input_tokens": 1663562,
+        "cache_creation_input_tokens": 114474,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 114474,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.2884931000000002,
+      "runtime_ms": 254046,
+      "module": "business-model"
+    }
+  ],
+  "orchestrator": {
+    "agent": "(orchestrator)",
+    "model": "claude-sonnet-5",
+    "calls": 9,
+    "usage": {
+      "input_tokens": 18,
+      "output_tokens": 5206,
+      "cache_read_input_tokens": 752798,
+      "cache_creation_input_tokens": 76230,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 76230
+      }
+    },
+    "cost": 0.7613634,
+    "runtime_ms": 0
+  }
+}
