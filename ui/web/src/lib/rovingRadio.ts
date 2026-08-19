@@ -4,6 +4,27 @@
 const FORWARD_KEYS = new Set(['ArrowRight', 'ArrowDown'])
 const BACKWARD_KEYS = new Set(['ArrowLeft', 'ArrowUp'])
 
+/**
+ * The DOM half of the pattern: find the sibling radios, move focus, and select — selection follows
+ * focus, which is the ARIA behaviour for a radiogroup. Lifted here from ThemesView so a second and third
+ * button-backed group reuse it instead of copying eleven lines each.
+ */
+export function handleRovingRadioKeyDown(event: {
+  key: string
+  currentTarget: HTMLButtonElement
+  preventDefault: () => void
+}): void {
+  const group = event.currentTarget.closest('[role="radiogroup"]')
+  if (!group) return
+  const radios = Array.from(group.querySelectorAll<HTMLButtonElement>('button[role="radio"]'))
+  const nextIndex = nextRovingRadioIndex(event.key, radios.indexOf(event.currentTarget), radios.map((r) => !r.disabled))
+  if (nextIndex == null) return
+  event.preventDefault()
+  const next = radios[nextIndex]
+  next.focus()
+  next.click()
+}
+
 export function nextRovingRadioIndex(key: string, currentIndex: number, enabled: readonly boolean[]): number | null {
   const enabledIndexes = enabled.flatMap((isEnabled, index) => isEnabled ? [index] : [])
   if (!enabledIndexes.length) return null

@@ -1,4 +1,4 @@
-import type { CallVsLive, LiveQuote, Sufficiency } from './types'
+import type { CallVsLive, LiveQuote, QuoteAbsentReason, Sufficiency } from './types'
 
 export function sufficiencyColor(s: Sufficiency): string {
   if (s === 'Sufficient') return 'var(--accent-bright)' // used as the module status TEXT too — needs AA on light
@@ -287,6 +287,76 @@ export function priceQualifier(
 export function priceProvenance(source: LiveQuote['source']): string {
   const name = source === 'cnbc' ? 'CNBC' : 'a public market-data source'
   return `An indicative, unverified quote from ${name} — not from a filing, and not checked against one.`
+}
+
+/** A price with its currency, always 2dp so two prices line up digit-for-digit in a column. */
+export function money(currency: string | null | undefined, v: number): string {
+  return `${(currency || '').trim()} ${v.toFixed(2)}`.trim()
+}
+
+/** "2026-07-13" → "13 Jul". A bare calendar date, no year, for inline prose. */
+export function shortDay(iso?: string | null): string {
+  if (!iso) return ''
+  const [y, m, d] = iso.split('-').map(Number)
+  if (!y || !m || !d || m < 1 || m > 12) return iso
+  return `${d} ${MONTHS_SHORT[m - 1]}`
+}
+
+/** An ISO instant → "22 Jul 2026, 14:12" in the READER's own timezone. Empty when unparseable. */
+export function stampInstant(iso?: string | null): string {
+  if (!iso) return ''
+  const t = Date.parse(iso)
+  if (!Number.isFinite(t)) return ''
+  const d = new Date(t)
+  const hh = String(d.getHours()).padStart(2, '0')
+  const mm = String(d.getMinutes()).padStart(2, '0')
+  return `${d.getDate()} ${MONTHS_SHORT[d.getMonth()]} ${d.getFullYear()}, ${hh}:${mm}`
+}
+
+/**
+ * What to call the live number. A settled session is a CLOSE, not a current price — calling a close
+ * "Price now" would be a §5 defect (a figure must carry the date it is actually as-of).
+ */
+export function livePriceLabel(quote: Pick<LiveQuote, 'as_of_is_close'>): string {
+  return quote.as_of_is_close ? 'Last close' : 'Price now'
+}
+
+/**
+ * Why there is no live price, in plain English (CLAUDE.md §21). Absence is EXPLAINED rather than left as
+ * a silent gap, so a reader never has to wonder whether the feature is broken or the data is simply not
+ * available for this listing. Shared by every surface that shows a quote — one wording, no drift.
+ */
+export const ABSENT_PRICE_COPY: Record<QuoteAbsentReason, string> = {
+  no_currency: 'This run does not record which currency it was priced in, so a market price cannot be matched to it safely.',
+  unknown_symbol: 'The market-data source does not carry this listing, so there is no price to show. The entry price above is unaffected.',
+  currency_mismatch: 'The only match found trades in a different currency, so it is a different security. Showing it would be showing the wrong company.',
+  name_mismatch: 'A price came back in the right currency but under a different company name, so it was refused rather than shown.',
+  stale_feed: 'The newest price on offer is too old to call current, so it was refused rather than shown as if it were live.',
+  implausible_price: 'The price that came back is wildly out of scale with the entry price — usually a different listing or different units — so it was refused.',
+  feed_unavailable: 'The market-data source could not be reached just now. This is temporary; the price returns on the next refresh.',
+}
+
+/**
+ * The full hover text for a live price: which listing answered, as-of when, how far that is from the
+ * call's entry, and every honesty flag the feed set (delayed / stale) plus the provenance line. Assembled
+ * here rather than in a component so every surface says the SAME thing — the drift this replaces had the
+ * desktop banner, the phone snapshot and the calls panel each wording it differently.
+ */
+export function livePriceTitle(quote: LiveQuote, call: CallVsLive | null): string {
+  return [
+    `${quote.name || quote.ticker}${quote.exchange ? ` · ${quote.exchange}` : ''} (${quote.symbol}).`,
+    quote.as_of
+      ? quote.as_of_is_close
+        ? `Last close, ${stampDayUTC(quote.as_of)}.`
+        : `As of ${stampInstant(quote.as_of)} your time.`
+      : '',
+    call
+      ? `That is ${pctLabel(call.move_since_call_pct)} against the ${money(call.currency, call.entry_price)} this call was priced at${call.entry_price_timestamp ? ` on ${shortDay(call.entry_price_timestamp)}` : ''} — how far the market has moved since, not a gain or loss unless you actually bought.`
+      : '',
+    quote.delayed ? 'The exchange feed is delayed, so this is not a real-time tick.' : '',
+    quote.stale ? 'The last refresh failed — this price is the last one that came through, not the current one.' : '',
+    priceProvenance(quote.source),
+  ].filter(Boolean).join(' ')
 }
 
 /**

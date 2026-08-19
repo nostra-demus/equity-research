@@ -45,7 +45,7 @@ check('new diagnostics keep retry holds, allowance use, and pacing separate', ()
   const d = diagnostics([
     tier('openrouter', 'OpenRouter', 'cooling'), tier('mistral', 'Mistral', 'budget-spent'), tier('groq', 'Groq', 'paced'),
   ], { retryHeldTiers: ['openrouter'], allowanceExhaustedTiers: ['mistral'], pacedTiers: ['groq'], blockingTiers: ['openrouter', 'mistral'] })
-  assert.deepEqual(diagnosticBlockers(d), { retryHeld: ['OpenRouter'], providerDayLimited: [], allowanceUsed: ['Mistral'], needsAttention: [], paced: ['Groq'] })
+  assert.deepEqual(diagnosticBlockers(d), { retryHeld: ['OpenRouter'], providerDayLimited: [], allowanceUsed: ['Mistral'], needsAttention: [], paced: ['Groq'], needsCredential: [] })
 })
 
 check('provider-reported day limits are separate from configured engine allowance use', () => {
@@ -54,7 +54,7 @@ check('provider-reported day limits are separate from configured engine allowanc
     providerDayExhaustedTiers: ['openrouter'], allowanceExhaustedTiers: ['mistral'], blockingTiers: ['openrouter', 'mistral'],
   })
   assert.deepEqual(diagnosticBlockers(d), {
-    retryHeld: [], providerDayLimited: ['OpenRouter'], allowanceUsed: ['Mistral'], needsAttention: [], paced: [],
+    retryHeld: [], providerDayLimited: ['OpenRouter'], allowanceUsed: ['Mistral'], needsAttention: [], paced: [], needsCredential: [],
   })
 })
 
@@ -62,7 +62,7 @@ check('old-engine payload derives disjoint groups from tier health', () => {
   const d = diagnostics([
     tier('nvidia', 'NVIDIA NIM', 'cooling'), tier('cerebras', 'Cerebras', 'budget-spent'), tier('groq', 'Groq', 'healthy'),
   ], { blockingTiers: ['nvidia', 'cerebras'] })
-  assert.deepEqual(diagnosticBlockers(d), { retryHeld: ['NVIDIA NIM'], providerDayLimited: [], allowanceUsed: ['Cerebras'], needsAttention: [], paced: [] })
+  assert.deepEqual(diagnosticBlockers(d), { retryHeld: ['NVIDIA NIM'], providerDayLimited: [], allowanceUsed: ['Cerebras'], needsAttention: [], paced: [], needsCredential: [] })
 })
 
 check('a non-owner process never presents configured tiers as actionable blockers', () => {
@@ -70,7 +70,7 @@ check('a non-owner process never presents configured tiers as actionable blocker
     { ...tier('openrouter', 'OpenRouter', 'cooling'), spendingAllowed: false },
     { ...tier('groq', 'Groq', 'budget-spent'), spendingAllowed: false },
   ], { blockingTiers: ['openrouter', 'groq'] })
-  assert.deepEqual(diagnosticBlockers(d), { retryHeld: [], providerDayLimited: [], allowanceUsed: [], needsAttention: [], paced: [] })
+  assert.deepEqual(diagnosticBlockers(d), { retryHeld: [], providerDayLimited: [], allowanceUsed: [], needsAttention: [], paced: [], needsCredential: [] })
 })
 
 check('an unreadable usage record is needs-attention, never Ready or fake allowance use', () => {
@@ -78,8 +78,56 @@ check('an unreadable usage record is needs-attention, never Ready or fake allowa
   const d = diagnostics([unavailable], { unavailableTiers: ['groq'], blockingTiers: ['groq'] })
   assert.equal(tierStatusCopy(unavailable, 0), "Can't read today's usage")
   assert.deepEqual(diagnosticBlockers(d), {
-    retryHeld: [], providerDayLimited: [], allowanceUsed: [], needsAttention: ['Groq'], paced: [],
+    retryHeld: [], providerDayLimited: [], allowanceUsed: [], needsAttention: ['Groq'], paced: [], needsCredential: [],
   })
+})
+
+// ---- a rejected credential must NOT read as patience ---------------------------------------------------
+// The live failure: Mistral answered 401/403 on every call for 46 consecutive failures and 42+ hours, scoring
+// nothing, while this panel said "Waiting after rejected provider access · try again in ~43m". The countdown
+// was accurate and completely misleading — no amount of waiting fixes a key the provider refuses.
+check('a rejected credential outranks the retry countdown and names the env var to fix', () => {
+  const dead = {
+    ...tier('mistral', 'Mistral', 'cooling'),
+    cooldownReason: 'provider-access', consecutiveFailures: 46, credentialRejected: true,
+    keyEnvVar: 'MISTRAL_API_KEY', failingForMs: 42 * 3_600_000, triageScoredBatchesToday: 0,
+  }
+  const copy = tierStatusCopy(dead, 43 * 60_000)
+  assert.match(copy, /^Key rejected/, 'the fault leads, not the timer')
+  assert.match(copy, /failing for 42h/, 'the streak duration is named — the backoff window pins flat and cannot say this')
+  assert.match(copy, /0 scored today/)
+  assert.match(copy, /check MISTRAL_API_KEY/, 'the operator is told WHICH credential')
+  assert.doesNotMatch(copy, /try again in/, 'the countdown must not be the headline for a fault retrying cannot fix')
+})
+
+check('the credential fault is its own blocker group, never filed under needs-attention', () => {
+  const dead = { ...tier('mistral', 'Mistral', 'cooling'), credentialRejected: true, keyEnvVar: 'MISTRAL_API_KEY' }
+  const d = diagnostics([dead], { needsCredentialTiers: ['mistral'], blockingTiers: ['mistral'] })
+  const b = diagnosticBlockers(d)
+  assert.deepEqual(b.needsCredential, ['Mistral'])
+  assert.deepEqual(b.needsAttention, [], "needs-attention means \"can't read today's usage\" — a different fault with a different fix")
+  // and it still surfaces against an engine that has the per-tier flag but not yet the group (rolling deploy)
+  const older = diagnostics([dead], { blockingTiers: ['mistral'] })
+  assert.deepEqual(diagnosticBlockers(older).needsCredential, ['Mistral'])
+})
+
+check('a timeout names the measured duration, so "is our deadline too short?" is answerable', () => {
+  const at30 = { ...tier('openrouter', 'OpenRouter', 'cooling'), cooldownReason: 'timeout', lastFailureMs: 30_000 }
+  assert.equal(tierStatusCopy(at30, 50 * 60_000), 'Waiting after a request timeout at 30.0s · try again in ~50m')
+  // an early refusal reads differently — a longer deadline would not have helped
+  const at1 = { ...at30, lastFailureMs: 1_200 }
+  assert.match(tierStatusCopy(at1, 60_000), /at 1\.2s/)
+  // and with nothing measured (an older engine's marker) the line is exactly what it always was
+  const unmeasured = { ...tier('openrouter', 'OpenRouter', 'cooling'), cooldownReason: 'timeout' }
+  assert.equal(tierStatusCopy(unmeasured, 5 * 60_000), 'Waiting after a request timeout · try again in ~5m')
+})
+
+check('a single provider-access failure is unlucky, not a dead key — no premature blame', () => {
+  // the flag comes from the SERVER (credentialRejected), so the view must not invent it from the reason alone
+  const oneOff = { ...tier('mistral', 'Mistral', 'cooling'), cooldownReason: 'provider-access', consecutiveFailures: 1 }
+  const copy = tierStatusCopy(oneOff, 5 * 60_000)
+  assert.equal(copy, 'Waiting after rejected provider access · try again in ~5m')
+  assert.deepEqual(diagnosticBlockers(diagnostics([oneOff], { blockingTiers: ['mistral'] })).needsCredential, [])
 })
 
 console.log(`\npipelineDiagnosticsView.test: ${passed} checks passed`)

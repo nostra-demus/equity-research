@@ -1,0 +1,44 @@
+{
+  "schema_version": "watchlist-entry/v1",
+  "entry_id": "WL-20260819-643972be",
+  "origin": "manual",
+  "listing": {
+    "ticker": "V",
+    "ticker_raw": "V",
+    "currency": "USD",
+    "exchange": "NYSE",
+    "company_name": "Visa Inc.",
+    "listing_key": "V|USD"
+  },
+  "engine_ref": null,
+  "why": "Solid compounder, looking at better price to enter, next Q earnings to check if the VAS growth stays",
+  "conviction": "high",
+  "review_date": "2026-10-27",
+  "tags": [],
+  "triggers": [
+    {
+      "kind": "pct_drop",
+      "drop_pct": 10,
+      "reference": {
+        "value": 364.25,
+        "currency": "USD",
+        "as_of": "2026-08-18",
+        "source": "last close"
+      },
+      "trigger_id": "TRG-9792a18b0888"
+    }
+  ],
+  "attachments": [],
+  "archive": null,
+  "history": [
+    {
+      "at": "2026-08-19T10:52:22.520Z",
+      "by": "banks@alloc8.xyz",
+      "action": "created",
+      "detail": ""
+    }
+  ],
+  "created_at": "2026-08-19T10:52:22.520Z",
+  "created_by": "banks@alloc8.xyz",
+  "updated_at": "2026-08-19T10:52:22.520Z"
+}

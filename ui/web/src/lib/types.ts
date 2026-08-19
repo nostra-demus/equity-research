@@ -996,6 +996,11 @@ export interface TierDiagnostics {
   retryScope?: 'shared' | 'triage'
   nextEligibleAt?: string
   consecutiveFailures?: number
+  // the provider is rejecting this tier's CREDENTIAL (repeated 401/402/403/404) — waiting cannot fix it
+  credentialRejected?: boolean
+  keyEnvVar?: string // the env-var NAME holding that credential (never the value)
+  failingForMs?: number // how long the current unbroken failure streak has run (the backoff window pins flat and stops telling you)
+  lastFailureMs?: number // how long the last failing call ran — at the deadline means WE cut it off
   failuresToday?: number
   fails?: number // legacy alias; consecutive streak, never a day total
   triageAttemptsToday?: number
@@ -1012,7 +1017,8 @@ export interface NewsDiagnostics {
   lastCycleAt: string | null
   nextCycleAt: string | null
   tiers: TierDiagnostics[]
-  backlog: { unavailable?: boolean; count: number; cap: number; pctOfCap: number; nearLimit: boolean; trend: 'growing' | 'shrinking' | 'flat' | null; lostToday: number }
+  // retiredToday is optional so a cockpit talking to an older server degrades cleanly (reads as absent, not 0-with-confidence)
+  backlog: { unavailable?: boolean; count: number; cap: number; pctOfCap: number; nearLimit: boolean; trend: 'growing' | 'shrinking' | 'flat' | null; lostToday: number; retiredToday?: number }
   today: { read: number; kept: number; dropped: number; cycles: number }
   lastCycle: {
     ts: string
@@ -1043,6 +1049,7 @@ export interface NewsDiagnostics {
     allowanceExhaustedTiers?: string[]
     unavailableTiers?: string[]
     pacedTiers?: string[]
+    needsCredentialTiers?: string[] // optional while an older engine is still serving
   }
 }
 
@@ -1673,6 +1680,9 @@ export interface DataStatus {
   fileCount: number
   files: {
     filename: string
+    // pool-relative POSIX path when the document sits in a SUBFOLDER of the company folder (e.g.
+    // "Filings 4/annual.pdf"); absent for a top-level file. `filename` stays the basename.
+    path?: string
     type: string
     periodHint: string | null
     ageMonths: number | null
@@ -2286,4 +2296,122 @@ export interface Usage {
   resetsAt?: number
   isUsingOverage?: boolean
   windows?: Record<string, UsageWindow>
+}
+
+
+// ---- watchlist (server: ui/server/src/watchlist.ts) ----
+
+export type WatchTriggerKind = 'price_level' | 'pct_drop' | 'valuation_mos' | 'event_date'
+export type WatchTriggerDirection = 'at_or_below' | 'at_or_above'
+/** Three-valued on purpose: a refusal must never render as "not met". */
+export type WatchEvalState = 'condition_met' | 'not_met' | 'not_evaluable'
+export type WatchRowState = 'condition_met' | 'due' | 'armed' | 'not_evaluable' | 'watching'
+
+export type WatchTrigger =
+  | { kind: 'price_level'; trigger_id: string; direction: WatchTriggerDirection; level: number; currency: string; note?: string }
+  | { kind: 'pct_drop'; trigger_id: string; drop_pct: number; reference: { value: number; currency: string; as_of: string | null; source: string }; note?: string }
+  | { kind: 'valuation_mos'; trigger_id: string; run_root: string | null; scenario_label: string; anchor_value: number; anchor_currency: string; anchor_as_of: string | null; required_mos_pct: number; direction: WatchTriggerDirection; note?: string }
+  | { kind: 'event_date'; trigger_id: string; due_date: string; label: string; acknowledged_at?: string | null; note?: string }
+
+export interface WatchTriggerEval {
+  trigger_id: string
+  kind: WatchTriggerKind
+  mode: 'auto' | 'reminder'
+  state: WatchEvalState
+  /** The arithmetic in words, so "not met" is checkable rather than trusted. */
+  detail: string
+  /** Signed move still needed, as a percent of the current price. Comparable across rows; the price is not. */
+  gap_pct: number | null
+  reason: QuoteAbsentReason | 'no_reference' | 'currency_mismatch_trigger' | 'no_anchor' | null
+  due?: boolean
+}
+
+export interface WatchAttachment { attachment_id: string; filename: string; bytes: number; added_at: string; added_by: string }
+
+export interface WatchEngineRow {
+  run_root: string
+  decision: string | null
+  decision_date: string | null
+  /** The engine's own words. Displayed verbatim, never parsed into a condition. */
+  size_in_trigger: string | null
+  next_review: string | null
+  /** The engine's prose as written — often explains WHY that date. */
+  next_review_text?: string | null
+  entry_price: number | null
+  final_thesis_path: string | null
+  fingerprint: string
+}
+
+export interface WatchRow {
+  listing_key: string
+  ticker: string
+  company_name: string | null
+  currency: string | null
+  exchange: string | null
+  origin: 'engine' | 'manual' | 'both'
+  entry_id: string | null
+  why: string
+  conviction: 'high' | 'medium' | 'low' | null
+  review_date: string | null
+  tags: string[]
+  triggers: WatchTrigger[]
+  attachments: WatchAttachment[]
+  engine: WatchEngineRow | null
+  /** Came back because the engine changed what it says about a name you had archived. */
+  resurfaced: boolean
+  archive: { at: string; by: string; reason: string; muted_fingerprint: string | null; mute_scope: 'assertion' | 'listing' } | null
+  quote: LiveQuote | null
+  quote_reason: QuoteAbsentReason | null
+  evals: WatchTriggerEval[]
+  state: WatchRowState
+  /** The smallest move any auto trigger still needs. Null when nothing is checkable. */
+  nearest_gap_pct: number | null
+  run_root: string | null
+  final_thesis_path: string | null
+  /** When you added it (null if you have never touched this engine row), and when it last changed. */
+  added_at: string | null
+  updated_at: string | null
+  /** The engine's own call date, for a row you never touched. */
+  engine_since: string | null
+}
+
+export interface WatchlistRead {
+  rows: WatchRow[]
+  archived: WatchRow[]
+  engine_source: { file: string | null; generated_at: string | null }
+  unreadable: string[]
+  quotes_enabled: boolean
+  as_of: string
+}
+
+export interface WatchResolveCandidate {
+  symbol: string
+  name: string
+  exchange: string | null
+  /** Already normalised to the MAJOR unit by the server — a pence quote arrives as pounds. */
+  currency: string | null
+  price: number | null
+  as_of: string | null
+  as_of_is_close: boolean
+}
+export interface WatchResolveRead {
+  query: string
+  candidates: WatchResolveCandidate[]
+  reason: 'no_match' | 'directory_unavailable' | 'feed_unavailable' | 'quotes_disabled' | null
+}
+
+/** Omit over a union must DISTRIBUTE, or the four trigger shapes collapse into their common keys. */
+export type DistributiveOmit<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never
+
+export interface WatchRowInput {
+  ticker: string
+  company_name?: string | null
+  currency?: string | null
+  exchange?: string | null
+  why?: string
+  conviction?: 'high' | 'medium' | 'low' | null
+  review_date?: string | null
+  tags?: string[]
+  /** `trigger_id` is carried when editing so the server can keep a trigger's identity. */
+  triggers?: (DistributiveOmit<WatchTrigger, 'trigger_id'> & { trigger_id?: string })[]
 }

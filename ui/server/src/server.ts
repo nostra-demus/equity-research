@@ -17,17 +17,19 @@ import { buildReportHtml, parseMeta, safeName } from './export'
 import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, connectorDispatchReady, feedbackDispatchReady, feedbackEmailReady, isDispatchAdmin, isReservedDataFolder, pipelineScanReady } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
-import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
+import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, deleteDriveFileStrict, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED, readWatchlistFile, uploadToWatchlist } from './drive'
 import { assertClaudeCli, cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, launch, sigIdFor, todayDate, warmLaunchProbes } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed, applyActiveWeightsTo } from './news/feed'
 import { getPulse } from './news/commodity-pulse'
-import { callVsLive, getQuotes } from './news/equity-quote'
+import { callVsLive, getQuotes, resolveUnits, symbolCandidates } from './news/equity-quote'
 import { getCalendar } from './news/events-calendar'
 import type { FeedItem } from './news/types'
 import { matchesFeedFilters, parseFeedFilterQuery, explainFeedFilterMatch, hasAnyFilter, type FeedFilterQuery } from './news/feed-filter'
 import { computeFacets } from './news/facets'
 import { searchSymbolsEnriched } from './news/symbology'
+import { fetchCnbcRows } from './news/cnbc-quote'
+import { baseTicker, cleanTicker } from './news/symbology'
 import { getIntensity, INTENSITY_WINDOWS, type IntensityWindow } from './news/intensity'
 import { getRankWeights, defaultRankWeights, saveRankWeights, resetRankWeights, rankWeightsCustomised, type RankWeights } from './news/rank-weights'
 import { buildSourcesReport } from './news/source-health'
@@ -57,7 +59,13 @@ import { notifyFeedbackResolved } from './feedback-email'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, swarmSubjectSummaries, terminalModuleName } from './roster'
-import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
+import { isValidCalendarISODate, listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest, todayISO } from './outputs'
+import {
+  WATCHLIST_ENTRIES_DIR, WATCHLIST_MAX_ATTACHMENTS, WATCHLIST_MAX_ROWS, WATCHLIST_MAX_TAGS, WATCHLIST_MAX_TRIGGERS,
+  deleteEntry, fingerprintEngineRow, isWatchId, listingKey, makeListing, mergeWatchlist, newEntryId,
+  pickEntryForListing, readEngineWatch, readEntries, readSizingDecoration, triggerSetProblem, writeEntry,
+  type StandingCall, type WatchEntry, type WatchTrigger,
+} from './watchlist'
 import { readValuationSummary, readOverrides, appendOverride } from './valuation-levers'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
@@ -2386,6 +2394,553 @@ app.get('/api/quote', { config: { rateLimit: { max: 600, timeWindow: '1 minute' 
   return { ticker, quote: o.quote, call, reason: o.reason }
 })
 
+// ---------- watchlist (watchlist.ts) ----------
+// Sits beside /api/quote because it shares the quote lane: one batched getQuotes call prices the whole
+// list. Membership + the archive rule live in watchlist.ts; these routes only validate, call, and shape.
+
+const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/
+// Shape (regex) is necessary but not sufficient — '2026-02-30' matches the regex and is not a real day.
+// evaluateTrigger compares these lexicographically as due dates, and a non-existent date compares fine
+// but can never be reproduced or corrected through the browser's <input type="date"> control once saved.
+const ISO_CALENDAR_DATE = z.string().regex(ISO_DATE_RE).refine(isValidCalendarISODate, { message: 'not a real calendar date' })
+
+// Every trigger is a closed shape. Direction, reference source and scenario are CHOICES, never free
+// text, and a number always arrives beside the currency it is measured in — the ambiguity this removes
+// is the reason a target price can never be 100x wrong from a mistyped unit.
+const TriggerBody = z.discriminatedUnion('kind', [
+  z.object({
+    kind: z.literal('price_level'),
+    trigger_id: z.string().trim().max(40).optional(),
+    direction: z.enum(['at_or_below', 'at_or_above']).default('at_or_below'),
+    level: z.number().finite().positive(),
+    currency: z.string().trim().min(1).max(8),
+    note: z.string().max(500).optional(),
+  }).strip(),
+  z.object({
+    kind: z.literal('pct_drop'),
+    trigger_id: z.string().trim().max(40).optional(),
+    drop_pct: z.number().finite().gt(0).lte(99),
+    reference: z.object({
+      value: z.number().finite().positive(),
+      currency: z.string().trim().min(1).max(8),
+      as_of: ISO_CALENDAR_DATE.nullable().default(null),
+      source: z.string().trim().max(120).default('my number'),
+    }).strip(),
+    note: z.string().max(500).optional(),
+  }).strip(),
+  z.object({
+    kind: z.literal('valuation_mos'),
+    trigger_id: z.string().trim().max(40).optional(),
+    // nullable: a fair value you assert yourself is legitimate — it is labelled as YOUR number, not the
+    // engine's. Requiring a run here made the whole trigger type unsavable.
+    run_root: z.string().trim().max(300).nullable().default(null),
+    scenario_label: z.string().trim().min(1).max(60),
+    anchor_value: z.number().finite().positive(),
+    anchor_currency: z.string().trim().min(1).max(8),
+    anchor_as_of: ISO_CALENDAR_DATE.nullable().default(null),
+    required_mos_pct: z.number().finite().gte(0).lte(95),
+    direction: z.enum(['at_or_below', 'at_or_above']).default('at_or_below'),
+    note: z.string().max(500).optional(),
+  }).strip(),
+  z.object({
+    kind: z.literal('event_date'),
+    trigger_id: z.string().trim().max(40).optional(),
+    due_date: ISO_CALENDAR_DATE,
+    label: z.string().trim().min(1).max(160),
+    acknowledged_at: z.string().max(40).nullable().optional(),
+    note: z.string().max(500).optional(),
+  }).strip(),
+])
+
+const WatchRowBody = z.object({
+  ticker: z.string().trim().min(1).max(15),
+  company_name: z.string().trim().max(160).nullable().optional(),
+  currency: z.string().trim().max(8).nullable().optional(),
+  exchange: z.string().trim().max(80).nullable().optional(),
+  why: z.string().trim().max(4000).default(''),
+  conviction: z.enum(['high', 'medium', 'low']).nullable().optional(),
+  review_date: ISO_CALENDAR_DATE.nullable().optional(),
+  tags: z.array(z.string().trim().min(1).max(24)).max(WATCHLIST_MAX_TAGS).default([]),
+  triggers: z.array(TriggerBody).max(WATCHLIST_MAX_TRIGGERS).default([]),
+}).strip()
+
+const WatchTargetBody = z.object({
+  ticker: z.string().trim().min(1).max(15),
+  currency: z.string().trim().max(8).nullable().optional(),
+  reason: z.string().trim().max(500).default(''),
+  mute_scope: z.enum(['assertion', 'listing']).default('assertion'),
+}).strip()
+
+/**
+ * Mint trigger ids server-side so a client cannot forge one — but KEEP an existing id when the edit is
+ * positional, so a trigger keeps its identity across saves (its evaluation history is keyed on it). Ids
+ * are random rather than time-based: two entries edited in the same millisecond would otherwise collide.
+ */
+function withTriggerIds(triggers: z.infer<typeof TriggerBody>[], prev: WatchTrigger[] = []): WatchTrigger[] {
+  const known = new Set(prev.map((t) => t.trigger_id))
+  const used = new Set<string>()
+  return triggers.map((t) => {
+    // Keep the id the client is editing, but only if this entry actually has it — that stops a forged or
+    // duplicated id, and stops a deleted trigger's id being inherited by whatever took its place.
+    const sent = (t as { trigger_id?: string }).trigger_id
+    const keep = sent && known.has(sent) && !used.has(sent) ? sent : null
+    const id = keep ?? `TRG-${randomUUID().replace(/-/g, '').slice(0, 12)}`
+    used.add(id)
+    return { ...t, trigger_id: id } as WatchTrigger
+  })
+}
+
+/** The standing calls that feed the engine half, cached briefly: listAllCalls walks every run folder,
+ *  and the watchlist read is polled. */
+let callsCache: { at: number; calls: StandingCall[] } | null = null
+function standingCalls(): StandingCall[] {
+  if (callsCache && Date.now() - callsCache.at < 30_000) return callsCache.calls
+  const calls = (listAllCalls().calls ?? []) as unknown as StandingCall[]
+  callsCache = { at: Date.now(), calls }
+  return calls
+}
+
+// ---------- watchlist git publication ----------
+// CLAUDE.md §25/§28 name `watchlist/**` as engine DATA, published straight to `main` through the same
+// serialized commit/push helper every other autonomous data write uses — never as code. writeEntry() and
+// deleteEntry() (watchlist.ts) are pure filesystem calls on purpose: they are called from unit tests with
+// a plain tmp dir and must stay side-effect-free there. Publication is a SEPARATE step every route below
+// takes right after a write, mirroring launcher.ts's commitRunFile for the failure note and
+// news/ideas/ideas-publisher.ts for the Ideas ledger — both existing, established callers of the same
+// script. Kept synchronous (awaited) rather than fire-and-forget: a change nobody's request ever learned
+// failed to reach git is a change that silently never reached git, which is the exact defect this exists
+// to close. A failure is reported back to the caller as `publish_error` rather than swallowed — the row
+// still saved locally (so nothing already typed is lost), but the client can now say so.
+const WATCHLIST_PUBLISH_TIMEOUT_MS = 20 * 60_000
+async function publishWatchlist(relPaths: string[], msg: string): Promise<{ ok: boolean; error?: string }> {
+  const script = path.join(REPO_ROOT, 'scripts', 'commit-run.sh')
+  if (!fs.existsSync(script)) return { ok: false, error: 'commit-run.sh not found (not a full checkout)' }
+  try {
+    await execa('bash', [script, msg, '--', ...relPaths], { cwd: REPO_ROOT, timeout: WATCHLIST_PUBLISH_TIMEOUT_MS })
+    return { ok: true }
+  } catch (e: any) {
+    return { ok: false, error: String(e?.stderr || e?.message || e).slice(0, 400) }
+  }
+}
+const watchlistEntryPath = (entryId: string) => `watchlist/entries/${entryId}.json`
+
+async function buildWatchlist() {
+  const { entries, unreadable } = readEntries()
+  const decoration = readSizingDecoration()
+  const engine = readEngineWatch(standingCalls(), decoration)
+
+  // One batched quote call for the whole list — but getQuotes keys its result Map on the TICKER alone
+  // (equity-quote.ts), so two listings of the SAME ticker in one batch collide and the survivor could be
+  // the other currency's answer: the GBP row would show the USD listing's price. Group by ticker and run
+  // one round per collision depth. With distinct tickers — the normal case, and what today's data is —
+  // that is exactly one call, so the batching is preserved.
+  type Subj = { ticker: string; currency: string | null; exchange: string | null; companyName: string | null; entryPrice: number | null }
+  const byTicker = new Map<string, { key: string; subj: Subj }[]>()
+  const seenKeys = new Set<string>()
+  const consider = (key: string, ticker: string, currency: string | null, exchange: string | null, companyName: string | null, entryPrice: number | null) => {
+    if (!currency || seenKeys.has(key)) return
+    seenKeys.add(key)
+    const list = byTicker.get(ticker) ?? []
+    list.push({ key, subj: { ticker, currency, exchange, companyName, entryPrice } })
+    byTicker.set(ticker, list)
+  }
+  for (const e of engine) consider(e.listing.listing_key, e.listing.ticker, e.listing.currency, e.listing.exchange, e.listing.company_name, e.entry_price)
+  for (const e of entries) consider(e.listing.listing_key, e.listing.ticker, e.listing.currency, e.listing.exchange, e.listing.company_name, null)
+
+  const quotes = new Map<string, { quote: any; reason: any }>()
+  const depth = Math.max(0, ...[...byTicker.values()].map((g) => g.length))
+  for (let round = 0; round < depth; round++) {
+    const batch = [...byTicker.values()].map((g) => g[round]).filter(Boolean)
+    if (!batch.length) continue
+    const outcomes = await getQuotes(batch.map((b) => b.subj))
+    for (const b of batch) quotes.set(b.key, outcomes.get(b.subj.ticker) ?? { quote: null, reason: null })
+  }
+
+  const merged = mergeWatchlist({ entries, engine, quotes, today: todayISO() })
+  return {
+    ...merged,
+    engine_source: { file: decoration.file, generated_at: decoration.generated_at },
+    unreadable,
+    quotes_enabled: NEWS.quoteEnabled,
+    as_of: new Date().toISOString(),
+  }
+}
+
+app.get('/api/watchlist', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async () => buildWatchlist())
+
+/**
+ * Resolve a typed ticker to real, PRICED listings so the composer never asks a person to type a currency.
+ * The currency is returned exactly as the feed gave it — the case is load-bearing (GBp is pence, GBP is
+ * pounds, a factor of 100), so it is passed through rather than normalised here.
+ */
+app.get('/api/watchlist/resolve', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const q = String((req.query as any)?.q ?? '').trim()
+  if (q.length < 1 || q.length > 40) return reply.code(400).send({ error: 'q required' })
+  // Honour the same kill switch getQuotes does — with quotes off this route must not reach the provider.
+  if (!NEWS.quoteEnabled) return { query: q, candidates: [], reason: 'quotes_disabled' }
+  let groups: { symbol: string; name: string; exchange: string }[] = []
+  try {
+    groups = (await searchSymbolsEnriched(q)).slice(0, 8)
+  } catch {
+    return { query: q, candidates: [], reason: 'directory_unavailable' }
+  }
+  if (!groups.length) return { query: q, candidates: [], reason: 'no_match' }
+  // The directory speaks Yahoo ("NHY.OL", exchange "Oslo"); the quote feed speaks CNBC ("NHY-NO"). Asking
+  // the feed for a Yahoo symbol returns nothing, which showed up as a price-less row for every non-US
+  // listing — and this engine's book is majority non-US. Translate the same way the quote lane does:
+  // strip the venue suffix, then re-attach the country the exchange implies.
+  const cnbcFor = (g: { symbol: string; exchange: string }): string[] =>
+    symbolCandidates({ ticker: baseTicker(g.symbol), exchange: g.exchange, currency: 'X' })
+  let rows: Map<string, any> | null = null
+  try {
+    const wanted = [...new Set(groups.flatMap(cnbcFor))]
+    rows = await fetchCnbcRows(fetch, wanted, NEWS.quoteTimeoutMs)
+  } catch {
+    rows = null
+  }
+  const candidates = groups.map((g) => {
+    // first candidate the feed actually priced — most specific first, exactly as the quote lane orders them
+    const r = cnbcFor(g).map((sym) => rows?.get(sym)).find((row) => row && Number.isFinite(row.last))
+    // Normalise the minor unit HERE. The feed returns "GBp" (pence) verbatim, and makeListing/normCurrency
+    // upper-case it to "GBP" — so handing the raw pence price to the composer would prefill a trigger
+    // level 100x off, the exact unit error this whole lane exists to prevent.
+    const units = r?.currency ? resolveUnits(String(r.currency)) : null
+    const raw = typeof r?.last === 'number' && Number.isFinite(r.last) ? r.last : null
+    return {
+      symbol: g.symbol,
+      name: r?.name || g.name,
+      exchange: r?.exchange || g.exchange || null,
+      currency: units ? units.currency : null,
+      price: raw != null && units ? Math.round((raw / units.divisor) * 100) / 100 : null,
+      as_of: r?.asOf ?? null,
+      as_of_is_close: !!r?.dateOnly,
+    }
+  })
+  return { query: q, candidates, reason: rows ? null : 'feed_unavailable' }
+})
+
+app.post('/api/watchlist', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const parsed = WatchRowBody.safeParse(req.body ?? {})
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const listing = makeListing({
+    ticker: parsed.data.ticker,
+    currency: parsed.data.currency ?? null,
+    exchange: parsed.data.exchange ?? null,
+    companyName: parsed.data.company_name ?? null,
+  })
+  if (!cleanTicker(listing.ticker)) return reply.code(400).send({ error: 'ticker not usable' })
+  const dupe = triggerSetProblem(parsed.data.triggers ?? [])
+  if (dupe) return reply.code(400).send({ error: dupe })
+
+  const { entries } = readEntries()
+  const existing = pickEntryForListing(entries, listing.listing_key)
+  if (existing && !existing.archive) return reply.code(409).send({ error: 'already on the watchlist' })
+  // The cap only makes sense against a genuinely NEW row. Re-adding an archived listing restores an
+  // EXISTING file in place — the same transition the dedicated /restore endpoint performs — so at a full
+  // book this branch was refusing a request that adds no row at all, from the ordinary re-add path off
+  // the decision banner.
+  if (!existing && entries.length >= WATCHLIST_MAX_ROWS) return reply.code(413).send({ error: 'watchlist is full' })
+  const { user } = identify(req)
+  const now = new Date()
+  // Re-adding a name you archived is an un-archive, not a second row. Creating another file would put the
+  // same listing in BOTH the active and the archived views at once.
+  if (existing?.archive) {
+    existing.archive = null
+    existing.why = parsed.data.why || existing.why
+    if (parsed.data.conviction !== undefined) existing.conviction = parsed.data.conviction ?? null
+    if (parsed.data.review_date !== undefined) existing.review_date = parsed.data.review_date ?? null
+    // Unconditional, not `if (...length)`: the composer opens an archived row with NO prefilled triggers
+    // (archived rows are absent from watchlist.rows), so an explicitly empty array is what "I reviewed
+    // this and kept no triggers" looks like on the wire. Gating on `.length` silently kept the OLD,
+    // invisible archived triggers — which could fire immediately, contradicting what the composer showed
+    // the person before they saved.
+    existing.tags = [...new Set(parsed.data.tags.map((t) => t.toLowerCase()))]
+    existing.triggers = withTriggerIds(parsed.data.triggers, existing.triggers)
+    existing.updated_at = now.toISOString()
+    existing.history = [...existing.history, { at: now.toISOString(), by: user, action: 'restored', detail: 're-added' }].slice(-50)
+    writeEntry(existing)
+    const pub = await publishWatchlist([watchlistEntryPath(existing.entry_id)], `Watchlist: re-add ${listing.ticker}`)
+    return reply.code(200).send({ ok: true, entry: existing, publish_error: pub.ok ? undefined : pub.error })
+  }
+  const engine = readEngineWatch(standingCalls(), readSizingDecoration()).find((e) => e.listing.listing_key === listing.listing_key) ?? null
+  const entry: WatchEntry = {
+    schema_version: 'watchlist-entry/v1',
+    entry_id: newEntryId(now),
+    origin: engine ? 'engine' : 'manual',
+    listing,
+    engine_ref: engine ? { run_root: engine.run_root, decision: engine.decision, decision_date: engine.decision_date, fingerprint: engine.fingerprint } : null,
+    why: parsed.data.why,
+    conviction: parsed.data.conviction ?? null,
+    review_date: parsed.data.review_date ?? null,
+    tags: [...new Set(parsed.data.tags.map((t) => t.toLowerCase()))],
+    triggers: withTriggerIds(parsed.data.triggers),
+    attachments: [],
+    archive: null,
+    history: [{ at: now.toISOString(), by: user, action: 'created', detail: '' }],
+    created_at: now.toISOString(),
+    created_by: user,
+    updated_at: now.toISOString(),
+  }
+  writeEntry(entry)
+  const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: add ${listing.ticker}`)
+  return reply.code(201).send({ ok: true, entry, publish_error: pub.ok ? undefined : pub.error })
+})
+
+app.patch('/api/watchlist/:id', { config: { rateLimit: { max: 240, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = String((req.params as any).id ?? '')
+  if (!isWatchId(id)) return reply.code(400).send({ error: 'bad id' })
+  const parsed = WatchRowBody.partial().safeParse(req.body ?? {})
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const { entries } = readEntries()
+  const entry = entries.find((e) => e.entry_id === id)
+  if (!entry) return reply.code(404).send({ error: 'not found' })
+  if (parsed.data.triggers) {
+    const problem = triggerSetProblem(parsed.data.triggers)
+    if (problem) return reply.code(400).send({ error: problem })
+  }
+  const { user } = identify(req)
+  const d = parsed.data
+  if (d.why !== undefined) entry.why = d.why
+  if (d.conviction !== undefined) entry.conviction = d.conviction ?? null
+  if (d.review_date !== undefined) entry.review_date = d.review_date ?? null
+  if (d.tags !== undefined) entry.tags = [...new Set(d.tags.map((t) => t.toLowerCase()))]
+  if (d.triggers !== undefined) entry.triggers = withTriggerIds(d.triggers, entry.triggers)
+  if (d.company_name !== undefined) entry.listing.company_name = d.company_name ?? null
+  if (d.exchange !== undefined) entry.listing.exchange = d.exchange ?? null
+  // Currency is the field that decides whether a row can be priced at all, so it MUST be fixable after
+  // the fact. It is part of the listing identity, so changing it re-keys the row — refuse if that would
+  // collide with an entry that already exists.
+  if (d.currency !== undefined) {
+    const next = makeListing({
+      ticker: entry.listing.ticker,
+      currency: d.currency ?? null,
+      exchange: entry.listing.exchange,
+      companyName: entry.listing.company_name,
+    })
+    if (next.listing_key !== entry.listing.listing_key) {
+      const clash = entries.find((e) => e.entry_id !== entry.entry_id && e.listing.listing_key === next.listing_key)
+      if (clash) return reply.code(409).send({ error: 'another entry already tracks that listing' })
+      entry.listing = next
+    }
+  }
+  entry.updated_at = new Date().toISOString()
+  entry.history = [...entry.history, { at: entry.updated_at, by: user, action: 'edited', detail: '' }].slice(-50)
+  writeEntry(entry)
+  const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: edit ${entry.listing.ticker}`)
+  return { ok: true, entry, publish_error: pub.ok ? undefined : pub.error }
+})
+
+/**
+ * Archive and restore key on the LISTING, not on an entry id — that is the only identity a pure engine
+ * row has, and keying on it is what lets the mute survive the engine file being regenerated. Archiving
+ * an engine row that has no file yet CREATES one; that is the moment the row becomes user-touched.
+ */
+app.post('/api/watchlist/archive', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const parsed = WatchTargetBody.safeParse(req.body ?? {})
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const key = listingKey(parsed.data.ticker, parsed.data.currency ?? null)
+  const { user } = identify(req)
+  const now = new Date()
+  const engine = readEngineWatch(standingCalls(), readSizingDecoration()).find((e) => e.listing.listing_key === key) ?? null
+  const { entries } = readEntries()
+  let entry = pickEntryForListing(entries, key)
+  if (!entry) {
+    if (!engine) return reply.code(404).send({ error: 'not found' })
+    entry = {
+      schema_version: 'watchlist-entry/v1',
+      entry_id: newEntryId(now),
+      origin: 'engine',
+      listing: engine.listing,
+      engine_ref: { run_root: engine.run_root, decision: engine.decision, decision_date: engine.decision_date, fingerprint: engine.fingerprint },
+      why: '', conviction: null, review_date: null, tags: [], triggers: [], attachments: [],
+      archive: null, history: [], created_at: now.toISOString(), created_by: user, updated_at: now.toISOString(),
+    }
+  }
+  entry.archive = {
+    at: now.toISOString(),
+    by: user,
+    reason: parsed.data.reason,
+    muted_fingerprint: engine?.fingerprint ?? null,
+    mute_scope: parsed.data.mute_scope,
+  }
+  entry.updated_at = now.toISOString()
+  entry.history = [...entry.history, { at: now.toISOString(), by: user, action: 'archived', detail: parsed.data.reason }].slice(-50)
+  writeEntry(entry)
+  const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: archive ${entry.listing.ticker}`)
+  return { ok: true, entry, publish_error: pub.ok ? undefined : pub.error }
+})
+
+app.post('/api/watchlist/restore', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const parsed = WatchTargetBody.safeParse(req.body ?? {})
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const key = listingKey(parsed.data.ticker, parsed.data.currency ?? null)
+  const { entries } = readEntries()
+  const entry = pickEntryForListing(entries, key)
+  if (!entry) return reply.code(404).send({ error: 'not found' })
+  const { user } = identify(req)
+  const now = new Date().toISOString()
+  entry.archive = null
+  entry.updated_at = now
+  entry.history = [...entry.history, { at: now, by: user, action: 'restored', detail: '' }].slice(-50)
+  // An engine row that carries nothing of its own is not worth a file once it is un-archived.
+  const bare = entry.origin === 'engine' && !entry.why && !entry.triggers.length && !entry.attachments.length && !entry.tags.length
+  if (bare) {
+    deleteEntry(entry.entry_id)
+    const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: restore ${entry.listing.ticker} (bare — file removed)`)
+    return { ok: true, entry: null, publish_error: pub.ok ? undefined : pub.error }
+  }
+  writeEntry(entry)
+  const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: restore ${entry.listing.ticker}`)
+  return { ok: true, entry, publish_error: pub.ok ? undefined : pub.error }
+})
+
+// ---- watchlist attachments ----
+// PDFs only, and they go to their own Drive folder keyed by ENTRY ID — never data/<TICKER>/. That is the
+// difference between a note you wrote and evidence a run may cite (§4), and it is enforced by calling a
+// function that takes no ticker at all rather than by remembering not to.
+
+const WATCH_ATTACH_MAX_BYTES = 25 * 1024 * 1024
+
+app.post('/api/watchlist/:id/attachments', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = String((req.params as any).id ?? '')
+  if (!isWatchId(id)) return reply.code(400).send({ error: 'bad id' })
+  if (!req.isMultipart()) return reply.code(400).send({ error: 'expected multipart' })
+  const { entries } = readEntries()
+  const entry = entries.find((e) => e.entry_id === id)
+  if (!entry) return reply.code(404).send({ error: 'not found' })
+  // Asked AFTER the request is validated: whether Drive is up has no bearing on whether the request was
+  // well-formed, and a 503 masking a 400 makes a client bug look like an outage.
+  if (!GDRIVE_ENABLED) return reply.code(503).send({ error: 'attachments need the Drive integration' })
+  const { user } = identify(req)
+
+  const added: typeof entry.attachments = []
+  const fileErrors: { filename: string; reason: string }[] = []
+  // The WHOLE iteration is wrapped, not just each upload: `req.parts()` itself can throw mid-stream (a
+  // malformed trailing part, or the global @fastify/multipart file-count cap) — that propagates out of the
+  // `for await` and used to skip the `if (added.length)` persist block below entirely, orphaning every PDF
+  // already accepted by Drive in an EARLIER iteration with no record of it in the entry at all.
+  try {
+    for await (const part of req.parts()) {
+      if (part.type !== 'file') continue
+      const raw = part.filename || 'thesis.pdf'
+      if (entry.attachments.length + added.length >= WATCHLIST_MAX_ATTACHMENTS) {
+        part.file.resume()
+        fileErrors.push({ filename: raw, reason: `at most ${WATCHLIST_MAX_ATTACHMENTS} files per name` })
+        continue
+      }
+      const safe = sanitizeUploadFilename(raw)
+      if (!safe.ok) { part.file.resume(); fileErrors.push({ filename: raw, reason: safe.reason }); continue }
+      // Narrower than UPLOAD_ALLOWED_EXTS on purpose: that list includes md/csv/json, the very types the
+      // pool extractor treats as evidence. A watchlist attachment is a document you read, nothing more.
+      if (!/\.pdf$/i.test(safe.name)) { part.file.resume(); fileErrors.push({ filename: raw, reason: 'PDF only' }); continue }
+
+      let bytes = 0
+      let tooBig = false
+      part.file.on('data', (c: Buffer) => {
+        bytes += c.length
+        if (bytes > WATCH_ATTACH_MAX_BYTES && !tooBig) { tooBig = true; part.file.destroy(new Error('too large')) }
+      })
+      try {
+        const up = await uploadToWatchlist(id, safe.name, part.file as any)
+        // @fastify/multipart can TRUNCATE without throwing, so a "successful" upload of a truncated stream
+        // must still be rejected — and the partial removed from Drive rather than left as a short PDF.
+        if (tooBig || (part.file as any).truncated) {
+          await deleteDriveFile(up.id)
+          fileErrors.push({ filename: raw, reason: `larger than ${Math.round(WATCH_ATTACH_MAX_BYTES / 1024 / 1024)}MB` })
+          continue
+        }
+        added.push({ attachment_id: up.id, filename: up.name, bytes, added_at: new Date().toISOString(), added_by: user })
+      } catch (e: any) {
+        // Drain the stream before the iterator can advance — a failure here (e.g. the Drive folder lookup
+        // rejecting BEFORE files.create ever reads the body) can leave `part.file` unconsumed, and
+        // req.parts() cannot move past an unread file stream. .resume() on an already-ended/destroyed
+        // stream is a no-op, so this is safe to call unconditionally.
+        part.file.resume()
+        fileErrors.push({ filename: raw, reason: tooBig ? 'too large' : driveErrorMessage(e) })
+      }
+    }
+  } catch (e: any) {
+    fileErrors.push({ filename: '(upload)', reason: `the upload stopped early: ${String(e?.message || e)}` })
+  }
+
+  let pubError: string | undefined
+  if (added.length) {
+    // Re-read the LATEST persisted copy rather than mutating the one read at the top of this handler: the
+    // uploads above can take a while, and if another request edited/archived/restored/detached from this
+    // same row while they were in flight, writing back the stale in-memory `entry` would silently discard
+    // that intervening mutation the moment the attachment metadata is saved. Not fully serialized against
+    // a concurrent writer (there is no per-entry lock here), but this closes the common, slow-upload case.
+    const fresh = readEntries().entries.find((e) => e.entry_id === id) ?? entry
+    fresh.attachments = [...fresh.attachments, ...added]
+    fresh.updated_at = new Date().toISOString()
+    fresh.history = [...fresh.history, { at: fresh.updated_at, by: user, action: 'attached', detail: added.map((a) => a.filename).join(', ') }].slice(-50)
+    writeEntry(fresh)
+    entry.attachments = fresh.attachments
+    entry.updated_at = fresh.updated_at
+    entry.history = fresh.history
+    // The PDFs themselves live in Drive, not git — only the entry's attachment METADATA (filename, Drive
+    // id, size) is a watchlist/** data path.
+    const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: attach files to ${entry.listing.ticker}`)
+    pubError = pub.ok ? undefined : pub.error
+  }
+  return reply.code(added.length ? 201 : 400).send({ ok: added.length > 0, entry, fileErrors, publish_error: pubError })
+})
+
+app.get('/api/watchlist/:id/attachment/:attachmentId', { config: { rateLimit: { max: 300, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const id = String((req.params as any).id ?? '')
+  const attachmentId = String((req.params as any).attachmentId ?? '')
+  if (!isWatchId(id)) return reply.code(404).send({ error: 'not found' })
+  const { entries } = readEntries()
+  const entry = entries.find((e) => e.entry_id === id)
+  // The id must be one this entry actually lists — that, not the string's shape, is the containment
+  // barrier here: a Drive file id is only reachable if a record we wrote points at it.
+  const att = entry?.attachments.find((a) => a.attachment_id === attachmentId)
+  if (!att) return reply.code(404).send({ error: 'not found' })
+  if (!GDRIVE_ENABLED) return reply.code(503).send({ error: 'attachments need the Drive integration' })
+  let stream: import('node:stream').Readable
+  try { stream = await readWatchlistFile(attachmentId) } catch { return reply.code(502).send({ error: 'could not read the file' }) }
+  // `attachment`, never inline: an inline user-supplied PDF can run script in some viewers, and this
+  // origin holds the whole cockpit session. The filename is rebuilt from validated data, never echoed.
+  const safeName = `${entry!.listing.ticker.replace(/[^A-Za-z0-9._-]/g, '')}-${att.filename.replace(/[^A-Za-z0-9._-]/g, '')}`
+  return reply
+    .header('content-type', 'application/pdf')
+    .header('x-content-type-options', 'nosniff')
+    .header('content-disposition', `attachment; filename="${safeName}"`)
+    .header('cache-control', 'private, no-store')
+    .send(stream)
+})
+
+app.delete('/api/watchlist/:id/attachment/:attachmentId', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = String((req.params as any).id ?? '')
+  const attachmentId = String((req.params as any).attachmentId ?? '')
+  if (!isWatchId(id)) return reply.code(400).send({ error: 'bad id' })
+  const { entries } = readEntries()
+  const entry = entries.find((e) => e.entry_id === id)
+  if (!entry?.attachments.some((a) => a.attachment_id === attachmentId)) return reply.code(404).send({ error: 'not found' })
+  const { user } = identify(req)
+  // Strict, not best-effort: deleteDriveFile swallows every failure and resolves anyway, which used to
+  // remove the entry's only record of the file — its Drive id — the instant Drive was unreachable or a
+  // permission changed, leaving the PDF orphaned with no route left to find or remove it. Only drop the
+  // metadata once the file is actually gone (or already gone — a 404 counts as removed).
+  try {
+    await deleteDriveFileStrict(attachmentId)
+  } catch (e: any) {
+    return reply.code(502).send({ error: driveErrorMessage(e) })
+  }
+  entry.attachments = entry.attachments.filter((a) => a.attachment_id !== attachmentId)
+  entry.updated_at = new Date().toISOString()
+  entry.history = [...entry.history, { at: entry.updated_at, by: user, action: 'detached', detail: attachmentId }].slice(-50)
+  writeEntry(entry)
+  const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: detach file from ${entry.listing.ticker}`)
+  return { ok: true, entry, publish_error: pub.ok ? undefined : pub.error }
+})
+
 app.get('/api/output/run', async (req, reply) => {
   const r = resolveOutputRun(req.query as any)
   if (r.unknownSwarm) return reply.code(404).send({ error: 'unknown swarm' })
@@ -4169,14 +4724,16 @@ function broadcastData(fp: string, change: 'added' | 'removed') {
 
 if (fs.existsSync(DATA_DIR)) {
   // data/ is a Google Drive CloudStorage mount -> polling is the robust choice across the FUSE boundary.
-  // depth 3 (not 2): external data lands at data/<T>/external/<provider>/<file> (frameworks/
-  // EXTERNAL_DATA.md) — at depth 2 a file routed into an EXISTING provider folder emits no event at
-  // all (only the folder's own creation did), so the cockpit never heard about later drops.
+  // No `depth` cap: data-status.ts's listPoolFiles walks the WHOLE tree with no depth limit (a filing can
+  // sit at data/<T>/Filings/2026/Q1/report.pdf or deeper), so a fixed depth here would silently stop
+  // watching below that bound — a nested drop would satisfy readiness/coverage on the next listing but
+  // never fire the live "data-changed" event or auto-intake until an unrelated shallower change, or a
+  // manual refresh, happened to trigger one (PR #457 review). Unbounded matches the recursive contract
+  // exactly; the cost is the same per-poll-cycle FUSE walk the recursive pool scan already performs.
   const dataWatcher = chokidar.watch(DATA_DIR, {
     ignoreInitial: true,
     usePolling: true,
     interval: 1500,
-    depth: 3,
     awaitWriteFinish: { stabilityThreshold: 2000, pollInterval: 500 },
   })
   dataWatcher.on('add', (f) => broadcastData(f, 'added'))

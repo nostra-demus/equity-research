@@ -12,7 +12,7 @@ import { motion } from 'framer-motion'
 import { useStore } from '../../lib/store'
 import type { DeferReason, LastResortState, NewsDiagnostics, TierDiagnostics, TierHealth } from '../../lib/types'
 import { tierMeter } from './pipelineMeter'
-import { tierStatusCopy } from './pipelineDiagnosticsView'
+import { fmtFailingFor, tierStatusCopy } from './pipelineDiagnosticsView'
 import './PipelineDiagnostics.css'
 
 /** Plain time-UNTIL a future instant. The scheduler keeps nextCycleAt ahead of now, so this is the correct
@@ -132,6 +132,18 @@ function TierRow({ tier, coolLeftMs }: { tier: TierDiagnostics; coolLeftMs: numb
 }
 
 function BacklogGauge({ b }: { b: NewsDiagnostics['backlog'] }) {
+  // The OTHER real loss, kept separate from the cap: items retired unscored for waiting out the backlog's
+  // own age bound. Silence here is what let a 23,000-item wall of stale filings look healthy while it
+  // starved live news off the wire — a gauge reading only the cap would have shown 0 throughout.
+  // Hoisted ABOVE the unavailable branch because retiredToday is summed from cycle summaries, not read
+  // from the deferred file: it survives exactly the failure that branch reports, and an unreadable
+  // waiting list is when an operator most needs to know items were being retired.
+  const retired = b.retiredToday ?? 0
+  const retiredAlert = retired > 0 ? (
+    <div className="diagbacklog__lost" role="alert">
+      {retired.toLocaleString()} item{retired === 1 ? '' : 's'} retired today — waited longer than the backlog’s age bound, so they were never scored. The scanner is behind, not the sources.
+    </div>
+  ) : null
   if (b.unavailable) {
     return (
       <div className="diagbacklog is-unavailable" role="status">
@@ -145,6 +157,7 @@ function BacklogGauge({ b }: { b: NewsDiagnostics['backlog'] }) {
             {b.lostToday.toLocaleString()} item{b.lostToday === 1 ? '' : 's'} lost today.
           </div>
         )}
+        {retiredAlert}
       </div>
     )
   }
@@ -173,6 +186,7 @@ function BacklogGauge({ b }: { b: NewsDiagnostics['backlog'] }) {
           {b.lostToday.toLocaleString()} item{b.lostToday === 1 ? '' : 's'} lost today — dropped past the {b.cap.toLocaleString()} cap, not deferred; gone once the source window ages out.
         </div>
       )}
+      {retiredAlert}
     </div>
   )
 }
@@ -226,6 +240,9 @@ export function PipelineDiagnostics() {
   }, [diag])
 
   const lc = diag?.lastCycle
+  // Tiers the provider is refusing the key for. Read off the per-tier flag rather than the defer group so this
+  // still renders against an engine that has the flag but not yet the group (rolling deploy).
+  const credentialBlocked = (diag?.tiers || []).filter((t) => t.enabled && t.spendingAllowed !== false && t.credentialRejected === true)
   return (
     <motion.div className="diag" initial={{ x: '100%' }} animate={{ x: 0 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
       <div className="diag__head">
@@ -259,6 +276,32 @@ export function PipelineDiagnostics() {
               <span className="diag__today mono">read {diag.today.read.toLocaleString()} · kept {(diag.today.kept).toLocaleString()} · dropped {diag.today.dropped.toLocaleString()}</span>
             )}
           </div>
+
+          {/* A REJECTED CREDENTIAL, ABOVE EVERYTHING ELSE. Every other state on this panel resolves itself
+              given time — a quota resets, a rate limit lapses, an outage ends. This one never does, and it is
+              the only one that needs a human. It is drawn here, outside `defer.active`, because a dead tier
+              does not necessarily make the CYCLE defer: with other providers coping, the panel would look
+              healthy while the largest allowance on the roster sat dark. That is exactly what happened. */}
+          {credentialBlocked.length > 0 && (
+            <section className="diag__sec">
+              <div className="diagwhy is-alert" role="alert">
+                <div className="diagwhy__head">
+                  <span aria-hidden>⚠</span>
+                  <span>{credentialBlocked.map((t) => t.label).join(', ')}: key rejected</span>
+                </div>
+                <ul className="diagwhy__list">
+                  {credentialBlocked.map((t) => (
+                    <li key={t.id}>
+                      {t.label} — the provider is refusing this key{t.failingForMs != null ? `, failing for ${fmtFailingFor(t.failingForMs)}` : ''}
+                      {t.triageScoredBatchesToday === 0 ? ' with nothing scored today' : ''}.
+                      {t.keyEnvVar ? ` Check ${t.keyEnvVar} on the engine host.` : ' Check its API key on the engine host.'}
+                    </li>
+                  ))}
+                </ul>
+                <div className="diagwhy__foot">Retrying cannot fix this — the countdown beside each one is only when the engine will next check.</div>
+              </div>
+            </section>
+          )}
 
           {/* the honest "why is anything waiting" surface — the whole point */}
           {diag.defer.active && (

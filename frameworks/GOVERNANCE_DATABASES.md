@@ -76,7 +76,9 @@ Database recipes are per-source. This battery is per-SUBJECT: run it against **e
 
 ## Unlisted / Private-Entity Sweep Protocol
 
-Most entities the discovery loop surfaces are **not listed**: promoter vehicles, predecessor entities, founder-linked companies, address-cluster companies. They file no proxy, no CG report, no quarterly results. That is the REGIME, not a data gap — recording "no disclosures available" as opacity is the §27 twin of marking a non-US company's data missing because there is no 10-K, and it is a bad-extraction error (§20).
+Most entities the discovery loop surfaces are **not listed**: promoter vehicles, predecessor entities, founder-linked companies, address-cluster companies. **First step: detect the entity's own reporting regime** — private / public-unlisted / debt-listed / regulated (an NBFC, insurer, bank, or other entity under sector-regulator supervision) — before applying any blanket rule. A **debt-listed** entity (listed NCDs/bonds) carries exchange disclosure and interim-filing obligations on the debt line even with no listed equity; a **regulated** entity (RBI/IRDAI/sector-regulator supervised) files regulator returns even with no exchange listing at all. For those two cases, add its exchange/interim filings and regulator returns to the axes below — they are not exempt from the sweep just because they have no listed equity.
+
+For the **typical private-vehicle** case — no listed equity, no listed debt, no sector-regulator supervision — the entity files no proxy, no CG report, no quarterly results. That is the REGIME, not a data gap — recording "no disclosures available" as opacity is the §27 twin of marking a non-US company's data missing because there is no 10-K, and it is a bad-extraction error (§20).
 
 What an unlisted entity still yields, and what to run:
 
@@ -84,7 +86,7 @@ What an unlisted entity still yields, and what to run:
 |---|---|---|
 | Registry master data | MCA / Companies House / local registrar | Status (active / struck-off / under CIRP / dormant / active-noncompliant), incorporation date, **previous names**, registered address, authorised & paid-up capital, last filing date |
 | Directors & founders | Registry director master data + the mirrors, plus D-6 | Current board, incorporation-era board, identifiers for each |
-| Charge register | MCA charges / Companies House mortgages | Who lends to it, how much, secured on what — the only lender view an unlisted entity gives you, and a live charge on a "dormant" entity is a finding |
+| Charge register | MCA charges / Companies House mortgages | Who lends to it, how much, secured on what — the SECURED-lender view; unsecured/inter-corporate borrowings appear only in the borrowings note of the filed accounts and in any rating rationale, not here. A live charge on a "dormant" entity is a finding |
 | Insolvency | IBBI / NCLT / NCLAT / Gazette / local insolvency register | CIRP, liquidation, winding-up — as debtor AND as petitioner |
 | Courts | Indian Kanoon / eCourts / BAILII / CourtListener | Litigation naming the entity; party posture verbatim |
 | Regulator | Securities regulator, banking regulator, sector regulator, defaulter lists | Enforcement, penalties, defaulter listings |

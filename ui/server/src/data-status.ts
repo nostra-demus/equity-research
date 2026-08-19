@@ -442,15 +442,23 @@ export function classify(filename: string, sniff: string): { type: FileType; con
   return { type: 'other', confidence: 'low', basis: 'extension' }
 }
 
-async function classifyFile(dir: string, filename: string): Promise<ClassifiedFile> {
-  const full = path.join(dir, filename)
+// `rel` is the pool-relative path (native sep) from listPoolFiles — the basename for a top-level file,
+// or "Filings 4/annual.pdf" for a nested one. Classification, period, and every name-regex run on the
+// BASENAME (never the rel path), so a subfolder name — "Presentations/", "2024 Filings/" — can never
+// contaminate a file's type or period; the rel path is carried only as the `path` field (for display and
+// to keep duplicate basenames distinguishable), exactly as extract_pool.py's manifest does it.
+async function classifyFile(dir: string, rel: string): Promise<ClassifiedFile> {
+  const full = path.resolve(dir, rel)
+  if (full !== dir && !full.startsWith(dir + path.sep)) throw new Error(`pool path escapes the folder: ${rel}`)
+  const base = path.basename(rel)
+  const relPosix = rel.split(path.sep).join('/')
   const st = fs.statSync(full)
   const sniff = await sniffText(full, st.size, st.mtimeMs)
-  let { type, confidence, basis } = classify(filename, sniff)
-  const { hint, ageMonths } = extractPeriod(filename, sniff)
+  let { type, confidence, basis } = classify(base, sniff)
+  const { hint, ageMonths } = extractPeriod(base, sniff)
   // fall back to file mtime age when no period could be parsed
   const mtimeAge = Math.max(0, Math.round((Date.now() - st.mtimeMs) / (1000 * 60 * 60 * 24 * 30.4)))
-  const ext = path.extname(filename).toLowerCase()
+  const ext = path.extname(base).toLowerCase()
 
   // Crack open spreadsheets so a multi-tab workbook is never one opaque "other / low" row:
   // read its tabs via the canonical extractor and, when the filename gave no signal,
@@ -475,7 +483,7 @@ async function classifyFile(dir: string, filename: string): Promise<ClassifiedFi
   // off the explicit quote date first; then any period parsed from the filename/content (e.g. a dated
   // "IBKR_quote_2025-01-02" name); and only last the file mtime — so a Drive re-sync that refreshes mtime
   // can't make a stale quote look current. Keeps the price chip AND valuation's hasCurrentPrice gate honest.
-  const isPriceDoc = PRICE_RE.test(filename) || (sheets ?? []).some((s) => PRICE_RE.test(s.name))
+  const isPriceDoc = PRICE_RE.test(base) || (sheets ?? []).some((s) => PRICE_RE.test(s.name))
   // For an earnings CALL (verbatim transcript or sell-side proxy), a call date in the filename is a sharper
   // recency anchor than the quarter-END extractPeriod uses — a Q4 call held in Feb must age from Feb, or it
   // falls out of the 6-month recent-call window and mis-fires the "<2 recent calls" cap (Codex #195).
@@ -483,7 +491,7 @@ async function classifyFile(dir: string, filename: string): Promise<ClassifiedFi
   const ageMonthsFinal = isPriceDoc
     ? (quoteAsOfMonths(sniff) ?? ageMonths ?? mtimeAge)
     : isCallDoc
-      ? (callDateMonths(filename) ?? ageMonths ?? mtimeAge)
+      ? (callDateMonths(base) ?? ageMonths ?? mtimeAge)
       : (ageMonths ?? mtimeAge)
 
   // A routed wire-event note (research-bridge.ts) has a machine filename (screener_event_EVT-….md) that
@@ -491,10 +499,12 @@ async function classifyFile(dir: string, filename: string): Promise<ClassifiedFi
   // name, and the source + wire/published timestamp become the hover line — so the Data pool reads as
   // "what news is in here", not as opaque ids. Parsed from the sniff (the header sits in the first lines);
   // a note that somehow lacks the header simply keeps the filename (fail-open to the old display).
-  const wireEvent = /^screener_event_EVT-[0-9a-f]{6,}\.md$/.test(filename) ? parseWireEventNote(readNoteText(full), filename) : null
+  const wireEvent = /^screener_event_EVT-[0-9a-f]{6,}\.md$/.test(base) ? parseWireEventNote(readNoteText(full), base) : null
 
   return {
-    filename,
+    filename: base,
+    // carry the subfolder location only when nested, so a top-level file is byte-identical to before
+    ...(relPosix !== base ? { path: relPosix } : {}),
     ext,
     sizeBytes: st.size,
     mtime: new Date(st.mtimeMs).toISOString(),
@@ -575,6 +585,70 @@ function listExternalFiles(tickerDirRaw: string): string[] {
       }
     }
   } catch { /* no external/ folder — the common case */ }
+  return out.sort()
+}
+
+// Recursively list the company folder's OWN documents as pool-relative paths (native sep), so the
+// cockpit's file panel, readiness dots, coverage, and file count see the SAME files the research orbs
+// read. extract_pool.py (iter_pool_files) walks the whole tree with os.walk, so a filing dropped in a
+// "Filings 4/" or "Transcript Digest/" subfolder is real pool data — not something the user must move to
+// the top level. This mirrors the extractor's exact skip rules so the two never disagree:
+//   • hidden entries (name starts with '.')            — same as the extractor
+//   • symlinks (files and dirs)                        — extractor walks with followlinks=False
+//   • engine-written output (a folder holding a `.nostradamus_output` sentinel) — the extractor skips a
+//     file whose IMMEDIATE parent holds the sentinel, still descending into any real subfolders below it
+//   • `.source.json` provenance sidecars               — metadata, not documents
+// The external/ subtree is owned by listExternalFiles (provenance-aware, forced to the readiness-neutral
+// 'external_data' type), so it is excluded here to avoid double-listing. Containment is asserted inline at
+// every derived path (the shape CodeQL's js/path-injection barrier recognizes), so nothing escapes DATA_DIR.
+function listPoolFiles(tickerDirRaw: string): string[] {
+  const root = path.resolve(tickerDirRaw)
+  if (root !== DATA_DIR && !root.startsWith(DATA_DIR + path.sep)) return []
+  const out: string[] = []
+  const walk = (absDir: string, relDir: string): void => {
+    // Confine absDir to DATA_DIR IN THIS SCOPE before any fs use — a pure startsWith against the constant
+    // safe root is the js/path-injection barrier CodeQL recognizes. The recursive call below guards `abs`
+    // in the caller's scope, but the dataflow did not carry that barrier across the recursive call into the
+    // `absDir` parameter (it flagged readdirSync(absDir) and path.join(absDir, …) at code-scanning/186-187).
+    // The ticker dir and every subfolder start with DATA_DIR + sep, so this rejects nothing valid; the
+    // functional confinement to the ticker dir is still done by `abs.startsWith(root + path.sep)` on each
+    // child below.
+    if (!absDir.startsWith(DATA_DIR + path.sep)) return
+    let names: string[]
+    try { names = fs.readdirSync(absDir) } catch { return }
+    // A file whose immediate parent holds the sentinel is engine output, never pool input (launcher.ts
+    // writes it into every written-back "Memos …"/dossier folder). Matches extract_pool.py exactly.
+    const isOutputDir = fs.existsSync(path.join(absDir, '.nostradamus_output'))
+    for (const name of names) {
+      const abs = path.resolve(absDir, name)
+      if (!abs.startsWith(root + path.sep)) continue
+      let st: fs.Stats
+      try { st = fs.lstatSync(abs) } catch { continue }
+      if (st.isSymbolicLink()) continue // never follow a symlink (extractor: followlinks=False)
+      if (st.isDirectory()) {
+        // A directory named "external" — at ANY depth, not just the ticker root — is owned by the
+        // provenance-aware listExternalFiles (top-level only) or simply excluded from the research pool
+        // when nested deeper. Matches extract_pool.py's _is_external_rel: "external" as any path segment
+        // before the filename marks the whole subtree external, not just data/<T>/external/ (Codex parity
+        // finding, PR #457 review round 2) — a nested Archive/external/provider/doc.pdf must never satisfy
+        // filing readiness the way a real top-level filing does.
+        if (name === 'external') continue
+        // Descend into EVERY real subfolder, including dot-prefixed ones (".archive/"): the extractor's
+        // os.walk descends into all non-symlink dirs and skips a document only by its OWN basename. Pruning
+        // a dot-DIRECTORY here made the cockpit miss filings the orbs read — the exact disagreement this PR
+        // exists to remove, just in reverse (Codex parity finding).
+        walk(abs, relDir ? path.join(relDir, name) : name)
+      } else if (st.isFile()) {
+        if (name.startsWith('.')) continue // dot-FILE (incl. the .nostradamus_output sentinel) — matches the extractor's basename skip
+        if (isOutputDir) continue // engine-written output folder (.nostradamus_output sentinel) — excluded from the pool
+        if (name.toLowerCase().endsWith(SIDECAR_SUFFIX)) continue // provenance sidecar, not a document — case-insensitive, matching extract_pool.py's _is_sidecar (name.lower().endswith(...))
+        if (st.nlink !== 1) continue // multiply-linked file — the extractor rejects st_nlink != 1 (iter_pool_files)
+        if (path.basename(absDir).endsWith('_pool_extracts')) continue // derived extractor cache, not a source doc (extract_pool.py)
+        out.push(relDir ? path.join(relDir, name) : name)
+      }
+    }
+  }
+  walk(root, '')
   return out.sort()
 }
 
@@ -740,7 +814,7 @@ export function evaluateModules(files: ClassifiedFile[], moduleNames: string[]):
     const recentCalls = files.filter(
       (f) => (f.type === 'transcript' || f.type === 'sell_side_earnings_note') && (f.ageMonths == null || f.ageMonths <= 6),
     )
-    const distinctRecentCalls = new Set(recentCalls.map((f) => f.periodHint ?? `__file:${f.filename}`)).size
+    const distinctRecentCalls = new Set(recentCalls.map((f) => f.periodHint ?? `__file:${f.path ?? f.filename}`)).size
     const recentTranscripts = recentCalls.filter((f) => f.type === 'transcript').length
     const recentProxies = recentCalls.filter((f) => f.type === 'sell_side_earnings_note').length
     const caps: string[] = []
@@ -1008,20 +1082,20 @@ export async function analyzeTicker(ticker: string): Promise<DataStatus> {
     const modules = Object.fromEntries(listModuleNames().map((m) => [m, { status: 'Insufficient' as Sufficiency, reasons: ['no data uploaded'], caps: [] }]))
     return { ticker, hasAnyData: false, fileCount: 0, files: [], recentByType: {}, modules, coverage: deriveCoverage([]), overallReady: false, dataDir: DATA_DIR, ts: Date.now() }
   }
-  let filenames: string[] = []
-  try {
-    filenames = fs.readdirSync(dir).filter((n) => !n.startsWith('.') && fs.statSync(path.join(dir, n)).isFile())
-  } catch {
-    filenames = []
-  }
+  // Recursive: a filing dropped in a "Filings 4/" or "Transcript Digest/" subfolder is real pool data
+  // (extract_pool.py walks the whole tree), so the panel, readiness dots, and coverage now reflect it —
+  // the user never has to move files to the top level for the cockpit to count what the orbs already read.
+  const rels = listPoolFiles(dir)
   // sequential on purpose: one extractor spawn at a time, the same load the sync version put on the
   // Drive mount — the win is that the loop now YIELDS between files, so SSE pings, /api/runs, and a
   // cancel POST keep flowing through a cold 44-file classify instead of freezing 20-30s per file.
   const files: ClassifiedFile[] = []
-  for (const n of filenames) files.push(await classifyFile(dir, n))
+  for (const rel of rels) files.push(await classifyFile(dir, rel))
   // externally ingested research (data/<T>/external/**) — listed with provenance, readiness-neutral
   for (const rel of listExternalFiles(dir)) files.push(await classifyExternalFile(dir, rel))
-  files.sort((a, b) => a.filename.localeCompare(b.filename))
+  // sort by the full pool location so subfolder files group under their folder (a top-level file has no
+  // `path`, so it sorts by its basename exactly as before)
+  files.sort((a, b) => (a.path ?? a.filename).localeCompare(b.path ?? b.filename))
 
   const recentByType: DataStatus['recentByType'] = {}
   for (const f of files) {
@@ -1070,13 +1144,11 @@ export function listTickers(): { tickers: TickerSummary[]; emptyState: boolean; 
   const tickers: TickerSummary[] = names.sort().map((ticker) => {
     let fileCount = 0
     try {
-      // count only top-level FILES (not subfolders) — so engine-written "Memos …" output folders saved
-      // back into the company folder don't inflate the data-file count — PLUS the routed external
-      // documents under external/** (sidecars excluded), which are real pool inputs (EXTERNAL_DATA.md)
-      fileCount = fs.readdirSync(path.join(DATA_DIR, ticker)).filter((n) => {
-        if (n.startsWith('.')) return false
-        try { return fs.statSync(path.join(DATA_DIR, ticker, n)).isFile() } catch { return false }
-      }).length
+      // Count the whole recursive pool the orbs read (extract_pool.py walks the tree): a company whose
+      // filings live only in subfolders now shows its true count, not 0. listPoolFiles already excludes
+      // engine-written "Memos …" output folders (the `.nostradamus_output` sentinel) and sidecars, so the
+      // count stays honest — PLUS the routed external documents under external/** (EXTERNAL_DATA.md).
+      fileCount = listPoolFiles(path.join(DATA_DIR, ticker)).length
       fileCount += listExternalFiles(path.join(DATA_DIR, ticker)).length
     } catch {}
     const invalidReason = tickerInvalidReason(ticker)

@@ -560,4 +560,36 @@ await check('callVsLive carries the band, and stays null-safe when the record ha
 })
 
 for (const d of tmpdirs) { try { fs.rmSync(d, { recursive: true, force: true }) } catch { /* best effort */ } }
+// ---- chunking: one over-long URL used to take the whole list down with it ----
+// The single-subject caller (/api/quote) never exercised this. A caller quoting a whole watchlist sends
+// hundreds of candidates, so the batch is split; these pin the two properties that matter — the split
+// actually happens, and a failed chunk is confined to its own symbols instead of poisoning the rest.
+
+await check('a large batch is split across several requests, none over-long', async () => {
+  const subs = Array.from({ length: 120 }, (_, i) => ({ ticker: `T${i}`, currency: 'USD' }))
+  const { fn, calls } = stubFetch(() => cnbcBody([]))
+  await getQuotes(subs, baseDeps({ fetchFn: fn }))
+  assert.ok(calls.length >= 3, `expected several requests, got ${calls.length}`)
+  for (const u of calls) {
+    const syms = decodeURIComponent(new URL(u).searchParams.get('symbols') || '').split('|').filter(Boolean)
+    assert.ok(syms.length <= 50, `chunk of ${syms.length} exceeds the per-request cap`)
+  }
+})
+
+await check('a failed chunk reports feed_unavailable ONLY for its own symbols', async () => {
+  const subs = Array.from({ length: 120 }, (_, i) => ({ ticker: `T${i}`, currency: 'USD' }))
+  // Fail exactly the chunk carrying T0. Every other chunk answers with one usable row — a 200 with zero
+  // rows is deliberately treated as a failed batch upstream, so an "answered" chunk must carry something.
+  const { fn } = stubFetch((u) => {
+    const syms = decodeURIComponent(new URL(u).searchParams.get('symbols') || '').split('|').filter(Boolean)
+    if (syms.includes('T0')) return null
+    return cnbcBody([{ ...AMZN_ROW, symbol: syms[0] }])
+  })
+  const out = await getQuotes(subs, baseDeps({ fetchFn: fn }))
+  assert.equal(out.get('T0')?.reason, 'feed_unavailable', 'the failed chunk is temporary, not "not carried"')
+  // a symbol from a chunk that ANSWERED is a real negative: the feed does not price it
+  const answered = subs.map((s) => s.ticker).find((t) => out.get(t)?.reason === 'unknown_symbol')
+  assert.ok(answered, 'a symbol from a successful chunk still reports unknown_symbol')
+})
+
 console.log(`\nequity-quote.test.ts: ${passed} passed`)
