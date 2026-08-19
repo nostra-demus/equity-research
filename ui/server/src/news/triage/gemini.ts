@@ -9,7 +9,62 @@
 
 import type { NewsItem, Triage } from '../types'
 import { conservativeChatTokenBound, credibleTokenUsage, type RateInfo } from './budget'
-import { ARTICLE_SYSTEM, articleMaxOutputTokens, type ArticleAnalysisResult, buildArticleUserMessage, buildUserMessage, caughtFailure, coerceArticleBrief, coerceCompleteTriageRows, durToMs, httpFailureKind, isArticleBodyEligible, publicHttpFailureNote, SYSTEM, type TriageOptions, type TriageResult } from './groq'
+import { ARTICLE_SYSTEM, articleMaxOutputTokens, type ArticleAnalysisResult, buildArticleUserMessage, buildUserMessage, caughtFailure, coerceArticleBrief, coerceCompleteTriageRows, durToMs, httpFailureKind, isArticleBodyEligible, publicHttpFailureNote, SYSTEM, triageMaxOutputTokens, type TriageOptions, type TriageResult } from './groq'
+
+/**
+ * The batch row contract as a Gemini `responseSchema`, so the ROW SHAPE is enforced by the provider's decoder
+ * instead of only requested in English at the end of the prompt ("Include every index exactly once").
+ *
+ * Why this is opt-in (NEWS_GEMINI_RESPONSE_SCHEMA=1) rather than on by default: a schema the API rejects comes
+ * back as a 400, which classifies as `request` and arms a 5-to-60-minute silent hold on the model — trading a
+ * recoverable contract failure for a harder one. It cannot be proven safe from a mocked fetch either, since a
+ * fake response can never demonstrate that the real decoder honours the schema. So it ships ready to switch on
+ * and verify against one model, not switched on blind across the pool.
+ *
+ * Note what it does and does not buy. It removes the malformed-row and wrong-envelope failures. It does NOT
+ * guarantee COVERAGE: a schema constrains each row's shape, not that the model emitted one row per input index,
+ * so coerceCompleteTriageRows stays the authority on completeness.
+ */
+export const TRIAGE_RESPONSE_SCHEMA = {
+  type: 'OBJECT',
+  properties: {
+    items: {
+      type: 'ARRAY',
+      items: {
+        type: 'OBJECT',
+        properties: {
+          i: { type: 'INTEGER' },
+          relevance: { type: 'STRING', enum: ['material', 'relevant_non_material', 'irrelevant'] },
+          materiality_pre_score: { type: 'INTEGER' },
+          event_materiality_label: { type: 'STRING', enum: ['low', 'medium', 'high', 'critical'] },
+          event_direction: { type: 'STRING', enum: ['positive', 'negative', 'mixed', 'neutral', 'unknown'] },
+          event_types: { type: 'ARRAY', items: { type: 'STRING' } },
+          issuer_linkage: { type: 'STRING', enum: ['primary', 'secondary', 'sector', 'macro'] },
+          why: { type: 'STRING' },
+          companies: {
+            type: 'ARRAY',
+            items: {
+              type: 'OBJECT',
+              properties: { name: { type: 'STRING' }, ticker: { type: 'STRING', nullable: true }, listing_country: { type: 'STRING', nullable: true } },
+              required: ['name'],
+            },
+          },
+          size_bucket: { type: 'STRING', enum: ['mega', 'large', 'mid', 'small', 'unknown'] },
+          headline_en: { type: 'STRING', nullable: true },
+          headline_lang: { type: 'STRING', nullable: true },
+          event_region: { type: 'STRING', nullable: true },
+        },
+        required: ['i', 'relevance', 'materiality_pre_score', 'why'],
+      },
+    },
+  },
+  required: ['items'],
+} as const
+
+/** Is provider-side schema enforcement switched on? Off unless NEWS_GEMINI_RESPONSE_SCHEMA=1 — see above. */
+export function geminiSchemaEnabled(env: Record<string, string | undefined> = process.env): boolean {
+  return env.NEWS_GEMINI_RESPONSE_SCHEMA === '1'
+}
 
 /** Pull Gemini's RetryInfo.retryDelay (e.g. "35s") out of a 429/RESOURCE_EXHAUSTED error body → ms. */
 export function parseGeminiRetry(body: any): RateInfo {
@@ -60,20 +115,34 @@ export async function triageBatchGemini(
   }
   const url = `${opts.baseUrl}/models/${opts.model}:generateContent`
   const maxAttempts = opts.maxAttempts ?? 2
+  const clock = opts.nowMs ?? (() => Date.now())
+  const timeoutMs = opts.timeoutMs ?? 30_000
+  // Batch-sized, not a flat constant: the reply is one row per headline, so a fixed ceiling truncates the
+  // larger batches and the completeness contract then discards the WHOLE answer (see triageMaxOutputTokens).
+  // Safe to raise here without a second thought: the Gemini pool is REQUEST-metered, so a bigger output
+  // allowance costs nothing against its binding limit.
+  const maxOut = triageMaxOutputTokens(items.length, opts.maxTokens)
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    const startedAt = clock()
     try {
       requests++ // one count per fetch invocation, including network/response-decoding failures below
       const res = await fetchFn(url, {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-goog-api-key': opts.apiKey },
-        signal: AbortSignal.timeout(opts.timeoutMs ?? 30_000), // a hung connection must never block the cycle
+        signal: AbortSignal.timeout(timeoutMs), // a hung connection must never block the cycle
         body: JSON.stringify({
           system_instruction: { parts: [{ text: SYSTEM }] },
           contents: [{ role: 'user', parts: [{ text: buildUserMessage(items) }] }],
           // thinkingBudget 0 = no chain-of-thought: the 3.x flash models are "thinking" models that
           // otherwise burn the output budget reasoning (→ truncated/empty JSON) and cost extra tokens.
           // Disabling it gives clean JSON from every pool model; harmless for the non-thinking 2.5 models.
-          generationConfig: { temperature: 0.1, maxOutputTokens: opts.maxTokens ?? 2000, responseMimeType: 'application/json', thinkingConfig: { thinkingBudget: 0 } },
+          generationConfig: {
+            temperature: 0.1,
+            maxOutputTokens: maxOut,
+            responseMimeType: 'application/json',
+            ...(geminiSchemaEnabled() ? { responseSchema: TRIAGE_RESPONSE_SCHEMA } : {}),
+            thinkingConfig: { thinkingBudget: 0 },
+          },
         }),
       })
       if (!res.ok) {
@@ -97,29 +166,36 @@ export async function triageBatchGemini(
           await sleep(rate.retryAfterMs || 1500 * attempt)
           continue
         }
-        return { byIndex, requests, tokens, ok: false, note, rate, failureKind, httpStatus: res.status, ...(perDay ? { dailyLimit: true } : {}) }
+        return { byIndex, requests, tokens, ok: false, note, rate, failureKind, httpStatus: res.status, elapsedMs: Math.max(0, clock() - startedAt), ...(perDay ? { dailyLimit: true } : {}) }
       }
       const data: any = await res.json()
       tokens += credibleTokenUsage(
         data?.usageMetadata?.totalTokenCount,
-        conservativeChatTokenBound(SYSTEM, buildUserMessage(items), opts.maxTokens ?? 2000),
+        conservativeChatTokenBound(SYSTEM, buildUserMessage(items), maxOut),
       )
+      const took = { elapsedMs: Math.max(0, clock() - startedAt) }
       const cand = data?.candidates?.[0]
       // a safety block or a max-output truncation is deterministic — report, don't half-parse
-      if (data?.promptFeedback?.blockReason) return { byIndex, requests, tokens, ok: false, note: 'gemini: response blocked', failureKind: 'contract' }
+      if (data?.promptFeedback?.blockReason) return { byIndex, requests, tokens, ok: false, note: 'gemini: response blocked', failureKind: 'contract', ...took }
+      // MAX_TOKENS is split out from the other non-STOP reasons on purpose. Collapsing them made the one
+      // finish reason with a KNOWN fix (the output ceiling was too small for this batch) indistinguishable
+      // from a safety stop or a recitation block, which need entirely different responses.
+      if (cand?.finishReason === 'MAX_TOKENS') {
+        return { byIndex, requests, tokens, ok: false, note: `gemini: output truncated at maxOutputTokens (${maxOut} for ${items.length} items) — lower NEWS_TRIAGE_BATCH or raise NEWS_GEMINI_MAX_TOKENS`, failureKind: 'contract', ...took }
+      }
       if (cand?.finishReason && cand.finishReason !== 'STOP') {
-        return { byIndex, requests, tokens, ok: false, note: 'gemini: incomplete response (lower NEWS_TRIAGE_BATCH or raise NEWS_GEMINI_MAX_TOKENS)', failureKind: 'contract' }
+        return { byIndex, requests, tokens, ok: false, note: `gemini: response stopped early (${String(cand.finishReason).slice(0, 32)})`, failureKind: 'contract', ...took }
       }
       const content = Array.isArray(cand?.content?.parts) ? cand.content.parts.map((p: any) => (typeof p?.text === 'string' ? p.text : '')).join('') : ''
-      if (!content) return { byIndex, requests, tokens, ok: false, note: 'gemini: empty content', failureKind: 'contract' }
+      if (!content) return { byIndex, requests, tokens, ok: false, note: 'gemini: empty content', failureKind: 'contract', ...took }
       let parsed: any
-      try { parsed = JSON.parse(content) } catch { return { byIndex, requests, tokens, ok: false, note: 'gemini: non-JSON content', failureKind: 'contract' } }
+      try { parsed = JSON.parse(content) } catch { return { byIndex, requests, tokens, ok: false, note: 'gemini: non-JSON content', failureKind: 'contract', ...took } }
       const arr: any[] = Array.isArray(parsed) ? parsed : Array.isArray(parsed?.items) ? parsed.items : []
       const complete = coerceCompleteTriageRows(arr, items.length)
-      if (!complete) return { byIndex, requests, tokens, ok: false, note: 'gemini: incomplete batch response', failureKind: 'contract' }
+      if (!complete) return { byIndex, requests, tokens, ok: false, note: `gemini: incomplete batch response (expected ${items.length} rows, got ${arr.length})`, failureKind: 'contract', ...took }
       return { byIndex: complete, requests, tokens, ok: true }
     } catch (e: any) {
-      lastFailure = caughtFailure(e, 'gemini')
+      lastFailure = caughtFailure(e, 'gemini', Math.max(0, clock() - startedAt), timeoutMs)
       if (attempt < maxAttempts) await sleep(1500 * attempt)
     }
   }

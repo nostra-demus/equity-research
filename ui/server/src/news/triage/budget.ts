@@ -142,6 +142,14 @@ export interface DailyQuotaCandidate {
   used: number
   cap: number
   cost: number
+  // The CALIBRATED expected cost of one call, used ONLY by the pacing test. `cost` stays the conservative
+  // worst-case bound and keeps governing the hard cap and the caller's reservation, so the real provider
+  // ceiling can never be busted. They differ by 3-8x on a token-metered tier: the conservative bound is
+  // bytes(system) + bytes(user) + maxOutputTokens + 256 (~11,800 tokens for a 12-item Groq batch) while a
+  // measured successful batch is ~1,554-4,000. Gating ADMISSION on the worst case makes a tier ask for 3-8x
+  // the headroom it will actually use, which reads to the operator as "Saved for later today" on a provider
+  // that has allowance in hand. Omitted => `cost`, i.e. byte-for-byte the previous behaviour.
+  paceCost?: number
   resetTimeZone?: string
   floorFraction?: number
   priority?: number
@@ -167,18 +175,27 @@ export function dailyQuotaAdmission(candidate: DailyQuotaCandidate, now = Date.n
   const cost = Number.isFinite(candidate.cost) ? Math.max(0, candidate.cost) : 0
   const fraction = dayFraction(now, candidate.resetTimeZone)
   const floor = Math.max(0, Math.min(1, Number(candidate.floorFraction) || 0))
+  // the calibrated pacing cost, clamped so it can never be LARGER than the conservative bound (that would
+  // make pacing stricter than the hard cap, the opposite of the point) nor zero on a positive-cost candidate
+  const paceRaw = Number.isFinite(candidate.paceCost) ? Math.max(0, candidate.paceCost as number) : cost
+  const paceCost = cost > 0 ? Math.min(cost, paceRaw > 0 ? paceRaw : cost) : cost
   const hardCapFit = cost > 0 && used + cost <= cap
   const rawRelease = cap * Math.max(fraction, floor)
   // A call is indivisible. Rounding the cumulative frontier DOWN (or leaving it fractional) strands the
   // final request until the reset instant, when the ledger rolls over and that allowance disappears.
   // Round up by one complete call instead: this leads the ideal line by at most one call, never exceeds
   // the hard cap, and makes the final safe unit usable before reset rather than after it.
+  // Deliberately still aligned on the CONSERVATIVE cost, not on paceCost. Coarser rounding leads the ideal
+  // line by up to one full call, which is FAVOURABLE — re-aligning on the smaller paceCost would move the
+  // frontier down and admit LATER, the opposite of the intent. (Worked example on a 500k cap at mid-day:
+  // ceil(250,000/11,797)*11,797 = 259,534, versus ceil(250,000/1,700)*1,700 = 251,600 — 7,934 tokens lower.)
+  // What actually unblocks a stranded tier is testing admission against the calibrated cost below.
   const callAlignedRelease = cost > 0 ? Math.ceil(rawRelease / cost) * cost : rawRelease
   const released = Math.min(cap, Math.max(hardCapFit ? cost : 0, callAlignedRelease))
   const deficit = Math.max(0, released - used)
   return {
     hardCapFit,
-    pacedFit: hardCapFit && used + cost <= released + Number.EPSILON * Math.max(1, released),
+    pacedFit: hardCapFit && used + paceCost <= released + Number.EPSILON * Math.max(1, released),
     released,
     remaining: Math.max(0, cap - used),
     deficit,
@@ -238,6 +255,7 @@ export function pacedCeiling(now: number, pace: PaceCfg): number {
  */
 export function pacedHasHeadroom(
   tokens: number, requests: number, reqCap: number, tokenCap: number, pace: PaceCfg, now = Date.now(), est = 0,
+  paceEst?: number,
 ): boolean {
   const need = Math.max(0, est)
   if (requests >= reqCap || tokens + need > tokenCap) return false // hard daily backstop (reserve one batch)
@@ -245,6 +263,10 @@ export function pacedHasHeadroom(
   if (!(pace.targetTokens > 0)) return true
   return dailyQuotaAdmission({
     id: 'paced-token-budget', meter: 'tokens', used: tokens, cap: pace.targetTokens, cost: need,
+    // the calibrated expected cost gates ADMISSION; `need` (the conservative bound) still gates the hard cap
+    // above. This mirror MUST stay argument-for-argument identical to Budget.pacedCanSpendState, or the
+    // scheduler's drain gate and the triage loop disagree about whether a tier can take a batch.
+    ...(Number.isFinite(paceEst as number) ? { paceCost: Math.max(0, paceEst as number) } : {}),
     floorFraction: pace.floorFrac,
   }, now).pacedFit
 }
@@ -691,14 +713,17 @@ export class Budget {
     return true
   }
 
-  private pacedCanSpendState(state: BudgetState, estTokens: number, pace: PaceCfg, now: number, requests = 1): boolean {
+  private pacedCanSpendState(state: BudgetState, estTokens: number, pace: PaceCfg, now: number, requests = 1, paceTokens?: number): boolean {
     if (!this.canSpendState(state, estTokens, requests)) return false
     const need = Math.max(0, estTokens)
     if (need <= 0) return state.tokens <= pacedCeiling(now, pace)
     if (!(pace.targetTokens > 0)) return true
     return dailyQuotaAdmission({
       id: 'paced-token-budget', meter: 'tokens', used: state.tokens, cap: pace.targetTokens,
-      cost: need, floorFraction: pace.floorFrac,
+      cost: need,
+      // ADMISSION on the calibrated cost, hard cap on the conservative bound (canSpendState above).
+      ...(Number.isFinite(paceTokens as number) ? { paceCost: Math.max(0, paceTokens as number) } : {}),
+      floorFraction: pace.floorFrac,
     }, now).pacedFit
   }
 
@@ -716,14 +741,22 @@ export class Budget {
    * the whole day instead of going dark by noon. `pace.targetTokens <= 0` disables the pacer (falls back
    * to the plain hard-cap canSpend).
    */
-  pacedCanSpend(estTokens: number, pace: PaceCfg, now = Date.now(), requests = 1): boolean {
+  pacedCanSpend(estTokens: number, pace: PaceCfg, now = Date.now(), requests = 1, paceTokens?: number): boolean {
     this.rotateDay(now)
     if (!this.ownsCurrentState() || !this.ledgerReadable) return false
-    return this.pacedCanSpendState(this.state, estTokens, pace, now, requests)
+    return this.pacedCanSpendState(this.state, estTokens, pace, now, requests, paceTokens)
   }
 
-  /** Atomically reserve across every process sharing this ledger, then release the lock before network I/O. */
-  tryReserve(estTokens: number, pace?: PaceCfg, now = Date.now(), requests = 1): BudgetReservation | null {
+  /**
+   * Atomically reserve across every process sharing this ledger, then release the lock before network I/O.
+   *
+   * `paceTokens` is the CALIBRATED cost, forwarded only to the pacer. The hard cap
+   * (`canSpendState`) and the amount actually debited both stay on the conservative `estTokens`, so a
+   * daily ceiling still cannot be busted. Without it the reservation paced on the worst case while the
+   * admission test paced on the real cost, and the two disagreed: admission said yes, the reservation
+   * said no, and the batch was dropped with nothing reporting why.
+   */
+  tryReserve(estTokens: number, pace?: PaceCfg, now = Date.now(), requests = 1, paceTokens?: number): BudgetReservation | null {
     this.reserveFailure = null
     this.rotateDay(now)
     if (!this.ownsCurrentState() || !this.ledgerReadable) {
@@ -738,7 +771,7 @@ export class Budget {
         const next = this.stateForMutation(date)
         if (!next) { this.reserveFailure = 'authority_unavailable'; return null }
         const allowed = pace
-          ? this.pacedCanSpendState(next, tokens, pace, now, requestCount)
+          ? this.pacedCanSpendState(next, tokens, pace, now, requestCount, paceTokens)
           : this.canSpendState(next, tokens, requestCount)
         if (!allowed) { this.reserveFailure = 'allowance_unavailable'; this.installState(next); return null }
         const id = randomUUID()
@@ -892,7 +925,13 @@ export function resetBudgetMemory(): void {
 // marker, so without this it can only say "backing off after an error" — the vague line that sent the
 // operator to ask what was actually wrong. Optional and absent-tolerant on purpose: a marker written by an
 // older build simply has no reason and reads exactly as it did before.
-interface CooldownState { unhealthyUntil: number; fails: number; reason?: string; armedAt?: number }
+// `firstFailureAt` is the instant the CURRENT unbroken failure streak began (carried forward on every re-arm,
+// cleared with the marker on a success). Without it, "46 consecutive failures" cannot be turned into "dead for
+// 42 hours": the backoff pins flat at maxMs from the 5th failure, so the streak counter stops carrying any time
+// information exactly when the operator most needs it. `observedMs` is how long the last failing call actually
+// took before it failed — the one number that answers "is our timeout too short, or did the provider refuse?".
+// All three are optional and absent-tolerant: a marker written by an older build reads exactly as it did before.
+interface CooldownState { unhealthyUntil: number; fails: number; accessFails?: number; reason?: string; armedAt?: number; firstFailureAt?: number; observedMs?: number }
 const cooldownMem = new Map<string, CooldownState>() // `${stateDir}\0${id}` → state; process-lifetime fallback
 
 function healthFile(id: string): string { return `${id.replace(/[^a-z0-9]+/gi, '-')}-health.json` }
@@ -911,8 +950,11 @@ function readCooldownState(stateDir: string, id: string): CooldownState {
       disk = {
         unhealthyUntil: until,
         fails: Number.isFinite(fails) && fails > 0 ? fails : 1,
+        ...(Number.isFinite(Number(s?.accessFails)) && Number(s.accessFails) > 0 ? { accessFails: Number(s.accessFails) } : {}),
         ...(typeof s?.reason === 'string' && s.reason ? { reason: s.reason } : {}),
         ...(Number.isFinite(Number(s?.armedAt)) ? { armedAt: Number(s.armedAt) } : {}),
+        ...(Number.isFinite(Number(s?.firstFailureAt)) && Number(s.firstFailureAt) > 0 ? { firstFailureAt: Number(s.firstFailureAt) } : {}),
+        ...(Number.isFinite(Number(s?.observedMs)) && Number(s.observedMs) >= 0 ? { observedMs: Number(s.observedMs) } : {}),
       }
     }
   } catch {
@@ -935,18 +977,41 @@ export function isCoolingDown(stateDir: string, id = 'groq', now = Date.now()): 
 /** The live cooldown snapshot for a provider — its unhealthy-until epoch (0 = healthy) plus the consecutive
  *  failure count driving the current backoff window. For status/diagnostics readers that need the fail count
  *  `readCooldownUntil` doesn't expose. Never throws. */
-export function cooldownInfo(stateDir: string, id = 'groq'): { until: number; fails: number; reason?: string } {
+export function cooldownInfo(stateDir: string, id = 'groq'): { until: number; fails: number; accessFails?: number; reason?: string; firstFailureAt?: number; observedMs?: number } {
   const s = readCooldownState(stateDir, id)
-  return { until: s.unhealthyUntil, fails: s.fails, ...(s.reason ? { reason: s.reason } : {}) }
+  return {
+    until: s.unhealthyUntil,
+    fails: s.fails,
+    ...(s.accessFails ? { accessFails: s.accessFails } : {}),
+    ...(s.reason ? { reason: s.reason } : {}),
+    ...(s.firstFailureAt ? { firstFailureAt: s.firstFailureAt } : {}),
+    ...(s.observedMs != null ? { observedMs: s.observedMs } : {}),
+  }
 }
 
 /** Arm/extend the cooldown on a real failure, with exponential backoff: each consecutive failed probe
- *  doubles the window (baseMs, 2×, 4×, …) capped at maxMs. Persisted to disk AND the in-memory fallback. */
-export function armCooldown(stateDir: string, now: number, baseMs: number, id = 'groq', maxMs = 3_600_000, reason?: string): void {
+ *  doubles the window (baseMs, 2×, 4×, …) capped at maxMs. Persisted to disk AND the in-memory fallback.
+ *  `observedMs` is how long the failing call ran before it failed — carried on the marker so a later cycle can
+ *  still say "timed out at 30.0s" instead of only "an error". */
+export function armCooldown(stateDir: string, now: number, baseMs: number, id = 'groq', maxMs = 3_600_000, reason?: string, observedMs?: number): void {
   if (!(baseMs > 0)) return
-  const fails = readCooldownState(stateDir, id).fails + 1 // consecutive failures so far (0 when healthy/cleared) + this one
+  const prior = readCooldownState(stateDir, id)
+  const fails = prior.fails + 1 // consecutive failures so far (0 when healthy/cleared) + this one
+  // A SEPARATE streak for provider-access rejections. `fails` counts every failure class and drives the
+  // backoff window, so reading it as an access streak meant two ordinary timeouts followed by one 403
+  // declared the credential dead on the FIRST access rejection. Resetting `fails` on a reason change would
+  // fix the count and break the backoff, so the access streak is tracked apart.
+  const accessFails = reason === 'provider-access' ? (prior.accessFails ?? 0) + 1 : 0
   const window = Math.min(baseMs * Math.pow(2, fails - 1), Math.max(baseMs, maxMs))
-  const state: CooldownState = { unhealthyUntil: now + window, fails, armedAt: now, ...(reason ? { reason } : {}) }
+  // Carry the streak's START forward. The backoff window pins flat at maxMs from the 5th failure, so `fails`
+  // alone cannot tell the operator whether a provider has been down for an hour or for two days.
+  const firstFailureAt = prior.firstFailureAt && prior.fails > 0 ? prior.firstFailureAt : now
+  const state: CooldownState = {
+    unhealthyUntil: now + window, fails, armedAt: now, firstFailureAt,
+    ...(accessFails ? { accessFails } : {}),
+    ...(reason ? { reason } : {}),
+    ...(Number.isFinite(observedMs as number) && (observedMs as number) >= 0 ? { observedMs: Math.round(observedMs as number) } : {}),
+  }
   cooldownMem.set(memKey(stateDir, id), state) // in-memory first — survives a disk-write failure below
   try {
     fs.mkdirSync(stateDir, { recursive: true })

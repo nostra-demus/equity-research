@@ -119,6 +119,9 @@ export interface TriageOptions {
   // (don't retry — fall through to the NEXT provider instead, which is faster and more resilient).
   timeoutMs?: number
   maxAttempts?: number
+  // Injectable clock, used ONLY to measure how long a failing call ran (TriageResult.elapsedMs). Defaults to
+  // Date.now. Exists so the measurement is deterministic under a mocked fetch in the test harness.
+  nowMs?: () => number
   // `x-ratelimit-remaining-requests` has provider-specific units. Groq documents it as the daily request
   // allowance; generic OpenAI-compatible services may use the same name for a minute window. Only known
   // daily semantics may turn an explicit zero into `dailyLimit` and close the shared day ledger.
@@ -136,6 +139,12 @@ export interface TriageResult {
   httpStatus?: number
   timedOut?: boolean
   dailyLimit?: boolean
+  // How long the LAST attempt ran, in ms. Present on any failure the adapter observed a clock for. This is the
+  // only thing that can settle "is our timeout too short?": a call that dies at exactly the configured ceiling
+  // was cut off by US and may well have finished given longer, while one that dies at 1.2s was refused by the
+  // provider and a longer deadline would change nothing. Nothing recorded it before, so the question was
+  // unanswerable from the outside and the honest answer was always "measure it first".
+  elapsedMs?: number
 }
 
 // Machine-readable failure metadata is the routing contract. Public notes intentionally contain only the
@@ -148,6 +157,7 @@ export interface ProviderFailureMetadata {
   httpStatus?: number
   timedOut?: boolean
   dailyLimit?: boolean
+  elapsedMs?: number
 }
 
 export interface ArticleAnalysisResult extends ProviderFailureMetadata {
@@ -174,11 +184,18 @@ export function publicHttpFailureNote(provider: string, status: number, dailyLim
   return `${provider} HTTP ${status} — request rejected`
 }
 
-export function caughtFailure(e: any, provider: string): { note: string; failureKind: ProviderFailureKind; timedOut?: boolean } {
+/** `elapsedMs` (when the caller measured one) is NAMED in the note, not just carried as metadata: the operator
+ *  reads the note, and "timed out after 30.0s (our 30.0s ceiling)" is actionable where "request timed out" is
+ *  a dead end. `limitMs` is the deadline that was in force, so the note can say whether we cut the call off. */
+export function caughtFailure(e: any, provider: string, elapsedMs?: number, limitMs?: number): { note: string; failureKind: ProviderFailureKind; timedOut?: boolean; elapsedMs?: number } {
   const timedOut = e?.name === 'TimeoutError' || e?.name === 'AbortError'
-  if (timedOut) return { note: `${provider}: request timed out`, failureKind: 'availability', timedOut: true }
-  if (e instanceof SyntaxError) return { note: `${provider}: malformed response`, failureKind: 'contract' }
-  return { note: `${provider}: network unavailable`, failureKind: 'availability' }
+  const ms = Number.isFinite(elapsedMs as number) && (elapsedMs as number) >= 0 ? Math.round(elapsedMs as number) : undefined
+  const took = ms != null ? ` after ${(ms / 1000).toFixed(1)}s` : ''
+  const ceiling = ms != null && limitMs != null ? ` (our ${(limitMs / 1000).toFixed(1)}s ceiling)` : ''
+  const carry = ms != null ? { elapsedMs: ms } : {}
+  if (timedOut) return { note: `${provider}: request timed out${took}${ceiling}`, failureKind: 'availability', timedOut: true, ...carry }
+  if (e instanceof SyntaxError) return { note: `${provider}: malformed response${took}`, failureKind: 'contract', ...carry }
+  return { note: `${provider}: network unavailable${took}`, failureKind: 'availability', ...carry }
 }
 
 /** Token estimate for the budget pre-check + per-minute pacer reservation (input titles + structured
@@ -190,6 +207,24 @@ export function caughtFailure(e: any, provider: string): { note: string; failure
  *  the real 429 backstop, so a tight-but-honest estimate is safe and converts directly to throughput. */
 export function estimateTokens(itemCount: number): number {
   return 500 + itemCount * 95
+}
+
+/**
+ * The output ceiling for ONE triage batch, as a function of the batch SIZE.
+ *
+ * A flat constant is the wrong shape here: the reply is one JSON row per requested headline, so the output a
+ * batch needs scales with the batch. When the ceiling is below that need the model is cut off mid-array, the
+ * batch-completeness contract rejects the whole answer (coerceCompleteTriageRows), and the entire call is
+ * wasted — the provider's request is spent, its tokens are charged, and not one row is scored. Truncation
+ * costs 100% of a call; a ceiling that is generous costs only reserved-but-unused headroom.
+ *
+ * 170 tokens/row is measured-with-margin: a real 12-row reply runs ~1,650 output tokens (~140/row), and each
+ * row carries a free-text `why`, up to three companies, and an optional translated headline, so the tail is
+ * fatter than the mean. A provider whose configured maxTokens already exceeds the need keeps its own value —
+ * this only ever raises a ceiling that is too low for the batch it is being asked to answer, never lowers one.
+ */
+export function triageMaxOutputTokens(itemCount: number, configured?: number): number {
+  return Math.max(configured ?? 2000, 400 + Math.max(0, itemCount) * 170)
 }
 
 export function scoreToBand(score: number, pickThreshold: number, watchThreshold: number): Band {
@@ -310,22 +345,26 @@ export async function triageBatch(
 
   let requests = 0
   let tokens = 0
-  let lastFailure: Required<Pick<TriageResult, 'note' | 'failureKind'>> & Pick<TriageResult, 'timedOut'> = {
+  let lastFailure: Required<Pick<TriageResult, 'note' | 'failureKind'>> & Pick<TriageResult, 'timedOut' | 'elapsedMs'> = {
     note: 'groq: network unavailable', failureKind: 'availability',
   }
   const maxAttempts = opts.maxAttempts ?? 2
+  const clock = opts.nowMs ?? (() => Date.now())
+  const timeoutMs = opts.timeoutMs ?? 30_000
+  const maxOut = triageMaxOutputTokens(items.length, opts.maxTokens)
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    const startedAt = clock()
     try {
       requests++ // one count per fetch invocation, including network/response-decoding failures below
       const res = await fetchFn(`${opts.baseUrl}/chat/completions`, {
         method: 'POST',
         headers: { 'content-type': 'application/json', authorization: `Bearer ${opts.apiKey}`, ...(opts.headers || {}) },
-        signal: AbortSignal.timeout(opts.timeoutMs ?? 30_000), // never let a hung connection block the cycle
+        signal: AbortSignal.timeout(timeoutMs), // never let a hung connection block the cycle
         body: JSON.stringify({
           model: opts.model,
           ...(opts.models?.length ? { models: opts.models } : {}), // OpenRouter fallback chain (Groq omits)
           temperature: 0.1,
-          max_tokens: opts.maxTokens ?? 2000,
+          max_tokens: maxOut,
           response_format: { type: 'json_object' },
           messages: [
             { role: 'system', content: SYSTEM },
@@ -346,28 +385,30 @@ export async function triageBatch(
           await sleep(rate.retryAfterMs || 1500 * attempt)
           continue
         }
-        return { byIndex, requests, tokens, ok: false, note, rate, failureKind, httpStatus: res.status, ...(dailyLimit ? { dailyLimit: true } : {}) }
+        return { byIndex, requests, tokens, ok: false, note, rate, failureKind, httpStatus: res.status, elapsedMs: Math.max(0, clock() - startedAt), ...(dailyLimit ? { dailyLimit: true } : {}) }
       }
       const data: any = await res.json()
       const used = credibleTokenUsage(
         data?.usage?.total_tokens,
-        conservativeChatTokenBound(SYSTEM, buildUserMessage(items), opts.maxTokens ?? 2000),
+        conservativeChatTokenBound(SYSTEM, buildUserMessage(items), maxOut),
       )
       tokens += used
-      // a max_tokens truncation is deterministic — report it loudly instead of half-parsing
+      // a max_tokens truncation is deterministic — report it loudly instead of half-parsing. It names the
+      // ceiling actually in force, which is now batch-sized (triageMaxOutputTokens), not the raw config value.
       if (data?.choices?.[0]?.finish_reason === 'length') {
-        return { byIndex, requests, tokens, ok: false, note: 'groq: output truncated at max_tokens — lower NEWS_TRIAGE_BATCH or raise NEWS_TRIAGE_MAX_TOKENS', rate, failureKind: 'contract' }
+        return { byIndex, requests, tokens, ok: false, note: `groq: output truncated at max_tokens (${maxOut} for ${items.length} items) — lower NEWS_TRIAGE_BATCH or raise this provider's max-tokens`, rate, failureKind: 'contract', elapsedMs: Math.max(0, clock() - startedAt) }
       }
+      const took = { elapsedMs: Math.max(0, clock() - startedAt) }
       const content = data?.choices?.[0]?.message?.content
-      if (typeof content !== 'string') return { byIndex, requests, tokens, ok: false, note: 'groq: empty content', rate, failureKind: 'contract' }
+      if (typeof content !== 'string') return { byIndex, requests, tokens, ok: false, note: 'groq: empty content', rate, failureKind: 'contract', ...took }
       let parsed: any
-      try { parsed = JSON.parse(content) } catch { return { byIndex, requests, tokens, ok: false, note: 'groq: non-JSON content', rate, failureKind: 'contract' } }
+      try { parsed = JSON.parse(content) } catch { return { byIndex, requests, tokens, ok: false, note: 'groq: non-JSON content', rate, failureKind: 'contract', ...took } }
       const arr: any[] = Array.isArray(parsed) ? parsed : Array.isArray(parsed?.items) ? parsed.items : []
       const complete = coerceCompleteTriageRows(arr, items.length)
-      if (!complete) return { byIndex, requests, tokens, ok: false, note: 'groq: incomplete batch response', rate, failureKind: 'contract' }
+      if (!complete) return { byIndex, requests, tokens, ok: false, note: `groq: incomplete batch response (expected ${items.length} rows, got ${arr.length})`, rate, failureKind: 'contract', ...took }
       return { byIndex: complete, requests, tokens, ok: true, rate }
     } catch (e: any) {
-      lastFailure = caughtFailure(e, 'groq')
+      lastFailure = caughtFailure(e, 'groq', Math.max(0, clock() - startedAt), timeoutMs)
       if (attempt < maxAttempts) await sleep(1500 * attempt)
     }
   }
