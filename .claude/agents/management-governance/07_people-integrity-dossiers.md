@@ -113,7 +113,7 @@ A bio, litigation note, or disclosure written in the company's home language is 
 |---|---|---|---:|---|---|---|---|
 
 Discovery method ∈ filing/user-supplied · current directorship · past directorship · brand lineage (self-disclosed) · name-change trail · registered-address cluster · founder of a linked entity · trademark/brand owner · co-director network · RPT counterparty · registry charge-holder. Free text is not permitted.
-Provenance ∈ filing-supplied / independently discovered. Sweep status ∈ Full / Refresh / Scoped / Not run (→ Scope-Boundary row #n).
+Provenance ∈ filing-supplied / independently discovered / user-supplied. Sweep status ∈ Full / Refresh / Scoped / Not run (→ Scope-Boundary row #n) / Pending 12-reconciliation.
 
 Below the table, state in one line each: which Phase-1 recipes ran (D-1 … D-5, D-8), whether Phase 2 (the founder loop) ran and on how many entities, the hop the loop reached, and **the rule on which it terminated**. This block IS checklist item A17-01.
 
@@ -228,7 +228,7 @@ If a predecessor or lineage entity exists, answer in order and in plain English:
 
 Name the obligation for every `disclosable-and-omitted` row — "absent from the FY25 RPT note despite ₹X cr of purchases", not "we found it and the filings didn't mention it". **Transacting with the listco is not by itself a disclosure obligation** — an arm's-length supplier reached through a founder or past-directorship search transacts and is legitimately absent from the RPT note, because it is not a related party. Only `disclosable-and-omitted` propagates RF-PPL-005, and `09` applies the same test at its own reconciliation table, so the two agents never disagree about what counts as an omission.
 
-Then state the counts: {n} filing-supplied, {n} independently discovered, of which {n} `disclosable-and-omitted`. **The A17-08 finding is that last number, not the raw delta.** The raw delta is a COVERAGE statistic — it says how much of the network the filings alone would have shown you — and it is reported as such. Penalising a company because discovery worked is a manufactured red flag, and the registry's own rule that a Red on existence alone is banned applies here exactly as it does everywhere else.
+Then state the counts: {n} filing-supplied, {n} independently discovered, {n} user-supplied, of which {n} `disclosable-and-omitted`. A user-supplied subject is excluded from the filing-supplied vs independently-discovered coverage ratio — it was introduced by neither the company's filings nor the engine's own sweep — but it is still eligible for `disclosable-and-omitted` on its own facts once discovered. **The A17-08 finding is that last number, not the raw delta.** The raw delta is a COVERAGE statistic — it says how much of the network the filings alone would have shown you — and it is reported as such. Penalising a company because discovery worked is a manufactured red flag, and the registry's own rule that a Red on existence alone is banned applies here exactly as it does everywhere else.
 
 ## 5. Scope Boundary & Unexplored Branches (A17-09)
 
@@ -308,7 +308,7 @@ Emit a **third** fenced JSON block labeled `entity_network.json` — the handoff
 
 ```
 { "subject":"", "type":"", "hop":null, "discovery_method":"", "lineage_relation":"none", "provenance":"", "tier":"",
-  "registry_status":"", "former_names":[], "founders":[], "grade":"", "exposure_basis":"",
+  "registry_status":"", "former_names":[], "founders":[], "grade":"", "grade_coverage":"", "exposure_basis":"",
   "transacts_with_listco":null, "in_rpt_disclosures":null, "red_flag_ids":[], "sweep_status":"" }
 ```
 
@@ -317,7 +317,7 @@ Permitted values:
 - `hop` — integer 0–3
 - `lineage_relation` ∈ `former_name_of_listco` · `predecessor_entity` · `none` — set explicitly, and set to `none` for every subject that is not part of the TARGET company's own lineage. `12` filters on this field, never on `discovery_method`: the discovery recipes recur over surfaced entities, so an unrelated network entity can legitimately carry `discovery_method: name-change trail` for ITS own rename, and sweeping that name into the target's legal register would attribute a stranger's record to this company
 - `discovery_method` ∈ the enumerated list in Section 0 (`filing/user-supplied` · `current directorship` · `past directorship` · `brand lineage (self-disclosed)` · `name-change trail` · `registered-address cluster` · `founder of a linked entity` · `trademark/brand owner` · `co-director network` · `RPT counterparty` · `registry charge-holder`) — free text is not permitted
-- `provenance` ∈ `filing-supplied` · `independently_discovered`
+- `provenance` ∈ `filing-supplied` · `independently_discovered` · `user-supplied` — a subject first introduced by a user-uploaded note is `user-supplied`, never forced into the other two: it was neither disclosed by the company nor discovered by the engine's own sweep, and folding it into either count would misstate the coverage statistic (and, where it feeds A17-08, misstate which party's disclosure is being tested)
 - `tier` ∈ `A` · `B` · `C` · `E-A` · `E-B` · `E-C`
 - `transacts_with_listco`, `in_rpt_disclosures` — `true`, `false`, or `null` where genuinely unknown (**`null` means unknown, never "no"**)
 - `grade` ∈ `Clean` · `Minor concerns` · `Material concerns` · `Disqualifying` — for `type:entity` per the Section 2B entity-grade rubric; blank while `sweep_status` is `pending-12-reconciliation` (provisional until `99` reconciles `12`'s result) or `not_run` (a declared-overflow subject was never swept, so it has no grade to state — §3: silence is not a clearance)
@@ -330,10 +330,10 @@ Then emit a fourth fenced JSON block labeled `discovery_summary.json`:
 ```
 { "phase1_recipes_run":[], "phase2_ran":false, "entities_founder_swept":null,
   "max_hop_reached":null, "termination_rule":"", "filing_supplied_count":null,
-  "independently_discovered_count":null, "scope_boundary_rows":null }
+  "independently_discovered_count":null, "user_supplied_count":null, "scope_boundary_rows":null }
 ```
 
-`termination_rule` ∈ `no_new_subjects` · `hop_cap` · `breadth_budget` · `target_gate_failed` · `budget_exhausted` — note there is **no global `disqualifying_finding_established`**: a Disqualifying-equivalent finding closes only its own branch, recorded per-subject as `sweep_status: not_run` with a Scope-Boundary row reason `branch_closed`. The only finding that stops the whole loop is one that actually failed the TARGET company's Non-Negotiable Gate (`target_gate_failed`) — and whichever it is must match what Section 0 states in prose. `phase1_recipes_run` lists the recipe IDs that actually ran (`D-1` … `D-9`); a recipe that did not run is absent from the array AND accounted for in the Scope-Boundary Register, never silently missing from both.
+`termination_rule` ∈ `no_new_subjects` · `hop_cap` · `breadth_budget` · `target_gate_failed` · `budget_exhausted` · `sources_unavailable` — note there is **no global `disqualifying_finding_established`**: a Disqualifying-equivalent finding closes only its own branch, recorded per-subject as `sweep_status: not_run` with a Scope-Boundary row reason `branch_closed`. The only finding that stops the whole loop is one that actually failed the TARGET company's Non-Negotiable Gate (`target_gate_failed`) — and whichever it is must match what Section 0 states in prose. `sources_unavailable` is for the case where the required registries and discovery sources were genuinely unreachable before Phase 2 could start — it routes to the Insufficient Data / coverage-cap path (A17-01, Score Cap Rules), never to the Red band that A17-01 reserves for a loop that was skippable and was skipped. `phase1_recipes_run` lists the recipe IDs that actually ran (`D-1` … `D-9`); a recipe that did not run is absent from the array AND accounted for in the Scope-Boundary Register, never silently missing from both.
 
 Then apply the canonical **Hard Self-Check** in MODULE_RULES before returning.
 

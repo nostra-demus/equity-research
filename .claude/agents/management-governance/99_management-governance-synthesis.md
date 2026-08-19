@@ -282,14 +282,16 @@ Carry 07's register roll-up (never re-derive it):
 
 ### Predecessor reconciliation (Hard Rule — run BEFORE reporting the score)
 
-`07` grades the network, but `12` runs the canonical legal sweep on the listco's former names and predecessor entities. Any subject `07` marked `pending-12-reconciliation` must be closed here before its score is published:
+`07` grades the network, but `12` runs the canonical legal sweep on the listco's former names and predecessor entities. Close EVERY row of `12`'s **Predecessor / Lineage Sweep Register (12, Section 1A)** here before the score is published — that table is the single source, and it carries BOTH origins: a subject `07` marked `pending-12-reconciliation`, AND a subject `12` itself flagged as a candidate predecessor because an ambiguous `lineage_relation` could not be cleared. Do not reconcile only the subjects `07` named; read `12`'s register directly, because a `12`-originated row has no counterpart in `07`'s output to cross-check against.
 
-| Subject | 07's provisional grade | What 12's sweep found | Re-applied floor / cap | Final |
-|---|---|---|---|---|
+| Subject | Origin | 07's provisional grade (if any) | What 12's sweep found | Coverage (full / coverage-limited) | Re-applied floor / cap | Final |
+|---|---|---|---|---|---|---|
 
 Where `12` found a Material-or-worse fact against a predecessor, re-apply the transitive-exposure floor and the banded RF-NET-003 cap yourself — **carrying the lineage basis with it** (§3: the exposure is via the company's own lineage claim, not a record against any person).
 
-**Check the classification before you score it.** `12` separates `former_name_of_listco` (the SAME legal entity, renamed — its record is this company's record, scored directly in A9) from `predecessor_entity` (a DIFFERENT legal entity — lineage exposure only). A predecessor's old enforcement action must NOT be counted a second time as direct company enforcement under A9-01/A9-02, and must not be allowed to fire a Critical company-level gate: that would manufacture a gate failure against this company for something another company did. If `12`'s register does not make the split explicit, treat the fact as exposure (the conservative reading for the gate) and record the ambiguity. Where `12` found nothing, close the row as resolved-clean and say the sweep ran. If `12` did not run, the provisional grades stay provisional and the coverage cap binds — never promote a provisional grade to clean because the confirming sweep is missing.
+**Check the classification before you score it.** `12` separates `former_name_of_listco` (the SAME legal entity, renamed — its record is this company's record, scored directly in A9) from `predecessor_entity` (a DIFFERENT legal entity — lineage exposure only). A predecessor's old enforcement action must NOT be counted a second time as direct company enforcement under A9-01/A9-02, and must not be allowed to fire a Critical company-level gate: that would manufacture a gate failure against this company for something another company did. If `12`'s register does not make the split explicit, treat the fact as exposure (the conservative reading for the gate) and record the ambiguity.
+
+**A row closes `resolved-clean` ONLY where Coverage reads `full`.** Where `12` found nothing but Coverage is `coverage-limited` (a required axis — courts, regulator, sanctions, adverse-media — did not run), the row stays PROVISIONAL and the coverage-limited cap applies exactly as it would for a check that never ran: a partial sweep that found nothing has established "not found on the axes that ran," not "clean." If `12` did not run at all, the provisional grades stay provisional and the coverage cap binds — never promote a provisional grade to clean because the confirming sweep is missing or partial.
 
 ### Network & lineage read (from 07's Sections 0, 3, 3B, 5)
 

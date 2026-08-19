@@ -157,7 +157,7 @@ Record these from the pool — they are what `07`'s recipes D-1 … D-5 start fr
 | Principal brand / product names the company trades under | | |
 | Registered-office address | | |
 
-A **claimed founding year that predates the incorporation date** is flagged here in one line — it means a predecessor entity exists, and `07` must find it (A17-02).
+A **claimed founding year that predates the incorporation date** is flagged here in one line as a LEAD — it means a predecessor entity MAY exist (a truthfully-cited group or parent history does not), and `07` runs the D-2 test to confirm or reconcile it (A17-02). Do not assert a predecessor exists at this triage step; that conclusion is `07`'s to make once lineage evidence identifies it.
 
 ## 5A. Jurisdiction & Filing Regime
 

@@ -9,7 +9,7 @@ Usage:
 
 Exit 0 = all checks PASS; 1 = at least one FAIL.
 """
-import json, glob, os, re, sys, subprocess, datetime, math, tempfile
+import json, glob, os, re, sys, subprocess, datetime, math, tempfile, ast
 from data_need_contract import (
     DATA_NEED_PROMISE_RE as _DATA_NEED_PROMISE_RE,
     DATA_NEED_URL_RE as _DATA_NEED_URL_RE,
@@ -4811,7 +4811,8 @@ def check_az_governance_flag_cap_correspondence():
 
     # (4) termination enum validated against the complete allowlist, not a one-token denylist —
     #     any NEW global-stop spelling must fail, not just the historical one.
-    ALLOWED = {"no_new_subjects", "hop_cap", "breadth_budget", "target_gate_failed", "budget_exhausted"}
+    ALLOWED = {"no_new_subjects", "hop_cap", "breadth_budget", "target_gate_failed", "budget_exhausted",
+               "sources_unavailable"}
     # Bounded by the TOKEN RUN, not by punctuation. The previous form captured to the first em dash or
     # newline, and the prose immediately after this enum names `disqualifying_finding_established` — the
     # exact token the check exists to ban. Rewrapping that line, or writing ": note" instead of " — note",
@@ -4829,8 +4830,16 @@ def check_az_governance_flag_cap_correspondence():
             fails.append(f"termination_rule is missing contract values: {sorted(missing)}")
 
     # (5) the grading rule is the fourth representation AZ claims to protect — so parse it. Every
-    #     fact term the RF-NET-003 trigger and the cap rows enumerate must also appear in the
-    #     Transitive-exposure grading bands, or a fact fires a flag and a cap with no grade floor.
+    #     fact term the RF-NET-003 trigger enumerates must ALSO appear in the cap rows AND the
+    #     Transitive-exposure grading bands — the doctrine's own claim is that trigger, cap and grade
+    #     cover exactly the same two fact sets, so a term missing from ANY one of the three is a drift,
+    #     not just a term missing from grading. [review fix] The previous form was a union test —
+    #     `(in_trigger or in_caps) and not in_grading` — which only ever required grading to be a
+    #     superset of trigger∪caps. Deleting `sanctions` from BOTH RF-NET-003 cap rows while leaving it
+    #     in the registry trigger and in grading passed silently: in_trigger=True, in_caps=False,
+    #     in_grading=True, and the union test only fires when grading is the odd one out. A trigger
+    #     term with no matching cap condition is exactly the "flag fires, cap doesn't cover it" defect
+    #     AZ exists to catch — so require presence in all three surfaces, not just trigger-or-caps→grading.
     FACT_TERMS = ["proven fraud", "debarment", "sanctions", "fugitive",
                   "liquidation", "live enforcement", "credible fraud allegation"]
     trigger_row = " ".join(ln for ln in reg.splitlines() if "RF-NET-003" in ln)
@@ -4840,8 +4849,11 @@ def check_az_governance_flag_cap_correspondence():
         in_trigger = term in trigger_row.lower()
         in_caps    = term in cap_rows.lower()
         in_grading = term in grading.lower()
-        if (in_trigger or in_caps) and not in_grading:
-            fails.append(f"fact '{term}' fires RF-NET-003 (trigger/cap) but has no Transitive-exposure grade band")
+        present = {"trigger": in_trigger, "cap": in_caps, "grading": in_grading}
+        missing_from = [k for k, v in present.items() if not v]
+        if missing_from and any(present.values()):
+            fails.append(f"fact '{term}' present in {[k for k,v in present.items() if v]} but "
+                         f"missing from {missing_from} — RF-NET-003 trigger/cap/grade must cover the same facts")
 
     # (6) band-AWARE grading check. (5) only proves a fact term appears SOMEWHERE in the grading
     #     section, so moving `liquidation` from the Material-equivalent row up into the
@@ -4928,9 +4940,82 @@ def check_az_governance_flag_cap_correspondence():
                 fails.append(f"{i}: cap payload drifts for trigger '{' '.join(sorted(key & k99))[:70]}' — "
                              f"MODULE_RULES {bounds} vs 99 {b99} (score / number disagree, or two rows' "
                              f"triggers were swapped — enforcement silently weakened or misdirected)")
+
+    # (9) registry TRIGGER conditions vs the cap ROWS — (7) only proves the two cap TABLES
+    #     (MODULE_RULES vs 99) agree with EACH OTHER; it never checks either against the registry's
+    #     own trigger text. [review fix] Removing a named adverse condition from an RF-NET registry
+    #     row (e.g. "same marks in live use") while leaving its cap rows in both cap tables untouched
+    #     passed every earlier check — (1)/(2) only test ID PRESENCE, (7) only tests MODULE_RULES-caps
+    #     vs 99-caps against each other. Pin each id's enumerated conditions and require each to
+    #     appear in BOTH the registry trigger row and the cap rows — the same asymmetry (5) closes for
+    #     RF-NET-003's fact terms, extended here to RF-NET-004's own condition list.
+    COND_TERMS = {
+        "RF-NET-004": ["controller-linked", "no identifiable licence", "licence terms",
+                       "terminable at short notice", "same marks in live use"],
+    }
+    for rf_id, terms in COND_TERMS.items():
+        trow = " ".join(ln for ln in reg.splitlines()
+                        if rf_id in (_az_row_first_cell(ln) or "")).lower()
+        crow = " ".join(ln for ln in caps.splitlines()
+                        if rf_id in (_az_row_first_cell(ln) or "")).lower()
+        for term in terms:
+            in_t, in_c = term in trow, term in crow
+            if in_t != in_c:
+                fails.append(f"{rf_id}: condition '{term}' present in {'the registry trigger' if in_t else 'the cap rows'} "
+                             f"but missing from {'the cap rows' if in_t else 'the registry trigger'} — a named adverse "
+                             f"condition drifted between the registry row and its cap rows")
     return fails
 
-azfails = check_az_governance_flag_cap_correspondence()
+# (8) Self-anchor is STRUCTURAL, not a substring search over a list that supplies its own matches.
+#     [review fix] FRAMEWORK_CONTRACTS["scripts/eval.py"] (above) lists these same identifiers as
+#     plain quoted strings so the general J-check (a substring search of this file's own text) can
+#     confirm they exist — but that list literal is itself part of this file's text. Deleting the
+#     real `def check_az_governance_flag_cap_correspondence(...):` body, its call, and the
+#     `if azfails: suite_pass = False` gate, while leaving the FRAMEWORK_CONTRACTS list entry
+#     untouched, still makes the substring search find every anchor string (in the list itself) and
+#     report PASS. No anchor TEXT fixes this, because whatever string is chosen would also have to
+#     appear in the list to be checked, which places it in the file regardless of whether the real
+#     code exists. Parse the actual AST instead: a bare string constant inside a list can never be
+#     mistaken for a real FunctionDef, Call, or If node, so this cannot be satisfied by anything
+#     other than the real definitions and wiring being present.
+def _az_self_anchor_fails():
+    try:
+        tree = ast.parse(open(__file__, encoding="utf-8").read())
+    except Exception as e:
+        return [f"AZ self-anchor: could not parse {__file__}: {str(e)[:80]}"]
+    fails = []
+    funcs = {n.name for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)}
+    for fn in ("check_az_governance_flag_cap_correspondence", "_az_slice", "_az_table_keys", "_az_row_first_cell"):
+        if fn not in funcs:
+            fails.append(f"AZ self-anchor: def {fn}(...) not found by AST parse (structural, not substring)")
+    # The call may sit anywhere inside the assigned expression (e.g. `azfails = f() + g()`), not only
+    # as the bare top-level value — so walk the RHS subtree for the call rather than requiring it to
+    # be n.value itself.
+    called = any(
+        isinstance(n, ast.Assign)
+        and any(isinstance(t, ast.Name) and t.id == "azfails" for t in n.targets)
+        and any(
+            isinstance(c, ast.Call) and isinstance(c.func, ast.Name)
+            and c.func.id == "check_az_governance_flag_cap_correspondence"
+            for c in ast.walk(n.value)
+        )
+        for n in ast.walk(tree)
+    )
+    if not called:
+        fails.append("AZ self-anchor: 'azfails = check_az_governance_flag_cap_correspondence()' not found by AST parse")
+    gated = any(
+        isinstance(n, ast.If) and isinstance(n.test, ast.Name) and n.test.id == "azfails"
+        and any(isinstance(s, ast.Assign)
+                and any(isinstance(t, ast.Name) and t.id == "suite_pass" for t in s.targets)
+                and isinstance(s.value, ast.Constant) and s.value.value is False
+                for s in n.body)
+        for n in ast.walk(tree)
+    )
+    if not gated:
+        fails.append("AZ self-anchor: 'if azfails: suite_pass = False' gate not found by AST parse")
+    return fails
+
+azfails = check_az_governance_flag_cap_correspondence() + _az_self_anchor_fails()
 if azfails: suite_pass = False
 
 # AP — valuation-summary lever-sidecar integrity (GLOBAL scan of every committed sidecar, including partial
