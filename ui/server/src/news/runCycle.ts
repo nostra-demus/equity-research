@@ -408,6 +408,20 @@ export function saveDeferred(stateDir: string, items: NewsItem[], log: (m: strin
   }
 }
 
+// A cycle calls saveDeferred TWICE against the same backlog file: once as a pre-projection safety journal
+// (writes triaged rows + the true carry-forward tail), once as a final cleanup once projection has landed
+// (writes just the carry-forward tail, shrinking the file back down). Both writes already exclude any
+// backlogExpired rows, so EITHER write succeeding already durably replaces the on-disk file with a copy that
+// no longer has them — the expired rows are gone from disk the moment the FIRST of the two writes lands, not
+// only once the LAST one does. Tracking only the final write's result (overwriting the journal write's result
+// on the second call) undercounts retirement in the partial-success case: journal write ok, cleanup write
+// fails. Exported as its own function so that case can be pinned by a table test without needing to drive a
+// real disk failure under the (root) test runner, where chmod-based simulation doesn't work. (Codex #453 —
+// partial-success across the two backlog writes.)
+export function backlogDurablyCleared(journalWriteOk: boolean, cleanupWriteOk: boolean): boolean {
+  return journalWriteOk || cleanupWriteOk
+}
+
 // Tracking-param-insensitive key for the GDELT↔RSS merge ONLY (event_id keeps hashing the verbatim
 // URL — that recipe is shared with Gate-0 and must not drift). Stops the same story arriving once
 // via GDELT's canonical URL and once via an RSS link with ?utm_… from being scored twice.
@@ -1379,7 +1393,11 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // Journal every scored row alongside the true deferred tail BEFORE any inbox/feed projection. A failed
   // atomic inbox rename or process crash can then retry one-shot source rows; successful projection removes
   // these temporary safety entries below. Seen is deliberately not persisted until projection succeeds.
-  let deferredPersisted = saveDeferred(stateDir, stampDeferred([...triaged, ...deferred], ts), log)
+  // This journal write already excludes backlogExpired (carriedExpired/freshExpired never entered `deferred`
+  // or the triage queue `items` that `triaged` was drawn from) — so a successful journal write ALONE already
+  // durably removes the expired rows from disk, independent of whether the later cleanup write below succeeds.
+  const deferredJournalOk = saveDeferred(stateDir, stampDeferred([...triaged, ...deferred], ts), log)
+  let deferredPersisted = deferredJournalOk
 
   // 3b. DEDUP — micro-cluster this cycle's items against the recent firehose into STORIES (finer than
   // themes), so the firehose line + the SSE event each carry a stable story-cluster id and the wire
@@ -1481,7 +1499,16 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // safety backlog remains and the item is neither seen nor silently lost.
   for (const t of triaged) seen.add(t.event_id, t.materiality_pre_score)
   seen.save()
+  // Final cleanup write: now that triaged rows are durably projected, shrink the backlog file down to just
+  // the true carry-forward tail. `deferredPersisted` tracks THIS write for `deferred_write_failed` — an
+  // operator-facing disk-health signal — deliberately independent of whether the journal write above already
+  // removed the expired rows: a failure here just leaves some already-projected, already-`seen` rows sitting
+  // harmlessly in the backlog file (next cycle's `carried` filter drops them via `seen`), not a data-loss risk.
   deferredPersisted = saveDeferred(stateDir, stampDeferred(deferred, ts), log)
+  // See backlogDurablyCleared above: `deferredPersisted` alone (the LAST write) undercounted retirement
+  // whenever the journal write succeeded but this cleanup write then failed — the journal write had already
+  // made the expired rows' removal durable, but the reassignment above threw that success away.
+  const expiredRemoved = backlogDurablyCleared(deferredJournalOk, deferredPersisted)
   // Optional neural index. It runs only when explicitly configured, only over newly persisted items, and
   // is fully fail-open: provider trouble can never block the wire or turn an item into a false non-match.
   if (written && cfg.retrievalEmbeddingEnabled) {
@@ -1596,12 +1623,14 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     : baseNote
   // Same honesty for the age boundary: a retired item was never scored and never will be. Reported even on
   // a cycle that deferred nothing, because that is exactly the cycle whose note would otherwise read clean.
-  // Count retirement ONLY once the backlog write durably removed the expired rows. On a failed deferred
-  // write (ENOSPC / permissions / rename) saveDeferred keeps the last-good file, so the expired rows are
-  // still on disk and will be re-loaded, re-expired and re-counted next cycle — reporting them RETIRED now
-  // double-counts the same loss into retiredToday every cycle until the disk recovers. Same gate the
-  // expired-only branch already applies with `cleared`. (Codex #453 — ordinary-cycle summary.)
-  const coreNote = backlogExpired.length > 0 && deferredPersisted
+  // Count retirement ONLY once a backlog write durably removed the expired rows — `expiredRemoved`, which is
+  // true when EITHER the pre-projection journal write OR the final cleanup write succeeded (both write the
+  // same expired-excluding tail, so either one durably replaces the on-disk file). If BOTH fail, the last-good
+  // file predates this cycle's expiry and still holds the expired rows — they'll be re-loaded, re-expired and
+  // re-counted next cycle, so reporting them RETIRED now would double-count the same loss until the disk
+  // recovers. Same gate the expired-only branch already applies with `cleared`. (Codex #453 — ordinary-cycle
+  // summary, and its partial-success follow-up: a lone failed cleanup write must not undo a successful journal write.)
+  const coreNote = backlogExpired.length > 0 && expiredRemoved
     ? `${capNote ? `${capNote} · ` : ''}${backlogExpired.length} backlog item${backlogExpired.length === 1 ? '' : 's'} RETIRED unscored — waited longer than ${Math.round(DEFERRED_MAX_AGE_MS / 3_600_000)}h behind the queue`
     : capNote
   // Surface a down PRIMARY brain even when the fallback coped and nothing deferred: the operator wants to know the
@@ -1639,7 +1668,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     ...(defCount ? { deferred: defCount } : {}),
     backlog: Math.min(defCount, DEFERRED_CAP), backlog_cap: DEFERRED_CAP,
     ...(droppedAtCap ? { dropped_at_cap: droppedAtCap } : {}),
-    ...(backlogExpired.length && deferredPersisted ? { backlog_expired: backlogExpired.length } : {}),
+    ...(backlogExpired.length && expiredRemoved ? { backlog_expired: backlogExpired.length } : {}),
     ...(deferredPersisted ? {} : { deferred_write_failed: true }),
     ...(aborted ? { aborted: true } : {}),
     ...(deferReason ? { defer_reason: deferReason } : {}),

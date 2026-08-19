@@ -782,7 +782,10 @@ export const NEWS = {
   // rows. Observed live: 24 of 25 Gemini pool calls in a day failed this way for 1 scored batch. But the
   // cross-model retry is not worthless either — a different model genuinely does sometimes parse a batch the
   // first one mangled, and that is where the 1 scored batch came from. So this is a CAP, not a ban: keep the
-  // retry that works, drop the four that don't. 0 = never re-send a contract failure elsewhere.
+  // retry that works, drop the four that don't. 0 = never re-send a contract failure to another SCARCE
+  // free/cloud pool provider. It does not reach the demoted local tier, which is a separate, deliberately
+  // unlimited last resort (runCycle.ts "LOCAL LAST") — there is no scarce request to conserve there, so a
+  // contract-failed batch still gets that one final cross-model rescue attempt after the pool is exhausted.
   // Availability, rate-limit and request failures are unaffected — those ARE about the provider, and the
   // batch should keep flowing down the chain as before.
   contractRetriesPerBatch: capNumOrZero(process.env.NEWS_CONTRACT_RETRIES_PER_BATCH, 1),

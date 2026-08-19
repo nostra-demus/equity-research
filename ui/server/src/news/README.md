@@ -189,7 +189,10 @@ On top of that:
   failed the row/coverage contract — is evidence about the **batch** at least as much as the provider, so
   re-sending identical text to five pool models spends five requests for zero rows.
   `NEWS_CONTRACT_RETRIES_PER_BATCH` (default **1**) caps it: keep the one cross-model retry that does sometimes
-  rescue a batch, drop the rest. `0` never re-sends. Availability / rate-limit / request failures are
+  rescue a batch, drop the rest. `0` never re-sends to another pool provider — the cap governs the scarce
+  free/cloud pool. It does not reach the demoted local tier: that tier is a separate, deliberately unlimited
+  last resort (no scarce request to conserve there), so a contract-failed batch still gets one final
+  cross-model rescue attempt once the pool is exhausted. Availability / rate-limit / request failures are
   unaffected — those *are* about the provider.
 - **The output ceiling scales with the batch.** `triageMaxOutputTokens` — one JSON row per headline, so a flat
   ceiling truncates larger batches and the completeness contract then discards the entire answer. It only ever

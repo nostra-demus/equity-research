@@ -16,7 +16,7 @@ import { analyzeArticle, coerceTriage, estimateTokens, parseRate, scoreToBand, t
 import { analyzeArticleGemini, geminiSchemaEnabled, TRIAGE_RESPONSE_SCHEMA, triageBatchGemini } from '../src/news/triage/gemini'
 import { appendFeedItems, readFeed } from '../src/news/feed'
 import { mergeInbox, revisionClockRegistryDiagnostics } from '../src/news/write-inbox'
-import { buildTriageQueue, expireBacklog, loadDeferred, migrateDeferred, preserveResidence, runIngestCycle, stampDeferred, triageGroqTokenBound } from '../src/news/runCycle'
+import { backlogDurablyCleared, buildTriageQueue, expireBacklog, loadDeferred, migrateDeferred, preserveResidence, runIngestCycle, stampDeferred, triageGroqTokenBound } from '../src/news/runCycle'
 import { anthropicDrainReady, backlogTrend, credentialRejected, CREDENTIAL_DEAD_AFTER_FAILS, drainBatchEst, geminiPoolProviderDayExhausted, getNewsDiagnostics, providerDrainUsable, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS, STATE_DIR } from '../src/config'
 import { createTheme } from '../src/news/themes/discover'
@@ -4639,6 +4639,18 @@ await check('runIngestCycle: a backlog that waited past the age bound is retired
   assert.equal(s.carryover, 0, 'a retired item never competes for a triage slot again')
   assert.match(String(s.note), /RETIRED unscored/, 'the loss is named in the note, never silent')
   assert.equal(loadDeferred(state).length, 0, 'the retired backlog is gone from disk — it cannot regrow the wall')
+})
+
+await check('backlogDurablyCleared: either backlog write succeeding is enough — the LAST write is not the only one that counts', () => {
+  // A cycle calls saveDeferred twice against the same file (pre-projection journal, then final cleanup);
+  // both already exclude backlogExpired rows, so either one succeeding already durably removed them from
+  // disk. Before this fix, runCycle tracked only the final write's result, which undercounted retirement
+  // in the partial-success case: journal write ok, cleanup write fails. (Codex #453 — the both-writes-fail
+  // case was already gated correctly; this pins the case it missed.)
+  assert.equal(backlogDurablyCleared(true, true), true, 'both writes ok')
+  assert.equal(backlogDurablyCleared(true, false), true, 'journal write ok, cleanup write fails — still durable, the exact bug this fixes')
+  assert.equal(backlogDurablyCleared(false, true), true, 'journal write fails, cleanup write recovers it')
+  assert.equal(backlogDurablyCleared(false, false), false, 'both writes fail — nothing durable, must not report retirement')
 })
 
 await check('buildTriageQueue: share 0 restores ONE priority sort, it does not invert the starvation', () => {
