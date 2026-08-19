@@ -641,7 +641,7 @@ function listPoolFiles(tickerDirRaw: string): string[] {
       } else if (st.isFile()) {
         if (name.startsWith('.')) continue // dot-FILE (incl. the .nostradamus_output sentinel) — matches the extractor's basename skip
         if (isOutputDir) continue // engine-written output folder (.nostradamus_output sentinel) — excluded from the pool
-        if (name.endsWith(SIDECAR_SUFFIX)) continue // provenance sidecar, not a document
+        if (name.toLowerCase().endsWith(SIDECAR_SUFFIX)) continue // provenance sidecar, not a document — case-insensitive, matching extract_pool.py's _is_sidecar (name.lower().endswith(...))
         if (st.nlink !== 1) continue // multiply-linked file — the extractor rejects st_nlink != 1 (iter_pool_files)
         if (path.basename(absDir).endsWith('_pool_extracts')) continue // derived extractor cache, not a source doc (extract_pool.py)
         out.push(relDir ? path.join(relDir, name) : name)

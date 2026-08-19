@@ -71,6 +71,10 @@ try {
 //     external marker at ANY path segment, not just data/<T>/external/. A doc under Archive/external/... must
 //     be excluded from the research pool entirely — never counted, never able to satisfy filing readiness.
 writeY('Archive/external/provider/Nested_External_Annual_FY23.pdf')
+// (7) case-variant sidecar (review round 3): extract_pool.py's _is_sidecar lowercases the basename before
+//     checking the ".source.json" suffix. A nested "...SOURCE.JSON" sidecar must be excluded, not classified
+//     as an annual filing.
+writeY('Filings/Annual_Report_FY26.SOURCE.JSON', '{"provenance":true}')
 
 async function main() {
   const status = await analyzeTicker('TESTX')
@@ -169,8 +173,8 @@ async function main() {
     // .archive/Legacy_Annual + Calls A/call + Calls B/call = 3 ; the 2 _pool_extracts files contribute 0.
     // When hard links were made, orig.txt + dup.txt are both excluded (nlink=2) → 3. When the FS refused
     // links, orig.txt is a normal nlink=1 file and is legitimately counted → 4. The nested Archive/external/
-    // filing contributes 0 either way (excluded, not routed to listExternalFiles — that only owns the
-    // ticker-root external/).
+    // filing and the case-variant "...SOURCE.JSON" sidecar each contribute 0 either way (both excluded —
+    // the sidecar not routed to listExternalFiles either, since it is never a document at all).
     const expected = hardlinkMade ? 3 : 4
     assert.equal(statusY.fileCount, expected, `expected ${expected}, got ${statusY.fileCount}`)
   })
@@ -180,6 +184,13 @@ async function main() {
       'nested Archive/external/... filing is not listed as a pool document')
     assert.ok(!statusY.files.some((f) => (f.path ?? f.filename).includes('Nested_External_Annual_FY23')),
       'not present under any path, and not routed to external_data either (that lane owns only the ticker-root external/)')
+  })
+
+  await check('(7) a case-variant nested sidecar ("...SOURCE.JSON") is excluded, not classified as a filing', () => {
+    assert.equal(byPathY('Filings/Annual_Report_FY26.SOURCE.JSON'), undefined,
+      'the upper-case sidecar suffix is still recognized as a sidecar, not a document')
+    assert.ok(!statusY.files.some((f) => (f.path ?? f.filename).includes('Annual_Report_FY26.SOURCE.JSON')),
+      'not present under any path')
   })
 }
 
