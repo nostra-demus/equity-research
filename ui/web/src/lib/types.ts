@@ -996,6 +996,11 @@ export interface TierDiagnostics {
   retryScope?: 'shared' | 'triage'
   nextEligibleAt?: string
   consecutiveFailures?: number
+  // the provider is rejecting this tier's CREDENTIAL (repeated 401/402/403/404) — waiting cannot fix it
+  credentialRejected?: boolean
+  keyEnvVar?: string // the env-var NAME holding that credential (never the value)
+  failingForMs?: number // how long the current unbroken failure streak has run (the backoff window pins flat and stops telling you)
+  lastFailureMs?: number // how long the last failing call ran — at the deadline means WE cut it off
   failuresToday?: number
   fails?: number // legacy alias; consecutive streak, never a day total
   triageAttemptsToday?: number
@@ -1012,7 +1017,8 @@ export interface NewsDiagnostics {
   lastCycleAt: string | null
   nextCycleAt: string | null
   tiers: TierDiagnostics[]
-  backlog: { unavailable?: boolean; count: number; cap: number; pctOfCap: number; nearLimit: boolean; trend: 'growing' | 'shrinking' | 'flat' | null; lostToday: number }
+  // retiredToday is optional so a cockpit talking to an older server degrades cleanly (reads as absent, not 0-with-confidence)
+  backlog: { unavailable?: boolean; count: number; cap: number; pctOfCap: number; nearLimit: boolean; trend: 'growing' | 'shrinking' | 'flat' | null; lostToday: number; retiredToday?: number }
   today: { read: number; kept: number; dropped: number; cycles: number }
   lastCycle: {
     ts: string
@@ -1043,6 +1049,7 @@ export interface NewsDiagnostics {
     allowanceExhaustedTiers?: string[]
     unavailableTiers?: string[]
     pacedTiers?: string[]
+    needsCredentialTiers?: string[] // optional while an older engine is still serving
   }
 }
 
