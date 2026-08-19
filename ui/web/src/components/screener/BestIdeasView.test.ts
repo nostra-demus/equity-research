@@ -222,13 +222,13 @@ assert.deepEqual(qualifiedIdeasForSide(qualifiedBoard, 'short').map((row) => row
 assert.deepEqual(currentQualifiedIdeasForSide(qualifiedBoard, 'long', nowMs).map((row) => row.candidate.idea_id), ['qualified-long', 'qualified-second'])
 assert.deepEqual(currentQualifiedIdeasForSide(qualifiedBoard, 'long', Date.parse('2026-12-11T12:00:00Z')), [], 'expired forecasts remain audit rows, not current qualified calls')
 
-const normalizedQualifiedBoard = normalizeQualifiedIdeasBoard(qualifiedBoard)
+const normalizedQualifiedBoard = normalizeQualifiedIdeasBoard(qualifiedBoard, nowMs)
 assert.equal(normalizedQualifiedBoard.invalidRowCount, 0)
 assert.equal(normalizedQualifiedBoard.board?.qualified.length, 2)
 const reorderedQualifiedBoard = normalizeQualifiedIdeasBoard({
   ...qualifiedBoard,
   qualified: [...qualifiedBoard.qualified].reverse().map((row) => ({ ...row, pareto_layer: 99 })),
-})
+}, nowMs)
 assert.deepEqual(
   reorderedQualifiedBoard.board?.qualified.map((row) => [row.candidate.idea_id, row.pareto_layer]),
   [['qualified-long', 1], ['qualified-second', 1]],
@@ -242,7 +242,7 @@ const partlyMalformedQualifiedBoard = normalizeQualifiedIdeasBoard({
   ...qualifiedBoard,
   health: { ...qualifiedBoard.health, artifact_count: 3, assessment_count: 3, parsed_count: 3, qualified_count: 3 },
   qualified: [...qualifiedBoard.qualified, { candidate: null }],
-})
+}, nowMs)
 assert.equal(partlyMalformedQualifiedBoard.invalidRowCount, 1)
 assert.equal(partlyMalformedQualifiedBoard.board?.qualified.length, 2)
 assert.deepEqual(qualifiedIdeasRuntimeWarning(partlyMalformedQualifiedBoard), {
@@ -250,7 +250,7 @@ assert.deepEqual(qualifiedIdeasRuntimeWarning(partlyMalformedQualifiedBoard), {
   title: 'Those rows could not be shown safely. Refresh the research board before relying on this list.',
 })
 assert.equal(normalizeQualifiedIdeaRow({ candidate: null }), null)
-assert.ok(normalizeQualifiedIdeaRow(qualified('row-only-defaults', 'long')), 'row-only validation uses the server tolerance defaults')
+assert.ok(normalizeQualifiedIdeaRow(qualified('row-only-defaults', 'long'), undefined, nowMs), 'row-only validation uses the server tolerance defaults')
 assert.equal(normalizeQualifiedIdeasBoard({ schema_version: 'qualified-ideas-board/v99' }).board, null)
 assert.equal(normalizeQualifiedIdeasBoard({ ...qualifiedBoard, schema_version: 'qualified-ideas-board/v2' }).board, null, 'a future board schema cannot silently widen the trusted contract')
 assert.equal(normalizeQualifiedIdeasBoard({
@@ -297,7 +297,7 @@ assert.equal(normalizeQualifiedIdeaRow(badTargetReturnRow, qualifiedBoard.policy
 
 const reorderedMetricRows = structuredClone(qualified('stable-label-match', 'long')) as unknown as QualifiedIdeaEvaluation
 reorderedMetricRows.metrics!.scenario_returns.reverse()
-assert.ok(normalizeQualifiedIdeaRow(reorderedMetricRows, qualifiedBoard.policy), 'scenario returns match by stable label rather than array index')
+assert.ok(normalizeQualifiedIdeaRow(reorderedMetricRows, qualifiedBoard.policy, nowMs), 'scenario returns match by stable label rather than array index')
 
 const legacyNoRankingRow = structuredClone(qualified('legacy-no-ranking', 'long')) as unknown as QualifiedIdeaEvaluation
 legacyNoRankingRow.ranking = null
@@ -558,7 +558,7 @@ assert.deepEqual(qualifiedIdeasEmptyState('long', checkedEmptyQualifiedBoard), {
   healthReason: 'Three complete forecasts missed at least one gate.',
   state: 'checked',
 })
-assert.equal(qualifiedIdeasEmptyState('long', normalizedQualifiedBoard), null, 'a real qualified row suppresses only its side empty state')
+assert.equal(qualifiedIdeasEmptyState('long', normalizedQualifiedBoard, nowMs), null, 'a real qualified row suppresses only its side empty state')
 assert.equal(newsLeadQueueEmptyMessage(true, { schema_version: 'ideas-health/v1', status: 'healthy' }), 'No live news leads in this direction.')
 assert.equal(newsLeadQueueEmptyMessage(true, { schema_version: 'ideas-health/v1', status: 'running' }), 'Checking for news leads…')
 assert.equal(newsLeadQueueEmptyMessage(false, null), 'News lead queue unavailable.')
