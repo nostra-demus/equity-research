@@ -145,7 +145,9 @@ check('triggerTarget reads the price off the STRUCTURED trigger, never off the p
   const drop = triggerTarget({ kind: 'pct_drop', trigger_id: 'T2', drop_pct: 12,
     reference: { value: 216.14, currency: 'USD', as_of: '2026-08-18', source: 'Capital IQ' } } as never)
   assert.equal(drop?.currency, 'USD')
-  assert.ok(Math.abs((drop?.value ?? 0) - 190.2032) < 1e-6, 'fires at reference × (1 − 12%)')
+  // 216.14 x 0.88 = 190.2032, rounded to 2dp exactly as the server rounds it — an unrounded value here is
+  // what made the panel and the trigger line quote two different prices for one threshold
+  assert.equal(drop?.value, 190.2, 'fires at reference x (1 - 12%), rounded the way the server rounds it')
   // a date has no price, and a valuation anchor is a VALUE not a quote-comparable price — neither is a target
   assert.equal(triggerTarget({ kind: 'event_date', trigger_id: 'T3', due_date: '2026-08-27', label: 'Q2' } as never), null)
 })
@@ -167,6 +169,24 @@ check('nearestTarget follows the SAME trigger the distance figure is measured ag
     evals: [{ trigger_id: 'D', kind: 'event_date', mode: 'reminder', state: 'not_met', detail: '', gap_pct: null, days_to: 3, reason: null }] as never })
   assert.equal(nearestTarget(dated), null)
   assert.equal(nearestTarget(row({ triggers: [] as never, evals: [] as never })), null)
+})
+
+check("the panel and the trigger line can never quote two prices for one threshold", () => {
+  // The real defect: 364.25 x 0.9 = 327.825. The server rounds to 327.83; recomputing here without the
+  // same rounding rendered 327.82 — the same quantity, two values, three centimetres apart on one panel.
+  const served = row({
+    triggers: [{ kind: 'pct_drop', trigger_id: 'D', drop_pct: 10,
+      reference: { value: 364.25, currency: 'USD', as_of: '2026-08-18', source: 'CIQ' } }] as never,
+    evals: [{ trigger_id: 'D', kind: 'pct_drop', mode: 'auto', state: 'not_met', detail: 'prose', gap_pct: -11.5,
+      reason: null, target: { value: 327.83, currency: 'USD', basis: '-10% from USD 364.25' } }] as never,
+  })
+  assert.equal(nearestTarget(served)?.value, 327.83, "the server's own number wins, never a recomputation")
+  // and the fallback (an engine predating eval.target) rounds IDENTICALLY, so it cannot disagree either
+  const legacy = row({
+    triggers: served.triggers,
+    evals: [{ trigger_id: 'D', kind: 'pct_drop', mode: 'auto', state: 'not_met', detail: 'prose', gap_pct: -11.5, reason: null }] as never,
+  })
+  assert.equal(nearestTarget(legacy)?.value, 327.83, 'the fallback matches the server to the last digit')
 })
 
 console.log(`\nwatchlistView.test.ts: ${passed} passed`)

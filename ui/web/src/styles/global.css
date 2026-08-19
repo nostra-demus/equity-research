@@ -3519,13 +3519,21 @@ a { color: inherit; }
 .wdet__sec { border-top: 1px solid var(--hairline); padding-top: 9px; }
 .wdet__seclabel { font-size: 9.5px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-faint); margin: 0 0 6px; }
 /* The three numbers that answer "where is it, where do I want it, how far" — equal billing, each labelled. */
-.wdet__facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
+.wdet__facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; align-items: start; }
 .wdet__fact { display: flex; flex-direction: column; min-width: 0; }
 .wdet__factlabel { font-size: 9.5px; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); }
-.wdet__factval { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 14px; font-weight: 600; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* A price must never be shown truncated: "USD 370.…" is not a number anyone can act on, and an ellipsis
+   on a figure reads as data loss rather than a layout compromise. So the value wraps its currency onto a
+   second line if it has to, and the column is allowed to be narrow rather than the number cut short. */
+.wdet__factval { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 13.5px; font-weight: 600; margin-top: 2px; overflow-wrap: anywhere; }
 .wdet__factval--met { color: var(--accent-bright); }
 .wdet__factval--none { color: var(--text-faint); font-weight: 400; }
-.wdet__factnote { font-size: 9.5px; color: var(--text-faint); margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wdet__factnote { font-size: 9.5px; color: var(--text-faint); margin-top: 1px; line-height: 1.35; overflow-wrap: anywhere; }
+/* the trigger row: its own target and basis, and its distance — never a restatement of the facts above */
+.wdet__trigterms { display: flex; flex-direction: column; min-width: 0; }
+.wdet__trigtarget { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12px; color: var(--text); }
+.wdet__trigbasis { font-size: 10px; color: var(--text-faint); line-height: 1.35; overflow-wrap: anywhere; }
+.wdet__trigstate { margin-inline-start: auto; font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 11px; color: var(--text-muted); white-space: nowrap; align-self: center; }
 .wdet__next { display: flex; align-items: baseline; gap: 7px; flex-wrap: wrap; }
 .wdet__nextdate { font-family: var(--font-mono); font-size: 12.5px; }
 .wdet__runfacts { display: flex; gap: 5px; flex-wrap: wrap; font-size: 10.5px; color: var(--text-muted); }

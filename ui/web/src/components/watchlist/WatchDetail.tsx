@@ -6,7 +6,7 @@
 import { useState } from 'react'
 import { useStore } from '../../lib/store'
 import { api } from '../../lib/api'
-import { ABSENT_PRICE_COPY, decisionColor, livePriceLabel, money, shortDay } from '../../lib/format'
+import { ABSENT_PRICE_COPY, decisionColor, money, shortDay } from '../../lib/format'
 import type { WatchRow, WatchTriggerEval } from '../../lib/types'
 import { absenceReason, distanceLabel, nearestTarget } from '../../lib/watchlistView'
 
@@ -33,6 +33,8 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
 
   const target = row ? nearestTarget(row) : null
   const pool = row ? tickers.find((t) => t.ticker === row.ticker) : undefined
+  // more than one trigger is the only case where listing the set adds anything the facts row did not
+  const multi = (row?.evals?.length ?? 0) > 1
   const lastRunAt = pool?.latestRun?.decisionDate ?? row?.engine?.decision_date ?? null
   if (!row) {
     return (
@@ -89,7 +91,8 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
             {row.quote ? (
               <>
                 <span className="wdet__factval">{money(row.quote.currency, row.quote.price)}</span>
-                <span className="wdet__factnote">{livePriceLabel(row.quote)}</span>
+                {/* only the QUALIFIER — the unqualified case repeated the label back ("Price now" twice) */}
+                <span className="wdet__factnote">{row.quote.as_of_is_close ? 'last close' : 'live'}</span>
               </>
             ) : (
               <>
@@ -129,17 +132,44 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
 
       {/* Every trigger, with the arithmetic the server computed — "not met" stays checkable rather than
           trusted (§15). The tile showed only the nearest one; this is the full set. */}
+      {/* The set — and it only earns a place when the set says something the facts row did not.
+          With exactly ONE trigger the facts row above is already that trigger, fully labelled, so listing
+          it again printed the same target and the same basis twice on one panel and left no hierarchy
+          about which to read first. So: two or more triggers, list them; exactly one, the facts row has
+          said it; none, offer to add one. The absence and resurfaced notes always show, because those are
+          statements the facts row cannot make. */}
       <section className="wdet__sec">
-      <h4 className="wdet__seclabel">Triggers{row.evals?.length ? ` · ${row.evals.length}` : ''}</h4>
+      {multi && <h4 className="wdet__seclabel">Triggers · {row.evals.length}</h4>}
       <div className="wdet__trigs">
-        {row.evals?.length ? row.evals.map((e) => (
-          <div key={e.trigger_id} className="wdet__trig">
+        {multi ? row.evals.map((e) => (
+          /* Structured, not the server's sentence. That sentence reads "10% below USD 364.25 (2026-08-18)
+             = USD 327.83; now USD 370.36, up 1.7%" — which restates the price and the target the facts row
+             directly above already shows, so the panel said the same numbers twice and left no hierarchy
+             about which to read first. What this row adds instead is what the facts row CANNOT show: each
+             trigger's own target when there is more than one, the basis that makes it checkable (the frozen
+             reference and its date), and its state. The full sentence stays on hover, so the arithmetic is
+             still one gesture away rather than deleted. */
+          <div key={e.trigger_id} className="wdet__trig" title={e.detail}>
             <span className={chipClass(e)}>
               {e.kind === 'event_date' ? 'date' : e.kind === 'price_level' ? 'level' : e.kind === 'pct_drop' ? 'drop' : 'value'}
             </span>
-            <span className="wdet__trigtext">{e.detail}</span>
+            {e.target ? (
+              <span className="wdet__trigterms">
+                <span className="wdet__trigtarget">{money(e.target.currency, e.target.value)}</span>
+                <span className="wdet__trigbasis">{e.target.basis}</span>
+              </span>
+            ) : (
+              <span className="wdet__trigtext">{e.detail}</span>
+            )}
+            <span className="wdet__trigstate">
+              {e.state === 'condition_met' ? 'met'
+                : e.state === 'not_evaluable' ? 'not checkable'
+                : e.days_to != null ? (e.days_to === 0 ? 'today' : `${e.days_to}d`)
+                : e.gap_pct != null ? `${e.gap_pct > 0 ? '+' : ''}${e.gap_pct}%`
+                : ''}
+            </span>
           </div>
-        )) : (
+        )) : row.evals?.length ? null : (
           <button className="wl__trg wl__trg--add" onClick={edit}>+ trigger</button>
         )}
         {absent && <div className="wdet__absent">{absent}</div>}

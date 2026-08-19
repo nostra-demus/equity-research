@@ -79,8 +79,11 @@ export function triggerTarget(t: WatchTrigger): { value: number; currency: strin
     return { value: t.level, currency: t.currency, how: t.direction === 'at_or_below' ? 'at or below' : 'at or above' }
   }
   if (t.kind === 'pct_drop') {
-    // the reference is frozen with its own date and source, so this multiplication is reproducible later
-    return { value: t.reference.value * (1 - t.drop_pct / 100), currency: t.reference.currency, how: `\u2212${t.drop_pct}% from ${t.reference.value}` }
+    // Rounded to 2dp exactly as the server rounds it. Unrounded, 364.25 × 0.9 = 327.825 rendered as
+    // "327.82" here while the server's own r2 gave "327.83" — the same quantity, two values, three
+    // centimetres apart on one panel (§15). This path is only a fallback for an engine that predates
+    // `eval.target`; when the server sends the number, that is what is shown.
+    return { value: Math.round(t.reference.value * (1 - t.drop_pct / 100) * 100) / 100, currency: t.reference.currency, how: `\u2212${t.drop_pct}% from ${t.reference.value}` }
   }
   return null
 }
@@ -92,6 +95,9 @@ export function nearestTarget(row: WatchRow): { value: number; currency: string;
     .sort((a, b) => Math.abs(a.gap_pct as number) - Math.abs(b.gap_pct as number))
   const first = scored[0]
   if (!first) return null
+  // Prefer the server's own figure: it is the number the trigger was evaluated against, so the panel and
+  // the trigger line can never quote two different prices for one threshold.
+  if (first.target) return { value: first.target.value, currency: first.target.currency, how: first.target.basis }
   const t = (row.triggers ?? []).find((x) => x.trigger_id === first.trigger_id)
   return t ? triggerTarget(t) : null
 }
