@@ -29,6 +29,7 @@ import {
 } from './intake-owner'
 import { RESEARCH_SWARM_ID, swarmById } from './swarms'
 import { finalPaths, handleStreamLine } from './stream-parser'
+import { extractTriageStatus } from './verdict'
 import type { LaunchPreflight, ReadinessDecision, ReadinessReport, RunKind, RunStatus } from './types'
 
 // Screener kinds are swarm-scoped; everything else is the research default. Generic by design:
@@ -178,6 +179,22 @@ export function todayDate(d: Date = new Date()): string {
 /** Which orb files a module run actually landed, for an honest incomplete note. A stalled module used to
  * say nothing at all; naming the orbs on disk turns "it just stops" into "9 of 14 landed, these are
  * missing" — and tells the user exactly what to re-run. Best-effort: never throws. */
+/** Did this module abort by DESIGN, on a fail-fast triage verdict of Insufficient? Every module command
+ * says so explicitly ("Do NOT proceed to commit") — the module writes no synthesis and commits nothing,
+ * and that is a correct, reasoned outcome, not a stall. Reporting it as "incomplete" would be a FALSE
+ * failure: the same defect class the incomplete branch exists to remove, pointed the other way.
+ * Fails closed — an unreadable or absent triage returns false and the caller's normal test applies. */
+export function moduleFailFastAborted(runRoot: string | null, moduleName?: string): boolean {
+  if (!runRoot || !moduleName) return false
+  const root = path.isAbsolute(runRoot) ? runRoot : path.join(REPO_ROOT, runRoot)
+  const dir = path.join(root, moduleName)
+  try {
+    const triage = fs.readdirSync(dir).filter((f) => /^00_.*\.md$/.test(f)).sort()[0]
+    if (!triage) return false
+    return extractTriageStatus(fs.readFileSync(path.join(dir, triage), 'utf8')) === 'Insufficient'
+  } catch { return false }
+}
+
 export function moduleOrbProgress(runRoot: string | null, moduleName?: string): { landed: string[]; expected: number } {
   if (!runRoot || !moduleName) return { landed: [], expected: 0 }
   const root = path.isAbsolute(runRoot) ? runRoot : path.join(REPO_ROOT, runRoot)
@@ -265,7 +282,10 @@ export function truncatedBeforeFinal(run: RunState): boolean {
   // Only judge a module run we can actually identify. With no `run.module` there is no synthesis path to
   // look for, and claiming "incomplete" on that absence would fail a genuinely-finished run — so an
   // unknown module falls through to the pre-existing behaviour rather than guessing.
-  if (run.kind === 'module' && run.module) return !moduleSynthesisPresent(run.runRoot, run.module)
+  if (run.kind === 'module' && run.module) {
+    if (moduleFailFastAborted(run.runRoot, run.module)) return false
+    return !moduleSynthesisPresent(run.runRoot, run.module)
+  }
   if (run.kind !== 'full' && run.kind !== 'rerun') return false
   if (run.swarmId === 'research') return !finalDeliverablesPresent(run.runRoot)
   if (!run.runRoot || swarmById(run.swarmId)?.layout !== 'constellation') return false
@@ -279,6 +299,16 @@ export function truncatedBeforeFinal(run: RunState): boolean {
 // deliberate single pieces (the user ran exactly that), so a break there is NOT auto-resumed.
 function isResumableResearchRun(run: RunState): boolean {
   return run.swarmId === 'research' && (run.kind === 'full' || run.chained === true)
+}
+
+// Recording WHY a run stopped and AUTO-RESUMING it are different questions, and conflating them is what
+// made months of standalone module stalls invisible: a solo `module` launch is deliberately never
+// auto-resumed (the user ran exactly that piece), but it must still say why it stopped. Recording is
+// therefore WIDER than resumption — never narrower. The `.interrupted` marker stays behind
+// isResumableResearchRun: that marker is the resume supervisor's QUEUE, and widening it would enqueue
+// solo runs the user never asked to continue.
+function shouldRecordStop(run: RunState): boolean {
+  return isResumableResearchRun(run) || (run.swarmId === 'research' && run.kind === 'module')
 }
 
 // --- A2: commit a diagnosable failure note WITH the run (a DISTINCT file, never the success contract) ----
@@ -336,8 +366,12 @@ function recordRunFailure(run: RunState, reason: string, stderr: string): void {
   // Finding 5: a stale final_thesis.md/decision_record.json from an EARLIER completed run in this same
   // folder must not suppress a genuinely NEW failure — only deliverables THIS attempt actually shipped do.
   if (finalDeliverablesShippedByThisAttempt(run)) return // the run actually shipped — a trailing nonzero is not a failure
-  if (recordedFailure.has(runRoot)) return       // single-shot: dedup concurrent chained-module closes
-  recordedFailure.add(runRoot)
+  // Keyed per (runRoot, module), not per runRoot: several module runs land in the SAME analyses folder
+  // (INDIAMART ran five into two folders), and a folder-wide single-shot silently swallowed all but the
+  // first — the dedup would have eaten the very records this change exists to create.
+  const recordKey = `${runRoot}\u0000${run.module ?? ''}`
+  if (recordedFailure.has(recordKey)) return     // single-shot: dedup concurrent chained-module closes
+  recordedFailure.add(recordKey)
   try {
     const abs = path.join(REPO_ROOT, runRoot)
     if (!fs.existsSync(abs)) return
@@ -398,7 +432,7 @@ function recordRunFailure(run: RunState, reason: string, stderr: string): void {
 // commits the removal only when the file is actually present (a no-op for the vast majority of runs).
 function clearRunFailure(runRoot: string | null): void {
   if (!runRoot) return
-  recordedFailure.delete(runRoot)
+  for (const k of [...recordedFailure]) if (k === runRoot || k.startsWith(`${runRoot}\u0000`)) recordedFailure.delete(k)
   try {
     const p = path.join(REPO_ROOT, runRoot, FAILURE_NOTE)
     if (!fs.existsSync(p)) return
@@ -417,7 +451,7 @@ function clearRunFailure(runRoot: string | null): void {
 // silent + local) — if the resumed attempt fails again, recordRunFailure (dedup now reset) recreates and
 // re-commits a FRESH note; nothing here can drop a note a genuinely-still-broken run still needs.
 function resetForRelaunch(runRoot: string): void {
-  recordedFailure.delete(runRoot)
+  for (const k of [...recordedFailure]) if (k === runRoot || k.startsWith(`${runRoot}\u0000`)) recordedFailure.delete(k)
   try { fs.rmSync(path.join(REPO_ROOT, runRoot, FAILURE_NOTE), { force: true }) } catch { /* best-effort */ }
 }
 
@@ -488,13 +522,17 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     const treason = `terminated_${res?.signal || 'signal'}`
     if (isResumableResearchRun(run)) {
       if (!finalDeliverablesShippedByThisAttempt(run)) writeRunMarker(run.runRoot, '.interrupted', { reason: treason, module: run.module, message: redactSecrets(stderr.slice(-2000)) || undefined })
-      recordRunFailure(run, treason, stderr) // A2: diagnosable failure note (self-guards on deliverables + single-shot)
     }
+    if (shouldRecordStop(run)) recordRunFailure(run, treason, stderr) // A2: diagnosable note (self-guards + single-shot)
     run.note = failureNote(treason, stderr) // A3: durable reason in the activity log (shown on the row)
     emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: treason, message: stderr.slice(-400) || undefined, ts: Date.now() })
     finishRun(run, 'error')
   } else if ((code && code !== 0) || res?.failed === true) {
-    const reason = /credit|rate limit/i.test(stderr) ? 'out_of_credits' : 'nonzero_exit'
+    // Match the CLI's own wording ("Claude AI usage limit reached", overage). The narrow
+    // /credit|rate limit/ pattern labelled a real plan stop `nonzero_exit`, so no resetsAt was stamped
+    // and the resume supervisor treated it as due immediately — relaunching straight back into the
+    // exhausted window. Same set the sibling classifiers already use.
+    const reason = /rate limit|usage limit|overage|credit/i.test(stderr) ? 'out_of_credits' : 'nonzero_exit'
     // Mark the broken full run for the resume supervisor. For an out_of_credits stop (the plan's usage
     // limit), stamp the rate-limit resetsAt so the paused run knows when it may continue WITHOUT spending
     // overage — durable on disk, so the wait survives a reboot. (A connection break shows up here as
@@ -502,8 +540,8 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     if (isResumableResearchRun(run)) {
       const resetsAt = reason === 'out_of_credits' ? getCreditStatus().resetsAt : undefined
       if (!finalDeliverablesShippedByThisAttempt(run)) writeRunMarker(run.runRoot, '.interrupted', { reason, resetsAt, module: run.module, message: redactSecrets(stderr.slice(-2000)) || undefined })
-      recordRunFailure(run, reason, stderr) // A2: diagnosable failure note (self-guards on deliverables + single-shot)
     }
+    if (shouldRecordStop(run)) recordRunFailure(run, reason, stderr) // A2: diagnosable note (self-guards + single-shot)
     run.note = failureNote(reason, stderr) // A3: durable reason in the activity log (shown on the row)
     emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: stderr.slice(-400) || undefined, ts: Date.now() })
     finishRun(run, 'error')
@@ -532,6 +570,11 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     // A clean budget/turn truncation is a DELIBERATE cap, not an interruption — auto-resuming would just
     // re-hit the same cap and loop. Clear any interrupted-marker so the supervisor leaves it for the human.
     if (isResumableResearchRun(run)) clearRunMarker(run.runRoot, '.interrupted')
+    // A clean truncation left NO durable trace anywhere — no marker, no off-host record — which is the
+    // single reason "the module just stops" went undiagnosed for months. Record it with the same note
+    // mechanism the error branches use. Deliberately NOT a .interrupted marker: that is the resume
+    // QUEUE, and a deliberate cap-stop must never be auto-relaunched straight back into the cap.
+    if (shouldRecordStop(run)) recordRunFailure(run, 'incomplete_deliverables', run.note ?? '')
     emit(run, { type: 'run-error', runId: run.runId, status: 'incomplete', reason: 'incomplete_deliverables', message: msg, ts: Date.now() })
     finishRun(run, 'incomplete')
   } else {

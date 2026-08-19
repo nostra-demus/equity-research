@@ -474,8 +474,10 @@ export const LAUNCH_GUARDS: Record<LaunchKind, { maxTurns: number; budgetUsd: nu
   // 2026-08-19: a 12-of-14 run cost $51.97 and a complete run computes to $55.52 — 99.1% of the old cap,
   // i.e. zero headroom, so it died near the end every time. Worse, layer 2 dispatches TEN agents
   // (~$37) in ONE concurrent wave and the budget is only checked between orchestrator turns, so a wave
-  // starting near the cap overshoots it wholesale — that is how a $56 cap produced a $69 run. The new
-  // ceiling carries the measured cost plus a full wave of overshoot.
+  // starting near the cap can overshoot it. (An earlier version of this note claimed "$56 produced a
+  // $69 run" — that was WRONG: $69 was a cockpit GROUP row summing three separate runs, and no single
+  // run above $51.97 exists in the corpus. The raise stands on the measured $55.9; the false evidence
+  // does not.) The new ceiling carries the measured cost plus a full wave of overshoot.
   module: { maxTurns: capNum(process.env.ENGINE_MODULE_MAX_TURNS, 800), budgetUsd: capNum(process.env.ENGINE_MODULE_BUDGET_USD, 120) },
   // Raised 2026-08-20 alongside `module`. Single-orb re-runs are the documented fallback when a module
   // stalls, but the heaviest governance orbs no longer fit: MEASURED on INDIAMART 2026-08-19,

@@ -40,6 +40,15 @@ export interface ActivityEvent {
   durationMs?: number
   numTurns?: number
   note?: string // e.g. why a run ended incomplete
+  // The Claude Code session id — the SAME id that names the committed agent_metrics.<id>.json. Without
+  // it there is NO key joining a run's committed artifact to the row that says why it stopped, which is
+  // why diagnosing the 2026-08 module stalls needed a +/-12h time-window guess instead of a lookup.
+  sessionId?: string
+  // The CLI's own final verdict. The engine used to read cost/turns/duration off the `result` message
+  // and DISCARD these — on a clean exit they were never recorded anywhere. They are the only fields
+  // that separate "the orchestrator finished early on its own" from "a cap or API error stopped it".
+  // Structural only: no free text, so nothing to redact and no way to leak a secret into the audit log.
+  cliResult?: { subtype?: string; isError?: boolean; apiErrorStatus?: number }
 }
 
 // One run, folded from its launched (+ optional finished) events for the activity table.

@@ -188,6 +188,14 @@ export function handleStreamLine(run: RunState, line: string) {
     }
 
     case 'result': {
+      // Capture the verdict BEFORE the is_error branch below, so a CLEAN result records it too. A
+      // clean-but-truncated exit is exactly the case that had no durable evidence anywhere, and it is
+      // what made months of module stalls undiagnosable.
+      run.cliResult = {
+        subtype: typeof obj.subtype === 'string' ? obj.subtype : undefined,
+        isError: obj.is_error === true,
+        apiErrorStatus: typeof obj.api_error_status === 'number' ? obj.api_error_status : undefined,
+      }
       if (typeof obj.total_cost_usd === 'number') run.costUsd = obj.total_cost_usd
       if (typeof obj.num_turns === 'number') run.numTurns = obj.num_turns
       if (typeof obj.duration_ms === 'number') run.durationMs = obj.duration_ms
