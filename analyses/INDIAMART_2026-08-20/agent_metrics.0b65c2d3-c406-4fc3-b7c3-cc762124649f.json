@@ -1,0 +1,75 @@
+{
+  "agents": [
+    {
+      "agent": "management-and-track-record",
+      "model": "claude-sonnet-5",
+      "calls": 6,
+      "usage": {
+        "input_tokens": 12,
+        "output_tokens": 21245,
+        "cache_read_input_tokens": 380395,
+        "cache_creation_input_tokens": 140242,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 140242,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 0.958737,
+      "runtime_ms": 0,
+      "module": "management-governance"
+    },
+    {
+      "agent": "governance-data-triage",
+      "model": "claude-sonnet-5",
+      "calls": 29,
+      "usage": {
+        "input_tokens": 58,
+        "output_tokens": 29238,
+        "cache_read_input_tokens": 2356749,
+        "cache_creation_input_tokens": 135899,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 135899,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.6553899500000002,
+      "runtime_ms": 299093,
+      "module": "management-governance"
+    },
+    {
+      "agent": "people-integrity-dossiers",
+      "model": "claude-sonnet-5",
+      "calls": 14,
+      "usage": {
+        "input_tokens": 28,
+        "output_tokens": 5205,
+        "cache_read_input_tokens": 1591402,
+        "cache_creation_input_tokens": 472217,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 472217,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 2.32639335,
+      "runtime_ms": 0,
+      "module": "management-governance"
+    }
+  ],
+  "orchestrator": {
+    "agent": "(orchestrator)",
+    "model": "claude-sonnet-5",
+    "calls": 15,
+    "usage": {
+      "input_tokens": 30,
+      "output_tokens": 7534,
+      "cache_read_input_tokens": 1312218,
+      "cache_creation_input_tokens": 79617,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 79617
+      }
+    },
+    "cost": 0.9844674,
+    "runtime_ms": 0
+  }
+}
