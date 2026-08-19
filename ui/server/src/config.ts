@@ -458,10 +458,30 @@ const NEWS_PROVIDER_CONFIGURED = Boolean(
   NEWS_IDEA_PROVIDER_CONFIGURED
   || (process.env.GEMINI_API_KEY && process.env.NEWS_GEMINI_ENABLED !== '0'),
 )
+// A run that produces NO output at all for this long is hung, not working. There was previously no
+// wall-clock ceiling of any kind on a research run (execa is spawned with no `timeout`), and the
+// dead-run reaper only catches a pid that has already exited — never one that is alive and stuck. So a
+// wedged child could hold its run slot indefinitely with nothing to show and nothing said. This is
+// deliberately a STALL guard, not a duration cap: a legitimately long run (a full company pass is
+// hours) keeps its slot for as long as it keeps emitting, and only genuine silence trips it. 0 disables.
+export const RUN_STALL_MINUTES = capNumOrZero(process.env.ENGINE_RUN_STALL_MINUTES, 45)
+
 export const LAUNCH_GUARDS: Record<LaunchKind, { maxTurns: number; budgetUsd: number }> = {
   full: { maxTurns: capNum(process.env.ENGINE_FULL_MAX_TURNS, 2500), budgetUsd: capNum(process.env.ENGINE_FULL_BUDGET_USD, 300) },
-  module: { maxTurns: capNum(process.env.ENGINE_MODULE_MAX_TURNS, 350), budgetUsd: capNum(process.env.ENGINE_MODULE_BUDGET_USD, 56) },
-  agent: { maxTurns: capNum(process.env.ENGINE_AGENT_MAX_TURNS, 60), budgetUsd: capNum(process.env.ENGINE_AGENT_BUDGET_USD, 12) },
+  // Raised 2026-08-20. The 350/$56 pair was set 2026-06-07 for modules of ~8 orbs. PR #433 (2026-08-14)
+  // took management-governance 8 -> 14 orbs, and its orbs are the heaviest in the engine (a 35k-token
+  // MODULE_RULES vs business-model's 3k, and a ~59.5k fixed preamble per orb). MEASURED on INDIAMART
+  // 2026-08-19: a 12-of-14 run cost $51.97 and a complete run computes to $55.52 — 99.1% of the old cap,
+  // i.e. zero headroom, so it died near the end every time. Worse, layer 2 dispatches TEN agents
+  // (~$37) in ONE concurrent wave and the budget is only checked between orchestrator turns, so a wave
+  // starting near the cap overshoots it wholesale — that is how a $56 cap produced a $69 run. The new
+  // ceiling carries the measured cost plus a full wave of overshoot.
+  module: { maxTurns: capNum(process.env.ENGINE_MODULE_MAX_TURNS, 800), budgetUsd: capNum(process.env.ENGINE_MODULE_BUDGET_USD, 120) },
+  // Raised 2026-08-20 alongside `module`. Single-orb re-runs are the documented fallback when a module
+  // stalls, but the heaviest governance orbs no longer fit: MEASURED on INDIAMART 2026-08-19,
+  // audit-and-assurance-quality took 64 calls (over the old 60 ceiling) and people-integrity-dossiers
+  // cost $8.09 against a $12 cap — so the fallback failed on exactly the orbs a user would need it for.
+  agent: { maxTurns: capNum(process.env.ENGINE_AGENT_MAX_TURNS, 150), budgetUsd: capNum(process.env.ENGINE_AGENT_BUDGET_USD, 25) },
   // re-run one orb + its downstream synthesis chain to the master: between a module and a full run.
   rerun: { maxTurns: capNum(process.env.ENGINE_RERUN_MAX_TURNS, 1200), budgetUsd: capNum(process.env.ENGINE_RERUN_BUDGET_USD, 160) },
   // file one outcome review (read decision_record + thesis, optional web price fetch, write a review JSON).

@@ -200,12 +200,50 @@ and is structurally readable.
 **3. Recovery — do not advance to the next layer until every expected file passes.**
 
 - Stray confirmation block (Mode C) → re-apply the strip rules to that agent's returned content and re-Write the file. (Mode A/B) → ask that agent to re-persist a clean file.
-- Missing / empty / truncated → ask that agent to return its COMPLETE report inline (or re-run the agent), then strip and write it as Mode C to `<OUTPUT_PATH>`.
+- Missing / empty / truncated → **re-dispatch that agent and tell it to SELF-PERSIST again (Mode A/B),
+  writing its report incrementally in appended blocks.** Do NOT ask it to return the report inline.
+  *(Why: inline recovery pulls the agent's whole report through the orchestrator's context. For the
+  large forensic reports — measured at 39k–134k output tokens — that is not a survivable instruction,
+  and it was the recovery path itself that parked modules mid-run. Inline (Mode C) recovery is
+  permitted ONLY for an agent that has neither `Write` nor `Bash`, whose reports are small by
+  construction.)*
 - Missing, malformed, or owner-mismatched signal sidecar → ask the emitting agent to re-persist ONLY
   `<SIGNAL_OUTPUT_PATH>` from the evidence already in its report, following commodity `MODULE_RULES.md`
   §8. Do not invent rows in the orchestrator. One failed recovery marks the agent failed.
 
 Track which agents in the layer succeeded and which failed. An agent **failed** if (a) its Task call returned an error, (b) it returned no usable report content (refusal, empty message), or (c) its `<OUTPUT_PATH>` still fails verification after a recovery attempt.
+
+**A failed agent does not park the module — it becomes a declared gap.** After ONE recovery attempt,
+stop retrying that agent, record it as failed, and CONTINUE to the next layer and on to the `99`
+synthesis. The synthesis MUST name every failed agent, treat its checklist items as **Not proven from
+available data**, and apply the data-sufficiency cap that absence earns (root doctrine §11, §22) — a
+module that is honest about a missing orb is a result; a module that produces nothing at all is not.
+*(Why this rule exists: with an unsurvivable recovery and a "do not advance" gate, a single unwritable
+report stopped the entire module for ever. Measured: INDIAMART management-governance 2026-08-19, and
+the same silhouette in ORCL business-model 2026-08-14 and TSLA earnings 2026-07-24 — every one of them
+burned real budget, produced no synthesis, and required a human to notice.)*
+
+This never overrides Step 4C: a `fail_fast` agent (the `00` triage) that returns an **Insufficient**
+verdict still aborts the module, because that is a reasoned verdict on the evidence, not a lost file.
+
+**4. Checkpoint the layer to git before dispatching the next one (best-effort).**
+
+Once this layer's files have passed verification, commit them immediately:
+
+```
+bash scripts/commit-run.sh "Checkpoint: <TICKER> <MODULE> layer <N>" -- "<RUN_ROOT>/<MODULE>/"
+```
+
+This is **best-effort and must NEVER abort the module** — a failed or contended commit is logged and the
+pipeline carries on; the caller's final commit sweeps up anything a checkpoint missed. Re-committing an
+unchanged folder is a no-op, so a checkpoint that races the final commit is harmless.
+
+*(Why: modules used to commit ONLY at the very end, after every layer passed. A module that stalled at
+layer 2 therefore committed NOTHING — the orb files sat on the engine's disk, real work already paid
+for, invisible to git and to anything reading committed state. Measured: INDIAMART
+management-governance 2026-08-19 burned roughly $70 across four attempts and left a run folder holding
+nothing but `agent_metrics`. Checkpointing per layer means a stall costs you the layer in flight, never
+the whole run, and a resumed run skips everything already on disk.)*
 
 ### Step 4C — Fail-fast post-processing
 
@@ -310,7 +348,9 @@ After all layers complete (or after a fail-fast abort), the pipeline ends. The c
 - Inspect the returned status and decide on commits / further dispatch / synthesis.
 - Handle any per-module logging, summary reporting, or cross-module path propagation.
 
-This document deliberately says nothing about git, commits, or downstream synthesis — those are the caller's responsibility.
+Beyond the best-effort per-layer checkpoint in Step 4B.4 — which exists so a stalled module never loses
+work it already did — this document says nothing about git or downstream synthesis: the FINAL commit,
+the module's place in a larger run, and all downstream synthesis remain the caller's responsibility.
 
 ---
 

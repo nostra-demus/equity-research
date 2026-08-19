@@ -278,6 +278,43 @@ try {
   // 11. Finding 12 (bottom-else clear-guard): a SIBLING chained module finishing CLEANLY must not clear a
   //     FRESH RUN_FAILURE.md that a DIFFERENT sibling's genuine failure just wrote for THIS SAME attempt,
   //     just because stale final_thesis/decision_record from an earlier completed run sit in the folder.
+  check('a MODULE run that stopped before its synthesis is incomplete, not done', () => {
+    // The defect this locks: a module run that exited 0 having stalled mid-pipeline fell through every
+    // branch to `done`. So a governance pass that died after 12 of 14 orbs was recorded as a SUCCESS —
+    // no error, no reports button, nothing to tell the user why the module was still empty. Chronic and
+    // cross-module: ORCL business-model 2026-08-14 and TSLA earnings 2026-07-24 have the same silhouette.
+    const root = path.join(ANALYSES_DIR, `ZZMODU_${DATE}`)
+    cleanupDirs.push(root)
+    const modDir = path.join(root, 'management-governance')
+    fs.mkdirSync(modDir, { recursive: true })
+    fs.writeFileSync(path.join(modDir, '00_governance-data-triage.md'), '# triage\n')
+    fs.writeFileSync(path.join(modDir, '01_management-and-track-record.md'), '# track record\n')
+
+    const { run } = mkRun('module', 'ZZMODU')
+    run.module = 'management-governance'
+    finalizeRunOnClose(run, { exitCode: 0 }, '')
+    assert.equal(run.status, 'incomplete', 'no synthesis on disk → incomplete, never a silent done')
+    assert.match(String(run.note), /management-governance stopped before its synthesis/)
+
+    // …and the note names what DID land, so "it just stops" becomes "2 steps saved, here they are".
+    const { run: run2 } = mkRun('module', 'ZZMODU')
+    run2.module = 'management-governance'
+    finalizeRunOnClose(run2, { exitCode: 0 }, '')
+    assert.match(String(run2.note), /2\//, 'the note counts the steps that landed')
+  })
+
+  check('a MODULE run that DID write its synthesis is done', () => {
+    const root = path.join(ANALYSES_DIR, `ZZMODOK_${DATE}`)
+    cleanupDirs.push(root)
+    const modDir = path.join(root, 'earnings')
+    fs.mkdirSync(modDir, { recursive: true })
+    fs.writeFileSync(path.join(modDir, '99_earnings-synthesis.md'), '# earnings synthesis\n')
+    const { run } = mkRun('module', 'ZZMODOK')
+    run.module = 'earnings'
+    finalizeRunOnClose(run, { exitCode: 0 }, '')
+    assert.equal(run.status, 'done', 'a synthesis on disk is the module deliverable — report success')
+  })
+
   check('a cleanly-finishing sibling module does not wipe a sibling failure just because stale deliverables exist', () => {
     const root = path.join(ANALYSES_DIR, `ZZFINK_${DATE}`)
     cleanupDirs.push(root)

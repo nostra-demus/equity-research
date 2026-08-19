@@ -182,7 +182,9 @@ check('the finalReport path reads back through the runs sandbox (what /api/outpu
 check('truncatedBeforeFinal: a commodity full run is judged on decision_record.json, module runs never', () => {
   const base = { swarmId: 'commodity', runRoot: 'commodity/runs/GOLD' }
   assert.equal(truncatedBeforeFinal({ ...base, kind: 'full' } as RunState), false) // record on disk
-  assert.equal(truncatedBeforeFinal({ ...base, kind: 'module' } as RunState), false) // solo pieces are never judged
+  // A module run with no `module` name has no synthesis path to check, so it cannot be judged and is
+  // never reported incomplete. A NAMED module run IS judged on its own synthesis — see finalize.test.ts.
+  assert.equal(truncatedBeforeFinal({ ...base, kind: 'module' } as RunState), false)
   const empty = path.join(REPO_ROOT, 'commodity/runs/ZZTRUNC')
   fs.mkdirSync(empty, { recursive: true })
   try {

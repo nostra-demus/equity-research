@@ -8,6 +8,7 @@ import { sweepRunOutputs } from './fs-watcher'
 // top-level code runs), and both files only call the other's export from inside a function body, at
 // runtime, never at module-init time. See the comment on recordStreamResultFailure (Finding 1).
 import { recordStreamResultFailure } from './launcher'
+import { LAUNCH_GUARDS } from './config'
 import { emit, emitTransient, finishRun, recordActivity, type RunState } from './registry'
 import { agentNameIndexAllSwarms, buildSwarmGraph } from './roster'
 
@@ -201,7 +202,32 @@ export function handleStreamLine(run: RunState, line: string) {
       if (run.status === 'running' || run.status === 'starting') {
         if (obj.is_error || obj.subtype === 'error_max_turns' || obj.subtype === 'error_during_execution') {
           const reason = obj.api_error_status ? `api_error_${obj.api_error_status}` : obj.subtype || 'engine_error'
-          const message = typeof obj.result === 'string' ? obj.result : ''
+          let message = typeof obj.result === 'string' ? obj.result : ''
+          // A CAP STOP IS NOT A CRASH — say which ceiling was hit, in words, with the numbers. The CLI
+          // reports a budget stop as a bare `error_during_execution` with an empty result, so the cockpit
+          // rendered a deliberate, expected ceiling as an unexplained ERROR. That is what made the
+          // 2026-08-19 governance stalls unreadable: the module was simply out of allowance and nothing
+          // anywhere said so. The machine `reason` deliberately stays the CLI's own subtype — the failure
+          // note and downstream consumers key on it — so only the human-facing `message` changes.
+          const guard = LAUNCH_GUARDS[run.kind]
+          if (guard) {
+            const spent = typeof run.costUsd === 'number' ? run.costUsd : 0
+            const turns = typeof run.numTurns === 'number' ? run.numTurns : 0
+            // Within 2% counts as "hit it" — the ceiling is enforced between turns, so a run stops at or
+            // fractionally under it, and a concurrent wave can overshoot it outright.
+            const env = `ENGINE_${run.kind.toUpperCase().replace(/-/g, '_')}`
+            let capNote = ''
+            if (spent >= guard.budgetUsd * 0.98) {
+              capNote = `Stopped at the spend ceiling for a ${run.kind} run: $${spent.toFixed(2)} of $${guard.budgetUsd}. `
+                + `Nothing crashed — it ran out of allowance. Raise ${env}_BUDGET_USD, or re-run the remaining orbs individually.`
+            } else if (obj.subtype === 'error_max_turns' || (guard.maxTurns && turns >= guard.maxTurns)) {
+              capNote = `Stopped at the step ceiling for a ${run.kind} run: ${turns} of ${guard.maxTurns} turns. `
+                + `Nothing crashed — it ran out of steps. Raise ${env}_MAX_TURNS, or re-run the remaining orbs individually.`
+            }
+            // APPEND, never replace: the CLI's own text is the diagnostic the failure note carries, and
+            // overwriting it would trade one blind spot for another.
+            if (capNote) message = message ? `${message}\n\n${capNote}` : capNote
+          }
           // Finding 1: this early-finalize path used to call finishRun() directly, which sets run.endedAt —
           // so finalizeRunOnClose (the close handler) would later return immediately without ever writing
           // the .interrupted marker or RUN_FAILURE.md for what is the single most common budget/API-error

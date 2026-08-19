@@ -4,7 +4,7 @@ import path from 'node:path'
 import { execa, type ResultPromise } from 'execa'
 import { logLaunch } from './activity-log'
 import { admitRun, admissionMessage } from './admission'
-import { CLAUDE_BIN, DATA_DIR, DEFAULT_MODEL, ESTIMATES, FULL_PER_MODULE, LAUNCH_GUARDS, MAX_CONCURRENT_RUNS, REPO_ROOT, type LaunchKind } from './config'
+import { CLAUDE_BIN, DATA_DIR, DEFAULT_MODEL, ESTIMATES, FULL_PER_MODULE, LAUNCH_GUARDS, MAX_CONCURRENT_RUNS, REPO_ROOT, type LaunchKind, RUN_STALL_MINUTES } from './config'
 import { getCreditStatus, setCreditStatus } from './credit'
 import { writeAgentMetrics } from './agent-metrics'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
@@ -172,6 +172,40 @@ export function todayDate(d: Date = new Date()): string {
 
 // The deliverables a completed full/rerun MUST have written (the master synthesizer's primary outputs).
 // Their absence after a clean exit means the run was truncated before the master finished.
+/** A module run's whole deliverable is its `99_<module>-synthesis.md`. Existence-only and size-checked,
+ * matching the "module done" test the resume supervisor already uses — a module whose synthesis is on
+ * disk is exactly what a resume skips. */
+/** Which orb files a module run actually landed, for an honest incomplete note. A stalled module used to
+ * say nothing at all; naming the orbs on disk turns "it just stops" into "9 of 14 landed, these are
+ * missing" — and tells the user exactly what to re-run. Best-effort: never throws. */
+export function moduleOrbProgress(runRoot: string | null, moduleName?: string): { landed: string[]; expected: number } {
+  if (!runRoot || !moduleName) return { landed: [], expected: 0 }
+  const root = path.isAbsolute(runRoot) ? runRoot : path.join(REPO_ROOT, runRoot)
+  let landed: string[] = []
+  try {
+    landed = fs.readdirSync(path.join(root, moduleName))
+      .filter((f) => /^\d\d_.*\.md$/.test(f) || /^99_.*-synthesis\.md$/.test(f))
+      .filter((f) => { try { return fs.statSync(path.join(root, moduleName, f)).size > 0 } catch { return false } })
+      .sort()
+  } catch { /* module folder absent — nothing landed */ }
+  let expected = 0
+  try {
+    expected = fs.readdirSync(path.join(REPO_ROOT, '.claude', 'agents', moduleName))
+      .filter((f) => /^\d\d_.*\.md$/.test(f) || /^99_.*-synthesis\.md$/.test(f)).length
+  } catch { /* unknown roster — report what landed without a denominator */ }
+  return { landed, expected }
+}
+
+export function moduleSynthesisPresent(runRoot: string | null, moduleName?: string): boolean {
+  if (!runRoot || !moduleName) return false
+  const root = path.isAbsolute(runRoot) ? runRoot : path.join(REPO_ROOT, runRoot)
+  const dir = path.join(root, moduleName)
+  try {
+    return fs.readdirSync(dir).some((f) => /^99_.*-synthesis\.md$/.test(f)
+      && fs.statSync(path.join(dir, f)).size > 0)
+  } catch { return false }
+}
+
 export function finalDeliverablesPresent(runRoot: string | null): boolean {
   if (!runRoot) return false
   const root = path.isAbsolute(runRoot) ? runRoot : path.join(REPO_ROOT, runRoot)
@@ -221,6 +255,17 @@ export function truncatedBeforeFinal(run: RunState): boolean {
   if (run.kind === 'sweep') {
     return !fs.existsSync(path.join(REPO_ROOT, 'screener', 'inbox', `${todayDate(new Date(run.startedAt))}_sweep.json`))
   }
+  // A MODULE run's deliverable is its own synthesis. Without this branch a module run that exited 0
+  // having stalled mid-pipeline fell through every check to `finishRun(run, 'done')` — so a wave that
+  // died after 12 of 14 orbs was recorded as a SUCCESS, with no error, no reports button and no note.
+  // That is what "it just stops and I can't tell why" actually was, and it is chronic and cross-module,
+  // not governance-specific: ORCL 2026-08-14 business-model (13 agents, no synthesis, $14.15) and TSLA
+  // 2026-07-24 earnings (6 agents, no synthesis, $8.77) have the identical silhouette, both long before
+  // the governance expansion, and both needed a human to notice and re-run.
+  // Only judge a module run we can actually identify. With no `run.module` there is no synthesis path to
+  // look for, and claiming "incomplete" on that absence would fail a genuinely-finished run — so an
+  // unknown module falls through to the pre-existing behaviour rather than guessing.
+  if (run.kind === 'module' && run.module) return !moduleSynthesisPresent(run.runRoot, run.module)
   if (run.kind !== 'full' && run.kind !== 'rerun') return false
   if (run.swarmId === 'research') return !finalDeliverablesPresent(run.runRoot)
   if (!run.runRoot || swarmById(run.swarmId)?.layout !== 'constellation') return false
@@ -468,12 +513,22 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     // certainly budget/turn-truncated before the last synthesis finished. Report it honestly as
     // INCOMPLETE (not a misleading "done") so the cockpit + activity log show the truth and the
     // user can finish it / raise the cap.
+    const orbs = run.kind === 'module' ? moduleOrbProgress(run.runRoot, run.module) : null
     const msg = run.kind === 'sweep'
       ? 'The scan ended without saving anything to the Inbox — it found no events, or it stopped before it could write. Nothing was added.'
+      : run.kind === 'module'
+        ? `The ${run.module} module stopped before writing its summary, so it has no result yet. `
+          + `${orbs!.landed.length}${orbs!.expected ? ` of ${orbs!.expected}` : ''} step(s) finished and were saved`
+          + `${orbs!.landed.length ? `: ${orbs!.landed.map((f) => f.replace(/\.md$/, '')).join(', ')}` : ''}. `
+          + 'Nothing is lost — re-run the module and it picks up from the steps already on disk.'
       : run.swarmId === 'research'
         ? 'Run ended without the final thesis & memo — likely budget- or turn-truncated before the master synthesizer finished. Re-run from the master (or any late orb) to finish; the cap is now higher.'
         : 'Run ended without the final dossier & decision record — likely budget- or turn-truncated before the terminal synthesis finished. Re-run the terminal module to finish.'
-    run.note = run.kind === 'sweep' ? 'incomplete: sweep wrote no inbox file' : 'incomplete: no final thesis/decision (likely budget/turn truncation)'
+    run.note = run.kind === 'sweep'
+      ? 'incomplete: sweep wrote no inbox file'
+      : run.kind === 'module'
+        ? `incomplete: ${run.module} stopped before its synthesis (${orbs!.landed.length}${orbs!.expected ? `/${orbs!.expected}` : ''} steps saved)`
+        : 'incomplete: no final thesis/decision (likely budget/turn truncation)'
     // A clean budget/turn truncation is a DELIBERATE cap, not an interruption — auto-resuming would just
     // re-hit the same cap and loop. Clear any interrupted-marker so the supervisor leaves it for the human.
     if (isResumableResearchRun(run)) clearRunMarker(run.runRoot, '.interrupted')
@@ -1956,6 +2011,26 @@ async function spawnEngine(run: RunState): Promise<void> {
   }
 
   run.child = child
+
+  // STALL WATCHDOG — nothing else in the engine notices a hung child. `lastStdoutAt` was already
+  // recorded (and shown on the heartbeat) but nothing ever acted on it, so a wedged run held its slot
+  // silently and forever. Any stdout at all counts as alive, so this never touches a slow-but-working
+  // run; only true silence trips it, and it stops the run through the ordinary cancel path so the
+  // group-kill, markers and activity-log note all behave exactly as a user-initiated stop would.
+  let stallTimer: NodeJS.Timeout | null = null
+  if (RUN_STALL_MINUTES > 0) {
+    const stallMs = RUN_STALL_MINUTES * 60_000
+    stallTimer = setInterval(() => {
+      if (run.endedAt !== undefined) return
+      const since = Date.now() - (run.lastStdoutAt ?? run.startedAt)
+      if (since < stallMs) return
+      run.note = `stalled: no output for ${Math.round(since / 60_000)} min — stopped by the stall guard`
+      console.log(`[stall-guard] ${run.ticker} ${run.kind}${run.module ? ` ${run.module}` : ''}: no output for ${Math.round(since / 60_000)} min — stopping`)
+      void cancel(run.runId).catch(() => { /* best-effort; the close handler still finalizes */ })
+    }, 60_000)
+    stallTimer.unref?.()
+  }
+  const clearStallTimer = () => { if (stallTimer) { clearInterval(stallTimer); stallTimer = null } }
   run.status = 'running'
   emit(run, { type: 'run-started', runId: run.runId, kind: run.kind, ticker: run.ticker, runRoot: run.runRoot, willCommitToMain: run.willCommitToMain, ...(run.swarmId !== 'research' ? { swarm: run.swarmId } : {}), ts: Date.now() })
 
@@ -1983,6 +2058,7 @@ async function spawnEngine(run: RunState): Promise<void> {
   })
 
   const onClose = (res: any) => {
+    clearStallTimer()
     if (buf.trim()) {
       handleStreamLine(run, buf)
       buf = ''
