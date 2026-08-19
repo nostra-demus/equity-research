@@ -152,14 +152,20 @@ function revisionRecord(row: {
 
 /** The firehose is an append-only observation log. `found_at` was only added to its item records on
  * 2026-08-05; every line written before that carries the ingester's own write stamp as `ts` and nothing
- * else. `ts` IS that item's first durable observation, so reading it recovers the true oldest clock —
- * whereas dropping the record (the old behaviour) made every legacy partition permanently unprovable,
- * which is what wedged coverage and then blocked all ingest. Reading `ts` is strictly more conservative
- * than discarding it: it yields an OLDER found_at, so it can only ever refuse freshness, never mint it.
- * Sweep rows are unaffected — they always carry `found_at`, and this fallback is reachable only from the
- * legacy firehose path. */
-function firehoseRevisionRecord(row: { found_at?: unknown; ts?: unknown }): RevisionClockRecord | null {
-  if (typeof row.found_at === 'string' && Number.isFinite(Date.parse(row.found_at))) return revisionRecord(row)
+ * else. Dropping those records (the old behaviour) made every legacy partition permanently unprovable,
+ * which wedged coverage and then blocked all ingest.
+ *
+ * The fallback is deliberately narrow in two ways. It applies only when `found_at` is ABSENT — a
+ * present-but-malformed stamp is corruption, not legacy shape, and still fails closed exactly as before,
+ * so bad source-clock data can never enter the immutable registry. And `ts` is the moment the line was
+ * APPENDED, which is later than the sweep's authoritative first-seen `found_at` (measured on the retained
+ * 2026-07-13 partition: later for 40 of 40 rows). So `syncRevisionPartition` claims the sweep's own rows
+ * FIRST; this fallback can only ever fill a key the sweep no longer retains, never overwrite a real one
+ * with a later stamp. */
+function firehoseRevisionRecord(
+  row: Parameters<typeof revisionRecord>[0] & { ts?: unknown },
+): RevisionClockRecord | null {
+  if (row.found_at !== undefined) return revisionRecord(row)
   if (typeof row.ts !== 'string' || !Number.isFinite(Date.parse(row.ts))) return null
   return revisionRecord({ ...row, found_at: row.ts })
 }
@@ -574,12 +580,11 @@ function syncRevisionPartition(
   }
   for (const record of sweep?.records?.values() || []) accept(record)
   const needsLegacyFirehose = !sweep?.records
-  const hasLegacyFirehose = needsLegacyFirehose
-    && firehoseCandidates(repoRoot, partitionDate, archiveDir).some((candidate) => fileStamp(candidate) !== null)
-  const firehoseReadable = needsLegacyFirehose
-    ? forEachFirehoseRevision(repoRoot, partitionDate, archiveDir, accept)
-    : false
-  if ((!sweep && !firehoseReadable) || (hasLegacyFirehose && !firehoseReadable)) return false
+  // A retained sweep row carries the AUTHORITATIVE first-seen `found_at`; the legacy firehose carries only
+  // the later append-time `ts`. Claim the sweep's keys BEFORE streaming the firehose so the `ts` fallback
+  // can only fill keys the sweep no longer retains (the capped-out rows the firehose exists to recover) —
+  // never replace a real clock with one that is days too new. A partial write here is safe: the caller
+  // wraps this call in a SAVEPOINT and rolls back whenever it returns false.
   let changed = sweep?.records === null
   for (const row of Array.isArray(sweep?.doc.rows) ? sweep.doc.rows : []) {
     const record = revisionRecord(row)
@@ -587,6 +592,12 @@ function syncRevisionPartition(
     accept(record)
     changed = true
   }
+  const hasLegacyFirehose = needsLegacyFirehose
+    && firehoseCandidates(repoRoot, partitionDate, archiveDir).some((candidate) => fileStamp(candidate) !== null)
+  const firehoseReadable = needsLegacyFirehose
+    ? forEachFirehoseRevision(repoRoot, partitionDate, archiveDir, accept)
+    : false
+  if ((!sweep && !firehoseReadable) || (hasLegacyFirehose && !firehoseReadable)) return false
   if (sweep?.writablePath && changed) {
     // Migration metadata itself is bounded by the daily partition, and this compatibility write happens
     // once. Preserve updated_at exactly while making future boots skip the large firehose.

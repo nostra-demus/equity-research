@@ -768,6 +768,57 @@ await check('a pre-found_at legacy firehose item proves coverage from `ts` and k
     '2026-07-01T00:07:26Z', 'the legacy ts is the oldest durable observation and outranks a fresh found_at')
   fs.rmSync(root, { recursive: true, force: true })
 })
+await check('a retained legacy sweep row outranks the later firehose `ts` for the same revision', () => {
+  // REVIEW GUARD (#461, Codex P2): the legacy firehose `ts` is when the LINE WAS APPENDED, which is later
+  // than the sweep's authoritative first-seen `found_at` — measured on the real retained 2026-07-13
+  // partition, later for 40 of 40 matched rows. If the firehose were streamed before the sweep's own rows,
+  // the fallback would overwrite a real clock with one days too new. The sweep must win.
+  const legacyDate = '2026-07-13'
+  const url = 'https://reuters.com/sweep-outranks-firehose-ts'
+  const headline = 'The retained sweep row keeps its authoritative first-seen clock'
+  const root = tmp()
+  const inbox = path.join(root, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  // Legacy sweep: no embedded clock index, but its ROW carries the true first-seen stamp.
+  fs.writeFileSync(path.join(inbox, `${legacyDate}_sweep.json`), JSON.stringify({
+    date: legacyDate,
+    updated_at: '2026-07-13T00:01:00Z',
+    rows: [{ ...triagedItem(url, 80, headline), found_at: '2026-07-12T23:05:00Z' }],
+  }))
+  // Same story in the firehose, appended ~1h later.
+  fs.writeFileSync(path.join(inbox, `${legacyDate}_firehose.ndjson`),
+    `${JSON.stringify({ kind: 'item', ts: '2026-07-13T00:00:07Z', url, headline })}\n`)
+
+  const replay = mergeInbox(root, '2026-08-19', [{
+    ...triagedItem(url, 80, headline), found_at: '2026-08-19T00:00:00Z',
+  }], { now: () => new Date('2026-08-19T00:01:00Z') })
+  assert.equal(replay.revisionClocksByEvent.get(eventIdFor(headline, url))?.foundAt,
+    '2026-07-12T23:05:00Z', 'the sweep row\'s found_at must outrank the later firehose ts')
+  fs.rmSync(root, { recursive: true, force: true })
+})
+await check('a firehose item with a PRESENT but malformed found_at still fails closed', () => {
+  // REVIEW GUARD (#461, Codex P2): the `ts` fallback is for LEGACY shape (found_at absent) only. A
+  // present-but-corrupt stamp must keep failing closed, or bad source-clock data enters the registry.
+  const legacyDate = '2026-07-01'
+  const root = tmp()
+  const inbox = path.join(root, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.writeFileSync(path.join(inbox, `${legacyDate}_sweep.json`), JSON.stringify({
+    date: legacyDate, updated_at: '2026-07-01T00:01:00Z', rows: [],
+  }))
+  fs.writeFileSync(path.join(inbox, `${legacyDate}_firehose.ndjson`), [
+    JSON.stringify({ kind: 'cycle_summary', ts: '2026-07-01T00:01:00Z' }),
+    JSON.stringify({
+      kind: 'item', ts: '2026-07-01T00:07:26Z', found_at: 'not-a-timestamp',
+      url: 'https://reuters.com/corrupt-found-at', headline: 'A corrupt stamp is not legacy shape',
+    }),
+    '',
+  ].join('\n'))
+  assert.throws(() => mergeInbox(root, '2026-08-19', [triagedItem(
+    'https://reuters.com/new-after-corrupt-stamp', 80, 'New evidence still waits on a corrupt partition',
+  )], { now: () => new Date('2026-08-19T00:01:00Z') }), /coverage is incomplete/)
+  fs.rmSync(root, { recursive: true, force: true })
+})
 await check('a current-day legacy migration survives the final merge and a SQLite restart', () => {
   const root = tmp()
   const seedState = tmp()
