@@ -1065,7 +1065,13 @@ export const FILING_READ_PROVIDERS: ArticleReadProvider[] = buildFilingReadProvi
 // 'EXTERNAL-INBOX' is the external-data drop folder (frameworks/EXTERNAL_DATA.md): the user (or a
 // paid-API fetcher) drops files there, and ingest_external.py routes them into per-ticker pools —
 // it matches TICKER_RE, so without this reservation it would list as a phantom company.
-export const RESERVED_DATA_FOLDERS = new Set(['news-archive', 'NEWS-ARCHIVE', 'EXTERNAL-INBOX'])
+// 'WATCHLIST' is drive.ts's uploadToWatchlist() folder — reached from the SAME GDRIVE.dataFolderId every
+// company folder is created under (drive.ts::ensureCompanyFolder), which on an install where that folder
+// is mirrored locally as data/ (the same contract §110 above relies on) makes WATCHLIST a sibling of every
+// real <TICKER>/ folder. It passes TICKER_RE, so without this reservation a run launched against
+// "WATCHLIST" would have the pool extractor recursively ingest every attached PDF as evidence — the exact
+// thing watchlist.ts's own doctrine comment says "cannot land in the pool" is guaranteed by the code.
+export const RESERVED_DATA_FOLDERS = new Set(['news-archive', 'NEWS-ARCHIVE', 'EXTERNAL-INBOX', 'WATCHLIST'])
 
 export function isReservedDataFolder(name: string, dataDir: string = DATA_DIR, archiveDir: string = NEWS.newsArchiveDir): boolean {
   const lower = name.toLowerCase()

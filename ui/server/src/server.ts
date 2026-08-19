@@ -17,7 +17,7 @@ import { buildReportHtml, parseMeta, safeName } from './export'
 import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, connectorDispatchReady, feedbackDispatchReady, feedbackEmailReady, isDispatchAdmin, isReservedDataFolder, pipelineScanReady } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
-import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED, readWatchlistFile, uploadToWatchlist } from './drive'
+import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, deleteDriveFileStrict, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED, readWatchlistFile, uploadToWatchlist } from './drive'
 import { assertClaudeCli, cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, launch, sigIdFor, todayDate, warmLaunchProbes } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed, applyActiveWeightsTo } from './news/feed'
@@ -59,7 +59,7 @@ import { notifyFeedbackResolved } from './feedback-email'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, swarmSubjectSummaries, terminalModuleName } from './roster'
-import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest, todayISO } from './outputs'
+import { isValidCalendarISODate, listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest, todayISO } from './outputs'
 import {
   WATCHLIST_ENTRIES_DIR, WATCHLIST_MAX_ATTACHMENTS, WATCHLIST_MAX_ROWS, WATCHLIST_MAX_TAGS, WATCHLIST_MAX_TRIGGERS,
   deleteEntry, fingerprintEngineRow, isWatchId, listingKey, makeListing, mergeWatchlist, newEntryId,
@@ -2399,6 +2399,10 @@ app.get('/api/quote', { config: { rateLimit: { max: 600, timeWindow: '1 minute' 
 // list. Membership + the archive rule live in watchlist.ts; these routes only validate, call, and shape.
 
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/
+// Shape (regex) is necessary but not sufficient — '2026-02-30' matches the regex and is not a real day.
+// evaluateTrigger compares these lexicographically as due dates, and a non-existent date compares fine
+// but can never be reproduced or corrected through the browser's <input type="date"> control once saved.
+const ISO_CALENDAR_DATE = z.string().regex(ISO_DATE_RE).refine(isValidCalendarISODate, { message: 'not a real calendar date' })
 
 // Every trigger is a closed shape. Direction, reference source and scenario are CHOICES, never free
 // text, and a number always arrives beside the currency it is measured in — the ambiguity this removes
@@ -2419,7 +2423,7 @@ const TriggerBody = z.discriminatedUnion('kind', [
     reference: z.object({
       value: z.number().finite().positive(),
       currency: z.string().trim().min(1).max(8),
-      as_of: z.string().regex(ISO_DATE_RE).nullable().default(null),
+      as_of: ISO_CALENDAR_DATE.nullable().default(null),
       source: z.string().trim().max(120).default('my number'),
     }).strip(),
     note: z.string().max(500).optional(),
@@ -2433,7 +2437,7 @@ const TriggerBody = z.discriminatedUnion('kind', [
     scenario_label: z.string().trim().min(1).max(60),
     anchor_value: z.number().finite().positive(),
     anchor_currency: z.string().trim().min(1).max(8),
-    anchor_as_of: z.string().regex(ISO_DATE_RE).nullable().default(null),
+    anchor_as_of: ISO_CALENDAR_DATE.nullable().default(null),
     required_mos_pct: z.number().finite().gte(0).lte(95),
     direction: z.enum(['at_or_below', 'at_or_above']).default('at_or_below'),
     note: z.string().max(500).optional(),
@@ -2441,7 +2445,7 @@ const TriggerBody = z.discriminatedUnion('kind', [
   z.object({
     kind: z.literal('event_date'),
     trigger_id: z.string().trim().max(40).optional(),
-    due_date: z.string().regex(ISO_DATE_RE),
+    due_date: ISO_CALENDAR_DATE,
     label: z.string().trim().min(1).max(160),
     acknowledged_at: z.string().max(40).nullable().optional(),
     note: z.string().max(500).optional(),
@@ -2455,7 +2459,7 @@ const WatchRowBody = z.object({
   exchange: z.string().trim().max(80).nullable().optional(),
   why: z.string().trim().max(4000).default(''),
   conviction: z.enum(['high', 'medium', 'low']).nullable().optional(),
-  review_date: z.string().regex(ISO_DATE_RE).nullable().optional(),
+  review_date: ISO_CALENDAR_DATE.nullable().optional(),
   tags: z.array(z.string().trim().min(1).max(24)).max(WATCHLIST_MAX_TAGS).default([]),
   triggers: z.array(TriggerBody).max(WATCHLIST_MAX_TRIGGERS).default([]),
 }).strip()
@@ -2495,6 +2499,30 @@ function standingCalls(): StandingCall[] {
   callsCache = { at: Date.now(), calls }
   return calls
 }
+
+// ---------- watchlist git publication ----------
+// CLAUDE.md §25/§28 name `watchlist/**` as engine DATA, published straight to `main` through the same
+// serialized commit/push helper every other autonomous data write uses — never as code. writeEntry() and
+// deleteEntry() (watchlist.ts) are pure filesystem calls on purpose: they are called from unit tests with
+// a plain tmp dir and must stay side-effect-free there. Publication is a SEPARATE step every route below
+// takes right after a write, mirroring launcher.ts's commitRunFile for the failure note and
+// news/ideas/ideas-publisher.ts for the Ideas ledger — both existing, established callers of the same
+// script. Kept synchronous (awaited) rather than fire-and-forget: a change nobody's request ever learned
+// failed to reach git is a change that silently never reached git, which is the exact defect this exists
+// to close. A failure is reported back to the caller as `publish_error` rather than swallowed — the row
+// still saved locally (so nothing already typed is lost), but the client can now say so.
+const WATCHLIST_PUBLISH_TIMEOUT_MS = 20 * 60_000
+async function publishWatchlist(relPaths: string[], msg: string): Promise<{ ok: boolean; error?: string }> {
+  const script = path.join(REPO_ROOT, 'scripts', 'commit-run.sh')
+  if (!fs.existsSync(script)) return { ok: false, error: 'commit-run.sh not found (not a full checkout)' }
+  try {
+    await execa('bash', [script, msg, '--', ...relPaths], { cwd: REPO_ROOT, timeout: WATCHLIST_PUBLISH_TIMEOUT_MS })
+    return { ok: true }
+  } catch (e: any) {
+    return { ok: false, error: String(e?.stderr || e?.message || e).slice(0, 400) }
+  }
+}
+const watchlistEntryPath = (entryId: string) => `watchlist/entries/${entryId}.json`
 
 async function buildWatchlist() {
   const { entries, unreadable } = readEntries()
@@ -2606,9 +2634,13 @@ app.post('/api/watchlist', { config: { rateLimit: { max: 120, timeWindow: '1 min
   if (dupe) return reply.code(400).send({ error: dupe })
 
   const { entries } = readEntries()
-  if (entries.length >= WATCHLIST_MAX_ROWS) return reply.code(413).send({ error: 'watchlist is full' })
   const existing = pickEntryForListing(entries, listing.listing_key)
   if (existing && !existing.archive) return reply.code(409).send({ error: 'already on the watchlist' })
+  // The cap only makes sense against a genuinely NEW row. Re-adding an archived listing restores an
+  // EXISTING file in place — the same transition the dedicated /restore endpoint performs — so at a full
+  // book this branch was refusing a request that adds no row at all, from the ordinary re-add path off
+  // the decision banner.
+  if (!existing && entries.length >= WATCHLIST_MAX_ROWS) return reply.code(413).send({ error: 'watchlist is full' })
   const { user } = identify(req)
   const now = new Date()
   // Re-adding a name you archived is an un-archive, not a second row. Creating another file would put the
@@ -2618,12 +2650,18 @@ app.post('/api/watchlist', { config: { rateLimit: { max: 120, timeWindow: '1 min
     existing.why = parsed.data.why || existing.why
     if (parsed.data.conviction !== undefined) existing.conviction = parsed.data.conviction ?? null
     if (parsed.data.review_date !== undefined) existing.review_date = parsed.data.review_date ?? null
-    if (parsed.data.tags.length) existing.tags = [...new Set(parsed.data.tags.map((t) => t.toLowerCase()))]
-    if (parsed.data.triggers.length) existing.triggers = withTriggerIds(parsed.data.triggers, existing.triggers)
+    // Unconditional, not `if (...length)`: the composer opens an archived row with NO prefilled triggers
+    // (archived rows are absent from watchlist.rows), so an explicitly empty array is what "I reviewed
+    // this and kept no triggers" looks like on the wire. Gating on `.length` silently kept the OLD,
+    // invisible archived triggers — which could fire immediately, contradicting what the composer showed
+    // the person before they saved.
+    existing.tags = [...new Set(parsed.data.tags.map((t) => t.toLowerCase()))]
+    existing.triggers = withTriggerIds(parsed.data.triggers, existing.triggers)
     existing.updated_at = now.toISOString()
     existing.history = [...existing.history, { at: now.toISOString(), by: user, action: 'restored', detail: 're-added' }].slice(-50)
     writeEntry(existing)
-    return reply.code(200).send({ ok: true, entry: existing })
+    const pub = await publishWatchlist([watchlistEntryPath(existing.entry_id)], `Watchlist: re-add ${listing.ticker}`)
+    return reply.code(200).send({ ok: true, entry: existing, publish_error: pub.ok ? undefined : pub.error })
   }
   const engine = readEngineWatch(standingCalls(), readSizingDecoration()).find((e) => e.listing.listing_key === listing.listing_key) ?? null
   const entry: WatchEntry = {
@@ -2645,7 +2683,8 @@ app.post('/api/watchlist', { config: { rateLimit: { max: 120, timeWindow: '1 min
     updated_at: now.toISOString(),
   }
   writeEntry(entry)
-  return reply.code(201).send({ ok: true, entry })
+  const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: add ${listing.ticker}`)
+  return reply.code(201).send({ ok: true, entry, publish_error: pub.ok ? undefined : pub.error })
 })
 
 app.patch('/api/watchlist/:id', { config: { rateLimit: { max: 240, timeWindow: '1 minute' } } }, async (req, reply) => {
@@ -2689,7 +2728,8 @@ app.patch('/api/watchlist/:id', { config: { rateLimit: { max: 240, timeWindow: '
   entry.updated_at = new Date().toISOString()
   entry.history = [...entry.history, { at: entry.updated_at, by: user, action: 'edited', detail: '' }].slice(-50)
   writeEntry(entry)
-  return { ok: true, entry }
+  const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: edit ${entry.listing.ticker}`)
+  return { ok: true, entry, publish_error: pub.ok ? undefined : pub.error }
 })
 
 /**
@@ -2729,7 +2769,8 @@ app.post('/api/watchlist/archive', { config: { rateLimit: { max: 120, timeWindow
   entry.updated_at = now.toISOString()
   entry.history = [...entry.history, { at: now.toISOString(), by: user, action: 'archived', detail: parsed.data.reason }].slice(-50)
   writeEntry(entry)
-  return { ok: true, entry }
+  const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: archive ${entry.listing.ticker}`)
+  return { ok: true, entry, publish_error: pub.ok ? undefined : pub.error }
 })
 
 app.post('/api/watchlist/restore', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
@@ -2747,9 +2788,14 @@ app.post('/api/watchlist/restore', { config: { rateLimit: { max: 120, timeWindow
   entry.history = [...entry.history, { at: now, by: user, action: 'restored', detail: '' }].slice(-50)
   // An engine row that carries nothing of its own is not worth a file once it is un-archived.
   const bare = entry.origin === 'engine' && !entry.why && !entry.triggers.length && !entry.attachments.length && !entry.tags.length
-  if (bare) { deleteEntry(entry.entry_id); return { ok: true, entry: null } }
+  if (bare) {
+    deleteEntry(entry.entry_id)
+    const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: restore ${entry.listing.ticker} (bare — file removed)`)
+    return { ok: true, entry: null, publish_error: pub.ok ? undefined : pub.error }
+  }
   writeEntry(entry)
-  return { ok: true, entry }
+  const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: restore ${entry.listing.ticker}`)
+  return { ok: true, entry, publish_error: pub.ok ? undefined : pub.error }
 })
 
 // ---- watchlist attachments ----
@@ -2774,48 +2820,75 @@ app.post('/api/watchlist/:id/attachments', { config: { rateLimit: { max: 60, tim
 
   const added: typeof entry.attachments = []
   const fileErrors: { filename: string; reason: string }[] = []
-  for await (const part of req.parts()) {
-    if (part.type !== 'file') continue
-    const raw = part.filename || 'thesis.pdf'
-    if (entry.attachments.length + added.length >= WATCHLIST_MAX_ATTACHMENTS) {
-      part.file.resume()
-      fileErrors.push({ filename: raw, reason: `at most ${WATCHLIST_MAX_ATTACHMENTS} files per name` })
-      continue
-    }
-    const safe = sanitizeUploadFilename(raw)
-    if (!safe.ok) { part.file.resume(); fileErrors.push({ filename: raw, reason: safe.reason }); continue }
-    // Narrower than UPLOAD_ALLOWED_EXTS on purpose: that list includes md/csv/json, the very types the
-    // pool extractor treats as evidence. A watchlist attachment is a document you read, nothing more.
-    if (!/\.pdf$/i.test(safe.name)) { part.file.resume(); fileErrors.push({ filename: raw, reason: 'PDF only' }); continue }
-
-    let bytes = 0
-    let tooBig = false
-    part.file.on('data', (c: Buffer) => {
-      bytes += c.length
-      if (bytes > WATCH_ATTACH_MAX_BYTES && !tooBig) { tooBig = true; part.file.destroy(new Error('too large')) }
-    })
-    try {
-      const up = await uploadToWatchlist(id, safe.name, part.file as any)
-      // @fastify/multipart can TRUNCATE without throwing, so a "successful" upload of a truncated stream
-      // must still be rejected — and the partial removed from Drive rather than left as a short PDF.
-      if (tooBig || (part.file as any).truncated) {
-        await deleteDriveFile(up.id)
-        fileErrors.push({ filename: raw, reason: `larger than ${Math.round(WATCH_ATTACH_MAX_BYTES / 1024 / 1024)}MB` })
+  // The WHOLE iteration is wrapped, not just each upload: `req.parts()` itself can throw mid-stream (a
+  // malformed trailing part, or the global @fastify/multipart file-count cap) — that propagates out of the
+  // `for await` and used to skip the `if (added.length)` persist block below entirely, orphaning every PDF
+  // already accepted by Drive in an EARLIER iteration with no record of it in the entry at all.
+  try {
+    for await (const part of req.parts()) {
+      if (part.type !== 'file') continue
+      const raw = part.filename || 'thesis.pdf'
+      if (entry.attachments.length + added.length >= WATCHLIST_MAX_ATTACHMENTS) {
+        part.file.resume()
+        fileErrors.push({ filename: raw, reason: `at most ${WATCHLIST_MAX_ATTACHMENTS} files per name` })
         continue
       }
-      added.push({ attachment_id: up.id, filename: up.name, bytes, added_at: new Date().toISOString(), added_by: user })
-    } catch (e: any) {
-      fileErrors.push({ filename: raw, reason: tooBig ? 'too large' : driveErrorMessage(e) })
+      const safe = sanitizeUploadFilename(raw)
+      if (!safe.ok) { part.file.resume(); fileErrors.push({ filename: raw, reason: safe.reason }); continue }
+      // Narrower than UPLOAD_ALLOWED_EXTS on purpose: that list includes md/csv/json, the very types the
+      // pool extractor treats as evidence. A watchlist attachment is a document you read, nothing more.
+      if (!/\.pdf$/i.test(safe.name)) { part.file.resume(); fileErrors.push({ filename: raw, reason: 'PDF only' }); continue }
+
+      let bytes = 0
+      let tooBig = false
+      part.file.on('data', (c: Buffer) => {
+        bytes += c.length
+        if (bytes > WATCH_ATTACH_MAX_BYTES && !tooBig) { tooBig = true; part.file.destroy(new Error('too large')) }
+      })
+      try {
+        const up = await uploadToWatchlist(id, safe.name, part.file as any)
+        // @fastify/multipart can TRUNCATE without throwing, so a "successful" upload of a truncated stream
+        // must still be rejected — and the partial removed from Drive rather than left as a short PDF.
+        if (tooBig || (part.file as any).truncated) {
+          await deleteDriveFile(up.id)
+          fileErrors.push({ filename: raw, reason: `larger than ${Math.round(WATCH_ATTACH_MAX_BYTES / 1024 / 1024)}MB` })
+          continue
+        }
+        added.push({ attachment_id: up.id, filename: up.name, bytes, added_at: new Date().toISOString(), added_by: user })
+      } catch (e: any) {
+        // Drain the stream before the iterator can advance — a failure here (e.g. the Drive folder lookup
+        // rejecting BEFORE files.create ever reads the body) can leave `part.file` unconsumed, and
+        // req.parts() cannot move past an unread file stream. .resume() on an already-ended/destroyed
+        // stream is a no-op, so this is safe to call unconditionally.
+        part.file.resume()
+        fileErrors.push({ filename: raw, reason: tooBig ? 'too large' : driveErrorMessage(e) })
+      }
     }
+  } catch (e: any) {
+    fileErrors.push({ filename: '(upload)', reason: `the upload stopped early: ${String(e?.message || e)}` })
   }
 
+  let pubError: string | undefined
   if (added.length) {
-    entry.attachments = [...entry.attachments, ...added]
-    entry.updated_at = new Date().toISOString()
-    entry.history = [...entry.history, { at: entry.updated_at, by: user, action: 'attached', detail: added.map((a) => a.filename).join(', ') }].slice(-50)
-    writeEntry(entry)
+    // Re-read the LATEST persisted copy rather than mutating the one read at the top of this handler: the
+    // uploads above can take a while, and if another request edited/archived/restored/detached from this
+    // same row while they were in flight, writing back the stale in-memory `entry` would silently discard
+    // that intervening mutation the moment the attachment metadata is saved. Not fully serialized against
+    // a concurrent writer (there is no per-entry lock here), but this closes the common, slow-upload case.
+    const fresh = readEntries().entries.find((e) => e.entry_id === id) ?? entry
+    fresh.attachments = [...fresh.attachments, ...added]
+    fresh.updated_at = new Date().toISOString()
+    fresh.history = [...fresh.history, { at: fresh.updated_at, by: user, action: 'attached', detail: added.map((a) => a.filename).join(', ') }].slice(-50)
+    writeEntry(fresh)
+    entry.attachments = fresh.attachments
+    entry.updated_at = fresh.updated_at
+    entry.history = fresh.history
+    // The PDFs themselves live in Drive, not git — only the entry's attachment METADATA (filename, Drive
+    // id, size) is a watchlist/** data path.
+    const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: attach files to ${entry.listing.ticker}`)
+    pubError = pub.ok ? undefined : pub.error
   }
-  return reply.code(added.length ? 201 : 400).send({ ok: added.length > 0, entry, fileErrors })
+  return reply.code(added.length ? 201 : 400).send({ ok: added.length > 0, entry, fileErrors, publish_error: pubError })
 })
 
 app.get('/api/watchlist/:id/attachment/:attachmentId', { config: { rateLimit: { max: 300, timeWindow: '1 minute' } } }, async (req, reply) => {
@@ -2851,12 +2924,21 @@ app.delete('/api/watchlist/:id/attachment/:attachmentId', { config: { rateLimit:
   const entry = entries.find((e) => e.entry_id === id)
   if (!entry?.attachments.some((a) => a.attachment_id === attachmentId)) return reply.code(404).send({ error: 'not found' })
   const { user } = identify(req)
-  await deleteDriveFile(attachmentId)
+  // Strict, not best-effort: deleteDriveFile swallows every failure and resolves anyway, which used to
+  // remove the entry's only record of the file — its Drive id — the instant Drive was unreachable or a
+  // permission changed, leaving the PDF orphaned with no route left to find or remove it. Only drop the
+  // metadata once the file is actually gone (or already gone — a 404 counts as removed).
+  try {
+    await deleteDriveFileStrict(attachmentId)
+  } catch (e: any) {
+    return reply.code(502).send({ error: driveErrorMessage(e) })
+  }
   entry.attachments = entry.attachments.filter((a) => a.attachment_id !== attachmentId)
   entry.updated_at = new Date().toISOString()
   entry.history = [...entry.history, { at: entry.updated_at, by: user, action: 'detached', detail: attachmentId }].slice(-50)
   writeEntry(entry)
-  return { ok: true, entry }
+  const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: detach file from ${entry.listing.ticker}`)
+  return { ok: true, entry, publish_error: pub.ok ? undefined : pub.error }
 })
 
 app.get('/api/output/run', async (req, reply) => {

@@ -308,7 +308,13 @@ export function DecisionBanner() {
     }
   }, [refreshLiveQuote])
   // research records carry `decision`; a swarm's record carries its SWARM.md verdict field
-  const onWatchlist = watchlist?.rows.find((r) => r.ticker === (decision?.ticker ?? '')) ?? null
+  // Matched on ticker AND currency — the same identity listing_key uses. Ticker alone can pick a
+  // DIFFERENT tradable line of the same company (two currencies of one ticker are two rows, §16): the
+  // banner would then say the line on screen is already watched and open the OTHER line's row to edit,
+  // while silently blocking the intended listing from ever being added through this button.
+  const onWatchlist = watchlist?.rows.find((r) =>
+    r.ticker === (decision?.ticker ?? '') && (r.currency ?? '').toUpperCase() === (decision?.currency ?? '').toUpperCase(),
+  ) ?? null
   const verdict = resolveVerdict(decision, verdictField)
 
   // Is a newer, decision-less re-run sitting on TOP of the run we're showing? `summary` is a stable

@@ -199,8 +199,11 @@ export function WatchComposer() {
       </div>
 
       <div className="wlc__body">
-        {/* 1 — identity. Resolved, never typed. */}
-        {!resolved && !composer?.entryId && (
+        {/* 1 — identity. Resolved, never typed. Gated on `resolved`, not on whether this is an edit: when
+            the quote feed was down at save time the server allows a currency-less row through as a
+            reminder, and that row must still be repairable once the feed is back — excluding every EDIT
+            unconditionally left it permanently stuck with no currency and no UI path to fix it. */}
+        {!resolved && (
           <div className="wlc__field">
             {/* ONE search, not two lists. Typing filters the companies you already have (instant, local)
                 and the same box looks the name up against the symbol directory when it is not one of

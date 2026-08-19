@@ -1772,19 +1772,33 @@ export const useStore = create<State>((set, get) => ({
       // upload therefore never loses the row — it says the row saved and the file did not.
       const saved: any = entryId ? await api.watchUpdate(entryId, input) : await api.watchCreate(input)
       const id = entryId ?? saved?.entry?.entry_id ?? null
+      // Tracked so the row-saved success toast below never PAPERS OVER a real attach failure — it used to
+      // fire unconditionally right after this block, replacing the specific "N files did not attach"
+      // warning with a bare "saved" a moment later, and the composer had already closed by then too.
+      let attachWarning: string | null = null
       if (files?.length && id) {
         try {
           const r = await api.watchAttach(id, files)
           if (r.fileErrors?.length) {
-            get().setToast({ msg: `${input.ticker} saved, but ${r.fileErrors.length} file${r.fileErrors.length === 1 ? '' : 's'} did not attach: ${r.fileErrors[0].reason}`, tone: 'bad' })
+            attachWarning = `${input.ticker} saved, but ${r.fileErrors.length} file${r.fileErrors.length === 1 ? '' : 's'} did not attach: ${r.fileErrors[0].reason}`
           }
         } catch (e: any) {
-          get().setToast({ msg: `${input.ticker} saved, but the file did not attach: ${e?.message ?? 'upload failed'}`, tone: 'bad' })
+          attachWarning = `${input.ticker} saved, but the file did not attach: ${e?.message ?? 'upload failed'}`
         }
       }
       await get().loadWatchlist(true)
       set({ watchComposer: null })
-      get().setToast({ msg: entryId ? `${input.ticker} updated.` : `${input.ticker} added to the watchlist.`, tone: 'good' })
+      // publish_error: the row saved to this machine's disk, but the git commit/push that is supposed to
+      // make it durable (CLAUDE.md §25/§28 — watchlist/** is data) failed. Nothing typed is lost — it is
+      // still readable from the local file on the next load — but it has not left this machine yet, and
+      // silence here is exactly the failure mode a prior review round found: a mutation that reached no
+      // git history at all, with nothing in the UI ever saying so.
+      const pubWarning = saved?.publish_error ? `${input.ticker} saved locally, but did not sync: ${saved.publish_error}` : null
+      get().setToast(attachWarning
+        ? { msg: attachWarning, tone: 'bad' }
+        : pubWarning
+          ? { msg: pubWarning, tone: 'bad' }
+          : { msg: entryId ? `${input.ticker} updated.` : `${input.ticker} added to the watchlist.`, tone: 'good' })
       return true
     } catch (e: any) {
       const msg = e?.status === 409 ? `${input.ticker} is already on the watchlist.`
@@ -1810,7 +1824,10 @@ export const useStore = create<State>((set, get) => ({
         watchlistAt: Date.now(),
         watchlistError: null,
         watchlistLoading: false,
-        watchlistMetCount: read.rows.filter((r) => r.state === 'condition_met').length,
+        // The count of CONDITIONS met, not rows — the badge says "N conditions have been met" (ViewToggle),
+        // and one row can carry several simultaneously met triggers (an upper AND a lower price level, plus
+        // a margin-of-safety condition). Counting rows undercounted whenever more than one fired together.
+        watchlistMetCount: read.rows.reduce((n, r) => n + r.evals.filter((e) => e.state === 'condition_met').length, 0),
       })
     } catch (e: any) {
       // an engine older than this bundle has no route yet: feature off, never an error surface
@@ -1833,9 +1850,11 @@ export const useStore = create<State>((set, get) => ({
     if (get().staticMode) { get().setToast({ msg: 'Archiving needs the live engine.', tone: 'bad' }); return false }
     set({ watchlistPending: ticker })
     try {
-      await api.watchArchive(ticker, currency, reason, muteScope)
+      const r = await api.watchArchive(ticker, currency, reason, muteScope)
       await get().loadWatchlist(true)
-      get().setToast({ msg: `${ticker} archived.`, tone: 'good' })
+      get().setToast(r?.publish_error
+        ? { msg: `${ticker} archived locally, but did not sync: ${r.publish_error}`, tone: 'bad' }
+        : { msg: `${ticker} archived.`, tone: 'good' })
       return true
     } catch (e: any) {
       get().setToast({ msg: e?.message === 'static-deploy' ? 'Archiving needs the live engine.' : `Could not archive ${ticker}.`, tone: 'bad' })
@@ -1849,9 +1868,11 @@ export const useStore = create<State>((set, get) => ({
     if (get().staticMode) { get().setToast({ msg: 'Restoring needs the live engine.', tone: 'bad' }); return false }
     set({ watchlistPending: ticker })
     try {
-      await api.watchRestore(ticker, currency)
+      const r = await api.watchRestore(ticker, currency)
       await get().loadWatchlist(true)
-      get().setToast({ msg: `${ticker} restored.`, tone: 'good' })
+      get().setToast(r?.publish_error
+        ? { msg: `${ticker} restored locally, but did not sync: ${r.publish_error}`, tone: 'bad' }
+        : { msg: `${ticker} restored.`, tone: 'good' })
       return true
     } catch {
       get().setToast({ msg: `Could not restore ${ticker}.`, tone: 'bad' })

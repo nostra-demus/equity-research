@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../../lib/store'
 import { api } from '../../lib/api'
-import { ABSENT_PRICE_COPY, decisionColor, livePriceLabel, money, shortDay } from '../../lib/format'
+import { ABSENT_PRICE_COPY, decisionColor, livePriceLabel, livePriceTitle, money, shortDay } from '../../lib/format'
 import type { WatchRow as Row } from '../../lib/types'
 
 const todayISO = () => {
@@ -45,11 +45,17 @@ export function WatchRowCard({ row }: { row: Row }) {
   const restoreWatch = useStore((s) => s.restoreWatch)
   const requestFullForSubject = useStore((s) => s.requestFullForSubject)
   const anyRunForTicker = useStore((s) => s.anyRunForTicker)
-  const openThesis = useStore((s) => s.openThesis)
+  const tickers = useStore((s) => s.tickers)
+  const openCallFile = useStore((s) => s.openCallFile)
   const openComposer = useStore((s) => s.openWatchComposer)
+  const staticMode = useStore((s) => s.staticMode)
   const pending = useStore((s) => s.watchlistPending) === row.ticker
   const running = anyRunForTicker(row.ticker)
-  const isArchived = !!row.archive
+  // A RESURFACED row still carries its old `archive` record (mergeWatchlist never clears it — the record
+  // is what lets a SECOND archive re-mute cleanly), but the server already decided it belongs in the
+  // active list because the engine's assertion changed since the mute. Rendering it as archived anyway —
+  // Restore-only, no Thesis/Edit/Run/Archive — hid every action on exactly the row §8 exists to surface.
+  const isArchived = !!row.archive && !row.resurfaced
 
   useEffect(() => {
     if (!menu) return
@@ -62,6 +68,11 @@ export function WatchRowCard({ row }: { row: Row }) {
 
   const verdict = row.engine?.decision ?? null
   const reason = row.why || (row.engine?.size_in_trigger ? `“${row.engine.size_in_trigger}”` : '')
+  // A manual watchlist name is a supported core use case that has never been researched — no data/<TICKER>
+  // folder at all. "Run the full pipeline" reached all the way to a launch-time rejection for one, after
+  // the person had already picked it and confirmed; check pool membership up front and route it through
+  // Edit (which reaches the same add-a-company flow the composer's own lookup uses) instead.
+  const inPool = tickers.some((t) => t.ticker === row.ticker)
   const edit = () =>
     openComposer(
       { ticker: row.ticker, company_name: row.company_name, currency: row.currency, exchange: row.exchange,
@@ -69,7 +80,8 @@ export function WatchRowCard({ row }: { row: Row }) {
       row.entry_id,
     )
 
-  const thesisHref = row.entry_id && row.attachments.length ? api.watchAttachmentUrl(row.entry_id, row.attachments[0].attachment_id) : null
+  // Never in static mode: the showcase has no backend to serve the file from, so the link would only 404.
+  const thesisHref = !staticMode && row.entry_id && row.attachments.length ? api.watchAttachmentUrl(row.entry_id, row.attachments[0].attachment_id) : null
   const rowClass = row.state === 'condition_met' ? 'wl__tr--met' : row.state === 'due' ? 'wl__tr--due' : ''
 
   return (
@@ -117,7 +129,11 @@ export function WatchRowCard({ row }: { row: Row }) {
         {row.quote ? (
           <>
             <div className="wl__price">{money(row.quote.currency, row.quote.price)}</div>
-            <div className="wl__meta" title={`${row.quote.name || row.quote.ticker}${row.quote.exchange ? ` · ${row.quote.exchange}` : ''} (${row.quote.symbol})`}>
+            {/* livePriceTitle, the same tooltip the decision banner uses — names the as-of date/time (or
+                which close it is) and the feed that answered (CLAUDE.md §5: a web-sourced number carries
+                its date and source). The identity-only title this used to build left a watchlist price
+                looking like a bare, undated number next to the banner's fully-dated one. */}
+            <div className="wl__meta" title={livePriceTitle(row.quote, null)}>
               {livePriceLabel(row.quote).toLowerCase()}{row.quote.delayed ? ' · delayed' : ''}{row.quote.stale ? ' · not current' : ''}
             </div>
           </>
@@ -164,15 +180,24 @@ export function WatchRowCard({ row }: { row: Row }) {
               {thesisHref ? (
                 <a className="btn btn--mini" href={thesisHref} target="_blank" rel="noreferrer" title="Your write-up">Thesis</a>
               ) : row.final_thesis_path ? (
-                <button className="btn btn--mini" onClick={openThesis} title="The engine's own thesis for this run">Thesis</button>
+                // Opened by the ROW's own path, never the shared openThesis() action — that action reads
+                // the globally-selected company/run, which is normally a DIFFERENT company than the row
+                // being clicked in this cross-company list, and would open the wrong thesis (or nothing).
+                <button className="btn btn--mini" onClick={() => openCallFile(row.final_thesis_path!, `Investment Thesis — ${row.ticker}`)} title="The engine's own thesis for this run">Thesis</button>
               ) : null}
               <button className="btn btn--mini" onClick={edit} title="Change the reason, the triggers or the review date">Edit</button>
               <button className="btn btn--mini wl__more" aria-label={`More actions for ${row.ticker}`} aria-expanded={menu} onClick={() => setMenu(!menu)}>⋯</button>
               {menu && (
                 <div className="wl__menu" role="menu">
-                  <button className="wl__opt" role="menuitem" disabled={running} onClick={() => { setMenu(false); void requestFullForSubject(row.ticker) }}>
-                    {running ? 'Run in flight…' : `Run the full pipeline on ${row.ticker}`}
-                  </button>
+                  {inPool ? (
+                    <button className="wl__opt" role="menuitem" disabled={running} onClick={() => { setMenu(false); void requestFullForSubject(row.ticker) }}>
+                      {running ? 'Run in flight…' : `Run the full pipeline on ${row.ticker}`}
+                    </button>
+                  ) : (
+                    <button className="wl__opt" role="menuitem" disabled title={`${row.ticker} has no documents yet — add some before a run can be launched`}>
+                      No documents for {row.ticker} yet
+                    </button>
+                  )}
                   {/* Armed confirm, worded like the rest of the app: the second click restates the act. */}
                   <button
                     className={`wl__opt wl__opt--danger${armed ? ' wl__opt--armed' : ''}`}

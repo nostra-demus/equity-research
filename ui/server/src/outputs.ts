@@ -586,6 +586,7 @@ export function listAllCalls() {
       time_horizon: d?.time_horizon ?? null,
       entry_price: entry,
       currency: d?.currency ?? null,
+      exchange: typeof d?.exchange === 'string' && d.exchange ? d.exchange : null,
       expected_return_pct: exp,
       implied_target: entry != null && exp != null ? Math.round(entry * (1 + exp / 100) * 100) / 100 : null,
       downside_risk_pct: typeof d?.downside_risk_pct === 'number' ? d.downside_risk_pct : null,

@@ -3,6 +3,7 @@
 // public/data/snapshot.json + copies each ticker's latest-run markdown into public/data/analyses/.
 // At runtime the app probes /api/health: if a local backend answers it stays fully live; otherwise it
 // falls back to this snapshot (read-only showcase). Never modifies the engine.
+import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -511,7 +512,51 @@ function reviewDateFromText(text) {
   return m ? m[0] : null
 }
 
+/**
+ * What a stored trigger says, with no live price to test it against. `WatchRowCard` reads its chips
+ * ONLY from `row.evals` — an empty array reads as "+ trigger" (nothing being watched), even when
+ * `row.triggers` is populated. Emitting `evals: []` unconditionally (as this builder used to) therefore
+ * hid every saved threshold from the read-only showcase. Every kind here reports 'not_evaluable' — never
+ * 'condition_met' or 'not_met' — because this build has no live price at all (`quotes_enabled: false`
+ * below); an event_date trigger is the one exception, since due-ness is a date compare, not a price one.
+ */
+function staticTriggerEval(t, today) {
+  const base = { trigger_id: t.trigger_id, kind: t.kind, mode: t.kind === 'event_date' ? 'reminder' : 'auto' }
+  const money = (ccy, v) => `${ccy || ''} ${Number(v).toFixed(2)}`.trim()
+  if (t.kind === 'event_date') {
+    const due = t.acknowledged_at ? false : t.due_date <= today
+    return {
+      ...base, state: 'not_met', gap_pct: null, reason: null, due,
+      detail: t.acknowledged_at ? `${t.label} — acknowledged ${String(t.acknowledged_at).slice(0, 10)}`
+        : due ? `${t.label} — due ${t.due_date}` : `${t.label} — ${t.due_date}`,
+    }
+  }
+  if (t.kind === 'price_level') {
+    return {
+      ...base, state: 'not_evaluable', gap_pct: null, reason: null,
+      detail: `${t.direction === 'at_or_below' ? 'at or below' : 'at or above'} ${money(t.currency, t.level)} — not evaluated in this read-only snapshot`,
+    }
+  }
+  if (t.kind === 'pct_drop') {
+    return {
+      ...base, state: 'not_evaluable', gap_pct: null, reason: null,
+      detail: `${t.drop_pct}% below ${money(t.reference?.currency, t.reference?.value)}${t.reference?.as_of ? ` (${t.reference.as_of})` : ''} — not evaluated in this read-only snapshot`,
+    }
+  }
+  return {
+    ...base, state: 'not_evaluable', gap_pct: null, reason: null,
+    detail: `${t.required_mos_pct}% margin of safety against ${money(t.anchor_currency, t.anchor_value)} — not evaluated in this read-only snapshot`,
+  }
+}
+
 function buildWatchlist(calls) {
+  const today = todayISOJ()
+  // `added_by` is dropped from the public snapshot — it carries the uploader's real (Cloudflare-
+  // authenticated) email, which a Pages deployment has no business publishing. The rest of the metadata
+  // (filename, id, size, date) stays: WatchRow's static mode hides the download LINK it would otherwise
+  // build from `attachment_id` (there is no backend in a static deploy to serve the file from), but the
+  // fact that a row has an attachment, and what it's called, is not private the way the operator's email is.
+  const publicAttachments = (atts) => (Array.isArray(atts) ? atts.map((a) => ({ attachment_id: a.attachment_id, filename: a.filename, bytes: a.bytes, added_at: a.added_at })) : [])
   const dir = path.join(REPO, 'watchlist', 'entries')
   const entries = []
   try {
@@ -540,7 +585,9 @@ function buildWatchlist(calls) {
     }
   } catch { /* no portfolio folder */ }
 
-  const POSITION = new Set(['Selected', 'Short'])
+  // Mirrors watchlist.ts's POSITION_BASKETS: Pair Trade carries a paper PAIR position (DECISION_LEDGER.md
+  // §3), so it is held, not watched — the same as Selected/Short.
+  const POSITION = new Set(['Selected', 'Short', 'Pair Trade'])
   const seen = new Set()
   const rows = []
   const archived = []
@@ -556,30 +603,46 @@ function buildWatchlist(calls) {
     const e = byKey.get(key) || null
     if (e) byKey.delete(key)
     const w = deco.get(t) || {}
+    // sha256-12 over run_root|decision|size_in_trigger|next_review — byte-identical to watchlist.ts's
+    // fingerprintEngineRow, so an archive muted against the LIVE fingerprint compares correctly here too.
+    const fingerprint = `sha256:${crypto.createHash('sha256').update(
+      [c.run_root, c.decision ?? '', w.size_in_trigger ?? '', w.next_review ?? '']
+        .map((x) => String(x).replace(/\s+/g, ' ').trim()).join('|'),
+    ).digest('hex').slice(0, 12)}`
+    // Mirrors mergeWatchlist's re-surface test: an archive mutes ONE assertion (its fingerprint at the
+    // time), so if the engine now says something else, the mute no longer applies to what is on screen —
+    // including a manual row archived BEFORE the engine covered it (muted_fingerprint: null !== fingerprint
+    // is itself the change). The static builder used to never compute this at all, so an archived row
+    // stayed hidden in the read-only showcase even after the engine changed its call underneath it.
+    const resurfaced = !!(e && e.archive && e.archive.mute_scope === 'assertion' && e.archive.muted_fingerprint !== fingerprint)
     const row = {
       listing_key: key, ticker: t, company_name: c.company ?? null, currency: c.currency ?? null, exchange: null,
       origin: e ? 'both' : 'engine', entry_id: e ? e.entry_id : null, why: e ? e.why : '',
       conviction: e ? e.conviction : null,
       review_date: (e && e.review_date) || reviewDateFromText(w.next_review) || w.next_review || null,
-      tags: e ? e.tags : [], triggers: e ? e.triggers : [], attachments: e ? e.attachments : [],
+      tags: e ? e.tags : [], triggers: e ? e.triggers : [], attachments: publicAttachments(e?.attachments),
       engine: { run_root: c.run_root, decision: c.decision ?? null, decision_date: c.decision_date ?? null,
         size_in_trigger: w.size_in_trigger ?? null, next_review: w.next_review ?? null,
-        entry_price: c.entry_price ?? null, final_thesis_path: c.final_thesis_path ?? null, fingerprint: '',
+        entry_price: c.entry_price ?? null, final_thesis_path: c.final_thesis_path ?? null, fingerprint,
         next_review_text: w.next_review ?? null },
-      resurfaced: false, archive: e ? e.archive : null,
-      quote: null, quote_reason: null, evals: [], state: 'watching', nearest_gap_pct: null,
+      resurfaced, archive: e ? e.archive : null,
+      quote: null, quote_reason: null,
+      evals: (e?.triggers || []).map((tr) => staticTriggerEval(tr, today)),
+      state: 'watching', nearest_gap_pct: null,
       run_root: c.run_root, final_thesis_path: c.final_thesis_path ?? null,
       added_at: e ? e.created_at : null, updated_at: e ? e.updated_at : null, engine_since: c.decision_date ?? null,
     }
-    ;(row.archive ? archived : rows).push(row)
+    ;((row.archive && !row.resurfaced) ? archived : rows).push(row)
   }
   for (const e of byKey.values()) {
     const row = {
       listing_key: e.listing.listing_key, ticker: e.listing.ticker, company_name: e.listing.company_name,
       currency: e.listing.currency, exchange: e.listing.exchange, origin: 'manual', entry_id: e.entry_id,
       why: e.why, conviction: e.conviction, review_date: e.review_date, tags: e.tags, triggers: e.triggers,
-      attachments: e.attachments, engine: null, resurfaced: false, archive: e.archive,
-      quote: null, quote_reason: null, evals: [], state: 'watching', nearest_gap_pct: null,
+      attachments: publicAttachments(e.attachments), engine: null, resurfaced: false, archive: e.archive,
+      quote: null, quote_reason: null,
+      evals: (e.triggers || []).map((t) => staticTriggerEval(t, today)),
+      state: 'watching', nearest_gap_pct: null,
       run_root: null, final_thesis_path: null,
       added_at: e.created_at ?? null, updated_at: e.updated_at ?? null, engine_since: null,
     }

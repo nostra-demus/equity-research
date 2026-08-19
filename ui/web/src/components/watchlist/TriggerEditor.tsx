@@ -1,5 +1,10 @@
 import type { DistributiveOmit, WatchTrigger } from '../../lib/types'
 
+const todayISO = () => {
+  const d = new Date()
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+
 // The four trigger builders.
 //
 // Nothing ambiguous is typed. Direction and reference source are fixed choices, dates are pickers, and
@@ -200,7 +205,20 @@ export function TriggerEditor({
             className="fld" placeholder="Q3 print" value={t.label}
             onChange={(e) => onChange({ ...t, label: e.target.value })} aria-label="What happens then"
           />
-          <div className="wlc__hint">Never says “met” — it comes due, sorts to the top, and only you clear it.</div>
+          {t.acknowledged_at ? (
+            <div className="wlc__hint">
+              Acknowledged {t.acknowledged_at.slice(0, 10)}.{' '}
+              <button className="btn btn--mini" onClick={() => onChange({ ...t, acknowledged_at: null })}>Un-acknowledge</button>
+            </div>
+          ) : t.due_date <= todayISO() ? (
+            // The row's own text ("only you clear it") promises this, and until now the only way to clear
+            // a due reminder was to delete the trigger outright, losing its whole history with it.
+            <div className="wlc__hint">
+              <button className="btn btn--mini" onClick={() => onChange({ ...t, acknowledged_at: new Date().toISOString() })}>Acknowledge — clear the due flag</button>
+            </div>
+          ) : (
+            <div className="wlc__hint">Never says “met” — it comes due, sorts to the top, and only you clear it.</div>
+          )}
         </div>
       )}
     </div>

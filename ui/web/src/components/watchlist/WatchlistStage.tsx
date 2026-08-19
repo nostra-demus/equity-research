@@ -81,7 +81,9 @@ export function WatchlistStage() {
     })
   }, [rows, sort])
 
-  const met = read?.rows.filter((r) => r.state === 'condition_met').length ?? 0
+  // Conditions met, not rows — a row can carry several simultaneously met triggers, matching the same
+  // total the cross-view badge (ViewToggle) computes from watchlistMetCount.
+  const met = read?.rows.reduce((n, r) => n + r.evals.filter((e) => e.state === 'condition_met').length, 0) ?? 0
   const engineCount = read?.rows.filter((r) => r.origin !== 'manual').length ?? 0
   const mineCount = read?.rows.filter((r) => r.origin !== 'engine').length ?? 0
 
@@ -120,9 +122,15 @@ export function WatchlistStage() {
       {/* Provenance, always on screen: which engine artifact this half of the list came from, and how
           the two halves split (CLAUDE.md §5 — a figure carries where it came from). */}
       <div className="wl__sub">
+        {/* WHO is on the list comes from the standing calls ledger, not the sizing file — sizing only
+            DECORATES an engine row with its trigger prose. Naming the sizing file as the source of the
+            whole engine half could point at a dated artifact that never actually contained some of the
+            names shown (a scoped `/research:size TICKER` run, or one older than a standing call). */}
+        {engineCount} from the engine
         {read?.engine_source.generated_at
-          ? <>From the {read.engine_source.generated_at} model portfolio · {engineCount} from the engine, {mineCount} you added</>
-          : <>No model portfolio found — showing what you have added</>}
+          ? <> (trigger notes from the {read.engine_source.generated_at} model portfolio)</>
+          : <> (no model portfolio found, so no trigger notes)</>}
+        {' '}· {mineCount} you added
         {read && !read.quotes_enabled && (
           staticMode
             // The showcase can show WHAT you are waiting for, but not whether it has happened — that

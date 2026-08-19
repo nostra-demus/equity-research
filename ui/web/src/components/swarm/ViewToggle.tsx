@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useStore } from '../../lib/store'
 import { handleRovingRadioKeyDown, rovingRadioTabStopIndex } from '../../lib/rovingRadio'
-import type { ResearchView } from '../../lib/researchView'
+import { effectiveResearchView, type ResearchView } from '../../lib/researchView'
 
 // Stage-anchored segmented control for what the research stage is showing.
 //
@@ -40,7 +40,12 @@ export function ViewToggle() {
     { id: 'globe', label: 'Globe', enabled: webglOK, title: webglOK ? undefined : '3D view needs WebGL — unavailable in this browser' },
     ...(isResearch ? [{ id: 'watchlist' as const, label: 'Watchlist', enabled: true }] : []),
   ]
-  const tabStop = rovingRadioTabStopIndex(options.findIndex((o) => o.id === view), options.map((o) => o.enabled))
+  // The view ACTUALLY on screen, not the raw preference: on a non-research swarm a stored 'watchlist'
+  // falls back to the constellation (App.tsx renders effectiveResearchView too), but the Watchlist pill is
+  // also absent from `options` there — so comparing raw `view` against each option left BOTH remaining
+  // pills unchecked while the constellation was plainly what was showing.
+  const effective = effectiveResearchView(view, isResearch)
+  const tabStop = rovingRadioTabStopIndex(options.findIndex((o) => o.id === effective), options.map((o) => o.enabled))
 
   return (
     <div className="viewtoggle" role="radiogroup" aria-label="Research stage view">
@@ -49,11 +54,11 @@ export function ViewToggle() {
           key={o.id}
           type="button"
           role="radio"
-          aria-checked={view === o.id}
+          aria-checked={effective === o.id}
           disabled={!o.enabled}
           tabIndex={i === tabStop ? 0 : -1}
           title={o.title}
-          className={`viewtoggle__btn${view === o.id ? ' is-on' : ''}`}
+          className={`viewtoggle__btn${effective === o.id ? ' is-on' : ''}`}
           onKeyDown={handleRovingRadioKeyDown}
           onClick={() => setView(o.id)}
         >

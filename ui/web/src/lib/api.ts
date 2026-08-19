@@ -1000,19 +1000,22 @@ export const api = {
   },
   watchCreate: async (input: WatchRowInput) => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return post<{ ok: boolean }>('/api/watchlist', input)
+    // `publish_error` is set when the row saved to disk but the serialized commit/push to git (CLAUDE.md
+    // §25/§28 — watchlist/** is data) failed, e.g. the sandbox has no writable git remote. The row is
+    // never lost (it is still readable from the local file), but it has not left this machine yet.
+    return post<{ ok: boolean; publish_error?: string }>('/api/watchlist', input)
   },
   watchUpdate: async (entryId: string, input: Partial<WatchRowInput>) => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return patch<{ ok: boolean }>(`/api/watchlist/${encodeURIComponent(entryId)}`, input)
+    return patch<{ ok: boolean; publish_error?: string }>(`/api/watchlist/${encodeURIComponent(entryId)}`, input)
   },
   watchArchive: async (ticker: string, currency: string | null, reason: string, muteScope: 'assertion' | 'listing' = 'assertion') => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return post<{ ok: boolean }>('/api/watchlist/archive', { ticker, currency, reason, mute_scope: muteScope })
+    return post<{ ok: boolean; publish_error?: string }>('/api/watchlist/archive', { ticker, currency, reason, mute_scope: muteScope })
   },
   // XHR rather than fetch so the composer can show progress on a large PDF, the same shape
   // submitCockpitFeedback uses.
-  watchAttach: async (entryId: string, files: File[], onProgress?: (frac: number) => void): Promise<{ ok: boolean; fileErrors: { filename: string; reason: string }[] }> => {
+  watchAttach: async (entryId: string, files: File[], onProgress?: (frac: number) => void): Promise<{ ok: boolean; fileErrors: { filename: string; reason: string }[]; publish_error?: string }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     const fd = new FormData()
     for (const f of files) fd.append('files', f, f.name)
@@ -1032,14 +1035,14 @@ export const api = {
   },
   watchDetach: async (entryId: string, attachmentId: string) => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return del<{ ok: boolean }>(`/api/watchlist/${encodeURIComponent(entryId)}/attachment/${encodeURIComponent(attachmentId)}`)
+    return del<{ ok: boolean; publish_error?: string }>(`/api/watchlist/${encodeURIComponent(entryId)}/attachment/${encodeURIComponent(attachmentId)}`)
   },
   watchAttachmentUrl: (entryId: string, attachmentId: string) =>
     `/api/watchlist/${encodeURIComponent(entryId)}/attachment/${encodeURIComponent(attachmentId)}`,
 
   watchRestore: async (ticker: string, currency: string | null) => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return post<{ ok: boolean }>('/api/watchlist/restore', { ticker, currency })
+    return post<{ ok: boolean; publish_error?: string }>('/api/watchlist/restore', { ticker, currency })
   },
 
   quote: async (ticker: string, runRoot?: string): Promise<QuoteRead | null> => {

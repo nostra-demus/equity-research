@@ -281,10 +281,14 @@ export function readEntries(dir: string = WATCHLIST_ENTRIES_DIR): { entries: Wat
     try {
       const j = JSON.parse(fs.readFileSync(path.join(dir, n), 'utf8'))
       // A row without a usable listing has no identity: every consumer keys on listing_key, so letting
-      // it through turns "degrades one row" into a 500 for the whole read.
+      // it through turns "degrades one row" into a 500 for the whole read. Every field a reader
+      // unconditionally iterates or maps over (triggers, attachments, tags, history) must be an array too —
+      // a syntactically valid file with `triggers: {}` passed the shape check above and then threw inside
+      // mergeWatchlist's `.map()`, turning one damaged row into a 500 for the WHOLE list, not just that row.
       const ok = j && typeof j === 'object' && !Array.isArray(j)
         && typeof j.entry_id === 'string'
         && j.listing && typeof j.listing === 'object' && typeof j.listing.listing_key === 'string' && j.listing.listing_key
+        && Array.isArray(j.triggers) && Array.isArray(j.attachments) && Array.isArray(j.tags) && Array.isArray(j.history)
       if (ok) entries.push(j as WatchEntry)
       else unreadable.push(n)
     } catch {
@@ -294,13 +298,19 @@ export function readEntries(dir: string = WATCHLIST_ENTRIES_DIR): { entries: Wat
   return { entries, unreadable }
 }
 
-/** Atomic: tmp then rename, so a crash mid-write can never leave a half-parsed entry behind. */
+/** Atomic: tmp then rename, so a crash mid-write can never leave a half-parsed entry behind. The temp
+ *  name carries a random suffix as well as the pid — two writes to the SAME entry in the SAME process
+ *  (e.g. a request handler that writes twice) would otherwise share one tmp path and race each other. */
 export function writeEntry(entry: WatchEntry, dir: string = WATCHLIST_ENTRIES_DIR): void {
   fs.mkdirSync(dir, { recursive: true })
   const file = path.join(dir, `${entry.entry_id}.json`)
-  const tmp = `${file}.tmp-${process.pid}`
-  fs.writeFileSync(tmp, JSON.stringify(entry, null, 2) + '\n')
-  fs.renameSync(tmp, file)
+  const tmp = `${file}.tmp-${process.pid}-${crypto.randomBytes(4).toString('hex')}`
+  try {
+    fs.writeFileSync(tmp, JSON.stringify(entry, null, 2) + '\n')
+    fs.renameSync(tmp, file)
+  } finally {
+    try { fs.unlinkSync(tmp) } catch { /* expected on the success path — the rename already moved it */ }
+  }
 }
 
 export function deleteEntry(entryId: string, dir: string = WATCHLIST_ENTRIES_DIR): void {
@@ -309,9 +319,12 @@ export function deleteEntry(entryId: string, dir: string = WATCHLIST_ENTRIES_DIR
 
 // ---------- the engine's half ----------
 
-/** Baskets that mean "we hold no position", per size.md §2 and DECISION_LEDGER.md's decision→basket
- *  table. Selected and Short are the two that DO carry a position; everything else is on watch. */
-const POSITION_BASKETS = new Set(['Selected', 'Short'])
+/** Baskets that mean "we hold no position", per size.md §2 and DECISION_LEDGER.md §3's decision→basket
+ *  table. Selected and Short carry an outright position; Pair Trade carries a paper PAIR position once a
+ *  concrete hedge/second leg is named (DECISION_LEDGER.md §3: "Pair Trade / Hedge Required" enters the
+ *  Pair Trade basket only then — otherwise it is tracked as Watchlist, which this set correctly excludes).
+ *  Everything else is on watch. */
+const POSITION_BASKETS = new Set(['Selected', 'Short', 'Pair Trade'])
 
 interface SizingWatchRow { ticker?: unknown; decision?: unknown; size_in_trigger?: unknown; next_review?: unknown }
 
@@ -348,7 +361,7 @@ export function readSizingDecoration(analysesDir: string = ANALYSES_DIR): {
     }
   }
   if (!parsed.length) return empty
-  parsed.sort((a, b) => (a.at < b.at ? 1 : a.at > b.at ? -1 : a.name < b.name ? 1 : -1))
+  parsed.sort((a, b) => (a.at !== b.at ? (a.at < b.at ? 1 : -1) : a.name !== b.name ? (a.name < b.name ? 1 : -1) : 0))
   const top = parsed[0]
   const byTicker = new Map<string, SizingWatchRow[]>()
   for (const row of top.watch) {
@@ -367,6 +380,7 @@ export interface StandingCall {
   ticker: string
   company?: string | null
   currency?: string | null
+  exchange?: string | null
   basket?: string | null
   decision?: string | null
   decision_date?: string | null
@@ -394,13 +408,25 @@ export function readEngineWatch(
   for (const c of calls) {
     const t = normTicker(String(c.ticker ?? ''))
     if (!t) continue
-    const basket = String(c.basket ?? '').trim()
-    const inSizing = decoration.byTicker.has(t)
-    if (!inSizing && POSITION_BASKETS.has(basket)) continue // holds a position and the book agrees
-    // Two standing runs for one ticker are two distinct calls (UBER, 2026-08-16). Keep the newest —
-    // the ledger sorts newest-first — but never silently drop one by keying a Map on the ticker alone.
+    // Two standing runs for one ticker are two distinct calls (UBER, 2026-08-16) — the ledger sorts
+    // newest-first, so the FIRST one seen per ticker is the one that gets to decide this ticker's fate,
+    // whichever way that goes. Marked seen HERE, before the membership check below, not after: the newest
+    // call being excluded (it holds a position the sizing book agrees with) must not let an OLDER, not-yet-
+    // seen call for the SAME ticker fall through afterwards and re-add a position the engine has already
+    // moved past — a superseded "Watchlist" call outliving the "Selected" call that replaced it.
     if (seen.has(t)) continue
     seen.add(t)
+    const basket = String(c.basket ?? '').trim()
+    // The sizing file can only OVERRIDE the basket floor with a judgment at least as recent as the call it
+    // is overriding. Without this, a ticker that moved from Watchlist into Selected/Short/Pair Trade AFTER
+    // the last whole-book sizing run stayed on watch — inheriting stale "no proven edge yet" prose for a
+    // position that is now actually held — until the next scoped `/research:size TICKER` run happened to
+    // catch up (readSizingDecoration deliberately skips scoped runs as book-wide decoration, so this can
+    // sit stale for a while). A missing date on either side is treated as "cannot compare" — trusted, as
+    // before — rather than silently dropping a name whose data does not carry the field.
+    const sizingCurrent = !c.decision_date || !decoration.generated_at || decoration.generated_at >= c.decision_date
+    const inSizing = decoration.byTicker.has(t) && sizingCurrent
+    if (!inSizing && POSITION_BASKETS.has(basket)) continue // holds a position and the book agrees
     const deco = decoration.byTicker.get(t)?.[0]
     const size_in_trigger = deco?.size_in_trigger == null ? null : String(deco.size_in_trigger)
     // sizing.json's next_review is PROSE, not a date — e.g. "2026-10-08 (90d checkpoint; 30d checkpoint
@@ -411,7 +437,7 @@ export function readEngineWatch(
       ? (dueDateFromFreeText(next_review_text) ?? next_review_text)
       : (c.next_checkpoint?.due_date ?? null)
     rows.push({
-      listing: makeListing({ ticker: t, currency: c.currency, companyName: c.company }),
+      listing: makeListing({ ticker: t, currency: c.currency, companyName: c.company, exchange: c.exchange }),
       run_root: c.run_root,
       decision: c.decision ?? null,
       decision_date: c.decision_date ?? null,
@@ -464,6 +490,13 @@ export function evaluateTrigger(t: WatchTrigger, ctx: EvalContext): TriggerEval 
   const q = ctx.quote
   if (!q) {
     return { ...base, mode: 'auto', state: 'not_evaluable', detail: 'No live price to check against.', reason: ctx.quoteReason, gap_pct: null }
+  }
+  // A stale quote (the feed failed after the TTL, so getQuotes handed back a cached price rather than
+  // nothing) is a real number but not a CURRENT one. Evaluating a trigger against it can surface a
+  // days-old threshold crossing as a live alert even after the price has since moved back — the exact
+  // false positive `not_evaluable` exists to prevent. Refuse it the same way a missing quote is refused.
+  if (q.stale) {
+    return { ...base, mode: 'auto', state: 'not_evaluable', detail: `The price is stale (last checked ${q.as_of ?? 'a while ago'}) — refusing to call this trigger current.`, reason: 'stale_feed', gap_pct: null }
   }
 
   // The trigger's currency and the quote's must be the same measurement. There is no FX module here, and
@@ -519,13 +552,20 @@ export function evaluateTrigger(t: WatchTrigger, ctx: EvalContext): TriggerEval 
   }
   const mos = pct1(((t.anchor_value - q.price) / t.anchor_value) * 100)
   const met = t.direction === 'at_or_below' ? mos >= t.required_mos_pct : -mos >= t.required_mos_pct
+  // The threshold price the gap is measured against depends on direction: 'at_or_below' fires once the
+  // price has FALLEN to the discount level, 'at_or_above' fires once it has RISEN past the premium level.
+  // Using the fall-side threshold for a rise trigger reported "must fall X%" on a row that was waiting for
+  // a rise (or vice versa) — the sign was right but the target price it was measured against was not.
+  const threshold = t.direction === 'at_or_below'
+    ? t.anchor_value * (1 - t.required_mos_pct / 100)
+    : t.anchor_value * (1 + t.required_mos_pct / 100)
   return {
     ...base,
     mode: 'auto',
     state: met ? 'condition_met' : 'not_met',
     detail: `(${money(t.anchor_currency, t.anchor_value)} − ${money(q.currency, q.price)}) ÷ ${t.anchor_value} = ${mos}% vs ${t.required_mos_pct}% required`,
     reason: null,
-    gap_pct: met ? 0 : pct1(((t.anchor_value * (1 - t.required_mos_pct / 100) - q.price) / q.price) * 100),
+    gap_pct: met ? 0 : pct1(((threshold - q.price) / q.price) * 100),
   }
 }
 

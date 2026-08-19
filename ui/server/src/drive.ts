@@ -175,12 +175,28 @@ export async function readWatchlistFile(fileId: string): Promise<Readable> {
   return res.data as unknown as Readable
 }
 
-/** Best-effort delete (used to clean up a partial/truncated upload). Never throws. */
+/** Best-effort delete (used to clean up a partial/truncated upload the caller is already discarding).
+ *  Never throws — an upload that failed anyway must not fail a SECOND way on its own cleanup. */
 export async function deleteDriveFile(id: string): Promise<void> {
   try {
     await client().files.delete({ fileId: id, supportsAllDrives: true })
   } catch {
     /* best-effort cleanup */
+  }
+}
+
+/** Delete a file the caller is otherwise keeping a live REFERENCE to (a watchlist attachment a person
+ *  asked to remove). Unlike deleteDriveFile this throws on failure — Drive being unavailable or the
+ *  permission having changed must not look like a successful delete, or the caller removes the entry's
+ *  only record of the file while it sits orphaned, unreachable, in Drive. Deleting an id that is already
+ *  gone (404) still counts as removed — that is the state the caller wanted. */
+export async function deleteDriveFileStrict(id: string): Promise<void> {
+  try {
+    await client().files.delete({ fileId: id, supportsAllDrives: true })
+  } catch (e: any) {
+    const code = e?.code ?? e?.response?.status
+    if (code === 404) return
+    throw e
   }
 }
 
