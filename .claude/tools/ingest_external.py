@@ -544,9 +544,12 @@ def infer_source_type(name, sniff):
         return "broker_research"
     # a competitor's own earnings-call transcript, dropped to benchmark the subject (competitive-intel).
     # AFTER broker detection, so a sell-side "earnings call insight" note (target price + rating block)
-    # stays broker_research. A verbatim CIQ/company transcript has a call title / prepared-remarks + Q&A
-    # structure, not a verdict block — that is what CIQ's "Competitor Transcripts" export drops here.
-    if re.search(r"earnings call|earnings conference call|conference call transcript", hay) or \
+    # stays broker_research. Require actual transcript STRUCTURE — an explicit "... call transcript"
+    # marker, or the prepared-remarks + Q&A two-part shape — NOT a bare scheduling mention. A peer
+    # results release that only says the company "will host an earnings conference call" carries no
+    # transcript; tiering it at 6 would give the release false provenance, make transcript readiness
+    # look present, and fire the whole-module rerun hint on a document with no call in it.
+    if re.search(r"\b(?:earnings|conference|results)?\s*call transcript\b", hay) or \
        (re.search(r"prepared remarks", hay) and re.search(r"question[\s\-]?and[\s\-]?answer|\bq\s*&\s*a\b", hay)):
         return "peer_transcript"
     # measured panel / dataset language, or a known alt-data vendor name

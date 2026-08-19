@@ -282,6 +282,14 @@ def main():
     check("infer_source_type: prepared-remarks + Q&A structure -> peer_transcript",
           m.infer_source_type("call.txt", "Prepared Remarks by the CEO. Q & A.") == "peer_transcript",
           m.infer_source_type("call.txt", "prepared remarks q & a"))
+    # a results release that merely SCHEDULES a call (no prepared-remarks/Q&A body, no "call transcript"
+    # marker) is not a transcript — it must not be tiered at 6 or fire the whole-module rerun hint.
+    check("infer_source_type: a scheduling mention in a results release is NOT a peer_transcript",
+          m.infer_source_type("WHR_Q2-2026_Results.pdf",
+                              "Whirlpool Corporation announces Q2 2026 results. The company will host an "
+                              "earnings conference call on August 5, 2026 at 8:00 a.m. ET; to access the "
+                              "call, dial 1-800-000-0000.") != "peer_transcript",
+          m.infer_source_type("WHR_Q2-2026_Results.pdf", "will host an earnings conference call"))
     check("infer_source_type: sell-side earnings-call NOTE stays broker_research (precedence)",
           m.infer_source_type("WHR_EarningsCallInsight.pdf",
                               "Equity Research. Rating: Overweight. Target Price $130. "

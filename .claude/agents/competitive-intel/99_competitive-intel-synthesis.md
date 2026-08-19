@@ -75,7 +75,7 @@ Write this LAST.
 
 ## 1. Verdict Block
 
-- **Net read-through direction** (pick one): Favors a beat / Favors a miss / Mixed / Not assessable *(from `03`)*
+- **Net read-through direction** (pick one): Favors a beat / Favors a miss / Mixed / Not assessable *(from `03`)*. A beat/miss direction requires a **sourced subject bar** (consensus / guidance); where `03` had no bar (a degraded run), carry it as **Not assessable (bar-dependent)** for the beat/miss axis and state the **operational direction** (Operations up / down / mixed, bar unknown) separately — never launder an operational read into a beat/miss call the evidence cannot support (§11).
 - **Read-through weight** (High / Med / Low, from `03`) — how much this should move the subject view (two-axes rule; caps act here)
 - **Read-through direction confidence** (§10 band + basis, from `03`) — the numeric probability the direction is right (e.g. Likely 60–75%, judgment). Carry it SEPARATELY from Weight (two-axes rule): the master needs both to tell a toss-up read from a 60–75% one. Where the read spans several signals, carry the band of the load-bearing one and note the range.
 - **When the net direction is _Not assessable_ (no eligible peer), Read-through weight AND Direction confidence are BOTH _Not assessable_ too** — do not invent an H/M/L weight or a §10 band; the three move together (`03` produced no read to carry).
@@ -92,13 +92,13 @@ Both `/100` scores above MUST be rebuilt from the evidence rows below, not assig
 
 **Peer-coverage of subject /100** = `round(covered_exposure_pct)`, where `covered_exposure_pct` is the share of the subject's revenue (using `business-model/03_segment-map` weights) spoken to by at least one **read-through-eligible** (already-reported, Timing Rule) and **scope-overlapping** (G3) peer on a matched window (G1). List the covered segments/geographies and their weights so the sum is auditable. A private / non-reporting / scope-mismatched competitor adds NOTHING to coverage. **If no `business-model/03_segment-map` is available (a degraded standalone run without the segment weights), `covered_exposure_pct` is _Not assessable_:** report Peer-coverage /100 as *Not assessable* with a "segment weights unavailable" note — never treat unknown exposure as 0, and never invent a percentage — and in the data-sufficiency build below set the Exposure-coverage component to 0 with the same note (so the sum still builds, honestly).
 
-**Benchmark data-sufficiency /100** = the sum of four printed components (floor at 0 if no peer transcripts exist at all — then the module reports the coverage gap, not a benchmark):
+**Benchmark data-sufficiency /100** = the sum of four printed components. Floor the WHOLE score to 0 ONLY when the pool holds no usable call at all — no verbatim transcript AND no permitted broker paraphrase (the triage-Insufficient case) — then the module reports the coverage gap, not a benchmark. A **broker-paraphrase-only** pool is triage-**Partial**, not Insufficient (`00`): it still scores its breadth, exposure, and provenance components (with Source quality 0), never a forced total of 0.
 
 | Component | Points | Rule |
 |---|---:|---|
-| Reporting-peer breadth | 0–40 | Let N = the count of read-through-eligible peers, a partial / sub-window peer counting as 0.5. N = 0 → 0; 0 < N < 2 → 20; 2 ≤ N < 3 → 30; N ≥ 3 → 40. (Every half-step is defined: 0.5 and 1.5 → 20, 2.5 → 30.) |
+| Reporting-peer breadth | 0–40 | Let N = the count of read-through-eligible **distinct peer companies** (count a company ONCE even if it dropped several of its own calls to rebuild a cumulative period — `00`), a partial / sub-window peer counting as 0.5. N = 0 → 0; 0 < N < 2 → 20; 2 ≤ N < 3 → 30; N ≥ 3 → 40. (Every half-step is defined: 0.5 and 1.5 → 20, 2.5 → 30.) |
 | Exposure coverage | 0–30 | `round(covered_exposure_pct × 0.30)`. |
-| Source quality | 0–20 | 20 if every eligible peer is a verbatim transcript; −10 if any eligible peer is broker-paraphrase-only (G5); 0 if no verbatim transcript at all. |
+| Source quality | 0–20 | Base 20 if at least one eligible peer is a verbatim transcript, else base 0 (broker-paraphrase-only pool); then −10 if ANY eligible peer is broker-paraphrase-only (G5). Floor the component at 0. So: all-verbatim → 20; mixed (verbatim + broker) → 10; broker-only → 0. (Unique for every pool composition — CLAUDE.md §12.) |
 | Peer-set provenance | 0–10 | 10 if the peer set is from `competitive-map`; 5 if self-selected. |
 
 Show the four component values and their sum. Neither score is inverted (higher = better coverage / more sufficiency).
@@ -133,11 +133,18 @@ Any disagreement between specialists (e.g. the matrix's dispersion vs the read-t
 | No peer transcripts | | read-through | Not assessable |
 | Only one peer | | weight | Low |
 | No peer reported the window | | current read-through | Not assessable |
-| Dominant subject exposure uncovered | | net weight | capped |
+| Exposure uncovered (by coverage band) | | net weight | High / Medium / Low — set by band below |
 | Peer set self-selected | | net weight | Medium |
 | Broker-paraphrase only | | tone | Not assessable |
 
-Caps act on WEIGHT, never on the §10 direction band.
+**Exposure-coverage weight ceiling (deterministic — two runs on the same pool must land the same H/M/L).** Using `covered_exposure_pct` from §1B (the share of the subject's revenue a read-through-eligible, scope-overlapping peer actually speaks to):
+
+- `covered_exposure_pct` ≥ 60 → **no cap from this row** — the majority of the subject's exposure has a reporting-peer vantage; the net weight is set on the merits, up to High.
+- 30 ≤ `covered_exposure_pct` < 60 → net weight capped at **Medium**.
+- `covered_exposure_pct` < 30 (the dominant exposure is uncovered) → net weight capped at **Low** — most of the subject has no reporting-peer vantage, so a read-through on the covered minority cannot carry High weight into the master view.
+- `covered_exposure_pct` Not assessable (no `segment-map`, §1B) → treat as the < 30 band and cap at **Low**, with the "segment weights unavailable" note — never infer High from unknown coverage.
+
+Print the resulting ceiling (the H/M/L maximum) in the Final Cap cell; the net weight carried to the master is the LOWER of this ceiling and any other applied cap (self-selected → Medium, only-one-peer → Low). Caps act on WEIGHT, never on the §10 direction band.
 
 ## 5. Note To The Final Synthesizer
 

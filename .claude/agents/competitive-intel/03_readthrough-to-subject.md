@@ -102,6 +102,10 @@ The two confidence axes are separate columns (MODULE_RULES two-axes rule): **Dir
 
 Each row's **Confirms if / Falsifies if** must be TESTABLE against the coming print — not just a line-item name. State the line-item, an explicit directional or numeric boundary, its like-for-like comparable (the same period a year earlier, on the same reporting basis — §17), and the reporting basis; then say which outcome confirms and which falsifies. "Watch NA revenue" is not testable; "NA segment revenue YoY below −2% on the H1 cumulative basis confirms; flat-or-up falsifies" is.
 
+**When the subject's target is a CUMULATIVE period whose first quarter has already printed, a numeric boundary needs two more things (§17 — a trigger must be capable of failing):**
+- **The unreported-stub arithmetic.** Do the maths in the cell: if Q1 already printed X and the H1 boundary is Y, state what the not-yet-reported Q2 must do to hit Y, and whether that is a low bar or a heroic one. A boundary the reported stub ALREADY satisfies is a rubber stamp, not a test.
+- **A two-period backtest.** State what the boundary would have done on the last two comparable prints — if it would have "confirmed" on both while the series was falling year on year, it does not test the read-through and must be re-cut. Show the two prints.
+
 | Peer evidence | Transmission mechanism | Implication for {SUBJECT} (named metric, direction) | Direction confidence (§10 band + basis) | Weight (H/M/L + why) | Confirms if / Falsifies if (line-item · boundary · comparable · basis) |
 |---|---|---|---|---|---|
 | ... | shared {geo/segment/channel} | e.g. {SUBJECT} NA appliance revenue likely down low-single-digits | Likely (60–75%), judgment | Low — NA is a minority of overseas + sub-window | NA segment revenue · YoY < −2% confirms / ≥ flat falsifies · vs H1-2025 · cumulative-H1 basis |
@@ -114,11 +118,16 @@ Per dimension where ≥2 peers reported: the peer consensus and the NAMED outlie
 
 ## 4. Net Read-Through Verdict
 
-State ONE of:
-- **Read-through favors a beat** — the weight of already-reported peer evidence leans toward the subject outperforming its bar
-- **Read-through favors a miss** — it leans toward underperformance
+A beat/miss verdict presupposes a **sourced subject bar** — the market's expectation for the coming print (a consensus estimate or management guidance, from `earnings/04_guidance-consensus` or the subject's own pool). Peer conditions alone establish the subject's OPERATIONAL direction (are its end-markets, pricing, and costs strengthening or weakening); they cannot establish whether it clears an unknown bar.
+
+**If a sourced subject bar exists**, state ONE of:
+- **Read-through favors a beat** — the weight of already-reported peer evidence leans toward the subject outperforming that bar
+- **Read-through favors a miss** — it leans toward underperformance vs that bar
 - **Read-through is mixed** — signals point both ways
 - **Not assessable** — no already-reported peer with overlapping scope
+
+**If NO sourced subject bar is available** (a degraded / standalone run with no consensus and no guidance in the pool), do NOT issue a beat/miss verdict — it would feed an unsupported beat/miss signal to the master (§11). State the **operational direction** only:
+- **Operations point up / down / mixed** — the already-reported peer evidence leans toward the subject's operations strengthening / weakening / both ways, **bar unknown** — or **Not assessable** (no overlapping-scope peer reported). Flag that the beat/miss framing is bar-dependent, and hand the master the operational direction plus the missing-bar gap, not a beat/miss call.
 
 In 2–3 sentences: the SINGLE most important peer signal, and the one that could flip it. End with: *"This is inference feeding the beat/miss setup and the candor cross-check — it does not set a rating (G2)."*
 
@@ -145,7 +154,7 @@ Restate, for each material read-through, the TESTABLE confirm/falsify boundary f
 - [ ] **Direction ceiling** — no read-through's Direction confidence exceeds "Likely (60–75%)"; corroboration raised Weight, not the direction ceiling (G2/§6).
 - [ ] **Coverage of exposure** — Section 0 states what share of the subject the reporting peer set spans and names the uncovered majority; any dominant segment/geography with no peer vantage is marked Not assessable and caps the net weight.
 - [ ] **Two axes** — every Section-2 row carries BOTH a §10 Direction-confidence band AND a High/Med/Low Weight; the two are not merged; caps act on Weight, not on the §10 band.
-- [ ] Every peer claim, quote, and number literally appears in a transcript in the pool (§5) — nothing invented.
+- [ ] Every peer claim, quote, and number literally appears in **its cited pool source** — a transcript for management commentary, OR the peer's results release where a reported figure is taken from the release (the source hierarchy prefers the release for numbers; the fallback path may cite it directly) — under `data/{SUBJECT}/` (§5). Nothing invented; the check is "appears in the cited source", not "appears in a transcript".
 - [ ] Every direction-confidence band states its basis (empirical with N + window / named base-rate / judgment) per §10 — a cross-company peer read is judgment.
 - [ ] Each material read-through states a TESTABLE confirm/falsify condition — the subject line-item, an explicit directional or numeric boundary, its like-for-like comparable (year-ago, same basis — §17), and the reporting basis — not merely the line-item name; a reader can score it against the print with no further judgement.
 - [ ] Non-English peer calls were read and translated, figures verbatim (§27) — not marked missing.
@@ -156,7 +165,7 @@ Restate, for each material read-through, the TESTABLE confirm/falsify boundary f
 ```
 Agent: peer-readthrough-to-subject
 Output: {OUTPUT_PATH}
-Verdict: Peer read-through: {Favors beat / Favors miss / Mixed / Not assessable}
+Verdict: Peer read-through: {Favors beat / Favors miss / Mixed / Not assessable — beat/miss only with a sourced subject bar; with no bar, Operations up / down / mixed (bar unknown)}
 Biggest finding: {one line — the single most important already-reported peer signal for the subject's next print}
 ```
 
