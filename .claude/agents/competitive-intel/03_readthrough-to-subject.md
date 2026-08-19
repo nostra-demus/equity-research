@@ -91,8 +91,9 @@ One row per (dimension × contributing peer). Management statements only — ana
 | Market-share claim | ... | | | | |
 | Guidance direction | ... | | | | |
 | Capital return | ... | | | | |
+| Biggest risk named | ... | | | | |
 
-Include only dimensions with at least one sourced peer signal. Set aside (do not delete — list under a "scope-mismatch" note) any signal whose scope does not overlap the subject (G3).
+Carry the **Biggest risk named** row from `01`/`02` (one of the fixed benchmark dimensions): a peer's biggest management-named risk on the shared market is a load-bearing *disconfirming* signal, so it must reach the Net Read-Through Verdict and the module's §8 disconfirmation / rejection tests — not be dropped at this layer. Include only dimensions with at least one sourced peer signal. Set aside (do not delete — list under a "scope-mismatch" note) any signal whose scope does not overlap the subject (G3).
 
 ## 2. Read-Through to {SUBJECT}
 

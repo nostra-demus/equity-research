@@ -40,14 +40,19 @@ Capture `analyses/${ARGUMENTS}_<DATE>` as `<RUN_ROOT>`.
 
 ## 4. Resolve cross-module paths (business-model AND earnings)
 
-This module declares `depends_on: [business-model, earnings]`: the peer set + segment-map come from `business-model/08_competitive-map.md` and `03_segment-map.md`, while the subject's next-filing basis and its own management claims (for the read-through target and the narrative triangulation) come from `earnings/*`. Resolve BOTH upstream folders — prefer THIS run's date, else the latest prior-dated run (and then state "using prior-run <module> dated X"):
+This module declares `depends_on: [business-model, earnings]`: the peer set + segment-map come from `business-model/08_competitive-map.md` and `03_segment-map.md`, while the subject's next-filing basis and its own management claims (for the read-through target and the narrative triangulation) come from `earnings/*`. Resolve BOTH upstream folders — prefer THIS run's date, else the latest prior-dated run (and then state "using prior-run <module> dated X"). **Select only a COMPLETED dependency** — a folder whose `99_<module>-synthesis.md` exists and is non-empty. A same-day folder that was created but stopped before writing its synthesis must NOT be picked ahead of the latest completed prior run (choosing the empty folder loses the peer map / segment weights / earnings basis and forces degraded-run caps unnecessarily):
 
 ```
-ls -1d analyses/${ARGUMENTS}_*/business-model/ 2>/dev/null | sort -r | head -n 1
-ls -1d analyses/${ARGUMENTS}_*/earnings/ 2>/dev/null | sort -r | head -n 1
+# newest-first, but skip any folder whose module synthesis is missing/empty
+for d in $(ls -1d analyses/${ARGUMENTS}_*/business-model/ 2>/dev/null | sort -r); do
+  [ -s "${d}99_business-model-synthesis.md" ] && { echo "$d"; break; }
+done
+for d in $(ls -1d analyses/${ARGUMENTS}_*/earnings/ 2>/dev/null | sort -r); do
+  [ -s "${d}99_earnings-synthesis.md" ] && { echo "$d"; break; }
+done
 ```
 
-Capture the results as `<BUSINESS_MODEL_PATH>` and `<EARNINGS_PATH>`. Set either to `not available` if its command returns empty.
+Capture the results as `<BUSINESS_MODEL_PATH>` and `<EARNINGS_PATH>`. Set either to `not available` if its loop prints nothing (no completed run of that dependency exists yet).
 
 Build the cross-module context string by joining one labelled sentence per resolved dependency (the exact format `frameworks/MODULE_PIPELINE.md` expects — the dependency name, first letter capitalised):
 

@@ -88,8 +88,8 @@ State what share of the subject's revenue / segments / geographies the reporting
 
 | Requirement | Available? (Y/N) | Detail |
 |---|---|---|
-| ≥1 competitor transcript in the pool | | |
-| ≥2 competitor transcripts (dispersion possible) | | |
+| ≥1 usable competitor call (verbatim transcript OR permitted broker paraphrase, G5) | | |
+| ≥2 distinct peer companies with verbatim transcripts (dispersion possible) | | |
 | ≥1 peer reported the comparable window (read-through possible) | | |
 | Peer set anchored by competitive-map | | (else self-selected — cap) |
 | Subject's next-filing basis known | | |
@@ -99,7 +99,7 @@ State what share of the subject's revenue / segments / geographies the reporting
 
 | Trigger | Applies? (Y/N) | Cap |
 |---|---|---|
-| No peer transcripts at all | | Insufficient — read-through/triangulation Not assessable |
+| No usable call at all — no verbatim transcript AND no permitted broker paraphrase (G5) | | Insufficient — read-through/triangulation Not assessable. (A broker-paraphrase-only pool is Partial, NOT this row — consistent with the sufficiency rule.) |
 | Only one peer transcript | | Read-through weight Low; dispersion Not assessable |
 | No peer reported the comparable window | | Current-window read-through Not assessable |
 | Dominant subject exposure uncovered by any peer | | That exposure's read-through Not assessable; net weight capped |

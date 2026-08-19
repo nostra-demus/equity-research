@@ -28,7 +28,10 @@ You DO NOT:
 
 # DEPENDENCIES
 
-If `01` is missing, note it and re-read the transcripts directly (degraded). If fewer than two peers have extracted claims, build the single-peer matrix and mark dispersion *Not assessable* (needs ≥2 peers — MODULE_RULES cap).
+If `01` is missing, note it and re-read the transcripts directly (degraded). Match the eligible-peer count explicitly — "fewer than two" is two different cases:
+- **Zero** eligible peers (`01` returned Insufficient — no usable call): emit an **empty matrix**, mark every dimension and dispersion *Not assessable*, and report the coverage gap. Do NOT invent a peer, a column, or a cell.
+- **Exactly one** eligible peer: build the single-peer matrix and mark dispersion *Not assessable* (needs ≥2 peers — MODULE_RULES cap).
+- **Two or more:** the full matrix with per-cohort consensus/dispersion.
 
 # WORKFLOW
 
@@ -59,8 +62,9 @@ Rows = dimensions; columns = peers. Each cell = the peer's management signal + n
 | Market-share claim | | | |
 | Guidance direction | | | |
 | Capital return | | | |
+| Biggest risk named | | | |
 
-Mark a cell `— (window: {native}, does not align to {common window})` where G1 alignment is imperfect, and `— (scope: {geo/segment/tier})` where the peer's scope differs. Empty where the peer did not address the dimension.
+The **Biggest risk named** row is required (it is one of `01`'s fixed dimensions, and the self-check demands every extracted claim survive): carry each peer's single biggest management-named risk so a peer's load-bearing *disconfirming* signal reaches `03`'s read-through and the module's killer-risk / rejection tests (§8) rather than being dropped at this layer. Mark a cell `— (window: {native}, does not align to {common window})` where G1 alignment is imperfect, and `— (scope: {geo/segment/tier})` where the peer's scope differs. Empty where the peer did not address the dimension.
 
 ## 2. Consensus & Dispersion (per dimension)
 
@@ -71,6 +75,7 @@ For each dimension, report **per matched window/scope cohort** (never pooled acr
 - **Input costs:** ...
 - **Margin:** ...
 - **Guidance:** ...
+- **Biggest risk named:** the risk(s) peers flagged on the shared market — carried forward to `03` and the §8 disconfirmation register, not dropped here.
 - (etc. for each dimension addressed)
 
 ## 3. Alignment & Scope Notes
@@ -86,7 +91,7 @@ For each dimension, report **per matched window/scope cohort** (never pooled acr
 - [ ] Window mismatches are flagged on the cell (G1); no mismatched-window figures are presented as one comparable series.
 - [ ] Scope tags are carried (G3); comparisons prefer ratios (G4).
 - [ ] Consensus/dispersion are computed WITHIN matched window/scope cohorts, never pooled across mismatched windows (G1) or scopes (G3); a cross-cohort pooling is marked Not assessable. Each cohort with ≥2 peers has a consensus line (or an explicit "Mixed — no consensus") AND either a named outlier with quote + number or an explicit "No material outlier"; no split is forced into a false consensus and no outlier is manufactured; <2-peer cohorts are Not assessable.
-- [ ] Every quote/number traces to `01` (and thus to a transcript, §5) — nothing invented.
+- [ ] Every quote/number traces **through `01` to its cited pool source** (§5) — a transcript for management commentary, or the peer's results release where `01` sourced a reported figure from the release (its release-first rule). The check is "traces to the cited source", NOT "traces to a transcript" — do not reattribute a release-sourced official number to the weaker call. Nothing invented.
 - [ ] No banned phrases (MODULE_RULES) — no bare "peers are cautious" without a named peer + quote + number.
 
 # CHAT CONFIRMATION
