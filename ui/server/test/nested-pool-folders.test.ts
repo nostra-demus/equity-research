@@ -67,6 +67,10 @@ try {
   fs.linkSync(path.join(dirY, 'orig.txt'), path.join(dirY, 'dup.txt'))
   hardlinkMade = true
 } catch { /* filesystem without hard-link support — the two files below simply won't exist */ }
+// (6) NESTED external/ segment (review round 2): extract_pool.py's _is_external_rel treats "external" as an
+//     external marker at ANY path segment, not just data/<T>/external/. A doc under Archive/external/... must
+//     be excluded from the research pool entirely — never counted, never able to satisfy filing readiness.
+writeY('Archive/external/provider/Nested_External_Annual_FY23.pdf')
 
 async function main() {
   const status = await analyzeTicker('TESTX')
@@ -164,9 +168,18 @@ async function main() {
   await check('TESTY fileCount excludes _pool_extracts + hard links (dot-dir filing + 2 calls counted)', () => {
     // .archive/Legacy_Annual + Calls A/call + Calls B/call = 3 ; the 2 _pool_extracts files contribute 0.
     // When hard links were made, orig.txt + dup.txt are both excluded (nlink=2) → 3. When the FS refused
-    // links, orig.txt is a normal nlink=1 file and is legitimately counted → 4.
+    // links, orig.txt is a normal nlink=1 file and is legitimately counted → 4. The nested Archive/external/
+    // filing contributes 0 either way (excluded, not routed to listExternalFiles — that only owns the
+    // ticker-root external/).
     const expected = hardlinkMade ? 3 : 4
     assert.equal(statusY.fileCount, expected, `expected ${expected}, got ${statusY.fileCount}`)
+  })
+
+  await check('(6) a filing under a NESTED external/ segment is excluded entirely — any depth, not just top-level', () => {
+    assert.equal(byPathY('Archive/external/provider/Nested_External_Annual_FY23.pdf'), undefined,
+      'nested Archive/external/... filing is not listed as a pool document')
+    assert.ok(!statusY.files.some((f) => (f.path ?? f.filename).includes('Nested_External_Annual_FY23')),
+      'not present under any path, and not routed to external_data either (that lane owns only the ticker-root external/)')
   })
 }
 

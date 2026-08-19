@@ -620,13 +620,19 @@ function listPoolFiles(tickerDirRaw: string): string[] {
     // writes it into every written-back "Memos …"/dossier folder). Matches extract_pool.py exactly.
     const isOutputDir = fs.existsSync(path.join(absDir, '.nostradamus_output'))
     for (const name of names) {
-      if (relDir === '' && name === 'external') continue // provenance-aware listExternalFiles owns external/
       const abs = path.resolve(absDir, name)
       if (!abs.startsWith(root + path.sep)) continue
       let st: fs.Stats
       try { st = fs.lstatSync(abs) } catch { continue }
       if (st.isSymbolicLink()) continue // never follow a symlink (extractor: followlinks=False)
       if (st.isDirectory()) {
+        // A directory named "external" — at ANY depth, not just the ticker root — is owned by the
+        // provenance-aware listExternalFiles (top-level only) or simply excluded from the research pool
+        // when nested deeper. Matches extract_pool.py's _is_external_rel: "external" as any path segment
+        // before the filename marks the whole subtree external, not just data/<T>/external/ (Codex parity
+        // finding, PR #457 review round 2) — a nested Archive/external/provider/doc.pdf must never satisfy
+        // filing readiness the way a real top-level filing does.
+        if (name === 'external') continue
         // Descend into EVERY real subfolder, including dot-prefixed ones (".archive/"): the extractor's
         // os.walk descends into all non-symlink dirs and skips a document only by its OWN basename. Pruning
         // a dot-DIRECTORY here made the cockpit miss filings the orbs read — the exact disagreement this PR
