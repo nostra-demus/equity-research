@@ -44,7 +44,8 @@ You DO NOT:
 
 - **Sufficient:** a proxy/compensation disclosure (or equivalent) AND ownership data AND board/related-party disclosure are available, plus a multi-year capital-allocation history — so all six specialists can run.
 - **Partial:** filings are present and at least management track record and capital allocation can be assessed, but one or more of {proxy/comp, ownership/insider data, board disclosure} is missing. State which partial-data caps and score caps from `MODULE_RULES.md` will apply.
-- **Insufficient:** no governance disclosure at all (no proxy, no ownership, no board, no management discussion) — stewardship cannot be assessed.
+- **Insufficient:** no governance disclosure at all (no proxy, no ownership, no board, no management discussion) AND the entity-discovery sources (company website, registry, trademark register, registered-address lookup) are ALSO unreachable — nothing for any specialist, including `07`'s entity-only fallback, to run on.
+- **No board/KMP disclosure but entity-discovery sources reachable — this is Partial, never Insufficient.** `fail_fast` on this verdict would abort the whole module before layer 1, which would stop `07` before it ever reaches its own PARTIAL-DATA RULE (mark the PERSON side Insufficient Data, but still run the ENTITY recipes D-1/D-2/D-3/D-4/D-5 — a missing board roster does not stop lineage, brand-owner and address discovery). So: when governance disclosure is absent but the company website, corporate registry, trademark register, or address lookup can be reached, verdict is **Partial**, state "PERSON side: Insufficient Data (no board/KMP disclosure); ENTITY discovery proceeds on the reachable sources" as the active partial-data cap, and let the module run — `07` applies its own caps for the entity-only path, `05`/`03`/`04` apply their own Not-Assessable caps for the missing person-level inputs.
 
 # REPORT STRUCTURE
 
