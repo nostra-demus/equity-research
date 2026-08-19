@@ -4601,6 +4601,27 @@ await check('expireBacklog: a re-deferred item keeps its original residence stam
   assert.deepEqual(expired.map((i) => i.event_id), ['EVT-waiting'], 'so it still ages out on schedule')
 })
 
+await check('a REDELIVERED aged item is expired on the fresh path (deferred_at only) — a genuinely-new item with an old PUBLICATION date is not', () => {
+  // The cycle composes preserveResidence -> expireBacklog(fresh, {requireDeferredStamp:true}) exactly as
+  // below. Before the fix, a redelivered aged item entered `fresh`, its id was in freshIds, so the `carried`
+  // filter dropped its backlog copy and it never reached expireBacklog(carried) — it lived in the fresh pool
+  // forever, consuming a fresh-reserved slot every cycle a source re-served it. It must now be retired here.
+  // Crucially the fresh path must expire on the RESIDENCE clock ONLY: a genuinely-new item legitimately
+  // carries an old found_at (a gov-data item published three weeks ago, discovered today) and must survive —
+  // expiring the fresh path by found_at would re-introduce the publication-date deletion migrateDeferred
+  // exists to prevent. Expected values pinned to that rule, not to code. (Codex #453 — redelivery-expiry.)
+  const now = new Date('2026-08-16T10:00:00Z')
+  const backlog = [{ ...queueItem({ event_id: 'EVT-redelivered' }), deferred_at: '2026-08-13T00:00:00Z' }] // 3d old residence
+  const rawFresh = [
+    queueItem({ event_id: 'EVT-redelivered' }),                                   // re-served by the source this cycle
+    { ...queueItem({ event_id: 'EVT-newbie' }), found_at: '2026-07-26T00:00:00Z' }, // brand new, but 3-week-old PUBLICATION date
+  ]
+  const fresh = preserveResidence(rawFresh, backlog) // EVT-redelivered now carries the 08-13 residence stamp
+  const { live, expired } = expireBacklog(fresh, now, 48 * 3_600_000, { requireDeferredStamp: true })
+  assert.deepEqual(expired.map((i) => i.event_id), ['EVT-redelivered'], 'the aged redelivered item is retired before it can re-enter the queue')
+  assert.deepEqual(live.map((i) => i.event_id), ['EVT-newbie'], 'a genuinely-new item is untouched — the fresh path never expires on found_at')
+})
+
 await check('runIngestCycle: a backlog that waited past the age bound is retired unscored, counted, and named in the note', async () => {
   resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
   const root = tmp(), state = tmp()

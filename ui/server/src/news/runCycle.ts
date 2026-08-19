@@ -233,6 +233,7 @@ export function expireBacklog(
   items: NewsItem[],
   now: Date,
   maxAgeMs: number = DEFERRED_MAX_AGE_MS,
+  opts: { requireDeferredStamp?: boolean } = {},
 ): { live: NewsItem[]; expired: NewsItem[] } {
   const live: NewsItem[] = []
   const expired: NewsItem[] = []
@@ -242,7 +243,14 @@ export function expireBacklog(
     // FDA report date under a 21-day lookback (config govDataLookbackDays), so keying on it retired items
     // discovered minutes ago, unscored, on their first deferral. `deferred_at` is stamped when an item
     // first enters the backlog; `found_at` is the fallback for rows written before that field existed.
-    const t = Date.parse(String(it?.deferred_at || it?.found_at || ''))
+    //
+    // requireDeferredStamp: expire ONLY on the deferred_at residence clock, never the found_at fallback.
+    // The FRESH path carries genuinely-new items whose found_at is a publication date (a gov-data item can be
+    // three weeks old yet discovered today), so keying the fresh path on found_at would re-introduce the very
+    // publication-date deletion migrateDeferred exists to prevent — only a REDELIVERED item, which carries a
+    // preserved deferred_at from preserveResidence, is eligible for expiry there.
+    const stamp = opts.requireDeferredStamp ? it?.deferred_at : (it?.deferred_at || it?.found_at)
+    const t = Date.parse(String(stamp || ''))
     if (Number.isFinite(t) && at - t > maxAgeMs) expired.push(it)
     else live.push(it)
   }
@@ -636,7 +644,15 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const carried = backlogRows.filter((d) => d?.event_id && !freshIds.has(d.event_id) && !seen.has(d.event_id))
   // Retire the part of the backlog that can no longer reach the 2-day wire, BEFORE it competes for a slot.
   // Reported, never silent: an aged-out item is a real loss, exactly like the dropped_at_cap tail.
-  const { live: requeued, expired: backlogExpired } = expireBacklog(carried, nowDate)
+  const { live: requeued, expired: carriedExpired } = expireBacklog(carried, nowDate)
+  // A REDELIVERED aged item is NOT in `carried` — its event_id is in freshIds, so the filter above dropped
+  // the carried copy — so it would bypass expiry entirely and live in the fresh pool forever, restarting
+  // nothing (preserveResidence kept its clock) but never retiring, consuming a fresh-reserved slot every
+  // cycle a source re-serves it. Expire it here too, but ONLY on its preserved deferred_at
+  // (requireDeferredStamp) — never found_at — so a genuinely-new item with an old publication date is
+  // untouched. (Codex #453 — redelivered rows must be expired before fresh classification.)
+  const { live: freshLive, expired: freshExpired } = expireBacklog(fresh, nowDate, DEFERRED_MAX_AGE_MS, { requireDeferredStamp: true })
+  const backlogExpired = [...carriedExpired, ...freshExpired]
   if (backlogExpired.length) {
     log(`backlog: ${backlogExpired.length} item${backlogExpired.length === 1 ? '' : 's'} retired — waited longer than ${Math.round(DEFERRED_MAX_AGE_MS / 3_600_000)}h behind the queue; never scored`)
   }
@@ -646,7 +662,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // today's news out of the wire. Whatever the budget can't reach this cycle defers to the next — never
   // lost, but now the tail that defers is the low-priority tail of each pool, not a random one, and never
   // the whole of one pool. (rank.ts preTriagePriority; buildTriageQueue above.)
-  const items = buildTriageQueue(requeued, fresh, nowDate)
+  const items = buildTriageQueue(requeued, freshLive, nowDate)
 
   if (!items.length) {
     // saveDeferred keeps the last-good file and returns false when the write fails (ENOSPC, permissions, a
@@ -655,7 +671,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // inflating retiredToday without bound behind a gauge that read "caught up".
     const cleared = saveDeferred(stateDir, [], log) // any stale spillover was consumed by the filters above
     const summary: CycleSummary = {
-      ...blank, ok: true, fetched: raws.length, fresh: fresh.length, carryover: requeued.length,
+      ...blank, ok: true, fetched: raws.length, fresh: freshLive.length, carryover: requeued.length,
       backlog: cleared ? 0 : carried.length, backlog_cap: DEFERRED_CAP,
       ...(cleared ? {} : { deferred_write_failed: true }),
       // a cycle whose whole queue was the expired backlog still has to REPORT the retirement — this is
@@ -1580,7 +1596,12 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     : baseNote
   // Same honesty for the age boundary: a retired item was never scored and never will be. Reported even on
   // a cycle that deferred nothing, because that is exactly the cycle whose note would otherwise read clean.
-  const coreNote = backlogExpired.length > 0
+  // Count retirement ONLY once the backlog write durably removed the expired rows. On a failed deferred
+  // write (ENOSPC / permissions / rename) saveDeferred keeps the last-good file, so the expired rows are
+  // still on disk and will be re-loaded, re-expired and re-counted next cycle — reporting them RETIRED now
+  // double-counts the same loss into retiredToday every cycle until the disk recovers. Same gate the
+  // expired-only branch already applies with `cleared`. (Codex #453 — ordinary-cycle summary.)
+  const coreNote = backlogExpired.length > 0 && deferredPersisted
     ? `${capNote ? `${capNote} · ` : ''}${backlogExpired.length} backlog item${backlogExpired.length === 1 ? '' : 's'} RETIRED unscored — waited longer than ${Math.round(DEFERRED_MAX_AGE_MS / 3_600_000)}h behind the queue`
     : capNote
   // Surface a down PRIMARY brain even when the fallback coped and nothing deferred: the operator wants to know the
@@ -1614,11 +1635,11 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     picked, watched, dropped, inboxed, groq_requests: groqRequests, groq_tokens: groqTokens,
     // end-to-end transparency: split the read balloon (fresh vs re-queued backlog), and always carry the
     // backlog depth + its loss boundary + the fallback's state so the cockpit never has to infer them.
-    fresh: fresh.length, carryover: requeued.length,
+    fresh: freshLive.length, carryover: requeued.length,
     ...(defCount ? { deferred: defCount } : {}),
     backlog: Math.min(defCount, DEFERRED_CAP), backlog_cap: DEFERRED_CAP,
     ...(droppedAtCap ? { dropped_at_cap: droppedAtCap } : {}),
-    ...(backlogExpired.length ? { backlog_expired: backlogExpired.length } : {}),
+    ...(backlogExpired.length && deferredPersisted ? { backlog_expired: backlogExpired.length } : {}),
     ...(deferredPersisted ? {} : { deferred_write_failed: true }),
     ...(aborted ? { aborted: true } : {}),
     ...(deferReason ? { defer_reason: deferReason } : {}),
