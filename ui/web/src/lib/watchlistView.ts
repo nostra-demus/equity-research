@@ -91,21 +91,61 @@ export function triggerTarget(t: WatchTrigger): { value: number; currency: strin
   return null
 }
 
-/** The nearest trigger's target — the one the "still to move" figure is measured against. */
-export function nearestTarget(row: WatchRow): { value: number; currency: string; how: string } | null {
-  // `!= null` lets a NaN through, and a NaN difference makes the comparator inconsistent — which V8 does
-  // not error on, it just returns an arbitrary order. Require a finite number instead of merely a present
-  // one, so the "nearest" trigger is actually the nearest rather than whichever the sort happened to leave.
+/**
+ * The nearest PRICE-family trigger eval — the one both the target and the "still to move" distance are read
+ * off, so they can never name two different triggers.
+ *
+ * `!= null` lets a NaN through, and a NaN difference makes the comparator inconsistent — which V8 does not
+ * error on, it just returns an arbitrary order. Require a finite number instead of merely a present one, so
+ * the "nearest" trigger is actually the nearest rather than whichever the sort happened to leave. A dated
+ * trigger has a null `gap_pct` (its distance is days, not a price move) and is excluded here on purpose.
+ */
+function nearestPriceEval(row: WatchRow): WatchTriggerEval | null {
   const scored = (row.evals ?? [])
     .filter((e) => Number.isFinite(e.gap_pct as number))
     .sort((a, b) => Math.abs(a.gap_pct as number) - Math.abs(b.gap_pct as number))
-  const first = scored[0]
+  return scored[0] ?? null
+}
+
+/** The nearest trigger's target — the one the "still to move" figure is measured against. */
+export function nearestTarget(row: WatchRow): { value: number; currency: string; how: string } | null {
+  const first = nearestPriceEval(row)
   if (!first) return null
   // Prefer the server's own figure: it is the number the trigger was evaluated against, so the panel and
   // the trigger line can never quote two different prices for one threshold.
   if (first.target) return { value: first.target.value, currency: first.target.currency, how: first.target.basis }
   const t = (row.triggers ?? []).find((x) => x.trigger_id === first.trigger_id)
   return t ? triggerTarget(t) : null
+}
+
+/**
+ * "Still to move" — the distance to the SAME trigger `nearestTarget` names, so the panel's target and its
+ * distance can never describe two different triggers.
+ *
+ * The trap this closes: `distanceLabel`/`rowDistance` read `row.nearest`, which the server ranks across
+ * units (a price gap AND a day-count together via `urgencyRank`), so on a row carrying both a price alert
+ * and a nearer dated trigger it returns the DATE — while `nearestTarget` returns the PRICE target. Pairing
+ * the two then reads "2d — to that target", a day-count mislabelled as movement to a price (§15: a distance
+ * travels with its unit; there is no exchange rate between days and percent). This measures against the
+ * nearest price target when there is one, and degrades honestly otherwise — never "nothing measurable"
+ * while a real day-distance exists.
+ */
+export function stillToMove(row: WatchRow): { label: string; caption: string } {
+  if (row.state === 'condition_met') return { label: 'FIRED', caption: 'already there' }
+  const first = nearestPriceEval(row)
+  // `first && nearestTarget(row)`: a price target exists AND is the nearest measurable trigger. Show the
+  // signed gap to it (formatted exactly like `distanceLabel`'s percent branch) — this is what "still to
+  // move to that target" means.
+  if (first && nearestTarget(row)) {
+    const g = first.gap_pct as number
+    const sign = g > 0 ? '+' : g < 0 ? '−' : ''
+    return { label: `${sign}${Math.abs(g)}%`, caption: 'to that target' }
+  }
+  // No price target: the nearest thing is a date (show its day-distance) or nothing at all.
+  const d = rowDistance(row)
+  if (d?.unit === 'days') return { label: distanceLabel(row), caption: 'until it comes due' }
+  if (d) return { label: distanceLabel(row), caption: 'to the nearest trigger' }
+  return { label: '—', caption: 'nothing measurable' }
 }
 
 /** Fired first, then nearest, then everything unmeasurable — ties broken by ticker so the grid is stable. */

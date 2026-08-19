@@ -8,7 +8,7 @@ import { useStore } from '../../lib/store'
 import { api } from '../../lib/api'
 import { ABSENT_PRICE_COPY, decisionColor, money, shortDay } from '../../lib/format'
 import type { WatchRow, WatchTriggerEval } from '../../lib/types'
-import { absenceReason, distanceLabel, nearestTarget } from '../../lib/watchlistView'
+import { absenceReason, nearestTarget, stillToMove } from '../../lib/watchlistView'
 
 /** A trigger's chip state — the same three-valued vocabulary the table uses, so the two views agree. */
 function chipClass(e: WatchTriggerEval): string {
@@ -179,11 +179,18 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
               </>
             )}
           </div>
-          <div className="wdet__fact">
-            <span className="wdet__factlabel">Still to move</span>
-            <span className={`wdet__factval${row.state === 'condition_met' ? ' wdet__factval--met' : ''}`}>{distanceLabel(row)}</span>
-            <span className="wdet__factnote">{target ? 'to that target' : 'nothing measurable'}</span>
-          </div>
+          {/* Distance AND caption are read off the same trigger `target` names (stillToMove), so the panel
+              can never pair the day-count of a nearer dated trigger with the price target shown above. */}
+          {(() => {
+            const move = stillToMove(row)
+            return (
+              <div className="wdet__fact">
+                <span className="wdet__factlabel">Still to move</span>
+                <span className={`wdet__factval${row.state === 'condition_met' ? ' wdet__factval--met' : ''}`}>{move.label}</span>
+                <span className="wdet__factnote">{move.caption}</span>
+              </div>
+            )
+          })()}
         </div>
       </section>
 
