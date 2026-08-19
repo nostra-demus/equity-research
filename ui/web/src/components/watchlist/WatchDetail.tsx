@@ -90,8 +90,12 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
             <span className="wdet__factlabel">Price now</span>
             {row.quote ? (
               <>
-                <span className="wdet__factval">{money(row.quote.currency, row.quote.price)}</span>
-                {/* only the QUALIFIER — the unqualified case repeated the label back ("Price now" twice) */}
+                {/* The number alone. The currency is stated once in the header line above, and repeating it
+                    inside each of the three figures is both redundant and expensive: "USD 369.45" does not
+                    fit an 83px column at this size, so the one value meant to stand out was the only one
+                    that wrapped. A price trigger in a different currency from the quote is refused as
+                    not_evaluable upstream, so within a row these figures always share the header's unit. */}
+                <span className="wdet__factval">{row.quote.price.toFixed(2)}</span>
                 <span className="wdet__factnote">{row.quote.as_of_is_close ? 'last close' : 'live'}</span>
               </>
             ) : (
@@ -107,7 +111,7 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
             <span className="wdet__factlabel">Nearest target</span>
             {target ? (
               <>
-                <span className="wdet__factval">{money(target.currency, target.value)}</span>
+                <span className="wdet__factval">{target.value.toFixed(2)}</span>
                 <span className="wdet__factnote">{target.how}</span>
               </>
             ) : (

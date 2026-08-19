@@ -3519,16 +3519,25 @@ a { color: inherit; }
 .wdet__sec { border-top: 1px solid var(--hairline); padding-top: 9px; }
 .wdet__seclabel { font-size: 9.5px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-faint); margin: 0 0 6px; }
 /* The three numbers that answer "where is it, where do I want it, how far" — equal billing, each labelled. */
-.wdet__facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; align-items: start; }
-.wdet__fact { display: flex; flex-direction: column; min-width: 0; }
-.wdet__factlabel { font-size: 9.5px; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); }
+/* Three columns whose LABEL, VALUE and NOTE each share a baseline. Each fact used to be its own flex
+   column, so a label that wrapped to two lines ("Nearest target") pushed its value down while the others
+   stayed put — the three figures then sat at three different heights and the row stopped reading as a row.
+   Subgrid makes the child inherit the parent's three rows, so alignment holds however any cell wraps. */
+.wdet__facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: auto auto auto; gap: 3px 10px; }
+.wdet__fact { display: grid; grid-row: span 3; grid-template-rows: subgrid; row-gap: 0; min-width: 0; }
+.wdet__factlabel { font-size: 9.5px; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); line-height: 1.3; align-self: start; }
 /* A price must never be shown truncated: "USD 370.…" is not a number anyone can act on, and an ellipsis
    on a figure reads as data loss rather than a layout compromise. So the value wraps its currency onto a
    second line if it has to, and the column is allowed to be narrow rather than the number cut short. */
-.wdet__factval { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 13.5px; font-weight: 600; margin-top: 2px; overflow-wrap: anywhere; }
+.wdet__factval { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 13px; font-weight: 600; color: var(--text-muted); align-self: start; margin-top: 2px; overflow-wrap: anywhere; }
+/* The live price is the fact the whole panel is anchored on — what the target and the distance are both
+   measured against — so it carries full brightness and a step of size, and the two derived figures step
+   down to muted. Emphasis by weight and brightness rather than hue: the accent is already spent on the
+   ticker above and on the fired state, and a third meaning would make all three mean less. */
+.wdet__fact:first-child .wdet__factval { font-size: 16px; color: var(--text); }
 .wdet__factval--met { color: var(--accent-bright); }
 .wdet__factval--none { color: var(--text-faint); font-weight: 400; }
-.wdet__factnote { font-size: 9.5px; color: var(--text-faint); margin-top: 1px; line-height: 1.35; overflow-wrap: anywhere; }
+.wdet__factnote { font-size: 9.5px; color: var(--text-faint); margin-top: 2px; line-height: 1.35; align-self: start; overflow-wrap: anywhere; }
 /* the trigger row: its own target and basis, and its distance — never a restatement of the facts above */
 .wdet__trigterms { display: flex; flex-direction: column; min-width: 0; }
 .wdet__trigtarget { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12px; color: var(--text); }
