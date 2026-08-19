@@ -44,7 +44,8 @@ You DO NOT:
 
 - **Sufficient:** a proxy/compensation disclosure (or equivalent) AND ownership data AND board/related-party disclosure are available, plus a multi-year capital-allocation history — so all six specialists can run.
 - **Partial:** filings are present and at least management track record and capital allocation can be assessed, but one or more of {proxy/comp, ownership/insider data, board disclosure} is missing. State which partial-data caps and score caps from `MODULE_RULES.md` will apply.
-- **Insufficient:** no governance disclosure at all (no proxy, no ownership, no board, no management discussion) — stewardship cannot be assessed.
+- **Insufficient:** no governance disclosure at all (no proxy, no ownership, no board, no management discussion) AND the entity-discovery sources (company website, registry, trademark register, registered-address lookup) are ALSO unreachable — nothing for any specialist, including `07`'s entity-only fallback, to run on.
+- **No board/KMP disclosure but entity-discovery sources reachable — this is Partial, never Insufficient.** `fail_fast` on this verdict would abort the whole module before layer 1, which would stop `07` before it ever reaches its own PARTIAL-DATA RULE (mark the PERSON side Insufficient Data, but still run the ENTITY recipes D-1/D-2/D-3/D-4/D-5 — a missing board roster does not stop lineage, brand-owner and address discovery). So: when governance disclosure is absent but the company website, corporate registry, trademark register, or address lookup can be reached, verdict is **Partial**, state "PERSON side: Insufficient Data (no board/KMP disclosure); ENTITY discovery proceeds on the reachable sources" as the active partial-data cap, and let the module run — `07` applies its own caps for the entity-only path, `05`/`03`/`04` apply their own Not-Assessable caps for the missing person-level inputs.
 
 # REPORT STRUCTURE
 
@@ -119,16 +120,45 @@ You DO NOT:
 | No contingent-liability note | | 10, 99 | CL read limited to the auditor's report |
 | No auditor-fee / audit-detail disclosure | | 08, 99 | A4-06/07 Not Available with reason |
 | Under 2 years of financials | | 11, 99 | Beneish/Dechow battery not computable — single-year checks only |
-| Web/database sweep unavailable this run | | 07, 12, 99 | dossiers & legal sweep "coverage-limited"; People integrity max 65; confidence capped |
+| Web/database sweep unavailable this run | | 07, 12, 99 | dossiers & legal sweep "coverage-limited"; People & network integrity max 65; confidence capped |
+| No company website (D-1 unreachable), other discovery sources available | | 07 | Discovery loop RUNS on the surviving recipes — D-2 founding-year, D-3 previous names, D-4 trademark, D-5 address cluster, D-8 past directorships. Record D-1 unavailable on its own line with a proportionate confidence note. NOT A17-01 Insufficient Data, and no discovery cap on this ground alone |
+| Discovery loop cannot run at all — no company website AND the registry, trademark and address sources all unreachable | | 07, 99 | A17-01 Insufficient Data, naming what failed; People & network integrity max 60; confidence max 75; the seed roster is swept anyway and reported as a statement about the filings, not about the company |
 
-## 5E. Person Register (feeds 07 — Hard Rule)
+## 5E. Person & Entity Register (feeds 07 — Hard Rule)
 
-Enumerate EVERY named individual from the pool — each board director, each KMP (CEO, CFO, COO, Company Secretary, officers named in filings), each promoter-group individual with ≥1% holding or an operating role. `07_people-integrity-dossiers` iterates this register; a person missed here is a person never checked.
+This is the SEED for `07`'s discovery loop, not the finished roster. You read the filings; the filings list who and what the company chose to list. `07` expands from here per the Entity & Network Discovery Protocol (MODULE_RULES) — your job is to hand it every name and every anchor the pool already contains, so it starts warm.
 
-| # | Name | Identifier (DIN / registry ID, if disclosed) | Role | Category (Director / KMP / Promoter individual) | Source (filing + section) |
+### 5E.1 Person Register
+
+Enumerate EVERY named individual from the pool — each board director, each KMP (CEO, CFO, COO, Company Secretary, officers named in filings), each promoter-group individual with ≥1% holding or an operating role. Include **former** directors and KMP named anywhere in the pool (resignation announcements, prior-year filings, signatory pages) with a `Former` category — a person who left before the current snapshot is exactly who a check is looking for.
+
+| # | Name | Identifier (DIN / registry ID, if disclosed) | Role | Category (Director / KMP / Promoter individual / Former) | Source (filing + section) |
 |---|---|---|---|---|---|
 
 If a role is known to exist but the person is unnamed in the pool (e.g., no CS named), add a row with "UNNAMED — {role}" so 07 records the gap instead of skipping it.
+
+### 5E.2 Entity Register
+
+Enumerate every ENTITY the pool names: subsidiaries, associates, JVs, promoter-group companies, RPT counterparties, and any predecessor or group entity mentioned. Mark each `filing-supplied`.
+
+| # | Entity | Registry identifier (CIN / company number), if disclosed | Relationship as disclosed | Source (filing + section) |
+|---|---|---|---|---|
+
+### 5E.3 Company identity & lineage anchors (feeds 07's discovery loop)
+
+Record these from the pool — they are what `07`'s recipes D-1 … D-5 start from. Leave a cell "not in pool" rather than guessing; `07` will fetch it.
+
+| Anchor | Value | Source |
+|---|---|---|
+| Registry identifier (CIN / company number / CIK) | | |
+| Incorporation date | | |
+| Any founding year the company CLAIMS (annual report cover, MD&A, "since 19xx") | | |
+| Former names, if disclosed anywhere in the pool | | |
+| Company website URL | | |
+| Principal brand / product names the company trades under | | |
+| Registered-office address | | |
+
+A **claimed founding year that predates the incorporation date** is flagged here in one line as a LEAD — it means a predecessor entity MAY exist (a truthfully-cited group or parent history does not), and `07` runs the D-2 test to confirm or reconcile it (A17-02). Do not assert a predecessor exists at this triage step; that conclusion is `07`'s to make once lineage evidence identifies it.
 
 ## 5A. Jurisdiction & Filing Regime
 
@@ -199,7 +229,8 @@ Write a source manifest to `analyses/{TICKER}_{DATE}/management-governance/sourc
 - [ ] Cross-module availability is checked against the actual filesystem.
 - [ ] Governance usability check table is fully populated (every row has Y/N).
 - [ ] Partial-data flags table is fully populated (every row has Y/N).
-- [ ] The Person Register (5E) lists every director, KMP, and promoter individual found in the pool — with an UNNAMED row for any known-but-unnamed role.
+- [ ] The Person Register (5E.1) lists every director, KMP, promoter individual, AND every former director/KMP named anywhere in the pool — with an UNNAMED row for any known-but-unnamed role.
+- [ ] The Entity Register (5E.2) lists every entity the pool names, and the lineage anchors (5E.3) are filled or explicitly marked "not in pool" — including the incorporation date and any founding year the company claims.
 - [ ] Whether `business-model/01_disqualifier-scan` flagged a hard disqualifier is noted.
 - [ ] Jurisdiction, filing regime, and sector are detected (Section 5A) so downstream agents apply the right source map and overlay.
 - [ ] Verdict matches the sufficiency rule exactly.

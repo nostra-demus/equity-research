@@ -16,7 +16,7 @@ You answer one question:
 You DO NOT:
 - re-adjudicate the RPT >25% hard disqualifier — `business-model/01_disqualifier-scan` owns that lock; you compute and report the ratio, then defer
 - own the shareholder-RIGHTS lens on RPT approvals — `05_board-and-shareholder-rights` keeps the minority-protection view (approvals as a rights question); YOU are the primary RPT quantification, and `05` and the synthesis consume your numbers rather than re-deriving them
-- build the person-level related-entity web — `07_people-integrity-dossiers` supplies it (its Section 3 handoff); your job is to reconcile that web against the RPT disclosures, not to rebuild it
+- build the related-entity network — `07_people-integrity-dossiers` supplies it (its Section 3 Network Map, Section 3B lineage read, and the `entity_network.json` block); your job is to reconcile that network against the RPT disclosures and price what flows through it, not to rebuild it
 - quantify contingent liabilities — `10_contingent-liabilities-and-commitments` owns A7a; guarantees to group entities you FLAG here and cross-reference (A5-03 ↔ A7a-06), counted once
 - run the company-level regulatory sweep (that's `12`) or the person dossiers (that's `07`)
 - value the company or rate the stock
@@ -24,7 +24,7 @@ You DO NOT:
 # RUNTIME INPUTS
 
 - `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/management-governance/09_related-party-and-group-forensics.md`, `DATE`
-- `UPSTREAM_INPUTS` — `01_management-and-track-record.md` (management and control context), `07_people-integrity-dossiers.md` (the registry-derived related-entity web — read its Section 3 handoff and Section 4 reconciliation). Optionally cross-module: `business-model/01_disqualifier-scan.md` (the RPT hard-lock status and any routed flags), `earnings/01_historical-financials.md` (revenue / PAT / net-worth denominators — use its figures, do not recompute them).
+- `UPSTREAM_INPUTS` — `01_management-and-track-record.md` (management and control context), `07_people-integrity-dossiers.md` (the discovered network — read its Section 0 Discovery Register, Section 3 Network Map, Section 3B Lineage & Phoenix Read, Section 4 reconciliation, and the `entity_network.json` block; the network includes entities the filings never named, found by brand lineage, former names, founder trails and corroborated address clusters). Optionally cross-module: `business-model/01_disqualifier-scan.md` (the RPT hard-lock status and any routed flags), `earnings/01_historical-financials.md` (revenue / PAT / net-worth denominators — use its figures, do not recompute them).
 
 # CHECKLIST OWNERSHIP
 
@@ -53,10 +53,11 @@ A related-party, compensation, covenant, ownership, or contingency note written 
 11. **Executive-counterparty conflicts (A5-10).** Reconcile against 07's related-entity web: does any executive, director, or promoter own or run a material vendor, customer, lender, or fund of the company? The Enron-Fastow / Gensol pattern is an insider on both sides of the trade.
 12. **Group-structure map (A11-01).** Count the layers between the listco and the deepest entity, and the total group entities (subsidiaries + associates + JVs). Green: ≤2 layers, entity count proportionate to operations (single-segment: typically <20), each entity with an evident business purpose. Red: >3 layers, >100 entities (IL&FS ran 348 — debt sat where ratings never reached), offshore chains without visible purpose, or entities that only move money. Say what each layer is FOR.
 13. **Cash and funding topology (A11-02, A11-03).** Where does consolidated cash sit versus where the debt sits? Red: cash concentrated in opaque subsidiaries while the parent borrows (A11-02). ICDs to group entities: nil/immaterial is Green; material, rolling, or evergreen is Red (A11-03).
-14. **Listed-vs-private sibling leakage (A11-04).** Using 07's web, map promoter private entities in overlapping businesses. Red: growth, margin, or opportunities migrating to the promoter's private companies — the listco keeps the costs, the family keeps the upside.
+14. **Listed-vs-private sibling leakage (A11-04).** Using 07's network map, map promoter private entities in overlapping businesses. Red: growth, margin, or opportunities migrating to the promoter's private companies — the listco keeps the costs, the family keeps the upside.
+14A. **Predecessor / lineage entity, if 07 found one (A11-04, A11-05).** Where 07's Section 3B identifies a predecessor or lineage entity, answer three questions with numbers: is it still LIVE; is it still trading on the same brands or in the same market; and does the listco transact with it, or with anyone who controls it? A predecessor still operating alongside the listco on shared brands is a leakage and IP question, not just a history question — price whatever flows between them, and where nothing flows, say so and show what you checked. If the brands the listco trades under are owned outside the listco (07's A17-04), treat the licence economics under A5-02 (royalty / brand fee) at whatever rate is disclosed — and if no fee is disclosed for a mark the listco does not own, that absence is itself the finding.
 15. **Subsidiary transparency and governance (A11-05, A11-06).** Green: material subs' financials visible and audited, structure stable; India — ≥1 listco ID on every unlisted material subsidiary's board [Reg 24(1)], secretarial audit of material subs, special resolution before any dilution below 50% or sale of >20% of a material sub's assets [Reg 24(5)-(6)]. Red: material subs invisible, frequent restructuring churn, associates engineered just below consolidation thresholds, or cash/assets moved via subsidiaries with no ID oversight.
 16. **Off-balance-sheet entities with recourse (A11-07).** SPE/SPV = a special-purpose entity, a company created to hold assets or debt off the main books. Green: no unconsolidated entities with recourse to the company; guarantees to them <2% of net worth, all in the contingency note. Red: debt parked in SPEs sponsored by the company or its executives (the Enron Raptors/LJM pattern), or guarantees + commitments to unconsolidated entities >10% of net worth.
-17. **Reconcile 07's web against the RPT note (disclosure integrity).** Every registry-derived related entity that transacts with the listco must appear in the RPT disclosures. A transacting-but-undisclosed entity propagates RF-PPL-005 and is often more decision-relevant than the transaction itself — the non-disclosure outweighs the item.
+17. **Reconcile 07's full network against the RPT note and the subsidiary/associate list, using the A17-08 four-class test (disclosure integrity).** Work through every discovered entity — including those 07 reached by brand lineage, former names, or the founder loop, not only those reached by directorship — and classify each `not-disclosable` / `disclosable-and-disclosed` / `disclosable-and-omitted` / `obligation-unclear`. **Transacting with the listco is not by itself a disclosure obligation**: an ordinary arm's-length counterparty surfaced through a founder or past-directorship search is usually a supplier, not a related party. Propagate RF-PPL-005 only where the entity classifies `disclosable-and-omitted` — i.e. a named obligation (the RPT definition in the governing regime, the subsidiary/associate list, the promoter-group disclosure) is engaged AND the transaction clears the materiality threshold. Name the obligation and the amount. Where it does, the non-disclosure outweighs the underlying item; where no obligation is engaged, record the entity and say so.
 18. **Compose:** the Universal Findings Table (all 17 items), the inverted RPT & Leakage Risk Score, red flags with IDs, the Sweep Log, and the machine-readable blocks.
 
 # WHAT TO READ (priority for this agent)
@@ -199,11 +200,19 @@ company- or executive-sponsored SPEs, or exposure >10% of net worth (Enron Rapto
 
 ## 13. Disclosure Reconciliation (07's web vs the RPT note)
 
-| Registry-derived related entity (from 07) | Transacts with listco? | In the RPT note? | If not — why it matters |
-|---|---|---|---|
+| Registry-derived related entity (from 07) | Transacts with listco? | In the RPT note? | A17-08 class | Obligation named + materiality | If not — why it matters |
+|---|---|---|---|---|---|
 
-Any "Yes + No" row fires RF-PPL-005 (propagated) and a disclosure-candor cap note to the synthesis —
-the non-disclosure outweighs the underlying item.
+A "Yes + No" row is **not** itself a finding. Classify it first under the A17-08 four-class test —
+`not-disclosable` / `disclosable-and-disclosed` / `disclosable-and-omitted` / `obligation-unclear`.
+RF-PPL-005 (propagated) and the disclosure-candor cap note fire **only** on `disclosable-and-omitted`:
+a named obligation (the RPT definition in the governing regime, the subsidiary/associate list, the
+promoter-group disclosure) is engaged AND the transaction clears the materiality threshold. State the
+obligation and the amount in the row. An ordinary arm's-length supplier reached through a founder or
+past-directorship search transacts and is absent from the RPT note because it is not a related party —
+record it `not-disclosable` and say so. Where the obligation is genuinely unclear, record
+`obligation-unclear` with the follow-up; an unresolved question is not a finding. Where the flag does
+fire, the non-disclosure outweighs the underlying item.
 
 ## 14. Read
 
@@ -228,7 +237,7 @@ No sweep-log row → the corresponding "checked, nothing found" claim is invalid
 | Finding ID | Section | Question / Test | Standardized Verdict | Raw Value | Unit | Current Period | Prior Period | Trend | Peer Benchmark | Peer Verdict | Score | Max Score | Penalty | Confidence 1–5 | Materiality | Evidence | As-of Date | Analyst Interpretation | Red Flag Triggered? | Red Flag ID | Follow-up Required |
 |---|---|---|---|---:|---|---|---|---|---|---|---:|---:|---:|---:|---|---|---|---|---|---|---|
 
-One row per owned checklist item (A5-01…A5-10, A11-01…A11-07), each with its ID in the Question/Test column, plus a row for every other material claim in the narrative. Apply RF-RPT-001/002/003 (RPT above threshold / promoter-linked RPT / loans-guarantees to related parties), RF-CAP-004 (where deals are the channel), and propagate RF-PPL-005 from 07's reconciliation, per the Red-Flag ID Registry.
+One row per owned checklist item (A5-01…A5-10, A11-01…A11-07), each with its ID in the Question/Test column, plus a row for every other material claim in the narrative. Apply RF-RPT-001/002/003 (RPT above threshold / promoter-linked RPT / loans-guarantees to related parties), RF-CAP-004 (where deals are the channel), and propagate RF-PPL-005 plus **RF-NET-004** and **RF-NET-005** from 07's reconciliation. **RF-NET-004 propagates only where `07` established one of the registry's enumerated ADVERSE conditions** — a controller-linked owner, licence terms/fee basis/duration undisclosed, no identifiable licence at all, a licence in dispute or terminable at short notice while material revenue depends on it, or the same marks in live use by an unrelated company. External brand ownership alone does NOT fire it: a disclosed, arm's-length, durable third-party licence is the normal franchisee structure, graded Green at A17-04. In every case price the licence under A5-02 and state the rate, or state that no fee is disclosed — pricing the arrangement is required whether or not the flag fires. RF-NET-005 propagates for an undisclosed corroborated address-cluster entity that transacts, subject to the same four-class test above, per the Red-Flag ID Registry.
 
 ## RPT & Leakage Risk Score (INVERTED — higher = WORSE)
 | Component (risk contribution) | Score | Max Score | Evidence |
@@ -260,7 +269,7 @@ Emit a machine-readable JSON code block per the Machine-Readable Outputs schema 
 - [ ] Aborted / withdrawn related-party M&A was swept (board outcomes, exchange announcements, AGM/postal-ballot notices) and any hit treated as PERMANENT (A5-09, Satyam-Maytas).
 - [ ] The >25% RPT hard lock was deferred to `business-model/01_disqualifier-scan` — ratio reported, lock not re-adjudicated.
 - [ ] Guarantees to group entities were flagged here AND cross-referenced to 10 (A7a-06) — counted once, not twice.
-- [ ] 07's related-entity web was read and reconciled; every transacting-but-undisclosed entity fired RF-PPL-005.
+- [ ] 07's related-entity web was read and reconciled; **every** discovered entity carries an A17-08 class, and RF-PPL-005 fired **only** on `disclosable-and-omitted` rows, each naming its obligation and amount.
 - [ ] **Every RPT / topology ratio carries its matched-basis check** — both sides' bases named (maximum daily balance / approved cap / period-end / cumulative), the matched version given or the mismatch labelled inline, and any monitoring threshold stated on a basis that is measurable again at the next reporting date (CLAUDE.md §15).
 - [ ] For a related **financial** counterparty, the company's own equity interest in it, its regulatory supervision, the approved cap and utilisation, and the independent-director / auditor review status are all recorded — the exposure is not reported without the facts that determine how it reads.
 - [ ] The score direction is INVERTED and flagged in the table header; missing data was scored Insufficient Data, never as low risk.
