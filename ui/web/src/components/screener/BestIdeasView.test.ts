@@ -250,7 +250,7 @@ assert.deepEqual(qualifiedIdeasRuntimeWarning(partlyMalformedQualifiedBoard), {
   title: 'Those rows could not be shown safely. Refresh the research board before relying on this list.',
 })
 assert.equal(normalizeQualifiedIdeaRow({ candidate: null }), null)
-assert.ok(normalizeQualifiedIdeaRow(qualified('row-only-defaults', 'long')), 'row-only validation uses the server tolerance defaults')
+assert.ok(normalizeQualifiedIdeaRow(qualified('row-only-defaults', 'long'), undefined, nowMs), 'row-only validation uses the server tolerance defaults')
 assert.equal(normalizeQualifiedIdeasBoard({ schema_version: 'qualified-ideas-board/v99' }).board, null)
 assert.equal(normalizeQualifiedIdeasBoard({ ...qualifiedBoard, schema_version: 'qualified-ideas-board/v2' }).board, null, 'a future board schema cannot silently widen the trusted contract')
 assert.equal(normalizeQualifiedIdeasBoard({
@@ -297,7 +297,7 @@ assert.equal(normalizeQualifiedIdeaRow(badTargetReturnRow, qualifiedBoard.policy
 
 const reorderedMetricRows = structuredClone(qualified('stable-label-match', 'long')) as unknown as QualifiedIdeaEvaluation
 reorderedMetricRows.metrics!.scenario_returns.reverse()
-assert.ok(normalizeQualifiedIdeaRow(reorderedMetricRows, qualifiedBoard.policy), 'scenario returns match by stable label rather than array index')
+assert.ok(normalizeQualifiedIdeaRow(reorderedMetricRows, qualifiedBoard.policy, nowMs), 'scenario returns match by stable label rather than array index')
 
 const legacyNoRankingRow = structuredClone(qualified('legacy-no-ranking', 'long')) as unknown as QualifiedIdeaEvaluation
 legacyNoRankingRow.ranking = null
@@ -558,7 +558,7 @@ assert.deepEqual(qualifiedIdeasEmptyState('long', checkedEmptyQualifiedBoard), {
   healthReason: 'Three complete forecasts missed at least one gate.',
   state: 'checked',
 })
-assert.equal(qualifiedIdeasEmptyState('long', normalizedQualifiedBoard), null, 'a real qualified row suppresses only its side empty state')
+assert.equal(qualifiedIdeasEmptyState('long', normalizedQualifiedBoard, nowMs), null, 'a real qualified row suppresses only its side empty state')
 assert.equal(newsLeadQueueEmptyMessage(true, { schema_version: 'ideas-health/v1', status: 'healthy' }), 'No live news leads in this direction.')
 assert.equal(newsLeadQueueEmptyMessage(true, { schema_version: 'ideas-health/v1', status: 'running' }), 'Checking for news leads…')
 assert.equal(newsLeadQueueEmptyMessage(false, null), 'News lead queue unavailable.')
