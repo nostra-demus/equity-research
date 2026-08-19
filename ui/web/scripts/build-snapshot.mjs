@@ -520,31 +520,48 @@ function reviewDateFromText(text) {
  * 'condition_met' or 'not_met' — because this build has no live price at all (`quotes_enabled: false`
  * below); an event_date trigger is the one exception, since due-ness is a date compare, not a price one.
  */
+function daysBetween(from, to) {
+  const a = Date.parse(`${String(from).slice(0, 10)}T00:00:00Z`)
+  const b = Date.parse(`${String(to).slice(0, 10)}T00:00:00Z`)
+  if (!Number.isFinite(a) || !Number.isFinite(b)) return null
+  return Math.round((b - a) / 86_400_000)
+}
+
+/** The nearest measurable distance on a static row — dated triggers only, since prices are off here. */
+function staticNearest(evals) {
+  const dated = evals.filter((e) => e.days_to != null)
+  if (!dated.length) return null
+  const soonest = dated.reduce((a, b) => (b.days_to < a.days_to ? b : a))
+  return { unit: 'days', value: soonest.days_to }
+}
+
 function staticTriggerEval(t, today) {
   const base = { trigger_id: t.trigger_id, kind: t.kind, mode: t.kind === 'event_date' ? 'reminder' : 'auto' }
   const money = (ccy, v) => `${ccy || ''} ${Number(v).toFixed(2)}`.trim()
   if (t.kind === 'event_date') {
     const due = t.acknowledged_at ? false : t.due_date <= today
     return {
-      ...base, state: 'not_met', gap_pct: null, reason: null, due,
+      // A date needs no price, so the snapshot CAN measure this one — days, never a percent. Without it
+      // every tile in the read-only grid would read '—' even where the answer is knowable.
+      ...base, state: 'not_met', gap_pct: null, days_to: daysBetween(today, t.due_date), reason: null, due,
       detail: t.acknowledged_at ? `${t.label} — acknowledged ${String(t.acknowledged_at).slice(0, 10)}`
         : due ? `${t.label} — due ${t.due_date}` : `${t.label} — ${t.due_date}`,
     }
   }
   if (t.kind === 'price_level') {
     return {
-      ...base, state: 'not_evaluable', gap_pct: null, reason: null,
+      ...base, state: 'not_evaluable', gap_pct: null, days_to: null, reason: null,
       detail: `${t.direction === 'at_or_below' ? 'at or below' : 'at or above'} ${money(t.currency, t.level)} — not evaluated in this read-only snapshot`,
     }
   }
   if (t.kind === 'pct_drop') {
     return {
-      ...base, state: 'not_evaluable', gap_pct: null, reason: null,
+      ...base, state: 'not_evaluable', gap_pct: null, days_to: null, reason: null,
       detail: `${t.drop_pct}% below ${money(t.reference?.currency, t.reference?.value)}${t.reference?.as_of ? ` (${t.reference.as_of})` : ''} — not evaluated in this read-only snapshot`,
     }
   }
   return {
-    ...base, state: 'not_evaluable', gap_pct: null, reason: null,
+    ...base, state: 'not_evaluable', gap_pct: null, days_to: null, reason: null,
     detail: `${t.required_mos_pct}% margin of safety against ${money(t.anchor_currency, t.anchor_value)} — not evaluated in this read-only snapshot`,
   }
 }
@@ -615,6 +632,7 @@ function buildWatchlist(calls) {
     // is itself the change). The static builder used to never compute this at all, so an archived row
     // stayed hidden in the read-only showcase even after the engine changed its call underneath it.
     const resurfaced = !!(e && e.archive && e.archive.mute_scope === 'assertion' && e.archive.muted_fingerprint !== fingerprint)
+    const staticEvals = (e?.triggers || []).map((tr) => staticTriggerEval(tr, today))
     const row = {
       listing_key: key, ticker: t, company_name: c.company ?? null, currency: c.currency ?? null, exchange: null,
       origin: e ? 'both' : 'engine', entry_id: e ? e.entry_id : null, why: e ? e.why : '',
@@ -627,22 +645,27 @@ function buildWatchlist(calls) {
         next_review_text: w.next_review ?? null },
       resurfaced, archive: e ? e.archive : null,
       quote: null, quote_reason: null,
-      evals: (e?.triggers || []).map((tr) => staticTriggerEval(tr, today)),
-      state: 'watching', nearest_gap_pct: null,
+      evals: staticEvals,
+      // Prices are off in a snapshot, but a DATE is still a fact — so a due reminder reads as due here
+      // exactly as it does live, and its tile carries a real day count instead of a dash.
+      state: staticEvals.some((x) => x.due) ? 'due' : staticEvals.length ? 'not_evaluable' : 'watching',
+      nearest_gap_pct: null, nearest: staticNearest(staticEvals),
       run_root: c.run_root, final_thesis_path: c.final_thesis_path ?? null,
       added_at: e ? e.created_at : null, updated_at: e ? e.updated_at : null, engine_since: c.decision_date ?? null,
     }
     ;((row.archive && !row.resurfaced) ? archived : rows).push(row)
   }
   for (const e of byKey.values()) {
+    const manualEvals = (e.triggers || []).map((t) => staticTriggerEval(t, today))
     const row = {
       listing_key: e.listing.listing_key, ticker: e.listing.ticker, company_name: e.listing.company_name,
       currency: e.listing.currency, exchange: e.listing.exchange, origin: 'manual', entry_id: e.entry_id,
       why: e.why, conviction: e.conviction, review_date: e.review_date, tags: e.tags, triggers: e.triggers,
       attachments: publicAttachments(e.attachments), engine: null, resurfaced: false, archive: e.archive,
       quote: null, quote_reason: null,
-      evals: (e.triggers || []).map((t) => staticTriggerEval(t, today)),
-      state: 'watching', nearest_gap_pct: null,
+      evals: manualEvals,
+      state: manualEvals.some((x) => x.due) ? 'due' : manualEvals.length ? 'not_evaluable' : 'watching',
+      nearest_gap_pct: null, nearest: staticNearest(manualEvals),
       run_root: null, final_thesis_path: null,
       added_at: e.created_at ?? null, updated_at: e.updated_at ?? null, engine_since: null,
     }
