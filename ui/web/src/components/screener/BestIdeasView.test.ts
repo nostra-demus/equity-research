@@ -222,13 +222,13 @@ assert.deepEqual(qualifiedIdeasForSide(qualifiedBoard, 'short').map((row) => row
 assert.deepEqual(currentQualifiedIdeasForSide(qualifiedBoard, 'long', nowMs).map((row) => row.candidate.idea_id), ['qualified-long', 'qualified-second'])
 assert.deepEqual(currentQualifiedIdeasForSide(qualifiedBoard, 'long', Date.parse('2026-12-11T12:00:00Z')), [], 'expired forecasts remain audit rows, not current qualified calls')
 
-const normalizedQualifiedBoard = normalizeQualifiedIdeasBoard(qualifiedBoard)
+const normalizedQualifiedBoard = normalizeQualifiedIdeasBoard(qualifiedBoard, nowMs)
 assert.equal(normalizedQualifiedBoard.invalidRowCount, 0)
 assert.equal(normalizedQualifiedBoard.board?.qualified.length, 2)
 const reorderedQualifiedBoard = normalizeQualifiedIdeasBoard({
   ...qualifiedBoard,
   qualified: [...qualifiedBoard.qualified].reverse().map((row) => ({ ...row, pareto_layer: 99 })),
-})
+}, nowMs)
 assert.deepEqual(
   reorderedQualifiedBoard.board?.qualified.map((row) => [row.candidate.idea_id, row.pareto_layer]),
   [['qualified-long', 1], ['qualified-second', 1]],
@@ -242,7 +242,7 @@ const partlyMalformedQualifiedBoard = normalizeQualifiedIdeasBoard({
   ...qualifiedBoard,
   health: { ...qualifiedBoard.health, artifact_count: 3, assessment_count: 3, parsed_count: 3, qualified_count: 3 },
   qualified: [...qualifiedBoard.qualified, { candidate: null }],
-})
+}, nowMs)
 assert.equal(partlyMalformedQualifiedBoard.invalidRowCount, 1)
 assert.equal(partlyMalformedQualifiedBoard.board?.qualified.length, 2)
 assert.deepEqual(qualifiedIdeasRuntimeWarning(partlyMalformedQualifiedBoard), {

@@ -238,7 +238,7 @@ export function runManifest(runRoot: string, resolve: (p: string) => string = re
 // `*_<window>_decision_review*.json`) — keep them byte-identical so the hook, command, and UI agree.
 
 // local YYYY-MM-DD, matching review_due.py's datetime.date.today() (local, NOT UTC).
-function todayISO(): string {
+export function todayISO(): string {
   const d = new Date()
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 }
@@ -258,7 +258,7 @@ export function isISODate(s: unknown): s is string {
 
 // a real calendar date, not merely regex-shaped (mirrors python's datetime.date.fromisoformat, which
 // rejects e.g. '2026-02-30' — new Date() would silently roll that over to March and must not be used).
-function isValidCalendarISODate(s: unknown): s is string {
+export function isValidCalendarISODate(s: unknown): s is string {
   if (!isISODate(s)) return false
   const y = Number(s.slice(0, 4))
   const mo = Number(s.slice(5, 7))
@@ -276,7 +276,7 @@ const MONTH_NUM: Record<string, number> = {
 // the date a window CLOSES, read out of free text (the ledger's own convention, e.g. 'Q2 2026 earnings
 // July 31, 2026' / 'FY2026 results release (~March 2027)') — ISO date, 'Month DD, YYYY', or bare
 // 'Month YYYY' (closes on the 28th, the only day every month has). Returns null when undateable.
-function dueDateFromFreeText(text: string): string | null {
+export function dueDateFromFreeText(text: string): string | null {
   let m = /(\d{4})-(\d{2})-(\d{2})/.exec(text)
   if (m && isValidCalendarISODate(m[0])) return m[0]
   m = /([A-Za-z]{3,9})\s+(\d{1,2}),\s*(\d{4})/.exec(text)
@@ -586,6 +586,7 @@ export function listAllCalls() {
       time_horizon: d?.time_horizon ?? null,
       entry_price: entry,
       currency: d?.currency ?? null,
+      exchange: typeof d?.exchange === 'string' && d.exchange ? d.exchange : null,
       expected_return_pct: exp,
       implied_target: entry != null && exp != null ? Math.round(entry * (1 + exp / 100) * 100) / 100 : null,
       downside_risk_pct: typeof d?.downside_risk_pct === 'number' ? d.downside_risk_pct : null,

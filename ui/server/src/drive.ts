@@ -106,12 +106,97 @@ export async function uploadToCompany(ticker: string, filename: string, mimeType
   return { id: res.data.id, name: res.data.name || filename }
 }
 
-/** Best-effort delete (used to clean up a partial/truncated upload). Never throws. */
+// ---- watchlist attachments ----
+// A SEPARATE lane from the company pool, on purpose. `data/<TICKER>/` is the research pool: anything in
+// it is evidence a run can cite, governed by the §4 source tiers. A thesis PDF you attach to a watchlist
+// row is your own note, not evidence — so it goes to its own top-level WATCHLIST/ folder, keyed by
+// ENTRY ID, never by ticker. These functions take no ticker at all, which is what makes "it can never
+// land in the pool" a property of the code rather than a promise in a comment.
+
+const WATCHLIST_FOLDER = 'WATCHLIST'
+const watchFolderCache = new Map<string, string>()
+const watchInflight = new Map<string, Promise<string>>()
+
+async function findChildFolder(name: string, parentId: string): Promise<string | null> {
+  const r = await client().files.list({
+    // escapeQ, not a hand-rolled replace: it escapes BACKSLASHES before quotes, so a name carrying a
+    // backslash cannot break out of the quoted Drive query. Rolling my own here dropped that half.
+    q: `name='${escapeQ(name)}' and mimeType='${FOLDER_MIME}' and '${escapeQ(parentId)}' in parents and trashed=false`,
+    fields: 'files(id,name)',
+    pageSize: 10,
+    ...sharedDriveListParams(),
+  })
+  return r.data.files?.[0]?.id ?? null
+}
+
+async function ensureFolder(name: string, parentId: string, cacheKey: string): Promise<string> {
+  const cached = watchFolderCache.get(cacheKey)
+  if (cached) return cached
+  const pending = watchInflight.get(cacheKey)
+  if (pending) return pending
+  const p = (async () => {
+    const existing = await findChildFolder(name, parentId)
+    if (existing) return existing
+    const created = await client().files.create({
+      requestBody: { name, parents: [parentId], mimeType: FOLDER_MIME },
+      fields: 'id',
+      supportsAllDrives: true,
+    })
+    const id = created.data.id
+    if (!id) throw new Error('Drive did not return a folder id')
+    return id
+  })()
+    .then((id) => { watchFolderCache.set(cacheKey, id); return id })
+    .finally(() => watchInflight.delete(cacheKey))
+  watchInflight.set(cacheKey, p)
+  return p
+}
+
+/** Stream one PDF into WATCHLIST/<entryId>/. Takes an entry id, never a ticker. */
+export async function uploadToWatchlist(entryId: string, filename: string, body: Readable): Promise<{ id: string; name: string }> {
+  const root = await ensureFolder(WATCHLIST_FOLDER, GDRIVE.dataFolderId, `__root__:${WATCHLIST_FOLDER}`)
+  const folderId = await ensureFolder(entryId, root, `entry:${entryId}`)
+  const res = await client().files.create({
+    requestBody: { name: filename, parents: [folderId] },
+    media: { mimeType: 'application/pdf', body },
+    fields: 'id,name',
+    supportsAllDrives: true,
+  })
+  if (!res.data.id) throw new Error('Drive did not return a file id')
+  return { id: res.data.id, name: res.data.name || filename }
+}
+
+/** Stream a watchlist attachment back out for download. */
+export async function readWatchlistFile(fileId: string): Promise<Readable> {
+  const res = await client().files.get(
+    { fileId, alt: 'media', supportsAllDrives: true },
+    { responseType: 'stream' },
+  )
+  return res.data as unknown as Readable
+}
+
+/** Best-effort delete (used to clean up a partial/truncated upload the caller is already discarding).
+ *  Never throws — an upload that failed anyway must not fail a SECOND way on its own cleanup. */
 export async function deleteDriveFile(id: string): Promise<void> {
   try {
     await client().files.delete({ fileId: id, supportsAllDrives: true })
   } catch {
     /* best-effort cleanup */
+  }
+}
+
+/** Delete a file the caller is otherwise keeping a live REFERENCE to (a watchlist attachment a person
+ *  asked to remove). Unlike deleteDriveFile this throws on failure — Drive being unavailable or the
+ *  permission having changed must not look like a successful delete, or the caller removes the entry's
+ *  only record of the file while it sits orphaned, unreachable, in Drive. Deleting an id that is already
+ *  gone (404) still counts as removed — that is the state the caller wanted. */
+export async function deleteDriveFileStrict(id: string): Promise<void> {
+  try {
+    await client().files.delete({ fileId: id, supportsAllDrives: true })
+  } catch (e: any) {
+    const code = e?.code ?? e?.response?.status
+    if (code === 404) return
+    throw e
   }
 }
 

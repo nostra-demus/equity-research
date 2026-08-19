@@ -7,7 +7,7 @@
 import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { fmtStampLocal } from '../../lib/format'
 import { displayHeadline } from '../../lib/plain'
-import { nextRovingRadioIndex, rovingRadioTabStopIndex } from '../../lib/rovingRadio'
+import { handleRovingRadioKeyDown, rovingRadioTabStopIndex } from '../../lib/rovingRadio'
 import { useStore } from '../../lib/store'
 import { formationCandidateEvidence, heatOf, momentumOf, qualifiedThemeExpressions, recentFlow, radiusFor, sparklinePoints, themeCompilerCapacityCopy, tierColorVar, tierLabel, THEME_WINDOWS, THEMES_STAGE_MAX_AGE_MS, flowInWindow, groupThemeEvidence, heatInWindow, windowCoverage, windowLabel, groupThemesForBriefing, shouldHideThemeIntake, shouldResetThemeWindow, sourceTierLabel, themeBriefingEvidence, themeCompanyLabel, themeFlowDelta, themeForMapHover, themeMapMode, themeSliceDisplay, themeStageIsStale, themesForPmSurface, themeSurfaceAssessment, themeWindowForView, validatedThemeNarrative, type Theme, type ThemeActivity, type ThemeCompilerHealth, type ThemeConviction, type ThemeExpressionRole, type ThemeFormationCandidate, type ThemeFormationQueue, type ThemeSliceDisplay, type ThemeWindow, type ValidatedThemeEvidence, type ValidatedThemeQualifiedExpression, type WindowCoverage } from '../../lib/themes'
 import type { FeedItem, IntensityWindow } from '../../lib/types'
@@ -38,18 +38,6 @@ export function themeMapEmptyCopy(tier: (typeof TIERS)[number], win: ThemeWindow
 // the single "When" ribbon drives (see intensityWindowForHours) — there is no separate intensity picker.
 // 'scan' = the live per-cycle readout; the rest are small server-side rollups over the window.
 const WINDOW_LABEL: Record<IntensityWindow, string> = { scan: 'this scan', '1h': 'last hour', '4h': 'last 4h', day: 'last 24h', '7d': 'last 7 days' }
-
-function handleRovingRadioKeyDown(event: ReactKeyboardEvent<HTMLButtonElement>) {
-  const group = event.currentTarget.closest('[role="radiogroup"]')
-  if (!group) return
-  const radios = Array.from(group.querySelectorAll<HTMLButtonElement>('button[role="radio"]'))
-  const nextIndex = nextRovingRadioIndex(event.key, radios.indexOf(event.currentTarget), radios.map((radio) => !radio.disabled))
-  if (nextIndex == null) return
-  event.preventDefault()
-  const next = radios[nextIndex]
-  next.focus()
-  next.click()
-}
 
 export function ThemesView() {
   const themes = useStore((s) => s.themes)

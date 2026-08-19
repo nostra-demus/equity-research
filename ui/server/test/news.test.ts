@@ -12,12 +12,12 @@ import { eventIdFor, loadLedgerEventIds, normalizeAndFilter, parseSeendate } fro
 import { SeenCache } from '../src/news/seen-cache'
 import { Budget, RateLimiter, UsdBudget, armCooldown, clearCooldown, cooldownInfo, dailyQuotaAdmission, getNamedLimiter, pacedHasHeadroom, readCooldownUntil, resetBudgetMemory, resetCooldownMemory, resetSharedLimiters, selectDailyQuotaCandidate } from '../src/news/triage/budget'
 import { articleReadTokenBound, readArticleBrief } from '../src/news/triage/article-read'
-import { analyzeArticle, coerceTriage, estimateTokens, parseRate, scoreToBand, triageBatch } from '../src/news/triage/groq'
-import { analyzeArticleGemini, triageBatchGemini } from '../src/news/triage/gemini'
+import { analyzeArticle, coerceTriage, estimateTokens, parseRate, scoreToBand, triageBatch, triageMaxOutputTokens } from '../src/news/triage/groq'
+import { analyzeArticleGemini, geminiSchemaEnabled, TRIAGE_RESPONSE_SCHEMA, triageBatchGemini } from '../src/news/triage/gemini'
 import { appendFeedItems, readFeed } from '../src/news/feed'
 import { mergeInbox, revisionClockRegistryDiagnostics } from '../src/news/write-inbox'
-import { loadDeferred, runIngestCycle, triageGroqTokenBound } from '../src/news/runCycle'
-import { anthropicDrainReady, backlogTrend, drainBatchEst, geminiPoolProviderDayExhausted, getNewsDiagnostics, providerDrainUsable, tierHealth } from '../src/news/scheduler'
+import { backlogDurablyCleared, buildTriageQueue, expireBacklog, loadDeferred, migrateDeferred, preserveResidence, runIngestCycle, stampDeferred, triageGroqTokenBound } from '../src/news/runCycle'
+import { anthropicDrainReady, backlogTrend, credentialRejected, CREDENTIAL_DEAD_AFTER_FAILS, drainBatchEst, geminiPoolProviderDayExhausted, getNewsDiagnostics, providerDrainUsable, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS, STATE_DIR } from '../src/config'
 import { createTheme } from '../src/news/themes/discover'
 import { appendThemeMutations, loadThemes } from '../src/news/themes/store'
@@ -4238,6 +4238,479 @@ await check('getNewsDiagnostics labels a provider-reported day limit separately 
     else fs.writeFileSync(file, prior)
     resetBudgetMemory()
   }
+})
+
+// ---- provider capacity: the failures the engine was inflicting on itself ------------------------------
+// Live board, one day: Mistral 46 consecutive failures / 0 batches ever scored / "rejected provider access";
+// OpenRouter 26 consecutive and NVIDIA 54, both 100% timeouts, both with most of their allowance unused;
+// Gemini 24 of 25 calls failed on "an unusable triage response" for 1 scored batch; Groq and Cerebras — the
+// only two working — both "Saved for later today" while 26,539 items waited and the cycle scored zero.
+
+await check('triageMaxOutputTokens: the output ceiling scales with the batch, and never lowers a provider\'s own', () => {
+  // the reply is one JSON row per headline, so a FLAT ceiling truncates the larger batches; a truncated answer
+  // fails the completeness contract and the whole call is wasted (request spent, tokens charged, 0 rows scored)
+  assert.equal(triageMaxOutputTokens(12), 2440, '12 items need more than the old flat 2000 default')
+  assert.ok(triageMaxOutputTokens(24) > triageMaxOutputTokens(12), 'a bigger batch gets a bigger ceiling')
+  // a provider configured ABOVE the need keeps its own value — this only ever raises a too-low ceiling
+  assert.equal(triageMaxOutputTokens(12, 3500), 3500, "Cerebras/OpenRouter's 3500 is untouched")
+  assert.equal(triageMaxOutputTokens(12, 2000), 2440, "Groq/NVIDIA's 2000 is raised to what 12 rows actually need")
+  assert.equal(triageMaxOutputTokens(0, 2000), 2000, 'an empty batch cannot demand more than the configured value')
+  assert.equal(triageMaxOutputTokens(-5, 2000), 2000, 'a negative count cannot shrink the ceiling below the config')
+})
+
+await check('a triage timeout MEASURES itself, names the ceiling, and puts the number on the cooldown marker', async () => {
+  resetCooldownMemory()
+  const state = tmp()
+  // a fake clock the adapter reads through opts.nowMs — so the measurement is deterministic, not wall-clock
+  let t = 1_000
+  const fetchFn = (async () => { t += 30_000; const e: any = new Error('aborted'); e.name = 'TimeoutError'; throw e }) as unknown as typeof fetch
+  const items = [{ event_id: 'E1', headline: 'X', source_name: 'Reuters', region: 'US' } as any]
+  const res = await triageBatch(items, { model: 'm', baseUrl: 'https://x.test', apiKey: 'k', timeoutMs: 30_000, maxAttempts: 1, nowMs: () => t }, fetchFn, noSleep)
+  assert.equal(res.ok, false)
+  assert.equal(res.timedOut, true)
+  assert.equal(res.elapsedMs, 30_000, 'the elapsed time is recorded, not discarded')
+  assert.match(String(res.note), /timed out after 30\.0s \(our 30\.0s ceiling\)/, 'the note says WE cut it off — the actionable half')
+  // and it reaches the marker, so a LATER cycle (which never sees the note) can still show it
+  armCooldown(state, 5_000, 300_000, 'openrouter', 3_600_000, 'timeout', res.elapsedMs)
+  assert.equal(cooldownInfo(state, 'openrouter').observedMs, 30_000)
+})
+
+await check('the cooldown marker carries the STREAK START, so a flat-pinned backoff can still say how long it has been dead', () => {
+  resetCooldownMemory()
+  const state = tmp()
+  // 300s base / 3600s max: the window pins flat at 60 min from the 5th failure, so `fails` alone stops
+  // distinguishing "down an hour" from "down two days" — which is why 46 consecutive meant nothing.
+  const base = 300_000, max = 3_600_000
+  let at = 1_000_000
+  for (let i = 0; i < 6; i++) { armCooldown(state, at, base, 'mistral', max, 'provider-access'); at += 3_600_000 }
+  const info = cooldownInfo(state, 'mistral')
+  assert.equal(info.fails, 6)
+  assert.equal(info.reason, 'provider-access')
+  assert.equal(info.firstFailureAt, 1_000_000, 'the FIRST failure of the unbroken streak, not the latest re-arm')
+  // a success clears it: the next streak starts fresh rather than inheriting a two-day-old start instant
+  clearCooldown(state, 'mistral')
+  armCooldown(state, 9_000_000, base, 'mistral', max, 'provider-access')
+  assert.equal(cooldownInfo(state, 'mistral').firstFailureAt, 9_000_000)
+  assert.equal(cooldownInfo(state, 'mistral').fails, 1)
+})
+
+await check('credentialRejected: repeated 401/403 is a dead key; one is bad luck; a timeout never is', () => {
+  assert.equal(CREDENTIAL_DEAD_AFTER_FAILS, 3)
+  assert.equal(credentialRejected('provider-access', 3), true, 'three in a row is a standing fault a human must fix')
+  assert.equal(credentialRejected('provider-access', 46), true)
+  assert.equal(credentialRejected('provider-access', 2), false, 'a rotated key or a one-off gateway 403 is not blamed')
+  // every other failure class clears itself — none of them may ever be reported as a credential problem
+  for (const reason of ['timeout', 'availability', 'rate-limit', 'triage-contract', 'triage-request', undefined]) {
+    assert.equal(credentialRejected(reason, 99), false, `${reason} is not a credential fault however often it repeats`)
+  }
+  // 402 (spent balance) and 404 (retired model) hold the provider like a 401 but are NOT broken credentials
+  for (const reason of ['provider-credits', 'provider-endpoint']) {
+    assert.equal(credentialRejected(reason, 99), false, `${reason} must never send an operator to rotate a working key`)
+  }
+})
+
+await check('armCooldown: the credential streak counts ACCESS rejections only, not every failure before one', () => {
+  const state = tmp(); const base = 60_000, max = 3_600_000
+  let at = 1_000_000
+  // the exact live shape: two ordinary failures, then the FIRST access rejection
+  armCooldown(state, at, base, 'mistral', max, 'availability'); at += 3_600_000
+  armCooldown(state, at, base, 'mistral', max, 'timeout'); at += 3_600_000
+  armCooldown(state, at, base, 'mistral', max, 'provider-access')
+  const info = cooldownInfo(state, 'mistral')
+  assert.equal(info.fails, 3, 'the general streak still counts all three — it drives the backoff window')
+  assert.equal(info.accessFails, 1, 'but only one of them was an access rejection')
+  assert.equal(credentialRejected(info.reason, info.accessFails ?? 0), false, 'so the key is not blamed on its first 403')
+  at += 3_600_000; armCooldown(state, at, base, 'mistral', max, 'provider-access')
+  at += 3_600_000; armCooldown(state, at, base, 'mistral', max, 'provider-access')
+  const dead = cooldownInfo(state, 'mistral')
+  assert.equal(dead.accessFails, 3)
+  assert.equal(credentialRejected(dead.reason, dead.accessFails ?? 0), true, 'three ACCESS rejections in a row still names the fault')
+  // a different failure class resets the access streak without disturbing the backoff streak
+  at += 3_600_000; armCooldown(state, at, base, 'mistral', max, 'availability')
+  const mixed = cooldownInfo(state, 'mistral')
+  assert.equal(mixed.accessFails, undefined, 'the access streak is broken')
+  assert.equal(mixed.fails, 6, 'the backoff streak is not — resetting it would reopen the request burn')
+})
+
+await check('dailyQuotaAdmission: ADMISSION uses the calibrated cost, the HARD CAP keeps the conservative bound', () => {
+  // The live shape: a token-metered tier whose conservative per-call bound (~11,800) is 3-8x what a successful
+  // batch really costs (~1,700). Demanding the worst case as admission headroom is what left a provider with
+  // allowance in hand reading "Saved for later today".
+  const at = Date.parse('2026-08-17T12:00:00Z') // mid-day → ~50% of the day released
+  const base = { id: 't', meter: 'tokens' as const, used: 249_000, cap: 500_000, resetTimeZone: 'UTC' }
+  const worstOnly = dailyQuotaAdmission({ ...base, cost: 11_797 }, at)
+  const calibrated = dailyQuotaAdmission({ ...base, cost: 11_797, paceCost: 1_700 }, at)
+  assert.equal(worstOnly.pacedFit, false, 'the worst-case bound does not fit under the released frontier')
+  assert.equal(calibrated.pacedFit, true, 'the calibrated cost does — the tier is admitted instead of stranded')
+  assert.equal(calibrated.hardCapFit, worstOnly.hardCapFit, 'the HARD CAP is unchanged — still the conservative bound')
+  assert.equal(calibrated.released, worstOnly.released, 'the release frontier is unchanged (still cost-aligned)')
+  // safety: paceCost can never be used to squeeze past the real ceiling
+  const overCap = dailyQuotaAdmission({ ...base, used: 495_000, cost: 11_797, paceCost: 100 }, at)
+  assert.equal(overCap.hardCapFit, false, 'a tiny paceCost cannot admit a call the hard cap refuses')
+  assert.equal(overCap.pacedFit, false, 'pacedFit is AND-ed with hardCapFit, so it cannot bust the cap either')
+  // and a paceCost above the conservative bound is clamped down to it, never made stricter than the cap
+  const clamped = dailyQuotaAdmission({ ...base, cost: 1_000, paceCost: 999_999 }, at)
+  assert.equal(clamped.pacedFit, dailyQuotaAdmission({ ...base, cost: 1_000 }, at).pacedFit, 'an absurd paceCost degrades to cost')
+  // omitting paceCost is byte-for-byte the previous behaviour
+  assert.deepEqual(dailyQuotaAdmission({ ...base, cost: 11_797 }, at), worstOnly)
+})
+
+await check('pacedHasHeadroom mirrors Budget.pacedCanSpend argument-for-argument, calibrated cost included', () => {
+  resetBudgetMemory()
+  const state = tmp()
+  const pace = { targetTokens: 500_000, floorFrac: 0 }
+  const at = Date.parse('2026-08-17T12:00:00Z')
+  const b = Budget.load(state, 14_400, 500_000, at)
+  b.record(1, 249_000)
+  // the drain gate (pacedHasHeadroom) and the triage loop (Budget.pacedCanSpend) MUST agree, or the gate
+  // refuses batches the loop would take and the frequent backlog drain silently stops running
+  for (const [strict, calibrated] of [[11_797, 1_700], [11_797, 11_797]] as const) {
+    assert.equal(
+      pacedHasHeadroom(b.tokens, b.requests, 14_400, 500_000, pace, at, strict, calibrated),
+      b.pacedCanSpend(strict, pace, at, 1, calibrated),
+      `gate and loop disagree at strict=${strict} calibrated=${calibrated}`,
+    )
+  }
+})
+
+await check('a batch that returns an UNUSABLE body is not re-sent around the whole free pool', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp()
+  // Every provider answers HTTP 200 with a body that fails the completeness contract (0 rows for 2 items).
+  // Pre-fix the identical batch walked the entire pool: one bad batch, N spent requests, 0 rows scored.
+  // FIVE pool models, exactly the live shape, so the batch genuinely HAS somewhere to walk to. Without a real
+  // pool this test would pass vacuously on a one-provider chain and prove nothing.
+  let contractCalls = 0
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('generateContent')) {
+      contractCalls++
+      // HTTP 200, valid JSON, and 0 rows for a 2-item batch → fails the completeness contract
+      return res({ usageMetadata: { totalTokenCount: 10 }, candidates: [{ finishReason: 'STOP', content: { parts: [{ text: '{"items":[]}' }] } }] })
+    }
+    if (gdeltQueryHasDomain(u, 'reuters.com')) return res({ articles: [
+      { url: 'https://reuters.com/a', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260817T090000Z' },
+      { url: 'https://cnbc.com/b', title: 'Federal Reserve holds rates steady amid inflation concerns', domain: 'cnbc.com', seendate: '20260817T090100Z' },
+    ] })
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = {
+    groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
+    geminiEnabled: true, geminiApiKey: 'g', geminiBaseUrl: 'https://gemini.test', geminiMaxTokens: 2400,
+    geminiModels: ['a', 'b', 'c', 'd', 'e'].map((m) => ({ model: `gemini-${m}`, dailyReqCap: 500 })),
+    contractRetriesPerBatch: 1, triageBatch: 12,
+  } as any
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now: () => new Date('2026-08-17T09:30:00Z') })
+  assert.equal(s.picked + s.watched + s.dropped, 0, 'an unusable body scores nothing — never scored-zero')
+  // the batch is DEFERRED, not lost: capping the retries stops wasting requests, it does not discard items
+  assert.equal(loadDeferred(state).length, 2, 'both items wait for the next look')
+  assert.ok(contractCalls >= 1, 'the batch was genuinely offered to a provider')
+  assert.equal(contractCalls, 1 + cfg.contractRetriesPerBatch, `one try plus one capped retry — got ${contractCalls} of a possible 5`)
+  assert.ok(contractCalls < cfg.geminiModels.length, 'the remaining pool models were spared the identical doomed batch')
+})
+
+for (const cap of [0, 1]) {
+  await check(`contract-retry cap ${cap}: an upstream contract failure counts toward the cap, so the pool sees exactly ${cap} more offer(s)`, async () => {
+    resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+    const root = tmp(), state = tmp()
+    // The path the previous test could not reach: it set groqApiKey:'' so `res` was always undefined
+    // entering the pool loop. Here GROQ produces the first unusable body, exactly as it does live. The
+    // counter used to start at 0 regardless, so the cap under-counted by one — and cap 0, documented in
+    // config.ts and the README as "never re-sends", still handed the batch to one pool provider.
+    let groqCalls = 0, poolCalls = 0
+    const fetchFn = (async (url: string) => {
+      const u = String(url)
+      if (u.includes('groq.test')) {
+        groqCalls++
+        return res({ usage: { total_tokens: 10 }, choices: [{ message: { content: '{"items":[]}' } }] })
+      }
+      if (u.includes('generateContent')) {
+        poolCalls++
+        return res({ usageMetadata: { totalTokenCount: 10 }, candidates: [{ finishReason: 'STOP', content: { parts: [{ text: '{"items":[]}' }] } }] })
+      }
+      if (gdeltQueryHasDomain(u, 'reuters.com')) return res({ articles: [
+        { url: 'https://reuters.com/a', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260817T090000Z' },
+        { url: 'https://cnbc.com/b', title: 'Federal Reserve holds rates steady amid inflation concerns', domain: 'cnbc.com', seendate: '20260817T090100Z' },
+      ] })
+      return res({ articles: [] })
+    }) as unknown as typeof fetch
+    const cfg = {
+      groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqRpm: 6000,
+      gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
+      geminiEnabled: true, geminiApiKey: 'g', geminiBaseUrl: 'https://gemini.test', geminiMaxTokens: 2400,
+      geminiModels: ['a', 'b', 'c', 'd', 'e'].map((m) => ({ model: `gemini-${m}`, dailyReqCap: 500 })),
+      contractRetriesPerBatch: cap, triageBatch: 12,
+    } as any
+    const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now: () => new Date('2026-08-17T09:30:00Z') })
+    assert.ok(groqCalls >= 1, 'groq was offered the batch first and returned an unusable body')
+    assert.equal(poolCalls, cap, `the upstream failure is already one against the cap — got ${poolCalls} pool offer(s), expected ${cap}`)
+    assert.equal(s.picked + s.watched + s.dropped, 0, 'an unusable body scores nothing')
+    assert.equal(loadDeferred(state).length, 2, 'and the items are deferred, never discarded')
+  })
+}
+
+await check('Gemini enforces the row contract at the provider only when explicitly switched on', () => {
+  // A schema the API rejects returns 400 -> failureKind 'request' -> a silent 5-60 minute hold, i.e. a
+  // recoverable contract failure traded for a harder one. So it ships ready to enable, not enabled blind.
+  assert.equal(geminiSchemaEnabled({}), false, 'off by default')
+  assert.equal(geminiSchemaEnabled({ NEWS_GEMINI_RESPONSE_SCHEMA: '0' }), false)
+  assert.equal(geminiSchemaEnabled({ NEWS_GEMINI_RESPONSE_SCHEMA: '1' }), true)
+  // the schema must describe the shape coerceCompleteTriageRows actually reads, or enabling it breaks scoring
+  const row: any = (TRIAGE_RESPONSE_SCHEMA as any).properties.items.items
+  assert.equal((TRIAGE_RESPONSE_SCHEMA as any).properties.items.type, 'ARRAY')
+  assert.ok(row.required.includes('i'), 'the index is required — it IS the coverage contract')
+  for (const k of ['relevance', 'materiality_pre_score', 'event_materiality_label', 'issuer_linkage', 'companies', 'size_bucket', 'headline_en', 'event_region']) {
+    assert.ok(row.properties[k], `the schema is missing ${k}, which coerceTriage reads`)
+  }
+  assert.deepEqual(row.properties.relevance.enum, ['material', 'relevant_non_material', 'irrelevant'], 'the enum must match coerceTriage exactly')
+})
+
+await check('a Gemini batch failure is attributed to the MODEL, not just the pool', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp()
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('generateContent')) return res({ usageMetadata: { totalTokenCount: 10 }, candidates: [{ finishReason: 'STOP', content: { parts: [{ text: '{"items":[{"i":0,"relevance":"material","materiality_pre_score":80,"why":"x"}]}' }] } }] })
+    if (gdeltQueryHasDomain(u, 'reuters.com')) return res({ articles: [
+      { url: 'https://reuters.com/c', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260817T090000Z' },
+    ] })
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  // no Groq key → the batch goes straight to the Gemini pool
+  const cfg = {
+    groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
+    geminiEnabled: true, geminiApiKey: 'g', geminiBaseUrl: 'https://gemini.test',
+    geminiModels: [{ model: 'gemini-flash-a', dailyReqCap: 500 }], geminiMaxTokens: 2400,
+  } as any
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now: () => new Date('2026-08-17T09:30:00Z') })
+  // BOTH keys are present: the aggregate the pool chip reads, and the per-model row that answers
+  // "WHICH of the five models?" — the question 24-failures-of-25 on one chip cannot answer
+  assert.equal(s.provider_attempts?.gemini, 1, 'the aggregate pool count is unchanged for existing readers')
+  assert.equal(s.provider_attempts?.['gemini:gemini-flash-a'], 1, 'the model is named')
+  assert.equal(s.provider_scored_batches?.['gemini:gemini-flash-a'], 1, 'scored batches are keyed per model too')
+})
+
+// ---- backlog starvation: the 2026-08-13→16 outage that emptied the wire -------------------------------
+// The engine scored 540 items across three days and kept ZERO. Every one was a stale routine exchange
+// filing; not one newswire item was scored at all. Not a triage misjudgement — a strict-priority queue
+// starving its low-priority class. preTriagePriority = tier*3 + keyword + recency, so a stale filing
+// scores 5*3+0+0 = 15 and a fresh keyword-free headline 2*3+0+5 = 11: once the backlog held thousands of
+// filings, no news item could ever reach the head of the queue again, at any provider health.
+const queueItem = (over: Partial<any>): any => ({
+  event_id: `EVT-${Math.random().toString(16).slice(2, 10)}`,
+  headline: 'Routine disclosure',
+  input_nature: 'exchange_announcement',
+  found_at: '2026-08-16T00:00:00Z',
+  ...over,
+})
+const staleFiling = (n: number, at = '2026-08-14T00:00:00Z') =>
+  Array.from({ length: n }, (_, i) => queueItem({ event_id: `EVT-old-${i}`, headline: `Newspaper advertisement for results ${i}`, found_at: at }))
+const freshNews = (n: number, at = '2026-08-16T09:55:00Z') =>
+  Array.from({ length: n }, (_, i) => queueItem({ event_id: `EVT-new-${i}`, headline: `Company reports quarterly numbers ${i}`, input_nature: 'news', found_at: at }))
+
+await check('buildTriageQueue: a deep stale backlog cannot starve this cycle\'s fresh news out of every prefix', () => {
+  const now = new Date('2026-08-16T10:00:00Z')
+  const q = buildTriageQueue(staleFiling(5000), freshNews(500), now, 0.5)
+  assert.equal(q.length, 5500, 'every item is queued — the reservation reorders, it never drops')
+  // the cycle only ever consumes a PREFIX, so the guarantee has to hold of the prefix, not just the whole
+  // queue. One degraded cycle scored 36 items (3 batches of 12) — that is the prefix that matters.
+  const isFresh = (it: any) => String(it.event_id).startsWith('EVT-new-')
+  for (const prefix of [12, 36, 120, 1200]) {
+    const n = q.slice(0, prefix).filter(isFresh).length
+    // the reservation is bounded by supply: a prefix past the fresh pool (500) can only carry all of it
+    const want = Math.min(Math.floor(prefix * 0.5), 500)
+    assert.ok(n >= want, `prefix ${prefix} carries ${n} fresh items, expected at least ${want}`)
+  }
+  // the exact regression: under the old flat sort the first 36 slots were 36 stale filings and 0 news
+  assert.ok(q.slice(0, 36).some(isFresh), 'a degraded cycle that scores only 36 items still scores news')
+})
+
+await check('buildTriageQueue: preserves §4 priority order WITHIN each pool, and freshShare 0 restores the old strict-priority queue', () => {
+  const now = new Date('2026-08-16T10:00:00Z')
+  // a material keyword lifts an item inside its own pool (+12) — that ordering must survive the interleave
+  const material = queueItem({ event_id: 'EVT-new-material', headline: 'Company announces fraud probe', input_nature: 'news', found_at: '2026-08-16T09:55:00Z' })
+  const q = buildTriageQueue(staleFiling(4), [...freshNews(3), material], now, 0.5)
+  const freshOrder = q.filter((it) => String(it.event_id).startsWith('EVT-new-')).map((it) => it.event_id)
+  assert.equal(freshOrder[0], 'EVT-new-material', 'the highest-priority fresh item still leads its own pool')
+  // freshShare 0 = the pre-fix behaviour, byte-for-byte: pure priority, backlog filings first
+  const strict = buildTriageQueue(staleFiling(4), freshNews(3), now, 0)
+  assert.ok(strict.slice(0, 4).every((it) => String(it.event_id).startsWith('EVT-old-')), 'freshShare 0 restores the strict-priority order')
+})
+
+await check('expireBacklog: retires on RESIDENCE, not on when the source published, and never loses an item to a missing timestamp', () => {
+  const now = new Date('2026-08-16T10:00:00Z')
+  const { live, expired } = expireBacklog([
+    queueItem({ event_id: 'EVT-live', deferred_at: '2026-08-15T10:00:00Z' }), // waited 24h — inside the window
+    queueItem({ event_id: 'EVT-old', deferred_at: '2026-08-13T09:00:00Z' }), // waited 73h — past it
+    // The bug this rule exists to prevent: gov-data stamps found_at with the FDA report date under a
+    // 21-day lookback, so a legitimately fresh discovery carries a publication date well past the bound.
+    // Keying on found_at retired it on its FIRST deferral, unscored.
+    { ...queueItem({ event_id: 'EVT-old-news-new-to-us', found_at: '2026-08-06T00:00:00Z' }), deferred_at: '2026-08-16T09:45:00Z' },
+    // and the converse: recent publication does not buy an item a longer wait
+    { ...queueItem({ event_id: 'EVT-new-news-long-wait', found_at: '2026-08-16T09:00:00Z' }), deferred_at: '2026-08-13T09:00:00Z' },
+    queueItem({ event_id: 'EVT-legacy', found_at: '2026-08-15T10:00:00Z' }), // no deferred_at — falls back to found_at
+    queueItem({ event_id: 'EVT-nostamp', found_at: '' }),
+    queueItem({ event_id: 'EVT-badstamp', found_at: 'not-a-date' }),
+  ], now, 48 * 3_600_000)
+  assert.deepEqual(expired.map((i) => i.event_id), ['EVT-old', 'EVT-new-news-long-wait'])
+  assert.deepEqual(
+    live.map((i) => i.event_id),
+    ['EVT-live', 'EVT-old-news-new-to-us', 'EVT-legacy', 'EVT-nostamp', 'EVT-badstamp'],
+    'an item discovered 15 minutes ago survives however old its source says it is; an unparseable stamp is kept, never retired',
+  )
+})
+
+await check('migrateDeferred: the first load after deploy does NOT expire a legacy backlog by publication date', () => {
+  // The transition case. Rows written by the previous version have no deferred_at at all, so reading them
+  // through the found_at fallback reproduces exactly the bug the fallback exists to survive.
+  const legacy = [
+    queueItem({ event_id: 'EVT-old-news-new-to-us', found_at: '2026-08-06T00:00:00Z' }), // 21-day gov-data lookback
+    queueItem({ event_id: 'EVT-recent', found_at: '2026-08-16T09:00:00Z' }),
+  ]
+  const bare = expireBacklog(legacy, new Date('2026-08-16T10:00:00Z'), 48 * 3_600_000)
+  assert.deepEqual(bare.expired.map((i) => i.event_id), ['EVT-old-news-new-to-us'], 'unmigrated, the fallback retires it')
+  const migrated = migrateDeferred(legacy, '2026-08-16T10:00:00Z')
+  const after = expireBacklog(migrated, new Date('2026-08-16T10:00:00Z'), 48 * 3_600_000)
+  assert.deepEqual(after.expired, [], 'migrated, every legacy row gets one bounded residence window instead')
+  assert.deepEqual(after.live.map((i) => i.event_id), ['EVT-old-news-new-to-us', 'EVT-recent'])
+  // and the extension is one-time: 48h later they age out normally
+  const later = expireBacklog(migrated, new Date('2026-08-18T11:00:00Z'), 48 * 3_600_000)
+  assert.equal(later.expired.length, 2, 'the migration buys one window, not immunity')
+})
+
+await check('preserveResidence: a source redelivering an unscored item does not restart its clock', () => {
+  const backlog = [{ ...queueItem({ event_id: 'EVT-repeat' }), deferred_at: '2026-08-14T00:00:00Z' }]
+  const fresh = [queueItem({ event_id: 'EVT-repeat' }), queueItem({ event_id: 'EVT-genuinely-new' })]
+  const out = preserveResidence(fresh, backlog)
+  assert.equal(out[0].deferred_at, '2026-08-14T00:00:00Z', 'the redelivered item keeps the clock it already had')
+  assert.equal(out[1].deferred_at, undefined, 'a genuinely new item is untouched — it gets stamped when it defers')
+  // without this an overnight re-serve would refresh the stamp every cycle and the item would never age out
+  const { expired } = expireBacklog(stampDeferred(out, '2026-08-16T10:00:00Z'), new Date('2026-08-16T10:00:00Z'), 48 * 3_600_000)
+  assert.deepEqual(expired.map((i) => i.event_id), ['EVT-repeat'])
+})
+
+await check('expireBacklog: a re-deferred item keeps its original residence stamp — it cannot restart its clock', () => {
+  const at = '2026-08-16T10:00:00Z'
+  const rows = stampDeferred([
+    queueItem({ event_id: 'EVT-first-time' }),
+    { ...queueItem({ event_id: 'EVT-waiting' }), deferred_at: '2026-08-14T00:00:00Z' },
+  ], at)
+  assert.equal(rows[0].deferred_at, at, 'a new arrival is stamped now')
+  assert.equal(rows[1].deferred_at, '2026-08-14T00:00:00Z', 'an item already waiting keeps its first stamp')
+  const { expired } = expireBacklog(rows, new Date('2026-08-16T10:00:00Z'), 48 * 3_600_000)
+  assert.deepEqual(expired.map((i) => i.event_id), ['EVT-waiting'], 'so it still ages out on schedule')
+})
+
+await check('a REDELIVERED aged item is expired on the fresh path (deferred_at only) — a genuinely-new item with an old PUBLICATION date is not', () => {
+  // The cycle composes preserveResidence -> expireBacklog(fresh, {requireDeferredStamp:true}) exactly as
+  // below. Before the fix, a redelivered aged item entered `fresh`, its id was in freshIds, so the `carried`
+  // filter dropped its backlog copy and it never reached expireBacklog(carried) — it lived in the fresh pool
+  // forever, consuming a fresh-reserved slot every cycle a source re-served it. It must now be retired here.
+  // Crucially the fresh path must expire on the RESIDENCE clock ONLY: a genuinely-new item legitimately
+  // carries an old found_at (a gov-data item published three weeks ago, discovered today) and must survive —
+  // expiring the fresh path by found_at would re-introduce the publication-date deletion migrateDeferred
+  // exists to prevent. Expected values pinned to that rule, not to code. (Codex #453 — redelivery-expiry.)
+  const now = new Date('2026-08-16T10:00:00Z')
+  const backlog = [{ ...queueItem({ event_id: 'EVT-redelivered' }), deferred_at: '2026-08-13T00:00:00Z' }] // 3d old residence
+  const rawFresh = [
+    queueItem({ event_id: 'EVT-redelivered' }),                                   // re-served by the source this cycle
+    { ...queueItem({ event_id: 'EVT-newbie' }), found_at: '2026-07-26T00:00:00Z' }, // brand new, but 3-week-old PUBLICATION date
+  ]
+  const fresh = preserveResidence(rawFresh, backlog) // EVT-redelivered now carries the 08-13 residence stamp
+  const { live, expired } = expireBacklog(fresh, now, 48 * 3_600_000, { requireDeferredStamp: true })
+  assert.deepEqual(expired.map((i) => i.event_id), ['EVT-redelivered'], 'the aged redelivered item is retired before it can re-enter the queue')
+  assert.deepEqual(live.map((i) => i.event_id), ['EVT-newbie'], 'a genuinely-new item is untouched — the fresh path never expires on found_at')
+})
+
+await check('runIngestCycle: a backlog that waited past the age bound is retired unscored, counted, and named in the note', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp(), state = tmp()
+  // 3 days of unscored backlog, exactly the shape the outage left behind. `deferred_at` is what the bound
+  // is measured on — items that genuinely SAT for three days, not merely items published three days ago.
+  // (A row with only `found_at` is a pre-deploy legacy row and is migrated, not expired — covered above.)
+  fs.writeFileSync(path.join(state, 'news-deferred.json'), JSON.stringify([
+    { event_id: 'EVT-stale-1', headline: 'Newspaper advertisement for results', found_at: '2026-08-13T00:00:00Z', deferred_at: '2026-08-13T00:00:00Z', input_nature: 'exchange_announcement' },
+    { event_id: 'EVT-stale-2', headline: 'Newspaper advertisement for results', found_at: '2026-08-13T01:00:00Z', deferred_at: '2026-08-13T01:00:00Z', input_nature: 'exchange_announcement' },
+  ]))
+  const fetchFn = (async () => res({ articles: [] })) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000 } as any
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now: () => new Date('2026-08-16T10:00:00Z') })
+  assert.equal(s.backlog_expired, 2, 'both aged-out items are counted')
+  assert.equal(s.carryover, 0, 'a retired item never competes for a triage slot again')
+  assert.match(String(s.note), /RETIRED unscored/, 'the loss is named in the note, never silent')
+  assert.equal(loadDeferred(state).length, 0, 'the retired backlog is gone from disk — it cannot regrow the wall')
+})
+
+await check('backlogDurablyCleared: either backlog write succeeding is enough — the LAST write is not the only one that counts', () => {
+  // A cycle calls saveDeferred twice against the same file (pre-projection journal, then final cleanup);
+  // both already exclude backlogExpired rows, so either one succeeding already durably removed them from
+  // disk. Before this fix, runCycle tracked only the final write's result, which undercounted retirement
+  // in the partial-success case: journal write ok, cleanup write fails. (Codex #453 — the both-writes-fail
+  // case was already gated correctly; this pins the case it missed.)
+  assert.equal(backlogDurablyCleared(true, true), true, 'both writes ok')
+  assert.equal(backlogDurablyCleared(true, false), true, 'journal write ok, cleanup write fails — still durable, the exact bug this fixes')
+  assert.equal(backlogDurablyCleared(false, true), true, 'journal write fails, cleanup write recovers it')
+  assert.equal(backlogDurablyCleared(false, false), false, 'both writes fail — nothing durable, must not report retirement')
+})
+
+await check('buildTriageQueue: share 0 restores ONE priority sort, it does not invert the starvation', () => {
+  // NEWS_FRESH_RESERVE_FRAC=0 is the documented rollback lever for the reserve, so it has to UNDO the
+  // reserve — a single global priority sort, which is what shipped before it. Appending fresh only after
+  // the backlog drains is a third behaviour, and a worse one: a high-priority fresh filing would sit
+  // behind every low-priority stale item, which is an absolute version of the starvation the reserve
+  // exists to prevent, reached by the switch meant to turn the reserve off.
+  const now = new Date('2026-08-16T10:00:00Z')
+  // a fresh FILING outranks stale news on preTriagePriority (tier*3 dominates recency)
+  const backlog = Array.from({ length: 3 }, (_, i) =>
+    queueItem({ event_id: `EVT-old-${i}`, headline: `Company reports quarterly numbers ${i}`, input_nature: 'news', found_at: '2026-08-14T00:00:00Z' }))
+  const fresh = [queueItem({ event_id: 'EVT-new-0', headline: 'Routine disclosure', input_nature: 'exchange_announcement', found_at: '2026-08-16T09:55:00Z' })]
+  const q = buildTriageQueue(backlog, fresh, now, 0).map((it: any) => it.event_id)
+  assert.equal(q.length, 4, 'nothing is dropped')
+  assert.equal(q[0], 'EVT-new-0', 'the higher-priority item leads, whichever pool it came from')
+})
+
+await check('the pacing admission and the reservation can never disagree', () => {
+  // The bug this pins: pacedCanSpend took the CALIBRATED cost while tryReserve was never given it, so
+  // the admission paced on what a batch really costs and the reservation paced on the worst case. On a
+  // paced day the admission said yes, the reservation said no, and the batch was dropped — with
+  // groqReleased still true, so nothing reported a reason and the panel called the tier healthy.
+  const PACE = { targetTokens: 300_000, floorFrac: 0.25 } as any
+  const NOON = new Date('2026-08-18T12:00:00Z').getTime()
+  const STRICT = 30_000   // conservative worst-case bound
+  const CALIB = 9_000     // what a successful batch really costs
+  const budgetWith = (used: number) => {
+    resetBudgetMemory()
+    const f = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'paceagree-')), 'b.json')
+    const b = new Budget(f, 10_000, 1_000_000, NOON)
+    if (used > 0) { const r = b.tryReserve(used, undefined, NOON, 1); if (r) b.reconcile(r, 1, used) }
+    return b
+  }
+  for (const used of [0, 50_000, 100_000, 140_000, 160_000, 200_000, 249_000, 290_000]) {
+    const admit = budgetWith(used).pacedCanSpend(STRICT, PACE, NOON, 1, CALIB)
+    const reserved = budgetWith(used).tryReserve(STRICT, PACE, NOON, 1, CALIB) !== null
+    assert.equal(reserved, admit, `at used=${used} the reservation must answer as the admission did`)
+  }
+})
+
+await check('the calibrated pace cost cannot bust the hard daily cap', () => {
+  // The reason the reservation kept the conservative bound in the first place. Threading the calibrated
+  // cost must move ONLY the pacer: the cap test and the amount debited stay on the worst case, or a
+  // generous pace figure would let a batch through the daily ceiling.
+  const PACE = { targetTokens: 300_000, floorFrac: 0.25 } as any
+  const NOON = new Date('2026-08-18T12:00:00Z').getTime()
+  resetBudgetMemory()
+  const f = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'pacecap-')), 'b.json')
+  const b = new Budget(f, 10_000, 1_000_000, NOON)
+  const spent = b.tryReserve(995_000, undefined, NOON, 1)
+  if (spent) b.reconcile(spent, 1, 995_000)
+  // 5,000 tokens of hard cap left; ask for 30,000 with a pace cost of 1 — maximally permissive
+  assert.equal(b.tryReserve(30_000, PACE, NOON, 1, 1), null, 'the hard cap still refuses it')
+
+  resetBudgetMemory()
+  const f2 = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'pacedebit-')), 'b.json')
+  const fresh = new Budget(f2, 10_000, 1_000_000, NOON)
+  const r = fresh.tryReserve(30_000, PACE, NOON, 1, 9_000)
+  assert.equal(r?.tokens, 30_000, 'what is DEBITED is the conservative bound, never the calibrated one')
 })
 
 console.log(`\n${passed} checks passed`)

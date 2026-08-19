@@ -54,6 +54,10 @@ import path from 'node:path'
 import { NEWS, STATE_DIR, REPO_ROOT } from '../config'
 import { fetchCnbcRows, type CnbcRow } from './cnbc-quote'
 
+/** Symbols per upstream quote request. One `|`-joined URL cannot hold an unbounded list, so a caller
+ *  quoting a whole watchlist is split into batches that each stay well inside any URL limit. */
+const SYMBOLS_PER_REQUEST = 50
+
 // ---- public shapes (the /api/quote contract) ----
 
 /** What the caller knows about a listing, straight off decision_record.json. */
@@ -498,11 +502,12 @@ export function callVsLive(args: {
 // as it says so.
 
 interface CachedQuote { row: CnbcRow; at: number }
-// inflight resolves to the batch's SUCCESS boolean (true = rows landed, false = the fetch failed), so
-// every waiter — the creator AND anyone who joins the same in-flight promise — reads the same outcome.
-// A per-call `batchFailed` set only inside the creator's closure would leave a joiner falsely believing
-// the batch succeeded (see getQuotes).
-interface QuoteCache { bySymbol: Map<string, CachedQuote>; inflight: Map<string, Promise<boolean>> }
+// inflight resolves to the set of symbols whose fetch FAILED (empty = every chunk landed), so every
+// waiter — the creator AND anyone who joins the same in-flight promise — reads the same outcome. A
+// result kept only inside the creator's closure would leave a joiner falsely believing the batch
+// succeeded. It is a set rather than a boolean because the batch is chunked: one chunk can fail while
+// the rest land, and only the failed chunk's symbols may report `feed_unavailable` (see getQuotes).
+interface QuoteCache { bySymbol: Map<string, CachedQuote>; inflight: Map<string, Promise<Set<string>>> }
 
 const memCache = new Map<string, QuoteCache>()
 const persistFile = (stateDir: string) => path.join(stateDir, 'equity-quotes.json')
@@ -584,37 +589,55 @@ export async function getQuotes(subjects: QuoteSubject[], deps: QuoteDeps = {}):
       })
       .sort()
 
-    let batchFailed = false
+    // Symbols whose fetch actually FAILED, as opposed to symbols the feed simply does not carry. The
+    // distinction decides between `feed_unavailable` (temporary, try again) and `unknown_symbol`
+    // (permanent, cached as a negative), so it has to be tracked per symbol once the batch is split.
+    let failedSyms = new Set<string>()
     if (needed.length) {
       // single-flight: concurrent callers wanting the same symbol set share one fetch
       const key = needed.join('|')
       let flight = cache.inflight.get(key)
       if (!flight) {
         flight = (async () => {
-          const rows = await fetchCnbcRows(fetchFn, needed, NEWS.quoteTimeoutMs)
-          if (!rows) return false // the fetch failed — keep previous entries; they will read as stale
-          for (const sym of needed) {
-            const row = rows.get(sym)
-            // A symbol absent from a GOOD batch is a real "this service does not price it" answer, so
-            // it is cached as a negative result. Without this, an unresolvable ticker would re-fetch on
-            // every single request forever.
-            cache.bySymbol.set(sym, { row: row ?? ({ symbol: sym, last: NaN } as CnbcRow), at: nowMs })
-          }
-          persist(stateDir, cache)
-          return true
+          // CHUNKED. Every symbol used to go into ONE `|`-joined query string, which was fine while the
+          // only caller quoted a single subject — but a caller quoting a whole list (the watchlist) sends
+          // hundreds of candidates, and one over-long URL fails as a unit, taking every row down with it.
+          // Split into fixed batches so a big list degrades per chunk instead of all-or-nothing.
+          const chunks: string[][] = []
+          for (let i = 0; i < needed.length; i += SYMBOLS_PER_REQUEST) chunks.push(needed.slice(i, i + SYMBOLS_PER_REQUEST))
+          const results = await Promise.all(
+            chunks.map((chunk) => fetchCnbcRows(fetchFn, chunk, NEWS.quoteTimeoutMs).catch(() => null)),
+          )
+          const failed = new Set<string>()
+          let anyOk = false
+          results.forEach((rows, idx) => {
+            const chunk = chunks[idx]
+            // the fetch failed — keep previous entries for these; they will read as stale
+            if (!rows) { for (const sym of chunk) failed.add(sym); return }
+            anyOk = true
+            for (const sym of chunk) {
+              const row = rows.get(sym)
+              // A symbol absent from a GOOD batch is a real "this service does not price it" answer, so
+              // it is cached as a negative result. Without this, an unresolvable ticker would re-fetch on
+              // every single request forever.
+              cache.bySymbol.set(sym, { row: row ?? ({ symbol: sym, last: NaN } as CnbcRow), at: nowMs })
+            }
+          })
+          if (anyOk) persist(stateDir, cache)
+          return failed
         })()
-          .catch(() => false)
+          .catch(() => new Set(needed))
           .finally(() => { cache.inflight.delete(key) })
         cache.inflight.set(key, flight)
       }
-      // Every waiter reads the SHARED result and sets its OWN batchFailed. A joiner that inherited the
-      // creator's closure `batchFailed` would stay false on a failed batch and wrongly report
-      // `unknown_symbol` (the provider does not carry this listing) during a transient outage.
-      if (!(await flight)) batchFailed = true
+      // Every waiter reads the SHARED result. A joiner that inherited the creator's closure would stay
+      // empty on a failed batch and wrongly report `unknown_symbol` (the provider does not carry this
+      // listing) during a transient outage.
+      failedSyms = await flight
     }
 
     for (const { subject, candidates } of plans) {
-      let reason: AbsentReason = batchFailed ? 'feed_unavailable' : 'unknown_symbol'
+      let reason: AbsentReason = candidates.some((c) => failedSyms.has(c)) ? 'feed_unavailable' : 'unknown_symbol'
       let quote: LiveQuote | null = null
       for (const sym of candidates) {
         const entry = cache.bySymbol.get(sym)
