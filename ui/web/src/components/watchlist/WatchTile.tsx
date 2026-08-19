@@ -33,7 +33,7 @@ export function WatchTile({ row, selected, onSelect }: {
       className={`wtile wtile--${band}${selected ? ' wtile--sel' : ''}${isArchived ? ' wtile--archived' : ''}`}
       aria-pressed={selected}
       onClick={() => onSelect(row.listing_key)}
-      title={absent ?? `${row.company_name ?? row.ticker} — ${row.evals[0]?.detail ?? 'no trigger set'}`}
+      title={absent ?? `${row.company_name ?? row.ticker} — ${row.evals?.[0]?.detail ?? 'no trigger set'}`}
     >
       <span className="wtile__top">
         <span className="wtile__sym">{row.ticker}</span>

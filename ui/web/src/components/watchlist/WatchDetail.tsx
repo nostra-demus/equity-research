@@ -39,9 +39,16 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
   const reason = row.why || (row.engine?.size_in_trigger ? `“${row.engine.size_in_trigger}”` : '')
   const isArchived = !!row.archive && !row.resurfaced
   const absent = absenceReason(row)
-  const thesisHref = !staticMode && row.entry_id && row.attachments.length
-    ? api.watchAttachmentUrl(row.entry_id, row.attachments[0].attachment_id)
+  // `attachments` and `evals` are declared non-optional but arrive over the wire — and in static mode from
+  // the snapshot builder, a separate program. A missing array would take the whole panel down rather than
+  // degrade, so read them defensively here even though the type says they are always present.
+  const firstAttachment = row.attachments?.[0]
+  const thesisHref = !staticMode && row.entry_id && firstAttachment
+    ? api.watchAttachmentUrl(row.entry_id, firstAttachment.attachment_id)
     : null
+  // Hoisted so TypeScript narrows it for the callback below — a closure cannot narrow a property access,
+  // which is the only reason the non-null assertion was there.
+  const thesisPath = row.final_thesis_path
   const edit = () =>
     openComposer(
       { ticker: row.ticker, company_name: row.company_name, currency: row.currency, exchange: row.exchange,
@@ -81,7 +88,7 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
       {/* Every trigger, with the arithmetic the server computed — "not met" stays checkable rather than
           trusted (§15). The tile showed only the nearest one; this is the full set. */}
       <div className="wdet__trigs">
-        {row.evals.length ? row.evals.map((e) => (
+        {row.evals?.length ? row.evals.map((e) => (
           <div key={e.trigger_id} className="wdet__trig">
             <span className={chipClass(e)}>
               {e.kind === 'event_date' ? 'date' : e.kind === 'price_level' ? 'level' : e.kind === 'pct_drop' ? 'drop' : 'value'}
@@ -114,8 +121,8 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
           <>
             {thesisHref
               ? <a className="btn btn--mini" href={thesisHref} target="_blank" rel="noreferrer" title="Your write-up">Thesis</a>
-              : row.final_thesis_path
-                ? <button className="btn btn--mini" onClick={() => openCallFile(row.final_thesis_path!, `Investment Thesis — ${row.ticker}`)}>Thesis</button>
+              : thesisPath
+                ? <button className="btn btn--mini" onClick={() => openCallFile(thesisPath, `Investment Thesis — ${row.ticker}`)}>Thesis</button>
                 : null}
             <button className="btn btn--mini" onClick={edit}>Edit</button>
             {/* Two-click confirm, and the wording restates the act rather than saying "confirm". */}

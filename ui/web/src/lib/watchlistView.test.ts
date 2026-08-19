@@ -105,4 +105,37 @@ check('sorting is stable by ticker so the grid does not shuffle between refreshe
   assert.deepEqual(sortForGrid([a, b]).map((r) => r.ticker), ['AAA', 'BBB'])
 })
 
+check('a malformed distance is an absence, not a NaN on the tile', () => {
+  // both fields cross the wire, and static mode builds them in a separate program — so a null, a string
+  // or a NaN is reachable without anyone writing a bug in this file
+  for (const bad of [null, undefined, NaN, 'soon', Infinity]) {
+    const r = row({ nearest: { unit: 'pct', value: bad as unknown as number } })
+    assert.equal(rowDistance(r), null, `value ${String(bad)} is not a distance`)
+    assert.equal(distanceLabel(r), '—')
+  }
+  assert.equal(rowDistance(row({ nearest: { unit: 'weeks' as 'pct', value: 3 } })), null, 'an unknown unit is refused')
+  assert.equal(rowDistance(row({ nearest: undefined, nearest_gap_pct: NaN as unknown as number })), null, 'the legacy field is checked too')
+})
+
+check('the grid comparator stays consistent when a row cannot be ranked', () => {
+  // an inconsistent comparator does not throw — V8 just returns an arbitrary order, which shows up as a
+  // grid that reshuffles between refreshes and is very hard to trace back to a sort function
+  const rows = [
+    row({ ticker: 'BAD', nearest: { unit: 'pct', value: NaN as unknown as number } }),
+    row({ ticker: 'NEAR', nearest: { unit: 'pct', value: -1 } }),
+    row({ ticker: 'ALSOBAD', nearest: { unit: 'days', value: 'x' as unknown as number } }),
+    row({ ticker: 'FAR', nearest: { unit: 'pct', value: -30 } }),
+  ]
+  const once = sortForGrid(rows).map((r) => r.ticker)
+  const twice = sortForGrid([...rows].reverse()).map((r) => r.ticker)
+  assert.deepEqual(once, ['NEAR', 'FAR', 'ALSOBAD', 'BAD'], 'measurable first, unmeasurable last by ticker')
+  assert.deepEqual(once, twice, 'and the order does not depend on the input order')
+})
+
+check('a row missing evals entirely still reports an absence rather than throwing', () => {
+  const r = row({ evals: undefined as unknown as [] })
+  assert.equal(absenceReason(r), 'No trigger set — reminder only.')
+  assert.equal(triggerCaption(r), 'no trigger')
+})
+
 console.log(`\nwatchlistView.test.ts: ${passed} passed`)
