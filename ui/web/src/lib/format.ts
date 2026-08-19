@@ -107,7 +107,13 @@ export function fmtDuration(ms?: number): string {
   const s = Math.round(ms / 1000)
   if (s < 60) return `${s}s`
   const m = Math.floor(s / 60)
-  return `${m}m ${s % 60}s`
+  // Roll past minutes. This used to stop at `m`, so a two-and-a-half-day span rendered as "3655m 38s" —
+  // which reads as a broken number rather than a duration, and sent a real investigation chasing runs
+  // that were never that long.
+  if (m < 60) return `${m}m ${s % 60}s`
+  const h = Math.floor(m / 60)
+  if (h < 24) return `${h}h ${m % 60}m`
+  return `${Math.floor(h / 24)}d ${h % 24}h`
 }
 
 // ---- plan usage / rate-limit windows ----
