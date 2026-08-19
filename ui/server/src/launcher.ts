@@ -513,13 +513,13 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     // certainly budget/turn-truncated before the last synthesis finished. Report it honestly as
     // INCOMPLETE (not a misleading "done") so the cockpit + activity log show the truth and the
     // user can finish it / raise the cap.
-    const orbs = run.kind === 'module' ? moduleOrbProgress(run.runRoot, run.module) : null
+    const orbs = run.kind === 'module' ? moduleOrbProgress(run.runRoot, run.module) : { landed: [], expected: 0 }
     const msg = run.kind === 'sweep'
       ? 'The scan ended without saving anything to the Inbox — it found no events, or it stopped before it could write. Nothing was added.'
       : run.kind === 'module'
         ? `The ${run.module} module stopped before writing its summary, so it has no result yet. `
-          + `${orbs!.landed.length}${orbs!.expected ? ` of ${orbs!.expected}` : ''} step(s) finished and were saved`
-          + `${orbs!.landed.length ? `: ${orbs!.landed.map((f) => f.replace(/\.md$/, '')).join(', ')}` : ''}. `
+          + `${orbs.landed.length}${orbs.expected ? ` of ${orbs.expected}` : ''} step(s) finished and were saved`
+          + `${orbs.landed.length ? `: ${orbs.landed.map((f) => f.replace(/\.md$/, '')).join(', ')}` : ''}. `
           + 'Nothing is lost — re-run the module and it picks up from the steps already on disk.'
       : run.swarmId === 'research'
         ? 'Run ended without the final thesis & memo — likely budget- or turn-truncated before the master synthesizer finished. Re-run from the master (or any late orb) to finish; the cap is now higher.'
@@ -527,7 +527,7 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     run.note = run.kind === 'sweep'
       ? 'incomplete: sweep wrote no inbox file'
       : run.kind === 'module'
-        ? `incomplete: ${run.module} stopped before its synthesis (${orbs!.landed.length}${orbs!.expected ? `/${orbs!.expected}` : ''} steps saved)`
+        ? `incomplete: ${run.module} stopped before its synthesis (${orbs.landed.length}${orbs.expected ? `/${orbs.expected}` : ''} steps saved)`
         : 'incomplete: no final thesis/decision (likely budget/turn truncation)'
     // A clean budget/turn truncation is a DELIBERATE cap, not an interruption — auto-resuming would just
     // re-hit the same cap and loop. Clear any interrupted-marker so the supervisor leaves it for the human.
@@ -2018,19 +2018,23 @@ async function spawnEngine(run: RunState): Promise<void> {
   // run; only true silence trips it, and it stops the run through the ordinary cancel path so the
   // group-kill, markers and activity-log note all behave exactly as a user-initiated stop would.
   let stallTimer: NodeJS.Timeout | null = null
+  // Declared BEFORE the interval so the callback can clear ITSELF. A run can finalize through paths that
+  // never reach onClose (an early stream-result error finalizes there and returns), and without a
+  // self-clear the interval would outlive the run for the whole life of the server process.
+  const clearStallTimer = () => { if (stallTimer) { clearInterval(stallTimer); stallTimer = null } }
   if (RUN_STALL_MINUTES > 0) {
     const stallMs = RUN_STALL_MINUTES * 60_000
     stallTimer = setInterval(() => {
-      if (run.endedAt !== undefined) return
+      if (run.endedAt !== undefined) { clearStallTimer(); return }
       const since = Date.now() - (run.lastStdoutAt ?? run.startedAt)
       if (since < stallMs) return
       run.note = `stalled: no output for ${Math.round(since / 60_000)} min — stopped by the stall guard`
       console.log(`[stall-guard] ${run.ticker} ${run.kind}${run.module ? ` ${run.module}` : ''}: no output for ${Math.round(since / 60_000)} min — stopping`)
+      clearStallTimer() // one cancel is enough; never re-fire while the kill is in flight
       void cancel(run.runId).catch(() => { /* best-effort; the close handler still finalizes */ })
     }, 60_000)
     stallTimer.unref?.()
   }
-  const clearStallTimer = () => { if (stallTimer) { clearInterval(stallTimer); stallTimer = null } }
   run.status = 'running'
   emit(run, { type: 'run-started', runId: run.runId, kind: run.kind, ticker: run.ticker, runRoot: run.runRoot, willCommitToMain: run.willCommitToMain, ...(run.swarmId !== 'research' ? { swarm: run.swarmId } : {}), ts: Date.now() })
 
