@@ -7,7 +7,7 @@
 // Run: npx tsx test/watchlist-triggers.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
-import { evaluateTrigger, rollupState, triggerSetProblem, type EvalContext, type WatchTrigger } from '../src/watchlist'
+import { daysBetween, evaluateTrigger, nearestDistance, rollupState, triggerSetProblem, urgencyRank, type EvalContext, type WatchTrigger } from '../src/watchlist'
 import type { LiveQuote } from '../src/news/equity-quote'
 
 let passed = 0
@@ -182,6 +182,61 @@ check('a mixed, sensible set passes', () => {
     { kind: 'event_date' },
     { kind: 'event_date' },
   ]), null)
+})
+
+
+// ---- distance carries its unit (the tile grid's one number) ----
+
+check('a dated trigger measures in DAYS and never borrows the price gap field', () => {
+  const e = evaluateTrigger(evt({ due_date: '2026-08-26' }), ctx(quote(200)))
+  assert.equal(e.days_to, 8, 'eight calendar days ahead of TODAY')
+  assert.equal(e.gap_pct, null, 'a date has no percentage — leaving gap_pct null is the honest answer')
+})
+
+check('a price trigger measures in PERCENT and never borrows the day field', () => {
+  const e = evaluateTrigger(priceLevel({ level: 180 }), ctx(quote(200)))
+  assert.ok(e.gap_pct != null && e.gap_pct < 0, 'the price must fall, so the gap is negative')
+  assert.equal(e.days_to, null)
+})
+
+check('daysBetween counts calendar days and is stable across a DST boundary', () => {
+  assert.equal(daysBetween('2026-08-18', '2026-08-18'), 0, 'today is zero, not one')
+  assert.equal(daysBetween('2026-08-18', '2026-08-19'), 1)
+  assert.equal(daysBetween('2026-08-18', '2026-08-11'), -7, 'a passed date is negative')
+  // Europe/US clocks change between these dates; a local-midnight parse drifts by one here
+  assert.equal(daysBetween('2026-10-20', '2026-11-20'), 31)
+  assert.equal(daysBetween('nonsense', '2026-08-19'), null, 'an unparseable date yields null, never a guess')
+})
+
+check('a row carrying BOTH kinds surfaces whichever trigger is genuinely nearer', () => {
+  // 1% away outranks 2 days away (1/5 < 2/7); 4% away does not (4/5 > 2/7). Ordered, never merged.
+  const near1pct = evaluateTrigger(priceLevel({ level: 198 }), ctx(quote(200)))
+  const in2days = evaluateTrigger(evt({ due_date: '2026-08-20' }), ctx(quote(200)))
+  const far4pct = evaluateTrigger(priceLevel({ trigger_id: 'T9', level: 192 }), ctx(quote(200)))
+  assert.ok(urgencyRank(near1pct) < urgencyRank(in2days))
+  assert.ok(urgencyRank(in2days) < urgencyRank(far4pct))
+  assert.deepEqual(nearestDistance([in2days, near1pct]), { unit: 'pct', value: near1pct.gap_pct })
+  assert.deepEqual(nearestDistance([far4pct, in2days]), { unit: 'days', value: 2 })
+})
+
+check('a met condition outranks everything, and an unmeasurable row reports no distance at all', () => {
+  const met = evaluateTrigger(priceLevel({ level: 200 }), ctx(quote(200)))
+  const other = evaluateTrigger(priceLevel({ trigger_id: 'T8', level: 150 }), ctx(quote(200)))
+  assert.equal(met.state, 'condition_met')
+  assert.equal(urgencyRank(met), 0)
+  assert.deepEqual(nearestDistance([other, met]), { unit: 'pct', value: 0 })
+  // no price at all: the refusal must not become a zero distance
+  const blind = evaluateTrigger(priceLevel(), ctx(null, 'feed_unavailable'))
+  assert.equal(blind.state, 'not_evaluable')
+  assert.equal(nearestDistance([blind]), null)
+  assert.equal(nearestDistance([]), null)
+})
+
+check('an overdue date still carries its distance, as a negative day count', () => {
+  const e = evaluateTrigger(evt({ due_date: '2026-08-15' }), ctx(quote(200)))
+  assert.equal(e.days_to, -3)
+  assert.equal(e.due, true)
+  assert.deepEqual(nearestDistance([e]), { unit: 'days', value: -3 })
 })
 
 console.log(`\nwatchlist-triggers.test.ts: ${passed} passed`)

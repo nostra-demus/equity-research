@@ -179,8 +179,46 @@ export interface TriggerEval {
    * this list, so a price column cannot be read downwards but a distance can.
    */
   gap_pct: number | null
+  /**
+   * How many days until a DATED trigger comes due (0 = today, negative = already passed). Null for every
+   * price-family trigger, exactly as `gap_pct` is null for a dated one: the two distances are measured in
+   * different units and must never be averaged, summed, or plotted on one axis. A date is the one trigger
+   * kind whose distance a price cannot express, which is why forcing it into `gap_pct` would have meant
+   * either a lie or the `—` it used to show.
+   */
+  days_to: number | null
   reason: AbsentReason | 'no_reference' | 'currency_mismatch_trigger' | 'no_anchor' | null
   due?: boolean
+}
+
+/**
+ * The nearest trigger's distance, carrying its own unit. `pct` = the price must move that far (signed:
+ * negative means it must fall); `days` = that many days until the date arrives (0 = today, negative =
+ * passed). Unit-tagged rather than two nullable numbers so a reader cannot pick up the wrong one.
+ */
+export interface NearestDistance {
+  unit: 'pct' | 'days'
+  value: number
+}
+
+/**
+ * Urgency thresholds, in each unit. A price trigger within 5% and a date within 7 days are both "near" —
+ * that equivalence is a judgment, so it lives in ONE place rather than being re-guessed per surface.
+ */
+export const NEAR_PCT = 5
+export const NEAR_DAYS = 7
+
+/**
+ * Rank one evaluation on a single 0-and-up urgency scale so distances in different units can be ORDERED
+ * without being conflated. 0 = already there; 1 = exactly at the "near" threshold in its own unit; above 1
+ * = further out. The scale is only ever used to pick which trigger is closest and to sort — it is never
+ * shown, because a number that has silently mixed percent and days is not a fact about anything (§15).
+ */
+export function urgencyRank(e: TriggerEval): number {
+  if (e.state === 'condition_met') return 0
+  if (e.days_to != null) return e.days_to <= 0 ? 0 : e.days_to / NEAR_DAYS
+  if (e.gap_pct != null) return Math.abs(e.gap_pct) / NEAR_PCT
+  return Number.POSITIVE_INFINITY
 }
 
 export type RowState = 'condition_met' | 'due' | 'armed' | 'not_evaluable' | 'watching'
@@ -209,6 +247,15 @@ export interface MergedWatchRow {
   state: RowState
   /** The smallest move still needed by any auto trigger. Null when nothing is checkable. */
   nearest_gap_pct: number | null
+  /**
+   * The closest trigger's distance WITH its unit — the tile grid's headline figure. Chosen by
+   * `urgencyRank`, so a name carrying both a price and a dated trigger surfaces whichever is genuinely
+   * nearer rather than whichever kind happens to be checked first. Null when nothing is measurable.
+   *
+   * Kept alongside `nearest_gap_pct` rather than replacing it: an older bundle served during a deploy
+   * still reads the percent field, and a dated trigger was invisible to that field anyway.
+   */
+  nearest: NearestDistance | null
   run_root: string | null
   final_thesis_path: string | null
   /** When YOU added it (null for a row the engine projected and you have never touched) and when it was
@@ -477,6 +524,7 @@ export function evaluateTrigger(t: WatchTrigger, ctx: EvalContext): TriggerEval 
       mode: 'reminder',
       state: 'not_met', // a date is never "met" — it comes due, and only a human clears it
       gap_pct: null,
+      days_to: daysBetween(ctx.today, t.due_date),
       detail: t.acknowledged_at
         ? `${t.label} — acknowledged ${t.acknowledged_at.slice(0, 10)}`
         : due
@@ -489,14 +537,14 @@ export function evaluateTrigger(t: WatchTrigger, ctx: EvalContext): TriggerEval 
 
   const q = ctx.quote
   if (!q) {
-    return { ...base, mode: 'auto', state: 'not_evaluable', detail: 'No live price to check against.', reason: ctx.quoteReason, gap_pct: null }
+    return { ...base, mode: 'auto', state: 'not_evaluable', detail: 'No live price to check against.', reason: ctx.quoteReason, gap_pct: null, days_to: null }
   }
   // A stale quote (the feed failed after the TTL, so getQuotes handed back a cached price rather than
   // nothing) is a real number but not a CURRENT one. Evaluating a trigger against it can surface a
   // days-old threshold crossing as a live alert even after the price has since moved back — the exact
   // false positive `not_evaluable` exists to prevent. Refuse it the same way a missing quote is refused.
   if (q.stale) {
-    return { ...base, mode: 'auto', state: 'not_evaluable', detail: `The price is stale (last checked ${q.as_of ?? 'a while ago'}) — refusing to call this trigger current.`, reason: 'stale_feed', gap_pct: null }
+    return { ...base, mode: 'auto', state: 'not_evaluable', detail: `The price is stale (last checked ${q.as_of ?? 'a while ago'}) — refusing to call this trigger current.`, reason: 'stale_feed', gap_pct: null, days_to: null }
   }
 
   // The trigger's currency and the quote's must be the same measurement. There is no FX module here, and
@@ -511,6 +559,7 @@ export function evaluateTrigger(t: WatchTrigger, ctx: EvalContext): TriggerEval 
       detail: `Set in ${want}, priced in ${q.currency} — comparing them needs an FX rate and date this row does not carry.`,
       reason: 'currency_mismatch_trigger',
       gap_pct: null,
+      days_to: null,
     }
   }
 
@@ -526,12 +575,13 @@ export function evaluateTrigger(t: WatchTrigger, ctx: EvalContext): TriggerEval 
         : `${money(q.currency, q.price)} is ${Math.abs(gap)}% ${gap > 0 ? 'above' : 'below'} ${money(t.currency, t.level)}`,
       reason: null,
       gap_pct: met ? 0 : pct1(((t.level - q.price) / q.price) * 100),
+      days_to: null,
     }
   }
 
   if (t.kind === 'pct_drop') {
     if (!(t.reference.value > 0)) {
-      return { ...base, mode: 'auto', state: 'not_evaluable', detail: 'The reference price is missing or not positive.', reason: 'no_reference', gap_pct: null }
+      return { ...base, mode: 'auto', state: 'not_evaluable', detail: 'The reference price is missing or not positive.', reason: 'no_reference', gap_pct: null, days_to: null }
     }
     const threshold = r2(t.reference.value * (1 - t.drop_pct / 100))
     const met = q.price <= threshold
@@ -543,12 +593,13 @@ export function evaluateTrigger(t: WatchTrigger, ctx: EvalContext): TriggerEval 
       detail: `${t.drop_pct}% below ${money(t.reference.currency, t.reference.value)}${t.reference.as_of ? ` (${t.reference.as_of})` : ''} = ${money(t.reference.currency, threshold)}; now ${money(q.currency, q.price)}, ${fell >= 0 ? 'down' : 'up'} ${Math.abs(fell)}%`,
       reason: null,
       gap_pct: met ? 0 : pct1(((threshold - q.price) / q.price) * 100),
+      days_to: null,
     }
   }
 
   // valuation_mos
   if (!(t.anchor_value > 0)) {
-    return { ...base, mode: 'reminder', state: 'not_evaluable', detail: 'No fair value is pinned to this trigger.', reason: 'no_anchor', gap_pct: null }
+    return { ...base, mode: 'reminder', state: 'not_evaluable', detail: 'No fair value is pinned to this trigger.', reason: 'no_anchor', gap_pct: null, days_to: null }
   }
   const mos = pct1(((t.anchor_value - q.price) / t.anchor_value) * 100)
   const met = t.direction === 'at_or_below' ? mos >= t.required_mos_pct : -mos >= t.required_mos_pct
@@ -566,7 +617,21 @@ export function evaluateTrigger(t: WatchTrigger, ctx: EvalContext): TriggerEval 
     detail: `(${money(t.anchor_currency, t.anchor_value)} − ${money(q.currency, q.price)}) ÷ ${t.anchor_value} = ${mos}% vs ${t.required_mos_pct}% required`,
     reason: null,
     gap_pct: met ? 0 : pct1(((threshold - q.price) / q.price) * 100),
+    days_to: null,
   }
+}
+
+/**
+ * Whole days from `from` to `to`, both plain ISO dates (YYYY-MM-DD). Positive = still ahead, 0 = today,
+ * negative = already passed. Parsed as UTC midnight on both sides so the answer is a calendar-day count
+ * and never drifts by one across a timezone or a daylight-saving boundary — a review that says "due in
+ * 1 day" on one host and "due today" on another is the kind of quiet inconsistency a reader cannot audit.
+ */
+export function daysBetween(from: string, to: string): number | null {
+  const a = Date.parse(`${String(from).slice(0, 10)}T00:00:00Z`)
+  const b = Date.parse(`${String(to).slice(0, 10)}T00:00:00Z`)
+  if (!Number.isFinite(a) || !Number.isFinite(b)) return null
+  return Math.round((b - a) / 86_400_000)
 }
 
 function money(currency: string | null | undefined, v: number): string {
@@ -696,6 +761,7 @@ export function mergeWatchlist(input: MergeInput): { rows: MergedWatchRow[]; arc
         if (!gaps.length) return null
         return gaps.reduce((a, b) => (Math.abs(b) < Math.abs(a) ? b : a))
       })(),
+      nearest: nearestDistance(evals),
       run_root: engine?.run_root ?? null,
       final_thesis_path: engine?.final_thesis_path ?? null,
       added_at: entry?.created_at ?? null,
@@ -731,4 +797,27 @@ export function mergeWatchlist(input: MergeInput): { rows: MergedWatchRow[]; arc
   })
   archived.sort((a, b) => String(b.archive?.at ?? '').localeCompare(String(a.archive?.at ?? '')))
   return { rows, archived }
+}
+
+/**
+ * The closest trigger on a row, in its own unit. Ranked by `urgencyRank` so a price gap and a date can be
+ * ORDERED against each other without ever being merged into one number: 4% away and 6 days away are both
+ * "near", and which is nearer is a question the rank answers and the returned value never pretends to.
+ *
+ * Returns null when no trigger is measurable — an unpriced row, a currency mismatch, a reminder with no
+ * anchor. That null is the honest answer and the caller renders it as an absence, not as a zero (§3).
+ */
+export function nearestDistance(evals: TriggerEval[]): NearestDistance | null {
+  let best: TriggerEval | null = null
+  let bestRank = Number.POSITIVE_INFINITY
+  for (const e of evals) {
+    const r = urgencyRank(e)
+    if (!Number.isFinite(r) || r >= bestRank) continue
+    best = e
+    bestRank = r
+  }
+  if (!best) return null
+  if (best.days_to != null) return { unit: 'days', value: best.days_to }
+  if (best.gap_pct != null) return { unit: 'pct', value: best.gap_pct }
+  return null
 }

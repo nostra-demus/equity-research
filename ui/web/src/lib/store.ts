@@ -117,6 +117,14 @@ const VIEW_KEY = 'nsw.researchView'
 function loadView(): ResearchView {
   try { return normalizeStoredView(localStorage.getItem(VIEW_KEY)) } catch { return 'constellation' }
 }
+// How the watchlist is drawn. Unlike the stage view this IS a home: whichever way you read the list is the
+// way you want it next time, so an explicit choice persists and anything unrecognized falls back to the
+// grid rather than to a stored value we cannot interpret.
+const WL_LAYOUT_KEY = 'nsw.watchlistLayout'
+export type WatchlistLayout = 'grid' | 'table'
+function loadWatchlistLayout(): WatchlistLayout {
+  try { return localStorage.getItem(WL_LAYOUT_KEY) === 'table' ? 'table' : 'grid' } catch { return 'grid' }
+}
 // One-time, cached WebGL capability probe (a context creation, immediately released). The globe needs it;
 // the toggle disables the Globe option and we coerce away from it when this is false.
 let webglProbe: boolean | null = null
@@ -505,6 +513,8 @@ interface State {
   watchlistMetCount: number
   watchlistShowArchived: boolean
   watchlistPending: string | null
+  watchlistLayout: WatchlistLayout
+  setWatchlistLayout: (l: WatchlistLayout) => void
   /** The add/edit panel. `prefill` carries what the decision record already knows, so a researched name
    *  needs nothing retyped and is quotable the moment it is saved. */
   watchComposer: { open: boolean; entryId: string | null; prefill: WatchRowInput | null; openedAt: number } | null
@@ -1326,6 +1336,7 @@ export const useStore = create<State>((set, get) => ({
   watchlistMetCount: 0,
   watchlistShowArchived: false,
   watchlistPending: null,
+  watchlistLayout: loadWatchlistLayout(),
   watchComposer: null,
   webglOK: true, // optimistic; init() probes and corrects + coerces the view if WebGL is missing
   warp: null,
@@ -1756,6 +1767,10 @@ export const useStore = create<State>((set, get) => ({
   },
 
   setWatchlistShowArchived: (v) => set({ watchlistShowArchived: v }),
+  setWatchlistLayout: (l) => {
+    try { localStorage.setItem(WL_LAYOUT_KEY, l) } catch { /* private mode — the choice just does not persist */ }
+    set({ watchlistLayout: l })
+  },
 
   // Opening from the decision banner switches to the view AND opens the form, so the button lands you
   // where the thing you just created will appear rather than leaving you to go find it.

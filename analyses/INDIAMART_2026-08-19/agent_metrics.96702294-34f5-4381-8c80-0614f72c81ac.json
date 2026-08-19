@@ -1,0 +1,75 @@
+{
+  "agents": [
+    {
+      "agent": "governance-data-triage",
+      "model": "claude-sonnet-5",
+      "calls": 22,
+      "usage": {
+        "input_tokens": 44,
+        "output_tokens": 25567,
+        "cache_read_input_tokens": 1876792,
+        "cache_creation_input_tokens": 137273,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 137273,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 1.4614483500000002,
+      "runtime_ms": 255533,
+      "module": "management-governance"
+    },
+    {
+      "agent": "people-integrity-dossiers",
+      "model": "claude-sonnet-5",
+      "calls": 35,
+      "usage": {
+        "input_tokens": 70,
+        "output_tokens": 39692,
+        "cache_read_input_tokens": 6144407,
+        "cache_creation_input_tokens": 265845,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 265845,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 3.43583085,
+      "runtime_ms": 0,
+      "module": "management-governance"
+    },
+    {
+      "agent": "management-and-track-record",
+      "model": "claude-sonnet-5",
+      "calls": 23,
+      "usage": {
+        "input_tokens": 46,
+        "output_tokens": 35806,
+        "cache_read_input_tokens": 2724779,
+        "cache_creation_input_tokens": 196070,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 196070,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 2.0899242,
+      "runtime_ms": 0,
+      "module": "management-governance"
+    }
+  ],
+  "orchestrator": {
+    "agent": "(orchestrator)",
+    "model": "claude-sonnet-5",
+    "calls": 20,
+    "usage": {
+      "input_tokens": 40,
+      "output_tokens": 8657,
+      "cache_read_input_tokens": 1873784,
+      "cache_creation_input_tokens": 76891,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 76891
+      }
+    },
+    "cost": 1.1534562000000002,
+    "runtime_ms": 0
+  }
+}
