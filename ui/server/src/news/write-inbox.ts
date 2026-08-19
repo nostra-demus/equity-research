@@ -150,6 +150,20 @@ function revisionRecord(row: {
   }
 }
 
+/** The firehose is an append-only observation log. `found_at` was only added to its item records on
+ * 2026-08-05; every line written before that carries the ingester's own write stamp as `ts` and nothing
+ * else. `ts` IS that item's first durable observation, so reading it recovers the true oldest clock —
+ * whereas dropping the record (the old behaviour) made every legacy partition permanently unprovable,
+ * which is what wedged coverage and then blocked all ingest. Reading `ts` is strictly more conservative
+ * than discarding it: it yields an OLDER found_at, so it can only ever refuse freshness, never mint it.
+ * Sweep rows are unaffected — they always carry `found_at`, and this fallback is reachable only from the
+ * legacy firehose path. */
+function firehoseRevisionRecord(row: { found_at?: unknown; ts?: unknown }): RevisionClockRecord | null {
+  if (typeof row.found_at === 'string' && Number.isFinite(Date.parse(row.found_at))) return revisionRecord(row)
+  if (typeof row.ts !== 'string' || !Number.isFinite(Date.parse(row.ts))) return null
+  return revisionRecord({ ...row, found_at: row.ts })
+}
+
 function revisionRecordsFromDocument(doc: SweepWithRevisionClocks, label: string): Map<string, RevisionClockRecord> | null {
   if (doc.revision_clock_version === undefined && doc.revision_clocks === undefined) return null
   if (doc.revision_clock_version !== 1 || !Array.isArray(doc.revision_clocks)) {
@@ -226,7 +240,7 @@ function forEachFirehoseRevision(
             const row = JSON.parse(line)
             validLines++
             if (row?.kind !== 'item') continue
-            const record = revisionRecord(row)
+            const record = firehoseRevisionRecord(row)
             if (record) visit(record)
             else invalidCompleteLine = true
           } catch { invalidCompleteLine = true }
@@ -239,7 +253,7 @@ function forEachFirehoseRevision(
           // A valid non-newline-terminated last record is complete. Invalid trailing bytes are treated
           // as a torn append, but cannot establish coverage on their own.
           if (row?.kind === 'item') {
-            const record = revisionRecord(row)
+            const record = firehoseRevisionRecord(row)
             if (record) visit(record)
             else invalidCompleteLine = true
           }
@@ -831,7 +845,16 @@ function readPriorInboxRevisions(
     const completeThroughDate = sync.complete && registryBootstrapComplete(db)
       && Boolean(coverageThrough && coverageThrough >= date)
     if (!completeThroughDate && found.size !== revisionKeys.size) {
-      throw new Error('revision clock registry coverage is incomplete; refusing to assign fresh clocks')
+      // NAME the blockers. This refusal stops the whole cycle, so an operator seeing it on the wire needs
+      // to know WHICH partitions are unprovable — the 2026-08-17 blackout ran ~250 silent cycles behind
+      // the bare sentence below before anyone could tell a schema gap from a lost archive.
+      const blockers = [...registryMissingCoverage(db)].sort()
+      const named = blockers.slice(0, 5).join(', ')
+      const detail = blockers.length
+        ? ` — ${blockers.length} unprovable partition(s): ${named}${blockers.length > 5 ? ', …' : ''}`
+        : `${sync.complete ? '' : ' — coverage sync incomplete'}${
+          coverageThrough && coverageThrough < date ? ` — coverage proved only through ${coverageThrough}` : ''}`
+      throw new Error(`revision clock registry coverage is incomplete; refusing to assign fresh clocks${detail}`)
     }
     return found
   })

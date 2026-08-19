@@ -731,6 +731,43 @@ await check('a malformed firehose item makes revision coverage incomplete while 
   fs.rmSync(badRoot, { recursive: true, force: true })
   fs.rmSync(controlRoot, { recursive: true, force: true })
 })
+await check('a pre-found_at legacy firehose item proves coverage from `ts` and keeps it as the durable clock', () => {
+  // REGRESSION (the 2026-08-17 wire blackout): `found_at` only reached firehose ITEM records on
+  // 2026-08-05. Every line written before that carries `ts` alone. The coverage proof used to discard
+  // those records as malformed, so EVERY legacy partition was permanently unprovable — coverage could
+  // never complete, and readPriorInboxRevisions then threw on every genuinely-new story, aborting the
+  // whole ingest cycle. ~250 consecutive cycles ran with 0 items and every screener view read empty.
+  const legacyDate = '2026-07-01'
+  const replayDate = '2026-08-19'
+  const legacyUrl = 'https://reuters.com/legacy-ts-only-clock'
+  const legacyHeadline = 'A legacy firehose row carries ts and no found_at'
+  const root = tmp()
+  const inbox = path.join(root, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  // A legacy sweep predates the embedded clock index, so the proof must fall back to the firehose.
+  fs.writeFileSync(path.join(inbox, `${legacyDate}_sweep.json`), JSON.stringify({
+    date: legacyDate, updated_at: '2026-07-01T00:01:00Z', rows: [],
+  }))
+  fs.writeFileSync(path.join(inbox, `${legacyDate}_firehose.ndjson`), [
+    JSON.stringify({ kind: 'cycle_summary', ts: '2026-07-01T00:01:00Z' }),
+    JSON.stringify({ kind: 'item', ts: '2026-07-01T00:07:26Z', url: legacyUrl, headline: legacyHeadline }),
+    '',
+  ].join('\n'))
+
+  // 1. A brand-new story must ingest: the legacy partition proves coverage instead of wedging it.
+  const fresh = mergeInbox(root, replayDate, [triagedItem(
+    'https://reuters.com/new-story-after-legacy-partition', 80, 'A new story ingests once legacy coverage is provable',
+  )], { now: () => new Date('2026-08-19T00:01:00Z') })
+  assert.equal(fresh.rowCount, 1, 'a provable legacy partition must not block new ingest')
+
+  // 2. And the legacy `ts` is the DURABLE clock — replaying that story cannot launder it into freshness.
+  const replay = mergeInbox(root, replayDate, [{
+    ...triagedItem(legacyUrl, 80, legacyHeadline), found_at: '2026-08-19T00:00:00Z',
+  }], { now: () => new Date('2026-08-19T00:02:00Z') })
+  assert.equal(replay.revisionClocksByEvent.get(eventIdFor(legacyHeadline, legacyUrl))?.foundAt,
+    '2026-07-01T00:07:26Z', 'the legacy ts is the oldest durable observation and outranks a fresh found_at')
+  fs.rmSync(root, { recursive: true, force: true })
+})
 await check('a current-day legacy migration survives the final merge and a SQLite restart', () => {
   const root = tmp()
   const seedState = tmp()
