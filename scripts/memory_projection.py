@@ -1201,6 +1201,20 @@ def _verify_fts_index(connection: sqlite3.Connection) -> None:
         expected.close()
 
 
+def _check_integrity_result(integrity: object) -> None:
+    """Normalize SQLite-version-specific FTS corruption diagnostics."""
+
+    if integrity == "ok":
+        return
+    detail = str(integrity)
+    lowered = detail.casefold()
+    if "fts5" in lowered or "event_search" in lowered:
+        raise ProjectionError(
+            f"event_search FTS5 index does not match its canonical text rows: {detail}"
+        )
+    raise ProjectionError(f"SQLite integrity_check failed: {detail}")
+
+
 def _verify_connection(
     connection: sqlite3.Connection,
     path: Path,
@@ -1208,8 +1222,7 @@ def _verify_connection(
     expected_digest: str | None = None,
 ) -> ProjectionResult:
     integrity = connection.execute("PRAGMA integrity_check").fetchone()[0]
-    if integrity != "ok":
-        raise ProjectionError(f"SQLite integrity_check failed: {integrity}")
+    _check_integrity_result(integrity)
     foreign_key_errors = list(connection.execute("PRAGMA foreign_key_check"))
     if foreign_key_errors:
         raise ProjectionError("projection foreign-key integrity check failed")

@@ -12,6 +12,7 @@ from pathlib import Path
 from memory_contract import payload_sha256, seal_event
 from memory_projection import (
     ProjectionError,
+    _check_integrity_result,
     build_projection,
     projection_digest,
     query_projection,
@@ -165,6 +166,18 @@ def _typed_event(
 
 
 def main() -> None:
+    _check_integrity_result("ok")
+    _expect_projection_error(
+        lambda: _check_integrity_result(
+            "malformed inverted index for FTS5 table main.event_search"
+        ),
+        "event_search FTS5 index does not match",
+    )
+    _expect_projection_error(
+        lambda: _check_integrity_result("row 7 missing from index"),
+        "SQLite integrity_check failed",
+    )
+
     old = _event(
         1,
         text="qualified contractual pass-through finding",
