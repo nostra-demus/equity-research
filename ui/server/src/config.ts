@@ -385,6 +385,52 @@ export function buildOverflowProviders(): OverflowProvider[] {
       budgetFile: 'nvidia-budget.json',
     })
   }
+  // OmniRoute — a SELF-HOSTED OpenAI-compatible router (127.0.0.1:20128) that fans one request across ~90
+  // free upstream tiers and does the failover itself. The only tier whose capacity is AGGREGATE rather than
+  // one vendor's quota, which is exactly what a five-tiers-down day needs.
+  //
+  // LAST among the free cloud tiers ON PURPOSE: it aggregates the SAME free pools the direct tiers already
+  // meter, so placing it ahead of Cerebras/NVIDIA would double-spend quota this engine believes it is
+  // tracking. Last means it is reached precisely when the metered tiers are paced or parked.
+  //
+  // EXPLICIT OPT-IN (=== '1'), not the siblings' "key present unless disabled": a cloud tier cannot exist
+  // without a key, so its key IS proof someone provisioned it. OmniRoute needs no key, so nothing but this
+  // flag separates "the daemon is running" from "never installed". Default-on would add a sixth
+  // ECONNREFUSED tier to every box that never installed it, and would make the has-a-scoring-provider test
+  // true on a box with no LLM access at all — replacing an honest "ingester idle" note with a cycle that
+  // fails six ways.
+  if (process.env.NEWS_OMNIROUTE_ENABLED === '1') {
+    out.push({
+      id: 'omniroute', label: 'OmniRoute', color: '--provider-om',
+      // Dummy non-empty key, same precedent as the local tier below: an EMPTY key is rejected before the
+      // fetch and would arm a cooldown for a call that never left the process. A local server ignores the
+      // Bearer header entirely.
+      apiKey: process.env.NEWS_OMNIROUTE_API_KEY || 'omniroute',
+      // Deliberately no keyEnvVar: there is no credential to rotate, and naming one would send an operator
+      // off to fix a key that does not exist.
+      baseUrl: process.env.NEWS_OMNIROUTE_BASE_URL || 'http://127.0.0.1:20128/v1',
+      model: process.env.NEWS_OMNIROUTE_MODEL || 'auto/fast', // triage is throughput, not depth
+      // FINITE ON PURPOSE — the most important number here. Daily-quota selection maximises deficit/cap,
+      // which is SCALE-FREE: an effectively-infinite cap would pin that ratio and make OmniRoute win EVERY
+      // selection, leaving Gemini's working free pool unspent while the least-proven tier on the roster
+      // takes all the traffic. A finite cap makes usage bite. ~6,000 batches is about a day's backlog.
+      dailyReqCap: capNum(process.env.NEWS_OMNIROUTE_DAILY_REQ_CAP, 6_000),
+      rpm: capNum(process.env.NEWS_OMNIROUTE_RPM, 20),
+      maxTokens: capNum(process.env.NEWS_OMNIROUTE_MAX_TOKENS, 3_500),
+      // A router queues behind whichever upstream it picks and may re-route on that upstream's 429, so one
+      // deadline covers several upstream attempts. NOT longer: with maxAttempts 1, a WEDGED router (accepts
+      // the socket, never answers) charges the full deadline to the cycle guard every cycle. 45s covers one
+      // hop plus a re-route at half the cost of a longer wedge; raise from env if real traffic shows valid
+      // answers landing later.
+      timeoutMs: capNum(process.env.NEWS_OMNIROUTE_TIMEOUT_MS, 45_000),
+      maxAttempts: capNum(process.env.NEWS_OMNIROUTE_MAX_ATTEMPTS, 1), // it already retried across upstreams
+      skipArticleRead: true, // shares this id's cooldown with the short interactive read — see the field doc
+      budgetFile: 'omniroute-budget.json',
+      // Deliberately NO requestRemainingHeaderIsDaily: the rate parser reads only x-ratelimit-* names, so
+      // OmniRoute's own X-OmniRoute-* headers are invisible to it and the flag would be a lie on a 429.
+      // Deliberately NO dayTz: the aggregate resets on ~90 different clocks; no single zone is true.
+    })
+  }
   // Local model: by default (once NEWS_LOCAL_ENABLED=1) it is the PRIMARY brain — tried FIRST in runCycle and
   // exposed via NEWS.localProvider, NOT part of this overflow chain. It stays here as the LAST free fallback
   // ONLY when the operator opts out of primary with NEWS_LOCAL_PRIMARY=0 (the prior "local absorbs the tail"
