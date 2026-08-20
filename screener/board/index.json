@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-20T21:32:16Z",
+  "generated_at": "2026-08-20T21:33:02Z",
   "inbox": [
     {
       "inbox_id": "INB-20260820-013",
@@ -67809,6 +67809,76 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-fbaf750de821",
+      "idea_version": "IDEAV-ff5f45ada49cdaf6",
+      "idea_version_started_at": "2026-08-20T21:32:56Z",
+      "ticker": "STLA",
+      "company": "Stellantis",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Repeated product recalls for the Dodge Durango increase warranty liabilities and damage brand reputation, creating a drag on operating margins.",
+      "why_now": "The latest report of recurring safety failures was published on 2026-08-20.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-129544f18305"
+      ],
+      "primary_source_event_id": "EVT-129544f18305",
+      "source_headlines": [
+        "Third Time’s The Charm? Dodge Keeps Recalling Durangos That Can Fall Apart While Driving"
+      ],
+      "source_headline": "Third Time’s The Charm? Dodge Keeps Recalling Durangos That Can Fall Apart While Driving",
+      "source_url": "https://www.carscoops.com/2026/08/dodge-duango-spoiler-recall-three/",
+      "source_name": "Carscoops",
+      "materiality_max": 88,
+      "newest_source_at": "2026-08-20T20:17:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-20T21:32:56Z",
+      "updated_at": "2026-08-20T21:32:56Z",
+      "decay_at": "2026-08-22T08:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-6dfe7ce03ed8",
       "idea_version": "IDEAV-de54a6d0935827d1",
       "idea_version_started_at": "2026-08-20T18:25:35Z",
@@ -70371,8 +70441,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 29,
-    "live_count": 16,
+    "surfaced_total": 30,
+    "live_count": 17,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
