@@ -27,6 +27,9 @@ from memory_adapters import discover_legacy_sources  # noqa: E402
 
 
 PHASE0 = REPO_ROOT / "frameworks/memory/phase0"
+UNMOUNTED_COUNT_IDS = frozenset(
+    {"mounted-source-pools", "external-ingestion-inbox", "connector-operations"}
+)
 failures: list[str] = []
 
 
@@ -75,6 +78,36 @@ def expand_store_paths(patterns: Iterable[str]) -> set[Path]:
     return result
 
 
+def catalogue_count_errors(stores: Iterable[dict[str, Any]]) -> list[str]:
+    """Validate frozen mounted counts as coarse, non-shrinking lower bounds."""
+
+    errors: list[str] = []
+    for store in stores:
+        store_id = store.get("id")
+        observed = store.get("observed_count")
+        paths = store.get("paths")
+        if not memory_baseline.is_nonempty_string_list(paths):
+            errors.append(
+                f"store {store_id} paths must be a non-empty list of non-empty strings"
+            )
+            continue
+        if store_id in UNMOUNTED_COUNT_IDS:
+            if observed is not None:
+                errors.append(f"store {store_id} is unmounted and observed_count must be null")
+            continue
+        if type(observed) is not int or observed < 0:
+            errors.append(
+                f"store {store_id} is mounted and observed_count must be a non-negative integer"
+            )
+            continue
+        expanded = expand_store_paths(paths)
+        if len(expanded) < observed:
+            errors.append(
+                f"store {store_id} shrank below its Phase 0 snapshot: {len(expanded)} < {observed}"
+            )
+    return errors
+
+
 def check_catalogue(catalogue: dict[str, Any]) -> None:
     check(catalogue.get("catalogue_version") == "memory-current-state-catalogue/v1", "catalogue version")
     check(catalogue.get("observed_at") == "2026-08-21", "catalogue observation date must be frozen")
@@ -105,10 +138,13 @@ def check_catalogue(catalogue: dict[str, Any]) -> None:
 
     for store in stores:
         label = f"store {store.get('id')}"
-        check(isinstance(store.get("paths"), list) and store["paths"], f"{label} must declare paths")
+        check(
+            memory_baseline.is_nonempty_string_list(store.get("paths")),
+            f"{label} paths must be a non-empty list of non-empty strings",
+        )
         check(isinstance(store.get("formats"), list) and store["formats"], f"{label} must declare formats")
         count = store.get("observed_count")
-        check(count is None or (isinstance(count, int) and count >= 0), f"{label} observed_count")
+        check(count is None or (type(count) is int and count >= 0), f"{label} observed_count")
         check(set(store.get("producer_ids", [])) <= producer_ids, f"{label} has unknown producer IDs")
         check(set(store.get("reader_ids", [])) <= reader_ids, f"{label} has unknown reader IDs")
         for evidence in store.get("evidence", []):
@@ -144,24 +180,74 @@ def check_catalogue(catalogue: dict[str, Any]) -> None:
         check(isinstance(schema.get("governs"), list) and schema["governs"], f"{label} governs list")
         check(isinstance(schema.get("consumers"), list) and schema["consumers"], f"{label} consumers list")
 
-    # Counts are per-store glob unions. Stores may overlap because that is part of
-    # the pre-memory layout, but each individual count must still be reproducible.
-    reproducible_count_ids = store_ids - {
-        "mounted-source-pools",
-        "external-ingestion-inbox",
-        "connector-operations",
-    }
-    for store in stores:
-        if store["id"] not in reproducible_count_ids:
-            continue
-        observed = store.get("observed_count")
-        expanded = expand_store_paths(store["paths"])
-        check(observed == len(expanded), f"store {store['id']} count is stale: {observed} != {len(expanded)}")
+    # Counts are frozen Phase 0 observations, not mutable-current-state cardinality
+    # invariants. Stores may grow after the snapshot, but a silent aggregate shrink
+    # still fails closed. Current path coverage is checked separately below.
+    for error in catalogue_count_errors(stores):
+        check(False, error)
+
+    mounted_null = copy.deepcopy(stores)
+    next(store for store in mounted_null if store["id"] not in UNMOUNTED_COUNT_IDS)[
+        "observed_count"
+    ] = None
+    check(
+        any("mounted and observed_count" in error for error in catalogue_count_errors(mounted_null)),
+        "a mounted store cannot disable count preservation with null",
+    )
+    unmounted_integer = copy.deepcopy(stores)
+    next(store for store in unmounted_integer if store["id"] in UNMOUNTED_COUNT_IDS)[
+        "observed_count"
+    ] = 0
+    check(
+        any("unmounted and observed_count" in error for error in catalogue_count_errors(unmounted_integer)),
+        "an unmounted store must retain an explicit null observation",
+    )
+    malformed_paths = (
+        (None, "null"),
+        ("analyses/*/*.md", "string"),
+        ([], "empty list"),
+        ([""], "empty string member"),
+        (["analyses/*/*.md", None], "non-string member"),
+    )
+    for value, label in malformed_paths:
+        malformed = copy.deepcopy(stores)
+        malformed[0]["paths"] = value
+        check(
+            any("paths must be" in error for error in catalogue_count_errors(malformed)),
+            f"catalogue paths {label} must produce a validation error",
+        )
+    count_boundary = copy.deepcopy(stores)
+    boundary_store = next(
+        store for store in count_boundary if store["id"] not in UNMOUNTED_COUNT_IDS
+    )
+    current_count = len(expand_store_paths(boundary_store["paths"]))
+    boundary_store["observed_count"] = current_count
+    check(
+        not any(
+            f"store {boundary_store['id']}" in error
+            for error in catalogue_count_errors(count_boundary)
+        ),
+        "a mounted store at its observed lower bound must pass",
+    )
+    boundary_store["observed_count"] = current_count + 1
+    check(
+        any(
+            f"store {boundary_store['id']} shrank" in error
+            for error in catalogue_count_errors(count_boundary)
+        ),
+        "a mounted store below its observed lower bound must fail",
+    )
 
     # Every current research/screener/commodity/watchlist data artifact is assigned
     # to at least one declared store path.  Hidden sentinels are separately captured
     # where they are semantically material (the archive retention sentinel).
-    all_patterns = [pattern for store in stores for pattern in store["paths"] if not pattern.startswith("data/")]
+    all_patterns = [
+        pattern
+        for store in stores
+        if memory_baseline.is_nonempty_string_list(store.get("paths"))
+        for pattern in store["paths"]
+        if not pattern.startswith("data/")
+    ]
     uncovered: list[str] = []
     for root_name in ("analyses", "commodity/runs", "screener", "watchlist"):
         for path in (REPO_ROOT / root_name).rglob("*"):
@@ -314,12 +400,75 @@ def check_benchmark_and_report(benchmark: dict[str, Any]) -> None:
     except OSError as exc:
         check(False, f"baseline-report.json must exist: {exc}")
         return
-    check(committed == report_a, "baseline-report.json must match the deterministic runner")
     try:
+        committed_report = json.loads(committed)
         report = json.loads(report_a)
     except json.JSONDecodeError as exc:
-        check(False, f"rendered baseline must be valid JSON: {exc}")
+        check(False, f"committed and rendered baselines must be valid JSON: {exc}")
         return
+    check(
+        committed == memory_baseline.render_report(committed_report),
+        "baseline-report.json must use deterministic canonical formatting",
+    )
+    check(
+        memory_baseline.baseline_results_match(committed_report, report),
+        "baseline-report.json scored results must match the deterministic runner",
+    )
+
+    corpus_drift = copy.deepcopy(report)
+    corpus_drift["corpus"] = {
+        "sha256": "f" * 64,
+        "total_bytes": report["corpus"]["total_bytes"] + 1,
+        "unique_files_considered": report["corpus"]["unique_files_considered"] + 1,
+    }
+    check(
+        memory_baseline.baseline_results_match(report, corpus_drift),
+        "corpus growth alone must not invalidate a frozen scored baseline",
+    )
+    scored_drifts: list[tuple[str, dict[str, Any]]] = []
+    case_drift = copy.deepcopy(report)
+    case_drift["cases"][0]["reciprocal_rank"] += 0.000001
+    scored_drifts.append(("case row", case_drift))
+    policy_drift = copy.deepcopy(report)
+    next(
+        case for case in policy_drift["cases"] if case["category"] == "access_control"
+    )["protected_hits"].append("licensed/leak.txt")
+    scored_drifts.append(("policy case", policy_drift))
+    category_drift = copy.deepcopy(report)
+    category_drift["category_metrics"]["fact_recall"]["mean_reciprocal_rank"] += 0.000001
+    scored_drifts.append(("category metric", category_drift))
+    metric_drift = copy.deepcopy(report)
+    metric_drift["metrics"]["mean_reciprocal_rank"] += 0.000001
+    scored_drifts.append(("global metric", metric_drift))
+    method_drift = copy.deepcopy(report)
+    method_drift["method"]["tie_breaker"] = "changed"
+    scored_drifts.append(("method", method_drift))
+    benchmark_drift = copy.deepcopy(report)
+    benchmark_drift["benchmark"]["top_k"] += 1
+    scored_drifts.append(("benchmark", benchmark_drift))
+    limitation_drift = copy.deepcopy(report)
+    limitation_drift["limitations"].append("changed")
+    scored_drifts.append(("limitation", limitation_drift))
+    unknown_drift = copy.deepcopy(report)
+    unknown_drift["unexpected"] = True
+    scored_drifts.append(("unknown top-level field", unknown_drift))
+    for label, scored_drift in scored_drifts:
+        check(
+            not memory_baseline.baseline_results_match(report, scored_drift),
+            f"{label} drift must invalidate the baseline",
+        )
+    malformed_snapshot = copy.deepcopy(report)
+    malformed_snapshot["corpus"].pop("sha256")
+    check(
+        not memory_baseline.baseline_results_match(malformed_snapshot, report),
+        "malformed frozen corpus metadata must fail closed",
+    )
+    extra_corpus_key = copy.deepcopy(report)
+    extra_corpus_key["corpus"]["ignored"] = True
+    check(
+        not memory_baseline.baseline_results_match(report, extra_corpus_key),
+        "unknown corpus metadata must fail closed rather than expand the ignore boundary",
+    )
 
     metrics = report["metrics"]
     check(report["benchmark"]["case_count"] == 63, "report case count")
