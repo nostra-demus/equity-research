@@ -2862,9 +2862,14 @@ app.post('/api/watchlist/:id/attachments', { config: { rateLimit: { max: 60, tim
       }
       const safe = sanitizeUploadFilename(raw)
       if (!safe.ok) { part.file.resume(); fileErrors.push({ filename: raw, reason: safe.reason }); continue }
-      // Narrower than UPLOAD_ALLOWED_EXTS on purpose: that list includes md/csv/json, the very types the
-      // pool extractor treats as evidence. A watchlist attachment is a document you read, nothing more.
-      if (!/\.pdf$/i.test(safe.name)) { part.file.resume(); fileErrors.push({ filename: raw, reason: 'PDF only' }); continue }
+      // Documents you READ (pdf, md), not data a run could cite (csv, json, xlsx). The original rule was
+      // PDF-only because md/csv/json are the types the pool extractor ingests as evidence — but that
+      // reasoning no longer applies to this folder: attachments live under a RESERVED data folder keyed by
+      // entry id, `extract_pool.py` is only ever invoked as `data/{TICKER}/`, and both wholesale DATA_DIR
+      // walkers skip reserved names. So markdown is unreachable as evidence here, and the cockpit already
+      // renders it. The data formats stay refused — they have no viewer, no meaning as a "write-up", and
+      // are the shapes most likely to be mistaken for a pool file if one were ever moved by hand.
+      if (!/\.(pdf|md)$/i.test(safe.name)) { part.file.resume(); fileErrors.push({ filename: raw, reason: 'PDF or Markdown only' }); continue }
 
       let bytes = 0
       let tooBig = false
@@ -2962,8 +2967,12 @@ app.get('/api/watchlist/:id/attachment/:attachmentId', { config: { rateLimit: { 
   // `attachment`, never inline: an inline user-supplied PDF can run script in some viewers, and this
   // origin holds the whole cockpit session. The filename is rebuilt from validated data, never echoed.
   const safeName = `${entry!.listing.ticker.replace(/[^A-Za-z0-9._-]/g, '')}-${att.filename.replace(/[^A-Za-z0-9._-]/g, '')}`
+  // `attachment` + nosniff for BOTH types: an inline user-supplied file runs in this origin, which holds
+  // the whole cockpit session. Markdown is rendered by the panel fetching this body and passing it through
+  // react-markdown (no rehype-raw, so embedded HTML is escaped, never executed) — never by the browser.
+  const isMd = /\.md$/i.test(att.filename)
   return reply
-    .header('content-type', 'application/pdf')
+    .header('content-type', isMd ? 'text/plain; charset=utf-8' : 'application/pdf')
     .header('x-content-type-options', 'nosniff')
     .header('content-disposition', `attachment; filename="${safeName}"`)
     .header('cache-control', 'private, no-store')

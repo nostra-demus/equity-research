@@ -98,4 +98,20 @@ check('delete removes the file and prunes the entry folder, and is idempotent', 
   fs.rmSync(dir, { recursive: true, force: true })
 })
 
+check('a markdown write-up stores and round-trips exactly like a PDF', () => {
+  const dir = tmp()
+  const id = 'WL-20260820-md0001'
+  // the containment argument that makes .md safe here: this folder is reserved, extract_pool.py is only
+  // ever invoked as data/<TICKER>/, and both wholesale DATA_DIR walkers skip reserved names — so a
+  // markdown attachment is unreachable as evidence, which is what the old PDF-only rule was protecting.
+  const md = Buffer.from('# NOW\n\nWaiting for a better entry.\n\n<script>alert(1)</script>\n')
+  const saved = saveAttachment(id, 'k1-thesis.md', md, dir)
+  assert.equal(saved.ok, true)
+  const back = readAttachment(id, 'k1-thesis.md', dir)
+  assert.deepEqual(back, md, 'stored verbatim — the reader escapes the HTML, the store does not rewrite it')
+  assert.equal(path.extname(attachmentPath(id, 'k1-thesis.md', dir)!), '.md')
+  assert.equal(deleteAttachment(id, 'k1-thesis.md', dir), true)
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+
 console.log(`\nwatchlist-files.test.ts: ${passed} passed`)

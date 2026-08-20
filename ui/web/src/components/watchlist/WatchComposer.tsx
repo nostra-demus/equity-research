@@ -352,11 +352,11 @@ export function WatchComposer() {
               onDrop={(e) => { e.preventDefault(); setIsDrag(false); addFiles(Array.from(e.dataTransfer.files)) }}
               onClick={() => fileInput.current?.click()}
             >
-              <input ref={fileInput} type="file" accept="application/pdf" multiple hidden
+              <input ref={fileInput} type="file" accept="application/pdf,text/markdown,.md" multiple hidden
                 onChange={(e) => { addFiles(Array.from(e.target.files || [])); e.target.value = '' }} />
               {files.length
                 ? `${files.length} file${files.length === 1 ? '' : 's'} ready — click to add more`
-                : 'Drop or click to attach your write-up — PDF, up to 5'}
+                : 'Drop or click to attach your write-up — PDF or Markdown, up to 5'}
             </div>
           ) : (
             <div className="wlc__drop wlc__drop--off">
