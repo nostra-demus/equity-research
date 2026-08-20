@@ -1027,7 +1027,21 @@ export const NEWS = {
   // LAST tier (fires only when every free provider is out), it still backs off the moment the plan itself
   // reports a usage limit (cross-cycle cooldown until the plan resets), and it is priority-gated. Tune via
   // NEWS_ANTHROPIC_FALLBACK_DAILY_USD; drop it back down if news triage ever starves a research run.
-  anthropicDailyUsd: capNum(process.env.NEWS_ANTHROPIC_FALLBACK_DAILY_USD, 50),
+  //
+  // Raised 50 → 200 (2026-08-21, operator request) for the SUSTAINED multi-provider outage $50 does not
+  // cover. The 2026-07-21 sizing assumed one provider down and the rest healthy; on 2026-08-20 all five
+  // free tiers were down at once (Groq on a retired model id, Cerebras + Mistral out of credit, NVIDIA
+  // timing out, Gemini erroring), so the last resort was not a last resort — it was the ONLY tier scoring.
+  // It spent its $50 and stopped while the backlog climbed to 89.4% of the 100k cap, past which items are
+  // DROPPED, not deferred. $200 buys roughly four times the drain before the governor stops it.
+  //
+  // Understand what this ceiling actually costs on the subscription path: it is NOT $200 of cash, it is up
+  // to 4x more of the shared plan pool drawn by news triage, and the contention is with your own research
+  // runs. The three guardrails above still bound it, and the ONLY one that self-limits during a total free
+  // -tier outage is the plan's own usage limit — so on a bad day this will draw until the plan pushes back.
+  // That is the intended trade (dropping news permanently is worse than a slow research run), but it is a
+  // real trade: if a research run starves, drop this back to 50 via the env var and no redeploy is needed.
+  anthropicDailyUsd: capNum(process.env.NEWS_ANTHROPIC_FALLBACK_DAILY_USD, 200),
   // MODEL. On the `subscription` path this goes to the CLI's `--model`, which takes an ALIAS ('haiku' /
   // 'sonnet' / 'opus') or a FULL name ('claude-haiku-4-5-20251001') — NOT the Messages-API alias
   // 'claude-haiku-4-5'. An unresolvable name silently falls back to the CLI's DEFAULT (Sonnet-class): live
