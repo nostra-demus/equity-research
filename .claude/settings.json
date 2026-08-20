@@ -5,6 +5,10 @@
         "hooks": [
           {
             "type": "command",
+            "command": "python3 .claude/hooks/system_brief.py"
+          },
+          {
+            "type": "command",
             "command": "python3 .claude/hooks/review_due.py"
           }
         ]

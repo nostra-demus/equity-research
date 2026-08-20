@@ -234,6 +234,53 @@ scripts (`~/.nostra-ops/{deploy,watchdog}.sh`) live outside the tree so a fast-f
 3. logs every deploy to `~/Library/Logs/nostradamus-deploy.log`. Single-flight (mkdir lock), always
    exits 0 so launchd never marks it failed. Force one now: `bash ~/.nostra-ops/deploy.sh`.
 
+#### The one thing auto-deploy CANNOT recover from: a rewritten `main`
+
+`deploy.sh` is fast-forward-only by design — it must never discard an unpushed engine data commit. That
+safety has one failure mode with no self-healing path: **if `main`'s history is ever rewritten (force-push,
+filter-branch, squash-rebase of published history), every existing checkout is orphaned.** Its `HEAD` and
+its cached `origin/main` both point at commits that no longer exist upstream, so a fast-forward can never
+succeed again. The watcher parks itself and stays parked — correctly, but silently and forever.
+
+**The symptom is an ABSENCE, which is why it hides.** A healthy log gets a line every cycle; a jammed one
+gets `SKIP …` every cycle. An orphaned one logs the diverged-history skip **once** and then goes quiet, so
+the log simply stops. Nothing alerts, the cockpit keeps serving, and the machine silently runs whatever
+code it had on the day of the rewrite. Observed 2026-08-04 → 2026-08-20 (16 days) on the standby node:
+
+```
+2026-08-04 08:00:35 SKIP HEAD not an ancestor of origin/main (unpushed local commit?) local=de5d1317a remote=5d5c738fe
+```
+
+Note the message blames "unpushed local commit?" — a guess that is *wrong* in this case and sends you
+looking for local work to rescue. The real tell is that **both** SHAs are unresolvable upstream
+(`git cat-file -t <sha>` fails for each). One missing SHA is a local commit; two is a rewritten history.
+
+**Check any node in one line** (the deploy log's last timestamp being days old is the giveaway):
+
+```
+tail -3 ~/Library/Logs/nostradamus-deploy.log        # a stale last line = parked, not idle
+```
+
+**Recovery — must be run by hand on EVERY checkout (doer, admin, and standby alike).** Nothing propagates
+this; each machine is independently orphaned:
+
+```
+cd ~/nostra-prod
+git branch backup-$(date +%Y%m%d)                    # keep the orphaned tip; it costs nothing
+git fetch origin main && git reset --hard origin/main
+```
+
+Before resetting, verify nothing is lost by content rather than by SHA — after a rewrite the old SHAs are
+gone, so `git log origin/main..HEAD` compares against a **stale** cached ref and under-reports (it printed
+"nothing" on a checkout that in fact held three upstream-absent commits). Confirm the *files* exist on the
+rewritten `main` (`git ls-tree -r --name-only origin/main | grep <file>`) — engine data commits are usually
+already there under new SHAs, because `commit-run.sh` rebases onto `origin/main` and pushes independently
+of this watcher. Then `kickstart` the engine: a code update that is never restarted into is not deployed.
+
+**Prefer not to rewrite published history at all.** If it is unavoidable, treat re-pointing every node as
+part of the operation, not as follow-up — and remember an in-flight PR whose base was rewritten cannot be
+merged either; its commits have to be replayed onto the new base.
+
 ### Self-healing watchdog (`watchdog.sh`)
 `KeepAlive` only restarts a **crashed** process. The watchdog covers what it can't: a non-launchd
 process squatting `:8787`, the engine being up but serving **broken content** (the blank page = HTML
