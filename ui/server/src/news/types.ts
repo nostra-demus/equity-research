@@ -299,6 +299,8 @@ export interface CycleSummary {
   dropped_at_cap?: number // items lost this cycle because the backlog overran backlog_cap (deferred = backlog + dropped_at_cap). Present only when >0 — the honest twin of "the tail is dropped, not deferred"
   backlog_expired?: number // backlog items retired UNSCORED this cycle for waiting longer than DEFERRED_MAX_AGE_MS behind the queue. Present only when >0 — a real loss, reported like dropped_at_cap, never silent
   deferred_write_failed?: boolean // saveDeferred's atomic write failed this cycle — the in-memory backlog was NOT persisted (last-good kept); backlog/deferred describe intent, not what is on disk. Present only when true
+  inbox_withheld?: number // kept rows whose first-observation clock could not be PROVED this cycle. They stay in the backlog and retry; they are never handed a fabricated clock. Present only when >0
+  inbox_write_failed?: boolean // the inbox projection refused outright; the wire, the summary and the backlog cleanup still ran. The honest twin of deferred_write_failed. Present only when true
   deferred_read_failed?: boolean // malformed/unreadable backlog authority; fetch/scoring paused and existing bytes preserved
   aborted?: boolean // the wall-clock guard killed this cycle and dumped the untriaged remainder to the backlog
   defer_reason?: DeferReason // structured twin of the defer `note`
