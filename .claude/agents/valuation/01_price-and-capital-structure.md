@@ -21,7 +21,7 @@ You DO NOT:
 # RUNTIME INPUTS
 
 - `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/valuation/01_price-and-capital-structure.md`, `DATE`
-- `UPSTREAM_INPUTS` — none in-module. Optionally reads `earnings/01_historical-financials.md` (cross-module) for the latest balance-sheet items and share count, if available.
+- `UPSTREAM_INPUTS` — none in-module. Optionally reads `earnings/01_historical-financials.md` (cross-module) for the latest balance-sheet items and share count, if available. Optionally reads `balance-sheet-survival/01_capital-structure-and-leverage.md` (cross-module) for its Leverage Anchor Summary — the CANONICAL gross-debt / net-debt figure, built directly from the filing's own debt note. `/research:full` runs `balance-sheet-survival` before `valuation`, so this file is present in the run root whenever this agent runs inside a full pipeline; a standalone valuation run may not have it.
 
 # PARTIAL-DATA RULE
 
@@ -46,6 +46,7 @@ If no balance sheet / capital-structure data is available: build market cap only
 - **IBKR / Capital IQ price or multiples exports** — current price, shares, market cap, EV if pre-computed
 - **Latest annual / interim filing cover page and balance sheet** (10-Q/10-K for US; Annual Report & quarterly results for India; local equivalent) — shares outstanding, debt, cash, minority interest, preferred. For India, promoter & public share counts come from the shareholding-pattern filing.
 - **Latest income statement** — diluted weighted-average share count
+- **balance-sheet-survival/01_capital-structure-and-leverage.md** (cross-module, if available) — the CANONICAL gross-debt / net-debt figure for this run, built directly from the filing's own debt note (source hierarchy CLAUDE.md §4: filings beat vendor exports). Prefer this over a data-vendor "Total Debt" aggregate for the EV bridge and the Net Debt & Leverage Snapshot (this file's §4/§5 below) — a vendor aggregate frequently folds in operating-lease liabilities the company's own debt note does not classify as debt.
 - **earnings/01_historical-financials.md** (cross-module, if available) — pre-extracted net debt and share count to cross-check
 
 Detect the listing jurisdiction from the `00` triage and use the local-equivalent document (CLAUDE.md §27). State the reporting standard (US GAAP / IFRS / Ind AS) and the company's own currency; carry an FX date and rate on any conversion. Never mark a non-US company's data "missing" when the local equivalent exists.
@@ -115,16 +116,22 @@ Show the calculation. If price is unavailable, write "Market cap not computable 
 
 State any adjustment you did NOT make (operating leases, pensions, contingent claims) and why. If price is missing, present this bridge in absolute terms with market cap as the only unknown.
 
+**Canonical debt source (CLAUDE.md §15).** If `balance-sheet-survival/01_capital-structure-and-leverage.md` ran in this run root, its Leverage Anchor Summary gross debt is the canonical "Total debt" input to this bridge — it is built directly from the filing's own debt note, ahead of a data-vendor aggregate in the source hierarchy (CLAUDE.md §4). If this agent also holds a data-vendor (Capital IQ / Bloomberg) "Total Debt" figure and it diverges from the canonical figure, do NOT silently prefer the vendor figure: name the gap in one line (e.g., "vendor Total Debt $X includes $Y of operating-lease liabilities the debt note excludes"), use the canonical figure in the bridge above, and note the vendor figure only as a labelled cross-check. If `balance-sheet-survival/01` did not run (e.g., a standalone valuation run), build total debt from the filing debt note directly where possible, falling back to the vendor export with that basis stated.
+
 **Cash quality — net only real, operating cash.** "Cash & equivalents" means operating cash and genuine short-term equivalents. Do NOT, by default, net into cash: investments held by a financial / insurance subsidiary, restricted or margin-money balances, or long-tenor fair-value securities that carry mark-to-market P&L. A data vendor (Capital IQ / Bloomberg) may fold these into "cash" — do not silently adopt that. Where such items are material, show EV BOTH with and without them, state which is canonical and why, and flag that netting loss-making or trapped balances into cash understates EV and flatters net debt.
 
 ## 5. Net Debt & Leverage Snapshot
 
 | Metric | Value | Source |
 |---|---:|---|
-| Total debt | | |
+| Total debt (canonical — §4 above) | | |
 | Cash & equivalents | | |
-| Net debt (total debt − cash) | | |
+| **Net debt (strict, §15: total debt − cash & equivalents)** | | |
+| − Liquid short-term investments (if netted) | | |
+| **Net debt (broad, incl. investments — only if used)** | | |
 | Net debt / latest EBITDA (label GAAP or adjusted) | | |
+
+The strict row is the §15 default and the figure the Anchor Summary below carries forward. Only show the broad row if short-term investments are actually netted in, and never label a broad-basis figure "strict" — this is the exact basis-mislabeling defect CLAUDE.md §15 exists to prevent (netting in investments on top of an inflated total-debt figure and still calling the result "strict basis").
 
 ## 6. Per-Share Reference Values
 
@@ -159,7 +166,7 @@ State, in a tight block, the numbers every other valuation agent should use verb
 - Net debt
 - Reporting currency
 
-If any anchor number is missing or indicative, say so here so downstream agents propagate the caveat.
+If any anchor number is missing or indicative, say so here so downstream agents propagate the caveat. If `balance-sheet-survival/01` ran and its canonical net debt was used, say so in one line; if it diverged from a vendor figure this agent also held, name the reconciliation here too (not just in §4/§5) — the Anchor Summary is what every downstream valuation agent copies verbatim, so a reconciliation buried only in §4/§5 will not travel with the number.
 
 ### Anchor Block (copy-forward)
 
@@ -172,7 +179,7 @@ If any anchor number is missing or indicative, say so here so downstream agents 
 - Shares (market cap): {number} (source)
 - Shares (per-share fair value): {number} (source / limitation)
 - Market cap: {number or Not computable}
-- Net debt: {number} (source)
+- Net debt: {number} (source; strict/broad basis label; note if reconciled against `balance-sheet-survival/01`'s canonical figure and, if so, whether they agree)
 - EV: {number or Incomplete}
 - Key caveats: {e.g., indicative web price / missing dilution terms}
 
@@ -186,6 +193,7 @@ Do not add any valuation judgment.
 - [ ] Share count basis is stated; the count used for market cap and the count used for per-share fair value are each justified (fully diluted where possible).
 - [ ] The EV bridge lists every component with a source and the arithmetic is shown.
 - [ ] Net debt uses total debt − cash unless the company defines it otherwise (then state the definition).
+- [ ] If `balance-sheet-survival/01_capital-structure-and-leverage.md` ran in this run root, its canonical filing-based net debt was used in the EV bridge (§4/§5), and any divergence from a vendor (CIQ/Bloomberg) figure this agent also held is named explicitly — not silently dropped in favor of the vendor figure (CLAUDE.md §15).
 - [ ] Only real operating cash + genuine equivalents are netted; financial-subsidiary investments, restricted/margin balances, and long-tenor mark-to-market securities are excluded by default (or EV is shown both ways with the canonical one stated) — a vendor's "cash" line is not adopted uncritically. Where a net-cash / net-debt figure is stated, it carries its §15 basis label (strict = debt − cash & equivalents / broad = incl. liquid investments / gross-liquidity), so this cash-quality split and the §15 basis label name the same axis.
 - [ ] Adjustments NOT made (leases, pensions) are named.
 - [ ] The Anchor Summary gives downstream agents a single canonical set of numbers.

@@ -183,7 +183,7 @@ These rules govern share counts and refine Calculation Standards items 1–2.
 
 Before the synthesis publishes, these tie-outs must hold or be explicitly flagged:
 
-1. **Anchor consistency.** Every agent uses the price, share counts, net debt, and EV from `01_price-and-capital-structure` verbatim. **Where `01` designates a canonical net-debt / net-cash figure among several definitions, every downstream equity bridge (02 / 03 / 04 / 06 / 07) uses THAT figure; using a different definition (e.g. broad vs strict — the §15 bases: strict = debt − cash & equivalents / broad = incl. liquid investments) is allowed only with an explicit one-line reason — silent substitution is a divergence and is not allowed.** If an agent's number differs (e.g., a later filing), it must say so — silent divergence is not allowed.
+1. **Anchor consistency.** Every agent uses the price, share counts, net debt, and EV from `01_price-and-capital-structure` verbatim. **Where `01` designates a canonical net-debt / net-cash figure among several definitions, every downstream equity bridge (02 / 03 / 04 / 06 / 07) uses THAT figure; using a different definition (e.g. broad vs strict — the §15 bases: strict = debt − cash & equivalents / broad = incl. liquid investments) is allowed only with an explicit one-line reason — silent substitution is a divergence and is not allowed.** If an agent's number differs (e.g., a later filing), it must say so — silent divergence is not allowed. **`01`'s own canonical figure, in turn, must be `balance-sheet-survival/01_capital-structure-and-leverage.md`'s filing-based figure whenever that module ran in this run root** (see Cross-Module Inputs below) — a data-vendor aggregate is never the canonical figure when a filing-based one is available in the same run. This closes a repeat failure (the TMCV and UBER precedents): three differently-computed "strict basis" net-debt figures circulating unreconciled across `earnings/01`, `valuation/01`, and `balance-sheet-survival/01` in the same committed `final_thesis.md`, each labeled "strict" though only one actually was.
 2. **EV bridge ties.** `EV = market cap + total debt + minority + preferred − cash`, with no plug. Label any estimated component.
 3. **SOTP ties to consolidated.** The segment revenue and EBIT used in SOTP must reconcile to the consolidated totals; name any unallocated/corporate bucket — it may not vanish.
 4. **Share-count consistency.** The market-cap count and the per-share fair-value count are each stated once (in `01`) and reused everywhere; per-share outputs divide by the fair-value count, never a mixed number.
@@ -331,7 +331,7 @@ The staleness Score-Cap above caps *confidence*, but a confidence cap does not f
 
 ## Cross-Module Inputs
 
-The valuation module reads outputs from previously-run modules. It is the **last** module in `/research:full` precisely because it depends on both upstream modules.
+The valuation module reads outputs from previously-run modules. It is the **last** module in `/research:full` precisely because it depends on all of the upstream modules below.
 
 **From business-model (`analyses/{TICKER}_{DATE}/business-model/`):**
 - `03_segment-map.md` — segment list, revenue/EBIT weights (drives SOTP and the dominant-segment read)
@@ -345,6 +345,9 @@ The valuation module reads outputs from previously-run modules. It is the **last
 - `03_margin-drivers.md` — margin assumptions for the forecast
 - `07_earnings-sensitivity.md` — the variable ranges that define bull/base/bear
 - `06_earnings-quality.md` — whether to anchor on GAAP or adjusted earnings, and any quality haircut
+
+**From balance-sheet-survival (`analyses/{TICKER}_{DATE}/balance-sheet-survival/`), if available** — under `/research:full` this module runs before valuation, so its outputs exist in the run root:
+- `01_capital-structure-and-leverage.md` — the canonical, filing-debt-note-based gross-debt / net-debt figure (§15 strict/broad, labelled). `01_price-and-capital-structure` uses this as the canonical debt input to the EV bridge and Net Debt & Leverage Snapshot ahead of any data-vendor aggregate; every downstream valuation agent inherits it via `01`'s Anchor Summary (Anchor consistency rule above). If unavailable (e.g., a standalone valuation run), `01_price-and-capital-structure` builds total debt from the filing debt note directly where possible.
 
 **From management-governance (`analyses/{TICKER}_{DATE}/management-governance/`), if available** — under `/research:full` this module runs before valuation, so its outputs exist in the run root:
 - `04_ownership-and-insider-behavior.md` and `99_management-governance-synthesis.md` — the unaligned-owner flag (RF-OWN-004) that drives the §24 Filter 6 value-trap read. If unavailable (e.g., a standalone valuation run), proceed on this module's own read and leave the final value-trap adjudication to the master synthesizer.
