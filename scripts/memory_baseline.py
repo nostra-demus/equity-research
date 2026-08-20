@@ -564,6 +564,38 @@ def render_report(report: Mapping[str, Any]) -> str:
     return json.dumps(report, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
 
 
+def _valid_corpus_snapshot(value: object) -> bool:
+    if not isinstance(value, Mapping) or set(value) != {
+        "sha256", "total_bytes", "unique_files_considered"
+    }:
+        return False
+    return (
+        isinstance(value.get("sha256"), str)
+        and re.fullmatch(r"[0-9a-f]{64}", value["sha256"]) is not None
+        and type(value.get("total_bytes")) is int
+        and value["total_bytes"] >= 0
+        and type(value.get("unique_files_considered")) is int
+        and value["unique_files_considered"] > 0
+    )
+
+
+def baseline_results_match(snapshot: Mapping[str, Any], current: Mapping[str, Any]) -> bool:
+    """Compare scored results while retaining corpus metadata as a frozen observation.
+
+    Research ingestion legitimately grows or rewrites the searchable corpus after Phase 0.
+    That drift is safe only while every benchmark row, metric, method, and policy result is
+    byte-for-byte equivalent to the reviewed snapshot.
+    """
+
+    if not _valid_corpus_snapshot(snapshot.get("corpus")):
+        return False
+    if not _valid_corpus_snapshot(current.get("corpus")):
+        return False
+    snapshot_results = {key: value for key, value in snapshot.items() if key != "corpus"}
+    current_results = {key: value for key, value in current.items() if key != "corpus"}
+    return snapshot_results == current_results
+
+
 def _summary(report: Mapping[str, Any]) -> str:
     metrics = report["metrics"]
     return (
@@ -581,7 +613,11 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--benchmark", type=Path, default=DEFAULT_BENCHMARK)
     parser.add_argument("--report", type=Path, default=DEFAULT_REPORT)
-    parser.add_argument("--check", action="store_true", help="compare output with the committed report")
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="compare scored output with the committed Phase 0 snapshot",
+    )
     parser.add_argument("--validate-only", action="store_true", help="validate fixtures and anchors only")
     args = parser.parse_args(argv)
 
@@ -591,20 +627,34 @@ def main(argv: Sequence[str] | None = None) -> int:
         if args.validate_only:
             print(f"valid: {len(benchmark['cases'])} benchmark cases")
             return 0
-        rendered = render_report(build_report(benchmark, benchmark_path=benchmark_path))
+        current_report = build_report(benchmark, benchmark_path=benchmark_path)
+        rendered = render_report(current_report)
         if args.check:
             try:
                 existing = args.report.read_text(encoding="utf-8")
             except OSError as exc:
                 print(f"baseline report is missing or unreadable: {exc}", file=sys.stderr)
                 return 1
-            if existing != rendered:
+            try:
+                snapshot = json.loads(existing)
+            except json.JSONDecodeError as exc:
+                print(f"baseline report is invalid JSON: {exc}", file=sys.stderr)
+                return 1
+            if (
+                not isinstance(snapshot, dict)
+                or existing != render_report(snapshot)
+                or not baseline_results_match(snapshot, current_report)
+            ):
                 print(
-                    "baseline report is stale; render scripts/memory_baseline.py and review the result",
+                    "baseline scoring is stale; render scripts/memory_baseline.py and review the result",
                     file=sys.stderr,
                 )
                 return 1
-            print(f"baseline report is current: {_summary(json.loads(rendered))}")
+            if snapshot["corpus"] == current_report["corpus"]:
+                prefix = "baseline report is current"
+            else:
+                prefix = "baseline scoring is current; corpus differs from the frozen snapshot"
+            print(f"{prefix}: {_summary(current_report)}")
             return 0
         sys.stdout.write(rendered)
         return 0

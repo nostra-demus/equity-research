@@ -13,7 +13,7 @@
       "Untracked runtime state whose location is not declared by repository code or doctrine",
       "Future common-envelope, adapter, projection, vector, or graph stores"
     ],
-    "count_semantics": "observed_count counts regular files matching paths in this checkout. null means the declared store was not mounted and cannot be counted. Counts are evidence about this snapshot, not schema invariants."
+    "count_semantics": "observed_count counts regular files matching paths in the 2026-08-21 snapshot. null is reserved for declared stores that were not mounted and could not be counted. Non-null observations are coarse preservation lower bounds, not schema or current-cardinality invariants; current artifact-to-store coverage is checked separately."
   },
   "stores": [
     {
