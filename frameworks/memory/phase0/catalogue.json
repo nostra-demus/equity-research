@@ -1,0 +1,551 @@
+{
+  "catalogue_version": "memory-current-state-catalogue/v1",
+  "observed_at": "2026-08-21",
+  "repository_scope": {
+    "included": [
+      "Tracked research artifacts under analyses/, commodity/, screener/, and watchlist/",
+      "Declared source-pool and external-ingestion paths under data/ even though data/ is not mounted in this checkout",
+      "Existing JSON Schemas under frameworks/",
+      "Repository producers and readers that create or consume the stores"
+    ],
+    "excluded": [
+      "Conversation transcripts and provider-side model memory",
+      "Untracked runtime state whose location is not declared by repository code or doctrine",
+      "Future common-envelope, adapter, projection, vector, or graph stores"
+    ],
+    "count_semantics": "observed_count counts regular files matching paths in this checkout. null means the declared store was not mounted and cannot be counted. Counts are evidence about this snapshot, not schema invariants."
+  },
+  "stores": [
+    {
+      "id": "equity-module-artifacts",
+      "kind": "artifact_store",
+      "authority": "authoritative_run_output",
+      "paths": [
+        "analyses/*/*.md",
+        "analyses/*/*/*.md",
+        "analyses/*/*/*.json",
+        "analyses/*/*/*.csv"
+      ],
+      "formats": ["markdown", "json", "csv"],
+      "observed_count": 1654,
+      "producer_ids": ["research-agents", "research-orchestrator"],
+      "reader_ids": ["research-agents", "run-output-api", "evaluation-harness", "completion-service"],
+      "correction_model": "New dated run or explicit sidecar/review; never silently rewrite a committed decision artifact.",
+      "evidence": [
+        "analyses/AMZN_2026-07-10/final_thesis.md",
+        "analyses/ORCL_2026-08-14/audit_dossier.md",
+        ".claude/commands/research/full.md"
+      ]
+    },
+    {
+      "id": "equity-decision-ledger",
+      "kind": "ledger",
+      "authority": "authoritative_immutable",
+      "paths": ["analyses/*/decision_record.json"],
+      "formats": ["json"],
+      "observed_count": 15,
+      "producer_ids": ["master-synthesizer"],
+      "reader_ids": ["standing-decision-resolver", "run-output-api", "evaluation-harness", "research-review-calibration", "watchlist-service", "news-enrichment"],
+      "schema_ids": ["equity-decision-contract"],
+      "correction_model": "Frozen original plus analyses/*/corrections.json and append-only reviews.",
+      "evidence": [
+        "frameworks/DECISION_LEDGER.md",
+        "analyses/AMZN_2026-07-10/decision_record.json",
+        ".claude/agents/synthesizer.md"
+      ]
+    },
+    {
+      "id": "equity-correction-sidecars",
+      "kind": "ledger",
+      "authority": "authoritative_append_only",
+      "paths": ["analyses/*/corrections.json"],
+      "formats": ["json"],
+      "observed_count": 6,
+      "producer_ids": ["correction-maintainer"],
+      "reader_ids": ["standing-decision-resolver", "run-output-api", "evaluation-harness"],
+      "schema_ids": ["equity-corrections-contract"],
+      "correction_model": "Sidecar grows; superseded_by and registered errata are resolved on read.",
+      "evidence": [
+        "analyses/EMAAR_2026-07-03/corrections.json",
+        "scripts/ledger_records.py",
+        "ui/server/src/ledger-corrections.ts"
+      ]
+    },
+    {
+      "id": "equity-outcome-reviews",
+      "kind": "ledger",
+      "authority": "authoritative_append_only",
+      "paths": [
+        "analyses/*/reviews/*_decision_review.json",
+        "analyses/*/reviews/*_memo_delta.md"
+      ],
+      "formats": ["json", "markdown"],
+      "observed_count": 20,
+      "producer_ids": ["research-review-calibration"],
+      "reader_ids": ["run-output-api", "evaluation-harness", "research-review-calibration"],
+      "schema_ids": ["equity-review-contract"],
+      "correction_model": "A new dated review is appended; the original decision and earlier reviews remain unchanged.",
+      "evidence": [
+        "analyses/AMZN_2026-07-10/reviews/2026-08-09_30d_decision_review.json",
+        "analyses/AMZN_2026-07-10/reviews/2026-08-09_30d_memo_delta.md",
+        ".claude/commands/research/review-decisions.md"
+      ]
+    },
+    {
+      "id": "equity-calibration-projections",
+      "kind": "projection",
+      "authority": "derived_rebuildable",
+      "paths": [
+        "analyses/performance/*_calibration_summary*.json",
+        "analyses/performance/*_decision_performance_summary.md"
+      ],
+      "formats": ["json", "markdown"],
+      "observed_count": 7,
+      "producer_ids": ["research-review-calibration"],
+      "reader_ids": ["research-agents", "evaluation-harness"],
+      "correction_model": "Regenerate a new dated/versioned projection from resolved decisions and reviews.",
+      "evidence": [
+        "analyses/performance/2026-08-01_calibration_summary.json",
+        ".claude/commands/research/calibrate.md",
+        "scripts/calibrate.py"
+      ]
+    },
+    {
+      "id": "equity-calls-tracker-projections",
+      "kind": "projection",
+      "authority": "derived_rebuildable",
+      "paths": ["analyses/tracking/*_calls_tracker*.json", "analyses/tracking/*_calls_tracker*.md"],
+      "formats": ["json", "markdown"],
+      "observed_count": 60,
+      "producer_ids": ["research-review-calibration"],
+      "reader_ids": ["run-output-api", "research-agents"],
+      "correction_model": "Regenerate from the standing decision set and reviews.",
+      "evidence": [
+        "analyses/tracking/2026-08-20_calls_tracker.json",
+        ".claude/commands/research/track.md",
+        "ui/server/src/outputs.ts"
+      ]
+    },
+    {
+      "id": "equity-portfolio-projections",
+      "kind": "projection",
+      "authority": "derived_rebuildable",
+      "paths": ["analyses/portfolio/*_portfolio*.md", "analyses/portfolio/*_sizing*.json"],
+      "formats": ["json", "markdown"],
+      "observed_count": 58,
+      "producer_ids": ["portfolio-sizing-command"],
+      "reader_ids": ["watchlist-service"],
+      "correction_model": "Write a new dated/versioned model-portfolio snapshot; decision records remain read-only.",
+      "evidence": [
+        "analyses/portfolio/2026-08-20_sizing.json",
+        ".claude/commands/research/size.md",
+        "ui/server/src/watchlist.ts"
+      ]
+    },
+    {
+      "id": "equity-evaluation-reports",
+      "kind": "artifact_store",
+      "authority": "authoritative_audit_output",
+      "paths": ["analyses/eval/*_eval_report*.json"],
+      "formats": ["json"],
+      "observed_count": 13,
+      "producer_ids": ["evaluation-harness"],
+      "reader_ids": ["evaluation-harness"],
+      "correction_model": "Write a new dated/versioned evaluation report; never repair evaluated run artifacts in place.",
+      "evidence": [
+        "analyses/eval/2026-08-14_eval_report.json",
+        "scripts/eval.py",
+        ".claude/commands/research/eval.md"
+      ]
+    },
+    {
+      "id": "equity-run-provenance-and-audits",
+      "kind": "artifact_store",
+      "authority": "mixed_authoritative_and_derived",
+      "paths": [
+        "analyses/*/RUN_METADATA.md",
+        "analyses/*/agent_metrics.*.json",
+        "analyses/*/intake/*",
+        "analyses/*/verification_report*.json",
+        "analyses/*/pre_mortem*.json",
+        "analyses/*/expectations_gap.json",
+        "analyses/*/idea_3_6m.json",
+        "analyses/*/.aborted"
+      ],
+      "formats": ["json", "markdown", "marker"],
+      "observed_count": 225,
+      "producer_ids": ["research-orchestrator", "master-synthesizer", "idea-admission-tools"],
+      "reader_ids": ["completion-service", "evaluation-harness", "run-output-api", "ideas-service"],
+      "schema_ids": ["idea-assessment"],
+      "correction_model": "Run-scoped outputs remain bound to the run; material new evidence uses a new run.",
+      "evidence": [
+        "analyses/ORCL_2026-08-14/RUN_METADATA.md",
+        "analyses/ORCL_2026-08-14/verification_report.json",
+        "analyses/ORCL_2026-08-14/idea_3_6m.json"
+      ]
+    },
+    {
+      "id": "run-pool-extract-cache",
+      "kind": "cache",
+      "authority": "derived_rebuildable",
+      "paths": ["analyses/*/_pool_extracts/**"],
+      "formats": ["text", "json", "markdown"],
+      "observed_count": 78,
+      "producer_ids": ["pool-extractor"],
+      "reader_ids": ["research-agents", "completion-service"],
+      "correction_model": "Delete and re-extract from the source pool; manifest provenance must remain bound to inputs.",
+      "evidence": [
+        "analyses/TMCV_2026-06-07/_pool_extracts/manifest.json",
+        ".claude/tools/extract_pool.py",
+        "ui/server/src/readiness.ts"
+      ]
+    },
+    {
+      "id": "commodity-run-artifacts",
+      "kind": "artifact_store",
+      "authority": "authoritative_run_output",
+      "paths": ["commodity/runs/**"],
+      "formats": ["json", "markdown"],
+      "observed_count": 102,
+      "producer_ids": ["commodity-agents", "commodity-tools"],
+      "reader_ids": ["commodity-pulse-reader", "completion-service", "research-agents"],
+      "schema_ids": ["commodity-decision", "commodity-review", "commodity-signal-evidence"],
+      "correction_model": "Decision archive and review contracts append; module reruns preserve prior evidence in the run history.",
+      "evidence": [
+        "commodity/runs/GOLD/decision_record.json",
+        "commodity/runs/WHEAT/supply-demand/02_commodity-demand-inventory.md",
+        ".claude/commands/commodity/full.md"
+      ]
+    },
+    {
+      "id": "commodity-decision-ledger",
+      "kind": "ledger",
+      "authority": "authoritative_immutable",
+      "paths": ["commodity/runs/*/decision_record.json", "commodity/runs/*/reviews/*.json"],
+      "formats": ["json"],
+      "observed_count": 4,
+      "producer_ids": ["commodity-agents", "commodity-tools"],
+      "reader_ids": ["commodity-pulse-reader", "completion-service"],
+      "schema_ids": ["commodity-decision", "commodity-review"],
+      "correction_model": "Append an archive/review record; do not rewrite a published decision with hindsight.",
+      "evidence": [
+        "frameworks/commodity/decision_record.schema.json",
+        "scripts/commodity_decision_archive.py",
+        "ui/server/src/news/commodity-pulse.ts"
+      ]
+    },
+    {
+      "id": "commodity-profiles-and-validated-signals",
+      "kind": "source_store",
+      "authority": "curated_configuration",
+      "paths": [
+        "frameworks/commodity/profiles/*.json",
+        "frameworks/commodity/validated_signals.json",
+        "frameworks/commodity/pulse_sources.json"
+      ],
+      "formats": ["json"],
+      "observed_count": 14,
+      "producer_ids": ["commodity-tools"],
+      "reader_ids": ["commodity-pulse-reader", "research-agents"],
+      "correction_model": "Version through code review; these are curated inputs, not mutable runtime state.",
+      "evidence": [
+        "frameworks/commodity/profiles/GOLD.json",
+        "frameworks/commodity/validated_signals.json",
+        "scripts/commodity_profile_coverage.py"
+      ]
+    },
+    {
+      "id": "screener-run-artifacts",
+      "kind": "artifact_store",
+      "authority": "authoritative_run_output",
+      "paths": ["screener/runs/**"],
+      "formats": ["json", "markdown", "text"],
+      "observed_count": 276,
+      "producer_ids": ["screener-agents"],
+      "reader_ids": ["screener-api", "completion-service"],
+      "schema_ids": ["screener-intake", "screener-signal-payload", "screener-thesis", "screener-candidates", "screener-thesis-integrity"],
+      "correction_model": "A new signal/thesis version is written; locked records are not silently edited.",
+      "evidence": [
+        "screener/runs/SIG-20260804-da21208a/signal_payload.json",
+        "screener/runs/SIG-20260804-da21208a/thesis_record.json",
+        ".claude/commands/screener/signal.md"
+      ]
+    },
+    {
+      "id": "screener-event-ledger",
+      "kind": "ledger",
+      "authority": "authoritative_append_only",
+      "paths": ["screener/ledger/events.ndjson"],
+      "formats": ["ndjson"],
+      "observed_count": 1,
+      "producer_ids": ["screener-agents", "news-ingestion"],
+      "reader_ids": ["screener-api", "news-feed-reader", "research-bridge"],
+      "correction_model": "Append a new event/status row using the safe NDJSON writer.",
+      "evidence": [
+        "screener/ledger/events.ndjson",
+        "scripts/append-ndjson.sh",
+        "ui/server/src/screener.ts"
+      ]
+    },
+    {
+      "id": "screener-thesis-candidate-ledger",
+      "kind": "ledger",
+      "authority": "authoritative_versioned_snapshots",
+      "paths": ["screener/ledger/theses/*.json", "screener/ledger/candidates/*.json"],
+      "formats": ["json"],
+      "observed_count": 16,
+      "producer_ids": ["screener-agents"],
+      "reader_ids": ["screener-api", "conviction-service"],
+      "schema_ids": ["screener-thesis", "screener-candidates"],
+      "correction_model": "Stable thesis/version identifiers; later versions do not overwrite prior identity.",
+      "evidence": [
+        "screener/ledger/theses/THS-SIG-20260804-da21208a-v1.json",
+        "screener/ledger/candidates/THS-SIG-20260711-b55e8917-v1.json",
+        "ui/server/src/screener.ts"
+      ]
+    },
+    {
+      "id": "screener-conviction-ledger",
+      "kind": "ledger",
+      "authority": "append_only_with_rebuildable_state",
+      "paths": [
+        "screener/ledger/conviction/conviction.ndjson",
+        "screener/ledger/conviction/checkpoints.ndjson",
+        "screener/ledger/conviction/conviction_state/*.json",
+        "screener/ledger/conviction/*_conviction_calibration.json"
+      ],
+      "formats": ["ndjson", "json"],
+      "observed_count": 11,
+      "producer_ids": ["conviction-service", "commodity-tools"],
+      "reader_ids": ["conviction-service", "screener-api"],
+      "schema_ids": ["screener-conviction"],
+      "correction_model": "Append ticks/checkpoints; JSON state and calibration are rebuildable projections.",
+      "evidence": [
+        "screener/ledger/conviction/conviction.ndjson",
+        "scripts/screener_emit_checkpoints.py",
+        "ui/server/src/conviction-dispatch.ts"
+      ]
+    },
+    {
+      "id": "screener-idea-ledger",
+      "kind": "ledger",
+      "authority": "append_only_with_content_addressed_snapshots",
+      "paths": [
+        "screener/ledger/ideas.ndjson",
+        "screener/ledger/ideas/*.json",
+        "screener/ledger/ideas_archive/*.json",
+        "screener/ledger/ideas_archive/.retention-required"
+      ],
+      "formats": ["ndjson", "json", "marker"],
+      "observed_count": 33,
+      "producer_ids": ["ideas-service", "idea-admission-tools"],
+      "reader_ids": ["ideas-service", "screener-api"],
+      "correction_model": "Append lifecycle rows; retain active and archived immutable snapshots under the declared retention contract.",
+      "evidence": [
+        "screener/ledger/ideas.ndjson",
+        "screener/ledger/ideas_archive/retention.json",
+        "ui/server/src/news/ideas/ideas-publisher.ts"
+      ]
+    },
+    {
+      "id": "screener-feedback-ledgers",
+      "kind": "ledger",
+      "authority": "authoritative_append_only",
+      "paths": ["screener/ledger/ideas_feedback.ndjson", "screener/ledger/screener_feedback.ndjson"],
+      "formats": ["ndjson"],
+      "observed_count": 2,
+      "producer_ids": ["feedback-service", "ideas-service"],
+      "reader_ids": ["feedback-service", "ideas-service"],
+      "correction_model": "Append dispositions/status events; do not mutate earlier feedback.",
+      "evidence": [
+        "screener/ledger/ideas_feedback.ndjson",
+        "screener/ledger/screener_feedback.ndjson",
+        "ui/server/src/screener-feedback.ts"
+      ]
+    },
+    {
+      "id": "screener-theme-ledger",
+      "kind": "ledger",
+      "authority": "authoritative_append_only",
+      "paths": ["screener/ledger/themes.ndjson"],
+      "formats": ["ndjson"],
+      "observed_count": 1,
+      "producer_ids": ["theme-engine"],
+      "reader_ids": ["theme-engine", "news-feed-reader"],
+      "correction_model": "Append theme events; API indexes are rebuildable.",
+      "evidence": [
+        "screener/ledger/themes.ndjson",
+        "ui/server/src/news/themes/store.ts",
+        "ui/server/src/news/themes/engine.ts"
+      ]
+    },
+    {
+      "id": "screener-inbox-archive",
+      "kind": "source_store",
+      "authority": "authoritative_ingestion_snapshot",
+      "paths": ["screener/inbox/*_firehose.ndjson", "screener/inbox/*_sweep.json", "screener/inbox/agent_metrics.*.json"],
+      "formats": ["ndjson", "json"],
+      "observed_count": 76,
+      "producer_ids": ["news-ingestion"],
+      "reader_ids": ["news-feed-reader", "screener-api", "theme-engine"],
+      "correction_model": "New dated snapshots/events; existing ingestion history remains available.",
+      "evidence": [
+        "screener/inbox/2026-08-20_sweep.json",
+        "ui/server/src/news/write-inbox.ts",
+        "ui/server/src/news/feed.ts"
+      ]
+    },
+    {
+      "id": "screener-board-projections",
+      "kind": "projection",
+      "authority": "derived_rebuildable",
+      "paths": ["screener/board/index.json", "screener/board/themes_index.json"],
+      "formats": ["json"],
+      "observed_count": 2,
+      "producer_ids": ["board-projector", "theme-engine"],
+      "reader_ids": ["screener-api", "news-feed-reader"],
+      "schema_ids": ["screener-board"],
+      "correction_model": "Rebuild from inbox, run, ledger, and feedback sources.",
+      "evidence": [
+        "screener/board/index.json",
+        "scripts/update_board_index.py",
+        "ui/server/src/screener.ts"
+      ]
+    },
+    {
+      "id": "watchlist-entries",
+      "kind": "ledger",
+      "authority": "authoritative_versioned_entry",
+      "paths": ["watchlist/entries/*.json"],
+      "formats": ["json"],
+      "observed_count": 2,
+      "producer_ids": ["watchlist-service"],
+      "reader_ids": ["watchlist-service"],
+      "correction_model": "Entry history records mutations; archive state is explicit.",
+      "evidence": [
+        "watchlist/entries/WL-20260819-1aff8992.json",
+        "ui/server/src/watchlist.ts"
+      ]
+    },
+    {
+      "id": "mounted-source-pools",
+      "kind": "source_store",
+      "authority": "authoritative_source_bytes",
+      "paths": ["data/<SUBJECT>/**"],
+      "formats": ["pdf", "xlsx", "csv", "json", "text", "image", "provenance-sidecar"],
+      "observed_count": null,
+      "availability": "declared_not_mounted_in_this_checkout",
+      "producer_ids": ["pool-extractor", "external-router", "connector-runner", "research-bridge"],
+      "reader_ids": ["pool-extractor", "research-agents", "completion-service", "news-enrichment"],
+      "correction_model": "Preserve exact source bytes/provenance; new versions are new objects and connector projections are hash-bound.",
+      "evidence": [
+        "frameworks/EXTERNAL_DATA.md",
+        ".claude/tools/extract_pool.py",
+        "ui/server/src/research-bridge.ts"
+      ]
+    },
+    {
+      "id": "external-ingestion-inbox",
+      "kind": "source_store",
+      "authority": "authoritative_routing_audit",
+      "paths": [
+        "data/EXTERNAL-INBOX/**",
+        "data/EXTERNAL-INBOX/.ingest_ledger.ndjson",
+        "data/<SUBJECT>/external/<PROVIDER>/*",
+        "data/<SUBJECT>/external/<PROVIDER>/*.source.json"
+      ],
+      "formats": ["source bytes", "json", "ndjson"],
+      "observed_count": null,
+      "availability": "declared_not_mounted_in_this_checkout",
+      "producer_ids": ["external-router"],
+      "reader_ids": ["pool-extractor", "research-agents", "completion-service"],
+      "correction_model": "SHA-256 deduplicated routing with an append-only ledger and per-file provenance sidecars.",
+      "evidence": [
+        "frameworks/EXTERNAL_DATA.md",
+        ".claude/tools/ingest_external.py",
+        ".claude/tools/extract_pool.py"
+      ]
+    },
+    {
+      "id": "connector-operations",
+      "kind": "ledger",
+      "authority": "operational_append_only",
+      "paths": ["data/_connectors/run_ledger.ndjson", "data/<SUBJECT>/external/<PROVIDER>/*.source.json"],
+      "formats": ["ndjson", "json"],
+      "observed_count": null,
+      "availability": "declared_not_mounted_in_this_checkout",
+      "producer_ids": ["connector-runner"],
+      "reader_ids": ["connector-health-reader", "pool-extractor"],
+      "schema_ids": ["connector-manifest"],
+      "correction_model": "Append run outcomes; a connector output is usable only with its exact valid provenance sidecar.",
+      "evidence": [
+        ".claude/tools/run_connectors.py",
+        ".claude/connectors/federal-reserve-broad-usd/connector.json",
+        "ui/server/src/feed-health.ts"
+      ]
+    }
+  ],
+  "schemas": [
+    {"id": "commodity-decision", "path": "frameworks/commodity/decision_record.schema.json", "governs": ["commodity/runs/*/decision_record.json"], "consumers": ["commodity-tools", "commodity-pulse-reader"]},
+    {"id": "commodity-review", "path": "frameworks/commodity/decision_review.schema.json", "governs": ["commodity/runs/*/reviews/*.json"], "consumers": ["commodity-tools"]},
+    {"id": "commodity-signal-evidence", "path": "frameworks/commodity/signal_evidence.schema.json", "governs": ["commodity signal/evidence bundles"], "consumers": ["commodity-tools"]},
+    {"id": "connector-manifest", "path": "frameworks/connector.schema.json", "governs": [".claude/connectors/*/connector.json"], "consumers": ["connector-runner", "connector-health-reader"]},
+    {"id": "idea-assessment", "path": "frameworks/ideas/idea-assessment.schema.json", "governs": ["analyses/*/idea_3_6m.json"], "consumers": ["idea-admission-tools", "ideas-service"]},
+    {"id": "screener-board", "path": "frameworks/screener/board_index.schema.json", "governs": ["screener/board/index.json"], "consumers": ["board-projector", "screener-api"]},
+    {"id": "screener-candidates", "path": "frameworks/screener/candidates.schema.json", "governs": ["screener/runs/*/candidates.json", "screener/ledger/candidates/*.json"], "consumers": ["screener-agents", "screener-api"]},
+    {"id": "screener-conviction", "path": "frameworks/screener/conviction.schema.json", "governs": ["screener/ledger/conviction/**"], "consumers": ["conviction-service", "screener-api"]},
+    {"id": "screener-intake", "path": "frameworks/screener/intake.schema.json", "governs": ["screener/runs/*/intake.json"], "consumers": ["screener-agents", "screener-api"]},
+    {"id": "screener-signal-payload", "path": "frameworks/screener/signal_payload.schema.json", "governs": ["screener/runs/*/signal_payload.json"], "consumers": ["screener-agents", "screener-api"]},
+    {"id": "screener-thesis-integrity", "path": "frameworks/screener/thesis_integrity_review.schema.json", "governs": ["screener/runs/*/thesis_integrity_review.json"], "consumers": ["screener-agents", "screener-api"]},
+    {"id": "screener-thesis", "path": "frameworks/screener/thesis_record.schema.json", "governs": ["screener/runs/*/thesis_record.json", "screener/ledger/theses/*.json"], "consumers": ["screener-agents", "screener-api"]},
+    {"id": "sensitivity-summary", "path": "frameworks/sensitivity_summary.schema.json", "governs": ["analyses/*/*/sensitivity_summary.json"], "consumers": ["research-agents", "evaluation-harness"]},
+    {"id": "valuation-summary", "path": "frameworks/valuation_summary.schema.json", "governs": ["analyses/*/valuation/valuation_summary.json"], "consumers": ["research-agents", "evaluation-harness"]},
+    {"id": "equity-decision-contract", "path": "frameworks/DECISION_LEDGER.md#5-decision-record-schema", "governs": ["analyses/*/decision_record.json"], "consumers": ["master-synthesizer", "standing-decision-resolver", "evaluation-harness"]},
+    {"id": "equity-corrections-contract", "path": "frameworks/DECISION_LEDGER.md#4a-append-only-correction-layer", "governs": ["analyses/*/corrections.json"], "consumers": ["standing-decision-resolver", "run-output-api"]},
+    {"id": "equity-review-contract", "path": "frameworks/DECISION_LEDGER.md#8-outcome-review", "governs": ["analyses/*/reviews/*_decision_review.json"], "consumers": ["research-review-calibration", "run-output-api"]}
+  ],
+  "producers": [
+    {"id": "research-agents", "type": "agent_program", "evidence": [".claude/agents/business-model/99_business-model-synthesis.md", ".claude/agents/valuation/99_valuation-synthesis.md"], "writes_store_ids": ["equity-module-artifacts", "equity-calibration-projections"]},
+    {"id": "research-orchestrator", "type": "command_program", "evidence": [".claude/commands/research/full.md", ".claude/commands/research/intake.md"], "writes_store_ids": ["equity-module-artifacts", "equity-run-provenance-and-audits"]},
+    {"id": "master-synthesizer", "type": "agent_program", "evidence": [".claude/agents/synthesizer.md"], "writes_store_ids": ["equity-decision-ledger", "equity-module-artifacts", "equity-run-provenance-and-audits"]},
+    {"id": "correction-maintainer", "type": "governed_manual_or_agent_write", "evidence": ["frameworks/DECISION_LEDGER.md", "scripts/ledger_records.py"], "writes_store_ids": ["equity-correction-sidecars"]},
+    {"id": "research-review-calibration", "type": "command_and_script", "evidence": [".claude/commands/research/review-decisions.md", ".claude/commands/research/calibrate.md", ".claude/commands/research/track.md", "scripts/calibrate.py"], "writes_store_ids": ["equity-outcome-reviews", "equity-calibration-projections", "equity-calls-tracker-projections"]},
+    {"id": "portfolio-sizing-command", "type": "command_program", "evidence": [".claude/commands/research/size.md"], "writes_store_ids": ["equity-portfolio-projections"]},
+    {"id": "evaluation-harness", "type": "command_and_script", "evidence": ["scripts/eval.py", ".claude/commands/research/eval.md"], "writes_store_ids": ["equity-evaluation-reports"]},
+    {"id": "pool-extractor", "type": "script", "evidence": [".claude/tools/extract_pool.py"], "writes_store_ids": ["run-pool-extract-cache", "mounted-source-pools"]},
+    {"id": "commodity-agents", "type": "agent_program", "evidence": [".claude/agents/commodity/commodity-thesis/99_commodity-thesis-synthesis.md", ".claude/commands/commodity/full.md"], "writes_store_ids": ["commodity-run-artifacts", "commodity-decision-ledger"]},
+    {"id": "commodity-tools", "type": "scripts", "evidence": ["scripts/commodity_decision_archive.py", "scripts/commodity_evidence_links.py", "scripts/commodity_calibrate.py"], "writes_store_ids": ["commodity-run-artifacts", "commodity-decision-ledger", "commodity-profiles-and-validated-signals", "screener-conviction-ledger"]},
+    {"id": "screener-agents", "type": "agent_program", "evidence": [".claude/commands/screener/signal.md", ".claude/agents/screener/signal-gate/99_signal-gate-synthesis.md"], "writes_store_ids": ["screener-run-artifacts", "screener-event-ledger", "screener-thesis-candidate-ledger"]},
+    {"id": "news-ingestion", "type": "service", "evidence": ["ui/server/src/news/write-inbox.ts", "ui/server/src/news/ingest-once.ts"], "writes_store_ids": ["screener-inbox-archive", "screener-event-ledger"]},
+    {"id": "theme-engine", "type": "service", "evidence": ["ui/server/src/news/themes/engine.ts", "ui/server/src/news/themes/store.ts"], "writes_store_ids": ["screener-theme-ledger", "screener-board-projections"]},
+    {"id": "ideas-service", "type": "service", "evidence": ["ui/server/src/news/ideas/ideas-publisher.ts", "ui/server/src/news/ideas/ideas-store.ts"], "writes_store_ids": ["screener-idea-ledger", "screener-feedback-ledgers"]},
+    {"id": "idea-admission-tools", "type": "scripts", "evidence": ["scripts/create_idea_projection_manifest.py", "scripts/freeze_idea_admission.py"], "writes_store_ids": ["equity-run-provenance-and-audits", "screener-idea-ledger"]},
+    {"id": "conviction-service", "type": "service_and_scripts", "evidence": ["ui/server/src/conviction-dispatch.ts", "scripts/screener_emit_checkpoints.py"], "writes_store_ids": ["screener-conviction-ledger"]},
+    {"id": "feedback-service", "type": "service", "evidence": ["ui/server/src/screener-feedback.ts", "ui/server/src/feedback-store.ts"], "writes_store_ids": ["screener-feedback-ledgers"]},
+    {"id": "board-projector", "type": "script_and_service", "evidence": ["scripts/update_board_index.py", "ui/server/src/news/ideas/ideas-projection.ts"], "writes_store_ids": ["screener-board-projections"]},
+    {"id": "watchlist-service", "type": "service", "evidence": ["ui/server/src/watchlist.ts"], "writes_store_ids": ["watchlist-entries"]},
+    {"id": "external-router", "type": "script", "evidence": [".claude/tools/ingest_external.py", "frameworks/EXTERNAL_DATA.md"], "writes_store_ids": ["mounted-source-pools", "external-ingestion-inbox"]},
+    {"id": "connector-runner", "type": "script", "evidence": [".claude/tools/run_connectors.py"], "writes_store_ids": ["mounted-source-pools", "connector-operations"]},
+    {"id": "research-bridge", "type": "service", "evidence": ["ui/server/src/research-bridge.ts"], "writes_store_ids": ["mounted-source-pools"]}
+  ],
+  "readers": [
+    {"id": "research-agents", "type": "agent_program", "evidence": [".claude/agents/synthesizer.md", "frameworks/MODULE_PIPELINE.md"], "reads_store_ids": ["equity-module-artifacts", "equity-decision-ledger", "equity-calibration-projections", "run-pool-extract-cache", "commodity-run-artifacts", "commodity-profiles-and-validated-signals", "mounted-source-pools", "external-ingestion-inbox"]},
+    {"id": "standing-decision-resolver", "type": "script", "evidence": ["scripts/ledger_records.py"], "reads_store_ids": ["equity-decision-ledger", "equity-correction-sidecars"]},
+    {"id": "evaluation-harness", "type": "command_and_script", "evidence": ["scripts/eval.py", ".claude/commands/research/eval.md"], "reads_store_ids": ["equity-module-artifacts", "equity-decision-ledger", "equity-correction-sidecars", "equity-outcome-reviews", "equity-run-provenance-and-audits", "equity-evaluation-reports"]},
+    {"id": "research-review-calibration", "type": "command_and_script", "evidence": [".claude/commands/research/review-decisions.md", ".claude/commands/research/calibrate.md"], "reads_store_ids": ["equity-decision-ledger", "equity-correction-sidecars", "equity-outcome-reviews"]},
+    {"id": "run-output-api", "type": "service", "evidence": ["ui/server/src/outputs.ts", "ui/server/src/ledger-corrections.ts"], "reads_store_ids": ["equity-module-artifacts", "equity-decision-ledger", "equity-correction-sidecars", "equity-outcome-reviews", "equity-calls-tracker-projections", "equity-run-provenance-and-audits"]},
+    {"id": "completion-service", "type": "service", "evidence": ["ui/server/src/completion.ts", "ui/server/src/readiness.ts"], "reads_store_ids": ["equity-module-artifacts", "equity-decision-ledger", "equity-run-provenance-and-audits", "run-pool-extract-cache", "commodity-run-artifacts", "commodity-decision-ledger", "screener-run-artifacts", "mounted-source-pools", "external-ingestion-inbox"]},
+    {"id": "screener-api", "type": "service", "evidence": ["ui/server/src/screener.ts"], "reads_store_ids": ["screener-run-artifacts", "screener-event-ledger", "screener-thesis-candidate-ledger", "screener-conviction-ledger", "screener-idea-ledger", "screener-board-projections"]},
+    {"id": "news-feed-reader", "type": "service", "evidence": ["ui/server/src/news/feed.ts", "ui/server/src/news/intensity.ts"], "reads_store_ids": ["screener-inbox-archive", "screener-event-ledger", "screener-theme-ledger", "screener-board-projections"]},
+    {"id": "theme-engine", "type": "service", "evidence": ["ui/server/src/news/themes/store.ts"], "reads_store_ids": ["screener-inbox-archive", "screener-theme-ledger", "screener-board-projections"]},
+    {"id": "ideas-service", "type": "service", "evidence": ["ui/server/src/news/ideas/ideas-store.ts", "ui/server/src/news/ideas/idea-learning.ts"], "reads_store_ids": ["equity-decision-ledger", "equity-run-provenance-and-audits", "screener-idea-ledger", "screener-feedback-ledgers", "mounted-source-pools"]},
+    {"id": "conviction-service", "type": "service", "evidence": ["ui/server/src/conviction-dispatch.ts", "ui/server/src/screener.ts"], "reads_store_ids": ["screener-thesis-candidate-ledger", "screener-conviction-ledger"]},
+    {"id": "feedback-service", "type": "service", "evidence": ["ui/server/src/screener-feedback.ts", "ui/server/src/feedback-store.ts"], "reads_store_ids": ["screener-feedback-ledgers", "screener-thesis-candidate-ledger"]},
+    {"id": "commodity-pulse-reader", "type": "service", "evidence": ["ui/server/src/news/commodity-pulse.ts"], "reads_store_ids": ["commodity-run-artifacts", "commodity-decision-ledger", "commodity-profiles-and-validated-signals"]},
+    {"id": "watchlist-service", "type": "service", "evidence": ["ui/server/src/watchlist.ts"], "reads_store_ids": ["watchlist-entries", "equity-decision-ledger", "equity-portfolio-projections"]},
+    {"id": "pool-extractor", "type": "script", "evidence": [".claude/tools/extract_pool.py"], "reads_store_ids": ["mounted-source-pools", "external-ingestion-inbox", "connector-operations"]},
+    {"id": "news-enrichment", "type": "service", "evidence": ["ui/server/src/news/enrich.ts", "ui/server/src/news/equity-quote.ts"], "reads_store_ids": ["equity-decision-ledger", "mounted-source-pools"]},
+    {"id": "research-bridge", "type": "service", "evidence": ["ui/server/src/research-bridge.ts", "ui/server/src/bridge-batch.ts"], "reads_store_ids": ["screener-event-ledger", "equity-decision-ledger", "mounted-source-pools"]},
+    {"id": "connector-health-reader", "type": "service", "evidence": ["ui/server/src/feed-health.ts", "ui/server/src/connector-health.ts"], "reads_store_ids": ["connector-operations"]}
+  ]
+}

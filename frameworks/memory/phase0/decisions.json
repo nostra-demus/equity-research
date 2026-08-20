@@ -1,0 +1,248 @@
+{
+  "decision_record_version": "memory-phase0-decisions/v1",
+  "accepted_at": "2026-08-21",
+  "scope": "Contracts for future permanent-memory work; no historical artifact is migrated or rewritten by these decisions.",
+  "decisions": [
+    {
+      "id": "MEM-ADR-001",
+      "title": "Stable identities are namespaced and aliases are never identity",
+      "status": "accepted",
+      "context": "Ticker symbols, company names, folder names, and vendor labels can change or collide across venues, share classes, runs, and sources.",
+      "decision": "Every future canonical record uses an immutable, typed identifier from the built-in registry namespaces below. These names and formats are the v1 contract enforced by scripts/memory_contract.py; registries may add namespaces but may not redefine a built-in one. External identifiers may be linked by explicit same_as relationships and are never silently collapsed.",
+      "namespaces": [
+        {
+          "name": "issuer:lei",
+          "entity_kind": "issuer",
+          "authority": "GLEIF",
+          "examples": ["issuer:lei:5493001KJTIIGC8Y1R12"]
+        },
+        {
+          "name": "security:figi",
+          "entity_kind": "security",
+          "authority": "Bloomberg/OpenFIGI",
+          "examples": ["security:figi:BBG000B9XRY4"]
+        },
+        {
+          "name": "security:isin",
+          "entity_kind": "security",
+          "authority": "ISO 6166",
+          "examples": ["security:isin:US0231351067"]
+        },
+        {
+          "name": "security:mic-ticker",
+          "entity_kind": "security",
+          "authority": "ISO 10383 + listing venue",
+          "examples": ["security:mic-ticker:XNAS:AMZN", "security:mic-ticker:XSHG:600690"]
+        },
+        {
+          "name": "entity:internal",
+          "entity_kind": "entity",
+          "authority": "repository",
+          "examples": ["entity:internal:legacy-amzn"]
+        },
+        {
+          "name": "run",
+          "entity_kind": "run",
+          "authority": "repository",
+          "examples": ["run_550e8400-e29b-51d4-a716-446655440000"]
+        },
+        {
+          "name": "forecast",
+          "entity_kind": "forecast",
+          "authority": "repository",
+          "examples": ["forecast_550e8400-e29b-51d4-a716-446655440000"]
+        },
+        {
+          "name": "claim",
+          "entity_kind": "claim",
+          "authority": "repository",
+          "examples": ["claim_550e8400-e29b-51d4-a716-446655440000"]
+        },
+        {
+          "name": "source",
+          "entity_kind": "source",
+          "authority": "SHA-256",
+          "examples": ["source:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+        }
+      ],
+      "record_identifiers": {
+        "event_id": "evt_<UUIDv5-or-UUIDv7>",
+        "run_id": "run_<UUIDv5-or-UUIDv7>",
+        "forecast_id": "forecast_<UUIDv5-or-UUIDv7>",
+        "claim_id": "claim_<UUIDv5-or-UUIDv7>",
+        "allocation_rule": "New producers allocate UUIDv7 once; deterministic legacy adapters may derive UUIDv5 from a stable source key. The prefix is part of the identifier."
+      },
+      "rules": [
+        "A ticker, company name, URL, file path, or free-text metric label is an alias or locator, never a universal identifier.",
+        "A security:mic-ticker identifier names one venue listing; an issuer may have many securities and listings.",
+        "When no authoritative issuer or security identifier is available, entity:internal preserves an unresolved repository entity; it does not create unsupported issuer-internal or security-internal namespaces.",
+        "Identifier normalization never merges records solely because normalized strings match.",
+        "A registry may stage a custom namespace, but memory-event/v1 subject_ids accept only the built-in namespaces; making a custom namespace event-usable requires a reviewed event-schema revision and collection-level registry binding.",
+        "Same-as, successor, predecessor, ticker-change, and share-class relationships are explicit, sourced, temporal assertions.",
+        "Producer-issued IDs are immutable after publication; a correction points to them instead of reissuing them."
+      ],
+      "consequences": [
+        "Existing run roots and screener IDs remain valid source-system keys and can be mapped without rewriting history.",
+        "An identity registry must preserve unresolved ambiguity instead of guessing a merge.",
+        "Queries that do not identify a listing must abstain from mixing price, currency, yield, or share-count data."
+      ]
+    },
+    {
+      "id": "MEM-ADR-002",
+      "title": "All memory is bitemporal and point-in-time queries use both clocks",
+      "status": "accepted",
+      "context": "The repository currently uses decision dates, filing dates, data as-of dates, retrieval dates, review dates, and filesystem/Git time inconsistently. A late-arriving source must improve today's view without pretending it was known earlier.",
+      "decision": "Every canonical memory event carries valid_time as a closed object with fields from and to, plus system_time as the single timezone-aware instant when the engine recorded the event. A valid-time endpoint may be a date or a timezone-aware date-time; both endpoints use the same precision. Point-in-time reconstruction constrains both clocks.",
+      "clocks": {
+        "valid_time": {
+          "fields": ["from", "to"],
+          "meaning": "The interval in the researched world for which the assertion applies.",
+          "contract": "from is required and non-null; to is required and may be null for an open-ended interval; from and a non-null to use the same date or date-time precision."
+        },
+        "system_time": {
+          "fields": ["system_time"],
+          "meaning": "The required RFC 3339 instant at which the repository recorded this immutable event.",
+          "contract": "system_time carries an explicit UTC offset. There is no mutable superseded-at field; later events express supersession through supersedes references and their own later system_time."
+        },
+        "source_dates": {
+          "fields": ["published_at", "observed_at", "data_as_of", "received_at"],
+          "meaning": "Domain provenance dates. They never substitute for either bitemporal clock."
+        }
+      },
+      "rules": [
+        "An as-known-at query includes only events with system_time at or before the query's system-time cutoff.",
+        "An as-valid-at date-time query is an exact point lookup. A date-only query has day precision and matches intervals that overlap any part of that closed UTC day.",
+        "A point-in-time answer applies both constraints and exposes which cutoff was used.",
+        "A late filing keeps its real publication/data-as-of dates and the later system_time of its memory event; backdating system_time is forbidden.",
+        "For the reviewed Git lane, a newly appended event system_time must fall between its trusted parent and recording commit clocks; later controlled writers replace this lower-bound receipt proof with a signed intake receipt.",
+        "Date-only legacy records retain their date precision. A mapper may use a half-open UTC day interval but must mark the precision as day, not invent a time of day.",
+        "Corrections append a later event whose supersedes list names the earlier event; neither event's clocks are edited.",
+        "Current-state views are projections. Historical events and both clocks remain queryable."
+      ],
+      "query_example": {
+        "question": "What did the engine know on 2026-07-10 about AMZN?",
+        "system_time_cutoff": "2026-07-10T23:59:59.999999Z",
+        "valid_time": "2026-07-10",
+        "required_behavior": "Exclude the 2026-08-01 and 2026-08-09 reviews even though they are now in the checkout."
+      }
+    },
+    {
+      "id": "MEM-ADR-003",
+      "title": "Retention and access policy travel with every source and derivative",
+      "status": "accepted",
+      "context": "Public filings, licensed vendor exports, personal notes, and generated summaries have different access, redistribution, expiry, and embedding permissions. One global corpus policy would leak protected content or discard durable public evidence.",
+      "decision": "Every future canonical event receives a policy object containing classification, retention, and retain_until at intake. The allowed values are exactly those below. A derivative inherits the most restrictive policy of any non-de-minimis input unless an explicit, lawful derived-data rule permits a narrower result.",
+      "access_classes": [
+        {
+          "id": "public",
+          "authorized_roles": ["public", "researcher", "owner", "system"],
+          "embedding": "allowed",
+          "redistribution": "allowed when source terms allow",
+          "examples": ["public filing", "official release", "generated summary containing only public evidence"]
+        },
+        {
+          "id": "internal",
+          "authorized_roles": ["researcher", "owner", "system"],
+          "embedding": "allowed only in authorized internal projections",
+          "redistribution": "prohibited outside the authorized internal boundary",
+          "examples": ["repository-generated operational metadata", "internal research synthesis"]
+        },
+        {
+          "id": "licensed",
+          "authorized_roles": ["entitled_researcher", "owner", "entitled_system"],
+          "embedding": "prohibited unless the licence explicitly permits it",
+          "redistribution": "derived-only or prohibited according to the sidecar",
+          "examples": ["Capital IQ export", "subscriber-only alternative-data panel", "broker research"]
+        },
+        {
+          "id": "restricted",
+          "authorized_roles": ["named_researcher", "owner", "restricted_system"],
+          "embedding": "prohibited by default",
+          "redistribution": "prohibited",
+          "examples": ["expert-call notes", "channel checks", "management-meeting notes"]
+        },
+        {
+          "id": "confidential",
+          "authorized_roles": ["owner"],
+          "embedding": "prohibited",
+          "redistribution": "prohibited",
+          "examples": ["personal note explicitly marked confidential"]
+        }
+      ],
+      "retention_classes": [
+        {
+          "id": "permanent",
+          "duration": "permanent unless law or source terms require deletion",
+          "retain_until": null,
+          "applies_to": ["public source hashes", "decisions", "forecasts", "reviews", "corrections", "integrity manifests"]
+        },
+        {
+          "id": "source-policy",
+          "duration": "the source licence or consent period",
+          "retain_until": null,
+          "applies_to": ["licensed", "restricted", "confidential source bytes and extracts"]
+        },
+        {
+          "id": "expires",
+          "duration": "until the required timezone-aware policy.retain_until instant",
+          "retain_until": "required",
+          "applies_to": ["time-limited extracts", "approved temporary traces", "expiring licensed derivatives"]
+        },
+        {
+          "id": "tombstone-only",
+          "duration": "content is purged while the minimum policy-safe non-content tombstone remains",
+          "retain_until": null,
+          "applies_to": ["legally required deletion", "withdrawn consent", "security-response purge"]
+        }
+      ],
+      "rules": [
+        "The canonical policy object contains exactly classification, retention, and retain_until; retain_until is a timezone-aware date-time only for retention expires and is null for every other retention value.",
+        "Authorization is checked before retrieval and again before context assembly; filtering only after generation is insufficient.",
+        "Restricted bytes, extracts, and embeddings never enter an unauthorized fixture, cache, prompt, log, or model-training set.",
+        "Unknown licensing fails closed: no embedding, no redistribution, and no access beyond the owner until classified.",
+        "Licensed and restricted audiences are incomparable: a derivative combining or crossing those classes must be confidential unless a future explicit authorization contract proves the narrower audience.",
+        "The immutable Git event lane accepts only public or internal events with permanent retention. Licensed, restricted, confidential, source-policy, expires, and tombstone-only records use a policy-partitioned purgeable event/object lane so a later deletion can remove content bytes.",
+        "Deletion of a source object propagates to every rebuildable projection and leaves a non-content audit tombstone when legally allowed.",
+        "Access denials reveal no protected snippets or existence-sensitive metadata beyond the policy-safe denial.",
+        "Credentials and entitlement tokens are never memory records."
+      ],
+      "existing_contracts_reused": [
+        "frameworks/EXTERNAL_DATA.md",
+        "AGENTS.md sections 4, 5, and 28"
+      ]
+    },
+    {
+      "id": "MEM-ADR-004",
+      "title": "Corrections and supersession are append-only, attributable, and acyclic",
+      "status": "accepted",
+      "context": "Committed decisions are already frozen while sidecars and outcome reviews preserve later corrections. Permanent memory must generalize that discipline without turning hindsight into an edit history.",
+      "decision": "A committed memory event is never edited in place. A correction is a new attributable event that names the exact target and reason. Supersession changes current-state projection membership; it does not delete history.",
+      "rules": [
+        "The original bytes and identifier remain unchanged.",
+        "Every correction has a new event_id, event_type, producer, system_time, reason or explicit administrative basis, and an exact target in derived_from. A complete replacement event uses supersedes; a patch-only sidecar never masquerades as the full replacement.",
+        "A supersedes edge is directed, its target must exist with an earlier system_time, and the supersession graph must be acyclic.",
+        "Readers fail toward the frozen original when a correction is missing, malformed, unauthorized, or refers to a nonexistent target.",
+        "An expired or source-policy replacement that is unavailable to the reader does not suppress the frozen original; only an explicit authorized tombstone suppresses content for deletion.",
+        "Current-state resolution is deterministic: follow authorized supersession edges, apply only registered deterministic transforms, and expose the correction chain.",
+        "A later observation or outcome review never rewrites the probability, thesis, or evidence that existed at decision time.",
+        "Integrity errata, knowledge updates, outcome reviews, and policy redactions are distinct event types; one may not masquerade as another.",
+        "Concurrent append operations must be atomic. Duplicate event identifiers with different bytes are an integrity failure; byte-identical retries are idempotent.",
+        "Physical deletion is allowed only when required by retention, law, consent, or security response. It appends a policy-safe event with policy.retention tombstone-only and purges content-bearing derivatives."
+      ],
+      "resolution_order": [
+        "authorize candidate events",
+        "validate identifiers, targets, and graph acyclicity",
+        "select records visible at the requested system-time cutoff",
+        "apply supersession for the requested valid time",
+        "apply registered field-level errata",
+        "return current value together with resolvable history"
+      ],
+      "existing_contracts_reused": [
+        "frameworks/DECISION_LEDGER.md section 4a",
+        "scripts/ledger_records.py",
+        "ui/server/src/ledger-corrections.ts",
+        "scripts/append-ndjson.sh"
+      ]
+    }
+  ]
+}

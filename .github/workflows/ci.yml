@@ -50,11 +50,42 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
+
+      # Keep this before eval.py all: that command intentionally writes an
+      # untracked dated report, while the frozen Phase 0 corpus must be clean.
+      - name: Permanent-memory contracts, adapters, projection, baseline, and append-only guards
+        run: |
+          rc=0
+          shopt -s nullglob
+          for test in scripts/test_memory_*.py; do
+            echo "== $test =="
+            python3 "$test" || rc=1
+          done
+          python3 scripts/memory_baseline.py --check || rc=1
+          python3 scripts/memory.py doctor --root . || rc=1
+          memory_base=""
+          case "${{ github.event_name }}" in
+            pull_request) memory_base="${{ github.event.pull_request.base.sha }}" ;;
+            merge_group) memory_base="${{ github.event.merge_group.base_sha }}" ;;
+            push) memory_base="${{ github.event.before }}" ;;
+          esac
+          if [ "$memory_base" = "0000000000000000000000000000000000000000" ]; then
+            memory_base="$(git hash-object -t tree /dev/null)"
+          fi
+          if [ -z "$memory_base" ]; then
+            echo "::error::could not resolve trusted permanent-memory comparison base"
+            rc=1
+          else
+            python3 scripts/memory_immutability.py --repo . --base "$memory_base" --head HEAD || rc=1
+          fi
+          exit $rc
 
       - name: Run eval harness (all committed runs + J framework-contract checks)
         run: python3 scripts/eval.py all

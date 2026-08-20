@@ -1,0 +1,235 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/memory/event-v1.schema.json",
+  "title": "Canonical memory event envelope v1",
+  "description": "Append-only, bitemporal envelope shared by every new machine-readable memory record. The payload remains a domain object; recognized memory-*/v1 payloads are validated by their own schemas and scripts/memory_contract.py. tombstone-only retention is reserved for memory-tombstone/v1 payloads.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "event_id",
+    "event_type",
+    "subject_ids",
+    "valid_time",
+    "system_time",
+    "producer",
+    "run_id",
+    "trace_id",
+    "payload",
+    "evidence_refs",
+    "derived_from",
+    "supersedes",
+    "integrity",
+    "policy"
+  ],
+  "properties": {
+    "schema": { "const": "memory-event/v1" },
+    "event_id": { "$ref": "#/$defs/eventId" },
+    "event_type": {
+      "type": "string",
+      "maxLength": 128,
+      "pattern": "^[a-z][a-z0-9_-]*(?:\\.[a-z][a-z0-9_-]*)+$"
+    },
+    "subject_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/subjectId" }
+    },
+    "valid_time": { "$ref": "#/$defs/validTime" },
+    "system_time": { "$ref": "#/$defs/awareDateTime" },
+    "producer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "name", "runtime", "model", "prompt_program_sha"],
+      "properties": {
+        "kind": { "enum": ["agent", "human", "adapter", "system"] },
+        "name": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]{0,127}$"
+        },
+        "runtime": {
+          "type": ["string", "null"],
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "model": {
+          "type": ["string", "null"],
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "prompt_program_sha": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string", "pattern": "^git:[0-9a-f]{40}(?:[0-9a-f]{24})?$" }
+          ]
+        }
+      }
+    },
+    "run_id": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/runId" }
+      ]
+    },
+    "trace_id": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "pattern": "^(?!0{32}$)[0-9a-f]{32}$" }
+      ]
+    },
+    "payload": {
+      "type": "object"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/evidenceRef" }
+    },
+    "derived_from": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/eventId" }
+    },
+    "supersedes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/eventId" }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["payload_sha256", "signature"],
+      "properties": {
+        "payload_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "signature": { "type": "null" }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classification", "retention", "retain_until"],
+      "properties": {
+        "classification": {
+          "enum": ["public", "internal", "licensed", "confidential", "restricted"]
+        },
+        "retention": {
+          "enum": ["permanent", "source-policy", "expires", "tombstone-only"]
+        },
+        "retain_until": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/awareDateTime" }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "retention": { "const": "expires" } },
+            "required": ["retention"]
+          },
+          "then": {
+            "properties": {
+              "retain_until": { "$ref": "#/$defs/awareDateTime" }
+            }
+          },
+          "else": {
+            "properties": {
+              "retain_until": { "type": "null" }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "policy": {
+            "properties": { "retention": { "const": "tombstone-only" } },
+            "required": ["retention"]
+          }
+        },
+        "required": ["policy"]
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "properties": { "schema": { "const": "memory-tombstone/v1" } },
+            "required": ["schema"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "payload": {
+            "properties": { "schema": { "const": "memory-tombstone/v1" } },
+            "required": ["schema"]
+          }
+        },
+        "required": ["payload"]
+      },
+      "then": {
+        "properties": {
+          "policy": {
+            "properties": { "retention": { "const": "tombstone-only" } },
+            "required": ["retention"]
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "uuid": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "eventId": {
+      "type": "string",
+      "pattern": "^evt_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^run_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "subjectId": {
+      "type": "string",
+      "pattern": "^(?:issuer:lei:[A-Z0-9]{20}|security:figi:[A-Z0-9]{12}|security:isin:[A-Z]{2}[A-Z0-9]{9}[0-9]|security:mic-ticker:[A-Z0-9]{4}:[A-Z0-9][A-Z0-9.-]{0,31}|entity:internal:[a-z0-9][a-z0-9._-]{0,127})$"
+    },
+    "evidenceRef": {
+      "type": "string",
+      "pattern": "^evidence:sha256:[0-9a-f]{64}#[A-Za-z0-9][A-Za-z0-9._~:/?&=,+-]{0,255}$"
+    },
+    "awareDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+    },
+    "validEndpoint": {
+      "oneOf": [
+        { "type": "string", "format": "date", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        { "$ref": "#/$defs/awareDateTime" }
+      ]
+    },
+    "validTime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "to"],
+      "properties": {
+        "from": { "$ref": "#/$defs/validEndpoint" },
+        "to": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/validEndpoint" }
+          ]
+        }
+      }
+    }
+  }
+}

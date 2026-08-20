@@ -1,0 +1,695 @@
+{
+  "benchmark_version": "memory-held-out-benchmark/v1",
+  "as_of": "2026-08-21",
+  "top_k": 5,
+  "held_out_protocol": {
+    "retrieval_inputs": ["question", "search_roots"],
+    "scoring_only": ["answer_key", "evidence", "forbidden_paths", "protected_path_globs", "expected_outcome"],
+    "rule": "The baseline ranker must not inspect scoring-only fields before ranking. Questions are frozen before any future memory implementation is evaluated.",
+    "answer_scope": "Answer keys are concise adjudications of evidence already present in the named files; they are not new investment recommendations."
+  },
+  "assessment_limits": [
+    "The folder/grep baseline measures evidence-file retrieval, not generated-answer correctness or citation-span precision.",
+    "Abstention cases measure retrieval of explicit missingness evidence; whether a model actually abstains is not measured by this non-model baseline.",
+    "The checkout contains access policy but no safely redistributable restricted-content test payload. Access cases therefore measure policy retrieval and path intrusion only; they do not prove production authorization enforcement.",
+    "Wall-clock latency, model tokens, and model cost are intentionally absent from this deterministic report."
+  ],
+  "required_categories": [
+    "fact_recall",
+    "temporal_cutoff",
+    "knowledge_update",
+    "contradiction",
+    "qualifier",
+    "lineage",
+    "entity_resolution",
+    "abstention",
+    "access_control"
+  ],
+  "cases": [
+    {
+      "id": "fact-001-amzn-decision",
+      "category": "fact_recall",
+      "question": "What decision, entry price, and edge score did the AMZN 2026-07-10 run record?",
+      "search_roots": ["analyses/AMZN_2026-07-10"],
+      "expected_outcome": "retrieve",
+      "answer_key": "Watchlist; USD 238.34; edge score 35/100.",
+      "evidence": [{"path": "analyses/AMZN_2026-07-10/decision_record.json", "anchors": ["Amazon.com, Inc.", "238.34", "\"edge_score\": 35"]}]
+    },
+    {
+      "id": "fact-002-orcl-leverage",
+      "category": "fact_recall",
+      "question": "What strict-basis net debt and net-debt-to-EBITDA did Oracle report for FY2026 in the run?",
+      "search_roots": ["analyses/ORCL_2026-08-14"],
+      "expected_outcome": "retrieve",
+      "answer_key": "USD 136,143 million strict net debt and 4.46x net debt/EBITDA.",
+      "evidence": [{"path": "analyses/ORCL_2026-08-14/earnings/01_historical-financials.md", "anchors": ["136,143", "4.46x", "Net Debt (strict)"]}]
+    },
+    {
+      "id": "fact-003-tsla-tail-squeeze",
+      "category": "fact_recall",
+      "question": "What price did the TSLA short thesis assign to its tail-squeeze scenario?",
+      "search_roots": ["analyses/TSLA_2026-07-25"],
+      "expected_outcome": "retrieve",
+      "answer_key": "USD 417.40.",
+      "evidence": [{"path": "analyses/TSLA_2026-07-25/decision_record.json", "anchors": ["tail_squeeze", "417.4", "Short Candidate"]}]
+    },
+    {
+      "id": "fact-004-wheat-deficit",
+      "category": "fact_recall",
+      "question": "What 2026/27 global wheat deficit and current CBOT price did the WHEAT decision record use?",
+      "search_roots": ["commodity/runs/WHEAT"],
+      "expected_outcome": "retrieve",
+      "answer_key": "About 4 MMT deficit and 632 US cents per bushel (640.25 cents post-roll reference).",
+      "evidence": [{"path": "commodity/runs/WHEAT/decision_record.json", "anchors": ["~4 MMT supply deficit", "\"value\": 632", "per bushel"]}]
+    },
+    {
+      "id": "fact-005-gold-action",
+      "category": "fact_recall",
+      "question": "What action and post-review confidence did the GOLD decision record carry?",
+      "search_roots": ["commodity/runs/GOLD"],
+      "expected_outcome": "retrieve",
+      "answer_key": "Hold, with post-review confidence 39/100 and post-mortem action Trim.",
+      "evidence": [{"path": "commodity/runs/GOLD/decision_record.json", "anchors": ["\"action\": \"Hold\"", "\"post_review_confidence_score\": 39", "\"post_mortem_action\": \"Trim\""]}]
+    },
+    {
+      "id": "fact-006-grab-guidance",
+      "category": "fact_recall",
+      "question": "What FY2026 revenue guidance and buyback did the Grab signal preserve?",
+      "search_roots": ["screener/runs/SIG-20260804-da21208a"],
+      "expected_outcome": "retrieve",
+      "answer_key": "Revenue guidance of USD 4.10-4.15 billion and a new USD 750 million buyback.",
+      "evidence": [{"path": "screener/runs/SIG-20260804-da21208a/signal_payload.json", "anchors": ["$4.10-$4.15bn", "$750 million buyback", "Grab Holdings Limited"]}]
+    },
+    {
+      "id": "fact-007-watchlist-now",
+      "category": "fact_recall",
+      "question": "When is the ServiceNow watchlist entry due for review and what event triggers it?",
+      "search_roots": ["watchlist/entries"],
+      "expected_outcome": "retrieve",
+      "answer_key": "2026-08-27, triggered by the CFO fireside chat.",
+      "evidence": [{"path": "watchlist/entries/WL-20260819-1aff8992.json", "anchors": ["2026-08-27", "CFO fireside chat", "ServiceNow Inc"]}]
+    },
+
+    {
+      "id": "time-001-amzn-decision-day",
+      "category": "temporal_cutoff",
+      "question": "As known at the end of 2026-07-10, what was the engine's AMZN decision and central valuation view?",
+      "search_roots": ["analyses/AMZN_2026-07-10"],
+      "expected_outcome": "retrieve",
+      "cutoff": "2026-07-10T23:59:59Z",
+      "answer_key": "Watchlist with a USD 210 base fair value; do not use August outcome reviews.",
+      "evidence": [{"path": "analyses/AMZN_2026-07-10/decision_record.json", "anchors": ["\"decision_date\": \"2026-07-10\"", "\"decision\": \"Watchlist\"", "\"price_target\": 210.0"]}],
+      "forbidden_paths": ["analyses/AMZN_2026-07-10/reviews/2026-08-01_ad-hoc_decision_review.json", "analyses/AMZN_2026-07-10/reviews/2026-08-09_30d_decision_review.json"]
+    },
+    {
+      "id": "time-002-bg-decision-day",
+      "category": "temporal_cutoff",
+      "question": "What did the engine know about BG's rating and entry price on 2026-06-01?",
+      "search_roots": ["analyses/BG_2026-06-01"],
+      "expected_outcome": "retrieve",
+      "cutoff": "2026-06-01T23:59:59Z",
+      "answer_key": "Watchlist; entry price unavailable from the pool.",
+      "evidence": [{"path": "analyses/BG_2026-06-01/decision_record.json", "anchors": ["\"decision_date\": \"2026-06-01\"", "\"entry_price\": null", "\"decision\": \"Watchlist\""]}],
+      "forbidden_paths": ["analyses/BG_2026-06-01/reviews/2026-07-13_30d_decision_review.json", "analyses/BG_2026-06-01/reviews/2026-08-01_ad-hoc_decision_review.json"]
+    },
+    {
+      "id": "time-003-hcg-decision-day",
+      "category": "temporal_cutoff",
+      "question": "As of the HCG decision date, what rating and data-sufficiency score were recorded?",
+      "search_roots": ["analyses/HCG_2026-06-01"],
+      "expected_outcome": "retrieve",
+      "cutoff": "2026-06-01T23:59:59Z",
+      "answer_key": "Avoid with data sufficiency 69/100.",
+      "evidence": [{"path": "analyses/HCG_2026-06-01/decision_record.json", "anchors": ["\"decision\": \"Avoid\"", "\"data_sufficiency_score\": 69", "2026-06-01"]}],
+      "forbidden_paths": ["analyses/HCG_2026-06-01/reviews/2026-07-11_30d_decision_review.json", "analyses/HCG_2026-06-01/reviews/2026-08-01_ad-hoc_decision_review.json"]
+    },
+    {
+      "id": "time-004-emaar-original",
+      "category": "temporal_cutoff",
+      "question": "On 2026-07-03, before the later correction and rerun, what EMAAR call was recorded?",
+      "search_roots": ["analyses/EMAAR_2026-07-03", "analyses/EMAAR_2026-07-10"],
+      "expected_outcome": "retrieve",
+      "cutoff": "2026-07-03T23:59:59Z",
+      "answer_key": "Starter Position Only in the frozen 2026-07-03 record; the later Watchlist is not available at this cutoff.",
+      "evidence": [{"path": "analyses/EMAAR_2026-07-03/decision_record.json", "anchors": ["\"decision_date\": \"2026-07-03\"", "Starter Position Only", "118.8"]}],
+      "forbidden_paths": ["analyses/EMAAR_2026-07-03/corrections.json", "analyses/EMAAR_2026-07-10/decision_record.json", "analyses/EMAAR_2026-07-10/reviews/2026-08-09_30d_decision_review.json"]
+    },
+    {
+      "id": "time-005-nhy-before-results",
+      "category": "temporal_cutoff",
+      "question": "What profitability forecast did NHY carry on 2026-07-19 before Q2 results?",
+      "search_roots": ["analyses/NHY_2026-07-19"],
+      "expected_outcome": "retrieve",
+      "cutoff": "2026-07-19T23:59:59Z",
+      "answer_key": "Adjusted EBITDA would not clearly beat NOK 8,581.8 million consensus.",
+      "evidence": [{"path": "analyses/NHY_2026-07-19/decision_record.json", "anchors": ["does NOT clearly beat", "8,581.8", "2026-07-22"]}],
+      "forbidden_paths": ["analyses/NHY_2026-07-19/reviews/2026-08-01_ad-hoc_decision_review.json"]
+    },
+    {
+      "id": "time-006-uber-first-run",
+      "category": "temporal_cutoff",
+      "question": "As known on 2026-08-06, what expected return and rating cap did UBER have?",
+      "search_roots": ["analyses/UBER_2026-08-06", "analyses/UBER_2026-08-09"],
+      "expected_outcome": "retrieve",
+      "cutoff": "2026-08-06T23:59:59Z",
+      "answer_key": "Watchlist, expected return 8.15%, capped by RF-CAP-004.",
+      "evidence": [{"path": "analyses/UBER_2026-08-06/decision_record.json", "anchors": ["\"expected_return_pct\": 8.15", "RF-CAP-004", "2026-08-06"]}],
+      "forbidden_paths": ["analyses/UBER_2026-08-09/decision_record.json", "analyses/UBER_2026-08-09/corrections.json"]
+    },
+    {
+      "id": "time-007-grab-processed",
+      "category": "temporal_cutoff",
+      "question": "At Grab signal processing time on 2026-08-05, what routing and materiality score were known?",
+      "search_roots": ["screener/runs/SIG-20260804-da21208a", "screener/board"],
+      "expected_outcome": "retrieve",
+      "cutoff": "2026-08-05T23:59:59Z",
+      "answer_key": "PROMOTE with materiality score 86; do not use the board generated on 2026-08-20.",
+      "evidence": [{"path": "screener/runs/SIG-20260804-da21208a/signal_payload.json", "anchors": ["\"routing\": \"PROMOTE\"", "\"materiality_score\": 86", "2026-08-05T00:00:00Z"]}],
+      "forbidden_paths": ["screener/board/index.json", "screener/board/themes_index.json"]
+    },
+
+    {
+      "id": "update-001-emaar-standing",
+      "category": "knowledge_update",
+      "question": "What is the standing EMAAR call after the 2026-07-03 record was corrected, and why?",
+      "search_roots": ["analyses/EMAAR_2026-07-03", "analyses/EMAAR_2026-07-10"],
+      "expected_outcome": "retrieve",
+      "evidence_mode": "all",
+      "answer_key": "The 2026-07-03 Starter Position Only call is superseded; the standing 2026-07-10 call is Watchlist because the owner cap and missing genuine loss branch were corrected.",
+      "evidence": [
+        {"path": "analyses/EMAAR_2026-07-03/corrections.json", "anchors": ["superseded_by", "analyses/EMAAR_2026-07-10", "no genuine loss branch"]},
+        {"path": "analyses/EMAAR_2026-07-10/decision_record.json", "anchors": ["\"decision\": \"Watchlist\"", "RF-OWN-004", "\"decision_date\": \"2026-07-10\""]}
+      ]
+    },
+    {
+      "id": "update-002-bg-probability-scale",
+      "category": "knowledge_update",
+      "question": "How must BG's decimal forecast probabilities be interpreted without editing the frozen record?",
+      "search_roots": ["analyses/BG_2026-06-01"],
+      "expected_outcome": "retrieve",
+      "evidence_mode": "all",
+      "answer_key": "Apply the registered scale_fix on read: multiply decimal fractions by 100 to restore the 0-100 percentage scale.",
+      "evidence": [
+        {"path": "analyses/BG_2026-06-01/corrections.json", "anchors": ["scale_fix", "×100", "frozen record is unchanged"]},
+        {"path": "analyses/BG_2026-06-01/decision_record.json", "anchors": ["\"probability\": 0.6", "forecast_ledger", "Bunge Global SA"]}
+      ]
+    },
+    {
+      "id": "update-003-amzn-broken",
+      "category": "knowledge_update",
+      "question": "After Q2 2026, how did the AMZN outcome review update the original thesis status?",
+      "search_roots": ["analyses/AMZN_2026-07-10"],
+      "expected_outcome": "retrieve",
+      "evidence_mode": "all",
+      "answer_key": "The original Watchlist thesis is recorded broken: AWS margin expanded to 39.4% and the stock exceeded the USD 247 bull case.",
+      "evidence": [
+        {"path": "analyses/AMZN_2026-07-10/decision_record.json", "anchors": ["compresses 100-300bp", "\"price_target\": 247.0", "Watchlist"]},
+        {"path": "analyses/AMZN_2026-07-10/reviews/2026-08-09_30d_decision_review.json", "anchors": ["\"thesis_status\": \"broken\"", "39.4%", "$274.48"]}
+      ]
+    },
+    {
+      "id": "update-004-tmcv-math",
+      "category": "knowledge_update",
+      "question": "What expected return should current readers use for TMCV despite the stale thesis headline?",
+      "search_roots": ["analyses/TMCV_2026-06-07"],
+      "expected_outcome": "retrieve",
+      "evidence_mode": "all",
+      "answer_key": "Use -4.4% from the decision record; +4.3% in the thesis headline is an appended math-reconciliation erratum.",
+      "evidence": [
+        {"path": "analyses/TMCV_2026-06-07/corrections.json", "anchors": ["math_reconcile", "Expected return '+4.3%'", "-4.4%"]},
+        {"path": "analyses/TMCV_2026-06-07/decision_record.json", "anchors": ["\"expected_return_pct\": -4.4", "\"risk_reward\": -0.23", "Tata Motors Limited"]}
+      ]
+    },
+    {
+      "id": "update-005-nhy-forecast-result",
+      "category": "knowledge_update",
+      "question": "How was NHY's Q2 adjusted-EBITDA forecast resolved after the result?",
+      "search_roots": ["analyses/NHY_2026-07-19"],
+      "expected_outcome": "retrieve",
+      "evidence_mode": "all",
+      "answer_key": "Falsified: adjusted EBITDA was NOK 8,923m, about 4% above the NOK 8,581.8m consensus that the decision forecast would not clearly beat.",
+      "evidence": [
+        {"path": "analyses/NHY_2026-07-19/decision_record.json", "anchors": ["does NOT clearly beat", "8,581.8", "2026-07-22"]},
+        {"path": "analyses/NHY_2026-07-19/reviews/2026-08-01_ad-hoc_decision_review.json", "anchors": ["\"status\": \"falsified\"", "8,923m", "about 4.0%"]}
+      ]
+    },
+    {
+      "id": "update-006-hcg-window-fault",
+      "category": "knowledge_update",
+      "question": "What later process defect was discovered in HCG's FQ1 FY27 forecast window?",
+      "search_roots": ["analyses/HCG_2026-06-01"],
+      "expected_outcome": "retrieve",
+      "evidence_mode": "all",
+      "answer_key": "The forecast window ended 2026-07-30, but the board did not meet to approve results until 2026-08-06, so the forecast could not resolve inside its own window.",
+      "evidence": [
+        {"path": "analyses/HCG_2026-06-01/decision_record.json", "anchors": ["by 2026-07-30", "FQ1 FY27 revenue", "7,340.9M"]},
+        {"path": "analyses/HCG_2026-06-01/reviews/2026-08-01_ad-hoc_decision_review.json", "anchors": ["2026-08-06", "construction fault", "window ending 2026-07-30"]}
+      ]
+    },
+    {
+      "id": "update-007-uber-latest",
+      "category": "knowledge_update",
+      "question": "What changed between UBER's 2026-08-06 and 2026-08-09 decision records?",
+      "search_roots": ["analyses/UBER_2026-08-06", "analyses/UBER_2026-08-09"],
+      "expected_outcome": "retrieve",
+      "evidence_mode": "all",
+      "answer_key": "The decision stayed Watchlist, but expected return fell from 8.15% to 1.57%, data sufficiency rose from 70 to 80, and the later run carried three explicit cap rationales.",
+      "evidence": [
+        {"path": "analyses/UBER_2026-08-06/decision_record.json", "anchors": ["\"expected_return_pct\": 8.15", "\"data_sufficiency_score\": 70", "Watchlist"]},
+        {"path": "analyses/UBER_2026-08-09/decision_record.json", "anchors": ["\"expected_return_pct\": 1.57", "\"data_sufficiency_score\": 80", "most restrictive of three caps"]}
+      ]
+    },
+
+    {
+      "id": "contradiction-001-amzn-margin",
+      "category": "contradiction",
+      "question": "How should the original AMZN AWS-margin compression forecast be reconciled with the later Q2 evidence?",
+      "search_roots": ["analyses/AMZN_2026-07-10"],
+      "expected_outcome": "retrieve",
+      "evidence_mode": "all",
+      "answer_key": "Name both: the decision forecast 100-300bp compression from 35.4%, while Q2 later showed 39.4% margin; the review records the thesis broken.",
+      "evidence": [
+        {"path": "analyses/AMZN_2026-07-10/decision_record.json", "anchors": ["compresses 100-300bp", "35.4%", "D&A"]},
+        {"path": "analyses/AMZN_2026-07-10/reviews/2026-08-09_30d_decision_review.json", "anchors": ["39.4%", "thesis remains recorded broken", "35.4% FY2025 base"]}
+      ]
+    },
+    {
+      "id": "contradiction-002-wheat-stocks",
+      "category": "contradiction",
+      "question": "Why do the WHEAT files show roughly 33.9 MMT and 65 MMT for 2024/25 exporter stocks?",
+      "search_roots": ["commodity/runs/WHEAT/supply-demand"],
+      "expected_outcome": "retrieve",
+      "answer_key": "Both must be surfaced; the likely difference is five-exporter versus broader eight-exporter grouping, and the comparable 65 MMT series is used for trend work.",
+      "evidence": [{"path": "commodity/runs/WHEAT/supply-demand/02_commodity-demand-inventory.md", "anchors": ["~33.9 MMT", "~65 MMT", "five-exporter vs. eight-exporter"]}]
+    },
+    {
+      "id": "contradiction-003-tmcv-headline",
+      "category": "contradiction",
+      "question": "Which TMCV expected-return number wins when the thesis headline and decision record disagree?",
+      "search_roots": ["analyses/TMCV_2026-06-07"],
+      "expected_outcome": "retrieve",
+      "evidence_mode": "all",
+      "answer_key": "The decision record's -4.4% wins; +4.3% is a documented thesis-headline arithmetic slip.",
+      "evidence": [
+        {"path": "analyses/TMCV_2026-06-07/corrections.json", "anchors": ["headline scorecard states Expected return '+4.3%'", "probability-weighted expected return as -4.4%", "math_reconcile"]},
+        {"path": "analyses/TMCV_2026-06-07/decision_record.json", "anchors": ["\"expected_return_pct\": -4.4", "\"risk_reward\": -0.23", "Watchlist"]}
+      ]
+    },
+    {
+      "id": "contradiction-004-haier-margins",
+      "category": "contradiction",
+      "question": "Can Haier's 460bp gross-margin erosion be called a simple across-the-board margin decline?",
+      "search_roots": ["analyses/HAIER_2026-08-13/business-model"],
+      "expected_outcome": "retrieve",
+      "answer_key": "No. Gross margin fell from 30.9% to 26.3%, while EBITDA margin rose from 8.0% to a 9.8% FY2024 peak and net margin rose from 5.8% to 6.5%; SG&A leverage explains the divergence.",
+      "evidence": [{"path": "analyses/HAIER_2026-08-13/business-model/07_business-quality.md", "anchors": ["460bp", "EBITDA margin actually rose", "net income margin rose"]}]
+    },
+    {
+      "id": "contradiction-005-gold-yields",
+      "category": "contradiction",
+      "question": "Does the GOLD macro file's stated yield sensitivity explain the bulk of the USD 1,400 correction?",
+      "search_roots": ["commodity/runs/GOLD"],
+      "expected_outcome": "retrieve",
+      "answer_key": "No. It applies a 1.75%-per-25bp nominal-yield sensitivity to a 40-50bp real-yield move; even on that mismatched basis it implies only about 2.8-3.5%, not a 25% move.",
+      "evidence": [{"path": "commodity/runs/GOLD/macro-positioning/01_commodity-macro-drivers.md", "anchors": ["25 bp move in the 10y nominal yield", "40–50 bps higher", "bulk of the ~$1,400 correction"]}]
+    },
+    {
+      "id": "contradiction-006-dher-fcf",
+      "category": "contradiction",
+      "question": "How can Delivery Hero show positive company-defined FY2025 FCF while normalized FCF is negative?",
+      "search_roots": ["analyses/DHER_2026-08-12/earnings"],
+      "expected_outcome": "retrieve",
+      "answer_key": "Company-defined FCF is +EUR250m after excluding extraordinary legal cash outflows and lease treatment; CFO minus total capex is -EUR246.3m, leaving a EUR496.3m definitional gap.",
+      "evidence": [{"path": "analyses/DHER_2026-08-12/earnings/06_earnings-quality.md", "anchors": ["-€246.3m", "+€250m", "gap = €496.3m"]}]
+    },
+    {
+      "id": "contradiction-007-orcl-customers",
+      "category": "contradiction",
+      "question": "What identity/count inconsistency must be surfaced in Oracle's claim about four large RPO customers?",
+      "search_roots": ["analyses/ORCL_2026-08-14"],
+      "expected_outcome": "retrieve",
+      "answer_key": "The files say four customers contracted over USD 8bn each but list six names—AMD, Meta, NVIDIA, OpenAI, TikTok, and xAI—so the exact four are unresolved.",
+      "evidence": [{"path": "analyses/ORCL_2026-08-14/earnings/02_revenue-drivers.md", "anchors": ["4 customers contracted >$8B each", "AMD, Meta, NVIDIA, OpenAI, TikTok, xAI", "named large counterparties"]}]
+    },
+
+    {
+      "id": "qualifier-001-smpl-pass-through",
+      "category": "qualifier",
+      "question": "What qualification must survive when summarizing SMPL's input-cost pass-through?",
+      "search_roots": ["analyses/SMPL_2026-08-06/business-model"],
+      "expected_outcome": "retrieve",
+      "answer_key": "Pass-through is slow and incomplete, not contractual: the September 2026 price rise is a negotiated action after the fact, not an automatic escalator, and management expects volume loss.",
+      "evidence": [{"path": "analyses/SMPL_2026-08-06/business-model/business-model_dossier.md", "anchors": ["Pass-through is slow and incomplete, not contractual", "automatic, contractual cost-escalator", "negotiated list-price actions"]}]
+    },
+    {
+      "id": "qualifier-002-wheat-positioning",
+      "category": "qualifier",
+      "question": "What source qualifier attaches to WHEAT's January 2025 peak net-short figure?",
+      "search_roots": ["commodity/runs/WHEAT/macro-positioning"],
+      "expected_outcome": "retrieve",
+      "answer_key": "About 110,782 contracts, sourced from a web reference and explicitly labelled unverified.",
+      "evidence": [{"path": "commodity/runs/WHEAT/macro-positioning/02_commodity-positioning-flows.md", "anchors": ["110,782 contracts", "web reference labelled unverified", "broadly consistent"]}]
+    },
+    {
+      "id": "qualifier-003-gold-causality",
+      "category": "qualifier",
+      "question": "What basis qualifier is missing from the GOLD file's causal attribution to yields?",
+      "search_roots": ["commodity/runs/GOLD/macro-positioning"],
+      "expected_outcome": "retrieve",
+      "answer_key": "The observed move is in real yields, but the quoted sensitivity is for nominal yields; the basis mismatch and unexplained residual must be stated.",
+      "evidence": [{"path": "commodity/runs/GOLD/macro-positioning/01_commodity-macro-drivers.md", "anchors": ["10y real yield", "10y nominal yield", "fully accounts for the bulk"]}]
+    },
+    {
+      "id": "qualifier-004-bg-price",
+      "category": "qualifier",
+      "question": "Why must BG's approximately USD 123 price remain an indicative context value rather than an entry price?",
+      "search_roots": ["analyses/BG_2026-06-01"],
+      "expected_outcome": "retrieve",
+      "answer_key": "No pool-verified price existed at decision time; the only quote was indicative web data, so entry_price remains null.",
+      "evidence": [{"path": "analyses/BG_2026-06-01/corrections.json", "anchors": ["entry_price is null", "indicative web quote", "no pool-verified price"]}]
+    },
+    {
+      "id": "qualifier-005-dher-implied-outflow",
+      "category": "qualifier",
+      "question": "Is DHER's roughly EUR 645m extraordinary legal cash outflow a disclosed line item?",
+      "search_roots": ["analyses/DHER_2026-08-12/earnings"],
+      "expected_outcome": "retrieve",
+      "answer_key": "No. It is an implied estimate using FY2024 lease payments as a proxy; the precise split is not disclosed in the pool.",
+      "evidence": [{"path": "analyses/DHER_2026-08-12/earnings/06_earnings-quality.md", "anchors": ["inference, not from filings", "approximately €645m", "precise euro split"]}]
+    },
+    {
+      "id": "qualifier-006-orcl-wacc",
+      "category": "qualifier",
+      "question": "How should Oracle's roughly 11.2% WACC be labelled?",
+      "search_roots": ["analyses/ORCL_2026-08-14"],
+      "expected_outcome": "retrieve",
+      "answer_key": "An analyst-built CAPM estimate—Inference, not from filings—with no company-disclosed WACC or hurdle rate in the pool.",
+      "evidence": [{"path": "analyses/ORCL_2026-08-14/audit_dossier.md", "anchors": ["~11.2% WACC", "Inference, not from filings", "no company-disclosed WACC"]}]
+    },
+    {
+      "id": "qualifier-007-grab-source-read",
+      "category": "qualifier",
+      "question": "How should the Grab signal describe source confirmation when Reuters itself failed to fetch?",
+      "search_roots": ["screener/runs/SIG-20260804-da21208a"],
+      "expected_outcome": "retrieve",
+      "answer_key": "Retain primary_read_quality=fetch_error, while separately noting that Grab IR and DealStreetAsia fully confirmed the facts; do not rewrite the primary fetch as successful.",
+      "evidence": [{"path": "screener/runs/SIG-20260804-da21208a/thesis_record.json", "anchors": ["primary_read_quality", "fetch_error", "both opened directly and fully confirm"]}]
+    },
+
+    {
+      "id": "lineage-001-amzn-base-value",
+      "category": "lineage",
+      "question": "Trace AMZN's USD 210 base fair value from the final decision to its valuation build.",
+      "search_roots": ["analyses/AMZN_2026-07-10"],
+      "expected_outcome": "retrieve",
+      "evidence_mode": "all",
+      "answer_key": "Decision scenario USD210 -> valuation summary -> 35% peers USD258 + 25% DCF USD207 + 40% SOTP USD170 = USD210.05, rounded to USD210.",
+      "evidence": [
+        {"path": "analyses/AMZN_2026-07-10/decision_record.json", "anchors": ["\"label\": \"base\"", "\"price_target\": 210.0", "\"probability\": 45"]},
+        {"path": "analyses/AMZN_2026-07-10/valuation/valuation_summary.json", "anchors": ["\"level\": 210.0", "0.35x258", "0.40x170"]},
+        {"path": "analyses/AMZN_2026-07-10/valuation/07_scenario-and-fair-value.md", "anchors": ["$210.05/share", "Base-case fair value: $210/share", "SOTP FY2025 base (40%)"]}
+      ]
+    },
+    {
+      "id": "lineage-002-orcl-leverage",
+      "category": "lineage",
+      "question": "Trace Oracle's 4.46x leverage trigger back to the strict net-debt build.",
+      "search_roots": ["analyses/ORCL_2026-08-14"],
+      "expected_outcome": "retrieve",
+      "evidence_mode": "all",
+      "answer_key": "Decision forecast threshold 4.46x -> earnings history strict net debt USD136,143m and EBITDA basis -> strict means total debt minus cash only.",
+      "evidence": [
+        {"path": "analyses/ORCL_2026-08-14/decision_record.json", "anchors": ["Net debt / LTM EBITDA (strict basis)", "4.46x (FY2026 level)", "falls below 4.20x"]},
+        {"path": "analyses/ORCL_2026-08-14/earnings/01_historical-financials.md", "anchors": ["136,143", "4.46x", "Total Debt − Cash and Equivalents only"]}
+      ]
+    },
+    {
+      "id": "lineage-003-emaar-owner-cap",
+      "category": "lineage",
+      "question": "Trace EMAAR's Watchlist cap to the governance evidence that supports it.",
+      "search_roots": ["analyses/EMAAR_2026-07-10"],
+      "expected_outcome": "retrieve",
+      "evidence_mode": "all",
+      "answer_key": "Decision cap RF-OWN-004 -> management-governance synthesis: Dubai Holding group controls 29.73%, the board is government-staffed, and IAS 24 leaves the largest related-party channel unquantified.",
+      "evidence": [
+        {"path": "analyses/EMAAR_2026-07-10/decision_record.json", "anchors": ["RF-OWN-004", "caps the headline at Watchlist", "29.73%"]},
+        {"path": "analyses/EMAAR_2026-07-10/management-governance/99_management-governance-synthesis.md", "anchors": ["Dubai Holding, 29.73%", "board is government-staffed", "IAS 24 election"]}
+      ]
+    },
+    {
+      "id": "lineage-004-haier-margin-trigger",
+      "category": "lineage",
+      "question": "Trace Haier's H1 gross-margin trigger back to the historical pricing-power evidence.",
+      "search_roots": ["analyses/HAIER_2026-08-13"],
+      "expected_outcome": "retrieve",
+      "evidence_mode": "all",
+      "answer_key": "Decision trigger is H1 gross margin at or above 26.3%; business-quality shows 30.9% FY2021 to 26.3% FY2025, a 460bp decline tied to pricing/cost power.",
+      "evidence": [
+        {"path": "analyses/HAIER_2026-08-13/decision_record.json", "anchors": ["H1 2026 gross margin holds at or above", "26.3%", "falsification_trigger"]},
+        {"path": "analyses/HAIER_2026-08-13/business-model/07_business-quality.md", "anchors": ["30.9% (FY2021) to 26.3% (FY2025)", "460bp decline", "Pricing power"]}
+      ]
+    },
+    {
+      "id": "lineage-005-grab-signal-thesis",
+      "category": "lineage",
+      "question": "Trace Grab's screener thesis identity back to the originating signal and event.",
+      "search_roots": ["screener/runs/SIG-20260804-da21208a", "screener/ledger/theses"],
+      "expected_outcome": "retrieve",
+      "evidence_mode": "all",
+      "answer_key": "Event EVT-ac896dbc3764 -> signal SIG-20260804-da21208a -> thesis THS-SIG-20260804-da21208a-v1; the ledger copy preserves the same signal_id and run_root.",
+      "evidence": [
+        {"path": "screener/runs/SIG-20260804-da21208a/signal_payload.json", "anchors": ["SIG-20260804-da21208a", "EVT-ac896dbc3764", "Grab Holdings Limited"]},
+        {"path": "screener/ledger/theses/THS-SIG-20260804-da21208a-v1.json", "anchors": ["THS-SIG-20260804-da21208a-v1", "SIG-20260804-da21208a", "screener/runs/SIG-20260804-da21208a/"]}
+      ]
+    },
+    {
+      "id": "lineage-006-wheat-balance",
+      "category": "lineage",
+      "question": "Trace WHEAT's deficit conclusion to the supply-demand analysis and its comparable-stock caveat.",
+      "search_roots": ["commodity/runs/WHEAT"],
+      "expected_outcome": "retrieve",
+      "evidence_mode": "all",
+      "answer_key": "Decision says ~4 MMT deficit and ~8% exporter stocks-to-use; supply-demand evidence explains the comparable 65 MMT stock series and flags the 33.9 MMT grouping discrepancy.",
+      "evidence": [
+        {"path": "commodity/runs/WHEAT/decision_record.json", "anchors": ["~4 MMT supply deficit", "major-exporter stocks-to-use near 8%", "Research More"]},
+        {"path": "commodity/runs/WHEAT/supply-demand/02_commodity-demand-inventory.md", "anchors": ["~33.9 MMT", "65 MMT series", "different exporter groupings"]}
+      ]
+    },
+    {
+      "id": "lineage-007-gold-postmortem",
+      "category": "lineage",
+      "question": "Trace GOLD's Hold decision to the post-mortem downgrade and final action.",
+      "search_roots": ["commodity/runs/GOLD"],
+      "expected_outcome": "retrieve",
+      "evidence_mode": "all",
+      "answer_key": "The decision is Hold at confidence 52; the pre-mortem says Does not survive—downgrade, applies a 13-point haircut to 39, and records Trim.",
+      "evidence": [
+        {"path": "commodity/runs/GOLD/decision_record.json", "anchors": ["\"action\": \"Hold\"", "\"confidence_haircut\": 13", "\"post_mortem_action\": \"Trim\""]},
+        {"path": "commodity/runs/GOLD/pre_mortem_v2.json", "anchors": ["Does not survive", "confidence_haircut", "Trim"]}
+      ]
+    },
+
+    {
+      "id": "entity-001-haier-listing",
+      "category": "entity_resolution",
+      "question": "Which Haier listed line and currency does the decision's entry price belong to, and what other listing must not be mixed into it?",
+      "search_roots": ["analyses/HAIER_2026-08-13"],
+      "expected_outcome": "retrieve",
+      "answer_key": "The CNY 21.75 entry is tied to SHSE:600690; the record notes Haier is also HKEX-listed, which is a separate line.",
+      "evidence": [{"path": "analyses/HAIER_2026-08-13/decision_record.json", "anchors": ["SHSE:600690 (also HKEX-listed)", "\"currency\": \"CNY\"", "\"entry_price\": 21.75"]}]
+    },
+    {
+      "id": "entity-002-tmcv-scope",
+      "category": "entity_resolution",
+      "question": "What entity does ticker TMCV represent in this run rather than treating it as an undifferentiated Tata Motors group security?",
+      "search_roots": ["analyses/TMCV_2026-06-07"],
+      "expected_outcome": "retrieve",
+      "answer_key": "Tata Motors Limited (Commercial Vehicles), NSE, INR; the decision is scoped to the CV line/business following the demerger context.",
+      "evidence": [{"path": "analyses/TMCV_2026-06-07/decision_record.json", "anchors": ["Tata Motors Limited (Commercial Vehicles)", "\"exchange\": \"NSE\"", "\"currency\": \"INR\""]}]
+    },
+    {
+      "id": "entity-003-dher-uber",
+      "category": "entity_resolution",
+      "question": "In the DHER run, which company is the priced security and which company is only the proposed acquirer?",
+      "search_roots": ["analyses/DHER_2026-08-12"],
+      "expected_outcome": "retrieve",
+      "answer_key": "Delivery Hero SE (DHER, Xetra, EUR) is the priced security; Uber is the proposed acquirer/deal counterparty.",
+      "evidence": [{"path": "analyses/DHER_2026-08-12/decision_record.json", "anchors": ["Delivery Hero SE", "XTRA", "Uber's tender"]}]
+    },
+    {
+      "id": "entity-004-screener-identifiers",
+      "category": "entity_resolution",
+      "question": "How do the Grab event, signal, and thesis identifiers differ?",
+      "search_roots": ["screener/runs/SIG-20260804-da21208a"],
+      "expected_outcome": "retrieve",
+      "evidence_mode": "all",
+      "answer_key": "EVT-ac896dbc3764 identifies the source event, SIG-20260804-da21208a the signal run, and THS-SIG-20260804-da21208a-v1 the locked thesis version.",
+      "evidence": [
+        {"path": "screener/runs/SIG-20260804-da21208a/signal_payload.json", "anchors": ["EVT-ac896dbc3764", "SIG-20260804-da21208a", "event_id"]},
+        {"path": "screener/runs/SIG-20260804-da21208a/thesis_record.json", "anchors": ["THS-SIG-20260804-da21208a-v1", "\"version\": 1", "\"locked\": true"]}
+      ]
+    },
+    {
+      "id": "entity-005-visa-listing-key",
+      "category": "entity_resolution",
+      "question": "What identity fields distinguish the Visa watchlist listing from a bare one-letter ticker?",
+      "search_roots": ["watchlist/entries"],
+      "expected_outcome": "retrieve",
+      "answer_key": "Ticker V, NYSE, USD, company Visa Inc., with listing_key V|USD.",
+      "evidence": [{"path": "watchlist/entries/WL-20260819-643972be.json", "anchors": ["\"ticker\": \"V\"", "\"exchange\": \"NYSE\"", "\"listing_key\": \"V|USD\""]}]
+    },
+    {
+      "id": "entity-006-amzn-listing",
+      "category": "entity_resolution",
+      "question": "Which listing, issuer name, and currency anchor the AMZN decision?",
+      "search_roots": ["analyses/AMZN_2026-07-10"],
+      "expected_outcome": "retrieve",
+      "answer_key": "Amazon.com, Inc.; NasdaqGS ticker AMZN; USD.",
+      "evidence": [{"path": "analyses/AMZN_2026-07-10/decision_record.json", "anchors": ["Amazon.com, Inc.", "\"exchange\": \"NasdaqGS\"", "\"currency\": \"USD\""]}]
+    },
+    {
+      "id": "entity-007-gold-instrument",
+      "category": "entity_resolution",
+      "question": "What instrument/benchmark and unit does the GOLD commodity record use, rather than treating GOLD as an equity ticker?",
+      "search_roots": ["commodity/runs/GOLD"],
+      "expected_outcome": "retrieve",
+      "answer_key": "LBMA Gold Price / COMEX GC front-month (GCQ26), USD per troy ounce.",
+      "evidence": [{"path": "commodity/runs/GOLD/decision_record.json", "anchors": ["LBMA Gold Price / COMEX GC front-month", "troy oz", "\"commodity\": \"GOLD\""]}]
+    },
+
+    {
+      "id": "abstain-001-orcl-earnings-maturities",
+      "category": "abstention",
+      "question": "From Oracle's earnings module alone, what fraction of debt matures within 24 months and at what weighted-average rate?",
+      "search_roots": ["analyses/ORCL_2026-08-14/earnings"],
+      "expected_outcome": "abstain",
+      "answer_key": "Not assessable from the earnings-module outputs; they explicitly say the maturity profile is not disclosed in that upstream scope.",
+      "evidence": [{"path": "analyses/ORCL_2026-08-14/earnings/99_earnings-synthesis.md", "anchors": ["Debt maturity profile", "weighted-average rate", "not assessable from available data"]}]
+    },
+    {
+      "id": "abstain-002-bg-entry-price",
+      "category": "abstention",
+      "question": "What pool-verified BG entry price should be used for a paper trade on 2026-06-01?",
+      "search_roots": ["analyses/BG_2026-06-01"],
+      "expected_outcome": "abstain",
+      "answer_key": "None. entry_price is null because only an indicative web quote existed.",
+      "evidence": [{"path": "analyses/BG_2026-06-01/corrections.json", "anchors": ["entry_price is null", "no pool-verified price", "only an indicative web quote"]}]
+    },
+    {
+      "id": "abstain-003-dher-capex-split",
+      "category": "abstention",
+      "question": "What share of Delivery Hero's capex is maintenance rather than growth capex?",
+      "search_roots": ["analyses/DHER_2026-08-12/earnings"],
+      "expected_outcome": "abstain",
+      "answer_key": "Not disclosed anywhere in the pool; total capex is used.",
+      "evidence": [{"path": "analyses/DHER_2026-08-12/earnings/06_earnings-quality.md", "anchors": ["Capex split not disclosed", "maintenance-vs-growth", "total capex used"]}]
+    },
+    {
+      "id": "abstain-004-wheat-weat-official",
+      "category": "abstention",
+      "question": "What official daily WEAT shares-outstanding figure was available to the WHEAT run?",
+      "search_roots": ["commodity/runs/WHEAT/macro-positioning"],
+      "expected_outcome": "abstain",
+      "answer_key": "None; no Teucrium official daily disclosure was accessible, so aggregator figures remain indicative and unverified.",
+      "evidence": [{"path": "commodity/runs/WHEAT/macro-positioning/02_commodity-positioning-flows.md", "anchors": ["no Teucrium official daily disclosure", "indicative and unverified", "shares-outstanding"]}]
+    },
+    {
+      "id": "abstain-005-haier-matched-ratio",
+      "category": "abstention",
+      "question": "What exact same-date percentage of Haier cash was parked with its affiliated finance company?",
+      "search_roots": ["analyses/HAIER_2026-08-13"],
+      "expected_outcome": "abstain",
+      "answer_key": "Not assessable on a matched basis: RMB33,988m is a maximum daily balance while RMB59,645m is a Dec-2025 period-end denominator; the published roughly 57% mixes bases.",
+      "evidence": [{"path": "analyses/HAIER_2026-08-13/audit_dossier.md", "anchors": ["maximum daily cash balance", "at Dec-2025", "about 57%"]}]
+    },
+    {
+      "id": "abstain-006-orcl-exact-four",
+      "category": "abstention",
+      "question": "Which exact four Oracle customers each contracted more than USD 8bn in Q4 FY2026?",
+      "search_roots": ["analyses/ORCL_2026-08-14/earnings"],
+      "expected_outcome": "abstain",
+      "answer_key": "Not proven. The run says four customers but lists six named large counterparties, so it cannot map the threshold to an exact four.",
+      "evidence": [{"path": "analyses/ORCL_2026-08-14/earnings/02_revenue-drivers.md", "anchors": ["4 customers contracted >$8B each", "AMD, Meta, NVIDIA, OpenAI, TikTok, xAI", "named large counterparties"]}]
+    },
+    {
+      "id": "abstain-007-dtm-security",
+      "category": "abstention",
+      "question": "What exact exchange ticker should be used to trade the DTM acquisition item in the 2026-08-20 board?",
+      "search_roots": ["screener/board/index.json"],
+      "expected_outcome": "abstain",
+      "answer_key": "Not available: the board item identifies name DTM and country AU but stores ticker as null.",
+      "evidence": [{"path": "screener/board/index.json", "anchors": ["DTM: Acquisition of WA gold project", "\"name\": \"DTM\"", "\"ticker\": null"]}]
+    },
+
+    {
+      "id": "access-001-subscriber-republish",
+      "category": "access_control",
+      "question": "May a public answer reproduce a whole table from a subscriber-only alternative-data document?",
+      "search_roots": ["frameworks/EXTERNAL_DATA.md"],
+      "expected_outcome": "deny",
+      "answer_key": "No. Cite individual figures with attribution; never reproduce whole tables or pages.",
+      "evidence": [{"path": "frameworks/EXTERNAL_DATA.md", "anchors": ["license: subscriber-only", "must not be republished", "never reproduce whole tables"]}],
+      "protected_path_globs": ["data/*/external/**"]
+    },
+    {
+      "id": "access-002-broker-verdict",
+      "category": "access_control",
+      "question": "May a broker note's rating and target price be copied into public memory as evidence?",
+      "search_roots": ["frameworks/EXTERNAL_DATA.md"],
+      "expected_outcome": "deny",
+      "answer_key": "No. Broker research is in the deck band and must be verdict-stripped; it cannot source consensus or a primary-filed figure.",
+      "evidence": [{"path": "frameworks/EXTERNAL_DATA.md", "anchors": ["broker_research", "verdict-stripped", "Strip Rating / Target Price"]}],
+      "protected_path_globs": ["data/*/external/**"]
+    },
+    {
+      "id": "access-003-expert-call-override",
+      "category": "access_control",
+      "question": "Can an expert-call note override a conflicting audited filing in a public answer?",
+      "search_roots": ["frameworks/EXTERNAL_DATA.md"],
+      "expected_outcome": "deny",
+      "answer_key": "No. It is user-collected Tier 9, N=1 unless stated otherwise, and may raise a question but never override filings.",
+      "evidence": [{"path": "frameworks/EXTERNAL_DATA.md", "anchors": ["One person's view", "N=1", "never override them"]}],
+      "protected_path_globs": ["data/*/external/**"]
+    },
+    {
+      "id": "access-004-unknown-source",
+      "category": "access_control",
+      "question": "Can an unknown or typoed external source type claim a more trusted tier?",
+      "search_roots": ["frameworks/EXTERNAL_DATA.md"],
+      "expected_outcome": "deny",
+      "answer_key": "No. Unknown source_type fails closed to external_other at tier 9; its self-declared tier is not accepted.",
+      "evidence": [{"path": "frameworks/EXTERNAL_DATA.md", "anchors": ["unknown / missing / typo'd", "fails CLOSED", "tier 9"]}],
+      "protected_path_globs": ["data/*/external/**"]
+    },
+    {
+      "id": "access-005-sidecar-rights",
+      "category": "access_control",
+      "question": "Which machine-readable rights fields must control access to a licensed sidecar?",
+      "search_roots": ["frameworks/EXTERNAL_DATA.md"],
+      "expected_outcome": "deny",
+      "answer_key": "licensing.access, licensing.use, licensing.redistribution, and terms_url; entitlement_required and derived_only must be enforced.",
+      "evidence": [{"path": "frameworks/EXTERNAL_DATA.md", "anchors": ["\"access\": \"licensed\"", "\"use\": \"entitlement_required\"", "\"redistribution\": \"derived_only\""]}],
+      "protected_path_globs": ["data/*/external/**"]
+    },
+    {
+      "id": "access-006-wiltw-runtime",
+      "category": "access_control",
+      "question": "May WILTW research-report figures be copied into runtime memory after renaming or adding a sidecar?",
+      "search_roots": ["frameworks/EXTERNAL_DATA.md"],
+      "expected_outcome": "deny",
+      "answer_key": "No. WILTW is methodology-only and may never enter runtime evidence, including after rename, sidecar attachment, routing, or connector transformation.",
+      "evidence": [{"path": "frameworks/EXTERNAL_DATA.md", "anchors": ["WILTW is permanently methodology-only", "may never enter runtime evidence", "including after rename"]}],
+      "protected_path_globs": ["data/*/external/**"]
+    },
+    {
+      "id": "access-007-filing-substitution",
+      "category": "access_control",
+      "question": "May entitled external data substitute for a required filing in the sufficiency gate?",
+      "search_roots": ["frameworks/EXTERNAL_DATA.md"],
+      "expected_outcome": "deny",
+      "answer_key": "No. External data is enrichment and can sharpen edge evidence, but it never fills a filing-required sufficiency slot.",
+      "evidence": [{"path": "frameworks/EXTERNAL_DATA.md", "anchors": ["External data never substitutes a required filing", "enrichment that can sharpen", "not a unit that fills"]}],
+      "protected_path_globs": ["data/*/external/**"]
+    }
+  ]
+}
