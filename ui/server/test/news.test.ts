@@ -3627,6 +3627,46 @@ await check('Cerebras overflow defaults are the verified-live values (model + re
 // and the low-priority tail is dropped for good. The tier must score it NOW instead (recency), and must
 // still stop dead at the daily $ ceiling. The CLI is injected, so no process is spawned and no plan quota
 // is drawn by this test. ----
+await check('OmniRoute: OFF unless explicitly enabled, LAST in the cloud chain, and finitely capped', () => {
+  // A self-hosted tier is the one kind that cannot prove its own existence. Every cloud sibling needs a key,
+  // so the key IS the proof someone provisioned it; OmniRoute needs none, so only the flag separates "the
+  // daemon is running" from "never installed". Default-on would give every box that never installed it a
+  // sixth tier that refuses the connection on every cycle.
+  const prevEnabled = process.env.NEWS_OMNIROUTE_ENABLED
+  const prevCap = process.env.NEWS_OMNIROUTE_DAILY_REQ_CAP
+  try {
+    delete process.env.NEWS_OMNIROUTE_ENABLED
+    assert.equal(buildOverflowProviders().some((p) => p.id === 'omniroute'), false,
+      'absent unless explicitly enabled — a missing daemon must not become a failing tier')
+
+    process.env.NEWS_OMNIROUTE_ENABLED = '1'
+    const list = buildOverflowProviders()
+    const om = list.find((p) => p.id === 'omniroute')
+    assert.ok(om, 'the flag alone enables it — no key required')
+    if (!om) throw new Error('OmniRoute provider not found')
+    assert.ok(om.apiKey, 'carries a non-empty dummy key: an EMPTY key is rejected before the fetch and '
+      + 'would arm a cooldown for a call that never left the process')
+    assert.ok(String(om.baseUrl).includes('127.0.0.1'), 'talks to the local daemon, not a vendor')
+
+    // LAST among the cloud tiers: it aggregates the SAME free pools the metered tiers already track, so
+    // ahead of them it would double-spend quota this engine believes it is accounting for.
+    const cloud = list.filter((p) => p.id !== 'local')
+    const lastCloud = cloud[cloud.length - 1]
+    assert.ok(lastCloud, 'cloud chain must not be empty')
+    assert.equal(lastCloud.id, 'omniroute', 'OmniRoute is last in the cloud chain')
+
+    // FINITE cap: daily-quota selection maximises deficit/cap and is scale-free, so an effectively
+    // infinite cap would make this tier win every selection and starve the pools that actually work.
+    assert.ok(Number.isFinite(om.dailyReqCap) && om.dailyReqCap > 0 && om.dailyReqCap < 1e6,
+      `dailyReqCap must be finite and modest, got ${om.dailyReqCap}`)
+  } finally {
+    if (prevEnabled === undefined) delete process.env.NEWS_OMNIROUTE_ENABLED
+    else process.env.NEWS_OMNIROUTE_ENABLED = prevEnabled
+    if (prevCap === undefined) delete process.env.NEWS_OMNIROUTE_DAILY_REQ_CAP
+    else process.env.NEWS_OMNIROUTE_DAILY_REQ_CAP = prevCap
+  }
+})
+
 await check('free brains exhausted → the subscription tier SCORES the batch instead of deferring it', async () => {
   resetSharedLimiters()
   resetCooldownMemory()
