@@ -60,14 +60,19 @@ Two hosting modes (build-both):
 
 ## Rate-limit math (why the free tier is safe)
 
-Groq free tier ≈ 30 req/min, ~1,000 req/day, with a generous daily token budget (org-level; cached
-tokens free). Defaults: ≤25 req/min throttle, daily caps of 1,500 req / 500k tokens, 12 titles per
-call, scored once and cached. With the expanded source set (≈350 RSS feeds + NSE + GDELT) the daily
-item volume is large, so **Groq throughput is now the binding constraint on "score everything"**: on a
-free key the real limiter is Groq's own rate limit (cycles defer the rest to the next run — never lost,
-never zero-scored — at no cost); a higher Groq tier uses the extra headroom (8b-instant ≈ $0.05/M
-tokens, so 500k tokens/day ≈ $0.025). The firehose record (`kind:"item"`, capped at 5,000/day) shows
-every item read, kept *and* dropped.
+For the default `openai/gpt-oss-20b`, [Groq's free-plan limits](https://console.groq.com/docs/rate-limits)
+are 30 requests/min, 1,000 requests/day, 8,000 tokens/min, and 200,000 tokens/day. Limits apply at the
+organization level, and cached tokens do not count toward them. The engine starts at 28 requests/min,
+950 requests/day, 6,000 tokens/min, and 200,000 tokens/day, with 12 titles per call, scored once and
+cached. It also learns the account's live ceilings and reset time from Groq's response headers. Hitting a
+limit puts Groq on a retry hold until its reset; it does not disable the provider, zero-score an item, or
+discard the deferred work.
+
+With the expanded source set (≈350 RSS feeds + NSE + GDELT), the daily item volume is large, so
+**Groq throughput is the binding constraint on "score everything"**. At roughly 2,000 tokens per triage
+batch, the 200,000-token daily allowance normally binds after about 100 calls, well before the 1,000-request
+ceiling. A higher Groq tier can use the extra headroom reported by its live headers. The firehose record
+(`kind:"item"`, capped at 5,000/day) shows every item read, kept *and* dropped.
 
 ## Config (all `NEWS.*` in `../config.ts`, env-tunable)
 
