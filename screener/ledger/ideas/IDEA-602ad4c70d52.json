@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-602ad4c70d52",
+  "idea_version": "IDEAV-24893bbad1e8e79c",
+  "idea_version_started_at": "2026-08-20T02:14:56Z",
+  "ticker": "02108",
+  "company": "K2 F&B Holdings",
+  "exchange": "HKEX",
+  "ticker_verified": false,
+  "listing_verified": false,
+  "liquidity_verified": false,
+  "listing_verification_source": null,
+  "direction": "short",
+  "pair_with": null,
+  "reason": "A profit warning signals significant downward pressure on the company's bottom line, likely due to weakening consumer demand or rising costs.",
+  "why_now": "The warning was filed on 2026-08-19, and the market has yet to fully digest the impact on future earnings.",
+  "conviction": 60,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 45,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 25,
+    "impact": 20,
+    "specificity": 7,
+    "timing": 10,
+    "expression": 0,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "watch_only",
+  "missing_checks": [
+    "verified listed ticker",
+    "verified listing",
+    "live liquidity",
+    "dated catalyst",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "room",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-10c3d2b96200"
+  ],
+  "primary_source_event_id": "EVT-10c3d2b96200",
+  "source_headlines": [
+    "K2 F&B (02108): PROFIT WARNING"
+  ],
+  "source_headline": "K2 F&B (02108): PROFIT WARNING",
+  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900829.pdf",
+  "source_name": "HKEXnews (HK Exchange Filing)",
+  "materiality_max": 100,
+  "newest_source_at": "2026-08-19T09:58:00Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-08-20T02:14:56Z",
+  "updated_at": "2026-08-20T02:14:56Z",
+  "decay_at": "2026-08-20T21:58:00Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
