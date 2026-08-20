@@ -1,0 +1,73 @@
+{
+  "idea_id": "IDEA-6dfe7ce03ed8",
+  "idea_version": "IDEAV-de54a6d0935827d1",
+  "idea_version_started_at": "2026-08-20T18:25:35Z",
+  "ticker": "OTTW",
+  "company": "Ottawa Bancorp, Inc.",
+  "exchange": "OQX",
+  "ticker_verified": true,
+  "listing_verified": true,
+  "liquidity_verified": false,
+  "listing_verification_source": "yahoo_symbol_directory",
+  "direction": "long",
+  "pair_with": null,
+  "reason": "The company has entered a definitive agreement to be acquired by Pontiac Bancorp, which typically results in the stock price converging toward the acquisition offer price.",
+  "why_now": "The acquisition was announced on 2026-08-20.",
+  "conviction": 75,
+  "conviction_basis": "pre_edge_proxy",
+  "trade_score": 55,
+  "trade_score_basis": "evidence_gate_v2",
+  "trade_score_breakdown": {
+    "evidence": 18,
+    "impact": 19,
+    "specificity": 15,
+    "timing": 10,
+    "expression": 6,
+    "corroboration": 0,
+    "learning_adjustment": 0
+  },
+  "trade_readiness": "needs_data",
+  "missing_checks": [
+    "live liquidity",
+    "dated catalyst",
+    "priced-in risk",
+    "independent confirmation",
+    "live price, liquidity, and consensus"
+  ],
+  "learning": {
+    "resolved": 0,
+    "positive": 0,
+    "negative": 0,
+    "neutral": 0,
+    "adjustment": 0,
+    "basis": "not_enough_outcomes",
+    "evidenceIds": []
+  },
+  "priced_in": "priced",
+  "thesis_type": "company_specific",
+  "origin_type": "wire",
+  "source_themes": [],
+  "source_event_ids": [
+    "EVT-f6c6bb38240e"
+  ],
+  "primary_source_event_id": "EVT-f6c6bb38240e",
+  "source_headlines": [
+    "Pontiac Bancorp, Inc. has agreed to acquire Ottawa Bancorp, Inc."
+  ],
+  "source_headline": "Pontiac Bancorp, Inc. has agreed to acquire Ottawa Bancorp, Inc.",
+  "source_url": "https://www.globenewswire.com/news-release/2026/08/20/3348730/0/en/pontiac-bancorp-inc-has-agreed-to-acquire-ottawa-bancorp-inc.html",
+  "source_name": "GlobeNewswire — News about Public Companies",
+  "materiality_max": 96,
+  "newest_source_at": "2026-08-20T17:20:00Z",
+  "prior_coverage": {
+    "has_run": false,
+    "latest_run": null,
+    "latest_decision": null,
+    "data_pool_present": false
+  },
+  "surfaced_at": "2026-08-20T18:25:35Z",
+  "updated_at": "2026-08-20T18:25:35Z",
+  "decay_at": "2026-08-22T05:20:00Z",
+  "status": "live",
+  "promoted_signal_id": null
+}
