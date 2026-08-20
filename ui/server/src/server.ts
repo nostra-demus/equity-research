@@ -65,6 +65,7 @@ import {
   deleteEntry, fingerprintEngineRow, isWatchId, listingKey, makeListing, mergeWatchlist, newEntryId,
   pickEntryForListing, readEngineWatch, readEntries, readSizingDecoration, triggerSetProblem, writeEntry,
   type StandingCall, type WatchEntry, type WatchTrigger,
+  readRunScenarios,
 } from './watchlist'
 import { readValuationSummary, readOverrides, appendOverride } from './valuation-levers'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
@@ -2796,6 +2797,19 @@ app.post('/api/watchlist/restore', { config: { rateLimit: { max: 120, timeWindow
   writeEntry(entry)
   const pub = await publishWatchlist([watchlistEntryPath(entry.entry_id)], `Watchlist: restore ${entry.listing.ticker}`)
   return { ok: true, entry, publish_error: pub.ok ? undefined : pub.error }
+})
+
+// The scenario targets a finished run recorded, offered as a pre-filled trigger the human still adopts.
+// Read on demand rather than folded into every watchlist row: only a minority of runs have a decision
+// record at all, and the list should not pay for a file read per name to discover that.
+app.get('/api/watchlist/scenarios', { config: { rateLimit: { max: 300, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const runRoot = String((req.query as any)?.run_root ?? '')
+  if (!runRoot) return reply.code(400).send({ error: 'run_root is required' })
+  const found = readRunScenarios(runRoot)
+  // A missing record and a record with no scenarios are DIFFERENT states, and the panel says which:
+  // "this run recorded none" is a fact about the run, "no record" is a fact about our coverage.
+  if (!found) return reply.send({ record: false, scenarios: [] })
+  return reply.send({ record: true, ...found })
 })
 
 // ---- watchlist attachments ----
