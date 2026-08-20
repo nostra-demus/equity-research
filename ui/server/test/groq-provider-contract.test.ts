@@ -53,6 +53,12 @@ const activeRetiredDefault = new RegExp(String.raw`(?:\|\||\?\?)\s*['"]${retired
 assert.doesNotMatch(configSource, activeRetiredDefault, 'the primary runtime must not default to the retired model')
 assert.doesNotMatch(themesSource, activeRetiredDefault, 'the Themes fallback must not default to the retired model')
 assert.match(themesSource, new RegExp(String.raw`groqModel\s*\|\|\s*['"]${currentModel}['"]`))
+assert.match(themesSource, /dailyReqCap:\s*cfg\.groqDailyReqCap\s*\?\?\s*950/)
+assert.match(themesSource, /dailyTokenCap:\s*cfg\.groqDailyTokenCap\s*\?\?\s*200_000/)
+assert.match(
+  themesSource,
+  /paceCap:\s*cfg\.groqDailyTokenTarget\s*\?\?\s*cfg\.groqDailyTokenCap\s*\?\?\s*200_000/,
+)
 assert.match(launchdTemplate, new RegExp(String.raw`<key>GROQ_MODEL</key><string>${currentModel}</string>`))
 assert.doesNotMatch(
   launchdTemplate,
