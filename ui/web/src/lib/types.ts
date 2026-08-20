@@ -2328,6 +2328,8 @@ export interface WatchTriggerEval {
    *  as gap_pct is null for dated ones — the two units are never merged. */
   days_to?: number | null
   reason: QuoteAbsentReason | 'no_reference' | 'currency_mismatch_trigger' | 'no_anchor' | null
+  /** The price this trigger fires at, computed ONCE on the server. Optional: an older engine omits it. */
+  target?: { value: number; currency: string; basis: string } | null
   due?: boolean
 }
 

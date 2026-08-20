@@ -1037,6 +1037,10 @@ export const api = {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return del<{ ok: boolean; publish_error?: string }>(`/api/watchlist/${encodeURIComponent(entryId)}/attachment/${encodeURIComponent(attachmentId)}`)
   },
+  // The scenario price targets a finished run recorded — offered as a pre-filled trigger, never armed
+  // automatically. Fetched only when a panel opens, since most rows have no decision record at all.
+  watchScenarios: async (runRoot: string): Promise<{ record: boolean; scenarios: { label: string; price_target: number; probability: number | null; source: string | null }[]; currency?: string | null; decision_date?: string | null }> =>
+    get(`/api/watchlist/scenarios?run_root=${encodeURIComponent(runRoot)}`),
   watchAttachmentUrl: (entryId: string, attachmentId: string) =>
     `/api/watchlist/${encodeURIComponent(entryId)}/attachment/${encodeURIComponent(attachmentId)}`,
 
