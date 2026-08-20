@@ -670,6 +670,8 @@ def _collect_sidecars(data_path, decision_at):
 # drop, or an auto-built connector's fetcher whose self-reported tier is not to be trusted).
 SOURCE_TYPE_MAX_TRUST = {
     "alt_data_panel": 5, "vendor_export": 5, "paid_api": 5, "official_data": 5,
+    "peer_transcript": 6,  # a competitor's own earnings-call transcript — tier 6 about the PEER (§4);
+                           # Level-1 inference about the SUBJECT (competitive-intel module owns its use)
     "broker_research": 7,
     "expert_call": 9, "channel_check": 9, "management_meeting": 9,
     "external_other": 9,

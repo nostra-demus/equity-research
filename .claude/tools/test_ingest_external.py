@@ -269,6 +269,76 @@ def main():
           hints and hints[0].startswith("/research:rerun "), str(hints))
     shutil.rmtree(root)
 
+    # ---- 8b-peer: competitor earnings-call transcript -> peer_transcript (tier 6) + whole-module hint ----
+    # A CIQ "Competitor Transcripts" drop must classify as peer_transcript (tier 6 about the peer), broker
+    # precedence must hold (a sell-side earnings-call NOTE with a verdict block stays broker_research), and a
+    # new peer call must hint a FULL rerun — a single-orb rerun leaves the sibling orbs stale and the module
+    # command alone never re-synthesises the master thesis/decision the new peer set should update.
+    check("infer_source_type: verbatim earnings-call transcript -> peer_transcript",
+          m.infer_source_type("Whirlpool_Q2-2026_EarningsCall.txt",
+                              "Whirlpool Corporation, Q2 2026 Earnings Call. Prepared remarks. "
+                              "Question-and-Answer session with analysts.") == "peer_transcript",
+          m.infer_source_type("Whirlpool_Q2-2026_EarningsCall.txt", "earnings call prepared remarks q&a"))
+    check("infer_source_type: prepared-remarks + Q&A structure -> peer_transcript",
+          m.infer_source_type("call.txt", "Prepared Remarks by the CEO. Q & A.") == "peer_transcript",
+          m.infer_source_type("call.txt", "prepared remarks q & a"))
+    # a results release that merely SCHEDULES a call (no prepared-remarks/Q&A body, no "call transcript"
+    # marker) is not a transcript — it must not be tiered at 6 or fire the whole-module rerun hint.
+    check("infer_source_type: a scheduling mention in a results release is NOT a peer_transcript",
+          m.infer_source_type("WHR_Q2-2026_Results.pdf",
+                              "Whirlpool Corporation announces Q2 2026 results. The company will host an "
+                              "earnings conference call on August 5, 2026 at 8:00 a.m. ET; to access the "
+                              "call, dial 1-800-000-0000.") != "peer_transcript",
+          m.infer_source_type("WHR_Q2-2026_Results.pdf", "will host an earnings conference call"))
+    # ---- 8c-peer: a peer RESULTS RELEASE is the module's numbers anchor, not external_other ----
+    # competitive-intel MODULE_RULES ranks the release FIRST in its own source hierarchy — "in ANY conflict
+    # with the call, the filed/released figure wins" — so a release landing after a transcript retro-
+    # invalidates figures already extracted. Falling through to external_other put a tier-9 label and an
+    # earnings/guidance-consensus hint on the one document the module treats as authoritative.
+    check("infer_source_type: a peer results release -> peer_results",
+          m.infer_source_type("WHR_Q2-2026_Results.pdf",
+                              "Whirlpool Corporation announces Q2 2026 results. The company will host an "
+                              "earnings conference call on August 5, 2026 at 8:00 a.m. ET.") == "peer_results",
+          m.infer_source_type("WHR_Q2-2026_Results.pdf", "announces Q2 2026 results"))
+    check("infer_source_type: 'results for the year ended' -> peer_results",
+          m.infer_source_type("MIDEA_FY25.pdf",
+                              "Midea Group reports results for the year ended December 31, 2025.") == "peer_results",
+          "results for the year ended")
+    # precedence in BOTH directions: a real call body stays a transcript, a verdict block stays broker
+    check("infer_source_type: a transcript is never demoted to peer_results",
+          m.infer_source_type("WHR_call.txt",
+                              "Whirlpool announces Q2 2026 results. Earnings Call Transcript. Prepared "
+                              "remarks. Question-and-Answer session.") == "peer_transcript",
+          "transcript precedence over release")
+    check("infer_source_type: a broker note about a peer's results stays broker_research",
+          m.infer_source_type("WHR_note.pdf",
+                              "Equity Research. Rating: Overweight. Target Price $130. Whirlpool reports "
+                              "Q2 2026 results below our estimate.") == "broker_research",
+          "broker precedence over release")
+    # the tier is the whole point: the release outranks the call it supersedes
+    check("TIER: peer_results is §4 tier 2 and outranks peer_transcript",
+          m.TIER["peer_results"] == 2 and m.TIER["peer_results"] < m.TIER["peer_transcript"],
+          f'peer_results={m.TIER.get("peer_results")} peer_transcript={m.TIER.get("peer_transcript")}')
+    check("rerun hint: a new peer_results hints a FULL rerun, like a new peer call",
+          m._rerun_hint("peer_results", "MIDEA") == "/research:full MIDEA",
+          m._rerun_hint("peer_results", "MIDEA"))
+    check("rerun hint: peer_results no longer falls through to earnings/guidance-consensus",
+          m.RERUN_HINT["peer_results"][0] == "competitive-intel",
+          str(m.RERUN_HINT.get("peer_results")))
+
+    check("infer_source_type: sell-side earnings-call NOTE stays broker_research (precedence)",
+          m.infer_source_type("WHR_EarningsCallInsight.pdf",
+                              "Equity Research. Rating: Overweight. Target Price $130. "
+                              "Our summary of the Whirlpool earnings call.") == "broker_research",
+          "broker precedence over transcript")
+    check("TIER: peer_transcript maps to §4 tier 6", m.TIER["peer_transcript"] == 6, str(m.TIER.get("peer_transcript")))
+    check("rerun hint: a new peer_transcript hints a FULL rerun (module orbs + master cascade)",
+          m._rerun_hint("peer_transcript", "MIDEA") == "/research:full MIDEA",
+          m._rerun_hint("peer_transcript", "MIDEA"))
+    check("rerun hint: an ordinary single-orb type stays /research:rerun",
+          m._rerun_hint("expert_call", "MIDEA").startswith("/research:rerun "),
+          m._rerun_hint("expert_call", "MIDEA"))
+
     # ---- 8c. GOLD methodology boundary: WILTW is never routed; ordinary reports remain admissible ----
     root = tempfile.mkdtemp()
     build_pool(root)

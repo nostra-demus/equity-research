@@ -333,6 +333,14 @@ def test_external_tier_ceiling() -> None:
         (ext / "flt.txt").write_text("panel with a float tier")
         (ext / "flt.txt.source.json").write_text(_json.dumps({
             "provider": "Yip", "source_type": "alt_data_panel", "tier": 3.0}))
+        # a peer_transcript (a competitor's own call, ceiling 6) declaring tier 6 → accepted, no flag.
+        (ext / "peer.txt").write_text("competitor earnings call transcript")
+        (ext / "peer.txt.source.json").write_text(_json.dumps({
+            "provider": "CapitalIQ", "source_type": "peer_transcript", "tier": 6}))
+        # a peer_transcript over-claiming tier 5 (more trusted than a transcript earns) → clamp to 6 + flag.
+        (ext / "peerlie.txt").write_text("competitor call mislabelled as vendor-grade")
+        (ext / "peerlie.txt.source.json").write_text(_json.dumps({
+            "provider": "CapitalIQ", "source_type": "peer_transcript", "tier": 5}))
 
         manifest = ep.extract_pool(str(pool), out_td, vision=False)
         prov = {s["file"]: (s.get("provenance") or {}) for s in manifest["sources"] if s.get("external")}
@@ -360,6 +368,12 @@ def test_external_tier_ceiling() -> None:
         flt = prov.get("flt.txt", {})
         check("tier-ceiling: float over-claim clamped (3.0 → 5 + flag)",
               flt.get("tier") == 5 and "tier_corrected" in flt, str(flt))
+        peer = prov.get("peer.txt", {})
+        check("tier-ceiling: peer_transcript at its ceiling (6) unchanged (no flag)",
+              peer.get("tier") == 6 and "tier_corrected" not in peer, str(peer))
+        peerlie = prov.get("peerlie.txt", {})
+        check("tier-ceiling: peer_transcript over-claim clamped 5→6 + flagged",
+              peerlie.get("tier") == 6 and (peerlie.get("tier_corrected") or {}).get("declared") == 5, str(peerlie))
         md = (Path(out_td) / "manifest.md").read_text()
         check("tier-ceiling: manifest.md flags the over-claim", "⚠ tier corrected" in md, md[-800:])
 
