@@ -609,7 +609,13 @@ export const NEWS = {
   groqApiKey: process.env.GROQ_API_KEY || '',
   // A small, fast, cheap Groq model is ideal for batched title-triage. Model ids change — confirm
   // the current free model when you provision the key. Override with GROQ_MODEL.
-  groqModel: process.env.GROQ_MODEL || 'llama-3.1-8b-instant',
+  // `llama-3.1-8b-instant` was DEPRECATED by Groq on 2026-06-17 and SHUT DOWN on 2026-08-16, so from that
+  // date the primary triage tier 404'd on every call — the cockpit's "waiting after a retired model or
+  // endpoint", 71 consecutive failures and 0 batches scored, while the backlog climbed toward the 100k
+  // loss boundary. Groq's own named replacement for it is `openai/gpt-oss-20b`. A retired model id is a
+  // silent, dated cliff: nothing in the engine expires with the provider, so pin the id here and treat a
+  // `provider-endpoint` (404) cooldown on the FIRST-CHOICE tier as "the model name died", not an outage.
+  groqModel: process.env.GROQ_MODEL || 'openai/gpt-oss-20b',
   groqBaseUrl: process.env.GROQ_BASE_URL || 'https://api.groq.com/openai/v1',
   // Public-news chat stays on the stronger subscription model first. If that provider is temporarily
   // unavailable, the already-configured Groq connection may finish the same closed-book, cited answer.
@@ -1085,7 +1091,7 @@ export function buildArticleReadProviders(cfg: typeof NEWS = NEWS): ArticleReadP
 export const ARTICLE_READ_PROVIDERS: ArticleReadProvider[] = buildArticleReadProviders()
 
 // An OPTIONAL stronger model for reading FILINGS (exchange PDFs / regulatory documents). The default read
-// chain above is small free models (Groq llama-3.1-8b-instant, …) tuned for the high-volume article
+// chain above is small free models (Groq openai/gpt-oss-20b, …) tuned for the high-volume article
 // firehose. Filings read WORSE on those: their document opens with cover-page letterhead / a boilerplate
 // disclaimer and the free-tier model tends to return an empty brief, so THE STORY falls to the headline
 // floor. A Haiku-class model reads the SAME letterhead-heavy filing fine (verified experiment). This
