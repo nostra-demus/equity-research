@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-20T20:38:11Z",
+  "generated_at": "2026-08-20T20:59:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260820-013",
@@ -47,6 +47,104 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-077",
+      "headline": "Mavis Completes Acquisition of Pep Boys from Icahn Enterprises",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20260820322168/en/Mavis-Completes-Acquisition-of-Pep-Boys-from-Icahn-Enterprises/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
+      "source_name": "Business Wire — Merger/Acquisition News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T20:15:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Mavis completed the acquisition of Pep Boys, a significant consolidation in the automotive service sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Mavis completed the acquisition of Pep Boys, a significant consolidation in the automotive service sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Icahn Enterprises",
+          "ticker": "IEP",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-081",
+      "headline": "Largo Secures US$82.2 Million Debt Restructuring, Extending Maturity to 2030 | LGO Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/LGO/largo-secures-us-82-2-million-debt-restructuring-extending-maturity-kksybb0976no.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T20:15:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Largo secured a US$82.2 million debt restructuring, extending maturity to 2030, which improves liquidity and capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Largo secured a US$82.2 million debt restructuring, extending maturity to 2030, which improves liquidity and capital structure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Largo",
+          "ticker": "LGO",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -307,6 +405,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260820-110",
+      "headline": "James Hardie Announces Strategic Divestiture of European Operations, Including Sale of Fermacell to Holcim for €840 Million | JHX Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/JHX/james-hardie-announces-strategic-divestiture-of-european-operations-nqyyqe86ay0l.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T20:33:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "James Hardie announces sale of Fermacell and European operations to Holcim for €840 million; a named material M&A and portfolio restructuring.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "James Hardie announces sale of Fermacell and European operations to Holcim for €840 million; a named material M&A and portfolio restructuring.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "James Hardie",
+          "ticker": "JHX",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260820-026",
       "headline": "US vows to 'collapse' Iran with new sanctions as energy prices spike",
       "headline_en": null,
@@ -443,6 +590,743 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260820-094",
+      "headline": "T. ROWE PRICE TO EXPAND FIXED INCOME ETF AND SMA CAPABILITIES BY ACQUIRING F/M INVESTMENTS",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/t-rowe-price-to-expand-fixed-income-etf-and-sma-capabilities-by-acquiring-fm-investments-302856818.html",
+      "source_name": "PR Newswire — Financial Services & Investing",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T20:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Acquisition to expand fixed income capabilities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Acquisition to expand fixed income capabilities.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "T. Rowe Price",
+          "ticker": "TROW",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-098",
+      "headline": "Hyundai to increase U.S. production at new Georgia plant, CEO tells CNBC",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/08/20/hyundai-georgia-metaplant-us-production.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T20:18:07Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Hyundai is increasing production capacity at its new Georgia plant, signaling a strategic expansion in the U.S. market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Hyundai is increasing production capacity at its new Georgia plant, signaling a strategic expansion in the U.S. market.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai Motor",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-076",
+      "headline": "Arbor Alliance Expands Into Tennessee Through Acquisition of Druid Tree Service",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20260820238235/en/Arbor-Alliance-Expands-Into-Tennessee-Through-Acquisition-of-Druid-Tree-Service/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
+      "source_name": "Business Wire — Merger/Acquisition News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T20:28:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Arbor Alliance is expanding its footprint through the acquisition of Druid Tree Service.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Arbor Alliance is expanding its footprint through the acquisition of Druid Tree Service.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 25,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arbor Alliance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-106",
+      "headline": "Evolution Petroleum Closes Strategic Acquisition of Midland Basin Mineral & Royalty Interests",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348830/0/en/evolution-petroleum-closes-strategic-acquisition-of-midland-basin-mineral-royalty-interests.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T20:40:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Company completed a strategic acquisition of mineral and royalty interests.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Company completed a strategic acquisition of mineral and royalty interests.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Evolution Petroleum",
+          "ticker": "EPM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-088",
+      "headline": "OSI Systems Announces Expansion of Stock Repurchase Program | OSIS Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/OSIS/osi-systems-announces-expansion-of-stock-repurchase-4ml8ka4rvz38.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T20:02:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Expansion of stock repurchase program indicates management confidence and capital return.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Expansion of stock repurchase program indicates management confidence and capital return.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capital_actions",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OSI Systems",
+          "ticker": "OSIS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-093",
+      "headline": "Ross Stores Reports Strong Second Quarter Sales and Earnings Results",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/ross-stores-reports-strong-second-quarter-sales-and-earnings-results-302856807.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T20:01:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Company reported strong quarterly sales and earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Company reported strong quarterly sales and earnings.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ross Stores",
+          "ticker": "ROST",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-101",
+      "headline": "T. Rowe Price agrees to acquire fixed income asset manager F/m Investments",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/t-rowe-price-agrees-acquire-fixed-income-asset-manager-fm-investments-2026-08-20/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T20:10:14Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "T. Rowe Price is acquiring F/m Investments, a material M&A event for the asset management sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "T. Rowe Price is acquiring F/m Investments, a material M&A event for the asset management sector.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "T. Rowe Price",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-074",
+      "headline": "The Boston Beer Company Announces CFO Transition",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348812/0/en/the-boston-beer-company-announces-cfo-transition.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T20:10:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "The Boston Beer Company announced a CFO transition, which is a significant management change.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "The Boston Beer Company announced a CFO transition, which is a significant management change.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "executive_exit",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "executive_exit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Boston Beer Company",
+          "ticker": "SAM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-090",
+      "headline": "FLOWERS FOODS, INC. REPORTS SECOND QUARTER 2026 RESULTS",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/flowers-foods-inc-reports-second-quarter-2026-results-302856673.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T20:05:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Company reported quarterly financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Company reported quarterly financial results.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flowers Foods",
+          "ticker": "FLO",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-097",
+      "headline": "Quantum Cyber Rejects Threat of Future Publications from Short-Seller Adam Gefvert Demanding Withdrawal of $5.69 Million Lawsuit",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348787/0/en/quantum-cyber-rejects-threat-of-future-publications-from-short-seller-adam-gefvert-demanding-withdrawal-of-5-69-million-lawsuit.html",
+      "source_name": "GlobeNewswire — Press Releases (general)",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T20:01:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Company is involved in a $5.69 million lawsuit and short-seller dispute.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Company is involved in a $5.69 million lawsuit and short-seller dispute.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 25,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Quantum Cyber",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-079",
+      "headline": "Prospect Capital Announces June 2026 Results",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348788/0/en/prospect-capital-announces-june-2026-results.html",
+      "source_name": "GlobeNewswire — Earnings Releases & Operating Results",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T20:01:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Prospect Capital announced financial results for June 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Prospect Capital announced financial results for June 2026.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Prospect Capital",
+          "ticker": "PSEC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-096",
+      "headline": "Plato Gold Reports 2026 Semi-Annual Results, Announces Loan Extensions and Board Update",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348784/0/en/plato-gold-reports-2026-semi-annual-results-announces-loan-extensions-and-board-update.html",
+      "source_name": "GlobeNewswire — Press Releases (general)",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T20:01:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Company reported results, extended loans, and updated board.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Company reported results, extended loans, and updated board.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "debt_credit",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Plato Gold",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-095",
+      "headline": "Perimeter Announces Preliminary Second Quarter 2026 Financial Results",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/perimeter-announces-preliminary-second-quarter-2026-financial-results-302856831.html",
+      "source_name": "PR Newswire — Earnings",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T20:30:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Company reported preliminary quarterly results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "Company reported preliminary quarterly results.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Perimeter",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-075",
+      "headline": "Intchains Group Limited Reports First Half 2026 Financial Results",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348798/0/en/intchains-group-limited-reports-first-half-2026-financial-results.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T20:05:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Intchains Group Limited reported financial results for the first half of 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Intchains Group Limited reported financial results for the first half of 2026.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intchains Group Limited",
+          "ticker": "ICG",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-078",
+      "headline": "Flux Power Reports 2026 Fiscal Fourth Quarter and Full Year Financial Results",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348801/24114/en/flux-power-reports-2026-fiscal-fourth-quarter-and-full-year-financial-results.html",
+      "source_name": "GlobeNewswire — Earnings Releases & Operating Results",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T20:05:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Flux Power reported fiscal fourth quarter and full year 2026 financial results.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Flux Power reported fiscal fourth quarter and full year 2026 financial results.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Flux Power",
+          "ticker": "FLUX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260820-024",
       "headline": "‎BinDawood eyes SAR 1.5B investments, mostly in Saudi Arabia: CEO",
       "headline_en": null,
@@ -536,6 +1420,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-102",
+      "headline": "To Probe Mark Walter’s Business, DOJ Sought Egan-Jones’ Records",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-20/to-probe-mark-walter-s-business-doj-sought-egan-jones-records",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T19:43:10Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "DOJ investigation into business practices creates potential legal and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "DOJ investigation into business practices creates potential legal and reputational risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mark Walter",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -688,6 +1621,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260820-107",
+      "headline": "Comstock Stock Up 28% as Q2 Earnings Surge Year Over Year",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/comstock-stock-28-q2-earnings-surge-year-over-year",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T18:35:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Significant 28% stock price move following a surge in Q2 earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Significant 28% stock price move following a surge in Q2 earnings.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Comstock",
+          "ticker": "CRK",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260820-027",
       "headline": "Vox cuts jobs in first restructuring since James Murdoch's takeover, source says",
       "headline_en": null,
@@ -732,6 +1714,153 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-103",
+      "headline": "Solo Brands Q2 Earnings Surge Y/Y on Watersports Growth",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/solo-brands-q2-earnings-surge-y-y-watersports-growth",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T18:41:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Company reported a surge in Q2 earnings driven by specific segment growth.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Company reported a surge in Q2 earnings driven by specific segment growth.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Solo Brands",
+          "ticker": "DTC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-104",
+      "headline": "Quantum X Swings to Earnings in Q2 on Lower Financial Costs",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/quantum-x-swings-earnings-q2-lower-financial-costs",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T18:39:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Company swung to profitability in Q2 due to reduced financial costs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Company swung to profitability in Q2 due to reduced financial costs.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Quantum X",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-105",
+      "headline": "Koil Energy Q2 Earnings Rise Y/Y on Service Revenue Growth",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/koil-energy-q2-earnings-rise-y-y-service-revenue-growth",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T18:37:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Company reported Q2 earnings growth driven by service revenue.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 84,
+      "triage_reason": "Company reported Q2 earnings growth driven by service revenue.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Koil Energy",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -786,70 +1915,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260820-010",
-      "headline": "OVT: OVT EXITS BNPL AND COST CUTS [price-sensitive]",
+      "inbox_id": "INB-20260820-100",
+      "headline": "Latest US Sanctions Hit Cuban Industries and Influence Network",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OVT?key=2924-03123561-2A1690731",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-20T00:06:27Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Company exiting BNPL (Buy Now Pay Later) business segment and implementing cost reductions; strategic intent and financial impact unclear from headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "Company exiting BNPL (Buy Now Pay Later) business segment and implementing cost reductions; strategic intent and financial impact unclear from headline.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 58,
-      "rank_factors": {
-        "materiality": 58,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OVT",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-017",
-      "headline": "US hits Hezbollah with fresh sanctions, emphasizing ties to Iranian government",
-      "headline_en": null,
-      "url": "https://www.al-monitor.com/originals/2026/08/us-hits-hezbollah-fresh-sanctions-emphasizing-ties-iranian-government",
-      "source_name": "Al-Monitor",
+      "url": "https://www.bloomberg.com/news/articles/2026-08-20/latest-us-sanctions-hit-cuban-industries-and-influence-network",
+      "source_name": "Bloomberg",
       "input_nature": "news_headline",
-      "found_at": "2026-08-20T17:46:38Z",
+      "found_at": "2026-08-20T19:52:49Z",
       "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "US sanctions on entities linked to Hezbollah represent a geopolitical escalation affecting regional risk.",
+      "prelim_note": "New U.S. sanctions on Cuban industries represent a shift in regulatory and operational risk for entities operating in that region.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "US sanctions on entities linked to Hezbollah represent a geopolitical escalation affecting regional risk.",
-      "region": "OTHER",
+      "triage_score": 81,
+      "triage_reason": "New U.S. sanctions on Cuban industries represent a shift in regulatory and operational risk for entities operating in that region.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 60,
       "rank_factors": {
@@ -858,7 +1938,7 @@
         "scope": 2,
         "event": 4,
         "size": 0,
-        "recency": 4,
+        "recency": 5,
         "materiality_label_floor": 10,
         "quantified": 0,
         "boost_weight": 1,
@@ -872,1073 +1952,6 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-015",
-      "headline": "FCA fines and bans former SVS Securities CEO",
-      "headline_en": null,
-      "url": "https://www.fca.org.uk/news/press-releases/fca-fines-bans-former-svs-securities-ceo",
-      "source_name": "UK Financial Conduct Authority (FCA) — News",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-19T22:54:25Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "UK FCA enforcement action fining and banning former SVS Securities CEO; scope of ongoing company liability and reputational impact unclear from headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "UK FCA enforcement action fining and banning former SVS Securities CEO; scope of ongoing company liability and reputational impact unclear from headline.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 52,
-      "rank_factors": {
-        "materiality": 52,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SVS Securities",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-051",
-      "headline": "424B2 - MORGAN STANLEY (0000895421) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/895421/000183988226040904/0001839882-26-040904-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-20T19:48:02Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "A 424B2 filing indicates a prospectus supplement for a shelf takedown, which is a routine debt issuance activity for a large financial institution.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "A 424B2 filing indicates a prospectus supplement for a shelf takedown, which is a routine debt issuance activity for a large financial institution.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MORGAN STANLEY",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-052",
-      "headline": "424B2 - CITIGROUP INC (0000831001) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/831001/000095010326012707/0000950103-26-012707-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-20T19:47:20Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "A 424B2 filing indicates a prospectus supplement for a shelf takedown, which is a routine debt issuance activity for a large financial institution.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "A 424B2 filing indicates a prospectus supplement for a shelf takedown, which is a routine debt issuance activity for a large financial institution.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CITIGROUP INC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-055",
-      "headline": "424B2 - BARCLAYS BANK PLC (0000312070) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/312070/000191870426024371/0001918704-26-024371-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-20T19:47:01Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "A 424B2 filing indicates a prospectus supplement for a shelf takedown, which is a routine debt issuance activity for a large financial institution.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "A 424B2 filing indicates a prospectus supplement for a shelf takedown, which is a routine debt issuance activity for a large financial institution.",
-      "region": "GB",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BARCLAYS BANK PLC",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-008",
-      "headline": "WMI: Increased FF full year dividend, 2026 Full Year Results [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WMI?key=2924-03123584-2A1690746",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-20T00:38:22Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Company increased full-year dividend alongside results, signaling improved cash generation or capital-return capacity; magnitude of increase not disclosed in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 73,
-      "triage_reason": "Company increased full-year dividend alongside results, signaling improved cash generation or capital-return capacity; magnitude of increase not disclosed in headline.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "WMI",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-031",
-      "headline": "US says sanctions will 'squash' Iran's economy and 'collapse' its regime",
-      "headline_en": null,
-      "url": "https://www.bbc.co.uk/news/articles/c87n90eg0p2o?at_medium=RSS&at_campaign=rss",
-      "source_name": "BBC News — World",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T19:19:20Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "US foreign policy / Iran sanctions announcement; broad economy-wide impact on oil prices, aerospace, defense, finance, and technology sectors; no single company or quantified new measure named.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "US foreign policy / Iran sanctions announcement; broad economy-wide impact on oil prices, aerospace, defense, finance, and technology sectors; no single company or quantified new measure named.",
-      "region": "GLOBAL",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 61,
-      "rank_factors": {
-        "materiality": 61,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector",
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-053",
-      "headline": "424B2 - Citigroup Global Markets Holdings Inc. (0000200245) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/200245/000095010326012707/0000950103-26-012707-index.htm",
-      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-20T19:47:20Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "A 424B2 filing indicates a prospectus supplement for a shelf takedown, which is a routine debt issuance activity for a large financial institution.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 71,
-      "triage_reason": "A 424B2 filing indicates a prospectus supplement for a shelf takedown, which is a routine debt issuance activity for a large financial institution.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Citigroup Global Markets Holdings Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-054",
-      "headline": "FWP - Morgan Stanley Finance LLC (0001666268) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1666268/000183988226040901/0001839882-26-040901-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-20T19:29:47Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "A FWP filing indicates a filing for a future rate or term sheet, which is a routine part of debt issuance for financial institutions.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 71,
-      "triage_reason": "A FWP filing indicates a filing for a future rate or term sheet, which is a routine part of debt issuance for financial institutions.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Morgan Stanley Finance LLC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-019",
-      "headline": "SCHEDULE 13D/A - Impactive Capital LP (0001786767) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1786767/000090266426003591/0000902664-26-003591-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-20T19:06:13Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Routine amendment to a 13D filing by an activist investor.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Routine amendment to a 13D filing by an activist investor.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Impactive Capital LP",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-014",
-      "headline": "AHK: Sandy Mitchell Stage 3 Resource Expansion Drilling Results [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AHK?key=2924-03123521-2A1690691",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-19T23:44:47Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Mineral-exploration company reporting completion of Stage 3 expansion drilling at Sandy Mitchell project; mineral-reserve implications not quantified in headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 68,
-      "triage_reason": "Mineral-exploration company reporting completion of Stage 3 expansion drilling at Sandy Mitchell project; mineral-reserve implications not quantified in headline.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "operations",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "AHK",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-029",
-      "headline": "Is DAR a Buy as Earnings Surge but Cost and Capacity Risks Build?",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/dar-buy-earnings-surge-cost-and-capacity-risks-build",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T18:01:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Opinion piece discussing earnings and risks, not a new material event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 62,
-      "triage_reason": "Opinion piece discussing earnings and risks, not a new material event.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Darling Ingredients",
-          "ticker": "DAR",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-073",
-      "headline": "Luminate Bank acquires select assets of First State Mortgage Services",
-      "headline_en": null,
-      "url": "https://www.housingwire.com/articles/luminate-first-state-assets/",
-      "source_name": "HousingWire",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T20:11:50Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Luminate Bank acquires select mortgage-services assets from First State; small, unpriced asset transaction with no disclosed financial impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Luminate Bank acquires select mortgage-services assets from First State; small, unpriced asset transaction with no disclosed financial impact.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 38,
-      "rank_factors": {
-        "materiality": 38,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Luminate Bank",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "First State Mortgage Services",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-016",
-      "headline": "US Religious Freedom Body Seeks Sanctions Against RSS, Urges Halt To High-Level Meetings With Leaders",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/india/us-religious-freedom-body-seeks-sanctions-against-rss-urges-halt-to-high-level-meetings-with-leaders",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T18:18:37Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "This is a recommendation by a US advisory body, not a binding government sanction.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 55,
-      "triage_reason": "This is a recommendation by a US advisory body, not a binding government sanction.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-061",
-      "headline": "SCHEDULE 13D/A - BIG SKY INDUSTRIAL INC. (0000101594) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/101594/000143774926028630/0001437749-26-028630-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-20T19:39:02Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Routine Schedule 13D/A amendment filing regarding ownership in Big Sky Industrial Inc.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 54,
-      "triage_reason": "Routine Schedule 13D/A amendment filing regarding ownership in Big Sky Industrial Inc.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BIG SKY INDUSTRIAL INC.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-025",
-      "headline": "US Treasury chief urges China to back proposed Iran sanctions",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/us-treasury-chief-urges-china-back-proposed-iran-sanctions",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T19:36:16Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Diplomatic pressure regarding potential sanctions, which is a macro-level geopolitical development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 53,
-      "triage_reason": "Diplomatic pressure regarding potential sanctions, which is a macro-level geopolitical development.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-018",
-      "headline": "144 - DHT Holdings, Inc. (0001331284) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1331284/000133128426000010/0001331284-26-000010-index.htm",
-      "source_name": "SEC EDGAR — Latest Form 144 (Proposed Insider Sale)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-20T18:45:14Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Proposed insider sale of DHT Holdings shares is a routine regulatory filing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 52,
-      "triage_reason": "Proposed insider sale of DHT Holdings shares is a routine regulatory filing.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DHT Holdings, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-060",
-      "headline": "SCHEDULE 13D/A - Batchelor Joshua Lane (0001903548) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1903548/000143774926028630/0001437749-26-028630-index.htm",
-      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-20T19:39:02Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Routine Schedule 13D/A amendment filing by Joshua Lane Batchelor.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 50,
-      "triage_reason": "Routine Schedule 13D/A amendment filing by Joshua Lane Batchelor.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 25,
-      "rank_factors": {
-        "materiality": 25,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "ownership_activist",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Batchelor Joshua Lane",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-071",
-      "headline": "Baxter hires new CFO with visa contingency",
-      "headline_en": null,
-      "url": "https://www.cfodive.com/news/baxter-hires-new-cfo-visa-contingency-compensation/828440/",
-      "source_name": "CFO Dive",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T19:59:29Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Baxter appoints CFO contingent on visa approval; routine executive appointment with execution risk but no strategic or operational impact disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 49,
-      "triage_reason": "Baxter appoints CFO contingent on visa approval; routine executive appointment with execution risk but no strategic or operational impact disclosed.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 32,
-      "rank_factors": {
-        "materiality": 32,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Baxter",
-          "ticker": "BAX",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-033",
-      "headline": "Jim Simons' Renaissance cuts $486 million from surging AI stock",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/mu-renaissance-technologies-slashes-micron-stake-by-486-million-in-q2-2026-13f-filing",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T19:33:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Renaissance Technologies reduced a position by $486 million, which is a routine portfolio adjustment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 49,
-      "triage_reason": "Renaissance Technologies reduced a position by $486 million, which is a routine portfolio adjustment.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "insider_transaction",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Renaissance Technologies",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-011",
-      "headline": "MML: McLaren Delivers Outstanding Results [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MML?key=2924-03123562-6A1339435",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-20T00:07:37Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Results announcement with subjective descriptor ('outstanding') but no quantified metrics, guidance, or guidance change disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 48,
-      "triage_reason": "Results announcement with subjective descriptor ('outstanding') but no quantified metrics, guidance, or guidance change disclosed.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 25,
-      "rank_factors": {
-        "materiality": 25,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MML",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-065",
-      "headline": "Texmo Pipes and Products Ltd: Please find attached Annual Report for FY 2025-26",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/13cab711-2cb2-4c5b-a422-e14c01af945b.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-20T19:29:26Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Routine filing of the Annual Report for FY 2025-26.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 47,
-      "triage_reason": "Routine filing of the Annual Report for FY 2025-26.",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 25,
-      "rank_factors": {
-        "materiality": 25,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Texmo Pipes and Products Ltd",
-          "ticker": "TEXMOPIPES",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-006",
-      "headline": "IDT: FY26 Full Year Results",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IDT?key=2924-03123588-3A699302",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-20T00:46:02Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Routine full-year earnings announcement with no disclosed metrics, guidance, or guidance change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 44,
-      "triage_reason": "Routine full-year earnings announcement with no disclosed metrics, guidance, or guidance change.",
-      "region": "OTHER",
-      "relevance": "irrelevant",
-      "materiality_pre_score": 20,
-      "rank_factors": {
-        "materiality": 20,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "IDT",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -68212,77 +68225,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-dad42101a772",
-      "idea_version": "IDEAV-8289fcdb956a4426",
-      "idea_version_started_at": "2026-08-20T07:13:16Z",
-      "ticker": "00031",
-      "company": "China Aerospace International Holdings Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued an official profit warning indicating a significant drop in expected earnings.",
-      "why_now": "The inside information profit warning was filed on August 19, 2026.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-de05e6cbbe6c"
-      ],
-      "primary_source_event_id": "EVT-de05e6cbbe6c",
-      "source_headlines": [
-        "CHINA AEROSPACE (00031): INSIDE INFORMATION - PROFIT WARNING"
-      ],
-      "source_headline": "CHINA AEROSPACE (00031): INSIDE INFORMATION - PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900550.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-19T08:57:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-20T03:43:44Z",
-      "updated_at": "2026-08-20T07:13:16Z",
-      "decay_at": "2026-08-20T20:57:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f42669c74af8",
       "idea_version": "IDEAV-47eee9241429bd83",
       "idea_version_started_at": "2026-08-20T07:13:16Z",
@@ -68993,77 +68935,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-73fe33cef954",
-      "idea_version": "IDEAV-1f7dd21dd930af9c",
-      "idea_version_started_at": "2026-08-20T02:14:56Z",
-      "ticker": "00987",
-      "company": "China Renewable Energy Investment",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The profit warning indicates that the company is facing headwinds that are negatively impacting its financial performance.",
-      "why_now": "The filing was made on 2026-08-19, and the market reaction is expected to follow the disclosure of the earnings shortfall.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4d50e1fd4a38"
-      ],
-      "primary_source_event_id": "EVT-4d50e1fd4a38",
-      "source_headlines": [
-        "CH RENEW EN INV (00987): PROFIT WARNING"
-      ],
-      "source_headline": "CH RENEW EN INV (00987): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900430.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-19T08:40:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-20T02:14:56Z",
-      "updated_at": "2026-08-20T02:14:56Z",
-      "decay_at": "2026-08-20T20:40:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5ad1780c26cb",
       "idea_version": "IDEAV-81bf3212a1e82bad",
       "idea_version_started_at": "2026-08-20T18:25:35Z",
@@ -69133,6 +69004,77 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-dad42101a772",
+      "idea_version": "IDEAV-8289fcdb956a4426",
+      "idea_version_started_at": "2026-08-20T07:13:16Z",
+      "ticker": "00031",
+      "company": "China Aerospace International Holdings Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued an official profit warning indicating a significant drop in expected earnings.",
+      "why_now": "The inside information profit warning was filed on August 19, 2026.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-de05e6cbbe6c"
+      ],
+      "primary_source_event_id": "EVT-de05e6cbbe6c",
+      "source_headlines": [
+        "CHINA AEROSPACE (00031): INSIDE INFORMATION - PROFIT WARNING"
+      ],
+      "source_headline": "CHINA AEROSPACE (00031): INSIDE INFORMATION - PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900550.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-19T08:57:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-20T03:43:44Z",
+      "updated_at": "2026-08-20T07:13:16Z",
+      "decay_at": "2026-08-20T20:57:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-b053d4e33d6d",
@@ -69348,6 +69290,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-73fe33cef954",
+      "idea_version": "IDEAV-1f7dd21dd930af9c",
+      "idea_version_started_at": "2026-08-20T02:14:56Z",
+      "ticker": "00987",
+      "company": "China Renewable Energy Investment",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The profit warning indicates that the company is facing headwinds that are negatively impacting its financial performance.",
+      "why_now": "The filing was made on 2026-08-19, and the market reaction is expected to follow the disclosure of the earnings shortfall.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4d50e1fd4a38"
+      ],
+      "primary_source_event_id": "EVT-4d50e1fd4a38",
+      "source_headlines": [
+        "CH RENEW EN INV (00987): PROFIT WARNING"
+      ],
+      "source_headline": "CH RENEW EN INV (00987): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900430.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-19T08:40:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-20T02:14:56Z",
+      "updated_at": "2026-08-20T02:14:56Z",
+      "decay_at": "2026-08-20T20:40:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -69428,8 +69441,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 8,
-    "shown_count": 8,
+    "total_count": 10,
+    "shown_count": 10,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -69438,8 +69451,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 5,
-        "shown_count": 5,
+        "total_count": 7,
+        "shown_count": 7,
         "hidden_count": 0
       }
     },
@@ -69459,6 +69472,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-dad42101a772",
+        "idea_version": "IDEAV-8289fcdb956a4426",
+        "idea_version_started_at": "2026-08-20T07:13:16Z",
+        "ticker": "00031",
+        "company": "China Aerospace International Holdings Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued an official profit warning indicating a significant drop in expected earnings.",
+        "why_now": "The inside information profit warning was filed on August 19, 2026.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-de05e6cbbe6c"
+        ],
+        "primary_source_event_id": "EVT-de05e6cbbe6c",
+        "source_headlines": [
+          "CHINA AEROSPACE (00031): INSIDE INFORMATION - PROFIT WARNING"
+        ],
+        "source_headline": "CHINA AEROSPACE (00031): INSIDE INFORMATION - PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900550.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-19T08:57:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-20T03:43:44Z",
+        "updated_at": "2026-08-20T07:13:16Z",
+        "decay_at": "2026-08-20T20:57:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-20T20:57:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-73fe33cef954",
+        "idea_version": "IDEAV-1f7dd21dd930af9c",
+        "idea_version_started_at": "2026-08-20T02:14:56Z",
+        "ticker": "00987",
+        "company": "China Renewable Energy Investment",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The profit warning indicates that the company is facing headwinds that are negatively impacting its financial performance.",
+        "why_now": "The filing was made on 2026-08-19, and the market reaction is expected to follow the disclosure of the earnings shortfall.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4d50e1fd4a38"
+        ],
+        "primary_source_event_id": "EVT-4d50e1fd4a38",
+        "source_headlines": [
+          "CH RENEW EN INV (00987): PROFIT WARNING"
+        ],
+        "source_headline": "CH RENEW EN INV (00987): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900430.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-19T08:40:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-20T02:14:56Z",
+        "updated_at": "2026-08-20T02:14:56Z",
+        "decay_at": "2026-08-20T20:40:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-20T20:40:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-b053d4e33d6d",
         "idea_version": "IDEAV-0d0507985b4974d8",
@@ -70052,7 +70213,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 29,
-    "live_count": 20,
+    "live_count": 18,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -70071,9 +70232,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1903692,
-    "news_picked_today": 79,
-    "news_dropped_today": 326
+    "news_seen_today": 2264357,
+    "news_picked_today": 125,
+    "news_dropped_today": 376
   },
   "book_momentum": {
     "live_count": 8,
