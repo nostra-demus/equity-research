@@ -5,7 +5,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { callDateMonths, classify, deriveCoverage, evalDecl, extractPeriod, latestDecision, quoteAsOfMonths } from '../src/data-status'
+import { callDateMonths, classify, deriveCoverage, evalDecl, extractPeriod, latestDecision, quoteAsOfMonths, readinessHas } from '../src/data-status'
 import { moduleReadinessIssues } from '../src/readiness'
 import { moduleReadinessDecls } from '../src/roster'
 import type { ClassifiedFile, FileType, ModuleReadiness } from '../src/types'
@@ -290,6 +290,37 @@ check('external: the same names as TOP-LEVEL files DO satisfy coverage (the excl
 check('external: external_data satisfies no declared readiness slot (type-keyed has())', () => {
   const r = evalDecl({ sufficient: ['transcript'] }, hasOf(['external_data' as FileType]))
   assert.equal(r.status, 'Partial')
+})
+
+// ---- `external:<sourceType>` readiness tokens (competitive-intel's peer_transcript) ----
+// A module whose evidence lives under external/ declares an `external:<sourceType>` token so the readiness
+// engine can SEE it (external files are all typed the readiness-neutral 'external_data'; the kind is in
+// external.sourceType). And a subject-side 'transcript' must NOT satisfy that external token.
+const peerCall: ClassifiedFile = {
+  ...cf('external/CapitalIQ/whirlpool_q2.txt', 'external_data', 0),
+  external: { provider: 'CapitalIQ', sourceType: 'peer_transcript', tier: 6 },
+}
+check('readinessHas: external:<sourceType> matches an external_data file carrying that source type', () => {
+  assert.equal(readinessHas([peerCall], 'external:peer_transcript'), true)
+  assert.equal(readinessHas([peerCall], 'external:alt_data_panel'), false)
+  // a SUBJECT transcript (top-level type 'transcript') does NOT satisfy the external peer-transcript slot
+  assert.equal(readinessHas([cf('subject_call.rtf', 'transcript')], 'external:peer_transcript'), false)
+})
+check('evalDecl: sufficient [external:peer_transcript] -> Sufficient with a peer call; Partial + cap without', () => {
+  const decl = {
+    sufficient: ['external:peer_transcript'],
+    caps: { 'external:peer_transcript': 'no competitor transcripts' },
+  } as const
+  assert.equal(evalDecl(decl, (t) => readinessHas([peerCall], t)).status, 'Sufficient')
+  // a pool with only the subject's own transcript is Partial and surfaces the coverage-gap cap
+  const r0 = evalDecl(decl, (t) => readinessHas([cf('subject_call.rtf', 'transcript')], t))
+  assert.equal(r0.status, 'Partial')
+  assert.ok(r0.caps.includes('no competitor transcripts'))
+})
+check('competitive-intel triage declares the external:peer_transcript readiness token', () => {
+  const d = moduleReadinessDecls()['competitive-intel']
+  assert.ok(d, 'competitive-intel should expose a data_readiness declaration')
+  assert.deepEqual(d!.sufficient, ['external:peer_transcript'])
 })
 
 // ---- latestDecision: a newer INCOMPLETE run must not hide the last finished dossier. The real case: a

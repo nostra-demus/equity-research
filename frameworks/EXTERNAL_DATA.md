@@ -96,6 +96,7 @@ sanitized `filename`, `sha256`, `staged_at`, optional repo/data-relative `routed
 | `expert_call` | Expert-network call notes or transcripts | GLG / Tegus / AlphaSights call notes |
 | `channel_check` | The user's own primary fieldwork | distributor conversations, store visits, supplier checks, photos |
 | `broker_research` | Sell-side research documents | initiation notes, sector primers, earnings previews |
+| `peer_transcript` | A COMPETITOR's own earnings-call transcript, collected to benchmark the subject (read by the `competitive-intel` module) | Capital IQ "Competitor Transcripts" exports; a peer's own earnings-call transcript |
 | `vendor_export` | Paid-terminal exports beyond the standard CIQ set | specialist databases, paid screeners |
 | `paid_api` | Machine-pulled data from a paid API (see §7) | a nightly KPI pull dropped as CSV/JSON |
 | `official_data` | Machine-pulled raw series published by a government, regulator, official exchange, or recognized industry body | CFTC COT, NOAA climate series, CME exchange data, IAI production data |
@@ -146,6 +147,7 @@ The §4 hierarchy is unchanged; this maps each `source_type` INTO it. The mappin
 | `alt_data_panel` | 5 (data vendor) | licensed alt-data, **estimate** | Always labelled estimate-based; carry the vendor error margin where disclosed; a filing's own number beats it (§4) and is never replaced by it |
 | `vendor_export`, `paid_api`, `official_data` | 5 (data-vendor / official-data band) | vendor export / API pull / official series, dated | Cite the actual provider; never relabel a vendor pull as official data or attach either to a filing citation (§5) |
 | `broker_research` | 7 band (at/below decks) | broker note, verdict-stripped | Strip Rating / Target Price / "our estimate" (§24); never a source for consensus numbers (fix F19) or for any figure a primary doc carries |
+| `peer_transcript` | 6 (transcript — about the NAMED peer) | peer earnings-call transcript, dated, about the peer | Tier 6 about the PEER's own company; using it to say anything about the SUBJECT is Level-1 inference (§3/§6), never a source ABOUT the subject; strip analyst questions/assertions (§24); a peer press release beats it for the peer's own numbers; read + translate non-English calls (§27). The `competitive-intel` module owns its use; it never substitutes for a filing the subject's own sufficiency rules require. |
 | `expert_call`, `channel_check`, `management_meeting` | 9 (user-collected note) | user-collected primary note, dated | One person's view, not a measurement: N=1 unless the note says otherwise; can RAISE a question against filings, never override them; integrity-adverse signal escalates per §24 filter 1 |
 | `external_other` | 9 | third-party, unverified | Conservative default until provenance is established |
 
