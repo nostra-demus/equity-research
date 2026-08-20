@@ -179,6 +179,10 @@ export interface TriggerEval {
    * this list, so a price column cannot be read downwards but a distance can.
    */
   gap_pct: number | null
+  /** The price this trigger fires at, structured. It already existed inside `detail`'s sentence, which
+   *  forced every reader to either parse the prose or recompute it — and a client that recomputed rounded
+   *  differently, so the same quantity rendered as two values on one screen (§15). Computed once, here. */
+  target: { value: number; currency: string; basis: string } | null
   /**
    * How many days until a DATED trigger comes due (0 = today, negative = already passed). Null for every
    * price-family trigger, exactly as `gap_pct` is null for a dated one: the two distances are measured in
@@ -381,6 +385,70 @@ interface SizingWatchRow { ticker?: unknown; decision?: unknown; size_in_trigger
  * than taking the decoration down. Sorted by the in-file generated_at, because size.md mandates a `_v2`
  * suffix when today's file already exists and filename order stops being reliable at `_v10`.
  */
+/**
+ * The scenario price targets a finished run recorded, for the "adopt a trigger" prompt.
+ *
+ * This reads a STRUCTURED field. It is deliberately not the same act as mining a number out of
+ * `size_in_trigger`, which is prose written for a human ("Track at $190-200 for re-entry (>12% margin of
+ * safety on base fair value $210)") — choosing between 190, 200 and 210 there, and dropping the condition
+ * attached to each, would manufacture a figure with no source and no date and hand it engine authority
+ * (§3/§5). A scenario row states its own number, and often its own `source`.
+ *
+ * `source` is passed through as written and NOT defaulted: across the committed records many scenario rows
+ * carry none, and printing a citation line for those would imply a provenance nobody recorded — the §5
+ * failure inverted. The UI says which rows are cited and which are not.
+ *
+ * No scenario is chosen here. Labels are not a fixed vocabulary across runs (`bear`, `bear_cyclical`,
+ * `bear_structural`, `deal_breaks_standalone`, `tail_structural_avoid_ruin` all occur), and the lowest is
+ * frequently a ruin tail rather than an entry — one record's cheapest scenario is $4.00 against a $18.59
+ * bear. Picking for the reader would be picking wrong.
+ */
+export interface RunScenario {
+  label: string
+  price_target: number
+  probability: number | null
+  source: string | null
+}
+
+export function readRunScenarios(
+  runRoot: string,
+  analysesDir: string = ANALYSES_DIR,
+): { scenarios: RunScenario[]; currency: string | null; decision_date: string | null } | null {
+  // runRoot reaches this from a client parameter, so it is treated as untrusted. The row carries it in the
+  // repo-relative form the ledger writes ("analyses/HAIER_2026-08-13"), so that one prefix is accepted and
+  // stripped — after which the remainder must still be a SINGLE segment. Nothing else is allowed through:
+  // no traversal, no absolute path, no nested path, no dotfile.
+  const rel = String(runRoot || '').replace(/^analyses[/\\]/, '')
+  const seg = path.basename(rel)
+  if (!seg || seg !== rel || seg.startsWith('.')) return null
+  const file = path.resolve(analysesDir, seg, 'decision_record.json')
+  const base = path.resolve(analysesDir)
+  if (file !== path.join(base, seg, 'decision_record.json')) return null
+  let raw: string
+  try { raw = fs.readFileSync(file, 'utf8') } catch { return null }
+  let j: any
+  try { j = JSON.parse(raw) } catch { return null }
+  const rows = Array.isArray(j?.scenarios) ? j.scenarios : []
+  const scenarios: RunScenario[] = []
+  for (const r of rows) {
+    const v = Number(r?.price_target)
+    // a scenario without a usable target is not an option to offer — skipped rather than shown as blank
+    if (!Number.isFinite(v) || v <= 0) continue
+    const p = Number(r?.probability)
+    scenarios.push({
+      label: typeof r?.label === 'string' && r.label ? r.label : 'unlabelled',
+      price_target: v,
+      probability: Number.isFinite(p) ? p : null,
+      source: typeof r?.source === 'string' && r.source.trim() ? r.source.trim() : null,
+    })
+  }
+  return {
+    scenarios,
+    currency: typeof j?.currency === 'string' && j.currency ? j.currency : null,
+    decision_date: typeof j?.decision_date === 'string' && j.decision_date ? j.decision_date : null,
+  }
+}
+
 export function readSizingDecoration(analysesDir: string = ANALYSES_DIR): {
   file: string | null
   generated_at: string | null
@@ -524,6 +592,7 @@ export function evaluateTrigger(t: WatchTrigger, ctx: EvalContext): TriggerEval 
       mode: 'reminder',
       state: 'not_met', // a date is never "met" — it comes due, and only a human clears it
       gap_pct: null,
+      target: null, // a date has no price to fire at
       days_to: daysBetween(ctx.today, t.due_date),
       detail: t.acknowledged_at
         ? `${t.label} — acknowledged ${t.acknowledged_at.slice(0, 10)}`
@@ -537,14 +606,14 @@ export function evaluateTrigger(t: WatchTrigger, ctx: EvalContext): TriggerEval 
 
   const q = ctx.quote
   if (!q) {
-    return { ...base, mode: 'auto', state: 'not_evaluable', detail: 'No live price to check against.', reason: ctx.quoteReason, gap_pct: null, days_to: null }
+    return { ...base, mode: 'auto', state: 'not_evaluable', detail: 'No live price to check against.', reason: ctx.quoteReason, gap_pct: null, days_to: null, target: null }
   }
   // A stale quote (the feed failed after the TTL, so getQuotes handed back a cached price rather than
   // nothing) is a real number but not a CURRENT one. Evaluating a trigger against it can surface a
   // days-old threshold crossing as a live alert even after the price has since moved back — the exact
   // false positive `not_evaluable` exists to prevent. Refuse it the same way a missing quote is refused.
   if (q.stale) {
-    return { ...base, mode: 'auto', state: 'not_evaluable', detail: `The price is stale (last checked ${q.as_of ?? 'a while ago'}) — refusing to call this trigger current.`, reason: 'stale_feed', gap_pct: null, days_to: null }
+    return { ...base, mode: 'auto', state: 'not_evaluable', detail: `The price is stale (last checked ${q.as_of ?? 'a while ago'}) — refusing to call this trigger current.`, reason: 'stale_feed', gap_pct: null, days_to: null, target: null }
   }
 
   // The trigger's currency and the quote's must be the same measurement. There is no FX module here, and
@@ -558,16 +627,19 @@ export function evaluateTrigger(t: WatchTrigger, ctx: EvalContext): TriggerEval 
       state: 'not_evaluable',
       detail: `Set in ${want}, priced in ${q.currency} — comparing them needs an FX rate and date this row does not carry.`,
       reason: 'currency_mismatch_trigger',
+      target: null,
       gap_pct: null,
       days_to: null,
     }
   }
 
   if (t.kind === 'price_level') {
+    const levelTarget = { value: t.level, currency: t.currency, basis: t.direction === 'at_or_below' ? 'at or below' : 'at or above' }
     const met = t.direction === 'at_or_below' ? q.price <= t.level : q.price >= t.level
     const gap = pct1(((q.price - t.level) / t.level) * 100)
     return {
       ...base,
+      target: levelTarget,
       mode: 'auto',
       state: met ? 'condition_met' : 'not_met',
       detail: met
@@ -581,7 +653,7 @@ export function evaluateTrigger(t: WatchTrigger, ctx: EvalContext): TriggerEval 
 
   if (t.kind === 'pct_drop') {
     if (!(t.reference.value > 0)) {
-      return { ...base, mode: 'auto', state: 'not_evaluable', detail: 'The reference price is missing or not positive.', reason: 'no_reference', gap_pct: null, days_to: null }
+      return { ...base, mode: 'auto', state: 'not_evaluable', detail: 'The reference price is missing or not positive.', reason: 'no_reference', gap_pct: null, days_to: null, target: null }
     }
     const threshold = r2(t.reference.value * (1 - t.drop_pct / 100))
     const met = q.price <= threshold
@@ -594,12 +666,14 @@ export function evaluateTrigger(t: WatchTrigger, ctx: EvalContext): TriggerEval 
       reason: null,
       gap_pct: met ? 0 : pct1(((threshold - q.price) / q.price) * 100),
       days_to: null,
+      // the same `threshold` the sentence above quotes — one computation, so the two can never disagree
+      target: { value: threshold, currency: t.reference.currency, basis: `\u2212${t.drop_pct}% from ${money(t.reference.currency, t.reference.value)}${t.reference.as_of ? ` (${t.reference.as_of})` : ''}` },
     }
   }
 
   // valuation_mos
   if (!(t.anchor_value > 0)) {
-    return { ...base, mode: 'reminder', state: 'not_evaluable', detail: 'No fair value is pinned to this trigger.', reason: 'no_anchor', gap_pct: null, days_to: null }
+    return { ...base, mode: 'reminder', state: 'not_evaluable', detail: 'No fair value is pinned to this trigger.', reason: 'no_anchor', gap_pct: null, days_to: null, target: null }
   }
   const mos = pct1(((t.anchor_value - q.price) / t.anchor_value) * 100)
   const met = t.direction === 'at_or_below' ? mos >= t.required_mos_pct : -mos >= t.required_mos_pct
@@ -612,6 +686,8 @@ export function evaluateTrigger(t: WatchTrigger, ctx: EvalContext): TriggerEval 
     : t.anchor_value * (1 + t.required_mos_pct / 100)
   return {
     ...base,
+    // the fair-value anchor discounted by the margin of safety — a real firing PRICE, unlike the raw anchor
+    target: { value: r2(threshold), currency: t.anchor_currency, basis: `${t.required_mos_pct}% ${t.direction === 'at_or_below' ? 'below' : 'above'} ${money(t.anchor_currency, t.anchor_value)} (${t.scenario_label})` },
     mode: 'auto',
     state: met ? 'condition_met' : 'not_met',
     detail: `(${money(t.anchor_currency, t.anchor_value)} − ${money(q.currency, q.price)}) ÷ ${t.anchor_value} = ${mos}% vs ${t.required_mos_pct}% required`,

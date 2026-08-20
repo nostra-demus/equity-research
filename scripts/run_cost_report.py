@@ -19,7 +19,7 @@ Usage:
   run_cost_report.py --all [--projects-dir DIR] [--repo-root DIR] [--json OUT]
 """
 from __future__ import annotations
-import argparse, json, os, glob, sys, collections
+import argparse, json, os, glob, sys, collections, datetime
 
 # ---- pricing: per 1M tokens (input, output). Source: Anthropic list price, cached 2026-06-24.
 # Estimate only: Sonnet-5's intro rate ($2/$10 through 2026-08-31) is NOT modelled — Sonnet is
@@ -120,6 +120,39 @@ def runtimes_from_main(main_path):
             rt[tur['agentType']] += tur.get('totalDurationMs', 0) or 0
     return rt
 
+def _parse_ts(v):
+    """ISO-8601 from a transcript line -> epoch ms, or None. Tolerates the trailing Z."""
+    if not isinstance(v, str) or not v:
+        return None
+    try:
+        return int(datetime.datetime.fromisoformat(v.replace('Z', '+00:00')).timestamp() * 1000)
+    except ValueError:
+        return None  # an unparseable stamp on one line must not lose the whole span
+
+def runtime_from_transcript(path):
+    """Wall-clock span of ONE sub-agent's own transcript: last timestamp minus first.
+
+    Why this exists: `runtimes_from_main` reads `toolUseResult.totalDurationMs` off the MAIN transcript,
+    and that field is frequently absent — so most orbs were reported as `runtime_ms: 0`. Measured, 8 of
+    10 agents in a COMPLETED valuation run showed 0, including a synthesis that demonstrably finished.
+    A per-orb duration of zero is a real auditability hole: it hides which step is slow and makes a
+    stalled orb indistinguishable from a fast one. Every transcript line carries a `timestamp`, so the
+    span is always derivable. It is a SPAN, not summed tool time — it includes the agent's own waiting,
+    which is exactly what you want when asking "what took so long".
+    """
+    first = last = None
+    for o in _iter(path):
+        ts = _parse_ts(o.get('timestamp'))
+        if ts is None:
+            continue
+        if first is None or ts < first:
+            first = ts
+        if last is None or ts > last:
+            last = ts
+    if first is None or last is None:
+        return 0
+    return max(0, last - first)
+
 def _empty_usage():
     return {**{k: 0 for k in USAGE_KEYS},
             'cache_creation': {'ephemeral_5m_input_tokens': 0, 'ephemeral_1h_input_tokens': 0}}
@@ -145,8 +178,15 @@ def attribute_session(main_path, subagent_paths):
         a['calls'] += calls
         _add_usage(a['usage'], u)                 # flat keys AND the 5m/1h cache-creation split
         a['cost'] += token_cost(model, u)
+    # Prefer the main transcript's reported tool duration; fall back to the sub-agent's own transcript
+    # span whenever that field was absent (the common case), so every orb carries a real duration.
+    spans = collections.Counter()
+    for p in subagent_paths:
+        atype, _, _, _ = dedup_usage(p)
+        if atype:
+            spans[atype] += runtime_from_transcript(p)
     for atype, a in agents.items():
-        a['runtime_ms'] = rt.get(atype, 0)
+        a['runtime_ms'] = rt.get(atype, 0) or spans.get(atype, 0)
     orch = None
     if main_path:
         _, om, ou, oc = dedup_usage(main_path)

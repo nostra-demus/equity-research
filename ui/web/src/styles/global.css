@@ -3460,16 +3460,22 @@ a { color: inherit; }
 .wtile {
   display: flex; flex-direction: column; gap: 3px; align-items: stretch; text-align: left;
   background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-md);
-  padding: 8px 9px 7px; min-height: 74px; font: inherit; color: inherit; cursor: pointer;
+  padding: 8px 9px 7px; min-height: 82px; font: inherit; color: inherit; cursor: pointer;
   transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
 }
 .wtile:hover { border-color: var(--hairline-strong); background: var(--surface-3); }
 .wtile:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 1px; }
 .wtile__top { display: flex; align-items: center; gap: 2px; font-size: 11.5px; }
-.wtile__sym { font-family: var(--font-mono); font-size: 12px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* The ticker is the tile's identity and must outrank every other glyph on it — it used to render SMALLER
+   than the distance figure beneath it. Size and weight carry the emphasis, deliberately NOT colour: on this
+   grid colour already means state (accent = fired, warn = near, dashed = not evaluable), so tinting every
+   ticker would make a fired tile stop standing out from a waiting one. Identity by weight, state by hue. */
+.wtile__sym { font-family: var(--font-mono); font-size: 16px; font-weight: 700; letter-spacing: 0.3px; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* the company the ticker stands for — quiet, but present rather than hidden in a tooltip */
+.wtile__co { font-size: 9.5px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: -1px; }
 .wtile__mine { color: var(--accent-bright); }
 .wtile__hot { color: var(--bad); font-size: 7px; margin-inline-start: auto; }
-.wtile__big { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 600; letter-spacing: 0.2px; white-space: nowrap; }
+.wtile__big { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 13.5px; font-weight: 600; letter-spacing: 0.2px; white-space: nowrap; margin-top: 2px; }
 .wtile__big--met { color: var(--accent-bright); }
 .wtile__big--near { color: var(--conv-warn); }
 /* absence must LOOK different from a number, never like a quiet zero */
@@ -3508,7 +3514,52 @@ a { color: inherit; }
 .wdet__trig { display: flex; align-items: flex-start; gap: 6px; }
 .wdet__trigtext { font-size: 11px; line-height: 1.45; color: var(--text-muted); }
 .wdet__absent { font-size: 10.5px; line-height: 1.45; color: var(--text-muted); font-style: italic; }
-.wdet__facts { display: flex; gap: 5px; flex-wrap: wrap; font-size: 10.5px; color: var(--text-faint); }
+/* Labelled sections. The panel used to be a flat stack of unlabelled divs — price and distance shared one
+   line with nothing saying which was which, and the target price appeared only inside a prose sentence. */
+.wdet__sec { border-top: 1px solid var(--hairline); padding-top: 9px; }
+.wdet__seclabel { font-size: 9.5px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-faint); margin: 0 0 6px; }
+/* The three numbers that answer "where is it, where do I want it, how far" — equal billing, each labelled. */
+/* Three columns whose LABEL, VALUE and NOTE each share a baseline. Each fact used to be its own flex
+   column, so a label that wrapped to two lines ("Nearest target") pushed its value down while the others
+   stayed put — the three figures then sat at three different heights and the row stopped reading as a row.
+   Subgrid makes the child inherit the parent's three rows, so alignment holds however any cell wraps. */
+.wdet__facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: auto auto auto; gap: 3px 10px; }
+.wdet__fact { display: grid; grid-row: span 3; grid-template-rows: subgrid; row-gap: 0; min-width: 0; }
+.wdet__factlabel { font-size: 9.5px; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); line-height: 1.3; align-self: start; }
+/* A price must never be shown truncated: "USD 370.…" is not a number anyone can act on, and an ellipsis
+   on a figure reads as data loss rather than a layout compromise. So the value wraps its currency onto a
+   second line if it has to, and the column is allowed to be narrow rather than the number cut short. */
+.wdet__factval { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 13px; font-weight: 600; color: var(--text-muted); align-self: start; margin-top: 2px; overflow-wrap: anywhere; }
+/* The two PRICES are the comparison the panel exists to make — where it is, and where you want it — so
+   both carry full brightness and a step of size. The distance is derived from them and stays muted: it is
+   the consequence, not an input. Emphasis by weight and brightness rather than hue, because the accent is
+   already carrying the ticker and the fired state, and a third meaning would make all three mean less. */
+.wdet__fact:nth-child(-n + 2) .wdet__factval { font-size: 16px; color: var(--text); }
+/* met is the one case where the target IS the news, so it takes the accent it has earned */
+.wdet__fact:nth-child(2) .wdet__factval--met { color: var(--accent-bright); }
+.wdet__factval--met { color: var(--accent-bright); }
+.wdet__factval--none { color: var(--text-faint); font-weight: 400; }
+.wdet__factnote { font-size: 9.5px; color: var(--text-faint); margin-top: 2px; line-height: 1.35; align-self: start; overflow-wrap: anywhere; }
+/* the trigger row: its own target and basis, and its distance — never a restatement of the facts above */
+.wdet__trigterms { display: flex; flex-direction: column; min-width: 0; }
+.wdet__trigtarget { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12px; color: var(--text); }
+.wdet__trigbasis { font-size: 10px; color: var(--text-faint); line-height: 1.35; overflow-wrap: anywhere; }
+.wdet__trigstate { margin-inline-start: auto; font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 11px; color: var(--text-muted); white-space: nowrap; align-self: center; }
+.wdet__next { display: flex; align-items: baseline; gap: 7px; flex-wrap: wrap; }
+.wdet__nextdate { font-family: var(--font-mono); font-size: 12.5px; }
+/* The engine's own scenario targets. A row per scenario, its citation status stated rather than assumed,
+   and no row pre-selected — the labels are not a fixed vocabulary and the cheapest is often a ruin tail. */
+.wdet__scens { display: flex; flex-direction: column; gap: 2px; }
+.wdet__scen { display: grid; grid-template-columns: minmax(0, 1fr) auto 34px 56px auto; gap: 8px; align-items: center; padding: 3px 0; }
+.wdet__scenlabel { font-size: 11px; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wdet__scenval { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12.5px; font-weight: 600; }
+.wdet__scenprob { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); text-align: right; }
+.wdet__scencite { font-size: 9.5px; color: var(--live); text-align: right; }
+/* an uncited target must LOOK different from a cited one, never borrow its credibility */
+.wdet__scencite--none { color: var(--conv-warn); }
+.wdet__runfacts { display: flex; gap: 5px; flex-wrap: wrap; font-size: 10.5px; color: var(--text-muted); }
+.wdet__runrow { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 7px; }
+.wdet__runnote { font-size: 10px; line-height: 1.5; color: var(--text-faint); margin: 6px 0 0; }
 .wdet__actions { display: flex; gap: 6px; flex-wrap: wrap; }
 
 /* One column under the dock width: the panel stops being a sidebar and becomes a header above the tiles,

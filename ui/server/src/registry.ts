@@ -53,6 +53,8 @@ export interface RunState {
   endedAt?: number
   costUsd?: number
   numTurns?: number
+  // The CLI's own final `result` verdict, captured on EVERY result (clean or error) — see activity-log.
+  cliResult?: { subtype?: string; isError?: boolean; apiErrorStatus?: number }
   durationMs?: number
   lastStdoutAt?: number // when the engine child last wrote ANY stdout — the "engine is alive" signal
   lastActivity?: RunActivity // the orchestrator's most recent tool call (heartbeat payload)
@@ -266,6 +268,8 @@ export function finishRun(run: RunState, status: RunStatus) {
       durationMs: run.durationMs ?? (run.endedAt - run.startedAt),
       numTurns: run.numTurns,
       note: run.note,
+      sessionId: run.sessionId,
+      cliResult: run.cliResult,
     })
     // advance a chained full run to its next step (fires once, inside the finishLogged guard)
     try {

@@ -113,7 +113,7 @@ export async function uploadToCompany(ticker: string, filename: string, mimeType
 // ENTRY ID, never by ticker. These functions take no ticker at all, which is what makes "it can never
 // land in the pool" a property of the code rather than a promise in a comment.
 
-const WATCHLIST_FOLDER = 'WATCHLIST'
+const WATCHLIST_FOLDER = GDRIVE.watchlistFolder
 const watchFolderCache = new Map<string, string>()
 const watchInflight = new Map<string, Promise<string>>()
 

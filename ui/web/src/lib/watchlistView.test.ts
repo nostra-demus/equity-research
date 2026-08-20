@@ -5,7 +5,7 @@
 // whichever is genuinely nearer. Run: npx tsx src/lib/watchlistView.test.ts
 import assert from 'node:assert/strict'
 import type { WatchRow, WatchTriggerEval } from './types'
-import { absenceReason, distanceLabel, rowDistance, sortForGrid, tileBand, triggerCaption, urgencyRank } from './watchlistView'
+import { absenceReason, distanceLabel, rowDistance, sortForGrid, tileBand, triggerCaption, urgencyRank , triggerTarget, nearestTarget, stillToMove } from './watchlistView'
 
 let passed = 0
 function check(name: string, fn: () => void): void {
@@ -136,6 +136,119 @@ check('a row missing evals entirely still reports an absence rather than throwin
   const r = row({ evals: undefined as unknown as [] })
   assert.equal(absenceReason(r), 'No trigger set — reminder only.')
   assert.equal(triggerCaption(r), 'no trigger')
+})
+
+check('triggerTarget reads the price off the STRUCTURED trigger, never off the prose', () => {
+  const lvl = triggerTarget({ kind: 'price_level', trigger_id: 'T1', direction: 'at_or_below', level: 195, currency: 'USD' } as never)
+  assert.deepEqual(lvl, { value: 195, currency: 'USD', how: 'at or below' })
+  // a drop fires at a fixed fraction of a reference FROZEN at save time, so the arithmetic is reproducible
+  const drop = triggerTarget({ kind: 'pct_drop', trigger_id: 'T2', drop_pct: 12,
+    reference: { value: 216.14, currency: 'USD', as_of: '2026-08-18', source: 'Capital IQ' } } as never)
+  assert.equal(drop?.currency, 'USD')
+  // 216.14 x 0.88 = 190.2032, rounded to 2dp exactly as the server rounds it — an unrounded value here is
+  // what made the panel and the trigger line quote two different prices for one threshold
+  assert.equal(drop?.value, 190.2, 'fires at reference x (1 - 12%), rounded the way the server rounds it')
+  // a date has no price, and a valuation anchor is a VALUE not a quote-comparable price — neither is a target
+  assert.equal(triggerTarget({ kind: 'event_date', trigger_id: 'T3', due_date: '2026-08-27', label: 'Q2' } as never), null)
+})
+
+check('nearestTarget follows the SAME trigger the distance figure is measured against', () => {
+  const r = row({
+    triggers: [
+      { kind: 'price_level', trigger_id: 'FAR', direction: 'at_or_below', level: 150, currency: 'USD' },
+      { kind: 'price_level', trigger_id: 'NEAR', direction: 'at_or_below', level: 195, currency: 'USD' },
+    ] as never,
+    evals: [
+      { trigger_id: 'FAR', kind: 'price_level', mode: 'auto', state: 'not_met', detail: '', gap_pct: -30, reason: null },
+      { trigger_id: 'NEAR', kind: 'price_level', mode: 'auto', state: 'not_met', detail: '', gap_pct: -2.1, reason: null },
+    ] as never,
+  })
+  assert.equal(nearestTarget(r)?.value, 195, 'the nearest trigger, not the first one listed')
+  // a row whose only trigger is dated has a distance in days but no price target to label
+  const dated = row({ triggers: [{ kind: 'event_date', trigger_id: 'D', due_date: '2026-08-27', label: 'Q2' }] as never,
+    evals: [{ trigger_id: 'D', kind: 'event_date', mode: 'reminder', state: 'not_met', detail: '', gap_pct: null, days_to: 3, reason: null }] as never })
+  assert.equal(nearestTarget(dated), null)
+  assert.equal(nearestTarget(row({ triggers: [] as never, evals: [] as never })), null)
+})
+
+check("the panel and the trigger line can never quote two prices for one threshold", () => {
+  // The real defect: 364.25 x 0.9 = 327.825. The server rounds to 327.83; recomputing here without the
+  // same rounding rendered 327.82 — the same quantity, two values, three centimetres apart on one panel.
+  const served = row({
+    triggers: [{ kind: 'pct_drop', trigger_id: 'D', drop_pct: 10,
+      reference: { value: 364.25, currency: 'USD', as_of: '2026-08-18', source: 'CIQ' } }] as never,
+    evals: [{ trigger_id: 'D', kind: 'pct_drop', mode: 'auto', state: 'not_met', detail: 'prose', gap_pct: -11.5,
+      reason: null, target: { value: 327.83, currency: 'USD', basis: '-10% from USD 364.25' } }] as never,
+  })
+  assert.equal(nearestTarget(served)?.value, 327.83, "the server's own number wins, never a recomputation")
+  // and the fallback (an engine predating eval.target) rounds IDENTICALLY, so it cannot disagree either
+  const legacy = row({
+    triggers: served.triggers,
+    evals: [{ trigger_id: 'D', kind: 'pct_drop', mode: 'auto', state: 'not_met', detail: 'prose', gap_pct: -11.5, reason: null }] as never,
+  })
+  assert.equal(nearestTarget(legacy)?.value, 327.83, 'the fallback matches the server to the last digit')
+})
+
+check('a malformed frozen reference is an absence, and a NaN gap cannot decide "nearest"', () => {
+  for (const bad of [null, undefined, { value: NaN, currency: 'USD', as_of: null, source: 'x' }]) {
+    assert.equal(triggerTarget({ kind: 'pct_drop', trigger_id: 'D', drop_pct: 10, reference: bad } as never), null)
+  }
+  // a NaN gap used to pass the `!= null` filter and then make the comparator inconsistent, so the row it
+  // called "nearest" was whichever the sort happened to leave first
+  const r = row({
+    triggers: [
+      { kind: 'price_level', trigger_id: 'BAD', direction: 'at_or_below', level: 10, currency: 'USD' },
+      { kind: 'price_level', trigger_id: 'REAL', direction: 'at_or_below', level: 195, currency: 'USD' },
+    ] as never,
+    evals: [
+      { trigger_id: 'BAD', kind: 'price_level', mode: 'auto', state: 'not_met', detail: '', gap_pct: NaN, reason: null },
+      { trigger_id: 'REAL', kind: 'price_level', mode: 'auto', state: 'not_met', detail: '', gap_pct: -2.1, reason: null },
+    ] as never,
+  })
+  assert.equal(nearestTarget(r)?.value, 195, 'the only measurable trigger is the nearest one')
+})
+
+check('"still to move" measures against the SAME trigger the target names, never a nearer date (§15)', () => {
+  // A row carrying BOTH a price alert (8% away) and a nearer earnings date (2 days). The server ranks
+  // across units, so `row.nearest` is the DATE — the exact case where the old panel paired the date's
+  // day-count with the price target and read "2d — to that target", a day-count mislabelled as movement
+  // to a price. distanceLabel + the target-gated caption (the OLD wiring) genuinely disagree here:
+  const both = row({
+    nearest: { unit: 'days', value: 2 },
+    evals: [
+      { trigger_id: 'P', kind: 'price_level', mode: 'auto', state: 'not_met', detail: '', gap_pct: -8, days_to: null,
+        reason: null, target: { value: 195, currency: 'USD', basis: 'at or below' } },
+      { trigger_id: 'D', kind: 'event_date', mode: 'reminder', state: 'not_met', detail: '', gap_pct: null, days_to: 2, reason: null },
+    ] as never,
+  })
+  // proof the two figures diverged under the old wiring: the distance said "2d" while the target was the price
+  assert.equal(distanceLabel(both), '2d', 'row.nearest is the date')
+  assert.equal(nearestTarget(both)?.value, 195, 'the target is the price level')
+  // the fix: stillToMove reads the distance off the SAME price trigger as the target — a percent, not "2d"
+  assert.deepEqual(stillToMove(both), { label: '−8%', caption: 'to that target' })
+
+  // a date-ONLY row: the old caption said "nothing measurable" over a real 2-day distance; now it is honest
+  const dateOnly = row({
+    nearest: { unit: 'days', value: 2 },
+    evals: [{ trigger_id: 'D', kind: 'event_date', mode: 'reminder', state: 'not_met', detail: '', gap_pct: null, days_to: 2, reason: null }] as never,
+  })
+  assert.equal(nearestTarget(dateOnly), null, 'no price target')
+  assert.deepEqual(stillToMove(dateOnly), { label: '2d', caption: 'until it comes due' })
+
+  // a price-ONLY row: distance and target already agreed, and still do
+  const priceOnly = row({
+    nearest: { unit: 'pct', value: -2.1 },
+    evals: [{ trigger_id: 'P', kind: 'price_level', mode: 'auto', state: 'not_met', detail: '', gap_pct: -2.1, days_to: null,
+      reason: null, target: { value: 195, currency: 'USD', basis: 'at or below' } }] as never,
+  })
+  assert.deepEqual(stillToMove(priceOnly), { label: '−2.1%', caption: 'to that target' })
+
+  // nothing measurable stays honestly nothing; a met condition reads FIRED, not "0%"
+  assert.deepEqual(stillToMove(row()), { label: '—', caption: 'nothing measurable' })
+  assert.deepEqual(stillToMove(row({ state: 'condition_met', nearest: { unit: 'pct', value: 0 },
+    evals: [{ trigger_id: 'P', kind: 'price_level', mode: 'auto', state: 'condition_met', detail: '', gap_pct: 0, days_to: null,
+      reason: null, target: { value: 195, currency: 'USD', basis: 'at or below' } }] as never })),
+    { label: 'FIRED', caption: 'already there' })
 })
 
 console.log(`\nwatchlistView.test.ts: ${passed} passed`)

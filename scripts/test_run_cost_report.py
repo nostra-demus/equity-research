@@ -136,5 +136,33 @@ at8, _, agg8, calls8 = R.dedup_usage(badp)      # must not raise
 check("malformed lines skipped; the one valid billed call counted", calls8 == 1 and agg8['input_tokens'] == 7)
 check("attribution survives malformed lines", at8 == "moat")
 
+# --- 9. per-orb runtime: the transcript span fallback (no more silent runtime_ms: 0) ---
+# `runtimes_from_main` reads toolUseResult.totalDurationMs off the MAIN transcript, and that field is
+# frequently absent — measured, 8 of 10 agents in a COMPLETED valuation run reported 0, including a
+# synthesis that demonstrably finished. A zero duration hides which orb is slow and makes a stalled orb
+# look identical to a fast one. Every transcript line carries a timestamp, so the span is always derivable.
+d9 = tempfile.mkdtemp(); spanp = os.path.join(d9, 'agent-span.jsonl')
+with open(spanp, 'w') as f:
+    f.write(json.dumps({"attributionAgent":"moat","requestId":"s1","timestamp":"2026-08-19T10:00:00.000Z",
+        "message":{"model":"claude-sonnet","usage":{"input_tokens":5,"output_tokens":1,
+        "cache_read_input_tokens":0,"cache_creation_input_tokens":0}}})+"\n")
+    f.write(json.dumps({"attributionAgent":"moat","requestId":"s2","timestamp":"2026-08-19T10:02:30.000Z",
+        "message":{"model":"claude-sonnet","usage":{"input_tokens":5,"output_tokens":1,
+        "cache_read_input_tokens":0,"cache_creation_input_tokens":0}}})+"\n")
+check("transcript span = last minus first timestamp", R.runtime_from_transcript(spanp) == 150_000)
+
+# a transcript with no usable timestamps must report 0, never crash
+d9b = tempfile.mkdtemp(); nots = os.path.join(d9b, 'agent-nots.jsonl')
+with open(nots, 'w') as f:
+    f.write(json.dumps({"attributionAgent":"moat","requestId":"n1","message":{"model":"claude-sonnet",
+        "usage":{"input_tokens":1,"output_tokens":1,"cache_read_input_tokens":0,"cache_creation_input_tokens":0}}})+"\n")
+check("no timestamps -> 0, no crash", R.runtime_from_transcript(nots) == 0)
+check("unparseable timestamp is skipped, not fatal", R._parse_ts("not-a-date") is None and R._parse_ts(None) is None)
+
+# attribute_session must FALL BACK to the span when the main transcript reports nothing
+res9 = R.attribute_session(None, [spanp])
+moat9 = next((a for a in res9['agents'] if a['agent'] == 'moat'), None)
+check("attribute_session falls back to the transcript span", moat9 is not None and moat9['runtime_ms'] == 150_000)
+
 print("\nALL RUN_COST_REPORT TESTS PASS" if not fails else f"\n{len(fails)} FAILED: {fails}")
 sys.exit(1 if fails else 0)

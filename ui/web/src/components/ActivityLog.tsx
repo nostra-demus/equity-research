@@ -150,12 +150,29 @@ function makeGroup(runRoot: string, membersNewestFirst: ActivityRow[]): RunGroup
   const children = [...membersNewestFirst].sort((a, b) => a.launchedAt - b.launchedAt) // oldest first = pipeline order
   const startedAt = children[0].launchedAt
   const lastAt = children[children.length - 1].launchedAt
-  const finishes = children.map((c) => c.finishedAt).filter((x): x is number => x != null)
   const { status, running } = rollupStatus(children)
-  // Wall-clock span, not summed durations: a chained full run's modules overlap, so the honest "how long
-  // did this run take" is the span from first launch to last finish (or now, while it's still live).
-  const end = running ? Date.now() : finishes.length ? Math.max(...finishes) : lastAt
-  const durationMs = Math.max(0, end - startedAt)
+  // UNION of the children's active intervals — not the raw first-launch-to-last-finish span, and not the
+  // sum of their durations. A chained run's modules overlap, so summing would double-count them; but a
+  // run folder is also REUSED across sessions days apart, and the raw span then swallows all the dead
+  // time in between (that is how a group read "3655m 38s" — 2.5 days of mostly nothing). Merging the
+  // intervals is correct for both: overlapping modules collapse into one interval, and an idle gap
+  // between sessions is simply not counted.
+  const now = Date.now()
+  const intervals = children
+    .map((c) => [c.launchedAt, c.finishedAt ?? (c.finishedAt == null && running ? now : c.launchedAt)] as const)
+    .filter(([a, b]) => b >= a)
+    .sort((x, y) => x[0] - y[0])
+  let durationMs = 0
+  let curStart: number | null = null
+  let curEnd = 0
+  for (const [a, b] of intervals) {
+    if (curStart === null) { curStart = a; curEnd = b; continue }
+    if (a <= curEnd) { curEnd = Math.max(curEnd, b); continue }
+    durationMs += curEnd - curStart
+    curStart = a; curEnd = b
+  }
+  if (curStart !== null) durationMs += curEnd - curStart
+  durationMs = Math.max(0, durationMs)
   const costTotal = children.reduce((s, c) => s + (c.costUsd ?? 0), 0)
   return {
     key: runRoot,
