@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-20T03:06:59Z",
+  "generated_at": "2026-08-20T03:19:15Z",
   "inbox": [
     {
       "inbox_id": "INB-20260820-376",
@@ -1928,50 +1928,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260820-034",
-      "headline": "FDA drug recall (Class I) — Sunny Pharmtech Inc.: Cyclophosphamide for Injection, USP, 2 gram/vial, One Single-Dose Vial, Rx only, Manufactured for: Long Grove Pharmaceuticals, LLC, Rosemont, IL 60018. Manufact — Presence of Particulate Matter; identified as stainless steel",
+      "inbox_id": "INB-20260820-409",
+      "headline": "CHINAVTM MINING (00893): PROFIT GUIDANCE",
       "headline_en": null,
-      "url": "https://api.fda.gov/drug/enforcement.json?search=recall_number.exact:%22D-0744-2026%22",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-12T00:00:00Z",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0818/2026081801227.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-18T10:18:00Z",
       "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Sunny Pharmtech initiated a Class I recall for Cyclophosphamide due to the presence of stainless steel particulate matter.",
+      "prelim_note": "Profit guidance announcements are material events that directly impact analyst expectations and stock valuation.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Sunny Pharmtech initiated a Class I recall for Cyclophosphamide due to the presence of stainless steel particulate matter.",
-      "region": "US",
+      "triage_reason": "Profit guidance announcements are material events that directly impact analyst expectations and stock valuation.",
+      "region": "CN",
       "relevance": "material",
       "materiality_pre_score": 70,
       "rank_factors": {
         "materiality": 70,
         "source_tier": 8,
         "scope": 6,
-        "event": 4,
-        "size": -1,
+        "event": 7,
+        "size": 0,
         "recency": 0,
         "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "regulatory",
-        "size_bucket": "small"
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "regulatory"
+        "guidance_change"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Sunny Pharmtech",
-          "ticker": null,
-          "listing_country": "US"
+          "name": "CHINAVTM MINING",
+          "ticker": "00893",
+          "listing_country": "CN"
         }
       ],
-      "size_bucket": "small",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -68746,9 +68746,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1971022,
-    "news_picked_today": 506,
-    "news_dropped_today": 283
+    "news_seen_today": 2135207,
+    "news_picked_today": 561,
+    "news_dropped_today": 324
   },
   "book_momentum": {
     "live_count": 8,
