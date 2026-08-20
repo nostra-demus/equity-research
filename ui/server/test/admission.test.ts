@@ -51,17 +51,20 @@ function check(name: string, fn: () => void) {
   }
 }
 
-// ---- fixtures: business-model + earnings + management-governance complete for ${T} ----
-// valuation now declares management-governance as a dependency (the RF-OWN-004 / §24 Filter-6 ownership
-// read), so its on-disk deps include mgov; without it D4 would (correctly) reject a valuation run.
+// ---- fixtures: valuation's full declared upstream set, complete for ${T} ----
+// valuation declares management-governance (the RF-OWN-004 / §24 Filter-6 ownership read) and
+// balance-sheet-survival (its filing-based debt note is the canonical net-debt source for the EV
+// bridge, CLAUDE.md §15), so its on-disk deps include both; without either, D4 would (correctly)
+// reject a valuation run.
 fs.rmSync(path.join(ANALYSES_DIR, `${T}_${DATE}`), { recursive: true, force: true })
 writeFixture('business-model/99_business-model-synthesis.md')
 writeFixture('earnings/99_earnings-synthesis.md')
+writeFixture('balance-sheet-survival/99_balance-sheet-survival-synthesis.md')
 writeFixture('management-governance/99_management-governance-synthesis.md')
 writeFixture('business-model/01_business-identity.md') // a read-dep target for D4b
 
 try {
-  // D4 admit: valuation with bm+earnings+management-governance present, nothing in flight
+  // D4 admit: valuation with bm+earnings+balance-sheet-survival+management-governance present, nothing in flight
   check('D4 admit valuation (deps on disk)', () => {
     const d = admitRun(req('module', { coveredModules: ['valuation'] }))
     assert.equal(d.ok, true)
@@ -162,12 +165,25 @@ try {
     assert.equal((d as any).reason, 'upstream-file-in-flight')
   })
 
-  // admit: siblings valuation + balance-sheet-survival (deps complete, not related)
-  check('admit siblings valuation + balance-sheet-survival', () => {
+  // admit: siblings valuation + competitive-intel (deps complete, neither is an ancestor of the other).
+  // competitive-intel is the sibling here because balance-sheet-survival no longer is: valuation declares
+  // it as an upstream, so the pair below is an ancestry conflict, not a sibling pair.
+  check('admit siblings valuation + competitive-intel', () => {
+    clearAll()
+    inflight('module', T, ['valuation'], [abs(T, 'valuation/00_x.md')])
+    const d = admitRun(req('module', { coveredModules: ['competitive-intel'], writeTargetsAbs: [abs(T, 'competitive-intel/00_x.md')] }))
+    assert.equal(d.ok, true)
+  })
+
+  // D3 reject: balance-sheet-survival while valuation in flight — bss is now valuation's ancestor, so
+  // rewriting its debt note under a running valuation is exactly the read-under-write this bars.
+  check('D3 reject balance-sheet-survival while valuation in flight', () => {
     clearAll()
     inflight('module', T, ['valuation'], [abs(T, 'valuation/00_x.md')])
     const d = admitRun(req('module', { coveredModules: ['balance-sheet-survival'], writeTargetsAbs: [abs(T, 'balance-sheet-survival/00_x.md')] }))
-    assert.equal(d.ok, true)
+    assert.equal(d.ok, false)
+    assert.equal((d as any).code, 'dependency_conflict')
+    assert.equal((d as any).reason, 'module-ancestry')
   })
 
   // D5 capacity: seed MAX runs on distinct tickers, next is rejected

@@ -32,7 +32,7 @@ You DO NOT:
 4. Build the seasonality table if quarterly data exists for at least 3 fiscal years.
 5. Compute YoY and QoQ growth rates and margin deltas.
 6. Identify the dominant trend direction.
-7. Compute net debt honestly (CLAUDE.md §15). Total debt − cash & equivalents is the **strict** basis, the default — state what "total debt" is actually built from. A data-vendor aggregate (Capital IQ / Bloomberg "Total Debt") frequently folds in operating-lease liabilities that the company's own debt note does not classify as debt, so it is not automatically "filing-clean." Only label a net-debt or net-debt/EBITDA figure **"strict"** if the total-debt figure's composition is confirmed to exclude operating leases (e.g., cross-checked against the filing's own debt note); otherwise label it **"vendor total-debt basis (composition not confirmed against the filing debt note)."** This module's net debt is a supporting line for the trend/TTM tables, not this module's specialty — the `balance-sheet-survival` module (a separate module in this run) builds the canonical, filing-verified net-debt figure directly from the debt note, and the two figures are not guaranteed to match. Never borrow the word "strict" to make this module's figure look more verified than it is.
+7. Compute net debt honestly (CLAUDE.md §15). Total debt − cash & equivalents is the **strict** basis, the default — state what "total debt" is actually built from. A data-vendor aggregate (Capital IQ / Bloomberg "Total Debt") frequently folds in operating-lease liabilities that the company's own debt note does not classify as debt, so it is not automatically "filing-clean." Keep the §15 basis label itself to the doctrine's own vocabulary (strict / broad / gross-liquidity) — that label names how the CASH side was treated, so do not invent a fourth label for a debt-side doubt. Instead: only label a net-debt or net-debt/EBITDA figure **"strict"** unqualified if the total-debt figure's composition is confirmed to exclude operating leases (e.g., cross-checked against the filing's own debt note); otherwise keep the §15 label and append the composition caveat inline — **"strict basis (vendor total-debt figure; composition unconfirmed against the filing debt note)."** This module's net debt is a supporting line for the trend/TTM tables, not this module's specialty — the `balance-sheet-survival` module (a separate module in this run) builds the canonical, filing-verified net-debt figure directly from the debt note, and the two figures are not guaranteed to match. Never borrow the word "strict" to make this module's figure look more verified than it is.
 
 # WHAT TO READ (priority for this agent)
 
@@ -88,7 +88,7 @@ Use the reporting currency. State the currency explicitly at the table header.
 
 Note: Net debt is a point-in-time balance sheet metric, not a TTM flow metric.
 
-Wherever Net Debt appears in this report (§1 and §2 alike), carry its basis label per WORKFLOW step 7 — "strict" only if the total-debt composition is confirmed clean of operating leases, else "vendor total-debt basis (composition not confirmed against the filing debt note)."
+Wherever Net Debt appears in this report (§1 and §2 alike), carry its §15 basis label per WORKFLOW step 7 — "strict" unqualified only if the total-debt composition is confirmed clean of operating leases, else the same label plus the inline caveat "(vendor total-debt figure; composition unconfirmed against the filing debt note)."
 
 If quarterly data is not available, write: *"TTM not available from current data."*
 
@@ -159,7 +159,7 @@ Every number in the tables must have a citation. Use a footnote block (name the 
 - [ ] TTM is calculated from actual quarters, not estimated.
 - [ ] Capex sign convention is handled correctly (absolute value used for FCF calculation).
 - [ ] FCF calculation is shown or footnoted.
-- [ ] Net debt's basis is labeled "strict" only where the total-debt composition is confirmed clean of operating leases; otherwise it is labeled a vendor total-debt basis with composition unconfirmed (CLAUDE.md §15).
+- [ ] Net debt carries a §15 basis label from the doctrine's own vocabulary (strict / broad / gross-liquidity), left unqualified only where the total-debt composition is confirmed clean of operating leases; otherwise it carries the inline composition caveat (CLAUDE.md §15).
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION

@@ -122,24 +122,29 @@ const sorted = (a: string[]) => [...a].sort()
     assert.deepEqual(sorted(f.mods()), sorted(['business-model', 'earnings']), 'earnings launches after business-model')
 
     // earnings done -> balance-sheet-survival + management-governance + competitive-intel launch CONCURRENTLY
-    // (all three declare business-model + earnings). valuation must NOT yet: it declares management-governance
-    // (the RF-OWN-004 / §24 Filter-6 read), so it waits for mgov. competitive-intel is a pure sink — nothing
-    // depends on it — but the master still waits for it (see below).
+    // (all three declare business-model + earnings). valuation must NOT yet: it declares BOTH
+    // management-governance (the RF-OWN-004 / §24 Filter-6 read) and balance-sheet-survival (its
+    // filing-based debt note is the canonical net-debt source for the EV bridge, CLAUDE.md §15), so it
+    // waits for both. competitive-intel is a pure sink — nothing depends on it — but the master still
+    // waits for it (see below).
     f.finish('earnings')
     const afterEarnings = f.mods()
     assert.equal(afterEarnings.length, 5, 'bss + mgov + competitive-intel join after earnings — but NOT valuation')
     assert.ok(afterEarnings.includes('balance-sheet-survival') && afterEarnings.includes('management-governance'), 'bss + mgov launch in the wave')
     assert.ok(afterEarnings.includes('competitive-intel'), 'competitive-intel launches in the after-earnings wave (deps business-model + earnings)')
-    assert.ok(!afterEarnings.includes('valuation'), 'valuation must NOT launch until management-governance is done (declared dependency)')
+    assert.ok(!afterEarnings.includes('valuation'), 'valuation must NOT launch until BOTH its declared upstreams are done')
     assert.ok(!afterEarnings.includes('catalyst'), 'catalyst waits for all five of its upstreams')
     assert.ok(!f.launches.some((l) => l.kind === 'rerun'), 'master waits for every module')
 
-    // management-governance done -> valuation becomes ready and launches (bss + competitive-intel may still run)
+    // one of the two upstreams done is NOT enough — valuation needs both, so it still waits.
     f.finish('management-governance')
-    assert.ok(f.mods().includes('valuation'), 'valuation launches once management-governance is done')
+    assert.ok(!f.mods().includes('valuation'), 'valuation still waits — balance-sheet-survival has not finished yet')
+
+    // both upstreams done -> valuation becomes ready and launches (competitive-intel may still run)
+    f.finish('balance-sheet-survival')
+    assert.ok(f.mods().includes('valuation'), 'valuation launches once BOTH management-governance and balance-sheet-survival are done')
 
     // remaining upstreams done -> catalyst launches (it needs its five declared upstreams; NOT competitive-intel)
-    f.finish('balance-sheet-survival')
     f.finish('valuation')
     assert.ok(f.mods().includes('catalyst'), 'catalyst launches once all five of its upstreams are done')
     assert.equal(f.mods().length, 7, 'all seven modules have launched')
@@ -198,8 +203,8 @@ const sorted = (a: string[]) => [...a].sort()
 
     // the chain proceeds normally all the way to master — proving the transient 429 did not poison it
     f.finish('management-governance')
-    assert.ok(f.mods().includes('valuation'), 'valuation launches once management-governance is done')
     f.finish('balance-sheet-survival')
+    assert.ok(f.mods().includes('valuation'), 'valuation launches once both of its declared upstreams are done')
     f.finish('valuation')
     assert.ok(f.mods().includes('catalyst'), 'catalyst launches after all five of its upstreams')
     f.finish('competitive-intel') // the pure-sink module must finish too before the master may launch
