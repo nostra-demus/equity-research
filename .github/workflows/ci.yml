@@ -58,21 +58,8 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Run eval harness (all committed runs + J framework-contract checks)
-        run: python3 scripts/eval.py all
-
-      - name: Check W + X + Y selftest (sector-valuation + evidence-integrity + data-sufficiency gates — fixture-free)
-        run: python3 scripts/eval.py selftest
-
-      - name: Score-breakdown unit tests (screener Phase 0.1 materiality)
-        run: python3 scripts/test_screener_score_breakdown.py
-
-      - name: Confidence scorer unit tests (deterministic two-number confidence)
-        run: python3 scripts/test_confidence.py
-
-      - name: Ledger-records resolver tests (append-only correction layer — supersession + errata)
-        run: python3 scripts/test_ledger_records.py
-
+      # Keep this before eval.py all: that command intentionally writes an
+      # untracked dated report, while the frozen Phase 0 corpus must be clean.
       - name: Permanent-memory contracts, adapters, projection, baseline, and append-only guards
         run: |
           rc=0
@@ -99,6 +86,21 @@ jobs:
             python3 scripts/memory_immutability.py --repo . --base "$memory_base" --head HEAD || rc=1
           fi
           exit $rc
+
+      - name: Run eval harness (all committed runs + J framework-contract checks)
+        run: python3 scripts/eval.py all
+
+      - name: Check W + X + Y selftest (sector-valuation + evidence-integrity + data-sufficiency gates — fixture-free)
+        run: python3 scripts/eval.py selftest
+
+      - name: Score-breakdown unit tests (screener Phase 0.1 materiality)
+        run: python3 scripts/test_screener_score_breakdown.py
+
+      - name: Confidence scorer unit tests (deterministic two-number confidence)
+        run: python3 scripts/test_confidence.py
+
+      - name: Ledger-records resolver tests (append-only correction layer — supersession + errata)
+        run: python3 scripts/test_ledger_records.py
 
       - name: Calibration scoreboard tests (Brier, Murphy, Clopper-Pearson, e-value, effective-N, honesty)
         run: python3 scripts/test_calibrate.py

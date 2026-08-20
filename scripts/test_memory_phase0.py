@@ -332,6 +332,26 @@ def check_benchmark_and_report(benchmark: dict[str, Any]) -> None:
         check(forbidden_metadata not in rendered_casefold, f"report must omit nondeterministic {forbidden_metadata}")
 
 
+def check_ci_clean_checkout_order() -> None:
+    """Keep the frozen corpus checks ahead of CI steps that write reports."""
+
+    workflow_path = REPO_ROOT / ".github/workflows/ci.yml"
+    try:
+        workflow = workflow_path.read_text(encoding="utf-8")
+    except OSError as exc:
+        check(False, f"CI workflow must be readable: {exc}")
+        return
+    memory_step = "- name: Permanent-memory contracts, adapters, projection, baseline, and append-only guards"
+    eval_step = "- name: Run eval harness (all committed runs + J framework-contract checks)"
+    check(workflow.count(memory_step) == 1, "CI must run exactly one permanent-memory gate")
+    check(workflow.count(eval_step) == 1, "CI must run exactly one report-writing eval harness")
+    if memory_step in workflow and eval_step in workflow:
+        check(
+            workflow.index(memory_step) < workflow.index(eval_step),
+            "CI permanent-memory gate must run before eval.py writes an untracked report",
+        )
+
+
 def main() -> int:
     catalogue = load("catalogue.json")
     decisions = load("decisions.json")
@@ -346,6 +366,7 @@ def main() -> int:
         check_benchmark_and_report(benchmark)
     if adapter_baseline:
         check_adapter_baseline(adapter_baseline)
+    check_ci_clean_checkout_order()
 
     if failures:
         print(f"\n{len(failures)} Phase 0 failure(s)")
