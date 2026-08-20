@@ -1,7 +1,7 @@
 ---
 name: people-integrity-dossiers
 description: Discovers and sweeps the whole network around a company — running the entity-discovery loop (brand lineage, former names, trademark ownership, registered-address clusters, past directorships, and the founders of every linked entity) and then building a forensic integrity dossier on EVERY named individual and every surfaced entity, from filings plus public legal/regulatory databases (corporate registries, courts, regulator enforcement, insolvency, disqualification and sanctions lists, dated adverse media). Grades each person Clean / Minor / Material / Disqualifying, with hop-banded exposure floors for cross-linkage. The engine's implementation of §24 Filter 1 at the person AND network level.
-tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
+tools: Read, Glob, Grep, Bash, WebSearch, WebFetch, Write
 layer: 1
 ---
 
@@ -337,6 +337,54 @@ Then emit a fourth fenced JSON block labeled `discovery_summary.json`:
 
 Then apply the canonical **Hard Self-Check** in MODULE_RULES before returning.
 
+# PERSISTENCE PROTOCOL (Hard Rule — this agent's report CANNOT be saved in one call)
+
+This agent's report is the largest the engine produces — measured runs have emitted 39k–134k output
+tokens, against a largest-ever written artifact of ~33k. **A single `Write` or a single
+`cat > … <<'REPORT_EOF'` heredoc cannot carry it.** Attempting one truncates the file mid-fence, the
+pipeline's validity check correctly rejects it, and the whole module parks in layer 1 — which is why
+this agent had never once landed a file before this rule existed. Do not attempt a monolithic write.
+
+**Write the report INCREMENTALLY, in order, as the work completes:**
+
+1. **Open the file** with `Write` (Mode A) the moment Section 0's Discovery Register exists — the
+   report's `#` header plus Section 0. Section 0 is already required to be written before any sweep,
+   so this costs nothing extra and means a run that dies later still leaves its register on disk.
+2. **Append each block** with a quoted heredoc — `cat >> '<OUTPUT_PATH>' <<'REPORT_EOF'` … `REPORT_EOF`
+   — as you finish it. Append **at most 6 per-subject dossiers per call**, and never let one call carry
+   more than roughly 8,000 words. Sections 1, 2.n, 2B.n, 3, 3B, 4, 5, 6 and 7 are each appended this way.
+3. **Append the SWEEP LOG and the four machine-readable blocks LAST**, in their own call(s), and close
+   every fence. The file is complete only when the final `discovery_summary.json` fence is closed.
+4. **Verify before you report.** `wc -c '<OUTPUT_PATH>'` and `tail -5 '<OUTPUT_PATH>'` — the tail must
+   show a closed fence, not a dangling row. Only then return the CHAT CONFIRMATION block.
+
+Never re-write the whole file to "tidy" it, and never return the report inline (Mode C): that pushes
+the same volume through the orchestrator's context and fails the same way. An append that errors is
+retried as an append — the already-written prefix stays.
+
+# OUTPUT BUDGET (Hard Rule — bounds the REPORT, never the SWEEP)
+
+The sweep is unbounded by design and stays that way: every subject is still discovered, registered,
+swept and graded, and the coverage accounting is unchanged. What is bounded is how much PROSE each
+subject earns, so a company with fifty linked entities cannot make the report unwritable.
+
+- **Full dossier table** (the complete axis table): every **Tier A person**, every **E-A entity**, and
+  **every subject graded Material or Disqualifying at any tier**. These are the decision-relevant
+  subjects — they are never compressed, and there is no cap on them.
+- **Compact row**: every other swept subject — Tier B/C people and E-B entities graded Clean or Minor
+  — is carried as ONE row in the Section 1 roll-up (subject, identifier, tier, grade, sweep coverage,
+  the single most material finding or `none`), not as its own `###` subsection. A compact row is a
+  COMPLETED sweep, not a skipped one; do not list it on the Scope-Boundary Register.
+- **Hard ceiling**: at most **40 full dossier subsections** in one report. If the decision-relevant set
+  exceeds 40, keep them in the Section 1 priority order already defined, and put the balance on the
+  **Scope-Boundary Register with reason `breadth_budget`**, named individually with their grades — the
+  existing mechanism, applied to report size as well as sweep breadth. State the ceiling, the count
+  used, and the overflow count in Section 5.
+
+Compressing a Clean Tier-C dossier to a row removes repetition, never evidence: the grade, the
+coverage and the sweep-log rows behind it are unchanged, and any hit promotes that subject straight
+back to a full dossier.
+
 # SELF-CHECK
 
 - [ ] **The Discovery Register was written BEFORE sweeping**, and every subject on it carries an enumerated discovery method — no free text, no blanks.
@@ -360,6 +408,13 @@ Then apply the canonical **Hard Self-Check** in MODULE_RULES before returning.
 - [ ] Grades follow the Protocol definitions; any Disqualifying controller/KMP is flagged for the gate.
 - [ ] Aggregator hits were confirmed on primary sources before entering the report (§4).
 - [ ] Every owned checklist item (A16-01…20, **A17-01…10**, A1-05, A9-04, A13-01/02/03/06/07/08/09) appears in the Universal Findings Table with its ID.
+- [ ] The report was persisted **incrementally** per the Persistence Protocol — opened with `Write` at
+      Section 0, appended in bounded blocks, machine-readable fences appended last and all closed — and
+      `tail` was checked before reporting. No monolithic single-call write was attempted.
+- [ ] The **output budget** was applied: full dossiers for Tier A / E-A / Material / Disqualifying;
+      Clean-and-Minor Tier B/C and E-B carried as compact roll-up rows (recorded as SWEPT, not as
+      scope-boundary); the 40-subsection ceiling, the count used and any `breadth_budget` overflow
+      stated in Section 5.
 - [ ] No banned phrases; no character inference from vibes — records only.
 
 # CHAT CONFIRMATION

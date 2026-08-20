@@ -278,6 +278,132 @@ try {
   // 11. Finding 12 (bottom-else clear-guard): a SIBLING chained module finishing CLEANLY must not clear a
   //     FRESH RUN_FAILURE.md that a DIFFERENT sibling's genuine failure just wrote for THIS SAME attempt,
   //     just because stale final_thesis/decision_record from an earlier completed run sit in the folder.
+  check('the CLI verdict is captured on a CLEAN result, not only on an error', () => {
+    // THE regression that matters for diagnosability. The parser read cost/turns/duration off the
+    // `result` message and DISCARDED subtype/is_error/api_error_status unless it was an error — so a
+    // clean-but-truncated exit left no record anywhere of how the orchestrator ended. Those three
+    // fields are the only thing separating "it finished early on its own" from "a cap or API error
+    // stopped it", and their absence is why months of module stalls could not be diagnosed at all.
+    const { run } = mkRun('module', 'ZZCLI')
+    handleStreamLine(run, JSON.stringify({
+      type: 'result', subtype: 'success', is_error: false, total_cost_usd: 1.5,
+    }))
+    assert.equal(run.cliResult?.subtype, 'success', 'a CLEAN result records its subtype')
+    assert.equal(run.cliResult?.isError, false)
+    assert.equal(run.status, 'running', 'and capturing it must not finalize the run')
+
+    // an API-error result carries its status code through too
+    const { run: run2 } = mkRun('module', 'ZZCLI2')
+    handleStreamLine(run2, JSON.stringify({
+      type: 'result', subtype: 'error_during_execution', is_error: true,
+      api_error_status: 429, total_cost_usd: 0.2,
+    }))
+    assert.equal(run2.cliResult?.apiErrorStatus, 429)
+    assert.equal(run2.cliResult?.isError, true)
+  })
+
+  check('a fail-fast Insufficient triage is a correct abort, NOT an incomplete run', () => {
+    // The false-positive twin of the incomplete branch. A triage returning Insufficient aborts the module
+    // BY DESIGN — no synthesis, no commit (every module command says so). Reporting that as "incomplete"
+    // would manufacture a failure, which is the same defect class pointed the other way.
+    const root = path.join(ANALYSES_DIR, `ZZFAIL_${DATE}`)
+    cleanupDirs.push(root)
+    const modDir = path.join(root, 'business-model')
+    fs.mkdirSync(modDir, { recursive: true })
+    const triage = path.join(modDir, '00_data-triage.md')
+    fs.writeFileSync(triage, '# Data triage\n\n**Verdict:** Insufficient data\n')
+    const { run } = mkRun('module', 'ZZFAIL')
+    run.module = 'business-model'
+    finalizeRunOnClose(run, { exitCode: 0 }, '')
+    assert.equal(run.status, 'done', 'a reasoned Insufficient abort is not a stall')
+
+    // …and the same folder with a SUFFICIENT verdict and still no synthesis IS incomplete.
+    fs.writeFileSync(triage, '# Data triage\n\n**Verdict:** Sufficient\n')
+    const { run: run2 } = mkRun('module', 'ZZFAIL')
+    run2.module = 'business-model'
+    finalizeRunOnClose(run2, { exitCode: 0 }, '')
+    assert.equal(run2.status, 'incomplete', 'a sufficient triage with no synthesis is a real stall')
+  })
+
+  check('a standalone MODULE stop is RECORDED — and per-module, so a shared folder keeps every record', () => {
+    // Recording was gated behind isResumableResearchRun, so a solo `module` launch wrote nothing on any
+    // stop path. And the dedup was keyed on runRoot alone, so several module runs into ONE folder
+    // collapsed to a single record — it would have eaten the very evidence this change creates.
+    const root = path.join(ANALYSES_DIR, `ZZREC_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    const committed: unknown[] = []
+    const prev = __setFailureNoteCommitter((...a) => committed.push(a))
+    try {
+      const { run: a } = mkRun('module', 'ZZREC')
+      a.module = 'management-governance'
+      finalizeRunOnClose(a, { exitCode: 1 }, 'boom')
+      assert.equal(committed.length, 1, 'a solo module stop is recorded at all')
+
+      const { run: b } = mkRun('module', 'ZZREC')
+      b.module = 'earnings'                       // SAME folder, different module
+      finalizeRunOnClose(b, { exitCode: 1 }, 'boom')
+      assert.equal(committed.length, 2, 'a second module in the same folder keeps its own record')
+
+      const { run: c } = mkRun('module', 'ZZREC')
+      c.module = 'earnings'                       // same folder AND same module -> deduped
+      finalizeRunOnClose(c, { exitCode: 1 }, 'boom')
+      assert.equal(committed.length, 2, 'the same module does not double-record')
+    } finally {
+      __setFailureNoteCommitter(prev)
+    }
+  })
+
+  check('a plan usage-limit stop is classified out_of_credits, not nonzero_exit', () => {
+    // The old /credit|rate limit/ pattern missed the CLI's actual wording, so a real plan stop was
+    // labelled nonzero_exit, no resetsAt was stamped, and the resume supervisor relaunched straight
+    // back into the exhausted window.
+    const root = path.join(ANALYSES_DIR, `ZZLIM_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    const { run } = mkRun('module', 'ZZLIM')
+    run.module = 'earnings'
+    finalizeRunOnClose(run, { exitCode: 1 }, 'Claude AI usage limit reached. Your limit will reset at 3pm.')
+    assert.match(String(run.note), /out_of_credits/, 'the CLI wording is recognised as a plan stop')
+  })
+
+  check('a MODULE run that stopped before its synthesis is incomplete, not done', () => {
+    // The defect this locks: a module run that exited 0 having stalled mid-pipeline fell through every
+    // branch to `done`. So a governance pass that died after 12 of 14 orbs was recorded as a SUCCESS —
+    // no error, no reports button, nothing to tell the user why the module was still empty. Chronic and
+    // cross-module: ORCL business-model 2026-08-14 and TSLA earnings 2026-07-24 have the same silhouette.
+    const root = path.join(ANALYSES_DIR, `ZZMODU_${DATE}`)
+    cleanupDirs.push(root)
+    const modDir = path.join(root, 'management-governance')
+    fs.mkdirSync(modDir, { recursive: true })
+    fs.writeFileSync(path.join(modDir, '00_governance-data-triage.md'), '# triage\n')
+    fs.writeFileSync(path.join(modDir, '01_management-and-track-record.md'), '# track record\n')
+
+    const { run } = mkRun('module', 'ZZMODU')
+    run.module = 'management-governance'
+    finalizeRunOnClose(run, { exitCode: 0 }, '')
+    assert.equal(run.status, 'incomplete', 'no synthesis on disk → incomplete, never a silent done')
+    assert.match(String(run.note), /management-governance stopped before its synthesis/)
+
+    // …and the note names what DID land, so "it just stops" becomes "2 steps saved, here they are".
+    const { run: run2 } = mkRun('module', 'ZZMODU')
+    run2.module = 'management-governance'
+    finalizeRunOnClose(run2, { exitCode: 0 }, '')
+    assert.match(String(run2.note), /2\//, 'the note counts the steps that landed')
+  })
+
+  check('a MODULE run that DID write its synthesis is done', () => {
+    const root = path.join(ANALYSES_DIR, `ZZMODOK_${DATE}`)
+    cleanupDirs.push(root)
+    const modDir = path.join(root, 'earnings')
+    fs.mkdirSync(modDir, { recursive: true })
+    fs.writeFileSync(path.join(modDir, '99_earnings-synthesis.md'), '# earnings synthesis\n')
+    const { run } = mkRun('module', 'ZZMODOK')
+    run.module = 'earnings'
+    finalizeRunOnClose(run, { exitCode: 0 }, '')
+    assert.equal(run.status, 'done', 'a synthesis on disk is the module deliverable — report success')
+  })
+
   check('a cleanly-finishing sibling module does not wipe a sibling failure just because stale deliverables exist', () => {
     const root = path.join(ANALYSES_DIR, `ZZFINK_${DATE}`)
     cleanupDirs.push(root)
