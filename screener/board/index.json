@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-20T20:30:38Z",
+  "generated_at": "2026-08-20T20:37:55Z",
   "inbox": [
     {
       "inbox_id": "INB-20260820-013",
@@ -204,6 +204,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-069",
+      "headline": "ECA2026-597 - Information Regarding the Tender Offer of Forte Biosciences, Inc. (FBRX)",
+      "headline_en": null,
+      "url": "http://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-597",
+      "source_name": "Nasdaq Trader — Current Headlines / Market Alerts",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-20T23:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Tender offer regarding Forte Biosciences disclosed via SEC exchange notice; M&A event from official source, but acquiring party, price, and terms absent from headline.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Tender offer regarding Forte Biosciences disclosed via SEC exchange notice; M&A event from official source, but acquiring party, price, and terms absent from headline.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Forte Biosciences, Inc.",
+          "ticker": "FBRX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -438,6 +487,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-072",
+      "headline": "Third Time’s The Charm? Dodge Keeps Recalling Durangos That Can Fall Apart While Driving",
+      "headline_en": null,
+      "url": "https://www.carscoops.com/2026/08/dodge-duango-spoiler-recall-three/",
+      "source_name": "Carscoops",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T20:17:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Dodge Durango structural-safety recall reported as recurring pattern; raises product-liability, regulatory, and reputational risk; no recall size or financial impact quantified.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Dodge Durango structural-safety recall reported as recurring pattern; raises product-liability, regulatory, and reputational risk; no recall size or financial impact quantified.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 3,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "product",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Stellantis",
+          "ticker": "STLA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1315,6 +1413,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260820-073",
+      "headline": "Luminate Bank acquires select assets of First State Mortgage Services",
+      "headline_en": null,
+      "url": "https://www.housingwire.com/articles/luminate-first-state-assets/",
+      "source_name": "HousingWire",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T20:11:50Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Luminate Bank acquires select mortgage-services assets from First State; small, unpriced asset transaction with no disclosed financial impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 57,
+      "triage_reason": "Luminate Bank acquires select mortgage-services assets from First State; small, unpriced asset transaction with no disclosed financial impact.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 38,
+      "rank_factors": {
+        "materiality": 38,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Luminate Bank",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "First State Mortgage Services",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260820-016",
       "headline": "US Religious Freedom Body Seeks Sanctions Against RSS, Urges Halt To High-Level Meetings With Leaders",
       "headline_en": null,
@@ -1548,6 +1700,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260820-071",
+      "headline": "Baxter hires new CFO with visa contingency",
+      "headline_en": null,
+      "url": "https://www.cfodive.com/news/baxter-hires-new-cfo-visa-contingency-compensation/828440/",
+      "source_name": "CFO Dive",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T19:59:29Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Baxter appoints CFO contingent on visa approval; routine executive appointment with execution risk but no strategic or operational impact disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "Baxter appoints CFO contingent on visa approval; routine executive appointment with execution risk but no strategic or operational impact disclosed.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 32,
+      "rank_factors": {
+        "materiality": 32,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "management",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Baxter",
+          "ticker": "BAX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260820-033",
       "headline": "Jim Simons' Renaissance cuts $486 million from surging AI stock",
       "headline_en": null,
@@ -1739,202 +1940,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-007",
-      "headline": "SRV: Market Announcement - Full Year Results",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SRV?key=2924-03123586-2A1690747",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-20T00:41:37Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Routine full-year earnings announcement with no disclosed metrics, guidance, or guidance change.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 44,
-      "triage_reason": "Routine full-year earnings announcement with no disclosed metrics, guidance, or guidance change.",
-      "region": "OTHER",
-      "relevance": "irrelevant",
-      "materiality_pre_score": 20,
-      "rank_factors": {
-        "materiality": 20,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SRV",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-042",
-      "headline": "4 - PROCTER & GAMBLE Co (0000080424) (Issuer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/80424/000008042426000134/0000080424-26-000134-index.htm",
-      "source_name": "SEC EDGAR — Latest Form 4 (Insider Transactions)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-20T19:51:52Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Routine insider transaction filing for Procter & Gamble.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "Routine insider transaction filing for Procter & Gamble.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 20,
-      "rank_factors": {
-        "materiality": 20,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Procter & Gamble",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-041",
-      "headline": "4 - Pritchard Marc S. (0001440364) (Reporting)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1440364/000008042426000134/0000080424-26-000134-index.htm",
-      "source_name": "SEC EDGAR — Latest Form 4 (Insider Transactions)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-20T19:51:52Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Routine insider transaction filing for Procter & Gamble executive.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "Routine insider transaction filing for Procter & Gamble executive.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 20,
-      "rank_factors": {
-        "materiality": 20,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Procter & Gamble",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-047",
-      "headline": "144 - ITRON, INC. (0000780571) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/780571/000195917326006278/0001959173-26-006278-index.htm",
-      "source_name": "SEC EDGAR — Latest Form 144 (Proposed Insider Sale)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-20T19:37:42Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Routine proposed insider sale filing for Itron, Inc.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "Routine proposed insider sale filing for Itron, Inc.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 20,
-      "rank_factors": {
-        "materiality": 20,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ITRON, INC.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -68845,77 +68850,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-b053d4e33d6d",
-      "idea_version": "IDEAV-0d0507985b4974d8",
-      "idea_version_started_at": "2026-08-20T06:23:48Z",
-      "ticker": "09968",
-      "company": "Huijing Holdings Company Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The profit warning highlights significant operational or financial headwinds, likely impacting cash flow and valuation multiples.",
-      "why_now": "The profit warning was filed on 2026-08-19.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-5ab71f02d570"
-      ],
-      "primary_source_event_id": "EVT-5ab71f02d570",
-      "source_headlines": [
-        "HUIJING HLDGS (09968): INSIDE INFORMATION PROFIT WARNING"
-      ],
-      "source_headline": "HUIJING HLDGS (09968): INSIDE INFORMATION PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900283.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-19T08:31:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-20T02:14:56Z",
-      "updated_at": "2026-08-20T06:23:48Z",
-      "decay_at": "2026-08-20T20:31:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-ddb66d71a44e",
       "idea_version": "IDEAV-883c9eab2f8d9b2a",
       "idea_version_started_at": "2026-08-20T06:23:48Z",
@@ -69127,6 +69061,77 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-b053d4e33d6d",
+      "idea_version": "IDEAV-0d0507985b4974d8",
+      "idea_version_started_at": "2026-08-20T06:23:48Z",
+      "ticker": "09968",
+      "company": "Huijing Holdings Company Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The profit warning highlights significant operational or financial headwinds, likely impacting cash flow and valuation multiples.",
+      "why_now": "The profit warning was filed on 2026-08-19.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-5ab71f02d570"
+      ],
+      "primary_source_event_id": "EVT-5ab71f02d570",
+      "source_headlines": [
+        "HUIJING HLDGS (09968): INSIDE INFORMATION PROFIT WARNING"
+      ],
+      "source_headline": "HUIJING HLDGS (09968): INSIDE INFORMATION PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900283.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-19T08:31:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-20T02:14:56Z",
+      "updated_at": "2026-08-20T06:23:48Z",
+      "decay_at": "2026-08-20T20:31:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-f0b7aaadad7d",
@@ -69351,8 +69356,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 7,
-    "shown_count": 7,
+    "total_count": 8,
+    "shown_count": 8,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -69361,8 +69366,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 4,
-        "shown_count": 4,
+        "total_count": 5,
+        "shown_count": 5,
         "hidden_count": 0
       }
     },
@@ -69382,6 +69387,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-b053d4e33d6d",
+        "idea_version": "IDEAV-0d0507985b4974d8",
+        "idea_version_started_at": "2026-08-20T06:23:48Z",
+        "ticker": "09968",
+        "company": "Huijing Holdings Company Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The profit warning highlights significant operational or financial headwinds, likely impacting cash flow and valuation multiples.",
+        "why_now": "The profit warning was filed on 2026-08-19.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-5ab71f02d570"
+        ],
+        "primary_source_event_id": "EVT-5ab71f02d570",
+        "source_headlines": [
+          "HUIJING HLDGS (09968): INSIDE INFORMATION PROFIT WARNING"
+        ],
+        "source_headline": "HUIJING HLDGS (09968): INSIDE INFORMATION PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900283.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-19T08:31:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-20T02:14:56Z",
+        "updated_at": "2026-08-20T06:23:48Z",
+        "decay_at": "2026-08-20T20:31:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-20T20:31:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f0b7aaadad7d",
         "idea_version": "IDEAV-c0f14b83d2178899",
@@ -69901,7 +69980,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 28,
-    "live_count": 20,
+    "live_count": 19,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -69920,9 +69999,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1813598,
-    "news_picked_today": 72,
-    "news_dropped_today": 321
+    "news_seen_today": 1903692,
+    "news_picked_today": 79,
+    "news_dropped_today": 326
   },
   "book_momentum": {
     "live_count": 8,
