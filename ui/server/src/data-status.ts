@@ -6,7 +6,7 @@ import { DATA_DIR, ANALYSES_DIR, REPO_ROOT, isReservedDataFolder } from './confi
 import { syncingState } from './data-activity'
 import { listModuleNames, moduleReadinessDecls } from './roster'
 import { isValidTicker, suggestTicker, tickerInvalidReason } from './sandbox'
-import type { ClassifiedFile, CoverageGroup, DataReadinessDecl, DataStatus, FileType, ModuleReadiness, Sufficiency, TickerSummary, WorkbookSheet } from './types'
+import type { ClassifiedFile, CoverageGroup, DataReadinessDecl, DataStatus, FileType, ModuleReadiness, ReadinessToken, Sufficiency, TickerSummary, WorkbookSheet } from './types'
 
 // ---- persistent extract cache ----
 // Reading workbook tabs / pdf-rtf content spawns python over the Google Drive mount,
@@ -717,11 +717,14 @@ const recent = (age: number | null, months: number) => (age == null ? true : age
 export function evalDecl(decl: DataReadinessDecl, has: (t: FileType) => boolean): ModuleReadiness {
   const required = decl.required ?? []
   const sufficient = decl.sufficient ?? []
-  const missingRequired = required.filter((t) => !has(t))
+  // `has` is typed (FileType) => boolean so the many existing FileType-only callers still bind; a broadened
+  // ReadinessToken (e.g. `external:peer_transcript`) is passed through the same closure (readinessHas handles
+  // the `external:` prefix), so the cast is safe.
+  const missingRequired = required.filter((t) => !has(t as FileType))
   if (missingRequired.length) return { status: 'Insufficient', reasons: [`missing required data: ${missingRequired.join(', ')}`], caps: [] }
   const caps: string[] = []
   for (const [t, note] of Object.entries(decl.caps ?? {})) if (!has(t as FileType) && note) caps.push(note)
-  const missing = sufficient.filter((t) => !has(t))
+  const missing = sufficient.filter((t) => !has(t as FileType))
   if (!missing.length) return { status: 'Sufficient', reasons: [sufficient.length ? `expected inputs present: ${sufficient.join(', ')}` : 'inputs present'], caps }
   return { status: 'Partial', reasons: [`present, missing: ${missing.join(', ')}`], caps }
 }
@@ -731,7 +734,15 @@ export function evalDecl(decl: DataReadinessDecl, has: (t: FileType) => boolean)
 // sell_side_earnings_note). Generic — NO module name hardcoded (§26) — so a proxy+guidance pool reads the
 // same in the upload panel and in every self-declared module's readiness dot (was inconsistent: the panel
 // showed the slot filled while `has('transcript')` stayed false and reported a missing-transcript cap).
-export function readinessHas(files: ClassifiedFile[], t: FileType): boolean {
+export function readinessHas(files: ClassifiedFile[], t: ReadinessToken): boolean {
+  // `external:<sourceType>` matches an external/ document carrying that granular source_type (its top-level
+  // type is the readiness-neutral 'external_data'; the kind lives in external.sourceType). This is how a
+  // module whose evidence is external (competitive-intel's peer_transcript competitor calls) sees it — and,
+  // crucially, why a subject-side 'transcript' does NOT satisfy it.
+  if (t.startsWith('external:')) {
+    const st = t.slice('external:'.length)
+    return files.some((f) => f.type === 'external_data' && f.external?.sourceType === st)
+  }
   if (files.some((f) => f.type === t)) return true
   if (t === 'transcript') return files.some((f) => f.type === 'sell_side_earnings_note')
   return false

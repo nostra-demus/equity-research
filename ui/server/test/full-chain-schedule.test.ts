@@ -88,11 +88,11 @@ const sorted = (a: string[]) => [...a].sort()
 ;(async () => {
   // sanity: the expected schedule below is written for THIS exact research DAG. If a module is added or a
   // dependency changes, this fails first (loudly) so the schedule assertions get re-checked.
-  await check('research DAG is the expected 6-module shape', () => {
+  await check('research DAG is the expected 7-module shape', () => {
     const g = buildSwarmGraph()
     assert.deepEqual(
       sorted(g.modules.map((m) => m.name)),
-      sorted(['business-model', 'earnings', 'balance-sheet-survival', 'management-governance', 'valuation', 'catalyst']),
+      sorted(['business-model', 'earnings', 'competitive-intel', 'balance-sheet-survival', 'management-governance', 'valuation', 'catalyst']),
     )
   })
 
@@ -112,41 +112,46 @@ const sorted = (a: string[]) => [...a].sort()
     assert.deepEqual(out.skipped, [], 'a fresh run skips nothing')
     assert.deepEqual(
       sorted(out.planned ?? []),
-      sorted(['business-model', 'earnings', 'balance-sheet-survival', 'management-governance', 'valuation', 'catalyst']),
+      sorted(['business-model', 'earnings', 'competitive-intel', 'balance-sheet-survival', 'management-governance', 'valuation', 'catalyst']),
       'a fresh run plans every module',
     )
 
-    // business-model done -> earnings (the only newly-ready module) launches
+    // business-model done -> earnings (the only newly-ready module) launches. competitive-intel is NOT yet
+    // ready: it declares earnings (it reads the subject's own claims for the peer triangulation).
     f.finish('business-model')
     assert.deepEqual(sorted(f.mods()), sorted(['business-model', 'earnings']), 'earnings launches after business-model')
 
-    // earnings done -> balance-sheet-survival + management-governance launch CONCURRENTLY.
-    // valuation must NOT yet: it declares management-governance (the RF-OWN-004 / §24 Filter-6 read), so it
-    // waits for mgov. This is the output-neutrality fix — in a serial run mgov always preceded valuation;
-    // the scheduler must reproduce that ordering, not run them in parallel.
+    // earnings done -> balance-sheet-survival + management-governance + competitive-intel launch CONCURRENTLY
+    // (all three declare business-model + earnings). valuation must NOT yet: it declares management-governance
+    // (the RF-OWN-004 / §24 Filter-6 read), so it waits for mgov. competitive-intel is a pure sink — nothing
+    // depends on it — but the master still waits for it (see below).
     f.finish('earnings')
     const afterEarnings = f.mods()
-    assert.equal(afterEarnings.length, 4, 'bss + mgov join after earnings — but NOT valuation')
+    assert.equal(afterEarnings.length, 5, 'bss + mgov + competitive-intel join after earnings — but NOT valuation')
     assert.ok(afterEarnings.includes('balance-sheet-survival') && afterEarnings.includes('management-governance'), 'bss + mgov launch in the wave')
+    assert.ok(afterEarnings.includes('competitive-intel'), 'competitive-intel launches in the after-earnings wave (deps business-model + earnings)')
     assert.ok(!afterEarnings.includes('valuation'), 'valuation must NOT launch until management-governance is done (declared dependency)')
-    assert.ok(!afterEarnings.includes('catalyst'), 'catalyst waits for all five upstreams')
+    assert.ok(!afterEarnings.includes('catalyst'), 'catalyst waits for all five of its upstreams')
     assert.ok(!f.launches.some((l) => l.kind === 'rerun'), 'master waits for every module')
 
-    // management-governance done -> valuation becomes ready and launches (bss may still be running)
+    // management-governance done -> valuation becomes ready and launches (bss + competitive-intel may still run)
     f.finish('management-governance')
     assert.ok(f.mods().includes('valuation'), 'valuation launches once management-governance is done')
 
-    // remaining siblings done -> catalyst launches (it needs all five upstreams)
+    // remaining upstreams done -> catalyst launches (it needs its five declared upstreams; NOT competitive-intel)
     f.finish('balance-sheet-survival')
     f.finish('valuation')
-    assert.ok(f.mods().includes('catalyst'), 'catalyst launches once all five upstreams are done')
-    assert.equal(f.mods().length, 6, 'all six modules have launched')
-    assert.ok(!f.launches.some((l) => l.kind === 'rerun'), 'master still waits for catalyst')
+    assert.ok(f.mods().includes('catalyst'), 'catalyst launches once all five of its upstreams are done')
+    assert.equal(f.mods().length, 7, 'all seven modules have launched')
+    assert.ok(!f.launches.some((l) => l.kind === 'rerun'), 'master still waits for catalyst AND competitive-intel')
 
-    // catalyst done -> master synthesizer launches exactly once
+    // competitive-intel is a pure sink (catalyst does not depend on it), but the master waits for EVERY module,
+    // so finishing catalyst alone must NOT launch the master while competitive-intel is still running.
     f.finish('catalyst')
+    assert.ok(!f.launches.some((l) => l.kind === 'rerun'), 'master still waits — competitive-intel has not finished yet')
+    f.finish('competitive-intel')
     const masters = f.launches.filter((l) => l.kind === 'rerun' && l.module === 'master' && l.agent === 'synthesizer')
-    assert.equal(masters.length, 1, 'master synthesizer launches exactly once, after every module is done')
+    assert.equal(masters.length, 1, 'master synthesizer launches exactly once, after every module (incl. competitive-intel) is done')
   })
 
   await check('a failed module stops the chain — no further modules, no master', async () => {
@@ -179,10 +184,11 @@ const sorted = (a: string[]) => [...a].sort()
     const f = makeFake({ fail429Once: ['balance-sheet-survival'] })
     await launchFullChained('TEST429', 'tester', 'local', f.deps)
     f.finish('business-model')
-    f.finish('earnings') // -> pump launches bss + mgov; bss rejects with a 429, mgov launches
+    f.finish('earnings') // -> pump launches bss + mgov + competitive-intel; bss rejects with a 429, the others launch
     await f.tick()       // let bss's rejection .catch run
     assert.ok(!f.mods().includes('balance-sheet-survival'), 'bss did not launch on the 429 (un-reserved, not recorded)')
     assert.ok(f.mods().includes('management-governance'), 'its sibling mgov still launched in the same wave')
+    assert.ok(f.mods().includes('competitive-intel'), 'its sibling competitive-intel still launched in the same wave')
     assert.equal(f.wasMarkerCleared(), false, 'a transient 429 must NOT clear the marker — the chain has not failed')
     assert.ok(f.pendingRetries() >= 1, 'a re-pump was scheduled for the 429')
 
@@ -195,20 +201,23 @@ const sorted = (a: string[]) => [...a].sort()
     assert.ok(f.mods().includes('valuation'), 'valuation launches once management-governance is done')
     f.finish('balance-sheet-survival')
     f.finish('valuation')
-    assert.ok(f.mods().includes('catalyst'), 'catalyst launches after all five upstreams')
+    assert.ok(f.mods().includes('catalyst'), 'catalyst launches after all five of its upstreams')
+    f.finish('competitive-intel') // the pure-sink module must finish too before the master may launch
     f.finish('catalyst')
     assert.ok(f.launches.some((l) => l.kind === 'rerun'), 'master launches — the transient 429 did not kill the chain')
-    assert.equal(f.mods().length, 6, 'all six modules launched despite the mid-wave 429')
+    assert.equal(f.mods().length, 7, 'all seven modules launched despite the mid-wave 429')
   })
 
   await check('the chain-wide pool claim survives child transitions and an all-child capacity backoff', async () => {
-    const f = makeFake({ fail429Once: ['balance-sheet-survival', 'management-governance'] })
+    // the whole after-earnings wave (bss + mgov + competitive-intel) 429s at once, so there is a genuine
+    // zero-child transition/backoff gap the chain claim must survive.
+    const f = makeFake({ fail429Once: ['balance-sheet-survival', 'management-governance', 'competitive-intel'] })
     await launchFullChained('TESTPOOL', 'tester', 'local', f.deps)
     assert.equal(f.poolClaimHeld(), true, 'claim is held after the first child ACK')
     f.finish('business-model')
     assert.equal(f.poolClaimHeld(), true, 'claim survives the business-model → earnings transition')
     f.finish('earnings')
-    await f.tick() // both next-wave attempts reject 429; no child RunState exists during backoff
+    await f.tick() // all three next-wave attempts reject 429; no child RunState exists during backoff
     assert.ok(f.pendingRetries() >= 1, 'the chain is waiting in a capacity backoff')
     assert.equal(f.poolClaimHeld(), true, 'claim remains held while every child launch is backed off')
     assert.equal(
@@ -219,6 +228,7 @@ const sorted = (a: string[]) => [...a].sort()
     f.fireRetries()
     await f.tick()
     f.finish('management-governance')
+    f.finish('competitive-intel') // the pure-sink module must finish too before the master may launch
     f.finish('balance-sheet-survival')
     f.finish('valuation')
     f.finish('catalyst')
