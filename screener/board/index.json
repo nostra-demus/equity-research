@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-20T22:17:55Z",
+  "generated_at": "2026-08-20T22:38:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260820-172",
@@ -901,6 +901,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260820-179",
+      "headline": "RMS: FY26 Financial Results Presentation",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.RMS?key=2924-03123982-6A1339592",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-20T22:27:56Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Release of annual financial results is a material event for investors.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Release of annual financial results is a material event for investors.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ramelius Resources",
+          "ticker": "RMS",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260820-020",
       "headline": "SCHEDULE 13D/A - MARRIOTT VACATIONS WORLDWIDE Corp (0001524358) (Subject)",
       "headline_en": null,
@@ -1179,6 +1228,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260820-180",
+      "headline": "A1N: Presentation - 2026 Half Year Results [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.A1N?key=2924-03123981-2A1690945",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-20T22:27:51Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Half-year financial results presentation is a material event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Half-year financial results presentation is a material event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "A1N",
+          "ticker": "A1N",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260820-094",
       "headline": "T. ROWE PRICE TO EXPAND FIXED INCOME ETF AND SMA CAPABILITIES BY ACQUIRING F/M INVESTMENTS",
       "headline_en": null,
@@ -1272,6 +1370,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-177",
+      "headline": "As CPSC’s First Federal Neck Floats Safety Standard Takes Effect, Agency Renews “Do Not Use” Warnings for Otteroo LUMI and MINI Infant Neck Floats",
+      "headline_en": null,
+      "url": "https://www.cpsc.gov/Newsroom/News-Releases/2026/As-CPSCs-First-Federal-Neck-Floats-Safety-Standard-Takes-Effect-Agency-Renews-Do-Not-Use-Warnings-for-Otteroo-LUMI-and-MINI-nfant-Neck-Floats",
+      "source_name": "U.S. CPSC — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-07-13T09:48:55Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "The CPSC is renewing warnings against specific products, which creates operational and reputational risk for the manufacturer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "The CPSC is renewing warnings against specific products, which creates operational and reputational risk for the manufacturer.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Otteroo",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1813,153 +1960,6 @@
         {
           "name": "The Boston Beer Company",
           "ticker": "SAM",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-090",
-      "headline": "FLOWERS FOODS, INC. REPORTS SECOND QUARTER 2026 RESULTS",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/flowers-foods-inc-reports-second-quarter-2026-results-302856673.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T20:05:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Company reported quarterly financial results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Company reported quarterly financial results.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Flowers Foods",
-          "ticker": "FLO",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-097",
-      "headline": "Quantum Cyber Rejects Threat of Future Publications from Short-Seller Adam Gefvert Demanding Withdrawal of $5.69 Million Lawsuit",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348787/0/en/quantum-cyber-rejects-threat-of-future-publications-from-short-seller-adam-gefvert-demanding-withdrawal-of-5-69-million-lawsuit.html",
-      "source_name": "GlobeNewswire — Press Releases (general)",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T20:01:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Company is involved in a $5.69 million lawsuit and short-seller dispute.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Company is involved in a $5.69 million lawsuit and short-seller dispute.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Quantum Cyber",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-079",
-      "headline": "Prospect Capital Announces June 2026 Results",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348788/0/en/prospect-capital-announces-june-2026-results.html",
-      "source_name": "GlobeNewswire — Earnings Releases & Operating Results",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T20:01:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Prospect Capital announced financial results for June 2026.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Prospect Capital announced financial results for June 2026.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Prospect Capital",
-          "ticker": "PSEC",
           "listing_country": "US"
         }
       ],
@@ -68235,77 +68235,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-d233df6555ee",
-      "idea_version": "IDEAV-3ee3db27422d008c",
-      "idea_version_started_at": "2026-08-20T07:13:16Z",
-      "ticker": "01269",
-      "company": "First Capital Group Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a supplemental announcement updating its disclaimer of opinion regarding its ability to continue as a going concern.",
-      "why_now": "The update was filed on August 19, 2026, highlighting severe, unresolved balance sheet distress.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "balance_sheet_survival",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-c047e13d2229"
-      ],
-      "primary_source_event_id": "EVT-c047e13d2229",
-      "source_headlines": [
-        "FIRST CAP GP (01269): SUPPLEMENTAL ANNOUNCEMENT TO UPDATE IN RELATION TO THE DISCLAIMER OF OPINION ON GOING CONCERN SET OUT IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025"
-      ],
-      "source_headline": "FIRST CAP GP (01269): SUPPLEMENTAL ANNOUNCEMENT TO UPDATE IN RELATION TO THE DISCLAIMER OF OPINION ON GOING CONCERN SET OUT IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081901029.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-19T10:29:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-20T04:31:37Z",
-      "updated_at": "2026-08-20T07:13:16Z",
-      "decay_at": "2026-08-20T22:29:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f42669c74af8",
       "idea_version": "IDEAV-47eee9241429bd83",
       "idea_version_started_at": "2026-08-20T07:13:16Z",
@@ -68590,77 +68519,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-171fe9432ace",
-      "idea_version": "IDEAV-ac1f37b899dfb6e3",
-      "idea_version_started_at": "2026-08-20T06:23:48Z",
-      "ticker": "03933",
-      "company": "The United Laboratories International Holdings Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A profit warning signals deteriorating margins or revenue growth, necessitating a re-rating of the stock.",
-      "why_now": "The profit warning was filed on 2026-08-19.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4368940503e7"
-      ],
-      "primary_source_event_id": "EVT-4368940503e7",
-      "source_headlines": [
-        "UNITED LAB (03933): PROFIT WARNING"
-      ],
-      "source_headline": "UNITED LAB (03933): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081901011.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-19T10:25:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-20T02:14:56Z",
-      "updated_at": "2026-08-20T06:23:48Z",
-      "decay_at": "2026-08-20T22:25:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5ad1780c26cb",
       "idea_version": "IDEAV-81bf3212a1e82bad",
       "idea_version_started_at": "2026-08-20T18:25:35Z",
@@ -68730,6 +68588,77 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-d233df6555ee",
+      "idea_version": "IDEAV-3ee3db27422d008c",
+      "idea_version_started_at": "2026-08-20T07:13:16Z",
+      "ticker": "01269",
+      "company": "First Capital Group Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a supplemental announcement updating its disclaimer of opinion regarding its ability to continue as a going concern.",
+      "why_now": "The update was filed on August 19, 2026, highlighting severe, unresolved balance sheet distress.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c047e13d2229"
+      ],
+      "primary_source_event_id": "EVT-c047e13d2229",
+      "source_headlines": [
+        "FIRST CAP GP (01269): SUPPLEMENTAL ANNOUNCEMENT TO UPDATE IN RELATION TO THE DISCLAIMER OF OPINION ON GOING CONCERN SET OUT IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025"
+      ],
+      "source_headline": "FIRST CAP GP (01269): SUPPLEMENTAL ANNOUNCEMENT TO UPDATE IN RELATION TO THE DISCLAIMER OF OPINION ON GOING CONCERN SET OUT IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081901029.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-19T10:29:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-20T04:31:37Z",
+      "updated_at": "2026-08-20T07:13:16Z",
+      "decay_at": "2026-08-20T22:29:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-dad42101a772",
@@ -68939,6 +68868,77 @@
       "surfaced_at": "2026-08-20T06:40:08Z",
       "updated_at": "2026-08-20T06:40:08Z",
       "decay_at": "2026-08-20T21:19:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-171fe9432ace",
+      "idea_version": "IDEAV-ac1f37b899dfb6e3",
+      "idea_version_started_at": "2026-08-20T06:23:48Z",
+      "ticker": "03933",
+      "company": "The United Laboratories International Holdings Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A profit warning signals deteriorating margins or revenue growth, necessitating a re-rating of the stock.",
+      "why_now": "The profit warning was filed on 2026-08-19.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4368940503e7"
+      ],
+      "primary_source_event_id": "EVT-4368940503e7",
+      "source_headlines": [
+        "UNITED LAB (03933): PROFIT WARNING"
+      ],
+      "source_headline": "UNITED LAB (03933): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081901011.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-19T10:25:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-20T02:14:56Z",
+      "updated_at": "2026-08-20T06:23:48Z",
+      "decay_at": "2026-08-20T22:25:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -69522,8 +69522,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 15,
-    "shown_count": 15,
+    "total_count": 17,
+    "shown_count": 17,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -69532,8 +69532,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 12,
-        "shown_count": 12,
+        "total_count": 14,
+        "shown_count": 14,
         "hidden_count": 0
       }
     },
@@ -69553,6 +69553,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-d233df6555ee",
+        "idea_version": "IDEAV-3ee3db27422d008c",
+        "idea_version_started_at": "2026-08-20T07:13:16Z",
+        "ticker": "01269",
+        "company": "First Capital Group Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a supplemental announcement updating its disclaimer of opinion regarding its ability to continue as a going concern.",
+        "why_now": "The update was filed on August 19, 2026, highlighting severe, unresolved balance sheet distress.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "balance_sheet_survival",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-c047e13d2229"
+        ],
+        "primary_source_event_id": "EVT-c047e13d2229",
+        "source_headlines": [
+          "FIRST CAP GP (01269): SUPPLEMENTAL ANNOUNCEMENT TO UPDATE IN RELATION TO THE DISCLAIMER OF OPINION ON GOING CONCERN SET OUT IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025"
+        ],
+        "source_headline": "FIRST CAP GP (01269): SUPPLEMENTAL ANNOUNCEMENT TO UPDATE IN RELATION TO THE DISCLAIMER OF OPINION ON GOING CONCERN SET OUT IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081901029.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-19T10:29:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-20T04:31:37Z",
+        "updated_at": "2026-08-20T07:13:16Z",
+        "decay_at": "2026-08-20T22:29:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-20T22:29:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-171fe9432ace",
+        "idea_version": "IDEAV-ac1f37b899dfb6e3",
+        "idea_version_started_at": "2026-08-20T06:23:48Z",
+        "ticker": "03933",
+        "company": "The United Laboratories International Holdings Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A profit warning signals deteriorating margins or revenue growth, necessitating a re-rating of the stock.",
+        "why_now": "The profit warning was filed on 2026-08-19.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4368940503e7"
+        ],
+        "primary_source_event_id": "EVT-4368940503e7",
+        "source_headlines": [
+          "UNITED LAB (03933): PROFIT WARNING"
+        ],
+        "source_headline": "UNITED LAB (03933): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081901011.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-19T10:25:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-20T02:14:56Z",
+        "updated_at": "2026-08-20T06:23:48Z",
+        "decay_at": "2026-08-20T22:25:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-20T22:25:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-3d4e23998000",
         "idea_version": "IDEAV-5058a8e7ba6029ff",
@@ -70664,7 +70812,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 30,
-    "live_count": 14,
+    "live_count": 12,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -70683,9 +70831,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3260307,
-    "news_picked_today": 248,
-    "news_dropped_today": 889
+    "news_seen_today": 3532547,
+    "news_picked_today": 270,
+    "news_dropped_today": 1011
   },
   "book_momentum": {
     "live_count": 8,
