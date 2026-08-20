@@ -9,7 +9,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { attachmentPath, deleteAttachment, readAttachment, saveAttachment, watchlistFilesAvailable, watchlistFilesRoot } from '../src/watchlist-files'
+import { attachmentExists, attachmentPath, deleteAttachment, readAttachment, resetWatchlistFilesAvailability, saveAttachment, watchlistFilesAvailable, watchlistFilesRoot } from '../src/watchlist-files'
 
 let passed = 0
 const check = (name: string, fn: () => void) => {
@@ -112,6 +112,50 @@ check('a markdown write-up stores and round-trips exactly like a PDF', () => {
   assert.equal(path.extname(attachmentPath(id, 'k1-thesis.md', dir)!), '.md')
   assert.equal(deleteAttachment(id, 'k1-thesis.md', dir), true)
   fs.rmSync(dir, { recursive: true, force: true })
+})
+
+check('a MULTI-CHUNK body round-trips whole — the case a one-chunk upload cannot prove', () => {
+  const dir = tmp()
+  const id = 'WL-20260820-bigfile'
+  // The stream bug this guards was invisible at 69 bytes: one chunk, no race. Anything a PDF-sized file
+  // would actually be arrives in many chunks, and a short write reaches Drive looking like a real document.
+  const big = Buffer.alloc(3 * 1024 * 1024)
+  for (let i = 0; i < big.length; i++) big[i] = i % 251 // a pattern, so truncation cannot pass as zeros
+  const saved = saveAttachment(id, 'k-big.pdf', big, dir)
+  assert.equal(saved.ok, true)
+  assert.equal((saved as any).bytes, big.length)
+  const back = readAttachment(id, 'k-big.pdf', dir)
+  assert.equal(back?.length, big.length, 'every byte survived')
+  assert.ok(back?.equals(big), 'and in the right order')
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+
+check('attachmentExists answers without reading the file', () => {
+  const dir = tmp()
+  const id = 'WL-20260820-exists0'
+  assert.equal(attachmentExists(id, 'nope.pdf', dir), false)
+  saveAttachment(id, 'yes.pdf', Buffer.from('%PDF'), dir)
+  assert.equal(attachmentExists(id, 'yes.pdf', dir), true)
+  // a directory is not an attachment, and neither is a traversal
+  assert.equal(attachmentExists(id, '..', dir), false)
+  assert.equal(attachmentExists('..', 'yes.pdf', dir), false)
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+
+check('the availability probe is cached, and the cache can be dropped', () => {
+  const dir = tmp()
+  resetWatchlistFilesAvailability()
+  assert.equal(watchlistFilesAvailable(dir, 1_000), true)
+  // make it unwritable; the cached answer must still stand inside the window
+  fs.chmodSync(path.join(dir, 'WATCHLIST'), 0o500)
+  try {
+    assert.equal(watchlistFilesAvailable(dir, 5_000), true, 'still cached — one probe per window, not per request')
+    assert.equal(watchlistFilesAvailable(dir, 1_000 + 20_000), false, 'past the window it re-probes and sees the truth')
+  } finally {
+    fs.chmodSync(path.join(dir, 'WATCHLIST'), 0o700)
+    resetWatchlistFilesAvailability()
+    fs.rmSync(dir, { recursive: true, force: true })
+  }
 })
 
 console.log(`\nwatchlist-files.test.ts: ${passed} passed`)

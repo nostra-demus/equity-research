@@ -18,7 +18,7 @@ import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, 
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, deleteDriveFileStrict, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED, readWatchlistFile, uploadToWatchlist } from './drive'
-import { attachmentPath, deleteAttachment, readAttachment, saveAttachment, watchlistFilesAvailable } from './watchlist-files'
+import { attachmentExists, attachmentPath, deleteAttachment, readAttachment, saveAttachment, watchlistFilesAvailable } from './watchlist-files'
 import { assertClaudeCli, cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, launch, sigIdFor, todayDate, warmLaunchProbes } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed, applyActiveWeightsTo } from './news/feed'
@@ -2873,17 +2873,35 @@ app.post('/api/watchlist/:id/attachments', { config: { rateLimit: { max: 60, tim
 
       let bytes = 0
       let tooBig = false
-      part.file.on('data', (c: Buffer) => {
-        bytes += c.length
-        if (bytes > WATCH_ATTACH_MAX_BYTES && !tooBig) { tooBig = true; part.file.destroy(new Error('too large')) }
-      })
+      // ONE consumer per stream. The size guard used to be a `data` listener for both paths, but attaching
+      // one puts the stream in FLOWING mode — so on the local path, where a `for await` then consumed the
+      // same stream, chunks could be emitted to the listener and lost before the iterator saw them, and
+      // the file written to Drive would be silently short. A single-chunk upload never shows it, which is
+      // exactly why driving it by hand with a small PDF proved nothing. The local path now counts inside
+      // its own loop; only the API path, where uploadToWatchlist owns the stream, keeps a listener.
+      if (!useLocal) {
+        part.file.on('data', (c: Buffer) => {
+          bytes += c.length
+          if (bytes > WATCH_ATTACH_MAX_BYTES && !tooBig) { tooBig = true; part.file.destroy(new Error('too large')) }
+        })
+      }
       try {
         if (useLocal) {
           // Buffer first, THEN write: the size and truncation checks below must both be settled before
           // anything reaches the folder, or a rejected upload still leaves a short PDF that Drive
           // faithfully syncs up as a document the reader would take at face value.
           const chunks: Buffer[] = []
-          for await (const c of part.file as any) chunks.push(c as Buffer)
+          for await (const c of part.file as any) {
+            const chunk = c as Buffer
+            bytes += chunk.length
+            // Over the cap: stop ACCUMULATING but keep draining. Breaking out of a `for await` calls
+            // return() on the iterator, which destroys the part stream — and req.parts() cannot advance
+            // past a destroyed file, so the whole request stalls and the client gets no response at all
+            // instead of a clean rejection. Draining costs the read we were doing anyway and ends the
+            // part normally; `chunks` is released either way, so memory still stops growing at the cap.
+            if (bytes > WATCH_ATTACH_MAX_BYTES) { tooBig = true; chunks.length = 0; continue }
+            chunks.push(chunk)
+          }
           if (tooBig || (part.file as any).truncated) {
             fileErrors.push({ filename: raw, reason: `larger than ${Math.round(WATCH_ATTACH_MAX_BYTES / 1024 / 1024)}MB` })
             continue
@@ -2994,7 +3012,7 @@ app.delete('/api/watchlist/:id/attachment/:attachmentId', { config: { rateLimit:
   // metadata once the file is actually gone (or already gone — a 404 counts as removed).
   // A file on the mount is removed from the mount; only an API-stored one goes to the Drive API. Doing
   // both would ask Drive to delete an id that is really a filename.
-  if (attachmentPath(id, attachmentId) && readAttachment(id, attachmentId) !== null) {
+  if (attachmentExists(id, attachmentId)) {
     if (!deleteAttachment(id, attachmentId)) {
       return reply.code(502).send({ error: 'could not remove the file from the Drive folder' })
     }

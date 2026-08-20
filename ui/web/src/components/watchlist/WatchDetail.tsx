@@ -118,7 +118,8 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
   // as text/plain with nosniff, and the reader renders through react-markdown with no rehype-raw, so
   // embedded HTML is escaped rather than executed. A PDF still opens as a file: rendering one inline in
   // this origin is the thing the download header exists to prevent.
-  const thesisIsMarkdown = !!firstAttachment && /\.md$/i.test(firstAttachment.filename)
+  const thesisFilename = firstAttachment?.filename
+  const thesisIsMarkdown = !!thesisFilename && /\.md$/i.test(thesisFilename)
   // Hoisted so TypeScript narrows it for the callback below — a closure cannot narrow a property access,
   // which is the only reason the non-null assertion was there.
   const thesisPath = row.final_thesis_path
@@ -335,7 +336,7 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
           </button>
         ) : (
           <>
-            {thesisHref && thesisIsMarkdown
+            {thesisHref && thesisIsMarkdown && thesisFilename
               ? (
                 <button
                   className="btn btn--mini"
@@ -343,8 +344,8 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
                   onClick={() => {
                     void fetch(thesisHref)
                       .then((r) => (r.ok ? r.text() : Promise.reject(new Error(String(r.status)))))
-                      .then((text) => openInlineDoc(`${row.ticker} — ${firstAttachment!.filename}`, text))
-                      .catch(() => openInlineDoc(`${row.ticker} — ${firstAttachment!.filename}`, '*Could not load this write-up.*'))
+                      .then((text) => openInlineDoc(`${row.ticker} — ${thesisFilename}`, text))
+                      .catch(() => openInlineDoc(`${row.ticker} — ${thesisFilename}`, '*Could not load this write-up.*'))
                   }}
                 >
                   Thesis

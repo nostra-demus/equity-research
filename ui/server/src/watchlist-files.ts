@@ -38,8 +38,29 @@ export function watchlistFilesRoot(dataDir: string = DATA_DIR): string | null {
   }
 }
 
+// The probe writes and deletes a file, and it answers a question that changes rarely (is Drive mounted
+// and writable). `/api/tickers` is polled, and this path is a Google Drive mount where a synchronous
+// round trip is far more expensive than a local disk — so the result is cached briefly. Short enough that
+// mounting Drive shows up in the UI within seconds without a restart, long enough that polling costs one
+// probe per window rather than one per request.
+const AVAILABILITY_TTL_MS = 15_000
+const availabilityCache = new Map<string, { at: number; ok: boolean }>()
+
 /** True when attachments can be stored without the Drive API — i.e. the mount is reachable and writable. */
-export function watchlistFilesAvailable(dataDir: string = DATA_DIR): boolean {
+export function watchlistFilesAvailable(dataDir: string = DATA_DIR, now: number = Date.now()): boolean {
+  const cached = availabilityCache.get(dataDir)
+  if (cached && now - cached.at < AVAILABILITY_TTL_MS) return cached.ok
+  const ok = probeWritable(dataDir)
+  availabilityCache.set(dataDir, { at: now, ok })
+  return ok
+}
+
+/** Drop the cached answer — for tests, and for any caller that has just changed the mount's state. */
+export function resetWatchlistFilesAvailability(): void {
+  availabilityCache.clear()
+}
+
+function probeWritable(dataDir: string): boolean {
   const root = watchlistFilesRoot(dataDir)
   if (!root) return false
   const probe = path.join(root, `.write-probe-${process.pid}`)
@@ -89,6 +110,14 @@ export function saveAttachment(
     try { fs.rmSync(tmp, { force: true }) } catch { /* best-effort cleanup of the partial write */ }
     return { ok: false, error: e instanceof Error ? e.message : 'could not write the file' }
   }
+}
+
+/** Does one attachment exist? A stat, not a read — the delete path only needs to know WHICH store holds
+ *  the file, and pulling a 25 MB PDF into memory to answer that is a cost with no purpose. Never throws. */
+export function attachmentExists(entryId: string, attachmentId: string, dataDir: string = DATA_DIR): boolean {
+  const p = attachmentPath(entryId, attachmentId, dataDir)
+  if (!p) return false
+  try { return fs.statSync(p).isFile() } catch { return false }
 }
 
 /** Read one attachment back, or null when it is absent/unreadable. Never throws. */
