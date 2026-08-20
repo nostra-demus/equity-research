@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-20T02:15:07Z",
+  "generated_at": "2026-08-20T02:23:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20260820-013",
@@ -1434,6 +1434,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260820-286",
+      "headline": "FDA device recall (Class I) — Boston Scientific Neuromodulation Corporation: INFINION CX LEAD KIT, 50CM, Model: SC-2317-50, Material: M365SC2317500; INFINION CX LEAD KIT, 70CM, Model: SC-2317-70, Material: M365SC2317700. part of the Bost — Spinal cord stimulation system lead body may be exposed to stress at the anchor site. This may result in high impedance",
+      "headline_en": null,
+      "url": "https://api.fda.gov/device/enforcement.json?search=recall_number.exact:%22Z-2879-2026%22",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-12T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Class I recall indicates a high probability of serious injury or death, representing significant regulatory and reputational risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Class I recall indicates a high probability of serious injury or death, representing significant regulatory and reputational risk.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 3,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "product",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Boston Scientific",
+          "ticker": "BSX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260820-009",
       "headline": "HIGH FASHION (00608): PROFIT WARNING",
       "headline_en": null,
@@ -1919,56 +1968,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-049",
-      "headline": "B. Braun Medical Inc. Issues Voluntary North American Recall of Excel® Lactated Ringers Injection, 1000mL Due to the Presence of Particulate Matter",
-      "headline_en": null,
-      "url": "http://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/b-braun-medical-inc-issues-voluntary-north-american-recall-excelr-lactated-ringers-injection-1000ml",
-      "source_name": "U.S. Food & Drug Administration (Recalls)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-19T21:07:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Voluntary recall of medical injection product due to particulate matter.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Voluntary recall of medical injection product due to particulate matter.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "B. Braun Medical Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -68672,9 +68671,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1314245,
-    "news_picked_today": 286,
-    "news_dropped_today": 143
+    "news_seen_today": 1396438,
+    "news_picked_today": 344,
+    "news_dropped_today": 157
   },
   "book_momentum": {
     "live_count": 8,
