@@ -669,15 +669,19 @@ export const NEWS = {
   // the ingester can never wedge permanently. Tune with NEWS_CYCLE_TIMEOUT_MS.
   cycleTimeoutMs: capNum(process.env.NEWS_CYCLE_TIMEOUT_MS, 480_000),
   // Daily Groq budget guards. A cycle refuses to call Groq past either cap; unscored items defer to
-  // the next cycle (never lost, never zero-scored). The REQUEST cap matches Groq's real free-tier RPD
-  // for 8b-instant — 14,400/day (verified Jun 2026) — set to 13,000 to hold a safety margin. It was
-  // previously 1,500, which was the BINDING throttle: failed/timed-out calls (each still counts as a
-  // request) exhausted it by mid-day while only ~31% of the token ceiling was used, forcing everything
-  // onto overflow and leaving Groq dark. With the cap raised, the TOKEN cap (500k = Groq's real free
-  // TPD, the true ceiling) governs instead — converting the unused token headroom into ~free throughput.
-  // On a higher Groq tier both rise automatically via the live rate-limit headers. Tune down on a
-  // constrained tier (8b-instant is ~$0.05/M tokens, so 500k tokens/day ≈ $0.025 if ever metered).
-  groqDailyReqCap: capNum(process.env.NEWS_GROQ_DAILY_REQ_CAP, 13_000),
+  // the next cycle (never lost, never zero-scored).
+  //
+  // The REQUEST cap travels with the model exactly as the token cap does, and 13,000 no longer describes
+  // anything real: it was a margin under 8b-instant's 14,400 free RPD, and openai/gpt-oss-20b's free RPD
+  // is 1,000 — 14x lower. In NORMAL operation this is not the binding limit and never was after the
+  // model change: at ~2,000 tokens per triage batch the 200K token cap is spent after roughly 100 calls,
+  // two orders below 1,000. It bites in the FAILURE case, which is the one that motivated raising this
+  // number from 1,500 in the first place — a failed or timed-out call still costs a request while
+  // costing almost no tokens, so a bad day burns requests without touching the token ceiling. Left at
+  // 13,000 the engine would sail past Groq's real 1,000 and take hard 429s for the rest of the day
+  // believing it had headroom; at 950 it stops cleanly and defers, which is the same outcome minus the
+  // rejections. On a higher tier both rise automatically via the live rate-limit headers.
+  groqDailyReqCap: capNum(process.env.NEWS_GROQ_DAILY_REQ_CAP, 950),
   // 200k, not the old 500k: the free-tier token-per-day allowance travels WITH the model, and
   // openai/gpt-oss-20b's is 200K TPD (30 RPM) where llama-3.1-8b-instant's was 500K. Left at 500k the
   // engine would pace itself to spend 2.5x the real allowance, then take hard rate-limit rejections for
@@ -733,7 +737,8 @@ export const NEWS = {
   // both, and (crucially) the pacer LEARNS the live ceiling from Groq's own x-ratelimit-* response
   // headers, auto-tuning to whatever this account actually allows. These are starting points / fallbacks:
   //   groqRpm — requests/min floor (under the 30 free RPM, unchanged for gpt-oss-20b); groqTpm —
-  //   tokens/min (≈6000; with a 200K/day ceiling the DAILY cap binds first, so this stays the floor).
+  //   tokens/min (free TPM for gpt-oss-20b is 8K; 6000 is a deliberate floor under it, and with a
+  //   200K/day ceiling the DAILY cap binds long before either, so this stays a floor rather than a limit).
   // On a higher tier the headers raise the ceiling automatically; no redeploy needed.
   groqRpm: capNum(process.env.NEWS_GROQ_RPM, 28),
   groqTpm: capNum(process.env.NEWS_GROQ_TPM, 6000),
