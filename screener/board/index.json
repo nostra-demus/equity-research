@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-20T18:35:50Z",
+  "generated_at": "2026-08-20T18:47:03Z",
   "inbox": [
     {
       "inbox_id": "INB-20260820-013",
@@ -410,6 +410,152 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260820-124",
+      "headline": "US will impose 'toughest sanctions in history' on Iran, Bessent says",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/middle-east/trump-warns-economic-consequences-any-country-that-supports-iran-2026-08-20/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T18:25:53Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "The announcement of the 'toughest sanctions in history' on Iran represents a major geopolitical escalation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The announcement of the 'toughest sanctions in history' on Iran represents a major geopolitical escalation.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-120",
+      "headline": "Stripe to buy OpenRouter as fintech expands deeper into AI",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/08/19/stripe-openrouter-fintech-ai-model-marketplace-.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T18:22:45Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Stripe is acquiring OpenRouter to expand its AI capabilities, representing a strategic M&A move.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Stripe is acquiring OpenRouter to expand its AI capabilities, representing a strategic M&A move.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Stripe",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "OpenRouter",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-122",
+      "headline": "HDFC Bank raises $1.75 billion as FCNR(B) window nears closure",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/news/hdfc-bank-fcnr-b-window-rbi-foreign-currency-nri-deposits-11787248472446.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T18:19:04Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "HDFC Bank raised $1.75 billion in capital, which is a significant financing event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "HDFC Bank raised $1.75 billion in capital, which is a significant financing event.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HDFC Bank",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260820-050",
       "headline": "HDFC Bank raises $1.75 billion through bonds issued from GIFT City branch",
       "headline_en": null,
@@ -644,6 +790,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-132",
+      "headline": "SK Hynix Climbs 4% on Record Buyback, Micron Ticks Up as Memory Defies the Tech Selloff",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/08/20/sk-hynix-climbs-4-on-record-buyback-micron-ticks-up-as-memory-defies-the-tech-selloff/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T18:31:39Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "SK Hynix announced a record buyback, driving a 4% share price increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "SK Hynix announced a record buyback, driving a 4% share price increase.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Micron",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1416,31 +1616,74 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260820-097",
-      "headline": "U.S. targets Hezbollah with fresh sanctions, emphasizes ties to Iranian government",
+      "inbox_id": "INB-20260820-125",
+      "headline": "US imposes more sanctions on Cuba",
       "headline_en": null,
-      "url": "https://www.al-monitor.com/originals/2026/08/us-targets-hezbollah-fresh-sanctions-emphasizes-ties-iranian-government",
-      "source_name": "Al-Monitor",
+      "url": "https://www.reuters.com/world/americas/us-imposes-more-sanctions-cuba-2026-08-20/",
+      "source_name": "Reuters — Latest (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-08-20T17:46:38Z",
+      "found_at": "2026-08-20T18:22:12Z",
       "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "New US sanctions on Hezbollah and its Iranian ties increase geopolitical risk and potential trade friction.",
+      "prelim_note": "New sanctions on Cuba represent a shift in regulatory and geopolitical risk.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 81,
-      "triage_reason": "New US sanctions on Hezbollah and its Iranian ties increase geopolitical risk and potential trade friction.",
+      "triage_reason": "New sanctions on Cuba represent a shift in regulatory and geopolitical risk.",
       "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 50,
         "source_tier": 0,
         "scope": 2,
         "event": 4,
         "size": 0,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-126",
+      "headline": "US hits Hezbollah with fresh sanctions, emphasizing ties to Iranian government",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/middle-east/us-targets-hezbollah-with-fresh-sanctions-emphasizes-ties-iranian-government-2026-08-20/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T18:20:20Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Fresh sanctions on Hezbollah further escalate geopolitical risk in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "Fresh sanctions on Hezbollah further escalate geopolitical risk in the region.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "policy",
@@ -1691,249 +1934,6 @@
           "listing_country": "AU"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-119",
-      "headline": "Quant funds rocked as Treasury boosts buybacks and Moderna shares leap",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/d3fbfcb7-ce89-4b46-8267-c2fed9c67134?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T18:00:58Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Market volatility affecting quant funds alongside specific stock movement in Moderna.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 78,
-      "triage_reason": "Market volatility affecting quant funds alongside specific stock movement in Moderna.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 0,
-        "event": 1,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Moderna",
-          "ticker": "MRNA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-095",
-      "headline": "After-Hours Earnings Report for August 20, 2026 : ROST, OSIS, FLO, FLUX",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/after-hours-earnings-report-august-20-2026-rost-osis-flo-flux",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T18:00:01Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Routine summary of after-hours earnings reports for multiple companies.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Routine summary of after-hours earnings reports for multiple companies.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 5,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Ross Stores",
-          "ticker": "ROST",
-          "listing_country": "US"
-        },
-        {
-          "name": "OSI Systems",
-          "ticker": "OSIS",
-          "listing_country": "US"
-        },
-        {
-          "name": "Flowers Foods",
-          "ticker": "FLO",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-024",
-      "headline": "UK’s Miliband Plans Sanctions Over Israeli Settlement Expansion",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-20/uk-s-miliband-plans-sanctions-over-israeli-settlement-expansion",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T00:13:45Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Geopolitical tension involving UK sanctions policy regarding Israeli settlements.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 77,
-      "triage_reason": "Geopolitical tension involving UK sanctions policy regarding Israeli settlements.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-015",
-      "headline": "FCA fines and bans former SVS Securities CEO",
-      "headline_en": null,
-      "url": "https://www.fca.org.uk/news/press-releases/fca-fines-bans-former-svs-securities-ceo",
-      "source_name": "UK Financial Conduct Authority (FCA) — News",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-19T22:54:25Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "UK FCA enforcement action fining and banning former SVS Securities CEO; scope of ongoing company liability and reputational impact unclear from headline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "UK FCA enforcement action fining and banning former SVS Securities CEO; scope of ongoing company liability and reputational impact unclear from headline.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 52,
-      "rank_factors": {
-        "materiality": 52,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SVS Securities",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-070",
-      "headline": "Dollar Slumps and Gold Rallies as US Treasury Ramps Up Buybacks",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/dollar-slumps-and-gold-rallies-us-treasury-ramps-buybacks",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-19T23:04:04Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "The US Treasury's decision to increase debt buybacks is a significant shift in liquidity management that impacts global asset pricing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 76,
-      "triage_reason": "The US Treasury's decision to increase debt buybacks is a significant shift in liquidity management that impacts global asset pricing.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 4,
-        "event": 1,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -69777,9 +69777,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1715855,
-    "news_picked_today": 120,
-    "news_dropped_today": 237
+    "news_seen_today": 1894205,
+    "news_picked_today": 133,
+    "news_dropped_today": 272
   },
   "book_momentum": {
     "live_count": 8,
