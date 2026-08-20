@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-08-20T03:31:22Z",
+  "generated_at": "2026-08-20T04:31:41Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260820-411",
+      "headline": "AAC TECH AAC N3106 (02018 40700): INTERIM RESULTS ANNOUNCEMENT FOR THE SIX MONTHS ENDED 30 JUNE 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0820/2026082000181.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-20T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "The company released its interim financial results for the six months ended June 30, 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company released its interim financial results for the six months ended June 30, 2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AAC Technologies",
+          "ticker": "02018",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-410",
+      "headline": "LLM: Results of Scheme Meeting",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LLM?key=2924-03123657-6A1339462",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-20T03:45:23Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "The company has completed the scheme meeting, a critical step in the M&A process.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has completed the scheme meeting, a critical step in the M&A process.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "LLM",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260820-376",
       "headline": "CVW: Acquisition of ClearView - Implementation of Scheme [price-sensitive]",
@@ -1869,105 +1967,6 @@
         {
           "name": "Carlink Tech",
           "ticker": "02531",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-377",
-      "headline": "CIFI HOLD GP (00884): ONSHORE BOND RESTRUCTURING ISSUE OF NEW SHARES UNDER GENERAL MANDATE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0818/2026081801473.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-18T11:48:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "The company is undergoing bond restructuring and issuing new shares to manage debt.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company is undergoing bond restructuring and issuing new shares to manage debt.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress",
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CIFI HOLD GP",
-          "ticker": "00884",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-409",
-      "headline": "CHINAVTM MINING (00893): PROFIT GUIDANCE",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0818/2026081801227.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-18T10:18:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Profit guidance announcements are material events that directly impact analyst expectations and stock valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Profit guidance announcements are material events that directly impact analyst expectations and stock valuation.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "guidance_change",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CHINAVTM MINING",
-          "ticker": "00893",
           "listing_country": "CN"
         }
       ],
@@ -67748,6 +67747,149 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-d233df6555ee",
+      "idea_version": "IDEAV-a2106fa73459e2d2",
+      "idea_version_started_at": "2026-08-20T04:31:37Z",
+      "ticker": "01269",
+      "company": "First Capital Group",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a supplemental announcement regarding a disclaimer of opinion on its going concern status, indicating severe liquidity or solvency risks.",
+      "why_now": "The filing dated August 19, 2026, confirms the ongoing existential threat to the business.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c047e13d2229"
+      ],
+      "primary_source_event_id": "EVT-c047e13d2229",
+      "source_headlines": [
+        "FIRST CAP GP (01269): SUPPLEMENTAL ANNOUNCEMENT TO UPDATE IN RELATION TO THE DISCLAIMER OF OPINION ON GOING CONCERN SET OUT IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025"
+      ],
+      "source_headline": "FIRST CAP GP (01269): SUPPLEMENTAL ANNOUNCEMENT TO UPDATE IN RELATION TO THE DISCLAIMER OF OPINION ON GOING CONCERN SET OUT IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081901029.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-19T10:29:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-20T04:31:37Z",
+      "updated_at": "2026-08-20T04:31:37Z",
+      "decay_at": "2026-08-20T22:29:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-dad42101a772",
+      "idea_version": "IDEAV-6ac4657505c976c7",
+      "idea_version_started_at": "2026-08-20T03:43:44Z",
+      "ticker": "00031",
+      "company": "China Aerospace International Holdings",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, signaling a deterioration in earnings performance that will likely lead to downward revisions in analyst estimates.",
+      "why_now": "The profit warning was released on August 19, 2026, and the market is currently adjusting to the negative guidance.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-de05e6cbbe6c"
+      ],
+      "primary_source_event_id": "EVT-de05e6cbbe6c",
+      "source_headlines": [
+        "CHINA AEROSPACE (00031): INSIDE INFORMATION - PROFIT WARNING"
+      ],
+      "source_headline": "CHINA AEROSPACE (00031): INSIDE INFORMATION - PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900550.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-19T08:57:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-20T03:43:44Z",
+      "updated_at": "2026-08-20T03:43:44Z",
+      "decay_at": "2026-08-20T20:57:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-bc50c2310a83",
       "idea_version": "IDEAV-eadacb075dc68e03",
       "idea_version_started_at": "2026-08-20T02:38:38Z",
@@ -68245,6 +68387,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-7dfc8e4eb346",
+      "idea_version": "IDEAV-81631358f842f719",
+      "idea_version_started_at": "2026-08-20T03:43:44Z",
+      "ticker": "JUBILANTING",
+      "company": "Jubilant Ingrevia Limited",
+      "exchange": "NSE",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The acquisition of a 40% stake in Zettaone Technologies for INR 189.2 crore represents a strategic expansion into new technology verticals, potentially diversifying revenue streams.",
+      "why_now": "The binding agreement was announced on August 18, 2026, and the market has yet to fully digest the long-term growth implications of this strategic investment.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 6,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a5c82858a1be"
+      ],
+      "primary_source_event_id": "EVT-a5c82858a1be",
+      "source_headlines": [
+        "Jubilant Ingrevia Limited: Jubilant Ingrevia Limited has informed the Exchange regarding a press release dated August 18, 2026, titled \"Jubilant Ingrevia Limited Enters into a Binding Agreement with Zettaone Technologies India Pvt. Ltd. for the Acquisition of a 40% Strategic Stake for INR 189.2 crore\"."
+      ],
+      "source_headline": "Jubilant Ingrevia Limited: Jubilant Ingrevia Limited has informed the Exchange regarding a press release dated August 18, 2026, titled \"Jubilant Ingrevia Limited Enters into a Binding Agreement with Zettaone Technologies India Pvt. Ltd. for the Acquisition of a 40% Strategic Stake for INR 189.2 crore\".",
+      "source_url": "https://nsearchives.nseindia.com/corporate/JUBLINGREA_18082026213629_Signed_SE_Intimation_Acquisition.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-18T16:07:20Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-20T03:43:44Z",
+      "updated_at": "2026-08-20T03:43:44Z",
+      "decay_at": "2026-08-20T04:07:20Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -68325,13 +68538,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 5,
-    "shown_count": 5,
+    "total_count": 6,
+    "shown_count": 6,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 2,
-        "shown_count": 2,
+        "total_count": 3,
+        "shown_count": 3,
         "hidden_count": 0
       },
       "short": {
@@ -68356,6 +68569,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-7dfc8e4eb346",
+        "idea_version": "IDEAV-81631358f842f719",
+        "idea_version_started_at": "2026-08-20T03:43:44Z",
+        "ticker": "JUBILANTING",
+        "company": "Jubilant Ingrevia Limited",
+        "exchange": "NSE",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The acquisition of a 40% stake in Zettaone Technologies for INR 189.2 crore represents a strategic expansion into new technology verticals, potentially diversifying revenue streams.",
+        "why_now": "The binding agreement was announced on August 18, 2026, and the market has yet to fully digest the long-term growth implications of this strategic investment.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 6,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a5c82858a1be"
+        ],
+        "primary_source_event_id": "EVT-a5c82858a1be",
+        "source_headlines": [
+          "Jubilant Ingrevia Limited: Jubilant Ingrevia Limited has informed the Exchange regarding a press release dated August 18, 2026, titled \"Jubilant Ingrevia Limited Enters into a Binding Agreement with Zettaone Technologies India Pvt. Ltd. for the Acquisition of a 40% Strategic Stake for INR 189.2 crore\"."
+        ],
+        "source_headline": "Jubilant Ingrevia Limited: Jubilant Ingrevia Limited has informed the Exchange regarding a press release dated August 18, 2026, titled \"Jubilant Ingrevia Limited Enters into a Binding Agreement with Zettaone Technologies India Pvt. Ltd. for the Acquisition of a 40% Strategic Stake for INR 189.2 crore\".",
+        "source_url": "https://nsearchives.nseindia.com/corporate/JUBLINGREA_18082026213629_Signed_SE_Intimation_Acquisition.pdf",
+        "source_name": "BSE / NSE Exchange Filing",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-18T16:07:20Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-20T03:43:44Z",
+        "updated_at": "2026-08-20T03:43:44Z",
+        "decay_at": "2026-08-20T04:07:20Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-20T04:07:20Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d96978ca6af1",
         "idea_version": "IDEAV-e55adc8d6b3fae5b",
@@ -68726,8 +69013,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 13,
-    "live_count": 7,
+    "surfaced_total": 16,
+    "live_count": 9,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -68746,9 +69033,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2299313,
-    "news_picked_today": 599,
-    "news_dropped_today": 370
+    "news_seen_today": 3283892,
+    "news_picked_today": 744,
+    "news_dropped_today": 501
   },
   "book_momentum": {
     "live_count": 8,
