@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-20T19:59:35Z",
+  "generated_at": "2026-08-20T20:30:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20260820-013",
@@ -106,6 +106,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-067",
+      "headline": "SK hynix unveils record $28.9 bn share buyback",
+      "headline_en": null,
+      "url": "https://www.qatar-tribune.com/article/249584/business/sk-hynix-unveils-record-289-bn-share-buyback",
+      "source_name": "Qatar Tribune — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-19T21:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Company announced a massive $28.9 billion share buyback program.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company announced a massive $28.9 billion share buyback program.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Hynix",
+          "ticker": "000660",
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -296,6 +345,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260820-040",
+      "headline": "S-1 - Orion180 Insurance Group Inc. (0002124472) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/2124472/000162828026058231/0001628280-26-058231-index.htm",
+      "source_name": "SEC EDGAR — Latest S-1 (IPO Registration)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-20T19:39:35Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "IPO registration filing indicates intent to go public.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "IPO registration filing indicates intent to go public.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Orion180 Insurance Group Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260820-024",
       "headline": "‎BinDawood eyes SAR 1.5B investments, mostly in Saudi Arabia: CEO",
       "headline_en": null,
@@ -340,6 +438,50 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-032",
+      "headline": "Trump administration announces new sanctions on Cuba, escalating economic pressure",
+      "headline_en": null,
+      "url": "https://thehill.com/policy/international/6042225-rubio-cuba-sanctions/",
+      "source_name": "The Hill — Homenews",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T19:38:32Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "New sanctions on Cuba represent a geopolitical escalation and increase regulatory risk for entities operating in the region.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "New sanctions on Cuba represent a geopolitical escalation and increase regulatory risk for entities operating in the region.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -497,6 +639,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260820-066",
+      "headline": "Carvana shares are under pressure this week as Mark Walter probe fuels investor jitters",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/08/19/carvana-shares-on-pace-for-10percent-weekly-loss-as-mark-walter-probe-fuels-investor-jitters.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-19T21:05:31Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Regulatory probe into a key figure creates investor uncertainty and stock pressure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Regulatory probe into a key figure creates investor uncertainty and stock pressure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Carvana",
+          "ticker": "CVNA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260820-010",
       "headline": "OVT: OVT EXITS BNPL AND COST CUTS [price-sensitive]",
       "headline_en": null,
@@ -638,6 +829,153 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260820-051",
+      "headline": "424B2 - MORGAN STANLEY (0000895421) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/895421/000183988226040904/0001839882-26-040904-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-20T19:48:02Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "A 424B2 filing indicates a prospectus supplement for a shelf takedown, which is a routine debt issuance activity for a large financial institution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "A 424B2 filing indicates a prospectus supplement for a shelf takedown, which is a routine debt issuance activity for a large financial institution.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MORGAN STANLEY",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-052",
+      "headline": "424B2 - CITIGROUP INC (0000831001) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/831001/000095010326012707/0000950103-26-012707-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-20T19:47:20Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "A 424B2 filing indicates a prospectus supplement for a shelf takedown, which is a routine debt issuance activity for a large financial institution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "A 424B2 filing indicates a prospectus supplement for a shelf takedown, which is a routine debt issuance activity for a large financial institution.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CITIGROUP INC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-055",
+      "headline": "424B2 - BARCLAYS BANK PLC (0000312070) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/312070/000191870426024371/0001918704-26-024371-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-20T19:47:01Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "A 424B2 filing indicates a prospectus supplement for a shelf takedown, which is a routine debt issuance activity for a large financial institution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "A 424B2 filing indicates a prospectus supplement for a shelf takedown, which is a routine debt issuance activity for a large financial institution.",
+      "region": "GB",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BARCLAYS BANK PLC",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260820-008",
       "headline": "WMI: Increased FF full year dividend, 2026 Full Year Results [price-sensitive]",
       "headline_en": null,
@@ -726,6 +1064,104 @@
       ],
       "issuer_linkage": "macro",
       "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-053",
+      "headline": "424B2 - Citigroup Global Markets Holdings Inc. (0000200245) (Filer)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/200245/000095010326012707/0000950103-26-012707-index.htm",
+      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-20T19:47:20Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "A 424B2 filing indicates a prospectus supplement for a shelf takedown, which is a routine debt issuance activity for a large financial institution.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "A 424B2 filing indicates a prospectus supplement for a shelf takedown, which is a routine debt issuance activity for a large financial institution.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Citigroup Global Markets Holdings Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-054",
+      "headline": "FWP - Morgan Stanley Finance LLC (0001666268) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1666268/000183988226040901/0001839882-26-040901-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-20T19:29:47Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "A FWP filing indicates a filing for a future rate or term sheet, which is a routine part of debt issuance for financial institutions.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 71,
+      "triage_reason": "A FWP filing indicates a filing for a future rate or term sheet, which is a routine part of debt issuance for financial institutions.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Morgan Stanley Finance LLC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -922,6 +1358,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260820-061",
+      "headline": "SCHEDULE 13D/A - BIG SKY INDUSTRIAL INC. (0000101594) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/101594/000143774926028630/0001437749-26-028630-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-20T19:39:02Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Routine Schedule 13D/A amendment filing regarding ownership in Big Sky Industrial Inc.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 54,
+      "triage_reason": "Routine Schedule 13D/A amendment filing regarding ownership in Big Sky Industrial Inc.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BIG SKY INDUSTRIAL INC.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260820-025",
       "headline": "US Treasury chief urges China to back proposed Iran sanctions",
       "headline_en": null,
@@ -1014,6 +1499,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260820-060",
+      "headline": "SCHEDULE 13D/A - Batchelor Joshua Lane (0001903548) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1903548/000143774926028630/0001437749-26-028630-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-20T19:39:02Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Routine Schedule 13D/A amendment filing by Joshua Lane Batchelor.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 50,
+      "triage_reason": "Routine Schedule 13D/A amendment filing by Joshua Lane Batchelor.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 25,
+      "rank_factors": {
+        "materiality": 25,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Batchelor Joshua Lane",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-033",
+      "headline": "Jim Simons' Renaissance cuts $486 million from surging AI stock",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/investing/mu-renaissance-technologies-slashes-micron-stake-by-486-million-in-q2-2026-13f-filing",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T19:33:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Renaissance Technologies reduced a position by $486 million, which is a routine portfolio adjustment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "Renaissance Technologies reduced a position by $486 million, which is a routine portfolio adjustment.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Renaissance Technologies",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260820-011",
       "headline": "MML: McLaren Delivers Outstanding Results [price-sensitive]",
       "headline_en": null,
@@ -1058,6 +1641,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-065",
+      "headline": "Texmo Pipes and Products Ltd: Please find attached Annual Report for FY 2025-26",
+      "headline_en": null,
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/13cab711-2cb2-4c5b-a422-e14c01af945b.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-20T19:29:26Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Routine filing of the Annual Report for FY 2025-26.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 47,
+      "triage_reason": "Routine filing of the Annual Report for FY 2025-26.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 25,
+      "rank_factors": {
+        "materiality": 25,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "management",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Texmo Pipes and Products Ltd",
+          "ticker": "TEXMOPIPES",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1161,228 +1793,148 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260820-012",
-      "headline": "PIC: FY26 Results Summary [price-sensitive]",
+      "inbox_id": "INB-20260820-042",
+      "headline": "4 - PROCTER & GAMBLE Co (0000080424) (Issuer)",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PIC?key=2924-03123528-2A1690723",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-19T23:47:12Z",
+      "url": "https://www.sec.gov/Archives/edgar/data/80424/000008042426000134/0000080424-26-000134-index.htm",
+      "source_name": "SEC EDGAR — Latest Form 4 (Insider Transactions)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-20T19:51:52Z",
       "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Routine full-year earnings summary with no disclosed metrics, guidance, or guidance change.",
+      "prelim_note": "Routine insider transaction filing for Procter & Gamble.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 43,
-      "triage_reason": "Routine full-year earnings summary with no disclosed metrics, guidance, or guidance change.",
-      "region": "OTHER",
-      "relevance": "irrelevant",
+      "triage_reason": "Routine insider transaction filing for Procter & Gamble.",
+      "region": "US",
+      "relevance": "relevant_non_material",
       "materiality_pre_score": 20,
       "rank_factors": {
         "materiality": 20,
         "source_tier": 8,
         "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 4,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PIC",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-030",
-      "headline": "Jim Simons Renaissance cuts $486 million from surging AI stock",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/investing/mu-renaissance-technologies-slashes-micron-stake-by-486-million-in-q2-2026-13f-filing",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T19:33:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Fund position reduction in an unnamed AI stock; routine portfolio rebalancing, not issuer-specific or decision-changing.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Fund position reduction in an unnamed AI stock; routine portfolio rebalancing, not issuer-specific or decision-changing.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 28,
-      "rank_factors": {
-        "materiality": 28,
-        "source_tier": 0,
-        "scope": 0,
-        "event": 2,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "sector",
-        "source_tier_id": "news",
         "event_id": "insider_transaction",
-        "size_bucket": "unknown"
+        "size_bucket": "mega"
       },
       "event_types": [
         "insider_transaction"
       ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Procter & Gamble",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260820-001",
-      "headline": "SEBI bars Copthall Mauritius, Mansi Share and Stock Broking from markets over Sensex closing-auction manipulation, impounds Rs 3.68 crore",
+      "inbox_id": "INB-20260820-041",
+      "headline": "4 - Pritchard Marc S. (0001440364) (Reporting)",
       "headline_en": null,
-      "url": "https://www.businesstoday.in/markets/story/sebi-flags-prima-facie-manipulation-in-sensex-closing-auction-session-blocks-two-entities-550200-2026-08-19",
-      "source_name": "Business Today",
+      "url": "https://www.sec.gov/Archives/edgar/data/1440364/000008042426000134/0000080424-26-000134-index.htm",
+      "source_name": "SEC EDGAR — Latest Form 4 (Insider Transactions)",
       "input_nature": "regulatory_filing",
-      "found_at": "2026-08-20T01:20:06Z",
+      "found_at": "2026-08-20T19:51:52Z",
       "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "SEBI ex-parte interim order finds Copthall (99.91%/96.09%/85.21% of buy-order value in three CAS spikes) and Mansi (aggressive then-cancelled sell orders) drove three sharp Sensex CAS moves on Aug 13 expiry day tied to options positions; Rs 2.96cr + Rs 0.72cr wrongful gains impounded, both barred from securities markets - regulatory/legal risk to market integrity (materiality criterion: regulatory/legal risk).",
+      "prelim_note": "Routine insider transaction filing for Procter & Gamble executive.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": null,
-      "triage_reason": "",
-      "region": "",
-      "relevance": "",
-      "materiality_pre_score": null,
-      "rank_factors": null,
-      "event_types": [],
-      "issuer_linkage": "",
-      "companies": [],
-      "size_bucket": "",
+      "triage_score": 43,
+      "triage_reason": "Routine insider transaction filing for Procter & Gamble executive.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 20,
+      "rank_factors": {
+        "materiality": 20,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Procter & Gamble",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260820-002",
-      "headline": "Korean and Japanese chip stocks plunge as bond-yield spike hits Samsung, SK Hynix; Kospi triggers circuit breaker",
+      "inbox_id": "INB-20260820-047",
+      "headline": "144 - ITRON, INC. (0000780571) (Subject)",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-19/korea-bears-brunt-as-higher-bond-yields-weigh-on-chip-stocks",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T01:20:06Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Kospi fell 5.8% (index futures -6.02% triggered a 5-min sell-order suspension) and Nikkei fell 3.2%; Samsung Electronics and SK Hynix each fell roughly 8-9.8%, Kioxia -12.6%, Furukawa Electric -13.7%, on a Philadelphia semiconductor index rout plus surging global bond yields - supply/demand and estimate-impact risk for named chipmakers (materiality criterion: supply/demand dynamics, shift analyst expectations).",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": null,
-      "triage_reason": "",
-      "region": "",
-      "relevance": "",
-      "materiality_pre_score": null,
-      "rank_factors": null,
-      "event_types": [],
-      "issuer_linkage": "",
-      "companies": [],
-      "size_bucket": "",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-003",
-      "headline": "US Treasury to double long-bond buybacks; gold jumps to two-month high as yields tumble",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/newsletters/2026-08-19/us-treasury-to-double-longer-bond-repurchases",
-      "source_name": "Bloomberg",
-      "input_nature": "macro_data_release",
-      "found_at": "2026-08-20T01:20:06Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Treasury Secretary Bessent announced doubling the size of buyback operations for 10-30yr securities; 30-year yield fell over 8bp to 5.20%, 10-year fell ~5bp to 4.66%, and gold rose to ~$4,480-4,493/oz (+3.66% on the day), highest since early June - macro/rates driver for duration-sensitive and gold-linked names (materiality criterion: supply/demand dynamics via financing-cost transmission).",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": null,
-      "triage_reason": "",
-      "region": "",
-      "relevance": "",
-      "materiality_pre_score": null,
-      "rank_factors": null,
-      "event_types": [],
-      "issuer_linkage": "",
-      "companies": [],
-      "size_bucket": "",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-004",
-      "headline": "Ameresco CFO Mark Chiplock resigns effective September 25, 2026",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/0001488139/000162828026057952/exhibit_991august192026pre.htm",
-      "source_name": "SEC EDGAR",
+      "url": "https://www.sec.gov/Archives/edgar/data/780571/000195917326006278/0001959173-26-006278-index.htm",
+      "source_name": "SEC EDGAR — Latest Form 144 (Proposed Insider Sale)",
       "input_nature": "regulatory_filing",
-      "found_at": "2026-08-20T01:20:06Z",
+      "found_at": "2026-08-20T19:37:42Z",
       "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "8-K filed disclosing CFO Mark Chiplock's resignation (not tied to any disagreement over operations, policy or practice, per the filing) to take a CFO role at a private-equity-owned company; company has commenced a CFO search - management-credibility signal (materiality criterion: affect management credibility).",
+      "prelim_note": "Routine proposed insider sale filing for Itron, Inc.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": null,
-      "triage_reason": "",
-      "region": "",
-      "relevance": "",
-      "materiality_pre_score": null,
-      "rank_factors": null,
-      "event_types": [],
-      "issuer_linkage": "",
-      "companies": [],
-      "size_bucket": "",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-005",
-      "headline": "D.A. Davidson upgrades Duolingo to Buy, raises price target to $160 from $130; shares jump 7%",
-      "headline_en": null,
-      "url": "https://www.benzinga.com/trading-ideas/movers/26/08/61284023/duolingo-stock-surges-after-upgrade-to-buy-rating",
-      "source_name": "Benzinga",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T01:20:06Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "D.A. Davidson analyst Wyatt Swanson upgraded DUOL to Buy from Neutral citing product, marketing and monetization improvements undervalued by the market, against a broader analyst base still mostly hold-or-worse (21 of 25); shares rose 7% - shifts estimate/valuation view against a skeptical consensus (materiality criterion: shift analyst expectations).",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": null,
-      "triage_reason": "",
-      "region": "",
-      "relevance": "",
-      "materiality_pre_score": null,
-      "rank_factors": null,
-      "event_types": [],
-      "issuer_linkage": "",
-      "companies": [],
-      "size_bucket": "",
+      "triage_score": 43,
+      "triage_reason": "Routine proposed insider sale filing for Itron, Inc.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 20,
+      "rank_factors": {
+        "materiality": 20,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "insider_transaction",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ITRON, INC.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -69359,7 +69911,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1413,
+    "inbox_unconsumed": 1422,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -69368,9 +69920,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1275587,
-    "news_picked_today": 26,
-    "news_dropped_today": 79
+    "news_seen_today": 1813598,
+    "news_picked_today": 72,
+    "news_dropped_today": 321
   },
   "book_momentum": {
     "live_count": 8,
