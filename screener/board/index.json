@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-20T19:41:51Z",
+  "generated_at": "2026-08-20T19:58:51Z",
   "inbox": [
     {
       "inbox_id": "INB-20260820-013",
@@ -688,6 +688,50 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260820-031",
+      "headline": "US says sanctions will 'squash' Iran's economy and 'collapse' its regime",
+      "headline_en": null,
+      "url": "https://www.bbc.co.uk/news/articles/c87n90eg0p2o?at_medium=RSS&at_campaign=rss",
+      "source_name": "BBC News — World",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T19:19:20Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "US foreign policy / Iran sanctions announcement; broad economy-wide impact on oil prices, aerospace, defense, finance, and technology sectors; no single company or quantified new measure named.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 72,
+      "triage_reason": "US foreign policy / Iran sanctions announcement; broad economy-wide impact on oil prices, aerospace, defense, finance, and technology sectors; no single company or quantified new measure named.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 61,
+      "rank_factors": {
+        "materiality": 61,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260820-019",
       "headline": "SCHEDULE 13D/A - Impactive Capital LP (0001786767) (Filed by)",
       "headline_en": null,
@@ -1160,6 +1204,49 @@
           "listing_country": "AU"
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-030",
+      "headline": "Jim Simons Renaissance cuts $486 million from surging AI stock",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/investing/mu-renaissance-technologies-slashes-micron-stake-by-486-million-in-q2-2026-13f-filing",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T19:33:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Fund position reduction in an unnamed AI stock; routine portfolio rebalancing, not issuer-specific or decision-changing.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 41,
+      "triage_reason": "Fund position reduction in an unnamed AI stock; routine portfolio rebalancing, not issuer-specific or decision-changing.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 28,
+      "rank_factors": {
+        "materiality": 28,
+        "source_tier": 0,
+        "scope": 0,
+        "event": 2,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "sector",
+        "source_tier_id": "news",
+        "event_id": "insider_transaction",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "insider_transaction"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -69272,7 +69359,7 @@
     "resolved": 1
   },
   "counts": {
-    "inbox_unconsumed": 1411,
+    "inbox_unconsumed": 1413,
     "signals_total": 15,
     "hidden": 0,
     "parked": 3,
@@ -69281,9 +69368,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1006750,
-    "news_picked_today": 24,
-    "news_dropped_today": 57
+    "news_seen_today": 1275587,
+    "news_picked_today": 26,
+    "news_dropped_today": 79
   },
   "book_momentum": {
     "live_count": 8,
