@@ -712,9 +712,13 @@ await check('a malformed firehose item makes revision coverage incomplete while 
     JSON.stringify({ kind: 'item', url: 'https://reuters.com/malformed-clock-item' }),
     '',
   ].join('\n'))
-  assert.throws(() => mergeInbox(badRoot, replayDate, [triagedItem(
+  // The refusal is now reported, not thrown — the cycle survives it (see the runIngestCycle backstop).
+  // What must NOT change: the row gets no clock and no sweep is written.
+  const badHeld = mergeInbox(badRoot, replayDate, [triagedItem(
     'https://reuters.com/new-after-malformed-clock', 80, 'New evidence waits for valid historical coverage',
-  )], { now: () => new Date('2026-08-12T00:01:00Z') }), /coverage is incomplete/)
+  )], { now: () => new Date('2026-08-12T00:01:00Z') })
+  assert.equal(badHeld.withheldEventIds.size, 1, 'the unprovable row is withheld')
+  assert.equal(badHeld.revisionClocksByEvent.size, 0, 'a withheld row is never handed a clock')
   assert.equal(fs.existsSync(path.join(badInbox, `${replayDate}_sweep.json`)), false)
 
   const controlRoot = tmp()
@@ -730,6 +734,284 @@ await check('a malformed firehose item makes revision coverage incomplete while 
   assert.equal(control.rowCount, 1)
   fs.rmSync(badRoot, { recursive: true, force: true })
   fs.rmSync(controlRoot, { recursive: true, force: true })
+})
+await check('a pre-found_at legacy firehose item proves coverage from `ts` and keeps it as the durable clock', () => {
+  // REGRESSION (the 2026-08-17 wire blackout): `found_at` only reached firehose ITEM records on
+  // 2026-08-05. Every line written before that carries `ts` alone. The coverage proof used to discard
+  // those records as malformed, so EVERY legacy partition was permanently unprovable — coverage could
+  // never complete, and readPriorInboxRevisions then threw on every genuinely-new story, aborting the
+  // whole ingest cycle. ~250 consecutive cycles ran with 0 items and every screener view read empty.
+  const legacyDate = '2026-07-01'
+  const replayDate = '2026-08-19'
+  const legacyUrl = 'https://reuters.com/legacy-ts-only-clock'
+  const legacyHeadline = 'A legacy firehose row carries ts and no found_at'
+  const root = tmp()
+  const inbox = path.join(root, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  // A legacy sweep predates the embedded clock index, so the proof must fall back to the firehose.
+  fs.writeFileSync(path.join(inbox, `${legacyDate}_sweep.json`), JSON.stringify({
+    date: legacyDate, updated_at: '2026-07-01T00:01:00Z', rows: [],
+  }))
+  fs.writeFileSync(path.join(inbox, `${legacyDate}_firehose.ndjson`), [
+    JSON.stringify({ kind: 'cycle_summary', ts: '2026-07-01T00:01:00Z' }),
+    JSON.stringify({ kind: 'item', ts: '2026-07-01T00:07:26Z', url: legacyUrl, headline: legacyHeadline }),
+    '',
+  ].join('\n'))
+
+  // 1. A brand-new story must ingest: the legacy partition proves coverage instead of wedging it.
+  const fresh = mergeInbox(root, replayDate, [triagedItem(
+    'https://reuters.com/new-story-after-legacy-partition', 80, 'A new story ingests once legacy coverage is provable',
+  )], { now: () => new Date('2026-08-19T00:01:00Z') })
+  assert.equal(fresh.rowCount, 1, 'a provable legacy partition must not block new ingest')
+
+  // 2. And the legacy `ts` is the DURABLE clock — replaying that story cannot launder it into freshness.
+  const replay = mergeInbox(root, replayDate, [{
+    ...triagedItem(legacyUrl, 80, legacyHeadline), found_at: '2026-08-19T00:00:00Z',
+  }], { now: () => new Date('2026-08-19T00:02:00Z') })
+  assert.equal(replay.revisionClocksByEvent.get(eventIdFor(legacyHeadline, legacyUrl))?.foundAt,
+    '2026-07-01T00:07:26Z', 'the legacy ts is the oldest durable observation and outranks a fresh found_at')
+  fs.rmSync(root, { recursive: true, force: true })
+})
+await check('a retained legacy sweep row outranks the later firehose `ts` for the same revision', () => {
+  // REVIEW GUARD (#461, Codex P2): the legacy firehose `ts` is when the LINE WAS APPENDED, which is later
+  // than the sweep's authoritative first-seen `found_at` — measured on the real retained 2026-07-13
+  // partition, later for 40 of 40 matched rows. If the firehose were streamed before the sweep's own rows,
+  // the fallback would overwrite a real clock with one days too new. The sweep must win.
+  const legacyDate = '2026-07-13'
+  const url = 'https://reuters.com/sweep-outranks-firehose-ts'
+  const headline = 'The retained sweep row keeps its authoritative first-seen clock'
+  const root = tmp()
+  const inbox = path.join(root, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  // Legacy sweep: no embedded clock index, but its ROW carries the true first-seen stamp.
+  fs.writeFileSync(path.join(inbox, `${legacyDate}_sweep.json`), JSON.stringify({
+    date: legacyDate,
+    updated_at: '2026-07-13T00:01:00Z',
+    rows: [{ ...triagedItem(url, 80, headline), found_at: '2026-07-12T23:05:00Z' }],
+  }))
+  // Same story in the firehose, appended ~1h later.
+  fs.writeFileSync(path.join(inbox, `${legacyDate}_firehose.ndjson`),
+    `${JSON.stringify({ kind: 'item', ts: '2026-07-13T00:00:07Z', url, headline })}\n`)
+
+  const replay = mergeInbox(root, '2026-08-19', [{
+    ...triagedItem(url, 80, headline), found_at: '2026-08-19T00:00:00Z',
+  }], { now: () => new Date('2026-08-19T00:01:00Z') })
+  assert.equal(replay.revisionClocksByEvent.get(eventIdFor(headline, url))?.foundAt,
+    '2026-07-12T23:05:00Z', 'the sweep row\'s found_at must outrank the later firehose ts')
+  fs.rmSync(root, { recursive: true, force: true })
+})
+await check('a firehose item with a PRESENT but malformed found_at still fails closed', () => {
+  // REVIEW GUARD (#461, Codex P2): the `ts` fallback is for LEGACY shape (found_at absent) only. A
+  // present-but-corrupt stamp must keep failing closed, or bad source-clock data enters the registry.
+  const legacyDate = '2026-07-01'
+  const root = tmp()
+  const inbox = path.join(root, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.writeFileSync(path.join(inbox, `${legacyDate}_sweep.json`), JSON.stringify({
+    date: legacyDate, updated_at: '2026-07-01T00:01:00Z', rows: [],
+  }))
+  fs.writeFileSync(path.join(inbox, `${legacyDate}_firehose.ndjson`), [
+    JSON.stringify({ kind: 'cycle_summary', ts: '2026-07-01T00:01:00Z' }),
+    JSON.stringify({
+      kind: 'item', ts: '2026-07-01T00:07:26Z', found_at: 'not-a-timestamp',
+      url: 'https://reuters.com/corrupt-found-at', headline: 'A corrupt stamp is not legacy shape',
+    }),
+    '',
+  ].join('\n'))
+  const corruptHeld = mergeInbox(root, '2026-08-19', [triagedItem(
+    'https://reuters.com/new-after-corrupt-stamp', 80, 'New evidence still waits on a corrupt partition',
+  )], { now: () => new Date('2026-08-19T00:01:00Z') })
+  assert.equal(corruptHeld.withheldEventIds.size, 1, 'a corrupt stamp still withholds the row')
+  assert.equal(corruptHeld.revisionClocksByEvent.size, 0, 'a withheld row is never handed a clock')
+  fs.rmSync(root, { recursive: true, force: true })
+})
+await check('a legacy firehose row keeps the SWEEP\'s earlier clock, never the later append-time ts', () => {
+  // The two clocks are not interchangeable: `found_at` is when the SOURCE published, `ts` is when our
+  // ingester appended the line. On the retained 2026-07-13 partition ts was later for 40 of 40 rows — one
+  // FDA row by twelve days — so a fallback that let the firehose win would replay every legacy item as
+  // days newer than it is, and stale evidence would read as fresh.
+  const root = tmp(), state = tmp()
+  const date = '2026-08-13'
+  const url = 'https://reuters.com/legacy-clock-precedence'
+  const headline = 'The sweep clock outranks the firehose append stamp'
+  mergeInbox(root, date, [triagedItem(url, 70, headline)],
+    { stateDir: tmp(), now: () => new Date('2026-08-13T00:01:00Z') })
+  const sweepPath = path.join(root, 'screener', 'inbox', `${date}_sweep.json`)
+  const legacy = JSON.parse(fs.readFileSync(sweepPath, 'utf8'))
+  // strip the embedded clocks so the row is reachable only through the legacy path
+  delete legacy.revision_clock_version
+  delete legacy.revision_clocks
+  const sweepFoundAt = legacy.rows[0].found_at
+  fs.writeFileSync(sweepPath, JSON.stringify(legacy))
+  // the SAME revision in the firehose, carrying only the later append stamp
+  const item: FeedItem = {
+    kind: 'item', ts: '2026-08-13T23:59:00Z',
+    observed_at: '2026-08-13T23:59:00Z', event_id: eventIdFor(headline, url), headline, url,
+    domain: 'reuters.com', source_name: 'Reuters', via: 'gdelt', region: 'GLOBAL',
+    input_nature: 'news_headline', triage_score: 60, band: 'watch', triage_reason: 'material',
+    relevance: 'material', event_types: [], issuer_linkage: 'primary', companies: [],
+    size_bucket: 'large', dedup_status: 'new', inboxed: false,
+  } as FeedItem
+  fs.writeFileSync(path.join(root, 'screener', 'inbox', `${date}_firehose.ndjson`), `${JSON.stringify(item)}\n`)
+
+  mergeInbox(root, date, [triagedItem('https://reuters.com/unrelated-new', 99, 'An unrelated later item')],
+    { stateDir: state, now: () => new Date('2026-08-13T00:05:00Z') })
+  const merged = JSON.parse(fs.readFileSync(sweepPath, 'utf8'))
+  const clock = merged.revision_clocks.find((r: any) => r.event_id === eventIdFor(headline, url))
+  assert.ok(clock, 'the legacy row is registered')
+  assert.equal(clock.found_at, sweepFoundAt, 'the sweep clock survives')
+  assert.notEqual(clock.found_at, item.ts, 'the firehose append stamp never replaces it')
+})
+
+await check('a legacy firehose row with a MALFORMED found_at fails closed rather than falling back to ts', () => {
+  // The fallback exists for rows written before found_at was added — an ABSENT stamp. A present-but-
+  // malformed one is corruption, and letting it through would substitute the triage time and mark the
+  // partition provable, so bad source-clock data would enter an immutable registry looking authoritative.
+  const root = tmp(), state = tmp()
+  const date = '2026-08-13'
+  mergeInbox(root, date, [triagedItem('https://reuters.com/keeps-partition-alive', 70, 'A normal row')],
+    { stateDir: tmp(), now: () => new Date('2026-08-13T00:01:00Z') })
+  const sweepPath = path.join(root, 'screener', 'inbox', `${date}_sweep.json`)
+  const legacy = JSON.parse(fs.readFileSync(sweepPath, 'utf8'))
+  delete legacy.revision_clock_version
+  delete legacy.revision_clocks
+  fs.writeFileSync(sweepPath, JSON.stringify(legacy))
+  const corruptUrl = 'https://reuters.com/corrupt-source-clock'
+  const corruptHeadline = 'A corrupted source clock must not be laundered through ts'
+  const corrupt = {
+    kind: 'item', ts: '2026-08-13T00:03:00Z', found_at: 'not-a-date',
+    observed_at: '2026-08-13T00:03:00Z', event_id: eventIdFor(corruptHeadline, corruptUrl),
+    headline: corruptHeadline, url: corruptUrl, domain: 'reuters.com', source_name: 'Reuters',
+    via: 'gdelt', region: 'GLOBAL', input_nature: 'news_headline', triage_score: 60, band: 'watch',
+    triage_reason: 'material', relevance: 'material', event_types: [], issuer_linkage: 'primary',
+    companies: [], size_bucket: 'large', dedup_status: 'new', inboxed: false,
+  }
+  fs.writeFileSync(path.join(root, 'screener', 'inbox', `${date}_firehose.ndjson`), `${JSON.stringify(corrupt)}\n`)
+
+  // Refusing the row is only half of failing closed. The partition cannot be PROVEN complete while one of
+  // its rows is unreadable, so the merge declines to assign fresh clocks at all. The refusal is now
+  // REPORTED rather than thrown (a throw here killed the whole cycle and blanked the cockpit), and
+  // because the unprovable partition IS today's, the withhold is batch-wide and nothing is written —
+  // identical durable state to the old throw. Asserted on the withhold so a future change that quietly
+  // downgrades this to a silent per-row skip is still caught.
+  const refused = mergeInbox(root, date, [triagedItem('https://reuters.com/another-new', 99, 'Another later item')],
+    { stateDir: state, now: () => new Date('2026-08-13T00:05:00Z') })
+  assert.equal(refused.withheldEventIds.size, 1,
+    'a corrupted source clock makes the partition unprovable rather than being rescued with the triage time')
+  assert.equal(refused.revisionClocksByEvent.size, 0, 'no fresh clock is assigned while the partition is unprovable')
+  // and nothing was laundered into the registry on the way out
+  const merged = JSON.parse(fs.readFileSync(sweepPath, 'utf8'))
+  const leaked = (merged.revision_clocks || []).find((r: any) => r.event_id === eventIdFor(corruptHeadline, corruptUrl))
+  assert.equal(leaked, undefined, 'the corrupted row never reaches the immutable registry')
+})
+
+await check('an unprovable OLD partition withholds only its own key — its batch-mates still merge', () => {
+  // THE POINT OF THE WHOLE CHANGE. Before, one unprovable key threw and killed the cycle, so a single
+  // legacy gap blanked every screener view. Now the doubt is scoped to the row it is actually about.
+  const badDate = '2026-08-03'
+  const mergeDate = '2026-08-12'
+  const knownUrl = 'https://reuters.com/already-registered-row'
+  const knownHeadline = 'A story the registry already knows'
+  const root = tmp()
+  const state = tmp()
+  const inbox = path.join(root, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  // Register the known story on its own clean day so the registry can resolve it later.
+  mergeInbox(root, '2026-08-01', [{
+    ...triagedItem(knownUrl, 80, knownHeadline), found_at: '2026-08-01T00:00:00Z',
+  }], { stateDir: state, now: () => new Date('2026-08-01T00:01:00Z') })
+  // A permanently unprovable OLD partition: a legacy sweep whose firehose carries a malformed item.
+  fs.writeFileSync(path.join(inbox, `${badDate}_sweep.json`), JSON.stringify({
+    date: badDate, updated_at: '2026-08-03T00:01:00Z', rows: [],
+  }))
+  fs.writeFileSync(path.join(inbox, `${badDate}_firehose.ndjson`), [
+    JSON.stringify({ kind: 'cycle_summary', ts: '2026-08-03T00:01:00Z' }),
+    JSON.stringify({ kind: 'item', url: 'https://reuters.com/malformed-no-stamp' }),
+    '',
+  ].join('\n'))
+
+  const newUrl = 'https://reuters.com/brand-new-unprovable-row'
+  const newHeadline = 'A brand new story the registry cannot vouch for'
+  const merged = mergeInbox(root, mergeDate, [
+    { ...triagedItem(knownUrl, 80, knownHeadline), found_at: '2026-08-12T00:00:00Z' },
+    { ...triagedItem(newUrl, 80, newHeadline), found_at: '2026-08-12T00:00:00Z' },
+  ], { stateDir: state, now: () => new Date('2026-08-12T00:01:00Z') })
+
+  assert.deepEqual([...merged.withheldEventIds], [eventIdFor(newHeadline, newUrl)],
+    'only the unprovable row is withheld')
+  assert.ok(fs.existsSync(path.join(inbox, `${mergeDate}_sweep.json`)),
+    'the batch still lands — one doubtful row no longer blanks the wire')
+  const landedRows = JSON.parse(fs.readFileSync(path.join(inbox, `${mergeDate}_sweep.json`), 'utf8')).rows as Array<{ url: string }>
+  assert.deepEqual(landedRows.map((r) => r.url), [knownUrl], 'the withheld row is not projected')
+  // And the withheld row is never handed a clock — the invariant the old throw was protecting.
+  assert.equal(merged.revisionClocksByEvent.has(eventIdFor(newHeadline, newUrl)), false,
+    'a withheld row is never handed a clock')
+  fs.rmSync(root, { recursive: true, force: true })
+  fs.rmSync(state, { recursive: true, force: true })
+})
+await check('a blocked CURRENT partition withholds the WHOLE batch and writes no sweep', () => {
+  // THE ANTI-LAUNDERING GATE. When TODAY's own partition is the blocker, a partial write would repair it,
+  // falsely complete coverage, and let the NEXT cycle mint a fresh clock for the key just withheld. So
+  // today is the one case that still degrades at batch granularity — identical durable state to the old
+  // throw, minus the throw.
+  const date = '2026-08-13'
+  const root = tmp()
+  const state = tmp()
+  const aUrl = 'https://reuters.com/today-blocked-a'
+  const bUrl = 'https://reuters.com/today-blocked-b'
+  const aHead = 'First story on a blocked current partition'
+  const bHead = 'Second story on a blocked current partition'
+  mergeInbox(root, date, [{ ...triagedItem(aUrl, 80, aHead), found_at: '2026-08-13T00:00:00Z' }],
+    { stateDir: state, now: () => new Date('2026-08-13T00:01:00Z') })
+  const sweepPath = path.join(root, 'screener', 'inbox', `${date}_sweep.json`)
+  // Lose today's projection AND its SQLite twin: today's own partition becomes unprovable.
+  fs.unlinkSync(sweepPath)
+  for (const suffix of ['', '-wal', '-shm']) {
+    fs.rmSync(path.join(state, `news-revision-clocks.sqlite${suffix}`), { force: true })
+  }
+  const held = mergeInbox(root, date, [
+    { ...triagedItem(aUrl, 80, aHead), found_at: '2026-08-13T02:00:00Z' },
+    { ...triagedItem(bUrl, 80, bHead), found_at: '2026-08-13T02:00:00Z' },
+  ], { stateDir: state, now: () => new Date('2026-08-13T02:01:00Z') })
+  assert.equal(held.withheldEventIds.size, 2, 'a blocked TODAY withholds the whole batch, not just the miss')
+  assert.equal(held.revisionClocksByEvent.size, 0, 'nothing is clocked')
+  assert.equal(fs.existsSync(sweepPath), false,
+    'a manifest-listed current partition cannot be replaced with a falsely fresh sweep')
+  fs.rmSync(root, { recursive: true, force: true })
+  fs.rmSync(state, { recursive: true, force: true })
+})
+await check('a withheld row lands with its ORIGINAL clock once coverage returns — no deadlock, no laundering', () => {
+  // Proves the refusal is temporary, not a latch: `unproven` is never persisted and coverage is recomputed
+  // from disk every call, so the moment the partition is readable the row merges — carrying the found_at it
+  // was always holding, not the retry's later stamp.
+  const badDate = '2026-08-03'
+  const mergeDate = '2026-08-12'
+  const url = 'https://reuters.com/withheld-then-restored'
+  const headline = 'A withheld story keeps the clock it arrived with'
+  const root = tmp()
+  const state = tmp()
+  const inbox = path.join(root, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.writeFileSync(path.join(inbox, `${badDate}_sweep.json`), JSON.stringify({
+    date: badDate, updated_at: '2026-08-03T00:01:00Z', rows: [],
+  }))
+  const firehosePath = path.join(inbox, `${badDate}_firehose.ndjson`)
+  const summary = JSON.stringify({ kind: 'cycle_summary', ts: '2026-08-03T00:01:00Z' })
+  fs.writeFileSync(firehosePath, [summary, JSON.stringify({ kind: 'item', url: 'https://reuters.com/bad' }), ''].join('\n'))
+
+  const item = { ...triagedItem(url, 80, headline), found_at: '2026-08-12T00:00:00Z' }
+  for (let cycle = 0; cycle < 3; cycle++) {
+    const held = mergeInbox(root, mergeDate, [item], { stateDir: state, now: () => new Date('2026-08-12T00:01:00Z') })
+    assert.equal(held.withheldEventIds.size, 1, `still withheld on retry ${cycle + 1}`)
+  }
+  // Coverage returns: the partition becomes readable.
+  fs.writeFileSync(firehosePath, `${summary}\n`)
+  const landed = mergeInbox(root, mergeDate, [item], { stateDir: state, now: () => new Date('2026-08-12T00:05:00Z') })
+  assert.equal(landed.withheldEventIds.size, 0, 'the row is no longer withheld — the refusal did not latch')
+  assert.equal(landed.revisionClocksByEvent.get(eventIdFor(headline, url))?.foundAt, '2026-08-12T00:00:00Z',
+    'it lands with the clock it arrived with, not a stamp minted by the retry')
+  fs.rmSync(root, { recursive: true, force: true })
+  fs.rmSync(state, { recursive: true, force: true })
 })
 await check('a current-day legacy migration survives the final merge and a SQLite restart', () => {
   const root = tmp()
@@ -847,10 +1129,12 @@ await check('a known-key write cannot promote an incomplete bootstrap or forget 
 
   const heldFirehose = `${badFirehose}.held`
   fs.renameSync(badFirehose, heldFirehose)
-  assert.throws(() => mergeInbox(root, '2026-08-14', [triagedItem(
+  const hiddenHeld = mergeInbox(root, '2026-08-14', [triagedItem(
     'https://reuters.com/unknown-after-hidden-corruption', 80,
     'Unknown evidence cannot pass after the corrupt partition disappears',
-  )], { stateDir: state, now: () => new Date('2026-08-14T00:01:00Z') }), /coverage is incomplete/)
+  )], { stateDir: state, now: () => new Date('2026-08-14T00:01:00Z') })
+  assert.equal(hiddenHeld.withheldEventIds.size, 1, 'the unprovable row is withheld')
+  assert.equal(hiddenHeld.revisionClocksByEvent.size, 0, 'a withheld row is never handed a clock')
   assert.equal(fs.existsSync(path.join(root, 'screener', 'inbox', '2026-08-14_sweep.json')), false)
   fs.rmSync(root, { recursive: true, force: true })
   fs.rmSync(seedState, { recursive: true, force: true })
@@ -964,9 +1248,13 @@ await check('current-day coverage fails closed when both its sweep and SQLite pr
   const registry = path.join(state, 'news-revision-clocks.sqlite')
   for (const suffix of ['', '-wal', '-shm']) fs.rmSync(`${registry}${suffix}`, { force: true })
 
-  assert.throws(() => mergeInbox(root, date, [{
+  // TODAY's own partition is the blocker, so the WHOLE batch is withheld and nothing is written —
+  // byte-for-byte what the old throw left behind, minus the throw.
+  const todayHeld = mergeInbox(root, date, [{
     ...triagedItem(url, 80, headline), found_at: '2026-08-13T02:00:00Z',
-  }], { stateDir: state, now: () => new Date('2026-08-13T02:01:00Z') }), /coverage is incomplete/)
+  }], { stateDir: state, now: () => new Date('2026-08-13T02:01:00Z') })
+  assert.deepEqual([...todayHeld.withheldEventIds], [eventIdFor(headline, url)])
+  assert.equal(todayHeld.revisionClocksByEvent.size, 0, 'a withheld row is never handed a clock')
   assert.equal(fs.existsSync(sweepPath), false,
     'a manifest-listed current partition cannot be replaced with a falsely fresh sweep')
 
@@ -1092,10 +1380,11 @@ await check('registry loss with unavailable archive fails closed before persisti
   const unavailableArchive = `${archive}.offline`
   fs.renameSync(archive, unavailableArchive)
 
-  assert.throws(() => mergeInbox(root, '2026-08-12', [{
+  const archiveHeld = mergeInbox(root, '2026-08-12', [{
     ...triagedItem(url, 80, headline), found_at: '2026-08-12T00:00:00Z',
-  }], { stateDir: state, archiveDir: archive, now: () => new Date('2026-08-12T00:01:00Z') }),
-  /archive.*available|coverage is incomplete/)
+  }], { stateDir: state, archiveDir: archive, now: () => new Date('2026-08-12T00:01:00Z') })
+  assert.equal(archiveHeld.withheldEventIds.size, 1, 'an unprovable archive withholds the row')
+  assert.equal(archiveHeld.revisionClocksByEvent.size, 0, 'a withheld row is never handed a clock')
   assert.equal(fs.existsSync(path.join(root, 'screener', 'inbox', '2026-08-12_sweep.json')), false,
     'an uncovered miss cannot land a fresh current-day clock')
 
@@ -1158,10 +1447,11 @@ await check('a coverage manifest blocks a fresh registry while an expected old a
   const registry = path.join(state, 'news-revision-clocks.sqlite')
   for (const suffix of ['', '-wal', '-shm']) fs.rmSync(`${registry}${suffix}`, { force: true })
 
-  assert.throws(() => mergeInbox(root, '2026-08-13', [{
+  const manifestHeld = mergeInbox(root, '2026-08-13', [{
     ...triagedItem(url, 80, headline), found_at: '2026-08-13T00:00:00Z',
-  }], { stateDir: state, archiveDir: archive, now: () => new Date('2026-08-13T00:01:00Z') }),
-  /coverage is incomplete/)
+  }], { stateDir: state, archiveDir: archive, now: () => new Date('2026-08-13T00:01:00Z') })
+  assert.equal(manifestHeld.withheldEventIds.size, 1, 'a hidden expected partition withholds the row')
+  assert.equal(manifestHeld.revisionClocksByEvent.size, 0, 'a withheld row is never handed a clock')
   assert.equal(fs.existsSync(path.join(root, 'screener', 'inbox', '2026-08-13_sweep.json')), false,
     'an unknown key under incomplete expected coverage cannot persist a fresh clock')
 
@@ -2829,18 +3119,31 @@ await check('an inbox atomic-write failure leaves a scored one-shot row retryabl
     if (String(to).endsWith('2026-06-12_sweep.json')) throw Object.assign(new Error('EPERM: injected sweep rename'), { code: 'EPERM' })
     return (originalRename as any)(from, to)
   }
-  let failed = false
+  // The write failure no longer escapes: runIngestCycle's backstop REPORTS it and finishes the cycle, so
+  // the wire, the summary and the backlog cleanup still run. The row's guarantees are unchanged — it is
+  // withheld (never clocked), left UNSEEN, and re-queued — which is what makes the retry below work.
+  let summary: Awaited<ReturnType<typeof runIngestCycle>> | null = null
   try {
-    await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
-  } catch (error: any) {
-    failed = true
-    assert.match(String(error?.message || error), /EPERM/)
+    summary = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
   } finally {
     ;(fs as any).renameSync = originalRename
   }
-  assert.equal(failed, true)
+  assert.equal(summary?.inbox_write_failed, true, 'the refusal is reported on the summary, not thrown')
+  assert.equal(summary?.inbox_withheld, 1, 'the withheld row is counted honestly')
+  assert.match(String(summary?.note || ''), /held back 1 item/,
+    'the operator is told what happened instead of seeing a bare 0 kept')
+  assert.equal(summary?.picked, 0, 'a withheld row is not counted as kept')
   assert.equal(providerCalls, 1)
-  assert.equal(fs.existsSync(path.join(state, 'news-seen.json')), false, 'failed projection is not durably marked seen')
+  // The cycle now COMPLETES, so the seen store is saved like any other cycle — the old
+  // "file must not exist" check was really asserting that the throw aborted before the save. The
+  // invariant that actually matters is unchanged and asserted directly: the withheld row is not marked
+  // seen, which is exactly what lets the retry below re-deliver and re-score it.
+  const seenAfter = fs.existsSync(path.join(state, 'news-seen.json'))
+    ? JSON.parse(fs.readFileSync(path.join(state, 'news-seen.json'), 'utf8')) as Record<string, unknown>
+    : {}
+  assert.equal(
+    Object.hasOwn(seenAfter, eventIdFor('Central bank policy change materially lowers funding costs', 'https://reuters.com/write-retry')),
+    false, 'failed projection is not durably marked seen')
   assert.equal(loadDeferred(state).length, 1, 'the scored one-shot row is journaled before risky projection')
 
   const retry = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })

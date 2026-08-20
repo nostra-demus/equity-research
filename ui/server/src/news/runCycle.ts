@@ -1419,26 +1419,46 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
 
   // 4. WRITE
   const picks = triaged.filter((t) => t.band !== 'drop')
-  const picked = triaged.filter((t) => t.band === 'pick').length
-  const watched = triaged.filter((t) => t.band === 'watch').length
-  const dropped = triaged.filter((t) => t.band === 'drop').length
   let inboxed = 0
   let revisionClocksByEvent = new Map<string, InboxRevisionClocks>()
+  let withheldEventIds = new Set<string>()
+  let inboxWriteFailed = false
   if (picks.length) {
-    const merged = mergeInbox(repoRoot, date, picks, {
-      maxRows: cfg.inboxMaxRows,
-      now,
-      archiveDir: cfg.newsArchiveDir,
-      stateDir,
-    })
-    inboxed = merged.rowCount
-    revisionClocksByEvent = merged.revisionClocksByEvent
-    await refreshBoard(repoRoot, log)
+    try {
+      const merged = mergeInbox(repoRoot, date, picks, {
+        maxRows: cfg.inboxMaxRows,
+        now,
+        archiveDir: cfg.newsArchiveDir,
+        stateDir,
+      })
+      inboxed = merged.rowCount
+      revisionClocksByEvent = merged.revisionClocksByEvent
+      withheldEventIds = merged.withheldEventIds
+      await refreshBoard(repoRoot, log)
+    } catch (e: any) {
+      // LAST BACKSTOP — this module's standing invariant is that a cycle never throws, and every other
+      // stage already honours it (dedup, themes, appendFirehoseSummary). mergeInbox was the sole
+      // exception, and it runs UPSTREAM of the wire, so its refusals rendered as a blank cockpit reading
+      // 0 read · 0 kept · 0 dropped. Anything refused here is WITHHELD, not lost: the kept rows go back
+      // to the backlog UNSEEN to be retried, the dropped rows still reach the wire with their own raw
+      // clocks, the summary is still written, and the failure is REPORTED. Never widen this to swallow
+      // non-write failures.
+      inboxWriteFailed = true
+      for (const t of picks) withheldEventIds.add(t.event_id)
+      log(`inbox write withheld: ${e?.message || e}`)
+    }
   }
+  // Count only what was actually PROJECTED. A withheld row is re-queued and re-scored next cycle;
+  // counting it now would double-count it. read = kept + dropped still ties out, and each item is
+  // counted exactly once — in the cycle it finally lands.
+  const landed = triaged.filter((t) => !withheldEventIds.has(t.event_id))
+  const picked = landed.filter((t) => t.band === 'pick').length
+  const watched = landed.filter((t) => t.band === 'watch').length
+  const dropped = landed.filter((t) => t.band === 'drop').length
 
   // per-item feed records — for KEPT and DROPPED alike, so the live wire shows everything the
   // scanner read and why; then stream each to live listeners
-  const feedItems: FeedItem[] = triaged.map((t) => {
+  const feedItems: FeedItem[] = landed.map((t) => {
     const clocks = revisionClocksByEvent.get(t.event_id)
     const sourceIsEnglish = clocks ? clocks.sourceIsEnglish : t.source_is_english === true
     return {
@@ -1497,14 +1517,15 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // A kept row now has a durable inbox projection; a dropped row has its durable firehose audit record.
   // Only now may the optimization cache suppress a future source delivery. If any write above throws, the
   // safety backlog remains and the item is neither seen nor silently lost.
-  for (const t of triaged) seen.add(t.event_id, t.materiality_pre_score)
+  for (const t of landed) seen.add(t.event_id, t.materiality_pre_score)
   seen.save()
   // Final cleanup write: now that triaged rows are durably projected, shrink the backlog file down to just
   // the true carry-forward tail. `deferredPersisted` tracks THIS write for `deferred_write_failed` — an
   // operator-facing disk-health signal — deliberately independent of whether the journal write above already
   // removed the expired rows: a failure here just leaves some already-projected, already-`seen` rows sitting
   // harmlessly in the backlog file (next cycle's `carried` filter drops them via `seen`), not a data-loss risk.
-  deferredPersisted = saveDeferred(stateDir, stampDeferred(deferred, ts), log)
+  deferredPersisted = saveDeferred(stateDir, stampDeferred(
+    [...picks.filter((t) => withheldEventIds.has(t.event_id)), ...deferred], ts), log)
   // See backlogDurablyCleared above: `deferredPersisted` alone (the LAST write) undercounted retirement
   // whenever the journal write succeeded but this cleanup write then failed — the journal write had already
   // made the expired rows' removal durable, but the reassignment above threw that success away.
@@ -1638,7 +1659,12 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const localDownNote = localOn && localDownThisCycle
     ? 'LOCAL primary brain unreachable this look — running on the capped cloud fallback; check the box'
     : ''
-  const note = [localDownNote, coreNote].filter(Boolean).join(' · ') || undefined
+  // The 2026-08-17 blackout was invisible because a refused projection and a genuinely quiet scan both
+  // render as `0 kept`. Say which one this is, in words an operator can act on.
+  const inboxNote = withheldEventIds.size
+    ? `held back ${withheldEventIds.size} item${withheldEventIds.size === 1 ? '' : 's'} — first-seen clock not proved${inboxWriteFailed ? ' (inbox write refused)' : ''}; they stay queued and retry next look`
+    : ''
+  const note = [localDownNote, inboxNote, coreNote].filter(Boolean).join(' · ') || undefined
   // Structured twin of the note, in the same precedence, so the cockpit can reason about the defer reason
   // without parsing free text.
   const deferReason: CycleSummary['defer_reason'] = !defCount
@@ -1670,6 +1696,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     ...(droppedAtCap ? { dropped_at_cap: droppedAtCap } : {}),
     ...(backlogExpired.length && expiredRemoved ? { backlog_expired: backlogExpired.length } : {}),
     ...(deferredPersisted ? {} : { deferred_write_failed: true }),
+    ...(withheldEventIds.size ? { inbox_withheld: withheldEventIds.size } : {}),
+    ...(inboxWriteFailed ? { inbox_write_failed: true } : {}),
     ...(aborted ? { aborted: true } : {}),
     ...(deferReason ? { defer_reason: deferReason } : {}),
     last_resort: lastResort,
@@ -1690,6 +1718,9 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
 
   // 5. THEMES — bucket material items and run the same maintenance clock used by quiet cycles. Fully
   // guarded so a themes bug can never block or corrupt the core wire.
-  await runThemesStage({ cfg, repoRoot, stateDir, picks, fetchFn, now, log, signal: deps.signal, revisionClocksByEvent })
+  await runThemesStage({
+    cfg, repoRoot, stateDir, picks: picks.filter((t) => !withheldEventIds.has(t.event_id)),
+    fetchFn, now, log, signal: deps.signal, revisionClocksByEvent,
+  })
   return summary
 }
