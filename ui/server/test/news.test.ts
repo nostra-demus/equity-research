@@ -3643,19 +3643,22 @@ await check('OmniRoute: OFF unless explicitly enabled, LAST in the cloud chain, 
     const list = buildOverflowProviders()
     const om = list.find((p) => p.id === 'omniroute')
     assert.ok(om, 'the flag alone enables it — no key required')
-    assert.ok(om!.apiKey, 'carries a non-empty dummy key: an EMPTY key is rejected before the fetch and '
+    if (!om) throw new Error('OmniRoute provider not found')
+    assert.ok(om.apiKey, 'carries a non-empty dummy key: an EMPTY key is rejected before the fetch and '
       + 'would arm a cooldown for a call that never left the process')
-    assert.ok(String(om!.baseUrl).includes('127.0.0.1'), 'talks to the local daemon, not a vendor')
+    assert.ok(String(om.baseUrl).includes('127.0.0.1'), 'talks to the local daemon, not a vendor')
 
     // LAST among the cloud tiers: it aggregates the SAME free pools the metered tiers already track, so
     // ahead of them it would double-spend quota this engine believes it is accounting for.
-    const cloud = list.filter((p) => !String(p.baseUrl).includes('localhost') || p.id === 'omniroute')
-    assert.equal(cloud[cloud.length - 1]!.id, 'omniroute', 'OmniRoute is last in the cloud chain')
+    const cloud = list.filter((p) => p.id !== 'local')
+    const lastCloud = cloud[cloud.length - 1]
+    assert.ok(lastCloud, 'cloud chain must not be empty')
+    assert.equal(lastCloud.id, 'omniroute', 'OmniRoute is last in the cloud chain')
 
     // FINITE cap: daily-quota selection maximises deficit/cap and is scale-free, so an effectively
     // infinite cap would make this tier win every selection and starve the pools that actually work.
-    assert.ok(Number.isFinite(om!.dailyReqCap) && om!.dailyReqCap > 0 && om!.dailyReqCap < 1e6,
-      `dailyReqCap must be finite and modest, got ${om!.dailyReqCap}`)
+    assert.ok(Number.isFinite(om.dailyReqCap) && om.dailyReqCap > 0 && om.dailyReqCap < 1e6,
+      `dailyReqCap must be finite and modest, got ${om.dailyReqCap}`)
   } finally {
     if (prevEnabled === undefined) delete process.env.NEWS_OMNIROUTE_ENABLED
     else process.env.NEWS_OMNIROUTE_ENABLED = prevEnabled
