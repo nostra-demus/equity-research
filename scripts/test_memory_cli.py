@@ -8,6 +8,7 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,8 +16,10 @@ MEMORY = ROOT / "scripts/memory.py"
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from canonical_json import canonical_json  # noqa: E402
+from memory import _fsync_directory as cli_fsync_directory  # noqa: E402
 from memory import _load_canonical_events  # noqa: E402
 from memory_contract import payload_sha256  # noqa: E402
+from memory_projection import _fsync_directory as projection_fsync_directory  # noqa: E402
 from memory_projection import build_projection  # noqa: E402
 
 
@@ -32,6 +35,12 @@ def _run(*arguments: str) -> subprocess.CompletedProcess[str]:
 
 
 def main() -> None:
+    windows_directory = Path("C:/memory")
+    for fsync_directory in (cli_fsync_directory, projection_fsync_directory):
+        with patch("os.name", "nt"), patch("os.open") as open_directory:
+            fsync_directory(windows_directory)
+        open_directory.assert_not_called()
+
     with tempfile.TemporaryDirectory() as temporary:
         wrong_root = Path(temporary)
         database = wrong_root / "existing.sqlite"

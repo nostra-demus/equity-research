@@ -462,6 +462,17 @@ class DigestAndEnvelopeTests(unittest.TestCase):
             )
         )
 
+    def test_datetime_parser_caches_strings_after_fail_closed_type_check(self) -> None:
+        contract._parse_aware_datetime_text.cache_clear()
+        value = "2026-08-20T14:03:00.1Z"
+        first = contract.parse_aware_datetime(value)
+        second = contract.parse_aware_datetime(value)
+        self.assertIs(first, second)
+        cache = contract._parse_aware_datetime_text.cache_info()
+        self.assertEqual((cache.hits, cache.misses), (1, 1))
+        with self.assertRaisesRegex(ValueError, "canonical timezone-aware"):
+            contract.parse_aware_datetime([])  # type: ignore[arg-type]
+
     def test_aware_offsets_and_instant_valid_time_are_valid(self) -> None:
         row = event(system_time="2026-08-20T19:33:00+05:30")
         row["valid_time"] = {"from": "2026-03-31T00:00:00+05:30", "to": "2026-04-01T00:00:00+05:30"}

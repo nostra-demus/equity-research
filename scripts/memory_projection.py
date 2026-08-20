@@ -1095,6 +1095,18 @@ def _counts(connection: sqlite3.Connection) -> tuple[int, int, int, int, int, in
     return tuple(int(connection.execute(f"SELECT count(*) FROM {table}").fetchone()[0]) for table in tables)
 
 
+def _fsync_directory(path: Path) -> None:
+    """Persist a renamed directory entry where the host supports directory fsync."""
+
+    if os.name == "nt":
+        return
+    directory_fd = os.open(path, os.O_RDONLY)
+    try:
+        os.fsync(directory_fd)
+    finally:
+        os.close(directory_fd)
+
+
 def build_projection(events: Iterable[dict], database_path: str | os.PathLike[str]) -> ProjectionResult:
     """Validate events and atomically replace ``database_path`` with a clean projection."""
     materialized = list(events)
@@ -1130,11 +1142,7 @@ def build_projection(events: Iterable[dict], database_path: str | os.PathLike[st
         os.replace(temporary, target)
         # Persist the directory entry as well as SQLite's file contents. Without
         # this fsync, a power loss can forget an otherwise successful atomic rename.
-        directory_fd = os.open(target.parent, os.O_RDONLY)
-        try:
-            os.fsync(directory_fd)
-        finally:
-            os.close(directory_fd)
+        _fsync_directory(target.parent)
     finally:
         if temporary.exists():
             temporary.unlink()

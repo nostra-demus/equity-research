@@ -286,14 +286,9 @@ def _string_array(
     return valid
 
 
-def parse_aware_datetime(value: str) -> dt.datetime:
-    """Parse one contract-valid RFC 3339 instant consistently on Python 3.9+.
-
-    Python 3.9's ``fromisoformat`` accepts only three or six fractional digits. The
-    contract accepts one through six, so shorter fractions are padded without changing
-    the represented instant before parsing.
-    """
-    if not isinstance(value, str) or AWARE_DATETIME_RE.fullmatch(value) is None:
+@functools.lru_cache(maxsize=4096)
+def _parse_aware_datetime_text(value: str) -> dt.datetime:
+    if AWARE_DATETIME_RE.fullmatch(value) is None:
         raise ValueError("not a canonical timezone-aware RFC 3339 date-time")
     parse_text = re.sub(
         r"\.(\d{1,6})(?=Z|[+-]\d{2}:\d{2}$)",
@@ -306,6 +301,19 @@ def parse_aware_datetime(value: str) -> dt.datetime:
     if parsed.tzinfo is None or parsed.utcoffset() is None:
         raise ValueError("date-time must carry an explicit UTC offset")
     return parsed.astimezone(dt.timezone.utc)
+
+
+def parse_aware_datetime(value: str) -> dt.datetime:
+    """Parse one contract-valid RFC 3339 instant consistently on Python 3.9+.
+
+    Python 3.9's ``fromisoformat`` accepts only three or six fractional digits. The
+    contract accepts one through six, so shorter fractions are padded without changing
+    the represented instant before parsing. Type-check before the cache boundary so
+    malformed, unhashable JSON values still fail with the documented ``ValueError``.
+    """
+    if not isinstance(value, str):
+        raise ValueError("not a canonical timezone-aware RFC 3339 date-time")
+    return _parse_aware_datetime_text(value)
 
 
 def _aware_datetime(value: Any, path: str, errors: list[str]) -> dt.datetime | None:

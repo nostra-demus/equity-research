@@ -57,6 +57,18 @@ def _strict_json_loads(text: str, *, source: str):
         raise ValueError(f"{source}: invalid JSON: {exc}") from exc
 
 
+def _fsync_directory(path: Path) -> None:
+    """Persist a renamed directory entry where the host supports directory fsync."""
+
+    if os.name == "nt":
+        return
+    directory_fd = os.open(path, os.O_RDONLY)
+    try:
+        os.fsync(directory_fd)
+    finally:
+        os.close(directory_fd)
+
+
 def _atomic_write(path: Path, text: str) -> None:
     path = path.resolve()
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -69,11 +81,7 @@ def _atomic_write(path: Path, text: str) -> None:
             handle.flush()
             os.fsync(handle.fileno())
         os.replace(temporary_name, path)
-        directory_fd = os.open(path.parent, os.O_RDONLY)
-        try:
-            os.fsync(directory_fd)
-        finally:
-            os.close(directory_fd)
+        _fsync_directory(path.parent)
     finally:
         try:
             os.unlink(temporary_name)
