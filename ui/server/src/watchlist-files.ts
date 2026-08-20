@@ -27,6 +27,18 @@ export function watchlistFilesRoot(dataDir: string = DATA_DIR): string | null {
   if (!folder || folder !== path.basename(folder) || folder.startsWith('.')) return null
   if (!isReservedDataFolder(folder, dataDir)) return null
   const root = path.join(dataDir, folder)
+  // Refuse a name that is already a COMPANY folder. `isReservedDataFolder` honours the configured name,
+  // which is what keeps a custom folder out of the company picker — but that same dynamic reservation
+  // means configuring the name of a company that already exists (`GDRIVE_WATCHLIST_FOLDER=AMZN`) would
+  // reserve AMZN and silently remove it from the cockpit, with its pool reading as absent. Detected by
+  // content rather than by a ticker regex, because the default `WATCHLIST` is itself ticker-shaped: our
+  // own store holds nothing but `WL-*` entry directories, so anything else in there is someone's pool.
+  try {
+    const existing = fs.readdirSync(root)
+    if (existing.some((n) => !n.startsWith('WL-') && !n.startsWith('.'))) return null
+  } catch {
+    // absent — nothing to collide with; created below
+  }
   try {
     fs.mkdirSync(root, { recursive: true })
     // realpath AFTER creating: the mount is a symlink, so the resolved path legitimately sits outside

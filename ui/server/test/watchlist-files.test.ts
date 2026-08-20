@@ -158,4 +158,24 @@ check('the availability probe is cached, and the cache can be dropped', () => {
   }
 })
 
+check('a configured folder that is really a COMPANY pool is refused, not co-opted', () => {
+  const dir = tmp()
+  // The reservation that keeps a custom folder out of the company picker cuts both ways: configuring the
+  // name of a company that already exists would reserve it and silently remove it from the cockpit, with
+  // its pool reading as absent. Detected by CONTENT, since the default WATCHLIST is itself ticker-shaped.
+  const root = path.join(dir, 'WATCHLIST')
+  fs.mkdirSync(root, { recursive: true })
+  fs.writeFileSync(path.join(root, 'FY24-10K.pdf'), 'pool evidence')
+  assert.equal(watchlistFilesRoot(dir), null, 'a folder holding anything but WL-* entries is somebody\'s pool')
+  assert.equal(watchlistFilesAvailable(dir, 9_000_000), false, 'and it is reported unavailable, not written to')
+
+  // our own store's shape still resolves: only WL-* entry dirs, plus dotfiles we write ourselves
+  fs.rmSync(path.join(root, 'FY24-10K.pdf'))
+  fs.mkdirSync(path.join(root, 'WL-20260819-abc123'), { recursive: true })
+  resetWatchlistFilesAvailability()
+  assert.equal(watchlistFilesRoot(dir), root, 'an entry-only folder is ours')
+  fs.rmSync(dir, { recursive: true, force: true })
+  resetWatchlistFilesAvailability()
+})
+
 console.log(`\nwatchlist-files.test.ts: ${passed} passed`)
