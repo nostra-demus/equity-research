@@ -687,7 +687,7 @@ export const NEWS = {
   // engine would pace itself to spend 2.5x the real allowance, then take hard rate-limit rejections for
   // the rest of every day — swapping a dead model for a throttled one and leaving the backlog climbing.
   groqDailyTokenCap: capNum(process.env.NEWS_GROQ_DAILY_TOKEN_CAP, 200_000),
-  // Cross-cycle PER-PROVIDER LLM cooldown — protects every provider's daily REQUEST cap (Groq's 13,000 AND
+  // Cross-cycle PER-PROVIDER LLM cooldown — protects every provider's daily REQUEST cap (Groq's 950 AND
   // each overflow provider's much smaller one) from being drained by a sustained OUTAGE. The in-cycle guards
   // (runCycle groqDownThisCycle / ov.failed) stop re-poking a down provider WITHIN one cycle, but the
   // scheduler runs many cycles/day, so with no cross-cycle memory each cycle still burns one failed probe —
@@ -699,7 +699,7 @@ export const NEWS = {
   // (triage, the article-read + auto-heal path, the themes namer), not just triage. Exponential backoff
   // (base, 2×, 4×, … capped at llmCooldownMaxMs) makes the daily failed-probe count grow only
   // logarithmically — a sustained outage falls from thousands of probes to a few dozen, which fully protects
-  // Groq's 13,000 cap and drastically cuts waste on the small-cap fallbacks (a tiny ~20-45/day fallback cap
+  // Groq's 950 cap and drastically cuts waste on the small-cap fallbacks (a tiny ~20-45/day fallback cap
   // can still be approached, never exceeded, late in a day-long outage — it self-heals at the daily reset).
   // A HEALTHY provider never arms it. Base default 300s, cap 60 min. Tune with NEWS_LLM_COOLDOWN_SEC /
   // NEWS_LLM_COOLDOWN_MAX_SEC.
