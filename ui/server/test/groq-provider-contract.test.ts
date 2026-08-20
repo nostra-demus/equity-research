@@ -31,6 +31,7 @@ try {
     '--import', 'tsx', '--input-type=module', '-e',
     "import('./src/config.ts').then(({NEWS}) => process.stdout.write(JSON.stringify({ model: NEWS.groqModel, reqCap: NEWS.groqDailyReqCap, tokenCap: NEWS.groqDailyTokenCap, tokenTarget: NEWS.groqDailyTokenTarget, rpm: NEWS.groqRpm, tpm: NEWS.groqTpm })))",
   ], { cwd: serverRoot, env, encoding: 'utf8' })
+  if (probe.error) throw probe.error
   assert.equal(probe.status, 0, probe.stderr)
   assert.deepEqual(JSON.parse(probe.stdout), {
     model: currentModel,
