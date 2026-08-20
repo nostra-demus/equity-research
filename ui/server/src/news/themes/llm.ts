@@ -720,10 +720,10 @@ function openAiProviders(cfg: NamerCfg): OpenAiThemeProvider[] {
   if (cfg.localProvider) add(fromConfig(cfg.localProvider))
   if (cfg.groqApiKey) add({
     id: 'groq', label: 'Groq', apiKey: cfg.groqApiKey, baseUrl: cfg.groqBaseUrl || 'https://api.groq.com/openai/v1',
-    model: cfg.groqModel || 'llama-3.1-8b-instant', maxTokens: 3000, rpm: cfg.groqRpm ?? 0,
-    tpm: cfg.groqTpm ?? 0, dailyReqCap: cfg.groqDailyReqCap ?? 13_000,
-    dailyTokenCap: cfg.groqDailyTokenCap ?? 500_000, budgetFile: 'groq-budget.json',
-    paceMeter: 'tokens', paceCap: cfg.groqDailyTokenTarget ?? cfg.groqDailyTokenCap ?? 500_000,
+    model: cfg.groqModel || 'openai/gpt-oss-20b', maxTokens: 3000, rpm: cfg.groqRpm ?? 0,
+    tpm: cfg.groqTpm ?? 0, dailyReqCap: cfg.groqDailyReqCap ?? 950,
+    dailyTokenCap: cfg.groqDailyTokenCap ?? 200_000, budgetFile: 'groq-budget.json',
+    paceMeter: 'tokens', paceCap: cfg.groqDailyTokenTarget ?? cfg.groqDailyTokenCap ?? 200_000,
     paceFloorFrac: cfg.groqPaceFloorFrac ?? 0.06, requestRemainingHeaderIsDaily: true,
   })
   for (const provider of cfg.overflowProviders || []) add(fromConfig(provider))

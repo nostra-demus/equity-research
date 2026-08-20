@@ -44,7 +44,8 @@ exactly as before.
 
 ```bash
 export GROQ_API_KEY=gsk_...        # the one secret (free tier)
-# optional: export GROQ_MODEL=llama-3.1-8b-instant   # confirm the current free model id
+# optional: export GROQ_MODEL=openai/gpt-oss-20b   # confirm the current free model id
+#           (llama-3.1-8b-instant was shut down 2026-08-16 — a dead id 404s the whole primary tier)
 ```
 
 Two hosting modes (build-both):

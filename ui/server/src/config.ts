@@ -609,7 +609,13 @@ export const NEWS = {
   groqApiKey: process.env.GROQ_API_KEY || '',
   // A small, fast, cheap Groq model is ideal for batched title-triage. Model ids change — confirm
   // the current free model when you provision the key. Override with GROQ_MODEL.
-  groqModel: process.env.GROQ_MODEL || 'llama-3.1-8b-instant',
+  // `llama-3.1-8b-instant` was DEPRECATED by Groq on 2026-06-17 and SHUT DOWN on 2026-08-16, so from that
+  // date the primary triage tier 404'd on every call — the cockpit's "waiting after a retired model or
+  // endpoint", 71 consecutive failures and 0 batches scored, while the backlog climbed toward the 100k
+  // loss boundary. Groq's own named replacement for it is `openai/gpt-oss-20b`. A retired model id is a
+  // silent, dated cliff: nothing in the engine expires with the provider, so pin the id here and treat a
+  // `provider-endpoint` (404) cooldown on the FIRST-CHOICE tier as "the model name died", not an outage.
+  groqModel: process.env.GROQ_MODEL || 'openai/gpt-oss-20b',
   groqBaseUrl: process.env.GROQ_BASE_URL || 'https://api.groq.com/openai/v1',
   // Public-news chat stays on the stronger subscription model first. If that provider is temporarily
   // unavailable, the already-configured Groq connection may finish the same closed-book, cited answer.
@@ -663,17 +669,25 @@ export const NEWS = {
   // the ingester can never wedge permanently. Tune with NEWS_CYCLE_TIMEOUT_MS.
   cycleTimeoutMs: capNum(process.env.NEWS_CYCLE_TIMEOUT_MS, 480_000),
   // Daily Groq budget guards. A cycle refuses to call Groq past either cap; unscored items defer to
-  // the next cycle (never lost, never zero-scored). The REQUEST cap matches Groq's real free-tier RPD
-  // for 8b-instant — 14,400/day (verified Jun 2026) — set to 13,000 to hold a safety margin. It was
-  // previously 1,500, which was the BINDING throttle: failed/timed-out calls (each still counts as a
-  // request) exhausted it by mid-day while only ~31% of the token ceiling was used, forcing everything
-  // onto overflow and leaving Groq dark. With the cap raised, the TOKEN cap (500k = Groq's real free
-  // TPD, the true ceiling) governs instead — converting the unused token headroom into ~free throughput.
-  // On a higher Groq tier both rise automatically via the live rate-limit headers. Tune down on a
-  // constrained tier (8b-instant is ~$0.05/M tokens, so 500k tokens/day ≈ $0.025 if ever metered).
-  groqDailyReqCap: capNum(process.env.NEWS_GROQ_DAILY_REQ_CAP, 13_000),
-  groqDailyTokenCap: capNum(process.env.NEWS_GROQ_DAILY_TOKEN_CAP, 500_000),
-  // Cross-cycle PER-PROVIDER LLM cooldown — protects every provider's daily REQUEST cap (Groq's 13,000 AND
+  // the next cycle (never lost, never zero-scored).
+  //
+  // The REQUEST cap travels with the model exactly as the token cap does, and 13,000 no longer describes
+  // anything real: it was a margin under 8b-instant's 14,400 free RPD, and openai/gpt-oss-20b's free RPD
+  // is 1,000 — 14x lower. In NORMAL operation this is not the binding limit and never was after the
+  // model change: at ~2,000 tokens per triage batch the 200K token cap is spent after roughly 100 calls,
+  // two orders below 1,000. It bites in the FAILURE case, which is the one that motivated raising this
+  // number from 1,500 in the first place — a failed or timed-out call still costs a request while
+  // costing almost no tokens, so a bad day burns requests without touching the token ceiling. Left at
+  // 13,000 the engine would sail past Groq's real 1,000 and take hard 429s for the rest of the day
+  // believing it had headroom; at 950 it stops cleanly and defers, which is the same outcome minus the
+  // rejections. On a higher tier both rise automatically via the live rate-limit headers.
+  groqDailyReqCap: capNum(process.env.NEWS_GROQ_DAILY_REQ_CAP, 950),
+  // 200k, not the old 500k: the free-tier token-per-day allowance travels WITH the model, and
+  // openai/gpt-oss-20b's is 200K TPD (30 RPM) where llama-3.1-8b-instant's was 500K. Left at 500k the
+  // engine would pace itself to spend 2.5x the real allowance, then take hard rate-limit rejections for
+  // the rest of every day — swapping a dead model for a throttled one and leaving the backlog climbing.
+  groqDailyTokenCap: capNum(process.env.NEWS_GROQ_DAILY_TOKEN_CAP, 200_000),
+  // Cross-cycle PER-PROVIDER LLM cooldown — protects every provider's daily REQUEST cap (Groq's 950 AND
   // each overflow provider's much smaller one) from being drained by a sustained OUTAGE. The in-cycle guards
   // (runCycle groqDownThisCycle / ov.failed) stop re-poking a down provider WITHIN one cycle, but the
   // scheduler runs many cycles/day, so with no cross-cycle memory each cycle still burns one failed probe —
@@ -685,7 +699,7 @@ export const NEWS = {
   // (triage, the article-read + auto-heal path, the themes namer), not just triage. Exponential backoff
   // (base, 2×, 4×, … capped at llmCooldownMaxMs) makes the daily failed-probe count grow only
   // logarithmically — a sustained outage falls from thousands of probes to a few dozen, which fully protects
-  // Groq's 13,000 cap and drastically cuts waste on the small-cap fallbacks (a tiny ~20-45/day fallback cap
+  // Groq's 950 cap and drastically cuts waste on the small-cap fallbacks (a tiny ~20-45/day fallback cap
   // can still be approached, never exceeded, late in a day-long outage — it self-heals at the daily reset).
   // A HEALTHY provider never arms it. Base default 300s, cap 60 min. Tune with NEWS_LLM_COOLDOWN_SEC /
   // NEWS_LLM_COOLDOWN_MAX_SEC.
@@ -711,7 +725,7 @@ export const NEWS = {
   //                          keep tiny backlogs clearing when exactly on schedule.
   // Set a smaller explicit target to retain more allowance; the default deliberately uses the whole
   // configured safe allowance by reset rather than leaving an arbitrary second buffer unused.
-  groqDailyTokenTarget: capNum(process.env.NEWS_GROQ_DAILY_TOKEN_TARGET, capNum(process.env.NEWS_GROQ_DAILY_TOKEN_CAP, 500_000)),
+  groqDailyTokenTarget: capNum(process.env.NEWS_GROQ_DAILY_TOKEN_TARGET, capNum(process.env.NEWS_GROQ_DAILY_TOKEN_CAP, 200_000)),
   groqPaceFloorFrac: capNum(process.env.NEWS_GROQ_PACE_FLOOR_FRAC, 0.06),
   // Shared pacer for every finite free overflow tier (Cerebras/Mistral/OpenRouter/NVIDIA/Gemini). Each
   // provider's own reset clock linearly releases its configured safe allowance; the router selects the
@@ -722,7 +736,9 @@ export const NEWS = {
   // Pacing. The binding free-tier limit is TOKENS-per-minute, not requests-per-minute — so we pace by
   // both, and (crucially) the pacer LEARNS the live ceiling from Groq's own x-ratelimit-* response
   // headers, auto-tuning to whatever this account actually allows. These are starting points / fallbacks:
-  //   groqRpm — requests/min floor (under the 30 free RPM); groqTpm — tokens/min (8b-instant free ≈ 6000).
+  //   groqRpm — requests/min floor (under the 30 free RPM, unchanged for gpt-oss-20b); groqTpm —
+  //   tokens/min (free TPM for gpt-oss-20b is 8K; 6000 is a deliberate floor under it, and with a
+  //   200K/day ceiling the DAILY cap binds long before either, so this stays a floor rather than a limit).
   // On a higher tier the headers raise the ceiling automatically; no redeploy needed.
   groqRpm: capNum(process.env.NEWS_GROQ_RPM, 28),
   groqTpm: capNum(process.env.NEWS_GROQ_TPM, 6000),
@@ -1085,7 +1101,7 @@ export function buildArticleReadProviders(cfg: typeof NEWS = NEWS): ArticleReadP
 export const ARTICLE_READ_PROVIDERS: ArticleReadProvider[] = buildArticleReadProviders()
 
 // An OPTIONAL stronger model for reading FILINGS (exchange PDFs / regulatory documents). The default read
-// chain above is small free models (Groq llama-3.1-8b-instant, …) tuned for the high-volume article
+// chain above is small free models (Groq openai/gpt-oss-20b, …) tuned for the high-volume article
 // firehose. Filings read WORSE on those: their document opens with cover-page letterhead / a boilerplate
 // disclaimer and the free-tier model tends to return an empty brief, so THE STORY falls to the headline
 // floor. A Haiku-class model reads the SAME letterhead-heavy filing fine (verified experiment). This
