@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-08-20T09:06:20Z",
+  "generated_at": "2026-08-20T09:28:24Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260820-445",
+      "headline": "PROSPER CONS (06816): PROFIT WARNING AND INSIDE INFORMATION",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0820/2026082000515.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-20T09:04:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Prosper Cons issued a profit warning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Prosper Cons issued a profit warning.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PROSPER CONS",
+          "ticker": "06816",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-431",
+      "headline": "YUZHOU GROUP (01628): PROFIT WARNING ANNOUNCEMENT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0820/2026082000447.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-20T08:46:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Yuzhou Group issues explicit profit warning; downward profit revision is decision-moving, signaling margin deterioration though magnitude unspecified.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Yuzhou Group issues explicit profit warning; downward profit revision is decision-moving, signaling margin deterioration though magnitude unspecified.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yuzhou Group",
+          "ticker": "1628",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260820-425",
       "headline": "CHINA TELECOM (00728): ANNOUNCEMENT OF INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 JUNE 2026",
@@ -1876,104 +1974,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-333",
-      "headline": "CENTRAL CHINA (00832): INSIDE INFORMATION PROFIT WARNING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0818/2026081801871.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-18T14:20:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "The company issued a profit warning, indicating a material decline in expected earnings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company issued a profit warning, indicating a material decline in expected earnings.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Central China New Life",
-          "ticker": "00832",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-339",
-      "headline": "FAMOUS TECH INT (08100): INSIDE INFORMATION - PROFIT WARNING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0818/2026081801845.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-18T14:07:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "The company issued a profit warning, signaling a negative impact on financial performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company issued a profit warning, signaling a negative impact on financial performance.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "guidance_change",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Famous Tech International",
-          "ticker": "08100",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -69603,9 +69603,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7239187,
-    "news_picked_today": 1523,
-    "news_dropped_today": 1174
+    "news_seen_today": 7488633,
+    "news_picked_today": 1610,
+    "news_dropped_today": 1219
   },
   "book_momentum": {
     "live_count": 8,
