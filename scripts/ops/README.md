@@ -135,8 +135,12 @@ chmod 600 "$HOME/.config/nostra-engine/drive.env"
 # WHERE files are written — the Drive folder id (the last path segment of the folder's URL)
 GDRIVE_DATA_FOLDER_ID=1AbCdEf...
 
-# ONE credential. Either a service account:
-GDRIVE_SA_KEY_FILE=/Users/you/.config/nostra-engine/drive-sa.json
+# ONE credential. Either a service account — note the variable is the STANDARD Google one,
+# GOOGLE_APPLICATION_CREDENTIALS, not a GDRIVE_-prefixed name (ui/server/src/config.ts GDRIVE.saKeyFile):
+GOOGLE_APPLICATION_CREDENTIALS=/Users/you/.config/nostra-engine/drive-sa.json
+# GDRIVE_SA_JSON holds the same key INLINE instead, but this loader reads the file line by line, so a
+# pasted multi-line JSON blob would be truncated at its first newline and then fail to parse at runtime.
+# Prefer the file path above; if you must inline it, collapse the JSON to a single line first.
 # A service account has NO storage quota of its own, so it cannot write into a personal My Drive
 # folder. It MUST write into a Shared Drive it is a member of — add the SA's client_email as a
 # Content manager on that drive, and set:
