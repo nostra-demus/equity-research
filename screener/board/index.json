@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-20T23:26:26Z",
+  "generated_at": "2026-08-20T23:41:06Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260820-202",
+      "headline": "EQT: Takeover proposal from BGH Capital [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EQT?key=2924-03124102-3A699401",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-20T23:32:51Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "EQT received a takeover proposal from BGH Capital, which is a material event for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "EQT received a takeover proposal from BGH Capital, which is a material event for shareholders.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EQT Holdings",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260820-192",
       "headline": "CHC: FY26 Results - Release [price-sensitive]",
@@ -488,6 +537,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-201",
+      "headline": "SpaceX, AST Said Seeking to Buy Spectrum Valued at $6 Billion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-20/spacex-ast-said-seeking-to-buy-spectrum-valued-at-6-billion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T23:09:28Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "SpaceX and AST SpaceMobile are reportedly seeking to acquire spectrum assets valued at $6 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SpaceX and AST SpaceMobile are reportedly seeking to acquire spectrum assets valued at $6 billion.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "AST SpaceMobile",
+          "ticker": "ASTS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1856,105 +1959,6 @@
       "companies": [
         {
           "name": "Ross Stores",
-          "ticker": "ROST",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-160",
-      "headline": "Recruiter Hays raises alarm over hit to jobs from AI after suffering its first annual loss for 23 years",
-      "headline_en": null,
-      "url": "https://www.thisismoney.co.uk/money/markets/article-16067965/Recruiter-Hays-raises-alarm-hit-jobs-AI-suffering-annual-loss-23-years.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
-      "source_name": "This is Money (Daily Mail) — Markets",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T21:00:52Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Hays reported its first annual loss in 23 years and warned of structural job-market erosion from AI adoption.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Hays reported its first annual loss in 23 years and warned of structural job-market erosion from AI adoption.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Hays",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-115",
-      "headline": "Ross Stores raises annual profit forecast again on discounted apparel demand",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/ross-stores-raises-annual-profit-forecast-again-discounted-apparel-demand-2026-08-20/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T20:47:45Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Retail giant raises annual profit guidance for second time; revises analyst consensus and cash-flow outlook higher.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 92,
-      "triage_reason": "Retail giant raises annual profit guidance for second time; revises analyst consensus and cash-flow outlook higher.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ross Stores Inc",
           "ticker": "ROST",
           "listing_country": "US"
         }
@@ -71111,9 +71115,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4440140,
-    "news_picked_today": 337,
-    "news_dropped_today": 1208
+    "news_seen_today": 4712668,
+    "news_picked_today": 353,
+    "news_dropped_today": 1252
   },
   "book_momentum": {
     "live_count": 8,
