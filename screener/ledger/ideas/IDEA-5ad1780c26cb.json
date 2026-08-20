@@ -1,9 +1,9 @@
 {
-  "idea_id": "IDEA-4c2faef06d80",
-  "idea_version": "IDEAV-2606c4267b621a1a",
-  "idea_version_started_at": "2026-08-12T13:29:28Z",
-  "ticker": "01302.HK",
-  "company": "Lifetech SCI",
+  "idea_id": "IDEA-5ad1780c26cb",
+  "idea_version": "IDEAV-3e1eab6a7b65522d",
+  "idea_version_started_at": "2026-08-20T01:31:55Z",
+  "ticker": "00608",
+  "company": "High Fashion International",
   "exchange": "HKEX",
   "ticker_verified": false,
   "listing_verified": false,
@@ -11,17 +11,17 @@
   "listing_verification_source": null,
   "direction": "short",
   "pair_with": null,
-  "reason": "The profit warning signals a sharp decline in expected earnings and margins for Lifetech SCI, reducing its cash flow outlook.",
-  "why_now": "The profit warning was announced on 2026-08-12, creating an immediate negative catalyst.",
-  "conviction": 55,
+  "reason": "The company issued a profit warning indicating a significant decline in earnings, which typically leads to downward revisions in analyst estimates and multiple compression.",
+  "why_now": "The filing was released on 2026-08-20, making the negative guidance fresh information for the market.",
+  "conviction": 75,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
-  "trade_score_basis": "evidence_gate_v1",
+  "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
     "evidence": 25,
-    "impact": 20,
+    "impact": 18,
     "specificity": 7,
-    "timing": 15,
+    "timing": 10,
     "expression": 0,
     "corroboration": 0,
     "learning_adjustment": 0
@@ -31,6 +31,7 @@
     "verified listed ticker",
     "verified listing",
     "live liquidity",
+    "dated catalyst",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -47,26 +48,26 @@
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-22a0faa37408"
+    "EVT-038cf2122d14"
   ],
-  "primary_source_event_id": "EVT-22a0faa37408",
+  "primary_source_event_id": "EVT-038cf2122d14",
   "source_headlines": [
-    "LIFETECH SCI (01302): PROFIT WARNING"
+    "HIGH FASHION (00608): PROFIT WARNING"
   ],
-  "source_headline": "LIFETECH SCI (01302): PROFIT WARNING",
-  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0812/2026081201269.pdf",
+  "source_headline": "HIGH FASHION (00608): PROFIT WARNING",
+  "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0820/2026082000051.pdf",
   "source_name": "HKEXnews (HK Exchange Filing)",
-  "materiality_max": 100,
-  "newest_source_at": "2026-08-12T13:08:00Z",
+  "materiality_max": 97,
+  "newest_source_at": "2026-08-20T00:10:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-08-12T13:29:28Z",
-  "updated_at": "2026-08-12T13:29:28Z",
-  "decay_at": "2026-08-14T01:08:00Z",
+  "surfaced_at": "2026-08-20T01:31:55Z",
+  "updated_at": "2026-08-20T01:31:55Z",
+  "decay_at": "2026-08-21T12:10:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
