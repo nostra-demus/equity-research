@@ -74,6 +74,23 @@ RFC3339_DATETIME_RE = re.compile(
 )
 
 
+def _parse_rfc3339_datetime(value: str) -> datetime.datetime:
+    """Parse RFC 3339 consistently on Python 3.9, which needs 3/6-digit fractions."""
+    if not isinstance(value, str) or RFC3339_DATETIME_RE.fullmatch(value) is None:
+        raise ValueError("date-time must include clock time and timezone")
+    normalized = re.sub(
+        r"\.(\d+)(?=(?:[Zz]|[+-]\d{2}:\d{2})$)",
+        lambda match: "." + match.group(1)[:6].ljust(6, "0"),
+        value,
+    )
+    parsed = datetime.datetime.fromisoformat(
+        re.sub(r"[Zz]$", "+00:00", normalized).replace("t", "T")
+    )
+    if parsed.tzinfo is None or parsed.utcoffset() is None:
+        raise ValueError("date-time must include timezone")
+    return parsed
+
+
 class Checker:
     def __init__(self, schema: dict):
         self.root = schema
@@ -141,13 +158,7 @@ class Checker:
                     if fmt == "date":
                         datetime.date.fromisoformat(doc)
                     else:
-                        if not RFC3339_DATETIME_RE.fullmatch(doc):
-                            raise ValueError("date-time must include clock time and timezone")
-                        parsed = datetime.datetime.fromisoformat(
-                            re.sub(r"[Zz]$", "+00:00", doc).replace("t", "T")
-                        )
-                        if parsed.tzinfo is None or parsed.utcoffset() is None:
-                            raise ValueError("date-time must include timezone")
+                        _parse_rfc3339_datetime(doc)
                 except (ValueError, TypeError):
                     self.err(path, f"{doc!r} is not a valid RFC 3339 {fmt}")
 
@@ -664,8 +675,8 @@ def _point_in_time_review_source_errors(source: object, label: str, target: obje
         target_date = datetime.date.fromisoformat(target)
         filed_date = datetime.date.fromisoformat(review_day)
         observation_date = datetime.date.fromisoformat(source["observation_as_of"])
-        published = datetime.datetime.fromisoformat(re.sub(r"[Zz]$", "+00:00", source["published_at"]))
-        retrieved = datetime.datetime.fromisoformat(re.sub(r"[Zz]$", "+00:00", source["retrieved_at"]))
+        published = _parse_rfc3339_datetime(source["published_at"])
+        retrieved = _parse_rfc3339_datetime(source["retrieved_at"])
     except (KeyError, AttributeError, TypeError, ValueError):
         return [f"{label} has invalid point-in-time dates or timestamps"]
     errors = []

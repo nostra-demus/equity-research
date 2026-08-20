@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/memory/evidence-span-v1.schema.json",
+  "title": "Canonical memory evidence span payload v1",
+  "description": "A verbatim text or value span anchored to exact source bytes and a stable locator. The digest in evidence_id, source_id, and source_sha256 must agree.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "evidence_id",
+    "source_id",
+    "source_sha256",
+    "locator",
+    "language",
+    "extraction_method",
+    "extraction_tool",
+    "extraction_version",
+    "extraction_confidence"
+  ],
+  "properties": {
+    "schema": { "const": "memory-evidence-span/v1" },
+    "evidence_id": { "$ref": "#/$defs/evidenceRef" },
+    "source_id": {
+      "type": "string",
+      "pattern": "^source:sha256:[0-9a-f]{64}$"
+    },
+    "source_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "locator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "ref", "page", "section", "table", "cell", "char_start", "char_end"],
+      "properties": {
+        "kind": { "enum": ["page", "section", "table", "cell", "character", "record", "timestamp"] },
+        "ref": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._~:/?&=,+-]{0,255}$"
+        },
+        "page": { "type": ["integer", "null"], "minimum": 1 },
+        "section": { "type": ["string", "null"], "minLength": 1, "maxLength": 512 },
+        "table": { "type": ["string", "null"], "minLength": 1, "maxLength": 256 },
+        "cell": { "type": ["string", "null"], "minLength": 1, "maxLength": 64 },
+        "char_start": { "type": ["integer", "null"], "minimum": 0 },
+        "char_end": { "type": ["integer", "null"], "minimum": 0 }
+      }
+    },
+    "language": {
+      "type": "string",
+      "pattern": "^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$",
+      "maxLength": 63
+    },
+    "verbatim_text": { "type": "string", "minLength": 1 },
+    "verbatim_value": {
+      "type": ["string", "number", "integer", "boolean", "null"]
+    },
+    "extraction_method": {
+      "enum": ["native-text", "ocr", "table-parser", "api", "manual"]
+    },
+    "extraction_tool": { "type": ["string", "null"], "minLength": 1, "maxLength": 256 },
+    "extraction_version": { "type": ["string", "null"], "minLength": 1, "maxLength": 128 },
+    "extraction_confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+  },
+  "oneOf": [
+    {
+      "required": ["verbatim_text"],
+      "not": { "required": ["verbatim_value"] }
+    },
+    {
+      "required": ["verbatim_value"],
+      "not": { "required": ["verbatim_text"] }
+    }
+  ],
+  "$defs": {
+    "evidenceRef": {
+      "type": "string",
+      "pattern": "^evidence:sha256:[0-9a-f]{64}#[A-Za-z0-9][A-Za-z0-9._~:/?&=,+-]{0,255}$"
+    }
+  }
+}

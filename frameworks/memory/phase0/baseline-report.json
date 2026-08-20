@@ -1,0 +1,1027 @@
+{
+  "benchmark": {
+    "as_of": "2026-08-21",
+    "case_count": 63,
+    "sha256": "1178a2bf73edb3b1cb416dfc08a32c2bf488d283e96a36ce5356e65d14feaa03",
+    "top_k": 5,
+    "version": "memory-held-out-benchmark/v1"
+  },
+  "cases": [
+    {
+      "category": "fact_recall",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "analyses/AMZN_2026-07-10/decision_record.json"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 1,
+      "forbidden_hits": [],
+      "id": "fact-001-amzn-decision",
+      "protected_hits": [],
+      "reciprocal_rank": 1.0
+    },
+    {
+      "category": "fact_recall",
+      "complete_evidence_recall": false,
+      "evidence_hits": [],
+      "evidence_misses": [
+        "analyses/ORCL_2026-08-14/earnings/01_historical-financials.md"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": null,
+      "forbidden_hits": [],
+      "id": "fact-002-orcl-leverage",
+      "protected_hits": [],
+      "reciprocal_rank": 0.0
+    },
+    {
+      "category": "fact_recall",
+      "complete_evidence_recall": false,
+      "evidence_hits": [],
+      "evidence_misses": [
+        "analyses/TSLA_2026-07-25/decision_record.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": null,
+      "forbidden_hits": [],
+      "id": "fact-003-tsla-tail-squeeze",
+      "protected_hits": [],
+      "reciprocal_rank": 0.0
+    },
+    {
+      "category": "fact_recall",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "commodity/runs/WHEAT/decision_record.json"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 1,
+      "forbidden_hits": [],
+      "id": "fact-004-wheat-deficit",
+      "protected_hits": [],
+      "reciprocal_rank": 1.0
+    },
+    {
+      "category": "fact_recall",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "commodity/runs/GOLD/decision_record.json"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 1,
+      "forbidden_hits": [],
+      "id": "fact-005-gold-action",
+      "protected_hits": [],
+      "reciprocal_rank": 1.0
+    },
+    {
+      "category": "fact_recall",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "screener/runs/SIG-20260804-da21208a/signal_payload.json"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 2,
+      "forbidden_hits": [],
+      "id": "fact-006-grab-guidance",
+      "protected_hits": [],
+      "reciprocal_rank": 0.5
+    },
+    {
+      "category": "fact_recall",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "watchlist/entries/WL-20260819-1aff8992.json"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 1,
+      "forbidden_hits": [],
+      "id": "fact-007-watchlist-now",
+      "protected_hits": [],
+      "reciprocal_rank": 1.0
+    },
+    {
+      "category": "temporal_cutoff",
+      "complete_evidence_recall": false,
+      "evidence_hits": [],
+      "evidence_misses": [
+        "analyses/AMZN_2026-07-10/decision_record.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": null,
+      "forbidden_hits": [
+        "analyses/AMZN_2026-07-10/reviews/2026-08-01_ad-hoc_decision_review.json",
+        "analyses/AMZN_2026-07-10/reviews/2026-08-09_30d_decision_review.json"
+      ],
+      "id": "time-001-amzn-decision-day",
+      "protected_hits": [],
+      "reciprocal_rank": 0.0
+    },
+    {
+      "category": "temporal_cutoff",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "analyses/BG_2026-06-01/decision_record.json"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 5,
+      "forbidden_hits": [
+        "analyses/BG_2026-06-01/reviews/2026-07-13_30d_decision_review.json"
+      ],
+      "id": "time-002-bg-decision-day",
+      "protected_hits": [],
+      "reciprocal_rank": 0.2
+    },
+    {
+      "category": "temporal_cutoff",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "analyses/HCG_2026-06-01/decision_record.json"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 2,
+      "forbidden_hits": [
+        "analyses/HCG_2026-06-01/reviews/2026-07-11_30d_decision_review.json",
+        "analyses/HCG_2026-06-01/reviews/2026-08-01_ad-hoc_decision_review.json"
+      ],
+      "id": "time-003-hcg-decision-day",
+      "protected_hits": [],
+      "reciprocal_rank": 0.5
+    },
+    {
+      "category": "temporal_cutoff",
+      "complete_evidence_recall": false,
+      "evidence_hits": [],
+      "evidence_misses": [
+        "analyses/EMAAR_2026-07-03/decision_record.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": null,
+      "forbidden_hits": [
+        "analyses/EMAAR_2026-07-03/corrections.json"
+      ],
+      "id": "time-004-emaar-original",
+      "protected_hits": [],
+      "reciprocal_rank": 0.0
+    },
+    {
+      "category": "temporal_cutoff",
+      "complete_evidence_recall": false,
+      "evidence_hits": [],
+      "evidence_misses": [
+        "analyses/NHY_2026-07-19/decision_record.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": null,
+      "forbidden_hits": [
+        "analyses/NHY_2026-07-19/reviews/2026-08-01_ad-hoc_decision_review.json"
+      ],
+      "id": "time-005-nhy-before-results",
+      "protected_hits": [],
+      "reciprocal_rank": 0.0
+    },
+    {
+      "category": "temporal_cutoff",
+      "complete_evidence_recall": false,
+      "evidence_hits": [],
+      "evidence_misses": [
+        "analyses/UBER_2026-08-06/decision_record.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": null,
+      "forbidden_hits": [],
+      "id": "time-006-uber-first-run",
+      "protected_hits": [],
+      "reciprocal_rank": 0.0
+    },
+    {
+      "category": "temporal_cutoff",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "screener/runs/SIG-20260804-da21208a/signal_payload.json"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 2,
+      "forbidden_hits": [],
+      "id": "time-007-grab-processed",
+      "protected_hits": [],
+      "reciprocal_rank": 0.5
+    },
+    {
+      "category": "knowledge_update",
+      "complete_evidence_recall": false,
+      "evidence_hits": [
+        "analyses/EMAAR_2026-07-03/corrections.json"
+      ],
+      "evidence_misses": [
+        "analyses/EMAAR_2026-07-10/decision_record.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 3,
+      "forbidden_hits": [],
+      "id": "update-001-emaar-standing",
+      "protected_hits": [],
+      "reciprocal_rank": 0.333333
+    },
+    {
+      "category": "knowledge_update",
+      "complete_evidence_recall": false,
+      "evidence_hits": [
+        "analyses/BG_2026-06-01/corrections.json"
+      ],
+      "evidence_misses": [
+        "analyses/BG_2026-06-01/decision_record.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 2,
+      "forbidden_hits": [],
+      "id": "update-002-bg-probability-scale",
+      "protected_hits": [],
+      "reciprocal_rank": 0.5
+    },
+    {
+      "category": "knowledge_update",
+      "complete_evidence_recall": false,
+      "evidence_hits": [
+        "analyses/AMZN_2026-07-10/reviews/2026-08-09_30d_decision_review.json"
+      ],
+      "evidence_misses": [
+        "analyses/AMZN_2026-07-10/decision_record.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 2,
+      "forbidden_hits": [],
+      "id": "update-003-amzn-broken",
+      "protected_hits": [],
+      "reciprocal_rank": 0.5
+    },
+    {
+      "category": "knowledge_update",
+      "complete_evidence_recall": false,
+      "evidence_hits": [],
+      "evidence_misses": [
+        "analyses/TMCV_2026-06-07/corrections.json",
+        "analyses/TMCV_2026-06-07/decision_record.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": null,
+      "forbidden_hits": [],
+      "id": "update-004-tmcv-math",
+      "protected_hits": [],
+      "reciprocal_rank": 0.0
+    },
+    {
+      "category": "knowledge_update",
+      "complete_evidence_recall": false,
+      "evidence_hits": [
+        "analyses/NHY_2026-07-19/reviews/2026-08-01_ad-hoc_decision_review.json"
+      ],
+      "evidence_misses": [
+        "analyses/NHY_2026-07-19/decision_record.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 1,
+      "forbidden_hits": [],
+      "id": "update-005-nhy-forecast-result",
+      "protected_hits": [],
+      "reciprocal_rank": 1.0
+    },
+    {
+      "category": "knowledge_update",
+      "complete_evidence_recall": false,
+      "evidence_hits": [
+        "analyses/HCG_2026-06-01/reviews/2026-08-01_ad-hoc_decision_review.json"
+      ],
+      "evidence_misses": [
+        "analyses/HCG_2026-06-01/decision_record.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 2,
+      "forbidden_hits": [],
+      "id": "update-006-hcg-window-fault",
+      "protected_hits": [],
+      "reciprocal_rank": 0.5
+    },
+    {
+      "category": "knowledge_update",
+      "complete_evidence_recall": false,
+      "evidence_hits": [
+        "analyses/UBER_2026-08-09/decision_record.json"
+      ],
+      "evidence_misses": [
+        "analyses/UBER_2026-08-06/decision_record.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 1,
+      "forbidden_hits": [],
+      "id": "update-007-uber-latest",
+      "protected_hits": [],
+      "reciprocal_rank": 1.0
+    },
+    {
+      "category": "contradiction",
+      "complete_evidence_recall": false,
+      "evidence_hits": [],
+      "evidence_misses": [
+        "analyses/AMZN_2026-07-10/decision_record.json",
+        "analyses/AMZN_2026-07-10/reviews/2026-08-09_30d_decision_review.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": null,
+      "forbidden_hits": [],
+      "id": "contradiction-001-amzn-margin",
+      "protected_hits": [],
+      "reciprocal_rank": 0.0
+    },
+    {
+      "category": "contradiction",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "commodity/runs/WHEAT/supply-demand/02_commodity-demand-inventory.md"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 2,
+      "forbidden_hits": [],
+      "id": "contradiction-002-wheat-stocks",
+      "protected_hits": [],
+      "reciprocal_rank": 0.5
+    },
+    {
+      "category": "contradiction",
+      "complete_evidence_recall": false,
+      "evidence_hits": [
+        "analyses/TMCV_2026-06-07/decision_record.json"
+      ],
+      "evidence_misses": [
+        "analyses/TMCV_2026-06-07/corrections.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 3,
+      "forbidden_hits": [],
+      "id": "contradiction-003-tmcv-headline",
+      "protected_hits": [],
+      "reciprocal_rank": 0.333333
+    },
+    {
+      "category": "contradiction",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "analyses/HAIER_2026-08-13/business-model/07_business-quality.md"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 4,
+      "forbidden_hits": [],
+      "id": "contradiction-004-haier-margins",
+      "protected_hits": [],
+      "reciprocal_rank": 0.25
+    },
+    {
+      "category": "contradiction",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "commodity/runs/GOLD/macro-positioning/01_commodity-macro-drivers.md"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 2,
+      "forbidden_hits": [],
+      "id": "contradiction-005-gold-yields",
+      "protected_hits": [],
+      "reciprocal_rank": 0.5
+    },
+    {
+      "category": "contradiction",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "analyses/DHER_2026-08-12/earnings/06_earnings-quality.md"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 3,
+      "forbidden_hits": [],
+      "id": "contradiction-006-dher-fcf",
+      "protected_hits": [],
+      "reciprocal_rank": 0.333333
+    },
+    {
+      "category": "contradiction",
+      "complete_evidence_recall": false,
+      "evidence_hits": [],
+      "evidence_misses": [
+        "analyses/ORCL_2026-08-14/earnings/02_revenue-drivers.md"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": null,
+      "forbidden_hits": [],
+      "id": "contradiction-007-orcl-customers",
+      "protected_hits": [],
+      "reciprocal_rank": 0.0
+    },
+    {
+      "category": "qualifier",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "analyses/SMPL_2026-08-06/business-model/business-model_dossier.md"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 1,
+      "forbidden_hits": [],
+      "id": "qualifier-001-smpl-pass-through",
+      "protected_hits": [],
+      "reciprocal_rank": 1.0
+    },
+    {
+      "category": "qualifier",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "commodity/runs/WHEAT/macro-positioning/02_commodity-positioning-flows.md"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 2,
+      "forbidden_hits": [],
+      "id": "qualifier-002-wheat-positioning",
+      "protected_hits": [],
+      "reciprocal_rank": 0.5
+    },
+    {
+      "category": "qualifier",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "commodity/runs/GOLD/macro-positioning/01_commodity-macro-drivers.md"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 5,
+      "forbidden_hits": [],
+      "id": "qualifier-003-gold-causality",
+      "protected_hits": [],
+      "reciprocal_rank": 0.2
+    },
+    {
+      "category": "qualifier",
+      "complete_evidence_recall": false,
+      "evidence_hits": [],
+      "evidence_misses": [
+        "analyses/BG_2026-06-01/corrections.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": null,
+      "forbidden_hits": [],
+      "id": "qualifier-004-bg-price",
+      "protected_hits": [],
+      "reciprocal_rank": 0.0
+    },
+    {
+      "category": "qualifier",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "analyses/DHER_2026-08-12/earnings/06_earnings-quality.md"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 2,
+      "forbidden_hits": [],
+      "id": "qualifier-005-dher-implied-outflow",
+      "protected_hits": [],
+      "reciprocal_rank": 0.5
+    },
+    {
+      "category": "qualifier",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "analyses/ORCL_2026-08-14/audit_dossier.md"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 1,
+      "forbidden_hits": [],
+      "id": "qualifier-006-orcl-wacc",
+      "protected_hits": [],
+      "reciprocal_rank": 1.0
+    },
+    {
+      "category": "qualifier",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "screener/runs/SIG-20260804-da21208a/thesis_record.json"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 1,
+      "forbidden_hits": [],
+      "id": "qualifier-007-grab-source-read",
+      "protected_hits": [],
+      "reciprocal_rank": 1.0
+    },
+    {
+      "category": "lineage",
+      "complete_evidence_recall": false,
+      "evidence_hits": [
+        "analyses/AMZN_2026-07-10/decision_record.json",
+        "analyses/AMZN_2026-07-10/valuation/07_scenario-and-fair-value.md"
+      ],
+      "evidence_misses": [
+        "analyses/AMZN_2026-07-10/valuation/valuation_summary.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 2,
+      "forbidden_hits": [],
+      "id": "lineage-001-amzn-base-value",
+      "protected_hits": [],
+      "reciprocal_rank": 0.5
+    },
+    {
+      "category": "lineage",
+      "complete_evidence_recall": false,
+      "evidence_hits": [],
+      "evidence_misses": [
+        "analyses/ORCL_2026-08-14/decision_record.json",
+        "analyses/ORCL_2026-08-14/earnings/01_historical-financials.md"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": null,
+      "forbidden_hits": [],
+      "id": "lineage-002-orcl-leverage",
+      "protected_hits": [],
+      "reciprocal_rank": 0.0
+    },
+    {
+      "category": "lineage",
+      "complete_evidence_recall": false,
+      "evidence_hits": [
+        "analyses/EMAAR_2026-07-10/management-governance/99_management-governance-synthesis.md"
+      ],
+      "evidence_misses": [
+        "analyses/EMAAR_2026-07-10/decision_record.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 4,
+      "forbidden_hits": [],
+      "id": "lineage-003-emaar-owner-cap",
+      "protected_hits": [],
+      "reciprocal_rank": 0.25
+    },
+    {
+      "category": "lineage",
+      "complete_evidence_recall": false,
+      "evidence_hits": [],
+      "evidence_misses": [
+        "analyses/HAIER_2026-08-13/decision_record.json",
+        "analyses/HAIER_2026-08-13/business-model/07_business-quality.md"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": null,
+      "forbidden_hits": [],
+      "id": "lineage-004-haier-margin-trigger",
+      "protected_hits": [],
+      "reciprocal_rank": 0.0
+    },
+    {
+      "category": "lineage",
+      "complete_evidence_recall": false,
+      "evidence_hits": [
+        "screener/ledger/theses/THS-SIG-20260804-da21208a-v1.json"
+      ],
+      "evidence_misses": [
+        "screener/runs/SIG-20260804-da21208a/signal_payload.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 5,
+      "forbidden_hits": [],
+      "id": "lineage-005-grab-signal-thesis",
+      "protected_hits": [],
+      "reciprocal_rank": 0.2
+    },
+    {
+      "category": "lineage",
+      "complete_evidence_recall": false,
+      "evidence_hits": [
+        "commodity/runs/WHEAT/supply-demand/02_commodity-demand-inventory.md"
+      ],
+      "evidence_misses": [
+        "commodity/runs/WHEAT/decision_record.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 4,
+      "forbidden_hits": [],
+      "id": "lineage-006-wheat-balance",
+      "protected_hits": [],
+      "reciprocal_rank": 0.25
+    },
+    {
+      "category": "lineage",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "commodity/runs/GOLD/decision_record.json",
+        "commodity/runs/GOLD/pre_mortem_v2.json"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 1,
+      "forbidden_hits": [],
+      "id": "lineage-007-gold-postmortem",
+      "protected_hits": [],
+      "reciprocal_rank": 1.0
+    },
+    {
+      "category": "entity_resolution",
+      "complete_evidence_recall": false,
+      "evidence_hits": [],
+      "evidence_misses": [
+        "analyses/HAIER_2026-08-13/decision_record.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": null,
+      "forbidden_hits": [],
+      "id": "entity-001-haier-listing",
+      "protected_hits": [],
+      "reciprocal_rank": 0.0
+    },
+    {
+      "category": "entity_resolution",
+      "complete_evidence_recall": false,
+      "evidence_hits": [],
+      "evidence_misses": [
+        "analyses/TMCV_2026-06-07/decision_record.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": null,
+      "forbidden_hits": [],
+      "id": "entity-002-tmcv-scope",
+      "protected_hits": [],
+      "reciprocal_rank": 0.0
+    },
+    {
+      "category": "entity_resolution",
+      "complete_evidence_recall": false,
+      "evidence_hits": [],
+      "evidence_misses": [
+        "analyses/DHER_2026-08-12/decision_record.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": null,
+      "forbidden_hits": [],
+      "id": "entity-003-dher-uber",
+      "protected_hits": [],
+      "reciprocal_rank": 0.0
+    },
+    {
+      "category": "entity_resolution",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "screener/runs/SIG-20260804-da21208a/signal_payload.json",
+        "screener/runs/SIG-20260804-da21208a/thesis_record.json"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 2,
+      "forbidden_hits": [],
+      "id": "entity-004-screener-identifiers",
+      "protected_hits": [],
+      "reciprocal_rank": 0.5
+    },
+    {
+      "category": "entity_resolution",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "watchlist/entries/WL-20260819-643972be.json"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": 2,
+      "forbidden_hits": [],
+      "id": "entity-005-visa-listing-key",
+      "protected_hits": [],
+      "reciprocal_rank": 0.5
+    },
+    {
+      "category": "entity_resolution",
+      "complete_evidence_recall": false,
+      "evidence_hits": [],
+      "evidence_misses": [
+        "analyses/AMZN_2026-07-10/decision_record.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": null,
+      "forbidden_hits": [],
+      "id": "entity-006-amzn-listing",
+      "protected_hits": [],
+      "reciprocal_rank": 0.0
+    },
+    {
+      "category": "entity_resolution",
+      "complete_evidence_recall": false,
+      "evidence_hits": [],
+      "evidence_misses": [
+        "commodity/runs/GOLD/decision_record.json"
+      ],
+      "expected_outcome": "retrieve",
+      "first_evidence_rank": null,
+      "forbidden_hits": [],
+      "id": "entity-007-gold-instrument",
+      "protected_hits": [],
+      "reciprocal_rank": 0.0
+    },
+    {
+      "category": "abstention",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "analyses/ORCL_2026-08-14/earnings/99_earnings-synthesis.md"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "abstain",
+      "first_evidence_rank": 2,
+      "forbidden_hits": [],
+      "id": "abstain-001-orcl-earnings-maturities",
+      "protected_hits": [],
+      "reciprocal_rank": 0.5
+    },
+    {
+      "category": "abstention",
+      "complete_evidence_recall": false,
+      "evidence_hits": [],
+      "evidence_misses": [
+        "analyses/BG_2026-06-01/corrections.json"
+      ],
+      "expected_outcome": "abstain",
+      "first_evidence_rank": null,
+      "forbidden_hits": [],
+      "id": "abstain-002-bg-entry-price",
+      "protected_hits": [],
+      "reciprocal_rank": 0.0
+    },
+    {
+      "category": "abstention",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "analyses/DHER_2026-08-12/earnings/06_earnings-quality.md"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "abstain",
+      "first_evidence_rank": 5,
+      "forbidden_hits": [],
+      "id": "abstain-003-dher-capex-split",
+      "protected_hits": [],
+      "reciprocal_rank": 0.2
+    },
+    {
+      "category": "abstention",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "commodity/runs/WHEAT/macro-positioning/02_commodity-positioning-flows.md"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "abstain",
+      "first_evidence_rank": 2,
+      "forbidden_hits": [],
+      "id": "abstain-004-wheat-weat-official",
+      "protected_hits": [],
+      "reciprocal_rank": 0.5
+    },
+    {
+      "category": "abstention",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "analyses/HAIER_2026-08-13/audit_dossier.md"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "abstain",
+      "first_evidence_rank": 1,
+      "forbidden_hits": [],
+      "id": "abstain-005-haier-matched-ratio",
+      "protected_hits": [],
+      "reciprocal_rank": 1.0
+    },
+    {
+      "category": "abstention",
+      "complete_evidence_recall": false,
+      "evidence_hits": [],
+      "evidence_misses": [
+        "analyses/ORCL_2026-08-14/earnings/02_revenue-drivers.md"
+      ],
+      "expected_outcome": "abstain",
+      "first_evidence_rank": null,
+      "forbidden_hits": [],
+      "id": "abstain-006-orcl-exact-four",
+      "protected_hits": [],
+      "reciprocal_rank": 0.0
+    },
+    {
+      "category": "abstention",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "screener/board/index.json"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "abstain",
+      "first_evidence_rank": 1,
+      "forbidden_hits": [],
+      "id": "abstain-007-dtm-security",
+      "protected_hits": [],
+      "reciprocal_rank": 1.0
+    },
+    {
+      "category": "access_control",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "frameworks/EXTERNAL_DATA.md"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "deny",
+      "first_evidence_rank": 1,
+      "forbidden_hits": [],
+      "id": "access-001-subscriber-republish",
+      "protected_hits": [],
+      "reciprocal_rank": 1.0
+    },
+    {
+      "category": "access_control",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "frameworks/EXTERNAL_DATA.md"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "deny",
+      "first_evidence_rank": 1,
+      "forbidden_hits": [],
+      "id": "access-002-broker-verdict",
+      "protected_hits": [],
+      "reciprocal_rank": 1.0
+    },
+    {
+      "category": "access_control",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "frameworks/EXTERNAL_DATA.md"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "deny",
+      "first_evidence_rank": 1,
+      "forbidden_hits": [],
+      "id": "access-003-expert-call-override",
+      "protected_hits": [],
+      "reciprocal_rank": 1.0
+    },
+    {
+      "category": "access_control",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "frameworks/EXTERNAL_DATA.md"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "deny",
+      "first_evidence_rank": 1,
+      "forbidden_hits": [],
+      "id": "access-004-unknown-source",
+      "protected_hits": [],
+      "reciprocal_rank": 1.0
+    },
+    {
+      "category": "access_control",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "frameworks/EXTERNAL_DATA.md"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "deny",
+      "first_evidence_rank": 1,
+      "forbidden_hits": [],
+      "id": "access-005-sidecar-rights",
+      "protected_hits": [],
+      "reciprocal_rank": 1.0
+    },
+    {
+      "category": "access_control",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "frameworks/EXTERNAL_DATA.md"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "deny",
+      "first_evidence_rank": 1,
+      "forbidden_hits": [],
+      "id": "access-006-wiltw-runtime",
+      "protected_hits": [],
+      "reciprocal_rank": 1.0
+    },
+    {
+      "category": "access_control",
+      "complete_evidence_recall": true,
+      "evidence_hits": [
+        "frameworks/EXTERNAL_DATA.md"
+      ],
+      "evidence_misses": [],
+      "expected_outcome": "deny",
+      "first_evidence_rank": 1,
+      "forbidden_hits": [],
+      "id": "access-007-filing-substitution",
+      "protected_hits": [],
+      "reciprocal_rank": 1.0
+    }
+  ],
+  "category_metrics": {
+    "abstention": {
+      "case_count": 7,
+      "complete_evidence_recall_at_k": 0.714286,
+      "evidence_path_recall_at_k": 0.714286,
+      "mean_reciprocal_rank": 0.457143
+    },
+    "access_control": {
+      "case_count": 7,
+      "complete_evidence_recall_at_k": 1.0,
+      "evidence_path_recall_at_k": 1.0,
+      "mean_reciprocal_rank": 1.0
+    },
+    "contradiction": {
+      "case_count": 7,
+      "complete_evidence_recall_at_k": 0.571429,
+      "evidence_path_recall_at_k": 0.555556,
+      "mean_reciprocal_rank": 0.273809
+    },
+    "entity_resolution": {
+      "case_count": 7,
+      "complete_evidence_recall_at_k": 0.285714,
+      "evidence_path_recall_at_k": 0.375,
+      "mean_reciprocal_rank": 0.142857
+    },
+    "fact_recall": {
+      "case_count": 7,
+      "complete_evidence_recall_at_k": 0.714286,
+      "evidence_path_recall_at_k": 0.714286,
+      "mean_reciprocal_rank": 0.642857
+    },
+    "knowledge_update": {
+      "case_count": 7,
+      "complete_evidence_recall_at_k": 0.0,
+      "evidence_path_recall_at_k": 0.428571,
+      "mean_reciprocal_rank": 0.547619
+    },
+    "lineage": {
+      "case_count": 7,
+      "complete_evidence_recall_at_k": 0.142857,
+      "evidence_path_recall_at_k": 0.466667,
+      "mean_reciprocal_rank": 0.314286
+    },
+    "qualifier": {
+      "case_count": 7,
+      "complete_evidence_recall_at_k": 0.857143,
+      "evidence_path_recall_at_k": 0.857143,
+      "mean_reciprocal_rank": 0.6
+    },
+    "temporal_cutoff": {
+      "case_count": 7,
+      "complete_evidence_recall_at_k": 0.428571,
+      "evidence_path_recall_at_k": 0.428571,
+      "mean_reciprocal_rank": 0.171429
+    }
+  },
+  "corpus": {
+    "sha256": "d787efaaa08746df04d8f50e57808b177a06ea5c918280a722d6ea03150cde14",
+    "total_bytes": 55922072,
+    "unique_files_considered": 1256
+  },
+  "limitations": [
+    "The folder/grep baseline measures evidence-file retrieval, not generated-answer correctness or citation-span precision.",
+    "Abstention cases measure retrieval of explicit missingness evidence; whether a model actually abstains is not measured by this non-model baseline.",
+    "The checkout contains access policy but no safely redistributable restricted-content test payload. Access cases therefore measure policy retrieval and path intrusion only; they do not prove production authorization enforcement.",
+    "Wall-clock latency, model tokens, and model cost are intentionally absent from this deterministic report."
+  ],
+  "method": {
+    "description": "Recursive folder scan followed by deterministic literal token and adjacent-token grep scoring.",
+    "ranking_inputs": [
+      "question",
+      "search_roots"
+    ],
+    "scoring_fields_hidden_until_after_ranking": true,
+    "text_suffixes": [
+      ".csv",
+      ".json",
+      ".md",
+      ".ndjson",
+      ".txt"
+    ],
+    "tie_breaker": "repository-relative path ascending",
+    "timing_recorded": false
+  },
+  "metrics": {
+    "complete_evidence_recall_at_k": 0.52381,
+    "evidence_path_recall_at_k": 0.580247,
+    "mean_reciprocal_rank": 0.461111,
+    "protected_path_intrusions": 0,
+    "temporal_forbidden_path_hits": 7,
+    "temporal_leakage_case_rate": 0.714286
+  },
+  "report_version": "memory-folder-grep-baseline/v1"
+}

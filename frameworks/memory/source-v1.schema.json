@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/memory/source-v1.schema.json",
+  "title": "Canonical memory source payload v1",
+  "description": "An exact, content-addressed version of a source document. source_id and content_sha256 identify the same bytes; document_id identifies the enduring logical document across versions.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "source_id",
+    "document_id",
+    "title",
+    "issuer_ids",
+    "source_tier",
+    "publication_date",
+    "filing_date",
+    "effective_date",
+    "language",
+    "licence",
+    "uri",
+    "content_sha256",
+    "mime_type",
+    "byte_length",
+    "extraction_status"
+  ],
+  "properties": {
+    "schema": { "const": "memory-source/v1" },
+    "source_id": {
+      "type": "string",
+      "pattern": "^source:sha256:[0-9a-f]{64}$"
+    },
+    "document_id": {
+      "type": "string",
+      "pattern": "^document_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "title": { "type": "string", "minLength": 1, "maxLength": 1024 },
+    "issuer_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^(?:issuer:lei:[A-Z0-9]{20}|entity:internal:[a-z0-9][a-z0-9._-]{0,127})$"
+      }
+    },
+    "source_tier": { "type": "integer", "minimum": 1, "maximum": 10 },
+    "publication_date": { "$ref": "#/$defs/nullableDate" },
+    "filing_date": { "$ref": "#/$defs/nullableDate" },
+    "effective_date": { "$ref": "#/$defs/nullableDate" },
+    "language": {
+      "type": "string",
+      "pattern": "^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$",
+      "maxLength": 63
+    },
+    "licence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "uri", "expires_at", "derived_data"],
+      "properties": {
+        "name": { "type": ["string", "null"], "minLength": 1, "maxLength": 256 },
+        "uri": { "type": ["string", "null"], "minLength": 1, "maxLength": 2048 },
+        "expires_at": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/awareDateTime" }
+          ]
+        },
+        "derived_data": { "enum": ["allowed", "restricted", "prohibited"] }
+      }
+    },
+    "uri": { "type": ["string", "null"], "minLength": 1, "maxLength": 4096 },
+    "content_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "mime_type": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9!#$&^_.+-]+/[A-Za-z0-9!#$&^_.+-]+$",
+      "maxLength": 255
+    },
+    "byte_length": { "type": "integer", "minimum": 0 },
+    "extraction_status": {
+      "enum": ["not-started", "succeeded", "partial", "failed"]
+    }
+  },
+  "$defs": {
+    "nullableDate": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "format": "date", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" }
+      ]
+    },
+    "awareDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+    }
+  }
+}

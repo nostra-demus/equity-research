@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/memory/identity-registry-v1.schema.json",
+  "title": "Canonical memory identity registry v1",
+  "description": "Versioned namespace definitions and identity aliases. scripts/memory_contract.py enforces the immutable built-in LEI, FIGI, ISIN, MIC+ticker, internal entity, run, forecast, claim, and source namespace rules.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "registry_id", "generated_at", "namespaces", "identities"],
+  "properties": {
+    "schema": { "const": "memory-identity-registry/v1" },
+    "registry_id": {
+      "type": "string",
+      "pattern": "^identity-registry_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+    },
+    "namespaces": {
+      "type": "array",
+      "minItems": 9,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "entity_kind", "id_pattern", "authority", "case_sensitive"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*(?::[a-z][a-z0-9-]*)?$"
+          },
+          "entity_kind": {
+            "enum": ["issuer", "security", "entity", "run", "forecast", "claim", "source"]
+          },
+          "id_pattern": { "type": "string", "minLength": 3, "maxLength": 512 },
+          "authority": { "type": "string", "minLength": 1, "maxLength": 256 },
+          "case_sensitive": { "type": "boolean" }
+        }
+      }
+    },
+    "identities": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "namespace", "entity_kind", "canonical_id", "status", "valid_time", "aliases"],
+        "properties": {
+          "id": { "type": "string", "minLength": 3, "maxLength": 256 },
+          "namespace": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*(?::[a-z][a-z0-9-]*)?$"
+          },
+          "entity_kind": {
+            "enum": ["issuer", "security", "entity", "run", "forecast", "claim", "source"]
+          },
+          "canonical_id": { "type": "string", "minLength": 3, "maxLength": 256 },
+          "status": { "enum": ["active", "superseded", "retired"] },
+          "valid_time": { "$ref": "#/$defs/validTime" },
+          "aliases": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1, "maxLength": 256 }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "validEndpoint": {
+      "oneOf": [
+        { "type": "string", "format": "date", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+        }
+      ]
+    },
+    "validTime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "to"],
+      "properties": {
+        "from": { "$ref": "#/$defs/validEndpoint" },
+        "to": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/validEndpoint" }
+          ]
+        }
+      }
+    }
+  }
+}
