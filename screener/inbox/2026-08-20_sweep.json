@@ -1,8 +1,550 @@
 {
   "date": "2026-08-20",
-  "updated_at": "2026-08-20T01:20:06Z",
+  "updated_at": "2026-08-20T01:25:00Z",
   "focus_hint": null,
   "rows": [
+    {
+      "inbox_id": "INB-20260820-013",
+      "headline": "DTM: Acquisition of WA gold project and $2m Placement [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DTM?key=2924-03123552-3A699280",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-19T23:56:42Z",
+      "observed_at": "2026-08-20T01:25:00Z",
+      "source_is_english": true,
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company acquiring Western Australia gold project and raising A$2 million via placement; acquisition target size not disclosed in headline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 62,
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DTM",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "multi_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "critical",
+      "event_direction": "unknown",
+      "event_scope": "company_specific",
+      "scheduled_events": [],
+      "rank_factors": {
+        "materiality": 62,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 8,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "Company acquiring Western Australia gold project and raising A$2 million via placement; acquisition target size not disclosed in headline.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-a234e618750a"
+    },
+    {
+      "inbox_id": "INB-20260820-009",
+      "headline": "HIGH FASHION (00608): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0820/2026082000051.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-20T00:10:00Z",
+      "observed_at": "2026-08-20T01:25:00Z",
+      "source_is_english": true,
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Profit warning issued by Hong Kong-listed fashion company; magnitude of earnings impact not disclosed in headline.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HIGH FASHION",
+          "ticker": "00608",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "critical",
+      "event_direction": "negative",
+      "event_scope": "company_specific",
+      "scheduled_events": [],
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "Profit warning issued by Hong Kong-listed fashion company; magnitude of earnings impact not disclosed in headline.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-038cf2122d14"
+    },
+    {
+      "inbox_id": "INB-20260820-010",
+      "headline": "OVT: OVT EXITS BNPL AND COST CUTS [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OVT?key=2924-03123561-2A1690731",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-20T00:06:27Z",
+      "observed_at": "2026-08-20T01:25:00Z",
+      "source_is_english": true,
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 80,
+      "triage_reason": "Company exiting BNPL (Buy Now Pay Later) business segment and implementing cost reductions; strategic intent and financial impact unclear from headline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 58,
+      "event_types": [
+        "restructuring_layoffs"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "OVT",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "high",
+      "event_direction": "mixed",
+      "event_scope": "company_specific",
+      "scheduled_events": [],
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "restructuring_layoffs",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "Company exiting BNPL (Buy Now Pay Later) business segment and implementing cost reductions; strategic intent and financial impact unclear from headline.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-a9b0b014c1ca"
+    },
+    {
+      "inbox_id": "INB-20260820-015",
+      "headline": "FCA fines and bans former SVS Securities CEO",
+      "headline_en": null,
+      "url": "https://www.fca.org.uk/news/press-releases/fca-fines-bans-former-svs-securities-ceo",
+      "source_name": "UK Financial Conduct Authority (FCA) — News",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-19T22:54:25Z",
+      "observed_at": "2026-08-20T01:25:00Z",
+      "source_is_english": true,
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "UK FCA enforcement action fining and banning former SVS Securities CEO; scope of ongoing company liability and reputational impact unclear from headline.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 52,
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SVS Securities",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "high",
+      "event_direction": "negative",
+      "event_scope": "company_specific",
+      "scheduled_events": [],
+      "rank_factors": {
+        "materiality": 52,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "UK FCA enforcement action fining and banning former SVS Securities CEO; scope of ongoing company liability and reputational impact unclear from headline.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-e65998577bef"
+    },
+    {
+      "inbox_id": "INB-20260820-008",
+      "headline": "WMI: Increased FF full year dividend, 2026 Full Year Results [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WMI?key=2924-03123584-2A1690746",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-20T00:38:22Z",
+      "observed_at": "2026-08-20T01:25:00Z",
+      "source_is_english": true,
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 73,
+      "triage_reason": "Company increased full-year dividend alongside results, signaling improved cash generation or capital-return capacity; magnitude of increase not disclosed in headline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 48,
+      "event_types": [
+        "capital_actions",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WMI",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "high",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "scheduled_events": [],
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "Company increased full-year dividend alongside results, signaling improved cash generation or capital-return capacity; magnitude of increase not disclosed in headline.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-48bd2db4cbf9"
+    },
+    {
+      "inbox_id": "INB-20260820-014",
+      "headline": "AHK: Sandy Mitchell Stage 3 Resource Expansion Drilling Results [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AHK?key=2924-03123521-2A1690691",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-19T23:44:47Z",
+      "observed_at": "2026-08-20T01:25:00Z",
+      "source_is_english": true,
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 68,
+      "triage_reason": "Mineral-exploration company reporting completion of Stage 3 expansion drilling at Sandy Mitchell project; mineral-reserve implications not quantified in headline.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 48,
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AHK",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "medium",
+      "event_direction": "positive",
+      "event_scope": "company_specific",
+      "scheduled_events": [],
+      "rank_factors": {
+        "materiality": 48,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 2,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "operations",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "Mineral-exploration company reporting completion of Stage 3 expansion drilling at Sandy Mitchell project; mineral-reserve implications not quantified in headline.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-4c965f2bf1c2"
+    },
+    {
+      "inbox_id": "INB-20260820-011",
+      "headline": "MML: McLaren Delivers Outstanding Results [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MML?key=2924-03123562-6A1339435",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-20T00:07:37Z",
+      "observed_at": "2026-08-20T01:25:00Z",
+      "source_is_english": true,
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 48,
+      "triage_reason": "Results announcement with subjective descriptor ('outstanding') but no quantified metrics, guidance, or guidance change disclosed.",
+      "region": "OTHER",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 25,
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MML",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "medium",
+      "event_direction": "unknown",
+      "event_scope": "company_specific",
+      "scheduled_events": [],
+      "rank_factors": {
+        "materiality": 25,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "Results announcement with subjective descriptor ('outstanding') but no quantified metrics, guidance, or guidance change disclosed.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-18f8063076e7"
+    },
+    {
+      "inbox_id": "INB-20260820-006",
+      "headline": "IDT: FY26 Full Year Results",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IDT?key=2924-03123588-3A699302",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-20T00:46:02Z",
+      "observed_at": "2026-08-20T01:25:00Z",
+      "source_is_english": true,
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "Routine full-year earnings announcement with no disclosed metrics, guidance, or guidance change.",
+      "region": "OTHER",
+      "relevance": "irrelevant",
+      "materiality_pre_score": 20,
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IDT",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "low",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "scheduled_events": [],
+      "rank_factors": {
+        "materiality": 20,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "Routine full-year earnings announcement with no disclosed metrics, guidance, or guidance change.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-e08fb8e55b4c"
+    },
+    {
+      "inbox_id": "INB-20260820-007",
+      "headline": "SRV: Market Announcement - Full Year Results",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SRV?key=2924-03123586-2A1690747",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-20T00:41:37Z",
+      "observed_at": "2026-08-20T01:25:00Z",
+      "source_is_english": true,
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 44,
+      "triage_reason": "Routine full-year earnings announcement with no disclosed metrics, guidance, or guidance change.",
+      "region": "OTHER",
+      "relevance": "irrelevant",
+      "materiality_pre_score": 20,
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SRV",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "low",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "scheduled_events": [],
+      "rank_factors": {
+        "materiality": 20,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "Routine full-year earnings announcement with no disclosed metrics, guidance, or guidance change.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-b18f517aeb95"
+    },
+    {
+      "inbox_id": "INB-20260820-012",
+      "headline": "PIC: FY26 Results Summary [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PIC?key=2924-03123528-2A1690723",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-19T23:47:12Z",
+      "observed_at": "2026-08-20T01:25:00Z",
+      "source_is_english": true,
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 43,
+      "triage_reason": "Routine full-year earnings summary with no disclosed metrics, guidance, or guidance change.",
+      "region": "OTHER",
+      "relevance": "irrelevant",
+      "materiality_pre_score": 20,
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PIC",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "event_materiality_label": "low",
+      "event_direction": "neutral",
+      "event_scope": "company_specific",
+      "scheduled_events": [],
+      "rank_factors": {
+        "materiality": 20,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "prelim_note": "Routine full-year earnings summary with no disclosed metrics, guidance, or guidance change.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-391384af843a"
+    },
     {
       "inbox_id": "INB-20260820-001",
       "headline": "SEBI bars Copthall Mauritius, Mansi Share and Stock Broking from markets over Sensex closing-auction manipulation, impounds Rs 3.68 crore",
@@ -62,6 +604,231 @@
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null
+    }
+  ],
+  "source": "auto_ingester",
+  "revision_clock_version": 1,
+  "revision_clocks": [
+    {
+      "revision_key": "https://www.businesstoday.in/markets/story/sebi-flags-prima-facie-manipulation-in-sensex-closing-auction-session-blocks-two-entities-550200-2026-08-19\u0000__url_revision__:observation:EVT-5f8d0997a7db",
+      "event_id": "EVT-5f8d0997a7db",
+      "found_at": "2026-08-20T01:20:06Z"
+    },
+    {
+      "revision_key": "https://www.bloomberg.com/news/articles/2026-08-19/korea-bears-brunt-as-higher-bond-yields-weigh-on-chip-stocks\u0000__url_revision__:observation:EVT-19721a0ec4cf",
+      "event_id": "EVT-19721a0ec4cf",
+      "found_at": "2026-08-20T01:20:06Z"
+    },
+    {
+      "revision_key": "https://www.bloomberg.com/news/newsletters/2026-08-19/us-treasury-to-double-longer-bond-repurchases\u0000__url_revision__:observation:EVT-89aeae7416b0",
+      "event_id": "EVT-89aeae7416b0",
+      "found_at": "2026-08-20T01:20:06Z"
+    },
+    {
+      "revision_key": "https://www.sec.gov/Archives/edgar/data/0001488139/000162828026057952/exhibit_991august192026pre.htm\u0000__url_revision__:observation:EVT-b2ed5cdc4fd0",
+      "event_id": "EVT-b2ed5cdc4fd0",
+      "found_at": "2026-08-20T01:20:06Z"
+    },
+    {
+      "revision_key": "https://www.benzinga.com/trading-ideas/movers/26/08/61284023/duolingo-stock-surges-after-upgrade-to-buy-rating\u0000__url_revision__:observation:EVT-1be4a1c6cc37",
+      "event_id": "EVT-1be4a1c6cc37",
+      "found_at": "2026-08-20T01:20:06Z"
+    },
+    {
+      "revision_key": "https://nsearchives.nseindia.com/corporate/GICRE_19082026224122_SEintimationrevisedInvestorPPT.pdf\u0000__url_revision__:observation:EVT-b028d1626fe9",
+      "event_id": "EVT-b028d1626fe9",
+      "found_at": "2026-08-19T17:11:30Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CDA?key=2924-03123365-2A1690633\u0000__url_revision__:observation:EVT-d92f4881ed4f",
+      "event_id": "EVT-d92f4881ed4f",
+      "found_at": "2026-08-19T22:58:07Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CDA?key=2924-03123372-2A1690636\u0000__url_revision__:observation:EVT-283d360b7e2d",
+      "event_id": "EVT-283d360b7e2d",
+      "found_at": "2026-08-19T23:00:22Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CDA?key=2924-03123384-2A1690650\u0000__url_revision__:observation:EVT-4560e9dc39af",
+      "event_id": "EVT-4560e9dc39af",
+      "found_at": "2026-08-19T23:06:37Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CTW?key=2924-03123558-2A1690732\u0000__url_revision__:observation:EVT-cd4343c9d3bb",
+      "event_id": "EVT-cd4343c9d3bb",
+      "found_at": "2026-08-20T00:00:37Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GMG?key=2924-03123385-2A1690646\u0000__url_revision__:observation:EVT-caeba897fcb0",
+      "event_id": "EVT-caeba897fcb0",
+      "found_at": "2026-08-19T23:07:02Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IDT?key=2924-03123591-3A699303\u0000__url_revision__:observation:EVT-e08fb8e55b4c",
+      "event_id": "EVT-e08fb8e55b4c",
+      "found_at": "2026-08-20T00:47:02Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LBL?key=2924-03123481-2A1690700\u0000__url_revision__:observation:EVT-35993211e96c",
+      "event_id": "EVT-35993211e96c",
+      "found_at": "2026-08-19T23:27:02Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.LBL?key=2924-03123571-2A1690739\u0000__url_revision__:observation:EVT-e9dc8231e05e",
+      "event_id": "EVT-e9dc8231e05e",
+      "found_at": "2026-08-20T00:23:42Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MXO?key=2924-03123496-6A1339418\u0000__url_revision__:observation:EVT-edb591a247a3",
+      "event_id": "EVT-edb591a247a3",
+      "found_at": "2026-08-19T23:35:17Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.NOU?key=2924-03123362-2A1690621\u0000__url_revision__:observation:EVT-f0fc0e77b3fc",
+      "event_id": "EVT-f0fc0e77b3fc",
+      "found_at": "2026-08-19T22:57:12Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PHX?key=2924-03123583-2A1690745\u0000__url_revision__:observation:EVT-ed916f557439",
+      "event_id": "EVT-ed916f557439",
+      "found_at": "2026-08-20T00:36:27Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PIC?key=2924-03123564-2A1690736\u0000__url_revision__:observation:EVT-c221ade9f6f5",
+      "event_id": "EVT-c221ade9f6f5",
+      "found_at": "2026-08-20T00:10:32Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SRV?key=2924-03123491-2A1690704\u0000__url_revision__:observation:EVT-2282d8583f88",
+      "event_id": "EVT-2282d8583f88",
+      "found_at": "2026-08-19T23:32:42Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VCD?key=2924-03123516-2A1690717\u0000__url_revision__:observation:EVT-7684aa279a15",
+      "event_id": "EVT-7684aa279a15",
+      "found_at": "2026-08-19T23:43:07Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VCD?key=2924-03123529-2A1690721\u0000__url_revision__:observation:EVT-435c520524a0",
+      "event_id": "EVT-435c520524a0",
+      "found_at": "2026-08-19T23:47:47Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VCX?key=2924-03123486-3A699288\u0000__url_revision__:observation:EVT-8fc200047ba0",
+      "event_id": "EVT-8fc200047ba0",
+      "found_at": "2026-08-19T23:29:12Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VMM?key=2924-03123543-6A1339369\u0000__url_revision__:observation:EVT-fc3409c5dcd6",
+      "event_id": "EVT-fc3409c5dcd6",
+      "found_at": "2026-08-19T23:51:22Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.VMM?key=2924-03123551-6A1339430\u0000__url_revision__:observation:EVT-0e882534d039",
+      "event_id": "EVT-0e882534d039",
+      "found_at": "2026-08-19T23:55:37Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WQG?key=2924-03123513-3A699292\u0000__url_revision__:observation:EVT-7e9a6889b149",
+      "event_id": "EVT-7e9a6889b149",
+      "found_at": "2026-08-19T23:42:47Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WQG?key=2924-03123527-3A699294\u0000__url_revision__:observation:EVT-78a9e99b4393",
+      "event_id": "EVT-78a9e99b4393",
+      "found_at": "2026-08-19T23:46:57Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.IDT?key=2924-03123588-3A699302\u0000__url_revision__:observation:EVT-cd97c3f1780e",
+      "event_id": "EVT-cd97c3f1780e",
+      "found_at": "2026-08-20T00:46:02Z",
+      "observed_at": "2026-08-20T01:25:00Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SRV?key=2924-03123586-2A1690747\u0000__url_revision__:observation:EVT-b18f517aeb95",
+      "event_id": "EVT-b18f517aeb95",
+      "found_at": "2026-08-20T00:41:37Z",
+      "observed_at": "2026-08-20T01:25:00Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WMI?key=2924-03123584-2A1690746\u0000__url_revision__:observation:EVT-48bd2db4cbf9",
+      "event_id": "EVT-48bd2db4cbf9",
+      "found_at": "2026-08-20T00:38:22Z",
+      "observed_at": "2026-08-20T01:25:00Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0820/2026082000051.pdf\u0000__url_revision__:observation:EVT-038cf2122d14",
+      "event_id": "EVT-038cf2122d14",
+      "found_at": "2026-08-20T00:10:00Z",
+      "observed_at": "2026-08-20T01:25:00Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.OVT?key=2924-03123561-2A1690731\u0000__url_revision__:observation:EVT-a9b0b014c1ca",
+      "event_id": "EVT-a9b0b014c1ca",
+      "found_at": "2026-08-20T00:06:27Z",
+      "observed_at": "2026-08-20T01:25:00Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MML?key=2924-03123562-6A1339435\u0000__url_revision__:observation:EVT-18f8063076e7",
+      "event_id": "EVT-18f8063076e7",
+      "found_at": "2026-08-20T00:07:37Z",
+      "observed_at": "2026-08-20T01:25:00Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PIC?key=2924-03123528-2A1690723\u0000__url_revision__:observation:EVT-391384af843a",
+      "event_id": "EVT-391384af843a",
+      "found_at": "2026-08-19T23:47:12Z",
+      "observed_at": "2026-08-20T01:25:00Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.DTM?key=2924-03123552-3A699280\u0000__url_revision__:observation:EVT-a234e618750a",
+      "event_id": "EVT-a234e618750a",
+      "found_at": "2026-08-19T23:56:42Z",
+      "observed_at": "2026-08-20T01:25:00Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.AHK?key=2924-03123521-2A1690691\u0000__url_revision__:observation:EVT-4c965f2bf1c2",
+      "event_id": "EVT-4c965f2bf1c2",
+      "found_at": "2026-08-19T23:44:47Z",
+      "observed_at": "2026-08-20T01:25:00Z",
+      "source_is_english": true
+    },
+    {
+      "revision_key": "https://www.fca.org.uk/news/press-releases/fca-fines-bans-former-svs-securities-ceo\u0000__url_revision__:observation:EVT-e65998577bef",
+      "event_id": "EVT-e65998577bef",
+      "found_at": "2026-08-19T22:54:25Z",
+      "observed_at": "2026-08-20T01:25:00Z",
+      "source_is_english": true
     }
   ]
 }
