@@ -1,30 +1,30 @@
 {
-  "generated_at": "2026-08-20T22:54:21Z",
+  "generated_at": "2026-08-20T23:26:26Z",
   "inbox": [
     {
-      "inbox_id": "INB-20260820-172",
-      "headline": "PWR: FY26 Results Presentation [price-sensitive]",
+      "inbox_id": "INB-20260820-192",
+      "headline": "CHC: FY26 Results - Release [price-sensitive]",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PWR?key=2924-03123924-2A1690910",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CHC?key=2924-03124085-2A1691001",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-20T22:07:01Z",
+      "found_at": "2026-08-20T23:18:56Z",
       "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Company released financial results presentation.",
+      "prelim_note": "The company released its FY26 financial results, which are explicitly marked as price-sensitive.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Company released financial results presentation.",
+      "triage_reason": "The company released its FY26 financial results, which are explicitly marked as price-sensitive.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 85,
       "rank_factors": {
-        "materiality": 75,
+        "materiality": 85,
         "source_tier": 8,
         "scope": 6,
         "event": 5,
-        "size": 1,
+        "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
@@ -32,7 +32,7 @@
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
         "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
+        "size_bucket": "unknown"
       },
       "event_types": [
         "earnings_revenue_margin"
@@ -40,12 +40,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "PWR",
+          "name": "CHC",
           "ticker": null,
           "listing_country": "AU"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -493,20 +493,20 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260820-181",
+      "inbox_id": "INB-20260820-190",
       "headline": "Walmart Raises Full-Year Guidance, but U.S. Comparable Sales Growth Slowed to Just 2.6%. Here's What Investors Need to Know.",
       "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/08/20/walmart-raises-full-year-guidance-but-us-comparable-sales-growth-slowed-to-just-26-heres-what-investors-need-to-know/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
+      "url": "https://www.nasdaq.com/articles/walmart-raises-full-year-guidance-us-comparable-sales-growth-slowed-just-26-heres-what",
+      "source_name": "Nasdaq",
       "input_nature": "news_headline",
-      "found_at": "2026-08-20T21:50:53Z",
+      "found_at": "2026-08-20T22:10:53Z",
       "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Walmart raised full-year guidance but reported a slowdown in U.S. comparable sales growth to 2.6%.",
+      "prelim_note": "Walmart raises full-year guidance (positive for revenue and margin projections) but U.S. comparable-sales growth slowed to 2.6% (signals growth deceleration); moves analyst expectations with conflicting signals.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Walmart raised full-year guidance but reported a slowdown in U.S. comparable sales growth to 2.6%.",
+      "triage_reason": "Walmart raises full-year guidance (positive for revenue and margin projections) but U.S. comparable-sales growth slowed to 2.6% (signals growth deceleration); moves analyst expectations with conflicting signals.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
@@ -533,7 +533,7 @@
       "companies": [
         {
           "name": "Walmart",
-          "ticker": null,
+          "ticker": "WMT",
           "listing_country": "US"
         }
       ],
@@ -700,6 +700,55 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-195",
+      "headline": "WQG: Updated - Full Year Results and Dividend Update [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.WQG?key=2924-03124079-3A699397",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-20T23:12:41Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "The company released updated full-year results and dividend information, marked as price-sensitive.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "The company released updated full-year results and dividend information, marked as price-sensitive.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "WQG",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1327,6 +1376,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260820-191",
+      "headline": "EGG: Preliminary Final Report [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EGG?key=2924-03123968-2A1690929",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-20T22:22:26Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Preliminary final report is a price-sensitive financial disclosure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Preliminary final report is a price-sensitive financial disclosure.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "EGG",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260820-186",
       "headline": "NSC: Appendix 4E & Annual Report 30 June 2026 [price-sensitive]",
       "headline_en": null,
@@ -1862,109 +1960,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-184",
-      "headline": "JAN: Janison secures landmark UK contract with NFER [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.JAN?key=2924-03123933-2A1690896",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-20T22:08:01Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Securing a landmark contract is a positive commercial development for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Securing a landmark contract is a positive commercial development for the company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 3,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "commercial",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Janison",
-          "ticker": "JAN",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-141",
-      "headline": "Saba Capital Income & Opportunities Fund (BRW) and Saba Capital Income & Opportunities Fund II (SABA) Announce Reapproval of Merger",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20260820671650/en/Saba-Capital-Income-Opportunities-Fund-BRW-and-Saba-Capital-Income-Opportunities-Fund-II-SABA-Announce-Reapproval-of-Merger/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
-      "source_name": "Business Wire — Merger/Acquisition News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T20:45:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Reapproval of a merger between two investment funds.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Reapproval of a merger between two investment funds.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 3,
-        "scope": 5,
-        "event": 9,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Saba Capital Income & Opportunities Fund",
-          "ticker": "BRW",
-          "listing_country": "US"
-        },
-        {
-          "name": "Saba Capital Income & Opportunities Fund II",
-          "ticker": "SABA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -68375,77 +68370,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5e6a9795a343",
-      "idea_version": "IDEAV-bea401ffc704d62b",
-      "idea_version_started_at": "2026-08-20T07:13:16Z",
-      "ticker": "03628",
-      "company": "Renheng Enterprise Holdings Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued an official profit warning indicating a material deterioration in its financial performance.",
-      "why_now": "The profit warning was filed on August 19, 2026, creating immediate downward pressure on the stock.",
-      "conviction": 55,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-b9ec426e90e1"
-      ],
-      "primary_source_event_id": "EVT-b9ec426e90e1",
-      "source_headlines": [
-        "RENHENG ENT (03628): PROFIT WARNING"
-      ],
-      "source_headline": "RENHENG ENT (03628): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081901179.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-19T11:06:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-20T07:13:16Z",
-      "updated_at": "2026-08-20T07:13:16Z",
-      "decay_at": "2026-08-20T23:06:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-f42669c74af8",
       "idea_version": "IDEAV-47eee9241429bd83",
       "idea_version_started_at": "2026-08-20T07:13:16Z",
@@ -68799,6 +68723,77 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-5e6a9795a343",
+      "idea_version": "IDEAV-bea401ffc704d62b",
+      "idea_version_started_at": "2026-08-20T07:13:16Z",
+      "ticker": "03628",
+      "company": "Renheng Enterprise Holdings Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued an official profit warning indicating a material deterioration in its financial performance.",
+      "why_now": "The profit warning was filed on August 19, 2026, creating immediate downward pressure on the stock.",
+      "conviction": 55,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-b9ec426e90e1"
+      ],
+      "primary_source_event_id": "EVT-b9ec426e90e1",
+      "source_headlines": [
+        "RENHENG ENT (03628): PROFIT WARNING"
+      ],
+      "source_headline": "RENHENG ENT (03628): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081901179.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-19T11:06:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-20T07:13:16Z",
+      "updated_at": "2026-08-20T07:13:16Z",
+      "decay_at": "2026-08-20T23:06:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-d233df6555ee",
@@ -69733,8 +69728,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 17,
-    "shown_count": 17,
+    "total_count": 18,
+    "shown_count": 18,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -69743,8 +69738,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 14,
-        "shown_count": 14,
+        "total_count": 15,
+        "shown_count": 15,
         "hidden_count": 0
       }
     },
@@ -69764,6 +69759,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5e6a9795a343",
+        "idea_version": "IDEAV-bea401ffc704d62b",
+        "idea_version_started_at": "2026-08-20T07:13:16Z",
+        "ticker": "03628",
+        "company": "Renheng Enterprise Holdings Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued an official profit warning indicating a material deterioration in its financial performance.",
+        "why_now": "The profit warning was filed on August 19, 2026, creating immediate downward pressure on the stock.",
+        "conviction": 55,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-b9ec426e90e1"
+        ],
+        "primary_source_event_id": "EVT-b9ec426e90e1",
+        "source_headlines": [
+          "RENHENG ENT (03628): PROFIT WARNING"
+        ],
+        "source_headline": "RENHENG ENT (03628): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081901179.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-19T11:06:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-20T07:13:16Z",
+        "updated_at": "2026-08-20T07:13:16Z",
+        "decay_at": "2026-08-20T23:06:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-20T23:06:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d233df6555ee",
         "idea_version": "IDEAV-3ee3db27422d008c",
@@ -71023,7 +71092,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 33,
-    "live_count": 15,
+    "live_count": 14,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -71042,9 +71111,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3804811,
-    "news_picked_today": 288,
-    "news_dropped_today": 1077
+    "news_seen_today": 4440140,
+    "news_picked_today": 337,
+    "news_dropped_today": 1208
   },
   "book_momentum": {
     "live_count": 8,
