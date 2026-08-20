@@ -678,7 +678,11 @@ export const NEWS = {
   // On a higher Groq tier both rise automatically via the live rate-limit headers. Tune down on a
   // constrained tier (8b-instant is ~$0.05/M tokens, so 500k tokens/day ≈ $0.025 if ever metered).
   groqDailyReqCap: capNum(process.env.NEWS_GROQ_DAILY_REQ_CAP, 13_000),
-  groqDailyTokenCap: capNum(process.env.NEWS_GROQ_DAILY_TOKEN_CAP, 500_000),
+  // 200k, not the old 500k: the free-tier token-per-day allowance travels WITH the model, and
+  // openai/gpt-oss-20b's is 200K TPD (30 RPM) where llama-3.1-8b-instant's was 500K. Left at 500k the
+  // engine would pace itself to spend 2.5x the real allowance, then take hard rate-limit rejections for
+  // the rest of every day — swapping a dead model for a throttled one and leaving the backlog climbing.
+  groqDailyTokenCap: capNum(process.env.NEWS_GROQ_DAILY_TOKEN_CAP, 200_000),
   // Cross-cycle PER-PROVIDER LLM cooldown — protects every provider's daily REQUEST cap (Groq's 13,000 AND
   // each overflow provider's much smaller one) from being drained by a sustained OUTAGE. The in-cycle guards
   // (runCycle groqDownThisCycle / ov.failed) stop re-poking a down provider WITHIN one cycle, but the
@@ -717,7 +721,7 @@ export const NEWS = {
   //                          keep tiny backlogs clearing when exactly on schedule.
   // Set a smaller explicit target to retain more allowance; the default deliberately uses the whole
   // configured safe allowance by reset rather than leaving an arbitrary second buffer unused.
-  groqDailyTokenTarget: capNum(process.env.NEWS_GROQ_DAILY_TOKEN_TARGET, capNum(process.env.NEWS_GROQ_DAILY_TOKEN_CAP, 500_000)),
+  groqDailyTokenTarget: capNum(process.env.NEWS_GROQ_DAILY_TOKEN_TARGET, capNum(process.env.NEWS_GROQ_DAILY_TOKEN_CAP, 200_000)),
   groqPaceFloorFrac: capNum(process.env.NEWS_GROQ_PACE_FLOOR_FRAC, 0.06),
   // Shared pacer for every finite free overflow tier (Cerebras/Mistral/OpenRouter/NVIDIA/Gemini). Each
   // provider's own reset clock linearly releases its configured safe allowance; the router selects the
@@ -728,7 +732,8 @@ export const NEWS = {
   // Pacing. The binding free-tier limit is TOKENS-per-minute, not requests-per-minute — so we pace by
   // both, and (crucially) the pacer LEARNS the live ceiling from Groq's own x-ratelimit-* response
   // headers, auto-tuning to whatever this account actually allows. These are starting points / fallbacks:
-  //   groqRpm — requests/min floor (under the 30 free RPM); groqTpm — tokens/min (8b-instant free ≈ 6000).
+  //   groqRpm — requests/min floor (under the 30 free RPM, unchanged for gpt-oss-20b); groqTpm —
+  //   tokens/min (≈6000; with a 200K/day ceiling the DAILY cap binds first, so this stays the floor).
   // On a higher tier the headers raise the ceiling automatically; no redeploy needed.
   groqRpm: capNum(process.env.NEWS_GROQ_RPM, 28),
   groqTpm: capNum(process.env.NEWS_GROQ_TPM, 6000),
