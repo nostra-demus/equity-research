@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-20T02:23:32Z",
+  "generated_at": "2026-08-20T02:38:01Z",
   "inbox": [
     {
       "inbox_id": "INB-20260820-013",
@@ -1679,6 +1679,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260820-302",
+      "headline": "EVN: FY26 Full Year Financial results and Final Dividend [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EVN?key=2924-03122649-2A1690305",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-18T22:27:33Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "The company released its FY26 financial results and declared a final dividend.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "The company released its FY26 financial results and declared a final dividend.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Evolution Mining",
+          "ticker": "EVN",
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260820-142",
       "headline": "SISRAM MED (01696): INTERIM RESULTS ANNOUNCEMENT FOR THE SIX MONTHS ENDED JUNE 30, 2026",
       "headline_en": null,
@@ -1728,31 +1778,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260820-019",
-      "headline": "GMG: Goodman 30 June 2026 Full Year Results Updated [price-sensitive]",
+      "inbox_id": "INB-20260820-301",
+      "headline": "EVN: FY26 Full Year Financial Results Presentation",
       "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.GMG?key=2924-03123341-2A1690617",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EVN?key=2924-03122652-2A1690306",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-19T22:50:12Z",
+      "found_at": "2026-08-18T22:29:03Z",
       "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Full year financial results release for Goodman Group.",
+      "prelim_note": "The company released its FY26 financial results presentation.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Full year financial results release for Goodman Group.",
+      "triage_score": 96,
+      "triage_reason": "The company released its FY26 financial results presentation.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 65,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 65,
+        "materiality": 75,
         "source_tier": 8,
         "scope": 6,
         "event": 5,
         "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
+        "recency": 0,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1766,9 +1816,9 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Goodman Group",
-          "ticker": "GMG",
-          "listing_country": null
+          "name": "Evolution Mining",
+          "ticker": "EVN",
+          "listing_country": "AU"
         }
       ],
       "size_bucket": "large",
@@ -1777,37 +1827,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260820-018",
-      "headline": "AIA AIA GROUP N2804 AIA GRP SDS3404 AIA GRP SDS3503 AIA GRP SDS5409 AIA GROUP N2710 AIA GROUP N4603 AIA GRP SDS3506 AIA GROUP N3304 AIA GROUP RSPSC AIA GROUP N2904 AIA GROUP N3004 AIA GRP T2S4009 AIA GROUP RSPSB AIA GRP SDS3309 AIA GRP SDS5110 AIA-R AIA SDS3604-R (01299 04457 04566 05220 05223 05560 05618 05657 05778 05858 05944 40199 40384 40721 40835 40882 81299 85121): Interim Results for the six months ended 30 June 2026",
+      "inbox_id": "INB-20260820-308",
+      "headline": "ZTO EXPRESS-W (02057): INTERIM RESULTS ANNOUNCEMENT FOR THE SIX MONTHS ENDED JUNE 30, 2026",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0820/2026082000001.pdf",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900007.pdf",
       "source_name": "HKEXnews (HK Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-19T22:01:00Z",
+      "found_at": "2026-08-18T22:10:00Z",
       "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Interim financial results release for AIA Group.",
+      "prelim_note": "The company released its interim financial results for the six months ended June 30, 2026.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Interim financial results release for AIA Group.",
+      "triage_score": 96,
+      "triage_reason": "The company released its interim financial results for the six months ended June 30, 2026.",
       "region": "CN",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 75,
         "source_tier": 8,
         "scope": 6,
         "event": 5,
         "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 10,
+        "recency": 0,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
         "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
+        "size_bucket": "large"
       },
       "event_types": [
         "earnings_revenue_margin"
@@ -1815,159 +1865,110 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "AIA Group",
-          "ticker": "01299",
+          "name": "ZTO Express",
+          "ticker": "02057",
           "listing_country": "CN"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260820-057",
-      "headline": "HOLLY FUTURES (03678): SUPPLEMENTAL ANNOUNCEMENT DELAY IN PROPOSED APPOINTMENT OF AUDITORS",
+      "inbox_id": "INB-20260820-310",
+      "headline": "ZTO EXPRESS-W (02057): INSIDE INFORMATION - ANNOUNCEMENT OF THE 2026 SECOND QUARTER UNAUDITED FINANCIAL RESULTS",
       "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081901603.pdf",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900005.pdf",
       "source_name": "HKEXnews (HK Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-19T14:04:00Z",
+      "found_at": "2026-08-18T22:05:00Z",
       "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Delay in the appointment of auditors is a governance red flag.",
+      "prelim_note": "The company released its unaudited financial results for the second quarter of 2026.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Delay in the appointment of auditors is a governance red flag.",
+      "triage_score": 96,
+      "triage_reason": "The company released its unaudited financial results for the second quarter of 2026.",
       "region": "CN",
       "relevance": "material",
-      "materiality_pre_score": 45,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 45,
+        "materiality": 75,
         "source_tier": 8,
         "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 2,
-        "materiality_label_floor": 25,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "accounting_restatement",
-        "size_bucket": "mid"
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
       },
       "event_types": [
-        "accounting_restatement"
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "HOLLY FUTURES",
-          "ticker": "03678",
+          "name": "ZTO Express",
+          "ticker": "02057",
           "listing_country": "CN"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260820-073",
-      "headline": "Brigade Enterprises Ltd: Acquisition of Equity Shares by the Company",
+      "inbox_id": "INB-20260820-311",
+      "headline": "ILU: Iluka 2026 Half Year Results Presentation [price-sensitive]",
       "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d05a5ff4-b46e-4861-bed4-31d56441e92e.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-19T13:43:39Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "The company announced an acquisition of equity shares, indicating a potential investment or consolidation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "The company announced an acquisition of equity shares, indicating a potential investment or consolidation.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brigade Enterprises Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-206",
-      "headline": "PWR: Update on Wakeling Automotive Acquisition [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PWR?key=2924-03123072-2A1690474",
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.ILU?key=2924-03122505-6A1339095",
       "source_name": "ASX (Australia Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-08-19T08:26:00Z",
+      "found_at": "2026-08-18T21:32:33Z",
       "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Update on a previously announced acquisition, marked as price-sensitive by the exchange.",
+      "prelim_note": "The company is releasing its half-year financial results, which is a primary source event for valuation.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Update on a previously announced acquisition, marked as price-sensitive by the exchange.",
+      "triage_score": 96,
+      "triage_reason": "The company is releasing its half-year financial results, which is a primary source event for valuation.",
       "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 75,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 75,
         "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "mid"
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "large"
       },
       "event_types": [
-        "mna"
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "PWR Holdings Ltd",
-          "ticker": "PWR",
+          "name": "Iluka Resources",
+          "ticker": "ILU",
           "listing_country": "AU"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -68671,9 +68672,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1396438,
-    "news_picked_today": 344,
-    "news_dropped_today": 157
+    "news_seen_today": 1560725,
+    "news_picked_today": 397,
+    "news_dropped_today": 188
   },
   "book_momentum": {
     "live_count": 8,
