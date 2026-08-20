@@ -85,6 +85,12 @@ def catalogue_count_errors(stores: Iterable[dict[str, Any]]) -> list[str]:
     for store in stores:
         store_id = store.get("id")
         observed = store.get("observed_count")
+        paths = store.get("paths")
+        if not memory_baseline.is_nonempty_string_list(paths):
+            errors.append(
+                f"store {store_id} paths must be a non-empty list of non-empty strings"
+            )
+            continue
         if store_id in UNMOUNTED_COUNT_IDS:
             if observed is not None:
                 errors.append(f"store {store_id} is unmounted and observed_count must be null")
@@ -94,7 +100,7 @@ def catalogue_count_errors(stores: Iterable[dict[str, Any]]) -> list[str]:
                 f"store {store_id} is mounted and observed_count must be a non-negative integer"
             )
             continue
-        expanded = expand_store_paths(store.get("paths", []))
+        expanded = expand_store_paths(paths)
         if len(expanded) < observed:
             errors.append(
                 f"store {store_id} shrank below its Phase 0 snapshot: {len(expanded)} < {observed}"
@@ -132,7 +138,10 @@ def check_catalogue(catalogue: dict[str, Any]) -> None:
 
     for store in stores:
         label = f"store {store.get('id')}"
-        check(isinstance(store.get("paths"), list) and store["paths"], f"{label} must declare paths")
+        check(
+            memory_baseline.is_nonempty_string_list(store.get("paths")),
+            f"{label} paths must be a non-empty list of non-empty strings",
+        )
         check(isinstance(store.get("formats"), list) and store["formats"], f"{label} must declare formats")
         count = store.get("observed_count")
         check(count is None or (type(count) is int and count >= 0), f"{label} observed_count")
@@ -193,6 +202,20 @@ def check_catalogue(catalogue: dict[str, Any]) -> None:
         any("unmounted and observed_count" in error for error in catalogue_count_errors(unmounted_integer)),
         "an unmounted store must retain an explicit null observation",
     )
+    malformed_paths = (
+        (None, "null"),
+        ("analyses/*/*.md", "string"),
+        ([], "empty list"),
+        ([""], "empty string member"),
+        (["analyses/*/*.md", None], "non-string member"),
+    )
+    for value, label in malformed_paths:
+        malformed = copy.deepcopy(stores)
+        malformed[0]["paths"] = value
+        check(
+            any("paths must be" in error for error in catalogue_count_errors(malformed)),
+            f"catalogue paths {label} must produce a validation error",
+        )
     count_boundary = copy.deepcopy(stores)
     boundary_store = next(
         store for store in count_boundary if store["id"] not in UNMOUNTED_COUNT_IDS
@@ -218,7 +241,13 @@ def check_catalogue(catalogue: dict[str, Any]) -> None:
     # Every current research/screener/commodity/watchlist data artifact is assigned
     # to at least one declared store path.  Hidden sentinels are separately captured
     # where they are semantically material (the archive retention sentinel).
-    all_patterns = [pattern for store in stores for pattern in store["paths"] if not pattern.startswith("data/")]
+    all_patterns = [
+        pattern
+        for store in stores
+        if memory_baseline.is_nonempty_string_list(store.get("paths"))
+        for pattern in store["paths"]
+        if not pattern.startswith("data/")
+    ]
     uncovered: list[str] = []
     for root_name in ("analyses", "commodity/runs", "screener", "watchlist"):
         for path in (REPO_ROOT / root_name).rglob("*"):

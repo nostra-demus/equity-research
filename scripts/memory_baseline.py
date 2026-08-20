@@ -103,6 +103,16 @@ class FixtureError(ValueError):
     """Raised when a held-out fixture is malformed or points at absent evidence."""
 
 
+def is_nonempty_string_list(value: object) -> bool:
+    """Return whether value is a non-empty JSON-style list of non-empty strings."""
+
+    return (
+        isinstance(value, list)
+        and bool(value)
+        and all(isinstance(item, str) and bool(item) for item in value)
+    )
+
+
 @dataclass(frozen=True)
 class Document:
     """A repository-relative text document used by the baseline ranker."""
