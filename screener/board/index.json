@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-20T21:49:03Z",
+  "generated_at": "2026-08-20T22:17:55Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260820-172",
+      "headline": "PWR: FY26 Results Presentation [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.PWR?key=2924-03123924-2A1690910",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-20T22:07:01Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Company released financial results presentation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company released financial results presentation.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PWR",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260820-145",
       "headline": "FPH: Profit Guidance [price-sensitive]",
@@ -96,6 +145,202 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-165",
+      "headline": "Johnson Health Tech Trading Agrees to Pay $16.875 Million Civil Penalty for Failure to Immediately Report Fall Hazard with Horizon T101-05 Treadmills",
+      "headline_en": null,
+      "url": "https://www.cpsc.gov/Newsroom/News-Releases/2026/Johnson-Health-Tech-Trading-Agrees-to-Pay-16875-Million-Civil-Penalty-for-Failure-to-Immediately-Report-Fall-Hazard-with-Horizon-T101-05-Treadmills",
+      "source_name": "U.S. CPSC — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-12T13:21:43Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Company agreed to pay a $16.875 million civil penalty for safety reporting failures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company agreed to pay a $16.875 million civil penalty for safety reporting failures.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Johnson Health Tech",
+          "ticker": null,
+          "listing_country": "TW"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-166",
+      "headline": "Daikin Agrees to Pay $8.5 Million Civil Penalty for Failure to Immediately Report PTACs that Posed a Fire Hazard",
+      "headline_en": null,
+      "url": "https://www.cpsc.gov/Newsroom/News-Releases/2026/Daikin-Agrees-to-Pay-8-5-Million-Civil-Penalty-for-Failure-to-Immediately-Report-PTACs-that-Posed-a-Fire-Hazard",
+      "source_name": "U.S. CPSC — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-07-13T09:20:40Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Company agreed to pay an $8.5 million civil penalty for safety reporting failures.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company agreed to pay an $8.5 million civil penalty for safety reporting failures.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Daikin",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-169",
+      "headline": "Shimano Agrees to Pay $11.5 Million Civil Penalty for Failure to Immediately Report Bicycle Cranksets that Posed a Crash Hazard",
+      "headline_en": null,
+      "url": "https://www.cpsc.gov/Newsroom/News-Releases/2026/Shimano-Agrees-to-Pay-11-5-Million-Civil-Penalty-for-Failure-to-Immediately-Report-Bicycle-Cranksets-that-Posed-a-Crash-Hazard",
+      "source_name": "U.S. CPSC — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-07-13T09:20:40Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Shimano agreed to pay an $11.5 million civil penalty for failing to report a product hazard.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Shimano agreed to pay an $11.5 million civil penalty for failing to report a product hazard.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shimano",
+          "ticker": null,
+          "listing_country": "JP"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-170",
+      "headline": "Clorox Agrees to Pay $14.15 Million Civil Penalty for Failure to Immediately Report Bacterial Hazard with Pine-Sol Scented Multi-Surface Cleaning Products",
+      "headline_en": null,
+      "url": "https://www.cpsc.gov/Newsroom/News-Releases/2026/Clorox-Agrees-to-Pay-14-15-Million-Civil-Penalty-for-Failure-to-Immediately-Report-Bacterial-Hazard-with-Pine-Sol-Scented-Multi-Surface-Cleaning-Products",
+      "source_name": "U.S. CPSC — News Releases",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-07-13T09:20:40Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Clorox agreed to pay a $14.15 million civil penalty for failure to report a bacterial hazard.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Clorox agreed to pay a $14.15 million civil penalty for failure to report a bacterial hazard.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Clorox",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1719,254 +1964,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-096",
-      "headline": "Plato Gold Reports 2026 Semi-Annual Results, Announces Loan Extensions and Board Update",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348784/0/en/plato-gold-reports-2026-semi-annual-results-announces-loan-extensions-and-board-update.html",
-      "source_name": "GlobeNewswire — Press Releases (general)",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T20:01:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Company reported results, extended loans, and updated board.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Company reported results, extended loans, and updated board.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 7,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "debt_credit",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "debt_credit",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Plato Gold",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-117",
-      "headline": "KNPC merger lifts LPG bottling output & sales",
-      "headline_en": null,
-      "url": "https://www.arabtimesonline.com/news/knpc-merger-lifts-lpg-bottling-output-sales/",
-      "source_name": "Arab Times Kuwait — Business",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T19:47:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "The merger of KNPC units is a confirmed operational change expected to increase output and sales.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "The merger of KNPC units is a confirmed operational change expected to increase output and sales.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna",
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kuwait National Petroleum Company",
-          "ticker": null,
-          "listing_country": "KW"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-127",
-      "headline": "GPGI, Inc. (NYSE: GPGI) Class Action Lawsuit Seeks Recovery for Investors; September 14, 2026, Deadline - Contact Kessler Topaz Meltzer & Check, LLP",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/gpgi-inc-nyse-gpgi-class-action-lawsuit-seeks-recovery-for-investors-september-14-2026-deadline---contact-kessler-topaz-meltzer--check-llp-302856794.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T21:07:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "A class action lawsuit announcement creates legal and reputational risk for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "A class action lawsuit announcement creates legal and reputational risk for the company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "GPGI, Inc.",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-095",
-      "headline": "Perimeter Announces Preliminary Second Quarter 2026 Financial Results",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/perimeter-announces-preliminary-second-quarter-2026-financial-results-302856831.html",
-      "source_name": "PR Newswire — Earnings",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T20:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Company reported preliminary quarterly results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "Company reported preliminary quarterly results.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Perimeter",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-147",
-      "headline": "Diamond Estates Wines & Spirits Reports First Quarter Fiscal 2027 Financial Results | DWWEF Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/DWWEF/diamond-estates-wines-spirits-reports-first-quarter-fiscal-2027-5x9fnboecibw.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T21:29:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "The company reported quarterly financial results, which are material for valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "The company reported quarterly financial results, which are material for valuation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Diamond Estates Wines & Spirits",
-          "ticker": "DWWEF",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -68451,77 +68448,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-3d4e23998000",
-      "idea_version": "IDEAV-5058a8e7ba6029ff",
-      "idea_version_started_at": "2026-08-20T06:40:08Z",
-      "ticker": "06958",
-      "company": "ZHENRO SERVICES",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A profit warning signals deteriorating operational performance and margin compression in the property services sector.",
-      "why_now": "The filing was released on 2026-08-19.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-9573466723c6"
-      ],
-      "primary_source_event_id": "EVT-9573466723c6",
-      "source_headlines": [
-        "ZHENRO SERVICES (06958): INSIDE INFORMATION - PROFIT WARNING"
-      ],
-      "source_headline": "ZHENRO SERVICES (06958): INSIDE INFORMATION - PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900847.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-19T10:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-20T06:40:08Z",
-      "updated_at": "2026-08-20T06:40:08Z",
-      "decay_at": "2026-08-20T22:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7775515b1f9c",
       "idea_version": "IDEAV-08a4bb2fcecd389e",
       "idea_version_started_at": "2026-08-20T06:40:08Z",
@@ -68735,148 +68661,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-602ad4c70d52",
-      "idea_version": "IDEAV-6ce77eb99176854e",
-      "idea_version_started_at": "2026-08-20T06:23:48Z",
-      "ticker": "02108",
-      "company": "K2 F&B",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning indicating a decline in financial performance, which typically leads to downward revisions in earnings estimates.",
-      "why_now": "The profit warning was filed on 2026-08-19.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-10c3d2b96200"
-      ],
-      "primary_source_event_id": "EVT-10c3d2b96200",
-      "source_headlines": [
-        "K2 F&B (02108): PROFIT WARNING"
-      ],
-      "source_headline": "K2 F&B (02108): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900829.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-19T09:58:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-20T02:14:56Z",
-      "updated_at": "2026-08-20T06:23:48Z",
-      "decay_at": "2026-08-20T21:58:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-ddb66d71a44e",
-      "idea_version": "IDEAV-883c9eab2f8d9b2a",
-      "idea_version_started_at": "2026-08-20T06:23:48Z",
-      "ticker": "06158",
-      "company": "Zhenro Properties Group Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A profit warning from a property developer in the current environment typically reflects severe liquidity or debt-servicing challenges.",
-      "why_now": "The profit warning was filed on 2026-08-19.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-73e2be237e47"
-      ],
-      "primary_source_event_id": "EVT-73e2be237e47",
-      "source_headlines": [
-        "ZHENROPPT SPCS ZHENRO PPT (04596 06158): INSIDE INFORMATION - PROFIT WARNING"
-      ],
-      "source_headline": "ZHENROPPT SPCS ZHENRO PPT (04596 06158): INSIDE INFORMATION - PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900849.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-19T10:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-20T06:23:48Z",
-      "updated_at": "2026-08-20T06:23:48Z",
-      "decay_at": "2026-08-20T22:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-5ad1780c26cb",
       "idea_version": "IDEAV-81bf3212a1e82bad",
       "idea_version_started_at": "2026-08-20T18:25:35Z",
@@ -69013,6 +68797,77 @@
       "surfaced_at": "2026-08-20T03:43:44Z",
       "updated_at": "2026-08-20T07:13:16Z",
       "decay_at": "2026-08-20T20:57:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-3d4e23998000",
+      "idea_version": "IDEAV-5058a8e7ba6029ff",
+      "idea_version_started_at": "2026-08-20T06:40:08Z",
+      "ticker": "06958",
+      "company": "ZHENRO SERVICES",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A profit warning signals deteriorating operational performance and margin compression in the property services sector.",
+      "why_now": "The filing was released on 2026-08-19.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-9573466723c6"
+      ],
+      "primary_source_event_id": "EVT-9573466723c6",
+      "source_headlines": [
+        "ZHENRO SERVICES (06958): INSIDE INFORMATION - PROFIT WARNING"
+      ],
+      "source_headline": "ZHENRO SERVICES (06958): INSIDE INFORMATION - PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900847.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-19T10:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-20T06:40:08Z",
+      "updated_at": "2026-08-20T06:40:08Z",
+      "decay_at": "2026-08-20T22:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -69161,6 +69016,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-602ad4c70d52",
+      "idea_version": "IDEAV-6ce77eb99176854e",
+      "idea_version_started_at": "2026-08-20T06:23:48Z",
+      "ticker": "02108",
+      "company": "K2 F&B",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning indicating a decline in financial performance, which typically leads to downward revisions in earnings estimates.",
+      "why_now": "The profit warning was filed on 2026-08-19.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-10c3d2b96200"
+      ],
+      "primary_source_event_id": "EVT-10c3d2b96200",
+      "source_headlines": [
+        "K2 F&B (02108): PROFIT WARNING"
+      ],
+      "source_headline": "K2 F&B (02108): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900829.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-19T09:58:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-20T02:14:56Z",
+      "updated_at": "2026-08-20T06:23:48Z",
+      "decay_at": "2026-08-20T21:58:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-b053d4e33d6d",
       "idea_version": "IDEAV-0d0507985b4974d8",
       "idea_version_started_at": "2026-08-20T06:23:48Z",
@@ -69226,6 +69152,77 @@
       "surfaced_at": "2026-08-20T02:14:56Z",
       "updated_at": "2026-08-20T06:23:48Z",
       "decay_at": "2026-08-20T20:31:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-ddb66d71a44e",
+      "idea_version": "IDEAV-883c9eab2f8d9b2a",
+      "idea_version_started_at": "2026-08-20T06:23:48Z",
+      "ticker": "06158",
+      "company": "Zhenro Properties Group Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A profit warning from a property developer in the current environment typically reflects severe liquidity or debt-servicing challenges.",
+      "why_now": "The profit warning was filed on 2026-08-19.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-73e2be237e47"
+      ],
+      "primary_source_event_id": "EVT-73e2be237e47",
+      "source_headlines": [
+        "ZHENROPPT SPCS ZHENRO PPT (04596 06158): INSIDE INFORMATION - PROFIT WARNING"
+      ],
+      "source_headline": "ZHENROPPT SPCS ZHENRO PPT (04596 06158): INSIDE INFORMATION - PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900849.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-19T10:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-20T06:23:48Z",
+      "updated_at": "2026-08-20T06:23:48Z",
+      "decay_at": "2026-08-20T22:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -69525,8 +69522,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 12,
-    "shown_count": 12,
+    "total_count": 15,
+    "shown_count": 15,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -69535,8 +69532,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 9,
-        "shown_count": 9,
+        "total_count": 12,
+        "shown_count": 12,
         "hidden_count": 0
       }
     },
@@ -69556,6 +69553,228 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-3d4e23998000",
+        "idea_version": "IDEAV-5058a8e7ba6029ff",
+        "idea_version_started_at": "2026-08-20T06:40:08Z",
+        "ticker": "06958",
+        "company": "ZHENRO SERVICES",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A profit warning signals deteriorating operational performance and margin compression in the property services sector.",
+        "why_now": "The filing was released on 2026-08-19.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-9573466723c6"
+        ],
+        "primary_source_event_id": "EVT-9573466723c6",
+        "source_headlines": [
+          "ZHENRO SERVICES (06958): INSIDE INFORMATION - PROFIT WARNING"
+        ],
+        "source_headline": "ZHENRO SERVICES (06958): INSIDE INFORMATION - PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900847.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-19T10:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-20T06:40:08Z",
+        "updated_at": "2026-08-20T06:40:08Z",
+        "decay_at": "2026-08-20T22:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-20T22:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-ddb66d71a44e",
+        "idea_version": "IDEAV-883c9eab2f8d9b2a",
+        "idea_version_started_at": "2026-08-20T06:23:48Z",
+        "ticker": "06158",
+        "company": "Zhenro Properties Group Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A profit warning from a property developer in the current environment typically reflects severe liquidity or debt-servicing challenges.",
+        "why_now": "The profit warning was filed on 2026-08-19.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-73e2be237e47"
+        ],
+        "primary_source_event_id": "EVT-73e2be237e47",
+        "source_headlines": [
+          "ZHENROPPT SPCS ZHENRO PPT (04596 06158): INSIDE INFORMATION - PROFIT WARNING"
+        ],
+        "source_headline": "ZHENROPPT SPCS ZHENRO PPT (04596 06158): INSIDE INFORMATION - PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900849.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-19T10:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-20T06:23:48Z",
+        "updated_at": "2026-08-20T06:23:48Z",
+        "decay_at": "2026-08-20T22:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-20T22:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-602ad4c70d52",
+        "idea_version": "IDEAV-6ce77eb99176854e",
+        "idea_version_started_at": "2026-08-20T06:23:48Z",
+        "ticker": "02108",
+        "company": "K2 F&B",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning indicating a decline in financial performance, which typically leads to downward revisions in earnings estimates.",
+        "why_now": "The profit warning was filed on 2026-08-19.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-10c3d2b96200"
+        ],
+        "primary_source_event_id": "EVT-10c3d2b96200",
+        "source_headlines": [
+          "K2 F&B (02108): PROFIT WARNING"
+        ],
+        "source_headline": "K2 F&B (02108): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900829.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-19T09:58:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-20T02:14:56Z",
+        "updated_at": "2026-08-20T06:23:48Z",
+        "decay_at": "2026-08-20T21:58:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-20T21:58:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5ba85ca48117",
         "idea_version": "IDEAV-2433b03bb5317e63",
@@ -70445,7 +70664,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 30,
-    "live_count": 17,
+    "live_count": 14,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -70464,9 +70683,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2897788,
-    "news_picked_today": 227,
-    "news_dropped_today": 682
+    "news_seen_today": 3260307,
+    "news_picked_today": 248,
+    "news_dropped_today": 889
   },
   "book_momentum": {
     "live_count": 8,
