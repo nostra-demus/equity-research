@@ -413,6 +413,10 @@ interface State {
   tickers: TickerSummary[]
   emptyState: boolean
   driveEnabled: boolean // true when the server has a Drive destination + credential — gates add-company/upload UI
+  /** Weaker, separate capability: watchlist thesis PDFs need only a writable Drive MOUNT (data/ is a
+   *  symlink into Drive for Desktop), which needs no credential. Gating attachments on driveEnabled hid
+   *  the feature on every machine where the API was never configured — which is the normal setup. */
+  watchlistFilesEnabled: boolean
   defaultCoverage: CoverageGroup[] // upload-guide groups (all unmet), for the zero-folders onboarding state
   selectedTicker: string | null
   graph: SwarmGraph | null
@@ -1235,6 +1239,7 @@ export const useStore = create<State>((set, get) => ({
   tickers: [],
   emptyState: false,
   driveEnabled: false,
+  watchlistFilesEnabled: false,
   defaultCoverage: [],
   addCompanyOpen: false,
   uploadTarget: null,
@@ -5615,7 +5620,7 @@ async function loadCore(get: () => State, set: (p: Partial<State>) => void, stat
         .tickers()
         .then((tk) => {
           coreTickersLoaded = true
-          set({ tickers: tk.tickers, emptyState: tk.emptyState, defaultCoverage: tk.coverage ?? [], dataDir: (tk as any).dataDir ?? null, driveEnabled: (tk as any).driveEnabled ?? false })
+          set({ tickers: tk.tickers, emptyState: tk.emptyState, defaultCoverage: tk.coverage ?? [], dataDir: (tk as any).dataDir ?? null, driveEnabled: (tk as any).driveEnabled ?? false, watchlistFilesEnabled: (tk as any).watchlistFilesEnabled ?? (tk as any).driveEnabled ?? false })
           reconcileSelection(get, set) // a reconnect may carry a now-removed selection — drop it
         })
         .catch(() => {}),
@@ -5651,7 +5656,7 @@ function refreshTickersSoon(get: () => State, set: (p: Partial<State>) => void) 
   api
     .tickers()
     .then((t) => {
-      set({ tickers: t.tickers, emptyState: t.emptyState, defaultCoverage: t.coverage ?? get().defaultCoverage, dataDir: (t as any).dataDir ?? get().dataDir, driveEnabled: (t as any).driveEnabled ?? get().driveEnabled })
+      set({ tickers: t.tickers, emptyState: t.emptyState, defaultCoverage: t.coverage ?? get().defaultCoverage, dataDir: (t as any).dataDir ?? get().dataDir, driveEnabled: (t as any).driveEnabled ?? get().driveEnabled, watchlistFilesEnabled: (t as any).watchlistFilesEnabled ?? (t as any).driveEnabled ?? get().watchlistFilesEnabled })
       const removed = reconcileSelection(get, set)
       if (removed) get().setToast({ msg: `${removed} is no longer in the data folder — pick a ticker`, tone: 'info' })
       if (tickersSyncTimer) { clearTimeout(tickersSyncTimer); tickersSyncTimer = null }

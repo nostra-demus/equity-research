@@ -18,6 +18,7 @@ import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, 
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, deleteDriveFileStrict, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED, readWatchlistFile, uploadToWatchlist } from './drive'
+import { attachmentPath, deleteAttachment, readAttachment, saveAttachment, watchlistFilesAvailable } from './watchlist-files'
 import { assertClaudeCli, cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, launch, sigIdFor, todayDate, warmLaunchProbes } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed, applyActiveWeightsTo } from './news/feed'
@@ -307,7 +308,12 @@ app.get('/api/swarm/subjects', async (req, reply) => {
 // destination folder + a credential are both configured); the UI hides those controls otherwise.
 // explicit per-route rate-limit (same budget as the global cap) so CodeQL recognizes the limiter on this
 // filesystem-reading handler (js/missing-rate-limiting); the global @fastify/rate-limit still applies too.
-app.get('/api/tickers', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => ({ ...listTickers(), driveEnabled: GDRIVE_ENABLED }))
+// `driveEnabled` gates the pool-upload UI and still means the Drive API. `watchlistFilesEnabled` is the
+// separate, weaker capability watchlist attachments actually need: a writable Drive MOUNT, which needs no
+// credential — so the composer can offer attaching on a machine where the API was never configured.
+app.get('/api/tickers', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => ({
+  ...listTickers(), driveEnabled: GDRIVE_ENABLED, watchlistFilesEnabled: watchlistFilesAvailable() || GDRIVE_ENABLED,
+}))
 
 type ManualPoolOwnerError = NonNullable<ReturnType<typeof finishedOwnerConflict>> | { code: 'shared_data_owner_unavailable'; owners: string[] }
 type SelectedManualOwnerConflict = ManualPoolOwnerError
@@ -2827,9 +2833,16 @@ app.post('/api/watchlist/:id/attachments', { config: { rateLimit: { max: 60, tim
   const { entries } = readEntries()
   const entry = entries.find((e) => e.entry_id === id)
   if (!entry) return reply.code(404).send({ error: 'not found' })
-  // Asked AFTER the request is validated: whether Drive is up has no bearing on whether the request was
+  // Asked AFTER the request is validated: whether storage is up has no bearing on whether the request was
   // well-formed, and a 503 masking a 400 makes a client bug look like an outage.
-  if (!GDRIVE_ENABLED) return reply.code(503).send({ error: 'attachments need the Drive integration' })
+  //
+  // The LOCAL mount is tried first. `data/` is a symlink into Google Drive for Desktop — the same folder
+  // the Drive API would write to — so writing a file there reaches Drive with no credential at all. On a
+  // My Drive mount the API path could not work even fully configured: a service account has no storage
+  // quota, so it cannot write into personal Drive. Filesystem first, API only where the mount is absent
+  // (a server that reads the pool some other way).
+  const useLocal = watchlistFilesAvailable()
+  if (!useLocal && !GDRIVE_ENABLED) return reply.code(503).send({ error: 'attachments need either the Drive mount or the Drive API' })
   const { user } = identify(req)
 
   const added: typeof entry.attachments = []
@@ -2860,6 +2873,24 @@ app.post('/api/watchlist/:id/attachments', { config: { rateLimit: { max: 60, tim
         if (bytes > WATCH_ATTACH_MAX_BYTES && !tooBig) { tooBig = true; part.file.destroy(new Error('too large')) }
       })
       try {
+        if (useLocal) {
+          // Buffer first, THEN write: the size and truncation checks below must both be settled before
+          // anything reaches the folder, or a rejected upload still leaves a short PDF that Drive
+          // faithfully syncs up as a document the reader would take at face value.
+          const chunks: Buffer[] = []
+          for await (const c of part.file as any) chunks.push(c as Buffer)
+          if (tooBig || (part.file as any).truncated) {
+            fileErrors.push({ filename: raw, reason: `larger than ${Math.round(WATCH_ATTACH_MAX_BYTES / 1024 / 1024)}MB` })
+            continue
+          }
+          // The stored name is prefixed so two attachments with the same filename cannot collide inside
+          // one entry, and so the id the client gets back is the filename on disk — no second index.
+          const attachmentId = `${Date.now().toString(36)}-${safe.name}`
+          const saved = saveAttachment(id, attachmentId, Buffer.concat(chunks))
+          if (!saved.ok) { fileErrors.push({ filename: raw, reason: saved.error }); continue }
+          added.push({ attachment_id: attachmentId, filename: safe.name, bytes: saved.bytes, added_at: new Date().toISOString(), added_by: user })
+          continue
+        }
         const up = await uploadToWatchlist(id, safe.name, part.file as any)
         // @fastify/multipart can TRUNCATE without throwing, so a "successful" upload of a truncated stream
         // must still be rejected — and the partial removed from Drive rather than left as a short PDF.
@@ -2915,9 +2946,19 @@ app.get('/api/watchlist/:id/attachment/:attachmentId', { config: { rateLimit: { 
   // barrier here: a Drive file id is only reachable if a record we wrote points at it.
   const att = entry?.attachments.find((a) => a.attachment_id === attachmentId)
   if (!att) return reply.code(404).send({ error: 'not found' })
-  if (!GDRIVE_ENABLED) return reply.code(503).send({ error: 'attachments need the Drive integration' })
-  let stream: import('node:stream').Readable
-  try { stream = await readWatchlistFile(attachmentId) } catch { return reply.code(502).send({ error: 'could not read the file' }) }
+  // Local mount first, matching the upload path. An attachment written to the mount has the stored
+  // FILENAME as its id, so it is read straight back; one written through the API has a Drive file id and
+  // is streamed. Trying the file first also means a row written before the API was configured keeps
+  // working after it is, and vice versa — the id itself says which store holds it.
+  const localPath = attachmentPath(id, attachmentId)
+  const localBody = localPath ? readAttachment(id, attachmentId) : null
+  let stream: import('node:stream').Readable | Buffer
+  if (localBody) {
+    stream = localBody
+  } else {
+    if (!GDRIVE_ENABLED) return reply.code(503).send({ error: 'attachments need either the Drive mount or the Drive API' })
+    try { stream = await readWatchlistFile(attachmentId) } catch { return reply.code(502).send({ error: 'could not read the file' }) }
+  }
   // `attachment`, never inline: an inline user-supplied PDF can run script in some viewers, and this
   // origin holds the whole cockpit session. The filename is rebuilt from validated data, never echoed.
   const safeName = `${entry!.listing.ticker.replace(/[^A-Za-z0-9._-]/g, '')}-${att.filename.replace(/[^A-Za-z0-9._-]/g, '')}`
@@ -2942,10 +2983,22 @@ app.delete('/api/watchlist/:id/attachment/:attachmentId', { config: { rateLimit:
   // remove the entry's only record of the file — its Drive id — the instant Drive was unreachable or a
   // permission changed, leaving the PDF orphaned with no route left to find or remove it. Only drop the
   // metadata once the file is actually gone (or already gone — a 404 counts as removed).
-  try {
-    await deleteDriveFileStrict(attachmentId)
-  } catch (e: any) {
-    return reply.code(502).send({ error: driveErrorMessage(e) })
+  // A file on the mount is removed from the mount; only an API-stored one goes to the Drive API. Doing
+  // both would ask Drive to delete an id that is really a filename.
+  if (attachmentPath(id, attachmentId) && readAttachment(id, attachmentId) !== null) {
+    if (!deleteAttachment(id, attachmentId)) {
+      return reply.code(502).send({ error: 'could not remove the file from the Drive folder' })
+    }
+  } else {
+    // Strict, not best-effort: deleteDriveFile swallows every failure and resolves anyway, which used to
+    // remove the entry's only record of the file — its Drive id — the instant Drive was unreachable or a
+    // permission changed, leaving the PDF orphaned with no route left to find or remove it. Only drop the
+    // metadata once the file is actually gone (or already gone — a 404 counts as removed).
+    try {
+      await deleteDriveFileStrict(attachmentId)
+    } catch (e: any) {
+      return reply.code(502).send({ error: driveErrorMessage(e) })
+    }
   }
   entry.attachments = entry.attachments.filter((a) => a.attachment_id !== attachmentId)
   entry.updated_at = new Date().toISOString()
