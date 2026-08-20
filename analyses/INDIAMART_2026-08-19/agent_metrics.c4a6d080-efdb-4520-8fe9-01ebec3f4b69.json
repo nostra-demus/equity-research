@@ -1,0 +1,39 @@
+{
+  "agents": [
+    {
+      "agent": "people-integrity-dossiers",
+      "model": "claude-sonnet-5",
+      "calls": 12,
+      "usage": {
+        "input_tokens": 24,
+        "output_tokens": 114130,
+        "cache_read_input_tokens": 910291,
+        "cache_creation_input_tokens": 549275,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 549275,
+          "ephemeral_1h_input_tokens": 0
+        }
+      },
+      "cost": 4.04489055,
+      "runtime_ms": 934020,
+      "module": "management-governance"
+    }
+  ],
+  "orchestrator": {
+    "agent": "(orchestrator)",
+    "model": "claude-sonnet-5",
+    "calls": 10,
+    "usage": {
+      "input_tokens": 20,
+      "output_tokens": 5432,
+      "cache_read_input_tokens": 796729,
+      "cache_creation_input_tokens": 74580,
+      "cache_creation": {
+        "ephemeral_5m_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 74580
+      }
+    },
+    "cost": 0.7680387,
+    "runtime_ms": 0
+  }
+}
