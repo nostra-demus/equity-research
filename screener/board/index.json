@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-20T20:59:00Z",
+  "generated_at": "2026-08-20T21:32:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260820-013",
@@ -301,6 +301,49 @@
           "listing_country": "HK"
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-125",
+      "headline": "US Will Impose ‘Toughest Sanctions in History’ on Iran, Bessent Says",
+      "headline_en": null,
+      "url": "https://gcaptain.com/us-will-impose-toughest-sanctions-in-history-on-iran-bessent-says/",
+      "source_name": "gCaptain",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-08-20T20:24:24Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "The announcement of potential major sanctions on Iran represents a significant geopolitical escalation affecting global energy and trade markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "The announcement of potential major sanctions on Iran represents a significant geopolitical escalation affecting global energy and trade markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 5,
+        "scope": 2,
+        "event": 1,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "official_data",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -688,6 +731,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260820-122",
+      "headline": "Navios Maritime Partners L.P. Reports Financial Results for the Second Quarter and Six Months Ended June 30, 2026",
+      "headline_en": null,
+      "url": "https://www.hellenicshippingnews.com/navios-maritime-partners-l-p-reports-financial-results-for-the-second-quarter-and-six-months-ended-june-30-2026/",
+      "source_name": "Hellenic Shipping News Worldwide",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-08-20T21:00:58Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "The company reported financial results for the second quarter and six months ended June 30, 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "The company reported financial results for the second quarter and six months ended June 30, 2026.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 5,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "official_data",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Navios Maritime Partners L.P.",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260820-076",
       "headline": "Arbor Alliance Expands Into Tennessee Through Acquisition of Druid Tree Service",
       "headline_en": null,
@@ -732,6 +824,109 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-115",
+      "headline": "Ross Stores raises annual profit forecast again on discounted apparel demand",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/retail-consumer/ross-stores-raises-annual-profit-forecast-again-discounted-apparel-demand-2026-08-20/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T20:47:45Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Retail giant raises annual profit guidance for second time; revises analyst consensus and cash-flow outlook higher.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Retail giant raises annual profit guidance for second time; revises analyst consensus and cash-flow outlook higher.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ross Stores Inc",
+          "ticker": "ROST",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-141",
+      "headline": "Saba Capital Income & Opportunities Fund (BRW) and Saba Capital Income & Opportunities Fund II (SABA) Announce Reapproval of Merger",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20260820671650/en/Saba-Capital-Income-Opportunities-Fund-BRW-and-Saba-Capital-Income-Opportunities-Fund-II-SABA-Announce-Reapproval-of-Merger/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
+      "source_name": "Business Wire — Merger/Acquisition News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T20:45:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Reapproval of a merger between two investment funds.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Reapproval of a merger between two investment funds.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Saba Capital Income & Opportunities Fund",
+          "ticker": "BRW",
+          "listing_country": "US"
+        },
+        {
+          "name": "Saba Capital Income & Opportunities Fund II",
+          "ticker": "SABA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -928,6 +1123,60 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-128",
+      "headline": "Real and RE/MAX Holdings Announce Preliminary Results for Election of Form of Merger Consideration by REMAX Stockholders and Expected Timing of Real Share Consolidation",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/real-and-remax-holdings-announce-preliminary-results-for-election-of-form-of-merger-consideration-by-remax-stockholders-and-expected-timing-of-real-share-consolidation-302856860.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T21:02:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Update on merger consideration election and share consolidation timing for an ongoing M&A deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Update on merger consideration election and share consolidation timing for an ongoing M&A deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 3,
+        "scope": 2,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Real",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "RE/MAX Holdings",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1172,6 +1421,105 @@
           "name": "Plato Gold",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-117",
+      "headline": "KNPC merger lifts LPG bottling output & sales",
+      "headline_en": null,
+      "url": "https://www.arabtimesonline.com/news/knpc-merger-lifts-lpg-bottling-output-sales/",
+      "source_name": "Arab Times Kuwait — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T19:47:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "The merger of KNPC units is a confirmed operational change expected to increase output and sales.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "The merger of KNPC units is a confirmed operational change expected to increase output and sales.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kuwait National Petroleum Company",
+          "ticker": null,
+          "listing_country": "KW"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-127",
+      "headline": "GPGI, Inc. (NYSE: GPGI) Class Action Lawsuit Seeks Recovery for Investors; September 14, 2026, Deadline - Contact Kessler Topaz Meltzer & Check, LLP",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/gpgi-inc-nyse-gpgi-class-action-lawsuit-seeks-recovery-for-investors-september-14-2026-deadline---contact-kessler-topaz-meltzer--check-llp-302856794.html",
+      "source_name": "PR Newswire — All News Releases",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T21:07:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "A class action lawsuit announcement creates legal and reputational risk for the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 89,
+      "triage_reason": "A class action lawsuit announcement creates legal and reputational risk for the company.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 25,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "GPGI, Inc.",
+          "ticker": null,
+          "listing_country": "US"
         }
       ],
       "size_bucket": "small",
@@ -1615,343 +1963,6 @@
           "listing_country": "IN"
         }
       ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-107",
-      "headline": "Comstock Stock Up 28% as Q2 Earnings Surge Year Over Year",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/comstock-stock-28-q2-earnings-surge-year-over-year",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T18:35:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Significant 28% stock price move following a surge in Q2 earnings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Significant 28% stock price move following a surge in Q2 earnings.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Comstock",
-          "ticker": "CRK",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-027",
-      "headline": "Vox cuts jobs in first restructuring since James Murdoch's takeover, source says",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/world-at-work/vox-cuts-jobs-first-restructuring-since-james-murdochs-takeover-source-says-2026-08-20/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T19:27:43Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Vox is conducting a restructuring and job cuts following a change in control.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "Vox is conducting a restructuring and job cuts following a change in control.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "restructuring_layoffs"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Vox Media",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-103",
-      "headline": "Solo Brands Q2 Earnings Surge Y/Y on Watersports Growth",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/solo-brands-q2-earnings-surge-y-y-watersports-growth",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T18:41:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Company reported a surge in Q2 earnings driven by specific segment growth.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Company reported a surge in Q2 earnings driven by specific segment growth.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Solo Brands",
-          "ticker": "DTC",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-104",
-      "headline": "Quantum X Swings to Earnings in Q2 on Lower Financial Costs",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/quantum-x-swings-earnings-q2-lower-financial-costs",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T18:39:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Company swung to profitability in Q2 due to reduced financial costs.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Company swung to profitability in Q2 due to reduced financial costs.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Quantum X",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-105",
-      "headline": "Koil Energy Q2 Earnings Rise Y/Y on Service Revenue Growth",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/koil-energy-q2-earnings-rise-y-y-service-revenue-growth",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T18:37:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Company reported Q2 earnings growth driven by service revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 84,
-      "triage_reason": "Company reported Q2 earnings growth driven by service revenue.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Koil Energy",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-066",
-      "headline": "Carvana shares are under pressure this week as Mark Walter probe fuels investor jitters",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/08/19/carvana-shares-on-pace-for-10percent-weekly-loss-as-mark-walter-probe-fuels-investor-jitters.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-19T21:05:31Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Regulatory probe into a key figure creates investor uncertainty and stock pressure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 83,
-      "triage_reason": "Regulatory probe into a key figure creates investor uncertainty and stock pressure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Carvana",
-          "ticker": "CVNA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-100",
-      "headline": "Latest US Sanctions Hit Cuban Industries and Influence Network",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-20/latest-us-sanctions-hit-cuban-industries-and-influence-network",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T19:52:49Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "New U.S. sanctions on Cuban industries represent a shift in regulatory and operational risk for entities operating in that region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "New U.S. sanctions on Cuban industries represent a shift in regulatory and operational risk for entities operating in that region.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -68509,77 +68520,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-aad352e81aca",
-      "idea_version": "IDEAV-882fefc51376a0e7",
-      "idea_version_started_at": "2026-08-20T06:40:08Z",
-      "ticker": "00082",
-      "company": "CRAZY SPORTS",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The profit warning indicates a negative shift in guidance, suggesting the company is failing to meet its growth targets.",
-      "why_now": "The filing was released on 2026-08-19.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-afaf304d778c"
-      ],
-      "primary_source_event_id": "EVT-afaf304d778c",
-      "source_headlines": [
-        "CRAZY SPORTS (00082): PROFIT WARNING"
-      ],
-      "source_headline": "CRAZY SPORTS (00082): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900576.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-19T09:19:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-20T06:40:08Z",
-      "updated_at": "2026-08-20T06:40:08Z",
-      "decay_at": "2026-08-20T21:19:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-bc50c2310a83",
       "idea_version": "IDEAV-870a61e387aa576b",
       "idea_version_started_at": "2026-08-20T06:40:08Z",
@@ -68716,77 +68656,6 @@
       "surfaced_at": "2026-08-20T02:14:56Z",
       "updated_at": "2026-08-20T06:23:48Z",
       "decay_at": "2026-08-20T22:25:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-5ba85ca48117",
-      "idea_version": "IDEAV-2433b03bb5317e63",
-      "idea_version_started_at": "2026-08-20T06:23:48Z",
-      "ticker": "01971",
-      "company": "Rsun Services Group Limited",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The profit warning suggests a negative shift in profitability, which is a primary driver for equity valuation in the property services sector.",
-      "why_now": "The profit warning was filed on 2026-08-19.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6a7de0d8b54f"
-      ],
-      "primary_source_event_id": "EVT-6a7de0d8b54f",
-      "source_headlines": [
-        "RSUN SER (01971): PROFIT WARNING"
-      ],
-      "source_headline": "RSUN SER (01971): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900698.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-19T09:27:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-20T06:23:48Z",
-      "updated_at": "2026-08-20T06:23:48Z",
-      "decay_at": "2026-08-20T21:27:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -69071,6 +68940,148 @@
       "surfaced_at": "2026-08-20T03:43:44Z",
       "updated_at": "2026-08-20T07:13:16Z",
       "decay_at": "2026-08-20T20:57:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-aad352e81aca",
+      "idea_version": "IDEAV-882fefc51376a0e7",
+      "idea_version_started_at": "2026-08-20T06:40:08Z",
+      "ticker": "00082",
+      "company": "CRAZY SPORTS",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The profit warning indicates a negative shift in guidance, suggesting the company is failing to meet its growth targets.",
+      "why_now": "The filing was released on 2026-08-19.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-afaf304d778c"
+      ],
+      "primary_source_event_id": "EVT-afaf304d778c",
+      "source_headlines": [
+        "CRAZY SPORTS (00082): PROFIT WARNING"
+      ],
+      "source_headline": "CRAZY SPORTS (00082): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900576.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-19T09:19:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-20T06:40:08Z",
+      "updated_at": "2026-08-20T06:40:08Z",
+      "decay_at": "2026-08-20T21:19:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-5ba85ca48117",
+      "idea_version": "IDEAV-2433b03bb5317e63",
+      "idea_version_started_at": "2026-08-20T06:23:48Z",
+      "ticker": "01971",
+      "company": "Rsun Services Group Limited",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The profit warning suggests a negative shift in profitability, which is a primary driver for equity valuation in the property services sector.",
+      "why_now": "The profit warning was filed on 2026-08-19.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-6a7de0d8b54f"
+      ],
+      "primary_source_event_id": "EVT-6a7de0d8b54f",
+      "source_headlines": [
+        "RSUN SER (01971): PROFIT WARNING"
+      ],
+      "source_headline": "RSUN SER (01971): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900698.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-19T09:27:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-20T06:23:48Z",
+      "updated_at": "2026-08-20T06:23:48Z",
+      "decay_at": "2026-08-20T21:27:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -69441,8 +69452,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 10,
-    "shown_count": 10,
+    "total_count": 12,
+    "shown_count": 12,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -69451,8 +69462,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 7,
-        "shown_count": 7,
+        "total_count": 9,
+        "shown_count": 9,
         "hidden_count": 0
       }
     },
@@ -69472,6 +69483,154 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5ba85ca48117",
+        "idea_version": "IDEAV-2433b03bb5317e63",
+        "idea_version_started_at": "2026-08-20T06:23:48Z",
+        "ticker": "01971",
+        "company": "Rsun Services Group Limited",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The profit warning suggests a negative shift in profitability, which is a primary driver for equity valuation in the property services sector.",
+        "why_now": "The profit warning was filed on 2026-08-19.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-6a7de0d8b54f"
+        ],
+        "primary_source_event_id": "EVT-6a7de0d8b54f",
+        "source_headlines": [
+          "RSUN SER (01971): PROFIT WARNING"
+        ],
+        "source_headline": "RSUN SER (01971): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900698.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-19T09:27:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-20T06:23:48Z",
+        "updated_at": "2026-08-20T06:23:48Z",
+        "decay_at": "2026-08-20T21:27:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-20T21:27:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
+      {
+        "idea_id": "IDEA-aad352e81aca",
+        "idea_version": "IDEAV-882fefc51376a0e7",
+        "idea_version_started_at": "2026-08-20T06:40:08Z",
+        "ticker": "00082",
+        "company": "CRAZY SPORTS",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The profit warning indicates a negative shift in guidance, suggesting the company is failing to meet its growth targets.",
+        "why_now": "The filing was released on 2026-08-19.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-afaf304d778c"
+        ],
+        "primary_source_event_id": "EVT-afaf304d778c",
+        "source_headlines": [
+          "CRAZY SPORTS (00082): PROFIT WARNING"
+        ],
+        "source_headline": "CRAZY SPORTS (00082): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900576.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-19T09:19:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-20T06:40:08Z",
+        "updated_at": "2026-08-20T06:40:08Z",
+        "decay_at": "2026-08-20T21:19:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-20T21:19:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-dad42101a772",
         "idea_version": "IDEAV-8289fcdb956a4426",
@@ -70213,7 +70372,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 29,
-    "live_count": 18,
+    "live_count": 16,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -70232,9 +70391,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2264357,
-    "news_picked_today": 125,
-    "news_dropped_today": 376
+    "news_seen_today": 2625933,
+    "news_picked_today": 195,
+    "news_dropped_today": 618
   },
   "book_momentum": {
     "live_count": 8,
