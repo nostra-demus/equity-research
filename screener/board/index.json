@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-20T04:31:29Z",
+  "generated_at": "2026-08-20T04:31:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260820-411",
@@ -67747,6 +67747,78 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-d233df6555ee",
+      "idea_version": "IDEAV-a2106fa73459e2d2",
+      "idea_version_started_at": "2026-08-20T04:31:37Z",
+      "ticker": "01269",
+      "company": "First Capital Group",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a supplemental announcement regarding a disclaimer of opinion on its going concern status, indicating severe liquidity or solvency risks.",
+      "why_now": "The filing dated August 19, 2026, confirms the ongoing existential threat to the business.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "balance_sheet_survival",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-c047e13d2229"
+      ],
+      "primary_source_event_id": "EVT-c047e13d2229",
+      "source_headlines": [
+        "FIRST CAP GP (01269): SUPPLEMENTAL ANNOUNCEMENT TO UPDATE IN RELATION TO THE DISCLAIMER OF OPINION ON GOING CONCERN SET OUT IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025"
+      ],
+      "source_headline": "FIRST CAP GP (01269): SUPPLEMENTAL ANNOUNCEMENT TO UPDATE IN RELATION TO THE DISCLAIMER OF OPINION ON GOING CONCERN SET OUT IN THE ANNUAL REPORT FOR THE YEAR ENDED 31 DECEMBER 2025",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081901029.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-19T10:29:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-20T04:31:37Z",
+      "updated_at": "2026-08-20T04:31:37Z",
+      "decay_at": "2026-08-20T22:29:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-dad42101a772",
       "idea_version": "IDEAV-6ac4657505c976c7",
       "idea_version_started_at": "2026-08-20T03:43:44Z",
@@ -68941,8 +69013,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 15,
-    "live_count": 8,
+    "surfaced_total": 16,
+    "live_count": 9,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
