@@ -413,6 +413,10 @@ interface State {
   tickers: TickerSummary[]
   emptyState: boolean
   driveEnabled: boolean // true when the server has a Drive destination + credential — gates add-company/upload UI
+  /** Weaker, separate capability: watchlist thesis PDFs need only a writable Drive MOUNT (data/ is a
+   *  symlink into Drive for Desktop), which needs no credential. Gating attachments on driveEnabled hid
+   *  the feature on every machine where the API was never configured — which is the normal setup. */
+  watchlistFilesEnabled: boolean
   defaultCoverage: CoverageGroup[] // upload-guide groups (all unmet), for the zero-folders onboarding state
   selectedTicker: string | null
   graph: SwarmGraph | null
@@ -435,7 +439,10 @@ interface State {
   reports: { memo: boolean; thesis: boolean; dossier: boolean }
   // per-module three tiers (run-root-relative paths), keyed by module folder name. Generic — any module lights up.
   moduleReports: Record<string, { synthesis?: string; memo?: string; dossier?: string }>
-  openOutput: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean } | null
+  /** `body` is content the panel already HAS, for a document that is not a readable repo path — a
+   *  watchlist thesis attachment lives under a reserved data folder that `api.output` cannot read. With a
+   *  body present the reader renders it directly instead of fetching. */
+  openOutput: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean; body?: string } | null
   // ---- chat with your data (closed-book Q&A over a scope's synthesized output) ----
   chatOpen: boolean
   chatScope: ChatScope
@@ -705,6 +712,7 @@ interface State {
   openCalls: () => void
   closeCalls: () => void
   openCallFile: (path: string, title: string) => void
+  openInlineDoc: (title: string, body: string) => void
   updateCall: (ticker: string) => Promise<void>
   fileDueReview: (ticker: string, window: string) => Promise<void>
   refreshDashboard: () => Promise<void>
@@ -1235,6 +1243,7 @@ export const useStore = create<State>((set, get) => ({
   tickers: [],
   emptyState: false,
   driveEnabled: false,
+  watchlistFilesEnabled: false,
   defaultCoverage: [],
   addCompanyOpen: false,
   uploadTarget: null,
@@ -3206,6 +3215,7 @@ export const useStore = create<State>((set, get) => ({
   },
   // open any analyses/ file (review JSON / thesis md / dashboard md) in the OutputReader (renders text).
   openCallFile: (path, title) => set({ openOutput: { path, title } }),
+  openInlineDoc: (title, body) => set({ openOutput: { title, body } }),
 
   // file an ad-hoc outcome review for one call ("update what's happened since now"). Delegates to
   // Phase 3 /research:review-decisions <ticker> ad-hoc via the launch system; the tracker auto-refreshes.
@@ -5615,7 +5625,7 @@ async function loadCore(get: () => State, set: (p: Partial<State>) => void, stat
         .tickers()
         .then((tk) => {
           coreTickersLoaded = true
-          set({ tickers: tk.tickers, emptyState: tk.emptyState, defaultCoverage: tk.coverage ?? [], dataDir: (tk as any).dataDir ?? null, driveEnabled: (tk as any).driveEnabled ?? false })
+          set({ tickers: tk.tickers, emptyState: tk.emptyState, defaultCoverage: tk.coverage ?? [], dataDir: (tk as any).dataDir ?? null, driveEnabled: (tk as any).driveEnabled ?? false, watchlistFilesEnabled: (tk as any).watchlistFilesEnabled ?? (tk as any).driveEnabled ?? false })
           reconcileSelection(get, set) // a reconnect may carry a now-removed selection — drop it
         })
         .catch(() => {}),
@@ -5651,7 +5661,7 @@ function refreshTickersSoon(get: () => State, set: (p: Partial<State>) => void) 
   api
     .tickers()
     .then((t) => {
-      set({ tickers: t.tickers, emptyState: t.emptyState, defaultCoverage: t.coverage ?? get().defaultCoverage, dataDir: (t as any).dataDir ?? get().dataDir, driveEnabled: (t as any).driveEnabled ?? get().driveEnabled })
+      set({ tickers: t.tickers, emptyState: t.emptyState, defaultCoverage: t.coverage ?? get().defaultCoverage, dataDir: (t as any).dataDir ?? get().dataDir, driveEnabled: (t as any).driveEnabled ?? get().driveEnabled, watchlistFilesEnabled: (t as any).watchlistFilesEnabled ?? (t as any).driveEnabled ?? get().watchlistFilesEnabled })
       const removed = reconcileSelection(get, set)
       if (removed) get().setToast({ msg: `${removed} is no longer in the data folder — pick a ticker`, tone: 'info' })
       if (tickersSyncTimer) { clearTimeout(tickersSyncTimer); tickersSyncTimer = null }

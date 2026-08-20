@@ -26,7 +26,7 @@ function sigFromOutputPath(path?: string): string | undefined {
   return SIG_FROM_PATH_RE.exec(path || '')?.[1]
 }
 
-export function OutputReader({ output }: { output: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean } }) {
+export function OutputReader({ output }: { output: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean; body?: string } }) {
   const close = useStore((s) => s.closeOutput)
   const activeSwarm = useStore((s) => s.activeSwarm)
   const researchNodes = useStore((s) => s.nodesByKey)
@@ -58,6 +58,9 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
   const reportView = useMemo(() => reportIntegrityView(md), [md])
 
   useEffect(() => {
+    // Content the caller already holds (a watchlist thesis attachment: it lives under a reserved data
+    // folder, which api.output deliberately cannot read) renders directly — same pipeline, no fetch.
+    if (output.body != null) { setMd(output.body); setLoading(false); return }
     if (!output.path) { setMd(''); setLoading(false); return } // pending (not-yet-run) node — nothing to fetch
     setLoading(true)
     setMd('')
@@ -66,7 +69,7 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
       .then((r) => setMd(r.markdown))
       .catch(() => setMd('*Could not load this output.*'))
       .finally(() => setLoading(false))
-  }, [output.path])
+  }, [output.path, output.body])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && (promptView ? setPromptView(false) : close())

@@ -119,6 +119,48 @@ touch "$HOME/.config/nostra-engine/providers.env"
 chmod 600 "$HOME/.config/nostra-engine/providers.env"
 ```
 
+### Google Drive uploads and watchlist thesis attachments (`drive.env`)
+
+Pool uploads and watchlist thesis PDFs are **off until a Drive credential exists** — the cockpit says so
+rather than offering a drop zone that would fail. The engine reads them from `drive.env` in the same
+config dir, loaded by `ui/server/src/load-env.ts` and scrubbed from child research runs (only the cockpit
+server serves the upload routes).
+
+```
+touch "$HOME/.config/nostra-engine/drive.env"
+chmod 600 "$HOME/.config/nostra-engine/drive.env"
+```
+
+```sh
+# WHERE files are written — the Drive folder id (the last path segment of the folder's URL)
+GDRIVE_DATA_FOLDER_ID=1AbCdEf...
+
+# ONE credential. Either a service account — note the variable is the STANDARD Google one,
+# GOOGLE_APPLICATION_CREDENTIALS, not a GDRIVE_-prefixed name (ui/server/src/config.ts GDRIVE.saKeyFile):
+GOOGLE_APPLICATION_CREDENTIALS=/Users/you/.config/nostra-engine/drive-sa.json
+# GDRIVE_SA_JSON holds the same key INLINE instead, but this loader reads the file line by line, so a
+# pasted multi-line JSON blob would be truncated at its first newline and then fail to parse at runtime.
+# Prefer the file path above; if you must inline it, collapse the JSON to a single line first.
+# A service account has NO storage quota of its own, so it cannot write into a personal My Drive
+# folder. It MUST write into a Shared Drive it is a member of — add the SA's client_email as a
+# Content manager on that drive, and set:
+GDRIVE_SHARED_DRIVE_ID=0AbCdEf...
+
+# …or a real account's OAuth (files count against THAT account's quota; no Shared Drive needed):
+# GDRIVE_OAUTH_CLIENT_ID=...
+# GDRIVE_OAUTH_CLIENT_SECRET=...
+# GDRIVE_OAUTH_REFRESH_TOKEN=...
+
+# Optional — the child folder watchlist theses go in, under the data folder. The lookup is an EXACT,
+# case-sensitive Drive name query, so set this if your folder is not literally named WATCHLIST;
+# otherwise the engine creates its own beside yours and you will never notice.
+# GDRIVE_WATCHLIST_FOLDER=watchlist-thesis-manual
+```
+
+`GDRIVE_ENABLED` is true only when the folder id AND one complete credential are present
+(`ui/server/src/config.ts`), so a partial block leaves the feature off rather than half-working. Restart
+the engine after editing; confirm with `curl -s localhost:8787/api/tickers | grep -o '"driveEnabled":[a-z]*'`.
+
 **Server-side feedback loops (on for the doer).** The engine plist
 (`com.nostradamus.engine.plist`) now sets two more flags so the closed loops run from the always-on
 server, not only the macOS `hk-*` timers:

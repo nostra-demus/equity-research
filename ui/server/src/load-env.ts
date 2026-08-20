@@ -42,8 +42,14 @@ function loadEnvFile(name: string): void {
 
 // providers.env — LLM-provider secrets (as before). code-pr.env — the fine-grained GitHub PAT the
 // feedback→coding-agent dispatch uses to open DRAFT PRs (feedback-dispatch.ts), plus its dispatch config.
-// Same out-of-repo dir, same one-file-drop portability (Air→Pro migration = copy the config dir). Both
-// files' keys go into providerEnvKeys so launcher.childEnv scrubs them from ordinary research/screener
-// runs — the PAT is re-injected only into the feedback-dispatch child that actually needs it.
+// drive.env — the Google Drive folder id + service-account/OAuth credential that turn on pool uploads and
+// watchlist thesis attachments (config.GDRIVE / GDRIVE_ENABLED). Without it those credentials had nowhere
+// to live but a launchd plist or a shell export, neither of which survives the way the other secrets do,
+// so the feature read as "not built" when it was only unconfigured.
+// Same out-of-repo dir, same one-file-drop portability (Air→Pro migration = copy the config dir). Every
+// file's keys go into providerEnvKeys so launcher.childEnv scrubs them from ordinary research/screener
+// runs — the PAT is re-injected only into the feedback-dispatch child that actually needs it, and a Drive
+// credential is never needed by a child run at all: only the cockpit server serves the upload routes.
 loadEnvFile('providers.env')
 loadEnvFile('code-pr.env')
+loadEnvFile('drive.env')

@@ -32,7 +32,10 @@ const ABSENT_RESOLVE: Record<string, string> = {
 export function WatchComposer() {
   const composer = useStore((s) => s.watchComposer)
   const tickers = useStore((s) => s.tickers)
-  const driveEnabled = useStore((s) => s.driveEnabled)
+  // Attachments need a writable Drive MOUNT, not the Drive API — `data/` is a symlink into Drive for
+  // Desktop, so a PDF written there syncs up with no credential. Gating on driveEnabled reported the
+  // feature as unavailable on the normal setup, where the API was never configured and never needed to be.
+  const driveEnabled = useStore((s) => s.watchlistFilesEnabled)
   const close = useStore((s) => s.closeWatchComposer)
   const save = useStore((s) => s.saveWatchRow)
   const detach = useStore((s) => s.detachWatchFile)
@@ -349,15 +352,15 @@ export function WatchComposer() {
               onDrop={(e) => { e.preventDefault(); setIsDrag(false); addFiles(Array.from(e.dataTransfer.files)) }}
               onClick={() => fileInput.current?.click()}
             >
-              <input ref={fileInput} type="file" accept="application/pdf" multiple hidden
+              <input ref={fileInput} type="file" accept="application/pdf,text/markdown,.md" multiple hidden
                 onChange={(e) => { addFiles(Array.from(e.target.files || [])); e.target.value = '' }} />
               {files.length
                 ? `${files.length} file${files.length === 1 ? '' : 's'} ready — click to add more`
-                : 'Drop or click to attach your write-up — PDF, up to 5'}
+                : 'Drop or click to attach your write-up — PDF or Markdown, up to 5'}
             </div>
           ) : (
             <div className="wlc__drop wlc__drop--off">
-              Attaching needs the Drive connection, which this engine does not have.
+              Attaching needs the Drive folder to be mounted and writable, and it is not right now.
               Everything else on this row saves normally.
             </div>
           )}

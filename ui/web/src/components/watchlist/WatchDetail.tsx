@@ -80,6 +80,7 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
   const [armed, setArmed] = useState(false)
   const openComposer = useStore((s) => s.openWatchComposer)
   const openCallFile = useStore((s) => s.openCallFile)
+  const openInlineDoc = useStore((s) => s.openInlineDoc)
   const archiveWatch = useStore((s) => s.archiveWatch)
   const restoreWatch = useStore((s) => s.restoreWatch)
   const staticMode = useStore((s) => s.staticMode)
@@ -113,6 +114,13 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
   const thesisHref = !staticMode && row.entry_id && firstAttachment
     ? api.watchAttachmentUrl(row.entry_id, firstAttachment.attachment_id)
     : null
+  // A markdown write-up is READ in the cockpit's own reader rather than downloaded — the route serves it
+  // as text/plain with nosniff, and the reader renders through react-markdown with no rehype-raw, so
+  // embedded HTML is escaped rather than executed. A PDF still opens as a file: rendering one inline in
+  // this origin is the thing the download header exists to prevent.
+  const thesisFilename = firstAttachment?.filename
+  const thesisIsMarkdown = !!thesisFilename && /\.md$/i.test(thesisFilename)
+  const thesisTitle = thesisFilename ? `${row.ticker} — ${thesisFilename}` : ''
   // Hoisted so TypeScript narrows it for the callback below — a closure cannot narrow a property access,
   // which is the only reason the non-null assertion was there.
   const thesisPath = row.final_thesis_path
@@ -329,7 +337,22 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
           </button>
         ) : (
           <>
-            {thesisHref
+            {thesisHref && thesisIsMarkdown && thesisFilename
+              ? (
+                <button
+                  className="btn btn--mini"
+                  title="Your write-up"
+                  onClick={() => {
+                    void fetch(thesisHref)
+                      .then((r) => (r.ok ? r.text() : Promise.reject(new Error(String(r.status)))))
+                      .then((text) => openInlineDoc(thesisTitle, text))
+                      .catch(() => openInlineDoc(thesisTitle, '*Could not load this write-up.*'))
+                  }}
+                >
+                  Thesis
+                </button>
+              )
+              : thesisHref
               ? <a className="btn btn--mini" href={thesisHref} target="_blank" rel="noreferrer" title="Your write-up">Thesis</a>
               : thesisPath
                 ? <button className="btn btn--mini" onClick={() => openCallFile(thesisPath, `Investment Thesis — ${row.ticker}`)}>Thesis</button>
