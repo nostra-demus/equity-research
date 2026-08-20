@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-20T21:33:02Z",
+  "generated_at": "2026-08-20T21:49:03Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260820-145",
+      "headline": "FPH: Profit Guidance [price-sensitive]",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FPH?key=2924-03123853-2A1690873",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-20T21:30:06Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "The company issued price-sensitive profit guidance, which directly impacts investor expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company issued price-sensitive profit guidance, which directly impacts investor expectations.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fisher & Paykel Healthcare",
+          "ticker": "FPH",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260820-013",
       "headline": "DTM: Acquisition of WA gold project and $2m Placement [price-sensitive]",
@@ -47,6 +96,55 @@
         }
       ],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-146",
+      "headline": "IMPACT Silver Reports Q2 2026 Results: Revenue Increased by 124%, Gross Profit up 756% on Silver Leverage, Higher Grades | ISVLF Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/ISVLF/impact-silver-reports-q2-2026-results-revenue-increased-by-124-gross-r1j85vseq0bk.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T21:34:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "The company reported significant growth with revenue up 124% and gross profit up 756%.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company reported significant growth with revenue up 124% and gross profit up 756%.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "IMPACT Silver",
+          "ticker": "ISVLF",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -145,6 +243,60 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-164",
+      "headline": "Holcim Is Acquiring Part of James Hardie’s European Business",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-20/holcim-said-to-acquire-part-of-james-hardie-s-european-business",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T20:27:53Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Holcim is acquiring a portion of James Hardie's European business, representing a significant strategic expansion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Holcim is acquiring a portion of James Hardie's European business, representing a significant strategic expansion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Holcim",
+          "ticker": null,
+          "listing_country": "CH"
+        },
+        {
+          "name": "James Hardie",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -258,6 +410,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260820-142",
+      "headline": "Real and RE/MAX Holdings Announce Preliminary Results for Election of Form of Merger Consideration by REMAX Stockholders and Expected Timing of Real Share Consolidation | REAX Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/REAX/real-and-re-max-holdings-announce-preliminary-results-for-election-pns75b7nsbzv.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T21:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Real acquires RE/MAX Holdings; shareholder-vote results and announced consolidation timing materially affect capital structure and operations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Real acquires RE/MAX Holdings; shareholder-vote results and announced consolidation timing materially affect capital structure and operations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 3,
+        "scope": 2,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Real Acquisition Holdings",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "RE/MAX Holdings",
+          "ticker": "REAX",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260820-009",
       "headline": "HIGH FASHION (00608): PROFIT WARNING",
       "headline_en": null,
@@ -345,6 +552,56 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-161",
+      "headline": "Founder of collapsed Chinese property giant Evergrande is jailed for life on fraud and bribery charges",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16067967/Founder-collapsed-Chinese-property-giant-Evergrande-jailed-life-fraud-bribery-charges.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T21:00:46Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Founder of China Evergrande Group convicted of fraud and bribery with life sentence; signals governance failure and may accelerate distressed-asset proceedings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "Founder of China Evergrande Group convicted of fraud and bribery with life sentence; signals governance failure and may accelerate distressed-asset proceedings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Evergrande Group",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -492,6 +749,50 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-143",
+      "headline": "US vows ‘toughest sanctions in history’ on Iran as Trump threatens countries providing lifeline",
+      "headline_en": null,
+      "url": "https://www.arabianbusiness.com/politics/us-vows-toughest-sanctions-in-history-on-iran-as-trump-threatens-countries-providing-lifeline",
+      "source_name": "Arabian Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T21:03:51Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "The US government is threatening significant geopolitical escalation through sanctions on Iran and potential secondary sanctions on other countries.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The US government is threatening significant geopolitical escalation through sanctions on Iran and potential secondary sanctions on other countries.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -829,6 +1130,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260820-155",
+      "headline": "Ross Stores Raises Annual Profit Outlook on Robust Momentum",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-20/ross-stores-raises-annual-profit-outlook-on-robust-momentum",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T21:04:56Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Ross Stores raises annual profit guidance citing robust operational momentum, moving consensus expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Ross Stores raises annual profit guidance citing robust operational momentum, moving consensus expectations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ross Stores",
+          "ticker": "ROST",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260820-160",
+      "headline": "Recruiter Hays raises alarm over hit to jobs from AI after suffering its first annual loss for 23 years",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-16067965/Recruiter-Hays-raises-alarm-hit-jobs-AI-suffering-annual-loss-23-years.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail) — Markets",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T21:00:52Z",
+      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
+      "prelim_note": "Hays reported its first annual loss in 23 years and warned of structural job-market erosion from AI adoption.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "Hays reported its first annual loss in 23 years and warned of structural job-market erosion from AI adoption.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hays",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260820-115",
       "headline": "Ross Stores raises annual profit forecast again on discounted apparel demand",
       "headline_en": null,
@@ -1123,60 +1523,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-128",
-      "headline": "Real and RE/MAX Holdings Announce Preliminary Results for Election of Form of Merger Consideration by REMAX Stockholders and Expected Timing of Real Share Consolidation",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/real-and-remax-holdings-announce-preliminary-results-for-election-of-form-of-merger-consideration-by-remax-stockholders-and-expected-timing-of-real-share-consolidation-302856860.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T21:02:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Update on merger consideration election and share consolidation timing for an ongoing M&A deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Update on merger consideration election and share consolidation timing for an ongoing M&A deal.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 3,
-        "scope": 2,
-        "event": 9,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "company",
-        "event_id": "mna",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Real",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "RE/MAX Holdings",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1577,31 +1923,31 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260820-075",
-      "headline": "Intchains Group Limited Reports First Half 2026 Financial Results",
+      "inbox_id": "INB-20260820-147",
+      "headline": "Diamond Estates Wines & Spirits Reports First Quarter Fiscal 2027 Financial Results | DWWEF Stock News",
       "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348798/0/en/intchains-group-limited-reports-first-half-2026-financial-results.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
+      "url": "https://www.stocktitan.net/news/DWWEF/diamond-estates-wines-spirits-reports-first-quarter-fiscal-2027-5x9fnboecibw.html",
+      "source_name": "Stock Titan — Latest News",
       "input_nature": "company_press_release",
-      "found_at": "2026-08-20T20:05:00Z",
+      "found_at": "2026-08-20T21:29:00Z",
       "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Intchains Group Limited reported financial results for the first half of 2026.",
+      "prelim_note": "The company reported quarterly financial results, which are material for valuation.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 88,
-      "triage_reason": "Intchains Group Limited reported financial results for the first half of 2026.",
+      "triage_reason": "The company reported quarterly financial results, which are material for valuation.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 60,
+      "materiality_pre_score": 50,
       "rank_factors": {
-        "materiality": 60,
+        "materiality": 50,
         "source_tier": 3,
         "scope": 6,
         "event": 5,
         "size": -1,
         "recency": 5,
-        "materiality_label_floor": 10,
+        "materiality_label_floor": 20,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
@@ -1615,355 +1961,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Intchains Group Limited",
-          "ticker": "ICG",
+          "name": "Diamond Estates Wines & Spirits",
+          "ticker": "DWWEF",
           "listing_country": "US"
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-078",
-      "headline": "Flux Power Reports 2026 Fiscal Fourth Quarter and Full Year Financial Results",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348801/24114/en/flux-power-reports-2026-fiscal-fourth-quarter-and-full-year-financial-results.html",
-      "source_name": "GlobeNewswire — Earnings Releases & Operating Results",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T20:05:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Flux Power reported fiscal fourth quarter and full year 2026 financial results.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Flux Power reported fiscal fourth quarter and full year 2026 financial results.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Flux Power",
-          "ticker": "FLUX",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-024",
-      "headline": "‎BinDawood eyes SAR 1.5B investments, mostly in Saudi Arabia: CEO",
-      "headline_en": null,
-      "url": "https://www.argaam.com/en/article/articledetail/id/1930893",
-      "source_name": "Argaam — Main News (English)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T21:46:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Company announced a SAR 1.5 billion investment plan, indicating significant capacity expansion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Company announced a SAR 1.5 billion investment plan, indicating significant capacity expansion.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BinDawood Holding",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-072",
-      "headline": "Third Time’s The Charm? Dodge Keeps Recalling Durangos That Can Fall Apart While Driving",
-      "headline_en": null,
-      "url": "https://www.carscoops.com/2026/08/dodge-duango-spoiler-recall-three/",
-      "source_name": "Carscoops",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T20:17:00Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Dodge Durango structural-safety recall reported as recurring pattern; raises product-liability, regulatory, and reputational risk; no recall size or financial impact quantified.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "Dodge Durango structural-safety recall reported as recurring pattern; raises product-liability, regulatory, and reputational risk; no recall size or financial impact quantified.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 3,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "product",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Stellantis",
-          "ticker": "STLA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-102",
-      "headline": "To Probe Mark Walter’s Business, DOJ Sought Egan-Jones’ Records",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-20/to-probe-mark-walter-s-business-doj-sought-egan-jones-records",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T19:43:10Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "DOJ investigation into business practices creates potential legal and reputational risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "DOJ investigation into business practices creates potential legal and reputational risk.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Mark Walter",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-032",
-      "headline": "Trump administration announces new sanctions on Cuba, escalating economic pressure",
-      "headline_en": null,
-      "url": "https://thehill.com/policy/international/6042225-rubio-cuba-sanctions/",
-      "source_name": "The Hill — Homenews",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T19:38:32Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "New sanctions on Cuba represent a geopolitical escalation and increase regulatory risk for entities operating in the region.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "New sanctions on Cuba represent a geopolitical escalation and increase regulatory risk for entities operating in the region.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-021",
-      "headline": "Carlyle-Backed TAMKO Sees Earnings Drop After Debt-Funded Payout",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-20/carlyle-backed-tamko-sees-earnings-drop-after-debt-funded-payout",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T19:00:25Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "Carlyle-backed TAMKO reported an earnings drop following a debt-funded payout, indicating potential liquidity or leverage concerns.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "Carlyle-backed TAMKO reported an earnings drop following a debt-funded payout, indicating potential liquidity or leverage concerns.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 65,
-      "rank_factors": {
-        "materiality": 65,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TAMKO Building Products",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260820-022",
-      "headline": "₹218 Crore Fraud Case: EOW Registers FIR Against Unimers India, Goenka Promoters And Raheja Group Officials",
-      "headline_en": null,
-      "url": "https://www.freepressjournal.in/mumbai/218-crore-fraud-case-eow-registers-fir-against-unimers-india-goenka-promoters-and-raheja-group-officials",
-      "source_name": "Free Press Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T18:45:11Z",
-      "sweep_file": "screener/inbox/2026-08-20_sweep.json",
-      "prelim_note": "An FIR has been registered against Unimers India and Raheja Group officials regarding a ₹218 crore fraud case.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 86,
-      "triage_reason": "An FIR has been registered against Unimers India and Raheja Group officials regarding a ₹218 crore fraud case.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Unimers India",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Raheja Group",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -70461,9 +70464,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2625933,
-    "news_picked_today": 195,
-    "news_dropped_today": 618
+    "news_seen_today": 2897788,
+    "news_picked_today": 227,
+    "news_dropped_today": 682
   },
   "book_momentum": {
     "live_count": 8,
