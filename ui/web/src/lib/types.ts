@@ -904,6 +904,8 @@ export interface CycleSummary {
   deferred?: number // items pushed to the backlog this cycle
   backlog?: number // deferred backlog depth after this cycle
   backlog_cap?: number // the loss boundary; backlog past this is silently dropped
+  inbox_withheld?: number // kept rows whose first-seen clock could not be PROVED this cycle — they stay queued and retry, and are never handed a fabricated clock. Present only when >0
+  inbox_write_failed?: boolean // the inbox projection refused outright; the wire, the summary and the backlog cleanup still ran. Present only when true
   aborted?: boolean // the wall-clock guard killed this cycle and dumped the remainder to the backlog
   defer_reason?: DeferReason
   last_resort?: LastResortState // the Haiku fallback's state — makes "why nothing scored" honest

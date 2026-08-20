@@ -150,6 +150,26 @@ function revisionRecord(row: {
   }
 }
 
+/** The firehose is an append-only observation log. `found_at` was only added to its item records on
+ * 2026-08-05; every line written before that carries the ingester's own write stamp as `ts` and nothing
+ * else. Dropping those records (the old behaviour) made every legacy partition permanently unprovable,
+ * which wedged coverage and then blocked all ingest.
+ *
+ * The fallback is deliberately narrow in two ways. It applies only when `found_at` is ABSENT — a
+ * present-but-malformed stamp is corruption, not legacy shape, and still fails closed exactly as before,
+ * so bad source-clock data can never enter the immutable registry. And `ts` is the moment the line was
+ * APPENDED, which is later than the sweep's authoritative first-seen `found_at` (measured on the retained
+ * 2026-07-13 partition: later for 40 of 40 rows). So `syncRevisionPartition` claims the sweep's own rows
+ * FIRST; this fallback can only ever fill a key the sweep no longer retains, never overwrite a real one
+ * with a later stamp. */
+function firehoseRevisionRecord(
+  row: Parameters<typeof revisionRecord>[0] & { ts?: unknown },
+): RevisionClockRecord | null {
+  if (row.found_at !== undefined) return revisionRecord(row)
+  if (typeof row.ts !== 'string' || !Number.isFinite(Date.parse(row.ts))) return null
+  return revisionRecord({ ...row, found_at: row.ts })
+}
+
 function revisionRecordsFromDocument(doc: SweepWithRevisionClocks, label: string): Map<string, RevisionClockRecord> | null {
   if (doc.revision_clock_version === undefined && doc.revision_clocks === undefined) return null
   if (doc.revision_clock_version !== 1 || !Array.isArray(doc.revision_clocks)) {
@@ -226,7 +246,7 @@ function forEachFirehoseRevision(
             const row = JSON.parse(line)
             validLines++
             if (row?.kind !== 'item') continue
-            const record = revisionRecord(row)
+            const record = firehoseRevisionRecord(row)
             if (record) visit(record)
             else invalidCompleteLine = true
           } catch { invalidCompleteLine = true }
@@ -239,7 +259,7 @@ function forEachFirehoseRevision(
           // A valid non-newline-terminated last record is complete. Invalid trailing bytes are treated
           // as a torn append, but cannot establish coverage on their own.
           if (row?.kind === 'item') {
-            const record = revisionRecord(row)
+            const record = firehoseRevisionRecord(row)
             if (record) visit(record)
             else invalidCompleteLine = true
           }
@@ -560,12 +580,11 @@ function syncRevisionPartition(
   }
   for (const record of sweep?.records?.values() || []) accept(record)
   const needsLegacyFirehose = !sweep?.records
-  const hasLegacyFirehose = needsLegacyFirehose
-    && firehoseCandidates(repoRoot, partitionDate, archiveDir).some((candidate) => fileStamp(candidate) !== null)
-  const firehoseReadable = needsLegacyFirehose
-    ? forEachFirehoseRevision(repoRoot, partitionDate, archiveDir, accept)
-    : false
-  if ((!sweep && !firehoseReadable) || (hasLegacyFirehose && !firehoseReadable)) return false
+  // A retained sweep row carries the AUTHORITATIVE first-seen `found_at`; the legacy firehose carries only
+  // the later append-time `ts`. Claim the sweep's keys BEFORE streaming the firehose so the `ts` fallback
+  // can only fill keys the sweep no longer retains (the capped-out rows the firehose exists to recover) —
+  // never replace a real clock with one that is days too new. A partial write here is safe: the caller
+  // wraps this call in a SAVEPOINT and rolls back whenever it returns false.
   let changed = sweep?.records === null
   for (const row of Array.isArray(sweep?.doc.rows) ? sweep.doc.rows : []) {
     const record = revisionRecord(row)
@@ -573,6 +592,12 @@ function syncRevisionPartition(
     accept(record)
     changed = true
   }
+  const hasLegacyFirehose = needsLegacyFirehose
+    && firehoseCandidates(repoRoot, partitionDate, archiveDir).some((candidate) => fileStamp(candidate) !== null)
+  const firehoseReadable = needsLegacyFirehose
+    ? forEachFirehoseRevision(repoRoot, partitionDate, archiveDir, accept)
+    : false
+  if ((!sweep && !firehoseReadable) || (hasLegacyFirehose && !firehoseReadable)) return false
   if (sweep?.writablePath && changed) {
     // Migration metadata itself is bounded by the daily partition, and this compatibility write happens
     // once. Preserve updated_at exactly while making future boots skip the large firehose.
@@ -785,13 +810,28 @@ export function revisionClockRegistryDiagnostics(repoRoot: string, stateDir?: st
   })
 }
 
+interface PriorRevisionRead {
+  clocks: Map<string, DurableRevisionClock>
+  /** Revision keys whose first observation could not be PROVED. Handing any of these a clock would
+   * manufacture freshness, so the caller withholds those ITEMS — never the whole cycle. */
+  unproven: Set<string>
+  /** True when TODAY's own partition is among the blockers. A partial sweep write would then repair
+   * today's partition, clear it from coverage_missing, falsely complete coverage, and let the NEXT cycle
+   * mint a fresh clock for the very key just withheld. In that one case the caller withholds the WHOLE
+   * batch and writes nothing — byte-for-byte what the old throw left behind. An OLD blocked partition
+   * cannot be repaired by writing today's sweep (syncRevisionRegistry re-reads that date's own sources
+   * every tick), and the non-date sentinels are recomputed from live observation on every fullDiscovery,
+   * so neither can be silently erased by a partial write. */
+  todayBlocked: boolean
+}
+
 function readPriorInboxRevisions(
   repoRoot: string,
   date: string,
   revisionKeys: Set<string>,
   archiveDir: string,
   stateDir?: string,
-): Map<string, DurableRevisionClock> {
+): PriorRevisionRead {
   const found = new Map<string, DurableRevisionClock>()
   return withRevisionRegistry(repoRoot, stateDir, (db, file) => {
     const sync = syncRevisionRegistry(db, repoRoot, date, archiveDir, stateDir)
@@ -830,10 +870,19 @@ function readPriorInboxRevisions(
     // until complete coverage is re-proved.
     const completeThroughDate = sync.complete && registryBootstrapComplete(db)
       && Boolean(coverageThrough && coverageThrough >= date)
+    // Fail the PROJECTION closed, not the CYCLE. This used to throw, and the throw was the defect:
+    // mergeInbox runs BEFORE the wire write, the audit summary and the backlog cleanup, so refusing one
+    // row's clock also destroyed all three — an integrity refusal rendered as a total blackout
+    // (2026-08-17: ~250 consecutive cycles, 0 items, every screener view empty). Coverage is recomputed
+    // from disk on every call and `unproven` is never persisted, so the moment a partition becomes
+    // readable these keys resolve normally: no latch, no deadlock.
+    const unproven = new Set<string>()
+    let todayBlocked = false
     if (!completeThroughDate && found.size !== revisionKeys.size) {
-      throw new Error('revision clock registry coverage is incomplete; refusing to assign fresh clocks')
+      todayBlocked = registryMissingCoverage(db).has(date)
+      for (const revisionKey of revisionKeys) if (!found.has(revisionKey)) unproven.add(revisionKey)
     }
-    return found
+    return { clocks: found, unproven, todayBlocked }
   })
 }
 
@@ -863,6 +912,10 @@ export interface MergeInboxResult {
   rowCount: number
   /** Immutable provenance for every incoming exact revision, including rows omitted by the UI cap. */
   revisionClocksByEvent: Map<string, InboxRevisionClocks>
+  /** Incoming event ids this merge refused to project: their first observation could not be proved, or
+   * their row could not be represented. They are NOT in the sweep and NOT clocked, and the caller must
+   * return them to the backlog UNSEEN so a later cycle retries them. Empty on a clean merge. */
+  withheldEventIds: Set<string>
 }
 
 const tierRank = (t?: string | null): number => (t ? SOURCE_TIERS[t as SourceTierId]?.rank ?? 0 : 0)
@@ -1191,21 +1244,51 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
   }
   const byUrlRevision = new Map<string, InboxRow>()
   for (const r of Array.isArray(existing.rows) ? existing.rows : []) if (r && r.url) byUrlRevision.set(inboxUrlRevisionKey(r), r)
-  const currentRevisionClocks = revisionRecordsFromDocument(existing, path.basename(fp))
-    || new Map<string, RevisionClockRecord>()
+  // Derived, rebuildable state — exactly like the post-sync reload below and the partition read in
+  // syncRevisionPartition, both of which already catch. A corrupt current index is rebuilt from the
+  // visible rows plus the durable registry and reinstalled by the final atomic write below. Left bare,
+  // one bad entry in TODAY's revision_clocks array wedged the merge for ever, while a TOTALLY
+  // unparseable sweep self-healed a few lines earlier — the strictly-worse-for-being-less-broken bug.
+  let currentRevisionClocks: Map<string, RevisionClockRecord>
+  try {
+    currentRevisionClocks = revisionRecordsFromDocument(existing, path.basename(fp))
+      || new Map<string, RevisionClockRecord>()
+  } catch { currentRevisionClocks = new Map<string, RevisionClockRecord>() }
   // Manual sweep rows are not firehose items, but the command preserves this wrapper index. Union every
   // visible valid row before selection so a later auto-ingest cap cannot erase its first observation.
   for (const row of byUrlRevision.values()) {
     const record = revisionRecord(row)
     if (record && !currentRevisionClocks.has(record.revision_key)) currentRevisionClocks.set(record.revision_key, record)
   }
-  const priorRevisions = readPriorInboxRevisions(
+  const priorRead = readPriorInboxRevisions(
     repoRoot,
     date,
     new Set(items.map((item) => inboxUrlRevisionKey(item))),
     opts.archiveDir || '',
     opts.stateDir,
   )
+  const priorRevisions = priorRead.clocks
+  const withheldEventIds = new Set<string>()
+  // todayBlocked: a partial write could repair TODAY's partition and falsely complete coverage, so
+  // degrade at BATCH granularity there — write nothing, exactly as the old throw did, minus the throw.
+  // Otherwise degrade per ITEM: nothing about one unprovable key makes its batch-mates unsafe.
+  const holdWholeBatch = priorRead.todayBlocked && priorRead.unproven.size > 0
+  const merging = holdWholeBatch ? [] : items.filter((it) => {
+    if (!priorRead.unproven.has(inboxUrlRevisionKey(it))) return true
+    withheldEventIds.add(it.event_id)
+    return false
+  })
+  if (holdWholeBatch) for (const it of items) withheldEventIds.add(it.event_id)
+  if (!merging.length && withheldEventIds.size) {
+    // Durable state is byte-for-byte what the throw left behind: no sweep is rewritten, so no fabricated
+    // clock and no partial partition can later be mistaken for proof. What survives now is everything
+    // DOWNSTREAM — the wire, the firehose audit line, the day's counters, the backlog cleanup.
+    return {
+      rowCount: Array.isArray(existing.rows) ? existing.rows.length : 0,
+      revisionClocksByEvent: new Map(),
+      withheldEventIds,
+    }
+  }
   // A fresh registry may migrate today's legacy sweep from its uncapped firehose while resolving prior
   // clocks. Reload that post-sync index before composing the final wrapper: otherwise this function's
   // pre-migration `existing` snapshot would immediately overwrite the migrated capped-out revisions.
@@ -1220,7 +1303,7 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
   const dateCompact = date.replace(/-/g, '')
   let seq = nextInboxSeq(existing.rows || [])
 
-  for (const it of items) {
+  for (const it of merging) {
     const urlRevisionKey = inboxUrlRevisionKey(it)
     const eventId = eventIdFor(it.headline, it.url)
     const prior = byUrlRevision.get(urlRevisionKey)
@@ -1304,7 +1387,13 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
     }
     if (olderPrior || !currentRevisionClocks.has(urlRevisionKey)) {
       const record = revisionRecord(byUrlRevision.get(urlRevisionKey)!)
-      if (!record) throw new Error(`cannot persist revision clocks for ${eventId}`)
+      if (!record) {
+        // One unrepresentable row leaves THIS merge, never the batch. Restore the projection to exactly
+        // what it was before this item was considered.
+        if (prior) byUrlRevision.set(urlRevisionKey, prior); else byUrlRevision.delete(urlRevisionKey)
+        withheldEventIds.add(eventId)
+        continue
+      }
       // Replace a later current-day clock only when an older durable partition repaired it. Otherwise
       // first-wins insertion keeps the current partition immutable.
       currentRevisionClocks.set(urlRevisionKey, record)
@@ -1314,7 +1403,7 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
   // Reconcile every incoming kept-band revision before the UI selection cap. Feed and Theme persistence
   // must not fall back to a refreshed provider clock merely because this row ranked below today's inbox.
   const revisionClocksByEvent = new Map<string, InboxRevisionClocks>()
-  for (const item of items) {
+  for (const item of merging) {
     const row = byUrlRevision.get(inboxUrlRevisionKey(item))
     if (!row) continue
     // `normalizeAndFilter` computes event_id before applying its 500-character storage cap. Keep that
@@ -1360,7 +1449,7 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
     registryWrite.rollback()
     throw error
   }
-  return { rowCount: rows.length, revisionClocksByEvent }
+  return { rowCount: rows.length, revisionClocksByEvent, withheldEventIds }
 }
 
 export function appendFirehoseSummary(repoRoot: string, date: string, summary: CycleSummary): void {
