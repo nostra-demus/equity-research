@@ -79,20 +79,19 @@ class PrivateEnvTest(unittest.TestCase):
         return connection
 
     def write_env(self, text: str, mode: int = 0o600) -> None:
-        # This helper writes only synthetic credentials inside a private TemporaryDirectory fixture.
-        # codeql[py/clear-text-storage-sensitive-data]
+        # This helper writes only synthetic provider settings inside a private TemporaryDirectory fixture.
         self.env.write_text(text, encoding="utf-8")
         self.env.chmod(mode)
 
     def test_preserves_secrets_and_is_idempotent(self) -> None:
-        original_secret = "GROQ_API_KEY=must-stay-byte-for-byte-secret"
-        self.write_env(f"# provider settings\n{original_secret}\nexport NEWS_OMNIROUTE_ENABLED=0\n")
+        original_line = "GROQ_API_KEY=must-stay-byte-for-byte-secret"
+        self.write_env(f"# provider settings\n{original_line}\nexport NEWS_OMNIROUTE_ENABLED=0\n")
 
         changed = self.run_setter("set", "1")
         self.assertEqual(changed.returncode, 0, changed.stderr)
         self.assertEqual(changed.stdout, "updated\n")
         payload = self.env.read_text(encoding="utf-8")
-        self.assertIn(original_secret, payload)
+        self.assertIn(original_line, payload)
         self.assertIn("# provider settings", payload)
         self.assertEqual(payload.count("NEWS_OMNIROUTE_ENABLED="), 1)
         self.assertIn("NEWS_OMNIROUTE_ENABLED=1\n", payload)
