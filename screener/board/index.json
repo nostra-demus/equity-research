@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T03:38:07Z",
+  "generated_at": "2026-08-21T03:59:38Z",
   "inbox": [
     {
       "inbox_id": "INB-20260821-151",
@@ -1429,6 +1429,65 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260821-298",
+      "headline": "SK Hynix Rises 6% on $29B Buyback, SanDisk Gains 5%, Micron Climbs 3% as Memory Names Rebound",
+      "headline_en": null,
+      "url": "https://247wallst.com/investing/2026/08/19/sk-hynix-rises-6-on-29b-buyback-sandisk-gains-5-micron-climbs-3-as-memory-names-rebound/",
+      "source_name": "24/7 Wall St.",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-19T13:29:08Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "SK Hynix announced a significant $29 billion buyback program.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "SK Hynix announced a significant $29 billion buyback program.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SK Hynix",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "SanDisk",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Micron",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260821-278",
       "headline": "HDFC Bank Raises $1.75 Billion Through Overseas Bond Sale — Largest By Indian Bank Since 2008 Crisis",
       "headline_en": null,
@@ -1899,55 +1958,6 @@
       "companies": [
         {
           "name": "LF1",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-075",
-      "headline": "MXI: Notification of cessation of securities - MXI",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MXI?key=2924-03124160-3A699416",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-21T00:13:32Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "MXI has filed a notification of cessation of securities, indicating a reduction in its outstanding shares or other securities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "MXI has filed a notification of cessation of securities, indicating a reduction in its outstanding shares or other securities.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MXI",
           "ticker": null,
           "listing_country": "AU"
         }
@@ -73711,9 +73721,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 3816902,
-    "news_picked_today": 396,
-    "news_dropped_today": 720
+    "news_seen_today": 4180698,
+    "news_picked_today": 419,
+    "news_dropped_today": 793
   },
   "book_momentum": {
     "live_count": 8,
