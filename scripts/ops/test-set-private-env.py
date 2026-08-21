@@ -79,7 +79,8 @@ class PrivateEnvTest(unittest.TestCase):
         return connection
 
     def write_env(self, text: str, mode: int = 0o600) -> None:
-        self.env.write_text(text, encoding="utf-8")
+        # This helper writes only synthetic credentials inside a private TemporaryDirectory fixture.
+        self.env.write_text(text, encoding="utf-8")  # lgtm[py/clear-text-storage-sensitive-data]
         self.env.chmod(mode)
 
     def test_preserves_secrets_and_is_idempotent(self) -> None:

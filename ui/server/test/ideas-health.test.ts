@@ -855,8 +855,11 @@ const aggregateFallback = await runIdeaPass({
   config: { ...cfg, overflowProviders: [aggregateRoute, directRoute] },
   refreshBoard: async () => {}, now: () => aggregateRouteAt, persistHealth: true, sleep: async () => {},
   fetchFn: (async (input: Parameters<typeof fetch>[0]) => {
-    aggregateRouteUrls.push(String(input))
-    if (String(input).startsWith('https://direct.test')) return new Response('{}', { status: 503 })
+    const requestUrl = new URL(String(input))
+    aggregateRouteUrls.push(requestUrl.toString())
+    if (requestUrl.protocol === 'https:' && requestUrl.hostname === 'direct.test') {
+      return new Response('{}', { status: 503 })
+    }
     return new Response(JSON.stringify({
       choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [] }) } }],
       usage: { total_tokens: 20 },

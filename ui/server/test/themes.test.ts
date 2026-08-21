@@ -2856,8 +2856,11 @@ await check('theme compiler keeps aggregate routes after every direct provider a
     })
     const urls: string[] = []
     const fetchFn = (async (url: string | URL | Request) => {
-      urls.push(String(url))
-      if (String(url).startsWith('https://direct-theme.test')) return new Response('{}', { status: 503 })
+      const requestUrl = new URL(String(url))
+      urls.push(requestUrl.toString())
+      if (requestUrl.protocol === 'https:' && requestUrl.hostname === 'direct-theme.test') {
+        return new Response('{}', { status: 503 })
+      }
       return new Response(JSON.stringify({
         choices: [{ message: { content: JSON.stringify({ themes: [proposal] }) } }], usage: { total_tokens: 100 },
       }), { status: 200, headers: { 'content-type': 'application/json' } })
