@@ -754,6 +754,8 @@ async function holdClaimsUntilProcessGroupExtinct(pid: number | undefined): Prom
   if (!pid) return
   // SIGKILL was already sent by the bounded proof. If the kernel still reports the group (usually a zombie
   // awaiting reaping), do not guess: retain every subject/write claim and passively wait for real extinction.
+  // This intentionally has no timeout: returning while a writer can still exist would release the claims and
+  // let a replacement corrupt the same run root. The async interval yields to the event loop while failing safe.
   while (signalTargetAlive(-pid)) await new Promise<void>((resolve) => setTimeout(resolve, 250))
 }
 
@@ -2099,6 +2101,15 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       || exactModuleSynthesisOrbs.some((stem) => !synthesisStem.test(stem)))) {
     throw Object.assign(new Error('Exact module-resume artifact scope is missing or invalid.'), { statusCode: 400 })
   }
+  let exactResumeBinding: { module: string; runRoot: string } | null = null
+  if (params.exactModuleResume) {
+    // Keep the validated exact-mode values together so every later child/run binding is typed from the
+    // same fail-closed proof instead of relying on non-null assertions far past the validation boundary.
+    if (typeof module !== 'string' || exactModuleRunRoot === null) {
+      throw Object.assign(new Error('Exact module-resume binding is missing or invalid.'), { statusCode: 400 })
+    }
+    exactResumeBinding = { module, runRoot: exactModuleRunRoot }
+  }
   if (params.intakeReceipt) {
     const receipt = params.intakeReceipt
     if (kind !== 'rerun' || !params.runRoot || !params.decisionFingerprint
@@ -2455,12 +2466,12 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   if (params.sharedPoolTarget) sharedPoolTargetByRun.set(run, { ...params.sharedPoolTarget })
   if (params.intakeReceipt) intakeReceiptByRun.set(run, { ...params.intakeReceipt })
   if (params.deferModuleMemo) deferredModuleMemoRuns.add(run)
-  if (params.exactModuleResume) exactModuleResumeRuns.add(run)
-  if (params.exactModuleResume) exactModuleInputsByRun.set(run, exactModuleInputs)
-  if (params.exactModuleResume) exactModuleRunRootByRun.set(run, exactModuleRunRoot!)
-  if (params.exactModuleResume) {
+  if (exactResumeBinding) {
+    exactModuleResumeRuns.add(run)
+    exactModuleInputsByRun.set(run, exactModuleInputs)
+    exactModuleRunRootByRun.set(run, exactResumeBinding.runRoot)
     exactModuleArtifactScopeByRun.set(run, {
-      module: module!,
+      module: exactResumeBinding.module,
       writableOrbs: exactModuleWritableOrbs,
       synthesisOrbs: exactModuleSynthesisOrbs,
     })

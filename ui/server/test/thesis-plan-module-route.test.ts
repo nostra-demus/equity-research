@@ -89,7 +89,7 @@ assert.match(route, /const exactArtifactScopeFor[\s\S]*!agent\.isSynthesis && !d
   'the server derives exact writable specialists and the current synthesis from roster + reusable disk truth')
 assert.match(route, /deferModuleMemo: exactResume,[\s\S]*exactModuleResume: exactResume,[\s\S]*exactModuleInputs: exactResume \? prep\.reusedAncestorModules : undefined,[\s\S]*exactModuleRunRoot: exactResume \? expectedTargetRunRoot : undefined,[\s\S]*preSpawnGuard: exactResume \? moduleScopeGuard : undefined/,
   'only an exact-capable child receives the staged inputs, immutable target root, and final paid-boundary guard')
-assert.match(route, /exactModuleWritableOrbs: exactResume \? preparedExactArtifacts!\.writableOrbs : undefined,[\s\S]*exactModuleSynthesisOrbs: exactResume \? preparedExactArtifacts!\.synthesisOrbs : undefined/,
+assert.match(route, /exactLaunchArtifacts = preparedExactArtifacts[\s\S]*exactModuleWritableOrbs: exactLaunchArtifacts\?\.writableOrbs,[\s\S]*exactModuleSynthesisOrbs: exactLaunchArtifacts\?\.synthesisOrbs/,
   'the launch-private receipt contains only planned non-reused specialists plus the current 99')
 assert.match(route, /const terminalGuard = exactResume[\s\S]*publishModuleResumeCheckpoint\(ticker, expectedTargetRunRoot, module, \[\]\)[\s\S]*reason: 'module_publish_failed'[\s\S]*terminalGuard,/,
   'a clean exact child is not reported done until its completed target module is published and origin-proven')
@@ -164,11 +164,11 @@ assert.match(launcher, /assertNoModulePublicationInFlight\(swarmId, subjectId\)[
   'internal launches check the publish-only writer lease before mutations and again after force awaits')
 assert.match(launcher, /if \(params\.deferModuleMemo\) deferredModuleMemoRuns\.add\(run\)/,
   'the smart launch binds memo deferral to only its admitted RunState')
-assert.match(launcher, /if \(params\.exactModuleResume\) exactModuleResumeRuns\.add\(run\)/,
+assert.match(launcher, /if \(exactResumeBinding\) \{[\s\S]*exactModuleResumeRuns\.add\(run\)/,
   'the smart launch binds exact current-run input resolution to only its admitted RunState')
-assert.match(launcher, /if \(params\.exactModuleResume\) exactModuleRunRootByRun\.set\(run, exactModuleRunRoot!\)/,
+assert.match(launcher, /exactModuleRunRootByRun\.set\(run, exactResumeBinding\.runRoot\)/,
   'the smart launch binds its immutable target root to only its admitted RunState')
-assert.match(launcher, /exactModuleArtifactScopeByRun\.set\(run,[\s\S]*module: module![\s\S]*writableOrbs: exactModuleWritableOrbs[\s\S]*synthesisOrbs: exactModuleSynthesisOrbs/,
+assert.match(launcher, /exactModuleArtifactScopeByRun\.set\(run,[\s\S]*module: exactResumeBinding\.module[\s\S]*writableOrbs: exactModuleWritableOrbs[\s\S]*synthesisOrbs: exactModuleSynthesisOrbs/,
   'the admitted exact artifact receipt is launch-private and bound to that RunState')
 assert.match(launcher, /childEnv\(\{[\s\S]*deferModuleMemo: deferredModuleMemoRuns\.has\(run\),[\s\S]*exactModuleResume: exactModuleResumeRuns\.has\(run\),[\s\S]*exactModuleInputs: exactModuleInputsByRun\.get\(run\),[\s\S]*exactModuleRunRoot: exactModuleRunRootByRun\.get\(run\),[\s\S]*\}\)/,
   'only that RunState passes memo deferral, exact-input policy, and immutable root to its paid child')

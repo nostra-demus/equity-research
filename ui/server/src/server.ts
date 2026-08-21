@@ -2484,10 +2484,16 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
         || preparedDone.length !== expectedDone.length
         || preparedDone.some((key, i) => key !== expectedDone[i])
       const preparedExactArtifacts = exactArtifactScopeFor(preparedDone)
-      const exactArtifactScopeChanged = exactResume && (!preparedExactArtifacts || !reviewedExactArtifacts
-        || preparedExactArtifacts.writableOrbs.join(',') !== reviewedExactArtifacts.writableOrbs.join(',')
-        || preparedExactArtifacts.synthesisOrbs.join(',') !== reviewedExactArtifacts.synthesisOrbs.join(','))
-      if (preparedScopeChanged || exactArtifactScopeChanged) {
+      let exactLaunchArtifacts: { writableOrbs: string[]; synthesisOrbs: string[] } | undefined
+      if (exactResume) {
+        if (!preparedExactArtifacts || !reviewedExactArtifacts
+            || preparedExactArtifacts.writableOrbs.join(',') !== reviewedExactArtifacts.writableOrbs.join(',')
+            || preparedExactArtifacts.synthesisOrbs.join(',') !== reviewedExactArtifacts.synthesisOrbs.join(',')) {
+          return reply.code(409).send({ error: 'The staged unfinished-orb scope no longer matches the reviewed plan. Refresh and try again; no run was started.', code: 'module_scope_changed', willRun: prep.willRunAgents })
+        }
+        exactLaunchArtifacts = preparedExactArtifacts
+      }
+      if (preparedScopeChanged) {
         return reply.code(409).send({ error: 'The staged unfinished-orb scope no longer matches the reviewed plan. Refresh and try again; no run was started.', code: 'module_scope_changed', willRun: prep.willRunAgents })
       }
       expectedAncestorModules = [...prep.reusedAncestorModules]
@@ -2601,8 +2607,8 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
           exactModuleResume: exactResume,
           exactModuleInputs: exactResume ? prep.reusedAncestorModules : undefined,
           exactModuleRunRoot: exactResume ? expectedTargetRunRoot : undefined,
-          exactModuleWritableOrbs: exactResume ? preparedExactArtifacts!.writableOrbs : undefined,
-          exactModuleSynthesisOrbs: exactResume ? preparedExactArtifacts!.synthesisOrbs : undefined,
+          exactModuleWritableOrbs: exactLaunchArtifacts?.writableOrbs,
+          exactModuleSynthesisOrbs: exactLaunchArtifacts?.synthesisOrbs,
           preSpawnGuard: exactResume ? moduleScopeGuard : undefined,
           terminalGuard,
           onTerminal: exactOnTerminal,
