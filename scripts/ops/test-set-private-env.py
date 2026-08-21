@@ -54,16 +54,17 @@ class PrivateEnvTest(unittest.TestCase):
             check=False,
         )
 
-    def create_database(self) -> sqlite3.Connection:
+    def create_database(
+        self, *, preexpanded_fallbacks: bool = False, include_scopes: bool = True,
+    ) -> sqlite3.Connection:
         connection = sqlite3.connect(self.database)
         connection.executescript(
-            """
+            f"""
             CREATE TABLE api_keys (
               id TEXT PRIMARY KEY, name TEXT NOT NULL, key TEXT NOT NULL UNIQUE,
               machine_id TEXT, allowed_models TEXT DEFAULT '[]', no_log INTEGER NOT NULL DEFAULT 0,
-              created_at TEXT NOT NULL, revoked_at TEXT, expires_at TEXT, key_prefix TEXT,
-              key_hash TEXT, scopes TEXT, is_active INTEGER NOT NULL DEFAULT 1,
-              is_banned INTEGER NOT NULL DEFAULT 0
+              created_at TEXT NOT NULL, revoked_at TEXT, expires_at TEXT, last_used_at TEXT,
+              key_prefix TEXT, ip_allowlist TEXT{', scopes TEXT' if include_scopes else ''}
             );
             CREATE TABLE call_logs (
               id TEXT PRIMARY KEY, timestamp TEXT, api_key_id TEXT, detail_state TEXT,
@@ -74,6 +75,14 @@ class PrivateEnvTest(unittest.TestCase):
             CREATE TABLE request_detail_logs (id TEXT, call_log_id TEXT);
             """
         )
+        if preexpanded_fallbacks:
+            connection.executescript(
+                """
+                ALTER TABLE api_keys ADD COLUMN is_active INTEGER NOT NULL DEFAULT 1;
+                ALTER TABLE api_keys ADD COLUMN is_banned INTEGER NOT NULL DEFAULT 0;
+                ALTER TABLE api_keys ADD COLUMN key_hash TEXT;
+                """
+            )
         connection.commit()
         self.database.chmod(0o644)
         return connection
@@ -203,6 +212,8 @@ class PrivateEnvTest(unittest.TestCase):
 
     def test_managed_key_is_private_idempotent_and_no_log(self) -> None:
         connection = self.create_database()
+        before_columns = {row[1] for row in connection.execute("PRAGMA table_info(api_keys)")}
+        self.assertTrue({"is_active", "is_banned", "key_hash"}.isdisjoint(before_columns))
         connection.close()
         result = self.run_contract(
             "ensure-no-log-key", "--database", str(self.database),
@@ -218,6 +229,19 @@ class PrivateEnvTest(unittest.TestCase):
         self.assertEqual(stat.S_IMODE(self.database.stat().st_mode), 0o600)
 
         connection = sqlite3.connect(self.database)
+        columns = {row[1]: row for row in connection.execute("PRAGMA table_info(api_keys)")}
+        self.assertEqual(set(columns) - before_columns, {"is_active", "is_banned", "key_hash"})
+        self.assertEqual(
+            {
+                name: (columns[name][2], columns[name][3], columns[name][4], columns[name][5])
+                for name in ("is_active", "is_banned", "key_hash")
+            },
+            {
+                "is_active": ("INTEGER", 1, "1", 0),
+                "is_banned": ("INTEGER", 1, "0", 0),
+                "key_hash": ("TEXT", 0, None, 0),
+            },
+        )
         row = connection.execute(
             "SELECT id, key, no_log, is_active, is_banned FROM api_keys",
         ).fetchone()
@@ -246,8 +270,88 @@ class PrivateEnvTest(unittest.TestCase):
         self.assertEqual(repaired.returncode, 0, repaired.stderr)
         self.assertEqual(repaired.stdout, "updated\n")
 
+    def test_preexpanded_fallback_schema_remains_compatible(self) -> None:
+        connection = self.create_database(preexpanded_fallbacks=True)
+        before = list(connection.execute("PRAGMA table_info(api_keys)"))
+        connection.close()
+        created = self.run_contract(
+            "ensure-no-log-key", "--database", str(self.database),
+        )
+        self.assertEqual(created.returncode, 0, created.stderr)
+        self.assertEqual(created.stdout, "updated\n")
+        connection = sqlite3.connect(self.database)
+        after = list(connection.execute("PRAGMA table_info(api_keys)"))
+        connection.close()
+        self.assertEqual(after, before)
+        unchanged = self.run_contract(
+            "ensure-no-log-key", "--database", str(self.database),
+        )
+        self.assertEqual(unchanged.returncode, 0, unchanged.stderr)
+        self.assertEqual(unchanged.stdout, "unchanged\n")
+
+    def test_unsupported_schema_gets_no_partial_fallbacks_or_environment(self) -> None:
+        connection = self.create_database(include_scopes=False)
+        before = list(connection.execute("PRAGMA table_info(api_keys)"))
+        connection.close()
+        result = self.run_contract(
+            "ensure-no-log-key", "--database", str(self.database),
+        )
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(result.stdout + result.stderr, "")
+        self.assertFalse(self.env.exists())
+        connection = sqlite3.connect(self.database)
+        after = list(connection.execute("PRAGMA table_info(api_keys)"))
+        row_count = connection.execute("SELECT count(*) FROM api_keys").fetchone()[0]
+        connection.close()
+        self.assertEqual(after, before)
+        self.assertEqual(row_count, 0)
+
+    def test_incompatible_existing_fallback_gets_no_partial_alter(self) -> None:
+        connection = self.create_database()
+        connection.execute(
+            "ALTER TABLE api_keys ADD COLUMN is_active INTEGER NOT NULL DEFAULT 0",
+        )
+        connection.commit()
+        before = list(connection.execute("PRAGMA table_info(api_keys)"))
+        connection.close()
+        result = self.run_contract(
+            "ensure-no-log-key", "--database", str(self.database),
+        )
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(result.stdout + result.stderr, "")
+        self.assertFalse(self.env.exists())
+        connection = sqlite3.connect(self.database)
+        after = list(connection.execute("PRAGMA table_info(api_keys)"))
+        connection.close()
+        self.assertEqual(after, before)
+
+    def test_database_symlink_and_hardlink_fail_closed(self) -> None:
+        connection = self.create_database()
+        connection.close()
+        outside = self.root / "outside.sqlite"
+        self.database.replace(outside)
+        original = outside.read_bytes()
+
+        self.database.symlink_to(outside)
+        linked = self.run_contract(
+            "ensure-no-log-key", "--database", str(self.database),
+        )
+        self.assertEqual(linked.returncode, 1)
+        self.assertFalse(self.env.exists())
+        self.assertEqual(outside.read_bytes(), original)
+        self.database.unlink()
+
+        os.link(outside, self.database)
+        hardlinked = self.run_contract(
+            "ensure-no-log-key", "--database", str(self.database),
+        )
+        self.assertEqual(hardlinked.returncode, 1)
+        self.assertFalse(self.env.exists())
+        self.assertEqual(outside.read_bytes(), original)
+
     def test_explicit_unknown_key_is_never_silently_replaced(self) -> None:
         connection = self.create_database()
+        before_columns = list(connection.execute("PRAGMA table_info(api_keys)"))
         connection.close()
         self.write_env("NEWS_OMNIROUTE_API_KEY=sk-operator-owned\n")
         before = self.env.read_bytes()
@@ -257,6 +361,10 @@ class PrivateEnvTest(unittest.TestCase):
         self.assertEqual(result.returncode, 1)
         self.assertEqual(self.env.read_bytes(), before)
         self.assertNotIn("sk-operator-owned", result.stdout + result.stderr)
+        connection = sqlite3.connect(self.database)
+        after_columns = list(connection.execute("PRAGMA table_info(api_keys)"))
+        connection.close()
+        self.assertEqual(after_columns, before_columns)
 
     def test_successful_smoke_rows_must_have_no_persisted_body_artifacts(self) -> None:
         connection = self.create_database()
