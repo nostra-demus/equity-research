@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T08:06:14Z",
+  "generated_at": "2026-08-21T08:24:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260821-491",
@@ -622,6 +622,65 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260821-517",
+      "headline": "Monte dei Paschi launches twin takeover bids for Banca Generali and Banco BPM",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/ecafb9a8-b9a6-48a4-8d3c-a626b26fe82b?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T07:17:38Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "Twin takeover bids by Monte dei Paschi for Banca Generali and Banco BPM announced; sector-reshaping Italian banking consolidation, though bid values not disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Twin takeover bids by Monte dei Paschi for Banca Generali and Banco BPM announced; sector-reshaping Italian banking consolidation, though bid values not disclosed.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Monte dei Paschi",
+          "ticker": null,
+          "listing_country": "IT"
+        },
+        {
+          "name": "Banca Generali",
+          "ticker": null,
+          "listing_country": "IT"
+        },
+        {
+          "name": "Banco BPM",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260821-504",
       "headline": "Fashion CEO Hunsicker gets 5 years for $300m fraud",
       "headline_en": null,
@@ -834,65 +893,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-474",
-      "headline": "Monte dei Paschi launches all-share bids for BPM, Banca Generali to stave off Intesa takeover",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/monte-dei-paschi-ceo-unveil-strategy-fend-off-intesas-36-billion-bid-2026-08-20/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T06:01:23Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Monte dei Paschi is launching a major M&A bid for two banks to prevent a hostile takeover.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Monte dei Paschi is launching a major M&A bid for two banks to prevent a hostile takeover.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Banca Monte dei Paschi di Siena",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Banco BPM",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Banca Generali",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -73991,9 +73991,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8647568,
-    "news_picked_today": 1004,
-    "news_dropped_today": 1552
+    "news_seen_today": 8922650,
+    "news_picked_today": 1011,
+    "news_dropped_today": 1557
   },
   "book_momentum": {
     "live_count": 8,
