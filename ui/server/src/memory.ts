@@ -1,6 +1,7 @@
 import { execFile } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
+import { resolveDisplayFields } from './ledger-corrections'
 
 export const MEMORY_CONTRACT = 'memory-ui/1' as const
 export const MEMORY_QUERY_LIMIT = 1_000
@@ -407,12 +408,16 @@ function curate(event: CanonicalEvent): CuratedFields | null {
   const type = event.payload.record_type
   if (type === 'equity_decision_record') {
     const subject = firstText(row, ['ticker', 'company_name'], 96, analysisSubject(event.payload.source_path))
-    const status = firstText(row, ['decision', 'basket'], 80) || null
+    const display = resolveDisplayFields(row)
+    const status = displayText(display.decision || display.basket, 80) || null
+    const originalStatus = firstText(row, ['decision', 'basket'], 80)
     return {
       cockpit: 'research', kind: 'Decision', subject,
       title: displayText(`${subject}: ${status || 'Research decision'}`, 180), status,
-      confidence: confidencePercent(row.confidence_score),
-      summary: firstText(row, ['suggested_action', 'variant_perception_summary', 'what_market_may_be_missing', 'killer_risk'], 420, 'Research decision recorded.'),
+      confidence: confidencePercent(display.confidence),
+      summary: display.decisionIsPostMortemCapped && originalStatus && status
+        ? displayText(`The final red-team check changed this call from ${originalStatus} to ${status}.`, 420)
+        : firstText(row, ['suggested_action', 'variant_perception_summary', 'what_market_may_be_missing', 'killer_risk'], 420, 'Research decision recorded.'),
     }
   }
   if (type === 'equity_decision_review') {
@@ -436,12 +441,16 @@ function curate(event: CanonicalEvent): CuratedFields | null {
   }
   if (type === 'commodity_decision_record') {
     const subject = firstText(row, ['commodity'], 96, 'Commodity')
-    const status = firstText(row, ['action'], 80) || null
+    const display = resolveDisplayFields(row, { verdictField: 'action' })
+    const status = displayText(display.decision, 80) || null
+    const originalStatus = firstText(row, ['action'], 80)
     return {
       cockpit: 'commodity', kind: 'Decision', subject,
       title: displayText(`${subject}: ${status || 'Commodity decision'}`, 180), status,
-      confidence: confidencePercent(row.confidence),
-      summary: firstText(row, ['thesis_summary', 'relative_view'], 420, 'Commodity decision recorded.'),
+      confidence: confidencePercent(display.confidence),
+      summary: display.decisionIsPostMortemCapped && originalStatus && status
+        ? displayText(`The final red-team check changed this call from ${originalStatus} to ${status}.`, 420)
+        : firstText(row, ['thesis_summary', 'relative_view'], 420, 'Commodity decision recorded.'),
     }
   }
   if (type === 'commodity_signal_evidence') {

@@ -83,7 +83,8 @@ function withSource(memoryEvent: Record<string, unknown>, source: string): Recor
 function corpus(): Record<string, unknown>[] {
   return [
     withSource(event('evt_research_decision', 'equity_decision_record', 'decision.recorded', {
-      ticker: 'ABC', company_name: 'ABC Limited', decision: 'Watchlist', confidence_score: 72,
+      ticker: 'ABC', company_name: 'ABC Limited', decision: 'Strong Buy', confidence_score: 72,
+      post_mortem_decision: 'Watchlist', post_review_confidence_score: 55,
       suggested_action: 'Wait for audited cash flow.', api_key: 'SHOULD_NEVER_ESCAPE',
     }), 'analyses/ABC_2026-08-20/decision_record.json'),
     event('evt_research_review', 'equity_decision_review', 'outcome.reviewed', {
@@ -94,6 +95,7 @@ function corpus(): Record<string, unknown>[] {
     }, { derived_from: ['evt_research_decision'] }), 'analyses/ABC_2026-08-20/corrections.json'),
     event('evt_commodity', 'commodity_decision_record', 'decision.recorded', {
       commodity: 'GOLD', action: 'Hold', confidence: 52,
+      post_mortem_action: 'Trim', post_review_confidence_score: 39,
       thesis_summary: 'Real yields still decide the near-term direction.',
     }),
     event('evt_idea_old', 'screener_idea_history', 'screener.idea.recorded', {
@@ -164,9 +166,17 @@ await check('maps the complete corpus across all three cockpits without exposing
   })
   assert.deepEqual(new Set(read.items.map((item) => item.cockpit)), new Set(['research', 'screener', 'commodity']))
   assert.equal(read.items.find((item) => item.event_id === 'evt_research_decision')?.title, 'ABC: Watchlist')
-  assert.equal(read.items.find((item) => item.event_id === 'evt_research_decision')?.confidence, 72)
-  assert.equal(read.items.find((item) => item.event_id === 'evt_commodity')?.summary, 'Real yields still decide the near-term direction.')
-  assert.equal(read.items.find((item) => item.event_id === 'evt_commodity')?.confidence, 52)
+  assert.equal(read.items.find((item) => item.event_id === 'evt_research_decision')?.confidence, 55)
+  assert.equal(
+    read.items.find((item) => item.event_id === 'evt_research_decision')?.summary,
+    'The final red-team check changed this call from Strong Buy to Watchlist.',
+  )
+  assert.equal(
+    read.items.find((item) => item.event_id === 'evt_commodity')?.summary,
+    'The final red-team check changed this call from Hold to Trim.',
+  )
+  assert.equal(read.items.find((item) => item.event_id === 'evt_commodity')?.title, 'GOLD: Trim')
+  assert.equal(read.items.find((item) => item.event_id === 'evt_commodity')?.confidence, 39)
   assert.equal(read.items.find((item) => item.event_id === 'evt_research_correction')?.lineage.derived_from[0], 'evt_research_decision')
   const correctedDecision = read.items.find((item) => item.event_id === 'evt_research_decision')!
   assert.equal(correctedDecision.current, true, 'a correction annotates the decision; it does not replace it')
@@ -432,6 +442,18 @@ await check('bounds display text while retaining the full searchable event set',
   assert.equal(read.counts.total, 457)
   assert.ok(read.items.every((item) => item.summary.length <= 420))
   assert.ok(read.items.every((item) => item.title.length <= 180))
+
+  const hostileVerdict = event('evt_bounded_verdict', 'commodity_decision_record', 'decision.recorded', {
+    commodity: 'GOLD', action: 'Hold', confidence: 52,
+    post_mortem_action: `Trim\u0000${'x'.repeat(200)}`, post_review_confidence_score: 39,
+  })
+  const hostileFixture = fixtureExec([hostileVerdict])
+  const bounded = await createMemoryReader({
+    repoRoot: '/safe/repo', stateDir: stateDir(), exec: hostileFixture.exec,
+  }).read()
+  assert.equal(bounded.available, true)
+  assert.ok((bounded.items[0].status?.length ?? 0) <= 80)
+  assert.doesNotMatch(bounded.items[0].status ?? '', /[\u0000-\u001f\u007f]/)
 })
 
 await check('isolates an unsupported future record while keeping known memories available and honest', async () => {
