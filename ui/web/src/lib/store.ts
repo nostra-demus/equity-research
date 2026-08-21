@@ -13,6 +13,7 @@ import { archiveErrorNote } from './archiveError'
 import { selectNewsChatHandoffEvidence } from './newsChatHandoff'
 import { stageDockHUpdate } from './stageDock'
 import { affectedModules, focusKeysFor } from './intake'
+import { moduleRunAffordance } from './moduleRun'
 import type { BridgeStatus } from './types'
 import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
@@ -385,6 +386,22 @@ export interface LaunchSelectionBinding {
   }
 }
 
+type LaunchConfirmation =
+  | {
+      kind: 'module'
+      selection: LaunchSelectionBinding
+      module: string
+      unfinishedSpecialists: number
+      upstreamModules: string[]
+    }
+  | {
+      kind: 'full' | 'rerun'
+      selection: LaunchSelectionBinding
+      preflight: LaunchPreflight
+      cascade?: CascadeNode[]
+      node?: { module: string; name: string; key: string }
+    }
+
 // A run is "live" (counts for launch guards) only while starting/running. Finished runs linger in
 // activeRuns for the panel until the next ticker switch prunes them.
 // Every server status a run holds while in flight — INCLUDING the pre-spawn gate states, which the
@@ -487,7 +504,7 @@ interface State {
   valuationPlaygroundOpen: boolean
   callsOpen: boolean
   selectedNodeKey: string | null
-  launchConfirm: { kind: 'full' | 'rerun'; selection: LaunchSelectionBinding; preflight: LaunchPreflight; cascade?: CascadeNode[]; node?: { module: string; name: string; key: string } } | null
+  launchConfirm: LaunchConfirmation | null
   // Synchronous click→feedback state: set BEFORE any launch-family await so every Run control renders
   // an instant pending state (spinner + disabled), cleared in the action's finally. `key` identifies
   // the specific control so only IT spins; `ticker` scopes stage-level ambient indicators.
@@ -622,6 +639,7 @@ interface State {
   targetInFlight: (t: string | null, keys: string[]) => boolean
   launchAgent: (node: AgentNode, force?: boolean) => Promise<void>
   launchModule: (module: string, force?: boolean) => Promise<void>
+  confirmModule: () => Promise<void>
   requestFull: () => Promise<void>
   confirmFull: () => Promise<void>
   launchRerun: (node: { module: string; name: string; key: string }, planOrigin?: LaunchSelectionBinding['planOrigin']) => Promise<void>
@@ -2028,68 +2046,25 @@ export const useStore = create<State>((set, get) => ({
     }
     const exactResume = selection.swarm === 'research' && graphModule?.exactResume === true
     if (exactResume) {
-      const pendingKey = `module:${module}`
-      const forceWhenCurrent = () => {
-        if (!requireCurrentLaunchSelection(get(), selection)) return
-        void get().launchModule(module, true)
+      // A heading click is only a request to REVIEW the smart-resume scope. Its confirmation is synchronous
+      // and entirely local: no plan GET, cancellation, publication or paid run starts until Run is pressed.
+      // Preserve the established stale-lock recovery: an already-live module still offers Stop & run again,
+      // while that second explicit action bypasses this confirmation and performs the guarded force path.
+      if (force || get().targetInFlight(t, planned)) {
+        await runExactResearchModule(set, get, module, selection, force)
+        return
       }
-      if (get().targetInFlight(t, planned) && !force) {
-        return get().setToast({
-          msg: `${moduleLabel(module)} is already running`, tone: 'info',
-          action: { label: 'Stop & run again', onClick: forceWhenCurrent },
-        })
-      }
-      // A forced retry explicitly stops any registry-held run even when the local node snapshot is stale and
-      // no longer paints it as active. This is the old "Run anyway" recovery, made safe by waiting for the
-      // server-side subject cancellation before any resume staging begins.
-      if (force) {
-        const stopping = { key: pendingKey, label: `Stopping the old ${moduleLabel(module)} run…`, ticker: t, selection }
-        set({ launchPending: stopping })
-        try {
-          await api.cancelSubject('research', t)
-          await get().refreshActiveRuns()
-        } catch (e: any) {
-          if (launchSelectionIsCurrent(get(), selection)) get().setToast({ msg: e?.message || `Could not stop the old ${moduleLabel(module)} run`, tone: 'bad' })
-          return
-        } finally {
-          if (get().launchPending === stopping) set({ launchPending: null })
-        }
-        if (!launchSelectionIsCurrent(get(), selection)) return
-      }
-      const pending = { key: pendingKey, label: `Checking unfinished ${moduleLabel(module)} orbs…`, ticker: t, selection }
-      set({ launchPending: pending })
-      let plan: ThesisPlan | null = null
-      try {
-        plan = await api.thesisPlan(t, 'research')
-        if (!launchSelectionIsCurrent(get(), selection)) return
-        if (plan.moduleResumeVersion !== 2 || typeof plan.dataPool.newestMs !== 'number') {
-          get().setToast({ msg: 'The engine is still updating. Refresh once, then click the module again.', tone: 'info' })
-          return
-        }
-        if (plan.complete) {
-          set({ thesisPlan: plan, thesisPlanError: null })
-          get().setToast({ msg: `Today’s call is sealed. Start a new analysis version before refreshing ${moduleLabel(module)}.`, tone: 'info' })
-          return
-        }
-        const moduleEntry = plan.modules.find((entry) => entry.module === module)
-        // A heading click means "finish the saved module", never an unannounced clean rerun. Newer evidence
-        // invalidates reuse, so stop before spending and let the user choose a full refresh explicitly.
-        if (moduleEntry?.staleReason) {
-          set({ thesisPlan: plan, thesisPlanError: null })
-          get().setToast({ msg: `New source data means ${moduleLabel(module)} cannot safely reuse its filled orbs. Run the whole module from the analysis controls.`, tone: 'info' })
-          return
-        }
-        set({ thesisPlan: plan, thesisPlanError: null })
-      } catch (e: any) {
-        if (launchSelectionIsCurrent(get(), selection)) {
-          get().setToast({ msg: e?.message || `Could not check ${moduleLabel(module)}`, tone: 'bad' })
-        }
-      } finally {
-        if (get().launchPending === pending) set({ launchPending: null })
-      }
-      if (plan && launchSelectionIsCurrent(get(), selection)) {
-        await runPlannedResearchModule(set, get, module, plan, pendingKey, false, selection)
-      }
+      const moduleNodes = [...get().nodesByKey.values()].filter((node) => node.module === module)
+      const scope = moduleRunAffordance(moduleNodes, get().nodeStatus)
+      set({
+        launchConfirm: {
+          kind: 'module',
+          selection,
+          module,
+          unfinishedSpecialists: scope.unfinishedSpecialists,
+          upstreamModules: [...graphModule.dependsOn],
+        },
+      })
       return
     }
     // Non-research module retries carry the same exact selection binding as research retries.
@@ -2118,6 +2093,34 @@ export const useStore = create<State>((set, get) => ({
       return get().setToast({ msg: `${module} is already running`, tone: 'info', action: { label: 'Run anyway', onClick: () => doLaunch(true) } })
     }
     await doLaunch(force)
+  },
+
+  confirmModule: async () => {
+    const lc = get().launchConfirm
+    if (!lc || lc.kind !== 'module') return
+    const selection = lc.selection
+    if (!launchSelectionIsCurrent(get(), selection) || get().launchConfirm !== lc) {
+      set({ launchConfirm: null })
+      return get().setToast({ msg: 'The selected call changed. Nothing was launched.', tone: 'info' })
+    }
+    if (get().staticMode) {
+      set({ launchConfirm: null })
+      return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
+    }
+    if (HARD_DOWN.has(get().health)) {
+      set({ launchConfirm: null })
+      return get().setToast({ msg: 'Engine offline — the run was not started.', tone: 'bad' })
+    }
+    const graphModule = get().graph?.modules.find((entry) => entry.name === lc.module)
+    if (selection.swarm !== 'research' || graphModule?.exactResume !== true) {
+      set({ launchConfirm: null })
+      return get().setToast({ msg: 'The engine is still updating. Refresh once, then click the module again.', tone: 'info' })
+    }
+    try {
+      await runExactResearchModule(set, get, lc.module, selection, false)
+    } finally {
+      if (get().launchConfirm === lc) set({ launchConfirm: null })
+    }
   },
 
   requestFull: async () => {
@@ -2235,7 +2238,7 @@ export const useStore = create<State>((set, get) => ({
 
   confirmRerun: async () => {
     const lc = get().launchConfirm
-    if (!lc?.node || lc.kind !== 'rerun') return
+    if (!lc || lc.kind !== 'rerun' || !lc.node) return
     const selection = lc.selection
     if (!hasExactDecisionBinding(selection)) {
       set({ launchConfirm: null })
@@ -5653,6 +5656,107 @@ export const useStore = create<State>((set, get) => ({
 // DEV-only: expose the store so live timer/ETA visuals can be exercised locally without paying for a real
 // run (simulate running orbs via __store.setState). Tree-shaken out of the production build.
 if (import.meta.env?.DEV && typeof window !== 'undefined') (window as any).__store = useStore
+
+/** Execute the exact research-module path only after its local confirmation (or an explicit force action).
+ * The fresh plan remains authoritative; the pre-confirm count is display-only and never broadens this scope. */
+async function runExactResearchModule(
+  set: any,
+  get: () => State,
+  module: string,
+  selection: LaunchSelectionBinding,
+  force = false,
+): Promise<void> {
+  if (!requireCurrentLaunchSelection(get(), selection) || hasPendingLaunchForTicker(get(), selection)) return
+  const ticker = selection.subject
+  const planned = [...get().nodesByKey.values()].filter((node) => node.module === module).map((node) => node.key)
+  const pendingKey = `module:${module}`
+  const forceWhenCurrent = () => {
+    if (!requireCurrentLaunchSelection(get(), selection)) return
+    void get().launchModule(module, true)
+  }
+  if (get().targetInFlight(ticker, planned) && !force) {
+    return get().setToast({
+      msg: `${moduleLabel(module)} is already running`, tone: 'info',
+      action: { label: 'Stop & run again', onClick: forceWhenCurrent },
+    })
+  }
+
+  // A forced retry explicitly stops any registry-held run even when the local node snapshot is stale and
+  // no longer paints it as active. Wait for confirmed server-side cancellation before any resume staging.
+  if (force) {
+    const stopping = { key: pendingKey, label: `Stopping the old ${moduleLabel(module)} run…`, ticker, selection }
+    set({ launchPending: stopping })
+    try {
+      await api.cancelSubject('research', ticker)
+      await get().refreshActiveRuns()
+    } catch (e: any) {
+      if (launchSelectionIsCurrent(get(), selection)) {
+        get().setToast({ msg: e?.message || `Could not stop the old ${moduleLabel(module)} run`, tone: 'bad' })
+      }
+      return
+    } finally {
+      if (get().launchPending === stopping) set({ launchPending: null })
+    }
+    if (!launchSelectionIsCurrent(get(), selection)) return
+  }
+
+  const pending = { key: pendingKey, label: `Checking unfinished ${moduleLabel(module)} orbs…`, ticker, selection }
+  set({ launchPending: pending })
+  let plan: ThesisPlan | null = null
+  try {
+    plan = await api.thesisPlan(ticker, 'research')
+    if (!launchSelectionIsCurrent(get(), selection)) return
+    if (plan.moduleResumeVersion !== 2 || typeof plan.dataPool.newestMs !== 'number') {
+      get().setToast({ msg: 'The engine is still updating. Refresh once, then click the module again.', tone: 'info' })
+      return
+    }
+    if (plan.complete) {
+      set({ thesisPlan: plan, thesisPlanError: null })
+      get().setToast({ msg: `Today’s call is sealed. Start a new analysis version before refreshing ${moduleLabel(module)}.`, tone: 'info' })
+      return
+    }
+    let moduleEntry = plan.modules.find((entry) => entry.module === module)
+    // A rolling/older planner can default stale-but-finished ancestors OUT of `reuse`, then report this exact
+    // module blocked even though the same response lists every blocker as reusable. The heading action is
+    // explicitly "finish saved Governance", so after confirmation ask once more with every finished module
+    // deliberately kept. Adopt that plan only when it proves the target runnable; any ambiguity retains the
+    // first plan's safe blocker and runPlannedResearchModule refuses the POST below.
+    const reusable = new Set(plan.reusable)
+    if (moduleEntry && !moduleEntry.runnable && moduleEntry.blockedBy.length > 0
+        && moduleEntry.blockedBy.every((blocked) => reusable.has(blocked))) {
+      try {
+        const carriedPlan = await api.thesisPlan(ticker, 'research', plan.reusable)
+        if (!launchSelectionIsCurrent(get(), selection)) return
+        const carriedEntry = carriedPlan.modules.find((entry) => entry.module === module)
+        if (carriedPlan.moduleResumeVersion === 2 && typeof carriedPlan.dataPool.newestMs === 'number'
+            && !carriedPlan.complete
+            && carriedPlan.swarm === 'research' && carriedPlan.subject === ticker && carriedEntry?.runnable) {
+          plan = carriedPlan
+          moduleEntry = carriedEntry
+        }
+      } catch {
+        // Keep the first plan. Its blockedBy message is safer than widening or launching on a failed re-price.
+      }
+    }
+    // A heading confirmation means "finish the saved module", never an unannounced clean rerun. Newer evidence
+    // invalidates reuse, so stop before spending and let the user choose a full refresh explicitly.
+    if (moduleEntry?.staleReason) {
+      set({ thesisPlan: plan, thesisPlanError: null })
+      get().setToast({ msg: `New source data means ${moduleLabel(module)} cannot safely reuse its filled orbs. Run the whole module from the analysis controls.`, tone: 'info' })
+      return
+    }
+    set({ thesisPlan: plan, thesisPlanError: null })
+  } catch (e: any) {
+    if (launchSelectionIsCurrent(get(), selection)) {
+      get().setToast({ msg: e?.message || `Could not check ${moduleLabel(module)}`, tone: 'bad' })
+    }
+  } finally {
+    if (get().launchPending === pending) set({ launchPending: null })
+  }
+  if (plan && launchSelectionIsCurrent(get(), selection)) {
+    await runPlannedResearchModule(set, get, module, plan, pendingKey, false, selection)
+  }
+}
 
 async function runPlannedResearchModule(
   set: any,

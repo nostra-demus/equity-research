@@ -7,6 +7,51 @@ export interface ModuleRunAffordance {
   title: string
 }
 
+export interface ModuleRunConfirmation {
+  title: string
+  subtitle: string
+  emptyValue: string
+  savedUpstreamValue: string
+  relatedValue: string
+  summaryValue: string
+  actionLabel: string
+}
+
+function displayModuleName(module: string): string {
+  return module
+    .split('-')
+    .filter(Boolean)
+    .map((word) => `${word[0]?.toUpperCase() ?? ''}${word.slice(1)}`)
+    .join(' ')
+}
+
+function joinModuleNames(modules: string[]): string {
+  const names = modules.map(displayModuleName)
+  if (names.length < 2) return names[0] ?? 'None'
+  if (names.length === 2) return `${names[0]} and ${names[1]}`
+  return `${names.slice(0, -1).join(', ')}, and ${names.at(-1)}`
+}
+
+/** Plain-language copy for the confirmation shown before a smart module resume reads the server plan. */
+export function moduleRunConfirmation(
+  module: string,
+  unfinishedSpecialists: number,
+  upstreamModules: string[] = [],
+): ModuleRunConfirmation {
+  const name = displayModuleName(module)
+  return {
+    title: `Run ${name}?`,
+    subtitle: `After you confirm, the engine checks saved work and runs only what ${name} still needs.`,
+    emptyValue: unfinishedSpecialists === 1 ? '1 visible now' : `${unfinishedSpecialists} visible now`,
+    savedUpstreamValue: upstreamModules.length
+      ? `${joinModuleNames(upstreamModules)} — kept as saved; may not include newest source data`
+      : 'None',
+    relatedValue: 'only if an empty orb affects them',
+    summaryValue: 'always refreshed',
+    actionLabel: module === 'management-governance' ? 'Run Governance' : `Run ${name}`,
+  }
+}
+
 /** Shared flat/globe copy for a module heading. This is display-only: the fresh server plan remains the
  * authority on which outputs are valid/current and whether a safe partial resume is possible. */
 export function moduleRunAffordance(
