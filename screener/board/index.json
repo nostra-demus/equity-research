@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T07:24:16Z",
+  "generated_at": "2026-08-21T07:49:56Z",
   "inbox": [
     {
       "inbox_id": "INB-20260821-491",
@@ -568,6 +568,56 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-504",
+      "headline": "Fashion CEO Hunsicker gets 5 years for $300m fraud",
+      "headline_en": null,
+      "url": "https://www.moneyweb.co.za/news-fast-news/fashion-ceo-hunsicker-gets-5-years-for-300m-fraud/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T07:00:44Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "CEO (Hunsicker) convicted of $300 million fraud and sentenced to 5 years; critical integrity failure materially impairing credibility and governance of a listed company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CEO (Hunsicker) convicted of $300 million fraud and sentenced to 5 years; critical integrity failure materially impairing credibility and governance of a listed company.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Fashion company (CEO: Hunsicker)",
+          "ticker": null,
+          "listing_country": "ZA"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1936,55 +1986,6 @@
       "launched_signal_id": null,
       "triage_score": 100,
       "triage_reason": "Duplicate of item 3; the company has raised its annual profit forecasts.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TJX Companies",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-328",
-      "headline": "TJX Companies Boosts FY26 Earnings Outlook - Update",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/tjx-companies-boosts-fy26-earnings-outlook-update",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-19T11:58:08Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "The company has officially raised its earnings outlook for the fiscal year.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company has officially raised its earnings outlook for the fiscal year.",
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
@@ -73990,9 +73991,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 7915696,
-    "news_picked_today": 979,
-    "news_dropped_today": 1529
+    "news_seen_today": 8372807,
+    "news_picked_today": 989,
+    "news_dropped_today": 1543
   },
   "book_momentum": {
     "live_count": 8,
