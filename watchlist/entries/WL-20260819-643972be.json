@@ -18,17 +18,25 @@
   "triggers": [
     {
       "kind": "pct_drop",
+      "trigger_id": "TRG-9792a18b0888",
       "drop_pct": 10,
       "reference": {
         "value": 364.25,
         "currency": "USD",
         "as_of": "2026-08-18",
         "source": "last close"
-      },
-      "trigger_id": "TRG-9792a18b0888"
+      }
     }
   ],
-  "attachments": [],
+  "attachments": [
+    {
+      "attachment_id": "mt2mqf4a-Visa_Investment_Thesis_Aug.pdf",
+      "filename": "Visa_Investment_Thesis_Aug.pdf",
+      "bytes": 11528395,
+      "added_at": "2026-08-21T07:30:14.421Z",
+      "added_by": "banks@alloc8.xyz"
+    }
+  ],
   "archive": null,
   "history": [
     {
@@ -36,9 +44,21 @@
       "by": "banks@alloc8.xyz",
       "action": "created",
       "detail": ""
+    },
+    {
+      "at": "2026-08-21T07:29:57.258Z",
+      "by": "banks@alloc8.xyz",
+      "action": "edited",
+      "detail": ""
+    },
+    {
+      "at": "2026-08-21T07:30:14.421Z",
+      "by": "banks@alloc8.xyz",
+      "action": "attached",
+      "detail": "Visa_Investment_Thesis_Aug.pdf"
     }
   ],
   "created_at": "2026-08-19T10:52:22.520Z",
   "created_by": "banks@alloc8.xyz",
-  "updated_at": "2026-08-19T10:52:22.520Z"
+  "updated_at": "2026-08-21T07:30:14.421Z"
 }

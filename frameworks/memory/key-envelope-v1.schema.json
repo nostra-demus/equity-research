@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/memory/key-envelope-v1.schema.json",
+  "title": "Purgeable memory object key envelope v1",
+  "description": "A closed, secret-free wrapper record for one random object DEK. Content uses AES-256-GCM-SIV, the DEK uses nonce-free AES-256 Key Wrap, and dek_id is a truncated KEK-keyed HMAC fingerprint used only for collision detection. The wrapped key is useful only with the externally held KEK identified by kek_id. Deleting every copy of this record is the cryptographic-erasure operation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "algorithm",
+    "kek_id",
+    "dek_id",
+    "aad_sha256",
+    "content_nonce",
+    "wrapped_key"
+  ],
+  "properties": {
+    "schema": { "const": "memory-key-envelope/v1" },
+    "algorithm": { "const": "aes-256-gcm-siv+a256kw-envelope/v1" },
+    "kek_id": {
+      "type": "string",
+      "pattern": "^key:[a-z0-9][a-z0-9._-]{0,127}$"
+    },
+    "dek_id": {
+      "type": "string",
+      "pattern": "^dek_[0-9a-f]{32}$"
+    },
+    "aad_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "content_nonce": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{16}$"
+    },
+    "wrapped_key": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{54}$"
+    }
+  }
+}

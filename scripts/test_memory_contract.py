@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import copy
+import base64
+import hashlib
 import json
 import math
 import re
@@ -26,8 +28,34 @@ UUID3 = "01890f47-6a2b-7cc1-ae91-1234567890ab"
 UUID5 = "15b8c74a-0ec3-52c8-9bf1-5d15a1d5a1ab"
 DIGEST_A = "a" * 64
 DIGEST_B = "b" * 64
+DIGEST_C = "c" * 64
+DIGEST_D = "d" * 64
+DIGEST_E = "e" * 64
 ISSUER = "issuer:lei:5493001KJTIIGC8Y1R12"
 EVIDENCE = f"evidence:sha256:{DIGEST_A}#page-42"
+OBJECT_BYTES = b"phase-2-extracted-object\n"
+OBJECT_DIGEST = hashlib.sha256(OBJECT_BYTES).hexdigest()
+PUBLIC_KEY_BYTES = bytes(range(32))
+SIGNATURE_BYTES = bytes(range(64))
+
+
+def _base64url(value: bytes) -> str:
+    return base64.urlsafe_b64encode(value).rstrip(b"=").decode("ascii")
+
+
+def _exact_object_pointer(
+    *,
+    object_digest: str = DIGEST_A,
+    acquisition_uuid: str = UUID2,
+    source_version_uuid: str = UUID2,
+    manifest_digest: str = DIGEST_B,
+) -> dict:
+    return {
+        "object_id": f"object:sha256:{object_digest}",
+        "acquisition_id": f"acquisition_{acquisition_uuid}",
+        "source_version_id": f"source-version_{source_version_uuid}",
+        "manifest_sha256": f"sha256:{manifest_digest}",
+    }
 
 
 def source_payload() -> dict:
@@ -77,6 +105,112 @@ def evidence_payload() -> dict:
         "extraction_method": "native-text",
         "extraction_tool": "pdftotext",
         "extraction_version": "24.02",
+        "extraction_confidence": 1.0,
+    }
+
+
+def source_v2_payload() -> dict:
+    return {
+        "schema": "memory-source/v2",
+        "document_id": f"document_{UUID1}",
+        "source_version_id": f"source-version_{UUID2}",
+        "acquisition_id": f"acquisition_{UUID3}",
+        "source_object_id": f"object:sha256:{DIGEST_A}",
+        "content_sha256": f"sha256:{DIGEST_A}",
+        "acquired_at": "2026-08-21T10:30:00+05:30",
+        "title": "Synthetic public filing fixture",
+        "issuer_ids": [ISSUER],
+        "source_tier": 1,
+        "source_dates": {
+            "publication_date": "2026-08-20",
+            "filing_date": "2026-08-20",
+            "effective_date": "2026-06-30",
+        },
+        "language": "en-IN",
+        "licence": {
+            "classification": "public",
+            "entitlement": "not-required",
+            "terms_sha256": f"sha256:{DIGEST_B}",
+            "expires_at": None,
+        },
+        "rights": {
+            "derivative_use": "allowed",
+            "embedding": "allowed",
+            "redistribution": "allowed",
+        },
+        "mime_type": "application/pdf",
+        "byte_length": 12345,
+        "extraction_status": "succeeded",
+    }
+
+
+def extraction_artifact_payload() -> dict:
+    return {
+        "schema": "memory-extraction-artifact/v1",
+        "extraction_id": f"extraction_{UUID3}",
+        "document_id": f"document_{UUID1}",
+        "source_version_id": f"source-version_{UUID2}",
+        "acquisition_id": f"acquisition_{UUID3}",
+        "source_object": {
+            "object_id": f"object:sha256:{DIGEST_A}",
+            "content_sha256": f"sha256:{DIGEST_A}",
+        },
+        "output_object": {
+            "object_id": f"object:sha256:{DIGEST_C}",
+            "content_sha256": f"sha256:{DIGEST_C}",
+            "byte_length": 321,
+            "media_type": "application/json",
+        },
+        "tool": {
+            "tool_id": "tool:memory.synthetic-extractor",
+            "version": "1.0.0",
+            "artifact_sha256": f"sha256:{DIGEST_E}",
+        },
+        "code": {
+            "git_sha": "git:" + "1" * 40,
+            "content_sha256": "sha256:" + "2" * 64,
+        },
+        "parameters_sha256": "sha256:" + "3" * 64,
+        "method": "native-text",
+        "coordinate_system": {
+            "name": "pdf-page-character",
+            "version": "1",
+            "specification_sha256": f"sha256:{DIGEST_D}",
+        },
+        "run_id": f"run_{UUID5}",
+        "created_at": "2026-08-21T05:01:02Z",
+    }
+
+
+def evidence_v2_payload() -> dict:
+    return {
+        "schema": "memory-evidence-span/v2",
+        "evidence_id": f"evidence_{UUID1}",
+        "document_id": f"document_{UUID1}",
+        "source_version_id": f"source-version_{UUID2}",
+        "acquisition_id": f"acquisition_{UUID3}",
+        "source_object_id": f"object:sha256:{DIGEST_A}",
+        "source_content_sha256": f"sha256:{DIGEST_A}",
+        "locator": {
+            "extraction_id": f"extraction_{UUID3}",
+            "coordinate_artifact_object_id": f"object:sha256:{DIGEST_C}",
+            "coordinate_artifact_content_sha256": f"sha256:{DIGEST_C}",
+            "coordinate_system_sha256": f"sha256:{DIGEST_D}",
+            "kind": "page",
+            "ref": "page-7",
+            "page": 7,
+            "section": "Synthetic section",
+            "table": None,
+            "cell": None,
+            "char_start": 100,
+            "char_end": 130,
+            "record_index": None,
+            "timestamp_start_millis": None,
+            "timestamp_end_millis": None,
+            "image_region": None,
+        },
+        "language": "en",
+        "content": {"text": "Synthetic public fixture evidence."},
         "extraction_confidence": 1.0,
     }
 
@@ -167,6 +301,117 @@ def identity_registry() -> dict:
     }
 
 
+def object_manifest() -> dict:
+    return {
+        "schema": "memory-object-manifest/v1",
+        "object_id": f"object:sha256:{OBJECT_DIGEST}",
+        "acquisition_id": f"acquisition_{UUID1}",
+        "source_version_id": f"source-version_{UUID1}",
+        "object_kind": "extraction",
+        "content_sha256": f"sha256:{OBJECT_DIGEST}",
+        "byte_length": len(OBJECT_BYTES),
+        "media_type": "text/plain",
+        "locator": {
+            "kind": "repository-path",
+            "value": f"objects/sha256/{OBJECT_DIGEST}",
+            "version_id": f"sha256:{OBJECT_DIGEST}",
+        },
+        "source_lineage": {
+            "source_id": f"source:sha256:{DIGEST_A}",
+            "source_object": _exact_object_pointer(),
+            "derived_from_objects": [_exact_object_pointer()],
+        },
+        "provenance": {
+            "producer": {
+                "producer_id": "producer:memory-extractor",
+                "kind": "system",
+                "name": "memory-extractor",
+            },
+            "run_id": f"run_{UUID5}",
+            "tool": {
+                "tool_id": "tool:pdftotext",
+                "version": "24.02",
+                "sha256": f"sha256:{DIGEST_B}",
+            },
+            "extraction": {
+                "extraction_id": f"extraction_{UUID1}",
+                "method": "native-text",
+                "sha256": f"sha256:{OBJECT_DIGEST}",
+            },
+            "prompt_program": {
+                "prompt_program_id": "prompt-program:memory-extraction",
+                "git_sha": "git:" + "f" * 40,
+                "sha256": f"sha256:{DIGEST_A}",
+            },
+            "context_packet": {
+                "context_packet_id": f"context-packet_{UUID2}",
+                "sha256": f"sha256:{DIGEST_B}",
+            },
+        },
+        "created_at": "2026-08-20T14:03:00Z",
+        "policy": {
+            "classification": "internal",
+            "retention": "permanent",
+            "retain_until": None,
+        },
+    }
+
+
+def intake_receipt(manifest: dict | None = None) -> dict:
+    manifest = copy.deepcopy(manifest) if manifest is not None else object_manifest()
+    row = {
+        "schema": "memory-intake-receipt/v1",
+        "receipt_id": f"receipt_{UUID2}",
+        "manifest_sha256": f"sha256:{contract.object_manifest_sha256(manifest)}",
+        "object_id": manifest["object_id"],
+        "acquisition_id": manifest["acquisition_id"],
+        "source_version_id": manifest["source_version_id"],
+        "producer_id": manifest["provenance"]["producer"]["producer_id"],
+        "run_id": manifest["provenance"]["run_id"],
+        "intake_mode": "append",
+        "expected_store_head": f"checkpoint:sha256:{DIGEST_A}",
+        "idempotency_key": "idempotency:sha256:" + "0" * 64,
+        "checkpoint_id": f"checkpoint_{UUID2}",
+        "system_time_not_before": "2026-08-20T14:00:00Z",
+        "system_time": manifest["created_at"],
+        "received_at": "2026-08-20T14:04:00Z",
+        "intake_signer_id": "producer:trusted-intake",
+        "policy": copy.deepcopy(manifest["policy"]),
+        "signature": {
+            "algorithm": "ed25519",
+            "key_id": f"key_{UUID1}",
+            "signed_sha256": "sha256:" + "0" * 64,
+            "value": _base64url(SIGNATURE_BYTES),
+        },
+    }
+    row["idempotency_key"] = contract.intake_idempotency_key(row)
+    row["signature"]["signed_sha256"] = (
+        f"sha256:{contract.intake_receipt_signing_sha256(row)}"
+    )
+    return row
+
+
+def trust_key_registry() -> dict:
+    return {
+        "schema": "memory-trust-key-registry/v1",
+        "registry_id": f"trust-key-registry_{UUID1}",
+        "generated_at": "2026-08-20T14:05:00Z",
+        "keys": [
+            {
+                "key_id": f"key_{UUID1}",
+                "signer_id": "producer:trusted-intake",
+                "algorithm": "ed25519",
+                "public_key": _base64url(PUBLIC_KEY_BYTES),
+                "status": "active",
+                "valid_from": "2026-08-20T13:00:00Z",
+                "valid_until": "2026-08-21T13:00:00Z",
+                "revoked_at": None,
+                "authorized_schemas": ["memory-intake-receipt/v1"],
+            }
+        ],
+    }
+
+
 def event(payload: dict | None = None, *, event_id: str | None = None, system_time: str = "2026-08-20T14:03:00Z") -> dict:
     payload = copy.deepcopy(payload) if payload is not None else {
         "legacy_schema": "decision-record/v1",
@@ -176,7 +421,10 @@ def event(payload: dict | None = None, *, event_id: str | None = None, system_ti
     payload_schema = payload.get("schema")
     domain = {
         "memory-source/v1": "source",
+        "memory-source/v2": "source",
         "memory-evidence-span/v1": "evidence",
+        "memory-evidence-span/v2": "evidence",
+        "memory-extraction-artifact/v1": "extraction",
         "memory-claim/v1": "claim",
         "memory-relationship/v1": "relationship",
         "memory-identity-registry/v1": "identity",
@@ -217,6 +465,12 @@ SCHEMA_FIXTURES = {
     "identity-registry-v1.schema.json": identity_registry,
     "tombstone-v1.schema.json": tombstone_payload,
     "event-v1.schema.json": event,
+    "source-v2.schema.json": source_v2_payload,
+    "evidence-span-v2.schema.json": evidence_v2_payload,
+    "extraction-artifact-v1.schema.json": extraction_artifact_payload,
+    "object-manifest-v1.schema.json": object_manifest,
+    "intake-receipt-v1.schema.json": intake_receipt,
+    "trust-key-registry-v1.schema.json": trust_key_registry,
 }
 
 
@@ -544,6 +798,24 @@ class DigestAndEnvelopeTests(unittest.TestCase):
             ("identity_id", contract.validate_identity_id, ISSUER),
             ("identity_registry", contract.validate_identity_registry, identity_registry()),
             ("tombstone", contract.validate_tombstone, tombstone_payload()),
+            ("source_v2", contract.validate_payload, source_v2_payload()),
+            ("evidence_v2", contract.validate_payload, evidence_v2_payload()),
+            (
+                "extraction_artifact",
+                contract.validate_payload,
+                extraction_artifact_payload(),
+            ),
+            (
+                "phase2_event_bindings",
+                contract.validate_phase2_event_bindings,
+                event(
+                    source_v2_payload(),
+                    system_time="2026-08-21T05:02:03Z",
+                ),
+            ),
+            ("object_manifest", contract.validate_object_manifest, object_manifest()),
+            ("intake_receipt", contract.validate_intake_receipt, intake_receipt()),
+            ("trust_key_registry", contract.validate_trust_key_registry, trust_key_registry()),
             ("payload_dispatch", contract.validate_payload, source_payload()),
             ("event", contract.validate_event, event(source_payload())),
             ("event_collection", contract.validate_events, [event(source_payload())]),
@@ -923,6 +1195,713 @@ class IdentityRegistryTests(unittest.TestCase):
         registry["identities"][0]["status"] = "superseded"
         self.assertEqual(contract.validate_identity_registry(registry), [])
 
+
+class Phase2ProvenanceContractTests(unittest.TestCase):
+    def _verifier(self, algorithm, public_key, signing_bytes, signature) -> bool:
+        return (
+            algorithm == "ed25519"
+            and public_key == PUBLIC_KEY_BYTES
+            and signing_bytes.startswith(b"memory-intake-receipt/v1\0{")
+            and signature == SIGNATURE_BYTES
+        )
+
+    def _verify(self, receipt=None, manifest=None, registry=None, **overrides) -> list[str]:
+        manifest = copy.deepcopy(manifest) if manifest is not None else object_manifest()
+        receipt = copy.deepcopy(receipt) if receipt is not None else intake_receipt(manifest)
+        registry = copy.deepcopy(registry) if registry is not None else trust_key_registry()
+        arguments = {
+            "trust_resolver": contract.build_trust_resolver(registry),
+            "signature_verifier": self._verifier,
+            "object_manifest": manifest,
+            "trusted_system_time": "2026-08-20T14:00:00Z",
+            "trusted_store_head": f"checkpoint:sha256:{DIGEST_A}",
+            "idempotency_resolver": lambda _key: None,
+        }
+        arguments.update(overrides)
+        return contract.verify_intake_receipt(receipt, **arguments)
+
+    def _source_manifest_v2(self, source=None) -> dict:
+        source = copy.deepcopy(source) if source is not None else source_v2_payload()
+        manifest = object_manifest()
+        manifest.update(
+            {
+                "object_id": source["source_object_id"],
+                "acquisition_id": source["acquisition_id"],
+                "source_version_id": source["source_version_id"],
+                "object_kind": "source",
+                "content_sha256": source["content_sha256"],
+                "byte_length": source["byte_length"],
+                "media_type": source["mime_type"],
+                "locator": {
+                    "kind": "repository-path",
+                    "value": f"objects/sha256/{DIGEST_A}",
+                    "version_id": f"sha256:{DIGEST_A}",
+                },
+                "source_lineage": {
+                    "source_id": f"source:sha256:{DIGEST_A}",
+                    "source_object": None,
+                    "derived_from_objects": [],
+                },
+                "created_at": source["acquired_at"],
+                "policy": {
+                    "classification": "public",
+                    "retention": "permanent",
+                    "retain_until": None,
+                },
+            }
+        )
+        manifest["provenance"]["tool"] = None
+        manifest["provenance"]["extraction"] = None
+        manifest["provenance"]["context_packet"] = None
+        return manifest
+
+    def _output_manifest_v2(self, source_manifest=None, artifact=None) -> dict:
+        source_manifest = (
+            copy.deepcopy(source_manifest)
+            if source_manifest is not None
+            else self._source_manifest_v2()
+        )
+        artifact = (
+            copy.deepcopy(artifact)
+            if artifact is not None
+            else extraction_artifact_payload()
+        )
+        output = artifact["output_object"]
+        source_pointer = {
+            "object_id": source_manifest["object_id"],
+            "acquisition_id": source_manifest["acquisition_id"],
+            "source_version_id": source_manifest["source_version_id"],
+            "manifest_sha256": (
+                f"sha256:{contract.object_manifest_sha256(source_manifest)}"
+            ),
+        }
+        manifest = object_manifest()
+        manifest.update(
+            {
+                "object_id": output["object_id"],
+                "acquisition_id": artifact["acquisition_id"],
+                "source_version_id": artifact["source_version_id"],
+                "object_kind": "extraction",
+                "content_sha256": output["content_sha256"],
+                "byte_length": output["byte_length"],
+                "media_type": output["media_type"],
+                "locator": {
+                    "kind": "repository-path",
+                    "value": f"objects/sha256/{DIGEST_C}",
+                    "version_id": f"sha256:{DIGEST_C}",
+                },
+                "source_lineage": {
+                    "source_id": f"source:sha256:{DIGEST_A}",
+                    "source_object": source_pointer,
+                    "derived_from_objects": [copy.deepcopy(source_pointer)],
+                },
+                "created_at": artifact["created_at"],
+                "policy": {
+                    "classification": "public",
+                    "retention": "permanent",
+                    "retain_until": None,
+                },
+            }
+        )
+        manifest["provenance"]["run_id"] = artifact["run_id"]
+        manifest["provenance"]["tool"] = {
+            "tool_id": artifact["tool"]["tool_id"],
+            "version": artifact["tool"]["version"],
+            "sha256": artifact["tool"]["artifact_sha256"],
+        }
+        manifest["provenance"]["extraction"] = {
+            "extraction_id": artifact["extraction_id"],
+            "method": artifact["method"],
+            "sha256": output["content_sha256"],
+        }
+        manifest["provenance"]["context_packet"] = None
+        return manifest
+
+    def _phase2_event(self, payload: dict, event_type: str) -> dict:
+        row = event(payload, system_time="2026-08-21T05:02:03Z")
+        row["event_type"] = event_type
+        row["subject_ids"] = [ISSUER]
+        row["evidence_refs"] = []
+        row["producer"] = {
+            "kind": "system",
+            "name": "memory-extractor",
+            "runtime": "python",
+            "model": None,
+            "prompt_program_sha": "git:" + "f" * 40,
+        }
+        row["run_id"] = f"run_{UUID5}"
+        row["policy"] = {
+            "classification": "public",
+            "retention": "permanent",
+            "retain_until": None,
+        }
+        return contract.seal_event(row)
+
+    def test_manifest_identity_exact_bytes_and_acquisition_are_distinct(self) -> None:
+        manifest = object_manifest()
+        self.assertEqual(contract.validate_object_manifest(manifest), [])
+        self.assertEqual(
+            contract.verify_object_content(manifest, OBJECT_BYTES, media_type="text/plain"),
+            [],
+        )
+        duplicate_bytes = copy.deepcopy(manifest)
+        duplicate_bytes["acquisition_id"] = f"acquisition_{UUID2}"
+        duplicate_bytes["source_version_id"] = f"source-version_{UUID2}"
+        self.assertEqual(contract.validate_object_manifest(duplicate_bytes), [])
+        self.assertEqual(duplicate_bytes["object_id"], manifest["object_id"])
+        self.assertNotEqual(
+            contract.object_manifest_sha256(duplicate_bytes),
+            contract.object_manifest_sha256(manifest),
+        )
+
+        mismatched = copy.deepcopy(manifest)
+        mismatched["object_id"] = f"object:sha256:{DIGEST_B}"
+        errors = contract.validate_object_manifest(mismatched)
+        self.assertTrue(any("digest must equal content_sha256" in error for error in errors), errors)
+
+        oversized = copy.deepcopy(manifest)
+        oversized["byte_length"] = 9_007_199_254_740_992
+        runtime_errors = contract.validate_object_manifest(oversized)
+        self.assertTrue(any(error.startswith("byte_length") for error in runtime_errors), runtime_errors)
+        schema = json.loads(
+            (ROOT / "frameworks/memory/object-manifest-v1.schema.json").read_text()
+        )
+        checker = Checker(schema)
+        checker.check(schema, oversized, "")
+        self.assertTrue(any(error.startswith("byte_length") for error in checker.errors), checker.errors)
+
+        wrong_bytes = contract.verify_object_content(
+            manifest, OBJECT_BYTES + b"tampered", media_type="application/json"
+        )
+        self.assertTrue(any(error.startswith("byte_length") for error in wrong_bytes), wrong_bytes)
+        self.assertTrue(any(error.startswith("content_sha256") for error in wrong_bytes), wrong_bytes)
+        self.assertTrue(any(error.startswith("media_type") for error in wrong_bytes), wrong_bytes)
+
+    def test_v2_payloads_are_registered_with_closed_event_domains(self) -> None:
+        fixtures = (
+            (source_v2_payload(), "source.recorded"),
+            (evidence_v2_payload(), "evidence.recorded"),
+            (extraction_artifact_payload(), "extraction.recorded"),
+        )
+        event_schema = json.loads(
+            (ROOT / "frameworks/memory/event-v1.schema.json").read_text()
+        )
+        for payload, event_type in fixtures:
+            with self.subTest(schema=payload["schema"]):
+                self.assertEqual(contract.validate_payload(payload), [])
+                row = self._phase2_event(payload, event_type)
+                self.assertEqual(contract.validate_event(row), [])
+                checker = Checker(event_schema)
+                checker.check(event_schema, row, "")
+                self.assertEqual(checker.errors, [])
+
+                wrong_domain = copy.deepcopy(row)
+                wrong_domain["event_type"] = "claim.recorded"
+                runtime_errors = contract.validate_event(wrong_domain)
+                self.assertTrue(
+                    any(error.startswith("event_type") for error in runtime_errors),
+                    runtime_errors,
+                )
+                checker = Checker(event_schema)
+                checker.check(event_schema, wrong_domain, "")
+                self.assertTrue(
+                    any(error.startswith("event_type") for error in checker.errors),
+                    checker.errors,
+                )
+
+                self_evidence = copy.deepcopy(row)
+                self_evidence["evidence_refs"] = [EVIDENCE]
+                runtime_errors = contract.validate_event(self_evidence)
+                self.assertTrue(
+                    any(error.startswith("evidence_refs") for error in runtime_errors),
+                    runtime_errors,
+                )
+                checker = Checker(event_schema)
+                checker.check(event_schema, self_evidence, "")
+                self.assertTrue(
+                    any(error.startswith("evidence_refs") for error in checker.errors),
+                    checker.errors,
+                )
+
+        source_event = self._phase2_event(source_v2_payload(), "source.recorded")
+        source_event["subject_ids"] = []
+        errors = contract.validate_event(source_event)
+        self.assertTrue(any(error.startswith("subject_ids") for error in errors), errors)
+
+        source_event = self._phase2_event(source_v2_payload(), "source.recorded")
+        source_event["policy"]["classification"] = "internal"
+        errors = contract.validate_event(source_event)
+        self.assertTrue(any(error.startswith("policy.classification") for error in errors), errors)
+
+        extraction_event = self._phase2_event(
+            extraction_artifact_payload(), "extraction.recorded"
+        )
+        extraction_event["run_id"] = f"run_{UUID1}"
+        errors = contract.validate_event(extraction_event)
+        self.assertTrue(any(error.startswith("run_id") for error in errors), errors)
+
+        unknown_source = source_v2_payload()
+        unknown_source["licence"]["classification"] = "unknown"
+        unknown_source["licence"]["entitlement"] = "unknown"
+        unknown_source["rights"] = {
+            "derivative_use": "prohibited",
+            "embedding": "prohibited",
+            "redistribution": "prohibited",
+        }
+        unknown_event = self._phase2_event(unknown_source, "source.recorded")
+        unknown_event["policy"] = {
+            "classification": "restricted",
+            "retention": "source-policy",
+            "retain_until": None,
+        }
+        self.assertEqual(contract.validate_event(unknown_event), [])
+        unknown_event["policy"]["retention"] = "permanent"
+        errors = contract.validate_event(unknown_event)
+        self.assertTrue(any(error.startswith("policy.retention") for error in errors), errors)
+
+        expiring_unknown = copy.deepcopy(unknown_source)
+        expiring_unknown["licence"]["expires_at"] = "2026-08-21T06:00:00Z"
+        expiring_policy = {
+            "classification": "restricted",
+            "retention": "expires",
+            "retain_until": "2026-08-21T06:00:00Z",
+        }
+        expiring_manifest = self._source_manifest_v2(expiring_unknown)
+        expiring_manifest["policy"] = copy.deepcopy(expiring_policy)
+        expiring_event = self._phase2_event(expiring_unknown, "source.recorded")
+        expiring_event["policy"] = copy.deepcopy(expiring_policy)
+        self.assertEqual(contract.validate_event(expiring_event), [])
+        self.assertEqual(
+            contract._phase2_contract_module().validate_source_manifest_binding(
+                expiring_unknown, expiring_manifest
+            ),
+            [],
+        )
+        self.assertEqual(
+            contract.validate_phase2_event_bindings(
+                expiring_event,
+                source_manifest=expiring_manifest,
+            ),
+            [],
+        )
+
+    def test_v2_event_binding_requires_full_exact_records_and_aligned_envelope(self) -> None:
+        source = source_v2_payload()
+        artifact = extraction_artifact_payload()
+        evidence = evidence_v2_payload()
+        source_manifest = self._source_manifest_v2(source)
+        output_manifest = self._output_manifest_v2(source_manifest, artifact)
+
+        source_event = self._phase2_event(source, "source.recorded")
+        extraction_event = self._phase2_event(artifact, "extraction.recorded")
+        evidence_event = self._phase2_event(evidence, "evidence.recorded")
+        self.assertEqual(
+            contract.validate_phase2_event_bindings(
+                source_event,
+                source_manifest=source_manifest,
+            ),
+            [],
+        )
+        self.assertEqual(
+            contract.validate_phase2_event_bindings(
+                extraction_event,
+                source=source,
+                source_manifest=source_manifest,
+                output_manifest=output_manifest,
+            ),
+            [],
+        )
+        self.assertEqual(
+            contract.validate_phase2_event_bindings(
+                evidence_event,
+                source=source,
+                extraction_artifact=artifact,
+                source_manifest=source_manifest,
+                output_manifest=output_manifest,
+            ),
+            [],
+        )
+
+        id_only_manifest = {
+            "object_id": source_manifest["object_id"],
+            "acquisition_id": source_manifest["acquisition_id"],
+            "source_version_id": source_manifest["source_version_id"],
+            "manifest_sha256": f"sha256:{DIGEST_A}",
+        }
+        errors = contract.validate_phase2_event_bindings(
+            source_event,
+            source_manifest=id_only_manifest,
+        )
+        self.assertTrue(any(error.startswith("source_binding") for error in errors), errors)
+
+        wrong_lineage = copy.deepcopy(output_manifest)
+        wrong_lineage["source_lineage"]["source_object"][
+            "manifest_sha256"
+        ] = f"sha256:{DIGEST_A}"
+        wrong_lineage["source_lineage"]["derived_from_objects"][0][
+            "manifest_sha256"
+        ] = f"sha256:{DIGEST_A}"
+        errors = contract.validate_phase2_event_bindings(
+            extraction_event,
+            source=source,
+            source_manifest=source_manifest,
+            output_manifest=wrong_lineage,
+        )
+        self.assertTrue(any("exact source manifest pointer" in error for error in errors), errors)
+
+        wrong_run_artifact = copy.deepcopy(artifact)
+        wrong_run_artifact["run_id"] = f"run_{UUID1}"
+        errors = contract.validate_phase2_event_bindings(
+            evidence_event,
+            source=source,
+            extraction_artifact=wrong_run_artifact,
+            source_manifest=source_manifest,
+            output_manifest=output_manifest,
+        )
+        self.assertTrue(any(error.startswith("run_id") for error in errors), errors)
+
+        misaligned = copy.deepcopy(evidence_event)
+        misaligned["producer"]["name"] = "different-producer"
+        misaligned["subject_ids"] = []
+        misaligned["policy"]["classification"] = "internal"
+        errors = contract.validate_phase2_event_bindings(
+            misaligned,
+            source=source,
+            extraction_artifact=artifact,
+            source_manifest=source_manifest,
+            output_manifest=output_manifest,
+        )
+        self.assertTrue(any(error.startswith("producer.name") for error in errors), errors)
+        self.assertTrue(any(error.startswith("subject_ids") for error in errors), errors)
+        self.assertTrue(any(error.startswith("source_manifest.policy") for error in errors), errors)
+
+        early = copy.deepcopy(evidence_event)
+        early["system_time"] = "2026-08-21T05:01:01Z"
+        errors = contract.validate_phase2_event_bindings(
+            early,
+            source=source,
+            extraction_artifact=artifact,
+            source_manifest=source_manifest,
+            output_manifest=output_manifest,
+        )
+        self.assertTrue(
+            any(error.startswith("extraction_artifact.created_at") for error in errors),
+            errors,
+        )
+
+    def test_manifest_lineage_uses_exact_acquisition_pointers(self) -> None:
+        schema = json.loads(
+            (ROOT / "frameworks/memory/object-manifest-v1.schema.json").read_text()
+        )
+
+        manifest = object_manifest()
+        source_pointer = manifest["source_lineage"]["source_object"]
+        self.assertEqual(contract.validate_object_manifest(manifest), [])
+        checker = Checker(schema)
+        checker.check(schema, manifest, "")
+        self.assertEqual(checker.errors, [])
+
+        legacy = object_manifest()
+        legacy["source_lineage"] = {
+            "source_id": f"source:sha256:{DIGEST_A}",
+            "source_object_id": f"object:sha256:{DIGEST_A}",
+            "derived_from_object_ids": [f"object:sha256:{DIGEST_A}"],
+        }
+        self.assertTrue(contract.validate_object_manifest(legacy))
+        checker = Checker(schema)
+        checker.check(schema, legacy, "")
+        self.assertTrue(checker.errors)
+
+        extra_field = object_manifest()
+        extra_field["source_lineage"]["source_object"]["locator"] = "objects/source"
+        runtime_errors = contract.validate_object_manifest(extra_field)
+        self.assertTrue(
+            any("source_lineage.source_object.locator" in error for error in runtime_errors),
+            runtime_errors,
+        )
+        checker = Checker(schema)
+        checker.check(schema, extra_field, "")
+        self.assertTrue(
+            any("source_lineage.source_object.locator" in error for error in checker.errors),
+            checker.errors,
+        )
+
+        duplicate = object_manifest()
+        duplicate["source_lineage"]["derived_from_objects"].append(
+            copy.deepcopy(source_pointer)
+        )
+        runtime_errors = contract.validate_object_manifest(duplicate)
+        self.assertTrue(any("duplicates an exact" in error for error in runtime_errors), runtime_errors)
+        checker = Checker(schema)
+        checker.check(schema, duplicate, "")
+        self.assertTrue(
+            any("items must be unique" in error for error in checker.errors),
+            checker.errors,
+        )
+
+        distinct_acquisition = object_manifest()
+        distinct_acquisition["source_lineage"]["derived_from_objects"].append(
+            _exact_object_pointer(
+                acquisition_uuid=UUID3,
+                source_version_uuid=UUID3,
+                manifest_digest=DIGEST_A,
+            )
+        )
+        self.assertEqual(contract.validate_object_manifest(distinct_acquisition), [])
+        checker = Checker(schema)
+        checker.check(schema, distinct_acquisition, "")
+        self.assertEqual(checker.errors, [])
+
+        imprecise_match = object_manifest()
+        imprecise_match["source_lineage"]["derived_from_objects"][0][
+            "manifest_sha256"
+        ] = f"sha256:{DIGEST_A}"
+        runtime_errors = contract.validate_object_manifest(imprecise_match)
+        self.assertTrue(
+            any("must contain the exact source_object pointer" in error for error in runtime_errors),
+            runtime_errors,
+        )
+
+        self_pointer = object_manifest()
+        self_pointer["source_lineage"]["derived_from_objects"].append(
+            {
+                "object_id": self_pointer["object_id"],
+                "acquisition_id": self_pointer["acquisition_id"],
+                "source_version_id": self_pointer["source_version_id"],
+                "manifest_sha256": f"sha256:{DIGEST_A}",
+            }
+        )
+        runtime_errors = contract.validate_object_manifest(self_pointer)
+        self.assertTrue(any("own acquisition" in error for error in runtime_errors), runtime_errors)
+
+    def test_context_packet_can_bind_multiple_exact_upstream_acquisitions(self) -> None:
+        manifest = object_manifest()
+        manifest["object_kind"] = "context-packet"
+        manifest["source_lineage"] = {
+            "source_id": None,
+            "source_object": None,
+            "derived_from_objects": [
+                _exact_object_pointer(),
+                _exact_object_pointer(
+                    acquisition_uuid=UUID3,
+                    source_version_uuid=UUID3,
+                    manifest_digest=DIGEST_A,
+                ),
+            ],
+        }
+        manifest["provenance"]["context_packet"]["sha256"] = manifest["content_sha256"]
+        self.assertEqual(contract.validate_object_manifest(manifest), [])
+
+        schema = json.loads(
+            (ROOT / "frameworks/memory/object-manifest-v1.schema.json").read_text()
+        )
+        checker = Checker(schema)
+        checker.check(schema, manifest, "")
+        self.assertEqual(checker.errors, [])
+
+    def test_manifest_locator_and_secret_fields_fail_closed(self) -> None:
+        for locator in (
+            "/absolute/object",
+            "objects/../secret",
+            "objects\\secret",
+            "objects/item?token=secret",
+        ):
+            manifest = object_manifest()
+            manifest["locator"] = {
+                "kind": "repository-path",
+                "value": locator,
+                "version_id": None,
+            }
+            errors = contract.validate_object_manifest(manifest)
+            self.assertTrue(any(error.startswith("locator.value") for error in errors), (locator, errors))
+
+        manifest = object_manifest()
+        manifest["locator"] = {
+            "kind": "object-uri",
+            "value": "https://user:password@example.test/object",
+            "version_id": "v1",
+        }
+        errors = contract.validate_object_manifest(manifest)
+        self.assertTrue(any("credentials" in error for error in errors), errors)
+
+        registry = trust_key_registry()
+        registry["keys"][0]["private_key"] = "must-never-appear"
+        errors = contract.validate_trust_key_registry(registry)
+        self.assertTrue(any("additional property" in error for error in errors), errors)
+
+    def test_receipt_clocks_manifest_policy_and_store_precondition(self) -> None:
+        manifest = object_manifest()
+        receipt = intake_receipt(manifest)
+        self.assertEqual(
+            contract.validate_intake_receipt(
+                receipt,
+                object_manifest=manifest,
+                trusted_system_time="2026-08-20T14:00:00Z",
+                trusted_store_head=f"checkpoint:sha256:{DIGEST_A}",
+            ),
+            [],
+        )
+        self.assertEqual(self._verify(receipt, manifest), [])
+
+        backdated = copy.deepcopy(receipt)
+        backdated["system_time"] = "2026-08-20T13:59:59Z"
+        backdated["signature"]["signed_sha256"] = (
+            f"sha256:{contract.intake_receipt_signing_sha256(backdated)}"
+        )
+        errors = contract.validate_intake_receipt(
+            backdated,
+            object_manifest=manifest,
+            trusted_system_time="2026-08-20T14:00:00Z",
+        )
+        self.assertTrue(any("backdate" in error or "not be earlier" in error for error in errors), errors)
+
+        future = copy.deepcopy(receipt)
+        future["system_time"] = "2026-08-20T14:04:01Z"
+        future["signature"]["signed_sha256"] = (
+            f"sha256:{contract.intake_receipt_signing_sha256(future)}"
+        )
+        errors = contract.validate_intake_receipt(future)
+        self.assertTrue(any("later than received_at" in error for error in errors), errors)
+
+        wrong_head = contract.validate_intake_receipt(
+            receipt,
+            trusted_store_head=f"checkpoint:sha256:{DIGEST_B}",
+        )
+        self.assertTrue(any("caller-trusted store head" in error for error in wrong_head), wrong_head)
+
+        wrong_acquisition = copy.deepcopy(receipt)
+        wrong_acquisition["acquisition_id"] = f"acquisition_{UUID3}"
+        wrong_acquisition["idempotency_key"] = contract.intake_idempotency_key(wrong_acquisition)
+        wrong_acquisition["signature"]["signed_sha256"] = (
+            f"sha256:{contract.intake_receipt_signing_sha256(wrong_acquisition)}"
+        )
+        errors = contract.validate_intake_receipt(wrong_acquisition, object_manifest=manifest)
+        self.assertTrue(any(error.startswith("acquisition_id") for error in errors), errors)
+
+    def test_signing_bytes_are_domain_separated_and_protect_headers_and_replay_fields(self) -> None:
+        receipt = intake_receipt()
+        signed = contract.intake_receipt_signing_bytes(receipt)
+        self.assertTrue(signed.startswith(b"memory-intake-receipt/v1\0{"), signed[:40])
+
+        detached_change = copy.deepcopy(receipt)
+        detached_change["signature"]["value"] = _base64url(b"x" * 64)
+        detached_change["signature"]["signed_sha256"] = f"sha256:{DIGEST_B}"
+        self.assertEqual(
+            signed,
+            contract.intake_receipt_signing_bytes(detached_change),
+        )
+        for mutate in (
+            lambda row: row["signature"].__setitem__("key_id", f"key_{UUID2}"),
+            lambda row: row.__setitem__("expected_store_head", f"checkpoint:sha256:{DIGEST_B}"),
+            lambda row: row.__setitem__("checkpoint_id", f"checkpoint_{UUID3}"),
+            lambda row: row.__setitem__("idempotency_key", f"idempotency:sha256:{DIGEST_B}"),
+        ):
+            changed = copy.deepcopy(receipt)
+            mutate(changed)
+            self.assertNotEqual(signed, contract.intake_receipt_signing_bytes(changed))
+
+        tampered = copy.deepcopy(receipt)
+        tampered["checkpoint_id"] = f"checkpoint_{UUID3}"
+        errors = contract.validate_intake_receipt(tampered)
+        self.assertTrue(any(error.startswith("signature.signed_sha256") for error in errors), errors)
+
+    def test_trust_registry_validity_authorization_and_crypto_fail_closed(self) -> None:
+        registry = trust_key_registry()
+        self.assertEqual(contract.validate_trust_key_registry(registry), [])
+        resolver = contract.build_trust_resolver(registry)
+        self.assertIsNone(resolver(f"key_{UUID3}"))
+        resolved = resolver(f"key_{UUID1}")
+        self.assertEqual(resolved["public_key"], _base64url(PUBLIC_KEY_BYTES))
+        resolved["status"] = "revoked"
+        self.assertEqual(resolver(f"key_{UUID1}")["status"], "active")
+
+        missing = contract.verify_intake_receipt(intake_receipt())
+        self.assertTrue(any(error.startswith("trust_resolver") for error in missing), missing)
+        self.assertTrue(any(error.startswith("signature_verifier") for error in missing), missing)
+
+        errors = self._verify(trust_resolver=lambda _key: None)
+        self.assertTrue(any("unknown trust key" in error for error in errors), errors)
+
+        revoked = trust_key_registry()
+        revoked["keys"][0]["status"] = "revoked"
+        revoked["keys"][0]["revoked_at"] = "2026-08-20T14:02:00Z"
+        errors = self._verify(registry=revoked)
+        self.assertTrue(any("key is revoked" in error for error in errors), errors)
+
+        errors = self._verify(signature_verifier=lambda *_args: False)
+        self.assertEqual(errors, ["signature.value — invalid detached signature"])
+        errors = self._verify(signature_verifier=lambda *_args: (_ for _ in ()).throw(RuntimeError()))
+        self.assertEqual(errors, ["signature.value — cryptographic verifier failed closed"])
+
+        unauthorized = trust_key_registry()["keys"][0]
+        unauthorized["signer_id"] = "producer:different-intake"
+        errors = self._verify(trust_resolver=lambda _key: unauthorized)
+        self.assertTrue(any("not authorized for intake_signer_id" in error for error in errors), errors)
+
+        wrong_purpose = trust_key_registry()
+        wrong_purpose["keys"][0]["authorized_schemas"] = ["memory-store-checkpoint/v1"]
+        self.assertEqual(contract.validate_trust_key_registry(wrong_purpose), [])
+        errors = self._verify(registry=wrong_purpose)
+        self.assertTrue(any("does not authorize this receipt schema" in error for error in errors), errors)
+
+        all_purposes = trust_key_registry()
+        all_purposes["keys"][0]["authorized_schemas"] = sorted(
+            contract.TRUSTED_SIGNATURE_SCHEMAS
+        )
+        self.assertEqual(contract.validate_trust_key_registry(all_purposes), [])
+        for invalid_purposes in (
+            [],
+            ["memory-intake-receipt/v1", "memory-intake-receipt/v1"],
+            ["memory-unreviewed/v1"],
+        ):
+            invalid = trust_key_registry()
+            invalid["keys"][0]["authorized_schemas"] = invalid_purposes
+            runtime_errors = contract.validate_trust_key_registry(invalid)
+            self.assertTrue(runtime_errors, invalid_purposes)
+            schema = json.loads(
+                (ROOT / "frameworks/memory/trust-key-registry-v1.schema.json").read_text()
+            )
+            checker = Checker(schema)
+            checker.check(schema, invalid, "")
+            self.assertTrue(checker.errors, invalid_purposes)
+
+    def test_exact_retry_is_idempotent_but_conflicting_replay_fails(self) -> None:
+        manifest = object_manifest()
+        receipt = intake_receipt(manifest)
+        verifier_calls = []
+
+        def verifier(*arguments):
+            verifier_calls.append(arguments)
+            return self._verifier(*arguments)
+
+        errors = self._verify(
+            receipt,
+            manifest,
+            trusted_system_time="2026-08-20T15:00:00Z",
+            trusted_store_head=f"checkpoint:sha256:{DIGEST_B}",
+            idempotency_resolver=lambda _key: copy.deepcopy(receipt),
+            signature_verifier=verifier,
+        )
+        self.assertEqual(errors, [])
+        self.assertEqual(len(verifier_calls), 1, "exact retry must still verify its signature")
+
+        conflicting = copy.deepcopy(receipt)
+        conflicting["receipt_id"] = f"receipt_{UUID3}"
+        conflicting["signature"]["signed_sha256"] = (
+            f"sha256:{contract.intake_receipt_signing_sha256(conflicting)}"
+        )
+        errors = self._verify(
+            conflicting,
+            manifest,
+            idempotency_resolver=lambda _key: copy.deepcopy(receipt),
+        )
+        self.assertEqual(
+            errors,
+            ["idempotency_key — is already bound to different canonical receipt bytes"],
+        )
+
+
+class IdentityRegistryNamespaceTests(unittest.TestCase):
     def test_custom_namespace_is_allowed_when_defined(self) -> None:
         registry = identity_registry()
         registry["namespaces"].append({

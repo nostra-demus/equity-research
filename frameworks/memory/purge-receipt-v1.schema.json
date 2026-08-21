@@ -1,0 +1,271 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/memory/purge-receipt-v1.schema.json",
+  "title": "Signed memory purge receipt v1",
+  "description": "A policy-safe, signed proof that target events and objects, their transitive derivative closure, key envelopes, backup copies, and rebuildable projections were purged; a minimal tombstone survived; and the store advanced between signed checkpoints. The receipt permits no paths, secrets, protected excerpts, or free-form deletion rationale.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "purge_receipt_id",
+    "mode",
+    "purge_sequence",
+    "prior_purge_receipt_sha256",
+    "prior_purge_high_water",
+    "new_purge_high_water",
+    "completed_at",
+    "removed_targets",
+    "removed_transitive_derivatives",
+    "erasure_surfaces",
+    "surviving_tombstone",
+    "prior_checkpoint",
+    "new_checkpoint",
+    "authority",
+    "signature"
+  ],
+  "properties": {
+    "schema": { "const": "memory-purge-receipt/v1" },
+    "purge_receipt_id": { "$ref": "#/$defs/purgeReceiptId" },
+    "mode": { "enum": ["genesis", "append"] },
+    "purge_sequence": { "type": "integer", "minimum": 1, "maximum": 9007199254740991 },
+    "prior_purge_receipt_sha256": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/hashRef" }
+      ]
+    },
+    "prior_purge_high_water": { "type": "integer", "minimum": 0, "maximum": 9007199254740991 },
+    "new_purge_high_water": { "type": "integer", "minimum": 1, "maximum": 9007199254740991 },
+    "completed_at": { "$ref": "#/$defs/awareDateTime" },
+    "removed_targets": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["events", "objects", "set_sha256"],
+      "properties": {
+        "events": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/eventPointer" }
+        },
+        "objects": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/objectPointer" }
+        },
+        "set_sha256": { "$ref": "#/$defs/hashRef" }
+      }
+    },
+    "removed_transitive_derivatives": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["event_count", "events", "object_count", "objects", "closure_sha256"],
+      "properties": {
+        "event_count": { "type": "integer", "minimum": 0, "maximum": 9007199254740991 },
+        "events": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/eventPointer" }
+        },
+        "object_count": { "type": "integer", "minimum": 0, "maximum": 9007199254740991 },
+        "objects": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/objectPointer" }
+        },
+        "closure_sha256": { "$ref": "#/$defs/hashRef" }
+      }
+    },
+    "erasure_surfaces": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key_envelopes", "backups", "projections"],
+      "properties": {
+        "key_envelopes": { "$ref": "#/$defs/surfaceProof" },
+        "backups": { "$ref": "#/$defs/surfaceProof" },
+        "projections": { "$ref": "#/$defs/surfaceProof" }
+      }
+    },
+    "surviving_tombstone": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tombstone_event_id",
+        "tombstone_event_sha256",
+        "tombstone_payload_sha256",
+        "target_set_sha256",
+        "reason_code",
+        "classification",
+        "retention"
+      ],
+      "properties": {
+        "tombstone_event_id": { "$ref": "#/$defs/eventId" },
+        "tombstone_event_sha256": { "$ref": "#/$defs/hashRef" },
+        "tombstone_payload_sha256": { "$ref": "#/$defs/hashRef" },
+        "target_set_sha256": { "$ref": "#/$defs/hashRef" },
+        "reason_code": {
+          "enum": [
+            "administrative-revocation",
+            "integrity-revocation",
+            "legal-erasure",
+            "licence-withdrawn",
+            "privacy-erasure",
+            "retention-ended"
+          ]
+        },
+        "classification": { "const": "internal" },
+        "retention": { "const": "tombstone-only" }
+      }
+    },
+    "prior_checkpoint": { "$ref": "#/$defs/checkpointPointer" },
+    "new_checkpoint": { "$ref": "#/$defs/newCheckpointIntent" },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authority_id", "authorizer_id", "authorization_sha256", "authorized_at"],
+      "properties": {
+        "authority_id": {
+          "type": "string",
+          "pattern": "^authority:sha256:[0-9a-f]{64}$"
+        },
+        "authorizer_id": { "$ref": "#/$defs/producerId" },
+        "authorization_sha256": { "$ref": "#/$defs/hashRef" },
+        "authorized_at": { "$ref": "#/$defs/awareDateTime" }
+      }
+    },
+    "signature": { "$ref": "#/$defs/signature" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "mode": { "const": "genesis" } },
+        "required": ["mode"]
+      },
+      "then": {
+        "properties": {
+          "purge_sequence": { "const": 1 },
+          "prior_purge_receipt_sha256": { "type": "null" },
+          "prior_purge_high_water": { "const": 0 }
+        }
+      },
+      "else": {
+        "properties": {
+          "prior_purge_receipt_sha256": { "$ref": "#/$defs/hashRef" },
+          "prior_purge_high_water": { "type": "integer", "minimum": 1, "maximum": 9007199254740991 }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "purgeReceiptId": {
+      "type": "string",
+      "pattern": "^purge-receipt_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "eventId": {
+      "type": "string",
+      "pattern": "^evt_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "checkpointId": {
+      "type": "string",
+      "pattern": "^checkpoint_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "checkpointRef": {
+      "type": "string",
+      "pattern": "^checkpoint:sha256:[0-9a-f]{64}$"
+    },
+    "objectId": {
+      "type": "string",
+      "pattern": "^object:sha256:[0-9a-f]{64}$"
+    },
+    "hashRef": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "producerId": {
+      "type": "string",
+      "pattern": "^producer:[a-z0-9][a-z0-9._/-]{0,127}$"
+    },
+    "eventPointer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["event_id", "event_sha256"],
+      "properties": {
+        "event_id": { "$ref": "#/$defs/eventId" },
+        "event_sha256": { "$ref": "#/$defs/hashRef" }
+      }
+    },
+    "objectPointer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["object_id", "content_sha256", "manifest_sha256"],
+      "properties": {
+        "object_id": { "$ref": "#/$defs/objectId" },
+        "content_sha256": { "$ref": "#/$defs/hashRef" },
+        "manifest_sha256": { "$ref": "#/$defs/hashRef" }
+      }
+    },
+    "surfaceProof": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope_sha256",
+        "matched_count",
+        "removed_count",
+        "residual_count",
+        "removed_set_sha256",
+        "verification_sha256",
+        "verified_at"
+      ],
+      "properties": {
+        "scope_sha256": { "$ref": "#/$defs/hashRef" },
+        "matched_count": { "type": "integer", "minimum": 0, "maximum": 9007199254740991 },
+        "removed_count": { "type": "integer", "minimum": 0, "maximum": 9007199254740991 },
+        "residual_count": { "const": 0 },
+        "removed_set_sha256": { "$ref": "#/$defs/hashRef" },
+        "verification_sha256": { "$ref": "#/$defs/hashRef" },
+        "verified_at": { "$ref": "#/$defs/awareDateTime" }
+      }
+    },
+    "checkpointPointer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["checkpoint_id", "checkpoint_sha256", "sequence", "purge_high_water"],
+      "properties": {
+        "checkpoint_id": { "$ref": "#/$defs/checkpointId" },
+        "checkpoint_sha256": { "$ref": "#/$defs/checkpointRef" },
+        "sequence": { "type": "integer", "minimum": 0, "maximum": 9007199254740991 },
+        "purge_high_water": { "type": "integer", "minimum": 0, "maximum": 9007199254740991 }
+      }
+    },
+    "newCheckpointIntent": {
+      "description": "Forward binding to the checkpoint that will commit this receipt. Its digest is intentionally absent: including that digest here while the checkpoint commits the receipt would be self-referential.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["checkpoint_id", "sequence", "purge_high_water"],
+      "properties": {
+        "checkpoint_id": { "$ref": "#/$defs/checkpointId" },
+        "sequence": { "type": "integer", "minimum": 1, "maximum": 9007199254740991 },
+        "purge_high_water": { "type": "integer", "minimum": 1, "maximum": 9007199254740991 }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "key_id", "signed_sha256", "value"],
+      "properties": {
+        "algorithm": { "const": "ed25519" },
+        "key_id": {
+          "type": "string",
+          "pattern": "^key_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "signed_sha256": { "$ref": "#/$defs/hashRef" },
+        "value": { "type": "string", "pattern": "^[A-Za-z0-9_-]{86}$" }
+      }
+    },
+    "awareDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+    }
+  }
+}
