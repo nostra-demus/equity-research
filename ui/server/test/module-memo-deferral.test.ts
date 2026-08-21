@@ -74,6 +74,31 @@ try {
     'only planned non-reused specialist stems reach the child, sorted deterministically')
   assert.equal(exact[EXACT_MODULE_SYNTHESIS_ORBS_ENV], '99_management-governance-synthesis',
     'only the current discovered synthesis can use the separate summary cleanup path')
+  for (const malformed of [true, 'earnings', [1]] as unknown[]) {
+    assert.throws(() => childEnv({
+      exactModuleResume: true,
+      exactModuleInputs: malformed as string[],
+      exactModuleRunRoot: 'analyses/TEST_2026-08-21',
+      exactModuleName: 'management-governance',
+      exactModuleWritableOrbs: ['07_people-integrity-dossiers'],
+      exactModuleSynthesisOrbs: ['99_management-governance-synthesis'],
+    }), /requires a valid immutable run root and artifact scope/,
+    'malformed exact input containers/members cannot reach the child environment')
+  }
+  for (const [writable, syntheses] of [
+    [[Symbol('bad')], ['99_management-governance-synthesis']],
+    [['07_people-integrity-dossiers'], [{ bad: true }]],
+  ] as unknown[][][]) {
+    assert.throws(() => childEnv({
+      exactModuleResume: true,
+      exactModuleInputs: [],
+      exactModuleRunRoot: 'analyses/TEST_2026-08-21',
+      exactModuleName: 'management-governance',
+      exactModuleWritableOrbs: writable as string[],
+      exactModuleSynthesisOrbs: syntheses as string[],
+    }), /requires a valid immutable run root and artifact scope/,
+    'non-string artifact members cannot be coerced or sorted into the child environment')
+  }
   assert.equal(
     exactModuleRunRootBinding('TEST', 'analyses/TEST_2026-08-21', 'analyses/TEST_2026-08-21'),
     'analyses/TEST_2026-08-21',
@@ -122,6 +147,57 @@ await assert.rejects(
   launch({ kind: 'module', ticker: 'TEST', exactModuleResume: true }),
   (e: any) => e?.statusCode === 400 && /requires a guarded research module launch/.test(e?.message || ''),
   'current-run-only resolution cannot be attached without the final paid-boundary guard',
+)
+
+await assert.rejects(
+  launch({
+    kind: 'module',
+    ticker: 'TEST',
+    module: 'management-governance',
+    exactModuleResume: true,
+    exactModuleRunRoot: 'analyses/TEST_2026-08-21',
+    exactModuleInputs: [],
+    exactModuleWritableOrbs: true as unknown as string[],
+    exactModuleSynthesisOrbs: ['99_management-governance-synthesis'],
+    preSpawnGuard: () => ({ ok: true }),
+    terminalGuard: async () => ({ ok: true }),
+  }),
+  (e: any) => e?.statusCode === 400 && /artifact scope is missing or invalid/.test(e?.message || ''),
+  'a malformed runtime artifact container fails as a controlled 400 before it can be iterated',
+)
+
+await assert.rejects(
+  launch({
+    kind: 'module',
+    ticker: 'TEST',
+    module: 'management-governance',
+    exactModuleResume: true,
+    exactModuleRunRoot: 'analyses/TEST_2026-08-21',
+    exactModuleInputs: [],
+    exactModuleWritableOrbs: [Symbol('bad')] as unknown as string[],
+    exactModuleSynthesisOrbs: ['99_management-governance-synthesis'],
+    preSpawnGuard: () => ({ ok: true }),
+    terminalGuard: async () => ({ ok: true }),
+  }),
+  (e: any) => e?.statusCode === 400 && /artifact scope is missing or invalid/.test(e?.message || ''),
+  'a non-string artifact member fails as a controlled 400 before sorting/coercion',
+)
+
+await assert.rejects(
+  launch({
+    kind: 'module',
+    ticker: 'TEST',
+    module: 'management-governance',
+    exactModuleResume: true,
+    exactModuleRunRoot: 'analyses/TEST_2026-08-21',
+    exactModuleInputs: { earnings: true } as unknown as string[],
+    exactModuleWritableOrbs: ['07_people-integrity-dossiers'],
+    exactModuleSynthesisOrbs: ['99_management-governance-synthesis'],
+    preSpawnGuard: () => ({ ok: true }),
+    terminalGuard: async () => ({ ok: true }),
+  }),
+  (e: any) => e?.statusCode === 400 && /inputs require a guarded research module launch/.test(e?.message || ''),
+  'a malformed runtime input container fails as a controlled 400 before it can be iterated',
 )
 
 // Prompt-program parity: every agent that can discover an input outside the staged current root must honor

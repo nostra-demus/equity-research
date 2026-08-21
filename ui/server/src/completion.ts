@@ -218,6 +218,14 @@ function modulePromptDir(module: ModuleNode, swarmId: string): string | null {
   return swarm ? path.join(swarm.dir, module.name) : null
 }
 
+function mentionsExactOutputFile(text: string, file: string): boolean {
+  const escaped = file.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  // Prompt lines may qualify an input with a directory, quotes, or backticks. Match those, but never a
+  // longer filename such as 101_foo.md or 01_foo.md-backup: either false positive would make the planner
+  // discard and repay a specialist that has no actual dependency on the changed orb.
+  return new RegExp(`(^|[^A-Za-z0-9_.-])${escaped}(?![A-Za-z0-9_-]|\\.[A-Za-z0-9_-])`).test(text)
+}
+
 /** Read the module-local filenames explicitly named on an agent's `UPSTREAM_INPUTS` line. This keeps roster
  *  growth zero-touch: when a new specialist becomes an input to an older specialist, the older saved output
  *  is not reused before it has had a chance to read the new work. Cross-module inputs are intentionally cut
@@ -235,7 +243,7 @@ function specialistDependencies(module: ModuleNode, swarmId: string): Map<string
     if (!line) continue
     const local = line.split(/Optionally cross-module|Cross-module:/i, 1)[0]
     if (/none(?: required)? in-module/i.test(local)) continue
-    const deps = new Set([...expected].filter((file) => file !== basename && local.includes(file)))
+    const deps = new Set([...expected].filter((file) => file !== basename && mentionsExactOutputFile(local, file)))
     if (deps.size) out.set(basename, deps)
   }
   return out
@@ -1235,7 +1243,10 @@ export function capturePreparedModuleResumeScope(
         return
       }
       if (!stat.isFile()) throw new Error('staged scope contains a non-file entry')
-      hash.update(`F\0${rel}\0${stat.mode & 0o777}\0${stat.size}\0`)
+      // Git preserves only whether owner-execute marks a regular file executable (100644 vs 100755). Host
+      // umask/read-write/group/other bits must not make an otherwise identical checkpoint drift.
+      const gitMode = stat.mode & 0o100 ? '100755' : '100644'
+      hash.update(`F\0${rel}\0${gitMode}\0${stat.size}\0`)
       hash.update(fs.readFileSync(abs))
       hash.update('\0')
     }

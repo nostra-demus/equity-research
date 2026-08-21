@@ -43,6 +43,21 @@ releaseLease!()
 const root = 'analyses/ACME_2099-01-01'
 const first = captureCompletedModuleFingerprint('ACME', 'alpha', root)
 assert.match(first ?? '', /^sha256:[a-f0-9]{64}$/, 'a completed current-roster module gets a byte receipt')
+if (process.platform !== 'win32') {
+  const moduleDir = path.join(repo, root, 'alpha')
+  const specialist = path.join(moduleDir, '01_alpha-check.md')
+  fs.chmodSync(moduleDir, 0o700)
+  fs.chmodSync(specialist, 0o600)
+  assert.equal(captureCompletedModuleFingerprint('ACME', 'alpha', root), first,
+    'host-only directory/read-write permissions do not alter a Git publication receipt')
+  fs.chmodSync(specialist, 0o645)
+  assert.equal(captureCompletedModuleFingerprint('ACME', 'alpha', root), first,
+    'group/other execute bits do not change Git’s regular-file mode')
+  fs.chmodSync(specialist, 0o700)
+  assert.notEqual(captureCompletedModuleFingerprint('ACME', 'alpha', root), first,
+    'the executable bit remains part of the Git publication receipt')
+  fs.chmodSync(specialist, 0o600)
+}
 
 const marker = writePendingModulePublication({
   ticker: 'ACME', module: 'alpha', targetRunRoot: root, fingerprint: first!,

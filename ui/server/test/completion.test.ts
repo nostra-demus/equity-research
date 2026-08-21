@@ -641,6 +641,22 @@ const { buildSwarmGraph } = await import('../src/roster')
     'RESUME', 'beta', retryPlan.targetRunRoot, retry.doneOrbKeys, retry.reusedAncestorModules,
   )
   assert.ok(exact, 'the exact staged target + ancestor scope is valid')
+  if (process.platform !== 'win32') {
+    const betaOrb = path.join(REPO, `analyses/RESUME_${TODAY}/beta/01_beta-thing.md`)
+    fs.chmodSync(betaOrb, 0o600)
+    assert.equal(capturePreparedModuleResumeScope(
+      'RESUME', 'beta', retryPlan.targetRunRoot, retry.doneOrbKeys, retry.reusedAncestorModules,
+    )?.fingerprint, exact.fingerprint, 'host-only read/write mode changes do not alter a Git checkpoint')
+    fs.chmodSync(betaOrb, 0o645)
+    assert.equal(capturePreparedModuleResumeScope(
+      'RESUME', 'beta', retryPlan.targetRunRoot, retry.doneOrbKeys, retry.reusedAncestorModules,
+    )?.fingerprint, exact.fingerprint, 'group/other execute bits do not change Git’s regular-file mode')
+    fs.chmodSync(betaOrb, 0o700)
+    assert.notEqual(capturePreparedModuleResumeScope(
+      'RESUME', 'beta', retryPlan.targetRunRoot, retry.doneOrbKeys, retry.reusedAncestorModules,
+    )?.fingerprint, exact.fingerprint, 'the executable bit remains part of the Git checkpoint')
+    fs.chmodSync(betaOrb, 0o600)
+  }
   write(`analyses/RESUME_${TODAY}/beta/01_beta-thing.md`, '# beta orb changed after checkpoint\n')
   const changed = capturePreparedModuleResumeScope(
     'RESUME', 'beta', retryPlan.targetRunRoot, retry.doneOrbKeys, retry.reusedAncestorModules,
@@ -1042,6 +1058,37 @@ const { buildSwarmGraph } = await import('../src/roster')
     'OPTREAD', 'alpha', plan.targetRunRoot, resumed.doneOrbKeys, resumed.reusedAncestorModules,
   ), 'the final paid-boundary fingerprint covers the optional input bytes too')
   console.log('✅ optional reads_from inputs are staged + fingerprinted without becoming hard dependencies')
+}
+
+// ---- 20h. prompt dependency discovery matches exact output filenames, never substrings ----------------
+{
+  write('.claude/agents/alpha/03_alpha-dependent-check.md', fm('alpha-dependent-check', 2)
+    + '- `UPSTREAM_INPUTS` — archive `102_alpha-new-check.md-backup` only; no in-module input.\n')
+  buildSwarmGraph('research', true)
+
+  const folder = `analyses/FALSEREF_${YESTERDAY}/alpha`
+  write(`${folder}/01_alpha-thing.md`, '# one\n')
+  write(`${folder}/02_alpha-new-check.md`, '# two\n')
+  write(`${folder}/03_alpha-dependent-check.md`, '# three\n')
+  write(`${folder}/99_alpha-synthesis.md`, '# current summary\n')
+  const base = Date.now() - 10_000
+  fs.utimesSync(path.join(REPO, `${folder}/01_alpha-thing.md`), base / 1000, base / 1000)
+  fs.utimesSync(path.join(REPO, `${folder}/03_alpha-dependent-check.md`), base / 1000, base / 1000)
+  fs.utimesSync(path.join(REPO, `${folder}/02_alpha-new-check.md`), (base + 1_000) / 1000, (base + 1_000) / 1000)
+  fs.utimesSync(path.join(REPO, `${folder}/99_alpha-synthesis.md`), (base + 2_000) / 1000, (base + 2_000) / 1000)
+
+  const alpha = thesisPlan('FALSEREF').modules.find((m) => m.module === 'alpha')!
+  assert.equal(alpha.state, 'done',
+    '02_alpha-new-check.md inside a longer archive filename must not invalidate the saved 03 specialist')
+
+  write('.claude/agents/alpha/03_alpha-dependent-check.md', fm('alpha-dependent-check', 2)
+    + '- `UPSTREAM_INPUTS` — 01_alpha-thing.md.\n')
+  buildSwarmGraph('research', true)
+  fs.utimesSync(path.join(REPO, `${folder}/01_alpha-thing.md`), (base + 1_000) / 1000, (base + 1_000) / 1000)
+  const punctuation = thesisPlan('FALSEREF').modules.find((m) => m.module === 'alpha')!
+  assert.deepEqual(punctuation.doneOrbKeys, ['alpha/01_alpha-thing', 'alpha/02_alpha-new-check'],
+    'a real output filename followed by sentence punctuation still invalidates its older dependent')
+  console.log('✅ specialist dependency discovery rejects longer-filename substring matches')
 }
 
 fs.rmSync(REPO, { recursive: true, force: true })

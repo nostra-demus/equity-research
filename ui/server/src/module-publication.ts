@@ -89,9 +89,10 @@ function markerPath(ticker: string, module: string, createDirectory = false): st
  * Hash the complete, current module directory after its synthesis has landed.
  *
  * The marker is useful only if it proves the retry is publishing the exact bytes produced by the paid run.
- * Paths, modes and bytes are included; symlinks and non-file entries fail closed. The current discovered
- * synthesis filename must pass the shared mechanical validator, so a truncated or old/renamed 99 cannot
- * make an unfinished module publishable.
+ * Paths, Git-tracked file modes and bytes are included; symlinks and non-file entries fail closed. Host-only
+ * directory/read-write permissions are deliberately omitted because Git does not publish them. The current
+ * discovered synthesis filename must pass the shared mechanical validator, so a truncated or old/renamed 99
+ * cannot make an unfinished module publishable.
  */
 export function captureCompletedModuleFingerprint(
   ticker: string,
@@ -137,7 +138,7 @@ export function captureCompletedModuleFingerprint(
       const before = fs.lstatSync(abs)
       if (before.isSymbolicLink()) throw new Error('module contains a symlink')
       if (before.isDirectory()) {
-        hash.update(`D\0${rel}\0${before.mode & 0o777}\0`)
+        hash.update(`D\0${rel}\0`)
         for (const entry of fs.readdirSync(abs).sort()) {
           hashTree(path.join(abs, entry), `${rel}/${entry}`)
         }
@@ -150,7 +151,8 @@ export function captureCompletedModuleFingerprint(
           || before.size !== after.size || before.mtimeMs !== after.mtimeMs || bytes.length !== before.size) {
         throw new Error('module changed while it was fingerprinted')
       }
-      hash.update(`F\0${rel}\0${before.mode & 0o777}\0${before.size}\0`)
+      const gitMode = before.mode & 0o100 ? '100755' : '100644'
+      hash.update(`F\0${rel}\0${gitMode}\0${before.size}\0`)
       hash.update(bytes)
       hash.update('\0')
     }

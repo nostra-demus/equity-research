@@ -178,7 +178,7 @@ assert.match(launcher, /delete e\[DEFER_MODULE_MEMO_ENV\][\s\S]*if \(options\.de
   'ordinary children strip an ambient flag and only an explicit smart launch adds it back')
 assert.match(launcher, /delete e\[EXACT_MODULE_RESUME_ENV\][\s\S]*if \(options\.exactModuleResume\) \{[\s\S]*e\[EXACT_MODULE_RESUME_ENV\] = '1'/,
   'ordinary children cannot fall back to an unstaged historical optional input')
-assert.match(launcher, /delete e\[EXACT_MODULE_INPUTS_ENV\][\s\S]*e\[EXACT_MODULE_INPUTS_ENV\] = \[\.\.\.new Set\(options\.exactModuleInputs \?\? \[\]\)\]\.sort\(\)\.join\(','\)/,
+assert.match(launcher, /delete e\[EXACT_MODULE_INPUTS_ENV\][\s\S]*rawInputs !== undefined[\s\S]*Array\.isArray\(rawInputs\)[\s\S]*e\[EXACT_MODULE_INPUTS_ENV\] = inputs\.join\(','\)/,
   'the paid child receives only the sorted, checkpointed module-input allowlist')
 assert.match(launcher, /delete e\[EXACT_MODULE_RUN_ROOT_ENV\][\s\S]*e\[EXACT_MODULE_RUN_ROOT_ENV\] = root/,
   'an ambient run-root binding is stripped and only the reviewed immutable root reaches the child')

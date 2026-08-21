@@ -2075,30 +2075,47 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       || !params.preSpawnGuard || !params.terminalGuard || !exactModuleRunRoot)) {
     throw Object.assign(new Error('Exact module-resume policy requires a guarded research module launch, terminal publication proof, and its immutable run root.'), { statusCode: 400 })
   }
-  const exactModuleInputs = [...new Set(params.exactModuleInputs ?? [])].sort()
+  const rawExactModuleInputs: unknown = params.exactModuleInputs
+  const exactModuleInputs = Array.isArray(rawExactModuleInputs)
+    ? [...new Set(rawExactModuleInputs.filter((name): name is string => typeof name === 'string'))].sort()
+    : []
   const rawExactWritableOrbs = params.exactModuleWritableOrbs
   const rawExactSynthesisOrbs = params.exactModuleSynthesisOrbs
-  const exactModuleWritableOrbs = [...new Set(rawExactWritableOrbs ?? [])].sort()
-  const exactModuleSynthesisOrbs = [...new Set(rawExactSynthesisOrbs ?? [])].sort()
+  // LaunchParams is typed, but launch() is also a runtime trust boundary for internal HTTP/supervisor
+  // callers. Validate the container before iterating so malformed truthy values fail with our 400 below
+  // instead of escaping as an unhandled "not iterable" TypeError.
+  const exactModuleWritableOrbs = Array.isArray(rawExactWritableOrbs)
+      && rawExactWritableOrbs.every((stem) => typeof stem === 'string')
+    ? [...new Set(rawExactWritableOrbs)].sort()
+    : []
+  const exactModuleSynthesisOrbs = Array.isArray(rawExactSynthesisOrbs)
+      && rawExactSynthesisOrbs.every((stem) => typeof stem === 'string')
+    ? [...new Set(rawExactSynthesisOrbs)].sort()
+    : []
   const safeExactModule = typeof module === 'string' && /^[a-z][a-z0-9-]*$/.test(module)
   const specialistStem = /^(?!99_)\d{2}_[A-Za-z0-9][A-Za-z0-9_-]*$/
   const synthesisStem = /^99_[A-Za-z0-9][A-Za-z0-9_-]*-synthesis$/
   if ((!params.exactModuleResume && exactModuleInputs.length > 0)
+      || (rawExactModuleInputs !== undefined && !Array.isArray(rawExactModuleInputs))
       || (!params.exactModuleResume && params.exactModuleRunRoot !== undefined)
       || (!params.exactModuleResume && params.terminalGuard !== undefined)
       || (!params.exactModuleResume && rawExactWritableOrbs !== undefined)
       || (!params.exactModuleResume && rawExactSynthesisOrbs !== undefined)
-      || exactModuleInputs.some((name) => !/^[a-z0-9][a-z0-9-]{0,79}$/.test(name))) {
+      || (Array.isArray(rawExactModuleInputs)
+        && rawExactModuleInputs.some((name) => typeof name !== 'string'
+          || !/^[a-z0-9][a-z0-9-]{0,79}$/.test(name)))) {
     throw Object.assign(new Error('Exact module-resume inputs require a guarded research module launch and safe module names.'), { statusCode: 400 })
   }
   if (params.exactModuleResume && (!safeExactModule
       || !Array.isArray(rawExactWritableOrbs) || !Array.isArray(rawExactSynthesisOrbs)
+      || rawExactWritableOrbs.some((stem) => typeof stem !== 'string')
+      || rawExactSynthesisOrbs.some((stem) => typeof stem !== 'string')
       || rawExactWritableOrbs.length !== exactModuleWritableOrbs.length
       || rawExactSynthesisOrbs.length !== exactModuleSynthesisOrbs.length
       || exactModuleWritableOrbs.length > 256 || exactModuleSynthesisOrbs.length < 1
       || exactModuleSynthesisOrbs.length > 16
-      || exactModuleWritableOrbs.some((stem) => !specialistStem.test(stem))
-      || exactModuleSynthesisOrbs.some((stem) => !synthesisStem.test(stem)))) {
+      || exactModuleWritableOrbs.some((stem) => typeof stem !== 'string' || !specialistStem.test(stem))
+      || exactModuleSynthesisOrbs.some((stem) => typeof stem !== 'string' || !synthesisStem.test(stem)))) {
     throw Object.assign(new Error('Exact module-resume artifact scope is missing or invalid.'), { statusCode: 400 })
   }
   let exactResumeBinding: { module: string; runRoot: string } | null = null
@@ -2576,6 +2593,7 @@ export function childEnv(options: {
   if (options.exactModuleResume) {
     const root = options.exactModuleRunRoot
     const module = options.exactModuleName
+    const rawInputs: unknown = options.exactModuleInputs
     const writable = options.exactModuleWritableOrbs
     const syntheses = options.exactModuleSynthesisOrbs
     const match = typeof root === 'string'
@@ -2583,14 +2601,20 @@ export function childEnv(options: {
       : null
     if (!match || exactModuleRunRootBinding(match[1], root) !== root
         || typeof module !== 'string' || !/^[a-z][a-z0-9-]*$/.test(module)
+        || (rawInputs !== undefined && (!Array.isArray(rawInputs)
+          || rawInputs.some((name) => typeof name !== 'string'
+            || !/^[a-z0-9][a-z0-9-]{0,79}$/.test(name))))
         || !Array.isArray(writable) || !Array.isArray(syntheses) || syntheses.length < 1
         || new Set(writable).size !== writable.length || new Set(syntheses).size !== syntheses.length
-        || writable.some((stem) => !/^(?!99_)\d{2}_[A-Za-z0-9][A-Za-z0-9_-]*$/.test(stem))
-        || syntheses.some((stem) => !/^99_[A-Za-z0-9][A-Za-z0-9_-]*-synthesis$/.test(stem))) {
+        || writable.some((stem) => typeof stem !== 'string'
+          || !/^(?!99_)\d{2}_[A-Za-z0-9][A-Za-z0-9_-]*$/.test(stem))
+        || syntheses.some((stem) => typeof stem !== 'string'
+          || !/^99_[A-Za-z0-9][A-Za-z0-9_-]*-synthesis$/.test(stem))) {
       throw new Error('Exact module-resume child environment requires a valid immutable run root and artifact scope.')
     }
+    const inputs = Array.isArray(rawInputs) ? [...new Set(rawInputs as string[])].sort() : []
     e[EXACT_MODULE_RESUME_ENV] = '1'
-    e[EXACT_MODULE_INPUTS_ENV] = [...new Set(options.exactModuleInputs ?? [])].sort().join(',')
+    e[EXACT_MODULE_INPUTS_ENV] = inputs.join(',')
     e[EXACT_MODULE_RUN_ROOT_ENV] = root
     e[EXACT_MODULE_NAME_ENV] = module
     e[EXACT_MODULE_WRITABLE_ORBS_ENV] = [...writable].sort().join(',')
