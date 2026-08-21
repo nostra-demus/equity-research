@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/memory/shadow-response-v1.schema.json",
+  "title": "Read-only permanent-memory shadow recall response v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "mode",
+    "read_only",
+    "rating_effect",
+    "canonical_write",
+    "context_packet_id",
+    "packet_sha256",
+    "packet_byte_length",
+    "manifest_sha256",
+    "projection_digest",
+    "packet_json",
+    "manifest_json",
+    "event_ids",
+    "evidence_ids",
+    "response_sha256"
+  ],
+  "properties": {
+    "schema": { "const": "memory-shadow-response/v1" },
+    "mode": { "const": "shadow" },
+    "read_only": { "const": true },
+    "rating_effect": { "const": "none" },
+    "canonical_write": { "const": "none" },
+    "context_packet_id": {
+      "type": "string",
+      "pattern": "^context-packet_[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "packet_sha256": { "$ref": "#/$defs/hashRef" },
+    "packet_byte_length": { "type": "integer", "minimum": 1 },
+    "manifest_sha256": { "$ref": "#/$defs/hashRef" },
+    "projection_digest": { "$ref": "#/$defs/hashRef" },
+    "packet_json": { "type": "string", "minLength": 2, "maxLength": 1600000 },
+    "manifest_json": { "type": "string", "minLength": 2, "maxLength": 800000 },
+    "event_ids": {
+      "type": "array",
+      "maxItems": 100,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/eventId" }
+    },
+    "evidence_ids": {
+      "type": "array",
+      "maxItems": 10000,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1, "maxLength": 2048 }
+    },
+    "response_sha256": { "$ref": "#/$defs/hashRef" }
+  },
+  "$defs": {
+    "hashRef": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "eventId": {
+      "type": "string",
+      "pattern": "^evt_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    }
+  }
+}

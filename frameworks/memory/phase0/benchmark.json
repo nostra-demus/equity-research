@@ -9,6 +9,7 @@
     "answer_scope": "Answer keys are concise adjudications of evidence already present in the named files; they are not new investment recommendations."
   },
   "assessment_limits": [
+    "The corpus is frozen by corpus-manifest.json, which pins every ranked file to a Git blob id. The baseline therefore measures the ranker, not the live research lanes the search roots point at: files published into those same run folders after the freeze are outside the measured corpus until the manifest is re-rendered and reviewed.",
     "The folder/grep baseline measures evidence-file retrieval, not generated-answer correctness or citation-span precision.",
     "Abstention cases measure retrieval of explicit missingness evidence; whether a model actually abstains is not measured by this non-model baseline.",
     "The checkout contains access policy but no safely redistributable restricted-content test payload. Access cases therefore measure policy retrieval and path intrusion only; they do not prove production authorization enforcement.",

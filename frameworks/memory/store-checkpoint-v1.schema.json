@@ -1,0 +1,191 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/memory/store-checkpoint-v1.schema.json",
+  "title": "Signed deterministic memory-store checkpoint v1",
+  "description": "A signed store head that deterministically commits the complete manifest, event, receipt, tombstone, and retired-identity sets plus the prior checkpoint. signed_sha256 covers canonical checkpoint bytes with signature.signed_sha256 and signature.value omitted while the algorithm and key identifier remain protected.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "checkpoint_id",
+    "mode",
+    "sequence",
+    "purge_high_water",
+    "created_at",
+    "prior_checkpoint",
+    "canonicalization",
+    "commitments",
+    "retired_state",
+    "store_root_sha256",
+    "signer_id",
+    "signature"
+  ],
+  "properties": {
+    "schema": { "const": "memory-store-checkpoint/v1" },
+    "checkpoint_id": { "$ref": "#/$defs/checkpointId" },
+    "mode": { "enum": ["genesis", "append"] },
+    "sequence": { "type": "integer", "minimum": 0, "maximum": 9007199254740991 },
+    "purge_high_water": { "type": "integer", "minimum": 0, "maximum": 9007199254740991 },
+    "created_at": { "$ref": "#/$defs/awareDateTime" },
+    "prior_checkpoint": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/checkpointPointer" }
+      ]
+    },
+    "canonicalization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["json", "record_order", "set_digest"],
+      "properties": {
+        "json": { "const": "memory-canonical-json/v1" },
+        "record_order": { "const": "lexicographic-record-id" },
+        "set_digest": { "const": "sha256-canonical-array/v1" }
+      }
+    },
+    "commitments": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["manifests", "events", "receipts", "tombstones"],
+      "properties": {
+        "manifests": { "$ref": "#/$defs/setCommitment" },
+        "events": { "$ref": "#/$defs/setCommitment" },
+        "receipts": { "$ref": "#/$defs/setCommitment" },
+        "tombstones": { "$ref": "#/$defs/setCommitment" }
+      }
+    },
+    "retired_state": {
+      "description": "Policy-safe exact identities that may never reappear in a later checkpoint. Runtime verification requires canonical order, exact snapshot equality, and monotonic preservation from the prior signed head.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["event_ids", "object_keys"],
+      "properties": {
+        "event_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/eventId" }
+        },
+        "object_keys": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/retiredObjectKey" }
+        }
+      }
+    },
+    "store_root_sha256": { "$ref": "#/$defs/hashRef" },
+    "signer_id": { "$ref": "#/$defs/producerId" },
+    "signature": { "$ref": "#/$defs/signature" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "mode": { "const": "genesis" } },
+        "required": ["mode"]
+      },
+      "then": {
+        "properties": {
+          "sequence": { "const": 0 },
+          "prior_checkpoint": { "type": "null" }
+        }
+      },
+      "else": {
+        "properties": {
+          "sequence": { "type": "integer", "minimum": 1, "maximum": 9007199254740991 },
+          "prior_checkpoint": { "$ref": "#/$defs/checkpointPointer" }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "checkpointId": {
+      "type": "string",
+      "pattern": "^checkpoint_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "checkpointRef": {
+      "type": "string",
+      "pattern": "^checkpoint:sha256:[0-9a-f]{64}$"
+    },
+    "hashRef": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "eventId": {
+      "type": "string",
+      "pattern": "^evt_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "objectId": {
+      "type": "string",
+      "pattern": "^object:sha256:[0-9a-f]{64}$"
+    },
+    "acquisitionId": {
+      "type": "string",
+      "pattern": "^acquisition_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "sourceVersionId": {
+      "type": "string",
+      "pattern": "^source-version_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "producerId": {
+      "type": "string",
+      "pattern": "^producer:[a-z0-9][a-z0-9._/-]{0,127}$"
+    },
+    "checkpointPointer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["checkpoint_id", "checkpoint_sha256", "sequence", "purge_high_water"],
+      "properties": {
+        "checkpoint_id": { "$ref": "#/$defs/checkpointId" },
+        "checkpoint_sha256": { "$ref": "#/$defs/checkpointRef" },
+        "sequence": { "type": "integer", "minimum": 0, "maximum": 9007199254740991 },
+        "purge_high_water": { "type": "integer", "minimum": 0, "maximum": 9007199254740991 }
+      }
+    },
+    "setCommitment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_count", "ordered_ids_sha256", "records_sha256"],
+      "properties": {
+        "record_count": { "type": "integer", "minimum": 0, "maximum": 9007199254740991 },
+        "ordered_ids_sha256": { "$ref": "#/$defs/hashRef" },
+        "records_sha256": { "$ref": "#/$defs/hashRef" }
+      }
+    },
+    "retiredObjectKey": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_id",
+        "content_sha256",
+        "manifest_sha256",
+        "acquisition_id",
+        "source_version_id"
+      ],
+      "properties": {
+        "object_id": { "$ref": "#/$defs/objectId" },
+        "content_sha256": { "$ref": "#/$defs/hashRef" },
+        "manifest_sha256": { "$ref": "#/$defs/hashRef" },
+        "acquisition_id": { "$ref": "#/$defs/acquisitionId" },
+        "source_version_id": { "$ref": "#/$defs/sourceVersionId" }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "key_id", "signed_sha256", "value"],
+      "properties": {
+        "algorithm": { "const": "ed25519" },
+        "key_id": {
+          "type": "string",
+          "pattern": "^key_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "signed_sha256": { "$ref": "#/$defs/hashRef" },
+        "value": { "type": "string", "pattern": "^[A-Za-z0-9_-]{86}$" }
+      }
+    },
+    "awareDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+    }
+  }
+}

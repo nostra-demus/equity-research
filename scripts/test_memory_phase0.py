@@ -349,9 +349,74 @@ def check_adapter_baseline(record: dict[str, Any]) -> None:
     check("decrease" in record.get("change_rule", "").casefold(), "baseline decrease review rule")
 
 
-def check_benchmark_and_report(benchmark: dict[str, Any]) -> None:
+def check_frozen_corpus(benchmark: dict[str, Any]) -> memory_baseline.CorpusManifest | None:
+    """The ranked corpus must be pinned, committed, and immune to later publishes.
+
+    Every search root sits in a lane the engine publishes to continuously and without CI
+    (CLAUDE.md §25).  Ranking the folders as they stand made an ordinary research commit
+    able to move a score and turn `main` red, which blocked every open PR (issue #477).
+    """
+
+    manifest_path = PHASE0 / "corpus-manifest.json"
     try:
-        memory_baseline.validate_benchmark(benchmark)
+        manifest = memory_baseline.load_corpus_manifest(manifest_path)
+    except memory_baseline.FixtureError as exc:
+        check(False, f"corpus-manifest.json must be a valid frozen manifest: {exc}")
+        return None
+    try:
+        memory_baseline.validate_corpus_manifest(benchmark, manifest)
+    except memory_baseline.FixtureError as exc:
+        check(False, f"frozen corpus must cover every benchmark anchor: {exc}")
+        return None
+
+    try:
+        text = manifest_path.read_text(encoding="utf-8")
+        canonical = json.dumps(json.loads(text), indent=2, sort_keys=True, ensure_ascii=False) + "\n"
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        check(False, f"corpus-manifest.json must be readable JSON: {exc}")
+        return None
+    check(text == canonical, "corpus-manifest.json must use deterministic canonical formatting")
+
+    committed = memory_baseline._committed_blob_ids(manifest.blobs.values())
+    missing = sorted(path for path, blob in manifest.blobs.items() if blob not in committed)
+    check(
+        not missing,
+        f"every pinned corpus blob must be readable from Git history; missing: {missing[:3]}",
+    )
+
+    return manifest
+
+
+def check_publish_does_not_move_scores(benchmark: dict[str, Any], rendered: str) -> None:
+    """The regression the manifest exists for (issue #477).
+
+    A research publish into a pinned run folder must not enter the corpus, so it cannot
+    move a score, so it cannot turn `main` red and block every open PR.
+    """
+
+    probe = REPO_ROOT / "analyses/NHY_2026-07-19/.phase0-corpus-probe.md"
+    if probe.exists():
+        check(False, "corpus probe path must be free before the test writes it")
+        return
+    try:
+        probe.write_text(
+            "# NHY decision review\n\nNHY entry price, edge score, forecast result.\n",
+            encoding="utf-8",
+        )
+        after = memory_baseline.render_report(memory_baseline.build_report(benchmark))
+    finally:
+        probe.unlink(missing_ok=True)
+    check(
+        rendered == after,
+        "a file published into a pinned run folder must not change the scored baseline",
+    )
+    check(not probe.exists(), "corpus probe file must be removed again")
+
+
+def check_benchmark_and_report(benchmark: dict[str, Any]) -> None:
+    manifest = check_frozen_corpus(benchmark)
+    try:
+        memory_baseline.validate_benchmark(benchmark, manifest=manifest)
     except memory_baseline.FixtureError as exc:
         check(False, f"benchmark validation failed: {exc}")
         return
@@ -374,8 +439,9 @@ def check_benchmark_and_report(benchmark: dict[str, Any]) -> None:
     tampered = copy.deepcopy(original)
     tampered["answer_key"] = "deliberately wrong"
     tampered["evidence"] = [{"path": "not/a/ranking/input", "anchors": ["wrong"]}]
-    corpus_a = memory_baseline.Corpus()
-    corpus_b = memory_baseline.Corpus()
+    ranking_manifest = manifest or memory_baseline.load_corpus_manifest()
+    corpus_a = memory_baseline.Corpus(ranking_manifest)
+    corpus_b = memory_baseline.Corpus(ranking_manifest)
     rank_a = memory_baseline.rank_case(
         question=original["question"],
         search_roots=original["search_roots"],
@@ -393,6 +459,8 @@ def check_benchmark_and_report(benchmark: dict[str, Any]) -> None:
     report_a = memory_baseline.render_report(memory_baseline.build_report(benchmark))
     report_b = memory_baseline.render_report(memory_baseline.build_report(benchmark))
     check(report_a == report_b, "baseline output must be byte-deterministic across independent runs")
+    if manifest is not None:
+        check_publish_does_not_move_scores(benchmark, report_a)
 
     report_path = PHASE0 / "baseline-report.json"
     try:
@@ -414,6 +482,11 @@ def check_benchmark_and_report(benchmark: dict[str, Any]) -> None:
         memory_baseline.baseline_results_match(committed_report, report),
         "baseline-report.json scored results must match the deterministic runner",
     )
+    if manifest is not None:
+        check(
+            committed_report.get("method", {}).get("corpus_manifest_sha256") == manifest.sha256,
+            "baseline-report.json must record the frozen corpus manifest it was rendered against",
+        )
 
     corpus_drift = copy.deepcopy(report)
     corpus_drift["corpus"] = {

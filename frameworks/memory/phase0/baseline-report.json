@@ -2,7 +2,7 @@
   "benchmark": {
     "as_of": "2026-08-21",
     "case_count": 63,
-    "sha256": "1178a2bf73edb3b1cb416dfc08a32c2bf488d283e96a36ce5356e65d14feaa03",
+    "sha256": "3c7e715498919f9599e345b5d205f9f6413379370beb00411efc5e474dd19afd",
     "top_k": 5,
     "version": "memory-held-out-benchmark/v1"
   },
@@ -700,11 +700,11 @@
       ],
       "evidence_misses": [],
       "expected_outcome": "retrieve",
-      "first_evidence_rank": 2,
+      "first_evidence_rank": 1,
       "forbidden_hits": [],
       "id": "entity-005-visa-listing-key",
       "protected_hits": [],
-      "reciprocal_rank": 0.5
+      "reciprocal_rank": 1.0
     },
     {
       "category": "entity_resolution",
@@ -954,7 +954,7 @@
       "case_count": 7,
       "complete_evidence_recall_at_k": 0.285714,
       "evidence_path_recall_at_k": 0.375,
-      "mean_reciprocal_rank": 0.142857
+      "mean_reciprocal_rank": 0.214286
     },
     "fact_recall": {
       "case_count": 7,
@@ -988,18 +988,21 @@
     }
   },
   "corpus": {
-    "sha256": "2c183f4f65987920256d595f60c80593324d5999d655eebdbfe153f39258f309",
-    "total_bytes": 55922527,
-    "unique_files_considered": 1256
+    "sha256": "4614ece0aa033e6dc6591e5b94ea880f4455b43c21f3e5f14b3112ebab4c1187",
+    "total_bytes": 56094423,
+    "unique_files_considered": 1258
   },
   "limitations": [
+    "The corpus is frozen by corpus-manifest.json, which pins every ranked file to a Git blob id. The baseline therefore measures the ranker, not the live research lanes the search roots point at: files published into those same run folders after the freeze are outside the measured corpus until the manifest is re-rendered and reviewed.",
     "The folder/grep baseline measures evidence-file retrieval, not generated-answer correctness or citation-span precision.",
     "Abstention cases measure retrieval of explicit missingness evidence; whether a model actually abstains is not measured by this non-model baseline.",
     "The checkout contains access policy but no safely redistributable restricted-content test payload. Access cases therefore measure policy retrieval and path intrusion only; they do not prove production authorization enforcement.",
     "Wall-clock latency, model tokens, and model cost are intentionally absent from this deterministic report."
   ],
   "method": {
-    "description": "Recursive folder scan followed by deterministic literal token and adjacent-token grep scoring.",
+    "corpus_manifest_sha256": "bc749ecb6e0f588ec23b4b14a95701ee4ca3c4c5a9b0f0f0e6590990962ee06b",
+    "corpus_pinning": "frozen manifest of repository-relative paths to Git blob ids",
+    "description": "Frozen-manifest file selection followed by deterministic literal token and adjacent-token grep scoring.",
     "ranking_inputs": [
       "question",
       "search_roots"
@@ -1018,7 +1021,7 @@
   "metrics": {
     "complete_evidence_recall_at_k": 0.52381,
     "evidence_path_recall_at_k": 0.580247,
-    "mean_reciprocal_rank": 0.461111,
+    "mean_reciprocal_rank": 0.469048,
     "protected_path_intrusions": 0,
     "temporal_forbidden_path_hits": 7,
     "temporal_leakage_case_rate": 0.714286

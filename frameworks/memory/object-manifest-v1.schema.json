@@ -1,0 +1,377 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/memory/object-manifest-v1.schema.json",
+  "title": "Canonical memory object manifest v1",
+  "description": "A closed manifest for exact immutable bytes. object_id and content_sha256 identify the same content; the canonical manifest digest is computed separately so object identity is never self-referential.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "object_id",
+    "acquisition_id",
+    "source_version_id",
+    "object_kind",
+    "content_sha256",
+    "byte_length",
+    "media_type",
+    "locator",
+    "source_lineage",
+    "provenance",
+    "created_at",
+    "policy"
+  ],
+  "properties": {
+    "schema": { "const": "memory-object-manifest/v1" },
+    "object_id": { "$ref": "#/$defs/objectId" },
+    "acquisition_id": { "$ref": "#/$defs/acquisitionId" },
+    "source_version_id": { "$ref": "#/$defs/sourceVersionId" },
+    "object_kind": {
+      "enum": ["source", "extraction", "context-packet", "artifact"]
+    },
+    "content_sha256": { "$ref": "#/$defs/hashRef" },
+    "byte_length": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "media_type": {
+      "type": "string",
+      "maxLength": 255,
+      "pattern": "^[A-Za-z0-9!#$&^_.+-]+/[A-Za-z0-9!#$&^_.+-]+$"
+    },
+    "locator": {
+      "description": "A provenance-only locator. Consumers must resolve it through a configured object resolver, rehash the returned bytes, and never pass it directly to a filesystem or network fetcher.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "value", "version_id"],
+      "properties": {
+        "kind": { "enum": ["repository-path", "object-uri"] },
+        "value": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096,
+          "pattern": "^[^\\s?#]+$"
+        },
+        "version_id": {
+          "type": ["string", "null"],
+          "minLength": 1,
+          "maxLength": 512,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/+-]{0,511}$"
+        }
+      }
+    },
+    "source_lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "source_object", "derived_from_objects"],
+      "properties": {
+        "source_id": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/sourceId" }
+          ]
+        },
+        "source_object": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/exactObjectPointer" }
+          ]
+        },
+        "derived_from_objects": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/exactObjectPointer" }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "producer",
+        "run_id",
+        "tool",
+        "extraction",
+        "prompt_program",
+        "context_packet"
+      ],
+      "properties": {
+        "producer": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["producer_id", "kind", "name"],
+          "properties": {
+            "producer_id": { "$ref": "#/$defs/producerId" },
+            "kind": { "enum": ["agent", "human", "adapter", "system"] },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]{0,127}$"
+            }
+          }
+        },
+        "run_id": { "$ref": "#/$defs/runId" },
+        "tool": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["tool_id", "version", "sha256"],
+              "properties": {
+                "tool_id": { "$ref": "#/$defs/toolId" },
+                "version": { "type": "string", "minLength": 1, "maxLength": 128 },
+                "sha256": { "$ref": "#/$defs/hashRef" }
+              }
+            }
+          ]
+        },
+        "extraction": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["extraction_id", "method", "sha256"],
+              "properties": {
+                "extraction_id": { "$ref": "#/$defs/extractionId" },
+                "method": { "type": "string", "minLength": 1, "maxLength": 128 },
+                "sha256": { "$ref": "#/$defs/hashRef" }
+              }
+            }
+          ]
+        },
+        "prompt_program": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["prompt_program_id", "git_sha", "sha256"],
+              "properties": {
+                "prompt_program_id": { "$ref": "#/$defs/promptProgramId" },
+                "git_sha": {
+                  "type": "string",
+                  "pattern": "^git:[0-9a-f]{40}(?:[0-9a-f]{24})?$"
+                },
+                "sha256": { "$ref": "#/$defs/hashRef" }
+              }
+            }
+          ]
+        },
+        "context_packet": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["context_packet_id", "sha256"],
+              "properties": {
+                "context_packet_id": { "$ref": "#/$defs/contextPacketId" },
+                "sha256": { "$ref": "#/$defs/hashRef" }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "created_at": { "$ref": "#/$defs/awareDateTime" },
+    "policy": { "$ref": "#/$defs/policy" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "object_kind": { "const": "source" } },
+        "required": ["object_kind"]
+      },
+      "then": {
+        "properties": {
+          "source_lineage": {
+            "properties": {
+              "source_id": { "$ref": "#/$defs/sourceId" },
+              "source_object": { "type": "null" },
+              "derived_from_objects": { "maxItems": 0 }
+            }
+          },
+          "provenance": {
+            "properties": { "extraction": { "type": "null" } }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "object_kind": { "const": "extraction" } },
+        "required": ["object_kind"]
+      },
+      "then": {
+        "properties": {
+          "source_lineage": {
+            "properties": {
+              "source_id": { "$ref": "#/$defs/sourceId" },
+              "source_object": { "$ref": "#/$defs/exactObjectPointer" },
+              "derived_from_objects": { "minItems": 1 }
+            }
+          },
+          "provenance": {
+            "properties": {
+              "tool": { "type": "object" },
+              "extraction": { "type": "object" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "object_kind": { "const": "context-packet" } },
+        "required": ["object_kind"]
+      },
+      "then": {
+        "properties": {
+          "source_lineage": {
+            "properties": {
+              "derived_from_objects": { "minItems": 1 }
+            }
+          },
+          "provenance": {
+            "properties": { "context_packet": { "type": "object" } }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "object_kind": { "enum": ["context-packet", "artifact"] }
+        },
+        "required": ["object_kind"]
+      },
+      "then": {
+        "properties": {
+          "source_lineage": {
+            "oneOf": [
+              {
+                "properties": {
+                  "source_id": { "type": "null" },
+                  "source_object": { "type": "null" }
+                }
+              },
+              {
+                "properties": {
+                  "source_id": { "$ref": "#/$defs/sourceId" },
+                  "source_object": { "$ref": "#/$defs/exactObjectPointer" }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "uuid": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "hashRef": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "objectId": {
+      "type": "string",
+      "pattern": "^object:sha256:[0-9a-f]{64}$"
+    },
+    "exactObjectPointer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_id",
+        "acquisition_id",
+        "source_version_id",
+        "manifest_sha256"
+      ],
+      "properties": {
+        "object_id": { "$ref": "#/$defs/objectId" },
+        "acquisition_id": { "$ref": "#/$defs/acquisitionId" },
+        "source_version_id": { "$ref": "#/$defs/sourceVersionId" },
+        "manifest_sha256": { "$ref": "#/$defs/hashRef" }
+      }
+    },
+    "acquisitionId": {
+      "type": "string",
+      "pattern": "^acquisition_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "sourceVersionId": {
+      "type": "string",
+      "pattern": "^source-version_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "sourceId": {
+      "type": "string",
+      "pattern": "^source:sha256:[0-9a-f]{64}$"
+    },
+    "producerId": {
+      "type": "string",
+      "pattern": "^producer:[a-z0-9][a-z0-9._/-]{0,127}$"
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^run_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "toolId": {
+      "type": "string",
+      "pattern": "^tool:[a-z0-9][a-z0-9._/-]{0,127}$"
+    },
+    "extractionId": {
+      "type": "string",
+      "pattern": "^extraction_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "promptProgramId": {
+      "type": "string",
+      "pattern": "^prompt-program:[a-z0-9][a-z0-9._/-]{0,127}$"
+    },
+    "contextPacketId": {
+      "type": "string",
+      "pattern": "^context-packet_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "awareDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classification", "retention", "retain_until"],
+      "properties": {
+        "classification": {
+          "enum": ["public", "internal", "licensed", "confidential", "restricted"]
+        },
+        "retention": {
+          "enum": ["permanent", "source-policy", "expires"]
+        },
+        "retain_until": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/awareDateTime" }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "retention": { "const": "expires" } },
+            "required": ["retention"]
+          },
+          "then": {
+            "properties": { "retain_until": { "$ref": "#/$defs/awareDateTime" } }
+          },
+          "else": {
+            "properties": { "retain_until": { "type": "null" } }
+          }
+        }
+      ]
+    }
+  }
+}

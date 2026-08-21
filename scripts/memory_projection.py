@@ -210,6 +210,24 @@ def _check_events(events: Sequence[dict]) -> None:
     if errors:
         raise ProjectionError("invalid canonical event input:\n" + "\n".join(sorted(errors)))
 
+    # Correction envelopes remain the canonical rows, but their hash-bound logical
+    # replacements participate in typed indexing and version-chain checks.  Validate
+    # the adapter against the complete event index so it cannot become a bypass.
+    effective_by_id = dict(by_id)
+    try:
+        from memory_phase5_contract import Phase5ContractError, effective_phase5_event
+    except ImportError:  # pragma: no cover - package-style imports
+        from scripts.memory_phase5_contract import Phase5ContractError, effective_phase5_event
+    for event_id, event in by_id.items():
+        payload = event.get("payload")
+        if isinstance(payload, dict) and payload.get("schema") == "memory-correction/v1":
+            try:
+                effective_by_id[event_id] = effective_phase5_event(
+                    event, event_index=by_id
+                )
+            except Phase5ContractError as exc:
+                errors.append(f"{event_id}: invalid correction effective view: {exc}")
+
     for event_id, event in by_id.items():
         for edge_type in ("derived_from", "supersedes"):
             for target in event.get(edge_type, []):
@@ -227,9 +245,13 @@ def _check_events(events: Sequence[dict]) -> None:
                     )
                 if edge_type == "supersedes":
                     target_event = by_id[target]
-                    if event["event_type"] != target_event["event_type"]:
+                    transition = (event["event_type"], target_event["event_type"])
+                    if event["event_type"] != target_event["event_type"] and transition not in {
+                        ("claim.corrected", "claim.asserted"),
+                        ("feedback.corrected", "feedback.reviewed"),
+                    }:
                         errors.append(
-                            f"{event_id}: supersedes target {target} has another event_type"
+                            f"{event_id}: supersedes target {target} is outside the allowlisted typed transition"
                         )
                     if not set(event["subject_ids"]) & set(target_event["subject_ids"]):
                         errors.append(
@@ -258,7 +280,7 @@ def _check_events(events: Sequence[dict]) -> None:
     # this rule a caller could publish the same source_id/claim_id under competing
     # policies and have reference binding silently choose the convenient version.
     typed_versions: dict[tuple[str, str], list[dict]] = {}
-    for event in by_id.values():
+    for event in effective_by_id.values():
         payload = event.get("payload")
         if not isinstance(payload, dict):
             continue
@@ -287,13 +309,13 @@ def _check_events(events: Sequence[dict]) -> None:
     # payloads rather than the shared envelope.
     claim_ids = {
         event["payload"]["claim_id"]
-        for event in by_id.values()
+        for event in effective_by_id.values()
         if isinstance(event.get("payload"), dict)
         and event["payload"].get("schema") == "memory-claim/v1"
         and isinstance(event["payload"].get("claim_id"), str)
     }
     claim_adjacency: dict[str, set[str]] = {claim_id: set() for claim_id in claim_ids}
-    for event in by_id.values():
+    for event in effective_by_id.values():
         payload = event.get("payload")
         if not isinstance(payload, dict) or payload.get("schema") != "memory-claim/v1":
             continue
@@ -403,6 +425,18 @@ def _artifact_locator_candidates(event: dict) -> list[tuple[str, str]]:
             if _SHA256_RE.fullmatch(digest) and locator_ref:
                 rows.append((digest, locator_ref))
     return sorted(set(rows))
+
+
+def event_artifact_assertions(event: dict) -> tuple[tuple[str, str | None, str | None], ...]:
+    """Expose the projection's exact artifact-provider interpretation read-only."""
+
+    return tuple(_artifact_candidates(event))
+
+
+def event_artifact_locator_assertions(event: dict) -> tuple[tuple[str, str], ...]:
+    """Expose the projection's exact locator-provider interpretation read-only."""
+
+    return tuple(_artifact_locator_candidates(event))
 
 
 def _create_schema(connection: sqlite3.Connection) -> None:
@@ -909,6 +943,27 @@ def _bind_domain_references(
 
 
 def _insert_events(connection: sqlite3.Connection, events: Sequence[dict]) -> None:
+    events_by_id = {event["event_id"]: event for event in events}
+    effective_events: list[dict] = []
+    try:
+        from memory_phase5_contract import Phase5ContractError, effective_phase5_event
+    except ImportError:  # pragma: no cover - package-style imports
+        from scripts.memory_phase5_contract import Phase5ContractError, effective_phase5_event
+    for event in events:
+        payload = event.get("payload")
+        if isinstance(payload, dict) and payload.get("schema") == "memory-correction/v1":
+            try:
+                effective_events.append(
+                    effective_phase5_event(event, event_index=events_by_id)
+                )
+            except Phase5ContractError as exc:  # defensive parity with _check_events
+                raise ProjectionError(
+                    f"invalid correction effective view for {event['event_id']}: {exc}"
+                ) from exc
+        else:
+            effective_events.append(event)
+    effective_by_id = {event["event_id"]: event for event in effective_events}
+
     for event in sorted(
         events,
         key=lambda item: (_parse_clock(item["system_time"], field="system_time"), item["event_id"]),
@@ -968,16 +1023,17 @@ def _insert_events(connection: sqlite3.Connection, events: Sequence[dict]) -> No
                 "INSERT INTO artifact_locators(sha256,locator,source_event_id) VALUES(?,?,?)",
                 (digest, locator, event["event_id"]),
             )
-        _insert_typed_payload(connection, event)
+        effective_event = effective_by_id[event["event_id"]]
+        _insert_typed_payload(connection, effective_event)
         search_parts = [event["event_type"], *event["subject_ids"]]
-        search_parts.extend(_flatten_search_text(event["payload"]))
+        search_parts.extend(_flatten_search_text(effective_event["payload"]))
         connection.execute(
             "INSERT INTO event_search(event_id,text) VALUES(?,?)",
             (event["event_id"], "\n".join(search_parts)),
         )
 
     _bind_evidence_references(connection, events)
-    _bind_domain_references(connection, events)
+    _bind_domain_references(connection, effective_events)
 
 
 def _table_rows(connection: sqlite3.Connection, table: str, columns: Sequence[str]) -> list[list]:
