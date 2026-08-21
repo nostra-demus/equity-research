@@ -1062,6 +1062,76 @@ const { buildSwarmGraph } = await import('../src/roster')
 
 // ---- 20h. prompt dependency discovery matches exact output filenames, never substrings ----------------
 {
+  // A newer roster makes alpha structurally partial, so the GLOBAL completion plan must rebuild it. Its
+  // older current-name 99 is nevertheless a valid, disclosed input for one exact beta run. Gamma is an
+  // optional reads_from input and is carried when available, without becoming a hard blocker.
+  write('.claude/agents/beta/99_beta-synthesis.md', fm(
+    'beta-synthesis', 99, 'depends_on: [alpha]\nreads_from: [gamma]\nexact_resume: true\n',
+  ))
+  buildSwarmGraph('research', true)
+  write(`analyses/SAVEDINPUT_${YESTERDAY}/alpha/01_alpha-thing.md`, '# saved alpha specialist\n')
+  write(`analyses/SAVEDINPUT_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# saved alpha synthesis\n')
+  write(`analyses/SAVEDINPUT_${YESTERDAY}/gamma/01_gamma-thing.md`, '# saved gamma specialist\n')
+  write(`analyses/SAVEDINPUT_${YESTERDAY}/gamma/99_gamma-synthesis.md`, '# saved gamma synthesis\n')
+  write(`analyses/SAVEDINPUT_${YESTERDAY}/beta/01_beta-thing.md`, '# resumable beta specialist\n')
+
+  const globalPlan = thesisPlan('SAVEDINPUT')
+  assert.equal(globalPlan.modules.find((entry) => entry.module === 'alpha')!.state, 'partial')
+  assert.ok(!globalPlan.reusable.includes('alpha'),
+    'a roster-incomplete upstream remains non-reusable for a full-thesis completion')
+  assert.deepEqual(globalPlan.modules.find((entry) => entry.module === 'beta')!.blockedBy, ['alpha'])
+  assert.equal(globalPlan.exactModuleScope, undefined, 'ordinary plans retain their existing semantics')
+
+  const exactPlan = thesisPlan('SAVEDINPUT', undefined, undefined, 'beta')
+  assert.deepEqual(exactPlan.exactModuleScope, {
+    module: 'beta',
+    savedInputs: ['alpha', 'gamma'],
+  })
+  assert.deepEqual(exactPlan.reuse, ['alpha', 'gamma'],
+    'only graph-declared mechanically valid inputs are selected for the exact run')
+  assert.equal(exactPlan.modules.find((entry) => entry.module === 'beta')!.runnable, true)
+  assert.deepEqual(exactPlan.modules.find((entry) => entry.module === 'beta')!.blockedBy, [])
+  const exactResume = prepareModuleResume('SAVEDINPUT', 'beta', undefined, exactPlan)
+  assert.deepEqual(exactResume.reusedAncestorModules, ['alpha', 'gamma'])
+  assert.ok(fs.existsSync(path.join(REPO, `analyses/SAVEDINPUT_${TODAY}/alpha/99_alpha-synthesis.md`)))
+  assert.ok(fs.existsSync(path.join(REPO, `analyses/SAVEDINPUT_${TODAY}/gamma/99_gamma-synthesis.md`)))
+  assert.ok(capturePreparedModuleResumeScope(
+    'SAVEDINPUT', 'beta', exactPlan.targetRunRoot, exactResume.doneOrbKeys, exactResume.reusedAncestorModules,
+  ), 'saved exact inputs are staged and bound by the existing paid-boundary fingerprint')
+
+  // Never overwrite a paid upstream partial already in today's root with yesterday's saved summary.
+  write(`analyses/SAVEDBLOCK_${YESTERDAY}/alpha/01_alpha-thing.md`, '# old alpha specialist\n')
+  write(`analyses/SAVEDBLOCK_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# old alpha synthesis\n')
+  write(`analyses/SAVEDBLOCK_${YESTERDAY}/beta/01_beta-thing.md`, '# beta specialist\n')
+  write(`analyses/SAVEDBLOCK_${TODAY}/alpha/02_alpha-new-check.md`, '# paid target partial\n')
+  const blocked = thesisPlan('SAVEDBLOCK', undefined, undefined, 'beta')
+  assert.ok(!blocked.exactModuleScope!.savedInputs.includes('alpha'))
+  assert.deepEqual(blocked.modules.find((entry) => entry.module === 'beta')!.blockedBy, ['alpha'])
+  assert.equal(fs.readFileSync(path.join(REPO, `analyses/SAVEDBLOCK_${TODAY}/alpha/02_alpha-new-check.md`), 'utf8'), '# paid target partial\n')
+
+  // The same protection must hold at mutation time, not only when the plan is built: an external writer can
+  // land a paid partial after GET/POST planning but before the synchronous carry. The stale plan fails and
+  // preserves those bytes instead of swapping yesterday's complete folder over them.
+  write(`analyses/SAVEDRACE_${YESTERDAY}/alpha/01_alpha-thing.md`, '# old alpha specialist\n')
+  write(`analyses/SAVEDRACE_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# old alpha synthesis\n')
+  write(`analyses/SAVEDRACE_${YESTERDAY}/beta/01_beta-thing.md`, '# beta specialist\n')
+  const racedPlan = thesisPlan('SAVEDRACE', undefined, undefined, 'beta')
+  assert.deepEqual(racedPlan.exactModuleScope!.savedInputs, ['alpha'])
+  write(`analyses/SAVEDRACE_${TODAY}/alpha/02_alpha-new-check.md`, '# newly paid target partial\n')
+  assert.throws(
+    () => prepareModuleResume('SAVEDRACE', 'beta', undefined, racedPlan),
+    /saved exact input changed in the target run root: alpha/,
+  )
+  assert.equal(
+    fs.readFileSync(path.join(REPO, `analyses/SAVEDRACE_${TODAY}/alpha/02_alpha-new-check.md`), 'utf8'),
+    '# newly paid target partial\n',
+    'a late upstream partial survives the stale exact plan unchanged',
+  )
+  console.log('✅ exact module plans use saved validated inputs without widening global reuse or overwriting partials')
+}
+
+// ---- 20i. prompt dependency discovery matches exact output filenames, never substrings ----------------
+{
   write('.claude/agents/alpha/03_alpha-dependent-check.md', fm('alpha-dependent-check', 2)
     + '- `UPSTREAM_INPUTS` — archive `102_alpha-new-check.md-backup` only; no in-module input.\n')
   buildSwarmGraph('research', true)

@@ -917,11 +917,15 @@ export const api = {
   // `reuse` re-prices the plan for a chosen selection. Omit it for the safe default (reuse what is finished
   // AND current). The server prices every selection — the client never does its own cost math, so the number
   // on the button is always the number the launcher will charge.
-  thesisPlan: async (ticker: string, swarm?: string, reuse?: string[]): Promise<ThesisPlan> => {
+  thesisPlan: async (ticker: string, swarm?: string, reuse?: string[], module?: string): Promise<ThesisPlan> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     const q = new URLSearchParams({ ticker })
     if (swarm && swarm !== 'research') q.set('swarm', swarm)
     if (reuse) q.set('reuse', reuse.join(',')) // '' is meaningful: reuse nothing, run everything
+    // A module heading asks the server for its exact, server-owned saved-input scope. This is distinct from
+    // the full-thesis reuse picker: an older valid upstream synthesis may be usable as a disclosed input even
+    // when a newer partial attempt means that upstream is not reusable as a whole completed module.
+    if (module) q.set('module', module)
     return get(`/api/thesis-plan?${q}`, 12_000)
   },
   // `reuse` = the modules to carry forward rather than re-run. Everything else in the graph runs. The

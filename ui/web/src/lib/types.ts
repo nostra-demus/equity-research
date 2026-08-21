@@ -2367,6 +2367,9 @@ export interface ModulePlanEntry {
 
 export interface ThesisPlan {
   moduleResumeVersion?: 2 // absent on an older server: smart heading launch must fail closed during deploy skew
+  /** Present only for a module-specific plan. The server, not the browser, selects and validates these saved
+   * inputs; a newer UI must require this positive receipt before launching an exact module resume. */
+  exactModuleScope?: { module: string; savedInputs: string[] }
   swarm: string
   subject: string
   targetRunRoot: string

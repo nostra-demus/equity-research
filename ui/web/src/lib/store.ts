@@ -5707,7 +5707,7 @@ async function runExactResearchModule(
   set({ launchPending: pending })
   let plan: ThesisPlan | null = null
   try {
-    plan = await api.thesisPlan(ticker, 'research')
+    plan = await api.thesisPlan(ticker, 'research', undefined, module)
     if (!launchSelectionIsCurrent(get(), selection)) return
     if (plan.moduleResumeVersion !== 2 || typeof plan.dataPool.newestMs !== 'number') {
       get().setToast({ msg: 'The engine is still updating. Refresh once, then click the module again.', tone: 'info' })
@@ -5718,28 +5718,14 @@ async function runExactResearchModule(
       get().setToast({ msg: `Today’s call is sealed. Start a new analysis version before refreshing ${moduleLabel(module)}.`, tone: 'info' })
       return
     }
-    let moduleEntry = plan.modules.find((entry) => entry.module === module)
-    // A rolling/older planner can default stale-but-finished ancestors OUT of `reuse`, then report this exact
-    // module blocked even though the same response lists every blocker as reusable. The heading action is
-    // explicitly "finish saved Governance", so after confirmation ask once more with every finished module
-    // deliberately kept. Adopt that plan only when it proves the target runnable; any ambiguity retains the
-    // first plan's safe blocker and runPlannedResearchModule refuses the POST below.
-    const reusable = new Set(plan.reusable)
-    if (moduleEntry && !moduleEntry.runnable && moduleEntry.blockedBy.length > 0
-        && moduleEntry.blockedBy.every((blocked) => reusable.has(blocked))) {
-      try {
-        const carriedPlan = await api.thesisPlan(ticker, 'research', plan.reusable)
-        if (!launchSelectionIsCurrent(get(), selection)) return
-        const carriedEntry = carriedPlan.modules.find((entry) => entry.module === module)
-        if (carriedPlan.moduleResumeVersion === 2 && typeof carriedPlan.dataPool.newestMs === 'number'
-            && !carriedPlan.complete
-            && carriedPlan.swarm === 'research' && carriedPlan.subject === ticker && carriedEntry?.runnable) {
-          plan = carriedPlan
-          moduleEntry = carriedEntry
-        }
-      } catch {
-        // Keep the first plan. Its blockedBy message is safer than widening or launching on a failed re-price.
-      }
+    const moduleEntry = plan.modules.find((entry) => entry.module === module)
+    // Exact saved inputs are server-selected and content-validated. A module-specific response without this
+    // receipt is an older/rolling backend; never fall back to the blunt module launch or invent a reuse set in
+    // the browser, because either can broaden paid work beyond the confirmation the user just approved.
+    if (plan.exactModuleScope?.module !== module) {
+      set({ thesisPlan: plan, thesisPlanError: null })
+      get().setToast({ msg: 'The engine is still updating. Refresh once, then click the module again.', tone: 'info' })
+      return
     }
     // A heading confirmation means "finish the saved module", never an unannounced clean rerun. Newer evidence
     // invalidates reuse, so stop before spending and let the user choose a full refresh explicitly.
