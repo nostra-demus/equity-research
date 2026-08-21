@@ -51,6 +51,8 @@ const DEFER_WHY: Record<DeferReason, string> = {
   'groq-cooldown': 'Groq is waiting to try again after an error',
   'allowance-paced': 'some use is saved for later today',
   paced: 'some use is saved for later today',
+  'feed-cap': "today's durable news-feed capacity is full; scored work was saved to retry after the UTC day rolls over",
+  'feed-write-failed': "this app could not save scored news safely; the work remains queued for another try",
   'batch-failed': 'a provider call failed; this work was saved for another try',
 }
 

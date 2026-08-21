@@ -72,7 +72,9 @@ With the expanded source set (≈350 RSS feeds + NSE + GDELT), the daily item vo
 **Groq throughput is the binding constraint on "score everything"**. At roughly 2,000 tokens per triage
 batch, the 200,000-token daily allowance normally binds after about 100 calls, well before the 1,000-request
 ceiling. A higher Groq tier can use the extra headroom reported by its live headers. The firehose record
-(`kind:"item"`, capped at 5,000/day) shows every item read, kept *and* dropped.
+(`kind:"item"`, capped at 40,000/day by default) shows every durably saved item read, kept *and* dropped.
+If that cap or the append itself refuses a row, the scanner reports zero progress for that row and leaves it
+unseen in the backlog for retry; a storage boundary can slow the queue, but cannot silently consume it.
 
 ## Config (all `NEWS.*` in `../config.ts`, env-tunable)
 

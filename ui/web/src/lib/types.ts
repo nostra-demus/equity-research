@@ -947,6 +947,8 @@ export type DeferReason =
   | 'groq-cooldown' // legacy summary during a rolling deploy
   | 'allowance-paced'
   | 'paced' // legacy summary during a rolling deploy
+  | 'feed-cap'
+  | 'feed-write-failed'
   | 'batch-failed'
 export type LastResortState = 'off' | 'unavailable' | 'scored' | 'usd-cap' | 'plan-quota' | 'auth-expired' | 'cooling' | 'available'
 
@@ -977,6 +979,8 @@ export interface CycleSummary {
   deferred?: number // items pushed to the backlog this cycle
   backlog?: number // deferred backlog depth after this cycle
   backlog_cap?: number // the loss boundary; backlog past this is silently dropped
+  feed_unwritten?: number // scored rows withheld because their durable firehose records did not land; they remain queued and unseen
+  feed_write_failed?: boolean // firehose capacity/read/append failed; feed_unwritten rows remain queued
   inbox_withheld?: number // kept rows whose first-seen clock could not be PROVED this cycle — they stay queued and retry, and are never handed a fabricated clock. Present only when >0
   inbox_write_failed?: boolean // the inbox projection refused outright; the wire, the summary and the backlog cleanup still ran. Present only when true
   aborted?: boolean // the wall-clock guard killed this cycle and dumped the remainder to the backlog
