@@ -5,6 +5,16 @@ The ranker deliberately accepts only a question and a list of search roots.  Fix
 answer keys and evidence paths are consumed later, by the evaluator, so they cannot
 leak into ranking.  The script has no dependency on a model, an index, or network
 access and records neither timings nor generation timestamps.
+
+The corpus itself is frozen.  Every search root named by the benchmark sits inside a
+lane the engine publishes to continuously and without CI (CLAUDE.md §25), so a scan of
+those folders as they stand today is not a fixture — it is a moving target that turns
+`main` red whenever a scheduled review, errata, or rerun lands.  `corpus-manifest.json`
+therefore pins the exact file set and the exact bytes (by Git blob id) the baseline
+ranks over: worktree bytes are used only while they still hash to the pinned blob, and
+the pinned blob is read out of Git otherwise.  Later publishes into the same folders are
+simply not part of the corpus, and re-freezing is a deliberate, reviewed act
+(`--render-manifest`).
 """
 
 from __future__ import annotations
@@ -14,6 +24,7 @@ import fnmatch
 import hashlib
 import json
 import re
+import subprocess
 import sys
 from collections import Counter
 from dataclasses import dataclass
@@ -25,6 +36,9 @@ from typing import Any, Iterable, Mapping, Sequence
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_BENCHMARK = REPO_ROOT / "frameworks/memory/phase0/benchmark.json"
 DEFAULT_REPORT = REPO_ROOT / "frameworks/memory/phase0/baseline-report.json"
+DEFAULT_CORPUS_MANIFEST = REPO_ROOT / "frameworks/memory/phase0/corpus-manifest.json"
+CORPUS_MANIFEST_VERSION = "memory-phase0-corpus-manifest/v1"
+BLOB_ID_RE = re.compile(r"[0-9a-f]{40}")
 
 TEXT_SUFFIXES = frozenset({".csv", ".json", ".md", ".ndjson", ".txt"})
 TOKEN_RE = re.compile(r"[a-z0-9]+")
@@ -174,9 +188,235 @@ def _under_any_root(path: Path, roots: Sequence[Path]) -> bool:
     return False
 
 
-def validate_benchmark(benchmark: Mapping[str, Any]) -> None:
-    """Validate the corpus and every scoring anchor without running retrieval."""
+def _git_blob_id(payload: bytes) -> str:
+    """Return the Git object id of payload — the same hash `git hash-object` prints."""
 
+    header = f"blob {len(payload)}\0".encode("ascii")
+    return hashlib.sha1(header + payload, usedforsecurity=False).hexdigest()
+
+
+def _git(*arguments: str, stdin: bytes | None = None) -> bytes:
+    try:
+        completed = subprocess.run(
+            ["git", "-C", str(REPO_ROOT), *arguments],
+            input=stdin,
+            capture_output=True,
+            check=True,
+        )
+    except (OSError, subprocess.CalledProcessError) as exc:
+        detail = getattr(exc, "stderr", b"") or b""
+        raise FixtureError(
+            f"git {' '.join(arguments)} failed: {detail.decode('utf-8', errors='replace').strip() or exc}"
+        ) from exc
+    return completed.stdout
+
+
+def _blob_payload(relative: str, blob_id: str) -> tuple[bytes, bool]:
+    """Read a pinned corpus file.
+
+    Worktree bytes are used while they still hash to the pinned blob; otherwise the
+    pinned blob is read out of Git history.  The flag says which one was used.
+    """
+
+    candidate = REPO_ROOT / relative
+    if candidate.is_file() and not candidate.is_symlink():
+        payload = _text_bytes(candidate)
+        if _git_blob_id(payload) == blob_id:
+            return payload, False
+    try:
+        payload = _git("cat-file", "blob", blob_id)
+    except FixtureError as exc:
+        raise FixtureError(
+            f"frozen corpus file {relative} no longer matches pinned blob {blob_id} and the "
+            f"blob is not readable from Git history: {exc}"
+        ) from exc
+    if _git_blob_id(payload) != blob_id:
+        raise FixtureError(f"frozen corpus blob {blob_id} does not match its content: {relative}")
+    return payload, True
+
+
+def _fixture_bytes(relative: str, manifest: CorpusManifest | None) -> bytes:
+    """Read a scored fixture path — pinned bytes when frozen, worktree bytes otherwise."""
+
+    if manifest is not None and relative in manifest.blobs:
+        return _blob_payload(relative, manifest.blobs[relative])[0]
+    return _text_bytes(_repository_path(relative))
+
+
+def _committed_blob_ids(blob_ids: Iterable[str]) -> set[str]:
+    """Return which blob ids Git can resolve, in one batch call."""
+
+    wanted = sorted(set(blob_ids))
+    if not wanted:
+        return set()
+    stdin = ("\n".join(wanted) + "\n").encode("ascii")
+    output = _git("cat-file", "--batch-check=%(objectname) %(objecttype)", stdin=stdin)
+    present: set[str] = set()
+    for line in output.decode("utf-8", errors="replace").splitlines():
+        name, _, kind = line.partition(" ")
+        if kind.strip() == "blob":
+            present.add(name)
+    return present
+
+
+@dataclass(frozen=True)
+class CorpusManifest:
+    """The frozen file set and byte content the baseline ranks over."""
+
+    as_of: str
+    commit: str
+    blobs: Mapping[str, str]
+    sha256: str
+
+    @property
+    def paths(self) -> tuple[str, ...]:
+        return tuple(sorted(self.blobs))
+
+
+def _normalized_relative(relative: str) -> str:
+    return _repository_path(relative, must_exist=False).relative_to(REPO_ROOT).as_posix()
+
+
+def load_corpus_manifest(path: Path = DEFAULT_CORPUS_MANIFEST) -> CorpusManifest:
+    """Load and validate the frozen corpus manifest."""
+
+    raw = _load_json(path)
+    errors: list[str] = []
+    if raw.get("manifest_version") != CORPUS_MANIFEST_VERSION:
+        errors.append(f"manifest_version must be {CORPUS_MANIFEST_VERSION!r}")
+    as_of = raw.get("as_of")
+    if not isinstance(as_of, str) or not as_of.strip():
+        errors.append("as_of must be a non-empty string")
+        as_of = ""
+    commit = raw.get("commit")
+    if not isinstance(commit, str) or BLOB_ID_RE.fullmatch(commit) is None:
+        errors.append("commit must be a 40-character Git commit id")
+        commit = ""
+    files = raw.get("files")
+    blobs: dict[str, str] = {}
+    if not isinstance(files, dict) or not files:
+        errors.append("files must be a non-empty object of repository-relative path to blob id")
+    else:
+        for relative, blob_id in sorted(files.items()):
+            if not isinstance(blob_id, str) or BLOB_ID_RE.fullmatch(blob_id) is None:
+                errors.append(f"{relative}: blob id must be 40 hexadecimal characters")
+                continue
+            try:
+                normalized = _normalized_relative(relative)
+            except FixtureError as exc:
+                errors.append(str(exc))
+                continue
+            if normalized != relative:
+                errors.append(f"{relative}: manifest paths must be normalized ({normalized})")
+                continue
+            if Path(relative).suffix.casefold() not in TEXT_SUFFIXES:
+                errors.append(f"{relative}: manifest carries only text suffixes")
+                continue
+            blobs[normalized] = blob_id
+    if errors:
+        preview = "\n".join(f"- {error}" for error in errors)
+        raise FixtureError(f"invalid frozen corpus manifest {path}:\n{preview}")
+    return CorpusManifest(
+        as_of=as_of,
+        commit=commit,
+        blobs=blobs,
+        sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
+    )
+
+
+def validate_corpus_manifest(benchmark: Mapping[str, Any], manifest: CorpusManifest) -> None:
+    """Prove the frozen corpus can still carry every scoring anchor the benchmark names."""
+
+    errors: list[str] = []
+    for case in benchmark.get("cases", []):
+        label = case.get("id", "case")
+        for relative in case.get("search_roots", []):
+            try:
+                covered = _manifest_paths_under(manifest, relative)
+            except FixtureError as exc:
+                errors.append(f"{label}: {exc}")
+                continue
+            if not covered:
+                errors.append(f"{label}: search root holds no frozen corpus files: {relative}")
+        scored_paths = [item["path"] for item in case.get("evidence", []) if "path" in item]
+        scored_paths.extend(case.get("forbidden_paths", []))
+        for relative in scored_paths:
+            if relative not in manifest.blobs:
+                errors.append(f"{label}: scored path is outside the frozen corpus: {relative}")
+    if errors:
+        preview = "\n".join(f"- {error}" for error in sorted(set(errors)))
+        raise FixtureError(f"frozen corpus manifest does not cover the benchmark:\n{preview}")
+
+
+def _manifest_paths_under(manifest: CorpusManifest, relative_root: str) -> list[str]:
+    """Select the frozen corpus files under one search root.
+
+    Selection is by the frozen path list, never by scanning the folder, so a later
+    publish into the same run folder cannot enter the corpus and move a score.
+    """
+
+    root = _normalized_relative(relative_root)
+    prefix = f"{root}/"
+    return [path for path in manifest.paths if path == root or path.startswith(prefix)]
+
+
+def live_corpus_paths(search_roots: Iterable[str]) -> dict[str, Path]:
+    """Scan the search roots as they stand right now — used to freeze or to report drift."""
+
+    paths: dict[str, Path] = {}
+    for relative in search_roots:
+        root = _repository_path(relative)
+        candidates: Iterable[Path] = (root,) if root.is_file() else root.rglob("*")
+        for candidate in candidates:
+            if not candidate.is_file() or candidate.is_symlink():
+                continue
+            if candidate.suffix.casefold() not in TEXT_SUFFIXES:
+                continue
+            paths[candidate.relative_to(REPO_ROOT).as_posix()] = candidate
+    return paths
+
+
+def benchmark_search_roots(benchmark: Mapping[str, Any]) -> list[str]:
+    roots: set[str] = set()
+    for case in benchmark["cases"]:
+        roots.update(case["search_roots"])
+    return sorted(roots)
+
+
+def render_corpus_manifest(benchmark: Mapping[str, Any]) -> str:
+    """Freeze today's corpus: every file under every search root, answers and distractors alike."""
+
+    live = live_corpus_paths(benchmark_search_roots(benchmark))
+    files = {relative: _git_blob_id(_text_bytes(path)) for relative, path in sorted(live.items())}
+    committed = _committed_blob_ids(files.values())
+    uncommitted = sorted(
+        relative for relative, blob_id in files.items() if blob_id not in committed
+    )
+    if uncommitted:
+        preview = "\n".join(f"- {relative}" for relative in uncommitted)
+        raise FixtureError(
+            "cannot freeze a corpus whose bytes are not committed; commit or restore these first:\n"
+            + preview
+        )
+    manifest = {
+        "as_of": _git("show", "-s", "--format=%cs", "HEAD").decode("utf-8").strip(),
+        "commit": _git("rev-parse", "HEAD").decode("ascii").strip(),
+        "files": files,
+        "manifest_version": CORPUS_MANIFEST_VERSION,
+    }
+    return json.dumps(manifest, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
+
+
+def validate_benchmark(
+    benchmark: Mapping[str, Any], *, manifest: CorpusManifest | None = None
+) -> None:
+    """Validate the corpus and every scoring anchor without running retrieval.
+
+    Anchors are checked against the pinned bytes whenever a manifest is supplied, so a
+    later publish that rewrites a live file cannot fail a frozen fixture.
+    """
+
+    pinned = frozenset(manifest.blobs) if manifest is not None else frozenset()
     errors: list[str] = []
     cases = benchmark.get("cases")
     if not isinstance(cases, list):
@@ -282,7 +522,7 @@ def validate_benchmark(benchmark: Mapping[str, Any]) -> None:
                     errors.append(f"{label}: duplicate evidence path {relative}")
                 seen_evidence.add(relative)
                 try:
-                    evidence_path = _repository_path(relative)
+                    evidence_path = _repository_path(relative, must_exist=relative not in pinned)
                 except FixtureError as exc:
                     errors.append(f"{label}: {exc}")
                     continue
@@ -294,7 +534,7 @@ def validate_benchmark(benchmark: Mapping[str, Any]) -> None:
                 ):
                     errors.append(f"{label}: evidence anchors for {relative} must be non-empty strings")
                     continue
-                text = _text_bytes(evidence_path).decode("utf-8", errors="replace").casefold()
+                text = _fixture_bytes(relative, manifest).decode("utf-8", errors="replace").casefold()
                 for anchor in anchors:
                     if anchor.casefold() not in text:
                         errors.append(f"{label}: missing anchor {anchor!r} in {relative}")
@@ -311,7 +551,7 @@ def validate_benchmark(benchmark: Mapping[str, Any]) -> None:
         else:
             for relative in forbidden:
                 try:
-                    forbidden_path = _repository_path(relative)
+                    forbidden_path = _repository_path(relative, must_exist=relative not in pinned)
                 except FixtureError as exc:
                     errors.append(f"{label}: {exc}")
                     continue
@@ -343,46 +583,46 @@ def validate_benchmark(benchmark: Mapping[str, Any]) -> None:
         raise FixtureError(f"invalid memory benchmark:\n{preview}")
 
 
-def load_benchmark(path: Path = DEFAULT_BENCHMARK) -> dict[str, Any]:
+def load_benchmark(
+    path: Path = DEFAULT_BENCHMARK, *, manifest: CorpusManifest | None = None
+) -> dict[str, Any]:
     benchmark = _load_json(path)
-    validate_benchmark(benchmark)
+    validate_benchmark(benchmark, manifest=manifest)
     return benchmark
 
 
 class Corpus:
-    """Read-through cache for a deterministic repository-local corpus."""
+    """Read-through cache over the frozen corpus manifest."""
 
-    def __init__(self) -> None:
+    def __init__(self, manifest: CorpusManifest) -> None:
+        self.manifest = manifest
         self._documents: dict[str, Document] = {}
+        self._restored_from_git: set[str] = set()
 
-    def _document(self, path: Path) -> Document:
-        relative = path.relative_to(REPO_ROOT).as_posix()
+    def _document(self, relative: str) -> Document:
         cached = self._documents.get(relative)
         if cached is not None:
             return cached
-        raw = path.read_bytes()
+        raw, from_git = _blob_payload(relative, self.manifest.blobs[relative])
+        if from_git:
+            self._restored_from_git.add(relative)
         text = raw.decode("utf-8", errors="replace")
         document = Document(path=relative, raw=raw, text=text, lower_text=text.casefold())
         self._documents[relative] = document
         return document
 
     def documents_for(self, search_roots: Sequence[str]) -> list[Document]:
-        paths: dict[str, Path] = {}
+        paths: set[str] = set()
         for relative in search_roots:
-            root = _repository_path(relative)
-            candidates: Iterable[Path]
-            if root.is_file():
-                candidates = (root,)
-            else:
-                candidates = root.rglob("*")
-            for candidate in candidates:
-                if not candidate.is_file() or candidate.is_symlink():
-                    continue
-                if candidate.suffix.casefold() not in TEXT_SUFFIXES:
-                    continue
-                rel = candidate.relative_to(REPO_ROOT).as_posix()
-                paths[rel] = candidate
-        return [self._document(paths[path]) for path in sorted(paths)]
+            _repository_path(relative)  # the root must still exist and stay inside the repo
+            paths.update(_manifest_paths_under(self.manifest, relative))
+        return [self._document(path) for path in sorted(paths)]
+
+    @property
+    def restored_from_git(self) -> tuple[str, ...]:
+        """Frozen files whose worktree bytes have since changed (or gone)."""
+
+        return tuple(sorted(self._restored_from_git))
 
     @property
     def documents(self) -> list[Document]:
@@ -490,11 +730,15 @@ def _evaluate_case(case: Mapping[str, Any], ranked: Sequence[RankedDocument]) ->
 
 
 def build_report(
-    benchmark: Mapping[str, Any], *, benchmark_path: Path = DEFAULT_BENCHMARK
+    benchmark: Mapping[str, Any],
+    *,
+    benchmark_path: Path = DEFAULT_BENCHMARK,
+    corpus: Corpus | None = None,
 ) -> dict[str, Any]:
     """Run and score the baseline.  Ranking occurs before any scoring fields are read."""
 
-    corpus = Corpus()
+    if corpus is None:
+        corpus = Corpus(load_corpus_manifest())
     top_k = benchmark["top_k"]
     evaluated: list[dict[str, Any]] = []
     for case in benchmark["cases"]:
@@ -547,7 +791,9 @@ def build_report(
         },
         "limitations": list(benchmark["assessment_limits"]),
         "method": {
-            "description": "Recursive folder scan followed by deterministic literal token and adjacent-token grep scoring.",
+            "corpus_manifest_sha256": corpus.manifest.sha256,
+            "corpus_pinning": "frozen manifest of repository-relative paths to Git blob ids",
+            "description": "Frozen-manifest file selection followed by deterministic literal token and adjacent-token grep scoring.",
             "ranking_inputs": ["question", "search_roots"],
             "scoring_fields_hidden_until_after_ranking": True,
             "text_suffixes": sorted(TEXT_SUFFIXES),
@@ -592,9 +838,10 @@ def _valid_corpus_snapshot(value: object) -> bool:
 def baseline_results_match(snapshot: Mapping[str, Any], current: Mapping[str, Any]) -> bool:
     """Compare scored results while retaining corpus metadata as a frozen observation.
 
-    Research ingestion legitimately grows or rewrites the searchable corpus after Phase 0.
-    That drift is safe only while every benchmark row, metric, method, and policy result is
-    byte-for-byte equivalent to the reviewed snapshot.
+    The corpus manifest pins the ranked bytes, so this tolerance now covers only a
+    deliberate re-freeze: a refreshed manifest that leaves every benchmark row, metric,
+    method, and policy result byte-for-byte equivalent needs no scored refresh.  Any scored
+    drift still invalidates the snapshot.
     """
 
     if not _valid_corpus_snapshot(snapshot.get("corpus")):
@@ -619,25 +866,60 @@ def _summary(report: Mapping[str, Any]) -> str:
     )
 
 
+def _drift_note(benchmark: Mapping[str, Any], corpus: Corpus) -> str:
+    """Say how far the live search roots have moved from the frozen corpus.
+
+    Reported, never failed.  Publishing into these folders is exactly what the engine is
+    supposed to do (§25); the number is here so a corpus that has aged out of usefulness is
+    visible and can be re-frozen on purpose, rather than silently forgotten.
+    """
+
+    frozen = set(corpus.manifest.blobs)
+    live = set(live_corpus_paths(benchmark_search_roots(benchmark)))
+    return (
+        f"frozen corpus: {len(frozen)} files pinned at {corpus.manifest.as_of} "
+        f"(commit {corpus.manifest.commit[:12]}); live roots now hold {len(live)} files "
+        f"({len(live - frozen)} added since the freeze, {len(frozen - live)} gone, "
+        f"{len(corpus.restored_from_git)} rewritten and read back from Git)"
+    )
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--benchmark", type=Path, default=DEFAULT_BENCHMARK)
     parser.add_argument("--report", type=Path, default=DEFAULT_REPORT)
+    parser.add_argument("--manifest", type=Path, default=DEFAULT_CORPUS_MANIFEST)
     parser.add_argument(
         "--check",
         action="store_true",
         help="compare scored output with the committed Phase 0 snapshot",
     )
     parser.add_argument("--validate-only", action="store_true", help="validate fixtures and anchors only")
+    parser.add_argument(
+        "--render-manifest",
+        action="store_true",
+        help="re-freeze the corpus from the current search roots (deliberate, reviewed refresh)",
+    )
     args = parser.parse_args(argv)
 
     try:
         benchmark_path = args.benchmark.resolve()
-        benchmark = load_benchmark(benchmark_path)
-        if args.validate_only:
-            print(f"valid: {len(benchmark['cases'])} benchmark cases")
+        if args.render_manifest:
+            # Bootstrap: the corpus being frozen is the one on disk right now, so anchors
+            # are checked against the worktree rather than against a manifest.
+            sys.stdout.write(render_corpus_manifest(load_benchmark(benchmark_path)))
             return 0
-        current_report = build_report(benchmark, benchmark_path=benchmark_path)
+        manifest = load_corpus_manifest(args.manifest.resolve())
+        benchmark = load_benchmark(benchmark_path, manifest=manifest)
+        validate_corpus_manifest(benchmark, manifest)
+        if args.validate_only:
+            print(
+                f"valid: {len(benchmark['cases'])} benchmark cases; "
+                f"{len(manifest.blobs)} frozen corpus files"
+            )
+            return 0
+        corpus = Corpus(manifest)
+        current_report = build_report(benchmark, benchmark_path=benchmark_path, corpus=corpus)
         rendered = render_report(current_report)
         if args.check:
             try:
@@ -665,6 +947,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             else:
                 prefix = "baseline scoring is current; corpus differs from the frozen snapshot"
             print(f"{prefix}: {_summary(current_report)}")
+            print(_drift_note(benchmark, corpus))
             return 0
         sys.stdout.write(rendered)
         return 0

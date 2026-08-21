@@ -34,14 +34,20 @@ REPORT_SCHEMA_PATH = (
     / "operational-readiness-report-v1.schema.json"
 )
 PHASE0_BENCHMARK_VERSION = "memory-held-out-benchmark/v1"
+# These three digests bind the reviewed Phase 0 artifacts by content, so they move whenever those
+# artifacts are deliberately re-rendered. They were last refreshed when the benchmark corpus was
+# frozen by `phase0/corpus-manifest.json` (issue #477): `benchmark.json` gained the assessment limit
+# that states the freeze, and `baseline-report.json` was re-rendered against it. Every scored row,
+# category metric, and global metric was byte-identical across that refresh — only the digests and
+# the new `method` fields changed.
 PHASE0_BENCHMARK_SHA256 = (
-    "1178a2bf73edb3b1cb416dfc08a32c2bf488d283e96a36ce5356e65d14feaa03"
+    "3c7e715498919f9599e345b5d205f9f6413379370beb00411efc5e474dd19afd"
 )
 PHASE0_BASELINE_CANONICAL_SHA256 = (
-    "a7fb9657b6a6dbd264e5574db91b593aa7a6451b8ca24f953918f399b6331914"
+    "d6415dba7e41d9d6afada42db19d1c0d919f2dcee23802506660faab7da849b1"
 )
 PHASE0_BASELINE_CORPUS_SHA256 = (
-    "3b61aa1ca570840f09893e5a65c3c7ccce04eedb12b5418ec336258be83731c8"
+    "4614ece0aa033e6dc6591e5b94ea880f4455b43c21f3e5f14b3112ebab4c1187"
 )
 PHASE0_BASELINE_CORPUS_TOTAL_BYTES = 56_094_423
 PHASE0_BASELINE_CORPUS_UNIQUE_FILES = 1_258

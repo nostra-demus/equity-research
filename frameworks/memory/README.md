@@ -169,8 +169,11 @@ part of the later controlled-writer phase.
 
 `phase0/catalogue.json` inventories current stores, schemas, producers, and readers.
 `phase0/decisions.json` freezes identity, time, policy, and correction semantics.
-`phase0/benchmark.json` contains held-out questions, while `phase0/baseline-report.json` records the
-deterministic pre-index baseline. See `phase0/README.md` for refresh rules.
+`phase0/benchmark.json` contains held-out questions, `phase0/corpus-manifest.json` pins the exact
+files and bytes those questions are ranked over, and `phase0/baseline-report.json` records the
+deterministic pre-index baseline. Pinning the corpus is what keeps a routine research publish into a
+live `analyses/**` run folder from moving a score and turning `main` red. See `phase0/README.md` for
+refresh and re-freeze rules.
 
 The phase-specific trust boundaries and focused verification commands are documented in
 `PHASE2.md`, `PHASE3.md`, `PHASE4.md`, `PHASE5.md`, and `PHASE6.md`.
