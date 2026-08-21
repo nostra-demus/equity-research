@@ -115,10 +115,12 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
   const thesisHref = !staticMode && row.entry_id && firstAttachment
     ? api.watchAttachmentUrl(row.entry_id, firstAttachment.attachment_id)
     : null
-  // A markdown write-up is READ in the cockpit's own reader rather than downloaded — the route serves it
-  // as text/plain with nosniff, and the reader renders through react-markdown with no rehype-raw, so
-  // embedded HTML is escaped rather than executed. A PDF still opens as a file: rendering one inline in
-  // this origin is the thing the download header exists to prevent.
+  // Either kind is READ in the cockpit's own reader rather than downloaded, by two different routes.
+  // Markdown: the route serves it as text/plain with nosniff, and the reader renders it through
+  // react-markdown with no rehype-raw, so embedded HTML is escaped rather than executed. A PDF is
+  // embedded instead and rendered by the browser's own viewer, which runs in its own sandboxed process
+  // and cannot reach this origin's DOM, cookies or session — see the route in ui/server/src/server.ts
+  // for why `attachment` was the original choice and what carries the safety now.
   const thesisFilename = firstAttachment?.filename
   const thesisIsMarkdown = !!thesisFilename && /\.md$/i.test(thesisFilename)
   const thesisTitle = thesisFilename ? `${row.ticker} — ${thesisFilename}` : ''
