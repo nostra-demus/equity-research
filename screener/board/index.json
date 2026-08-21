@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T08:24:18Z",
+  "generated_at": "2026-08-21T08:36:18Z",
   "inbox": [
     {
       "inbox_id": "INB-20260821-491",
@@ -70171,76 +70171,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-f8343593fd62",
-      "idea_version": "IDEAV-4052d9406f137644",
-      "idea_version_started_at": "2026-08-21T03:03:54Z",
-      "ticker": "COTY",
-      "company": "Coty Inc.",
-      "exchange": "NYSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a warning regarding a 'transition' year, signaling potential margin compression and revenue headwinds ahead.",
-      "why_now": "The guidance change was reported on 2026-08-19 and is currently being digested by the market.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 59,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 18,
-        "specificity": 15,
-        "timing": 6,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-447cb74c203a"
-      ],
-      "primary_source_event_id": "EVT-447cb74c203a",
-      "source_headlines": [
-        "Coty Shares Fall as It Warns of ‘Transition’ Year Ahead"
-      ],
-      "source_headline": "Coty Shares Fall as It Warns of ‘Transition’ Year Ahead",
-      "source_url": "https://www.bloomberg.com/news/articles/2026-08-19/coty-s-revenue-beats-expectations-amid-turnaround-push",
-      "source_name": "Bloomberg",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-19T20:30:49Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-21T03:03:54Z",
-      "updated_at": "2026-08-21T03:03:54Z",
-      "decay_at": "2026-08-21T08:30:49Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-6dfe7ce03ed8",
       "idea_version": "IDEAV-de54a6d0935827d1",
       "idea_version_started_at": "2026-08-20T18:25:35Z",
@@ -71168,6 +71098,76 @@
       "promoted_signal_id": null,
       "feedback": null,
       "stale": false
+    },
+    {
+      "idea_id": "IDEA-f8343593fd62",
+      "idea_version": "IDEAV-4052d9406f137644",
+      "idea_version_started_at": "2026-08-21T03:03:54Z",
+      "ticker": "COTY",
+      "company": "Coty Inc.",
+      "exchange": "NYSE",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a warning regarding a 'transition' year, signaling potential margin compression and revenue headwinds ahead.",
+      "why_now": "The guidance change was reported on 2026-08-19 and is currently being digested by the market.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 59,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 18,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-447cb74c203a"
+      ],
+      "primary_source_event_id": "EVT-447cb74c203a",
+      "source_headlines": [
+        "Coty Shares Fall as It Warns of ‘Transition’ Year Ahead"
+      ],
+      "source_headline": "Coty Shares Fall as It Warns of ‘Transition’ Year Ahead",
+      "source_url": "https://www.bloomberg.com/news/articles/2026-08-19/coty-s-revenue-beats-expectations-amid-turnaround-push",
+      "source_name": "Bloomberg",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-19T20:30:49Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-21T03:03:54Z",
+      "updated_at": "2026-08-21T03:03:54Z",
+      "decay_at": "2026-08-21T08:30:49Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
     },
     {
       "idea_id": "IDEA-5e6a9795a343",
@@ -72386,8 +72386,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 21,
-    "shown_count": 21,
+    "total_count": 22,
+    "shown_count": 22,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -72396,8 +72396,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 17,
-        "shown_count": 17,
+        "total_count": 18,
+        "shown_count": 18,
         "hidden_count": 0
       }
     },
@@ -72417,6 +72417,79 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-f8343593fd62",
+        "idea_version": "IDEAV-4052d9406f137644",
+        "idea_version_started_at": "2026-08-21T03:03:54Z",
+        "ticker": "COTY",
+        "company": "Coty Inc.",
+        "exchange": "NYSE",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a warning regarding a 'transition' year, signaling potential margin compression and revenue headwinds ahead.",
+        "why_now": "The guidance change was reported on 2026-08-19 and is currently being digested by the market.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 59,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 18,
+          "specificity": 15,
+          "timing": 6,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-447cb74c203a"
+        ],
+        "primary_source_event_id": "EVT-447cb74c203a",
+        "source_headlines": [
+          "Coty Shares Fall as It Warns of ‘Transition’ Year Ahead"
+        ],
+        "source_headline": "Coty Shares Fall as It Warns of ‘Transition’ Year Ahead",
+        "source_url": "https://www.bloomberg.com/news/articles/2026-08-19/coty-s-revenue-beats-expectations-amid-turnaround-push",
+        "source_name": "Bloomberg",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-19T20:30:49Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-21T03:03:54Z",
+        "updated_at": "2026-08-21T03:03:54Z",
+        "decay_at": "2026-08-21T08:30:49Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-21T08:30:49Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f42669c74af8",
         "idea_version": "IDEAV-47eee9241429bd83",
@@ -73972,7 +74045,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 42,
-    "live_count": 20,
+    "live_count": 19,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -73991,9 +74064,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8922650,
-    "news_picked_today": 1011,
-    "news_dropped_today": 1557
+    "news_seen_today": 9106346,
+    "news_picked_today": 1035,
+    "news_dropped_today": 1581
   },
   "book_momentum": {
     "live_count": 8,
