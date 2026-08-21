@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T02:23:14Z",
+  "generated_at": "2026-08-21T02:33:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20260821-151",
@@ -541,6 +541,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260821-237",
+      "headline": "Datavault AI Agrees to Buy BankWyse, Reports 287% Q2 Revenue Growth",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/technology/ai/articles/datavault-ai-agrees-buy-bankwyse-160400344.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-19T16:04:00Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "Datavault AI is acquiring BankWyse and reported 287% revenue growth, both material events.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Datavault AI is acquiring BankWyse and reported 287% revenue growth, both material events.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Datavault AI",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "BankWyse",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260821-223",
       "headline": "CDO: Media Release - Full Year Results & Record Profits [price-sensitive]",
       "headline_en": null,
@@ -723,6 +778,55 @@
           "name": "SK Hynix",
           "ticker": null,
           "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-230",
+      "headline": "CBA: Issue of GBP 650,000,000 worth of Subordinated Notes",
+      "headline_en": null,
+      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CBA?key=2924-03124216-2A1691067",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-21T01:59:37Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "Commonwealth Bank of Australia issued 650 million GBP in subordinated notes, a significant capital structure event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Commonwealth Bank of Australia issued 650 million GBP in subordinated notes, a significant capital structure event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Commonwealth Bank of Australia",
+          "ticker": "CBA",
+          "listing_country": null
         }
       ],
       "size_bucket": "mega",
@@ -922,6 +1026,50 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-239",
+      "headline": "US vows toughest-ever Iran sanctions, presses China to help reopen Hormuz",
+      "headline_en": null,
+      "url": "https://timesofindia.indiatimes.com/business/international-business/one-two-punch-us-vows-toughest-ever-iran-sanctions-presses-china-to-help-reopen-hormuz/articleshow/133390802.cms",
+      "source_name": "The Times of India (Business)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T02:14:06Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "Geopolitical escalation involving Iran sanctions and the Strait of Hormuz poses a significant risk to global energy supply chains.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Geopolitical escalation involving Iran sanctions and the Strait of Hormuz poses a significant risk to global energy supply chains.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1662,6 +1810,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260821-235",
+      "headline": "Samsung raises advanced foundry prices by up to 15% as AI demand fills its 4nm lines, report claims — Chinese customers accepting the largest hikes",
+      "headline_en": null,
+      "url": "https://www.tomshardware.com/tech-industry/samsung-raises-advanced-foundry-prices-by-up-to-15-percent-as-ai-demand-fills-its-4nm-lines",
+      "source_name": "Tom's Hardware",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-19T16:15:53Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "Samsung is raising foundry prices by up to 15% due to high AI-driven demand, which will likely improve margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Samsung is raising foundry prices by up to 15% due to high AI-driven demand, which will likely improve margins.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung Electronics",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260821-032",
       "headline": "424B4 - Andersen Group Inc. (0002065708) (Filer)",
       "headline_en": null,
@@ -1755,190 +1952,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-136",
-      "headline": "Oil Prices Set For 5% Weekly Gain: Brent Crude Above $93 As US Prepares New Iran Sanctions",
-      "headline_en": null,
-      "url": "https://www.ndtvprofit.com/markets/oil-prices-set-for-5-weekly-gain-brent-crude-above-93-as-us-prepares-new-iran-sanctions-11938511#publisher=newsstand",
-      "source_name": "NDTV Profit",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T01:06:37Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Brent crude rose above $93 per barrel amid geopolitical tensions and new US sanctions on Iran.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Brent crude rose above $93 per barrel amid geopolitical tensions and new US sanctions on Iran.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-054",
-      "headline": "Iran war live: US vows toughest Iran sanctions, urges China support",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/liveblog/2026/8/21/iran-war-live-us-vows-toughest-iran-sanctions-urges-china-support?traffic_source=rss",
-      "source_name": "Al Jazeera — All news",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-08-21T00:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "US announces toughest Iran sanctions and seeks China support; geopolitical escalation directly affecting global oil supply, shipping lanes, defense spending, and market risk premium.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "US announces toughest Iran sanctions and seeks China support; geopolitical escalation directly affecting global oil supply, shipping lanes, defense spending, and market risk premium.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-180",
-      "headline": "LONGBIO-B (01779): VOLUNTARY ANNOUNCEMENT BLA FOR LP-003 FOR THE INDICATION OF SAR HAS BEEN ACCEPTED BY THE NMPA",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082100015.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-20T22:16:00Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "The NMPA has accepted the BLA for LP-003, a key regulatory milestone for the company's drug pipeline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "The NMPA has accepted the BLA for LP-003, a key regulatory milestone for the company's drug pipeline.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 3,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "product",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Longbio-B",
-          "ticker": "01779",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-187",
-      "headline": "CSTONE PHARMA-B (02616): VOLUNTARY ANNOUNCEMENT - NMPA IND APPROVAL FOR CS5007 (EGFR/HER3 BISPECIFIC ADC) IN CHINA",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082100001.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-20T22:02:00Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "CStone Pharma received NMPA approval for an IND application for its CS5007 bispecific ADC, a key clinical development milestone.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 89,
-      "triage_reason": "CStone Pharma received NMPA approval for an IND application for its CS5007 bispecific ADC, a key clinical development milestone.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 3,
-        "size": -1,
-        "recency": 3,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "product",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CStone Pharmaceuticals",
-          "ticker": "02616",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -73553,9 +73566,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 2361957,
-    "news_picked_today": 267,
-    "news_dropped_today": 537
+    "news_seen_today": 2543847,
+    "news_picked_today": 285,
+    "news_dropped_today": 567
   },
   "book_momentum": {
     "live_count": 8,
