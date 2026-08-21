@@ -46,6 +46,7 @@ function res(body: any, status = 200): any {
 }
 const noSleep = async () => {}
 const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'news-'))
+const diagnosticsHome = fs.mkdtempSync(path.join(os.tmpdir(), 'news-diagnostics-home-'))
 function gdeltQueryHasDomain(rawUrl: string, domain: string): boolean {
   try {
     const query = new URL(rawUrl).searchParams.get('query') || ''
@@ -4565,7 +4566,7 @@ await check('last-look provider maps name OmniRoute exactly and legacy summaries
 })
 
 await check('getNewsDiagnostics: enumerates every tier in routing order, with the backlog gauge + honest defer block', async () => {
-  const d = getNewsDiagnostics()
+  const d = getNewsDiagnostics({ omniRouteHomeDir: diagnosticsHome })
   assert.ok(Array.isArray(d.tiers) && d.tiers.length >= 1, 'tiers are enumerated (at least Groq + the last resort)')
   const groq = d.tiers.find((t) => t.id === 'groq')
   assert.ok(groq && groq.role === 'primary' && groq.meter === 'requests', 'Groq is the primary, requests-metered tier')
@@ -4601,7 +4602,7 @@ await check('getNewsDiagnostics labels a provider-reported day limit separately 
   try {
     fs.mkdirSync(STATE_DIR, { recursive: true })
     fs.writeFileSync(file, JSON.stringify({ date: day, requests: 16, tokens: 320, exhausted: true, providerDayExhausted: true }))
-    const d = getNewsDiagnostics()
+    const d = getNewsDiagnostics({ omniRouteHomeDir: diagnosticsHome })
     const t = d.tiers.find((tier) => tier.id === p.id)
     assert.ok(t)
     assert.equal(t!.requestsToday, 16, 'diagnostics show recorded requests, not the configured request cap')
@@ -5097,4 +5098,5 @@ await check('the calibrated pace cost cannot bust the hard daily cap', () => {
   assert.equal(r?.tokens, 30_000, 'what is DEBITED is the conservative bound, never the calibrated one')
 })
 
+fs.rmSync(diagnosticsHome, { recursive: true, force: true })
 console.log(`\n${passed} checks passed`)
