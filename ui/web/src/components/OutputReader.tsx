@@ -65,12 +65,18 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
     if (!output.path) { setMd(''); setLoading(false); return } // pending (not-yet-run) node — nothing to fetch
     setLoading(true)
     setMd('')
+    // A fetch already in flight when the panel switches documents must not land on the NEW one. Without
+    // this the previous report's markdown arrives late and overwrites the body — visibly so once an
+    // embedded PDF is on screen, where a stale report-integrity banner would appear above someone else's
+    // document. The guard is per-effect-run, so only the newest fetch may write.
+    let live = true
     api
       .output(output.path)
-      .then((r) => setMd(r.markdown))
-      .catch(() => setMd('*Could not load this output.*'))
-      .finally(() => setLoading(false))
-  }, [output.path, output.body])
+      .then((r) => { if (live) setMd(r.markdown) })
+      .catch(() => { if (live) setMd('*Could not load this output.*') })
+      .finally(() => { if (live) setLoading(false) })
+    return () => { live = false }
+  }, [output.path, output.body, output.embedUrl])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && (promptView ? setPromptView(false) : close())
@@ -359,7 +365,12 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
           {runButton()}
           {chatButton()}
           {promptButton()}
-          {!output.pending && (
+          {/* An embedded document has no markdown behind it, so the four export items (all of which are
+              built FROM the markdown and bail on an empty body) would be a menu where every click does
+              nothing. Hand over the file itself instead — same origin, so `download` applies. */}
+          {output.embedUrl ? (
+            <a className="btn" style={{ height: 30, display: 'inline-flex', alignItems: 'center' }} href={output.embedUrl} download>Download</a>
+          ) : !output.pending && (
             <div style={{ position: 'relative' }}>
               <button className="btn" style={{ height: 30 }} aria-expanded={menu} onClick={() => { setMenu((o) => !o); setPromptMenu(false) }}>Download ▾</button>
               {menu && (
