@@ -1,0 +1,36 @@
+{
+  "ticker": "INDIAMART",
+  "date": "2026-08-22",
+  "verdict": "Serious governance concerns",
+  "gate": {
+    "result": "FAIL",
+    "tripping_condition": 4,
+    "tripping_fact": "A9-10 Red -- undisclosed material legal matter (Govardhan Shila FIR, RF-CMP-001)",
+    "locks": ["Governance risk floor 80", "Governance Rating capped at Weak", "Verdict capped at Serious governance concerns"]
+  },
+  "scores": {
+    "management_quality": 57,
+    "capital_allocation": 65,
+    "incentive_alignment": 41,
+    "shareholder_friendliness": 69,
+    "disclosure_candor": {"pre_cap": 79, "applied": 50, "cap_reason": "RF-CMP-001 undisclosed material litigation"},
+    "people_network_integrity": {"raw": 65, "applied": 50, "cap_reason": "Material concerns grade on both founder-controllers, unresolved"},
+    "audit_assurance_quality": 78,
+    "rpt_leakage_risk_inverted": 27,
+    "contingent_liability_risk_inverted": 28,
+    "accounting_forensics_risk_inverted": 17,
+    "legal_regulatory_risk_inverted": 24,
+    "governance_risk_inverted": 82,
+    "data_quality": 88,
+    "overall_usefulness": 85,
+    "checklist_risk_inverted": 28,
+    "governance_score": 56,
+    "confidence_score": 76,
+    "confidence_adjusted_governance_score": 43,
+    "governance_rating": "Weak"
+  },
+  "checklist_coverage": {"total": 179, "green": 120, "amber": 37, "red": 10, "na_insufficient": 12, "answered": 167, "coverage_pct": 93.3},
+  "red_flag_count": 6,
+  "critical_red_flag_count": 1,
+  "hard_disqualifier_business_model_01": false
+}

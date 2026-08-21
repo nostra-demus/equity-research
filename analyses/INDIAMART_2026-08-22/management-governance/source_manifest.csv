@@ -1,0 +1,17 @@
+section,item,detail_1,detail_2,confidence_or_age,missing_or_stale,notes
+coverage,Board composition,AR Corporate Governance Report + CIQ Board Members.xls,FY26 / current,5,N,—
+coverage,Compensation,AR Note 33(ii) KMP compensation + CIQ Compensation Summary,FY2022–FY26,5,N,—
+coverage,Ownership,AR shareholding pattern + CIQ Public Ownership Summary,FY26-end / Aug-2026,5,N,—
+coverage,Insider trades,"CIQ Public Ownership Summary (Individuals/Insiders activity, Top Buyers/Sellers)",Rolling window to mid-Aug-2026,4,N,—
+coverage,Related-party transactions,AR Note 33 (full counterparty + amount table),FY26 vs FY25,5,N,—
+coverage,Auditor report,AR Independent Auditor's Report (consol. + standalone),FY26,5,N,—
+coverage,Secretarial / compliance report,"AR Annexure-5, Form MR-3",FY26,5,N,—
+coverage,AGM voting,"AR Postal Ballot result (scrutinizer, 29-Aug-2025) — best available; the 27th AGM's own resolution-level result is not present",FY26 (Postal Ballot within the year; 27th AGM itself 29-Jun-2026 not covered),4 for the Postal Ballot / 1 for the 27th AGM's own results,Y (27th AGM's own declared result specifically),None in pool for the 27th AGM specifically — would need the post-AGM BSE/NSE voting-result filing
+coverage,Capital-allocation history,Transaction Summary M&A Private Placements + Corporate Timeline (dividends) + CIQ Financials,Multi-year,4,N,—
+coverage,Legal / regulatory cases,AR compliance-history statement (no monetary penalties in last 3 years) + Secretarial Audit findings (Designated-Person lapses); no separate litigation register,FY26 (3-year lookback stated),3,Partial,Would benefit from a dedicated exchange-announcements/litigation export
+freshness,"Annual Report (Jun-02-2026) — full CG Report, MR-3, RPT note, Postal Ballot result",FY ended 31-Mar-2026,Filed Jun-2026; AGM notice for 29-Jun-2026,~1.8 months to run date,No,None — current governance-year disclosure
+freshness,CIQ Board Members / Committees,Current roster,Extraction date (~Aug-2026),<1 month,No,None
+freshness,CIQ Compensation Summary,FY2022–FY2025,Most recent column FY2025,"Compensation for FY26 is only in the AR note, not yet in this CIQ export",No — AR fills the gap,AR Note 33(ii) supplies the FY26 figure the CIQ workbook does not yet carry
+freshness,CIQ Public Ownership Summary,Institutional as of 31-Mar-2026; top holders as of 21-Jul-2026/31-Mar-2026,Market-value calc as of ~mid-Aug-2026,Current,No,None
+freshness,Earnings-call transcripts,Q3 FY21 through Q1 FY27 (Jul-21-2026),Most recent call 21-Jul-2026,<1 month,No,None
+freshness,Shareholder/Analyst Call PDF,"Dated Thursday, June 20, 2024 (transcribed by S&P Capital IQ)",20-Jun-2024,~26 months,Yes,"This is the only shareholder/analyst-call-format document in the pool; it materially predates the current run and should not be read as reflecting the company's current tone or promises — Corporate Timeline.xls logs a later (29-Jun-2026) ""Shareholder/Analyst Call"" event around the 27th AGM with no accompanying transcript in this pool, so that more recent event's content is Not Available"
