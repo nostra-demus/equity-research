@@ -461,6 +461,15 @@ def check_benchmark_and_report(benchmark: dict[str, Any]) -> None:
     check(report_a == report_b, "baseline output must be byte-deterministic across independent runs")
     if manifest is not None:
         check_publish_does_not_move_scores(benchmark, report_a)
+        # An ad-hoc corpus reads whatever is on disk right now, so a report built over one
+        # would be exactly the unfrozen baseline this whole mechanism exists to prevent.
+        try:
+            memory_baseline.build_report(
+                benchmark, corpus=memory_baseline.Corpus.over_paths(["frameworks/memory/phase0"])
+            )
+            check(False, "build_report must refuse an ad-hoc (unpinned) corpus")
+        except memory_baseline.FixtureError:
+            pass
 
     report_path = PHASE0 / "baseline-report.json"
     try:

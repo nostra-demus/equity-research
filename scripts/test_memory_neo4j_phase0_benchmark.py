@@ -14,7 +14,41 @@ from pathlib import Path
 from typing import Any, Optional
 from unittest.mock import patch
 
-from memory_baseline import DEFAULT_BENCHMARK, Corpus, Document, _corpus_digest
+from memory_baseline import (
+    DEFAULT_BENCHMARK,
+    Corpus,
+    Document,
+    _corpus_digest,
+    load_corpus_manifest,
+)
+
+
+def frozen_corpus() -> Corpus:
+    """The pinned Phase 0 corpus — what the benchmark actually ranks.
+
+    Every benchmark search root is a lane the engine publishes to without CI (CLAUDE.md
+    §25), so a test that scanned them would assert against bytes a research commit can
+    rewrite underneath it. The recording-clock cases below depend on exactly that: they
+    read a `generated_at` out of a live board index, which every screener run moves.
+    """
+
+    return Corpus(load_corpus_manifest())
+
+SYNTHETIC_BENCHMARK_ROOTS = (
+    "frameworks/memory/phase0/README.md",
+    "frameworks/memory/PHASE6.md",
+)
+
+
+def synthetic_corpus() -> Corpus:
+    """An ad-hoc corpus for the synthetic benchmarks below.
+
+    Their search roots are ordinary repository files chosen for being small and stable, not
+    Phase 0 search roots, so they are deliberately outside the frozen manifest.
+    """
+
+    return Corpus.over_paths(list(SYNTHETIC_BENCHMARK_ROOTS))
+
 from memory_neo4j_phase0_benchmark import (
     AWAIT_INDEX_QUERY,
     CONSTRAINT_METADATA_QUERY,
@@ -374,9 +408,13 @@ class MemoryNeo4jPhase0BenchmarkTests(unittest.TestCase):
                 ),
             ),
         )
-        candidate_corpus = Corpus()
+        candidate_corpus = Corpus.over_paths(
+            ["frameworks/memory/phase0", "frameworks/memory/phase0/README.md"]
+        )
         candidate = union_documents(inputs, corpus=candidate_corpus)
-        reference = Corpus().documents_for(
+        reference = Corpus.over_paths(
+            ["frameworks/memory/phase0", "frameworks/memory/phase0/README.md"]
+        ).documents_for(
             ["frameworks/memory/phase0", "frameworks/memory/phase0/README.md"]
         )
         self.assertEqual(
@@ -390,7 +428,7 @@ class MemoryNeo4jPhase0BenchmarkTests(unittest.TestCase):
 
     def test_ranker_is_parameterized_scoped_unique_and_path_tied(self) -> None:
         driver = FakeDriver()
-        corpus = Corpus()
+        corpus = Corpus.over_paths(["frameworks/memory/phase0"])
         ranked = rank_case(
             driver,
             database="neo4j",
@@ -418,7 +456,9 @@ class MemoryNeo4jPhase0BenchmarkTests(unittest.TestCase):
         self.assertEqual(len({item.path for item in ranked}), len(ranked))
         expected_scope = {
             document.path
-            for document in Corpus().documents_for(["frameworks/memory/phase0"])
+            for document in Corpus.over_paths(["frameworks/memory/phase0"]).documents_for(
+            ["frameworks/memory/phase0"]
+        )
         }
         self.assertTrue({item.path for item in ranked}.issubset(expected_scope))
 
@@ -433,7 +473,7 @@ class MemoryNeo4jPhase0BenchmarkTests(unittest.TestCase):
             ),
             search_roots=("analyses/AMZN_2026-07-10",),
             top_k=5,
-            corpus=Corpus(),
+            corpus=frozen_corpus(),
         )
         parameters = next(
             parameters for query, parameters, _ in driver.calls if query == RANK_QUERY
@@ -457,7 +497,7 @@ class MemoryNeo4jPhase0BenchmarkTests(unittest.TestCase):
             ),
             search_roots=("analyses/EMAAR_2026-07-03", "analyses/EMAAR_2026-07-10"),
             top_k=5,
-            corpus=Corpus(),
+            corpus=frozen_corpus(),
         )
         emaar_parameters = next(
             parameters
@@ -483,7 +523,7 @@ class MemoryNeo4jPhase0BenchmarkTests(unittest.TestCase):
             ),
             search_roots=("analyses/EMAAR_2026-07-03", "analyses/EMAAR_2026-07-10"),
             top_k=5,
-            corpus=Corpus(),
+            corpus=frozen_corpus(),
         )
         update_parameters = next(
             parameters
@@ -502,13 +542,13 @@ class MemoryNeo4jPhase0BenchmarkTests(unittest.TestCase):
             question="At processing time on 2026-08-05, what was known?",
             search_roots=("screener/board/index.json",),
             top_k=5,
-            corpus=Corpus(),
+            corpus=frozen_corpus(),
         )
         self.assertEqual(board_result, ())
         self.assertFalse(any(query == RANK_QUERY for query, _, _ in board_driver.calls))
 
     def test_temporal_cutoff_uses_structured_clocks_and_denies_unknown_time(self) -> None:
-        corpus = Corpus()
+        corpus = frozen_corpus()
         uber_path = "analyses/UBER_2026-08-06/pre_mortem.json"
         theme_path = "screener/board/themes_index.json"
         unknown_path = "frameworks/EXTERNAL_DATA.md"
@@ -684,7 +724,7 @@ class MemoryNeo4jPhase0BenchmarkTests(unittest.TestCase):
         benchmark_bytes = json.dumps(benchmark_plain).encode("utf-8")
         driver = FakeDriver(expected_rank_calls=4, state=state)
 
-        def late_validation(value: Mapping[str, Any]) -> None:
+        def late_validation(value: Mapping[str, Any], **_: Any) -> None:
             self.assertTrue(state["all_ranked"])
             for case in value["cases"]:
                 for field in SCORING_FIELDS:
@@ -705,6 +745,7 @@ class MemoryNeo4jPhase0BenchmarkTests(unittest.TestCase):
                     uri="bolt://127.0.0.1:17687",
                     database="neo4j",
                     batch_size=10,
+                    corpus=synthetic_corpus(),
                 )
 
         self.assertTrue(state["all_ranked"])
@@ -762,6 +803,7 @@ class MemoryNeo4jPhase0BenchmarkTests(unittest.TestCase):
                 uri="bolt://127.0.0.1:17687",
                 database="neo4j",
                 batch_size=0,
+                corpus=synthetic_corpus(),
             )
         self.assertEqual(driver.calls, [])
 
@@ -807,7 +849,9 @@ class MemoryNeo4jPhase0BenchmarkTests(unittest.TestCase):
         self.assertEqual(driver.calls, [])
 
     def test_foreign_label_nodes_fail_before_dataset_deletion(self) -> None:
-        documents = Corpus().documents_for(["frameworks/memory/phase0/README.md"])
+        documents = Corpus.over_paths(["frameworks/memory/phase0/README.md"]).documents_for(
+            ["frameworks/memory/phase0/README.md"]
+        )
         driver = FakeDriver(foreign_nodes=1)
         with self.assertRaisesRegex(LocalBenchmarkError, "foreign dataset"):
             rebuild_projection(
@@ -820,7 +864,9 @@ class MemoryNeo4jPhase0BenchmarkTests(unittest.TestCase):
         self.assertFalse(any(query == DELETE_QUERY for query, _, _ in driver.calls))
 
     def test_wrong_existing_index_fails_before_corpus_mutation(self) -> None:
-        documents = Corpus().documents_for(["frameworks/memory/phase0/README.md"])
+        documents = Corpus.over_paths(["frameworks/memory/phase0/README.md"]).documents_for(
+            ["frameworks/memory/phase0/README.md"]
+        )
         driver = FakeDriver(wrong_index=True)
         with self.assertRaisesRegex(LocalBenchmarkError, "unexpected metadata"):
             rebuild_projection(
@@ -833,7 +879,9 @@ class MemoryNeo4jPhase0BenchmarkTests(unittest.TestCase):
         self.assertFalse(any(query == LOAD_QUERY for query, _, _ in driver.calls))
 
     def test_rebuild_deletes_only_in_exact_bounded_path_batches(self) -> None:
-        documents = Corpus().documents_for(["frameworks/memory/phase0"])
+        documents = Corpus.over_paths(["frameworks/memory/phase0"]).documents_for(
+            ["frameworks/memory/phase0"]
+        )
         driver = FakeDriver()
         rebuild_projection(
             driver,
@@ -910,7 +958,9 @@ class MemoryNeo4jPhase0BenchmarkTests(unittest.TestCase):
                     return (rows, None, None)
                 return result
 
-        documents = Corpus().documents_for(["frameworks/memory/phase0/README.md"])
+        documents = Corpus.over_paths(["frameworks/memory/phase0/README.md"]).documents_for(
+            ["frameworks/memory/phase0/README.md"]
+        )
         with self.assertRaisesRegex(LocalBenchmarkError, "content differs"):
             rebuild_projection(
                 CorruptSnapshotDriver(),
@@ -935,7 +985,7 @@ class MemoryNeo4jPhase0BenchmarkTests(unittest.TestCase):
                 question="Phase 0",
                 search_roots=("frameworks/memory/phase0/README.md",),
                 top_k=5,
-                corpus=Corpus(),
+                corpus=Corpus.over_paths(["frameworks/memory/phase0/README.md"]),
             )
 
     def test_rankings_must_match_across_two_clean_rebuilds(self) -> None:
@@ -953,6 +1003,7 @@ class MemoryNeo4jPhase0BenchmarkTests(unittest.TestCase):
                     uri="bolt://127.0.0.1:17687",
                     database="neo4j",
                     batch_size=10,
+                    corpus=synthetic_corpus(),
                 )
 
     def test_benchmark_bytes_cannot_change_during_retrieval(self) -> None:
@@ -970,6 +1021,7 @@ class MemoryNeo4jPhase0BenchmarkTests(unittest.TestCase):
                     uri="bolt://127.0.0.1:17687",
                     database="neo4j",
                     batch_size=10,
+                    corpus=synthetic_corpus(),
                 )
 
     def test_retrieval_copy_does_not_read_scoring_fields(self) -> None:

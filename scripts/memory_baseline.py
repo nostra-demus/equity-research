@@ -261,12 +261,18 @@ def _committed_blob_ids(blob_ids: Iterable[str]) -> set[str]:
 
 @dataclass(frozen=True)
 class CorpusManifest:
-    """The frozen file set and byte content the baseline ranks over."""
+    """The frozen file set and byte content the baseline ranks over.
+
+    `pinned` is False only for an ad-hoc manifest built from whatever is on disk right
+    now (`Corpus.over_paths`).  A baseline report may never be built over one of those —
+    that is the whole point of the freeze — so `build_report` refuses it.
+    """
 
     as_of: str
     commit: str
     blobs: Mapping[str, str]
     sha256: str
+    pinned: bool = True
 
     @property
     def paths(self) -> tuple[str, ...]:
@@ -599,6 +605,28 @@ class Corpus:
         self._documents: dict[str, Document] = {}
         self._restored_from_git: set[str] = set()
 
+    @classmethod
+    def over_paths(cls, roots: Sequence[str]) -> "Corpus":
+        """An ad-hoc corpus over whatever is under `roots` right now.
+
+        NOT the benchmark corpus — the baseline always ranks the frozen manifest, because
+        its search roots are lanes the engine publishes to (CLAUDE.md §25).  This exists
+        for tools and tests that need to read arbitrary repository paths through the same
+        Document pipeline, and `build_report` refuses a corpus built this way.
+        """
+
+        live = live_corpus_paths(roots)
+        manifest = CorpusManifest(
+            as_of="(ad-hoc)",
+            commit="0" * 40,
+            blobs={
+                relative: _git_blob_id(_text_bytes(path)) for relative, path in sorted(live.items())
+            },
+            sha256="",
+            pinned=False,
+        )
+        return cls(manifest)
+
     def _document(self, relative: str) -> Document:
         cached = self._documents.get(relative)
         if cached is not None:
@@ -739,6 +767,8 @@ def build_report(
 
     if corpus is None:
         corpus = Corpus(load_corpus_manifest())
+    if not corpus.manifest.pinned:
+        raise FixtureError("the baseline report must be built over the frozen corpus manifest")
     top_k = benchmark["top_k"]
     evaluated: list[dict[str, Any]] = []
     for case in benchmark["cases"]:

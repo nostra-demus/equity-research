@@ -33,6 +33,7 @@ from memory_baseline import (
     TOKEN_RE,
     Corpus,
     Document,
+    load_corpus_manifest,
     _corpus_digest,
     _evaluate_case,
     _mean,
@@ -917,6 +918,7 @@ def build_candidate_report(
     uri: str,
     database: str,
     batch_size: int = 10,
+    corpus: Corpus | None = None,
 ) -> dict[str, Any]:
     """Build, rank, freeze, then score the exact Phase 0 benchmark."""
 
@@ -928,7 +930,12 @@ def build_candidate_report(
     top_k = benchmark.get("top_k")
     if type(top_k) is not int or not 1 <= top_k <= 20:
         raise LocalBenchmarkError("benchmark top_k must be an integer from 1 to 20")
-    corpus = Corpus()
+    # The frozen Phase 0 corpus, not a folder scan: every search root is a lane the engine
+    # publishes to continuously and without CI (CLAUDE.md §25), so scanning them would let an
+    # ordinary research commit change what this experiment ranks between two runs. A caller may
+    # inject a corpus for a synthetic benchmark that ranks paths outside the frozen manifest.
+    if corpus is None:
+        corpus = Corpus(load_corpus_manifest())
     documents = union_documents(inputs, corpus=corpus)
     expected_digest = _corpus_digest(documents)
     snapshots: list[ProjectionSnapshot] = []
@@ -970,7 +977,7 @@ def build_candidate_report(
         raise LocalBenchmarkError("Phase 0 benchmark changed while retrieval was running")
     if _plain_json_value(benchmark) != parsed_snapshot:
         raise LocalBenchmarkError("parsed benchmark does not match its frozen byte snapshot")
-    validate_benchmark(benchmark)
+    validate_benchmark(benchmark, manifest=corpus.manifest)
     cases = benchmark["cases"]
     evaluated = [
         _evaluate_case(case, ranking)
