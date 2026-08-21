@@ -1,6 +1,202 @@
 {
-  "generated_at": "2026-08-21T08:57:01Z",
+  "generated_at": "2026-08-21T09:03:39Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260821-536",
+      "headline": "Blue Motor Finance Limited enters administration",
+      "headline_en": null,
+      "url": "https://www.fca.org.uk/news/news-stories/blue-motor-finance-limited-enters-administration",
+      "source_name": "UK Financial Conduct Authority (FCA) — News",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-21T08:53:52Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "The company has entered administration, indicating a total failure of the business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company has entered administration, indicating a total failure of the business.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Blue Motor Finance Limited",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-521",
+      "headline": "SC HOLDINGS (00413): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082100366.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-21T08:44:00Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "The company issued a profit warning, indicating a material decline in expected earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company issued a profit warning, indicating a material decline in expected earnings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SC HOLDINGS",
+          "ticker": "00413",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-528",
+      "headline": "REALWAY CAPITAL (01835): JOINT ANNOUNCEMENT MONTHLY UPDATE ON THE POSSIBLE UNCONDITIONAL MANDATORY CASH OFFER BY ALLIANCE CAPITAL PARTNERS LIMITED FOR AND ON BEHALF OF THE OFFEROR FOR ALL THE ISSUED H SHARES OF THE COMPANY (OTHER THAN THOSE ALREADY OWNED AND/OR AGREED TO BE ACQUIRED BY THE OFFEROR AND THE OFFEROR CONCERT PARTIES)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082100338.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-21T08:39:00Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "Update on a possible mandatory cash offer for the company's shares.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Update on a possible mandatory cash offer for the company's shares.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "REALWAY CAPITAL",
+          "ticker": "01835",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-539",
+      "headline": "ZALL SMARTCOM (02098): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082100290.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-21T08:33:00Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "The company issued a profit warning, signaling a material decline in expected earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company issued a profit warning, signaling a material decline in expected earnings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zall Smart Commerce Group",
+          "ticker": "02098",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260821-491",
       "headline": "NMDC Steel Ltd: Intimation under Regulation 30 of SEBI (LODR) Regulations, 2015 - Revision in Credit Rating by Crisil Ratings Limited",
@@ -1815,207 +2011,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-281",
-      "headline": "Chicken dining chain franchisee files Chapter 11 bankruptcy",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/restaurants/island-wing-co-franchisee-files-chapter-11-bankruptcy",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-19T14:07:00Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "A Chapter 11 bankruptcy filing is a critical event indicating severe financial distress for the company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A Chapter 11 bankruptcy filing is a critical event indicating severe financial distress for the company.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Chicken dining chain franchisee",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-295",
-      "headline": "Moderna shares jump over 90% after cancer vaccine shows positive Phase 3 results",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/moderna-shares-jump-over-90-after-cancer-vaccine-shows-positive-phase-3-results-19972993.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-19T13:35:22Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Positive Phase 3 results for a major vaccine candidate are a material catalyst for future revenue and valuation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Positive Phase 3 results for a major vaccine candidate are a material catalyst for future revenue and valuation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 3,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "product",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Moderna",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-310",
-      "headline": "Marvell Gives Google Right to Buy Up to $12 Billion in Stock",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-19/marvell-gives-google-right-to-buy-up-to-12-2-billion-in-shares",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-19T12:52:12Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Marvell has granted Google a $12 billion stock purchase right, a major capital and strategic arrangement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Marvell has granted Google a $12 billion stock purchase right, a major capital and strategic arrangement.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marvell",
-          "ticker": null,
-          "listing_country": "US"
-        },
-        {
-          "name": "Google",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-341",
-      "headline": "Veralto To Acquire Cleanwater",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/veralto-acquire-cleanwater",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-19T12:17:18Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "The company announced an acquisition of Cleanwater, which is a material corporate action.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company announced an acquisition of Cleanwater, which is a material corporate action.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Veralto",
-          "ticker": "VLTO",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -70602,78 +70597,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-1b994a384f0c",
-      "idea_version": "IDEAV-ba7eecc710002e47",
-      "idea_version_started_at": "2026-08-20T20:38:06Z",
-      "ticker": "000660",
-      "company": "SK Hynix",
-      "exchange": "KRX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company announced a record $28.9 billion share buyback, which significantly reduces share count and signals strong management confidence in future cash flow.",
-      "why_now": "The announcement was made on 2026-08-19 and is currently being digested by the market.",
-      "conviction": 85,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 14,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-d6f45fdfdaf4"
-      ],
-      "primary_source_event_id": "EVT-d6f45fdfdaf4",
-      "source_headlines": [
-        "SK hynix unveils record $28.9 bn share buyback"
-      ],
-      "source_headline": "SK hynix unveils record $28.9 bn share buyback",
-      "source_url": "https://www.qatar-tribune.com/article/249584/business/sk-hynix-unveils-record-289-bn-share-buyback",
-      "source_name": "Qatar Tribune — Business",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-19T21:00:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-20T20:38:06Z",
-      "updated_at": "2026-08-20T20:38:06Z",
-      "decay_at": "2026-08-21T09:00:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-25e17ca3d4bb",
       "idea_version": "IDEAV-2f9586a128a2d036",
       "idea_version_started_at": "2026-08-20T09:50:18Z",
@@ -71164,6 +71087,78 @@
       "surfaced_at": "2026-08-21T03:03:54Z",
       "updated_at": "2026-08-21T03:03:54Z",
       "decay_at": "2026-08-21T08:30:49Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-1b994a384f0c",
+      "idea_version": "IDEAV-ba7eecc710002e47",
+      "idea_version_started_at": "2026-08-20T20:38:06Z",
+      "ticker": "000660",
+      "company": "SK Hynix",
+      "exchange": "KRX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company announced a record $28.9 billion share buyback, which significantly reduces share count and signals strong management confidence in future cash flow.",
+      "why_now": "The announcement was made on 2026-08-19 and is currently being digested by the market.",
+      "conviction": 85,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-d6f45fdfdaf4"
+      ],
+      "primary_source_event_id": "EVT-d6f45fdfdaf4",
+      "source_headlines": [
+        "SK hynix unveils record $28.9 bn share buyback"
+      ],
+      "source_headline": "SK hynix unveils record $28.9 bn share buyback",
+      "source_url": "https://www.qatar-tribune.com/article/249584/business/sk-hynix-unveils-record-289-bn-share-buyback",
+      "source_name": "Qatar Tribune — Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-19T21:00:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-20T20:38:06Z",
+      "updated_at": "2026-08-20T20:38:06Z",
+      "decay_at": "2026-08-21T09:00:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -72386,13 +72381,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 22,
-    "shown_count": 22,
+    "total_count": 23,
+    "shown_count": 23,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 4,
-        "shown_count": 4,
+        "total_count": 5,
+        "shown_count": 5,
         "hidden_count": 0
       },
       "short": {
@@ -72417,6 +72412,81 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-1b994a384f0c",
+        "idea_version": "IDEAV-ba7eecc710002e47",
+        "idea_version_started_at": "2026-08-20T20:38:06Z",
+        "ticker": "000660",
+        "company": "SK Hynix",
+        "exchange": "KRX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company announced a record $28.9 billion share buyback, which significantly reduces share count and signals strong management confidence in future cash flow.",
+        "why_now": "The announcement was made on 2026-08-19 and is currently being digested by the market.",
+        "conviction": 85,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 14,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-d6f45fdfdaf4"
+        ],
+        "primary_source_event_id": "EVT-d6f45fdfdaf4",
+        "source_headlines": [
+          "SK hynix unveils record $28.9 bn share buyback"
+        ],
+        "source_headline": "SK hynix unveils record $28.9 bn share buyback",
+        "source_url": "https://www.qatar-tribune.com/article/249584/business/sk-hynix-unveils-record-289-bn-share-buyback",
+        "source_name": "Qatar Tribune — Business",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-19T21:00:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-20T20:38:06Z",
+        "updated_at": "2026-08-20T20:38:06Z",
+        "decay_at": "2026-08-21T09:00:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-21T09:00:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-f8343593fd62",
         "idea_version": "IDEAV-4052d9406f137644",
@@ -74045,7 +74115,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 42,
-    "live_count": 19,
+    "live_count": 18,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -74064,9 +74134,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9473850,
-    "news_picked_today": 1056,
-    "news_dropped_today": 1704
+    "news_seen_today": 9565960,
+    "news_picked_today": 1078,
+    "news_dropped_today": 1718
   },
   "book_momentum": {
     "live_count": 8,
