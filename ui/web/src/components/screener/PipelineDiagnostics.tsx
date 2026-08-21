@@ -1,7 +1,7 @@
 // Pipeline diagnostics — the full, honest end-to-end view of the news/triage scanner, so a defer / cooldown
 // / backlog state is never a surprise. It answers, in one place: which tier is scoring right now, how much of
 // each tier's engine allowance has been used, which tiers are held after errors (and for how long), how deep the deferred backlog
-// is against its loss boundary, and — the piece that used to be hidden — exactly WHY anything is waiting,
+// is against its active work window, and — the piece that used to be hidden — exactly WHY anything is waiting,
 // including the Haiku last-resort's state. Read-only. Same right-slide-in family as the Data Pipeline panel;
 // live-tick-safe (polled + refreshed on every cycle, so it is mounted WITHOUT <AnimatePresence> in App.tsx —
 // a live re-render can freeze a framer exit mid-slide). All colour comes from tokens; motion is
@@ -12,7 +12,7 @@ import { motion } from 'framer-motion'
 import { useStore } from '../../lib/store'
 import type { DeferReason, LastResortState, NewsDiagnostics, TierDiagnostics, TierHealth } from '../../lib/types'
 import { tierMeter } from './pipelineMeter'
-import { fmtFailingFor, lastCycleArrivalCopy, pipelineFlowPresentation, tierStatusCopy } from './pipelineDiagnosticsView'
+import { diagnosticDeferReasons, fmtFailingFor, lastCycleArrivalCopy, pipelineFlowPresentation, tierStatusCopy, todayOutcomeCopy } from './pipelineDiagnosticsView'
 import './PipelineDiagnostics.css'
 
 /** Plain time-UNTIL a future instant. The scheduler keeps nextCycleAt ahead of now, so this is the correct
@@ -51,13 +51,16 @@ const DEFER_WHY: Record<DeferReason, string> = {
   'groq-cooldown': 'Groq is waiting to try again after an error',
   'allowance-paced': 'some use is saved for later today',
   paced: 'some use is saved for later today',
-  'feed-cap': "today's durable news-feed capacity is full; scored work was saved to retry after the UTC day rolls over",
-  'feed-write-failed': "this app could not save scored news safely; the work remains queued for another try",
+  'feed-cap': "today's durable news-feed capacity is full; queued work will retry after the UTC day rolls over",
+  'feed-write-failed': 'this app could not access or update the durable news feed; queued work remains for another try',
+  'inbox-withheld': 'kept work is waiting because its durable inbox clock could not be proved',
+  'storage-emergency': 'the scanner could not prove that every retry row reached durable storage; operator attention is required now',
+  'no-scoring-provider': 'no scoring provider is configured; already-scored recovery can finish, but unscored work remains queued',
   'batch-failed': 'a provider call failed; this work was saved for another try',
 }
 
-function deferWhy(reason: DeferReason): string {
-  return DEFER_WHY[reason] || 'the last look could not score the remaining batch; the tier states below show the current blockers'
+function deferWhy(reason: string): string {
+  return DEFER_WHY[reason as DeferReason] || 'the last look could not complete the remaining work; the details below show the current blockers'
 }
 
 const LAST_RESORT_WHY: Record<LastResortState, string> = {
@@ -133,7 +136,17 @@ function TierRow({ tier, coolLeftMs }: { tier: TierDiagnostics; coolLeftMs: numb
   )
 }
 
-function BacklogGauge({ b }: { b: NewsDiagnostics['backlog'] }) {
+function BacklogGauge({
+  b,
+  dailyLossTotalsLowerBound,
+  dailyLossTotalsUnverified,
+  storageEmergency,
+}: {
+  b: NewsDiagnostics['backlog']
+  dailyLossTotalsLowerBound: boolean
+  dailyLossTotalsUnverified: boolean
+  storageEmergency: boolean
+}) {
   // The OTHER real loss, kept separate from the cap: items retired unscored for waiting out the backlog's
   // own age bound. Silence here is what let a 23,000-item wall of stale filings look healthy while it
   // starved live news off the wire — a gauge reading only the cap would have shown 0 throughout.
@@ -143,7 +156,14 @@ function BacklogGauge({ b }: { b: NewsDiagnostics['backlog'] }) {
   const retired = b.retiredToday ?? 0
   const retiredAlert = retired > 0 ? (
     <div className="diagbacklog__lost" role="alert">
-      {retired.toLocaleString()} item{retired === 1 ? '' : 's'} retired today — waited longer than the backlog’s age bound, so they were never scored. The scanner is behind, not the sources.
+      {dailyLossTotalsLowerBound ? 'At least ' : ''}{retired.toLocaleString()} item{retired === 1 ? '' : 's'} retired today — waited longer than the backlog’s age bound, so they were never scored. The scanner is behind, not the sources.
+    </div>
+  ) : null
+  const lossProofAlert = dailyLossTotalsUnverified ? (
+    <div className="diagbacklog__lost" role="alert">
+      {dailyLossTotalsLowerBound
+        ? 'Daily loss totals are incomplete — known lost and retired counts are lower bounds.'
+        : 'Daily loss totals are not fully verified by this report.'}
     </div>
   ) : null
   if (b.unavailable) {
@@ -156,10 +176,11 @@ function BacklogGauge({ b }: { b: NewsDiagnostics['backlog'] }) {
         <div className="diagbacklog__note">Can’t read the saved waiting list. Needs attention.</div>
         {b.lostToday > 0 && (
           <div className="diagbacklog__lost" role="alert">
-            {b.lostToday.toLocaleString()} item{b.lostToday === 1 ? '' : 's'} lost today.
+            {dailyLossTotalsLowerBound ? 'At least ' : ''}{b.lostToday.toLocaleString()} item{b.lostToday === 1 ? '' : 's'} lost today.
           </div>
         )}
         {retiredAlert}
+        {lossProofAlert}
       </div>
     )
   }
@@ -169,26 +190,28 @@ function BacklogGauge({ b }: { b: NewsDiagnostics['backlog'] }) {
     <div className={`diagbacklog${b.nearLimit ? ' is-near' : ''}`}>
       <div className="diagbacklog__top">
         <span className="diagbacklog__count mono">{b.count.toLocaleString()}</span>
-        <span className="diagbacklog__of">waiting · {b.cap.toLocaleString()} cap</span>
+        <span className="diagbacklog__of">waiting · {b.cap.toLocaleString()} active window</span>
         {trend && <span className="diagbacklog__trend" data-dir={b.trend ?? 'flat'}>{trend}</span>}
       </div>
       <span className="diagbacklog__bar" aria-hidden><span className="diagbacklog__fill" style={{ transform: `scaleX(${frac})` }} /></span>
       <div className="diagbacklog__note">
-        {b.nearLimit
-          ? `Near the loss boundary (${b.pctOfCap}% of ${b.cap.toLocaleString()}) — past the cap the tail is dropped, not deferred.`
+        {storageEmergency
+          ? 'Queue depth is not complete — at least one recent retry row could not be proved in durable storage.'
+          : b.nearLimit
+          ? `The ${b.cap.toLocaleString()}-item active work window is near or at capacity (${b.pctOfCap}%). Excess rows stay in durable overflow and replay later.`
           : b.count === 0
             ? 'Caught up — nothing waiting to be scored.'
-            : `Held safely for the next look (${b.pctOfCap}% of the ${b.cap.toLocaleString()} loss boundary). Deferred, not dropped.`}
+            : `Held safely for the next look (${b.pctOfCap}% of the ${b.cap.toLocaleString()}-item active work window).`}
       </div>
-      {/* PERSISTENT loss alert: real items dropped past the cap SO FAR TODAY. Keyed on the cumulative daily
-          count, not this cycle's backlog — so a later caught-up cycle can't erase the fact that data was lost
-          earlier today (the server sums it across cycles; this stops it vanishing when lastCycle rolls over). */}
+      {/* PERSISTENT legacy loss alert: rolling-deploy summaries may still report rows dropped by the old
+          cap-slicing worker. Keyed on the cumulative daily count so later recovery cannot hide prior loss. */}
       {b.lostToday > 0 && (
         <div className="diagbacklog__lost" role="alert">
-          {b.lostToday.toLocaleString()} item{b.lostToday === 1 ? '' : 's'} lost today — dropped past the {b.cap.toLocaleString()} cap, not deferred; gone once the source window ages out.
+          {dailyLossTotalsLowerBound ? 'At least ' : ''}{b.lostToday.toLocaleString()} item{b.lostToday === 1 ? '' : 's'} lost today — dropped past the {b.cap.toLocaleString()} cap, not deferred; gone once the source window ages out.
         </div>
       )}
       {retiredAlert}
+      {lossProofAlert}
     </div>
   )
 }
@@ -246,6 +269,9 @@ export function PipelineDiagnostics() {
   const lc = diag?.lastCycle
   const lastCycleArrival = lc ? lastCycleArrivalCopy(lc) : null
   const flowView = pipelineFlowPresentation(diag?.flow, diag?.ts, nowTs)
+  const todayCopy = diag ? todayOutcomeCopy(diag.today, diag.flow?.history?.gapMarkerUnreadable === true) : null
+  const deferReasons = diag ? diagnosticDeferReasons(diag.defer) : []
+  const storageEmergency = deferReasons.includes('storage-emergency')
   // Tiers the provider is refusing the key for. Read off the per-tier flag rather than the defer group so this
   // still renders against an engine that has the flag but not yet the group (rolling deploy).
   const credentialBlocked = (diag?.tiers || []).filter((t) => t.enabled && t.spendingAllowed !== false && t.credentialRejected === true)
@@ -278,9 +304,7 @@ export function PipelineDiagnostics() {
           <div className="diag__strip">
             <span className={`diag__pulse${diag.running ? ' is-on' : ''}`} aria-hidden />
             <span className="diag__stripline">{statusLine}</span>
-            {diag.today.cycles > 0 && (
-              <span className="diag__today mono">read {diag.today.read.toLocaleString()} · kept {(diag.today.kept).toLocaleString()} · dropped {diag.today.dropped.toLocaleString()}</span>
-            )}
+            {todayCopy && <span className="diag__today mono">{todayCopy}</span>}
           </div>
 
           {/* Like-for-like queue flow at the top: genuinely new triage items in, scored queue outcomes out.
@@ -295,7 +319,7 @@ export function PipelineDiagnostics() {
               <div className="diagrate__metric" aria-describedby={scanningDescriptionId}>
                 <span className="diagrate__label">Average data scanning / second</span>
                 <span className="diagrate__reading"><b className="mono">{flowView.scanningRate}</b><span>items/s</span></span>
-                <span className="diagrate__definition" id={scanningDescriptionId}>Completed pick, watch, or drop scores. Expiry and cap loss are excluded.</span>
+                <span className="diagrate__definition" id={scanningDescriptionId}>Durably saved pick, watch, or drop outcomes. Age-based retirement and legacy loss are excluded.</span>
               </div>
             </div>
             <div className="diagrate__rule"><span>Scanning must stay</span><b aria-label="greater than">&gt;</b><span>inflow</span></div>
@@ -338,10 +362,13 @@ export function PipelineDiagnostics() {
               <div className={`diagwhy${diag.backlog.nearLimit ? ' is-alert' : ''}`}>
                 <div className="diagwhy__head">
                   <span aria-hidden>⚠</span>
-                  <span>{diag.backlog.count.toLocaleString()} item{diag.backlog.count === 1 ? '' : 's'} waiting</span>
+                  <span>{storageEmergency
+                    ? 'Retry queue durability needs attention'
+                    : `${diag.backlog.count.toLocaleString()} item${diag.backlog.count === 1 ? '' : 's'} waiting`}</span>
                 </div>
                 <ul className="diagwhy__list">
-                  {diag.defer.reason && <li>{deferWhy(diag.defer.reason)}</li>}
+                  {deferReasons.map((reason) => <li key={reason}>{deferWhy(reason)}</li>)}
+                  {diag.defer.plainNote && <li>Latest look: {diag.defer.plainNote}</li>}
                   {diag.defer.lastResort && diag.defer.lastResort !== 'scored' && diag.defer.lastResort !== 'available' && (
                     <li>{lastResortWhy(diag.defer.lastResort)}</li>
                   )}
@@ -351,10 +378,15 @@ export function PipelineDiagnostics() {
             </section>
           )}
 
-          {/* backlog gauge — depth vs the loss boundary */}
+      {/* backlog gauge — durable retry depth vs the active work window */}
           <section className="diag__sec">
             <div className="diag__sechead">Items waiting</div>
-            <BacklogGauge b={diag.backlog} />
+            <BacklogGauge
+              b={diag.backlog}
+              dailyLossTotalsLowerBound={diag.today.totalsLowerBound === true && diag.today.durablyCommitted === true}
+              dailyLossTotalsUnverified={diag.today.totalsLowerBound !== false || diag.today.durablyCommitted !== true}
+              storageEmergency={storageEmergency}
+            />
           </section>
 
           {/* the fallback ladder — Groq → overflow → Gemini → Haiku */}
@@ -379,7 +411,13 @@ export function PipelineDiagnostics() {
                   {lastCycleArrival && <span className="diagflow__split"> ({lastCycleArrival})</span>}
                 </span>
                 <span className="diagflow__arrow" aria-hidden>→</span>
-                <span className="diagflow__step"><b className="mono diagflow__kept">{(lc.picked + lc.watched).toLocaleString()}</b> kept · <b className="mono">{lc.dropped.toLocaleString()}</b> dropped</span>
+                <span className="diagflow__step">
+                  {lc.durablyCommitted === true ? <>
+                    <b className="mono diagflow__kept">{(lc.picked + lc.watched).toLocaleString()}</b> inbox-eligible · <b className="mono">{lc.dropped.toLocaleString()}</b> dropped
+                  </> : <>
+                    legacy report: <b className="mono diagflow__kept">{(lc.picked + lc.watched).toLocaleString()}</b> inbox-eligible · <b className="mono">{lc.dropped.toLocaleString()}</b> dropped · feed durability unverified
+                  </>}
+                </span>
                 {lc.deferred !== null && lc.deferred > 0 && (
                   <><span className="diagflow__arrow" aria-hidden>→</span><span className="diagflow__step diagflow__deferred"><b className="mono">{lc.deferred.toLocaleString()}</b> deferred</span></>
                 )}

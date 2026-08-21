@@ -4,6 +4,7 @@ import { captureAskOpener } from '../lib/askFocus'
 import { decisionColor, fmtAgo, fmtMinutes, nextSweepLabel, resetIn, resolveVerdict, usageColor, usageLabel, usagePct } from '../lib/format'
 import { plainKind } from '../lib/plain'
 import { EngineStatusPill } from './EngineStatus'
+import { todayOutcomeCopy } from './screener/pipelineDiagnosticsView'
 import { ThemeToggle } from './ThemeToggle'
 import { RunHistory } from './RunHistory'
 
@@ -69,8 +70,9 @@ function AutoScanChip() {
           ? `Auto-scan on · last look ${ago}m ago`
           : 'Auto-scan on'
       : 'Auto-scan off'
+  const todayCopy = status ? todayOutcomeCopy(status.today) : null
   const title = status?.enabled
-    ? `The free scanner reads trusted news every ${status.intervalMin} min and scores each item. Today: read ${status.today.read} · kept ${status.today.kept} · dropped ${status.today.dropped}. Click to watch it live.`
+    ? `The free scanner reads trusted news every ${status.intervalMin} min and scores each item. ${todayCopy ? `Today: ${todayCopy}.` : 'No completed look is recorded today.'} Click to watch it live.`
     : 'The free scanner is off — it needs a (free) Groq key in the engine. Click to see the wire anyway.'
   return (
     <button className="autoscan" onClick={() => void openNewsFeed()} title={title}>

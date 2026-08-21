@@ -60,6 +60,23 @@ export interface NewsItem {
   /** ISO 8601 — when this item FIRST entered the backlog. The residence clock the age bound is measured
    *  on; `found_at` cannot serve, because a source can hand us an item that is already days old. */
   deferred_at?: string
+  /** Internal durable projection state. A scored row carrying this marker has NOT completed the firehose
+   * boundary yet, so it is retried without another LLM call, prioritized ahead of unscored backlog, and
+   * exempt from the unscored age retirement. Optional for rolling-deploy compatibility. */
+  feed_pending?: 'uncommitted' | 'cap' | 'io_failure'
+  /** Original scoring clock for a feed-pending row. It prevents a pre-projection crash/retry from silently
+   * re-dating the item to the later retry cycle. */
+  feed_triaged_at?: string
+  /** Exact authoritative firehose payload once inbox-derived clocks are known. Retry writes and downstream
+   * effects use this verbatim; optional because the first crash-safety journal precedes inbox projection. */
+  pending_feed_item?: FeedItem
+  /** UTC firehose partition selected for the most recent append attempt. Persisted before writing so a
+   * later-day crash replay can acknowledge that intermediate file instead of duplicating the event. */
+  feed_target_date?: string
+  /** Raw-input write-ahead marker. Whenever present the deferred file uses the v2 wrapper, so a rollback to
+   * a worker that does not understand the raw handoff pauses instead of silently consuming it after an RSS
+   * conditional-cache advance. The current worker removes this marker before routing the row. */
+  input_pending?: true
   dedup_status: 'new' | 'possible_duplicate'
   via?: 'gdelt' | 'rss' | 'nse' | 'hkex' | 'asx' | 'gov' | 'reddit' // which fetcher found it
   snippet?: string // the feed's own lede (cleaned), carried for fetch-free enrichment
@@ -238,8 +255,11 @@ export interface FeedItem {
 // The structured reason a cycle deferred items — mirrors the human `note` so the cockpit can reason about
 // WHY without parsing free text. Absent when nothing deferred. Ordered by the note's own precedence.
 export type DeferReason =
-  | 'feed-write-failed' // scored rows could not be durably appended to the firehose; they remain queued and unseen
-  | 'feed-cap' // the daily firehose item cap refused a scored suffix; it remains queued and unseen
+  | 'storage-emergency' // no durable backlog/journal copy contains all retry rows inside the configured boundary
+  | 'feed-write-failed' // durable feed access/write failed; work remains queued (any scored suffix keeps its result)
+  | 'feed-cap' // the daily firehose cap held work; known-full preflight is unscored, any scored suffix is retained
+  | 'inbox-withheld' // kept rows could not prove their durable inbox revision clock; they remain queued
+  | 'no-scoring-provider' // ordinary unscored rows remain while no scoring route is configured
   | 'aborted' // the wall-clock guard killed the cycle mid-way and dumped the remainder to the backlog
   | 'usage-ledger-unavailable' // a configured provider's durable usage authority needs attention; no cap claim is safe
   | 'free-budget-spent' // configured free-tier engine allowances cannot fit another safe call (not a live provider-quota claim)
@@ -272,7 +292,7 @@ export interface CycleSummary {
   picked: number // durably feed-persisted band=pick rows (score ≥ pick threshold)
   watched: number // durably feed-persisted band=watch rows
   dropped: number // durably feed-persisted band=drop rows (not inboxed)
-  inboxed: number // total rows the inbox now holds after the merge
+  inboxed: number // snapshot total rows the inbox holds after merge; never interpret as this-look completed progress
   groq_requests: number
   groq_tokens: number
   local_requests?: number // batches scored by the LOCAL primary brain (unlimited / $0) — present only when it ran
@@ -297,23 +317,30 @@ export interface CycleSummary {
   fresh?: number // fetched-path on-list items this cycle, including redelivered backlog IDs
   new_arrivals?: number // unique fetched-path event IDs absent from the backlog snapshot; the inflow telemetry authority
   carryover?: number // re-queued deferred-backlog items included in `candidates`
-  deferred?: number // items pushed to the backlog this cycle (TRUE count, may exceed backlog_cap → tail lost)
-  backlog?: number // deferred backlog depth held on disk after this cycle (≤ backlog_cap)
-  backlog_cap?: number // the loss boundary (DEFERRED_CAP): backlog past this is silently dropped
-  dropped_at_cap?: number // items lost this cycle because the backlog overran backlog_cap (deferred = backlog + dropped_at_cap). Present only when >0 — the honest twin of "the tail is dropped, not deferred"
+  deferred?: number // items left for durable retry this cycle; may exceed the active work window
+  backlog?: number // durable retry depth after this cycle, including any source-neutral overflow
+  backlog_cap?: number // active work-window size (DEFERRED_CAP); excess raw input is held in durable overflow
+  dropped_at_cap?: number // legacy loss counter from workers that sliced backlog past backlog_cap; current workers spool excess raw input instead
   backlog_expired?: number // backlog items retired UNSCORED this cycle for waiting longer than DEFERRED_MAX_AGE_MS behind the queue. Present only when >0 — a real loss, reported like dropped_at_cap, never silent
-  feed_unwritten?: number // scored rows not durably appended to the feed (daily cap or I/O failure); all remain in the backlog, unseen, for retry
-  feed_write_failed?: boolean // feed append/count I/O failed; no input row is claimed persisted and the whole scored candidate set remains queued
+  feed_unwritten?: number // already-scored rows not durably appended; all remain queued, unseen, with exact results
+  feed_write_failed?: boolean // feed inspection/append I/O failed; any fsynced prefix remains authoritative and only its unwritten suffix stays queued
+  feed_cap_kind?: 'items' | 'bytes' // which hard firehose boundary refused the unwritten suffix; present only with a feed-cap defer
+  inbox_feed_pending?: number // inbox-eligible pick/watch rows awaiting authoritative firehose completion; not proof they survived the visible sweep cap
   deferred_write_failed?: boolean // saveDeferred's atomic write failed this cycle — the in-memory backlog was NOT persisted (last-good kept); backlog/deferred describe intent, not what is on disk. Present only when true
+  seen_write_failed?: boolean // durable dedup receipt could not land; completed rows remain in feed recovery
   inbox_withheld?: number // kept rows whose first-observation clock could not be PROVED this cycle. They stay in the backlog and retry; they are never handed a fabricated clock. Present only when >0
   inbox_write_failed?: boolean // the inbox projection refused outright; the wire, the summary and the backlog cleanup still ran. The honest twin of deferred_write_failed. Present only when true
   deferred_read_failed?: boolean // malformed/unreadable backlog authority; fetch/scoring paused and existing bytes preserved
   aborted?: boolean // the wall-clock guard killed this cycle and dumped the untriaged remainder to the backlog
   defer_reason?: DeferReason // structured twin of the defer `note`
+  defer_reasons?: DeferReason[] // complete ordered reason set; defer_reason remains the first/legacy primary
   last_resort?: LastResortState // the Haiku fallback's state at cycle end — makes "why nothing scored" honest
   // Raw articles pulled per source layer this cycle, keyed by each item's `via` provenance (gdelt, rss,
   // nse, asx, …). Absent on a drain cycle, which fetches nothing. Lets the cockpit show WHICH sources are
   // delivering right now instead of only the on-open /api/news/sources snapshot.
   sources?: Record<string, number>
   phase?: 'fetch' | 'drain'
+  /** v1 proves picked/watched/dropped were credited only after durable feed acknowledgement. Absent legacy
+   * summaries used pre-boundary counts and are unsafe for scanning-rate comparison. */
+  feed_commit_version?: 1
 }

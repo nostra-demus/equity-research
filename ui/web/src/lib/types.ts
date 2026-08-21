@@ -730,7 +730,7 @@ export interface FeedItem {
   rank_factors?: RankFactors // the per-component score build-up — present on every firehose item (drives "Why this score")
   dedup_status: string
   dedup_group?: string // story-cluster id (news/dedup.ts) — the wire shows one row per group
-  inboxed: boolean
+  inboxed: boolean // eligible for the inbox projection (band is pick/watch), not proof it remains in today's capped snapshot
 }
 
 // ---- on-demand event enrichment (GET /api/news/enrich) ----
@@ -931,7 +931,7 @@ export interface NewsCycle {
   picked: number
   watched: number
   dropped: number
-  inboxed: number
+  inboxed: number // snapshot rows in the current inbox projection after merge, not this look's completed count
   note?: string
 }
 
@@ -949,6 +949,9 @@ export type DeferReason =
   | 'paced' // legacy summary during a rolling deploy
   | 'feed-cap'
   | 'feed-write-failed'
+  | 'inbox-withheld'
+  | 'storage-emergency'
+  | 'no-scoring-provider'
   | 'batch-failed'
 export type LastResortState = 'off' | 'unavailable' | 'scored' | 'usd-cap' | 'plan-quota' | 'auth-expired' | 'cooling' | 'available'
 
@@ -965,7 +968,7 @@ export interface CycleSummary {
   picked: number
   watched: number
   dropped: number
-  inboxed?: number
+  inboxed?: number // snapshot rows in the current inbox projection after merge, not this look's completed count
   groq_requests?: number
   groq_tokens?: number
   local_requests?: number // batches scored by the LOCAL primary brain (unlimited / $0) — present only when it ran
@@ -978,16 +981,21 @@ export interface CycleSummary {
   carryover?: number // re-queued deferred-backlog items included in `candidates`
   deferred?: number // items pushed to the backlog this cycle
   backlog?: number // deferred backlog depth after this cycle
-  backlog_cap?: number // the loss boundary; backlog past this is silently dropped
-  feed_unwritten?: number // scored rows withheld because their durable firehose records did not land; they remain queued and unseen
-  feed_write_failed?: boolean // firehose capacity/read/append failed; feed_unwritten rows remain queued
-  inbox_withheld?: number // kept rows whose first-seen clock could not be PROVED this cycle — they stay queued and retry, and are never handed a fabricated clock. Present only when >0
+  backlog_cap?: number // active work-window size; excess raw input waits in durable overflow
+  feed_unwritten?: number // queued rows whose durable firehose records did not land; no uncommitted row counts as complete
+  feed_write_failed?: boolean // firehose inspection/append failed; affected work remains queued
+  feed_cap_kind?: 'items' | 'bytes' // which hard daily firehose boundary refused the retryable suffix
+  inbox_feed_pending?: number // inbox-eligible rows awaiting feed commit; the current capped inbox snapshot may or may not contain them
+  seen_write_failed?: boolean // durable dedup receipt could not land; completed rows remain in feed recovery
+  inbox_withheld?: number // inbox-eligible rows whose first-seen clock could not be PROVED — they stay queued and retry. Present only when >0
   inbox_write_failed?: boolean // the inbox projection refused outright; the wire, the summary and the backlog cleanup still ran. Present only when true
   aborted?: boolean // the wall-clock guard killed this cycle and dumped the remainder to the backlog
   defer_reason?: DeferReason
+  defer_reasons?: DeferReason[] // complete ordered cause set; defer_reason remains the rolling-deploy fallback
   last_resort?: LastResortState // the Haiku fallback's state — makes "why nothing scored" honest
   sources?: Record<string, number> // raw articles per source layer this cycle (absent on a drain)
   phase?: 'fetch' | 'drain'
+  feed_commit_version?: 1
 }
 
 // GET /api/bridge/status — the company-news bridge's own state. `running` means the 12h loop is really
@@ -1020,8 +1028,23 @@ export interface NewsStatus {
   nextCycleAt: string | null
   lastNote: string | null
   readOnly?: boolean // another engine owns the ingester → this one serves but never scans (optional: deploy-skew)
-  backlog?: { count: number; cap: number; unavailable?: boolean } // deferred spillover depth + its loss boundary; unavailable means the durable queue needs attention
-  today: { read: number; kept: number; dropped: number; cycles: number }
+  backlog?: { count: number; cap: number; unavailable?: boolean } // durable retry depth + active work-window size; unavailable means the queue authority needs attention
+  today: {
+    read: number
+    kept: number
+    dropped: number
+    cycles: number
+    /** Optional for rolling deploys. Only true means every included outcome crossed the durable feed boundary. */
+    durablyCommitted?: boolean
+    /** Optional for rolling deploys. Started looks today with no durable completion summary. */
+    incompleteCycles?: number
+    /** Optional for rolling deploys. Absent is unverified; true means the counters are lower bounds. */
+    totalsLowerBound?: boolean
+    /** Optional for rolling deploys. Whether today's summary partition itself was readable. */
+    historyStatus?: 'complete' | 'missing' | 'unreadable' | 'unavailable'
+    /** Optional for rolling deploys. Malformed daily cycle-summary rows. */
+    corruptCycleRows?: number
+  }
   budget: {
     requests: number; tokens: number; reqCap: number; tokenCap: number; tokenTarget?: number; paceCeiling?: number
     enabled?: boolean; unlimited?: false; spendingAllowed?: boolean; health?: TierHealth
@@ -1112,6 +1135,12 @@ export interface PipelineFlowRates {
     missingDates: string[]
     unreadableDates: string[]
     corruptCycleRows: number
+    incompleteCycles?: number
+    todayIncompleteCycles?: number
+    todayTotalsLowerBound?: boolean
+    todayHistoryStatus?: 'complete' | 'missing' | 'unreadable'
+    todayCorruptCycleRows?: number
+    gapMarkerUnreadable?: boolean
   }
   inflow: PipelineFlowMeasure
   scanning: PipelineFlowMeasure
@@ -1136,7 +1165,22 @@ export interface NewsDiagnostics {
   tiers: TierDiagnostics[]
   // retiredToday is optional so a cockpit talking to an older server degrades cleanly (reads as absent, not 0-with-confidence)
   backlog: { unavailable?: boolean; count: number; cap: number; pctOfCap: number; nearLimit: boolean; trend: 'growing' | 'shrinking' | 'flat' | null; lostToday: number; retiredToday?: number }
-  today: { read: number; kept: number; dropped: number; cycles: number }
+  today: {
+    read: number
+    kept: number
+    dropped: number
+    cycles: number
+    /** Optional for deploy skew. Absent/false means legacy outcome counts are not durable-feed proof. */
+    durablyCommitted?: boolean
+    /** Optional for deploy skew. Started looks today whose durable completion summary is absent. */
+    incompleteCycles?: number
+    /** Optional for deploy skew. True means the numeric totals are only proven lower bounds. */
+    totalsLowerBound?: boolean
+    /** Optional for deploy skew. Whether today's cycle-summary partition itself was readable. */
+    historyStatus?: 'complete' | 'missing' | 'unreadable' | 'unavailable'
+    /** Optional for deploy skew. Malformed daily cycle-summary rows. */
+    corruptCycleRows?: number
+  }
   lastCycle: {
     ts: string
     phase: 'fetch' | 'drain' | null
@@ -1154,6 +1198,8 @@ export interface NewsDiagnostics {
     aborted: boolean
     note: string | null
     deferReason: DeferReason | null
+    /** Optional for deploy skew. Only true proves pick/watch/drop crossed the durable feed boundary. */
+    durablyCommitted?: boolean
     lastResort: LastResortState | null
     anthropicCostUsd: number | null
     scoredBy: { id: string; label: string; requests: number }[]
@@ -1161,6 +1207,7 @@ export interface NewsDiagnostics {
   defer: {
     active: boolean
     reason: DeferReason | null
+    reasons?: DeferReason[] // optional while an older engine is serving
     plainNote: string | null
     lastResort: LastResortState | null
     blockingTiers: string[]

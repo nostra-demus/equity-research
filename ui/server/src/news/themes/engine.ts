@@ -485,6 +485,9 @@ export interface RunThemesInput {
   repoRoot: string
   stateDir: string
   items: ThemeItemView[]
+  /** Optional exactly-new subset for corpus DF accounting. `items` may include idempotent crash-recovery
+   * replays needed by assignment; those must not count as a second document. */
+  dfItems?: ThemeItemView[]
   runDiscovery: boolean
   minScore?: number // discovery cold-start: seed the pool from recent firehose items at/above this score
   now?: () => Date
@@ -509,7 +512,7 @@ export async function runThemesCycle(input: RunThemesInput): Promise<{ changed: 
   let generic: Set<string> | undefined
   try {
     const dfState = loadTokenDf(input.stateDir)
-    updateTokenDf(dfState, input.items.filter((v) => (v.source_tier || '') !== 'social'), cycleNow.getTime(), cfg.df)
+    updateTokenDf(dfState, (input.dfItems ?? input.items).filter((v) => (v.source_tier || '') !== 'social'), cycleNow.getTime(), cfg.df)
     saveTokenDf(input.stateDir, dfState)
     generic = buildGenericSet(dfState, cfg.df)
   } catch {

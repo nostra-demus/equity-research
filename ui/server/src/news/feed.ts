@@ -239,59 +239,248 @@ export function findFeedItemByEventId(
   return null
 }
 
-type ItemLineCount = { ok: true; count: number } | { ok: false }
+type FirehoseScan = { ok: true; count: number; eventIds: Set<string>; size: number } | { ok: false }
 
-function countItemLines(fp: string): ItemLineCount {
+function fsyncPath(fp: string): void {
+  const fd = fs.openSync(fp, 'r')
+  try { fs.fsyncSync(fd) } finally { fs.closeSync(fd) }
+}
+
+function fsyncParent(fp: string): void {
+  const fd = fs.openSync(path.dirname(fp), 'r')
+  try { fs.fsyncSync(fd) } finally { fs.closeSync(fd) }
+}
+
+/** Read the current append boundary and repair only a torn final fragment. A complete NDJSON record always
+ * ends in `\n`; bytes after the last newline were never committed and are safe to truncate. */
+function scanFirehose(fp: string): FirehoseScan {
   try {
-    const text = fs.readFileSync(fp, 'utf8')
-    // A prior short write can leave a partial JSON tail. Appending a retry behind that tail would merge
-    // the first retried row into the corrupt fragment, then falsely acknowledge it. Stop here instead: the
-    // durable backlog keeps every row until an operator repairs the firehose boundary.
-    if (text.length && !text.endsWith('\n')) return { ok: false }
-    let n = 0
-    for (const ln of text.split('\n')) {
-      if (ln.includes('"kind":"item"') || ln.includes('"kind": "item"')) n++
+    let bytes = fs.readFileSync(fp)
+    if (bytes.length && bytes[bytes.length - 1] !== 0x0a) {
+      const lastNewline = bytes.lastIndexOf(0x0a)
+      const safeSize = lastNewline + 1
+      const tail = bytes.subarray(safeSize)
+      try {
+        // A complete legacy JSON record may simply lack its final delimiter. Preserve it and restore the
+        // delimiter; only syntactically torn bytes are safe to discard.
+        JSON.parse(tail.toString('utf8'))
+        fs.appendFileSync(fp, '\n')
+        bytes = Buffer.concat([bytes, Buffer.from('\n')])
+      } catch {
+        fs.truncateSync(fp, safeSize)
+        bytes = bytes.subarray(0, safeSize)
+      }
     }
-    return { ok: true, count: n }
+    // A prior process may have died after a complete write but before its fsync. Before an event id from
+    // that file can authorize Seen/backlog cleanup, make the observed bytes durable on the current host.
+    fsyncPath(fp)
+    const text = bytes.toString('utf8')
+    let n = 0
+    const eventIds = new Set<string>()
+    for (const ln of text.split('\n')) {
+      if (!ln.includes('"kind":"item"') && !ln.includes('"kind": "item"')) continue
+      n++
+      try {
+        const row = JSON.parse(ln)
+        if (row?.kind === 'item' && typeof row.event_id === 'string' && row.event_id) eventIds.add(row.event_id)
+      } catch { /* a newline-terminated legacy corrupt row still consumes conservative cap room */ }
+    }
+    return { ok: true, count: n, eventIds, size: bytes.length }
   } catch (error: any) {
     // A missing file is the normal first append of the day. Every other read failure is authoritative:
     // pretending an unreadable firehose is empty can overrun the cap and makes a later write look durable
     // when we never established how much room was actually left.
-    return error?.code === 'ENOENT' ? { ok: true, count: 0 } : { ok: false }
+    return error?.code === 'ENOENT'
+      ? { ok: true, count: 0, eventIds: new Set<string>(), size: 0 }
+      : { ok: false }
   }
 }
 
-export interface AppendFeedItemsResult {
-  status: 'complete' | 'cap' | 'io_failure'
-  /** Confirmed prefix written by this call. On I/O failure this is deliberately zero: the batch append
-   * has no safe per-row acknowledgement, so the caller must retry every row rather than invent progress. */
-  written: number
-  /** Input suffix that still needs durable feed persistence. */
-  unwritten: number
+export type AppendFeedItemsResult =
+  | { status: 'complete'; written: number; unwritten: 0; appendedEventIds: string[] }
+  | { status: 'cap'; cap: 'items' | 'bytes'; written: number; unwritten: number; appendedEventIds: string[] }
+  | { status: 'io_failure'; written: number; unwritten: number; appendedEventIds: string[] }
+
+export interface AppendFeedItemsOptions {
+  /** Test seam for short-write/crash simulation. Production writes the whole line or throws. */
+  writeLine?: (fd: number, line: Buffer) => void
+  /** Proven ids in an earlier UTC firehose. This closes the crash-after-append/before-cleanup rollover gap
+   * without copying the same scored event into the new day's file. */
+  acknowledgedEventIds?: ReadonlySet<string>
+}
+
+export type FeedCapacitySnapshot =
+  | {
+      status: 'available'
+      itemCount: number
+      bytes: number
+      remainingItems: number
+      remainingBytes: number
+      eventIds: ReadonlySet<string>
+    }
+  | { status: 'io_failure' }
+
+export type HistoricalFeedIdentitySnapshot =
+  | { status: 'available'; eventIds: ReadonlySet<string> }
+  | { status: 'missing' }
+  | { status: 'io_failure' }
+
+/** Read identity only from an older immutable partition, consulting the archive after local retention
+ * prunes its primary copy. A configured-but-unavailable archive fails closed: treating it as an empty day
+ * could duplicate an event that was already committed before a long recovery outage. */
+export function inspectHistoricalFeedIdentities(
+  repoRoot: string,
+  date: string,
+  archiveDir = '',
+): HistoricalFeedIdentitySnapshot {
+  const local = firehosePath(repoRoot, date)
+  try {
+    const stat = fs.statSync(local)
+    if (!stat.isFile()) return { status: 'io_failure' }
+    const scanned = scanFirehose(local)
+    return scanned.ok ? { status: 'available', eventIds: scanned.eventIds } : { status: 'io_failure' }
+  } catch (error: any) {
+    if (error?.code !== 'ENOENT') return { status: 'io_failure' }
+  }
+  // The caller knows whether this target is still inside local retention. Do not invent an empty immutable
+  // day here: after retention, no configured archive is just as ambiguous as a missing archive partition.
+  if (!archiveDir) return { status: 'missing' }
+  try {
+    const archiveStat = fs.statSync(archiveDir)
+    if (!archiveStat.isDirectory()) return { status: 'io_failure' }
+  } catch {
+    return { status: 'io_failure' }
+  }
+  try {
+    const bytes = fs.readFileSync(path.join(archiveDir, `${date}_firehose.ndjson`))
+    if (bytes.length && bytes[bytes.length - 1] !== 0x0a) return { status: 'io_failure' }
+    const eventIds = new Set<string>()
+    for (const raw of bytes.toString('utf8').split('\n')) {
+      const line = raw.trim()
+      if (!line) continue
+      let row: any
+      try { row = JSON.parse(line) } catch { return { status: 'io_failure' } }
+      if (row?.kind === 'item') {
+        if (typeof row.event_id !== 'string' || !row.event_id) return { status: 'io_failure' }
+        eventIds.add(row.event_id)
+      }
+    }
+    return { status: 'available', eventIds }
+  } catch (error: any) {
+    return error?.code === 'ENOENT'
+      ? { status: 'missing' }
+      : { status: 'io_failure' }
+  }
+}
+
+/** Inspect today's authoritative file before spending scarce scoring capacity. This shares append's torn-tail
+ * recovery and counts TOTAL file bytes (items plus summaries), so a full item/byte boundary costs zero calls. */
+export function inspectFeedCapacity(
+  repoRoot: string,
+  date: string,
+  dailyCap = NEWS.feedItemsDailyCap,
+  dailyMaxBytes = NEWS.feedItemsDailyMaxBytes,
+): FeedCapacitySnapshot {
+  const existing = scanFirehose(firehosePath(repoRoot, date))
+  if (!existing.ok) return { status: 'io_failure' }
+  return {
+    status: 'available',
+    itemCount: existing.count,
+    bytes: existing.size,
+    remainingItems: Math.max(0, Math.floor(dailyCap) - existing.count),
+    remainingBytes: Math.max(0, Math.floor(dailyMaxBytes) - existing.size),
+    eventIds: existing.eventIds,
+  }
+}
+
+function writeLineFully(fd: number, line: Buffer): void {
+  let offset = 0
+  while (offset < line.length) {
+    const n = fs.writeSync(fd, line, offset, line.length - offset)
+    if (n <= 0) throw new Error('feed append made no progress')
+    offset += n
+  }
 }
 
 /**
- * Append per-item records, honoring the daily cap. The structured result is the persistence authority:
- * callers may publish only `items.slice(0, written)` and must durably re-queue the rest. Never throws.
+ * Append per-item records, honoring both row and byte caps. `written` is the exact ordered INPUT prefix
+ * now known durable: it includes event ids already present from a prior crash plus rows completed here.
+ * Each new row records its pre-offset and rolls back a short/failed write, so a retry never duplicates a
+ * confirmed prefix or glues itself behind a torn tail. Never throws.
  */
-export function appendFeedItems(repoRoot: string, date: string, items: FeedItem[], dailyCap = NEWS.feedItemsDailyCap): AppendFeedItemsResult {
-  if (!items.length) return { status: 'complete', written: 0, unwritten: 0 }
+export function appendFeedItems(
+  repoRoot: string,
+  date: string,
+  items: FeedItem[],
+  dailyCap = NEWS.feedItemsDailyCap,
+  dailyMaxBytes = NEWS.feedItemsDailyMaxBytes,
+  options: AppendFeedItemsOptions = {},
+): AppendFeedItemsResult {
+  if (!items.length) return { status: 'complete', written: 0, unwritten: 0, appendedEventIds: [] }
   const fp = firehosePath(repoRoot, date)
+  let fd: number | undefined
+  let parentSynced = false
+  let written = 0
+  const appendedEventIds: string[] = []
   try {
     fs.mkdirSync(path.dirname(fp), { recursive: true })
-    const existing = countItemLines(fp)
-    if (!existing.ok) return { status: 'io_failure', written: 0, unwritten: items.length }
-    const room = Math.max(0, Math.floor(dailyCap) - existing.count)
-    const toWrite = items.slice(0, room)
-    if (!toWrite.length) return { status: 'cap', written: 0, unwritten: items.length }
-    fs.appendFileSync(fp, toWrite.map((it) => JSON.stringify(it)).join('\n') + '\n')
-    const unwritten = items.length - toWrite.length
-    return { status: unwritten ? 'cap' : 'complete', written: toWrite.length, unwritten }
+    const existing = scanFirehose(fp)
+    if (!existing.ok) return { status: 'io_failure', written: 0, unwritten: items.length, appendedEventIds }
+    const itemCap = Math.max(0, Math.floor(dailyCap))
+    const byteCap = Math.max(0, Math.floor(dailyMaxBytes))
+    let itemCount = existing.count
+    let fileSize = existing.size
+    const writeLine = options.writeLine || writeLineFully
+    const acknowledgedEventIds = options.acknowledgedEventIds
+
+    for (const item of items) {
+      // A process may have crashed after completing this line but before saving seen/backlog cleanup.
+      // Event identity makes that completed prefix idempotent: acknowledge it, never append a duplicate.
+      if (existing.eventIds.has(item.event_id) || acknowledgedEventIds?.has(item.event_id)) {
+        written++
+        continue
+      }
+
+      let line: Buffer
+      try { line = Buffer.from(`${JSON.stringify(item)}\n`, 'utf8') }
+      catch { return { status: 'io_failure', written, unwritten: items.length - written, appendedEventIds } }
+      if (itemCount >= itemCap) return { status: 'cap', cap: 'items', written, unwritten: items.length - written, appendedEventIds }
+      if (fileSize + line.length > byteCap) return { status: 'cap', cap: 'bytes', written, unwritten: items.length - written, appendedEventIds }
+
+      if (fd === undefined) fd = fs.openSync(fp, 'a')
+      const preOffset = fs.fstatSync(fd).size
+      // A second writer would invalidate both cap arithmetic and rollback ownership. Fail closed instead
+      // of truncating bytes we did not write.
+      if (preOffset !== fileSize) return { status: 'io_failure', written, unwritten: items.length - written, appendedEventIds }
+      try {
+        writeLine(fd, line)
+        if (fs.fstatSync(fd).size !== preOffset + line.length) throw new Error('feed append was short')
+        // Size alone only proves the kernel accepted the bytes. Flush each independently recoverable row
+        // before acknowledging it so `written` means durable across a process/host crash, not just buffered.
+        fs.fsyncSync(fd)
+        // File fsync does not guarantee a newly-created directory entry. Sync the parent before the first
+        // acknowledgement from this append invocation; harmless for an existing file, essential on day one.
+        if (!parentSynced) {
+          fsyncParent(fp)
+          parentSynced = true
+        }
+      } catch {
+        try { fs.ftruncateSync(fd, preOffset) } catch { /* next scan removes only the torn final fragment */ }
+        return { status: 'io_failure', written, unwritten: items.length - written, appendedEventIds }
+      }
+      fileSize += line.length
+      itemCount++
+      existing.eventIds.add(item.event_id)
+      appendedEventIds.push(item.event_id)
+      written++
+    }
+    return { status: 'complete', written, unwritten: 0, appendedEventIds }
   } catch {
-    // appendFileSync is one batch write, not a per-row commit protocol. Even if the kernel wrote partial
-    // bytes before surfacing an error, no complete prefix is proven; retrying all rows is the fail-closed
-    // choice (event ids make a later duplicate safer than a silent omission).
-    return { status: 'io_failure', written: 0, unwritten: items.length }
+    return { status: 'io_failure', written, unwritten: items.length - written, appendedEventIds }
+  } finally {
+    if (fd !== undefined) {
+      try { fs.closeSync(fd) } catch { /* the row boundary was already checked; retry remains idempotent */ }
+    }
   }
 }
 

@@ -5,7 +5,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { spawn } from 'node:child_process'
+import { spawn, spawnSync } from 'node:child_process'
 import { allApprovedDomains, approvedDomains, lookupSource, normalizeDomain } from '../src/news/sources/approved-domains'
 import { buildQueries, fetchGdelt, fetchGdeltDoc, GDELT_MAX_QUERY_CHARS, resetGdeltBackoff } from '../src/news/sources/gdelt'
 import { eventIdFor, loadLedgerEventIds, normalizeAndFilter, parseSeendate } from '../src/news/normalize'
@@ -16,16 +16,16 @@ import { analyzeArticle, coerceTriage, estimateTokens, parseRate, scoreToBand, t
 import { analyzeArticleGemini, geminiSchemaEnabled, TRIAGE_RESPONSE_SCHEMA, triageBatchGemini } from '../src/news/triage/gemini'
 import { appendFeedItems, readFeed } from '../src/news/feed'
 import { newsBus } from '../src/news/bus'
-import { mergeInbox, revisionClockRegistryDiagnostics } from '../src/news/write-inbox'
-import { backlogDurablyCleared, buildTriageQueue, expireBacklog, loadDeferred, migrateDeferred, preserveResidence, runIngestCycle, stampDeferred, triageGroqTokenBound } from '../src/news/runCycle'
-import { countUniqueNewArrivals } from '../src/news/pipeline-flow'
+import { appendFirehoseSummary, FIREHOSE_HARD_MAX_BYTES, mergeInbox, revisionClockRegistryDiagnostics } from '../src/news/write-inbox'
+import { appendScoredCheckpoint, backlogDurablyCleared, buildTriageQueue, expireBacklog, inspectDeferredBacklog, loadDeferred, MAX_FEED_ITEM_BYTES, migrateDeferred, preserveResidence, recentMissingFeedTargetIsRetryable, runIngestCycle, saveDeferred, scoringJournalSlots, stampDeferred, triageGroqTokenBound } from '../src/news/runCycle'
+import { buildPipelineFlowRates, countUniqueNewArrivals, readPipelineFlowCycles } from '../src/news/pipeline-flow'
 import { anthropicDrainReady, backlogTrend, credentialRejected, CREDENTIAL_DEAD_AFTER_FAILS, drainBatchEst, geminiPoolProviderDayExhausted, getNewsDiagnostics, providerDrainUsable, providerLastCycleMetric, scoredByForLastCycle, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS, STATE_DIR } from '../src/config'
 import { createTheme } from '../src/news/themes/discover'
 import { appendThemeMutations, loadThemes } from '../src/news/themes/store'
 import { themeStoryFamilyKey, themeStoryKey } from '../src/news/themes/story-key'
 import type { ThemeItemView } from '../src/news/themes/types'
-import type { FeedItem, NewsItem, RawArticle, TriagedItem } from '../src/news/types'
+import type { CycleSummary, FeedItem, NewsItem, RawArticle, TriagedItem } from '../src/news/types'
 import { attachValidNarrative } from './themes-fixtures'
 
 let passed = 0
@@ -2436,15 +2436,15 @@ await check('appendFeedItems honors the daily cap; readFeed skips corrupt lines'
   })
   assert.deepEqual(
     appendFeedItems(root, '2026-06-12', [mk(1), mk(2), mk(3)], 2),
-    { status: 'cap', written: 2, unwritten: 1 },
+    { status: 'cap', cap: 'items', written: 2, unwritten: 1, appendedEventIds: ['EVT-1', 'EVT-2'] },
   ) // partial cap: exact confirmed prefix
   assert.deepEqual(
     appendFeedItems(root, '2026-06-12', [mk(4)], 2),
-    { status: 'cap', written: 0, unwritten: 1 },
+    { status: 'cap', cap: 'items', written: 0, unwritten: 1, appendedEventIds: [] },
   ) // full cap: nothing is claimed durable
   assert.deepEqual(
     appendFeedItems(root, '2026-06-13', [mk(4)], 2),
-    { status: 'complete', written: 1, unwritten: 0 },
+    { status: 'complete', written: 1, unwritten: 0, appendedEventIds: ['EVT-4'] },
   ) // complete: the whole batch is durably acknowledged
   fs.appendFileSync(path.join(root, 'screener/inbox/2026-06-12_firehose.ndjson'), 'NOT JSON\n')
   const { items } = readFeed(root, 1, { now: () => new Date('2026-06-12T10:00:00Z') })
@@ -2465,8 +2465,228 @@ await check('appendFeedItems reports a deterministic I/O failure instead of masq
   }
   assert.deepEqual(
     appendFeedItems(root, date, [item], 10),
-    { status: 'io_failure', written: 0, unwritten: 1 },
+    { status: 'io_failure', written: 0, unwritten: 1, appendedEventIds: [] },
   )
+})
+
+const boundaryFeedItem = (id: string, ts = '2026-08-21T23:59:50Z', band: 'pick' | 'watch' | 'drop' = 'drop'): FeedItem => ({
+  kind: 'item', ts, event_id: id, headline: `Boundary item ${id}`, url: `https://reuters.com/${id}`,
+  domain: 'reuters.com', source_name: 'Reuters', via: 'gdelt', region: 'GLOBAL', input_nature: 'news_headline',
+  triage_score: band === 'pick' ? 90 : band === 'watch' ? 60 : 1, band, triage_reason: 'Deterministic boundary test.',
+  relevance: band === 'drop' ? 'irrelevant' : 'material', event_types: [], issuer_linkage: 'sector', companies: [],
+  size_bucket: 'unknown', event_materiality_label: band === 'pick' ? 'critical' : band === 'watch' ? 'medium' : 'low',
+  event_direction: 'neutral', event_scope: 'sector', dedup_status: 'new', inboxed: band !== 'drop',
+})
+
+const exactPending = (
+  id: string,
+  opts: { ts?: string; band?: 'pick' | 'watch' | 'drop'; state?: 'uncommitted' | 'cap' | 'io_failure'; target?: string; exact?: boolean } = {},
+): TriagedItem => {
+  const feed = boundaryFeedItem(id, opts.ts, opts.band)
+  return {
+    event_id: feed.event_id, headline: feed.headline, url: feed.url, domain: feed.domain,
+    source_name: feed.source_name, region: feed.region, input_nature: feed.input_nature,
+    found_at: feed.found_at || feed.ts, deferred_at: '2026-08-19T00:00:00Z', dedup_status: feed.dedup_status,
+    via: feed.via, triage_score: feed.triage_score, triage_reason: feed.triage_reason,
+    relevance: feed.relevance, materiality_pre_score: feed.triage_score, event_types: feed.event_types,
+    issuer_linkage: feed.issuer_linkage, companies: feed.companies, size_bucket: feed.size_bucket,
+    band: feed.band, event_materiality_label: feed.event_materiality_label!, event_direction: feed.event_direction!,
+    event_scope: feed.event_scope!, feed_pending: opts.state || 'uncommitted', feed_triaged_at: feed.ts,
+    ...(opts.target ? { feed_target_date: opts.target } : {}),
+    ...(opts.exact === false ? {} : { pending_feed_item: feed }),
+  }
+}
+
+await check('appendFeedItems rolls back a partial row, acknowledges the exact prefix, and replays without duplicates', () => {
+  const root = tmp()
+  const date = '2026-08-21'
+  const rows = [boundaryFeedItem('EVT-prefix-1'), boundaryFeedItem('EVT-prefix-2')]
+  let calls = 0
+  const first = appendFeedItems(root, date, rows, 10, 1_000_000, {
+    writeLine: (fd, line) => {
+      calls++
+      if (calls === 1) { fs.writeSync(fd, line); return }
+      fs.writeSync(fd, line.subarray(0, Math.floor(line.length / 2)))
+      throw new Error('injected crash during row')
+    },
+  })
+  assert.deepEqual(first, { status: 'io_failure', written: 1, unwritten: 1, appendedEventIds: ['EVT-prefix-1'] })
+  assert.deepEqual(appendFeedItems(root, date, rows, 10, 1_000_000), { status: 'complete', written: 2, unwritten: 0, appendedEventIds: ['EVT-prefix-2'] })
+  const ids = readFeed(root, 1, { now: () => new Date(`${date}T23:59:59Z`), applyActiveWeights: false }).items.map((item) => item.event_id)
+  assert.deepEqual(ids.sort(), rows.map((row) => row.event_id).sort(), 'each event has one complete line after replay')
+})
+
+await check('appendFeedItems fsyncs before acknowledgement and recovers when a full-line writer throws', () => {
+  const root = tmp()
+  const date = '2026-08-21'
+  const row = boundaryFeedItem('EVT-full-then-throw')
+  const originalFsync = fs.fsyncSync
+  const originalTruncate = fs.ftruncateSync
+  let fsyncs = 0
+  ;(fs as any).fsyncSync = (fd: number) => { fsyncs++; return originalFsync(fd) }
+  try {
+    ;(fs as any).ftruncateSync = () => { throw new Error('injected rollback failure') }
+    const failed = appendFeedItems(root, date, [row], 10, 1_000_000, {
+      writeLine: (fd, line) => { fs.writeSync(fd, line); throw new Error('crash after full line') },
+    })
+    assert.deepEqual(failed, { status: 'io_failure', written: 0, unwritten: 1, appendedEventIds: [] })
+    ;(fs as any).ftruncateSync = originalTruncate
+    assert.deepEqual(appendFeedItems(root, date, [row], 10, 1_000_000), { status: 'complete', written: 1, unwritten: 0, appendedEventIds: [] },
+      'the complete line left by a failed rollback is acknowledged, never duplicated')
+    const normal = boundaryFeedItem('EVT-fsync-proof')
+    assert.deepEqual(appendFeedItems(root, date, [normal], 10, 1_000_000), { status: 'complete', written: 1, unwritten: 0, appendedEventIds: [normal.event_id] })
+    assert.ok(fsyncs >= 3, 'recovered bytes, the new row, and its directory entry are fsynced before acknowledgement')
+  } finally {
+    ;(fs as any).fsyncSync = originalFsync
+    ;(fs as any).ftruncateSync = originalTruncate
+  }
+})
+
+await check('appendFeedItems byte cap counts the whole file and reports the byte boundary', () => {
+  const root = tmp()
+  const date = '2026-08-21'
+  const fp = path.join(root, 'screener', 'inbox', `${date}_firehose.ndjson`)
+  fs.mkdirSync(path.dirname(fp), { recursive: true })
+  const summary = '{"kind":"cycle_summary","ok":true}\n'
+  fs.writeFileSync(fp, summary)
+  const one = boundaryFeedItem('EVT-byte-1')
+  const two = boundaryFeedItem('EVT-byte-2')
+  const exactOneByteRoom = Buffer.byteLength(summary) + Buffer.byteLength(`${JSON.stringify(one)}\n`)
+  assert.deepEqual(
+    appendFeedItems(root, date, [one, two], 10, exactOneByteRoom),
+    { status: 'cap', cap: 'bytes', written: 1, unwritten: 1, appendedEventIds: ['EVT-byte-1'] },
+  )
+})
+
+await check('appendFeedItems preserves a complete delimiterless row but truncates a torn JSON tail', () => {
+  const root = tmp()
+  const date = '2026-08-21'
+  const fp = path.join(root, 'screener', 'inbox', `${date}_firehose.ndjson`)
+  fs.mkdirSync(path.dirname(fp), { recursive: true })
+  const one = boundaryFeedItem('EVT-delimiterless')
+  const two = boundaryFeedItem('EVT-after-delimiterless')
+  fs.writeFileSync(fp, JSON.stringify(one))
+  assert.deepEqual(appendFeedItems(root, date, [one, two], 10, 1_000_000), {
+    status: 'complete', written: 2, unwritten: 0, appendedEventIds: [two.event_id],
+  })
+  const three = boundaryFeedItem('EVT-after-torn')
+  fs.appendFileSync(fp, JSON.stringify(boundaryFeedItem('EVT-torn')).slice(0, 25))
+  assert.deepEqual(appendFeedItems(root, date, [three], 10, 1_000_000), {
+    status: 'complete', written: 1, unwritten: 0, appendedEventIds: [three.event_id],
+  })
+  const ids = readFeed(root, 1, { now: () => new Date(`${date}T23:59:59Z`), applyActiveWeights: false }).items.map((item) => item.event_id)
+  assert.deepEqual(ids.sort(), [one.event_id, two.event_id, three.event_id].sort())
+})
+
+const firehoseSummary = (ts = '2026-08-21T12:00:00Z'): CycleSummary => ({
+  ts, completed_at: ts, ok: true, fetched: 3, candidates: 3, picked: 1, watched: 1, dropped: 1,
+  inboxed: 2, groq_requests: 1, groq_tokens: 100, new_arrivals: 3, phase: 'fetch', feed_commit_version: 1,
+})
+
+await check('appendFirehoseSummary rolls back and fsyncs a partial row before a clean retry', () => {
+  const root = tmp()
+  const date = '2026-08-21'
+  const fp = path.join(root, 'screener', 'inbox', `${date}_firehose.ndjson`)
+  fs.mkdirSync(path.dirname(fp), { recursive: true })
+  const prior = `${JSON.stringify({ kind: 'cycle_summary', ...firehoseSummary('2026-08-21T11:00:00Z') })}\n`
+  fs.writeFileSync(fp, prior)
+  const originalFsync = fs.fsyncSync
+  let fsyncs = 0
+  ;(fs as any).fsyncSync = (fd: number) => { fsyncs++; return originalFsync(fd) }
+  try {
+    assert.equal(appendFirehoseSummary(root, date, firehoseSummary(), {
+      writeLine: (fd, line) => {
+        fs.writeSync(fd, line.subarray(0, Math.floor(line.length / 2)))
+        throw new Error('injected crash during summary write')
+      },
+    }), false)
+  } finally {
+    ;(fs as any).fsyncSync = originalFsync
+  }
+  assert.ok(fsyncs >= 1, 'the rollback boundary is fsynced before failure is reported')
+  assert.equal(fs.readFileSync(fp, 'utf8'), prior, 'no partial JSON survives the failed append')
+  assert.equal(appendFirehoseSummary(root, date, firehoseSummary()), true)
+  const rows = fs.readFileSync(fp, 'utf8').trimEnd().split('\n').map((line) => JSON.parse(line))
+  assert.deepEqual(rows.map((row) => row.ts), ['2026-08-21T11:00:00Z', '2026-08-21T12:00:00Z'])
+  fs.rmSync(root, { recursive: true, force: true })
+})
+
+await check('appendFirehoseSummary repairs torn tails and preserves a complete delimiterless row', () => {
+  const date = '2026-08-21'
+  const tornRoot = tmp()
+  const tornPath = path.join(tornRoot, 'screener', 'inbox', `${date}_firehose.ndjson`)
+  fs.mkdirSync(path.dirname(tornPath), { recursive: true })
+  const prior = JSON.stringify({ kind: 'cycle_summary', ...firehoseSummary('2026-08-21T10:00:00Z') })
+  fs.writeFileSync(tornPath, `${prior}\n{"kind":"cycle_summary","ts":"torn"`)
+  assert.equal(appendFirehoseSummary(tornRoot, date, firehoseSummary()), true)
+  const repaired = fs.readFileSync(tornPath, 'utf8').trimEnd().split('\n').map((line) => JSON.parse(line))
+  assert.deepEqual(repaired.map((row) => row.ts), ['2026-08-21T10:00:00Z', '2026-08-21T12:00:00Z'])
+
+  const completeRoot = tmp()
+  const completePath = path.join(completeRoot, 'screener', 'inbox', `${date}_firehose.ndjson`)
+  fs.mkdirSync(path.dirname(completePath), { recursive: true })
+  fs.writeFileSync(completePath, prior)
+  assert.equal(appendFirehoseSummary(completeRoot, date, firehoseSummary()), true)
+  const preserved = fs.readFileSync(completePath, 'utf8').trimEnd().split('\n').map((line) => JSON.parse(line))
+  assert.deepEqual(preserved.map((row) => row.ts), ['2026-08-21T10:00:00Z', '2026-08-21T12:00:00Z'])
+  fs.rmSync(tornRoot, { recursive: true, force: true })
+  fs.rmSync(completeRoot, { recursive: true, force: true })
+})
+
+await check('appendFirehoseSummary fsyncs the file before its new directory entry', () => {
+  const root = tmp()
+  const date = '2026-08-21'
+  const originalFsync = fs.fsyncSync
+  const syncOrder: Array<'file' | 'directory'> = []
+  ;(fs as any).fsyncSync = (fd: number) => {
+    syncOrder.push(fs.fstatSync(fd).isDirectory() ? 'directory' : 'file')
+    return originalFsync(fd)
+  }
+  try {
+    assert.equal(appendFirehoseSummary(root, date, firehoseSummary()), true)
+  } finally {
+    ;(fs as any).fsyncSync = originalFsync
+  }
+  assert.deepEqual(syncOrder, ['file', 'directory'])
+  fs.rmSync(root, { recursive: true, force: true })
+})
+
+await check('appendFirehoseSummary accepts the 99 MB boundary and refuses boundary plus one unchanged', () => {
+  const date = '2026-08-21'
+  const summary = firehoseSummary()
+  const lineBytes = Buffer.byteLength(`${JSON.stringify({ kind: 'cycle_summary', ...summary })}\n`)
+  const makeSparseFirehose = (root: string, size: number) => {
+    const fp = path.join(root, 'screener', 'inbox', `${date}_firehose.ndjson`)
+    fs.mkdirSync(path.dirname(fp), { recursive: true })
+    const fd = fs.openSync(fp, 'w+')
+    try {
+      fs.ftruncateSync(fd, size)
+      fs.writeSync(fd, Buffer.from('\n'), 0, 1, size - 1)
+    } finally { fs.closeSync(fd) }
+    return fp
+  }
+
+  const exactRoot = tmp()
+  const exactPath = makeSparseFirehose(exactRoot, FIREHOSE_HARD_MAX_BYTES - lineBytes)
+  assert.equal(appendFirehoseSummary(exactRoot, date, summary), true)
+  assert.equal(fs.statSync(exactPath).size, FIREHOSE_HARD_MAX_BYTES)
+
+  const overRoot = tmp()
+  const overSize = FIREHOSE_HARD_MAX_BYTES - lineBytes + 1
+  const overPath = makeSparseFirehose(overRoot, overSize)
+  assert.equal(appendFirehoseSummary(overRoot, date, summary), false)
+  assert.equal(fs.statSync(overPath).size, overSize, 'a rejected append cannot change the file')
+  fs.rmSync(exactRoot, { recursive: true, force: true })
+  fs.rmSync(overRoot, { recursive: true, force: true })
+})
+
+await check('NEWS_FEED_ITEMS_DAILY_MAX_BYTES is hard-clamped below GitHub 100 MB', () => {
+  const run = spawnSync(process.execPath, [path.join(process.cwd(), 'node_modules/tsx/dist/cli.mjs'), '-e',
+    "import { NEWS } from './src/config.ts'; process.stdout.write(String(NEWS.feedItemsDailyMaxBytes))"], {
+    cwd: process.cwd(), encoding: 'utf8', env: { ...process.env, NEWS_FEED_ITEMS_DAILY_MAX_BYTES: '999999999' },
+  })
+  assert.equal(run.status, 0, run.stderr)
+  assert.equal(Number(run.stdout), 90_000_000)
 })
 
 type FeedBoundaryCase = 'partial-cap' | 'full-cap' | 'io-failure'
@@ -2495,7 +2715,18 @@ async function runFeedBoundaryCase(kind: FeedBoundaryCase) {
       why: 'No decision-relevant change.', companies: [], size_bucket: 'unknown',
     })) }) } }],
   }
-  const fetchFn = (async (url: string) => String(url).includes('groq') ? res(triage) : res({ articles: [] })) as unknown as typeof fetch
+  let providerCalls = 0
+  const partialTriage = {
+    usage: { total_tokens: 60 },
+    choices: [{ message: { content: JSON.stringify({ items: [
+      { i: 0, relevance: 'irrelevant', materiality_pre_score: 1, event_types: [], issuer_linkage: 'sector', why: 'No decision-relevant change.', companies: [], size_bucket: 'unknown' },
+    ] }) } }],
+  }
+  const fetchFn = (async (url: string) => {
+    if (!String(url).includes('groq')) return res({ articles: [] })
+    providerCalls++
+    return res(kind === 'partial-cap' ? partialTriage : triage)
+  }) as unknown as typeof fetch
   const emitted: string[] = []
   const unsubscribe = newsBus.subscribe((event) => {
     if (event.type === 'news-item') emitted.push(event.item.event_id)
@@ -2519,7 +2750,7 @@ async function runFeedBoundaryCase(kind: FeedBoundaryCase) {
     const itemRows = kind === 'io-failure'
       ? []
       : readFeed(root, 1, { now: () => new Date('2026-08-21T15:30:00Z'), applyActiveWeights: false }).items
-    return { root, state, summary, backlog, seen, emitted, itemRows, originalRows }
+    return { root, state, summary, backlog, seen, emitted, itemRows, originalRows, providerCalls }
   } finally {
     unsubscribe()
   }
@@ -2527,14 +2758,17 @@ async function runFeedBoundaryCase(kind: FeedBoundaryCase) {
 
 await check('runIngestCycle partial feed cap publishes/counts only the prefix and preserves the suffix clocks', async () => {
   const result = await runFeedBoundaryCase('partial-cap')
-  const { summary, backlog, seen, emitted, itemRows, originalRows } = result
+  const { summary, backlog, seen, emitted, itemRows, originalRows, providerCalls } = result
   assert.equal(summary.picked + summary.watched + summary.dropped, 1, 'only the one persisted row counts as scanned')
-  assert.equal(summary.feed_unwritten, 2)
+  assert.equal(summary.feed_unwritten, undefined, 'capacity preflight avoids scoring an unwritable suffix')
   assert.equal(summary.feed_write_failed, undefined)
+  assert.equal(summary.feed_cap_kind, 'items')
   assert.equal(summary.defer_reason, 'feed-cap')
+  assert.deepEqual(summary.defer_reasons, ['feed-cap'])
   assert.equal(summary.deferred, 2)
   assert.equal(summary.backlog, 2)
-  assert.match(String(summary.note), /daily feed persistence cap reached/)
+  assert.match(String(summary.note), /daily feed items cap reached/)
+  assert.equal(providerCalls, 1, 'only the exact writable prefix spends provider capacity')
   assert.equal(itemRows.length, 1, 'only the confirmed prefix is in the durable wire')
   assert.deepEqual(emitted, itemRows.map((item) => item.event_id), 'SSE emits exactly the persisted prefix')
   assert.deepEqual(Object.keys(seen).sort(), emitted.slice().sort(), 'only persisted rows enter the seen cache')
@@ -2544,14 +2778,33 @@ await check('runIngestCycle partial feed cap publishes/counts only the prefix an
 })
 
 await check('runIngestCycle full feed cap reports zero progress and durably queues every scored row', async () => {
-  const { summary, backlog, seen, emitted, itemRows, originalRows } = await runFeedBoundaryCase('full-cap')
+  const { summary, backlog, seen, emitted, itemRows, originalRows, providerCalls } = await runFeedBoundaryCase('full-cap')
   assert.equal(summary.picked + summary.watched + summary.dropped, 0)
-  assert.equal(summary.feed_unwritten, 3)
+  assert.equal(summary.feed_unwritten, undefined, 'no row was scored before the full-cap decision')
   assert.equal(summary.feed_write_failed, undefined)
+  assert.equal(summary.feed_cap_kind, 'items')
   assert.equal(summary.defer_reason, 'feed-cap')
   assert.equal(summary.deferred, 3)
   assert.equal(summary.backlog, 3)
   assert.equal(itemRows.length, 0)
+  assert.deepEqual(emitted, [])
+  assert.deepEqual(Object.keys(seen), [])
+  assert.equal(providerCalls, 0, 'a known-full day spends zero provider calls')
+  const originalClock = new Map(originalRows.map((row) => [row.event_id, row.deferred_at]))
+  assert.equal(backlog.length, 3)
+  for (const row of backlog) assert.equal(row.deferred_at, originalClock.get(row.event_id))
+})
+
+await check('runIngestCycle feed I/O failure is distinct, reports zero progress, and queues every row unseen', async () => {
+  const { summary, backlog, seen, emitted, originalRows, providerCalls } = await runFeedBoundaryCase('io-failure')
+  assert.equal(summary.picked + summary.watched + summary.dropped, 0)
+  assert.equal(summary.feed_unwritten, undefined)
+  assert.equal(summary.feed_write_failed, true)
+  assert.equal(summary.defer_reason, 'feed-write-failed')
+  assert.equal(summary.deferred, 3)
+  assert.equal(summary.backlog, 3)
+  assert.match(String(summary.note), /feed persistence unavailable/)
+  assert.equal(providerCalls, 0, 'an unreadable boundary spends zero provider calls')
   assert.deepEqual(emitted, [])
   assert.deepEqual(Object.keys(seen), [])
   const originalClock = new Map(originalRows.map((row) => [row.event_id, row.deferred_at]))
@@ -2559,20 +2812,529 @@ await check('runIngestCycle full feed cap reports zero progress and durably queu
   for (const row of backlog) assert.equal(row.deferred_at, originalClock.get(row.event_id))
 })
 
-await check('runIngestCycle feed I/O failure is distinct, reports zero progress, and queues every row unseen', async () => {
-  const { summary, backlog, seen, emitted, originalRows } = await runFeedBoundaryCase('io-failure')
-  assert.equal(summary.picked + summary.watched + summary.dropped, 0)
-  assert.equal(summary.feed_unwritten, 3)
-  assert.equal(summary.feed_write_failed, true)
+const noProviderConfig = {
+  groqApiKey: '', localProvider: null, overflowProviders: [], geminiEnabled: false, geminiApiKey: '',
+  anthropicFallbackEnabled: false, themesEnabled: false, dedupEnabled: false, newsArchiveDir: '',
+} as any
+
+await check('feed-pending rows are exempt from unscored expiry and pending journal state wins stale canonical', () => {
+  const state = tmp()
+  const pending = exactPending('EVT-pending-authority', { state: 'cap', target: '2026-08-20' })
+  const stale: NewsItem = {
+    event_id: pending.event_id, headline: pending.headline, url: pending.url, domain: pending.domain,
+    source_name: pending.source_name, region: pending.region, input_nature: pending.input_nature,
+    found_at: pending.found_at, deferred_at: pending.deferred_at, dedup_status: 'new',
+  }
+  fs.writeFileSync(path.join(state, 'news-deferred.json'), `${JSON.stringify([stale])}\n`)
+  fs.writeFileSync(path.join(state, 'news-deferred-pending.json'), `${JSON.stringify([pending])}\n`)
+  const loaded = inspectDeferredBacklog(state)
+  assert.equal(loaded.available, true)
+  assert.equal(loaded.items[0].feed_pending, 'cap', 'newer write-ahead state wins the duplicate id')
+  const expired = expireBacklog(loaded.items, new Date('2026-08-25T00:00:00Z'), 48 * 3_600_000)
+  assert.equal(expired.expired.length, 0)
+  assert.equal(expired.live[0].deferred_at, '2026-08-19T00:00:00Z', 'the original residence clock remains auditable')
+})
+
+await check('saveDeferred prioritizes scored pending recovery inside the bounded active work window', () => {
+  const state = tmp()
+  const raw: NewsItem[] = Array.from({ length: 5_000 }, (_, i) => ({
+    event_id: `EVT-raw-cap-${i}`, headline: `Raw backlog row ${i} long enough for validation`,
+    url: `https://reuters.com/raw-cap-${i}`, domain: 'reuters.com', source_name: 'Reuters', region: 'GLOBAL',
+    input_nature: 'news_headline', found_at: '2026-08-21T00:00:00Z', dedup_status: 'new',
+  }))
+  const pending = exactPending('EVT-pending-at-tail', { state: 'cap' })
+  assert.equal(saveDeferred(state, [...raw, pending], () => {}, 5_000), true)
+  const saved = loadDeferred(state)
+  assert.equal(saved.length, 5_000)
+  assert.equal(saved[0].event_id, pending.event_id)
+  assert.equal(saved.some((row) => row.event_id === raw[raw.length - 1].event_id), false)
+})
+
+await check('feed-recovery backlog uses a v2 wrapper that makes an older worker pause safely', () => {
+  const state = tmp()
+  const pending = exactPending('EVT-rolling-safe-pending', { state: 'cap' })
+  assert.equal(saveDeferred(state, [pending]), true)
+  const raw = JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8'))
+  assert.equal(raw.v, 2)
+  assert.equal(Array.isArray(raw), false, 'the pre-v2 array reader refuses this authority instead of rescoring it')
+  assert.equal(loadDeferred(state)[0].event_id, pending.event_id, 'the current reader unwraps the recovery state')
+})
+
+await check('scoring journal capacity reserves every slot already occupied by feed recovery', () => {
+  assert.equal(scoringJournalSlots(3, 3), 0, 'a full recovery journal admits no new paid score')
+  assert.equal(scoringJournalSlots(2, 3), 1)
+  assert.equal(scoringJournalSlots(99, 3), 0)
+})
+
+await check('the raw v2 journal can retain a source surge above the former 5,000-row deadlock', () => {
+  const state = tmp()
+  const rows: NewsItem[] = Array.from({ length: 5_001 }, (_, i) => ({
+    event_id: `EVT-input-surge-${i}`, headline: `Input surge row ${i} remains durable before provider admission`,
+    url: `https://reuters.com/input-surge-${i}`, domain: 'reuters.com', source_name: 'Reuters', region: 'GLOBAL',
+    input_nature: 'news_headline', found_at: '2026-08-21T00:00:00Z', dedup_status: 'new', input_pending: true,
+  }))
+  assert.equal(saveDeferred(state, rows, undefined, 10_000), true)
+  const stored = JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8'))
+  assert.equal(stored.v, 2, 'rollback-unsafe workers refuse the raw authority rather than consuming it')
+  assert.equal(loadDeferred(state).length, 5_001)
+})
+
+await check('the append-only scored checkpoint overrides raw authority and compacts on the next canonical save', () => {
+  const state = tmp()
+  const scored = exactPending('EVT-scored-checkpoint-recovery', { exact: false })
+  const raw: NewsItem = {
+    event_id: scored.event_id, headline: scored.headline, url: scored.url, domain: scored.domain,
+    source_name: scored.source_name, region: scored.region, input_nature: scored.input_nature,
+    found_at: scored.found_at, deferred_at: scored.deferred_at, dedup_status: 'new', input_pending: true,
+  }
+  assert.equal(saveDeferred(state, [raw]), true)
+  assert.equal(appendScoredCheckpoint(state, [scored]), true)
+  assert.equal(loadDeferred(state)[0].feed_pending, 'uncommitted', 'small scored WAL wins the matching raw row')
+  assert.equal(saveDeferred(state, loadDeferred(state)), true)
+  assert.equal(fs.existsSync(path.join(state, 'news-scored-checkpoints.ndjson')), false, 'canonical compaction durably clears the small WAL')
+})
+
+await check('a recent missing target is a safe pre-append crash, but an archived-age absence fails closed', () => {
+  assert.equal(recentMissingFeedTargetIsRetryable('2026-08-21', '2026-08-22', 30), true)
+  assert.equal(recentMissingFeedTargetIsRetryable('2026-07-20', '2026-08-22', 30), false)
+  assert.equal(recentMissingFeedTargetIsRetryable('2026-08-23', '2026-08-22', 30), false, 'future targets are never invented empty')
+})
+
+await check('an uncommitted pick drains without any provider and keeps its original UTC inbox partition', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const pending = exactPending('EVT-no-provider-pick', {
+    ts: '2026-08-21T23:59:50Z', band: 'pick', state: 'uncommitted', exact: false,
+  })
+  fs.writeFileSync(path.join(state, 'news-deferred.json'), `${JSON.stringify([pending])}\n`)
+  let networkCalls = 0
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, skipFetch: true, now: () => new Date('2026-08-22T00:01:00Z'),
+    fetchFn: (async () => { networkCalls++; throw new Error('no network expected') }) as unknown as typeof fetch,
+    sleep: noSleep, config: noProviderConfig,
+  })
+  assert.equal(networkCalls, 0)
+  assert.equal(summary.picked, 1)
+  assert.equal(loadDeferred(state).length, 0)
+  assert.ok(fs.existsSync(path.join(root, 'screener', 'inbox', '2026-08-21_sweep.json')))
+  assert.equal(fs.existsSync(path.join(root, 'screener', 'inbox', '2026-08-22_sweep.json')), false,
+    'retry does not create a duplicate next-day inbox row')
+  const item = readFeed(root, 1, { now: () => new Date('2026-08-22T00:01:00Z'), applyActiveWeights: false }).items[0]
+  assert.equal(item.ts, '2026-08-21T23:59:50Z', 'retry never re-dates the original triage')
+})
+
+await check('D/D+1/D+2 crash replay acknowledges the journaled target once and does not re-emit SSE', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const pending = exactPending('EVT-rollover-crash', {
+    ts: '2026-08-21T23:59:50Z', state: 'cap', target: '2026-08-21',
+  })
+  fs.writeFileSync(path.join(state, 'news-deferred.json'), `${JSON.stringify([pending])}\n`)
+  let saveCalls = 0
+  const firstEvents: string[] = []
+  const offFirst = newsBus.subscribe((event) => { if (event.type === 'news-item') firstEvents.push(event.item.event_id) })
+  const first = await runIngestCycle({
+    repoRoot: root, stateDir: state, skipFetch: true, now: () => new Date('2026-08-22T00:01:00Z'),
+    fetchFn: (async () => { throw new Error('no network expected') }) as unknown as typeof fetch,
+    sleep: noSleep, config: noProviderConfig,
+    saveDeferredFn: (dir, rows, log) => { saveCalls++; return saveCalls === 4 ? false : saveDeferred(dir, rows, log) },
+  })
+  offFirst()
+  assert.equal(first.dropped, 1)
+  assert.equal(first.deferred_write_failed, true, 'the failed final cleanup is surfaced')
+  assert.notEqual(first.defer_reason, 'storage-emergency', 'the exact pre-append journal is still durable')
+  assert.deepEqual(firstEvents, [pending.event_id])
+  assert.equal(loadDeferred(state)[0].feed_target_date, '2026-08-22', 'target partition was journaled before append')
+  const archive = tmp()
+  fs.renameSync(
+    path.join(root, 'screener', 'inbox', '2026-08-22_firehose.ndjson'),
+    path.join(archive, '2026-08-22_firehose.ndjson'),
+  )
+
+  const secondEvents: string[] = []
+  const offSecond = newsBus.subscribe((event) => { if (event.type === 'news-item') secondEvents.push(event.item.event_id) })
+  const second = await runIngestCycle({
+    repoRoot: root, stateDir: state, skipFetch: true, now: () => new Date('2026-08-23T00:01:00Z'),
+    fetchFn: (async () => { throw new Error('no network expected') }) as unknown as typeof fetch,
+    sleep: noSleep, config: { ...noProviderConfig, newsArchiveDir: archive },
+  })
+  offSecond()
+  assert.equal(second.dropped, 0, 'historical acknowledgement clears recovery without double-counting durable progress')
+  assert.equal(first.dropped + second.dropped, 1, 'one durable item contributes exactly one scanned outcome')
+  assert.deepEqual(secondEvents, [], 'historical acknowledgement is not replayed as a new live event')
+  assert.equal(loadDeferred(state).length, 0)
+  const allRows = [
+    ...['2026-08-21', '2026-08-22', '2026-08-23'].map((day) => path.join(root, 'screener', 'inbox', `${day}_firehose.ndjson`)),
+    path.join(archive, '2026-08-22_firehose.ndjson'),
+  ].flatMap((fp) => {
+    if (!fs.existsSync(fp)) return []
+    return fs.readFileSync(fp, 'utf8').trim().split('\n').flatMap((line) => {
+      try { const row = JSON.parse(line); return row.kind === 'item' ? [row] : [] } catch { return [] }
+    })
+  })
+  assert.equal(allRows.filter((row) => row.event_id === pending.event_id).length, 1, 'one event line exists across all retry dates')
+})
+
+await check('a configured but unavailable archive blocks historical acknowledgement instead of duplicating it', async () => {
+  const root = tmp()
+  const state = tmp()
+  const pending = exactPending('EVT-archive-unavailable', { state: 'io_failure', target: '2026-08-21' })
+  fs.writeFileSync(path.join(state, 'news-deferred.json'), `${JSON.stringify([pending])}\n`)
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, skipFetch: true, now: () => new Date('2026-08-23T00:01:00Z'),
+    fetchFn: (async () => { throw new Error('no network expected') }) as unknown as typeof fetch,
+    sleep: noSleep, config: { ...noProviderConfig, newsArchiveDir: path.join(tmp(), 'missing-mount') },
+  })
+  assert.equal(summary.dropped, 0)
   assert.equal(summary.defer_reason, 'feed-write-failed')
-  assert.equal(summary.deferred, 3)
-  assert.equal(summary.backlog, 3)
-  assert.match(String(summary.note), /feed persistence write failed/)
-  assert.deepEqual(emitted, [])
-  assert.deepEqual(Object.keys(seen), [])
-  const originalClock = new Map(originalRows.map((row) => [row.event_id, row.deferred_at]))
-  assert.equal(backlog.length, 3)
-  for (const row of backlog) assert.equal(row.deferred_at, originalClock.get(row.event_id))
+  assert.equal(loadDeferred(state)[0].event_id, pending.event_id)
+  assert.equal(fs.existsSync(path.join(root, 'screener', 'inbox', '2026-08-23_firehose.ndjson')), true,
+    'only the honest cycle summary may be written; no duplicate item is appended')
+  const rows = fs.readFileSync(path.join(root, 'screener', 'inbox', '2026-08-23_firehose.ndjson'), 'utf8')
+    .trim().split('\n').map((line) => JSON.parse(line))
+  assert.equal(rows.some((row) => row.kind === 'item'), false)
+})
+
+await check('mounted-empty archive distinguishes a recent pre-append crash from an old ambiguous target', async () => {
+  const archive = tmp()
+  const run = async (id: string, target: string) => {
+    const root = tmp()
+    const state = tmp()
+    fs.writeFileSync(path.join(state, 'news-deferred.json'), `${JSON.stringify([
+      exactPending(id, { state: 'uncommitted', target }),
+    ])}\n`)
+    const summary = await runIngestCycle({
+      repoRoot: root, stateDir: state, skipFetch: true, now: () => new Date('2026-08-22T00:01:00Z'),
+      fetchFn: (async () => { throw new Error('no provider expected') }) as unknown as typeof fetch,
+      sleep: noSleep, config: { ...noProviderConfig, newsArchiveDir: archive, newsLocalRetentionDays: 30 },
+    })
+    return { root, state, summary }
+  }
+  const recent = await run('EVT-recent-missing-target', '2026-08-21')
+  assert.equal(recent.summary.dropped, 1, 'recent target absence proves append never began and may retry')
+  assert.equal(loadDeferred(recent.state).length, 0)
+
+  const old = await run('EVT-old-missing-target', '2026-07-01')
+  assert.equal(old.summary.dropped, 0)
+  assert.equal(old.summary.defer_reason, 'feed-write-failed', 'archive-age absence is ambiguous and fails closed')
+  assert.equal(loadDeferred(old.state).length, 1)
+})
+
+await check('a refused per-batch checkpoint stops further provider burn while raw work stays durable', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const rows: NewsItem[] = [0, 1, 2].map((i) => ({
+    event_id: `EVT-checkpoint-${i}`, headline: `Central bank checkpoint test headline number ${i}`,
+    url: `https://reuters.com/checkpoint-${i}`, domain: 'reuters.com', source_name: 'Reuters', region: 'GLOBAL',
+    input_nature: 'news_headline', found_at: `2026-08-21T10:0${i}:00Z`, deferred_at: '2026-08-21T10:05:00Z',
+    dedup_status: 'new', via: 'gdelt',
+  }))
+  fs.writeFileSync(path.join(state, 'news-deferred.json'), `${JSON.stringify(rows)}\n`)
+  let providerCalls = 0
+  const fetchFn = (async (url: string) => {
+    if (!String(url).includes('groq')) return res({ articles: [] })
+    providerCalls++
+    return res({ usage: { total_tokens: 60 }, choices: [{ message: { content: JSON.stringify({ items: [
+      { i: 0, relevance: 'irrelevant', materiality_pre_score: 1, event_types: [], issuer_linkage: 'sector', why: 'No material change.', companies: [], size_bucket: 'unknown' },
+    ] }) } }] })
+  }) as unknown as typeof fetch
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, skipFetch: true, now: () => new Date('2026-08-21T12:00:00Z'),
+    fetchFn, sleep: noSleep,
+    appendScoredCheckpointFn: () => false,
+    config: {
+      ...noProviderConfig, groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqRpm: 6000,
+      triageBatch: 1,
+    },
+  })
+  assert.equal(providerCalls, 1, 'a failed first scored checkpoint prevents calls for the remaining two rows')
+  assert.equal(summary.deferred_write_failed, true)
+  assert.match(String(summary.note), /scored-batch checkpoint was refused/)
+  assert.equal(loadDeferred(state).length, 2, 'the two unprocessed rows remain in the durable raw queue')
+})
+
+await check('a dedup-receipt write failure retains exact feed recovery and avoids rollover double-counting', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const row: NewsItem = {
+    event_id: 'EVT-seen-durable-retry', headline: 'Central bank changes policy rate in durable dedup test',
+    url: 'https://reuters.com/seen-durable-retry', domain: 'reuters.com', source_name: 'Reuters', region: 'GLOBAL',
+    input_nature: 'news_headline', found_at: '2026-08-21T10:00:00Z', deferred_at: '2026-08-21T10:05:00Z',
+    dedup_status: 'new', via: 'gdelt',
+  }
+  fs.writeFileSync(path.join(state, 'news-deferred.json'), `${JSON.stringify([row])}\n`)
+  const fetchFn = (async (url: string) => String(url).includes('groq')
+    ? res({ usage: { total_tokens: 60 }, choices: [{ message: { content: JSON.stringify({ items: [
+        { i: 0, relevance: 'irrelevant', materiality_pre_score: 1, event_types: [], issuer_linkage: 'sector', why: 'No material change.', companies: [], size_bucket: 'unknown' },
+      ] }) } }] })
+    : res({ articles: [] })) as unknown as typeof fetch
+  const originalSave = SeenCache.prototype.save
+  ;(SeenCache.prototype as any).save = () => false
+  let first: CycleSummary
+  try {
+    first = await runIngestCycle({
+      repoRoot: root, stateDir: state, skipFetch: true, now: () => new Date('2026-08-21T12:00:00Z'),
+      fetchFn, sleep: noSleep,
+      config: { ...noProviderConfig, groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqRpm: 6000 },
+    })
+  } finally {
+    ;(SeenCache.prototype as any).save = originalSave
+  }
+  assert.equal(first.dropped, 1)
+  assert.equal(first.seen_write_failed, true)
+  assert.equal(loadDeferred(state)[0].pending_feed_item?.event_id, row.event_id)
+
+  const second = await runIngestCycle({
+    repoRoot: root, stateDir: state, skipFetch: true, now: () => new Date('2026-08-22T00:01:00Z'),
+    fetchFn: (async () => { throw new Error('historical acknowledgement needs no provider') }) as unknown as typeof fetch,
+    sleep: noSleep, config: noProviderConfig,
+  })
+  assert.equal(second.dropped, 0, 'acknowledgement recovery does not count the same durable item twice')
+  assert.equal(loadDeferred(state).length, 0)
+})
+
+await check('a refused cycle summary leaves a durable gap and hides the safety-rate comparison', async () => {
+  const root = tmp()
+  const state = tmp()
+  const now = new Date('2026-08-21T12:00:00Z')
+  const pending = exactPending('EVT-summary-gap', { ts: '2026-08-21T11:59:00Z', state: 'cap' })
+  fs.writeFileSync(path.join(state, 'news-deferred.json'), `${JSON.stringify({ v: 2, items: [pending] })}\n`)
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, skipFetch: true, now: () => now,
+    fetchFn: (async () => { throw new Error('no network expected') }) as unknown as typeof fetch,
+    sleep: noSleep, config: noProviderConfig, appendFirehoseSummaryFn: () => false,
+  })
+  assert.equal(summary.dropped, 1, 'the feed boundary itself still commits')
+  const read = readPipelineFlowCycles(root, '', now.getTime() + 1_000, NEWS.cycleTimeoutMs, state)
+  assert.equal(read.history.incompleteCycles, 1)
+  assert.equal(read.history.coverage, 'partial')
+  assert.equal(buildPipelineFlowRates(read.cycles, now.getTime() + 1_000, NEWS.cycleTimeoutMs, read.history).comparison.status, 'unavailable')
+})
+
+await check('an acknowledged row behind a cap-blocked row is completed first and stays silent on SSE', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const current = '2026-08-23'
+  const blocked = exactPending('EVT-cap-blocked-first', { state: 'cap', target: '2026-08-21' })
+  const acknowledged = exactPending('EVT-ack-behind-blocked', { state: 'uncommitted', target: '2026-08-22' })
+  appendFeedItems(root, '2026-08-22', [acknowledged.pending_feed_item!], 10, 1_000_000)
+  fs.writeFileSync(path.join(state, 'news-deferred.json'), `${JSON.stringify([blocked, acknowledged])}\n`)
+  const events: string[] = []
+  const off = newsBus.subscribe((event) => { if (event.type === 'news-item') events.push(event.item.event_id) })
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, skipFetch: true, now: () => new Date(`${current}T00:01:00Z`),
+    fetchFn: (async () => { throw new Error('no network expected') }) as unknown as typeof fetch,
+    sleep: noSleep, config: { ...noProviderConfig, feedItemsDailyCap: 0 },
+  })
+  off()
+  assert.equal(summary.dropped, 0, 'a row already present in a prior partition is not counted as new durable progress')
+  assert.equal(summary.feed_unwritten, 1)
+  assert.deepEqual(events, [])
+  assert.deepEqual(loadDeferred(state).map((row) => row.event_id), [blocked.event_id])
+})
+
+await check('a mismatched exact pending payload fails closed without re-scoring or rewriting backlog', async () => {
+  const root = tmp()
+  const state = tmp()
+  const corrupt = exactPending('EVT-corrupt-pending', { state: 'io_failure', target: '2026-08-21' })
+  corrupt.pending_feed_item = { ...corrupt.pending_feed_item!, event_id: 'EVT-wrong' }
+  const before = `${JSON.stringify([corrupt])}\n`
+  fs.writeFileSync(path.join(state, 'news-deferred.json'), before)
+  let calls = 0
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, skipFetch: true, now: () => new Date('2026-08-22T00:01:00Z'),
+    fetchFn: (async () => { calls++; throw new Error('must not call') }) as unknown as typeof fetch,
+    sleep: noSleep, config: noProviderConfig,
+  })
+  assert.equal(summary.ok, false)
+  assert.equal(summary.defer_reason, 'storage-emergency')
+  assert.deepEqual(summary.defer_reasons, ['storage-emergency'])
+  assert.equal(calls, 0)
+  assert.equal(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8'), before)
+})
+
+await check('unknown or unstamped feed-pending state fails closed without model work', async () => {
+  for (const corrupt of [
+    { ...exactPending('EVT-unknown-pending'), feed_pending: 'unknown' },
+    { ...exactPending('EVT-unstamped-pending'), feed_triaged_at: undefined },
+  ]) {
+    const root = tmp()
+    const state = tmp()
+    const before = `${JSON.stringify([corrupt])}\n`
+    fs.writeFileSync(path.join(state, 'news-deferred.json'), before)
+    let calls = 0
+    const summary = await runIngestCycle({
+      repoRoot: root, stateDir: state, skipFetch: true, now: () => new Date('2026-08-22T00:01:00Z'),
+      fetchFn: (async () => { calls++; throw new Error('must not call') }) as unknown as typeof fetch,
+      sleep: noSleep, config: noProviderConfig,
+    })
+    assert.equal(summary.defer_reason, 'storage-emergency')
+    assert.equal(calls, 0)
+    assert.equal(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8'), before)
+  }
+})
+
+await check('feed cap and provider failure retain both structured and human explanations', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const date = '2026-08-21'
+  const rows: NewsItem[] = [0, 1].map((i) => ({
+    event_id: `EVT-combined-${i}`, headline: `Ordinary market update combined cause ${i}`,
+    url: `https://reuters.com/combined-${i}`, domain: 'reuters.com', source_name: 'Reuters', region: 'GLOBAL',
+    input_nature: 'news_headline', found_at: `${date}T10:0${i}:00Z`, deferred_at: `${date}T10:10:00Z`,
+    dedup_status: 'new', via: 'gdelt',
+  }))
+  fs.writeFileSync(path.join(state, 'news-deferred.json'), `${JSON.stringify(rows)}\n`)
+  const fp = path.join(root, 'screener', 'inbox', `${date}_firehose.ndjson`)
+  fs.mkdirSync(path.dirname(fp), { recursive: true })
+  fs.writeFileSync(fp, '{"kind":"cycle_summary","ok":true}\n')
+  const existingBytes = fs.statSync(fp).size
+  const maxBytes = existingBytes + 2 * MAX_FEED_ITEM_BYTES
+  let calls = 0
+  const fetchFn = (async (url: string) => {
+    if (!String(url).includes('groq')) return res({ articles: [] })
+    calls++
+    if (calls === 1) {
+      // Admission honestly reserves two worst-case rows. Simulate a concurrent writer consuming the
+      // remaining day after that snapshot so feed-cap and a second-batch provider failure coexist.
+      const filler = Math.max(0, maxBytes - fs.statSync(fp).size - 1)
+      fs.appendFileSync(fp, `${' '.repeat(Math.max(0, filler - 1))}\n`)
+    }
+    if (calls === 2) return res('temporary provider failure', 503)
+    return res({ usage: { total_tokens: 60 }, choices: [{ message: { content: JSON.stringify({ items: [
+      { i: 0, relevance: 'irrelevant', materiality_pre_score: 1, event_types: [], issuer_linkage: 'sector', why: 'No material change.', companies: [], size_bucket: 'unknown' },
+    ] }) } }] })
+  }) as unknown as typeof fetch
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, skipFetch: true, now: () => new Date(`${date}T12:00:00Z`), fetchFn, sleep: noSleep,
+    config: {
+      ...noProviderConfig, groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqRpm: 6000,
+      triageBatch: 1, feedItemsDailyCap: 10, feedItemsDailyMaxBytes: maxBytes,
+    },
+  })
+  assert.deepEqual(summary.defer_reasons, ['feed-cap', 'batch-failed'])
+  assert.equal(summary.defer_reason, 'feed-cap')
+  assert.match(String(summary.note), /daily feed bytes cap reached/)
+  assert.match(String(summary.note), /not scored \(LLM hiccup\)/)
+})
+
+await check('a byte remainder below one provable row spends zero provider calls', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const date = '2026-08-21'
+  const row: NewsItem = {
+    event_id: 'EVT-byte-preflight-zero', headline: 'Ordinary market update cannot fit in one remaining byte',
+    url: 'https://reuters.com/byte-preflight-zero', domain: 'reuters.com', source_name: 'Reuters', region: 'GLOBAL',
+    input_nature: 'news_headline', found_at: `${date}T10:00:00Z`, deferred_at: `${date}T10:05:00Z`,
+    dedup_status: 'new', via: 'gdelt',
+  }
+  fs.writeFileSync(path.join(state, 'news-deferred.json'), `${JSON.stringify([row])}\n`)
+  const fp = path.join(root, 'screener', 'inbox', `${date}_firehose.ndjson`)
+  fs.mkdirSync(path.dirname(fp), { recursive: true })
+  fs.writeFileSync(fp, '{"kind":"cycle_summary","ok":true}\n')
+  const existingBytes = fs.statSync(fp).size
+  let calls = 0
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, skipFetch: true, now: () => new Date(`${date}T12:00:00Z`),
+    fetchFn: (async () => { calls++; throw new Error('provider must not be called') }) as unknown as typeof fetch,
+    sleep: noSleep,
+    config: {
+      ...noProviderConfig, groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqRpm: 6000,
+      feedItemsDailyCap: 10, feedItemsDailyMaxBytes: existingBytes + 1,
+    },
+  })
+  assert.equal(calls, 0)
+  assert.equal(summary.picked + summary.watched + summary.dropped, 0)
+  assert.equal(summary.defer_reason, 'feed-cap')
+  assert.equal(loadDeferred(state)[0].pending_feed_item, undefined, 'unwritable work is never paid/scored')
+})
+
+await check('no durable scored retry marker escalates storage-emergency and claims no feed progress', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const row: NewsItem = {
+    event_id: 'EVT-storage-emergency', headline: 'Ordinary market update storage boundary test',
+    url: 'https://reuters.com/storage-emergency', domain: 'reuters.com', source_name: 'Reuters', region: 'GLOBAL',
+    input_nature: 'news_headline', found_at: '2026-08-21T10:00:00Z', deferred_at: '2026-08-21T10:05:00Z',
+    dedup_status: 'new', via: 'gdelt',
+  }
+  fs.writeFileSync(path.join(state, 'news-deferred.json'), `${JSON.stringify([row])}\n`)
+  const fetchFn = (async (url: string) => String(url).includes('groq')
+    ? res({ usage: { total_tokens: 60 }, choices: [{ message: { content: JSON.stringify({ items: [
+        { i: 0, relevance: 'irrelevant', materiality_pre_score: 1, event_types: [], issuer_linkage: 'sector', why: 'No material change.', companies: [], size_bucket: 'unknown' },
+      ] }) } }] })
+    : res({ articles: [] })) as unknown as typeof fetch
+  const summary = await runIngestCycle({
+    repoRoot: root, stateDir: state, skipFetch: true, now: () => new Date('2026-08-21T12:00:00Z'), fetchFn, sleep: noSleep,
+    saveDeferredFn: () => false,
+    config: { ...noProviderConfig, groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqRpm: 6000 },
+  })
+  assert.equal(summary.picked + summary.watched + summary.dropped, 0)
+  assert.equal(summary.defer_reason, 'storage-emergency')
+  assert.deepEqual(summary.defer_reasons, ['storage-emergency'], 'raw journaling failed before feed inspection or provider work')
+  assert.match(String(summary.note), /STORAGE EMERGENCY/)
+  assert.equal(loadDeferred(state)[0].feed_pending, undefined, 'stale raw authority is not mistaken for a scored retry marker')
+})
+
+await check('a pick awaiting feed may be visible in inbox but is uncounted/unseen and retries idempotently', async () => {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const date = '2026-08-21'
+  const row: NewsItem = {
+    event_id: 'EVT-pick-feed-pending', headline: 'Central bank cuts policy rate by 100 basis points unexpectedly',
+    url: 'https://reuters.com/pick-feed-pending', domain: 'reuters.com', source_name: 'Reuters', region: 'GLOBAL',
+    input_nature: 'news_headline', found_at: `${date}T10:00:00Z`, deferred_at: `${date}T10:05:00Z`,
+    dedup_status: 'new', via: 'gdelt',
+  }
+  fs.writeFileSync(path.join(state, 'news-deferred.json'), `${JSON.stringify([row])}\n`)
+  const fp = path.join(root, 'screener', 'inbox', `${date}_firehose.ndjson`)
+  fs.mkdirSync(path.dirname(fp), { recursive: true })
+  fs.writeFileSync(fp, '{"kind":"cycle_summary","ok":true}\n')
+  const existingBytes = fs.statSync(fp).size
+  const maxBytes = existingBytes + MAX_FEED_ITEM_BYTES
+  const fetchFn = (async (url: string) => String(url).includes('groq')
+    ? (() => {
+        const filler = Math.max(0, maxBytes - fs.statSync(fp).size - 1)
+        fs.appendFileSync(fp, `${' '.repeat(Math.max(0, filler - 1))}\n`)
+        return res({ usage: { total_tokens: 60 }, choices: [{ message: { content: JSON.stringify({ items: [
+        { i: 0, relevance: 'material', materiality_pre_score: 95, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A 100 bps surprise changes funding costs.', companies: [], size_bucket: 'unknown' },
+        ] }) } }] })
+      })()
+    : res({ articles: [] })) as unknown as typeof fetch
+  const first = await runIngestCycle({
+    repoRoot: root, stateDir: state, skipFetch: true, now: () => new Date(`${date}T12:00:00Z`), fetchFn, sleep: noSleep,
+    config: {
+      ...noProviderConfig, groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqRpm: 6000,
+      feedItemsDailyMaxBytes: maxBytes,
+    },
+  })
+  assert.equal(first.picked, 0, 'inbox projection is not firehose completion')
+  assert.equal(first.inboxed, 1)
+  assert.equal(first.inbox_feed_pending, 1)
+  assert.equal(first.feed_unwritten, 1)
+  assert.equal(loadDeferred(state)[0].pending_feed_item?.band, 'pick')
+  const seen = JSON.parse(fs.readFileSync(path.join(state, 'news-seen.json'), 'utf8')) as Record<string, unknown>
+  assert.equal(Object.hasOwn(seen, row.event_id), false)
+
+  const second = await runIngestCycle({
+    repoRoot: root, stateDir: state, skipFetch: true, now: () => new Date('2026-08-22T00:01:00Z'),
+    fetchFn: (async () => { throw new Error('pending retry needs no provider') }) as unknown as typeof fetch,
+    sleep: noSleep, config: noProviderConfig,
+  })
+  assert.equal(second.picked, 1)
+  assert.equal(loadDeferred(state).length, 0)
+  const originalSweep = JSON.parse(fs.readFileSync(path.join(root, 'screener', 'inbox', `${date}_sweep.json`), 'utf8'))
+  assert.equal(originalSweep.rows.length, 1)
+  assert.equal(fs.existsSync(path.join(root, 'screener', 'inbox', '2026-08-22_sweep.json')), false)
 })
 
 // ---- the no-lost-news guarantee: a Groq hiccup defers a batch, it never buries it ----
@@ -3285,7 +4047,7 @@ await check('an inbox atomic-write failure leaves a scored one-shot row retryabl
 
   const retry = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
   assert.equal(retry.candidates, 1, 'retry comes from the durable backlog; the source delivered only once')
-  assert.equal(providerCalls, 2, 'the row is actually retried instead of suppressed by Seen')
+  assert.equal(providerCalls, 1, 'the scored pending row retries projection without paying for a second LLM call')
   assert.equal(retry.picked, 1)
   assert.ok(fs.existsSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json')))
   assert.equal(loadDeferred(state).length, 0)
@@ -4361,7 +5123,7 @@ await check('the cycle summary carries the transparency fields (fresh/carryover/
   assert.equal(s.completed_at, '2026-06-12T09:30:00Z', 'the summary records when the scored result became available')
   assert.equal(s.carryover, 0, 'nothing re-queued on a clean run')
   assert.equal(s.backlog, 0, 'everything scored → empty backlog')
-  assert.equal(s.backlog_cap, 5000, 'the loss boundary (DEFERRED_CAP) is surfaced every cycle')
+  assert.equal(s.backlog_cap, 100_000, 'the configured active work-window size is surfaced every cycle')
   assert.equal(s.last_resort, 'off', 'the Haiku fallback state is reported (off, since disabled here)')
 })
 
@@ -4718,7 +5480,7 @@ await check('getNewsDiagnostics: enumerates every tier in routing order, with th
   assert.ok(d.tiers.every((t, i) => i === 0 || d.tiers[i - 1].order <= t.order), 'tiers are in fallback-routing order')
   assert.equal(d.flow.windowMinutes, 60, 'top flow rates use a fixed trailing-hour denominator')
   assert.equal(typeof d.backlog.count, 'number')
-  assert.ok(d.backlog.cap >= 1, 'the loss boundary is reported')
+  assert.ok(d.backlog.cap >= 1, 'the active work-window size is reported')
   assert.equal(typeof d.backlog.nearLimit, 'boolean')
   for (const k of ['active', 'reason', 'plainNote', 'lastResort', 'blockingTiers'] as const) assert.ok(k in d.defer, `defer.${k} present`)
   assert.ok(Array.isArray(d.defer.blockingTiers))

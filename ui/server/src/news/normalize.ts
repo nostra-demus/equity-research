@@ -65,7 +65,10 @@ export function normalizeAndFilter(raws: RawArticle[], deps: NormalizeDeps): New
     // strip HTML/markup + entities up front so the STORED headline is clean AND the event_id is hashed
     // from the same clean text the gauntlet's Gate-0 will see (one consistent identity everywhere)
     const title = cleanText(a.title)
-    const url = (a.url || '').trim()
+    // Bound the persisted row before any capacity admission. 4KiB is above practical browser/HTTP URL
+    // limits and gives runCycle a provable serialized-row ceiling instead of spending providers against an
+    // unbounded source string near the daily byte cap.
+    const url = (a.url || '').trim().slice(0, 4096)
     if (!looksLikeHeadline(title) || !url) continue // floor: real prose, not empty markup debris
     const meta = lookupSource(a.domain)
     if (!meta) continue // off-list firewall
@@ -80,7 +83,7 @@ export function normalizeAndFilter(raws: RawArticle[], deps: NormalizeDeps): New
       domain: a.domain,
       // an adapter may supply a more specific display name (e.g. "Reddit r/Layoffs"); the firewall
       // (lookupSource above) still gated the domain, so this only refines the label, never the gate.
-      source_name: a.source_name || meta.source_name,
+      source_name: String(a.source_name || meta.source_name).slice(0, 120),
       // an adapter may supply a more specific region (e.g. a per-subreddit region) than the domain
       // registry — reddit.com is GLOBAL there, but a US-only subreddit is a US lead. Prefer the
       // adapter's region when present (it is already validated to the Region enum by the adapter),

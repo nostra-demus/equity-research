@@ -55,6 +55,87 @@ interface FeedEntry {
 type CondCache = Record<string, { etag?: string; lastModified?: string }>
 
 const cachePath = (stateDir: string) => path.join(stateDir, 'rss-cache.json')
+const deliveryPath = (stateDir: string) => path.join(stateDir, 'rss-delivery-pending.json')
+const RSS_DELIVERY_MAX_ROWS = 50_000
+const RSS_DELIVERY_MAX_BYTES = 50_000_000
+// A successful conditional response must be consumed in full before its validator can advance. This is a
+// hostile/malformed-document guard, not a result cap: every supported entry below it is parsed, then ordinary
+// freshness and revision dedupe decide what flows. A larger document fails closed with the prior validator.
+export const RSS_DOCUMENT_ENTRY_CEILING = 10_000
+
+interface DeliveryJournalV2 {
+  version: 2
+  rows: RawArticle[]
+  /** Validators observed while producing `rows`; committed only after the caller acknowledges them. */
+  candidateCache: CondCache
+}
+
+type DeliveryRead =
+  | { status: 'ok'; rows: RawArticle[]; candidateCache?: CondCache }
+  | { status: 'unavailable'; rows: [] }
+
+function validRows(value: unknown): value is RawArticle[] {
+  return Array.isArray(value) && value.length <= RSS_DELIVERY_MAX_ROWS && !value.some((row: any) =>
+    !row || typeof row !== 'object' || typeof row.title !== 'string' || typeof row.url !== 'string'
+    || typeof row.domain !== 'string' || typeof row.seendate !== 'string' || row.via !== 'rss')
+}
+
+function validCache(value: unknown): value is CondCache {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+  return Object.values(value).every((entry: any) => entry && typeof entry === 'object' && !Array.isArray(entry)
+    && (entry.etag === undefined || typeof entry.etag === 'string')
+    && (entry.lastModified === undefined || typeof entry.lastModified === 'string'))
+}
+
+function readDeliveryJournal(stateDir: string): DeliveryRead {
+  try {
+    const parsed = JSON.parse(fs.readFileSync(deliveryPath(stateDir), 'utf8'))
+    // Accept the first array-only journal written by the pre-v2 handoff patch. That implementation
+    // already advanced rss-cache.json, so the committed cache is the correct fallback at acknowledge.
+    if (validRows(parsed)) return { status: 'ok', rows: parsed }
+    if (parsed?.version !== 2 || !validRows(parsed.rows) || !validCache(parsed.candidateCache)) {
+      return { status: 'unavailable', rows: [] }
+    }
+    return { status: 'ok', rows: parsed.rows, candidateCache: parsed.candidateCache }
+  } catch (error: any) {
+    return error?.code === 'ENOENT' ? { status: 'ok', rows: [] } : { status: 'unavailable', rows: [] }
+  }
+}
+
+function writeDeliveryJournal(stateDir: string, rows: readonly RawArticle[], candidateCache: CondCache): boolean {
+  const target = deliveryPath(stateDir)
+  const tmp = `${target}.tmp`
+  let fd: number | undefined
+  try {
+    const journal: DeliveryJournalV2 = { version: 2, rows: [...rows], candidateCache }
+    const bytes = `${JSON.stringify(journal)}\n`
+    if (rows.length > RSS_DELIVERY_MAX_ROWS || Buffer.byteLength(bytes, 'utf8') > RSS_DELIVERY_MAX_BYTES) return false
+    fs.mkdirSync(stateDir, { recursive: true })
+    fd = fs.openSync(tmp, 'w', 0o600)
+    fs.writeFileSync(fd, bytes)
+    fs.fsyncSync(fd)
+    fs.closeSync(fd)
+    fd = undefined
+    fs.renameSync(tmp, target)
+    const dir = fs.openSync(stateDir, 'r')
+    try { fs.fsyncSync(dir) } finally { fs.closeSync(dir) }
+    return true
+  } catch {
+    if (fd !== undefined) try { fs.closeSync(fd) } catch { /* best effort */ }
+    try { fs.rmSync(tmp, { force: true }) } catch { /* best effort */ }
+    return false
+  }
+}
+
+/** Clear RSS's raw handoff only after runCycle has durably projected or backlogged every normalized row. */
+export function acknowledgeRssDeliveries(stateDir: string): boolean {
+  const current = readDeliveryJournal(stateDir)
+  if (current.status !== 'ok') return false
+  const candidateCache = current.candidateCache || loadCache(stateDir)
+  // Commit validators before clearing rows. A crash between the two can replay rows, but can never make
+  // a publisher answer 304 before those rows have a durable runCycle authority.
+  return saveCache(stateDir, candidateCache) && writeDeliveryJournal(stateDir, [], candidateCache)
+}
 
 function loadCache(stateDir: string): CondCache {
   try {
@@ -65,12 +146,25 @@ function loadCache(stateDir: string): CondCache {
   }
 }
 
-function saveCache(stateDir: string, cache: CondCache): void {
+function saveCache(stateDir: string, cache: CondCache): boolean {
+  const target = cachePath(stateDir)
+  const tmp = `${target}.tmp`
+  let fd: number | undefined
   try {
     fs.mkdirSync(stateDir, { recursive: true })
-    fs.writeFileSync(cachePath(stateDir), JSON.stringify(cache, null, 1) + '\n')
+    fd = fs.openSync(tmp, 'w', 0o600)
+    fs.writeFileSync(fd, JSON.stringify(cache, null, 1) + '\n')
+    fs.fsyncSync(fd)
+    fs.closeSync(fd)
+    fd = undefined
+    fs.renameSync(tmp, target)
+    const dir = fs.openSync(stateDir, 'r')
+    try { fs.fsyncSync(dir) } finally { fs.closeSync(dir) }
+    return true
   } catch {
-    // a lost cache only costs one full re-fetch next cycle
+    if (fd !== undefined) try { fs.closeSync(fd) } catch { /* best effort */ }
+    try { fs.rmSync(tmp, { force: true }) } catch { /* best effort */ }
+    return false
   }
 }
 
@@ -147,6 +241,115 @@ function linkOf(block: string, baseUrl?: string): string | null {
 
 function dateOf(block: string): string | null {
   return textOf(block, 'pubDate') || textOf(block, 'published') || textOf(block, 'updated') || textOf(block, 'dc:date')
+}
+
+// A URL identifies the article location, not the publisher's revision. Collapse byte-level presentation
+// differences in a title, while preserving a correction/reversal whose normalized headline actually changed.
+function deliveryKey(article: Pick<RawArticle, 'title' | 'url'>): string {
+  const title = String(article.title || '').trim().replace(/\s+/g, ' ').toLowerCase()
+  return `${title}\u0000${String(article.url || '').trim()}`
+}
+
+/** Accept conditional validators only from a document shape this adapter can actually consume. A number of
+ * publisher WAFs answer a blocked request with HTTP 200 + an HTML challenge (sometimes with its own ETag).
+ * Treating that validator as the feed's validator makes the immediate retry return 304 and permanently skips
+ * the articles behind the challenge. Valid but currently empty RSS/Atom/news-sitemap documents still pass. */
+function isSupportedFeedDocument(xml: string): boolean {
+  let text = String(xml || '').replace(/^\uFEFF/, '').trimStart()
+  // XML declarations, stylesheet processing instructions, comments and a doctype may precede the root.
+  // Peel only those preamble constructs; the first ordinary element remains the authoritative shape.
+  for (let guard = 0; guard < 16; guard++) {
+    if (text.startsWith('<?')) {
+      const end = text.indexOf('?>')
+      if (end < 0) return false
+      text = text.slice(end + 2).trimStart()
+      continue
+    }
+    if (text.startsWith('<!--')) {
+      const end = text.indexOf('-->')
+      if (end < 0) return false
+      text = text.slice(end + 3).trimStart()
+      continue
+    }
+    if (/^<!doctype\b/i.test(text)) {
+      let quote = ''
+      let subsetDepth = 0
+      let end = -1
+      for (let i = 9; i < text.length; i++) {
+        const ch = text[i]
+        if (quote) {
+          if (ch === quote) quote = ''
+          continue
+        }
+        if (ch === '"' || ch === "'") { quote = ch; continue }
+        if (ch === '[') subsetDepth++
+        else if (ch === ']') subsetDepth = Math.max(0, subsetDepth - 1)
+        else if (ch === '>' && subsetDepth === 0) { end = i; break }
+      }
+      if (end < 0) return false
+      text = text.slice(end + 1).trimStart()
+      continue
+    }
+    break
+  }
+  const root = /^<([a-z_][\w:.-]*)\b([^>]*)>/i.exec(text)
+  if (!root) return false
+  const name = root[1].toLowerCase()
+  const supported = name === 'rss' || name === 'feed' || name === 'rdf:rdf'
+    || (name === 'urlset' && /\bxmlns:news\s*=/i.test(root[2]))
+  if (!supported) return false
+  if (/\/\s*>$/.test(root[0])) {
+    let remainder = text.slice(root[0].length).trimStart()
+    for (let guard = 0; guard < 16 && remainder; guard++) {
+      if (remainder.startsWith('<!--')) {
+        const end = remainder.indexOf('-->')
+        if (end < 0) return false
+        remainder = remainder.slice(end + 3).trimStart()
+        continue
+      }
+      if (remainder.startsWith('<?')) {
+        const end = remainder.indexOf('?>')
+        if (end < 0) return false
+        remainder = remainder.slice(end + 2).trimStart()
+        continue
+      }
+      return false
+    }
+    return remainder.length === 0
+  }
+
+  // A root opener alone is not a document. In particular, a connection/WAF truncation after `<rss>` would
+  // otherwise look like a valid empty feed and install the response's ETag. Permit ordinary XML trailers,
+  // then require the matching root close to be the last document element.
+  let closed = text.trimEnd()
+  for (let guard = 0; guard < 16; guard++) {
+    if (closed.endsWith('-->')) {
+      const start = closed.lastIndexOf('<!--')
+      if (start < 0) return false
+      closed = closed.slice(0, start).trimEnd()
+      continue
+    }
+    if (closed.endsWith('?>')) {
+      const start = closed.lastIndexOf('<?')
+      if (start < 0) return false
+      closed = closed.slice(0, start).trimEnd()
+      continue
+    }
+    break
+  }
+  const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  return new RegExp(`</${escapedName}\\s*>$`, 'i').test(closed)
+}
+
+/** Bound parser work without silently treating a prefix as the whole conditional representation. Opening
+ * entry tags are enough for the guard; malformed entries still consume safety capacity conservatively. */
+function feedEntryCountExceeds(xml: string, ceiling: number): boolean {
+  const entry = /<urlset[^>]*xmlns:news\s*=/i.test(xml)
+    ? /<url(?=\s|\/?>)/gi
+    : /<(?:item|entry)(?=\s|\/?>)/gi
+  let count = 0
+  while (entry.exec(xml)) if (++count > ceiling) return true
+  return false
 }
 
 /** The entry's own body/lede, straight from the feed — the fullest the feed offers. This is the
@@ -234,6 +437,11 @@ export async function fetchRss(opts: RssOptions, deps: RssDeps = {}): Promise<Ra
   const defaultUa = opts.userAgent || DEFAULT_UA
   const concurrency = Math.max(1, opts.concurrency ?? 8)
   const perHostGapMs = opts.perHostGapMs ?? 700
+  const delivery = readDeliveryJournal(opts.stateDir)
+  if (delivery.status === 'unavailable') {
+    log('rss: delivery journal needs attention — conditional fetch paused; existing bytes preserved')
+    return []
+  }
   // per-feed fetch outcome this cycle → persisted for the cockpit's Sources health panel
   const health = new Map<string, { status: FetchStatus; items: number; note?: string; sourceName?: string; activeUrl?: string; fallbackActive?: boolean }>()
   const rec = (feed: FeedEntry, status: FetchStatus, items: number, note?: string, activeUrl?: string) => health.set(feed.url, {
@@ -251,11 +459,14 @@ export async function fetchRss(opts: RssOptions, deps: RssDeps = {}): Promise<Ra
     feeds = Array.isArray(doc?.feeds) ? doc.feeds.filter((f: any) => typeof f?.url === 'string') : []
   } catch {
     log(`rss: feed list missing/unreadable at ${opts.feedsPath} — skipping the RSS layer`)
-    return []
+    return delivery.rows
   }
-  if (!feeds.length) return []
+  if (!feeds.length) return delivery.rows
 
-  const cache = loadCache(opts.stateDir)
+  // While deliveries are pending, their journaled validators are newer than rss-cache.json. Using
+  // them avoids a full re-fetch on recovery without exposing those validators to a rolled-back binary.
+  const cache: CondCache = Object.fromEntries(Object.entries(delivery.candidateCache || loadCache(opts.stateDir))
+    .map(([url, value]) => [url, { ...value }]))
   const oldestMs = now().getTime() - opts.lookbackMin * 3 * 60_000
 
   // One feed → its fresh, on-window articles. Self-contained and total: every failure path returns []
@@ -295,10 +506,19 @@ export async function fetchRss(opts: RssOptions, deps: RssDeps = {}): Promise<Ra
           throw new Error(`HTTP ${res.status}`)
         }
         const xml = await res.text()
+        if (!isSupportedFeedDocument(xml)) throw new Error('unrecognized feed payload')
+        if (feedEntryCountExceeds(xml, RSS_DOCUMENT_ENTRY_CEILING)) {
+          throw new Error(`feed entry ceiling exceeded (${RSS_DOCUMENT_ENTRY_CEILING})`)
+        }
+        // The ceiling was checked against raw opening entries, so this parses the entire supported document.
+        // Never advance an ETag after consuming only an arbitrary prefix: anything after that prefix would be
+        // permanently hidden by the publisher's next 304.
+        const items = parseFeed(xml, RSS_DOCUMENT_ENTRY_CEILING, endpoint)
+        // Parsing must succeed before a response validator becomes a candidate. Otherwise a malformed body
+        // can mutate `cache`, the retry sends that new ETag, and a 304 erases the only chance to read the feed.
         const etag = res.headers.get('etag')
         const lastModified = res.headers.get('last-modified')
         if (etag || lastModified) cache[endpoint] = { etag: etag || undefined, lastModified: lastModified || undefined }
-        const items = parseFeed(xml, 60, endpoint)
         const arts: RawArticle[] = []
         for (const it of items) {
           const d = it.date ? new Date(it.date) : null
@@ -384,17 +604,31 @@ export async function fetchRss(opts: RssOptions, deps: RssDeps = {}): Promise<Ra
   }
   await Promise.all(Array.from({ length: Math.min(concurrency, hostKeys.length) }, worker))
 
-  saveCache(opts.stateDir, cache)
-  recordRssHealth(opts.stateDir, health, now().toISOString().replace(/\.\d{3}Z$/, 'Z'))
-
-  // dedup across feeds by URL (first occurrence wins) — unchanged contract
+  // A URL is not a revision identity. Preserve same-look corrections/reversals, while collapsing an exact
+  // title+URL observation repeated by mirrors. Use the identical key again across the durable handoff.
   const out: RawArticle[] = []
-  const seen = new Set<string>()
+  const seenCurrent = new Set<string>()
   for (const a of collected) {
-    if (!seen.has(a.url)) {
-      seen.add(a.url)
+    const key = deliveryKey(a)
+    if (!seenCurrent.has(key)) {
+      seenCurrent.add(key)
       out.push(a)
     }
   }
-  return out
+  const recovered: RawArticle[] = []
+  const seenDelivery = new Set<string>()
+  for (const a of [...delivery.rows, ...out]) {
+    const key = deliveryKey(a)
+    if (seenDelivery.has(key)) continue
+    seenDelivery.add(key)
+    recovered.push(a)
+  }
+  // Rows and their candidate validators land in one durable handoff. rss-cache.json is deliberately
+  // untouched here: acknowledgeRssDeliveries commits it only after runCycle has its own durable copy.
+  // A rolled-back binary therefore re-fetches rather than advancing past rows it cannot recover.
+  if (!writeDeliveryJournal(opts.stateDir, recovered, cache)) {
+    log(`rss: delivery journal refused ${recovered.length} row(s) — conditional cache left unchanged`)
+  }
+  recordRssHealth(opts.stateDir, health, now().toISOString().replace(/\.\d{3}Z$/, 'Z'))
+  return recovered
 }

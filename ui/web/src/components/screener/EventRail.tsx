@@ -26,6 +26,7 @@ import { api, type ArchiveQuery, type CompanyFacet } from '../../lib/api'
 import { archiveErrorSentence } from '../../lib/archiveError'
 import { FeedbackMenu } from './FeedbackMenu'
 import { ScanStatus } from './ScanStatus'
+import { todayOutcomeCopy } from './pipelineDiagnosticsView'
 import type { ReportMenuAnchor } from '../ActivityReportMenu'
 import { itemOnWire, subjectOfItem, WIRE_OTHER } from '../../lib/wire'
 import { summarizeIdeasSurface } from '../../lib/ideasView'
@@ -552,6 +553,7 @@ export function EventRail() {
       ? 'Connected · waiting for the next scan…'
       : 'connecting to the scanner…'
   const today = status?.today
+  const todayCopy = today ? todayOutcomeCopy(today) : null
 
   const scopeChip = (s: ScopeId) => {
     const n = counts[s] || 0
@@ -582,9 +584,9 @@ export function EventRail() {
           <span className={`evrail__dot${status?.enabled ? ' evrail__dot--live' : ''}`} aria-hidden />
         </div>
         <div className="evrail__status">{statusLine}</div>
-        {today && status?.enabled && (
-          <div className="evrail__today" title="What the automatic scan did today: how many it read, how many it kept for you, how many it dropped as not worth it">
-            today {today.read} read · {today.kept} kept · {today.dropped} dropped
+        {today && status?.enabled && todayCopy && (
+          <div className="evrail__today" title="Daily automatic-scanner outcomes and whether their summary history is complete">
+            today · {todayCopy}
           </div>
         )}
         {status?.enabled && <ScanStatus variant="rail" />}

@@ -24,6 +24,7 @@ function inboxPath(repoRoot: string, date: string): string {
 function firehosePath(repoRoot: string, date: string): string {
   return path.join(repoRoot, 'screener', 'inbox', `${date}_firehose.ndjson`)
 }
+export const FIREHOSE_HARD_MAX_BYTES = 99_000_000
 
 type DurableRevisionClock = Pick<InboxRow, 'found_at' | 'observed_at' | 'source_is_english'>
 
@@ -1452,13 +1453,131 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
   return { rowCount: rows.length, revisionClocksByEvent, withheldEventIds }
 }
 
-export function appendFirehoseSummary(repoRoot: string, date: string, summary: CycleSummary): void {
+export interface AppendFirehoseSummaryOptions {
+  /** Test seam for short-write/crash simulation. Production writes the whole line or throws. */
+  writeLine?: (fd: number, line: Buffer) => void
+}
+
+function writeFirehoseBufferFully(fd: number, bytes: Buffer): void {
+  let offset = 0
+  while (offset < bytes.length) {
+    const written = fs.writeSync(fd, bytes, offset, bytes.length - offset)
+    if (written <= 0) throw new Error('firehose append made no progress')
+    offset += written
+  }
+}
+
+function readFirehoseRange(fd: number, position: number, length: number): Buffer {
+  const bytes = Buffer.allocUnsafe(length)
+  let offset = 0
+  while (offset < length) {
+    const read = fs.readSync(fd, bytes, offset, length - offset, position + offset)
+    if (read <= 0) throw new Error('firehose read ended before the recorded file boundary')
+    offset += read
+  }
+  return bytes
+}
+
+function lastFirehoseNewline(fd: number, size: number): number {
+  const chunkSize = 64 * 1024
+  let end = size
+  while (end > 0) {
+    const start = Math.max(0, end - chunkSize)
+    const chunk = readFirehoseRange(fd, start, end - start)
+    const inChunk = chunk.lastIndexOf(0x0a)
+    if (inChunk >= 0) return start + inChunk
+    end = start
+  }
+  return -1
+}
+
+function fsyncFirehoseParent(fp: string): void {
+  const dir = fs.openSync(path.dirname(fp), 'r')
+  try { fs.fsyncSync(dir) } finally { fs.closeSync(dir) }
+}
+
+function rollbackFirehoseAppend(fd: number, offset: number): void {
+  // Keep the two attempts independent: even if truncate itself fails, flushing the descriptor makes the
+  // surviving state explicit and the next invocation will repair any unterminated final fragment.
+  try { fs.ftruncateSync(fd, offset) } catch { /* best effort; retry recovery owns any remaining tail */ }
+  try { fs.fsyncSync(fd) } catch { /* caller still reports failure */ }
+}
+
+/** Restore the NDJSON boundary after a process dies mid-record. A syntactically complete legacy row that
+ * only lacks its delimiter is preserved; malformed bytes after the last newline are truncated and synced. */
+function repairFirehoseTail(fd: number): number | null {
+  const originalSize = fs.fstatSync(fd).size
+  if (originalSize === 0) return 0
+  if (readFirehoseRange(fd, originalSize - 1, 1)[0] === 0x0a) return originalSize
+
+  const safeSize = lastFirehoseNewline(fd, originalSize) + 1
+  const tail = readFirehoseRange(fd, safeSize, originalSize - safeSize)
+  let complete = false
+  try {
+    JSON.parse(tail.toString('utf8'))
+    complete = true
+  } catch { /* the final record was torn */ }
+
+  if (complete) {
+    // Refuse rather than delete a complete record when even its missing delimiter would cross the cap.
+    if (originalSize + 1 > FIREHOSE_HARD_MAX_BYTES) return null
+    try {
+      writeFirehoseBufferFully(fd, Buffer.from('\n'))
+      if (fs.fstatSync(fd).size !== originalSize + 1) throw new Error('firehose delimiter append was short')
+      fs.fsyncSync(fd)
+      return originalSize + 1
+    } catch (error) {
+      rollbackFirehoseAppend(fd, originalSize)
+      throw error
+    }
+  }
+
+  fs.ftruncateSync(fd, safeSize)
+  fs.fsyncSync(fd)
+  return safeSize
+}
+
+export function appendFirehoseSummary(
+  repoRoot: string,
+  date: string,
+  summary: CycleSummary,
+  options: AppendFirehoseSummaryOptions = {},
+): boolean {
+  let line: Buffer
+  try { line = Buffer.from(`${JSON.stringify({ kind: 'cycle_summary', ...summary })}\n`, 'utf8') }
+  catch { return false }
+  // Reject an impossible row before creating the day's file; the hard boundary is inclusive.
+  if (line.length > FIREHOSE_HARD_MAX_BYTES) return false
+
   const fp = firehosePath(repoRoot, date)
+  let fd: number | undefined
+  let rollbackOffset: number | undefined
   try {
     fs.mkdirSync(path.dirname(fp), { recursive: true })
-    fs.appendFileSync(fp, JSON.stringify({ kind: 'cycle_summary', ...summary }) + '\n')
+    fd = fs.openSync(fp, 'a+')
+    const repairedSize = repairFirehoseTail(fd)
+    if (repairedSize === null) return false
+    if (repairedSize + line.length > FIREHOSE_HARD_MAX_BYTES) return false
+    // The offset is captured immediately before this row. Any short write or later durability failure
+    // truncates back to this exact boundary, so a retry cannot inherit or join onto partial JSON.
+    if (fs.fstatSync(fd).size !== repairedSize) return false
+    rollbackOffset = repairedSize
+    const writeLine = options.writeLine || writeFirehoseBufferFully
+    writeLine(fd, line)
+    if (fs.fstatSync(fd).size !== rollbackOffset + line.length) throw new Error('firehose summary append was short')
+    fs.fsyncSync(fd)
+    // File fsync does not make a newly-created directory entry durable. Syncing on every successful
+    // append also covers a prior failed first attempt that left an empty, not-yet-synced file behind.
+    fsyncFirehoseParent(fp)
+    rollbackOffset = undefined
+    return true
   } catch {
-    // a missed firehose line only loses a board counter for the cycle — never fail ingestion for it
+    if (fd !== undefined && rollbackOffset !== undefined) rollbackFirehoseAppend(fd, rollbackOffset)
+    // The caller retains its durable completion-gap marker, so rate comparison fails closed until this
+    // missing cycle ages out of the trailing window. Ingestion itself remains fail-soft.
+    return false
+  } finally {
+    if (fd !== undefined) try { fs.closeSync(fd) } catch { /* best effort */ }
   }
 }
 

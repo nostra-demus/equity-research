@@ -6,7 +6,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { fetchRss, parseFeed } from '../src/news/sources/rss'
+import { acknowledgeRssDeliveries, fetchRss, parseFeed, RSS_DOCUMENT_ENTRY_CEILING } from '../src/news/sources/rss'
 import { REPO_ROOT } from '../src/config'
 
 let passed = 0
@@ -171,6 +171,12 @@ await check('fetchRss: conditional GET — a 304 feed contributes nothing and co
   let sawConditional = false
   const first = (async () => ({ ok: true, status: 200, text: async () => RSS2, headers: { get: (h: string) => (h === 'etag' ? 'W/"abc"' : null) } })) as unknown as typeof fetch
   await fetchRss({ feedsPath, lookbackMin: 40, timeoutMs: 2000, stateDir: state }, { fetchFn: first, sleep: noSleep, now })
+  assert.equal(fs.existsSync(path.join(state, 'rss-cache.json')), false, 'fetch alone cannot advance the rollback-visible cache')
+  const pending = JSON.parse(fs.readFileSync(path.join(state, 'rss-delivery-pending.json'), 'utf8'))
+  assert.equal(pending.version, 2)
+  assert.equal(pending.candidateCache['https://etag.test/rss'].etag, 'W/"abc"')
+  assert.equal(acknowledgeRssDeliveries(state), true, 'the caller durably accepted the raw handoff')
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'rss-cache.json'), 'utf8'))['https://etag.test/rss'].etag, 'W/"abc"')
   const second = (async (_url: string, init: any) => {
     sawConditional = init?.headers?.['if-none-match'] === 'W/"abc"'
     return { ok: false, status: 304, text: async () => '', headers: { get: () => null } }
@@ -178,6 +184,300 @@ await check('fetchRss: conditional GET — a 304 feed contributes nothing and co
   const arts = await fetchRss({ feedsPath, lookbackMin: 40, timeoutMs: 2000, stateDir: state }, { fetchFn: second, sleep: noSleep, now })
   assert.equal(sawConditional, true) // the cached ETag was sent
   assert.equal(arts.length, 0) // 304 → unchanged → nothing re-parsed
+})
+
+await check('fetchRss: 200 WAF, empty, and truncated bodies cannot advance validators or erase the pending journal', async () => {
+  const rejected = [
+    ['WAF HTML', '<!doctype html><html><title>Access denied</title><body>Enable cookies</body></html>'],
+    ['empty body', ''],
+    ['whitespace body', '  \n\t'],
+    ['truncated RSS-looking body', '<?xml version="1.0"?><rss version="2.0"><channel>'],
+    ['extra root after an empty feed', '<?xml version="1.0"?><rss/><html>challenge</html>'],
+  ] as const
+  for (const [label, body] of rejected) {
+    const state = tmp()
+    const feedsPath = path.join(tmp(), 'feeds.json')
+    const feedUrl = `https://rejected-200.test/${encodeURIComponent(label)}`
+    fs.writeFileSync(feedsPath, JSON.stringify({ feeds: [{ url: feedUrl }] }))
+    const oldCache = `${JSON.stringify({ [feedUrl]: { etag: 'W/"old"' } }, null, 1)}\n`
+    const oldJournal = `${JSON.stringify({
+      version: 2,
+      rows: [],
+      candidateCache: { [feedUrl]: { etag: 'W/"old"' } },
+    })}\n`
+    fs.writeFileSync(path.join(state, 'rss-cache.json'), oldCache)
+    fs.writeFileSync(path.join(state, 'rss-delivery-pending.json'), oldJournal)
+    const conditionals: string[] = []
+    const fetchFn = (async (_url: string, init: any) => {
+      const conditional = init?.headers?.['if-none-match'] || ''
+      conditionals.push(conditional)
+      // This is the destructive sequence the old code triggered: it installed "challenge", then its own
+      // retry sent that ETag and got 304. The fixed path must keep sending the last proven feed validator.
+      if (conditional === 'W/"challenge"') {
+        return { ok: false, status: 304, text: async () => '', headers: { get: () => null } }
+      }
+      return {
+        ok: true,
+        status: 200,
+        text: async () => body,
+        headers: { get: (h: string) => h === 'etag' ? 'W/"challenge"' : null },
+      }
+    }) as unknown as typeof fetch
+    const rows = await fetchRss(
+      { feedsPath, lookbackMin: 40, timeoutMs: 2000, stateDir: state },
+      { fetchFn, sleep: noSleep, now: () => new Date('2026-06-12T09:30:00Z') },
+    )
+    assert.deepEqual(rows, [], label)
+    assert.deepEqual(conditionals, ['W/"old"', 'W/"old"', 'W/"old"'], `${label}: retries use the last proven validator`)
+    assert.equal(fs.readFileSync(path.join(state, 'rss-cache.json'), 'utf8'), oldCache, label)
+    assert.equal(fs.readFileSync(path.join(state, 'rss-delivery-pending.json'), 'utf8'), oldJournal,
+      `${label}: rejected body leaves the rollback-safe handoff byte-identical`)
+  }
+})
+
+await check('fetchRss: valid empty RSS, Atom, RDF, and news-sitemap documents may advance validators after ack', async () => {
+  const supported = [
+    ['rss', '<?xml version="1.0"?><rss version="2.0"><channel><title>Quiet wire</title></channel></rss>'],
+    ['atom', '<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Quiet wire</title></feed>'],
+    ['atom-self-closing', '<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"/><!-- quiet -->'],
+    ['rdf', '<?xml version="1.0"?><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"></rdf:RDF>'],
+    ['news-sitemap', '<?xml version="1.0"?><urlset xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"></urlset>'],
+  ] as const
+  for (const [kind, body] of supported) {
+    const state = tmp()
+    const feedsPath = path.join(tmp(), 'feeds.json')
+    const feedUrl = `https://valid-empty.test/${kind}`
+    fs.writeFileSync(feedsPath, JSON.stringify({ feeds: [{ url: feedUrl }] }))
+    const rows = await fetchRss(
+      { feedsPath, lookbackMin: 40, timeoutMs: 2000, stateDir: state },
+      {
+        fetchFn: (async () => ({
+          ok: true,
+          status: 200,
+          text: async () => body,
+          headers: { get: (h: string) => h === 'etag' ? `W/"empty-${kind}"` : null },
+        })) as unknown as typeof fetch,
+        sleep: noSleep,
+        now: () => new Date('2026-06-12T09:30:00Z'),
+      },
+    )
+    assert.deepEqual(rows, [], kind)
+    const pending = JSON.parse(fs.readFileSync(path.join(state, 'rss-delivery-pending.json'), 'utf8'))
+    assert.equal(pending.candidateCache[feedUrl].etag, `W/"empty-${kind}"`)
+    assert.equal(acknowledgeRssDeliveries(state), true)
+    assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'rss-cache.json'), 'utf8'))[feedUrl].etag, `W/"empty-${kind}"`)
+  }
+})
+
+await check('fetchRss: pending validators stay out of the legacy cache and replay rows across a 304', async () => {
+  const state = tmp()
+  const feedsPath = path.join(tmp(), 'feeds.json')
+  const feedUrl = 'https://etag-recovery.test/rss'
+  fs.writeFileSync(feedsPath, JSON.stringify({ feeds: [{ url: feedUrl }] }))
+  const oldCache = `${JSON.stringify({ [feedUrl]: { etag: 'W/"old"' } }, null, 1)}\n`
+  fs.writeFileSync(path.join(state, 'rss-cache.json'), oldCache)
+  const now = () => new Date('2026-06-12T09:30:00Z')
+  let firstConditional = ''
+  const first = (async (_url: string, init: any) => {
+    firstConditional = init?.headers?.['if-none-match'] || ''
+    return { ok: true, status: 200, text: async () => RSS2, headers: { get: (h: string) => (h === 'etag' ? 'W/"recovery"' : null) } }
+  }) as unknown as typeof fetch
+  const delivered = await fetchRss({ feedsPath, lookbackMin: 40, timeoutMs: 2000, stateDir: state }, { fetchFn: first, sleep: noSleep, now })
+  assert.equal(firstConditional, 'W/"old"')
+  assert.equal(fs.readFileSync(path.join(state, 'rss-cache.json'), 'utf8'), oldCache, 'rollback-visible cache remains byte-identical before ack')
+  const journal = JSON.parse(fs.readFileSync(path.join(state, 'rss-delivery-pending.json'), 'utf8'))
+  assert.equal(journal.candidateCache[feedUrl].etag, 'W/"recovery"')
+  let recoveryConditional = ''
+  const unchanged = (async (_url: string, init: any) => {
+    recoveryConditional = init?.headers?.['if-none-match'] || ''
+    return { ok: false, status: 304, text: async () => '', headers: { get: () => null } }
+  }) as unknown as typeof fetch
+  const replay = await fetchRss({ feedsPath, lookbackMin: 40, timeoutMs: 2000, stateDir: state }, { fetchFn: unchanged, sleep: noSleep, now })
+  assert.equal(recoveryConditional, 'W/"recovery"', 'recovery uses the journaled candidate without committing it')
+  assert.deepEqual(replay.map((row) => row.url), delivered.map((row) => row.url), '304 cannot erase an unacknowledged delivery')
+  assert.equal(acknowledgeRssDeliveries(state), true)
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'rss-cache.json'), 'utf8'))[feedUrl].etag, 'W/"recovery"')
+  assert.deepEqual(await fetchRss({ feedsPath, lookbackMin: 40, timeoutMs: 2000, stateDir: state }, { fetchFn: unchanged, sleep: noSleep, now }), [])
+})
+
+await check('fetchRss: a corrected headline at the same URL remains a distinct pending revision', async () => {
+  const state = tmp()
+  const feedsPath = path.join(tmp(), 'feeds.json')
+  const feedUrl = 'https://revision.test/rss'
+  const articleUrl = 'https://reuters.com/corrected-story'
+  fs.writeFileSync(feedsPath, JSON.stringify({ feeds: [{ url: feedUrl }] }))
+  const body = (title: string) => `<?xml version="1.0"?><rss version="2.0"><channel><item><title>${title}</title><link>${articleUrl}</link><pubDate>Fri, 12 Jun 2026 09:00:00 GMT</pubDate></item></channel></rss>`
+  const now = () => new Date('2026-06-12T09:30:00Z')
+  await fetchRss({ feedsPath, lookbackMin: 40, timeoutMs: 2000, stateDir: state }, {
+    fetchFn: (async () => ({ ok: true, status: 200, text: async () => body('Initial headline'), headers: { get: (h: string) => h === 'etag' ? 'W/"v1"' : null } })) as unknown as typeof fetch,
+    sleep: noSleep,
+    now,
+  })
+  let conditional = ''
+  const revisions = await fetchRss({ feedsPath, lookbackMin: 40, timeoutMs: 2000, stateDir: state }, {
+    fetchFn: (async (_url: string, init: any) => {
+      conditional = init?.headers?.['if-none-match'] || ''
+      return { ok: true, status: 200, text: async () => body('Corrected headline'), headers: { get: (h: string) => h === 'etag' ? 'W/"v2"' : null } }
+    }) as unknown as typeof fetch,
+    sleep: noSleep,
+    now,
+  })
+  assert.equal(conditional, 'W/"v1"')
+  assert.deepEqual(revisions.map((row) => [row.title, row.url]), [
+    ['Initial headline', articleUrl],
+    ['Corrected headline', articleUrl],
+  ])
+  assert.equal(acknowledgeRssDeliveries(state), true)
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'rss-cache.json'), 'utf8'))[feedUrl].etag, 'W/"v2"')
+})
+
+await check('fetchRss: same-response corrections survive URL dedupe while normalized exact repeats collapse', async () => {
+  const state = tmp()
+  const feedsPath = path.join(tmp(), 'feeds.json')
+  const feedUrl = 'https://same-response-revision.test/rss'
+  const articleUrl = 'https://reuters.com/same-response-correction'
+  fs.writeFileSync(feedsPath, JSON.stringify({ feeds: [{ url: feedUrl }] }))
+  const body = `<?xml version="1.0"?><rss version="2.0"><channel>
+    <item><title>Initial headline for this event</title><link>${articleUrl}</link><pubDate>Fri, 12 Jun 2026 09:00:00 GMT</pubDate></item>
+    <item><title> initial   HEADLINE for this event </title><link>${articleUrl}</link><pubDate>Fri, 12 Jun 2026 09:00:00 GMT</pubDate></item>
+    <item><title>Corrected headline reverses this event</title><link>${articleUrl}</link><pubDate>Fri, 12 Jun 2026 09:05:00 GMT</pubDate></item>
+  </channel></rss>`
+  const rows = await fetchRss(
+    { feedsPath, lookbackMin: 40, timeoutMs: 2000, stateDir: state },
+    {
+      fetchFn: (async () => ({
+        ok: true,
+        status: 200,
+        text: async () => body,
+        headers: { get: (h: string) => h === 'etag' ? 'W/"same-response"' : null },
+      })) as unknown as typeof fetch,
+      sleep: noSleep,
+      now: () => new Date('2026-06-12T09:30:00Z'),
+    },
+  )
+  assert.deepEqual(rows.map((row) => [row.title, row.url]), [
+    ['Initial headline for this event', articleUrl],
+    ['Corrected headline reverses this event', articleUrl],
+  ])
+  const pending = JSON.parse(fs.readFileSync(path.join(state, 'rss-delivery-pending.json'), 'utf8'))
+  assert.equal(pending.rows.length, 2, 'the durable handoff uses the same revision identity')
+})
+
+await check('fetchRss: every fresh entry after the former 60-row prefix reaches the durable handoff', async () => {
+  const state = tmp()
+  const feedsPath = path.join(tmp(), 'feeds.json')
+  const feedUrl = 'https://more-than-sixty.test/rss'
+  fs.writeFileSync(feedsPath, JSON.stringify({ feeds: [{ url: feedUrl }] }))
+  const entries = Array.from({ length: 75 }, (_, i) =>
+    `<item><title>Fresh policy decision entry number ${i}</title><link>https://reuters.com/more-than-sixty-${i}</link><pubDate>Fri, 12 Jun 2026 09:00:00 GMT</pubDate></item>`).join('')
+  const rows = await fetchRss(
+    { feedsPath, lookbackMin: 40, timeoutMs: 2000, stateDir: state },
+    {
+      fetchFn: (async () => ({
+        ok: true, status: 200,
+        text: async () => `<?xml version="1.0"?><rss version="2.0"><channel>${entries}</channel></rss>`,
+        headers: { get: (h: string) => h === 'etag' ? 'W/"all-75"' : null },
+      })) as unknown as typeof fetch,
+      sleep: noSleep,
+      now: () => new Date('2026-06-12T09:30:00Z'),
+    },
+  )
+  assert.equal(rows.length, 75)
+  assert.equal(rows.at(-1)?.url, 'https://reuters.com/more-than-sixty-74')
+  const pending = JSON.parse(fs.readFileSync(path.join(state, 'rss-delivery-pending.json'), 'utf8'))
+  assert.equal(pending.rows.length, 75)
+  assert.equal(pending.candidateCache[feedUrl].etag, 'W/"all-75"')
+})
+
+await check('fetchRss: a document beyond the parser ceiling keeps proven validators and journal bytes unchanged', async () => {
+  const state = tmp()
+  const feedsPath = path.join(tmp(), 'feeds.json')
+  const feedUrl = 'https://entry-ceiling.test/rss'
+  fs.writeFileSync(feedsPath, JSON.stringify({ feeds: [{ url: feedUrl }] }))
+  const oldCache = `${JSON.stringify({ [feedUrl]: { etag: 'W/"old"' } }, null, 1)}\n`
+  const oldJournal = `${JSON.stringify({
+    version: 2,
+    rows: [],
+    candidateCache: { [feedUrl]: { etag: 'W/"old"' } },
+  })}\n`
+  fs.writeFileSync(path.join(state, 'rss-cache.json'), oldCache)
+  fs.writeFileSync(path.join(state, 'rss-delivery-pending.json'), oldJournal)
+  const body = `<rss version="2.0"><channel>${'<item/>'.repeat(RSS_DOCUMENT_ENTRY_CEILING + 1)}</channel></rss>`
+  const conditionals: string[] = []
+  const rows = await fetchRss(
+    { feedsPath, lookbackMin: 40, timeoutMs: 2000, stateDir: state },
+    {
+      fetchFn: (async (_url: string, init: any) => {
+        conditionals.push(init?.headers?.['if-none-match'] || '')
+        return {
+          ok: true, status: 200, text: async () => body,
+          headers: { get: (h: string) => h === 'etag' ? 'W/"truncated-prefix"' : null },
+        }
+      }) as unknown as typeof fetch,
+      sleep: noSleep,
+      now: () => new Date('2026-06-12T09:30:00Z'),
+    },
+  )
+  assert.deepEqual(rows, [])
+  assert.deepEqual(conditionals, ['W/"old"', 'W/"old"', 'W/"old"'])
+  assert.equal(fs.readFileSync(path.join(state, 'rss-cache.json'), 'utf8'), oldCache)
+  assert.equal(fs.readFileSync(path.join(state, 'rss-delivery-pending.json'), 'utf8'), oldJournal)
+})
+
+await check('fetchRss: corrupt pending bytes pause fetching and acknowledgement without mutation', async () => {
+  const state = tmp()
+  const feedsPath = path.join(tmp(), 'feeds.json')
+  fs.writeFileSync(feedsPath, JSON.stringify({ feeds: [{ url: 'https://corrupt.test/rss' }] }))
+  const pendingPath = path.join(state, 'rss-delivery-pending.json')
+  const corrupt = '{ definitely not valid JSON\n'
+  fs.writeFileSync(pendingPath, corrupt)
+  let calls = 0
+  const rows = await fetchRss({ feedsPath, lookbackMin: 40, timeoutMs: 2000, stateDir: state }, {
+    fetchFn: (async () => { calls++; throw new Error('must not fetch') }) as unknown as typeof fetch,
+    sleep: noSleep,
+  })
+  assert.deepEqual(rows, [])
+  assert.equal(calls, 0)
+  assert.equal(fs.readFileSync(pendingPath, 'utf8'), corrupt)
+  assert.equal(acknowledgeRssDeliveries(state), false)
+  assert.equal(fs.readFileSync(pendingPath, 'utf8'), corrupt, 'refused ack preserves evidence byte-for-byte')
+})
+
+await check('acknowledgeRssDeliveries: cache write failure leaves pending rows and old validators intact', () => {
+  const state = tmp()
+  const feedUrl = 'https://ack-failure.test/rss'
+  const pendingPath = path.join(state, 'rss-delivery-pending.json')
+  const cachePath = path.join(state, 'rss-cache.json')
+  const rows = [{ title: 'Still pending', url: 'https://reuters.com/still-pending', domain: 'reuters.com', seendate: '2026-06-12T09:00:00Z', via: 'rss' }]
+  const pending = `${JSON.stringify({ version: 2, rows, candidateCache: { [feedUrl]: { etag: 'W/"new"' } } })}\n`
+  const oldCache = `${JSON.stringify({ [feedUrl]: { etag: 'W/"old"' } })}\n`
+  fs.writeFileSync(pendingPath, pending)
+  fs.writeFileSync(cachePath, oldCache)
+  fs.mkdirSync(`${cachePath}.tmp`) // force the atomic cache writer to fail before rename
+  assert.equal(acknowledgeRssDeliveries(state), false)
+  assert.equal(fs.readFileSync(pendingPath, 'utf8'), pending)
+  assert.equal(fs.readFileSync(cachePath, 'utf8'), oldCache)
+})
+
+await check('fetchRss: an array-only handoff from the first journal format remains recoverable', async () => {
+  const state = tmp()
+  const feedsPath = path.join(tmp(), 'feeds.json')
+  const feedUrl = 'https://legacy-journal.test/rss'
+  fs.writeFileSync(feedsPath, JSON.stringify({ feeds: [{ url: feedUrl }] }))
+  const legacy = [{ title: 'Legacy pending story', url: 'https://reuters.com/legacy-pending', domain: 'reuters.com', seendate: '2026-06-12T09:00:00Z', via: 'rss' }]
+  fs.writeFileSync(path.join(state, 'rss-delivery-pending.json'), `${JSON.stringify(legacy)}\n`)
+  fs.writeFileSync(path.join(state, 'rss-cache.json'), `${JSON.stringify({ [feedUrl]: { etag: 'W/"legacy"' } })}\n`)
+  let conditional = ''
+  const rows = await fetchRss({ feedsPath, lookbackMin: 40, timeoutMs: 2000, stateDir: state }, {
+    fetchFn: (async (_url: string, init: any) => {
+      conditional = init?.headers?.['if-none-match'] || ''
+      return { ok: false, status: 304, text: async () => '', headers: { get: () => null } }
+    }) as unknown as typeof fetch,
+    sleep: noSleep,
+  })
+  assert.equal(conditional, 'W/"legacy"')
+  assert.deepEqual(rows, legacy)
+  assert.equal(acknowledgeRssDeliveries(state), true)
 })
 
 await check('fetchRss: items older than 3× the lookback are skipped; missing feed list degrades to []', async () => {

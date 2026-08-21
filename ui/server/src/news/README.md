@@ -72,9 +72,13 @@ With the expanded source set (≈350 RSS feeds + NSE + GDELT), the daily item vo
 **Groq throughput is the binding constraint on "score everything"**. At roughly 2,000 tokens per triage
 batch, the 200,000-token daily allowance normally binds after about 100 calls, well before the 1,000-request
 ceiling. A higher Groq tier can use the extra headroom reported by its live headers. The firehose record
-(`kind:"item"`, capped at 40,000/day by default) shows every durably saved item read, kept *and* dropped.
-If that cap or the append itself refuses a row, the scanner reports zero progress for that row and leaves it
-unseen in the backlog for retry; a storage boundary can slow the queue, but cannot silently consume it.
+(`kind:"item"`, capped at 40,000/day and 80 MB/day by default) shows every durably saved item read, kept
+*and* dropped. The item boundary is hard-clamped to 90 MB so cycle summaries retain a 10 MB reserve; the
+whole file, summaries included, stops at 99 MB below GitHub's 100 MB single-file boundary. If either cap or
+the append itself refuses work, the scanner reports zero progress and keeps it unseen in durable retry
+storage. Known-full preflight rows remain unscored; any suffix already scored keeps its exact result and a
+later look retries only persistence. A storage boundary can slow the queue, but it cannot silently consume a
+row or relabel an already-scored item as expired.
 
 ## Config (all `NEWS.*` in `../config.ts`, env-tunable)
 
@@ -87,7 +91,8 @@ never widen the shelf-life limit) ·
 `NEWS_GDELT_LOOKBACK_MIN` · `NEWS_INBOX_MAX_ROWS` · `NEWS_PICK_THRESHOLD` · `NEWS_WATCH_THRESHOLD` ·
 `NEWS_RSS_ENABLED` · `NEWS_RSS_FEEDS_PATH` · `NEWS_RSS_USER_AGENT` · `NEWS_RSS_CONCURRENCY` ·
 `NEWS_RSS_PER_HOST_GAP_MS` · `NEWS_NSE_ENABLED` · `NEWS_NSE_BASE_URL` · `NEWS_NSE_LOOKBACK_HOURS` ·
-`NEWS_FEED_ITEMS_DAILY_CAP` · `NEWS_DEFERRED_CAP` · `NEWS_DEFERRED_MAX_AGE_HOURS` (48 — the wire's own live
+`NEWS_FEED_ITEMS_DAILY_CAP` · `NEWS_FEED_ITEMS_DAILY_MAX_BYTES` (80,000,000 by default; values above
+90,000,000 are clamped) · `NEWS_DEFERRED_CAP` (100,000 by default) · `NEWS_DEFERRED_MAX_AGE_HOURS` (48 — the wire's own live
 window; an older backlog item is retired unscored and reported) · `NEWS_FRESH_RESERVE_FRAC` (0.5 — the share of
 each cycle's triage slots reserved for items fetched this cycle, so a deep backlog cannot starve live news) ·
 `NEWS_CONTRACT_RETRIES_PER_BATCH` (1) · `NEWS_OPENROUTER_TIMEOUT_MS` / `NEWS_NVIDIA_TIMEOUT_MS` (75,000) ·

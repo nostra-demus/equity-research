@@ -16,6 +16,73 @@ interface LastCycleArrivalSplit {
   carryover: number | null
 }
 
+function countCopy(value: number): string {
+  return Number.isSafeInteger(value) && value >= 0 ? value.toLocaleString('en-US') : '—'
+}
+
+/** Daily counters come only from persisted summary rows. A started look with no summary makes every component
+ * a lower bound; feed_commit_version separately distinguishes legacy outcomes from durable-feed proof. */
+export function todayOutcomeCopy(
+  today: NewsDiagnostics['today'],
+  gapMarkerUnreadable = false,
+): string | null {
+  const lowerBound = today.totalsLowerBound === true
+  const incomplete = Number.isSafeInteger(today.incompleteCycles) && (today.incompleteCycles ?? 0) > 0
+    ? today.incompleteCycles as number
+    : 0
+  const corrupt = Number.isSafeInteger(today.corruptCycleRows) && (today.corruptCycleRows ?? 0) > 0
+    ? today.corruptCycleRows as number
+    : 0
+  const proofDebts = [
+    ...(gapMarkerUnreadable ? ['the cycle-completion safety record is unreadable'] : []),
+    ...(today.historyStatus === 'missing' ? ["today's cycle-summary partition is missing"] : []),
+    ...(today.historyStatus === 'unreadable' || today.historyStatus === 'unavailable'
+      ? ["today's cycle-summary partition is unreadable"] : []),
+    ...(corrupt > 0
+      ? [`${corrupt.toLocaleString('en-US')} malformed cycle-summary row${corrupt === 1 ? '' : 's'} today`]
+      : []),
+    ...(incomplete > 0
+      ? [`${incomplete.toLocaleString('en-US')} started look${incomplete === 1 ? '' : 's'} ${incomplete === 1 ? 'has' : 'have'} no durable completion summary`]
+      : []),
+  ]
+  const proofDebt = proofDebts.join('; ') || 'one or more looks lack durable completion proof'
+
+  if (!(Number.isSafeInteger(today.cycles) && today.cycles > 0)) {
+    return lowerBound ? `Daily totals unavailable — ${proofDebt}.` : null
+  }
+
+  const counts = today.durablyCommitted === true
+    ? `${lowerBound ? 'at least ' : ''}${countCopy(today.read)} durably saved · ${lowerBound ? 'at least ' : ''}${countCopy(today.kept)} inbox-eligible · ${lowerBound ? 'at least ' : ''}${countCopy(today.dropped)} dropped`
+    // A legacy summary can itself overstate feed persistence, so even when omitted summaries make the set
+    // incomplete its reported values are not safe mathematical lower bounds. Label; never prefix "at least".
+    : `legacy report · ${countCopy(today.read)} reported outcomes · ${countCopy(today.kept)} reported inbox-eligible · ${countCopy(today.dropped)} reported dropped`
+  return [
+    counts,
+    ...(lowerBound ? [`daily totals incomplete (${proofDebt})`] : []),
+    ...(today.durablyCommitted === true ? [] : ['feed durability unverified']),
+  ].join(' · ')
+}
+
+/** Prefer the additive complete cause set while retaining the scalar field for an older server. Treat the
+ * API payload as unknown at runtime: a damaged persisted object/string must not become an iterable crash or
+ * one UI row per character. Unknown string values stay visible through the component's generic copy during
+ * a forward rolling deploy. */
+export function diagnosticDeferReasons(defer: NewsDiagnostics['defer']): string[] {
+  const raw = (defer as { reasons?: unknown }).reasons
+  const additive: string[] = []
+  if (Array.isArray(raw)) {
+    for (const reason of raw) {
+      if (typeof reason === 'string' && reason.trim() && !additive.includes(reason)) additive.push(reason)
+      // A legitimate summary has only a handful of causes. Bound a malformed/newer payload so it cannot
+      // flood the panel with thousands of generic rows during deploy skew.
+      if (additive.length === 32) break
+    }
+  }
+  const rawScalar = (defer as { reason?: unknown }).reason
+  const scalar = typeof rawScalar === 'string' && rawScalar.trim() ? rawScalar : null
+  return additive.length ? additive : scalar ? [scalar] : []
+}
+
 /** Never relabel the legacy fetched-path `fresh` count as new inflow. */
 export function lastCycleArrivalCopy(cycle: LastCycleArrivalSplit): string | null {
   const arrivals = cycle.newArrivals
@@ -95,10 +162,12 @@ export function pipelineFlowPresentation(
       flow.history.missingDates.length ? `missing ${flow.history.missingDates.join(', ')}` : '',
       flow.history.unreadableDates.length ? `unreadable ${flow.history.unreadableDates.join(', ')}` : '',
       flow.history.corruptCycleRows ? `${flow.history.corruptCycleRows} corrupt cycle row${flow.history.corruptCycleRows === 1 ? '' : 's'}` : '',
+      flow.history.incompleteCycles ? `${flow.history.incompleteCycles} started cycle${flow.history.incompleteCycles === 1 ? '' : 's'} without a durable completion summary` : '',
+      flow.history.gapMarkerUnreadable ? 'cycle-completion safety record unreadable' : '',
     ].filter(Boolean).join(' · ')
     return unavailable(
       'Required rate history is incomplete — capacity is not compared.',
-      debt || 'One or more required trailing-window partitions are not proven readable.',
+      debt || 'One or more required trailing-window history records are not proven complete.',
     )
   }
 
@@ -133,20 +202,20 @@ export function pipelineFlowPresentation(
   if (gap > 0) {
     return {
       tone: 'ahead', inflowRate, scanningRate,
-      gapCopy: `Ahead by ${fmtItemsPerHour(gap)} items/hour of scanning capacity — before any item expires or is lost at the backlog cap.`,
+      gapCopy: `Ahead by ${fmtItemsPerHour(gap)} items/hour of scanning capacity — before any queued item reaches the age limit.`,
       coverageCopy,
     }
   }
   if (gap < 0) {
     return {
       tone: 'behind', inflowRate, scanningRate,
-      gapCopy: `Falling behind by ${fmtItemsPerHour(gap)} items/hour — queue pressure grows at this rate before any item expires or is lost at the backlog cap.`,
+      gapCopy: `Falling behind by ${fmtItemsPerHour(gap)} items/hour — queue pressure grows at this rate before any queued item reaches the age limit.`,
       coverageCopy,
     }
   }
   return {
     tone: 'equal', inflowRate, scanningRate,
-    gapCopy: 'Equal — 0 items/hour of capacity headroom before expiry or cap loss. Scanning must stay above inflow to reduce the backlog.',
+    gapCopy: 'Equal — 0 items/hour of capacity headroom before age-based retirement. Scanning must stay above inflow to reduce the backlog.',
     coverageCopy,
   }
 }
