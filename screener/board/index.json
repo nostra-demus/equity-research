@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T11:28:44Z",
+  "generated_at": "2026-08-21T11:49:33Z",
   "inbox": [
     {
       "inbox_id": "INB-20260821-606",
@@ -1461,6 +1461,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260821-617",
+      "headline": "Arbutus Announces Intent to Repurchase Up to US$230 Million of its Common Shares Through Modified “Dutch Auction” Tender Offer",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/08/21/3349016/14025/en/arbutus-announces-intent-to-repurchase-up-to-us-230-million-of-its-common-shares-through-modified-dutch-auction-tender-offer.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-21T11:30:00Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "The company announced a share repurchase program of up to US$230 million.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company announced a share repurchase program of up to US$230 million.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capital_actions",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arbutus",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260821-570",
       "headline": "Trustar Bank Announces $750 Million Branch Acquisition from Forbright Bank",
       "headline_en": null,
@@ -1918,65 +1967,6 @@
         },
         {
           "name": "Banca Generali",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-495",
-      "headline": "Kronox Lab Sciences shares rally 32% in 2 days as Indo Borax, Zenrock Chemicals eye stake acquisition",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/markets/stocks/news/kronox-lab-sciences-shares-rally-32-in-2-days-as-indo-borax-zenrock-chemicals-eye-stake-acquisition/articleshow/133395336.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T06:31:48Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Indo Borax and Zenrock Chemicals are reportedly eyeing a stake acquisition in Kronox Lab Sciences.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Indo Borax and Zenrock Chemicals are reportedly eyeing a stake acquisition in Kronox Lab Sciences.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kronox Lab Sciences",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Indo Borax",
-          "ticker": null,
-          "listing_country": "IN"
-        },
-        {
-          "name": "Zenrock Chemicals",
           "ticker": null,
           "listing_country": null
         }
@@ -74679,9 +74669,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10148150,
-    "news_picked_today": 1332,
-    "news_dropped_today": 2508
+    "news_seen_today": 10218934,
+    "news_picked_today": 1366,
+    "news_dropped_today": 2726
   },
   "book_momentum": {
     "live_count": 8,
