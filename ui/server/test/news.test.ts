@@ -15,6 +15,7 @@ import { articleReadTokenBound, readArticleBrief } from '../src/news/triage/arti
 import { analyzeArticle, coerceTriage, estimateTokens, parseRate, scoreToBand, triageBatch, triageMaxOutputTokens } from '../src/news/triage/groq'
 import { analyzeArticleGemini, geminiSchemaEnabled, TRIAGE_RESPONSE_SCHEMA, triageBatchGemini } from '../src/news/triage/gemini'
 import { appendFeedItems, readFeed } from '../src/news/feed'
+import { newsBus } from '../src/news/bus'
 import { mergeInbox, revisionClockRegistryDiagnostics } from '../src/news/write-inbox'
 import { backlogDurablyCleared, buildTriageQueue, expireBacklog, loadDeferred, migrateDeferred, preserveResidence, runIngestCycle, stampDeferred, triageGroqTokenBound } from '../src/news/runCycle'
 import { countUniqueNewArrivals } from '../src/news/pipeline-flow'
@@ -24,7 +25,7 @@ import { createTheme } from '../src/news/themes/discover'
 import { appendThemeMutations, loadThemes } from '../src/news/themes/store'
 import { themeStoryFamilyKey, themeStoryKey } from '../src/news/themes/story-key'
 import type { ThemeItemView } from '../src/news/themes/types'
-import type { FeedItem, RawArticle, TriagedItem } from '../src/news/types'
+import type { FeedItem, NewsItem, RawArticle, TriagedItem } from '../src/news/types'
 import { attachValidNarrative } from './themes-fixtures'
 
 let passed = 0
@@ -2433,11 +2434,145 @@ await check('appendFeedItems honors the daily cap; readFeed skips corrupt lines'
     triage_score: 50, band: 'watch', triage_reason: '', relevance: 'relevant_non_material', event_types: [],
     issuer_linkage: 'sector', companies: [], size_bucket: 'unknown', dedup_status: 'new', inboxed: true,
   })
-  assert.equal(appendFeedItems(root, '2026-06-12', [mk(1), mk(2), mk(3)], 2), 2) // cap blocks the third
-  assert.equal(appendFeedItems(root, '2026-06-12', [mk(4)], 2), 0) // cap already reached
+  assert.deepEqual(
+    appendFeedItems(root, '2026-06-12', [mk(1), mk(2), mk(3)], 2),
+    { status: 'cap', written: 2, unwritten: 1 },
+  ) // partial cap: exact confirmed prefix
+  assert.deepEqual(
+    appendFeedItems(root, '2026-06-12', [mk(4)], 2),
+    { status: 'cap', written: 0, unwritten: 1 },
+  ) // full cap: nothing is claimed durable
+  assert.deepEqual(
+    appendFeedItems(root, '2026-06-13', [mk(4)], 2),
+    { status: 'complete', written: 1, unwritten: 0 },
+  ) // complete: the whole batch is durably acknowledged
   fs.appendFileSync(path.join(root, 'screener/inbox/2026-06-12_firehose.ndjson'), 'NOT JSON\n')
   const { items } = readFeed(root, 1, { now: () => new Date('2026-06-12T10:00:00Z') })
   assert.equal(items.length, 2) // corrupt line skipped, capped writes honored
+})
+
+await check('appendFeedItems reports a deterministic I/O failure instead of masquerading as a cap', () => {
+  const root = tmp()
+  const date = '2026-06-12'
+  const fp = path.join(root, 'screener', 'inbox', `${date}_firehose.ndjson`)
+  fs.mkdirSync(fp, { recursive: true }) // a directory at the file path makes the count/read fail on every OS
+  const item: FeedItem = {
+    kind: 'item', ts: `${date}T09:00:00Z`, event_id: 'EVT-io', headline: 'Feed persistence test',
+    url: 'https://reuters.com/io', domain: 'reuters.com', source_name: 'Reuters', via: 'gdelt',
+    region: 'GLOBAL', input_nature: 'news_headline', triage_score: 10, band: 'drop',
+    triage_reason: 'test', relevance: 'irrelevant', event_types: [], issuer_linkage: 'sector',
+    companies: [], size_bucket: 'unknown', dedup_status: 'new', inboxed: false,
+  }
+  assert.deepEqual(
+    appendFeedItems(root, date, [item], 10),
+    { status: 'io_failure', written: 0, unwritten: 1 },
+  )
+})
+
+type FeedBoundaryCase = 'partial-cap' | 'full-cap' | 'io-failure'
+
+async function runFeedBoundaryCase(kind: FeedBoundaryCase) {
+  resetSharedLimiters(); resetBudgetMemory(); resetCooldownMemory()
+  const root = tmp()
+  const state = tmp()
+  const date = '2026-08-21'
+  const originalRows: NewsItem[] = Array.from({ length: 3 }, (_, i) => ({
+    event_id: `EVT-feed-boundary-${i}`,
+    headline: `Weekend column discusses ordinary market atmosphere number ${i}`,
+    url: `https://reuters.com/feed-boundary-${i}`,
+    domain: 'reuters.com', source_name: 'Reuters', region: 'GLOBAL', input_nature: 'news_headline',
+    found_at: `2026-08-20T14:0${i}:00Z`, deferred_at: `2026-08-20T15:0${i}:00Z`,
+    dedup_status: 'new', via: 'gdelt',
+  }))
+  fs.writeFileSync(path.join(state, 'news-deferred.json'), `${JSON.stringify(originalRows)}\n`)
+  if (kind === 'io-failure') {
+    fs.mkdirSync(path.join(root, 'screener', 'inbox', `${date}_firehose.ndjson`), { recursive: true })
+  }
+  const triage = {
+    usage: { total_tokens: 180 },
+    choices: [{ message: { content: JSON.stringify({ items: originalRows.map((_row, i) => ({
+      i, relevance: 'irrelevant', materiality_pre_score: 1, event_types: [], issuer_linkage: 'sector',
+      why: 'No decision-relevant change.', companies: [], size_bucket: 'unknown',
+    })) }) } }],
+  }
+  const fetchFn = (async (url: string) => String(url).includes('groq') ? res(triage) : res({ articles: [] })) as unknown as typeof fetch
+  const emitted: string[] = []
+  const unsubscribe = newsBus.subscribe((event) => {
+    if (event.type === 'news-item') emitted.push(event.item.event_id)
+  })
+  try {
+    const summary = await runIngestCycle({
+      repoRoot: root, stateDir: state, fetchFn, sleep: noSleep,
+      now: () => new Date('2026-08-21T15:30:00Z'), skipFetch: true,
+      config: {
+        groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqRpm: 6000,
+        localProvider: null, overflowProviders: [], geminiEnabled: false,
+        anthropicFallbackEnabled: false, themesEnabled: false,
+        feedItemsDailyCap: kind === 'partial-cap' ? 1 : kind === 'full-cap' ? 0 : 10,
+      } as any,
+    })
+    const backlog = loadDeferred(state)
+    const seenPath = path.join(state, 'news-seen.json')
+    const seen = fs.existsSync(seenPath)
+      ? JSON.parse(fs.readFileSync(seenPath, 'utf8')) as Record<string, unknown>
+      : {}
+    const itemRows = kind === 'io-failure'
+      ? []
+      : readFeed(root, 1, { now: () => new Date('2026-08-21T15:30:00Z'), applyActiveWeights: false }).items
+    return { root, state, summary, backlog, seen, emitted, itemRows, originalRows }
+  } finally {
+    unsubscribe()
+  }
+}
+
+await check('runIngestCycle partial feed cap publishes/counts only the prefix and preserves the suffix clocks', async () => {
+  const result = await runFeedBoundaryCase('partial-cap')
+  const { summary, backlog, seen, emitted, itemRows, originalRows } = result
+  assert.equal(summary.picked + summary.watched + summary.dropped, 1, 'only the one persisted row counts as scanned')
+  assert.equal(summary.feed_unwritten, 2)
+  assert.equal(summary.feed_write_failed, undefined)
+  assert.equal(summary.defer_reason, 'feed-cap')
+  assert.equal(summary.deferred, 2)
+  assert.equal(summary.backlog, 2)
+  assert.match(String(summary.note), /daily feed persistence cap reached/)
+  assert.equal(itemRows.length, 1, 'only the confirmed prefix is in the durable wire')
+  assert.deepEqual(emitted, itemRows.map((item) => item.event_id), 'SSE emits exactly the persisted prefix')
+  assert.deepEqual(Object.keys(seen).sort(), emitted.slice().sort(), 'only persisted rows enter the seen cache')
+  const originalClock = new Map(originalRows.map((row) => [row.event_id, row.deferred_at]))
+  assert.equal(backlog.length, 2)
+  for (const row of backlog) assert.equal(row.deferred_at, originalClock.get(row.event_id), `${row.event_id} keeps its original residence clock`)
+})
+
+await check('runIngestCycle full feed cap reports zero progress and durably queues every scored row', async () => {
+  const { summary, backlog, seen, emitted, itemRows, originalRows } = await runFeedBoundaryCase('full-cap')
+  assert.equal(summary.picked + summary.watched + summary.dropped, 0)
+  assert.equal(summary.feed_unwritten, 3)
+  assert.equal(summary.feed_write_failed, undefined)
+  assert.equal(summary.defer_reason, 'feed-cap')
+  assert.equal(summary.deferred, 3)
+  assert.equal(summary.backlog, 3)
+  assert.equal(itemRows.length, 0)
+  assert.deepEqual(emitted, [])
+  assert.deepEqual(Object.keys(seen), [])
+  const originalClock = new Map(originalRows.map((row) => [row.event_id, row.deferred_at]))
+  assert.equal(backlog.length, 3)
+  for (const row of backlog) assert.equal(row.deferred_at, originalClock.get(row.event_id))
+})
+
+await check('runIngestCycle feed I/O failure is distinct, reports zero progress, and queues every row unseen', async () => {
+  const { summary, backlog, seen, emitted, originalRows } = await runFeedBoundaryCase('io-failure')
+  assert.equal(summary.picked + summary.watched + summary.dropped, 0)
+  assert.equal(summary.feed_unwritten, 3)
+  assert.equal(summary.feed_write_failed, true)
+  assert.equal(summary.defer_reason, 'feed-write-failed')
+  assert.equal(summary.deferred, 3)
+  assert.equal(summary.backlog, 3)
+  assert.match(String(summary.note), /feed persistence write failed/)
+  assert.deepEqual(emitted, [])
+  assert.deepEqual(Object.keys(seen), [])
+  const originalClock = new Map(originalRows.map((row) => [row.event_id, row.deferred_at]))
+  assert.equal(backlog.length, 3)
+  for (const row of backlog) assert.equal(row.deferred_at, originalClock.get(row.event_id))
 })
 
 // ---- the no-lost-news guarantee: a Groq hiccup defers a batch, it never buries it ----

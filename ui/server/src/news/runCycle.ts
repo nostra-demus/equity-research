@@ -1516,17 +1516,14 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       log(`inbox write withheld: ${e?.message || e}`)
     }
   }
-  // Count only what was actually PROJECTED. A withheld row is re-queued and re-scored next cycle;
-  // counting it now would double-count it. read = kept + dropped still ties out, and each item is
-  // counted exactly once — in the cycle it finally lands.
-  const landed = triaged.filter((t) => !withheldEventIds.has(t.event_id))
-  const picked = landed.filter((t) => t.band === 'pick').length
-  const watched = landed.filter((t) => t.band === 'watch').length
-  const dropped = landed.filter((t) => t.band === 'drop').length
+  // A row is only a candidate to land until its firehose item is durably appended below. Inbox-withheld
+  // rows never reach that boundary. A daily feed cap or I/O failure can still refuse a suffix, and that
+  // suffix must remain uncounted, unseen, and queued until a later cycle actually persists it.
+  const feedCandidates = triaged.filter((t) => !withheldEventIds.has(t.event_id))
 
   // per-item feed records — for KEPT and DROPPED alike, so the live wire shows everything the
   // scanner read and why; then stream each to live listeners
-  const feedItems: FeedItem[] = landed.map((t) => {
+  const feedItems: FeedItem[] = feedCandidates.map((t) => {
     const clocks = revisionClocksByEvent.get(t.event_id)
     const sourceIsEnglish = clocks ? clocks.sourceIsEnglish : t.source_is_english === true
     return {
@@ -1578,33 +1575,52 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       caution: t.caution, // caution_only social — preserved so the display re-rank (feed.ts) re-applies the lowest cap
     }
   })
-  // emit exactly what was persisted, so the live wire and a later backfill agree
-  const written = appendFeedItems(repoRoot, date, feedItems, cfg.feedItemsDailyCap)
-  if (written) invalidateFacets() // a fresh cycle changed the archive — drop the facet index so new items/countries show up before the TTL
-  for (const fi of feedItems.slice(0, written)) newsBus.emit({ type: 'news-item', item: fi })
+  // This result is the authoritative commit boundary. Cap refusal and I/O failure are different operator
+  // states, but both make the unwritten suffix retryable work — never reported progress. appendFeedItems
+  // returns written=0 on an I/O error because its batch append cannot prove any per-row prefix.
+  const feedAppend = appendFeedItems(repoRoot, date, feedItems, cfg.feedItemsDailyCap)
+  const persistedFeedItems = feedItems.slice(0, feedAppend.written)
+  const persistedRows = feedCandidates.slice(0, feedAppend.written)
+  const feedUnwrittenRows = feedCandidates.slice(feedAppend.written)
+  const feedUnwritten = feedAppend.unwritten
+  const feedWriteFailed = feedAppend.status === 'io_failure'
+  const picked = persistedRows.filter((t) => t.band === 'pick').length
+  const watched = persistedRows.filter((t) => t.band === 'watch').length
+  const dropped = persistedRows.filter((t) => t.band === 'drop').length
+  if (feedAppend.written) invalidateFacets() // a fresh cycle changed the archive — drop the facet index so new items/countries show up before the TTL
+  for (const fi of persistedFeedItems) newsBus.emit({ type: 'news-item', item: fi })
+  if (feedAppend.status === 'cap') {
+    log(`feed persistence cap: ${feedUnwritten} scored item${feedUnwritten === 1 ? '' : 's'} remain queued and unseen`)
+  } else if (feedWriteFailed) {
+    log(`feed persistence write failed: ${feedUnwritten} scored item${feedUnwritten === 1 ? '' : 's'} remain queued and unseen`)
+  }
   // A kept row now has a durable inbox projection; a dropped row has its durable firehose audit record.
   // Only now may the optimization cache suppress a future source delivery. If any write above throws, the
   // safety backlog remains and the item is neither seen nor silently lost.
-  for (const t of landed) seen.add(t.event_id, t.materiality_pre_score)
+  for (const t of persistedRows) seen.add(t.event_id, t.materiality_pre_score)
   seen.save()
   // Final cleanup write: now that triaged rows are durably projected, shrink the backlog file down to just
   // the true carry-forward tail. `deferredPersisted` tracks THIS write for `deferred_write_failed` — an
   // operator-facing disk-health signal — deliberately independent of whether the journal write above already
   // removed the expired rows: a failure here just leaves some already-projected, already-`seen` rows sitting
   // harmlessly in the backlog file (next cycle's `carried` filter drops them via `seen`), not a data-loss risk.
-  deferredPersisted = saveDeferred(stateDir, stampDeferred(
-    [...picks.filter((t) => withheldEventIds.has(t.event_id)), ...deferred], ts), log)
+  const retryRows = [
+    ...picks.filter((t) => withheldEventIds.has(t.event_id)),
+    ...feedUnwrittenRows,
+    ...deferred,
+  ]
+  deferredPersisted = saveDeferred(stateDir, stampDeferred(retryRows, ts), log)
   // See backlogDurablyCleared above: `deferredPersisted` alone (the LAST write) undercounted retirement
   // whenever the journal write succeeded but this cleanup write then failed — the journal write had already
   // made the expired rows' removal durable, but the reassignment above threw that success away.
   const expiredRemoved = backlogDurablyCleared(deferredJournalOk, deferredPersisted)
   // Optional neural index. It runs only when explicitly configured, only over newly persisted items, and
   // is fully fail-open: provider trouble can never block the wire or turn an item into a false non-match.
-  if (written && cfg.retrievalEmbeddingEnabled) {
+  if (persistedFeedItems.length && cfg.retrievalEmbeddingEnabled) {
     try {
       const indexed = await updateSemanticIndex({
         stateDir,
-        items: feedItems.slice(0, written),
+        items: persistedFeedItems,
         fetchFn,
         config: {
           enabled: cfg.retrievalEmbeddingEnabled,
@@ -1679,8 +1695,12 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
                 ? ' · Haiku last-resort backing off after an error'
                 : ''
 
-  const defCount = deferred.length
-  const defPlural = defCount === 1 ? '' : 's'
+  const scoringDeferredCount = deferred.length
+  const scoringDefPlural = scoringDeferredCount === 1 ? '' : 's'
+  // The durable backlog also owns rows that WERE scored but did not cross a persistence boundary. Include
+  // inbox-withheld and feed-unwritten work in the true queue depth/loss-boundary arithmetic; reporting only
+  // the unscored provider tail would make the gauge smaller than the file we just wrote.
+  const defCount = retryRows.length
   // Items past the loss boundary. saveDeferred keeps only the first DEFERRED_CAP of the priority-sorted
   // backlog, so anything beyond the cap is DROPPED — never scored, and not re-fetchable once its source
   // window ages out (GDELT's lookback expires; an unchanged RSS feed answers 304). It was derivable as
@@ -1690,20 +1710,20 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   if (droppedAtCap > 0) {
     log(`LOSS: ${droppedAtCap} lowest-priority item${droppedAtCap === 1 ? '' : 's'} dropped past the ${DEFERRED_CAP}-item backlog cap — not deferred; gone once their source window ages out`)
   }
-  const baseNote = aborted && defCount
-    ? `cycle hit its time guard — ${defCount} item${defPlural} dumped to the backlog for the next look${lastResortClause}`
-    : usageLedgerUnavailable
-      ? `one or more provider usage records need attention — ${defCount} item${defPlural} deferred; no allowance or quota exhaustion is claimed${lastResortClause}`
-      : providerDayLimitHit
-        ? `one or more free providers reported their day limit and no other scoring tier could fit — ${defCount} item${defPlural} deferred until provider-day reset${lastResortClause}`
-        : budgetHit
-          ? `configured free-tier engine allowances cannot fit another safe batch — ${defCount} item${defPlural} deferred until their provider-day reset${lastResortClause}`
-          : providerRetryHeld && defCount
-            ? `provider retries held after errors — ${defCount} item${defPlural} deferred until the next eligible retry window${lastResortClause}`
-            : paceHit
-              ? `engine allowances paced for the day — ${defCount} item${defPlural} held for the next drain so every usable tier lasts to its reset${lastResortClause}`
-              : batchFailed
-                ? `${defCount} item${defPlural} not scored (LLM hiccup) — deferred to next cycle${lastResortClause}`
+  const baseNote = aborted && scoringDeferredCount
+    ? `cycle hit its time guard — ${scoringDeferredCount} item${scoringDefPlural} dumped to the backlog for the next look${lastResortClause}`
+    : usageLedgerUnavailable && scoringDeferredCount
+      ? `one or more provider usage records need attention — ${scoringDeferredCount} item${scoringDefPlural} deferred; no allowance or quota exhaustion is claimed${lastResortClause}`
+      : providerDayLimitHit && scoringDeferredCount
+        ? `one or more free providers reported their day limit and no other scoring tier could fit — ${scoringDeferredCount} item${scoringDefPlural} deferred until provider-day reset${lastResortClause}`
+        : budgetHit && scoringDeferredCount
+          ? `configured free-tier engine allowances cannot fit another safe batch — ${scoringDeferredCount} item${scoringDefPlural} deferred until their provider-day reset${lastResortClause}`
+          : providerRetryHeld && scoringDeferredCount
+            ? `provider retries held after errors — ${scoringDeferredCount} item${scoringDefPlural} deferred until the next eligible retry window${lastResortClause}`
+            : paceHit && scoringDeferredCount
+              ? `engine allowances paced for the day — ${scoringDeferredCount} item${scoringDefPlural} held for the next drain so every usable tier lasts to its reset${lastResortClause}`
+              : batchFailed && scoringDeferredCount
+                ? `${scoringDeferredCount} item${scoringDefPlural} not scored (LLM hiccup) — deferred to next cycle${lastResortClause}`
                 : undefined
   // Append the honest loss clause so a defer note never reads as if everything was merely postponed when part
   // of it was actually dropped (the reported "clears when quotas reset" is false for the lost tail).
@@ -1732,26 +1752,35 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const inboxNote = withheldEventIds.size
     ? `held back ${withheldEventIds.size} item${withheldEventIds.size === 1 ? '' : 's'} — first-seen clock not proved${inboxWriteFailed ? ' (inbox write refused)' : ''}; they stay queued and retry next look`
     : ''
-  const note = [localDownNote, inboxNote, coreNote].filter(Boolean).join(' · ') || undefined
+  const feedNote = !feedUnwritten
+    ? ''
+    : feedWriteFailed
+      ? `feed persistence write failed — ${feedUnwritten} scored item${feedUnwritten === 1 ? '' : 's'} stayed queued; no rows were published`
+      : `daily feed persistence cap reached — ${feedUnwritten} scored item${feedUnwritten === 1 ? '' : 's'} stayed queued; only the confirmed prefix was published`
+  const note = [localDownNote, inboxNote, feedNote, coreNote].filter(Boolean).join(' · ') || undefined
   // Structured twin of the note, in the same precedence, so the cockpit can reason about the defer reason
   // without parsing free text.
-  const deferReason: CycleSummary['defer_reason'] = !defCount
-    ? undefined
-    : aborted
-      ? 'aborted'
-      : usageLedgerUnavailable
-        ? 'usage-ledger-unavailable'
-        : providerDayLimitHit
-          ? 'provider-day-limit'
-          : budgetHit
-            ? 'free-budget-spent'
-            : providerRetryHeld
-              ? 'provider-retry-held'
-              : paceHit
-                ? 'allowance-paced'
-                : batchFailed
-                  ? 'batch-failed'
-                  : undefined
+  const deferReason: CycleSummary['defer_reason'] = feedWriteFailed && feedUnwritten
+    ? 'feed-write-failed'
+    : feedAppend.status === 'cap' && feedUnwritten
+      ? 'feed-cap'
+      : !scoringDeferredCount
+        ? undefined
+        : aborted
+          ? 'aborted'
+          : usageLedgerUnavailable
+            ? 'usage-ledger-unavailable'
+            : providerDayLimitHit
+              ? 'provider-day-limit'
+              : budgetHit
+                ? 'free-budget-spent'
+                : providerRetryHeld
+                  ? 'provider-retry-held'
+                  : paceHit
+                    ? 'allowance-paced'
+                    : batchFailed
+                      ? 'batch-failed'
+                      : undefined
 
   const summary: CycleSummary = {
     ts, completed_at: now().toISOString().replace(/\.\d{3}Z$/, 'Z'),
@@ -1764,6 +1793,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     backlog: Math.min(defCount, DEFERRED_CAP), backlog_cap: DEFERRED_CAP,
     ...(droppedAtCap ? { dropped_at_cap: droppedAtCap } : {}),
     ...(backlogExpired.length && expiredRemoved ? { backlog_expired: backlogExpired.length } : {}),
+    ...(feedUnwritten ? { feed_unwritten: feedUnwritten } : {}),
+    ...(feedWriteFailed ? { feed_write_failed: true } : {}),
     ...(deferredPersisted ? {} : { deferred_write_failed: true }),
     ...(withheldEventIds.size ? { inbox_withheld: withheldEventIds.size } : {}),
     ...(inboxWriteFailed ? { inbox_write_failed: true } : {}),
@@ -1788,7 +1819,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // 5. THEMES — bucket material items and run the same maintenance clock used by quiet cycles. Fully
   // guarded so a themes bug can never block or corrupt the core wire.
   await runThemesStage({
-    cfg, repoRoot, stateDir, picks: picks.filter((t) => !withheldEventIds.has(t.event_id)),
+    cfg, repoRoot, stateDir, picks: persistedRows.filter((t) => t.band !== 'drop'),
     fetchFn, now, log, signal: deps.signal, revisionClocksByEvent,
   })
   return summary

@@ -239,34 +239,59 @@ export function findFeedItemByEventId(
   return null
 }
 
-function countItemLines(fp: string): number {
+type ItemLineCount = { ok: true; count: number } | { ok: false }
+
+function countItemLines(fp: string): ItemLineCount {
   try {
+    const text = fs.readFileSync(fp, 'utf8')
+    // A prior short write can leave a partial JSON tail. Appending a retry behind that tail would merge
+    // the first retried row into the corrupt fragment, then falsely acknowledge it. Stop here instead: the
+    // durable backlog keeps every row until an operator repairs the firehose boundary.
+    if (text.length && !text.endsWith('\n')) return { ok: false }
     let n = 0
-    for (const ln of fs.readFileSync(fp, 'utf8').split('\n')) {
+    for (const ln of text.split('\n')) {
       if (ln.includes('"kind":"item"') || ln.includes('"kind": "item"')) n++
     }
-    return n
-  } catch {
-    return 0
+    return { ok: true, count: n }
+  } catch (error: any) {
+    // A missing file is the normal first append of the day. Every other read failure is authoritative:
+    // pretending an unreadable firehose is empty can overrun the cap and makes a later write look durable
+    // when we never established how much room was actually left.
+    return error?.code === 'ENOENT' ? { ok: true, count: 0 } : { ok: false }
   }
 }
 
+export interface AppendFeedItemsResult {
+  status: 'complete' | 'cap' | 'io_failure'
+  /** Confirmed prefix written by this call. On I/O failure this is deliberately zero: the batch append
+   * has no safe per-row acknowledgement, so the caller must retry every row rather than invent progress. */
+  written: number
+  /** Input suffix that still needs durable feed persistence. */
+  unwritten: number
+}
+
 /**
- * Append per-item records, honoring the daily cap. Returns how many were written.
- * Never throws — a missed feed line only loses a wire row, never the ingest cycle.
+ * Append per-item records, honoring the daily cap. The structured result is the persistence authority:
+ * callers may publish only `items.slice(0, written)` and must durably re-queue the rest. Never throws.
  */
-export function appendFeedItems(repoRoot: string, date: string, items: FeedItem[], dailyCap = 1500): number {
-  if (!items.length) return 0
+export function appendFeedItems(repoRoot: string, date: string, items: FeedItem[], dailyCap = NEWS.feedItemsDailyCap): AppendFeedItemsResult {
+  if (!items.length) return { status: 'complete', written: 0, unwritten: 0 }
   const fp = firehosePath(repoRoot, date)
   try {
     fs.mkdirSync(path.dirname(fp), { recursive: true })
-    const room = Math.max(0, dailyCap - countItemLines(fp))
+    const existing = countItemLines(fp)
+    if (!existing.ok) return { status: 'io_failure', written: 0, unwritten: items.length }
+    const room = Math.max(0, Math.floor(dailyCap) - existing.count)
     const toWrite = items.slice(0, room)
-    if (!toWrite.length) return 0
+    if (!toWrite.length) return { status: 'cap', written: 0, unwritten: items.length }
     fs.appendFileSync(fp, toWrite.map((it) => JSON.stringify(it)).join('\n') + '\n')
-    return toWrite.length
+    const unwritten = items.length - toWrite.length
+    return { status: unwritten ? 'cap' : 'complete', written: toWrite.length, unwritten }
   } catch {
-    return 0
+    // appendFileSync is one batch write, not a per-row commit protocol. Even if the kernel wrote partial
+    // bytes before surfacing an error, no complete prefix is proven; retrying all rows is the fail-closed
+    // choice (event ids make a later duplicate safer than a silent omission).
+    return { status: 'io_failure', written: 0, unwritten: items.length }
   }
 }
 

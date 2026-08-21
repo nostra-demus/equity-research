@@ -238,6 +238,8 @@ export interface FeedItem {
 // The structured reason a cycle deferred items — mirrors the human `note` so the cockpit can reason about
 // WHY without parsing free text. Absent when nothing deferred. Ordered by the note's own precedence.
 export type DeferReason =
+  | 'feed-write-failed' // scored rows could not be durably appended to the firehose; they remain queued and unseen
+  | 'feed-cap' // the daily firehose item cap refused a scored suffix; it remains queued and unseen
   | 'aborted' // the wall-clock guard killed the cycle mid-way and dumped the remainder to the backlog
   | 'usage-ledger-unavailable' // a configured provider's durable usage authority needs attention; no cap claim is safe
   | 'free-budget-spent' // configured free-tier engine allowances cannot fit another safe call (not a live provider-quota claim)
@@ -267,9 +269,9 @@ export interface CycleSummary {
   ok: boolean
   fetched: number // raw articles pulled from the firehose
   candidates: number // total queue presented to triage: fetched-path rows (including redelivery) + carried backlog
-  picked: number // band=pick (score ≥ pick threshold)
-  watched: number // band=watch
-  dropped: number // band=drop (not inboxed)
+  picked: number // durably feed-persisted band=pick rows (score ≥ pick threshold)
+  watched: number // durably feed-persisted band=watch rows
+  dropped: number // durably feed-persisted band=drop rows (not inboxed)
   inboxed: number // total rows the inbox now holds after the merge
   groq_requests: number
   groq_tokens: number
@@ -300,6 +302,8 @@ export interface CycleSummary {
   backlog_cap?: number // the loss boundary (DEFERRED_CAP): backlog past this is silently dropped
   dropped_at_cap?: number // items lost this cycle because the backlog overran backlog_cap (deferred = backlog + dropped_at_cap). Present only when >0 — the honest twin of "the tail is dropped, not deferred"
   backlog_expired?: number // backlog items retired UNSCORED this cycle for waiting longer than DEFERRED_MAX_AGE_MS behind the queue. Present only when >0 — a real loss, reported like dropped_at_cap, never silent
+  feed_unwritten?: number // scored rows not durably appended to the feed (daily cap or I/O failure); all remain in the backlog, unseen, for retry
+  feed_write_failed?: boolean // feed append/count I/O failed; no input row is claimed persisted and the whole scored candidate set remains queued
   deferred_write_failed?: boolean // saveDeferred's atomic write failed this cycle — the in-memory backlog was NOT persisted (last-good kept); backlog/deferred describe intent, not what is on disk. Present only when true
   inbox_withheld?: number // kept rows whose first-observation clock could not be PROVED this cycle. They stay in the backlog and retry; they are never handed a fabricated clock. Present only when >0
   inbox_write_failed?: boolean // the inbox projection refused outright; the wire, the summary and the backlog cleanup still ran. The honest twin of deferred_write_failed. Present only when true
