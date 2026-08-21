@@ -1,0 +1,513 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/memory/context-packet-v1.schema.json",
+  "title": "Immutable permanent-memory context packet v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "context_packet_id", "content_sha256", "content"],
+  "properties": {
+    "schema": { "const": "memory-context-packet/v1" },
+    "context_packet_id": { "$ref": "#/$defs/contextPacketId" },
+    "content_sha256": { "$ref": "#/$defs/hashRef" },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "compiler", "query", "effective_scope", "projection", "embedding",
+        "ranking", "accounting", "entries", "contradictions", "omissions",
+        "abstention_reasons"
+      ],
+      "properties": {
+        "compiler": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "version", "canonical_json"],
+          "properties": {
+            "name": { "const": "memory_retrieval" },
+            "version": { "const": "memory-context-compiler/v1" },
+            "canonical_json": { "const": "memory-canonical-json/v1" }
+          }
+        },
+        "query": { "$ref": "query-spec-v1.schema.json" },
+        "effective_scope": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "scope_id", "policy_version", "classifications", "source_tiers",
+            "embedding_classifications", "entitlement_set_sha256", "policy_evaluated_at"
+          ],
+          "properties": {
+            "scope_id": { "$ref": "#/$defs/boundedName" },
+            "policy_version": { "type": "string", "minLength": 1, "maxLength": 128 },
+            "classifications": { "$ref": "#/$defs/classifications" },
+            "source_tiers": { "$ref": "#/$defs/sourceTiers" },
+            "embedding_classifications": { "$ref": "#/$defs/classificationsAllowEmpty" },
+            "entitlement_set_sha256": { "$ref": "#/$defs/hashRef" },
+            "policy_evaluated_at": { "$ref": "#/$defs/awareDateTime" }
+          }
+        },
+        "projection": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["schema", "digest"],
+          "properties": {
+            "schema": { "const": "memory-projection/v1" },
+            "digest": { "$ref": "#/$defs/hashRef" }
+          }
+        },
+        "embedding": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/embeddingMetadata" }
+          ]
+        },
+        "ranking": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["fusion", "rrf_k", "reranker", "candidate_counts", "tie_breaker"],
+          "properties": {
+            "fusion": { "const": "deterministic-rrf/v1" },
+            "rrf_k": { "const": 60 },
+            "reranker": { "const": "evidence-aware-rerank/v1" },
+            "candidate_counts": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["embedding", "lexical", "structured"],
+              "properties": {
+                "embedding": { "type": "integer", "minimum": 0 },
+                "lexical": { "type": "integer", "minimum": 0 },
+                "structured": { "type": "integer", "minimum": 0 }
+              }
+            },
+            "tie_breaker": { "const": "event-id-ascending" }
+          }
+        },
+        "accounting": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "token_estimator", "accounted_part", "entry_utf8_bytes",
+            "estimated_context_tokens", "max_context_tokens"
+          ],
+          "properties": {
+            "token_estimator": { "const": "utf8-bytes-ceil-div-4/v1" },
+            "accounted_part": { "const": "entries-without-entry-accounting" },
+            "entry_utf8_bytes": { "type": "integer", "minimum": 0 },
+            "estimated_context_tokens": { "type": "integer", "minimum": 0 },
+            "max_context_tokens": { "type": "integer", "minimum": 64, "maximum": 200000 }
+          }
+        },
+        "entries": {
+          "type": "array",
+          "maxItems": 100,
+          "items": { "$ref": "#/$defs/entry" }
+        },
+        "contradictions": {
+          "type": "array",
+          "maxItems": 100,
+          "items": { "$ref": "#/$defs/contradiction" }
+        },
+        "omissions": {
+          "type": "array",
+          "maxItems": 128,
+          "items": { "$ref": "#/$defs/omission" }
+        },
+        "abstention_reasons": {
+          "type": "array",
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 256 }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "hashRef": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "contextPacketId": {
+      "type": "string",
+      "pattern": "^context-packet_[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "eventId": {
+      "type": "string",
+      "pattern": "^evt_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "subjectId": {
+      "type": "string",
+      "pattern": "^(?:issuer:lei:[A-Z0-9]{20}|security:figi:[A-Z0-9]{12}|security:isin:[A-Z]{2}[A-Z0-9]{9}[0-9]|security:mic-ticker:[A-Z0-9]{4}:[A-Z0-9][A-Z0-9.-]{0,31}|entity:internal:[a-z0-9][a-z0-9._-]{0,127})$"
+    },
+    "evidenceRef": {
+      "type": "string",
+      "pattern": "^evidence:sha256:[0-9a-f]{64}#[A-Za-z0-9][A-Za-z0-9._~:/?&=,+-]{0,255}$"
+    },
+    "boundedName": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]{0,127}$"
+    },
+    "awareDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+    },
+    "canonicalUtcDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{6}Z$"
+    },
+    "dateOrDateTime": {
+      "type": "string",
+      "oneOf": [
+        { "format": "date", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        { "$ref": "#/$defs/canonicalUtcDateTime" }
+      ]
+    },
+    "classifications": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 5,
+      "uniqueItems": true,
+      "items": { "enum": ["public", "internal", "licensed", "confidential", "restricted"] }
+    },
+    "classificationsAllowEmpty": {
+      "type": "array",
+      "maxItems": 5,
+      "uniqueItems": true,
+      "items": { "enum": ["public", "internal", "licensed", "confidential", "restricted"] }
+    },
+    "sourceTiers": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10,
+      "uniqueItems": true,
+      "items": { "type": "integer", "minimum": 1, "maximum": 10 }
+    },
+    "embeddingMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema", "provider", "model", "version", "dimensions",
+        "policy_partition", "indexed_event_count"
+      ],
+      "properties": {
+        "schema": { "const": "memory-embedding-index-metadata/v1" },
+        "provider": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "model": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "version": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "dimensions": { "type": "integer", "minimum": 1, "maximum": 4096 },
+        "policy_partition": { "$ref": "#/$defs/classificationsAllowEmpty" },
+        "indexed_event_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classification", "retention", "retain_until"],
+      "properties": {
+        "classification": { "enum": ["public", "internal", "licensed", "confidential", "restricted"] },
+        "retention": { "enum": ["permanent", "source-policy", "expires", "tombstone-only"] },
+        "retain_until": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/awareDateTime" }] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "retention": { "const": "expires" } }, "required": ["retention"] },
+          "then": { "properties": { "retain_until": { "$ref": "#/$defs/awareDateTime" } } },
+          "else": { "properties": { "retain_until": { "type": "null" } } }
+        }
+      ]
+    },
+    "producer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "name", "runtime", "model", "prompt_program_sha"],
+      "properties": {
+        "kind": { "enum": ["agent", "human", "adapter", "system"] },
+        "name": { "$ref": "#/$defs/boundedName" },
+        "runtime": { "type": ["string", "null"], "minLength": 1, "maxLength": 128 },
+        "model": { "type": ["string", "null"], "minLength": 1, "maxLength": 256 },
+        "prompt_program_sha": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string", "pattern": "^git:[0-9a-f]{40}(?:[0-9a-f]{24})?$" }
+          ]
+        }
+      }
+    },
+    "resolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema", "lane", "event_id", "repository_revision", "source_path",
+        "source_locator", "object_id", "acquisition_id", "source_version_id",
+        "manifest_sha256", "content_sha256", "byte_length", "media_type", "policy"
+      ],
+      "properties": {
+        "schema": { "const": "memory-resolution/v1" },
+        "lane": { "enum": ["legacy-git", "phase2-store", "synthetic-test"] },
+        "event_id": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/eventId" }] },
+        "repository_revision": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string", "pattern": "^[0-9a-f]{40}(?:[0-9a-f]{24})?$" }
+          ]
+        },
+        "source_path": { "type": ["string", "null"], "maxLength": 4096 },
+        "source_locator": { "type": ["string", "null"], "maxLength": 1024 },
+        "object_id": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string", "pattern": "^object:sha256:[0-9a-f]{64}$" }
+          ]
+        },
+        "acquisition_id": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string", "pattern": "^acquisition_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$" }
+          ]
+        },
+        "source_version_id": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string", "pattern": "^source-version_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$" }
+          ]
+        },
+        "manifest_sha256": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/hashRef" }] },
+        "content_sha256": { "$ref": "#/$defs/hashRef" },
+        "byte_length": { "type": "integer", "minimum": 0 },
+        "media_type": { "type": "string", "minLength": 1, "maxLength": 255 },
+        "policy": { "$ref": "#/$defs/policy" }
+      }
+    },
+    "retrieval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidate_sources", "rrf_score", "rerank_bonus_micros", "expanded_from_event_id"],
+      "properties": {
+        "candidate_sources": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "uniqueItems": true,
+          "items": { "enum": ["structured", "lexical", "embedding", "graph"] }
+        },
+        "rrf_score": { "type": "string", "maxLength": 128, "pattern": "^[0-9]+/[1-9][0-9]*$" },
+        "rerank_bonus_micros": { "type": "integer", "minimum": 0 },
+        "expanded_from_event_id": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/eventId" }] }
+      }
+    },
+    "entryAccounting": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["accounted_part", "utf8_bytes", "estimated_tokens"],
+      "properties": {
+        "accounted_part": { "const": "entry-without-accounting" },
+        "utf8_bytes": { "type": "integer", "minimum": 0 },
+        "estimated_tokens": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event_id", "record_id", "record_type", "event_type", "subject_ids",
+        "system_time", "valid_time", "policy", "source_tiers", "producer", "run_id",
+        "canonical_provenance", "payload", "evidence_refs", "derived_from", "supersedes", "resolutions",
+        "retrieval", "accounting"
+      ],
+      "properties": {
+        "event_id": { "$ref": "#/$defs/eventId" },
+        "record_id": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "record_type": { "enum": [
+          "memory-source/v1", "memory-source/v2", "memory-evidence-span/v1",
+          "memory-evidence-span/v2", "memory-claim/v1", "memory-relationship/v1",
+          "memory-extraction-artifact/v1", "legacy-adapter"
+        ] },
+        "event_type": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-z][a-z0-9_-]*(?:\\.[a-z][a-z0-9_-]*)+$"
+        },
+        "subject_ids": {
+          "type": "array", "maxItems": 128, "uniqueItems": true,
+          "items": { "$ref": "#/$defs/subjectId" }
+        },
+        "system_time": { "$ref": "#/$defs/canonicalUtcDateTime" },
+        "valid_time": {
+          "type": "object", "additionalProperties": false, "required": ["from", "to"],
+          "properties": {
+            "from": { "$ref": "#/$defs/dateOrDateTime" },
+            "to": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/dateOrDateTime" }] }
+          }
+        },
+        "policy": { "$ref": "#/$defs/policy" },
+        "source_tiers": { "$ref": "#/$defs/sourceTiers" },
+        "producer": { "$ref": "#/$defs/producer" },
+        "run_id": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string", "pattern": "^run_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$" }
+          ]
+        },
+        "canonical_provenance": { "$ref": "#/$defs/canonicalProvenance" },
+        "payload": {
+          "oneOf": [
+            { "$ref": "source-v1.schema.json" },
+            { "$ref": "source-v2.schema.json" },
+            { "$ref": "evidence-span-v1.schema.json" },
+            { "$ref": "evidence-span-v2.schema.json" },
+            { "$ref": "claim-v1.schema.json" },
+            { "$ref": "relationship-v1.schema.json" },
+            { "$ref": "extraction-artifact-v1.schema.json" },
+            { "$ref": "#/$defs/legacyPayload" }
+          ]
+        },
+        "evidence_refs": {
+          "type": "array", "maxItems": 1024, "uniqueItems": true,
+          "items": { "$ref": "#/$defs/evidenceRef" }
+        },
+        "derived_from": { "type": "array", "maxItems": 1024, "uniqueItems": true, "items": { "$ref": "#/$defs/eventId" } },
+        "supersedes": { "type": "array", "maxItems": 1024, "uniqueItems": true, "items": { "$ref": "#/$defs/eventId" } },
+        "resolutions": { "type": "array", "maxItems": 1024, "items": { "$ref": "#/$defs/resolution" } },
+        "retrieval": { "$ref": "#/$defs/retrieval" },
+        "accounting": { "$ref": "#/$defs/entryAccounting" }
+      }
+    },
+    "canonicalProvenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "canonical_event_sha256", "envelope_payload_sha256", "trace_id",
+        "raw_system_time", "raw_valid_time", "raw_subject_ids", "raw_evidence_refs",
+        "raw_derived_from", "raw_supersedes", "correction"
+      ],
+      "properties": {
+        "canonical_event_sha256": { "$ref": "#/$defs/hashRef" },
+        "envelope_payload_sha256": { "$ref": "#/$defs/hashRef" },
+        "trace_id": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string", "pattern": "^(?!0{32}$)[0-9a-f]{32}$" }
+          ]
+        },
+        "raw_system_time": { "$ref": "#/$defs/awareDateTime" },
+        "raw_valid_time": { "$ref": "#/$defs/rawValidTime" },
+        "raw_subject_ids": {
+          "type": "array", "maxItems": 128, "uniqueItems": true,
+          "items": { "$ref": "#/$defs/subjectId" }
+        },
+        "raw_evidence_refs": {
+          "type": "array", "maxItems": 1024, "uniqueItems": true,
+          "items": { "$ref": "#/$defs/evidenceRef" }
+        },
+        "raw_derived_from": {
+          "type": "array", "maxItems": 1024, "uniqueItems": true,
+          "items": { "$ref": "#/$defs/eventId" }
+        },
+        "raw_supersedes": {
+          "type": "array", "maxItems": 1024, "uniqueItems": true,
+          "items": { "$ref": "#/$defs/eventId" }
+        },
+        "correction": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "correction-v1.schema.json" }
+          ]
+        }
+      }
+    },
+    "rawValidTime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "to"],
+      "properties": {
+        "from": {
+          "oneOf": [
+            { "type": "string", "format": "date", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+            { "$ref": "#/$defs/awareDateTime" }
+          ]
+        },
+        "to": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string", "format": "date", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+            { "$ref": "#/$defs/awareDateTime" }
+          ]
+        }
+      }
+    },
+    "legacyPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "legacy_schema", "record_type", "source_path", "source_locator", "source_sha256",
+        "identity_mapping", "time_mapping", "record_canonical_json", "record_sha256"
+      ],
+      "properties": {
+        "legacy_schema": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "record_type": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "source_path": { "type": "string", "minLength": 1, "maxLength": 4096 },
+        "source_locator": { "type": "string", "minLength": 1, "maxLength": 1024 },
+        "source_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "source_git_commit": { "type": "string", "pattern": "^[0-9a-f]{40}(?:[0-9a-f]{24})?$" },
+        "identity_mapping": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["strategy", "opaque_uuid_namespace", "aliases_preserved_under"],
+          "properties": {
+            "strategy": { "const": "native-ids-plus-opaque-source-composites-v1" },
+            "opaque_uuid_namespace": { "const": "bcfa556d-1823-5793-8d33-bd24c14d3ff4" },
+            "aliases_preserved_under": { "const": "record_canonical_json" }
+          }
+        },
+        "time_mapping": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "system_time_field", "system_time_precision", "system_time_trust",
+            "valid_time_field", "valid_time_precision"
+          ],
+          "properties": {
+            "system_time_field": { "type": "string", "minLength": 1, "maxLength": 256 },
+            "system_time_precision": { "type": "string", "minLength": 1, "maxLength": 256 },
+            "system_time_trust": { "type": "string", "minLength": 1, "maxLength": 256 },
+            "valid_time_field": { "type": "string", "minLength": 1, "maxLength": 256 },
+            "valid_time_precision": { "type": "string", "minLength": 1, "maxLength": 256 },
+            "git_receipt_time": { "type": "string", "minLength": 1, "maxLength": 256 },
+            "legacy_system_time_field": { "type": "string", "minLength": 1, "maxLength": 256 },
+            "legacy_system_time_precision": { "type": "string", "minLength": 1, "maxLength": 256 }
+          }
+        },
+        "record_canonical_json": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 800000
+        },
+        "record_sha256": { "$ref": "#/$defs/hashRef" }
+      }
+    },
+    "contradiction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relationship_event_id", "relationship_id", "source_ref", "target_ref",
+        "qualifier", "status", "resolver_event_ids"
+      ],
+      "properties": {
+        "relationship_event_id": { "$ref": "#/$defs/eventId" },
+        "relationship_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "source_ref": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "target_ref": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "qualifier": { "type": ["string", "null"], "minLength": 1, "maxLength": 4096 },
+        "status": { "enum": ["unresolved", "resolved"] },
+        "resolver_event_ids": { "type": "array", "maxItems": 100, "uniqueItems": true, "items": { "$ref": "#/$defs/eventId" } }
+      }
+    },
+    "omission": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reason", "count"],
+      "properties": {
+        "reason": { "type": "string", "pattern": "^[a-z][a-z0-9-]{0,127}$" },
+        "count": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}

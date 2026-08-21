@@ -70,10 +70,14 @@ except ImportError:  # pragma: no cover - package-style imports
 STORE_MANIFEST_SCHEMA = "memory-local-store-manifest/v1"
 EVENT_RECORD_SCHEMA = "memory-local-event-record/v1"
 DESCRIPTOR_SCHEMA = "memory-local-store-descriptor/v1"
+EVENT_PREFLIGHT_SCHEMA = "memory-local-event-preflight/v1"
+WRITE_INTENT_SCHEMA = "memory-local-entry-write-intent/v1"
+CONTROLLED_WRITER_OWNER_SCHEMA = "memory-local-controlled-writer-owner/v1"
 AAD_SCHEMA = "memory-local-store-aad/v1"
 PROTECTED_CLASSIFICATIONS = frozenset({"licensed", "confidential", "restricted"})
 
 _SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+_COMMITMENT_RE = re.compile(r"^sha256:[0-9a-f]{64}$")
 _UUID_RE = r"[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}"
 _ACQUISITION_RE = re.compile(rf"^acquisition_{_UUID_RE}$")
 _SOURCE_VERSION_RE = re.compile(rf"^source-version_{_UUID_RE}$")
@@ -81,6 +85,7 @@ _EVENT_ID_RE = re.compile(rf"^evt_{_UUID_RE}$")
 _BACKUP_ID_RE = re.compile(r"^[a-z0-9][a-z0-9._-]{0,63}$")
 _DEK_ID_RE = re.compile(r"^dek_[0-9a-f]{32}$")
 _SAFE_RETURNED_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._/-]{0,1023}$")
+_ATOMIC_TEMP_RE = re.compile(r"^\.tmp-v2-[0-9a-f]{64}-([0-9a-f]{64})-[0-9a-f]{32}$")
 _LOCK_BYTES = b"memory-local-store-lock/v1\n"
 
 
@@ -389,6 +394,28 @@ class AccessRequest:
 
 
 @dataclass(frozen=True)
+class _PreparedEvent:
+    """Validated immutable event record awaiting an optional commit."""
+
+    ref: EventRef
+    record_bytes: bytes
+    disposition: str
+
+    def preflight_descriptor(self) -> dict[str, Any]:
+        if self.disposition not in {"new", "present"}:  # pragma: no cover - internal invariant
+            raise StoreCorruption("prepared event has an unsupported disposition")
+        return {
+            "schema": EVENT_PREFLIGHT_SCHEMA,
+            "status": "ready",
+            "disposition": self.disposition,
+            "event_id": self.ref.event_id,
+            "record_sha256": self.ref.record_sha256,
+            "record_byte_length": self.ref.record_byte_length,
+            "object_count": len(self.ref.objects),
+        }
+
+
+@dataclass(frozen=True)
 class BackupReceipt:
     content_path: str
     key_path: str | None
@@ -654,6 +681,9 @@ class MemoryStore:
                 self._ensure_directory(Path(name))
         self._verify_top_level_layout(allow_missing=False)
         self._lock_path = self._relative_path("locks", "store.lock")
+        self._controlled_writer_owner_path = self._relative_path(
+            "locks", "controlled-writer-owner.json"
+        )
         if create:
             self._atomic_create(self._lock_path, _LOCK_BYTES)
         self._verify_lock_layout()
@@ -693,8 +723,97 @@ class MemoryStore:
 
     def _verify_lock_layout(self) -> None:
         paths = self._walk_regular(Path("locks"))
-        if paths != [self._lock_path] or self._read_regular(self._lock_path) != _LOCK_BYTES:
+        allowed = {self._lock_path, self._controlled_writer_owner_path}
+        if (
+            set(paths) - allowed
+            or self._lock_path not in paths
+            or self._read_regular(self._lock_path) != _LOCK_BYTES
+        ):
             raise StoreCorruption("store lock lane is missing or contains unsupported entries")
+        if self._controlled_writer_owner_path in paths:
+            self._parse_controlled_writer_owner(
+                self._read_regular(self._controlled_writer_owner_path)
+            )
+
+    @staticmethod
+    def _controlled_writer_owner(
+        coordinator_id: str, configuration_sha256: str
+    ) -> dict[str, str]:
+        if (
+            not isinstance(coordinator_id, str)
+            or _COMMITMENT_RE.fullmatch(coordinator_id) is None
+            or not isinstance(configuration_sha256, str)
+            or _COMMITMENT_RE.fullmatch(configuration_sha256) is None
+        ):
+            raise InvalidStoreInput("controlled-writer identities must be SHA-256 commitments")
+        return {
+            "schema": CONTROLLED_WRITER_OWNER_SCHEMA,
+            "coordinator_id": coordinator_id,
+            "configuration_sha256": configuration_sha256,
+        }
+
+    @staticmethod
+    def _parse_controlled_writer_owner(raw: bytes) -> dict[str, str]:
+        try:
+            value = json.loads(raw.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+            raise StoreCorruption("controlled-writer owner is not JSON") from exc
+        if (
+            not isinstance(value, dict)
+            or set(value)
+            != {"schema", "coordinator_id", "configuration_sha256"}
+            or value.get("schema") != CONTROLLED_WRITER_OWNER_SCHEMA
+            or not isinstance(value.get("coordinator_id"), str)
+            or _COMMITMENT_RE.fullmatch(value["coordinator_id"]) is None
+            or not isinstance(value.get("configuration_sha256"), str)
+            or _COMMITMENT_RE.fullmatch(value["configuration_sha256"]) is None
+            or canonical_json_bytes(value) != raw
+        ):
+            raise StoreCorruption("controlled-writer owner has an invalid closed shape")
+        return value
+
+    def bind_controlled_writer(
+        self, coordinator_id: str, configuration_sha256: str
+    ) -> None:
+        """Bind this store to exactly one controlled-writer state/configuration."""
+
+        expected = self._controlled_writer_owner(
+            coordinator_id, configuration_sha256
+        )
+        encoded = canonical_json_bytes(expected)
+        with self._transaction():
+            try:
+                current = self._read_regular(self._controlled_writer_owner_path)
+            except StoreNotFound:
+                if not self._atomic_create(self._controlled_writer_owner_path, encoded):
+                    current = self._read_regular(self._controlled_writer_owner_path)
+                    if current != encoded:
+                        raise StoreConflict(
+                            "protected store is already bound to another controlled writer"
+                        )
+            else:
+                if current != encoded:
+                    raise StoreConflict(
+                        "protected store is already bound to another controlled writer"
+                    )
+
+    @contextmanager
+    def controlled_writer(
+        self, coordinator_id: str, configuration_sha256: str
+    ) -> Iterable[None]:
+        """Hold the store transaction and revalidate its immutable writer owner."""
+
+        expected = canonical_json_bytes(
+            self._controlled_writer_owner(coordinator_id, configuration_sha256)
+        )
+        with self._transaction():
+            try:
+                current = self._read_regular(self._controlled_writer_owner_path)
+            except StoreNotFound as exc:
+                raise StoreCorruption("protected store controlled-writer owner is absent") from exc
+            if current != expected:
+                raise StoreCorruption("protected store controlled-writer ownership changed")
+            yield
 
     @contextmanager
     def _transaction(self) -> Iterable[None]:
@@ -945,8 +1064,17 @@ class MemoryStore:
                 raise OSError("short write")
             view = view[written:]
 
-    def _temporary_file_at(self, parent_fd: int, data: bytes) -> str:
-        name = ".tmp-" + secrets.token_hex(16)
+    @staticmethod
+    def _temporary_prefix(destination: str) -> str:
+        return ".tmp-v2-" + hashlib.sha256(destination.encode("utf-8")).hexdigest() + "-"
+
+    def _temporary_file_at(self, parent_fd: int, destination: str, data: bytes) -> str:
+        name = (
+            self._temporary_prefix(destination)
+            + hashlib.sha256(data).hexdigest()
+            + "-"
+            + secrets.token_hex(16)
+        )
         flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, "O_NOFOLLOW", 0)
         descriptor = os.open(name, flags, 0o600, dir_fd=parent_fd)
         try:
@@ -963,8 +1091,119 @@ class MemoryStore:
         os.close(descriptor)
         return name
 
+    def _temporary_rows_at(
+        self,
+        parent_fd: int,
+        destination: str,
+        relative: Path,
+        *,
+        validate: bool = True,
+    ) -> list[tuple[Path, bytes]]:
+        prefix = self._temporary_prefix(destination)
+        pattern = re.compile(
+            re.escape(prefix) + r"([0-9a-f]{64})-([0-9a-f]{32})"
+        )
+        rows: list[tuple[Path, bytes]] = []
+        try:
+            directory: int | Path = (
+                parent_fd
+                if os.listdir in os.supports_fd
+                else self._absolute(relative).parent
+            )
+            names = sorted(os.listdir(directory))
+        except OSError as exc:
+            raise StoreCorruption(
+                f"cannot enumerate atomic-write directory for {relative}: {exc}"
+            ) from exc
+        for name in names:
+            if not name.startswith(prefix):
+                continue
+            match = pattern.fullmatch(name)
+            temp_relative = relative.parent / name
+            if match is None:
+                raise StoreCorruption(
+                    f"exact-target atomic temp has an invalid name: {temp_relative}"
+                )
+            raw = b""
+            if validate:
+                # The descriptor-based read also requires a regular 0600 file owned
+                # by this service with exactly one hard link before reading bytes.
+                raw = self._read_regular_at(parent_fd, name, temp_relative)
+                declared_sha256 = match.group(1)
+                actual_sha256 = hashlib.sha256(raw).hexdigest()
+                if declared_sha256 != actual_sha256:
+                    raise StoreCorruption(
+                        f"exact-target atomic temp digest mismatch: {temp_relative}"
+                    )
+            rows.append((temp_relative, raw))
+        return rows
+
+    @staticmethod
+    def _require_temporary_data(
+        rows: Sequence[tuple[Path, bytes]],
+        data: bytes,
+    ) -> None:
+        expected_sha256 = hashlib.sha256(data).hexdigest()
+        for temp_relative, raw in rows:
+            if hashlib.sha256(raw).hexdigest() != expected_sha256 or raw != data:
+                raise StoreCorruption(
+                    f"exact-target atomic temp differs from intended bytes: {temp_relative}"
+                )
+
+    def _delete_temporary_rows(self, rows: Sequence[tuple[Path, bytes]]) -> None:
+        for temp_relative, _raw in rows:
+            if self._delete_regular(temp_relative) is None:  # pragma: no cover - lock excludes races
+                raise StoreCorruption(
+                    f"exact-target atomic temp disappeared during recovery: {temp_relative}"
+                )
+
+    def _temporary_rows(self, relative: Path) -> list[tuple[Path, bytes]]:
+        try:
+            parent_context = self._parent_fd(relative, create=False)
+            parent_fd, destination = parent_context.__enter__()
+        except StoreNotFound:
+            return []
+        try:
+            return self._temporary_rows_at(parent_fd, destination, relative)
+        finally:
+            parent_context.__exit__(None, None, None)
+
+    def _is_valid_atomic_temp(self, relative: Path) -> bool:
+        return _ATOMIC_TEMP_RE.fullmatch(relative.name) is not None
+
+    def _recover_temporary_at(
+        self,
+        parent_fd: int,
+        destination: str,
+        relative: Path,
+        data: bytes,
+        *,
+        exact_data: bool,
+    ) -> None:
+        """Remove closed-name temps for one destination, validating exact bytes when needed."""
+
+        recovered = self._temporary_rows_at(
+            parent_fd,
+            destination,
+            relative,
+            validate=exact_data,
+        )
+        if exact_data:
+            self._require_temporary_data(recovered, data)
+        # Replace retries may discard incomplete temps.  The closed target prefix
+        # limits deletion to this destination, while _delete_regular revalidates
+        # type, mode, owner, single-link status, and inode identity before unlinking.
+        self._delete_temporary_rows(recovered)
+
     def _atomic_create(self, relative: Path, data: bytes) -> bool:
         with self._parent_fd(relative, create=True) as (parent_fd, destination):
+            self._recover_temporary_at(
+                parent_fd,
+                destination,
+                relative,
+                data,
+                exact_data=True,
+            )
             try:
                 existing = self._read_regular_at(parent_fd, destination, relative)
             except StoreNotFound:
@@ -973,7 +1212,7 @@ class MemoryStore:
                 if existing != data:
                     raise StoreConflict(f"immutable address already contains different bytes: {relative}")
                 return False
-            temporary = self._temporary_file_at(parent_fd, data)
+            temporary = self._temporary_file_at(parent_fd, destination, data)
             try:
                 try:
                     os.link(
@@ -1001,11 +1240,18 @@ class MemoryStore:
 
     def _atomic_replace(self, relative: Path, data: bytes) -> None:
         with self._parent_fd(relative, create=True) as (parent_fd, destination):
+            self._recover_temporary_at(
+                parent_fd,
+                destination,
+                relative,
+                data,
+                exact_data=False,
+            )
             try:
                 self._read_regular_at(parent_fd, destination, relative)
             except StoreNotFound:
                 pass
-            temporary = self._temporary_file_at(parent_fd, data)
+            temporary = self._temporary_file_at(parent_fd, destination, data)
             try:
                 os.replace(
                     temporary,
@@ -1121,6 +1367,10 @@ class MemoryStore:
         return self._relative_path(
             "keys", kind, *self._partition_parts(ref), self._entry_digest(ref) + ".key.json"
         )
+
+    def _write_intent_path(self, ref: EntryRef) -> Path:
+        content_path = self._content_path(ref)
+        return content_path.with_name(self._entry_digest(ref) + ".write-intent.json")
 
     def _retired_path(self, ref: EntryRef) -> Path:
         kind = self._entry_kind(ref)
@@ -1384,6 +1634,147 @@ class MemoryStore:
                 )
         return logical
 
+    def _pending_entry_descriptor(
+        self,
+        ref: EntryRef,
+        plaintext: bytes,
+        *,
+        object_manifest: Mapping[str, Any] | None,
+    ) -> bytes:
+        """Validate caller bytes before inspecting or repairing an exact orphan."""
+
+        expected_length = ref.byte_length if isinstance(ref, ObjectRef) else ref.record_byte_length
+        if (
+            len(plaintext) != expected_length
+            or hashlib.sha256(plaintext).hexdigest() != self._entry_digest(ref)
+        ):
+            raise InvalidStoreInput("entry bytes do not match their immutable reference")
+        if isinstance(ref, ObjectRef):
+            if not isinstance(object_manifest, Mapping):
+                raise InvalidStoreInput(
+                    "object writes require the authoritative object manifest"
+                )
+            manifest = json.loads(canonical_json_bytes(dict(object_manifest)))
+            errors = validate_object_manifest(manifest)
+            if not errors:
+                errors = verify_object_content(
+                    manifest,
+                    plaintext,
+                    media_type=manifest.get("media_type"),
+                )
+            if errors or object_manifest_sha256(manifest) != ref.manifest_sha256:
+                raise InvalidStoreInput(
+                    "object manifest/content differs from the immutable reference"
+                    + ((": " + "; ".join(errors[:8])) if errors else "")
+                )
+            if (
+                manifest.get("acquisition_id") != ref.acquisition_id
+                or manifest.get("source_version_id") != ref.source_version_id
+                or manifest.get("content_sha256") != "sha256:" + ref.sha256
+                or manifest.get("byte_length") != ref.byte_length
+                or StoragePolicy.from_dict(manifest.get("policy")) != ref.policy
+            ):
+                raise InvalidStoreInput(
+                    "object manifest identity differs from the immutable reference"
+                )
+            return self._descriptor_bytes(ref, object_manifest=manifest)
+        if object_manifest is not None:
+            raise InvalidStoreInput("event writes must not carry an object manifest")
+        # This decoder is descriptor-independent and proves the record's canonical
+        # event/ref/object binding before a recovery can make it visible.
+        self._decode_event_record_unbound(ref, plaintext)
+        return self._descriptor_bytes(ref)
+
+    def _optional_regular(self, relative: Path) -> bytes | None:
+        try:
+            raw = self._read_regular(relative)
+        except StoreNotFound:
+            return None
+        with self._parent_fd(relative, create=False) as (parent_fd, destination):
+            self._recover_temporary_at(
+                parent_fd,
+                destination,
+                relative,
+                raw,
+                exact_data=True,
+            )
+        return raw
+
+    def _write_intent_bytes(
+        self,
+        ref: EntryRef,
+        descriptor_bytes: bytes,
+        ciphertext: bytes,
+        key_envelope: bytes,
+    ) -> bytes:
+        return canonical_json_bytes(
+            {
+                "schema": WRITE_INTENT_SCHEMA,
+                "kind": self._entry_kind(ref),
+                "ref_sha256": canonical_sha256(ref.to_dict()),
+                "descriptor_sha256": hashlib.sha256(descriptor_bytes).hexdigest(),
+                "ciphertext_sha256": hashlib.sha256(ciphertext).hexdigest(),
+                "key_envelope_sha256": hashlib.sha256(key_envelope).hexdigest(),
+            }
+        )
+
+    def _validate_write_intent(
+        self,
+        raw: bytes,
+        ref: EntryRef,
+        descriptor_bytes: bytes,
+        *,
+        ciphertext: bytes | None,
+        key_envelope: bytes | None,
+    ) -> None:
+        try:
+            value = json.loads(raw)
+        except (UnicodeError, json.JSONDecodeError) as exc:
+            raise StoreCorruption(f"entry write intent is invalid JSON: {exc}") from exc
+        required = {
+            "schema",
+            "kind",
+            "ref_sha256",
+            "descriptor_sha256",
+            "ciphertext_sha256",
+            "key_envelope_sha256",
+        }
+        if (
+            not isinstance(value, dict)
+            or set(value) != required
+            or value.get("schema") != WRITE_INTENT_SCHEMA
+            or value.get("kind") != self._entry_kind(ref)
+            or raw != canonical_json_bytes(value)
+            or any(
+                not isinstance(value.get(field), str)
+                or _SHA256_RE.fullmatch(value[field]) is None
+                for field in (
+                    "ref_sha256",
+                    "descriptor_sha256",
+                    "ciphertext_sha256",
+                    "key_envelope_sha256",
+                )
+            )
+        ):
+            raise StoreCorruption("entry write intent has an unsupported or non-canonical shape")
+        if (
+            value["ref_sha256"] != canonical_sha256(ref.to_dict())
+            or value["descriptor_sha256"]
+            != hashlib.sha256(descriptor_bytes).hexdigest()
+        ):
+            raise StoreCorruption("entry write intent differs from the exact intended reference")
+        if (
+            ciphertext is not None
+            and value["ciphertext_sha256"] != hashlib.sha256(ciphertext).hexdigest()
+        ):
+            raise StoreCorruption("entry write intent ciphertext commitment is stale")
+        if (
+            key_envelope is not None
+            and value["key_envelope_sha256"]
+            != hashlib.sha256(key_envelope).hexdigest()
+        ):
+            raise StoreCorruption("entry write intent key commitment is stale")
+
     def _write_entry(
         self,
         ref: EntryRef,
@@ -1391,37 +1782,246 @@ class MemoryStore:
         *,
         object_manifest: Mapping[str, Any] | None = None,
     ) -> None:
+        descriptor_bytes = self._pending_entry_descriptor(
+            ref,
+            plaintext,
+            object_manifest=object_manifest,
+        )
         descriptor_path = self._descriptor_path(ref)
-        if self._absolute(descriptor_path).exists() or self._absolute(descriptor_path).is_symlink():
+        content_path = self._content_path(ref)
+        key_path = self._key_path(ref)
+        intent_path = self._write_intent_path(ref)
+        orphan_intent = self._optional_regular(intent_path)
+        committed_descriptor = self._optional_regular(descriptor_path)
+        orphan_content = self._optional_regular(content_path)
+        orphan_key = self._optional_regular(key_path)
+        intent_temporaries = self._temporary_rows(intent_path)
+        content_temporaries = self._temporary_rows(content_path)
+        key_temporaries = self._temporary_rows(key_path)
+        descriptor_temporaries = self._temporary_rows(descriptor_path)
+        self._require_temporary_data(descriptor_temporaries, descriptor_bytes)
+        if committed_descriptor is not None:
             if self._logical_bytes(ref) != plaintext:
                 raise StoreConflict("immutable reference already resolves to different bytes")
+            if orphan_intent is not None:
+                if not ref.encrypted:
+                    raise StoreCorruption(
+                        "unprotected committed entry has an unexpected write intent"
+                    )
+                committed_content = self._read_regular(content_path)
+                committed_key = self._read_regular(key_path)
+                self._validate_write_intent(
+                    orphan_intent,
+                    ref,
+                    descriptor_bytes,
+                    ciphertext=committed_content,
+                    key_envelope=committed_key,
+                )
+                if self._delete_regular(intent_path) is None:
+                    raise StoreCorruption("committed entry write intent disappeared during recovery")
             return
-        content_path = self._content_path(ref)
-        if self._absolute(content_path).exists() or self._absolute(content_path).is_symlink():
-            raise StoreCorruption("orphan content exists without its committed descriptor")
+
+        if not ref.encrypted:
+            self._require_temporary_data(content_temporaries, plaintext)
+            if descriptor_temporaries and orphan_content is None:
+                raise StoreCorruption(
+                    "descriptor temp exists before exact unprotected content publication"
+                )
+            if orphan_intent is not None or intent_temporaries:
+                raise StoreCorruption(
+                    "unprotected descriptor-absent entry has an unexpected write intent"
+                )
+            if orphan_key is not None or key_temporaries:
+                raise StoreCorruption(
+                    "unprotected descriptor-absent entry has an unexpected wrapped key"
+                )
+            if orphan_content is not None:
+                if orphan_content != plaintext:
+                    raise StoreCorruption(
+                        "descriptor-absent content differs from the exact intended bytes"
+                    )
+                # A crash after the durable content create can be completed without
+                # rewriting it only when the exact bytes match the intended ref.
+                self._atomic_create(descriptor_path, descriptor_bytes)
+                return
+        else:
+            if descriptor_temporaries and (
+                orphan_intent is None
+                or orphan_content is None
+                or orphan_key is None
+            ):
+                raise StoreCorruption(
+                    "descriptor temp exists before protected artifacts are complete"
+                )
+            if orphan_intent is None and intent_temporaries:
+                if (
+                    orphan_content is not None
+                    or orphan_key is not None
+                    or content_temporaries
+                    or key_temporaries
+                ):
+                    raise StoreCorruption(
+                        "protected artifacts have only an uncommitted write-intent temp"
+                    )
+                for _temp_path, temp_raw in intent_temporaries:
+                    self._validate_write_intent(
+                        temp_raw,
+                        ref,
+                        descriptor_bytes,
+                        ciphertext=None,
+                        key_envelope=None,
+                    )
+                self._delete_temporary_rows(intent_temporaries)
+                intent_temporaries = []
+            if content_temporaries:
+                if (
+                    orphan_intent is None
+                    or orphan_content is not None
+                    or orphan_key is None
+                ):
+                    raise StoreCorruption(
+                        "protected content temp lacks one exact pending write intent"
+                    )
+                for _temp_path, temp_raw in content_temporaries:
+                    self._validate_write_intent(
+                        orphan_intent,
+                        ref,
+                        descriptor_bytes,
+                        ciphertext=temp_raw,
+                        key_envelope=orphan_key,
+                    )
+                    if self._decrypt(
+                        self._entry_kind(ref),
+                        ref,
+                        temp_raw,
+                        orphan_key,
+                    ) != plaintext:
+                        raise StoreCorruption(
+                            "protected content temp differs from the intended entry"
+                        )
+                self._delete_temporary_rows(content_temporaries)
+                content_temporaries = []
+            if key_temporaries:
+                if (
+                    orphan_intent is None
+                    or orphan_key is not None
+                    or orphan_content is not None
+                ):
+                    raise StoreCorruption(
+                        "protected key temp lacks one exact pending write intent"
+                    )
+                for _temp_path, temp_raw in key_temporaries:
+                    self._decode_key_envelope(temp_raw)
+                    self._validate_write_intent(
+                        orphan_intent,
+                        ref,
+                        descriptor_bytes,
+                        ciphertext=orphan_content,
+                        key_envelope=temp_raw,
+                    )
+                self._delete_temporary_rows(key_temporaries)
+                key_temporaries = []
+            if orphan_intent is not None:
+                self._validate_write_intent(
+                    orphan_intent,
+                    ref,
+                    descriptor_bytes,
+                    ciphertext=orphan_content,
+                    key_envelope=orphan_key,
+                )
+            if orphan_content is not None and orphan_key is None:
+                # Ciphertext without its wrapped key cannot authenticate to this ref;
+                # deleting or adopting it would guess at provenance.
+                raise StoreCorruption(
+                    "protected descriptor-absent content has no authenticating key envelope"
+                )
+            if orphan_content is not None and orphan_key is not None:
+                if orphan_intent is None:
+                    raise StoreCorruption(
+                        "protected descriptor-absent artifacts have no exact write intent"
+                    )
+                recovered = self._decrypt(
+                    self._entry_kind(ref),
+                    ref,
+                    orphan_content,
+                    orphan_key,
+                )
+                if recovered != plaintext:
+                    raise StoreCorruption(
+                        "protected descriptor-absent bytes differ from the exact intended entry"
+                    )
+                # Both files authenticate under ref-derived AAD.  Completing the
+                # descriptor is the only persistent repair.
+                self._atomic_create(descriptor_path, descriptor_bytes)
+                if orphan_intent is not None and self._delete_regular(intent_path) is None:
+                    raise StoreCorruption(
+                        "completed entry write intent disappeared during recovery"
+                    )
+                return
+            if orphan_key is not None:
+                # New protected writes publish the key before ciphertext.  A crash at
+                # that boundary leaves no content bytes to adopt.  The durable intent
+                # must bind this exact envelope before either file can be removed.
+                if orphan_intent is None:
+                    raise StoreCorruption(
+                        "protected descriptor-absent key has no exact write intent"
+                    )
+                self._decode_key_envelope(orphan_key)
+                removed = self._delete_regular(key_path)
+                if removed is None:  # pragma: no cover - transaction excludes races
+                    raise StoreCorruption("descriptor-absent key disappeared during recovery")
+                if self._delete_regular(intent_path) is None:
+                    raise StoreCorruption("descriptor-absent write intent disappeared during recovery")
+                orphan_intent = None
+            elif orphan_intent is not None:
+                # The intent was made durable before either protected artifact.  With
+                # neither artifact present, deleting that exact validated intent is a
+                # content-free rollback to the unwritten state.
+                if self._delete_regular(intent_path) is None:
+                    raise StoreCorruption("entry write intent disappeared during recovery")
+                orphan_intent = None
+
         if ref.encrypted:
             ciphertext, envelope = self._encrypt(self._entry_kind(ref), ref, plaintext)
-            content_created = self._atomic_create(content_path, ciphertext)
+            intent_bytes = self._write_intent_bytes(
+                ref,
+                descriptor_bytes,
+                ciphertext,
+                envelope,
+            )
+            intent_created = self._atomic_create(intent_path, intent_bytes)
             try:
-                self._atomic_create(self._key_path(ref), envelope)
+                key_created = self._atomic_create(key_path, envelope)
             except BaseException:
-                if content_created:
-                    self._delete_regular(content_path)
+                if intent_created:
+                    self._delete_regular(intent_path)
+                raise
+            try:
+                content_created = self._atomic_create(content_path, ciphertext)
+            except BaseException:
+                if key_created:
+                    self._delete_regular(key_path)
+                if intent_created:
+                    self._delete_regular(intent_path)
                 raise
         else:
-            self._atomic_create(content_path, plaintext)
+            content_created = self._atomic_create(content_path, plaintext)
+            key_created = False
+            intent_created = False
         try:
-            self._atomic_create(
-                descriptor_path,
-                self._descriptor_bytes(ref, object_manifest=object_manifest),
-            )
+            self._atomic_create(descriptor_path, descriptor_bytes)
         except BaseException:
             # A missing descriptor means the write was not committed.  Remove only files
             # created at this exact address; no immutable descriptor can point at them.
-            self._delete_regular(content_path)
-            if ref.encrypted:
-                self._delete_regular(self._key_path(ref))
+            if content_created:
+                self._delete_regular(content_path)
+            if key_created:
+                self._delete_regular(key_path)
+            if intent_created:
+                self._delete_regular(intent_path)
             raise
+        if intent_created and self._delete_regular(intent_path) is None:
+            raise StoreCorruption("committed entry write intent disappeared before cleanup")
 
     # ---------- authorization and public reads/writes ----------
 
@@ -1592,6 +2192,8 @@ class MemoryStore:
     def _event_refs(self, *, verify: bool = True) -> list[EventRef]:
         refs: list[EventRef] = []
         for relative in self._walk_regular(Path("descriptors") / "event"):
+            if self._is_valid_atomic_temp(relative):
+                continue
             value = self._load_descriptor(relative, "event")
             ref = EventRef.from_dict(value["ref"])
             if relative != self._descriptor_path(ref):
@@ -1607,6 +2209,8 @@ class MemoryStore:
     def _object_refs(self, *, verify: bool = True) -> list[ObjectRef]:
         refs: list[ObjectRef] = []
         for relative in self._walk_regular(Path("descriptors") / "object"):
+            if self._is_valid_atomic_temp(relative):
+                continue
             value = self._load_descriptor(relative, "object")
             ref = ObjectRef.from_dict(value["ref"])
             if relative != self._descriptor_path(ref):
@@ -2049,7 +2653,7 @@ class MemoryStore:
                 "typed payload bindings must contain exactly its referenced source/output objects"
             )
 
-    def _put_event(
+    def _prepare_event(
         self,
         event: Mapping[str, Any],
         *,
@@ -2060,7 +2664,7 @@ class MemoryStore:
         allow_tombstone: bool,
         event_index_extra: Mapping[str, Mapping[str, Any]] | None = None,
         preauthorized: bool = False,
-    ) -> EventRef:
+    ) -> _PreparedEvent:
         if not isinstance(event, Mapping):
             raise InvalidStoreInput("event must be an object")
         _validate_identity(acquisition_id, source_version_id)
@@ -2072,19 +2676,38 @@ class MemoryStore:
             raise InvalidStoreInput("objects must contain only ObjectRef values")
         if any(item.policy != policy for item in bound):
             raise InvalidStoreInput("event and bound objects must use exactly the same policy")
-        stored_objects = self._object_refs(verify=False)
         for item in bound:
-            self._assert_not_retired(item)
-            if item not in stored_objects:
-                raise StoreNotFound("event binding is not a persisted immutable object ref")
             if not preauthorized:
                 self._authorize("bind", item, principal)
-            self._logical_bytes(item)
+            self._assert_not_retired(item)
+            try:
+                self._logical_bytes(item)
+            except StoreNotFound as exc:
+                raise StoreNotFound(
+                    "event binding is not a persisted immutable object ref"
+                ) from exc
 
         event_copy = json.loads(canonical_json_bytes(dict(event)))
         event_id = event_copy.get("event_id")
         if not isinstance(event_id, str):
             raise InvalidStoreInput("event.event_id must be a string")
+        record = self._event_record(event_copy, acquisition_id, source_version_id, bound)
+        record_bytes = canonical_json_bytes(record)
+        ref = EventRef(
+            acquisition_id=acquisition_id,
+            source_version_id=source_version_id,
+            policy=policy,
+            event_id=event_id,
+            record_sha256=hashlib.sha256(record_bytes).hexdigest(),
+            record_byte_length=len(record_bytes),
+            objects=bound,
+            encrypted=policy.protected,
+        )
+        if not preauthorized:
+            # Gate the proposed event before inspecting any stored event dependency
+            # bytes.  Exact bound objects were independently gated immediately before
+            # their reads above.
+            self._authorize("write", ref, principal)
         payload = event_copy.get("payload")
         typed = isinstance(payload, Mapping) and payload.get("schema") in {
             "memory-source/v2",
@@ -2112,14 +2735,17 @@ class MemoryStore:
             )
         ]
         existing_rows: dict[str, tuple[EventRef, dict[str, Any]]] = {}
+        existing_record_bytes: dict[str, bytes] = {}
         for item in related_refs:
             if not preauthorized:
                 self._authorize("bind", item, principal)
+            logical_record = self._logical_bytes(item)
             stored_event = self._decode_event_record_unbound(
                 item,
-                self._logical_bytes(item),
+                logical_record,
             )
             existing_rows[item.event_id] = (item, stored_event)
+            existing_record_bytes[item.event_id] = logical_record
         existing_events = {
             related_event_id: stored_event
             for related_event_id, (_stored_ref, stored_event) in existing_rows.items()
@@ -2131,24 +2757,13 @@ class MemoryStore:
             source_version_id=source_version_id,
             event_rows=existing_rows,
         )
-        record = self._event_record(event_copy, acquisition_id, source_version_id, bound)
-        record_bytes = canonical_json_bytes(record)
-        ref = EventRef(
-            acquisition_id=acquisition_id,
-            source_version_id=source_version_id,
-            policy=policy,
-            event_id=event_id,
-            record_sha256=hashlib.sha256(record_bytes).hexdigest(),
-            record_byte_length=len(record_bytes),
-            objects=bound,
-            encrypted=policy.protected,
-        )
-        if not preauthorized:
-            self._authorize("write", ref, principal)
         previous_ref = next((item for item in existing_refs if item.event_id == event_id), None)
         if previous_ref is not None:
-            if previous_ref == ref and self._logical_bytes(previous_ref) == record_bytes:
-                return previous_ref
+            if (
+                previous_ref == ref
+                and existing_record_bytes.get(previous_ref.event_id) == record_bytes
+            ):
+                return _PreparedEvent(previous_ref, record_bytes, "present")
             raise StoreConflict(f"event_id {event_id} already names a different immutable event")
         index: dict[str, Mapping[str, Any]] = dict(existing_events)
         if event_index_extra:
@@ -2297,17 +2912,40 @@ class MemoryStore:
             self._ensure_protected_location()
             self._require_cipher()
         self._assert_not_retired(ref)
-        self._write_entry(ref, record_bytes)
-        return ref
+        return _PreparedEvent(ref, record_bytes, "new")
 
-    @_transactional
-    def put_event(
+    def _put_event(
         self,
         event: Mapping[str, Any],
         *,
+        acquisition_id: str,
+        source_version_id: str,
         objects: Sequence[ObjectRef],
-        principal: object | None = None,
+        principal: object | None,
+        allow_tombstone: bool,
+        event_index_extra: Mapping[str, Mapping[str, Any]] | None = None,
+        preauthorized: bool = False,
     ) -> EventRef:
+        prepared = self._prepare_event(
+            event,
+            acquisition_id=acquisition_id,
+            source_version_id=source_version_id,
+            objects=objects,
+            principal=principal,
+            allow_tombstone=allow_tombstone,
+            event_index_extra=event_index_extra,
+            preauthorized=preauthorized,
+        )
+        # Even an exact present record may have a validated write-intent/temp left by
+        # process death after descriptor publication.  The idempotent writer verifies
+        # and removes only those exact-address recovery artifacts.
+        self._write_entry(prepared.ref, prepared.record_bytes)
+        return prepared.ref
+
+    @staticmethod
+    def _event_binding_identity(
+        objects: Sequence[ObjectRef],
+    ) -> tuple[tuple[ObjectRef, ...], str, str]:
         bound = tuple(objects)
         if not bound or not all(isinstance(item, ObjectRef) for item in bound):
             raise InvalidStoreInput("non-tombstone events require associated object manifest refs")
@@ -2317,7 +2955,17 @@ class MemoryStore:
                 "one event record cannot conflate independent acquisition/version identities"
             )
         acquisition_id, source_version_id = next(iter(identities))
-        return self._put_event(
+        return bound, acquisition_id, source_version_id
+
+    def _prepare_public_event(
+        self,
+        event: Mapping[str, Any],
+        *,
+        objects: Sequence[ObjectRef],
+        principal: object | None,
+    ) -> _PreparedEvent:
+        bound, acquisition_id, source_version_id = self._event_binding_identity(objects)
+        return self._prepare_event(
             event,
             acquisition_id=acquisition_id,
             source_version_id=source_version_id,
@@ -2325,6 +2973,44 @@ class MemoryStore:
             principal=principal,
             allow_tombstone=False,
         )
+
+    @_transactional
+    def preflight_event(
+        self,
+        event: Mapping[str, Any],
+        *,
+        objects: Sequence[ObjectRef],
+        principal: object | None = None,
+    ) -> dict[str, Any]:
+        """Validate and authorize an event write without persisting any state.
+
+        The returned closed descriptor contains only immutable identity/size metadata.
+        A later :meth:`put_event` performs the same checks again while holding its own
+        store transaction, so callers cannot use a stale preflight to bypass races.
+        """
+
+        prepared = self._prepare_public_event(
+            event,
+            objects=objects,
+            principal=principal,
+        )
+        return prepared.preflight_descriptor()
+
+    @_transactional
+    def put_event(
+        self,
+        event: Mapping[str, Any],
+        *,
+        objects: Sequence[ObjectRef],
+        principal: object | None = None,
+    ) -> EventRef:
+        prepared = self._prepare_public_event(
+            event,
+            objects=objects,
+            principal=principal,
+        )
+        self._write_entry(prepared.ref, prepared.record_bytes)
+        return prepared.ref
 
     @_transactional
     def read_object(self, ref: ObjectRef, *, principal: object | None = None) -> bytes:
