@@ -270,6 +270,16 @@ def _test_trusted_scope_loader(fixture: Mapping[str, Any]) -> None:
         memory_shadow._read_all = original_reader
         scope_path.chmod(0o600)
 
+    original_geteuid = getattr(memory_shadow.os, "geteuid", None)
+    memory_shadow.os.geteuid = None  # type: ignore[attr-defined,assignment]
+    try:
+        _expect_shadow_error(
+            lambda: load_trusted_scope_json(scope_path),
+            "cannot prove launcher ownership",
+        )
+    finally:
+        memory_shadow.os.geteuid = original_geteuid  # type: ignore[attr-defined,assignment]
+
 
 def main() -> None:
     _expect_shadow_error(

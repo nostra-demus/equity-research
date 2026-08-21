@@ -389,8 +389,8 @@ class ShadowMCPServer:
                     rendered = canonical_json(
                         _error(None, ProtocolFault(-32603, "Internal error"))
                     )
-                sys.stdout.write(rendered + "\n")
-                sys.stdout.flush()
+                sys.stdout.buffer.write(rendered.encode("utf-8") + b"\n")
+                sys.stdout.buffer.flush()
         return 0
 
 

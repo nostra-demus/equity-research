@@ -151,7 +151,7 @@ def load_closed_json(path: str | Path) -> Any:
     source = Path(path)
     try:
         before = source.lstat()
-        if source.is_symlink() or not source.is_file():
+        if not stat.S_ISREG(before.st_mode):
             raise ShadowError(f"{source} must be a regular non-symlink file")
         if before.st_size > MAX_JSON_BYTES:
             raise ShadowError(f"{source} exceeds the {MAX_JSON_BYTES}-byte JSON input limit")
@@ -191,7 +191,12 @@ def _validate_scope_stat(source: Path, value: os.stat_result) -> None:
         raise ShadowError(f"trusted shadow scope {source} must be a regular file")
     if value.st_nlink != 1:
         raise ShadowError(f"trusted shadow scope {source} must have exactly one hard link")
-    if value.st_uid != os.geteuid():
+    get_effective_uid = getattr(os, "geteuid", None)
+    if not callable(get_effective_uid):
+        raise ShadowError(
+            f"trusted shadow scope {source} cannot prove launcher ownership on this platform"
+        )
+    if value.st_uid != get_effective_uid():
         raise ShadowError(f"trusted shadow scope {source} must be owned by the launcher user")
     if stat.S_IMODE(value.st_mode) & 0o077:
         raise ShadowError(f"trusted shadow scope {source} must not grant group or other permissions")
