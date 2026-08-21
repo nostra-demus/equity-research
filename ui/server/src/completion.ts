@@ -101,6 +101,9 @@ export interface ThesisPlan {
   /** Additive contract gate for the one-click roster-gap resume path. Older servers omit it, so a newer UI
    *  can fail closed instead of turning "finish empty orbs" into a whole-module rerun during rolling deploy. */
   moduleResumeVersion: 2
+  /** Present only for a module-heading plan. These inputs were selected from the target's declared graph
+   * closure and each has a mechanically valid saved synthesis; global full-thesis reuse stays unchanged. */
+  exactModuleScope?: { module: string; savedInputs: string[] }
   swarm: string
   subject: string
   /** the run root a completion would write into */
@@ -125,7 +128,7 @@ export interface ThesisPlan {
   /** modules that must be copied into the target root before the run (subset of `reuse`). `from`/`date`
    *  are the TRUE origin (provenance, written into the stamp); `copyFrom` is the folder actually read —
    *  they can differ when the newest candidate is itself an intermediate carried-forward copy. */
-  carry: { module: string; from: string; date: string | null; copyFrom: string }[]
+  carry: { module: string; from: string; date: string | null; copyFrom: string; staleReason?: string }[]
   master: { state: 'ready' | 'blocked' | 'done'; blockedBy: string[] }
   dataPool: { files: number; newestDate: string | null; newestMs: number }
   /** cost/time of running ONLY the remaining work (what the Run button commits to) */
@@ -143,6 +146,13 @@ export function todayDate(now: Date = new Date()): string {
 }
 
 interface SynthesisOnDisk { file: string; mtimeMs: number }
+
+interface SavedInputCandidate {
+  sourceRunRoot: string
+  sourceDate?: string
+  copyFromRunRoot: string
+  staleReason?: string
+}
 
 /** A module folder is current only when the CURRENT discovered synthesis filename passes the shared
  *  mechanical validator. A truncated or legacy `99_old-synthesis.md` must not look complete forever. */
@@ -658,10 +668,19 @@ function newestFreshPartialCandidate(module: ModuleNode, candidates: RunFolderCa
  *   re-run everything `stale`). Any module not in `reusable` is ignored — a caller can never reuse work
  *   that does not exist, and the server's own disk read always has the last word.
  */
-export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID, reuseOverride?: string[]): ThesisPlan {
+export function thesisPlan(
+  subject: string,
+  swarmId: string = RESEARCH_SWARM_ID,
+  reuseOverride?: string[],
+  exactModule?: string,
+): ThesisPlan {
   const swarm = swarmById(swarmId)
   const graph = buildSwarmGraph(swarmId)
   const isResearch = swarmId === RESEARCH_SWARM_ID
+  const exactTarget = exactModule ? graph.modules.find((module) => module.name === exactModule) : undefined
+  if (exactModule && (!isResearch || exactTarget?.exactResume !== true)) {
+    throw new Error(`module ${exactModule} does not support an exact saved-input plan`)
+  }
 
   // Every path below is built from `safe`, never from the raw `subject` string that arrived on a query
   // string. `safeSubjectSegment` proves it is one path segment with no separator and no traversal, so no
@@ -687,6 +706,7 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
 
   const modules: ModulePlanEntry[] = []
   const synthesisMeta = new Map<string, { runRoot: string; sourceDate?: string; mtimeMs: number }>()
+  const savedInputCandidates = new Map<string, SavedInputCandidate>()
   for (const m of graph.modules) {
     const totalAgents = m.agentCount
     // Candidate folders holding this module, newest vintage first. For a non-dated swarm there is exactly
@@ -717,6 +737,15 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
       const sourceRunRoot = vintage.sourceRunRoot
       const sourceDate = vintage.sourceDate
       const staleReason = stalenessOf(sourceDate, pool.newestDate)
+      // Keep this separate from whole-module reuse. Roster growth or a newer partial attempt may correctly
+      // make the module itself `partial`, while its older current-name 99 remains a valid, explicitly disclosed
+      // input for ONE exact downstream module. The target route revalidates and fingerprints these bytes.
+      savedInputCandidates.set(m.name, {
+        sourceRunRoot,
+        sourceDate,
+        copyFromRunRoot: finished.runRoot,
+        staleReason,
+      })
       const refreshSynthesis = synthesisNeedsRefresh(
         m,
         finishedAbs,
@@ -868,9 +897,29 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
   const byName = new Map(modules.map((m) => [m.module, m]))
   const reusable = modules.filter((m) => m.state === 'done' || m.state === 'stale').map((m) => m.module)
   const reusableSet = new Set(reusable)
-  const chosen = reuseOverride
-    ? reuseOverride.filter((m) => reusableSet.has(m))
-    : modules.filter((m) => m.state === 'done').map((m) => m.module)
+  const exactDeclaredInputs = exactTarget
+    ? [...new Set([...moduleAncestors(graph, exactTarget.name), ...(exactTarget.readsFrom ?? [])])]
+    : []
+  const exactSavedInputs = exactDeclaredInputs.filter((name) => {
+    const candidate = savedInputCandidates.get(name)
+    if (!candidate) return false
+    // Never replace a newer/unfinished upstream already in today's root just to feed this scoped run. When
+    // today's folder itself owns the valid synthesis it is already coherent; otherwise fail closed and leave
+    // the paid partial untouched rather than overwriting it during carry-forward.
+    const targetInputAbs = path.join(targetAbs, name)
+    return candidate.copyFromRunRoot === targetRunRoot || !fs.existsSync(targetInputAbs)
+  })
+  const exactSavedSet = new Set(exactSavedInputs)
+  const exactTargetEntry = exactTarget ? byName.get(exactTarget.name) : undefined
+  const chosen = exactTarget
+    ? [
+        ...exactSavedInputs,
+        ...(exactTargetEntry && !exactTargetEntry.synthesisNeedsRefresh
+          && (exactTargetEntry.state === 'done' || exactTargetEntry.state === 'stale') ? [exactTarget.name] : []),
+      ]
+    : reuseOverride
+      ? reuseOverride.filter((m) => reusableSet.has(m))
+      : modules.filter((m) => m.state === 'done').map((m) => m.module)
 
   // A module the caller chooses to REBUILD invalidates every module downstream of it (directly or
   // transitively via depends_on): earnings depends on business-model, valuation/catalyst read prior
@@ -880,7 +929,8 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
   // still wins over this (a module already finished in today's root can never be forced to rebuild;
   // that is a pre-existing, separately-surfaced limitation, not one this expansion can lift).
   const rebuilding = modules
-    .filter((m) => (reusableSet.has(m.module) && !chosen.includes(m.module)) || m.synthesisNeedsRefresh)
+    .filter((m) => !exactSavedSet.has(m.module)
+      && ((reusableSet.has(m.module) && !chosen.includes(m.module)) || m.synthesisNeedsRefresh))
     .map((m) => m.module)
   const forcedDownstream = new Set<string>()
   for (const name of rebuilding) {
@@ -890,7 +940,9 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
 
   // `mustReuse` is not negotiable — the launcher skips those modules regardless. Fold them in so `run` is
   // exactly what will run, and the price on the button is exactly what the launcher will charge.
-  const reuseSet = new Set([...chosenAfterCascade, ...mustReuse])
+  const reuseSet = exactTarget
+    ? new Set(chosenAfterCascade)
+    : new Set([...chosenAfterCascade, ...mustReuse])
   const reuse = modules.filter((m) => reuseSet.has(m.module)).map((m) => m.module) // graph order, deduped
   const run = modules.filter((m) => !reuseSet.has(m.module)).map((m) => m.module)
 
@@ -909,14 +961,30 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
   const canCarry = isResearch
   const carry = canCarry
     ? reuse
-        .map((name) => byName.get(name))
-        .filter((m): m is ModulePlanEntry => Boolean(m && !m.inTargetRoot && m.copyFromRunRoot))
+        .map((name) => {
+          const saved = exactSavedSet.has(name) ? savedInputCandidates.get(name) : undefined
+          if (saved && saved.copyFromRunRoot !== targetRunRoot) return {
+            module: name,
+            from: saved.sourceRunRoot,
+            date: saved.sourceDate ?? null,
+            copyFrom: saved.copyFromRunRoot,
+            ...(saved.staleReason ? { staleReason: saved.staleReason } : {}),
+          }
+          const m = byName.get(name)
+          return m && !m.inTargetRoot && m.copyFromRunRoot ? {
+            module: m.module,
+            from: m.sourceRunRoot ?? m.copyFromRunRoot,
+            date: m.sourceDate ?? null,
+            copyFrom: m.copyFromRunRoot,
+            ...(m.staleReason ? { staleReason: m.staleReason } : {}),
+          } : null
+        })
+        .filter((entry): entry is Exclude<typeof entry, null> => entry !== null)
         // `from`/`date`: the TRUE origin — what the stamp should say this evidence's vintage really is.
         // `copyFrom`: the folder PROVEN (by `foldersWithModule`/`hasSynthesis` above) to physically hold
         // the files right now — which is what the copy step must actually read from. They can differ
         // when the newest candidate is itself an intermediate carried-forward copy whose true origin
         // folder has since been pruned; copying from the (possibly missing) origin would fail outright.
-        .map((m) => ({ module: m.module, from: m.sourceRunRoot ?? m.copyFromRunRoot!, date: m.sourceDate ?? null, copyFrom: m.copyFromRunRoot! }))
     : []
 
   let complete = false
@@ -944,6 +1012,7 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
 
   return {
     moduleResumeVersion: 2,
+    ...(exactTarget ? { exactModuleScope: { module: exactTarget.name, savedInputs: exactSavedInputs } } : {}),
     swarm: swarmId,
     subject: safe,
     targetRunRoot,
@@ -1113,7 +1182,17 @@ export function carryForwardModules(subject: string, modules: string[], swarmId:
     // priced the module as reused and painted its orbs green, while the launcher's skip-test (a non-empty
     // 99 synthesis in the run root) failed and re-ran it at full cost.
     const replacedPartial = fs.existsSync(dstAbs)
-    if (replacedPartial) assertContainedTargetModuleOrMissing(plan.targetRunRoot, name)
+    if (replacedPartial) {
+      assertContainedTargetModuleOrMissing(plan.targetRunRoot, name)
+      // An exact module plan selected this saved input only because no module folder existed in today's
+      // target root. Re-check that fact at the mutation boundary: an external/manual writer is not covered
+      // by the in-process subject lock, and its newly paid partial must never be deleted by an older carry.
+      // A fresh plan can either use a valid target-root 99 or keep the exact target blocked; this stale plan
+      // is no longer authorized to replace anything.
+      if (plan.exactModuleScope?.savedInputs?.includes(name)) {
+        throw new Error(`saved exact input changed in the target run root: ${name}`)
+      }
+    }
 
     // Read bytes from `c.copyFrom` — the folder PROVEN to physically hold them right now — never from
     // `c.from`, which is the TRUE-origin provenance for the stamp and may point at a folder that has
@@ -1128,7 +1207,7 @@ export function carryForwardModules(subject: string, modules: string[], swarmId:
     try {
       fs.rmSync(tmpAbs, { recursive: true, force: true })
       copyDir(srcAbs, tmpAbs)
-      const staleReason = planModuleByName.get(name)?.staleReason
+      const staleReason = c.staleReason ?? planModuleByName.get(name)?.staleReason
       fs.writeFileSync(path.join(tmpAbs, CARRY_MARKER), carryNote(name, c.from, c.date, plan.targetRunRoot, replacedPartial, staleReason), 'utf8')
       // Swap into place. The complete module supersedes any unfinished copy; the SOURCE folder is untouched,
       // so nothing finished is ever destroyed — only unfinished work in TODAY's root is replaced.

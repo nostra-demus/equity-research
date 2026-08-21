@@ -1952,15 +1952,16 @@ app.post('/api/intake/:subject/analyze-exact', { config: { rateLimit: { max: 30,
 // stays the only thing that prices a run, so the number on the button can never drift from the number the
 // launcher will charge. Omit it for the safe default (reuse everything finished-and-current).
 app.get('/api/thesis-plan', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req, reply) => {
-  const q = req.query as { ticker?: string; swarm?: string; reuse?: string }
+  const q = req.query as { ticker?: string; swarm?: string; reuse?: string; module?: string }
   // isValidTicker, not the bare TICKER_RE: the regex admits ".." (its charclass includes `.`), and
   // `dataPoolNewest('..')` would synchronously walk the whole repo — a blocking scan on the event loop.
   if (!q.ticker || !isValidTicker(q.ticker)) return reply.code(400).send({ error: 'bad ticker' })
   if (q.swarm && !swarmById(q.swarm)) return reply.code(400).send({ error: 'unknown swarm' })
+  if (q.module && !MODULE_RE.test(q.module)) return reply.code(400).send({ error: 'bad module' })
   const reuse = q.reuse === undefined ? undefined : q.reuse.split(',').filter(Boolean)
   if (reuse && (reuse.length > 64 || reuse.some((m) => !MODULE_RE.test(m)))) return reply.code(400).send({ error: 'bad reuse set' })
   try {
-    const plan = thesisPlan(q.ticker, q.swarm || undefined, reuse)
+    const plan = thesisPlan(q.ticker, q.swarm || undefined, reuse, q.module)
     // A finished local module normally reads `done`/non-runnable. A durable failed-publication marker is
     // therefore attached explicitly so the heading offers a publish-only recovery instead of re-running paid
     // orbs. Re-hash on every plan read; edited/stale bytes never receive the affordance.
@@ -2348,8 +2349,14 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
         && r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
       if (busy) return reply.code(409).send({ error: `A run is already in flight on ${ticker}. Let it finish (or stop it) before running a module.`, code: 'subject_busy' })
 
+      // Exact-resume commands can knowingly read a mechanically valid older synthesis even when a newer
+      // partial attempt means that upstream is not reusable as a WHOLE full-thesis module. The module-scoped
+      // planner alone selects those declared inputs; the browser cannot nominate arbitrary folders.
+      const graphModule = graphForTicker(ticker).modules.find((m) => m.name === module)
+      const exactResume = graphModule?.exactResume === true
+
       // ONE snapshot decides everything: complete-check, runnability, blockedBy, and what gets carried.
-      let plan = thesisPlan(ticker, undefined, reuse)
+      let plan = thesisPlan(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined)
       if (plan.targetRunRoot !== expectedTargetRunRoot) {
         return reply.code(409).send({ error: 'The target analysis date changed while this module was being prepared. Check the updated scope and click again.', code: 'module_scope_changed' })
       }
@@ -2362,17 +2369,29 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
         return reply.code(409).send({ error: 'This call is already sealed. Start a new analysis version to refresh this module.', code: 'sealed_run', path: plan.finalReportPath })
       }
 
-      const allowed = new Set(plan.reusable)
-      const bad = reuse.filter((m) => !allowed.has(m))
-      if (bad.length) return reply.code(400).send({ error: `cannot reuse a module that never finished: ${bad.join(', ')}`, code: 'unreusable' })
+      if (exactResume) {
+        const expectedInputs = [...(plan.exactModuleScope?.savedInputs ?? [])].sort()
+        const requestedInputs = [...new Set(reuse)].sort()
+        if (plan.exactModuleScope?.module !== module
+            || requestedInputs.length !== reuse.length
+            || requestedInputs.length !== expectedInputs.length
+            || requestedInputs.some((name, index) => name !== expectedInputs[index])) {
+          return reply.code(409).send({ error: 'The saved module-input scope changed. Refresh and confirm again; no run was started.', code: 'module_scope_changed' })
+        }
+      } else {
+        const allowed = new Set(plan.reusable)
+        const bad = reuse.filter((m) => !allowed.has(m))
+        if (bad.length) return reply.code(400).send({ error: `cannot reuse a module that never finished: ${bad.join(', ')}`, code: 'unreusable' })
+      }
+      const reviewedExactInputs = exactResume
+        ? [...(plan.exactModuleScope?.savedInputs ?? [])].sort()
+        : []
 
       const entry = plan.modules.find((m) => m.module === module)
       if (!entry) return reply.code(400).send({ error: `unknown module ${module}`, code: 'unknown_module' })
       // Exact paid-scope behavior is a self-declared module capability. Commands without `exact_resume: true`
       // retain the established generic completion-panel resume path; they do not receive an immutable-root
       // promise their prompt has not implemented.
-      const graphModule = graphForTicker(ticker).modules.find((m) => m.name === module)
-      const exactResume = graphModule?.exactResume === true
       const exactArtifactScopeFor = (doneOrbKeys: string[]) => {
         if (!exactResume) return null
         const currentModule = graphForTicker(ticker).modules.find((m) => m.name === module)
@@ -2415,10 +2434,14 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
       let expectedAncestorModules: string[] = []
       const readCurrentScope = () => {
         try {
-          const current = thesisPlan(ticker, undefined, reuse)
+          const current = thesisPlan(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined)
           const currentEntry = current.modules.find((m) => m.module === module)
           const currentDone = [...(currentEntry?.doneOrbKeys ?? [])].sort()
           const currentExactArtifacts = exactArtifactScopeFor(currentDone)
+          const currentExactInputs = [...(current.exactModuleScope?.savedInputs ?? [])].sort()
+          const exactInputsStillMatch = !exactResume || (current.exactModuleScope?.module === module
+            && currentExactInputs.length === reviewedExactInputs.length
+            && currentExactInputs.every((name, index) => name === reviewedExactInputs[index]))
           const exactArtifactsStillMatch = !exactResume || (!!currentExactArtifacts && !!reviewedExactArtifacts
             && currentExactArtifacts.writableOrbs.join(',') === reviewedExactArtifacts.writableOrbs.join(',')
             && currentExactArtifacts.synthesisOrbs.join(',') === reviewedExactArtifacts.synthesisOrbs.join(','))
@@ -2432,6 +2455,7 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
             && currentEntry.blockedBy.length === 0
             && current.run.includes(module)
             && currentEntry.willRunAgents === expectedWillRun
+            && exactInputsStillMatch
             && currentDone.length === expectedDone.length
             && currentDone.every((key, i) => key === expectedDone[i])
             && exactArtifactsStillMatch

@@ -79,6 +79,10 @@ const original = {
 
 const plan: ThesisPlan = {
   moduleResumeVersion: 2,
+  exactModuleScope: {
+    module: 'management-governance',
+    savedInputs: ['business-model', 'earnings', 'balance-sheet-survival'],
+  },
   swarm: 'research',
   subject: 'INDIAMART',
   targetRunRoot: 'analyses/INDIAMART_2026-08-21',
@@ -280,39 +284,32 @@ try {
   assert.equal(useStore.getState().nodeRuntime[nodes[6].key]?.status, 'queued', 'a painted-done dependent remains part of the actual plan')
   useStore.setState({ activeRuns: {}, globalActive: [], nodeRuntime: { ...standingRuntime }, launchPending: null })
 
-  // An older/default planner can exclude stale-but-finished ancestors from reuse and call Governance blocked,
-  // while the same response proves those exact ancestors are reusable. Only after confirmation, re-price once
-  // with every finished module explicitly kept; the paid POST must use that runnable plan and nothing broader.
-  const blockedReusablePlan: ThesisPlan = {
+  // A saved upstream synthesis can remain usable for this explicitly disclosed Governance read even when a
+  // newer partial attempt means it is NOT globally reusable as a completed full-thesis module. The browser
+  // asks once for the module-scoped plan; only the server selects those inputs and the paid POST uses exactly
+  // that returned scope.
+  const savedInputPlan: ThesisPlan = {
     ...plan,
-    reuse: [],
-    modules: [{
-      ...plan.modules[0],
-      runnable: false,
-      blockedBy: ['business-model', 'earnings'],
-    }],
-  }
-  const carriedReusablePlan: ThesisPlan = {
-    ...plan,
-    reuse: ['business-model', 'earnings'],
+    reusable: [],
+    reuse: ['business-model', 'earnings', 'balance-sheet-survival'],
     modules: [{ ...plan.modules[0], runnable: true, blockedBy: [] }],
   }
-  const fallbackPlanReads: unknown[][] = []
-  let fallbackPosts = 0
-  let fallbackPostArgs: unknown[] | null = null
+  const savedInputPlanReads: unknown[][] = []
+  let savedInputPosts = 0
+  let savedInputPostArgs: unknown[] | null = null
   api.thesisPlan = async (...args: any[]) => {
-    fallbackPlanReads.push(args)
-    return fallbackPlanReads.length === 1 ? blockedReusablePlan : carriedReusablePlan
+    savedInputPlanReads.push(args)
+    return savedInputPlan
   }
   api.runThesisPlanModule = async (...args) => {
-    fallbackPosts++
-    fallbackPostArgs = args
+    savedInputPosts++
+    savedInputPostArgs = args
     return {
-      runId: 'run_reusable_ancestor_fallback',
+      runId: 'run_saved_input_scope',
       preflight: {} as any,
       module: 'management-governance',
-      willRun: carriedReusablePlan.modules[0].willRunAgents,
-      doneOrbKeys: carriedReusablePlan.modules[0].doneOrbKeys,
+      willRun: savedInputPlan.modules[0].willRunAgents,
+      doneOrbKeys: savedInputPlan.modules[0].doneOrbKeys,
       carried: [
         { module: 'business-model', from: 'analyses/INDIAMART_2026-08-14' },
         { module: 'earnings', from: 'analyses/INDIAMART_2026-08-14' },
@@ -323,16 +320,24 @@ try {
   }
   await useStore.getState().launchModule('management-governance')
   assert.equal(useStore.getState().launchConfirm?.kind, 'module')
-  assert.equal(fallbackPlanReads.length, 0, 'the reusable-ancestor fallback performs no GET before confirmation')
-  assert.equal(fallbackPosts, 0, 'the reusable-ancestor fallback performs no POST before confirmation')
+  assert.equal(savedInputPlanReads.length, 0, 'the saved-input action performs no GET before confirmation')
+  assert.equal(savedInputPosts, 0, 'the saved-input action performs no POST before confirmation')
   await useStore.getState().confirmModule()
-  assert.deepEqual(fallbackPlanReads, [
-    ['INDIAMART', 'research'],
-    ['INDIAMART', 'research', ['business-model', 'earnings']],
-  ], 'a blocked default plan is re-read once with every proven reusable ancestor')
-  assert.equal(fallbackPosts, 1, 'the runnable re-priced scope submits exactly one module POST')
-  assert.deepEqual(fallbackPostArgs?.[2], carriedReusablePlan.reuse,
-    'the module POST uses the re-priced plan reuse set')
+  assert.deepEqual(savedInputPlanReads, [
+    ['INDIAMART', 'research', undefined, 'management-governance'],
+  ], 'confirmation reads exactly one server-owned module plan')
+  assert.equal(savedInputPosts, 1, 'the runnable saved-input scope submits exactly one module POST')
+  assert.deepEqual(savedInputPostArgs?.[2], savedInputPlan.reuse,
+    'the module POST uses the server-selected saved-input set even though it is not globally reusable')
+
+  // A rolling/older backend without the positive module-scope receipt cannot turn the confirmed click into a
+  // blunt whole-module run. It fails closed before the paid POST.
+  useStore.setState({ activeRuns: {}, globalActive: [], nodeRuntime: { ...standingRuntime }, launchPending: null })
+  api.thesisPlan = async () => ({ ...savedInputPlan, exactModuleScope: undefined })
+  await useStore.getState().launchModule('management-governance')
+  await useStore.getState().confirmModule()
+  assert.equal(savedInputPosts, 1, 'a missing exact-module receipt starts no additional paid run')
+  assert.match(useStore.getState().toast?.msg ?? '', /engine is still updating/i)
   useStore.setState({ activeRuns: {}, globalActive: [], nodeRuntime: { ...standingRuntime }, launchPending: null })
 
   // The reciprocal race: while an agent POST is pending, a module click neither plans nor replaces the

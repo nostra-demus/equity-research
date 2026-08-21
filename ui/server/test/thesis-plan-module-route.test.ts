@@ -38,7 +38,7 @@ const lock = route.indexOf('withSubjectLock(subjectMutationLockKey(RESEARCH_SWAR
 const activeChain = route.indexOf('subjectChainActive(ticker, RESEARCH_SWARM_ID)', lock)
 const reap = route.indexOf('reapDeadSubjectRuns(ticker, RESEARCH_SWARM_ID)', activeChain)
 const busy = route.indexOf('const busy = listRuns()', reap)
-const freshPlan = route.indexOf('let plan = thesisPlan(ticker, undefined, reuse)', busy)
+const freshPlan = route.indexOf('let plan = thesisPlan(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined)', busy)
 const targetRootCas = route.indexOf('plan.targetRunRoot !== expectedTargetRunRoot', freshPlan)
 const poolCas = route.indexOf('plan.dataPool.files !== poolFiles || plan.dataPool.newestMs !== poolNewestMs', freshPlan)
 const sealed = route.indexOf('if (plan.complete || isSealedResearchRun(plan.targetRunRoot))', poolCas)
@@ -85,6 +85,10 @@ assert.doesNotMatch(route, /launch\(\{ kind: 'full'/,
   'the one-module route cannot launch a full pipeline or downstream modules')
 assert.match(route, /const graphModule = graphForTicker\(ticker\)\.modules\.find\(\(m\) => m\.name === module\)[\s\S]*const exactResume = graphModule\?\.exactResume === true/,
   'smart paid-scope behavior is a self-declared module capability, never a hardcoded module name')
+assert.match(route, /const expectedInputs = \[\.\.\.\(plan\.exactModuleScope\?\.savedInputs \?\? \[\]\)\]\.sort\(\)[\s\S]*requestedInputs\.some\(\(name, index\) => name !== expectedInputs\[index\]\)/,
+  'the POST accepts only the server-selected exact input set, never arbitrary browser-nominated modules')
+assert.match(route, /const currentExactInputs = \[\.\.\.\(current\.exactModuleScope\?\.savedInputs \?\? \[\]\)\]\.sort\(\)[\s\S]*exactInputsStillMatch[\s\S]*currentEntry\.willRunAgents === expectedWillRun/,
+  'the saved-input identities are re-derived and pinned across every late paid-scope check')
 assert.match(route, /const exactArtifactScopeFor[\s\S]*!agent\.isSynthesis && !done\.has\(agent\.key\)[\s\S]*agent\.isSynthesis/,
   'the server derives exact writable specialists and the current synthesis from roster + reusable disk truth')
 assert.match(route, /deferModuleMemo: exactResume,[\s\S]*exactModuleResume: exactResume,[\s\S]*exactModuleInputs: exactResume \? prep\.reusedAncestorModules : undefined,[\s\S]*exactModuleRunRoot: exactResume \? expectedTargetRunRoot : undefined,[\s\S]*preSpawnGuard: exactResume \? moduleScopeGuard : undefined/,
