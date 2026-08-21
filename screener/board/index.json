@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-21T18:46:19Z",
+  "generated_at": "2026-08-21T19:46:11Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260821-753",
+      "headline": "ICICI Bank Limited: In continuation to our earlier letters dated August 18, 2026, please note that ICICI Bank Limited, acting through its IFSC Banking Unit, has today completed the issuance of USD 750 million Senior Unsecured Fixed Rate Notes (Notes) under the USD 7.5 billion Global Medium Term Note Programme of the Bank. The Notes are rated BBB by S&P Global Ratings and Baa3 by Moody s Ratings. The Notes will be listed at Global Securities Market of the India International Exchange IFSC Limited",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/ICICI2022_21082026224108_BSENSE21082026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-21T17:12:55Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "The bank successfully issued USD 750 million in senior unsecured notes, impacting its capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The bank successfully issued USD 750 million in senior unsecured notes, impacting its capital structure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ICICI Bank Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260821-722",
       "headline": "PATEO (02889): MAJOR TRANSACTION ACQUISITION OF 20% EQUITY INTERESTS IN THE TARGET COMPANY",
@@ -1915,56 +1964,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-491",
-      "headline": "NMDC Steel Ltd: Intimation under Regulation 30 of SEBI (LODR) Regulations, 2015 - Revision in Credit Rating by Crisil Ratings Limited",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/43ad64f1-4e75-4116-a373-07ce88d3312f.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-21T06:13:13Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "A credit rating revision by CRISIL is a material event affecting debt costs and creditworthiness.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A credit rating revision by CRISIL is a material event affecting debt costs and creditworthiness.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 72,
-      "rank_factors": {
-        "materiality": 72,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "credit_rating_downgrade",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "credit_rating_upgrade",
-        "credit_rating_downgrade"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "NMDC Steel Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -75314,9 +75313,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11354632,
-    "news_picked_today": 2875,
-    "news_dropped_today": 9701
+    "news_seen_today": 11457298,
+    "news_picked_today": 3265,
+    "news_dropped_today": 11375
   },
   "book_momentum": {
     "live_count": 8,
