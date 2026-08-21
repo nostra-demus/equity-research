@@ -5,7 +5,8 @@ import { QUOTE_CLIENT_TIMEOUT_MS } from './quoteTimeout'
 import type { ValuationLeversResponse, ValuationOverride } from './valuationLevers'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
 import type { BridgeStatus } from './types'
-import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, MemoryRead, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import { parseMemoryRead, unavailableMemoryRead } from './memoryView'
 
 // Vite supplies `import.meta.env` in the app; standalone tsx regression tests do not.
 const BASE = import.meta.env?.BASE_URL || '/'
@@ -13,6 +14,9 @@ const BASE = import.meta.env?.BASE_URL || '/'
 // always-on host. Keep this bounded, but above that measured cold path so a healthy engine is not
 // mistaken for an empty decision contract.
 export const DATA_NEEDS_CLIENT_TIMEOUT_MS = 20_000
+// A cold Memory read runs two sequential, independently bounded 30s Python commands (project + query).
+// The browser must outlast that complete server window; later reads are stale-while-revalidate and fast.
+export const MEMORY_CLIENT_TIMEOUT_MS = 65_000
 export const EXACT_DECISION_LAUNCH_CONTRACT = 'exact-decision-launch/1' as const
 
 // ---- live/static mode detection ----
@@ -364,6 +368,14 @@ function archiveQueryParams(q: ArchiveQuery): URLSearchParams {
 }
 
 export const api = {
+  // One bounded, read-only view over the shared research memory. Static hosting returns an explicit
+  // unavailable state without touching the network; deploy skew or a malformed response fails closed.
+  memory: async (): Promise<MemoryRead> => {
+    if ((await ensureMode()) === 'static') return unavailableMemoryRead()
+    const read = parseMemoryRead(await get<unknown>('/api/memory', MEMORY_CLIENT_TIMEOUT_MS))
+    if (!read) throw Object.assign(new Error('The live engine returned an unsupported memory view.'), { code: 'memory-contract-invalid' })
+    return read
+  },
   swarm: async (ticker?: string): Promise<SwarmGraph> => {
     if ((await ensureMode()) === 'static') return snap.swarmGraph
     return get<SwarmGraph>(`/api/swarm${ticker ? `?ticker=${encodeURIComponent(ticker)}` : ''}`)

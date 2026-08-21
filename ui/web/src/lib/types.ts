@@ -4,6 +4,74 @@ export type NodeStatus = 'dormant' | 'locked' | 'ready' | 'notready' | 'queued' 
 // own connection is down; `session-expired` = Cloudflare Access cookie gone (reachable but not JSON-ok).
 export type HealthState = 'connecting' | 'online' | 'reconnecting' | 'engine-offline' | 'your-network' | 'session-expired'
 
+// ---- shared research memory (GET /api/memory) ----
+// One small, read-only projection for every cockpit. The canonical records and the full memory payloads
+// stay behind the engine; this contract carries only the plain-English summary and enough proof to trace
+// it back to the exact source.
+export type MemoryCockpit = 'research' | 'screener' | 'commodity'
+export type MemoryStatusState = 'healthy' | 'degraded' | 'unavailable'
+
+export interface MemoryStatus {
+  state: MemoryStatusState
+  message: string
+  event_count: number
+  source_count: number
+  diagnostics_count: number
+  production_readiness: 'unmeasured'
+}
+
+export interface MemoryCounts {
+  total: number
+  research: number
+  screener: number
+  commodity: number
+  decisions: number
+  reviews: number
+  corrections: number
+}
+
+export interface MemoryItem {
+  event_id: string
+  event_type: string
+  cockpit: MemoryCockpit
+  kind: string
+  happened_at: string
+  valid_from: string
+  subject: string
+  title: string
+  status: string | null
+  /** A true confidence value in percentage points (0..100), never a generic screener score. */
+  confidence: number | null
+  summary: string
+  current: boolean
+  source: {
+    path: string
+    locator: string
+    sha256: string
+    git_commit: string | null
+  }
+  lineage: {
+    derived_from: string[]
+    supersedes: string[]
+    replaced_by: string[]
+    corrected_by: string[]
+  }
+  proof: {
+    source_verified: true
+    evidence_ref_count: number
+  }
+}
+
+export interface MemoryRead {
+  contract_version: 'memory-ui/1'
+  available: boolean
+  read_only: true
+  generated_at: string | null
+  status: MemoryStatus
+  counts: MemoryCounts
+  items: MemoryItem[]
+}
+
 // Per-source health for the Sources panel (GET /api/news/sources).
 export type SourceHealth = 'healthy' | 'quiet' | 'failing' | 'idle'
 export interface SourceRow {

@@ -41,6 +41,7 @@ import { DataNeedsDock } from './components/dataneeds/DataNeedsDock'
 import { DataPipelinePanel } from './components/pipeline/DataPipelinePanel'
 import { DecisionBanner } from './components/DecisionBanner'
 import { OfflineBanner } from './components/EngineStatus'
+import { MemoryExplorer } from './components/memory/MemoryExplorer'
 
 // The 3D globe view is lazy-loaded: this dynamic import is the chunk boundary that keeps three.js out of
 // the main bundle — it (and its three.js deps) only download when the user first opens the globe.
@@ -225,6 +226,7 @@ export function App() {
   const watchComposerOpen = useStore((s) => !!s.watchComposer?.open)
   const callsOpen = useStore((s) => s.callsOpen)
   const dataLibraryOpen = useStore((s) => s.dataLibraryOpen)
+  const memoryOpen = useStore((s) => s.memoryOpen)
   const pipelineOpen = useStore((s) => s.pipelineOpen)
   const dataPipelineOpen = useStore((s) => s.dataPipelineOpen)
   const chatOpen = useStore((s) => s.chatOpen)
@@ -277,6 +279,7 @@ export function App() {
       <AnimatePresence>{dataPipelineOpen && <DataPipelinePanel />}</AnimatePresence>
       <AnimatePresence>{callsOpen && <CallsTracker />}</AnimatePresence>
       <AnimatePresence>{dataLibraryOpen && <DataLibrary />}</AnimatePresence>
+      <AnimatePresence>{memoryOpen && <MemoryExplorer />}</AnimatePresence>
       <AnimatePresence>{pipelineOpen && <PipelineBoard />}</AnimatePresence>
       {/* no exit animation by design: the wire re-renders on live news/status ticks, which can
           freeze a framer exit mid-slide — instant close is deterministic (and exits should be

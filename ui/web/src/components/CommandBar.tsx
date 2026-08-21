@@ -681,6 +681,7 @@ export function CommandBar() {
   const openReview = useStore((s) => s.openReview)
   const openCalls = useStore((s) => s.openCalls)
   const openDataLibrary = useStore((s) => s.openDataLibrary)
+  const openMemory = useStore((s) => s.openMemory)
   const pipelines = useStore((s) => s.pipelines)
   const openChat = useStore((s) => s.openChat)
   const openChatHistory = useStore((s) => s.openChatHistory)
@@ -718,6 +719,7 @@ export function CommandBar() {
       {pipelines !== null && (
         <button className="btn btn--ghost" onClick={openDataLibrary} title="Data library — the wired data pipelines feeding the pool, and the gaps worth wiring next">Data</button>
       )}
+      <button className="btn btn--ghost" data-memory-entry="true" onClick={openMemory} title="Memory — find what the system remembers across every cockpit">Memory</button>
       {screenerMode ? (
         <>
           <StopControl />

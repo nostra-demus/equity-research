@@ -110,6 +110,7 @@ import { shellForUrl } from './static-shell'
 import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind, RunStatus } from './types'
 import { MANIFEST_SUBJECT_RE, normalizeDataSubject } from './data-subject'
+import { createMemoryReader } from './memory'
 
 // async execFile (never execFileSync in a request handler — a python board rebuild takes seconds and
 // execFileSync would freeze the single event loop, stalling every other request incl. SSE pings; see
@@ -230,6 +231,16 @@ function startSSE(reply: FastifyReply) {
 app.get('/api/health', async (_req, reply) => {
   reply.header('cache-control', 'no-store')
   return { ok: true, repoRoot: REPO_ROOT }
+})
+
+// One shared, read-only Memory view for research, screener and commodity. The reader owns the fixed
+// internal classification, projection path and trusted digest; callers cannot widen policy or select files.
+const memoryReader = createMemoryReader({ repoRoot: REPO_ROOT, stateDir: STATE_DIR })
+app.get('/api/memory', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (_req, reply) => {
+  reply.header('cache-control', 'no-store')
+  // Unavailability is part of memory-ui/1, not a transport failure. Keep it a parseable 200 so the
+  // cockpit can explain that state; an actual missing route/network failure remains distinguishable.
+  return memoryReader.read()
 })
 
 // ---------- swarms (manifest list for the cockpit's swarm switcher) ----------
