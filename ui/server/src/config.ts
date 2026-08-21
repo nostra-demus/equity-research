@@ -281,6 +281,60 @@ export interface OverflowProvider {
   // would time out there and arm the SAME cooldown the backlog drain relies on, sidelining it for both
   // paths over one interactive read. Set true for a provider whose value is throughput, not latency.
   skipArticleRead?: boolean
+  // Routing semantics, not provider identity. Omitted means an ordinary finite direct provider that shares
+  // the reset-clock quota pool with Gemini. An aggregate router waits until that whole direct pool has no
+  // usable route. Its upstream pool must be dedicated/keyless and must not import credentials used by those
+  // direct providers: route order and a separate local cap do not prevent double-spending a shared upstream
+  // allowance. A demoted local model is deliberately later still: it is unlimited but slow. Keeping this on
+  // the descriptor lets every runtime consumer preserve the chain without hard-coding a provider id.
+  routeClass?: 'direct' | 'aggregate-fallback' | 'local-fallback'
+}
+
+/** OmniRoute's canonical descriptor, independent of whether the operator enabled the daemon.
+ *
+ * Diagnostics need to describe the optional tier even while it is off, whereas the live overflow registry
+ * must stay off unless NEWS_OMNIROUTE_ENABLED=1. Keeping the descriptor in one exported helper prevents
+ * those two views from drifting on model, endpoint, caps, or route semantics.
+ */
+export function buildOmniRouteProvider(): OverflowProvider {
+  const configuredApiKey = process.env.NEWS_OMNIROUTE_API_KEY?.trim()
+  return {
+    id: 'omniroute', label: 'OmniRoute', color: '--provider-om',
+    // Dummy non-empty key, same precedent as the local tier below: an EMPTY key is rejected before fetch
+    // and would arm a cooldown for a call that never left the process. NEWS_OMNIROUTE_API_KEY, when set,
+    // authenticates this daemon only; never import the engine's direct-provider credentials into OmniRoute.
+    apiKey: configuredApiKey || 'omniroute',
+    // Only advertise a repairable credential when the operator actually configured one. A keyless local
+    // daemon must never tell diagnostics that a synthetic placeholder needs rotation.
+    ...(configuredApiKey ? { keyEnvVar: 'NEWS_OMNIROUTE_API_KEY' } : {}),
+    baseUrl: process.env.NEWS_OMNIROUTE_BASE_URL || 'http://127.0.0.1:20128/v1',
+    // `oc/hy3-free` is the zero-credential route proven against the complete production 12-row scorer
+    // contract. `auto` exhausted the scanner deadline while probing several rate-limited/slow models. An
+    // operator can still point NEWS_OMNIROUTE_MODEL at a dedicated aggregate combo configured in OmniRoute.
+    model: process.env.NEWS_OMNIROUTE_MODEL || 'oc/hy3-free',
+    // OmniRoute may otherwise choose SSE, and this reasoning model can spend the whole output allowance
+    // thinking before it emits scorer JSON. Disable reasoning so the budget is reserved for the one complete
+    // non-streaming scorer document; the exact production 12-row contract passed 4/4 supervised probes.
+    extraBody: { stream: false, reasoning_effort: 'none' },
+    // FINITE ON PURPOSE: this bounds calls into the aggregate and keeps it out of direct providers' fair
+    // selector. It cannot meter or prevent double-spend inside OmniRoute; use only dedicated/keyless upstream
+    // pools there, never the same credentials whose budgets this engine tracks directly.
+    dailyReqCap: capNum(process.env.NEWS_OMNIROUTE_DAILY_REQ_CAP, 6_000),
+    rpm: capNum(process.env.NEWS_OMNIROUTE_RPM, 20),
+    // The real 12-row route truncated at 3,500 tokens. With reasoning disabled, 7,000 completed every
+    // required scorer index in four supervised probes without weakening the parser's completeness check.
+    maxTokens: capNum(process.env.NEWS_OMNIROUTE_MAX_TOKENS, 7_000),
+    // Those complete probes landed in 10.5–12.7s. Seventy-five seconds retains upstream-variance headroom
+    // while remaining below the 120s paid-Haiku guard and the 480s cycle guard.
+    timeoutMs: capNum(process.env.NEWS_OMNIROUTE_TIMEOUT_MS, 75_000),
+    maxAttempts: capNum(process.env.NEWS_OMNIROUTE_MAX_ATTEMPTS, 1), // it already retried across upstreams
+    skipArticleRead: true, // shares this id's cooldown with the short interactive read — see the field doc
+    budgetFile: 'omniroute-budget.json',
+    routeClass: 'aggregate-fallback',
+    // Deliberately NO requestRemainingHeaderIsDaily: the rate parser reads only x-ratelimit-* names, so
+    // OmniRoute's own X-OmniRoute-* headers are invisible to it and the flag would be a lie on a 429.
+    // Deliberately NO dayTz: the aggregate resets on ~90 different clocks; no single zone is true.
+  }
 }
 
 // Build the overflow chain from whatever keys are present. ONLY OpenAI-compatible providers belong here
@@ -385,13 +439,13 @@ export function buildOverflowProviders(): OverflowProvider[] {
       budgetFile: 'nvidia-budget.json',
     })
   }
-  // OmniRoute — a SELF-HOSTED OpenAI-compatible router (127.0.0.1:20128) that fans one request across ~90
-  // free upstream tiers and does the failover itself. The only tier whose capacity is AGGREGATE rather than
-  // one vendor's quota, which is exactly what a five-tiers-down day needs.
+  // OmniRoute — a SELF-HOSTED OpenAI-compatible gateway (127.0.0.1:20128). The zero-config model is one
+  // proven keyless route; NEWS_OMNIROUTE_MODEL may instead name an operator-configured aggregate combo. Any
+  // such combo must stay dedicated/keyless: do not import credentials this engine already meters directly.
   //
-  // LAST among the free cloud tiers ON PURPOSE: it aggregates the SAME free pools the direct tiers already
-  // meter, so placing it ahead of Cerebras/NVIDIA would double-spend quota this engine believes it is
-  // tracking. Last means it is reached precisely when the metered tiers are paced or parked.
+  // LAST among the free cloud tiers ON PURPOSE: direct providers spend their released capacity first; this
+  // gateway fallback is reached when they are paced, parked, or fail through. Its independent request cap
+  // cannot prevent upstream double-spend if an operator-configured combo violates the isolation rule above.
   //
   // EXPLICIT OPT-IN (=== '1'), not the siblings' "key present unless disabled": a cloud tier cannot exist
   // without a key, so its key IS proof someone provisioned it. OmniRoute needs no key, so nothing but this
@@ -400,36 +454,7 @@ export function buildOverflowProviders(): OverflowProvider[] {
   // true on a box with no LLM access at all — replacing an honest "ingester idle" note with a cycle that
   // fails six ways.
   if (process.env.NEWS_OMNIROUTE_ENABLED === '1') {
-    out.push({
-      id: 'omniroute', label: 'OmniRoute', color: '--provider-om',
-      // Dummy non-empty key, same precedent as the local tier below: an EMPTY key is rejected before the
-      // fetch and would arm a cooldown for a call that never left the process. A local server ignores the
-      // Bearer header entirely.
-      apiKey: process.env.NEWS_OMNIROUTE_API_KEY || 'omniroute',
-      // Deliberately no keyEnvVar: there is no credential to rotate, and naming one would send an operator
-      // off to fix a key that does not exist.
-      baseUrl: process.env.NEWS_OMNIROUTE_BASE_URL || 'http://127.0.0.1:20128/v1',
-      model: process.env.NEWS_OMNIROUTE_MODEL || 'auto/fast', // triage is throughput, not depth
-      // FINITE ON PURPOSE — the most important number here. Daily-quota selection maximises deficit/cap,
-      // which is SCALE-FREE: an effectively-infinite cap would pin that ratio and make OmniRoute win EVERY
-      // selection, leaving Gemini's working free pool unspent while the least-proven tier on the roster
-      // takes all the traffic. A finite cap makes usage bite. ~6,000 batches is about a day's backlog.
-      dailyReqCap: capNum(process.env.NEWS_OMNIROUTE_DAILY_REQ_CAP, 6_000),
-      rpm: capNum(process.env.NEWS_OMNIROUTE_RPM, 20),
-      maxTokens: capNum(process.env.NEWS_OMNIROUTE_MAX_TOKENS, 3_500),
-      // A router queues behind whichever upstream it picks and may re-route on that upstream's 429, so one
-      // deadline covers several upstream attempts. NOT longer: with maxAttempts 1, a WEDGED router (accepts
-      // the socket, never answers) charges the full deadline to the cycle guard every cycle. 45s covers one
-      // hop plus a re-route at half the cost of a longer wedge; raise from env if real traffic shows valid
-      // answers landing later.
-      timeoutMs: capNum(process.env.NEWS_OMNIROUTE_TIMEOUT_MS, 45_000),
-      maxAttempts: capNum(process.env.NEWS_OMNIROUTE_MAX_ATTEMPTS, 1), // it already retried across upstreams
-      skipArticleRead: true, // shares this id's cooldown with the short interactive read — see the field doc
-      budgetFile: 'omniroute-budget.json',
-      // Deliberately NO requestRemainingHeaderIsDaily: the rate parser reads only x-ratelimit-* names, so
-      // OmniRoute's own X-OmniRoute-* headers are invisible to it and the flag would be a lie on a 429.
-      // Deliberately NO dayTz: the aggregate resets on ~90 different clocks; no single zone is true.
-    })
+    out.push(buildOmniRouteProvider())
   }
   // Local model: by default (once NEWS_LOCAL_ENABLED=1) it is the PRIMARY brain — tried FIRST in runCycle and
   // exposed via NEWS.localProvider, NOT part of this overflow chain. It stays here as the LAST free fallback
@@ -479,6 +504,7 @@ export function buildLocalProvider(): OverflowProvider | null {
     skipArticleRead: true, // see ARTICLE READ note above
     maxTokens: capNum(process.env.NEWS_LOCAL_MAX_TOKENS, 3_500),
     budgetFile: 'local-budget.json',
+    routeClass: 'local-fallback',
   }
 }
 

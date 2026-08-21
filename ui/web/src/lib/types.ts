@@ -885,9 +885,10 @@ export type LastResortState = 'off' | 'unavailable' | 'scored' | 'usd-cap' | 'pl
 // never a wrong number.
 export interface CycleSummary {
   ts: string
+  completed_at?: string // result-available time; old cycle rows have only the start timestamp above
   ok: boolean
   fetched: number // raw articles pulled from the sources
-  candidates: number // new, on-list, not-already-seen items sent to triage
+  candidates: number // total queue submitted to triage: fetched-path rows plus carried backlog
   picked: number
   watched: number
   dropped: number
@@ -899,7 +900,8 @@ export interface CycleSummary {
   local_down?: boolean // the LOCAL primary brain was unreachable/failed this cycle → the scan ran on the cloud fallback
   note?: string // why a cap was hit / why items were deferred — the warning the user must see
   // end-to-end transparency (all optional — an older server simply omits them)
-  fresh?: number // genuinely new items this cycle (candidates = fresh + carryover)
+  fresh?: number // fetched-path items, including a source redelivery of a backlog resident
+  new_arrivals?: number // unique fetched IDs absent from the backlog snapshot; authoritative new inflow
   carryover?: number // re-queued deferred-backlog items included in `candidates`
   deferred?: number // items pushed to the backlog this cycle
   backlog?: number // deferred backlog depth after this cycle
@@ -1001,6 +1003,7 @@ export interface TierDiagnostics {
   // the provider is rejecting this tier's CREDENTIAL (repeated 401/402/403/404) — waiting cannot fix it
   credentialRejected?: boolean
   keyEnvVar?: string // the env-var NAME holding that credential (never the value)
+  disabledReason?: string // actionable explanation for an optional tier shown while disabled
   failingForMs?: number // how long the current unbroken failure streak has run (the backoff window pins flat and stops telling you)
   lastFailureMs?: number // how long the last failing call ran — at the deadline means WE cut it off
   failuresToday?: number
@@ -1008,6 +1011,41 @@ export interface TierDiagnostics {
   triageAttemptsToday?: number
   triageScoredBatchesToday?: number
   lastCycleRequests?: number
+}
+
+export type PipelineFlowCoverage = 'complete' | 'partial' | 'none'
+export type PipelineFlowComparisonStatus = 'ahead' | 'equal' | 'behind' | 'unavailable'
+
+export interface PipelineFlowMeasure {
+  items: number | null
+  perSecond: number | null
+  measured: boolean
+  coverage: PipelineFlowCoverage
+  knownCycles: number
+  totalCycles: number
+}
+
+export interface PipelineFlowRates {
+  windowMinutes: number
+  from: string
+  to: string
+  /** Optional only for deploy skew; the presentation fails closed while an older flow server omits it. */
+  history?: {
+    coverage: PipelineFlowCoverage
+    requiredDates: string[]
+    readDates: string[]
+    missingDates: string[]
+    unreadableDates: string[]
+    corruptCycleRows: number
+  }
+  inflow: PipelineFlowMeasure
+  scanning: PipelineFlowMeasure
+  comparison: {
+    measured: boolean
+    status: PipelineFlowComparisonStatus
+    /** Scanning minus unique arrivals: capacity headroom or queue pressure, before expiry/cap loss. */
+    scanningMinusInflowItemsPerHour: number | null
+  }
 }
 
 export interface NewsDiagnostics {
@@ -1018,6 +1056,8 @@ export interface NewsDiagnostics {
   intervalMin: number
   lastCycleAt: string | null
   nextCycleAt: string | null
+  /** Optional for a new cockpit talking to an older server during a rolling deploy. */
+  flow?: PipelineFlowRates
   tiers: TierDiagnostics[]
   // retiredToday is optional so a cockpit talking to an older server degrades cleanly (reads as absent, not 0-with-confidence)
   backlog: { unavailable?: boolean; count: number; cap: number; pctOfCap: number; nearLimit: boolean; trend: 'growing' | 'shrinking' | 'flat' | null; lostToday: number; retiredToday?: number }
@@ -1027,6 +1067,9 @@ export interface NewsDiagnostics {
     phase: 'fetch' | 'drain' | null
     fetched: number
     candidates: number
+    /** Optional for deploy skew; null means a legacy summary cannot prove the arrival split. */
+    newArrivals?: number | null
+    /** Fetched-path rows, including source redelivery of backlog residents. */
     fresh: number | null
     carryover: number | null
     picked: number

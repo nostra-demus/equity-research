@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Machine-agnostic TEMPLATE: placeholder tokens are rendered by scripts/ops/install-services.sh.
+     MANAGED BASE service: deploy provisions exact OmniRoute 3.8.49, while the installer bootstraps only
+     after that executable passes its pinned-version probe and removes a stale job when proof disappears.
+     Keep the gateway loopback-only: it is an internal model
+     fallback, not another public listener. Run in the foreground so launchd owns the process lifetime. -->
+<plist version="1.0"><dict>
+  <key>Label</key><string>com.nostradamus.omniroute</string>
+  <key>ProgramArguments</key><array>
+    <string>{{OMNIROUTE_BIN}}</string>
+    <string>serve</string>
+    <string>--port</string><string>20128</string>
+    <string>--no-open</string>
+    <string>--no-tray</string>
+    <string>--log</string>
+  </array>
+  <key>EnvironmentVariables</key><dict>
+    <key>HOME</key><string>{{HOME}}</string>
+    <key>PATH</key><string>{{PLIST_PATH}}</string>
+    <key>DATA_DIR</key><string>{{HOME}}/.omniroute</string>
+    <key>OMNIROUTE_SERVER_HOST</key><string>127.0.0.1</string>
+    <key>PORT</key><string>20128</string>
+    <key>DASHBOARD_PORT</key><string>20128</string>
+    <key>API_PORT</key><string>20128</string>
+  </dict>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+  <!-- New SQLite/WAL/log artifacts may contain provider payloads or credentials. -->
+  <key>Umask</key><integer>63</integer>
+  <key>ThrottleInterval</key><integer>10</integer>
+  <key>StandardOutPath</key><string>{{HOME}}/Library/Logs/nostradamus-omniroute.log</string>
+  <key>StandardErrorPath</key><string>{{HOME}}/Library/Logs/nostradamus-omniroute.log</string>
+</dict></plist>

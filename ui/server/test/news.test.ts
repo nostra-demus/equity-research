@@ -17,7 +17,8 @@ import { analyzeArticleGemini, geminiSchemaEnabled, TRIAGE_RESPONSE_SCHEMA, tria
 import { appendFeedItems, readFeed } from '../src/news/feed'
 import { mergeInbox, revisionClockRegistryDiagnostics } from '../src/news/write-inbox'
 import { backlogDurablyCleared, buildTriageQueue, expireBacklog, loadDeferred, migrateDeferred, preserveResidence, runIngestCycle, stampDeferred, triageGroqTokenBound } from '../src/news/runCycle'
-import { anthropicDrainReady, backlogTrend, credentialRejected, CREDENTIAL_DEAD_AFTER_FAILS, drainBatchEst, geminiPoolProviderDayExhausted, getNewsDiagnostics, providerDrainUsable, tierHealth } from '../src/news/scheduler'
+import { countUniqueNewArrivals } from '../src/news/pipeline-flow'
+import { anthropicDrainReady, backlogTrend, credentialRejected, CREDENTIAL_DEAD_AFTER_FAILS, drainBatchEst, geminiPoolProviderDayExhausted, getNewsDiagnostics, providerDrainUsable, providerLastCycleMetric, scoredByForLastCycle, tierHealth } from '../src/news/scheduler'
 import { buildOverflowProviders, NEWS, STATE_DIR } from '../src/config'
 import { createTheme } from '../src/news/themes/discover'
 import { appendThemeMutations, loadThemes } from '../src/news/themes/store'
@@ -4219,7 +4220,9 @@ await check('the cycle summary carries the transparency fields (fresh/carryover/
 
   const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
   assert.equal(s.ok, true)
-  assert.equal(s.fresh, 1, 'one genuinely new item this cycle')
+  assert.equal(s.fresh, 1, 'one item travelled the fetched path this cycle')
+  assert.equal(s.new_arrivals, 1, 'the fetched ID was absent from backlog, so it is genuine inflow')
+  assert.equal(s.completed_at, '2026-06-12T09:30:00Z', 'the summary records when the scored result became available')
   assert.equal(s.carryover, 0, 'nothing re-queued on a clean run')
   assert.equal(s.backlog, 0, 'everything scored → empty backlog')
   assert.equal(s.backlog_cap, 5000, 'the loss boundary (DEFERRED_CAP) is surfaced every cycle')
@@ -4239,7 +4242,7 @@ await check('honest defer note: Groq cooling + Haiku last-resort OFF names BOTH 
     return res({ articles: [] })
   }) as unknown as typeof fetch
   const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
-    overflowProviders: [], anthropicFallbackEnabled: false } as any
+    localProvider: null, geminiEnabled: false, overflowProviders: [], anthropicFallbackEnabled: false } as any
   let nowMs = Date.parse('2026-06-12T09:30:00Z')
   const now = () => new Date(nowMs)
 
@@ -4535,6 +4538,32 @@ await check('backlogTrend: reads growing / shrinking / flat / null from recent c
   assert.equal(backlogTrend([mk('2026-06-12T09:00:00Z', 100), { ts: '2026-06-12T09:05:00Z' } as any, mk('2026-06-12T09:10:00Z', 400)]), 'growing')
 })
 
+await check('last-look provider maps name OmniRoute exactly and legacy summaries retain the family fallback', () => {
+  const mapped = {
+    ts: '2026-08-21T10:00:00Z', ok: true, fetched: 12, candidates: 12,
+    picked: 1, watched: 0, dropped: 11, inboxed: 1, groq_requests: 0, groq_tokens: 0,
+    overflow_requests: 9,
+    provider_attempts: { omniroute: 2, groq: 1 },
+    provider_scored_batches: { omniroute: 1 },
+  } as any
+  assert.equal(providerLastCycleMetric(mapped, 'omniroute', 'provider_attempts'), 2)
+  assert.equal(providerLastCycleMetric(mapped, 'groq', 'provider_scored_batches'), 0, 'a present map proves tracked zero rather than falling back')
+  assert.deepEqual(scoredByForLastCycle(mapped, [
+    { id: 'groq', label: 'Groq' },
+    { id: 'omniroute', label: 'OmniRoute' },
+  ]), [{ id: 'omniroute', label: 'OmniRoute', requests: 1 }], 'the exact map supersedes the lossy legacy Overflow count')
+
+  const failedMapEra = { ...mapped, provider_scored_batches: undefined }
+  assert.deepEqual(scoredByForLastCycle(failedMapEra, [
+    { id: 'omniroute', label: 'OmniRoute' },
+  ]), [], 'an attempts-only map-era cycle proves no provider scored; legacy request counters cannot fabricate success')
+
+  const legacy = { ...mapped, provider_attempts: undefined, provider_scored_batches: undefined, overflow_requests: 3 }
+  assert.deepEqual(scoredByForLastCycle(legacy, []), [
+    { id: 'overflow', label: 'Overflow', requests: 3 },
+  ], 'rolling-deploy summaries retain the established aggregate fallback')
+})
+
 await check('getNewsDiagnostics: enumerates every tier in routing order, with the backlog gauge + honest defer block', async () => {
   const d = getNewsDiagnostics()
   assert.ok(Array.isArray(d.tiers) && d.tiers.length >= 1, 'tiers are enumerated (at least Groq + the last resort)')
@@ -4543,7 +4572,15 @@ await check('getNewsDiagnostics: enumerates every tier in routing order, with th
   const haiku = d.tiers.find((t) => t.id === 'anthropic-triage')
   assert.ok(haiku && haiku.role === 'last-resort' && haiku.meter === 'usd', 'the Haiku last-resort tier is present and $-metered')
   assert.equal(haiku!.usdCap, NEWS.anthropicDailyUsd, 'the daily $ ceiling flows through config → diagnostics')
+  const omni = d.tiers.find((t) => t.id === 'omniroute')
+  assert.ok(omni, 'OmniRoute never disappears from diagnostics when its opt-in flag is absent')
+  if (!NEWS.overflowProviders.some((p) => p.id === 'omniroute')) {
+    assert.equal(omni!.enabled, false)
+    assert.match(omni!.disabledReason || '', /deploy agent retries installation.*12-item scorer smoke automatically.*enables only after.*passes/i)
+    assert.doesNotMatch(omni!.disabledReason || '', /NEWS_OMNIROUTE_ENABLED|manually enable/i)
+  }
   assert.ok(d.tiers.every((t, i) => i === 0 || d.tiers[i - 1].order <= t.order), 'tiers are in fallback-routing order')
+  assert.equal(d.flow.windowMinutes, 60, 'top flow rates use a fixed trailing-hour denominator')
   assert.equal(typeof d.backlog.count, 'number')
   assert.ok(d.backlog.cap >= 1, 'the loss boundary is reported')
   assert.equal(typeof d.backlog.nearLimit, 'boolean')
@@ -4741,6 +4778,7 @@ await check('a batch that returns an UNUSABLE body is not re-sent around the who
     groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
     geminiEnabled: true, geminiApiKey: 'g', geminiBaseUrl: 'https://gemini.test', geminiMaxTokens: 2400,
     geminiModels: ['a', 'b', 'c', 'd', 'e'].map((m) => ({ model: `gemini-${m}`, dailyReqCap: 500 })),
+    localProvider: null, overflowProviders: [], anthropicFallbackEnabled: false,
     contractRetriesPerBatch: 1, triageBatch: 12,
   } as any
   const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now: () => new Date('2026-08-17T09:30:00Z') })
@@ -4782,6 +4820,7 @@ for (const cap of [0, 1]) {
       gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
       geminiEnabled: true, geminiApiKey: 'g', geminiBaseUrl: 'https://gemini.test', geminiMaxTokens: 2400,
       geminiModels: ['a', 'b', 'c', 'd', 'e'].map((m) => ({ model: `gemini-${m}`, dailyReqCap: 500 })),
+      localProvider: null, overflowProviders: [], anthropicFallbackEnabled: false,
       contractRetriesPerBatch: cap, triageBatch: 12,
     } as any
     const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now: () => new Date('2026-08-17T09:30:00Z') })
@@ -4824,6 +4863,7 @@ await check('a Gemini batch failure is attributed to the MODEL, not just the poo
     groqApiKey: '', gdeltBaseUrl: 'https://gdelt.test/doc', gdeltLookbackMin: 40,
     geminiEnabled: true, geminiApiKey: 'g', geminiBaseUrl: 'https://gemini.test',
     geminiModels: [{ model: 'gemini-flash-a', dailyReqCap: 500 }], geminiMaxTokens: 2400,
+    localProvider: null, overflowProviders: [], anthropicFallbackEnabled: false,
   } as any
   const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now: () => new Date('2026-08-17T09:30:00Z') })
   // BOTH keys are present: the aggregate the pool chip reads, and the per-model row that answers
@@ -4960,6 +5000,7 @@ await check('a REDELIVERED aged item is expired on the fresh path (deferred_at o
     { ...queueItem({ event_id: 'EVT-newbie' }), found_at: '2026-07-26T00:00:00Z' }, // brand new, but 3-week-old PUBLICATION date
   ]
   const fresh = preserveResidence(rawFresh, backlog) // EVT-redelivered now carries the 08-13 residence stamp
+  assert.equal(countUniqueNewArrivals(fresh, backlog), 1, 'the redelivered resident is not counted as new inflow')
   const { live, expired } = expireBacklog(fresh, now, 48 * 3_600_000, { requireDeferredStamp: true })
   assert.deepEqual(expired.map((i) => i.event_id), ['EVT-redelivered'], 'the aged redelivered item is retired before it can re-enter the queue')
   assert.deepEqual(live.map((i) => i.event_id), ['EVT-newbie'], 'a genuinely-new item is untouched — the fresh path never expires on found_at')

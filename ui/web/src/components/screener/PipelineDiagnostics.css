@@ -33,6 +33,29 @@
 .diag__stripline { color: var(--text); font-weight: 500; }
 .diag__today { margin-left: auto; color: var(--text-faint); font-variant-numeric: tabular-nums; }
 
+/* fixed trailing-hour queue flow — no motion: this is an operator instrument, not a decorative meter */
+.diagrate { border: 1px solid var(--hairline-strong); border-radius: var(--r-md); background: var(--surface-2); padding: 12px 13px; display: flex; flex-direction: column; gap: 10px; font-family: var(--font-sans); }
+.diagrate[data-tone="ahead"] { border-color: color-mix(in srgb, var(--live) 42%, var(--hairline)); }
+.diagrate[data-tone="equal"] { border-color: color-mix(in srgb, var(--conv-warn) 42%, var(--hairline)); }
+.diagrate[data-tone="behind"] { border-color: color-mix(in srgb, var(--bad) 52%, var(--hairline)); background: color-mix(in srgb, var(--bad) 7%, var(--surface-2)); }
+.diagrate__metrics { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.diagrate__metric { min-width: 0; display: flex; flex-direction: column; gap: 5px; padding-right: 12px; }
+.diagrate__metric + .diagrate__metric { border-left: 1px solid var(--hairline); padding-left: 12px; padding-right: 0; }
+.diagrate__label { font-size: var(--type-sm); line-height: var(--type-leading-label); color: var(--text-muted); }
+.diagrate__reading { display: flex; align-items: baseline; gap: 5px; min-width: 0; }
+.diagrate__reading b { font-family: var(--font-mono); font-size: var(--type-metric); line-height: var(--type-leading-solid); font-weight: var(--type-weight-metric); color: var(--text); font-variant-numeric: tabular-nums; letter-spacing: var(--type-tracking-metric); }
+.diagrate__reading span { font-size: var(--type-xs); color: var(--text-faint); white-space: nowrap; }
+.diagrate__definition { font-size: var(--type-xs); line-height: var(--type-leading-label); color: var(--text-faint); }
+.diagrate__rule { align-self: center; display: flex; align-items: baseline; justify-content: center; gap: 6px; border: 1px solid var(--hairline); border-radius: var(--r-pill); background: var(--surface-1); color: var(--text-muted); padding: 3px 10px; font-size: var(--type-sm); }
+.diagrate__rule b { color: var(--accent-bright); font-size: var(--type-title); line-height: var(--type-leading-solid); font-weight: var(--type-weight-bold); }
+.diagrate__gap { border-top: 1px solid var(--hairline); padding-top: 9px; display: flex; flex-direction: column; gap: 3px; }
+.diagrate__gap > span { font-size: var(--type-xs); color: var(--text-faint); text-transform: uppercase; letter-spacing: var(--type-tracking-label); }
+.diagrate__gap strong { font-size: var(--type-body); line-height: var(--type-leading-copy); font-weight: var(--type-weight-semibold); color: var(--text-muted); }
+.diagrate[data-tone="ahead"] .diagrate__gap strong { color: var(--live); }
+.diagrate[data-tone="equal"] .diagrate__gap strong { color: var(--conv-warn); }
+.diagrate[data-tone="behind"] .diagrate__gap strong { color: var(--bad); }
+.diagrate__coverage { font-size: var(--type-xs); line-height: var(--type-leading-meta); color: var(--text-faint); }
+
 /* the "why is anything waiting" surface — the whole point (mirrors .scanstat__note, amber; red when near loss) */
 .diagwhy { border: 1px solid color-mix(in srgb, var(--conv-warn) 34%, var(--hairline)); background: color-mix(in srgb, var(--conv-warn) 9%, var(--surface-1)); border-radius: var(--r-md); padding: 11px 13px; display: flex; flex-direction: column; gap: 7px; }
 .diagwhy.is-alert { border-color: color-mix(in srgb, var(--bad) 42%, var(--hairline)); background: color-mix(in srgb, var(--bad) 10%, var(--surface-1)); }

@@ -7,7 +7,7 @@
 # Apple-Silicon Homebrew — nothing here is hardcoded to one operator's home or /opt/homebrew.
 #
 # ROLES (--role doer|admin, default doer):
-#   base agents  (BOTH roles): engine, deploy, watchdog, caffeinate
+#   base agents  (BOTH roles): engine, deploy, watchdog, caffeinate, pinned OmniRoute when provisioned
 #   doer-only agents         : tunnel, news-archive, news-ingester, + the 5 housekeeping timers (hk-*)
 #   Exactly ONE machine should be the doer — it owns the public tunnel and runs the autonomous daily
 #   jobs. Other machines install with --role admin (full local engine, no tunnel, no duplicate autonomy).
@@ -16,6 +16,7 @@
 #   com.nostradamus.deploy       — auto-deploy watcher: main -> live, every 120s          (RunAtLoad+StartInterval) [base]
 #   com.nostradamus.watchdog     — self-heal, every 30s                                   (RunAtLoad+StartInterval) [base]
 #   com.nostradamus.caffeinate   — keep the Mac awake (no idle sleep) on battery AND AC     (RunAtLoad+KeepAlive)   [base]
+#   com.nostradamus.omniroute    — local model-router fallback on 127.0.0.1:20128            (RunAtLoad+KeepAlive)   [managed base]
 #   com.nostradamus.tunnel       — cloudflared tunnel run                                 (RunAtLoad+KeepAlive)   [doer]
 #   com.nostradamus.news-archive — news -> Google Drive, every 3h                         (RunAtLoad+StartInterval) [doer]
 #   com.nostradamus.hk-*         — daily/monthly housekeeping (review/track/sweep/size/calibrate) [doer]
@@ -33,11 +34,14 @@
 #   bash scripts/ops/install-services.sh                 # role=doer (the always-on host)
 #   bash scripts/ops/install-services.sh --role admin    # a secondary machine: engine only, no tunnel/timers
 #   bash scripts/ops/install-services.sh --role doer --only connectors  # repair only the connector timer
+#   bash scripts/ops/install-services.sh --role admin --only omniroute  # reconcile only the managed local router
 #   ENGINE_REPO_ROOT=/path/to/nostra-prod NEWS_ARCHIVE_DIR="/path/to/Drive/news-archive" bash scripts/ops/install-services.sh
 set -uo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 # shellcheck source=service-load-contract.sh
 source "$HERE/service-load-contract.sh"
+# shellcheck source=omniroute-service-contract.sh
+source "$HERE/omniroute-service-contract.sh"
 AGENTS="$HOME/Library/LaunchAgents"
 DOMAIN="gui/$(id -u)"
 mkdir -p "$AGENTS" "$HOME/Library/Logs"
@@ -52,12 +56,12 @@ while [ $# -gt 0 ]; do
     --role=*) ROLE="${1#*=}"; shift ;;
     --only)
       [ $# -ge 2 ] && [ -n "$2" ] \
-        || { echo "ERROR: --only needs a non-empty value (connectors)" >&2; exit 2; }
+        || { echo "ERROR: --only needs a non-empty value (connectors|omniroute)" >&2; exit 2; }
       ONLY="$2"; ONLY_SET=1; shift 2
       ;;
     --only=*)
       ONLY="${1#*=}"
-      [ -n "$ONLY" ] || { echo "ERROR: --only needs a non-empty value (connectors)" >&2; exit 2; }
+      [ -n "$ONLY" ] || { echo "ERROR: --only needs a non-empty value (connectors|omniroute)" >&2; exit 2; }
       ONLY_SET=1; shift
       ;;
     *) echo "ERROR: unknown argument: $1" >&2; exit 2 ;;
@@ -65,7 +69,7 @@ while [ $# -gt 0 ]; do
 done
 case "$ROLE" in doer|admin) ;; *) echo "ERROR: --role must be 'doer' or 'admin' (got '$ROLE')" >&2; exit 2 ;; esac
 if [ "$ONLY_SET" = 1 ]; then
-  case "$ONLY" in connectors) ;; *) echo "ERROR: --only supports only 'connectors' (got '$ONLY')" >&2; exit 2 ;; esac
+  case "$ONLY" in connectors|omniroute) ;; *) echo "ERROR: --only supports 'connectors' or 'omniroute' (got '$ONLY')" >&2; exit 2 ;; esac
 fi
 [ "$ONLY" != connectors ] || [ "$ROLE" = doer ] \
   || { echo "ERROR: --only connectors is doer-only; refusing to add autonomy to an admin host" >&2; exit 2; }
@@ -127,6 +131,19 @@ NPM_BIN="$(resolve_bin npm /usr/local/bin/npm)"
 NODE_BIN="$(resolve_bin node /usr/local/bin/node)"
 PYTHON_BIN="$(resolve_bin python3 /usr/bin/python3)"
 CLOUDFLARED_BIN="$(resolve_bin cloudflared /usr/local/bin/cloudflared)"
+# OmniRoute is VERSION-PINNED and deploy-managed. Unlike required runtime binaries above, the installer has no
+# guessed fallback: render/bootstrap only after the shared probe executes the candidate, proves exact 3.8.49,
+# and hashes its resolved executable identity. npm's ordinary global symlink is valid.
+OMNIROUTE_BIN="$(command -v omniroute 2>/dev/null || true)"
+case "$OMNIROUTE_BIN" in /*) [ -x "$OMNIROUTE_BIN" ] || OMNIROUTE_BIN="" ;; *) OMNIROUTE_BIN="" ;; esac
+OMNIROUTE_IDENTITY=""
+if [ -n "$OMNIROUTE_BIN" ]; then
+  OMNIROUTE_IDENTITY="$(nostra_probe_omniroute_binary "$PYTHON_BIN" "$OMNIROUTE_BIN" 2>/dev/null || true)"
+  if [ -z "$OMNIROUTE_IDENTITY" ]; then
+    echo "ignoring unsupported OmniRoute executable (required version $NOSTRA_OMNIROUTE_REQUIRED_VERSION)" >&2
+    OMNIROUTE_BIN=""
+  fi
+fi
 
 OPS="$HOME/.nostra-ops"; mkdir -p "$OPS"
 CONNECTOR_AUTONOMY_LOCK="$OPS/connector-autonomy.lock"
@@ -361,9 +378,10 @@ xesc() {
   printf '%s' "$s" | sed -e 's/\\/\\\\/g' -e 's/[&#]/\\&/g'   # 2) sed-RHS escape
 }
 render() {
-  local f="$1" e_home e_prod e_state e_path e_npm e_node e_cf e_news e_bridge e_connector_config
+  local f="$1" e_home e_prod e_state e_path e_npm e_node e_cf e_omniroute e_news e_bridge e_connector_config
   e_home="$(xesc "$HOME")"; e_prod="$(xesc "$PROD")"; e_state="$(xesc "$STATE_DIR")"; e_path="$(xesc "$PLIST_PATH")"
   e_npm="$(xesc "$NPM_BIN")"; e_node="$(xesc "$NODE_BIN")"; e_cf="$(xesc "$CLOUDFLARED_BIN")"; e_news="$(xesc "$NEWS_ARCHIVE_DIR")"
+  e_omniroute="$(xesc "$OMNIROUTE_BIN")"
   e_bridge="$(xesc "$BRIDGE_MODE_VALUE")"
   e_connector_config="$(xesc "$CONNECTOR_CONFIG_DIR")"
   sed -i '' \
@@ -374,6 +392,7 @@ render() {
     -e "s#{{NPM_BIN}}#$e_npm#g" \
     -e "s#{{NODE_BIN}}#$e_node#g" \
     -e "s#{{CLOUDFLARED_BIN}}#$e_cf#g" \
+    -e "s#{{OMNIROUTE_BIN}}#$e_omniroute#g" \
     -e "s#{{NEWS_ARCHIVE_DIR}}#$e_news#g" \
     -e "s#{{BRIDGE_MODE}}#$e_bridge#g" \
     -e "s#{{CONNECTOR_CONFIG_DIR}}#$e_connector_config#g" \
@@ -385,7 +404,7 @@ render() {
 
 install_one() {
   local label="$1" src="$HERE/$1.plist" dst="$AGENTS/$1.plist" i staged key cur ck claim=""
-  local is_connector=0
+  local is_connector=0 is_omniroute=0
   # SECRETS STAY OUT OF THE REPO. The fixed model-provider keys below live in their relevant INSTALLED
   # plists (~/Library/LaunchAgents) and are carried across reinstalls. Connector credentials are different:
   # every CONNECTOR_* value lives only in ~/.config/nostra-engine/providers.env and is deliberately neither
@@ -393,6 +412,15 @@ install_one() {
   if [ "$label" = com.nostradamus.connectors ]; then
     is_connector=1
     # The staged connector must live beside its destination: mv(1) is then a same-filesystem atomic replace.
+    staged="$(mktemp "$AGENTS/.${label}.staged.XXXXXX")" || return 1
+  elif [ "$label" = com.nostradamus.omniroute ]; then
+    is_omniroute=1
+    # This managed service is reconciled unattended by deploy, so its replacement must also be atomic and
+    # must never follow a planted LaunchAgents symlink to an unrelated target.
+    if [ -e "$dst" ] || [ -L "$dst" ]; then
+      [ ! -L "$dst" ] && [ -f "$dst" ] && [ -O "$dst" ] \
+        || { echo "  FAIL: installed OmniRoute plist must be a real current-user file — leaving it untouched" >&2; return 1; }
+    fi
     staged="$(mktemp "$AGENTS/.${label}.staged.XXXXXX")" || return 1
   else
     staged="$(mktemp)" || return 1
@@ -402,6 +430,13 @@ install_one() {
   fi
   # render the placeholder tokens to this machine's real paths BEFORE the secret carry + idempotency compare
   render "$staged" || { echo "  FAIL: could not render $label — leaving existing install untouched"; rm -f "$staged"; return 1; }
+  if [ "$is_omniroute" = 1 ] \
+      && { ! chmod 600 "$staged" || ! plutil -lint "$staged" >/dev/null \
+           || ! nostra_validate_omniroute_plist "$PYTHON_BIN" "$staged" "$OMNIROUTE_BIN" "$HOME"; }; then
+    echo "  FAIL: staged OmniRoute plist is invalid — leaving existing install untouched" >&2
+    rm -f "$staged"
+    return 1
+  fi
   # An older installed connector plist may still be the only credential copy. Preserve every exact key via
   # the same tested atomic helper deploy.sh uses before replacing that plist. Any conflict/unsafe path leaves
   # the existing install untouched. Then, defense in depth, strip connector keys from the new staged template.
@@ -418,7 +453,7 @@ install_one() {
     done < <(/usr/libexec/PlistBuddy -c "Print :EnvironmentVariables" "$staged" 2>/dev/null \
                | sed -nE 's/^[[:space:]]*(CONNECTOR_[A-Za-z0-9_]+)[[:space:]]*=.*/\1/p')
   fi
-  if [ "$is_connector" != 1 ] && [ -f "$dst" ]; then
+  if [ "$is_connector" != 1 ] && [ "$is_omniroute" != 1 ] && [ -f "$dst" ]; then
     for sk in GROQ_API_KEY GEMINI_API_KEY OPENROUTER_API_KEY NVIDIA_API_KEY CEREBRAS_API_KEY MISTRAL_API_KEY; do
       key="$(/usr/libexec/PlistBuddy -c "Print :EnvironmentVariables:$sk" "$dst" 2>/dev/null || true)"
       { [ -z "$key" ] || [ "$key" = "__SET_YOUR_${sk}__" ]; } && continue   # each provider has its OWN placeholder
@@ -473,6 +508,22 @@ install_one() {
       nostra_report_loaded "$label"
       return $?
     fi
+    if [ "$label" = com.nostradamus.omniroute ]; then
+      # Deploy calls this narrow path only when the healthy fingerprint/contract no longer holds. Restart an
+      # unchanged-but-unhealthy job, or bootstrap an unchanged plist which a previous failed-health backoff
+      # deliberately quiesced. Healthy ticks never enter the installer at all.
+      if loaded "$label"; then
+        launchctl kickstart -k "$DOMAIN/$label" 2>/dev/null || return 1
+      else
+        for i in $(seq 1 8); do
+          launchctl bootstrap "$DOMAIN" "$dst" 2>/dev/null && break
+          sleep 0.5
+        done
+        launchctl kickstart -k "$DOMAIN/$label" 2>/dev/null || true
+      fi
+      nostra_report_loaded "$label"
+      return $?
+    fi
     launchctl kickstart -k "$DOMAIN/$label" 2>/dev/null || true   # non-connector current service: restart in place
     echo "  ok (in place): $label"; return
   fi
@@ -482,7 +533,15 @@ install_one() {
       "$claim" "$HERE/migrate-connector-secrets.py" "$CONNECTOR_PROVIDERS_ENV"
     return $?
   fi
-  cp "$staged" "$dst" && rm -f "$staged"
+  if [ "$is_omniroute" = 1 ]; then
+    if ! mv "$staged" "$dst"; then
+      rm -f "$staged" 2>/dev/null || true
+      echo "  FAIL: could not atomically publish the OmniRoute plist" >&2
+      return 1
+    fi
+  else
+    cp "$staged" "$dst" && rm -f "$staged"
+  fi
   chmod 600 "$dst" 2>/dev/null || true
   launchctl bootout "$DOMAIN/$label" 2>/dev/null || true
   for i in $(seq 1 40); do loaded "$label" || break; sleep 0.25; done   # wait out async bootout (<=10s)
@@ -526,6 +585,20 @@ remove_one() {
       return 1
     fi
     echo "  removed (admin role): $label"
+  elif [ "$label" = com.nostradamus.omniroute ] \
+      && { [ -e "$dst" ] || [ -L "$dst" ] || loaded "$label"; }; then
+    launchctl bootout "$DOMAIN/$label" 2>/dev/null || true
+    for i in $(seq 1 40); do loaded "$label" || break; sleep 0.25; done
+    if loaded "$label"; then
+      echo "  FAIL: stale OmniRoute agent did not unload and was not removed" >&2
+      return 1
+    fi
+    rm -f "$dst" 2>/dev/null || return 1
+    if [ -e "$dst" ] || [ -L "$dst" ]; then
+      echo "  FAIL: stale OmniRoute plist was not removed" >&2
+      return 1
+    fi
+    echo "  removed: $label"
   elif [ -f "$dst" ] || loaded "$label"; then
     launchctl bootout "$DOMAIN/$label" 2>/dev/null || true
     rm -f "$dst" 2>/dev/null || true
@@ -539,9 +612,10 @@ DOER_ONLY=(com.nostradamus.tunnel com.nostradamus.news-archive com.nostradamus.e
            com.nostradamus.hk-review com.nostradamus.hk-track com.nostradamus.hk-sweep \
            com.nostradamus.hk-size com.nostradamus.hk-calibrate)
 NEWS_INGESTER=com.nostradamus.news-ingester   # doer-only AND opt-in (needs a real GROQ key in its plist)
+OMNIROUTE_SERVICE=com.nostradamus.omniroute   # both roles; installer requires the exact reviewed executable
 
 echo "installing role=$ROLE${ONLY:+ only=$ONLY} (prod=$PROD)"
-if [ "$ROLE" = doer ]; then
+if [ "$ROLE" = doer ] && [ "$ONLY" != omniroute ]; then
   # A connector writer is allowed only against the owner-only stable pool identity.  The helper seeds that
   # identity from an explicit NOSTRA_POOL or a currently resolving production data symlink.  It never adopts
   # a new target after that, follows an unsafe identity file, or replaces a real/mismatched/missing Drive path.
@@ -560,7 +634,7 @@ if [ "$ROLE" = doer ]; then
     prepare_connector_config || exit 1
   fi
 fi
-if [ "$ROLE" = doer ] && [ "$INSTALL_CONNECTORS" = 0 ]; then
+if [ "$ROLE" = doer ] && [ "$ONLY" != omniroute ] && [ "$INSTALL_CONNECTORS" = 0 ]; then
   # Serving/tunnel failover is never connector-writer failover. Fence and
   # remove any stale connector before this process can publish `doer`.
   launchctl bootout "$DOMAIN/com.nostradamus.connectors" >/dev/null 2>&1 || true
@@ -573,6 +647,10 @@ if [ "$ROLE" = doer ] && [ "$INSTALL_CONNECTORS" = 0 ]; then
 fi
 if [ "$ONLY" = connectors ]; then
   LABELS=(com.nostradamus.connectors)
+elif [ "$ONLY" = omniroute ]; then
+  # Bash 3.2 treats an empty array expansion as unbound under `set -u`. The narrow OmniRoute path has no
+  # ordinary labels, so skip the ordinary loop explicitly instead of manufacturing an empty array.
+  :
 else
   LABELS=("${BASE[@]}")
   [ "$ROLE" = doer ] && LABELS+=("${DOER_ONLY[@]}")
@@ -585,10 +663,27 @@ else
   fi
 fi
 install_failed=0
-for label in "${LABELS[@]}"; do
-  echo "installing $label"
-  install_one "$label" || install_failed=1
-done
+if [ "$ONLY" != omniroute ]; then
+  for label in "${LABELS[@]}"; do
+    echo "installing $label"
+    install_one "$label" || install_failed=1
+  done
+fi
+
+# OmniRoute is a local sidecar for the engine, so both doer and admin roles need it when provisioned. Never
+# publish a plist that points at a guessed/missing binary: skip a fresh host, or unload/remove a stale job if
+# its executable was removed. This makes exact package proof an installer prerequisite instead of a launchd
+# failure loop. Normal deploy self-provisions the exact package before using this narrow path; a manual/full
+# installer remains safely executable-gated and never installs packages or touches unrelated services.
+if [ -z "$ONLY" ] || [ "$ONLY" = omniroute ]; then
+  if [ -n "$OMNIROUTE_BIN" ]; then
+    echo "installing $OMNIROUTE_SERVICE ($OMNIROUTE_BIN)"
+    install_one "$OMNIROUTE_SERVICE" || install_failed=1
+  else
+    echo "skipping $OMNIROUTE_SERVICE (omniroute executable not installed)"
+    remove_one "$OMNIROUTE_SERVICE" || install_failed=1
+  fi
+fi
 
 # Optional autonomous news ingester (standalone 24/7 mode) — DOER ONLY, and only once you've put your
 # free Groq key into its plist (replacing the placeholder). Until then it's skipped, so a keyless setup is
@@ -616,7 +711,7 @@ fi
 echo
 echo "status (each should show a PID):"
 launchctl list | grep -i nostradamus || echo "  (none loaded!)"
-echo "logs: ~/Library/Logs/nostradamus-{engine,tunnel,deploy,watchdog,news-archive,caffeinate,housekeeping}.log"
+echo "logs: ~/Library/Logs/nostradamus-{engine,omniroute,tunnel,deploy,watchdog,news-archive,caffeinate,housekeeping}.log"
 [ "$install_failed" = 0 ] || exit 1
 
 # Full successful installs leave a durable, non-secret role truth for deploy-time repair. The legacy doer

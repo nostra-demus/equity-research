@@ -2841,6 +2841,55 @@ await check('theme compiler spends the finite cloud allowance furthest behind it
   resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
 })
 
+await check('theme compiler keeps aggregate routes after every direct provider and reaches them on failure', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-aggregate-route-class-'))
+  try {
+    const candidate = createTheme([
+      item('route-class-1', 'Alpha capacity shortage raises orders', { companies: [co('Alpha', 'ALPH')] }),
+      item('route-class-2', 'Beta capacity shortage raises orders', { companies: [co('Beta', 'BETA')] }),
+      item('route-class-3', 'Alpha and Beta capacity shortage persists', { companies: [co('Alpha', 'ALPH'), co('Beta', 'BETA')] }),
+    ], NOW)
+    const proposal = llmThemeProposal({
+      support: candidate.members.map((member) => member.event_id), anchors: ['capacity', 'shortage'],
+    })
+    const urls: string[] = []
+    const fetchFn = (async (url: string | URL | Request) => {
+      const requestUrl = new URL(String(url))
+      urls.push(requestUrl.toString())
+      if (requestUrl.protocol === 'https:' && requestUrl.hostname === 'direct-theme.test') {
+        return new Response('{}', { status: 503 })
+      }
+      return new Response(JSON.stringify({
+        choices: [{ message: { content: JSON.stringify({ themes: [proposal] }) } }], usage: { total_tokens: 100 },
+      }), { status: 200, headers: { 'content-type': 'application/json' } })
+    }) as typeof fetch
+    const outcome = await makeThemeNamer({
+      themesDiscoverModel: 'groq',
+      overflowProviders: [{
+        id: 'aggregate-theme', label: 'Aggregate Theme', color: '--aggregate', apiKey: 'aggregate',
+        baseUrl: 'https://aggregate-theme.test/v1', model: 'm', dailyReqCap: 100, rpm: 0, maxTokens: 3000,
+        budgetFile: 'aggregate-theme-budget.json', routeClass: 'aggregate-fallback',
+      }, {
+        id: 'direct-theme', label: 'Direct Theme', color: '--direct', apiKey: 'direct',
+        baseUrl: 'https://direct-theme.test/v1', model: 'm', dailyReqCap: 100, rpm: 0, maxTokens: 3000,
+        budgetFile: 'direct-theme-budget.json', routeClass: 'direct',
+      }],
+    }, fetchFn, tmp)([candidate], NOW)
+    assert.deepEqual(urls, [
+      'https://direct-theme.test/v1/chat/completions',
+      'https://aggregate-theme.test/v1/chat/completions',
+    ], 'aggregate config order and deficit cannot leapfrog the direct class')
+    assert.equal(outcome?.state, 'succeeded')
+    assert.equal(outcome?.attempted_count, 2)
+    assert.equal(candidate.validator_provider, 'aggregate-theme')
+  } finally {
+    fs.rmSync(tmp, { recursive: true, force: true })
+    resetBudgetMemory(); resetCooldownMemory(); resetSharedLimiters()
+  }
+})
+
 await check('theme compiler skips an unsafe TPM envelope and validates through configured overflow with honest provenance', async () => {
   const { makeThemeNamer } = await import('../src/news/themes/llm')
   resetBudgetMemory(); resetSharedLimiters()

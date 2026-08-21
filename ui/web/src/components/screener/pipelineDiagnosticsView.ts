@@ -1,4 +1,155 @@
-import type { NewsDiagnostics, TierDiagnostics } from '../../lib/types'
+import type { NewsDiagnostics, PipelineFlowRates, TierDiagnostics } from '../../lib/types'
+
+export type PipelineFlowTone = 'ahead' | 'equal' | 'behind' | 'unavailable'
+
+export interface PipelineFlowPresentation {
+  tone: PipelineFlowTone
+  inflowRate: string
+  scanningRate: string
+  gapCopy: string
+  coverageCopy: string
+}
+
+interface LastCycleArrivalSplit {
+  newArrivals?: number | null
+  fresh: number | null
+  carryover: number | null
+}
+
+/** Never relabel the legacy fetched-path `fresh` count as new inflow. */
+export function lastCycleArrivalCopy(cycle: LastCycleArrivalSplit): string | null {
+  const arrivals = cycle.newArrivals
+  if (typeof arrivals !== 'number' || !Number.isSafeInteger(arrivals) || arrivals < 0) return null
+  const parts = [`${arrivals.toLocaleString('en-US')} new arrivals`]
+  if (typeof cycle.fresh === 'number' && Number.isSafeInteger(cycle.fresh) && cycle.fresh > arrivals) {
+    const redelivered = cycle.fresh - arrivals
+    parts.push(`${redelivered.toLocaleString('en-US')} backlog redeliver${redelivered === 1 ? 'y' : 'ies'}`)
+  }
+  if (typeof cycle.carryover === 'number' && Number.isSafeInteger(cycle.carryover) && cycle.carryover >= 0) {
+    parts.push(`${cycle.carryover.toLocaleString('en-US')} carried`)
+  }
+  return parts.join(' · ')
+}
+
+export const PIPELINE_FLOW_SNAPSHOT_MAX_AGE_MS = 60_000
+const PIPELINE_FLOW_FUTURE_TOLERANCE_MS = 30_000
+
+/** Keep low-but-real queue rates visible: one item/hour is 0.00028/s, so two decimals would erase it. */
+export function fmtPipelineRate(value: number | null | undefined): string {
+  if (typeof value !== 'number' || !Number.isFinite(value) || value < 0) return '—'
+  if (value === 0) return '0.000'
+  const digits = value >= 100 ? 0 : value >= 10 ? 1 : value >= 1 ? 2 : value >= 0.1 ? 3 : 4
+  return value.toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits })
+}
+
+function fmtItemsPerHour(value: number): string {
+  return Math.abs(value).toLocaleString('en-US', { maximumFractionDigits: 1 })
+}
+
+function unavailable(gapCopy: string, coverageCopy: string): PipelineFlowPresentation {
+  return { tone: 'unavailable', inflowRate: '—', scanningRate: '—', gapCopy, coverageCopy }
+}
+
+function snapshotProblem(flow: PipelineFlowRates, diagnosticsTs: string | undefined, nowMs: number): 'stale' | 'invalid' | null {
+  if (!Number.isFinite(nowMs)) return 'invalid'
+  const clocks = [Date.parse(flow.to), Date.parse(diagnosticsTs || '')]
+  if (clocks.some((clock) => !Number.isFinite(clock) || clock > nowMs + PIPELINE_FLOW_FUTURE_TOLERANCE_MS)) return 'invalid'
+  return clocks.some((clock) => nowMs - clock > PIPELINE_FLOW_SNAPSHOT_MAX_AGE_MS) ? 'stale' : null
+}
+
+/** Honest operator copy for the fixed trailing-hour queue comparison, including stale/deploy/legacy gaps. */
+export function pipelineFlowPresentation(
+  flow: PipelineFlowRates | undefined,
+  diagnosticsTs: string | undefined,
+  nowMs: number,
+): PipelineFlowPresentation {
+  if (!flow) {
+    return unavailable(
+      'Rate comparison is not available from this scanner yet.',
+      'Scanning and inflow are not compared until the server reports like-for-like queue flow.',
+    )
+  }
+
+  const freshness = snapshotProblem(flow, diagnosticsTs, nowMs)
+  if (freshness === 'stale') {
+    return unavailable(
+      'Rate snapshot is stale — values and capacity comparison are hidden.',
+      'The diagnostics or flow timestamp is over 60 seconds old. Refresh must succeed before rates return.',
+    )
+  }
+  if (freshness === 'invalid') {
+    return unavailable(
+      'Rate snapshot time cannot be verified — values and capacity comparison are hidden.',
+      'Refresh diagnostics before using these rates.',
+    )
+  }
+
+  if (flow.history?.coverage !== 'complete') {
+    if (!flow.history) {
+      return unavailable(
+        'Required rate-history coverage is not reported — capacity is not compared.',
+        'Waiting for the server to prove every partition in the trailing window.',
+      )
+    }
+    const debt = [
+      flow.history.missingDates.length ? `missing ${flow.history.missingDates.join(', ')}` : '',
+      flow.history.unreadableDates.length ? `unreadable ${flow.history.unreadableDates.join(', ')}` : '',
+      flow.history.corruptCycleRows ? `${flow.history.corruptCycleRows} corrupt cycle row${flow.history.corruptCycleRows === 1 ? '' : 's'}` : '',
+    ].filter(Boolean).join(' · ')
+    return unavailable(
+      'Required rate history is incomplete — capacity is not compared.',
+      debt || 'One or more required trailing-window partitions are not proven readable.',
+    )
+  }
+
+  const inflowRate = fmtPipelineRate(flow.inflow.perSecond)
+  const scanningRate = fmtPipelineRate(flow.scanning.perSecond)
+  const totalCycles = Math.max(flow.inflow.totalCycles, flow.scanning.totalCycles)
+  const rawGap = flow.comparison.scanningMinusInflowItemsPerHour
+  const gapStatus = typeof rawGap !== 'number' || !Number.isFinite(rawGap)
+    ? 'unavailable'
+    : rawGap > 0 ? 'ahead' : rawGap < 0 ? 'behind' : 'equal'
+  const comparisonReady = flow.comparison.measured
+    && flow.inflow.measured
+    && flow.scanning.measured
+    && gapStatus !== 'unavailable'
+    && flow.comparison.status === gapStatus
+
+  if (!comparisonReady) {
+    const noCycles = totalCycles === 0
+    return {
+      tone: 'unavailable', inflowRate, scanningRate,
+      gapCopy: noCycles
+        ? `No completed scanner looks in the trailing ${flow.windowMinutes} minutes.`
+        : 'Like-for-like coverage is incomplete — scanning and inflow are not compared.',
+      coverageCopy: noCycles
+        ? 'The rate is unmeasured, not zero.'
+        : `Coverage: ${flow.inflow.knownCycles}/${totalCycles} completed cycles prove unique new arrivals; ${flow.scanning.knownCycles}/${totalCycles} prove scanning.`,
+    }
+  }
+
+  const gap = rawGap as number
+  const coverageCopy = `Trailing ${flow.windowMinutes} minutes · ${totalCycles} completed cycle${totalCycles === 1 ? '' : 's'} · fixed ${(flow.windowMinutes * 60).toLocaleString('en-US')}-second wall-clock average.`
+  if (gap > 0) {
+    return {
+      tone: 'ahead', inflowRate, scanningRate,
+      gapCopy: `Ahead by ${fmtItemsPerHour(gap)} items/hour of scanning capacity — before any item expires or is lost at the backlog cap.`,
+      coverageCopy,
+    }
+  }
+  if (gap < 0) {
+    return {
+      tone: 'behind', inflowRate, scanningRate,
+      gapCopy: `Falling behind by ${fmtItemsPerHour(gap)} items/hour — queue pressure grows at this rate before any item expires or is lost at the backlog cap.`,
+      coverageCopy,
+    }
+  }
+  return {
+    tone: 'equal', inflowRate, scanningRate,
+    gapCopy: 'Equal — 0 items/hour of capacity headroom before expiry or cap loss. Scanning must stay above inflow to reduce the backlog.',
+    coverageCopy,
+  }
+}
 
 /** A short countdown for the engine's next retry eligibility. */
 export function fmtRetryDuration(ms: number): string {
@@ -46,7 +197,7 @@ export function fmtFailingFor(ms: number): string {
 /** Operator-facing state. “Cooling” is intentionally absent: this timer is created by the engine after a
  * failure and says nothing about the provider account's quota or reset window. */
 export function tierStatusCopy(tier: TierDiagnostics, retryRemainingMs: number): string {
-  if (!tier.enabled) return 'Off'
+  if (!tier.enabled) return tier.disabledReason || 'Off'
   if (tier.spendingAllowed === false) return 'News engine is not running'
   if (tier.enabled && tier.providerDayExhausted) return "Provider says today's limit is used"
   // A REJECTED CREDENTIAL OUTRANKS THE COUNTDOWN. This branch sits above the retry timer deliberately: the

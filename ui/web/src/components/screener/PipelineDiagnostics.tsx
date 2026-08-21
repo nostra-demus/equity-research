@@ -7,12 +7,12 @@
 // a live re-render can freeze a framer exit mid-slide). All colour comes from tokens; motion is
 // transform/opacity only, <300ms, and stilled under reduced-motion.
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useId, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '../../lib/store'
 import type { DeferReason, LastResortState, NewsDiagnostics, TierDiagnostics, TierHealth } from '../../lib/types'
 import { tierMeter } from './pipelineMeter'
-import { fmtFailingFor, tierStatusCopy } from './pipelineDiagnosticsView'
+import { fmtFailingFor, lastCycleArrivalCopy, pipelineFlowPresentation, tierStatusCopy } from './pipelineDiagnosticsView'
 import './PipelineDiagnostics.css'
 
 /** Plain time-UNTIL a future instant. The scheduler keeps nextCycleAt ahead of now, so this is the correct
@@ -196,6 +196,8 @@ export function PipelineDiagnostics() {
   const diag = useStore((s) => s.newsDiagnostics)
   const refresh = useStore((s) => s.refreshDiagnostics)
   const [booted, setBooted] = useState(false)
+  const inflowDescriptionId = useId()
+  const scanningDescriptionId = useId()
 
   // panel-local poll (guarded, cleared on unmount) — belt-and-braces over the per-cycle SSE refresh
   useEffect(() => {
@@ -222,10 +224,10 @@ export function PipelineDiagnostics() {
   const [fetchedAt, setFetchedAt] = useState(() => Date.now())
   useEffect(() => { setFetchedAt(Date.now()); setNowTs(Date.now()) }, [diag?.ts])
   useEffect(() => {
-    if (!hasCountdown) return
-    const t = setInterval(() => setNowTs(Date.now()), 1000)
+    if (!hasCountdown && !diag?.flow) return
+    const t = setInterval(() => setNowTs(Date.now()), hasCountdown ? 1000 : 10_000)
     return () => clearInterval(t)
-  }, [hasCountdown])
+  }, [hasCountdown, diag?.flow])
   const coolLeft = (t: TierDiagnostics): number => {
     const snap = t.cooldownRemainingMs ?? 0
     return snap > 0 ? Math.max(0, snap - (nowTs - fetchedAt)) : 0
@@ -240,6 +242,8 @@ export function PipelineDiagnostics() {
   }, [diag])
 
   const lc = diag?.lastCycle
+  const lastCycleArrival = lc ? lastCycleArrivalCopy(lc) : null
+  const flowView = pipelineFlowPresentation(diag?.flow, diag?.ts, nowTs)
   // Tiers the provider is refusing the key for. Read off the per-tier flag rather than the defer group so this
   // still renders against an engine that has the flag but not yet the group (rolling deploy).
   const credentialBlocked = (diag?.tiers || []).filter((t) => t.enabled && t.spendingAllowed !== false && t.credentialRejected === true)
@@ -276,6 +280,29 @@ export function PipelineDiagnostics() {
               <span className="diag__today mono">read {diag.today.read.toLocaleString()} · kept {(diag.today.kept).toLocaleString()} · dropped {diag.today.dropped.toLocaleString()}</span>
             )}
           </div>
+
+          {/* Like-for-like queue flow at the top: genuinely new triage items in, scored queue outcomes out.
+              The fixed 60-minute denominator prevents a quiet minute from looking artificially fast. */}
+          <section className="diagrate" data-tone={flowView.tone} aria-label="Trailing pipeline flow rates">
+            <div className="diagrate__metrics">
+              <div className="diagrate__metric" aria-describedby={inflowDescriptionId}>
+                <span className="diagrate__label">Average data inflow / second</span>
+                <span className="diagrate__reading"><b className="mono">{flowView.inflowRate}</b><span>items/s</span></span>
+                <span className="diagrate__definition" id={inflowDescriptionId}>Unique new queue arrivals. Redelivery and carried backlog are excluded.</span>
+              </div>
+              <div className="diagrate__metric" aria-describedby={scanningDescriptionId}>
+                <span className="diagrate__label">Average data scanning / second</span>
+                <span className="diagrate__reading"><b className="mono">{flowView.scanningRate}</b><span>items/s</span></span>
+                <span className="diagrate__definition" id={scanningDescriptionId}>Completed pick, watch, or drop scores. Expiry and cap loss are excluded.</span>
+              </div>
+            </div>
+            <div className="diagrate__rule"><span>Scanning must stay</span><b aria-label="greater than">&gt;</b><span>inflow</span></div>
+            <div className="diagrate__gap" role="status">
+              <span>Queue-pressure / capacity gap</span>
+              <strong>{flowView.gapCopy}</strong>
+            </div>
+            <div className="diagrate__coverage">{flowView.coverageCopy}</div>
+          </section>
 
           {/* A REJECTED CREDENTIAL, ABOVE EVERYTHING ELSE. Every other state on this panel resolves itself
               given time — a quota resets, a rate limit lapses, an outage ends. This one never does, and it is
@@ -347,7 +374,7 @@ export function PipelineDiagnostics() {
                 <span className="diagflow__arrow" aria-hidden>→</span>
                 <span className="diagflow__step">
                   <b className="mono">{lc.candidates.toLocaleString()}</b> to score
-                  {lc.fresh !== null && lc.carryover !== null && <span className="diagflow__split"> ({lc.fresh} new + {lc.carryover} carried)</span>}
+                  {lastCycleArrival && <span className="diagflow__split"> ({lastCycleArrival})</span>}
                 </span>
                 <span className="diagflow__arrow" aria-hidden>→</span>
                 <span className="diagflow__step"><b className="mono diagflow__kept">{(lc.picked + lc.watched).toLocaleString()}</b> kept · <b className="mono">{lc.dropped.toLocaleString()}</b> dropped</span>
