@@ -1,0 +1,158 @@
+{
+  "schema_version": "1.0",
+  "ticker": "NHY",
+  "original_decision_date": "2026-07-19",
+  "review_date": "2026-08-21",
+  "review_window": "30d",
+  "original_decision": "Watchlist",
+  "basket": "Watchlist",
+  "entry_price": 84.96,
+  "tracking_price": null,
+  "review_price": 88.26,
+  "absolute_return_pct": 3.88,
+  "benchmark_return_pct": 5.32,
+  "sector_return_pct": 0.89,
+  "benchmark_relative_return_pct": -1.44,
+  "sector_relative_return_pct": 2.99,
+  "thesis_status": "on-track",
+  "forecast_results": [
+    {
+      "prediction": "FQ2 2026 reported revenue beats the Capital IQ consensus of NOK 55,954.2m",
+      "status": "confirmed",
+      "evidence": "Unchanged since the 2026-08-01 ad-hoc review: Q2 2026 revenue was NOK 56.5bn, up 6% year over year, above the NOK 55,954.2m consensus bar. [Norsk Hydro, 'Operational strength delivering solid results', GlobeNewswire, 2026-07-22]",
+      "as_of": "2026-08-21"
+    },
+    {
+      "prediction": "FQ2 2026 Adjusted EBITDA does NOT clearly beat the Capital IQ consensus of NOK 8,581.8m",
+      "status": "falsified",
+      "evidence": "Unchanged since the 2026-08-01 ad-hoc review: Adjusted EBITDA was NOK 8,923m, about 4.0% above the NOK 8,581.8m consensus -- a clear beat, which is what this forecast predicted would NOT happen. [Norsk Hydro, 'Operational strength delivering solid results', GlobeNewswire, 2026-07-22, quoted verbatim: 'Hydro's adjusted EBITDA for the second quarter of 2026 was NOK 8,923 million']",
+      "as_of": "2026-08-21"
+    },
+    {
+      "prediction": "FQ2 2026's cash-flow statement shows receivables normalizing (DSO falling back toward FY2025's 33.0-day level) and operating cash flow returning positive",
+      "status": "not assessable",
+      "evidence": "No new evidence found in the three weeks since the 2026-08-01 review. Web search for the full Q2 2026 interim report / receivables-days data did not surface a DSO or receivables figure beyond the results-release headline numbers already reviewed. Still no basis to resolve either way without inventing a number. [Web search, accessed 2026-08-21 -- no DSO/receivables figure located]",
+      "as_of": "2026-08-21"
+    },
+    {
+      "prediction": "NHY's strict-basis net debt/EBITDA continues rising past the latest 1.02x reading at the next reported balance sheet",
+      "status": "confirmed",
+      "evidence": "Unchanged since the 2026-08-01 ad-hoc review, recorded confirmed on DIRECTION only: net debt rose from NOK 12.9bn to NOK 16.3bn during Q2 2026 (+26%). A secondary web source computed an 'adjusted net debt/EBITDA of approximately 2.56x' by dividing quarter-end net debt by SINGLE-QUARTER (not trailing-twelve-month) adjusted EBITDA -- a basis mismatch versus the original 1.02x reading's presumed TTM denominator, so that 2.56x figure is NOT adopted here; no comparable-basis multiple is claimed. [Norsk Hydro Q2 2026 results, GlobeNewswire, 2026-07-22; TipRanks Q2 2026 earnings summary, accessed 2026-08-21, indicative/unverified for the 2.56x figure only, which is explicitly rejected as mismatched-basis]",
+      "as_of": "2026-08-21"
+    },
+    {
+      "prediction": "The 22-Jul-2026 and 23-Oct-2026 prints show the Adjusted EBITDA margin fading back toward the ~13.0% DCF mid-cycle anchor rather than holding near the price-implied ~13.9%-14.0% level",
+      "status": "still open",
+      "evidence": "Window runs to 2026-10-23 and only the first of the two prints has landed (Q2 adjusted EBITDA margin ~15.8% on NOK 56.5bn revenue). Corroborating but non-resolving signal: LME aluminium cash price fell from USD 3,467/mt (Q2 quarter-end spot, per the original decision record) to USD 3,182/mt on 2026-08-20 [Westmetall LME Aluminium Cash-Settlement series, accessed 2026-08-21], a ~-8.2% move consistent with the thesis's fade case, but the forecast requires the REPORTED margin at the Oct print, not spot price, so it stays open.",
+      "as_of": "2026-08-21"
+    },
+    {
+      "prediction": "An impairment charge is booked against the Alumetal (Poland/Hungary recycling) CGU in the FY2026 annual report (~Feb-2027)",
+      "status": "still open",
+      "evidence": "Window runs to approximately Feb-2027. No new disclosure since the 2026-08-01 review. [Web search, accessed 2026-08-21 -- no Alumetal impairment news found]",
+      "as_of": "2026-08-21"
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "FQ2 2026 results, 22 July 2026",
+      "status": "materialized",
+      "evidence": "Reported 2026-07-22 as scheduled; unchanged since the 2026-08-01 review. [Norsk Hydro, GlobeNewswire, 2026-07-22]",
+      "as_of": "2026-08-21"
+    },
+    {
+      "catalyst": "FQ3 2026 results, 23 October 2026",
+      "status": "pending",
+      "evidence": "Not yet due; no pre-announcement found.",
+      "as_of": "2026-08-21"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "Balance-sheet leverage rising as capex and working capital absorb cash",
+      "status": "materialized",
+      "evidence": "Unchanged since 2026-08-01: net debt rose from NOK 12.9bn to NOK 16.3bn over Q2 2026 (+26%) despite NOK 4bn of reported free cash flow. No Q3 data point yet to show whether the trend continued past quarter-end. [Norsk Hydro Q2 2026 results, GlobeNewswire, 2026-07-22]",
+      "as_of": "2026-08-21"
+    },
+    {
+      "risk": "Qatalum (Qatar) operational disruption",
+      "status": "materialized",
+      "evidence": "Qatalum remains at approximately 60% of its 648,000-tonne nameplate primary-aluminium capacity as of the latest coverage, with management stating a ramp-up update will follow once conditions stabilize -- no restart timeline given. This is the same operational fact as the 2026-08-01 review, now confirmed as persisting rather than resolving. [Yahoo Finance, 'Norsk Hydro: Qatalum maintaining scaled down aluminium production', accessed 2026-08-21; AlCircle, 'Hydro approves: Qatalum to maintain 60% aluminium production amid reduced gas supply', accessed 2026-08-21 -- both web-sourced, indicative/unverified]",
+      "as_of": "2026-08-21"
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "This is the scheduled 30d review (due 2026-08-18, filed 2026-08-21). It supersedes nothing from the 2026-08-01 ad-hoc review -- both stand, append-only -- but this is the first review with both benchmark and sector-benchmark returns established, making the call benchmark-scoreable for the first time.",
+    "Price: entry NOK 84.96 (2026-07-17, Capital IQ) to NOK 88.26 (2026-08-20 close) = +3.88%. Web-sourced and indicative/unverified [investing.com NHY historical data, accessed 2026-08-21].",
+    "Benchmark: OSEBX rose from 1,971.02 (closest available trading day to entry in the source series, 2026-07-21 -- the series does not carry 2026-07-17) to 2,075.92 (2026-08-20) = +5.32%. NHY underperformed its benchmark by -1.44pp over the window despite a positive absolute return. [investing.com OSE Benchmark historical data, accessed 2026-08-21, indicative/unverified]",
+    "Sector benchmark: LME Aluminium cash price rose from USD 3,154.00/mt (2026-07-17, exact date match to entry) to USD 3,182.00/mt (2026-08-20, exact date match to review price) = +0.89%. NHY outperformed the metal itself by +2.99pp, consistent with operating leverage on a modestly higher metal price plus the Q2 beat. [Westmetall LME Aluminium Cash-Settlement series, accessed 2026-08-21]",
+    "Forecast scorecard unchanged from the 2026-08-01 ad-hoc review: 1 confirmed (revenue beat), 1 falsified (EBITDA beat -- the record was wrong, in the company's favor), 1 not assessable (receivables/DSO -- still no settling data found), 1 confirmed-on-direction-only (net debt rose, no comparable-basis multiple claimed), 2 still open (margin fade to Oct-2026; Alumetal impairment to Feb-2027). No new quarterly print landed in the three weeks since the ad-hoc review, so nothing new resolves.",
+    "A secondary web source (TipRanks) computed a 'net debt/EBITDA of ~2.56x' by dividing quarter-end net debt by a single quarter's adjusted EBITDA rather than trailing-twelve-month EBITDA -- a basis mismatch against the original 1.02x reading. That figure is explicitly rejected here rather than carried into the record (CLAUDE.md §15 matched-basis ratios); the net-debt forecast stays confirmed on direction only.",
+    "Qatalum is still running at ~60% of nameplate capacity a month on, with no restart timeline disclosed -- the operational risk is persisting, not resolving, which is itself informative for the 12-month horizon but does not move thesis_status.",
+    "Thesis status remains on-track: 33 days into a 12-month-horizon Watchlist call is still early, no kill criterion has triggered, and the single most decision-relevant unresolved item (does the Adjusted EBITDA margin fade toward ~13% or hold near 17%+) needs the 23-Oct-2026 print, not this one. decision_quality stays 'not assessable' on the same ground as the ad-hoc review -- a one-month return on a Watchlist/no-position call is not yet a scoreable outcome even though it is now benchmark-relative."
+  ],
+  "module_calibration_notes": {
+    "most_responsible_for_decision": "Not re-derived in this review -- the record's own module_scores stand, consistent with the 2026-08-01 ad-hoc review.",
+    "most_accurate_so_far": "The balance-sheet-survival read remains the most accurate: the leverage direction it flagged (rising net debt) is exactly what Q2 2026 delivered, and the direction has not been contradicted by anything new since.",
+    "missed_the_key_variable": "Unchanged from the ad-hoc review: the earnings module's forecast that adjusted EBITDA would NOT clearly beat consensus was wrong -- it beat by about 4%, driven by aluminium price/premium strength and recycling earnings the record under-weighted.",
+    "which_module_mattered_most_to_the_outcome": "earnings and balance-sheet-survival, same as the ad-hoc review. Valuation's central forecast (margin fade) has not yet been tested by a second print; management-governance's Alumetal forecast has not yet been tested by the FY2026 annual report.",
+    "confidence_score_judgment": "Not revisited. One month into a 12-month-horizon Watchlist call with one of two required prints in is not yet grounds to say the original 35.0/post-haircut-25.0 confidence was too high or too low.",
+    "data_sufficiency_score_judgment": "Same authoring-time weakness noted in the ad-hoc review persists: the receivables/DSO forecast was written with a settling trigger the quarterly results release does not carry, and three weeks of further search still could not locate the underlying interim-report data. This is a forecast-construction fault visible from information at 2026-07-19, not a new data-availability gap.",
+    "evidence_partition_note": "Process judgments above use only information available on or before 2026-07-19. The Q2 2026 results (2026-07-22), price/benchmark levels (2026-07-21 through 2026-08-20), and Qatalum status (accessed 2026-08-21) are used ONLY for outcome fields."
+  },
+  "pre_mortem_check": {
+    "pre_mortem_file": "analyses/NHY_2026-07-19/pre_mortem.json",
+    "pre_mortem_verdict": "Survives with haircut",
+    "pre_mortem_confidence_haircut": 10.0,
+    "outcome_vs_verdict": "too_early",
+    "notes": "Unchanged from the 2026-08-01 ad-hoc review: thesis_status is still on-track and nothing has resolved either way 33 days in, so the red-team's 'Survives with haircut' verdict can be neither vindicated nor contradicted yet. The pre-mortem's three specific critiques (weak kill criteria, overstated 30/100 edge score, undersized single-variable haircut) are process critiques, not outcome predictions, and are not re-tested by this review."
+  },
+  "memo_delta": {
+    "summary": "In the three weeks since the 2026-08-01 ad-hoc delta, no new quarterly print landed (FQ3 2026 is not due until 23 October 2026) and nothing resolves the thesis either way. What is new: this is the first review with both a benchmark (OSEBX) and sector-benchmark (LME aluminium) return established, so the call is now benchmark-scoreable. NHY is up 3.88% since the 2026-07-17 entry, but that underperforms the OSEBX (+5.32%) by 1.44 points while outperforming the aluminium price itself (+0.89%) by 2.99 points. Qatalum remains stuck at ~60% capacity with no restart date. Nothing here changes the Watchlist call.",
+    "thesis_delta_verdict": "too_early",
+    "changed_sections": [
+      {
+        "section": "Valuation / risk-reward -- benchmark context",
+        "original_claim": "benchmark_return_pct and sector_return_pct were null in the decision record and in the 2026-08-01 ad-hoc review; the call was not yet benchmark-scoreable.",
+        "new_evidence": "OSEBX rose ~5.32% and LME aluminium cash rose ~0.89% over the entry-to-review window, against NHY's own +3.88% -- the stock lagged the broad Oslo market but beat the metal it produces.",
+        "evidence_source": "investing.com OSE Benchmark historical data and Westmetall LME Aluminium Cash-Settlement series, both accessed 2026-08-21",
+        "materiality_score": 30,
+        "impact_direction": "neutral -- establishes scoreability, does not change the thesis",
+        "impacted_modules": ["valuation"],
+        "rerun_recommended": false,
+        "rerun_reason": "",
+        "rerun_command": ""
+      },
+      {
+        "section": "Business model / operational risk -- Qatalum",
+        "original_claim": "Qatalum output was running at approximately 60% of capacity as of the 2026-08-01 review, described via a weekly-recap web source.",
+        "new_evidence": "Qatalum is still at ~60% capacity three weeks later, with management stating only that a ramp-up update will follow once conditions stabilize -- no restart date given.",
+        "evidence_source": "Yahoo Finance, 'Norsk Hydro: Qatalum maintaining scaled down aluminium production', accessed 2026-08-21; AlCircle, accessed 2026-08-21",
+        "materiality_score": 35,
+        "impact_direction": "modestly negative -- persistence without a timeline is worse than an unresolved one-off mention",
+        "impacted_modules": ["business-model", "earnings"],
+        "rerun_recommended": false,
+        "rerun_reason": "Materiality is below the 60 threshold for a recommended re-run; this is a monitoring item, not yet a fact that invalidates any module's inputs.",
+        "rerun_command": ""
+      }
+    ],
+    "stage_one_comment": "Nothing new landed at Norsk Hydro in the three weeks since our last update. The next quarterly print is not due until 23 October, so the two open questions from before are still open: whether the adjusted EBITDA margin fades back toward the mid-teens as aluminium prices soften, and whether the receivables spike from the first quarter ever gets explained. The shares are up about 3.9 percent since our 17 July reference price, but that trails the broader Oslo market, which rose about 5.3 percent over the same stretch, while beating the aluminium price itself, which was up less than 1 percent. Qatalum, the Qatari smelter running at reduced output since a gas-supply disruption in March, is still stuck at about 60 percent of capacity with no restart date given. None of this changes the call. We remain on the watchlist with no new position, waiting on the October print and on price falling toward our fair-value band before revisiting.",
+    "watch_items": [
+      "FQ3 2026 results on 23 October 2026 -- the second of the two prints the adjusted-EBITDA-margin forecast needs before it can be judged",
+      "Net debt at the FQ3 balance sheet -- whether the NOK 16.3bn continues climbing, and whether a strict, trailing-twelve-month-basis net debt/EBITDA ratio is ever disclosed so the multiple can be measured rather than inferred",
+      "Receivables and DSO in the full FQ2 interim report, if it becomes accessible -- the unresolved forecast still has no settling data source found",
+      "Qatalum restart timeline -- currently undisclosed; watch for the promised 'ramp-up update'",
+      "Alumetal (Poland/Hungary recycling) CGU impairment test in the FY2026 annual report, approximately Feb 2027",
+      "LME aluminium price trajectory -- down from the USD 3,467/mt Q2 quarter-end spot to USD 3,182/mt as of 2026-08-20, directionally consistent with (but not proof of) the fade case"
+    ],
+    "management_questions": [
+      "Is there now a firmer timeline for Qatalum's return from ~60% to full capacity, and what is the quarterly EBITDA drag until then?",
+      "Where do receivables and days-sales-outstanding stand now versus the FY2025 33.0-day level?",
+      "How much of the Q2 adjusted EBITDA beat was aluminium price/premium versus recycling margin that would persist at a lower LME price -- and has that mix shifted with aluminium down ~8% from the Q2 quarter-end spot?",
+      "What headroom remains before rising leverage constrains the capital-return policy?"
+    ],
+    "memo_delta_file": "analyses/NHY_2026-07-19/reviews/2026-08-21_30d_memo_delta.md"
+  }
+}
