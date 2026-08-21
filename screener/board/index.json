@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-08-21T15:07:09Z",
+  "generated_at": "2026-08-21T15:16:08Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260821-722",
+      "headline": "PATEO (02889): MAJOR TRANSACTION ACQUISITION OF 20% EQUITY INTERESTS IN THE TARGET COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082102599.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-21T14:58:00Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "PATEO to acquire 20% equity interest in a target company, a disclosed major transaction with no deal value given.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PATEO to acquire 20% equity interest in a target company, a disclosed major transaction with no deal value given.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PATEO",
+          "ticker": "02889",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-723",
+      "headline": "HONBRIDGE (08137): MAJOR AND CONNECTED TRANSACTION IN RELATION TO THE ACQUISITION OF 51% EQUITY INTEREST IN THE TARGET COMPANY",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0821/2026082102527.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-21T14:57:00Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "HONBRIDGE to acquire 51% equity interest in target company, a major and connected transaction with no value stated.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "HONBRIDGE to acquire 51% equity interest in target company, a major and connected transaction with no value stated.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 65,
+      "rank_factors": {
+        "materiality": 65,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HONBRIDGE",
+          "ticker": "08137",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260821-718",
       "headline": "GRAND FIELD GP (00115): PROFIT WARNING",
@@ -1867,104 +1965,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-363",
-      "headline": "Tube Investments of India Limited: Tube Investments of India Limited has informed the Exchange about Acquisition",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/TIINDIA_21082026085600_TIINSEBSESGL.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-21T03:26:08Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Acquisition is a material event that can significantly alter a company's scale, market position, and financial structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Acquisition is a material event that can significantly alter a company's scale, market position, and financial structure.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tube Investments of India Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-364",
-      "headline": "Kronox Lab Sciences Limited: Kronox Lab Sciences Limited has informed the Exchange regarding ' Announcement under Regulation 30 (LODR)-Acquisition'.",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/KRONOX_21082026084522_IIFL_COVERING.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-21T03:15:54Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Acquisition is a material event that can significantly alter a company's scale, market position, and financial structure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Acquisition is a material event that can significantly alter a company's scale, market position, and financial structure.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kronox Lab Sciences Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -70261,6 +70261,78 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-7a73e09f78e8",
+      "idea_version": "IDEAV-eed3df02b619ee61",
+      "idea_version_started_at": "2026-08-21T06:43:23Z",
+      "ticker": "BAVA",
+      "company": "Bavarian Nordic",
+      "exchange": null,
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has officially raised its full-year 2026 financial guidance, signaling stronger-than-expected operational performance.",
+      "why_now": "The guidance upgrade was released today, August 21, 2026.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 18,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a4ca25c48ed9"
+      ],
+      "primary_source_event_id": "EVT-a4ca25c48ed9",
+      "source_headlines": [
+        "Bavarian Nordic Upgrades its Full-Year 2026 Financial Guidance"
+      ],
+      "source_headline": "Bavarian Nordic Upgrades its Full-Year 2026 Financial Guidance",
+      "source_url": "https://www.globenewswire.com/news-release/2026/08/21/3348887/0/en/bavarian-nordic-upgrades-its-full-year-2026-financial-guidance.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-21T05:44:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-21T06:43:23Z",
+      "updated_at": "2026-08-21T15:09:33Z",
+      "decay_at": "2026-08-21T17:09:33Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": "up",
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-b9965ae2da06",
       "idea_version": "IDEAV-594d6c5d5485c999",
       "idea_version_started_at": "2026-08-21T15:07:01Z",
@@ -71043,7 +71115,7 @@
       "decay_at": "2026-08-22T19:30:00Z",
       "status": "live",
       "promoted_signal_id": null,
-      "feedback": null,
+      "feedback": "up",
       "stale": false
     },
     {
@@ -71112,78 +71184,6 @@
       "surfaced_at": "2026-08-21T09:27:03Z",
       "updated_at": "2026-08-21T09:27:03Z",
       "decay_at": "2026-08-22T20:33:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
-      "idea_id": "IDEA-7a73e09f78e8",
-      "idea_version": "IDEAV-eed3df02b619ee61",
-      "idea_version_started_at": "2026-08-21T06:43:23Z",
-      "ticker": "BAVA",
-      "company": "Bavarian Nordic",
-      "exchange": null,
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has officially raised its full-year 2026 financial guidance, signaling stronger-than-expected operational performance.",
-      "why_now": "The guidance upgrade was released today, August 21, 2026.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 18,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a4ca25c48ed9"
-      ],
-      "primary_source_event_id": "EVT-a4ca25c48ed9",
-      "source_headlines": [
-        "Bavarian Nordic Upgrades its Full-Year 2026 Financial Guidance"
-      ],
-      "source_headline": "Bavarian Nordic Upgrades its Full-Year 2026 Financial Guidance",
-      "source_url": "https://www.globenewswire.com/news-release/2026/08/21/3348887/0/en/bavarian-nordic-upgrades-its-full-year-2026-financial-guidance.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-21T05:44:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-21T06:43:23Z",
-      "updated_at": "2026-08-21T06:43:23Z",
-      "decay_at": "2026-08-22T17:44:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -75149,7 +75149,7 @@
     "machine_confirmed": 0,
     "machine_passed": 1,
     "machine_pending": 0,
-    "up_votes": 1,
+    "up_votes": 3,
     "down_votes": 0,
     "resolved": 1
   },
@@ -75163,9 +75163,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10879408,
-    "news_picked_today": 1761,
-    "news_dropped_today": 4203
+    "news_seen_today": 10901773,
+    "news_picked_today": 1796,
+    "news_dropped_today": 4300
   },
   "book_momentum": {
     "live_count": 8,
