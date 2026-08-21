@@ -277,8 +277,7 @@ class MemoryNeo4jTests(unittest.TestCase):
     def _write_test_credentials(self, path: Path, text: str | None = None) -> None:
         payload = self._credential_text() if text is None else text
         # The clear text is deliberately synthetic and confined to a 0600 temp fixture.
-        # codeql[py/clear-text-storage-sensitive-data]
-        path.write_text(payload, encoding="utf-8")
+        path.write_text(payload, encoding="utf-8")  # lgtm[py/clear-text-storage-sensitive-data]
         path.chmod(0o600)
 
     def test_credentials_are_owner_only_and_secret_safe(self) -> None:
