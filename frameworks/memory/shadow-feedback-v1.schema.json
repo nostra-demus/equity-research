@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/memory/shadow-feedback-v1.schema.json",
+  "title": "Inert permanent-memory shadow feedback artifact v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "feedback_id", "content_sha256", "content"],
+  "properties": {
+    "schema": { "const": "memory-shadow-feedback/v1" },
+    "feedback_id": {
+      "type": "string",
+      "pattern": "^shadow-feedback_[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "content_sha256": { "$ref": "#/$defs/hashRef" },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "context_packet_id",
+        "packet_sha256",
+        "query_sha256",
+        "client_id",
+        "observed_at",
+        "items",
+        "status",
+        "canonical_write",
+        "rating_effect"
+      ],
+      "properties": {
+        "context_packet_id": {
+          "type": "string",
+          "pattern": "^context-packet_[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "packet_sha256": { "$ref": "#/$defs/hashRef" },
+        "query_sha256": { "$ref": "#/$defs/hashRef" },
+        "client_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]{0,127}$"
+        },
+        "observed_at": { "$ref": "#/$defs/awareDateTime" },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 128,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["category", "event_id", "evidence_id", "note"],
+            "properties": {
+              "category": { "enum": ["useful", "missing", "stale", "contradictory"] },
+              "event_id": {
+                "oneOf": [
+                  { "type": "null" },
+                  {
+                    "type": "string",
+                    "pattern": "^evt_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+                  }
+                ]
+              },
+              "evidence_id": { "type": ["string", "null"], "minLength": 1, "maxLength": 2048 },
+              "note": { "type": "string", "minLength": 1, "maxLength": 2000 }
+            }
+          }
+        },
+        "status": { "const": "inert-shadow-only" },
+        "canonical_write": { "const": "none" },
+        "rating_effect": { "const": "none" }
+      }
+    }
+  },
+  "$defs": {
+    "hashRef": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "awareDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?Z$"
+    }
+  }
+}

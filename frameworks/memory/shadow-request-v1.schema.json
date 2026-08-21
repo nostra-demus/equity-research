@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/memory/shadow-request-v1.schema.json",
+  "title": "Read-only permanent-memory shadow recall request v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "query"],
+  "properties": {
+    "schema": { "const": "memory-shadow-request/v1" },
+    "query": {
+      "allOf": [
+        { "$ref": "query-spec-v1.schema.json" },
+        {
+          "properties": {
+            "event_types": {
+              "const": ["correction.recorded", "decision.recorded", "outcome.reviewed"]
+            },
+            "record_types": { "const": ["legacy-adapter"] },
+            "reporting_basis": { "const": null },
+            "currency": { "const": null },
+            "metric": { "const": null },
+            "segment": { "const": null }
+          }
+        }
+      ]
+    }
+  }
+}
