@@ -1,0 +1,161 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/memory/intake-receipt-v1.schema.json",
+  "title": "Trusted memory intake receipt v1",
+  "description": "A signed receipt binding one canonical object manifest to trusted intake clocks, producer/run lineage, policy, and an authorized intake signer. The signature value is detached from the canonical signing bytes while algorithm and key_id remain protected.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "receipt_id",
+    "manifest_sha256",
+    "object_id",
+    "acquisition_id",
+    "source_version_id",
+    "producer_id",
+    "run_id",
+    "intake_mode",
+    "expected_store_head",
+    "idempotency_key",
+    "checkpoint_id",
+    "system_time_not_before",
+    "system_time",
+    "received_at",
+    "intake_signer_id",
+    "policy",
+    "signature"
+  ],
+  "properties": {
+    "schema": { "const": "memory-intake-receipt/v1" },
+    "receipt_id": {
+      "type": "string",
+      "pattern": "^receipt_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "manifest_sha256": { "$ref": "#/$defs/hashRef" },
+    "object_id": { "$ref": "#/$defs/objectId" },
+    "acquisition_id": { "$ref": "#/$defs/acquisitionId" },
+    "source_version_id": { "$ref": "#/$defs/sourceVersionId" },
+    "producer_id": { "$ref": "#/$defs/producerId" },
+    "run_id": { "$ref": "#/$defs/runId" },
+    "intake_mode": { "enum": ["genesis", "append"] },
+    "expected_store_head": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/checkpointRef" }
+      ]
+    },
+    "idempotency_key": {
+      "type": "string",
+      "pattern": "^idempotency:sha256:[0-9a-f]{64}$"
+    },
+    "checkpoint_id": {
+      "description": "Preallocated identifier of the checkpoint transaction that will commit this receipt. The receipt cannot carry that checkpoint's full digest because the checkpoint itself commits the receipt digest.",
+      "type": "string",
+      "pattern": "^checkpoint_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "system_time_not_before": { "$ref": "#/$defs/awareDateTime" },
+    "system_time": { "$ref": "#/$defs/awareDateTime" },
+    "received_at": { "$ref": "#/$defs/awareDateTime" },
+    "intake_signer_id": { "$ref": "#/$defs/producerId" },
+    "policy": { "$ref": "#/$defs/policy" },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "key_id", "signed_sha256", "value"],
+      "properties": {
+        "algorithm": { "const": "ed25519" },
+        "key_id": {
+          "type": "string",
+          "pattern": "^key_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "signed_sha256": { "$ref": "#/$defs/hashRef" },
+        "value": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{86}$"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "intake_mode": { "const": "genesis" } },
+        "required": ["intake_mode"]
+      },
+      "then": {
+        "properties": { "expected_store_head": { "type": "null" } }
+      },
+      "else": {
+        "properties": { "expected_store_head": { "$ref": "#/$defs/checkpointRef" } }
+      }
+    }
+  ],
+  "$defs": {
+    "hashRef": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "checkpointRef": {
+      "type": "string",
+      "pattern": "^checkpoint:sha256:[0-9a-f]{64}$"
+    },
+    "objectId": {
+      "type": "string",
+      "pattern": "^object:sha256:[0-9a-f]{64}$"
+    },
+    "acquisitionId": {
+      "type": "string",
+      "pattern": "^acquisition_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "sourceVersionId": {
+      "type": "string",
+      "pattern": "^source-version_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "producerId": {
+      "type": "string",
+      "pattern": "^producer:[a-z0-9][a-z0-9._/-]{0,127}$"
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^run_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "awareDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?(?:Z|[+-]\\d{2}:\\d{2})$"
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classification", "retention", "retain_until"],
+      "properties": {
+        "classification": {
+          "enum": ["public", "internal", "licensed", "confidential", "restricted"]
+        },
+        "retention": {
+          "enum": ["permanent", "source-policy", "expires"]
+        },
+        "retain_until": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/awareDateTime" }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "retention": { "const": "expires" } },
+            "required": ["retention"]
+          },
+          "then": {
+            "properties": { "retain_until": { "$ref": "#/$defs/awareDateTime" } }
+          },
+          "else": {
+            "properties": { "retain_until": { "type": "null" } }
+          }
+        }
+      ]
+    }
+  }
+}

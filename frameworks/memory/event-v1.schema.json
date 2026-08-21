@@ -149,6 +149,115 @@
     {
       "if": {
         "properties": {
+          "payload": {
+            "properties": { "schema": { "const": "memory-source/v2" } },
+            "required": ["schema"]
+          }
+        },
+        "required": ["payload"]
+      },
+      "then": {
+        "properties": {
+          "event_type": { "pattern": "^source\\." },
+          "evidence_refs": { "maxItems": 0 }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "payload": {
+            "properties": { "schema": { "const": "memory-evidence-span/v2" } },
+            "required": ["schema"]
+          }
+        },
+        "required": ["payload"]
+      },
+      "then": {
+        "properties": {
+          "event_type": { "pattern": "^evidence\\." },
+          "evidence_refs": { "maxItems": 0 }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "payload": {
+            "properties": { "schema": { "const": "memory-extraction-artifact/v1" } },
+            "required": ["schema"]
+          }
+        },
+        "required": ["payload"]
+      },
+      "then": {
+        "properties": {
+          "event_type": { "pattern": "^extraction\\." },
+          "evidence_refs": { "maxItems": 0 }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "event_type": { "pattern": "^source\\." } },
+        "required": ["event_type"]
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "properties": {
+              "schema": {
+                "enum": ["memory-source/v1", "memory-source/v2", "memory-tombstone/v1"]
+              }
+            },
+            "required": ["schema"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "event_type": { "pattern": "^evidence\\." } },
+        "required": ["event_type"]
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "properties": {
+              "schema": {
+                "enum": [
+                  "memory-evidence-span/v1",
+                  "memory-evidence-span/v2",
+                  "memory-tombstone/v1"
+                ]
+              }
+            },
+            "required": ["schema"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "event_type": { "pattern": "^extraction\\." } },
+        "required": ["event_type"]
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "properties": {
+              "schema": {
+                "enum": ["memory-extraction-artifact/v1", "memory-tombstone/v1"]
+              }
+            },
+            "required": ["schema"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
           "policy": {
             "properties": { "retention": { "const": "tombstone-only" } },
             "required": ["retention"]

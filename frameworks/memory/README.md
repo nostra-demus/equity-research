@@ -1,9 +1,10 @@
 # Permanent memory foundation
 
-This directory contains the vendor-neutral, read-only foundation for permanent research memory.
-Historical equity, commodity, and screener ledgers remain authoritative and byte-identical. The
-adapter presents those records through one canonical envelope; the SQLite database is a disposable
-projection and is never the sole holder of evidence.
+This directory contains the vendor-neutral foundation and Phase 2 reference object/provenance lane
+for permanent research memory. Historical equity, commodity, and screener ledgers remain
+authoritative and byte-identical. The adapter presents those records through one canonical
+envelope; SQLite and every retrieval index remain disposable projections rather than sole holders
+of evidence.
 
 ## Implemented scope
 
@@ -20,10 +21,19 @@ projection and is never the sole holder of evidence.
 - A read-only integrity doctor that rebuilds twice and compares logical projection digests.
 - Append-only guards for future canonical files under `memory/events/`.
 - A held-out Phase 0 benchmark and deterministic folder/literal-retrieval baseline.
+- Closed Phase 2 contracts for object manifests, signed intake receipts, trust keys, source
+  acquisitions, extraction artifacts, exact evidence spans, store checkpoints, and purge receipts.
+- A policy-partitioned local reference store with exact acquisition/version lineage, authenticated
+  protected content, managed backup/restore, transitive purge, rollback-anchored diagnostics, and
+  deterministic rebuilds.
+- A composite exact-byte resolver for clean Git-backed legacy sources and complete Phase 2 object
+  manifests, plus a deterministic live-corpus resolution drill.
 
-The implementation deliberately does not provide canonical-event writes, a production object store,
-embeddings, a remote graph database, context-packet generation, or agent-triggered write-back. Those
-remain later phases in `PERMANENT_MEMORY_ARCHITECTURE_PLAN.md`.
+The implementation deliberately does not yet provide controlled canonical-event intake, a remote
+production object service, embeddings, hybrid retrieval, a remote graph database, context-packet
+generation, MCP serving, or agent-triggered write-back. Those remain later phases in
+`PERMANENT_MEMORY_ARCHITECTURE_PLAN.md`. The local store write methods are administrative reference
+primitives, not the Phase 5 controlled-writer API.
 
 ## Authority and paths
 
@@ -31,20 +41,21 @@ remain later phases in `PERMANENT_MEMORY_ARCHITECTURE_PLAN.md`.
 - Future reviewed `public`/`internal`, `permanent` canonical events may belong under
   `memory/events/` as immutable JSON or append-only canonical NDJSON. The immutability guard rejects
   every licensed/restricted/confidential, source-policy, expires, or tombstone-only record because
-  Git history cannot satisfy physical deletion. The Phase 2 purgeable event/object lane owns those
-  records. This slice does not create either lane or write events.
+  Git history cannot satisfy physical deletion. The Phase 2 purgeable event/object reference lane
+  owns those records outside Git; see `frameworks/memory/PHASE2.md`.
 - Exact source bytes are identified by SHA-256. An evidence reference is valid only when both its
   digest and locator have declared, point-in-time, policy-safe providers in the projection. The
-  doctor additionally verifies exact bytes for every legacy adapter source. A typed remote/object
-  source resolver is Phase 2, so the projection API alone does not prove that arbitrary typed URIs
-  are currently retrievable.
+  doctor additionally verifies exact bytes for every legacy adapter source. The Phase 2 resolver
+  uses full acquisition/version/manifest identities for object-store reads and never interprets a
+  typed locator as a fetch instruction. The projection API alone still does not prove byte
+  availability; retrieval must call the resolver boundary.
 - Projection databases may be deleted at any time and rebuilt from authoritative inputs.
 
 Projection files contain the canonical payloads needed for local search, including any protected
 events supplied directly to the library. They must stay inside the same authorized boundary as
 their inputs and be destroyed/rebuilt when policy changes. `source-policy` records fail closed and
-are not returned without the external entitlement/status resolver planned for Phase 2. Filtering a
-SQLite result is not a substitute for purging protected source bytes.
+are not returned without an injected current entitlement/status resolver. Filtering a SQLite
+result is not a substitute for purging protected source bytes.
 
 `tombstone-only` is not a generic retention label. It is accepted only on a closed
 `memory-tombstone/v1` payload that names and supersedes exactly one event. Tombstones carry closed
@@ -53,9 +64,9 @@ reasons and source content are forbidden.
 
 `integrity.payload_sha256` protects the canonical payload; it is not a signature over the envelope.
 Whole-event integrity comes from canonical Git/object bytes, `event_sha256`, and the out-of-band
-projection digest. Event signatures are required to be `null` in v1 because this slice has no key
-registry or signature-verification trust store; accepting an unverified signature would create a
-false authenticity claim.
+projection digest. Event signatures remain required to be `null` in v1. Phase 2 adds detached,
+purpose-limited signatures for intake receipts, checkpoints, and purge receipts instead of
+pretending the original envelope signature field was authenticated.
 
 Query result packets confirm that the caller-supplied digest matched but do not echo the global
 projection digest. The packet's `result_sha256` covers only the requested/effective query and its
@@ -84,6 +95,13 @@ python3 scripts/memory.py query \
 # Reproduce the Phase 0 report and run all memory-focused regressions.
 python3 scripts/memory_baseline.py --check
 for test in scripts/test_memory_*.py; do python3 "$test"; done
+
+# Install the exact cryptographic runtime and prove exact-byte resolution twice.
+python3 -m pip install --require-hashes -r scripts/requirements-memory.txt
+python3 scripts/memory_resolver.py drill \
+  --root . \
+  --sample-size 16 \
+  --authorize-internal-legacy
 
 # Validate every canonical-memory history transition since a trusted base.
 python3 scripts/memory_immutability.py --repo . --base <trusted-ancestor-commit> --head HEAD

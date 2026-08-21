@@ -1,0 +1,160 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/memory/evidence-span-v2.schema.json",
+  "title": "Canonical memory evidence span payload v2",
+  "description": "A stable evidence identity bound to one logical document version, acquisition, exact source object, and a locator in an exact coordinate artifact. Evidence identity is not derived from mutable extraction coordinates.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "evidence_id",
+    "document_id",
+    "source_version_id",
+    "acquisition_id",
+    "source_object_id",
+    "source_content_sha256",
+    "locator",
+    "language",
+    "content",
+    "extraction_confidence"
+  ],
+  "properties": {
+    "schema": { "const": "memory-evidence-span/v2" },
+    "evidence_id": { "$ref": "#/$defs/evidenceId" },
+    "document_id": { "$ref": "#/$defs/documentId" },
+    "source_version_id": { "$ref": "#/$defs/sourceVersionId" },
+    "acquisition_id": { "$ref": "#/$defs/acquisitionId" },
+    "source_object_id": { "$ref": "#/$defs/objectId" },
+    "source_content_sha256": { "$ref": "#/$defs/hashRef" },
+    "locator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "extraction_id",
+        "coordinate_artifact_object_id",
+        "coordinate_artifact_content_sha256",
+        "coordinate_system_sha256",
+        "kind",
+        "ref",
+        "page",
+        "section",
+        "table",
+        "cell",
+        "char_start",
+        "char_end",
+        "record_index",
+        "timestamp_start_millis",
+        "timestamp_end_millis",
+        "image_region"
+      ],
+      "properties": {
+        "extraction_id": { "$ref": "#/$defs/extractionId" },
+        "coordinate_artifact_object_id": { "$ref": "#/$defs/objectId" },
+        "coordinate_artifact_content_sha256": { "$ref": "#/$defs/hashRef" },
+        "coordinate_system_sha256": { "$ref": "#/$defs/hashRef" },
+        "kind": {
+          "enum": ["page", "section", "table", "cell", "character", "record", "timestamp", "image-region"]
+        },
+        "ref": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._~:/?&=,+-]{0,255}$"
+        },
+        "page": { "type": ["integer", "null"], "minimum": 1, "maximum": 9007199254740991 },
+        "section": { "type": ["string", "null"], "minLength": 1, "maxLength": 512 },
+        "table": { "type": ["string", "null"], "minLength": 1, "maxLength": 256 },
+        "cell": { "type": ["string", "null"], "minLength": 1, "maxLength": 64 },
+        "char_start": { "type": ["integer", "null"], "minimum": 0, "maximum": 9007199254740991 },
+        "char_end": { "type": ["integer", "null"], "minimum": 0, "maximum": 9007199254740991 },
+        "record_index": { "type": ["integer", "null"], "minimum": 0, "maximum": 9007199254740991 },
+        "timestamp_start_millis": { "type": ["integer", "null"], "minimum": 0, "maximum": 9007199254740991 },
+        "timestamp_end_millis": { "type": ["integer", "null"], "minimum": 0, "maximum": 9007199254740991 },
+        "image_region": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/imageRegion" }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "kind": { "const": "image-region" } },
+            "required": ["kind"]
+          },
+          "then": {
+            "properties": { "image_region": { "$ref": "#/$defs/imageRegion" } }
+          },
+          "else": {
+            "properties": { "image_region": { "type": "null" } }
+          }
+        }
+      ]
+    },
+    "language": {
+      "type": "string",
+      "pattern": "^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$",
+      "maxLength": 63
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "text": { "type": "string", "minLength": 1 },
+        "value": { "type": ["string", "number", "integer", "boolean", "null"] }
+      },
+      "oneOf": [
+        {
+          "required": ["text"],
+          "not": { "required": ["value"] }
+        },
+        {
+          "required": ["value"],
+          "not": { "required": ["text"] }
+        }
+      ]
+    },
+    "extraction_confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+  },
+  "$defs": {
+    "evidenceId": {
+      "type": "string",
+      "pattern": "^evidence_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "documentId": {
+      "type": "string",
+      "pattern": "^document_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "sourceVersionId": {
+      "type": "string",
+      "pattern": "^source-version_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "acquisitionId": {
+      "type": "string",
+      "pattern": "^acquisition_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "extractionId": {
+      "type": "string",
+      "pattern": "^extraction_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "objectId": {
+      "type": "string",
+      "pattern": "^object:sha256:[0-9a-f]{64}$"
+    },
+    "hashRef": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "imageRegion": {
+      "description": "Normalized bounding box in integer millionths of artifact width/height.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x_min", "y_min", "x_max", "y_max"],
+      "properties": {
+        "x_min": { "type": "integer", "minimum": 0, "maximum": 1000000 },
+        "y_min": { "type": "integer", "minimum": 0, "maximum": 1000000 },
+        "x_max": { "type": "integer", "minimum": 0, "maximum": 1000000 },
+        "y_max": { "type": "integer", "minimum": 0, "maximum": 1000000 }
+      }
+    }
+  }
+}
