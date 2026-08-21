@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
-import type { NewsDiagnostics, TierDiagnostics } from '../../lib/types'
-import { diagnosticBlockers, retryReasonLabel, tierStatusCopy } from './pipelineDiagnosticsView'
+import type { NewsDiagnostics, PipelineFlowRates, TierDiagnostics } from '../../lib/types'
+import { diagnosticBlockers, fmtPipelineRate, lastCycleArrivalCopy, pipelineFlowPresentation, retryReasonLabel, tierStatusCopy } from './pipelineDiagnosticsView'
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -128,6 +128,127 @@ check('a single provider-access failure is unlucky, not a dead key — no premat
   const copy = tierStatusCopy(oneOff, 5 * 60_000)
   assert.equal(copy, 'Waiting after rejected provider access · try again in ~5m')
   assert.deepEqual(diagnosticBlockers(diagnostics([oneOff], { blockingTiers: ['mistral'] })).needsCredential, [])
+})
+
+check('a disabled optional provider stays visible with its operator action', () => {
+  const optional = {
+    ...tier('omniroute', 'OmniRoute', 'disabled'),
+    enabled: false,
+    disabledReason: 'Provisioning pending · the deploy agent retries installation and the complete 12-item scorer smoke automatically; OmniRoute enables only after that proof passes',
+  }
+  assert.equal(tierStatusCopy(optional, 0), optional.disabledReason)
+})
+
+const FLOW_NOW = Date.parse('2026-08-13T00:00:00Z')
+const FLOW_TS = '2026-08-13T00:00:00Z'
+const completeHistory: NonNullable<PipelineFlowRates['history']> = {
+  coverage: 'complete',
+  requiredDates: ['2026-08-12', '2026-08-13'],
+  readDates: ['2026-08-12', '2026-08-13'],
+  missingDates: [],
+  unreadableDates: [],
+  corruptCycleRows: 0,
+}
+
+const flow = (gap: number, status: PipelineFlowRates['comparison']['status']): PipelineFlowRates => ({
+  windowMinutes: 60,
+  from: '2026-08-12T23:00:00Z',
+  to: FLOW_TS,
+  history: { ...completeHistory },
+  inflow: { items: 100, perSecond: 100 / 3600, measured: true, coverage: 'complete', knownCycles: 3, totalCycles: 3 },
+  scanning: { items: 100 + gap, perSecond: (100 + gap) / 3600, measured: true, coverage: 'complete', knownCycles: 3, totalCycles: 3 },
+  comparison: { measured: true, status, scanningMinusInflowItemsPerHour: gap },
+})
+
+check('pipeline rate formatting keeps a one-item-per-hour flow visible', () => {
+  assert.equal(fmtPipelineRate(1 / 3600), '0.0003')
+  assert.equal(fmtPipelineRate(0), '0.000')
+  assert.equal(fmtPipelineRate(null), '—')
+})
+
+check('last-look copy uses unique arrivals and never relabels legacy fresh-path rows as new', () => {
+  assert.equal(
+    lastCycleArrivalCopy({ newArrivals: 8, fresh: 10, carryover: 24 }),
+    '8 new arrivals · 2 backlog redeliveries · 24 carried',
+  )
+  assert.equal(lastCycleArrivalCopy({ fresh: 10, carryover: 24 }), null, 'legacy payload omits the unprovable split')
+})
+
+check('flow copy names ahead, equal headroom, and falling-behind gaps in items/hour', () => {
+  const ahead = pipelineFlowPresentation(flow(25, 'ahead'), FLOW_TS, FLOW_NOW)
+  assert.equal(ahead.tone, 'ahead')
+  assert.equal(ahead.gapCopy, 'Ahead by 25 items/hour of scanning capacity — before any item expires or is lost at the backlog cap.')
+  assert.match(ahead.coverageCopy, /fixed 3,600-second wall-clock average/)
+
+  const equal = pipelineFlowPresentation(flow(0, 'equal'), FLOW_TS, FLOW_NOW)
+  assert.equal(equal.tone, 'equal')
+  assert.equal(equal.gapCopy, 'Equal — 0 items/hour of capacity headroom before expiry or cap loss. Scanning must stay above inflow to reduce the backlog.')
+
+  const behind = pipelineFlowPresentation(flow(-40, 'behind'), FLOW_TS, FLOW_NOW)
+  assert.equal(behind.tone, 'behind')
+  assert.equal(behind.gapCopy, 'Falling behind by 40 items/hour — queue pressure grows at this rate before any item expires or is lost at the backlog cap.')
+})
+
+check('partial legacy flow never presents a comparison or turns unknown inflow into zero', () => {
+  const partial = flow(25, 'unavailable')
+  partial.inflow = { items: null, perSecond: null, measured: false, coverage: 'partial', knownCycles: 2, totalCycles: 3 }
+  partial.comparison = { measured: false, status: 'unavailable', scanningMinusInflowItemsPerHour: null }
+  const view = pipelineFlowPresentation(partial, FLOW_TS, FLOW_NOW)
+  assert.equal(view.tone, 'unavailable')
+  assert.equal(view.inflowRate, '—')
+  assert.equal(view.gapCopy, 'Like-for-like coverage is incomplete — scanning and inflow are not compared.')
+  assert.equal(view.coverageCopy, 'Coverage: 2/3 completed cycles prove unique new arrivals; 3/3 prove scanning.')
+})
+
+check('deploy skew without a flow field is explicit, not a measured zero-rate state', () => {
+  const view = pipelineFlowPresentation(undefined, FLOW_TS, FLOW_NOW)
+  assert.equal(view.inflowRate, '—')
+  assert.match(view.gapCopy, /not available/)
+  assert.match(view.coverageCopy, /not compared/)
+})
+
+check('stale diagnostics fail closed even when their last rate values were healthy', () => {
+  const staleNow = FLOW_NOW + 60_001
+  const view = pipelineFlowPresentation(flow(25, 'ahead'), FLOW_TS, staleNow)
+  assert.equal(view.tone, 'unavailable')
+  assert.equal(view.inflowRate, '—')
+  assert.equal(view.scanningRate, '—')
+  assert.match(view.gapCopy, /snapshot is stale/)
+  assert.match(view.coverageCopy, /over 60 seconds old/)
+})
+
+check('either the diagnostics clock or the flow clock can make a snapshot stale', () => {
+  const now = FLOW_NOW + 50_000
+  const staleDiagnostics = new Date(FLOW_NOW - 20_000).toISOString()
+  const staleFlow = flow(25, 'ahead')
+  staleFlow.to = new Date(FLOW_NOW - 20_000).toISOString()
+  assert.equal(pipelineFlowPresentation(flow(25, 'ahead'), staleDiagnostics, now).tone, 'unavailable')
+  assert.equal(pipelineFlowPresentation(staleFlow, new Date(now).toISOString(), now).tone, 'unavailable')
+})
+
+check('missing required partition history hides rates and names the coverage debt', () => {
+  const incomplete = flow(25, 'ahead')
+  incomplete.history = {
+    ...completeHistory,
+    coverage: 'partial',
+    readDates: ['2026-08-13'],
+    missingDates: ['2026-08-12'],
+  }
+  const view = pipelineFlowPresentation(incomplete, FLOW_TS, FLOW_NOW)
+  assert.equal(view.tone, 'unavailable')
+  assert.equal(view.inflowRate, '—')
+  assert.equal(view.scanningRate, '—')
+  assert.equal(view.gapCopy, 'Required rate history is incomplete — capacity is not compared.')
+  assert.equal(view.coverageCopy, 'missing 2026-08-12')
+})
+
+check('deploy skew without partition coverage fails closed instead of trusting numeric rates', () => {
+  const older = flow(25, 'ahead')
+  delete older.history
+  const view = pipelineFlowPresentation(older, FLOW_TS, FLOW_NOW)
+  assert.equal(view.tone, 'unavailable')
+  assert.equal(view.inflowRate, '—')
+  assert.match(view.coverageCopy, /prove every partition/)
 })
 
 console.log(`\npipelineDiagnosticsView.test: ${passed} checks passed`)

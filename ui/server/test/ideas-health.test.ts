@@ -835,6 +835,41 @@ assert.deepEqual(fairUrls, ['https://fair-behind.test/v1/chat/completions'], 'co
 assert.equal(fairFirstBudget.requests, 50)
 assert.equal(fairBehindBudget.requests, 11)
 
+// Aggregate routers have a separate semantic class: even when OmniRoute is further behind its daily clock,
+// every direct provider must be tried first. A direct failure may then fall through to the aggregate route.
+const aggregateRouteRoot = rootWithRows(2)
+const aggregateRouteState = path.join(aggregateRouteRoot, '.state')
+const aggregateRouteAt = Date.parse('2026-08-03T18:00:00Z')
+const aggregateRoute = testProvider('ideas-aggregate-route', 'https://aggregate.test/v1', {
+  label: 'Aggregate Route', dailyReqCap: 100, routeClass: 'aggregate-fallback',
+})
+const directRoute = testProvider('ideas-direct-route', 'https://direct.test/v1', {
+  label: 'Direct Route', dailyReqCap: 100, routeClass: 'direct',
+})
+Budget.load(aggregateRouteState, cfg.groqDailyReqCap, cfg.groqDailyTokenCap, aggregateRouteAt, 'groq-budget.json').exhaust()
+const directRouteBudget = Budget.load(aggregateRouteState, 100, NON_BINDING_DAILY_TOKEN_CAP, aggregateRouteAt, directRoute.budgetFile)
+directRouteBudget.record(50, 0); directRouteBudget.save()
+const aggregateRouteUrls: string[] = []
+const aggregateFallback = await runIdeaPass({
+  repoRoot: aggregateRouteRoot, stateDir: aggregateRouteState,
+  config: { ...cfg, overflowProviders: [aggregateRoute, directRoute] },
+  refreshBoard: async () => {}, now: () => aggregateRouteAt, persistHealth: true, sleep: async () => {},
+  fetchFn: (async (input: Parameters<typeof fetch>[0]) => {
+    aggregateRouteUrls.push(String(input))
+    if (String(input).startsWith('https://direct.test')) return new Response('{}', { status: 503 })
+    return new Response(JSON.stringify({
+      choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ ideas: [] }) } }],
+      usage: { total_tokens: 20 },
+    }), { status: 200, headers: { 'content-type': 'application/json' } })
+  }) as typeof fetch,
+})
+assert.equal(aggregateFallback.ran, true)
+assert.deepEqual(aggregateRouteUrls, [
+  'https://direct.test/v1/chat/completions',
+  'https://aggregate.test/v1/chat/completions',
+], 'aggregate deficit never leapfrogs direct capacity, but remains reachable after direct failure')
+assert.equal(Budget.load(aggregateRouteState, 100, NON_BINDING_DAILY_TOKEN_CAP, aggregateRouteAt, aggregateRoute.budgetFile).requests, 1)
+
 // Gemini's native generateContent pool participates in the SAME reset-clock selector. Each model has its
 // own Pacific-day ledger, while all models share one minute limiter. This is the production gap that left
 // healthy Gemini allowance unused and the Ideas board stale when the OpenAI-compatible tiers were held.
@@ -1478,5 +1513,5 @@ assert.equal(missingProduced.status, 'error')
 assert.equal(missingProduced.outcome, 'failed')
 assert.equal(missingProduced.reason_code, 'snapshot_store_error', 'success_with_ideas must reconcile to an actually projectable snapshot')
 
-for (const root of [thin, noKeyRoot, okRoot, coverageRoot, failedRoot, crashRoot, fallbackRoot, fairRoot, geminiRoot, geminiFallbackRoot, geminiLimiterRoot, pacedRoot, transientRoot, retryRoot, adapterGuardRoot, contractRoot, requestRoot, requestRetryRoot, cappedRoot, localRoot, slowLocalRoot, raceRoot, deadlineRoot, staleRoot, staleSweepRoot, staleRowsRoot, localVetoRoot, brokenStoreRoot, invalidStoreRoot, missingProducedRoot]) fs.rmSync(root, { recursive: true, force: true })
+for (const root of [thin, noKeyRoot, okRoot, coverageRoot, failedRoot, crashRoot, fallbackRoot, fairRoot, aggregateRouteRoot, geminiRoot, geminiFallbackRoot, geminiLimiterRoot, pacedRoot, transientRoot, retryRoot, adapterGuardRoot, contractRoot, requestRoot, requestRetryRoot, cappedRoot, localRoot, slowLocalRoot, raceRoot, deadlineRoot, staleRoot, staleSweepRoot, staleRowsRoot, localVetoRoot, brokenStoreRoot, invalidStoreRoot, missingProducedRoot]) fs.rmSync(root, { recursive: true, force: true })
 console.log('\n1 ideas-health test file passed')

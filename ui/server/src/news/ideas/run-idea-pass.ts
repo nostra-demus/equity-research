@@ -747,11 +747,13 @@ async function callIdeaProvidersDetailed(rows: Parameters<typeof surfaceIdeasBat
     groqProvider(deps.config),
   ]
   const overflow = deps.config.overflowProviders || []
-  const cloud: RoutedIdeaProvider[] = [
-    ...overflow.filter((provider) => provider.id !== 'local'),
+  const routeClass = (provider: OverflowProvider) => provider.routeClass ?? (provider.id === 'local' ? 'local-fallback' : 'direct')
+  const directCloud: RoutedIdeaProvider[] = [
+    ...overflow.filter((provider) => routeClass(provider) === 'direct'),
     ...geminiIdeaProviders(deps.config),
   ]
-  const localTail = overflow.filter((provider) => provider.id === 'local')
+  const aggregateTail = overflow.filter((provider) => routeClass(provider) === 'aggregate-fallback')
+  const localTail = overflow.filter((provider) => routeClass(provider) === 'local-fallback')
   // Health declares a running attempt stale after 120s. Keep the full sequential walk below it even when
   // several providers hang; surfaceIdeasBatch combines this signal with each provider's own request timeout.
   const chainTimeoutMs = Math.min(90_000, Math.max(1, deps.config.providerChainTimeoutMs ?? 90_000))
@@ -774,36 +776,44 @@ async function callIdeaProvidersDetailed(rows: Parameters<typeof surfaceIdeasBat
     if (success) return success
   }
 
-  // Finite free pool (OpenAI-compatible overflow + every Gemini model). Recompute after each failed attempt
-  // because its shared Budget was just charged, then choose the provider furthest behind its reset-clock
-  // target. Config order is only the quality tiebreak, never a license for one API family to starve another.
-  const pending = cloud.map((provider, priority) => ({ provider, priority }))
-  while (pending.length && !chainSignal.aborted) {
-    const routes = pending
-      .map(({ provider, priority }) => quotaRoute(rows, deps, provider, priority))
-      .filter((route): route is IdeaQuotaRoute => route !== null)
-    const pick = selectDailyQuotaCandidate(routes, (deps.now || (() => Date.now()))()) as IdeaQuotaRoute | null
-    if (pick) {
-      const index = pending.findIndex(({ provider }) => provider === pick.provider)
-      if (index >= 0) pending.splice(index, 1)
-      const success = await tryProvider(pick.provider)
-      if (success) return success
-      continue
-    }
+  // Balance each finite class independently. Direct OpenAI-compatible providers and Gemini must be fully
+  // tried before an aggregate router such as OmniRoute: putting both classes in one deficit selector lets
+  // an aggregate route jump ahead of healthy direct capacity and silently changes the production chain.
+  const runFinitePool = async (pool: RoutedIdeaProvider[]): Promise<ProviderDecision | null> => {
+    const pending = pool.map((provider, priority) => ({ provider, priority }))
+    while (pending.length && !chainSignal.aborted) {
+      const routes = pending
+        .map(({ provider, priority }) => quotaRoute(rows, deps, provider, priority))
+        .filter((route): route is IdeaQuotaRoute => route !== null)
+      const pick = selectDailyQuotaCandidate(routes, (deps.now || (() => Date.now()))()) as IdeaQuotaRoute | null
+      if (pick) {
+        const index = pending.findIndex(({ provider }) => provider === pick.provider)
+        if (index >= 0) pending.splice(index, 1)
+        const success = await tryProvider(pick.provider)
+        if (success) return success
+        continue
+      }
 
-    // Every remaining route is missing, held, hard-capped, or ahead of its clock release. Record those
-    // reasons without calling in config order. If the clock moved across a release boundary, retry the fair
-    // selection instead of letting that timing race reintroduce fixed-order drain.
-    let removed = false
-    for (let index = pending.length - 1; index >= 0; index--) {
-      const decision = unavailableProviderDecision(rows, deps, pending[index].provider)
-      if (!decision) continue
-      skips.push(decision)
-      pending.splice(index, 1)
-      removed = true
+      // Every remaining route is missing, held, hard-capped, or ahead of its clock release. Record those
+      // reasons without calling in config order. If the clock moved across a release boundary, retry the fair
+      // selection instead of letting that timing race reintroduce fixed-order drain.
+      let removed = false
+      for (let index = pending.length - 1; index >= 0; index--) {
+        const decision = unavailableProviderDecision(rows, deps, pending[index].provider)
+        if (!decision) continue
+        skips.push(decision)
+        pending.splice(index, 1)
+        removed = true
+      }
+      if (!removed) continue
     }
-    if (!removed) continue
+    return null
   }
+
+  const directSuccess = await runFinitePool(directCloud)
+  if (directSuccess) return directSuccess
+  const aggregateSuccess = await runFinitePool(aggregateTail)
+  if (aggregateSuccess) return aggregateSuccess
 
   // A demoted local provider is unlimited and deliberately remains the final fallback, outside the finite
   // reset-clock selector. In normal primary-local mode it appeared in `primary` and this list is empty.

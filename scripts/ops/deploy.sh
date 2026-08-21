@@ -330,6 +330,435 @@ migrate_connector_launchagent_v2() {
   return 0
 }
 
+# Continuously reconcile the local OmniRoute sidecar from reviewed source. A tracked plist by itself never
+# updates ~/Library/LaunchAgents, and normal deploys intentionally do not rerun the full service installer.
+# This narrow path pins/provisions one reviewed package version on both engine roles, proves the supervised
+# loopback and production scorer contract, then enables the provider. The fingerprint makes healthy ticks
+# no-ops; a template/contract/binary change or unloaded job re-enters the wait/retry/verification contract.
+reconcile_omniroute_launchagent() {
+  local label=com.nostradamus.omniroute
+  local installer="$PROD/scripts/ops/install-services.sh"
+  local template="$PROD/scripts/ops/$label.plist"
+  local contract_helper="$PROD/scripts/ops/omniroute-service-contract.sh"
+  local smoke="$PROD/scripts/ops/omniroute-smoke.sh"
+  local env_setter="$PROD/scripts/ops/set-private-env.py"
+  local installed="$HOME/Library/LaunchAgents/$label.plist"
+  local marker="$OPS/.omniroute-launchagent-v1"
+  local disabled_marker="$OPS/.omniroute-engine-disabled-v1"
+  local retry_file="$OPS/.omniroute-retry"
+  local providers_dir="${NOSTRA_ENGINE_CONFIG_DIR:-$HOME/.config/nostra-engine}"
+  local providers_env="$providers_dir/providers.env"
+  local omniroute_db="$HOME/.omniroute/storage.sqlite"
+  local binary="" binary_probe="" contract_hash="" descriptor_probe="" role=admin desired="" service_pid=""
+  local listener_pids="" retry_until="" now="" smoke_result="" smoke_status="" marker_staged=""
+  local smoke_started="" required_model="" retry_seconds="${NOSTRA_OMNIROUTE_RETRY_SECS:-900}"
+  local revalidate_seconds="${NOSTRA_OMNIROUTE_REVALIDATE_SECS:-21600}"
+
+  if [ ! -f "$installer" ] || [ -L "$installer" ] || [ ! -f "$template" ] || [ -L "$template" ] \
+      || [ ! -f "$contract_helper" ] || [ -L "$contract_helper" ] \
+      || [ ! -f "$smoke" ] || [ -L "$smoke" ] \
+      || [ ! -f "$env_setter" ] || [ -L "$env_setter" ]; then
+    log "WARN omniroute-agent reconciliation source is missing or unsafe"
+    return 1
+  fi
+  # shellcheck disable=SC1090
+  source "$contract_helper"
+  case "$retry_seconds" in ''|*[!0-9]*) retry_seconds=900 ;; esac
+  [ "$retry_seconds" -ge 300 ] 2>/dev/null || retry_seconds=300
+  [ "$retry_seconds" -le 86400 ] 2>/dev/null || retry_seconds=86400
+  case "$revalidate_seconds" in ''|*[!0-9]*) revalidate_seconds=21600 ;; esac
+  [ "$revalidate_seconds" -ge 3600 ] 2>/dev/null || revalidate_seconds=3600
+  [ "$revalidate_seconds" -le 86400 ] 2>/dev/null || revalidate_seconds=86400
+
+  omniroute_flag_matches() {
+    "$PYTHON" -I "$env_setter" matches --file "$providers_env" \
+      --key NEWS_OMNIROUTE_ENABLED --value "$1" >/dev/null 2>&1
+  }
+  omniroute_set_flag() {
+    "$PYTHON" -I "$env_setter" set --file "$providers_env" \
+      --key NEWS_OMNIROUTE_ENABLED --value "$1" >/dev/null 2>&1
+  }
+  omniroute_descriptor_fingerprint() {
+    "$PYTHON" -I "$env_setter" fingerprint --file "$providers_env" 2>/dev/null
+  }
+  omniroute_state_fingerprint() {
+    "$PYTHON" -I "$env_setter" state-fingerprint --file "$providers_env" 2>/dev/null
+  }
+  omniroute_engine_pid() {
+    launchctl list 2>/dev/null \
+      | awk '$3 == "com.nostradamus.engine" && $1 ~ /^[0-9]+$/ { print $1; exit }'
+  }
+  omniroute_schedule_retry() {
+    local reason="$1" retry_deadline retry_staged=""
+    retry_deadline="$(( $(date +%s) + retry_seconds ))"
+    retry_staged="$(mktemp "$OPS/.omniroute-retry.XXXXXX" 2>/dev/null || true)"
+    if [ -n "$retry_staged" ] \
+        && printf '%s %s\n' "$retry_deadline" "$reason" > "$retry_staged" 2>/dev/null \
+        && chmod 600 "$retry_staged" 2>/dev/null \
+        && mv "$retry_staged" "$retry_file" 2>/dev/null; then
+      log "WARN omniroute-agent $reason; retry deferred ${retry_seconds}s"
+      return 0
+    fi
+    [ -z "$retry_staged" ] || rm -f "$retry_staged" 2>/dev/null || true
+    log "WARN omniroute-agent $reason; could not persist retry backoff"
+    return 1
+  }
+  omniroute_disable() {
+    local state_probe="" engine_pid="" proof="" staged=""
+    # Exact zero plus a proof tied to this engine PID is the only no-restart path. Missing, duplicate, one,
+    # changed descriptor, a prior failed kickstart, and an engine relaunch all re-enter the fail-closed restart.
+    if ! omniroute_flag_matches 0; then
+      if ! omniroute_set_flag 0; then
+        # The setter is atomic, but a killed helper can make its observed outcome ambiguous. Reload whatever
+        # durable state exists before returning failure; never leave the previously-running engine untouched.
+        rm -f "$disabled_marker" 2>/dev/null || true
+        launchctl kickstart -k "gui/$UID_NUM/com.nostradamus.engine" 2>>"$LOG" || true
+        health_gate || true
+        log "WARN omniroute-agent could not safely disable its private engine flag"
+        return 1
+      fi
+    fi
+    state_probe="$(omniroute_state_fingerprint 2>/dev/null || true)"
+    engine_pid="$(omniroute_engine_pid)"
+    proof="$state_probe:$engine_pid"
+    if [ -n "$state_probe" ] && [ -n "$engine_pid" ] && [ -f "$disabled_marker" ] \
+        && [ ! -L "$disabled_marker" ] && [ "$(cat "$disabled_marker" 2>/dev/null || true)" = "$proof" ] \
+        && health_gate; then
+      return 0
+    fi
+    rm -f "$disabled_marker" 2>/dev/null || true
+    if ! launchctl kickstart -k "gui/$UID_NUM/com.nostradamus.engine" 2>>"$LOG" || ! health_gate; then
+      log "WARN engine did not recover cleanly after disabling OmniRoute"
+      return 1
+    fi
+    engine_pid="$(omniroute_engine_pid)"
+    [ -n "$state_probe" ] && [ -n "$engine_pid" ] || return 1
+    proof="$state_probe:$engine_pid"
+    staged="$(mktemp "$OPS/.omniroute-disabled.XXXXXX" 2>/dev/null || true)"
+    if [ -z "$staged" ] || ! printf '%s\n' "$proof" > "$staged" 2>/dev/null \
+        || ! chmod 600 "$staged" 2>/dev/null || ! mv "$staged" "$disabled_marker" 2>/dev/null; then
+      [ -z "$staged" ] || rm -f "$staged" 2>/dev/null || true
+      return 1
+    fi
+    log "omniroute-agent disabled while its service contract is being repaired"
+  }
+  omniroute_revert_enable() {
+    local reason="$1"
+    if ! omniroute_set_flag 0; then
+      log "ALERT omniroute-agent could not safely revert its private enable flag"
+      omniroute_schedule_retry "${reason}-disable-failed"
+      return 1
+    fi
+    rm -f "$disabled_marker" 2>/dev/null || true
+    if ! omniroute_disable; then
+      log "ALERT engine did not recover cleanly after reverting OmniRoute enable"
+      omniroute_schedule_retry "${reason}-engine-recovery-failed"
+      return 1
+    fi
+    omniroute_schedule_retry "$reason"
+    return 1
+  }
+  omniroute_quiesce_unhealthy() {
+    local i
+    launchctl bootout "gui/$UID_NUM/$label" >/dev/null 2>&1 || true
+    for i in 1 2 3 4 5 6 7 8; do
+      loaded "$label" || return 0
+      sleep 0.25
+    done
+    log "WARN omniroute-agent unhealthy launchd job could not be quiesced"
+    return 1
+  }
+  omniroute_running_pid() {
+    launchctl list 2>/dev/null \
+      | awk -v wanted="$label" '$3 == wanted && $1 ~ /^[0-9]+$/ { print $1; exit }'
+  }
+  omniroute_listener_owned_by() {
+    local owner="$1" candidate parent hop
+    # `-iTCP:20128` alone also matches 0.0.0.0. Parse lsof's machine format and admit only the literal
+    # 127.0.0.1 endpoint promised by the service contract.
+    listener_pids="$(lsof -nP -Fpn -iTCP:20128 -sTCP:LISTEN 2>/dev/null \
+      | awk '/^p[0-9]+$/{pid=substr($0,2)} $0 == "n127.0.0.1:20128" && pid != "" {print pid}' || true)"
+    [ -n "$listener_pids" ] || return 1
+    for candidate in $listener_pids; do
+      parent="$candidate"
+      for hop in 1 2 3 4 5 6 7 8; do
+        [ "$parent" = "$owner" ] && return 0
+        parent="$(ps -o ppid= -p "$parent" 2>/dev/null | awk '{print $1}')"
+        [ -n "$parent" ] || break
+      done
+    done
+    return 1
+  }
+
+  binary="$(command -v omniroute 2>/dev/null || true)"
+  case "$binary" in /*) [ -x "$binary" ] || binary="" ;; *) binary="" ;; esac
+  if [ -n "$binary" ]; then
+    binary_probe="$(nostra_probe_omniroute_binary "$PYTHON" "$binary" 2>/dev/null || true)"
+    [ -n "$binary_probe" ] || binary=""
+  fi
+  # Include every reviewed executable/config/parser surface used by the proof. Data-only commits do not
+  # invalidate this digest, but any scorer-contract change forces one new two-pass 12-row proof before re-enable.
+  contract_hash="$("$PYTHON" -I - \
+      "$template" "$contract_helper" "$smoke" "$env_setter" "$PROD/scripts/ops/omniroute-smoke.ts" \
+      "$PROD/ui/server/src/config.ts" "$PROD/ui/server/src/news/triage/groq.ts" 2>/dev/null <<'PYOMNICONTRACT'
+import hashlib
+import os
+import stat
+import sys
+
+digest = hashlib.sha256()
+try:
+    for path in sys.argv[1:]:
+        info = os.lstat(path)
+        if stat.S_ISLNK(info.st_mode) or not stat.S_ISREG(info.st_mode):
+            raise OSError
+        with open(path, "rb") as handle:
+            digest.update(handle.read())
+        digest.update(b"\0")
+    print(digest.hexdigest())
+except OSError:
+    raise SystemExit(1)
+PYOMNICONTRACT
+)" || contract_hash=""
+  [ -n "$contract_hash" ] || { log "WARN omniroute-agent could not fingerprint its reviewed contract"; return 1; }
+  descriptor_probe="$(omniroute_descriptor_fingerprint 2>/dev/null || true)"
+  if [ -n "$descriptor_probe" ] && [ -n "$binary" ]; then
+    desired="$contract_hash:$descriptor_probe:$binary:$binary_probe"
+  fi
+
+  # Healthy ticks avoid the large /v1/models catalog and the 12-row scorer request, but still execute the
+  # pinned-version probe, revalidate binary/plist identity, and require the launchd-descended listener plus
+  # OmniRoute's cheap exact /healthz response. A crashed or hijacked :20128 can never stay marked enabled.
+  service_pid="$(omniroute_running_pid)"
+  if [ -n "$desired" ] \
+      && nostra_omniroute_marker_fresh "$PYTHON" "$marker" "$desired" "$revalidate_seconds" \
+      && [ -n "$service_pid" ] \
+      && nostra_validate_omniroute_plist "$PYTHON" "$installed" "$binary" \
+      && omniroute_flag_matches 1 \
+      && "$PYTHON" -I "$env_setter" no-log-key-healthy --file "$providers_env" \
+        --database "$omniroute_db" >/dev/null 2>&1 \
+      && omniroute_listener_owned_by "$service_pid" \
+      && nostra_omniroute_healthz_healthy "$PYTHON" \
+      && omniroute_listener_owned_by "$service_pid" \
+      && [ "$(omniroute_running_pid)" = "$service_pid" ]; then
+    return 0
+  fi
+
+  # A previously enabled route must be switched off before package/service repair. Never leave the engine
+  # sending work to a known-mismatched or dead local gateway.
+  if ! omniroute_disable; then
+    omniroute_schedule_retry private-env-disable-failed
+    return 1
+  fi
+  if [ -z "$descriptor_probe" ]; then
+    omniroute_schedule_retry effective-descriptor-invalid
+    return 1
+  fi
+  is_doer_host && role=doer
+  # A missing/wrong executable must not leave an already-installed KeepAlive job crash-looping during the
+  # package retry window. Use the executable-gated narrow installer to verify unload + stale-plist removal.
+  if [ -z "$binary" ] \
+      && { [ -e "$installed" ] || [ -L "$installed" ] || loaded "$label"; }; then
+    if ! ENGINE_REPO_ROOT="$PROD" /bin/bash "$installer" \
+        --role "$role" --only omniroute >>"$LOG" 2>&1; then
+      omniroute_schedule_retry stale-service-removal-failed
+      return 1
+    fi
+  fi
+  now="$(date +%s)"
+  retry_until="$(awk 'NR == 1 && $1 ~ /^[0-9]+$/ {print $1}' "$retry_file" 2>/dev/null || true)"
+  if [ -n "$retry_until" ] && [ "$now" -lt "$retry_until" ]; then
+    return 0
+  fi
+
+  # Self-provision the one reviewed CLI version. Output is discarded so npm cannot echo ambient details;
+  # the post-install executable probe, not npm's exit code, is authoritative.
+  if [ -z "$binary" ]; then
+    log "omniroute-agent provisioning exact package omniroute@$NOSTRA_OMNIROUTE_REQUIRED_VERSION"
+    if ! "$PYTHON" -I - "$NPM" "omniroute@$NOSTRA_OMNIROUTE_REQUIRED_VERSION" <<'PYOMNIINSTALL'
+import subprocess
+import sys
+
+npm, package = sys.argv[1:]
+try:
+    result = subprocess.run(
+        [npm, "install", "--global", package], stdin=subprocess.DEVNULL,
+        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=600, check=False,
+    )
+    raise SystemExit(0 if result.returncode == 0 else 1)
+except (OSError, subprocess.SubprocessError):
+    raise SystemExit(1)
+PYOMNIINSTALL
+    then
+      omniroute_schedule_retry package-provision-failed
+      return 1
+    fi
+    hash -r
+    binary="$(command -v omniroute 2>/dev/null || true)"
+    case "$binary" in /*) [ -x "$binary" ] || binary="" ;; *) binary="" ;; esac
+    binary_probe="$(nostra_probe_omniroute_binary "$PYTHON" "$binary" 2>/dev/null || true)"
+    if [ -z "$binary" ] || [ -z "$binary_probe" ]; then
+      omniroute_schedule_retry installed-package-failed-version-proof
+      return 1
+    fi
+    desired="$contract_hash:$descriptor_probe:$binary:$binary_probe"
+  fi
+
+  log "omniroute-agent reconciliation: role=$role version=$NOSTRA_OMNIROUTE_REQUIRED_VERSION"
+  if ! ENGINE_REPO_ROOT="$PROD" /bin/bash "$installer" --role "$role" --only omniroute >>"$LOG" 2>&1; then
+    omniroute_schedule_retry service-install-failed
+    return 1
+  fi
+  # Re-probe after the installer to close a package-replacement race and validate the exact installed plist.
+  if [ "$(nostra_probe_omniroute_binary "$PYTHON" "$binary" 2>/dev/null || true)" != "$binary_probe" ] \
+      || ! nostra_validate_omniroute_plist "$PYTHON" "$installed" "$binary"; then
+    omniroute_schedule_retry post-install-contract-failed
+    return 1
+  fi
+
+  # Do not confuse a loaded label or a different process occupying :20128 with a healthy supervised router.
+  # First establish the exact launchd-owned listener. The authenticated catalog probe follows only after the
+  # private no-log client key is present, so no dummy/public management credential is ever needed.
+  service_pid=""
+  for _wait in 1 2 3 4 5 6; do
+    service_pid="$(omniroute_running_pid)"
+    if [ -n "$service_pid" ] \
+        && omniroute_listener_owned_by "$service_pid" \
+        && nostra_omniroute_healthz_healthy "$PYTHON" \
+        && omniroute_listener_owned_by "$service_pid" \
+        && [ "$(omniroute_running_pid)" = "$service_pid" ]; then
+      break
+    fi
+    service_pid=""
+    sleep 1
+  done
+  if [ -z "$service_pid" ]; then
+    omniroute_quiesce_unhealthy || true
+    omniroute_schedule_retry loopback-service-health-failed
+    return 1
+  fi
+
+  # OmniRoute stores bodies by default. Provision/adopt one database-backed key with no_log=1 and write only
+  # that raw key + id into the engine's owner-only providers file. The helper never prints either value and
+  # tightens the sidecar data directory/database permissions before touching them.
+  if ! "$PYTHON" -I "$env_setter" ensure-no-log-key --file "$providers_env" \
+      --database "$omniroute_db" >/dev/null 2>&1; then
+    omniroute_schedule_retry no-log-client-key-provision-failed
+    return 1
+  fi
+  descriptor_probe="$(omniroute_descriptor_fingerprint 2>/dev/null || true)"
+  required_model="$("$PYTHON" -I "$env_setter" model --file "$providers_env" 2>/dev/null || true)"
+  if [ -z "$descriptor_probe" ] || [ -z "$required_model" ]; then
+    omniroute_schedule_retry effective-descriptor-invalid
+    return 1
+  fi
+  desired="$contract_hash:$descriptor_probe:$binary:$binary_probe"
+  if ! nostra_omniroute_models_healthy "$PYTHON" "$required_model" 20128 "$providers_env" \
+      || ! omniroute_listener_owned_by "$service_pid" \
+      || [ "$(omniroute_running_pid)" != "$service_pid" ]; then
+    omniroute_schedule_retry authenticated-model-catalog-failed
+    return 1
+  fi
+
+  # The expensive, real proof: two consecutive complete production-size batches through the production
+  # descriptor/prompt/parser. One lucky free-model response is not enough to activate or renew the marker.
+  # The shared runner publishes only a tiny sanitized verdict and bounds each call at the 105-second ops cap.
+  smoke_started="$("$PYTHON" -I -c 'import datetime as d; print(d.datetime.now(d.timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z"))')"
+  smoke_result="$(mktemp "$OPS/.omniroute-smoke.XXXXXX")" || return 1
+  chmod 600 "$smoke_result" 2>/dev/null || true
+  if ! nostra_run_omniroute_smoke_pair "$PYTHON" "$smoke" "$smoke_result" 105; then
+    smoke_status="$("$PYTHON" -I - "$smoke_result" <<'PYOMNISTATUS'
+import json, sys
+try:
+    value = json.loads(open(sys.argv[1], encoding="utf-8").read())
+    status = value.get("httpStatus")
+    print(status if isinstance(status, int) and 100 <= status <= 599 else "failed")
+except Exception:
+    print("failed")
+PYOMNISTATUS
+)"
+    rm -f "$smoke_result" 2>/dev/null || true
+    omniroute_schedule_retry "scorer-smoke-${smoke_status}"
+    return 1
+  fi
+  if ! "$PYTHON" -I - "$smoke_result" <<'PYOMNIVERIFY'
+import json, sys
+try:
+    value = json.loads(open(sys.argv[1], encoding="utf-8").read())
+    if (value.get("ok") is not True or value.get("rows") != 12
+            or value.get("expectedRows") != 12 or value.get("passes") != 2):
+        raise ValueError
+except Exception:
+    raise SystemExit(1)
+PYOMNIVERIFY
+  then
+    rm -f "$smoke_result" 2>/dev/null || true
+    omniroute_schedule_retry scorer-smoke-contract-failed
+    return 1
+  fi
+  rm -f "$smoke_result" 2>/dev/null || true
+
+  # The successful pair itself is the end-to-end privacy proof: every new call-log row for this key must be
+  # metadata-only, with no request/response/pipeline artifact and no legacy detailed-log row.
+  if ! "$PYTHON" -I "$env_setter" verify-no-body-log --file "$providers_env" \
+      --database "$omniroute_db" --after "$smoke_started" >/dev/null 2>&1; then
+    omniroute_schedule_retry scorer-body-persistence-proof-failed
+    return 1
+  fi
+
+  if [ "$(omniroute_running_pid)" != "$service_pid" ] \
+      || ! omniroute_listener_owned_by "$service_pid" \
+      || ! nostra_omniroute_healthz_healthy "$PYTHON" \
+      || [ "$(omniroute_running_pid)" != "$service_pid" ]; then
+    omniroute_schedule_retry service-changed-during-scorer-smoke
+    return 1
+  fi
+  if [ "$(omniroute_descriptor_fingerprint 2>/dev/null || true)" != "$descriptor_probe" ] \
+      || ! "$PYTHON" -I "$env_setter" no-log-key-healthy --file "$providers_env" \
+        --database "$omniroute_db" >/dev/null 2>&1; then
+    omniroute_schedule_retry descriptor-changed-during-scorer-smoke
+    return 1
+  fi
+
+  # Stage the non-secret health marker before enabling. It is published only after the restarted engine is
+  # healthy; if either publication fails, revert the flag so no unproven route survives the transaction.
+  marker_staged="$(mktemp "$OPS/.omniroute-marker.XXXXXX" 2>/dev/null || true)"
+  if [ -z "$marker_staged" ] || ! printf '%s\n%s\n' "$desired" "$(date +%s)" > "$marker_staged" 2>/dev/null \
+      || ! chmod 600 "$marker_staged" 2>/dev/null; then
+    [ -z "$marker_staged" ] || rm -f "$marker_staged" 2>/dev/null || true
+    omniroute_schedule_retry health-marker-stage-failed
+    return 1
+  fi
+  if ! omniroute_set_flag 1; then
+    rm -f "$marker_staged" 2>/dev/null || true
+    omniroute_revert_enable private-env-enable-failed
+    return 1
+  fi
+  rm -f "$disabled_marker" 2>/dev/null || true
+  if ! launchctl kickstart -k "gui/$UID_NUM/com.nostradamus.engine" 2>>"$LOG" || ! health_gate; then
+    rm -f "$marker_staged" 2>/dev/null || true
+    omniroute_revert_enable engine-health-failed-after-enable
+    return 1
+  fi
+  if [ "$(omniroute_running_pid)" != "$service_pid" ] \
+      || ! omniroute_listener_owned_by "$service_pid" \
+      || ! nostra_omniroute_healthz_healthy "$PYTHON" \
+      || [ "$(omniroute_running_pid)" != "$service_pid" ]; then
+    rm -f "$marker_staged" 2>/dev/null || true
+    omniroute_revert_enable service-health-failed-after-enable
+    return 1
+  fi
+  if ! mv "$marker_staged" "$marker" 2>/dev/null \
+      || ! nostra_omniroute_marker_fresh "$PYTHON" "$marker" "$desired" "$revalidate_seconds"; then
+    rm -f "$marker_staged" 2>/dev/null || true
+    omniroute_revert_enable health-marker-publish-failed
+    return 1
+  fi
+  rm -f "$retry_file" 2>/dev/null || true
+  log "omniroute-agent active: exact $NOSTRA_OMNIROUTE_REQUIRED_VERSION; two 12-row scorers proven; no-body key proven; engine healthy"
+  return 0
+}
+
 # keep the log bounded
 if [ -f "$LOG" ] && [ "$(wc -l < "$LOG" 2>/dev/null || echo 0)" -gt 4000 ]; then
   tail -n 800 "$LOG" > "$LOG.tmp" 2>/dev/null && mv "$LOG.tmp" "$LOG"
@@ -822,13 +1251,15 @@ if [ "$LOCAL" = "$REMOTE" ]; then
   # the helper bytes cannot change between review, execution, and service
   # activation, even on an otherwise up-to-date deploy tick.
   if has_nondata_dirty; then
-    log "SKIP connector-agent reconciliation because a dirty non-data (code/ops) file is present (§28)"
+    log "SKIP service reconciliation because a dirty non-data (code/ops) file is present (§28)"
     exit 0
   fi
   if ! migrate_connector_launchagent_v2; then
     log "WARN connector-agent reconciliation failed — leaving the deployed marker unchanged for retry"
     exit 0
   fi
+  reconcile_omniroute_launchagent \
+    || log "WARN omniroute-agent remains unreconciled; optional sidecar will retry next deploy tick"
   # The checkout is level with origin/main — but that does NOT mean the BUILT artifacts are current.
   # The engine commits research data into THIS worktree and, when origin has moved, rebases onto
   # origin/main before pushing (scripts/commit-run.sh) — which pulls freshly MERGED CODE into the checkout
@@ -974,6 +1405,8 @@ if ! migrate_connector_launchagent_v2; then
   log "WARN connector-agent reconciliation failed after fast-forward — leaving the deployed marker unchanged for retry"
   exit 0
 fi
+reconcile_omniroute_launchagent \
+  || log "WARN omniroute-agent remains unreconciled after fast-forward; optional sidecar will retry next deploy tick"
 
 # Rebuild from the DEPLOYED marker (not merely from the old LOCAL) so any pre-existing dist staleness heals
 # in the same pass; fall back to LOCAL when there is no usable marker.

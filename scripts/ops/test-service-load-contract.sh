@@ -3,11 +3,409 @@ set -uo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 # shellcheck source=service-load-contract.sh
 source "$HERE/service-load-contract.sh"
+# shellcheck source=omniroute-service-contract.sh
+source "$HERE/omniroute-service-contract.sh"
 
 failures=0
 TEST_TMP="$(mktemp -d)" || exit 1
 trap 'rm -rf "$TEST_TMP"' EXIT
 PYTHON_BIN="$(command -v python3)"
+
+# The optional OmniRoute sidecar is a security + availability boundary: foreground supervision must stay
+# with launchd, and the local model gateway must never drift from loopback. Parse the template structurally so
+# formatting changes cannot weaken the assertion.
+if "$PYTHON_BIN" -I - "$HERE/com.nostradamus.omniroute.plist" <<'PYOMNIROUTEPLIST'
+import plistlib
+import sys
+
+with open(sys.argv[1], "rb") as handle:
+    contract = plistlib.load(handle)
+expected_args = [
+    "{{OMNIROUTE_BIN}}",
+    "serve",
+    "--port",
+    "20128",
+    "--no-open",
+    "--no-tray",
+    "--log",
+]
+env = contract.get("EnvironmentVariables", {})
+expected_env_keys = {
+    "HOME", "PATH", "DATA_DIR", "OMNIROUTE_SERVER_HOST", "PORT", "DASHBOARD_PORT", "API_PORT",
+}
+assert contract.get("Label") == "com.nostradamus.omniroute"
+assert contract.get("ProgramArguments") == expected_args
+assert "--daemon" not in contract.get("ProgramArguments", [])
+assert env.get("OMNIROUTE_SERVER_HOST") == "127.0.0.1"
+assert env.get("PORT") == env.get("DASHBOARD_PORT") == env.get("API_PORT") == "20128"
+assert env.get("HOME") == "{{HOME}}"
+assert env.get("PATH") == "{{PLIST_PATH}}"
+assert set(env) == expected_env_keys
+assert env.get("DATA_DIR") == "{{HOME}}/.omniroute"
+assert contract.get("RunAtLoad") is True
+assert contract.get("KeepAlive") is True
+assert contract.get("Umask") == 63
+assert contract.get("ThrottleInterval") == 10
+assert contract.get("StandardOutPath") == contract.get("StandardErrorPath")
+assert contract.get("StandardOutPath") == "{{HOME}}/Library/Logs/nostradamus-omniroute.log"
+PYOMNIROUTEPLIST
+then
+  echo "  ok  OmniRoute LaunchAgent is foreground-supervised and loopback-only"
+else
+  echo "  FAIL OmniRoute LaunchAgent contract is invalid"
+  failures=$((failures + 1))
+fi
+
+# The manual installer never guesses an executable. Normal deploy owns exact provisioning, health, scorer
+# proof, private enable, and retry backoff without rerunning unrelated service installation.
+if grep -Fq 'OMNIROUTE_BIN="$(command -v omniroute 2>/dev/null || true)"' "$HERE/install-services.sh" \
+    && grep -Fq 'if [ -n "$OMNIROUTE_BIN" ]; then' "$HERE/install-services.sh" \
+    && grep -Fq 'remove_one "$OMNIROUTE_SERVICE"' "$HERE/install-services.sh" \
+    && grep -Fq 'NOSTRA_OMNIROUTE_REQUIRED_VERSION=3.8.49' "$HERE/omniroute-service-contract.sh" \
+    && grep -Fq 'reconcile_omniroute_launchagent()' "$HERE/deploy.sh" \
+    && grep -Fq '"omniroute@$NOSTRA_OMNIROUTE_REQUIRED_VERSION"' "$HERE/deploy.sh" \
+    && grep -Fq -- '--only omniroute' "$HERE/deploy.sh" \
+    && grep -Fq 'n127.0.0.1:20128' "$HERE/deploy.sh" \
+    && grep -Fq 'nostra_omniroute_healthz_healthy' "$HERE/deploy.sh" \
+    && grep -Fq 'nostra_omniroute_models_healthy' "$HERE/deploy.sh" \
+    && grep -Fq 'NEWS_OMNIROUTE_ENABLED --value "$1"' "$HERE/deploy.sh" \
+    && grep -Fq 'NOSTRA_OMNIROUTE_RETRY_SECS:-900' "$HERE/deploy.sh" \
+    && grep -Fq 'NOSTRA_OMNIROUTE_REVALIDATE_SECS:-21600' "$HERE/deploy.sh" \
+    && grep -Fq 'nostra_run_omniroute_smoke_pair "$PYTHON" "$smoke" "$smoke_result" 105' "$HERE/deploy.sh" \
+    && grep -Fq 'ensure-no-log-key --file "$providers_env"' "$HERE/deploy.sh" \
+    && grep -Fq 'verify-no-body-log --file "$providers_env"' "$HERE/deploy.sh" \
+    && grep -Fq 'omniroute_descriptor_fingerprint' "$HERE/deploy.sh" \
+    && grep -Fq 'omniroute-engine-disabled-v1' "$HERE/deploy.sh" \
+    && grep -Fq 'omniroute_revert_enable private-env-enable-failed' "$HERE/deploy.sh" \
+    && grep -Fq '[ "$is_connector" != 1 ] && [ "$is_omniroute" != 1 ]' "$HERE/install-services.sh" \
+    && grep -Fq 'buildOmniRouteProvider' "$HERE/omniroute-smoke.ts" \
+    && grep -Fq "provider.baseUrl !== 'http://127.0.0.1:20128/v1'" "$HERE/omniroute-smoke.ts" \
+    && grep -Fq 'triageBatch(items' "$HERE/omniroute-smoke.ts" \
+    && grep -Fq 'value.get("expectedRows") != 12 or value.get("passes") != 2' "$HERE/deploy.sh"; then
+  echo "  ok  OmniRoute provisioning/health/smoke/enable transaction is fail-closed"
+else
+  echo "  FAIL OmniRoute managed provisioning transaction is incomplete"
+  failures=$((failures + 1))
+fi
+
+# Version proof is executable, exact, and part of the deployment fingerprint. Changing even an otherwise
+# valid 3.8.49 launcher must invalidate the identity; banners and other versions are rejected.
+EXACT_OMNI="$TEST_TMP/omniroute-exact"
+WRONG_OMNI="$TEST_TMP/omniroute-wrong"
+NOISY_OMNI="$TEST_TMP/omniroute-noisy"
+printf '%s\n' '#!/bin/sh' '[ "$1" = --version ] || exit 2' 'printf "3.8.49\\n"' > "$EXACT_OMNI"
+printf '%s\n' '#!/bin/sh' '[ "$1" = --version ] || exit 2' 'printf "3.8.50\\n"' > "$WRONG_OMNI"
+printf '%s\n' '#!/bin/sh' '[ "$1" = --version ] || exit 2' 'printf "OmniRoute 3.8.49\\n"' > "$NOISY_OMNI"
+chmod +x "$EXACT_OMNI" "$WRONG_OMNI" "$NOISY_OMNI"
+first_identity="$(nostra_probe_omniroute_binary "$PYTHON_BIN" "$EXACT_OMNI" 2>/dev/null || true)"
+printf '%s\n' '# identity change' >> "$EXACT_OMNI"
+second_identity="$(nostra_probe_omniroute_binary "$PYTHON_BIN" "$EXACT_OMNI" 2>/dev/null || true)"
+if printf '%s\n' "$first_identity" "$second_identity" | grep -Eqv '^3\.8\.49:[0-9a-f]{64}$' \
+    || [ "$first_identity" = "$second_identity" ] \
+    || nostra_probe_omniroute_binary "$PYTHON_BIN" "$WRONG_OMNI" >/dev/null 2>&1 \
+    || nostra_probe_omniroute_binary "$PYTHON_BIN" "$NOISY_OMNI" >/dev/null 2>&1; then
+  echo "  FAIL OmniRoute exact-version/binary-identity proof is weak"
+  failures=$((failures + 1))
+else
+  echo "  ok  OmniRoute exact 3.8.49 proof fingerprints executable identity"
+fi
+
+OMNI_HOME="$TEST_TMP/omniroute-home"
+OMNI_INSTALLED="$TEST_TMP/omniroute-installed.plist"
+mkdir -p "$OMNI_HOME"
+"$PYTHON_BIN" -I - "$HERE/com.nostradamus.omniroute.plist" "$OMNI_INSTALLED" \
+    "$EXACT_OMNI" "$OMNI_HOME" <<'PYOMNIRENDER'
+import os, sys
+source, destination, binary, home = sys.argv[1:]
+raw = open(source, encoding="utf-8").read()
+raw = raw.replace("{{OMNIROUTE_BIN}}", binary).replace("{{HOME}}", home)
+raw = raw.replace(
+    "{{PLIST_PATH}}",
+    f"{home}/.local/bin:/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+)
+open(destination, "w", encoding="utf-8").write(raw)
+os.chmod(destination, 0o600)
+PYOMNIRENDER
+cp "$OMNI_INSTALLED" "$TEST_TMP/omniroute-wrong-port.plist"
+cp "$OMNI_INSTALLED" "$TEST_TMP/omniroute-extra-secret.plist"
+"$PYTHON_BIN" -I - "$TEST_TMP/omniroute-wrong-port.plist" <<'PYOMNIMUTATE'
+import plistlib, sys
+path = sys.argv[1]
+with open(path, "rb") as handle:
+    contract = plistlib.load(handle)
+contract["ProgramArguments"][3] = "20129"
+with open(path, "wb") as handle:
+    plistlib.dump(contract, handle)
+PYOMNIMUTATE
+"$PYTHON_BIN" -I - "$TEST_TMP/omniroute-extra-secret.plist" <<'PYOMNISECRET'
+import plistlib, sys
+path = sys.argv[1]
+with open(path, "rb") as handle:
+    contract = plistlib.load(handle)
+contract["EnvironmentVariables"]["GROQ_API_KEY"] = "must-never-carry"
+with open(path, "wb") as handle:
+    plistlib.dump(contract, handle)
+PYOMNISECRET
+if nostra_validate_omniroute_plist "$PYTHON_BIN" "$OMNI_INSTALLED" "$EXACT_OMNI" "$OMNI_HOME" \
+    && ! nostra_validate_omniroute_plist "$PYTHON_BIN" \
+      "$TEST_TMP/omniroute-wrong-port.plist" "$EXACT_OMNI" "$OMNI_HOME" \
+    && ! nostra_validate_omniroute_plist "$PYTHON_BIN" \
+      "$TEST_TMP/omniroute-extra-secret.plist" "$EXACT_OMNI" "$OMNI_HOME"; then
+  echo "  ok  installed OmniRoute plist proof accepts only the exact secret-free machine contract"
+else
+  echo "  FAIL installed OmniRoute plist proof accepted drift or rejected the exact contract"
+  failures=$((failures + 1))
+fi
+
+if "$PYTHON_BIN" -I "$HERE/test-set-private-env.py"; then
+  echo "  ok  private providers.env updater preserves secrets and fails closed"
+else
+  echo "  FAIL private providers.env updater contract"
+  failures=$((failures + 1))
+fi
+
+# Activation/revalidation needs two consecutive complete batches. Exercise the real bounded/sanitized pair
+# runner with deterministic pass-pass and pass-fail sequences, and prove it never makes a third call.
+PAIR_SMOKE="$TEST_TMP/omniroute-pair-smoke.sh"
+PAIR_STATE="$TEST_TMP/omniroute-pair.state"
+PAIR_VERDICT="$TEST_TMP/omniroute-pair.verdict"
+printf '%s\n' \
+  '#!/usr/bin/env bash' \
+  'set -uo pipefail' \
+  '[ -z "${NEWS_OMNIROUTE_API_KEY:-}" ] || exit 97' \
+  'count=0' \
+  '[ ! -f "$OMNI_PAIR_STATE" ] || count="$(cat "$OMNI_PAIR_STATE")"' \
+  'count=$((count + 1))' \
+  'printf "%s\n" "$count" > "$OMNI_PAIR_STATE"' \
+  'outcome="$(printf "%s" "$OMNI_PAIR_SEQUENCE" | cut -d, -f"$count")"' \
+  'if [ "$outcome" = pass ]; then' \
+  '  printf "%s\n" '\''{"ok":true,"rows":12,"expectedRows":12}'\''' \
+  '  exit 0' \
+  'fi' \
+  'printf "%s\n" '\''{"ok":false,"rows":0,"expectedRows":12,"httpStatus":503}'\''' \
+  'exit 1' > "$PAIR_SMOKE"
+chmod +x "$PAIR_SMOKE"
+: > "$PAIR_VERDICT"; chmod 600 "$PAIR_VERDICT"
+OMNI_PAIR_STATE="$PAIR_STATE" OMNI_PAIR_SEQUENCE=pass,pass NEWS_OMNIROUTE_API_KEY=must-be-scrubbed \
+  nostra_run_omniroute_smoke_pair "$PYTHON_BIN" "$PAIR_SMOKE" "$PAIR_VERDICT" 5
+pair_pass_rc=$?
+pair_pass_count="$(cat "$PAIR_STATE" 2>/dev/null || true)"
+pair_pass_verdict="$(cat "$PAIR_VERDICT" 2>/dev/null || true)"
+printf '0\n' > "$PAIR_STATE"
+: > "$PAIR_VERDICT"; chmod 600 "$PAIR_VERDICT"
+OMNI_PAIR_STATE="$PAIR_STATE" OMNI_PAIR_SEQUENCE=pass,fail NEWS_OMNIROUTE_API_KEY=must-be-scrubbed \
+  nostra_run_omniroute_smoke_pair "$PYTHON_BIN" "$PAIR_SMOKE" "$PAIR_VERDICT" 5
+pair_fail_rc=$?
+pair_fail_count="$(cat "$PAIR_STATE" 2>/dev/null || true)"
+pair_fail_verdict="$(cat "$PAIR_VERDICT" 2>/dev/null || true)"
+if [ "$pair_pass_rc" -eq 0 ] && [ "$pair_pass_count" = 2 ] \
+    && [ "$pair_fail_rc" -ne 0 ] && [ "$pair_fail_count" = 2 ] \
+    && "$PYTHON_BIN" -I - "$pair_pass_verdict" "$pair_fail_verdict" <<'PYOMNIPAIRVERIFY'
+import json, sys
+passed = json.loads(sys.argv[1])
+failed = json.loads(sys.argv[2])
+assert passed == {"expectedRows": 12, "ok": True, "passes": 2, "rows": 12}
+assert failed == {"completed": 1, "httpStatus": 503, "ok": False}
+PYOMNIPAIRVERIFY
+then
+  echo "  ok  OmniRoute proof requires bounded pass-pass and rejects pass-fail"
+else
+  echo "  FAIL OmniRoute consecutive-smoke gate is not fail-closed/bounded"
+  failures=$((failures + 1))
+fi
+
+# A marker is a time-bounded scorer proof, not a permanent healthz waiver. At the exact six-hour boundary it
+# must expire and drive the same disable + two-smoke revalidation path.
+FRESH_MARKER="$TEST_TMP/omniroute-fresh.marker"
+printf '%s\n%s\n' 'desired-contract' 1000 > "$FRESH_MARKER"
+chmod 600 "$FRESH_MARKER"
+if nostra_omniroute_marker_fresh "$PYTHON_BIN" "$FRESH_MARKER" desired-contract 21600 22599 \
+    && ! nostra_omniroute_marker_fresh "$PYTHON_BIN" "$FRESH_MARKER" desired-contract 21600 22600 \
+    && ! nostra_omniroute_marker_fresh "$PYTHON_BIN" "$FRESH_MARKER" wrong-contract 21600 1001; then
+  echo "  ok  OmniRoute scorer marker expires at the bounded six-hour revalidation interval"
+else
+  echo "  FAIL OmniRoute scorer marker age/identity contract is weak"
+  failures=$((failures + 1))
+fi
+
+# Mock only the loopback HTTP peer; execute the real TS smoke and production parser. Each invocation sends
+# one 12-headline, non-streaming request and must return every index exactly once.
+MOCK_PORT_FILE="$TEST_TMP/omniroute-mock.port"
+MOCK_REQUEST_FILE="$TEST_TMP/omniroute-mock.request"
+"$PYTHON_BIN" -I - "$MOCK_PORT_FILE" "$MOCK_REQUEST_FILE" <<'PYOMNIMOCK' &
+import json
+import sys
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
+port_file, request_file = sys.argv[1:]
+
+class Handler(BaseHTTPRequestHandler):
+    def log_message(self, _format, *_args):
+        pass
+
+    def do_GET(self):
+        if self.path == "/healthz":
+            encoded = b"ok\n"
+            content_type = "text/plain"
+        elif self.path == "/v1/models":
+            if self.headers.get("Authorization") != "Bearer contract-test-no-log-key":
+                self.send_response(401)
+                self.end_headers()
+                return
+            encoded = json.dumps({"data": [{"id": "oc/hy3-free"}]}).encode()
+            content_type = "application/json"
+        else:
+            self.send_response(404)
+            self.end_headers()
+            return
+        self.send_response(200)
+        self.send_header("Content-Type", content_type)
+        self.send_header("Content-Length", str(len(encoded)))
+        self.end_headers()
+        self.wfile.write(encoded)
+
+    def do_POST(self):
+        try:
+            size = int(self.headers.get("content-length", "0"))
+            body = json.loads(self.rfile.read(size))
+            prompt = body.get("messages", [{}, {}])[1].get("content", "")
+            model = body.get("model")
+            valid = (self.path == "/v1/chat/completions" and model in {"mock-model", "mock-incomplete"}
+                     and body.get("stream") is False and body.get("reasoning_effort") == "none"
+                     and body.get("max_tokens") == 7000
+                     and prompt.startswith("Score these 12 headlines:"))
+            if not valid:
+                raise ValueError
+            row_count = 11 if model == "mock-incomplete" else 12
+            rows = [{
+                "i": index, "relevance": "material", "materiality_pre_score": 80,
+                "event_materiality_label": "high", "event_direction": "neutral",
+                "event_types": ["macro_sector"], "issuer_linkage": "macro",
+                "why": "Mocked material event for the supervised scorer contract.",
+                "companies": [], "size_bucket": "unknown", "headline_en": None,
+                "headline_lang": None, "event_region": "GLOBAL",
+            } for index in range(row_count)]
+            payload = {"usage": {"total_tokens": 1200}, "choices": [{
+                "finish_reason": "stop", "message": {"content": json.dumps({"items": rows})},
+            }]}
+            if row_count == 12:
+                open(request_file, "w", encoding="utf-8").write("valid-12\n")
+            encoded = json.dumps(payload).encode()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(encoded)))
+            self.end_headers()
+            self.wfile.write(encoded)
+        except Exception:
+            self.send_response(400)
+            self.end_headers()
+
+server = HTTPServer(("127.0.0.1", 0), Handler)
+server.timeout = 15
+open(port_file, "w", encoding="ascii").write(str(server.server_port))
+for _request in range(4):
+    server.handle_request()
+server.server_close()
+PYOMNIMOCK
+mock_server_pid=$!
+for _wait in $(seq 1 200); do [ -s "$MOCK_PORT_FILE" ] && break; sleep 0.01; done
+mock_port="$(cat "$MOCK_PORT_FILE" 2>/dev/null || true)"
+mkdir -p "$TEST_TMP/omniroute-smoke-config" "$TEST_TMP/omniroute-smoke-home"
+chmod 700 "$TEST_TMP/omniroute-smoke-config"
+printf '%s\n' 'NEWS_OMNIROUTE_API_KEY=contract-test-no-log-key' \
+  > "$TEST_TMP/omniroute-smoke-config/providers.env"
+chmod 600 "$TEST_TMP/omniroute-smoke-config/providers.env"
+if [ -n "$mock_port" ]; then
+  if nostra_omniroute_healthz_healthy "$PYTHON_BIN" "$mock_port" \
+      && nostra_omniroute_models_healthy "$PYTHON_BIN" oc/hy3-free "$mock_port" \
+        "$TEST_TMP/omniroute-smoke-config/providers.env"; then
+    mock_health_rc=0
+  else
+    mock_health_rc=1
+  fi
+  HOME="$TEST_TMP/omniroute-smoke-home" \
+    NOSTRA_ENGINE_CONFIG_DIR="$TEST_TMP/omniroute-smoke-config" \
+    NEWS_OMNIROUTE_API_KEY= NEWS_OMNIROUTE_MODEL=mock-model \
+    NEWS_OMNIROUTE_BASE_URL="http://127.0.0.1:$mock_port/v1" \
+    NEWS_OMNIROUTE_TIMEOUT_MS=5000 \
+    /bin/bash "$HERE/omniroute-smoke.sh" --test-loopback \
+      >"$TEST_TMP/omniroute-smoke.out" 2>"$TEST_TMP/omniroute-smoke.err"
+  mock_smoke_rc=$?
+  HOME="$TEST_TMP/omniroute-smoke-home" \
+    NOSTRA_ENGINE_CONFIG_DIR="$TEST_TMP/omniroute-smoke-config" \
+    NEWS_OMNIROUTE_API_KEY= NEWS_OMNIROUTE_MODEL=mock-incomplete \
+    NEWS_OMNIROUTE_BASE_URL="http://127.0.0.1:$mock_port/v1" \
+    NEWS_OMNIROUTE_TIMEOUT_MS=5000 \
+    /bin/bash "$HERE/omniroute-smoke.sh" --test-loopback \
+      >"$TEST_TMP/omniroute-incomplete.out" 2>"$TEST_TMP/omniroute-incomplete.err"
+  incomplete_smoke_rc=$?
+else
+  mock_health_rc=1
+  mock_smoke_rc=1
+  incomplete_smoke_rc=0
+fi
+kill "$mock_server_pid" 2>/dev/null || true
+wait "$mock_server_pid" 2>/dev/null || true
+if [ "$mock_health_rc" -eq 0 ] && [ "$mock_smoke_rc" -eq 0 ] \
+    && [ "$incomplete_smoke_rc" -ne 0 ] \
+    && [ "$(cat "$MOCK_REQUEST_FILE" 2>/dev/null || true)" = valid-12 ] \
+    && "$PYTHON_BIN" -I - "$TEST_TMP/omniroute-smoke.out" \
+      "$TEST_TMP/omniroute-incomplete.err" <<'PYOMNIOUT'
+import json, sys
+value = json.loads(open(sys.argv[1], encoding="utf-8").read().splitlines()[-1])
+assert value.get("ok") is True and value.get("rows") == value.get("expectedRows") == 12
+incomplete = json.loads(open(sys.argv[2], encoding="utf-8").read().splitlines()[-1])
+assert incomplete.get("ok") is False and incomplete.get("rows") == 0
+assert incomplete.get("expectedRows") == 12
+PYOMNIOUT
+then
+  echo "  ok  mocked loopback proves health/catalog and accepts only a complete 12-index scorer response"
+else
+  echo "  FAIL mocked OmniRoute production-size scorer smoke"
+  sed 's/^/    /' "$TEST_TMP/omniroute-smoke.out" "$TEST_TMP/omniroute-smoke.err" 2>/dev/null || true
+  failures=$((failures + 1))
+fi
+
+BAD_HEALTH_PORT_FILE="$TEST_TMP/omniroute-bad-health.port"
+"$PYTHON_BIN" -I - "$BAD_HEALTH_PORT_FILE" <<'PYOMNIBADHEALTH' &
+import sys
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
+class Handler(BaseHTTPRequestHandler):
+    def log_message(self, _format, *_args):
+        pass
+    def do_GET(self):
+        body = b"okay\n"
+        self.send_response(200)
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+server = HTTPServer(("127.0.0.1", 0), Handler)
+server.timeout = 10
+open(sys.argv[1], "w", encoding="ascii").write(str(server.server_port))
+server.handle_request()
+server.server_close()
+PYOMNIBADHEALTH
+bad_health_pid=$!
+for _wait in $(seq 1 200); do [ -s "$BAD_HEALTH_PORT_FILE" ] && break; sleep 0.01; done
+bad_health_port="$(cat "$BAD_HEALTH_PORT_FILE" 2>/dev/null || true)"
+if [ -n "$bad_health_port" ] \
+    && nostra_omniroute_healthz_healthy "$PYTHON_BIN" "$bad_health_port"; then
+  bad_health_rc=0
+elif [ -n "$bad_health_port" ]; then
+  bad_health_rc=1
+else
+  bad_health_rc=2
+fi
+kill "$bad_health_pid" 2>/dev/null || true
+wait "$bad_health_pid" 2>/dev/null || true
+if [ "$bad_health_rc" -eq 1 ]; then
+  echo "  ok  healthz rejects a 200 response with non-OmniRoute body"
+else
+  echo "  FAIL healthz accepted an unrelated 200 listener"
+  failures=$((failures + 1))
+fi
 
 # The manual selected-need uploader signs its request envelope with a key under ENGINE_STATE_DIR.
 # The doer-only ten-minute recovery job must use that exact same private directory; otherwise a server

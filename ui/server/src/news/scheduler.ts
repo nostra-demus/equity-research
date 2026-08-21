@@ -9,7 +9,7 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { NEWS, REPO_ROOT, STATE_DIR } from '../config'
+import { NEWS, REPO_ROOT, STATE_DIR, buildOmniRouteProvider } from '../config'
 import { acquireSingletonLock, releaseSingletonLock } from '../singleton-lock'
 import { readFeed } from './feed'
 import { refreshBoard } from './write-inbox'
@@ -25,6 +25,7 @@ import {
 } from './triage/budget'
 import { SYSTEM, buildUserMessage, estimateTokens } from './triage/groq'
 import { preTriagePriority } from './rank'
+import { buildPipelineFlowRates, readPipelineFlowCycles, type PipelineFlowRates } from './pipeline-flow'
 import type { CycleSummary, DeferReason, LastResortState } from './types'
 
 // The news-lead skim config, assembled once from NEWS. It reuses the ingester's canonical OpenAI-compatible
@@ -551,8 +552,9 @@ export interface NewsStatus {
   }
 }
 
-/** Status for the cockpit. Daily counts come from today's firehose ON DISK (restart-proof). */
-export function getNewsStatus(): NewsStatus {
+/** Status for the cockpit. Daily counts come from today's firehose ON DISK (restart-proof). Diagnostics may
+ * supply its cycle-only snapshot so the 10-second panel poll never hydrates every item a second time. */
+export function getNewsStatus(cycleSnapshot?: readonly CycleSummary[]): NewsStatus {
   const todayDate = new Date().toISOString().slice(0, 10)
   const statusNow = Date.now()
   const backlogInspection = inspectDeferredBacklog(STATE_DIR)
@@ -560,7 +562,7 @@ export function getNewsStatus(): NewsStatus {
   const spendingAllowed = providerDiagnosticsActiveForState(NEWS.enabled, readOnlyMode, providerSpendingOwner)
   const today = { read: 0, kept: 0, dropped: 0, cycles: 0 }
   try {
-    const { cycles } = readFeed(REPO_ROOT, 1)
+    const cycles = cycleSnapshot ?? readFeed(REPO_ROOT, 1).cycles
     for (const c of cycles as CycleSummary[]) {
       if ((c.ts || '').slice(0, 10) !== todayDate) continue
       today.cycles++
@@ -752,6 +754,8 @@ export interface TierDiagnostics {
   nextEligibleAt?: string // ISO instant at which the engine may probe this tier again
   credentialRejected?: boolean // the provider is rejecting this tier's CREDENTIAL (repeated 401/402/403/404) — waiting cannot fix it; a human must replace the key/entitlement. Present only when true
   keyEnvVar?: string // the env-var NAME holding that credential (never the value) — so the operator knows what to fix
+  /** Actionable text for an optional tier that is intentionally present in diagnostics while disabled. */
+  disabledReason?: string
   failingForMs?: number // how long the CURRENT unbroken failure streak has run. The backoff window pins flat at its ceiling from the 5th failure, so it stops distinguishing "down an hour" from "down two days"; this does not
   lastFailureMs?: number // how long the last failing call ran before it failed. At/near the configured deadline => WE cut it off and a longer one may work; far below => the provider refused and a longer deadline changes nothing
   consecutiveFailures?: number // failure streak behind the current retry policy; NOT failures today
@@ -759,6 +763,7 @@ export interface TierDiagnostics {
   fails?: number // legacy alias for old cockpit bundles during a rolling deploy
   triageAttemptsToday?: number // actual provider calls made by triage today, including in-call retries
   triageScoredBatchesToday?: number // triage batches that returned usable scores today
+  lastCycleAttempts?: number // actual provider calls in the most recent cycle (absent = not tracked per-tier)
   lastCycleRequests?: number // batches this tier scored in the most recent cycle (absent = not tracked per-tier)
 }
 
@@ -770,6 +775,9 @@ export interface NewsDiagnostics {
   intervalMin: number
   lastCycleAt: string | null
   nextCycleAt: string | null
+  /** Like-for-like queue flow over a fixed trailing hour. Required UTC partitions are coverage-checked;
+   * missing history or partial legacy fields never produce a comparison. */
+  flow: PipelineFlowRates
   tiers: TierDiagnostics[] // ordered primary → overflow → gemini → last-resort
   backlog: {
     unavailable?: boolean // the saved waiting list could not be read; count and percentage are unknown
@@ -787,6 +795,9 @@ export interface NewsDiagnostics {
     phase: 'fetch' | 'drain' | null
     fetched: number
     candidates: number
+    /** Unique fetched IDs absent from the backlog snapshot. Null on legacy summaries. */
+    newArrivals: number | null
+    /** Fetched-path rows, including source redelivery of backlog residents. */
     fresh: number | null
     carryover: number | null
     picked: number
@@ -891,12 +902,75 @@ function providerCycleTotal(
     provider_scored_batches?: Record<string, number>
   }>) {
     const map = cycle[field]
-    if (!map) continue
+    // The two maps are additive and omitted when empty. Either one therefore proves this is a map-era row;
+    // an attempts-only failure cycle has a real scored total of zero, not an unknown legacy total.
+    if (!map && !cycle.provider_attempts && !cycle.provider_scored_batches) continue
     seen = true
+    if (!map) continue
     const value = Number(map[key])
     if (Number.isFinite(value) && value > 0) total += value
   }
   return seen ? total : undefined
+}
+
+/** One provider's additive metric in one cycle. A present map with no key means tracked zero; only an
+ * absent map means a rolling-deploy/legacy summary cannot attribute the provider. */
+export function providerLastCycleMetric(
+  cycle: CycleSummary | null,
+  key: string,
+  field: 'provider_attempts' | 'provider_scored_batches',
+): number | undefined {
+  const map = cycle?.[field]
+  if (!map) return undefined
+  const value = Number(map[key])
+  return Number.isFinite(value) && value > 0 ? Math.floor(value) : 0
+}
+
+function providerLastCycleDiagnostics(
+  cycle: CycleSummary | null,
+  key: string,
+  legacyRequests?: number,
+): Pick<TierDiagnostics, 'lastCycleAttempts' | 'lastCycleRequests'> {
+  const attempts = providerLastCycleMetric(cycle, key, 'provider_attempts')
+  const scored = providerLastCycleMetric(cycle, key, 'provider_scored_batches')
+  const mapEra = !!cycle?.provider_attempts || !!cycle?.provider_scored_batches
+  return {
+    ...(attempts !== undefined ? { lastCycleAttempts: attempts }
+      : !mapEra && typeof legacyRequests === 'number' ? { lastCycleAttempts: legacyRequests } : {}),
+    ...(scored !== undefined ? { lastCycleRequests: scored }
+      : mapEra ? { lastCycleRequests: 0 }
+        : typeof legacyRequests === 'number' ? { lastCycleRequests: legacyRequests } : {}),
+  }
+}
+
+/** Attribute the latest successful scoring activity to the exact configured tier. New summaries provide a
+ * provider map, so an aggregate route is named OmniRoute instead of the lossy legacy "Overflow" bucket. */
+export function scoredByForLastCycle(
+  cycle: CycleSummary | null,
+  tiers: ReadonlyArray<Pick<TierDiagnostics, 'id' | 'label'>>,
+): { id: string; label: string; requests: number }[] {
+  if (!cycle) return []
+  if (cycle.provider_scored_batches || cycle.provider_attempts) {
+    const seen = new Set<string>()
+    const scored: { id: string; label: string; requests: number }[] = []
+    for (const tier of tiers) {
+      if (seen.has(tier.id)) continue
+      seen.add(tier.id)
+      const requests = providerLastCycleMetric(cycle, tier.id, 'provider_scored_batches') || 0
+      if (requests > 0) scored.push({ id: tier.id, label: tier.label, requests })
+    }
+    return scored
+  }
+
+  // Older firehose rows only carried family-wide request counters. Preserve their established display,
+  // without pretending that a generic overflow count identifies one provider in the registry.
+  const legacy: { id: string; label: string; requests: number }[] = []
+  if (cycle.local_requests) legacy.push({ id: 'local', label: 'Local', requests: cycle.local_requests })
+  if (cycle.groq_requests) legacy.push({ id: 'groq', label: 'Groq', requests: cycle.groq_requests })
+  if (cycle.overflow_requests) legacy.push({ id: 'overflow', label: 'Overflow', requests: cycle.overflow_requests })
+  if (cycle.gemini_requests) legacy.push({ id: 'gemini', label: 'Gemini', requests: cycle.gemini_requests })
+  if (cycle.anthropic_requests) legacy.push({ id: 'anthropic-triage', label: 'Haiku', requests: cycle.anthropic_requests })
+  return legacy
 }
 
 function providerWorkDiagnostics(
@@ -954,17 +1028,21 @@ export function backlogTrend(cycles: CycleSummary[]): 'growing' | 'shrinking' | 
 export function getNewsDiagnostics(): NewsDiagnostics {
   const now = Date.now()
   const ts = new Date(now).toISOString().replace(/\.\d{3}Z$/, 'Z')
-  const status = getNewsStatus() // reuse the same today-counts + read-only + backlog computation
+  // Cycle-only read: the panel polls every 10s, so never hydrate/re-rank/deduplicate thousands of item rows
+  // just to total compact summaries. It proves every UTC partition the trailing hour needs and falls back to
+  // the configured archive after local pruning; missing history fails the rate closed.
+  const flowRead = readPipelineFlowCycles(REPO_ROOT, NEWS.newsArchiveDir, now, NEWS.cycleTimeoutMs)
+  const flowCycles = flowRead.cycles
+  const flow = buildPipelineFlowRates(flowCycles, now, NEWS.cycleTimeoutMs, flowRead.history)
+  const status = getNewsStatus(flowCycles) // reuse the same cycle-only rows for today totals
   const providerWorkEnabled = NEWS.enabled || (NEWS.ideasEnabled && NEWS.ideaProviderConfigured)
   const spendingAllowed = providerDiagnosticsActiveForState(providerWorkEnabled, status.readOnly, providerSpendingOwner)
   const todayUtc = new Date(now).toISOString().slice(0, 10)
-
-  // newest cycle by ts (today's firehose) → drives the last-cycle flow + per-tier scoredBy + defer read
-  let cyclesToday: CycleSummary[] = []
-  try { cyclesToday = (readFeed(REPO_ROOT, 1).cycles as CycleSummary[]) || [] } catch { cyclesToday = [] }
-  const last = cyclesToday.length
-    ? [...cyclesToday].sort((a, b) => String(a.ts).localeCompare(String(b.ts)))[cyclesToday.length - 1]
-    : null
+  // Today's subset drives only day-scoped per-tier work and loss counters. Last look comes from the reader's
+  // separate one-row operational history (legacy/bad additive completion falls back to start), so a prolonged
+  // post-midnight outage cannot erase it and that historical row cannot leak into today's totals or rate math.
+  const cyclesToday = flowCycles.filter((cycle) => String(cycle.ts || '').slice(0, 10) === todayUtc)
+  const last = flowRead.latestCycle
   const diagnosticBatch = loadDeferred(STATE_DIR).slice(0, NEWS.triageBatch)
 
   const tiers: TierDiagnostics[] = []
@@ -984,7 +1062,8 @@ export function getNewsDiagnostics(): NewsDiagnostics {
       ...(b.ledgerUnavailable ? { ledgerUnavailable: true } : {}),
       ...(b.providerDayExhausted ? { providerDayExhausted: true } : {}),
       ...(!b.ledgerUnavailable ? { requestsToday: b.requests, tokensToday: b.tokens } : {}), // no reqCap / tokenCap on purpose — it is unlimited
-      ...retryDiagnostics(cd, now), ...providerWorkDiagnostics(cyclesToday, lp.id), lastCycleRequests: last?.local_requests,
+      ...retryDiagnostics(cd, now), ...providerWorkDiagnostics(cyclesToday, lp.id),
+      ...providerLastCycleDiagnostics(last, lp.id, last?.local_requests),
     })
   }
 
@@ -1004,12 +1083,20 @@ export function getNewsDiagnostics(): NewsDiagnostics {
       ...(b.providerDayExhausted ? { providerDayExhausted: true } : {}),
       ...(!b.ledgerUnavailable ? { requestsToday: b.requests, tokensToday: b.tokens } : {}),
       reqCap: NEWS.groqDailyReqCap, tokenCap: NEWS.groqDailyTokenCap,
-      ...retryDiagnostics(cd, now, 'GROQ_API_KEY'), ...providerWorkDiagnostics(cyclesToday, 'groq'), lastCycleRequests: last?.groq_requests,
+      ...retryDiagnostics(cd, now, 'GROQ_API_KEY'), ...providerWorkDiagnostics(cyclesToday, 'groq'),
+      ...providerLastCycleDiagnostics(last, 'groq', last?.groq_requests),
     })
   }
 
   // --- OpenAI-compatible overflow registry, enumerated from config (zero-touch) ---
-  for (const p of NEWS.overflowProviders) {
+  // Keep the diagnostic ladder in the SAME semantic order as runCycle: direct providers, Gemini, aggregate
+  // routers, demoted local. Config array order alone cannot express that because Gemini is not an overflow
+  // descriptor. The routeClass default preserves older/custom direct descriptors.
+  const overflowRouteClass = (p: (typeof NEWS.overflowProviders)[number]) => p.routeClass ?? (p.id === 'local' ? 'local-fallback' : 'direct')
+  const directOverflow = NEWS.overflowProviders.filter((p) => overflowRouteClass(p) === 'direct')
+  const aggregateOverflow = NEWS.overflowProviders.filter((p) => overflowRouteClass(p) === 'aggregate-fallback')
+  const localOverflow = NEWS.overflowProviders.filter((p) => overflowRouteClass(p) === 'local-fallback')
+  const pushOverflowTier = (p: (typeof NEWS.overflowProviders)[number]) => {
     const u = overflowUsage(p)
     const cd = triageRetryInfo(p.id, now)
     const coolMs = Math.max(0, cd.until - now)
@@ -1040,8 +1127,10 @@ export function getNewsDiagnostics(): NewsDiagnostics {
       ...(!u.ledgerUnavailable ? { requestsToday: u.used, tokensToday: u.tokens } : {}),
       reqCap: u.cap, tokenCap: p.dailyTokenCap,
       ...retryDiagnostics(cd, now, p.keyEnvVar), ...providerWorkDiagnostics(cyclesToday, p.id),
+      ...providerLastCycleDiagnostics(last, p.id),
     })
   }
+  for (const p of directOverflow) pushOverflowTier(p)
 
   // --- Gemini pool (one aggregate tier; per-model cooldowns folded into a single pool-usable read) ---
   const pool = geminiPoolUsage()
@@ -1103,9 +1192,24 @@ export function getNewsDiagnostics(): NewsDiagnostics {
       reqCap: pool.cap,
       ...retryDiagnostics(coolMs > 0 && soonestRetry ? soonestRetry : { until: 0, fails: 0 }, now, 'GEMINI_API_KEY'),
       ...(credentialFault ? { credentialRejected: true, keyEnvVar: 'GEMINI_API_KEY' } : {}),
-      ...providerWorkDiagnostics(cyclesToday, 'gemini'), lastCycleRequests: last?.gemini_requests,
+      ...providerWorkDiagnostics(cyclesToday, 'gemini'),
+      ...providerLastCycleDiagnostics(last, 'gemini', last?.gemini_requests),
     })
   }
+
+  // Aggregate routers are deliberately after the whole direct+Gemini pool. OmniRoute remains visible even
+  // before provisioning so an omitted flag can never masquerade as a feature that does not exist.
+  for (const p of aggregateOverflow) pushOverflowTier(p)
+  const omni = buildOmniRouteProvider()
+  if (!aggregateOverflow.some((p) => p.id === omni.id)) {
+    tiers.push({
+      id: omni.id, label: omni.label, color: omni.color, role: 'overflow', order: order++,
+      enabled: false, spendingAllowed, meter: 'requests', health: 'disabled', reqCap: omni.dailyReqCap,
+      disabledReason: 'Provisioning pending · the deploy agent retries installation and the complete 12-item scorer smoke automatically; OmniRoute enables only after that proof passes',
+      ...providerWorkDiagnostics(cyclesToday, omni.id), ...providerLastCycleDiagnostics(last, omni.id),
+    })
+  }
+  for (const p of localOverflow) pushOverflowTier(p)
 
   // --- Haiku last-resort (order last), metered in $ ---
   {
@@ -1120,7 +1224,8 @@ export function getNewsDiagnostics(): NewsDiagnostics {
       ...(u.ledgerUnavailable ? { ledgerUnavailable: true } : {}),
       ...(!u.ledgerUnavailable ? { usdToday: Math.round(u.usd * 10_000) / 10_000, callsToday: u.calls } : {}),
       usdCap: NEWS.anthropicDailyUsd,
-      ...retryDiagnostics(cd, now), ...providerWorkDiagnostics(cyclesToday, 'anthropic-triage'), lastCycleRequests: last?.anthropic_requests,
+      ...retryDiagnostics(cd, now), ...providerWorkDiagnostics(cyclesToday, 'anthropic-triage'),
+      ...providerLastCycleDiagnostics(last, 'anthropic-triage', last?.anthropic_requests),
     })
   }
 
@@ -1146,15 +1251,7 @@ export function getNewsDiagnostics(): NewsDiagnostics {
     retiredToday,
   }
 
-  // per-tier "who scored the last cycle" (overflow is summed across providers, so it shows as one row)
-  const scoredBy: { id: string; label: string; requests: number }[] = []
-  if (last) {
-    if (last.local_requests) scoredBy.push({ id: 'local', label: 'Local', requests: last.local_requests })
-    if (last.groq_requests) scoredBy.push({ id: 'groq', label: 'Groq', requests: last.groq_requests })
-    if (last.overflow_requests) scoredBy.push({ id: 'overflow', label: 'Overflow', requests: last.overflow_requests })
-    if (last.gemini_requests) scoredBy.push({ id: 'gemini', label: 'Gemini', requests: last.gemini_requests })
-    if (last.anthropic_requests) scoredBy.push({ id: 'anthropic-triage', label: 'Haiku', requests: last.anthropic_requests })
-  }
+  const scoredBy = scoredByForLastCycle(last, tiers)
 
   const lastCycle: NewsDiagnostics['lastCycle'] = last
     ? {
@@ -1162,6 +1259,7 @@ export function getNewsDiagnostics(): NewsDiagnostics {
         phase: last.phase || null,
         fetched: last.fetched || 0,
         candidates: last.candidates || 0,
+        newArrivals: typeof last.new_arrivals === 'number' ? last.new_arrivals : null,
         fresh: typeof last.fresh === 'number' ? last.fresh : null,
         carryover: typeof last.carryover === 'number' ? last.carryover : null,
         picked: last.picked || 0,
@@ -1198,6 +1296,7 @@ export function getNewsDiagnostics(): NewsDiagnostics {
     intervalMin: status.intervalMin,
     lastCycleAt: status.lastCycleAt,
     nextCycleAt: status.nextCycleAt,
+    flow,
     tiers,
     backlog,
     today: status.today,

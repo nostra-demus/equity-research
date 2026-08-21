@@ -30,6 +30,7 @@ import { SYSTEM, buildUserMessage, estimateTokens, scoreToBand, triageBatch, tri
 import { rankScore, preTriagePriority, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
 import { deriveScope, deriveSourceTier, toEventScope } from './scope'
 import { deriveCommodities } from './commodities'
+import { countUniqueNewArrivals } from './pipeline-flow'
 import { appendFirehoseSummary, mergeInbox, refreshBoard, type InboxRevisionClocks } from './write-inbox'
 import { runThemesCycle, bumpCycleCounter, themesConfigFromNews } from './themes/engine'
 import { makeThemeNamer } from './themes/llm'
@@ -666,6 +667,9 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // (requireDeferredStamp) — never found_at — so a genuinely-new item with an old publication date is
   // untouched. (Codex #453 — redelivered rows must be expired before fresh classification.)
   const { live: freshLive, expired: freshExpired } = expireBacklog(fresh, nowDate, DEFERRED_MAX_AGE_MS, { requireDeferredStamp: true })
+  // `freshLive` is a routing pool, not an arrival counter: it also contains a source redelivery of an ID
+  // already resident in the backlog. Partition by durable identity before emitting queue inflow telemetry.
+  const newArrivals = countUniqueNewArrivals(freshLive, backlogRows)
   const backlogExpired = [...carriedExpired, ...freshExpired]
   if (backlogExpired.length) {
     log(`backlog: ${backlogExpired.length} item${backlogExpired.length === 1 ? '' : 's'} retired — waited longer than ${Math.round(DEFERRED_MAX_AGE_MS / 3_600_000)}h behind the queue; never scored`)
@@ -685,7 +689,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // inflating retiredToday without bound behind a gauge that read "caught up".
     const cleared = saveDeferred(stateDir, [], log) // any stale spillover was consumed by the filters above
     const summary: CycleSummary = {
-      ...blank, ok: true, fetched: raws.length, fresh: freshLive.length, carryover: requeued.length,
+      ...blank, completed_at: now().toISOString().replace(/\.\d{3}Z$/, 'Z'),
+      ok: true, fetched: raws.length, fresh: freshLive.length, new_arrivals: newArrivals, carryover: requeued.length,
       backlog: cleared ? 0 : carried.length, backlog_cap: DEFERRED_CAP,
       ...(cleared ? {} : { deferred_write_failed: true }),
       // a cycle whose whole queue was the expired backlog still has to REPORT the retirement — this is
@@ -745,14 +750,16 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     coolingDown: triageIsHeld(stateDir, p.id, now().getTime()),
     cooldownWasSet: readCooldownUntil(stateDir, p.id) || readCooldownUntil(stateDir, triageCooldownId(p.id)), // >0 → a marker existed at start; clear it if we recover
   }))
-  // The overflow chain runs in TWO segments around Gemini. A DEMOTED local tier (NEWS_LOCAL_PRIMARY=0) joins
-  // this chain as its last entry (config.buildOverflowProviders), but "last in the array" was still ahead of
-  // Gemini, because the whole loop below runs BEFORE the Gemini block. Local is unlimited-but-slow while
-  // Gemini is fast and free — putting the slow tier first starved the fast one, so a batch that Gemini could
-  // have scored in seconds sat behind a minutes-long local call. Split the walk: cloud providers first, the
-  // local tier only after Gemini has had its turn. Order within each segment is unchanged.
-  const overflowCloud = overflow.filter((o) => o.p.id !== 'local')
-  const overflowLocal = overflow.filter((o) => o.p.id === 'local')
+  // Route by descriptor semantics, never by an aggregate provider's id. Ordinary direct cloud providers
+  // continue to share the fair reset-clock pool with Gemini. Aggregate routers sit strictly AFTER that whole
+  // pool and must be configured with dedicated/keyless upstream allowances, never credentials used by these
+  // direct routes. This ordering and the router's independent cap do not themselves prevent upstream double-
+  // spend. A demoted local tier remains later still because it is unlimited but slow. The legacy id fallback
+  // keeps hand-built/test local descriptors compatible; every canonical descriptor carries routeClass.
+  const routeClass = (o: (typeof overflow)[number]) => o.p.routeClass ?? (o.p.id === 'local' ? 'local-fallback' : 'direct')
+  const overflowDirect = overflow.filter((o) => routeClass(o) === 'direct')
+  const overflowAggregate = overflow.filter((o) => routeClass(o) === 'aggregate-fallback')
+  const overflowLocal = overflow.filter((o) => routeClass(o) === 'local-fallback')
   // LAST-RESORT tier (Claude Haiku). Default backend = the host's flat-fee SUBSCRIPTION via the local
   // `claude` CLI, which needs NO key — so it is ON by default; `api` mode instead needs a dedicated metered
   // key. Bounded by a daily $ LEDGER (restart-safe) rather than request counts, because that is the unit the
@@ -943,8 +950,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       }
       if (stopAbortedBatch()) break batchLoop
     }
-    // The demoted local tier is the only caller left for this sequential segment. Finite cloud allowances
-    // are routed by the reset-clock quota selector below; local is unlimited and deliberately remains last.
+    // The demoted local tier is the only caller of this sequential helper. Finite direct and aggregate cloud
+    // allowances each keep reset-clock pacing below; local is unlimited and deliberately remains last.
     const walkOverflow = async (segment: typeof overflow) => {
       for (const ov of segment) {
         if (deps.signal?.aborted) return
@@ -982,7 +989,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
           break // scored — stop walking the chain
         }
         ov.failed = true // skip this provider for the rest of the cycle so the batch can flow to the next
-        holdAfterTriageFailure({ stateDir, providerId: ov.p.id, result: res, at: now().getTime(), cooldownMs: ov.p.id === 'local' ? cfg.localCooldownMs : cfg.llmCooldownMs, cooldownMaxMs: ov.p.id === 'local' ? cfg.localCooldownMs : cfg.llmCooldownMaxMs, aborted: !!deps.signal?.aborted, budget: ov.budget })
+        const localFallback = routeClass(ov) === 'local-fallback'
+        holdAfterTriageFailure({ stateDir, providerId: ov.p.id, result: res, at: now().getTime(), cooldownMs: localFallback ? cfg.localCooldownMs : cfg.llmCooldownMs, cooldownMaxMs: localFallback ? cfg.localCooldownMs : cfg.llmCooldownMaxMs, aborted: !!deps.signal?.aborted, budget: ov.budget })
         if (deps.signal?.aborted) return
       }
     }
@@ -995,7 +1003,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // tier instead of spending a second scarce request retrying the first.
     type OverflowRoute = DailyQuotaCandidate & {
       kind: 'overflow'
-      ov: (typeof overflowCloud)[number]
+      ov: (typeof overflowDirect)[number]
       options: TriageOptions
       perAttemptTokens: number
       otherHardFit: boolean
@@ -1008,31 +1016,32 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       otherHardFit: boolean
     }
     type FreePoolRoute = OverflowRoute | GeminiRoute
+    const overflowQuotaRoute = (ov: (typeof overflow)[number], priority: number): OverflowRoute => {
+      const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: 1, requestRemainingHeaderIsDaily: ov.p.requestRemainingHeaderIsDaily }
+      const perAttemptTokens = triageGroqTokenBound(batch, options)
+      const tokenMeter = ov.p.dailyTokenCap != null
+      return {
+        kind: 'overflow' as const,
+        id: ov.p.id,
+        meter: tokenMeter ? 'tokens' as const : 'requests' as const,
+        used: tokenMeter ? ov.budget.tokens : ov.budget.requests,
+        cap: tokenMeter ? ov.p.dailyTokenCap! : ov.p.dailyReqCap,
+        cost: tokenMeter ? perAttemptTokens : 1,
+        // ADMISSION is tested against the calibrated expected cost; the hard cap and the reservation below
+        // keep the conservative worst case. On a token-metered tier those differ 3-8x, and gating admission
+        // on the worst case is what made a tier with allowance in hand read "Saved for later today".
+        paceCost: tokenMeter ? triagePaceTokenBound(batch) : 1,
+        resetTimeZone: ov.p.dayTz,
+        floorFraction: ov.p.paceFloorFrac ?? cfg.freeProviderPaceFloorFrac,
+        priority,
+        ov,
+        options,
+        perAttemptTokens,
+        otherHardFit: ov.budget.canSpend(perAttemptTokens, 1),
+      }
+    }
     const freePoolRoutes = (): FreePoolRoute[] => {
-      const routes: FreePoolRoute[] = overflowCloud.map((ov, priority) => {
-        const options: TriageOptions = { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody, timeoutMs: ov.p.timeoutMs, maxAttempts: 1, requestRemainingHeaderIsDaily: ov.p.requestRemainingHeaderIsDaily }
-        const perAttemptTokens = triageGroqTokenBound(batch, options)
-        const tokenMeter = ov.p.dailyTokenCap != null
-        return {
-          kind: 'overflow' as const,
-          id: ov.p.id,
-          meter: tokenMeter ? 'tokens' as const : 'requests' as const,
-          used: tokenMeter ? ov.budget.tokens : ov.budget.requests,
-          cap: tokenMeter ? ov.p.dailyTokenCap! : ov.p.dailyReqCap,
-          cost: tokenMeter ? perAttemptTokens : 1,
-          // ADMISSION is tested against the calibrated expected cost; the hard cap and the reservation below
-          // keep the conservative worst case. On a token-metered tier those differ 3-8x, and gating admission
-          // on the worst case is what made a tier with allowance in hand read "Saved for later today".
-          paceCost: tokenMeter ? triagePaceTokenBound(batch) : 1,
-          resetTimeZone: ov.p.dayTz,
-          floorFraction: ov.p.paceFloorFrac ?? cfg.freeProviderPaceFloorFrac,
-          priority,
-          ov,
-          options,
-          perAttemptTokens,
-          otherHardFit: ov.budget.canSpend(perAttemptTokens, 1),
-        }
-      })
+      const routes: FreePoolRoute[] = overflowDirect.map(overflowQuotaRoute)
       if (geminiOn) {
         for (let index = 0; index < geminiPool.length; index++) {
           const gem = geminiPool[index]
@@ -1042,13 +1051,18 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
             kind: 'gemini', id: `gemini:${gem.model}`, meter: 'requests',
             used: gem.budget.requests, cap: cfg.geminiModels[index].dailyReqCap, cost: 1,
             resetTimeZone: cfg.geminiDayTz, floorFraction: cfg.freeProviderPaceFloorFrac,
-            priority: overflowCloud.length + index, gem, options, perAttemptTokens,
+            priority: overflowDirect.length + index, gem, options, perAttemptTokens,
             otherHardFit: gem.budget.canSpend(perAttemptTokens, 1),
           })
         }
       }
       return routes
     }
+    const aggregateFallbackRoutes = (): OverflowRoute[] => overflowAggregate.map(overflowQuotaRoute)
+    // Count contract failures across the whole same-batch route, including the later aggregate. Availability,
+    // cap, pacing, and cooldown failures always fall through; unusable model output retains the existing
+    // bounded cross-model retry policy so one malformed prompt cannot burn every provider allowance.
+    let contractFailures = res?.failureKind === 'contract' ? 1 : 0
     if (!res || !res.ok) {
       // A failed atomic reservation is an admission failure for this batch, not evidence that the provider
       // itself is unhealthy. Exclude only this route from the current selection loop so a broken/busy ledger
@@ -1063,7 +1077,6 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       // primary or from Groq, and the cap counts re-sends of THIS batch whoever produced the first unusable
       // body. Starting at 0 under-counted by one, and made `NEWS_CONTRACT_RETRIES_PER_BATCH=0` still send
       // the batch to one pool provider — which config.ts and the README both document as "never re-sends".
-      let contractFailures = res?.failureKind === 'contract' ? 1 : 0
       while (true) {
         if (contractFailures > cfg.contractRetriesPerBatch) {
           log(`triage batch @${i}: ${contractFailures} unusable-response failure${contractFailures === 1 ? '' : 's'} — not re-sending this batch to more free providers (cap ${cfg.contractRetriesPerBatch})`)
@@ -1156,7 +1169,62 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         if (stopAbortedBatch()) break batchLoop
       }
     }
-    // LOCAL LAST: a demoted local tier is unlimited but slow, so it only gets the batch once Gemini has passed.
+    // AGGREGATE LAST-FREE FALLBACK. Only now — after every eligible direct/Gemini route either had no released
+    // allowance or was attempted and failed — may a self-hosted router try its dedicated/keyless upstream
+    // pool. Its finite cap meters calls into the router, not those upstreams; sharing direct-provider keys
+    // would still double-spend them. One failed aggregate can fall through without provider-id knowledge.
+    if ((!res || !res.ok) && contractFailures <= cfg.contractRetriesPerBatch) {
+      const reservationUnavailable = new Set<string>()
+      while (!res || !res.ok) {
+        if (contractFailures > cfg.contractRetriesPerBatch) break
+        const available = aggregateFallbackRoutes().filter((route) => {
+          if (reservationUnavailable.has(route.id) || !route.otherHardFit || route.ov.failed) return false
+          if (triageIsHeld(stateDir, route.ov.p.id, now().getTime())) return false
+          return dailyQuotaAdmission(route, now().getTime()).pacedFit
+        })
+        const pick = selectDailyQuotaCandidate(available, now().getTime()) as OverflowRoute | null
+        if (!pick) break
+        const { ov } = pick
+        const acquired = await ov.limiter.acquire(est, sleep, () => now().getTime(), undefined, deps.signal)
+        if (stopAbortedBatch()) break batchLoop
+        if (!acquired) { reservationUnavailable.add(pick.id); continue }
+        if (triageIsHeld(stateDir, ov.p.id, now().getTime())) { reservationUnavailable.add(pick.id); continue }
+        const refreshedAdmission = dailyQuotaAdmission({
+          ...pick,
+          used: pick.meter === 'tokens' ? ov.budget.tokens : ov.budget.requests,
+        }, now().getTime())
+        if (!refreshedAdmission.pacedFit || !ov.budget.canSpend(pick.perAttemptTokens, 1)) {
+          reservationUnavailable.add(pick.id)
+          continue
+        }
+        const reservation = ov.budget.tryReserve(pick.perAttemptTokens, undefined, now().getTime(), 1)
+        if (!reservation) { reservationUnavailable.add(pick.id); continue }
+        const attemptStartedAt = now().getTime()
+        let result: TriageResult | undefined
+        try {
+          result = await triageBatch(batch, pick.options, fetchFn, sleep)
+          res = result
+        } finally {
+          const charged = chargedAttemptTokens(result, pick.perAttemptTokens)
+          ov.budget.reconcile(reservation, charged.requests, charged.tokens)
+        }
+        ov.requests += res.requests
+        ov.tokens += res.tokens
+        addProviderCount(providerAttempts, ov.p.id, res.requests)
+        ov.limiter.learn(rateInfoForLimiter(res.rate, triageFailureIsProviderWide(res)), () => now().getTime())
+        if (res.ok) {
+          addProviderCount(providerScoredBatches, ov.p.id, 1)
+          if (ov.cooldownWasSet) clearTriageCooldowns(stateDir, ov.p.id, attemptStartedAt)
+          break
+        }
+        ov.failed = true
+        if (res.failureKind === 'contract') contractFailures++
+        holdAfterTriageFailure({ stateDir, providerId: ov.p.id, result: res, at: now().getTime(), cooldownMs: cfg.llmCooldownMs, cooldownMaxMs: cfg.llmCooldownMaxMs, aborted: !!deps.signal?.aborted, budget: ov.budget })
+        if (stopAbortedBatch()) break batchLoop
+      }
+    }
+    // LOCAL LAST: a demoted local tier is unlimited but slow, so it only gets the batch once the finite
+    // direct/Gemini pool and the aggregate fallback have both passed.
     if (!res || !res.ok) await walkOverflow(overflowLocal)
     if (stopAbortedBatch()) break batchLoop
     // LAST-RESORT: every free brain is paced/capped/cooling/failed for this batch → score it on Claude Haiku
@@ -1289,7 +1357,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       // configured allowance genuinely cannot fit a call; allowance exists but is clock-paced; or allowance
       // is released but an engine retry hold is protecting it after an error. This is operator truth, and it
       // stops "every quota spent" appearing while OpenRouter/NVIDIA/Gemini still have unused allowance.
-      const routes = freePoolRoutes()
+      const routes = [...freePoolRoutes(), ...aggregateFallbackRoutes()]
       const routeState = routes.map((route) => ({
         route,
         admission: dailyQuotaAdmission(route, now().getTime()),
@@ -1686,11 +1754,12 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
                   : undefined
 
   const summary: CycleSummary = {
-    ts, ok: true, fetched: raws.length, candidates: items.length,
+    ts, completed_at: now().toISOString().replace(/\.\d{3}Z$/, 'Z'),
+    ok: true, fetched: raws.length, candidates: items.length,
     picked, watched, dropped, inboxed, groq_requests: groqRequests, groq_tokens: groqTokens,
     // end-to-end transparency: split the read balloon (fresh vs re-queued backlog), and always carry the
     // backlog depth + its loss boundary + the fallback's state so the cockpit never has to infer them.
-    fresh: freshLive.length, carryover: requeued.length,
+    fresh: freshLive.length, new_arrivals: newArrivals, carryover: requeued.length,
     ...(defCount ? { deferred: defCount } : {}),
     backlog: Math.min(defCount, DEFERRED_CAP), backlog_cap: DEFERRED_CAP,
     ...(droppedAtCap ? { dropped_at_cap: droppedAtCap } : {}),

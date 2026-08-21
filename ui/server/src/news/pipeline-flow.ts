@@ -1,0 +1,422 @@
+import fs from 'node:fs'
+import path from 'node:path'
+import type { CycleSummary } from './types'
+
+export const PIPELINE_FLOW_WINDOW_MINUTES = 60 as const
+export const PIPELINE_FLOW_WINDOW_MS = PIPELINE_FLOW_WINDOW_MINUTES * 60_000
+/**
+ * `runAbortableCycle` fires its guard at `cycleTimeoutMs`, then awaits the aborted cycle while it durably
+ * journals the unscored tail and publishes its summary. Give that fail-soft settlement a small, bounded
+ * interval; rows beyond it are still treated as damaged rather than stretching the rate window indefinitely.
+ */
+export const PIPELINE_FLOW_ABORT_SETTLEMENT_MS = 2 * 60_000
+const PIPELINE_FLOW_WINDOW_SECONDS = PIPELINE_FLOW_WINDOW_MS / 1000
+const UTC_DAY_MS = 24 * 60 * 60_000
+
+export type PipelineFlowCoverage = 'complete' | 'partial' | 'none'
+export type PipelineFlowComparisonStatus = 'ahead' | 'equal' | 'behind' | 'unavailable'
+
+export interface PipelineFlowHistory {
+  coverage: PipelineFlowCoverage
+  requiredDates: string[]
+  readDates: string[]
+  missingDates: string[]
+  unreadableDates: string[]
+  corruptCycleRows: number
+}
+
+export interface PipelineFlowMeasure {
+  /** Total queue items in the fixed trailing window. Null means cycle/history coverage cannot prove it. */
+  items: number | null
+  /** `items / 3,600`, never an elapsed-since-first-observation average. */
+  perSecond: number | null
+  measured: boolean
+  coverage: PipelineFlowCoverage
+  knownCycles: number
+  totalCycles: number
+}
+
+export interface PipelineFlowRates {
+  windowMinutes: typeof PIPELINE_FLOW_WINDOW_MINUTES
+  from: string
+  to: string
+  history: PipelineFlowHistory
+  inflow: PipelineFlowMeasure
+  scanning: PipelineFlowMeasure
+  comparison: {
+    measured: boolean
+    status: PipelineFlowComparisonStatus
+    /** Scanning minus new arrivals. Positive is capacity headroom; negative is queue pressure. */
+    scanningMinusInflowItemsPerHour: number | null
+  }
+}
+
+export interface PipelineFlowCycleRead {
+  /** Rate/day rows from only the partitions required for the trailing window. */
+  cycles: CycleSummary[]
+  history: PipelineFlowHistory
+  /** Best-effort operational row, independently retained/read and never included in rate or daily totals. */
+  latestCycle: CycleSummary | null
+}
+
+interface EventIdentity { event_id?: unknown }
+
+/** Count unique fetched IDs that were not already resident in the saved backlog. */
+export function countUniqueNewArrivals(delivered: readonly EventIdentity[], backlog: readonly EventIdentity[]): number {
+  if (delivered.length === 0) return 0
+  const resident = new Set<string>()
+  for (const item of backlog) {
+    if (typeof item.event_id === 'string' && item.event_id) resident.add(item.event_id)
+  }
+  const arrivals = new Set<string>()
+  for (const item of delivered) {
+    const id = typeof item.event_id === 'string' ? item.event_id : ''
+    if (id && !resident.has(id)) arrivals.add(id)
+  }
+  return arrivals.size
+}
+
+function queueCount(value: unknown): number | null {
+  return typeof value === 'number' && Number.isSafeInteger(value) && value >= 0 ? value : null
+}
+
+/**
+ * Read genuinely NEW queue arrivals from one summary.
+ *
+ * `fresh` cannot answer this: a source redelivery of an item already in the deferred backlog travels through
+ * runCycle's fresh pool so it can preserve priority and residence time. New summaries therefore emit the
+ * backlog-partitioned `new_arrivals`. For legacy rows only an empty candidate queue proves zero arrivals;
+ * every non-empty legacy row is unknown rather than a falsely reassuring underestimate.
+ */
+export function cycleNewArrivalItems(cycle: CycleSummary): number | null {
+  const arrivals = queueCount(cycle.new_arrivals)
+  if (arrivals !== null) return arrivals
+  return queueCount(cycle.candidates) === 0 ? 0 : null
+}
+
+/** One scored queue item ends in exactly one of these three bands. Loss/defer counters are not scanning. */
+export function cycleScannedItems(cycle: CycleSummary): number | null {
+  const picked = queueCount(cycle.picked)
+  const watched = queueCount(cycle.watched)
+  const dropped = queueCount(cycle.dropped)
+  return picked === null || watched === null || dropped === null ? null : picked + watched + dropped
+}
+
+function timestampMs(value: unknown): number | null {
+  if (typeof value !== 'string') return null
+  const at = Date.parse(value)
+  return Number.isFinite(at) ? at : null
+}
+
+function validTimeoutMs(cycleTimeoutMs: number): boolean {
+  return Number.isFinite(cycleTimeoutMs) && cycleTimeoutMs >= 0
+}
+
+function maximumCycleDurationMs(cycleTimeoutMs: number, aborted: boolean): number {
+  return cycleTimeoutMs + (aborted ? PIPELINE_FLOW_ABORT_SETTLEMENT_MS : 0)
+}
+
+/**
+ * Strict result placement for rate math.
+ *
+ * A cycle cannot finish before it starts. An ordinary cycle cannot finish after the scheduler's wall-clock
+ * guard; an explicitly aborted cycle gets only the bounded journal/publish settlement interval above. Legacy
+ * summaries that predate `completed_at` completed at their only recorded timestamp. Operational diagnostics
+ * use the more tolerant helper below so a damaged completion field cannot erase loss/provider evidence.
+ */
+export function cycleCompletionMs(cycle: CycleSummary, cycleTimeoutMs: number): number | null {
+  if (!validTimeoutMs(cycleTimeoutMs)) return null
+  const started = timestampMs(cycle.ts)
+  if (started === null) return null
+  if (cycle.completed_at === undefined) return started
+  const completed = timestampMs(cycle.completed_at)
+  const latestAllowed = started + maximumCycleDurationMs(cycleTimeoutMs, cycle.aborted === true)
+  if (completed === null || completed < started || completed > latestAllowed) return null
+  return completed
+}
+
+/** Select operational "Last look" truth without letting a bad additive completion field delete the row. */
+export function cycleDiagnosticMs(cycle: CycleSummary, cycleTimeoutMs: number): number | null {
+  const started = timestampMs(cycle.ts)
+  if (started === null) return null
+  return cycleCompletionMs(cycle, cycleTimeoutMs) ?? started
+}
+
+export function latestPipelineCycle(cycles: readonly CycleSummary[], cycleTimeoutMs: number): CycleSummary | null {
+  let latest: CycleSummary | null = null
+  let latestAt = -Infinity
+  for (const cycle of cycles) {
+    const at = cycleDiagnosticMs(cycle, cycleTimeoutMs)
+    if (at !== null && at >= latestAt) { latest = cycle; latestAt = at }
+  }
+  return latest
+}
+
+function isoDay(at: number): string { return new Date(at).toISOString().slice(0, 10) }
+
+export function requiredPipelineFlowDates(nowMs: number, cycleTimeoutMs: number): string[] {
+  if (!Number.isFinite(nowMs) || !validTimeoutMs(cycleTimeoutMs)) return []
+  // Summaries are partitioned by START but placed in the rate by COMPLETION. The earliest start that could
+  // still finish inside the trailing hour is therefore window-start minus the configured cycle guard and
+  // the bounded post-abort settlement interval. We do not know whether a row aborted until its partition is
+  // read, so coverage must use the longest valid duration and may not silently omit that start-day partition.
+  const earliestStart = nowMs - PIPELINE_FLOW_WINDOW_MS - maximumCycleDurationMs(cycleTimeoutMs, true)
+  const firstDay = Date.parse(`${isoDay(earliestStart)}T00:00:00Z`)
+  const lastDay = Date.parse(`${isoDay(nowMs)}T00:00:00Z`)
+  const dates: string[] = []
+  for (let day = firstDay; day <= lastDay; day += UTC_DAY_MS) dates.push(isoDay(day))
+  return dates
+}
+
+function potentiallyWindowRelevant(cycle: CycleSummary, fromMs: number, nowMs: number, cycleTimeoutMs: number): boolean {
+  const started = timestampMs(cycle.ts)
+  if (started !== null) {
+    const latestAllowed = started + maximumCycleDurationMs(cycleTimeoutMs, cycle.aborted === true)
+    return started <= nowMs && latestAllowed >= fromMs
+  }
+  const completed = timestampMs(cycle.completed_at)
+  return completed === null || (completed >= fromMs && completed <= nowMs)
+}
+
+function malformedSummaryPotentiallyRelevant(text: string, fromMs: number, nowMs: number, cycleTimeoutMs: number): boolean {
+  const match = text.match(/"ts"\s*:\s*"([^"]+)"/)
+  const started = timestampMs(match?.[1])
+  // The row cannot be parsed well enough to trust its `aborted` bit, so use the longest valid duration.
+  return started === null || (started <= nowMs && started + maximumCycleDurationMs(cycleTimeoutMs, true) >= fromMs)
+}
+
+function partitionCandidates(repoRoot: string, archiveDir: string, date: string): string[] {
+  return [
+    path.join(repoRoot, 'screener', 'inbox', `${date}_firehose.ndjson`),
+    ...(archiveDir ? [path.join(archiveDir, `${date}_firehose.ndjson`)] : []),
+  ]
+}
+
+function readPartition(repoRoot: string, archiveDir: string, date: string): { status: 'read'; text: string } | { status: 'missing' | 'unreadable' } {
+  let unreadable = false
+  for (const file of [...new Set(partitionCandidates(repoRoot, archiveDir, date))]) {
+    try { return { status: 'read', text: fs.readFileSync(file, 'utf8') } }
+    catch (error: any) {
+      if (error?.code !== 'ENOENT') unreadable = true
+    }
+  }
+  return { status: unreadable ? 'unreadable' : 'missing' }
+}
+
+// The diagnostics endpoint polls every 10 seconds. Retain exactly one operational row per storage target so
+// a quiet period does not repeatedly reread an item-heavy old partition; a process that starts during an
+// outage discovers the same row once from disk below.
+const HISTORICAL_CYCLE_RESCAN_MS = 60_000
+interface LatestCycleCacheEntry { cycle: CycleSummary | null; checkedAtMs: number }
+const latestCycleCache = new Map<string, LatestCycleCacheEntry>()
+
+function cycleCacheKey(repoRoot: string, archiveDir: string): string {
+  return `${path.resolve(repoRoot)}\u0000${archiveDir ? path.resolve(archiveDir) : ''}`
+}
+
+function availablePartitionDates(repoRoot: string, archiveDir: string, throughDate: string): string[] {
+  const dates = new Set<string>()
+  const dirs = [...new Set([
+    path.join(repoRoot, 'screener', 'inbox'),
+    ...(archiveDir ? [archiveDir] : []),
+  ].map((dir) => path.resolve(dir)))]
+  for (const dir of dirs) {
+    let names: string[]
+    try { names = fs.readdirSync(dir) }
+    catch { continue }
+    for (const name of names) {
+      const match = name.match(/^(\d{4}-\d{2}-\d{2})_firehose\.ndjson$/)
+      if (!match || match[1] > throughDate) continue
+      const at = Date.parse(`${match[1]}T00:00:00Z`)
+      if (Number.isFinite(at) && isoDay(at) === match[1]) dates.add(match[1])
+    }
+  }
+  return [...dates].sort().reverse()
+}
+
+function latestCycleInPartition(repoRoot: string, archiveDir: string, date: string, cycleTimeoutMs: number): CycleSummary | null {
+  const partition = readPartition(repoRoot, archiveDir, date)
+  if (partition.status !== 'read') return null
+  const cycles: CycleSummary[] = []
+  for (const line of partition.text.split('\n')) {
+    const text = line.trim()
+    if (!text || !/"kind"\s*:\s*"cycle_summary"/.test(text)) continue
+    try {
+      const row = JSON.parse(text)
+      if (row?.kind === 'cycle_summary') cycles.push(row as CycleSummary)
+    } catch { /* Last look is best-effort; rate coverage accounts for relevant corruption separately. */ }
+  }
+  return latestPipelineCycle(cycles, cycleTimeoutMs)
+}
+
+function resolveLatestCycle(
+  repoRoot: string,
+  archiveDir: string,
+  requiredDates: readonly string[],
+  cycles: readonly CycleSummary[],
+  nowMs: number,
+  cycleTimeoutMs: number,
+): CycleSummary | null {
+  const key = cycleCacheKey(repoRoot, archiveDir)
+  const cached = latestCycleCache.get(key)
+  const cachedCycle = cached?.cycle ?? null
+  const current = latestPipelineCycle(cycles, cycleTimeoutMs)
+  let latest = latestPipelineCycle([...(cachedCycle ? [cachedCycle] : []), ...(current ? [current] : [])], cycleTimeoutMs)
+
+  // A normal poll finds the newest row in the already-required partitions. Only a cold process with no such
+  // row walks older partition names, newest first. Cache an empty search briefly too, otherwise a brand-new
+  // install with item-only archives would reread every old partition on every 10-second panel poll.
+  const historicalSearchDue = !cached
+    || nowMs < cached.checkedAtMs
+    || nowMs - cached.checkedAtMs >= HISTORICAL_CYCLE_RESCAN_MS
+  let searchedHistory = false
+  if (!latest && Number.isFinite(nowMs) && historicalSearchDue) {
+    searchedHistory = true
+    const required = new Set(requiredDates)
+    for (const date of availablePartitionDates(repoRoot, archiveDir, isoDay(nowMs))) {
+      if (required.has(date)) continue
+      latest = latestCycleInPartition(repoRoot, archiveDir, date, cycleTimeoutMs)
+      if (latest) break
+    }
+  }
+  if (latest || searchedHistory || current) latestCycleCache.set(key, { cycle: latest, checkedAtMs: nowMs })
+  return latest
+}
+
+/**
+ * Read only cycle-summary lines from the start-date partitions that can own a trailing-hour completion.
+ *
+ * Unlike `readFeed`, this never hydrates/ranks/deduplicates thousands of item rows on the panel's 10-second
+ * poll. Local storage wins; `NEWS.newsArchiveDir` is the fallback supplied by the caller. Every parseable
+ * summary is preserved for operational/day diagnostics. Rate validity is applied separately below.
+ */
+export function readPipelineFlowCycles(repoRoot: string, archiveDir: string, nowMs: number, cycleTimeoutMs: number): PipelineFlowCycleRead {
+  const requiredDates = requiredPipelineFlowDates(nowMs, cycleTimeoutMs)
+  const fromMs = nowMs - PIPELINE_FLOW_WINDOW_MS
+  const readDates: string[] = []
+  const missingDates: string[] = []
+  const unreadableDates: string[] = []
+  const cycles: CycleSummary[] = []
+  let corruptCycleRows = 0
+
+  for (const date of requiredDates) {
+    const partition = readPartition(repoRoot, archiveDir, date)
+    if (partition.status === 'missing') { missingDates.push(date); continue }
+    if (partition.status === 'unreadable') { unreadableDates.push(date); continue }
+    if (partition.status !== 'read') continue
+    readDates.push(date)
+    for (const line of partition.text.split('\n')) {
+      const text = line.trim()
+      // Item rows dominate the file. Avoid even JSON.parse for them; no item hydration is needed here.
+      if (!text || !/"kind"\s*:\s*"cycle_summary"/.test(text)) continue
+      try {
+        const row = JSON.parse(text)
+        if (row?.kind !== 'cycle_summary') continue
+        // Preserve it even if its completion field is bad: loss/provider/Last-look diagnostics still need
+        // every other parseable field. buildPipelineFlowRates applies strict chronology only to rate math.
+        cycles.push(row as CycleSummary)
+      } catch {
+        if (malformedSummaryPotentiallyRelevant(text, fromMs, nowMs, cycleTimeoutMs)) corruptCycleRows++
+      }
+    }
+  }
+
+  const allDatesRead = readDates.length === requiredDates.length
+  const coverage: PipelineFlowCoverage = allDatesRead && corruptCycleRows === 0
+    ? 'complete'
+    : readDates.length > 0 ? 'partial' : 'none'
+  return {
+    cycles,
+    history: { coverage, requiredDates, readDates, missingDates, unreadableDates, corruptCycleRows },
+    latestCycle: resolveLatestCycle(repoRoot, archiveDir, requiredDates, cycles, nowMs, cycleTimeoutMs),
+  }
+}
+
+function completeHistory(nowMs: number, cycleTimeoutMs: number): PipelineFlowHistory {
+  const requiredDates = requiredPipelineFlowDates(nowMs, cycleTimeoutMs)
+  return { coverage: 'complete', requiredDates, readDates: requiredDates, missingDates: [], unreadableDates: [], corruptCycleRows: 0 }
+}
+
+function historyCoverage(history: PipelineFlowHistory, corruptCycleRows = history.corruptCycleRows): PipelineFlowCoverage {
+  const read = new Set(history.readDates)
+  const everyRequiredDateRead = history.requiredDates.every((date) => read.has(date))
+  if (everyRequiredDateRead && history.missingDates.length === 0 && history.unreadableDates.length === 0 && corruptCycleRows === 0) return 'complete'
+  return history.readDates.length > 0 ? 'partial' : 'none'
+}
+
+function measure(values: Array<number | null>, totalCycles: number, historyCoverage: PipelineFlowCoverage): PipelineFlowMeasure {
+  const known = values.filter((value): value is number => value !== null)
+  const knownCycles = known.length
+  const fieldCoverage: PipelineFlowCoverage = totalCycles === 0 ? 'none' : knownCycles === totalCycles ? 'complete' : knownCycles > 0 ? 'partial' : 'none'
+  const coverage: PipelineFlowCoverage = historyCoverage === 'complete'
+    ? fieldCoverage
+    : historyCoverage === 'partial' || fieldCoverage === 'partial' || fieldCoverage === 'complete' ? 'partial' : 'none'
+  const measured = totalCycles > 0 && historyCoverage === 'complete' && fieldCoverage === 'complete'
+  const items = measured ? known.reduce((sum, value) => sum + value, 0) : null
+  return {
+    items,
+    perSecond: items === null ? null : items / PIPELINE_FLOW_WINDOW_SECONDS,
+    measured,
+    coverage,
+    knownCycles,
+    totalCycles,
+  }
+}
+
+/**
+ * Build like-for-like queue flow over a fixed trailing 60-minute wall-clock window.
+ *
+ * Cycle completion time determines placement; legacy rows without it fall back to `ts`. A comparison is
+ * published only when required partition history and every in-window queue unit are complete.
+ */
+export function buildPipelineFlowRates(
+  cycles: readonly CycleSummary[],
+  nowMs: number,
+  cycleTimeoutMs: number,
+  history: PipelineFlowHistory = completeHistory(nowMs, cycleTimeoutMs),
+): PipelineFlowRates {
+  const safeNow = Number.isFinite(nowMs) ? nowMs : Date.now()
+  const fromMs = safeNow - PIPELINE_FLOW_WINDOW_MS
+  const inWindow: CycleSummary[] = []
+  let invalidRelevantCycles = 0
+  for (const cycle of cycles) {
+    const at = cycleCompletionMs(cycle, cycleTimeoutMs)
+    if (at === null) {
+      if (potentiallyWindowRelevant(cycle, fromMs, safeNow, cycleTimeoutMs)) invalidRelevantCycles++
+      continue
+    }
+    if (at >= fromMs && at <= safeNow) inWindow.push(cycle)
+  }
+
+  // Reader corruption and parseable-but-impossible chronology are separate debts. Only rows whose allowed
+  // start→completion interval overlaps this window count; an old damaged row cannot black out live rates.
+  const corruptCycleRows = history.corruptCycleRows + invalidRelevantCycles
+  const resolvedHistory: PipelineFlowHistory = {
+    ...history,
+    corruptCycleRows,
+    coverage: historyCoverage(history, corruptCycleRows),
+  }
+
+  const inflow = measure(inWindow.map(cycleNewArrivalItems), inWindow.length, resolvedHistory.coverage)
+  const scanning = measure(inWindow.map(cycleScannedItems), inWindow.length, resolvedHistory.coverage)
+  const comparisonMeasured = inflow.measured && scanning.measured
+  const gap = comparisonMeasured && inflow.items !== null && scanning.items !== null
+    ? scanning.items - inflow.items
+    : null
+  const status: PipelineFlowComparisonStatus = gap === null ? 'unavailable' : gap > 0 ? 'ahead' : gap < 0 ? 'behind' : 'equal'
+
+  return {
+    windowMinutes: PIPELINE_FLOW_WINDOW_MINUTES,
+    from: new Date(fromMs).toISOString(),
+    to: new Date(safeNow).toISOString(),
+    history: resolvedHistory,
+    inflow,
+    scanning,
+    comparison: {
+      measured: comparisonMeasured,
+      status,
+      // The window is exactly one hour, so the integer item gap is also the items/hour gap.
+      scanningMinusInflowItemsPerHour: gap,
+    },
+  }
+}

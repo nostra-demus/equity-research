@@ -262,10 +262,11 @@ export type LastResortState =
 
 // One ingest cycle's outcome — returned to the caller and logged as a firehose summary line.
 export interface CycleSummary {
-  ts: string
+  ts: string // cycle start (kept for live start/legacy readers)
+  completed_at?: string // cycle result became available; rate telemetry places work here, falling back to ts only for legacy rows
   ok: boolean
   fetched: number // raw articles pulled from the firehose
-  candidates: number // new, on-list, not-already-seen items sent to triage
+  candidates: number // total queue presented to triage: fetched-path rows (including redelivery) + carried backlog
   picked: number // band=pick (score ≥ pick threshold)
   watched: number // band=watch
   dropped: number // band=drop (not inboxed)
@@ -289,9 +290,10 @@ export interface CycleSummary {
   provider_scored_batches?: Record<string, number>
   note?: string // a human-readable reason when ok=false or a cap was hit
   // --- end-to-end transparency (additive; every field optional so an older client degrades cleanly) ---
-  // candidates = fresh + carryover. Splitting them stops the "read balloon": a budget-deferred item is
-  // re-queued into `candidates` every cycle until it's finally scored, so candidates ≫ what was genuinely new.
-  fresh?: number // genuinely new on-list items this cycle
+  // candidates = fresh + carryover. `fresh` names the fetched PATH, not unique arrival: a source redelivery
+  // of an item already in the backlog deliberately travels that path so it keeps priority/residence state.
+  fresh?: number // fetched-path on-list items this cycle, including redelivered backlog IDs
+  new_arrivals?: number // unique fetched-path event IDs absent from the backlog snapshot; the inflow telemetry authority
   carryover?: number // re-queued deferred-backlog items included in `candidates`
   deferred?: number // items pushed to the backlog this cycle (TRUE count, may exceed backlog_cap → tail lost)
   backlog?: number // deferred backlog depth held on disk after this cycle (≤ backlog_cap)

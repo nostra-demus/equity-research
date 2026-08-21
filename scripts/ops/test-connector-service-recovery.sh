@@ -24,8 +24,8 @@ check() {
 
 check "ops scripts remain valid shell" \
   "bash -n \"$INSTALL\" && bash -n \"$DEPLOY\" && bash -n \"$WATCHDOG\" && bash -n \"$FAILOVER\" && python3 -m py_compile \"$SUPERVISOR\""
-check "installer accepts only the connector-only repair target" \
-  "grep -Fq 'case \"\$ONLY\" in connectors)' \"$INSTALL\" && grep -Fq 'ONLY_SET=1' \"$INSTALL\""
+check "installer accepts only the connector and OmniRoute narrow repair targets" \
+  "grep -Fq 'case \"\$ONLY\" in connectors|omniroute)' \"$INSTALL\" && grep -Fq 'ONLY_SET=1' \"$INSTALL\""
 check "unknown or misspelled installer arguments fail closed" \
   "grep -Fq 'ERROR: unknown argument:' \"$INSTALL\" && ! grep -Fq 'WARN ignoring unknown arg:' \"$INSTALL\""
 check "connector-only install skips every runtime ops-script replacement" \
@@ -75,6 +75,39 @@ runtime_identity() {
     ls -di "$TEST_OPS/$script"
   done
 }
+
+# Execute the real narrow path with nounset enabled and no OmniRoute on PATH. Production macOS ships Bash
+# 3.2, whose empty-array expansion is the regression this covers; newer CI Bash still verifies the same
+# command exits cleanly, removes no unrelated service, and never widens into the ordinary LABELS loop.
+OMNI_MOCK_BIN="$TEST_TMP/omniroute-mock-bin"
+mkdir -p "$OMNI_MOCK_BIN"
+ln -s "$(command -v python3)" "$OMNI_MOCK_BIN/python3"
+printf '%s\n' '#!/usr/bin/env bash' \
+  'case "${1:-}" in print) exit 1 ;; list) exit 0 ;; bootout) exit 0 ;; esac' \
+  'exit 1' > "$OMNI_MOCK_BIN/launchctl"
+chmod +x "$OMNI_MOCK_BIN/launchctl"
+mkdir -p "$TEST_HOME/Library/LaunchAgents"
+printf 'stale crash-loop fixture\n' \
+  > "$TEST_HOME/Library/LaunchAgents/com.nostradamus.omniroute.plist"
+if HOME="$TEST_HOME" ENGINE_REPO_ROOT="$TEST_PROD" \
+    PATH="$OMNI_MOCK_BIN:/usr/bin:/bin:/usr/sbin:/sbin" \
+    /bin/bash -u "$INSTALL" --role admin --only omniroute \
+      >"$TEST_TMP/omniroute-only.out" 2>&1; then
+  omniroute_only_rc=0
+else
+  omniroute_only_rc=$?
+fi
+if [ "$omniroute_only_rc" -eq 0 ] \
+    && ! grep -qi 'unbound variable' "$TEST_TMP/omniroute-only.out" \
+    && grep -q 'skipping com.nostradamus.omniroute' "$TEST_TMP/omniroute-only.out" \
+    && [ ! -e "$TEST_HOME/Library/LaunchAgents/com.nostradamus.omniroute.plist" ] \
+    && [ ! -e "$TEST_OPS/role" ]; then
+  echo "  ok  system Bash $('/bin/bash' -c 'printf %s "$BASH_VERSION"') executes --only omniroute under set -u"
+else
+  echo "  FAIL --only omniroute hit nounset/empty-array regression or widened its scope"
+  sed 's/^/    /' "$TEST_TMP/omniroute-only.out" 2>/dev/null || true
+  failures=$((failures + 1))
+fi
 
 before_runtime="$(runtime_identity)"
 HOME="$TEST_HOME" ENGINE_REPO_ROOT="$TEST_PROD" NOSTRA_ENGINE_CONFIG_DIR=relative \

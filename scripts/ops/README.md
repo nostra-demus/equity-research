@@ -7,6 +7,7 @@ fronted by Cloudflare Access). macOS `launchd` user agents keep it up — **and 
 | Agent | Runs | Role | Auto-start at login | Auto-restart |
 |---|---|---|---|---|
 | `com.nostradamus.engine` | `npm start` (`tsx src/server.ts`) in **`nostra-prod/ui/server`** | base | ✅ `RunAtLoad` | ✅ `KeepAlive` |
+| `com.nostradamus.omniroute` | pinned OmniRoute **3.8.49** on **`127.0.0.1:20128`** | managed base | ✅ `RunAtLoad` | ✅ `KeepAlive` |
 | `com.nostradamus.deploy` | `deploy.sh` every 120s — **auto-deploys `main`** | base | ✅ `RunAtLoad` | — |
 | `com.nostradamus.watchdog` | `watchdog.sh` every 30s | base | ✅ `RunAtLoad` | — (self-heals the others) |
 | `com.nostradamus.caffeinate` | `caffeinate -i` (no idle sleep **on AC AND battery**) | base | ✅ `RunAtLoad` | ✅ `KeepAlive` |
@@ -55,6 +56,52 @@ machines never fight over the tunnel or double-run the paid jobs. Re-running wit
 ```
 bash scripts/ops/install-services.sh --role admin    # secondary machine: engine only, no tunnel/timers
 ```
+
+OmniRoute is a local sidecar on **both** roles because each engine must retain its own fallback. Normal
+production deploys reconcile it without rerunning the full installer: they provision exact
+`omniroute@3.8.49` when the executable is absent or reports any other version, validate the executable
+identity and private installed plist, then start only this service. The installer itself never guesses a
+binary path; a manual/full invocation still skips an absent/wrong executable and unloads/removes a stale job,
+preventing a launchd failure loop. These are recovery/inspection commands, not normal provisioning steps:
+
+```
+bash scripts/ops/install-services.sh --role admin --only omniroute   # use this host's real role
+launchctl print gui/$(id -u)/com.nostradamus.omniroute
+```
+
+The service runs in the foreground under launchd, suppresses browser/tray launch, and explicitly sets
+`OMNIROUTE_SERVER_HOST=127.0.0.1`; do not expose this model gateway on a LAN/public interface. The production
+default is the scorer-proven keyless `oc/hy3-free` model. An operator may explicitly set
+`NEWS_OMNIROUTE_MODEL` to a separately configured aggregate combo, but deploy enables only after that exact
+override passes the same complete 12-row scorer smoke.
+Activation is fail-closed. Deploy first writes `NEWS_OMNIROUTE_ENABLED=0` through an atomic owner-only
+`providers.env` updater. It requires the launchd-owned listener and exact `GET /healthz` response, provisions
+one database-backed client key with OmniRoute's `no_log` policy, and keeps that key only in the owner-only
+`providers.env`. The installed plist has an exact environment allowlist, so reinstall cannot carry provider
+keys into the sidecar. Deploy then checks the authenticated `127.0.0.1:20128/v1/models` catalog and requires
+**two consecutive 12-headline** requests through the exact production descriptor, prompt builder, HTTP
+adapter, response parser, and complete-index guard. It also proves the resulting call-log rows contain no
+request, response, or pipeline body artifacts. Only that pass-pass result atomically flips the flag to `1`;
+deploy restarts the engine and requires `/api/health` before stamping the fingerprint active. Later 120-second
+ticks cheaply recheck exact binary/plist/config/key identity, listener ancestry, and `/healthz`. The scorer
+proof expires after six hours (configurable between one hour and one day), at which point the route is disabled
+and the same two-pass proof must renew it. Failures (including 429 or pass-fail intermittency) remain disabled
+and back off for 15 minutes instead of retrying the smoke every 120s.
+The same sanitized production-contract smoke can be run manually:
+
+```
+bash scripts/ops/omniroute-smoke.sh
+```
+
+The manual command performs one diagnostic call and success prints
+`{"ok":true,...,"rows":12,"expectedRows":12}`. Managed activation still requires deploy's two consecutive
+passes. Do not manually enable the flag after a failure: the deploy transaction owns key/privacy proof,
+enable/restart/health ordering, and never prints provider secrets.
+On the first rollout, the already-running deploy watcher atomically self-updates from the merge; its next
+120-second tick performs OmniRoute reconciliation, so neither role needs a full installer rerun. If that
+user cannot write npm's global prefix, or a manually started process already owns port 20128, the provider
+stays off and retries after backoff. Fix the npm-prefix permission or stop the manual daemon; do not bypass
+the flag transaction.
 
 A full install records the non-secret machine role in `~/.nostra-ops/role`: admin demotion intent is stamped
 before doer-only removal, while doer promotion is stamped only after every install succeeds. An explicit
@@ -368,10 +415,12 @@ NEWS_ARCHIVE_DIR="$HOME/Library/CloudStorage/GoogleDrive-<you>/My Drive/equity-r
 ```
 launchctl list | grep nostradamus                 # all agents (a doer also shows tunnel + hk-*)
 curl -s http://127.0.0.1:8787/api/health          # {"ok":true,"repoRoot":".../nostra-prod"}
+curl -fsS http://127.0.0.1:20128/healthz          # exact: ok (cheap every-tick OmniRoute liveness)
 curl -s https://app.nostra-demus.com/api/health   # public path (doer only)
 tail -f ~/Library/Logs/nostradamus-deploy.log     # auto-deploy log (DEPLOY/DONE lines)
 tail -f ~/Library/Logs/nostradamus-watchdog.log   # self-heal log
 tail -f ~/Library/Logs/nostradamus-housekeeping.log   # daily housekeeping (RUN/DONE/SKIP lines)
+tail -f ~/Library/Logs/nostradamus-omniroute.log      # local model-router process log
 bash ~/.nostra-ops/housekeeping.sh /research:track all  # force one housekeeping run by hand
 ```
 

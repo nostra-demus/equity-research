@@ -357,6 +357,10 @@ interface OpenAiThemeProvider {
   paceCap: number
   paceFloorFrac: number
   requestRemainingHeaderIsDaily: boolean
+  routeClass?: OverflowProvider['routeClass']
+  /** The separately configured low-latency local route remains primary even though an overflow descriptor
+   * with the same transport class would be the final fallback. */
+  primaryLocal?: boolean
 }
 
 interface OpenAiCallResult {
@@ -706,7 +710,7 @@ function openAiProviders(cfg: NamerCfg): OpenAiThemeProvider[] {
     if (!provider?.apiKey || seen.has(provider.id)) return
     seen.add(provider.id); out.push(provider)
   }
-  const fromConfig = (p: OverflowProvider): OpenAiThemeProvider => ({
+  const fromConfig = (p: OverflowProvider, primaryLocal = false): OpenAiThemeProvider => ({
     id: p.id, label: p.label || p.id, apiKey: p.apiKey, baseUrl: p.baseUrl, model: p.model,
     models: p.models, maxTokens: p.maxTokens, rpm: p.rpm, tpm: p.tpm ?? 0,
     dailyReqCap: p.dailyReqCap, dailyTokenCap: p.dailyTokenCap ?? NON_BINDING_DAILY_TOKEN_CAP,
@@ -716,8 +720,10 @@ function openAiProviders(cfg: NamerCfg): OpenAiThemeProvider[] {
     paceCap: p.dailyTokenCap ?? p.dailyReqCap,
     paceFloorFrac: p.paceFloorFrac ?? cfg.freeProviderPaceFloorFrac ?? 0.06,
     requestRemainingHeaderIsDaily: p.requestRemainingHeaderIsDaily === true,
+    routeClass: p.routeClass,
+    ...(primaryLocal ? { primaryLocal: true } : {}),
   })
-  if (cfg.localProvider) add(fromConfig(cfg.localProvider))
+  if (cfg.localProvider) add(fromConfig(cfg.localProvider, true))
   if (cfg.groqApiKey) add({
     id: 'groq', label: 'Groq', apiKey: cfg.groqApiKey, baseUrl: cfg.groqBaseUrl || 'https://api.groq.com/openai/v1',
     model: cfg.groqModel || 'openai/gpt-oss-20b', maxTokens: 3000, rpm: cfg.groqRpm ?? 0,
@@ -862,46 +868,53 @@ export function makeThemeNamer(
       return theme.rev > beforeRev ? 'validated' : 'malformed'
     }
 
-    /** Local remains the low-latency primary from #437. Every finite cloud allowance is then ordered by
-     * clock-released deficit, not a fixed vendor walk, so useful backlog draws from all healthy daily pools
-     * instead of repeatedly consuming the first provider while later allowances expire unused. */
+    /** Local remains the low-latency primary from #437. Finite direct allowances are ordered by released
+     * deficit, then aggregate routers receive their own fair pool, then a demoted local route runs last.
+     * This is the same semantic chain as triage; aggregate deficit can never leapfrog direct capacity. */
     const orderedOpenAiProviders = (theme: Theme): OpenAiThemeProvider[] => {
-      const local = providers.filter((provider) => provider.id === 'local')
-      const pending = providers
-        .map((provider, priority) => ({ provider, priority }))
-        .filter(({ provider }) => provider.id !== 'local')
-      const ordered: OpenAiThemeProvider[] = []
-      while (pending.length) {
-        type ThemeQuotaRoute = DailyQuotaCandidate & { provider: OpenAiThemeProvider }
-        const at = now.getTime()
-        const routes: ThemeQuotaRoute[] = []
-        for (const { provider, priority } of pending) {
-          if (isCoolingDown(stateDir, provider.id, at) || isCoolingDown(stateDir, scopedHoldId(provider.id), at)) continue
-          const maxTokens = providerOutputCap(provider, theme, generic)
-          if (!maxTokens) continue
-          const tokenCost = themeNamerTokenBound([theme], generic, maxTokens)
-          const budget = Budget.load(stateDir, provider.dailyReqCap, provider.dailyTokenCap, at, provider.budgetFile, provider.dayTz)
-          if (!budget.canSpend(tokenCost, 1)) continue
-          routes.push({
-            id: provider.id,
-            meter: provider.paceMeter,
-            used: provider.paceMeter === 'tokens' ? budget.tokens : budget.requests,
-            cap: provider.paceCap,
-            cost: provider.paceMeter === 'tokens' ? tokenCost : 1,
-            resetTimeZone: provider.dayTz,
-            floorFraction: provider.paceFloorFrac,
-            priority,
-            provider,
-          })
+      const routeClass = (provider: OpenAiThemeProvider) => provider.routeClass ?? (provider.id === 'local' ? 'local-fallback' : 'direct')
+      const orderFinitePool = (pool: OpenAiThemeProvider[]): OpenAiThemeProvider[] => {
+        const pending = pool.map((provider, priority) => ({ provider, priority }))
+        const ordered: OpenAiThemeProvider[] = []
+        while (pending.length) {
+          type ThemeQuotaRoute = DailyQuotaCandidate & { provider: OpenAiThemeProvider }
+          const at = now.getTime()
+          const routes: ThemeQuotaRoute[] = []
+          for (const { provider, priority } of pending) {
+            if (isCoolingDown(stateDir, provider.id, at) || isCoolingDown(stateDir, scopedHoldId(provider.id), at)) continue
+            const maxTokens = providerOutputCap(provider, theme, generic)
+            if (!maxTokens) continue
+            const tokenCost = themeNamerTokenBound([theme], generic, maxTokens)
+            const budget = Budget.load(stateDir, provider.dailyReqCap, provider.dailyTokenCap, at, provider.budgetFile, provider.dayTz)
+            if (!budget.canSpend(tokenCost, 1)) continue
+            routes.push({
+              id: provider.id,
+              meter: provider.paceMeter,
+              used: provider.paceMeter === 'tokens' ? budget.tokens : budget.requests,
+              cap: provider.paceCap,
+              cost: provider.paceMeter === 'tokens' ? tokenCost : 1,
+              resetTimeZone: provider.dayTz,
+              floorFraction: provider.paceFloorFrac,
+              priority,
+              provider,
+            })
+          }
+          const pick = selectDailyQuotaCandidate(routes, at) as ThemeQuotaRoute | null
+          if (!pick) break
+          ordered.push(pick.provider)
+          pending.splice(pending.findIndex(({ provider }) => provider === pick.provider), 1)
         }
-        const pick = selectDailyQuotaCandidate(routes, at) as ThemeQuotaRoute | null
-        if (!pick) break
-        ordered.push(pick.provider)
-        pending.splice(pending.findIndex(({ provider }) => provider === pick.provider), 1)
+        // Retain every ineligible route at its class tail so the existing structured-health path records its
+        // exact cooldown, pacing, or hard-cap reason without letting it cross a semantic class boundary.
+        return [...ordered, ...pending.map(({ provider }) => provider)]
       }
-      // Retain every ineligible route at the tail so the existing structured-health path records its exact
-      // cooldown, minute-window, pacing, or hard-cap reason without sending it a request.
-      return [...local, ...ordered, ...pending.map(({ provider }) => provider)]
+
+      const primaryLocal = providers.filter((provider) => provider.primaryLocal)
+      const remaining = providers.filter((provider) => !provider.primaryLocal)
+      const direct = remaining.filter((provider) => routeClass(provider) === 'direct')
+      const aggregate = remaining.filter((provider) => routeClass(provider) === 'aggregate-fallback')
+      const localTail = remaining.filter((provider) => routeClass(provider) === 'local-fallback')
+      return [...primaryLocal, ...orderFinitePool(direct), ...orderFinitePool(aggregate), ...localTail]
     }
 
     themeLoop: for (const theme of batch) {
