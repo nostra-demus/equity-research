@@ -1,0 +1,187 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/memory/controlled-write-result-v1.schema.json",
+  "title": "Controlled permanent-memory write result v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "request_id",
+    "idempotency_key",
+    "request_sha256",
+    "operation",
+    "disposition",
+    "route",
+    "sequence",
+    "prior_head",
+    "new_head",
+    "event_id",
+    "event_sha256",
+    "sink_receipt_sha256",
+    "candidate_provenance_sha256",
+    "candidate_provenance",
+    "dead_letter_id",
+    "original_result_sha256",
+    "completed_at"
+  ],
+  "properties": {
+    "schema": { "const": "memory-controlled-write-result/v1" },
+    "request_id": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "string",
+          "pattern": "^write-request_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        }
+      ]
+    },
+    "idempotency_key": { "type": ["string", "null"], "minLength": 8, "maxLength": 128 },
+    "request_sha256": { "$ref": "#/$defs/hashRef" },
+    "operation": {
+      "enum": [
+        "claim-append",
+        "claim-correction",
+        "feedback-promotion",
+        "feedback-correction",
+        "unknown"
+      ]
+    },
+    "disposition": {
+      "enum": ["committed", "recovered", "replayed", "rejected", "quarantined"]
+    },
+    "route": { "enum": ["canonical", "protected-store", "unknown"] },
+    "sequence": { "type": "integer", "minimum": 0, "maximum": 9007199254740991 },
+    "prior_head": { "$ref": "#/$defs/hashRef" },
+    "new_head": { "$ref": "#/$defs/hashRef" },
+    "event_id": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "string",
+          "pattern": "^evt_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        }
+      ]
+    },
+    "event_sha256": {
+      "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/hashRef" }]
+    },
+    "sink_receipt_sha256": {
+      "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/hashRef" }]
+    },
+    "candidate_provenance_sha256": {
+      "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/hashRef" }]
+    },
+    "candidate_provenance": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/candidateProvenance" }
+      ]
+    },
+    "dead_letter_id": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "pattern": "^dead-letter_[0-9a-f]{32}$" }
+      ]
+    },
+    "original_result_sha256": {
+      "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/hashRef" }]
+    },
+    "completed_at": { "$ref": "#/$defs/awareDateTime" }
+  },
+  "$defs": {
+    "hashRef": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "awareDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?Z$"
+    },
+    "providerCommitment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["event_id", "event_sha256", "policy_sha256", "system_time"],
+      "properties": {
+        "event_id": { "type": "string", "pattern": "^evt_[0-9a-f-]{36}$" },
+        "event_sha256": { "$ref": "#/$defs/hashRef" },
+        "policy_sha256": { "$ref": "#/$defs/hashRef" },
+        "system_time": { "$ref": "#/$defs/awareDateTime" }
+      }
+    },
+    "candidateProvenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema", "verifier_id", "event_sha256", "policy_sha256",
+        "valid_time_sha256", "evidence_refs_sha256", "evidence_commitments",
+        "lineage_commitments", "domain_lineage_commitments",
+        "derivative_use_status", "status"
+      ],
+      "properties": {
+        "schema": { "const": "memory-candidate-provenance-attestation/v1" },
+        "verifier_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]{0,127}$"
+        },
+        "event_sha256": { "$ref": "#/$defs/hashRef" },
+        "policy_sha256": { "$ref": "#/$defs/hashRef" },
+        "valid_time_sha256": { "$ref": "#/$defs/hashRef" },
+        "evidence_refs_sha256": { "$ref": "#/$defs/hashRef" },
+        "evidence_commitments": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "evidence_ref_sha256", "content_sha256",
+              "artifact_provider", "locator_provider"
+            ],
+            "properties": {
+              "evidence_ref_sha256": { "$ref": "#/$defs/hashRef" },
+              "content_sha256": { "$ref": "#/$defs/hashRef" },
+              "artifact_provider": { "$ref": "#/$defs/providerCommitment" },
+              "locator_provider": { "$ref": "#/$defs/providerCommitment" }
+            }
+          }
+        },
+        "lineage_commitments": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["relation", "event_id", "event_sha256", "policy_sha256", "system_time"],
+            "properties": {
+              "relation": { "enum": ["derived_from", "supersedes"] },
+              "event_id": { "type": "string", "pattern": "^evt_[0-9a-f-]{36}$" },
+              "event_sha256": { "$ref": "#/$defs/hashRef" },
+              "policy_sha256": { "$ref": "#/$defs/hashRef" },
+              "system_time": { "$ref": "#/$defs/awareDateTime" }
+            }
+          }
+        },
+        "domain_lineage_commitments": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "field", "logical_id_sha256", "target_event_id",
+              "target_event_sha256", "target_policy_sha256", "target_system_time"
+            ],
+            "properties": {
+              "field": { "const": "claim.derived_from_claims" },
+              "logical_id_sha256": { "$ref": "#/$defs/hashRef" },
+              "target_event_id": { "type": "string", "pattern": "^evt_[0-9a-f-]{36}$" },
+              "target_event_sha256": { "$ref": "#/$defs/hashRef" },
+              "target_policy_sha256": { "$ref": "#/$defs/hashRef" },
+              "target_system_time": { "$ref": "#/$defs/awareDateTime" }
+            }
+          }
+        },
+        "derivative_use_status": { "const": "allowed" },
+        "status": { "const": "verified" }
+      }
+    }
+  }
+}

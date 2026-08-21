@@ -1,0 +1,160 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/memory/controlled-write-request-v1.schema.json",
+  "title": "Controlled permanent-memory write request v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "request_id",
+    "idempotency_key",
+    "expected_head",
+    "submitted_at",
+    "operation",
+    "event_sha256",
+    "event_canonical_json",
+    "store_bindings",
+    "shadow_feedback_sha256",
+    "shadow_feedback_canonical_json"
+  ],
+  "properties": {
+    "schema": { "const": "memory-controlled-write-request/v1" },
+    "request_id": {
+      "type": "string",
+      "pattern": "^write-request_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "idempotency_key": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/+-]{7,127}$"
+    },
+    "expected_head": { "$ref": "#/$defs/hashRef" },
+    "submitted_at": { "$ref": "#/$defs/awareDateTime" },
+    "operation": {
+      "enum": [
+        "claim-append",
+        "claim-correction",
+        "feedback-promotion",
+        "feedback-correction"
+      ]
+    },
+    "event_sha256": { "$ref": "#/$defs/hashRef" },
+    "event_canonical_json": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 4194304
+    },
+    "store_bindings": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/objectRef" }
+    },
+    "shadow_feedback_sha256": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/hashRef" }
+      ]
+    },
+    "shadow_feedback_canonical_json": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "minLength": 2, "maxLength": 4194304 }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "operation": { "enum": ["claim-append", "claim-correction"] }
+        },
+        "required": ["operation"]
+      },
+      "then": {
+        "properties": {
+          "shadow_feedback_sha256": { "type": "null" },
+          "shadow_feedback_canonical_json": { "type": "null" }
+        }
+      },
+      "else": {
+        "properties": {
+          "shadow_feedback_sha256": { "$ref": "#/$defs/hashRef" },
+          "shadow_feedback_canonical_json": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 4194304
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "hashRef": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "awareDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?Z$"
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classification", "retention", "retain_until"],
+      "properties": {
+        "classification": {
+          "enum": ["public", "internal", "licensed", "confidential", "restricted"]
+        },
+        "retention": {
+          "enum": ["permanent", "source-policy", "expires"]
+        },
+        "retain_until": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/awareDateTime" }
+          ]
+        }
+      }
+    },
+    "objectRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "acquisition_id",
+        "source_version_id",
+        "policy",
+        "manifest_sha256",
+        "sha256",
+        "byte_length",
+        "encrypted"
+      ],
+      "properties": {
+        "acquisition_id": {
+          "type": "string",
+          "pattern": "^acquisition_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "source_version_id": {
+          "type": "string",
+          "pattern": "^source-version_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "policy": { "$ref": "#/$defs/policy" },
+        "manifest_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "byte_length": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "encrypted": { "type": "boolean" }
+      }
+    }
+  }
+}

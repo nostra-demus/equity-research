@@ -1,0 +1,144 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/memory/calibration-observation-v1.schema.json",
+  "title": "Controlled forecast calibration observation v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "eligible",
+    "eligibility_basis",
+    "forecast_id",
+    "forecast_ledger_index",
+    "outcome_id",
+    "forecast_sha256",
+    "outcome_payload_sha256",
+    "source_commitment",
+    "outcome_provenance",
+    "prob",
+    "realized",
+    "owner_module",
+    "forecast_type",
+    "thesis_type",
+    "ticker",
+    "observed_at",
+    "recorded_at"
+  ],
+  "properties": {
+    "schema": { "const": "memory-calibration-observation/v1" },
+    "eligible": { "const": true },
+    "eligibility_basis": {
+      "const": "calibrate.match_resolved_forecasts+verified-integrity+timing/v1"
+    },
+    "forecast_id": { "$ref": "#/$defs/forecastId" },
+    "forecast_ledger_index": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "outcome_id": {
+      "type": "string",
+      "pattern": "^forecast-outcome_[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "forecast_sha256": { "$ref": "#/$defs/hashRef" },
+    "outcome_payload_sha256": { "$ref": "#/$defs/hashRef" },
+    "source_commitment": { "$ref": "#/$defs/sourceCommitment" },
+    "outcome_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_refs",
+        "integrity_status",
+        "verifier_id",
+        "outcome_attestation_sha256",
+        "outcome_attestor_id",
+        "evidence_verification_sha256",
+        "trusted_as_of"
+      ],
+      "properties": {
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/evidenceRef" }
+        },
+        "integrity_status": { "const": "verified" },
+        "verifier_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]{0,127}$"
+        },
+        "outcome_attestation_sha256": { "$ref": "#/$defs/hashRef" },
+        "outcome_attestor_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]{0,127}$"
+        },
+        "evidence_verification_sha256": { "$ref": "#/$defs/hashRef" },
+        "trusted_as_of": { "$ref": "#/$defs/awareDateTime" }
+      }
+    },
+    "prob": { "type": "number", "minimum": 0, "maximum": 1 },
+    "realized": { "enum": [0, 1] },
+    "owner_module": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "forecast_type": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "thesis_type": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1, "maxLength": 256 }
+    },
+    "ticker": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "observed_at": { "$ref": "#/$defs/awareDateTime" },
+    "recorded_at": { "$ref": "#/$defs/awareDateTime" }
+  },
+  "$defs": {
+    "hashRef": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "forecastId": {
+      "type": "string",
+      "pattern": "^forecast_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "eventId": {
+      "type": "string",
+      "pattern": "^evt_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "runId": {
+      "type": "string",
+      "pattern": "^run_[0-9a-f]{8}-[0-9a-f]{4}-[57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "evidenceRef": {
+      "type": "string",
+      "pattern": "^evidence:sha256:[0-9a-f]{64}#[A-Za-z0-9][A-Za-z0-9._~:/?&=,+-]{0,255}$"
+    },
+    "sourceCommitment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_event_id",
+        "decision_run_id",
+        "decision_event_sha256",
+        "record_sha256",
+        "record_integrity_sha256",
+        "record_integrity_status",
+        "record_integrity_attestation_sha256",
+        "record_integrity_verifier_id"
+      ],
+      "properties": {
+        "decision_event_id": { "$ref": "#/$defs/eventId" },
+        "decision_run_id": { "$ref": "#/$defs/runId" },
+        "decision_event_sha256": { "$ref": "#/$defs/hashRef" },
+        "record_sha256": { "$ref": "#/$defs/hashRef" },
+        "record_integrity_sha256": { "$ref": "#/$defs/hashRef" },
+        "record_integrity_status": { "const": "verified" },
+        "record_integrity_attestation_sha256": { "$ref": "#/$defs/hashRef" },
+        "record_integrity_verifier_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]{0,127}$"
+        }
+      }
+    },
+    "awareDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?Z$"
+    }
+  }
+}
