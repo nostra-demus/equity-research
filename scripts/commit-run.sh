@@ -212,11 +212,74 @@ if git push -q origin HEAD:main 2>/dev/null; then
   exit 0
 fi
 
-# push rejected — origin/main moved. Rebase only if the worktree has no unrelated *tracked*
-# modifications (other runs only add untracked files, which a rebase won't touch). Never autostash.
+# A dirty production checkout must never be autostashed/reset: live screeners can rewrite tracked DATA
+# while this helper is publishing another DATA commit. When all tracked dirt is inside the reviewed data
+# lane, reconcile the committed snapshot with origin/main through Git's in-memory merge-tree plumbing.
+# That leaves every worktree/index byte untouched and makes the local commit a parent of the pushed merge,
+# so deploy.sh can still fast-forward the production checkout. Any dirty code/ops path fails closed.
+dirty_tracked_paths_are_engine_data() {
+  python3 - "$TOP" <<'PYDIRTY'
+import subprocess
+import sys
+
+try:
+    raw = subprocess.check_output(
+        ["git", "-C", sys.argv[1], "diff", "--name-only", "-z", "--"],
+        stderr=subprocess.DEVNULL,
+    )
+except (OSError, subprocess.CalledProcessError):
+    raise SystemExit(1)
+
+paths = [item for item in raw.split(b"\0") if item]
+if not paths:
+    raise SystemExit(1)
+for encoded in paths:
+    try:
+        value = encoded.decode("utf-8", "strict")
+    except UnicodeError:
+        raise SystemExit(1)
+    if not (value.startswith("analyses/") or value.startswith("screener/")):
+        raise SystemExit(1)
+raise SystemExit(0)
+PYDIRTY
+}
+
+reconcile_with_dirty_data() {
+  local attempt remote_sha merge_tree merge_sha
+  attempt=1
+  while [ "$attempt" -le 3 ]; do
+    git fetch -q origin main 2>/dev/null || return 1
+    remote_sha="$(git rev-parse origin/main 2>/dev/null)" || return 1
+    if git merge-base --is-ancestor "$SHA" "$remote_sha" 2>/dev/null; then
+      echo "COMMIT_SHA=$SHA"
+      return 0
+    fi
+    if ! merge_tree="$(git merge-tree --write-tree "$remote_sha" "$SHA" 2>/dev/null)" \
+       || ! git cat-file -e "${merge_tree}^{tree}" 2>/dev/null; then
+      echo "commit-run: dirty-data reconciliation conflicts with origin/main; commit $SHA remains local — push manually" >&2
+      return 1
+    fi
+    merge_sha="$(printf '%s\n' "Reconcile engine data commit ${SHA:0:12} with origin/main" \
+      | git commit-tree "$merge_tree" -p "$remote_sha" -p "$SHA" 2>/dev/null)" || return 1
+    if git push -q origin "$merge_sha:main" 2>/dev/null; then
+      # Report the engine DATA commit, not the synthetic merge head. Callers prove publication by ancestry,
+      # and retry mode remains bound to the exact local HEAD if a later marker-clear step is interrupted.
+      echo "COMMIT_SHA=$SHA"
+      return 0
+    fi
+    attempt=$((attempt + 1))
+  done
+  echo "commit-run: dirty-data reconciliation lost three remote races; commit $SHA remains local — retry later" >&2
+  return 1
+}
+
+# push rejected — origin/main moved. Rebase only if the worktree is clean. Never autostash.
 git fetch -q origin main 2>/dev/null || { echo "commit-run: push + fetch failed; commit $SHA is local — push manually" >&2; echo "COMMIT_SHA=$SHA"; exit 4; }
 if ! git diff --quiet; then
-  echo "commit-run: push rejected and the worktree has uncommitted tracked changes (other runs) — NOT auto-rebasing; commit $SHA is local — push manually" >&2
+  if dirty_tracked_paths_are_engine_data && reconcile_with_dirty_data; then
+    exit 0
+  fi
+  echo "commit-run: push rejected and the worktree has unsafe/conflicting tracked changes — NOT reconciling; commit $SHA is local — push manually" >&2
   echo "COMMIT_SHA=$SHA"
   exit 4
 fi

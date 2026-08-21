@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0",
+  "ticker": "INDIAMART",
+  "as_of": "2026-08-13",
+  "currency": "INR",
+  "base_metric": "ebitda_inr_mn",
+  "base_value": 5205.94,
+  "base_value_source": "FY26 reported, consolidated EBITDA — earnings/01_historical-financials.md §1, Capital IQ export, Income Statement tab, FY2026 column; company discloses no adjusted/non-GAAP EBITDA (01_historical-financials.md §4)",
+  "base_period": "FY26",
+  "revenue_base": 15690.42,
+  "revenue_period": "FY26",
+  "sensitivities": [
+    {
+      "variable": "customer_acquisition_opex",
+      "label": "Discretionary customer-acquisition opex (Advertisement + Outsourced sales cost)",
+      "unit": "INR mn/year",
+      "base_value": 1139.58,
+      "coefficient": -1,
+      "confidence": "medium",
+      "basis": "inferred",
+      "valid_range": {"low": 911.66, "high": 2400.45},
+      "non_linearity": "Coefficient assumes 1:1 opex-to-EBITDA pass-through with zero offsetting revenue benefit (inference) — margin-drivers §9 finds the ad-spend ramp has not yet shown a proven revenue payoff. The bear-case Advertisement level (INR 1,600mn/yr = ~INR 10 crore/quarter) is management's own guided target; Outsourced-sales cost is held flat in the bear case (inferred, not company-guided).",
+      "source": "earnings/03_margin-drivers.md §2, §8, §9 (FY26 Annual Report (Ind AS), Note 24; Q3 FY26 Earnings Call, Jan 20 2026, Q&A)"
+    },
+    {
+      "variable": "arpu_web_segment",
+      "label": "ARPU / price realization (Web segment)",
+      "unit": "INR/subscriber/year",
+      "base_value": 66000,
+      "coefficient": 0.0723324,
+      "confidence": "medium",
+      "basis": "inferred",
+      "valid_range": {"low": 64680, "high": 71280},
+      "non_linearity": "Coefficient assumes revenue flow-through at FY26's own consolidated EBITDA margin (33.18%) — inference, since IndiaMART has no COGS/gross-margin line to derive a true incremental margin. Applied against the current 218,000-subscriber base held constant (see report §5 for the interaction with paying_subscriber_net_adds).",
+      "source": "earnings/02_revenue-drivers.md §3-4 (FY26 Annual Report (Ind AS), p.82-83)"
+    },
+    {
+      "variable": "paying_subscriber_net_adds",
+      "label": "Paying-subscriber net additions (Web segment volume, annualized)",
+      "unit": "net-add subscribers (annualized)",
+      "base_value": 0,
+      "coefficient": 0.0218988,
+      "confidence": "low",
+      "basis": "inferred",
+      "valid_range": {"low": -7400, "high": 11200},
+      "non_linearity": "Same FY26-EBITDA-margin flow-through inference as arpu_web_segment. Ignores subscriber ramp/timing lag — a supplier added mid-year would not earn a full year of ARPU in year one, so the modelled impact is a full-year run-rate, not a same-year cash impact. Base value 0 reflects the trailing-year actual (218,000 flat, Jun-25 to Jun-26).",
+      "source": "earnings/02_revenue-drivers.md §4 (Q2 FY26-Q1 FY27 Earnings Calls, prepared remarks — quarterly net-add actuals)"
+    },
+    {
+      "variable": "investment_portfolio_nav_pct_move",
+      "label": "Investment-portfolio (treasury book) NAV move",
+      "unit": "% NAV move",
+      "base_value": null,
+      "coefficient": 285.258,
+      "impact_metric": "profit_before_tax_inr_mn",
+      "confidence": "high",
+      "basis": "company-disclosed",
+      "valid_range": {"low": -5, "high": 5},
+      "non_linearity": "Company-disclosed sensitivity covers the mutual-fund/ETF/bond/debenture treasury book only; it hits Profit Before Tax below the EBIT line, not reported EBITDA — do not add this impact to base_value (a different metric; see impact_metric).",
+      "source": "business-model/10_external-dependency.md §2 (FY26 Annual Report (Ind AS), Note 31 — Financial risk management, Interest rate risk sensitivity table)"
+    },
+    {
+      "variable": "customer_support_verification_cost",
+      "label": "Customer support / trust-and-verification cost buildout (KYC, OTP, buy-lead verification, agentic call handling)",
+      "unit": "INR mn/year",
+      "base_value": 628.92,
+      "coefficient": -1,
+      "confidence": "low",
+      "basis": "inferred",
+      "valid_range": {"low": 723.3, "high": 1132.1},
+      "non_linearity": "Coefficient assumes 1:1 opex-to-EBITDA pass-through (no revenue offset). This cost line has risen in every disclosed period (+116% YoY FY26, +168bps again YoY in Q1 FY27) with no observed decline — the 'bull' scenario here is a smaller increase, not an actual decrease (report §6).",
+      "source": "earnings/03_margin-drivers.md §2, §7a (FY26 Annual Report (Ind AS), Note 24)"
+    }
+  ]
+}

@@ -328,6 +328,132 @@ def test_clean_rebase_second_push_race_retains_rebased_commit():
               and not os.path.exists(git_internal_path(agent, "rebase-apply", env)))
 
 
+def setup_dirty_data_reconcile_scenario(tmp):
+    """Build the production shape: local data commit + dirty screener bytes vs newer origin code."""
+    env = git_env()
+    origin = os.path.join(tmp, "origin.git")
+    run(["git", "init", "--bare", "-q", "-b", "main", origin], cwd=tmp, env=env)
+    seed = os.path.join(tmp, "seed")
+    run(["git", "clone", "-q", origin, seed], cwd=tmp, env=env)
+    os.makedirs(os.path.join(seed, "screener", "board"), exist_ok=True)
+    with open(os.path.join(seed, "screener", "board", "live.json"), "w") as f:
+        f.write('{"generation":"base"}\n')
+    with open(os.path.join(seed, "base.txt"), "w") as f:
+        f.write("base\n")
+    run(["git", "add", "screener/board/live.json", "base.txt"], cwd=seed, env=env)
+    run(["git", "commit", "-q", "-m", "base"], cwd=seed, env=env)
+    run(["git", "push", "-q", "origin", "main"], cwd=seed, env=env)
+
+    agent = os.path.join(tmp, "agent")
+    run(["git", "clone", "-q", origin, agent], cwd=tmp, env=env)
+
+    # Reviewed code lands remotely while production is still on the base commit.
+    with open(os.path.join(seed, "reviewed-code.txt"), "w") as f:
+        f.write("reviewed remote change\n")
+    run(["git", "add", "reviewed-code.txt"], cwd=seed, env=env)
+    run(["git", "commit", "-q", "-m", "reviewed remote change"], cwd=seed, env=env)
+    run(["git", "push", "-q", "origin", "main"], cwd=seed, env=env)
+    remote_before = run(["git", "rev-parse", "HEAD"], cwd=seed, env=env).stdout.strip()
+    return origin, seed, agent, env, remote_before
+
+
+def test_dirty_data_reconcile_preserves_live_bytes_and_original_commit_ancestry():
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-dirty-data-") as tmp:
+        _, _, agent, env, remote_before = setup_dirty_data_reconcile_scenario(tmp)
+        os.makedirs(os.path.join(agent, "analyses", "TEST_2099-01-01"), exist_ok=True)
+        published = os.path.join(agent, "analyses", "TEST_2099-01-01", "result.md")
+        with open(published, "w") as f:
+            f.write("published data\n")
+        with open(os.path.join(agent, "screener", "board", "live.json"), "w") as f:
+            f.write('{"generation":"uncommitted-live"}\n')
+
+        result = run(
+            ["bash", COMMIT_RUN, "test: dirty data reconcile", "--", "analyses/TEST_2099-01-01/result.md"],
+            cwd=agent, env=env, check_rc=False,
+        )
+        local_data_sha = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+        run(["git", "fetch", "-q", "origin", "main"], cwd=agent, env=env)
+        remote_after = run(["git", "rev-parse", "origin/main"], cwd=agent, env=env).stdout.strip()
+        parents = run(["git", "show", "-s", "--format=%P", remote_after], cwd=agent, env=env).stdout.split()
+        ancestor = run(["git", "merge-base", "--is-ancestor", local_data_sha, "origin/main"],
+                       cwd=agent, env=env, check_rc=False)
+        remote_code = run(["git", "show", "origin/main:reviewed-code.txt"], cwd=agent, env=env, check_rc=False)
+        remote_data = run(["git", "show", "origin/main:analyses/TEST_2099-01-01/result.md"],
+                          cwd=agent, env=env, check_rc=False)
+        remote_live = run(["git", "show", "origin/main:screener/board/live.json"],
+                          cwd=agent, env=env, check_rc=False)
+        with open(os.path.join(agent, "screener", "board", "live.json")) as f:
+            live_worktree = f.read()
+        check("dirty DATA reconciliation exits 0 and reports the original local data commit",
+              result.returncode == 0 and f"COMMIT_SHA={local_data_sha}" in result.stdout,
+              f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
+        check("remote reconciliation preserves the exact local commit as its second parent",
+              len(parents) == 2 and parents[0] == remote_before and parents[1] == local_data_sha
+              and ancestor.returncode == 0,
+              f"parents={parents!r} remote={remote_after}")
+        check("remote contains both reviewed code and committed engine data",
+              remote_code.returncode == 0 and remote_data.returncode == 0)
+        check("uncommitted live screener bytes are untouched and never swept into the merge",
+              'uncommitted-live' in live_worktree and '"generation":"base"' in remote_live.stdout,
+              f"worktree={live_worktree!r} remote={remote_live.stdout!r}")
+        dirty = run(["git", "diff", "--name-only"], cwd=agent, env=env).stdout.splitlines()
+        check("the original production worktree remains dirty only where it started",
+              dirty == ["screener/board/live.json"], repr(dirty))
+
+
+def test_dirty_code_still_blocks_reconciliation():
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-dirty-code-") as tmp:
+        _, _, agent, env, remote_before = setup_dirty_data_reconcile_scenario(tmp)
+        with open(os.path.join(agent, "base.txt"), "w") as f:
+            f.write("unreviewed local code/ops edit\n")
+        os.makedirs(os.path.join(agent, "analyses", "TEST_2099-01-01"), exist_ok=True)
+        with open(os.path.join(agent, "analyses", "TEST_2099-01-01", "result.md"), "w") as f:
+            f.write("must stay local\n")
+        result = run(
+            ["bash", COMMIT_RUN, "test: dirty code blocks", "--", "analyses/TEST_2099-01-01/result.md"],
+            cwd=agent, env=env, check_rc=False,
+        )
+        local_sha = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+        run(["git", "fetch", "-q", "origin", "main"], cwd=agent, env=env)
+        remote_after = run(["git", "rev-parse", "origin/main"], cwd=agent, env=env).stdout.strip()
+        remote_data = run(["git", "cat-file", "-e", "origin/main:analyses/TEST_2099-01-01/result.md"],
+                          cwd=agent, env=env, check_rc=False)
+        check("dirty non-data path fails closed with the local commit retained",
+              result.returncode == 4 and f"COMMIT_SHA={local_sha}" in result.stdout
+              and "unsafe/conflicting tracked changes" in result.stderr,
+              f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
+        check("dirty code rejection leaves origin unchanged and unpublished data absent",
+              remote_after == remote_before and remote_data.returncode != 0)
+
+
+def test_retry_push_reconciles_dirty_data_without_moving_local_head():
+    """The ideas publisher's durable retry uses the same safe path as a fresh publication."""
+    with tempfile.TemporaryDirectory(prefix="commit-run-test-dirty-retry-") as tmp:
+        _, _, agent, env, _ = setup_dirty_data_reconcile_scenario(tmp)
+        os.makedirs(os.path.join(agent, "analyses", "RETRY_2099-01-01"), exist_ok=True)
+        with open(os.path.join(agent, "analyses", "RETRY_2099-01-01", "result.md"), "w") as f:
+            f.write("retry data\n")
+        run(["git", "add", "analyses/RETRY_2099-01-01/result.md"], cwd=agent, env=env)
+        run(["git", "commit", "-q", "-m", "local retry target"], cwd=agent, env=env)
+        local_sha = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+        with open(os.path.join(agent, "screener", "board", "live.json"), "w") as f:
+            f.write('{"generation":"retry-live"}\n')
+
+        result = run(["bash", COMMIT_RUN, "--retry-push", local_sha], cwd=agent, env=env, check_rc=False)
+        head_after = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+        run(["git", "fetch", "-q", "origin", "main"], cwd=agent, env=env)
+        ancestor = run(["git", "merge-base", "--is-ancestor", local_sha, "origin/main"],
+                       cwd=agent, env=env, check_rc=False)
+        with open(os.path.join(agent, "screener", "board", "live.json")) as f:
+            live_worktree = f.read()
+        check("retry mode publishes a stranded commit through dirty DATA reconciliation",
+              result.returncode == 0 and f"COMMIT_SHA={local_sha}" in result.stdout
+              and ancestor.returncode == 0,
+              f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
+        check("retry reconciliation never moves HEAD or changes live dirty bytes",
+              head_after == local_sha and 'retry-live' in live_worktree)
+
+
 def test_retry_push_is_exact_main_only_and_serialized():
     """An ambiguous local commit can be retried without staging another commit or bypassing safety."""
     with tempfile.TemporaryDirectory(prefix="commit-run-test-retry-") as tmp:
@@ -527,6 +653,9 @@ if __name__ == "__main__":
     test_commit_hook_rejection_is_never_pushed_as_old_head()
     test_conflicting_rebase_is_aborted_cleanly()
     test_clean_rebase_second_push_race_retains_rebased_commit()
+    test_dirty_data_reconcile_preserves_live_bytes_and_original_commit_ancestry()
+    test_dirty_code_still_blocks_reconciliation()
+    test_retry_push_reconciles_dirty_data_without_moving_local_head()
     test_retry_push_is_exact_main_only_and_serialized()
     test_invalid_new_decision_is_rejected_before_commit()
     test_valid_decision_commits_staged_snapshot_not_later_worktree_bytes()
