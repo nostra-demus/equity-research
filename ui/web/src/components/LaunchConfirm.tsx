@@ -29,7 +29,7 @@ export function LaunchConfirm() {
   const [typed, setTyped] = useState('')
   if (!lc) return null
   if (lc.kind === 'module') {
-    const copy = moduleRunConfirmation(lc.module, lc.unfinishedSpecialists, lc.upstreamModules)
+    const copy = moduleRunConfirmation(lc.module, lc.unfinishedSpecialists, lc.inputModules)
     const pendingKey = `module:${lc.module}`
     const starting = launchPending?.ticker === lc.selection.subject
       && (launchPending.key === pendingKey || launchPending.key.startsWith(`${pendingKey}:`))
@@ -51,7 +51,7 @@ export function LaunchConfirm() {
           </div>
           <div className="modal__body">
             <div className="modal__row"><span className="modal__k">Empty orbs</span><span className="modal__v">{copy.emptyValue}</span></div>
-            <div className="modal__row"><span className="modal__k">Saved upstream work</span><span className="modal__v" style={{ fontFamily: 'inherit', textAlign: 'right', maxWidth: 300 }}>{copy.savedUpstreamValue}</span></div>
+            <div className="modal__row"><span className="modal__k">Saved inputs</span><span className="modal__v" style={{ fontFamily: 'inherit', textAlign: 'right', maxWidth: 300 }}>{copy.savedInputsValue}</span></div>
             <div className="modal__row"><span className="modal__k">Related saved checks</span><span className="modal__v" style={{ fontFamily: 'inherit', textAlign: 'right', maxWidth: 230 }}>{copy.relatedValue}</span></div>
             <div className="modal__row"><span className="modal__k">Fresh summary</span><span className="modal__v">{copy.summaryValue}</span></div>
           </div>

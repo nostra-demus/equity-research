@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { api } from './api'
-import { moduleRunAffordance, moduleRunConfirmation } from './moduleRun'
+import { moduleRunAffordance, moduleRunConfirmation, moduleRunInputModules } from './moduleRun'
 import { useStore } from './store'
 import type { AgentNode, LaunchPreflight, NodeStatus, ThesisPlan } from './types'
 
@@ -29,15 +29,23 @@ assert.equal(affordance.complete, false, 'an old done synthesis cannot hide empt
 assert.equal(affordance.unfinishedSpecialists, 6)
 assert.equal(affordance.label, '▸ finish 6 empty + related + summary')
 assert.match(affordance.title, /may rerun saved checks that depend on them/i)
+const declaredInputs = moduleRunInputModules([
+  { name: 'business-model', dependsOn: [] },
+  { name: 'earnings', dependsOn: ['business-model'] },
+  { name: 'balance-sheet-survival', dependsOn: ['business-model', 'earnings'] },
+  { name: 'management-governance', dependsOn: ['business-model', 'earnings'], readsFrom: ['balance-sheet-survival'] },
+], 'management-governance')
+assert.deepEqual(declaredInputs, ['business-model', 'earnings', 'balance-sheet-survival'],
+  'confirmation inputs include transitive required ancestors and the target module’s direct optional reads')
 const confirmationCopy = moduleRunConfirmation(
   'management-governance',
   affordance.unfinishedSpecialists,
-  ['business-model', 'earnings'],
+  declaredInputs,
 )
 assert.equal(confirmationCopy.title, 'Run Management Governance?')
 assert.equal(confirmationCopy.emptyValue, '6 visible now')
-assert.equal(confirmationCopy.savedUpstreamValue,
-  'Business Model and Earnings — kept as saved; may not include newest source data')
+assert.equal(confirmationCopy.savedInputsValue,
+  'Business Model, Earnings, and Balance Sheet Survival — reused if available; may not include newest source data')
 assert.match(confirmationCopy.relatedValue, /empty orb/i)
 assert.match(confirmationCopy.summaryValue, /always refreshed/i)
 assert.equal(confirmationCopy.actionLabel, 'Run Governance')
@@ -153,11 +161,13 @@ try {
     selectedTicker: 'INDIAMART',
     graph: {
       modules: [
-        { name: 'management-governance', order: 1, dependsOn: ['business-model', 'earnings'], exactResume: true, layers: {}, agentCount: nodes.length },
+        { name: 'management-governance', order: 3, dependsOn: ['business-model', 'earnings'], readsFrom: ['balance-sheet-survival'], exactResume: true, layers: {}, agentCount: nodes.length },
         { name: 'business-model', order: 0, dependsOn: [], exactResume: false, layers: {}, agentCount: 0 },
+        { name: 'earnings', order: 1, dependsOn: ['business-model'], exactResume: false, layers: {}, agentCount: 0 },
+        { name: 'balance-sheet-survival', order: 2, dependsOn: ['business-model', 'earnings'], exactResume: false, layers: {}, agentCount: 0 },
       ],
       masterSynthesizer: { name: 'synthesizer', description: '' },
-      totals: { modules: 2, agents: nodes.length, specialists: nodes.length - 1, synthesis: 1 },
+      totals: { modules: 4, agents: nodes.length, specialists: nodes.length - 1, synthesis: 1 },
     },
     nodesByKey: new Map(nodes.map((node) => [node.key, node])),
     nodeRuntime: { ...standingRuntime },
@@ -175,8 +185,9 @@ try {
   assert.equal(firstConfirmation?.kind, 'module', 'one heading click opens the module confirmation synchronously')
   assert.equal(firstConfirmation?.kind === 'module' ? firstConfirmation.module : null, 'management-governance')
   assert.equal(firstConfirmation?.kind === 'module' ? firstConfirmation.unfinishedSpecialists : null, 6)
-  assert.deepEqual(firstConfirmation?.kind === 'module' ? firstConfirmation.upstreamModules : null,
-    ['business-model', 'earnings'], 'confirmation captures graph-declared upstream work without hardcoded module names')
+  assert.deepEqual(firstConfirmation?.kind === 'module' ? firstConfirmation.inputModules : null,
+    ['business-model', 'earnings', 'balance-sheet-survival'],
+    'confirmation captures required and optional graph-declared inputs without hardcoded module names')
   assert.equal(useStore.getState().launchPending, null, 'opening confirmation does not start a plan request')
   assert.deepEqual(
     { planCalls, resumeCalls, publicationCalls, agentLaunchCalls, estimateCalls },

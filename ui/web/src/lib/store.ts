@@ -13,7 +13,7 @@ import { archiveErrorNote } from './archiveError'
 import { selectNewsChatHandoffEvidence } from './newsChatHandoff'
 import { stageDockHUpdate } from './stageDock'
 import { affectedModules, focusKeysFor } from './intake'
-import { moduleRunAffordance } from './moduleRun'
+import { moduleRunAffordance, moduleRunInputModules } from './moduleRun'
 import type { BridgeStatus } from './types'
 import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
@@ -392,7 +392,7 @@ type LaunchConfirmation =
       selection: LaunchSelectionBinding
       module: string
       unfinishedSpecialists: number
-      upstreamModules: string[]
+      inputModules: string[]
     }
   | {
       kind: 'full' | 'rerun'
@@ -2062,7 +2062,7 @@ export const useStore = create<State>((set, get) => ({
           selection,
           module,
           unfinishedSpecialists: scope.unfinishedSpecialists,
-          upstreamModules: [...graphModule.dependsOn],
+          inputModules: moduleRunInputModules(get().graph?.modules ?? [], module),
         },
       })
       return
@@ -2112,7 +2112,10 @@ export const useStore = create<State>((set, get) => ({
       return get().setToast({ msg: 'Engine offline — the run was not started.', tone: 'bad' })
     }
     const graphModule = get().graph?.modules.find((entry) => entry.name === lc.module)
-    if (selection.swarm !== 'research' || graphModule?.exactResume !== true) {
+    const currentInputModules = moduleRunInputModules(get().graph?.modules ?? [], lc.module)
+    const inputsUnchanged = currentInputModules.length === lc.inputModules.length
+      && currentInputModules.every((input, index) => input === lc.inputModules[index])
+    if (selection.swarm !== 'research' || graphModule?.exactResume !== true || !inputsUnchanged) {
       set({ launchConfirm: null })
       return get().setToast({ msg: 'The engine is still updating. Refresh once, then click the module again.', tone: 'info' })
     }
