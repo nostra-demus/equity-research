@@ -47,6 +47,10 @@ assert.deepEqual(commitRunReceipt({ exitCode: 5, stdout: `COMMIT_SHA=${unrelated
   { commitSha: null, noop: false }, 'pre-commit failure output cannot forge a commit receipt')
 assert.equal(await modulePathspecStateMatchesRevision(repo, unrelatedHead, [target]), false,
   'dirty requested bytes do not match unrelated HEAD')
+assert.equal(await modulePathspecStateMatchesRevision(repo, unrelatedHead, ['analyses\\..\\..\\outside']), false,
+  'Windows separators cannot hide traversal from the pathspec boundary')
+assert.equal(await modulePathspecStateMatchesRevision(repo, unrelatedHead, ['\\absolute']), false,
+  'a Windows-rooted pathspec is never accepted')
 assert.equal(await retryBoundModulePublication({
   repoRoot: repo,
   script: retryScript,

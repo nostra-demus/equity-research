@@ -38,7 +38,10 @@ export function commitRunReceipt(attempt: CommitRunAttempt | null | undefined): 
 }
 
 function safePathspec(pathspec: string): boolean {
-  return !!pathspec && !pathspec.startsWith('-') && !pathspec.startsWith('/')
+  // Git accepts both separators on Windows. All engine-owned pathspecs are canonical repo-relative POSIX
+  // paths, so reject a backslash outright instead of normalising one attacker-controlled spelling for the
+  // check and then passing a different spelling to Git.
+  return !!pathspec && !pathspec.includes('\\') && !pathspec.startsWith('-') && !pathspec.startsWith('/')
     && !pathspec.includes('\0') && !pathspec.split('/').includes('..')
 }
 
