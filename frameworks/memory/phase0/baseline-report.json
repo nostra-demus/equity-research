@@ -700,11 +700,11 @@
       ],
       "evidence_misses": [],
       "expected_outcome": "retrieve",
-      "first_evidence_rank": 2,
+      "first_evidence_rank": 1,
       "forbidden_hits": [],
       "id": "entity-005-visa-listing-key",
       "protected_hits": [],
-      "reciprocal_rank": 0.5
+      "reciprocal_rank": 1.0
     },
     {
       "category": "entity_resolution",
@@ -954,7 +954,7 @@
       "case_count": 7,
       "complete_evidence_recall_at_k": 0.285714,
       "evidence_path_recall_at_k": 0.375,
-      "mean_reciprocal_rank": 0.142857
+      "mean_reciprocal_rank": 0.214286
     },
     "fact_recall": {
       "case_count": 7,
@@ -988,9 +988,9 @@
     }
   },
   "corpus": {
-    "sha256": "2c183f4f65987920256d595f60c80593324d5999d655eebdbfe153f39258f309",
-    "total_bytes": 55922527,
-    "unique_files_considered": 1256
+    "sha256": "ead21e6ad22d431c59bfd894bfe982d1e4456059468e372bcc46078c913afc5c",
+    "total_bytes": 56081601,
+    "unique_files_considered": 1258
   },
   "limitations": [
     "The folder/grep baseline measures evidence-file retrieval, not generated-answer correctness or citation-span precision.",
@@ -1018,7 +1018,7 @@
   "metrics": {
     "complete_evidence_recall_at_k": 0.52381,
     "evidence_path_recall_at_k": 0.580247,
-    "mean_reciprocal_rank": 0.461111,
+    "mean_reciprocal_rank": 0.469048,
     "protected_path_intrusions": 0,
     "temporal_forbidden_path_hits": 7,
     "temporal_leakage_case_rate": 0.714286
