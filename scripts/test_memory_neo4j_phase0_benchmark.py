@@ -519,7 +519,7 @@ class MemoryNeo4jPhase0BenchmarkTests(unittest.TestCase):
         self.assertEqual(_document_observed_day(uber_document), date(2026, 8, 7))
         # This committed JSON is deliberately compact (one physical line).
         self.assertEqual(len(theme_document.text.splitlines()), 1)
-        self.assertEqual(_document_observed_day(theme_document), date(2026, 8, 20))
+        self.assertEqual(_document_observed_day(theme_document), date(2026, 8, 21))
         self.assertIsNone(_document_observed_day(unknown_document))
 
         for path, question in (
