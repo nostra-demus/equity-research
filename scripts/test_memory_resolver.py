@@ -237,6 +237,31 @@ class LegacyGitResolverTests(unittest.TestCase):
             )
             self.assertNotIn("content", metadata)
 
+    def test_exact_resolution_does_not_refresh_git_index_metadata(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = GitFixture(Path(temporary))
+            # Force Git to inspect the worktree stat tuple while keeping exact bytes.
+            absolute = fixture.root / fixture.json_path
+            current = absolute.stat()
+            os.utime(
+                absolute,
+                ns=(current.st_atime_ns, current.st_mtime_ns + 2_000_000_000),
+            )
+            index_path = fixture.root / ".git" / "index"
+            before_bytes = index_path.read_bytes()
+            before = index_path.stat()
+            resolver = CompositeMemoryResolver(fixture.root, authorize_legacy=_allow)
+            self.assertEqual(
+                resolver.resolve(fixture.json_event, principal="allowed").content,
+                fixture.json_raw,
+            )
+            after = index_path.stat()
+            self.assertEqual(index_path.read_bytes(), before_bytes)
+            self.assertEqual(
+                (after.st_size, after.st_mtime_ns, after.st_ctime_ns),
+                (before.st_size, before.st_mtime_ns, before.st_ctime_ns),
+            )
+
     def test_internal_legacy_defaults_to_denied_and_hooks_fail_closed(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             fixture = GitFixture(Path(temporary))
