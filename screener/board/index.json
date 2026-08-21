@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-21T13:08:03Z",
+  "generated_at": "2026-08-21T13:27:45Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260821-691",
+      "headline": "ZHONGLIANG HLDG (02772): INSIDE INFORMATION - PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082101481.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-21T13:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "Profit warning disclosed as inside information, signaling earnings expectations will be reset materially lower.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Profit warning disclosed as inside information, signaling earnings expectations will be reset materially lower.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zhongliang Holdings Group Limited",
+          "ticker": "02772",
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260821-670",
       "headline": "ZHONGTAIFUTURES (01461): ANNOUNCEMENT OF INTERIM RESULTS FOR THE SIX MONTHS ENDED 30 JUNE 2026",
@@ -1907,49 +1956,6 @@
         "default_distress"
       ],
       "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-455",
-      "headline": "Panama Canal cuts daily capacity",
-      "headline_en": null,
-      "url": "https://splash247.com/panama-canal-cuts-daily-capacity/",
-      "source_name": "Splash247",
-      "input_nature": "shipping_rate_move",
-      "found_at": "2026-08-21T05:34:50Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "A reduction in Panama Canal capacity acts as a supply chain constraint for global shipping.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "A reduction in Panama Canal capacity acts as a supply chain constraint for global shipping.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 5,
-        "scope": 4,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "official_data",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -74723,9 +74729,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10517810,
-    "news_picked_today": 1475,
-    "news_dropped_today": 3133
+    "news_seen_today": 10631084,
+    "news_picked_today": 1511,
+    "news_dropped_today": 3205
   },
   "book_momentum": {
     "live_count": 8,
