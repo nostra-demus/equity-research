@@ -2982,17 +2982,31 @@ app.get('/api/watchlist/:id/attachment/:attachmentId', { config: { rateLimit: { 
     if (!GDRIVE_ENABLED) return reply.code(503).send({ error: 'attachments need either the Drive mount or the Drive API' })
     try { stream = await readWatchlistFile(attachmentId) } catch { return reply.code(502).send({ error: 'could not read the file' }) }
   }
-  // `attachment`, never inline: an inline user-supplied PDF can run script in some viewers, and this
-  // origin holds the whole cockpit session. The filename is rebuilt from validated data, never echoed.
+  // The filename is rebuilt from validated data, never echoed.
   const safeName = `${entry!.listing.ticker.replace(/[^A-Za-z0-9._-]/g, '')}-${att.filename.replace(/[^A-Za-z0-9._-]/g, '')}`
-  // `attachment` + nosniff for BOTH types: an inline user-supplied file runs in this origin, which holds
-  // the whole cockpit session. Markdown is rendered by the panel fetching this body and passing it through
-  // react-markdown (no rehype-raw, so embedded HTML is escaped, never executed) — never by the browser.
   const isMd = /\.md$/i.test(att.filename)
+  // A PDF is served INLINE so the browser's viewer opens it — a thesis you attached in order to READ is
+  // not a file you want to re-download every time you glance at it. `attachment` was the original choice
+  // because a user-supplied PDF can carry script and this origin holds the cockpit session.
+  //
+  // `Content-Security-Policy: sandbox` looks like the clean answer to that and is NOT usable here: Chrome
+  // renders a PDF by generating an HTML wrapper that embeds it, and a sandboxed opaque origin blocks that
+  // wrapper — so the browser silently falls back to downloading. Setting it would have kept the exact
+  // behaviour it was meant to fix while reading as a fix. (chromium issue 40328564.)
+  //
+  // What actually carries the safety here: `nosniff` pins the declared type, the body is only ever a
+  // stored `.pdf`, and both Chrome and Firefox run the PDF viewer in its own sandboxed process where a
+  // document cannot reach this origin's DOM, cookies or session. The residual is a viewer-engine
+  // vulnerability, which is the same exposure as opening the file from disk — not a new one this route
+  // creates. Stated rather than papered over.
+  //
+  // Markdown keeps `attachment`: the panel fetches this body and renders it through react-markdown (no
+  // rehype-raw, so embedded HTML is escaped). This header only governs a DIRECT navigation to the URL,
+  // where downloading a .md is the safe and expected outcome.
   return reply
     .header('content-type', isMd ? 'text/plain; charset=utf-8' : 'application/pdf')
     .header('x-content-type-options', 'nosniff')
-    .header('content-disposition', `attachment; filename="${safeName}"`)
+    .header('content-disposition', `${isMd ? 'attachment' : 'inline'}; filename="${safeName}"`)
     .header('cache-control', 'private, no-store')
     .send(stream)
 })
