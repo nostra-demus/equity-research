@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T11:49:33Z",
+  "generated_at": "2026-08-21T12:00:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260821-606",
@@ -1510,6 +1510,105 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260821-633",
+      "headline": "Arbutus Announces Intent to Repurchase Up to US$230 Million of its Common Shares Through Modified “Dutch Auction” Tender Offer | ABUS Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/ABUS/arbutus-announces-intent-to-repurchase-up-to-us-230-million-of-its-ozf9karp4rf6.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-21T11:30:00Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "Arbutus announced a US$230 million share repurchase program via a Dutch auction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Arbutus announced a US$230 million share repurchase program via a Dutch auction.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capital_actions",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Arbutus Biopharma",
+          "ticker": "ABUS",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-630",
+      "headline": "The Metals Royalty Company Announces Fully Allocated US$165 Million Financing to Fund Acquisition of Additional 1.0% Mesabi Royalty | TMC Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/TMC/the-metals-royalty-company-announces-fully-allocated-us-165-million-90kks1vg0kpj.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-21T11:30:00Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "US$165 million fully allocated financing to acquire 1.0% additional Mesabi royalty; named deal value and specific asset.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "US$165 million fully allocated financing to acquire 1.0% additional Mesabi royalty; named deal value and specific asset.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "The Metals Royalty Company",
+          "ticker": "TMC",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260821-570",
       "headline": "Trustar Bank Announces $750 Million Branch Acquisition from Forbright Bank",
       "headline_en": null,
@@ -1863,115 +1962,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-504",
-      "headline": "Fashion CEO Hunsicker gets 5 years for $300m fraud",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/news-fast-news/fashion-ceo-hunsicker-gets-5-years-for-300m-fraud/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T07:00:44Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "CEO (Hunsicker) convicted of $300 million fraud and sentenced to 5 years; critical integrity failure materially impairing credibility and governance of a listed company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "CEO (Hunsicker) convicted of $300 million fraud and sentenced to 5 years; critical integrity failure materially impairing credibility and governance of a listed company.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fashion company (CEO: Hunsicker)",
-          "ticker": null,
-          "listing_country": "ZA"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-493",
-      "headline": "Monte dei Paschi Makes $40 Billion Move to Buy Italian Peers Banco BPM, Banca Generali",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/monte-dei-paschi-makes-40-billion-move-to-buy-italian-peers-banco-bpm-banca-generali-711620fd?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T06:34:00Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Monte dei Paschi is making a $40 billion move to acquire Banco BPM and Banca Generali.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Monte dei Paschi is making a $40 billion move to acquire Banco BPM and Banca Generali.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Monte dei Paschi",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Banco BPM",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Banca Generali",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -74669,9 +74659,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10218934,
-    "news_picked_today": 1366,
-    "news_dropped_today": 2726
+    "news_seen_today": 10266061,
+    "news_picked_today": 1387,
+    "news_dropped_today": 2801
   },
   "book_momentum": {
     "live_count": 8,
