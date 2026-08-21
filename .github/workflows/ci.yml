@@ -225,6 +225,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # The service-load contract executes the exact OmniRoute TypeScript smoke
+      # (descriptor -> HTTP adapter -> production parser), so this job needs the
+      # server runtime independently of the parallel ui-server job.
+      - name: Set up Node 22 for the OmniRoute scorer contract
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: ui/server/package-lock.json
+
+      - name: Install server runtime for the OmniRoute scorer contract
+        working-directory: ui/server
+        run: npm ci
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
