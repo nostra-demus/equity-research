@@ -1,6 +1,104 @@
 {
-  "generated_at": "2026-08-21T04:35:14Z",
+  "generated_at": "2026-08-21T04:54:43Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260821-363",
+      "headline": "Tube Investments of India Limited: Tube Investments of India Limited has informed the Exchange about Acquisition",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/TIINDIA_21082026085600_TIINSEBSESGL.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-21T03:26:08Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "Acquisition is a material event that can significantly alter a company's scale, market position, and financial structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Acquisition is a material event that can significantly alter a company's scale, market position, and financial structure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tube Investments of India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-364",
+      "headline": "Kronox Lab Sciences Limited: Kronox Lab Sciences Limited has informed the Exchange regarding ' Announcement under Regulation 30 (LODR)-Acquisition'.",
+      "headline_en": null,
+      "url": "https://nsearchives.nseindia.com/corporate/KRONOX_21082026084522_IIFL_COVERING.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-21T03:15:54Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "Acquisition is a material event that can significantly alter a company's scale, market position, and financial structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Acquisition is a material event that can significantly alter a company's scale, market position, and financial structure.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Kronox Lab Sciences Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260821-151",
       "headline": "CDM: Media Release - Full Year Results 30 June 2026 [price-sensitive]",
@@ -328,6 +426,55 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-409",
+      "headline": "Chinese court in Guangzhou accepts bankruptcy case of Evergrande unit",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/chinese-court-guangzhou-accepts-bankruptcy-case-evergrande-unit-2026-08-21/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T04:45:07Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "A Chinese court has accepted a bankruptcy case for a unit of Evergrande, signaling further distress for the developer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A Chinese court has accepted a bankruptcy case for a unit of Evergrande, signaling further distress for the developer.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Evergrande",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1594,6 +1741,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260821-392",
+      "headline": "UK software group Pinewood agrees £545mn private equity takeover",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/b36d4655-b05f-46a9-87b2-145437dbdc3b?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-19T10:55:08Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "Pinewood agreed to a £545 million private equity takeover.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Pinewood agreed to a £545 million private equity takeover.",
+      "region": "GB",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Pinewood",
+          "ticker": null,
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-396",
+      "headline": "Lowe’s Cuts Outlook as Soft Housing Market Curbs Demand",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-19/lowe-s-cuts-outlook-as-soft-housing-market-curbs-demand",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-19T10:16:12Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "Lowe's cut its financial outlook due to a soft housing market.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Lowe's cut its financial outlook due to a soft housing market.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Lowe's",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260821-223",
       "headline": "CDO: Media Release - Full Year Results & Record Profits [price-sensitive]",
       "headline_en": null,
@@ -1730,251 +1975,6 @@
       "issuer_linkage": "primary",
       "companies": [],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-148",
-      "headline": "SK Hynix plans $28.6 billion buyback after share price declines",
-      "headline_en": null,
-      "url": "https://www.reuters.com/legal/transactional/sk-hynix-buy-back-cancel-29-billion-worth-treasury-shares-2026-08-19/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-19T20:03:16Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "SK Hynix announced a $28.6 billion share buyback program to support its stock price.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "SK Hynix announced a $28.6 billion share buyback program to support its stock price.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capital_actions",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-315",
-      "headline": "SK Hynix suggests its stock is too cheap as it embarks on $29 billion buyback",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/story/sk-hynix-suggests-its-stock-is-too-cheap-as-it-embarks-on-29-billion-buyback-c8b35d4f?mod=mw_rss_topstories",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-19T12:46:00Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Company announced a massive $29 billion share buyback program.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Company announced a massive $29 billion share buyback program.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capital_actions",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-345",
-      "headline": "SK Hynix launches $28.6 billion share buyback and cancellation",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/sk-hynix-launches-28-6-121219209.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-19T12:12:19Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "The company announced a massive $28.6 billion share buyback and cancellation program.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The company announced a massive $28.6 billion share buyback and cancellation program.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capital_actions",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-352",
-      "headline": "SK Hynix Announces Massive Treasury Share Buyback",
-      "headline_en": null,
-      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275082",
-      "source_name": "Business Korea — All English Articles",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-19T11:29:09Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "The company announced a massive treasury share buyback program.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The company announced a massive treasury share buyback program.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capital_actions",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SK Hynix",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-230",
-      "headline": "CBA: Issue of GBP 650,000,000 worth of Subordinated Notes",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CBA?key=2924-03124216-2A1691067",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-21T01:59:37Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Commonwealth Bank of Australia issued 650 million GBP in subordinated notes, a significant capital structure event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Commonwealth Bank of Australia issued 650 million GBP in subordinated notes, a significant capital structure event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "debt_credit",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Commonwealth Bank of Australia",
-          "ticker": "CBA",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -73733,9 +73733,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 4817213,
-    "news_picked_today": 519,
-    "news_dropped_today": 861
+    "news_seen_today": 5181190,
+    "news_picked_today": 587,
+    "news_dropped_today": 925
   },
   "book_momentum": {
     "live_count": 8,
