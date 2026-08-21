@@ -35,6 +35,26 @@ DESCRIPTOR_KEYS = (
     "NEWS_OMNIROUTE_MAX_ATTEMPTS",
 )
 STATE_KEYS = ("NEWS_OMNIROUTE_ENABLED",) + DESCRIPTOR_KEYS
+API_KEY_BASE_COLUMNS = {
+    "id": ("TEXT", 0, None, 1),
+    "name": ("TEXT", 1, None, 0),
+    "key": ("TEXT", 1, None, 0),
+    "machine_id": ("TEXT", 0, None, 0),
+    "allowed_models": ("TEXT", 0, "'[]'", 0),
+    "no_log": ("INTEGER", 1, "0", 0),
+    "created_at": ("TEXT", 1, None, 0),
+    "revoked_at": ("TEXT", 0, None, 0),
+    "expires_at": ("TEXT", 0, None, 0),
+    "last_used_at": ("TEXT", 0, None, 0),
+    "key_prefix": ("TEXT", 0, None, 0),
+    "ip_allowlist": ("TEXT", 0, None, 0),
+    "scopes": ("TEXT", 0, None, 0),
+}
+API_KEY_BOOTSTRAP_COLUMNS = {
+    "is_active": ("is_active INTEGER NOT NULL DEFAULT 1", "INTEGER", 1, "1", 0),
+    "is_banned": ("is_banned INTEGER NOT NULL DEFAULT 0", "INTEGER", 1, "0", 0),
+    "key_hash": ("key_hash TEXT", "TEXT", 0, None, 0),
+}
 
 
 def identity(value: os.stat_result) -> tuple[int, ...]:
@@ -245,6 +265,64 @@ def database_columns(connection: sqlite3.Connection, table: str) -> set[str]:
     return {str(row[1]) for row in connection.execute(f"PRAGMA table_info({table})")}
 
 
+def database_column_info(
+    connection: sqlite3.Connection, table: str,
+) -> dict[str, sqlite3.Row]:
+    if not re.fullmatch(r"[a-z0-9_]+", table):
+        raise RuntimeError("invalid table")
+    return {
+        str(row["name"]): row
+        for row in connection.execute(f"PRAGMA table_info({table})")
+    }
+
+
+def column_matches(
+    row: sqlite3.Row, expected: tuple[str, int, str | None, int],
+) -> bool:
+    column_type, not_null, default, primary_key = expected
+    return (
+        str(row["type"]).strip().upper() == column_type
+        and int(row["notnull"]) == not_null
+        and row["dflt_value"] == default
+        and int(row["pk"]) == primary_key
+    )
+
+
+def ensure_api_key_columns(connection: sqlite3.Connection) -> bool:
+    """Add only the three lazy 3.8.49 fallbacks needed by the managed key contract."""
+    columns = database_column_info(connection, "api_keys")
+    if any(
+        name not in columns or not column_matches(columns[name], expected)
+        for name, expected in API_KEY_BASE_COLUMNS.items()
+    ):
+        raise RuntimeError("unsupported api_keys schema")
+    for name, (_, column_type, not_null, default, primary_key) in (
+        API_KEY_BOOTSTRAP_COLUMNS.items()
+    ):
+        if name in columns and not column_matches(
+            columns[name], (column_type, not_null, default, primary_key),
+        ):
+            raise RuntimeError("unsupported api_keys schema")
+
+    changed = False
+    for name, (definition, _, _, _, _) in API_KEY_BOOTSTRAP_COLUMNS.items():
+        if name not in columns:
+            connection.execute(f"ALTER TABLE api_keys ADD COLUMN {definition}")
+            changed = True
+
+    columns = database_column_info(connection, "api_keys")
+    if any(
+        name not in columns or not column_matches(
+            columns[name], (column_type, not_null, default, primary_key),
+        )
+        for name, (_, column_type, not_null, default, primary_key) in (
+            API_KEY_BOOTSTRAP_COLUMNS.items()
+        )
+    ):
+        raise RuntimeError("unsupported api_keys schema")
+    return changed
+
+
 def key_row_is_usable(row: sqlite3.Row) -> bool:
     return (
         row["is_active"] in (1, True)
@@ -273,15 +351,10 @@ def ensure_no_log_key(path: Path, database: Path) -> bool:
     configured_id = values["NEWS_OMNIROUTE_API_KEY_ID"]
     connection, _ = secure_database(database)
     created = False
+    schema_changed = False
     try:
-        required = {
-            "id", "name", "key", "machine_id", "allowed_models", "no_log", "created_at",
-            "key_prefix", "key_hash", "scopes", "is_active", "is_banned", "revoked_at",
-            "expires_at",
-        }
-        if not required.issubset(database_columns(connection, "api_keys")):
-            raise RuntimeError("unsupported api_keys schema")
         connection.execute("BEGIN IMMEDIATE")
+        schema_changed = ensure_api_key_columns(connection)
         row: sqlite3.Row | None = None
         if configured_id:
             rows = lookup_key_rows(connection, "id", configured_id)
@@ -332,7 +405,7 @@ def ensure_no_log_key(path: Path, database: Path) -> bool:
             "NEWS_OMNIROUTE_API_KEY": str(row["key"]),
             "NEWS_OMNIROUTE_API_KEY_ID": str(row["id"]),
         })
-        return created or changed or row["no_log"] not in (1, True)
+        return schema_changed or created or changed or row["no_log"] not in (1, True)
     except Exception:
         try:
             connection.rollback()
