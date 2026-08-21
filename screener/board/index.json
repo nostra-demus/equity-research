@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T01:22:52Z",
+  "generated_at": "2026-08-21T01:23:34Z",
   "inbox": [
     {
       "inbox_id": "INB-20260821-079",
@@ -70963,6 +70963,77 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-a3c85c1ccad7",
+      "idea_version": "IDEAV-735843d7ceb3543d",
+      "idea_version_started_at": "2026-08-21T01:23:27Z",
+      "ticker": "SFG",
+      "company": "SFG",
+      "exchange": "ASX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The abrupt termination of the CEO creates immediate leadership uncertainty and potential strategic instability for the company.",
+      "why_now": "The announcement was filed on 2026-08-20, making the market reaction live for the next trading session.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-dcdb0769eef4"
+      ],
+      "primary_source_event_id": "EVT-dcdb0769eef4",
+      "source_headlines": [
+        "SFG: SFG CEO Termination [price-sensitive]"
+      ],
+      "source_headline": "SFG: SFG CEO Termination [price-sensitive]",
+      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SFG?key=2924-03124138-6A1339615",
+      "source_name": "ASX (Australia Exchange Filing)",
+      "materiality_max": 94,
+      "newest_source_at": "2026-08-20T23:50:01Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-21T01:23:27Z",
+      "updated_at": "2026-08-21T01:23:27Z",
+      "decay_at": "2026-08-22T11:50:01Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-5e6a9795a343",
       "idea_version": "IDEAV-bea401ffc704d62b",
       "idea_version_started_at": "2026-08-20T07:13:16Z",
@@ -73474,8 +73545,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 37,
-    "live_count": 17,
+    "surfaced_total": 38,
+    "live_count": 18,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -73494,7 +73565,7 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1089540,
+    "news_seen_today": 1180454,
     "news_picked_today": 105,
     "news_dropped_today": 375
   },
