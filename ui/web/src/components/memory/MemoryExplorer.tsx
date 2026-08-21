@@ -255,7 +255,8 @@ export function MemoryExplorer() {
 
   // A real modal: focus enters it, Escape closes it, Tab stays inside, and focus returns to Memory.
   useEffect(() => {
-    openerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null
+    const active = document.activeElement
+    if (active instanceof HTMLElement && !panelRef.current?.contains(active)) openerRef.current = active
     requestAnimationFrame(() => closeRef.current?.focus())
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') { event.preventDefault(); close(); return }

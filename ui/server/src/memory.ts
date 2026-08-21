@@ -160,7 +160,8 @@ function unavailable(): MemoryRead {
 }
 
 function capNumber(value: number | undefined, fallback: number, min: number, max: number): number {
-  return Number.isFinite(value) ? Math.min(max, Math.max(min, Math.floor(value!))) : fallback
+  const candidate = value ?? fallback
+  return Number.isFinite(candidate) ? Math.min(max, Math.max(min, Math.floor(candidate))) : fallback
 }
 
 function record(value: unknown): value is Record<string, unknown> {
