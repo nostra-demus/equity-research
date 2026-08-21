@@ -1567,6 +1567,7 @@ if scope=="selftest":
         (None,{"contradiction_checks":[]},"na"),
         ("2026-08-21",[],"fail"),                            # non-dict report (list) — must fail gracefully, not crash
         ("2026-08-21","not-a-dict","fail"),                  # non-dict report (string) — must fail gracefully, not crash
+        ("2026-08-21",False,"fail"),                         # caller's "exists but is not readable JSON" sentinel — never N/A
     ]
     for dt_,rep_,exp in azcases:
         got=AZ(dt_,rep_); ok=(got==exp)
@@ -4143,14 +4144,23 @@ for drp in runs:
     # eval_az_contradiction_sweep comment block near AY_DATE for the full rationale.
     _az_vp = _latest("verification_report.json")
     _az_report = None
+    _az_unreadable = False
     if _az_vp:
         try:
             _az_report = json.load(open(_az_vp))
         except Exception:
-            _az_report = None
+            # An unreadable report is NOT the same as no report. `None` means "this run produced none",
+            # which the gate scores N/A — so folding a truncated or corrupt file into it would pass the
+            # check while the printed reason claimed no report existed. Hand the gate a value that
+            # structurally cannot carry contradiction_checks[], so it fails like any other invalid report.
+            _az_report = False
+            _az_unreadable = True
     _azresult = eval_az_contradiction_sweep(ddte, _az_report)
     if _azresult=="fail":
-        add("AZ_contradiction_sweep", False, f"{os.path.basename(_az_vp)} has no 'contradiction_checks' array — Section C3 (the §3 named-metric contradiction sweep) was not run or was omitted")
+        add("AZ_contradiction_sweep", False,
+            f"{os.path.basename(_az_vp)} is not readable JSON — Section C3 (the §3 named-metric contradiction sweep) cannot be verified"
+            if _az_unreadable else
+            f"{os.path.basename(_az_vp)} has no 'contradiction_checks' array — Section C3 (the §3 named-metric contradiction sweep) was not run or was omitted")
     elif _azresult=="pass":
         add("AZ_contradiction_sweep", True, f"contradiction_checks present ({len(_az_report.get('contradiction_checks') or [])} finding(s)) in {os.path.basename(_az_vp)}")
     else:
