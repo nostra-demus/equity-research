@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "frameworks/screener/thesis_record.schema.json",
   "title": "Phase 1 thesis record (M0.1-M0.6)",
-  "description": "The structured thesis record assembled by thesis-structure (meta + M0_1..M0_5) and completed + LOCKED by edge-definition (M0_6, routing). Field names follow the Phase 1 schema verbatim. Booleans documented as 'locked' carry const values: an agent that cannot truthfully set them fails the gate instead of bending the field.",
+  "description": "The structured thesis record assembled by thesis-structure (meta + M0_1..M0_5) and completed + LOCKED by edge-definition (M0_6, routing). Field names follow the Phase 1 schema verbatim. Booleans documented as 'locked' carry const values: an agent that cannot truthfully set them fails the gate instead of bending the field. The one non-analytical post-lock addition is execution_provenance: the deterministic cockpit publication hook stamps runtime identity before commit and may not alter meta or any M0_x field.",
   "type": "object",
   "required": ["meta", "M0_1"],
   "allOf": [
@@ -23,7 +23,7 @@
         "thesis_id": { "type": "string", "pattern": "^THS-SIG-[0-9]{8}-[a-f0-9]{8}-v[0-9]+$" },
         "signal_id": { "type": "string", "pattern": "^SIG-[0-9]{8}-[a-f0-9]{8}$" },
         "created_at": { "type": "string" },
-        "locked": { "type": "boolean", "description": "Once true, no field may be overwritten; amendments append to version_history and increment version." },
+        "locked": { "type": "boolean", "description": "Once true, no analytical field may be overwritten; amendments append to version_history and increment version. Runtime-owned execution_provenance may be added once before publication without changing the locked thesis." },
         "version": { "type": "integer", "minimum": 1 },
         "version_history": {
           "type": "array",
@@ -439,9 +439,52 @@
         "review_file": { "type": "string", "description": "Repo-relative path to the thesis_integrity_review*.json this was copied from." },
         "edge_score_haircut_note": { "type": "string" }
       }
+    },
+    "execution_provenance": {
+      "$ref": "#/definitions/executionProvenanceV1",
+      "description": "Runtime-owned provider/model/reasoning identity projected from the append-only cockpit manifest. It is never authored by an agent and never contains authentication, account, session, prompt, or transcript data."
     }
   },
   "definitions": {
+    "executionAuthorV1": {
+      "type": "object",
+      "required": ["attempt_id", "provider", "model", "reasoning_level", "attribution"],
+      "properties": {
+        "attempt_id": { "type": "string", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$" },
+        "provider": { "type": "string", "enum": ["claude", "codex"] },
+        "model": { "type": "string", "minLength": 1 },
+        "reasoning_level": { "type": "string", "minLength": 1 },
+        "attribution": { "const": "recorded" }
+      },
+      "additionalProperties": false
+    },
+    "executionContributorV1": {
+      "type": "object",
+      "required": ["provider", "model", "reasoning_level", "attribution", "scopes"],
+      "properties": {
+        "provider": { "type": "string", "enum": ["claude", "codex"] },
+        "model": { "type": ["string", "null"], "minLength": 1 },
+        "reasoning_level": { "type": ["string", "null"], "minLength": 1 },
+        "attribution": { "type": "string", "enum": ["recorded", "configured"] },
+        "scopes": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+      },
+      "additionalProperties": false
+    },
+    "executionProvenanceV1": {
+      "type": "object",
+      "required": ["schema_version", "source", "coverage", "provider_mode", "profile_key", "decision_author", "contributors", "cli_versions"],
+      "properties": {
+        "schema_version": { "const": "1.0" },
+        "source": { "const": "cockpit_runtime" },
+        "coverage": { "const": "cockpit_top_level_processes" },
+        "provider_mode": { "type": "string", "enum": ["single_provider", "mixed_provider", "partially_observed", "unknown"] },
+        "profile_key": { "type": "string", "minLength": 1 },
+        "decision_author": { "$ref": "#/definitions/executionAuthorV1" },
+        "contributors": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/executionContributorV1" } },
+        "cli_versions": { "type": "object", "additionalProperties": { "type": "string", "minLength": 1 } }
+      },
+      "additionalProperties": false
+    },
     "impact_party": {
       "type": "object",
       "required": ["id", "industry_category", "gics_classification", "scoring"],

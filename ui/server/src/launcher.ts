@@ -1,17 +1,19 @@
-import { createHash } from 'node:crypto'
+import { createHash, randomUUID, timingSafeEqual } from 'node:crypto'
+import { execFileSync } from 'node:child_process'
 import fs from 'node:fs'
+import http from 'node:http'
 import path from 'node:path'
+import { isDeepStrictEqual } from 'node:util'
 import { execa, type ResultPromise } from 'execa'
 import { logLaunch } from './activity-log'
 import { admitRun, admissionMessage } from './admission'
-import { CLAUDE_BIN, DATA_DIR, DEFAULT_MODEL, ESTIMATES, FULL_PER_MODULE, LAUNCH_GUARDS, MAX_CONCURRENT_RUNS, REPO_ROOT, type LaunchKind, RUN_STALL_MINUTES } from './config'
+import { DATA_DIR, ESTIMATES, FULL_PER_MODULE, HOST, LAUNCH_GUARDS, MAX_CONCURRENT_RUNS, PORT, REPO_ROOT, RUN_STALL_MINUTES, STATE_DIR } from './config'
 import { getCreditStatus, setCreditStatus } from './credit'
 import { writeAgentMetrics } from './agent-metrics'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
-import { createRun, emit, finishRun, getRun, inFlightRunsForSubject, listRuns, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
-import { clearRunMarker, resolveRunRoot, writeRunMarker } from './outputs'
+import { createRun, emit, finishRun, getRun, IN_FLIGHT_STATUSES, inFlightRunsForSubject, listRuns, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
+import { clearRunMarker, resolveRunRoot, writeRunMarker, writeSupervisorRunFile } from './outputs'
 import { runReadiness } from './readiness'
-import { providerEnvKeys } from './load-env'
 import { buildSwarmGraph, downstreamCascade } from './roster'
 import { isValidTicker, resolveInsideScreener } from './sandbox'
 import { normalizeDataSubject } from './data-subject'
@@ -37,11 +39,35 @@ import {
 } from './module-publication'
 import type { LaunchPreflight, ReadinessDecision, ReadinessReport, RunKind, RunStatus } from './types'
 import { validateAgentOutputFile } from '../../../scripts/agent-output-validity.mjs'
+import './providers/claude'
+import './providers/codex'
+import { claudeChildEnv, detectClaudeFlags } from './providers/claude'
+import { getProviderAdapter, isProviderEnabled, listProviderAdapters, providerDisabledReason } from './providers/registry'
+import type { RunProvider } from './providers/types'
+import {
+  appendExecutionAttempt, artifactIsFresh, attestParitySnapshotAtPublication,
+  canonicalManifestJsonl, canonicalManifestPath, decisionArtifacts,
+  receiptPath, recordAdmittedProviderSelection, recordProviderInterruptionAuthority, releaseExecutionEpochAfterPublication,
+  releaseParityRegistration, writeExecutionReceipt,
+} from './execution-provenance'
+
+// Provider adapters may issue a short-lived auth/binary lease while building a launch spec. Keep the
+// disposer supervisor-owned and keyed by the in-memory RunState: it is never exported to the child env.
+// A one-shot wrapper makes racing stream-result/close/cancel paths harmless.
+const providerLaunchCleanup = new WeakMap<RunState, () => void>()
+function releaseProviderLaunchResources(run: RunState): void {
+  const cleanup = providerLaunchCleanup.get(run)
+  if (!cleanup) return
+  providerLaunchCleanup.delete(run)
+  try { cleanup() } catch (error: any) {
+    console.error(`[provider] launch cleanup failed for ${run.runId}: ${String(error?.message || error)}`) // eslint-disable-line no-console
+  }
+}
 
 // Screener kinds are swarm-scoped; everything else is the research default. Generic by design:
 // the kind->swarm mapping is the only place this file knows the screener exists, and it is driven
 // by the discovered manifest (a missing manifest fails the launch with a clear 404).
-const SCREENER_KINDS = new Set<RunKind>(['signal', 'sweep', 'screener-agent', 'handoff'])
+const SCREENER_KINDS = new Set<RunKind>(['signal', 'sweep', 'screener-agent', 'handoff', 'conviction'])
 // Resolve the swarm for a launch. An explicit `swarm` (from the launch body) wins when it names a
 // discovered, non-research swarm — this is how a generic constellation swarm (e.g. commodity) routes
 // its REUSED full/module/agent kinds without inventing new per-swarm kinds. Otherwise the screener
@@ -105,7 +131,14 @@ export function sigIdFor(intake: SignalIntakeInput, date: string): string {
 // atomic rename, which makes cross-subject board rebuilds converge instead of corrupting.
 // The sweep inbox filename uses the LAUNCH-time date — a run that crosses midnight may write the
 // next day's file instead (acceptable for metadata; do not build hard rules on this path).
-function swarmStoreTargets(kind: RunKind, subjectId: string): string[] {
+function swarmStoreTargets(kind: RunKind, subjectId: string, swarmId: string): string[] {
+  const manifest = swarmById(swarmId)
+  if (kind === 'signal') {
+    return [
+      ...(manifest?.ledgerRoot ? [path.join(REPO_ROOT, manifest.ledgerRoot)] : []),
+      ...(manifest?.boardIndex ? [path.join(REPO_ROOT, manifest.boardIndex)] : []),
+    ]
+  }
   if (kind === 'sweep') {
     return [
       path.join(REPO_ROOT, 'screener', 'inbox', `${todayDate()}_sweep.json`),
@@ -123,50 +156,51 @@ function swarmStoreTargets(kind: RunKind, subjectId: string): string[] {
   return []
 }
 
-// ---- claude CLI flag capability detection (so we never pass an unknown flag) ----
-let supportedFlags: Set<string> | null = null
+// Back-compatible Claude helpers used by the small non-cockpit CLI wrappers. Tracked cockpit runs go
+// through ProviderAdapter below; these aliases keep existing untracked callers byte-for-byte unchanged.
 export async function detectFlags(): Promise<Set<string>> {
-  if (supportedFlags) return supportedFlags
-  const flags = new Set<string>()
-  try {
-    const { stdout } = await execa(CLAUDE_BIN, ['--help'], { reject: false, timeout: 15000 })
-    for (const m of stdout.matchAll(/--[a-z][a-z0-9-]+/g)) flags.add(m[0])
-  } catch {
-    /* fall back to a conservative core set */
-  }
-  // always-safe core flags even if --help parsing failed
-  for (const f of ['--print', '--output-format', '--verbose', '--model', '--max-turns', '--permission-mode']) flags.add(f)
-  supportedFlags = flags
-  return flags
+  return detectClaudeFlags()
 }
 
 // ---- is the Claude CLI actually runnable? (cached) ----
 // The cockpit reads the data pool itself but SPAWNS this CLI to run the engine. Because execa uses
 // reject:false, a missing binary fails ASYNC (ENOENT) and surfaced only as a bare "error" with no
 // detail. Probe once up front so a launch fails fast with an actionable message instead.
-let claudeOk: boolean | null = null
 /** Throw the launcher's canonical 503 when the engine CLI is missing. Exported so a route that STAGES
  *  disk state before launching (the scoped rerun) can fail on this BEFORE touching any files — the same
  *  message, one source of truth (Codex #358 r3672400207). */
 export async function assertClaudeCli(): Promise<void> {
-  if (await claudeAvailable()) return
+  const availability = await getProviderAdapter('claude').getAvailability({ refresh: true })
+  if (availability.available) return
   const err: any = new Error(
-    `Claude CLI ('${CLAUDE_BIN}') not found on PATH — the cockpit can read the data pool but spawns the CLI to run the engine. ` +
-    `Install it with \`npm i -g @anthropic-ai/claude-code\` (or set CLAUDE_BIN to its full path), then restart the cockpit server.`)
+    availability.reason || 'Claude CLI is not available in this cockpit runtime.')
   err.statusCode = 503
   err.code = 'CLAUDE_CLI_MISSING'
   throw err
 }
 
-async function claudeAvailable(): Promise<boolean> {
-  if (claudeOk !== null) return claudeOk
-  try {
-    const r: any = await execa(CLAUDE_BIN, ['--version'], { reject: false, timeout: 15000 })
-    claudeOk = !r.failed && r.exitCode === 0
-  } catch {
-    claudeOk = false // ENOENT / not on PATH
+export async function assertProviderAvailable(
+  provider: RunProvider,
+  proofId?: string,
+  scope: 'normal' | 'provider-parity' = 'normal',
+): Promise<void> {
+  if (!isProviderEnabled(provider, process.env, scope)) {
+    const reason = providerDisabledReason(provider)
+    const error: any = new Error(reason)
+    error.statusCode = 503
+    error.code = 'PROVIDER_DISABLED'
+    error.body = { provider, availability: 'unavailable', reason }
+    throw error
   }
-  return claudeOk
+  const availability = await getProviderAdapter(provider).getAvailability({ refresh: true, proofId })
+  if (availability.available) return
+  const error: any = new Error(availability.reason || `${provider} is unavailable in this cockpit runtime.`)
+  error.statusCode = 503
+  // Keep the established Claude launch contract stable for old clients and tests; new providers use
+  // the provider-neutral code and the structured body below.
+  error.code = provider === 'claude' ? 'CLAUDE_CLI_MISSING' : 'PROVIDER_UNAVAILABLE'
+  error.body = { provider, availability: availability.availability, reason: availability.reason }
+  throw error
 }
 
 // Local-calendar date that stamps a launch's SIG-id (both the hash input and the id prefix). Exported so
@@ -246,23 +280,7 @@ function ideaPublicationMarkerPath(runRoot: string): string {
 }
 
 function markIdeaPublicationRequired(runRoot: string): void {
-  const marker = ideaPublicationMarkerPath(runRoot)
-  fs.mkdirSync(path.dirname(marker), { recursive: true })
-  const fd = fs.openSync(marker, 'w')
-  try {
-    fs.fsyncSync(fd)
-  } finally {
-    fs.closeSync(fd)
-  }
-  // Windows does not allow opening/fsyncing directories. The marker file itself is still fsynced above.
-  if (process.platform !== 'win32') {
-    const dirFd = fs.openSync(path.dirname(marker), 'r')
-    try {
-      fs.fsyncSync(dirFd)
-    } finally {
-      fs.closeSync(dirFd)
-    }
-  }
+  writeSupervisorRunFile(runRoot, IDEA_PUBLICATION_MARKER, '')
 }
 
 export function ideaPublicationPending(runRoot: string | null): boolean {
@@ -339,8 +357,10 @@ export function truncatedBeforeFinal(run: RunState): boolean {
   if (run.kind !== 'full' && run.kind !== 'rerun') return false
   if (run.swarmId === 'research') return !finalDeliverablesPresent(run.runRoot)
   if (!run.runRoot || swarmById(run.swarmId)?.layout !== 'constellation') return false
-  const root = path.isAbsolute(run.runRoot) ? run.runRoot : path.join(REPO_ROOT, run.runRoot)
-  return !fs.existsSync(path.join(root, 'decision_record.json'))
+  const declared = decisionArtifacts(run)
+  // Stable roots retain an older terminal record. A clean refresh only succeeds if THIS attempt changed
+  // every declared decision artifact relative to the supervisor's pre-spawn baseline.
+  return !declared.length || declared.some((relative) => !artifactIsFresh(run, relative))
 }
 
 // A full company run (monolithic `full`, or any step of a chained full) is the unit the resume
@@ -349,6 +369,16 @@ export function truncatedBeforeFinal(run: RunState): boolean {
 // deliberate single pieces (the user ran exactly that), so a break there is NOT auto-resumed.
 function isResumableResearchRun(run: RunState): boolean {
   return run.swarmId === 'research' && (run.kind === 'full' || run.chained === true)
+}
+
+// Stable-root constellation swarms (commodity today, future discovered swarms tomorrow) also need a
+// durable per-attempt interruption queue. Their prior decision_record.json remains in place while a
+// refresh runs, so the marker — not mere terminal-file presence — identifies the unfinished new epoch.
+function isResumableTerminalRun(run: RunState): boolean {
+  if (isResumableResearchRun(run)) return true
+  return run.swarmId !== RESEARCH_SWARM_ID
+    && swarmById(run.swarmId)?.layout === 'constellation'
+    && (run.kind === 'full' || run.kind === 'rerun')
 }
 
 // Recording WHY a run stopped and AUTO-RESUMING it are different questions, and conflating them is what
@@ -415,7 +445,7 @@ function recordRunFailure(run: RunState, reason: string, stderr: string): void {
   if (!runRoot) return
   // Finding 5: a stale final_thesis.md/decision_record.json from an EARLIER completed run in this same
   // folder must not suppress a genuinely NEW failure — only deliverables THIS attempt actually shipped do.
-  if (finalDeliverablesShippedByThisAttempt(run)) return // the run actually shipped — a trailing nonzero is not a failure
+  if (finalDeliverablesShippedByThisAttempt(run) && (!run.willCommitToMain || run.publicationCompleted)) return
   // Keyed per (runRoot, module), not per runRoot: several module runs land in the SAME analyses folder
   // (INDIAMART ran five into two folders), and a folder-wide single-shot silently swallowed all but the
   // first — the dedup would have eaten the very records this change exists to create.
@@ -472,7 +502,7 @@ function recordRunFailure(run: RunState, reason: string, stderr: string): void {
       '## Resume', '',
       'This run broke before the master synthesis. The machine reason (and any plan-reset time) is in the `.interrupted` marker. Re-run to continue — a same-day relaunch resumes from the finished modules; an older run is re-run fresh. This note is auto-removed if the run later completes.', '',
     ].join('\n')
-    fs.writeFileSync(path.join(abs, FAILURE_NOTE), md)
+    writeSupervisorRunFile(runRoot, FAILURE_NOTE, md)
     commitRunFile(runRoot, FAILURE_NOTE, `Run failure note: ${run.ticker} (stopped at ${stoppedAt})`)
   } catch { /* best-effort: recording a failure must never itself fail the run */ }
 }
@@ -524,10 +554,35 @@ const failureNote = (reason: string, stderr: string): string =>
 
 const streamResultErrors = new WeakMap<RunState, { reason: string; message: string }>()
 
+function interruptionMarker(run: RunState, reason: string, message?: string, resetsAt?: number) {
+  return {
+    reason,
+    resetsAt,
+    module: run.module,
+    message: redactSecrets((message || '').slice(-2000)) || undefined,
+    provider: run.provider,
+    profileKey: run.profileKey,
+    model: run.model,
+    reasoningLevel: run.reasoningLevel,
+    executionEpoch: run.provenanceEpoch,
+    runId: run.runId,
+    startedAt: run.startedAt,
+  }
+}
+
+function writeInterruptionMarker(run: RunState, reason: string, message?: string, resetsAt?: number): void {
+  writeRunMarker(run.runRoot, '.interrupted', interruptionMarker(run, reason, message, resetsAt))
+  // The run-root marker is provider-writable. Automatic restart recovery may trust it only after the
+  // protected supervisor state records its exact bytes alongside the immutable provider/profile.
+  try { recordProviderInterruptionAuthority(run) } catch (error: any) {
+    console.error(`[resume] could not seal interruption authority for ${run.runId}: ${String(error?.message || error)}`) // eslint-disable-line no-console
+  }
+}
+
 // A structured stream error is authoritative immediately, but is not process-lifetime proof: a detached
-// Task/tool descendant may still be writing. Record the SAME marker + failure-note + activity-log-note
-// logic as the close-time error branch while retaining endedAt and writer claims for the group-extinct
-// close finalizer. Exported so stream-parser.ts can call it; the two files import each other's exports but
+// Task/tool descendant may still be writing. Record the same marker, failure note, and activity-log note
+// while retaining endedAt and writer claims for the group-extinct close finalizer. Exported so
+// stream-parser.ts can call it; the two files import each other's exports but
 // only from inside function bodies (never at module top level), which is safe under native ESM — a
 // hoisted `export function` binding is live before either module's own top-level code runs.
 // Fully best-effort: never throws (mirrors every other A2/A3 call site).
@@ -536,15 +591,22 @@ export function recordStreamResultFailure(run: RunState, reason: string, message
   // never turn an authoritative streamed error back into a clean close or release its writer claim early.
   streamResultErrors.set(run, { reason, message })
   try {
-    if (isResumableResearchRun(run) && !finalDeliverablesShippedByThisAttempt(run)) {
-      writeRunMarker(run.runRoot, '.interrupted', { reason, module: run.module, message: redactSecrets((message || '').slice(-2000)) || undefined })
-      recordRunFailure(run, reason, message)
+    if (!run.streamFailure) run.streamFailure = { reason, message }
+    const resumable = isResumableTerminalRun(run) || run.kind === 'signal'
+    if (resumable && !finalDeliverablesShippedByThisAttempt(run)) {
+      const resetsAt = reason === 'out_of_credits' ? getCreditStatus(run.provider).resetsAt : undefined
+      writeInterruptionMarker(run, reason, message, resetsAt)
+      if (isResumableResearchRun(run)) recordRunFailure(run, reason, message)
     }
     run.note = failureNote(reason, message) // A3: durable reason in the activity log (shown on the row)
     // The result is authoritative, but finalization is close-owned. Keeping endedAt unset preserves subject /
     // write claims until the detached process group is extinct; otherwise a background Task can keep writing
     // after this streamed error while a replacement run has already been admitted.
   } catch { /* best-effort: must never affect the stream parser or the run */ }
+  // Do not finish/release admission here. A structured error can arrive while the detached provider
+  // process (and Task descendants) are still alive. Stop its whole group, then let the close handler
+  // drain that group and become the single terminal finalizer.
+  killProcessTree(run)
 }
 
 export function streamResultAwaitsProcessClose(run: RunState): boolean {
@@ -571,21 +633,65 @@ export function childCouldReportDoneOnClose(run: RunState, res: any): boolean {
 // missing-final-thesis integrity check can never be bypassed by an early clean result.
 export function finalizeRunOnClose(run: RunState, res: any, stderr: string, terminalProof: PreSpawnGuardResult = { ok: true }) {
   if (run.endedAt !== undefined) return // already finalized (stream-parser error path)
-  const code = res?.exitCode ?? res?.code
-  // execa 9 reports signal termination as isTerminated/signal (exitCode undefined) — there is NO
-  // `killed` property; checking only `killed` made an externally-killed run fall through to "done"
-  // (and a killed handoff toast "memo seeded ✓" for a memo never written). `killed` kept for safety.
-  const terminated = res?.isTerminated === true || res?.killed === true || !!res?.signal
-  // A user can press Stop after the paid child has exited while the terminal Git publication proof is still
-  // running. That proof remains awaited (and its pending marker remains useful on failure), but the user's
-  // deliberate cancellation is still the terminal status; never rewrite it as a publication error.
+  let publicationTransportFailure: string | null = null
+  try { run.publicationTransportVerify?.() } catch (error: any) {
+    publicationTransportFailure = String(error?.message || error)
+  }
+  const publicationSnapshotFailure = settlePublicationSnapshot(run)
+  if (publicationSnapshotFailure) publicationTransportFailure = publicationSnapshotFailure
+  releaseProviderLaunchResources(run)
+  let classified = getProviderAdapter(run.provider).classifyExit({
+    result: res,
+    stderr,
+    status: run.status,
+    cliResult: run.cliResult,
+  })
+  if (run.streamFailure && (run.status as string) !== 'cancelled') {
+    classified = {
+      outcome: 'error',
+      reason: run.streamFailure.reason,
+      message: run.streamFailure.message,
+      outOfCredits: run.streamFailure.reason === 'out_of_credits',
+    }
+  }
+  if (publicationTransportFailure && (run.status as string) !== 'cancelled') {
+    classified = { outcome: 'error', reason: 'publication_transport_changed', message: publicationTransportFailure }
+  }
+  if (classified.outcome === 'success' && run.kind === 'parity') {
+    let verified = run.parityVerificationCompleted === true
+    if (verified) {
+      try {
+        const receipt = run.parityVerificationReceiptPath!
+        assertRegularArtifact(receipt, 'verified provider-parity receipt')
+        verified = `sha256:${createHash('sha256').update(fs.readFileSync(receipt)).digest('hex')}`
+          === run.parityVerificationReceiptSha256
+      } catch { verified = false }
+    }
+    if (!verified) {
+      classified = {
+        outcome: 'error', reason: 'parity_verification_missing',
+        message: 'the parity adjudicator exited without a live supervisor-verified terminal receipt',
+      }
+    }
+  }
+  // Success is a two-party protocol for cockpit data runs: the provider authors bytes, then the
+  // supervisor validates/stamps/publishes them. A clean child exit without that second half is not a
+  // success, even when fresh terminal files are present. Keep this invariant here (the single finalizer),
+  // not only in the execa close wrapper, so every caller and recovery path gets the same fail-closed result.
+  if (classified.outcome === 'success' && run.willCommitToMain && !run.publicationCompleted) {
+    classified = {
+      outcome: 'error',
+      reason: 'publication_failed',
+      message: run.publicationError || 'the provider exited without a supervisor-owned publication request',
+    }
+  }
   if ((run.status as string) === 'cancelled' || run.cancelRequested) {
-    if (isResumableResearchRun(run)) clearRunMarker(run.runRoot, '.interrupted') // a deliberate stop — cancel() wrote .aborted; never auto-resume
+    if (isResumableTerminalRun(run)) clearRunMarker(run.runRoot, '.interrupted') // a deliberate stop — cancel() wrote .aborted; never auto-resume
     emit(run, { type: 'run-error', runId: run.runId, status: 'cancelled', reason: 'cancelled', ts: Date.now() })
     finishRun(run, 'cancelled')
   } else if (streamResultErrors.has(run)) {
-    // handleStreamLine already emitted the detailed run-error and persisted the failure note. It deliberately
-    // left endedAt/claims live; only this group-extinct close path may perform the terminal registry release.
+    // The stream path emitted the detailed error while retaining claims. Only this group-extinct close
+    // finalizer releases them.
     finishRun(run, 'error')
   } else if (!terminalProof.ok) {
     run.note = `incomplete: ${terminalProof.reason}`
@@ -594,8 +700,8 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
       message: terminalProof.message, ts: Date.now(),
     })
     finishRun(run, 'incomplete')
-    return
-  } else if (isResumableResearchRun(run) && finalDeliverablesShippedByThisAttempt(run)) {
+  } else if (isResumableResearchRun(run) && finalDeliverablesShippedByThisAttempt(run)
+      && (!run.willCommitToMain || run.publicationCompleted)) {
     // SHIPPED before a trailing nonzero/kill: the terminal deliverables (final_thesis + decision_record) were
     // written by THIS attempt (Findings 12/14 — not just present, which a same-day stale relaunch could also
     // satisfy from an EARLIER completed run), so the research SUCCEEDED — a nonzero exit or a late kill on the
@@ -609,35 +715,45 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
     clearRunFailure(run.runRoot)
     emit(run, { type: 'run-done', runId: run.runId, status: 'done', costUsd: run.costUsd, durationMs: run.durationMs, numTurns: run.numTurns, ...finalPaths(run), ts: Date.now() })
     finishRun(run, 'done')
-  } else if (terminated) {
+  } else if (classified.outcome === 'terminated') {
     // killed from OUTSIDE cancel() (OOM killer, manual kill, parent shutdown, a dropped connection that
     // tears the process down) — an error, not a success. Mark the folder so the resume supervisor can pick
     // the broken full run back up and continue it (forever-living: a closed laptop / lost network resumes).
-    const treason = `terminated_${res?.signal || 'signal'}`
-    if (isResumableResearchRun(run)) {
-      if (!finalDeliverablesShippedByThisAttempt(run)) writeRunMarker(run.runRoot, '.interrupted', { reason: treason, module: run.module, message: redactSecrets(stderr.slice(-2000)) || undefined })
+    const treason = classified.reason
+    const terminalMessage = classified.message || stderr
+    if (isResumableTerminalRun(run)) {
+      if (!finalDeliverablesShippedByThisAttempt(run)) writeInterruptionMarker(run, treason, terminalMessage)
     }
-    if (shouldRecordStop(run)) recordRunFailure(run, treason, stderr) // A2: diagnosable note (self-guards + single-shot)
-    run.note = failureNote(treason, stderr) // A3: durable reason in the activity log (shown on the row)
-    emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: treason, message: stderr.slice(-400) || undefined, ts: Date.now() })
+    if (shouldRecordStop(run)) recordRunFailure(run, treason, terminalMessage) // A2: diagnosable note (self-guards + single-shot)
+    run.note = failureNote(treason, terminalMessage) // A3: durable reason in the activity log (shown on the row)
+    emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: treason, message: terminalMessage.slice(-400) || undefined, ts: Date.now() })
     finishRun(run, 'error')
-  } else if ((code && code !== 0) || res?.failed === true) {
-    // Match the CLI's own wording ("Claude AI usage limit reached", overage). The narrow
-    // /credit|rate limit/ pattern labelled a real plan stop `nonzero_exit`, so no resetsAt was stamped
-    // and the resume supervisor treated it as due immediately — relaunching straight back into the
-    // exhausted window. Same set the sibling classifiers already use.
-    const reason = /rate limit|usage limit|overage|credit/i.test(stderr) ? 'out_of_credits' : 'nonzero_exit'
+  } else if (classified.outcome === 'error') {
+    // A clean provider exit that we converted above because publication never happened is itself a
+    // publication failure, even though there was no request to set publicationRequested. Conversely,
+    // a provider/quota failure before any publication request keeps its provider reason; missing a
+    // request must not rewrite `out_of_credits` to `publication_failed` and lose its reset hold.
+    const publicationFailure = classified.reason === 'publication_failed'
+      ? (classified.message || run.publicationError || 'the provider exited without a supervisor-owned publication request')
+      : run.willCommitToMain && run.publicationRequested === true
+          && !run.publicationCompleted && run.publicationError
+        ? run.publicationError
+        : null
+    const reason = publicationFailure ? 'publication_failed' : classified.reason
+    const errorMessage = publicationFailure || classified.message || stderr
     // Mark the broken full run for the resume supervisor. For an out_of_credits stop (the plan's usage
     // limit), stamp the rate-limit resetsAt so the paused run knows when it may continue WITHOUT spending
     // overage — durable on disk, so the wait survives a reboot. (A connection break shows up here as
     // nonzero_exit; it resumes on the next tick.)
-    if (isResumableResearchRun(run)) {
-      const resetsAt = reason === 'out_of_credits' ? getCreditStatus().resetsAt : undefined
-      if (!finalDeliverablesShippedByThisAttempt(run)) writeRunMarker(run.runRoot, '.interrupted', { reason, resetsAt, module: run.module, message: redactSecrets(stderr.slice(-2000)) || undefined })
+    if (isResumableTerminalRun(run) || run.kind === 'signal') {
+      const resetsAt = classified.outOfCredits ? getCreditStatus(run.provider).resetsAt : undefined
+      if (publicationFailure || !finalDeliverablesShippedByThisAttempt(run)) {
+        writeInterruptionMarker(run, reason, errorMessage, resetsAt)
+      }
     }
-    if (shouldRecordStop(run)) recordRunFailure(run, reason, stderr) // A2: diagnosable note (self-guards + single-shot)
-    run.note = failureNote(reason, stderr) // A3: durable reason in the activity log (shown on the row)
-    emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: stderr.slice(-400) || undefined, ts: Date.now() })
+    if (shouldRecordStop(run)) recordRunFailure(run, reason, errorMessage) // A2: diagnosable note (self-guards + single-shot)
+    run.note = failureNote(reason, errorMessage) // A3: durable reason in the activity log (shown on the row)
+    emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: errorMessage.slice(-400) || undefined, ts: Date.now() })
     finishRun(run, 'error')
   } else if (truncatedBeforeFinal(run)) {
     // The process exited cleanly, but a full/rerun that didn't write its terminal deliverable
@@ -668,7 +784,7 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
         : 'incomplete: no final thesis/decision (likely budget/turn truncation)'
     // A clean budget/turn truncation is a DELIBERATE cap, not an interruption — auto-resuming would just
     // re-hit the same cap and loop. Clear any interrupted-marker so the supervisor leaves it for the human.
-    if (isResumableResearchRun(run)) clearRunMarker(run.runRoot, '.interrupted')
+    if (isResumableTerminalRun(run)) clearRunMarker(run.runRoot, '.interrupted')
     // A clean truncation left NO durable trace anywhere — no marker, no off-host record — which is the
     // single reason "the module just stops" went undiagnosed for months. Record it with the same note
     // mechanism the error branches use. Deliberately NOT a .interrupted marker: that is the resume
@@ -687,9 +803,10 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
     // finalDeliverablesShippedByThisAttempt (not mere presence) — else a SIBLING chained module finishing
     // cleanly while stale deliverables sit in the folder from an earlier completed run could clear a
     // FRESH RUN_FAILURE.md that a different sibling's genuine failure just wrote for THIS same attempt.
-    if (isResumableResearchRun(run) && finalDeliverablesShippedByThisAttempt(run)) {
+    if (isResumableTerminalRun(run)
+        && (run.swarmId !== RESEARCH_SWARM_ID || finalDeliverablesShippedByThisAttempt(run))) {
       clearRunMarker(run.runRoot, '.interrupted')
-      clearRunFailure(run.runRoot) // drop a stale RUN_FAILURE.md from an earlier break of this now-complete run
+      if (isResumableResearchRun(run)) clearRunFailure(run.runRoot) // drop a stale RUN_FAILURE.md from an earlier break of this now-complete run
     }
     emit(run, { type: 'run-done', runId: run.runId, status: 'done', costUsd: run.costUsd, durationMs: run.durationMs, numTurns: run.numTurns, ...finalPaths(run), ts: Date.now() })
     finishRun(run, 'done')
@@ -799,13 +916,78 @@ async function holdClaimsUntilProcessGroupExtinct(pid: number | undefined): Prom
   while (signalTargetAlive(-pid)) await new Promise<void>((resolve) => setTimeout(resolve, 250))
 }
 
-// After a FORCE cancel, block until the stopped run(s)' child processes have actually EXITED before
-// admission starts a replacement. cancel() only SIGTERMs (killProcessTree SIGKILLs the group +2s later)
-// and returns BEFORE the process dies, yet the run has already left the in-flight status set — so without
-// this wait admitRun would start a SECOND engine writing the SAME run dir concurrently. The cancelled run
-// is no longer in inFlightRunsForSubject, so callers must hold the RunState objects and pass them here.
-// Returns true once every child is gone; false if any is still alive at the timeout (caller must then NOT
-// admit). `now`/`sleep` are injectable so the unit test drives it without real time.
+// A tracked provider is spawned detached, so its pid is also the process-group id inherited by every Task
+// descendant. The leader can exit before a descendant (especially while the SIGKILL fallback is pending),
+// therefore probing only child.pid is not a safe writer-drain barrier. Prefer the captured group id and use
+// the leader probe only for legacy/test RunState objects created before processGroupPid existed.
+function runProcessTreeAlive(run: RunState): boolean {
+  if (run.processGroupPid) return processGroupAlive(run.processGroupPid)
+  return processTreeAlive(run.child?.pid)
+}
+
+const MODEL_WRITABLE_TOP_LEVEL = new Set(['analyses', 'screener', 'commodity', 'watchlist', 'data'])
+
+/** Minimal output allowlist for one tracked run. Paths may not exist yet; adapters must enforce them as
+ * future-capable exact descendants while treating the rest of the repo and shared data pool as read-only. */
+export function providerWritablePaths(run: RunState): string[] {
+  if (!run.runRoot) return [...new Set(run.writeTargetsAbs.map((value) => path.resolve(value)))]
+  const root = path.resolve(REPO_ROOT, run.runRoot)
+  if (run.kind === 'full' || run.kind === 'signal') return [root]
+  if (run.kind === 'review') return [path.join(root, 'reviews')]
+  if (run.kind === 'doc-intake') return [path.join(root, 'intake')]
+  if (run.kind === 'module' && run.module && run.module !== 'master') return [path.join(root, run.module)]
+  if (run.kind === 'agent' || run.kind === 'screener-agent') {
+    return [...new Set(run.writeTargetsAbs.map((value) => path.resolve(value)))]
+  }
+  if (run.kind === 'rerun') {
+    const moduleRoots = run.coveredModules.map((module) => path.join(root, module))
+    const rootFiles = run.writeTargetsAbs.filter((value) => path.dirname(path.resolve(value)) === root)
+    return [...new Set([...moduleRoots, ...rootFiles.map((value) => path.resolve(value))])]
+  }
+  // Sweep, handoff, conviction, track, parity, and master synthesis declare every shared/root output
+  // explicitly at admission. Do not widen a single file into its parent shared history directory.
+  return [...new Set(run.writeTargetsAbs.map((value) => path.resolve(value)))]
+}
+
+/** Paths a tracked provider may read but must never mutate through model-authored tools/subprocesses. */
+function providerProtectedWritePaths(run: RunState): string[] {
+  const protectedPaths = new Set<string>()
+  // The model writes research data, not the engine/prompt program which validates and publishes it.
+  for (const entry of fs.readdirSync(REPO_ROOT, { withFileTypes: true })) {
+    if (!MODEL_WRITABLE_TOP_LEVEL.has(entry.name)) protectedPaths.add(path.resolve(REPO_ROOT, entry.name))
+  }
+  protectedPaths.add(path.resolve(STATE_DIR))
+  protectedPaths.add(path.resolve(REPO_ROOT, '.git')) // worktree .git may itself be a pointer file
+  for (const args of [['rev-parse', '--absolute-git-dir'], ['rev-parse', '--git-common-dir']]) {
+    try {
+      const raw = execFileSync('git', args, { cwd: REPO_ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim()
+      if (raw) protectedPaths.add(path.resolve(REPO_ROOT, raw))
+    } catch { /* availability/assertion later fails closed if the repository itself is unavailable */ }
+  }
+  // The terminal model may author commodity decision_record.json, but only the supervisor may create the
+  // immutable content-addressed archive. Unsetting cockpit env therefore cannot take the standalone path.
+  if (run.swarmId === 'commodity' && run.runRoot) {
+    protectedPaths.add(path.resolve(REPO_ROOT, run.runRoot, 'decisions'))
+  }
+  // Reviews are append-only historical observations. Only a tracked review run may create a new file;
+  // research/full/rerun/module providers must never rewrite the outcome history retained in their root.
+  if (run.runRoot && run.kind !== 'review') {
+    protectedPaths.add(path.resolve(REPO_ROOT, run.runRoot, 'reviews'))
+  }
+  // A screener thesis becomes immutable only when the supervisor derives it from the fresh run-local
+  // thesis and stamps it. Provider children may author the run-local record, but never the shared ledger
+  // copy consumed by handoff/conviction/calibration.
+  protectedPaths.add(path.resolve(REPO_ROOT, 'screener', 'ledger', 'theses'))
+  return [...protectedPaths]
+}
+
+// After a FORCE cancel, block until the stopped run(s)' WHOLE detached process groups have actually EXITED
+// before admission starts a replacement. cancel() only SIGTERMs (killProcessTree SIGKILLs the group +2s
+// later) and returns BEFORE the processes die, yet the run has already left the in-flight status set — so
+// without this wait admitRun would start a SECOND engine writing the SAME run dir concurrently. The
+// cancelled run is no longer in inFlightRunsForSubject, so callers must hold the RunState objects and pass
+// them here. Returns true once every group is gone; false if any descendant is still alive at the timeout
+// (caller must then NOT admit). `now`/`sleep` are injectable so unit tests can drive it without real time.
 const FORCE_STOP_WAIT_MS = 5000 // > killProcessTree's 2s SIGKILL fallback + OS-delivery/finalize margin
 export async function awaitRunsExited(
   runs: RunState[],
@@ -816,7 +998,7 @@ export async function awaitRunsExited(
   // A clean exact-module child can be gone while its terminal Git publisher is still writing/rebasing the
   // same module folder. Treat that async publisher as part of the writer lifecycle: force must not admit a
   // replacement merely because the paid process PID has disappeared.
-  const anyAlive = () => runs.some((r) => processTreeAlive(r.child?.pid)
+  const anyAlive = () => runs.some((r) => runProcessTreeAlive(r)
     || runHasUnfinishedTerminalWork(r) || terminalGuardOwnsClose(r) || processCloseOwnsFinalization(r))
   const deadline = now() + timeoutMs
   while (anyAlive() && now() < deadline) await sleep(50)
@@ -875,12 +1057,13 @@ export function reapDeadSubjectRuns(subjectId: string, swarmId = RESEARCH_SWARM_
   return reaped
 }
 
-// Reap a single run if its engine child process is gone but onClose never fired. Returns true if it was
-// finalized. Pre-spawn gate states (run.child === null: readiness-checking / awaiting-readiness-decision)
-// are LEGITIMATELY waiting for the user, not dead — left untouched (a deliberate force stops those).
+// Reap a single run only if its whole engine process tree is gone but onClose never fired. A dead leader
+// with a live Task descendant is still a live writer and must retain the lock. Returns true if finalized.
+// Pre-spawn gate states (run.child === null: readiness-checking / awaiting-readiness-decision) are
+// LEGITIMATELY waiting for the user, not dead — left untouched (a deliberate force stops those).
 function reapDeadRun(r: RunState): boolean {
   if (!r.child) return false // pre-spawn gate — waiting on the human, not a dead process
-  if (processTreeAlive(r.child.pid)) return false // leader or detached descendant still alive — leave it running
+  if (runProcessTreeAlive(r)) return false // leader or detached descendant still alive — leave it running
   // The real close handler owns final output sweep/publication/status once it starts. This applies to every
   // run, not only exact modules with a terminal guard: force/reaper cannot finalize in its extinction-proof
   // await and release claims before the handler has observed the last possible descendant write.
@@ -895,7 +1078,7 @@ function reapDeadRun(r: RunState): boolean {
   // onClose owns the completed child's final publication and status decision. The PID being dead is expected
   // here; reaping while its async guard is active would release subject/write claims mid-commit.
   if (runHasUnfinishedTerminalWork(r)) return false
-  // The child is gone but onClose never ran. Route it through the SINGLE finalizer as a termination so a
+  // The whole tree is gone but onClose never ran. Route it through the SINGLE finalizer as a termination so a
   // resumable full/rerun gets its .interrupted marker (the supervisor can continue it) and the subject
   // claim + write targets release — exactly the path an OOM/manual kill would take.
   finalizeRunOnClose(r, { isTerminated: true, signal: 'SIGKILL' }, '')
@@ -1043,7 +1226,15 @@ export function buildPrompt(
   module?: string,
   agent?: string,
   window?: string,
-  extra?: { thesisId?: string; runRoot?: string; decisionFingerprint?: string; intakeReceipt?: IntakeReceiptIntent },
+  extra?: {
+    thesisId?: string
+    checkpointId?: string
+    runRoot?: string
+    decisionFingerprint?: string
+    intakeReceipt?: IntakeReceiptIntent
+    parity?: { claudeRunRoot: string; codexRunRoot: string; freezeReceipt: string; outputDir: string }
+    parityCanary?: { runRoot: string; freezeReceipt: string }
+  },
 ): string {
   const exactDecisionArgs = extra?.runRoot && extra?.decisionFingerprint
     ? ` ${extra.runRoot} ${extra.decisionFingerprint}`
@@ -1054,7 +1245,8 @@ export function buildPrompt(
   // Generic constellation swarm (e.g. commodity): full/module/agent through the manifest's command
   // namespace — never hardcode the swarm's literal beyond reading commandNs (CLAUDE.md §26).
   if (swarmId !== 'research' && !SCREENER_KINDS.has(kind)) {
-    const ns = swarmById(swarmId)?.commandNs || swarmId
+    const swarm = swarmById(swarmId)
+    const ns = swarm?.commandNs || swarmId
     if (kind === 'module') return `/${ns}:${module} ${ticker}`
     if (kind === 'agent') return `/${ns}:agent ${module} ${agent} ${ticker}`
     // rerun on a constellation swarm: AGENT is optional (whole-module vs single-orb). Never fall through
@@ -1064,24 +1256,35 @@ export function buildPrompt(
     // swarm's own `:intake` command; without this branch it fell through to `/${ns}:full` below — so a
     // single landed file (the auto-analyze-on-landing signal) would trigger a full PAID run. (§26 namespace)
     if (kind === 'doc-intake') return `/${ns}:intake ${ticker}${exactDecisionArgs}`
+    if (kind === 'review') {
+      if (!swarm?.reviewCommand || !swarm.calibrator) throw new Error(`swarm '${swarmId}' does not declare tracked review + calibration support`)
+      return `/${ns}:${swarm.reviewCommand} ${ticker} ${window || 'ad-hoc'}`
+    }
     return `/${ns}:full ${ticker}` // 'full' (default)
+  }
+  if (kind === 'full' && extra?.parityCanary) {
+    return `/research:full-canary ${ticker} ${extra.parityCanary.runRoot} ${extra.parityCanary.freezeReceipt}`
   }
   if (kind === 'full') return `/research:full ${ticker}`
   if (kind === 'module') return `/research:${module} ${ticker}`
   if (kind === 'rerun') return `/research:rerun ${module} ${agent} ${ticker}${exactDecisionArgs}${intakeReceiptArgs}`
   // file one outcome review for this ticker's latest run (window defaults to ad-hoc — the "update now" snapshot).
-  if (kind === 'review') return `/research:review-decisions ${ticker} ${window || 'ad-hoc'}`
+  if (kind === 'review') return `/research:review-decisions ${extra?.runRoot || ticker} ${window || 'ad-hoc'}`
   // rebuild the cross-ticker calls-tracker dashboard (ignores ticker — it is cross-ticker by design).
   if (kind === 'track') return `/research:track`
   // read the docs that landed since the ticker's last run + write a scoped rerun plan (advisory,
   // launches nothing). The command resolves the latest run root itself, like 'review'.
   if (kind === 'doc-intake') return `/research:intake ${ticker}${exactDecisionArgs}`
+  if (kind === 'parity' && extra?.parity) {
+    return `/research:provider-parity ${extra.parity.claudeRunRoot} ${extra.parity.codexRunRoot} ${extra.parity.freezeReceipt} ${extra.parity.outputDir}`
+  }
   // screener swarm — namespace from the manifest (never hardcode the literal beyond the kind map)
   if (SCREENER_KINDS.has(kind)) {
     const ns = swarmById(swarmId)?.commandNs || 'screener'
     if (kind === 'signal') return module ? `/${ns}:signal ${ticker} ${module}` : `/${ns}:signal ${ticker}` // ticker = SIG id; optional module = target to run THROUGH then stop
     if (kind === 'sweep') return `/${ns}:sweep`
     if (kind === 'handoff') return `/${ns}:handoff ${extra?.thesisId} ${ticker}` // ticker = the handoff target
+    if (kind === 'conviction') return `/${ns}:validate ${extra?.thesisId} ${extra?.checkpointId}`
     return `/${ns}:agent ${module} ${agent} ${ticker}` // screener-agent: ticker carries the SIG id
   }
   return `/research:agent ${module} ${agent} ${ticker}`
@@ -1127,7 +1330,17 @@ function buildExpected(swarmId: string, kind: RunKind, module?: string, agent?: 
   return map
 }
 
-export function estimate(kind: RunKind, ticker: string, module?: string, agent?: string, swarm?: string): LaunchPreflight {
+export function estimate(
+  kind: RunKind,
+  ticker: string,
+  provider: RunProvider,
+  module?: string,
+  agent?: string,
+  swarm?: string,
+  model?: string,
+  reasoningLevel?: string,
+): LaunchPreflight {
+  const profile = getProviderAdapter(provider).resolveProfile({ model, reasoningLevel })
   const swarmId = swarmIdFor(kind, swarm)
   const g = buildSwarmGraph(swarmId)
   let agentCount = 1
@@ -1162,16 +1375,22 @@ export function estimate(kind: RunKind, ticker: string, module?: string, agent?:
   return {
     kind,
     ticker,
+    provider: profile.provider,
+    executionProfile: profile.executionProfile,
+    profileKey: profile.profileKey,
+    model: profile.model,
+    reasoningLevel: profile.reasoningLevel,
     ...(swarmId !== 'research' ? { swarm: swarmId } : {}),
     module,
     agent,
     agentCount,
     estCostUsdRange,
     estMinutesRange,
-    willCommitToMain: kind !== 'agent' && kind !== 'screener-agent',
-    estCommits: kind === 'full' ? 2 : kind === 'module' || kind === 'rerun' || kind === 'signal' || kind === 'sweep' || kind === 'handoff' ? 1 : 0,
+    willCommitToMain: kind !== 'agent' && kind !== 'screener-agent' && kind !== 'parity',
+    estCommits: kind === 'full' ? 2 : kind === 'module' || kind === 'rerun' || kind === 'signal'
+      || kind === 'sweep' || kind === 'handoff' || kind === 'conviction' ? 1 : 0,
     requiresTypedConfirm: kind === 'full',
-    creditPreflight: getCreditStatus(),
+    creditPreflight: getCreditStatus(provider),
   }
 }
 
@@ -1179,20 +1398,11 @@ function round1(n: number) {
   return Math.round(n * 10) / 10
 }
 
-async function buildArgs(prompt: string, kind: LaunchKind, model: string): Promise<string[]> {
-  const flags = await detectFlags()
-  const guard = LAUNCH_GUARDS[kind]
-  const args: string[] = ['--print', prompt, '--output-format', 'stream-json', '--verbose']
-  if (flags.has('--permission-mode')) args.push('--permission-mode', 'bypassPermissions')
-  else if (flags.has('--dangerously-skip-permissions')) args.push('--dangerously-skip-permissions')
-  if (flags.has('--model')) args.push('--model', model)
-  if (flags.has('--max-turns')) args.push('--max-turns', String(guard.maxTurns))
-  if (flags.has('--max-budget-usd')) args.push('--max-budget-usd', String(guard.budgetUsd))
-  return args
-}
-
 export interface LaunchParams {
   kind: RunKind
+  // Required below the HTTP boundary. Routes default a missing legacy-client field to Claude once;
+  // chains/resume/internal launchers must carry the selected provider explicitly and immutably.
+  provider: RunProvider
   // explicit swarm for a generic constellation swarm's reused full/module/agent kinds (e.g. 'commodity').
   // Omitted for research + screener (their swarm is derived from the kind).
   swarm?: string
@@ -1203,6 +1413,10 @@ export interface LaunchParams {
   agent?: string
   window?: string // review window (kind 'review'); ignored by other kinds
   model?: string
+  reasoningLevel?: string
+  /** Optional estimate-to-launch CAS. Missing remains the legacy-client compatibility path. */
+  expectedProfileKey?: string
+  resumeSessionId?: string
   intake?: SignalIntakeInput // kind 'signal' (new signal): materialized into <runRoot>/intake.json
   inboxId?: string // kind 'signal' launched from an Inbox card — recorded as the intake's provenance
   // kind 'signal' relaunch of an EXISTING sig: stamp override_promote onto its intake.json so the gauntlet
@@ -1210,6 +1424,19 @@ export interface LaunchParams {
   // the rest. A recorded human override of the auto-cull — the gate reads intake.json, so this is how it lands.
   overridePromote?: boolean
   thesisId?: string // kind 'handoff'
+  checkpointId?: string // kind 'conviction'
+  /** Internal tracked provider-parity command. The normal launch API never accepts this object. */
+  parity?: {
+    claudeRunRoot: string
+    codexRunRoot: string
+    freezeReceipt: string
+    outputDir: string
+  }
+  /** Internal operator-only frozen-input full canary. Ordinary launch routes never accept this object. */
+  parityCanary?: {
+    runRoot: string
+    freezeReceipt: string
+  }
   user?: string // who launched it (from Cloudflare Access at the route); defaults to "local"
   userVia?: 'cf-access' | 'local'
   // FORCE override (research kinds): the user explicitly chose to run despite a same-subject run-lock
@@ -1222,6 +1449,8 @@ export interface LaunchParams {
   // event records chained=false for every chained module step, and the cockpit can't tell a chained-full
   // module from a standalone module run when deciding whether Resume should continue the whole pipeline.
   chained?: boolean
+  /** Internal immutable identity shared by every step of one per-module full-run chain. */
+  chainId?: string
   // Exact, already-selected run identity for a data-need intake/rerun. It is revalidated in launch()
   // against the swarm manifest/research folder before it enters a prompt; ordinary launches omit it.
   runRoot?: string
@@ -1728,6 +1957,7 @@ const subjectChainKey = (subjectId: string, swarmId: string) => `${swarmId}\u000
 // publish-only routes cannot mistake a child-transition gap for an idle subject. The token is deliberately
 // separate from child admission: deferred children carry `chained:true` and are allowed to join their owner.
 const activeSubjectChains = new Map<string, symbol>()
+const cancelledChainIds = new Set<string>()
 
 export function subjectChainActive(subjectId: string, swarmId = RESEARCH_SWARM_ID): boolean {
   return activeSubjectChains.has(subjectChainKey(subjectId, swarmId))
@@ -1763,13 +1993,20 @@ export function haltSubjectChains(subjectId: string, swarmId = RESEARCH_SWARM_ID
   activeSubjectChains.delete(key)
 }
 
+export function haltChain(chainId: string | undefined): void {
+  if (chainId) cancelledChainIds.add(chainId)
+}
+
 /** Capture the relevant chain epochs; the returned probe answers "may this chain still advance?".
  *  Omitting subjectId preserves the global-only probe used by the stop-everything test. */
-export function captureChainEpoch(subjectId?: string, swarmId = RESEARCH_SWARM_ID): () => boolean {
+export function captureChainEpoch(subjectId?: string, swarmId = RESEARCH_SWARM_ID, chainId?: string): () => boolean {
   const epoch = chainEpoch
   const key = subjectId ? subjectChainKey(subjectId, swarmId) : null
   const subjectEpoch = key ? (subjectChainEpoch.get(key) ?? 0) : 0
-  return () => epoch === chainEpoch && (!key || subjectEpoch === (subjectChainEpoch.get(key) ?? 0))
+  const candidateChainId = chainId ?? (swarmId === RESEARCH_SWARM_ID ? subjectId : undefined)
+  return () => epoch === chainEpoch
+    && (!key || subjectEpoch === (subjectChainEpoch.get(key) ?? 0))
+    && (!candidateChainId || !cancelledChainIds.has(candidateChainId))
 }
 
 export interface FullChainDeps {
@@ -1799,13 +2036,14 @@ const defaultFullChainDeps: FullChainDeps = {
   },
   writeMarker: (ticker) => {
     const p = deferMarkerPath(ticker)
-    fs.mkdirSync(path.dirname(p), { recursive: true })
     // Both markers are correctness-critical: .defer_module_memos routes the master through the chained-full
     // audit/publication branch, while the publication marker prevents close-time success until it freezes.
     // If either cannot be recorded, refuse to start a chain that could later be mistaken for complete.
-    fs.writeFileSync(p, '')
+    const runRoot = path.posix.join('analyses', `${ticker}_${todayDate()}`)
+    fs.mkdirSync(path.join(REPO_ROOT, runRoot), { recursive: true })
     try {
-      markIdeaPublicationRequired(path.posix.join('analyses', `${ticker}_${todayDate()}`))
+      writeSupervisorRunFile(runRoot, '.defer_module_memos', '')
+      markIdeaPublicationRequired(runRoot)
     } catch (error) {
       try { fs.rmSync(p, { force: true }) } catch { /* best-effort rollback of the routing marker */ }
       throw error
@@ -1821,7 +2059,19 @@ const defaultFullChainDeps: FullChainDeps = {
 // remaining work, not the whole pipeline — otherwise a resume that skips 4 of 6 modules still shows the
 // full "~$90 / ~150 min", which reads as "it's redoing everything" even though it isn't. Scaled from the
 // calibrated full-run band by the fraction of agents left to run (an honest "~" band, not false precision).
-export function chainedResumePreflight(ticker: string, plannedModules: string[], swarmId: string = RESEARCH_SWARM_ID): LaunchPreflight {
+export interface RunProviderSelection {
+  provider: RunProvider
+  model?: string
+  reasoningLevel?: string
+  expectedProfileKey?: string
+}
+
+export function chainedResumePreflight(
+  ticker: string,
+  plannedModules: string[],
+  selection: RunProviderSelection,
+  swarmId: string = RESEARCH_SWARM_ID,
+): LaunchPreflight {
   // Swarm-aware so the "complete the thesis" panel prices a non-research subject against ITS OWN graph
   // (agent counts and full-run band), not the research one. Research callers pass nothing and are unchanged.
   const g = buildSwarmGraph(swarmId)
@@ -1829,7 +2079,11 @@ export function chainedResumePreflight(ticker: string, plannedModules: string[],
   const totalAgents = g.totals.agents + 1 // + master
   const plannedAgents = plannedModules.reduce((s, n) => s + (agentCountOf.get(n) ?? 0), 0) + 1 // + master
   const frac = totalAgents > 0 ? Math.min(1, plannedAgents / totalAgents) : 1
-  const full = estimate('full', ticker, undefined, undefined, swarmId === RESEARCH_SWARM_ID ? undefined : swarmId)
+  const full = estimate(
+    'full', ticker, selection.provider, undefined, undefined,
+    swarmId === RESEARCH_SWARM_ID ? undefined : swarmId,
+    selection.model, selection.reasoningLevel,
+  )
   return {
     ...full,
     agentCount: plannedAgents,
@@ -1842,9 +2096,11 @@ export async function launchFullChained(
   ticker: string,
   user: string,
   userVia: 'cf-access' | 'local',
+  selection: RunProviderSelection,
   deps: FullChainDeps = defaultFullChainDeps,
   decisionBinding?: { decisionRunRoot: string; decisionFingerprint: string },
 ): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> {
+  const chainId = randomUUID()
   const datedRoot = `analyses/${ticker}_${todayDate()}`
   if (isSealedResearchRun(datedRoot)) throw sealedResearchRunError(datedRoot)
   const g = buildSwarmGraph()
@@ -1915,12 +2171,14 @@ export async function launchFullChained(
   const skippedModules = [...done]
   const plannedModules = names.filter((n) => !done.has(n))
   const resumed = skippedModules.length > 0
-  const preflight: LaunchPreflight = resumed ? chainedResumePreflight(ticker, plannedModules) : estimate('full', ticker)
+  const preflight: LaunchPreflight = resumed
+    ? chainedResumePreflight(ticker, plannedModules, selection)
+    : estimate('full', ticker, selection.provider, undefined, undefined, undefined, selection.model, selection.reasoningLevel)
   let stopped = false
   let masterLaunched = false
   let retryScheduled = false
   // Global stop halts every chain; a subject stop halts only this ticker's scheduler.
-  const chainAlive = captureChainEpoch(ticker, RESEARCH_SWARM_ID)
+  const chainAlive = captureChainEpoch(ticker, RESEARCH_SWARM_ID, chainId)
 
   let firstRunId: string | null = null
   let settleFirst!: (out: { runId: string; preflight: LaunchPreflight }) => void
@@ -1934,7 +2192,7 @@ export async function launchFullChained(
     if (masterLaunched) return null
     masterLaunched = true
     const launched = deps.launchAndWire(
-      { kind: 'rerun', ticker, module: 'master', agent: 'synthesizer', user, userVia, chained: true, ...decisionBinding },
+      { kind: 'rerun', ticker, module: 'master', agent: 'synthesizer', user, userVia, chained: true, chainId, ...selection, ...decisionBinding },
       (status) => {
         deps.clearMarker(ticker) // always clear the defer-memo marker once master exits — success path: rerun.md Step 9B also rm -f's it (idempotent); this is the safety net for an abnormal 'done' before Step 9B ran, or any failure
         releaseChainPool()
@@ -1983,7 +2241,7 @@ export async function launchFullChained(
     started.add(name)
     inflight.add(name) // reserve the slot synchronously so the cap holds within one pump() pass
     void deps.launchAndWire(
-      { kind: 'module', ticker, module: name, user, userVia, chained: true, ...decisionBinding },
+      { kind: 'module', ticker, module: name, user, userVia, chained: true, chainId, ...selection, ...decisionBinding },
       (status) => onModuleFinish(name, status),
     )
       .then((out) => {
@@ -2074,6 +2332,7 @@ export async function cancelSubject(subjectId: string, swarmId = 'research'): Pr
   const cancelled: string[] = []
   const stopping: RunState[] = []
   for (const r of subjectRunsAwaitingExit(subjectId, swarmId)) {
+    if (r.chained) haltChain(r.chainId)
     stopping.push(r) // hold the RunState — cancel() drops it from the in-flight set, so we can't re-find it after
     try {
       if (await cancel(r.runId)) cancelled.push(r.runId)
@@ -2094,7 +2353,18 @@ export async function cancelSubject(subjectId: string, swarmId = 'research'): Pr
 
 export async function launch(params: LaunchParams): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> {
   const { kind, module, agent, window } = params
-  const model = params.model || DEFAULT_MODEL
+  const profile = getProviderAdapter(params.provider).resolveProfile({
+    model: params.model,
+    reasoningLevel: params.reasoningLevel,
+  })
+  if (params.expectedProfileKey && params.expectedProfileKey !== profile.profileKey) {
+    const error: any = new Error('The selected provider profile changed after preflight. Refresh and confirm the run again.')
+    error.statusCode = 409
+    error.code = 'profile_changed'
+    error.body = { code: 'profile_changed', expectedProfileKey: params.expectedProfileKey, profileKey: profile.profileKey }
+    throw error
+  }
+  const availabilityProofId = randomUUID()
   const user = params.user || 'local'
   const userVia = params.userVia || 'local'
   const swarmId = swarmIdFor(kind, params.swarm)
@@ -2184,8 +2454,9 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     }
   }
 
-  // Fail fast with an actionable message if the engine CLI isn't installed (the #1 silent "error"):
-  await assertClaudeCli()
+  // Fail fast before staging/mutating any run-root state if the selected engine CLI or its login is unavailable.
+  const providerGateScope = params.parityCanary || kind === 'parity' ? 'provider-parity' : 'normal'
+  await assertProviderAvailable(profile.provider, availabilityProofId, providerGateScope)
 
   // ---- resolve the SUBJECT and a CONCRETE run root (never null) so admission can compute absolute
   // write targets and the fs-watcher can bind strictly ----
@@ -2197,7 +2468,109 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   // succeeds, never here.
   let isFullRelaunch = false
 
-  if (kind === 'signal') {
+  if (kind === 'full' && params.parityCanary) {
+    const requestedRoot = params.parityCanary.runRoot
+    const requestedFreeze = params.parityCanary.freezeReceipt
+    if (path.isAbsolute(requestedRoot) || path.isAbsolute(requestedFreeze)
+        || requestedRoot.includes('\\') || requestedFreeze.includes('\\')
+        || requestedRoot.split('/').includes('..') || requestedFreeze.split('/').includes('..')) {
+      throw Object.assign(new Error('parity canary paths must be repository-relative'), { statusCode: 400 })
+    }
+    const rootAbsolute = path.resolve(REPO_ROOT, requestedRoot)
+    const freezeAbsolute = path.resolve(REPO_ROOT, requestedFreeze)
+    const rootRelative = path.relative(REPO_ROOT, rootAbsolute).split(path.sep).join('/')
+    const freezeRelative = path.relative(REPO_ROOT, freezeAbsolute).split(path.sep).join('/')
+    if (rootRelative.split('/')[0] !== 'analyses' || !['analyses', 'screener', 'commodity', 'watchlist'].includes(freezeRelative.split('/')[0])) {
+      throw Object.assign(new Error('parity canary paths are outside the research-data lane'), { statusCode: 400 })
+    }
+    let rootInfo: fs.Stats
+    let freezeInfo: fs.Stats
+    try { rootInfo = fs.lstatSync(rootAbsolute); freezeInfo = fs.lstatSync(freezeAbsolute) } catch {
+      throw Object.assign(new Error('parity canary run root or freeze receipt does not exist'), { statusCode: 400 })
+    }
+    if (!rootInfo.isDirectory() || rootInfo.isSymbolicLink() || fs.realpathSync(rootAbsolute) !== rootAbsolute
+        || !freezeInfo.isFile() || freezeInfo.isSymbolicLink() || fs.realpathSync(freezeAbsolute) !== freezeAbsolute) {
+      throw Object.assign(new Error('parity canary paths must be real non-symlink paths'), { statusCode: 400 })
+    }
+    let binding: any
+    let freeze: any
+    try {
+      binding = JSON.parse(fs.readFileSync(path.join(rootAbsolute, '.provider-parity-input.json'), 'utf8'))
+      freeze = JSON.parse(fs.readFileSync(freezeAbsolute, 'utf8'))
+    } catch {
+      throw Object.assign(new Error('parity canary binding/freeze receipt is unreadable'), { statusCode: 400 })
+    }
+    subjectId = String(binding.subject || '').toUpperCase()
+    if (!/^[A-Z0-9.\-]{1,12}$/.test(subjectId) || params.ticker && params.ticker.toUpperCase() !== subjectId
+        || binding.provider !== profile.provider || binding.expected_model !== profile.model
+        || binding.expected_reasoning_level !== profile.reasoningLevel || binding.expected_profile_key !== profile.profileKey
+        || path.resolve(String(binding.run_root || '')) !== rootAbsolute
+        || path.resolve(String(binding.receipt_path || '')) !== freezeAbsolute
+        || binding.receipt_sha256 !== freeze.receipt_sha256) {
+      throw Object.assign(new Error('parity canary binding does not match the requested provider/profile/root'), { statusCode: 409 })
+    }
+    const decisionDate = String(binding.decision_date || '')
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(decisionDate) || path.basename(rootAbsolute) !== `${subjectId}_${decisionDate}`) {
+      throw Object.assign(new Error('parity canary root basename must be <SUBJECT>_<FROZEN_DECISION_DATE>'), { statusCode: 400 })
+    }
+    const snapshotRoot = path.resolve(path.dirname(freezeAbsolute), String(freeze.data_snapshot?.root || ''))
+    if (snapshotRoot !== path.resolve(DATA_DIR, subjectId)) {
+      throw Object.assign(new Error('equity full canary must bind the exact data/<SUBJECT> frozen snapshot'), { statusCode: 400 })
+    }
+    const unexpected = fs.readdirSync(rootAbsolute).filter((name) => name !== '.provider-parity-input.json')
+    if (unexpected.length) {
+      throw Object.assign(new Error('parity full canary root is no longer pristine'), { statusCode: 409 })
+    }
+    runRoot = rootRelative
+    params.parityCanary = { runRoot: rootRelative, freezeReceipt: freezeRelative }
+  } else if (kind === 'parity') {
+    const request = params.parity
+    if (!request) {
+      throw Object.assign(new Error('parity launch needs both run roots, a freeze receipt, and an output directory'), { statusCode: 400 })
+    }
+    const safeExistingDataPath = (value: string, label: string, expected: 'file' | 'directory'): string => {
+      if (path.isAbsolute(value) || value.includes('\\') || value.split('/').includes('..')) {
+        throw Object.assign(new Error(`${label} must be a repository-relative research-data path`), { statusCode: 400 })
+      }
+      const absolute = path.resolve(REPO_ROOT, value)
+      const relative = path.relative(REPO_ROOT, absolute).split(path.sep).join('/')
+      if (!['analyses', 'screener', 'commodity', 'watchlist'].includes(relative.split('/')[0])) {
+        throw Object.assign(new Error(`${label} is outside the research-data lane`), { statusCode: 400 })
+      }
+      let info: fs.Stats
+      try { info = fs.lstatSync(absolute) } catch {
+        throw Object.assign(new Error(`${label} does not exist`), { statusCode: 400 })
+      }
+      const shapeOk = expected === 'file' ? info.isFile() : info.isDirectory()
+      if (!shapeOk || info.isSymbolicLink() || fs.realpathSync(absolute) !== absolute) {
+        throw Object.assign(new Error(`${label} must be an existing non-symlink ${expected}`), { statusCode: 400 })
+      }
+      return relative
+    }
+    const claudeRoot = safeExistingDataPath(request.claudeRunRoot, 'claudeRunRoot', 'directory')
+    const codexRoot = safeExistingDataPath(request.codexRunRoot, 'codexRunRoot', 'directory')
+    const outputDir = safeExistingDataPath(request.outputDir, 'outputDir', 'directory')
+    const freezeReceipt = safeExistingDataPath(request.freezeReceipt, 'freezeReceipt', 'file')
+    const selectedRoot = profile.provider === 'claude' ? claudeRoot : codexRoot
+    let binding: any
+    try { binding = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, selectedRoot, '.provider-parity-input.json'), 'utf8')) } catch {
+      throw Object.assign(new Error('selected parity run has no readable prelaunch binding'), { statusCode: 400 })
+    }
+    subjectId = String(binding.subject || '')
+    if (!subjectId || binding.provider !== profile.provider) {
+      throw Object.assign(new Error('selected parity binding does not match the requested provider'), { statusCode: 400 })
+    }
+    runRoot = selectedRoot
+    params.parity = { claudeRunRoot: claudeRoot, codexRunRoot: codexRoot, freezeReceipt, outputDir }
+  } else if (kind === 'conviction') {
+    const thesisId = params.thesisId || ''
+    const checkpointId = params.checkpointId || ''
+    if (!THESIS_ID_RE.test(thesisId) || !/^CHK-[a-f0-9]{8}-[0-9]{2}$/.test(checkpointId)) {
+      throw Object.assign(new Error('conviction launch needs valid thesis and checkpoint ids'), { statusCode: 400 })
+    }
+    subjectId = `${thesisId}::${checkpointId}`
+    runRoot = `screener/ledger/conviction/runs/${checkpointId}`
+  } else if (kind === 'signal') {
     const date = todayDate()
     if (params.ticker && SIG_ID_RE.test(params.ticker)) {
       // relaunch/override of an existing signal: its intake.json must already exist
@@ -2282,14 +2655,14 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     subjectId = normalizeDataSubject(swarmId, params.ticker) || ''
     if (!subjectId) throw Object.assign(new Error('This swarm received an invalid subject id.'), { statusCode: 400 })
     const resolved = resolveManifestRunRoot(swarmId, subjectId, {
-      mustExist: kind === 'rerun' || kind === 'doc-intake',
+      mustExist: kind === 'rerun' || kind === 'doc-intake' || kind === 'review',
       requestedRunRoot: params.runRoot,
     })
     if (!resolved) throw Object.assign(new Error('The swarm run-root contract is unsafe or does not match this subject.'), { statusCode: 400 })
     runRoot = resolved.relative
     // A rerun refreshes an EXISTING dossier — never create one. Fail fast before spawning the paid CLI
     // if the subject has no run folder yet (mirrors the research rerun guard).
-    if ((kind === 'rerun' || kind === 'doc-intake') && !fs.existsSync(path.join(REPO_ROOT, runRoot))) {
+    if ((kind === 'rerun' || kind === 'doc-intake' || kind === 'review') && !fs.existsSync(path.join(REPO_ROOT, runRoot))) {
       throw Object.assign(new Error(`No existing run to re-run for ${subjectId}. Run the full pipeline first.`), { statusCode: 400 })
     }
   } else {
@@ -2315,12 +2688,20 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
           : undefined
         // Await inside the try: releasing before firstReady would reopen the zero-owner window while the
         // outer scheduler has written its marker but its first child has not registered yet.
-        return await launchFullChained(ticker, user, userVia, defaultFullChainDeps, binding)
+        return await launchFullChained(
+          ticker,
+          user,
+          userVia,
+          { provider: profile.provider, model: profile.model, reasoningLevel: profile.reasoningLevel,
+            expectedProfileKey: profile.profileKey },
+          defaultFullChainDeps,
+          binding,
+        )
       } finally {
         releasePoolClaim()
       }
     }
-    if (kind === 'rerun' || kind === 'doc-intake') {
+    if (kind === 'rerun' || kind === 'doc-intake' || (kind === 'review' && params.runRoot)) {
       // An explicitly selected call always supplies runRoot and was already bound to its decision
       // fingerprint by the route. Internal chained-full master launches deliberately omit runRoot: they
       // must continue the newest (today's staged) root, not jump back to the older standing decision.
@@ -2368,7 +2749,10 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   const ticker = subjectId // RunState display/compat field: research = the ticker; swarms = the subject id
   const prompt = buildPrompt(swarmId, kind, ticker, module, agent, window, {
     thesisId: params.thesisId,
-    runRoot: (kind === 'rerun' || kind === 'doc-intake') && params.runRoot ? runRoot : undefined,
+    checkpointId: params.checkpointId,
+    parity: params.parity,
+    parityCanary: params.parityCanary,
+    runRoot: (kind === 'rerun' || kind === 'doc-intake' || kind === 'review') && params.runRoot ? runRoot : undefined,
     decisionFingerprint: (kind === 'rerun' || kind === 'doc-intake') ? params.decisionFingerprint : undefined,
     intakeReceipt: kind === 'rerun' ? params.intakeReceipt : undefined,
   })
@@ -2381,10 +2765,25 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   const rootArtifacts = swarmId === 'research' && kind === 'full' ? ROOT_ARTIFACTS_FULL
     : swarmId === 'research' && kind === 'rerun' ? ROOT_ARTIFACTS_RERUN
     : kind === 'signal' ? ROOT_ARTIFACTS_SIGNAL : []
+  const convictionTargets = kind === 'conviction' ? [
+    path.join(REPO_ROOT, 'screener', 'ledger', 'conviction', 'checkpoints.ndjson'),
+    path.join(REPO_ROOT, 'screener', 'ledger', 'conviction', 'conviction.ndjson'),
+    path.join(REPO_ROOT, 'screener', 'ledger', 'conviction', 'conviction_state', `${params.thesisId}.json`),
+    path.join(REPO_ROOT, 'screener', 'board', 'index.json'),
+  ] : []
+  const parityTargets = kind === 'parity' && params.parity
+    ? [path.join(REPO_ROOT, params.parity.outputDir)] : []
+  const reviewTargets = kind === 'review' ? [
+    path.join(REPO_ROOT, runRoot, 'reviews'),
+    ...(manifest.calibrationRoot ? [path.join(REPO_ROOT, manifest.calibrationRoot)] : []),
+  ] : []
   const writeTargetsAbs = [...new Set([
     ...[...expected.values()].map((e) => path.join(REPO_ROOT, runRoot, e.outputRel)),
     ...rootArtifacts.map((f) => path.join(REPO_ROOT, runRoot, f)),
-    ...swarmStoreTargets(kind, subjectId),
+    ...swarmStoreTargets(kind, subjectId, swarmId),
+    ...convictionTargets,
+    ...parityTargets,
+    ...reviewTargets,
   ])]
   const readDepsAbs = kind === 'agent' || kind === 'screener-agent'
     ? agentRequiredUpstream(swarmId, module, agent).map((relp) => path.join(REPO_ROOT, runRoot, relp))
@@ -2463,6 +2862,49 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     throw err
   }
 
+  // Admission and registry claim stay in one synchronous turn. Persist the immutable provider/profile
+  // selection before touching the run root; process-attempt provenance still begins only at spawn.
+  const run = createRun({
+    kind,
+    ticker,
+    subjectId,
+    swarmId,
+    unit: manifest.unit,
+    module,
+    agent,
+    provider: profile.provider,
+    executionProfile: profile.executionProfile,
+    profileKey: profile.profileKey,
+    model: profile.model,
+    reasoningLevel: profile.reasoningLevel,
+    availabilityProofId,
+    resumeSessionId: params.resumeSessionId,
+    prompt,
+    user,
+    userVia,
+    runRoot,
+    selectedDecisionRunRoot: params.decisionRunRoot,
+    selectedDecisionFingerprint: params.decisionFingerprint,
+    willCommitToMain: kind !== 'agent' && kind !== 'screener-agent' && kind !== 'parity',
+    writeTargetsAbs,
+    coveredModules,
+    readDepsAbs,
+    closeWatcher: undefined,
+    expected,
+    chained: params.chained,
+    chainId: params.chainId,
+    onTerminal: params.onTerminal,
+  })
+  run.publicationToken = randomUUID()
+  run.provenanceEpoch = params.chainId || run.runId
+  try {
+    recordAdmittedProviderSelection(run)
+    setActiveSubjectRun(run.runId, subjectId, swarmId)
+  } catch (error) {
+    finishRun(run, 'error')
+    throw error
+  }
+
   // Finding 13: NOW that admission has actually admitted this launch, reset the relaunch state — clearing
   // either marker earlier would strand the old run if admission rejected this attempt. A deliberate full
   // relaunch supersedes an exact-module `.aborted` pause; a fresh break re-marks `.interrupted` and remains
@@ -2479,8 +2921,15 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
 
   // Materialize the signal intake AFTER admission passes (no orphan folders on rejection).
   if (pendingIntake) {
-    fs.mkdirSync(path.dirname(pendingIntake.path), { recursive: true })
-    fs.writeFileSync(pendingIntake.path, JSON.stringify(pendingIntake.body, null, 2) + '\n')
+    try {
+      if (!run.runRoot) throw new Error('signal intake has no admitted run root')
+      fs.mkdirSync(path.join(REPO_ROOT, run.runRoot), { recursive: true })
+      const relative = path.relative(path.join(REPO_ROOT, run.runRoot), pendingIntake.path).split(path.sep).join('/')
+      writeSupervisorRunFile(run.runRoot, relative, JSON.stringify(pendingIntake.body, null, 2) + '\n')
+    } catch (error) {
+      finishRun(run, 'error')
+      throw error
+    }
   }
 
   // Record (or clear) the deliberate-stop TARGET for a signal run. A `--until` partial run stops the
@@ -2499,39 +2948,14 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     try {
       const dir = screenerMarkerDir(swarmId, subjectId)
       if (dir) {
-        const marker = path.join(dir, '.target')
-        if (module) fs.writeFileSync(marker, JSON.stringify({ module, at: new Date().toISOString() }) + '\n')
-        else fs.rmSync(marker, { force: true })
+        if (module) writeRunMarker(run.runRoot, '.target', { module })
+        else clearRunMarker(run.runRoot, '.target')
       }
     } catch {
       /* best-effort marker; a missing marker only risks one auto-resume the user can re-cancel */
     }
   }
 
-  const run = createRun({
-    kind,
-    ticker,
-    subjectId,
-    swarmId,
-    unit: manifest.unit,
-    module,
-    agent,
-    model,
-    prompt,
-    user,
-    userVia,
-    runRoot,
-    selectedDecisionRunRoot: params.decisionRunRoot,
-    selectedDecisionFingerprint: params.decisionFingerprint,
-    willCommitToMain: kind !== 'agent' && kind !== 'screener-agent',
-    writeTargetsAbs,
-    coveredModules,
-    readDepsAbs,
-    closeWatcher: undefined,
-    expected,
-    chained: params.chained,
-    onTerminal: params.onTerminal,
-  })
   if (params.intakeOwner) intakeOwnerByRun.set(run, { ...params.intakeOwner })
   if (params.sharedPoolTarget) sharedPoolTargetByRun.set(run, { ...params.sharedPoolTarget })
   if (params.intakeReceipt) intakeReceiptByRun.set(run, { ...params.intakeReceipt })
@@ -2554,7 +2978,6 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     run.agents.set(e.key, { key: e.key, module: e.module, name: e.name, layer: e.layer, status: 'queued' })
   }
 
-  setActiveSubjectRun(run.runId, subjectId, swarmId) // register the swarm-qualified claim; finishRun releases it
   startRunWatcher(run)
 
   // EARLY ACK — respond the moment the claim is registered. Every outcome the caller can branch on
@@ -2566,7 +2989,10 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   // seconds-to-minutes of dead air after the click — and on a cold/scanned pool (extract timeout 300s)
   // it could outlive the edge's ~100s proxy timeout, showing a FAILED launch for a run that started.
   void continueLaunch(run)
-  return { runId: run.runId, preflight: estimate(kind, ticker, module, agent, swarmId) }
+  return {
+    runId: run.runId,
+    preflight: estimate(kind, ticker, profile.provider, module, agent, swarmId, profile.model, profile.reasoningLevel),
+  }
   } finally {
     releaseTargetPoolClaim()
     releasePoolClaim()
@@ -2602,19 +3028,6 @@ async function continueLaunch(run: RunState): Promise<void> {
   }
 }
 
-// Spawn the engine CLI for an admitted, gate-cleared run and wire its lifecycle. Extracted from launch()
-// so the readiness gate can defer the spawn (until the user proceeds) without duplicating this logic.
-// onClose delegates to finalizeRunOnClose — the single endedAt-gated finalizer (PR12 review).
-// Build the child env for a spawned engine run: the full server env MINUS the news-ingester provider
-// secrets that load-env injected from providers.env (Groq/Cerebras/Mistral/OpenRouter/NVIDIA/Gemini). A
-// research/screener run is a Claude (Anthropic) process and never needs them; handing them to every child
-// widens secret exposure and lets a run spend news quotas. The CLI's OWN auth secrets are kept even when
-// they come from providers.env — ANTHROPIC_API_KEY and CLAUDE_CODE_OAUTH_TOKEN (the long-lived headless
-// subscription token from `claude setup-token`). Without this, a token dropped in providers.env (the
-// install-survivable secret store) would be scrubbed before the claude child could authenticate with it.
-// Keys set in the REAL environment (launchd plist / shell) aren't in providerEnvKeys, so they pass through
-// regardless — this only matters for the providers.env path.
-const CLAUDE_AUTH_ENV_KEYS = new Set(['ANTHROPIC_API_KEY', 'CLAUDE_CODE_OAUTH_TOKEN'])
 export const DEFER_MODULE_MEMO_ENV = 'NOSTRA_DEFER_MODULE_MEMO'
 export const EXACT_MODULE_RESUME_ENV = 'NOSTRA_EXACT_MODULE_RESUME'
 export const EXACT_MODULE_INPUTS_ENV = 'NOSTRA_EXACT_MODULE_INPUTS'
@@ -2622,69 +3035,1253 @@ export const EXACT_MODULE_RUN_ROOT_ENV = 'NOSTRA_EXACT_MODULE_RUN_ROOT'
 export const EXACT_MODULE_NAME_ENV = 'NOSTRA_EXACT_MODULE_NAME'
 export const EXACT_MODULE_WRITABLE_ORBS_ENV = 'NOSTRA_EXACT_MODULE_WRITABLE_ORBS'
 export const EXACT_MODULE_SYNTHESIS_ORBS_ENV = 'NOSTRA_EXACT_MODULE_SYNTHESIS_ORBS'
-export function childEnv(options: {
-  deferModuleMemo?: boolean
-  exactModuleResume?: boolean
-  exactModuleInputs?: string[]
-  exactModuleRunRoot?: string
-  exactModuleName?: string
-  exactModuleWritableOrbs?: string[]
-  exactModuleSynthesisOrbs?: string[]
-} = {}): NodeJS.ProcessEnv {
-  const e: NodeJS.ProcessEnv = { ...process.env }
-  // Never inherit this execution-policy flag from the server/shell. Only the explicitly-authorized RunState
-  // below may add it back, which keeps ordinary module/full/rerun commands byte-for-byte in their old mode.
-  delete e[DEFER_MODULE_MEMO_ENV]
-  delete e[EXACT_MODULE_RESUME_ENV]
-  delete e[EXACT_MODULE_INPUTS_ENV]
-  delete e[EXACT_MODULE_RUN_ROOT_ENV]
-  delete e[EXACT_MODULE_NAME_ENV]
-  delete e[EXACT_MODULE_WRITABLE_ORBS_ENV]
-  delete e[EXACT_MODULE_SYNTHESIS_ORBS_ENV]
-  for (const k of providerEnvKeys) if (!CLAUDE_AUTH_ENV_KEYS.has(k)) delete e[k]
-  if (options.deferModuleMemo) e[DEFER_MODULE_MEMO_ENV] = '1'
-  if (options.exactModuleResume) {
-    const root = options.exactModuleRunRoot
-    const module = options.exactModuleName
-    const rawInputs: unknown = options.exactModuleInputs
-    const writable = options.exactModuleWritableOrbs
-    const syntheses = options.exactModuleSynthesisOrbs
-    const match = typeof root === 'string'
-      ? /^analyses\/([A-Z0-9.\-]{1,15})_\d{4}-\d{2}-\d{2}$/.exec(root)
-      : null
-    if (!match || exactModuleRunRootBinding(match[1], root) !== root
-        || typeof module !== 'string' || !/^[a-z][a-z0-9-]*$/.test(module)
-        || (rawInputs !== undefined && (!Array.isArray(rawInputs)
-          || rawInputs.some((name) => typeof name !== 'string'
-            || !/^[a-z0-9][a-z0-9-]{0,79}$/.test(name))))
-        || !Array.isArray(writable) || !Array.isArray(syntheses) || syntheses.length < 1
-        || new Set(writable).size !== writable.length || new Set(syntheses).size !== syntheses.length
-        || writable.some((stem) => typeof stem !== 'string'
-          || !/^(?!99_)\d{2}_[A-Za-z0-9][A-Za-z0-9_-]*$/.test(stem))
-        || syntheses.some((stem) => typeof stem !== 'string'
-          || !/^99_[A-Za-z0-9][A-Za-z0-9_-]*-synthesis$/.test(stem))) {
-      throw new Error('Exact module-resume child environment requires a valid immutable run root and artifact scope.')
-    }
-    const inputs = Array.isArray(rawInputs) ? [...new Set(rawInputs as string[])].sort() : []
-    e[EXACT_MODULE_RESUME_ENV] = '1'
-    e[EXACT_MODULE_INPUTS_ENV] = inputs.join(',')
-    e[EXACT_MODULE_RUN_ROOT_ENV] = root
-    e[EXACT_MODULE_NAME_ENV] = module
-    e[EXACT_MODULE_WRITABLE_ORBS_ENV] = [...writable].sort().join(',')
-    e[EXACT_MODULE_SYNTHESIS_ORBS_ENV] = [...syntheses].sort().join(',')
+// Back-compatible helper for the few untracked Claude-only wrappers that import childEnv(). Tracked
+// cockpit processes get their environment from their selected ProviderAdapter.
+export function childEnv(): NodeJS.ProcessEnv {
+  return claudeChildEnv()
+}
+
+/** Reassert supervisor-only controls after a provider adapter applies its model-visible env allowlist. */
+export function applySupervisorPublicationEnv(
+  source: NodeJS.ProcessEnv,
+  binding: { runId: string; runRoot: string; token: string; socketPath?: string },
+): NodeJS.ProcessEnv {
+  const env = { ...source }
+  // A stale shell-level value must not resurrect the retired child-writable manifest contract.
+  delete env.NOSTRA_PROVENANCE_MANIFEST
+  return {
+    ...env,
+    NOSTRA_COCKPIT_RUN: '1',
+    NOSTRA_PUBLICATION_ENDPOINT: binding.socketPath
+      ? 'http://localhost/publication'
+      : `http://${HOST}:${PORT}/api/internal/runs/${binding.runId}/publication`,
+    NOSTRA_PUBLICATION_TOKEN: binding.token,
+    ...(binding.socketPath ? { NOSTRA_PUBLICATION_SOCKET: binding.socketPath } : {}),
   }
-  return e
+}
+
+const PUBLICATION_SOCKET_MAX_BODY = 64 * 1024
+const publicationTokenMatches = (expected: string, value: string): boolean => {
+  const a = Buffer.from(expected)
+  const b = Buffer.from(value)
+  return a.length === b.length && timingSafeEqual(a, b)
+}
+
+function validSupervisorPublicationRequest(value: unknown): value is SupervisorPublicationRequest {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+  const record = value as Record<string, unknown>
+  const allowed = new Set(['phase', 'message', 'pathspecs', 'comparisonArtifact', 'freezeReceipt', 'receiptOutput'])
+  if (Object.keys(record).some((key) => !allowed.has(key))) return false
+  if (record.phase !== undefined && !['stamp', 'archive', 'commit', 'attest', 'verify-attestation'].includes(String(record.phase))) return false
+  if (record.message !== undefined && (typeof record.message !== 'string' || record.message.length > 500)) return false
+  if (record.pathspecs !== undefined && (!Array.isArray(record.pathspecs) || record.pathspecs.length > 32
+      || record.pathspecs.some((item) => typeof item !== 'string' || item.length > 500))) return false
+  for (const key of ['comparisonArtifact', 'freezeReceipt', 'receiptOutput']) {
+    if (record[key] !== undefined && (typeof record[key] !== 'string' || record[key].length > 1000)) return false
+  }
+  return true
+}
+
+export interface SupervisorPublicationSocket {
+  socketPath: string
+  verify: () => void
+  close: () => Promise<void>
+}
+
+/**
+ * Per-run capability transport for sandboxed providers. AF_UNIX keeps publication available without
+ * granting a model public or loopback TCP access. The listener is closure-bound to one live RunState and
+ * token, accepts only a small strict JSON POST, and is removed only after the launcher's process drain.
+ */
+export async function startSupervisorPublicationSocket(run: RunState): Promise<SupervisorPublicationSocket> {
+  if (!run.publicationToken) throw new Error('run has no supervisor publication capability')
+  const socketRoot = path.join(STATE_DIR, 's')
+  fs.mkdirSync(socketRoot, { recursive: true, mode: 0o700 })
+  fs.chmodSync(socketRoot, 0o700)
+  const directory = fs.mkdtempSync(path.join(socketRoot, 'r-'))
+  fs.chmodSync(directory, 0o700)
+  const socketPath = path.join(directory, 'p.sock')
+  // Darwin sockaddr_un.sun_path is 104 bytes including the NUL. Fail before listen rather than silently
+  // truncating a configured STATE_DIR into a different capability path.
+  if (Buffer.byteLength(socketPath) > 103) {
+    fs.rmdirSync(directory)
+    throw new Error('ENGINE_STATE_DIR is too long for a safe per-run publication Unix socket')
+  }
+  let closed = false
+  let dirty: string | null = null
+  let directoryIdentity = ''
+  let socketIdentity = ''
+  let watcher: fs.FSWatcher | null = null
+  const identity = (target: string, kind: 'directory' | 'socket'): string => {
+    const info = fs.lstatSync(target, { bigint: true })
+    if ((kind === 'directory' && !info.isDirectory()) || (kind === 'socket' && !info.isSocket())
+        || info.isSymbolicLink() || Number(info.uid) !== (process.getuid?.() ?? Number(info.uid))
+        || Number(info.mode & 0o077n) !== 0 || fs.realpathSync(target) !== target) {
+      throw new Error(`publication ${kind} identity is unsafe`)
+    }
+    return [info.dev, info.ino, info.mode, info.size, info.mtimeNs, info.ctimeNs].join(':')
+  }
+  const invalidate = (reason: string): never => {
+    dirty = dirty || reason
+    run.publicationError = `publication transport integrity failed: ${dirty}`
+    run.publicationCompleted = false
+    run.parityVerificationCompleted = false
+    killProcessTree(run)
+    throw new Error(run.publicationError)
+  }
+  const verify = (): void => {
+    if (closed) invalidate('socket already closed')
+    if (dirty) invalidate(dirty)
+    try {
+      if (identity(directory, 'directory') !== directoryIdentity) invalidate('socket directory changed')
+      if (identity(socketPath, 'socket') !== socketIdentity) invalidate('socket inode changed')
+    } catch (error: any) {
+      if (String(error?.message || error).startsWith('publication transport integrity failed:')) throw error
+      invalidate(String(error?.message || error))
+    }
+  }
+  const server = http.createServer((request, response) => {
+    response.setHeader('Content-Type', 'application/json; charset=utf-8')
+    try { verify() } catch (error: any) {
+      response.statusCode = 409
+      response.end(JSON.stringify({ error: String(error?.message || error) }))
+      request.resume()
+      return
+    }
+    if (request.method !== 'POST' || request.url !== '/publication') {
+      response.statusCode = 405
+      response.setHeader('Allow', 'POST')
+      response.end(JSON.stringify({ error: 'publication socket accepts POST /publication only' }))
+      request.resume()
+      return
+    }
+    const rawToken = request.headers['x-nostra-publication-token']
+    const token = Array.isArray(rawToken) ? rawToken[0] : rawToken
+    if (!run.publicationToken || typeof token !== 'string' || !publicationTokenMatches(run.publicationToken, token)) {
+      response.statusCode = 403
+      response.end(JSON.stringify({ error: 'missing or invalid publication capability' }))
+      request.resume()
+      return
+    }
+    const chunks: Buffer[] = []
+    let size = 0
+    let rejected = false
+    request.on('data', (chunk: Buffer) => {
+      if (rejected) return
+      size += chunk.length
+      if (size > PUBLICATION_SOCKET_MAX_BODY) {
+        rejected = true
+        response.statusCode = 413
+        response.end(JSON.stringify({ error: 'publication request is too large' }))
+        return
+      }
+      chunks.push(Buffer.from(chunk))
+    })
+    request.on('end', () => {
+      if (rejected) return
+      let body: unknown
+      try { body = JSON.parse(Buffer.concat(chunks).toString('utf8')) } catch { body = null }
+      if (!validSupervisorPublicationRequest(body)) {
+        response.statusCode = 400
+        response.end(JSON.stringify({ error: 'invalid publication request' }))
+        return
+      }
+      try { verify() } catch (error: any) {
+        response.statusCode = 409
+        response.end(JSON.stringify({ error: String(error?.message || error) }))
+        return
+      }
+      void supervisePublication(run.runId, token, body).then((result) => {
+        if (!response.writableEnded) response.end(JSON.stringify(result))
+      }, (error: any) => {
+        run.publicationError = String(error?.message || error).slice(0, 1000)
+        if (!response.writableEnded) {
+          response.statusCode = error?.statusCode || 409
+          response.end(JSON.stringify({ error: String(error?.message || error) }))
+        }
+      })
+    })
+    request.on('error', () => { if (!response.writableEnded) response.destroy() })
+  })
+  try {
+    await new Promise<void>((resolve, reject) => {
+      const onError = (error: Error) => { server.off('listening', onListening); reject(error) }
+      const onListening = () => { server.off('error', onError); resolve() }
+      server.once('error', onError)
+      server.once('listening', onListening)
+      server.listen(socketPath)
+    })
+    fs.chmodSync(socketPath, 0o600)
+    directoryIdentity = identity(directory, 'directory')
+    socketIdentity = identity(socketPath, 'socket')
+    watcher = fs.watch(directory, (event, filename) => {
+      if (closed || dirty) return
+      // Darwin can deliver the listen/chmod notifications after fs.watch is installed even though the
+      // socket's bound identity is unchanged. Treat the event as a prompt to re-attest, not as proof of
+      // tampering. A real unlink/rebind/chmod necessarily changes the socket or parent ctime/inode and is
+      // still poisoned synchronously here as well as at every request/finalization boundary.
+      try {
+        if (identity(directory, 'directory') === directoryIdentity
+            && identity(socketPath, 'socket') === socketIdentity) return
+      } catch { /* unsafe/missing identity is handled below */ }
+      dirty = `${event}:${filename?.toString() || path.basename(socketPath)}`
+      run.publicationError = `publication transport integrity failed: ${dirty}`
+      run.publicationCompleted = false
+      run.parityVerificationCompleted = false
+      killProcessTree(run)
+    })
+    watcher.on('error', (error) => {
+      if (closed) return
+      dirty = dirty || `watch-error:${error.message}`
+      run.publicationError = `publication transport integrity failed: ${dirty}`
+      run.publicationCompleted = false
+      run.parityVerificationCompleted = false
+      killProcessTree(run)
+    })
+    watcher.unref?.()
+    run.publicationTransportVerify = verify
+    server.unref()
+  } catch (error) {
+    try { server.close() } catch { /* never listened */ }
+    try { fs.unlinkSync(socketPath) } catch { /* absent */ }
+    try { fs.rmdirSync(directory) } catch { /* absent/nonempty */ }
+    throw error
+  }
+  return {
+    socketPath,
+    verify,
+    close: () => {
+      if (closed) return Promise.resolve()
+      try { verify() } catch { /* integrity failure already poisoned the run */ }
+      closed = true
+      if (run.publicationTransportVerify === verify) run.publicationTransportVerify = undefined
+      watcher?.close()
+      watcher = null
+      return new Promise<void>((resolve) => {
+        const cleanup = () => {
+          try { fs.unlinkSync(socketPath) } catch { /* already removed */ }
+          try { fs.rmdirSync(directory) } catch { /* already removed */ }
+          resolve()
+        }
+        try { server.close(cleanup) } catch { cleanup() }
+      })
+    },
+  }
+}
+
+export interface SupervisorPublicationRequest {
+  phase?: 'stamp' | 'archive' | 'commit' | 'attest' | 'verify-attestation'
+  message?: string
+  pathspecs?: string[]
+  comparisonArtifact?: string
+  freezeReceipt?: string
+  receiptOutput?: string
+}
+
+const DATA_PUBLICATION_ROOTS = new Set(['analyses', 'screener', 'commodity', 'watchlist'])
+interface IssuedParityAttestation {
+  runId: string
+  manifestPath: string
+  receiptSha256: string
+  manifestSha256: string
+  comparisonSha256: string
+  freezeSha256: string
+  pairedCanaries: Array<Record<string, unknown>>
+  expiresAt: number
+}
+const issuedParityAttestations = new Map<string, IssuedParityAttestation>()
+const PARITY_ATTESTATION_TTL_MS = 30 * 60_000
+
+let postReviewCalibration: (run: RunState) => Promise<void> = async (run) => {
+  const env: NodeJS.ProcessEnv = { ...process.env, ENGINE_REPO_ROOT: REPO_ROOT }
+  for (const key of ['NOSTRA_COCKPIT_RUN', 'NOSTRA_PROVENANCE_MANIFEST', 'NOSTRA_PUBLICATION_ENDPOINT', 'NOSTRA_PUBLICATION_TOKEN', 'NOSTRA_PUBLICATION_SOCKET']) delete env[key]
+  if (run.swarmId === RESEARCH_SWARM_ID) {
+    await execa('bash', [path.join(REPO_ROOT, 'scripts', 'ops', 'calibrate-local.sh'), 'post-review'], {
+      cwd: REPO_ROOT, env, reject: true, timeout: 20 * 60_000,
+    })
+    return
+  }
+  const calibrator = swarmById(run.swarmId)?.calibrator
+  if (!calibrator) throw new Error(`swarm '${run.swarmId}' has no deterministic calibrator declaration`)
+  const result = await execa('python3', [path.join(REPO_ROOT, calibrator)], {
+    cwd: REPO_ROOT, env, reject: true, timeout: 20 * 60_000,
+  })
+  const paths = result.stdout.split('\n').flatMap((line) => {
+    const match = /^WROTE ([A-Za-z0-9._/-]+)$/.exec(line.trim())
+    return match ? [match[1]] : []
+  })
+  if (!paths.length) throw new Error(`swarm '${run.swarmId}' calibrator reported no exact output paths`)
+  const calibrationRoot = swarmById(run.swarmId)?.calibrationRoot
+  if (!calibrationRoot) throw new Error(`swarm '${run.swarmId}' has no deterministic calibration output root`)
+  const root = path.resolve(REPO_ROOT, calibrationRoot)
+  const safe = [...new Set(paths.map((relative) => {
+    if (path.isAbsolute(relative) || relative.includes('\\') || path.posix.normalize(relative) !== relative) {
+      throw new Error(`calibrator reported unsafe output path: ${relative}`)
+    }
+    const absolute = path.resolve(REPO_ROOT, relative)
+    if (absolute === root || !absolute.startsWith(`${root}${path.sep}`)) {
+      throw new Error(`calibrator output escapes declared calibration root: ${relative}`)
+    }
+    assertRegularArtifact(absolute, 'deterministic calibration output')
+    return path.relative(REPO_ROOT, absolute).split(path.sep).join('/')
+  }))]
+  const snapshot = createPublicationSnapshot(run, safe, safe)
+  env.NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST = snapshot.manifest
+  try {
+    const output = await supervisorCommitter(`Calibrate ${run.swarmId}: post-${run.kind}`, snapshot.paths, env)
+    await supervisorCommitVerifier(output, snapshot.paths, snapshot.hashes)
+  } finally {
+    snapshot.cleanup()
+  }
+}
+
+type SupervisorCommitter = (message: string, pathspecs: string[], env: NodeJS.ProcessEnv) => Promise<string>
+let supervisorCommitter: SupervisorCommitter = async (message, pathspecs, env) => {
+  const result = await execa('bash', [path.join(REPO_ROOT, 'scripts', 'commit-run.sh'), message, '--', ...pathspecs], {
+    cwd: REPO_ROOT, env, reject: true, timeout: 20 * 60_000,
+  })
+  return result.stdout
+}
+
+type SupervisorCommitVerifier = (
+  output: string, requiredPaths: string[], fixedHashes?: Record<string, string>,
+) => Promise<void>
+let supervisorCommitVerifier: SupervisorCommitVerifier = async (output, requiredPaths, fixedHashes) => {
+  const reported = /(?:^|\n)COMMIT_SHA=([0-9a-f]{40}|[0-9a-f]{64})(?:\n|$)/.exec(output)?.[1]
+  const noop = /(?:^|\n)NOOP=1(?:\n|$)/.test(output)
+  if (!reported && !noop) throw new Error('commit-run returned no verifiable commit identity')
+  const head = execFileSync('git', ['rev-parse', 'HEAD'], {
+    cwd: REPO_ROOT, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'],
+  }).trim()
+  const commit = reported || head
+  if (commit !== head) throw new Error('published commit identity does not match repository HEAD')
+  for (const relative of requiredPaths) {
+    const expected = fixedHashes?.[relative]?.replace(/^sha256:/, '')
+    if (!expected) throw new Error(`publication verifier has no fixed precommit hash: ${relative}`)
+    let committed: Buffer
+    try {
+      committed = execFileSync('git', ['show', `${commit}:${relative}`], {
+        cwd: REPO_ROOT, encoding: 'buffer', stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 32 * 1024 * 1024,
+      })
+    } catch { throw new Error(`published commit omitted required artifact: ${relative}`) }
+    if (createHash('sha256').update(committed).digest('hex') !== expected) {
+      throw new Error(`published commit bytes differ from the supervisor-verified artifact: ${relative}`)
+    }
+  }
+}
+
+function nulPaths(value: Buffer): string[] {
+  return value.toString('utf8').split('\0').filter(Boolean)
+}
+
+function createPublicationSnapshot(run: RunState, pathspecs: string[], requiredPaths: string[]): {
+  manifest: string; directory: string; paths: string[]
+  entries: Array<{ path: string; snapshot: string; sha256: string }>
+  hashes: Record<string, string>; cleanup: () => void
+} {
+  const deleted = nulPaths(execFileSync('git', [
+    'diff', '--name-only', '-z', '--diff-filter=D', 'HEAD', '--', ...pathspecs,
+  ], { cwd: REPO_ROOT, encoding: 'buffer', stdio: ['ignore', 'pipe', 'ignore'] }))
+  if (deleted.length) throw new Error(`cockpit publication cannot delete terminal data: ${deleted[0]}`)
+  const changed = nulPaths(execFileSync('git', [
+    'diff', '--name-only', '-z', '--diff-filter=ACMRT', 'HEAD', '--', ...pathspecs,
+  ], { cwd: REPO_ROOT, encoding: 'buffer', stdio: ['ignore', 'pipe', 'ignore'] }))
+  const untracked = nulPaths(execFileSync('git', [
+    'ls-files', '--others', '--exclude-standard', '-z', '--', ...pathspecs,
+  ], { cwd: REPO_ROOT, encoding: 'buffer', stdio: ['ignore', 'pipe', 'ignore'] }))
+  const paths = [...new Set([...changed, ...untracked, ...requiredPaths])].sort()
+  if (!paths.length) throw new Error('cockpit publication resolved to no exact files')
+  const directory = fs.mkdtempSync(path.join(STATE_DIR, 'publication-snapshot-'))
+  fs.chmodSync(directory, 0o700)
+  const entries: Array<{ path: string; snapshot: string; sha256: string }> = []
+  try {
+    for (const [index, relative] of paths.entries()) {
+      if (!DATA_PUBLICATION_ROOTS.has(relative.split('/')[0])) throw new Error(`snapshot refused non-data path: ${relative}`)
+      const absolute = path.join(REPO_ROOT, relative)
+      const before = assertRegularArtifact(absolute, 'fixed publication artifact')
+      const bytes = fs.readFileSync(absolute)
+      const after = assertRegularArtifact(absolute, 'fixed publication artifact')
+      if (before.dev !== after.dev || before.ino !== after.ino || before.size !== after.size
+          || before.mtimeMs !== after.mtimeMs) throw new Error(`publication artifact changed while frozen: ${relative}`)
+      const snapshot = path.join(directory, String(index))
+      fs.writeFileSync(snapshot, bytes, { flag: 'wx', mode: 0o600 })
+      entries.push({ path: relative, snapshot, sha256: `sha256:${createHash('sha256').update(bytes).digest('hex')}` })
+    }
+    const manifest = path.join(directory, 'manifest.json')
+    fs.writeFileSync(manifest, JSON.stringify({
+      schema_version: 'cockpit-publication-snapshot/1.0', run_id: run.runId,
+      requested_pathspecs: paths, entries,
+    }, null, 2) + '\n', { flag: 'wx', mode: 0o600 })
+    return {
+      manifest, directory, paths, entries,
+      hashes: Object.fromEntries(entries.map((entry) => [entry.path, entry.sha256])),
+      cleanup: () => fs.rmSync(directory, { recursive: true, force: true }),
+    }
+  } catch (error) {
+    fs.rmSync(directory, { recursive: true, force: true })
+    throw error
+  }
+}
+
+function retainPublicationSnapshot(
+  run: RunState,
+  snapshot: ReturnType<typeof createPublicationSnapshot>,
+): void {
+  if (run.publicationSnapshot) throw new Error('run already retains a terminal publication snapshot')
+  run.publicationSnapshot = {
+    directory: snapshot.directory,
+    entries: snapshot.entries.map((entry) => ({ ...entry })),
+  }
+}
+
+/**
+ * Called only after the detached provider group is gone. A post-commit writer race is a failed run, but
+ * leaving its corrupt worktree bytes behind would poison resume/read paths. Restore the exact committed
+ * supervisor snapshot atomically while retaining the failure signal.
+ */
+function settlePublicationSnapshot(run: RunState): string | null {
+  const retained = run.publicationSnapshot
+  if (!retained) return null
+  let failure: string | null = null
+  try {
+    const changed: string[] = []
+    for (const [index, entry] of retained.entries.entries()) {
+      const snapshotInfo = assertRegularArtifact(entry.snapshot, 'retained supervisor publication snapshot')
+      if (path.dirname(entry.snapshot) !== retained.directory || snapshotInfo.mode & 0o077) {
+        throw new Error(`retained publication snapshot identity is unsafe: ${entry.path}`)
+      }
+      const bytes = fs.readFileSync(entry.snapshot)
+      if (`sha256:${createHash('sha256').update(bytes).digest('hex')}` !== entry.sha256) {
+        throw new Error(`retained publication snapshot digest changed: ${entry.path}`)
+      }
+      const absolute = path.resolve(REPO_ROOT, entry.path)
+      if (!absolute.startsWith(`${path.resolve(REPO_ROOT)}${path.sep}`)
+          || !DATA_PUBLICATION_ROOTS.has(entry.path.split('/')[0])) {
+        throw new Error(`retained publication snapshot escaped data roots: ${entry.path}`)
+      }
+      let current = ''
+      try {
+        assertRegularArtifact(absolute, 'published terminal artifact')
+        current = `sha256:${createHash('sha256').update(fs.readFileSync(absolute)).digest('hex')}`
+      } catch { /* missing/symlink/special is drift and is replaced below */ }
+      if (current === entry.sha256) continue
+      changed.push(entry.path)
+      const parent = path.dirname(absolute)
+      const parentInfo = fs.lstatSync(parent)
+      if (!parentInfo.isDirectory() || parentInfo.isSymbolicLink() || fs.realpathSync(parent) !== parent) {
+        throw new Error(`cannot restore published artifact through unsafe parent: ${entry.path}`)
+      }
+      const temporary = path.join(parent, `.nostra-restore-${run.runId}-${index}.tmp`)
+      const descriptor = fs.openSync(
+        temporary,
+        fs.constants.O_WRONLY | fs.constants.O_CREAT | fs.constants.O_EXCL | (fs.constants.O_NOFOLLOW ?? 0),
+        0o600,
+      )
+      try { fs.writeFileSync(descriptor, bytes); fs.fsyncSync(descriptor) } finally { fs.closeSync(descriptor) }
+      try { fs.renameSync(temporary, absolute) } catch (error) {
+        try { fs.unlinkSync(temporary) } catch { /* absent */ }
+        throw error
+      }
+    }
+    if (changed.length) failure = `published terminal artifact changed after supervisor commit: ${changed[0]}`
+  } catch (error: any) {
+    failure = `published terminal artifact could not be restored safely: ${String(error?.message || error)}`
+  } finally {
+    fs.rmSync(retained.directory, { recursive: true, force: true })
+    run.publicationSnapshot = undefined
+  }
+  if (failure) {
+    run.publicationCompleted = false
+    run.publicationError = failure
+  }
+  return failure
+}
+
+/** Focused test seam; the production hook runs deterministic Python and never starts another model. */
+export function __setPostReviewCalibration(fn: (run: RunState) => Promise<void>): (run: RunState) => Promise<void> {
+  const previous = postReviewCalibration
+  postReviewCalibration = fn
+  return previous
+}
+
+/** Focused publication test seam; production remains the serialized commit-run helper above. */
+export function __setSupervisorCommitter(fn: SupervisorCommitter): SupervisorCommitter {
+  const previous = supervisorCommitter
+  supervisorCommitter = fn
+  return previous
+}
+
+/** Focused test seam for post-commit HEAD/blob verification. */
+export function __setSupervisorCommitVerifier(fn: SupervisorCommitVerifier): SupervisorCommitVerifier {
+  const previous = supervisorCommitVerifier
+  supervisorCommitVerifier = fn
+  return previous
+}
+const firstWildcard = (value: string) => {
+  const indexes = ['*', '?', '['].map((token) => value.indexOf(token)).filter((index) => index >= 0)
+  return indexes.length ? value.slice(0, Math.min(...indexes)) : value
+}
+
+function authorizedPublicationPaths(run: RunState, raw: unknown): string[] {
+  if (!Array.isArray(raw) || raw.length === 0 || raw.length > 32) throw new Error('publication needs 1-32 pathspecs')
+  const authorized = [
+    ...(run.runRoot ? [path.resolve(REPO_ROOT, run.runRoot)] : []),
+    ...run.writeTargetsAbs.map((value) => path.resolve(value)),
+  ]
+  const result: string[] = []
+  for (const item of raw) {
+    if (typeof item !== 'string' || !item.trim() || item.length > 500) throw new Error('invalid publication pathspec')
+    const value = item.trim().replace(/\/$/, '')
+    if (path.isAbsolute(value) || value.includes('\\') || value.split('/').includes('..') || value.startsWith('-')) {
+      throw new Error(`unsafe publication pathspec: ${value}`)
+    }
+    const root = value.split('/')[0]
+    if (!DATA_PUBLICATION_ROOTS.has(root)) throw new Error(`non-data publication pathspec: ${value}`)
+    const stablePrefix = firstWildcard(value).replace(/\/$/, '')
+    const requested = path.resolve(REPO_ROOT, stablePrefix || root)
+    const overlaps = authorized.some((target) => requested === target
+      || requested.startsWith(`${target}${path.sep}`))
+    if (run.kind === 'review' && firstWildcard(value) !== value) {
+      throw new Error('tracked reviews must publish exact files; wildcard review commits are forbidden')
+    }
+    if (run.kind === 'review') {
+      const runRoot = run.runRoot?.replace(/\/$/, '')
+      const prefix = runRoot ? `${runRoot}/reviews/` : ''
+      const name = prefix && value.startsWith(prefix) ? value.slice(prefix.length) : ''
+      const relative = name ? `reviews/${name}` : ''
+      if (!name || name.includes('/') || !/^[A-Za-z0-9._-]+\.(?:json|md)$/.test(name)) {
+        throw new Error(`tracked reviews may publish only exact files created in ${runRoot || 'the run root'}/reviews`)
+      }
+      if (Object.prototype.hasOwnProperty.call(run.publicationBaselines ?? {}, relative)) {
+        throw new Error(`tracked reviews are append-only and cannot overwrite a pre-existing file: ${value}`)
+      }
+      assertRegularArtifact(path.join(REPO_ROOT, value), 'new review publication artifact')
+    }
+    const narrowTrackBatch = run.kind === 'track'
+      && /^analyses\/tracking\/[0-9]{4}-[0-9]{2}-[0-9]{2}_calls_tracker[^/]*$/.test(value)
+    if (!overlaps && !narrowTrackBatch) {
+      throw new Error(`pathspec is outside this run's publication scope: ${value}`)
+    }
+    if (!result.includes(value)) result.push(value)
+  }
+  return result
+}
+
+function dataArtifactPath(raw: unknown, label: string, mustExist: boolean): string {
+  if (typeof raw !== 'string' || !raw.trim() || raw.length > 1000) throw new Error(`${label} is missing or invalid`)
+  const absolute = path.resolve(REPO_ROOT, raw.trim())
+  const relative = path.relative(REPO_ROOT, absolute).split(path.sep).join('/')
+  if (!relative || relative.startsWith('../') || path.isAbsolute(relative)
+      || !DATA_PUBLICATION_ROOTS.has(relative.split('/')[0])) throw new Error(`${label} is outside the research-data lane`)
+  if (mustExist) {
+    const info = fs.lstatSync(absolute)
+    if (!info.isFile() || info.isSymbolicLink() || fs.realpathSync(absolute) !== absolute) {
+      throw new Error(`${label} must be one non-symlink regular file`)
+    }
+  } else {
+    if (fs.existsSync(absolute) || fs.lstatSync(path.dirname(absolute)).isSymbolicLink()
+        || fs.realpathSync(path.dirname(absolute)) !== path.dirname(absolute)) {
+      throw new Error(`${label} must be a new file under a real research-data directory`)
+    }
+  }
+  return absolute
+}
+
+const fileSha256 = (absolute: string): string => `sha256:${createHash('sha256').update(fs.readFileSync(absolute)).digest('hex')}`
+const canonicalJson = (value: unknown): string => {
+  if (value === null || typeof value !== 'object') return JSON.stringify(value) ?? 'null'
+  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(',')}]`
+  return `{${Object.keys(value as Record<string, unknown>).sort().map((key) =>
+    `${JSON.stringify(key)}:${canonicalJson((value as Record<string, unknown>)[key])}`).join(',')}}`
+}
+const jsonSha256 = (value: unknown): string => `sha256:${createHash('sha256').update(canonicalJson(value)).digest('hex')}`
+
+function readJsonObject(absolute: string, label: string): Record<string, any> {
+  try {
+    const value = JSON.parse(fs.readFileSync(absolute, 'utf8'))
+    if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('not an object')
+    return value
+  } catch (error: any) {
+    throw new Error(`${label} is not valid JSON: ${error?.message || error}`)
+  }
+}
+
+function recomputeInitialParityComparison(
+  freeze: string,
+  freezeValue: Record<string, any>,
+  supervisorRows: Record<string, Array<Record<string, unknown>>>,
+): Record<string, any> {
+  const runs = Array.isArray(freezeValue.runs) ? freezeValue.runs : []
+  const runA = runs.find((item: any) => item?.label === 'run_a')
+  const runB = runs.find((item: any) => item?.label === 'run_b')
+  if (!runA || !runB) throw new Error('freezeReceipt does not contain the exact run_a/run_b pair')
+  const resolveRun = (item: any) => path.resolve(path.dirname(freeze), String(item.run_root || ''))
+  const pairA = resolveRun(runA)
+  const pairB = resolveRun(runB)
+  const code = [
+    'import json,sys',
+    'from pathlib import Path',
+    'from scripts.compare_provider_runs import compare_run_roots',
+    'p=json.load(sys.stdin)',
+    'rows=p["supervisor_rows"]',
+    'def loader(root): return rows.get(str(Path(root).resolve()), [])',
+    'report,status=compare_run_roots(p["run_a"],p["run_b"],label_a="Claude",label_b="Codex",freeze_manifest_path=p["freeze"],require_freeze_manifest=True,supervisor_receipt_loader=loader)',
+    'print(json.dumps(report,ensure_ascii=False,sort_keys=True,separators=(",",":")))',
+    'raise SystemExit(status)',
+  ].join('\n')
+  let stdout = ''
+  try {
+    stdout = execFileSync('python3', ['-c', code], {
+      cwd: REPO_ROOT, encoding: 'utf8',
+      input: JSON.stringify({ run_a: pairA, run_b: pairB, freeze, supervisor_rows: supervisorRows }),
+      stdio: ['pipe', 'pipe', 'pipe'], maxBuffer: 16 * 1024 * 1024,
+    })
+  } catch (error: any) {
+    // Exit 2 (adjudication required) and 3 (deterministic blocker) still produce the immutable initial
+    // report. Input/gate failures do not qualify for a runtime attestation.
+    if (![2, 3].includes(Number(error?.status)) || typeof error?.stdout !== 'string') {
+      throw new Error('the supervisor could not reproduce the initial provider-parity comparison')
+    }
+    stdout = error.stdout
+  }
+  return readJsonObjectFromText(stdout, 'recomputed initial comparison')
+}
+
+function readJsonObjectFromText(raw: string, label: string): Record<string, any> {
+  try {
+    const value = JSON.parse(raw)
+    if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('not an object')
+    return value
+  } catch (error: any) {
+    throw new Error(`${label} is not valid JSON: ${error?.message || error}`)
+  }
+}
+
+function liveParityCanaryAuthority(
+  adjudicator: RunState,
+  freezePath: string,
+  freezeValue: Record<string, any>,
+): Array<{ attestation: Record<string, unknown>; root: string; rows: Array<Record<string, unknown>> }> {
+  const adjudicatorBinding = adjudicator.parityPrelaunchBinding as Record<string, any> | undefined
+  if (!adjudicatorBinding) throw new Error('parity adjudicator has no live pair registration')
+  const declared = Array.isArray(freezeValue.runs) ? freezeValue.runs : []
+  if (declared.length !== 2) throw new Error('freeze receipt does not declare exactly two canary runs')
+  return declared.map((item: any) => {
+    const absoluteRoot = path.resolve(path.dirname(freezePath), String(item.run_root || ''))
+    const relativeRoot = path.relative(REPO_ROOT, absoluteRoot).split(path.sep).join('/')
+    if (relativeRoot.startsWith('../') || path.isAbsolute(relativeRoot)) throw new Error('parity canary root escapes the repository')
+    const candidates = listRuns().filter((candidate) => candidate.kind === 'full'
+      && candidate.runRoot === relativeRoot && candidate.provider === item.provider
+      && candidate.status === 'done' && candidate.publicationCompleted === true)
+    if (candidates.length !== 1) {
+      throw new Error(`parity canary ${item.label || item.provider} has no unique completed run in this live supervisor`)
+    }
+    const candidate = candidates[0]
+    const binding = candidate.parityPrelaunchBinding as Record<string, any> | undefined
+    if (!binding || binding.supervisor_instance_id !== adjudicatorBinding.supervisor_instance_id
+        || binding.pair_registration_id !== adjudicatorBinding.pair_registration_id
+        || binding.freeze_receipt_sha256 !== adjudicatorBinding.freeze_receipt_sha256) {
+      throw new Error(`parity canary ${item.label || item.provider} was not registered by this live supervisor pair`)
+    }
+    const rows = candidate.currentExecutionAttempts ?? []
+    const recorded = rows.filter((row) => row.attribution === 'recorded' && row.decision_author === true
+      && row.role === 'terminal_adjudicator' && row.provider === candidate.provider)
+    if (recorded.length !== 1 || !recorded[0].parity_prelaunch || !recorded[0].parity_publication) {
+      throw new Error(`parity canary ${item.label || item.provider} lacks one canonical prelaunch/publication attempt`)
+    }
+    if (recorded[0].model !== item.expected_model || recorded[0].reasoning_level !== item.expected_reasoning_level
+        || recorded[0].profile_key !== item.expected_profile_key) {
+      throw new Error(`parity canary ${item.label || item.provider} runtime profile differs from the freeze binding`)
+    }
+    const artifacts = decisionArtifacts(candidate).map((relative) => `${relativeRoot}/${relative}`)
+    if (!artifacts.length) throw new Error(`parity canary ${item.label || item.provider} has no terminal artifact`)
+    for (const relative of artifacts) {
+      const absolute = path.join(REPO_ROOT, relative)
+      assertRegularArtifact(absolute, 'live parity canary terminal artifact')
+      const current = `sha256:${createHash('sha256').update(fs.readFileSync(absolute)).digest('hex')}`
+      if (candidate.publicationArtifactHashes?.[relative] !== current) {
+        throw new Error(`parity canary ${item.label || item.provider} changed after supervisor publication`)
+      }
+    }
+    try {
+      execFileSync('python3', ['scripts/execution_provenance.py', 'verify', '--manifest', '-', '--repo-root', REPO_ROOT,
+        ...artifacts.flatMap((relative) => ['--repo-artifact', relative])], {
+        cwd: REPO_ROOT, input: canonicalManifestJsonl(candidate), encoding: 'utf8', stdio: ['pipe', 'ignore', 'ignore'],
+      })
+    } catch {
+      throw new Error(`parity canary ${item.label || item.provider} terminal provenance no longer matches supervisor state`)
+    }
+    const manifestPath = canonicalManifestPath(candidate)
+    const attestation = {
+      label: item.label,
+      run_id: candidate.runId,
+      run_root: relativeRoot,
+      provider: candidate.provider,
+      attempt_id: recorded[0].attempt_id,
+      attempt_sha256: jsonSha256(recorded[0]),
+      manifest_sha256: fileSha256(manifestPath),
+      terminal_artifacts: artifacts.map((relative) => ({ path: relative, sha256: candidate.publicationArtifactHashes![relative] })),
+      supervisor_instance_id: binding.supervisor_instance_id,
+      pair_registration_id: binding.pair_registration_id,
+    }
+    const receiptRelative = receiptPath(candidate)
+    const canonicalRows = rows.map((row) => ({
+      ...row,
+      ...(receiptRelative ? { _committed_receipt_path: receiptRelative } : {}),
+    }))
+    return { attestation, root: absoluteRoot, rows: canonicalRows }
+  })
+}
+
+function issueParityAttestation(run: RunState, request: SupervisorPublicationRequest): {
+  ok: true; phase: 'attest'; receiptPath: string; receiptSha256: string; attempt: Record<string, unknown>
+} {
+  run.publicationTransportVerify?.()
+  if ((run.publicationPhase ?? 'open') !== 'open') throw new Error('parity attestation phase was already consumed')
+  if (run.kind !== 'parity') {
+    throw new Error('runtime parity attestations are available only to a tracked parity adjudication run')
+  }
+  const comparison = dataArtifactPath(request.comparisonArtifact, 'comparisonArtifact', true)
+  const freeze = dataArtifactPath(request.freezeReceipt, 'freezeReceipt', true)
+  const output = dataArtifactPath(request.receiptOutput, 'receiptOutput', false)
+  const withinWriteScope = (absolute: string) => run.writeTargetsAbs.some((target) => {
+    const resolved = path.resolve(target)
+    return absolute === resolved || absolute.startsWith(`${resolved}${path.sep}`)
+  })
+  if (!withinWriteScope(comparison) || !withinWriteScope(output)) {
+    throw new Error('parity comparison and execution receipt must stay inside this run\'s exact output scope')
+  }
+  const comparisonValue = readJsonObject(comparison, 'comparisonArtifact')
+  const freezeValue = readJsonObject(freeze, 'freezeReceipt')
+  const prelaunch = run.parityPrelaunchBinding as Record<string, any> | undefined
+  if (!prelaunch) throw new Error('this attempt has no supervisor-verified provider-parity prelaunch binding')
+  attestParitySnapshotAtPublication(run)
+  const boundFreeze = path.isAbsolute(prelaunch.freeze_receipt_path)
+    ? path.resolve(prelaunch.freeze_receipt_path)
+    : path.resolve(REPO_ROOT, prelaunch.freeze_receipt_path)
+  const boundInput = path.isAbsolute(prelaunch.binding_path)
+    ? path.resolve(prelaunch.binding_path)
+    : path.resolve(REPO_ROOT, prelaunch.binding_path)
+  if (freeze !== boundFreeze || fileSha256(freeze) !== prelaunch.freeze_receipt_file_sha256) {
+    throw new Error('freezeReceipt is not the exact receipt registered before provider launch')
+  }
+  const bindingBytes = fs.readFileSync(boundInput)
+  try {
+    execFileSync('python3', ['-c', [
+      'import json,sys',
+      'from scripts.provider_parity_freeze import validate_against_schema,RUN_BINDING_SCHEMA_PATH,FREEZE_SCHEMA_PATH,receipt_digest',
+      'v=json.load(sys.stdin)',
+      'validate_against_schema(v["binding"],RUN_BINDING_SCHEMA_PATH,label="run binding")',
+      'validate_against_schema(v["freeze"],FREEZE_SCHEMA_PATH,label="freeze receipt")',
+      'assert receipt_digest(v["freeze"]) == v["freeze"]["receipt_sha256"]',
+    ].join(';')], {
+      cwd: REPO_ROOT,
+      input: JSON.stringify({ binding: JSON.parse(bindingBytes.toString('utf8')), freeze: freezeValue }),
+      encoding: 'utf8', stdio: ['pipe', 'ignore', 'ignore'],
+    })
+  } catch {
+    throw new Error('the bound provider-parity binding/freeze contracts no longer validate')
+  }
+  if (fileSha256(boundInput) !== prelaunch.binding_file_sha256
+      || freezeValue.receipt_sha256 !== prelaunch.freeze_receipt_sha256) {
+    throw new Error('the bound provider-parity input or freeze self-digest changed')
+  }
+  if (!/^sha256:[0-9a-f]{64}$/.test(comparisonValue.comparison_id || '')) {
+    throw new Error('comparisonArtifact has no canonical comparison_id')
+  }
+  if (!/^sha256:[0-9a-f]{64}$/.test(freezeValue.receipt_sha256 || '')) {
+    throw new Error('freezeReceipt has no canonical self-digest')
+  }
+  const liveCanaries = liveParityCanaryAuthority(run, freeze, freezeValue)
+  const supervisorRows = Object.fromEntries(liveCanaries.map((item) => [item.root, item.rows]))
+  const expectedComparison = recomputeInitialParityComparison(freeze, freezeValue, supervisorRows)
+  if (!isDeepStrictEqual(comparisonValue, expectedComparison)) {
+    throw new Error('comparisonArtifact is not the immutable initial comparison for the bound parity pair')
+  }
+  // A checked-in/worktree receipt is evidence, not authority: a provider with Bash can make a raw git
+  // commit. Bind both completed canaries to their still-live supervisor RunState and canonical manifests;
+  // any restart, missing side, profile mismatch, post-publication edit, or pair-id mismatch fails closed.
+  const pairedCanaries = liveCanaries.map((item) => item.attestation)
+  const rows = run.executionAttempts ?? []
+  let index = -1
+  for (let candidate = rows.length - 1; candidate >= 0; candidate--) {
+    if (rows[candidate].attempt_id === run.runId && rows[candidate].attribution === 'recorded') {
+      index = candidate
+      break
+    }
+  }
+  if (index < 0) throw new Error('the supervisor has no recorded current attempt to attest')
+  const row = rows[index]
+  if (row.role !== 'terminal_adjudicator' || row.decision_author !== true || row.provider !== run.provider) {
+    throw new Error('the current parity attempt is not the supervisor-recorded terminal adjudicator')
+  }
+  const required = ['attempt_id', 'provider', 'model', 'reasoning_level', 'profile_key', 'started_at'] as const
+  if (required.some((key) => typeof row[key] !== 'string' || !(row[key] as string).trim())) {
+    throw new Error('the recorded current attempt is missing provider/model/profile identity')
+  }
+  const attempt = {
+    ...Object.fromEntries(required.map((key) => [key, row[key]])),
+    kind: run.kind,
+    role: row.role,
+    decision_author: true,
+  }
+  const manifestPath = canonicalManifestPath(run)
+  const manifestSha256 = fileSha256(manifestPath)
+  const receipt = {
+    schema_version: 'provider-parity-adjudication-execution/1.0',
+    issued_at: new Date().toISOString().replace(/\.\d{3}Z$/, 'Z'),
+    comparison_id: comparisonValue.comparison_id,
+    comparison_artifact: { path: comparison, sha256: fileSha256(comparison) },
+    freeze_receipt: { path: freeze, sha256: fileSha256(freeze), receipt_sha256: freezeValue.receipt_sha256 },
+    attempt,
+    runtime_provenance: {
+      manifest_path: manifestPath,
+      manifest_sha256: manifestSha256,
+      attempt_locator: `jsonl:${index + 1}`,
+      attempt_sha256: jsonSha256(row),
+      paired_canaries: pairedCanaries,
+    },
+  }
+  const rendered = `${JSON.stringify(receipt, null, 2)}\n`
+  const descriptor = fs.openSync(output, 'wx', 0o444)
+  try { fs.writeFileSync(descriptor, rendered); fs.fsyncSync(descriptor) } finally { fs.closeSync(descriptor) }
+  const issued = {
+    runId: run.runId,
+    manifestPath,
+    receiptSha256: fileSha256(output),
+    manifestSha256,
+    comparisonSha256: receipt.comparison_artifact.sha256,
+    freezeSha256: receipt.freeze_receipt.sha256,
+    pairedCanaries,
+    expiresAt: Date.now() + PARITY_ATTESTATION_TTL_MS,
+  }
+  run.publicationTransportVerify?.()
+  issuedParityAttestations.set(output, issued)
+  run.publicationPhase = 'parity-attested'
+  return { ok: true, phase: 'attest', receiptPath: output, receiptSha256: issued.receiptSha256, attempt }
+}
+
+function verifyParityAttestation(run: RunState, request: SupervisorPublicationRequest): {
+  ok: true; phase: 'verify-attestation'; receiptPath: string; receiptSha256: string
+} {
+  run.publicationTransportVerify?.()
+  if (run.publicationPhase !== 'parity-attested') throw new Error('parity terminal verification requires one live issued attestation')
+  run.publicationPhase = 'terminal-in-progress'
+  if (run.kind !== 'parity') {
+    throw new Error('runtime parity attestations are available only to a tracked parity adjudication run')
+  }
+  const output = dataArtifactPath(request.receiptOutput, 'receiptOutput', true)
+  const issued = issuedParityAttestations.get(output)
+  if (!issued || issued.runId !== run.runId) throw new Error('receipt was not issued by this live supervisor attempt')
+  if (issued.expiresAt <= Date.now()) {
+    issuedParityAttestations.delete(output)
+    throw new Error('supervisor-issued parity attestation expired before terminal verification')
+  }
+  attestParitySnapshotAtPublication(run)
+  const receipt = readJsonObject(output, 'receiptOutput')
+  if (receipt.attempt?.kind !== 'parity' || receipt.attempt?.role !== 'terminal_adjudicator'
+      || receipt.attempt?.decision_author !== true) {
+    throw new Error('runtime parity attestation is not bound to the terminal adjudicator role')
+  }
+  const manifest = path.resolve(String(receipt.runtime_provenance?.manifest_path || ''))
+  if (manifest !== issued.manifestPath || !fs.lstatSync(manifest).isFile() || fs.lstatSync(manifest).isSymbolicLink()) {
+    throw new Error('runtime provenance manifest is not the one issued by the supervisor')
+  }
+  const comparison = dataArtifactPath(receipt.comparison_artifact?.path, 'bound comparison artifact', true)
+  const freeze = dataArtifactPath(receipt.freeze_receipt?.path, 'bound freeze receipt', true)
+  if (fileSha256(output) !== issued.receiptSha256 || fileSha256(manifest) !== issued.manifestSha256
+      || fileSha256(comparison) !== issued.comparisonSha256 || fileSha256(freeze) !== issued.freezeSha256) {
+    throw new Error('supervisor-issued parity attestation or one of its bound artifacts changed')
+  }
+  // Re-establish live authority at terminal verification. The receipt is immutable, but the two model
+  // output roots remain ordinary worktree files; a provider must not be able to mutate a canary after
+  // issuance and still release against the older attestation. This also deliberately fails across a
+  // supervisor restart because the canonical RunStates/pair watcher are process-local trust material.
+  const currentCanaries = liveParityCanaryAuthority(run, freeze, readJsonObject(freeze, 'bound freeze receipt'))
+    .map((item) => item.attestation)
+  if (!isDeepStrictEqual(receipt.runtime_provenance?.paired_canaries, issued.pairedCanaries)
+      || !isDeepStrictEqual(currentCanaries, issued.pairedCanaries)) {
+    throw new Error('paired canary authority or terminal artifact hashes changed after attestation')
+  }
+  run.publicationTransportVerify?.()
+  issuedParityAttestations.delete(output)
+  run.parityVerificationCompleted = true
+  run.parityVerificationReceiptPath = output
+  run.parityVerificationReceiptSha256 = issued.receiptSha256
+  run.publicationPhase = 'terminal-complete'
+  run.publicationToken = undefined
+  releaseParityRegistration(run)
+  return { ok: true, phase: 'verify-attestation', receiptPath: output, receiptSha256: issued.receiptSha256 }
+}
+
+function withoutExecutionProvenance(value: any): any {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return value
+  const copy = { ...value }
+  delete copy.execution_provenance
+  return copy
+}
+
+function withoutLedgerOnlyFields(value: any): any {
+  const copy = withoutExecutionProvenance(value)
+  if (!copy || typeof copy !== 'object' || Array.isArray(copy)) return copy
+  const result = { ...copy }
+  delete result.integrity_review
+  return result
+}
+
+function assertRegularArtifact(absolute: string, label: string): fs.Stats {
+  let info: fs.Stats
+  try { info = fs.lstatSync(absolute) } catch { throw new Error(`missing ${label}: ${path.relative(REPO_ROOT, absolute)}`) }
+  if (!info.isFile() || info.isSymbolicLink() || fs.realpathSync(absolute) !== path.resolve(absolute)) {
+    throw new Error(`${label} must be one regular non-symlink file: ${path.relative(REPO_ROOT, absolute)}`)
+  }
+  return info
+}
+
+function supervisorWriteJsonAtomic(absolute: string, value: unknown, label: string): void {
+  const parent = path.dirname(absolute)
+  fs.mkdirSync(parent, { recursive: true })
+  const parentInfo = fs.lstatSync(parent)
+  if (!parentInfo.isDirectory() || parentInfo.isSymbolicLink() || fs.realpathSync(parent) !== path.resolve(parent)) {
+    throw new Error(`${label} parent must be one real directory: ${path.relative(REPO_ROOT, parent)}`)
+  }
+  if (fs.existsSync(absolute)) assertRegularArtifact(absolute, label)
+  const temporary = path.join(parent, `.${path.basename(absolute)}.${randomUUID()}.tmp`)
+  try {
+    fs.writeFileSync(temporary, `${JSON.stringify(value, null, 2)}\n`, { flag: 'wx', mode: 0o600 })
+    fs.renameSync(temporary, absolute)
+  } finally {
+    try { fs.unlinkSync(temporary) } catch { /* renamed or never created */ }
+  }
+}
+
+function expectedLedgerIntegrityReview(run: RunState): Record<string, unknown> | null {
+  const root = path.join(REPO_ROOT, run.runRoot!)
+  let names: string[] = []
+  try { names = fs.readdirSync(root).filter((name) => /^thesis_integrity_review(?:_v[0-9]+)?\.json$/.test(name)) } catch { return null }
+  if (!names.length) return null
+  const version = (name: string) => Number(/_v([0-9]+)\.json$/.exec(name)?.[1] || 1)
+  const name = names.sort((a, b) => version(a) - version(b)).at(-1)!
+  const absolute = path.join(root, name)
+  assertRegularArtifact(absolute, 'screener integrity review')
+  const review = readJsonObject(absolute, 'screener integrity review')
+  const routes: Record<string, string> = {
+    'Survives': 'Proceed',
+    'Survives with haircut': 'Proceed',
+    'Does not survive — downgrade': 'watchlist_integrity_downgrade',
+    'Thesis broken': 'watchlist_integrity_broken',
+  }
+  const verdict = typeof review.verdict === 'string' ? review.verdict : ''
+  if (!routes[verdict] || review.routing !== routes[verdict]) {
+    throw new Error('screener integrity review has an invalid verdict/routing pair')
+  }
+  return {
+    verdict,
+    routing: review.routing,
+    reviewed_at: typeof review.reviewed_at === 'string' ? review.reviewed_at : '',
+    review_file: path.relative(REPO_ROOT, absolute).split(path.sep).join('/'),
+    edge_score_haircut_note: typeof review.edge_score_haircut_note === 'string' ? review.edge_score_haircut_note : '',
+  }
+}
+
+/**
+ * Trusted publication boundary. The provider can request a phase and data pathspecs, but it never supplies
+ * provider/model/attempt rows or artifact identities. Those come from the live RunState and pre-spawn
+ * baselines; the server stamps and performs the serialized git operation before acknowledging the child.
+ */
+export async function supervisePublication(
+  runId: string, token: string, request: SupervisorPublicationRequest,
+): Promise<{
+  ok: true; phase: 'stamp' | 'archive' | 'commit'; output?: string; artifacts: string[]
+  artifactHashes: Record<string, string>; postPublicationWarning?: string
+  archiveDecision?: { decisionId: string; path: string; created: boolean }
+} | ReturnType<typeof issueParityAttestation> | ReturnType<typeof verifyParityAttestation>> {
+  const run = getRun(runId)
+  if (!run || run.endedAt !== undefined || !run.publicationToken || token !== run.publicationToken) {
+    throw Object.assign(new Error('invalid or expired publication capability'), { statusCode: 403 })
+  }
+  run.publicationTransportVerify?.()
+  if (request.phase === 'attest') return issueParityAttestation(run, request)
+  if (request.phase === 'verify-attestation') return verifyParityAttestation(run, request)
+  const archiveRequested = request.phase === 'archive'
+  if (archiveRequested && (run.swarmId !== 'commodity' || !run.runRoot
+      || !['full', 'rerun'].includes(run.kind))) {
+    throw new Error('immutable commodity archive publication is available only to a tracked terminal commodity run')
+  }
+  // Frozen full canaries must never mutate HEAD between the Claude and Codex sides. Their command may
+  // use the normal commit request, but the trusted boundary converts it to a single stamp+receipt and
+  // performs no git operation. The adjudication run later releases the pair.
+  const parityCanary = run.kind === 'full' && Boolean(run.parityPrelaunchBinding)
+  if (parityCanary && run.publicationCompleted) throw new Error('parity full canary publication is already sealed')
+  const phase = archiveRequested ? 'archive' : parityCanary || request.phase === 'stamp' ? 'stamp' : 'commit'
+  const currentPhase = run.publicationPhase ?? 'open'
+  if (phase === 'archive') {
+    if (currentPhase !== 'open') throw new Error('commodity archive phase was already consumed')
+  } else if (phase === 'commit') {
+    const expected = run.swarmId === 'commodity' ? 'archive-sealed' : 'open'
+    if (currentPhase !== expected) throw new Error(`terminal publication is not allowed from phase ${currentPhase}`)
+  } else if (parityCanary) {
+    if (currentPhase !== 'open') throw new Error('parity canary publication was already consumed')
+  }
+  attestParitySnapshotAtPublication(run)
+  const pathspecs = phase === 'commit' ? authorizedPublicationPaths(run, request.pathspecs) : []
+  const artifacts: string[] = []
+  const supervisorAuthoredHashes: Record<string, string> = {}
+  let signalProjection: { thesisId: string; seedCheckpoints: boolean } | null = null
+  let signalLedger: { relative: string; absolute: string; value: Record<string, unknown> } | null = null
+  for (const relative of decisionArtifacts(run)) {
+    const absolute = path.join(REPO_ROOT, run.runRoot!, relative)
+    const exists = fs.existsSync(absolute)
+    const fresh = exists && artifactIsFresh(run, relative)
+    if (run.kind === 'signal' && !fresh) continue // valid early stop, including an old retained thesis
+    if (!exists) throw new Error(`missing terminal decision artifact: ${run.runRoot}/${relative}`)
+    assertRegularArtifact(absolute, 'terminal decision artifact')
+    if (!fresh) throw new Error(`terminal decision artifact was not authored by this attempt: ${run.runRoot}/${relative}`)
+    artifacts.push(`${run.runRoot}/${relative}`)
+  }
+  if (phase === 'commit' && run.swarmId === 'commodity') {
+    const binding = run.commodityArchiveBinding
+    if (!binding) throw new Error('commodity decision commit requires a completed supervisor archive phase')
+    const currentTop = fileSha256(path.join(REPO_ROOT, binding.topRecord))
+    if (currentTop !== binding.topRecordSha256) throw new Error('commodity top-level decision changed after supervisor archive')
+    for (const [relative, expected] of Object.entries(binding.archiveArtifactHashes)) {
+      const absolute = path.join(REPO_ROOT, relative)
+      assertRegularArtifact(absolute, 'bound commodity archive artifact')
+      if (fileSha256(absolute) !== expected) throw new Error(`commodity archive changed before commit: ${relative}`)
+    }
+    const archivedDecision = Object.keys(binding.archiveArtifactHashes)
+      .find((relative) => relative.endsWith('/decision_record.json'))
+    if (!archivedDecision
+        || !fs.readFileSync(path.join(REPO_ROOT, archivedDecision)).equals(fs.readFileSync(path.join(REPO_ROOT, binding.topRecord)))) {
+      throw new Error('commodity top-level decision no longer equals its immutable archive')
+    }
+  }
+
+  // Validate the deterministic screener projection before consuming the one-shot terminal phase. The
+  // actual ledger write happens only after every child-supplied path/artifact has passed validation.
+  if (run.kind === 'signal' && artifacts.length) {
+    const runThesis = path.join(REPO_ROOT, artifacts[0])
+    const record = JSON.parse(fs.readFileSync(runThesis, 'utf8'))
+    const thesisId = typeof record?.meta?.thesis_id === 'string' ? record.meta.thesis_id : ''
+    if (!/^THS-SIG-[0-9]{8}-[a-f0-9]{8}-v[0-9]+$/.test(thesisId)) throw new Error('fresh screener thesis has an invalid thesis id')
+    const ledgerRelative = `screener/ledger/theses/${thesisId}.json`
+    const ledgerAbsolute = path.join(REPO_ROOT, ledgerRelative)
+    const expectedIntegrity = expectedLedgerIntegrityReview(run)
+    const ledger = JSON.parse(JSON.stringify(withoutLedgerOnlyFields(record)))
+    if (expectedIntegrity) ledger.integrity_review = expectedIntegrity
+    signalLedger = { relative: ledgerRelative, absolute: ledgerAbsolute, value: ledger }
+    signalProjection = {
+      thesisId,
+      seedCheckpoints: ['provisional', 'full_machine'].includes(String(record?.meta?.status || ''))
+        && (!expectedIntegrity || expectedIntegrity.routing === 'Proceed'),
+    }
+  }
+
+  // From this point onward the supervisor mutates/stamps durable bytes. Validation failures above remain
+  // retryable; once mutation begins, the terminal capability is deliberately consumed fail-closed.
+  if (phase === 'archive') run.publicationPhase = 'archive-in-progress'
+  else if (phase === 'commit' || parityCanary) run.publicationPhase = 'terminal-in-progress'
+  run.publicationRequested = true
+  if (signalLedger) {
+    supervisorWriteJsonAtomic(signalLedger.absolute, signalLedger.value, 'immutable screener ledger thesis')
+    artifacts.push(signalLedger.relative)
+    supervisorAuthoredHashes[signalLedger.relative] = fileSha256(signalLedger.absolute)
+  }
+
+  if (artifacts.length) {
+    const manifest = canonicalManifestJsonl(run)
+    const args = ['scripts/execution_provenance.py', 'stamp', '--manifest', '-', '--repo-root', REPO_ROOT]
+    for (const artifact of artifacts) args.push('--repo-artifact', artifact)
+    await execa('python3', args, { cwd: REPO_ROOT, input: manifest, reject: true })
+  }
+  // Only the terminal commit projects the shared board/checkpoint stores. A stamp-only phase validates
+  // and stamps the run/ledger pair but must remain side-effect free outside those artifacts; otherwise a
+  // retry or test stamp could update globally shared screener state without a corresponding publication.
+  if (signalProjection && phase === 'commit') {
+    if (signalProjection.seedCheckpoints) {
+      await execa('python3', ['scripts/screener_emit_checkpoints.py', signalProjection.thesisId], {
+        cwd: REPO_ROOT, reject: true, timeout: 5 * 60_000,
+      })
+    }
+    await execa('python3', ['scripts/update_board_index.py'], {
+      cwd: REPO_ROOT, reject: true, timeout: 5 * 60_000,
+    })
+    const derived = [
+      'screener/board/index.json',
+      ...(signalProjection.seedCheckpoints ? [
+        'screener/ledger/conviction/checkpoints.ndjson',
+        `screener/ledger/conviction/conviction_state/${signalProjection.thesisId}.json`,
+      ] : []),
+    ].filter((relative) => {
+      try { assertRegularArtifact(path.join(REPO_ROOT, relative), 'supervisor screener projection'); return true } catch { return false }
+    })
+    run.supervisorPublicationArtifacts = [...new Set([...(run.supervisorPublicationArtifacts ?? []), ...derived])]
+    for (const relative of derived) supervisorAuthoredHashes[relative] = fileSha256(path.join(REPO_ROOT, relative))
+  }
+  const artifactHashes = Object.fromEntries(artifacts.map((relative) => [
+    relative, `sha256:${createHash('sha256').update(fs.readFileSync(path.join(REPO_ROOT, relative))).digest('hex')}`,
+  ]))
+  if (phase === 'archive') {
+    const env: NodeJS.ProcessEnv = { ...process.env }
+    for (const key of ['NOSTRA_COCKPIT_RUN', 'NOSTRA_PROVENANCE_MANIFEST', 'NOSTRA_PUBLICATION_ENDPOINT', 'NOSTRA_PUBLICATION_TOKEN', 'NOSTRA_PUBLICATION_SOCKET']) delete env[key]
+    run.publicationTransportVerify?.()
+    const result = await execa('python3', ['scripts/commodity_decision_archive.py', '--json', run.runRoot!], {
+      cwd: REPO_ROOT, env, reject: true, timeout: 5 * 60_000,
+    })
+    let archived: any
+    try { archived = JSON.parse(result.stdout) } catch { throw new Error('supervisor commodity archive returned invalid output') }
+    if (!archived || typeof archived.decision_id !== 'string' || typeof archived.path !== 'string') {
+      throw new Error('supervisor commodity archive returned no immutable decision identity')
+    }
+    run.publicationTransportVerify?.()
+    const archiveAbsolute = path.resolve(archived.path)
+    const archiveDir = path.dirname(archiveAbsolute)
+    const archiveFiles = fs.readdirSync(archiveDir, { withFileTypes: true }).flatMap((entry) => {
+      if (!entry.isFile() || entry.isSymbolicLink()) throw new Error('supervisor commodity archive contains a non-regular entry')
+      const absolute = path.join(archiveDir, entry.name)
+      assertRegularArtifact(absolute, 'supervisor commodity archive artifact')
+      return [path.relative(REPO_ROOT, absolute).split(path.sep).join('/')]
+    })
+    run.supervisorPublicationArtifacts = [...new Set([
+      ...(run.supervisorPublicationArtifacts ?? []), ...archiveFiles,
+    ])]
+    const topRecord = `${run.runRoot}/decision_record.json`
+    assertRegularArtifact(path.join(REPO_ROOT, topRecord), 'commodity top-level decision')
+    const archiveArtifactHashes = Object.fromEntries(archiveFiles.map((relative) => [
+      relative, fileSha256(path.join(REPO_ROOT, relative)),
+    ]))
+    const archivedDecision = archiveFiles.find((relative) => relative.endsWith('/decision_record.json'))
+    if (!archivedDecision
+        || !fs.readFileSync(path.join(REPO_ROOT, archivedDecision)).equals(fs.readFileSync(path.join(REPO_ROOT, topRecord)))) {
+      throw new Error('supervisor commodity archive does not exactly match the current top-level decision')
+    }
+    run.commodityArchiveBinding = {
+      decisionId: archived.decision_id,
+      topRecord,
+      topRecordSha256: fileSha256(path.join(REPO_ROOT, topRecord)),
+      archiveArtifactHashes,
+    }
+    run.publicationPhase = 'archive-sealed'
+    const refreshedHashes = Object.fromEntries(artifacts.map((relative) => [
+      relative, `sha256:${createHash('sha256').update(fs.readFileSync(path.join(REPO_ROOT, relative))).digest('hex')}`,
+    ]))
+    return {
+      ok: true, phase, artifacts, artifactHashes: refreshedHashes,
+      archiveDecision: { decisionId: archived.decision_id, path: archived.path, created: archived.created === true },
+    }
+  }
+  if (phase === 'stamp') {
+    if (parityCanary) {
+      const receipt = writeExecutionReceipt(run)
+      const receiptArtifacts = receipt ? [receipt.path] : []
+      if (receipt) supervisorAuthoredHashes[receipt.path] = receipt.sha256
+      const fixed = { ...supervisorAuthoredHashes, ...artifactHashes }
+      const snapshot = createPublicationSnapshot(run, [...artifacts, ...receiptArtifacts], [...artifacts, ...receiptArtifacts])
+      for (const [relative, expected] of Object.entries(fixed)) {
+        if (snapshot.hashes[relative] !== expected) {
+          snapshot.cleanup()
+          throw new Error(`fixed canary snapshot disagrees with supervisor-authored artifact: ${relative}`)
+        }
+      }
+      retainPublicationSnapshot(run, snapshot)
+      run.publicationArtifactHashes = { ...snapshot.hashes }
+      run.publicationTransportVerify?.()
+      run.publicationCompleted = true
+      run.publicationPhase = 'terminal-complete'
+      run.publicationToken = undefined
+      return {
+        ok: true, phase, artifacts: [...artifacts, ...receiptArtifacts],
+        artifactHashes: fixed,
+      }
+    }
+    return { ok: true, phase, artifacts, artifactHashes }
+  }
+
+  const receipt = ['full', 'rerun', 'module', 'agent', 'signal', 'screener-agent', 'conviction'].includes(run.kind)
+    ? writeExecutionReceipt(run) : null
+  if (receipt) supervisorAuthoredHashes[receipt.path] = receipt.sha256
+  const exactRequestedFiles = pathspecs.flatMap((relative) => {
+    if (firstWildcard(relative) !== relative) return []
+    try {
+      const absolute = path.join(REPO_ROOT, relative)
+      assertRegularArtifact(absolute, 'requested publication artifact')
+      return [relative]
+    } catch { return [] }
+  })
+  const requiredCommitPaths = [...new Set([
+    ...exactRequestedFiles,
+    ...artifacts,
+    ...(run.supervisorPublicationArtifacts ?? []),
+    ...(receipt ? [receipt.path] : []),
+  ])]
+  for (const required of requiredCommitPaths) if (!pathspecs.includes(required)) pathspecs.push(required)
+  const message = typeof request.message === 'string' && request.message.trim()
+    ? request.message.trim().slice(0, 500) : `${run.swarmId} run: ${run.subjectId}`
+  const env: NodeJS.ProcessEnv = { ...process.env }
+  for (const key of ['NOSTRA_COCKPIT_RUN', 'NOSTRA_PROVENANCE_MANIFEST', 'NOSTRA_PUBLICATION_ENDPOINT', 'NOSTRA_PUBLICATION_TOKEN', 'NOSTRA_PUBLICATION_SOCKET']) delete env[key]
+  run.publicationTransportVerify?.()
+  // Freeze exact bytes into protected supervisor state before Git ever sees a path. Provider descendants
+  // may keep running while their HTTP request is in flight, but commit-run stages only these immutable
+  // snapshots and HEAD verification compares against these fixed hashes, never mutable worktree bytes.
+  const fixedAuthoredHashes = { ...supervisorAuthoredHashes, ...artifactHashes }
+  for (const [relative, expected] of Object.entries(fixedAuthoredHashes)) {
+    if (fileSha256(path.join(REPO_ROOT, relative)) !== expected) {
+      throw new Error(`terminal decision artifact changed before fixed publication snapshot: ${relative}`)
+    }
+  }
+  const snapshot = createPublicationSnapshot(run, pathspecs, requiredCommitPaths)
+  for (const [relative, expected] of Object.entries(fixedAuthoredHashes)) {
+    if (snapshot.hashes[relative] !== expected) {
+      snapshot.cleanup()
+      throw new Error(`fixed publication snapshot disagrees with stamped terminal artifact: ${relative}`)
+    }
+  }
+  if (run.commodityArchiveBinding) {
+    const binding = run.commodityArchiveBinding
+    if (snapshot.hashes[binding.topRecord] !== binding.topRecordSha256
+        || Object.entries(binding.archiveArtifactHashes).some(([relative, expected]) => snapshot.hashes[relative] !== expected)) {
+      snapshot.cleanup()
+      throw new Error('fixed publication snapshot disagrees with bound commodity archive')
+    }
+  }
+  env.NOSTRA_SUPERVISOR_SNAPSHOT_MANIFEST = snapshot.manifest
+  let output: string
+  let retained = false
+  try {
+    output = await supervisorCommitter(message, snapshot.paths, env)
+    await supervisorCommitVerifier(output, snapshot.paths, snapshot.hashes)
+    run.publicationTransportVerify?.()
+    retainPublicationSnapshot(run, snapshot)
+    retained = true
+  } finally {
+    if (!retained) snapshot.cleanup()
+  }
+  run.publicationArtifactHashes = { ...snapshot.hashes }
+  run.publicationCompleted = true
+  run.publicationPhase = 'terminal-complete'
+  run.publicationToken = undefined
+  releaseExecutionEpochAfterPublication(run)
+  let postPublicationWarning: string | undefined
+  if (run.kind === 'review' || run.kind === 'conviction') {
+    try {
+      await postReviewCalibration(run)
+    } catch (error: any) {
+      // The review itself is already safely committed. Keep that outcome successful and make the derived
+      // calibration failure visible on the run/activity row; the daily/monthly deterministic timers retry it.
+      postPublicationWarning = `${run.kind} published, but deterministic calibration refresh failed: ${String(error?.message || error).slice(0, 500)}`
+      run.note = postPublicationWarning
+      console.error(`[publication] ${postPublicationWarning}`) // eslint-disable-line no-console
+    }
+  }
+  return { ok: true, phase, output, artifacts, artifactHashes, ...(postPublicationWarning ? { postPublicationWarning } : {}) }
 }
 
 /** Warm the once-per-process CLI probes at server startup so the FIRST user launch doesn't pay
  *  ~1-4s for `claude --version` + `claude --help` inside its click-to-ack window. Best-effort. */
 export async function warmLaunchProbes(): Promise<void> {
-  try {
-    await claudeAvailable()
-    await buildArgs('warmup', 'agent', 'sonnet') // triggers + caches the --help flag probe; args discarded
-  } catch {
-    /* probes re-run (and surface their real error) on the first launch */
-  }
+  await Promise.all(listProviderAdapters().filter((adapter) => isProviderEnabled(adapter.profile.provider)).map(async (adapter) => {
+    try { await (adapter.warmup?.() ?? adapter.getAvailability()) } catch { /* surfaced on launch/check */ }
+  }))
 }
 
 async function spawnEngine(run: RunState): Promise<void> {
@@ -2756,7 +4353,54 @@ async function spawnEngine(run: RunState): Promise<void> {
     stopForChangedBinding(beforeArgs)
     return
   }
-  const args = await buildArgs(run.prompt, run.kind, run.model)
+  const adapter = getProviderAdapter(run.provider)
+  const publicationSocket = await startSupervisorPublicationSocket(run)
+  const publicationBinding = {
+    runId: run.runId, runRoot: run.runRoot!, token: run.publicationToken!, socketPath: publicationSocket.socketPath,
+  }
+  let launchSpec: Awaited<ReturnType<typeof adapter.buildLaunch>>
+  try {
+    launchSpec = await adapter.buildLaunch({
+      prompt: run.prompt,
+      kind: run.kind,
+      profile: {
+        provider: run.provider,
+        profileKey: run.profileKey,
+        model: run.model,
+        reasoningLevel: run.reasoningLevel,
+        executionProfile: run.executionProfile,
+      },
+      cwd: path.resolve(REPO_ROOT),
+      additionalWritableDataRoot: path.resolve(DATA_DIR),
+      writablePaths: providerWritablePaths(run),
+      protectedWritePaths: providerProtectedWritePaths(run),
+      protectedReadPaths: [path.resolve(STATE_DIR)],
+      env: applySupervisorPublicationEnv(process.env, publicationBinding),
+      guard: LAUNCH_GUARDS[run.kind],
+      resumeSessionId: run.resumeSessionId,
+      availabilityProofId: run.availabilityProofId,
+      publicationSocketPath: publicationSocket.socketPath,
+    })
+  } catch (error) {
+    await publicationSocket.close()
+    throw error
+  }
+  // Runtime-owned publication controls are invariant across adapters. Reassert them after adapter env
+  // scrubbing so a future provider cannot accidentally drop provenance or cockpit-mode signaling.
+  launchSpec.env = applySupervisorPublicationEnv(launchSpec.env, publicationBinding)
+  run.cliVersion = launchSpec.cliVersion
+  let launchSpecCleaned = false
+  const cleanupLaunchSpec = () => {
+    if (launchSpecCleaned) return
+    launchSpecCleaned = true
+    try { launchSpec.cleanup?.() } catch (error: any) {
+      console.error(`[provider] launch cleanup failed for ${run.runId}: ${String(error?.message || error)}`) // eslint-disable-line no-console
+    }
+    void publicationSocket.close().catch((error: any) => {
+      console.error(`[provider] publication socket cleanup failed for ${run.runId}: ${String(error?.message || error)}`) // eslint-disable-line no-console
+    })
+  }
+  providerLaunchCleanup.set(run, cleanupLaunchSpec)
   if (run.cancelRequested) {
     // cancelled during the gate / the buildArgs window — finish WITHOUT creating the child (no orphan).
     // Guard the terminal emit on not-already-finalized: finishRun is idempotent but emit is not.
@@ -2764,6 +4408,7 @@ async function spawnEngine(run: RunState): Promise<void> {
       emit(run, { type: 'run-error', runId: run.runId, status: 'cancelled', reason: 'cancelled', ts: Date.now() })
       finishRun(run, 'cancelled')
     }
+    releaseProviderLaunchResources(run)
     return
   }
   // buildArgs can cold-probe `claude --help` for several seconds. Re-check BOTH call bindings plus the
@@ -2772,6 +4417,7 @@ async function spawnEngine(run: RunState): Promise<void> {
   const beforeSpawn = changedLaunchBinding()
   if (beforeSpawn) {
     stopForChangedBinding(beforeSpawn)
+    releaseProviderLaunchResources(run)
     return
   }
   // FINAL scope CAS: nothing asynchronous occurs between this callback and execa below. In particular, a
@@ -2785,18 +4431,16 @@ async function spawnEngine(run: RunState): Promise<void> {
   }
   let child: ResultPromise
   try {
-    child = execa(CLAUDE_BIN, args, {
-      cwd: REPO_ROOT,
-      env: childEnv({
-        deferModuleMemo: deferredModuleMemoRuns.has(run),
-        exactModuleResume: exactModuleResumeRuns.has(run),
-        exactModuleInputs: exactModuleInputsByRun.get(run),
-        exactModuleRunRoot: exactModuleRunRootByRun.get(run),
-        exactModuleName: exactModuleArtifactScopeByRun.get(run)?.module,
-        exactModuleWritableOrbs: exactModuleArtifactScopeByRun.get(run)?.writableOrbs,
-        exactModuleSynthesisOrbs: exactModuleArtifactScopeByRun.get(run)?.synthesisOrbs,
-      }), // secrets scrubbed + run-only execution policy
-      stdin: 'ignore',
+    // Provider-owned lease/binary validation is deliberately the final synchronous operation before
+    // supervisor provenance begins and the process is created. It must not perform asynchronous work.
+    launchSpec.beforeSpawn?.()
+    appendExecutionAttempt(run)
+    child = execa(launchSpec.command, launchSpec.args, {
+      cwd: launchSpec.cwd,
+      env: launchSpec.env,
+      extendEnv: false,
+      stdin: launchSpec.input === undefined ? 'ignore' : 'pipe',
+      input: launchSpec.input,
       stdout: 'pipe',
       stderr: 'pipe',
       buffer: false,
@@ -2808,12 +4452,14 @@ async function spawnEngine(run: RunState): Promise<void> {
       detached: true,
     })
   } catch (e: any) {
+    releaseProviderLaunchResources(run)
     emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: 'spawn_failed', message: String(e?.message || e), ts: Date.now() })
     finishRun(run, 'error')
-    throw Object.assign(new Error('Failed to spawn claude CLI'), { statusCode: 500 })
+    throw Object.assign(new Error(`Failed to spawn ${run.provider} CLI`), { statusCode: 500 })
   }
 
   run.child = child
+  run.processGroupPid = child.pid
   // Install close ownership as soon as the paid child exists. Usually execa's real close callback wins;
   // if that notification is lost after PID exit, this bounded fallback prevents a permanent subject pin.
   armTerminalCloseWatchdog(run)
@@ -2841,10 +4487,22 @@ async function spawnEngine(run: RunState): Promise<void> {
     stallTimer.unref?.()
   }
   run.status = 'running'
-  emit(run, { type: 'run-started', runId: run.runId, kind: run.kind, ticker: run.ticker, runRoot: run.runRoot, willCommitToMain: run.willCommitToMain, ...(run.swarmId !== 'research' ? { swarm: run.swarmId } : {}), ts: Date.now() })
+  emit(run, {
+    type: 'run-started', runId: run.runId, kind: run.kind, ticker: run.ticker,
+    runRoot: run.runRoot, willCommitToMain: run.willCommitToMain,
+    provider: run.provider, executionProfile: run.executionProfile, profileKey: run.profileKey,
+    model: run.model, reasoningLevel: run.reasoningLevel, cliVersion: run.cliVersion,
+    ...(run.swarmId !== 'research' ? { swarm: run.swarmId } : {}), ts: Date.now(),
+  })
 
   // perpetual audit record: who launched what, when, on which company (finish is logged in finishRun)
-  logLaunch({ runId: run.runId, user: run.user, userVia: run.userVia, kind: run.kind, ticker: run.ticker, runRoot: run.runRoot ?? undefined, module: run.module, agent: run.agent, model: run.model, chained: run.chained, swarm: run.swarmId })
+  logLaunch({
+    runId: run.runId, user: run.user, userVia: run.userVia, kind: run.kind, ticker: run.ticker,
+    runRoot: run.runRoot ?? undefined, module: run.module, agent: run.agent, provider: run.provider,
+    executionProfile: run.executionProfile, profileKey: run.profileKey, model: run.model,
+    reasoningLevel: run.reasoningLevel, cliVersion: run.cliVersion, chained: run.chained,
+    chainId: run.chainId, executionEpoch: run.provenanceEpoch, swarm: run.swarmId,
+  })
 
   // line-buffered stdout -> stream parser
   let buf = ''
@@ -2924,7 +4582,30 @@ async function spawnEngine(run: RunState): Promise<void> {
       writeAgentMetrics(run, (r, filename) => {
         if (r.runRoot) commitRunFile(r.runRoot, filename, `Agent metrics: ${r.ticker} (${filename})`)
       })
-      finalizeRunOnClose(run, res, stderr, terminalProof)
+      let finalResult = res
+      const cleanExit = !res?.failed && !res?.isTerminated && (res?.exitCode === 0 || res?.exitCode === undefined)
+      if (run.publicationCompleted && run.publicationArtifactHashes) {
+        const changed = Object.entries(run.publicationArtifactHashes).find(([relative, expected]) => {
+          try {
+            const absolute = path.join(REPO_ROOT, relative)
+            assertRegularArtifact(absolute, 'published terminal artifact')
+            return `sha256:${createHash('sha256').update(fs.readFileSync(absolute)).digest('hex')}` !== expected
+          } catch { return true }
+        })
+        if (changed) {
+          run.publicationCompleted = false
+          run.publicationError = `published terminal artifact changed after supervisor stamping: ${changed[0]}`
+        }
+      }
+      if (cleanExit && run.willCommitToMain && !run.publicationCompleted && run.status !== 'cancelled') {
+        const reason = run.publicationError || 'the provider exited without a supervisor-owned publication request'
+        run.publicationError = reason
+        run.note = `publication failed: ${reason}`
+        stderr = `${stderr}\nSupervisor publication failed: ${reason}`.trim()
+        finalResult = { ...res, failed: true, exitCode: 5, shortMessage: reason }
+      }
+      await awaitProviderProcessGroupExit(run)
+      finalizeRunOnClose(run, finalResult, stderr, terminalProof)
     } finally {
       // Keep the writer token through finalizeRunOnClose itself. Removing it immediately after the await
       // leaves a microtask-sized window where force can admit before endedAt/claims are released coherently.
@@ -2933,7 +4614,12 @@ async function spawnEngine(run: RunState): Promise<void> {
   }
   // Pass both fulfillment/rejection directly to the guarded handler. Using `.then(onClose).catch(onClose)`
   // would call it twice if its awaited terminal proof ever rejected; evaluateTerminalGuard itself never throws.
-  void child.then(onClose, onClose)
+  void child.then(onClose, onClose).catch((error) => {
+    // The only awaited operation is process-group drainage. Keep the run in flight on an unexpected
+    // drain failure instead of releasing a slot while a same-root writer may still be alive.
+    run.note = `terminal process group could not be confirmed stopped: ${String(error?.message || error)}`
+    console.error(`[provider] ${run.note}`) // eslint-disable-line no-console
+  })
 }
 
 // Kill the run's WHOLE process tree promptly. The detached spawn put claude in its own process group, so
@@ -2945,6 +4631,8 @@ function killProcessTree(run: RunState): void {
   const child = run.child
   if (!child) return
   const pid = child.pid
+  run.processGroupPid = pid
+  run.processGroupKillRequested = true
   const sigGroup = (sig: NodeJS.Signals) => {
     if (pid) { try { process.kill(-pid, sig); return } catch { /* not a group leader / already gone */ } }
     try { child.kill(sig) } catch { /* already dead */ }
@@ -2953,6 +4641,29 @@ function killProcessTree(run: RunState): void {
   // A leader can close/finalize while a detached Task/tool descendant survives. Probe the process GROUP,
   // not endedAt, before the fallback kill so a late descendant cannot keep writing after cancellation.
   setTimeout(() => { if (processTreeAlive(pid)) sigGroup('SIGKILL') }, 2000)
+}
+
+function processGroupAlive(pid: number | undefined): boolean {
+  if (!pid) return false
+  try { process.kill(-pid, 0); return true } catch (error: any) { return error?.code === 'EPERM' }
+}
+
+export async function awaitProviderProcessGroupExit(run: RunState): Promise<void> {
+  if (!run.processGroupPid) return
+  const pid = run.processGroupPid
+  // A clean leader exit is not proof that Task descendants exited. Once the provider leader closes,
+  // remaining members are orphans; terminate them before releasing admission just as cancel() does.
+  if (processGroupAlive(pid) && !run.processGroupKillRequested) {
+    run.processGroupKillRequested = true
+    try { process.kill(-pid, 'SIGTERM') } catch { /* group exited between probe and signal */ }
+  }
+  const deadline = Date.now() + 2000
+  while (processGroupAlive(pid)) {
+    if (Date.now() >= deadline) {
+      try { process.kill(-pid, 'SIGKILL') } catch { /* group exited between probe and signal */ }
+    }
+    await new Promise<void>((resolve) => setTimeout(resolve, 25))
+  }
 }
 
 export async function cancel(runId: string): Promise<boolean> {
@@ -2966,7 +4677,7 @@ export async function cancel(runId: string): Promise<boolean> {
       // rebuild + containment-check the run dir from the validated subject id (same CWE-22 barrier as .target)
       const dir = screenerMarkerDir(run.swarmId, run.subjectId)
       if (dir) {
-        fs.writeFileSync(path.join(dir, '.aborted'), JSON.stringify({ at: new Date().toISOString(), reason: 'cancelled' }))
+        writeRunMarker(run.runRoot, '.aborted', { reason: 'cancelled' })
       }
     } catch {
       /* best-effort marker; a missing marker only risks one auto-resume the user can re-cancel */
@@ -2975,13 +4686,14 @@ export async function cancel(runId: string): Promise<boolean> {
   // The research equivalent: a deliberately-stopped full company run must never be auto-resumed by the
   // supervisor. Drop .aborted in its run folder and clear any interrupted-marker. (Marker writes are
   // contained under analyses/ by writeRunMarker; best-effort, never throws into cancel.)
-  if (isResumableResearchRun(run)) {
+  if (isResumableTerminalRun(run)) {
     writeRunMarker(run.runRoot, '.aborted', { reason: 'cancelled' })
     clearRunMarker(run.runRoot, '.interrupted')
   }
   // A chained full-run step: halt the chain HERE (any cancel path) so the next module can never launch —
   // not only on the stop-everything kill switch. Without this, cancelling one step could still advance.
   if (run.chained) haltSubjectChains(run.subjectId, run.swarmId)
+  if (run.chained) haltChain(run.chainId)
 
   // The paid child has already exited, but the exact module's terminal publisher is still a live writer.
   // Record the user's stop request without changing the in-flight status or releasing admission claims;
@@ -3003,11 +4715,22 @@ export async function cancel(runId: string): Promise<boolean> {
     return true
   }
 
-  // Running child: mark cancelled + kill the whole process tree (claude + descendants) promptly, and let
-  // finalizeRunOnClose finalize on close (endedAt-gated, takes the status==='cancelled' branch, releases
-  // the subject). killProcessTree's SIGKILL fallback also gates on endedAt so it stands down once final.
-  run.status = 'cancelled'
+  // Keep the admission claim while the detached process group drains. If status became `cancelled`
+  // before group exit, ordinary relaunch (without force) could overlap a surviving Task writer.
   killProcessTree(run)
+  if (!(await awaitRunsExited([run]))) {
+    run.note = 'cancellation requested, but the detached provider process group has not drained'
+    const error: any = new Error(run.note)
+    error.statusCode = 409
+    error.code = 'process_group_draining'
+    throw error
+  }
+  // Group drainage is the writer-safety boundary. Finalize here if the execa close callback has not yet
+  // won the race; its endedAt guard makes the later callback a no-op.
+  if (run.endedAt === undefined) {
+    run.status = 'cancelled'
+    finalizeRunOnClose(run, { isTerminated: true, signal: 'SIGKILL' }, '')
+  }
   return true
 }
 
@@ -3148,53 +4871,21 @@ function writeReadinessOverride(run: RunState, user: string, acknowledgedText?: 
   try {
     const dir = path.join(REPO_ROOT, run.runRoot)
     fs.mkdirSync(dir, { recursive: true })
-    fs.writeFileSync(path.join(dir, 'readiness_override.json'), JSON.stringify(trace, null, 2))
+    writeSupervisorRunFile(run.runRoot, 'readiness_override.json', JSON.stringify(trace, null, 2) + '\n')
   } catch (e) {
     console.warn(`[readiness] could not write override trace for ${run.ticker}:`, (e as Error)?.message || e)
   }
 }
 
-// Active, near-free credit probe (out-of-credits is rejected before generation).
+/** Active provider usage probe. null is an explicit "this CLI exposes no reliable usage" signal. */
+export async function checkProviderUsage(provider: RunProvider) {
+  const usage = await getProviderAdapter(provider).checkUsage()
+  if (usage) setCreditStatus(usage, provider)
+  return usage
+}
+
+// Legacy Claude-only API used by /api/credit-check. A transient probe failure preserves last-known data.
 export async function creditCheck(): Promise<ReturnType<typeof getCreditStatus>> {
-  const flags = await detectFlags()
-  const args: string[] = ['--print', 'ok', '--output-format', 'stream-json', '--verbose', '--model', 'haiku']
-  if (flags.has('--permission-mode')) args.push('--permission-mode', 'bypassPermissions')
-  if (flags.has('--max-turns')) args.push('--max-turns', '1')
-  try {
-    const child = execa(CLAUDE_BIN, args, { cwd: REPO_ROOT, env: process.env, reject: false, timeout: 30000 })
-    const { stdout } = await child
-    let sawRateLimit = false
-    for (const line of stdout.split('\n')) {
-      const t = line.trim()
-      if (!t) continue
-      try {
-        const obj = JSON.parse(t)
-        if (obj.type === 'rate_limit_event') {
-          const info = obj.rate_limit_info || {}
-          sawRateLimit = true
-          setCreditStatus({
-            ok: info.status !== 'rejected' && info.status !== 'blocked',
-            checked: true,
-            status: info.status,
-            rateLimitType: info.rateLimitType,
-            utilization: typeof info.utilization === 'number' ? info.utilization : undefined,
-            resetsAt: info.resetsAt,
-            isUsingOverage: info.isUsingOverage,
-            reason: info.overageDisabledReason || info.status,
-          })
-        }
-        if (obj.type === 'result' && !sawRateLimit) {
-          if (obj.is_error && /credit|overage|rate/i.test(JSON.stringify(obj))) {
-            setCreditStatus({ ok: false, reason: 'rate_limited', checked: true })
-          } else if (!obj.is_error) {
-            setCreditStatus({ ok: true, reason: 'ok', checked: true })
-          }
-        }
-      } catch {}
-    }
-  } catch {
-    // a transient probe failure (e.g. a concurrent headless spawn) is NOT a rate limit —
-    // keep the last-known usage rather than falsely flipping the badge to "rate limited"
-  }
-  return getCreditStatus()
+  try { await checkProviderUsage('claude') } catch { /* preserve last-known Claude usage */ }
+  return getCreditStatus('claude')
 }

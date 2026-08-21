@@ -4,10 +4,13 @@ from __future__ import annotations
 
 import json
 import hashlib
+import os
 import tempfile
 from pathlib import Path
+from unittest.mock import patch
 
 from commodity_decision_archive import ArchiveError, archive_decision, decision_id_for
+from execution_provenance import project, stamp_artifact
 from test_commodity_forecast_contract import _record
 
 
@@ -186,6 +189,74 @@ def main() -> int:
         else:
             raise AssertionError("a spoofed decision_id bypassed live route validation")
         _write(root / "decision_record.json", retired_projection)
+
+        # Cockpit publication stamps BEFORE content hashing: adding provider/model provenance must produce
+        # a distinct immutable decision ID, and the archived bytes must carry the exact runtime projection.
+        runtime_row = {
+            "schema_version": "1.0",
+            "attempt_id": "378f39d4-c634-4c48-8d38-b9432b3f14ac",
+            "provider": "codex",
+            "model": "gpt-5.6-sol",
+            "reasoning_level": "max",
+            "attribution": "recorded",
+            "scope": ["commodity-thesis"],
+            "role": "terminal_adjudicator",
+            "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+            "cli_version": "codex fixture",
+            "decision_artifacts": ["decision_record.json"],
+        }
+        saved_cockpit = os.environ.get("NOSTRA_COCKPIT_RUN")
+        saved_endpoint = os.environ.get("NOSTRA_PUBLICATION_ENDPOINT")
+        saved_token = os.environ.get("NOSTRA_PUBLICATION_TOKEN")
+
+        def supervisor_stamp(payload, timeout=0):
+            assert payload["phase"] == "archive"
+            stamp_artifact(root / "decision_record.json", project([runtime_row]))
+            held = {key: os.environ.pop(key, None) for key in (
+                "NOSTRA_COCKPIT_RUN", "NOSTRA_PUBLICATION_ENDPOINT", "NOSTRA_PUBLICATION_TOKEN",
+                "NOSTRA_PUBLICATION_SOCKET",
+            )}
+            try:
+                decision_id, archive_path, created = archive_decision(root)
+            finally:
+                for key, value in held.items():
+                    if value is not None:
+                        os.environ[key] = value
+            return {"ok": True, "phase": "archive", "archiveDecision": {
+                "decisionId": decision_id, "path": str(archive_path), "created": created,
+            }}
+
+        try:
+            os.environ["NOSTRA_COCKPIT_RUN"] = "1"
+            os.environ["NOSTRA_PUBLICATION_ENDPOINT"] = "http://127.0.0.1/supervisor"
+            os.environ["NOSTRA_PUBLICATION_TOKEN"] = "test-capability"
+            with patch("commodity_decision_archive.supervisor_post", side_effect=supervisor_stamp):
+                stamped_id, stamped_path, stamped_created = archive_decision(root)
+            stamped = json.loads(stamped_path.read_text())
+            assert stamped_created and stamped_id != v2_id
+            assert stamped["execution_provenance"]["source"] == "cockpit_runtime"
+            assert stamped["execution_provenance"]["decision_author"]["provider"] == "codex"
+            assert stamped_id == decision_id_for(stamped)
+            os.environ.pop("NOSTRA_PUBLICATION_TOKEN", None)
+            try:
+                archive_decision(root)
+            except ArchiveError as error:
+                assert "no live supervisor publication capability" in str(error)
+            else:
+                raise AssertionError("cockpit commodity publication without a capability was accepted")
+        finally:
+            if saved_cockpit is None:
+                os.environ.pop("NOSTRA_COCKPIT_RUN", None)
+            else:
+                os.environ["NOSTRA_COCKPIT_RUN"] = saved_cockpit
+            if saved_endpoint is None:
+                os.environ.pop("NOSTRA_PUBLICATION_ENDPOINT", None)
+            else:
+                os.environ["NOSTRA_PUBLICATION_ENDPOINT"] = saved_endpoint
+            if saved_token is None:
+                os.environ.pop("NOSTRA_PUBLICATION_TOKEN", None)
+            else:
+                os.environ["NOSTRA_PUBLICATION_TOKEN"] = saved_token
 
         bad_root = Path(temporary) / "SILVER"
         _write(bad_root / "decision_record.json", record)

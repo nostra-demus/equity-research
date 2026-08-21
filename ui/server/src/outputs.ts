@@ -1,6 +1,6 @@
 import fs from 'node:fs'
+import { createHash, randomUUID } from 'node:crypto'
 import path from 'node:path'
-import { createHash } from 'node:crypto'
 import { ANALYSES_DIR, REPO_ROOT } from './config'
 import { resolveInsideAnalyses, resolveInsidePrompts } from './sandbox'
 import { extractVerdict } from './verdict'
@@ -9,6 +9,7 @@ import {
 } from './ledger-corrections'
 import { diffDecisionRecords } from './run-diff'
 import { publishedGitCommit, publishedTreeAuthority, type PublishedTreeAuthority } from './published-git'
+import { listSwarms } from './swarms'
 
 // `resolve` defaults to the analyses/ sandbox (research). The chat reader passes resolveInsideRuns so it
 // can ground on any swarm's run folder; every other caller keeps the analyses-only default unchanged.
@@ -96,8 +97,8 @@ export function resolveRunRoot(opts: { runRoot?: string; ticker?: string; date?:
   return null
 }
 
-// ---- durable run-root markers (research runs) ----
-// Small on-disk flags written into a research run folder so a run's lifecycle survives the engine being
+// ---- durable run-root markers ----
+// Small on-disk flags written into a discovered swarm run folder so a run's lifecycle survives the engine being
 // killed/restarted (the in-memory run registry is wiped on restart — disk is the only surviving truth,
 // the same philosophy as the screener's .aborted/.target markers). Used by the resume supervisor:
 //   .interrupted — this run was broken by a plan-limit hit / a dropped connection / an external kill
@@ -105,42 +106,113 @@ export function resolveRunRoot(opts: { runRoot?: string; ticker?: string; date?:
 //                  the rate-limit resetsAt so a paused run knows when it may continue, even across a
 //                  reboot. Cleared when the run completes or is deliberately cancelled.
 //   .aborted     — the user deliberately stopped this run; never auto-resume it.
-// Containment: the marker path is rebuilt under ANALYSES_DIR and rejected if it escapes (a request-derived
-// runRoot can never steer a write outside analyses/). Every write/read is best-effort and never throws
+// Containment: the marker path is rebuilt under one discovered manifest's runsRoot and rejected if it
+// escapes. Every write/read is best-effort and never throws
 // into the run lifecycle.
-function analysesMarkerPath(runRoot: string, name: string): string | null {
+function runMarkerPath(runRoot: string, name: string): string | null {
   if (!/^\.[a-z_]+$/.test(name)) return null // fixed marker names only
   const abs = path.isAbsolute(runRoot) ? runRoot : path.join(REPO_ROOT, runRoot)
   const realRoot = path.resolve(abs)
-  if (realRoot !== ANALYSES_DIR && !realRoot.startsWith(ANALYSES_DIR + path.sep)) return null
+  const allowed = listSwarms().some((swarm) => {
+    const root = path.resolve(REPO_ROOT, swarm.runsRoot)
+    return realRoot !== root && realRoot.startsWith(`${root}${path.sep}`)
+  })
+  if (!allowed) return null
   return path.join(realRoot, name)
+}
+
+/**
+ * Atomically replace one supervisor-owned file below an existing, real run root without following a
+ * provider-created symlink. The provider may write sibling outputs concurrently; it can never redirect
+ * this write into Git/code/state through a target or ancestor link.
+ */
+export function writeSupervisorRunFile(
+  runRoot: string,
+  relative: string,
+  contents: string | Buffer,
+  mode = 0o600,
+): string {
+  if (!relative || path.isAbsolute(relative) || relative.includes('\\')
+      || path.posix.normalize(relative) !== relative || relative.split('/').includes('..')) {
+    throw new Error('unsafe supervisor run-file path')
+  }
+  const root = path.resolve(REPO_ROOT, runRoot)
+  const allowed = listSwarms().some((swarm) => {
+    const runsRoot = path.resolve(REPO_ROOT, swarm.runsRoot)
+    return root !== runsRoot && root.startsWith(`${runsRoot}${path.sep}`)
+  })
+  if (!allowed) throw new Error('supervisor run-file root is outside discovered run stores')
+  const rootInfo = fs.lstatSync(root)
+  if (!rootInfo.isDirectory() || rootInfo.isSymbolicLink() || fs.realpathSync(root) !== root) {
+    throw new Error('supervisor run-file root is not a real directory')
+  }
+  const target = path.resolve(root, relative)
+  if (!target.startsWith(`${root}${path.sep}`)) throw new Error('supervisor run-file escaped its root')
+  const parent = path.dirname(target)
+  const parentRelative = path.relative(root, parent)
+  let cursor = root
+  for (const segment of parentRelative ? parentRelative.split(path.sep) : []) {
+    cursor = path.join(cursor, segment)
+    const info = fs.lstatSync(cursor)
+    if (!info.isDirectory() || info.isSymbolicLink() || fs.realpathSync(cursor) !== cursor) {
+      throw new Error('supervisor run-file has a symlink/non-directory ancestor')
+    }
+  }
+  try {
+    const existing = fs.lstatSync(target)
+    if (!existing.isFile() || existing.isSymbolicLink() || fs.realpathSync(target) !== target) {
+      throw new Error('supervisor run-file target is not a regular file')
+    }
+  } catch (error: any) {
+    if (error?.code !== 'ENOENT') throw error
+  }
+  const temporary = path.join(parent, `.nostra-supervisor-${randomUUID()}.tmp`)
+  const descriptor = fs.openSync(
+    temporary,
+    fs.constants.O_WRONLY | fs.constants.O_CREAT | fs.constants.O_EXCL | (fs.constants.O_NOFOLLOW ?? 0),
+    mode,
+  )
+  try {
+    fs.writeFileSync(descriptor, contents)
+    fs.fsyncSync(descriptor)
+  } finally {
+    fs.closeSync(descriptor)
+  }
+  try {
+    fs.renameSync(temporary, target)
+    const directory = fs.openSync(parent, fs.constants.O_RDONLY)
+    try { fs.fsyncSync(directory) } finally { fs.closeSync(directory) }
+  } catch (error) {
+    try { fs.unlinkSync(temporary) } catch { /* absent */ }
+    throw error
+  }
+  return target
 }
 
 export function writeRunMarker(runRoot: string | null, name: string, body: Record<string, unknown> = {}): void {
   if (!runRoot) return
-  const p = analysesMarkerPath(runRoot, name)
+  const p = runMarkerPath(runRoot, name)
   if (!p) return
   try {
-    fs.mkdirSync(path.dirname(p), { recursive: true })
-    fs.writeFileSync(p, JSON.stringify({ ...body, at: new Date().toISOString() }) + '\n')
+    writeSupervisorRunFile(runRoot, name, JSON.stringify({ ...body, at: new Date().toISOString() }) + '\n')
   } catch { /* best-effort marker */ }
 }
 
 export function clearRunMarker(runRoot: string | null, name: string): void {
   if (!runRoot) return
-  const p = analysesMarkerPath(runRoot, name)
+  const p = runMarkerPath(runRoot, name)
   if (!p) return
   try { fs.rmSync(p, { force: true }) } catch { /* best-effort */ }
 }
 
 export function readRunMarker(runRoot: string, name: string): Record<string, any> | null {
-  const p = analysesMarkerPath(runRoot, name)
+  const p = runMarkerPath(runRoot, name)
   if (!p) return null
   try { return JSON.parse(fs.readFileSync(p, 'utf8')) } catch { return null }
 }
 
 export function hasRunMarker(runRoot: string, name: string): boolean {
-  const p = analysesMarkerPath(runRoot, name)
+  const p = runMarkerPath(runRoot, name)
   if (!p) return false
   try { return fs.existsSync(p) } catch { return false }
 }

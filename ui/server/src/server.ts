@@ -19,7 +19,12 @@ import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, deleteDriveFileStrict, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED, readWatchlistFile, uploadToWatchlist } from './drive'
 import { attachmentExists, attachmentPath, deleteAttachment, readAttachment, saveAttachment, watchlistFilesAvailable } from './watchlist-files'
-import { assertClaudeCli, cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, isSealedResearchRun, launch, reapDeadSubjectRuns, sigIdFor, subjectChainActive, todayDate, warmLaunchProbes } from './launcher'
+import {
+  assertClaudeCli, assertProviderAvailable, cancel, cancelAll, cancelSubject, checkProviderUsage,
+  creditCheck, decideReadiness, estimate, isSealedResearchRun, launch, reapDeadSubjectRuns,
+  sigIdFor, subjectChainActive, supervisePublication, todayDate, warmLaunchProbes,
+  type RunProviderSelection,
+} from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed, applyActiveWeightsTo } from './news/feed'
 import { getPulse } from './news/commodity-pulse'
@@ -96,6 +101,7 @@ import {
   writePendingModulePublication,
 } from './module-publication'
 import { retryBoundModulePublication, type CommitRunAttempt } from './module-publication-git'
+import { readLastProviderSelection } from './execution-provenance'
 import { intakePoolNewest, latestPlanFileFor, readIntakePlan, resolveIntakeRunRoot, type IntakeReceiptIntent } from './intake'
 import { finishedOwnerConflict, listFinishedIntakeOwners, resolveUniqueFinishedIntakeOwner, type FinishedIntakeOwner } from './intake-owner'
 import { getBridgeStatus, getBridgeSubjectNames, startBridgeScheduler } from './bridge-scheduler'
@@ -124,6 +130,8 @@ import type { RunKind, RunStatus } from './types'
 import { MANIFEST_SUBJECT_RE, normalizeDataSubject } from './data-subject'
 import { createMemoryReader } from './memory'
 import { purgeReelTempDirs, ReelTranscriptError, transcribeInstagramReel } from './reel-transcript'
+import { getProviderAdapter, isProviderEnabled, isRunProvider, listProviderAdapters, providerDisabledReason } from './providers/registry'
+import type { RunProvider } from './providers/types'
 
 // async execFile (never execFileSync in a request handler — a python board rebuild takes seconds and
 // execFileSync would freeze the single event loop, stalling every other request incl. SSE pings; see
@@ -522,8 +530,45 @@ app.get('/api/data-readiness/:ticker', async (req, reply) => {
 })
 
 // ---------- credit ----------
-app.get('/api/credit', async () => getCreditStatus())
+app.get('/api/credit', async () => getCreditStatus('claude'))
 app.post('/api/credit-check', async () => creditCheck())
+
+async function providerStatus(provider: RunProvider, checkUsage = false) {
+  const adapter = getProviderAdapter(provider)
+  const enabled = isProviderEnabled(provider)
+  const availability = enabled
+    ? await adapter.getAvailability({ refresh: checkUsage })
+    : { available: false, availability: 'unavailable' as const, reason: providerDisabledReason(provider) }
+  let usage = enabled && getCreditStatus(provider).checked ? getCreditStatus(provider) : null
+  if (checkUsage && enabled && availability.available) {
+    try { usage = await checkProviderUsage(provider) } catch { /* availability remains authoritative */ }
+  }
+  const resolved = adapter.resolveProfile({})
+  return {
+    provider,
+    label: adapter.profile.label,
+    enabled,
+    available: enabled && availability.available,
+    availability: availability.availability,
+    checked: true,
+    reason: availability.reason,
+    profile: resolved.executionProfile,
+    usage,
+    cliVersion: availability.cliVersion,
+  }
+}
+
+app.get('/api/providers', async () => {
+  const providers = await Promise.all(listProviderAdapters().map((adapter) => providerStatus(adapter.profile.provider)))
+  return { providers, checkedAt: new Date().toISOString() }
+})
+
+app.post('/api/providers/:provider/check', async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  const provider = (req.params as any).provider
+  if (!isRunProvider(provider)) return reply.code(404).send({ error: 'unknown provider' })
+  return providerStatus(provider, true)
+})
 
 // ---------- identity + activity log ----------
 // who am I (per Cloudflare Access) — drives the "signed in as" line in the cockpit
@@ -562,6 +607,7 @@ app.get('/api/activity', async (req) => {
     kind: kinds.includes(q.kind) ? q.kind : undefined,
     user: typeof q.user === 'string' && q.user ? q.user.slice(0, 200) : undefined,
     status: statuses.includes(q.status) ? q.status : undefined,
+    provider: isRunProvider(q.provider) ? q.provider : undefined,
     q: typeof q.q === 'string' ? q.q.slice(0, 100) : undefined,
     limit: num(q.limit),
   }, screenerSubjectLabels())
@@ -572,6 +618,19 @@ app.get('/api/activity', async (req) => {
 // subject shape (signal: optional SIG id / none for a new signal; sweep: nothing; handoff: ticker).
 const EXACT_DECISION_LAUNCH_CONTRACT = 'exact-decision-launch/1' as const
 const EXACT_INTAKE_ORB_CONTRACT = 'exact-intake-orb/1' as const
+const ProviderLaunchFields = {
+  // This is the ONE compatibility boundary: an old client with no provider field means Claude.
+  provider: z.enum(['claude', 'codex']).default('claude'),
+  model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
+  reasoningLevel: z.string().regex(/^[a-z0-9_-]{1,24}$/i).optional(),
+  expectedProfileKey: z.string().min(1).max(240).optional(),
+}
+const ProviderQuery = z.object({
+  provider: z.enum(['claude', 'codex']).default('claude'),
+  model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
+  reasoningLevel: z.string().regex(/^[a-z0-9_-]{1,24}$/i).optional(),
+})
+const ProviderBody = z.object(ProviderLaunchFields)
 const ExactPlanBindingFields = {
   planPath: z.string().min(1).max(700).optional(),
   planSha256: z.string().regex(/^sha256:[a-f0-9]{64}$/).optional(),
@@ -638,6 +697,7 @@ function exactDecisionLaunchBinding(
 
 function boundLaunchEstimate(
   reply: FastifyReply,
+  selection: RunProviderSelection,
   kind: RunKind,
   subject: string,
   module: string | undefined,
@@ -662,7 +722,7 @@ function boundLaunchEstimate(
     if (runRoot || decisionFingerprint || planPath || planSha256 || sourceDecisionFingerprint) {
       return reply.code(400).send({ error: 'exact call binding is rerun-only' })
     }
-    return estimate(kind, subject, module, agent, swarm)
+    return estimate(kind, subject, selection.provider, module, agent, swarm, selection.model, selection.reasoningLevel)
   }
   const binding = exactDecisionLaunchBinding(swarm || RESEARCH_SWARM_ID, subject, runRoot, decisionFingerprint)
   if (!binding) return reply.code(409).send({ error: 'selected_decision_required' })
@@ -674,19 +734,26 @@ function boundLaunchEstimate(
     : undefined
   if (requestedPlan && !intakePlan) return reply.code(409).send({ error: 'intake_plan_changed' })
   return {
-    ...estimate(kind, subject, module, agent, swarm),
+    ...estimate(kind, subject, selection.provider, module, agent, swarm, selection.model, selection.reasoningLevel),
     exactDecisionBinding: exactDecisionLaunchReceipt(binding, intakePlan ?? undefined),
   }
 }
 
 app.get('/api/launch/estimate', async (req, reply) => {
   const q = req.query as any
+  const providerParsed = ProviderQuery.safeParse(q)
+  if (!providerParsed.success) return reply.code(400).send({ error: 'invalid provider profile' })
+  const selection = providerParsed.data
   const kind = q.kind as RunKind
   // generic constellation swarm (e.g. commodity): reused full/module/agent kinds scoped by ?swarm=
   const swarm = q.swarm as string | undefined
   if (swarm && swarm !== 'research') {
     if (!listSwarms().some((s) => s.id === swarm)) return reply.code(400).send({ error: 'unknown swarm' })
-    if (!['full', 'module', 'agent', 'rerun'].includes(kind)) return reply.code(400).send({ error: 'bad kind for swarm' })
+    if (!['full', 'module', 'agent', 'rerun', 'review'].includes(kind)) return reply.code(400).send({ error: 'bad kind for swarm' })
+    const manifest = listSwarms().find((item) => item.id === swarm)
+    if (kind === 'review' && (!manifest?.reviewCommand || !manifest.calibrator || !manifest.calibrationRoot)) {
+      return reply.code(400).send({ error: `swarm ${swarm} does not declare tracked review + calibration support` })
+    }
     const subject = normalizeDataSubject(swarm, q.ticker)
     if (!subject) return reply.code(400).send({ error: 'bad subject' })
     if (kind === 'module' || kind === 'agent' || kind === 'rerun') {
@@ -694,7 +761,7 @@ app.get('/api/launch/estimate', async (req, reply) => {
     }
     if ((kind === 'agent' || (kind === 'rerun' && q.agent))
         && !agentNamesForModule(q.module, swarm).includes(q.agent)) return reply.code(400).send({ error: 'unknown agent for module' })
-    return boundLaunchEstimate(reply, kind, subject, q.module, q.agent, swarm, q.runRoot, q.decisionFingerprint,
+    return boundLaunchEstimate(reply, selection, kind, subject, q.module, q.agent, swarm, q.runRoot, q.decisionFingerprint,
       q.planPath, q.planSha256, q.sourceDecisionFingerprint)
   }
   const researchKinds = ['full', 'module', 'agent', 'rerun', 'review', 'track']
@@ -702,12 +769,12 @@ app.get('/api/launch/estimate', async (req, reply) => {
   if (![...researchKinds, ...screenerKinds].includes(kind)) return reply.code(400).send({ error: 'bad kind' })
   if (researchKinds.includes(kind)) {
     if (!TICKER_RE.test(q.ticker || '')) return reply.code(400).send({ error: 'bad ticker' })
-    return boundLaunchEstimate(reply, kind, q.ticker, q.module, q.agent, undefined, q.runRoot, q.decisionFingerprint,
+    return boundLaunchEstimate(reply, selection, kind, q.ticker, q.module, q.agent, undefined, q.runRoot, q.decisionFingerprint,
       q.planPath, q.planSha256, q.sourceDecisionFingerprint)
   }
   if (kind === 'screener-agent' && !SIG_RE.test(q.ticker || '')) return reply.code(400).send({ error: 'bad signal id' })
   if (kind === 'handoff' && !TICKER_RE.test(q.ticker || '')) return reply.code(400).send({ error: 'bad ticker' })
-  return boundLaunchEstimate(reply, kind, q.ticker || '', q.module, q.agent, undefined, q.runRoot, q.decisionFingerprint,
+  return boundLaunchEstimate(reply, selection, kind, q.ticker || '', q.module, q.agent, undefined, q.runRoot, q.decisionFingerprint,
     q.planPath, q.planSha256, q.sourceDecisionFingerprint)
 })
 
@@ -715,6 +782,7 @@ app.get('/api/launch/estimate', async (req, reply) => {
 // One discriminated body per kind family. Research kinds keep their EXACT pre-swarm contract
 // (ticker + typed full-run confirmation); screener kinds carry their own subjects.
 const ResearchLaunchBody = z.object({
+  ...ProviderLaunchFields,
   kind: z.enum(['full', 'module', 'agent', 'rerun', 'review', 'track']),
   ticker: z.string().regex(TICKER_RE),
   module: z.string().regex(MODULE_RE).optional(),
@@ -734,6 +802,7 @@ const INB_RE = /^INB-\d{8}-\d{3,}$/
 // "Complete the thesis": the caller sends the modules it wants REUSED (carried, not re-run). Everything
 // else in the graph runs. `reuse` is checked against the server's own plan before anything is copied.
 const ThesisPlanRunBody = z.object({
+  ...ProviderLaunchFields,
   ticker: z.string().regex(TICKER_RE),
   reuse: z.array(z.string().regex(MODULE_RE)).max(64).default([]),
   // REQUIRED, so an omitted field can never default to "research" and launch a research pipeline against
@@ -745,6 +814,7 @@ const ThesisPlanRunBody = z.object({
 
 // Launch ONE module of a completion plan, resuming from the orbs already on disk (the RUN pill on a Run row).
 const ThesisPlanModuleBody = z.object({
+  ...ProviderLaunchFields,
   ticker: z.string().regex(TICKER_RE),
   module: z.string().regex(MODULE_RE),
   // The caller's reuse set — governs which ancestors get carried into the target root before the module runs.
@@ -772,6 +842,7 @@ const ThesisPlanModulePublishBody = z.object({
 }).strict()
 
 const SignalLaunchBody = z.object({
+  ...ProviderLaunchFields,
   kind: z.literal('signal'),
   // relaunch an existing signal by id…
   sigId: z.string().regex(SIG_RE).optional(),
@@ -798,9 +869,10 @@ const SignalLaunchBody = z.object({
   model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
 })
 
-const SweepLaunchBody = z.object({ kind: z.literal('sweep'), model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional() })
+const SweepLaunchBody = z.object({ ...ProviderLaunchFields, kind: z.literal('sweep'), model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional() })
 
 const ScreenerAgentLaunchBody = z.object({
+  ...ProviderLaunchFields,
   kind: z.literal('screener-agent'),
   sigId: z.string().regex(SIG_RE),
   module: z.string().regex(MODULE_RE),
@@ -809,18 +881,40 @@ const ScreenerAgentLaunchBody = z.object({
 })
 
 const HandoffLaunchBody = z.object({
+  ...ProviderLaunchFields,
   kind: z.literal('handoff'),
   thesisId: z.string().regex(THESIS_RE),
   ticker: z.string().regex(TICKER_RE),
   model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
 })
 
+const ParityLaunchBody = z.object({
+  provider: z.enum(['claude', 'codex']),
+  model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
+  reasoningLevel: z.string().regex(/^[a-z0-9_-]{1,24}$/i).optional(),
+  expectedProfileKey: z.string().min(1).max(240).optional(),
+  claudeRunRoot: z.string().regex(/^[A-Za-z0-9._/-]{1,500}$/),
+  codexRunRoot: z.string().regex(/^[A-Za-z0-9._/-]{1,500}$/),
+  freezeReceipt: z.string().regex(/^[A-Za-z0-9._/-]{1,500}$/),
+  outputDir: z.string().regex(/^[A-Za-z0-9._/-]{1,500}$/),
+}).strict()
+
+const ParityCanaryLaunchBody = z.object({
+  provider: z.enum(['claude', 'codex']),
+  model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i),
+  reasoningLevel: z.string().regex(/^[a-z0-9_-]{1,24}$/i),
+  expectedProfileKey: z.string().min(1).max(240),
+  runRoot: z.string().regex(/^[A-Za-z0-9._/-]{1,500}$/),
+  freezeReceipt: z.string().regex(/^[A-Za-z0-9._/-]{1,500}$/),
+}).strict()
+
 // A generic constellation swarm (e.g. commodity) REUSES full/module/agent, scoped by an explicit
 // `swarm`; `ticker` carries the subject id (a commodity like GOLD). Validated against the discovered
 // roster below, so no swarm/module/agent name is hardcoded (CLAUDE.md §26).
 const SWARM_ID_RE = /^[a-z0-9-]{1,40}$/
 const SwarmLaunchBody = z.object({
-  kind: z.enum(['full', 'module', 'agent', 'rerun']),
+  ...ProviderLaunchFields,
+  kind: z.enum(['full', 'module', 'agent', 'rerun', 'review']),
   swarm: z.string().regex(SWARM_ID_RE),
   // A manifest owns its unit id. Research keeps the stricter ticker grammar below; a discovered swarm
   // may legitimately surface a longer (but still single-segment) subject. The shared normalizer after
@@ -828,6 +922,7 @@ const SwarmLaunchBody = z.object({
   ticker: z.string().min(1).max(64),
   module: z.string().regex(MODULE_RE).optional(),
   agent: z.string().regex(AGENT_RE).optional(),
+  window: z.enum(['30d', '90d', '180d', '365d', '24m', '36m', 'tactical', 'strategic', 'ad-hoc', 'post-mortem']).optional(),
   model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
   confirmTicker: z.string().optional(),
   runRoot: z.string().min(1).max(300).optional(),
@@ -838,6 +933,7 @@ const SwarmLaunchBody = z.object({
 // browser can therefore never price against a current server, then POST to an older server that silently
 // strips exact-decision fields during a rolling restart: the older server has no path and returns 404.
 const ExactRerunLaunchBody = z.object({
+  ...ProviderLaunchFields,
   kind: z.literal('rerun'),
   ticker: z.string().min(1).max(64),
   swarm: z.string().regex(SWARM_ID_RE).optional(),
@@ -854,7 +950,7 @@ app.post('/api/launch/exact', { config: { rateLimit: { max: 60, timeWindow: '1 m
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
   const parsed = ExactRerunLaunchBody.safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid exact rerun body', detail: parsed.error.flatten() })
-  const { ticker: rawSubject, module, agent, model, force, runRoot, decisionFingerprint,
+  const { ticker: rawSubject, module, agent, provider, reasoningLevel, model, expectedProfileKey, force, runRoot, decisionFingerprint,
     planPath, planSha256, sourceDecisionFingerprint } = parsed.data
   const swarmId = parsed.data.swarm ?? RESEARCH_SWARM_ID
   if (!listSwarms().some((s) => s.id === swarmId)) return reply.code(400).send({ error: `unknown swarm ${swarmId}` })
@@ -889,7 +985,7 @@ app.post('/api/launch/exact', { config: { rateLimit: { max: 60, timeWindow: '1 m
   try {
     return await withSubjectLock(subjectMutationLockKey(swarmId, subject), async () => {
       const out = await launch({
-        kind: 'rerun', ticker: subject, module, agent, model, force,
+        kind: 'rerun', ticker: subject, module, agent, provider, reasoningLevel, model, expectedProfileKey, force,
         ...(swarmId !== RESEARCH_SWARM_ID ? { swarm: swarmId } : {}),
         ...binding, decisionRunRoot: binding.runRoot, intakeReceipt, user, userVia,
       })
@@ -901,6 +997,58 @@ app.post('/api/launch/exact', { config: { rateLimit: { max: 60, timeWindow: '1 m
     }
     const body = e?.body && typeof e.body === 'object' ? e.body : null
     return reply.code(e?.statusCode || 500).send({ error: e?.message || 'launch failed', ...(body || {}) })
+  }
+})
+
+// Operator-only surface for the release parity command. It is intentionally absent from the normal UI,
+// but unlike a direct CLI invocation it receives the live supervisor capability required for adjudication.
+app.post('/api/internal/provider-parity/canary', { config: { rateLimit: { max: 4, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  if (process.env.ENGINE_PROVIDER_PARITY_ENABLED !== '1') {
+    return reply.code(404).send({ error: 'provider parity launch is disabled' })
+  }
+  const { user, userVia } = identify(req)
+  if (!isDispatchAdmin(user)) return reply.code(403).send({ error: 'not authorized to launch provider parity (admin only)' })
+  const parsed = ParityCanaryLaunchBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid parity canary body', detail: parsed.error.flatten() })
+  try {
+    return await launch({
+      kind: 'full', provider: parsed.data.provider, model: parsed.data.model,
+      reasoningLevel: parsed.data.reasoningLevel, expectedProfileKey: parsed.data.expectedProfileKey,
+      parityCanary: { runRoot: parsed.data.runRoot, freezeReceipt: parsed.data.freezeReceipt },
+      user, userVia,
+    })
+  } catch (error: any) {
+    const body = error?.body && typeof error.body === 'object' ? error.body : null
+    return reply.code(error?.statusCode || 500).send({ error: error?.message || 'parity canary launch failed', ...(body || {}) })
+  }
+})
+
+app.post('/api/internal/provider-parity/launch', { config: { rateLimit: { max: 6, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  // Paid release-canary execution is deliberately absent until the operator enables the gate, and even
+  // then is restricted to the same explicit admin allow-list as privileged coding/pipeline dispatch.
+  // A local Origin check and rate limit are CSRF/abuse controls, not authorization.
+  if (process.env.ENGINE_PROVIDER_PARITY_ENABLED !== '1') {
+    return reply.code(404).send({ error: 'provider parity launch is disabled' })
+  }
+  const { user, userVia } = identify(req)
+  if (!isDispatchAdmin(user)) return reply.code(403).send({ error: 'not authorized to launch provider parity (admin only)' })
+  const parsed = ParityLaunchBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid parity launch body', detail: parsed.error.flatten() })
+  try {
+    return await launch({
+      kind: 'parity', provider: parsed.data.provider, model: parsed.data.model,
+      reasoningLevel: parsed.data.reasoningLevel, expectedProfileKey: parsed.data.expectedProfileKey, user, userVia,
+      parity: {
+        claudeRunRoot: parsed.data.claudeRunRoot,
+        codexRunRoot: parsed.data.codexRunRoot,
+        freezeReceipt: parsed.data.freezeReceipt,
+        outputDir: parsed.data.outputDir,
+      },
+    })
+  } catch (error: any) {
+    return reply.code(error?.statusCode || 500).send({ error: error?.message || 'parity launch failed' })
   }
 })
 
@@ -926,7 +1074,12 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
     if (!parsed.data.sigId && !parsed.data.intake) return reply.code(400).send({ error: 'signal launch needs sigId or intake' })
     if (parsed.data.until && !listModuleNames('screener').includes(parsed.data.until)) return reply.code(400).send({ error: 'unknown screener module' })
     try {
-      const out = await launch({ kind, ticker: parsed.data.sigId, intake: parsed.data.intake, inboxId: parsed.data.inboxId, module: parsed.data.until, overridePromote: parsed.data.override, model: parsed.data.model, user, userVia })
+      const out = await launch({
+        kind, ticker: parsed.data.sigId, intake: parsed.data.intake, inboxId: parsed.data.inboxId,
+        module: parsed.data.until, overridePromote: parsed.data.override, provider: parsed.data.provider,
+        reasoningLevel: parsed.data.reasoningLevel, model: parsed.data.model,
+        expectedProfileKey: parsed.data.expectedProfileKey, user, userVia,
+      })
       // an Inbox-card launch marks its row consumed so it leaves the lane (best-effort: a failed
       // mark only leaves the row visible — a duplicate click is rejected by SIG-id exclusivity).
       // Deferred past the reply: refreshBoard shells a synchronous python board rebuild (~0.3-2s)
@@ -951,7 +1104,8 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
     const parsed = SweepLaunchBody.safeParse(req.body)
     if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
     try {
-      return await launch({ kind, model: parsed.data.model, user, userVia })
+      return await launch({ kind, provider: parsed.data.provider, reasoningLevel: parsed.data.reasoningLevel,
+        model: parsed.data.model, expectedProfileKey: parsed.data.expectedProfileKey, user, userVia })
     } catch (e: any) {
       return fail(e)
     }
@@ -959,11 +1113,11 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
   if (kind === 'screener-agent') {
     const parsed = ScreenerAgentLaunchBody.safeParse(req.body)
     if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
-    const { sigId, module, agent, model } = parsed.data
+    const { sigId, module, agent, provider, reasoningLevel, model, expectedProfileKey } = parsed.data
     if (!listModuleNames('screener').includes(module)) return reply.code(400).send({ error: 'unknown screener module' })
     if (!agentNamesForModule(module, 'screener').includes(agent)) return reply.code(400).send({ error: 'unknown agent for module' })
     try {
-      return await launch({ kind, ticker: sigId, module, agent, model, user, userVia })
+      return await launch({ kind, ticker: sigId, module, agent, provider, reasoningLevel, model, expectedProfileKey, user, userVia })
     } catch (e: any) {
       return fail(e)
     }
@@ -974,7 +1128,9 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
     const ownerConflict = manualPoolOwnerError(RESEARCH_SWARM_ID, parsed.data.ticker)
     if (ownerConflict) return manualPoolOwnerReply(reply, parsed.data.ticker, ownerConflict)
     try {
-      return await launch({ kind, ticker: parsed.data.ticker, thesisId: parsed.data.thesisId, model: parsed.data.model,
+      return await launch({ kind, ticker: parsed.data.ticker, thesisId: parsed.data.thesisId,
+        provider: parsed.data.provider, reasoningLevel: parsed.data.reasoningLevel, model: parsed.data.model,
+        expectedProfileKey: parsed.data.expectedProfileKey,
         sharedPoolTarget: { swarm: RESEARCH_SWARM_ID, subject: parsed.data.ticker }, user, userVia })
     } catch (e: any) {
       return fail(e)
@@ -988,9 +1144,13 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
   if (bodySwarm && bodySwarm !== 'research') {
     const parsed = SwarmLaunchBody.safeParse(req.body)
     if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
-    const { swarm, ticker: rawSubject, module, agent, model, confirmTicker, runRoot, decisionFingerprint } = parsed.data
+    const { swarm, ticker: rawSubject, module, agent, window, provider, reasoningLevel, model, expectedProfileKey, confirmTicker, runRoot, decisionFingerprint } = parsed.data
     const skind = parsed.data.kind
-    if (!listSwarms().some((s) => s.id === swarm)) return reply.code(400).send({ error: `unknown swarm ${swarm}` })
+    const swarmManifest = listSwarms().find((s) => s.id === swarm)
+    if (!swarmManifest) return reply.code(400).send({ error: `unknown swarm ${swarm}` })
+    if (skind === 'review' && (!swarmManifest.reviewCommand || !swarmManifest.calibrator || !swarmManifest.calibrationRoot)) {
+      return reply.code(400).send({ error: `swarm ${swarm} does not declare tracked review + calibration support` })
+    }
     const subject = normalizeDataSubject(swarm, rawSubject)
     if (!subject || isReservedDataFolder(subject)) return reply.code(400).send({ error: 'bad subject' })
     if (skind === 'module' || skind === 'agent' || skind === 'rerun') {
@@ -1015,7 +1175,7 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
       : null
     if (skind === 'rerun' && !exactBinding) return reply.code(409).send({ error: 'selected_decision_required' })
     try {
-      const out = await launch({ kind: skind, swarm, ticker: subject, module, agent, model, user, userVia,
+      const out = await launch({ kind: skind, swarm, ticker: subject, module, agent, window, provider, reasoningLevel, model, expectedProfileKey, user, userVia,
         ...(exactBinding ? { ...exactBinding, decisionRunRoot: exactBinding.runRoot } : {}) })
       return exactBinding
         ? { ...out, preflight: { ...out.preflight, exactDecisionBinding: exactDecisionLaunchReceipt(exactBinding) } }
@@ -1028,7 +1188,7 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
   // ---- research kinds (pre-swarm contract, unchanged) ----
   const parsed = ResearchLaunchBody.safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
-  const { ticker, module, agent, model, confirmTicker, runRoot, decisionFingerprint } = parsed.data
+  const { ticker, module, agent, provider, reasoningLevel, model, expectedProfileKey, confirmTicker, runRoot, decisionFingerprint } = parsed.data
   const rkind = parsed.data.kind
   // review (file an outcome review) and track (rebuild the calls dashboard) need no upstream deps and
   // ignore module/agent — they follow the dep-free `full` admission path. review defaults to ad-hoc.
@@ -1066,7 +1226,7 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
 
   try {
     return await withSubjectLock(subjectMutationLockKey(RESEARCH_SWARM_ID, ticker), async () => {
-      const out = await launch({ kind: rkind, ticker, module, agent, window, model, user, userVia, force: parsed.data.force,
+      const out = await launch({ kind: rkind, ticker, module, agent, window, provider, reasoningLevel, model, expectedProfileKey, user, userVia, force: parsed.data.force,
         ...(exactBinding ? { ...exactBinding, decisionRunRoot: exactBinding.runRoot } : {}) })
       return exactBinding
         ? { ...out, preflight: { ...out.preflight, exactDecisionBinding: exactDecisionLaunchReceipt(exactBinding) } }
@@ -1106,9 +1266,17 @@ app.get('/api/runs/:runId', async (req, reply) => {
     ticker: run.ticker,
     module: run.module,
     agent: run.agent,
+    provider: run.provider,
+    executionProfile: run.executionProfile,
+    profileKey: run.profileKey,
+    model: run.model,
+    reasoningLevel: run.reasoningLevel,
+    cliVersion: run.cliVersion,
     status: run.status,
     swarmId: run.swarmId,
     runRoot: run.runRoot,
+    chainId: run.chainId,
+    executionEpoch: run.provenanceEpoch,
     costUsd: run.costUsd,
     numTurns: run.numTurns,
     durationMs: run.durationMs,
@@ -1124,8 +1292,36 @@ app.get('/api/runs/:runId', async (req, reply) => {
 })
 
 // ---------- cancel ----------
+const SupervisorPublicationBody = z.object({
+  phase: z.enum(['stamp', 'archive', 'commit', 'attest', 'verify-attestation']).optional(),
+  message: z.string().max(500).optional(),
+  pathspecs: z.array(z.string().max(500)).max(32).optional(),
+  comparisonArtifact: z.string().max(1000).optional(),
+  freezeReceipt: z.string().max(1000).optional(),
+  receiptOutput: z.string().max(1000).optional(),
+}).strict()
+app.post('/api/internal/runs/:runId/publication', {
+  config: { rateLimit: { max: 30, timeWindow: '1 minute' } },
+}, async (req, reply) => {
+  const parsed = SupervisorPublicationBody.safeParse(req.body ?? {})
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid publication request' })
+  const raw = req.headers['x-nostra-publication-token']
+  const token = Array.isArray(raw) ? raw[0] : raw
+  if (typeof token !== 'string' || !token) return reply.code(403).send({ error: 'missing publication capability' })
+  try {
+    return await supervisePublication(String((req.params as any).runId || ''), token, parsed.data)
+  } catch (error: any) {
+    const run = getRun(String((req.params as any).runId || ''))
+    if (run) run.publicationError = String(error?.message || error).slice(0, 1000)
+    return reply.code(error?.statusCode || 409).send({ error: String(error?.message || error) })
+  }
+})
+
 app.post('/api/runs/:runId/cancel', async (req, reply) => {
-  const ok = await cancel((req.params as any).runId)
+  let ok: boolean
+  try { ok = await cancel((req.params as any).runId) } catch (error: any) {
+    return reply.code(error?.statusCode || 409).send({ error: String(error?.message || error), code: error?.code })
+  }
   if (!ok) return reply.code(404).send({ error: 'no such run / already ended' })
   return { ok: true, status: 'cancelled' }
 })
@@ -1152,7 +1348,7 @@ app.post('/api/runs/subject/:swarm/:subject/cancel', async (req, reply) => {
     const cancelled = await cancelSubject(subject, swarm)
     return { ok: true, cancelled, chainsHalted: true }
   } catch (e: any) {
-    return reply.code(e?.statusCode || 500).send({ error: e?.message || 'could not stop subject runs' })
+    return reply.code(e?.statusCode || 409).send({ error: e?.message || 'could not stop subject runs', code: e?.code })
   }
 })
 
@@ -1921,7 +2117,8 @@ app.post('/api/intake/:subject/analyze-exact', { config: { rateLimit: { max: 30,
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
   const parsed = IntakeParams.safeParse(req.params)
   const query = IntakeQuery.safeParse(req.query ?? {})
-  if (!parsed.success || !query.success) return reply.code(400).send({ error: 'bad intake request' })
+  const providerBody = ProviderBody.safeParse(req.body ?? {})
+  if (!parsed.success || !query.success || !providerBody.success) return reply.code(400).send({ error: 'bad intake request' })
   const swarmId = query.data.swarm ?? RESEARCH_SWARM_ID
   const subject = normalizeDataSubject(swarmId, parsed.data.subject)
   const { user, userVia } = identify(req)
@@ -1969,6 +2166,10 @@ app.post('/api/intake/:subject/analyze-exact', { config: { rateLimit: { max: 30,
       try {
         const out = await launch({
           kind: 'doc-intake', ticker: subject,
+          provider: providerBody.data.provider,
+          model: providerBody.data.model,
+          reasoningLevel: providerBody.data.reasoningLevel,
+          expectedProfileKey: providerBody.data.expectedProfileKey,
           ...(swarmId !== RESEARCH_SWARM_ID ? { swarm: swarmId } : {}),
           runRoot: selected.runRoot,
           decisionRunRoot: selected.runRoot,
@@ -1997,7 +2198,7 @@ app.post('/api/intake/:subject/analyze-exact', { config: { rateLimit: { max: 30,
 // stays the only thing that prices a run, so the number on the button can never drift from the number the
 // launcher will charge. Omit it for the safe default (reuse everything finished-and-current).
 app.get('/api/thesis-plan', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req, reply) => {
-  const q = req.query as { ticker?: string; swarm?: string; reuse?: string; module?: string }
+  const q = req.query as { ticker?: string; swarm?: string; reuse?: string; module?: string; provider?: string; model?: string; reasoningLevel?: string }
   // isValidTicker, not the bare TICKER_RE: the regex admits ".." (its charclass includes `.`), and
   // `dataPoolNewest('..')` would synchronously walk the whole repo — a blocking scan on the event loop.
   if (!q.ticker || !isValidTicker(q.ticker)) return reply.code(400).send({ error: 'bad ticker' })
@@ -2006,7 +2207,9 @@ app.get('/api/thesis-plan', { config: { rateLimit: { max: 600, timeWindow: '1 mi
   const reuse = q.reuse === undefined ? undefined : q.reuse.split(',').filter(Boolean)
   if (reuse && (reuse.length > 64 || reuse.some((m) => !MODULE_RE.test(m)))) return reply.code(400).send({ error: 'bad reuse set' })
   try {
-    const plan = thesisPlan(q.ticker, q.swarm || undefined, reuse, q.module)
+    const provider = ProviderQuery.safeParse(q)
+    if (!provider.success) return reply.code(400).send({ error: 'invalid provider profile' })
+    const plan = thesisPlan(q.ticker, q.swarm || undefined, reuse, q.module, provider.data)
     // A finished local module normally reads `done`/non-runnable. A durable failed-publication marker is
     // therefore attached explicitly so the heading offers a publish-only recovery instead of re-running paid
     // orbs. Re-hash on every plan read; edited/stale bytes never receive the affordance.
@@ -2023,7 +2226,7 @@ app.get('/api/thesis-plan', { config: { rateLimit: { max: 600, timeWindow: '1 mi
     }
     return plan
   } catch (e: any) {
-    return reply.code(500).send({ error: e?.message || 'could not build the completion plan' })
+    return reply.code(e?.statusCode || 500).send({ error: e?.message || 'could not build the completion plan', code: e?.code })
   }
 })
 
@@ -2042,7 +2245,7 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
   const parsed = ThesisPlanRunBody.safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
-  const { ticker, reuse, swarm, confirmTicker } = parsed.data
+  const { ticker, reuse, swarm, provider, model, reasoningLevel, expectedProfileKey, confirmTicker } = parsed.data
   const { user, userVia } = identify(req)
   if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
   // Same closed allow-list /api/launch enforces before a research launch: membership in the data pool.
@@ -2082,7 +2285,8 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
       // ONE disk snapshot decides everything below: the already-complete check, the reuse validation, and what
       // gets carried. Re-reading between those steps would open a time-of-check/time-of-use gap — a module
       // finishing mid-request would let us carry work this route never validated.
-      const plan = thesisPlan(ticker, undefined, reuse)
+      const selection = { provider, model, reasoningLevel }
+      const plan = thesisPlan(ticker, undefined, reuse, undefined, selection)
       if (plan.complete) return reply.code(409).send({ error: 'this run already has a final thesis', code: 'already_complete', path: plan.finalReportPath })
 
       const allowed = new Set(plan.reusable)
@@ -2105,7 +2309,7 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
       }
 
       try {
-        const out = await launch({ kind: 'full', ticker, user, userVia })
+        const out = await launch({ kind: 'full', ticker, provider, model, reasoningLevel, expectedProfileKey, user, userVia })
         return { ...out, carried, reused: plan.reuse, willRun: plan.run }
       } catch (e: any) {
         // The carry-forward already landed on disk. Nothing is LOST (source folders are untouched, and the copied
@@ -2371,7 +2575,11 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
   const parsed = ThesisPlanModuleBody.safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
-  const { ticker, module, reuse, swarm, expectedWillRun, expectedDoneOrbKeys, expectedTargetRunRoot, poolFiles, poolNewestMs } = parsed.data
+  const {
+    ticker, module, reuse, swarm, provider, model, reasoningLevel, expectedProfileKey,
+    expectedWillRun, expectedDoneOrbKeys, expectedTargetRunRoot, poolFiles, poolNewestMs,
+  } = parsed.data
+  const providerSelection: RunProviderSelection = { provider, model, reasoningLevel, expectedProfileKey }
   const { user, userVia } = identify(req)
   if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
   // Data-pool allow-list — `launch()` does not re-check it for a research `module` kind (route-enforced only).
@@ -2401,7 +2609,7 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
       const exactResume = graphModule?.exactResume === true
 
       // ONE snapshot decides everything: complete-check, runnability, blockedBy, and what gets carried.
-      let plan = thesisPlan(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined)
+      let plan = thesisPlan(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined, providerSelection)
       if (plan.targetRunRoot !== expectedTargetRunRoot) {
         return reply.code(409).send({ error: 'The target analysis date changed while this module was being prepared. Check the updated scope and click again.', code: 'module_scope_changed' })
       }
@@ -2479,7 +2687,7 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
       let expectedAncestorModules: string[] = []
       const readCurrentScope = () => {
         try {
-          const current = thesisPlan(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined)
+          const current = thesisPlan(ticker, undefined, exactResume ? undefined : reuse, exactResume ? module : undefined, providerSelection)
           const currentEntry = current.modules.find((m) => m.module === module)
           const currentDone = [...(currentEntry?.doneOrbKeys ?? [])].sort()
           const currentExactArtifacts = exactArtifactScopeFor(currentDone)
@@ -2527,7 +2735,7 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
 
       // Fail before staging or publishing anything. The launcher checks too, but that is intentionally after
       // admission; this route mutates disk first and therefore needs the same executable proof up front.
-      try { await assertClaudeCli() } catch (e: any) {
+      try { await assertProviderAvailable(provider) } catch (e: any) {
         return reply.code(e?.statusCode || 503).send({ error: e?.message || 'engine CLI unavailable', code: e?.code })
       }
       // The CLI probe can take seconds on a cold process. Rebuild the exact plan after that await and use THIS
@@ -2671,7 +2879,7 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
             }
           : undefined
         const out = await launch({
-          kind: 'module', ticker, module, user, userVia,
+          kind: 'module', ticker, module, provider, model, reasoningLevel, expectedProfileKey, user, userVia,
           deferModuleMemo: exactResume,
           exactModuleResume: exactResume,
           exactModuleInputs: exactResume ? prep.reusedAncestorModules : undefined,
@@ -2729,6 +2937,7 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
 // read server-side (readIntakePlan: roster-validated, cascades recomputed) — the client never supplies
 // orb names, so a stale/spoofed body cannot widen the rerun (INTAKE.md §4 fail-closed).
 const IntakePlanRunBody = z.object({
+  ...ProviderLaunchFields,
   ticker: z.string().regex(TICKER_RE),
   // REQUIRED for the same reason as ThesisPlanRunBody — an omitted swarm must never default to research.
   swarm: z.string().regex(MODULE_RE),
@@ -2748,7 +2957,7 @@ app.post('/api/intake-plan/run-exact', { config: { rateLimit: { max: 20, timeWin
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
   const parsed = IntakePlanRunBody.safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
-  const { ticker, swarm, runRoot, decisionFingerprint, planPath, planSha256, sourceDecisionFingerprint } = parsed.data
+  const { ticker, swarm, provider, model, reasoningLevel, expectedProfileKey, runRoot, decisionFingerprint, planPath, planSha256, sourceDecisionFingerprint } = parsed.data
   const { user, userVia } = identify(req)
   if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
   if (isReservedDataFolder(ticker) || !fs.existsSync(path.join(DATA_DIR, ticker))) {
@@ -2828,7 +3037,8 @@ app.post('/api/intake-plan/run-exact', { config: { rateLimit: { max: 20, timeWin
       // ONE plan snapshot for the completeness check AND the carry (no time-of-check/time-of-use gap).
       // Reuse override = every reusable module: stale ones included — the scoped carry stages their
       // finished copy and punches holes in it.
-      const first = thesisPlan(ticker)
+      const selection = { provider, model, reasoningLevel }
+      const first = thesisPlan(ticker, undefined, undefined, undefined, selection)
       if (first.complete) {
         return reply.code(409).send({ error: 'Today\'s run root already has a final thesis — a scoped rerun would overwrite the decision of record. Use the single-orb Re-run for a same-day refresh.', code: 'already_complete', path: first.finalReportPath })
       }
@@ -2849,7 +3059,7 @@ app.post('/api/intake-plan/run-exact', { config: { rateLimit: { max: 20, timeWin
       // engine binary after that would leave a finished-today module partial for nothing (Codex #358
       // r3672400207 — the remaining pre-spawn failures are admission races, which the resume machinery
       // absorbs: the holes ARE the work a retry re-runs).
-      try { await assertClaudeCli() } catch (e: any) {
+      try { await assertProviderAvailable(provider) } catch (e: any) {
         return reply.code(e?.statusCode || 503).send({ error: e?.message || 'engine CLI unavailable', code: e?.code })
       }
       // Re-check freshness HERE, after the subject lock and the CLI probe: both can take time, and a
@@ -2859,7 +3069,7 @@ app.post('/api/intake-plan/run-exact', { config: { rateLimit: { max: 20, timeWin
       if (lateWhy) {
         return reply.code(409).send({ error: `${lateWhy} while this run was being prepared — re-run the new-data analysis first.`, code: 'plan_stale' })
       }
-      const snap = thesisPlan(ticker, undefined, first.reusable)
+      const snap = thesisPlan(ticker, undefined, first.reusable, undefined, selection)
       // The plan file copied into today's staging root is provenance for THIS exact selected call. Never
       // fall back to newest-run-wins here: a newer incomplete shell can carry a different plan even while
       // the selected finished decision remains the current call.
@@ -2887,7 +3097,7 @@ app.post('/api/intake-plan/run-exact', { config: { rateLimit: { max: 20, timeWin
       }
 
       try {
-        const out = await launch({ kind: 'full', ticker, user, userVia,
+        const out = await launch({ kind: 'full', ticker, provider, model, reasoningLevel, expectedProfileKey, user, userVia,
           decisionRunRoot: runRoot, decisionFingerprint })
         return { ...out, carried: staged.carried, scoped: staged.scoped, staleModules: staged.staleModules, dropped: staged.droppedEntries }
       } catch (e: any) {
@@ -2914,7 +3124,11 @@ app.get('/api/runs', async (req) => {
       .filter((r) => IN_FLIGHT_STATUSES.has(r.status)) // incl. the pre-spawn gate states (shared def)
       // swarmId + unit let a caller tell a research run apart from a screener/commodity one without a
       // name-guess (§26); startedAt drives the "running Nm" readout on the resume affordance.
-      .map((r) => ({ runId: r.runId, kind: r.kind, ticker: r.ticker, module: r.module, status: r.status, swarmId: r.swarmId, unit: r.unit, startedAt: r.startedAt })),
+      .map((r) => ({
+        runId: r.runId, kind: r.kind, ticker: r.ticker, module: r.module, status: r.status,
+        swarmId: r.swarmId, unit: r.unit, startedAt: r.startedAt,
+        provider: r.provider, executionProfile: r.executionProfile,
+      })),
   }
 })
 
@@ -4674,7 +4888,10 @@ app.post('/api/screener/handoff', async (req, reply) => {
   try {
     const existing = readHandoffs(parsed.data.thesisId).find((h: any) => h.ticker === parsed.data.ticker)
     if (existing) return { alreadyHandedOff: true, handoff: existing }
-    const out = await launch({ kind: 'handoff', ticker: parsed.data.ticker, thesisId: parsed.data.thesisId,
+    const out = await launch({
+      kind: 'handoff', ticker: parsed.data.ticker, thesisId: parsed.data.thesisId,
+      provider: parsed.data.provider, reasoningLevel: parsed.data.reasoningLevel, model: parsed.data.model,
+      expectedProfileKey: parsed.data.expectedProfileKey,
       sharedPoolTarget: { swarm: RESEARCH_SWARM_ID, subject: parsed.data.ticker }, user, userVia })
     return { alreadyHandedOff: false, ...out }
   } catch (e: any) {
@@ -5004,7 +5221,7 @@ app.get('/api/news/enrich', async (req, reply) => {
 // the paid intake analysis stays governed by its own INTAKE_AUTO_ANALYZE + finished-run gates, and
 // a rerun is always an explicit human click (CLAUDE.md §24).
 const EventBridgeParams = z.object({ eventId: z.string().regex(EVENT_ID_RE) })
-const EventBridgeBody = z.object({ ticker: z.string().regex(TICKER_RE) })
+const EventBridgeBody = z.object({ ...ProviderLaunchFields, ticker: z.string().regex(TICKER_RE) })
 
 // Which tracked subjects this event was already routed to (drives the "✓ sent" rows in the picker).
 app.get('/api/screener/event/:eventId/research-links', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req, reply) => {
@@ -5023,7 +5240,7 @@ app.post('/api/screener/event/:eventId/send-to-research', { config: { rateLimit:
   if (!parsed.success) return reply.code(400).send({ error: 'bad event id' })
   const body = EventBridgeBody.safeParse(req.body)
   if (!body.success) return reply.code(400).send({ error: 'bad ticker' })
-  const { ticker } = body.data
+  const { ticker, provider, model, reasoningLevel, expectedProfileKey } = body.data
   if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
   // Same data-pool allow-list as /api/intake/:ticker/analyze — only an EXISTING tracked subject.
   if (isReservedDataFolder(ticker) || !fs.existsSync(path.join(DATA_DIR, ticker))) {
@@ -5055,12 +5272,13 @@ app.post('/api/screener/event/:eventId/send-to-research', { config: { rateLimit:
       // intake analysis right away. This is already inside the one shared subject lock — never acquire it
       // recursively. A busy/admission failure leaves the note in place for the manual Analyze button.
       let analyzing = false
+      let analysisLaunch: Awaited<ReturnType<typeof launch>> | null = null
       if (res.already !== true) {
         try {
           const busy = listRuns().some((r) => r.subjectId === ticker && (r.swarmId || RESEARCH_SWARM_ID) === owner.swarm
             && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
           if (!busy) {
-            await launch({ kind: 'doc-intake', ticker,
+            analysisLaunch = await launch({ kind: 'doc-intake', ticker, provider, model, reasoningLevel, expectedProfileKey,
               runRoot: owner.runRoot, decisionRunRoot: owner.runRoot,
               decisionFingerprint: owner.decisionFingerprint, intakeOwner: owner, user, userVia })
             analyzing = true
@@ -5069,7 +5287,13 @@ app.post('/api/screener/event/:eventId/send-to-research', { config: { rateLimit:
           analyzing = false
         }
       }
-      return { ok: true, ...res, analyzing, swarm: owner.swarm }
+      return {
+        ok: true,
+        ...res,
+        analyzing,
+        swarm: owner.swarm,
+        ...(analysisLaunch ? { launch: { runId: analysisLaunch.runId, preflight: analysisLaunch.preflight } } : {}),
+      }
     })
   } catch (e: any) {
     if (e instanceof SubjectBusyError) {
@@ -5224,6 +5448,8 @@ app.post('/api/screener/board/rebuild', { config: { rateLimit: { max: 120, timeW
 // (credit/preflight/admission) — this endpoint only maps idea -> intake and records the promotion.
 const IDEA_ID_RE = /^IDEA-[a-f0-9]{12}$/
 app.post('/api/screener/ideas/:id/promote', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const providerBody = ProviderBody.safeParse(req.body ?? {})
+  if (!providerBody.success) return reply.code(400).send({ error: 'invalid provider profile' })
   const ideaId = (req.params as any).id as string
   if (!IDEA_ID_RE.test(ideaId)) return reply.code(400).send({ error: 'invalid idea id' })
   const idea = readIdeaById(REPO_ROOT, ideaId)
@@ -5260,7 +5486,11 @@ app.post('/api/screener/ideas/:id/promote', { config: { rateLimit: { max: 60, ti
   }
   let launchCompleted = false
   try {
-    const out = await launch({ kind: 'signal', intake, user, userVia })
+    const out = await launch({
+      kind: 'signal', intake, provider: providerBody.data.provider,
+      model: providerBody.data.model, reasoningLevel: providerBody.data.reasoningLevel,
+      expectedProfileKey: providerBody.data.expectedProfileKey, user, userVia,
+    })
     launchCompleted = true
     const sigId = out.preflight.ticker
     // Merge only lifecycle fields into the newest provider snapshot under the reservation. A refresh or
@@ -5271,7 +5501,7 @@ app.post('/api/screener/ideas/:id/promote', { config: { rateLimit: { max: 60, ti
       new Date().toISOString().replace(/\.\d{3}Z$/, 'Z'), idea,
     )
     setImmediate(() => { try { refreshBoard(REPO_ROOT) } catch { /* best-effort */ } })
-    return { sigId, runId: out.runId }
+    return { sigId, runId: out.runId, preflight: out.preflight }
   } catch (e: any) {
     if (!launchCompleted) releaseIdeaPromotion(REPO_ROOT, ideaId, reservation.token)
     const body = e?.body && typeof e.body === 'object' ? e.body : null
@@ -5614,6 +5844,8 @@ async function fireAutoIntake(ticker: string, attempt = 0): Promise<void> {
       const owner = resolveSwarmForSubject(ticker)
       if (!owner || owner.swarm !== initialOwner.swarm || owner.runRoot !== initialOwner.runRoot
           || owner.decisionFingerprint !== initialOwner.decisionFingerprint) return 'retry'
+      const ownerExecution = readLastProviderSelection(owner.runRoot, 'published')
+      if (!ownerExecution) return 'retry' // unknown modern provenance: automatic intake must abstain
       // dedupe: skip if the pool has not gained a newer file since the last SUCCESSFULLY ADMITTED
       // auto-analysis. Keyed on the raw newest MTIME, not the calendar day — a day-granular key would
       // swallow a second document that lands the same day as a prior analysis.
@@ -5652,7 +5884,8 @@ async function fireAutoIntake(ticker: string, attempt = 0): Promise<void> {
         if (proved) autoIntakeLastNewest.set(ownerKey, newest)
         else if (attempt < 4) setTimeout(() => void fireAutoIntake(ticker, attempt + 1), SYNC_WINDOW_MS)
       }
-      await launch({ kind: 'doc-intake', ticker, runRoot: owner.runRoot,
+      await launch({ kind: 'doc-intake', ticker, provider: ownerExecution.provider,
+        model: ownerExecution.model, reasoningLevel: ownerExecution.reasoningLevel, runRoot: owner.runRoot,
         decisionRunRoot: owner.runRoot, decisionFingerprint: owner.decisionFingerprint,
         intakeOwner: owner, onTerminal: terminalRetry,
         ...(owner.swarm !== RESEARCH_SWARM_ID ? { swarm: owner.swarm } : {}), user: 'auto', userVia: 'local' })
@@ -5831,11 +6064,25 @@ purgeReelTempDirs(0)
     startNewsIngester()
     // conviction loop (Phase 3): auto-fire /screener:validate on due checkpoints + on matching wire
     // items. OFF unless CONVICTION_LOOP_ENABLED=1 — auto-spawning paid checks is opt-in.
-    startConvictionLoop()
+    startConvictionLoop(async ({ thesisId, checkpointId, selection, onTerminal }) => {
+      await launch({
+        kind: 'conviction', thesisId, checkpointId, provider: selection.provider,
+        model: selection.model, reasoningLevel: selection.reasoningLevel,
+        expectedProfileKey: selection.profileKey,
+        user: 'auto', userVia: 'local', onTerminal,
+      })
+    })
     // research review dispatcher: fire due 30/90/180/365d decision reviews from the always-on server,
-    // so the outcome-measurement layer no longer depends on the single macOS hk-review timer. OFF unless
+    // through the provider-aware launcher (the old direct-Claude timer is retired). OFF unless
     // REVIEW_DISPATCH_ENABLED=1 — auto-spawning paid review runs is opt-in.
-    startReviewLoop()
+    startReviewLoop(async ({ ticker, runRoot, window, selection, onTerminal }) => {
+      await launch({
+        kind: 'review', ticker, runRoot, window, provider: selection.provider,
+        model: selection.model, reasoningLevel: selection.reasoningLevel,
+        expectedProfileKey: selection.profileKey,
+        user: 'auto', userVia: 'local', onTerminal,
+      })
+    })
     // company-news bridge (batch): route material wire events into covered subjects' pools every 12h and
     // run the CHEAP advisory analysis for any subject that gained a fresh note. OFF unless
     // BRIDGE_MODE=batch. Paid re-runs stay behind the research tab's own click. The launcher is injected
@@ -5844,6 +6091,8 @@ purgeReelTempDirs(0)
     startBridgeScheduler(async (ticker: string) => {
       const owner = resolveSwarmForSubject(ticker)
       if (!owner) return false
+      const ownerExecution = readLastProviderSelection(owner.runRoot, 'published')
+      if (!ownerExecution) return false
       return withSubjectLock(subjectMutationLockKey(owner.swarm, ticker), async () => {
         const before = readIntakePlan(ticker, { swarmId: owner.swarm, runRoot: owner.runRoot })?.analyzed_at ?? null
         const newest = intakePoolNewest(ticker, owner.swarm).newestMs
@@ -5870,7 +6119,8 @@ purgeReelTempDirs(0)
                 && currentNewest === newest)
             } catch { resolve(false) }
           }
-          void launch({ kind: 'doc-intake', ticker, runRoot: owner.runRoot,
+          void launch({ kind: 'doc-intake', ticker, provider: ownerExecution.provider,
+            model: ownerExecution.model, reasoningLevel: ownerExecution.reasoningLevel, runRoot: owner.runRoot,
             decisionRunRoot: owner.runRoot, decisionFingerprint: owner.decisionFingerprint,
             intakeOwner: owner, onTerminal,
             ...(owner.swarm !== RESEARCH_SWARM_ID ? { swarm: owner.swarm } : {}), user: 'auto', userVia: 'local' })

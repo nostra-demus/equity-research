@@ -32,6 +32,10 @@ import { listResumableSignals } from './screener'
 import { acquireSingletonLock, releaseSingletonLock } from './singleton-lock'
 import { SubjectBusyError, subjectMutationLockKey, withSubjectLock } from './subject-lock'
 import type { CreditPreflight } from './types'
+import type { RunProvider } from './providers/types'
+import { hasProvenLegacyClaudeLineage, readLastProviderSelection } from './execution-provenance'
+import { autoResumeDue } from './resume-policy'
+import { listResumableRuns } from './resumable'
 
 const LOCK_FILE = 'resume-supervisor.lock'
 const ENABLED = process.env.RESUME_SUPERVISOR_ENABLED === '1'
@@ -49,7 +53,17 @@ const gaveUp = new Set<string>() // log the give-up once per subject
 
 const log = (m: string) => console.log(`[resume] ${m}`) // eslint-disable-line no-console
 
-export interface ResumableRun { kind: 'full' | 'signal'; subject: string; reason?: string; resetsAt?: number; runRoot?: string }
+export interface ResumableRun {
+  kind: 'full' | 'signal'
+  swarm?: string
+  subject: string
+  reason?: string
+  resetsAt?: number
+  runRoot?: string
+  provider?: RunProvider
+  model?: string
+  reasoningLevel?: string
+}
 
 const DATE_SUFFIX = /_(\d{4}-\d{2}-\d{2})$/
 
@@ -75,7 +89,25 @@ export function listResumableResearchRuns(liveSubjects: Set<string>, now: number
     if (hasRunMarker(runRoot, '.aborted')) continue // user stopped it on purpose
     if (finalDeliverablesPresent(runRoot)) continue // already finished
     try { if (now - fs.statSync(abs).mtimeMs > MAX_AGE_MS) continue } catch { /* unreadable mtime — treat as eligible */ }
-    out.push({ kind: 'full', subject: ticker, reason: marker.reason, resetsAt: typeof marker.resetsAt === 'number' ? marker.resetsAt : undefined, runRoot })
+    const recorded = readLastProviderSelection(runRoot, 'interrupted')
+    const selected = recorded ?? (hasProvenLegacyClaudeLineage(runRoot)
+      ? { provider: 'claude' as RunProvider } : null)
+    // `.interrupted` is provider-child-writable. It can describe why the process stopped, but it never
+    // establishes execution identity. If it carries identity fields, require exact agreement with the
+    // supervisor/committed selection; a conflict is held for manual review rather than silently switching.
+    const markerConflicts = Boolean(selected && (
+      ((marker.provider === 'codex' || marker.provider === 'claude') && marker.provider !== selected.provider)
+      || (typeof marker.model === 'string' && recorded?.model !== marker.model)
+      || (typeof marker.reasoningLevel === 'string' && recorded?.reasoningLevel !== marker.reasoningLevel)
+    ))
+    const provider: RunProvider | undefined = markerConflicts ? undefined : selected?.provider
+    out.push({
+      kind: 'full', subject: ticker, reason: marker.reason,
+      resetsAt: typeof marker.resetsAt === 'number' ? marker.resetsAt : undefined,
+      runRoot, provider,
+      model: markerConflicts ? undefined : recorded?.model,
+      reasoningLevel: markerConflicts ? undefined : recorded?.reasoningLevel,
+    })
   }
   return out
 }
@@ -85,6 +117,9 @@ export function listResumableResearchRuns(liveSubjects: Set<string>, now: number
 // guarantee — running out of plan pauses, it does not charge). A window whose resetsAt has already
 // passed no longer holds (the limit reset). Pure — unit-tested.
 export function shouldHoldForCredit(credit: CreditPreflight, now: number): boolean {
+  // Unknown telemetry is not spare capacity. After restart the cache is deliberately empty; treating
+  // {ok:true, checked:false} as permission would immediately relaunch an exhausted provider.
+  if (credit.checked !== true) return true
   const overage = credit.isUsingOverage === true || Object.values(credit.windows || {}).some((w) => w?.isUsingOverage === true)
   if (overage) return true
   // a currently-rejected binding window with a future reset → wait for the reset
@@ -98,11 +133,10 @@ export function shouldHoldForCredit(credit: CreditPreflight, now: number): boole
 // Is this specific run due to resume NOW? A plan-limit break waits until its own resetsAt (+ buffer);
 // every other break (connection / kill / reboot) is due immediately (still gated by the cooldown). Pure.
 export function isResumeDue(item: ResumableRun, now: number, bufferMs: number = RESET_BUFFER_MS): boolean {
-  if (item.reason === 'out_of_credits' && typeof item.resetsAt === 'number') return now >= item.resetsAt * 1000 + bufferMs
-  return true
+  return autoResumeDue(item.reason, item.resetsAt, now, bufferMs)
 }
 
-export function liveSubjectSet(swarmId: 'research' | 'screener'): Set<string> {
+export function liveSubjectSet(swarmId: string): Set<string> {
   return new Set(listRuns()
     // Cancellation changes the display status before the process group exits. endedAt is the close/finalize
     // proof, so a due disk candidate cannot auto-launch into that still-writing shutdown window.
@@ -114,26 +148,41 @@ export type ResumeDispatchOutcome = 'launched' | 'busy' | 'stale'
 
 export interface ResumeCandidateDispatchDeps {
   withLock: typeof withSubjectLock
-  liveSubjects: (swarm: 'research' | 'screener') => Set<string>
+  liveSubjects: (swarm: string) => Set<string>
   stillResumable: (candidate: ResumableRun, live: Set<string>, now: number) => boolean
   launchCandidate: (candidate: ResumableRun) => Promise<unknown>
 }
 
-const resumeSwarm = (candidate: ResumableRun): 'research' | 'screener' =>
-  candidate.kind === 'full' ? 'research' : 'screener'
+const resumeSwarm = (candidate: ResumableRun): string =>
+  candidate.swarm ?? (candidate.kind === 'full' ? 'research' : 'screener')
 
 const defaultCandidateDispatchDeps: ResumeCandidateDispatchDeps = {
   withLock: withSubjectLock,
   liveSubjects: liveSubjectSet,
   stillResumable: (candidate, live, now) => {
     if (live.has(candidate.subject) || !isResumeDue(candidate, now)) return false
-    if (candidate.kind === 'full') {
+    if (candidate.kind === 'full' && (!candidate.swarm || candidate.swarm === 'research')) {
       return listResumableResearchRuns(live, now).some((current) =>
         current.subject === candidate.subject && current.runRoot === candidate.runRoot)
     }
-    return listResumableSignals(live).some((current) => current.sigId === candidate.subject)
+    if (candidate.kind === 'signal') {
+      return listResumableSignals(live).some((current) => current.sigId === candidate.subject)
+    }
+    return listResumableRuns().some((current) => current.kind === 'full'
+      && current.swarm === candidate.swarm && current.subject === candidate.subject
+      && current.runRoot === candidate.runRoot && typeof current.reason === 'string')
   },
-  launchCandidate: (candidate) => launch({ kind: candidate.kind, ticker: candidate.subject }),
+  launchCandidate: (candidate) => {
+    if (!candidate.provider) throw new Error('automatic resume has no supervisor-recorded provider')
+    return launch({
+      kind: candidate.kind,
+      ticker: candidate.subject,
+      ...(candidate.swarm ? { swarm: candidate.swarm } : {}),
+      provider: candidate.provider,
+      model: candidate.model,
+      reasoningLevel: candidate.reasoningLevel,
+    })
+  },
 }
 
 /**
@@ -165,22 +214,60 @@ export async function dispatchResumableCandidate(
 // One reconciler pass. Crash-safe: re-running picks up anything still interrupted on disk.
 export async function dispatchResumableRuns(now: number = Date.now()): Promise<void> {
   if (!ENABLED) return
-  const credit = getCreditStatus()
-  if (shouldHoldForCredit(credit, now)) {
-    log(`plan usage limited — holding all resumes until the limit resets${typeof credit.resetsAt === 'number' ? ` (~${new Date(credit.resetsAt * 1000).toISOString()})` : ''}`)
-    return
-  }
   const researchLive = liveSubjectSet('research')
   const screenerLive = liveSubjectSet('screener')
   const candidates: ResumableRun[] = [
     ...listResumableResearchRuns(researchLive, now),
-    ...listResumableSignals(screenerLive).map((s) => ({ kind: 'signal' as const, subject: s.sigId })),
+    ...listResumableSignals(screenerLive).map((s) => {
+      const runRoot = `screener/runs/${s.sigId}`
+      const recorded = readLastProviderSelection(runRoot, 'interrupted')
+      return {
+        kind: 'signal' as const,
+        subject: s.sigId,
+        runRoot,
+        reason: s.reason,
+        resetsAt: s.resetsAt,
+        provider: recorded?.provider ?? (hasProvenLegacyClaudeLineage(runRoot) ? 'claude' as RunProvider : undefined),
+        model: recorded?.model,
+        reasoningLevel: recorded?.reasoningLevel,
+      }
+    }),
+    ...listResumableRuns()
+      .filter((item) => item.swarm !== 'research' && item.swarm !== 'screener'
+        && item.kind === 'full' && typeof item.reason === 'string')
+      .map((item) => ({
+        kind: 'full' as const,
+        swarm: item.swarm,
+        subject: item.subject,
+        runRoot: item.runRoot,
+        reason: item.reason,
+        resetsAt: item.resetsAt,
+        provider: item.provider,
+        model: item.executionProfile?.parentModel,
+        reasoningLevel: item.executionProfile?.parentReasoning,
+      })),
   ]
+  const liveBySwarm = new Map<string, Set<string>>([
+    ['research', researchLive],
+    ['screener', screenerLive],
+  ])
   let launched = 0
   for (const c of candidates) {
     if (launched >= MAX_CONCURRENT) break
-    const live = c.kind === 'full' ? researchLive : screenerLive
+    const swarm = resumeSwarm(c)
+    let live = liveBySwarm.get(swarm)
+    if (!live) {
+      live = liveSubjectSet(swarm)
+      liveBySwarm.set(swarm, live)
+    }
     if (live.has(c.subject)) continue // became live (we just launched its sibling, or a manual run)
+    if (!c.provider) {
+      if (!gaveUp.has(c.subject)) {
+        gaveUp.add(c.subject)
+        log(`holding ${c.subject} — its prior provider is not supervisor-attributed; resume it manually with an explicit provider`)
+      }
+      continue
+    }
     const t = tries.get(c.subject)
     if (t && t.count >= MAX_TRIES) {
       if (!gaveUp.has(c.subject)) { gaveUp.add(c.subject); log(`giving up on ${c.subject} after ${MAX_TRIES} resume attempts — needs a look`) }
@@ -188,6 +275,11 @@ export async function dispatchResumableRuns(now: number = Date.now()): Promise<v
     }
     if (t && now - t.lastAt < COOLDOWN_MS) continue // cooling down
     if (!isResumeDue(c, now)) continue // a plan-limit pause still waiting for its reset
+    const credit = getCreditStatus(c.provider)
+    if (shouldHoldForCredit(credit, now)) {
+      log(`${c.provider} usage limited — holding resume of ${c.subject}${typeof credit.resetsAt === 'number' ? ` until ~${new Date(credit.resetsAt * 1000).toISOString()}` : ''}`)
+      continue
+    }
     try {
       const outcome = await dispatchResumableCandidate(c, now)
       if (outcome !== 'launched') continue

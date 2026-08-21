@@ -4,6 +4,14 @@ import assert from 'node:assert/strict'
 ;(globalThis as any).window = { __ENGINE_LIVE__: true }
 const { api, DATA_NEEDS_CLIENT_TIMEOUT_MS } = await import('./api')
 const originalFetch = globalThis.fetch
+const codexSelection = {
+  provider: 'codex' as const,
+  expectedProfileKey: 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh',
+  model: 'gpt-5.6-sol',
+  reasoningLevel: 'max',
+  executionProfile: { key: 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh', parentModel: 'gpt-5.6-sol', parentReasoning: 'max', specialistModel: 'gpt-5.6-terra', specialistReasoning: 'xhigh' },
+}
+const codexWire = { provider: codexSelection.provider, expectedProfileKey: codexSelection.expectedProfileKey, model: codexSelection.model, reasoningLevel: codexSelection.reasoningLevel }
 
 let passed = 0
 const check = async (name: string, fn: () => Promise<void>) => {
@@ -119,9 +127,9 @@ await check('scoped rerun POST carries the exact selected-call identity', async 
     planSha256: `sha256:${'d'.repeat(64)}`,
     sourceDecisionFingerprint: decisionFingerprint,
   }
-  await api.runIntakePlan('ZZZ', 'research', runRoot, decisionFingerprint, plan)
+  await api.runIntakePlan('ZZZ', 'research', runRoot, decisionFingerprint, plan, codexSelection)
   assert.equal(new URL(requested, 'https://fixture.test').pathname, '/api/intake-plan/run-exact')
-  assert.deepEqual(posted, { ticker: 'ZZZ', swarm: 'research', runRoot, decisionFingerprint, ...plan })
+  assert.deepEqual(posted, { ticker: 'ZZZ', swarm: 'research', runRoot, decisionFingerprint, ...plan, ...codexWire })
 })
 
 await check('single-orb rerun POST uses only the versioned exact endpoint', async () => {
@@ -135,6 +143,7 @@ await check('single-orb rerun POST uses only the versioned exact endpoint', asyn
     })
   }) as typeof fetch
   const body = {
+    selection: codexSelection,
     kind: 'rerun' as const, ticker: 'ZZZ', module: 'demand', agent: 'source-reader',
     runRoot: 'analyses/ZZZ_2026-08-12', decisionFingerprint: `sha256:${'e'.repeat(64)}`,
     planPath: 'analyses/ZZZ_2026-08-12/intake/2026-08-13_intake_plan.json',
@@ -143,14 +152,15 @@ await check('single-orb rerun POST uses only the versioned exact endpoint', asyn
   }
   await api.launchExact(body)
   assert.equal(new URL(requested, 'https://fixture.test').pathname, '/api/launch/exact')
-  assert.deepEqual(posted, body)
+  const { selection: _selection, ...request } = body
+  assert.deepEqual(posted, { ...request, ...codexWire })
 })
 
 await check('generic launch client cannot accidentally send a rerun to the legacy endpoint', async () => {
   let fetched = false
   globalThis.fetch = (async () => { fetched = true; throw new Error('must not fetch') }) as typeof fetch
   await assert.rejects(() => api.launch({
-    kind: 'rerun', ticker: 'ZZZ', module: 'demand', agent: 'source-reader',
+    selection: codexSelection, kind: 'rerun', ticker: 'ZZZ', module: 'demand', agent: 'source-reader',
     runRoot: 'analyses/ZZZ_2026-08-12', decisionFingerprint: `sha256:${'9'.repeat(64)}`,
   }), /versioned launch endpoint/)
   assert.equal(fetched, false)
@@ -166,7 +176,7 @@ await check('manual document analysis uses only the versioned exact endpoint', a
   }) as typeof fetch
   const runRoot = 'analyses/ZZZ_2026-08-12'
   const decisionFingerprint = `sha256:${'f'.repeat(64)}`
-  await api.analyzeIntake('ZZZ', 'research', runRoot, decisionFingerprint)
+  await api.analyzeIntake('ZZZ', 'research', codexSelection, runRoot, decisionFingerprint)
   const url = new URL(requested, 'https://fixture.test')
   assert.equal(url.pathname, '/api/intake/ZZZ/analyze-exact')
   assert.equal(url.searchParams.get('swarm'), 'research')
@@ -187,13 +197,17 @@ await check('rerun estimate asks the server to verify and echo the exact selecte
       exactDecisionBinding: { contractVersion: 'exact-decision-launch/1', runRoot, decisionFingerprint },
     }), { status: 200, headers: { 'content-type': 'application/json' } })
   }) as typeof fetch
-  const receipt = await api.estimate('rerun', 'ZZZ', 'demand', 'source-reader', undefined, {
+  const receipt = await api.estimate('rerun', 'ZZZ', codexSelection, 'demand', 'source-reader', undefined, {
     runRoot, decisionFingerprint,
   })
   const url = new URL(requested, 'https://fixture.test')
   assert.equal(url.pathname, '/api/launch/estimate')
   assert.equal(url.searchParams.get('runRoot'), runRoot)
   assert.equal(url.searchParams.get('decisionFingerprint'), decisionFingerprint)
+  assert.equal(url.searchParams.get('provider'), 'codex')
+  assert.equal(url.searchParams.get('expectedProfileKey'), codexSelection.expectedProfileKey)
+  assert.equal(url.searchParams.get('model'), codexSelection.model)
+  assert.equal(url.searchParams.get('reasoningLevel'), codexSelection.reasoningLevel)
   assert.equal(receipt.exactDecisionBinding?.contractVersion, 'exact-decision-launch/1')
   assert.equal(receipt.exactDecisionBinding?.runRoot, runRoot)
   assert.equal(receipt.exactDecisionBinding?.decisionFingerprint, decisionFingerprint)
@@ -219,6 +233,56 @@ await check('targeted discovery cannot run without immutable decision identity',
   })
   assert.equal(fetched, false)
   assert.equal(message, 'selected-decision-contract-unavailable')
+})
+
+await check('provider status array normalizes without inventing missing usage', async () => {
+  globalThis.fetch = (async () => new Response(JSON.stringify({ providers: [
+    { provider: 'claude', label: 'Claude', enabled: true, available: true, checked: true, availability: 'available', profile: { key: 'claude:sonnet:default', parentModel: 'sonnet', parentReasoning: 'default' } },
+    { provider: 'codex', label: 'Codex', enabled: true, available: false, checked: true, availability: 'unknown', reason: 'catalogue unavailable', profile: codexSelection.executionProfile },
+  ], checkedAt: Date.now() }), { status: 200, headers: { 'content-type': 'application/json' } })) as typeof fetch
+  const providers = await api.providers()
+  assert.equal(providers.claude.available, true)
+  assert.equal(providers.codex.available, false)
+  assert.equal(providers.codex.reason, 'catalogue unavailable')
+  assert.equal(providers.codex.usage, undefined, 'missing subscription telemetry stays unavailable, never zero')
+  assert.equal(providers.catalogState, 'valid')
+})
+
+await check('only an exact 404 enables the legacy Claude fallback', async () => {
+  globalThis.fetch = (async () => new Response(JSON.stringify({ claude: { available: true } }), {
+    status: 200, headers: { 'content-type': 'application/json' },
+  })) as typeof fetch
+  const old = await api.providers()
+  assert.equal(old.catalogState, 'unknown')
+  assert.equal(old.claude.available, false)
+  assert.equal(old.codex.available, false)
+  assert.equal(old.codex.checked, true)
+
+  globalThis.fetch = (async () => new Response('missing', { status: 404 })) as typeof fetch
+  const missing = await api.providers()
+  assert.equal(missing.catalogState, 'fallback')
+  assert.match(missing.codex.reason || '', /Claude only/)
+
+  globalThis.fetch = (async () => new Response('gateway', { status: 503 })) as typeof fetch
+  const transient = await api.providers()
+  assert.equal(transient.catalogState, 'unknown')
+  assert.equal(transient.claude.available, false)
+  assert.equal(transient.codex.available, false)
+})
+
+await check('targeted provider check validates the provider contract', async () => {
+  globalThis.fetch = (async () => new Response(JSON.stringify({
+    provider: 'codex', enabled: true, available: false, checked: true, availability: 'unavailable',
+    reason: 'ChatGPT login required', profile: codexSelection.executionProfile,
+  }), { status: 200, headers: { 'content-type': 'application/json' } })) as typeof fetch
+  const unavailable = await api.providerCheck('codex')
+  assert.equal(unavailable.available, false)
+  assert.equal(unavailable.reason, 'ChatGPT login required')
+
+  globalThis.fetch = (async () => new Response(JSON.stringify({ provider: 'claude', availability: 'available' }), {
+    status: 200, headers: { 'content-type': 'application/json' },
+  })) as typeof fetch
+  await assert.rejects(() => api.providerCheck('codex'), /Invalid codex provider status/)
 })
 
 globalThis.fetch = originalFetch

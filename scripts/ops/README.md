@@ -16,15 +16,16 @@ fronted by Cloudflare Access). macOS `launchd` user agents keep it up — **and 
 | `com.nostradamus.external-ingest` | `ingest_external.py` every 10m — routes `data/EXTERNAL-INBOX/` drops into per-ticker pools (`frameworks/EXTERNAL_DATA.md`) | **doer** | ✅ `RunAtLoad` | — |
 | `com.nostradamus.connectors` | `run_connectors.py` every 15m — due-aware staged retrievals and connector health | **doer** | ✅ `RunAtLoad` | — |
 | `com.nostradamus.news-ingester` | `npm run ingest:once` every 15m (opt-in: set `GROQ_API_KEY`) | **doer** | ✅ `RunAtLoad` | — |
-| `com.nostradamus.hk-review` | `housekeeping.sh /research:review-decisions due` daily 06:10 (DUE-gated) | **doer** | — | — |
-| `com.nostradamus.hk-track` | `housekeeping.sh /research:track all` daily 06:30 | **doer** | — | — |
-| `com.nostradamus.hk-sweep` | `housekeeping.sh /screener:sweep` daily 06:50 | **doer** | — | — |
-| `com.nostradamus.hk-size` | `housekeeping.sh /research:size all` daily 07:10 | **doer** | — | — |
-| `com.nostradamus.hk-calibrate` | `housekeeping.sh /research:calibrate all` monthly (1st, 07:40) | **doer** | — | — |
+| `com.nostradamus.hk-review` | **retired** — tracked review-dispatch owns due reviews | — | — | — |
+| `com.nostradamus.hk-track` | **retired** — run manually through the tracked cockpit | — | — | — |
+| `com.nostradamus.hk-sweep` | **retired** — run manually through the tracked cockpit | — | — | — |
+| `com.nostradamus.hk-size` | **retired** — no single inherited provider; run manually | — | — | — |
+| `com.nostradamus.hk-calibrate-daily` | `calibrate-local.sh daily` daily 07:25 | **doer** | — | — |
+| `com.nostradamus.hk-calibrate` | `calibrate-local.sh monthly` final fallback (1st, 07:40) | **doer** | — | — |
 
 ### Roles — one serving doer, one permanent connector writer, N admins
-Exactly **one** machine is the **serving doer**: it owns the public tunnel and runs the autonomous daily jobs
-(news + the `hk-*` housekeeping timers). Install it with the default role:
+Exactly **one** machine is the **serving doer**: it owns the public tunnel and runs autonomous news,
+tracked feedback loops, and deterministic calibration fallbacks. Install it with the default role:
 
 ```
 bash scripts/ops/install-services.sh                 # role=doer (the always-on host)
@@ -122,15 +123,29 @@ Connector install/removal and watchdog recovery share retained kernel leases
 `.deploy.flock`, then the repository mutation lease, then this autonomy lease. Connector-only repair re-checks installed doer truth while
 holding the lease, so it cannot undo a concurrent admin/failover stand-down.
 
-### Housekeeping timers (`housekeeping.sh`)
-The five `hk-*` agents run one headless Claude slash command each, from the prod worktree, under a per-run
-USD cap. `track` / `size` / `calibrate` are pure-local aggregates (near-free, seconds); `sweep` and
-`review-decisions` make at most one web pass. `review-decisions` is **DUE-gated** — the wrapper runs
-`.claude/hooks/review_due.py` first and skips entirely when nothing is due, so it costs nothing on quiet days.
-Tune the cap by adding `HOUSEKEEPING_BUDGET_USD` (default `8`) to any `hk-*` plist's `EnvironmentVariables`
-(also `HOUSEKEEPING_MODEL`, `HOUSEKEEPING_MAX_TURNS`, `HOUSEKEEPING_TIMEOUT_SEC`). All housekeeping runs log
-to `~/Library/Logs/nostradamus-housekeeping.log`. New full research runs are **never** scheduled — they stay
-human-initiated.
+### Housekeeping timers (`housekeeping.sh`, `calibrate-local.sh`)
+The former model-backed `hk-review`, `hk-track`, `hk-sweep`, and `hk-size` launchd agents are retired and
+removed by a full service install. They chose Claude outside the tracked launcher, so they could not inherit
+the source decision's provider/profile or receive admission, quota-pause, cancellation and supervisor-owned
+publication guarantees. `housekeeping.sh` is now only a no-spend compatibility shim for stale installations.
+Due reviews run through the tracked review-dispatch loop. Track, sweep, and size remain explicit cockpit
+actions until each has an unambiguous source provider to inherit; no user-global automation default is used.
+
+Calibration is different: `calibrate-local.sh` invokes the equity core and every calibrator declared by a
+discovered `SWARM.md` directly, so rebuilding scoreboards consumes neither Claude nor Codex quota. A successful
+tracked outcome run triggers its own calibrator immediately; `hk-calibrate-daily` is the daily fallback and the
+monthly timer is the final fallback. All paths share one local lock and publish only exact declared outputs.
+
+**Codex rollout switch.** Codex stays fail-closed unless the operator writes `ENGINE_CODEX_ENABLED=1` in
+`~/.config/nostra-engine/providers.env` (mode 600) and restarts the engine. Keep it absent/off until the live
+canary and provider-parity release gates pass. The production plist deliberately does not hard-enable it.
+
+**Claude tracked-run sandbox proof.** Availability and launch preflight automatically run the pinned official
+Anthropic sandbox runtime with no model call and no Claude quota spend. The proof must show current-run-only
+writes, exact repository/data reads, protected STATE_DIR/Git/auth reads+writes, blocked nested Claude execution,
+no public or loopback TCP, and access to only the per-run publication Unix socket. If the installed host cannot
+enforce that boundary, Claude is shown unavailable and the tracked launch fails closed; there is no manual
+"verified" flag which can assert a proof the engine did not observe.
 
 **Connector repair boundary.** The fifteen-minute connector sweep only fetches a series when its manifest release
 clock is due, through the staged publication
@@ -209,8 +224,7 @@ GDRIVE_SHARED_DRIVE_ID=0AbCdEf...
 the engine after editing; confirm with `curl -s localhost:8787/api/tickers | grep -o '"driveEnabled":[a-z]*'`.
 
 **Server-side feedback loops (on for the doer).** The engine plist
-(`com.nostradamus.engine.plist`) now sets two more flags so the closed loops run from the always-on
-server, not only the macOS `hk-*` timers:
+(`com.nostradamus.engine.plist`) sets the closed-loop flags on the always-on server:
 - `CONVICTION_LOOP_ENABLED=1` — the screener conviction reconciler (`conviction-dispatch.ts`)
   auto-fires `/screener:validate` on due checkpoints (+ a wire accelerant), so locked theses actually
   re-rate instead of sitting `scheduled`. Bounded by `CONVICTION_MAX_CONCURRENT` (2), `CONVICTION_DAILY_CAP`
@@ -219,9 +233,8 @@ server, not only the macOS `hk-*` timers:
   30/90/180/365d decision reviews from the server, so the outcome-measurement layer survives the doer
   Mac being asleep (the first three 30d reviews slipped 10-12 days on the launchd-only path). It reuses
   `listAllCalls()`'s DUE timeline (same `review_due` rule; honors the §4a supersession layer). Bounded by
-  `REVIEW_MAX_CONCURRENT` (1), `REVIEW_DAILY_CAP` (8), `REVIEW_TICK_SEC` (3600). It is a *superset* of the
-  `hk-review` launchd timer — running both is safe (per-ticker in-flight guard + the DUE gate), so the
-  timer can stay as a belt-and-braces fallback. **Reinstall the service to pick the flags up**
+  `REVIEW_MAX_CONCURRENT` (1), `REVIEW_DAILY_CAP` (8), `REVIEW_TICK_SEC` (3600). The old direct-model
+  `hk-review` timer is removed, not a fallback. **Reinstall the service to pick the flags up**
   (`scripts/ops/install-services.sh`, then `launchctl kickstart -k gui/$UID/com.nostradamus.engine`).
 - `BRIDGE_MODE` — the company-news bridge (#359, `bridge-scheduler.ts`). Unlike the two flags above,
   this one IS role-scoped by the installer (not just hardcoded in the plist): a fresh `--role doer`
@@ -232,15 +245,11 @@ server, not only the macOS `hk-*` timers:
   forward across reinstall (same shape as `NEWS_ARCHIVE_DIR` below), never silently reset to `batch`.
   See `install-services.sh`'s `BRIDGE_MODE_VALUE` computation.
 
-**Auth for the doer (required).** Both the cockpit and the `hk-*` timers spawn a headless `claude` under
-launchd, which cannot prompt for an interactive login — so the doer needs Anthropic credentials available
-non-interactively. Provide them the way the engine already reads them (`ui/server/src/load-env.ts`): put
-`ANTHROPIC_API_KEY` **or** `CLAUDE_CODE_OAUTH_TOKEN` (from `claude setup-token`) in
-`~/.config/nostra-engine/providers.env` (mode 600, outside the repo). `housekeeping.sh` sources that file
-before each run, so the timers authenticate exactly like the cockpit's own spawned runs. (A `claude login`
-stored credential also works if it is reachable by the launchd GUI agent, but the token file is the reliable
-path.) `NEWS_ARCHIVE_DIR` is auto-carried from the existing install on a re-run, so you don't have to re-pass
-it every time.
+**Auth for the doer (required).** The cockpit launches the selected provider headlessly, so its saved login
+or provider credential must be reachable by the launchd GUI agent. Provider configuration lives in
+`~/.config/nostra-engine/providers.env` (mode 600, outside the repo); the retired housekeeping shim does not
+source it or start a model. `NEWS_ARCHIVE_DIR` is auto-carried from the existing install on a re-run, so you
+don't have to re-pass it every time.
 
 **Feedback → coding-agent dispatch (optional).** The cockpit's Feedback panel can send an item to a coding
 agent that opens a **draft PR** (`ui/server/src/feedback-dispatch.ts`). It is OFF and FAIL-CLOSED by default;
@@ -413,15 +422,15 @@ NEWS_ARCHIVE_DIR="$HOME/Library/CloudStorage/GoogleDrive-<you>/My Drive/equity-r
 ## Quick checks
 
 ```
-launchctl list | grep nostradamus                 # all agents (a doer also shows tunnel + hk-*)
+launchctl list | grep nostradamus                 # all agents (a doer also shows tunnel + calibration timers)
 curl -s http://127.0.0.1:8787/api/health          # {"ok":true,"repoRoot":".../nostra-prod"}
 curl -fsS http://127.0.0.1:20128/healthz          # exact: ok (cheap every-tick OmniRoute liveness)
 curl -s https://app.nostra-demus.com/api/health   # public path (doer only)
 tail -f ~/Library/Logs/nostradamus-deploy.log     # auto-deploy log (DEPLOY/DONE lines)
 tail -f ~/Library/Logs/nostradamus-watchdog.log   # self-heal log
-tail -f ~/Library/Logs/nostradamus-housekeeping.log   # daily housekeeping (RUN/DONE/SKIP lines)
+tail -f ~/Library/Logs/nostradamus-housekeeping.log   # stale retired-timer attempts (always no-spend)
 tail -f ~/Library/Logs/nostradamus-omniroute.log      # local model-router process log
-bash ~/.nostra-ops/housekeeping.sh /research:track all  # force one housekeeping run by hand
+bash ~/.nostra-ops/housekeeping.sh /research:track all  # confirms retirement; never starts a provider
 ```
 
 ## Reboot behavior

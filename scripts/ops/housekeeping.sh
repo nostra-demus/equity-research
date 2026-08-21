@@ -1,124 +1,26 @@
 #!/usr/bin/env bash
-# ---------------------------------------------------------------------------------------------------
-# Unattended housekeeping runner for the always-on ("doer") host. Runs ONE headless Claude slash
-# command from the PROD worktree, under a per-run USD budget cap, on a launchd StartCalendarInterval.
+# Retired compatibility shim for the former direct-Claude housekeeping timers.
 #
-#   Usage (from a com.nostradamus.hk-*.plist):  housekeeping.sh <slash-command> [args...]
-#     e.g.  housekeeping.sh /research:track all
-#           housekeeping.sh /research:review-decisions due
-#
-# The five daily/monthly jobs (see scripts/ops/com.nostradamus.hk-*.plist):
-#   /research:review-decisions due   — file due decision-outcome reviews (DUE-gated: skipped when nothing due)
-#   /research:track all              — refresh the calls-tracker dashboard   (pure-local, ~free)
-#   /screener:sweep                  — scan approved sources into the inbox  (one web pass)
-#   /research:size all               — refresh the model paper-portfolio     (pure-local, ~free)
-#   /research:calibrate all          — refresh the calibration summary       (pure-local, ~free; monthly)
-#
-# Safety: single-flight lock per command (an overrun can't stack), a hard timeout, a --max-budget-usd
-# cap, --max-turns, bypassPermissions (headless — never hangs on a prompt), the review DUE gate, and it
-# ALWAYS exits 0 (incidents live in the log, never mark the launchd job failed → no churn). These jobs
-# write ONLY §28 data (analyses/tracking/**, screener/**, analyses/**) and commit via the engine's own
-# commit-run.sh data lane, so they ride the same serialized-commit path as the cockpit.
-# ---------------------------------------------------------------------------------------------------
+# Paid automatic review/track/sweep/size work must inherit a recorded provider/profile and pass through
+# the cockpit launcher (admission, quota pause, cancellation, activity and supervisor publication). A
+# launchd shell has neither a source decision identity nor the supervisor capability, so it must never
+# choose Claude/Codex on its own. `install-services.sh` removes the old hk-* agents during every full
+# install. Keep this shim only so a stale installed plist fails visibly and spends no model quota.
 set -uo pipefail
 
-CMD="$*"                                                   # the full slash command, e.g. "/research:track all"
-[ -n "$CMD" ] || { echo "usage: housekeeping.sh <slash-command> [args...]" >&2; exit 2; }
-REPO="${ENGINE_REPO_ROOT:-$HOME/nostra-prod}"
+CMD="$*"
+[ -n "$CMD" ] || { echo "usage: housekeeping.sh <retired-slash-command> [args...]" >&2; exit 2; }
 LOG="${HOUSEKEEPING_LOG:-$HOME/Library/Logs/nostradamus-housekeeping.log}"
-BUDGET="${HOUSEKEEPING_BUDGET_USD:-8}"                     # per-run HARD cap; tune per plist via EnvironmentVariables
-MODEL="${HOUSEKEEPING_MODEL:-sonnet}"
-MAXTURNS="${HOUSEKEEPING_MAX_TURNS:-150}"
-TIMEOUT="${HOUSEKEEPING_TIMEOUT_SEC:-1800}"               # hard wall-clock kill (30 min) — no job should exceed this
 mkdir -p "$(dirname "$LOG")" 2>/dev/null || true
+ts() { date '+%Y-%m-%d %H:%M:%S'; }
 
-# Authenticate the headless CLI the SAME way the engine does. A launchd-spawned `claude --print` cannot fall
-# back to an interactive login, so it needs credentials in its environment: ANTHROPIC_API_KEY or
-# CLAUDE_CODE_OAUTH_TOKEN. The engine gets these by loading ~/.config/nostra-engine/providers.env at startup
-# (ui/server/src/load-env.ts); mirror that here so housekeeping authenticates identically. If the file is
-# absent we still proceed — `claude` may use a stored `claude login` / `setup-token` credential instead.
-ENGINE_CONFIG_DIR="${NOSTRA_ENGINE_CONFIG_DIR:-$HOME/.config/nostra-engine}"
-[ -f "$ENGINE_CONFIG_DIR/providers.env" ] && { set -a; . "$ENGINE_CONFIG_DIR/providers.env"; set +a; }
-
-ts()  { date '+%Y-%m-%d %H:%M:%S'; }
-log() { echo "$(ts) $*" >> "$LOG"; }
-
-# keep the log bounded (~last 1500 lines once it passes 6000)
-if [ -f "$LOG" ] && [ "$(wc -l < "$LOG" 2>/dev/null || echo 0)" -gt 6000 ]; then
-  tail -n 1500 "$LOG" > "$LOG.tmp" 2>/dev/null && mv "$LOG.tmp" "$LOG"
-fi
-
-# resolve the Claude CLI to an absolute path (launchd has a minimal PATH) — mirror ui/server/src/config.ts
-# resolveClaudeBin(), plus the Intel /usr/local prefix.
-resolve_claude_bin() {
-  [ -n "${CLAUDE_BIN:-}" ] && { printf '%s' "$CLAUDE_BIN"; return; }
-  local c
-  for c in "$HOME/.local/bin/claude" /opt/homebrew/bin/claude /usr/local/bin/claude; do
-    [ -x "$c" ] && { printf '%s' "$c"; return; }
-  done
-  printf '%s' claude
-}
-BIN="$(resolve_claude_bin)"
-
-cd "$REPO" 2>/dev/null || { log "FATAL cannot cd $REPO — is the prod worktree present?"; exit 0; }
-
-# single-flight per command (mkdir lock keyed on the command hash) so a slow run can't overlap its next fire
-LOCK="${TMPDIR:-/tmp}/nostra-hk-$(printf '%s' "$CMD" | shasum 2>/dev/null | awk '{print $1}').lock.d"
-# lock_mtime_epoch: seconds since epoch of the lock dir's mtime. Try GNU `stat -c %Y` FIRST, then BSD/macOS
-# `stat -f %m`: BSD stat rejects `-c` (exits nonzero → falls through), whereas GNU stat treats `-f` as
-# --file-system and would succeed with the WRONG value — so this order is the one that is correct on both.
-# 0 if neither can read it.
-lock_mtime_epoch() { stat -c %Y "$LOCK" 2>/dev/null || stat -f %m "$LOCK" 2>/dev/null || echo 0; }
-if ! mkdir "$LOCK" 2>/dev/null; then
-  # An existing lock normally means a prior run is still active — skip. BUT the lock is released only by the
-  # EXIT trap below, so a run killed WITHOUT running the trap (reboot / power loss / OOM / `launchctl bootout`
-  # escalating to SIGKILL) orphans the lock, and since this wrapper always exits 0, every later fire would
-  # then SKIP forever and the job would be silently dead (launchd still shows it "healthy"). No legitimate run
-  # can outlive the hard timeout, so a lock older than TIMEOUT + a margin must be an orphan — reclaim it once.
-  lock_age=$(( $(date +%s) - $(lock_mtime_epoch) ))
-  if [ "$lock_age" -gt $(( TIMEOUT + 300 )) ]; then
-    log "RECLAIM stale lock for $CMD (age ${lock_age}s > ${TIMEOUT}s hard timeout) — a prior run was killed before it could release the lock"
-    rmdir "$LOCK" 2>/dev/null || true
-    mkdir "$LOCK" 2>/dev/null || { log "SKIP $CMD — lock contended immediately after reclaim"; exit 0; }
-  else
-    log "SKIP $CMD — a previous run is still active (lock age ${lock_age}s)"; exit 0
-  fi
-fi
-trap 'rmdir "$LOCK" 2>/dev/null' EXIT
-
-# DUE gate (review-decisions only): review_due.py prints to stdout ONLY when something is due and ALWAYS
-# exits 0 — so gate on stdout being NON-EMPTY, never on the exit code. Skips the paid turn when nothing's due.
 case "$CMD" in
-  *review-decisions*)
-    if [ -z "$(python3 .claude/hooks/review_due.py 2>/dev/null)" ]; then
-      log "SKIP review-decisions — review_due reports nothing due"; exit 0
-    fi ;;
+  *review-decisions*) reason="due reviews are owned by the tracked review-dispatch loop" ;;
+  /research:track*) reason="cross-run tracking has no single inherited provider; run it from the cockpit" ;;
+  /screener:sweep*) reason="a source-less timer has no recorded provider; run a tracked cockpit sweep" ;;
+  /research:size*) reason="cross-decision sizing has no single inherited provider; run it from the cockpit" ;;
+  *) reason="unrecognized direct model housekeeping command" ;;
 esac
 
-# assemble flags the installed CLI actually supports (mirrors launcher.ts detectFlags), so a CLI without a
-# given flag degrades gracefully instead of erroring out. Build the supported-flag SET once from --help and
-# test exact membership (not a substring match — a naive grep for "--" matches every long option).
-SUPPORTED="$("$BIN" --help 2>/dev/null | grep -oE -- '--[a-z][a-z0-9-]+' | sort -u || true)"
-have() { printf '%s\n' "$SUPPORTED" | grep -qxF -- "$1"; }
-ARGS=(--print "$CMD" --output-format stream-json --verbose)
-if have '--permission-mode'; then ARGS+=(--permission-mode bypassPermissions)
-elif have '--dangerously-skip-permissions'; then ARGS+=(--dangerously-skip-permissions); fi
-have '--model'          && ARGS+=(--model "$MODEL")
-have '--max-turns'      && ARGS+=(--max-turns "$MAXTURNS")
-# The per-run USD cap is a headline safety guarantee (see the Safety note above). If the installed CLI does
-# not advertise --max-budget-usd, it is dropped SILENTLY otherwise — so log a WARN making the lost hard $ cap
-# visible in the housekeeping log (the run is then bounded only by --max-turns and the ${TIMEOUT}s timeout).
-if have '--max-budget-usd'; then ARGS+=(--max-budget-usd "$BUDGET")
-else log "WARN installed claude lacks --max-budget-usd — running $CMD WITHOUT a hard \$ cap (bounded only by --max-turns=$MAXTURNS and ${TIMEOUT}s timeout)"; fi
-
-log "RUN $CMD (budget \$$BUDGET model $MODEL timeout ${TIMEOUT}s)"
-"$BIN" "${ARGS[@]}" >> "$LOG" 2>&1 &
-CLPID=$!
-# hard timeout watcher: TERM then KILL if the run overruns (portable — macOS has no `timeout`)
-( sleep "$TIMEOUT"; kill -0 "$CLPID" 2>/dev/null && { echo "$(ts) TIMEOUT ${TIMEOUT}s — killing $CMD" >> "$LOG"; \
-    kill -TERM "$CLPID" 2>/dev/null; sleep 5; kill -KILL "$CLPID" 2>/dev/null; } ) &
-WPID=$!
-wait "$CLPID" 2>/dev/null; rc=$?
-kill "$WPID" 2>/dev/null || true; wait "$WPID" 2>/dev/null || true
-log "DONE $CMD (exit $rc)"
+echo "$(ts) RETIRED $CMD — $reason; no provider process was started" >> "$LOG"
 exit 0

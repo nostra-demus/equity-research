@@ -88,6 +88,13 @@ check('a genuinely-interrupted partial run IS resumable (the feature still works
   assert.ok(resumableIds().has(INTERRUPTED), `${INTERRUPTED} should be resumable`)
 })
 
+check('disk-only interruption is never auto-due without supervisor provider identity', () => {
+  const row = listResumableSignals(new Set<string>()).find((item) => item.sigId === INTERRUPTED)
+  assert.equal(row?.provider, undefined)
+  assert.equal(row?.executionProfile, undefined)
+  assert.equal(row?.autoResumeDue, false)
+})
+
 check('a deliberate --until partial run (.target marker) is NOT resumable — the bug', () => {
   // RED on pre-fix code: without the .target exclusion this run is disk-identical to INTERRUPTED and
   // leaks in as resumable, then auto-relaunches without the target and over-runs the deferred stop.

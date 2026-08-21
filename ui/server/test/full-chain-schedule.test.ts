@@ -30,7 +30,7 @@ async function check(name: string, fn: () => void | Promise<void>) {
 // A fake launcher: records every launch synchronously (so assertions need no awaits) and stashes each
 // run's completion callback so the test can fire it to simulate that run finishing.
 function makeFake(opts?: { fail429Once?: string[] }) {
-  const launches: { kind: string; module?: string; agent?: string }[] = []
+  const launches: { kind: string; module?: string; agent?: string; provider: string; model?: string; reasoningLevel?: string }[] = []
   const onFinish = new Map<string, (s: RunStatus) => void>()
   let marker: string | null = null
   let markerCleared = false
@@ -47,7 +47,10 @@ function makeFake(opts?: { fail429Once?: string[] }) {
         const err: any = new Error('at capacity'); err.statusCode = 429; err.body = { code: 'capacity' }
         return Promise.reject(err)
       }
-      launches.push({ kind: params.kind, module: params.module, agent: params.agent })
+      launches.push({
+        kind: params.kind, module: params.module, agent: params.agent,
+        provider: params.provider, model: params.model, reasoningLevel: params.reasoningLevel,
+      })
       onFinish.set(key, cb)
       return Promise.resolve({ runId: `run-${key}`, preflight: {} as LaunchPreflight })
     },
@@ -99,7 +102,7 @@ const sorted = (a: string[]) => [...a].sort()
 
   await check('schedules BM -> earnings -> {bss || mgov} -> valuation -> catalyst -> master; marker dropped', async () => {
     const f = makeFake()
-    const out = await launchFullChained('TESTX', 'tester', 'local', f.deps)
+    const out = await launchFullChained('TESTX', 'tester', 'local', { provider: 'claude' }, f.deps)
 
     // the marker is dropped before any module launches
     assert.equal(f.getMarker(), 'TESTX', 'defer-module-memos marker written for the ticker')
@@ -160,9 +163,35 @@ const sorted = (a: string[]) => [...a].sort()
     assert.equal(masters.length, 1, 'master synthesizer launches exactly once, after every module (incl. competitive-intel) is done')
   })
 
+  await check('the immutable provider profile reaches every chained module and the terminal master', async () => {
+    const f = makeFake()
+    const selection = { provider: 'codex' as const, model: 'gpt-5.6-sol', reasoningLevel: 'max' }
+    await launchFullChained('TESTPROVIDER', 'tester', 'local', selection, f.deps)
+    for (const module of ['business-model', 'earnings', 'balance-sheet-survival', 'management-governance', 'competitive-intel', 'valuation', 'catalyst']) {
+      if (!f.launches.some((launch) => launch.module === module)) {
+        const prerequisite = module === 'earnings' ? 'business-model'
+          : ['balance-sheet-survival', 'management-governance', 'competitive-intel'].includes(module) ? 'earnings'
+          : module === 'valuation' ? 'management-governance'
+          : 'valuation'
+        if (prerequisite === 'management-governance') f.finish('balance-sheet-survival')
+        f.finish(prerequisite)
+      }
+    }
+    f.finish('competitive-intel')
+    f.finish('catalyst')
+    assert.ok(f.launches.some((launch) => launch.kind === 'rerun' && launch.module === 'master'))
+    for (const launch of f.launches) {
+      assert.deepEqual(
+        { provider: launch.provider, model: launch.model, reasoningLevel: launch.reasoningLevel },
+        selection,
+        `${launch.module ?? launch.kind} changed provider profile inside the chain`,
+      )
+    }
+  })
+
   await check('a failed module stops the chain — no further modules, no master', async () => {
     const f = makeFake()
-    await launchFullChained('TESTF', 'tester', 'local', f.deps)
+    await launchFullChained('TESTF', 'tester', 'local', { provider: 'claude' }, f.deps)
     assert.deepEqual(f.mods(), ['business-model'])
 
     f.finish('business-model', 'error') // business-model fails
@@ -174,7 +203,7 @@ const sorted = (a: string[]) => [...a].sort()
 
   await check('an aborted SIBLING stops new scheduling but does not launch the master', async () => {
     const f = makeFake()
-    await launchFullChained('TESTS', 'tester', 'local', f.deps)
+    await launchFullChained('TESTS', 'tester', 'local', { provider: 'claude' }, f.deps)
     f.finish('business-model')
     f.finish('earnings')
     // after earnings, bss + mgov are in-flight; valuation waits for mgov (declared dependency).
@@ -189,7 +218,7 @@ const sorted = (a: string[]) => [...a].sort()
 
   await check('a transient 429 retries the module — it does NOT kill the chain or clear the marker', async () => {
     const f = makeFake({ fail429Once: ['balance-sheet-survival'] })
-    await launchFullChained('TEST429', 'tester', 'local', f.deps)
+    await launchFullChained('TEST429', 'tester', 'local', { provider: 'claude' }, f.deps)
     f.finish('business-model')
     f.finish('earnings') // -> pump launches bss + mgov + competitive-intel; bss rejects with a 429, the others launch
     await f.tick()       // let bss's rejection .catch run
@@ -219,7 +248,7 @@ const sorted = (a: string[]) => [...a].sort()
     // the whole after-earnings wave (bss + mgov + competitive-intel) 429s at once, so there is a genuine
     // zero-child transition/backoff gap the chain claim must survive.
     const f = makeFake({ fail429Once: ['balance-sheet-survival', 'management-governance', 'competitive-intel'] })
-    await launchFullChained('TESTPOOL', 'tester', 'local', f.deps)
+    await launchFullChained('TESTPOOL', 'tester', 'local', { provider: 'claude' }, f.deps)
     assert.equal(f.poolClaimHeld(), true, 'claim is held after the first child ACK')
     f.finish('business-model')
     assert.equal(f.poolClaimHeld(), true, 'claim survives the business-model → earnings transition')
@@ -276,7 +305,7 @@ const sorted = (a: string[]) => [...a].sort()
 
   await check('haltAllChains() stops the DAG — no further modules, no master (kill-switch wiring)', async () => {
     const f = makeFake()
-    await launchFullChained('TESTHALT', 'tester', 'local', f.deps)
+    await launchFullChained('TESTHALT', 'tester', 'local', { provider: 'claude' }, f.deps)
     f.finish('business-model') // -> earnings launches (chain still alive)
     assert.ok(f.mods().includes('earnings'), 'earnings launched before the halt')
     haltAllChains()            // stop-everything bumps the chain epoch
@@ -315,7 +344,7 @@ const sorted = (a: string[]) => [...a].sort()
       fs.writeFileSync(path.join(runRootAbs, 'idea_admission.json'), '{}\n')
       const f = makeFake()
       await assert.rejects(
-        () => launchFullChained(TICK, 'tester', 'local', f.deps),
+        () => launchFullChained(TICK, 'tester', 'local', { provider: 'claude' }, f.deps),
         (error: any) => error?.statusCode === 409 && error?.body?.code === 'research_run_sealed',
       )
       assert.equal(f.getMarker(), null, 'the defer marker is not written for a sealed run')
@@ -339,7 +368,7 @@ const sorted = (a: string[]) => [...a].sort()
         fs.writeFileSync(path.join(runRootAbs, m, `99_${m}-synthesis.md`), '# done\n') // a non-empty 99 synthesis = module finished
       }
       const f = makeFake()
-      const out = await launchFullChained(TICK, 'tester', 'local', f.deps)
+      const out = await launchFullChained(TICK, 'tester', 'local', { provider: 'claude' }, f.deps)
       assert.equal(out.resumed, true, 'a folder with finished modules is a resume')
       assert.deepEqual(sorted(out.skipped ?? []), sorted(['business-model', 'earnings']), 'the finished modules are reported as skipped')
       assert.ok(!(out.planned ?? []).includes('business-model') && !(out.planned ?? []).includes('earnings'), 'a skipped module is never also planned')
@@ -382,7 +411,7 @@ const sorted = (a: string[]) => [...a].sort()
         fs.writeFileSync(path.join(runRootAbs, m, `99_${m}-synthesis.md`), '# done\n')
       }
       const f = makeFake()
-      const out = await launchFullChained(TICK, 'tester', 'local', f.deps)
+      const out = await launchFullChained(TICK, 'tester', 'local', { provider: 'claude' }, f.deps)
       assert.equal(out.runId, 'run-master', 'direct-master resume returns the registered master id, never an empty placeholder')
       assert.equal(f.mods().length, 0, 'no finished module is relaunched')
       assert.equal(f.launches.filter((item) => item.kind === 'rerun' && item.module === 'master').length, 1,
@@ -407,7 +436,7 @@ const sorted = (a: string[]) => [...a].sort()
       fs.writeFileSync(path.join(runRootAbs, 'business-model', '99_business-model-synthesis.md'), '# done\n')
       fs.writeFileSync(path.join(runRootAbs, 'RUN_FAILURE.md'), '# Run Failure\n\n- status: FAILED (from the earlier break)\n')
       const f = makeFake()
-      await launchFullChained(TICK, 'tester', 'local', f.deps)
+      await launchFullChained(TICK, 'tester', 'local', { provider: 'claude' }, f.deps)
       assert.ok(!fs.existsSync(path.join(runRootAbs, 'RUN_FAILURE.md')), 'the stale failure note must be gone the moment the resume starts, not just at eventual completion')
     } finally {
       fs.rmSync(runRootAbs, { recursive: true, force: true })

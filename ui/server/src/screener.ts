@@ -10,6 +10,9 @@ import { ideasHealthLivenessMs, readIdeasHealth } from './news/ideas/ideas-healt
 import { projectLiveIdeas } from './news/ideas/ideas-projection'
 import { buildQualifiedIdeasBoard } from './qualified-ideas-store'
 import { buildSupplyChainBoard } from './supply-chain'
+import { autoResumeDue } from './resume-policy'
+import { readLastProviderSelection } from './execution-provenance'
+import type { ProviderExecutionProfile, RunProvider } from './providers/types'
 
 // Read-only API surface over the screener swarm's canonical stores. Every path is derived from the
 // SWARM.md manifest (never hardcoded beyond the swarm id this API is named for) and sandboxed to
@@ -79,7 +82,19 @@ export function screenerBoard() {
 // launched (intake.json present) but is missing its final artifact is an interruption we can pick up —
 // the gauntlet command skips the modules whose `99_*-synthesis.md` already exists, so a relaunch only
 // runs the rest.
-export function listResumableSignals(liveSubjectIds: Set<string>): { sigId: string; headline: string; doneCount: number; totalCount: number }[] {
+export interface ResumableSignal {
+  sigId: string
+  headline: string
+  doneCount: number
+  totalCount: number
+  reason?: string
+  resetsAt?: number
+  autoResumeDue: boolean
+  provider?: RunProvider
+  executionProfile?: ProviderExecutionProfile
+}
+
+export function listResumableSignals(liveSubjectIds: Set<string>): ResumableSignal[] {
   const m = manifest()
   const tmpl = m.runRootTemplate || 'screener/runs/{signal_id}'
   const runsRel = tmpl.slice(0, tmpl.indexOf('{')).replace(/\/+$/, '') || 'screener/runs'
@@ -126,7 +141,7 @@ export function listResumableSignals(liveSubjectIds: Set<string>): { sigId: stri
     }
     return false
   }
-  const out: { sigId: string; headline: string; doneCount: number; totalCount: number }[] = []
+  const out: ResumableSignal[] = []
   for (const sigId of entries) {
     if (!/^SIG-/.test(sigId)) continue
     if (liveSubjectIds.has(sigId)) continue // currently running — not interrupted
@@ -149,7 +164,19 @@ export function listResumableSignals(liveSubjectIds: Set<string>): { sigId: stri
     } catch {
       /* keep the id */
     }
-    out.push({ sigId, headline, doneCount, totalCount: modules.length })
+    let pause: any = null
+    try { pause = JSON.parse(fs.readFileSync(path.join(absRoot, '.interrupted'), 'utf8')) } catch { /* ordinary partial */ }
+    const selection = readLastProviderSelection(`${runsRel}/${sigId}`)
+    out.push({
+      sigId, headline, doneCount, totalCount: modules.length,
+      ...(typeof pause?.reason === 'string' ? { reason: pause.reason } : {}),
+      ...(typeof pause?.resetsAt === 'number' ? { resetsAt: pause.resetsAt } : {}),
+      ...(selection ? { provider: selection.provider, executionProfile: selection.executionProfile } : {}),
+      autoResumeDue: Boolean(selection?.provider) && autoResumeDue(
+        typeof pause?.reason === 'string' ? pause.reason : undefined,
+        typeof pause?.resetsAt === 'number' ? pause.resetsAt : undefined,
+      ),
+    })
   }
   return out
 }

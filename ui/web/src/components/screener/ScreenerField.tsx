@@ -7,6 +7,8 @@ import { AgentNode } from '../swarm/AgentNode'
 import { EdgeLayer } from '../swarm/EdgeLayer'
 import { AgentTooltip } from '../AgentTooltip'
 import { Switchyard } from './Switchyard'
+import { ProviderMiniSelector } from '../ProviderMiniSelector'
+import { providerLabel, providerLaunchBlockedReason } from '../../lib/provider'
 
 // The screener stage: the gauntlet as a left-to-right flow constellation. Reuses the research
 // swarm's orb/edge components and ETA machinery wholesale — only the semantics differ: the unit is
@@ -30,6 +32,10 @@ export function ScreenerField() {
   const continueSignal = useStore((s) => s.continueSignal)
   const now = useStore((s) => s.now)
   const setNow = useStore((s) => s.setNow)
+  const runProvider = useStore((s) => s.runProvider)
+  const providers = useStore((s) => s.providers)
+  const activeRuns = useStore((s) => s.activeRuns)
+  const providerProblem = providerLaunchBlockedReason(providers[runProvider], providers.catalogState)
 
   const ref = useRef<HTMLDivElement>(null)
   const [size, setSize] = useState({ w: 1200, h: 760 })
@@ -65,6 +71,7 @@ export function ScreenerField() {
     for (const v of Object.values(runtime)) if ((v.status === 'running' || v.status === 'queued') && v.runId) return v.runId
     return null
   }, [runtime])
+  const liveRun = liveRunId ? activeRuns[liveRunId] : undefined
 
   // resumable = a signal that's stopped mid-gauntlet (some orbs done, not all) and did NOT end at a real
   // terminal gate (a PARK/LOG/watchlist exit is a complete result, not a stop). Drives the Continue button.
@@ -161,6 +168,7 @@ export function ScreenerField() {
               {sig?.source_name && <span className="scsignal__src">{sig.source_name}</span>}
               {sigDate && <span>{sigDate}</span>}
               {sig?.status && <span className="scsignal__outcome">{plainRoute(sig.status)}</span>}
+              {liveRun?.provider && <span className="scsignal__outcome">{providerLabel(liveRun.provider)} · {liveRun.profileKey || liveRun.executionProfile?.key || 'profile unknown'}</span>}
             </div>
             {!anyLive && !resumable && !overridable && (
               <div className="scsignal__hint">Not the live wire on the left — open an event to run a new check.</div>
@@ -173,18 +181,19 @@ export function ScreenerField() {
             )}
             {(anyLive && liveRunId) || resumable || overridable ? (
               <div className="scsignal__actions">
+                {(resumable || overridable) && <ProviderMiniSelector agentCount={graph.totals.agents} duration="duration shown live" />}
                 {anyLive && liveRunId && (
                   <button type="button" className="scsignal__act scsignal__act--stop" disabled={!!stoppingRuns[liveRunId]} onClick={() => void cancelRun(liveRunId)} title="Stop the run — finished checks are saved so you can continue later">
                     <span className="scsignal__act-glyph" aria-hidden>■</span> {stoppingRuns[liveRunId] ? 'Stopping…' : 'Stop'}
                   </button>
                 )}
                 {resumable && (
-                  <button type="button" className="scsignal__act scsignal__act--continue" disabled={launchPending?.key === `continue:${selectedSignal}`} onClick={() => void continueSignal(selectedSignal)} title="Resume from where it stopped — reuses the finished checks, runs only the rest">
+                  <button type="button" className="scsignal__act scsignal__act--continue" disabled={launchPending?.key === `continue:${selectedSignal}` || !!providerProblem} onClick={() => void continueSignal(selectedSignal)} title={providerProblem || 'Resume from where it stopped — reuses the finished checks, runs only the rest'}>
                     {launchPending?.key === `continue:${selectedSignal}` ? 'Resuming…' : 'Continue'} <span className="scsignal__act-glyph" aria-hidden>▸</span>
                   </button>
                 )}
                 {overridable && (
-                  <button type="button" className="scsignal__act scsignal__act--continue" disabled={launchPending?.key === `continue:${selectedSignal}`} onClick={() => void continueSignal(selectedSignal, undefined, true)} title="Override the promotion gate and run the rest of the gauntlet — the finished first checks are reused, not redone (a recorded human override of the auto-cull)">
+                  <button type="button" className="scsignal__act scsignal__act--continue" disabled={launchPending?.key === `continue:${selectedSignal}` || !!providerProblem} onClick={() => void continueSignal(selectedSignal, undefined, true)} title={providerProblem || 'Override the promotion gate and run the rest of the gauntlet — the finished first checks are reused, not redone (a recorded human override of the auto-cull)'}>
                     {launchPending?.key === `continue:${selectedSignal}` ? 'Running…' : 'Override & run forward'} <span className="scsignal__act-glyph" aria-hidden>▸</span>
                   </button>
                 )}

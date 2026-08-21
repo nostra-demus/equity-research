@@ -1,10 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { moduleLabel } from '../lib/format'
 import { Spin } from './Spin'
 import type { ModulePlanEntry, ThesisPlan } from '../lib/types'
 import './ThesisPlanPanel.css'
+import { providerBlockedReason, providerIsBlocked, providerLabel, providerLaunchBlockedReason, providerNeedsCheck, type RunProvider } from '../lib/provider'
 
 /** Cost/time are calibrated "~" bands, not quotes. Showing "$13.5–31.9" beside "$55–130" implies a precision
  *  neither number has (and reads as sloppy next to it). Round both — same band, honest about its width. */
@@ -54,6 +55,9 @@ function ModuleRow({ m, plan, i }: { m: ModulePlanEntry; plan: ThesisPlan; i: nu
   const resumeModule = useStore((s) => s.resumeThesisModule)
   const launchPending = useStore((s) => s.launchPending)
   const ticker = useStore((s) => s.selectedTicker)
+  const providerStatus = useStore((s) => s.providers[s.runProvider])
+  const providerCatalogState = useStore((s) => s.providers.catalogState)
+  const providerProblem = providerLaunchBlockedReason(providerStatus, providerCatalogState)
   // Locked: its synthesis already sits in the run root the launcher seeds from, so it is reused no matter what.
   const locked = plan.mustReuse.includes(m.module)
   const actionable = plan.reusable.includes(m.module) && !locked
@@ -93,17 +97,17 @@ function ModuleRow({ m, plan, i }: { m: ModulePlanEntry; plan: ThesisPlan; i: nu
         <button
           type="button"
           className={`tpp__badge tpp__badge--${tone} tpp__badge--pressable`}
-          disabled={anyPending}
+          disabled={anyPending || !!providerProblem}
           aria-busy={pillPending}
           onClick={(e) => {
             e.stopPropagation() // the row is inert here, but keep the pill the sole click target regardless
             void resumeModule(m.module)
           }}
-          title={
+          title={providerProblem || (
             m.state === 'partial' && !m.staleReason
               ? `Run ${moduleLabel(m.module)} now — resumes the ${m.willRunAgents} remaining orb${m.willRunAgents === 1 ? '' : 's'}`
               : `Run ${moduleLabel(m.module)} now — ${m.willRunAgents} orb${m.willRunAgents === 1 ? '' : 's'}`
-          }
+          )}
         >
           {pillPending ? <Spin /> : badge}
         </button>
@@ -133,6 +137,12 @@ export function ThesisPlanPanel() {
   const analyzing = useStore((s) => s.intakeAnalyzing)
   const analyzeThenScope = useStore((s) => s.analyzeIntake)
   const reopen = useStore((s) => s.openThesisPlan)
+  const provider = useStore((s) => s.runProvider)
+  const setProvider = useStore((s) => s.setRunProvider)
+  const providers = useStore((s) => s.providers)
+  const checkProvider = useStore((s) => s.refreshProviders)
+  const providerChoiceGeneration = useRef(0)
+  const providerProblem = providerLaunchBlockedReason(providers[provider], providers.catalogState)
   // The CSS handles the row stagger / press / skeleton under prefers-reduced-motion, but the modal's own
   // entrance is JS-driven and never sees that media query. Keep the opacity fade (it aids comprehension),
   // drop the scale + translate (positional motion is what causes discomfort).
@@ -226,7 +236,7 @@ export function ThesisPlanPanel() {
                     <div className="tpp__intake-note">Let intake read the new documents and re-run only the orbs they actually change.</div>
                   </div>
                 </div>
-                <button className="tpp__intake-reset" onClick={async () => { await analyzeThenScope(); await reopen() }} disabled={analyzing || busyOnTicker}>
+                <button className="tpp__intake-reset" title={providerProblem || undefined} onClick={async () => { await analyzeThenScope(); await reopen() }} disabled={analyzing || busyOnTicker || !!providerProblem}>
                   {analyzing ? <><Spin /> Scoping…</> : 'Scope with intake'}
                 </button>
               </div>
@@ -293,15 +303,38 @@ export function ThesisPlanPanel() {
                 where it is actually this swarm's price — i.e. where we can also launch it. */}
             {canRun && (
               <>
+                <div className="modal__body">
+                  <div className="modal__row"><span className="modal__k">Run with</span><span className="modal__v">
+                    <span className="providerseg" role="radiogroup" aria-label="Run provider">
+                      {(['claude', 'codex'] as RunProvider[]).map((choice) => {
+                        const problem = providerBlockedReason(providers[choice])
+                        const status = providers[choice]
+                        return <button key={choice} role="radio" aria-checked={provider === choice} className={`providerseg__btn${provider === choice ? ' providerseg__btn--on' : ''}`} disabled={pricing || busyOnTicker || providerIsBlocked(status)} title={problem || (providerNeedsCheck(status) ? `Check ${providerLabel(choice)} status` : `Run with ${providerLabel(choice)}`)} onClick={() => void (async () => {
+                          const generation = ++providerChoiceGeneration.current
+                          if (providerNeedsCheck(status)) {
+                            await checkProvider(choice)
+                            if (generation !== providerChoiceGeneration.current) return
+                            if (providerLaunchBlockedReason(useStore.getState().providers[choice], useStore.getState().providers.catalogState)) return
+                          }
+                          if (generation !== providerChoiceGeneration.current) return
+                          setProvider(choice)
+                          await reopen()
+                        })()}>{status.checking ? 'checking…' : providerLabel(choice)}</button>
+                      })}
+                    </span>
+                  </span></div>
+                </div>
+
+                {providerProblem && <div className="tpp__carry tpp__carry--warn">{providerProblem}. Choose an available provider to continue.</div>}
                 <div className={`modal__body tpp__price${pricing ? ' tpp__price--pricing' : ''}`}>
                   <div className="modal__row">
                     <span className="modal__k">Runs</span>
                     <span className="modal__v">{runCount} module{runCount === 1 ? '' : 's'} + the memo · {p!.agentCount} orbs</span>
                   </div>
-                  <div className="modal__row">
+                  {provider === 'claude' ? <div className="modal__row">
                     <span className="modal__k">Est. cost</span>
                     <span className="modal__v">${band(p!.estCostUsdRange)}</span>
-                  </div>
+                  </div> : <div className="modal__row"><span className="modal__k">Plan billing</span><span className="modal__v">Codex subscription allowance</span></div>}
                   <div className="modal__row">
                     <span className="modal__k">Est. time</span>
                     <span className="modal__v">{band(p!.estMinutesRange)} min</span>
@@ -312,13 +345,13 @@ export function ThesisPlanPanel() {
                   </div>
                 </div>
 
-                <div className="tpp__saving">
+                {provider === 'claude' && <div className="tpp__saving">
                   {saves ? (
                     <>Re-running everything would cost <b>${band(full!.estCostUsdRange)}</b> and take <b>{band(full!.estMinutesRange)} min</b>. Reusing what’s done skips {full!.agentCount - p!.agentCount} orbs.</>
                   ) : (
                     <>Nothing is being reused, so this is a full run — the next step asks you to type <b>{ticker}</b> to confirm. Click a module above to keep its existing output instead.</>
                   )}
-                </div>
+                </div>}
               </>
             )}
 
@@ -331,7 +364,7 @@ export function ThesisPlanPanel() {
             <div className="modal__actions">
               <button className="btn btn--ghost" disabled={starting} onClick={close}>{canRun ? 'Cancel' : 'Close'}</button>
               {canRun && (
-                <button className="btn btn--amber" disabled={busyOnTicker || pricing} onClick={() => void complete()}>
+                <button className="btn btn--amber" disabled={busyOnTicker || pricing || !!providerProblem} title={providerProblem || undefined} onClick={() => void complete()}>
                   {starting ? <><Spin /> Starting…</> : runCount === 0 ? 'Write the memo' : 'Complete the thesis'}
                 </button>
               )}

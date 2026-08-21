@@ -6,7 +6,7 @@ process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
 import os from 'node:os'
 import path from 'node:path'
-import { cancelAll, captureChainEpoch, haltAllChains } from '../src/launcher'
+import { cancelAll, captureChainEpoch, haltAllChains, haltChain } from '../src/launcher'
 import { createRun, inFlightRunsForSubject, setActiveSubjectRun, type RunState } from '../src/registry'
 
 let passed = 0
@@ -50,6 +50,14 @@ await check('chain epoch: a step finishing AFTER stop-everything must not advanc
   assert.equal(alive(), false) // the probe a running step captured at launch now says halt
   const fresh = captureChainEpoch()
   assert.equal(fresh(), true) // a NEW chain started after the stop advances normally
+})
+
+await check('chain cancellation is scoped: stopping one subject leaves another chain live', () => {
+  const first = captureChainEpoch('chain-first')
+  const second = captureChainEpoch('chain-second')
+  haltChain('chain-first')
+  assert.equal(first(), false)
+  assert.equal(second(), true)
 })
 
 await check('cancelAll stops running and gate-parked runs, releases their subjects, skips finished ones', async () => {

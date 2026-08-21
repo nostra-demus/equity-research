@@ -215,7 +215,8 @@ export function feedbackEmailReady(): boolean {
 // stays the single-process /research:full path.
 export const FULL_PER_MODULE = process.env.ENGINE_FULL_PER_MODULE === '1'
 
-export type LaunchKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'doc-intake' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
+export type LaunchKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'doc-intake'
+  | 'signal' | 'sweep' | 'screener-agent' | 'handoff' | 'conviction' | 'parity'
 
 // Runaway / cost guards per launch granularity. These are HARD ceilings: the headless CLI stops when it
 // hits the budget/turn cap, even mid-run. The earlier full-run defaults (800 turns / $60) truncated a
@@ -595,6 +596,8 @@ export const LAUNCH_GUARDS: Record<LaunchKind, { maxTurns: number; budgetUsd: nu
   'screener-agent': { maxTurns: capNum(process.env.ENGINE_SCREENER_AGENT_MAX_TURNS, 60), budgetUsd: capNum(process.env.ENGINE_SCREENER_AGENT_BUDGET_USD, 12) },
   // idempotent thesis->ticker handoff: read the locked record, write one data-pool memo + ledger line.
   handoff: { maxTurns: capNum(process.env.ENGINE_HANDOFF_MAX_TURNS, 60), budgetUsd: capNum(process.env.ENGINE_HANDOFF_BUDGET_USD, 10) },
+  conviction: { maxTurns: capNum(process.env.ENGINE_SCREENER_VALIDATE_MAX_TURNS, 60), budgetUsd: capNum(process.env.ENGINE_SCREENER_VALIDATE_BUDGET_USD, 10) },
+  parity: { maxTurns: capNum(process.env.ENGINE_PARITY_MAX_TURNS, 240), budgetUsd: capNum(process.env.ENGINE_PARITY_BUDGET_USD, 40) },
 }
 
 // Guards for the read-only relevance-scan agent (pipeline-scan.ts) — a short, cheap, tool-limited web read,

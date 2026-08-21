@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { MAX_CONCURRENT_RUNS, REPO_ROOT } from './config'
-import { inFlightRunsForSubject, listRuns } from './registry'
+import { IN_FLIGHT_STATUSES, inFlightRunsForSubject, listRuns } from './registry'
 import { buildSwarmGraph, depsCompleteForModule, moduleAncestors, transitiveDownstreamModules } from './roster'
 import type { AdmissionDecision, AdmissionRejection, RunKind } from './types'
 
@@ -44,6 +44,7 @@ export function admitRun(req: AdmissionRequest): AdmissionDecision {
   const { ticker, kind, coveredModules, writeTargetsAbs, readDepsAbs } = req
   const swarmId = req.swarmId || 'research'
   const inflight = inFlightRunsForSubject(ticker, swarmId)
+  const allInflight = listRuns().filter((run) => IN_FLIGHT_STATUSES.has(run.status))
   const graph = buildSwarmGraph(swarmId)
 
   // D1 — exclusivity for shared run-root writers (full/rerun write final_thesis/memo/dossier and
@@ -58,9 +59,10 @@ export function admitRun(req: AdmissionRequest): AdmissionDecision {
   }
 
   // D2 — disjoint absolute writes.
-  const targets = new Set(writeTargetsAbs)
-  for (const e of inflight) {
-    const overlap = e.writeTargetsAbs.filter((p) => targets.has(p))
+  const overlaps = (left: string, right: string) => left === right
+    || left.startsWith(`${right}${path.sep}`) || right.startsWith(`${left}${path.sep}`)
+  for (const e of allInflight) {
+    const overlap = e.writeTargetsAbs.filter((existing) => writeTargetsAbs.some((requested) => overlaps(existing, requested)))
     if (overlap.length) {
       // The human-meaningful shape of the conflict is the MODULE(s) both runs write, not the raw file
       // list — carry it so the toast can say "already writing the business-model module" instead of

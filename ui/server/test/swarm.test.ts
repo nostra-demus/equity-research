@@ -43,6 +43,7 @@ check('screener swarm is discovered from its SWARM.md manifest with a routing co
   assert.ok(sc, 'screener manifest missing')
   assert.equal(sc.unit, 'signal')
   assert.equal(sc.runRootTemplate, 'screener/runs/{SIG_ID}')
+  assert.deepEqual(sc.decisionArtifacts, ['thesis_record.json'])
   assert.ok(sc.routing && sc.routing.terminal.includes('watchlist_no_edge') && sc.routing.continue.includes('PROMOTE'))
 })
 
@@ -195,14 +196,18 @@ try {
     }
   })
 
-  // ---- admission: subjects are independent; signal runs are exclusive per subject ----
-  check('admission: a live research run does not block a screener signal (different subjects)', () => {
-    const d = admitRun({ ticker: SIG, kind: 'signal', swarmId: 'screener', coveredModules: buildSwarmGraph('screener').modules.map((m) => m.name), writeTargetsAbs: [], readDepsAbs: [] })
+  // ---- admission: signal subjects are distinct, but their shared ledger/board publication is serialized ----
+  check('admission: same-signal exclusivity and cross-signal shared-store serialization both hold', () => {
+    const sharedLedger = path.join(REPO_ROOT, 'screener', 'ledger')
+    run.writeTargetsAbs = [sharedLedger]
+    run2.writeTargetsAbs = [sharedLedger]
+    const d = admitRun({ ticker: SIG, kind: 'signal', swarmId: 'screener', coveredModules: buildSwarmGraph('screener').modules.map((m) => m.name), writeTargetsAbs: [sharedLedger], readDepsAbs: [] })
     // run/run2 above are live on SIG — exclusivity must reject a second signal on the SAME subject
     assert.equal(d.ok, false)
     if (!d.ok) assert.equal(d.code, 'exclusivity')
-    const other = admitRun({ ticker: 'SIG-20991231-0000beef', kind: 'signal', swarmId: 'screener', coveredModules: [], writeTargetsAbs: [], readDepsAbs: [] })
-    assert.equal(other.ok, true)
+    const other = admitRun({ ticker: 'SIG-20991231-0000beef', kind: 'signal', swarmId: 'screener', coveredModules: [], writeTargetsAbs: [path.join(sharedLedger, 'events.ndjson')], readDepsAbs: [] })
+    assert.equal(other.ok, false)
+    if (!other.ok) assert.equal(other.code, 'target_conflict')
   })
 
   // ---- admission: sweep/handoff are exclusive per subject (duplicates rejected, not raced) ----

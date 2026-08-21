@@ -676,10 +676,12 @@ try {
   const firstResumeStarted = new Promise<void>((resolve) => { markFirstResumeStarted = resolve })
   const firstResumeGate = new Promise<void>((resolve) => { releaseFirstResume = resolve })
   const resumedSubjects: string[] = []
-  api.launchSignal = async (input) => {
+  const claudeExecutionProfile = { key: 'claude:opus:default', parentModel: 'opus', parentReasoning: 'default' }
+  const codexExecutionProfile = { key: 'codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh', parentModel: 'gpt-5.6-sol', parentReasoning: 'max', specialistModel: 'gpt-5.6-terra', specialistReasoning: 'xhigh' }
+  api.launchSignal = async (selection, input) => {
     resumedSubjects.push(input.sigId || '')
     if (resumedSubjects.length === 1) { markFirstResumeStarted(); await firstResumeGate }
-    return { runId: `resume-${resumedSubjects.length}`, preflight: {} as any }
+    return { runId: `resume-${resumedSubjects.length}`, preflight: { provider: selection.provider, profileKey: selection.expectedProfileKey, model: selection.model, reasoningLevel: selection.reasoningLevel, executionProfile: selection.executionProfile } as any }
   }
   useStore.setState({
     activeSwarm: 'screener',
@@ -689,10 +691,19 @@ try {
     warp: null,
     _maybeAutoResume: originalActions.maybeAutoResume,
     scSelectedSignal: null,
+    providers: {
+      claude: { provider: 'claude', enabled: true, available: true, checked: true, status: 'available', profile: claudeExecutionProfile },
+      codex: { provider: 'codex', enabled: true, available: true, checked: true, status: 'available', profile: codexExecutionProfile },
+      catalogState: 'valid',
+    },
+    resumableRuns: [
+      { swarm: 'screener', subject: 'SIG-RESUME-FIRST', runRoot: 'screener/runs/SIG-RESUME-FIRST', kind: 'signal', doneCount: 1, totalCount: 2, unit: 'module', provider: 'claude', executionProfile: claudeExecutionProfile },
+      { swarm: 'screener', subject: 'SIG-RESUME-SECOND', runRoot: 'screener/runs/SIG-RESUME-SECOND', kind: 'signal', doneCount: 1, totalCount: 2, unit: 'module', provider: 'claude', executionProfile: claudeExecutionProfile },
+    ],
   })
   const resumeBatch = useStore.getState()._maybeAutoResume([
-    { sigId: 'SIG-RESUME-FIRST', headline: 'first', doneCount: 1, totalCount: 2 },
-    { sigId: 'SIG-RESUME-SECOND', headline: 'second', doneCount: 1, totalCount: 2 },
+    { sigId: 'SIG-RESUME-FIRST', headline: 'first', doneCount: 1, totalCount: 2, provider: 'claude', executionProfile: claudeExecutionProfile },
+    { sigId: 'SIG-RESUME-SECOND', headline: 'second', doneCount: 1, totalCount: 2, provider: 'claude', executionProfile: claudeExecutionProfile },
   ])
   await firstResumeStarted
   useStore.getState().switchSwarm('future-flow')
@@ -700,6 +711,28 @@ try {
   await resumeBatch
   assert.deepEqual(resumedSubjects, ['SIG-RESUME-FIRST'], 'navigation during auto-resume must stop the remaining Screener launches')
   assert.notEqual(useStore.getState().toast?.msg.startsWith('Resuming'), true, 'a foreign swarm must not receive the Screener resume toast')
+
+  useStore.setState({ activeSwarm: 'screener', health: 'online', staticMode: false, resumableRuns: [] })
+  await useStore.getState()._maybeAutoResume([
+    { sigId: 'SIG-RESUME-NO-PROVIDER', headline: 'legacy unknown', doneCount: 1, totalCount: 2 },
+  ])
+  assert.deepEqual(resumedSubjects, ['SIG-RESUME-FIRST'], 'automatic resume never guesses a provider for unattributed work')
+
+  useStore.setState({
+    resumableRuns: [{ swarm: 'screener', subject: 'SIG-RESUME-MISSING-PROFILE', runRoot: 'screener/runs/SIG-RESUME-MISSING-PROFILE', kind: 'signal', doneCount: 1, totalCount: 2, unit: 'module', provider: 'claude', executionProfile: claudeExecutionProfile }],
+  })
+  await useStore.getState()._maybeAutoResume([
+    { sigId: 'SIG-RESUME-MISSING-PROFILE', headline: 'missing board profile', doneCount: 1, totalCount: 2, provider: 'claude' },
+  ])
+  assert.deepEqual(resumedSubjects, ['SIG-RESUME-FIRST'], 'automatic resume holds when either board/disk profile authority is missing')
+
+  useStore.setState({
+    resumableRuns: [{ swarm: 'screener', subject: 'SIG-RESUME-CONFLICT', runRoot: 'screener/runs/SIG-RESUME-CONFLICT', kind: 'signal', doneCount: 1, totalCount: 2, unit: 'module', provider: 'claude', executionProfile: claudeExecutionProfile }],
+  })
+  await useStore.getState()._maybeAutoResume([
+    { sigId: 'SIG-RESUME-CONFLICT', headline: 'conflicting board provider', doneCount: 1, totalCount: 2, provider: 'codex', executionProfile: codexExecutionProfile },
+  ])
+  assert.deepEqual(resumedSubjects, ['SIG-RESUME-FIRST'], 'automatic resume holds on board-vs-disk provider/profile conflict')
 
   let foreignRecoveryInitCalls = 0
   useStore.setState({

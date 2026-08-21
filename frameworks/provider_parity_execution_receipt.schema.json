@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/provider_parity_execution_receipt.schema.json",
+  "title": "Runtime-derived provider-parity adjudication execution receipt",
+  "type": "object",
+  "required": ["schema_version", "issued_at", "comparison_id", "comparison_artifact", "freeze_receipt", "attempt", "runtime_provenance"],
+  "properties": {
+    "schema_version": { "const": "provider-parity-adjudication-execution/1.0" },
+    "issued_at": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$" },
+    "comparison_id": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "comparison_artifact": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "freeze_receipt": {
+      "type": "object",
+      "required": ["path", "sha256", "receipt_sha256"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "receipt_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "attempt": {
+      "type": "object",
+      "required": ["attempt_id", "provider", "model", "reasoning_level", "profile_key", "started_at", "kind", "role", "decision_author"],
+      "properties": {
+        "attempt_id": { "type": "string", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$" },
+        "provider": { "type": "string", "enum": ["claude", "codex"] },
+        "model": { "type": "string", "minLength": 1 },
+        "reasoning_level": { "type": "string", "minLength": 1 },
+        "profile_key": { "type": "string", "minLength": 1 },
+        "started_at": { "type": "string", "minLength": 1 },
+        "kind": { "const": "parity" },
+        "role": { "const": "terminal_adjudicator" },
+        "decision_author": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "runtime_provenance": {
+      "type": "object",
+      "required": ["manifest_path", "manifest_sha256", "attempt_locator", "attempt_sha256", "paired_canaries"],
+      "properties": {
+        "manifest_path": { "type": "string", "minLength": 1 },
+        "manifest_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "attempt_locator": { "type": "string", "pattern": "^jsonl:[1-9][0-9]*$" },
+        "attempt_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "paired_canaries": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "object",
+            "required": ["label", "run_id", "run_root", "provider", "attempt_id", "attempt_sha256", "manifest_sha256", "terminal_artifacts", "supervisor_instance_id", "pair_registration_id"],
+            "properties": {
+              "label": { "type": "string", "enum": ["run_a", "run_b"] },
+              "run_id": { "type": "string", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$" },
+              "run_root": { "type": "string", "minLength": 1 },
+              "provider": { "type": "string", "enum": ["claude", "codex"] },
+              "attempt_id": { "type": "string", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$" },
+              "attempt_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+              "manifest_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+              "terminal_artifacts": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "required": ["path", "sha256"],
+                  "properties": {
+                    "path": { "type": "string", "minLength": 1 },
+                    "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "supervisor_instance_id": { "type": "string", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$" },
+              "pair_registration_id": { "type": "string", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

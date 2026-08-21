@@ -36,7 +36,10 @@ function report(overall: ReadinessReport['overall'], blocker = false): Readiness
 function mkAwaiting(rep: ReadinessReport): { run: RunState; spawned: () => boolean } {
   let spawned = false
   const run = createRun({
-    kind: 'full', ticker: 'TEST', model: 'haiku', prompt: 'x', user: 'local', userVia: 'local',
+    kind: 'full', ticker: 'TEST', provider: 'claude', model: 'haiku', reasoningLevel: 'default',
+    profileKey: 'claude:haiku:default',
+    executionProfile: { key: 'claude:haiku:default', parentModel: 'haiku', parentReasoning: 'default' },
+    prompt: 'x', user: 'local', userVia: 'local',
     runRoot: runRootFor('TEST_X'), willCommitToMain: true, writeTargetsAbs: [], coveredModules: [], readDepsAbs: [],
   })
   run.status = 'awaiting-readiness-decision'

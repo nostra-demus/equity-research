@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deterministic commodity decision and dual-horizon forecast calibration."""
+"""Deterministic commodity decision and dual-horizon, provenance-aware calibration."""
 from __future__ import annotations
 
 import glob
@@ -11,6 +11,13 @@ import sys
 from collections import Counter
 from datetime import date, datetime, timezone
 from validate_screener_json import Checker, check_commodity_review_anchors
+from provider_calibration import (
+    SCHEMA_VERSION as PROVIDER_CALIBRATION_SCHEMA_VERSION,
+    execution_identity,
+    execution_slices,
+    legacy_sensitivity,
+    provider_comparison,
+)
 
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -105,8 +112,8 @@ def _latest_by(items, key):
     return list(selected.values())
 
 
-def _headline_outcomes(records, reviews):
-    """One resolved outcome at most per decision; two horizons never become two headline calls."""
+def _headline_outcome_rows(records, reviews):
+    """Join one resolved headline outcome at most to each immutable decision record."""
     outcomes = []
     by_id = {record.get("decision_id"): record for record in records if record.get("decision_id")}
     legacy_records = {(record.get("commodity"), record.get("decision_date")): record for record in records if record["_legacy"]}
@@ -120,10 +127,13 @@ def _headline_outcomes(records, reviews):
             grouped.setdefault(review["decision_id"], {})[review.get("forecast_horizon")] = review
     for decision_id, horizons in grouped.items():
         if set(horizons) != {"tactical", "strategic"}:
-            outcomes.append((by_id[decision_id]["commodity"], "partial"))
+            outcomes.append({"record": by_id[decision_id], "outcome": "partial"})
             continue
         pair = [horizons["tactical"]["action_outcome"], horizons["strategic"]["action_outcome"]]
-        outcomes.append((by_id[decision_id]["commodity"], pair[0] if pair[0] == pair[1] and pair[0] in DECISIVE_OUTCOMES else "partial"))
+        outcomes.append({
+            "record": by_id[decision_id],
+            "outcome": pair[0] if pair[0] == pair[1] and pair[0] in DECISIVE_OUTCOMES else "partial",
+        })
     legacy = _latest_by(
         [review for review in reviews if review.get("schema_version") != "2.0"],
         lambda review: (review.get("commodity"), review.get("original_decision_date")),
@@ -131,8 +141,16 @@ def _headline_outcomes(records, reviews):
     for review in legacy:
         identity = (review.get("commodity"), review.get("original_decision_date"))
         if identity in legacy_records:
-            outcomes.append((identity[0], review["action_outcome"]))
+            outcomes.append({"record": legacy_records[identity], "outcome": review["action_outcome"]})
     return outcomes
+
+
+def _headline_outcomes(records, reviews):
+    """Backward-compatible pair view used by the existing operational aggregate."""
+    return [
+        (row["record"]["commodity"], row["outcome"])
+        for row in _headline_outcome_rows(records, reviews)
+    ]
 
 
 def _valid_probability_observation(review, record, today):
@@ -246,7 +264,7 @@ def _slices(observations, field):
     return {value: _metric_slice([row for row in observations if row[field] == value], MIN_PROBABILITY_SLICE_N) for value in values}
 
 
-def build(today=None):
+def build(today=None, legacy_provider_evidence=None):
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     today = today or now[:10]
     try:
@@ -257,7 +275,24 @@ def build(today=None):
     all_valid_reviews, invalid_review_count = read_reviews()
     reviews = [review for review in all_valid_reviews if review["review_date"] <= today]
     future_review_count = len(all_valid_reviews) - len(reviews)
+    legacy_provider_evidence = legacy_provider_evidence or {}
     record_by_id = {record.get("decision_id"): record for record in records if record.get("decision_id")}
+    legacy_record_by_anchor = {
+        (record.get("commodity"), record.get("decision_date")): record
+        for record in records if record.get("_legacy")
+    }
+    execution_by_key = {}
+    for record in records:
+        evidence = legacy_provider_evidence.get(record.get("_decision_key"))
+        if evidence is None and record.get("decision_id"):
+            evidence = legacy_provider_evidence.get(record["decision_id"])
+        execution_by_key[record["_decision_key"]] = execution_identity(record, evidence)
+
+    def record_for_review(review):
+        if review.get("schema_version") == "2.0":
+            return record_by_id.get(review.get("decision_id"))
+        return legacy_record_by_anchor.get((review.get("commodity"), review.get("original_decision_date")))
+
     latest_horizon_reviews = _latest_by(
         [review for review in reviews if review.get("schema_version") == "2.0"],
         lambda review: (review.get("decision_id"), review.get("forecast_horizon")),
@@ -271,10 +306,42 @@ def build(today=None):
             except ValueError:
                 observation = None
             if observation:
+                execution = execution_by_key[record["_decision_key"]]
+                observation.update({
+                    "subject": record["commodity"],
+                    "score_type": "multiclass_brier",
+                    "action": record.get("action") or "unclassified",
+                    "execution_author_provider": execution["author_provider"],
+                    "execution_author_profile": execution["author_profile"],
+                    "pipeline_provider": execution["pipeline_provider"],
+                    "pipeline_profile": execution["pipeline_profile"],
+                })
                 observations.append(observation)
 
-    headline = _headline_outcomes(records, reviews)
+    headline_rows = _headline_outcome_rows(records, reviews)
+    headline = [(row["record"]["commodity"], row["outcome"]) for row in headline_rows]
     decisive = [(commodity, outcome) for commodity, outcome in headline if outcome in DECISIVE_OUTCOMES]
+    directional_rows = []
+    for row in headline_rows:
+        if row["outcome"] not in DECISIVE_OUTCOMES:
+            continue
+        record = row["record"]
+        execution = execution_by_key[record["_decision_key"]]
+        directional_rows.append({
+            "subject": record["commodity"],
+            "hit": row["outcome"] == "vindicated",
+            "pipeline_provider": execution["pipeline_provider"],
+            "pipeline_profile": execution["pipeline_profile"],
+        })
+    basket_rows = [{
+        "subject": row["commodity"],
+        "basket": row["action"],
+        "horizon": row["horizon"],
+        "value": row["actual_return_pct"],
+        "value_metric": "realized_implementable_return_pct",
+        "pipeline_provider": row["pipeline_provider"],
+        "pipeline_profile": row["pipeline_profile"],
+    } for row in observations]
     n_non_decisive = len(headline) - len(decisive)
     commodities = sorted({record["commodity"] for record in records})
     effective_reviews = _latest_by(
@@ -288,6 +355,7 @@ def build(today=None):
     out = {
         "generated_at": now,
         "swarm": "commodity",
+        "provider_calibration_schema_version": PROVIDER_CALIBRATION_SCHEMA_VERSION,
         "n_commodities_tracked": len(commodities),
         "n_decisions": len({record["_decision_key"] for record in records}),
         "n_reviews": len(reviews) + future_review_count + invalid_review_count,
@@ -319,13 +387,29 @@ def build(today=None):
         },
         "error_taxonomy_distribution": {},
         "decision_quality_distribution": {},
+        "calibration_by_provider": {},
+        "calibration_by_execution_profile": {},
+        "provider_comparison": {},
+        "operational_aggregate_label": (
+            "Global production-system aggregate across all execution cohorts. It preserves historical "
+            "continuity but cannot establish that Claude or Codex is calibrated or better."
+        ),
         "verdict": "",
         "honesty_statement": "",
     }
+    provider_error_taxonomy = {}
+    profile_error_taxonomy = {}
     for review in effective_reviews:
+        record = record_for_review(review)
+        execution = execution_by_key.get(record.get("_decision_key")) if record else None
         for tag in review.get("error_taxonomy") or []:
             if isinstance(tag, str):
                 out["error_taxonomy_distribution"][tag] = out["error_taxonomy_distribution"].get(tag, 0) + 1
+                if execution:
+                    provider_counts = provider_error_taxonomy.setdefault(execution["pipeline_provider"], {})
+                    provider_counts[tag] = provider_counts.get(tag, 0) + 1
+                    profile_counts = profile_error_taxonomy.setdefault(execution["pipeline_profile"], {})
+                    profile_counts[tag] = profile_counts.get(tag, 0) + 1
         quality = review.get("decision_quality")
         if isinstance(quality, str):
             out["decision_quality_distribution"][quality] = out["decision_quality_distribution"].get(quality, 0) + 1
@@ -340,9 +424,28 @@ def build(today=None):
         out["verdict"] = f"{len(decisive)} decisive headline calls across {len(commodities)} commodities · hit-rate {out['hit_rate']:.0%}."
     else:
         out["verdict"] = f"Pre-data — {len(decisive)} of {MIN_DECISIVE} decisive headline calls needed before hit rate means anything."
+    out["calibration_by_provider"] = execution_slices(
+        observations,
+        directional_rows,
+        basket_rows,
+        provider_error_taxonomy,
+        forecast_key="execution_author_provider",
+        pipeline_key="pipeline_provider",
+    )
+    out["calibration_by_execution_profile"] = execution_slices(
+        observations,
+        directional_rows,
+        basket_rows,
+        profile_error_taxonomy,
+        forecast_key="execution_author_profile",
+        pipeline_key="pipeline_profile",
+    )
+    out["provider_comparison"] = provider_comparison(out["calibration_by_provider"])
+    out["legacy_provider_sensitivity"] = legacy_sensitivity(execution_by_key.values())
     out["honesty_statement"] = (
         f"Headline hit rate counts each decision at most once; {len(observations)} validated horizon observations are scored separately. "
-        f"{out['n_probability_excluded']} legacy, superseded or invalid-probability reviews are excluded from probability calibration."
+        f"{out['n_probability_excluded']} legacy, superseded or invalid-probability reviews are excluded from probability calibration. "
+        "The global figures are operational aggregates only; provider comparisons never blend cohorts."
     )
     return out
 
@@ -378,6 +481,23 @@ def to_markdown(out):
             else:
                 metric = value["metrics"]
                 lines.append(f"- **{name}**: direction {metric['directional_accuracy']:.1%}; MAE {metric['mean_absolute_error_pct']:.2f}pp; Brier {metric['multiclass_brier_score']:.4f} (N={value['n']})")
+    lines += ["", "## Provider comparison", "", out["provider_comparison"]["policy"], ""]
+    for provider in ("claude", "codex"):
+        row = (out["calibration_by_provider"].get(provider) or {})
+        forecast = row.get("forecast_author_calibration") or {"status": "insufficient", "n": 0}
+        directional = row.get("pipeline_directional") or {"status": "insufficient", "n": 0}
+        forecast_value = (
+            f"Brier {forecast['brier']:.4f} (N={forecast['n']})"
+            if forecast.get("status") == "available"
+            else f"Brier withheld (N={forecast.get('n', 0)})"
+        )
+        direction_value = (
+            f"headline hit rate {directional['hit_rate']:.1%} (N={directional['n']})"
+            if directional.get("status") == "available"
+            else f"headline hit rate withheld (N={directional.get('n', 0)})"
+        )
+        lines.append(f"- **{provider.title()}**: {forecast_value}; {direction_value}.")
+    lines.append(f"- Ranking: withheld ({out['provider_comparison']['reason']})")
     lines += ["", "## Error taxonomy", ""]
     lines.extend([f"- {key}: {value}" for key, value in sorted(out["error_taxonomy_distribution"].items())] or ["- None tallied yet."])
     lines += ["", "## Decision quality", ""]
@@ -409,6 +529,38 @@ def _selftest():
                 with open(path, "w", encoding="utf-8") as handle:
                     json.dump(value, handle)
 
+            def provenance(provider="codex", mode="single_provider"):
+                contributors = [{
+                    "provider": provider, "model": f"{provider}-parent",
+                    "reasoning_level": "max", "attribution": "recorded",
+                    "scopes": ["terminal_adjudication"],
+                }, {
+                    "provider": provider, "model": f"{provider}-specialist",
+                    "reasoning_level": "xhigh", "attribution": "configured", "scopes": ["specialists"],
+                }]
+                profile = f"{provider}|{provider}-parent:max|{provider}-specialist:xhigh"
+                if mode == "mixed_provider":
+                    contributors.append({
+                        "provider": "claude", "model": "claude-parent", "reasoning_level": "high",
+                        "attribution": "recorded", "scopes": ["prior_modules"],
+                    })
+                    profile = "mixed|claude|claude-parent:high+codex|codex-parent:max"
+                contributors = sorted(contributors, key=lambda item: (
+                    item["provider"], item.get("model") or "", item.get("reasoning_level") or "",
+                    item["attribution"],
+                ))
+                return {
+                    "schema_version": "1.0", "source": "cockpit_runtime",
+                    "coverage": "cockpit_top_level_processes", "provider_mode": mode,
+                    "profile_key": profile,
+                    "decision_author": {
+                        "attempt_id": "00000000-0000-4000-8000-000000000001",
+                        "provider": provider, "model": f"{provider}-parent",
+                        "reasoning_level": "max", "attribution": "recorded",
+                    },
+                    "contributors": contributors, "cli_versions": {provider: "synthetic"},
+                }
+
             for index in range(5):
                 commodity = "GOLD" if index < 3 else "OIL"
                 family = "precious-metals" if commodity == "GOLD" else "energy"
@@ -430,6 +582,8 @@ def _selftest():
                     "action": "Hold", "confidence": 60,
                     "current_price": {"value": 100.0, "currency": "USD", "unit": "USD/unit", "as_of": f"2026-01-{index + 1:02d}"},
                     "key_risks": [],
+                    "execution_provenance": provenance(
+                        "codex", "mixed_provider" if index == 4 else "single_provider"),
                     "forecast_horizons": {
                         "tactical": {"target_date": tactical_target, "scenarios": scenarios},
                         "strategic": {"target_date": strategic_target, "scenarios": scenarios},
@@ -478,6 +632,18 @@ def _selftest():
             check("range miss", metrics["range_miss_rate"] == 0.5 and metrics["range_miss_distribution"] == {"below": 0, "inside": 5, "above": 5})
             check("adverse excursion", metrics["maximum_adverse_excursion_pct"] == {"mean": -4.0, "worst": -4.0})
             check("family profile-owned", set(out["forecast_calibration"]["by_family"]) == {"energy", "precious-metals"})
+            codex_slice = out["calibration_by_provider"]["codex"]
+            check("probability rows follow terminal author across a mixed continuation",
+                  codex_slice["forecast_author_calibration"]["n"] == 10)
+            check("provider Brier requires five distinct commodities",
+                  codex_slice["forecast_author_calibration"]["status"] == "insufficient"
+                  and codex_slice["forecast_author_calibration"]["n_subjects"] == 2)
+            check("mixed headline remains a mixed pipeline outcome",
+                  out["calibration_by_provider"]["mixed"]["pipeline_directional"]["n"] == 1
+                  and codex_slice["pipeline_directional"]["n"] == 4)
+            check("thin provider comparison refuses ranking",
+                  out["provider_comparison"]["status"] == "withheld"
+                  and out["provider_comparison"]["ranking"] is None)
             drifted = dict(review)
             drifted["original_action"] = "Buy"
             write_json(os.path.join(reviews_dir, f"{target}_{horizon}_decision_review_v2.json"), drifted)

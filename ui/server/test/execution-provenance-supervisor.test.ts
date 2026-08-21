@@ -1,0 +1,360 @@
+process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
+import assert from 'node:assert/strict'
+import { createHash, randomUUID } from 'node:crypto'
+import fs from 'node:fs'
+import path from 'node:path'
+import { REPO_ROOT } from '../src/config'
+import {
+  artifactIsFresh, beginExecutionAttempt, canonicalManifestPath, executionEpochAttemptCount,
+  projectionLineageRows, releaseExecutionEpochAfterPublication,
+} from '../src/execution-provenance'
+import { createRun, finishRun } from '../src/registry'
+import {
+  __setPostReviewCalibration, __setSupervisorCommitter, __setSupervisorCommitVerifier, supervisePublication,
+} from '../src/launcher'
+
+const root = `analyses/ZZPROVSUP_${Date.now()}`
+const absolute = path.join(REPO_ROOT, root)
+const extraCleanup: string[] = []
+fs.mkdirSync(absolute, { recursive: true })
+fs.writeFileSync(path.join(absolute, 'decision_record.json'), JSON.stringify({ ticker: 'ZZPROVSUP', version: 1 }) + '\n')
+
+const profile = { key: 'claude:sonnet:default', parentModel: 'sonnet', parentReasoning: 'default' }
+const run = createRun({
+  kind: 'full', ticker: 'ZZPROVSUP', provider: 'claude', executionProfile: profile,
+  profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test', userVia: 'local',
+  runRoot: root, willCommitToMain: true, writeTargetsAbs: [absolute], coveredModules: [], readDepsAbs: [],
+  closeWatcher: undefined, expected: new Map(),
+})
+run.provenanceEpoch = run.runId
+run.publicationToken = 'test-supervisor-capability'
+
+try {
+  beginExecutionAttempt(run)
+  await assert.rejects(
+    supervisePublication(run.runId, run.publicationToken, {
+      phase: 'commit', message: 'forged code publication', pathspecs: ['ui/server/src/server.ts'],
+    }),
+    /non-data publication pathspec/,
+    'a cockpit child cannot use its capability to request a code path',
+  )
+  assert.equal(artifactIsFresh(run, 'decision_record.json'), false, 'pre-spawn bytes are the freshness baseline')
+
+  // The provider may edit, forge, or delete the historical child-visible manifest. Canonical rows live in
+  // supervisor state and remain byte-for-byte independent of it.
+  const fake = path.join(absolute, '.execution-provenance.jsonl')
+  fs.writeFileSync(fake, JSON.stringify({ provider: 'codex', model: 'forged', decision_author: true }) + '\n')
+  const canonical = canonicalManifestPath(run)
+  let rows = fs.readFileSync(canonical, 'utf8')
+  assert.match(rows, /"provider":"claude"/)
+  assert.doesNotMatch(rows, /forged/)
+  fs.rmSync(fake, { force: true })
+  rows = fs.readFileSync(canonicalManifestPath(run), 'utf8')
+  assert.match(rows, /"provider":"claude"/, 'deleting the fake manifest has no effect')
+
+  const insideTarget = path.join(absolute, 'inside-target.json')
+  fs.writeFileSync(insideTarget, JSON.stringify({ ticker: 'ZZPROVSUP', forged: 'inside-link' }) + '\n')
+  fs.rmSync(path.join(absolute, 'decision_record.json'))
+  fs.symlinkSync('inside-target.json', path.join(absolute, 'decision_record.json'))
+  await assert.rejects(
+    supervisePublication(run.runId, run.publicationToken, {
+      phase: 'stamp', message: 'inside symlink', pathspecs: [root],
+    }),
+    /regular non-symlink file/,
+    'a terminal artifact may not redirect to another file inside the repository',
+  )
+
+  const outsideTarget = path.join(path.dirname(absolute), `outside-${randomUUID()}.json`)
+  fs.writeFileSync(outsideTarget, JSON.stringify({ ticker: 'ZZPROVSUP', forged: 'outside-link' }) + '\n')
+  fs.rmSync(path.join(absolute, 'decision_record.json'))
+  fs.symlinkSync(outsideTarget, path.join(absolute, 'decision_record.json'))
+  await assert.rejects(
+    supervisePublication(run.runId, run.publicationToken, {
+      phase: 'stamp', message: 'outside symlink', pathspecs: [root],
+    }),
+    /regular non-symlink file/,
+    'a terminal artifact may not redirect outside the repository',
+  )
+  fs.rmSync(outsideTarget, { force: true })
+  fs.rmSync(path.join(absolute, 'decision_record.json'))
+
+  fs.writeFileSync(path.join(absolute, 'decision_record.json'), JSON.stringify({ ticker: 'ZZPROVSUP', version: 2 }) + '\n')
+  assert.equal(artifactIsFresh(run, 'decision_record.json'), true, 'only current-attempt artifact bytes are publishable')
+
+  const imported = projectionLineageRows({ execution_provenance: {
+    provider_mode: 'single_provider', profile_key: 'claude:opus:default',
+    contributors: [{ provider: 'claude', model: 'opus', reasoning_level: 'default', attribution: 'recorded', scopes: ['modules'] }],
+    cli_versions: { claude: '1.2.3' },
+  } }, 'lineage:valuation')
+  assert.equal(imported.length, 1)
+  assert.equal(imported[0].provider, 'claude')
+  assert.equal(imported[0].attribution, 'configured')
+  assert.equal(imported[0].decision_author, false)
+  const combined = [...imported, ...(run.currentExecutionAttempts ?? [])]
+  assert.deepEqual(new Set(combined.map((row) => row.provider)), new Set(['claude']))
+  const codexCurrent = (run.currentExecutionAttempts ?? []).map((row) => ({ ...row, provider: 'codex' }))
+  assert.deepEqual(new Set([...imported, ...codexCurrent].map((row) => row.provider)), new Set(['claude', 'codex']),
+    'a Claude source continued by Codex remains mixed rather than crediting the finisher')
+
+  const epoch = randomUUID()
+  const siblingRoot = `${root}_siblings`
+  fs.mkdirSync(path.join(REPO_ROOT, siblingRoot), { recursive: true })
+  const sibling = (module: string) => ({
+    ...run, runId: randomUUID(), kind: 'module' as const, module, agent: undefined,
+    runRoot: siblingRoot,
+    provenanceEpoch: epoch, chainId: epoch, publicationCompleted: false,
+    executionAttempts: undefined, currentExecutionAttempts: undefined, publicationBaselines: undefined,
+  })
+  const first = sibling('business-model')
+  const second = sibling('earnings')
+  beginExecutionAttempt(first)
+  beginExecutionAttempt(second)
+  assert.equal(executionEpochAttemptCount(epoch), 2, 'concurrent siblings share and retain the epoch')
+  first.publicationCompleted = true
+  releaseExecutionEpochAfterPublication(first)
+  assert.equal(executionEpochAttemptCount(epoch), 2, 'an intermediate sibling cannot clear shared lineage')
+  const terminal = {
+    ...sibling('master'), kind: 'rerun' as const, agent: 'synthesizer', publicationCompleted: true,
+  }
+  beginExecutionAttempt(terminal)
+  assert.equal(executionEpochAttemptCount(epoch), 3)
+  releaseExecutionEpochAfterPublication(terminal)
+  assert.equal(executionEpochAttemptCount(epoch), 0, 'terminal publication releases the long-lived epoch')
+
+  // Quota/error continuations can accumulate several attempts in one root before any terminal receipt
+  // exists. Every supervisor-observed contributor must survive: Claude -> Codex -> Claude cannot forget
+  // the first provider merely because a later attempt overwrote the live root slot.
+  const retryRoot = `${root}_quota-chain`
+  extraCleanup.push(path.join(REPO_ROOT, retryRoot))
+  fs.mkdirSync(path.join(REPO_ROOT, retryRoot, 'business-model'), { recursive: true })
+  const attempt = (provider: 'claude' | 'codex') => ({
+    ...run,
+    runId: randomUUID(),
+    provider,
+    model: provider === 'claude' ? 'sonnet' : 'gpt-5.6-sol',
+    reasoningLevel: provider === 'claude' ? 'default' : 'max',
+    profileKey: provider === 'claude' ? 'claude:sonnet:default' : 'codex:gpt-5.6-sol:max',
+    executionProfile: provider === 'claude' ? profile : {
+      key: 'codex:gpt-5.6-sol:max', parentModel: 'gpt-5.6-sol', parentReasoning: 'max',
+    },
+    runRoot: retryRoot,
+    provenanceEpoch: randomUUID(),
+    executionAttempts: undefined,
+    currentExecutionAttempts: undefined,
+    publicationBaselines: undefined,
+  })
+  const quotaClaude = attempt('claude')
+  beginExecutionAttempt(quotaClaude)
+  const quotaClaudeAttemptId = quotaClaude.currentExecutionAttempts?.find((row) => row.attribution === 'recorded')?.attempt_id
+  fs.writeFileSync(path.join(REPO_ROOT, retryRoot, 'business-model', '01_retained.md'), '# retained before quota stop\n')
+  const quotaCodex = attempt('codex')
+  beginExecutionAttempt(quotaCodex)
+  const quotaCodexAttemptId = quotaCodex.currentExecutionAttempts?.find((row) => row.attribution === 'recorded')?.attempt_id
+  const terminalClaude = attempt('claude')
+  beginExecutionAttempt(terminalClaude)
+  const terminalClaudeAttemptId = terminalClaude.currentExecutionAttempts?.find((row) => row.attribution === 'recorded')?.attempt_id
+  const recordedChain = (terminalClaude.executionAttempts ?? []).filter((row) => row.attribution === 'recorded')
+  assert.deepEqual(new Set(recordedChain.map((row) => row.attempt_id)),
+    new Set([quotaClaudeAttemptId, quotaCodexAttemptId, terminalClaudeAttemptId]),
+    'three same-root attempts retain every canonical attempt identity before publication')
+  assert.deepEqual(new Set(recordedChain.map((row) => row.provider)), new Set(['claude', 'codex']),
+    'retained output across an explicit provider switch remains mixed')
+  fs.rmSync(path.join(REPO_ROOT, retryRoot), { recursive: true, force: true })
+
+  const configuredRoot = `${root}_configured-carry`
+  extraCleanup.push(path.join(REPO_ROOT, configuredRoot))
+  fs.mkdirSync(path.join(REPO_ROOT, configuredRoot), { recursive: true })
+  const configured = attempt('codex')
+  configured.runRoot = configuredRoot
+  configured.executionProfile = {
+    key: configured.profileKey, parentModel: 'gpt-5.6-sol', parentReasoning: 'max',
+    specialistModel: 'gpt-5.6-terra', specialistReasoning: 'xhigh',
+  }
+  configured.expected = new Map([['fixture', {
+    key: 'fixture', module: 'business-model', name: 'fixture', layer: 1, outputRel: 'business-model/01_fixture.md',
+  }]])
+  beginExecutionAttempt(configured)
+  const configuredRow = configured.currentExecutionAttempts?.find((row) => row.attribution === 'configured')
+  assert.ok(configuredRow, 'fixture must contain a configured-only specialist row')
+  const configuredContinuation = attempt('claude')
+  configuredContinuation.runRoot = configuredRoot
+  beginExecutionAttempt(configuredContinuation)
+  const importedConfigured = configuredContinuation.executionAttempts?.find((row) =>
+    row.attempt_id === configuredRow?.attempt_id && row.model === configuredRow?.model)
+  assert.equal(importedConfigured?.attribution, 'configured',
+    'configured-only lineage is never promoted to runtime-recorded during carry-forward')
+
+  const sealedRoot = `${root}_sealed-carry`
+  const sealedAbsolute = path.join(REPO_ROOT, sealedRoot)
+  extraCleanup.push(sealedAbsolute)
+  fs.mkdirSync(sealedAbsolute, { recursive: true })
+  const sealedClaude = attempt('claude')
+  sealedClaude.runRoot = sealedRoot
+  beginExecutionAttempt(sealedClaude)
+  const sealedDecision = path.join(sealedAbsolute, 'decision_record.json')
+  fs.writeFileSync(sealedDecision, '{"ticker":"ZZSEALED","version":1}\n')
+  const sealedRelative = `${sealedRoot}/decision_record.json`
+  sealedClaude.publicationCompleted = true
+  sealedClaude.publicationArtifactHashes = {
+    [sealedRelative]: `sha256:${createHash('sha256').update(fs.readFileSync(sealedDecision)).digest('hex')}`,
+  }
+  releaseExecutionEpochAfterPublication(sealedClaude)
+  const sealedCodex = attempt('codex')
+  sealedCodex.runRoot = sealedRoot
+  beginExecutionAttempt(sealedCodex)
+  assert.deepEqual(new Set((sealedCodex.executionAttempts ?? []).map((row) => row.provider)),
+    new Set(['claude', 'codex']),
+    'a just-published Claude pipeline remains mixed when Codex continues the same root')
+
+  // The screener integrity step intentionally patches only the immutable ledger copy. Publication must
+  // accept exactly that deterministic ledger-only field while still rejecting every other divergence.
+  const signalId = `SIG-20990101-${Date.now().toString(16).slice(-8).padStart(8, '0')}`
+  const signalRoot = `screener/runs/${signalId}`
+  const signalAbsolute = path.join(REPO_ROOT, signalRoot)
+  const thesisId = `THS-${signalId}-v1`
+  const ledgerRelative = `screener/ledger/theses/${thesisId}.json`
+  const ledgerAbsolute = path.join(REPO_ROOT, ledgerRelative)
+  extraCleanup.push(signalAbsolute, ledgerAbsolute)
+  fs.mkdirSync(signalAbsolute, { recursive: true })
+  fs.mkdirSync(path.dirname(ledgerAbsolute), { recursive: true })
+  const signal = createRun({
+    kind: 'signal', ticker: signalId, subjectId: signalId, swarmId: 'screener', unit: 'signal',
+    provider: 'claude', executionProfile: profile, profileKey: profile.key, model: 'sonnet',
+    reasoningLevel: 'default', prompt: '', user: 'test', userVia: 'local', runRoot: signalRoot,
+    willCommitToMain: true, writeTargetsAbs: [signalAbsolute, ledgerAbsolute], coveredModules: [],
+    readDepsAbs: [], closeWatcher: undefined, expected: new Map(),
+  })
+  signal.publicationToken = 'signal-supervisor-capability'
+  beginExecutionAttempt(signal)
+  const thesis = { meta: { thesis_id: thesisId }, score: 73, decision: 'WATCH' }
+  fs.writeFileSync(path.join(signalAbsolute, 'thesis_record.json'), `${JSON.stringify(thesis)}\n`)
+  const review = {
+    verdict: 'Survives with haircut', routing: 'Proceed', reviewed_at: '2099-01-01T00:00:00Z',
+    edge_score_haircut_note: 'fixture deterministic haircut',
+  }
+  fs.writeFileSync(path.join(signalAbsolute, 'thesis_integrity_review.json'), `${JSON.stringify(review)}\n`)
+  fs.writeFileSync(ledgerAbsolute, `${JSON.stringify({
+    ...thesis,
+    forged_model_ledger_field: 'must be discarded',
+    integrity_review: {
+      ...review,
+      review_file: `${signalRoot}/thesis_integrity_review.json`,
+    },
+  })}\n`)
+  const stamped = await supervisePublication(signal.runId, signal.publicationToken, { phase: 'stamp' })
+  assert.deepEqual(new Set(stamped.artifacts), new Set([`${signalRoot}/thesis_record.json`, ledgerRelative]))
+  const projectedLedger = JSON.parse(fs.readFileSync(ledgerAbsolute, 'utf8'))
+  assert.equal(projectedLedger.integrity_review.verdict, 'Survives with haircut')
+  assert.equal(projectedLedger.forged_model_ledger_field, undefined,
+    'the immutable ledger is derived from the run thesis, never trusted from model-prewritten bytes')
+  finishRun(signal, 'done')
+  fs.rmSync(signalAbsolute, { recursive: true, force: true })
+  fs.rmSync(ledgerAbsolute, { force: true })
+
+  // A child may request only an incidental in-scope file. The supervisor must force every terminal
+  // artifact and its receipt into the exact commit and verify those committed blobs before completion.
+  const metadataRelative = `${root}/RUN_METADATA.md`
+  fs.writeFileSync(path.join(REPO_ROOT, metadataRelative), '# fixture metadata\n')
+  let forcedPathspecs: string[] = []
+  let verifiedRequired: string[] = []
+  const terminalCommitter = __setSupervisorCommitter(async (_message, pathspecs) => {
+    forcedPathspecs = [...pathspecs]
+    return 'COMMIT_SHA=1111111111111111111111111111111111111111'
+  })
+  const terminalVerifier = __setSupervisorCommitVerifier(async (_output, requiredPaths) => {
+    verifiedRequired = [...requiredPaths]
+  })
+  try {
+    await supervisePublication(run.runId, run.publicationToken!, {
+      phase: 'commit', message: 'metadata-only request', pathspecs: [metadataRelative],
+    })
+    const receiptRelative = `${root}/execution_provenance.receipt.json`
+    for (const required of [`${root}/decision_record.json`, receiptRelative]) {
+      assert.ok(forcedPathspecs.includes(required), `${required} must be forced into the commit pathspecs`)
+      assert.ok(verifiedRequired.includes(required), `${required} must be verified in the committed HEAD`)
+    }
+    assert.equal(run.publicationCompleted, true)
+  } finally {
+    __setSupervisorCommitter(terminalCommitter)
+    __setSupervisorCommitVerifier(terminalVerifier)
+  }
+
+  // A tracked decision review refreshes calibration deterministically only after its data publication
+  // succeeds; no second model turn is involved.
+  const reviewRelative = `${root}/reviews/2099-01-01_decision_review.json`
+  const reviewAbsolute = path.join(REPO_ROOT, reviewRelative)
+  fs.mkdirSync(path.dirname(reviewAbsolute), { recursive: true })
+  const reviewRun = createRun({
+    kind: 'review', ticker: 'ZZPROVSUP', provider: 'claude', executionProfile: profile,
+    profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test',
+    userVia: 'local', runRoot: root, willCommitToMain: true, writeTargetsAbs: [path.dirname(reviewAbsolute)],
+    coveredModules: [], readDepsAbs: [], closeWatcher: undefined, expected: new Map(),
+  })
+  reviewRun.publicationToken = 'review-supervisor-capability'
+  beginExecutionAttempt(reviewRun)
+  fs.writeFileSync(reviewAbsolute, '{"verdict":"fixture"}\n')
+  await assert.rejects(supervisePublication(reviewRun.runId, reviewRun.publicationToken, {
+    phase: 'commit', pathspecs: [`${root}/reviews/*_decision_review.json`],
+  }), /wildcard review commits are forbidden/)
+  await assert.rejects(supervisePublication(reviewRun.runId, reviewRun.publicationToken, {
+    phase: 'commit', pathspecs: ['analyses'],
+  }), /may publish only exact files/)
+  let commits = 0
+  let calibrations = 0
+  const priorCommitter = __setSupervisorCommitter(async (_message, pathspecs) => {
+    commits++
+    assert.deepEqual(pathspecs, [reviewRelative])
+    return 'COMMIT_SHA=review-fixture'
+  })
+  const priorCalibration = __setPostReviewCalibration(async () => { calibrations++ })
+  const priorVerifier = __setSupervisorCommitVerifier(async (_output, requiredPaths) => {
+    assert.deepEqual(requiredPaths, [reviewRelative])
+  })
+  try {
+    const reviewPublication = await supervisePublication(reviewRun.runId, reviewRun.publicationToken, {
+      phase: 'commit', message: 'fixture review', pathspecs: [reviewRelative],
+    })
+    assert.equal(reviewPublication.output, 'COMMIT_SHA=review-fixture')
+    assert.equal(commits, 1)
+    assert.equal(calibrations, 1, 'deterministic calibration runs exactly once after review publication')
+  } finally {
+    __setSupervisorCommitter(priorCommitter)
+    __setPostReviewCalibration(priorCalibration)
+    __setSupervisorCommitVerifier(priorVerifier)
+    finishRun(reviewRun, 'done')
+  }
+
+  const mismatchRelative = `${root}/reviews/2099-01-02_decision_review.json`
+  const mismatchRun = createRun({
+    kind: 'review', ticker: 'ZZPROVSUP', provider: 'claude', executionProfile: profile,
+    profileKey: profile.key, model: 'sonnet', reasoningLevel: 'default', prompt: '', user: 'test',
+    userVia: 'local', runRoot: root, willCommitToMain: true,
+    writeTargetsAbs: [path.dirname(path.join(REPO_ROOT, mismatchRelative))], coveredModules: [], readDepsAbs: [],
+    closeWatcher: undefined, expected: new Map(),
+  })
+  mismatchRun.publicationToken = 'mismatch-supervisor-capability'
+  beginExecutionAttempt(mismatchRun)
+  fs.writeFileSync(path.join(REPO_ROOT, mismatchRelative), '{"verdict":"mismatch fixture"}\n')
+  await assert.rejects(supervisePublication(mismatchRun.runId, mismatchRun.publicationToken, {
+    phase: 'commit', pathspecs: [reviewRelative],
+  }), /append-only and cannot overwrite/)
+  const mismatchCommitter = __setSupervisorCommitter(async () => 'COMMIT_SHA=0000000000000000000000000000000000000000')
+  const mismatchVerifier = __setSupervisorCommitVerifier(async () => { throw new Error('committed blob mismatch') })
+  try {
+    await assert.rejects(supervisePublication(mismatchRun.runId, mismatchRun.publicationToken, {
+      phase: 'commit', pathspecs: [mismatchRelative],
+    }), /committed blob mismatch/)
+    assert.notEqual(mismatchRun.publicationCompleted, true, 'post-commit verification failure cannot mark publication complete')
+  } finally {
+    __setSupervisorCommitter(mismatchCommitter)
+    __setSupervisorCommitVerifier(mismatchVerifier)
+    finishRun(mismatchRun, 'error')
+  }
+} finally {
+  finishRun(run, 'done')
+  for (const target of extraCleanup) fs.rmSync(target, { recursive: true, force: true })
+  fs.rmSync(absolute, { recursive: true, force: true })
+  fs.rmSync(`${absolute}_siblings`, { recursive: true, force: true })
+}
+
+console.log('PASS: supervisor-owned provenance, freshness, and durable lineage')

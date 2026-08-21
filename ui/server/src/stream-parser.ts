@@ -10,6 +10,7 @@ import { recordStreamResultFailure } from './launcher'
 import { LAUNCH_GUARDS } from './config'
 import { emit, emitTransient, recordActivity, type RunState } from './registry'
 import { agentNameIndexAllSwarms, buildSwarmGraph } from './roster'
+import { getProviderAdapter } from './providers/registry'
 
 let nameIndex: Map<string, { key: string; module: string; layer: number; name: string }> | null = null
 function getNameIndex() {
@@ -102,102 +103,65 @@ export function activityTarget(tool: string, input: any): string | undefined {
   return undefined
 }
 
-// Parse one NDJSON line from `claude --output-format stream-json --verbose`.
+// Parse one provider stream line. Provider adapters normalize their native JSONL before any
+// provider-specific shape reaches the shared run registry, activity feed, or finalizer.
 export function handleStreamLine(run: RunState, line: string) {
-  const t = line.trim()
-  if (!t) return
-  let obj: any
-  try {
-    obj = JSON.parse(t)
-  } catch {
-    return
-  }
-  const ts = Date.now()
-
-  switch (obj.type) {
-    case 'system':
-      if (obj.subtype === 'init') {
-        run.sessionId = obj.session_id || run.sessionId
-      }
-      break
-
-    case 'assistant': {
-      const content = obj.message?.content
-      if (!Array.isArray(content)) break
-      for (const block of content) {
-        // Every orchestrator tool call, with WHAT it acted on (Task = dispatching an agent; Read/Bash/…
-        // = pipeline work). Two consumers, deliberately: `lastActivity` rides the 3s heartbeat as the
-        // ambient "doing X right now" line, and the per-call `run-activity` event is the step-by-step
-        // feed — a run can read several documents between two heartbeats, and each one must be seen.
-        if (block?.type === 'tool_use' && typeof block?.name === 'string') {
-          const activity = { tool: block.name, target: activityTarget(block.name, block.input), ts }
-          run.lastActivity = activity
-          recordActivity(run, activity)
-          emitTransient(run, { type: 'run-activity', runId: run.runId, tool: activity.tool, target: activity.target, ts })
-        }
-        if (block?.type === 'tool_use' && block?.name === 'Task') {
-          const sub = block.input?.subagent_type
-          const idx = sub ? getNameIndex().get(sub) : undefined
-          if (idx) {
-            if (block.id) run.toolUseToAgent.set(block.id, idx.key)
-            const a = run.agents.get(idx.key) || { key: idx.key, module: idx.module, name: idx.name, layer: idx.layer, status: 'queued' as const }
-            if (a.status !== 'done') {
-              a.status = 'running'
-              run.agents.set(idx.key, a)
-              emit(run, { type: 'agent-started', runId: run.runId, module: idx.module, agentKey: idx.key, name: idx.name, layer: idx.layer, ts })
-            }
-          }
-        }
-      }
-      break
+  const events = getProviderAdapter(run.provider).parseStreamLine(line)
+  for (const event of events) {
+    const ts = Date.now()
+    if (event.type === 'session') {
+      run.sessionId = event.sessionId || run.sessionId
+      continue
     }
-
-    case 'user': {
-      const content = obj.message?.content
-      if (!Array.isArray(content)) break
-      for (const block of content) {
-        if (block?.type === 'tool_result' && block?.is_error) {
-          const key = run.toolUseToAgent.get(block.tool_use_id)
-          const a = key ? run.agents.get(key) : undefined
-          if (a && a.status !== 'done') {
-            a.status = 'failed'
-            emit(run, { type: 'agent-failed', runId: run.runId, agentKey: a.key, module: a.module, name: a.name, layer: a.layer, reason: 'tool_result_error', ts })
-          }
-        }
-      }
-      break
-    }
-
-    case 'rate_limit_event': {
-      const info = obj.rate_limit_info || {}
-      // "ok" = you can still make requests on plan quota. Overage being disabled is NOT out-of-quota.
-      const ok = info.status !== 'rejected' && info.status !== 'blocked'
-      setCreditStatus({
-        ok,
-        checked: true,
-        status: info.status,
-        rateLimitType: info.rateLimitType,
-        utilization: typeof info.utilization === 'number' ? info.utilization : undefined,
-        resetsAt: info.resetsAt,
-        isUsingOverage: info.isUsingOverage,
-        reason: info.overageDisabledReason || info.status,
+    if (event.type === 'tool-use') {
+      // Every orchestrator tool call, with WHAT it acted on (Task = dispatching an agent; Read/Bash/…
+      // = pipeline work). The provider adapter preserves the canonical tool name + normalized input.
+      const activity = { tool: event.tool, target: activityTarget(event.tool, event.input), ts }
+      run.lastActivity = activity
+      recordActivity(run, activity)
+      emitTransient(run, {
+        type: 'run-activity', runId: run.runId, tool: activity.tool, target: activity.target,
+        provider: run.provider, executionProfile: run.executionProfile, ts,
       })
-      emit(run, { type: 'cost-tick', runId: run.runId, rateLimit: { ok, reason: info.status } as any, ts })
-      break
+      if (event.tool === 'Task') {
+        const input = event.input as any
+        const sub = input?.subagent_type
+        const idx = sub ? getNameIndex().get(sub) : undefined
+        if (idx) {
+          if (event.toolUseId) run.toolUseToAgent.set(event.toolUseId, idx.key)
+          const a = run.agents.get(idx.key) || { key: idx.key, module: idx.module, name: idx.name, layer: idx.layer, status: 'queued' as const }
+          if (a.status !== 'done') {
+            a.status = 'running'
+            run.agents.set(idx.key, a)
+            emit(run, { type: 'agent-started', runId: run.runId, module: idx.module, agentKey: idx.key, name: idx.name, layer: idx.layer, ts })
+          }
+        }
+      }
+      continue
     }
-
-    case 'result': {
+    if (event.type === 'tool-result') {
+      if (!event.isError) continue
+      const key = event.toolUseId ? run.toolUseToAgent.get(event.toolUseId) : undefined
+      const a = key ? run.agents.get(key) : undefined
+      if (a && a.status !== 'done') {
+        a.status = 'failed'
+        emit(run, { type: 'agent-failed', runId: run.runId, agentKey: a.key, module: a.module, name: a.name, layer: a.layer, reason: 'tool_result_error', ts })
+      }
+      continue
+    }
+    if (event.type === 'usage') {
+      setCreditStatus(event.usage, run.provider)
+      emit(run, { type: 'cost-tick', runId: run.runId, rateLimit: { ok: event.usage.ok, reason: event.usage.status || event.usage.reason }, ts })
+      continue
+    }
+    if (event.type === 'result') {
       // Capture the verdict BEFORE the is_error branch below, so a CLEAN result records it too. A
       // clean-but-truncated exit is exactly the case that had no durable evidence anywhere, and it is
       // what made months of module stalls undiagnosable.
-      run.cliResult = {
-        subtype: typeof obj.subtype === 'string' ? obj.subtype : undefined,
-        isError: obj.is_error === true,
-        apiErrorStatus: typeof obj.api_error_status === 'number' ? obj.api_error_status : undefined,
-      }
-      if (typeof obj.total_cost_usd === 'number') run.costUsd = obj.total_cost_usd
-      if (typeof obj.num_turns === 'number') run.numTurns = obj.num_turns
-      if (typeof obj.duration_ms === 'number') run.durationMs = obj.duration_ms
+      run.cliResult = event.cliResult
+      if (typeof event.costUsd === 'number') run.costUsd = event.costUsd
+      if (typeof event.numTurns === 'number') run.numTurns = event.numTurns
+      if (typeof event.durationMs === 'number') run.durationMs = event.durationMs
       // Do not sweep outputs on the stream result. The detached leader can emit its result and exit while
       // a Task/tool descendant is still writing. The launcher's close path proves the whole process group
       // extinct first, then performs the authoritative final sweep before terminal validation/publication.
@@ -206,9 +170,12 @@ export function handleStreamLine(run: RunState, line: string) {
       // handler must first prove the detached process group extinct; a Task/tool descendant can survive the
       // leader and keep writing even after this line arrives. Clean results also wait for close-time integrity.
       if (run.status === 'running' || run.status === 'starting') {
-        if (obj.is_error || obj.subtype === 'error_max_turns' || obj.subtype === 'error_during_execution') {
-          const reason = obj.api_error_status ? `api_error_${obj.api_error_status}` : obj.subtype || 'engine_error'
-          let message = typeof obj.result === 'string' ? obj.result : ''
+        if (event.cliResult.isError || event.cliResult.subtype === 'error_max_turns' || event.cliResult.subtype === 'error_during_execution') {
+          const reason = event.cliResult.subtype === 'out_of_credits'
+            ? 'out_of_credits'
+            : event.cliResult.apiErrorStatus ? `api_error_${event.cliResult.apiErrorStatus}`
+              : event.cliResult.subtype || 'engine_error'
+          let message = event.message || ''
           // A CAP STOP IS NOT A CRASH — say which ceiling was hit, in words, with the numbers. The CLI
           // reports a budget stop as a bare `error_during_execution` with an empty result, so the cockpit
           // rendered a deliberate, expected ceiling as an unexplained ERROR. That is what made the
@@ -226,7 +193,7 @@ export function handleStreamLine(run: RunState, line: string) {
             if (spent >= guard.budgetUsd * 0.98) {
               capNote = `Stopped at the spend ceiling for a ${run.kind} run: $${spent.toFixed(2)} of $${guard.budgetUsd}. `
                 + `Nothing crashed — it ran out of allowance. Raise ${env}_BUDGET_USD, or re-run the remaining orbs individually.`
-            } else if (obj.subtype === 'error_max_turns' || (guard.maxTurns && turns >= guard.maxTurns)) {
+            } else if (event.cliResult.subtype === 'error_max_turns' || (guard.maxTurns && turns >= guard.maxTurns)) {
               capNote = `Stopped at the step ceiling for a ${run.kind} run: ${turns} of ${guard.maxTurns} turns. `
                 + `Nothing crashed — it ran out of steps. Raise ${env}_MAX_TURNS, or re-run the remaining orbs individually.`
             }
@@ -239,7 +206,7 @@ export function handleStreamLine(run: RunState, line: string) {
           emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: message ? message.slice(0, 400) : undefined, ts })
         }
       }
-      break
+      continue
     }
   }
 }

@@ -14,6 +14,10 @@ due/duplicate logic in `.claude/commands/research/review-decisions.md` Step 3 ex
 so the hook and the command never disagree about what is "due".
 """
 import json, glob, os, datetime, sys
+from pathlib import Path
+
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
 def isdate(s):
@@ -25,24 +29,38 @@ def isdate(s):
 
 
 def main():
+    # Cockpit-launched provider processes already have a frozen, user-requested
+    # job.  Do not inject an unrelated review reminder into their prompt.
+    if os.environ.get("NOSTRA_COCKPIT_RUN") == "1":
+        return
+
     today = datetime.date.today().isoformat()
     due = []
-    for f in sorted(glob.glob("analyses/*/decision_record.json")):
+    pattern = str(REPO_ROOT / "analyses" / "*" / "decision_record.json")
+    for f in sorted(glob.glob(pattern)):
         try:
-            d = json.load(open(f))
+            with open(f, encoding="utf-8") as handle:
+                d = json.load(handle)
         except Exception:
             continue
-        run_root = d.get("run_root") or os.path.dirname(f)
-        ticker = d.get("ticker") or os.path.basename(run_root)
+        configured_root = d.get("run_root")
+        if configured_root:
+            run_path = Path(configured_root)
+            if not run_path.is_absolute():
+                run_path = REPO_ROOT / run_path
+        else:
+            run_path = Path(f).parent
+        run_root = configured_root or str(run_path.relative_to(REPO_ROOT))
+        ticker = d.get("ticker") or run_path.name
         for window, dt in (d.get("review_schedule") or {}).items():
             if not isdate(dt):
                 continue
-            already = glob.glob(os.path.join(run_root, "reviews", "*_%s_decision_review*.json" % window))
+            already = glob.glob(str(run_path / "reviews" / ("*_%s_decision_review*.json" % window)))
             if dt <= today and not already:
                 due.append((ticker, window, dt, run_root))
 
     if not due:
-        sys.exit(0)  # nothing due -> stay silent
+        return  # nothing due -> stay silent
 
     lines = [f"- {tk} {w} (due {dt}) -> {rr}" for tk, w, dt, rr in sorted(due)]
     msg = (
@@ -58,7 +76,7 @@ def main():
             "additionalContext": msg,
         }
     }))
-    sys.exit(0)
+    return
 
 
 if __name__ == "__main__":

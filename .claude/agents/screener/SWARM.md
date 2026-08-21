@@ -9,10 +9,14 @@ command_ns: screener
 run_root_template: screener/runs/{SIG_ID}
 placeholder: SIG_ID
 runs_root: screener/runs
+decision_artifacts:
+  - thesis_record.json
 ledger_root: screener/ledger
 board_index: screener/board/index.json
 inbox_root: screener/inbox
 schemas_root: frameworks/screener
+calibrator: scripts/screener_calibrate.py
+calibration_root: screener/ledger/conviction
 routing:
   verdict_field: "Routing"
   terminal:

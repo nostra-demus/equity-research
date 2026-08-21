@@ -333,7 +333,10 @@ If no records were due/found (e.g. mode `due` with nothing scheduled yet), say s
 Per repo `CLAUDE.md` git policy: commit straight to `main`. No branches. No PRs. Only `git add` the review files you created (never the original records):
 
 ```bash
-bash scripts/commit-run.sh "Decision reviews: <N> review(s) on <REVIEW_DATE>" -- "analyses/*/reviews/*_decision_review*.json" "analyses/*/reviews/*_memo_delta*.md"
+# Pass every review JSON + memo path resolved in Step 4 as its own quoted argument. Never use a wildcard.
+bash scripts/commit-run.sh "Decision reviews: <N> review(s) on <REVIEW_DATE>" -- \
+  "analyses/<TICKER>_<DATE>/reviews/<EXACT_REVIEW_FILE>.json" \
+  "analyses/<TICKER>_<DATE>/reviews/<EXACT_MEMO_DELTA_FILE>.md"
 ```
 
 Capture and report the commit SHA from `git rev-parse HEAD`. If no review files were created, skip the commit entirely.

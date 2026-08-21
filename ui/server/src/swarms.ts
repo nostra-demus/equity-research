@@ -12,6 +12,31 @@ import type { SwarmManifest, SwarmRoutingContract, SwarmWireDecl } from './types
 
 export const RESEARCH_SWARM_ID = 'research'
 
+function canonicalRepoPath(value: string): string | null {
+  if (!value || value.includes('\\') || path.posix.isAbsolute(value)) return null
+  const normalized = path.posix.normalize(value)
+  if (normalized !== value || normalized === '.' || normalized === '..' || normalized.startsWith('../')) return null
+  return normalized.replace(/\/$/, '')
+}
+
+// A declared decision artifact is a JSON file below the concrete run root. Reject the whole manifest
+// when the declaration is malformed: silently ignoring an unsafe or unknown target would let a future
+// swarm publish an unattributed terminal decision, defeating the zero-touch provenance contract.
+function parseDecisionArtifacts(value: unknown): string[] | undefined | null {
+  if (value === undefined) return undefined
+  if (!Array.isArray(value) || value.length === 0) return null
+  const artifacts: string[] = []
+  for (const item of value) {
+    if (typeof item !== 'string') return null
+    const candidate = item.trim()
+    const safe = canonicalRepoPath(candidate)
+    if (!safe || safe !== candidate || !safe.endsWith('.json')) return null
+    artifacts.push(safe)
+  }
+  if (new Set(artifacts).size !== artifacts.length) return null
+  return artifacts
+}
+
 function researchManifest(): SwarmManifest {
   return {
     id: RESEARCH_SWARM_ID,
@@ -25,6 +50,9 @@ function researchManifest(): SwarmManifest {
     runsRoot: 'analyses',
     runRootTemplate: 'analyses/{TICKER}_{DATE}',
     placeholder: 'TICKER',
+    decisionArtifacts: ['decision_record.json'],
+    reviewCommand: 'review-decisions',
+    calibrator: 'scripts/calibrate.py',
   }
 }
 
@@ -67,15 +95,23 @@ function parseManifest(file: string): SwarmManifest | null {
   const runsRoot = str(data.runs_root, path.dirname(runRootTemplate.split('{')[0].replace(/\/+$/, '')))
   // Every consumer may trust a discovered manifest's path fields. Admit only canonical repo-relative
   // POSIX paths here, once: absolute/upward/backslash/dot-normalized roots or templates are not swarms.
-  const canonicalRepoPath = (value: string): string | null => {
-    if (!value || value.includes('\\') || path.posix.isAbsolute(value)) return null
-    const normalized = path.posix.normalize(value)
-    if (normalized !== value || normalized === '.' || normalized === '..' || normalized.startsWith('../')) return null
-    return normalized.replace(/\/$/, '')
-  }
   const safeRunsRoot = canonicalRepoPath(runsRoot)
   const safeTemplate = canonicalRepoPath(runRootTemplate)
   if (!safeRunsRoot || !safeTemplate || safeTemplate === safeRunsRoot || !safeTemplate.startsWith(`${safeRunsRoot}/`)) return null
+  const decisionArtifacts = parseDecisionArtifacts(data.decision_artifacts)
+  if (decisionArtifacts === null) return null
+  const reviewCommand = str(data.review_command)
+  const calibrator = str(data.calibrator)
+  if (reviewCommand && !/^[a-z0-9-]{1,80}$/.test(reviewCommand)) return null
+  const safeCalibrator = calibrator ? canonicalRepoPath(calibrator) : undefined
+  if (calibrator && (!safeCalibrator || !safeCalibrator.startsWith('scripts/') || !safeCalibrator.endsWith('.py'))) return null
+  const calibrationRoot = str(data.calibration_root)
+  const safeCalibrationRoot = calibrationRoot ? canonicalRepoPath(calibrationRoot) : undefined
+  if (calibrationRoot && (!safeCalibrationRoot || !safeCalibrationRoot.startsWith(`${safeRunsRoot.split('/')[0]}/`))) return null
+  // A deterministic calibrator may follow another tracked outcome kind (the screener uses conviction),
+  // so review_command is optional. Whenever present, calibration itself remains an all-or-nothing pair.
+  if (Boolean(safeCalibrator) !== Boolean(safeCalibrationRoot)) return null
+  if (reviewCommand && !(safeCalibrator && safeCalibrationRoot)) return null
   return {
     id,
     label: str(data.label, id),
@@ -88,10 +124,14 @@ function parseManifest(file: string): SwarmManifest | null {
     runsRoot: safeRunsRoot,
     runRootTemplate: safeTemplate,
     placeholder: str(data.placeholder, 'SIG_ID'),
+    decisionArtifacts,
     ledgerRoot: str(data.ledger_root) || undefined,
     boardIndex: str(data.board_index) || undefined,
     inboxRoot: str(data.inbox_root) || undefined,
     schemasRoot: str(data.schemas_root) || undefined,
+    reviewCommand: reviewCommand || undefined,
+    calibrator: safeCalibrator || undefined,
+    calibrationRoot: safeCalibrationRoot || undefined,
     subjectsSource: str(data.subjects_source) || undefined,
     routing: parseRouting(data.routing),
     wire: parseWire(data.wire),

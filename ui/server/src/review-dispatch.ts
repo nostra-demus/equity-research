@@ -1,22 +1,26 @@
 // Platform-independent research-review dispatcher — the research-swarm twin of conviction-dispatch.ts.
 //
-// Today a due 30/90/180/365d decision review fires ONLY from the macOS `hk-review` launchd timer on the
-// single doer Mac (scripts/ops/com.nostradamus.hk-review.plist). When that machine is off, reviews slip:
-// the first three 30d reviews landed 10-12 days late. This is a self-healing server tick that fires any
-// due review from the always-on engine process, so the outcome-measurement layer no longer depends on one
-// laptop's timer. Crash-safe: a window that came due while the app was down fires on the next tick.
+// Due 30/90/180/365d decision reviews are owned by this tracked, provider-inheriting server loop. The old
+// direct-Claude macOS timer is retired because it bypassed admission, quota, cancellation and provenance.
+// Crash-safe: a window that came due while the app was down fires on the next tick.
 //
 // OFF by default (auto-spawning paid review runs is opt-in: REVIEW_DISPATCH_ENABLED=1). Bounded by a
 // max-concurrent cap and a per-day spawn cap. Reuses listAllCalls() for the DUE computation, so it shares
 // the SAME review_due.py rule the hook / command / cockpit already agree on (and now honors the §4a
-// supersession layer — a corrected-away run is never reviewed). Spawns the CLI directly (same shape as
-// conviction-dispatch); the review run writes its own append-only review file.
+// supersession layer — a corrected-away run is never reviewed). Paid work is injected through the
+// tracked launcher, so provider/profile, admission, cancellation, quota, activity, and provenance remain
+// identical to a cockpit click.
 
-import { spawn } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
-import { CLAUDE_BIN, DEFAULT_MODEL, REPO_ROOT, STATE_DIR } from './config'
+import { STATE_DIR } from './config'
+import {
+  hasProvenLegacyClaudeLineage,
+  readLastProviderSelection,
+  type RecordedProviderSelection,
+} from './execution-provenance'
 import { listAllCalls } from './outputs'
+import type { RunStatus } from './types'
 
 const BUDGET_FILE = path.join(STATE_DIR, 'review-dispatch.json')
 
@@ -24,10 +28,17 @@ const ENABLED = process.env.REVIEW_DISPATCH_ENABLED === '1'
 const TICK_MS = Math.max(300, Number(process.env.REVIEW_TICK_SEC) || 3600) * 1000 // hourly by default
 const MAX_CONCURRENT = Math.max(1, Number(process.env.REVIEW_MAX_CONCURRENT) || 1)
 const DAILY_CAP = Math.max(1, Number(process.env.REVIEW_DAILY_CAP) || 8)
-const MAX_TURNS = Math.max(10, Number(process.env.ENGINE_REVIEW_MAX_TURNS) || 120)
-const BUDGET_USD = Math.max(1, Number(process.env.ENGINE_REVIEW_BUDGET_USD) || 20)
-
 const inflightRuns = new Set<string>() // keyed on `${runRoot}|${window}` — the exact run being reviewed
+
+export interface TrackedReviewLaunch {
+  ticker: string
+  runRoot: string
+  window: string
+  selection: RecordedProviderSelection
+  onTerminal: (status: RunStatus) => void
+}
+export type TrackedReviewLauncher = (request: TrackedReviewLaunch) => Promise<void>
+let trackedLauncher: TrackedReviewLauncher | null = null
 
 const log = (m: string) => console.log(`[review-dispatch] ${m}`) // eslint-disable-line no-console
 const today = () => new Date().toISOString().slice(0, 10)
@@ -52,25 +63,12 @@ function recordFired(key: string): void {
     fs.writeFileSync(BUDGET_FILE, JSON.stringify({ date: today(), fired: s.fired + 1, keys: s.keys }))
   } catch { /* best-effort */ }
 }
-// Reverts a recordFired() bump — used when a spawn that looked successful synchronously later turns out to
-// have failed (spawn() emits 'error' asynchronously, e.g. ENOENT on a misconfigured CLAUDE_BIN), so a review
-// that never actually ran does not permanently burn today's budget slot.
-function rollbackFired(key: string): void {
-  try {
-    const s = readState()
-    const idx = s.keys.indexOf(key)
-    if (idx === -1) return
-    s.keys.splice(idx, 1)
-    fs.writeFileSync(BUDGET_FILE, JSON.stringify({ date: today(), fired: Math.max(0, s.fired - 1), keys: s.keys }))
-  } catch { /* best-effort */ }
-}
-
 // Every standing call with a review checkpoint DUE or OVERDUE today, keyed on the RUN it belongs to (not
 // the bare ticker): listAllCalls() emits one row per run folder, and next_checkpoint is THAT run's earliest
 // pending window. A superseded run never appears. Reviewing by ticker would resolve to the latest run and
 // silently skip an older still-due run of the same ticker.
-export async function dueReviews(): Promise<{ runRoot: string; window: string }[]> {
-  const out: { runRoot: string; window: string }[] = []
+export async function dueReviews(): Promise<{ ticker: string; runRoot: string; window: string }[]> {
+  const out: { ticker: string; runRoot: string; window: string }[] = []
   let calls: any[] = []
   try {
     calls = (await listAllCalls()).calls
@@ -79,8 +77,8 @@ export async function dueReviews(): Promise<{ runRoot: string; window: string }[
   }
   for (const c of calls) {
     const nc = c?.next_checkpoint
-    if (nc && (nc.status === 'due' || nc.status === 'overdue') && c.run_root && nc.window) {
-      out.push({ runRoot: String(c.run_root), window: String(nc.window) })
+    if (nc && (nc.status === 'due' || nc.status === 'overdue') && c.ticker && c.run_root && nc.window) {
+      out.push({ ticker: String(c.ticker), runRoot: String(c.run_root), window: String(nc.window) })
     }
   }
   return out
@@ -89,47 +87,61 @@ export async function dueReviews(): Promise<{ runRoot: string; window: string }[
 // Read-only view of the persisted per-day dispatch state (exported for tests).
 export function readDispatchState(): { date: string; fired: number; keys: string[] } { return readState() }
 
-// Exported for tests (the rollback-on-async-error path); in normal operation only dispatchDueReviews() calls it.
-export function spawnReview(runRoot: string, window: string): boolean {
+function inheritedSelection(runRoot: string): RecordedProviderSelection | null {
+  const recorded = readLastProviderSelection(runRoot, 'published')
+  if (recorded) return recorded
+  return hasProvenLegacyClaudeLineage(runRoot) ? { provider: 'claude' } : null
+}
+
+/** Exported for focused dispatcher tests; production injects the common launcher from server.ts. */
+export function setTrackedReviewLauncher(launcher: TrackedReviewLauncher | null): void {
+  trackedLauncher = launcher
+}
+
+export function spawnReview(runRoot: string, window: string, ticker?: string): boolean {
   const key = `${runRoot}|${window}`
   if (inflightRuns.has(key) || firedKeyToday(key)) return false // in-flight, or already fired today (restart-safe)
   if (inflightRuns.size >= MAX_CONCURRENT) return false
   if (firedToday() >= DAILY_CAP) { log(`daily cap ${DAILY_CAP} reached — holding ${key}`); return false }
-  inflightRuns.add(key)
-  const args = ['--print', `/research:review-decisions ${runRoot} ${window}`, '--output-format', 'stream-json', '--verbose',
-    '--permission-mode', 'bypassPermissions', '--model', DEFAULT_MODEL, '--max-turns', String(MAX_TURNS), '--max-budget-usd', String(BUDGET_USD)]
-  try {
-    const child = spawn(CLAUDE_BIN, args, { cwd: REPO_ROOT, stdio: 'ignore', detached: true })
-    recordFired(key) // only after a successful spawn — a failed launch must not burn the daily cap
-    const clear = () => inflightRuns.delete(key)
-    child.on('exit', (code) => { clear(); log(`review ${key} exited ${code}`) })
-    child.on('error', (e) => { clear(); rollbackFired(key); log(`review ${key} spawn error: ${e.message}`) })
-    child.unref()
-    log(`fired review ${key}`)
-    return true
-  } catch (e: any) {
-    inflightRuns.delete(key) // spawn threw — budget was NOT bumped, guard released
-    log(`could not spawn review ${key}: ${e?.message || e}`)
+  const selection = inheritedSelection(runRoot)
+  if (!selection) {
+    log(`holding ${key} — source decision has no trusted provider/profile provenance; run it manually with an explicit provider`)
     return false
   }
+  if (!trackedLauncher) { log(`holding ${key} — tracked launcher is not configured`); return false }
+  const subject = ticker || path.basename(runRoot).replace(/_[0-9]{4}-[0-9]{2}-[0-9]{2}(?:_.*)?$/, '')
+  if (!subject) { log(`holding ${key} — source ticker could not be resolved`); return false }
+  inflightRuns.add(key)
+  let terminal = false
+  const clear = (status?: RunStatus) => {
+    if (terminal) return
+    terminal = true
+    inflightRuns.delete(key)
+    if (status) log(`review ${key} finished ${status}`)
+  }
+  void trackedLauncher({ ticker: subject, runRoot, window, selection, onTerminal: clear })
+    .then(() => { recordFired(key); log(`fired tracked review ${key} via ${selection.provider}`) })
+    .catch((error: any) => { clear(); log(`could not admit review ${key}: ${error?.message || error}`) })
+  return true
 }
 
 /** The due reconciler — one pass. Crash-safe: re-running fires anything still due and unfired. */
 export async function dispatchDueReviews(): Promise<void> {
   if (!ENABLED) return
-  for (const { runRoot, window } of await dueReviews()) {
+  for (const { ticker, runRoot, window } of await dueReviews()) {
     if (inflightRuns.size >= MAX_CONCURRENT) break
-    spawnReview(runRoot, window)
+    spawnReview(runRoot, window, ticker)
   }
 }
 
-export function startReviewLoop(): void {
+export function startReviewLoop(launcher: TrackedReviewLauncher): void {
+  setTrackedReviewLauncher(launcher)
   if (!ENABLED) {
-    log('loop idle — set REVIEW_DISPATCH_ENABLED=1 to auto-fire due decision reviews from the server (the macOS hk-review timer, if installed, still fires them; you can also run /research:review-decisions by hand)')
+    log('loop idle — set REVIEW_DISPATCH_ENABLED=1 to auto-fire due decision reviews from the server; you can also run /research:review-decisions by hand')
     return
   }
   setTimeout(() => void dispatchDueReviews(), 12_000)
   const t = setInterval(() => void dispatchDueReviews(), TICK_MS)
   t.unref?.()
-  log(`loop on — due reconciler every ${Math.round(TICK_MS / 1000)}s · max ${MAX_CONCURRENT} concurrent, ${DAILY_CAP}/day, ~$${BUDGET_USD}/review`)
+  log(`loop on — due reconciler every ${Math.round(TICK_MS / 1000)}s · max ${MAX_CONCURRENT} concurrent, ${DAILY_CAP}/day`)
 }
