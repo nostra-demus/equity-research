@@ -372,6 +372,8 @@ def eval_az_contradiction_sweep(decision_date, verification_report):
         return "na"
     if verification_report is None:
         return "na"  # report existence itself is gated by check O for conviction runs; not re-litigated here
+    if not isinstance(verification_report, dict):
+        return "fail"  # a report that parses to a non-dict JSON type can't carry contradiction_checks[] — fail, don't crash
     return "pass" if isinstance(verification_report.get("contradiction_checks"), list) else "fail"
 
 # ── Check Y (§11 data-sufficiency cap) — module-level so `eval.py selftest` can drive it ──
@@ -1563,6 +1565,8 @@ if scope=="selftest":
         ("2026-08-20",{"contradiction_checks":[]},"na"),     # predates AZ_DATE
         ("not-a-date",{"contradiction_checks":[]},"na"),
         (None,{"contradiction_checks":[]},"na"),
+        ("2026-08-21",[],"fail"),                            # non-dict report (list) — must fail gracefully, not crash
+        ("2026-08-21","not-a-dict","fail"),                  # non-dict report (string) — must fail gracefully, not crash
     ]
     for dt_,rep_,exp in azcases:
         got=AZ(dt_,rep_); ok=(got==exp)
