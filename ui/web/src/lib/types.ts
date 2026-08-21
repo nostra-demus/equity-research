@@ -601,6 +601,8 @@ export interface ModuleNode {
   name: string
   order: number
   dependsOn: string[]
+  /** Optional cross-module inputs consumed when present, but not required for scheduling. */
+  readsFrom?: string[]
   exactResume?: boolean
   layers: Record<string, AgentNode[]>
   agentCount: number

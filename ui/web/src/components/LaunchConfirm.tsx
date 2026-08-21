@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { resetIn, usageColor, usageLabel, usagePct } from '../lib/format'
 import { cascadeLabel } from '../lib/cascade'
+import { moduleRunConfirmation } from '../lib/moduleRun'
 import { Spin } from './Spin'
 import type { Usage } from '../lib/types'
 
@@ -19,6 +20,7 @@ function usageText(credit: Usage | null): string {
 export function LaunchConfirm() {
   const lc = useStore((s) => s.launchConfirm)
   const ticker = useStore((s) => s.selectedTicker)
+  const confirmModule = useStore((s) => s.confirmModule)
   const confirmFull = useStore((s) => s.confirmFull)
   const confirmRerun = useStore((s) => s.confirmRerun)
   const cancel = useStore((s) => s.cancelLaunch)
@@ -26,6 +28,46 @@ export function LaunchConfirm() {
   const launchPending = useStore((s) => s.launchPending)
   const [typed, setTyped] = useState('')
   if (!lc) return null
+  if (lc.kind === 'module') {
+    const copy = moduleRunConfirmation(lc.module, lc.unfinishedSpecialists, lc.inputModules)
+    const pendingKey = `module:${lc.module}`
+    const starting = launchPending?.ticker === lc.selection.subject
+      && (launchPending.key === pendingKey || launchPending.key.startsWith(`${pendingKey}:`))
+    return (
+      <div className="scrim" onClick={cancel}>
+        <motion.div
+          className="modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="module-run-confirm-title"
+          initial={{ opacity: 0, scale: 0.96, y: 8 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="modal__head">
+            <div className="modal__title" id="module-run-confirm-title">{copy.title}</div>
+            <div className="modal__sub">{copy.subtitle}</div>
+          </div>
+          <div className="modal__body">
+            <div className="modal__row"><span className="modal__k">Empty orbs</span><span className="modal__v">{copy.emptyValue}</span></div>
+            <div className="modal__row"><span className="modal__k">Saved inputs</span><span className="modal__v" style={{ fontFamily: 'inherit', textAlign: 'right', maxWidth: 300 }}>{copy.savedInputsValue}</span></div>
+            <div className="modal__row"><span className="modal__k">Related saved checks</span><span className="modal__v" style={{ fontFamily: 'inherit', textAlign: 'right', maxWidth: 230 }}>{copy.relatedValue}</span></div>
+            <div className="modal__row"><span className="modal__k">Fresh summary</span><span className="modal__v">{copy.summaryValue}</span></div>
+          </div>
+          <div style={{ padding: '4px 20px 16px', color: 'var(--text-faint)', fontSize: 12 }}>
+            Nothing is checked or started until you press {copy.actionLabel}.
+          </div>
+          <div className="modal__actions">
+            <button className="btn btn--ghost" disabled={starting} onClick={cancel}>Cancel</button>
+            <button className="btn btn--amber" disabled={starting} onClick={confirmModule}>
+              {starting ? <><Spin /> Starting…</> : copy.actionLabel}
+            </button>
+          </div>
+        </motion.div>
+      </div>
+    )
+  }
   // the confirm was clicked and the server hasn't acked yet — the modal stays up, its button spins
   const starting = launchPending?.key === 'confirm'
   const p = lc.preflight

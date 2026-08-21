@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { api } from './api'
-import { moduleRunAffordance } from './moduleRun'
+import { moduleRunAffordance, moduleRunConfirmation, moduleRunInputModules } from './moduleRun'
 import { useStore } from './store'
 import type { AgentNode, LaunchPreflight, NodeStatus, ThesisPlan } from './types'
 
@@ -29,6 +29,26 @@ assert.equal(affordance.complete, false, 'an old done synthesis cannot hide empt
 assert.equal(affordance.unfinishedSpecialists, 6)
 assert.equal(affordance.label, '▸ finish 6 empty + related + summary')
 assert.match(affordance.title, /may rerun saved checks that depend on them/i)
+const declaredInputs = moduleRunInputModules([
+  { name: 'business-model', dependsOn: [] },
+  { name: 'earnings', dependsOn: ['business-model'] },
+  { name: 'balance-sheet-survival', dependsOn: ['business-model', 'earnings'] },
+  { name: 'management-governance', dependsOn: ['business-model', 'earnings'], readsFrom: ['balance-sheet-survival'] },
+], 'management-governance')
+assert.deepEqual(declaredInputs, ['business-model', 'earnings', 'balance-sheet-survival'],
+  'confirmation inputs include transitive required ancestors and the target module’s direct optional reads')
+const confirmationCopy = moduleRunConfirmation(
+  'management-governance',
+  affordance.unfinishedSpecialists,
+  declaredInputs,
+)
+assert.equal(confirmationCopy.title, 'Run Management Governance?')
+assert.equal(confirmationCopy.emptyValue, '6 visible now')
+assert.equal(confirmationCopy.savedInputsValue,
+  'Business Model, Earnings, and Balance Sheet Survival — reused if available; may not include newest source data')
+assert.match(confirmationCopy.relatedValue, /empty orb/i)
+assert.match(confirmationCopy.summaryValue, /always refreshed/i)
+assert.equal(confirmationCopy.actionLabel, 'Run Governance')
 
 for (const node of nodes) statuses.set(node.key, 'done')
 const completeAffordance = moduleRunAffordance(nodes, (key) => statuses.get(key)!)
@@ -141,25 +161,47 @@ try {
     selectedTicker: 'INDIAMART',
     graph: {
       modules: [
-        { name: 'management-governance', order: 1, dependsOn: ['business-model', 'earnings'], exactResume: true, layers: {}, agentCount: nodes.length },
+        { name: 'management-governance', order: 3, dependsOn: ['business-model', 'earnings'], readsFrom: ['balance-sheet-survival'], exactResume: true, layers: {}, agentCount: nodes.length },
         { name: 'business-model', order: 0, dependsOn: [], exactResume: false, layers: {}, agentCount: 0 },
+        { name: 'earnings', order: 1, dependsOn: ['business-model'], exactResume: false, layers: {}, agentCount: 0 },
+        { name: 'balance-sheet-survival', order: 2, dependsOn: ['business-model', 'earnings'], exactResume: false, layers: {}, agentCount: 0 },
       ],
       masterSynthesizer: { name: 'synthesizer', description: '' },
-      totals: { modules: 2, agents: nodes.length, specialists: nodes.length - 1, synthesis: 1 },
+      totals: { modules: 4, agents: nodes.length, specialists: nodes.length - 1, synthesis: 1 },
     },
     nodesByKey: new Map(nodes.map((node) => [node.key, node])),
     nodeRuntime: { ...standingRuntime },
     activeRuns: {},
     globalActive: [],
+    launchConfirm: null,
     launchPending: null,
     thesisPlan: null,
     toast: null,
     setToast: toast,
   })
 
-  const launch = useStore.getState().launchModule('management-governance')
+  await useStore.getState().launchModule('management-governance')
+  const firstConfirmation = useStore.getState().launchConfirm
+  assert.equal(firstConfirmation?.kind, 'module', 'one heading click opens the module confirmation synchronously')
+  assert.equal(firstConfirmation?.kind === 'module' ? firstConfirmation.module : null, 'management-governance')
+  assert.equal(firstConfirmation?.kind === 'module' ? firstConfirmation.unfinishedSpecialists : null, 6)
+  assert.deepEqual(firstConfirmation?.kind === 'module' ? firstConfirmation.inputModules : null,
+    ['business-model', 'earnings', 'balance-sheet-survival'],
+    'confirmation captures required and optional graph-declared inputs without hardcoded module names')
+  assert.equal(useStore.getState().launchPending, null, 'opening confirmation does not start a plan request')
+  assert.deepEqual(
+    { planCalls, resumeCalls, publicationCalls, agentLaunchCalls, estimateCalls },
+    { planCalls: 0, resumeCalls: 0, publicationCalls: 0, agentLaunchCalls: 0, estimateCalls: 0 },
+    'the first heading click performs no GET, POST, estimate, publication, or run',
+  )
+  useStore.getState().cancelLaunch()
+  assert.equal(useStore.getState().launchConfirm, null)
+  assert.equal(planCalls, 0, 'Cancel closes the confirmation without reading the plan')
+
+  await useStore.getState().launchModule('management-governance')
+  const launch = useStore.getState().confirmModule()
   const modulePlanningPending = useStore.getState().launchPending
-  assert.equal(modulePlanningPending?.key, 'module:management-governance', 'one heading click gives immediate feedback while disk truth loads')
+  assert.equal(modulePlanningPending?.key, 'module:management-governance', 'Run Governance gives immediate feedback while disk truth loads')
   await useStore.getState().launchAgent(nodes[7])
   assert.equal(agentLaunchCalls, 0, 'an agent click cannot overwrite a module plan pending for the same ticker')
   assert.equal(useStore.getState().launchPending, modulePlanningPending, 'the blocked agent click preserves the module spinner by identity')
@@ -206,6 +248,12 @@ try {
   assert.equal(useStore.getState().launchPending, null)
   useStore.setState({ activeRuns: {}, globalActive: [], nodeRuntime: { ...standingRuntime } })
 
+  const confirmGovernance = async () => {
+    await useStore.getState().launchModule('management-governance')
+    assert.equal(useStore.getState().launchConfirm?.kind, 'module')
+    await useStore.getState().confirmModule()
+  }
+
   // Historical partials can merge across folders: check-07 is painted empty in the standing run, but the
   // server found a valid saved output for it elsewhere; check-06 is painted done, but must rerun because it
   // depends on a newly filled check. Count only the intersection of painted-empty AND actually planned keys.
@@ -226,10 +274,65 @@ try {
     resumed: true,
     ranClean: false,
   })
-  await useStore.getState().launchModule('management-governance')
+  await confirmGovernance()
   assert.match(useStore.getState().toast?.msg ?? '', /5 empty orbs \+ 1 related saved check \+ a fresh summary/)
   assert.equal(useStore.getState().nodeRuntime[nodes[7].key]?.status, 'done', 'a historically merged saved orb is reused even when the standing graph painted it empty')
   assert.equal(useStore.getState().nodeRuntime[nodes[6].key]?.status, 'queued', 'a painted-done dependent remains part of the actual plan')
+  useStore.setState({ activeRuns: {}, globalActive: [], nodeRuntime: { ...standingRuntime }, launchPending: null })
+
+  // An older/default planner can exclude stale-but-finished ancestors from reuse and call Governance blocked,
+  // while the same response proves those exact ancestors are reusable. Only after confirmation, re-price once
+  // with every finished module explicitly kept; the paid POST must use that runnable plan and nothing broader.
+  const blockedReusablePlan: ThesisPlan = {
+    ...plan,
+    reuse: [],
+    modules: [{
+      ...plan.modules[0],
+      runnable: false,
+      blockedBy: ['business-model', 'earnings'],
+    }],
+  }
+  const carriedReusablePlan: ThesisPlan = {
+    ...plan,
+    reuse: ['business-model', 'earnings'],
+    modules: [{ ...plan.modules[0], runnable: true, blockedBy: [] }],
+  }
+  const fallbackPlanReads: unknown[][] = []
+  let fallbackPosts = 0
+  let fallbackPostArgs: unknown[] | null = null
+  api.thesisPlan = async (...args: any[]) => {
+    fallbackPlanReads.push(args)
+    return fallbackPlanReads.length === 1 ? blockedReusablePlan : carriedReusablePlan
+  }
+  api.runThesisPlanModule = async (...args) => {
+    fallbackPosts++
+    fallbackPostArgs = args
+    return {
+      runId: 'run_reusable_ancestor_fallback',
+      preflight: {} as any,
+      module: 'management-governance',
+      willRun: carriedReusablePlan.modules[0].willRunAgents,
+      doneOrbKeys: carriedReusablePlan.modules[0].doneOrbKeys,
+      carried: [
+        { module: 'business-model', from: 'analyses/INDIAMART_2026-08-14' },
+        { module: 'earnings', from: 'analyses/INDIAMART_2026-08-14' },
+      ],
+      resumed: true,
+      ranClean: false,
+    }
+  }
+  await useStore.getState().launchModule('management-governance')
+  assert.equal(useStore.getState().launchConfirm?.kind, 'module')
+  assert.equal(fallbackPlanReads.length, 0, 'the reusable-ancestor fallback performs no GET before confirmation')
+  assert.equal(fallbackPosts, 0, 'the reusable-ancestor fallback performs no POST before confirmation')
+  await useStore.getState().confirmModule()
+  assert.deepEqual(fallbackPlanReads, [
+    ['INDIAMART', 'research'],
+    ['INDIAMART', 'research', ['business-model', 'earnings']],
+  ], 'a blocked default plan is re-read once with every proven reusable ancestor')
+  assert.equal(fallbackPosts, 1, 'the runnable re-priced scope submits exactly one module POST')
+  assert.deepEqual(fallbackPostArgs?.[2], carriedReusablePlan.reuse,
+    'the module POST uses the re-priced plan reuse set')
   useStore.setState({ activeRuns: {}, globalActive: [], nodeRuntime: { ...standingRuntime }, launchPending: null })
 
   // The reciprocal race: while an agent POST is pending, a module click neither plans nor replaces the
@@ -365,7 +468,7 @@ try {
     ...plan,
     modules: [{ ...plan.modules[0], staleReason: 'new source document', willRunAgents: 14 }],
   })
-  await useStore.getState().launchModule('management-governance')
+  await confirmGovernance()
   assert.equal(resumeArgs, null, 'a heading click never silently widens a gap-fill into a clean whole-module run')
   assert.match(useStore.getState().toast?.msg ?? '', /cannot safely reuse its filled orbs/i)
 
@@ -385,7 +488,7 @@ try {
     }],
   })
   resumeCalls = 0
-  await useStore.getState().launchModule('management-governance')
+  await confirmGovernance()
   assert.equal(publicationCalls, 1, 'a completed local module retries publication from the heading')
   assert.equal(resumeCalls, 0, 'publication recovery never launches another paid analysis')
   assert.deepEqual(publicationArgs, [
@@ -398,12 +501,12 @@ try {
   assert.match(useStore.getState().toast?.msg ?? '', /No analysis was rerun/i)
 
   api.thesisPlan = async () => ({ ...plan, complete: true, finalReportPath: 'analyses/INDIAMART_2026-08-21/final_thesis.md' })
-  await useStore.getState().launchModule('management-governance')
+  await confirmGovernance()
   assert.equal(resumeArgs, null, 'a same-day sealed call is never mutated from the module heading')
   assert.match(useStore.getState().toast?.msg ?? '', /call is sealed/i)
 
   api.thesisPlan = async () => ({ ...plan, moduleResumeVersion: undefined })
-  await useStore.getState().launchModule('management-governance')
+  await confirmGovernance()
   assert.equal(resumeArgs, null, 'rolling deploy skew fails closed instead of using an old whole-module path')
   assert.match(useStore.getState().toast?.msg ?? '', /engine is still updating/i)
   console.log('module run: heading resumes empty orbs through the plan endpoint and refreshes the synthesis')
@@ -415,5 +518,5 @@ try {
   api.estimate = original.estimate
   api.cancelSubject = original.cancelSubject
   Object.defineProperty(globalThis, 'EventSource', { configurable: true, writable: true, value: original.eventSource })
-  useStore.setState({ setToast: original.setToast, launchPending: null })
+  useStore.setState({ setToast: original.setToast, launchConfirm: null, launchPending: null })
 }
