@@ -1,0 +1,515 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/memory/operational-readiness-report-v1.schema.json",
+  "title": "Permanent-memory operational readiness and scale evidence report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "evaluated_at",
+    "status",
+    "adoption",
+    "operational_evidence",
+    "slos",
+    "scale_decisions",
+    "automation",
+    "report_sha256"
+  ],
+  "properties": {
+    "schema": { "const": "memory-operational-readiness-report/v1" },
+    "evaluated_at": { "$ref": "#/$defs/dateTime" },
+    "status": { "$ref": "#/$defs/status" },
+    "adoption": { "$ref": "#/$defs/adoption" },
+    "operational_evidence": { "$ref": "#/$defs/operationalEvidence" },
+    "slos": {
+      "type": "array",
+      "minItems": 14,
+      "maxItems": 14,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/slo" }
+    },
+    "scale_decisions": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/scaleDecision" }
+    },
+    "automation": { "$ref": "#/$defs/automation" },
+    "report_sha256": { "$ref": "#/$defs/hashRef" }
+  },
+  "$defs": {
+    "status": {
+      "type": "string",
+      "enum": ["met", "failed", "unmeasured"]
+    },
+    "hashRef": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "nullableHashRef": {
+      "type": ["string", "null"],
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "dateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{6}Z$"
+    },
+    "nullableDateTime": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "nullableInteger": {
+      "type": ["integer", "null"],
+      "minimum": 0
+    },
+    "nullableNumber": {
+      "type": ["number", "null"],
+      "minimum": 0
+    },
+    "corpusAnchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sha256", "total_bytes", "unique_files_considered"],
+      "properties": {
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "total_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "unique_files_considered": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        }
+      }
+    },
+    "nullableCorpusAnchor": {
+      "oneOf": [
+        { "$ref": "#/$defs/corpusAnchor" },
+        { "type": "null" }
+      ]
+    },
+    "benchmarkMetrics": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": [
+        "complete_evidence_recall_at_k",
+        "evidence_path_recall_at_k",
+        "mean_reciprocal_rank",
+        "protected_path_intrusions",
+        "temporal_forbidden_path_hits",
+        "temporal_leakage_case_rate"
+      ],
+      "properties": {
+        "complete_evidence_recall_at_k": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "evidence_path_recall_at_k": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "mean_reciprocal_rank": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "protected_path_intrusions": { "type": "integer", "minimum": 0 },
+        "temporal_forbidden_path_hits": { "type": "integer", "minimum": 0 },
+        "temporal_leakage_case_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "productionBenchmark": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "benchmark_version",
+        "benchmark_as_of",
+        "case_count",
+        "benchmark_sha256",
+        "baseline_report_sha256",
+        "candidate_report_sha256",
+        "baseline_corpus",
+        "candidate_corpus",
+        "corpus_match",
+        "baseline_metrics",
+        "candidate_metrics",
+        "comparison"
+      ],
+      "properties": {
+        "status": { "$ref": "#/$defs/status" },
+        "benchmark_version": { "const": "memory-held-out-benchmark/v1" },
+        "benchmark_as_of": { "type": "string", "format": "date" },
+        "case_count": { "const": 63 },
+        "benchmark_sha256": { "$ref": "#/$defs/hashRef" },
+        "baseline_report_sha256": { "$ref": "#/$defs/hashRef" },
+        "candidate_report_sha256": { "$ref": "#/$defs/nullableHashRef" },
+        "baseline_corpus": { "$ref": "#/$defs/corpusAnchor" },
+        "candidate_corpus": { "$ref": "#/$defs/nullableCorpusAnchor" },
+        "corpus_match": {
+          "type": "string",
+          "enum": ["matched", "mismatched", "unmeasured"]
+        },
+        "baseline_metrics": { "$ref": "#/$defs/benchmarkMetrics" },
+        "candidate_metrics": { "$ref": "#/$defs/benchmarkMetrics" },
+        "comparison": {
+          "type": "string",
+          "enum": [
+            "unmeasured",
+            "corpus-mismatch",
+            "non-regressed-with-strict-improvement-and-zero-serious-leakage",
+            "regressed-no-improvement-or-serious-leakage"
+          ]
+        }
+      }
+    },
+    "phase3Synthetic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "report_sha256",
+        "case_count",
+        "gate_passed",
+        "counts_as_production_adoption"
+      ],
+      "properties": {
+        "status": { "$ref": "#/$defs/status" },
+        "report_sha256": { "$ref": "#/$defs/nullableHashRef" },
+        "case_count": { "$ref": "#/$defs/nullableInteger" },
+        "gate_passed": { "type": ["boolean", "null"] },
+        "counts_as_production_adoption": { "const": false }
+      }
+    },
+    "adoption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["production_benchmark", "phase3_synthetic"],
+      "properties": {
+        "production_benchmark": { "$ref": "#/$defs/productionBenchmark" },
+        "phase3_synthetic": { "$ref": "#/$defs/phase3Synthetic" }
+      }
+    },
+    "projectionEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "report_sha256",
+        "projection_digest",
+        "event_count",
+        "deterministic_rebuilds"
+      ],
+      "properties": {
+        "status": { "$ref": "#/$defs/status" },
+        "report_sha256": { "$ref": "#/$defs/nullableHashRef" },
+        "projection_digest": { "$ref": "#/$defs/nullableHashRef" },
+        "event_count": { "$ref": "#/$defs/nullableInteger" },
+        "deterministic_rebuilds": { "$ref": "#/$defs/nullableInteger" }
+      }
+    },
+    "storeEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "report_sha256",
+        "store_manifest_sha256",
+        "deterministic_rebuilds",
+        "external_anchor_verified"
+      ],
+      "properties": {
+        "status": { "$ref": "#/$defs/status" },
+        "report_sha256": { "$ref": "#/$defs/nullableHashRef" },
+        "store_manifest_sha256": { "$ref": "#/$defs/nullableHashRef" },
+        "deterministic_rebuilds": { "$ref": "#/$defs/nullableInteger" },
+        "external_anchor_verified": { "type": ["boolean", "null"] }
+      }
+    },
+    "controlledWriteEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "observation_sha256",
+        "window_start",
+        "window_end",
+        "valid_append_attempts",
+        "successful_appends",
+        "rejected_invalid_writes",
+        "append_success_rate",
+        "committed_event_loss_count"
+      ],
+      "properties": {
+        "status": { "$ref": "#/$defs/status" },
+        "observation_sha256": { "$ref": "#/$defs/nullableHashRef" },
+        "window_start": { "$ref": "#/$defs/nullableDateTime" },
+        "window_end": { "$ref": "#/$defs/nullableDateTime" },
+        "valid_append_attempts": { "$ref": "#/$defs/nullableInteger" },
+        "successful_appends": { "$ref": "#/$defs/nullableInteger" },
+        "rejected_invalid_writes": { "$ref": "#/$defs/nullableInteger" },
+        "append_success_rate": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "committed_event_loss_count": { "$ref": "#/$defs/nullableInteger" }
+      }
+    },
+    "performanceEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "observation_sha256",
+        "window_start",
+        "window_end",
+        "issuer_query_count",
+        "retrieval_p95_millis",
+        "context_compilation_p95_millis"
+      ],
+      "properties": {
+        "status": { "$ref": "#/$defs/status" },
+        "observation_sha256": { "$ref": "#/$defs/nullableHashRef" },
+        "window_start": { "$ref": "#/$defs/nullableDateTime" },
+        "window_end": { "$ref": "#/$defs/nullableDateTime" },
+        "issuer_query_count": { "$ref": "#/$defs/nullableInteger" },
+        "retrieval_p95_millis": { "$ref": "#/$defs/nullableNumber" },
+        "context_compilation_p95_millis": { "$ref": "#/$defs/nullableNumber" }
+      }
+    },
+    "restoreEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "observation_sha256",
+        "performed_at",
+        "full_restore_completed",
+        "recovery_time_millis",
+        "committed_event_loss_count"
+      ],
+      "properties": {
+        "status": { "$ref": "#/$defs/status" },
+        "observation_sha256": { "$ref": "#/$defs/nullableHashRef" },
+        "performed_at": { "$ref": "#/$defs/nullableDateTime" },
+        "full_restore_completed": { "type": ["boolean", "null"] },
+        "recovery_time_millis": { "$ref": "#/$defs/nullableInteger" },
+        "committed_event_loss_count": { "$ref": "#/$defs/nullableInteger" }
+      }
+    },
+    "accessEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "observation_sha256",
+        "window_start",
+        "window_end",
+        "audit_complete",
+        "known_policy_leaks",
+        "post_cutoff_fact_count"
+      ],
+      "properties": {
+        "status": { "$ref": "#/$defs/status" },
+        "observation_sha256": { "$ref": "#/$defs/nullableHashRef" },
+        "window_start": { "$ref": "#/$defs/nullableDateTime" },
+        "window_end": { "$ref": "#/$defs/nullableDateTime" },
+        "audit_complete": { "type": ["boolean", "null"] },
+        "known_policy_leaks": { "$ref": "#/$defs/nullableInteger" },
+        "post_cutoff_fact_count": { "$ref": "#/$defs/nullableInteger" }
+      }
+    },
+    "schemaReviewEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "observation_sha256",
+        "reviewed_at",
+        "review_complete",
+        "overdue_schema_count"
+      ],
+      "properties": {
+        "status": { "$ref": "#/$defs/status" },
+        "observation_sha256": { "$ref": "#/$defs/nullableHashRef" },
+        "reviewed_at": { "$ref": "#/$defs/nullableDateTime" },
+        "review_complete": { "type": ["boolean", "null"] },
+        "overdue_schema_count": { "$ref": "#/$defs/nullableInteger" }
+      }
+    },
+    "operationalEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "projection_rebuild",
+        "object_store_doctor",
+        "controlled_writes",
+        "performance",
+        "restore_drill",
+        "access_audit",
+        "schema_deprecation_review"
+      ],
+      "properties": {
+        "projection_rebuild": { "$ref": "#/$defs/projectionEvidence" },
+        "object_store_doctor": { "$ref": "#/$defs/storeEvidence" },
+        "controlled_writes": { "$ref": "#/$defs/controlledWriteEvidence" },
+        "performance": { "$ref": "#/$defs/performanceEvidence" },
+        "restore_drill": { "$ref": "#/$defs/restoreEvidence" },
+        "access_audit": { "$ref": "#/$defs/accessEvidence" },
+        "schema_deprecation_review": { "$ref": "#/$defs/schemaReviewEvidence" }
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["operator", "value", "unit", "cadence"],
+      "properties": {
+        "operator": {
+          "type": "string",
+          "enum": ["equal", "at-least", "less-than", "at-most"]
+        },
+        "value": { "type": "number", "minimum": 0 },
+        "unit": {
+          "type": "string",
+          "enum": ["ratio", "count", "milliseconds", "days"]
+        },
+        "cadence": {
+          "type": ["string", "null"],
+          "enum": ["monthly", "quarterly", null]
+        }
+      }
+    },
+    "observed": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "unit", "numerator", "denominator"],
+      "properties": {
+        "value": { "$ref": "#/$defs/nullableNumber" },
+        "unit": {
+          "type": "string",
+          "enum": ["ratio", "count", "milliseconds", "days"]
+        },
+        "numerator": { "$ref": "#/$defs/nullableInteger" },
+        "denominator": { "$ref": "#/$defs/nullableInteger" }
+      }
+    },
+    "slo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["slo_id", "target", "status", "observed", "evidence_sha256"],
+      "properties": {
+        "slo_id": {
+          "type": "string",
+          "enum": [
+            "canonical-event-integrity",
+            "material-claim-lineage",
+            "known-policy-leakage",
+            "post-cutoff-leakage",
+            "canonical-append-success",
+            "retrieval-p95",
+            "context-compilation-p95",
+            "committed-event-loss-rpo",
+            "restore-rto",
+            "projection-rebuild-cadence",
+            "full-restore-cadence",
+            "benchmark-refresh-cadence",
+            "access-audit-cadence",
+            "schema-deprecation-review-cadence"
+          ]
+        },
+        "target": { "$ref": "#/$defs/target" },
+        "status": { "$ref": "#/$defs/status" },
+        "observed": { "$ref": "#/$defs/observed" },
+        "evidence_sha256": {
+          "type": "array",
+          "maxItems": 4,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/hashRef" }
+        }
+      }
+    },
+    "scaleDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate",
+        "status",
+        "action",
+        "comparison_sha256",
+        "workload_sha256",
+        "sample_size",
+        "reference_slo_met",
+        "candidate_slo_met",
+        "correctness_regressions",
+        "known_policy_leaks",
+        "expansion_justified",
+        "blocking_reasons"
+      ],
+      "properties": {
+        "candidate": {
+          "type": "string",
+          "enum": ["postgresql", "graph-engine", "vector-index", "remote-object-store"]
+        },
+        "status": { "$ref": "#/$defs/status" },
+        "action": {
+          "type": "string",
+          "enum": [
+            "stay-sqlite",
+            "do-not-add",
+            "consider-postgresql",
+            "consider-graph-engine",
+            "consider-vector-index",
+            "consider-remote-object-store"
+          ]
+        },
+        "comparison_sha256": { "$ref": "#/$defs/nullableHashRef" },
+        "workload_sha256": { "$ref": "#/$defs/nullableHashRef" },
+        "sample_size": { "$ref": "#/$defs/nullableInteger" },
+        "reference_slo_met": { "type": ["boolean", "null"] },
+        "candidate_slo_met": { "type": ["boolean", "null"] },
+        "correctness_regressions": { "$ref": "#/$defs/nullableInteger" },
+        "known_policy_leaks": { "$ref": "#/$defs/nullableInteger" },
+        "expansion_justified": { "type": "boolean" },
+        "blocking_reasons": {
+          "type": "array",
+          "maxItems": 5,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "no-comparative-evidence",
+              "insufficient-sample",
+              "reference-slo-met",
+              "candidate-slo-not-met",
+              "correctness-regression",
+              "policy-leak"
+            ]
+          }
+        }
+      }
+    },
+    "automation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scheduled_by_report", "state_mutation"],
+      "properties": {
+        "scheduled_by_report": { "const": false },
+        "state_mutation": { "const": "none" }
+      }
+    }
+  }
+}

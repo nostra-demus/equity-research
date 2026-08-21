@@ -1,6 +1,7 @@
 # Permanent Memory Architecture Plan
 
-**Status:** Phases 0–2 are implemented at the local reference boundary; Phases 3–6 remain planned
+**Status:** Phases 0–6 have bounded reference implementations; production adoption and operational
+readiness remain unmeasured
 
 **Date:** 2026-08-20
 
@@ -8,22 +9,30 @@
 
 ## Implementation status (2026-08-21)
 
-The repository now includes the first reversible implementation slice described below:
+The repository now includes the reversible reference components described below:
 
 - a machine-readable inventory, four architecture decisions, 63 held-out questions, and a
   deterministic folder/literal-retrieval baseline;
 - closed event, source, evidence-span, claim, relationship, and identity-registry contracts;
 - lossless read-only adapters over the current equity, commodity, and screener memory stores;
-- a deterministic disposable SQLite/FTS projection plus validation, query, and doctor commands; and
+- a deterministic disposable SQLite/FTS projection plus validation, query, and doctor commands;
 - append-only, provenance, temporal, access-control, locator-resolution, and rebuild tests wired into
   CI;
 - closed, cryptographically verified contracts for object manifests, intake receipts, trust keys,
   source acquisitions, extraction artifacts, evidence spans, store checkpoints, and purge receipts;
 - a policy-partitioned local object/event reference store with exact acquisition/version lineage,
   authenticated protected content, restore and deterministic rebuild checks, and transitive purge;
-  and
 - one exact-byte resolver over clean Git-backed legacy evidence and complete Phase 2 object
-  manifests, with a deterministic live-corpus drill in CI.
+  manifests, with a deterministic live-corpus drill in CI;
+- a policy-first structured/lexical/optional-embedding retrieval compiler, closed query contract,
+  and immutable context packets and manifests with exact event/evidence lineage;
+- a read-only shadow CLI and bounded STDIO MCP server with synthetic Codex-, Claude-, and generic
+  protocol harnesses plus inert, hash-bound feedback artifacts;
+- closed controlled-write, feedback-review, correction, forecast-outcome, and calibration contracts,
+  plus a fail-closed local coordinator for idempotency, optimistic concurrency, append-only
+  correction, protected routing, exact candidate provenance, and crash recovery; and
+- a content-free operational-readiness report that derives benchmark/SLO status from supplied
+  evidence and refuses to turn missing production observations into success.
 
 The implemented append-only guard deliberately narrows the immutable Git event lane to
 `public`/`internal` events with `permanent` retention. Protected, expiring, and deletion-tombstone
@@ -31,13 +40,20 @@ records cannot be committed into an undeletable history; they require the policy
 purgeable event/object lane implemented by the Phase 2 local reference store.
 
 The Phase 0/1 compatibility path remains opt-in and read-only: it does not alter historical
-artifacts or current readers. Phase 2 adds an isolated administrative storage reference, not a
-production intake API. The repository does not yet implement hybrid/vector retrieval, context
-packets, controlled canonical writes, remote serving infrastructure, or automated memory-driven
-rating changes. Live corpus counts are reported by `python3 scripts/memory.py doctor --root .`;
-counts in this plan are dated observations. The separate Phase 0 adapter baseline is a reviewed
-lower bound that prevents accidental corpus shrink while allowing new sources and events to
-increase counts.
+artifacts or current readers. Phase 2 is an isolated administrative storage reference, not a remote
+production intake service. The Phase 3 synthetic retrieval fixture passes its bounded gate, but the
+exact 63-case Phase 0 production-candidate benchmark is unmeasured. Phase 4 client parity comes from
+synthetic protocol harnesses: no real Codex or Claude model API has been called and no human has
+approved shadow answers. Phase 5 is a local reference controlled writer, not an exclusive Git
+production service or cockpit integration; it requires deployment-supplied authorizers, exact
+provenance verification, and authoritative event resolution. Feedback remains rating-, confidence-,
+and calibration-neutral. Phase 6 consequently reports overall readiness as `unmeasured` until real
+production observations satisfy every required adoption, lineage, reliability, latency, restore,
+access, and cadence row. Remote vector/graph infrastructure and automated memory-driven rating
+changes remain deferred. Live corpus counts are reported by
+`python3 scripts/memory.py doctor --root .`; counts in this plan are dated observations. The
+separate Phase 0 adapter baseline is a reviewed lower bound that prevents accidental corpus shrink
+while allowing new sources and events to increase counts.
 
 ## Executive decision
 
@@ -312,10 +328,11 @@ Writes use optimistic concurrency and idempotency keys. Parallel writers append 
 
 ## CI invariants by delivery phase
 
-These are the end-state CI invariants. The foundation enforces the envelope, graph, clock, policy,
-Git-lane, and deterministic-projection portions that exist today. Exact object-byte resolution,
-idempotent controlled writes, and context-packet lineage become enforceable only when their Phase 2,
-4, and 5 components land; the foundation does not claim those future checks already exist.
+These are the end-state CI invariants. The reference suite now enforces the portions represented by
+Phases 0–6, including exact object-byte resolution, context-packet lineage, controlled-write
+idempotency/recovery, access boundaries, and deterministic rebuilds. Passing synthetic and local
+fixtures is not production evidence: the Phase 6 report keeps every unobserved production invariant
+and SLO explicitly `unmeasured`.
 
 1. Every canonical event validates against a pinned schema.
 2. Every event ID and idempotency key is unique.
@@ -400,6 +417,13 @@ until measured need and Phase 5's controlled-writer protocol.
 
 **Exit:** benchmark beats baseline on evidence correctness and temporal leakage without unacceptable latency/cost; deleting the database and rebuilding changes no projection digest.
 
+**Reference implementation (2026-08-21):** complete for the bounded local compiler. It applies
+policy and exact-evidence checks before candidate tokenization/embedding, supports deterministic
+structured + lexical + optional injected-vector fusion, expands bounded lineage/contradiction
+neighbors, and emits verified immutable packets and manifests. Its synthetic gate passes and
+rebuild parity is covered. The exact 63-case Phase 0 candidate benchmark, production latency/cost,
+and downstream outcome effects remain unmeasured, so the adoption exit is not yet cleared.
+
 ### Phase 4 — Agent integration in shadow mode (2 weeks)
 
 - Provide the same CLI/MCP contract to Claude, Codex, and a minimal third client.
@@ -408,6 +432,12 @@ until measured need and Phase 5's controlled-writer protocol.
 - Capture explicit agent feedback on useful, missing, stale, and contradictory retrievals.
 
 **Exit:** clients receive equivalent evidence sets for the same query; no unauthorized or post-cutoff leakage; human/automated review clears the shadow results.
+
+**Reference implementation (2026-08-21):** complete for a read-only CLI and bounded STDIO MCP
+surface. Synthetic harnesses labelled Codex and Claude plus an independent generic client receive
+byte-identical responses for the same request, and adversarial fixtures cover access and temporal
+isolation. The harnesses call no model API. Real Codex/Claude runs and human review of shadow answers
+remain unmeasured, so this phase's adoption exit is not yet cleared.
 
 ### Phase 5 — Controlled writes and feedback loop (2–3 weeks)
 
@@ -418,6 +448,23 @@ until measured need and Phase 5's controlled-writer protocol.
 
 **Exit:** concurrent-writer and crash-recovery tests pass; all writes are attributable and reversible through appended correction; calibration reads only eligible, integrity-verified records.
 
+**Reference implementation (2026-08-21):** complete for closed contracts and a local fail-closed
+coordinator. It requires injected write/review/recovery authorization, exact candidate-provenance
+verification, and authoritative event resolution; binds writer state to configured sink/store
+identities; validates/preflights before durable prepare; and covers concurrency, replay, correction,
+protected-store, crash, and orphan-recovery paths. This is not an exclusive Git production writer,
+remote service, or cockpit integration. Reviewed feedback is only an auditable retrieval signal and
+has no rating, confidence, or calibration effect. Forecast calibration admission requires separate
+exact source-record and outcome/evidence attestations. Production reliability and full service
+integration remain unmeasured. A committed protected reference that becomes unreadable still fails
+closed by default. The explicit retirement transition advances the head only for an exact purge or
+elapsed expiry after an injected verifier authenticates a signed proof bound to the earlier
+controlled refs and hashes; it is journaled and crash-recoverable without restoring retired bytes.
+Source-policy withdrawal remains fail-closed until it has an equally strict signed proof contract.
+The reference verifier hook is not a deployed signing/checkpoint service, and the local
+dual-ledger/head checks do not replace a signed operational checkpoint retained outside the
+service-account boundary.
+
 ### Phase 6 — Scale only after evidence (ongoing)
 
 - Move the reference projection to PostgreSQL only for measured concurrency/size needs.
@@ -426,6 +473,13 @@ until measured need and Phase 5's controlled-writer protocol.
 - Run quarterly benchmark refreshes, restore drills, access audits, and schema-deprecation reviews.
 
 **Exit:** published SLOs are met and each infrastructure addition has a benchmark-backed reason.
+
+**Reference implementation (2026-08-21):** complete for a read-only, content-free readiness report.
+It recomputes the exact Phase 3 synthetic result, accepts the Phase 0 adoption row only from a
+matching 63-case candidate report, anchors projection/store evidence, evaluates fixed SLOs, and
+recommends infrastructure expansion only from comparative measurements. Overall operational
+readiness remains `unmeasured` because the required production observations and cadences have not
+been supplied.
 
 ## Initial SLOs and operational checks
 
@@ -438,7 +492,9 @@ until measured need and Phase 5's controlled-writer protocol.
 - Recovery point objective: zero committed-event loss. Recovery time objective: four hours from canonical snapshot/object backup.
 - Monthly projection rebuild and quarterly full restore test.
 
-These are engineering targets, not claims about current performance. Rebaseline them after Phase 0.
+These are engineering targets, not claims about current performance. The Phase 6 reference report
+records missing or incomplete production evidence as `unmeasured`; a synthetic gate cannot satisfy
+the overall operational-readiness result.
 
 ## Ownership and governance
 
@@ -460,9 +516,9 @@ Schema changes are code changes: PR, CI, adversarial review, migration fixture, 
 - Choosing a fashionable database before the canonical contracts and evaluation exist.
 - Training or fine-tuning on licensed/confidential material without a separate lawful policy and approval path.
 
-## First implementation slice
+## Delivered first implementation slice
 
-The lean foundation PR adds only:
+The lean foundation slice added:
 
 1. schemas for the common envelope, source, evidence span, claim, and relationship;
 2. read-only adapters that map existing equity decisions/reviews/corrections, commodity evidence, and screener ledgers to events;
@@ -470,7 +526,11 @@ The lean foundation PR adds only:
 4. benchmark fixtures for temporal cutoff, contradiction, qualifier survival, lineage, and abstention; and
 5. CI checks for schema validity, reference resolution, immutability, and reproducible rebuild.
 
-It should **not** add a production vector database, graph database, UI, or automatic write-back. That slice tests the foundational bet: whether one typed, temporal, provenance-preserving contract can unify what the engine already has without damaging its proven ledgers.
+It did **not** add a production vector database, graph database, UI, or automatic write-back. Later
+reference phases preserve that boundary: no infrastructure expansion or production adoption is
+claimed without the corresponding benchmark and operational evidence. The slice tested the
+foundational bet: whether one typed, temporal, provenance-preserving contract can unify what the
+engine already has without damaging its proven ledgers.
 
 ## Final recommendation
 

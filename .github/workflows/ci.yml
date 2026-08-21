@@ -63,6 +63,8 @@ jobs:
 
       # Keep this before eval.py all: that command intentionally writes an
       # untracked dated report, while the frozen Phase 0 corpus must be clean.
+      # Phase 3–6 retrieval, shadow/MCP, controlled-write, and readiness tests are included by the
+      # test_memory_*.py glob. These are local/synthetic reference gates, not production adoption.
       - name: Permanent-memory contracts, adapters, projection, baseline, and append-only guards
         run: |
           rc=0
