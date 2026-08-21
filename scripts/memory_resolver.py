@@ -216,10 +216,16 @@ def _default_legacy_authorizer(request: LegacyAccessRequest) -> bool:
 
 
 def _run_git(root: Path, arguments: list[str], *, binary: bool = False) -> bytes | str:
+    environment = dict(os.environ)
+    # Even read-only porcelain commands may opportunistically refresh index stat
+    # metadata. Exact resolution is observational, so disable optional Git locks
+    # and index refresh writes for every subprocess in this boundary.
+    environment["GIT_OPTIONAL_LOCKS"] = "0"
     try:
         result = subprocess.run(
             ["git", *arguments],
             cwd=str(root),
+            env=environment,
             check=False,
             capture_output=True,
             text=not binary,
