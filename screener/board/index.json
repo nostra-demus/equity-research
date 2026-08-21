@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-21T09:17:16Z",
+  "generated_at": "2026-08-21T09:26:53Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260821-545",
+      "headline": "YIK WO INTL (08659): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0821/2026082100496.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-21T09:08:00Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "A profit warning indicates a material decline in expected earnings.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A profit warning indicates a material decline in expected earnings.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yik Wo International",
+          "ticker": "08659",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260821-541",
       "headline": "KADER HOLDINGS (00180): Profit Warning",
@@ -867,6 +916,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260821-555",
+      "headline": "AD Ports Group hires HSBC to advise on L'imad takeover bid",
+      "headline_en": null,
+      "url": "https://www.thenationalnews.com/business/markets/2026/08/21/ad-ports-group-hires-hsbc-to-advise-on-limad-takeover-bid/",
+      "source_name": "The National — All News",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T09:10:42Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "AD Ports Group has hired an advisor to pursue a takeover bid for L'imad, signaling a major M&A event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "AD Ports Group has hired an advisor to pursue a takeover bid for L'imad, signaling a major M&A event.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "AD Ports Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260821-514",
       "headline": "Italy’s Monte dei Paschi Makes $40 Billion Move to Buy Rival Banks",
       "headline_en": null,
@@ -908,6 +1006,55 @@
           "name": "Monte dei Paschi",
           "ticker": "MDP",
           "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-546",
+      "headline": "Monte dei Paschi launches twin takeover bids to create €70bn Italian bank",
+      "headline_en": null,
+      "url": "https://www.ft.com/content/ecafb9a8-b9a6-48a4-8d3c-a626b26fe82b?syn-25a6b1a6=1",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T07:17:38Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "The company is launching takeover bids to create a 70 billion euro bank.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is launching takeover bids to create a 70 billion euro bank.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Monte dei Paschi di Siena",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1853,158 +2000,6 @@
         },
         {
           "name": "Pilgrim's Pride",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-259",
-      "headline": "Target Raises Sales Outlook as Turnaround Gains Strength",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-08-19/target-raises-sales-outlook-as-turnaround-gains-strength-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-19T15:21:52Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Target raised its sales outlook, indicating improved operational performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Target raised its sales outlook, indicating improved operational performance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Target",
-          "ticker": "TGT",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-263",
-      "headline": "Marvell Stock Rises as Chip Company Issues Warrant to Google to Buy Stake of $12.2 Billion",
-      "headline_en": null,
-      "url": "https://www.barrons.com/articles/marvell-stock-google-stake-warrant-bd142033?siteid=yhoof2&yptr=yahoo",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-19T15:04:00Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Marvell is issuing a $12.2 billion warrant to Google, which is a major capital and strategic partnership event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Marvell is issuing a $12.2 billion warrant to Google, which is a major capital and strategic partnership event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capital_actions",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Marvell Technology",
-          "ticker": "MRVL",
-          "listing_country": "US"
-        },
-        {
-          "name": "Alphabet Inc",
-          "ticker": "GOOGL",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-272",
-      "headline": "Target Raises Fiscal-Year Forecast Again as Turnaround Gains Traction With Consumers",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/retail/target-raises-fiscal-year-forecast-again-as-turnaround-gains-traction-with-consumers-b3548cfd?mod=pls_whats_news_us_business_f",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-19T14:44:00Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Raising fiscal-year guidance indicates better-than-expected financial performance and operational momentum.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Raising fiscal-year guidance indicates better-than-expected financial performance and operational momentum.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Target",
           "ticker": null,
           "listing_country": "US"
         }
@@ -74133,9 +74128,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 9639880,
-    "news_picked_today": 1114,
-    "news_dropped_today": 1742
+    "news_seen_today": 9664513,
+    "news_picked_today": 1127,
+    "news_dropped_today": 1789
   },
   "book_momentum": {
     "live_count": 8,
