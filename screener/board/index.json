@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T04:54:43Z",
+  "generated_at": "2026-08-21T05:11:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20260821-363",
@@ -1839,6 +1839,98 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260821-428",
+      "headline": "World’s largest olive oil company pops over 15% as rivals circle in takeover battle",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/08/19/deoleo-takeover-battle-olive-oil-dcoop.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-19T09:48:27Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "Takeover interest in the world's largest olive oil company has driven a 15% stock price increase.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Takeover interest in the world's largest olive oil company has driven a 15% stock price increase.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 4,
+        "event": 9,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-434",
+      "headline": "Samsung raises advanced chipmaking prices by up to 15% as AI demand tightens capacity",
+      "headline_en": null,
+      "url": "https://www.thehindubusinessline.com/info-tech/samsung-raises-advanced-chipmaking-prices-by-up-to-15-as-ai-demand-tightens-capacity/article71364115.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-19T09:11:36Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "Samsung is raising chipmaking prices by up to 15% due to high demand, which directly impacts revenue and margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Samsung is raising chipmaking prices by up to 15% due to high demand, which directly impacts revenue and margins.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Samsung",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260821-223",
       "headline": "CDO: Media Release - Full Year Results & Record Profits [price-sensitive]",
       "headline_en": null,
@@ -1883,98 +1975,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-113",
-      "headline": "SDF: Trading Halt [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.SDF?key=2924-03124193-2A1691056",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-21T01:11:27Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "A trading halt pending a price-sensitive announcement indicates a significant corporate event such as an acquisition or capital raise.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "A trading halt pending a price-sensitive announcement indicates a significant corporate event such as an acquisition or capital raise.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "strategic_review",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "strategic_review"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SDF",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-132",
-      "headline": "170-year-old whiskey brand facing Chapter 7 bankruptcy",
-      "headline_en": null,
-      "url": "https://www.thestreet.com/retail/170-year-old-whiskey-brand-uncle-nearest-facing-chapter-7-has-99-problems",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-19T20:17:00Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "A Chapter 7 bankruptcy filing indicates a total liquidation of the entity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "A Chapter 7 bankruptcy filing indicates a total liquidation of the entity.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -73733,9 +73733,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5181190,
-    "news_picked_today": 587,
-    "news_dropped_today": 925
+    "news_seen_today": 5454268,
+    "news_picked_today": 638,
+    "news_dropped_today": 982
   },
   "book_momentum": {
     "live_count": 8,
