@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T00:36:10Z",
+  "generated_at": "2026-08-21T00:58:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260821-024",
@@ -333,6 +333,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260821-054",
+      "headline": "Iran war live: US vows toughest Iran sanctions, urges China support",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/8/21/iran-war-live-us-vows-toughest-iran-sanctions-urges-china-support?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-08-21T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "US announces toughest Iran sanctions and seeks China support; geopolitical escalation directly affecting global oil supply, shipping lanes, defense spending, and market risk premium.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "US announces toughest Iran sanctions and seeks China support; geopolitical escalation directly affecting global oil supply, shipping lanes, defense spending, and market risk premium.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260821-049",
       "headline": "Aerospace Executive Charged With Trades on Advance Earnings Data",
       "headline_en": null,
@@ -369,6 +412,50 @@
         "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-067",
+      "headline": "US-Iran war LIVE: US pushes allies, China to back Trump's economic war on Iran as Bessent warns of toughest sanctions",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/us-news/us-iran-war-latest-news-live-updates-donald-trump-american-troops-pentagon-strait-of-hormuz-abbas-araghchi-oil-prices-11787269112840.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T00:22:04Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "Threat of new US sanctions on Iran would create an oil-supply shock (~4% of global production) and disrupt global supply chains, but the headline describes ongoing negotiation and positioning, not a confirmed policy action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 76,
+      "triage_reason": "Threat of new US sanctions on Iran would create an oil-supply shock (~4% of global production) and disrupt global supply chains, but the headline describes ongoing negotiation and positioning, not a confirmed policy action.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 58,
+      "rank_factors": {
+        "materiality": 58,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
@@ -561,6 +648,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-057",
+      "headline": "NTPC Dividend: FY27 EPS May Fall, But Payout Seen At A New High. Can It Buck The Trend?",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/ntpc-dividend-fy27-eps-may-fall-payout-seen-at-a-new-high-can-it-buck-the-trend-11938097#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T00:15:01Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "NTPC FY27 EPS forecast to fall while dividend payout reaches new high; analyst opinion on capital-allocation sustainability, not official guidance or disclosed decision.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 69,
+      "triage_reason": "NTPC FY27 EPS forecast to fall while dividend payout reaches new high; analyst opinion on capital-allocation sustainability, not official guidance or disclosed decision.",
+      "region": "IN",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capital_actions",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NTPC",
+          "ticker": "NTPC",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -805,6 +941,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260821-058",
+      "headline": "Joint Board of Appeal dismisses appeal against the EBA",
+      "headline_en": null,
+      "url": "https://www.esma.europa.eu/press-news/esma-news/joint-board-appeal-dismisses-appeal-against-eba",
+      "source_name": "ESMA — European Securities and Markets Authority (News)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-21T00:21:22Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "This is a procedural legal update regarding European banking regulation, lacking specific impact on individual tradable entities.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 64,
+      "triage_reason": "This is a procedural legal update regarding European banking regulation, lacking specific impact on individual tradable entities.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260821-053",
       "headline": "Japan's core inflation accelerates in July, bolsters case for rate hike",
       "headline_en": null,
@@ -886,6 +1065,56 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-055",
+      "headline": "Walmart, Harris Teeter recall fruit bars over glass risk",
+      "headline_en": null,
+      "url": "https://www.thestreet.com/retail/walmart-harris-teeter-outshine-fruit-bars-recall-glass-fda",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T00:17:00Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "Walmart fruit-bar recall for glass contamination; operational event affecting brand and margins, but no scope, cost, or litigation disclosed—routine for mega-cap.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 61,
+      "triage_reason": "Walmart fruit-bar recall for glass contamination; operational event affecting brand and margins, but no scope, cost, or litigation disclosed—routine for mega-cap.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 36,
+      "rank_factors": {
+        "materiality": 36,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 3,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 9,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "product",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "product",
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Walmart",
+          "ticker": "WMT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1032,6 +1261,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260821-062",
+      "headline": "SCHEDULE 13G - Oaktree Capital Holdings, LLC (0001790787) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1790787/000114036126033943/0001140361-26-033943-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-21T00:00:20Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "A Schedule 13G filing indicates a change in beneficial ownership, which is a routine regulatory disclosure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 55,
+      "triage_reason": "A Schedule 13G filing indicates a change in beneficial ownership, which is a routine regulatory disclosure.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Oaktree Capital Holdings, LLC",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-061",
+      "headline": "SCHEDULE 13G - MAYFAIR GOLD CORP. (0001823255) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1823255/000114036126033943/0001140361-26-033943-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-21T00:00:20Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "A Schedule 13G filing indicates a change in beneficial ownership, which is a routine regulatory disclosure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 54,
+      "triage_reason": "A Schedule 13G filing indicates a change in beneficial ownership, which is a routine regulatory disclosure.",
+      "region": "US",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 30,
+      "rank_factors": {
+        "materiality": 30,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mayfair Gold Corp.",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260821-003",
       "headline": "425 - Alternative Credit Income Fund (0001628040) (Subject)",
       "headline_en": null,
@@ -1130,6 +1457,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260821-068",
+      "headline": "Gold Set for Third Weekly Gain on US Treasury Buyback Plans",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-21/gold-set-for-third-weekly-gain-on-us-treasury-buyback-plans",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T00:13:04Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "Commodity price movement tied to a speculated US Treasury policy rationale; no confirmed policy change disclosed and no company named.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 52,
+      "triage_reason": "Commodity price movement tied to a speculated US Treasury policy rationale; no confirmed policy change disclosed and no company named.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 42,
+      "rank_factors": {
+        "materiality": 42,
+        "source_tier": 0,
+        "scope": 4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260821-009",
       "headline": "S-1/A - SharonAI Holdings Inc. (0002068385) (Filer)",
       "headline_en": null,
@@ -1173,6 +1543,49 @@
           "listing_country": "US"
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-056",
+      "headline": "Japan's historic yen intervention has ‘turbo-charged’ the carry trade",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/08/20/us-japan-yen-intervention-bank-of-japan-carry-trade.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T00:00:01Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "BoJ yen intervention amplified carry-trade positioning; market analysis of already-disclosed BoJ action—backward-looking commentary on known macro event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 49,
+      "triage_reason": "BoJ yen intervention amplified carry-trade positioning; market analysis of already-disclosed BoJ action—backward-looking commentary on known macro event.",
+      "region": "GLOBAL",
+      "relevance": "relevant_non_material",
+      "materiality_pre_score": 47,
+      "rank_factors": {
+        "materiality": 47,
+        "source_tier": 0,
+        "scope": -4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1385,222 +1798,26 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260821-002",
-      "headline": "6-K - Intchains Group Ltd (0001895597) (Filer)",
+      "inbox_id": "INB-20260821-071",
+      "headline": "SCHEDULE 13G - CHARTER COMMUNICATIONS, INC. /MO/ (0001091667) (Subject)",
       "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1895597/000149315226039480/0001493152-26-039480-index.htm",
-      "source_name": "SEC EDGAR — Latest 6-K (Foreign Private Issuer interim)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1091667/000110465926099312/0001104659-26-099312-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
       "input_nature": "regulatory_filing",
-      "found_at": "2026-08-20T20:15:22Z",
+      "found_at": "2026-08-21T00:14:40Z",
       "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "6-K interim disclosure from foreign issuer; content of filing not disclosed in caption alone.",
+      "prelim_note": "Schedule 13G filed on Charter Communications Inc. (a routine >5% passive-holder disclosure) carries no context on filer identity, novelty, or holdings magnitude.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 44,
-      "triage_reason": "6-K interim disclosure from foreign issuer; content of filing not disclosed in caption alone.",
-      "region": "OTHER",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 22,
-      "rank_factors": {
-        "materiality": 22,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Intchains Group Ltd",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-014",
-      "headline": "8-K - VEEVA SYSTEMS INC (0001393052) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1393052/000121390026092096/0001213900-26-092096-index.htm",
-      "source_name": "SEC EDGAR — Latest 8-K (Current Reports)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-20T20:05:25Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Routine 8-K filing, typically for standard corporate updates or governance disclosures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 43,
-      "triage_reason": "Routine 8-K filing, typically for standard corporate updates or governance disclosures.",
+      "triage_score": 45,
+      "triage_reason": "Schedule 13G filed on Charter Communications Inc. (a routine >5% passive-holder disclosure) carries no context on filer identity, novelty, or holdings magnitude.",
       "region": "US",
       "relevance": "relevant_non_material",
-      "materiality_pre_score": 20,
+      "materiality_pre_score": 18,
       "rank_factors": {
-        "materiality": 20,
+        "materiality": 18,
         "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Veeva Systems Inc",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-018",
-      "headline": "8-K - MERIT MEDICAL SYSTEMS INC (0000856982) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/856982/000085698226000047/0000856982-26-000047-index.htm",
-      "source_name": "SEC EDGAR — Latest 8-K (Current Reports)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-20T20:02:43Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Routine 8-K filing, typically for standard corporate updates or governance disclosures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 42,
-      "triage_reason": "Routine 8-K filing, typically for standard corporate updates or governance disclosures.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 20,
-      "rank_factors": {
-        "materiality": 20,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Merit Medical Systems Inc",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-019",
-      "headline": "8-K - OSI SYSTEMS INC (0001039065) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1039065/000110465926099215/0001104659-26-099215-index.htm",
-      "source_name": "SEC EDGAR — Latest 8-K (Current Reports)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-20T20:02:33Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Routine 8-K filing, typically for standard corporate updates or governance disclosures.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 42,
-      "triage_reason": "Routine 8-K filing, typically for standard corporate updates or governance disclosures.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 20,
-      "rank_factors": {
-        "materiality": 20,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 4,
-        "size": 1,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "management",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "management"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "OSI Systems Inc",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-040",
-      "headline": "PODD INVESTOR DEADLINE: Insulet Corporation Investors with Substantial Losses Have Opportunity to Lead the Insulet Class Action Lawsuit Before August 31, 2026 Deadline, Robbins Geller Rudman & Dowd LLP Announces",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20260820457407/en/PODD-INVESTOR-DEADLINE-Insulet-Corporation-Investors-with-Substantial-Losses-Have-Opportunity-to-Lead-the-Insulet-Class-Action-Lawsuit-Before-August-31-2026-Deadline-Robbins-Geller-Rudman-Dowd-LLP-Announces/?feedref=JjAwJuNHiystnCoBq_hl-adS5VAKkf1zsgyV8tTPInVcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTVXw2Oldt-3VQjUwU4Zj5HZBSvR87oUDgbHejiywQBpbg==",
-      "source_name": "Business Wire — Lawsuit News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T23:52:00Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Routine securities class action solicitation by a law firm.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 42,
-      "triage_reason": "Routine securities class action solicitation by a law firm.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 20,
-      "rank_factors": {
-        "materiality": 20,
-        "source_tier": 3,
         "scope": 6,
         "event": 6,
         "size": 2,
@@ -1609,165 +1826,18 @@
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Insulet Corporation",
-          "ticker": "PODD",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-028",
-      "headline": "CAR Investors Have Opportunity to Lead Avis Budget Group, Inc. Securities Fraud Lawsuit Against Pentwater Capital Management LP",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/car-investors-have-opportunity-to-lead-avis-budget-group-inc-securities-fraud-lawsuit-against-pentwater-capital-management-lp-302856873.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T23:49:00Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Generic solicitation for lead plaintiff in a securities class action lawsuit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 42,
-      "triage_reason": "Generic solicitation for lead plaintiff in a securities class action lawsuit.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 20,
-      "rank_factors": {
-        "materiality": 20,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Avis Budget Group",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-029",
-      "headline": "BE Investors Have Opportunity to Lead Bloom Energy Corporation Securities Fraud Lawsuit",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/be-investors-have-opportunity-to-lead-bloom-energy-corporation-securities-fraud-lawsuit-302856868.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T23:37:00Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Generic solicitation for lead plaintiff in a securities class action lawsuit.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 42,
-      "triage_reason": "Generic solicitation for lead plaintiff in a securities class action lawsuit.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 20,
-      "rank_factors": {
-        "materiality": 20,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bloom Energy",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-005",
-      "headline": "4 - ADVANCED MICRO DEVICES INC (0000002488) (Issuer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2488/000000248826000165/0000002488-26-000165-index.htm",
-      "source_name": "SEC EDGAR — Latest Filings, Form 4 (insider transactions)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-20T20:18:59Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Form 4 insider transaction for mega-cap semiconductor company; no transaction size or material signal disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Form 4 insider transaction for mega-cap semiconductor company; no transaction size or material signal disclosed.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 20,
-      "rank_factors": {
-        "materiality": 20,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
         "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
+        "event_id": "ownership_activist",
         "size_bucket": "mega"
       },
       "event_types": [
-        "insider_transaction"
+        "ownership_activist"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Advanced Micro Devices Inc",
-          "ticker": "AMD",
+          "name": "Charter Communications Inc.",
+          "ticker": "CHTR",
           "listing_country": "US"
         }
       ],
@@ -1777,148 +1847,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260821-006",
-      "headline": "144 - METLIFE INC (0001099219) (Subject)",
+      "inbox_id": "INB-20260821-060",
+      "headline": "SCHEDULE 13G/A - Strata Critical Medical, Inc. (0001779128) (Subject)",
       "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1099219/000162828026058247/0001628280-26-058247-index.htm",
-      "source_name": "SEC EDGAR — Latest Form 144 (Proposed Insider Sale)",
+      "url": "https://www.sec.gov/Archives/edgar/data/1779128/000119312526359634/0001193125-26-359634-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
       "input_nature": "regulatory_filing",
-      "found_at": "2026-08-20T20:15:00Z",
+      "found_at": "2026-08-21T00:03:55Z",
       "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Routine Form 144 filing for a proposed insider sale at MetLife.",
+      "prelim_note": "A 13G/A filing indicates a change in ownership, but without further context on the size or intent, it is a routine disclosure.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Routine Form 144 filing for a proposed insider sale at MetLife.",
+      "triage_score": 45,
+      "triage_reason": "A 13G/A filing indicates a change in ownership, but without further context on the size or intent, it is a routine disclosure.",
       "region": "US",
       "relevance": "relevant_non_material",
       "materiality_pre_score": 20,
       "rank_factors": {
         "materiality": 20,
         "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "METLIFE INC",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-007",
-      "headline": "144 - BECTON DICKINSON & CO (0000010795) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/10795/000195004726008451/0001950047-26-008451-index.htm",
-      "source_name": "SEC EDGAR — Latest Form 144 (Proposed Insider Sale)",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-08-20T20:13:48Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Routine Form 144 filing for a proposed insider sale at Becton Dickinson.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Routine Form 144 filing for a proposed insider sale at Becton Dickinson.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 20,
-      "rank_factors": {
-        "materiality": 20,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "insider_transaction",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "insider_transaction"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "BECTON DICKINSON & CO",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-033",
-      "headline": "SMPL Investors Have Opportunity to Lead The Simply Good Foods Company Securities Fraud Lawsuit with SBS Law",
-      "headline_en": null,
-      "url": "http://www.businesswire.com/news/home/20260820111220/en/SMPL-Investors-Have-Opportunity-to-Lead-The-Simply-Good-Foods-Company-Securities-Fraud-Lawsuit-with-SBS-Law/?feedref=JjAwJuNHiystnCoBq_hl-adS5VAKkf1zsgyV8tTPInVcgiwDl5F89IquLVWUqfRVgLxDkSKfgoruKb9yWl5as-PbWreMWuYBefATrZ0EPTVXw2Oldt-3VQjUwU4Zj5HZBSvR87oUDgbHejiywQBpbg==",
-      "source_name": "Business Wire — Lawsuit News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-21T00:06:00Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Routine securities class action solicitation by a law firm; does not imply a confirmed legal outcome.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 41,
-      "triage_reason": "Routine securities class action solicitation by a law firm; does not imply a confirmed legal outcome.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 20,
-      "rank_factors": {
-        "materiality": 20,
-        "source_tier": 3,
         "scope": 6,
         "event": 6,
-        "size": 1,
+        "size": 0,
         "recency": 5,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "mid"
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "litigation_enforcement"
+        "ownership_activist"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "The Simply Good Foods Company",
-          "ticker": "SMPL",
+          "name": "Strata Critical Medical",
+          "ticker": null,
           "listing_country": "US"
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -70433,77 +70405,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-2eb81d126aad",
-      "idea_version": "IDEAV-6e9ab08a72a76212",
-      "idea_version_started_at": "2026-08-20T06:40:08Z",
-      "ticker": "00828",
-      "company": "DYNASTY WINES",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "A profit warning suggests significant headwinds to revenue or margins, likely reflecting weak consumer demand or operational inefficiencies.",
-      "why_now": "The warning was filed on 2026-08-19.",
-      "conviction": 65,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 20,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a8841da85d24"
-      ],
-      "primary_source_event_id": "EVT-a8841da85d24",
-      "source_headlines": [
-        "DYNASTY WINES (00828): PROFIT WARNING"
-      ],
-      "source_headline": "DYNASTY WINES (00828): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081901403.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-19T12:52:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-20T06:40:08Z",
-      "updated_at": "2026-08-20T06:40:08Z",
-      "decay_at": "2026-08-21T00:52:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7775515b1f9c",
       "idea_version": "IDEAV-08a4bb2fcecd389e",
       "idea_version_started_at": "2026-08-20T06:40:08Z",
@@ -70924,6 +70825,77 @@
       "surfaced_at": "2026-08-20T03:43:44Z",
       "updated_at": "2026-08-20T07:13:16Z",
       "decay_at": "2026-08-20T20:57:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-2eb81d126aad",
+      "idea_version": "IDEAV-6e9ab08a72a76212",
+      "idea_version_started_at": "2026-08-20T06:40:08Z",
+      "ticker": "00828",
+      "company": "DYNASTY WINES",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "A profit warning suggests significant headwinds to revenue or margins, likely reflecting weak consumer demand or operational inefficiencies.",
+      "why_now": "The warning was filed on 2026-08-19.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 20,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-a8841da85d24"
+      ],
+      "primary_source_event_id": "EVT-a8841da85d24",
+      "source_headlines": [
+        "DYNASTY WINES (00828): PROFIT WARNING"
+      ],
+      "source_headline": "DYNASTY WINES (00828): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081901403.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-19T12:52:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-20T06:40:08Z",
+      "updated_at": "2026-08-20T06:40:08Z",
+      "decay_at": "2026-08-21T00:52:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -71720,8 +71692,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 18,
-    "shown_count": 18,
+    "total_count": 19,
+    "shown_count": 19,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -71730,8 +71702,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 15,
-        "shown_count": 15,
+        "total_count": 16,
+        "shown_count": 16,
         "hidden_count": 0
       }
     },
@@ -71751,6 +71723,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-2eb81d126aad",
+        "idea_version": "IDEAV-6e9ab08a72a76212",
+        "idea_version_started_at": "2026-08-20T06:40:08Z",
+        "ticker": "00828",
+        "company": "DYNASTY WINES",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "A profit warning suggests significant headwinds to revenue or margins, likely reflecting weak consumer demand or operational inefficiencies.",
+        "why_now": "The warning was filed on 2026-08-19.",
+        "conviction": 65,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 20,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-a8841da85d24"
+        ],
+        "primary_source_event_id": "EVT-a8841da85d24",
+        "source_headlines": [
+          "DYNASTY WINES (00828): PROFIT WARNING"
+        ],
+        "source_headline": "DYNASTY WINES (00828): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081901403.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-19T12:52:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-20T06:40:08Z",
+        "updated_at": "2026-08-20T06:40:08Z",
+        "decay_at": "2026-08-21T00:52:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-21T00:52:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-5e6a9795a343",
         "idea_version": "IDEAV-bea401ffc704d62b",
@@ -73084,7 +73130,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 34,
-    "live_count": 15,
+    "live_count": 14,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -73103,9 +73149,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 453720,
-    "news_picked_today": 53,
-    "news_dropped_today": 199
+    "news_seen_today": 726161,
+    "news_picked_today": 76,
+    "news_dropped_today": 296
   },
   "book_momentum": {
     "live_count": 8,
