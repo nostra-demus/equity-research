@@ -1189,7 +1189,7 @@ export function carryForwardModules(subject: string, modules: string[], swarmId:
       // by the in-process subject lock, and its newly paid partial must never be deleted by an older carry.
       // A fresh plan can either use a valid target-root 99 or keep the exact target blocked; this stale plan
       // is no longer authorized to replace anything.
-      if (plan.exactModuleScope?.savedInputs.includes(name)) {
+      if (plan.exactModuleScope?.savedInputs?.includes(name)) {
         throw new Error(`saved exact input changed in the target run root: ${name}`)
       }
     }
