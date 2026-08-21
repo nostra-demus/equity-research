@@ -274,11 +274,17 @@ class MemoryNeo4jTests(unittest.TestCase):
             ]
         )
 
+    def _write_test_credentials(self, path: Path, text: str | None = None) -> None:
+        payload = self._credential_text() if text is None else text
+        # The clear text is deliberately synthetic and confined to a 0600 temp fixture.
+        # codeql[py/clear-text-storage-sensitive-data]
+        path.write_text(payload, encoding="utf-8")
+        path.chmod(0o600)
+
     def test_credentials_are_owner_only_and_secret_safe(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "credentials.txt"
-            path.write_text(self._credential_text(), encoding="utf-8")
-            path.chmod(0o600)
+            self._write_test_credentials(path)
             credentials = load_aura_credentials(path)
             self.assertIsInstance(credentials, AuraCredentials)
             self.assertEqual(credentials.database, "neo4j")
@@ -293,8 +299,7 @@ class MemoryNeo4jTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             path = root / "credentials.txt"
-            path.write_text(self._credential_text(), encoding="utf-8")
-            path.chmod(0o600)
+            self._write_test_credentials(path)
 
             link = root / "link.txt"
             link.symlink_to(path)
@@ -307,8 +312,7 @@ class MemoryNeo4jTests(unittest.TestCase):
                 load_aura_credentials(path)
             hardlink.unlink()
 
-            path.write_text(self._credential_text() + "EXTRA_SECRET=value\n", encoding="utf-8")
-            path.chmod(0o600)
+            self._write_test_credentials(path, self._credential_text() + "EXTRA_SECRET=value\n")
             with self.assertRaisesRegex(Neo4jPrototypeError, "unexpected setting") as caught:
                 load_aura_credentials(path)
             self.assertNotIn("value", str(caught.exception))
@@ -320,8 +324,7 @@ class MemoryNeo4jTests(unittest.TestCase):
                 "neo4j+s://abc123.databases.neo4j.io",
                 "neo4j+s://user：TOPSECRET@abc123.databases.neo4j.io",
             )
-            path.write_text(text, encoding="utf-8")
-            path.chmod(0o600)
+            self._write_test_credentials(path, text)
             with self.assertRaisesRegex(Neo4jPrototypeError, "credential URI is invalid") as caught:
                 load_aura_credentials(path)
             self.assertNotIn("TOPSECRET", str(caught.exception))
