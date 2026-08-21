@@ -281,13 +281,13 @@ await check('401 access failure and 400 request failure retain typed status and 
   assert.equal(request.note, 'anthropic HTTP 400 — request rejected')
 })
 
-// ---- defaults: the tier is ON, on the SUBSCRIPTION backend (no key), bounded by a $50/day ceiling. The
+// ---- defaults: the tier is ON, on the SUBSCRIPTION backend (no key), bounded by a $200/day ceiling. The
 // metered `api` path this file tests is opt-in and must never arm itself off a stray ANTHROPIC_API_KEY. ----
-await check('config defaults: tier ON, subscription backend, no API key needed, $50/day ceiling', () => {
+await check('config defaults: tier ON, subscription backend, no API key needed, $200/day ceiling', () => {
   assert.equal(NEWS.anthropicFallbackEnabled, true)
   assert.equal(NEWS.anthropicFallbackMode, 'subscription')
   assert.equal(NEWS.anthropicApiKey, '') // api mode is opt-in — never defaults to ANTHROPIC_API_KEY/themes key
-  assert.equal(NEWS.anthropicDailyUsd, 50) // raised 5 → 50 (2026-07-21): $5 stopped the last-resort after ~a dozen batches on Groq-outage days
+  assert.equal(NEWS.anthropicDailyUsd, 200) // raised 50 → 200 (2026-08-20): a same-day total outage of all five free tiers spent $50 and hit the governor while the backlog climbed to 89.4% of its loss cap
   // this metered backend addresses the model by its Messages-API id; the SUBSCRIPTION backend uses the CLI
   // alias ('haiku') instead — conflating the two silently ran the wrong model (see triage-claude-cli.test.ts)
   assert.equal(NEWS.anthropicApiModel, 'claude-haiku-4-5')
