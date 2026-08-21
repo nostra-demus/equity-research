@@ -1,6 +1,6 @@
 # Permanent Memory Architecture Plan
 
-**Status:** Phase 0 and the read-only foundation slice are implemented; Phases 2–6 remain planned
+**Status:** Phases 0–2 are implemented at the local reference boundary; Phases 3–6 remain planned
 
 **Date:** 2026-08-20
 
@@ -16,19 +16,28 @@ The repository now includes the first reversible implementation slice described 
 - lossless read-only adapters over the current equity, commodity, and screener memory stores;
 - a deterministic disposable SQLite/FTS projection plus validation, query, and doctor commands; and
 - append-only, provenance, temporal, access-control, locator-resolution, and rebuild tests wired into
-  CI.
+  CI;
+- closed, cryptographically verified contracts for object manifests, intake receipts, trust keys,
+  source acquisitions, extraction artifacts, evidence spans, store checkpoints, and purge receipts;
+- a policy-partitioned local object/event reference store with exact acquisition/version lineage,
+  authenticated protected content, restore and deterministic rebuild checks, and transitive purge;
+  and
+- one exact-byte resolver over clean Git-backed legacy evidence and complete Phase 2 object
+  manifests, with a deterministic live-corpus drill in CI.
 
 The implemented append-only guard deliberately narrows the immutable Git event lane to
 `public`/`internal` events with `permanent` retention. Protected, expiring, and deletion-tombstone
 records cannot be committed into an undeletable history; they require the policy-partitioned,
-purgeable event/object lane planned for Phase 2.
+purgeable event/object lane implemented by the Phase 2 local reference store.
 
-This foundation is opt-in and read-only: it does not alter historical artifacts or current readers.
-It does not yet implement the Phase 2 object-store ingest path, hybrid/vector retrieval, context
+The Phase 0/1 compatibility path remains opt-in and read-only: it does not alter historical
+artifacts or current readers. Phase 2 adds an isolated administrative storage reference, not a
+production intake API. The repository does not yet implement hybrid/vector retrieval, context
 packets, controlled canonical writes, remote serving infrastructure, or automated memory-driven
-rating changes. Live corpus counts are reported by `python3 scripts/memory.py doctor --root .`; counts
-in this plan are dated observations. The separate Phase 0 adapter baseline is a reviewed lower bound
-that prevents accidental corpus shrink while allowing new sources and events to increase counts.
+rating changes. Live corpus counts are reported by `python3 scripts/memory.py doctor --root .`;
+counts in this plan are dated observations. The separate Phase 0 adapter baseline is a reviewed
+lower bound that prevents accidental corpus shrink while allowing new sources and events to
+increase counts.
 
 ## Executive decision
 
@@ -372,6 +381,15 @@ Run an A/B shadow evaluation on past decisions: existing folder retrieval versus
 - Add restore and corruption drills.
 
 **Exit:** any sampled material claim resolves to exact bytes; a clean rebuild verifies all hashes.
+
+**Reference implementation (2026-08-21):** complete for the local boundary. Manifests distinguish
+content identity from acquisition and entitlement identity; signed receipts and checkpoints bind
+trusted system time and store state; the local store keeps protected/expiring content outside Git;
+and the composite resolver verifies exact legacy or object-store bytes. The CI drill resolves a
+deterministic live-corpus sample twice, while synthetic tests cover source → extraction → evidence
+bindings, rights separation, protected-content encryption, restore, corruption, transitive purge,
+and resurrection resistance. Remote object infrastructure and coordinated intake remain deferred
+until measured need and Phase 5's controlled-writer protocol.
 
 ### Phase 3 — Reference projection and hybrid retrieval (2–4 weeks)
 
