@@ -53,10 +53,12 @@ function publicReason(reason: string): string | null {
     if (!reason.endsWith(suffix)) continue
     const base = reason.slice(0, -suffix.length)
     if (!ROLLBACK_REASONS.has(base)) return null
+    const baseCopy = REASON_COPY[base]
+    if (!baseCopy) return null
     const rollback = suffix === '-disable-failed'
       ? 'the safe disable rollback also failed'
       : 'the engine did not recover cleanly after the safe rollback'
-    return `${REASON_COPY[base]}; ${rollback}`
+    return `${baseCopy}; ${rollback}`
   }
   return null
 }
@@ -110,7 +112,7 @@ function readRetryMarker(homeDir: string): OmniRouteRetryMarker | null {
 }
 
 function utcMinute(atMs: number): string {
-  return new Date(atMs).toISOString().replace('T', ' ').replace(/:\d{2}\.000Z$/, ' UTC')
+  return new Date(atMs).toISOString().replace('T', ' ').replace(/:\d{2}\.\d{3}Z$/, ' UTC')
 }
 
 /** Add only a bounded, allowlisted status. Missing, unsafe, and rolling-deploy markers stay generic. */
