@@ -81,6 +81,7 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
   const openComposer = useStore((s) => s.openWatchComposer)
   const openCallFile = useStore((s) => s.openCallFile)
   const openInlineDoc = useStore((s) => s.openInlineDoc)
+  const openEmbeddedDoc = useStore((s) => s.openEmbeddedDoc)
   const archiveWatch = useStore((s) => s.archiveWatch)
   const restoreWatch = useStore((s) => s.restoreWatch)
   const staticMode = useStore((s) => s.staticMode)
@@ -352,8 +353,15 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
                   Thesis
                 </button>
               )
-              : thesisHref
-              ? <a className="btn btn--mini" href={thesisHref} target="_blank" rel="noreferrer" title="Your write-up">Thesis</a>
+              : thesisHref && thesisFilename
+              ? (
+                /* Opened IN the cockpit rather than navigated to. A top-level navigation to a PDF is what
+                   Chrome's "download PDFs instead of opening them" setting intercepts, and no response
+                   header overrides that — serving it `inline` is necessary but not sufficient. Embedding
+                   renders through the same viewer without the navigation, so it works whatever the
+                   reader's browser is set to. */
+                <button className="btn btn--mini" title="Your write-up" onClick={() => openEmbeddedDoc(thesisTitle, thesisHref)}>Thesis</button>
+              )
               : thesisPath
                 ? <button className="btn btn--mini" onClick={() => openCallFile(thesisPath, `Investment Thesis — ${row.ticker}`)}>Thesis</button>
                 : null}

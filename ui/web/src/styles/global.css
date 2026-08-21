@@ -3514,6 +3514,10 @@ a { color: inherit; }
 .wdet__trig { display: flex; align-items: flex-start; gap: 6px; }
 .wdet__trigtext { font-size: 11px; line-height: 1.45; color: var(--text-muted); }
 .wdet__absent { font-size: 10.5px; line-height: 1.45; color: var(--text-muted); font-style: italic; }
+/* An embedded document (a watchlist thesis PDF) fills the reader's body — the browser's own viewer,
+   with its scroll, zoom, search and download controls, inside the cockpit rather than a new tab. */
+.out__embed { width: 100%; height: 100%; min-height: 60vh; border: 0; background: var(--surface-1); border-radius: var(--r-sm); }
+
 /* Labelled sections. The panel used to be a flat stack of unlabelled divs — price and distance shared one
    line with nothing saying which was which, and the target price appeared only inside a prose sentence. */
 .wdet__sec { border-top: 1px solid var(--hairline); padding-top: 9px; }

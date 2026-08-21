@@ -442,7 +442,12 @@ interface State {
   /** `body` is content the panel already HAS, for a document that is not a readable repo path — a
    *  watchlist thesis attachment lives under a reserved data folder that `api.output` cannot read. With a
    *  body present the reader renders it directly instead of fetching. */
-  openOutput: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean; body?: string } | null
+  /** `embedUrl` renders the document IN the reader via the PDF viewer plugin instead of navigating to it.
+   *  Navigation is what a browser can be configured to intercept — Chrome's "download PDFs instead of
+   *  opening them" setting turns any inline PDF into a download no header can override — whereas an
+   *  embedded frame still renders. So a PDF thesis opens in the cockpit rather than depending on how the
+   *  reader's browser happens to be configured. */
+  openOutput: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean; body?: string; embedUrl?: string } | null
   // ---- chat with your data (closed-book Q&A over a scope's synthesized output) ----
   chatOpen: boolean
   chatScope: ChatScope
@@ -713,6 +718,7 @@ interface State {
   closeCalls: () => void
   openCallFile: (path: string, title: string) => void
   openInlineDoc: (title: string, body: string) => void
+  openEmbeddedDoc: (title: string, embedUrl: string) => void
   updateCall: (ticker: string) => Promise<void>
   fileDueReview: (ticker: string, window: string) => Promise<void>
   refreshDashboard: () => Promise<void>
@@ -3216,6 +3222,7 @@ export const useStore = create<State>((set, get) => ({
   // open any analyses/ file (review JSON / thesis md / dashboard md) in the OutputReader (renders text).
   openCallFile: (path, title) => set({ openOutput: { path, title } }),
   openInlineDoc: (title, body) => set({ openOutput: { title, body } }),
+  openEmbeddedDoc: (title, embedUrl) => set({ openOutput: { title, embedUrl } }),
 
   // file an ad-hoc outcome review for one call ("update what's happened since now"). Delegates to
   // Phase 3 /research:review-decisions <ticker> ad-hoc via the launch system; the tracker auto-refreshes.
