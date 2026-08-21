@@ -2007,6 +2007,25 @@ def _phase2_payload_validator(export_name: str, payload: Any) -> list[str]:
     return validator(payload)
 
 
+@functools.lru_cache(maxsize=1)
+def _phase5_contract_module() -> Any:
+    """Import Phase 5 payload semantics only after this module is initialized."""
+    try:
+        import memory_phase5_contract as phase5
+    except ModuleNotFoundError:
+        from scripts import memory_phase5_contract as phase5
+    return phase5
+
+
+def _phase5_payload_validator(export_name: str, payload: Any) -> list[str]:
+    """Lazily call a local-only Phase 5 validator without creating an import cycle."""
+    phase5 = _phase5_contract_module()
+    validator = getattr(phase5, export_name, None)
+    if not callable(validator):
+        return [f"(root) — Phase 5 payload validator {export_name!r} is unavailable"]
+    return validator(payload)
+
+
 @_fail_closed_validator
 def _validate_source_v2_payload(payload: Any) -> list[str]:
     return _phase2_payload_validator("validate_source_v2_payload", payload)
@@ -2022,6 +2041,16 @@ def _validate_extraction_artifact_payload(payload: Any) -> list[str]:
     return _phase2_payload_validator("validate_extraction_artifact_payload", payload)
 
 
+@_fail_closed_validator
+def _validate_feedback_review_payload(payload: Any) -> list[str]:
+    return _phase5_payload_validator("validate_feedback_review_payload", payload)
+
+
+@_fail_closed_validator
+def _validate_correction_payload(payload: Any) -> list[str]:
+    return _phase5_payload_validator("validate_correction_payload", payload)
+
+
 PAYLOAD_VALIDATORS: dict[str, Callable[[Any], list[str]]] = {
     "memory-source/v1": validate_source,
     "memory-source/v2": _validate_source_v2_payload,
@@ -2032,6 +2061,8 @@ PAYLOAD_VALIDATORS: dict[str, Callable[[Any], list[str]]] = {
     "memory-relationship/v1": validate_relationship,
     "memory-identity-registry/v1": validate_identity_registry,
     "memory-tombstone/v1": validate_tombstone,
+    "memory-feedback-review/v1": _validate_feedback_review_payload,
+    "memory-correction/v1": _validate_correction_payload,
 }
 
 
@@ -2184,6 +2215,7 @@ def validate_event(
                 "memory-claim/v1": "claim",
                 "memory-relationship/v1": "relationship",
                 "memory-identity-registry/v1": "identity",
+                "memory-feedback-review/v1": "feedback",
             }.get(payload_schema)
             if expected_domain and isinstance(event_type, str) and not event_type.startswith(expected_domain + "."):
                 _err(errors, "event_type", f"must start with {expected_domain + '.'!r} for {payload_schema}")
@@ -2195,7 +2227,10 @@ def validate_event(
                     {"memory-evidence-span/v1", "memory-evidence-span/v2"}
                 ),
                 "extraction": frozenset({"memory-extraction-artifact/v1"}),
-                "claim": frozenset({"memory-claim/v1"}),
+                "claim": frozenset({"memory-claim/v1", "memory-correction/v1"}),
+                "feedback": frozenset(
+                    {"memory-feedback-review/v1", "memory-correction/v1"}
+                ),
                 "relationship": frozenset({"memory-relationship/v1"}),
                 "identity": frozenset({"memory-identity-registry/v1"}),
             }.get(event_domain)
@@ -2208,6 +2243,43 @@ def validate_event(
                     errors,
                     "payload.schema",
                     f"must be one of {sorted(allowed_payload_schemas)!r} for {event_domain!r} events",
+                )
+        if payload_schema == "memory-feedback-review/v1" and event_type != "feedback.reviewed":
+            _err(errors, "event_type", "must equal 'feedback.reviewed' for memory-feedback-review/v1")
+        if payload_schema == "memory-correction/v1":
+            correction_domain = payload.get("replacement_domain")
+            expected_correction_type = {
+                "claim": "claim.corrected",
+                "feedback-review": "feedback.corrected",
+            }.get(correction_domain)
+            if expected_correction_type is not None and event_type != expected_correction_type:
+                _err(
+                    errors,
+                    "event_type",
+                    f"must equal {expected_correction_type!r} for {correction_domain!r} correction",
+                )
+        exact_event_payload = {
+            "claim.asserted": ("memory-claim/v1", None),
+            "claim.corrected": ("memory-correction/v1", "claim"),
+            "feedback.reviewed": ("memory-feedback-review/v1", None),
+            "feedback.corrected": ("memory-correction/v1", "feedback-review"),
+        }.get(event_type)
+        if exact_event_payload is not None and payload_schema != "memory-tombstone/v1":
+            required_schema, required_correction_domain = exact_event_payload
+            if payload_schema != required_schema:
+                _err(
+                    errors,
+                    "payload.schema",
+                    f"must equal {required_schema!r} for event_type {event_type!r}",
+                )
+            elif (
+                required_correction_domain is not None
+                and payload.get("replacement_domain") != required_correction_domain
+            ):
+                _err(
+                    errors,
+                    "payload.replacement_domain",
+                    f"must equal {required_correction_domain!r} for event_type {event_type!r}",
                 )
     evidence_refs = _string_array(obj.get("evidence_refs"), "evidence_refs", errors, pattern=EVIDENCE_REF_RE)
     derived_from = _string_array(obj.get("derived_from"), "derived_from", errors, pattern=EVENT_ID_RE)
@@ -2533,11 +2605,23 @@ def validate_event(
                     _err(errors, f"{field}[{position}]", "would create a supersedes cycle")
                 if field == "supersedes":
                     target_type = target.get("event_type")
-                    if not isinstance(event_type, str) or target_type != event_type:
+                    allowed_typed_transition = (
+                        isinstance(event_type, str)
+                        and isinstance(target_type, str)
+                        and (
+                            target_type == event_type
+                            or (event_type, target_type)
+                            in {
+                                ("claim.corrected", "claim.asserted"),
+                                ("feedback.corrected", "feedback.reviewed"),
+                            }
+                        )
+                    )
+                    if not allowed_typed_transition:
                         _err(
                             errors,
                             f"{field}[{position}]",
-                            "target must have exactly the same event_type",
+                            "target must have the same event_type or an allowlisted typed correction transition",
                         )
                     target_subjects = target.get("subject_ids")
                     target_subject_set = {
