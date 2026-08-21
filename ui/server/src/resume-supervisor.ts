@@ -27,9 +27,10 @@ import { ANALYSES_DIR, STATE_DIR } from './config'
 import { getCreditStatus } from './credit'
 import { finalDeliverablesPresent, launch } from './launcher'
 import { hasRunMarker, readRunMarker } from './outputs'
-import { IN_FLIGHT_STATUSES, listRuns } from './registry'
+import { listRuns } from './registry'
 import { listResumableSignals } from './screener'
 import { acquireSingletonLock, releaseSingletonLock } from './singleton-lock'
+import { SubjectBusyError, subjectMutationLockKey, withSubjectLock } from './subject-lock'
 import type { CreditPreflight } from './types'
 
 const LOCK_FILE = 'resume-supervisor.lock'
@@ -101,8 +102,64 @@ export function isResumeDue(item: ResumableRun, now: number, bufferMs: number = 
   return true
 }
 
-function liveSubjectSet(): Set<string> {
-  return new Set(listRuns().filter((r) => IN_FLIGHT_STATUSES.has(r.status)).map((r) => r.subjectId))
+export function liveSubjectSet(swarmId: 'research' | 'screener'): Set<string> {
+  return new Set(listRuns()
+    // Cancellation changes the display status before the process group exits. endedAt is the close/finalize
+    // proof, so a due disk candidate cannot auto-launch into that still-writing shutdown window.
+    .filter((run) => run.swarmId === swarmId && run.endedAt === undefined)
+    .map((run) => run.subjectId))
+}
+
+export type ResumeDispatchOutcome = 'launched' | 'busy' | 'stale'
+
+export interface ResumeCandidateDispatchDeps {
+  withLock: typeof withSubjectLock
+  liveSubjects: (swarm: 'research' | 'screener') => Set<string>
+  stillResumable: (candidate: ResumableRun, live: Set<string>, now: number) => boolean
+  launchCandidate: (candidate: ResumableRun) => Promise<unknown>
+}
+
+const resumeSwarm = (candidate: ResumableRun): 'research' | 'screener' =>
+  candidate.kind === 'full' ? 'research' : 'screener'
+
+const defaultCandidateDispatchDeps: ResumeCandidateDispatchDeps = {
+  withLock: withSubjectLock,
+  liveSubjects: liveSubjectSet,
+  stillResumable: (candidate, live, now) => {
+    if (live.has(candidate.subject) || !isResumeDue(candidate, now)) return false
+    if (candidate.kind === 'full') {
+      return listResumableResearchRuns(live, now).some((current) =>
+        current.subject === candidate.subject && current.runRoot === candidate.runRoot)
+    }
+    return listResumableSignals(live).some((current) => current.sigId === candidate.subject)
+  },
+  launchCandidate: (candidate) => launch({ kind: candidate.kind, ticker: candidate.subject }),
+}
+
+/**
+ * Final autonomous-resume boundary. Planning is intentionally outside the mutex, but disk eligibility,
+ * registry liveness and the launch ACK are re-read/held inside the SAME subject mutation lock used by exact
+ * module staging. Thus either side wins atomically: a staging route already holding the key keeps the
+ * supervisor out without any launch mutation, while a supervisor that owns it registers its RunState before
+ * the route can enter and perform its own busy-before-staging check.
+ */
+export async function dispatchResumableCandidate(
+  candidate: ResumableRun,
+  now: number,
+  deps: ResumeCandidateDispatchDeps = defaultCandidateDispatchDeps,
+): Promise<ResumeDispatchOutcome> {
+  const swarm = resumeSwarm(candidate)
+  try {
+    return await deps.withLock(subjectMutationLockKey(swarm, candidate.subject), async () => {
+      const live = deps.liveSubjects(swarm)
+      if (live.has(candidate.subject) || !deps.stillResumable(candidate, live, now)) return 'stale'
+      await deps.launchCandidate(candidate)
+      return 'launched'
+    })
+  } catch (error) {
+    if (error instanceof SubjectBusyError) return 'busy'
+    throw error
+  }
 }
 
 // One reconciler pass. Crash-safe: re-running picks up anything still interrupted on disk.
@@ -113,14 +170,16 @@ export async function dispatchResumableRuns(now: number = Date.now()): Promise<v
     log(`plan usage limited — holding all resumes until the limit resets${typeof credit.resetsAt === 'number' ? ` (~${new Date(credit.resetsAt * 1000).toISOString()})` : ''}`)
     return
   }
-  const live = liveSubjectSet()
+  const researchLive = liveSubjectSet('research')
+  const screenerLive = liveSubjectSet('screener')
   const candidates: ResumableRun[] = [
-    ...listResumableResearchRuns(live, now),
-    ...listResumableSignals(live).map((s) => ({ kind: 'signal' as const, subject: s.sigId })),
+    ...listResumableResearchRuns(researchLive, now),
+    ...listResumableSignals(screenerLive).map((s) => ({ kind: 'signal' as const, subject: s.sigId })),
   ]
   let launched = 0
   for (const c of candidates) {
     if (launched >= MAX_CONCURRENT) break
+    const live = c.kind === 'full' ? researchLive : screenerLive
     if (live.has(c.subject)) continue // became live (we just launched its sibling, or a manual run)
     const t = tries.get(c.subject)
     if (t && t.count >= MAX_TRIES) {
@@ -130,7 +189,8 @@ export async function dispatchResumableRuns(now: number = Date.now()): Promise<v
     if (t && now - t.lastAt < COOLDOWN_MS) continue // cooling down
     if (!isResumeDue(c, now)) continue // a plan-limit pause still waiting for its reset
     try {
-      await launch({ kind: c.kind, ticker: c.subject })
+      const outcome = await dispatchResumableCandidate(c, now)
+      if (outcome !== 'launched') continue
       tries.set(c.subject, { count: (t?.count || 0) + 1, lastAt: now })
       live.add(c.subject)
       launched++

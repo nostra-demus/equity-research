@@ -46,7 +46,7 @@ assert.match(source, /intakeReceiptIntentStillActionable\([\s\S]*params\.intakeR
 const preMutationCas = launchBody.indexOf('assertLaunchBindingsStillCurrent(swarmId, subjectId, params)')
 const reap = launchBody.indexOf('reapAllDeadRuns()', preMutationCas)
 const force = launchBody.indexOf('if (params.force)', preMutationCas)
-const firstForceCancel = launchBody.indexOf('await cancel(e.runId)', force)
+const firstForceCancel = launchBody.indexOf('await cancel(r.runId)', force)
 assert.ok(preMutationCas >= 0, 'launch() must perform its selected-decision/owner CAS')
 assert.ok(preMutationCas < reap, 'CAS must precede dead-run finalization')
 assert.ok(reap < force && force < firstForceCancel, 'CAS must precede every force-cancel side effect')
@@ -59,6 +59,9 @@ const preAdmissionCas = launchBody.indexOf('assertLaunchBindingsStillCurrent(swa
 const admission = launchBody.indexOf('const decision = admitRun(', preAdmissionCas)
 assert.ok(firstForceCancel < preAdmissionCas && preAdmissionCas < admission,
   'bindings are re-read after force cancellation and immediately before admission')
+const fullRelaunchReset = launchBody.indexOf('resetAdmittedFullRelaunch(runRoot)', admission)
+assert.ok(fullRelaunchReset > admission,
+  'a monolithic full clears the exact-only aborted pause only after successful admission')
 
 // The same two bindings are checked after buildArgs' potentially slow CLI capability probe and directly
 // before the paid child process is created.

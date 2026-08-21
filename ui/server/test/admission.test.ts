@@ -17,8 +17,14 @@ const abs = (ticker: string, rel: string) => path.join(REPO_ROOT, root(ticker), 
 
 const tracked: RunState[] = []
 // Seed a running, registered in-flight run (no real child process).
-function inflight(kind: RunKind, ticker: string, coveredModules: string[], writeTargetsAbs: string[]): RunState {
-  const run = createRun({ kind, ticker, model: 'sonnet', prompt: '', runRoot: root(ticker), willCommitToMain: kind !== 'agent', writeTargetsAbs, coveredModules, readDepsAbs: [] })
+function inflight(
+  kind: RunKind,
+  ticker: string,
+  coveredModules: string[],
+  writeTargetsAbs: string[],
+  readDepsAbs: string[] = [],
+): RunState {
+  const run = createRun({ kind, ticker, model: 'sonnet', prompt: '', runRoot: root(ticker), willCommitToMain: kind !== 'agent', writeTargetsAbs, coveredModules, readDepsAbs })
   run.status = 'running'
   setActiveTickerRun(run.runId, ticker)
   tracked.push(run)
@@ -162,6 +168,36 @@ try {
     const d = admitRun({ ticker: T, kind: 'agent', coveredModules: ['business-model'], writeTargetsAbs: [abs(T, 'business-model/02_other.md')], readDepsAbs: [readFile] })
     assert.equal(d.ok, false)
     assert.equal((d as any).code, 'dependency_conflict')
+    assert.equal((d as any).reason, 'upstream-file-in-flight')
+  })
+
+  // Exact one-module resumes claim optional cross-module folders as directory reads. Balance-sheet and
+  // governance are siblings in the hard DAG, so D3 cannot protect this read; D4b must hold it immutable
+  // in BOTH launch orders for the full lifetime of the paid governance child.
+  check('D4b reject exact module reader while optional-input writer is live', () => {
+    clearAll()
+    const bssDir = abs(T, 'balance-sheet-survival')
+    inflight('module', T, ['balance-sheet-survival'], [abs(T, 'balance-sheet-survival/05_x.md')])
+    const d = admitRun(req('module', {
+      coveredModules: ['management-governance'],
+      writeTargetsAbs: [abs(T, 'management-governance/10_x.md')],
+      readDepsAbs: [bssDir],
+    }))
+    assert.equal(d.ok, false)
+    assert.equal((d as any).reason, 'upstream-file-in-flight')
+  })
+
+  check('D4b reject optional-input writer while exact module reader is live', () => {
+    clearAll()
+    const bssDir = abs(T, 'balance-sheet-survival')
+    inflight(
+      'module', T, ['management-governance'], [abs(T, 'management-governance/10_x.md')], [bssDir],
+    )
+    const d = admitRun(req('module', {
+      coveredModules: ['balance-sheet-survival'],
+      writeTargetsAbs: [abs(T, 'balance-sheet-survival/05_x.md')],
+    }))
+    assert.equal(d.ok, false)
     assert.equal((d as any).reason, 'upstream-file-in-flight')
   })
 

@@ -19,6 +19,11 @@ export interface ModuleNode {
   name: string
   order: number
   dependsOn: string[]
+  /** Optional cross-module reads. They affect staged input provenance for a module-only run, but never block
+   * scheduling or create downstream invalidation when absent. Self-declared as `reads_from` on the 99. */
+  readsFrom?: string[]
+  /** The module command honors the immutable-root/current-input contract for smart partial heading runs. */
+  exactResume?: boolean
   layers: Record<string, AgentNode[]>
   agentCount: number
   depsComplete?: boolean // ticker-specific (graphForTicker only): are this module's dependsOn synthesis outputs on disk?

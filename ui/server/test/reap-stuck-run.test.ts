@@ -5,11 +5,32 @@
 // isn't a resumable full/rerun, so finalizeRunOnClose writes no .interrupted marker).
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
+import fs from 'node:fs'
 import path from 'node:path'
-import { awaitRunsExited, reapAllDeadRuns, reapDeadSubjectRuns } from '../src/launcher'
+import { fileURLToPath } from 'node:url'
+import {
+  awaitRunsExited,
+  bindTerminalGuard,
+  cancel,
+  childCouldReportDoneOnClose,
+  clearTerminalGuardWork,
+  descendantCloseTerminalProof,
+  finalizeConfirmedSubjectCancellation,
+  inspectTerminalCloseWatchdog,
+  processTreeAlive,
+  proveCloseProcessGroupExtinct,
+  reapAllDeadRuns,
+  reapDeadSubjectRuns,
+  requireSubjectRunsExited,
+  runHasUnfinishedTerminalWork,
+  streamResultAwaitsProcessClose,
+  subjectRunsAwaitingExit,
+  trackTerminalGuardWork,
+} from '../src/launcher'
 import { admitRun } from '../src/admission'
 import { MAX_CONCURRENT_RUNS, REPO_ROOT } from '../src/config'
 import { createRun, finishRun, inFlightRunsForSubject, setActiveTickerRun, type RunState } from '../src/registry'
+import { handleStreamLine } from '../src/stream-parser'
 import type { RunKind, RunStatus } from '../src/types'
 
 const T = 'ZZREAP'
@@ -135,7 +156,200 @@ try {
   })
   clearAll()
 
-  console.log(`\n${passed}/6 reap-stuck-run checks passed`)
+  await acheck('subject cancel: an unconfirmed child exit is a conflict, never permission to relaunch', async () => {
+    const stillWriting = seed('module', 'cancelled', { pid: process.pid })
+    await assert.rejects(
+      requireSubjectRunsExited(T, [stillWriting], async () => false),
+      (error: any) => error?.statusCode === 409 && /could not confirm/i.test(error?.message),
+    )
+  })
+  clearAll()
+
+  check('subject cancel: confirmed exit finalizes a run even when its close callback was lost', () => {
+    const lostClose = seed('module', 'cancelled', { pid: DEAD_PID })
+    assert.equal(lostClose.endedAt, undefined, 'the fixture starts in the stranded cancelled state')
+    finalizeConfirmedSubjectCancellation([lostClose])
+    assert.ok(lostClose.endedAt !== undefined, 'confirmed process exit must release the endedAt-based route lock')
+    finalizeConfirmedSubjectCancellation([lostClose])
+    assert.equal(lostClose.status, 'cancelled', 'a late/racing close remains idempotent')
+  })
+  clearAll()
+
+  check('subject cancel retry: a cancelled but unfinalized writer remains in the stop set', () => {
+    const stillAlive = seed('module', 'cancelled', { pid: process.pid })
+    assert.deepEqual(subjectRunsAwaitingExit(T).map((run) => run.runId), [stillAlive.runId],
+      'a second force/cancel attempt must not forget the first attempt merely because its status is cancelled')
+  })
+  clearAll()
+
+  check('process-tree proof: a dead leader does not hide a live detached descendant group', () => {
+    const pid = 4242
+    const probed: number[] = []
+    const alive = processTreeAlive(pid, (target) => {
+      probed.push(target)
+      return target === -pid // process group alive; leader pid itself is dead
+    })
+    assert.equal(alive, true)
+    assert.deepEqual(probed, [-pid, pid], 'both the detached process group and its leader are probed')
+  })
+
+  await acheck('real-close proof TERM/KILLs a surviving descendant group before allowing finalization', async () => {
+    const pid = 43210
+    let groupAlive = true
+    let clock = 0
+    const signals: NodeJS.Signals[] = []
+    const proof = await proveCloseProcessGroupExtinct(pid, {
+      probe: (target) => target === -pid && groupAlive, // leader dead; descendant keeps its PGID alive
+      signalGroup: (_pid, signal) => {
+        signals.push(signal)
+        if (signal === 'SIGKILL') groupAlive = false
+      },
+      now: () => clock,
+      sleep: async (ms) => { clock += ms },
+      termGraceMs: 10,
+      killGraceMs: 10,
+      pollMs: 5,
+    })
+    assert.deepEqual(proof, { extinct: true, descendantObserved: true, forced: true })
+    assert.deepEqual(signals, ['SIGTERM', 'SIGKILL'])
+  })
+
+  check('stream error, Stop, signal, nonzero, and failed closes are all non-clean recovery cases', () => {
+    const stopped = seed('module', 'running', { pid: DEAD_PID })
+    stopped.cancelRequested = true
+    assert.equal(childCouldReportDoneOnClose(stopped, { exitCode: 0 }), false, 'Stop is non-clean')
+
+    const streamed = seed('module', 'running', { pid: DEAD_PID })
+    handleStreamLine(streamed, JSON.stringify({
+      type: 'result', subtype: 'error_max_turns', is_error: true, result: '99 landed before the cap',
+    }))
+    assert.equal(childCouldReportDoneOnClose(streamed, { exitCode: 1 }), false, 'stream error is non-clean')
+
+    const signalled = seed('module', 'running', { pid: DEAD_PID })
+    assert.equal(childCouldReportDoneOnClose(signalled, { signal: 'SIGTERM', isTerminated: true }), false,
+      'signal termination is non-clean')
+
+    const nonzero = seed('module', 'running', { pid: DEAD_PID })
+    assert.equal(childCouldReportDoneOnClose(nonzero, { exitCode: 2 }), false, 'nonzero exit is non-clean')
+
+    const failed = seed('module', 'running', { pid: DEAD_PID })
+    assert.equal(childCouldReportDoneOnClose(failed, { exitCode: 0, failed: true }), false,
+      'an execa failed result is non-clean')
+  })
+  clearAll()
+
+  check('descendant recovery preserves terminal publication failure/receipt authority', () => {
+    const publishFailed = {
+      ok: false as const,
+      reason: 'module_publish_failed',
+      message: 'pending marker retained',
+    }
+    assert.deepEqual(descendantCloseTerminalProof(true, true, publishFailed), publishFailed,
+      'a publication failure is not hidden by the descendant diagnosis')
+    const published = descendantCloseTerminalProof(true, true, { ok: true })
+    assert.equal(published.ok, false, 'published/validated bytes still report the orphan writer incomplete')
+    if (!published.ok) assert.equal(published.reason, 'descendant_process_survived_close')
+  })
+
+  check('close source proves group extinction before sweep, terminal guard, and finalizer', () => {
+    const here = path.dirname(fileURLToPath(import.meta.url))
+    const source = fs.readFileSync(path.join(here, '..', 'src', 'launcher.ts'), 'utf8')
+    const start = source.indexOf('const onClose = async (res: any) => {')
+    const end = source.indexOf('\n  // Pass both fulfillment/rejection', start)
+    const body = source.slice(start, end)
+    const proof = body.indexOf('await proveCloseProcessGroupExtinct(run.child?.pid)')
+    const sweep = body.indexOf('sweepRunOutputs(run)', proof)
+    const guard = body.indexOf('beginTerminalGuardWork(run)', sweep)
+    const failedGuardRecovery = body.indexOf('if (!terminalProof.ok)', guard)
+    const cleanRecovery = body.indexOf('recoverNonCleanExactClose(run)', failedGuardRecovery)
+    const nonCleanRecovery = body.indexOf('recoverNonCleanExactClose(run)', cleanRecovery + 1)
+    const finalize = body.indexOf('finalizeRunOnClose(run, res, stderr, terminalProof)', nonCleanRecovery)
+    assert.ok(start > 0 && end > start && proof > 0 && sweep > proof && guard > sweep
+      && failedGuardRecovery > guard && cleanRecovery > failedGuardRecovery
+      && nonCleanRecovery > cleanRecovery && finalize > nonCleanRecovery,
+    'no output recovery/sweep/publication/finalization can precede process-group extinction proof')
+  })
+
+  check('streamed exact error retains claims until close proof and never runs terminal publication', () => {
+    const errored = seed('module', 'running', { pid: DEAD_PID })
+    let guardCalls = 0
+    bindTerminalGuard(errored, () => { guardCalls++; return { ok: true } })
+    handleStreamLine(errored, JSON.stringify({
+      type: 'result', subtype: 'error_during_execution', is_error: true, result: 'failed before close',
+    }))
+    assert.equal(streamResultAwaitsProcessClose(errored), true)
+    assert.equal(errored.endedAt, undefined, 'stream error cannot release the writer claim before close')
+    assert.equal(inFlightRunsForSubject(T).length, 1)
+    assert.equal(guardCalls, 0)
+
+    assert.deepEqual(reapDeadSubjectRuns(T), [], 'first dead observation remains close-owned')
+    assert.equal(inspectTerminalCloseWatchdog(errored, Number.MAX_SAFE_INTEGER, 0), 'started')
+    assert.equal(errored.status, 'error', 'dead-group close fallback now performs the terminal release')
+    assert.ok(errored.endedAt !== undefined)
+    assert.equal(guardCalls, 0, 'an errored child never publishes exact output')
+  })
+  clearAll()
+
+  await acheck('terminal publication is a live writer after child exit: cancel/force wait and keep the subject claimed', async () => {
+    const publishing = seed('module', 'running', { pid: DEAD_PID })
+    let resolve!: (value: { ok: true }) => void
+    const work = new Promise<{ ok: true }>((done) => { resolve = done })
+    trackTerminalGuardWork(publishing, work)
+    assert.equal(runHasUnfinishedTerminalWork(publishing), true)
+
+    await cancel(publishing.runId)
+    assert.equal(publishing.status, 'running', 'cancel records intent but must not drop the in-flight claim mid-publish')
+    assert.equal(publishing.cancelRequested, true)
+    assert.equal(inFlightRunsForSubject(T).length, 1, 'the subject remains claimed while Git publication writes')
+    assert.equal(await awaitRunsExited([publishing], 120), false,
+      'force cannot treat a dead child as fully stopped while terminal publication is pending')
+    assert.deepEqual(reapDeadSubjectRuns(T), [], 'the dead-child reaper must not finalize an active publisher')
+    assert.equal(publishing.endedAt, undefined)
+
+    resolve({ ok: true })
+    await work
+    clearTerminalGuardWork(publishing, work)
+    finalizeConfirmedSubjectCancellation([publishing])
+    assert.equal(publishing.status, 'cancelled', 'the recorded cancellation finalizes only after publication settles')
+    assert.ok(publishing.endedAt !== undefined)
+  })
+  clearAll()
+
+  await acheck('terminal publication blocks the global reaper until its writer token is cleared', async () => {
+    const publishing = seed('module', 'running', { pid: DEAD_PID })
+    let resolve!: (value: { ok: true }) => void
+    const work = new Promise<{ ok: true }>((done) => { resolve = done })
+    trackTerminalGuardWork(publishing, work)
+    assert.deepEqual(reapAllDeadRuns(), [], 'global capacity healing also leaves terminal publishers alone')
+    assert.equal(publishing.endedAt, undefined)
+
+    resolve({ ok: true })
+    await work
+    clearTerminalGuardWork(publishing, work)
+    assert.deepEqual(reapAllDeadRuns(), [publishing.runId], 'a truly abandoned dead run is reapable after publication ends')
+    assert.ok(publishing.endedAt !== undefined)
+  })
+  clearAll()
+
+  await acheck('dead PID before onClose stays close-owned; watchdog recovers marker-only and never guesses clean', async () => {
+    const beforeClose = seed('module', 'running', { pid: DEAD_PID })
+    let guardCalls = 0
+    bindTerminalGuard(beforeClose, () => { guardCalls++; return { ok: true } })
+
+    assert.deepEqual(reapDeadSubjectRuns(T), [], 'generic reaping cannot release a terminalGuard-bound run')
+    assert.equal(beforeClose.endedAt, undefined)
+    assert.equal(guardCalls, 0, 'ordinary close receives a grace period before fallback publication starts')
+
+    assert.equal(inspectTerminalCloseWatchdog(beforeClose, Number.MAX_SAFE_INTEGER, 0), 'started')
+    assert.equal(guardCalls, 0, 'without an exit result the watchdog never enters the Git-publishing guard')
+    assert.equal(beforeClose.status, 'incomplete', 'unknown close outcome is conservative, never guessed done')
+    assert.ok(beforeClose.endedAt !== undefined, 'claims release only after marker/quarantine recovery + finalizer')
+    assert.equal(runHasUnfinishedTerminalWork(beforeClose), false)
+    assert.equal(inspectTerminalCloseWatchdog(beforeClose, Number.MAX_SAFE_INTEGER, 0), 'inactive')
+  })
+  clearAll()
+
+  console.log(`\n${passed}/18 reap-stuck-run checks passed`)
 } finally {
   clearAll()
 }

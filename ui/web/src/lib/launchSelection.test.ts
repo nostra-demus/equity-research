@@ -21,6 +21,7 @@ const { useStore } = await import('./store')
 
 const original = {
   estimate: api.estimate,
+  thesisPlan: api.thesisPlan,
   launch: api.launch,
   launchExact: api.launchExact,
   intake: api.intake,
@@ -107,6 +108,11 @@ try {
 
   const rerunEstimate = deferred<LaunchPreflight>()
   api.estimate = async () => rerunEstimate.promise
+  let competingModulePlans = 0
+  api.thesisPlan = async () => {
+    competingModulePlans++
+    throw new Error('a module plan must not start during a rerun estimate')
+  }
   useStore.setState({
     selectedTicker: 'AAA', activeSwarm: 'research', constellationSwarm: 'research', selectToken: 105,
     warp: null, graph, nodesByKey: new Map([[orb.key, orb]]), runRoot: exactAAA.run_root, dataNeeds: exactAAA,
@@ -117,10 +123,16 @@ try {
     subject: 'AAA', swarm: 'research', selectToken: 105,
     runRoot: exactAAA.run_root, decisionFingerprint: exactAAA.decision_fingerprint,
   })
-  useStore.setState({ warp: { from: 'research', to: 'commodity', phase: 'collapse' }, launchConfirm: null, launchPending: null })
+  const rerunPending = useStore.getState().launchPending
+  await useStore.getState().launchModule(orb.module)
+  assert.equal(competingModulePlans, 0, 'a module heading cannot plan while a same-ticker rerun is being priced')
+  assert.equal(useStore.getState().launchPending, rerunPending, 'the blocked module click preserves the rerun spinner')
+  const newerRerunPending = { key: 'newer:after-rerun', label: 'Newer operation…', ticker: 'OTHER' }
+  useStore.setState({ warp: { from: 'research', to: 'commodity', phase: 'collapse' }, launchConfirm: null, launchPending: newerRerunPending })
   rerunEstimate.resolve(preflight('rerun', 'AAA', undefined, exactAAA))
   await staleRerun
   assert.equal(useStore.getState().launchConfirm, null, 'an estimate resolving during swarm navigation stays closed')
+  assert.equal(useStore.getState().launchPending, newerRerunPending, 'the completed rerun estimate cannot clear a newer pending operation')
 
   let unsafeEstimateCalls = 0
   let unsafeLaunchCalls = 0
@@ -346,6 +358,7 @@ try {
   console.log('launch selection: exact estimate/confirm identity guards passed')
 } finally {
   api.estimate = original.estimate
+  api.thesisPlan = original.thesisPlan
   api.launch = original.launch
   api.launchExact = original.launchExact
   api.intake = original.intake

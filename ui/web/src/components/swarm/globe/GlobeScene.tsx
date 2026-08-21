@@ -8,6 +8,7 @@ import type { DataStatus, NodeStatus } from '../../../lib/types'
 import { GLOBE } from './globe-consts'
 import { sufficiencyColor } from '../../../lib/format'
 import { collectSamples, expectedDurations, expectedFor, fmtClock, fmtEtaLeft, orbClass, scopeTiming, type ScopeOrb } from '../../../lib/eta'
+import { moduleRunAffordance } from '../../../lib/moduleRun'
 import { useStore } from '../../../lib/store'
 import { AgentNode } from '../AgentNode'
 import { CoreOrb } from '../CoreOrb'
@@ -216,6 +217,8 @@ export function GlobeScene({
   const coreBloom = useStore((s) => s.coreBloom)
   const now = useStore((s) => s.now)
   const graph = useStore((s) => s.graph)
+  const activeSwarm = useStore((s) => s.activeSwarm)
+  const launchPending = useStore((s) => s.launchPending)
   const { camera, size } = useThree()
 
   const moduleByName = useMemo(() => new Map((graph?.modules || []).map((m) => [m.name, m])), [graph])
@@ -486,8 +489,16 @@ export function GlobeScene({
         const ms = dataStatus?.modules[a.module]?.status
         const live = activeModules.has(a.module)
         const mod = moduleByName.get(a.module)
-        const depLocked = mod?.depsComplete === false
+        const smartResume = activeSwarm === 'research' && mod?.exactResume === true
+        const depLocked = !smartResume && mod?.depsComplete === false
         const miss = mod?.missingDeps?.join(', ')
+        const moduleNodes = nodes.filter((n) => n.module === a.module)
+        const runAffordance = smartResume
+          ? moduleRunAffordance(moduleNodes, nodeStatus)
+          : { complete: false, unfinishedSpecialists: 0, label: '▸ run module', title: 'Runs this module only' }
+        // Keep a research heading clickable even when the displayed run paints every orb done: newly added
+        // specialists may post-date the saved synthesis, which only the fresh server plan can prove.
+        const headingAction = smartResume || !runAffordance.complete
         const mt = live
           ? scopeTiming(
               nodes
@@ -499,9 +510,9 @@ export function GlobeScene({
           : null
         // a finished module (not live) gets a calm done marker instead of a blank "run module" affordance. Elapsed
         // is only known for modules finished in-session (SSE carries endedAt); a manifest-loaded run shows just "done".
-        const moduleDoneLabel = !live && completedModules.has(a.module)
-        const doneStarts = moduleDoneLabel ? nodes.filter((n) => n.module === a.module).map((n) => nodeRuntime[n.key]?.startedAt).filter((t): t is number => typeof t === 'number') : []
-        const doneEnds = moduleDoneLabel ? nodes.filter((n) => n.module === a.module).map((n) => nodeRuntime[n.key]?.endedAt).filter((t): t is number => typeof t === 'number') : []
+        const moduleDoneLabel = !live && (smartResume ? runAffordance.complete : completedModules.has(a.module))
+        const doneStarts = moduleDoneLabel ? moduleNodes.map((n) => nodeRuntime[n.key]?.startedAt).filter((t): t is number => typeof t === 'number') : []
+        const doneEnds = moduleDoneLabel ? moduleNodes.map((n) => nodeRuntime[n.key]?.endedAt).filter((t): t is number => typeof t === 'number') : []
         const doneElapsed = doneStarts.length && doneEnds.length ? Math.max(...doneEnds) - Math.min(...doneStarts) : null
         return (
           <group key={a.module} ref={(el) => { labelRefs.current[i] = el }}>
@@ -511,7 +522,14 @@ export function GlobeScene({
                 style={{ whiteSpace: 'nowrap' }}
                 onMouseEnter={() => setHoverModule(a.module)}
                 onMouseLeave={() => setHoverModule(null)}
-                onClick={(ev) => { ev.stopPropagation(); onClusterClick(a.module) }}
+                onClick={(ev) => { ev.stopPropagation(); if (headingAction) onClusterClick(a.module) }}
+                onKeyDown={(ev) => {
+                  if (!headingAction || (ev.key !== 'Enter' && ev.key !== ' ')) return
+                  ev.preventDefault(); ev.stopPropagation(); onClusterClick(a.module)
+                }}
+                role={headingAction ? 'button' : undefined}
+                tabIndex={headingAction ? 0 : undefined}
+                aria-label={headingAction ? `${a.module.replace(/-/g, ' ')}: ${runAffordance.label.replace(/^▸\s*/, '')}. ${runAffordance.title}` : undefined}
               >
                 <div className="cluster__name">{a.module.replace(/-/g, ' ')}</div>
                 {ms && <div className="cluster__status" style={{ color: sufficiencyColor(ms) }}>{ms}</div>}
@@ -530,12 +548,14 @@ export function GlobeScene({
                     </div>
                     <div className="cluster__flow"><div className="cluster__flow-fill" style={{ ['--frac' as any]: mt.total ? mt.done / mt.total : 0 }} /></div>
                   </div>
-                ) : moduleDoneLabel ? (
-                  <div className="cluster__run cluster__run--done" style={{ color: 'var(--text-secondary)' }} title="Module complete">✓ done{doneElapsed != null ? ` · ${fmtClock(doneElapsed)}` : ''}</div>
                 ) : depLocked ? (
                   <div className="cluster__run" style={{ color: 'var(--text-faint)' }} title={`Needs ${miss} complete first`}>🔒 needs {miss}</div>
+                ) : launchPending?.key === `module:${a.module}` ? (
+                  <div className="cluster__run" style={{ color: 'var(--accent-bright)' }}>● starting…</div>
+                ) : moduleDoneLabel ? (
+                  <div className="cluster__run cluster__run--done" style={{ color: 'var(--text-secondary)' }} title="Module complete">✓ done{doneElapsed != null ? ` · ${fmtClock(doneElapsed)}` : ''}</div>
                 ) : (
-                  <div className="cluster__run">▸ run module</div>
+                  <div className={`cluster__run${smartResume ? ' cluster__run--action' : ''}`} title={runAffordance.title}>{runAffordance.label}</div>
                 )}
               </div>
             </Html>

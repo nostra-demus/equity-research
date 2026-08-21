@@ -102,15 +102,16 @@ try {
     assert.equal(inFlightRunsForSubject('ZZFINE').length, 0)
   })
 
-  // 5. an error result still finalizes early, and close does not double-finalize it
-  check('error result finalizes early; close is a no-op afterwards', () => {
+  // 5. an error result is visible immediately but retains its writer claim until process close.
+  check('error result waits for close before finalizing and releasing its claim', () => {
     const { run } = mkRun('module', 'ZZFIND')
     handleStreamLine(run, errorResult)
-    assert.equal(run.status, 'error')
-    const endedAt = run.endedAt
+    assert.equal(run.status, 'running', 'the streamed error does not prove detached descendants are gone')
+    assert.equal(run.endedAt, undefined)
+    assert.equal(inFlightRunsForSubject('ZZFIND').length, 1)
     finalizeRunOnClose(run, { exitCode: 1 }, 'boom')
     assert.equal(run.status, 'error')
-    assert.equal(run.endedAt, endedAt, 'close must not re-finalize an already-ended run')
+    assert.ok(run.endedAt !== undefined)
     assert.equal(inFlightRunsForSubject('ZZFIND').length, 0)
   })
 
@@ -211,11 +212,8 @@ try {
     }
   })
 
-  // 9. Finding 1: a structured stream `result` error (error_max_turns / error_during_execution / is_error)
-  //    finalizes EARLY, via handleStreamLine, before the process ever closes — finalizeRunOnClose then
-  //    returns immediately (endedAt already set) and would otherwise never write the .interrupted marker
-  //    or RUN_FAILURE.md for the single most common budget/API-error stop. Assert the SAME failure note
-  //    gets recorded from the stream path itself.
+  // 9. A structured stream error records its durable diagnostic immediately, but close retains sole claim
+  //    release authority so a detached descendant cannot outlive endedAt.
   check('a stream-result error (error_max_turns) records the SAME failure note as a close-time error', () => {
     const root = path.join(ANALYSES_DIR, `ZZFINI_${DATE}`)
     cleanupDirs.push(root)
@@ -226,7 +224,8 @@ try {
       const { run } = mkRun('full', 'ZZFINI')
       const streamError = JSON.stringify({ type: 'result', subtype: 'error_max_turns', is_error: true, result: 'ran out of turns mid-valuation' })
       handleStreamLine(run, streamError)
-      assert.equal(run.status, 'error', 'the stream result finalizes the run early')
+      assert.equal(run.status, 'running', 'the streamed error waits for process-group-safe close')
+      assert.equal(run.endedAt, undefined)
       const md = fs.readFileSync(path.join(root, 'RUN_FAILURE.md'), 'utf8')
       assert.match(md, /reason: error_max_turns/)
       assert.match(md, /ran out of turns mid-valuation/)
@@ -234,8 +233,9 @@ try {
       const marker = readRunMarker(`analyses/ZZFINI_${DATE}`, '.interrupted') as any
       assert.equal(marker?.reason, 'error_max_turns')
       assert.match(String(run.note), /error_max_turns/, 'the durable activity-log note is set too')
-      // close is now a no-op (already finalized) — mirrors the existing "error result" test
       finalizeRunOnClose(run, { exitCode: 1 }, 'ignored')
+      assert.equal(run.status, 'error')
+      assert.ok(run.endedAt !== undefined)
       assert.equal(committed.length, 1, 'close must not record a second failure note')
     } finally {
       __setFailureNoteCommitter(prev)
@@ -300,6 +300,9 @@ try {
     }))
     assert.equal(run2.cliResult?.apiErrorStatus, 429)
     assert.equal(run2.cliResult?.isError, true)
+    assert.equal(run2.endedAt, undefined, 'API error also retains claims until close')
+    finalizeRunOnClose(run2, { exitCode: 1 }, '')
+    assert.ok(run2.endedAt !== undefined)
   })
 
   check('a fail-fast Insufficient triage is a correct abort, NOT an incomplete run', () => {
@@ -323,6 +326,20 @@ try {
     run2.module = 'business-model'
     finalizeRunOnClose(run2, { exitCode: 0 }, '')
     assert.equal(run2.status, 'incomplete', 'a sufficient triage with no synthesis is a real stall')
+
+    const current99 = path.join(modDir, '99_business-model-synthesis.md')
+    fs.writeFileSync(current99, '# cut-off synthesis\n\n```json\n{"partial":true}\n')
+    const { run: run3 } = mkRun('module', 'ZZFAIL')
+    run3.module = 'business-model'
+    finalizeRunOnClose(run3, { exitCode: 0 }, '')
+    assert.equal(run3.status, 'incomplete', 'a malformed current synthesis cannot make a clean child look done')
+
+    fs.rmSync(current99)
+    fs.writeFileSync(path.join(modDir, '99_retired-business-model-synthesis.md'), '# obsolete but valid\n')
+    const { run: run4 } = mkRun('module', 'ZZFAIL')
+    run4.module = 'business-model'
+    finalizeRunOnClose(run4, { exitCode: 0 }, '')
+    assert.equal(run4.status, 'incomplete', 'an obsolete 99 filename cannot stand in for the discovered synthesis')
   })
 
   check('a standalone MODULE stop is RECORDED — and per-module, so a shared folder keeps every record', () => {

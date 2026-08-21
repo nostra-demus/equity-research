@@ -19,7 +19,7 @@ import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, deleteDriveFileStrict, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED, readWatchlistFile, uploadToWatchlist } from './drive'
 import { attachmentExists, attachmentPath, deleteAttachment, readAttachment, saveAttachment, watchlistFilesAvailable } from './watchlist-files'
-import { assertClaudeCli, cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, launch, sigIdFor, todayDate, warmLaunchProbes } from './launcher'
+import { assertClaudeCli, cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, isSealedResearchRun, launch, reapDeadSubjectRuns, sigIdFor, subjectChainActive, todayDate, warmLaunchProbes } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed, applyActiveWeightsTo } from './news/feed'
 import { getPulse } from './news/commodity-pulse'
@@ -83,7 +83,17 @@ import { getAutotuneState, readChanges, revertChange, setAutotunePaused, setAuto
 import { routeReason } from './news/triage/reason-router'
 import { startResumeSupervisor } from './resume-supervisor'
 import { listResumableRuns } from './resumable'
-import { carryForwardModules, carryForwardScoped, dataPoolNewest, prepareModuleResume, thesisPlan } from './completion'
+import { capturePreparedModuleResumeScope, carryForwardModules, carryForwardScoped, dataPoolNewest, prepareModuleResume, thesisPlan } from './completion'
+import { beginExactModuleSupervisorPause, settleExactModuleSupervisorPause } from './exact-module-supervisor-pause'
+import {
+  acquireModulePublicationLease,
+  captureCompletedModuleFingerprint,
+  clearPendingModulePublication,
+  readPendingModulePublication,
+  validPendingModulePublication,
+  writePendingModulePublication,
+} from './module-publication'
+import { retryBoundModulePublication, type CommitRunAttempt } from './module-publication-git'
 import { intakePoolNewest, latestPlanFileFor, readIntakePlan, resolveIntakeRunRoot, type IntakeReceiptIntent } from './intake'
 import { finishedOwnerConflict, listFinishedIntakeOwners, resolveUniqueFinishedIntakeOwner, type FinishedIntakeOwner } from './intake-owner'
 import { getBridgeStatus, getBridgeSubjectNames, startBridgeScheduler } from './bridge-scheduler'
@@ -107,7 +117,7 @@ import { readPipelines } from './pipelines'
 import { SubjectBusyError, subjectMutationLockKey, withSubjectLock } from './subject-lock'
 import { acquireSingletonLock, releaseSingletonLock } from './singleton-lock'
 import { shellForUrl } from './static-shell'
-import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
+import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideAnalyses, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind, RunStatus } from './types'
 import { MANIFEST_SUBJECT_RE, normalizeDataSubject } from './data-subject'
 import { createMemoryReader } from './memory'
@@ -696,7 +706,25 @@ const ThesisPlanModuleBody = z.object({
   reuse: z.array(z.string().regex(MODULE_RE)).max(64).default([]),
   // REQUIRED for the same reason as ThesisPlanRunBody: an omitted field must never read as "research".
   swarm: z.string().regex(MODULE_RE),
+  // Exact smart-resume contract + scope CAS. A rolling-deploy client/server mismatch or a pool/orb change
+  // between GET plan and POST launch must reject, never silently widen "finish empty orbs" into a clean run.
+  planVersion: z.literal(2),
+  expectedWillRun: z.number().int().min(0).max(1000),
+  expectedDoneOrbKeys: z.array(z.string().regex(/^[a-z0-9-]{1,40}\/[0-9]{2}_[a-z0-9-]{1,100}$/)).max(1000),
+  expectedTargetRunRoot: z.string().regex(/^analyses\/[A-Z0-9.\-]{1,15}_\d{4}-\d{2}-\d{2}$/),
+  poolFiles: z.number().int().min(0),
+  poolNewestMs: z.number().finite().min(0),
 })
+
+// Publish-only recovery after an exact module finished locally but its terminal Git checkpoint failed.
+// The marker/root/fingerprint are all required so this endpoint cannot be repurposed as a generic commit API.
+const ThesisPlanModulePublishBody = z.object({
+  ticker: z.string().regex(TICKER_RE),
+  swarm: z.literal(RESEARCH_SWARM_ID),
+  module: z.string().regex(MODULE_RE),
+  targetRunRoot: z.string().regex(/^analyses\/[A-Z0-9.\-]{1,15}_\d{4}-\d{2}-\d{2}$/),
+  expectedFingerprint: z.string().regex(/^sha256:[a-f0-9]{64}$/),
+}).strict()
 
 const SignalLaunchBody = z.object({
   kind: z.literal('signal'),
@@ -814,13 +842,18 @@ app.post('/api/launch/exact', { config: { rateLimit: { max: 60, timeWindow: '1 m
   }
   const { user, userVia } = identify(req)
   try {
-    const out = await launch({
-      kind: 'rerun', ticker: subject, module, agent, model, force,
-      ...(swarmId !== RESEARCH_SWARM_ID ? { swarm: swarmId } : {}),
-      ...binding, decisionRunRoot: binding.runRoot, intakeReceipt, user, userVia,
+    return await withSubjectLock(subjectMutationLockKey(swarmId, subject), async () => {
+      const out = await launch({
+        kind: 'rerun', ticker: subject, module, agent, model, force,
+        ...(swarmId !== RESEARCH_SWARM_ID ? { swarm: swarmId } : {}),
+        ...binding, decisionRunRoot: binding.runRoot, intakeReceipt, user, userVia,
+      })
+      return { ...out, preflight: { ...out.preflight, exactDecisionBinding: exactDecisionLaunchReceipt(binding, requestedPlan ? intakeReceipt : undefined) } }
     })
-    return { ...out, preflight: { ...out.preflight, exactDecisionBinding: exactDecisionLaunchReceipt(binding, requestedPlan ? intakeReceipt : undefined) } }
   } catch (e: any) {
+    if (e instanceof SubjectBusyError) {
+      return reply.code(409).send({ error: `Another request for ${subject} is preparing a run. Wait for it to finish before retrying.`, code: 'subject_busy' })
+    }
     const body = e?.body && typeof e.body === 'object' ? e.body : null
     return reply.code(e?.statusCode || 500).send({ error: e?.message || 'launch failed', ...(body || {}) })
   }
@@ -987,12 +1020,17 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
   if (rkind === 'rerun' && !exactBinding) return reply.code(409).send({ error: 'selected_decision_required' })
 
   try {
-    const out = await launch({ kind: rkind, ticker, module, agent, window, model, user, userVia, force: parsed.data.force,
-      ...(exactBinding ? { ...exactBinding, decisionRunRoot: exactBinding.runRoot } : {}) })
-    return exactBinding
-      ? { ...out, preflight: { ...out.preflight, exactDecisionBinding: exactDecisionLaunchReceipt(exactBinding) } }
-      : out
+    return await withSubjectLock(subjectMutationLockKey(RESEARCH_SWARM_ID, ticker), async () => {
+      const out = await launch({ kind: rkind, ticker, module, agent, window, model, user, userVia, force: parsed.data.force,
+        ...(exactBinding ? { ...exactBinding, decisionRunRoot: exactBinding.runRoot } : {}) })
+      return exactBinding
+        ? { ...out, preflight: { ...out.preflight, exactDecisionBinding: exactDecisionLaunchReceipt(exactBinding) } }
+        : out
+    })
   } catch (e: any) {
+    if (e instanceof SubjectBusyError) {
+      return reply.code(409).send({ error: `Another request for ${ticker} is preparing a run. Wait for it to finish before retrying.`, code: 'subject_busy' })
+    }
     return fail(e)
   }
 })
@@ -1065,8 +1103,12 @@ app.post('/api/runs/subject/:swarm/:subject/cancel', async (req, reply) => {
   const subject = String((req.params as any).subject || '')
   if (!listSwarms().some((s) => s.id === swarm)) return reply.code(400).send({ error: `unknown swarm ${swarm}` })
   if (!SUBJECT_RE.test(subject)) return reply.code(400).send({ error: 'invalid subject' })
-  const cancelled = await cancelSubject(subject, swarm)
-  return { ok: true, cancelled, chainsHalted: true }
+  try {
+    const cancelled = await cancelSubject(subject, swarm)
+    return { ok: true, cancelled, chainsHalted: true }
+  } catch (e: any) {
+    return reply.code(e?.statusCode || 500).send({ error: e?.message || 'could not stop subject runs' })
+  }
 })
 
 // Resolve a run paused at the pre-spawn data-readiness gate (thin route; lifecycle logic in launcher).
@@ -1918,7 +1960,22 @@ app.get('/api/thesis-plan', { config: { rateLimit: { max: 600, timeWindow: '1 mi
   const reuse = q.reuse === undefined ? undefined : q.reuse.split(',').filter(Boolean)
   if (reuse && (reuse.length > 64 || reuse.some((m) => !MODULE_RE.test(m)))) return reply.code(400).send({ error: 'bad reuse set' })
   try {
-    return thesisPlan(q.ticker, q.swarm || undefined, reuse)
+    const plan = thesisPlan(q.ticker, q.swarm || undefined, reuse)
+    // A finished local module normally reads `done`/non-runnable. A durable failed-publication marker is
+    // therefore attached explicitly so the heading offers a publish-only recovery instead of re-running paid
+    // orbs. Re-hash on every plan read; edited/stale bytes never receive the affordance.
+    if (plan.swarm === RESEARCH_SWARM_ID) {
+      for (const entry of plan.modules) {
+        const pending = validPendingModulePublication(q.ticker, entry.module)
+        if (pending) {
+          entry.publicationPending = {
+            targetRunRoot: pending.targetRunRoot,
+            fingerprint: pending.fingerprint,
+          }
+        }
+      }
+    }
+    return plan
   } catch (e: any) {
     return reply.code(500).send({ error: e?.message || 'could not build the completion plan' })
   }
@@ -1965,6 +2022,9 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
   // `withSubjectLock` closes that race in-process: see subject-lock.ts for why check-and-set order is enough.
   try {
     return await withSubjectLock(subjectMutationLockKey(RESEARCH_SWARM_ID, ticker), async () => {
+      if (subjectChainActive(ticker, RESEARCH_SWARM_ID)) {
+        return reply.code(409).send({ error: `A full analysis is already running on ${ticker}. Let it finish (or stop it) before completing the thesis.`, code: 'subject_busy' })
+      }
       // Never write into a run root another run currently owns. `carryForwardModules` copies module folders in
       // BEFORE admission runs, so a live run on this subject would silently absorb them: its own per-module skip
       // test would see a `99_*-synthesis.md` it did not write and skip that module, synthesizing over evidence
@@ -2017,6 +2077,245 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
   }
 })
 
+const MODULE_RESUME_PUBLISH_TIMEOUT_MS = 20 * 60_000
+
+/** Exact path proof, not a HEAD-ancestry shortcut. A shared production checkout can have an unrelated local
+ * data commit while these module paths already match `origin/main`; conversely, a prior failed checkpoint can
+ * leave these paths clean at local HEAD but absent remotely. Compare the actual tracked tree and reject every
+ * untracked/ignored byte below the published module directories. */
+async function moduleResumeCheckpointMatchesOrigin(pathspecs: string[]): Promise<boolean> {
+  try {
+    const fetch = await execa('git', ['fetch', '-q', 'origin', 'main'], {
+      cwd: REPO_ROOT, timeout: MODULE_RESUME_PUBLISH_TIMEOUT_MS, reject: false,
+    })
+    if (fetch.exitCode !== 0) return false
+    const diff = await execa('git', ['diff', '--quiet', 'origin/main', '--', ...pathspecs], {
+      cwd: REPO_ROOT, timeout: 30_000, reject: false,
+    })
+    if (diff.exitCode !== 0) return false
+    const untracked = await execa('git', ['ls-files', '--others', '--exclude-standard', '--', ...pathspecs], {
+      cwd: REPO_ROOT, timeout: 30_000, reject: false,
+    })
+    if (untracked.exitCode !== 0 || untracked.stdout.trim()) return false
+    const ignored = await execa('git', ['ls-files', '--others', '--ignored', '--exclude-standard', '--', ...pathspecs], {
+      cwd: REPO_ROOT, timeout: 30_000, reject: false,
+    })
+    return ignored.exitCode === 0 && !ignored.stdout.trim()
+  } catch {
+    return false
+  }
+}
+
+/** A prior click may have committed the checkpoint locally and then lost its push race (exit 4). Retry only
+ * the helper-produced commit (or a successful NOOP's clean HEAD) after proving the requested pathspec bytes
+ * exactly match that revision. A lock/pre-commit failure has no receipt and can never push unrelated HEAD. */
+async function ensureModuleResumeCheckpointPublished(
+  script: string,
+  pathspecs: string[],
+  helperAttempt: CommitRunAttempt | null | undefined,
+): Promise<boolean> {
+  if (await moduleResumeCheckpointMatchesOrigin(pathspecs)) return true
+  // A validation server may commit outputs locally by design, but it has no authority to publish them.
+  // Never let the retry helper turn ENGINE_NO_PUSH into a remote write; fail before paid analysis instead.
+  if (process.env.ENGINE_NO_PUSH === '1') return false
+  const retried = await retryBoundModulePublication({
+    repoRoot: REPO_ROOT,
+    script,
+    pathspecs,
+    helperAttempt,
+    timeoutMs: MODULE_RESUME_PUBLISH_TIMEOUT_MS,
+  })
+  return retried && moduleResumeCheckpointMatchesOrigin(pathspecs)
+}
+
+/** Publish the exact resume checkpoint BEFORE the paid child starts: the target module's truthful partial
+ *  (when one exists, including deletions from a clean stale rerun) plus every reused ancestor it will read.
+ *  `commit-run.sh` serializes/rebases/pushes only these pathspecs. An earlier failed attempt's ancestor is
+ *  included again and becomes a harmless NOOP if already published, so retries cannot strand dirty inputs. */
+async function publishModuleResumeCheckpoint(
+  ticker: string,
+  targetRunRoot: string,
+  module: string,
+  reusedAncestorModules: string[],
+): Promise<{ ok: true; paths: string[] } | { ok: false; error: string }> {
+  const normalizedRoot = path.posix.normalize(targetRunRoot)
+  if (normalizedRoot !== targetRunRoot || !normalizedRoot.startsWith(`analyses/${ticker}_`)
+      || normalizedRoot.split('/').length !== 2) {
+    return { ok: false, error: 'unsafe target run root' }
+  }
+  const modules = [...new Set([...reusedAncestorModules, module])].sort()
+  if (modules.some((name) => !MODULE_RE.test(name) || path.posix.basename(name) !== name)) {
+    return { ok: false, error: 'unsafe module path' }
+  }
+
+  const rootAbs = path.join(REPO_ROOT, normalizedRoot)
+  let rootReal: string | null = null
+  if (fs.existsSync(rootAbs)) {
+    try {
+      const stat = fs.lstatSync(rootAbs)
+      if (!stat.isDirectory() || stat.isSymbolicLink()) return { ok: false, error: 'unsafe target run root' }
+      rootReal = resolveInsideAnalyses(rootAbs)
+    } catch {
+      return { ok: false, error: 'unsafe target run root' }
+    }
+  }
+  const pathspecs: string[] = []
+  for (const name of modules) {
+    const rel = `${normalizedRoot}/${name}`
+    const abs = path.join(REPO_ROOT, rel)
+    if (fs.existsSync(abs)) {
+      try {
+        const stat = fs.lstatSync(abs)
+        const real = resolveInsideAnalyses(abs)
+        if (!rootReal || !stat.isDirectory() || stat.isSymbolicLink() || path.dirname(real) !== rootReal) {
+          return { ok: false, error: `unsafe staged module ${name}` }
+        }
+      } catch {
+        return { ok: false, error: `unsafe staged module ${name}` }
+      }
+      pathspecs.push(rel)
+      continue
+    }
+    // A stale rerun can deliberately delete a previously-checkpointed partial. Include that absent path only
+    // when Git proves it was tracked; a genuinely missing, never-run module must not make `git add` fail.
+    try {
+      const tracked = await execa('git', ['ls-files', '--', rel], { cwd: REPO_ROOT, timeout: 10_000, reject: false })
+      if (tracked.exitCode !== 0) return { ok: false, error: 'could not inspect staged module paths' }
+      if (tracked.stdout.trim()) {
+        if (!rootReal) return { ok: false, error: 'tracked module path lost its run root' }
+        pathspecs.push(rel)
+      }
+    } catch {
+      return { ok: false, error: 'could not inspect staged module paths' }
+    }
+  }
+  if (!pathspecs.length) return { ok: true, paths: [] }
+
+  const script = path.join(REPO_ROOT, 'scripts', 'commit-run.sh')
+  if (!fs.existsSync(script)) return { ok: false, error: 'commit-run.sh not found' }
+  let helperAttempt: CommitRunAttempt | null = null
+  try {
+    helperAttempt = await execa('bash', [
+      script,
+      `Module resume checkpoint: ${ticker} ${module} ${path.posix.basename(normalizedRoot)}`,
+      '--',
+      ...pathspecs,
+    ], { cwd: REPO_ROOT, timeout: MODULE_RESUME_PUBLISH_TIMEOUT_MS, reject: false })
+    if (helperAttempt.exitCode !== 0) {
+      throw Object.assign(new Error('commit-run checkpoint failed'), { helperAttempt })
+    }
+    if (!await ensureModuleResumeCheckpointPublished(script, pathspecs, helperAttempt)) {
+      return { ok: false, error: 'checkpoint paths are not published on origin/main' }
+    }
+    return { ok: true, paths: pathspecs }
+  } catch (e: any) {
+    // commit-run can create the exact local commit and then lose its push/rebase race (exit 4). Its emitted
+    // SHA plus the current path proof authorize one retry. Failures before commit emit no receipt, so the
+    // unrelated current HEAD is never used. ENGINE_NO_PUSH remains fail-closed inside ensure().
+    helperAttempt ??= (e?.helperAttempt || e) as CommitRunAttempt
+    if (await ensureModuleResumeCheckpointPublished(script, pathspecs, helperAttempt)) {
+      return { ok: true, paths: pathspecs }
+    }
+    return { ok: false, error: String(e?.stderr || e?.message || e).slice(0, 400) }
+  }
+}
+
+// Retry ONLY the terminal Git publication of a completed exact module. This endpoint has no CLI probe,
+// no launch() call and no model arguments: the durable marker is both the authority and the exact byte receipt.
+app.post('/api/thesis-plan/module/publish', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  const parsed = ThesisPlanModulePublishBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const { ticker, swarm, module, targetRunRoot, expectedFingerprint } = parsed.data
+  if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  if (swarm !== RESEARCH_SWARM_ID) return reply.code(400).send({ error: 'publication retry is research-only', code: 'swarm_unsupported' })
+  // Unlike a paid launch, recovery authority comes from the durable byte receipt, not current data-pool
+  // membership. A Drive/data-folder outage or rename after the completed run must not strand its publication.
+  if (isReservedDataFolder(ticker)) return reply.code(400).send({ error: `unknown ticker ${ticker}` })
+  if (graphForTicker(ticker).modules.find((candidate) => candidate.name === module)?.exactResume !== true) {
+    return reply.code(400).send({ error: `unknown exact module ${module}`, code: 'unknown_module' })
+  }
+
+  try {
+    return await withSubjectLock(subjectMutationLockKey(RESEARCH_SWARM_ID, ticker), async () => {
+      if (subjectChainActive(ticker, RESEARCH_SWARM_ID)) {
+        return reply.code(409).send({ error: `A full analysis is already running on ${ticker}. Let it finish (or stop it) before retrying publication.`, code: 'subject_busy' })
+      }
+      // The route mutex covers cockpit requests; this lease also blocks internal supervisor launches.
+      // Acquire before the busy check so check-and-claim is one synchronous boundary.
+      const releasePublication = acquireModulePublicationLease(ticker)
+      if (!releasePublication) {
+        return reply.code(409).send({ error: 'This module is already being published.', code: 'subject_busy' })
+      }
+      try {
+        reapDeadSubjectRuns(ticker, RESEARCH_SWARM_ID)
+        const busy = listRuns().some((run) => (run.swarmId || RESEARCH_SWARM_ID) === RESEARCH_SWARM_ID
+          && run.subjectId === ticker && (IN_FLIGHT_STATUSES.has(run.status) || run.endedAt === undefined))
+        if (busy) {
+          return reply.code(409).send({
+            error: `A run is already in flight on ${ticker}. Let it finish before retrying publication.`,
+            code: 'subject_busy',
+          })
+        }
+
+        const marker = readPendingModulePublication(ticker, module)
+        if (!marker) {
+          return reply.code(409).send({
+            error: 'There is no saved publication retry for this module. Refresh its current status.',
+            code: 'no_publication_pending',
+          })
+        }
+        if (marker.targetRunRoot !== targetRunRoot || marker.fingerprint !== expectedFingerprint) {
+          return reply.code(409).send({
+            error: 'The saved publication receipt changed. Refresh before retrying.',
+            code: 'module_publication_changed',
+          })
+        }
+        const before = captureCompletedModuleFingerprint(ticker, module, targetRunRoot)
+        if (before !== expectedFingerprint) {
+          return reply.code(409).send({
+            error: 'The completed module files changed after the failed publication. They were not published.',
+            code: 'module_publication_changed',
+          })
+        }
+
+        const publication = await publishModuleResumeCheckpoint(ticker, targetRunRoot, module, [])
+        if (!publication.ok) {
+          console.error(`[module-publish-retry] could not publish ${ticker}/${module}: ${publication.error}`)
+          return reply.code(500).send({
+            error: 'The completed module is still saved locally, but it could not be published. Retry later.',
+            code: 'module_publish_failed',
+          })
+        }
+        const after = captureCompletedModuleFingerprint(ticker, module, targetRunRoot)
+        if (after !== expectedFingerprint) {
+          return reply.code(409).send({
+            error: 'The completed module files changed during publication. The retry receipt was kept.',
+            code: 'module_publication_changed',
+          })
+        }
+        if (!clearPendingModulePublication(ticker, module, targetRunRoot, expectedFingerprint)) {
+          return reply.code(500).send({
+            error: 'Publication succeeded, but its retry receipt could not be cleared safely. Retry once more.',
+            code: 'module_publish_marker_failed',
+          })
+        }
+        return { published: true as const }
+      } finally {
+        releasePublication()
+      }
+    })
+  } catch (e: any) {
+    if (e instanceof SubjectBusyError) {
+      return reply.code(409).send({
+        error: `Another completion request for ${ticker} is already in progress. Wait for it to finish before retrying publication.`,
+        code: 'subject_busy',
+      })
+    }
+    throw e
+  }
+})
+
 // Run ONE module of a completion plan (the RUN pill on a Run row), resuming from the orbs already on disk.
 // Same guard sequence and same subject lock as /run above — a pill click and a "Complete the thesis" click
 // must serialize, or two could carry into the same target root at once. `prepareModuleResume` carries the
@@ -2026,7 +2325,7 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
   const parsed = ThesisPlanModuleBody.safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
-  const { ticker, module, reuse, swarm } = parsed.data
+  const { ticker, module, reuse, swarm, expectedWillRun, expectedDoneOrbKeys, expectedTargetRunRoot, poolFiles, poolNewestMs } = parsed.data
   const { user, userVia } = identify(req)
   if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
   // Data-pool allow-list — `launch()` does not re-check it for a research `module` kind (route-enforced only).
@@ -2039,13 +2338,29 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
 
   try {
     return await withSubjectLock(subjectMutationLockKey(RESEARCH_SWARM_ID, ticker), async () => {
+      if (subjectChainActive(ticker, RESEARCH_SWARM_ID)) {
+        return reply.code(409).send({ error: `A full analysis is already running on ${ticker}. Let it finish (or stop it) before running a module.`, code: 'subject_busy' })
+      }
+      // Match launch()'s self-healing admission boundary. A child whose process died but whose close event was
+      // lost must not pin this scoped route forever; gate-paused/live runs remain untouched and still block.
+      reapDeadSubjectRuns(ticker, RESEARCH_SWARM_ID)
       const busy = listRuns().some((r) => (r.swarmId || RESEARCH_SWARM_ID) === RESEARCH_SWARM_ID
         && r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
       if (busy) return reply.code(409).send({ error: `A run is already in flight on ${ticker}. Let it finish (or stop it) before running a module.`, code: 'subject_busy' })
 
       // ONE snapshot decides everything: complete-check, runnability, blockedBy, and what gets carried.
-      const plan = thesisPlan(ticker, undefined, reuse)
-      if (plan.complete) return reply.code(409).send({ error: 'this run already has a final thesis', code: 'already_complete', path: plan.finalReportPath })
+      let plan = thesisPlan(ticker, undefined, reuse)
+      if (plan.targetRunRoot !== expectedTargetRunRoot) {
+        return reply.code(409).send({ error: 'The target analysis date changed while this module was being prepared. Check the updated scope and click again.', code: 'module_scope_changed' })
+      }
+      if (plan.dataPool.files !== poolFiles || plan.dataPool.newestMs !== poolNewestMs) {
+        return reply.code(409).send({ error: 'The data pool changed while this module was being prepared. Check the updated scope and click again.', code: 'module_scope_changed' })
+      }
+      // A final thesis seals today's research folder. Repairing a module inside it would make the module and
+      // headline call disagree, and launch() rejects sealed roots too. Fail before staging mutates anything.
+      if (plan.complete || isSealedResearchRun(plan.targetRunRoot)) {
+        return reply.code(409).send({ error: 'This call is already sealed. Start a new analysis version to refresh this module.', code: 'sealed_run', path: plan.finalReportPath })
+      }
 
       const allowed = new Set(plan.reusable)
       const bad = reuse.filter((m) => !allowed.has(m))
@@ -2053,6 +2368,39 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
 
       const entry = plan.modules.find((m) => m.module === module)
       if (!entry) return reply.code(400).send({ error: `unknown module ${module}`, code: 'unknown_module' })
+      // Exact paid-scope behavior is a self-declared module capability. Commands without `exact_resume: true`
+      // retain the established generic completion-panel resume path; they do not receive an immutable-root
+      // promise their prompt has not implemented.
+      const graphModule = graphForTicker(ticker).modules.find((m) => m.name === module)
+      const exactResume = graphModule?.exactResume === true
+      const exactArtifactScopeFor = (doneOrbKeys: string[]) => {
+        if (!exactResume) return null
+        const currentModule = graphForTicker(ticker).modules.find((m) => m.name === module)
+        if (!currentModule || currentModule.exactResume !== true) return null
+        const done = new Set(doneOrbKeys)
+        const agents = Object.values(currentModule.layers).flat()
+        return {
+          writableOrbs: agents
+            .filter((agent) => !agent.isSynthesis && !done.has(agent.key))
+            .map((agent) => agent.key.split('/').at(-1)!)
+            .sort(),
+          synthesisOrbs: agents
+            .filter((agent) => agent.isSynthesis)
+            .map((agent) => agent.key.split('/').at(-1)!)
+            .sort(),
+        }
+      }
+      const expectedDone = [...expectedDoneOrbKeys].sort()
+      const actualDone = [...entry.doneOrbKeys].sort()
+      const reviewedExactArtifacts = exactArtifactScopeFor(actualDone)
+      const exactScopeChanged = expectedDone.length !== actualDone.length
+        || expectedDone.some((key, i) => key !== actualDone[i])
+      const invalidExactArtifactScope = exactResume && (!reviewedExactArtifacts
+        || reviewedExactArtifacts.synthesisOrbs.length < 1
+        || reviewedExactArtifacts.writableOrbs.length + reviewedExactArtifacts.synthesisOrbs.length !== entry.willRunAgents)
+      if (entry.willRunAgents !== expectedWillRun || exactScopeChanged || invalidExactArtifactScope) {
+        return reply.code(409).send({ error: 'The unfinished-orb scope changed while this module was being prepared. Check the updated scope and click again.', code: 'module_scope_changed', willRun: entry.willRunAgents })
+      }
       // Only a module that will actually run can be launched here — a reused one has nothing to do, and its
       // launch would either no-op or, worse, re-run work the panel promised to keep.
       if (!plan.run.includes(module)) return reply.code(409).send({ error: `${module} is already finished or reused in this run — nothing to run.`, code: 'not_runnable' })
@@ -2063,6 +2411,64 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
         return reply.code(409).send({ error: `Run ${entry.blockedBy.map((m) => m.replace(/-/g, ' ')).join(', ')} first — ${module.replace(/-/g, ' ')} reads ${entry.blockedBy.length === 1 ? 'it' : 'them'}.`, code: 'upstream_incomplete', missing: entry.blockedBy })
       }
 
+      let expectedStagedFingerprint: string | null = null
+      let expectedAncestorModules: string[] = []
+      const readCurrentScope = () => {
+        try {
+          const current = thesisPlan(ticker, undefined, reuse)
+          const currentEntry = current.modules.find((m) => m.module === module)
+          const currentDone = [...(currentEntry?.doneOrbKeys ?? [])].sort()
+          const currentExactArtifacts = exactArtifactScopeFor(currentDone)
+          const exactArtifactsStillMatch = !exactResume || (!!currentExactArtifacts && !!reviewedExactArtifacts
+            && currentExactArtifacts.writableOrbs.join(',') === reviewedExactArtifacts.writableOrbs.join(',')
+            && currentExactArtifacts.synthesisOrbs.join(',') === reviewedExactArtifacts.synthesisOrbs.join(','))
+          const ok = !current.complete
+            && !isSealedResearchRun(current.targetRunRoot)
+            && current.targetRunRoot === expectedTargetRunRoot
+            && current.dataPool.files === poolFiles
+            && current.dataPool.newestMs === poolNewestMs
+            && !!currentEntry
+            && currentEntry.runnable
+            && currentEntry.blockedBy.length === 0
+            && current.run.includes(module)
+            && currentEntry.willRunAgents === expectedWillRun
+            && currentDone.length === expectedDone.length
+            && currentDone.every((key, i) => key === expectedDone[i])
+            && exactArtifactsStillMatch
+          return ok ? { ok: true as const, plan: current } : { ok: false as const }
+        } catch {
+          return { ok: false as const }
+        }
+      }
+      const moduleScopeGuard = () => {
+        const current = readCurrentScope()
+        const staged = expectedStagedFingerprint && current.ok
+          ? capturePreparedModuleResumeScope(
+              ticker, module, expectedTargetRunRoot, expectedDone, expectedAncestorModules,
+            )
+          : null
+        return current.ok && staged?.fingerprint === expectedStagedFingerprint
+          ? { ok: true as const }
+          : {
+            ok: false as const,
+            reason: 'module_scope_changed',
+            message: 'The unfinished-orb or data-pool scope changed before the engine started. Refresh and try again; no run was started.',
+          }
+      }
+
+      // Fail before staging or publishing anything. The launcher checks too, but that is intentionally after
+      // admission; this route mutates disk first and therefore needs the same executable proof up front.
+      try { await assertClaudeCli() } catch (e: any) {
+        return reply.code(e?.statusCode || 503).send({ error: e?.message || 'engine CLI unavailable', code: e?.code })
+      }
+      // The CLI probe can take seconds on a cold process. Rebuild the exact plan after that await and use THIS
+      // snapshot for staging, so data/orbs that changed during the probe can never ride a stale plan.
+      const scopeAfterCli = readCurrentScope()
+      if (!scopeAfterCli.ok) {
+        return reply.code(409).send({ error: 'The unfinished-orb scope changed while the engine was being checked. Refresh and try again; nothing was staged.', code: 'module_scope_changed' })
+      }
+      plan = scopeAfterCli.plan
+
       let prep
       try {
         prep = prepareModuleResume(ticker, module, undefined, plan)
@@ -2070,10 +2476,167 @@ app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow
         return reply.code(500).send({ error: `could not stage the module resume: ${e?.message || e}` })
       }
 
+      // Defense in depth at the paid boundary: staging may normalize/copy files, but it must never broaden the
+      // server plan the caller reviewed. A staging defect or filesystem race may leave a retryable folder, but
+      // it cannot start a differently-scoped engine run.
+      const preparedDone = [...prep.doneOrbKeys].sort()
+      const preparedScopeChanged = prep.willRunAgents !== expectedWillRun
+        || preparedDone.length !== expectedDone.length
+        || preparedDone.some((key, i) => key !== expectedDone[i])
+      const preparedExactArtifacts = exactArtifactScopeFor(preparedDone)
+      let exactLaunchArtifacts: { writableOrbs: string[]; synthesisOrbs: string[] } | undefined
+      if (exactResume) {
+        if (!preparedExactArtifacts || !reviewedExactArtifacts
+            || preparedExactArtifacts.writableOrbs.join(',') !== reviewedExactArtifacts.writableOrbs.join(',')
+            || preparedExactArtifacts.synthesisOrbs.join(',') !== reviewedExactArtifacts.synthesisOrbs.join(',')) {
+          return reply.code(409).send({ error: 'The staged unfinished-orb scope no longer matches the reviewed plan. Refresh and try again; no run was started.', code: 'module_scope_changed', willRun: prep.willRunAgents })
+        }
+        exactLaunchArtifacts = preparedExactArtifacts
+      }
+      if (preparedScopeChanged) {
+        return reply.code(409).send({ error: 'The staged unfinished-orb scope no longer matches the reviewed plan. Refresh and try again; no run was started.', code: 'module_scope_changed', willRun: prep.willRunAgents })
+      }
+      expectedAncestorModules = [...prep.reusedAncestorModules]
+      const preparedDiskScope = capturePreparedModuleResumeScope(
+        ticker, module, expectedTargetRunRoot, expectedDone, expectedAncestorModules,
+      )
+      if (!preparedDiskScope) {
+        return reply.code(409).send({ error: 'The staged files no longer match the reviewed unfinished-orb scope. Refresh and try again; no run was started.', code: 'module_scope_changed' })
+      }
+      expectedStagedFingerprint = preparedDiskScope.fingerprint
+
+      // Checkpoint every byte this route staged, plus every reused ancestor the paid module will read. The
+      // module command later commits only its own folder; without this awaited publication, carried ancestors
+      // stay dirty/local forever. Failure is terminal for this click: do not spend against unpublished inputs.
+      const publication = await publishModuleResumeCheckpoint(
+        ticker, plan.targetRunRoot, module, prep.reusedAncestorModules,
+      )
+      if (!publication.ok) {
+        console.error(`[module-resume] could not publish ${ticker}/${module} checkpoint: ${publication.error}`)
+        return reply.code(500).send({ error: 'The reused inputs could not be saved safely, so no analysis was started. Retry after checking git publication.', code: 'ancestor_publish_failed', carried: prep.carriedAncestors })
+      }
+
+      // commit-run.sh can wait/rebase for minutes. Re-read the exact pool + orb identities after that await,
+      // then bind the SAME check into launcher's final pre-execa boundary for readiness/buildArgs delays.
+      const scopeAfterPublish = moduleScopeGuard()
+      if (!scopeAfterPublish.ok) {
+        return reply.code(409).send({ error: scopeAfterPublish.message, code: scopeAfterPublish.reason })
+      }
+
+      // An exact standalone module is a deliberate scoped action, not permission to revive an older full
+      // run. Consume any stale `.interrupted` signal under the subject lock and replace it with the existing
+      // restart-safe `.aborted` supervisor policy BEFORE launch admission. A later explicit full launch clears
+      // that policy itself. If admission/pre-spawn fails before any paid child, the terminal callback restores
+      // the precise prior marker state; success, a paid-child failure, and Stop all keep the scoped pause.
+      let supervisorPause: ReturnType<typeof beginExactModuleSupervisorPause> | null = null
+      if (exactResume) {
+        try {
+          supervisorPause = beginExactModuleSupervisorPause(expectedTargetRunRoot, module)
+        } catch (e: any) {
+          return reply.code(500).send({
+            error: `The module was staged, but its automatic full-run resume could not be paused safely: ${e?.message || e}`,
+            code: 'module_resume_pause_failed',
+          })
+        }
+      }
+
+      let launchAcknowledged = false
+      let admittedRunId: string | null = null
+      let earlyTerminalStatus: RunStatus | null = null
+      const settleSupervisorPause = (status: RunStatus) => {
+        if (!supervisorPause) return
+        const paidChildStarted = !!(admittedRunId && getRun(admittedRunId)?.child)
+        settleExactModuleSupervisorPause(supervisorPause, status, paidChildStarted)
+      }
+      const exactOnTerminal = exactResume
+        ? (status: RunStatus) => {
+            if (!launchAcknowledged) {
+              earlyTerminalStatus = status
+              return
+            }
+            settleSupervisorPause(status)
+          }
+        : undefined
+
       try {
-        const out = await launch({ kind: 'module', ticker, module, user, userVia })
+        // An exact-capable command binds the reviewed graph scope through the paid boundary. It also suppresses
+        // the ordinary optional module-memo writer after 99; generic module-plan resumes keep their legacy mode.
+        const terminalGuard = exactResume
+          ? async () => {
+              const fingerprint = captureCompletedModuleFingerprint(
+                ticker, module, expectedTargetRunRoot,
+              )
+              if (!fingerprint) {
+                return {
+                  ok: false as const,
+                  reason: 'module_output_changed',
+                  message: 'The checks ended, but the completed module bytes could not be verified. Refresh before trying again.',
+                }
+              }
+              // Write the recovery receipt BEFORE Git starts. If the server restarts or publication fails,
+              // the next click can publish these exact completed bytes without launching another LLM task.
+              try {
+                writePendingModulePublication({
+                  ticker, module, targetRunRoot: expectedTargetRunRoot, fingerprint,
+                })
+              } catch {
+                return {
+                  ok: false as const,
+                  reason: 'module_publish_marker_failed',
+                  message: 'The checks finished, but a safe publication retry could not be recorded. The saved work remains on disk.',
+                }
+              }
+              const completed = await publishModuleResumeCheckpoint(ticker, expectedTargetRunRoot, module, [])
+              const unchanged = captureCompletedModuleFingerprint(
+                ticker, module, expectedTargetRunRoot,
+              ) === fingerprint
+              if (completed.ok && unchanged
+                  && clearPendingModulePublication(ticker, module, expectedTargetRunRoot, fingerprint)) {
+                return { ok: true as const }
+              }
+              return {
+                ok: false as const,
+                reason: 'module_publish_failed',
+                message: 'The checks finished, but their module folder could not be verified on origin/main. The saved work remains on disk; click the module heading to retry saving it without rerunning the checks.',
+              }
+            }
+          : undefined
+        const out = await launch({
+          kind: 'module', ticker, module, user, userVia,
+          deferModuleMemo: exactResume,
+          exactModuleResume: exactResume,
+          exactModuleInputs: exactResume ? prep.reusedAncestorModules : undefined,
+          exactModuleRunRoot: exactResume ? expectedTargetRunRoot : undefined,
+          exactModuleWritableOrbs: exactLaunchArtifacts?.writableOrbs,
+          exactModuleSynthesisOrbs: exactLaunchArtifacts?.synthesisOrbs,
+          preSpawnGuard: exactResume ? moduleScopeGuard : undefined,
+          terminalGuard,
+          onTerminal: exactOnTerminal,
+        })
+        admittedRunId = out.runId
+        launchAcknowledged = true
+        if (earlyTerminalStatus) settleSupervisorPause(earlyTerminalStatus)
+        // launch() seeds the whole discovered module as queued before it early-acks. Reused specialists are
+        // already complete on disk, so correct the registry snapshot before this response lets the client
+        // subscribe; reconnects and Activity then keep the same done/queued split as the initial click.
+        const active = getRun(out.runId)
+        if (active) {
+          for (const key of prep.doneOrbKeys) {
+            const agent = active.agents.get(key)
+            if (agent) {
+              agent.status = 'done'
+              agent.outputPath = `${plan.targetRunRoot}/${key}.md`
+            }
+          }
+        }
         return { ...out, module, willRun: prep.willRunAgents, doneOrbKeys: prep.doneOrbKeys, carried: prep.carriedAncestors, resumed: Boolean(prep.resumedFrom), ranClean: prep.discardedStaleOrbs }
       } catch (e: any) {
+        // No registered run means no terminal callback can restore the prior supervisor policy. Once launch
+        // has ACKed, retain the pause conservatively; its own terminal callback owns any pre-paid rollback.
+        if (supervisorPause) {
+          if (launchAcknowledged) supervisorPause.keep()
+          else supervisorPause.rollback()
+        }
         // Same honesty note as /run: the carry already landed, sources are untouched, a retry resumes, and the
         // run root now exists so the subject reads as resumable.
         const body = e?.body && typeof e.body === 'object' ? e.body : null

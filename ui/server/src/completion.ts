@@ -34,6 +34,7 @@
 // swarm has dated run folders, so only it can carry forward; a constellation swarm keeps one stable
 // folder per subject, where "reuse" is already the natural behaviour and the carry set is always empty.
 
+import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { ANALYSES_DIR, DATA_DIR, REPO_ROOT } from './config'
@@ -42,7 +43,8 @@ import { runManifest } from './outputs'
 import { buildSwarmGraph, findRunRootForSubject, moduleAncestors, terminalModuleName, transitiveDownstreamModules } from './roster'
 import { resolveInsideAnalyses, resolveInsideRuns, safeSubjectSegment } from './sandbox'
 import { RESEARCH_SWARM_ID, runRootForSubject, swarmById } from './swarms'
-import type { LaunchPreflight } from './types'
+import type { LaunchPreflight, ModuleNode } from './types'
+import { validateAgentOutputFile } from '../../../scripts/agent-output-validity.mjs'
 
 /** How a module stands relative to a thesis that still needs to be produced. */
 export type ModuleState =
@@ -54,6 +56,9 @@ export type ModuleState =
 export interface ModulePlanEntry {
   module: string
   state: ModuleState
+  /** A clean exact-module run finished locally but its final module checkpoint did not reach origin/main.
+   *  The UI may offer only the content-bound publish retry; it must not launch or pay for the module again. */
+  publicationPending?: { targetRunRoot: string; fingerprint: string }
   /** the run this module's evidence truly dates to — read from the carry stamp when the newest
    *  candidate is itself a carried-forward copy, so vintage is never laundered into a copy's date.
    *  Provenance/display only — NOT necessarily a folder that still exists (see `copyFromRunRoot`). */
@@ -69,6 +74,9 @@ export interface ModulePlanEntry {
   /** orbs on disk that the module pipeline will actually REUSE — counted with `validAgentOutputs`, not by
    *  filename, so an empty or header-less file (which Step 4A re-dispatches) is never counted as finished. */
   doneAgents: number
+  /** Exact reusable specialist identities for the module-resume CAS. Counts alone are insufficient: one orb
+   *  can finish while another disappears and leave the same number behind. Stale/clean runs expose none. */
+  doneOrbKeys: string[]
   totalAgents: number
   /** plain-English reason this module's evidence predates the data pool. Populated for `stale` (a finished
    *  module) AND for `partial` (its unfinished orbs) — in both cases it means "do not reuse this, run it". */
@@ -81,9 +89,18 @@ export interface ModulePlanEntry {
   /** orbs that would actually execute if this module ran now — `totalAgents` minus the orbs a resume would
    *  reuse. Equals `totalAgents` for a missing module and for a stale partial (whose orbs are discarded). */
   willRunAgents: number
+  /** A synthesis exists, but it predates the current discovered roster and therefore omits one or more
+   *  current specialist orbs. The old synthesis must be removed and regenerated after those gaps run. */
+  synthesisNeedsRefresh?: boolean
+  /** Candidate run roots whose current, non-stale specialist files form this partial resume. Newest first;
+   *  `copyFromRunRoot` is the base tree and these roots overlay its reusable specialists per filename. */
+  resumeFromRunRoots?: string[]
 }
 
 export interface ThesisPlan {
+  /** Additive contract gate for the one-click roster-gap resume path. Older servers omit it, so a newer UI
+   *  can fail closed instead of turning "finish empty orbs" into a whole-module rerun during rolling deploy. */
+  moduleResumeVersion: 2
   swarm: string
   subject: string
   /** the run root a completion would write into */
@@ -110,7 +127,7 @@ export interface ThesisPlan {
    *  they can differ when the newest candidate is itself an intermediate carried-forward copy. */
   carry: { module: string; from: string; date: string | null; copyFrom: string }[]
   master: { state: 'ready' | 'blocked' | 'done'; blockedBy: string[] }
-  dataPool: { files: number; newestDate: string | null }
+  dataPool: { files: number; newestDate: string | null; newestMs: number }
   /** cost/time of running ONLY the remaining work (what the Run button commits to) */
   preflight: LaunchPreflight
   /** cost/time of the naive full re-run the user would otherwise pay — the savings, made visible */
@@ -125,43 +142,222 @@ export function todayDate(now: Date = new Date()): string {
   return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
 }
 
-/** A module folder "finished" iff it holds a non-empty `99_*-synthesis.md` — the same test the resume
- *  seeding, the screener board, and `/research:full` step 8 all use. Never keyed on a module name. */
-function hasSynthesis(moduleDirAbs: string): boolean {
+interface SynthesisOnDisk { file: string; mtimeMs: number }
+
+/** A module folder is current only when the CURRENT discovered synthesis filename passes the shared
+ *  mechanical validator. A truncated or legacy `99_old-synthesis.md` must not look complete forever. */
+function currentSynthesis(module: ModuleNode, moduleDirAbs: string): SynthesisOnDisk | null {
   let entries: string[]
   try {
+    const dir = fs.lstatSync(moduleDirAbs)
+    if (!dir.isDirectory() || dir.isSymbolicLink()) return null
     entries = fs.readdirSync(moduleDirAbs)
   } catch {
-    return false
+    return null
   }
-  return entries.some((f) => {
-    if (!/^99_.*-synthesis\.md$/.test(f)) return false
+  const expected = synthesisOutputFiles(module)
+  for (const file of entries) {
+    if (!expected.has(file)) continue
     try {
-      return fs.statSync(path.join(moduleDirAbs, f)).size > 0
+      const st = fs.lstatSync(path.join(moduleDirAbs, file))
+      if (st.isFile() && !st.isSymbolicLink()
+          && validateAgentOutputFile(path.join(moduleDirAbs, file)).valid) {
+        return { file, mtimeMs: st.mtimeMs }
+      }
     } catch {
-      return false
+      /* keep looking if a multi-synthesis module ever declares another current output */
     }
-  })
+  }
+  return null
 }
 
-function countAgentOutputs(moduleDirAbs: string): number {
-  return validAgentOutputs(moduleDirAbs).length
+function hasSynthesis(module: ModuleNode, moduleDirAbs: string): boolean {
+  return currentSynthesis(module, moduleDirAbs) !== null
+}
+
+/** Generic legacy/obsolete synthesis detector, used only to force cleanup and a fresh current synthesis. */
+function hasAnySynthesis(moduleDirAbs: string): boolean {
+  try {
+    const dir = fs.lstatSync(moduleDirAbs)
+    if (!dir.isDirectory() || dir.isSymbolicLink()) return false
+    return fs.readdirSync(moduleDirAbs).some((file) => {
+      if (!/^99_.*\.md$/.test(file)) return false
+      try {
+        const st = fs.lstatSync(path.join(moduleDirAbs, file))
+        return st.isFile() && !st.isSymbolicLink() && st.size > 0
+      } catch { return false }
+    })
+  } catch { return false }
+}
+
+function specialistOutputFiles(module: ModuleNode): Set<string> {
+  return new Set(
+    Object.values(module.layers)
+      .flat()
+      .filter((agent) => !agent.isSynthesis)
+      .map((agent) => `${agent.key.split('/').at(-1)}.md`),
+  )
+}
+
+function synthesisOutputFiles(module: ModuleNode): Set<string> {
+  return new Set(
+    Object.values(module.layers)
+      .flat()
+      .filter((agent) => agent.isSynthesis)
+      .map((agent) => `${agent.key.split('/').at(-1)}.md`),
+  )
+}
+
+function orbKeys(module: string, files: Iterable<string>): string[] {
+  return [...files].sort().map((file) => `${module}/${file.replace(/\.md$/, '')}`)
+}
+
+function modulePromptDir(module: ModuleNode, swarmId: string): string | null {
+  if (module.moduleDir) return path.join(REPO_ROOT, module.moduleDir)
+  const swarm = swarmById(swarmId)
+  return swarm ? path.join(swarm.dir, module.name) : null
+}
+
+function mentionsExactOutputFile(text: string, file: string): boolean {
+  const escaped = file.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  // Prompt lines may qualify an input with a directory, quotes, or backticks. Match those, but never a
+  // longer filename such as 101_foo.md or 01_foo.md-backup: either false positive would make the planner
+  // discard and repay a specialist that has no actual dependency on the changed orb.
+  return new RegExp(`(^|[^A-Za-z0-9_.-])${escaped}(?![A-Za-z0-9_-]|\\.[A-Za-z0-9_-])`).test(text)
+}
+
+/** Read the module-local filenames explicitly named on an agent's `UPSTREAM_INPUTS` line. This keeps roster
+ *  growth zero-touch: when a new specialist becomes an input to an older specialist, the older saved output
+ *  is not reused before it has had a chance to read the new work. Cross-module inputs are intentionally cut
+ *  off at their labelled clause; those are handled by module dependencies/carrying instead. */
+function specialistDependencies(module: ModuleNode, swarmId: string): Map<string, Set<string>> {
+  const expected = specialistOutputFiles(module)
+  const out = new Map<string, Set<string>>()
+  const promptDir = modulePromptDir(module, swarmId)
+  if (!promptDir) return out
+  for (const agent of Object.values(module.layers).flat().filter((node) => !node.isSynthesis)) {
+    const basename = `${agent.key.split('/').at(-1)}.md`
+    let body = ''
+    try { body = fs.readFileSync(path.join(promptDir, basename), 'utf8') } catch { continue }
+    const line = body.split(/\r?\n/).find((candidate) => candidate.includes('UPSTREAM_INPUTS'))
+    if (!line) continue
+    const local = line.split(/Optionally cross-module|Cross-module:/i, 1)[0]
+    if (/none(?: required)? in-module/i.test(local)) continue
+    const deps = new Set([...expected].filter((file) => file !== basename && mentionsExactOutputFile(local, file)))
+    if (deps.size) out.set(basename, deps)
+  }
+  return out
+}
+
+interface SpecialistFact {
+  file: string
+  abs: string
+  mtimeMs: number
+  runRoot?: string
+  sourceDate?: string
+}
+
+/** Current-roster specialist files that can safely coexist. Dependency freshness is evaluated on the
+ *  selected file facts rather than one directory, so a manually-run new orb can first be merged with its
+ *  older prerequisites and only then invalidate saved dependents that predate it. */
+function reusableSpecialistFacts(module: ModuleNode, facts: Map<string, SpecialistFact>, swarmId: string): SpecialistFact[] {
+  const expected = specialistOutputFiles(module)
+  const reusable = new Set([...facts.keys()].filter((file) => expected.has(file)))
+  const needsRun = new Set([...expected].filter((file) => !reusable.has(file)))
+  const dependencies = specialistDependencies(module, swarmId)
+  let changed = true
+  while (changed) {
+    changed = false
+    for (const [file, deps] of dependencies) {
+      if (!reusable.has(file)) continue
+      const fileFact = facts.get(file)
+      const invalidInput = [...deps].some((dep) => {
+        if (needsRun.has(dep)) return true
+        if (!reusable.has(dep)) return false
+        const depFact = facts.get(dep)
+        if (!fileFact || !depFact) return true
+
+        // Git checkouts do not preserve mtimes. Across dated run folders, the provenance date is the
+        // durable ordering authority: a dependency from a later research vintage invalidates an older
+        // dependent even when the older file happens to have a newer checkout timestamp. Only compare
+        // mtimes once the facts are proven to share a vintage (or are local facts from one directory).
+        if (fileFact.sourceDate && depFact.sourceDate && fileFact.sourceDate !== depFact.sourceDate) {
+          return depFact.sourceDate > fileFact.sourceDate
+        }
+        const sameRoot = fileFact.runRoot === depFact.runRoot
+        const sameVintage = Boolean(fileFact.sourceDate && fileFact.sourceDate === depFact.sourceDate)
+        if (!sameRoot && !sameVintage) return true // cross-folder ordering is unproven: fail closed
+        return depFact.mtimeMs > fileFact.mtimeMs
+      })
+      if (!invalidInput) continue
+      reusable.delete(file)
+      needsRun.add(file)
+      changed = true
+    }
+  }
+  return [...reusable].sort().map((file) => facts.get(file)!).filter(Boolean)
+}
+
+function specialistFactsInDir(module: ModuleNode, moduleDirAbs: string): Map<string, SpecialistFact> {
+  const out = new Map<string, SpecialistFact>()
+  for (const file of validAgentOutputs(moduleDirAbs, specialistOutputFiles(module))) {
+    const abs = path.join(moduleDirAbs, file)
+    try {
+      const st = fs.lstatSync(abs)
+      if (st.isFile() && !st.isSymbolicLink()) out.set(file, { file, abs, mtimeMs: st.mtimeMs })
+    } catch { /* raced/vanished — not reusable */ }
+  }
+  return out
+}
+
+/** Valid specialist outputs that can safely be reused together from one module folder. */
+function reusableSpecialistOutputs(module: ModuleNode, moduleDirAbs: string, swarmId: string): string[] {
+  return reusableSpecialistFacts(module, specialistFactsInDir(module, moduleDirAbs), swarmId).map((fact) => fact.file)
+}
+
+/** An existing synthesis is structurally old when today's discovered roster differs from the numbered
+ *  specialist files it summarized, or a selected specialist is newer. Dated provenance is authoritative
+ *  across run folders; mtime is used only within one proven vintage/root. */
+function synthesisNeedsRefresh(
+  module: ModuleNode,
+  moduleDirAbs: string,
+  swarmId: string,
+  selectedFacts?: SpecialistFact[],
+  synthesisProvenance?: { runRoot: string; sourceDate?: string },
+): boolean {
+  const expected = specialistOutputFiles(module)
+  let entries: string[]
+  try { entries = fs.readdirSync(moduleDirAbs) } catch { return false }
+  const synthesis = currentSynthesis(module, moduleDirAbs)
+  if (!synthesis) return hasAnySynthesis(moduleDirAbs)
+
+  const local = reusableSpecialistFacts(module, specialistFactsInDir(module, moduleDirAbs), swarmId)
+  // A 99 can only have read specialists staged beside it. A matching file in some other run folder may be
+  // useful to the new resume, but it cannot retroactively make this historical synthesis structurally whole.
+  if (local.length < expected.size) return true
+  const valid = selectedFacts ?? local
+  if (valid.length < expected.size) return true
+  if (entries.some((file) => /^[0-9]{2}_.*\.md$/.test(file) && !/^99_/.test(file) && !expected.has(file))) return true
+
+  return valid.some((fact) => {
+    if (fact.sourceDate && synthesisProvenance?.sourceDate
+      && fact.sourceDate !== synthesisProvenance.sourceDate) {
+      return fact.sourceDate > synthesisProvenance.sourceDate
+    }
+    const sameRoot = !fact.runRoot || fact.runRoot === synthesisProvenance?.runRoot
+    const sameVintage = Boolean(fact.sourceDate && fact.sourceDate === synthesisProvenance?.sourceDate)
+    if (!sameRoot && !sameVintage) return true // cross-folder ordering is unproven: refresh safely
+    return fact.mtimeMs > synthesis.mtimeMs
+  })
 }
 
 /** The orb outputs a resume will genuinely REUSE, newest-name-first-sorted, as `NN_slug.md` basenames.
  *
- *  Keyed on the same test the module pipeline itself applies before deciding to skip an agent
- *  (`frameworks/MODULE_PIPELINE.md` Step 4A): the file must exist, be non-empty, and start with a
- *  top-level `#` header. A filename-only count is an OVER-count — an empty or truncated `03_*.md` reads as
- *  "finished" here while Step 4A re-dispatches it, so the panel would promise "8 orbs run" and 9 would run.
- *  That is precisely the class of lie this whole module exists to prevent, so the count and the pipeline's
- *  skip test have to be the same test.
- *
- *  The pipeline additionally rejects a file truncated mid-section or inside an unclosed code fence. We do
- *  not replicate that here: it is a judgment the dispatching model makes on the file's prose, and guessing
- *  at it would UNDER-count (promising to re-run an orb the pipeline then skips). Under-counting is the safe
- *  direction — the header check catches the mechanical failures (empty / preamble-first) that actually occur. */
-function validAgentOutputs(moduleDirAbs: string): string[] {
+ *  Keyed on the SAME deterministic validator MODULE_PIPELINE invokes before deciding to skip an agent.
+ *  A filename/header-only count overstates reusable work when a file has an unclosed fence or a trailing
+ *  chat-confirmation block: the server would promise 8 executions while the child re-dispatches a ninth.
+ *  Prose quality remains a synthesis judgment; it is never a hidden post-approval reason to widen scope. */
+function validAgentOutputs(moduleDirAbs: string, expected?: Set<string>): string[] {
   let entries: string[]
   try {
     entries = fs.readdirSync(moduleDirAbs)
@@ -169,11 +365,12 @@ function validAgentOutputs(moduleDirAbs: string): string[] {
     return []
   }
   return entries
-    .filter((f) => /^[0-9]{2}_.*\.md$/.test(f) && !/^99_/.test(f))
+    .filter((f) => /^[0-9]{2}_.*\.md$/.test(f) && !/^99_/.test(f) && (!expected || expected.has(f)))
     .filter((f) => {
       try {
-        const body = fs.readFileSync(path.join(moduleDirAbs, f), 'utf8')
-        return body.trimStart().startsWith('#')
+        const st = fs.lstatSync(path.join(moduleDirAbs, f))
+        if (!st.isFile() || st.isSymbolicLink()) return false
+        return validateAgentOutputFile(path.join(moduleDirAbs, f)).valid
       } catch {
         return false
       }
@@ -224,32 +421,91 @@ function resumedVintage(moduleDirAbs: string): { from: string; date: string } | 
   }
 }
 
+interface RunFolderCandidate { runRoot: string; date: string }
+
+/** A real directory whose own entry and resolved target stay below analyses/. Checking the final module path
+ *  is not enough: `lstat(analyses/TICKER_DATE/module)` follows a symlink in the dated parent component. */
+function realDirectoryInsideAnalyses(abs: string): boolean {
+  try {
+    const st = fs.lstatSync(abs)
+    if (!st.isDirectory() || st.isSymbolicLink()) return false
+    const analyses = fs.realpathSync(ANALYSES_DIR)
+    const real = fs.realpathSync(abs)
+    return real.startsWith(analyses + path.sep)
+  } catch { return false }
+}
+
+function assertRealRunRootInsideAnalyses(runRoot: string): string {
+  const abs = path.join(REPO_ROOT, runRoot)
+  if (!realDirectoryInsideAnalyses(abs)) throw new Error(`run root is not a contained real directory: ${runRoot}`)
+  return abs
+}
+
+/** Validate a module folder again at mutation time. Planning already rejects symlinked candidates, but a
+ *  precomputed plan can outlive the directory entry it inspected. Never let a later copy/delete follow a
+ *  swapped run-root or module symlink. */
+function assertContainedModuleDir(runRoot: string, module: string): string {
+  const runAbs = assertRealRunRootInsideAnalyses(runRoot)
+  const moduleAbs = path.join(runAbs, module)
+  const st = fs.lstatSync(moduleAbs)
+  if (!st.isDirectory() || st.isSymbolicLink()) throw new Error(`module folder is not a real directory: ${runRoot}/${module}`)
+  const runReal = fs.realpathSync(runAbs)
+  const moduleReal = fs.realpathSync(moduleAbs)
+  if (!moduleReal.startsWith(runReal + path.sep)) throw new Error(`module folder escapes its run root: ${runRoot}/${module}`)
+  return moduleAbs
+}
+
+/** Create a missing target root, but reject an existing symlink even when it resolves back inside analyses.
+ *  The root is the unit later removed/replaced, so accepting an alias makes the destructive target ambiguous. */
+function ensureRealTargetRunRoot(runRoot: string): string {
+  const abs = path.join(REPO_ROOT, runRoot)
+  if (fs.existsSync(abs)) return assertRealRunRootInsideAnalyses(runRoot)
+  fs.mkdirSync(abs, { recursive: true })
+  return assertRealRunRootInsideAnalyses(runRoot)
+}
+
+function assertContainedTargetModuleOrMissing(runRoot: string, module: string): string {
+  const runAbs = assertRealRunRootInsideAnalyses(runRoot)
+  const moduleAbs = path.join(runAbs, module)
+  if (!fs.existsSync(moduleAbs)) return moduleAbs
+  return assertContainedModuleDir(runRoot, module)
+}
+
 /** Every dated run folder for `ticker`, newest date first. Read ONCE per plan: `GET /api/thesis-plan` fires
  *  on every checkbox toggle, and a per-module `readdirSync(ANALYSES_DIR)` would re-scan a directory that grows
  *  one folder per subject per run — N blocking directory reads per click, on the same event loop that is
  *  pushing the run's SSE stream. */
-function datedRunFoldersFor(ticker: string): { runRoot: string; date: string }[] {
-  let entries: string[]
+function datedRunFoldersFor(ticker: string): RunFolderCandidate[] {
+  let entries: fs.Dirent[]
   try {
-    entries = fs.readdirSync(ANALYSES_DIR)
+    entries = fs.readdirSync(ANALYSES_DIR, { withFileTypes: true })
   } catch {
     return []
   }
-  const out: { runRoot: string; date: string }[] = []
+  const out: RunFolderCandidate[] = []
   for (const entry of entries) {
-    const m = DATE_SUFFIX.exec(entry)
+    if (!entry.isDirectory() || entry.isSymbolicLink()) continue
+    const m = DATE_SUFFIX.exec(entry.name)
     // `m.index` is the offset of the `_`, so "AMZNX_2026-01-01" yields "AMZNX" and never matches "AMZN".
-    if (!m || entry.slice(0, m.index) !== ticker) continue
-    out.push({ runRoot: `analyses/${entry}`, date: m[1] })
+    if (!m || entry.name.slice(0, m.index) !== ticker) continue
+    const runRoot = `analyses/${entry.name}`
+    if (!realDirectoryInsideAnalyses(path.join(REPO_ROOT, runRoot))) continue
+    out.push({ runRoot, date: m[1] })
   }
   return out.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
 }
 
 /** The folders (newest first) that actually contain `module`. */
-function foldersWithModule(folders: { runRoot: string; date: string }[], module: string): { runRoot: string; date: string }[] {
+function foldersWithModule(folders: RunFolderCandidate[], module: string): RunFolderCandidate[] {
   return folders.filter((f) => {
     try {
-      return fs.statSync(path.join(REPO_ROOT, f.runRoot, module)).isDirectory()
+      const runAbs = assertRealRunRootInsideAnalyses(f.runRoot)
+      const moduleAbs = path.join(runAbs, module)
+      const st = fs.lstatSync(moduleAbs)
+      if (!st.isDirectory() || st.isSymbolicLink()) return false
+      const runReal = fs.realpathSync(runAbs)
+      const moduleReal = fs.realpathSync(moduleAbs)
+      return moduleReal.startsWith(runReal + path.sep)
     } catch {
       return false
     }
@@ -278,6 +534,10 @@ export function dataPoolNewest(ticker: string, dataDir: string = DATA_DIR): { fi
     } catch {
       return
     }
+    // The launcher writes memos/dossiers back into the company's Drive folder and marks their immediate
+    // parent with this sentinel. They are engine output, not evidence; counting them makes yesterday's own
+    // memo look like a new filing and needlessly turns a safe gap resume into a clean, paid rerun.
+    const isOutputDir = fs.existsSync(path.join(dir, '.nostradamus_output'))
     for (const e of entries) {
       if (e.name.startsWith('.')) continue
       const p = path.join(dir, e.name)
@@ -286,6 +546,7 @@ export function dataPoolNewest(ticker: string, dataDir: string = DATA_DIR): { fi
         continue
       }
       if (!e.isFile()) continue
+      if (isOutputDir) continue
       files++
       try {
         const st = fs.statSync(p)
@@ -322,6 +583,76 @@ function stalenessOf(sourceDate: string | undefined, newestDate: string | null):
   return `ran ${sourceDate}; the data pool gained a file on ${newestDate} that this module never read`
 }
 
+interface CandidateVintage { sourceRunRoot: string; sourceDate?: string }
+
+/** Vintage of specialist work in one candidate. A completed current synthesis dates to its physical run
+ *  (unless it is a whole-module carry); a still-partial resume keeps the older `RESUMED_FROM` floor. */
+function candidateVintage(module: ModuleNode, candidate: RunFolderCandidate): CandidateVintage {
+  const dir = path.join(REPO_ROOT, candidate.runRoot, module.name)
+  const carried = carriedVintage(dir)
+  if (carried) return { sourceRunRoot: carried.from, sourceDate: carried.date }
+  if (!hasSynthesis(module, dir)) {
+    const resumed = resumedVintage(dir)
+    if (resumed) return { sourceRunRoot: resumed.from, sourceDate: resumed.date }
+  }
+  return { sourceRunRoot: candidate.runRoot, sourceDate: candidate.date || undefined }
+}
+
+interface MergedSpecialists {
+  facts: SpecialistFact[]
+  /** every non-stale candidate that supplied at least one selected reusable specialist, newest first */
+  runRoots: string[]
+  /** conservative provenance floor for a mixed resume */
+  sourceRunRoot?: string
+  sourceDate?: string
+}
+
+/** Merge first, validate dependencies second. Selecting within each folder first would reject a manually-run
+ *  new 07 solely because its older 00 prerequisite lives one run folder back — exactly the progress-loss bug
+ *  this path exists to avoid. Candidates arrive newest first, so the first valid copy of each orb wins. */
+function mergedSpecialists(
+  module: ModuleNode,
+  candidates: RunFolderCandidate[],
+  swarmId: string,
+  poolNewestDate: string | null,
+): MergedSpecialists {
+  const selected = new Map<string, SpecialistFact>()
+  const candidateByRoot = new Map(candidates.map((candidate) => [candidate.runRoot, candidate]))
+  for (const candidate of candidates) {
+    const vintage = candidateVintage(module, candidate)
+    if (stalenessOf(vintage.sourceDate, poolNewestDate)) continue
+    const dir = path.join(REPO_ROOT, candidate.runRoot, module.name)
+    for (const fact of specialistFactsInDir(module, dir).values()) {
+      if (selected.has(fact.file)) continue
+      selected.set(fact.file, { ...fact, runRoot: candidate.runRoot, sourceDate: vintage.sourceDate })
+    }
+  }
+
+  const facts = reusableSpecialistFacts(module, selected, swarmId)
+  const used = new Set(facts.map((fact) => fact.runRoot).filter((root): root is string => Boolean(root)))
+  const runRoots = candidates.map((candidate) => candidate.runRoot).filter((root) => used.has(root))
+  let oldest: SpecialistFact | undefined
+  for (const fact of facts) {
+    if (!oldest || (fact.sourceDate && (!oldest.sourceDate || fact.sourceDate < oldest.sourceDate))) oldest = fact
+  }
+  const oldestCandidate = oldest?.runRoot ? candidateByRoot.get(oldest.runRoot) : undefined
+  const oldestVintage = oldestCandidate ? candidateVintage(module, oldestCandidate) : undefined
+  return {
+    facts,
+    runRoots,
+    sourceRunRoot: oldestVintage?.sourceRunRoot,
+    sourceDate: oldestVintage?.sourceDate,
+  }
+}
+
+function newestFreshPartialCandidate(module: ModuleNode, candidates: RunFolderCandidate[], newestDate: string | null): RunFolderCandidate | undefined {
+  return candidates.find((candidate) => {
+    const dir = path.join(REPO_ROOT, candidate.runRoot, module.name)
+    const vintage = candidateVintage(module, candidate)
+    return !stalenessOf(vintage.sourceDate, newestDate) && validAgentOutputs(dir, specialistOutputFiles(module)).length > 0
+  })
+}
+
 /**
  * @param reuseOverride the caller's chosen reuse set. Omit for the safe default (reuse everything `done`,
  *   re-run everything `stale`). Any module not in `reusable` is ignored — a caller can never reuse work
@@ -343,17 +674,24 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
     ? `analyses/${safe}_${todayDate()}`
     : (swarm && runRootForSubject(swarm, safe)) || `analyses/${safe}`
 
+  // A hard process stop can land between the two synchronous renames used by partial staging. Restore the
+  // old target (or clear an obsolete backup after the new target landed) BEFORE candidate discovery, so a
+  // retry never loses target-only paid orbs merely because the canonical module name was briefly absent.
+  if (isResearch) {
+    for (const module of graph.modules) recoverInterruptedResumeSwap(targetRunRoot, module.name)
+  }
+
   const targetAbs = path.join(REPO_ROOT, targetRunRoot)
   const pool = dataPoolNewest(safe)
   const dated = isResearch ? datedRunFoldersFor(safe) : []
 
   const modules: ModulePlanEntry[] = []
-  const mustReuse: string[] = []
+  const synthesisMeta = new Map<string, { runRoot: string; sourceDate?: string; mtimeMs: number }>()
   for (const m of graph.modules) {
     const totalAgents = m.agentCount
     // Candidate folders holding this module, newest vintage first. For a non-dated swarm there is exactly
     // one root, so this collapses to "is it in the run folder".
-    const candidates = isResearch
+    const candidates: RunFolderCandidate[] = isResearch
       ? foldersWithModule(dated, m.name)
       : (() => {
           const root = findRunRootForSubject(swarmId, safe)
@@ -362,76 +700,168 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
           return fs.existsSync(path.join(root, m.name)) ? [{ runRoot: rel, date: '' }] : []
         })()
 
-    const finished = candidates.find((c) => hasSynthesis(path.join(REPO_ROOT, c.runRoot, m.name)))
+    // Merge reusable current-roster specialists across every non-stale candidate, newest valid copy per orb.
+    // This is deliberately done before dependency validation: a manually-run 07 in today's sparse folder
+    // may depend on 00 in the older complete folder, and together they are a valid resume set.
+    const freshMerged = mergedSpecialists(m, candidates, swarmId, pool.newestDate)
+    const structuralMerged = mergedSpecialists(m, candidates, swarmId, null)
+    const freshPartial = newestFreshPartialCandidate(m, candidates, pool.newestDate)
+    const anyPartial = candidates.find((candidate) => validAgentOutputs(
+      path.join(REPO_ROOT, candidate.runRoot, m.name), specialistOutputFiles(m),
+    ).length > 0)
+    const finishedIndex = candidates.findIndex((candidate) => hasSynthesis(m, path.join(REPO_ROOT, candidate.runRoot, m.name)))
+    const finished = finishedIndex >= 0 ? candidates[finishedIndex] : undefined
     if (finished) {
-      const inTargetRoot = finished.runRoot === targetRunRoot
-      // A carried module's folder is named for whichever run COPIED it, not the run that produced its
-      // evidence — and that is true whether it landed in TODAY's target root or in some OTHER prior dated
-      // folder that itself carried it forward (a module carried into `_07-05`, then found again as the
-      // newest candidate while planning `_07-08`). Reading the stamp only when `inTargetRoot` would let
-      // that intermediate folder's date stand in for the true vintage, silently aging the module forward
-      // and under-reporting staleness against data that landed between the ORIGINAL run and today.
-      const carried = carriedVintage(path.join(REPO_ROOT, finished.runRoot, m.name))
-      const sourceRunRoot = carried?.from ?? finished.runRoot
-      const sourceDate = carried?.date ?? (finished.date || undefined)
+      const finishedAbs = path.join(REPO_ROOT, finished.runRoot, m.name)
+      const vintage = candidateVintage(m, finished)
+      const sourceRunRoot = vintage.sourceRunRoot
+      const sourceDate = vintage.sourceDate
       const staleReason = stalenessOf(sourceDate, pool.newestDate)
-      // Its synthesis is already in the run root the launcher will seed its skip-set from, so this module is
-      // reused whether the user wants it or not. Say so rather than offer a toggle that does nothing.
-      if (inTargetRoot) mustReuse.push(m.name)
+      const refreshSynthesis = synthesisNeedsRefresh(
+        m,
+        finishedAbs,
+        swarmId,
+        staleReason ? structuralMerged.facts : freshMerged.facts,
+        { runRoot: finished.runRoot, sourceDate },
+      )
+      // A stale old synthesis must not suppress genuinely newer, non-stale partial progress. Ignore the stale
+      // base and fall through to the merged partial branch; no byte from the stale folder will be staged.
+      // Compare TRUE vintages, not physical folder order: a carried synthesis lives in today's folder (index
+      // 0) while its CARRIED_FORWARD stamp can date it earlier than a genuinely fresher prior-folder partial.
+      const freshVintage = freshPartial ? candidateVintage(m, freshPartial) : undefined
+      const newerFreshPartialSupersedes = Boolean(staleReason && freshVintage?.sourceDate
+        && (!sourceDate || freshVintage.sourceDate > sourceDate))
+      if (!newerFreshPartialSupersedes) {
+        const reusableFacts = staleReason ? structuralMerged.facts : freshMerged.facts
+        const reusableKeys = staleReason ? [] : orbKeys(m.name, reusableFacts.map((fact) => fact.file))
+        const state: ModuleState = refreshSynthesis ? 'partial' : staleReason ? 'stale' : 'done'
+        // A whole-module `done`/`stale` entry is in-target only when its synthesis is physically there. A
+        // sparse target folder containing a duplicate/backdated specialist does not satisfy the launcher's
+        // 99 skip predicate and must never suppress the carry of the actual finished module.
+        const inTargetRoot = state === 'partial'
+          ? finished.runRoot === targetRunRoot || freshMerged.runRoots.includes(targetRunRoot)
+          : finished.runRoot === targetRunRoot
+        modules.push({
+          module: m.name,
+          state,
+          sourceRunRoot: refreshSynthesis ? (freshMerged.sourceRunRoot ?? sourceRunRoot) : sourceRunRoot,
+          sourceDate: refreshSynthesis ? (freshMerged.sourceDate ?? sourceDate) : sourceDate,
+          // Always the folder `foldersWithModule`/`hasSynthesis` just proved has the complete files RIGHT
+          // NOW — never the stamp's historical origin, which may have been pruned since.
+          copyFromRunRoot: finished.runRoot,
+          inTargetRoot,
+          doneAgents: reusableFacts.length,
+          doneOrbKeys: reusableKeys,
+          totalAgents,
+          staleReason,
+          // A reused module never runs, and a rebuilt one runs whole. Both are settled by the reuse set, not
+          // by orbs on disk — filled in by the second pass below once `run`/`reuse` are known.
+          blockedBy: [],
+          runnable: false,
+          willRunAgents: refreshSynthesis && !staleReason ? Math.max(1, totalAgents - reusableFacts.length) : totalAgents,
+          synthesisNeedsRefresh: refreshSynthesis || undefined,
+          resumeFromRunRoots: refreshSynthesis && !staleReason ? freshMerged.runRoots : undefined,
+        })
+        const synthesis = currentSynthesis(m, finishedAbs)
+        if (synthesis && state === 'done') synthesisMeta.set(m.name, {
+          runRoot: finished.runRoot,
+          sourceDate,
+          mtimeMs: synthesis.mtimeMs,
+        })
+        continue
+      }
+    }
+
+    // No usable current synthesis (including a legacy synthesis filename), but at least one non-stale current
+    // specialist exists across the candidates. Stage their union; the base tree is preferably the newest
+    // candidate with a synthesis so its derived artifacts can be invalidated in the private staging copy.
+    if (freshMerged.facts.length > 0) {
+      const legacyBase = candidates.find((candidate) => {
+        const dir = path.join(REPO_ROOT, candidate.runRoot, m.name)
+        const vintage = candidateVintage(m, candidate)
+        return !stalenessOf(vintage.sourceDate, pool.newestDate) && hasAnySynthesis(dir)
+      })
+      const base = legacyBase ?? freshPartial!
+      const hadSynthesis = candidates.some((candidate) => hasAnySynthesis(path.join(REPO_ROOT, candidate.runRoot, m.name)))
+      const doneKeys = orbKeys(m.name, freshMerged.facts.map((fact) => fact.file))
       modules.push({
         module: m.name,
-        state: staleReason ? 'stale' : 'done',
-        sourceRunRoot,
-        sourceDate,
-        // Always the folder `foldersWithModule`/`hasSynthesis` just proved has the complete files RIGHT
-        // NOW — never the stamp's historical origin, which may have been pruned since.
-        copyFromRunRoot: finished.runRoot,
-        inTargetRoot,
-        doneAgents: countAgentOutputs(path.join(REPO_ROOT, finished.runRoot, m.name)),
+        state: 'partial',
+        sourceRunRoot: freshMerged.sourceRunRoot ?? base.runRoot,
+        sourceDate: freshMerged.sourceDate ?? (base.date || undefined),
+        copyFromRunRoot: base.runRoot,
+        inTargetRoot: freshMerged.runRoots.includes(targetRunRoot),
+        doneAgents: freshMerged.facts.length,
+        doneOrbKeys: doneKeys,
         totalAgents,
-        staleReason,
-        // A reused module never runs, and a rebuilt one runs whole. Both are settled by the reuse set, not
-        // by orbs on disk — filled in by the second pass below once `run`/`reuse` are known.
         blockedBy: [],
         runnable: false,
-        willRunAgents: totalAgents,
+        willRunAgents: Math.max(0, totalAgents - freshMerged.facts.length),
+        synthesisNeedsRefresh: hadSynthesis || undefined,
+        resumeFromRunRoots: freshMerged.runRoots,
       })
       continue
     }
 
-    // No synthesis anywhere. Partial iff the target root (or, for research, the newest folder that has the
-    // module at all) holds at least one specialist output — a module that started and broke.
-    const partialAt = candidates.find((c) => countAgentOutputs(path.join(REPO_ROOT, c.runRoot, m.name)) > 0)
-    if (partialAt) {
-      const partialAbs = path.join(REPO_ROOT, partialAt.runRoot, m.name)
-      // Same vintage-of-record rule as the finished branch, via the resume stamp: orbs resumed into a
-      // folder are dated by the run that PRODUCED them, never by the folder that copied them.
-      const resumed = resumedVintage(partialAbs)
-      const sourceRunRoot = resumed?.from ?? partialAt.runRoot
-      const sourceDate = resumed?.date ?? (partialAt.date || undefined)
-      // A partial's orbs are reusable evidence too, and the same §11 rule governs them: if the data pool has
-      // gained a file since they ran, they never read it, and resuming would synthesize a module from orbs
-      // read against two different data pools. So a stale partial is run CLEAN — every orb, from scratch.
-      const staleReason = stalenessOf(sourceDate, pool.newestDate)
-      const doneAgents = validAgentOutputs(partialAbs).length
+    // Only stale partial work remains: show the provenance, but expose no reusable orb identities and run
+    // clean. A legacy synthesis with no specialists is also staged as a zero-done partial so its old 99 is
+    // removed before the ordinary module command sees it.
+    const legacyOnly = candidates.find((candidate) => hasAnySynthesis(path.join(REPO_ROOT, candidate.runRoot, m.name)))
+    const fallback = anyPartial ?? legacyOnly
+    if (fallback) {
+      const vintage = candidateVintage(m, fallback)
+      const staleReason = stalenessOf(vintage.sourceDate, pool.newestDate)
+      const localDone = reusableSpecialistOutputs(m, path.join(REPO_ROOT, fallback.runRoot, m.name), swarmId)
       modules.push({
         module: m.name,
         state: 'partial',
-        sourceRunRoot,
-        sourceDate,
-        copyFromRunRoot: partialAt.runRoot,
-        inTargetRoot: partialAt.runRoot === targetRunRoot,
-        doneAgents,
+        sourceRunRoot: vintage.sourceRunRoot,
+        sourceDate: vintage.sourceDate,
+        copyFromRunRoot: fallback.runRoot,
+        inTargetRoot: fallback.runRoot === targetRunRoot,
+        doneAgents: localDone.length,
+        doneOrbKeys: staleReason ? [] : orbKeys(m.name, localDone),
         totalAgents,
         staleReason,
         blockedBy: [],
         runnable: false,
-        willRunAgents: staleReason ? totalAgents : Math.max(0, totalAgents - doneAgents),
+        willRunAgents: staleReason ? totalAgents : Math.max(0, totalAgents - localDone.length),
+        synthesisNeedsRefresh: Boolean(legacyOnly) || undefined,
+        resumeFromRunRoots: staleReason ? undefined : [fallback.runRoot],
       })
       continue
     }
-    modules.push({ module: m.name, state: 'missing', inTargetRoot: false, doneAgents: 0, totalAgents, blockedBy: [], runnable: false, willRunAgents: totalAgents })
+    modules.push({ module: m.name, state: 'missing', inTargetRoot: false, doneAgents: 0, doneOrbKeys: [], totalAgents, blockedBy: [], runnable: false, willRunAgents: totalAgents })
   }
+
+  // Persist module-only upstream rebuilds into future plans. The in-memory cascade below is sufficient only
+  // before the upstream runs; once its new 99 lands, a fresh plan must still reject downstream syntheses that
+  // read the older upstream. Different source dates are authoritative; same-day mtimes are compared only
+  // inside today's physical run root, where write order is meaningful (git checkout mtimes elsewhere are not).
+  const moduleByName = new Map(modules.map((entry) => [entry.module, entry]))
+  for (const m of graph.modules) {
+    const entry = moduleByName.get(m.name)
+    const ownMeta = synthesisMeta.get(m.name)
+    if (!entry || entry.state !== 'done' || !ownMeta) continue
+    const newerUpstream = m.dependsOn.some((depName) => {
+      const dep = moduleByName.get(depName)
+      const depMeta = synthesisMeta.get(depName)
+      if (!dep || dep.state !== 'done' || !depMeta) return false
+      if (depMeta.sourceDate && ownMeta.sourceDate && depMeta.sourceDate !== ownMeta.sourceDate) {
+        return depMeta.sourceDate > ownMeta.sourceDate
+      }
+      return depMeta.runRoot === targetRunRoot && ownMeta.runRoot === targetRunRoot && depMeta.mtimeMs > ownMeta.mtimeMs
+    })
+    if (!newerUpstream) continue
+    entry.state = 'partial'
+    entry.synthesisNeedsRefresh = true
+    entry.willRunAgents = Math.max(1, entry.totalAgents - entry.doneAgents)
+    entry.resumeFromRunRoots = entry.copyFromRunRoot ? [entry.copyFromRunRoot] : undefined
+  }
+
+  const mustReuse = modules
+    .filter((entry) => entry.inTargetRoot && !entry.synthesisNeedsRefresh && (entry.state === 'done' || entry.state === 'stale'))
+    .map((entry) => entry.module)
 
   // A module can be reused iff a finished synthesis for it exists on disk — `done` or `stale`. Staleness
   // steers the DEFAULT (a stale module is re-run) without removing the user's ability to keep it knowingly.
@@ -449,7 +879,9 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
   // Expand each rebuild through its descendants before finalizing what actually runs — `mustReuse` below
   // still wins over this (a module already finished in today's root can never be forced to rebuild;
   // that is a pre-existing, separately-surfaced limitation, not one this expansion can lift).
-  const rebuilding = modules.filter((m) => reusableSet.has(m.module) && !chosen.includes(m.module)).map((m) => m.module)
+  const rebuilding = modules
+    .filter((m) => (reusableSet.has(m.module) && !chosen.includes(m.module)) || m.synthesisNeedsRefresh)
+    .map((m) => m.module)
   const forcedDownstream = new Set<string>()
   for (const name of rebuilding) {
     for (const d of transitiveDownstreamModules(graph, name)) forcedDownstream.add(d)
@@ -511,6 +943,7 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
       : { state: 'ready', blockedBy: [] }
 
   return {
+    moduleResumeVersion: 2,
     swarm: swarmId,
     subject: safe,
     targetRunRoot,
@@ -548,11 +981,43 @@ const CARRY_MARKER = 'CARRIED_FORWARD.md'
  *  the same subject delete each other's in-flight copy (the rate limit does not serialize them). */
 let carrySeq = 0
 
-/** `dereference: true` copies what a symlink POINTS AT. A hand-rolled walk that handles only isFile/isDirectory
- *  silently DROPS symlinks, which would carry a module whose synthesis copied fine but whose cited evidence
- *  vanished — a module that then looks finished, gets skipped by the run, and fails verify-evidence. */
+/** Analysis outputs must be a closed tree of real directories and regular files. Dereferencing a descendant
+ *  symlink can import arbitrary bytes from outside analyses into a checkpoint; preserving one can publish a
+ *  path whose meaning changes later. Validate before AND after copy so either form fails closed. */
+function assertCopyableTree(abs: string): void {
+  const stat = fs.lstatSync(abs)
+  if (stat.isSymbolicLink()) throw new Error(`module tree contains a symlink: ${abs}`)
+  if (stat.isFile()) return
+  if (!stat.isDirectory()) throw new Error(`module tree contains a non-file entry: ${abs}`)
+  for (const entry of fs.readdirSync(abs)) assertCopyableTree(path.join(abs, entry))
+}
+
 function copyDir(srcAbs: string, dstAbs: string): void {
-  fs.cpSync(srcAbs, dstAbs, { recursive: true, dereference: true, force: true })
+  assertCopyableTree(srcAbs)
+  fs.cpSync(srcAbs, dstAbs, { recursive: true, dereference: false, force: true, preserveTimestamps: true })
+  assertCopyableTree(dstAbs)
+}
+
+function resumeSwapBackupAbs(runRoot: string, module: string): string {
+  return path.join(ANALYSES_DIR, `.resume-backup-${path.basename(runRoot)}-${module}`)
+}
+
+/** Recover the two possible crash points in a directory swap. If the new target never landed, restore the
+ * old folder before planning so target-only paid orbs remain visible. If the new target landed and only
+ * backup cleanup was interrupted, keep the new target and remove the obsolete backup. */
+function recoverInterruptedResumeSwap(runRoot: string, module: string): void {
+  const backupAbs = resumeSwapBackupAbs(runRoot, module)
+  if (!fs.existsSync(backupAbs)) return
+  if (!realDirectoryInsideAnalyses(backupAbs)) throw new Error(`unsafe module resume backup: ${backupAbs}`)
+  assertCopyableTree(backupAbs)
+  const targetRootAbs = ensureRealTargetRunRoot(runRoot)
+  const dstAbs = path.join(targetRootAbs, module)
+  if (fs.existsSync(dstAbs)) {
+    assertContainedModuleDir(runRoot, module)
+    fs.rmSync(backupAbs, { recursive: true, force: true })
+    return
+  }
+  fs.renameSync(backupAbs, dstAbs)
 }
 
 /** The provenance stamp. A carried module's numbers were read against an OLDER data pool, so the thesis
@@ -623,9 +1088,7 @@ export function carryForwardModules(subject: string, modules: string[], swarmId:
   // Nothing to copy — never create today's run folder as a side effect of merely asking.
   if (toCarry.length === 0) return { carried: [], skipped: [...modules] }
 
-  const targetAbs = path.join(REPO_ROOT, plan.targetRunRoot)
-  fs.mkdirSync(targetAbs, { recursive: true })
-  resolveInsideAnalyses(plan.targetRunRoot) // now that it exists, assert it really is inside analyses/
+  const targetAbs = ensureRealTargetRunRoot(plan.targetRunRoot)
 
   const carried: { module: string; from: string }[] = []
   const skipped: string[] = []
@@ -650,12 +1113,13 @@ export function carryForwardModules(subject: string, modules: string[], swarmId:
     // priced the module as reused and painted its orbs green, while the launcher's skip-test (a non-empty
     // 99 synthesis in the run root) failed and re-ran it at full cost.
     const replacedPartial = fs.existsSync(dstAbs)
+    if (replacedPartial) assertContainedTargetModuleOrMissing(plan.targetRunRoot, name)
 
     // Read bytes from `c.copyFrom` — the folder PROVEN to physically hold them right now — never from
     // `c.from`, which is the TRUE-origin provenance for the stamp and may point at a folder that has
     // since been pruned (the module then reads as "reusable" in the plan but a copy from `c.from` would
     // ENOENT here).
-    const srcAbs = path.join(REPO_ROOT, c.copyFrom, name)
+    const srcAbs = assertContainedModuleDir(c.copyFrom, name)
     // Stage OUTSIDE the run root, then rename in. Two reasons a `.carry-*` dir must never sit inside the run
     // root: `runManifest` enumerates every subdirectory as a module (a crash mid-copy would mint a phantom
     // module orb, and `/research:full` would dispatch a paid memo-writer against it), and `commit-run.sh`
@@ -668,7 +1132,10 @@ export function carryForwardModules(subject: string, modules: string[], swarmId:
       fs.writeFileSync(path.join(tmpAbs, CARRY_MARKER), carryNote(name, c.from, c.date, plan.targetRunRoot, replacedPartial, staleReason), 'utf8')
       // Swap into place. The complete module supersedes any unfinished copy; the SOURCE folder is untouched,
       // so nothing finished is ever destroyed — only unfinished work in TODAY's root is replaced.
-      if (replacedPartial) fs.rmSync(dstAbs, { recursive: true, force: true })
+      if (replacedPartial) {
+        assertContainedTargetModuleOrMissing(plan.targetRunRoot, name)
+        fs.rmSync(dstAbs, { recursive: true, force: true })
+      }
       fs.renameSync(tmpAbs, dstAbs)
     } finally {
       // A throw anywhere above (ENOSPC, EXDEV, a mid-copy kill) must not leave the staging tree behind.
@@ -684,36 +1151,245 @@ export function carryForwardModules(subject: string, modules: string[], swarmId:
 export interface ModuleResumeResult {
   /** reused upstream modules physically copied into the target root so the command can read them */
   carriedAncestors: { module: string; from: string }[]
+  /** every reused ancestor the target module will read from today's root, including an ancestor copied by
+   *  an earlier failed attempt. The route checkpoints these exact folders before starting paid work, so a
+   *  retry cannot leave previously-carried prerequisites dirty and unpublished. */
+  reusedAncestorModules: string[]
   /** the run the resumed orbs came from (null when the module ran clean — missing, or a stale partial) */
   resumedFrom: string | null
   /** orbs the resume reuses, as node keys `<module>/<NN>_<slug>` — empty when the module runs clean */
   doneOrbKeys: string[]
   /** orbs that will actually execute (the module's synthesis always among them) */
   willRunAgents: number
-  /** true when a stale partial's leftover orbs were discarded so the module runs from scratch */
+  /** true when stale partial work is deliberately not reused, so the module runs from scratch */
   discardedStaleOrbs: boolean
+}
+
+export interface PreparedModuleResumeScope {
+  /** SHA-256 over every byte/path in the staged target module and reused ancestor folders. */
+  fingerprint: string
+}
+
+/**
+ * Capture the exact target-root bytes a smart module resume will read.
+ *
+ * `thesisPlan()` deliberately searches older run folders so it can recover paid work. That is correct while
+ * PLANNING, but unsafe at the final paid boundary: if a staged orb disappears, the planner can rediscover the
+ * same orb in yesterday's folder while MODULE_PIPELINE Step 4A sees it missing in today's folder and launches
+ * an extra task. This guard therefore reads ONLY `targetRunRoot`, proves its current-roster specialist set is
+ * exactly the reviewed set, proves every reused ancestor's current synthesis is physically present there, and
+ * fingerprints the complete staged directories. A later byte edit, added file, deletion, or symlink changes
+ * the fingerprint (or makes the scope invalid) before `execa` can start.
+ */
+export function capturePreparedModuleResumeScope(
+  subject: string,
+  module: string,
+  targetRunRoot: string,
+  expectedDoneOrbKeys: string[],
+  reusedAncestorModules: string[],
+  swarmId: string = RESEARCH_SWARM_ID,
+): PreparedModuleResumeScope | null {
+  try {
+    safeSubjectSegment(subject)
+    const graph = buildSwarmGraph(swarmId)
+    const moduleNode = graph.modules.find((candidate) => candidate.name === module)
+    if (!moduleNode) return null
+
+    const ancestorSet = moduleAncestors(graph, module)
+    for (const optional of moduleNode.readsFrom ?? []) ancestorSet.add(optional)
+    const ancestors = [...new Set(reusedAncestorModules)].sort()
+    if (ancestors.length !== reusedAncestorModules.length
+        || ancestors.some((name) => !ancestorSet.has(name))) return null
+
+    const expectedFiles = specialistOutputFiles(moduleNode)
+    const expectedDone = [...new Set(expectedDoneOrbKeys)].sort()
+    if (expectedDone.length !== expectedDoneOrbKeys.length) return null
+    for (const key of expectedDone) {
+      const prefix = `${module}/`
+      if (!key.startsWith(prefix) || !expectedFiles.has(`${key.slice(prefix.length)}.md`)) return null
+    }
+
+    const targetRootAbs = path.join(REPO_ROOT, targetRunRoot)
+    const targetExists = fs.existsSync(targetRootAbs)
+    if (targetExists) assertRealRunRootInsideAnalyses(targetRunRoot)
+
+    const moduleAbs = path.join(targetRootAbs, module)
+    if (!fs.existsSync(moduleAbs)) {
+      if (expectedDone.length > 0) return null
+    } else {
+      const contained = assertContainedModuleDir(targetRunRoot, module)
+      const actualDone = orbKeys(module, reusableSpecialistOutputs(moduleNode, contained, swarmId))
+      if (actualDone.length !== expectedDone.length
+          || actualDone.some((key, index) => key !== expectedDone[index])) return null
+      // A smart resume always refreshes the synthesis. If any 99 reappears, the command may skip or consume
+      // work outside the reviewed specialist+fresh-summary scope, so fail closed regardless of its name.
+      if (hasAnySynthesis(contained)) return null
+    }
+
+    for (const name of ancestors) {
+      const ancestorNode = graph.modules.find((candidate) => candidate.name === name)
+      if (!ancestorNode) return null
+      const ancestorAbs = assertContainedModuleDir(targetRunRoot, name)
+      if (!currentSynthesis(ancestorNode, ancestorAbs)) return null
+    }
+
+    const hash = createHash('sha256')
+    const hashTree = (abs: string, rel: string): void => {
+      const stat = fs.lstatSync(abs)
+      if (stat.isSymbolicLink()) throw new Error('staged scope contains a symlink')
+      if (stat.isDirectory()) {
+        hash.update(`D\0${rel}\0`)
+        for (const entry of fs.readdirSync(abs).sort()) hashTree(path.join(abs, entry), `${rel}/${entry}`)
+        return
+      }
+      if (!stat.isFile()) throw new Error('staged scope contains a non-file entry')
+      // Git preserves only whether owner-execute marks a regular file executable (100644 vs 100755). Host
+      // umask/read-write/group/other bits must not make an otherwise identical checkpoint drift.
+      const gitMode = stat.mode & 0o100 ? '100755' : '100644'
+      hash.update(`F\0${rel}\0${gitMode}\0${stat.size}\0`)
+      hash.update(fs.readFileSync(abs))
+      hash.update('\0')
+    }
+
+    for (const name of [...ancestors, module].sort()) {
+      const abs = path.join(targetRootAbs, name)
+      if (!fs.existsSync(abs)) {
+        hash.update(`M\0${name}\0`)
+        continue
+      }
+      hashTree(assertContainedModuleDir(targetRunRoot, name), name)
+    }
+    return { fingerprint: `sha256:${hash.digest('hex')}` }
+  } catch {
+    return null
+  }
 }
 
 /** The provenance stamp for a RESUMED module — the twin of `carryNote`, written under `RESUME_MARKER`.
  *  Says plainly that only SOME orbs were carried and the rest ran here, and records the true origin of the
  *  carried orbs so their vintage travels with them (§5/§11). Contains no `Agent:` line (eval check H). */
-function resumeNote(module: string, fromRunRoot: string, fromDate: string | null, intoRunRoot: string, reusedOrbs: number, ranOrbs: number): string {
+function resumeNote(
+  module: string,
+  fromRunRoot: string,
+  fromDate: string | null,
+  intoRunRoot: string,
+  reusedOrbs: number,
+  ranOrbs: number,
+  sourceRunRoots: string[] = [fromRunRoot],
+): string {
   const vintage = fromDate ? ` (run dated ${fromDate})` : ''
   const provenance = fromDate ? `<!-- resumed-from: ${fromRunRoot} | run-date: ${fromDate} -->\n\n` : ''
+  const sources = [...new Set(sourceRunRoots)].map((root) => `\`${root}\``).join(', ')
   return `${provenance}# Resumed — ${module}
 
 > This module was **resumed**, not run from scratch. ${reusedOrbs} finished specialist orb${reusedOrbs === 1 ? '' : 's'}
-> ${reusedOrbs === 1 ? 'was' : 'were'} copied verbatim from an earlier, unfinished run of this same module; the remaining
-> ${ranOrbs} orb${ranOrbs === 1 ? '' : 's'} (including this module's synthesis) ran for this run.
+> ${reusedOrbs === 1 ? 'is' : 'are'} being reused verbatim from earlier work on this same module; the remaining
+> ${ranOrbs} orb${ranOrbs === 1 ? '' : 's'} (including this module's synthesis) ${ranOrbs === 1 ? 'is' : 'are'} scoped to run for this run.
+>
+> **This note is written at staging time.** The module's new \`99_*-synthesis.md\` is the ground truth for
+> whether the remaining work actually finished.
 
 - Resumed from: \`${fromRunRoot}\`${vintage}
+- Specialist source folder${sourceRunRoots.length === 1 ? '' : 's'}: ${sources}
 - Copied into: \`${intoRunRoot}\`
-- The carried orbs keep the vintage of the run that produced them, not this run's date.
+- For staleness, this partial is conservatively dated to its oldest source; copying never makes older
+  evidence look current.
 
 **How to read this.** The orbs carried in were evidenced against the data pool as it stood on the source
 run's date. If a filing has landed since, this module should be run clean, not resumed — the cockpit does
 exactly that, so a resumed module is only ever resumed when no newer data has landed since its orbs ran.
 `
+}
+
+/** Plain sidecar filenames attached to fenced blocks in an old synthesis. Step 4.9C only overwrites exports
+ *  the NEW synthesis successfully emits, so every old labelled export must be cleared before refresh or a
+ *  missing/pending new block can leave stale machine-readable truth beside the new 99. */
+function labelledSynthesisArtifacts(body: string): Set<string> {
+  const out = new Set<string>()
+  const plain = /^[A-Za-z0-9][A-Za-z0-9._-]{0,199}\.(?:csv|json)$/i
+  // Opening fences are enough. A crashed synthesis can leave its final block unclosed while Step 4.9C has
+  // already materialised the sidecar; requiring the closing fence would preserve exactly that stale export.
+  const fences = /```([^\n]*)/g
+  let match: RegExpExecArray | null
+  while ((match = fences.exec(body))) {
+    const info = match[1].trim()
+    for (const token of info.split(/\s+/)) if (plain.test(token)) out.add(token)
+    const before = body.slice(Math.max(0, match.index - 300), match.index)
+    for (const named of before.matchAll(/`([A-Za-z0-9][A-Za-z0-9._-]{0,199}\.(?:csv|json))`/gi)) {
+      if (plain.test(named[1])) out.add(named[1])
+    }
+  }
+  return out
+}
+
+const PROTECTED_MODULE_ARTIFACTS = new Set(['source_manifest.csv', 'decision_record.json'])
+
+function protectedModuleArtifact(file: string): boolean {
+  return PROTECTED_MODULE_ARTIFACTS.has(file.toLowerCase()) || /\.schema\.json$/i.test(file)
+}
+
+/** Machine-readable files the CURRENT synthesis prompt says it emits. Parsing the discovered prompt keeps
+ *  cleanup zero-touch when a module adds or renames an export; it also catches a sidecar omitted by an old
+ *  99 body (for example `valuation_summary.json`). Source manifests belong to triage, and the run-level
+ *  decision record belongs to the master, so both are explicit non-synthesis survivors. */
+function declaredSynthesisArtifacts(module: ModuleNode, swarmId: string): Set<string> {
+  const out = new Set<string>()
+  const promptDir = modulePromptDir(module, swarmId)
+  if (!promptDir) return out
+  const artifact = /(?<![A-Za-z0-9._-])([A-Za-z0-9][A-Za-z0-9._-]{0,199}\.(?:csv|json))(?![A-Za-z0-9._-])/gi
+  for (const agent of Object.values(module.layers).flat().filter((node) => node.isSynthesis)) {
+    let body = ''
+    try { body = fs.readFileSync(path.join(promptDir, `${agent.key.split('/').at(-1)}.md`), 'utf8') } catch { continue }
+    for (const match of body.matchAll(artifact)) {
+      const file = match[1]
+      if (!protectedModuleArtifact(file)) out.add(file)
+    }
+  }
+  return out
+}
+
+/** Turn a historical "complete" module into a safe resume workspace when the discovered roster has grown.
+ *  Keep only specialists that are valid against the CURRENT roster and its in-module dependencies; remove
+ *  the old synthesis plus everything it derived. The caller applies this only to a private staging copy. */
+function invalidateOutdatedSynthesis(module: ModuleNode, dirAbs: string, reusableSpecialists: Set<string>, swarmId: string): void {
+  const analysesResolved = path.resolve(ANALYSES_DIR)
+  const resolved = path.resolve(dirAbs)
+  if (!resolved.startsWith(analysesResolved + path.sep)) throw new Error('module refresh staging escaped analyses')
+  const dirStat = fs.lstatSync(resolved)
+  if (!dirStat.isDirectory() || dirStat.isSymbolicLink()) throw new Error('module refresh staging is not a real directory')
+  const analyses = fs.realpathSync(analysesResolved)
+  const real = fs.realpathSync(resolved)
+  if (!real.startsWith(analyses + path.sep)) throw new Error('module refresh staging resolves outside analyses')
+
+  let files: string[]
+  try { files = fs.readdirSync(resolved) } catch { return }
+  const synthesisFiles = files.filter((file) => /^99_.*\.md$/.test(file))
+  const derived = declaredSynthesisArtifacts(module, swarmId)
+  for (const file of synthesisFiles) {
+    try {
+      const st = fs.lstatSync(path.join(resolved, file))
+      if (st.isFile() && !st.isSymbolicLink()) {
+        for (const artifact of labelledSynthesisArtifacts(fs.readFileSync(path.join(resolved, file), 'utf8'))) {
+          if (!protectedModuleArtifact(artifact)) derived.add(artifact)
+        }
+      }
+    } catch { /* unreadable old synthesis — exact final artifacts below are still cleared */ }
+  }
+
+  for (const file of files) {
+    const numberedSpecialist = /^[0-9]{2}_.*\.md$/.test(file) && !/^99_/.test(file)
+    const specialistMustRun = numberedSpecialist && !reusableSpecialists.has(file)
+    const finalArtifact = /^99_.*\.md$/.test(file)
+      || file === `${module.name}_memo.md` || file === `${module.name}_dossier.md` || derived.has(file)
+    if (!specialistMustRun && !finalArtifact) continue
+    const target = path.join(resolved, file)
+    try {
+      const st = fs.lstatSync(target)
+      if (st.isFile() && !st.isSymbolicLink()) fs.unlinkSync(target)
+    } catch { /* absent/raced — the subsequent synthesis remains authoritative */ }
+  }
+  // One provenance story per folder: this is a partial resume now, not a whole-module carry.
+  fs.rmSync(path.join(resolved, CARRY_MARKER), { force: true })
 }
 
 /**
@@ -741,59 +1417,131 @@ export function prepareModuleResume(subject: string, module: string, swarmId: st
   const graph = buildSwarmGraph(swarmId)
   const entry = plan.modules.find((m) => m.module === module)
   if (!entry) throw new Error(`module ${module} is not in this swarm`)
+  const moduleNode = graph.modules.find((m) => m.name === module)
+  if (!moduleNode) throw new Error(`module ${module} is not in this swarm`)
 
   // (1) Carry the reused ancestors. `carryForwardModules` reads `plan.carry` (derived from `plan.reuse`), so
   // an ancestor already in the target root (`mustReuse`) or not reused is silently skipped — exactly right.
   const reuseSet = new Set(plan.reuse)
-  const ancestors = [...moduleAncestors(graph, module)].filter((a) => reuseSet.has(a))
+  const inputModules = moduleAncestors(graph, module)
+  for (const optional of moduleNode.readsFrom ?? []) inputModules.add(optional)
+  const ancestors = [...inputModules].filter((a) => reuseSet.has(a))
   const { carried: carriedAncestors } = ancestors.length ? carryForwardModules(safe, ancestors, swarmId, plan) : { carried: [] }
+  const resumeBase = { carriedAncestors, reusedAncestorModules: ancestors.sort() }
 
   const targetAbs = path.join(REPO_ROOT, plan.targetRunRoot)
   const dstAbs = path.join(targetAbs, module)
 
-  // (3) Stale partial → run clean. Drop any orbs of this module already in today's root; do not carry.
-  if (entry.state === 'partial' && entry.staleReason) {
+  // (3) Any stale module → run clean. Drop target-root work and never carry older specialists into a run
+  // whose data pool has moved on. This covers both an interrupted partial and an older finished synthesis.
+  if ((entry.state === 'partial' || entry.state === 'stale') && entry.staleReason) {
+    // Validate the dated root itself before even testing/removing its child. `existsSync(dstAbs)` follows a
+    // symlink in the root component; without this guard a precomputed plan could erase an outside directory.
+    if (fs.existsSync(targetAbs)) assertRealRunRootInsideAnalyses(plan.targetRunRoot)
     const discardedStaleOrbs = fs.existsSync(dstAbs)
-    if (discardedStaleOrbs) fs.rmSync(dstAbs, { recursive: true, force: true })
-    return { carriedAncestors, resumedFrom: null, doneOrbKeys: [], willRunAgents: entry.totalAgents, discardedStaleOrbs }
+    if (discardedStaleOrbs) {
+      assertContainedTargetModuleOrMissing(plan.targetRunRoot, module)
+      fs.rmSync(dstAbs, { recursive: true, force: true })
+    }
+    return { ...resumeBase, resumedFrom: null, doneOrbKeys: [], willRunAgents: entry.totalAgents, discardedStaleOrbs: true }
   }
 
-  // (2) Resumable partial in an OLDER folder → copy its finished orbs into the target root under a resume
-  // stamp. `!inTargetRoot` guarantees the target root holds no orbs for this module yet (else that folder
-  // would be the newest candidate and `inTargetRoot` would be true).
-  const doneKeysOf = (dir: string): string[] => validAgentOutputs(dir).map((f) => `${module}/${f.replace(/\.md$/, '')}`)
-  if (entry.state === 'partial' && !entry.inTargetRoot && entry.copyFromRunRoot) {
-    const srcAbs = path.join(REPO_ROOT, entry.copyFromRunRoot, module)
-    const doneOrbKeys = doneKeysOf(srcAbs)
+  // (2) Resumable partial → atomically stage only the mutually-valid current-roster specialists, whether
+  // its best copy is historical or already in today's root. The staging copy is also where an old 99 and
+  // its labelled exports are removed; prior-run sources are never mutated, and target-root sanitizing never
+  // deletes through a symlink or leaves a half-hole-punched folder behind.
+  const stagePartial = (baseRunRoot: string, resumedFrom: string, sourceDate: string | null): ModuleResumeResult => {
+    const expectedSpecialists = specialistOutputFiles(moduleNode)
+    const doneOrbKeys = [...new Set(entry.doneOrbKeys)].sort()
+    const reusableFiles = doneOrbKeys.map((key) => {
+      const prefix = `${module}/`
+      if (!key.startsWith(prefix)) throw new Error(`resume scope contains an orb outside ${module}`)
+      const file = `${key.slice(prefix.length)}.md`
+      if (!expectedSpecialists.has(file)) throw new Error(`resume scope contains an unknown orb: ${key}`)
+      return file
+    })
+    if (new Set(reusableFiles).size !== reusableFiles.length) throw new Error('resume scope contains duplicate orb identities')
+    const reusableSet = new Set(reusableFiles)
     const ranOrbs = Math.max(0, entry.totalAgents - doneOrbKeys.length)
-    fs.mkdirSync(targetAbs, { recursive: true })
-    resolveInsideAnalyses(plan.targetRunRoot)
+    const baseAbs = assertContainedModuleDir(baseRunRoot, module)
+    const overlayRoots = [...new Set(entry.resumeFromRunRoots?.length ? entry.resumeFromRunRoots : [baseRunRoot])]
+    const overlayDirs = overlayRoots.map((runRoot) => ({ runRoot, abs: assertContainedModuleDir(runRoot, module) }))
+    ensureRealTargetRunRoot(plan.targetRunRoot)
     // Stage OUTSIDE the run root, then rename in — same reasons as `carryForwardModules`: `runManifest`
     // reads every subdirectory as a module, and `commit-run.sh` stages the run root wholesale.
     const tmpAbs = path.join(ANALYSES_DIR, `.resume-${safe}-${module}-${process.pid}-${carrySeq++}`)
     try {
       fs.rmSync(tmpAbs, { recursive: true, force: true })
-      copyDir(srcAbs, tmpAbs)
-      fs.writeFileSync(path.join(tmpAbs, RESUME_MARKER), resumeNote(module, entry.sourceRunRoot ?? entry.copyFromRunRoot, entry.sourceDate ?? null, plan.targetRunRoot, doneOrbKeys.length, ranOrbs), 'utf8')
+      copyDir(baseAbs, tmpAbs)
+
+      // Compose the exact union promised by the plan. For each orb, the first (newest) validated candidate
+      // wins. `copyFileSync` does not preserve mtime, so restore it explicitly: dependency freshness compares
+      // those mtimes, and staging time must never make an old prerequisite look newer than its dependent.
+      for (const file of reusableFiles) {
+        let copied = false
+        for (const source of overlayDirs) {
+          if (!validAgentOutputs(source.abs, new Set([file])).includes(file)) continue
+          const from = path.join(source.abs, file)
+          const st = fs.lstatSync(from)
+          const to = path.join(tmpAbs, file)
+          fs.copyFileSync(from, to)
+          fs.chmodSync(to, st.mode)
+          fs.utimesSync(to, st.atime, st.mtime)
+          copied = true
+          break
+        }
+        if (!copied) throw new Error(`resume scope changed on disk; planned orb is no longer reusable: ${module}/${file.replace(/\.md$/, '')}`)
+      }
+
+      invalidateOutdatedSynthesis(moduleNode, tmpAbs, reusableSet, swarmId)
+      const stagedOrbKeys = orbKeys(module, reusableSpecialistOutputs(moduleNode, tmpAbs, swarmId))
+      if (stagedOrbKeys.length !== doneOrbKeys.length || stagedOrbKeys.some((key, index) => key !== doneOrbKeys[index])) {
+        throw new Error('resume scope changed on disk; staged reusable orbs no longer match the plan')
+      }
+      fs.writeFileSync(path.join(tmpAbs, RESUME_MARKER), resumeNote(
+        module,
+        resumedFrom,
+        sourceDate,
+        plan.targetRunRoot,
+        doneOrbKeys.length,
+        ranOrbs,
+        overlayRoots,
+      ), 'utf8')
       // A partial fragment could in principle sit in today's root already; the complete set of finished orbs
-      // supersedes it. The source folder is untouched — nothing finished is ever destroyed.
-      if (fs.existsSync(dstAbs)) fs.rmSync(dstAbs, { recursive: true, force: true })
-      fs.renameSync(tmpAbs, dstAbs)
+      // supersedes it. Swap through a recoverable backup instead of deleting the canonical target first: if
+      // the process dies between renames, the next thesisPlan restores that backup before reading candidates.
+      const backupAbs = resumeSwapBackupAbs(plan.targetRunRoot, module)
+      if (fs.existsSync(backupAbs)) throw new Error('an interrupted module-resume swap needs recovery')
+      let movedOldTarget = false
+      if (fs.existsSync(dstAbs)) {
+        assertContainedTargetModuleOrMissing(plan.targetRunRoot, module)
+        fs.renameSync(dstAbs, backupAbs)
+        movedOldTarget = true
+      }
+      try {
+        fs.renameSync(tmpAbs, dstAbs)
+      } catch (error) {
+        if (movedOldTarget && fs.existsSync(backupAbs) && !fs.existsSync(dstAbs)) {
+          fs.renameSync(backupAbs, dstAbs)
+        }
+        throw error
+      }
+      if (movedOldTarget) fs.rmSync(backupAbs, { recursive: true, force: true })
     } finally {
       fs.rmSync(tmpAbs, { recursive: true, force: true })
     }
-    return { carriedAncestors, resumedFrom: entry.sourceRunRoot ?? entry.copyFromRunRoot, doneOrbKeys, willRunAgents: ranOrbs, discardedStaleOrbs: false }
+    return { ...resumeBase, resumedFrom, doneOrbKeys, willRunAgents: ranOrbs, discardedStaleOrbs: false }
   }
 
-  // A resumable partial ALREADY in today's root (resumed here earlier, non-stale): its orbs are in place,
-  // nothing to copy or clean. Report them as reused so the panel shows "N done" rather than a clean start.
-  if (entry.state === 'partial' && entry.inTargetRoot) {
-    const doneOrbKeys = doneKeysOf(dstAbs)
-    return { carriedAncestors, resumedFrom: entry.sourceRunRoot ?? plan.targetRunRoot, doneOrbKeys, willRunAgents: Math.max(0, entry.totalAgents - doneOrbKeys.length), discardedStaleOrbs: false }
+  // One branch for both historical and in-target partials: `copyFromRunRoot` is the base tree, while
+  // `resumeFromRunRoots` supplies the exact merged specialist overlay. Copy-first/swap-last preserves every
+  // completed orb if staging fails and makes retries idempotent after a mid-module interruption.
+  if (entry.state === 'partial' && entry.copyFromRunRoot) {
+    return stagePartial(entry.copyFromRunRoot, entry.sourceRunRoot ?? entry.copyFromRunRoot, entry.sourceDate ?? null)
   }
 
   // Missing module → runs whole. Nothing to carry for the module itself.
-  return { carriedAncestors, resumedFrom: null, doneOrbKeys: [], willRunAgents: entry.totalAgents, discardedStaleOrbs: false }
+  return { ...resumeBase, resumedFrom: null, doneOrbKeys: [], willRunAgents: entry.totalAgents, discardedStaleOrbs: false }
 }
 
 // ---- scoped batch rerun (executes an intake plan in ONE pass) --------------------------------------
@@ -911,6 +1659,7 @@ export function carryForwardScoped(
   const base = precomputed ?? thesisPlan(safe, swarmId, thesisPlan(safe, swarmId).reusable)
   const carriable = new Map(base.carry.map((c) => [c.module, c]))
   const mustReuse = new Set(base.mustReuse)
+  const plannedByModule = new Map(base.modules.map((entry) => [entry.module, entry]))
 
   // 1) untouched modules → carried whole
   const keepWhole = base.reuse.filter((m) => !stale.has(m))
@@ -933,7 +1682,7 @@ export function carryForwardScoped(
     const synthesisOnly = omittedOrbs.length === 0
     if (mustReuse.has(module)) {
       // finished in TODAY's root — both full-run paths skip on its 99 presence, so punch the holes in place
-      const dstAbs = path.join(targetAbs, module)
+      const dstAbs = assertContainedModuleDir(base.targetRunRoot, module)
       for (const f of holesFor(module, dstAbs)) fs.rmSync(path.join(dstAbs, f), { force: true })
       // one provenance story per folder: a whole-carry marker from an EARLIER completion carry must not
       // survive the hole-punch — thesisPlan's carriedVintage would keep dating the refreshed module by its
@@ -944,12 +1693,25 @@ export function carryForwardScoped(
       scoped.push({ module, from: base.targetRunRoot, omittedOrbs, synthesisOnly, inPlace: true })
       continue
     }
-    const c = carriable.get(module)
+    const planned = plannedByModule.get(module)
+    const normalCarry = carriable.get(module)
+    // A completed upstream module-only refresh persistently marks an older downstream 99 as `partial` so it
+    // cannot be reused silently. That is correct for ordinary planning, but scoped intake staging still needs
+    // the old folder as a synthesis-only BASE. It no longer appears in `base.carry`, so recover only this
+    // narrow, non-stale structural-refresh source and sanitize it to the plan's exact reusable specialists.
+    const refreshFallback = !normalCarry && planned?.synthesisNeedsRefresh && !planned.staleReason && planned.copyFromRunRoot
+      ? {
+          module,
+          from: planned.sourceRunRoot ?? planned.copyFromRunRoot,
+          date: planned.sourceDate ?? null,
+          copyFrom: planned.copyFromRunRoot,
+        }
+      : undefined
+    const c = normalCarry ?? refreshFallback
     if (!c) continue // never finished anywhere → the full run builds it whole; nothing to stage
-    const srcAbs = path.join(REPO_ROOT, c.copyFrom, module)
+    const srcAbs = assertContainedModuleDir(c.copyFrom, module)
     const dstAbs = path.join(targetAbs, module)
-    fs.mkdirSync(targetAbs, { recursive: true })
-    resolveInsideAnalyses(base.targetRunRoot)
+    ensureRealTargetRunRoot(base.targetRunRoot)
     // stage OUTSIDE the run root, then rename in — same reasons as carryForwardModules (phantom-module
     // manifest rows and wholesale commit staging)
     const tmpAbs = path.join(ANALYSES_DIR, `.scoped-${safe}-${module}-${process.pid}-${carrySeq++}`)
@@ -957,12 +1719,24 @@ export function carryForwardScoped(
     try {
       fs.rmSync(tmpAbs, { recursive: true, force: true })
       copyDir(srcAbs, tmpAbs)
+      if (refreshFallback && planned) {
+        const prefix = `${module}/`
+        const reusable = new Set(planned.doneOrbKeys
+          .filter((key) => key.startsWith(prefix))
+          .map((key) => `${key.slice(prefix.length)}.md`))
+        const moduleNode = byModule.get(module)
+        if (!moduleNode) throw new Error(`module ${module} disappeared from the discovered graph`)
+        invalidateOutdatedSynthesis(moduleNode, tmpAbs, reusable, swarmId)
+      }
       for (const f of holesFor(module, tmpAbs)) fs.rmSync(path.join(tmpAbs, f), { force: true })
       // a whole-carry marker from the source copy must not survive into a scoped stage — one provenance
       // story per folder, and this one is "resumed with holes", not "carried verbatim"
       fs.rmSync(path.join(tmpAbs, CARRY_MARKER), { force: true })
       fs.writeFileSync(path.join(tmpAbs, RESUME_MARKER), scopedNote(module, c.from, c.date, base.targetRunRoot, omittedOrbs, synthesisOnly), 'utf8')
-      if (replacedPartial) fs.rmSync(dstAbs, { recursive: true, force: true })
+      if (replacedPartial) {
+        assertContainedTargetModuleOrMissing(base.targetRunRoot, module)
+        fs.rmSync(dstAbs, { recursive: true, force: true })
+      }
       fs.renameSync(tmpAbs, dstAbs)
     } finally {
       fs.rmSync(tmpAbs, { recursive: true, force: true })

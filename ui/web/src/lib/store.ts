@@ -1181,6 +1181,19 @@ function launchSelectionIsCurrent(state: State, selection: LaunchSelectionBindin
     && read.run_root === selection.runRoot && read.decision_fingerprint === selection.decisionFingerprint
 }
 
+// Every launch control shares one pending slot. Keep the admission rule here so an agent click and a
+// module-heading click cannot overwrite each other's spinner while either request is still preparing.
+// The ticker comparison is deliberate: research mutations are serialized per ticker on the server too.
+function hasPendingLaunchForTicker(state: State, selection: LaunchSelectionBinding): boolean {
+  return state.launchPending?.ticker === selection.subject
+}
+
+function requireCurrentLaunchSelection(state: State, selection: LaunchSelectionBinding): boolean {
+  if (launchSelectionIsCurrent(state, selection)) return true
+  state.setToast({ msg: 'The selected call changed. Nothing was launched.', tone: 'info' })
+  return false
+}
+
 function launchPreflightMatches(
   preflight: LaunchPreflight | null | undefined,
   selection: LaunchSelectionBinding,
@@ -1952,26 +1965,35 @@ export const useStore = create<State>((set, get) => ({
   launchAgent: async (node, force) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
-    const t = get().selectedTicker
-    if (!t) return
+    const selection = captureLaunchSelection(get())
+    const t = selection?.subject
+    if (!selection || !t) return
+    if (hasPendingLaunchForTicker(get(), selection)) return
     if (!node.soloRunnable) {
       get().setToast({ msg: `${node.name} needs upstream — run the module first`, tone: 'info' })
       return
     }
-    // Local launcher capturing `t` + `node` so the "Run anyway" retry forces on the ticker that PRODUCED
-    // the lock, NOT get().selectedTicker read at click time — the user may switch companies while the
-    // toast is up (was a cross-ticker force bug).
+    // Local launcher captures the complete selection identity. A retry toast from an old company must not
+    // silently force the same-named orb after the user has navigated away (or away and back).
     const doLaunch = async (f?: boolean) => {
+      if (!requireCurrentLaunchSelection(get(), selection)) return
+      if (hasPendingLaunchForTicker(get(), selection)) return
       // instant feedback: the pending flag flips the button to a spinner IN THE SAME FRAME as the click
-      set({ launchPending: { key: `agent:${node.key}`, label: `Starting ${node.name}…`, ticker: t } })
+      const pending = { key: `agent:${node.key}`, label: `Starting ${node.name}…`, ticker: t, selection }
+      set({ launchPending: pending })
       try {
-        const { runId } = await api.launch({ kind: 'agent', ticker: t, module: node.module, agent: node.name, force: f, swarm: get().activeSwarm !== 'research' ? get().activeSwarm : undefined })
+        const { runId } = await api.launch({ kind: 'agent', ticker: t, module: node.module, agent: node.name, force: f, swarm: selection.swarm !== 'research' ? selection.swarm : undefined })
+        if (!launchSelectionIsCurrent(get(), selection)) {
+          void get().refreshActiveRuns()
+          get().setToast({ msg: `${node.name} started on ${t}. Follow it in Activity.`, tone: 'good' })
+          return
+        }
         beginRun(set, get, runId, { kind: 'agent', module: node.module, agent: node.name, willCommitToMain: false }, [node.key])
         get().setToast({ msg: `${f ? 'Re-launched' : 'Launched'} ${node.name} on ${t}`, tone: 'good' })
       } catch (e: any) {
         launchErrorToast(get, e, t, node.name, f ? undefined : () => doLaunch(true))
       } finally {
-        set({ launchPending: null })
+        if (get().launchPending === pending) set({ launchPending: null })
       }
     }
     // Client-side in-flight guard. A forced retry skips it. When it trips on a run the UI THINKS is live but
@@ -1988,20 +2010,107 @@ export const useStore = create<State>((set, get) => ({
   launchModule: async (module, force) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
-    const t = get().selectedTicker
-    if (!t) return
+    const selection = captureLaunchSelection(get())
+    const t = selection?.subject
+    if (!selection || !t) return
+    if (hasPendingLaunchForTicker(get(), selection)) return
     const planned = [...get().nodesByKey.values()].filter((n) => n.module === module).map((n) => n.key)
-    // Local launcher capturing `t` so the "Run anyway" retry forces on the ticker that produced the lock.
-    const doLaunch = async (f?: boolean) => {
-      set({ launchPending: { key: `module:${module}`, label: `Starting the ${module} module…`, ticker: t } })
+    // Research module headings use the same disk-truth resume contract as the completion panel. That contract
+    // carries valid finished specialists + upstream modules, runs only the missing specialists, and refreshes
+    // the synthesis. The old direct /api/launch path could neither see filled orbs in an older run nor safely
+    // handle a historical synthesis whose roster had since grown.
+    const graphModule = get().graph?.modules.find((entry) => entry.name === module)
+    if (selection.swarm === 'research' && typeof graphModule?.exactResume !== 'boolean') {
+      return get().setToast({
+        msg: 'The engine is still updating. Refresh once, then click the module again.',
+        tone: 'info',
+      })
+    }
+    const exactResume = selection.swarm === 'research' && graphModule?.exactResume === true
+    if (exactResume) {
+      const pendingKey = `module:${module}`
+      const forceWhenCurrent = () => {
+        if (!requireCurrentLaunchSelection(get(), selection)) return
+        void get().launchModule(module, true)
+      }
+      if (get().targetInFlight(t, planned) && !force) {
+        return get().setToast({
+          msg: `${moduleLabel(module)} is already running`, tone: 'info',
+          action: { label: 'Stop & run again', onClick: forceWhenCurrent },
+        })
+      }
+      // A forced retry explicitly stops any registry-held run even when the local node snapshot is stale and
+      // no longer paints it as active. This is the old "Run anyway" recovery, made safe by waiting for the
+      // server-side subject cancellation before any resume staging begins.
+      if (force) {
+        const stopping = { key: pendingKey, label: `Stopping the old ${moduleLabel(module)} run…`, ticker: t, selection }
+        set({ launchPending: stopping })
+        try {
+          await api.cancelSubject('research', t)
+          await get().refreshActiveRuns()
+        } catch (e: any) {
+          if (launchSelectionIsCurrent(get(), selection)) get().setToast({ msg: e?.message || `Could not stop the old ${moduleLabel(module)} run`, tone: 'bad' })
+          return
+        } finally {
+          if (get().launchPending === stopping) set({ launchPending: null })
+        }
+        if (!launchSelectionIsCurrent(get(), selection)) return
+      }
+      const pending = { key: pendingKey, label: `Checking unfinished ${moduleLabel(module)} orbs…`, ticker: t, selection }
+      set({ launchPending: pending })
+      let plan: ThesisPlan | null = null
       try {
-        const { runId } = await api.launch({ kind: 'module', ticker: t, module, force: f, swarm: get().activeSwarm !== 'research' ? get().activeSwarm : undefined })
+        plan = await api.thesisPlan(t, 'research')
+        if (!launchSelectionIsCurrent(get(), selection)) return
+        if (plan.moduleResumeVersion !== 2 || typeof plan.dataPool.newestMs !== 'number') {
+          get().setToast({ msg: 'The engine is still updating. Refresh once, then click the module again.', tone: 'info' })
+          return
+        }
+        if (plan.complete) {
+          set({ thesisPlan: plan, thesisPlanError: null })
+          get().setToast({ msg: `Today’s call is sealed. Start a new analysis version before refreshing ${moduleLabel(module)}.`, tone: 'info' })
+          return
+        }
+        const moduleEntry = plan.modules.find((entry) => entry.module === module)
+        // A heading click means "finish the saved module", never an unannounced clean rerun. Newer evidence
+        // invalidates reuse, so stop before spending and let the user choose a full refresh explicitly.
+        if (moduleEntry?.staleReason) {
+          set({ thesisPlan: plan, thesisPlanError: null })
+          get().setToast({ msg: `New source data means ${moduleLabel(module)} cannot safely reuse its filled orbs. Run the whole module from the analysis controls.`, tone: 'info' })
+          return
+        }
+        set({ thesisPlan: plan, thesisPlanError: null })
+      } catch (e: any) {
+        if (launchSelectionIsCurrent(get(), selection)) {
+          get().setToast({ msg: e?.message || `Could not check ${moduleLabel(module)}`, tone: 'bad' })
+        }
+      } finally {
+        if (get().launchPending === pending) set({ launchPending: null })
+      }
+      if (plan && launchSelectionIsCurrent(get(), selection)) {
+        await runPlannedResearchModule(set, get, module, plan, pendingKey, false, selection)
+      }
+      return
+    }
+    // Non-research module retries carry the same exact selection binding as research retries.
+    const doLaunch = async (f?: boolean) => {
+      if (!requireCurrentLaunchSelection(get(), selection)) return
+      if (hasPendingLaunchForTicker(get(), selection)) return
+      const pending = { key: `module:${module}`, label: `Starting the ${module} module…`, ticker: t, selection }
+      set({ launchPending: pending })
+      try {
+        const { runId } = await api.launch({ kind: 'module', ticker: t, module, force: f, swarm: selection.swarm !== 'research' ? selection.swarm : undefined })
+        if (!launchSelectionIsCurrent(get(), selection)) {
+          void get().refreshActiveRuns()
+          get().setToast({ msg: `${moduleLabel(module)} started on ${t}. Follow it in Activity.`, tone: 'good' })
+          return
+        }
         beginRun(set, get, runId, { kind: 'module', module, willCommitToMain: true }, planned)
         get().setToast({ msg: `${f ? 'Re-launched' : 'Launched'} ${module} module on ${t}`, tone: 'good' })
       } catch (e: any) {
         launchErrorToast(get, e, t, `${module} module`, f ? undefined : () => doLaunch(true))
       } finally {
-        set({ launchPending: null })
+        if (get().launchPending === pending) set({ launchPending: null })
       }
     }
     // Guard-trip offers "Run anyway" too, so a UI-live-but-dead module lock isn't a dead end (see launchAgent).
@@ -2016,6 +2125,7 @@ export const useStore = create<State>((set, get) => ({
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const selection = captureLaunchSelection(get())
     if (!selection) return
+    if (hasPendingLaunchForTicker(get(), selection)) return
     if (get().anyRunForTicker(selection.subject)) return get().setToast({ msg: `Finish the in-flight run on ${selection.subject} first — a full run needs exclusive access`, tone: 'info' })
     const pending = { key: 'full:request', label: 'Preparing the run plan…', ticker: selection.subject, selection }
     set({ launchPending: pending })
@@ -2089,6 +2199,7 @@ export const useStore = create<State>((set, get) => ({
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const selection = captureLaunchSelection(get())
     if (!selection) return
+    if (hasPendingLaunchForTicker(get(), selection)) return
     // A re-run changes an existing call, so it must be bound to that call's immutable run folder and
     // decision fingerprint. If the projection is still loading/missing, stop before even pricing work.
     // Full runs remain available because they create a new call rather than mutate this one.
@@ -2808,43 +2919,7 @@ export const useStore = create<State>((set, get) => ({
     if (!plan || !t) return
     if (plan.swarm !== 'research') return get().setToast({ msg: `Running a single module of a ${plan.swarm} dossier from here isn’t supported yet.`, tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
-    const entry = plan.modules.find((m) => m.module === module)
-    if (!entry || !entry.runnable) return // the pill is only pressable when runnable; belt-and-braces
-
-    set({ launchPending: { key: `complete-module:${module}`, label: `Running ${moduleLabel(module)}…`, ticker: t } })
-    try {
-      const { runId, willRun, doneOrbKeys, carried, resumed, ranClean } = await api.runThesisPlanModule(t, module, plan.reuse, plan.swarm)
-
-      // Light up only THIS module's orbs: the ones on disk as done, the rest as queued. Never a false
-      // from-scratch start.
-      const nodes = [...get().nodesByKey.values()].filter((n) => n.module === module)
-      const doneSet = new Set(doneOrbKeys)
-      const doneKeys = nodes.filter((n) => doneSet.has(n.key)).map((n) => n.key)
-      const plannedKeys = nodes.filter((n) => !doneSet.has(n.key)).map((n) => n.key)
-
-      set({ thesisPlanOpen: false, launchPending: null })
-      if (runId) beginRun(set, get, runId, { kind: 'module', module, willCommitToMain: true }, plannedKeys, doneKeys)
-
-      const carriedNote = carried.length ? ` · reused ${carried.length} upstream module${carried.length === 1 ? '' : 's'}` : ''
-      const msg = ranClean
-        ? `Re-running ${moduleLabel(module)} clean on ${t} — newer data landed${carriedNote}`
-        : resumed
-          ? `Resuming ${moduleLabel(module)} on ${t} — ${willRun} orb${willRun === 1 ? '' : 's'} left${carriedNote}`
-          : `Running ${moduleLabel(module)} on ${t} — ${willRun} orb${willRun === 1 ? '' : 's'}${carriedNote}`
-      get().setToast({ msg, tone: 'good' })
-    } catch (e: any) {
-      set({ launchPending: null })
-      const code = e?.body?.code
-      if (code === 'already_complete') {
-        set({ thesisPlanOpen: false })
-        get().setToast({ msg: 'This run already has a final thesis — opening it.', tone: 'info' })
-        void get().openThesis()
-        return
-      }
-      // A transient launch failure must not unmount the plan the user is reading; surface it as a toast and
-      // leave the panel open so they can retry (the carry is idempotent, a retry resumes).
-      get().setToast({ msg: e?.message || `Could not run ${moduleLabel(module)}`, tone: 'bad' })
-    }
+    await runPlannedResearchModule(set, get, module, plan, `complete-module:${module}`, true)
   },
 
   // open one of the three run tiers (memo / thesis / dossier) by resolving its file under the run root.
@@ -5578,6 +5653,154 @@ export const useStore = create<State>((set, get) => ({
 // DEV-only: expose the store so live timer/ETA visuals can be exercised locally without paying for a real
 // run (simulate running orbs via __store.setState). Tree-shaken out of the production build.
 if (import.meta.env?.DEV && typeof window !== 'undefined') (window as any).__store = useStore
+
+async function runPlannedResearchModule(
+  set: any,
+  get: () => State,
+  module: string,
+  plan: ThesisPlan,
+  pendingKey: string,
+  closePlanOnStart: boolean,
+  suppliedSelection?: LaunchSelectionBinding,
+): Promise<void> {
+  const selection = suppliedSelection ?? captureLaunchSelection(get())
+  const ticker = selection?.subject
+  if (!selection || !ticker || selection.swarm !== 'research' || plan.swarm !== 'research' || plan.subject !== ticker) return
+  if (!launchSelectionIsCurrent(get(), selection)) return
+  if (plan.moduleResumeVersion !== 2 || typeof plan.dataPool.newestMs !== 'number') {
+    return get().setToast({ msg: 'The engine is still updating. Refresh once, then try again.', tone: 'info' })
+  }
+  const entry = plan.modules.find((m) => m.module === module)
+  if (entry?.publicationPending) {
+    const pending = { key: `${pendingKey}:publish`, label: `Saving finished ${moduleLabel(module)}…`, ticker, selection }
+    set({ launchPending: pending })
+    try {
+      await api.publishThesisPlanModule(
+        ticker,
+        module,
+        plan.swarm,
+        entry.publicationPending.targetRunRoot,
+        entry.publicationPending.fingerprint,
+      )
+      if (!launchSelectionIsCurrent(get(), selection)) {
+        get().setToast({ msg: `${moduleLabel(module)} was saved for ${ticker}.`, tone: 'good' })
+        return
+      }
+      set({
+        ...(closePlanOnStart ? { thesisPlanOpen: false } : {}),
+        thesisPlan: {
+          ...plan,
+          modules: plan.modules.map((candidate) => candidate.module === module
+            ? { ...candidate, publicationPending: undefined }
+            : candidate),
+        },
+      })
+      get().setToast({ msg: `${moduleLabel(module)} is saved. No analysis was rerun.`, tone: 'good' })
+    } catch (e: any) {
+      if (launchSelectionIsCurrent(get(), selection)) {
+        get().setToast({ msg: e?.message || `Could not save ${moduleLabel(module)}. Click the module to try saving again.`, tone: 'bad' })
+      }
+    } finally {
+      if (get().launchPending === pending) set({ launchPending: null })
+    }
+    return
+  }
+  if (!entry?.runnable) {
+    if (entry?.blockedBy.length) {
+      const upstream = entry.blockedBy.map(moduleLabel).join(', ')
+      get().setToast({ msg: `Run ${upstream} first — ${moduleLabel(module)} reads ${entry.blockedBy.length === 1 ? 'it' : 'them'}.`, tone: 'info' })
+    } else if (entry && !plan.run.includes(module)) {
+      get().setToast({ msg: `${moduleLabel(module)} is already complete — there are no empty orbs to run.`, tone: 'info' })
+    } else {
+      get().setToast({ msg: `${moduleLabel(module)} cannot run yet. Refresh and try again.`, tone: 'info' })
+    }
+    return
+  }
+
+  const pending = { key: pendingKey, label: `Running ${moduleLabel(module)}…`, ticker, selection }
+  set({ launchPending: pending })
+  try {
+    const { runId, doneOrbKeys, carried, resumed, ranClean } = await api.runThesisPlanModule(
+      ticker,
+      module,
+      plan.reuse,
+      plan.swarm,
+      entry.willRunAgents,
+      entry.doneOrbKeys,
+      plan.targetRunRoot,
+      plan.dataPool.files,
+      plan.dataPool.newestMs,
+    )
+    if (!launchSelectionIsCurrent(get(), selection)) {
+      void get().refreshActiveRuns()
+      get().setToast({ msg: `${moduleLabel(module)} started on ${ticker}. Follow it in Activity.`, tone: 'good' })
+      return
+    }
+
+    // Light up only THIS module's orbs: valid files on disk remain done; the missing specialists and the
+    // refreshed synthesis queue. The server—not the circles on screen—decides which saved outputs are valid.
+    const nodes = [...get().nodesByKey.values()].filter((node) => node.module === module)
+    const doneSet = new Set(doneOrbKeys)
+    const doneKeys = nodes.filter((node) => doneSet.has(node.key)).map((node) => node.key)
+    const plannedKeys = nodes.filter((node) => !doneSet.has(node.key)).map((node) => node.key)
+    const plannedSpecialists = nodes.filter((node) => !node.isSynthesis && !doneSet.has(node.key))
+    const specialistRuns = plannedSpecialists.length
+    // Read the user's visible gap BEFORE beginRun changes an old-but-dependent saved check from done to queued.
+    // That distinction is what lets the toast say "6 empty + 1 related check" instead of calling all 7 empty.
+    // Intersect the painted-empty set with the server's actual plan. A historical merge can prove an orb done
+    // even when the currently displayed run has no runtime row for it; that orb must not inflate this count.
+    const visibleEmptyOrbsBeforeLaunch = plannedSpecialists
+      .filter((node) => get().nodeStatus(node.key) !== 'done').length
+
+    set({
+      ...(closePlanOnStart ? { thesisPlanOpen: false } : {}),
+      ...(get().launchPending === pending ? { launchPending: null } : {}),
+    })
+    if (runId) beginRun(set, get, runId, { kind: 'module', module, willCommitToMain: true }, plannedKeys, doneKeys)
+    else void get().refreshActiveRuns()
+
+    const carriedNote = carried.length ? ` · reused ${carried.length} upstream module${carried.length === 1 ? '' : 's'}` : ''
+    const dependentChecks = Math.max(0, specialistRuns - visibleEmptyOrbsBeforeLaunch)
+    const parts: string[] = []
+    if (visibleEmptyOrbsBeforeLaunch) parts.push(`${visibleEmptyOrbsBeforeLaunch} empty orb${visibleEmptyOrbsBeforeLaunch === 1 ? '' : 's'}`)
+    if (dependentChecks) parts.push(`${dependentChecks} related saved check${dependentChecks === 1 ? '' : 's'}`)
+    if (!parts.length && specialistRuns) parts.push(`${specialistRuns} check${specialistRuns === 1 ? '' : 's'}`)
+    parts.push('a fresh summary')
+    const remaining = parts.join(' + ')
+    const msg = ranClean
+      ? `Re-running ${moduleLabel(module)} clean on ${ticker} — newer data landed${carriedNote}`
+      : resumed
+        ? `Finishing ${moduleLabel(module)} on ${ticker} — ${remaining}${carriedNote}`
+        : `Running ${moduleLabel(module)} on ${ticker} — ${remaining}${carriedNote}`
+    get().setToast({ msg, tone: 'good' })
+  } catch (e: any) {
+    const code = e?.body?.code
+    if (code === 'already_complete' && closePlanOnStart) {
+      set({ thesisPlanOpen: false })
+      get().setToast({ msg: 'This run already has a final thesis — opening it.', tone: 'info' })
+      void get().openThesis()
+      return
+    }
+    const info = ['upstream_incomplete', 'not_runnable', 'module_scope_changed', 'sealed_run'].includes(code)
+    get().setToast({
+      msg: e?.message || `Could not run ${moduleLabel(module)}`,
+      tone: info ? 'info' : 'bad',
+      ...(code === 'subject_busy'
+        ? {
+            action: {
+              label: 'Stop & run again',
+              onClick: () => {
+                if (!requireCurrentLaunchSelection(get(), selection)) return
+                void get().launchModule(module, true)
+              },
+            },
+          }
+        : {}),
+    })
+  } finally {
+    if (get().launchPending === pending) set({ launchPending: null })
+  }
+}
 
 function beginRun(set: any, get: () => State, runId: string, info: { kind: string; module?: string; agent?: string; willCommitToMain?: boolean }, plannedKeys: string[], doneKeys: string[] = []) {
   const ticker = get().selectedTicker || ''

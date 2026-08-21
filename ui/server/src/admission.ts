@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { MAX_CONCURRENT_RUNS, REPO_ROOT } from './config'
-import { IN_FLIGHT_STATUSES, inFlightRunsForSubject, listRuns } from './registry'
+import { inFlightRunsForSubject, listRuns } from './registry'
 import { buildSwarmGraph, depsCompleteForModule, moduleAncestors, transitiveDownstreamModules } from './roster'
 import type { AdmissionDecision, AdmissionRejection, RunKind } from './types'
 
@@ -25,6 +25,15 @@ export interface AdmissionRequest {
 // run concurrently.
 const isExclusive = (k: RunKind) => k === 'full' || k === 'rerun' || k === 'signal' || k === 'sweep' || k === 'handoff'
 const rel = (p: string) => path.relative(REPO_ROOT, p)
+const pathScopesOverlap = (a: string, b: string): boolean => {
+  const left = path.resolve(a)
+  const right = path.resolve(b)
+  if (left === right) return true
+  const leftToRight = path.relative(left, right)
+  if (leftToRight && !leftToRight.startsWith('..') && !path.isAbsolute(leftToRight)) return true
+  const rightToLeft = path.relative(right, left)
+  return !!rightToLeft && !rightToLeft.startsWith('..') && !path.isAbsolute(rightToLeft)
+}
 
 // Dependency-aware admission. Returns {ok:true} or a discriminated rejection. Pure + synchronous
 // (fs.existsSync / in-memory reads only). Rules are evaluated D1 -> D4b -> D5 so a specific conflict
@@ -121,31 +130,37 @@ export function admitRun(req: AdmissionRequest): AdmissionDecision {
     }
   }
 
-  // D4b — required-upstream stability (solo agent runs): intra-module reads must EXIST on disk AND
-  // not be in any in-flight run's write set (an agent reading a file another agent is rewriting).
-  if ((kind === 'agent' || kind === 'screener-agent') && readDepsAbs.length) {
+  // D4b — read stability. Solo-agent required files and exact-resume module input DIRECTORIES must exist,
+  // and no admitted writer may overlap them. The check is bidirectional: it rejects a reader while a writer
+  // is live, and a later writer while the exact reader is live. Directory containment matters because an
+  // exact module claims a whole staged input folder while the writer declares its individual output files.
+  if (readDepsAbs.length) {
     const missingFiles = readDepsAbs.filter((p) => !fs.existsSync(p))
     if (missingFiles.length) {
       return { ok: false, code: 'upstream_incomplete', httpStatus: 400, missing: missingFiles.map(rel) }
     }
-    for (const e of inflight) {
-      const clash = readDepsAbs.filter((p) => e.writeTargetsAbs.includes(p))
-      if (clash.length) {
-        return {
-          ok: false,
-          code: 'dependency_conflict',
-          httpStatus: 409,
-          conflictRunId: e.runId,
-          reason: 'upstream-file-in-flight',
-          detail: { conflictFiles: clash.map(rel) },
-        }
+  }
+  for (const e of inflight) {
+    const incomingReadsUnderWrite = readDepsAbs.filter((read) => e.writeTargetsAbs.some((write) => pathScopesOverlap(read, write)))
+    const incomingWritesOverRead = writeTargetsAbs.filter((write) => e.readDepsAbs.some((read) => pathScopesOverlap(write, read)))
+    const clash = [...new Set([...incomingReadsUnderWrite, ...incomingWritesOverRead])]
+    if (clash.length) {
+      return {
+        ok: false,
+        code: 'dependency_conflict',
+        httpStatus: 409,
+        conflictRunId: e.runId,
+        reason: 'upstream-file-in-flight',
+        detail: { conflictFiles: clash.map(rel) },
       }
     }
   }
 
   // D5 — global concurrency cap across ALL tickers (cost / rate-limit backstop). Checked last so a
   // specific, actionable conflict is reported before the generic cap.
-  const liveCount = listRuns().filter((r) => IN_FLIGHT_STATUSES.has(r.status)).length // incl. the pre-spawn gate states
+  // `cancelled` is only a requested/display state until process close sets endedAt. Keep that shutting-down
+  // writer in the global cap too; otherwise another subject can consume its slot while it still commits.
+  const liveCount = listRuns().filter((r) => r.endedAt === undefined).length // incl. gates + closing cancellations
   if (liveCount >= MAX_CONCURRENT_RUNS) {
     return { ok: false, code: 'capacity', httpStatus: 429, activeCount: liveCount, cap: MAX_CONCURRENT_RUNS }
   }

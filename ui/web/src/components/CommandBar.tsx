@@ -689,7 +689,7 @@ export function CommandBar() {
   // company/starting a run clears the flag — so a visible flag always means there's a hidden panel to bring back)
   const requestFull = useStore((s) => s.requestFull)
   const anyRun = useStore((s) => s.anyRunForTicker(s.selectedTicker))
-  const fullPending = useStore((s) => s.launchPending?.key === 'full:request')
+  const launchPending = useStore((s) => s.launchPending)
   const selectedTicker = useStore((s) => s.selectedTicker)
   const staticMode = useStore((s) => s.staticMode)
   const snapshotAt = useStore((s) => s.snapshotAt)
@@ -698,6 +698,8 @@ export function CommandBar() {
   const swarms = useStore((s) => s.swarms)
   const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
   const screenerMode = activeSwarm === 'screener'
+  const pendingOnSelectedTicker = Boolean(selectedTicker && launchPending?.ticker === selectedTicker)
+  const fullPending = pendingOnSelectedTicker && launchPending?.key === 'full:request'
   // a swarm's decision record carries its own verdict field (e.g. commodity `action`) — resolve it
   // generically so the final-report button shows for any finished constellation-swarm run too
   const verdict = resolveVerdict(decision, swarms.find((s) => s.id === activeSwarm)?.verdictField)
@@ -759,7 +761,7 @@ export function CommandBar() {
             Ask ▸
           </button>
           <ResumeChip />
-          <button className="btn btn--amber" disabled={!selectedTicker || anyRun || engineDown || fullPending} onClick={requestFull} title={staticMode ? 'Runs on your local machine (npm run dev)' : engineDown ? 'Engine offline — live runs are paused until it reconnects' : anyRun ? 'A run is in flight — a full run needs exclusive access' : 'Run the full pipeline'}>
+          <button className="btn btn--amber" disabled={!selectedTicker || anyRun || engineDown || pendingOnSelectedTicker} onClick={requestFull} title={staticMode ? 'Runs on your local machine (npm run dev)' : engineDown ? 'Engine offline — live runs are paused until it reconnects' : anyRun ? 'A run is in flight — a full run needs exclusive access' : pendingOnSelectedTicker ? 'Another action is already starting for this company' : 'Run the full pipeline'}>
             {fullPending ? 'Preparing…' : 'Run full ▸'}
           </button>
           <TickerPicker />

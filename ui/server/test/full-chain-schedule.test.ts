@@ -8,10 +8,11 @@ process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
-import { type FullChainDeps, haltAllChains, launchFullChained } from '../src/launcher'
+import { cancelSubject, type FullChainDeps, haltAllChains, launchFullChained, subjectChainActive } from '../src/launcher'
 import { REPO_ROOT } from '../src/config'
 import { sharedDataPoolConflict } from '../src/intake-owner'
 import { buildSwarmGraph } from '../src/roster'
+import { SubjectBusyError, subjectMutationLockKey, withSubjectLock } from '../src/subject-lock'
 import type { LaunchPreflight, RunStatus } from '../src/types'
 
 let passed = 0
@@ -168,6 +169,7 @@ const sorted = (a: string[]) => [...a].sort()
     assert.deepEqual(f.mods(), ['business-model'], 'no module launches after a failure')
     assert.ok(!f.launches.some((l) => l.kind === 'rerun'), 'master is not launched after a failure')
     assert.equal(f.wasMarkerCleared(), true, 'a failed chain clears the defer-memo marker (no orphan poisoning later runs)')
+    assert.equal(subjectChainActive('TESTF'), false, 'a failed chain releases its subject reservation')
   })
 
   await check('an aborted SIBLING stops new scheduling but does not launch the master', async () => {
@@ -225,6 +227,16 @@ const sorted = (a: string[]) => [...a].sort()
     await f.tick() // all three next-wave attempts reject 429; no child RunState exists during backoff
     assert.ok(f.pendingRetries() >= 1, 'the chain is waiting in a capacity backoff')
     assert.equal(f.poolClaimHeld(), true, 'claim remains held while every child launch is backed off')
+    assert.equal(subjectChainActive('TESTPOOL'), true,
+      'the subject stays reserved even when no child RunState exists during the capacity gap')
+    let exactRouteMutated = false
+    const exactOutcome = await withSubjectLock(subjectMutationLockKey('research', 'TESTPOOL'), async () => {
+      if (subjectChainActive('TESTPOOL')) return 'busy' as const
+      exactRouteMutated = true
+      return 'mutated' as const
+    })
+    assert.equal(exactOutcome, 'busy', 'an exact-route-equivalent contender sees the chain reservation')
+    assert.equal(exactRouteMutated, false, 'the contender is rejected before staging any bytes')
     assert.equal(
       sharedDataPoolConflict('commodity', [], f.poolClaimHeld() ? [{ swarm: 'research' }] : [] )?.code,
       'shared_data_subject_busy',
@@ -241,6 +253,25 @@ const sorted = (a: string[]) => [...a].sort()
     f.finish('master')
     assert.equal(f.poolClaimHeld(), false, 'master terminal releases the claim')
     assert.equal(f.poolClaimReleases(), 1, 'the chain claim releases exactly once')
+    assert.equal(subjectChainActive('TESTPOOL'), false, 'master terminal leaves no stale subject reservation')
+  })
+
+  await check('exact staging lock first prevents a new chain from reaching marker/launch mutation', async () => {
+    const f = makeFake()
+    let contenderEntered = false
+    await withSubjectLock(subjectMutationLockKey('research', 'TESTLOCKFIRST'), async () => {
+      await assert.rejects(
+        withSubjectLock(subjectMutationLockKey('research', 'TESTLOCKFIRST'), async () => {
+          contenderEntered = true
+          await launchFullChained('TESTLOCKFIRST', 'tester', 'local', f.deps)
+        }),
+        (error: any) => error instanceof SubjectBusyError,
+      )
+    })
+    assert.equal(contenderEntered, false, 'the losing public/supervisor launch path never enters')
+    assert.equal(f.getMarker(), null, 'the chain cannot write its defer marker while exact staging owns the key')
+    assert.deepEqual(f.launches, [], 'no child launch is registered or started')
+    assert.equal(subjectChainActive('TESTLOCKFIRST'), false, 'the rejected contender leaves no reservation')
   })
 
   await check('haltAllChains() stops the DAG — no further modules, no master (kill-switch wiring)', async () => {
@@ -249,10 +280,29 @@ const sorted = (a: string[]) => [...a].sort()
     f.finish('business-model') // -> earnings launches (chain still alive)
     assert.ok(f.mods().includes('earnings'), 'earnings launched before the halt')
     haltAllChains()            // stop-everything bumps the chain epoch
+    assert.equal(subjectChainActive('TESTHALT'), false, 'stop-everything clears the chain reservation synchronously')
     f.finish('earnings')       // would normally launch bss + mgov — but the chain is halted
     assert.deepEqual(sorted(f.mods()), sorted(['business-model', 'earnings']), 'no module launches after haltAllChains()')
     assert.ok(!f.launches.some((l) => l.kind === 'rerun'), 'master never launches after a halt')
     assert.equal(f.wasMarkerCleared(), true, 'a halted chain clears the defer-memo marker (no orphan poisoning a later same-day standalone run)')
+  })
+
+  await check('stopping one subject halts only its DAG; an unrelated subject keeps advancing', async () => {
+    const india = makeFake()
+    const tcs = makeFake()
+    await launchFullChained('TESTINDIA', 'tester', 'local', india.deps)
+    await launchFullChained('TESTTCS', 'tester', 'local', tcs.deps)
+
+    await cancelSubject('TESTINDIA', 'research')
+    assert.equal(subjectChainActive('TESTINDIA'), false, 'subject cancellation clears only its reservation')
+    assert.equal(subjectChainActive('TESTTCS'), true, 'the unrelated subject remains reserved while it advances')
+    india.finish('business-model')
+    tcs.finish('business-model')
+
+    assert.deepEqual(india.mods(), ['business-model'], 'the cancelled subject launches no successor')
+    assert.deepEqual(tcs.mods(), ['business-model', 'earnings'], 'the unrelated subject chain still advances')
+    assert.equal(india.wasMarkerCleared(), true, 'the cancelled subject clears its own defer marker')
+    assert.equal(tcs.wasMarkerCleared(), false, 'the unrelated subject keeps its defer marker while running')
   })
 
   await check('a sealed dated run is rejected before the chained scheduler writes a marker or launches paid work', async () => {
@@ -297,6 +347,25 @@ const sorted = (a: string[]) => [...a].sort()
       assert.ok(!f.mods().includes('business-model') && !f.mods().includes('earnings'), 'a finished module is NOT re-launched (the money the user was worried about)')
       // both deps of bss + mgov are seeded done, so they are the newly-ready wave and launch immediately
       assert.ok(f.mods().includes('balance-sheet-survival') && f.mods().includes('management-governance'), 'the next-ready modules launch straight away on resume')
+    } finally {
+      fs.rmSync(runRootAbs, { recursive: true, force: true })
+    }
+  })
+
+  await check('RESUME: a malformed current 99 is planned again, never seeded as finished', async () => {
+    const TICK = 'ZZBAD99CHAIN'
+    const d = new Date()
+    const TODAY = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+    const runRootAbs = path.join(REPO_ROOT, 'analyses', `${TICK}_${TODAY}`)
+    try {
+      const moduleDir = path.join(runRootAbs, 'business-model')
+      fs.mkdirSync(moduleDir, { recursive: true })
+      fs.writeFileSync(path.join(moduleDir, '99_business-model-synthesis.md'), '# cut off\n\n```json\n{"partial":true}\n')
+      const f = makeFake()
+      const out = await launchFullChained(TICK, 'tester', 'local', f.deps)
+      assert.ok(!(out.skipped ?? []).includes('business-model'), 'invalid 99 cannot enter the resumed done set')
+      assert.ok((out.planned ?? []).includes('business-model'), 'the module remains in the paid plan')
+      assert.ok(f.mods().includes('business-model'), 'the full chain reruns the module instead of feeding bad bytes downstream')
     } finally {
       fs.rmSync(runRootAbs, { recursive: true, force: true })
     }

@@ -36,6 +36,13 @@ else
   fi
 fi
 
+# Validation/dry-run authority never includes a remote push. Retry mode used to bypass the ordinary
+# ENGINE_NO_PUSH branch below and could unexpectedly publish a prior local-only checkpoint.
+if [ -n "$RETRY_SHA" ] && [ "${ENGINE_NO_PUSH:-}" = "1" ]; then
+  echo "commit-run: ENGINE_NO_PUSH=1 — retry push refused" >&2
+  exit 4
+fi
+
 TOP="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo "commit-run: not a git repo" >&2; exit 2; }
 
 # ---- engine push identity: authenticate as the GitHub App, if wired ----
