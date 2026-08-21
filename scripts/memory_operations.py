@@ -1899,7 +1899,7 @@ def _guard_json_text_nesting(text: str, label: str) -> None:
                     f"{label} exceeds maximum JSON nesting depth of {_MAX_JSON_DEPTH}"
                 )
         elif character in "]}":
-            depth -= 1
+            depth = max(0, depth - 1)
 
 
 def _json_string_size(value: str, label: str) -> int:
@@ -2015,7 +2015,12 @@ def load_json_read_only(path: str | os.PathLike[str]) -> Mapping[str, Any]:
     if before.st_size > _MAX_INPUT_BYTES:
         raise OperationsError(f"{source} exceeds the {_MAX_INPUT_BYTES}-byte input limit")
     try:
-        flags = os.O_RDONLY | getattr(os, "O_CLOEXEC", 0) | getattr(os, "O_NOFOLLOW", 0)
+        flags = (
+            os.O_RDONLY
+            | getattr(os, "O_CLOEXEC", 0)
+            | getattr(os, "O_NOFOLLOW", 0)
+            | getattr(os, "O_BINARY", 0)
+        )
         descriptor = os.open(source, flags)
         try:
             opened = os.fstat(descriptor)

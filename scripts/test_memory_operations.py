@@ -733,6 +733,13 @@ def test_cli_is_read_only_and_refuses_symlinks() -> None:
             lambda: load_json_read_only(deep), "maximum JSON nesting depth of 128"
         )
 
+        unmatched_prefix = root / "unmatched-prefix.json"
+        unmatched_prefix.write_text("]" * 200 + "[" * 129, encoding="utf-8")
+        _expect_operations_error(
+            lambda: load_json_read_only(unmatched_prefix),
+            "maximum JSON nesting depth of 128",
+        )
+
         many_nodes = root / "many-nodes.json"
         many_nodes.write_text(json.dumps({"nodes": [0] * 100_001}), encoding="utf-8")
         _expect_operations_error(
