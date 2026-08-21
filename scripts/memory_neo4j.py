@@ -249,6 +249,15 @@ def _valid_time(
     return start, end, precision
 
 
+def _event_list(event: Mapping[str, Any], field_name: str) -> list[Any]:
+    """Return one required JSON-array field without accepting iterable scalars."""
+
+    value = event.get(field_name)
+    if not isinstance(value, list):
+        raise Neo4jPrototypeError(f"adapter event {field_name} must be a list")
+    return value
+
+
 def map_events(events: Iterable[Mapping[str, Any]]) -> GraphBundle:
     """Map validated legacy envelopes into a deterministic, metadata-only graph."""
 
@@ -293,6 +302,9 @@ def map_events(events: Iterable[Mapping[str, Any]]) -> GraphBundle:
             raise Neo4jPrototypeError("adapter event requires subjects")
         if not all(isinstance(value, str) and value for value in subject_values):
             raise Neo4jPrototypeError("adapter event contains an invalid subject")
+        evidence_refs = _event_list(event, "evidence_refs")
+        derived_from = _event_list(event, "derived_from")
+        supersedes_values = _event_list(event, "supersedes")
 
         # Deliberately exclude payload.record and every canonical source byte.  The first
         # Aura smoke test proves graph structure without uploading research prose.
@@ -324,7 +336,7 @@ def map_events(events: Iterable[Mapping[str, Any]]) -> GraphBundle:
         for subject_id in subject_values:
             subjects.add(subject_id)
             about.add((event_id, subject_id))
-        for evidence_ref in event.get("evidence_refs", []):
+        for evidence_ref in evidence_refs:
             if not isinstance(evidence_ref, str):
                 raise Neo4jPrototypeError("adapter event contains an invalid evidence reference")
             match = EVIDENCE_RE.fullmatch(evidence_ref)
@@ -338,11 +350,11 @@ def map_events(events: Iterable[Mapping[str, Any]]) -> GraphBundle:
                 "locator": locator,
             }
             cites.add((event_id, evidence_ref))
-        for target in event.get("derived_from", []):
+        for target in derived_from:
             if not isinstance(target, str):
                 raise Neo4jPrototypeError("adapter event contains an invalid derived_from edge")
             derived.add((event_id, target))
-        for target in event.get("supersedes", []):
+        for target in supersedes_values:
             if not isinstance(target, str):
                 raise Neo4jPrototypeError("adapter event contains an invalid supersedes edge")
             supersedes.add((event_id, target))

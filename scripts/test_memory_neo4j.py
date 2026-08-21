@@ -219,6 +219,34 @@ class MemoryNeo4jTests(unittest.TestCase):
                 ]
             )
 
+    def test_mapping_rejects_non_list_relation_fields_before_iteration(self) -> None:
+        hostile_values = (
+            None,
+            "scalar-string",
+            {"unexpected": "mapping"},
+            7,
+            ("tuple-item",),
+        )
+        for field_name in ("evidence_refs", "derived_from", "supersedes"):
+            for hostile_value in hostile_values:
+                with self.subTest(field=field_name, value=hostile_value):
+                    source = event("evt_00000000-0000-5000-8000-000000000005")
+                    source[field_name] = hostile_value
+                    with self.assertRaisesRegex(
+                        Neo4jPrototypeError,
+                        rf"{field_name} must be a list",
+                    ):
+                        map_events([source])
+
+            with self.subTest(field=field_name, value="missing"):
+                source = event("evt_00000000-0000-5000-8000-000000000006")
+                del source[field_name]
+                with self.assertRaisesRegex(
+                    Neo4jPrototypeError,
+                    rf"{field_name} must be a list",
+                ):
+                    map_events([source])
+
     def test_mapping_rejects_prose_like_locators(self) -> None:
         source = event("evt_00000000-0000-5000-8000-000000000010")
         source["payload"]["source_locator"] = "secret prose marker"
