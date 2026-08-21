@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import copy
 import datetime as dt
+import functools
 import json
 from pathlib import Path
 from typing import Any, Iterable, Mapping
@@ -55,6 +56,7 @@ class Phase5ContractError(ValueError):
     """A Phase 5 object was not eligible for controlled use."""
 
 
+@functools.lru_cache(maxsize=None)
 def _load_schema(name: str) -> dict[str, Any]:
     with (SCHEMA_DIR / name).open("r", encoding="utf-8") as handle:
         value = json.load(handle)

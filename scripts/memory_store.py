@@ -1096,6 +1096,8 @@ class MemoryStore:
         parent_fd: int,
         destination: str,
         relative: Path,
+        *,
+        validate: bool = True,
     ) -> list[tuple[Path, bytes]]:
         prefix = self._temporary_prefix(destination)
         pattern = re.compile(
@@ -1122,13 +1124,17 @@ class MemoryStore:
                 raise StoreCorruption(
                     f"exact-target atomic temp has an invalid name: {temp_relative}"
                 )
-            raw = self._read_regular_at(parent_fd, name, temp_relative)
-            declared_sha256 = match.group(1)
-            actual_sha256 = hashlib.sha256(raw).hexdigest()
-            if declared_sha256 != actual_sha256:
-                raise StoreCorruption(
-                    f"exact-target atomic temp digest mismatch: {temp_relative}"
-                )
+            raw = b""
+            if validate:
+                # The descriptor-based read also requires a regular 0600 file owned
+                # by this service with exactly one hard link before reading bytes.
+                raw = self._read_regular_at(parent_fd, name, temp_relative)
+                declared_sha256 = match.group(1)
+                actual_sha256 = hashlib.sha256(raw).hexdigest()
+                if declared_sha256 != actual_sha256:
+                    raise StoreCorruption(
+                        f"exact-target atomic temp digest mismatch: {temp_relative}"
+                    )
             rows.append((temp_relative, raw))
         return rows
 
@@ -1163,13 +1169,7 @@ class MemoryStore:
             parent_context.__exit__(None, None, None)
 
     def _is_valid_atomic_temp(self, relative: Path) -> bool:
-        match = _ATOMIC_TEMP_RE.fullmatch(relative.name)
-        if match is None:
-            return False
-        raw = self._read_regular(relative)
-        if hashlib.sha256(raw).hexdigest() != match.group(1):
-            raise StoreCorruption(f"atomic temp digest mismatch: {relative}")
-        return True
+        return _ATOMIC_TEMP_RE.fullmatch(relative.name) is not None
 
     def _recover_temporary_at(
         self,
@@ -1180,13 +1180,19 @@ class MemoryStore:
         *,
         exact_data: bool,
     ) -> None:
-        """Remove only authenticated-by-content temps tied to one exact destination."""
+        """Remove closed-name temps for one destination, validating exact bytes when needed."""
 
-        recovered = self._temporary_rows_at(parent_fd, destination, relative)
+        recovered = self._temporary_rows_at(
+            parent_fd,
+            destination,
+            relative,
+            validate=exact_data,
+        )
         if exact_data:
             self._require_temporary_data(recovered, data)
-        # Replace operations may retry with new bytes, but every old temp is still tied
-        # to this exact destination and authenticated by its filename digest.
+        # Replace retries may discard incomplete temps.  The closed target prefix
+        # limits deletion to this destination, while _delete_regular revalidates
+        # type, mode, owner, single-link status, and inode identity before unlinking.
         self._delete_temporary_rows(recovered)
 
     def _atomic_create(self, relative: Path, data: bytes) -> bool:

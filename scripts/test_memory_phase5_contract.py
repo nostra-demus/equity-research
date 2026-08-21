@@ -5,6 +5,7 @@ from __future__ import annotations
 import copy
 import unittest
 
+import memory_phase5_contract as phase5_contract
 from canonical_json import canonical_json_bytes, canonical_sha256
 from memory_contract import validate_event
 from memory_controlled_write import GENESIS_HEAD
@@ -228,6 +229,15 @@ def outcome_verifier(*, outcome: dict, trusted_as_of: str) -> dict:
 
 
 class Phase5ContractTests(unittest.TestCase):
+    def test_static_schema_loads_are_cached(self) -> None:
+        phase5_contract._load_schema.cache_clear()
+        first = phase5_contract._load_schema(phase5_contract.WRITE_REQUEST_SCHEMA)
+        before = phase5_contract._load_schema.cache_info()
+        second = phase5_contract._load_schema(phase5_contract.WRITE_REQUEST_SCHEMA)
+        after = phase5_contract._load_schema.cache_info()
+        self.assertIs(first, second)
+        self.assertEqual(after.hits, before.hits + 1)
+
     def test_request_capsules_are_hash_bound_and_schema_has_no_open_event_subtree(self) -> None:
         envelope = event(claim())
         candidate = request(envelope)

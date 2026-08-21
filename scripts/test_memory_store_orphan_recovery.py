@@ -302,6 +302,50 @@ class MemoryStoreOrphanRecoveryTests(unittest.TestCase):
 
             self.assertEqual(store_snapshot(root), before)
 
+    def test_temp_recognition_is_name_only_and_replace_cleans_partial_bytes(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary) / "store"
+            store = self.new_store(root)
+            target = store._relative_path("mutable", "state.json")
+            store._atomic_replace(target, b"old")
+
+            missing_temp = target.parent / (
+                store._temporary_prefix(target.name)
+                + "1" * 64
+                + "-"
+                + "2" * 32
+            )
+            self.assertTrue(store._is_valid_atomic_temp(missing_temp))
+
+            partial = store._absolute(missing_temp)
+            partial.write_bytes(b"partial")
+            partial.chmod(0o600)
+            store._atomic_replace(target, b"new")
+
+            self.assertEqual(store._read_regular(target), b"new")
+            self.assertFalse(partial.exists())
+
+    def test_replace_cleanup_rejects_hardlinked_temp_without_mutation(self) -> None:
+        if not hasattr(os, "link"):
+            self.skipTest("hard-link safety drill requires os.link")
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary) / "store"
+            store = self.new_store(root)
+            target = store._relative_path("mutable", "state.json")
+            store._atomic_replace(target, b"committed")
+            with store._parent_fd(target, create=False) as (parent_fd, destination):
+                temp_name = store._temporary_file_at(parent_fd, destination, b"next")
+            temp_path = store._absolute(target.parent / temp_name)
+            hardlink = temp_path.with_name("external-hardlink")
+            os.link(temp_path, hardlink)
+
+            with self.assertRaisesRegex(StoreCorruption, "external hard links"):
+                store._atomic_replace(target, b"replacement")
+
+            self.assertEqual(store._read_regular(target), b"committed")
+            self.assertTrue(temp_path.exists())
+            self.assertTrue(hardlink.exists())
+
     def test_tampered_unencrypted_and_authenticated_orphans_refuse_repair(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary) / "public"
