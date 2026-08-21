@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T07:49:56Z",
+  "generated_at": "2026-08-21T08:06:14Z",
   "inbox": [
     {
       "inbox_id": "INB-20260821-491",
@@ -568,6 +568,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-514",
+      "headline": "Italy’s Monte dei Paschi Makes $40 Billion Move to Buy Rival Banks",
+      "headline_en": null,
+      "url": "https://www.wsj.com/business/deals/monte-dei-paschi-makes-40-billion-move-to-buy-italian-peers-banco-bpm-banca-generali-711620fd?mod=rss_markets_main",
+      "source_name": "The Wall Street Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T07:30:00Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "Monte dei Paschi announced ~$40 billion acquisition of rival banks — a large, named M&A transaction with quantified deal value.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Monte dei Paschi announced ~$40 billion acquisition of rival banks — a large, named M&A transaction with quantified deal value.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 7,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Monte dei Paschi",
+          "ticker": "MDP",
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1963,55 +2012,6 @@
         {
           "name": "Veralto",
           "ticker": "VLTO",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-329",
-      "headline": "Off-price retailer TJX raises annual profit forecasts",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/off-price-retailer-tjx-raises-annual-profit-forecasts-2026-08-19/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-19T11:59:43Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Duplicate of item 3; the company has raised its annual profit forecasts.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Duplicate of item 3; the company has raised its annual profit forecasts.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "TJX Companies",
-          "ticker": null,
           "listing_country": "US"
         }
       ],
@@ -73991,9 +73991,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 8372807,
-    "news_picked_today": 989,
-    "news_dropped_today": 1543
+    "news_seen_today": 8647568,
+    "news_picked_today": 1004,
+    "news_dropped_today": 1552
   },
   "book_momentum": {
     "live_count": 8,
