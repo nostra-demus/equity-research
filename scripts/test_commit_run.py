@@ -357,6 +357,21 @@ def test_retry_push_is_exact_main_only_and_serialized():
               result.returncode == 0 and remote == sha and f"COMMIT_SHA={sha}" in result.stdout,
               f"rc={result.returncode} stdout={result.stdout!r} stderr={result.stderr!r}")
 
+        with open(os.path.join(agent, "no-push-retry.txt"), "w") as f:
+            f.write("must stay local\n")
+        run(["git", "add", "no-push-retry.txt"], cwd=agent, env=env)
+        run(["git", "commit", "-q", "-m", "local validation checkpoint"], cwd=agent, env=env)
+        local_only_sha = run(["git", "rev-parse", "HEAD"], cwd=agent, env=env).stdout.strip()
+        no_push_retry = run(
+            ["bash", COMMIT_RUN, "--retry-push", local_only_sha],
+            cwd=agent, env=no_push_env(env), check_rc=False,
+        )
+        remote_after_no_push = run(["git", "rev-parse", "origin/main"], cwd=agent, env=env).stdout.strip()
+        check("ENGINE_NO_PUSH refuses retry mode and leaves origin untouched",
+              no_push_retry.returncode == 4 and remote_after_no_push == sha
+              and "retry push refused" in no_push_retry.stderr,
+              f"rc={no_push_retry.returncode} stdout={no_push_retry.stdout!r} stderr={no_push_retry.stderr!r}")
+
         run(["git", "checkout", "-q", "-b", "code-branch"], cwd=agent, env=env)
         rejected = run(["bash", COMMIT_RUN, "--retry-push", sha], cwd=agent, env=env, check_rc=False)
         check("retry mode refuses a developer/code branch", rejected.returncode == 4, rejected.stderr)

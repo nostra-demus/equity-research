@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { computeLayout, type PlacedNode } from '../../lib/layout'
 import { sufficiencyColor } from '../../lib/format'
 import { collectSamples, expectedDurations, expectedFor, fmtClock, fmtEtaLeft, orbClass, scopeTiming, type ScopeOrb } from '../../lib/eta'
+import { moduleRunAffordance } from '../../lib/moduleRun'
 import { useStore } from '../../lib/store'
 import { AgentNode } from './AgentNode'
 import { CoreOrb } from './CoreOrb'
@@ -13,6 +14,7 @@ import { IntakeProjection } from '../intake/IntakeProjection'
 
 export function SwarmField() {
   const graph = useStore((s) => s.graph)
+  const activeSwarm = useStore((s) => s.activeSwarm)
   const dataStatus = useStore((s) => s.dataStatus)
   const nodeRuntime = useStore((s) => s.nodeRuntime)
   const launchPending = useStore((s) => s.launchPending)
@@ -125,8 +127,16 @@ export function SwarmField() {
         const ms = dataStatus?.modules[c.module]?.status
         const live = activeModules.has(c.module)
         const mod = moduleByName.get(c.module)
-        const depLocked = mod?.depsComplete === false
+        const smartResume = activeSwarm === 'research' && mod?.exactResume === true
+        const depLocked = !smartResume && mod?.depsComplete === false
         const miss = mod?.missingDeps?.join(', ')
+        const runAffordance = smartResume
+          ? moduleRunAffordance(layout.nodes.filter((n) => n.module === c.module), nodeStatus)
+          : { complete: false, unfinishedSpecialists: 0, label: '▸ run module', title: 'Runs this module only' }
+        // A newly added specialist can be run one-by-one before the old synthesis is refreshed. In that
+        // state every visible orb looks done, but disk truth still has summary work to do. Keep research
+        // headings actionable so the fresh plan can detect and finish that last step.
+        const headingAction = smartResume || !runAffordance.complete
         // live module timer: elapsed since the first orb here started + honest progress-projection ETA
         const mt = live
           ? scopeTiming(
@@ -138,7 +148,21 @@ export function SwarmField() {
             )
           : null
         return (
-          <div key={c.module} className={`cluster__label${live ? ' cluster__label--live' : ''}`} style={{ left: c.labelX, top: c.labelY }} onMouseEnter={() => setHoverModule(c.module)} onMouseLeave={() => setHoverModule(null)} onClick={(e) => { e.stopPropagation(); onClusterClick(c.module) }}>
+          <div
+            key={c.module}
+            className={`cluster__label${live ? ' cluster__label--live' : ''}`}
+            style={{ left: c.labelX, top: c.labelY }}
+            onMouseEnter={() => setHoverModule(c.module)}
+            onMouseLeave={() => setHoverModule(null)}
+            onClick={(e) => { e.stopPropagation(); if (headingAction) onClusterClick(c.module) }}
+            onKeyDown={(e) => {
+              if (!headingAction || (e.key !== 'Enter' && e.key !== ' ')) return
+              e.preventDefault(); e.stopPropagation(); onClusterClick(c.module)
+            }}
+            role={headingAction ? 'button' : undefined}
+            tabIndex={headingAction ? 0 : undefined}
+            aria-label={headingAction ? `${c.module.replace(/-/g, ' ')}: ${runAffordance.label.replace(/^▸\s*/, '')}. ${runAffordance.title}` : undefined}
+          >
             <div className="cluster__name">{c.module.replace(/-/g, ' ')}</div>
             {ms && <div className="cluster__status" style={{ color: sufficiencyColor(ms) }}>{ms}</div>}
             {live && mt ? (
@@ -161,8 +185,10 @@ export function SwarmField() {
             ) : launchPending?.key === `module:${c.module}` ? (
               // the click was heard — the label flips in the same frame, before the server acks
               <div className="cluster__run" style={{ color: 'var(--accent-bright)' }}>● starting…</div>
+            ) : runAffordance.complete ? (
+              <div className="cluster__run cluster__run--done" style={{ color: 'var(--text-secondary)' }} title={runAffordance.title}>{runAffordance.label}</div>
             ) : (
-              <div className="cluster__run">▸ run module</div>
+              <div className={`cluster__run${smartResume ? ' cluster__run--action' : ''}`} title={runAffordance.title}>{runAffordance.label}</div>
             )}
           </div>
         )

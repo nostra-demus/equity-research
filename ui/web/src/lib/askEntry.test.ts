@@ -268,6 +268,19 @@ const composedBar = renderToStaticMarkup(createElement(CommandBar))
 assert.equal((composedBar.match(/cmdbar__ask/g) || []).length, 1, 'the composed screener command bar must keep exactly one top-level Ask')
 assert.equal(composedBar.includes('Ask news'), false, 'the parent command bar must not reintroduce a separate Ask news action')
 
+useStore.setState({
+  activeSwarm: 'research', constellationSwarm: 'research', swarms: [research], selectedTicker: 'AMZN',
+  activeRuns: {}, health: 'online', staticMode: false,
+  launchPending: { key: 'module:management-governance', label: 'Checking unfinished orbs…', ticker: 'AMZN' },
+})
+const pendingResearchBar = renderToStaticMarkup(createElement(CommandBar))
+const pendingFullButton = pendingResearchBar.match(/<button[^>]*>Run full ▸<\/button>/)?.[0] ?? ''
+assert.match(pendingFullButton, /disabled/, 'Run full is disabled while any launch request for the selected ticker is pending')
+useStore.setState({
+  activeSwarm: 'screener', constellationSwarm: 'research', swarms: [research, screener], selectedTicker: 'AMZN',
+  launchPending: null,
+})
+
 const failedTurnNotice = renderToStaticMarkup(createElement(ChatErrorNotice, { error: 'stream interrupted', retryText: 'retry me', onRetry: () => {}, staticMessage: 'live only' }))
 assert.match(failedTurnNotice, /role="alert"/, 'a first-turn Ask failure must be announced')
 assert.match(failedTurnNotice, />Retry</, 'a rolled-back first turn must still offer Retry')

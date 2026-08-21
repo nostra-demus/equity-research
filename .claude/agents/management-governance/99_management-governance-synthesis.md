@@ -1,6 +1,8 @@
 ---
 name: management-governance-synthesis
 depends_on: [business-model, earnings]
+reads_from: [balance-sheet-survival]
+exact_resume: true
 description: Reads ALL upstream management-governance outputs and produces the final module report — Abstract, Verdict block (14 scores, the Non-Negotiable Gate, and a stewardship verdict), the assembled Governance Checklist (every registry item Green/Amber/Red/NA), People & Network Integrity summary, Specialist roll-up, Reconciliation, Score Cap application, Note to Final Synthesizer, and Simple Summary. The master synthesizer reads this as a module chapter and treats its governance verdict as primary (superseding the business-model quick-read).
 tools: Read, Glob, Grep, Bash
 layer: 3
@@ -259,7 +261,7 @@ Where `business-model/08_competitive-map` provides peers, benchmark the key gove
 
 ## 5C. Governance Change Since Last Run
 
-If a prior dated run exists for this ticker (`analyses/{TICKER}_{prior-date}/management-governance/`), compare and report deltas; else write "No prior run — first governance snapshot."
+When `NOSTRA_EXACT_MODULE_RESUME=1`, do NOT Glob, search, or read any prior-dated management-governance folder. Write: "Historical delta not read in exact scoped resume — current checkpointed snapshot only." The cockpit has fingerprinted and read-locked only the staged current root, and the synthesis may not add an uncheckpointed local input after the paid scope was approved. In an ordinary run only, if a prior dated run exists for this ticker (`analyses/{TICKER}_{prior-date}/management-governance/`), compare and report deltas; else write "No prior run — first governance snapshot."
 
 | Item | Prior | Current | Change | Good / Bad | Material? |
 |---|---|---|---|---|---|

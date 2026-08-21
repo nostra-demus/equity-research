@@ -2,14 +2,13 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { REPO_ROOT } from './config'
 import { setCreditStatus } from './credit'
-import { sweepRunOutputs } from './fs-watcher'
 // launcher.ts also imports handleStreamLine from this file — a circular import, but safe under native
 // ESM: recordStreamResultFailure is a hoisted `export function` (live before either module's own
 // top-level code runs), and both files only call the other's export from inside a function body, at
 // runtime, never at module-init time. See the comment on recordStreamResultFailure (Finding 1).
 import { recordStreamResultFailure } from './launcher'
 import { LAUNCH_GUARDS } from './config'
-import { emit, emitTransient, finishRun, recordActivity, type RunState } from './registry'
+import { emit, emitTransient, recordActivity, type RunState } from './registry'
 import { agentNameIndexAllSwarms, buildSwarmGraph } from './roster'
 
 let nameIndex: Map<string, { key: string; module: string; layer: number; name: string }> | null = null
@@ -199,14 +198,13 @@ export function handleStreamLine(run: RunState, line: string) {
       if (typeof obj.total_cost_usd === 'number') run.costUsd = obj.total_cost_usd
       if (typeof obj.num_turns === 'number') run.numTurns = obj.num_turns
       if (typeof obj.duration_ms === 'number') run.durationMs = obj.duration_ms
-      // last-moment file writes can still be held by the watcher's awaitWriteFinish — sweep the
-      // expected outputs from disk so agent-done lands BEFORE run-done, never after
-      sweepRunOutputs(run)
+      // Do not sweep outputs on the stream result. The detached leader can emit its result and exit while
+      // a Task/tool descendant is still writing. The launcher's close path proves the whole process group
+      // extinct first, then performs the authoritative final sweep before terminal validation/publication.
       emit(run, { type: 'cost-tick', runId: run.runId, costUsdSoFar: run.costUsd, ts })
-      // Error results finalize early (unambiguous). A CLEAN result does NOT finalize here: the
-      // process-close handler (launcher's finalizeRunOnClose) is the single success finalizer, so
-      // its integrity checks — the full/rerun missing-final-thesis guard — can never be bypassed
-      // by a clean stream `result` arriving moments before the process closes.
+      // Error results are recorded/emitted immediately, but NO result finalizes here. The process-close
+      // handler must first prove the detached process group extinct; a Task/tool descendant can survive the
+      // leader and keep writing even after this line arrives. Clean results also wait for close-time integrity.
       if (run.status === 'running' || run.status === 'starting') {
         if (obj.is_error || obj.subtype === 'error_max_turns' || obj.subtype === 'error_during_execution') {
           const reason = obj.api_error_status ? `api_error_${obj.api_error_status}` : obj.subtype || 'engine_error'
@@ -236,13 +234,9 @@ export function handleStreamLine(run: RunState, line: string) {
             // overwriting it would trade one blind spot for another.
             if (capNote) message = message ? `${message}\n\n${capNote}` : capNote
           }
-          // Finding 1: this early-finalize path used to call finishRun() directly, which sets run.endedAt —
-          // so finalizeRunOnClose (the close handler) would later return immediately without ever writing
-          // the .interrupted marker or RUN_FAILURE.md for what is the single most common budget/API-error
-          // stop. Record the SAME failure note here, before finishRun, so it's never skipped.
+          // Record the failure note now, while preserving endedAt + claims until process-group-safe close.
           recordStreamResultFailure(run, reason, message)
           emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: message ? message.slice(0, 400) : undefined, ts })
-          finishRun(run, 'error')
         }
       }
       break

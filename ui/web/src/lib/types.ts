@@ -601,6 +601,7 @@ export interface ModuleNode {
   name: string
   order: number
   dependsOn: string[]
+  exactResume?: boolean
   layers: Record<string, AgentNode[]>
   agentCount: number
   depsComplete?: boolean // ticker graph only: are this module's dependsOn syntheses on disk?
@@ -2355,9 +2356,15 @@ export interface ModulePlanEntry {
   blockedBy: string[] // ancestors of this module that are themselves in `run` — it can't launch until they do
   runnable: boolean // this module can be launched on its own now (in `run`, and nothing upstream is)
   willRunAgents: number // orbs that would actually execute if it ran now (total minus reused-on-resume)
+  doneOrbKeys: string[] // exact valid specialists the v2 resume will keep; also the launch scope CAS
+  synthesisNeedsRefresh?: boolean // old 99 no longer represents the current roster / specialist dependency state
+  // A completed exact-resume module whose analysis finished locally but whose final Git publication failed.
+  // The heading stays actionable, but its retry is publication-only: it must never launch another paid run.
+  publicationPending?: { targetRunRoot: string; fingerprint: string }
 }
 
 export interface ThesisPlan {
+  moduleResumeVersion?: 2 // absent on an older server: smart heading launch must fail closed during deploy skew
   swarm: string
   subject: string
   targetRunRoot: string
@@ -2372,7 +2379,7 @@ export interface ThesisPlan {
   run: string[] // actually runs — the exact complement of `reuse`
   carry: { module: string; from: string; date: string | null }[]
   master: { state: 'ready' | 'blocked' | 'done'; blockedBy: string[] }
-  dataPool: { files: number; newestDate: string | null }
+  dataPool: { files: number; newestDate: string | null; newestMs?: number }
   preflight: LaunchPreflight // cost/time of ONLY the remaining work
   fullPreflight: LaunchPreflight // cost/time of the naive full re-run — the savings, made visible
   canCarry: boolean

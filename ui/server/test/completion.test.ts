@@ -23,7 +23,8 @@ const fm = (name: string, layer: number, extra = '') => `---\nname: ${name}\nlay
 
 // A minimal 2-module research graph: `alpha` (one specialist + synthesis), `beta` (one specialist + synthesis).
 write('.claude/agents/alpha/01_alpha-thing.md', fm('alpha-thing', 1))
-write('.claude/agents/alpha/99_alpha-synthesis.md', fm('alpha-synthesis', 99, 'depends_on: []\n'))
+write('.claude/agents/alpha/99_alpha-synthesis.md', fm('alpha-synthesis', 99, 'depends_on: []\n')
+  + '\nEmit the synthesis-owned sidecar `alpha_declared.json`.\n')
 write('.claude/agents/beta/01_beta-thing.md', fm('beta-thing', 1))
 write('.claude/agents/beta/99_beta-synthesis.md', fm('beta-synthesis', 99, 'depends_on: [alpha]\n'))
 
@@ -56,6 +57,7 @@ poolFile('STALE', 'new-filing.pdf', 0)
 
 // SAMEDAY: pool file lands the SAME day as the run. Order is unknowable from a date-named folder, so this
 // must NOT be flagged stale (a coin-flip re-run burns money for nothing).
+write(`analyses/SAMEDAY_${YESTERDAY}/alpha/01_alpha-thing.md`, '# a\n')
 write(`analyses/SAMEDAY_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# a\n')
 poolFile('SAMEDAY', 'f.pdf', -1)
 
@@ -66,11 +68,14 @@ write(`analyses/PART_${YESTERDAY}/alpha/01_alpha-thing.md`, '# a\n')
 write(`analyses/EMPTYSYN_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '')
 
 // FIN: already has a final thesis → nothing to complete.
+write(`analyses/FIN_${TODAY}/alpha/01_alpha-thing.md`, '# a\n')
 write(`analyses/FIN_${TODAY}/alpha/99_alpha-synthesis.md`, '# a\n')
+write(`analyses/FIN_${TODAY}/beta/01_beta-thing.md`, '# b\n')
 write(`analyses/FIN_${TODAY}/beta/99_beta-synthesis.md`, '# b\n')
 write(`analyses/FIN_${TODAY}/final_thesis.md`, '# thesis\n')
 
-const { thesisPlan, carryForwardModules, dataPoolNewest, prepareModuleResume } = await import('../src/completion')
+const { capturePreparedModuleResumeScope, thesisPlan, carryForwardModules, dataPoolNewest, prepareModuleResume } = await import('../src/completion')
+const { buildSwarmGraph } = await import('../src/roster')
 
 // ---- 1. cross-folder reuse: the money test -------------------------------------------------------
 {
@@ -168,12 +173,15 @@ const { thesisPlan, carryForwardModules, dataPoolNewest, prepareModuleResume } =
 // ---- 6. carry-forward: copies, stamps, never touches the source ----------------------------------
 {
   const before = fs.readdirSync(path.join(REPO, `analyses/ACME_${YESTERDAY}/alpha`)).sort()
+  const sourceOrbMtime = fs.statSync(path.join(REPO, `analyses/ACME_${YESTERDAY}/alpha/01_alpha-thing.md`)).mtimeMs
   const res = carryForwardModules('ACME', ['alpha'])
   assert.deepEqual(res.carried, [{ module: 'alpha', from: `analyses/ACME_${YESTERDAY}` }])
 
   const dst = path.join(REPO, `analyses/ACME_${TODAY}/alpha`)
   assert.ok(fs.existsSync(path.join(dst, '99_alpha-synthesis.md')), 'synthesis copied')
   assert.ok(fs.existsSync(path.join(dst, '01_alpha-thing.md')), 'specialist outputs copied')
+  assert.ok(Math.abs(fs.statSync(path.join(dst, '01_alpha-thing.md')).mtimeMs - sourceOrbMtime) < 2,
+    'carry preserves specialist mtimes so dependency freshness is not rewritten by staging')
 
   const note = fs.readFileSync(path.join(dst, 'CARRIED_FORWARD.md'), 'utf8')
   assert.match(note, /not re-run/i, 'the stamp says it was not re-run')
@@ -235,7 +243,20 @@ const { thesisPlan, carryForwardModules, dataPoolNewest, prepareModuleResume } =
   const nested = dataPoolNewest('NESTED')
   assert.equal(nested.files, 2, 'both files counted — INCLUDING the one nested past the old depth-6 cap (guards the 6→24 raise)')
   assert.equal(nested.newestMs, expectedMax, 'newestMs is the recursive max over max(mtime, ctime) across the whole tree')
+
+  // The engine writes its own memos back into the Drive pool under a sentinel. They are not evidence and
+  // must not make a module look stale merely because its own prior-run summary was written a day later.
+  poolFile('OUTPUTONLY', 'filing.pdf', -1)
+  write('data/OUTPUTONLY/Memos 2099-01-01/.nostradamus_output', 'engine output')
+  write('data/OUTPUTONLY/Memos 2099-01-01/thesis.md', '# generated memo\n')
+  write(`analyses/OUTPUTONLY_${YESTERDAY}/alpha/01_alpha-thing.md`, '# a\n')
+  write(`analyses/OUTPUTONLY_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# a\n')
+  const outputOnly = dataPoolNewest('OUTPUTONLY')
+  assert.equal(outputOnly.files, 1, 'sentinel-marked engine output contributes zero pool files')
+  assert.equal(outputOnly.newestDate, YESTERDAY, 'engine output cannot advance the evidence freshness date')
+  assert.equal(thesisPlan('OUTPUTONLY').modules.find((m) => m.module === 'alpha')!.state, 'done')
   // With no pool at all, a finished module must still be reusable (absence of evidence is not staleness).
+  write(`analyses/NOPOOL_${YESTERDAY}/alpha/01_alpha-thing.md`, '# a\n')
   write(`analyses/NOPOOL_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# a\n')
   assert.equal(thesisPlan('NOPOOL').modules.find((m) => m.module === 'alpha')!.state, 'done')
   console.log('✅ missing data pool never fabricates staleness')
@@ -247,6 +268,7 @@ const { thesisPlan, carryForwardModules, dataPoolNewest, prepareModuleResume } =
   // launcher charges — reusing nothing has to reproduce the full-run band exactly, or the panel's headline
   // saving is fiction. Uses a fixture never carried into today's root (a carried module becomes `mustReuse`
   // and can no longer be un-reused, which is correct — and is what makes ACME unusable for this assertion).
+  write(`analyses/PRICING_${YESTERDAY}/alpha/01_alpha-thing.md`, '# a\n')
   write(`analyses/PRICING_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# a\n')
   const none = thesisPlan('PRICING', undefined, [])
   assert.deepEqual(none.mustReuse, [], 'nothing is locked in today’s root')
@@ -264,37 +286,43 @@ const { thesisPlan, carryForwardModules, dataPoolNewest, prepareModuleResume } =
   console.log('✅ scoped pricing reconciles with the full-run band at both extremes')
 }
 
-// ---- 11. a PARTIAL folder in the target root must not defeat the carry (the billing bug) ------------
+// ---- 11. newer target-root specialist work refreshes only the synthesis -----------------------------
 {
-  // yesterday: alpha finished.  today: alpha half-written by a run that broke — exactly the case this feature
-  // exists for. The plan prices alpha as reused; if the carry declines because the folder "exists", the
-  // launcher's skip-test fails and the user is CHARGED for a module the priced button called free.
+  // Yesterday alpha finished. Today the user manually reran its specialist, then stopped before synthesis.
+  // Discarding today's valid, paid-for output in favour of yesterday's old 99 would lose progress and leave
+  // the old synthesis inconsistent with the newer orb. Keep the specialist and scope only 99 to run.
   write(`analyses/PARTIALTGT_${YESTERDAY}/alpha/01_alpha-thing.md`, '# a\n')
   write(`analyses/PARTIALTGT_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# finished\n')
-  write(`analyses/PARTIALTGT_${TODAY}/alpha/01_alpha-thing.md`, '# partial junk from a broken run\n')
+  const newerOrb = path.join(REPO, `analyses/PARTIALTGT_${TODAY}/alpha/01_alpha-thing.md`)
+  write(`analyses/PARTIALTGT_${TODAY}/alpha/01_alpha-thing.md`, '# newer manual specialist run\n')
+  const newerTime = new Date(Date.now() + 2_000)
+  fs.utimesSync(newerOrb, newerTime, newerTime)
 
   const p = thesisPlan('PARTIALTGT')
   const alpha = p.modules.find((m) => m.module === 'alpha')!
-  assert.equal(alpha.state, 'done', 'the finished copy in an older folder wins over the partial one')
-  assert.equal(alpha.inTargetRoot, false)
-  assert.ok(!p.mustReuse.includes('alpha'), 'a partial target folder does not lock the module')
-  assert.deepEqual(p.reuse, ['alpha'])
-  assert.equal(p.carry.length, 1, 'it must still be carried')
+  assert.equal(alpha.state, 'partial', 'a specialist newer than 99 forces synthesis refresh')
+  assert.equal(alpha.inTargetRoot, true)
+  assert.deepEqual(alpha.doneOrbKeys, ['alpha/01_alpha-thing'])
+  assert.equal(alpha.willRunAgents, 1, 'only the synthesis remains')
+  assert.ok(!p.mustReuse.includes('alpha'), 'the old 99 cannot lock the module')
+  assert.deepEqual(p.reuse, [])
+  assert.equal(p.carry.length, 0)
 
-  carryForwardModules('PARTIALTGT', p.reuse)
+  const resumed = prepareModuleResume('PARTIALTGT', 'alpha', undefined, p)
+  assert.deepEqual(resumed.doneOrbKeys, ['alpha/01_alpha-thing'])
+  assert.equal(resumed.willRunAgents, 1)
   const synth = path.join(REPO, `analyses/PARTIALTGT_${TODAY}/alpha/99_alpha-synthesis.md`)
-  assert.ok(fs.statSync(synth).size > 0, 'the launcher skip-predicate now passes — the module is genuinely reused')
-  assert.match(fs.readFileSync(path.join(REPO, `analyses/PARTIALTGT_${TODAY}/alpha/CARRIED_FORWARD.md`), 'utf8'), /Replaced: an unfinished copy/, 'the stamp discloses that partial work was superseded')
-  // and the source is still untouched
+  assert.ok(!fs.existsSync(synth), 'old synthesis is removed so the module pipeline runs 99')
+  assert.equal(fs.readFileSync(newerOrb, 'utf8'), '# newer manual specialist run\n', 'today’s newer specialist survives staging')
+  // The older finished source is still untouched.
   assert.ok(fs.existsSync(path.join(REPO, `analyses/PARTIALTGT_${YESTERDAY}/alpha/99_alpha-synthesis.md`)))
-  // no staging dir survives, anywhere
-  assert.deepEqual(fs.readdirSync(path.join(REPO, 'analyses')).filter((f) => f.startsWith('.carry-')), [], 'staging dirs never linger in analyses/')
-  assert.deepEqual(fs.readdirSync(path.join(REPO, `analyses/PARTIALTGT_${TODAY}`)).filter((f) => f.startsWith('.carry-')), [], 'and never inside the run root')
-  console.log('✅ a partial folder in the target root is superseded, not silently skipped')
+  assert.deepEqual(fs.readdirSync(path.join(REPO, 'analyses')).filter((f) => f.startsWith('.resume-')), [], 'staging dirs never linger in analyses/')
+  console.log('✅ a newer manual specialist run is preserved and only synthesis is refreshed')
 }
 
 // ---- 12. a module finished IN the target root is locked (the launcher would skip it regardless) -----
 {
+  write(`analyses/LOCKED_${TODAY}/alpha/01_alpha-thing.md`, '# a\n')
   write(`analyses/LOCKED_${TODAY}/alpha/99_alpha-synthesis.md`, '# finished today\n')
   const p = thesisPlan('LOCKED')
   assert.deepEqual(p.mustReuse, ['alpha'], 'already in the target run root → cannot be rebuilt from here')
@@ -311,6 +339,7 @@ const { thesisPlan, carryForwardModules, dataPoolNewest, prepareModuleResume } =
 
 // ---- 13. a carried module keeps its TRUE vintage, and can go stale later -------------------------
 {
+  write(`analyses/VINTAGE_${YESTERDAY}/alpha/01_alpha-thing.md`, '# a\n')
   write(`analyses/VINTAGE_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# a\n')
   poolFile('VINTAGE', 'old.pdf', -3)
   const before = thesisPlan('VINTAGE')
@@ -380,7 +409,9 @@ const { thesisPlan, carryForwardModules, dataPoolNewest, prepareModuleResume } =
   // reusable on their own. But asking to rebuild alpha (by NOT including it in the reuse override) must
   // also force beta to rebuild: beta's carried synthesis read the OLD alpha, and reusing it verbatim
   // alongside a freshly-rebuilt alpha would synthesize a thesis mixing evidence vintages.
+  write(`analyses/CASCADE_${YESTERDAY}/alpha/01_alpha-thing.md`, '# alpha\n')
   write(`analyses/CASCADE_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# alpha\n')
+  write(`analyses/CASCADE_${YESTERDAY}/beta/01_beta-thing.md`, '# beta\n')
   write(`analyses/CASCADE_${YESTERDAY}/beta/99_beta-synthesis.md`, '# beta\n')
   poolFile('CASCADE', 'filing.pdf', -3) // older than the run — neither module is stale
 
@@ -426,6 +457,71 @@ const { thesisPlan, carryForwardModules, dataPoolNewest, prepareModuleResume } =
   console.log('✅ carrying a module copies from the surviving folder while the stamp keeps the true origin')
 }
 
+// ---- 13f. a physically-new carry cannot hide a genuinely fresher prior-folder partial -----------------
+{
+  const TWO_AGO = day(-2)
+  // Today's folder contains a whole-module carry whose stamp proves the work is two days old. Yesterday's
+  // folder contains a specialist that read yesterday's pool. Physical index order says "today first"; true
+  // evidence vintage says the partial is newer and must be resumed instead of discarded for a clean rerun.
+  write(`analyses/FRESHPART_${TODAY}/alpha/01_alpha-thing.md`, '# stale carried specialist\n')
+  write(`analyses/FRESHPART_${TODAY}/alpha/99_alpha-synthesis.md`, '# stale carried synthesis\n')
+  write(
+    `analyses/FRESHPART_${TODAY}/alpha/CARRIED_FORWARD.md`,
+    `<!-- carried-from: analyses/FRESHPART_${TWO_AGO} | run-date: ${TWO_AGO} -->\n\n# Carried forward — alpha\n`,
+  )
+  write(`analyses/FRESHPART_${YESTERDAY}/alpha/01_alpha-thing.md`, '# genuinely fresher partial\n')
+  poolFile('FRESHPART', 'yesterday.pdf', -1)
+
+  const plan = thesisPlan('FRESHPART')
+  const alpha = plan.modules.find((m) => m.module === 'alpha')!
+  assert.equal(alpha.state, 'partial', 'the non-stale partial supersedes the stale carried synthesis')
+  assert.equal(alpha.staleReason, undefined, 'fresh partial work is not mislabeled with the carry’s stale date')
+  assert.deepEqual(alpha.doneOrbKeys, ['alpha/01_alpha-thing'])
+  assert.equal(alpha.willRunAgents, 1, 'only the fresh synthesis runs; the fresher paid specialist survives')
+  const staged = prepareModuleResume('FRESHPART', 'alpha', undefined, plan)
+  assert.deepEqual(staged.doneOrbKeys, ['alpha/01_alpha-thing'])
+  assert.equal(
+    fs.readFileSync(path.join(REPO, `analyses/FRESHPART_${TODAY}/alpha/01_alpha-thing.md`), 'utf8'),
+    '# genuinely fresher partial\n',
+    'staging selects the true-newer partial rather than the physically-newer stale carry',
+  )
+  console.log('✅ a fresher partial supersedes a physically newer stale carry by true vintage')
+}
+
+// ---- 13g. interrupted directory swaps recover target-only paid work before the next plan ----------------
+{
+  write(`analyses/SWAPREC_${YESTERDAY}/alpha/01_alpha-thing.md`, '# paid partial\n')
+  poolFile('SWAPREC', 'filing.pdf', -3)
+  const initial = thesisPlan('SWAPREC')
+  prepareModuleResume('SWAPREC', 'alpha', undefined, initial)
+  const target = path.join(REPO, `analyses/SWAPREC_${TODAY}/alpha`)
+  const backup = path.join(REPO, `analyses/.resume-backup-SWAPREC_${TODAY}-alpha`)
+  fs.renameSync(target, backup) // exact hard-stop shape: old target moved, staged temp not installed
+
+  const recovered = thesisPlan('SWAPREC')
+  assert.ok(fs.existsSync(target), 'planning restores the canonical target before candidate discovery')
+  assert.ok(!fs.existsSync(backup), 'the crash backup is consumed after recovery')
+  assert.deepEqual(recovered.modules.find((m) => m.module === 'alpha')!.doneOrbKeys, ['alpha/01_alpha-thing'])
+  console.log('✅ an interrupted resume swap restores target-only paid work before retry planning')
+}
+
+// ---- 13h. descendant symlinks are never dereferenced into a carried/published module --------------------
+{
+  const outside = fs.mkdtempSync(path.join(os.tmpdir(), 'completion-descendant-link-'))
+  const secret = path.join(outside, 'outside.txt')
+  fs.writeFileSync(secret, 'outside bytes must not be imported\n')
+  write(`analyses/DESCLINK_${YESTERDAY}/alpha/01_alpha-thing.md`, '# a\n')
+  write(`analyses/DESCLINK_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# a\n')
+  fs.symlinkSync(secret, path.join(REPO, `analyses/DESCLINK_${YESTERDAY}/alpha/leak.txt`))
+  poolFile('DESCLINK', 'filing.pdf', -3)
+
+  assert.deepEqual(thesisPlan('DESCLINK').reuse, ['alpha'], 'the ordinary outputs alone look reusable')
+  assert.throws(() => carryForwardModules('DESCLINK', ['alpha']), /module tree contains a symlink/,
+    'copy staging rejects a symlink anywhere below the otherwise-contained module directory')
+  assert.equal(fs.readFileSync(secret, 'utf8'), 'outside bytes must not be imported\n')
+  console.log('✅ descendant symlinks cannot import outside-tree bytes into a checkpoint')
+}
+
 // ---- 14. a subject can never steer a path out of its tree ----------------------------------------
 {
   // `TICKER_RE` admits `.` and `-`, so the regex alone is not a path barrier. Every path in this module is
@@ -437,6 +533,7 @@ const { thesisPlan, carryForwardModules, dataPoolNewest, prepareModuleResume } =
     assert.throws(() => dataPoolNewest(bad), /bad subject/, `dataPoolNewest must reject ${JSON.stringify(bad)}`)
   }
   // …while a real symbol with legal punctuation still works (Indian/NSE style).
+  write(`analyses/RELIANCE.NS_${YESTERDAY}/alpha/01_alpha-thing.md`, '# a\n')
   write(`analyses/RELIANCE.NS_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# a\n')
   const ok = thesisPlan('RELIANCE.NS')
   assert.equal(ok.subject, 'RELIANCE.NS')
@@ -447,6 +544,7 @@ const { thesisPlan, carryForwardModules, dataPoolNewest, prepareModuleResume } =
 // ---- 15. runnable / blockedBy: a Run row's pill is only pressable when its upstream is reused, not running -
 {
   // RUNOK: alpha finished yesterday (reused ancestor), beta partial today's-older-folder (runs, no blocker).
+  write(`analyses/RUNOK_${YESTERDAY}/alpha/01_alpha-thing.md`, '# a\n')
   write(`analyses/RUNOK_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# a\n')
   write(`analyses/RUNOK_${YESTERDAY}/beta/01_beta-thing.md`, '# b\n')
   poolFile('RUNOK', 'f.pdf', -3)
@@ -475,6 +573,7 @@ const { thesisPlan, carryForwardModules, dataPoolNewest, prepareModuleResume } =
 // ---- 16. willRunAgents + validAgentOutputs: the count is orbs that RUN, not files on disk -----------------
 {
   // VALID: beta partial with one VALID orb (has a header) + one EMPTY orb (Step 4A would re-dispatch it).
+  write(`analyses/VALID_${YESTERDAY}/alpha/01_alpha-thing.md`, '# a\n')
   write(`analyses/VALID_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# a\n')
   write(`analyses/VALID_${YESTERDAY}/beta/01_beta-thing.md`, '# real orb\n')
   write(`analyses/VALID_${YESTERDAY}/beta/02_beta-extra.md`, '') // empty → NOT a finished orb
@@ -510,6 +609,7 @@ const { thesisPlan, carryForwardModules, dataPoolNewest, prepareModuleResume } =
 
   const res = prepareModuleResume('RESUME', 'beta', undefined, plan)
   assert.deepEqual(res.carriedAncestors, [{ module: 'alpha', from: `analyses/RESUME_${YESTERDAY}` }], 'the reused ancestor alpha is carried into today’s root')
+  assert.deepEqual(res.reusedAncestorModules, ['alpha'], 'the publication scope names every reused prerequisite')
   assert.equal(res.resumedFrom, `analyses/RESUME_${YESTERDAY}`, 'the module’s orbs are resumed from the older folder')
   assert.deepEqual(res.doneOrbKeys, ['beta/01_beta-thing'], 'the finished orb is reported as a node key so the cockpit shows it done')
   assert.equal(res.willRunAgents, 1, 'total 2 orbs − 1 resumed = 1 orb still to run (the synthesis)')
@@ -526,6 +626,36 @@ const { thesisPlan, carryForwardModules, dataPoolNewest, prepareModuleResume } =
   assert.doesNotMatch(stamp, /^Agent:/m, 'no stray Agent: line (eval check H)')
   // the source folder is byte-for-byte untouched — no stamp leaks into it
   assert.ok(!fs.existsSync(path.join(REPO, `analyses/RESUME_${YESTERDAY}/beta/RESUMED_FROM.md`)), 'the source run folder is never written to')
+
+  // If publication/launch failed after this staging pass, a retry sees alpha already in today's root. It is
+  // no longer newly "carried", but must remain in the exact checkpoint scope or those copied bytes can stay
+  // dirty forever while the module command commits only beta/.
+  const retryPlan = thesisPlan('RESUME')
+  const retry = prepareModuleResume('RESUME', 'beta', undefined, retryPlan)
+  assert.deepEqual(retry.carriedAncestors, [], 'retry does not copy an ancestor already in the target root')
+  assert.deepEqual(retry.reusedAncestorModules, ['alpha'], 'retry still republishes/checkpoints that ancestor path')
+
+  // The paid-boundary proof reads only TODAY's staged files. Historical fallback is useful for planning,
+  // but must never hide a deleted staged orb/ancestor or a byte edit after the checkpoint was published.
+  const exact = capturePreparedModuleResumeScope(
+    'RESUME', 'beta', retryPlan.targetRunRoot, retry.doneOrbKeys, retry.reusedAncestorModules,
+  )
+  assert.ok(exact, 'the exact staged target + ancestor scope is valid')
+  write(`analyses/RESUME_${TODAY}/beta/01_beta-thing.md`, '# beta orb changed after checkpoint\n')
+  const changed = capturePreparedModuleResumeScope(
+    'RESUME', 'beta', retryPlan.targetRunRoot, retry.doneOrbKeys, retry.reusedAncestorModules,
+  )
+  assert.ok(changed)
+  assert.notEqual(changed.fingerprint, exact.fingerprint, 'a same-name byte edit changes the final paid-boundary proof')
+  fs.unlinkSync(path.join(REPO, `analyses/RESUME_${TODAY}/beta/01_beta-thing.md`))
+  assert.equal(capturePreparedModuleResumeScope(
+    'RESUME', 'beta', retryPlan.targetRunRoot, retry.doneOrbKeys, retry.reusedAncestorModules,
+  ), null, 'an older historical copy cannot hide a deleted staged target orb')
+  write(`analyses/RESUME_${TODAY}/beta/01_beta-thing.md`, '# beta orb restored\n')
+  fs.unlinkSync(path.join(REPO, `analyses/RESUME_${TODAY}/alpha/99_alpha-synthesis.md`))
+  assert.equal(capturePreparedModuleResumeScope(
+    'RESUME', 'beta', retryPlan.targetRunRoot, retry.doneOrbKeys, retry.reusedAncestorModules,
+  ), null, 'a historical synthesis cannot hide a deleted staged ancestor')
   console.log('✅ prepareModuleResume carries ancestors + resumes the module’s orbs under a distinct stamp')
 }
 
@@ -533,6 +663,7 @@ const { thesisPlan, carryForwardModules, dataPoolNewest, prepareModuleResume } =
 {
   const TWO_AGO = day(-2)
   // beta resumed INTO today's root from a two-days-ago run (RESUMED_FROM stamp), and data landed TODAY.
+  write(`analyses/RVINT_${TODAY}/alpha/01_alpha-thing.md`, '# a\n')
   write(`analyses/RVINT_${TODAY}/alpha/99_alpha-synthesis.md`, '# a\n') // alpha finished today → mustReuse, unblocks beta
   write(`analyses/RVINT_${TODAY}/beta/01_beta-thing.md`, '# b\n')
   write(`analyses/RVINT_${TODAY}/beta/RESUMED_FROM.md`, `<!-- resumed-from: analyses/RVINT_${TWO_AGO} | run-date: ${TWO_AGO} -->\n\n# Resumed — beta\n`)
@@ -549,6 +680,7 @@ const { thesisPlan, carryForwardModules, dataPoolNewest, prepareModuleResume } =
 {
   // ANCONLY: beta finished yesterday (reused), alpha missing (runs). alpha has NO ancestors, so running it
   // must carry nothing — beta is reused but is a DESCENDANT, and carrying it would wrongly lock it in.
+  write(`analyses/ANCONLY_${YESTERDAY}/beta/01_beta-thing.md`, '# b\n')
   write(`analyses/ANCONLY_${YESTERDAY}/beta/99_beta-synthesis.md`, '# b\n')
   poolFile('ANCONLY', 'f.pdf', -3)
   const plan = thesisPlan('ANCONLY')
@@ -565,6 +697,7 @@ const { thesisPlan, carryForwardModules, dataPoolNewest, prepareModuleResume } =
   const TWO_AGO = day(-2)
   // STCLEAN: alpha finished today (mustReuse, unblocks beta). beta was resumed into today's root from two
   // days ago, and data landed today → stale. Running beta must DISCARD its today-root orbs and run whole.
+  write(`analyses/STCLEAN_${TODAY}/alpha/01_alpha-thing.md`, '# a\n')
   write(`analyses/STCLEAN_${TODAY}/alpha/99_alpha-synthesis.md`, '# a\n')
   write(`analyses/STCLEAN_${TODAY}/beta/01_beta-thing.md`, '# stale orb\n')
   write(`analyses/STCLEAN_${TODAY}/beta/RESUMED_FROM.md`, `<!-- resumed-from: analyses/STCLEAN_${TWO_AGO} | run-date: ${TWO_AGO} -->\n\n# Resumed — beta\n`)
@@ -585,6 +718,330 @@ const { thesisPlan, carryForwardModules, dataPoolNewest, prepareModuleResume } =
   assert.equal(res.willRunAgents, beta.totalAgents, 'every orb runs')
   assert.ok(!fs.existsSync(path.join(REPO, `analyses/STCLEAN_${TODAY}/beta`)), 'beta’s stale orb folder is gone — the launcher will run it from scratch')
   console.log('✅ a stale partial is run clean: its target-root orbs are cleared, nothing resumed')
+}
+
+// ---- 20. a historical synthesis with NEW current-roster orbs is resumable, never falsely "done" ---------
+{
+  // Simulate a zero-touch roster expansion after every fixture above has run: alpha used to have only 01;
+  // the current engine now discovers 02 as well. Force-refresh the roster cache exactly as a new server
+  // process/deploy would, then prove an older 99 cannot hide the newly missing check.
+  write('.claude/agents/alpha/02_alpha-new-check.md', fm('alpha-new-check', 1)
+    + '- `UPSTREAM_INPUTS` — `01_alpha-thing.md`.\n')
+  write('.claude/agents/alpha/03_alpha-dependent-check.md', fm('alpha-dependent-check', 2)
+    + '- `UPSTREAM_INPUTS` — `02_alpha-new-check.md`.\n')
+  const { buildSwarmGraph } = await import('../src/roster')
+  buildSwarmGraph('research', true)
+
+  write(`analyses/ROSTERGAP_${YESTERDAY}/alpha/01_alpha-thing.md`, '# existing check\n')
+  write(`analyses/ROSTERGAP_${YESTERDAY}/alpha/03_alpha-dependent-check.md`, '# old dependent check\n')
+  write(`analyses/ROSTERGAP_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# old synthesis\n\n```alpha_summary.json\n{"old":true}\n```\n\nExport `alpha_unclosed.csv`:\n```csv\nold,true\n')
+  write(`analyses/ROSTERGAP_${YESTERDAY}/alpha/alpha_memo.md`, '# old memo\n')
+  write(`analyses/ROSTERGAP_${YESTERDAY}/alpha/alpha_dossier.md`, '# old dossier\n')
+  write(`analyses/ROSTERGAP_${YESTERDAY}/alpha/alpha_summary.json`, '{"old":true}\n')
+  write(`analyses/ROSTERGAP_${YESTERDAY}/alpha/alpha_declared.json`, '{"old":true}\n')
+  write(`analyses/ROSTERGAP_${YESTERDAY}/alpha/alpha_unclosed.csv`, 'old,true\n')
+  write(`analyses/ROSTERGAP_${YESTERDAY}/alpha/source_manifest.csv`, 'source,current\n')
+  write(`analyses/ROSTERGAP_${YESTERDAY}/beta/01_beta-thing.md`, '# downstream check\n')
+  write(`analyses/ROSTERGAP_${YESTERDAY}/beta/99_beta-synthesis.md`, '# downstream synthesis over old alpha\n')
+  poolFile('ROSTERGAP', 'filing.pdf', -3)
+
+  const plan = thesisPlan('ROSTERGAP')
+  const alpha = plan.modules.find((m) => m.module === 'alpha')!
+  assert.equal(alpha.state, 'partial', 'an old 99 cannot mark newly added roster checks complete')
+  assert.equal(alpha.synthesisNeedsRefresh, true)
+  assert.equal(alpha.doneAgents, 1, 'the existing current-roster specialist remains reusable')
+  assert.deepEqual(alpha.doneOrbKeys, ['alpha/01_alpha-thing'], 'the plan exposes the exact reusable scope')
+  assert.equal(alpha.totalAgents, 4, '01 + newly added 02/03 + 99 synthesis')
+  assert.equal(alpha.willRunAgents, 3, 'the new specialist + its saved dependent + refreshed synthesis run')
+  assert.ok(!plan.reusable.includes('alpha'), 'a structurally incomplete synthesis is not reusable whole')
+  assert.ok(plan.run.includes('alpha'))
+  assert.equal(alpha.runnable, true)
+  assert.ok(plan.run.includes('beta'), 'a downstream synthesis that read old alpha is invalidated for full-thesis completion')
+  assert.ok(!plan.reuse.includes('beta'))
+
+  const res = prepareModuleResume('ROSTERGAP', 'alpha', undefined, plan)
+  assert.deepEqual(res.doneOrbKeys, ['alpha/01_alpha-thing'])
+  assert.equal(res.willRunAgents, 3)
+  assert.equal(res.resumedFrom, `analyses/ROSTERGAP_${YESTERDAY}`)
+  const source = path.join(REPO, `analyses/ROSTERGAP_${YESTERDAY}/alpha`)
+  const target = path.join(REPO, `analyses/ROSTERGAP_${TODAY}/alpha`)
+  assert.ok(fs.existsSync(path.join(source, '99_alpha-synthesis.md')), 'the historical source is never modified')
+  assert.ok(fs.existsSync(path.join(target, '01_alpha-thing.md')), 'finished current specialist is staged')
+  assert.ok(!fs.existsSync(path.join(target, '99_alpha-synthesis.md')), 'old 99 is removed so the pipeline must refresh it')
+  assert.ok(!fs.existsSync(path.join(target, 'alpha_memo.md')), 'old memo is removed with the old synthesis')
+  assert.ok(!fs.existsSync(path.join(target, 'alpha_dossier.md')), 'old dossier is removed with the old synthesis')
+  assert.ok(!fs.existsSync(path.join(target, 'alpha_summary.json')), 'old synthesis-labelled sidecar is removed before a best-effort refresh')
+  assert.ok(!fs.existsSync(path.join(target, 'alpha_declared.json')), 'a current-prompt-declared sidecar is removed even when the old 99 did not label it')
+  assert.ok(!fs.existsSync(path.join(target, 'alpha_unclosed.csv')), 'a sidecar named by an unclosed synthesis fence is also removed')
+  assert.ok(fs.existsSync(path.join(target, 'source_manifest.csv')), 'triage-owned sidecars survive synthesis refresh')
+  assert.ok(!fs.existsSync(path.join(target, '03_alpha-dependent-check.md')), 'a saved check that depended on the new missing orb is rerun too')
+  assert.match(fs.readFileSync(path.join(target, 'RESUMED_FROM.md'), 'utf8'), /scoped to run/, 'the stamp is prospective, not a false completion claim')
+
+  // Simulate the new specialist finishing before the refreshed synthesis, then the process dying. A retry
+  // must prefer today's richer partial over yesterday's old 99; otherwise staging would replace today's
+  // folder with the old one, lose 02, and run it again on every failed retry.
+  write(`analyses/ROSTERGAP_${TODAY}/alpha/02_alpha-new-check.md`, '# newly finished check\n')
+  write(`analyses/ROSTERGAP_${TODAY}/alpha/03_alpha-dependent-check.md`, '# newly refreshed dependent check\n')
+  const retryPlan = thesisPlan('ROSTERGAP')
+  const retryAlpha = retryPlan.modules.find((m) => m.module === 'alpha')!
+  assert.equal(retryAlpha.state, 'partial')
+  assert.equal(retryAlpha.inTargetRoot, true, 'the newest partial retry state supersedes the older incomplete 99')
+  assert.equal(retryAlpha.doneAgents, 3, 'all specialists survive the failed first attempt')
+  assert.equal(retryAlpha.willRunAgents, 1, 'retry runs only the still-missing synthesis')
+  const retry = prepareModuleResume('ROSTERGAP', 'alpha', undefined, retryPlan)
+  assert.deepEqual(retry.doneOrbKeys, ['alpha/01_alpha-thing', 'alpha/02_alpha-new-check', 'alpha/03_alpha-dependent-check'])
+  assert.equal(retry.willRunAgents, 1)
+  assert.ok(fs.existsSync(path.join(target, '02_alpha-new-check.md')), 'retry staging never discards newly finished work')
+  console.log('✅ roster growth resumes only missing specialists and forces a fresh synthesis')
+}
+
+// ---- 20b. same-day target gaps are hole-punched in place; stale historical gaps run clean ----------------
+{
+  write(`analyses/GAPTODAY_${TODAY}/alpha/01_alpha-thing.md`, '# existing check\n')
+  write(`analyses/GAPTODAY_${TODAY}/alpha/99_alpha-synthesis.md`, '# old synthesis\n')
+  write(`analyses/GAPTODAY_${TODAY}/alpha/alpha_memo.md`, '# old memo\n')
+  const todayPlan = thesisPlan('GAPTODAY')
+  const todayAlpha = todayPlan.modules.find((m) => m.module === 'alpha')!
+  assert.equal(todayAlpha.state, 'partial')
+  assert.equal(todayAlpha.inTargetRoot, true)
+  assert.ok(!todayPlan.mustReuse.includes('alpha'), 'a stale-roster 99 in the target root must not lock itself')
+  const todayResume = prepareModuleResume('GAPTODAY', 'alpha', undefined, todayPlan)
+  assert.deepEqual(todayResume.doneOrbKeys, ['alpha/01_alpha-thing'])
+  assert.ok(!fs.existsSync(path.join(REPO, `analyses/GAPTODAY_${TODAY}/alpha/99_alpha-synthesis.md`)))
+  assert.ok(!fs.existsSync(path.join(REPO, `analyses/GAPTODAY_${TODAY}/alpha/alpha_memo.md`)))
+
+  write(`analyses/GAPSTALE_${YESTERDAY}/alpha/01_alpha-thing.md`, '# stale check\n')
+  write(`analyses/GAPSTALE_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# stale synthesis\n')
+  poolFile('GAPSTALE', 'new.pdf', 0)
+  const stalePlan = thesisPlan('GAPSTALE')
+  const staleAlpha = stalePlan.modules.find((m) => m.module === 'alpha')!
+  assert.equal(staleAlpha.state, 'partial')
+  assert.ok(staleAlpha.staleReason)
+  assert.equal(staleAlpha.willRunAgents, staleAlpha.totalAgents, 'newer data turns gap-only into a clean module run')
+  const staleResume = prepareModuleResume('GAPSTALE', 'alpha', undefined, stalePlan)
+  assert.equal(staleResume.discardedStaleOrbs, true)
+  assert.deepEqual(staleResume.doneOrbKeys, [])
+  assert.equal(staleResume.resumedFrom, null)
+  assert.ok(fs.existsSync(path.join(REPO, `analyses/GAPSTALE_${YESTERDAY}/alpha/99_alpha-synthesis.md`)), 'clean rerun never edits the stale source')
+
+  write(`analyses/FINSTALE_${YESTERDAY}/alpha/01_alpha-thing.md`, '# old check\n')
+  write(`analyses/FINSTALE_${YESTERDAY}/alpha/02_alpha-new-check.md`, '# old new check\n')
+  write(`analyses/FINSTALE_${YESTERDAY}/alpha/03_alpha-dependent-check.md`, '# old dependent check\n')
+  write(`analyses/FINSTALE_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# old complete synthesis\n')
+  poolFile('FINSTALE', 'new.pdf', 0)
+  const finishedStalePlan = thesisPlan('FINSTALE')
+  assert.equal(finishedStalePlan.modules.find((m) => m.module === 'alpha')!.state, 'stale')
+  const finishedStaleResume = prepareModuleResume('FINSTALE', 'alpha', undefined, finishedStalePlan)
+  assert.equal(finishedStaleResume.discardedStaleOrbs, true, 'a stale finished module also reports a clean rerun')
+  assert.deepEqual(finishedStaleResume.doneOrbKeys, [])
+  console.log('✅ target-root roster gaps refresh in place; newer-data gaps fail safe to a clean run')
+}
+
+// ---- 20c. current specialists merge across run folders, newest valid copy per orb -------------------
+{
+  // An old module has 01 + an obsolete 03 + 99. The user manually runs the empty 02 in today's sparse
+  // folder. The safe resume is the union 01(old)+02(new); because 03 depends on 02 and predates it, 03 runs
+  // again. Staging must not choose one folder and silently lose the other folder's paid work.
+  const old01 = `analyses/MANUALMERGE_${YESTERDAY}/alpha/01_alpha-thing.md`
+  const old03 = `analyses/MANUALMERGE_${YESTERDAY}/alpha/03_alpha-dependent-check.md`
+  const old99 = `analyses/MANUALMERGE_${YESTERDAY}/alpha/99_alpha-synthesis.md`
+  const new02 = `analyses/MANUALMERGE_${TODAY}/alpha/02_alpha-new-check.md`
+  write(old01, '# old prerequisite\n')
+  write(old03, '# dependent that has not read new 02\n')
+  write(old99, '# old synthesis\n')
+  write(new02, '# manually completed new check\n')
+  const baseMs = Date.now() - 20_000
+  fs.utimesSync(path.join(REPO, old01), new Date(baseMs), new Date(baseMs))
+  // Deliberately make the OLD dependent look newer by mtime than today's prerequisite. Git checkouts do
+  // not preserve mtimes, so true dated provenance — not this misleading timestamp — must invalidate 03.
+  fs.utimesSync(path.join(REPO, old03), new Date(baseMs + 15_000), new Date(baseMs + 15_000))
+  fs.utimesSync(path.join(REPO, old99), new Date(baseMs + 16_000), new Date(baseMs + 16_000))
+  fs.utimesSync(path.join(REPO, new02), new Date(baseMs + 10_000), new Date(baseMs + 10_000))
+  poolFile('MANUALMERGE', 'filing.pdf', -3)
+
+  const plan = thesisPlan('MANUALMERGE')
+  const alpha = plan.modules.find((m) => m.module === 'alpha')!
+  assert.equal(alpha.state, 'partial')
+  assert.deepEqual(alpha.doneOrbKeys, ['alpha/01_alpha-thing', 'alpha/02_alpha-new-check'])
+  assert.equal(alpha.doneAgents, 2)
+  assert.equal(alpha.willRunAgents, 2, 'only invalidated 03 + synthesis run')
+  assert.deepEqual(alpha.resumeFromRunRoots, [
+    `analyses/MANUALMERGE_${TODAY}`,
+    `analyses/MANUALMERGE_${YESTERDAY}`,
+  ])
+
+  const old01Mtime = fs.statSync(path.join(REPO, old01)).mtimeMs
+  const new02Mtime = fs.statSync(path.join(REPO, new02)).mtimeMs
+  const resumed = prepareModuleResume('MANUALMERGE', 'alpha', undefined, plan)
+  assert.deepEqual(resumed.doneOrbKeys, alpha.doneOrbKeys, 'staged scope exactly equals planned scope')
+  const target = path.join(REPO, `analyses/MANUALMERGE_${TODAY}/alpha`)
+  assert.ok(fs.existsSync(path.join(target, '01_alpha-thing.md')), 'older prerequisite is merged in')
+  assert.ok(fs.existsSync(path.join(target, '02_alpha-new-check.md')), 'newer manually-run orb survives')
+  assert.ok(!fs.existsSync(path.join(target, '03_alpha-dependent-check.md')), 'dependent older than its new input is rerun')
+  assert.ok(!fs.existsSync(path.join(target, '99_alpha-synthesis.md')), 'old synthesis is invalidated')
+  assert.ok(Math.abs(fs.statSync(path.join(target, '01_alpha-thing.md')).mtimeMs - old01Mtime) < 2)
+  assert.ok(Math.abs(fs.statSync(path.join(target, '02_alpha-new-check.md')).mtimeMs - new02Mtime) < 2,
+    'overlay copies preserve source mtime')
+  console.log('✅ partial resume merges exact reusable orbs across run folders without losing progress')
+}
+
+// ---- 20c2. a newer specialist vintage refreshes an older 99 even when checkout mtimes lie ----------
+{
+  for (const file of ['01_alpha-thing.md', '02_alpha-new-check.md', '03_alpha-dependent-check.md']) {
+    write(`analyses/SYNVINT_${YESTERDAY}/alpha/${file}`, `# ${file}\n`)
+  }
+  write(`analyses/SYNVINT_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# alpha complete\n')
+  write(`analyses/SYNVINT_${YESTERDAY}/beta/01_beta-thing.md`, '# old beta check\n')
+  write(`analyses/SYNVINT_${YESTERDAY}/beta/99_beta-synthesis.md`, '# old beta synthesis\n')
+  write(`analyses/SYNVINT_${TODAY}/beta/01_beta-thing.md`, '# manually refreshed beta check\n')
+  poolFile('SYNVINT', 'filing.pdf', -3)
+
+  const oldSynthesis = path.join(REPO, `analyses/SYNVINT_${YESTERDAY}/beta/99_beta-synthesis.md`)
+  const newSpecialist = path.join(REPO, `analyses/SYNVINT_${TODAY}/beta/01_beta-thing.md`)
+  const baseMs = Date.now() - 20_000
+  fs.utimesSync(newSpecialist, new Date(baseMs), new Date(baseMs))
+  fs.utimesSync(oldSynthesis, new Date(baseMs + 10_000), new Date(baseMs + 10_000))
+
+  const beta = thesisPlan('SYNVINT').modules.find((m) => m.module === 'beta')!
+  assert.equal(beta.state, 'partial', 'a later-dated specialist invalidates an older 99 despite inverse mtimes')
+  assert.deepEqual(beta.doneOrbKeys, ['beta/01_beta-thing'])
+  assert.equal(beta.willRunAgents, 1, 'only the refreshed synthesis remains to run')
+  console.log('✅ true specialist vintage refreshes synthesis even when checkout mtimes are inverted')
+}
+
+// ---- 20d. only the currently discovered 99 filename can make a module complete ----------------------
+{
+  write(`analyses/LEGACY99_${YESTERDAY}/alpha/01_alpha-thing.md`, '# one\n')
+  write(`analyses/LEGACY99_${YESTERDAY}/alpha/02_alpha-new-check.md`, '# two\n')
+  write(`analyses/LEGACY99_${YESTERDAY}/alpha/03_alpha-dependent-check.md`, '# three\n')
+  write(`analyses/LEGACY99_${YESTERDAY}/alpha/99_retired-alpha-synthesis.md`, '# obsolete 99 identity\n')
+  poolFile('LEGACY99', 'filing.pdf', -3)
+
+  const plan = thesisPlan('LEGACY99')
+  const alpha = plan.modules.find((m) => m.module === 'alpha')!
+  assert.equal(alpha.state, 'partial', 'a non-empty retired 99 does not satisfy the current synthesis orb')
+  assert.equal(alpha.synthesisNeedsRefresh, true)
+  assert.equal(alpha.doneAgents, 3)
+  assert.equal(alpha.willRunAgents, 1)
+  prepareModuleResume('LEGACY99', 'alpha', undefined, plan)
+  assert.ok(!fs.existsSync(path.join(REPO, `analyses/LEGACY99_${TODAY}/alpha/99_retired-alpha-synthesis.md`)),
+    'retired 99 is cleared so the current 99 must execute')
+  console.log('✅ synthesis completion is keyed to the current discovered 99 filename')
+}
+
+// ---- 20e. a malformed current 99 remains incomplete and retries only the synthesis ------------------
+{
+  write(`analyses/INVALID99_${YESTERDAY}/alpha/01_alpha-thing.md`, '# one\n')
+  write(`analyses/INVALID99_${YESTERDAY}/alpha/02_alpha-new-check.md`, '# two\n')
+  write(`analyses/INVALID99_${YESTERDAY}/alpha/03_alpha-dependent-check.md`, '# three\n')
+  write(`analyses/INVALID99_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# cut-off summary\n\n```json\n{"partial":true}\n')
+  poolFile('INVALID99', 'filing.pdf', -3)
+
+  const plan = thesisPlan('INVALID99')
+  const alpha = plan.modules.find((m) => m.module === 'alpha')!
+  assert.equal(alpha.state, 'partial', 'a malformed current-name 99 is incomplete, never done')
+  assert.equal(alpha.synthesisNeedsRefresh, true)
+  assert.deepEqual(alpha.doneOrbKeys, [
+    'alpha/01_alpha-thing',
+    'alpha/02_alpha-new-check',
+    'alpha/03_alpha-dependent-check',
+  ])
+  assert.equal(alpha.willRunAgents, 1, 'all valid specialists survive; only the invalid summary retries')
+  prepareModuleResume('INVALID99', 'alpha', undefined, plan)
+  assert.ok(!fs.existsSync(path.join(REPO, `analyses/INVALID99_${TODAY}/alpha/99_alpha-synthesis.md`)),
+    'staging removes the invalid summary before its one retry Task')
+  console.log('✅ invalid current synthesis stays incomplete and retries summary only')
+}
+
+// ---- 20f. an upstream module-only refresh persistently invalidates old downstream synthesis ------------
+{
+  // Alpha was rerun alone today and completed. Beta's otherwise complete 99 is from yesterday, so a fresh
+  // GET (with no in-memory launch history) must still scope beta's 99 to refresh against the new alpha.
+  write(`analyses/PERSIST_${TODAY}/alpha/01_alpha-thing.md`, '# one today\n')
+  write(`analyses/PERSIST_${TODAY}/alpha/02_alpha-new-check.md`, '# two today\n')
+  write(`analyses/PERSIST_${TODAY}/alpha/03_alpha-dependent-check.md`, '# three today\n')
+  write(`analyses/PERSIST_${TODAY}/alpha/99_alpha-synthesis.md`, '# alpha refreshed today\n')
+  write(`analyses/PERSIST_${YESTERDAY}/beta/01_beta-thing.md`, '# beta specialist\n')
+  write(`analyses/PERSIST_${YESTERDAY}/beta/99_beta-synthesis.md`, '# beta over old alpha\n')
+  poolFile('PERSIST', 'filing.pdf', -3)
+
+  const plan = thesisPlan('PERSIST')
+  const alpha = plan.modules.find((m) => m.module === 'alpha')!
+  const beta = plan.modules.find((m) => m.module === 'beta')!
+  assert.equal(alpha.state, 'done')
+  assert.equal(beta.state, 'partial', 'old downstream synthesis remains invalid after the upstream run finishes')
+  assert.equal(beta.synthesisNeedsRefresh, true)
+  assert.deepEqual(beta.doneOrbKeys, ['beta/01_beta-thing'])
+  assert.equal(beta.willRunAgents, 1, 'downstream specialists survive; only downstream synthesis refreshes')
+  assert.equal(beta.runnable, true)
+  prepareModuleResume('PERSIST', 'beta', undefined, plan)
+  assert.ok(fs.existsSync(path.join(REPO, `analyses/PERSIST_${TODAY}/beta/01_beta-thing.md`)))
+  assert.ok(!fs.existsSync(path.join(REPO, `analyses/PERSIST_${TODAY}/beta/99_beta-synthesis.md`)))
+  console.log('✅ downstream synthesis refresh persists after a module-only upstream run completes')
+}
+
+// ---- 20g. symlinked dated roots are ignored and never become destructive targets --------------------
+{
+  const outsideHistory = fs.mkdtempSync(path.join(os.tmpdir(), 'completion-symlink-history-'))
+  write(`analyses/.keep`, 'keep\n')
+  fs.mkdirSync(path.join(outsideHistory, 'alpha'), { recursive: true })
+  fs.writeFileSync(path.join(outsideHistory, 'alpha/01_alpha-thing.md'), '# outside\n')
+  fs.writeFileSync(path.join(outsideHistory, 'alpha/99_alpha-synthesis.md'), '# outside synthesis\n')
+  const historyLink = path.join(REPO, `analyses/SYMHIST_${YESTERDAY}`)
+  fs.symlinkSync(outsideHistory, historyLink, 'dir')
+  assert.equal(thesisPlan('SYMHIST').modules.find((m) => m.module === 'alpha')!.state, 'missing',
+    'a symlinked historical run root is not read as reusable work')
+
+  write(`analyses/SYMTGT_${YESTERDAY}/alpha/01_alpha-thing.md`, '# one\n')
+  write(`analyses/SYMTGT_${YESTERDAY}/alpha/02_alpha-new-check.md`, '# two\n')
+  write(`analyses/SYMTGT_${YESTERDAY}/alpha/03_alpha-dependent-check.md`, '# three\n')
+  write(`analyses/SYMTGT_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# old synthesis\n')
+  poolFile('SYMTGT', 'new.pdf', 0)
+  const stalePlan = thesisPlan('SYMTGT')
+  assert.ok(stalePlan.modules.find((m) => m.module === 'alpha')!.staleReason)
+
+  const outsideTarget = fs.mkdtempSync(path.join(os.tmpdir(), 'completion-symlink-target-'))
+  fs.mkdirSync(path.join(outsideTarget, 'alpha'), { recursive: true })
+  const sentinel = path.join(outsideTarget, 'alpha/DO_NOT_DELETE.txt')
+  fs.writeFileSync(sentinel, 'outside target remains\n')
+  const targetLink = path.join(REPO, `analyses/SYMTGT_${TODAY}`)
+  fs.symlinkSync(outsideTarget, targetLink, 'dir')
+  assert.throws(() => prepareModuleResume('SYMTGT', 'alpha', undefined, stalePlan), /run root is not a contained real directory/,
+    'stale cleanup rejects a symlinked target run root before deletion')
+  assert.equal(fs.readFileSync(sentinel, 'utf8'), 'outside target remains\n')
+
+  fs.unlinkSync(historyLink)
+  fs.unlinkSync(targetLink)
+  fs.rmSync(outsideHistory, { recursive: true, force: true })
+  fs.rmSync(outsideTarget, { recursive: true, force: true })
+  console.log('✅ symlinked dated roots are contained before reads, copies, or deletes')
+}
+
+// ---- 20g. optional reads_from inputs are staged and fingerprinted without becoming hard deps ---------
+{
+  write('.claude/agents/gamma/01_gamma-thing.md', fm('gamma-thing', 1))
+  write('.claude/agents/gamma/99_gamma-synthesis.md', fm('gamma-synthesis', 99, 'depends_on: []\n'))
+  write('.claude/agents/alpha/99_alpha-synthesis.md', fm(
+    'alpha-synthesis', 99, 'depends_on: []\nreads_from: [gamma]\n',
+  ))
+  buildSwarmGraph('research', true)
+
+  write(`analyses/OPTREAD_${YESTERDAY}/gamma/01_gamma-thing.md`, '# optional input specialist\n')
+  write(`analyses/OPTREAD_${YESTERDAY}/gamma/99_gamma-synthesis.md`, '# optional input synthesis\n')
+  write(`analyses/OPTREAD_${YESTERDAY}/alpha/01_alpha-thing.md`, '# resumable target specialist\n')
+
+  const plan = thesisPlan('OPTREAD')
+  const alpha = plan.modules.find((m) => m.module === 'alpha')!
+  assert.equal(alpha.runnable, true, 'an optional read never becomes a hard scheduling blocker')
+  assert.ok(plan.reuse.includes('gamma'), 'the fresh optional input is reusable')
+  const resumed = prepareModuleResume('OPTREAD', 'alpha', undefined, plan)
+  assert.deepEqual(resumed.reusedAncestorModules, ['gamma'],
+    'a fresh reads_from module is staged even though it is not a depends_on ancestor')
+  assert.ok(fs.existsSync(path.join(REPO, `analyses/OPTREAD_${TODAY}/gamma/99_gamma-synthesis.md`)))
+  assert.ok(capturePreparedModuleResumeScope(
+    'OPTREAD', 'alpha', plan.targetRunRoot, resumed.doneOrbKeys, resumed.reusedAncestorModules,
+  ), 'the final paid-boundary fingerprint covers the optional input bytes too')
+  console.log('✅ optional reads_from inputs are staged + fingerprinted without becoming hard dependencies')
 }
 
 fs.rmSync(REPO, { recursive: true, force: true })

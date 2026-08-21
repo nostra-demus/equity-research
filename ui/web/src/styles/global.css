@@ -258,7 +258,9 @@ a { color: inherit; }
   margin-top: 2px; font-size: 10px; color: var(--accent-bright); opacity: 0; transition: opacity var(--dur-fast);
   display: flex; align-items: center; gap: 4px;
 }
+.cluster__run--action { opacity: 1; }
 .cluster__label:hover .cluster__run { opacity: 1; }
+.cluster__label[role="button"]:focus-visible { outline: 1px solid var(--accent-bright); outline-offset: 2px; }
 /* a module with a live (queued/running) orb: pulse its name + show a persistent "running…" */
 .cluster__label--live .cluster__name { color: var(--accent-bright); animation: clusterlive 1.7s ease-in-out infinite; }
 .cluster__label--live .cluster__run { opacity: 1; color: var(--accent-bright); }

@@ -56,6 +56,8 @@ function parseRequiredUpstream(content: string, swarm: SwarmManifest): string[] 
 interface DiscoveredModule {
   name: string
   dependsOn: string[]
+  readsFrom: string[]
+  exactResume: boolean
   dir: string // absolute module folder (nested for swarms)
 }
 
@@ -67,7 +69,13 @@ function discoverModules(swarm: SwarmManifest): DiscoveredModule[] {
     const dir = path.dirname(f)
     const name = path.basename(dir)
     const { data } = readFrontmatter(f)
-    return { name, dependsOn: parseDependsOn(data.depends_on), dir }
+    return {
+      name,
+      dependsOn: parseDependsOn(data.depends_on),
+      readsFrom: parseDependsOn(data.reads_from),
+      exactResume: data.exact_resume === true,
+      dir,
+    }
   })
 }
 
@@ -131,6 +139,10 @@ function buildModule(mod: DiscoveredModule, order: number, swarm: SwarmManifest)
   }
   for (const k of Object.keys(layers)) layers[k].sort((a, b) => a.nn.localeCompare(b.nn))
   const node: ModuleNode = { name: mod.name, order, dependsOn: mod.dependsOn, layers, agentCount: count, dataReadiness }
+  if (mod.readsFrom.length) node.readsFrom = mod.readsFrom
+  // Always publish the boolean. `undefined` is reserved as a rolling-deploy witness for an older server;
+  // the web client fails closed instead of mistaking an omitted capability for permission to run whole.
+  node.exactResume = mod.exactResume
   // swarm provenance only for non-research swarms — the default research payload stays byte-stable
   if (swarm.id !== RESEARCH_SWARM_ID) {
     node.swarmId = swarm.id

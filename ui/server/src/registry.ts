@@ -84,14 +84,15 @@ const activeRunsBySubject = new Map<string, Set<string>>() // `${swarmId}\0${sub
 // registry/admission path carry the owner explicitly.
 const subjectRunKey = (subjectId: string, swarmId = 'research'): string => `${swarmId}\0${subjectId}`
 
-// A run is IN FLIGHT — holds its subject claim + a concurrency slot — from launch through completion,
-// INCLUDING the pre-spawn gate pause. A run parked at readiness-checking / awaiting-readiness-decision
-// is fully committed to its write targets and will spawn the moment the user decides, so admission
-// (exclusivity, disjoint-write, the global cap) and the active-runs view MUST treat it as live. This is
-// the single source of truth for "in flight"; never re-list these statuses inline (they drift).
+// These are the active DISPLAY/heartbeat phases, including the pre-spawn gate pause. A run parked at
+// readiness-checking / awaiting-readiness-decision is fully committed to its targets. Subject/admission
+// ownership lasts slightly longer: Cancel changes status before the process group closes, so that safety
+// boundary uses endedAt === undefined (see inFlightRunsForSubject) and never releases on status alone.
 export const IN_FLIGHT_STATUSES = new Set<RunStatus>(['starting', 'readiness-checking', 'awaiting-readiness-decision', 'running'])
 
-// All currently-live runs for a subject, self-healing any stale/ended ids.
+// All currently-live runs for a subject, self-healing any stale/ended ids. `endedAt` — not the display
+// status — is the release proof: cancel marks a running child "cancelled" immediately, but that process
+// group can keep flushing/committing until close finalization sets endedAt.
 export function inFlightRunsForSubject(subjectId: string, swarmId = 'research'): RunState[] {
   const key = subjectRunKey(subjectId, swarmId)
   const ids = activeRunsBySubject.get(key)
@@ -99,7 +100,7 @@ export function inFlightRunsForSubject(subjectId: string, swarmId = 'research'):
   const live: RunState[] = []
   for (const id of [...ids]) {
     const r = runs.get(id)
-    if (r && IN_FLIGHT_STATUSES.has(r.status)) live.push(r)
+    if (r && r.endedAt === undefined) live.push(r)
     else ids.delete(id) // self-heal a stale entry
   }
   if (ids.size === 0) activeRunsBySubject.delete(key)

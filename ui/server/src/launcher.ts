@@ -8,12 +8,12 @@ import { CLAUDE_BIN, DATA_DIR, DEFAULT_MODEL, ESTIMATES, FULL_PER_MODULE, LAUNCH
 import { getCreditStatus, setCreditStatus } from './credit'
 import { writeAgentMetrics } from './agent-metrics'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
-import { createRun, emit, finishRun, getRun, IN_FLIGHT_STATUSES, inFlightRunsForSubject, listRuns, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
+import { createRun, emit, finishRun, getRun, inFlightRunsForSubject, listRuns, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
 import { clearRunMarker, resolveRunRoot, writeRunMarker } from './outputs'
 import { runReadiness } from './readiness'
 import { providerEnvKeys } from './load-env'
 import { buildSwarmGraph, downstreamCascade } from './roster'
-import { resolveInsideScreener } from './sandbox'
+import { isValidTicker, resolveInsideScreener } from './sandbox'
 import { normalizeDataSubject } from './data-subject'
 import { resolveManifestRunRoot } from './swarm-run-root'
 import { readDataNeeds } from './data-needs'
@@ -30,7 +30,13 @@ import {
 import { RESEARCH_SWARM_ID, swarmById } from './swarms'
 import { finalPaths, handleStreamLine } from './stream-parser'
 import { extractTriageStatus } from './verdict'
+import {
+  modulePublicationInFlight,
+  recoverNonCleanExactModulePublication,
+  type NonCleanExactModuleRecovery,
+} from './module-publication'
 import type { LaunchPreflight, ReadinessDecision, ReadinessReport, RunKind, RunStatus } from './types'
+import { validateAgentOutputFile } from '../../../scripts/agent-output-validity.mjs'
 
 // Screener kinds are swarm-scoped; everything else is the research default. Generic by design:
 // the kind->swarm mapping is the only place this file knows the screener exists, and it is driven
@@ -213,13 +219,22 @@ export function moduleOrbProgress(runRoot: string | null, moduleName?: string): 
   return { landed, expected }
 }
 
-export function moduleSynthesisPresent(runRoot: string | null, moduleName?: string): boolean {
+export function moduleSynthesisPresent(
+  runRoot: string | null,
+  moduleName?: string,
+  swarmId: string = RESEARCH_SWARM_ID,
+): boolean {
   if (!runRoot || !moduleName) return false
   const root = path.isAbsolute(runRoot) ? runRoot : path.join(REPO_ROOT, runRoot)
   const dir = path.join(root, moduleName)
   try {
-    return fs.readdirSync(dir).some((f) => /^99_.*-synthesis\.md$/.test(f)
-      && fs.statSync(path.join(dir, f)).size > 0)
+    const module = buildSwarmGraph(swarmId).modules.find((candidate) => candidate.name === moduleName)
+    if (!module) return false
+    return Object.values(module.layers).flat()
+      .filter((agent) => agent.isSynthesis)
+      .some((agent) => validateAgentOutputFile(
+        path.join(dir, `${agent.key.split('/').at(-1)}.md`),
+      ).valid)
   } catch { return false }
 }
 
@@ -284,7 +299,7 @@ export function truncatedBeforeFinal(run: RunState): boolean {
   // unknown module falls through to the pre-existing behaviour rather than guessing.
   if (run.kind === 'module' && run.module) {
     if (moduleFailFastAborted(run.runRoot, run.module)) return false
-    return !moduleSynthesisPresent(run.runRoot, run.module)
+    return !moduleSynthesisPresent(run.runRoot, run.module, run.swarmId)
   }
   if (run.kind !== 'full' && run.kind !== 'rerun') return false
   if (run.swarmId === 'research') return !finalDeliverablesPresent(run.runRoot)
@@ -455,6 +470,16 @@ function resetForRelaunch(runRoot: string): void {
   try { fs.rmSync(path.join(REPO_ROOT, runRoot, FAILURE_NOTE), { force: true }) } catch { /* best-effort */ }
 }
 
+/** Reset disk resume policy only after a monolithic full relaunch has passed admission. Exact standalone
+ * modules leave `.aborted` deliberately so an old `.interrupted` cannot wake a full chain; an explicit full
+ * click supersedes that scoped pause. Clearing both markers here lets a fresh break write `.interrupted` and
+ * become autonomously resumable again. Exported for the disk-policy regression. */
+export function resetAdmittedFullRelaunch(runRoot: string): void {
+  clearRunMarker(runRoot, '.interrupted')
+  clearRunMarker(runRoot, '.aborted')
+  resetForRelaunch(runRoot)
+}
+
 // A3: a compact one-line failure reason for the DURABLE activity log (reason + a short, whitespace-
 // collapsed stderr tail). finishRun() already forwards run.note to logFinish, and the cockpit's activity
 // row already renders it (a ⚠ pill + hover) — the same path the 'incomplete' note uses. So setting run.note
@@ -462,45 +487,79 @@ function resetForRelaunch(runRoot: string): void {
 const failureNote = (reason: string, stderr: string): string =>
   reason + (stderr?.trim() ? `: ${redactSecrets(stderr.slice(-300)).replace(/\s+/g, ' ').trim()}` : '')
 
-// Finding 1: `handleStreamLine` (stream-parser.ts) finalizes a run EARLY — before process close — the
-// moment Claude emits an unambiguous structured error `result` (error_max_turns, error_during_execution,
-// any is_error result). That early finishRun() sets run.endedAt, so finalizeRunOnClose's endedAt guard
-// then returns immediately without ever reaching the terminated/nonzero branches that write the
-// .interrupted marker + RUN_FAILURE.md — silently dropping the failure note for the single most common
-// budget/API-error stop. This runs the SAME marker + failure-note + activity-log-note logic those
-// branches use, so a stream-reported error is exactly as diagnosable as a close-time error. Exported so
-// stream-parser.ts can call it before its own finishRun; the two files import each other's exports but
+const streamResultErrors = new WeakMap<RunState, { reason: string; message: string }>()
+
+// A structured stream error is authoritative immediately, but is not process-lifetime proof: a detached
+// Task/tool descendant may still be writing. Record the SAME marker + failure-note + activity-log-note
+// logic as the close-time error branch while retaining endedAt and writer claims for the group-extinct
+// close finalizer. Exported so stream-parser.ts can call it; the two files import each other's exports but
 // only from inside function bodies (never at module top level), which is safe under native ESM — a
 // hoisted `export function` binding is live before either module's own top-level code runs.
 // Fully best-effort: never throws (mirrors every other A2/A3 call site).
 export function recordStreamResultFailure(run: RunState, reason: string, message: string): void {
+  // Install close ownership semantics first. Persistence below is best-effort, but a filesystem failure must
+  // never turn an authoritative streamed error back into a clean close or release its writer claim early.
+  streamResultErrors.set(run, { reason, message })
   try {
     if (isResumableResearchRun(run) && !finalDeliverablesShippedByThisAttempt(run)) {
       writeRunMarker(run.runRoot, '.interrupted', { reason, module: run.module, message: redactSecrets((message || '').slice(-2000)) || undefined })
       recordRunFailure(run, reason, message)
     }
     run.note = failureNote(reason, message) // A3: durable reason in the activity log (shown on the row)
+    // The result is authoritative, but finalization is close-owned. Keeping endedAt unset preserves subject /
+    // write claims until the detached process group is extinct; otherwise a background Task can keep writing
+    // after this streamed error while a replacement run has already been admitted.
   } catch { /* best-effort: must never affect the stream parser or the run */ }
 }
 
+export function streamResultAwaitsProcessClose(run: RunState): boolean {
+  return streamResultErrors.has(run) && run.endedAt === undefined
+}
+
+/** Close-result authority shared by the real handler and regressions. It is evaluated only after the final
+ * process-group extinction proof + output sweep in production. A requested Stop is non-clean even if its
+ * status has deliberately stayed `running` to retain the writer claim. */
+export function childCouldReportDoneOnClose(run: RunState, res: any): boolean {
+  const code = res?.exitCode ?? res?.code
+  const terminated = res?.isTerminated === true || res?.killed === true || !!res?.signal
+  return run.endedAt === undefined && (run.status as string) !== 'cancelled' && !run.cancelRequested
+    && !streamResultErrors.has(run)
+    && !terminated && !(code && code !== 0) && res?.failed !== true && !truncatedBeforeFinal(run)
+}
+
 // The SINGLE place a run's final status is decided on process close (exported for tests).
-// Gated on `endedAt` rather than status so (a) the stream parser's early ERROR finalization is
-// never double-applied, and (b) a cancel() — which sets status='cancelled' directly — still gets
+// Gated on `endedAt` rather than status so (a) a racing reaper/real close is never double-applied,
+// and (b) a cancel() — which sets status='cancelled' directly — still gets
 // finalized here and releases its subject; gating on status leaked cancelled runs' subjects and
 // blocked that ticker's admission until restart. Clean stream `result` events do NOT finalize
 // (stream-parser): success is decided here, AFTER the final output sweep, so the full/rerun
 // missing-final-thesis integrity check can never be bypassed by an early clean result.
-export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
+export function finalizeRunOnClose(run: RunState, res: any, stderr: string, terminalProof: PreSpawnGuardResult = { ok: true }) {
   if (run.endedAt !== undefined) return // already finalized (stream-parser error path)
   const code = res?.exitCode ?? res?.code
   // execa 9 reports signal termination as isTerminated/signal (exitCode undefined) — there is NO
   // `killed` property; checking only `killed` made an externally-killed run fall through to "done"
   // (and a killed handoff toast "memo seeded ✓" for a memo never written). `killed` kept for safety.
   const terminated = res?.isTerminated === true || res?.killed === true || !!res?.signal
-  if ((run.status as string) === 'cancelled') {
+  // A user can press Stop after the paid child has exited while the terminal Git publication proof is still
+  // running. That proof remains awaited (and its pending marker remains useful on failure), but the user's
+  // deliberate cancellation is still the terminal status; never rewrite it as a publication error.
+  if ((run.status as string) === 'cancelled' || run.cancelRequested) {
     if (isResumableResearchRun(run)) clearRunMarker(run.runRoot, '.interrupted') // a deliberate stop — cancel() wrote .aborted; never auto-resume
     emit(run, { type: 'run-error', runId: run.runId, status: 'cancelled', reason: 'cancelled', ts: Date.now() })
     finishRun(run, 'cancelled')
+  } else if (streamResultErrors.has(run)) {
+    // handleStreamLine already emitted the detailed run-error and persisted the failure note. It deliberately
+    // left endedAt/claims live; only this group-extinct close path may perform the terminal registry release.
+    finishRun(run, 'error')
+  } else if (!terminalProof.ok) {
+    run.note = `incomplete: ${terminalProof.reason}`
+    emit(run, {
+      type: 'run-error', runId: run.runId, status: 'incomplete', reason: terminalProof.reason,
+      message: terminalProof.message, ts: Date.now(),
+    })
+    finishRun(run, 'incomplete')
+    return
   } else if (isResumableResearchRun(run) && finalDeliverablesShippedByThisAttempt(run)) {
     // SHIPPED before a trailing nonzero/kill: the terminal deliverables (final_thesis + decision_record) were
     // written by THIS attempt (Findings 12/14 — not just present, which a same-day stale relaunch could also
@@ -601,9 +660,101 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
 // process is gone (dead); EPERM = it exists but isn't ours to signal (still alive). Any other outcome
 // (including success) means alive. A missing pid counts as not-alive so a child we never got a pid for
 // is treated as dead rather than pinning the subject forever.
-function pidAlive(pid: number | undefined): boolean {
+function signalTargetAlive(target: number): boolean {
+  try { process.kill(target, 0); return true } catch (e: any) { return e?.code === 'EPERM' }
+}
+
+/** A detached Claude child is its process-group leader. The leader can exit while a Task/tool descendant
+ * keeps the group (and its file writes) alive, so cancellation proof must check both the negative PGID and
+ * the leader PID. `probe` is injectable for the leader-dead/descendant-alive regression. */
+export function processTreeAlive(
+  pid: number | undefined,
+  probe: (target: number) => boolean = signalTargetAlive,
+): boolean {
   if (!pid) return false
-  try { process.kill(pid, 0); return true } catch (e: any) { return e?.code === 'EPERM' }
+  const groupAlive = probe(-pid)
+  const leaderAlive = probe(pid)
+  return groupAlive || leaderAlive
+}
+
+export interface CloseProcessGroupProof {
+  extinct: boolean
+  descendantObserved: boolean
+  forced: boolean
+}
+
+export interface CloseProcessGroupProofOptions {
+  probe?: (target: number) => boolean
+  signalGroup?: (pid: number, signal: NodeJS.Signals) => void
+  now?: () => number
+  sleep?: (ms: number) => Promise<void>
+  termGraceMs?: number
+  killGraceMs?: number
+  pollMs?: number
+}
+
+const CLOSE_DESCENDANT_TERM_GRACE_MS = 500
+const CLOSE_DESCENDANT_KILL_GRACE_MS = 2500
+const CLOSE_DESCENDANT_POLL_MS = 50
+
+const defaultSignalProcessGroup = (pid: number, signal: NodeJS.Signals) => {
+  try { process.kill(-pid, signal) } catch { /* ESRCH = already extinct; EPERM remains visible to the probe */ }
+}
+
+/**
+ * A detached leader resolving is not proof that its Task/tool descendants stopped. Before ANY final sweep,
+ * terminal publication, or claim release, probe the process group, give survivors a short TERM grace, then
+ * force KILL and prove extinction. Injectable timing/signals make the leader-dead/descendant-live race a
+ * deterministic regression instead of relying only on a source-order assertion.
+ */
+export async function proveCloseProcessGroupExtinct(
+  pid: number | undefined,
+  options: CloseProcessGroupProofOptions = {},
+): Promise<CloseProcessGroupProof> {
+  if (!pid) return { extinct: true, descendantObserved: false, forced: false }
+  const probe = options.probe ?? signalTargetAlive
+  const signalGroup = options.signalGroup ?? defaultSignalProcessGroup
+  const now = options.now ?? Date.now
+  const sleep = options.sleep ?? ((ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms)))
+  const pollMs = Math.max(1, options.pollMs ?? CLOSE_DESCENDANT_POLL_MS)
+  const groupAlive = () => probe(-pid)
+  const waitUntil = async (deadline: number): Promise<boolean> => {
+    while (groupAlive() && now() < deadline) await sleep(Math.min(pollMs, Math.max(1, deadline - now())))
+    return !groupAlive()
+  }
+
+  if (!groupAlive()) return { extinct: true, descendantObserved: false, forced: false }
+  try { signalGroup(pid, 'SIGTERM') } catch { /* the final probe remains authoritative */ }
+  if (await waitUntil(now() + Math.max(0, options.termGraceMs ?? CLOSE_DESCENDANT_TERM_GRACE_MS))) {
+    return { extinct: true, descendantObserved: true, forced: false }
+  }
+
+  try { signalGroup(pid, 'SIGKILL') } catch { /* the final probe remains authoritative */ }
+  const extinct = await waitUntil(now() + Math.max(0, options.killGraceMs ?? CLOSE_DESCENDANT_KILL_GRACE_MS))
+  return { extinct, descendantObserved: true, forced: true }
+}
+
+export function descendantCloseTerminalProof(
+  descendantObserved: boolean,
+  childCouldReportDone: boolean,
+  outputProof: PreSpawnGuardResult,
+): PreSpawnGuardResult {
+  // Preserve a content/publication failure from the exact terminal guard: it carries the durable pending
+  // marker (when bytes are valid) or an invalid-output reason that makes the next plan retry. Only after that
+  // recovery authority succeeds do we replace success with the orphan-writer incomplete diagnosis.
+  if (!descendantObserved || !childCouldReportDone || !outputProof.ok) return outputProof
+  return {
+    ok: false,
+    reason: 'descendant_process_survived_close',
+    message: 'The engine leader exited while a background task was still writing. The task was stopped and the completed bytes were checked; re-run this scope before relying on the result.',
+  }
+}
+
+async function holdClaimsUntilProcessGroupExtinct(pid: number | undefined): Promise<void> {
+  if (!pid) return
+  // SIGKILL was already sent by the bounded proof. If the kernel still reports the group (usually a zombie
+  // awaiting reaping), do not guess: retain every subject/write claim and passively wait for real extinction.
+  while (signalTargetAlive(-pid)) await new Promise<void>((resolve) => setTimeout(resolve, 250))
 }
 
 // After a FORCE cancel, block until the stopped run(s)' child processes have actually EXITED before
@@ -620,10 +771,49 @@ export async function awaitRunsExited(
   now: () => number = Date.now,
   sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms)),
 ): Promise<boolean> {
-  const anyAlive = () => runs.some((r) => pidAlive(r.child?.pid))
+  // A clean exact-module child can be gone while its terminal Git publisher is still writing/rebasing the
+  // same module folder. Treat that async publisher as part of the writer lifecycle: force must not admit a
+  // replacement merely because the paid process PID has disappeared.
+  const anyAlive = () => runs.some((r) => processTreeAlive(r.child?.pid)
+    || runHasUnfinishedTerminalWork(r) || terminalGuardOwnsClose(r) || processCloseOwnsFinalization(r))
   const deadline = now() + timeoutMs
   while (anyAlive() && now() < deadline) await sleep(50)
   return !anyAlive()
+}
+
+/** Fail closed before a cancelled subject can be launched again. The cancellation path removes runs from
+ * the in-flight registry before their child processes necessarily exit, so a timeout is not success: the
+ * old process may still be writing the same run root. The injectable waiter keeps the timeout branch
+ * deterministic in tests without sending signals to the test runner itself. */
+export async function requireSubjectRunsExited(
+  subjectId: string,
+  runs: RunState[],
+  waitForExit: (runs: RunState[]) => Promise<boolean> = awaitRunsExited,
+): Promise<void> {
+  if (!runs.length || await waitForExit(runs)) return
+  const err: any = new Error(`Could not confirm that the old run on ${subjectId} stopped. Try again shortly.`)
+  err.statusCode = 409
+  throw err
+}
+
+/** A child can exit before execa delivers its close callback (or the callback can be lost). Once PID exit is
+ * confirmed, finalize captured cancelled runs synchronously so the route's endedAt-based busy check cannot
+ * strand the subject forever. finalizeRunOnClose is endedAt-gated, so a racing real close stays idempotent. */
+export function finalizeConfirmedSubjectCancellation(runs: RunState[]): void {
+  for (const run of runs) {
+    if (run.endedAt === undefined && !runHasUnfinishedTerminalWork(run) && !terminalGuardOwnsClose(run)
+        && !processCloseOwnsFinalization(run)
+        && ((run.status as string) === 'cancelled' || run.cancelRequested)) {
+      finalizeRunOnClose(run, { isTerminated: true, signal: 'SIGKILL' }, '')
+    }
+  }
+}
+
+/** Include a previously-cancelled-but-unfinalized child on every retry. Restricting this to display
+ * statuses lets a second force attempt forget the still-alive first writer. */
+export function subjectRunsAwaitingExit(subjectId: string, swarmId = RESEARCH_SWARM_ID): RunState[] {
+  return listRuns().filter((run) => run.endedAt === undefined
+    && run.subjectId === subjectId && run.swarmId === swarmId)
 }
 
 // Reap any in-flight run on this subject whose engine CHILD PROCESS is gone but whose close handler never
@@ -648,7 +838,21 @@ export function reapDeadSubjectRuns(subjectId: string, swarmId = RESEARCH_SWARM_
 // are LEGITIMATELY waiting for the user, not dead — left untouched (a deliberate force stops those).
 function reapDeadRun(r: RunState): boolean {
   if (!r.child) return false // pre-spawn gate — waiting on the human, not a dead process
-  if (pidAlive(r.child.pid)) return false // engine still alive — leave it running
+  if (processTreeAlive(r.child.pid)) return false // leader or detached descendant still alive — leave it running
+  // The real close handler owns final output sweep/publication/status once it starts. This applies to every
+  // run, not only exact modules with a terminal guard: force/reaper cannot finalize in its extinction-proof
+  // await and release claims before the handler has observed the last possible descendant write.
+  if (processCloseOwnsFinalization(r)) return false
+  // A terminal guard owns close from admission, including the short interval before execa invokes onClose.
+  // Give the real handler its grace period; if it was genuinely lost, the bounded watchdog executes the
+  // memoized proof and single finalizer. Never release this run's claims through the generic reap path.
+  if (terminalGuardOwnsClose(r)) {
+    inspectTerminalCloseWatchdog(r)
+    return false
+  }
+  // onClose owns the completed child's final publication and status decision. The PID being dead is expected
+  // here; reaping while its async guard is active would release subject/write claims mid-commit.
+  if (runHasUnfinishedTerminalWork(r)) return false
   // The child is gone but onClose never ran. Route it through the SINGLE finalizer as a termination so a
   // resumable full/rerun gets its .interrupted marker (the supervisor can continue it) and the subject
   // claim + write targets release — exactly the path an OOM/manual kill would take.
@@ -668,7 +872,7 @@ function reapDeadRun(r: RunState): boolean {
 export function reapAllDeadRuns(): string[] {
   const reaped: string[] = []
   for (const r of listRuns()) {
-    if (!IN_FLIGHT_STATUSES.has(r.status)) continue
+    if (r.endedAt !== undefined) continue
     if (reapDeadRun(r)) reaped.push(r.runId)
   }
   return reaped
@@ -994,11 +1198,46 @@ export interface LaunchParams {
   // Optional terminal observer for headless orchestration. launch() itself ACKs before readiness/CAS/spawn;
   // this callback fires only once the real command (or a pre-spawn failure) reaches a terminal status.
   onTerminal?: (status: RunStatus) => void
+  // Standalone research modules normally build one extra LLM-written module memo after their graph has
+  // completed. The thesis-plan module route promises an EXACT unfinished-orb scope, so it opts out of that
+  // leaf task for this launch only. Kept off RunState/public snapshots; the WeakSet below carries it only to
+  // this run's child environment. Ordinary module/full/rerun launches must omit it.
+  deferModuleMemo?: boolean
+  // One-click exact module resumes may read only the staged/current cross-module inputs that were included
+  // in their publication fingerprint. Standalone commands may keep their historical fallback behavior.
+  exactModuleResume?: boolean
+  // Exact module names staged + fingerprinted for that resume. They become directory-scoped read claims
+  // for admission and a child-only allowlist; a same-day partial folder that was NOT reviewed cannot be
+  // picked up merely because it happens to exist beside the target module.
+  exactModuleInputs?: string[]
+  // Exact specialist and synthesis stems the reviewed plan authorizes this child to replace. These are
+  // derived from the server-side roster + done-orb receipt, never accepted from a public launch body.
+  // The shared pipeline's quarantine helper fails closed outside this allowlist.
+  exactModuleWritableOrbs?: string[]
+  exactModuleSynthesisOrbs?: string[]
+  // Immutable target root reviewed and fingerprinted by the smart-resume route. The module command would
+  // otherwise call `date` again after spawn and could cross midnight into a different, unreviewed folder.
+  // Kept child-only and required only with exactModuleResume.
+  exactModuleRunRoot?: string
+  // Internal, synchronous compare-and-set at the FINAL paid-process boundary. Routes that stage or publish
+  // filesystem state before launch use this to re-read their exact disk truth after readiness/buildArgs
+  // delays. Kept in a WeakMap (not RunState/public snapshots) and never accepted by public request schemas.
+  preSpawnGuard?: PreSpawnGuard
+  // Optional async proof after a clean child exit but before the run can be reported done. Exact module
+  // resumes use it to prove the completed module path reached origin/main (and retry a local-only commit).
+  // Kept launch-private like preSpawnGuard; ordinary runs omit it.
+  terminalGuard?: TerminalGuard
   // A command whose own run subject is NOT the shared-pool subject may still publish there. Screener
   // handoff runs are keyed by THESIS::TICKER but write data/<TICKER>; bind that target explicitly so the
   // owner is checked before admission and again immediately before the paid command can write.
   sharedPoolTarget?: { swarm: string; subject: string }
 }
+
+export type PreSpawnGuardResult =
+  | { ok: true }
+  | { ok: false; reason: string; message: string }
+export type PreSpawnGuard = () => PreSpawnGuardResult
+export type TerminalGuard = () => Promise<PreSpawnGuardResult> | PreSpawnGuardResult
 
 type DecisionBinding = { decisionRunRoot?: string; decisionFingerprint: string }
 
@@ -1032,6 +1271,22 @@ function launchBindingError(code: 'selected_decision_changed' | 'intake_plan_cha
   return err
 }
 
+function assertNoModulePublicationInFlight(swarmId: string, subjectId: string): void {
+  if (swarmId !== RESEARCH_SWARM_ID || !modulePublicationInFlight(subjectId)) return
+  const err: any = new Error(`The completed module for ${subjectId} is still being published. Try again when it finishes.`)
+  err.statusCode = 409
+  err.body = { code: 'subject_busy' }
+  throw err
+}
+
+function assertNoForeignSubjectChain(swarmId: string, subjectId: string, chained?: boolean): void {
+  if (swarmId !== RESEARCH_SWARM_ID || chained || !subjectChainActive(subjectId, swarmId)) return
+  const err: any = new Error(`A full-analysis chain is already active on ${subjectId}. Let it finish (or stop it) before starting more work.`)
+  err.statusCode = 409
+  err.body = { code: 'subject_busy' }
+  throw err
+}
+
 type SharedDataPoolBoundaryConflict = SharedDataPoolConflict | {
   code: 'shared_data_owner_unavailable'
   owners: string[]
@@ -1047,7 +1302,7 @@ const pendingSharedDataPoolClaims = new Map<string, Map<string, number>>()
 function sharedDataPoolClaims(subjectId: string, ignoreRunId?: string): SharedDataPoolClaim[] {
   const claims: SharedDataPoolClaim[] = []
   for (const run of listRuns()) {
-    if (run.runId === ignoreRunId || !IN_FLIGHT_STATUSES.has(run.status)) continue
+    if (run.runId === ignoreRunId || run.endedAt !== undefined) continue
     if (run.subjectId === subjectId && isSharedDataPoolConsumer(run.kind, swarmById(run.swarmId)?.layout)) {
       claims.push({ swarm: run.swarmId, runId: run.runId })
     }
@@ -1165,6 +1420,237 @@ function assertLaunchBindingsStillCurrent(swarmId: string, subjectId: string, pa
 const intakeOwnerByRun = new WeakMap<RunState, IntakeOwner>()
 const sharedPoolTargetByRun = new WeakMap<RunState, { swarm: string; subject: string }>()
 const intakeReceiptByRun = new WeakMap<RunState, IntakeReceiptIntent>()
+// One-shot execution policy, deliberately not a run-folder marker: a marker can outlive a crashed server
+// and make a later ordinary module silently skip its memo. WeakSet lifetime is the admitted RunState only;
+// spawnEngine turns it into a child-only environment value and childEnv strips any ambient copy.
+const deferredModuleMemoRuns = new WeakSet<RunState>()
+const exactModuleResumeRuns = new WeakSet<RunState>()
+const exactModuleInputsByRun = new WeakMap<RunState, string[]>()
+const exactModuleRunRootByRun = new WeakMap<RunState, string>()
+const exactModuleArtifactScopeByRun = new WeakMap<RunState, {
+  module: string
+  writableOrbs: string[]
+  synthesisOrbs: string[]
+}>()
+const preSpawnGuards = new WeakMap<RunState, PreSpawnGuard>()
+const terminalGuards = new WeakMap<RunState, TerminalGuard>()
+// The child PID is already dead while a terminal guard publishes completed outputs. Keep an explicit writer
+// token until BOTH the guard and close finalizer have finished so force/reaper/admission cannot mistake that
+// ordinary state for an abandoned run and release its subject/write claims mid-Git operation.
+const terminalWorkByRun = new WeakMap<RunState, Promise<PreSpawnGuardResult>>()
+// A terminalGuard makes process close an owned lifecycle phase from admission onward — not only after the
+// close callback happens to start. A dead PID can be observed a few event-loop turns before execa delivers
+// close, and in the pathological lost-close case it never delivers it. The watchdog gives ordinary close a
+// short grace period, then performs the same proof + single finalization itself. Weak state cannot survive or
+// leak beyond its RunState, and every async guard is memoized below so real close/fallback execute it once.
+const TERMINAL_CLOSE_GRACE_MS = 2000
+const TERMINAL_CLOSE_POLL_MS = 250
+const terminalCloseHandlers = new WeakSet<RunState>()
+const terminalDeadObservedAt = new WeakMap<RunState, number>()
+const terminalCloseWatchdogTimers = new WeakMap<RunState, NodeJS.Timeout>()
+
+function recoverNonCleanExactClose(run: RunState): NonCleanExactModuleRecovery | null {
+  if (run.endedAt !== undefined || !exactModuleResumeRuns.has(run) || !run.module) return null
+  const targetRunRoot = exactModuleRunRootByRun.get(run)
+  const artifactScope = exactModuleArtifactScopeByRun.get(run)
+  if (!targetRunRoot || !artifactScope || artifactScope.module !== run.module) {
+    return { disposition: 'recovery-failed', reason: 'missing_exact_module_scope' }
+  }
+  const recovery = recoverNonCleanExactModulePublication({
+    ticker: run.ticker,
+    module: run.module,
+    targetRunRoot,
+    synthesisOrbs: artifactScope.synthesisOrbs,
+  })
+  if (recovery.disposition === 'recovery-failed') {
+    // Keep the terminal status (cancel/error) authoritative. This note makes a fail-closed filesystem
+    // refusal diagnosable without changing Stop semantics or attempting any publication work.
+    run.note = `${run.note ? `${run.note}; ` : ''}exact output recovery failed: ${recovery.reason}`
+  }
+  return recovery
+}
+
+/** The actual child close callback has claimed the final sweep/status lifecycle. While it awaits process-
+ * group extinction or publication, no reaper/force path may substitute its own finalizer. */
+export function processCloseOwnsFinalization(run: RunState): boolean {
+  return run.endedAt === undefined && terminalCloseHandlers.has(run)
+}
+
+export function bindTerminalGuard(run: RunState, guard: TerminalGuard): void {
+  terminalGuards.set(run, guard)
+}
+
+export function trackTerminalGuardWork(
+  run: RunState,
+  work: Promise<PreSpawnGuardResult>,
+): Promise<PreSpawnGuardResult> {
+  terminalWorkByRun.set(run, work)
+  return work
+}
+
+export function clearTerminalGuardWork(run: RunState, work: Promise<PreSpawnGuardResult>): void {
+  if (terminalWorkByRun.get(run) === work) terminalWorkByRun.delete(run)
+}
+
+export function runHasUnfinishedTerminalWork(run: RunState): boolean {
+  return terminalWorkByRun.has(run)
+}
+
+/** A bound terminal guard owns a dead child's close/finalization until the real handler or watchdog proves
+ * the outcome. This is intentionally broader than `runHasUnfinishedTerminalWork`: the guard promise may not
+ * have started yet, but reaper/force still must not release the subject in that pre-onClose window. */
+export function terminalGuardOwnsClose(run: RunState): boolean {
+  return run.endedAt === undefined && terminalGuards.has(run)
+}
+
+function beginTerminalGuardWork(run: RunState): Promise<PreSpawnGuardResult> {
+  const existing = terminalWorkByRun.get(run)
+  if (existing) return existing
+  // Defer invocation one microtask so the writer token is installed before any user callback can run.
+  const work = Promise.resolve().then(() => evaluateTerminalGuard(terminalGuards.get(run)))
+  return trackTerminalGuardWork(run, work)
+}
+
+function stopTerminalCloseWatchdog(run: RunState): void {
+  const timer = terminalCloseWatchdogTimers.get(run)
+  if (timer) clearInterval(timer)
+  terminalCloseWatchdogTimers.delete(run)
+  terminalDeadObservedAt.delete(run)
+}
+
+/** One deterministic watchdog inspection. Exported so the dead-PID-before-onClose regression advances its
+ * clock without sleeping. The real timer below calls the exact same path. */
+export function inspectTerminalCloseWatchdog(
+  run: RunState,
+  now: number = Date.now(),
+  graceMs: number = TERMINAL_CLOSE_GRACE_MS,
+): 'inactive' | 'alive' | 'grace' | 'owned' | 'started' {
+  if (!terminalGuardOwnsClose(run)) {
+    stopTerminalCloseWatchdog(run)
+    return 'inactive'
+  }
+  if (terminalCloseHandlers.has(run)) {
+    stopTerminalCloseWatchdog(run)
+    return 'owned'
+  }
+  if (!run.child || processTreeAlive(run.child.pid)) {
+    terminalDeadObservedAt.delete(run)
+    return 'alive'
+  }
+  const firstDeadAt = terminalDeadObservedAt.get(run)
+  if (firstDeadAt === undefined) {
+    terminalDeadObservedAt.set(run, now)
+    return 'grace'
+  }
+  if (now - firstDeadAt < Math.max(0, graceMs)) return 'grace'
+
+  // Claim the close synchronously before starting any async work. A racing real close can share the same
+  // guard promise and endedAt-gated finalizer, but no second watchdog/reaper can create another publisher.
+  terminalCloseHandlers.add(run)
+  stopTerminalCloseWatchdog(run)
+  sweepRunOutputs(run)
+
+  // A deliberate stop never publishes. It still finalizes only through this close-owned fallback, so the
+  // claim remains held until the dead process is proven and the status/endedAt transition is coherent.
+  if ((run.status as string) === 'cancelled' || run.cancelRequested) {
+    recoverNonCleanExactClose(run)
+    finalizeRunOnClose(run, { isTerminated: true, signal: 'SIGKILL' }, '')
+    return 'started'
+  }
+
+  // A structured stream error is already authoritative and recorded, but it retained claims for this exact
+  // dead-process proof. Never run terminal publication for an errored child; release only through finalizer.
+  if (streamResultErrors.has(run)) {
+    recoverNonCleanExactClose(run)
+    finalizeRunOnClose(run, { exitCode: 1 }, '')
+    return 'started'
+  }
+
+  // A lost close has no authoritative exit result. It may have been error_max_turns/nonzero after 99 landed,
+  // so it must NEVER guess clean and enter the normal terminalGuard (which publishes Git). Marker-only
+  // recovery either records the exact stable bytes for an explicit publish retry or quarantines 99; then the
+  // run finishes incomplete. If real onClose arrived first it claimed terminalCloseHandlers above and this
+  // branch was unreachable, so normal clean publication still has one owner.
+  const recovery = recoverNonCleanExactClose(run)
+  const reason = recovery?.disposition === 'recovery-failed'
+    ? 'terminal_close_recovery_failed'
+    : 'terminal_close_result_unavailable'
+  finalizeRunOnClose(run, { exitCode: 0 }, '', {
+    ok: false,
+    reason,
+    message: recovery?.disposition === 'publication-pending'
+      ? 'The engine close result was lost. The completed module bytes were saved for an explicit publish-only retry.'
+      : 'The engine close result was lost, so the module was not published. Re-run the unfinished synthesis.',
+  })
+  return 'started'
+}
+
+function armTerminalCloseWatchdog(run: RunState): void {
+  if (!terminalGuardOwnsClose(run) || terminalCloseWatchdogTimers.has(run)) return
+  const timer = setInterval(() => { inspectTerminalCloseWatchdog(run) }, TERMINAL_CLOSE_POLL_MS)
+  timer.unref?.()
+  terminalCloseWatchdogTimers.set(run, timer)
+}
+
+/** Validate the immutable research root carried by a smart module resume. The optional `resolvedRunRoot`
+ * check is the launch-time rollover CAS: if the route reviewed Aug 21 but launch() resolves Aug 22, the
+ * launch stops before admission/spawn instead of silently changing folders. */
+export function exactModuleRunRootBinding(
+  subject: string,
+  requestedRunRoot: unknown,
+  resolvedRunRoot?: string,
+): string | null {
+  if (!isValidTicker(subject) || typeof requestedRunRoot !== 'string') return null
+  const match = /^analyses\/([A-Z0-9.\-]{1,15})_(\d{4}-\d{2}-\d{2})$/.exec(requestedRunRoot)
+  if (!match || match[1] !== subject || (resolvedRunRoot !== undefined && requestedRunRoot !== resolvedRunRoot)) return null
+  const parsed = new Date(`${match[2]}T00:00:00.000Z`)
+  if (!Number.isFinite(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== match[2]) return null
+  return requestedRunRoot
+}
+
+/** Normalize an internal final-boundary callback. A thrown/malformed callback fails CLOSED with generic
+ *  wording; a well-formed route reason is preserved for SSE/UI handling. Exported for the no-spend unit test. */
+export function evaluatePreSpawnGuard(guard?: PreSpawnGuard): PreSpawnGuardResult {
+  if (!guard) return { ok: true }
+  try {
+    const result = guard()
+    if (result?.ok === true) return { ok: true }
+    const reason = typeof result?.reason === 'string' && /^[a-z][a-z0-9_]{2,63}$/.test(result.reason)
+      ? result.reason : 'launch_scope_changed'
+    const message = typeof result?.message === 'string' && result.message.trim()
+      ? result.message.trim().slice(0, 500)
+      : 'The launch scope changed before the engine could start. Refresh and try again.'
+    return { ok: false, reason, message }
+  } catch {
+    return {
+      ok: false,
+      reason: 'launch_scope_changed',
+      message: 'The launch scope could not be verified immediately before starting. No run was started.',
+    }
+  }
+}
+
+/** Async twin of the final paid-boundary guard. A thrown/malformed publication proof fails closed and
+ * never exposes internal Git/path details in SSE or Activity. */
+export async function evaluateTerminalGuard(guard?: TerminalGuard): Promise<PreSpawnGuardResult> {
+  if (!guard) return { ok: true }
+  try {
+    const result = await guard()
+    if (result?.ok === true) return { ok: true }
+    const reason = typeof result?.reason === 'string' && /^[a-z][a-z0-9_]{2,63}$/.test(result.reason)
+      ? result.reason : 'terminal_proof_failed'
+    const message = typeof result?.message === 'string' && result.message.trim()
+      ? result.message.trim().slice(0, 500)
+      : 'The completed analysis could not be verified as safely published. Its saved work remains on disk.'
+    return { ok: false, reason, message }
+  } catch {
+    return {
+      ok: false,
+      reason: 'terminal_proof_failed',
+      message: 'The completed analysis could not be verified as safely published. Its saved work remains on disk.',
+    }
+  }
+}
 
 // ---- chained full run (per-module budgets), DAG-PARALLEL — opt-in via FULL_PER_MODULE ----
 // A full pipeline as a set of SEPARATE per-module runs (each its own budget + activity-log entry),
@@ -1189,19 +1675,59 @@ const intakeReceiptByRun = new WeakMap<RunState, IntakeReceiptIntent>()
 const CAPACITY_RETRY_MS = 5000
 const deferMarkerPath = (ticker: string) => path.join(REPO_ROOT, `analyses/${ticker}_${todayDate()}`, '.defer_module_memos')
 
-// Kill switch for chained full runs: launchFullChained captures the epoch at start; "stop everything"
-// (haltAllChains) bumps it, so the DAG scheduler stops launching once a stop has fired — and cancelling
-// any chained run bumps it too (see cancel()), which halts the rest of the pipeline.
+// Kill switches for chained full runs. Every scheduler captures both the global epoch and its own
+// subject epoch. "Stop everything" bumps the global epoch; cancelling one subject bumps only that
+// subject's epoch, so stopping INDIAMART can never strand an unrelated TCS chain.
 let chainEpoch = 0
-export function haltAllChains(): void {
-  chainEpoch++
+const subjectChainEpoch = new Map<string, number>()
+const subjectChainKey = (subjectId: string, swarmId: string) => `${swarmId}\u0000${subjectId}`
+// A chained full run is one logical writer even when no child RunState exists (for example, every ready
+// module is backed off on capacity between waves). Keep a token for that whole lifetime so disk-staging and
+// publish-only routes cannot mistake a child-transition gap for an idle subject. The token is deliberately
+// separate from child admission: deferred children carry `chained:true` and are allowed to join their owner.
+const activeSubjectChains = new Map<string, symbol>()
+
+export function subjectChainActive(subjectId: string, swarmId = RESEARCH_SWARM_ID): boolean {
+  return activeSubjectChains.has(subjectChainKey(subjectId, swarmId))
 }
 
-/** Capture the chain epoch; the returned probe answers "may this chain still advance?" — false once
- *  stop-everything has bumped the epoch. Exported for the test suite. */
-export function captureChainEpoch(): () => boolean {
+function acquireSubjectChainReservation(subjectId: string, swarmId = RESEARCH_SWARM_ID): () => void {
+  const key = subjectChainKey(subjectId, swarmId)
+  if (activeSubjectChains.has(key)) {
+    const error: any = new Error(`A full-analysis chain is already active on ${subjectId}. Let it finish (or stop it) before starting more work.`)
+    error.statusCode = 409
+    error.body = { code: 'subject_busy' }
+    throw error
+  }
+  const token = Symbol(key)
+  activeSubjectChains.set(key, token)
+  let released = false
+  return () => {
+    if (released) return
+    released = true
+    // Token-bound delete: an old halted scheduler must never clear a newer replacement chain.
+    if (activeSubjectChains.get(key) === token) activeSubjectChains.delete(key)
+  }
+}
+
+export function haltAllChains(): void {
+  chainEpoch++
+  activeSubjectChains.clear()
+}
+
+export function haltSubjectChains(subjectId: string, swarmId = RESEARCH_SWARM_ID): void {
+  const key = subjectChainKey(subjectId, swarmId)
+  subjectChainEpoch.set(key, (subjectChainEpoch.get(key) ?? 0) + 1)
+  activeSubjectChains.delete(key)
+}
+
+/** Capture the relevant chain epochs; the returned probe answers "may this chain still advance?".
+ *  Omitting subjectId preserves the global-only probe used by the stop-everything test. */
+export function captureChainEpoch(subjectId?: string, swarmId = RESEARCH_SWARM_ID): () => boolean {
   const epoch = chainEpoch
-  return () => epoch === chainEpoch
+  const key = subjectId ? subjectChainKey(subjectId, swarmId) : null
+  const subjectEpoch = key ? (subjectChainEpoch.get(key) ?? 0) : 0
+  return () => epoch === chainEpoch && (!key || subjectEpoch === (subjectChainEpoch.get(key) ?? 0))
 }
 
 export interface FullChainDeps {
@@ -1274,17 +1800,30 @@ export async function launchFullChained(
   if (isSealedResearchRun(datedRoot)) throw sealedResearchRunError(datedRoot)
   const g = buildSwarmGraph()
   const names = g.modules.map((m) => m.name)
+  const synthesisFiles = new Map(g.modules.map((m) => [
+    m.name,
+    Object.values(m.layers).flat()
+      .filter((agent) => agent.isSynthesis)
+      .map((agent) => `${agent.key.split('/').at(-1)}.md`),
+  ]))
   const known = new Set(names)
   const depsOf = new Map(g.modules.map((m) => [m.name, m.dependsOn.filter((d) => known.has(d))]))
   const total = names.length
   // Acquire after all read-only graph construction but BEFORE the first marker/filesystem mutation. The
-  // claim lives until master terminal or abort; child ACKs/finishes never release it.
-  const releasePool = deps.acquirePoolClaim?.(ticker) ?? (() => {})
+  // subject token and pool claim live until master terminal or abort; child ACKs/finishes never release them.
+  const releaseSubjectChain = acquireSubjectChainReservation(ticker, RESEARCH_SWARM_ID)
+  let releasePool: () => void
+  try {
+    releasePool = deps.acquirePoolClaim?.(ticker) ?? (() => {})
+  } catch (error) {
+    releaseSubjectChain()
+    throw error
+  }
   let poolReleased = false
   const releaseChainPool = () => {
     if (poolReleased) return
     poolReleased = true
-    releasePool()
+    try { releasePool() } finally { releaseSubjectChain() }
   }
 
   // Drop a marker in the shared run root so each per-module run SKIPS its inline memo (MODULE_PIPELINE
@@ -1304,13 +1843,15 @@ export async function launchFullChained(
   // RESUME (forever-living): if today's run folder already holds finished modules from a prior attempt
   // that broke (a plan-limit pause, a dropped connection, a reboot), seed them as done so this relaunch
   // CONTINUES from where it stopped instead of redoing the whole pipeline. A first run finds nothing here;
-  // a complete folder is left alone (this is then a fresh full, not a resume). Module = its 99 synthesis
-  // present and non-empty (the same "module finished" test the screener resume uses).
+  // a complete folder is left alone (this is then a fresh full, not a resume). A module is finished only
+  // when its CURRENT discovered synthesis passes the same mechanical validator used by exact planning.
   const resumeRoot = `analyses/${ticker}_${todayDate()}`
   if (fs.existsSync(path.join(REPO_ROOT, resumeRoot)) && !finalDeliverablesPresent(resumeRoot)) {
     for (const name of names) {
       try {
-        if (fs.statSync(path.join(REPO_ROOT, resumeRoot, name, `99_${name}-synthesis.md`)).size > 0) { done.add(name); started.add(name) }
+        const finished = (synthesisFiles.get(name) ?? []).some((file) =>
+          validateAgentOutputFile(path.join(REPO_ROOT, resumeRoot, name, file)).valid)
+        if (finished) { done.add(name); started.add(name) }
       } catch { /* this module isn't finished yet */ }
     }
     clearRunMarker(resumeRoot, '.interrupted') // a deliberate (re)launch; a fresh break will re-mark it
@@ -1329,8 +1870,8 @@ export async function launchFullChained(
   let stopped = false
   let masterLaunched = false
   let retryScheduled = false
-  // stop-everything (haltAllChains) bumps the epoch; once it does, the scheduler launches nothing further.
-  const chainAlive = captureChainEpoch()
+  // Global stop halts every chain; a subject stop halts only this ticker's scheduler.
+  const chainAlive = captureChainEpoch(ticker, RESEARCH_SWARM_ID)
 
   let firstRunId: string | null = null
   let settleFirst!: (out: { runId: string; preflight: LaunchPreflight }) => void
@@ -1463,7 +2004,7 @@ export async function cancelAll(): Promise<string[]> {
   haltAllChains()
   const cancelled: string[] = []
   for (const r of listRuns()) {
-    if (!IN_FLIGHT_STATUSES.has(r.status)) continue
+    if (r.endedAt !== undefined || r.cancelRequested) continue
     try {
       if (await cancel(r.runId)) cancelled.push(r.runId)
     } catch {
@@ -1480,12 +2021,10 @@ export async function cancelAll(): Promise<string[]> {
  *  chain (so no queued module launches) + cancelling every in-flight run for the subject stops it for
  *  real. Only this subject's runs are touched; other subjects keep running. Returns the cancelled ids. */
 export async function cancelSubject(subjectId: string, swarmId = 'research'): Promise<string[]> {
-  haltAllChains() // no queued chain step can launch after this (global epoch bump — same as any chained cancel)
+  haltSubjectChains(subjectId, swarmId) // no queued step for this subject can launch; other subjects continue
   const cancelled: string[] = []
   const stopping: RunState[] = []
-  for (const r of listRuns()) {
-    if (!IN_FLIGHT_STATUSES.has(r.status)) continue
-    if (r.subjectId !== subjectId || r.swarmId !== swarmId) continue
+  for (const r of subjectRunsAwaitingExit(subjectId, swarmId)) {
     stopping.push(r) // hold the RunState — cancel() drops it from the in-flight set, so we can't re-find it after
     try {
       if (await cancel(r.runId)) cancelled.push(r.runId)
@@ -1496,9 +2035,11 @@ export async function cancelSubject(subjectId: string, swarmId = 'research'): Pr
   // cancel() only SIGTERMs and returns BEFORE the child dies, yet the run has already left the in-flight set —
   // so a relaunch admitted immediately after (a Stop→Continue on the same subject) could start a SECOND engine
   // writing the SAME run dir while the first is still flushing. Wait for the killed children to actually exit
-  // before returning, so the next launch admits onto a clean subject (best-effort: awaitRunsExited bounds the
-  // wait at the SIGKILL window). This mirrors the force-launch guard, applied to the explicit-cancel path too.
-  if (stopping.length) await awaitRunsExited(stopping)
+  // before returning, so the next launch admits onto a clean subject. A bounded wait that cannot prove exit
+  // is an error, not a successful cancellation: returning 200 would let Stop -> run again start a second
+  // writer on the same run root. This mirrors the force-launch guard on the explicit-cancel path.
+  await requireSubjectRunsExited(subjectId, stopping)
+  finalizeConfirmedSubjectCancellation(stopping)
   return cancelled
 }
 
@@ -1521,6 +2062,42 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   }
   if (params.decisionFingerprint && SCREENER_KINDS.has(kind)) {
     throw Object.assign(new Error('A selected decision binding is not valid for screener launches.'), { statusCode: 400 })
+  }
+  if (params.deferModuleMemo && (swarmId !== RESEARCH_SWARM_ID || kind !== 'module')) {
+    throw Object.assign(new Error('Module-memo deferral is valid only for a research module launch.'), { statusCode: 400 })
+  }
+  const exactModuleRunRoot = params.exactModuleResume
+    ? exactModuleRunRootBinding(params.ticker ?? '', params.exactModuleRunRoot)
+    : null
+  if (params.exactModuleResume && (swarmId !== RESEARCH_SWARM_ID || kind !== 'module'
+      || !params.preSpawnGuard || !params.terminalGuard || !exactModuleRunRoot)) {
+    throw Object.assign(new Error('Exact module-resume policy requires a guarded research module launch, terminal publication proof, and its immutable run root.'), { statusCode: 400 })
+  }
+  const exactModuleInputs = [...new Set(params.exactModuleInputs ?? [])].sort()
+  const rawExactWritableOrbs = params.exactModuleWritableOrbs
+  const rawExactSynthesisOrbs = params.exactModuleSynthesisOrbs
+  const exactModuleWritableOrbs = [...new Set(rawExactWritableOrbs ?? [])].sort()
+  const exactModuleSynthesisOrbs = [...new Set(rawExactSynthesisOrbs ?? [])].sort()
+  const safeExactModule = typeof module === 'string' && /^[a-z][a-z0-9-]*$/.test(module)
+  const specialistStem = /^(?!99_)\d{2}_[A-Za-z0-9][A-Za-z0-9_-]*$/
+  const synthesisStem = /^99_[A-Za-z0-9][A-Za-z0-9_-]*-synthesis$/
+  if ((!params.exactModuleResume && exactModuleInputs.length > 0)
+      || (!params.exactModuleResume && params.exactModuleRunRoot !== undefined)
+      || (!params.exactModuleResume && params.terminalGuard !== undefined)
+      || (!params.exactModuleResume && rawExactWritableOrbs !== undefined)
+      || (!params.exactModuleResume && rawExactSynthesisOrbs !== undefined)
+      || exactModuleInputs.some((name) => !/^[a-z0-9][a-z0-9-]{0,79}$/.test(name))) {
+    throw Object.assign(new Error('Exact module-resume inputs require a guarded research module launch and safe module names.'), { statusCode: 400 })
+  }
+  if (params.exactModuleResume && (!safeExactModule
+      || !Array.isArray(rawExactWritableOrbs) || !Array.isArray(rawExactSynthesisOrbs)
+      || rawExactWritableOrbs.length !== exactModuleWritableOrbs.length
+      || rawExactSynthesisOrbs.length !== exactModuleSynthesisOrbs.length
+      || exactModuleWritableOrbs.length > 256 || exactModuleSynthesisOrbs.length < 1
+      || exactModuleSynthesisOrbs.length > 16
+      || exactModuleWritableOrbs.some((stem) => !specialistStem.test(stem))
+      || exactModuleSynthesisOrbs.some((stem) => !synthesisStem.test(stem)))) {
+    throw Object.assign(new Error('Exact module-resume artifact scope is missing or invalid.'), { statusCode: 400 })
   }
   if (params.intakeReceipt) {
     const receipt = params.intakeReceipt
@@ -1644,6 +2221,8 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     // research kinds — unchanged behavior
     const ticker = params.ticker || ''
     subjectId = ticker
+    assertNoModulePublicationInFlight(swarmId, subjectId)
+    assertNoForeignSubjectChain(swarmId, subjectId, params.chained)
     // opt-in: run a full pipeline as a chain of per-module runs + master (each its own budget)
     const datedRoot = `analyses/${ticker}_${todayDate()}`
     // A sealed full run uses full.md's read-only recovery route. Do not send it through the per-module
@@ -1696,6 +2275,17 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     }
   }
 
+  // The route's reviewed root and launcher's own resolved root must be identical. This catches a midnight
+  // rollover that occurs before launch() resolves the module target; a later rollover is harmless because
+  // the immutable value below is passed to the child instead of asking the command to call `date` again.
+  if (params.exactModuleResume
+      && exactModuleRunRootBinding(subjectId, exactModuleRunRoot, runRoot) === null) {
+    throw Object.assign(new Error('The exact module run root changed before launch. Refresh and try again.'), {
+      statusCode: 409,
+      code: 'module_scope_changed',
+    })
+  }
+
   if (swarmId === 'research' && ['module', 'agent', 'rerun'].includes(kind) && isSealedResearchRun(runRoot)) {
     throw sealedResearchRunError(runRoot)
   }
@@ -1723,7 +2313,9 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   ])]
   const readDepsAbs = kind === 'agent' || kind === 'screener-agent'
     ? agentRequiredUpstream(swarmId, module, agent).map((relp) => path.join(REPO_ROOT, runRoot, relp))
-    : []
+    : params.exactModuleResume
+      ? exactModuleInputs.map((name) => path.join(REPO_ROOT, runRoot, name))
+      : []
 
   // Reserve the bare shared-pool label before ANY launch-side mutation. For an unowned label this is the
   // atomic "first cockpit wins" claim; once setActiveSubjectRun() runs, the durable in-flight claim takes
@@ -1741,6 +2333,8 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   // subject; later blocks materialize files/markers. There is no await between this assertion and the
   // first force cancellation, so stale auto-intake owner A cannot cancel current B-bound work.
   assertLaunchBindingsStillCurrent(swarmId, subjectId, params)
+  assertNoModulePublicationInFlight(swarmId, subjectId)
+  assertNoForeignSubjectChain(swarmId, subjectId, params.chained)
 
   // Self-heal first: finalize any run whose engine process has died but never closed, so a wedged lock can
   // never permanently block this launch (the "stuck forever" failure). Sweep ALL subjects, not just this
@@ -1760,17 +2354,16 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   // window, REFUSE to admit (throw) rather than risk a concurrent double-write. We do NOT touch other
   // tickers' runs, so the global capacity cap (D5) still binds — force overrides a LOCK, never the cost guard.
   if (params.force) {
-    const stopping: RunState[] = []
-    for (const e of inFlightRunsForSubject(subjectId, swarmId)) {
-      const r = getRun(e.runId)
-      if (r) stopping.push(r)
-      try { await cancel(e.runId) } catch { /* keep stopping the rest — one stuck run must not shield the others */ }
+    const stopping = subjectRunsAwaitingExit(subjectId, swarmId)
+    for (const r of stopping) {
+      try { await cancel(r.runId) } catch { /* keep stopping the rest — one stuck run must not shield the others */ }
     }
     if (!(await awaitRunsExited(stopping))) {
       const err: any = new Error(`Could not stop the run(s) holding the lock on ${subjectId} — still alive after ${FORCE_STOP_WAIT_MS}ms. Try again shortly.`)
       err.statusCode = 409
       throw err
     }
+    finalizeConfirmedSubjectCancellation(stopping)
   }
 
   // Force-stop can await a process-tree exit. Re-read ownership after that yield and before admission or
@@ -1781,6 +2374,8 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   // Force cancellation can yield while the plan is consumed/replaced. Re-read the exact plan/orb/hash
   // immediately before admission so a stale plan-origin request never claims a paid run slot.
   assertLaunchBindingsStillCurrent(swarmId, subjectId, params)
+  assertNoModulePublicationInFlight(swarmId, subjectId)
+  assertNoForeignSubjectChain(swarmId, subjectId, params.chained)
 
   // Dependency-aware admission + register in ONE synchronous block (no await before
   // setActiveSubjectRun) so the check-and-claim is atomic under Node's single-threaded loop.
@@ -1794,12 +2389,11 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   }
 
   // Finding 13: NOW that admission has actually admitted this launch, reset the relaunch state — clearing
-  // .interrupted any earlier would strand the run if admission had rejected it instead (see the comment
-  // where isFullRelaunch is set). A deliberate relaunch; a fresh break re-marks .interrupted, and a fresh
-  // failure re-records RUN_FAILURE.md (dedup reset) since Finding 8 also drops any stale copy here.
+  // either marker earlier would strand the old run if admission rejected this attempt. A deliberate full
+  // relaunch supersedes an exact-module `.aborted` pause; a fresh break re-marks `.interrupted` and remains
+  // autonomously resumable. The failure-note dedup resets here too.
   if (isFullRelaunch) {
-    clearRunMarker(runRoot, '.interrupted')
-    resetForRelaunch(runRoot)
+    resetAdmittedFullRelaunch(runRoot)
   }
 
   // Materialize the signal intake AFTER admission passes (no orphan folders on rejection).
@@ -1860,6 +2454,19 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   if (params.intakeOwner) intakeOwnerByRun.set(run, { ...params.intakeOwner })
   if (params.sharedPoolTarget) sharedPoolTargetByRun.set(run, { ...params.sharedPoolTarget })
   if (params.intakeReceipt) intakeReceiptByRun.set(run, { ...params.intakeReceipt })
+  if (params.deferModuleMemo) deferredModuleMemoRuns.add(run)
+  if (params.exactModuleResume) exactModuleResumeRuns.add(run)
+  if (params.exactModuleResume) exactModuleInputsByRun.set(run, exactModuleInputs)
+  if (params.exactModuleResume) exactModuleRunRootByRun.set(run, exactModuleRunRoot!)
+  if (params.exactModuleResume) {
+    exactModuleArtifactScopeByRun.set(run, {
+      module: module!,
+      writableOrbs: exactModuleWritableOrbs,
+      synthesisOrbs: exactModuleSynthesisOrbs,
+    })
+  }
+  if (params.preSpawnGuard) preSpawnGuards.set(run, params.preSpawnGuard)
+  if (params.terminalGuard) bindTerminalGuard(run, params.terminalGuard)
 
   // seed expected agents as queued so the UI can show the planned swarm immediately
   for (const e of expected.values()) {
@@ -1927,9 +2534,57 @@ async function continueLaunch(run: RunState): Promise<void> {
 // Keys set in the REAL environment (launchd plist / shell) aren't in providerEnvKeys, so they pass through
 // regardless — this only matters for the providers.env path.
 const CLAUDE_AUTH_ENV_KEYS = new Set(['ANTHROPIC_API_KEY', 'CLAUDE_CODE_OAUTH_TOKEN'])
-export function childEnv(): NodeJS.ProcessEnv {
+export const DEFER_MODULE_MEMO_ENV = 'NOSTRA_DEFER_MODULE_MEMO'
+export const EXACT_MODULE_RESUME_ENV = 'NOSTRA_EXACT_MODULE_RESUME'
+export const EXACT_MODULE_INPUTS_ENV = 'NOSTRA_EXACT_MODULE_INPUTS'
+export const EXACT_MODULE_RUN_ROOT_ENV = 'NOSTRA_EXACT_MODULE_RUN_ROOT'
+export const EXACT_MODULE_NAME_ENV = 'NOSTRA_EXACT_MODULE_NAME'
+export const EXACT_MODULE_WRITABLE_ORBS_ENV = 'NOSTRA_EXACT_MODULE_WRITABLE_ORBS'
+export const EXACT_MODULE_SYNTHESIS_ORBS_ENV = 'NOSTRA_EXACT_MODULE_SYNTHESIS_ORBS'
+export function childEnv(options: {
+  deferModuleMemo?: boolean
+  exactModuleResume?: boolean
+  exactModuleInputs?: string[]
+  exactModuleRunRoot?: string
+  exactModuleName?: string
+  exactModuleWritableOrbs?: string[]
+  exactModuleSynthesisOrbs?: string[]
+} = {}): NodeJS.ProcessEnv {
   const e: NodeJS.ProcessEnv = { ...process.env }
+  // Never inherit this execution-policy flag from the server/shell. Only the explicitly-authorized RunState
+  // below may add it back, which keeps ordinary module/full/rerun commands byte-for-byte in their old mode.
+  delete e[DEFER_MODULE_MEMO_ENV]
+  delete e[EXACT_MODULE_RESUME_ENV]
+  delete e[EXACT_MODULE_INPUTS_ENV]
+  delete e[EXACT_MODULE_RUN_ROOT_ENV]
+  delete e[EXACT_MODULE_NAME_ENV]
+  delete e[EXACT_MODULE_WRITABLE_ORBS_ENV]
+  delete e[EXACT_MODULE_SYNTHESIS_ORBS_ENV]
   for (const k of providerEnvKeys) if (!CLAUDE_AUTH_ENV_KEYS.has(k)) delete e[k]
+  if (options.deferModuleMemo) e[DEFER_MODULE_MEMO_ENV] = '1'
+  if (options.exactModuleResume) {
+    const root = options.exactModuleRunRoot
+    const module = options.exactModuleName
+    const writable = options.exactModuleWritableOrbs
+    const syntheses = options.exactModuleSynthesisOrbs
+    const match = typeof root === 'string'
+      ? /^analyses\/([A-Z0-9.\-]{1,15})_\d{4}-\d{2}-\d{2}$/.exec(root)
+      : null
+    if (!match || exactModuleRunRootBinding(match[1], root) !== root
+        || typeof module !== 'string' || !/^[a-z][a-z0-9-]*$/.test(module)
+        || !Array.isArray(writable) || !Array.isArray(syntheses) || syntheses.length < 1
+        || new Set(writable).size !== writable.length || new Set(syntheses).size !== syntheses.length
+        || writable.some((stem) => !/^(?!99_)\d{2}_[A-Za-z0-9][A-Za-z0-9_-]*$/.test(stem))
+        || syntheses.some((stem) => !/^99_[A-Za-z0-9][A-Za-z0-9_-]*-synthesis$/.test(stem))) {
+      throw new Error('Exact module-resume child environment requires a valid immutable run root and artifact scope.')
+    }
+    e[EXACT_MODULE_RESUME_ENV] = '1'
+    e[EXACT_MODULE_INPUTS_ENV] = [...new Set(options.exactModuleInputs ?? [])].sort().join(',')
+    e[EXACT_MODULE_RUN_ROOT_ENV] = root
+    e[EXACT_MODULE_NAME_ENV] = module
+    e[EXACT_MODULE_WRITABLE_ORBS_ENV] = [...writable].sort().join(',')
+    e[EXACT_MODULE_SYNTHESIS_ORBS_ENV] = [...syntheses].sort().join(',')
+  }
   return e
 }
 
@@ -2031,11 +2686,28 @@ async function spawnEngine(run: RunState): Promise<void> {
     stopForChangedBinding(beforeSpawn)
     return
   }
+  // FINAL scope CAS: nothing asynchronous occurs between this callback and execa below. In particular, a
+  // readiness pause or cold `claude --help` probe cannot widen a reviewed module-resume scope unnoticed.
+  const guarded = evaluatePreSpawnGuard(preSpawnGuards.get(run))
+  if (!guarded.ok) {
+    run.note = guarded.message
+    emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: guarded.reason, message: guarded.message, ts: Date.now() })
+    finishRun(run, 'error')
+    return
+  }
   let child: ResultPromise
   try {
     child = execa(CLAUDE_BIN, args, {
       cwd: REPO_ROOT,
-      env: childEnv(), // news-provider secrets scrubbed — see childEnv()
+      env: childEnv({
+        deferModuleMemo: deferredModuleMemoRuns.has(run),
+        exactModuleResume: exactModuleResumeRuns.has(run),
+        exactModuleInputs: exactModuleInputsByRun.get(run),
+        exactModuleRunRoot: exactModuleRunRootByRun.get(run),
+        exactModuleName: exactModuleArtifactScopeByRun.get(run)?.module,
+        exactModuleWritableOrbs: exactModuleArtifactScopeByRun.get(run)?.writableOrbs,
+        exactModuleSynthesisOrbs: exactModuleArtifactScopeByRun.get(run)?.synthesisOrbs,
+      }), // secrets scrubbed + run-only execution policy
       stdin: 'ignore',
       stdout: 'pipe',
       stderr: 'pipe',
@@ -2054,6 +2726,9 @@ async function spawnEngine(run: RunState): Promise<void> {
   }
 
   run.child = child
+  // Install close ownership as soon as the paid child exists. Usually execa's real close callback wins;
+  // if that notification is lost after PID exit, this bounded fallback prevents a permanent subject pin.
+  armTerminalCloseWatchdog(run)
 
   // STALL WATCHDOG — nothing else in the engine notices a hung child. `lastStdoutAt` was already
   // recorded (and shown on the heartbeat) but nothing ever acted on it, so a wedged run held its slot
@@ -2061,9 +2736,8 @@ async function spawnEngine(run: RunState): Promise<void> {
   // run; only true silence trips it, and it stops the run through the ordinary cancel path so the
   // group-kill, markers and activity-log note all behave exactly as a user-initiated stop would.
   let stallTimer: NodeJS.Timeout | null = null
-  // Declared BEFORE the interval so the callback can clear ITSELF. A run can finalize through paths that
-  // never reach onClose (an early stream-result error finalizes there and returns), and without a
-  // self-clear the interval would outlive the run for the whole life of the server process.
+  // Declared BEFORE the interval so the callback can clear ITSELF. Defensive endedAt checks also stop the
+  // timer if any close fallback has already finalized the run.
   const clearStallTimer = () => { if (stallTimer) { clearInterval(stallTimer); stallTimer = null } }
   if (RUN_STALL_MINUTES > 0) {
     const stallMs = RUN_STALL_MINUTES * 60_000
@@ -2104,24 +2778,74 @@ async function spawnEngine(run: RunState): Promise<void> {
     if (stderr.length > 8000) stderr = stderr.slice(-8000)
   })
 
-  const onClose = (res: any) => {
+  const onClose = async (res: any) => {
+    // Claim close before the first sweep/await. Reaper/watchdog may observe the PID as dead in this exact
+    // interval, but must share this handler's proof instead of finalizing the run as abandoned.
+    terminalCloseHandlers.add(run)
+    stopTerminalCloseWatchdog(run)
     clearStallTimer()
+    const closeGroupProof = await proveCloseProcessGroupExtinct(run.child?.pid)
+    if (!closeGroupProof.extinct) {
+      // eslint-disable-next-line no-console
+      console.error(`[close] ${run.subjectId}: detached descendants survived SIGKILL after leader exit; retaining claims until the kernel proves the process group extinct`)
+      await holdClaimsUntilProcessGroupExtinct(run.child?.pid)
+    }
     if (buf.trim()) {
       handleStreamLine(run, buf)
       buf = ''
     }
     // heal any file event the watcher missed in the final moments (awaitWriteFinish hold vs exit)
     sweepRunOutputs(run)
-    // per-agent cost/runtime from the transcripts (run_cost_report.py); fire-and-forget. Runs AFTER the
-    // command's own commit-run.sh has already pushed the run folder, so the metrics file needs its own
-    // commit here — otherwise it lands after the data commit and is never pushed (stranded on an ephemeral
-    // host, defeating the "aggregate across runs" purpose it exists for).
-    writeAgentMetrics(run, (r, filename) => {
-      if (r.runRoot) commitRunFile(r.runRoot, filename, `Agent metrics: ${r.ticker} (${filename})`)
-    })
-    finalizeRunOnClose(run, res, stderr)
+    // A clean exact-resume module is not done until its completed module directory is proven on origin/main.
+    // Keep the subject/write claims live while this awaits, so no second run can race the terminal commit.
+    // Failed/cancelled/truncated children retain their ordinary outcome and do not attempt publication.
+    const childCouldReportDone = childCouldReportDoneOnClose(run, res)
+    let terminalProof: PreSpawnGuardResult = { ok: true }
+    let terminalWork: Promise<PreSpawnGuardResult> | undefined
+    try {
+      // Even when a descendant survived, exact output recovery still runs — but only AFTER group extinction.
+      // A valid synthesis gets its content-bound pending marker/publication attempt; invalid/truncated 99 fails
+      // the guard and remains runnable. Skipping this would leave a mechanically valid local 99 with neither
+      // publication receipt nor a way for the plan to retry it.
+      if (childCouldReportDone && terminalGuards.has(run)) {
+        terminalWork = beginTerminalGuardWork(run)
+        terminalProof = await terminalWork
+        if (!terminalProof.ok) {
+          // A clean child can still fail before Git starts because its durable publication marker could not
+          // be written, or because its completed bytes stopped validating. Re-run marker-only recovery while
+          // close owns every claim: a verified existing/new marker keeps publish retry actionable; otherwise
+          // the exact 99 is quarantined so completion cannot misclassify it as done.
+          recoverNonCleanExactClose(run)
+        }
+      } else {
+        // Serialize behind any already-owned terminal work before marker-only recovery. The lost-close
+        // watchdog no longer starts publication, but this also keeps injected/legacy work from racing the
+        // content fingerprint and marker. Its proof is ignored for a non-clean authoritative close result.
+        terminalWork = terminalWorkByRun.get(run)
+        if (terminalWork) await terminalWork
+        recoverNonCleanExactClose(run)
+      }
+      terminalProof = descendantCloseTerminalProof(
+        closeGroupProof.descendantObserved, childCouldReportDone, terminalProof,
+      )
+
+      // per-agent cost/runtime from the transcripts (run_cost_report.py); fire-and-forget. Runs AFTER the
+      // command's own commit-run.sh has already pushed the run folder, so the metrics file needs its own
+      // commit here — otherwise it lands after the data commit and is never pushed (stranded on an ephemeral
+      // host, defeating the "aggregate across runs" purpose it exists for).
+      writeAgentMetrics(run, (r, filename) => {
+        if (r.runRoot) commitRunFile(r.runRoot, filename, `Agent metrics: ${r.ticker} (${filename})`)
+      })
+      finalizeRunOnClose(run, res, stderr, terminalProof)
+    } finally {
+      // Keep the writer token through finalizeRunOnClose itself. Removing it immediately after the await
+      // leaves a microtask-sized window where force can admit before endedAt/claims are released coherently.
+      if (terminalWork) clearTerminalGuardWork(run, terminalWork)
+    }
   }
-  child.then(onClose).catch(onClose)
+  // Pass both fulfillment/rejection directly to the guarded handler. Using `.then(onClose).catch(onClose)`
+  // would call it twice if its awaited terminal proof ever rejected; evaluateTerminalGuard itself never throws.
+  void child.then(onClose, onClose)
 }
 
 // Kill the run's WHOLE process tree promptly. The detached spawn put claude in its own process group, so
@@ -2138,7 +2862,9 @@ function killProcessTree(run: RunState): void {
     try { child.kill(sig) } catch { /* already dead */ }
   }
   sigGroup('SIGTERM')
-  setTimeout(() => { if (run.endedAt === undefined) sigGroup('SIGKILL') }, 2000)
+  // A leader can close/finalize while a detached Task/tool descendant survives. Probe the process GROUP,
+  // not endedAt, before the fallback kill so a late descendant cannot keep writing after cancellation.
+  setTimeout(() => { if (processTreeAlive(pid)) sigGroup('SIGKILL') }, 2000)
 }
 
 export async function cancel(runId: string): Promise<boolean> {
@@ -2167,7 +2893,12 @@ export async function cancel(runId: string): Promise<boolean> {
   }
   // A chained full-run step: halt the chain HERE (any cancel path) so the next module can never launch —
   // not only on the stop-everything kill switch. Without this, cancelling one step could still advance.
-  if (run.chained) haltAllChains()
+  if (run.chained) haltSubjectChains(run.subjectId, run.swarmId)
+
+  // The paid child has already exited, but the exact module's terminal publisher is still a live writer.
+  // Record the user's stop request without changing the in-flight status or releasing admission claims;
+  // onClose will finish it as cancelled only after publication settles and its marker is durable.
+  if (runHasUnfinishedTerminalWork(run)) return true
 
   // No child yet: the run is pre-spawn — parked at the readiness gate, or in the proceedSpawn->spawnEngine
   // buildArgs window. There is no process to signal and no onClose will fire, so handle it here.

@@ -944,9 +944,44 @@ export const api = {
     module: string,
     reuse: string[],
     swarm: string,
+    expectedWillRun: number,
+    expectedDoneOrbKeys: string[],
+    expectedTargetRunRoot: string,
+    poolFiles: number,
+    poolNewestMs: number,
   ): Promise<{ runId: string; preflight: LaunchPreflight; module: string; willRun: number; doneOrbKeys: string[]; carried: { module: string; from: string }[]; resumed?: boolean; ranClean?: boolean }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return post(`/api/thesis-plan/module`, { ticker, module, reuse, swarm })
+    return post(`/api/thesis-plan/module`, {
+      ticker,
+      module,
+      reuse,
+      swarm,
+      planVersion: 2,
+      expectedWillRun,
+      expectedDoneOrbKeys,
+      expectedTargetRunRoot,
+      poolFiles,
+      poolNewestMs,
+    })
+  },
+
+  // Retry only the final Git publication for an already-finished exact-resume module. The server binds the
+  // request to its durable marker + current module bytes and never calls the research launcher here.
+  publishThesisPlanModule: async (
+    ticker: string,
+    module: string,
+    swarm: string,
+    targetRunRoot: string,
+    expectedFingerprint: string,
+  ): Promise<{ published: true }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/thesis-plan/module/publish`, {
+      ticker,
+      module,
+      swarm,
+      targetRunRoot,
+      expectedFingerprint,
+    })
   },
 
   // ---- document intake (the scoped rerun plan, frameworks/INTAKE.md) ----

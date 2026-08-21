@@ -10,6 +10,7 @@ export interface ModulePop { module: string; cx: number; top: number }
 
 export function useNodeInteractions() {
   const graph = useStore((s) => s.graph)
+  const activeSwarm = useStore((s) => s.activeSwarm)
   const dataStatus = useStore((s) => s.dataStatus)
   const nodeStatus = useStore((s) => s.nodeStatus)
   const moduleReports = useStore((s) => s.moduleReports)
@@ -38,13 +39,15 @@ export function useNodeInteractions() {
     return openOutputForNode(n)
   }
 
-  // Click a module label -> launch that module, with the same data-sufficiency + deps guards as the flat
-  // view. launchModule itself guards an already-in-flight module; the server is authoritative.
+  // Click a module label -> launch that module. An exact-resume-capable research command resolves a fresh
+  // disk-truth plan and can carry finished ancestors, so its old graph-level deps flag is not authoritative.
+  // Every other module keeps the established direct dependency guard.
   const onClusterClick = (module: string) => {
     const ms = dataStatus?.modules[module]?.status
     if (ms === 'Insufficient') return setToast({ msg: `No data for ${module} — upload to Drive`, tone: 'info' })
     const mod = moduleByName.get(module)
-    if (mod?.depsComplete === false) return setToast({ msg: `${module} needs ${mod.missingDeps?.join(', ') || 'upstream'} complete first`, tone: 'info' })
+    const exactResume = activeSwarm === 'research' && mod?.exactResume === true
+    if (!exactResume && mod?.depsComplete === false) return setToast({ msg: `${module} needs ${mod.missingDeps?.join(', ') || 'upstream'} complete first`, tone: 'info' })
     launchModule(module)
   }
 

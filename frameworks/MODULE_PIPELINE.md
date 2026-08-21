@@ -22,7 +22,7 @@ The pipeline returns a structured status the orchestrator can act on:
 - `agents_run` — list of agent names successfully dispatched and saved
 - `agents_failed` — list of agent names where Task call errored or returned no usable content
 - `fail_fast_triggered` — boolean, plus the agent name and output-file path if true
-- `module_memo` — `succeeded` / `failed` / `skipped (no synthesis)` (the `<MODULE>_memo.md` tier, Step 4.9A)
+- `module_memo` — `succeeded` / `failed` / `skipped (no synthesis)` / `skipped (deferred)` (the `<MODULE>_memo.md` tier, Step 4.9A)
 - `module_dossier` — `succeeded` / `failed` / `skipped (no synthesis)` (the `<MODULE>_dossier.md` tier, Step 4.9B)
 
 ---
@@ -126,7 +126,7 @@ that agent failed rather than trying to extract JSON from the inline markdown re
 
 Self-persistence (A or B) is preferred for scalability: a large run (dozens of agents in one pass) must not depend on the orchestrator capturing every full report inline and re-writing it. Mode C is the always-available fallback. In every mode the saved file is identical in shape and lands at the same path; the module synthesizer still reads sibling output files from disk, and the master synthesizer still reads the completed run folder from disk.
 
-**Resume — skip agents already completed on disk (idempotent re-dispatch).** Before dispatching this layer, check each agent's `<OUTPUT_PATH>`: if the file already exists AND passes the **Step 4B validity checks** (non-empty; starts with a top-level `#` header; not truncated mid-section or inside an unclosed code fence; no stray chat-confirmation block in its last 20 lines), the agent finished in a prior attempt — **REUSE it and do NOT re-dispatch it**. For an emitting agent, reuse additionally requires `<SIGNAL_OUTPUT_PATH>` to exist, be non-empty, parse as a JSON object, carry `schema_version: 1`, and match the agent's frontmatter `name` in `owner_orb`; otherwise re-dispatch it. Dispatch only agents whose required output set is missing or fails those checks. This makes a module that broke partway through — a crash, a machine restart, a cancelled run — continue from where it stopped instead of redoing every specialist. It is the agent-level twin of `/research:full` step 8's module-level skip ("a module whose `99_*-synthesis.md` is present is reused"), and it applies identically in every swarm (research / screener / commodity) because it is keyed only on the `<RUN_ROOT>/<MODULE>/<NN>_<slug>.md` filename pattern — no agent or module name is ever hardcoded (CLAUDE.md §26).
+**Resume — skip agents already completed on disk (idempotent re-dispatch).** Before dispatching this layer, run `node scripts/agent-output-validity.mjs "<OUTPUT_PATH>"`. Exit 0 is the **single mechanical authority** to reuse the markdown file: it is a real non-empty file, starts with one top-level `#` header, has no NUL byte or unclosed fenced block, and has no stray `Agent: <name>` confirmation line in its last 20 lines. If it passes, the agent finished in a prior attempt — **REUSE it and do NOT re-dispatch it**. Do not add a subjective second “looks truncated” test at resume time: prose quality is adjudicated by the synthesis, and a hidden judgment here can widen a cockpit-approved exact paid scope after launch. For an emitting agent, reuse additionally requires `<SIGNAL_OUTPUT_PATH>` to exist, be non-empty, parse as a JSON object, carry `schema_version: 1`, and match the agent's frontmatter `name` in `owner_orb`; otherwise re-dispatch it. Dispatch only agents whose required output set is missing or fails those checks. The cockpit imports this same validator when it counts reusable orbs, so “N will run” and the pipeline's skip decision cannot diverge. This makes a module that broke partway through — a crash, a machine restart, a cancelled run — continue from where it stopped instead of redoing every specialist. It is the agent-level twin of `/research:full` step 8's module-level skip ("a module whose `99_*-synthesis.md` is present is reused"), and it applies identically in every swarm (research / screener / commodity) because it is keyed only on the `<RUN_ROOT>/<MODULE>/<NN>_<slug>.md` filename pattern — no agent or module name is ever hardcoded (CLAUDE.md §26).
 
 Two invariants keep this safe:
 - **A fresh run is unaffected.** A first run has an empty module folder, so nothing matches and every agent runs. The check bites ONLY on a re-dispatch into an already-populated folder — i.e. a resume.
@@ -135,6 +135,20 @@ Two invariants keep this safe:
 To force a clean re-run of one agent (a deliberate refresh, not a resume), use `/research:rerun <MODULE> <AGENT> <TICKER>` — it dispatches its target agent directly and does NOT pass through this step, so it regenerates unconditionally — or delete that agent's `<OUTPUT_PATH>` before re-launching the module. A reused agent still counts as present for Step 4B verification (its file already passed) and for Step 4C fail-fast (which reads the triage file from disk regardless of whether it was just written or reused).
 
 For every agent in this layer that was NOT reused above, dispatch a Task tool call with:
+
+When `NOSTRA_EXACT_MODULE_RESUME=1` and the non-reused agent is a **specialist** (never the `99`
+synthesis), first clear only that agent's exact
+`<OUTPUT_PATH>` and, when supplied, exact `<SIGNAL_OUTPUT_PATH>` before its one Task dispatch. Never
+clear a reused agent's path, never use a glob, and never remove a parent directory. This prevents an
+invalid remnant from an earlier interrupted attempt surviving when the newly reviewed Task errors before
+it can replace the file. Run `node scripts/agent-output-validity.mjs --quarantine-exact "<OUTPUT_PATH>"
+"<SIGNAL_OUTPUT_PATH>"` (omit the second argument when no signal path was supplied). The helper rejects
+anything outside the child-only `NOSTRA_EXACT_MODULE_RUN_ROOT`, `NOSTRA_EXACT_MODULE_NAME`, and
+`NOSTRA_EXACT_MODULE_WRITABLE_ORBS` receipt supplied by the server. It also rejects `99`, reused orbs,
+mismatched markdown/sidecar pairs, directories, and unsafe parents. If it fails, stop before dispatching
+that orb or the `99` synthesis. The `99` path is never deleted by this helper; exact staging already removes
+the old synthesis. A separate `NOSTRA_EXACT_MODULE_SYNTHESIS_ORBS` receipt below binds cleanup of the
+current discovered synthesis only; a specialist receipt can never authorize it.
 
 - `subagent_type: "<name>"` (the value from the frontmatter)
 - User message — assemble the body from `<CROSS_MODULE_CONTEXT>` and the agent's `<OUTPUT_PATH>`:
@@ -173,13 +187,11 @@ After all of this layer's agents have returned, for each agent (`<OUTPUT_PATH>` 
 **2. Mandatory verification — run for EVERY expected `<OUTPUT_PATH>`, in all modes.** After the layer's writes/self-persists complete, run a Bash check per file (substituting the actual path):
 
 ```
-test -s "<output_path>" || echo "FAIL missing-or-empty <output_path>"
-wc -c "<output_path>"   # inspect any suspiciously small file (e.g. < 400 bytes)
-head -1 "<output_path>" | grep -qE '^#' || echo "WARN no-top-level-header <output_path>"
-tail -20 "<output_path>" | grep -qE '^Agent:[[:space:]]+\S+[[:space:]]*$' && echo "WARN stray-confirmation-block <output_path>"
+node scripts/agent-output-validity.mjs "<output_path>" || echo "FAIL invalid-agent-output <output_path>"
+wc -c "<output_path>"   # diagnostic only; size never overrides the validator either way
 ```
 
-Each saved file must: (a) **exist and be non-empty** (`test -s`); (b) **contain substantive markdown** — it starts with a top-level `#` header, not whitespace or a stray status line; (c) **not be obviously truncated** — it ends on a complete section/line, not mid-sentence or inside an unclosed code fence; (d) have **no stray chat-confirmation block** in its last 20 lines.
+The shared validator is authoritative for the saved markdown mechanics in BOTH Step 4A reuse and Step 4B persistence. It checks: (a) a real, non-empty regular file; (b) one top-level `#` header at the start, not whitespace/preamble or `##`; (c) no NUL byte and no unclosed backtick/tilde fence; and (d) no stray chat-confirmation `Agent:` line in the last 20 lines. Do not silently strengthen or weaken these rules in prose: the server uses the same function to price exact resumes.
 
 For every emitting agent, also verify `<SIGNAL_OUTPUT_PATH>` before advancing:
 
@@ -198,6 +210,38 @@ contradiction and validation-registry checks. This local check only proves the e
 and is structurally readable.
 
 **3. Recovery — do not advance to the next layer until every expected file passes.**
+
+**Exact-resume paid-scope override.** When `NOSTRA_EXACT_MODULE_RESUME=1`, each non-reused orb gets
+exactly ONE Task dispatch. Do not re-dispatch an agent, and do not ask an emitting agent for a second
+signal-sidecar Task, when its first Task errors or its saved output fails verification. A deterministic
+Mode-C cleanup/re-Write from the already-returned bytes is allowed because it makes no paid Task call;
+otherwise mark that orb failed immediately, carry it as a declared gap, and continue. A Task error counts
+as failure even if it left a file behind. For a **specialist**, on any such failure—or when either the
+markdown validator or a required signal-sidecar check still fails—remove BOTH exact canonical artifacts supplied to that agent:
+`<OUTPUT_PATH>` and, when present, `<SIGNAL_OUTPUT_PATH>`. Use only those already-resolved paths, with no
+glob and no sibling or parent-directory removal. Invoke the same `--quarantine-exact` helper used before
+dispatch; its successful exit is the absence proof. If it fails, fail closed: do not advance to another
+layer, run `99`, or publish the module. This quarantine is mandatory because a truncated file under its
+canonical name could otherwise
+be read as evidence by a later agent or the synthesis even though the orb was recorded as failed. Reused
+artifacts never enter this cleanup. The synthesis therefore sees a true missing input and applies the
+declared-gap rule below. This is what keeps the cockpit's reviewed `willRun` count literal at the paid
+boundary without letting a failed paid attempt contaminate the conclusion. A later user retry may resume
+the still-missing orb under a newly reviewed plan. The ordinary one-recovery rules below apply only when
+`NOSTRA_EXACT_MODULE_RESUME` is not `1`.
+
+If the one exact `99` Task itself errors — even when it left a superficially valid file — or its markdown
+fails the shared validator, do not call the specialist quarantine helper. Instead run exactly:
+
+```
+node scripts/agent-output-validity.mjs --quarantine-exact-synthesis "<99_OUTPUT_PATH>"
+```
+
+This separate helper accepts only the current synthesis stem in the child-only
+`NOSTRA_EXACT_MODULE_SYNTHESIS_ORBS` receipt, under the exact bound run root and module. If cleanup fails,
+fail closed. In either case, stop before sidecar extraction, commit, or publication and do not dispatch
+another Task. A later click sees the synthesis as missing and can retry only the summary under a new
+reviewed scope.
 
 - Stray confirmation block (Mode C) → re-apply the strip rules to that agent's returned content and re-Write the file. (Mode A/B) → ask that agent to re-persist a clean file.
 - Missing / empty / truncated → **re-dispatch that agent and tell it to SELF-PERSIST again (Mode A/B),
@@ -267,7 +311,7 @@ Resolve the module's synthesis filename via Glob on `<RUN_ROOT>/<MODULE>/99_*-sy
 
 ### Step 4.9A — Module memo (LLM, via the `module-memo-writer` agent)
 
-**Deferred-memo mode (skip this sub-step).** You are in deferred-memo mode if EITHER (a) the orchestrator that invoked this pipeline told you to defer the module memo — the monolithic `/research:full` does, in its step 8B — OR (b) the marker file `<RUN_ROOT>/.defer_module_memos` exists (check with `test -f "<RUN_ROOT>/.defer_module_memos"`; the per-module-chain `/research:full` writes it). In either case the full run batches all module memos at the end, off the per-module critical path (the monolithic run in its Step 10A.0; the chain in its master step, `/research:rerun` Step 9A) — so **skip this sub-step entirely** and the memo is generated identically later, nothing lost. If NEITHER holds — a standalone `/research:<module>` run or a normal `/research:rerun` — generate the memo inline as below, so the module stays self-sufficient. Deferral suppresses ONLY the memo: always still do Step 4.9B (the dossier) regardless.
+**Deferred-memo mode (skip this sub-step).** You are in deferred-memo mode if ANY of these is true: (a) the orchestrator that invoked this pipeline told you to defer the module memo — the monolithic `/research:full` does, in its step 8B; (b) the marker file `<RUN_ROOT>/.defer_module_memos` exists (check with `test -f "<RUN_ROOT>/.defer_module_memos"`; the per-module-chain `/research:full` writes it); or (c) the one-launch environment flag is set (check with `test "${NOSTRA_DEFER_MODULE_MEMO:-}" = "1"`). For (a) and (b), the full run batches all module memos at the end, off the per-module critical path (the monolithic run in its Step 10A.0; the chain in its master step, `/research:rerun` Step 9A), so the memo is generated identically later. Case (c) belongs only to the cockpit's one-click unfinished-orb route: its reviewed paid scope is the module graph itself, so the optional shareable memo leaf is intentionally absent until a later ordinary module/full run regenerates it. If NONE holds — a standalone `/research:<module>` run or a normal `/research:rerun` — generate the memo inline as below, so the module stays self-sufficient. In every case, deferral suppresses ONLY the memo: always still do Step 4.9B (the deterministic dossier) regardless.
 
 Dispatch a single Task call:
 
