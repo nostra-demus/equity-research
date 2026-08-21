@@ -564,6 +564,8 @@ interface State {
   dataPoolExpandRequest: number
   // ---- Data Library (cross-swarm — deliberately NOT reset on a swarm switch) ----
   dataLibraryOpen: boolean
+  // ---- Memory (one read-only, cross-swarm overlay; deliberately survives a swarm switch) ----
+  memoryOpen: boolean
   dlSelectedId: string | null // THE list<->detail field: null = list, an id = that pipeline's detail
   pipelines: PipelinesRead | null // null until /api/pipelines answers (the Data button gates on this, §5)
   pipelinesError: string | null
@@ -665,6 +667,8 @@ interface State {
   refreshPipelines: () => Promise<void>
   openDataLibrary: () => void
   closeDataLibrary: () => void
+  openMemory: () => void
+  closeMemory: () => void
   setDlSelected: (id: string | null) => void
   setDlFilters: (f: DlFilterState) => void
   // "What changed since the last version" — the server-computed git delta for the run on screen.
@@ -1367,6 +1371,7 @@ export const useStore = create<State>((set, get) => ({
   pipelineOpen: false,
   dataPoolExpandRequest: 0,
   dataLibraryOpen: false,
+  memoryOpen: false,
   dlSelectedId: null,
   pipelines: null,
   pipelinesError: null,
@@ -3197,15 +3202,45 @@ export const useStore = create<State>((set, get) => ({
   closeScoring: () => set({ scoringOpen: false }),
   openValuationPlayground: () => set({ valuationPlaygroundOpen: true }),
   closeValuationPlayground: () => set({ valuationPlaygroundOpen: false }),
-  openCalls: () => set({ callsOpen: true }),
+  openCalls: () => set({ callsOpen: true, memoryOpen: false }),
   closeCalls: () => set({ callsOpen: false }),
 
   // ---- Data Library (cross-swarm overlay; one overlay at a time, the openPipeline idiom) ----
   openDataLibrary: () => {
-    set({ dataLibraryOpen: true, newsFeedOpen: false, pipelineOpen: false, callsOpen: false, diagnosticsOpen: false })
+    set({ dataLibraryOpen: true, memoryOpen: false, newsFeedOpen: false, pipelineOpen: false, callsOpen: false, diagnosticsOpen: false })
     void get().refreshPipelines()
   },
   closeDataLibrary: () => set({ dataLibraryOpen: false, dlSelectedId: null }),
+  // Memory is a destination, not a swarm mode. Opening it closes every competing reading surface; the
+  // flag itself is intentionally absent from switchSwarm resets so the same view stays open across a jump.
+  openMemory: () => {
+    // Closing a streaming chat through its own action also aborts the request; merely hiding its boolean
+    // would leave a paid/background response running behind Memory.
+    if (get().chatOpen || get().chatStreaming) get().closeChat()
+    if (get().newsChatOpen || get().newsChatStreaming) get().closeNewsChat()
+    set({
+      memoryOpen: true,
+      openOutput: null,
+      chatHistoryOpen: false,
+      watchComposer: null,
+      dataLibraryOpen: false,
+      dataPipelineOpen: false,
+      newsFeedOpen: false,
+      pipelineOpen: false,
+      callsOpen: false,
+      diagnosticsOpen: false,
+      sourcesOpen: false,
+      scoringOpen: false,
+      valuationPlaygroundOpen: false,
+      reviewOpen: false,
+      cockpitFeedbackOpen: false,
+      signalIntakeOpen: false,
+      thesisPlanOpen: false,
+      whatChangedOpen: false,
+      addCompanyOpen: false,
+    })
+  },
+  closeMemory: () => set({ memoryOpen: false }),
   setDlSelected: (id) => set({ dlSelectedId: id }),
   setDlFilters: (f) => set({ dlFilters: f }),
   refreshPipelines: async () => {
