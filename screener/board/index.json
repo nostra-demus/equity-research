@@ -1,6 +1,55 @@
 {
-  "generated_at": "2026-08-21T21:33:10Z",
+  "generated_at": "2026-08-21T22:26:20Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260821-754",
+      "headline": "25-NSE - ReNew Energy Global plc (0001848763) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1848763/000135445726000813/0001354457-26-000813-index.htm",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-21T20:58:19Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "ReNew Energy Global plc is subject to a delisting notification filed with the SEC.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ReNew Energy Global plc is subject to a delisting notification filed with the SEC.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ReNew Energy Global plc",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260821-753",
       "headline": "ICICI Bank Limited: In continuation to our earlier letters dated August 18, 2026, please note that ICICI Bank Limited, acting through its IFSC Banking Unit, has today completed the issuance of USD 750 million Senior Unsecured Fixed Rate Notes (Notes) under the USD 7.5 billion Global Medium Term Note Programme of the Bank. The Notes are rated BBB by S&P Global Ratings and Baa3 by Moody s Ratings. The Notes will be listed at Global Securities Market of the India International Exchange IFSC Limited",
@@ -1915,55 +1964,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-539",
-      "headline": "ZALL SMARTCOM (02098): PROFIT WARNING",
-      "headline_en": null,
-      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082100290.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-21T08:33:00Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "The company issued a profit warning, signaling a material decline in expected earnings.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company issued a profit warning, signaling a material decline in expected earnings.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "guidance_change",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zall Smart Commerce Group",
-          "ticker": "02098",
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -75461,9 +75461,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 11608538,
-    "news_picked_today": 4498,
-    "news_dropped_today": 13250
+    "news_seen_today": 11687329,
+    "news_picked_today": 4601,
+    "news_dropped_today": 13579
   },
   "book_momentum": {
     "live_count": 8,
