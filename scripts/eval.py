@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Deterministic eval harness for the equity-research engine.
 
-Checks invariants A-Z, AA-AY, and J (framework-source contracts) against every committed
+Checks invariants A-Z, AA-AZ, and J (framework-source contracts) against every committed
 decision record in analyses/. Called by /research:eval and by CI.
 
 Usage:
@@ -349,6 +349,30 @@ def eval_ay_fixture_integrity(decision_date, status):
     if not (isdate(decision_date) and decision_date>=AY_DATE):
         return "na"
     return "fail" if status=="provisional" else "pass"
+
+# ── Check AZ (verify-evidence Section C3 — named-metric contradiction sweep, CLAUDE.md §3) ──
+# CLAUDE.md §3 requires that a directional verdict resting on one metric, while a different metric in
+# the engine's own tables points the other way, name that second metric and say why it does not overturn
+# the verdict — the exact AMZN worked example the doctrine itself documents (moat "confirmed" off a
+# gross-margin decline while EBITDA margin, net margin, cash conversion, and market share were all up).
+# verify-evidence.md Section C already reconciles NUMERIC anchors across modules, and Section C2 catches
+# a directional claim that drops its qualifier/basis between an upstream sub-agent and the thesis — but
+# neither ever swept the run's OWN module tables for a same-family, opposite-direction metric that was
+# never named anywhere at all. Section C3 (added alongside this check) closes that hole; this is the
+# purely-structural half — it does not grade the sweep's content (that is inherently a judgment call, the
+# same way Section A/B/C are), only that a run dated on/after AZ_DATE actually carries the field, so a
+# future verify-evidence run cannot silently regress to omitting the section it is now instructed to run.
+# Same "additive schema, forward-looking gate" convention as checks T2/W/AX — see those for precedent.
+AZ_DATE="2026-08-21"
+def eval_az_contradiction_sweep(decision_date, verification_report):
+    """Core of check AZ. `verification_report` is the parsed verification_report.json dict, or None if
+    no report exists for this run. Returns 'pass' | 'fail' | 'na'. Side-effect-free + module-level so
+    the selftest can drive the date gate without a run fixture."""
+    if not (isdate(decision_date) and decision_date>=AZ_DATE):
+        return "na"
+    if verification_report is None:
+        return "na"  # report existence itself is gated by check O for conviction runs; not re-litigated here
+    return "pass" if isinstance(verification_report.get("contradiction_checks"), list) else "fail"
 
 # ── Check Y (§11 data-sufficiency cap) — module-level so `eval.py selftest` can drive it ──
 # CLAUDE.md §11 / synthesizer.md Rating Cap Rules: data_sufficiency_score < 30 → the decision MUST be the
@@ -1529,6 +1553,21 @@ if scope=="selftest":
         got=AY(dt_,st_); ok=(got==exp)
         if not ok: bad+=1
         print(f"  [{'ok' if ok else 'XX'}] AY({dt_!r},{st_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
+    # check AZ — verify-evidence Section C3 schema-presence gate; drive the date gate + report-shape branches.
+    AZ=eval_az_contradiction_sweep
+    azcases=[  # (decision_date, verification_report-or-None, expect: "pass"|"fail"|"na")
+        ("2026-08-21",{"contradiction_checks":[]},"pass"),
+        ("2026-08-21",{"contradiction_checks":[{"verdict_word":"confirmed"}]},"pass"),
+        ("2026-08-22",{"verdict":"Clean"},"fail"),          # report exists but omits contradiction_checks
+        ("2026-08-21",None,"na"),                            # no report — existence itself gated by check O
+        ("2026-08-20",{"contradiction_checks":[]},"na"),     # predates AZ_DATE
+        ("not-a-date",{"contradiction_checks":[]},"na"),
+        (None,{"contradiction_checks":[]},"na"),
+    ]
+    for dt_,rep_,exp in azcases:
+        got=AZ(dt_,rep_); ok=(got==exp)
+        if not ok: bad+=1
+        print(f"  [{'ok' if ok else 'XX'}] AZ({dt_!r},{rep_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
     # check Y — the golden suite can't reach the cap branches (every fixture is score 68-69 / Watchlist-Avoid
     # → trivial pass), so drive the full §11 gate here. Note the F1 cases: weak data caps a Short (matching
     # checks O/U/X), but a Pair hedge is intentionally exempt.
@@ -3580,7 +3619,7 @@ if scope=="selftest":
     # AP — valuation-summary lever-sidecar integrity: reuse the module's own fixture-free selftest (DRY),
     # covering soft-presence, structure, blend, and the decision_record non-contradiction check.
     if _vs_selftest() != 0: bad += 1
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -4094,6 +4133,24 @@ for drp in runs:
         add("AY_fixture_integrity", True, f"truth-integrity status={_ay_status!r}")
     else:
         add("AY_fixture_integrity", True, f"N/A (decision_date {ddte!r} predates AY_DATE {AY_DATE!r}, or invalid) — see retrospective advisory below if status=='provisional'", na=True)
+    # AZ verify-evidence Section C3 schema presence (forward-looking; landing 2026-08-21) — basket-independent
+    # like AY: any run whose verification_report.json exists must carry contradiction_checks[], so a future
+    # verify-evidence run cannot silently omit the §3 named-metric contradiction sweep. See the AZ_DATE /
+    # eval_az_contradiction_sweep comment block near AY_DATE for the full rationale.
+    _az_vp = _latest("verification_report.json")
+    _az_report = None
+    if _az_vp:
+        try:
+            _az_report = json.load(open(_az_vp))
+        except Exception:
+            _az_report = None
+    _azresult = eval_az_contradiction_sweep(ddte, _az_report)
+    if _azresult=="fail":
+        add("AZ_contradiction_sweep", False, f"{os.path.basename(_az_vp)} has no 'contradiction_checks' array — Section C3 (the §3 named-metric contradiction sweep) was not run or was omitted")
+    elif _azresult=="pass":
+        add("AZ_contradiction_sweep", True, f"contradiction_checks present ({len(_az_report.get('contradiction_checks') or [])} finding(s)) in {os.path.basename(_az_vp)}")
+    else:
+        add("AZ_contradiction_sweep", True, f"N/A (decision_date {ddte!r} predates AZ_DATE {AZ_DATE!r}, or no verification_report.json)", na=True)
     # W sector ↔ valuation-method consistency (forward-looking; landing SECTOR_DATE / SECTOR_OVERLAYS.md).
     #   When business_type AND primary_valuation_method are both set, verify the method is not one
     #   SECTOR_OVERLAYS.md forbids for that sector type (logic + forbidden list live in SECTOR_FORBIDDEN /
