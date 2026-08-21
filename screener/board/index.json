@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T12:00:47Z",
+  "generated_at": "2026-08-21T12:50:41Z",
   "inbox": [
     {
       "inbox_id": "INB-20260821-606",
@@ -105,6 +105,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260821-634",
+      "headline": "JIANGSU HORIZON (02625): PROFIT ALERT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082101065.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-21T11:02:00Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "A profit alert indicates a material deviation from expected earnings, which directly impacts valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A profit alert indicates a material deviation from expected earnings, which directly impacts valuation.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "guidance_change",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "JIANGSU HORIZON",
+          "ticker": "02625",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260821-596",
       "headline": "BETTERLIFE HLDG (06909): PROFIT WARNING",
       "headline_en": null,
@@ -149,6 +198,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-639",
+      "headline": "HC ENV TECH (02265): POSITIVE PROFIT ALERT",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082101009.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-21T10:45:00Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "Company issued a positive profit alert, indicating better-than-expected financial performance.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company issued a positive profit alert, indicating better-than-expected financial performance.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "HC ENV TECH",
+          "ticker": "02265",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-637",
+      "headline": "CHANGHONG JH (03991): JOINT ANNOUNCEMENT - MONTHLY UPDATE IN RELATION TO (1) PRE-CONDITIONAL PROPOSAL FOR THE PRIVATISATION OF CHANGHONG JIAHUA HOLDINGS LIMITED BY WAY OF A SCHEME OF ARRANGEMENT UNDER SECTION 99 OF THE COMPANIES ACT AND (2) PROPOSED WITHDRAWAL OF LISTING OF CHANGHONG JIAHUA HOLDINGS LIMITED",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082101001.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-08-21T10:43:00Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "The company is undergoing a privatization process and delisting, which is a major event for shareholders.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The company is undergoing a privatization process and delisting, which is a major event for shareholders.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 4,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CHANGHONG JH",
+          "ticker": "03991",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mid",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1802,163 +1949,6 @@
           "name": "AD Ports Group",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-514",
-      "headline": "Italy’s Monte dei Paschi Makes $40 Billion Move to Buy Rival Banks",
-      "headline_en": null,
-      "url": "https://www.wsj.com/business/deals/monte-dei-paschi-makes-40-billion-move-to-buy-italian-peers-banco-bpm-banca-generali-711620fd?mod=rss_markets_main",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T07:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Monte dei Paschi announced ~$40 billion acquisition of rival banks — a large, named M&A transaction with quantified deal value.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Monte dei Paschi announced ~$40 billion acquisition of rival banks — a large, named M&A transaction with quantified deal value.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 7,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Monte dei Paschi",
-          "ticker": "MDP",
-          "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-546",
-      "headline": "Monte dei Paschi launches twin takeover bids to create €70bn Italian bank",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/ecafb9a8-b9a6-48a4-8d3c-a626b26fe82b?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T07:17:38Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "The company is launching takeover bids to create a 70 billion euro bank.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The company is launching takeover bids to create a 70 billion euro bank.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Monte dei Paschi di Siena",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-517",
-      "headline": "Monte dei Paschi launches twin takeover bids for Banca Generali and Banco BPM",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/ecafb9a8-b9a6-48a4-8d3c-a626b26fe82b?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T07:17:38Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Twin takeover bids by Monte dei Paschi for Banca Generali and Banco BPM announced; sector-reshaping Italian banking consolidation, though bid values not disclosed.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Twin takeover bids by Monte dei Paschi for Banca Generali and Banco BPM announced; sector-reshaping Italian banking consolidation, though bid values not disclosed.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Monte dei Paschi",
-          "ticker": null,
-          "listing_country": "IT"
-        },
-        {
-          "name": "Banca Generali",
-          "ticker": null,
-          "listing_country": "IT"
-        },
-        {
-          "name": "Banco BPM",
-          "ticker": null,
-          "listing_country": "IT"
         }
       ],
       "size_bucket": "large",
@@ -71190,77 +71180,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-5ad1780c26cb",
-      "idea_version": "IDEAV-81bf3212a1e82bad",
-      "idea_version_started_at": "2026-08-20T18:25:35Z",
-      "ticker": "00608",
-      "company": "High Fashion International",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, indicating a deterioration in earnings performance that is likely to lead to downward revisions in analyst estimates.",
-      "why_now": "The profit warning was filed on 2026-08-20.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 18,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-038cf2122d14"
-      ],
-      "primary_source_event_id": "EVT-038cf2122d14",
-      "source_headlines": [
-        "HIGH FASHION (00608): PROFIT WARNING"
-      ],
-      "source_headline": "HIGH FASHION (00608): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0820/2026082000051.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 97,
-      "newest_source_at": "2026-08-20T00:10:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-20T01:31:55Z",
-      "updated_at": "2026-08-20T18:25:35Z",
-      "decay_at": "2026-08-21T12:10:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-20ce0852f442",
       "idea_version": "IDEAV-1cd1e2e7d196bd93",
       "idea_version_started_at": "2026-08-21T00:59:07Z",
@@ -72752,6 +72671,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-5ad1780c26cb",
+      "idea_version": "IDEAV-81bf3212a1e82bad",
+      "idea_version_started_at": "2026-08-20T18:25:35Z",
+      "ticker": "00608",
+      "company": "High Fashion International",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, indicating a deterioration in earnings performance that is likely to lead to downward revisions in analyst estimates.",
+      "why_now": "The profit warning was filed on 2026-08-20.",
+      "conviction": 70,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 18,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-038cf2122d14"
+      ],
+      "primary_source_event_id": "EVT-038cf2122d14",
+      "source_headlines": [
+        "HIGH FASHION (00608): PROFIT WARNING"
+      ],
+      "source_headline": "HIGH FASHION (00608): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0820/2026082000051.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 97,
+      "newest_source_at": "2026-08-20T00:10:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-20T01:31:55Z",
+      "updated_at": "2026-08-20T18:25:35Z",
+      "decay_at": "2026-08-21T12:10:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-d704446fee63",
       "idea_version": "IDEAV-2fea4607e2989a34",
       "idea_version_started_at": "2026-08-04T08:40:40Z",
@@ -72832,8 +72822,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 24,
-    "shown_count": 24,
+    "total_count": 25,
+    "shown_count": 25,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -72842,8 +72832,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 18,
-        "shown_count": 18,
+        "total_count": 19,
+        "shown_count": 19,
         "hidden_count": 0
       }
     },
@@ -72863,6 +72853,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-5ad1780c26cb",
+        "idea_version": "IDEAV-81bf3212a1e82bad",
+        "idea_version_started_at": "2026-08-20T18:25:35Z",
+        "ticker": "00608",
+        "company": "High Fashion International",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, indicating a deterioration in earnings performance that is likely to lead to downward revisions in analyst estimates.",
+        "why_now": "The profit warning was filed on 2026-08-20.",
+        "conviction": 70,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 18,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-038cf2122d14"
+        ],
+        "primary_source_event_id": "EVT-038cf2122d14",
+        "source_headlines": [
+          "HIGH FASHION (00608): PROFIT WARNING"
+        ],
+        "source_headline": "HIGH FASHION (00608): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0820/2026082000051.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 97,
+        "newest_source_at": "2026-08-20T00:10:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-20T01:31:55Z",
+        "updated_at": "2026-08-20T18:25:35Z",
+        "decay_at": "2026-08-21T12:10:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-21T12:10:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-bc50c2310a83",
         "idea_version": "IDEAV-870a61e387aa576b",
@@ -74640,7 +74704,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 49,
-    "live_count": 24,
+    "live_count": 23,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -74659,9 +74723,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 10266061,
-    "news_picked_today": 1387,
-    "news_dropped_today": 2801
+    "news_seen_today": 10449112,
+    "news_picked_today": 1425,
+    "news_dropped_today": 3099
   },
   "book_momentum": {
     "live_count": 8,
