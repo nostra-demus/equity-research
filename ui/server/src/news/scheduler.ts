@@ -26,6 +26,7 @@ import {
 import { SYSTEM, buildUserMessage, estimateTokens } from './triage/groq'
 import { preTriagePriority } from './rank'
 import { buildPipelineFlowRates, readPipelineFlowCycles, type PipelineFlowRates } from './pipeline-flow'
+import { omniRouteDisabledReason } from './omniroute-provision-status'
 import type { CycleSummary, DeferReason, LastResortState } from './types'
 
 // The news-lead skim config, assembled once from NEWS. It reuses the ingester's canonical OpenAI-compatible
@@ -1025,7 +1026,7 @@ export function backlogTrend(cycles: CycleSummary[]): 'growing' | 'shrinking' | 
 
 /** The FULL end-to-end pipeline diagnostics for the cockpit. Read-only, never throws — every branch degrades
  *  to zeros/nulls so a partial/absent state file never fails the endpoint (matches getNewsStatus/sources). */
-export function getNewsDiagnostics(): NewsDiagnostics {
+export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}): NewsDiagnostics {
   const now = Date.now()
   const ts = new Date(now).toISOString().replace(/\.\d{3}Z$/, 'Z')
   // Cycle-only read: the panel polls every 10s, so never hydrate/re-rank/deduplicate thousands of item rows
@@ -1205,7 +1206,7 @@ export function getNewsDiagnostics(): NewsDiagnostics {
     tiers.push({
       id: omni.id, label: omni.label, color: omni.color, role: 'overflow', order: order++,
       enabled: false, spendingAllowed, meter: 'requests', health: 'disabled', reqCap: omni.dailyReqCap,
-      disabledReason: 'Provisioning pending · the deploy agent retries installation and the complete 12-item scorer smoke automatically; OmniRoute enables only after that proof passes',
+      disabledReason: omniRouteDisabledReason(options.omniRouteHomeDir, now),
       ...providerWorkDiagnostics(cyclesToday, omni.id), ...providerLastCycleDiagnostics(last, omni.id),
     })
   }

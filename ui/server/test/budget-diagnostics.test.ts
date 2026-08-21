@@ -16,7 +16,7 @@ fs.writeFileSync(path.join(state, 'news-deferred.json'), '[{"event_id":')
 
 const code = `import('./src/news/scheduler.ts').then((scheduler) => {
   scheduler.startNewsIngester()
-  const diagnostics = scheduler.getNewsDiagnostics()
+  const diagnostics = scheduler.getNewsDiagnostics({ omniRouteHomeDir: ${JSON.stringify(root)} })
   const result = {
     status: scheduler.getNewsStatus(),
     backlog: diagnostics.backlog,
