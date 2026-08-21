@@ -81,6 +81,7 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
   const openComposer = useStore((s) => s.openWatchComposer)
   const openCallFile = useStore((s) => s.openCallFile)
   const openInlineDoc = useStore((s) => s.openInlineDoc)
+  const openEmbeddedDoc = useStore((s) => s.openEmbeddedDoc)
   const archiveWatch = useStore((s) => s.archiveWatch)
   const restoreWatch = useStore((s) => s.restoreWatch)
   const staticMode = useStore((s) => s.staticMode)
@@ -114,10 +115,12 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
   const thesisHref = !staticMode && row.entry_id && firstAttachment
     ? api.watchAttachmentUrl(row.entry_id, firstAttachment.attachment_id)
     : null
-  // A markdown write-up is READ in the cockpit's own reader rather than downloaded — the route serves it
-  // as text/plain with nosniff, and the reader renders through react-markdown with no rehype-raw, so
-  // embedded HTML is escaped rather than executed. A PDF still opens as a file: rendering one inline in
-  // this origin is the thing the download header exists to prevent.
+  // Either kind is READ in the cockpit's own reader rather than downloaded, by two different routes.
+  // Markdown: the route serves it as text/plain with nosniff, and the reader renders it through
+  // react-markdown with no rehype-raw, so embedded HTML is escaped rather than executed. A PDF is
+  // embedded instead and rendered by the browser's own viewer, which runs in its own sandboxed process
+  // and cannot reach this origin's DOM, cookies or session — see the route in ui/server/src/server.ts
+  // for why `attachment` was the original choice and what carries the safety now.
   const thesisFilename = firstAttachment?.filename
   const thesisIsMarkdown = !!thesisFilename && /\.md$/i.test(thesisFilename)
   const thesisTitle = thesisFilename ? `${row.ticker} — ${thesisFilename}` : ''
@@ -352,8 +355,15 @@ export function WatchDetail({ row }: { row: WatchRow | null }) {
                   Thesis
                 </button>
               )
-              : thesisHref
-              ? <a className="btn btn--mini" href={thesisHref} target="_blank" rel="noreferrer" title="Your write-up">Thesis</a>
+              : thesisHref && thesisFilename
+              ? (
+                /* Opened IN the cockpit rather than navigated to. A top-level navigation to a PDF is what
+                   Chrome's "download PDFs instead of opening them" setting intercepts, and no response
+                   header overrides that — serving it `inline` is necessary but not sufficient. Embedding
+                   renders through the same viewer without the navigation, so it works whatever the
+                   reader's browser is set to. */
+                <button className="btn btn--mini" title="Your write-up" onClick={() => openEmbeddedDoc(thesisTitle, thesisHref)}>Thesis</button>
+              )
               : thesisPath
                 ? <button className="btn btn--mini" onClick={() => openCallFile(thesisPath, `Investment Thesis — ${row.ticker}`)}>Thesis</button>
                 : null}

@@ -26,7 +26,7 @@ function sigFromOutputPath(path?: string): string | undefined {
   return SIG_FROM_PATH_RE.exec(path || '')?.[1]
 }
 
-export function OutputReader({ output }: { output: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean; body?: string } }) {
+export function OutputReader({ output }: { output: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean; body?: string; embedUrl?: string } }) {
   const close = useStore((s) => s.closeOutput)
   const activeSwarm = useStore((s) => s.activeSwarm)
   const researchNodes = useStore((s) => s.nodesByKey)
@@ -60,16 +60,23 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
   useEffect(() => {
     // Content the caller already holds (a watchlist thesis attachment: it lives under a reserved data
     // folder, which api.output deliberately cannot read) renders directly — same pipeline, no fetch.
+    if (output.embedUrl) { setMd(''); setLoading(false); return } // rendered by the viewer, not fetched
     if (output.body != null) { setMd(output.body); setLoading(false); return }
     if (!output.path) { setMd(''); setLoading(false); return } // pending (not-yet-run) node — nothing to fetch
     setLoading(true)
     setMd('')
+    // A fetch already in flight when the panel switches documents must not land on the NEW one. Without
+    // this the previous report's markdown arrives late and overwrites the body — visibly so once an
+    // embedded PDF is on screen, where a stale report-integrity banner would appear above someone else's
+    // document. The guard is per-effect-run, so only the newest fetch may write.
+    let live = true
     api
       .output(output.path)
-      .then((r) => setMd(r.markdown))
-      .catch(() => setMd('*Could not load this output.*'))
-      .finally(() => setLoading(false))
-  }, [output.path, output.body])
+      .then((r) => { if (live) setMd(r.markdown) })
+      .catch(() => { if (live) setMd('*Could not load this output.*') })
+      .finally(() => { if (live) setLoading(false) })
+    return () => { live = false }
+  }, [output.path, output.body, output.embedUrl])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && (promptView ? setPromptView(false) : close())
@@ -358,7 +365,12 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
           {runButton()}
           {chatButton()}
           {promptButton()}
-          {!output.pending && (
+          {/* An embedded document has no markdown behind it, so the four export items (all of which are
+              built FROM the markdown and bail on an empty body) would be a menu where every click does
+              nothing. Hand over the file itself instead — same origin, so `download` applies. */}
+          {output.embedUrl ? (
+            <a className="btn" style={{ height: 30, display: 'inline-flex', alignItems: 'center' }} href={output.embedUrl} download>Download</a>
+          ) : !output.pending && (
             <div style={{ position: 'relative' }}>
               <button className="btn" style={{ height: 30 }} aria-expanded={menu} onClick={() => { setMenu((o) => !o); setPromptMenu(false) }}>Download ▾</button>
               {menu && (
@@ -394,9 +406,18 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
                 </details>
               </section>
             )}
-            <div className="md">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{reportView.body}</ReactMarkdown>
-            </div>
+            {output.embedUrl ? (
+              /* The browser's own PDF viewer, EMBEDDED. A top-level navigation to a PDF is what Chrome's
+                 "download PDFs instead of opening them" setting intercepts — no response header can
+                 override that — but an embedded frame still renders, so this works whatever the reader
+                 has configured. `sandbox` is deliberately omitted: it creates an opaque origin, which is
+                 the very thing that stops Chrome's viewer from rendering (chromium 40328564). */
+              <iframe className="out__embed" src={output.embedUrl} title={output.title} />
+            ) : (
+              <div className="md">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{reportView.body}</ReactMarkdown>
+              </div>
+            )}
           </>
         )}
       </div>
