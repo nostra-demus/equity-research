@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-21T05:11:28Z",
+  "generated_at": "2026-08-21T05:51:10Z",
   "inbox": [
     {
       "inbox_id": "INB-20260821-363",
@@ -388,6 +388,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260821-455",
+      "headline": "Panama Canal cuts daily capacity",
+      "headline_en": null,
+      "url": "https://splash247.com/panama-canal-cuts-daily-capacity/",
+      "source_name": "Splash247",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-08-21T05:34:50Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "A reduction in Panama Canal capacity acts as a supply chain constraint for global shipping.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A reduction in Panama Canal capacity acts as a supply chain constraint for global shipping.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 5,
+        "scope": 4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "official_data",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260821-266",
       "headline": "Romanian Forces Destroy Russian Drone Near Black Sea Gas Project",
       "headline_en": null,
@@ -426,6 +469,120 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-466",
+      "headline": "Monte Paschi Offers to Buy BPM, Banca Generali for €34 Billion",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-21/monte-paschi-offers-to-buy-bpm-banca-generali-for-34-billion",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T05:29:21Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "Monte Paschi offers to acquire BPM and Banca Generali for €34 billion; major Italian banking consolidation affecting three firms' ownership, capital structure, and shareholder bases.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Monte Paschi offers to acquire BPM and Banca Generali for €34 billion; major Italian banking consolidation affecting three firms' ownership, capital structure, and shareholder bases.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Banca Monte dei Paschi di Siena",
+          "ticker": "BMPS.MI",
+          "listing_country": "IT"
+        },
+        {
+          "name": "Banca Popolare di Milano",
+          "ticker": "BPM.MI",
+          "listing_country": "IT"
+        },
+        {
+          "name": "Banca Generali",
+          "ticker": "BGN.MI",
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260821-459",
+      "headline": "James Hardie To Divest Fermacell In Europe To Holcim For €840 Mln Cash; Plans $250 Mln Buyback",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/james-hardie-divest-fermacell-europe-holcim-eu840-mln-cash-plans-250-mln-buyback",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T05:17:07Z",
+      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
+      "prelim_note": "James Hardie is divesting a business unit for €840 million and initiating a $250 million buyback, significantly impacting capital structure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "James Hardie is divesting a business unit for €840 million and initiating a $250 million buyback, significantly impacting capital structure.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "James Hardie",
+          "ticker": null,
+          "listing_country": "AU"
+        },
+        {
+          "name": "Holcim",
+          "ticker": null,
+          "listing_country": "CH"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1834,147 +1991,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-428",
-      "headline": "World’s largest olive oil company pops over 15% as rivals circle in takeover battle",
-      "headline_en": null,
-      "url": "https://www.cnbc.com/2026/08/19/deoleo-takeover-battle-olive-oil-dcoop.html",
-      "source_name": "CNBC",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-19T09:48:27Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Takeover interest in the world's largest olive oil company has driven a 15% stock price increase.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Takeover interest in the world's largest olive oil company has driven a 15% stock price increase.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 4,
-        "event": 9,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-434",
-      "headline": "Samsung raises advanced chipmaking prices by up to 15% as AI demand tightens capacity",
-      "headline_en": null,
-      "url": "https://www.thehindubusinessline.com/info-tech/samsung-raises-advanced-chipmaking-prices-by-up-to-15-as-ai-demand-tightens-capacity/article71364115.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-19T09:11:36Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "Samsung is raising chipmaking prices by up to 15% due to high demand, which directly impacts revenue and margins.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Samsung is raising chipmaking prices by up to 15% due to high demand, which directly impacts revenue and margins.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260821-223",
-      "headline": "CDO: Media Release - Full Year Results & Record Profits [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.CDO?key=2924-03124212-2A1691069",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-08-21T01:57:27Z",
-      "sweep_file": "screener/inbox/2026-08-21_sweep.json",
-      "prelim_note": "The company reported record full-year profits, which is a material indicator of financial performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "The company reported record full-year profits, which is a material indicator of financial performance.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CDO",
-          "ticker": null,
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -73733,9 +73749,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 5454268,
-    "news_picked_today": 638,
-    "news_dropped_today": 982
+    "news_seen_today": 6273191,
+    "news_picked_today": 767,
+    "news_dropped_today": 1069
   },
   "book_momentum": {
     "live_count": 8,
