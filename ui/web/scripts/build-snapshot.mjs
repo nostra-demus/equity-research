@@ -817,7 +817,7 @@ function buildCalls() {
       average_return_pct: avg(wr.map(({ call, review }) => adjusted(call, review.absolute_return_pct))),
       average_vs_benchmark_pct: avg(wr.map(({ call, review }) => adjusted(call, review.benchmark_relative_return_pct))) }
   })
-  const scoredConfidence = rows.filter(({ call, review }) => (quality(review) === 'worked' || quality(review) === 'failed') && typeof call.confidence === 'number')
+  const scoredConfidence = rows.filter(({ call, review }) => (quality(review) === 'worked' || quality(review) === 'failed') && Number.isFinite(call.confidence))
   const ranges = [{ label: 'Below 50', min: 0, max: 49.999 }, { label: '50–69', min: 50, max: 69.999 }, { label: '70–84', min: 70, max: 84.999 }, { label: '85+', min: 85, max: 100 }]
   const bands = ranges.map((range) => {
     const bandRows = scoredConfidence.filter(({ call }) => call.confidence >= range.min && call.confidence <= range.max)

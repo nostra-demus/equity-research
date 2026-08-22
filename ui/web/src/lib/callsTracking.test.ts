@@ -147,6 +147,11 @@ assert.deepEqual(callTrackingSnapshot(undatedNextCheck).nextCheck, {
   date: 'Date not proven', detail: 'Q3 results and pre-sales check', tone: 'neutral',
 }, 'an explicitly undated event never borrows the scheduled 90-day checkpoint date')
 
+const marginWatch = baseCall()
+marginWatch.timeline[0].watch_items = ['Watch financing', 'Margin normalization']
+assert.equal(callTrackingSnapshot(marginWatch).nextCheck?.detail, '90-day review · Watch: Margin normalization',
+  'client and server rank a named margin check the same way')
+
 const expired = baseCall()
 expired.timeline[0].decision_quality = null
 expired.timeline[0].thesis_status = 'expired'

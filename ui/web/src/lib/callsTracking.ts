@@ -157,7 +157,7 @@ function namedWatchItem(row: CallTimelineEntry | null): string | null {
   const scored = items.map((item, index) => {
     const lower = item.toLowerCase()
     let score = 0
-    if (/\b(q[1-4]|h[12]|fy\d{2,4}|results?|earnings|sales|pre-sales|backlog|maturity|dividend|filing)\b/.test(lower)) score += 5
+    if (/\b(q[1-4]|h[12]|fy\d{2,4}|results?|earnings|sales|pre-sales|backlog|margin|maturity|dividend|filing)\b/.test(lower)) score += 5
     if (/\b(20\d{2}|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\b/.test(lower)) score += 3
     if (lower.includes('/research:')) score -= 4
     return { item, score, index }

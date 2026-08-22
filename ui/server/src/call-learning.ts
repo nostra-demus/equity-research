@@ -104,7 +104,7 @@ export interface CallMemoryItem {
 }
 
 const finite = (value: unknown): value is number => typeof value === 'number' && Number.isFinite(value)
-const normalized = (value: unknown): string => String(value || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
+const normalized = (value: unknown): string => String(value ?? '').trim().toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
 const companyCore = (value: unknown): string => normalized(value)
   .split(' ').filter((word) => !['the', 'com', 'inc', 'incorporated', 'corp', 'corporation', 'company', 'co', 'ltd', 'limited', 'plc', 'pjsc', 'sa', 'ag', 'nv'].includes(word)).join(' ')
 

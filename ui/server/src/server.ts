@@ -4674,7 +4674,7 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
     res.on('close', () => { closed = true; clearInterval(ping) })
     let callMemories = [] as ReturnType<typeof selectCallMemories>
     try {
-      const evidenceIdentifiers = assembled.evidence.flatMap((row) => Array.isArray(row.item.companies)
+      const evidenceIdentifiers = assembled.evidence.flatMap((row) => Array.isArray(row?.item?.companies)
         ? row.item.companies.flatMap((company) => [company?.ticker || '', company?.name || ''])
         : [])
       // Prefer an issuer named exactly in the question, then the structured issuer identities from the
