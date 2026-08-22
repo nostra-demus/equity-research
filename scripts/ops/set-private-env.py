@@ -35,6 +35,11 @@ DESCRIPTOR_KEYS = (
     "NEWS_OMNIROUTE_MAX_ATTEMPTS",
 )
 STATE_KEYS = ("NEWS_OMNIROUTE_ENABLED",) + DESCRIPTOR_KEYS
+SETTABLE_BOOL_KEYS = frozenset({
+    "NEWS_OMNIROUTE_ENABLED",
+    "ENGINE_PROVIDER_PARITY_ENABLED",
+    "ENGINE_CODEX_ENABLED",
+})
 API_KEY_BASE_COLUMNS = {
     "id": ("TEXT", 0, None, 1),
     "name": ("TEXT", 1, None, 0),
@@ -557,7 +562,7 @@ def main() -> int:
             if not args.after:
                 raise SystemExit(2)
             return 0 if verify_no_body_log(text, database, args.after) else 1
-        if (args.key != "NEWS_OMNIROUTE_ENABLED" or args.value not in {"0", "1"}
+        if (args.key not in SETTABLE_BOOL_KEYS or args.value not in {"0", "1"}
                 or args.database is not None or args.after is not None):
             raise SystemExit(2)
         if args.action == "matches":

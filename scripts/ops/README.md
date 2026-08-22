@@ -139,6 +139,13 @@ monthly timer is the final fallback. All paths share one local lock and publish 
 **Codex rollout switch.** Codex stays fail-closed unless the operator writes `ENGINE_CODEX_ENABLED=1` in
 `~/.config/nostra-engine/providers.env` (mode 600) and restarts the engine. Keep it absent/off until the live
 canary and provider-parity release gates pass. The production plist deliberately does not hard-enable it.
+Use the owner-only atomic setter for both rollout switches; never source or hand-edit the mixed-secret file:
+
+```
+python3 scripts/ops/set-private-env.py set --file "$HOME/.config/nostra-engine/providers.env" --key ENGINE_PROVIDER_PARITY_ENABLED --value 1
+# Only after the parity release gate passes:
+python3 scripts/ops/set-private-env.py set --file "$HOME/.config/nostra-engine/providers.env" --key ENGINE_CODEX_ENABLED --value 1
+```
 
 **Claude tracked-run sandbox proof.** Availability and launch preflight automatically run the pinned official
 Anthropic sandbox runtime with no model call and no Claude quota spend. The proof must show current-run-only

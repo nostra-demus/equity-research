@@ -278,7 +278,7 @@ export type LastResortState =
   | 'scored' // it fired and scored ≥1 batch this cycle, still under its ceiling
   | 'usd-cap' // reached its daily $ ceiling (anthropicDailyUsd) — the rest deferred
   | 'plan-quota' // the shared Claude plan's own usage limit hit → backing off until the plan resets
-  | 'auth-expired' // the host's Claude sign-in expired → re-probes every drain, recovers on `claude login`
+  | 'auth-expired' // the host's Claude sign-in expired → re-probes every drain, recovers on `claude auth login`
   | 'cooling' // in its cross-cycle cooldown from an earlier error
   | 'available' // on and under budget, but not needed this cycle (the free tiers absorbed everything)
 

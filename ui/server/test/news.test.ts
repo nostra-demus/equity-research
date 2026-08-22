@@ -4903,7 +4903,7 @@ await check('plan usage limit → the batch defers AND a cross-cycle cooldown st
   assert.equal(cliCalls, 1, 'still 1 — the cooldown suppressed the re-spawn while the plan is out')
 })
 
-// An EXPIRED SIGN-IN is the one last-resort failure a human fixes in seconds (`claude login` on the host),
+// An EXPIRED SIGN-IN is the one last-resort failure a human fixes in seconds (`claude auth login` on the host),
 // so it must not be handled like a revoked key. It used to match the terminal-4xx branch, which force-marks
 // the day's $ ledger as fully spent: the tier then stayed dark until the UTC rollover even after the sign-in
 // was repaired, AND the cockpit reported the entire daily ceiling as spent when the failing calls cost $0.
@@ -4920,7 +4920,7 @@ await check('expired sign-in → the $ ceiling is NOT falsely burned, and the ti
     return res({ articles: [] })
   }) as unknown as typeof fetch
   let cliCalls = 0
-  let signedIn = false // flipped when the operator runs `claude login` on the host
+  let signedIn = false // flipped when the operator runs `claude auth login` on the host
   // the EXACT note the real CLI produces for an expired OAuth token (reproduced against claude 2.1.150)
   const claudeCliRunner = async () => {
     cliCalls++
@@ -4942,7 +4942,7 @@ await check('expired sign-in → the $ ceiling is NOT falsely burned, and the ti
   assert.ok(ledger.usd < 5, `the daily ceiling must not be falsely marked spent (got usd=${ledger.usd} of 5)`)
   // (b) the state + note name the real cause and the fix — red on old: 'cooling' / "backing off after an error"
   assert.equal(s1.last_resort, 'auth-expired', "the state names the expired sign-in, not a vague 'cooling'")
-  assert.match(s1.note || '', /claude login/, 'the operator is told the one command that fixes it')
+  assert.match(s1.note || '', /claude auth login/, 'the operator is told the one command that fixes it')
 
   // while still signed out it must not hammer the host — the short cooldown holds the very next cycle
   nowMs += 30_000

@@ -2614,7 +2614,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
           : lastResort === 'plan-quota'
             ? ' · Haiku last-resort paused — Claude plan quota spent, waiting for it to reset'
             : lastResort === 'auth-expired'
-              ? " · Haiku last-resort paused — the engine's Claude sign-in has expired; run `claude login` on the engine host and it resumes on the next look"
+              ? " · Haiku last-resort paused — the engine's Claude sign-in has expired; run `claude auth login` on the engine host and it resumes on the next look"
               : lastResort === 'cooling'
                 ? ' · Haiku last-resort backing off after an error'
                 : ''

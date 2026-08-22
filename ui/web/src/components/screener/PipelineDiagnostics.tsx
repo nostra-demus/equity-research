@@ -70,7 +70,7 @@ const LAST_RESORT_WHY: Record<LastResortState, string> = {
   scored: 'The paid Haiku backup is checking the waiting work.',
   'usd-cap': 'The app has used today’s Haiku spending limit.',
   'plan-quota': 'The Claude plan limit has been used. Haiku is waiting for it to reset.',
-  'auth-expired': 'The Claude sign-in has expired. Run `claude login` on the scanner computer.',
+  'auth-expired': 'The Claude sign-in has expired. Run `claude auth login` on the scanner computer.',
   cooling: 'The paid Haiku backup failed and is waiting to try again.',
   available: 'The paid Haiku backup is ready.',
 }
