@@ -26,7 +26,7 @@ function sigFromOutputPath(path?: string): string | undefined {
   return SIG_FROM_PATH_RE.exec(path || '')?.[1]
 }
 
-export function OutputReader({ output }: { output: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean; body?: string; embedUrl?: string } }) {
+export function OutputReader({ output }: { output: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean; body?: string; embedUrl?: string; publishedCalls?: boolean } }) {
   const close = useStore((s) => s.closeOutput)
   const activeSwarm = useStore((s) => s.activeSwarm)
   const researchNodes = useStore((s) => s.nodesByKey)
@@ -70,13 +70,13 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
     // embedded PDF is on screen, where a stale report-integrity banner would appear above someone else's
     // document. The guard is per-effect-run, so only the newest fetch may write.
     let live = true
-    api
-      .output(output.path)
+    const read = output.publishedCalls ? api.callArtifact : api.output
+    read(output.path)
       .then((r) => { if (live) setMd(r.markdown) })
       .catch(() => { if (live) setMd('*Could not load this output.*') })
       .finally(() => { if (live) setLoading(false) })
     return () => { live = false }
-  }, [output.path, output.body, output.embedUrl])
+  }, [output.path, output.body, output.embedUrl, output.publishedCalls])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && (promptView ? setPromptView(false) : close())
