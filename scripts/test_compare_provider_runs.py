@@ -122,24 +122,26 @@ class FakeSupervisor:
     def request_path(self, value: object, *, must_exist: bool) -> Path:
         if not isinstance(value, str) or not value:
             raise ValueError("invalid supervisor fixture path")
-        base = self.root.resolve(strict=True)
-        raw = Path(value)
-        if raw.is_symlink():
-            raise ValueError("supervisor fixture path is a symlink")
+        # The fake supervisor models the production endpoint's allowlist. Never turn an HTTP
+        # request value into a pathname: select one of the fixture-owned paths first, then inspect
+        # that trusted Path object. This also keeps the security test itself free of path injection.
+        allowed = {
+            str(self.root / "comparison.json"): self.root / "comparison.json",
+            str(self.root / "execution.json"): self.root / "execution.json",
+            str(self.root / "freeze.json"): self.root / "freeze.json",
+        }
+        raw = allowed.get(value)
+        if raw is None:
+            raise ValueError("supervisor fixture path is not allowlisted")
         if must_exist:
             candidate = raw.resolve(strict=True)
             info = candidate.stat()
-            if not candidate.is_file() or info.st_nlink != 1:
+            if raw.is_symlink() or not candidate.is_file() or info.st_nlink != 1:
                 raise ValueError("supervisor fixture input is not one regular file")
         else:
-            parent = raw.parent.resolve(strict=True)
-            candidate = parent / raw.name
+            candidate = self.root / "execution.json"
             if candidate.exists() or candidate.is_symlink():
                 raise ValueError("supervisor fixture output already exists")
-        try:
-            candidate.relative_to(base)
-        except ValueError as exc:
-            raise ValueError("supervisor fixture path escaped its root") from exc
         return candidate
 
     def __enter__(self): self.thread.start(); return self
