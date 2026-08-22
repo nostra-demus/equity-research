@@ -87,7 +87,9 @@ assert.deepEqual(callTrackingSnapshot(rejectedCall).checkpoint, {
 
 const roundedZero = baseCall()
 roundedZero.timeline[0].absolute_return_pct = -0.04
+roundedZero.timeline[0].benchmark_relative_return_pct = -0.04
 assert.equal(callTrackingSnapshot(roundedZero).checkpoint?.returnFromCall, '0.0%')
+assert.equal(callTrackingSnapshot(roundedZero).checkpoint?.benchmarkDelta, 'even with benchmark')
 
 const lateScheduled = baseCall()
 lateScheduled.timeline = [
@@ -119,6 +121,14 @@ brokenDelta.timeline[0].thesis_delta_verdict = 'broken'
 assert.deepEqual(callTrackingSnapshot(brokenDelta).situation, {
   headline: 'Thesis broken',
   detail: 'Review fields disagree: thesis confirmed, decision quality skill, delta broken',
+  tone: 'bad',
+})
+
+const prematureDelta = baseCall()
+prematureDelta.timeline[0].thesis_delta_verdict = 'too_early'
+assert.deepEqual(callTrackingSnapshot(prematureDelta).situation, {
+  headline: 'Review fields disagree',
+  detail: 'Review fields disagree: thesis confirmed, decision quality skill, delta too early',
   tone: 'bad',
 })
 

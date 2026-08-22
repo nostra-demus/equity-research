@@ -92,14 +92,18 @@ function situationFor(row: CallTimelineEntry | null, call: CallSummary): CallTra
 
   const thesisRight = thesis === 'confirmed' || thesis === 'on-track'
   const thesisWrong = thesis === 'broken' || thesis === 'at-risk'
+  const thesisResolved = thesis === 'confirmed' || thesis === 'broken' || thesis === 'expired'
   const qualitySaysRight = quality === 'skill' || quality === 'good process / bad luck or too early'
   const qualitySaysWrong = quality === 'luck' || quality === 'genuine miss'
+  const qualityResolved = quality === 'skill' || quality === 'luck' || quality === 'genuine miss'
   const deltaSaysRight = delta === 'strengthened'
   const deltaSaysWrong = delta === 'weakened' || delta === 'broken'
+  const deltaTooEarly = delta === 'too_early'
   const fieldsDisagree = (thesisRight && qualitySaysWrong)
     || (thesisWrong && qualitySaysRight)
     || (deltaSaysWrong && (thesisRight || qualitySaysRight))
     || (deltaSaysRight && (thesisWrong || qualitySaysWrong))
+    || (deltaTooEarly && (thesisResolved || qualityResolved))
   if (fieldsDisagree) {
     const headline = thesis === 'broken' || delta === 'broken' ? 'Thesis broken'
       : thesis === 'at-risk' ? 'Thesis at risk' : 'Review fields disagree'
@@ -154,7 +158,9 @@ export function callTrackingSnapshot(call: CallSummary): CallTrackingSnapshot {
     returnTone: observedReturn == null ? 'neutral' as const
       : observedReturn >= 0 ? 'good' as const : 'bad' as const,
     benchmarkDelta: benchmarkDelta == null ? null
-      : benchmarkDelta >= 0
+      : Math.abs(benchmarkDelta).toFixed(1) === '0.0'
+        ? 'even with benchmark'
+        : benchmarkDelta > 0
         ? `${Math.abs(benchmarkDelta).toFixed(1)}pp ahead of benchmark`
         : `${Math.abs(benchmarkDelta).toFixed(1)}pp behind benchmark`,
   } : null
