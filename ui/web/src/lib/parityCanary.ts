@@ -31,9 +31,12 @@ export function providerParityCanarySubject(runRoot: string): string | null {
 /** A paid launch must return one exact, contradiction-free Codex receipt and a non-empty run id. */
 export function providerParityCanaryResponseMatches(value: unknown, subject: string): boolean {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return false
-  const row = value as Record<string, any>
+  const row = value as Record<string, unknown>
+  const preflight = row.preflight
+  if (!preflight || typeof preflight !== 'object' || Array.isArray(preflight)) return false
+  const receipt = preflight as Record<string, unknown>
   return typeof row.runId === 'string' && row.runId.trim().length > 0
-    && row.preflight?.kind === 'full'
-    && row.preflight?.ticker === subject
+    && receipt.kind === 'full'
+    && receipt.ticker === subject
     && launchProviderReceiptMatches(row, CODEX_PARITY_CANARY_SELECTION, 'valid')
 }
