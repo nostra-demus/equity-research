@@ -965,7 +965,7 @@ class ControlledWriterTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             expiring = policy("internal", "expires", "2026-08-22T12:00:00Z")
-            store = MemoryStore(root / "store", authorize=lambda _request: True)
+            store = MemoryStore(root / "store", authorize=lambda _request: True, clock=clock)
             sink = NdjsonCanonicalSink(root / "canonical.ndjson")
             writer = ControlledWriter(
                 root / "state", sink,
@@ -1143,7 +1143,7 @@ class ControlledWriterTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            store = MemoryStore(root / "store", authorize=lambda _request: True)
+            store = MemoryStore(root / "store", authorize=lambda _request: True, clock=clock)
             first = ControlledWriter(
                 root / "state-a", NdjsonCanonicalSink(root / "canonical-a.ndjson"),
                 authorize_write=lambda _request, _principal: True,
@@ -1389,7 +1389,7 @@ class ControlledWriterTests(unittest.TestCase):
         expiring = policy("internal", "expires", "2026-08-22T12:00:00Z")
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            store = MemoryStore(root / "store", authorize=lambda _request: True)
+            store = MemoryStore(root / "store", authorize=lambda _request: True, clock=clock)
             raw = b"phase5 expiring source fixture"
             object_ref = store.put_object(object_manifest(raw, expiring), raw)
             event = claim_event(1, storage_policy=expiring)
@@ -1423,7 +1423,7 @@ class ControlledWriterTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            store = MemoryStore(root / "store", authorize=lambda _request: True)
+            store = MemoryStore(root / "store", authorize=lambda _request: True, clock=clock)
             raw = b"phase5 protected pending fixture"
             object_ref = store.put_object(object_manifest(raw, expiring), raw)
             event = claim_event(1, storage_policy=expiring)
@@ -1456,7 +1456,7 @@ class ControlledWriterTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             expiring = policy("internal", "expires", "2026-08-22T12:00:00Z")
-            store = MemoryStore(root / "store", authorize=lambda _request: True)
+            store = MemoryStore(root / "store", authorize=lambda _request: True, clock=clock)
             raw = b"phase5 denied recovery fixture"
             object_ref = store.put_object(object_manifest(raw, expiring), raw)
             event = claim_event(1, storage_policy=expiring)
@@ -1503,7 +1503,7 @@ class ControlledWriterTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             expiring = policy("internal", "expires", "2026-08-22T12:00:00Z")
-            store = MemoryStore(root / "store", authorize=lambda _request: True)
+            store = MemoryStore(root / "store", authorize=lambda _request: True, clock=clock)
             raw = b"phase5 prepare failure fixture"
             object_ref = store.put_object(object_manifest(raw, expiring), raw)
             event = claim_event(1, storage_policy=expiring)
@@ -1607,6 +1607,7 @@ class ControlledWriterTests(unittest.TestCase):
                 authorize=lambda _request: True,
                 projection_purger=lambda _ref: (),
                 projection_absent=lambda _ref: True,
+                clock=clock,
             )
             raw = b"phase5 signed purge continuity"
             object_ref = store.put_object(object_manifest(raw, expiring), raw)
@@ -1757,6 +1758,7 @@ class ControlledWriterTests(unittest.TestCase):
                     authorize=lambda _request: True,
                     projection_purger=lambda _ref: (),
                     projection_absent=lambda _ref: True,
+                    clock=clock,
                 )
                 raw = b"phase5 retirement crash " + crash_point.encode("utf-8")
                 object_ref = store.put_object(object_manifest(raw, expiring), raw)
@@ -1840,6 +1842,7 @@ class ControlledWriterTests(unittest.TestCase):
                 authorize=lambda _request: True,
                 projection_purger=lambda _ref: (),
                 projection_absent=lambda _ref: True,
+                clock=clock,
             )
             raw = b"phase5 retirement rollback"
             object_ref = store.put_object(object_manifest(raw, expiring), raw)
