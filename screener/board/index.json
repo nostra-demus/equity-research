@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T13:49:12Z",
+  "generated_at": "2026-08-22T13:57:32Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-2369",
@@ -350,6 +350,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-2403",
+      "headline": "TikTok reaches $400m deal with US over alleged child privacy violations",
+      "headline_en": null,
+      "url": "https://gulfnews.com/world/americas/tiktok-reaches-400m-deal-with-us-over-alleged-child-privacy-violations-1.500648537",
+      "source_name": "Gulf News",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T13:19:04Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "US regulatory enforcement: $400M settlement over child privacy violations; major enforcement action with quantified fine, though ByteDance/TikTok is private.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "US regulatory enforcement: $400M settlement over child privacy violations; major enforcement action with quantified fine, though ByteDance/TikTok is private.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TikTok / ByteDance",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1947,60 +1996,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-786",
-      "headline": "Industrie: Holcim übernimmt Gipsfaserplatten-Hersteller Fermacell",
-      "headline_en": "Industry: Holcim acquires gypsum fiberboard manufacturer Fermacell",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/industrie-holcim-uebernimmt-gipsfaserplatten-hersteller-fermacell/100248770.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T05:20:05Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Holcim acquires gypsum fiberboard maker Fermacell, a confirmed acquisition by a named large company.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Holcim acquires gypsum fiberboard maker Fermacell, a confirmed acquisition by a named large company.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Holcim",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Fermacell",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -78411,9 +78406,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 298302,
-    "news_picked_today": 4464,
-    "news_dropped_today": 9817
+    "news_seen_today": 298346,
+    "news_picked_today": 4481,
+    "news_dropped_today": 9844
   },
   "book_momentum": {
     "live_count": 8,
