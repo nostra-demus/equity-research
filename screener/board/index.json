@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T21:01:36Z",
+  "generated_at": "2026-08-22T21:06:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-2434",
@@ -502,6 +502,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-2451",
+      "headline": "Nvidia customers notified about AI-related price hikes above 15%",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/08/22/nvidia-customers-ai-related-price-hikes-15-percent-vera-rubin-grace-blackwell-chips/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T20:27:38Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Nvidia is implementing price hikes of over 15% for AI products, which will directly improve margins.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Nvidia is implementing price hikes of over 15% for AI products, which will directly improve margins.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1890,49 +1939,6 @@
           "listing_country": "US"
         }
       ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-497",
-      "headline": "China’s onetime richest man has lost everything but creditors are still owed $300 billion",
-      "headline_en": null,
-      "url": "https://fortune.com/2026/08/21/evergrande-china-founder/",
-      "source_name": "Fortune",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T13:40:07Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "The headline highlights a massive $300 billion debt overhang associated with a major Chinese developer's collapse.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "The headline highlights a massive $300 billion debt overhang associated with a major Chinese developer's collapse.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [],
       "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
@@ -73837,77 +73843,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-7df43c2881a5",
-      "idea_version": "IDEAV-16d452efeab96364",
-      "idea_version_started_at": "2026-08-21T10:31:43Z",
-      "ticker": "00180",
-      "company": "Kader Holdings",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning, signaling deteriorating financial results compared to the prior period.",
-      "why_now": "The announcement was filed on 2026-08-21, providing an immediate catalyst for price adjustment.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-71fe62bb2231"
-      ],
-      "primary_source_event_id": "EVT-71fe62bb2231",
-      "source_headlines": [
-        "KADER HOLDINGS (00180): Profit Warning"
-      ],
-      "source_headline": "KADER HOLDINGS (00180): Profit Warning",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082100480.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-21T09:03:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-21T10:31:43Z",
-      "updated_at": "2026-08-21T10:31:43Z",
-      "decay_at": "2026-08-22T21:03:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-17879c231b7e",
       "idea_version": "IDEAV-582364657501bec5",
       "idea_version_started_at": "2026-08-22T02:12:31Z",
@@ -74818,6 +74753,77 @@
       "surfaced_at": "2026-08-21T10:31:43Z",
       "updated_at": "2026-08-21T10:31:43Z",
       "decay_at": "2026-08-22T20:44:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-7df43c2881a5",
+      "idea_version": "IDEAV-16d452efeab96364",
+      "idea_version_started_at": "2026-08-21T10:31:43Z",
+      "ticker": "00180",
+      "company": "Kader Holdings",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning, signaling deteriorating financial results compared to the prior period.",
+      "why_now": "The announcement was filed on 2026-08-21, providing an immediate catalyst for price adjustment.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 19,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-71fe62bb2231"
+      ],
+      "primary_source_event_id": "EVT-71fe62bb2231",
+      "source_headlines": [
+        "KADER HOLDINGS (00180): Profit Warning"
+      ],
+      "source_headline": "KADER HOLDINGS (00180): Profit Warning",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082100480.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-21T09:03:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-21T10:31:43Z",
+      "updated_at": "2026-08-21T10:31:43Z",
+      "decay_at": "2026-08-22T21:03:00Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -75764,8 +75770,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 47,
-    "shown_count": 47,
+    "total_count": 48,
+    "shown_count": 48,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -75774,8 +75780,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 30,
-        "shown_count": 30,
+        "total_count": 31,
+        "shown_count": 31,
         "hidden_count": 0
       }
     },
@@ -75795,6 +75801,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-7df43c2881a5",
+        "idea_version": "IDEAV-16d452efeab96364",
+        "idea_version_started_at": "2026-08-21T10:31:43Z",
+        "ticker": "00180",
+        "company": "Kader Holdings",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning, signaling deteriorating financial results compared to the prior period.",
+        "why_now": "The announcement was filed on 2026-08-21, providing an immediate catalyst for price adjustment.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 19,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-71fe62bb2231"
+        ],
+        "primary_source_event_id": "EVT-71fe62bb2231",
+        "source_headlines": [
+          "KADER HOLDINGS (00180): Profit Warning"
+        ],
+        "source_headline": "KADER HOLDINGS (00180): Profit Warning",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082100480.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-21T09:03:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-21T10:31:43Z",
+        "updated_at": "2026-08-21T10:31:43Z",
+        "decay_at": "2026-08-22T21:03:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-22T21:03:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-d506fe2a7795",
         "idea_version": "IDEAV-80306f9388ae8d3f",
@@ -79274,7 +79354,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 80,
-    "live_count": 32,
+    "live_count": 31,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -79293,9 +79373,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 299830,
-    "news_picked_today": 4867,
-    "news_dropped_today": 10809
+    "news_seen_today": 299849,
+    "news_picked_today": 4870,
+    "news_dropped_today": 10825
   },
   "book_momentum": {
     "live_count": 8,
