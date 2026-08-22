@@ -438,7 +438,7 @@ async function probeAvailability(): Promise<ProviderAvailability> {
         available: false,
         availability: 'unavailable',
         cliVersion: String(version.stdout || '').trim() || undefined,
-        reason: 'Claude is installed, but the cockpit requires a first-party Claude Max login. Run `claude login`, then check again; API-token billing is disabled.',
+        reason: 'Claude is installed, but the cockpit requires a first-party Claude Max login. Run `claude auth login`, then check again; API-token billing is disabled.',
       }
     }
     await assertClaudeSandboxRuntime()

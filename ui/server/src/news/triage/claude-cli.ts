@@ -307,7 +307,7 @@ export function isTerminalApiNote(note: string): boolean {
 
 /** A last-resort failure that is the host's Claude SIGN-IN having expired (HTTP 401 / an "authenticate"
  *  message). It is split out of the terminal-4xx class above because it is the one failure here a human
- *  repairs in seconds — `claude login` on the engine host — after which the tier works again immediately.
+ *  repairs in seconds — `claude auth login` on the engine host — after which the tier works again immediately.
  *  Treating it as terminal-for-the-day was the real defect: the day's $ ledger was force-marked spent, so
  *  the tier stayed dark until the UTC rollover even once the sign-in was fixed, AND the cockpit reported
  *  $50 of spend that never happened. chat-llm.ts's friendlyResultError already told chat users the exact
