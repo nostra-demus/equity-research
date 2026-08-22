@@ -40,6 +40,10 @@ export interface RescueQueueSnapshot {
   items: FeedItem[]
   updated_at: string | null
   coverage_started_at: string | null
+  /** Durable kill-switch continuity. Re-entering shadow after off must start a new coverage window. */
+  maintenance_mode: 'off' | 'shadow' | null
+  /** Queue and staged batch agree before applying the process-local failure witness. */
+  durable_committed: boolean
   /** False while a staged replacement or overflow omission has not been safely retired. */
   committed: boolean
   incomplete_since: string | null
@@ -94,6 +98,19 @@ const queuePendingFile = (stateDir: string): string => path.join(stateRoot(state
 const healthFile = (stateDir: string): string => path.join(stateRoot(stateDir), 'health.json')
 const dayFile = (stateDir: string, date: string): string => path.join(stateRoot(stateDir), 'days', `${date}.json`)
 const auditFile = (stateDir: string, month: string): string => path.join(stateRoot(stateDir), 'ledger', `${month}.ndjson`)
+
+// A feed row is already durable before it is copied into this bounded queue. If both the pending-batch
+// write and its health write fail, disk has no rescue-side witness for that same cycle. Keep a process-local
+// witness long enough to close admission; the repair path then starts a new full coverage window before
+// clearing it. Key by resolved state directory so tests and multiple configured engines remain isolated.
+const runtimeQueueFailures = new Map<string, number>()
+const runtimeQueueKey = (stateDir: string): string => path.resolve(stateDir)
+function noteRuntimeQueueFailure(stateDir: string, now: number): void {
+  runtimeQueueFailures.set(runtimeQueueKey(stateDir), now)
+}
+export function rescueRuntimeQueueFailureAt(stateDir: string): number | null {
+  return runtimeQueueFailures.get(runtimeQueueKey(stateDir)) ?? null
+}
 
 function directorySyncUnsupported(error: unknown): boolean {
   const code = String((error as NodeJS.ErrnoException)?.code || '')
@@ -245,7 +262,8 @@ function isRescueCheckRecord(value: unknown): value is RescueCheckRecord {
   return check.exchange == null && check.source == null
 }
 
-/** Queue maintenance is shadow work too; an explicit off value must avoid every rescue-state write. */
+/** An explicit off value prevents scored rows from entering the rescue queue. The shadow runner still
+ * saves one tiny off-mode transition so a later re-enable cannot inherit stale coverage. */
 export function rescueQueueEnabled(mode: unknown): boolean {
   return mode === 'shadow'
 }
@@ -253,7 +271,7 @@ export function rescueQueueEnabled(mode: unknown): boolean {
 function loadQueueSnapshot(file: string): RescueQueueSnapshot {
   const empty = (): RescueQueueSnapshot => ({
     available: true, items: [], updated_at: null, coverage_started_at: null,
-    committed: true, incomplete_since: null,
+    maintenance_mode: null, durable_committed: true, committed: true, incomplete_since: null,
   })
   if (!fs.existsSync(file)) return empty()
   try {
@@ -270,6 +288,9 @@ function loadQueueSnapshot(file: string): RescueQueueSnapshot {
       && (typeof raw.incomplete_since !== 'string' || !Number.isFinite(Date.parse(raw.incomplete_since)))) {
       throw new Error('queue incomplete clock')
     }
+    if (raw.maintenance_mode != null && raw.maintenance_mode !== 'off' && raw.maintenance_mode !== 'shadow') {
+      throw new Error('queue maintenance mode')
+    }
     const updatedAt = typeof raw.updated_at === 'string' && Number.isFinite(Date.parse(raw.updated_at))
       ? raw.updated_at
       : null
@@ -282,6 +303,9 @@ function loadQueueSnapshot(file: string): RescueQueueSnapshot {
       items: raw.items,
       updated_at: updatedAt,
       coverage_started_at: coverageStartedAt,
+      maintenance_mode: raw.maintenance_mode === 'off' || raw.maintenance_mode === 'shadow'
+        ? raw.maintenance_mode : null,
+      durable_committed: !incompleteSince,
       committed: !incompleteSince,
       incomplete_since: incompleteSince,
     }
@@ -295,7 +319,8 @@ export function loadRescueQueue(stateDir: string): RescueQueueSnapshot {
   const pending = loadQueueSnapshot(queuePendingFile(stateDir))
   if (!main.available || !pending.available) return {
     available: false, items: [], updated_at: null, coverage_started_at: null,
-    committed: false, incomplete_since: pending.incomplete_since, error: 'unreadable',
+    maintenance_mode: pending.maintenance_mode || main.maintenance_mode,
+    durable_committed: false, committed: false, incomplete_since: pending.incomplete_since, error: 'unreadable',
   }
   const byId = new Map(main.items.map((item) => [item.event_id, item]))
   let pendingCommitted = !pending.incomplete_since
@@ -307,38 +332,57 @@ export function loadRescueQueue(stateDir: string): RescueQueueSnapshot {
   const items = [...byId.values()]
   if (items.length > RESCUE_QUEUE_MAX_ITEMS) return {
     available: false, items: [], updated_at: null, coverage_started_at: null,
-    committed: false, incomplete_since: pending.incomplete_since, error: 'overflow',
+    maintenance_mode: pending.maintenance_mode || main.maintenance_mode,
+    durable_committed: false, committed: false, incomplete_since: pending.incomplete_since, error: 'overflow',
   }
   const times = [main.updated_at, pending.updated_at].filter((value): value is string => !!value)
   const starts = [main.coverage_started_at, pending.coverage_started_at]
     .filter((value): value is string => !!value)
+  const runtimeFailureAt = rescueRuntimeQueueFailureAt(stateDir)
   return {
     available: true,
     items,
     updated_at: times.sort().at(-1) || null,
     coverage_started_at: starts.sort()[0] || null,
-    committed: pendingCommitted,
-    incomplete_since: pending.incomplete_since,
+    maintenance_mode: pending.maintenance_mode || main.maintenance_mode,
+    durable_committed: pendingCommitted,
+    committed: pendingCommitted && runtimeFailureAt == null,
+    incomplete_since: runtimeFailureAt == null
+      ? pending.incomplete_since
+      : new Date(Math.max(runtimeFailureAt, Date.parse(pending.incomplete_since || '') || 0)).toISOString(),
   }
 }
 
-export function recordRescueRows(stateDir: string, rows: readonly FeedItem[], now = Date.now(), maxAgeHrs = 36): boolean {
+export function recordRescueRows(
+  stateDir: string,
+  rows: readonly FeedItem[],
+  now = Date.now(),
+  maxAgeHrs = 36,
+  maintenanceMode: 'off' | 'shadow' = 'shadow',
+): boolean {
   const prior = loadQueueSnapshot(queueFile(stateDir))
   const pending = loadQueueSnapshot(queuePendingFile(stateDir))
   if (!prior.available || !pending.available) {
+    noteRuntimeQueueFailure(stateDir, now)
     updateRescueHealth(stateDir, { audit_healthy: false, audit_error: 'The saved second-look queue cannot be read.' }, now)
     return false
   }
   const minTime = now - Math.max(1, maxAgeHrs) * 3_600_000
-  const coverageStartedAt = prior.coverage_started_at || pending.coverage_started_at || new Date(now).toISOString()
+  const runtimeFailureAt = rescueRuntimeQueueFailureAt(stateDir)
+  const priorMode = pending.maintenance_mode || prior.maintenance_mode
+  const coverageStartedAt = maintenanceMode === 'off' || priorMode !== 'shadow' || runtimeFailureAt != null
+    ? new Date(now).toISOString()
+    : prior.coverage_started_at || pending.coverage_started_at || new Date(now).toISOString()
   const markOverflow = (pendingItems: readonly FeedItem[]): void => {
     const incompleteSince = new Date(now).toISOString()
+    noteRuntimeQueueFailure(stateDir, now)
     // The small staged marker is a second fail-closed authority when the health-file write itself fails.
     // Existing pending rows remain recoverable; newly omitted overflow rows retire by this latest clock.
     atomicWriteJson(stateDir, queuePendingFile(stateDir), {
       v: 1,
       updated_at: incompleteSince,
       coverage_started_at: coverageStartedAt,
+      maintenance_mode: maintenanceMode,
       incomplete_since: incompleteSince,
       items: pendingItems,
     }, RESCUE_QUEUE_MAX_BYTES)
@@ -372,9 +416,11 @@ export function recordRescueRows(stateDir: string, rows: readonly FeedItem[], no
     v: 1,
     updated_at: new Date(now).toISOString(),
     coverage_started_at: coverageStartedAt,
+    maintenance_mode: maintenanceMode,
     ...(pending.incomplete_since ? { incomplete_since: pending.incomplete_since } : {}),
     items: retained,
   }, RESCUE_QUEUE_MAX_BYTES)) {
+    noteRuntimeQueueFailure(stateDir, now)
     const health = readRescueHealth(stateDir)
     if (health.audit_error !== RESCUE_QUEUE_OVERFLOW_ERROR) {
       updateRescueHealth(stateDir, { audit_healthy: false, audit_error: RESCUE_QUEUE_PENDING_WRITE_ERROR }, now)
@@ -394,12 +440,14 @@ export function recordRescueRows(stateDir: string, rows: readonly FeedItem[], no
     return false
   }
   const ok = atomicWriteJson(stateDir, queueFile(stateDir), {
-    v: 1, updated_at: new Date(now).toISOString(), coverage_started_at: coverageStartedAt, items,
+    v: 1, updated_at: new Date(now).toISOString(), coverage_started_at: coverageStartedAt,
+    maintenance_mode: maintenanceMode, items,
   }, RESCUE_QUEUE_MAX_BYTES)
   // A healthy queue write cannot clear an unrelated day-ledger/monthly-audit failure. Those failures
   // stay closed until their own authority is repaired; otherwise a later ingest cycle could reopen the
   // lane before the pending detailed record is safe.
   if (!ok) {
+    noteRuntimeQueueFailure(stateDir, now)
     const health = readRescueHealth(stateDir)
     if (health.audit_error !== RESCUE_QUEUE_OVERFLOW_ERROR) updateRescueHealth(stateDir, {
       audit_healthy: false,
@@ -432,6 +480,7 @@ export function recordRescueRows(stateDir: string, rows: readonly FeedItem[], no
         ...(overflowWindowRetired ? { queue_overflow_at: null } : {}),
       }, now)
     }
+    runtimeQueueFailures.delete(runtimeQueueKey(stateDir))
   }
   return ok
 }

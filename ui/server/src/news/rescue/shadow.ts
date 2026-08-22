@@ -10,9 +10,9 @@ import {
 import { RESCUE_SELECTOR_VERSION, selectRescueCandidates, type RescueCandidate } from './selector'
 import {
   completeRescueCheck, loadRecentRescueChecks, loadRescueDay, loadRescueQueue, noteDirectoryResult,
-  readRescueHealth, reconcileRescueDayLedgers, repairRescueReservationAuthority,
+  readRescueHealth, reconcileRescueDayLedgers, recordRescueRows, repairRescueReservationAuthority,
   RESCUE_RESERVATION_WRITE_ERROR, rescueAuditCanAccept, rescueCheckMatchesCandidate,
-  reserveRescueCheck, updateRescueHealth,
+  rescueRuntimeQueueFailureAt, reserveRescueCheck, updateRescueHealth,
   type RescueCheckRecord, type RescueIdentityStatus,
 } from './store'
 
@@ -290,6 +290,44 @@ export async function runRescueShadowPass(deps: {
   const blockedEventIds = deps.blockedEventIds || new Set<string>()
   const humanActionsReady = deps.humanActionsReady !== false
   const normalIdeasReady = deps.normalIdeasReady !== false
+
+  // The kill switch deliberately stops candidate maintenance. Persist only the transition marker and
+  // restart the coverage clock, so turning shadow back on cannot inherit a mature clock across missing
+  // feed rows. No lookup, reservation, article read, or Ideas work can happen on this path.
+  if (deps.config.mode === 'off') {
+    recordRescueRows(deps.stateDir, [], now, deps.config.maxAgeHrs, 'off')
+    return {
+      ...diagnosticsFromState(
+        deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady, normalIdeasReady,
+      ),
+      checkedThisCycle: 0,
+    }
+  }
+
+  const queueBeforeAdmission = loadRescueQueue(deps.stateDir)
+  const runtimeQueueFailure = rescueRuntimeQueueFailureAt(deps.stateDir)
+  if (runtimeQueueFailure != null && !queueBeforeAdmission.durable_committed) {
+    // A durable pending batch or overflow marker already owns recovery. Keep it visibly unavailable in
+    // this pass; the next ordinary queue write will merge or retire that exact authority.
+    return {
+      ...diagnosticsFromState(
+        deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady, normalIdeasReady,
+      ),
+      checkedThisCycle: 0,
+    }
+  }
+  if (runtimeQueueFailure != null || queueBeforeAdmission.maintenance_mode !== 'shadow') {
+    // A same-process failure is the only authority available when both the pending-batch and health writes
+    // failed. Repair by starting a new full omission window, but never admit a lookup in that same pass.
+    // The same reset handles first deployment and every durable off -> shadow transition.
+    recordRescueRows(deps.stateDir, [], now, deps.config.maxAgeHrs, 'shadow')
+    return {
+      ...diagnosticsFromState(
+        deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady, normalIdeasReady,
+      ),
+      checkedThisCycle: 0,
+    }
+  }
   const date = utcDate(now)
   const initialHealth = readRescueHealth(deps.stateDir)
   if (deps.config.mode === 'shadow' && initialHealth.audit_error === RESCUE_RESERVATION_WRITE_ERROR

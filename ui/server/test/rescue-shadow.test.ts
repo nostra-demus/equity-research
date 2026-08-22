@@ -220,6 +220,70 @@ function responseForUrl(url: string): any {
 }
 
 {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-off-reenable-'))
+  try {
+    invalidateSymbolCache()
+    assert.equal(recordRescueRows(root, [row(1)], START), true)
+    const offAt = START + 60 * 60_000
+    const disabled = await runRescueShadowPass({
+      stateDir: root, config: { ...baseConfig, mode: 'off' }, coreReady: true, now: () => offAt,
+    })
+    assert.equal(disabled.status, 'disabled')
+    assert.equal(loadRescueQueue(root).maintenance_mode, 'off')
+
+    let calls = 0
+    const reenabledAt = offAt + 60 * 60_000
+    const reenabled = await runRescueShadowPass({
+      stateDir: root, config: baseConfig, coreReady: true,
+      fetchImpl: (async (url: string) => { calls++; return responseForUrl(url) }) as any,
+      now: () => reenabledAt,
+    })
+    const queue = loadRescueQueue(root)
+    assert.equal(reenabled.status, 'warming')
+    assert.equal(reenabled.candidatesFound, null)
+    assert.equal(queue.maintenance_mode, 'shadow')
+    assert.equal(queue.coverage_started_at, new Date(reenabledAt).toISOString(),
+      'off -> shadow starts a new omission window instead of reusing the old mature clock')
+    assert.equal(calls, 0, 're-enable cannot perform a directory check before the new window matures')
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-pending-and-health-fail-'))
+  const rename = fs.renameSync
+  try {
+    invalidateSymbolCache()
+    assert.equal(recordRescueRows(root, [row(1)], START), true)
+    const failedAt = START + 60_000
+    ;(fs as any).renameSync = (from: fs.PathLike, to: fs.PathLike) => {
+      if (String(to).endsWith('/news-rescue/queue-pending.json')
+        || String(to).endsWith('/news-rescue/health.json')) {
+        throw new Error('injected pending and health write failure')
+      }
+      return rename(from, to)
+    }
+    assert.equal(recordRescueRowsProduction(root, [row(2)], failedAt), false)
+    ;(fs as any).renameSync = rename
+
+    let calls = 0
+    const blocked = await runRescueShadowPass({
+      stateDir: root, config: baseConfig, coreReady: true,
+      fetchImpl: (async (url: string) => { calls++; return responseForUrl(url) }) as any,
+      now: () => failedAt,
+    })
+    assert.equal(blocked.status, 'warming')
+    assert.equal(blocked.candidatesFound, null)
+    assert.equal(loadRescueQueue(root).coverage_started_at, new Date(failedAt).toISOString(),
+      'repair starts a new full window because the unstaged feed batch cannot be reconstructed')
+    assert.equal(calls, 0,
+      'the in-memory failure witness blocks same-cycle directory admission when both durable witnesses failed')
+  } finally {
+    ;(fs as any).renameSync = rename
+    fs.rmSync(root, { recursive: true, force: true })
+  }
+}
+
+{
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-paced-'))
   try {
     invalidateSymbolCache()
