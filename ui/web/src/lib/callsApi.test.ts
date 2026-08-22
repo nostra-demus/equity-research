@@ -4,19 +4,21 @@ import assert from 'node:assert/strict'
 const { api } = await import('./api')
 const originalFetch = globalThis.fetch
 
-let requested = ''
-globalThis.fetch = (async (input) => {
-  requested = String(input)
-  return new Response(JSON.stringify({ path: 'analyses/ACME_2026-08-01/final_thesis.md', markdown: '# published' }), {
-    status: 200, headers: { 'content-type': 'application/json' },
-  })
-}) as typeof fetch
+try {
+  let requested = ''
+  globalThis.fetch = (async (input) => {
+    requested = String(input)
+    return new Response(JSON.stringify({ path: 'analyses/ACME_2026-08-01/final_thesis.md', markdown: '# published' }), {
+      status: 200, headers: { 'content-type': 'application/json' },
+    })
+  }) as typeof fetch
 
-const path = 'analyses/ACME_2026-08-01/final_thesis.md'
-assert.equal((await api.callArtifact(path)).markdown, '# published')
-const url = new URL(requested, 'https://fixture.test')
-assert.equal(url.pathname, '/api/calls/artifact')
-assert.equal(url.searchParams.get('path'), path)
-
-globalThis.fetch = originalFetch
+  const path = 'analyses/ACME_2026-08-01/final_thesis.md'
+  assert.equal((await api.callArtifact(path)).markdown, '# published')
+  const url = new URL(requested, 'https://fixture.test')
+  assert.equal(url.pathname, '/api/calls/artifact')
+  assert.equal(url.searchParams.get('path'), path)
+} finally {
+  globalThis.fetch = originalFetch
+}
 console.log('ok  Calls artifacts use the published Git endpoint')

@@ -29,5 +29,11 @@ assert.deepEqual(rows.map((row) => row.run_root), [
   'analyses/BETA_2026-08-03_v2',
 ], 'Current keeps the newest dated published call per normalized ticker')
 assert.equal(currentCalls([call('', '2026-08-11')]).length, 0, 'a nameless row cannot become a current call')
+assert.equal(currentCalls(null).length, 0, 'a missing calls field fails closed')
+assert.equal(currentCalls([
+  undefined,
+  { ticker: null } as unknown as CallSummary,
+  call('SAFE', '2026-08-12'),
+]).length, 1, 'malformed rows cannot take down the Current view')
 
 console.log('ok  Calls Current view is one newest published record per ticker')

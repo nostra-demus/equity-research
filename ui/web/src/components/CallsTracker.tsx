@@ -85,11 +85,15 @@ export function CallsTracker() {
     return () => window.removeEventListener('keydown', onKey)
   }, [close])
 
-  const calls = data?.calls ?? []
+  // The published endpoint is versioned independently from the browser bundle. Fail closed if an old or
+  // partial deploy sends a non-array field instead of letting one malformed payload take down the panel.
+  const calls = Array.isArray(data?.calls) ? data.calls : []
   const current = useMemo(() => currentCalls(calls), [calls])
-  const currentRoots = useMemo(() => new Set(current.map((call) => call.run_root)), [current])
-  const updates = data?.updates ?? []
-  const needsAttention = data?.needs_attention ?? []
+  const currentRoots = useMemo(() => new Set(current
+    .map((call) => call?.run_root)
+    .filter((root): root is string => typeof root === 'string' && root.length > 0)), [current])
+  const updates = Array.isArray(data?.updates) ? data.updates : []
+  const needsAttention = Array.isArray(data?.needs_attention) ? data.needs_attention : []
   const visibleCalls = view === 'current' ? current : calls
 
   return (
