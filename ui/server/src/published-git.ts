@@ -49,7 +49,13 @@ function catFileBatch(repoRoot: string, oids: string[], maxBuffer: number): Prom
       if (code !== 0) return reject(new Error('shared research blobs were not readable'))
       resolve(Buffer.concat(chunks, size))
     })
-    child.stdin.end(`${oids.join('\n')}\n`)
+    if (!settled) {
+      try {
+        child.stdin.end(`${oids.join('\n')}\n`)
+      } catch (error) {
+        fail(error)
+      }
+    }
   })
 }
 
