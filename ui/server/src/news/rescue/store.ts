@@ -13,6 +13,7 @@ const QUEUE_MAX_BYTES = 40 * 1024 * 1024
 const DAILY_MAX_ITEMS = 240 // hard parser bound; configured admission remains <=200
 const DAILY_MAX_BYTES = 2 * 1024 * 1024
 const AUDIT_LINE_MAX_BYTES = 2 * 1024
+const QUEUE_WRITE_ERROR = 'The app could not save the second-look queue.'
 
 export type RescueIdentityStatus = 'verified' | 'identity_unresolved' | 'directory_unavailable'
 export type RescueReviewReasonCode =
@@ -175,8 +176,16 @@ export function recordRescueRows(stateDir: string, rows: readonly FeedItem[], no
   // lane before the pending detailed record is safe.
   if (!ok) updateRescueHealth(stateDir, {
     audit_healthy: false,
-    audit_error: 'The app could not save the second-look queue.',
+    audit_error: QUEUE_WRITE_ERROR,
   }, now)
+  else {
+    // A later successful write is the proof that this queue authority recovered. It may clear only its
+    // own transient error; monthly/day-ledger failures remain closed until their repair path proves them.
+    const health = readRescueHealth(stateDir)
+    if (!health.audit_healthy && health.audit_error === QUEUE_WRITE_ERROR) {
+      updateRescueHealth(stateDir, { audit_healthy: true, audit_error: null }, now)
+    }
+  }
   return ok
 }
 

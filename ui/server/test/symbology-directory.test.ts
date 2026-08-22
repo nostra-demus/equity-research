@@ -9,7 +9,10 @@
 // Each assertion is red on the pre-fix code and green after. Run: npx tsx test/symbology-directory.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
-import { coreCompanyName, invalidateSymbolCache, searchSymbolsChecked, searchSymbolsEnriched, verifyEquityListing } from '../src/news/symbology'
+import {
+  coreCompanyName, directoryTickerMatches, invalidateSymbolCache,
+  searchSymbolsChecked, searchSymbolsEnriched, verifyEquityListing,
+} from '../src/news/symbology'
 
 let passed = 0
 async function check(name: string, fn: () => Promise<void> | void) {
@@ -84,6 +87,22 @@ async function main() {
     assert.deepEqual(limited, { status: 'unavailable', groups: [], reason: 'http_error', httpStatus: 429 })
     const offline = await searchSymbolsChecked('offline', (async () => { throw new Error('offline') }) as any)
     assert.deepEqual(offline, { status: 'unavailable', groups: [], reason: 'timeout_or_network' })
+  })
+
+  await check('checked search treats a 200 response without quotes as unavailable', async () => {
+    const malformed = await searchSymbolsChecked('challenge', (async () => ({
+      ok: true, status: 200, json: async () => ({ error: 'challenge' }),
+    })) as any)
+    assert.deepEqual(malformed, { status: 'unavailable', groups: [], reason: 'invalid_response' })
+  })
+
+  await check('directory ticker matching accepts only country-proven local venue suffixes', () => {
+    assert.equal(directoryTickerMatches('HEROMOTOCO', 'HEROMOTOCO.NS', 'IN'), true)
+    assert.equal(directoryTickerMatches('500325', '500325.BO', 'IN'), true)
+    assert.equal(directoryTickerMatches('0005', '0005.HK', 'HK'), true)
+    assert.equal(directoryTickerMatches('HEROMOTOCO', 'HEROMOTOCO.L', 'IN'), false)
+    assert.equal(directoryTickerMatches('ACME.L', 'ACME', 'GB'), false, 'a saved suffix remains exact-only')
+    assert.equal(directoryTickerMatches('ACME', 'ACME.L', null), false, 'unknown country cannot license a suffix')
   })
 
   await check('checked search makes exactly one raw request and never performs sibling enrichment', async () => {

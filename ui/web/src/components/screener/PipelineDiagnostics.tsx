@@ -404,9 +404,10 @@ export function PipelineDiagnostics() {
               <ul className="diagwhy__list">
                 <li><b>{diag.today.newArrivals == null ? '—' : diag.today.newArrivals.toLocaleString()}</b> new items found today{diag.today.newArrivals == null ? ' — older records cannot prove the unique total.' : '.'}</li>
                 <li><b>{diag.today.read.toLocaleString()}</b> items fully scored.</li>
-                <li><b>{diag.backlog.count.toLocaleString()}</b> items currently waiting for a first score.</li>
+                <li><b>{(diag.backlog.unscoredCount ?? diag.backlog.count).toLocaleString()}</b> items currently waiting for a first score.</li>
+                {(diag.backlog.projectionRecoveryCount ?? 0) > 0 && <li><b>{diag.backlog.projectionRecoveryCount!.toLocaleString()}</b> items already scored and waiting to be safely saved.</li>}
                 <li><b>{diag.today.dropped.toLocaleString()}</b> items scored but not sent to the main inbox.</li>
-                <li><b>{diag.backlog.lostToday.toLocaleString()}</b> items never scored because the daily results file was full.</li>
+                <li><b>{diag.backlog.lostToday.toLocaleString()}</b> items never scored by older scanner versions because the active waiting list was full.</li>
                 <li><b>{(diag.backlog.retiredToday ?? 0).toLocaleString()}</b> items never scored because they waited too long.</li>
               </ul>
             </div>
@@ -428,6 +429,7 @@ export function PipelineDiagnostics() {
                   <li>{diag.rescue.identityChecks.toLocaleString()} of {diag.rescue.dailyCap.toLocaleString()} daily company checks used · {diag.rescue.verified.toLocaleString()} matched to a listed stock.</li>
                   {diag.rescue.identityUnresolved > 0 && <li>{diag.rescue.identityUnresolved.toLocaleString()} could not be matched to one listed stock.</li>}
                   {diag.rescue.directoryUnavailable > 0 && <li>{diag.rescue.directoryUnavailable.toLocaleString()} checks failed because the stock-listing lookup was unavailable.</li>}
+                  {(diag.rescue.retryExhausted ?? 0) > 0 && <li>{diag.rescue.retryExhausted!.toLocaleString()} could not be checked after two temporary listing-service failures.</li>}
                   {diag.rescue.capacityMisses > 0 && <li>{diag.rescue.capacityMisses.toLocaleString()} were not reviewed: the daily second-look limit was reached.</li>}
                   {diag.rescue.queuedForLater > 0 && diag.rescue.capacityMisses === 0 && <li>{diag.rescue.queuedForLater.toLocaleString()} are waiting for a paced slot later today.</li>}
                   <li>{diag.rescue.articleReads.toLocaleString()} articles read · {diag.rescue.ideasCreated.toLocaleString()} ideas created. Shadow mode keeps both at zero.</li>

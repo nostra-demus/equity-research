@@ -579,7 +579,13 @@ export interface NewsStatus {
   readOnly: boolean
   // Items waiting in durable retry storage, and the active work-window size they are compared against.
   // A first-class field so the cockpit can show the backlog depth without the heavier diagnostics call.
-  backlog: { count: number; cap: number; unavailable?: boolean }
+  backlog: {
+    count: number
+    unscoredCount: number
+    projectionRecoveryCount: number
+    cap: number
+    unavailable?: boolean
+  }
   today: {
     /** Sum of cycle-level unique arrivals; null when any included legacy cycle cannot prove it. */
     newArrivals: number | null
@@ -803,6 +809,8 @@ export function getNewsStatus(
     readOnly: readOnlyMode,
     backlog: {
       count: backlogInspection.available ? backlogInspection.items.length : 0,
+      unscoredCount: backlogInspection.available ? backlogInspection.items.filter((item) => !item.feed_pending).length : 0,
+      projectionRecoveryCount: backlogInspection.available ? backlogInspection.items.filter((item) => !!item.feed_pending).length : 0,
       cap: DEFERRED_CAP,
       ...(!backlogInspection.available ? { unavailable: true } : {}),
     },
@@ -906,6 +914,8 @@ export interface NewsDiagnostics {
   backlog: {
     unavailable?: boolean // the saved waiting list could not be read; count and percentage are unknown
     count: number // queued items, including unscored and projection-recovery work
+    unscoredCount: number // rows that have not received a first score
+    projectionRecoveryCount: number // scored rows waiting for durable feed projection
     cap: number // DEFERRED_CAP — active work-window size; excess raw input waits in durable overflow
     pctOfCap: number // nonnegative; may exceed 100 while durable input overflow is waiting
     nearLimit: boolean // ≥80% of the active work window — overflow pressure is building
@@ -1432,6 +1442,8 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
   const backlog = {
     ...((status.backlog.unavailable ?? false) ? { unavailable: true } : {}),
     count,
+    unscoredCount: status.backlog.unscoredCount,
+    projectionRecoveryCount: status.backlog.projectionRecoveryCount,
     cap,
     pctOfCap,
     nearLimit: !(status.backlog.unavailable ?? false) && pctOfCap >= 80,

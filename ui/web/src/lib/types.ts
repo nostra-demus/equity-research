@@ -1221,6 +1221,7 @@ export interface NewsDiagnostics {
     ideasCreated: number
     capacityMisses: number
     queuedForLater: number
+    retryExhausted?: number
     auditHealthy: boolean
     circuitOpenUntil: string | null
     dailyCap: number
@@ -1230,7 +1231,11 @@ export interface NewsDiagnostics {
     }
   }
   // retiredToday is optional so a cockpit talking to an older server degrades cleanly (reads as absent, not 0-with-confidence)
-  backlog: { unavailable?: boolean; count: number; cap: number; pctOfCap: number; nearLimit: boolean; trend: 'growing' | 'shrinking' | 'flat' | null; lostToday: number; retiredToday?: number; maxAgeHours?: number }
+  backlog: {
+    unavailable?: boolean; count: number; unscoredCount?: number; projectionRecoveryCount?: number
+    cap: number; pctOfCap: number; nearLimit: boolean; trend: 'growing' | 'shrinking' | 'flat' | null
+    lostToday: number; retiredToday?: number; maxAgeHours?: number
+  }
   today: {
     newArrivals?: number | null
     read: number

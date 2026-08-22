@@ -49,7 +49,7 @@ assert.equal(cycleHasDurableFeedCommit(cycle()), false, 'legacy pick/watch/drop 
 
 assert.equal(rescueCoreReady({
   readOnly: false,
-  backlog: { count: 0, cap: 5_000 },
+  backlog: { count: 0, unscoredCount: 0, projectionRecoveryCount: 0, cap: 5_000 },
   today: {
     newArrivals: 1, read: 1, kept: 0, dropped: 1, cycles: 1,
     durablyCommitted: true, incompleteCycles: 0, totalsLowerBound: false,
@@ -65,9 +65,13 @@ fs.mkdirSync(inbox, { recursive: true })
 const now = new Date()
 const date = now.toISOString().slice(0, 10)
 const started = new Date(now.getTime() - 30_000).toISOString()
-fs.writeFileSync(path.join(state, 'news-deferred.json'), `${JSON.stringify([{
-  event_id: 'EVT-waiting', headline: 'Waiting diagnostic fixture', url: 'https://reuters.com/waiting',
-}])}\n`)
+fs.writeFileSync(path.join(state, 'news-deferred.json'), `${JSON.stringify([
+  { event_id: 'EVT-waiting', headline: 'Waiting diagnostic fixture', url: 'https://reuters.com/waiting' },
+  {
+    event_id: 'EVT-projection', headline: 'Already scored projection fixture',
+    url: 'https://reuters.com/projection', feed_pending: 'uncommitted',
+  },
+])}\n`)
 fs.writeFileSync(path.join(state, 'news-pipeline-flow-gaps.json'), `${JSON.stringify({
   v: 1, starts: [new Date(now.getTime() - 10_000).toISOString()],
 })}\n`)
@@ -85,6 +89,7 @@ const childCode = `import('./src/news/scheduler.ts').then((scheduler) => {
     lastCycle: result.lastCycle,
     today: result.today,
     statusToday: status.today,
+    backlog: result.backlog,
   }) + '\\n')
 })`
 const childEnv = {
@@ -118,6 +123,9 @@ assert.equal(result.today.totalsLowerBound, true, 'summary-derived daily counter
 assert.equal(result.today.historyStatus, 'complete', 'the readable current partition is distinguished from its missing-summary debt')
 assert.equal(result.today.corruptCycleRows, 0)
 assert.deepEqual(result.statusToday, result.today, '/api/news/status carries the same durability and missing-summary proof as diagnostics')
+assert.equal(result.backlog.count, 2)
+assert.equal(result.backlog.unscoredCount, 1, 'unscored work is separated from feed projection recovery')
+assert.equal(result.backlog.projectionRecoveryCount, 1)
 fs.rmSync(root, { recursive: true, force: true })
 
 console.log('scheduler diagnostics shape checks passed')

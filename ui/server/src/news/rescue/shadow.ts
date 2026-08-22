@@ -3,7 +3,7 @@
 
 import { dailyQuotaAdmission } from '../triage/budget'
 import {
-  cleanTicker, companyNameMatches, coreCompanyName, normTicker, searchSymbolsChecked, type FetchLike,
+  cleanTicker, companyNameMatches, coreCompanyName, directoryTickerMatches, searchSymbolsChecked, type FetchLike,
 } from '../symbology'
 import { RESCUE_SELECTOR_VERSION, selectRescueCandidates, type RescueCandidate } from './selector'
 import {
@@ -39,6 +39,7 @@ export interface RescueDiagnostics {
   ideasCreated: number
   capacityMisses: number
   queuedForLater: number
+  retryExhausted: number
   auditHealthy: boolean
   circuitOpenUntil: string | null
   dailyCap: number
@@ -81,9 +82,9 @@ async function verifyCandidate(
   const result = await searchSymbolsChecked(candidate.query, fetchImpl, { useCache: true })
   if (result.status === 'unavailable') return { status: 'directory_unavailable' }
   if (candidate.ticker) {
-    const wanted = normTicker(candidate.ticker)
     const hit = result.groups.find((group) => {
-      if (normTicker(group.symbol) !== wanted || !String(group.exchange || '').trim()) return false
+      if (!directoryTickerMatches(candidate.ticker, group.symbol, candidate.listing_country)
+        || !String(group.exchange || '').trim()) return false
       if (!candidate.company_name) return true
       const actual = String(group.name || '').toLowerCase()
       const expected = candidate.company_name.toLowerCase()
@@ -131,7 +132,16 @@ function diagnosticsFromState(
   const completedCandidateIds = new Set(history.checks
     .filter((check) => check.identity_status !== 'directory_unavailable')
     .map((check) => `${check.event_id}|${check.identity_key}`))
-  const remaining = [...candidateIds].filter((id) => !completedCandidateIds.has(id)).length
+  const unavailableAttempts = new Map<string, number>()
+  for (const check of history.checks) if (check.identity_status === 'directory_unavailable') {
+    const key = `${check.event_id}|${check.identity_key}`
+    unavailableAttempts.set(key, (unavailableAttempts.get(key) || 0) + 1)
+  }
+  const retryExhaustedIds = new Set([...unavailableAttempts]
+    .filter(([key, attempts]) => attempts >= 2 && !completedCandidateIds.has(key))
+    .map(([key]) => key))
+  const remaining = [...candidateIds]
+    .filter((id) => !completedCandidateIds.has(id) && !retryExhaustedIds.has(id)).length
   const auditHealthy = health.audit_healthy && queue.available && day.available && history.available
   let status: RescueDiagnostics['status'] = 'ready'
   let reason = 'The second look is running in shadow mode. It checks company identity but reads no articles and creates no ideas.'
@@ -159,6 +169,7 @@ function diagnosticsFromState(
     ideasCreated: 0,
     capacityMisses: checks.length >= config.dailyChecks ? Math.max(0, remaining) : 0,
     queuedForLater: remaining,
+    retryExhausted: [...retryExhaustedIds].filter((id) => candidateIds.has(id)).length,
     auditHealthy,
     circuitOpenUntil: health.directory_pause_until,
     dailyCap: config.dailyChecks,
@@ -188,6 +199,22 @@ export async function runRescueShadowPass(deps: {
   const now = deps.now?.() ?? Date.now()
   const log = deps.log || (() => {})
   const blockedEventIds = deps.blockedEventIds || new Set<string>()
+  // A crash can happen after the monthly append fsync but before the day ledger clears audit_pending.
+  // Repair that bounded record before consulting the stale health latch, otherwise a recoverable write
+  // failure would prevent its own repair forever. Unrelated queue/overflow failures are never cleared here.
+  const repairHistory = deps.config.mode === 'shadow' ? recentChecks(deps.stateDir, now) : null
+  if (repairHistory?.available && repairHistory.checks.some((check) => check.audit_pending && check.identity_status)) {
+    const before = readRescueHealth(deps.stateDir)
+    const repaired = reconcileRescueDayLedgers(deps.stateDir, now, deps.config.auditMaxBytes)
+    if (repaired && (!before.audit_error || before.audit_error.startsWith('The detailed second-look'))) {
+      updateRescueHealth(deps.stateDir, { audit_healthy: true, audit_error: null }, now)
+    } else if (!repaired) {
+      updateRescueHealth(deps.stateDir, {
+        audit_healthy: false,
+        audit_error: 'The detailed second-look record is full or could not be saved.',
+      }, now)
+    }
+  }
   let diagnostic = diagnosticsFromState(deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds)
   if (diagnostic.status !== 'ready') return { ...diagnostic, checkedThisCycle: 0 }
   const date = utcDate(now)

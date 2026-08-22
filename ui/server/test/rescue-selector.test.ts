@@ -48,6 +48,27 @@ function row(id: string, fields: Partial<FeedItem> = {}): FeedItem {
 }
 
 {
+  const indiaRoutine = row('EVT-board-intimation', {
+    headline: 'Acme Ltd - Board Meeting Intimation for quarterly results',
+    source_tier: 'primary_filing', event_types: ['earnings_revenue_margin'],
+  })
+  assert.equal(selectRescueCandidates([indiaRoutine], NOW).reconciled.routine_filing, 1,
+    'the shared filing gate excludes routine non-US paperwork')
+}
+
+{
+  const multiCompany = row('EVT-roundup', {
+    headline: 'Acme and Beta announce commercial updates', event_types: ['commercial'],
+    companies: [
+      { name: 'Acme Corp', ticker: 'ACME', listing_country: 'US' },
+      { name: 'Beta Corp', ticker: 'BETA', listing_country: 'US' },
+    ],
+  })
+  assert.equal(selectRescueCandidates([multiCompany], NOW).candidates.length, 0,
+    'a multi-company event cannot be assigned to the first saved ticker')
+}
+
+{
   assert.equal(cleanTicker('500325'), '500325', 'six-digit BSE codes remain valid')
   assert.equal(cleanTicker('0005'), '0005', 'numeric HK codes remain valid')
   assert.equal(cleanTicker('0001234567'), null, 'CIK-like long numbers are rejected')
@@ -117,6 +138,20 @@ function row(id: string, fields: Partial<FeedItem> = {}): FeedItem {
   })
   assert.equal(selectRescueCandidates([first, second], NOW).candidates.length, 0,
     'different domain labels on the same URL are not independent reports')
+}
+
+{
+  const first = row('EVT-publisher-a', {
+    companies: [{ name: 'Acme Corp', ticker: null, listing_country: 'US' }],
+    event_types: ['commercial'], domain: 'livemint.com', source_name: 'Mint',
+  })
+  const second = row('EVT-publisher-b', {
+    companies: [{ name: 'Acme Corp', ticker: null, listing_country: 'US' }],
+    event_types: ['commercial'], domain: 'www.livemint.com', source_name: 'Mint',
+    url: 'https://www.livemint.com/acme-copy',
+  })
+  assert.equal(selectRescueCandidates([first, second], NOW).candidates.length, 0,
+    'two host spellings from one publisher are not independent corroboration')
 }
 
 {

@@ -3,8 +3,9 @@
 // receive a paced identity check. Keeping the selector pure makes the shadow replay reproducible.
 
 import { deriveSourceTier, SOURCE_TIERS, type SourceTierId } from '../scope'
-import { parseEdgarFilingHeadline, lookupSecForm } from '../sec-forms'
 import { cleanTicker, coreCompanyName, normTicker } from '../symbology'
+import { isRoutineFiling } from '../text-match'
+import { lookupSource, normalizeDomain } from '../sources/approved-domains'
 import type { FeedItem } from '../types'
 
 export const RESCUE_SELECTOR_VERSION = 'second-look-v1'
@@ -135,13 +136,6 @@ function sourceRank(item: FeedItem): number {
   return SOURCE_TIERS[itemSourceTier(item)]?.rank ?? 0
 }
 
-function isRoutineSecFiling(item: FeedItem): boolean {
-  if (itemSourceTier(item) !== 'primary_filing') return false
-  const parsed = parseEdgarFilingHeadline(item.headline)
-  if (!parsed) return false
-  return lookupSecForm(parsed.form)?.routine === true
-}
-
 function eventPriority(item: FeedItem): number {
   return Math.max(0, ...(item.event_types || []).map((event) => EVENT_PRIORITY[String(event).toLowerCase()] || 0))
 }
@@ -162,7 +156,19 @@ function identity(item: FeedItem): { ticker: string | null; name: string; countr
       country: typeof company?.listing_country === 'string' ? company.listing_country : null,
     }))
     .filter((company) => company.name || company.ticker)
-  const withTicker = companies.find((company) => company.ticker)
+  const named = new Map<string, typeof companies>()
+  for (const company of companies) {
+    const core = coreCompanyName(company.name)
+    if (core) named.set(core, [...(named.get(core) || []), company])
+  }
+  // An event-level score across several issuers cannot be assigned to whichever ticker happened to be
+  // listed first. The second look needs one unambiguous company before it spends a directory check.
+  if (named.size > 1) return null
+  const onlyNamed = named.size === 1 ? [...named.values()][0] : companies
+  const tickers = new Map<string, string>()
+  for (const company of onlyNamed) if (company.ticker) tickers.set(normTicker(company.ticker), company.ticker)
+  if (tickers.size > 1) return null
+  const withTicker = onlyNamed.find((company) => company.ticker)
   if (withTicker?.ticker) {
     return {
       ticker: withTicker.ticker,
@@ -171,14 +177,17 @@ function identity(item: FeedItem): { ticker: string | null; name: string; countr
       key: `ticker:${normTicker(withTicker.ticker)}`,
     }
   }
-  const named = new Map<string, { name: string; country: string | null }>()
-  for (const company of companies) {
-    const core = coreCompanyName(company.name)
-    if (core) named.set(core, { name: company.name, country: company.country })
-  }
   if (named.size !== 1) return null
-  const [core, company] = [...named.entries()][0]
+  const [core, matches] = [...named.entries()][0]
+  const company = matches[0]
   return { ticker: null, name: company.name, country: company.country, key: `name:${core}` }
+}
+
+function publisherIdentity(item: FeedItem): string {
+  const domain = normalizeDomain(String(item.domain || item.url || ''))
+  const source = lookupSource(domain)?.source_name || String(item.source_name || '').trim()
+  const normalizedSource = source.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
+  return normalizedSource ? `source:${normalizedSource}` : domain ? `domain:${domain}` : ''
 }
 
 function eventFamily(item: FeedItem): string {
@@ -212,7 +221,7 @@ export function classifyInitialRescueDecision(item: FeedItem): RescueInitialDeci
   if (item.inboxed) reason = 'sent_to_main_inbox'
   else if (!Number.isFinite(rawScore) || score < 10 || score > 39) reason = 'score_outside_second_look'
   else if (itemSourceTier(item) === 'social' || item.caution === true || item.via === 'reddit') reason = 'social_low_quality_source'
-  else if (isRoutineSecFiling(item)) reason = 'routine_filing'
+  else if (isRoutineFiling(item.headline, itemSourceTier(item))) reason = 'routine_filing'
   else if (item.dedup_status === 'possible_duplicate') reason = 'duplicate_story'
   else if (!identity(item)) reason = 'no_company_identity'
   else if (!decisionEvent(item) && !quantified(item)) reason = 'no_strong_company_event'
@@ -269,7 +278,7 @@ export function selectRescueCandidates(
       counts.outside_score++; continue
     }
     if (itemSourceTier(item) === 'social' || item.caution === true || item.via === 'reddit') { counts.social++; continue }
-    if (isRoutineSecFiling(item)) { counts.routine_filing++; continue }
+    if (isRoutineFiling(item.headline, itemSourceTier(item))) { counts.routine_filing++; continue }
     if (blockedEventIds.has(item.event_id) || (!!item.dedup_group && blockedEventIds.has(item.dedup_group))) {
       counts.manually_blocked++; continue
     }
@@ -318,17 +327,17 @@ export function selectRescueCandidates(
   for (const members of clusters) {
     const representativeRows = members.filter((member) => !member.duplicate)
     if (!representativeRows.length) continue
-    const independentDomains = new Map<string, string>()
+    const independentPublishers = new Map<string, string>()
     const independentUrls = new Set<string>()
     for (const member of members) {
-      const domain = String(member.item.domain || '').trim().toLowerCase()
+      const publisher = publisherIdentity(member.item)
       const url = String(member.item.url || '').trim()
-      if (domain && url && !independentDomains.has(domain) && !independentUrls.has(url)) {
-        independentDomains.set(domain, url)
+      if (publisher && url && !independentPublishers.has(publisher) && !independentUrls.has(url)) {
+        independentPublishers.set(publisher, url)
         independentUrls.add(url)
       }
     }
-    const independentReports = independentDomains.size
+    const independentReports = independentPublishers.size
     const rankedMembers = representativeRows
       .map((member) => {
         const rank = rankInputs(member.item, independentReports)

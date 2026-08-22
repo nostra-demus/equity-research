@@ -6,8 +6,8 @@ import { RESCUE_SELECTOR_VERSION, selectRescueCandidates, withInitialRescueDecis
 import { getRescueDiagnostics, runRescueShadowPass, type RescueShadowConfig } from '../src/news/rescue/shadow'
 import { runNormalIdeasThenSecondLook } from '../src/news/rescue/order'
 import {
-  completeRescueCheck, flushPendingRescueAudit, loadRescueDay, loadRescueQueue,
-  recordRescueRows, reserveRescueCheck,
+  completeRescueCheck, loadRescueDay, loadRescueQueue, readRescueHealth,
+  recordRescueRows, reserveRescueCheck, updateRescueHealth,
 } from '../src/news/rescue/store'
 import { invalidateSymbolCache } from '../src/news/symbology'
 import type { FeedItem } from '../src/news/types'
@@ -166,10 +166,48 @@ function responseForUrl(url: string): any {
     day.checks[0].audit_pending = true
     fs.writeFileSync(dayPath, `${JSON.stringify(day)}\n`)
 
-    assert.equal(flushPendingRescueAudit(root, '2026-08-22', baseConfig.auditMaxBytes), true)
+    assert.equal(updateRescueHealth(root, {
+      audit_healthy: false,
+      audit_error: 'The detailed second-look result could not be saved. Further checks are stopped.',
+    }, START), true)
+    const repaired = await runRescueShadowPass({ stateDir: root, config: baseConfig, coreReady: true, now: () => START })
+    assert.equal(repaired.status, 'ready', 'pending audit repair runs before a stale unhealthy latch is honored')
+    assert.equal(repaired.auditHealthy, true)
     const auditPath = path.join(root, 'news-rescue', 'ledger', '2026-08.ndjson')
     assert.equal(fs.readFileSync(auditPath, 'utf8').trim().split('\n').length, 1,
       'crash repair checks the saved byte offset and does not duplicate the audit row')
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-queue-recovery-'))
+  try {
+    assert.equal(updateRescueHealth(root, {
+      audit_healthy: false, audit_error: 'The app could not save the second-look queue.',
+    }, START), true)
+    assert.equal(recordRescueRows(root, [row(1)], START), true)
+    assert.equal(readRescueHealth(root).audit_healthy, true,
+      'a later successful queue write clears only the queue transient it proves recovered')
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-retry-exhausted-'))
+  try {
+    invalidateSymbolCache()
+    assert.equal(recordRescueRows(root, [row(1)], START), true)
+    const unavailable = (async () => ({ ok: false, status: 503, json: async () => ({}) })) as any
+    await runRescueShadowPass({
+      stateDir: root, config: { ...baseConfig, perCycle: 1 }, coreReady: true,
+      fetchImpl: unavailable, now: () => START,
+    })
+    const later = START + 31 * 60_000
+    const exhausted = await runRescueShadowPass({
+      stateDir: root, config: { ...baseConfig, perCycle: 1 }, coreReady: true,
+      fetchImpl: unavailable, now: () => later,
+    })
+    assert.equal(exhausted.retryExhausted, 1)
+    assert.equal(exhausted.queuedForLater, 0, 'two failed attempts are not described as awaiting a paced slot')
   } finally { fs.rmSync(root, { recursive: true, force: true }) }
 }
 

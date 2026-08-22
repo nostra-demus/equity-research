@@ -78,6 +78,37 @@ export function baseTicker(t: unknown): string {
   return n
 }
 
+// A saved title-only ticker is often exchange-native while Yahoo returns its venue-qualified spelling.
+// Treat that as the same exact local listing only when the saved listing country explicitly licenses the
+// returned suffix. A saved suffix remains exact-only, and an unknown country never enables base matching.
+const DIRECTORY_SUFFIXES_BY_COUNTRY: Record<string, ReadonlySet<string>> = {
+  NO: new Set(['OL']), SE: new Set(['ST']), DK: new Set(['CO']), FI: new Set(['HE']), IS: new Set(['IC']),
+  GB: new Set(['L', 'IL']), FR: new Set(['PA']), NL: new Set(['AS']), BE: new Set(['BR']), PT: new Set(['LS']),
+  IT: new Set(['MI']), ES: new Set(['MC']), DE: new Set(['DE', 'BE', 'DU', 'HM', 'HA', 'MU', 'F']),
+  CH: new Set(['SW']), AT: new Set(['VI']), PL: new Set(['WA']), CZ: new Set(['PR']), HU: new Set(['BD']),
+  TR: new Set(['IS']), IN: new Set(['NS', 'BO']), HK: new Set(['HK']), JP: new Set(['T']),
+  CN: new Set(['SS', 'SZ']), TW: new Set(['TW', 'TWO']), KR: new Set(['KS', 'KQ']), SG: new Set(['SI']),
+  MY: new Set(['KL']), ID: new Set(['JK']), TH: new Set(['BK']), AU: new Set(['AX']), NZ: new Set(['NZ']),
+  CA: new Set(['TO', 'V', 'CN', 'NE']), MX: new Set(['MX']), BR: new Set(['SA']), AR: new Set(['BA']),
+  CL: new Set(['SN']), ZA: new Set(['JO']), IL: new Set(['TA']), QA: new Set(['QA']), SA: new Set(['SR']),
+  EG: new Set(['CA']),
+}
+
+/** Exact directory symbol match, allowing only the country-proven Yahoo suffix for a saved bare symbol. */
+export function directoryTickerMatches(saved: unknown, returned: unknown, listingCountry?: string | null): boolean {
+  const wanted = cleanTicker(saved)
+  const actual = cleanTicker(returned)
+  if (!wanted || !actual) return false
+  const wantedNorm = normTicker(wanted)
+  const actualNorm = normTicker(actual)
+  if (wantedNorm === actualNorm) return true
+  if (baseTicker(wantedNorm) !== wantedNorm || baseTicker(actualNorm) !== wantedNorm) return false
+  const dot = actualNorm.lastIndexOf('.')
+  if (dot <= 0) return false
+  const allowed = DIRECTORY_SUFFIXES_BY_COUNTRY[String(listingCountry || '').trim().toUpperCase()]
+  return allowed?.has(actualNorm.slice(dot + 1)) === true
+}
+
 // ---- company-name normalisation ----
 
 // Legal-form suffixes stripped (repeatedly) off the END of a name to get its core identity. Deliberately
@@ -214,12 +245,12 @@ export async function searchSymbolsChecked(
     })
     if (!r.ok) return { status: 'unavailable', groups: [], reason: 'http_error', ...(typeof r.status === 'number' ? { httpStatus: r.status } : {}) }
     const j: any = await r.json().catch(() => null)
-    if (!j || typeof j !== 'object') return { status: 'unavailable', groups: [], reason: 'invalid_response' }
-    const quotes: SymbolQuote[] = Array.isArray(j?.quotes)
-      ? j.quotes
-          .filter((x: any) => x && x.quoteType === 'EQUITY' && typeof x.symbol === 'string' && x.symbol && (x.longname || x.shortname))
-          .map((x: any) => ({ symbol: String(x.symbol), name: String(x.longname || x.shortname), exchange: String(x.exchDisp || x.exchange || '') }))
-      : []
+    if (!j || typeof j !== 'object' || !Array.isArray(j.quotes)) {
+      return { status: 'unavailable', groups: [], reason: 'invalid_response' }
+    }
+    const quotes: SymbolQuote[] = j.quotes
+      .filter((x: any) => x && x.quoteType === 'EQUITY' && typeof x.symbol === 'string' && x.symbol && (x.longname || x.shortname))
+      .map((x: any) => ({ symbol: String(x.symbol), name: String(x.longname || x.shortname), exchange: String(x.exchDisp || x.exchange || '') }))
     const groups = groupQuotes(quotes)
     // As before, never cache an empty result: the legacy facade cannot distinguish a healthy empty
     // result from an outage, so pinning [] would preserve a transient failure for six hours.
