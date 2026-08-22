@@ -22,6 +22,7 @@ export function ToolsWorkspace() {
   const resultHeadingRef = useRef<HTMLHeadingElement | null>(null)
   const openerRef = useRef<HTMLElement | null>(null)
   const requestRef = useRef<AbortController | null>(null)
+  const copyTimeoutRef = useRef<number | null>(null)
   const [url, setUrl] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -65,6 +66,7 @@ export function ToolsWorkspace() {
     return () => {
       requestRef.current?.abort()
       requestRef.current = null
+      if (copyTimeoutRef.current !== null) window.clearTimeout(copyTimeoutRef.current)
       window.removeEventListener('keydown', onKey, true)
       requestAnimationFrame(() => openerRef.current?.focus())
     }
@@ -109,9 +111,14 @@ export function ToolsWorkspace() {
   const copyTranscript = async () => {
     if (!result?.transcript) return
     try {
+      if (!navigator.clipboard) throw new Error('Clipboard API unavailable')
       await navigator.clipboard.writeText(result.transcript)
       setCopied(true)
-      window.setTimeout(() => setCopied(false), 1800)
+      if (copyTimeoutRef.current !== null) window.clearTimeout(copyTimeoutRef.current)
+      copyTimeoutRef.current = window.setTimeout(() => {
+        copyTimeoutRef.current = null
+        setCopied(false)
+      }, 1800)
     } catch {
       setError('Could not copy automatically. Select the transcript and copy it manually.')
     }
@@ -120,6 +127,8 @@ export function ToolsWorkspace() {
   const reset = () => {
     requestRef.current?.abort()
     requestRef.current = null
+    if (copyTimeoutRef.current !== null) window.clearTimeout(copyTimeoutRef.current)
+    copyTimeoutRef.current = null
     setUrl('')
     setResult(null)
     setError(null)

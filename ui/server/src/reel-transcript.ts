@@ -268,7 +268,8 @@ async function defaultRun(binary: string, args: string[], signal?: AbortSignal):
     LANG: process.env.LANG || 'C.UTF-8',
   }
   for (const name of ['SystemRoot', 'WINDIR', 'TEMP', 'TMP', 'TMPDIR', 'USERPROFILE']) {
-    if (process.env[name]) safeEnv[name] = process.env[name]!
+    const value = process.env[name]
+    if (value) safeEnv[name] = value
   }
   let result
   try {
@@ -409,14 +410,13 @@ export async function purgeReelTempDirs(maxAgeMs = STALE_TEMP_AGE_MS): Promise<v
 }
 
 async function cleanupTempDir(tempDir: string): Promise<void> {
-  for (let attempt = 1; attempt <= 2; attempt += 1) {
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
     try {
       await fs.promises.rm(tempDir, { recursive: true, force: true })
       return
     } catch (cause) {
-      if (attempt === 2) {
+      if (attempt === 3) {
         console.error('[reel-transcript] temporary media cleanup failed', tempDir, cause)
-        throw new ReelTranscriptError('Temporary Reel media could not be removed safely.', 'reel-cleanup-failed', 500)
       }
     }
   }
