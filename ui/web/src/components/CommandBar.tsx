@@ -72,7 +72,7 @@ function AutoScanChip() {
       : 'Auto-scan off'
   const todayCopy = status ? todayOutcomeCopy(status.today) : null
   const title = status?.enabled
-    ? `The free scanner reads trusted news every ${status.intervalMin} min and scores each item. ${todayCopy ? `Today: ${todayCopy}.` : 'No completed look is recorded today.'} Click to watch it live.`
+    ? `The free scanner checks trusted news every ${status.intervalMin} min. ${todayCopy ? `Today: ${todayCopy}.` : 'No finished check is recorded today.'} Click to watch it live.`
     : 'The free scanner is off — it needs a (free) Groq key in the engine. Click to see the wire anyway.'
   return (
     <button className="autoscan" onClick={() => void openNewsFeed()} title={title}>
@@ -159,12 +159,12 @@ function PipelineChip() {
   const backlog = status?.backlog?.count ?? 0
   const readOnly = !!status?.readOnly
   const alert = backlog > 0 || readOnly
-  const label = readOnly ? 'Read-only' : backlog > 0 ? `${backlog.toLocaleString()} waiting` : 'Pipeline'
+  const label = readOnly ? 'View only' : backlog > 0 ? `${backlog.toLocaleString()} waiting` : 'Scanner'
   const title = readOnly
-    ? 'Another engine owns the scanner for this data dir — this one is read-only. Click for the full pipeline diagnostics.'
+    ? 'This copy is not running the scanner. Click to see its status.'
     : backlog > 0
-      ? `${backlog.toLocaleString()} item${backlog === 1 ? '' : 's'} waiting to be scored. Click to see every tier, the backlog, and exactly why.`
-      : 'Pipeline diagnostics — every scanner tier, the backlog, and why anything is waiting. End to end, no surprises.'
+      ? `${backlog.toLocaleString()} item${backlog === 1 ? '' : 's'} waiting to be checked. Click to see why.`
+      : 'News scanner status — see whether it is working, keeping up, or missing anything.'
   return (
     <button className={`diagpill${alert ? ' diagpill--alert' : ''}`} onClick={() => void openDiagnostics()} title={title}>
       <span className="diagpill__icon" aria-hidden>▚</span>

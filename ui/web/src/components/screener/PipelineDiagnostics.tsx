@@ -7,7 +7,7 @@
 // a live re-render can freeze a framer exit mid-slide). All colour comes from tokens; motion is
 // transform/opacity only, <300ms, and stilled under reduced-motion.
 
-import { useEffect, useId, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '../../lib/store'
 import type { DeferReason, LastResortState, NewsDiagnostics, TierDiagnostics, TierHealth } from '../../lib/types'
@@ -43,35 +43,35 @@ const ROLE_LABEL: Record<TierDiagnostics['role'], string> = {
 }
 
 const DEFER_WHY: Record<DeferReason, string> = {
-  aborted: 'the last check ran out of time; the rest were saved for another check',
-  'usage-ledger-unavailable': "this app can't read one or more provider usage files, so it paused safely",
-  'free-budget-spent': "this app's set daily limits could not fit another group",
-  'provider-day-limit': "one or more providers said today's limit is used, and no backup could take the work",
-  'provider-retry-held': 'one or more providers are waiting to try again after an error',
+  aborted: 'The last check ran out of time. The rest were saved for another try.',
+  'usage-ledger-unavailable': "The app can’t check how much of today’s service limits have been used, so it paused to avoid overspending.",
+  'free-budget-spent': 'The app has used its free amount for today.',
+  'provider-day-limit': 'A checking service has reached its daily limit, and no backup can take the work.',
+  'provider-retry-held': 'A checking service failed and is waiting to try again.',
   'groq-cooldown': 'Groq is waiting to try again after an error',
-  'allowance-paced': 'some use is saved for later today',
-  paced: 'some use is saved for later today',
-  'feed-cap': "today's durable news-feed capacity is full; queued work will retry after the UTC day rolls over",
-  'feed-write-failed': 'this app could not access or update the durable news feed; queued work remains for another try',
-  'inbox-withheld': 'kept work is waiting because its durable inbox clock could not be proved',
-  'storage-emergency': 'the scanner could not prove that every retry row reached durable storage; operator attention is required now',
-  'no-scoring-provider': 'no scoring provider is configured; already-scored recovery can finish, but unscored work remains queued',
-  'batch-failed': 'a provider call failed; this work was saved for another try',
+  'allowance-paced': 'The app is saving some of today’s use for later.',
+  paced: 'The app is saving some of today’s use for later.',
+  'feed-cap': 'Today’s results file is full. Waiting items will be tried again after midnight UTC.',
+  'feed-write-failed': 'The app could not save results. The work remains saved for another try.',
+  'inbox-withheld': 'Kept items are waiting because the app could not confirm when they were saved.',
+  'storage-emergency': 'The app could not confirm that every waiting item was saved. This needs attention now.',
+  'no-scoring-provider': 'No checking service is set up. Items that still need checking will remain waiting.',
+  'batch-failed': 'A checking service failed. This work was saved for another try.',
 }
 
 function deferWhy(reason: string): string {
-  return DEFER_WHY[reason as DeferReason] || 'the last look could not complete the remaining work; the details below show the current blockers'
+  return DEFER_WHY[reason as DeferReason] || 'The last check did not finish. The remaining work was saved for another try.'
 }
 
 const LAST_RESORT_WHY: Record<LastResortState, string> = {
-  off: 'the paid Haiku backup is off',
-  unavailable: "this app can't read the paid Haiku backup's usage",
-  scored: 'the paid Haiku backup is scoring the waiting work',
-  'usd-cap': "this app's daily Haiku dollar limit is used",
-  'plan-quota': 'the Claude plan limit is used; Haiku is waiting for it to reset',
-  'auth-expired': "the Claude sign-in has expired. Run `claude login` on the engine host.",
-  cooling: 'the paid Haiku backup is waiting to try again after an error',
-  available: 'the paid Haiku backup is ready to try',
+  off: 'The paid Haiku backup is off.',
+  unavailable: "The app can’t check today’s Haiku use.",
+  scored: 'The paid Haiku backup is checking the waiting work.',
+  'usd-cap': 'The app has used today’s Haiku spending limit.',
+  'plan-quota': 'The Claude plan limit has been used. Haiku is waiting for it to reset.',
+  'auth-expired': 'The Claude sign-in has expired. Run `claude login` on the scanner computer.',
+  cooling: 'The paid Haiku backup failed and is waiting to try again.',
+  available: 'The paid Haiku backup is ready.',
 }
 
 /** Look up the reason text, tolerating a state this bundle has never heard of. A NEWER engine can stream a
@@ -79,7 +79,7 @@ const LAST_RESORT_WHY: Record<LastResortState, string> = {
  *  would then render `undefined` — a blank where the explanation belongs. Fall back to saying plainly that
  *  the tier is held, rather than showing nothing. */
 function lastResortWhy(state: LastResortState): string {
-  return LAST_RESORT_WHY[state] || 'the paid Haiku backup is not scoring right now'
+  return LAST_RESORT_WHY[state] || 'The paid Haiku backup is not checking items right now.'
 }
 
 function TierRow({ tier, coolLeftMs }: { tier: TierDiagnostics; coolLeftMs: number }) {
@@ -87,10 +87,15 @@ function TierRow({ tier, coolLeftMs }: { tier: TierDiagnostics; coolLeftMs: numb
   const meter = tierMeter(tier)
   const tone = tier.spendingAllowed === false ? 'off' : HEALTH_TONE[tier.health]
   const status = tierStatusCopy(tier, coolLeftMs)
+  const meterLabel = meter.frac === -2
+    ? 'usage unknown'
+    : meter.frac < 0
+      ? `${(tier.requestsToday ?? 0).toLocaleString()} tries today`
+      : `${Math.round(meter.frac * 100)}% used today`
   const consecutive = tier.consecutiveFailures ?? tier.fails
-  const retryScope = tier.retryScope === 'triage' ? 'This hold applies only to triage work.' : tier.retryScope === 'shared' ? 'This provider-wide hold applies to every workload.' : ''
+  const retryScope = tier.retryScope === 'triage' ? 'Only news checking is paused.' : tier.retryScope === 'shared' ? 'This service is paused for all work.' : ''
   const nextAt = tier.nextEligibleAt && Number.isFinite(Date.parse(tier.nextEligibleAt))
-    ? `Next eligible at ${new Date(tier.nextEligibleAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}.`
+    ? `Next try at ${new Date(tier.nextEligibleAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}.`
     : ''
   const statusTitle = [status, retryScope, nextAt].filter(Boolean).join(' ')
   return (
@@ -106,29 +111,29 @@ function TierRow({ tier, coolLeftMs }: { tier: TierDiagnostics; coolLeftMs: numb
         <span className="diagtier__role">{tier.id === 'local' ? `${ROLE_LABEL[tier.role]} · no daily limit` : ROLE_LABEL[tier.role]}</span>
         {/* an unlimited tier (local primary brain) has no cap to meter — show "∞ no cap" instead of a bar */}
         {meter.frac === -2 ? (
-          <span className="diagtier__unlimited" title="The durable usage record needs attention">—</span>
+          <span className="diagtier__unlimited" title="The saved usage record needs attention">—</span>
         ) : meter.frac < 0 ? (
-          <span className="diagtier__unlimited" style={{ color: c }} title="unlimited — no daily cap, processes 24×7">∞ no cap</span>
+          <span className="diagtier__unlimited" style={{ color: c }} title="No daily limit">∞ no daily limit</span>
         ) : (
           <span className="diagtier__bar" aria-hidden>
             <span className="diagtier__fill" style={{ transform: `scaleX(${meter.frac})`, background: c }} />
           </span>
         )}
-        <span className="diagtier__val mono">{tier.enabled ? meter.label : 'disabled'}</span>
+        <span className="diagtier__val">{tier.enabled ? meterLabel : 'off'}</span>
         {typeof tier.lastCycleRequests === 'number' && tier.lastCycleRequests > 0 && (
-          <span className="diagtier__last" title="batches this tier scored in the most recent look">· {tier.lastCycleRequests} this look</span>
+          <span className="diagtier__last" title="Groups checked by this service in the latest check">· {tier.lastCycleRequests} last time</span>
         )}
       </div>
       {(typeof tier.triageAttemptsToday === 'number' || (typeof tier.failuresToday === 'number' && tier.failuresToday > 0) || (typeof consecutive === 'number' && consecutive > 0)) && (
         <div className="diagtier__stats">
           {typeof tier.triageAttemptsToday === 'number' && (
-            <span className="diagtier__work" title="Actual provider calls made by triage today, including in-call retries">{typeof tier.triageScoredBatchesToday === 'number' ? `${tier.triageScoredBatchesToday} batches scored · ${tier.triageAttemptsToday} calls today` : `${tier.triageAttemptsToday} triage calls today`}</span>
+            <span className="diagtier__work" title="Tries made by this service today, including retries">{typeof tier.triageScoredBatchesToday === 'number' ? `${tier.triageScoredBatchesToday} groups checked · ${tier.triageAttemptsToday} tries today` : `${tier.triageAttemptsToday} tries today`}</span>
           )}
           {typeof tier.failuresToday === 'number' && tier.failuresToday > 0 && (
-            <span className="diagtier__fails" title="Failed provider attempts recorded today">{tier.failuresToday} failed today</span>
+            <span className="diagtier__fails" title="Failed tries today">{tier.failuresToday} failed today</span>
           )}
           {typeof consecutive === 'number' && consecutive > 0 && (
-            <span className="diagtier__fails" title="Consecutive failures in the current streak; not a daily total">{consecutive} consecutive</span>
+            <span className="diagtier__fails" title="Failures in a row">{consecutive} in a row</span>
           )}
         </div>
       )}
@@ -156,14 +161,14 @@ function BacklogGauge({
   const retired = b.retiredToday ?? 0
   const retiredAlert = retired > 0 ? (
     <div className="diagbacklog__lost" role="alert">
-      {dailyLossTotalsLowerBound ? 'At least ' : ''}{retired.toLocaleString()} item{retired === 1 ? '' : 's'} retired today — waited longer than the backlog’s age bound, so they were never scored. The scanner is behind, not the sources.
+      {dailyLossTotalsLowerBound ? 'At least ' : ''}{retired.toLocaleString()} item{retired === 1 ? '' : 's'} were missed today because they waited too long to be checked. The scanner fell behind.
     </div>
   ) : null
   const lossProofAlert = dailyLossTotalsUnverified ? (
     <div className="diagbacklog__lost" role="alert">
       {dailyLossTotalsLowerBound
-        ? 'Daily loss totals are incomplete — known lost and retired counts are lower bounds.'
-        : 'Daily loss totals are not fully verified by this report.'}
+        ? 'The true number of missed items may be higher than shown.'
+        : 'Today’s missed-item total could not be fully checked.'}
     </div>
   ) : null
   if (b.unavailable) {
@@ -171,12 +176,12 @@ function BacklogGauge({
       <div className="diagbacklog is-unavailable" role="status">
         <div className="diagbacklog__top">
           <span className="diagbacklog__count mono">—</span>
-          <span className="diagbacklog__of">waiting list</span>
+          <span className="diagbacklog__of">items waiting</span>
         </div>
-        <div className="diagbacklog__note">Can’t read the saved waiting list. Needs attention.</div>
+        <div className="diagbacklog__note">The app can’t read the saved waiting list. This needs attention.</div>
         {b.lostToday > 0 && (
           <div className="diagbacklog__lost" role="alert">
-            {dailyLossTotalsLowerBound ? 'At least ' : ''}{b.lostToday.toLocaleString()} item{b.lostToday === 1 ? '' : 's'} lost today.
+            {dailyLossTotalsLowerBound ? 'At least ' : ''}{b.lostToday.toLocaleString()} item{b.lostToday === 1 ? '' : 's'} were missed today.
           </div>
         )}
         {retiredAlert}
@@ -185,29 +190,29 @@ function BacklogGauge({
     )
   }
   const frac = b.cap > 0 ? Math.min(1, b.count / b.cap) : 0
-  const trend = b.trend === 'growing' ? '↑ growing' : b.trend === 'shrinking' ? '↓ shrinking' : b.trend === 'flat' ? '→ steady' : ''
+  const trend = b.trend === 'growing' ? '↑ getting longer' : b.trend === 'shrinking' ? '↓ getting shorter' : b.trend === 'flat' ? '→ unchanged' : ''
   return (
     <div className={`diagbacklog${b.nearLimit ? ' is-near' : ''}`}>
       <div className="diagbacklog__top">
         <span className="diagbacklog__count mono">{b.count.toLocaleString()}</span>
-        <span className="diagbacklog__of">waiting · {b.cap.toLocaleString()} active window</span>
+        <span className="diagbacklog__of">item{b.count === 1 ? '' : 's'} waiting{b.count > 0 ? ` · ${b.cap.toLocaleString()} checked at a time` : ''}</span>
         {trend && <span className="diagbacklog__trend" data-dir={b.trend ?? 'flat'}>{trend}</span>}
       </div>
       <span className="diagbacklog__bar" aria-hidden><span className="diagbacklog__fill" style={{ transform: `scaleX(${frac})` }} /></span>
       <div className="diagbacklog__note">
         {storageEmergency
-          ? 'Queue depth is not complete — at least one recent retry row could not be proved in durable storage.'
+          ? 'This number may be wrong because the app could not confirm that every waiting item was saved.'
           : b.nearLimit
-          ? `The ${b.cap.toLocaleString()}-item active work window is near or at capacity (${b.pctOfCap}%). Excess rows stay in durable overflow and replay later.`
+          ? `Almost full. The app can work through ${b.cap.toLocaleString()} waiting items at a time. Extra items stay saved for later.`
           : b.count === 0
-            ? 'Caught up — nothing waiting to be scored.'
-            : `Held safely for the next look (${b.pctOfCap}% of the ${b.cap.toLocaleString()}-item active work window).`}
+            ? 'All caught up.'
+            : 'These items are saved for the next check.'}
       </div>
       {/* PERSISTENT legacy loss alert: rolling-deploy summaries may still report rows dropped by the old
           cap-slicing worker. Keyed on the cumulative daily count so later recovery cannot hide prior loss. */}
       {b.lostToday > 0 && (
         <div className="diagbacklog__lost" role="alert">
-          {dailyLossTotalsLowerBound ? 'At least ' : ''}{b.lostToday.toLocaleString()} item{b.lostToday === 1 ? '' : 's'} lost today — dropped past the {b.cap.toLocaleString()} cap, not deferred; gone once the source window ages out.
+          {dailyLossTotalsLowerBound ? 'At least ' : ''}{b.lostToday.toLocaleString()} item{b.lostToday === 1 ? '' : 's'} were missed today before they could be checked.
         </div>
       )}
       {retiredAlert}
@@ -221,8 +226,6 @@ export function PipelineDiagnostics() {
   const diag = useStore((s) => s.newsDiagnostics)
   const refresh = useStore((s) => s.refreshDiagnostics)
   const [booted, setBooted] = useState(false)
-  const inflowDescriptionId = useId()
-  const scanningDescriptionId = useId()
 
   // panel-local poll (guarded, cleared on unmount) — belt-and-braces over the per-cycle SSE refresh
   useEffect(() => {
@@ -260,10 +263,10 @@ export function PipelineDiagnostics() {
 
   const statusLine = useMemo(() => {
     if (!diag) return ''
-    if (diag.readOnly) return 'Read-only — another engine owns the scanner for this data dir'
+    if (diag.readOnly) return 'View only — this copy is not running the scanner'
     if (!diag.enabled) return 'Scanner is off'
-    if (diag.running) return 'Looking now…'
-    return diag.nextCycleAt ? `Next look ${until(diag.nextCycleAt)}` : 'Idle'
+    if (diag.running) return 'Checking now…'
+    return diag.nextCycleAt ? `Next check ${until(diag.nextCycleAt)}` : 'Waiting for the next check'
   }, [diag])
 
   const lc = diag?.lastCycle
@@ -279,8 +282,8 @@ export function PipelineDiagnostics() {
     <motion.div className="diag" initial={{ x: '100%' }} animate={{ x: 0 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
       <div className="diag__head">
         <div style={{ minWidth: 0 }}>
-          <div className="diag__title">Pipeline diagnostics</div>
-          <div className="diag__sub">Every scanner tier, the backlog, and exactly why anything is waiting — end to end, no surprises.</div>
+          <div className="diag__title">News scanner</div>
+          <div className="diag__sub">Checks incoming news and keeps the useful items. See whether it is working, keeping up, or missing anything.</div>
         </div>
         <div className="diag__tools">
           <button className="btn btn--ghost diag__mini" onClick={() => void refresh()} title="Refresh">↻</button>
@@ -290,7 +293,7 @@ export function PipelineDiagnostics() {
 
       {!booted && !diag ? (
         <div className="diag__body">
-          <div className="diag__sec"><div className="diag__sechead">Loading the pipeline…</div>
+          <div className="diag__sec"><div className="diag__sechead">Loading scanner status…</div>
             {[0, 1, 2, 3].map((i) => <div key={i} className="diag__skel" style={{ animationDelay: `${i * 45}ms` }} />)}
           </div>
         </div>
@@ -300,34 +303,33 @@ export function PipelineDiagnostics() {
         </div>
       ) : (
         <div className="diag__body">
-          {/* status strip */}
-          <div className="diag__strip">
-            <span className={`diag__pulse${diag.running ? ' is-on' : ''}`} aria-hidden />
-            <span className="diag__stripline">{statusLine}</span>
-            {todayCopy && <span className="diag__today mono">{todayCopy}</span>}
-          </div>
+          <section className="diag__sec">
+            <div className="diag__sechead">Is it working?</div>
+            <div className="diag__strip">
+              <span className={`diag__pulse${diag.enabled && diag.running ? ' is-on' : ''}`} aria-hidden />
+              <span className="diag__stripline">{statusLine}</span>
+              {todayCopy && <span className="diag__today">Today: {todayCopy}</span>}
+            </div>
+          </section>
 
-          {/* Like-for-like queue flow at the top: genuinely new triage items in, scored queue outcomes out.
-              The fixed 60-minute denominator prevents a quiet minute from looking artificially fast. */}
-          <section className="diagrate" data-tone={flowView.tone} aria-label="Trailing pipeline flow rates">
-            <div className="diagrate__metrics">
-              <div className="diagrate__metric" aria-describedby={inflowDescriptionId}>
-                <span className="diagrate__label">Average data inflow / second</span>
-                <span className="diagrate__reading"><b className="mono">{flowView.inflowRate}</b><span>items/s</span></span>
-                <span className="diagrate__definition" id={inflowDescriptionId}>Unique new queue arrivals. Redelivery and carried backlog are excluded.</span>
+          <section className="diag__sec">
+            <div className="diag__sechead">Is it keeping up?</div>
+            <div className="diagrate" data-tone={flowView.tone} aria-label="Can the news scanner keep up?">
+              <div className="diagrate__metrics">
+                <div className="diagrate__metric">
+                  <span className="diagrate__label">New items</span>
+                  <span className="diagrate__reading"><b>{flowView.inflowRate}</b><span>per hour</span></span>
+                </div>
+                <div className="diagrate__metric">
+                  <span className="diagrate__label">Items checked</span>
+                  <span className="diagrate__reading"><b>{flowView.scanningRate}</b><span>per hour</span></span>
+                </div>
               </div>
-              <div className="diagrate__metric" aria-describedby={scanningDescriptionId}>
-                <span className="diagrate__label">Average data scanning / second</span>
-                <span className="diagrate__reading"><b className="mono">{flowView.scanningRate}</b><span>items/s</span></span>
-                <span className="diagrate__definition" id={scanningDescriptionId}>Durably saved pick, watch, or drop outcomes. Age-based retirement and legacy loss are excluded.</span>
+              <div className="diagrate__gap" role="status">
+                <strong>{flowView.gapCopy}</strong>
               </div>
+              <div className="diagrate__coverage">{flowView.coverageCopy}</div>
             </div>
-            <div className="diagrate__rule"><span>Scanning must stay</span><b aria-label="greater than">&gt;</b><span>inflow</span></div>
-            <div className="diagrate__gap" role="status">
-              <span>Queue-pressure / capacity gap</span>
-              <strong>{flowView.gapCopy}</strong>
-            </div>
-            <div className="diagrate__coverage">{flowView.coverageCopy}</div>
           </section>
 
           {/* A REJECTED CREDENTIAL, ABOVE EVERYTHING ELSE. Every other state on this panel resolves itself
@@ -340,18 +342,18 @@ export function PipelineDiagnostics() {
               <div className="diagwhy is-alert" role="alert">
                 <div className="diagwhy__head">
                   <span aria-hidden>⚠</span>
-                  <span>{credentialBlocked.map((t) => t.label).join(', ')}: key rejected</span>
+                  <span>{credentialBlocked.map((t) => t.label).join(', ')} needs a working key</span>
                 </div>
                 <ul className="diagwhy__list">
                   {credentialBlocked.map((t) => (
                     <li key={t.id}>
-                      {t.label} — the provider is refusing this key{t.failingForMs != null ? `, failing for ${fmtFailingFor(t.failingForMs)}` : ''}
-                      {t.triageScoredBatchesToday === 0 ? ' with nothing scored today' : ''}.
-                      {t.keyEnvVar ? ` Check ${t.keyEnvVar} on the engine host.` : ' Check its API key on the engine host.'}
+                      {t.label} cannot sign in{t.failingForMs != null ? ` and has failed for ${fmtFailingFor(t.failingForMs)}` : ''}
+                      {t.triageScoredBatchesToday === 0 ? ', so it has checked nothing today' : ''}.
+                      {t.keyEnvVar ? ` Replace ${t.keyEnvVar} on the scanner computer.` : ' Replace its API key on the scanner computer.'}
                     </li>
                   ))}
                 </ul>
-                <div className="diagwhy__foot">Retrying cannot fix this — the countdown beside each one is only when the engine will next check.</div>
+                <div className="diagwhy__foot">Waiting will not fix this.</div>
               </div>
             </section>
           )}
@@ -363,24 +365,23 @@ export function PipelineDiagnostics() {
                 <div className="diagwhy__head">
                   <span aria-hidden>⚠</span>
                   <span>{storageEmergency
-                    ? 'Retry queue durability needs attention'
+                    ? 'Saved waiting items need attention'
                     : `${diag.backlog.count.toLocaleString()} item${diag.backlog.count === 1 ? '' : 's'} waiting`}</span>
                 </div>
                 <ul className="diagwhy__list">
                   {deferReasons.map((reason) => <li key={reason}>{deferWhy(reason)}</li>)}
-                  {diag.defer.plainNote && <li>Latest look: {diag.defer.plainNote}</li>}
                   {diag.defer.lastResort && diag.defer.lastResort !== 'scored' && diag.defer.lastResort !== 'available' && (
                     <li>{lastResortWhy(diag.defer.lastResort)}</li>
                   )}
                 </ul>
-                <div className="diagwhy__foot">See each provider below.</div>
+                <div className="diagwhy__foot">See each checking service below.</div>
               </div>
             </section>
           )}
 
       {/* backlog gauge — durable retry depth vs the active work window */}
           <section className="diag__sec">
-            <div className="diag__sechead">Items waiting</div>
+            <div className="diag__sechead">Is anything waiting or missed?</div>
             <BacklogGauge
               b={diag.backlog}
               dailyLossTotalsLowerBound={diag.today.totalsLowerBound === true && diag.today.durablyCommitted === true}
@@ -390,42 +391,42 @@ export function PipelineDiagnostics() {
           </section>
 
           {/* the fallback ladder — Groq → overflow → Gemini → Haiku */}
-          <section className="diag__sec">
-            <div className="diag__sechead">Providers <span className="diag__count">{diag.tiers.length}</span></div>
+          <details className="diagdetails">
+            <summary>Checking services <span className="diag__count">{diag.tiers.length}</span></summary>
             <div className="diag__tiers">
               {diag.tiers.map((t) => <TierRow key={t.id} tier={t} coolLeftMs={coolLeft(t)} />)}
             </div>
-            <div className="diag__hint">These bars show how much this app has used. They are not live limits from the provider.</div>
-            {diag.tiers.length === 0 && <div className="diag__hint">No scoring tiers configured — configure any supported local or cloud provider to turn the scanner on.</div>}
-          </section>
+            <div className="diag__hint">The bars show how much of this app’s daily limit has been used.</div>
+            {diag.tiers.length === 0 && <div className="diag__hint">No checking service is set up, so the scanner cannot run.</div>}
+          </details>
 
           {/* last look — the flow */}
           {lc && (
             <section className="diag__sec">
-              <div className="diag__sechead">Last look <span className="diag__count">{lc.phase === 'drain' ? 'backlog drain' : 'fetch'}{lc.aborted ? ' · timed out' : ''}</span></div>
+              <div className="diag__sechead">Most recent check <span className="diag__count">{lc.phase === 'drain' ? 'waiting items' : 'new items'}{lc.aborted ? ' · ran out of time' : ''}</span></div>
               <div className="diagflow">
-                <span className="diagflow__step"><b className="mono">{lc.fetched.toLocaleString()}</b> read</span>
+                <span className="diagflow__step"><b className="mono">{lc.fetched.toLocaleString()}</b> found</span>
                 <span className="diagflow__arrow" aria-hidden>→</span>
                 <span className="diagflow__step">
-                  <b className="mono">{lc.candidates.toLocaleString()}</b> to score
+                  <b className="mono">{lc.candidates.toLocaleString()}</b> checked
                   {lastCycleArrival && <span className="diagflow__split"> ({lastCycleArrival})</span>}
                 </span>
                 <span className="diagflow__arrow" aria-hidden>→</span>
                 <span className="diagflow__step">
                   {lc.durablyCommitted === true ? <>
-                    <b className="mono diagflow__kept">{(lc.picked + lc.watched).toLocaleString()}</b> inbox-eligible · <b className="mono">{lc.dropped.toLocaleString()}</b> dropped
+                    <b className="mono diagflow__kept">{(lc.picked + lc.watched).toLocaleString()}</b> kept · <b className="mono">{lc.dropped.toLocaleString()}</b> ignored
                   </> : <>
-                    legacy report: <b className="mono diagflow__kept">{(lc.picked + lc.watched).toLocaleString()}</b> inbox-eligible · <b className="mono">{lc.dropped.toLocaleString()}</b> dropped · feed durability unverified
+                    reported: <b className="mono diagflow__kept">{(lc.picked + lc.watched).toLocaleString()}</b> kept · <b className="mono">{lc.dropped.toLocaleString()}</b> ignored · saved results not fully checked
                   </>}
                 </span>
                 {lc.deferred !== null && lc.deferred > 0 && (
-                  <><span className="diagflow__arrow" aria-hidden>→</span><span className="diagflow__step diagflow__deferred"><b className="mono">{lc.deferred.toLocaleString()}</b> deferred</span></>
+                  <><span className="diagflow__arrow" aria-hidden>→</span><span className="diagflow__step diagflow__deferred"><b className="mono">{lc.deferred.toLocaleString()}</b> saved for later</span></>
                 )}
               </div>
               {lc.scoredBy.length > 0 && (
                 <div className="diagflow__by">
-                  scored by {lc.scoredBy.map((s, i) => <span key={s.id}>{i > 0 ? ' · ' : ''}<b>{s.label}</b> {s.requests}</span>)}
-                  {typeof lc.anthropicCostUsd === 'number' && lc.anthropicCostUsd > 0 && <span className="diagflow__cost"> · Haiku ${lc.anthropicCostUsd.toFixed(3)}</span>}
+                  checked using {lc.scoredBy.map((s, i) => <span key={s.id}>{i > 0 ? ' · ' : ''}<b>{s.label}</b> {s.requests}</span>)}
+                  {typeof lc.anthropicCostUsd === 'number' && lc.anthropicCostUsd > 0 && <span className="diagflow__cost"> · Haiku cost ${lc.anthropicCostUsd.toFixed(3)}</span>}
                 </div>
               )}
             </section>
