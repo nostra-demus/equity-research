@@ -2382,7 +2382,11 @@ export interface CallTimelineEntry {
   review_date?: string
   review_price?: number | null
   absolute_return_pct?: number | null
+  benchmark_relative_return_pct?: number | null
   thesis_status?: string | null
+  decision_quality?: string | null
+  thesis_delta_verdict?: string | null
+  memo_delta_summary?: string | null
   forecasts_confirmed?: number
   forecasts_falsified?: number
   review_file?: string

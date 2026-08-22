@@ -67,14 +67,24 @@
 .flag--warn { color: var(--accent-bright); }
 .flag--past { color: var(--text-faint); }
 
-.callcard__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; margin: 12px 0 2px; font-size: 12px; color: var(--text-muted); }
-.callcard__meta b { color: var(--text); font-weight: 600; }
 .pos { color: var(--accent-bright); } .neg { color: var(--bad); }
 
-.statuschip { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; }
-.statuschip .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
-.callcard__latest { margin-top: 10px; padding: 9px 11px; border-left: 2px solid var(--accent); border-radius: 0 var(--r-sm) var(--r-sm) 0; background: var(--surface-1); color: var(--text-muted); font-size: 11.5px; line-height: 1.5; }
-.callcard__latest span { display: block; margin-bottom: 2px; color: var(--text-faint); font-size: 9.5px; font-weight: 700; letter-spacing: 0.35px; text-transform: uppercase; }
+/* The answer-first scorecard: original call → observed result → present read → next checkpoint. */
+.calltrack { margin-top: 13px; border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-1); overflow: hidden; }
+.calltrack__original { margin: 0; padding: 10px 12px; color: var(--text); font-size: 12.5px; line-height: 1.45; border-bottom: 1px solid var(--hairline); }
+.calltrack__original::before { content: 'Original call'; display: block; margin-bottom: 2px; color: var(--text-faint); font-size: 9px; font-weight: 700; letter-spacing: 0.45px; text-transform: uppercase; }
+.calltrack__grid { display: grid; grid-template-columns: 1.15fr 1.35fr 1fr; }
+.calltrack__cell { min-width: 0; display: flex; flex-direction: column; gap: 4px; padding: 11px 12px; border-left: 1px solid var(--hairline); }
+.calltrack__cell:first-child { border-left: none; }
+.calltrack__label, .calltrack__evidence > span { color: var(--text-faint); font-size: 9px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; }
+.calltrack__cell strong { color: var(--text); font-size: 13px; line-height: 1.3; }
+.calltrack__cell small { color: var(--text-faint); font-size: 10.5px; line-height: 1.35; }
+.calltrack__metric { font-size: 11px; font-weight: 650; }
+.tone--good { color: var(--accent-bright) !important; }
+.tone--bad { color: var(--bad) !important; }
+.tone--neutral { color: var(--text-muted) !important; }
+.calltrack__evidence { padding: 10px 12px 11px; border-top: 1px solid var(--hairline); }
+.calltrack__evidence p { display: -webkit-box; margin: 4px 0 0; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 4; color: var(--text-muted); font-size: 11.5px; line-height: 1.48; }
 
 /* timeline: a base line + an amber fill that reaches "now", with a dot per checkpoint */
 .tl { position: relative; margin-top: 18px; }
@@ -110,5 +120,8 @@
   .calls__count { text-align: left; }
   .callcard__top { align-items: flex-start; }
   .callcard__id { flex-wrap: wrap; }
+  .calltrack__grid { grid-template-columns: 1fr; }
+  .calltrack__cell { border-left: none; border-top: 1px solid var(--hairline); }
+  .calltrack__cell:first-child { border-top: none; }
   .callcard__hint { width: 100%; margin-left: 0; white-space: normal; }
 }

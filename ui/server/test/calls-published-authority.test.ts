@@ -44,7 +44,8 @@ const memoName = '2026-08-13_30d_memo_delta.md'
 write(`${olderRoot}/reviews/${memoName}`, '# ACME memo delta\n\nThe operating evidence improved.\n')
 write(`${olderRoot}/reviews/${reviewName}`, JSON.stringify({
   review_window: '30d', review_date: '2026-08-13', review_price: 110,
-  absolute_return_pct: 10, thesis_status: 'confirmed',
+  absolute_return_pct: 10, benchmark_relative_return_pct: 6.5,
+  thesis_status: 'confirmed', decision_quality: 'skill',
   forecast_results: [{ status: 'confirmed' }],
   memo_delta: {
     summary: 'The operating evidence improved.', thesis_delta_verdict: 'strengthened',
@@ -100,6 +101,18 @@ assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)?.revie
   'a locally absent published review remains completed')
 assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)
   ?.timeline.find((row: any) => row.window === '30d')?.status, 'done')
+assert.deepEqual(
+  dirty.calls.find((call: any) => call.run_root === olderRoot)?.timeline.find((row: any) => row.window === '30d'),
+  {
+    window: '30d', due_date: '2026-08-13', status: 'done', review_date: '2026-08-13',
+    review_price: 110, absolute_return_pct: 10, benchmark_relative_return_pct: 6.5,
+    thesis_status: 'confirmed', decision_quality: 'skill', forecasts_confirmed: 1,
+    forecasts_falsified: 0, review_file: `${olderRoot}/reviews/${reviewName}`, review_count: 1,
+    memo_delta_file: `${olderRoot}/reviews/${memoName}`,
+    memo_delta_summary: 'The operating evidence improved.', thesis_delta_verdict: 'strengthened',
+  },
+  'the published checkpoint carries the scorecard result, benchmark delta, and plain-English evidence',
+)
 assert.equal(dirty.dashboard, 'analyses/tracking/2026-08-13_calls_tracker.md')
 assert.equal(dirty.authority_commit, publishedCommit)
 assert.equal(dirty.updates.filter((row: any) => row.kind === 'review').length, 1)
