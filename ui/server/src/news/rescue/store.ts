@@ -4,6 +4,8 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { countryFromExchange } from '../equity-quote'
+import { coreCompanyName, directoryTickerIdentityKey } from '../symbology'
 import type { FeedItem } from '../types'
 import type { RescueCandidate, RescuePool, RescueRankInputs } from './selector'
 
@@ -18,6 +20,7 @@ const AUDIT_LINE_MAX_BYTES = 2 * 1024
 export const RESCUE_QUEUE_WRITE_ERROR = 'The app could not save the second-look queue.'
 export const RESCUE_QUEUE_PENDING_WRITE_ERROR = 'The app could not retain rows omitted from the second-look queue.'
 export const RESCUE_RESERVATION_WRITE_ERROR = 'The app could not reserve a second-look check.'
+export const RESCUE_QUEUE_OVERFLOW_ERROR = 'The saved second-look queue reached its safety limit.'
 
 export type RescueIdentityStatus = 'verified' | 'identity_unresolved' | 'directory_unavailable'
 export type RescueReviewReasonCode =
@@ -76,6 +79,8 @@ export interface RescueRuntimeHealth {
   last_directory_status: RescueIdentityStatus | null
   normal_ideas_ready: boolean
   normal_ideas_reason: string | null
+  /** First instant of the current overflow. It cannot be cleared until every omitted row is too old. */
+  queue_overflow_at: string | null
 }
 
 const stateRoot = (stateDir: string): string => path.join(stateDir, ROOT)
@@ -90,11 +95,26 @@ function directorySyncUnsupported(error: unknown): boolean {
   return ['EINVAL', 'ENOTSUP', 'EOPNOTSUPP', 'ENOSYS'].includes(code)
 }
 
-function atomicWriteJson(file: string, value: unknown, maxBytes: number): boolean {
+function syncDirectory(dir: string): void {
+  try {
+    const fd = fs.openSync(dir, 'r')
+    try { fs.fsyncSync(fd) } finally { fs.closeSync(fd) }
+  } catch (error) {
+    // Some filesystems do not implement directory fsync. Ignore only that explicit platform
+    // limitation; EIO and other real durability failures must close second-look admission.
+    if (!directorySyncUnsupported(error)) throw error
+  }
+}
+
+function atomicWriteJson(stateDir: string, file: string, value: unknown, maxBytes: number): boolean {
   let body: string
   try { body = `${JSON.stringify(value)}\n` } catch { return false }
   if (Buffer.byteLength(body, 'utf8') > maxBytes) return false
-  const dir = path.dirname(file)
+  const boundary = path.resolve(stateDir)
+  const dir = path.resolve(path.dirname(file))
+  const relative = path.relative(boundary, dir)
+  if (relative.startsWith('..') || path.isAbsolute(relative)) return false
+  const boundaryExisted = fs.existsSync(boundary)
   const temp = `${file}.tmp-${process.pid}-${Date.now()}`
   let fd: number | undefined
   try {
@@ -105,14 +125,15 @@ function atomicWriteJson(file: string, value: unknown, maxBytes: number): boolea
     fs.closeSync(fd)
     fd = undefined
     fs.renameSync(temp, file)
-    try {
-      const parent = fs.openSync(dir, 'r')
-      try { fs.fsyncSync(parent) } finally { fs.closeSync(parent) }
-    } catch (error) {
-      // Some filesystems do not implement directory fsync. Ignore only that explicit platform
-      // limitation; EIO and other real durability failures must close second-look admission.
-      if (!directorySyncUnsupported(error)) throw error
+    // Prove every directory entry created by the recursive mkdir, not just the file's immediate
+    // parent. On a first deployment this includes stateDir/news-rescue in stateDir itself.
+    let current = dir
+    for (;;) {
+      syncDirectory(current)
+      if (current === boundary) break
+      current = path.dirname(current)
     }
+    if (!boundaryExisted) syncDirectory(path.dirname(boundary))
     return true
   } catch {
     return false
@@ -265,15 +286,25 @@ export function recordRescueRows(stateDir: string, rows: readonly FeedItem[], no
   const retained = [...retainedById.values()]
     .sort((left, right) => String(left.found_at || left.ts).localeCompare(String(right.found_at || right.ts)))
   if (retained.length > RESCUE_QUEUE_MAX_ITEMS) {
-    updateRescueHealth(stateDir, { audit_healthy: false, audit_error: 'The saved second-look queue reached its safety limit.' }, now)
+    const health = readRescueHealth(stateDir)
+    updateRescueHealth(stateDir, {
+      audit_healthy: false,
+      audit_error: RESCUE_QUEUE_OVERFLOW_ERROR,
+      queue_overflow_at: health.audit_error === RESCUE_QUEUE_OVERFLOW_ERROR && health.queue_overflow_at
+        ? health.queue_overflow_at
+        : new Date(now).toISOString(),
+    }, now)
     return false
   }
   // Stage every not-yet-committed row before replacing the main queue. If the queue replacement fails,
   // the next call must merge this exact batch rather than silently clearing the error with later rows.
-  if (retained.length && !atomicWriteJson(queuePendingFile(stateDir), {
+  if (retained.length && !atomicWriteJson(stateDir, queuePendingFile(stateDir), {
     v: 1, updated_at: new Date(now).toISOString(), items: retained,
   }, RESCUE_QUEUE_MAX_BYTES)) {
-    updateRescueHealth(stateDir, { audit_healthy: false, audit_error: RESCUE_QUEUE_PENDING_WRITE_ERROR }, now)
+    const health = readRescueHealth(stateDir)
+    if (health.audit_error !== RESCUE_QUEUE_OVERFLOW_ERROR) {
+      updateRescueHealth(stateDir, { audit_healthy: false, audit_error: RESCUE_QUEUE_PENDING_WRITE_ERROR }, now)
+    }
     return false
   }
   const byId = new Map<string, FeedItem>()
@@ -285,17 +316,27 @@ export function recordRescueRows(stateDir: string, rows: readonly FeedItem[], no
   }
   const items = [...byId.values()].sort((left, right) => String(left.found_at || left.ts).localeCompare(String(right.found_at || right.ts)))
   if (items.length > RESCUE_QUEUE_MAX_ITEMS) {
-    updateRescueHealth(stateDir, { audit_healthy: false, audit_error: 'The saved second-look queue reached its safety limit.' }, now)
+    const health = readRescueHealth(stateDir)
+    updateRescueHealth(stateDir, {
+      audit_healthy: false,
+      audit_error: RESCUE_QUEUE_OVERFLOW_ERROR,
+      queue_overflow_at: health.audit_error === RESCUE_QUEUE_OVERFLOW_ERROR && health.queue_overflow_at
+        ? health.queue_overflow_at
+        : new Date(now).toISOString(),
+    }, now)
     return false
   }
-  const ok = atomicWriteJson(queueFile(stateDir), { v: 1, updated_at: new Date(now).toISOString(), items }, RESCUE_QUEUE_MAX_BYTES)
+  const ok = atomicWriteJson(stateDir, queueFile(stateDir), { v: 1, updated_at: new Date(now).toISOString(), items }, RESCUE_QUEUE_MAX_BYTES)
   // A healthy queue write cannot clear an unrelated day-ledger/monthly-audit failure. Those failures
   // stay closed until their own authority is repaired; otherwise a later ingest cycle could reopen the
   // lane before the pending detailed record is safe.
-  if (!ok) updateRescueHealth(stateDir, {
-    audit_healthy: false,
-    audit_error: RESCUE_QUEUE_WRITE_ERROR,
-  }, now)
+  if (!ok) {
+    const health = readRescueHealth(stateDir)
+    if (health.audit_error !== RESCUE_QUEUE_OVERFLOW_ERROR) updateRescueHealth(stateDir, {
+      audit_healthy: false,
+      audit_error: RESCUE_QUEUE_WRITE_ERROR,
+    }, now)
+  }
   else {
     // A stale pending file is harmless because the main queue now contains all of its rows. Remove it
     // best-effort; if unlinking fails, the next call deterministically merges and deduplicates it again.
@@ -303,8 +344,16 @@ export function recordRescueRows(stateDir: string, rows: readonly FeedItem[], no
     // A later successful write is the proof that this queue authority recovered. It may clear only its
     // own transient error; monthly/day-ledger failures remain closed until their repair path proves them.
     const health = readRescueHealth(stateDir)
-    if (!health.audit_healthy && health.audit_error === RESCUE_QUEUE_WRITE_ERROR) {
-      updateRescueHealth(stateDir, { audit_healthy: true, audit_error: null }, now)
+    const overflowAt = Date.parse(health.queue_overflow_at || '')
+    const overflowWindowRetired = health.audit_error === RESCUE_QUEUE_OVERFLOW_ERROR
+      && Number.isFinite(overflowAt)
+      && now - overflowAt > Math.max(1, maxAgeHrs) * 3_600_000 + 5 * 60_000
+    if (!health.audit_healthy && (health.audit_error === RESCUE_QUEUE_WRITE_ERROR || overflowWindowRetired)) {
+      updateRescueHealth(stateDir, {
+        audit_healthy: true,
+        audit_error: null,
+        ...(overflowWindowRetired ? { queue_overflow_at: null } : {}),
+      }, now)
     }
   }
   return ok
@@ -337,11 +386,31 @@ export function loadRecentRescueChecks(
   return { available: days.every((day) => day.available), checks: days.flatMap((day) => day.ledger.checks) }
 }
 
+/** One saved check may follow a story from a name-only query to later exact-ticker enrichment. Reuse
+ * that verified result only when the returned listing, venue country, company core, and story all
+ * agree; an unresolved name remains eligible when genuinely better identity data arrives. */
+export function rescueCheckMatchesCandidate(
+  check: RescueCheckRecord,
+  candidate: RescueCandidate,
+): boolean {
+  if (check.story_key !== candidate.story_key) return false
+  if (check.identity_key === candidate.identity_key) return true
+  if (check.pool !== 'name' || check.identity_status !== 'verified' || candidate.pool !== 'ticker'
+    || !check.ticker || !check.exchange || !candidate.ticker) return false
+  const candidateCountry = String(candidate.listing_country || '').trim().toUpperCase()
+  if (!candidateCountry || countryFromExchange(check.exchange) !== candidateCountry) return false
+  const savedCore = coreCompanyName(check.company_name)
+  const candidateCore = coreCompanyName(candidate.company_name)
+  if (!savedCore || savedCore !== candidateCore) return false
+  return directoryTickerIdentityKey(check.ticker, candidateCountry)
+    === directoryTickerIdentityKey(candidate.ticker, candidateCountry)
+}
+
 /** Prove that a transient reservation-write failure has recovered without spending a slot. */
 export function repairRescueReservationAuthority(stateDir: string, date: string): boolean {
   const loaded = loadRescueDay(stateDir, date)
   if (!loaded.available || loaded.ledger.checks.length >= DAILY_MAX_ITEMS) return false
-  return atomicWriteJson(dayFile(stateDir, date), loaded.ledger, DAILY_MAX_BYTES)
+  return atomicWriteJson(stateDir, dayFile(stateDir, date), loaded.ledger, DAILY_MAX_BYTES)
 }
 
 export function reserveRescueCheck(
@@ -355,8 +424,7 @@ export function reserveRescueCheck(
   if (!loaded.available || loaded.ledger.checks.length >= DAILY_MAX_ITEMS) return null
   const history = loadRecentRescueChecks(stateDir, now)
   if (!history.available) return null
-  const attempts = history.checks.filter((check) => check.identity_key === candidate.identity_key
-    && check.story_key === candidate.story_key).length
+  const attempts = history.checks.filter((check) => rescueCheckMatchesCandidate(check, candidate)).length
   const record: RescueCheckRecord = {
     key: `${date}:${candidate.event_id}:${loaded.ledger.checks.length + 1}`,
     event_id: candidate.event_id,
@@ -371,7 +439,7 @@ export function reserveRescueCheck(
     selector_version: selectorVersion,
   }
   const next: RescueDayLedger = { ...loaded.ledger, checks: [...loaded.ledger.checks, record] }
-  return atomicWriteJson(dayFile(stateDir, date), next, DAILY_MAX_BYTES) ? record : null
+  return atomicWriteJson(stateDir, dayFile(stateDir, date), next, DAILY_MAX_BYTES) ? record : null
 }
 
 function currentAuditOffset(stateDir: string, reservedAt: string, maxBytes: number): number | null {
@@ -510,10 +578,10 @@ export function completeRescueCheck(
   if (!isRescueCheckRecord(record)) return false
   const next: RescueDayLedger = { ...loaded.ledger, checks: [...loaded.ledger.checks] }
   next.checks[index] = record
-  if (!atomicWriteJson(dayFile(stateDir, date), next, DAILY_MAX_BYTES)) return false
+  if (!atomicWriteJson(stateDir, dayFile(stateDir, date), next, DAILY_MAX_BYTES)) return false
   if (!appendAudit(stateDir, record, auditMaxBytes)) return false
   next.checks[index] = { ...record, audit_pending: false }
-  return atomicWriteJson(dayFile(stateDir, date), next, DAILY_MAX_BYTES)
+  return atomicWriteJson(stateDir, dayFile(stateDir, date), next, DAILY_MAX_BYTES)
 }
 
 export function flushPendingRescueAudit(stateDir: string, date: string, auditMaxBytes: number): boolean {
@@ -527,7 +595,7 @@ export function flushPendingRescueAudit(stateDir: string, date: string, auditMax
     return { ...record, audit_pending: false }
   })
   if (checks.some((record) => record.audit_pending)) return false
-  return !changed || atomicWriteJson(dayFile(stateDir, date), { ...loaded.ledger, checks }, DAILY_MAX_BYTES)
+  return !changed || atomicWriteJson(stateDir, dayFile(stateDir, date), { ...loaded.ledger, checks }, DAILY_MAX_BYTES)
 }
 
 /** Repair every crash-pending daily record before admission, then keep only the three UTC ledgers that
@@ -565,7 +633,7 @@ export function readRescueHealth(stateDir: string): RescueRuntimeHealth {
   const fallback: RescueRuntimeHealth = {
     v: 1, updated_at: new Date(0).toISOString(), audit_healthy: true, audit_error: null,
     consecutive_directory_failures: 0, directory_pause_until: null, last_directory_status: null,
-    normal_ideas_ready: true, normal_ideas_reason: null,
+    normal_ideas_ready: true, normal_ideas_reason: null, queue_overflow_at: null,
   }
   const file = healthFile(stateDir)
   if (!fs.existsSync(file)) return fallback
@@ -582,6 +650,8 @@ export function readRescueHealth(stateDir: string): RescueRuntimeHealth {
       last_directory_status: ['verified', 'identity_unresolved', 'directory_unavailable'].includes(raw.last_directory_status) ? raw.last_directory_status : null,
       normal_ideas_ready: raw.normal_ideas_ready == null ? true : raw.normal_ideas_ready === true,
       normal_ideas_reason: typeof raw.normal_ideas_reason === 'string' ? raw.normal_ideas_reason : null,
+      queue_overflow_at: typeof raw.queue_overflow_at === 'string'
+        && Number.isFinite(Date.parse(raw.queue_overflow_at)) ? raw.queue_overflow_at : null,
     }
   } catch {
     return { ...fallback, audit_healthy: false, audit_error: 'The second-look health record cannot be read.' }
@@ -595,7 +665,7 @@ export function updateRescueHealth(
 ): boolean {
   const current = readRescueHealth(stateDir)
   const next: RescueRuntimeHealth = { ...current, ...patch, v: 1, updated_at: new Date(now).toISOString() }
-  return atomicWriteJson(healthFile(stateDir), next, 64 * 1024)
+  return atomicWriteJson(stateDir, healthFile(stateDir), next, 64 * 1024)
 }
 
 export function noteNormalIdeasReadiness(

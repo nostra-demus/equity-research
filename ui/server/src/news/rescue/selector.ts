@@ -3,7 +3,7 @@
 // receive a paced identity check. Keeping the selector pure makes the shadow replay reproducible.
 
 import { deriveSourceTier, SOURCE_TIERS, type SourceTierId } from '../scope'
-import { cleanTicker, coreCompanyName, normTicker } from '../symbology'
+import { cleanTicker, coreCompanyName, directoryTickerIdentityKey, normTicker } from '../symbology'
 import { isRoutineFiling } from '../text-match'
 import { lookupSource, normalizeDomain } from '../sources/approved-domains'
 import type { FeedItem } from '../types'
@@ -168,15 +168,24 @@ function identity(item: FeedItem): { ticker: string | null; name: string; countr
   if (named.size > 1) return null
   const onlyNamed = named.size === 1 ? [...named.values()][0] : companies
   const tickers = new Map<string, string>()
-  for (const company of onlyNamed) if (company.ticker) tickers.set(normTicker(company.ticker), company.ticker)
+  for (const company of onlyNamed) {
+    if (!company.ticker) continue
+    const tickerKey = directoryTickerIdentityKey(company.ticker, company.country)
+    const prior = tickers.get(tickerKey)
+    // Prefer the exchange-native spelling for the one directory query when both native and
+    // Yahoo-qualified aliases were saved on the same event.
+    if (!prior || normTicker(company.ticker).length < normTicker(prior).length) tickers.set(tickerKey, company.ticker)
+  }
   if (tickers.size > 1) return null
-  const withTicker = onlyNamed.find((company) => company.ticker)
-  if (withTicker?.ticker) {
+  const [tickerKey, selectedTicker] = [...tickers.entries()][0] || []
+  const withTicker = onlyNamed.find((company) => company.ticker
+    && directoryTickerIdentityKey(company.ticker, company.country) === tickerKey)
+  if (withTicker?.ticker && selectedTicker && tickerKey) {
     return {
-      ticker: withTicker.ticker,
+      ticker: selectedTicker,
       name: withTicker.name,
       country: withTicker.country,
-      key: `ticker:${normTicker(withTicker.ticker)}`,
+      key: `ticker:${tickerKey}`,
     }
   }
   if (named.size !== 1) return null

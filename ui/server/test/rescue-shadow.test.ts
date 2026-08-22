@@ -7,8 +7,8 @@ import { getRescueDiagnostics, runRescueShadowPass, type RescueShadowConfig } fr
 import { runNormalIdeasThenSecondLook } from '../src/news/rescue/order'
 import {
   completeRescueCheck, flushPendingRescueAudit, loadRescueDay, loadRescueQueue, readRescueHealth,
-  recordRescueRows, RESCUE_QUEUE_MAX_BYTES, RESCUE_QUEUE_MAX_ITEMS, reserveRescueCheck, rescueQueueEnabled,
-  updateRescueHealth,
+  recordRescueRows, RESCUE_QUEUE_MAX_BYTES, RESCUE_QUEUE_MAX_ITEMS, RESCUE_QUEUE_OVERFLOW_ERROR,
+  reserveRescueCheck, rescueQueueEnabled, updateRescueHealth,
 } from '../src/news/rescue/store'
 import { invalidateSymbolCache } from '../src/news/symbology'
 import type { FeedItem } from '../src/news/types'
@@ -27,6 +27,7 @@ assert.equal(rescueQueueEnabled('off'), false, 'the explicit off switch disables
 {
   const failedRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-day-directory-eio-'))
   const unsupportedRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-day-directory-unsupported-'))
+  const rootSyncRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-root-directory-eio-'))
   const open = fs.openSync
   try {
     const candidate = selectRescueCandidates([row(1)], START).candidates[0]
@@ -53,11 +54,50 @@ assert.equal(rescueQueueEnabled('off'), false, 'the explicit off switch disables
     }
     assert.ok(reserveRescueCheck(unsupportedRoot, '2026-08-22', candidate, RESCUE_SELECTOR_VERSION, START),
       'an explicitly unsupported directory fsync is the only tolerated parent-sync failure')
+
+    ;(fs as any).openSync = (target: fs.PathLike, flags: string | number, mode?: number) => {
+      if (String(target) === rootSyncRoot && flags === 'r') {
+        const error = new Error('injected rescue-root parent I/O failure') as NodeJS.ErrnoException
+        error.code = 'EIO'
+        throw error
+      }
+      return open(target, flags as any, mode)
+    }
+    assert.equal(reserveRescueCheck(rootSyncRoot, '2026-08-22', candidate, RESCUE_SELECTOR_VERSION, START), null,
+      'the first news-rescue directory entry must be synced in its state parent before admission')
   } finally {
     ;(fs as any).openSync = open
     fs.rmSync(failedRoot, { recursive: true, force: true })
     fs.rmSync(unsupportedRoot, { recursive: true, force: true })
+    fs.rmSync(rootSyncRoot, { recursive: true, force: true })
   }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-name-to-ticker-'))
+  try {
+    invalidateSymbolCache()
+    assert.equal(recordRescueRows(root, [row(100, true)], START), true)
+    let calls = 0
+    const fetchImpl = (async (url: string) => { calls++; return responseForUrl(url) }) as any
+    const first = await runRescueShadowPass({
+      stateDir: root, config: { ...baseConfig, perCycle: 1 }, coreReady: true, fetchImpl, now: () => START,
+    })
+    assert.equal(first.checkedThisCycle, 1)
+    const enriched = withInitialRescueDecision({
+      ...row(100),
+      companies: [{ name: 'Company 100 Inc', ticker: 'C100', listing_country: 'US' }],
+    })
+    assert.equal(recordRescueRows(root, [enriched], START + 60_000), true)
+    const second = await runRescueShadowPass({
+      stateDir: root, config: { ...baseConfig, perCycle: 1 }, coreReady: true, fetchImpl,
+      now: () => START + 60_000,
+    })
+    assert.equal(second.checkedThisCycle, 0,
+      'a verified name-only check follows the same story after exact ticker enrichment')
+    assert.equal(calls, 1)
+    assert.equal(loadRescueDay(root, '2026-08-22').ledger.checks.length, 1)
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
 }
 
 {
@@ -392,6 +432,33 @@ function responseForUrl(url: string): any {
     assert.equal(recordRescueRows(root, [row(1)], START), true)
     assert.equal(readRescueHealth(root).audit_healthy, true,
       'a later successful queue write clears only the queue transient it proves recovered')
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-overflow-retirement-'))
+  try {
+    assert.equal(updateRescueHealth(root, {
+      audit_healthy: false,
+      audit_error: RESCUE_QUEUE_OVERFLOW_ERROR,
+      queue_overflow_at: new Date(START).toISOString(),
+    }, START), true)
+    const beforeRetirement = START + 36 * 3_600_000
+    const stillActive = withInitialRescueDecision({
+      ...row(1), ts: new Date(beforeRetirement).toISOString(), found_at: new Date(beforeRetirement).toISOString(),
+    })
+    assert.equal(recordRescueRows(root, [stillActive], beforeRetirement), true)
+    assert.equal(readRescueHealth(root).audit_healthy, false,
+      'a bounded rewrite cannot clear an overflow while omitted rows may still be active')
+
+    const afterRetirement = START + 36 * 3_600_000 + 6 * 60_000
+    const rebuilt = withInitialRescueDecision({
+      ...row(1), ts: new Date(afterRetirement).toISOString(), found_at: new Date(afterRetirement).toISOString(),
+    })
+    assert.equal(recordRescueRows(root, [rebuilt], afterRetirement), true)
+    assert.equal(readRescueHealth(root).audit_healthy, true,
+      'a complete bounded rewrite clears the overflow only after every omitted row has aged out')
+    assert.equal(readRescueHealth(root).queue_overflow_at, null)
   } finally { fs.rmSync(root, { recursive: true, force: true }) }
 }
 

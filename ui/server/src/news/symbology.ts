@@ -94,6 +94,20 @@ const DIRECTORY_SUFFIXES_BY_COUNTRY: Record<string, ReadonlySet<string>> = {
   EG: new Set(['CA']), AE: new Set(['DU', 'AD']),
 }
 
+/** Stable identity for one saved local listing. A country-proven Yahoo suffix is only a directory
+ * spelling, so `NHY` and `NHY.OL` both become `NHY` when the saved country is Norway. Unknown or
+ * conflicting countries keep the full spelling, and share-class dots such as `BRK.A` are untouched. */
+export function directoryTickerIdentityKey(ticker: unknown, listingCountry?: string | null): string {
+  const cleaned = cleanTicker(ticker)
+  if (!cleaned) return ''
+  const normalized = normTicker(cleaned)
+  const base = baseTicker(normalized)
+  if (base === normalized) return normalized
+  const dot = normalized.lastIndexOf('.')
+  const allowed = DIRECTORY_SUFFIXES_BY_COUNTRY[String(listingCountry || '').trim().toUpperCase()]
+  return dot > 0 && allowed?.has(normalized.slice(dot + 1)) ? base : normalized
+}
+
 /** Exact directory symbol match, allowing only the country-proven Yahoo suffix for a saved bare symbol. */
 export function directoryTickerMatches(saved: unknown, returned: unknown, listingCountry?: string | null): boolean {
   const wanted = cleanTicker(saved)

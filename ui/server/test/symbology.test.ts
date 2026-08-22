@@ -6,8 +6,8 @@
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
 import {
-  baseTicker, cleanTicker, companyNameMatches, coreCompanyName, directoryTickerMatches, groupQuotes,
-  normTicker, pickTickerSet, tickerHitAny,
+  baseTicker, cleanTicker, companyNameMatches, coreCompanyName, directoryTickerIdentityKey,
+  directoryTickerMatches, groupQuotes, normTicker, pickTickerSet, tickerHitAny,
 } from '../src/news/symbology'
 
 let passed = 0
@@ -52,6 +52,12 @@ check('directoryTickerMatches licenses Dubai and Abu Dhabi suffixes only for UAE
   assert.equal(directoryTickerMatches('EMAAR', 'EMAAR.DU', 'AE'), true)
   assert.equal(directoryTickerMatches('ADNOCDRILL', 'ADNOCDRILL.AD', 'AE'), true)
   assert.equal(directoryTickerMatches('EMAAR', 'EMAAR.DU', 'US'), false)
+})
+check('directoryTickerIdentityKey folds only country-proven directory spellings', () => {
+  assert.equal(directoryTickerIdentityKey('NHY', 'NO'), 'NHY')
+  assert.equal(directoryTickerIdentityKey('NHY.OL', 'NO'), 'NHY')
+  assert.equal(directoryTickerIdentityKey('NHY.OL', null), 'NHY.OL')
+  assert.equal(directoryTickerIdentityKey('BRK.A', 'US'), 'BRK.A')
 })
 
 // ---- coreCompanyName: legal-suffix-stripped identity ----

@@ -89,6 +89,23 @@ function row(id: string, fields: Partial<FeedItem> = {}): FeedItem {
 }
 
 {
+  const native = row('EVT-nhy-native', {
+    companies: [{ name: 'Norsk Hydro ASA', ticker: 'NHY', listing_country: 'NO' }],
+    event_types: ['commercial'], dedup_group: 'STORY-nhy-contract',
+  })
+  const yahoo = row('EVT-nhy-yahoo', {
+    companies: [{ name: 'Norsk Hydro ASA', ticker: 'NHY.OL', listing_country: 'NO' }],
+    event_types: ['commercial'], dedup_group: 'STORY-nhy-contract',
+    domain: 'ft.com', source_name: 'Financial Times', url: 'https://ft.com/nhy-contract',
+  })
+  const result = selectRescueCandidates([native, yahoo], NOW)
+  assert.equal(result.candidates.length, 1,
+    'country-proven native and Yahoo ticker spellings corroborate one local listing')
+  assert.equal(result.candidates[0].identity_key, 'ticker:NHY')
+  assert.equal(result.candidates[0].rank_inputs.independent_reports, 2)
+}
+
+{
   const weak = row('EVT-weak', { event_types: ['commercial'], triage_score: 39, source_tier: 'news' })
   const critical = row('EVT-critical', {
     headline: 'Acme warns of default risk', event_types: ['default_distress'], triage_score: 20,

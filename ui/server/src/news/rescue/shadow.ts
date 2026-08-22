@@ -11,7 +11,8 @@ import { RESCUE_SELECTOR_VERSION, selectRescueCandidates, type RescueCandidate }
 import {
   completeRescueCheck, loadRecentRescueChecks, loadRescueDay, loadRescueQueue, noteDirectoryResult,
   readRescueHealth, reconcileRescueDayLedgers, repairRescueReservationAuthority,
-  RESCUE_RESERVATION_WRITE_ERROR, rescueAuditCanAccept, reserveRescueCheck, updateRescueHealth,
+  RESCUE_RESERVATION_WRITE_ERROR, rescueAuditCanAccept, rescueCheckMatchesCandidate,
+  reserveRescueCheck, updateRescueHealth,
   type RescueCheckRecord, type RescueIdentityStatus,
 } from './store'
 
@@ -74,7 +75,7 @@ function directoryPaused(until: string | null, now: number): boolean {
 }
 
 function checksForCandidate(candidate: RescueCandidate, checks: readonly RescueCheckRecord[]): RescueCheckRecord[] {
-  return checks.filter((check) => check.identity_key === candidate.identity_key && check.story_key === candidate.story_key)
+  return checks.filter((check) => rescueCheckMatchesCandidate(check, candidate))
 }
 
 function uniqueReviewCandidates(candidates: readonly RescueCandidate[]): RescueCandidate[] {
