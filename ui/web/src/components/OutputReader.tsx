@@ -71,8 +71,8 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
     // embedded PDF is on screen, where a stale report-integrity banner would appear above someone else's
     // document. The guard is per-effect-run, so only the newest fetch may write.
     let live = true
-    const read = output.publishedCalls ? api.callArtifact : api.output
-    read(path)
+    const readPromise = output.publishedCalls ? api.callArtifact(path) : api.output(path)
+    readPromise
       .then((r) => { if (live) setMd(typeof r?.markdown === 'string' ? r.markdown : '*Could not load this output.*') })
       .catch(() => { if (live) setMd('*Could not load this output.*') })
       .finally(() => { if (live) setLoading(false) })

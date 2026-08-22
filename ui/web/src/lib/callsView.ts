@@ -33,7 +33,7 @@ function isCallSummary(value: unknown): value is CallSummary {
   if (!optionalString(value.latest_review_summary) || !optionalString(value.latest_review_date)) return false
   if (![value.entry_price, value.expected_return_pct, value.implied_target].every(nullableNumber)) return false
   if (!Array.isArray(value.timeline) || !value.timeline.every(isTimelineEntry)) return false
-  if (value.next_checkpoint !== null && (!isRecord(value.next_checkpoint)
+  if (value.next_checkpoint != null && (!isRecord(value.next_checkpoint)
     || typeof value.next_checkpoint.window !== 'string'
     || typeof value.next_checkpoint.status !== 'string'
     || !nullableString(value.next_checkpoint.due_date))) return false
