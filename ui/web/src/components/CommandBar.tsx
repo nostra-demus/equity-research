@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../lib/store'
 import { api } from '../lib/api'
+import type { ProviderParityCanaryStatus } from '../lib/api'
 import { captureAskOpener } from '../lib/askFocus'
 import { decisionColor, fmtAgo, fmtMinutes, nextSweepLabel, resetIn, resolveVerdict, usageColor, usageLabel } from '../lib/format'
 import { plainKind } from '../lib/plain'
@@ -502,7 +503,6 @@ function ProviderSelector() {
   const checking = useStore((s) => s.providersChecking)
   const check = useStore((s) => s.refreshProviders)
   const staticMode = useStore((s) => s.staticMode)
-  const openActivity = useStore((s) => s.openActivity)
   const refreshActiveRuns = useStore((s) => s.refreshActiveRuns)
   const setToast = useStore((s) => s.setToast)
   const [open, setOpen] = useState(false)
@@ -514,6 +514,7 @@ function ProviderSelector() {
   const [canarySubmitting, setCanarySubmitting] = useState(false)
   const [canaryAttempted, setCanaryAttempted] = useState(false)
   const [canaryError, setCanaryError] = useState<string | null>(null)
+  const [canaryStatus, setCanaryStatus] = useState<ProviderParityCanaryStatus | null>(null)
   const canaryPrefill = useRef(typeof window === 'undefined' ? null : providerParityCanaryPrefill(window.location.search))
 
   useEffect(() => {
@@ -530,6 +531,26 @@ function ProviderSelector() {
     }).catch(() => { if (alive) setCanLaunchCanary(false) })
     return () => { alive = false }
   }, [])
+
+  useEffect(() => {
+    if (!canLaunchCanary || !canaryOpen || !canaryRunRoot.trim()) return
+    let alive = true
+    let timer: ReturnType<typeof setTimeout> | null = null
+    const refresh = async () => {
+      try {
+        const status = await api.providerParityCanaryStatus(canaryRunRoot.trim())
+        if (!alive) return
+        setCanaryStatus(status)
+        if (['starting', 'readiness-checking', 'awaiting-readiness-decision', 'running'].includes(status.status)) {
+          timer = setTimeout(() => void refresh(), 2_000)
+        }
+      } catch (error: any) {
+        if (alive && error?.status !== 404) setCanaryError(error?.body?.error || error?.message || 'Could not read canary status.')
+      }
+    }
+    void refresh()
+    return () => { alive = false; if (timer) clearTimeout(timer) }
+  }, [canLaunchCanary, canaryOpen, canaryRunRoot])
 
   // static showcase has no Claude usage to report — the "read-only showcase" chip already says so
   if (staticMode) return null
@@ -589,9 +610,8 @@ function ProviderSelector() {
           ? `Run ${out.runId} may have been admitted, but its provider receipt was invalid. Do not retry; check Activity.`
           : 'The server did not return an exact Codex canary receipt. Do not retry until Activity is checked.')
       }
-      setCanaryOpen(false)
+      setCanaryStatus({ runRoot: canaryRunRoot.trim(), runId: out.runId, status: 'starting', startedAt: Date.now(), endedAt: null, provider: 'codex', profileKey: CODEX_PARITY_CANARY_SELECTION.expectedProfileKey!, message: null, failureNote: null, interruption: null, artifacts: {} })
       setToast({ msg: `Codex canary ${out.runId} admitted for ${canarySubject}. Follow it in Activity.`, tone: 'good' })
-      openActivity()
       await refreshActiveRuns()
     } catch (error: any) {
       setCanaryError(error?.body?.error || error?.message || 'Canary launch failed. Do not retry until Activity is checked.')
@@ -673,7 +693,7 @@ function ProviderSelector() {
             <div className="modal__body">
               <label style={{ display: 'block', padding: '7px 0', fontSize: 12, color: 'var(--text-muted)' }}>
                 Frozen Codex run root
-                <input className="modal__input" style={{ letterSpacing: 0, marginTop: 5 }} value={canaryRunRoot} disabled={canaryAttempted} onChange={(event) => { setCanaryRunRoot(event.target.value); setCanaryTyped(''); setCanaryError(null) }} autoComplete="off" spellCheck={false} />
+                <input className="modal__input" style={{ letterSpacing: 0, marginTop: 5 }} value={canaryRunRoot} disabled={canaryAttempted} onChange={(event) => { setCanaryRunRoot(event.target.value); setCanaryTyped(''); setCanaryError(null); setCanaryStatus(null) }} autoComplete="off" spellCheck={false} />
               </label>
               <label style={{ display: 'block', padding: '7px 0', fontSize: 12, color: 'var(--text-muted)' }}>
                 Immutable freeze receipt
@@ -682,6 +702,14 @@ function ProviderSelector() {
               <div className="modal__row"><span className="modal__k">Provider</span><span className="modal__v">Codex · ChatGPT plan</span></div>
               <div className="modal__row"><span className="modal__k">Profile</span><span className="modal__v" style={{ maxWidth: 330, textAlign: 'right' }}>Sol max · Terra xhigh</span></div>
               <div className="modal__row"><span className="modal__k">Publication</span><span className="modal__v">stamp only · no Git</span></div>
+              {canaryStatus && (
+                <div style={{ marginTop: 12, padding: 10, border: '1px solid var(--hairline)', borderRadius: 8, fontSize: 12, lineHeight: 1.5 }}>
+                  <div><b>Status:</b> {canaryStatus.status}{canaryStatus.runId ? ` · ${canaryStatus.runId}` : ''}</div>
+                  <div><b>Profile:</b> {canaryStatus.profileKey || 'not available after restart'}</div>
+                  {canaryStatus.message && <div style={{ color: canaryStatus.status === 'done' ? 'var(--good)' : 'var(--bad)' }}>{canaryStatus.message}</div>}
+                  {canaryStatus.failureNote && <pre style={{ whiteSpace: 'pre-wrap', maxHeight: 190, overflow: 'auto', margin: '8px 0 0', color: 'var(--bad)' }}>{canaryStatus.failureNote}</pre>}
+                </div>
+              )}
             </div>
             <div className="modal__confirm">
               <div style={{ fontSize: 12.5, color: 'var(--text-muted)' }}>Type <b style={{ color: 'var(--text)' }}>{canarySubject || 'the subject'}</b> to authorize one paid launch</div>

@@ -940,6 +940,37 @@ const ParityCanaryLaunchBody = z.object({
   freezeReceipt: z.string().regex(/^[A-Za-z0-9._/-]{1,500}$/),
 }).strict()
 
+const ParityCanaryStatusQuery = z.object({
+  runRoot: z.string().regex(/^analyses\/provider-parity\/\d{4}-\d{2}-\d{2}\/(?:claude|codex)\/[A-Z0-9.\-]{1,12}_\d{4}-\d{2}-\d{2}$/),
+}).strict()
+
+function readCanaryRunFile(rootAbs: string, name: string): string | null {
+  const target = path.join(rootAbs, name)
+  let fd: number | null = null
+  try {
+    fd = fs.openSync(target, fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW)
+    const stat = fs.fstatSync(fd)
+    if (!stat.isFile() || stat.size > 64 * 1024) return null
+    return fs.readFileSync(fd, 'utf8')
+  } catch {
+    return null
+  } finally {
+    if (fd !== null) try { fs.closeSync(fd) } catch { /* already closed */ }
+  }
+}
+
+function canaryRunFileExists(rootAbs: string, name: string): boolean {
+  let fd: number | null = null
+  try {
+    fd = fs.openSync(path.join(rootAbs, name), fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW)
+    return fs.fstatSync(fd).isFile()
+  } catch {
+    return false
+  } finally {
+    if (fd !== null) try { fs.closeSync(fd) } catch { /* already closed */ }
+  }
+}
+
 // A generic constellation swarm (e.g. commodity) REUSES full/module/agent, scoped by an explicit
 // `swarm`; `ticker` carries the subject id (a commodity like GOLD). Validated against the discovered
 // roster below, so no swarm/module/agent name is hardcoded (CLAUDE.md §26).
@@ -1053,6 +1084,60 @@ app.post('/api/internal/provider-parity/canary', { config: { rateLimit: { max: 4
   } catch (error: any) {
     const body = error?.body && typeof error.body === 'object' ? error.body : null
     return reply.code(error?.statusCode || 500).send({ error: error?.message || 'parity canary launch failed', ...(body || {}) })
+  }
+})
+
+// The ordinary Activity ledger intentionally excludes release canaries. Give the authenticated operator
+// a narrow, read-only status surface so a terminal failure cannot disappear with the live-run chip.
+app.get('/api/internal/provider-parity/canary-status', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  const { user, userVia } = identify(req)
+  if (userVia !== 'cf-access' || !isDispatchAdmin(user)) return reply.code(403).send({ error: 'not authorized to inspect provider parity (admin only)' })
+  const parsed = ParityCanaryStatusQuery.safeParse(req.query)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid parity canary status query' })
+
+  const lexicalRoot = path.join(REPO_ROOT, parsed.data.runRoot)
+  let lexicalStat: fs.Stats
+  try { lexicalStat = fs.lstatSync(lexicalRoot) } catch { return reply.code(404).send({ error: 'canary run root not found' }) }
+  if (!lexicalStat.isDirectory() || lexicalStat.isSymbolicLink()) return reply.code(400).send({ error: 'invalid canary run root' })
+  let rootAbs: string
+  try {
+    rootAbs = resolveInsideAnalyses(lexicalRoot)
+  } catch (error: any) {
+    return reply.code(error?.code === 'ENOENT' ? 404 : 400).send({ error: error?.code === 'ENOENT' ? 'canary run root not found' : 'invalid canary run root' })
+  }
+
+  const run = listRuns()
+    .filter((candidate) => candidate.runRoot === parsed.data.runRoot && Boolean(candidate.parityPrelaunchBinding))
+    .sort((a, b) => b.startedAt - a.startedAt)[0]
+  const terminalEvent = run && [...run.eventLog].reverse().find((event) => event.type === 'run-error' || event.type === 'run-done')
+  const failureNote = readCanaryRunFile(rootAbs, 'RUN_FAILURE.md')
+  const interruptedRaw = readCanaryRunFile(rootAbs, '.interrupted')
+  let interruption: Record<string, unknown> | null = null
+  try {
+    const value = interruptedRaw ? JSON.parse(interruptedRaw) : null
+    if (value && typeof value === 'object' && !Array.isArray(value)) interruption = value
+  } catch { /* malformed marker is reported by its presence below */ }
+  const artifacts = Object.fromEntries([
+    'final_thesis.md', 'decision_record.json', 'audit_dossier.md', 'execution_provenance.receipt.json',
+  ].map((name) => [name, canaryRunFileExists(rootAbs, name)]))
+  const diskComplete = artifacts['final_thesis.md'] && artifacts['decision_record.json'] && artifacts['execution_provenance.receipt.json']
+  const status = run?.status ?? (diskComplete ? 'done' : failureNote || interruptedRaw ? 'error' : 'unknown')
+  const eventMessage = terminalEvent?.type === 'run-error'
+    ? terminalEvent.message || terminalEvent.reason
+    : terminalEvent?.type === 'run-done' ? 'Canary completed.' : null
+  return {
+    runRoot: parsed.data.runRoot,
+    runId: run?.runId ?? null,
+    status,
+    startedAt: run?.startedAt ?? null,
+    endedAt: run?.endedAt ?? null,
+    provider: run?.provider ?? null,
+    profileKey: run?.profileKey ?? null,
+    message: eventMessage,
+    failureNote,
+    interruption,
+    artifacts,
   }
 })
 
