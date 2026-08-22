@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T20:43:19Z",
+  "generated_at": "2026-08-22T20:48:16Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-2434",
@@ -73908,77 +73908,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-655859ede7f8",
-      "idea_version": "IDEAV-8412007306b38704",
-      "idea_version_started_at": "2026-08-21T10:31:43Z",
-      "ticker": "00413",
-      "company": "SC Holdings",
-      "exchange": "HKEX",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The company issued a profit warning indicating a significant decline in earnings performance for the current period.",
-      "why_now": "The filing was released on 2026-08-21, making the negative guidance fresh for immediate market reaction.",
-      "conviction": 60,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 21,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-4d1ec87365ae"
-      ],
-      "primary_source_event_id": "EVT-4d1ec87365ae",
-      "source_headlines": [
-        "SC HOLDINGS (00413): PROFIT WARNING"
-      ],
-      "source_headline": "SC HOLDINGS (00413): PROFIT WARNING",
-      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082100366.pdf",
-      "source_name": "HKEXnews (HK Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-21T08:44:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-21T10:31:43Z",
-      "updated_at": "2026-08-21T10:31:43Z",
-      "decay_at": "2026-08-22T20:44:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7df43c2881a5",
       "idea_version": "IDEAV-16d452efeab96364",
       "idea_version_started_at": "2026-08-21T10:31:43Z",
@@ -74821,6 +74750,77 @@
       "status": "live",
       "promoted_signal_id": null,
       "feedback": "up",
+      "stale": true
+    },
+    {
+      "idea_id": "IDEA-655859ede7f8",
+      "idea_version": "IDEAV-8412007306b38704",
+      "idea_version_started_at": "2026-08-21T10:31:43Z",
+      "ticker": "00413",
+      "company": "SC Holdings",
+      "exchange": "HKEX",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "The company issued a profit warning indicating a significant decline in earnings performance for the current period.",
+      "why_now": "The filing was released on 2026-08-21, making the negative guidance fresh for immediate market reaction.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 45,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 25,
+        "impact": 21,
+        "specificity": 7,
+        "timing": 10,
+        "expression": 0,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "watch_only",
+      "missing_checks": [
+        "verified listed ticker",
+        "verified listing",
+        "live liquidity",
+        "dated catalyst",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4d1ec87365ae"
+      ],
+      "primary_source_event_id": "EVT-4d1ec87365ae",
+      "source_headlines": [
+        "SC HOLDINGS (00413): PROFIT WARNING"
+      ],
+      "source_headline": "SC HOLDINGS (00413): PROFIT WARNING",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082100366.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-21T08:44:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-21T10:31:43Z",
+      "updated_at": "2026-08-21T10:31:43Z",
+      "decay_at": "2026-08-22T20:44:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
       "stale": true
     },
     {
@@ -75764,8 +75764,8 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 45,
-    "shown_count": 45,
+    "total_count": 46,
+    "shown_count": 46,
     "hidden_count": 0,
     "side_counts": {
       "long": {
@@ -75774,8 +75774,8 @@
         "hidden_count": 0
       },
       "short": {
-        "total_count": 28,
-        "shown_count": 28,
+        "total_count": 29,
+        "shown_count": 29,
         "hidden_count": 0
       }
     },
@@ -75795,6 +75795,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-655859ede7f8",
+        "idea_version": "IDEAV-8412007306b38704",
+        "idea_version_started_at": "2026-08-21T10:31:43Z",
+        "ticker": "00413",
+        "company": "SC Holdings",
+        "exchange": "HKEX",
+        "direction": "short",
+        "pair_with": null,
+        "reason": "The company issued a profit warning indicating a significant decline in earnings performance for the current period.",
+        "why_now": "The filing was released on 2026-08-21, making the negative guidance fresh for immediate market reaction.",
+        "conviction": 60,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 45,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 25,
+          "impact": 21,
+          "specificity": 7,
+          "timing": 10,
+          "expression": 0,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "watch_only",
+        "missing_checks": [
+          "verified listed ticker",
+          "verified listing",
+          "live liquidity",
+          "dated catalyst",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "room",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-4d1ec87365ae"
+        ],
+        "primary_source_event_id": "EVT-4d1ec87365ae",
+        "source_headlines": [
+          "SC HOLDINGS (00413): PROFIT WARNING"
+        ],
+        "source_headline": "SC HOLDINGS (00413): PROFIT WARNING",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0821/2026082100366.pdf",
+        "source_name": "HKEXnews (HK Exchange Filing)",
+        "materiality_max": 100,
+        "newest_source_at": "2026-08-21T08:44:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-21T10:31:43Z",
+        "updated_at": "2026-08-21T10:31:43Z",
+        "decay_at": "2026-08-22T20:44:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-22T20:44:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-94850b800657",
         "idea_version": "IDEAV-b29f8abf702c9bea",
@@ -79126,7 +79200,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 80,
-    "live_count": 34,
+    "live_count": 33,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -79145,9 +79219,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 299783,
-    "news_picked_today": 4855,
-    "news_dropped_today": 10774
+    "news_seen_today": 299792,
+    "news_picked_today": 4857,
+    "news_dropped_today": 10781
   },
   "book_momentum": {
     "live_count": 8,
