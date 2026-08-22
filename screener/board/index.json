@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T00:54:46Z",
+  "generated_at": "2026-08-22T01:03:53Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-033",
@@ -94,6 +94,103 @@
           "listing_country": "US"
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-270",
+      "headline": "CHARTER AND COX COMMUNICATIONS COMPLETE TRANSACTION BENEFITING CUSTOMERS, LOCAL COMMUNITIES, EMPLOYEES AND SHAREHOLDERS",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/charter-and-cox-communications-complete-transaction-benefiting-customers-local-communities-employees-and-shareholders-302855936.html",
+      "source_name": "PR Newswire — Acquisitions, Mergers & Takeovers",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Charter and Cox completed a transaction, a confirmed merger closing with broad stakeholder impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Charter and Cox completed a transaction, a confirmed merger closing with broad stakeholder impact.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Charter Communications",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Cox Communications",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-203",
+      "headline": "Several killed in Russia’s ‘double-tap’ drone strike on Ukraine mall",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/8/22/several-killed-in-russias-double-tap-drone-strike-on-ukraine-mall?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-08-22T00:06:48Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Escalation of military conflict in Ukraine represents a significant geopolitical risk event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Escalation of military conflict in Ukraine represents a significant geopolitical risk event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -587,6 +684,191 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260822-267",
+      "headline": "Albireo Energy Completes Purchase of Powers’ Divisions in Oklahoma and Mississippi/Louisiana",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20260820557838/en/Albireo-Energy-Completes-Purchase-of-Powers%E2%80%99-Divisions-in-Oklahoma-and-MississippiLouisiana/?feedref=JjAwJuNHiystnCoBq_hl-Rc4vIAVcHHkbDcwJimU8QtrtlakeQ9hNboBqTAWIjTge3KWq9s9jif-UkBjBsFRyYAbRTSLTc1mgvhPlnaBA55M-oupQnbXnhKsYk8RmHF_kAy2gZikaX3QWV6xOvgFlA==",
+      "source_name": "Business Wire — Merger/Acquisition News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Albireo Energy completed a purchase of Powers' divisions in two US regions, a confirmed acquisition with no value disclosed.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Albireo Energy completed a purchase of Powers' divisions in two US regions, a confirmed acquisition with no value disclosed.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Albireo Energy",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-273",
+      "headline": "Amara Raja bets on in-house battery tech, global talent after China deal stalls",
+      "headline_en": null,
+      "url": "https://www.livemint.com/companies/amara-raja-bets-on-in-house-battery-tech-global-talent-after-china-deal-stalls-gotion-nmc-lfp-evs-11787306595784.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T00:30:19Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "The company is shifting its strategic focus to in-house technology following a failed international deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "The company is shifting its strategic focus to in-house technology following a failed international deal.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": 1,
+        "recency": 5,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "strategic_review",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "operations",
+        "strategic_review"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amara Raja Energy & Mobility",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-204",
+      "headline": "Israeli forces make fresh incursion into Syria's Quneitra, search home",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-forces-make-fresh-incursion-syrias-quneitra-search-home",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T00:27:07Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Israeli forces made a fresh incursion into Syria's Quneitra, a military escalation with regional stability and supply-chain risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Israeli forces made a fresh incursion into Syria's Quneitra, a military escalation with regional stability and supply-chain risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": -4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 13,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-278",
+      "headline": "Iran war news LIVE Updates: Trump says Iran not ready for ‘right deal’; China pushes back on 'Economic D-Day' campaign",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/us-news/iran-us-israel-war-news-live-updates-trump-iran-ready-right-deal-china-pushes-economic-d-day-strait-of-hormuz-navy-11787357543598.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T00:21:50Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Geopolitical tensions between major powers regarding Iran pose systemic risk to global markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Geopolitical tensions between major powers regarding Iran pose systemic risk to global markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260822-085",
       "headline": "Trump: 'I view Hormuz as American territory right now'",
       "headline_en": null,
@@ -961,6 +1243,60 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260822-268",
+      "headline": "Labrador Gold Announces Investment in San Cristobal Mining",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348229/0/en/labrador-gold-announces-investment-in-san-cristobal-mining.html",
+      "source_name": "GlobeNewswire — Mergers & Acquisitions",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Labrador Gold announced an investment in San Cristobal Mining, a confirmed deal with no size stated.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Labrador Gold announced an investment in San Cristobal Mining, a confirmed deal with no size stated.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 3,
+        "scope": 4,
+        "event": 9,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Labrador Gold",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "San Cristobal Mining",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260822-043",
       "headline": "Asahi Kasei Develops Novel Lithium Pre-doping Technology to Raise Energy Density and Lower Cost of Silicon-rich Lithium-ion Batteries",
       "headline_en": null,
@@ -1200,6 +1536,49 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-200",
+      "headline": "Oil rises as Trump threatens sanctions on Iran partners",
+      "headline_en": null,
+      "url": "https://www.businesstimes.com.sg/companies-markets/oil-rises-trump-threatens-sanctions-iran-partners",
+      "source_name": "The Business Times (Singapore)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T00:44:35Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Threats of sanctions on Iran partners create supply risk for global oil markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Threats of sanctions on Iran partners create supply risk for global oil markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1544,404 +1923,6 @@
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-065",
-      "headline": "Protagenic Therapeutics Receives FDA Pre-IND Feedback Supporting New IND for PT00114 in Generalized Anxiety Disorder | PTIX Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/PTIX/protagenic-therapeutics-receives-fda-pre-ind-feedback-supporting-new-zysefem2t1yt.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "FDA feedback supporting a new IND is a positive regulatory milestone for a clinical-stage biotech.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 82,
-      "triage_reason": "FDA feedback supporting a new IND is a positive regulatory milestone for a clinical-stage biotech.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 4,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "regulatory",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Protagenic Therapeutics",
-          "ticker": "PTIX",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-029",
-      "headline": "Fusion Fuel Announces Approximately $1.4 Million in New LPG Engineering Subcontracts Signed in Dubai, UAE, with Potential Annual Utility Revenue of Up to $1.0 Million",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348355/0/en/fusion-fuel-announces-approximately-1-4-million-in-new-lpg-engineering-subcontracts-signed-in-dubai-uae-with-potential-annual-utility-revenue-of-up-to-1-0-million.html",
-      "source_name": "GlobeNewswire — Press Releases (general)",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Fusion Fuel secured $1.4 million in subcontracts with potential annual revenue of $1 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Fusion Fuel secured $1.4 million in subcontracts with potential annual revenue of $1 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 3,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "commercial",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fusion Fuel",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-035",
-      "headline": "Founder Group Secures US$1.5 million EPCC Subcontract under Malaysia's Corporate Green Power Programme for 29.99MWac Large-Scale Solar Facility in Kedah",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348341/0/en/founder-group-secures-us-1-5-million-epcc-subcontract-under-malaysia-s-corporate-green-power-programme-for-29-99mwac-large-scale-solar-facility-in-kedah.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Secured a $1.5 million subcontract for a solar facility.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Secured a $1.5 million subcontract for a solar facility.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 3,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 25,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "commercial",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Founder Group",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-045",
-      "headline": "XTEND’s U.S.-Made X-Strike Lethality Package Accepted into DOW’s Drone Dominance Program",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348347/0/en/xtend-s-u-s-made-x-strike-lethality-package-accepted-into-dow-s-drone-dominance-program.html",
-      "source_name": "GlobeNewswire — Press Releases (general)",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Acceptance into a major defense-related program validates technology and provides a path to revenue.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "Acceptance into a major defense-related program validates technology and provides a path to revenue.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 3,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "commercial",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "XTEND",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-111",
-      "headline": "DCAI and Corti Launch Sovereign AI Control Layer for European Enterprises - Trifork First to Adopt as Implementation Partner | TRIFOR Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/TRIFOR/dcai-and-corti-launch-sovereign-ai-control-layer-for-european-2b9ri8naqjzz.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T12:18:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "New product launch and partnership announcement for AI infrastructure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 81,
-      "triage_reason": "New product launch and partnership announcement for AI infrastructure.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 3,
-        "scope": 5,
-        "event": 3,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "company",
-        "event_id": "product",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product",
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "DCAI",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Trifork",
-          "ticker": "TRIFOR",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-048",
-      "headline": "Eightco Holdings (NASDAQ: ORBS) Reports Total Holdings of Approximately $389 Million, Includes OpenAI, Beast Industries, More Than 16,000 ETH and Nearly 302 Million WLD Tokens",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/eightco-holdings-nasdaq-orbs-reports-total-holdings-of-approximately-389-million-includes-openai-beast-industries-more-than-16-000-eth-and-nearly-302-million-wld-tokens-302855932.html",
-      "source_name": "PR Newswire — Financial Services & Investing",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "The company disclosed its investment holdings totaling approximately $389 million.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "The company disclosed its investment holdings totaling approximately $389 million.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Eightco Holdings",
-          "ticker": "ORBS",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-054",
-      "headline": "Kingsmen Drills 1.40 Metres of 433 g/t AgEq (239 g/t Ag) at Las Coloradas, Expanding a High-Grade Silver Zone Open at Depth and Along Strike | KNGRF Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/KNGRF/kingsmen-drills-1-40-metres-of-433-g-t-ag-eq-239-g-t-ag-at-las-4pgvcbc9o5gf.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "The company reported positive drilling results, indicating high-grade silver mineralization.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 80,
-      "triage_reason": "The company reported positive drilling results, indicating high-grade silver mineralization.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 2,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "operations",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Kingsmen",
-          "ticker": "KNGRF",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-124",
-      "headline": "Ittihad Grows EBITDA 37 Per Cent in H1 2026, Despite Regional Disruption",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348326/0/en/ittihad-grows-ebitda-37-per-cent-in-h1-2026-despite-regional-disruption.html",
-      "source_name": "GlobeNewswire — Earnings Releases & Operating Results",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T12:07:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Ittihad reported 37% EBITDA growth in H1 2026, a quantified operating result despite regional disruption.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 74,
-      "triage_reason": "Ittihad reported 37% EBITDA growth in H1 2026, a quantified operating result despite regional disruption.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 60,
-      "rank_factors": {
-        "materiality": 60,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ittihad",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -78187,9 +78168,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 72669,
-    "news_picked_today": 205,
-    "news_dropped_today": 323
+    "news_seen_today": 82782,
+    "news_picked_today": 286,
+    "news_dropped_today": 446
   },
   "book_momentum": {
     "live_count": 8,
