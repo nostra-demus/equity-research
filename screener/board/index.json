@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T07:06:49Z",
+  "generated_at": "2026-08-22T07:11:05Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-2341",
@@ -252,6 +252,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-2346",
+      "headline": "Vatican to build €100 million renewable energy plant, sources say",
+      "headline_en": null,
+      "url": "https://www.reuters.com/business/energy/vatican-build-100-million-renewable-energy-plant-sources-say-2026-08-22/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T07:03:44Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "The Vatican plans to build a €100 million renewable energy plant.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Vatican plans to build a €100 million renewable energy plant.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Vatican",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1966,55 +2015,6 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-1826",
-      "headline": "Micron To Invest $10 Bln In US Memory Research",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/micron-invest-10-bln-us-memory-research",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T16:31:11Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Micron announced a $10 billion investment in US memory research, a significant capital expenditure.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Micron announced a $10 billion investment in US memory research, a significant capital expenditure.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Micron",
-          "ticker": "MU",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -78472,9 +78472,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 295298,
-    "news_picked_today": 4039,
-    "news_dropped_today": 7552
+    "news_seen_today": 295322,
+    "news_picked_today": 4043,
+    "news_dropped_today": 7572
   },
   "book_momentum": {
     "live_count": 8,
