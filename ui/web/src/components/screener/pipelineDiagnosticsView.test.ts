@@ -67,6 +67,18 @@ check('retry hold names the failure class and countdown, not a cooling provider 
   assert.doesNotMatch(copy, /cool|quota/i)
 })
 
+check('Themes provider holds name the actionable failure without exposing raw errors', () => {
+  assert.equal(retryReasonLabel('theme-rate_limit'), 'the Themes service asked it to wait')
+  assert.equal(retryReasonLabel('theme-availability'), 'a Themes service or internet error')
+  assert.equal(retryReasonLabel('theme-access'), 'a Themes access error')
+  assert.equal(retryReasonLabel('theme-credits'), 'the Themes account ran out of credit')
+  assert.equal(retryReasonLabel('theme-endpoint'), 'the Themes model is no longer available')
+  assert.equal(
+    tierStatusCopy({ ...tier('omniroute', 'OmniRoute', 'cooling'), cooldownReason: 'theme-endpoint' }, 12 * 60_000),
+    'Paused after the Themes model is no longer available · try again in ~12m',
+  )
+})
+
 check('unknown marker reason is not echoed into the public UI', () => {
   assert.equal(retryReasonLabel('raw upstream account detail'), 'an error')
 })
