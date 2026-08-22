@@ -20,8 +20,7 @@ function countCopy(value: number): string {
   return Number.isSafeInteger(value) && value >= 0 ? value.toLocaleString('en-US') : '—'
 }
 
-/** Daily counters come only from persisted summary rows. A started look with no summary makes every component
- * a lower bound; feed_commit_version separately distinguishes legacy outcomes from durable-feed proof. */
+/** Keep the daily line readable while preserving whether the totals are exact, minimums, or older reports. */
 export function todayOutcomeCopy(
   today: NewsDiagnostics['today'],
   gapMarkerUnreadable = false,
@@ -33,34 +32,31 @@ export function todayOutcomeCopy(
   const corrupt = Number.isSafeInteger(today.corruptCycleRows) && (today.corruptCycleRows ?? 0) > 0
     ? today.corruptCycleRows as number
     : 0
-  const proofDebts = [
-    ...(gapMarkerUnreadable ? ['the cycle-completion safety record is unreadable'] : []),
-    ...(today.historyStatus === 'missing' ? ["today's cycle-summary partition is missing"] : []),
+  const gaps = [
+    ...(gapMarkerUnreadable ? ['the record of finished checks cannot be read'] : []),
+    ...(today.historyStatus === 'missing' ? ["today's saved check record is missing"] : []),
     ...(today.historyStatus === 'unreadable' || today.historyStatus === 'unavailable'
-      ? ["today's cycle-summary partition is unreadable"] : []),
+      ? ["today's saved check record cannot be read"] : []),
     ...(corrupt > 0
-      ? [`${corrupt.toLocaleString('en-US')} malformed cycle-summary row${corrupt === 1 ? '' : 's'} today`]
+      ? [`${corrupt.toLocaleString('en-US')} saved check record${corrupt === 1 ? '' : 's'} cannot be read`]
       : []),
     ...(incomplete > 0
-      ? [`${incomplete.toLocaleString('en-US')} started look${incomplete === 1 ? '' : 's'} ${incomplete === 1 ? 'has' : 'have'} no durable completion summary`]
+      ? [`${incomplete.toLocaleString('en-US')} check${incomplete === 1 ? '' : 's'} did not finish recording`]
       : []),
   ]
-  const proofDebt = proofDebts.join('; ') || 'one or more looks lack durable completion proof'
+  const gapCopy = gaps.join('; ') || 'one or more checks did not finish recording'
 
   if (!(Number.isSafeInteger(today.cycles) && today.cycles > 0)) {
-    return lowerBound ? `Daily totals unavailable — ${proofDebt}.` : null
+    return lowerBound ? `Totals are not available — ${gapCopy}.` : null
   }
 
-  const counts = today.durablyCommitted === true
-    ? `${lowerBound ? 'at least ' : ''}${countCopy(today.read)} durably saved · ${lowerBound ? 'at least ' : ''}${countCopy(today.kept)} inbox-eligible · ${lowerBound ? 'at least ' : ''}${countCopy(today.dropped)} dropped`
-    // A legacy summary can itself overstate feed persistence, so even when omitted summaries make the set
-    // incomplete its reported values are not safe mathematical lower bounds. Label; never prefix "at least".
-    : `legacy report · ${countCopy(today.read)} reported outcomes · ${countCopy(today.kept)} reported inbox-eligible · ${countCopy(today.dropped)} reported dropped`
-  return [
-    counts,
-    ...(lowerBound ? [`daily totals incomplete (${proofDebt})`] : []),
-    ...(today.durablyCommitted === true ? [] : ['feed durability unverified']),
-  ].join(' · ')
+  // Older reports can overstate what was saved, so they are labelled "reported" rather than "at least".
+  const prefix = today.durablyCommitted === true && lowerBound ? 'at least ' : ''
+  const counts = `${prefix}${countCopy(today.read)} checked · ${prefix}${countCopy(today.kept)} kept · ${prefix}${countCopy(today.dropped)} ignored`
+  const warning = lowerBound
+    ? `${today.durablyCommitted === true ? 'some totals may be missing' : 'older report; totals may be incomplete'}: ${gapCopy}`
+    : today.durablyCommitted === true ? '' : 'older report; totals could not be fully checked'
+  return [counts, warning].filter(Boolean).join(' · ')
 }
 
 /** Prefer the additive complete cause set while retaining the scalar field for an older server. Treat the
@@ -87,13 +83,13 @@ export function diagnosticDeferReasons(defer: NewsDiagnostics['defer']): string[
 export function lastCycleArrivalCopy(cycle: LastCycleArrivalSplit): string | null {
   const arrivals = cycle.newArrivals
   if (typeof arrivals !== 'number' || !Number.isSafeInteger(arrivals) || arrivals < 0) return null
-  const parts = [`${arrivals.toLocaleString('en-US')} new arrivals`]
+  const parts = [`${arrivals.toLocaleString('en-US')} new`]
   if (typeof cycle.fresh === 'number' && Number.isSafeInteger(cycle.fresh) && cycle.fresh > arrivals) {
     const redelivered = cycle.fresh - arrivals
-    parts.push(`${redelivered.toLocaleString('en-US')} backlog redeliver${redelivered === 1 ? 'y' : 'ies'}`)
+    parts.push(`${redelivered.toLocaleString('en-US')} waiting from before`)
   }
   if (typeof cycle.carryover === 'number' && Number.isSafeInteger(cycle.carryover) && cycle.carryover >= 0) {
-    parts.push(`${cycle.carryover.toLocaleString('en-US')} carried`)
+    parts.push(`${cycle.carryover.toLocaleString('en-US')} carried over`)
   }
   return parts.join(' · ')
 }
@@ -111,6 +107,11 @@ export function fmtPipelineRate(value: number | null | undefined): string {
 
 function fmtItemsPerHour(value: number): string {
   return Math.abs(value).toLocaleString('en-US', { maximumFractionDigits: 1 })
+}
+
+function ratePerHour(perSecond: number | null | undefined): string {
+  if (typeof perSecond !== 'number' || !Number.isFinite(perSecond) || perSecond < 0) return '—'
+  return fmtItemsPerHour(perSecond * 3600)
 }
 
 function unavailable(gapCopy: string, coverageCopy: string): PipelineFlowPresentation {
@@ -132,47 +133,56 @@ export function pipelineFlowPresentation(
 ): PipelineFlowPresentation {
   if (!flow) {
     return unavailable(
-      'Rate comparison is not available from this scanner yet.',
-      'Scanning and inflow are not compared until the server reports like-for-like queue flow.',
+      'We can’t tell yet.',
+      'The scanner has not sent enough recent information.',
     )
   }
 
   const freshness = snapshotProblem(flow, diagnosticsTs, nowMs)
   if (freshness === 'stale') {
     return unavailable(
-      'Rate snapshot is stale — values and capacity comparison are hidden.',
-      'The diagnostics or flow timestamp is over 60 seconds old. Refresh must succeed before rates return.',
+      'The numbers are out of date.',
+      'Refresh to check again.',
     )
   }
   if (freshness === 'invalid') {
     return unavailable(
-      'Rate snapshot time cannot be verified — values and capacity comparison are hidden.',
-      'Refresh diagnostics before using these rates.',
+      'The update time looks wrong.',
+      'Refresh to check again.',
     )
   }
 
   if (flow.history?.coverage !== 'complete') {
     if (!flow.history) {
       return unavailable(
-        'Required rate-history coverage is not reported — capacity is not compared.',
-        'Waiting for the server to prove every partition in the trailing window.',
+        'We can’t tell yet.',
+        'This scanner has not sent a complete recent record.',
       )
     }
-    const debt = [
-      flow.history.missingDates.length ? `missing ${flow.history.missingDates.join(', ')}` : '',
-      flow.history.unreadableDates.length ? `unreadable ${flow.history.unreadableDates.join(', ')}` : '',
-      flow.history.corruptCycleRows ? `${flow.history.corruptCycleRows} corrupt cycle row${flow.history.corruptCycleRows === 1 ? '' : 's'}` : '',
-      flow.history.incompleteCycles ? `${flow.history.incompleteCycles} started cycle${flow.history.incompleteCycles === 1 ? '' : 's'} without a durable completion summary` : '',
-      flow.history.gapMarkerUnreadable ? 'cycle-completion safety record unreadable' : '',
+    const gaps = [
+      flow.history.missingDates.length ? 'Some recent records are missing' : '',
+      flow.history.unreadableDates.length ? 'Some recent records cannot be read' : '',
+      flow.history.corruptCycleRows ? `${flow.history.corruptCycleRows} recent record${flow.history.corruptCycleRows === 1 ? '' : 's'} cannot be read` : '',
+      flow.history.incompleteCycles ? `${flow.history.incompleteCycles} recent check${flow.history.incompleteCycles === 1 ? '' : 's'} did not finish recording` : '',
+      flow.history.gapMarkerUnreadable ? 'The record of finished checks cannot be read' : '',
     ].filter(Boolean).join(' · ')
     return unavailable(
-      'Required rate history is incomplete — capacity is not compared.',
-      debt || 'One or more required trailing-window history records are not proven complete.',
+      'We can’t tell yet.',
+      gaps || 'Some recent information is missing.',
     )
   }
 
-  const inflowRate = fmtPipelineRate(flow.inflow.perSecond)
-  const scanningRate = fmtPipelineRate(flow.scanning.perSecond)
+  const inflowPerSecond = flow.inflow?.perSecond
+  const scanningPerSecond = flow.scanning?.perSecond
+  if ((inflowPerSecond != null && !Number.isFinite(inflowPerSecond))
+    || (scanningPerSecond != null && !Number.isFinite(scanningPerSecond))) {
+    return unavailable(
+      'We can’t tell yet.',
+      'The scanner sent a number that cannot be read. Refresh to check again.',
+    )
+  }
+  const inflowRate = ratePerHour(inflowPerSecond)
+  const scanningRate = ratePerHour(scanningPerSecond)
   const totalCycles = Math.max(flow.inflow.totalCycles, flow.scanning.totalCycles)
   const rawGap = flow.comparison.scanningMinusInflowItemsPerHour
   const gapStatus = typeof rawGap !== 'number' || !Number.isFinite(rawGap)
@@ -189,33 +199,33 @@ export function pipelineFlowPresentation(
     return {
       tone: 'unavailable', inflowRate, scanningRate,
       gapCopy: noCycles
-        ? `No completed scanner looks in the trailing ${flow.windowMinutes} minutes.`
-        : 'Like-for-like coverage is incomplete — scanning and inflow are not compared.',
+        ? `No checks finished in the last ${flow.windowMinutes} minutes.`
+        : 'We can’t compare the two numbers yet.',
       coverageCopy: noCycles
-        ? 'The rate is unmeasured, not zero.'
-        : `Coverage: ${flow.inflow.knownCycles}/${totalCycles} completed cycles prove unique new arrivals; ${flow.scanning.knownCycles}/${totalCycles} prove scanning.`,
+        ? 'There is nothing recent to measure yet.'
+        : 'Some recent totals are missing.',
     }
   }
 
   const gap = rawGap as number
-  const coverageCopy = `Trailing ${flow.windowMinutes} minutes · ${totalCycles} completed cycle${totalCycles === 1 ? '' : 's'} · fixed ${(flow.windowMinutes * 60).toLocaleString('en-US')}-second wall-clock average.`
+  const coverageCopy = `Based on the last ${flow.windowMinutes} minutes (${totalCycles} finished check${totalCycles === 1 ? '' : 's'}).`
   if (gap > 0) {
     return {
       tone: 'ahead', inflowRate, scanningRate,
-      gapCopy: `Ahead by ${fmtItemsPerHour(gap)} items/hour of scanning capacity — before any queued item reaches the age limit.`,
+      gapCopy: `Yes — it checks about ${fmtItemsPerHour(gap)} more item${Math.abs(gap) === 1 ? '' : 's'} each hour than arrive.`,
       coverageCopy,
     }
   }
   if (gap < 0) {
     return {
       tone: 'behind', inflowRate, scanningRate,
-      gapCopy: `Falling behind by ${fmtItemsPerHour(gap)} items/hour — queue pressure grows at this rate before any queued item reaches the age limit.`,
+      gapCopy: `No — about ${fmtItemsPerHour(gap)} more item${Math.abs(gap) === 1 ? '' : 's'} arrive each hour than it checks.`,
       coverageCopy,
     }
   }
   return {
     tone: 'equal', inflowRate, scanningRate,
-    gapCopy: 'Equal — 0 items/hour of capacity headroom before age-based retirement. Scanning must stay above inflow to reduce the backlog.',
+    gapCopy: 'Only just — it is keeping up, but there is no spare room if more news arrives.',
     coverageCopy,
   }
 }
@@ -235,19 +245,19 @@ export function fmtRetryDuration(ms: number): string {
 export function retryReasonLabel(reason?: string): string {
   switch (reason) {
     case 'rate_limit':
-    case 'rate-limit': return 'a rate-limit response'
-    case 'availability': return 'a service or network error'
-    case 'timeout': return 'a request timeout'
+    case 'rate-limit': return 'the service asked it to wait'
+    case 'availability': return 'a service or internet error'
+    case 'timeout': return 'a request took too long'
     case 'request': return 'a rejected request'
-    case 'contract': return 'an unusable response'
-    case 'provider-access': return 'rejected provider access'
+    case 'contract': return 'an answer it could not use'
+    case 'provider-access': return 'a sign-in error'
     // Both hold the whole provider like a 401/403, but neither is a broken credential: 402 is a spent
     // balance, 404 a retired model or endpoint. Naming them apart is what stops an operator rotating a
     // key that was fine.
-    case 'provider-credits': return 'the account credit limit'
-    case 'provider-endpoint': return 'a retired model or endpoint'
-    case 'triage-contract': return 'an unusable triage response'
-    case 'triage-request': return 'a rejected triage request'
+    case 'provider-credits': return 'the account ran out of credit'
+    case 'provider-endpoint': return 'the chosen model is no longer available'
+    case 'triage-contract': return 'an answer it could not use'
+    case 'triage-request': return 'a rejected request'
     case 'auth-expired': return 'an expired sign-in'
     case 'plan-quota': return 'the plan usage limit'
     default: return 'an error'
@@ -267,8 +277,8 @@ export function fmtFailingFor(ms: number): string {
  * failure and says nothing about the provider account's quota or reset window. */
 export function tierStatusCopy(tier: TierDiagnostics, retryRemainingMs: number): string {
   if (!tier.enabled) return tier.disabledReason || 'Off'
-  if (tier.spendingAllowed === false) return 'News engine is not running'
-  if (tier.enabled && tier.providerDayExhausted) return "Provider says today's limit is used"
+  if (tier.spendingAllowed === false) return 'News scanner is not running'
+  if (tier.enabled && tier.providerDayExhausted) return "Service says today's limit is used"
   // A REJECTED CREDENTIAL OUTRANKS THE COUNTDOWN. This branch sits above the retry timer deliberately: the
   // timer is the truth about when the engine will next probe, but it is the WRONG headline for a fault that
   // probing cannot fix. Shown as a countdown, a dead key reads as patience — which is how one went unnoticed
@@ -276,21 +286,21 @@ export function tierStatusCopy(tier: TierDiagnostics, retryRemainingMs: number):
   if (tier.credentialRejected) {
     const forMs = tier.failingForMs
     const since = forMs != null ? `, failing for ${fmtFailingFor(forMs)}` : ''
-    const zero = tier.triageScoredBatchesToday === 0 ? ', 0 scored today' : ''
-    return `Key rejected${since}${zero} — waiting won't fix it${tier.keyEnvVar ? `; check ${tier.keyEnvVar}` : ''}`
+    const zero = tier.triageScoredBatchesToday === 0 ? ', 0 checked today' : ''
+    return `Needs a working key${since}${zero} — waiting won't fix it${tier.keyEnvVar ? `; replace ${tier.keyEnvVar}` : ''}`
   }
   if (retryRemainingMs > 0) {
     // Name the measured duration on a timeout. "timed out at 30.0s" against a 30s ceiling says WE cut the call
     // off and a longer deadline may work; "at 1.2s" says the provider refused and the deadline is irrelevant.
     const at = tier.cooldownReason === 'timeout' && tier.lastFailureMs != null ? ` at ${(tier.lastFailureMs / 1000).toFixed(1)}s` : ''
-    return `Waiting after ${retryReasonLabel(tier.cooldownReason)}${at} · try again in ~${fmtRetryDuration(retryRemainingMs)}`
+    return `Paused after ${retryReasonLabel(tier.cooldownReason)}${at} · try again in ~${fmtRetryDuration(retryRemainingMs)}`
   }
   switch (tier.health) {
-    case 'healthy': return 'Ready to try'
+    case 'healthy': return 'Ready'
     case 'paced': return 'Saved for later today'
-    case 'cooling': return 'Ready to try again'
-    case 'budget-spent': return "This app's daily amount is used"
-    case 'unavailable': return "Can't read today's usage"
+    case 'cooling': return 'Ready again'
+    case 'budget-spent': return "Today's app limit is used"
+    case 'unavailable': return "Can't check today's use"
     case 'disabled': return 'Off'
   }
 }
