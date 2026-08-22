@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import {
-  buildCallsScorecard, decisionMemoryBlock, directionAdjusted, selectCallMemories,
+  buildCallsScorecard, decisionMemoryBlock, directionAdjusted, latestDoneReview, selectCallMemories,
 } from '../src/call-learning'
 
 const reviewed = (ticker: string, decisionQuality: string, confidence: number, rel: number, basket = 'Selected') => ({
@@ -36,6 +36,17 @@ assert.equal(score.horizons.find((row) => row.window === '30d')?.reviewed, 10)
 assert.equal(score.confidence_check.status, 'aligned')
 assert.ok((score.average_vs_benchmark_pct || 0) > 0, 'short returns are direction-adjusted in aggregate')
 
+const sameDayReviews = [
+  { window: '30d', status: 'done', review_date: '2026-08-09', decision_quality: 'genuine miss', absolute_return_pct: -4, review_file: 'reviews/a.json' },
+  { window: '30d', status: 'done', review_date: '2026-08-09', decision_quality: 'skill', absolute_return_pct: 6, review_file: 'reviews/b.json' },
+]
+assert.equal(latestDoneReview(sameDayReviews)?.review_file, 'reviews/b.json')
+assert.equal(latestDoneReview([...sameDayReviews].reverse())?.review_file, 'reviews/b.json',
+  'same-day review selection is independent of input order')
+const sameDayCall = { ...reviewed('TIE', 'skill', 70, 1), timeline: sameDayReviews }
+assert.deepEqual(buildCallsScorecard([sameDayCall]), buildCallsScorecard([{ ...sameDayCall, timeline: [...sameDayReviews].reverse() }]),
+  'aggregate and horizon scorecards use the same deterministic review winner')
+
 const memoryCall = {
   ticker: 'AMZN', company: 'Amazon.com, Inc.', decision_date: '2026-07-10', decision: 'Watchlist', basket: 'Watchlist',
   confidence: 72, entry_price: 238.34, currency: 'USD', final_thesis_path: 'analyses/AMZN_2026-07-10/final_thesis.md',
@@ -57,6 +68,10 @@ assert.equal(selectCallMemories([memoryCall], ['Amazonian rainforest']).length, 
 const oracleCall = { ...memoryCall, ticker: 'ORCL', company: 'Oracle Corporation', decision_date: '2026-08-20' }
 assert.deepEqual(selectCallMemories([oracleCall, memoryCall], ['What changed at Amazon?', 'ORCL']).map((row) => row.ticker), ['AMZN', 'ORCL'],
   'the issuer named in the question ranks ahead of incidental companies in retrieved evidence')
+const sameRankOracle = { ...oracleCall, decision_date: memoryCall.decision_date }
+assert.deepEqual(selectCallMemories([sameRankOracle, memoryCall], ['AMZN ORCL']).map((row) => row.ticker), ['AMZN', 'ORCL'])
+assert.deepEqual(selectCallMemories([memoryCall, sameRankOracle], ['AMZN ORCL']).map((row) => row.ticker), ['AMZN', 'ORCL'],
+  'same-rank, same-date memories have a stable ticker tie-break independent of input order')
 const block = decisionMemoryBlock(matched)
 assert.match(block, /FROZEN ORIGINAL: Nostra rated it Watchlist/)
 assert.doesNotMatch(block, /said enter/i)

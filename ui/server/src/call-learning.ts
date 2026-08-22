@@ -122,9 +122,17 @@ function reviewDate(row: ReviewLike): string {
   return row.review_date || row.due_date || ''
 }
 
+function compareNewestReview(a: ReviewLike, b: ReviewLike): number {
+  const ad = reviewDate(a)
+  const bd = reviewDate(b)
+  if (ad < bd) return 1
+  if (ad > bd) return -1
+  return String(b.review_file || '').localeCompare(String(a.review_file || ''))
+}
+
 export function latestDoneReview(timeline: ReviewLike[] | null | undefined): ReviewLike | null {
   const done = (Array.isArray(timeline) ? timeline : []).filter((row) => row?.status === 'done')
-  return done.sort((a, b) => reviewDate(a) < reviewDate(b) ? 1 : reviewDate(a) > reviewDate(b) ? -1 : String(b.review_file || '').localeCompare(String(a.review_file || '')))[0] || null
+  return done.sort(compareNewestReview)[0] || null
 }
 
 function average(values: Array<number | null>): number | null {
@@ -171,7 +179,7 @@ export function buildCallsScorecard(calls: CallLike[]): CallsScorecard {
   const benchmarkReturns = rows.map(({ call, review }) => directionAdjusted(call.basket, review?.benchmark_relative_return_pct))
   const horizons = (['30d', '90d', '180d', '365d'] as const).map((window) => {
     const windowRows = calls.flatMap((call) => {
-      const review = (call.timeline || []).filter((row) => row.status === 'done' && normalized(row.window) === window).sort((a, b) => reviewDate(a) < reviewDate(b) ? 1 : -1)[0]
+      const review = (call.timeline || []).filter((row) => row.status === 'done' && normalized(row.window) === window).sort(compareNewestReview)[0]
       return review ? [{ call, review }] : []
     })
     const windowClasses = windowRows.map(({ review }) => classifyDecisionQuality(review.decision_quality))
@@ -256,7 +264,14 @@ export function selectCallMemories(calls: CallLike[], identifiers: string[], cap
     if (!prior || String(call.decision_date || '') > String(prior.call.decision_date || '')) newestByTicker.set(key, { call, matchRank })
   }
   return [...newestByTicker.values()]
-    .sort((a, b) => a.matchRank - b.matchRank || (String(a.call.decision_date || '') < String(b.call.decision_date || '') ? 1 : -1))
+    .sort((a, b) => {
+      if (a.matchRank !== b.matchRank) return a.matchRank - b.matchRank
+      const ad = String(a.call.decision_date || '')
+      const bd = String(b.call.decision_date || '')
+      if (ad < bd) return 1
+      if (ad > bd) return -1
+      return normalized(a.call.ticker).localeCompare(normalized(b.call.ticker))
+    })
     .slice(0, cap).map(({ call }) => {
     const latest = latestDoneReview(call.timeline)
     const action = actionNowForCall(call, latest)

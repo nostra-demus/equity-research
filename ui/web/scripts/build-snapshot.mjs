@@ -508,7 +508,7 @@ function reviewsForRun(runDirAbs, runRoot) {
   }
   return out
 }
-function winnerJ(files) { return files.length ? [...files].sort((a, b) => (a.review_date < b.review_date ? 1 : a.review_date > b.review_date ? -1 : a.basename < b.basename ? 1 : -1))[0] : null }
+function winnerJ(files) { return files.length ? [...files].sort((a, b) => (a.review_date < b.review_date ? 1 : a.review_date > b.review_date ? -1 : String(b.basename || '').localeCompare(String(a.basename || ''))))[0] : null }
 function buildTimelineJ(schedule, reviews, today) {
   const out = [], keys = Object.keys(schedule || {})
   for (const w of keys) {
@@ -773,7 +773,13 @@ function buildCalls() {
   }
   const adjusted = (call, value) => typeof value === 'number' ? ((String(call.basket || '').toLowerCase() === 'short' || String(call.basket || '').toLowerCase() === 'rejected') ? -value : value) : null
   const quality = (row) => row?.decision_quality === 'skill' ? 'worked' : row?.decision_quality === 'genuine miss' ? 'failed' : row?.decision_quality === 'luck' ? 'mixed' : 'unscored'
-  const latestDone = (call) => [...call.timeline].filter((row) => row.status === 'done').sort((a, b) => String(a.review_date || '') < String(b.review_date || '') ? 1 : -1)[0] || null
+  const latestDone = (call) => [...call.timeline].filter((row) => row.status === 'done').sort((a, b) => {
+    const ad = String(a.review_date || a.due_date || '')
+    const bd = String(b.review_date || b.due_date || '')
+    if (ad < bd) return 1
+    if (ad > bd) return -1
+    return String(b.review_file || '').localeCompare(String(a.review_file || ''))
+  })[0] || null
   const avg = (values) => { const kept = values.filter((x) => typeof x === 'number' && Number.isFinite(x)); return kept.length ? Math.round((kept.reduce((a, b) => a + b, 0) / kept.length) * 100) / 100 : null }
   const rows = calls.map((call) => ({ call, review: latestDone(call) }))
   const classes = rows.map((row) => quality(row.review))
