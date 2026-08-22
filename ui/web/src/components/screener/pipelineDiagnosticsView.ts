@@ -172,8 +172,17 @@ export function pipelineFlowPresentation(
     )
   }
 
-  const inflowRate = ratePerHour(flow.inflow.perSecond)
-  const scanningRate = ratePerHour(flow.scanning.perSecond)
+  const inflowPerSecond = flow.inflow?.perSecond
+  const scanningPerSecond = flow.scanning?.perSecond
+  if ((inflowPerSecond != null && !Number.isFinite(inflowPerSecond))
+    || (scanningPerSecond != null && !Number.isFinite(scanningPerSecond))) {
+    return unavailable(
+      'We can’t tell yet.',
+      'The scanner sent a number that cannot be read. Refresh to check again.',
+    )
+  }
+  const inflowRate = ratePerHour(inflowPerSecond)
+  const scanningRate = ratePerHour(scanningPerSecond)
   const totalCycles = Math.max(flow.inflow.totalCycles, flow.scanning.totalCycles)
   const rawGap = flow.comparison.scanningMinusInflowItemsPerHour
   const gapStatus = typeof rawGap !== 'number' || !Number.isFinite(rawGap)
@@ -267,7 +276,7 @@ export function fmtFailingFor(ms: number): string {
 /** Operator-facing state. “Cooling” is intentionally absent: this timer is created by the engine after a
  * failure and says nothing about the provider account's quota or reset window. */
 export function tierStatusCopy(tier: TierDiagnostics, retryRemainingMs: number): string {
-  if (!tier.enabled) return tier.disabledReason ? 'Not ready yet' : 'Off'
+  if (!tier.enabled) return tier.disabledReason || 'Off'
   if (tier.spendingAllowed === false) return 'News scanner is not running'
   if (tier.enabled && tier.providerDayExhausted) return "Service says today's limit is used"
   // A REJECTED CREDENTIAL OUTRANKS THE COUNTDOWN. This branch sits above the retry timer deliberately: the

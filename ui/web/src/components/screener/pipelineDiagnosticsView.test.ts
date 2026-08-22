@@ -166,7 +166,7 @@ check('a disabled optional provider stays visible with its operator action', () 
     enabled: false,
     disabledReason: 'Provisioning pending · the deploy agent retries installation and the complete 12-item scorer smoke automatically; OmniRoute enables only after that proof passes',
   }
-  assert.equal(tierStatusCopy(optional, 0), 'Not ready yet')
+  assert.equal(tierStatusCopy(optional, 0), optional.disabledReason)
 })
 
 const FLOW_NOW = Date.parse('2026-08-13T00:00:00Z')
@@ -283,6 +283,17 @@ check('deploy skew without a flow field is explicit, not a measured zero-rate st
   assert.equal(view.inflowRate, '—')
   assert.equal(view.gapCopy, 'We can’t tell yet.')
   assert.equal(view.coverageCopy, 'The scanner has not sent enough recent information.')
+})
+
+check('an invalid rate fails closed instead of showing NaN or pretending it is zero', () => {
+  const invalid = flow(25, 'ahead')
+  invalid.inflow.perSecond = Number.NaN
+  const view = pipelineFlowPresentation(invalid, FLOW_TS, FLOW_NOW)
+  assert.equal(view.tone, 'unavailable')
+  assert.equal(view.inflowRate, '—')
+  assert.equal(view.scanningRate, '—')
+  assert.equal(view.gapCopy, 'We can’t tell yet.')
+  assert.equal(view.coverageCopy, 'The scanner sent a number that cannot be read. Refresh to check again.')
 })
 
 check('stale diagnostics fail closed even when their last rate values were healthy', () => {
