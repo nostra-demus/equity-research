@@ -35,7 +35,7 @@ const newerDecision = {
 }
 write(`${olderRoot}/decision_record.json`, JSON.stringify(olderDecision, null, 2) + '\n')
 write(`${olderRoot}/final_thesis.md`, '# ACME — original published thesis\n')
-write(`${olderRoot}/verification_report_v2.json`, JSON.stringify({ verdict: 'Clean', integrity_score: 99 }) + '\n')
+write(`${olderRoot}/verification_report_v2.json`, '{"verdict":"Clean","integrity_score":1e400}\n')
 write(`${newerRoot}/decision_record.json`, JSON.stringify(newerDecision, null, 2) + '\n')
 write(`${newerRoot}/final_thesis.md`, '# ACME — newer published thesis\n')
 
@@ -65,7 +65,9 @@ const publishedText = (rel: string): string => execFileSync(
   'git', ['-C', repo, 'show', `HEAD:${rel}`], { encoding: 'utf8' },
 )
 
-const { isPublishedCallsArtifactPath, listAllCalls, readPublishedCallsMarkdown } = await import('../src/outputs')
+const {
+  isPublishedCallsArtifactPath, listAllCalls, publishedIntegrityStatus, readPublishedCallsMarkdown,
+} = await import('../src/outputs')
 const { publishedTreeAuthority, publishedTreePaths } = await import('../src/published-git')
 
 // Poison mutable disk after the commit: replace a shared decision, remove its review, and add a private call.
@@ -84,6 +86,8 @@ assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)?.decis
   'the decision comes from published Git, not dirty disk')
 assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)?.integrity_status, 'verified',
   'published verification survives a poisoned local thesis')
+assert.equal(publishedIntegrityStatus(olderRoot, publishedTreeAuthority('analyses', repo, publishedCommit)).integrity_score,
+  null, 'an overflowing JSON number never propagates as an infinite integrity score')
 assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)?.review_count, 1,
   'a locally absent published review remains completed')
 assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)

@@ -602,7 +602,7 @@ const PROVISIONAL_MARK = 'PROVISIONAL — the automated finish-gate'
 const CLEAN_INTEGRITY_VERDICTS = new Set(['Clean', 'Minor issues'])
 const VERIFY_REPORT_RE = /^verification_report(?:_v(\d+))?\.json$/
 
-function publishedIntegrityStatus(runRoot: string, authority: PublishedTreeAuthority) {
+export function publishedIntegrityStatus(runRoot: string, authority: PublishedTreeAuthority) {
   const thesis = authority.readRequired(`${runRoot}/final_thesis.md`)
   const banner = thesis.toString('utf8').slice(0, 2000).includes(PROVISIONAL_MARK)
   const prefix = `${runRoot}/`
@@ -622,7 +622,7 @@ function publishedIntegrityStatus(runRoot: string, authority: PublishedTreeAutho
       const raw = JSON.parse(authority.readRequired(`${runRoot}/${reportFile}`).toString('utf8'))
       if (raw && typeof raw === 'object' && !Array.isArray(raw)) {
         verdict = typeof raw.verdict === 'string' && raw.verdict ? raw.verdict : null
-        score = typeof raw.integrity_score === 'number' ? raw.integrity_score : null
+        score = Number.isFinite(raw.integrity_score) ? raw.integrity_score : null
       }
     } catch (error: any) {
       if (error?.code === 'CALLS_AUTHORITY_UNAVAILABLE') throw error
