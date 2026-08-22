@@ -265,8 +265,8 @@ check('daily outcome copy names partition and corrupt-row debt instead of presen
 check('flow copy names ahead, equal headroom, and falling-behind gaps in items/hour', () => {
   const ahead = pipelineFlowPresentation(flow(25, 'ahead'), FLOW_TS, FLOW_NOW)
   assert.equal(ahead.tone, 'ahead')
-  assert.equal(ahead.inflowRate, '100')
-  assert.equal(ahead.scanningRate, '125')
+  assert.equal(ahead.inflowRate, '0.0278')
+  assert.equal(ahead.scanningRate, '0.0347')
   assert.equal(ahead.gapCopy, 'Yes — it checks about 25 more items each hour than arrive.')
   assert.equal(ahead.coverageCopy, 'Based on the last 60 minutes (3 finished checks).')
 
