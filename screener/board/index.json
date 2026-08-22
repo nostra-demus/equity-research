@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T21:32:24Z",
+  "generated_at": "2026-08-22T21:37:36Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-2434",
@@ -502,6 +502,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-2458",
+      "headline": "TikTok reaches $400 million settlement with U.S. Justice Department over children's privacy",
+      "headline_en": null,
+      "url": "https://japantoday.com/category/tech/tiktok-reaches-400-million-settlement-with-us-justice-department-over-children%27s-privacy",
+      "source_name": "Japan Today",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T21:30:27Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "TikTok reached a $400 million settlement with the U.S. Justice Department, representing a significant financial and regulatory impact.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TikTok reached a $400 million settlement with the U.S. Justice Department, representing a significant financial and regulatory impact.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TikTok",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1891,55 +1940,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-583",
-      "headline": "Dutch regulator fines Uber $966 million for automating driver suspensions, document shows",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/dutch-regulator-fines-uber-966-million-automating-driver-suspensions-document-2026-08-21/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T14:33:40Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Dutch regulator fined Uber $966 million for automating driver suspensions per a document.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Dutch regulator fined Uber $966 million for automating driver suspensions per a document.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "litigation_enforcement",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Uber",
-          "ticker": "UBER",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -79375,9 +79375,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 299923,
-    "news_picked_today": 4879,
-    "news_dropped_today": 10890
+    "news_seen_today": 299952,
+    "news_picked_today": 4886,
+    "news_dropped_today": 10912
   },
   "book_momentum": {
     "live_count": 8,
