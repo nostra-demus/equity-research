@@ -286,7 +286,9 @@ export function normalizeInstagramReelUrl(input: string): string {
   if (parsed.protocol !== 'https:' || !['instagram.com', 'www.instagram.com', 'm.instagram.com'].includes(host)) {
     throw new ReelTranscriptError('Paste an Instagram Reel link.', 'invalid-reel-url', 400)
   }
-  const match = parsed.pathname.match(/^\/reel\/([A-Za-z0-9_-]+)\/?$/)
+  // Instagram uses both `/reel/<id>/` (share links) and `/reels/<id>/` (desktop URLs)
+  // for the same media. Accept either spelling, then collapse both to one query-free canonical URL.
+  const match = parsed.pathname.match(/^\/reels?\/([A-Za-z0-9_-]+)\/?$/)
   if (!match) throw new ReelTranscriptError('This does not look like an Instagram Reel link.', 'invalid-reel-url', 400)
   return `https://www.instagram.com/reel/${match[1]}/`
 }
