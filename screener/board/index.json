@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T00:28:42Z",
+  "generated_at": "2026-08-22T00:54:07Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-033",
@@ -46,6 +46,55 @@
         }
       ],
       "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-108",
+      "headline": "Waste Energy Moves to Triple Midland Footprint as Company Builds Out Large-Scale Waste Processing and Conversion Campus | WAST Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/WAST/waste-energy-moves-to-triple-midland-footprint-as-company-builds-out-m0slx77if5at.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T12:25:00Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Company is tripling its footprint with a large-scale facility, representing a significant capital investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Company is tripling its footprint with a large-scale facility, representing a significant capital investment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Waste Energy",
+          "ticker": "WAST",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -143,6 +192,104 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260822-072",
+      "headline": "SCHEDULE 13D/A - UNIVERSAL SAFETY PRODUCTS, INC. (0000102109) (Subject)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/102109/000092189526002270/0000921895-26-002270-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-22T00:05:32Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Amendment to a 13D filing indicates a potential change in significant shareholder position or intent.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Amendment to a 13D filing indicates a potential change in significant shareholder position or intent.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 25,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UNIVERSAL SAFETY PRODUCTS, INC.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-071",
+      "headline": "SCHEDULE 13D/A - Hyperscale Data, Inc. (0000896493) (Filed by)",
+      "headline_en": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/896493/000092189526002270/0000921895-26-002270-index.htm",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-08-22T00:05:32Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Amendment to a 13D filing indicates a potential change in significant shareholder position or intent.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Amendment to a 13D filing indicates a potential change in significant shareholder position or intent.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 45,
+      "rank_factors": {
+        "materiality": 45,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 25,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "ownership_activist",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "ownership_activist"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyperscale Data, Inc.",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260822-052",
       "headline": "TBLA CLASS ACTION NOTICE: Glancy Prongay Wolke & Rotter LLP Files Securities Fraud Lawsuit on Behalf of Taboola.com Ltd. (TBLA) Investors",
       "headline_en": null,
@@ -192,6 +339,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260822-199",
+      "headline": "Autozi in Discussions with Multiple Investors for Approximately US$55 Million Follow-On Financing After Completing US$30 Million Investment to Accelerate Core Business Expansion",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348253/0/en/autozi-in-discussions-with-multiple-investors-for-approximately-us-55-million-follow-on-financing-after-completing-us-30-million-investment-to-accelerate-core-business-expansion.html",
+      "source_name": "GlobeNewswire — Press Releases (general)",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T11:30:00Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Autozi in discussions for approximately USD 55 million follow-on financing after completing USD 30 million investment to expand core business.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Autozi in discussions for approximately USD 55 million follow-on financing after completing USD 30 million investment to expand core business.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "capital_actions",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Autozi",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260822-055",
       "headline": "Bill Gates pulls $818M from Berkshire to buy this giant",
       "headline_en": null,
@@ -236,6 +433,56 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-166",
+      "headline": "Franklin Templeton Announces Closing of Inaugural US$1.5 Billion Collateralized Fund Obligation | BEN Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/BEN/franklin-templeton-announces-closing-of-inaugural-us-1-5-billion-9jdpz3irgwtt.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T12:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Closed a US$1.5 billion collateralized fund obligation, a sized capital-structure event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "Closed a US$1.5 billion collateralized fund obligation, a sized capital-structure event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "debt_credit",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capital_actions",
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Franklin Templeton",
+          "ticker": "BEN",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -340,6 +587,233 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260822-085",
+      "headline": "Trump: 'I view Hormuz as American territory right now'",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/trump-i-view-hormuz-american-territory-right-now",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T00:07:20Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Trump stated he views Hormuz as US territory, a geopolitical escalation risk over a critical oil transit chokepoint affecting global markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Trump stated he views Hormuz as US territory, a geopolitical escalation risk over a critical oil transit chokepoint affecting global markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": -4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 13,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-074",
+      "headline": "Iran war live: Trump says he views Strait of Hormuz as ‘American territory’",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/news/liveblog/2026/8/22/iran-war-live-trump-says-tehran-not-ready-to-make-right-deal-to-end-war?traffic_source=rss",
+      "source_name": "Al Jazeera — All news",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-08-22T00:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Trump calling Strait of Hormuz 'American territory' escalates geopolitical risk to a key oil transit chokepoint.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Trump calling Strait of Hormuz 'American territory' escalates geopolitical risk to a key oil transit chokepoint.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": -4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-086",
+      "headline": "Russian 'double-tap' strike on shopping centre in Ukraine kills 16 and wounds 130",
+      "headline_en": null,
+      "url": "https://www.reuters.com/world/europe/five-killed-52-wounded-russian-strike-ukraines-kryvyi-rih-2026-08-21/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T23:57:24Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Russian double-tap strike on a Ukrainian shopping centre killed 16 and wounded 130, a military escalation with broad market risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "Russian double-tap strike on a Ukrainian shopping centre killed 16 and wounded 130, a military escalation with broad market risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": -4,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "macro",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-138",
+      "headline": "Circle8 Group Delivers Record $569.7 Million First-Half Revenue, Up 177%",
+      "headline_en": null,
+      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348305/0/en/circle8-group-delivers-record-569-7-million-first-half-revenue-up-177.html",
+      "source_name": "GlobeNewswire — Earnings Releases & Operating Results",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T12:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Circle8 Group reported record $569.7M first-half revenue, up 177% year-over-year.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Circle8 Group reported record $569.7M first-half revenue, up 177% year-over-year.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "earnings_revenue_margin",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Circle8 Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-090",
+      "headline": "Mumbai Consumer Commission Sentences Sterling Constructions Partners To 2 Years In Jail For Order Non-Compliance",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/mumbai/mumbai-consumer-commission-sentences-sterling-constructions-partners-to-2-years-in-jail-for-order-non-compliance",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T23:15:49Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Sterling Constructions partners sentenced to 2 years jail for non-compliance with consumer commission order.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "Sterling Constructions partners sentenced to 2 years jail for non-compliance with consumer commission order.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sterling Constructions",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260822-021",
       "headline": "Ocean Power Technologies, Inc. Receives Notice from NYSE American Regarding Late Filing of Annual Report on Form 10-K | OPTT Stock News",
       "headline_en": null,
@@ -384,6 +858,104 @@
         }
       ],
       "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-107",
+      "headline": "NETFORCE accélère son expansion industrielle aux États-Unis alors qu'un nouveau marché de la force intermédiaire se dessine",
+      "headline_en": "NETFORCE accelerates its industrial expansion in the United States as a new intermediate-force market takes shape",
+      "url": "http://www.businesswire.com/news/home/20260820365356/fr/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
+      "source_name": "Business Wire — Product/Service News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T12:24:00Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Company is announcing an industrial expansion in the US, indicating growth and capital investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Company is announcing an industrial expansion in the US, indicating growth and capital investment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NETFORCE",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-109",
+      "headline": "NETFORCE Accelerates Its U.S. Industrial Expansion as a New Intermediate-Force Market Takes Shape",
+      "headline_en": null,
+      "url": "http://www.businesswire.com/news/home/20260820951658/en/NETFORCE-Accelerates-Its-U.S.-Industrial-Expansion-as-a-New-Intermediate-Force-Market-Takes-Shape/?feedref=JjAwJuNHiystnCoBq_hl-fqXyBvmekC3Xq1G1wQ7hjMFbZM1ntlKeK-8bUzJqFSVSfe41V1BKA-b6v2ZVrSSNs-dUYKiDvY7XniNSqv88QcY1Ge_vf9QIMZ4alzIf_0HlyE0C4hZhHVlTvKnn0d0vQ==",
+      "source_name": "Business Wire — Product/Service News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T12:23:00Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Company is announcing an industrial expansion in the US, indicating growth and capital investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "Company is announcing an industrial expansion in the US, indicating growth and capital investment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 60,
+      "rank_factors": {
+        "materiality": 60,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "NETFORCE",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -526,6 +1098,104 @@
       "companies": [
         {
           "name": "yomo",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-091",
+      "headline": "Amentum Wins $974M Center Maintenance, Operations, and Engineering Contract at NASA Langley Research Center | AMTM Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/AMTM/amentum-wins-974m-center-maintenance-operations-and-engineering-1klebyzl3rh8.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T12:30:00Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Amentum won a $974M NASA maintenance and engineering contract at Langley Research Center.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Amentum won a $974M NASA maintenance and engineering contract at Langley Research Center.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 3,
+        "size": 1,
+        "recency": 0,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "commercial",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amentum",
+          "ticker": "AMTM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-110",
+      "headline": "Mattamy Homes Announces Leadership Transition for U.S. Business",
+      "headline_en": null,
+      "url": "https://www.prnewswire.com/news-releases/mattamy-homes-announces-leadership-transition-for-us-business-302856391.html",
+      "source_name": "PR Newswire — Financial Services & Investing",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T12:18:00Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Leadership transition in a major business unit can impact operational strategy.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 83,
+      "triage_reason": "Leadership transition in a major business unit can impact operational strategy.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 50,
+      "rank_factors": {
+        "materiality": 50,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 20,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "company",
+        "event_id": "management",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Mattamy Homes",
           "ticker": null,
           "listing_country": null
         }
@@ -1075,6 +1745,61 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260822-111",
+      "headline": "DCAI and Corti Launch Sovereign AI Control Layer for European Enterprises - Trifork First to Adopt as Implementation Partner | TRIFOR Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/TRIFOR/dcai-and-corti-launch-sovereign-ai-control-layer-for-european-2b9ri8naqjzz.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-20T12:18:00Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "New product launch and partnership announcement for AI infrastructure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 81,
+      "triage_reason": "New product launch and partnership announcement for AI infrastructure.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 55,
+      "rank_factors": {
+        "materiality": 55,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 3,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "product",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "product",
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DCAI",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Trifork",
+          "ticker": "TRIFOR",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260822-048",
       "headline": "Eightco Holdings (NASDAQ: ORBS) Reports Total Holdings of Approximately $389 Million, Includes OpenAI, Beast Industries, More Than 16,000 ETH and Nearly 302 Million WLD Tokens",
       "headline_en": null,
@@ -1173,184 +1898,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260822-047",
-      "headline": "The Home Depot anuncia un dividendo trimestral de 2,33 dólares",
-      "headline_en": "The Home Depot announces a quarterly dividend of $2.33",
-      "url": "https://www.prnewswire.com/news-releases/the-home-depot-anuncia-un-dividendo-trimestral-de-2-33-dolares-873528918.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-22T00:05:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "The company announced a quarterly dividend of $2.33.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "The company announced a quarterly dividend of $2.33.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capital_actions",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "The Home Depot",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-049",
-      "headline": "Brandywine Realty Trust Announces Expiration of Tender Offer for the 2028 Notes",
+      "inbox_id": "INB-20260822-124",
+      "headline": "Ittihad Grows EBITDA 37 Per Cent in H1 2026, Despite Regional Disruption",
       "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/21/3349357/0/en/brandywine-realty-trust-announces-expiration-of-tender-offer-for-the-2028-notes.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
+      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348326/0/en/ittihad-grows-ebitda-37-per-cent-in-h1-2026-despite-regional-disruption.html",
+      "source_name": "GlobeNewswire — Earnings Releases & Operating Results",
       "input_nature": "company_press_release",
-      "found_at": "2026-08-21T23:31:00Z",
+      "found_at": "2026-08-20T12:07:00Z",
       "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "The company announced the expiration of a tender offer for its 2028 notes.",
+      "prelim_note": "Ittihad reported 37% EBITDA growth in H1 2026, a quantified operating result despite regional disruption.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 72,
-      "triage_reason": "The company announced the expiration of a tender offer for its 2028 notes.",
-      "region": "US",
+      "triage_score": 74,
+      "triage_reason": "Ittihad reported 37% EBITDA growth in H1 2026, a quantified operating result despite regional disruption.",
+      "region": "OTHER",
       "relevance": "material",
-      "materiality_pre_score": 50,
+      "materiality_pre_score": 60,
       "rank_factors": {
-        "materiality": 50,
+        "materiality": 60,
         "source_tier": 3,
         "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 5,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Brandywine Realty Trust",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-062",
-      "headline": "Doug Bergeron Comments on Latest Self-Serving Tactics by Ethan Allen Board | ETD Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/ETD/doug-bergeron-comments-on-latest-self-serving-tactics-by-ethan-allen-ne62rj6njsdd.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "An activist shareholder (Doug Bergeron) publicly criticizes Ethan Allen (ETD) board tactics; signals governance conflict, but no specific board action, proxy filing, or deal is announced.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "An activist shareholder (Doug Bergeron) publicly criticizes Ethan Allen (ETD) board tactics; signals governance conflict, but no specific board action, proxy filing, or deal is announced.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
+        "event": 5,
+        "size": 0,
         "recency": 0,
         "materiality_label_floor": 0,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "company",
-        "event_id": "ownership_activist",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "ownership_activist"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Ethan Allen",
-          "ticker": "ETD",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-059",
-      "headline": "Largo (LGO) Q2 2026 Earnings Call Transcript",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/largo-lgo-q2-2026-earnings-call-transcript",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T23:14:33Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Earnings call transcripts are primary sources for financial performance data, though the headline itself is just a link to the event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 64,
-      "triage_reason": "Earnings call transcripts are primary sources for financial performance data, though the headline itself is just a link to the event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 50,
-      "rank_factors": {
-        "materiality": 50,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
         "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
+        "size_bucket": "unknown"
       },
       "event_types": [
         "earnings_revenue_margin"
@@ -1358,597 +1936,9 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Largo",
-          "ticker": "LGO",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-013",
-      "headline": "NYSE:MMA - MMA.INC Completes US$4.0 Million Private Placement at US$1.00 Per Share",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348382/0/en/nyse-mma-mma-inc-completes-us-4-0-million-private-placement-at-us-1-00-per-share.html",
-      "source_name": "GlobeNewswire — Press Releases (general)",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T12:55:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "MMA.INC (NYSE:MMA) completes $4.0M private placement at $1.00/share; quantified capital raise in a micro-cap at par-value pricing may signal growth funding or distress-stage financing, material to capital structure pending use of proceeds and company runway.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "MMA.INC (NYSE:MMA) completes $4.0M private placement at $1.00/share; quantified capital raise in a micro-cap at par-value pricing may signal growth funding or distress-stage financing, material to capital structure pending use of proceeds and company runway.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 42,
-      "rank_factors": {
-        "materiality": 42,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 0,
-        "materiality_label_floor": 3,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capital_actions",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MMA.INC",
-          "ticker": "MMA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-063",
-      "headline": "Prevail Bank Selects Jack Henry to Differentiate Through Open Ecosystem and AI Innovation | JKHY Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/JKHY/prevail-bank-selects-jack-henry-to-differentiate-through-open-hbzs7nhckv5j.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Jack Henry secured a new client, which is a routine commercial win.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "Jack Henry secured a new client, which is a routine commercial win.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 3,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "commercial",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Jack Henry & Associates",
-          "ticker": "JKHY",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-053",
-      "headline": "Prevail Bank Selects Jack Henry to Differentiate Through Open Ecosystem and AI Innovation",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/prevail-bank-selects-jack-henry-to-differentiate-through-open-ecosystem-and-ai-innovation-302856022.html",
-      "source_name": "PR Newswire — Financial Services & Investing",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "The bank selected Jack Henry as a technology vendor, which is a commercial win for the vendor.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 59,
-      "triage_reason": "The bank selected Jack Henry as a technology vendor, which is a commercial win for the vendor.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 3,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "commercial",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Jack Henry",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-044",
-      "headline": "E-Power’s Joint Venture Selected for Recommendation as a National-Level “Little Giant” Enterprise in China",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348344/0/en/e-power-s-joint-venture-selected-for-recommendation-as-a-national-level-little-giant-enterprise-in-china.html",
-      "source_name": "GlobeNewswire — Press Releases (general)",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Government recognition as a 'Little Giant' enterprise provides potential policy support.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 58,
-      "triage_reason": "Government recognition as a 'Little Giant' enterprise provides potential policy support.",
-      "region": "CN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 40,
-      "rank_factors": {
-        "materiality": 40,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 4,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "regulatory",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "E-Power",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-002",
-      "headline": "Nexxen Introduces Standardization of Smart TV Home Screen Advertising",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348423/0/en/nexxen-introduces-standardization-of-smart-tv-home-screen-advertising.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "The company is standardizing its advertising format, which is a routine product update.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "The company is standardizing its advertising format, which is a routine product update.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 3,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "product",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nexxen",
+          "name": "Ittihad",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-008",
-      "headline": "Benchling Brings Chemistry and Biology Together on One R&D Platform, Adds Chemistry Reactions and Predictive Models",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/benchling-brings-chemistry-and-biology-together-on-one-rd-platform-adds-chemistry-reactions-and-predictive-models-302856063.html",
-      "source_name": "PR Newswire — General Business",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "The company is adding features to its existing R&D platform, a routine product update.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "The company is adding features to its existing R&D platform, a routine product update.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 3,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "product",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Benchling",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-009",
-      "headline": "ParentSquare Expands ParentSquare Intelligence for Back to School with AI Assistant for School Websites and AI Conversation Starters",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/parentsquare-expands-parentsquare-intelligence-for-back-to-school-with-ai-assistant-for-school-websites-and-ai-conversation-starters-302856066.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "The company is adding AI features to its existing software, a standard product enhancement.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "The company is adding AI features to its existing software, a standard product enhancement.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 25,
-      "rank_factors": {
-        "materiality": 25,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 3,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "product",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "ParentSquare",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-006",
-      "headline": "Zephyr Launches The AI Platform, A Multi-Agent Workspace Where Teams Work Alongside AI Specialists",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/zephyr-launches-the-ai-platform-a-multi-agent-workspace-where-teams-work-alongside-ai-specialists-302855949.html",
-      "source_name": "PR Newswire — General Business",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "The company is launching a new software platform, which is a standard product release.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "The company is launching a new software platform, which is a standard product release.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 3,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "product",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Zephyr",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-004",
-      "headline": "Prenetics’ IM8 Announces Two-Time Golden Globe-Nominated Actress and Producer Lily Collins as IM8 Global Ambassador and Shareholder in Multi-Year Partnership | PRE Stock News",
-      "headline_en": null,
-      "url": "https://www.stocktitan.net/news/PRE/prenetics-im8-announces-two-time-golden-globe-nominated-actress-and-r43szmtsax07.html",
-      "source_name": "Stock Titan — Latest News",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "The company signed a celebrity ambassador, which is a marketing initiative rather than a fundamental financial event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "The company signed a celebrity ambassador, which is a marketing initiative rather than a fundamental financial event.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 35,
-      "rank_factors": {
-        "materiality": 35,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 3,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "commercial",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Prenetics",
-          "ticker": "PRE",
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-007",
-      "headline": "Newly Published Research Highlights MolecuLight's Ability to Predict CAMP Success and Improve Wound Bed Readiness",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/newly-published-research-highlights-moleculights-ability-to-predict-camp-success-and-improve-wound-bed-readiness-302855781.html",
-      "source_name": "PR Newswire — General Business",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T13:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "New research supporting product efficacy is positive but does not quantify a financial impact.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "New research supporting product efficacy is positive but does not quantify a financial impact.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 25,
-      "rank_factors": {
-        "materiality": 25,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 3,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 20,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "product",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MolecuLight",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-017",
-      "headline": "Bond Breaks into Real Estate Market by Protecting Realtors; Total Market Estimated at Over $300 Million a Year",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348373/0/en/bond-breaks-into-real-estate-market-by-protecting-realtors-total-market-estimated-at-over-300-million-a-year.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T12:42:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Company entering a new market segment with a $300 million estimated total addressable market.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Company entering a new market segment with a $300 million estimated total addressable market.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 30,
-      "rank_factors": {
-        "materiality": 30,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 3,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "commercial",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bond",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-024",
-      "headline": "Cv International Selected as One of 24 Companies for U.S. Air Force NGAGE Contract",
-      "headline_en": null,
-      "url": "https://www.prnewswire.com/news-releases/cv-international-selected-as-one-of-24-companies-for-us-air-force-ngage-contract-302856416.html",
-      "source_name": "PR Newswire — All News Releases",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T12:39:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Selection for a multi-vendor U.S. Air Force contract provides potential revenue opportunities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 57,
-      "triage_reason": "Selection for a multi-vendor U.S. Air Force contract provides potential revenue opportunities.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 45,
-      "rank_factors": {
-        "materiality": 45,
-        "source_tier": 3,
-        "scope": 6,
-        "event": 3,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "commercial",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Cv International",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
@@ -77913,9 +77903,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 41661,
-    "news_picked_today": 66,
-    "news_dropped_today": 78
+    "news_seen_today": 72669,
+    "news_picked_today": 205,
+    "news_dropped_today": 323
   },
   "book_momentum": {
     "live_count": 8,
