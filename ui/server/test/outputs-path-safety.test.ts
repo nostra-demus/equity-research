@@ -28,8 +28,8 @@ try {
   fs.symlinkSync(outside, linked)
   const relLinked = path.relative(REPO_ROOT, linked)
 
-  assert.throws(() => readMarkdown(relLinked), /Path escapes the analyses sandbox/)
-  assert.throws(() => readRunsMarkdown(relLinked), /Path escapes the runs sandbox/)
+  assert.throws(() => readMarkdown(relLinked), /Output markdown not found/)
+  assert.throws(() => readRunsMarkdown(relLinked), /Output markdown not found/)
 } finally {
   if (runDir) try { fs.rmSync(runDir, { recursive: true, force: true }) } catch {}
   if (outsideDir) try { fs.rmSync(outsideDir, { recursive: true, force: true }) } catch {}

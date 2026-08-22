@@ -12,19 +12,43 @@ import { publishedGitCommit, publishedTreeAuthority, type PublishedTreeAuthority
 import { listSwarms } from './swarms'
 
 // Output markdown is always an engine-authored repo-relative artifact. The strict segment allowlist makes
-// the public request boundary explicit; the realpath containment check immediately beside the read defeats
-// aliases and symlink escapes as well. Keep both checks here so static analysis can prove the sink safe.
+// the public request boundary explicit; filesystem enumeration and canonical containment below prevent the
+// request value itself from becoming a path while rejecting aliases and symlink escapes.
 const SAFE_OUTPUT_MARKDOWN_RE = /^(?:[A-Za-z0-9][A-Za-z0-9._-]*\/)+[A-Za-z0-9][A-Za-z0-9._-]*\.md$/
+
+function missingOutputPath(): Error {
+  return Object.assign(new Error('Output markdown not found'), { code: 'ENOENT' })
+}
+
+/**
+ * Resolve an existing regular file without ever feeding request-derived text to a filesystem path sink.
+ * Each requested segment is only compared with names returned by readdir; the selected entry name is the
+ * value joined into the next path. Rejecting links at every step also closes aliases and swap-through-link
+ * attacks before the final canonical containment check.
+ */
+function resolveEnumeratedFile(root: string, requestedRelativePath: string): string {
+  const baseReal = fs.realpathSync(root)
+  const requestedSegments = requestedRelativePath.split('/')
+  let current = baseReal
+  for (let index = 0; index < requestedSegments.length; index += 1) {
+    const requestedName = requestedSegments[index]
+    const entry = fs.readdirSync(current, { withFileTypes: true })
+      .find((candidate) => candidate.name === requestedName)
+    if (!entry || entry.isSymbolicLink()) throw missingOutputPath()
+    const terminal = index === requestedSegments.length - 1
+    if ((terminal && !entry.isFile()) || (!terminal && !entry.isDirectory())) throw missingOutputPath()
+    current = path.join(current, entry.name)
+  }
+  const real = fs.realpathSync(current)
+  if (!real.startsWith(`${baseReal}${path.sep}`)) throw new Error('Path escapes the output sandbox')
+  return real
+}
 
 export function readMarkdown(relPath: string): { path: string; markdown: string } {
   if (!SAFE_OUTPUT_MARKDOWN_RE.test(relPath)) throw new Error('Invalid output markdown path')
-  const real = fs.realpathSync(path.resolve(REPO_ROOT, relPath))
-  const baseReal = fs.realpathSync(ANALYSES_DIR)
-  if (real !== baseReal && !real.startsWith(`${baseReal}${path.sep}`)) {
-    throw new Error('Path escapes the analyses sandbox')
-  }
-  // CodeQL does not model the strict grammar + realpath + canonical-root containment above.
-  // lgtm[js/path-injection]
+  const prefix = 'analyses/'
+  if (!relPath.startsWith(prefix)) throw new Error('Path escapes the analyses sandbox')
+  const real = resolveEnumeratedFile(ANALYSES_DIR, relPath.slice(prefix.length))
   const markdown = fs.readFileSync(real, 'utf8')
   return { path: relPath, markdown }
 }
@@ -32,17 +56,16 @@ export function readMarkdown(relPath: string): { path: string; markdown: string 
 /** Read markdown confined to any discovered swarm run tree. */
 export function readRunsMarkdown(relPath: string): { path: string; markdown: string } {
   if (!SAFE_OUTPUT_MARKDOWN_RE.test(relPath)) throw new Error('Invalid output markdown path')
-  const real = fs.realpathSync(path.resolve(REPO_ROOT, relPath))
-  const roots = new Set<string>()
-  try { roots.add(fs.realpathSync(ANALYSES_DIR)) } catch { /* analyses/ may not exist yet */ }
-  for (const swarm of listSwarms()) {
-    try { roots.add(fs.realpathSync(path.join(REPO_ROOT, swarm.runsRoot))) } catch { /* not created yet */ }
-  }
-  if (![...roots].some((baseReal) => real === baseReal || real.startsWith(`${baseReal}${path.sep}`))) {
-    throw new Error('Path escapes the runs sandbox')
-  }
-  // CodeQL does not model the strict grammar + realpath + discovered-root containment above.
-  // lgtm[js/path-injection]
+  const roots = [
+    { prefix: 'analyses/', root: ANALYSES_DIR },
+    ...listSwarms().map((swarm) => ({
+      prefix: `${swarm.runsRoot.replace(/\/+$/, '')}/`,
+      root: path.join(REPO_ROOT, swarm.runsRoot),
+    })),
+  ].sort((left, right) => right.prefix.length - left.prefix.length)
+  const selected = roots.find(({ prefix }) => relPath.startsWith(prefix))
+  if (!selected) throw new Error('Path escapes the runs sandbox')
+  const real = resolveEnumeratedFile(selected.root, relPath.slice(selected.prefix.length))
   const markdown = fs.readFileSync(real, 'utf8')
   return { path: relPath, markdown }
 }
