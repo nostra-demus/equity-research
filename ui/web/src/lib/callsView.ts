@@ -27,6 +27,9 @@ function isTimelineEntry(value: unknown): boolean {
     && optionalString(value.review_file)
     && optionalString(value.memo_delta_file)
     && optionalString(value.stage_one_comment)
+    && optionalNumber(value.forecasts_confirmed)
+    && optionalNumber(value.forecasts_falsified)
+    && optionalNumber(value.review_count)
 }
 
 function isCallSummary(value: unknown): value is CallSummary {
