@@ -333,12 +333,12 @@ export function PipelineDiagnostics() {
             <div className="diagrate" data-tone={flowView.tone} aria-label="Can the news scanner keep up?">
               <div className="diagrate__metrics">
                 <div className="diagrate__metric">
-                  <span className="diagrate__label">New items</span>
-                  <span className="diagrate__reading"><b>{flowView.inflowRate}</b><span>per hour</span></span>
+                  <span className="diagrate__label">Average inflow</span>
+                  <span className="diagrate__reading"><b>{flowView.inflowRate}</b><span>items/s</span></span>
                 </div>
                 <div className="diagrate__metric">
-                  <span className="diagrate__label">Items checked</span>
-                  <span className="diagrate__reading"><b>{flowView.scanningRate}</b><span>per hour</span></span>
+                  <span className="diagrate__label">Average scanning</span>
+                  <span className="diagrate__reading"><b>{flowView.scanningRate}</b><span>items/s</span></span>
                 </div>
               </div>
               <div className="diagrate__gap" role="status">
