@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T04:38:19Z",
+  "generated_at": "2026-08-22T04:51:28Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-033",
@@ -1683,6 +1683,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260822-1826",
+      "headline": "Micron To Invest $10 Bln In US Memory Research",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/micron-invest-10-bln-us-memory-research",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T16:31:11Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Micron announced a $10 billion investment in US memory research, a significant capital expenditure.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Micron announced a $10 billion investment in US memory research, a significant capital expenditure.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Micron",
+          "ticker": "MU",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260822-1590",
       "headline": "Walmart shares tumble on weakest US sales growth in six years, soft profit outlook",
       "headline_en": null,
@@ -1974,55 +2023,6 @@
         }
       ],
       "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-1509",
-      "headline": "Alphabet Just Made a $200 Billion Infrastructure Move: Here Is What It Means for Investors",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/alphabet-just-made-200-billion-infrastructure-move-here-what-it-means-investors",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T17:46:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Alphabet made a $200 billion infrastructure move, a major capital-expenditure commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Alphabet made a $200 billion infrastructure move, a major capital-expenditure commitment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alphabet",
-          "ticker": "GOOGL",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -78406,9 +78406,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 265905,
-    "news_picked_today": 2591,
-    "news_dropped_today": 4345
+    "news_seen_today": 272992,
+    "news_picked_today": 2648,
+    "news_dropped_today": 4444
   },
   "book_momentum": {
     "live_count": 8,
