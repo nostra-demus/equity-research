@@ -12,6 +12,14 @@ import { emit, emitTransient, recordActivity, type RunState } from './registry'
 import { agentNameIndexAllSwarms, buildSwarmGraph } from './roster'
 import { getProviderAdapter } from './providers/registry'
 
+const PROVIDER_MESSAGE_MAX = 4_000
+
+function rememberProviderMessage(run: RunState, message: string | undefined): void {
+  const normalized = message?.trim()
+  if (!normalized) return
+  run.lastProviderMessage = normalized.slice(-PROVIDER_MESSAGE_MAX)
+}
+
 let nameIndex: Map<string, { key: string; module: string; layer: number; name: string }> | null = null
 function getNameIndex() {
   if (nameIndex) return nameIndex
@@ -113,6 +121,10 @@ export function handleStreamLine(run: RunState, line: string) {
       run.sessionId = event.sessionId || run.sessionId
       continue
     }
+    if (event.type === 'assistant-message') {
+      rememberProviderMessage(run, event.message)
+      continue
+    }
     if (event.type === 'tool-use') {
       // Every orchestrator tool call, with WHAT it acted on (Task = dispatching an agent; Read/Bash/…
       // = pipeline work). The provider adapter preserves the canonical tool name + normalized input.
@@ -159,6 +171,7 @@ export function handleStreamLine(run: RunState, line: string) {
       // clean-but-truncated exit is exactly the case that had no durable evidence anywhere, and it is
       // what made months of module stalls undiagnosable.
       run.cliResult = event.cliResult
+      rememberProviderMessage(run, event.message)
       if (typeof event.costUsd === 'number') run.costUsd = event.costUsd
       if (typeof event.numTurns === 'number') run.numTurns = event.numTurns
       if (typeof event.durationMs === 'number') run.durationMs = event.durationMs

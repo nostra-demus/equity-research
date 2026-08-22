@@ -103,6 +103,8 @@ export interface RunState {
   numTurns?: number
   // The CLI's own final `result` verdict, captured on EVERY result (clean or error) — see activity-log.
   cliResult?: { subtype?: string; isError?: boolean; apiErrorStatus?: number }
+  /** Last provider-authored text, retained only as a bounded terminal diagnostic on failure. */
+  lastProviderMessage?: string
   /** Structured provider failure observed before process close; admission remains held until tree exit. */
   streamFailure?: { reason: string; message: string }
   /** Detached provider process-group identity while a terminal kill is being drained. */

@@ -1011,6 +1011,9 @@ assert.deepEqual(parseCodexStreamLine(JSON.stringify({
   type: 'item.completed', item: { id: 'item-1', type: 'command_execution', command: 'rg --files', status: 'completed' },
 })), [{ type: 'tool-result', toolUseId: 'item-1', isError: false }])
 assert.deepEqual(parseCodexStreamLine(JSON.stringify({
+  type: 'item.completed', item: { id: 'message-1', type: 'agent_message', text: 'Stopped because the canonical command was unavailable.' },
+})), [{ type: 'assistant-message', message: 'Stopped because the canonical command was unavailable.' }])
+assert.deepEqual(parseCodexStreamLine(JSON.stringify({
   type: 'item.started',
   item: {
     id: 'item-2', type: 'collab_tool_call', tool: 'spawn_agent', status: 'in_progress',
