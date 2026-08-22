@@ -2024,7 +2024,15 @@ export type SseEvent =
 export interface NodeRuntime { status: NodeStatus; verdict?: string | null; outputPath?: string; runId?: string; startedAt?: number; endedAt?: number }
 
 // ---- chat with your data (closed-book Q&A over a run's synthesized output) ----
-export type ChatScope = 'run' | 'module' | 'orb'
+export type ChatScope = 'run' | 'module' | 'orb' | 'wire'
+export type AskMemoryMode = 'auto' | 'run' | 'news'
+export interface AskMemoryMeta {
+  kind: 'ask-memory'
+  mode: AskMemoryMode
+  reason: string
+  shelves: { kind: 'run' | 'news' | 'chats'; label: string; count: number }[]
+  newsEvidence?: NewsChatEvidence[]
+}
 export type ChatStyle = 'simple' | 'analyst' | 'detailed' // narration style — HOW the answer is phrased
 // A deterministic what-if result the engine computed for this turn (scripts/sensitivity_math.py, via the
 // server's chat-whatif). It is DISPLAYED verbatim as a card — the numbers are the engine's, never the
@@ -2120,6 +2128,7 @@ export interface ChatMessage {
   turnId?: string
   thinking?: string
   computed?: ChatComputed[]
+  memory?: AskMemoryMeta | NewsWireMemory
 }
 
 // What an in-flight chat turn is doing RIGHT NOW — drives the panel's live working state. Every stage is
@@ -2145,6 +2154,7 @@ export interface ChatRequest {
   orbKey?: string // stable orb node key — persisted so a saved orb conversation can be reopened
   model?: string
   style?: ChatStyle
+  memoryMode?: AskMemoryMode
   conversationId?: string // attaches this turn to a saved conversation (server mints one when absent)
   // Client-minted idempotency key for one question. A retry reuses it so a response whose terminal frame
   // was lost can be replayed from History instead of charging for and saving a duplicate model turn.
@@ -2188,6 +2198,7 @@ export interface CompletedChatTurn {
   answer: string
   thinking?: string
   computed?: ChatComputed[]
+  memory?: AskMemoryMeta | NewsWireMemory
   sourcePath?: string
   costUsd?: number
 }
@@ -2264,9 +2275,18 @@ export interface NewsChatCompletedTurn {
   receipt: NewsChatReceipt
   evidence: NewsChatEvidence[]
 }
+export interface NewsWireMemory {
+  kind: 'news-wire'
+  window: NewsChatWindow
+  receipt: NewsChatReceipt
+  evidence: NewsChatEvidence[]
+}
 export interface NewsChatRequest {
   window: NewsChatWindow
   model?: string
+  conversationId?: string
+  turnId?: string
+  title?: string
   messages: ChatMessage[]
 }
 

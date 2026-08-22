@@ -13,6 +13,7 @@ import type { ChatConversationSummary, ChatListResult, ChatScope, Whoami } from 
 const scopeLabel = (c: ChatConversationSummary): string => {
   if (c.scope === 'run') return 'Whole run'
   if (c.scope === 'module') return c.module ? moduleLabel(c.module) : 'Module'
+  if (c.scope === 'wire') return 'News wire'
   return 'Single orb'
 }
 
@@ -145,7 +146,7 @@ export function ChatHistory() {
     setResuming(id)
     await resume(id)
     if (mounted.current) setResuming(null)
-    if (useStore.getState().chatOpen && !useStore.getState().chatHistoryOpen) focusAskDrawer()
+    if ((useStore.getState().chatOpen || useStore.getState().newsChatOpen) && !useStore.getState().chatHistoryOpen) focusAskDrawer()
   }
   const onStartNew = (opener: HTMLElement) => {
     captureAskOpener(opener)
@@ -219,6 +220,7 @@ export function ChatHistory() {
               <option value="run">Whole run</option>
               <option value="module">Module</option>
               <option value="orb">Single orb</option>
+              <option value="wire">News wire</option>
             </select>
             <input className="fld fld--search" placeholder="Search questions…" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Search" />
             {anyFilter && <button className="btn btn--ghost" style={{ height: 28, fontSize: 12 }} onClick={() => { setSubject(''); setScope(''); setQ(''); setMineOnly(true) }}>Clear</button>}

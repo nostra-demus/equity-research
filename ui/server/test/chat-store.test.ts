@@ -15,7 +15,7 @@ process.env.ENGINE_STATE_DIR = STATE
 const store = await import('../src/chat-store')
 const {
   recordUserMessage, recordPendingUserMessage, recordAssistantMessage, recordAssistantMessageForPending, rollbackUserMessage, getConversation, deleteConversation,
-  findCompletedTurnForUser, listConversations, isValidConversationId, isValidTurnId,
+  findCompletedTurnForUser, listConversations, searchConversationMemory, isValidConversationId, isValidTurnId,
 } = store
 const CHATS_DIR = path.join(STATE, 'chats')
 const userHash = (user: string) => crypto.createHash('sha256').update(user).digest('hex')
@@ -199,8 +199,9 @@ await check('pending success atomically commits the question and answer', async 
   const turnId = 'turn_completed_test_0001'
   const pending = await reservePending(meta({ title: 'Newest title', model: 'opus' }), 'completed question', c.id, turnId)
   const computed = [{ metric: 'revenue_growth', target: 123.45 }]
+  const memory = { kind: 'ask-memory', shelves: [{ kind: 'run', label: 'current research', count: 1 }] }
   assert.equal(await recordAssistantMessageForPending(pending.rollback, 'completed answer', {
-    sourcePath: 'analyses/EMAR/final_thesis.md', costUsd: 0.04, thinking: 'receipt reasoning', computed,
+    sourcePath: 'analyses/EMAR/final_thesis.md', costUsd: 0.04, thinking: 'receipt reasoning', computed, memory,
   }), true)
   const got = getConversation(c.id)!
   assert.deepEqual(got.messages.map((m) => m.content), ['kept seed', 'completed question', 'completed answer'])
@@ -217,6 +218,7 @@ await check('pending success atomically commits the question and answer', async 
   assert.equal(completed?.assistantMessage.sourcePath, 'analyses/EMAR/final_thesis.md')
   assert.equal(completed?.assistantMessage.costUsd, 0.04)
   assert.deepEqual(completed?.assistantMessage.computed, computed)
+  assert.deepEqual(completed?.assistantMessage.memory, memory)
   assert.equal(findCompletedTurnForUser(turnId, 'mallory@example.com'), null, 'lookup is scoped to the authoritative user')
   assert.equal(await rollbackUserMessage(pending.rollback), false, 'a committed turn cannot be rolled back as pending')
 })
@@ -779,6 +781,19 @@ await check('text search matches the question body', async () => {
   assert.ok(hit.conversations.some((x) => x.id === c.id))
   const miss = listConversations({ q: 'zzzznotpresent' })
   assert.equal(miss.conversations.some((x) => x.id === c.id), false)
+})
+
+await check('memory search reuses existing durable transcripts but never crosses users', async () => {
+  const own = await recordUserMessage(meta({ subject: 'AMZN', title: 'Ask · AMZN memory' }), 'memoryneedle advertising margin')
+  await recordAssistantMessage(own.id, 'The earlier working answer about memoryneedle')
+  const other = await recordUserMessage(meta({ user: 'other@example.com', subject: 'AMZN' }), 'memoryneedle private note')
+  await recordAssistantMessage(other.id, 'must never be returned')
+  const hits = searchConversationMemory({ user: 'alice@example.com', question: 'what did we say about memoryneedle?', subject: 'AMZN', swarm: 'research' })
+  assert.ok(hits.some((hit) => hit.id === own.id))
+  assert.ok(hits.every((hit) => hit.id !== other.id))
+  assert.ok(hits.find((hit) => hit.id === own.id)?.snippet.includes('memoryneedle'))
+  const excluded = searchConversationMemory({ user: 'alice@example.com', question: 'memoryneedle', subject: 'AMZN', excludeId: own.id })
+  assert.ok(excluded.every((hit) => hit.id !== own.id), 'the open conversation must not retrieve itself')
 })
 
 await check('scope + subject filters compose', async () => {

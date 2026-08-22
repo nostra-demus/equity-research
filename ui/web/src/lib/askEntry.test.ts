@@ -3,7 +3,7 @@ import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { focusChatHistoryAfterDelete, focusChatHistoryDeleteConfirmation, focusChatHistoryPanel, restoreChatHistoryDeleteTrigger, restoreChatHistoryFocus } from '../components/ChatHistory'
 import { ChatErrorNotice, retryAndFocusAskDrawer } from '../components/ChatPanel'
-import { CommandBar, ScreenerAskMenu, askMenuKeyIntent } from '../components/CommandBar'
+import { CommandBar, ScreenerAskButton } from '../components/CommandBar'
 import { focusSelectedEventDetail } from '../components/screener/NewsChatPanel'
 import { api } from './api'
 import { captureAskOpener, focusAskDrawer, restoreAskEntryFocus } from './askFocus'
@@ -79,6 +79,43 @@ assert.equal(useStore.getState().chatOpen, true)
 assert.equal(useStore.getState().chatConversationId, 'saved-1')
 assert.deepEqual(useStore.getState().chatMessages[0]?.computed, savedComputed, 'resuming History must restore deterministic computed cards')
 assert.equal(useStore.getState().chatMessages[0]?.turnId, 'turn_saved_scenario_0001', 'History resume must preserve the receipt pointer used for authenticated follow-ups')
+
+api.getChat = async () => ({
+  v: 1,
+  id: 'chat_news_deadbeef',
+  user: 'local',
+  userVia: 'local',
+  swarm: 'screener',
+  subject: 'NEWS',
+  scope: 'wire',
+  title: 'Ask · news wire',
+  model: 'sonnet',
+  style: 'news:7d' as any,
+  createdAt: 1,
+  updatedAt: 2,
+  costUsd: 0,
+  messages: [
+    { role: 'user', content: 'What changed?', ts: 1 },
+    { role: 'assistant', content: 'Saved wire answer [N1]', ts: 2, memory: {
+      kind: 'news-wire', window: '7d',
+      receipt: { window: '7d', label: '7 days', itemsSearched: 1, itemsMatched: 1, sourceCount: 1, evidenceCount: 1, historicalEvidenceCount: 0, coverageStart: null, coverageEnd: null, queryTerms: [], queryTermHits: {}, retrievalTermHits: {}, expandedTerms: {}, retrievalMode: 'hybrid', retrievalChannels: [], dataStores: [], coverageWarnings: [], sourceHealth: null },
+      evidence: [],
+    } },
+  ],
+})
+useStore.setState({ activeSwarm: 'screener', swarms: [research, screener], chatOpen: false, chatHistoryOpen: true, newsChatOpen: false, scSelectedSignal: null })
+await useStore.getState().resumeConversation('chat_news_deadbeef')
+assert.equal(useStore.getState().chatOpen, false)
+assert.equal(useStore.getState().newsChatOpen, true, 'wire History rows must reopen the durable news drawer')
+assert.equal(useStore.getState().newsChatConversationId, 'chat_news_deadbeef')
+assert.equal(useStore.getState().newsChatWindow, '7d')
+assert.equal(useStore.getState().newsChatMessages.at(-1)?.content, 'Saved wire answer [N1]')
+api.getChat = originalGetChat
+api.getChat = async () => ({
+  v: 1, id: 'saved-1', user: 'local', userVia: 'local', swarm: 'research', subject: 'AMZN', scope: 'run',
+  title: 'Saved AMZN chat', createdAt: 1, updatedAt: 2, costUsd: 0,
+  messages: [{ role: 'assistant', content: 'Saved answer', turnId: 'turn_saved_scenario_0001', computed: savedComputed, ts: 1 }],
+})
 
 // An already-scheduled visual swarm transition must not fire after History wins the navigation race.
 useStore.setState({ activeSwarm: 'research', swarms: [research, screener], warp: null })
@@ -256,13 +293,11 @@ assert.equal(useStore.getState().chatOpen, true)
 api.newsChatStream = originalNewsChatStream
 
 useStore.setState({ activeSwarm: 'screener', swarms: [research, screener], scSelectedSignal: null, chatOpen: false, newsChatOpen: false })
-const bar = renderToStaticMarkup(createElement(ScreenerAskMenu))
+const bar = renderToStaticMarkup(createElement(ScreenerAskButton))
 assert.equal((bar.match(/cmdbar__ask/g) || []).length, 1, 'screener must expose one top-level Ask entry')
 assert.equal(bar.includes('Ask news'), false, 'the internal news context must not return as a second top-level Ask')
-assert.match(bar, /aria-haspopup="menu"/, 'the single Ask entry must disclose its context menu')
-assert.equal(askMenuKeyIntent('Tab'), 'tab', 'Tab must dismiss the Ask menu')
-assert.equal(askMenuKeyIntent('Escape'), 'escape', 'Escape must dismiss the Ask menu and restore trigger focus')
-assert.equal(askMenuKeyIntent('ArrowDown'), 'next', 'arrow navigation must remain inside the Ask menu')
+assert.equal(bar.includes('aria-haspopup="menu"'), false, 'Ask must not force a source menu before the question')
+assert.match(bar, /Auto|saved news wire/, 'the single Ask entry must explain that source choice is automatic')
 
 const composedBar = renderToStaticMarkup(createElement(CommandBar))
 assert.equal((composedBar.match(/cmdbar__ask/g) || []).length, 1, 'the composed screener command bar must keep exactly one top-level Ask')

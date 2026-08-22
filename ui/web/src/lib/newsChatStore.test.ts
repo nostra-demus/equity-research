@@ -182,6 +182,41 @@ await check('caps both the request and retained transcript at 30 messages', asyn
   assert.equal(useStore.getState().newsChatMessages.at(-2)?.content, 'Newest question')
 })
 
+await check('keeps one durable conversation id and reuses the exact failed turn id', async () => {
+  reset()
+  let firstTurnId: string | undefined
+  api.newsChatStream = async (body, cb) => {
+    firstTurnId = body.turnId
+    assert.equal(body.conversationId, undefined)
+    cb.onMeta({ conversationId: 'chat_news_deadbeef', receipt: receipt('durable-first'), evidence: [evidence()] })
+    cb.onToken('Saved answer [N1]')
+    cb.onDone({})
+  }
+  await useStore.getState().sendNewsChatMessage('Save this')
+  assert.match(firstTurnId || '', /^turn_/)
+  assert.equal(useStore.getState().newsChatConversationId, 'chat_news_deadbeef')
+
+  let failedTurnId: string | undefined
+  api.newsChatStream = async (body, cb) => {
+    assert.equal(body.conversationId, 'chat_news_deadbeef')
+    failedTurnId = body.turnId
+    cb.onError('wire interrupted')
+  }
+  await useStore.getState().sendNewsChatMessage('Retry this wire question')
+  assert.equal(useStore.getState().newsChatRetryTurnId, failedTurnId)
+  assert.equal(useStore.getState().newsChatConversationId, 'chat_news_deadbeef')
+
+  api.newsChatStream = async (body, cb) => {
+    assert.equal(body.turnId, failedTurnId, 'Retry must use the same durable idempotency key')
+    assert.equal(body.conversationId, 'chat_news_deadbeef')
+    cb.onMeta({ conversationId: 'chat_news_deadbeef', receipt: receipt('durable-retry'), evidence: [evidence()] })
+    cb.onToken('Recovered wire answer [N1]')
+    cb.onDone({})
+  }
+  await useStore.getState().sendNewsChatMessage(useStore.getState().newsChatRetryText!, useStore.getState().newsChatRetryTurnId)
+  assert.equal(useStore.getState().newsChatMessages.at(-1)?.content, 'Recovered wire answer [N1]')
+})
+
 api.newsChatStream = original
 useStore.getState().clearNewsChat()
 console.log(`\n${passed} checks passed`)

@@ -23,6 +23,7 @@ const SUGGESTIONS: Record<ChatScope, string[]> = {
   run: ['What’s the bull case in one paragraph?', 'What are the top 3 risks?', 'What would change the rating?'],
   module: ['Summarize this module’s verdict', 'Where is the evidence weakest?', 'What did this module flag to watch?'],
   orb: ['Summarize this output', 'What’s the single most important number?', 'What does this rely on?'],
+  wire: ['What changed today?', 'Which themes are getting stronger?', 'What looks new compared with history?'],
 }
 
 // the desktop's title contract (store.ts defaultChatTitle)
@@ -39,6 +40,7 @@ export function MobileApp() {
   const [staticMode, setStaticMode] = useState(false)
   const [target, setTarget] = useState<ChatTarget | null>(null)
   const [newsWire, setNewsWire] = useState(false)
+  const [wireConversation, setWireConversation] = useState<ChatConversationDetail | null>(null)
   const [sheet, setSheet] = useState<SheetId>(null)
   const [model, setModel] = useState('sonnet')
   const [style, setStyle] = useState<ChatStyle>(readChatStyle())
@@ -96,7 +98,8 @@ export function MobileApp() {
     // useMobileChat stays mounted (and its stream, if any, stays live) regardless of newsWire — without
     // resetting it here too, a run chat streaming when the user opens the news wire keeps consuming the
     // model in the background and can commit an answer into a conversation the user has already left.
-    if (c.newsWire) { chat.reset(); setNewsWire(true); return }
+    if (c.newsWire) { chat.reset(); setWireConversation(null); setNewsWire(true); return }
+    setWireConversation(null)
     setNewsWire(false)
     chat.reset()
     setTarget({ swarm: c.swarm, subject: c.subject, scope: 'run', title: chatTitle(c.subject, 'run') })
@@ -107,6 +110,14 @@ export function MobileApp() {
   // computed cards + conversation id, and (research only) answer from the conversation's own run root
   const resume = (c: ChatConversationDetail) => {
     setSheet(null)
+    if (c.scope === 'wire') {
+      chat.reset()
+      setWireConversation(c)
+      setNewsWire(true)
+      if (c.model) setModel(c.model)
+      return
+    }
+    setWireConversation(null)
     setNewsWire(false)
     const sw = c.swarm || 'research'
     setTarget({
@@ -155,12 +166,12 @@ export function MobileApp() {
       {staticMode && <div className="mchat__static">Chat runs live — start the engine with npm run dev to ask questions.</div>}
 
       {newsWire ? (
-        <NewsChat model={model} staticMode={staticMode} />
+        <NewsChat model={model} staticMode={staticMode} initial={wireConversation} />
       ) : (
         <>
           <SnapshotHeader snap={snap} onTap={() => setSheet('subject')} />
           {target && !present ? (
-            <RunFirst swarm={target.swarm} subject={target.subject} scope={target.scope} module={target.module} isFlow={swarm?.layout === 'flow'} staticMode={staticMode} />
+            <RunFirst swarm={target.swarm} subject={target.subject} scope={target.scope === 'wire' ? 'run' : target.scope} module={target.module} isFlow={swarm?.layout === 'flow'} staticMode={staticMode} />
           ) : (
             <Thread chat={chat} starters={target ? SUGGESTIONS[target.scope] : undefined} onStarter={(q) => chat.send(q)} />
           )}

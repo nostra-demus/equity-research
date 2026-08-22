@@ -128,7 +128,7 @@ export function SubjectSheet({ open, swarms, current, onPick, onClose, onDesktop
       <input className="msheet__search" placeholder={`Search ${meta?.unit ?? 'subject'}s…`} value={q} onChange={(e) => setQ(e.target.value)} />
       <div className="msheet__list">
         {isFlow && (
-          /* the desktop ScreenerAskMenu's SECOND option, pinned: the news wire is its own closed book */
+          /* With no signal run selected, the wire is the only available Ask shelf. */
           <button className="msheet__row msheet__row--wire" onClick={() => onPick({ swarm: activeTab, subject: 'news', newsWire: true })}>
             <span className="msheet__rowlabel">News wire</span>
             <span className="msheet__rowsub">the last 24 hours, 7 days, or all saved news</span>

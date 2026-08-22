@@ -72,7 +72,8 @@ import { readValuationSummary, readOverrides, appendOverride } from './valuation
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
 import { computePlan, computedContextBlock, detectWhatIf, isNumberlessTargetFollowUp, loadSidecar, parseWhatIf, recordedList, repriceFromMetric, resolveAuthenticatedPriorScenario, validateIntents } from './chat-whatif'
-import { ChatTurnReservationError, deleteConversation, findCompletedTurnForUser, getConversation, isValidConversationId, isValidTurnId, listConversations, recordAssistantMessageForPending, recordPendingUserMessage, rollbackUserMessage, type UserMessageRollback } from './chat-store'
+import { ChatTurnReservationError, deleteConversation, findCompletedTurnForUser, getConversation, isValidConversationId, isValidTurnId, listConversations, recordAssistantMessageForPending, recordPendingUserMessage, rollbackUserMessage, searchConversationMemory, type UserMessageRollback } from './chat-store'
+import { askMemoryMeta, compactNewsEvidence, routeAskMemory, type AskMemoryPromptContext } from './ask-memory'
 import { dataPoolPresent, deriveSignalState, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
 import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
 import { getNewsDiagnostics, getNewsStatus, newsProviderSpendingAllowed, startNewsIngester } from './news/scheduler'
@@ -3753,6 +3754,52 @@ app.post('/api/valuation-levers/override', { config: { rateLimit: { max: 200, ti
 })
 
 // ---------- chat with your data (closed-book Q&A over a run's synthesized output) ----------
+async function retrieveNewsForAsk(window: '24h' | '7d' | 'history', question: string, signal: AbortSignal) {
+  const semanticResult = await searchSemanticIndex({
+    stateDir: STATE_DIR,
+    query: question,
+    namedAnchors: newsSemanticNamedAnchors(question),
+    config: {
+      enabled: NEWS.retrievalEmbeddingEnabled,
+      apiKey: NEWS.retrievalEmbeddingApiKey,
+      baseUrl: NEWS.retrievalEmbeddingBaseUrl,
+      model: NEWS.retrievalEmbeddingModel,
+      timeoutMs: NEWS.retrievalEmbeddingTimeoutMs,
+      batchSize: NEWS.retrievalEmbeddingBatchSize,
+      maxItemsPerCycle: NEWS.retrievalEmbeddingMaxItemsPerCycle,
+    },
+    signal,
+  })
+  let assembled = await assembleNewsChatContext({
+    repoRoot: REPO_ROOT,
+    archiveDir: NEWS.newsArchiveDir,
+    enrichCacheFile: path.join(STATE_DIR, 'news-enrich-cache.json'),
+    window,
+    question,
+    sourceReport: buildSourcesReport(REPO_ROOT, STATE_DIR),
+    semanticResult,
+    signal,
+  })
+  const reranked = await rerankCandidates({
+    query: question,
+    candidates: assembled.evidence.map((e: any) => ({
+      id: e.ref,
+      text: [e.item.headline_en || e.item.headline, e.item.snippet, ...(e.item.companies || []).flatMap((c: any) => [c.name, c.ticker || '']), ...(e.whyMatched || [])].filter(Boolean).join(' '),
+    })),
+    config: {
+      enabled: NEWS.retrievalRerankEnabled,
+      apiKey: NEWS.retrievalRerankApiKey,
+      baseUrl: NEWS.retrievalRerankBaseUrl,
+      model: NEWS.retrievalRerankModel,
+      timeoutMs: NEWS.retrievalRerankTimeoutMs,
+      maxCandidates: NEWS.retrievalRerankMaxCandidates,
+    },
+    signal,
+  })
+  assembled = applyNewsRerank(assembled, reranked)
+  return assembled
+}
+
 // Which scopes are present (chat-able) vs not-yet-run, so the panel can disable + annotate "run first".
 app.get('/api/chat/scopes', async (req, reply) => {
   const q = req.query as any
@@ -3780,7 +3827,8 @@ app.get('/api/chat/scopes', async (req, reply) => {
   }
 })
 
-// One chat turn. Stateless: the client resends the whole conversation each turn (ephemeral by design).
+// One durable chat turn. The client resends a bounded recent transcript for model context; the server keeps
+// the complete saved conversation and searches the user's other durable conversations as working memory.
 // Streams Server-Sent-Events in the POST response body: chat-meta (what we're answering from), then live
 // progress — chat-status {stage: starting|connected|thinking|writing} at each REAL lifecycle event and
 // chat-thinking per reasoning delta (the model's own thought process) — then chat-token per answer delta,
@@ -3797,6 +3845,9 @@ const ChatBody = z.object({
   orbPath: z.string().max(300).optional(),
   model: z.string().max(60).optional(),
   style: z.enum(['simple', 'analyst', 'detailed']).optional(),
+  // Auto is the normal path. The two explicit values are optional user overrides inside the drawer; the
+  // top-level Ask button never makes the user choose an evidence book before asking the question.
+  memoryMode: z.enum(['auto', 'run', 'news']).optional(),
   // chat-history persistence: an echoed conversation id attaches this turn to an existing saved thread
   // (server mints a fresh one when absent/unknown); orbKey + title let a saved orb conversation be reopened.
   conversationId: z.string().max(80).optional(),
@@ -3835,6 +3886,7 @@ app.post('/api/chat', async (req, reply) => {
         conversationId: completed.conversation.id,
         scopeResolved: completed.conversation.title,
         sourcePath: completed.assistantMessage.sourcePath,
+        memory: completed.assistantMessage.memory,
         recovered: true,
       })
       if (completed.assistantMessage.thinking) send({ type: 'chat-thinking', content: completed.assistantMessage.thinking })
@@ -3941,6 +3993,38 @@ app.post('/api/chat', async (req, reply) => {
   }
   if (!assembled.present) { requestAbort.dispose(); return reply.code(409).send({ error: 'not_run', hint: assembled.missingHint }) }
 
+  // One Ask brain, several shelves. Existing durable transcripts are searched directly, so the user's full
+  // History becomes useful immediately without a backfill job. News retrieval is automatic for Screener
+  // signals and freshness questions; a research-only question avoids the extra retrieval work.
+  const memoryRoute = routeAskMemory(last.content, swarmId, parsed.data.memoryMode)
+  // A Screener user naturally asks "does this change the call?" without repeating the company/headline.
+  // Anchor retrieval with the selected signal's authoritative ledger label; otherwise a generic question
+  // could search the whole wire and surface an unrelated top story.
+  const signalMemoryAnchor = swarmId === 'screener' ? screenerSubjectLabels().get(subject) : undefined
+  const memoryQuestion = signalMemoryAnchor ? `${signalMemoryAnchor}\n${last.content}` : last.content
+  const memory: AskMemoryPromptContext = {
+    route: memoryRoute,
+    priorChats: memoryRoute.useHistory ? searchConversationMemory({
+      user: chatUser,
+      question: memoryQuestion,
+      subject,
+      swarm: swarmId,
+      excludeId: parsed.data.conversationId,
+      limit: 4,
+      allowSubjectOnly: memoryRoute.historyIntent,
+    }) : [],
+  }
+  if (memoryRoute.useNews && !ac.signal.aborted) {
+    try {
+      const news = await retrieveNewsForAsk('7d', memoryQuestion, ac.signal)
+      if (news.present) memory.news = news
+    } catch {
+      // Memory shelves are additive. A wire/index failure must not take the frozen research answer down;
+      // the receipt simply omits that shelf instead of pretending it was used.
+    }
+  }
+  if (closed || ac.signal.aborted) { requestAbort.dispose(); return }
+
   // Reserve this turn under the authoritative identity (from Cloudflare Access, NOT the body). The resolved
   // id is echoed in chat-meta so later turns attach here; the question + answer reach History together only
   // on clean completion. History remains best-effort and can never break the answer.
@@ -3992,7 +4076,12 @@ app.post('/api/chat', async (req, reply) => {
   const sse = startSSE(reply)
   const { res, send } = sse
   ping = sse.ping
-  send({ type: 'chat-meta', conversationId, scopeResolved: assembled.label, sourcePath: assembled.sourcePath, degraded: assembled.degraded, degradeNote: assembled.degradeNote })
+  const memoryReceipt = askMemoryMeta(swarmId === 'screener' ? 'current signal' : 'current research', memory)
+  send({
+    type: 'chat-meta', conversationId, scopeResolved: assembled.label, sourcePath: assembled.sourcePath,
+    degraded: assembled.degraded, degradeNote: assembled.degradeNote,
+    memory: memoryReceipt,
+  })
   // Deterministic what-if modeling: when the question is a quantified what-if AND this run recorded the
   // sensitivity coefficients, compute the scenario with the engine (scripts/sensitivity_math.py) and both
   // (a) stream it as a chat-computed card and (b) inject it as an authoritative COMPUTED SCENARIO block so
@@ -4122,7 +4211,7 @@ app.post('/api/chat', async (req, reply) => {
     requestAbort.dispose()
     return
   }
-  const { system, user } = buildChatPrompts({ assembled, messages, subject, style: parsed.data.style, computedBlock })
+  const { system, user } = buildChatPrompts({ assembled, messages, subject, style: parsed.data.style, computedBlock, memory })
   // Live progress for the panel's working state. Every chat-status stage maps to a REAL event (spawn /
   // CLI init / thinking block / first text block — see ChatTurnSignal in chat-llm.ts), and chat-thinking
   // streams the model's own reasoning verbatim so the user can read the thought process while waiting.
@@ -4153,7 +4242,7 @@ app.post('/api/chat', async (req, reply) => {
         const committed = await recordAssistantMessageForPending(
           pending,
           answer,
-          { sourcePath: assembled.sourcePath, costUsd: out.costUsd + parserCostUsd, thinking: thinking || undefined, computed: computedPayloads.length ? computedPayloads : undefined },
+          { sourcePath: assembled.sourcePath, costUsd: out.costUsd + parserCostUsd, thinking: thinking || undefined, computed: computedPayloads.length ? computedPayloads : undefined, memory: memoryReceipt },
           () => !closed && !ac.signal.aborted,
         ).catch(() => false)
         if (committed) pendingSavedQuestion = null
@@ -4196,7 +4285,7 @@ app.post('/api/chat', async (req, reply) => {
 app.get('/api/chats', async (req) => {
   const q = req.query as any
   const num = (v: any) => { const n = Number(v); return Number.isFinite(n) ? n : undefined }
-  const scopes = ['run', 'module', 'orb']
+  const scopes = ['run', 'module', 'orb', 'wire']
   return listConversations({
     user: typeof q.user === 'string' && q.user ? q.user.slice(0, 200) : undefined,
     subject: typeof q.subject === 'string' && (TICKER_RE.test(q.subject) || SIG_RE.test(q.subject)) ? q.subject : undefined,
@@ -4233,6 +4322,7 @@ app.get('/api/chat/turn/:turnId', async (req, reply) => {
     answer: completed.assistantMessage.content,
     thinking: completed.assistantMessage.thinking,
     computed: completed.assistantMessage.computed,
+    memory: completed.assistantMessage.memory,
     sourcePath: completed.assistantMessage.sourcePath,
     costUsd: completed.assistantMessage.costUsd,
   }
@@ -4248,11 +4338,15 @@ app.delete('/api/chats/:id', async (req, reply) => {
 })
 
 // ---------- chat with the saved news wire ----------
-// This is separate from /api/chat. Research chat reads finished company work; news chat reads the
-// firehose and its archive. Both stay closed-book and both use the same no-tools chat runner.
+// With no selected signal, unified Ask has no run to attach, so this route answers from the saved wire. It
+// still uses the shared durable chat store and History drawer; selecting a signal uses /api/chat, whose Auto
+// router can combine that run with the same saved wire question by question.
 const NewsChatBody = z.object({
   window: z.enum(['24h', '7d', 'history']),
   model: z.string().max(60).optional(),
+  conversationId: z.string().max(80).optional(),
+  turnId: z.string().max(110).refine(isValidTurnId, 'invalid chat turn id').optional(),
+  title: z.string().max(300).optional(),
   messages: z.array(z.object({ role: z.enum(['user', 'assistant']), content: z.string().max(12_000) })).min(1).max(30),
 })
 const newsChatGate = new NewsChatRequestGate(NEWS.chatMaxConcurrent)
@@ -4266,64 +4360,83 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
   const releaseNewsChat = newsChatGate.tryAcquire()
   if (!releaseNewsChat) return reply.code(429).send({ error: 'news chat is busy — try again in a moment' })
   const model = CHAT.allowedModels.includes(parsed.data.model || '') ? parsed.data.model! : CHAT.defaultModel
+  const { user: chatUser, userVia } = identify(req)
   const requestAbort = bindNewsChatRequestAbort(req.raw, reply.raw)
   const ac = requestAbort.controller
+  let closed = ac.signal.aborted
+  let pendingSavedQuestion: UserMessageRollback | null = null
+  const rollbackCanceledQuestion = async () => {
+    const pending = pendingSavedQuestion
+    if (!pending) return
+    pendingSavedQuestion = null
+    await rollbackUserMessage(pending).catch(() => false)
+  }
+  const onAbort = () => { closed = true; void rollbackCanceledQuestion() }
+  ac.signal.addEventListener('abort', onAbort, { once: true })
+
+  const wireContextMatches = (conversation: { swarm: string; subject: string; scope: string }) => (
+    conversation.swarm === 'screener' && conversation.subject === 'NEWS' && conversation.scope === 'wire'
+  )
+  const savedNewsMemory = (message: { memory?: unknown }) => {
+    const memory = message.memory as any
+    return memory?.kind === 'news-wire' && memory.receipt && Array.isArray(memory.evidence) ? memory : null
+  }
+  const replayNewsTurn = (completed: NonNullable<ReturnType<typeof findCompletedTurnForUser>>) => {
+    if (completed.userMessage.content !== last.content) return reply.code(409).send({ error: 'chat turn id was already used for a different question' })
+    if (!wireContextMatches(completed.conversation)) return reply.code(409).send({ error: 'chat turn belongs to a different Ask context' })
+    const memory = savedNewsMemory(completed.assistantMessage)
+    if (!memory) return reply.code(409).send({ error: 'saved news receipt is missing — start a new question' })
+    const { res, send, ping } = startSSE(reply)
+    try {
+      send({ type: 'news-chat-meta', conversationId: completed.conversation.id, receipt: memory.receipt, evidence: memory.evidence, recovered: true })
+      send({ type: 'news-chat-token', content: completed.assistantMessage.content })
+      send({ type: 'news-chat-done', costUsd: 0, model: completed.conversation.model, recovered: true })
+    } finally {
+      clearInterval(ping)
+      try { res.end() } catch { /* already closed */ }
+    }
+  }
 
   try {
+    if (parsed.data.turnId) {
+      const completed = findCompletedTurnForUser(parsed.data.turnId, chatUser)
+      if (completed) return replayNewsTurn(completed)
+    }
+
+    let conversationId = isValidConversationId(parsed.data.conversationId) ? parsed.data.conversationId : undefined
+    try {
+      const recorded = await recordPendingUserMessage({
+        user: chatUser, userVia, swarm: 'screener', subject: 'NEWS', scope: 'wire',
+        title: parsed.data.title || 'Ask · news wire', model, style: `news:${window}`,
+      }, last.content, conversationId, parsed.data.turnId)
+      if (recorded.status === 'completed') return replayNewsTurn(recorded.completed)
+      conversationId = recorded.conversation.id
+      pendingSavedQuestion = recorded.rollback
+    } catch (error) {
+      if (error instanceof ChatTurnReservationError) {
+        const status = error.code === 'CONVERSATION_BUSY' ? 503
+          : error.code === 'TURN_ALREADY_PENDING' || error.code === 'TURN_CONTEXT_MISMATCH' ? 409
+            : 400
+        return reply.code(status).send({ error: error.message, code: error.code })
+      }
+      if (parsed.data.turnId) return reply.code(503).send({ error: 'could not reserve this chat turn safely — retry in a moment', code: 'TURN_RESERVATION_FAILED' })
+      // Legacy clients without a turn id keep best-effort persistence.
+    }
+    if (closed || ac.signal.aborted) { await rollbackCanceledQuestion(); return }
+
     let assembled
     try {
-    const semanticResult = await searchSemanticIndex({
-      stateDir: STATE_DIR,
-      query: last.content,
-      namedAnchors: newsSemanticNamedAnchors(last.content),
-      config: {
-        enabled: NEWS.retrievalEmbeddingEnabled,
-        apiKey: NEWS.retrievalEmbeddingApiKey,
-        baseUrl: NEWS.retrievalEmbeddingBaseUrl,
-        model: NEWS.retrievalEmbeddingModel,
-        timeoutMs: NEWS.retrievalEmbeddingTimeoutMs,
-        batchSize: NEWS.retrievalEmbeddingBatchSize,
-        maxItemsPerCycle: NEWS.retrievalEmbeddingMaxItemsPerCycle,
-      },
-      signal: ac.signal,
-    })
-    assembled = await assembleNewsChatContext({
-      repoRoot: REPO_ROOT,
-      archiveDir: NEWS.newsArchiveDir,
-      enrichCacheFile: path.join(STATE_DIR, 'news-enrich-cache.json'),
-      window,
-      question: last.content,
-      sourceReport: buildSourcesReport(REPO_ROOT, STATE_DIR),
-      semanticResult,
-      signal: ac.signal,
-    })
-    const reranked = await rerankCandidates({
-      query: last.content,
-      candidates: assembled.evidence.map((e: any) => ({
-        id: e.ref,
-        text: [e.item.headline_en || e.item.headline, e.item.snippet, ...(e.item.companies || []).flatMap((c: any) => [c.name, c.ticker || '']), ...(e.whyMatched || [])].filter(Boolean).join(' '),
-      })),
-      config: {
-        enabled: NEWS.retrievalRerankEnabled,
-        apiKey: NEWS.retrievalRerankApiKey,
-        baseUrl: NEWS.retrievalRerankBaseUrl,
-        model: NEWS.retrievalRerankModel,
-        timeoutMs: NEWS.retrievalRerankTimeoutMs,
-        maxCandidates: NEWS.retrievalRerankMaxCandidates,
-      },
-      signal: ac.signal,
-    })
-    assembled = applyNewsRerank(assembled, reranked)
+      assembled = await retrieveNewsForAsk(window, last.content, ac.signal)
     } catch (e: any) {
-      if (ac.signal.aborted) return
+      if (ac.signal.aborted) { await rollbackCanceledQuestion(); return }
+      await rollbackCanceledQuestion()
       return reply.code(500).send({ error: 'could not read the saved news', detail: String(e?.message || e) })
     }
-    if (!assembled.present) return reply.code(409).send({ error: 'no_news', hint: assembled.missingHint })
+    if (!assembled.present) { await rollbackCanceledQuestion(); return reply.code(409).send({ error: 'no_news', hint: assembled.missingHint }) }
 
     const { res, send, ping } = startSSE(reply)
-    let closed = false
     res.on('close', () => { closed = true; clearInterval(ping) })
-    send({ type: 'news-chat-meta', receipt: assembled.receipt, evidence: assembled.evidence })
+    send({ type: 'news-chat-meta', conversationId, receipt: assembled.receipt, evidence: assembled.evidence })
     const { system, user } = buildNewsChatPrompts({ assembled, messages })
     try {
       // Hold primary text until the turn succeeds. If the primary emits a partial answer and then reports
@@ -4331,10 +4444,15 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
       // a sentence from another model.
       const primaryChunks: string[] = []
       const out = await runChatTurn({ system, user, model, signal: ac.signal, onToken: (t) => primaryChunks.push(t) })
+      let answer = ''
+      let answerCostUsd = out.costUsd || 0
+      let answerModel = model
+      let fallbackFrom: string | undefined
       if (out.error && out.error !== 'aborted' && shouldUseNewsChatFallback(out.error)) {
         send({ type: 'news-chat-status', stage: 'backup-provider' })
+        const backupChunks: string[] = []
         const backup = await runNewsChatFallback({
-          system, user, signal: ac.signal, onToken: (t) => send({ type: 'news-chat-token', content: t }),
+          system, user, signal: ac.signal, onToken: (t) => { backupChunks.push(t); send({ type: 'news-chat-token', content: t }) },
           config: {
             enabled: NEWS.chatGroqFallbackEnabled,
             providerSpendingAllowed: newsProviderSpendingAllowed(),
@@ -4355,20 +4473,63 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
             cooldownMaxMs: NEWS.llmCooldownMaxMs,
           },
         })
-        if (!backup.error) send({ type: 'news-chat-done', costUsd: backup.costUsd, model: backup.model || NEWS.groqModel, fallbackFrom: model })
-        else if (backup.error !== 'aborted') send({ type: 'news-chat-error', message: `${out.error} ${backup.error}` })
-      } else if (out.error && out.error !== 'aborted') send({ type: 'news-chat-error', message: out.error })
+        if (!backup.error) {
+          answer = backupChunks.join('')
+          answerCostUsd = backup.costUsd
+          answerModel = backup.model || NEWS.groqModel
+          fallbackFrom = model
+        } else if (backup.error !== 'aborted') {
+          await rollbackCanceledQuestion()
+          send({ type: 'news-chat-error', message: `${out.error} ${backup.error}` })
+        }
+      } else if (out.error && out.error !== 'aborted') {
+        await rollbackCanceledQuestion()
+        send({ type: 'news-chat-error', message: out.error })
+      }
       else if (!out.error) {
+        answer = primaryChunks.join('')
         for (const content of primaryChunks) send({ type: 'news-chat-token', content })
-        send({ type: 'news-chat-done', costUsd: out.costUsd, model })
+      }
+
+      if (answer && !closed && !ac.signal.aborted) {
+        const pending = pendingSavedQuestion
+        let completionSafe = true
+        if (pending) {
+          const memory = { kind: 'news-wire', window, receipt: assembled.receipt, evidence: compactNewsEvidence(assembled.evidence) }
+          const committed = await recordAssistantMessageForPending(
+            pending,
+            answer,
+            { sourcePath: 'saved news wire', costUsd: answerCostUsd, memory },
+            () => !closed && !ac.signal.aborted,
+          ).catch(() => false)
+          if (committed) pendingSavedQuestion = null
+          else {
+            const completed = findCompletedTurnForUser(pending.turnId, chatUser)
+            const sameCanonicalAnswer = completed?.userMessage.content === last.content && completed.assistantMessage.content === answer
+            await rollbackCanceledQuestion()
+            if (!sameCanonicalAnswer) {
+              completionSafe = false
+              send({ type: 'news-chat-error', message: completed ? 'This turn completed on another server. Retry to load the saved answer.' : 'The answer could not be saved safely. Retry the same turn.' })
+            }
+          }
+        }
+        if (completionSafe && !closed) send({ type: 'news-chat-done', costUsd: answerCostUsd, model: answerModel, ...(fallbackFrom ? { fallbackFrom } : {}) })
+      } else if (!answer) {
+        await rollbackCanceledQuestion()
+        if (!closed && !ac.signal.aborted && !out.error) {
+          send({ type: 'news-chat-error', message: 'The model returned no answer. Retry the same question.' })
+        }
       }
     } catch (e: any) {
+      await rollbackCanceledQuestion()
       if (!closed) send({ type: 'news-chat-error', message: String(e?.message || e) })
     } finally {
+      if (closed || ac.signal.aborted) await rollbackCanceledQuestion()
       clearInterval(ping)
       try { res.end() } catch { /* already closed */ }
     }
   } finally {
+    ac.signal.removeEventListener('abort', onAbort)
     requestAbort.dispose()
     releaseNewsChat()
   }

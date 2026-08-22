@@ -39,8 +39,10 @@ export function NewsChatPanel() {
   const receipt = useStore((s) => s.newsChatReceipt)
   const completedTurn = useStore((s) => s.newsChatCompletedTurn)
   const retryText = useStore((s) => s.newsChatRetryText)
+  const retryTurnId = useStore((s) => s.newsChatRetryTurnId)
   const send = useStore((s) => s.sendNewsChatMessage)
   const clear = useStore((s) => s.clearNewsChat)
+  const openHistory = useStore((s) => s.openChatHistory)
   const runSignal = useStore((s) => s.sendNewsChatToSignalCheck)
   const openEvent = useStore((s) => s.scSelectEvent)
   const staticMode = useStore((s) => s.staticMode)
@@ -77,16 +79,16 @@ export function NewsChatPanel() {
     el.style.height = 'auto'
     el.style.height = `${Math.min(el.scrollHeight, 140)}px`
   }
-  const doSend = (text: string) => {
+  const doSend = (text: string, turnId?: string) => {
     const q = text.trim()
     if (!q || streaming || staticMode) return
     lockedRef.current = true
     setShowSources(true)
-    void send(q)
+    void send(q, turnId)
     setDraft('')
     requestAnimationFrame(() => grow(inputRef.current))
   }
-  const retry = () => { if (retryText) doSend(retryText) }
+  const retry = () => { if (retryText) doSend(retryText, retryTurnId) }
   const copy = () => {
     if (!lastAnswer) return
     navigator.clipboard?.writeText(lastAnswer).then(() => {
@@ -128,6 +130,7 @@ export function NewsChatPanel() {
           </div>
         </div>
         <div className="newschat__headbuttons">
+          <button className="btn btn--ghost" onClick={openHistory} title="View and reopen saved Ask conversations">History</button>
           {messages.length > 0 && <button className="btn btn--ghost" onClick={clear}>Clear</button>}
           <button ref={closeRef} data-ask-close="true" className="btn btn--ghost" onClick={close}>Close ✕</button>
         </div>

@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useStore, isFlowActive } from '../lib/store'
 import { focusAskDrawer, restoreAskEntryFocus } from '../lib/askFocus'
-import type { ChatScope, ChatStyle, ChatWork } from '../lib/types'
+import type { AskMemoryMode, ChatScope, ChatStyle, ChatWork } from '../lib/types'
 import { ComputedCard } from './chat/computed'
 
 const titleize = (s: string) => s.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
@@ -14,7 +14,14 @@ const SUGGESTIONS: Record<ChatScope, string[]> = {
   run: ['What’s the bull case in one paragraph?', 'What are the top 3 risks?', 'What would change the rating?'],
   module: ['Summarize this module’s verdict', 'Where is the evidence weakest?', 'What did this module flag to watch?'],
   orb: ['Summarize this output', 'What’s the single most important number?', 'What does this rely on?'],
+  wire: ['What changed today?', 'Which themes are getting stronger?', 'What looks new compared with history?'],
 }
+
+const MEMORY_MODES: { id: AskMemoryMode; label: string; sub: string }[] = [
+  { id: 'auto', label: 'Auto sources', sub: 'Ask decides when to use the run, saved news, and earlier chats' },
+  { id: 'run', label: 'This run only', sub: 'Optional override: ignore news and earlier chats' },
+  { id: 'news', label: 'Include news', sub: 'Optional override: search saved news and earlier chats too' },
+]
 
 const MODELS: { id: string; label: string; sub: string }[] = [
   { id: 'sonnet', label: 'Sonnet', sub: 'fast · strong default' },
@@ -62,10 +69,13 @@ export function ChatPanel() {
   const source = useStore((s) => s.chatSource)
   const model = useStore((s) => s.chatModel)
   const style = useStore((s) => s.chatStyle)
+  const memoryMode = useStore((s) => s.chatMemoryMode)
+  const memory = useStore((s) => s.chatMemory)
   const send = useStore((s) => s.sendChatMessage)
   const setScope = useStore((s) => s.setChatScope)
   const setModel = useStore((s) => s.setChatModel)
   const setStyle = useStore((s) => s.setChatStyle)
+  const setMemoryMode = useStore((s) => s.setChatMemoryMode)
   const clear = useStore((s) => s.clearChat)
   const openHistory = useStore((s) => s.openChatHistory)
   const historyOpen = useStore((s) => s.chatHistoryOpen)
@@ -99,6 +109,7 @@ export function ChatPanel() {
   const [scopeMenu, setScopeMenu] = useState(false)
   const [modelMenu, setModelMenu] = useState(false)
   const [styleMenu, setStyleMenu] = useState(false)
+  const [memoryMenu, setMemoryMenu] = useState(false)
   const [copied, setCopied] = useState<number | null>(null)
   const inputRef = useRef<HTMLTextAreaElement | null>(null)
   const closeRef = useRef<HTMLButtonElement | null>(null)
@@ -112,7 +123,8 @@ export function ChatPanel() {
     !!answerRunRoot ||
     (scope === 'run' ? scopes.run
     : scope === 'module' ? !!scopes.modules.find((m) => m.module === chatModule)?.present
-    : !!scopes.orbs.find((o) => o.key === chatOrbKey)?.present)
+    : scope === 'orb' ? !!scopes.orbs.find((o) => o.key === chatOrbKey)?.present
+    : true)
 
   const close = useCallback(() => { dismiss(); restoreAskEntryFocus() }, [dismiss])
 
@@ -122,10 +134,10 @@ export function ChatPanel() {
   // Esc closes (also aborts any in-flight stream via closeChat). When the History panel is open ON TOP of
   // this one, it owns Escape — ignore it here so one keypress doesn't close both.
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { if (scopeMenu || modelMenu || styleMenu) { setScopeMenu(false); setModelMenu(false); setStyleMenu(false) } else if (!historyOpen) close() } }
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { if (scopeMenu || modelMenu || styleMenu || memoryMenu) { setScopeMenu(false); setModelMenu(false); setStyleMenu(false); setMemoryMenu(false) } else if (!historyOpen) close() } }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [close, scopeMenu, modelMenu, styleMenu, historyOpen])
+  }, [close, scopeMenu, modelMenu, styleMenu, memoryMenu, historyOpen])
 
   // auto-scroll to the newest token while locked; lock releases when the user scrolls up
   useLayoutEffect(() => {
@@ -181,15 +193,36 @@ export function ChatPanel() {
             <span className="chatpanel__badge">Ask</span>
             <span className="chatpanel__titletext">{title}</span>
           </div>
-          <div className="chatpanel__source" title={source || undefined}>
-            {source ? `Answering from ${source}` : 'Answers come only from this run’s synthesized output.'}
+          <div className="chatpanel__source" title={memory?.reason || source || undefined}>
+            {memory
+              ? `Used: ${memory.shelves.map((shelf) => `${shelf.label}${shelf.count > 1 ? ` (${shelf.count})` : ''}`).join(' · ')}`
+              : memoryMode === 'auto' ? 'Auto will choose from this run, saved news, and your earlier chats.' : memoryMode === 'run' ? 'Using this run only.' : 'Will include saved news and earlier chats.'}
             {messages.some((m) => m.role === 'assistant' && m.computed?.some((c) => c.kind === 'scenario')) && <span className="chatpanel__source-modeled"> · modeled with the sensitivity engine</span>}
           </div>
         </div>
         <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexShrink: 0 }}>
+          {/* source routing is optional. Auto is the default; no choice is required before asking. */}
+          <div style={{ position: 'relative' }}>
+            <button className="btn" style={{ height: 30 }} aria-expanded={memoryMenu} onClick={() => { setMemoryMenu((o) => !o); setScopeMenu(false); setModelMenu(false); setStyleMenu(false) }} title="Optional source override; Auto normally decides">
+              {MEMORY_MODES.find((mode) => mode.id === memoryMode)?.label ?? 'Auto sources'} ▾
+            </button>
+            {memoryMenu && (
+              <>
+                <div style={{ position: 'fixed', inset: 0, zIndex: 51 }} onClick={() => setMemoryMenu(false)} />
+                <div className="dlmenu">
+                  <div className="pmenu__label">Use for the next question</div>
+                  {MEMORY_MODES.map((mode) => (
+                    <button key={mode.id} className="dlmenu__item" onClick={() => { setMemoryMode(mode.id); setMemoryMenu(false) }}>
+                      <b>{mode.label}{mode.id === memoryMode ? ' ✓' : ''}</b><span>{mode.sub}</span>
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
           {/* scope selector */}
           <div style={{ position: 'relative' }}>
-            <button className="btn" style={{ height: 30 }} aria-expanded={scopeMenu} onClick={() => { setScopeMenu((o) => !o); setModelMenu(false); setStyleMenu(false) }} title="Choose what to chat with">
+            <button className="btn" style={{ height: 30 }} aria-expanded={scopeMenu} onClick={() => { setScopeMenu((o) => !o); setModelMenu(false); setStyleMenu(false); setMemoryMenu(false) }} title="Choose what to chat with">
               Scope ▾
             </button>
             {scopeMenu && (
@@ -213,7 +246,7 @@ export function ChatPanel() {
           </div>
           {/* model selector */}
           <div style={{ position: 'relative' }}>
-            <button className="btn" style={{ height: 30 }} aria-expanded={modelMenu} onClick={() => { setModelMenu((o) => !o); setScopeMenu(false); setStyleMenu(false) }} title="Model used for the answer">
+            <button className="btn" style={{ height: 30 }} aria-expanded={modelMenu} onClick={() => { setModelMenu((o) => !o); setScopeMenu(false); setStyleMenu(false); setMemoryMenu(false) }} title="Model used for the answer">
               {MODELS.find((m) => m.id === model)?.label ?? model} ▾
             </button>
             {modelMenu && (
@@ -231,7 +264,7 @@ export function ChatPanel() {
           </div>
           {/* narration-style selector — HOW the answer is phrased (default: Simple) */}
           <div style={{ position: 'relative' }}>
-            <button className="btn" style={{ height: 30 }} aria-expanded={styleMenu} onClick={() => { setStyleMenu((o) => !o); setScopeMenu(false); setModelMenu(false) }} title="How answers are explained">
+            <button className="btn" style={{ height: 30 }} aria-expanded={styleMenu} onClick={() => { setStyleMenu((o) => !o); setScopeMenu(false); setModelMenu(false); setMemoryMenu(false) }} title="How answers are explained">
               {STYLES.find((s) => s.id === style)?.label ?? 'Style'} ▾
             </button>
             {styleMenu && (
@@ -255,6 +288,16 @@ export function ChatPanel() {
       </div>
 
       <div className="chatpanel__body">
+        {!!memory?.newsEvidence?.length && (
+          <details className="chatpanel__memory-evidence">
+            <summary>{memory.newsEvidence.length} saved news item{memory.newsEvidence.length === 1 ? '' : 's'} considered</summary>
+            <div>
+              {memory.newsEvidence.slice(0, 6).map((evidence) => evidence.item.url
+                ? <a key={evidence.ref} href={evidence.item.url} target="_blank" rel="noreferrer"><b>{evidence.ref}</b> {evidence.item.headline_en || evidence.item.headline}</a>
+                : <span key={evidence.ref}><b>{evidence.ref}</b> {evidence.item.headline_en || evidence.item.headline}</span>)}
+            </div>
+          </details>
+        )}
         {!present ? (
           <div className="chatpanel__runfirst">
             <div className="chatpanel__runfirst-h">This {scope === 'run' ? 'run' : scope} hasn’t been produced yet</div>
@@ -267,7 +310,7 @@ export function ChatPanel() {
           </div>
         ) : messages.length === 0 && !error ? (
           <div className="chatpanel__empty">
-            <div className="chatpanel__greet">Ask anything about <b>{title.replace(/^Ask · /, '')}</b>.<br />Every answer is drawn only from what the engine already wrote — with the orb or module it came from cited.</div>
+            <div className="chatpanel__greet">Ask anything about <b>{title.replace(/^Ask · /, '')}</b>.<br />Auto chooses the useful shelves: this run, saved news when freshness matters, and your relevant earlier chats. The line above shows what it used.</div>
             <div className="chatpanel__stylepick">
               <div className="chatpanel__picklabel">How should I explain it?</div>
               <div className="chatpanel__suggest">

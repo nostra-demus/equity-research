@@ -1,8 +1,7 @@
-// The screener's SECOND chat — the news wire, exactly as the desktop NewsChatPanel behaves and
-// deliberately different from the run chat (a different closed book):
+// The no-signal form of unified Ask: the saved wire is the only available evidence shelf until a signal
+// is opened. Completed turns use the same durable History store as desktop and research Ask.
 //   - three windows (24h / 7d / history); SWITCHING A WINDOW WIPES THE THREAD (a different book)
-//   - request is {window, model, messages ≤ 30} — no scope, no style, no conversationId: these chats
-//     are ephemeral by design and are NOT saved to history (the server never persists them)
+//   - request is {window, model, messages ≤ 30, conversationId, turnId}; completed turns are durable
 //   - the header sub-line is the search RECEIPT (engine · items · sources · used)
 //   - [N1]/[H1] refs in the LAST completed answer expand into the cited-items list
 //   - waiting state is typing dots, no thinking block, no computed cards
@@ -11,7 +10,8 @@
 import { Suspense, lazy, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { api } from '../../lib/api'
 import { shouldStick } from '../chat/autoscroll'
-import type { ChatMessage, NewsChatEvidence, NewsChatReceipt } from '../../lib/types'
+import type { ChatConversationDetail, ChatMessage, NewsChatEvidence, NewsChatReceipt } from '../../lib/types'
+import { newChatTurnId } from '../chat/chatTurn'
 
 // the same lazy renderer the run chat uses — a news answer carries the identical markdown (lists,
 // tables, emphasis), and a plain-text div renders that as literal punctuation
@@ -26,7 +26,7 @@ type WindowId = (typeof WINDOWS)[number]['id']
 
 const NEWS_MAX = 30
 
-export function NewsChat({ model, staticMode }: { model: string; staticMode?: boolean }) {
+export function NewsChat({ model, staticMode, initial }: { model: string; staticMode?: boolean; initial?: ChatConversationDetail | null }) {
   const [win, setWin] = useState<WindowId>('24h')
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [streaming, setStreaming] = useState(false)
@@ -34,11 +34,29 @@ export function NewsChat({ model, staticMode }: { model: string; staticMode?: bo
   const [evidence, setEvidence] = useState<NewsChatEvidence[]>([])
   const [error, setError] = useState<string | null>(null)
   const [retryText, setRetryText] = useState<string | null>(null)
+  const [retryTurnId, setRetryTurnId] = useState<string | null>(null)
+  const [conversationId, setConversationId] = useState<string | undefined>()
   const abortRef = useRef<AbortController | null>(null)
   const threadRef = useRef<HTMLDivElement>(null)
   const stickRef = useRef(true)
   const baselineRef = useRef<ChatMessage[]>([])
   const pendingTextRef = useRef('')
+  const baselineConversationRef = useRef<string | undefined>()
+
+  useEffect(() => {
+    if (!initial || initial.scope !== 'wire') return
+    const lastAssistant = [...initial.messages].reverse().find((message) => message.role === 'assistant')
+    const memory = lastAssistant?.memory?.kind === 'news-wire' ? lastAssistant.memory : undefined
+    setWin(memory?.window || '24h')
+    setMessages(initial.messages.map((message) => ({ role: message.role, content: message.content, turnId: message.turnId, memory: message.memory })))
+    setConversationId(initial.id)
+    setReceipt(memory?.receipt || null)
+    setEvidence(memory?.evidence || [])
+    setError(null)
+    setRetryText(null)
+    setRetryTurnId(null)
+    setStreaming(false)
+  }, [initial])
 
   useEffect(() => () => abortRef.current?.abort(), [])
 
@@ -59,10 +77,12 @@ export function NewsChat({ model, staticMode }: { model: string; staticMode?: bo
     setEvidence([])
     setError(null)
     setRetryText(null)
+    setRetryTurnId(null)
+    setConversationId(undefined)
     setStreaming(false)
   }
 
-  const send = useCallback((text: string) => {
+  const send = useCallback((text: string, requestedTurnId?: string) => {
     const q = text.trim()
     if (!q || streaming || staticMode) return
     // Trim the baseline to an even count BEFORE appending the new turn (mirrors desktop store.ts
@@ -70,13 +90,17 @@ export function NewsChat({ model, staticMode }: { model: string; staticMode?: bo
     // after appending removes just the oldest USER message once history exceeds the cap, so every
     // later request starts with an orphaned assistant answer and the model sees mispaired history.
     const baseline = messages.slice(-(NEWS_MAX - 2))
+    const baselineConversation = conversationId
     baselineRef.current = baseline
+    baselineConversationRef.current = baselineConversation
     pendingTextRef.current = q
-    const next = [...baseline, { role: 'user' as const, content: q }, { role: 'assistant' as const, content: '' }]
+    const turnId = requestedTurnId || newChatTurnId()
+    const next = [...baseline, { role: 'user' as const, content: q, turnId }, { role: 'assistant' as const, content: '', turnId }]
     setMessages(next)
     setStreaming(true)
     setError(null)
     setRetryText(null)
+    setRetryTurnId(null)
     const controller = new AbortController()
     abortRef.current?.abort()
     abortRef.current = controller
@@ -86,26 +110,30 @@ export function NewsChat({ model, staticMode }: { model: string; staticMode?: bo
     // messages and an error banner. The guard makes a superseded request silent instead.
     const live = () => abortRef.current === controller && !controller.signal.aborted
     const idx = next.length - 1
+    let turnReceipt: NewsChatReceipt | null = null
+    let turnEvidence: NewsChatEvidence[] = []
     void api.newsChatStream(
-      { window: win, model, messages: [...baseline, { role: 'user', content: q }].slice(-NEWS_MAX) } as any,
+      { window: win, model, conversationId: baselineConversation, turnId, title: 'Ask · news wire', messages: [...baseline, { role: 'user' as const, content: q }].slice(-NEWS_MAX) },
       {
         signal: controller.signal,
-        onMeta: (m) => { if (live()) { setReceipt(m.receipt); setEvidence(m.evidence) } },
+        onMeta: (m) => { if (live()) { turnReceipt = m.receipt; turnEvidence = m.evidence; setReceipt(m.receipt); setEvidence(m.evidence); if (m.conversationId) setConversationId(m.conversationId) } },
         onToken: (t) => { if (live()) setMessages((ms) => { const c = ms.slice(); if (c[idx]?.role === 'assistant') c[idx] = { ...c[idx], content: c[idx].content + t }; return c }) },
-        onDone: () => { if (live()) { abortRef.current = null; setStreaming(false) } },
+        onDone: () => { if (live()) { abortRef.current = null; setStreaming(false); setMessages((current) => { const copy = current.slice(); if (copy[idx]?.role === 'assistant' && turnReceipt) copy[idx] = { ...copy[idx], memory: { kind: 'news-wire', window: win, receipt: turnReceipt, evidence: turnEvidence } }; return copy }) } },
         onError: (msg) => {
           if (!live()) return
           abortRef.current = null
           setStreaming(false)
           setMessages(baselineRef.current)
+          setConversationId(baselineConversationRef.current)
           setError(msg)
           // Keep the failed question retrievable instead of forcing a retype on a transient 429 or a
           // dropped stream (matches the regular mobile chat's stop/error retry chip).
           setRetryText(pendingTextRef.current)
+          setRetryTurnId(turnId)
         },
       },
     )
-  }, [messages, streaming, win, model, staticMode])
+  }, [messages, streaming, win, model, staticMode, conversationId])
 
   const stop = useCallback(() => {
     if (!streaming) return
@@ -114,9 +142,10 @@ export function NewsChat({ model, staticMode }: { model: string; staticMode?: bo
     setStreaming(false)
     setMessages(baselineRef.current)
     setRetryText(pendingTextRef.current)
+    setRetryTurnId(null)
   }, [streaming])
 
-  const retry = useCallback(() => { if (retryText) send(retryText) }, [retryText, send])
+  const retry = useCallback(() => { if (retryText) send(retryText, retryTurnId || undefined) }, [retryText, retryTurnId, send])
 
   // refs in the LAST completed answer only (the desktop rule)
   const last = [...messages].reverse().find((m) => m.role === 'assistant' && m.content)
