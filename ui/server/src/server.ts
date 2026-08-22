@@ -1122,7 +1122,10 @@ app.get('/api/internal/provider-parity/canary-status', { config: { rateLimit: { 
     'final_thesis.md', 'decision_record.json', 'audit_dossier.md', 'execution_provenance.receipt.json',
   ].map((name) => [name, canaryRunFileExists(rootAbs, name)]))
   const diskComplete = artifacts['final_thesis.md'] && artifacts['decision_record.json'] && artifacts['execution_provenance.receipt.json']
-  const status = run?.status ?? (diskComplete ? 'done' : failureNote !== null || interruptedRaw !== null ? 'error' : 'unknown')
+  const diskFailure = failureNote !== null || interruptedRaw !== null
+  // A supervisor-written failure marker wins over any child-created terminal-looking files. Successful
+  // post-restart recovery still requires all three terminal artifacts, including the supervisor receipt.
+  const status = run?.status ?? (diskFailure ? 'error' : diskComplete ? 'done' : 'unknown')
   const eventMessage = terminalEvent?.type === 'run-error'
     ? terminalEvent.message || terminalEvent.reason
     : terminalEvent?.type === 'run-done' ? 'Canary completed.' : null
