@@ -68,6 +68,11 @@ check('an unreadable saved backlog is shown as unknown, never as a proven zero',
   assert.match(panel, /the saved waiting list could not be read/)
 })
 
+check('pool-cap misses do not hide candidates that still have a paced slot later today', () => {
+  assert.match(panel, /diag\.rescue\.queuedForLater > 0/)
+  assert.doesNotMatch(panel, /queuedForLater > 0 && diag\.rescue\.capacityMisses/)
+})
+
 check('reduced motion and narrow-screen layouts remain supported', () => {
   assert.match(css, /prefers-reduced-motion: reduce/)
   assert.match(css, /\.diag \{ transition: none; \}/)

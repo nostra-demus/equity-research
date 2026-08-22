@@ -18,7 +18,7 @@ function row(id: string, fields: Partial<FeedItem> = {}): FeedItem {
       materiality: 30, source_tier: 0, scope: 0, event: 0, size: 0, recency: 0,
       materiality_label_floor: 0, quantified: 0, boost_weight: 1, scope_id: 'single_name',
       source_tier_id: 'news', event_id: null, size_bucket: 'unknown',
-    }, dedup_status: 'new', inboxed: false, ...fields,
+    }, dedup_status: 'new', dedup_group: id, inboxed: false, ...fields,
   }
 }
 
@@ -90,11 +90,12 @@ function row(id: string, fields: Partial<FeedItem> = {}): FeedItem {
   const nameA = row('EVT-name-a', {
     headline: 'Private-symbol Acme announces a commercial contract', domain: 'reuters.com', url: 'https://reuters.com/name-a',
     companies: [{ name: 'Acme Corporation', ticker: null, listing_country: 'US' }], event_types: ['commercial'],
+    dedup_group: 'STORY-acme-contract',
   })
   const nameB = row('EVT-name-b', {
     headline: 'Acme contract is confirmed by a second outlet', domain: 'ft.com', url: 'https://ft.com/name-b',
     source_name: 'Financial Times', companies: [{ name: 'Acme Corp', ticker: null, listing_country: 'US' }],
-    event_types: ['commercial'],
+    event_types: ['commercial'], dedup_group: 'STORY-acme-contract',
   })
   const candidate = selectRescueCandidates([nameA, nameB], NOW).candidates[0]
   assert.equal(candidate.pool, 'name')
@@ -130,11 +131,11 @@ function row(id: string, fields: Partial<FeedItem> = {}): FeedItem {
   const sharedUrl = 'https://wire.example/shared-copy'
   const first = row('EVT-same-url-a', {
     companies: [{ name: 'Acme Corp', ticker: null, listing_country: 'US' }], event_types: ['commercial'],
-    url: sharedUrl, domain: 'one.example',
+    url: sharedUrl, domain: 'one.example', dedup_group: 'STORY-shared-url',
   })
   const second = row('EVT-same-url-b', {
     companies: [{ name: 'Acme Corp', ticker: null, listing_country: 'US' }], event_types: ['commercial'],
-    url: sharedUrl, domain: 'two.example',
+    url: sharedUrl, domain: 'two.example', dedup_group: 'STORY-shared-url',
   })
   assert.equal(selectRescueCandidates([first, second], NOW).candidates.length, 0,
     'different domain labels on the same URL are not independent reports')
@@ -143,28 +144,44 @@ function row(id: string, fields: Partial<FeedItem> = {}): FeedItem {
 {
   const first = row('EVT-publisher-a', {
     companies: [{ name: 'Acme Corp', ticker: null, listing_country: 'US' }],
-    event_types: ['commercial'], domain: 'livemint.com', source_name: 'Mint',
+    event_types: ['commercial'], domain: 'livemint.com', source_name: 'Mint', dedup_group: 'STORY-mint-copy',
   })
   const second = row('EVT-publisher-b', {
     companies: [{ name: 'Acme Corp', ticker: null, listing_country: 'US' }],
     event_types: ['commercial'], domain: 'www.livemint.com', source_name: 'Mint',
-    url: 'https://www.livemint.com/acme-copy',
+    url: 'https://www.livemint.com/acme-copy', dedup_group: 'STORY-mint-copy',
   })
   assert.equal(selectRescueCandidates([first, second], NOW).candidates.length, 0,
     'two host spellings from one publisher are not independent corroboration')
 }
 
 {
-  const tickerCopy = row('EVT-ticker-copy', { event_types: ['commercial'] })
+  const tickerCopy = row('EVT-ticker-copy', { event_types: ['commercial'], dedup_group: 'STORY-ticker-name-copy' })
   const nameCopy = row('EVT-name-copy', {
     companies: [{ name: 'Acme Corporation', ticker: null, listing_country: 'US' }],
     event_types: ['commercial'], domain: 'ft.com', url: 'https://ft.com/acme-copy', source_name: 'Financial Times',
-    triage_score: 39,
+    triage_score: 39, dedup_group: 'STORY-ticker-name-copy',
   })
   const result = selectRescueCandidates([tickerCopy, nameCopy], NOW)
   assert.equal(result.candidates.length, 1, 'tickered and name-only copies of one company/event form one cluster')
   assert.equal(result.candidates[0].event_id, nameCopy.event_id, 'the best story remains the representative')
   assert.equal(result.candidates[0].pool, 'ticker', 'the cluster still uses its saved clean ticker for identity')
+}
+
+{
+  const firstContract = row('EVT-contract-one', {
+    headline: 'Acme wins a contract with Northwind', event_types: ['commercial'],
+    dedup_group: 'STORY-contract-northwind',
+  })
+  const secondContract = row('EVT-contract-two', {
+    headline: 'Acme signs a separate contract with Contoso', event_types: ['commercial'],
+    domain: 'ft.com', source_name: 'Financial Times', url: 'https://ft.com/acme-contoso',
+    dedup_group: 'STORY-contract-contoso',
+  })
+  const result = selectRescueCandidates([firstContract, secondContract], NOW)
+  assert.equal(result.candidates.length, 2,
+    'two same-day events in one broad event family never corroborate or collapse into one review')
+  assert.ok(result.candidates.every((candidate) => candidate.rank_inputs.independent_reports === 1))
 }
 
 {

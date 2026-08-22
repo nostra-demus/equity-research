@@ -430,8 +430,8 @@ export function PipelineDiagnostics() {
                   {diag.rescue.identityUnresolved > 0 && <li>{diag.rescue.identityUnresolved.toLocaleString()} could not be matched to one listed stock.</li>}
                   {diag.rescue.directoryUnavailable > 0 && <li>{diag.rescue.directoryUnavailable.toLocaleString()} checks failed because the stock-listing lookup was unavailable.</li>}
                   {(diag.rescue.retryExhausted ?? 0) > 0 && <li>{diag.rescue.retryExhausted!.toLocaleString()} could not be checked after two temporary listing-service failures.</li>}
-                  {diag.rescue.capacityMisses > 0 && <li>{diag.rescue.capacityMisses.toLocaleString()} were not reviewed: the daily second-look limit was reached.</li>}
-                  {diag.rescue.queuedForLater > 0 && diag.rescue.capacityMisses === 0 && <li>{diag.rescue.queuedForLater.toLocaleString()} are waiting for a paced slot later today.</li>}
+                  {diag.rescue.capacityMisses > 0 && <li>{diag.rescue.capacityMisses.toLocaleString()} were not reviewed: their daily second-look limit was reached.</li>}
+                  {diag.rescue.queuedForLater > 0 && <li>{diag.rescue.queuedForLater.toLocaleString()} are waiting for a paced slot later today.</li>}
                   <li>{diag.rescue.articleReads.toLocaleString()} articles read · {diag.rescue.ideasCreated.toLocaleString()} ideas created. Shadow mode keeps both at zero.</li>
                 </ul>
                 <div className="diagwhy__foot">Not selected does not mean an item was proven wrong. It means it did not pass the evidence and capacity rules used that day.</div>

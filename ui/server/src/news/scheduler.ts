@@ -163,7 +163,8 @@ export async function runConfiguredRescueShadow(log: (m: string) => void = () =>
   return runRescueShadowPass({
     stateDir: STATE_DIR,
     config: RESCUE_SHADOW_CONFIG,
-    coreReady: rescueCoreReady(status) && humanBlocks.complete,
+    coreReady: rescueCoreReady(status),
+    humanActionsReady: humanBlocks.complete,
     blockedEventIds: humanBlocks.ids,
     log,
   })
@@ -1593,8 +1594,9 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
       const humanBlocks = rescueHumanBlocks()
       return getRescueDiagnostics(
         STATE_DIR, RESCUE_SHADOW_CONFIG, now,
-        rescueCoreReady(status) && humanBlocks.complete,
+        rescueCoreReady(status),
         humanBlocks.ids,
+        humanBlocks.complete,
       )
     })(),
     backlog,

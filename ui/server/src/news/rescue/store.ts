@@ -13,7 +13,9 @@ const QUEUE_MAX_BYTES = 40 * 1024 * 1024
 const DAILY_MAX_ITEMS = 240 // hard parser bound; configured admission remains <=200
 const DAILY_MAX_BYTES = 2 * 1024 * 1024
 const AUDIT_LINE_MAX_BYTES = 2 * 1024
-const QUEUE_WRITE_ERROR = 'The app could not save the second-look queue.'
+export const RESCUE_QUEUE_WRITE_ERROR = 'The app could not save the second-look queue.'
+export const RESCUE_QUEUE_PENDING_WRITE_ERROR = 'The app could not retain rows omitted from the second-look queue.'
+export const RESCUE_RESERVATION_WRITE_ERROR = 'The app could not reserve a second-look check.'
 
 export type RescueIdentityStatus = 'verified' | 'identity_unresolved' | 'directory_unavailable'
 export type RescueReviewReasonCode =
@@ -73,6 +75,7 @@ export interface RescueRuntimeHealth {
 
 const stateRoot = (stateDir: string): string => path.join(stateDir, ROOT)
 const queueFile = (stateDir: string): string => path.join(stateRoot(stateDir), 'queue.json')
+const queuePendingFile = (stateDir: string): string => path.join(stateRoot(stateDir), 'queue-pending.json')
 const healthFile = (stateDir: string): string => path.join(stateRoot(stateDir), 'health.json')
 const dayFile = (stateDir: string, date: string): string => path.join(stateRoot(stateDir), 'days', `${date}.json`)
 const auditFile = (stateDir: string, month: string): string => path.join(stateRoot(stateDir), 'ledger', `${month}.ndjson`)
@@ -154,8 +157,7 @@ function isRescueQueueItem(item: unknown): item is FeedItem {
   return typeof row.decision_rule_version === 'string' && row.decision_rule_version.length > 0
 }
 
-export function loadRescueQueue(stateDir: string): RescueQueueSnapshot {
-  const file = queueFile(stateDir)
+function loadQueueSnapshot(file: string): RescueQueueSnapshot {
   if (!fs.existsSync(file)) return { available: true, items: [], updated_at: null }
   try {
     const stat = fs.statSync(file)
@@ -169,16 +171,46 @@ export function loadRescueQueue(stateDir: string): RescueQueueSnapshot {
   }
 }
 
+export function loadRescueQueue(stateDir: string): RescueQueueSnapshot {
+  return loadQueueSnapshot(queueFile(stateDir))
+}
+
 export function recordRescueRows(stateDir: string, rows: readonly FeedItem[], now = Date.now(), maxAgeHrs = 36): boolean {
-  if (!rows.length) return true
   const prior = loadRescueQueue(stateDir)
-  if (!prior.available) {
+  const pending = loadQueueSnapshot(queuePendingFile(stateDir))
+  if (!prior.available || !pending.available) {
     updateRescueHealth(stateDir, { audit_healthy: false, audit_error: 'The saved second-look queue cannot be read.' }, now)
     return false
   }
   const minTime = now - Math.max(1, maxAgeHrs) * 3_600_000
+  const retainedById = new Map<string, FeedItem>()
+  // Never age an uncommitted batch out before it reaches the main queue. Once committed, the selector
+  // can truthfully classify an old row outside the active window and the next ordinary write may prune it.
+  for (const item of pending.items) {
+    if (queueRelevant(item)) retainedById.set(item.event_id, compactFeedItem(item))
+  }
+  for (const item of rows) {
+    if (!queueRelevant(item)) continue
+    const found = Date.parse(String(item.found_at || item.ts || ''))
+    if (!Number.isFinite(found) || found < minTime || found > now + 5 * 60_000) continue
+    retainedById.set(item.event_id, compactFeedItem(item))
+  }
+  const retained = [...retainedById.values()]
+    .sort((left, right) => String(left.found_at || left.ts).localeCompare(String(right.found_at || right.ts)))
+  if (retained.length > QUEUE_MAX_ITEMS) {
+    updateRescueHealth(stateDir, { audit_healthy: false, audit_error: 'The saved second-look queue reached its safety limit.' }, now)
+    return false
+  }
+  // Stage every not-yet-committed row before replacing the main queue. If the queue replacement fails,
+  // the next call must merge this exact batch rather than silently clearing the error with later rows.
+  if (retained.length && !atomicWriteJson(queuePendingFile(stateDir), {
+    v: 1, updated_at: new Date(now).toISOString(), items: retained,
+  }, QUEUE_MAX_BYTES)) {
+    updateRescueHealth(stateDir, { audit_healthy: false, audit_error: RESCUE_QUEUE_PENDING_WRITE_ERROR }, now)
+    return false
+  }
   const byId = new Map<string, FeedItem>()
-  for (const item of [...prior.items, ...rows]) {
+  for (const item of [...prior.items, ...retained]) {
     if (!queueRelevant(item)) continue
     const found = Date.parse(String(item.found_at || item.ts || ''))
     if (!Number.isFinite(found) || found < minTime || found > now + 5 * 60_000) continue
@@ -195,13 +227,16 @@ export function recordRescueRows(stateDir: string, rows: readonly FeedItem[], no
   // lane before the pending detailed record is safe.
   if (!ok) updateRescueHealth(stateDir, {
     audit_healthy: false,
-    audit_error: QUEUE_WRITE_ERROR,
+    audit_error: RESCUE_QUEUE_WRITE_ERROR,
   }, now)
   else {
+    // A stale pending file is harmless because the main queue now contains all of its rows. Remove it
+    // best-effort; if unlinking fails, the next call deterministically merges and deduplicates it again.
+    try { fs.unlinkSync(queuePendingFile(stateDir)) } catch { /* absent or retained for a safe retry */ }
     // A later successful write is the proof that this queue authority recovered. It may clear only its
     // own transient error; monthly/day-ledger failures remain closed until their repair path proves them.
     const health = readRescueHealth(stateDir)
-    if (!health.audit_healthy && health.audit_error === QUEUE_WRITE_ERROR) {
+    if (!health.audit_healthy && health.audit_error === RESCUE_QUEUE_WRITE_ERROR) {
       updateRescueHealth(stateDir, { audit_healthy: true, audit_error: null }, now)
     }
   }
@@ -223,23 +258,43 @@ export function loadRescueDay(stateDir: string, date: string): { available: bool
   }
 }
 
+export function loadRecentRescueChecks(
+  stateDir: string,
+  now: number,
+  keepDays = 3,
+): { available: boolean; checks: RescueCheckRecord[] } {
+  const days = Array.from({ length: Math.max(1, keepDays) }, (_, daysAgo) =>
+    new Date(now - daysAgo * 24 * 3_600_000).toISOString().slice(0, 10))
+    .map((date) => loadRescueDay(stateDir, date))
+  return { available: days.every((day) => day.available), checks: days.flatMap((day) => day.ledger.checks) }
+}
+
+/** Prove that a transient reservation-write failure has recovered without spending a slot. */
+export function repairRescueReservationAuthority(stateDir: string, date: string): boolean {
+  const loaded = loadRescueDay(stateDir, date)
+  if (!loaded.available || loaded.ledger.checks.length >= DAILY_MAX_ITEMS) return false
+  return atomicWriteJson(dayFile(stateDir, date), loaded.ledger, DAILY_MAX_BYTES)
+}
+
 export function reserveRescueCheck(
   stateDir: string,
   date: string,
   candidate: RescueCandidate,
   selectorVersion: string,
   now = Date.now(),
-  attemptNumber?: number,
 ): RescueCheckRecord | null {
   const loaded = loadRescueDay(stateDir, date)
   if (!loaded.available || loaded.ledger.checks.length >= DAILY_MAX_ITEMS) return null
-  const attempts = loaded.ledger.checks.filter((check) => check.event_id === candidate.event_id
-    && check.identity_key === candidate.identity_key).length
+  const history = loadRecentRescueChecks(stateDir, now)
+  if (!history.available) return null
+  const eventIds = new Set([candidate.event_id, ...candidate.supporting_event_ids])
+  const attempts = history.checks.filter((check) => check.identity_key === candidate.identity_key
+    && eventIds.has(check.event_id)).length
   const record: RescueCheckRecord = {
     key: `${date}:${candidate.event_id}:${loaded.ledger.checks.length + 1}`,
     event_id: candidate.event_id,
     identity_key: candidate.identity_key,
-    attempt: attemptNumber ?? attempts + 1,
+    attempt: attempts + 1,
     pool: candidate.pool,
     reserved_at: new Date(now).toISOString(),
     ticker: candidate.ticker,

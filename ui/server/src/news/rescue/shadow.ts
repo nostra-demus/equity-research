@@ -7,8 +7,9 @@ import {
 } from '../symbology'
 import { RESCUE_SELECTOR_VERSION, selectRescueCandidates, type RescueCandidate } from './selector'
 import {
-  completeRescueCheck, loadRescueDay, loadRescueQueue, noteDirectoryResult,
-  readRescueHealth, reconcileRescueDayLedgers, rescueAuditCanAccept, reserveRescueCheck, updateRescueHealth,
+  completeRescueCheck, loadRecentRescueChecks, loadRescueDay, loadRescueQueue, noteDirectoryResult,
+  readRescueHealth, reconcileRescueDayLedgers, repairRescueReservationAuthority,
+  RESCUE_RESERVATION_WRITE_ERROR, rescueAuditCanAccept, reserveRescueCheck, updateRescueHealth,
   type RescueCheckRecord, type RescueIdentityStatus,
 } from './store'
 
@@ -57,16 +58,8 @@ const emptyReconciliation = (): RescueDiagnostics['reconciliation'] => ({
 
 function utcDate(now: number): string { return new Date(now).toISOString().slice(0, 10) }
 
-function recentUtcDates(now: number): string[] {
-  return [0, 1, 2].map((daysAgo) => utcDate(now - daysAgo * 24 * 3_600_000))
-}
-
 function recentChecks(stateDir: string, now: number): { available: boolean; checks: RescueCheckRecord[] } {
-  const days = recentUtcDates(now).map((date) => loadRescueDay(stateDir, date))
-  return {
-    available: days.every((day) => day.available),
-    checks: days.flatMap((day) => day.ledger.checks),
-  }
+  return loadRecentRescueChecks(stateDir, now)
 }
 
 function directoryPaused(until: string | null, now: number): boolean {
@@ -115,6 +108,7 @@ function diagnosticsFromState(
   now: number,
   coreReady: boolean,
   blockedEventIds: ReadonlySet<string>,
+  humanActionsReady: boolean,
 ): RescueDiagnostics {
   const health = readRescueHealth(stateDir)
   const queue = loadRescueQueue(stateDir)
@@ -139,12 +133,24 @@ function diagnosticsFromState(
     const unavailableAttempts = matching.filter((check) => check.identity_status === 'directory_unavailable').length
     return { candidate, terminal, retryExhausted: !terminal && unavailableAttempts >= 2 }
   })
-  const remaining = candidateStates.filter((state) => !state.terminal && !state.retryExhausted).length
-  const auditHealthy = health.audit_healthy && queue.available && day.available && history.available
+  const remaining = candidateStates.filter((state) => !state.terminal && !state.retryExhausted)
+  const nameUsed = checks.filter((check) => check.pool === 'name').length
+  const nameCapBlocked = nameUsed >= config.nameDailyCap
+    ? remaining.filter((state) => state.candidate.pool === 'name').length
+    : 0
+  const dailyCapReached = checks.length >= config.dailyChecks
+  const capacityMisses = dailyCapReached ? remaining.length : nameCapBlocked
+  const queuedForLater = dailyCapReached ? 0 : Math.max(0, remaining.length - nameCapBlocked)
+  const rescueStateHealthy = health.audit_healthy && queue.available && day.available && history.available
+  const auditHealthy = rescueStateHealthy && humanActionsReady
   let status: RescueDiagnostics['status'] = 'ready'
   let reason = 'The second look is running in shadow mode. It checks company identity but reads no articles and creates no ideas.'
   if (config.mode === 'off') { status = 'disabled'; reason = 'The second look is turned off.' }
-  else if (!auditHealthy) { status = 'audit_unavailable'; reason = health.audit_error || 'The second-look record cannot be safely read or written.' }
+  else if (!rescueStateHealthy) { status = 'audit_unavailable'; reason = health.audit_error || 'The second-look record cannot be safely read or written.' }
+  else if (!humanActionsReady) {
+    status = 'audit_unavailable'
+    reason = 'Saved dismissals and manual blocks cannot be read safely, so the second look is paused until that record is repaired.'
+  }
   else if (!coreReady) { status = 'paused_core_work'; reason = 'Normal news or Ideas work is still waiting, so the second look did no work.' }
   else if (directoryPaused(health.directory_pause_until, now)) {
     status = 'directory_paused'
@@ -165,8 +171,8 @@ function diagnosticsFromState(
     directoryUnavailable: unavailable,
     articleReads: 0,
     ideasCreated: 0,
-    capacityMisses: checks.length >= config.dailyChecks ? Math.max(0, remaining) : 0,
-    queuedForLater: remaining,
+    capacityMisses,
+    queuedForLater,
     retryExhausted: candidateStates.filter((state) => state.retryExhausted).length,
     auditHealthy,
     circuitOpenUntil: health.directory_pause_until,
@@ -181,8 +187,9 @@ export function getRescueDiagnostics(
   now = Date.now(),
   coreReady = true,
   blockedEventIds: ReadonlySet<string> = new Set(),
+  humanActionsReady = true,
 ): RescueDiagnostics {
-  return diagnosticsFromState(stateDir, config, now, coreReady, blockedEventIds)
+  return diagnosticsFromState(stateDir, config, now, coreReady, blockedEventIds, humanActionsReady)
 }
 
 export async function runRescueShadowPass(deps: {
@@ -193,10 +200,18 @@ export async function runRescueShadowPass(deps: {
   now?: () => number
   log?: (message: string) => void
   blockedEventIds?: ReadonlySet<string>
+  humanActionsReady?: boolean
 }): Promise<RescueShadowResult> {
   const now = deps.now?.() ?? Date.now()
   const log = deps.log || (() => {})
   const blockedEventIds = deps.blockedEventIds || new Set<string>()
+  const humanActionsReady = deps.humanActionsReady !== false
+  const date = utcDate(now)
+  const initialHealth = readRescueHealth(deps.stateDir)
+  if (deps.config.mode === 'shadow' && initialHealth.audit_error === RESCUE_RESERVATION_WRITE_ERROR
+    && repairRescueReservationAuthority(deps.stateDir, date)) {
+    updateRescueHealth(deps.stateDir, { audit_healthy: true, audit_error: null }, now)
+  }
   // A crash can happen after the monthly append fsync but before the day ledger clears audit_pending.
   // Repair that bounded record before consulting the stale health latch, otherwise a recoverable write
   // failure would prevent its own repair forever. Unrelated queue/overflow failures are never cleared here.
@@ -213,22 +228,23 @@ export async function runRescueShadowPass(deps: {
       }, now)
     }
   }
-  let diagnostic = diagnosticsFromState(deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds)
+  let diagnostic = diagnosticsFromState(deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady)
   if (diagnostic.status !== 'ready') return { ...diagnostic, checkedThisCycle: 0 }
-  const date = utcDate(now)
   if (!reconcileRescueDayLedgers(deps.stateDir, now, deps.config.auditMaxBytes)) {
     updateRescueHealth(deps.stateDir, {
       audit_healthy: false,
       audit_error: 'The detailed second-look record is full or could not be saved.',
     }, now)
-    diagnostic = diagnosticsFromState(deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds)
+    diagnostic = diagnosticsFromState(deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady)
     return { ...diagnostic, checkedThisCycle: 0 }
   }
 
   const queue = loadRescueQueue(deps.stateDir)
   const day = loadRescueDay(deps.stateDir, date)
   const history = recentChecks(deps.stateDir, now)
-  if (!queue.available || !day.available || !history.available) return { ...diagnosticsFromState(deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds), checkedThisCycle: 0 }
+  if (!queue.available || !day.available || !history.available) return {
+    ...diagnosticsFromState(deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady), checkedThisCycle: 0,
+  }
   const selection = selectRescueCandidates(queue.items, now, deps.config.maxAgeHrs, blockedEventIds)
   const checks = [...day.ledger.checks]
   // A bare reservation may have crossed the network boundary before a crash. Treat it as spent and do
@@ -268,10 +284,9 @@ export async function runRescueShadowPass(deps: {
     if (!candidate && nameUsed < deps.config.nameDailyCap) candidate = name.shift()
     if (!candidate) break
 
-    const attempt = checksForCandidate(candidate, history.checks).length + 1
-    const reservation = reserveRescueCheck(deps.stateDir, date, candidate, RESCUE_SELECTOR_VERSION, now, attempt)
+    const reservation = reserveRescueCheck(deps.stateDir, date, candidate, RESCUE_SELECTOR_VERSION, now)
     if (!reservation) {
-      updateRescueHealth(deps.stateDir, { audit_healthy: false, audit_error: 'The app could not reserve a second-look check.' }, now)
+      updateRescueHealth(deps.stateDir, { audit_healthy: false, audit_error: RESCUE_RESERVATION_WRITE_ERROR }, now)
       break
     }
     used++
@@ -289,6 +304,8 @@ export async function runRescueShadowPass(deps: {
     log(`second look shadow: ${candidate.event_id} → ${result.status}`)
     if (directoryPaused(health.directory_pause_until, deps.now?.() ?? Date.now())) break
   }
-  diagnostic = diagnosticsFromState(deps.stateDir, deps.config, deps.now?.() ?? Date.now(), deps.coreReady, blockedEventIds)
+  diagnostic = diagnosticsFromState(
+    deps.stateDir, deps.config, deps.now?.() ?? Date.now(), deps.coreReady, blockedEventIds, humanActionsReady,
+  )
   return { ...diagnostic, checkedThisCycle }
 }

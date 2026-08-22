@@ -198,6 +198,14 @@ function eventFamily(item: FeedItem): string {
   return ranked[0] || (quantified(item) ? 'quantified' : 'other')
 }
 
+function eventFingerprint(item: FeedItem): string {
+  const group = String(item.dedup_group || '').trim()
+  // The persisted dedup group is the engine's saved identity for one underlying story across publisher
+  // copies. Without it, fail closed to the single event id: a broad event type and a 24-hour window are
+  // not enough to claim that two contracts, lawsuits, or product announcements corroborate one another.
+  return group ? `story:${group}` : `event:${item.event_id}`
+}
+
 function rankInputs(item: FeedItem, independentReports = 1): RescueRankInputs {
   const score = Number.isFinite(item.triage_score) ? Math.round(item.triage_score) : 0
   return {
@@ -295,7 +303,7 @@ export function selectRescueCandidates(
   const identitySignatures = new Map<string, Set<string>>()
   for (const row of clusterRows) {
     if (!row.identity.ticker) continue
-    const base = `${coreCompanyName(row.identity.name)}|${eventFamily(row.item)}`
+    const base = `${coreCompanyName(row.identity.name)}|${eventFamily(row.item)}|${eventFingerprint(row.item)}`
     const signature = `${row.identity.key}|country:${String(row.identity.country || '').trim().toUpperCase()}`
     identitySignatures.set(base, new Set([...(identitySignatures.get(base) || []), signature]))
   }
@@ -306,15 +314,16 @@ export function selectRescueCandidates(
     // their reports corroborate one another. A name-only copy may join a ticker package only when its
     // saved country leaves exactly one compatible ticker identity; otherwise it remains separate.
     const family = eventFamily(row.item)
+    const event = eventFingerprint(row.item)
     const country = String(row.identity.country || '').trim().toUpperCase()
-    const base = `${coreCompanyName(row.identity.name)}|${family}`
+    const base = `${coreCompanyName(row.identity.name)}|${family}|${event}`
     const savedIdentity = `${row.identity.key}|country:${country}`
     const compatibleTickerIdentities = [...(identitySignatures.get(base) || [])].filter((signature) =>
       !country || signature.endsWith(`country:${country}`))
     const companyKey = row.identity.ticker || compatibleTickerIdentities.length !== 1
       ? savedIdentity
       : compatibleTickerIdentities[0]
-    const key = `${companyKey}|${family}`
+    const key = `${companyKey}|${family}|${event}`
     families.set(key, [...(families.get(key) || []), row])
   }
 

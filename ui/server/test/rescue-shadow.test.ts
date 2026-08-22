@@ -41,7 +41,7 @@ function row(index: number, nameOnly = false): FeedItem {
       materiality: 30, source_tier: 0, scope: 0, event: 0, size: 0, recency: 0,
       materiality_label_floor: 0, quantified: nameOnly ? 6 : 0, boost_weight: 1,
       scope_id: 'single_name', source_tier_id: 'news', event_id: 'commercial', size_bucket: 'unknown',
-    }, dedup_status: 'new', inboxed: false,
+    }, dedup_status: 'new', dedup_group: `EVT-${index}`, inboxed: false,
   })
 }
 
@@ -192,6 +192,65 @@ function responseForUrl(url: string): any {
 }
 
 {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-queue-omitted-batch-'))
+  const rename = fs.renameSync
+  try {
+    assert.equal(recordRescueRows(root, [row(1)], START), true)
+    let failed = false
+    ;(fs as any).renameSync = (from: fs.PathLike, to: fs.PathLike) => {
+      if (!failed && String(to).endsWith('/news-rescue/queue.json')) {
+        failed = true
+        throw new Error('injected queue replace failure')
+      }
+      return rename(from, to)
+    }
+    assert.equal(recordRescueRows(root, [row(2)], START), false)
+    ;(fs as any).renameSync = rename
+    assert.equal(recordRescueRows(root, [row(3)], START), true)
+    assert.deepEqual(new Set(loadRescueQueue(root).items.map((item) => item.event_id)),
+      new Set(['EVT-1', 'EVT-2', 'EVT-3']),
+      'a later successful queue write restores the exact batch retained before the failed replacement')
+    assert.equal(readRescueHealth(root).audit_healthy, true)
+  } finally {
+    ;(fs as any).renameSync = rename
+    fs.rmSync(root, { recursive: true, force: true })
+  }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-reservation-recovery-'))
+  const rename = fs.renameSync
+  try {
+    invalidateSymbolCache()
+    assert.equal(recordRescueRows(root, [row(1)], START), true)
+    let failed = false
+    ;(fs as any).renameSync = (from: fs.PathLike, to: fs.PathLike) => {
+      if (!failed && String(to).endsWith('/news-rescue/days/2026-08-22.json')) {
+        failed = true
+        throw new Error('injected reservation failure')
+      }
+      return rename(from, to)
+    }
+    let calls = 0
+    const fetchImpl = (async (url: string) => { calls++; return responseForUrl(url) }) as any
+    const failedPass = await runRescueShadowPass({
+      stateDir: root, config: { ...baseConfig, perCycle: 1 }, coreReady: true, fetchImpl, now: () => START,
+    })
+    assert.equal(failedPass.status, 'audit_unavailable')
+    assert.equal(calls, 0, 'a failed reservation never crosses the network boundary')
+    ;(fs as any).renameSync = rename
+    const recovered = await runRescueShadowPass({
+      stateDir: root, config: { ...baseConfig, perCycle: 1 }, coreReady: true, fetchImpl, now: () => START,
+    })
+    assert.equal(recovered.status, 'ready')
+    assert.equal(calls, 1, 'a proven day-ledger write clears only the transient reservation error')
+  } finally {
+    ;(fs as any).renameSync = rename
+    fs.rmSync(root, { recursive: true, force: true })
+  }
+}
+
+{
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-malformed-queue-'))
   try {
     const dir = path.join(root, 'news-rescue')
@@ -301,6 +360,41 @@ function responseForUrl(url: string): any {
 }
 
 {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-midnight-attempt-'))
+  const beforeMidnight = Date.parse('2026-08-22T23:30:00Z')
+  const afterMidnight = Date.parse('2026-08-23T00:01:00Z')
+  try {
+    const candidate = selectRescueCandidates([withInitialRescueDecision({
+      ...row(1), ts: '2026-08-22T23:29:00Z', found_at: '2026-08-22T23:29:00Z',
+    })], beforeMidnight).candidates[0]
+    const first = reserveRescueCheck(root, '2026-08-22', candidate, RESCUE_SELECTOR_VERSION, beforeMidnight)
+    assert.ok(first)
+    assert.equal(completeRescueCheck(root, '2026-08-22', first.key, {
+      status: 'directory_unavailable',
+    }, baseConfig.auditMaxBytes, beforeMidnight), true)
+    const second = reserveRescueCheck(root, '2026-08-23', candidate, RESCUE_SELECTOR_VERSION, afterMidnight)
+    assert.ok(second)
+    assert.equal(second.attempt, 2,
+      'the saved attempt number uses the same cross-day history that enforces the retry limit')
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-name-cap-'))
+  try {
+    const rows = [row(100, true), row(101, true), row(1)]
+    assert.equal(recordRescueRows(root, rows, START), true)
+    const selection = selectRescueCandidates(loadRescueQueue(root).items, START)
+    const firstName = selection.candidates.find((candidate) => candidate.pool === 'name')
+    assert.ok(firstName)
+    assert.ok(reserveRescueCheck(root, '2026-08-22', firstName, RESCUE_SELECTOR_VERSION, START))
+    const diagnostic = getRescueDiagnostics(root, { ...baseConfig, nameDailyCap: 1 }, START)
+    assert.equal(diagnostic.capacityMisses, 1, 'the exhausted name-only daily cap is a capacity miss')
+    assert.equal(diagnostic.queuedForLater, 1, 'an eligible ticker candidate can still await a paced slot')
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-core-'))
   try {
     invalidateSymbolCache()
@@ -311,6 +405,13 @@ function responseForUrl(url: string): any {
     assert.equal(paused.status, 'paused_core_work')
     assert.equal(calls, 0, 'normal queued work always wins')
     assert.equal(getRescueDiagnostics(root, { ...baseConfig, mode: 'off' }, START).status, 'disabled')
+    const humanLedgerPaused = await runRescueShadowPass({
+      stateDir: root, config: baseConfig, coreReady: true, humanActionsReady: false, fetchImpl, now: () => START,
+    })
+    assert.equal(humanLedgerPaused.status, 'audit_unavailable')
+    assert.match(humanLedgerPaused.reason, /dismissals and manual blocks/i,
+      'a damaged human-action authority is not mislabeled as ordinary queued work')
+    assert.equal(calls, 0)
   } finally { fs.rmSync(root, { recursive: true, force: true }) }
 }
 

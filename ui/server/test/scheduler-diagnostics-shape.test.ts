@@ -62,6 +62,8 @@ const state = path.join(root, '.state')
 const inbox = path.join(root, 'screener', 'inbox')
 fs.mkdirSync(state, { recursive: true })
 fs.mkdirSync(inbox, { recursive: true })
+fs.mkdirSync(path.join(root, 'screener', 'ledger'), { recursive: true })
+fs.writeFileSync(path.join(root, 'screener', 'ledger', 'inbox-human-actions.ndjson'), 'not-json\n')
 const now = new Date()
 const date = now.toISOString().slice(0, 10)
 const started = new Date(now.getTime() - 30_000).toISOString()
@@ -90,6 +92,7 @@ const childCode = `import('./src/news/scheduler.ts').then((scheduler) => {
     today: result.today,
     statusToday: status.today,
     backlog: result.backlog,
+    rescue: result.rescue,
   }) + '\\n')
 })`
 const childEnv = {
@@ -127,6 +130,9 @@ assert.deepEqual(result.statusToday, result.today, '/api/news/status carries the
 assert.equal(result.backlog.count, 2)
 assert.equal(result.backlog.unscoredCount, 1, 'unscored work is separated from feed projection recovery')
 assert.equal(result.backlog.projectionRecoveryCount, 1)
+assert.equal(result.rescue.status, 'audit_unavailable')
+assert.match(result.rescue.reason, /dismissals and manual blocks/i,
+  'an unreadable human-action ledger is reported as damaged authority, not ordinary queued work')
 fs.rmSync(root, { recursive: true, force: true })
 
 console.log('scheduler diagnostics shape checks passed')
