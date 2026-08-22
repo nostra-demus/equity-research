@@ -1,4 +1,4 @@
-import type { CallSummary, CallTimelineEntry } from './types'
+import type { CallActionNow, CallSummary, CallTimelineEntry } from './types'
 
 export type TrackingTone = 'good' | 'bad' | 'neutral'
 
@@ -11,13 +11,18 @@ export interface CallTrackingSnapshot {
     returnFromCall: string
     returnTone: TrackingTone
     benchmarkDelta: string | null
+    sincePrevious: string
   } | null
+  actionNow: { label: CallActionNow; detail: string; tone: TrackingTone }
+  result: { price: string; thesis: string; headline: string; tone: TrackingTone } | null
+  confidence: { label: string; detail: string; tone: TrackingTone }
   situation: {
     headline: string
     detail: string
     tone: TrackingTone
   }
   evidence: string | null
+  learning: string | null
   nextCheck: {
     date: string
     detail: string
@@ -76,6 +81,89 @@ export function latestCompletedReview(timeline: CallTimelineEntry[]): CallTimeli
     if (ad !== bd) return ad < bd ? 1 : -1
     return (b.review_file || '').localeCompare(a.review_file || '')
   })[0]
+}
+
+function completedReviews(timeline: CallTimelineEntry[]): CallTimelineEntry[] {
+  return timeline.filter((row) => row.status === 'done').sort((a, b) => {
+    const ad = a.review_date || ''
+    const bd = b.review_date || ''
+    if (ad !== bd) return ad < bd ? 1 : -1
+    return (b.review_file || '').localeCompare(a.review_file || '')
+  })
+}
+
+const ACTIONS = new Set<CallActionNow>(['Hold', 'Add', 'Exit', 'Stay away', 'Keep watching'])
+function actionNow(call: CallSummary, row: CallTimelineEntry | null): CallTrackingSnapshot['actionNow'] {
+  const explicit = row?.action_now?.label
+  if (explicit && ACTIONS.has(explicit)) {
+    return { label: explicit, detail: row?.action_now?.reason || 'Recorded in the latest review.', tone: explicit === 'Exit' || explicit === 'Stay away' ? 'bad' : explicit === 'Add' ? 'good' : 'neutral' }
+  }
+  const decision = (call.decision || '').trim().toLowerCase()
+  const basket = (call.basket || '').trim().toLowerCase()
+  const thesis = (row?.thesis_status || '').trim().toLowerCase()
+  const quality = (row?.decision_quality || '').trim().toLowerCase()
+  const broken = thesis === 'broken' || thesis === 'at-risk' || quality === 'genuine miss'
+  const working = thesis === 'confirmed' || thesis === 'on-track' || quality === 'skill'
+  const inferred = row ? 'Conservative read of the latest review; no separate action was recorded.' : 'No review action has been recorded yet.'
+  if (basket === 'short') return { label: broken ? 'Exit' : 'Hold', detail: inferred, tone: broken ? 'bad' : 'neutral' }
+  if (['strong buy', 'buy', 'starter position only'].includes(decision) || basket === 'selected') {
+    return { label: broken ? 'Exit' : 'Hold', detail: inferred, tone: broken ? 'bad' : 'neutral' }
+  }
+  if (decision === 'avoid' || basket === 'rejected') {
+    return { label: broken ? 'Keep watching' : 'Stay away', detail: inferred, tone: broken ? 'neutral' : 'bad' }
+  }
+  if (decision === 'watchlist') {
+    return { label: working ? 'Stay away' : 'Keep watching', detail: inferred, tone: working ? 'bad' : 'neutral' }
+  }
+  return { label: 'Keep watching', detail: row ? inferred : 'No review action recorded yet.', tone: 'neutral' }
+}
+
+function firstSentence(value?: string | null): string | null {
+  const text = (value || '').replace(/\s+/g, ' ').trim()
+  if (!text) return null
+  const sentence = text.match(/^.*?[.!?](?:\s|$)/)?.[0]?.trim() || text
+  return sentence.length > 220 ? `${sentence.slice(0, 217).trimEnd()}…` : sentence
+}
+
+function resultFor(call: CallSummary, row: CallTimelineEntry | null): CallTrackingSnapshot['result'] {
+  if (!row) return null
+  const rawReturn = finite(row.absolute_return_pct) ? row.absolute_return_pct : null
+  const price = rawReturn == null ? 'Price result not recorded.'
+    : Math.abs(rawReturn).toFixed(1) === '0.0' ? 'Price was flat.'
+      : `Price ${rawReturn > 0 ? 'rose' : 'fell'} ${Math.abs(rawReturn).toFixed(1)}%.`
+  const decision = call.frozen_call?.decision || call.decision || 'call'
+  const quality = (row.decision_quality || '').trim().toLowerCase()
+  const status = displayStatus(row.thesis_status).toLowerCase()
+  if (quality === 'skill') return { price, thesis: `The ${decision} call was right for the reason Nostra recorded.`, headline: `${price} The ${decision} call worked.`, tone: 'good' }
+  if (quality === 'genuine miss') return { price, thesis: `The ${decision} call was wrong. The thesis is ${status}.`, headline: `${price} The ${decision} call failed.`, tone: 'bad' }
+  if (quality === 'luck') return { price, thesis: `The price helped, but the ${decision} call was right for the wrong reason.`, headline: `${price} The thesis did not earn the result.`, tone: 'neutral' }
+  if (quality === 'good process / bad luck or too early') return { price, thesis: `The thesis still holds, but the price has not followed yet.`, headline: `${price} It is too early to call the process wrong.`, tone: 'neutral' }
+  return { price, thesis: row.thesis_status ? `The thesis is ${status}; decision quality is not yet scored.` : 'The thesis result is not yet scored.', headline: `${price} Thesis result not yet settled.`, tone: 'neutral' }
+}
+
+function confidenceFor(call: CallSummary, row: CallTimelineEntry | null): CallTrackingSnapshot['confidence'] {
+  const before = finite(row?.confidence_update?.before) ? row!.confidence_update!.before
+    : finite(call.frozen_call?.confidence) ? call.frozen_call!.confidence
+      : finite(call.confidence) ? call.confidence : null
+  const after = finite(row?.confidence_update?.after) ? row!.confidence_update!.after : null
+  const label = `${before == null ? 'Not recorded' : before} → ${after == null ? 'not re-scored' : after}`
+  const tone: TrackingTone = after == null || before == null ? 'neutral' : after > before ? 'good' : after < before ? 'bad' : 'neutral'
+  return { label, detail: row?.confidence_update?.change_reason || (row ? 'This review did not record a new confidence score.' : 'No review has re-scored confidence yet.'), tone }
+}
+
+function namedWatchItem(row: CallTimelineEntry | null): string | null {
+  const items = Array.isArray(row?.watch_items) ? row!.watch_items! : []
+  if (!items.length) return null
+  const scored = items.map((item, index) => {
+    const lower = item.toLowerCase()
+    let score = 0
+    if (/\b(q[1-4]|h[12]|fy\d{2,4}|results?|earnings|sales|pre-sales|backlog|maturity|dividend|filing)\b/.test(lower)) score += 5
+    if (/\b(20\d{2}|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\b/.test(lower)) score += 3
+    if (lower.includes('/research:')) score -= 4
+    return { item, score, index }
+  })
+  const item = scored.sort((a, b) => b.score - a.score || a.index - b.index)[0]?.item || null
+  return item && item.length > 170 ? `${item.slice(0, 167).trimEnd()}…` : item
 }
 
 function situationFor(row: CallTimelineEntry | null, call: CallSummary): CallTrackingSnapshot['situation'] {
@@ -143,13 +231,19 @@ function situationFor(row: CallTimelineEntry | null, call: CallSummary): CallTra
 }
 
 export function callTrackingSnapshot(call: CallSummary): CallTrackingSnapshot {
-  const decision = call.decision || 'No rating'
-  const entry = money(call.currency, call.entry_price)
+  const decision = call.frozen_call?.decision || call.decision || 'No rating'
+  const entry = money(call.frozen_call?.currency || call.currency, call.frozen_call?.entry_price ?? call.entry_price)
   const entryPhrase = entry === 'price not recorded' ? 'with no recorded entry price' : `at ${entry}`
   const target = finite(call.implied_target) ? ` Target: ${money(call.currency, call.implied_target)}.` : ''
-  const latest = latestCompletedReview(call.timeline)
-  const observedReturn = callReturnValue(call, latest?.absolute_return_pct)
-  const benchmarkDelta = callReturnValue(call, latest?.benchmark_relative_return_pct)
+  const reviews = completedReviews(call.timeline)
+  const latest = reviews[0] || null
+  const previous = reviews[1] || null
+  const observedReturn = finite(latest?.absolute_return_pct) ? latest.absolute_return_pct : null
+  const benchmarkDelta = finite(latest?.benchmark_relative_return_pct) ? latest.benchmark_relative_return_pct : null
+  const sincePrevious = finite(latest?.review_price) && finite(previous?.review_price) && previous.review_price !== 0
+    ? ((latest.review_price - previous.review_price) / previous.review_price) * 100
+    : null
+  const watch = namedWatchItem(latest)
 
   const checkpoint = latest ? {
     label: `${windowLabel(latest.window)} check · ${humanDate(latest.review_date || latest.due_date)}`,
@@ -158,26 +252,32 @@ export function callTrackingSnapshot(call: CallSummary): CallTrackingSnapshot {
     returnFromCall: observedReturn != null
       ? signedPct(observedReturn)
       : 'Return not recorded',
-    returnTone: observedReturn == null ? 'neutral' as const
-      : observedReturn >= 0 ? 'good' as const : 'bad' as const,
+    returnTone: 'neutral' as const,
     benchmarkDelta: benchmarkDelta == null ? null
       : Math.abs(benchmarkDelta).toFixed(1) === '0.0'
         ? 'even with benchmark'
         : benchmarkDelta > 0
         ? `${Math.abs(benchmarkDelta).toFixed(1)}pp ahead of benchmark`
         : `${Math.abs(benchmarkDelta).toFixed(1)}pp behind benchmark`,
+    sincePrevious: sincePrevious == null ? (previous ? 'Change since previous review not available' : 'First review — no previous-review delta yet') : `${signedPct(sincePrevious)} since previous review`,
   } : null
 
   const next = call.next_checkpoint
   return {
-    originalSentence: `Nostra said ${decision} on ${humanDate(call.decision_date)} ${entryPhrase}.${target}`,
+    originalSentence: `Nostra rated it ${decision} on ${humanDate(call.frozen_call?.decision_date || call.decision_date)} ${entryPhrase}.${target}`,
     checkpoint,
+    actionNow: actionNow(call, latest),
+    result: resultFor(call, latest),
+    confidence: confidenceFor(call, latest),
     situation: situationFor(latest, call),
     evidence: latest?.memo_delta_summary || call.latest_review_summary || null,
+    learning: latest?.learning?.why_right_or_wrong || latest?.learning?.rule_for_future || firstSentence(latest?.lessons?.[0]) || null,
     nextCheck: next ? {
-      date: humanDate(next.due_date),
-      detail: `${windowLabel(next.window)} review · ${next.status}`,
+      date: humanDate(latest?.next_check?.date || next.due_date),
+      detail: latest?.next_check?.label || (watch ? `${windowLabel(next.window)} review · Watch: ${watch}` : `${windowLabel(next.window)} review · ${next.status}`),
       tone: next.status === 'overdue' ? 'bad' : 'neutral',
+    } : latest?.next_check ? {
+      date: humanDate(latest.next_check.date), detail: latest.next_check.label || latest.next_check.trigger || 'Named review check', tone: 'neutral',
     } : null,
   }
 }

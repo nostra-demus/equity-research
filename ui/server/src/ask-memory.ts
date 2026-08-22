@@ -1,5 +1,6 @@
 import type { ConversationMemoryMatch } from './chat-store'
 import type { NewsChatContext } from './news/chat'
+import type { CallMemoryItem } from './call-learning'
 
 export type AskMemoryMode = 'auto' | 'run' | 'news'
 
@@ -15,13 +16,14 @@ export interface AskMemoryPromptContext {
   route: AskMemoryRoute
   news?: NewsChatContext
   priorChats: ConversationMemoryMatch[]
+  calls?: CallMemoryItem[]
 }
 
 export interface AskMemoryMeta {
   kind: 'ask-memory'
   mode: AskMemoryMode
   reason: string
-  shelves: { kind: 'run' | 'news' | 'chats'; label: string; count: number }[]
+  shelves: { kind: 'run' | 'news' | 'chats' | 'calls'; label: string; count: number }[]
   newsEvidence?: NewsChatContext['evidence']
 }
 
@@ -55,6 +57,7 @@ export function askMemoryMeta(label: string, context: AskMemoryPromptContext): A
   const shelves: AskMemoryMeta['shelves'] = [{ kind: 'run', label, count: 1 }]
   if (context.news?.present) shelves.push({ kind: 'news', label: 'saved news', count: context.news.evidence.length })
   if (context.priorChats.length) shelves.push({ kind: 'chats', label: 'earlier chats', count: context.priorChats.length })
+  if (context.calls?.length) shelves.push({ kind: 'calls', label: 'past calls', count: context.calls.length })
   return {
     kind: 'ask-memory',
     mode: context.route.mode,

@@ -1090,7 +1090,7 @@ export const api = {
   // cross-ticker call ledger + since-the-call timelines (the Calls Tracker). Static -> bundled snapshot.
   calls: async (): Promise<CallsResult> => {
     if ((await ensureMode()) === 'static') return {
-      calls: snap.calls || [], dashboard: snap.dashboard || null,
+      calls: snap.calls || [], scorecard: snap.scorecard, dashboard: snap.dashboard || null,
       needs_attention: snap.needsAttention || [], updates: snap.callUpdates || [],
     }
     return get(`/api/calls`)

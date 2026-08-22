@@ -13,7 +13,7 @@ import path from 'node:path'
 // config reads env at import time; set harmless defaults BEFORE importing the module under test.
 process.env.ENGINE_STATE_DIR = process.env.ENGINE_STATE_DIR || fs.mkdtempSync(path.join(os.tmpdir(), 'chatctx-'))
 process.env.ENGINE_REPO_ROOT = process.env.ENGINE_REPO_ROOT || process.cwd()
-const { matchLinkedSubjects, linkCandidatesBySwarm, isLinkableRun, toPosixPath, rankContextPiecesForQuestion } = await import('../src/chat-context')
+const { buildChatPrompts, matchLinkedSubjects, linkCandidatesBySwarm, isLinkableRun, toPosixPath, rankContextPiecesForQuestion } = await import('../src/chat-context')
 const { runManifest } = await import('../src/outputs')
 
 let passed = 0
@@ -121,6 +121,28 @@ check('oversized research chat keeps mandatory records, then the section relevan
     rankContextPiecesForQuestion(pieces, 'What happens at the 2028 debt maturity?').map((p) => p.heading),
     ['Master thesis', 'Debt maturity detail', 'Business synthesis'],
   )
+})
+
+check('research and selected-signal chat begins with immutable decision memory when an exact call matched', () => {
+  const p = buildChatPrompts({
+    assembled: { present: true, scope: 'run', runRoot: 'analyses/AMZN_2026-08-23', label: 'Whole run', context: '### Thesis\nCurrent research.', files: [], approxTokens: 5, degraded: false },
+    messages: [{ role: 'user', content: 'What is the call now?' }], subject: 'AMZN',
+    memory: {
+      route: { mode: 'auto', useNews: false, useHistory: true, historyIntent: false, reason: 'Auto.' }, priorChats: [],
+      calls: [{
+        ticker: 'AMZN', company: 'Amazon.com, Inc.', decision_date: '2026-07-10', original_decision: 'Watchlist', original_confidence: 72,
+        original_price: 238.34, currency: 'USD', latest_review_date: '2026-08-09', latest_price: 274.48, price_change_pct: 15.16,
+        benchmark_relative_pct: 11.49, thesis_status: 'broken', decision_quality: 'genuine miss', action_now: 'Keep watching',
+        action_reason: 'Re-run earnings before acting.', confidence_after: 45, confidence_reason: 'AWS margin expanded.',
+        why_right_or_wrong: 'Nostra underestimated AWS growth.', error_taxonomy: ['bad base rate'], future_research_check: 'Recheck AWS growth and margin.',
+        next_check_date: '2026-10-30', next_check_label: 'Q3 AWS check', source_path: 'analyses/AMZN_2026-07-10/reviews/review.json',
+      }],
+    },
+  })
+  assert.match(p.system, /Begin the answer with one short paragraph labelled "Memory check:"/)
+  assert.match(p.system, /Never turn Watchlist, Avoid, or Stay away into "Nostra said enter"/)
+  assert.match(p.user, /FROZEN ORIGINAL: Nostra rated it Watchlist/)
+  assert.match(p.user, /RECHECK NOW: Recheck AWS growth and margin/)
 })
 
 // ---- PR #329 review fixes ----

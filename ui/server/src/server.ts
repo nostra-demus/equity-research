@@ -80,6 +80,7 @@ import { chatTurnsInFlight, runChatTurn } from './chat-llm'
 import { computePlan, computedContextBlock, detectWhatIf, isNumberlessTargetFollowUp, loadSidecar, parseWhatIf, recordedList, repriceFromMetric, resolveAuthenticatedPriorScenario, validateIntents } from './chat-whatif'
 import { ChatTurnReservationError, deleteConversation, findCompletedTurnForUser, getConversation, isValidConversationId, isValidTurnId, listConversations, recordAssistantMessageForPending, recordPendingUserMessage, rollbackUserMessage, searchConversationMemory, type UserMessageRollback } from './chat-store'
 import { askMemoryMeta, compactNewsEvidence, routeAskMemory, type AskMemoryPromptContext } from './ask-memory'
+import { selectCallMemories } from './call-learning'
 import { dataPoolPresent, deriveSignalState, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
 import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
 import { getNewsDiagnostics, getNewsStatus, newsProviderSpendingAllowed, startNewsIngester } from './news/scheduler'
@@ -4247,6 +4248,17 @@ app.post('/api/chat', async (req, reply) => {
       // the receipt simply omits that shelf instead of pretending it was used.
     }
   }
+  if (!ac.signal.aborted) {
+    try {
+      const projection = await listAllCalls()
+      const identifiers = [subject, signalMemoryAnchor || '']
+      const matched = selectCallMemories(projection.calls, identifiers)
+      if (matched.length) memory.calls = matched
+    } catch {
+      // The call ledger is an additive shelf. If its published Git authority is briefly unavailable,
+      // the existing research/news answer still works and the receipt honestly omits decision memory.
+    }
+  }
   if (closed || ac.signal.aborted) { requestAbort.dispose(); return }
 
   // Reserve this turn under the authoritative identity (from Cloudflare Access, NOT the body). The resolved
@@ -4660,8 +4672,19 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
 
     const { res, send, ping } = startSSE(reply)
     res.on('close', () => { closed = true; clearInterval(ping) })
-    send({ type: 'news-chat-meta', conversationId, receipt: assembled.receipt, evidence: assembled.evidence })
-    const { system, user } = buildNewsChatPrompts({ assembled, messages })
+    let callMemories = [] as ReturnType<typeof selectCallMemories>
+    try {
+      const evidenceIdentifiers = assembled.evidence.flatMap((row) => Array.isArray(row.item.companies)
+        ? row.item.companies.flatMap((company) => [company?.ticker || '', company?.name || ''])
+        : [])
+      // Prefer an issuer named exactly in the question, then the structured issuer identities from the
+      // ranked evidence. Matching remains exact, so an incidental word cannot pull in another company.
+      callMemories = selectCallMemories((await listAllCalls()).calls, [last.content, ...evidenceIdentifiers])
+    } catch {
+      callMemories = []
+    }
+    send({ type: 'news-chat-meta', conversationId, receipt: assembled.receipt, evidence: assembled.evidence, decisionMemoryCount: callMemories.length })
+    const { system, user } = buildNewsChatPrompts({ assembled, messages, calls: callMemories })
     try {
       // Hold primary text until the turn succeeds. If the primary emits a partial answer and then reports
       // a quota/timeout error, the fallback starts from a clean response rather than being concatenated to
@@ -4719,7 +4742,7 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
         const pending = pendingSavedQuestion
         let completionSafe = true
         if (pending) {
-          const memory = { kind: 'news-wire', window, receipt: assembled.receipt, evidence: compactNewsEvidence(assembled.evidence) }
+          const memory = { kind: 'news-wire', window, receipt: assembled.receipt, evidence: compactNewsEvidence(assembled.evidence), calls: callMemories }
           const committed = await recordAssistantMessageForPending(
             pending,
             answer,

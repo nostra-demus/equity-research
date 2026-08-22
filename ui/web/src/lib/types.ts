@@ -2114,7 +2114,7 @@ export interface AskMemoryMeta {
   kind: 'ask-memory'
   mode: AskMemoryMode
   reason: string
-  shelves: { kind: 'run' | 'news' | 'chats'; label: string; count: number }[]
+  shelves: { kind: 'run' | 'news' | 'chats' | 'calls'; label: string; count: number }[]
   newsEvidence?: NewsChatEvidence[]
 }
 export type ChatStyle = 'simple' | 'analyst' | 'detailed' // narration style — HOW the answer is phrased
@@ -2364,6 +2364,7 @@ export interface NewsWireMemory {
   window: NewsChatWindow
   receipt: NewsChatReceipt
   evidence: NewsChatEvidence[]
+  calls?: unknown[]
 }
 export interface NewsChatRequest {
   window: NewsChatWindow
@@ -2393,7 +2394,20 @@ export interface CallTimelineEntry {
   review_count?: number
   memo_delta_file?: string // §8 memo delta — the "what changed since the memo" markdown, when the review filed one
   stage_one_comment?: string // paste-ready 100–200-word Stage-One sheet note from the same block
+  action_now?: { label: CallActionNow; reason: string; recorded: true } | null
+  confidence_update?: { before: number | null; after: number | null; change_reason: string | null } | null
+  next_check?: { date: string | null; label: string | null; trigger: string | null } | null
+  learning?: {
+    why_right_or_wrong: string | null
+    error_source: string | null
+    rule_for_future: string | null
+    future_research_check: string | null
+  } | null
+  lessons?: string[]
+  error_taxonomy?: string[]
+  watch_items?: string[]
 }
+export type CallActionNow = 'Hold' | 'Add' | 'Exit' | 'Stay away' | 'Keep watching'
 // AS_forecast_overdue / AW_kill_criteria_overdue (scripts/eval.py), surfaced live — see outputs.ts.
 export interface OverdueItem {
   due_date: string
@@ -2408,6 +2422,16 @@ export interface CallSummary {
   decision_is_post_mortem_capped: boolean // true when a terminal pre-mortem verdict downgraded the original call
   confidence: number | null // prefers post-red-team confidence when present (fix F28)
   confidence_is_post_review: boolean
+  frozen_call?: {
+    locked: true
+    decision: string | null
+    basket: string | null
+    confidence: number | null
+    decision_date: string | null
+    entry_price: number | null
+    currency: string | null
+    source_path: string
+  }
   integrity_status: 'verified' | 'provisional' | 'unaudited' // DECISION_LEDGER.md §18a truth-integrity status
   integrity_verdict: string | null // the verify-evidence report's own verdict string, when one exists
   integrity_banner: boolean // true when the finish-gate stamped final_thesis.md PROVISIONAL
@@ -2429,6 +2453,32 @@ export interface CallSummary {
   review_count: number
   timeline: CallTimelineEntry[]
   needs_attention: { forecasts_overdue: OverdueItem[]; kill_criteria_overdue: OverdueItem[] }
+}
+export interface CallsScorecardHorizon {
+  window: '30d' | '90d' | '180d' | '365d'
+  reviewed: number
+  worked: number
+  failed: number
+  mixed: number
+  unscored: number
+  average_return_pct: number | null
+  average_vs_benchmark_pct: number | null
+}
+export interface CallsScorecard {
+  assessed_calls: number
+  worked: number
+  failed: number
+  mixed: number
+  unscored: number
+  average_return_pct: number | null
+  average_vs_benchmark_pct: number | null
+  horizons: CallsScorecardHorizon[]
+  confidence_check: {
+    status: 'too_little_data' | 'aligned' | 'not_aligned'
+    scored_calls: number
+    detail: string
+    bands: { label: string; calls: number; worked_pct: number | null }[]
+  }
 }
 // ranked across ALL calls, oldest due_date first — the flattened, actionable form of every call's
 // needs_attention block, for the top-of-dashboard "needs attention now" panel.
@@ -2454,6 +2504,7 @@ export interface CallUpdate {
 }
 export interface CallsResult {
   calls: CallSummary[]
+  scorecard?: CallsScorecard
   dashboard: string | null
   needs_attention: NeedsAttentionRow[]
   updates: CallUpdate[]

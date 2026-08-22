@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { currentCalls, publishedCalls, publishedCallUpdates, publishedNeedsAttention } from './callsView'
+import { currentCalls, publishedCalls, publishedCallsScorecard, publishedCallUpdates, publishedNeedsAttention } from './callsView'
 import type { CallSummary, CallUpdate, NeedsAttentionRow } from './types'
 
 const call = (ticker: string, date: string, requestedRunRoot?: string): CallSummary => {
@@ -58,6 +58,13 @@ invalidTimelineNumber.timeline = [{
 }]
 assert.equal(publishedCalls([invalidTimelineNumber]).length, 0,
   'non-finite scorecard numbers fail closed')
+const invalidConfidence = call('BAD-CONFIDENCE', '2026-08-12')
+invalidConfidence.timeline = [{
+  window: '30d', due_date: '2026-09-11', status: 'done',
+  confidence_update: { before: 72, after: 140, change_reason: 'invalid' },
+}]
+assert.equal(publishedCalls([invalidConfidence]).length, 0,
+  'confidence changes outside 0–100 fail closed')
 for (const field of ['forecasts_confirmed', 'forecasts_falsified', 'review_count'] as const) {
   const invalid = call(`BAD-TIMELINE-${field}`, '2026-08-12')
   invalid.timeline = [{
@@ -86,5 +93,16 @@ const attention: NeedsAttentionRow = {
 assert.deepEqual(publishedNeedsAttention([undefined, { type: 'forecast' }, attention]), [attention], 'Needs Attention skips malformed rows')
 assert.equal(publishedNeedsAttention([{ ...attention, company: undefined }]).length, 1,
   'an omitted optional company survives deploy skew')
+
+const scorecard = {
+  assessed_calls: 2, worked: 1, failed: 1, mixed: 0, unscored: 3,
+  average_return_pct: 2.5, average_vs_benchmark_pct: 1.2,
+  horizons: ['30d', '90d', '180d', '365d'].map((window) => ({ window, reviewed: 1, worked: 1, failed: 0, mixed: 0, unscored: 0, average_return_pct: 2, average_vs_benchmark_pct: 1 })),
+  confidence_check: { status: 'too_little_data', scored_calls: 2, detail: 'Too little data.', bands: [] },
+}
+assert.deepEqual(publishedCallsScorecard(scorecard), scorecard)
+assert.equal(publishedCallsScorecard({ ...scorecard, worked: Number.NaN }), null, 'malformed scorecards fail closed during deploy skew')
+assert.equal(publishedCallsScorecard({ ...scorecard, confidence_check: { ...scorecard.confidence_check, bands: [{ label: '85+', calls: 2, worked_pct: 140 }] } }), null,
+  'malformed confidence bands fail closed during deploy skew')
 
 console.log('ok  Calls Current view is one newest published record per ticker')

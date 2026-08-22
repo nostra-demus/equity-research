@@ -46,9 +46,15 @@ write(`${olderRoot}/reviews/${reviewName}`, JSON.stringify({
   review_window: '30d', review_date: '2026-08-13', review_price: 110,
   absolute_return_pct: 10, benchmark_relative_return_pct: 6.5,
   thesis_status: 'confirmed', decision_quality: 'skill',
+  action_now: { label: 'Hold', reason: 'The thesis remains supported.' },
+  confidence_update: { before: 58, after: 64, change_reason: 'The named test passed.' },
+  next_check: { date: '2026-09-30', label: 'Q3 results and margin check', trigger: 'Margin stays above 20%' },
+  learning: { why_right_or_wrong: 'The call worked because the named test passed.', error_source: '', rule_for_future: 'Keep the dated test.', future_research_check: 'Recheck Q3 margin.' },
+  lessons: ['Use the dated threshold.'], error_taxonomy: [],
   forecast_results: [{ status: 'confirmed' }],
   memo_delta: {
     summary: 'The operating evidence improved.', thesis_delta_verdict: 'strengthened',
+    watch_items: ['Q3 results and margin check'],
     memo_delta_file: `${olderRoot}/reviews/${memoName}`,
   },
 }, null, 2) + '\n')
@@ -91,6 +97,10 @@ assert.deepEqual(dirty.calls.map((call: any) => call.run_root), [newerRoot, olde
   'only complete calls in published Git are enumerated; unrelated unsafe names are skipped')
 assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)?.decision, 'Watchlist',
   'the decision comes from published Git, not dirty disk')
+assert.deepEqual(dirty.calls.find((call: any) => call.run_root === olderRoot)?.frozen_call, {
+  locked: true, decision: 'Watchlist', basket: null, confidence: 58, decision_date: '2026-08-01',
+  entry_price: null, currency: null, source_path: `${olderRoot}/decision_record.json`,
+}, 'the original decision-time state is frozen separately from every later review')
 assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)?.integrity_status, 'verified',
   'published verification survives a poisoned local thesis')
 const integrityAuthority = await publishedTreeAuthority('analyses', repo, publishedCommit)
@@ -110,9 +120,18 @@ assert.deepEqual(
     forecasts_falsified: 0, review_file: `${olderRoot}/reviews/${reviewName}`, review_count: 1,
     memo_delta_file: `${olderRoot}/reviews/${memoName}`,
     memo_delta_summary: 'The operating evidence improved.', thesis_delta_verdict: 'strengthened',
+    action_now: { label: 'Hold', reason: 'The thesis remains supported.', recorded: true },
+    confidence_update: { before: 58, after: 64, change_reason: 'The named test passed.' },
+    next_check: { date: '2026-09-30', label: 'Q3 results and margin check', trigger: 'Margin stays above 20%' },
+    learning: { why_right_or_wrong: 'The call worked because the named test passed.', error_source: null, rule_for_future: 'Keep the dated test.', future_research_check: 'Recheck Q3 margin.' },
+    lessons: ['Use the dated threshold.'], watch_items: ['Q3 results and margin check'],
   },
   'the published checkpoint carries the scorecard result, benchmark delta, and plain-English evidence',
 )
+assert.equal(dirty.scorecard.worked, 1)
+assert.equal(dirty.scorecard.failed, 0)
+assert.equal(dirty.scorecard.horizons.find((row: any) => row.window === '30d')?.average_vs_benchmark_pct, 6.5)
+assert.equal(dirty.scorecard.confidence_check.status, 'too_little_data')
 assert.equal(dirty.dashboard, 'analyses/tracking/2026-08-13_calls_tracker.md')
 assert.equal(dirty.authority_commit, publishedCommit)
 assert.equal(dirty.updates.filter((row: any) => row.kind === 'review').length, 1)
