@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T03:54:42Z",
+  "generated_at": "2026-08-22T04:03:57Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-033",
@@ -195,6 +195,55 @@
           "name": "Skanska",
           "ticker": null,
           "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-1702",
+      "headline": "TikTok To Pay $400 Million To Settle US Lawsuit Over Alleged Children's Privacy Law Violations",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/tech/tiktok-to-pay-400-million-to-settle-us-lawsuit-over-alleged-childrens-privacy-law-violations",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T02:56:16Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "TikTok is paying a quantified $400 million settlement for privacy violations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "TikTok is paying a quantified $400 million settlement for privacy violations.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TikTok",
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
@@ -1542,6 +1591,56 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260822-1718",
+      "headline": "$300b debt crisis: China Evergrande founder sentenced to life in prison",
+      "headline_en": null,
+      "url": "https://www.emirates247.com/business/china-evergrande-founder-hui-ka-yan-sentenced-to-life-in-prison-amid-300b-debt-crisis/4733",
+      "source_name": "Emirates 24|7 — Flash News (general)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T05:02:00Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Evergrande founder sentenced to life amid a $300b debt crisis, a major distress and enforcement event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Evergrande founder sentenced to life amid a $300b debt crisis, a major distress and enforcement event.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement",
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Evergrande",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260822-037",
       "headline": "QTREX Announces Pricing of a $10 Million Registered Direct Offering of Ordinary Shares",
       "headline_en": null,
@@ -1793,21 +1892,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260822-1695",
-      "headline": "China Sentences Evergrande Founder Hui to Life in Prison",
+      "inbox_id": "INB-20260822-1758",
+      "headline": "India bars JPMorgan unit for alleged market manipulation",
       "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-08-20/china-sentences-evergrande-founder-hui-to-life-video",
-      "source_name": "Bloomberg",
+      "url": "https://www.thehindubusinessline.com/markets/india-bars-jpmorgan-unit-for-alleged-market-manipulation/article71367732.ece",
+      "source_name": "The Hindu BusinessLine",
       "input_nature": "news_headline",
-      "found_at": "2026-08-20T09:08:23Z",
+      "found_at": "2026-08-20T04:31:54Z",
       "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "China sentenced Evergrande founder Hui to life in prison, a major enforcement action against the company's founder.",
+      "prelim_note": "Regulatory action barring a unit of a major financial institution for market manipulation is a significant operational and reputational risk.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 99,
-      "triage_reason": "China sentenced Evergrande founder Hui to life in prison, a major enforcement action against the company's founder.",
-      "region": "CN",
+      "triage_reason": "Regulatory action barring a unit of a major financial institution for market manipulation is a significant operational and reputational risk.",
+      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
@@ -1823,20 +1922,21 @@
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "litigation_enforcement",
-        "size_bucket": "large"
+        "size_bucket": "mega"
       },
       "event_types": [
+        "regulatory",
         "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "China Evergrande Group",
-          "ticker": null,
-          "listing_country": "CN"
+          "name": "JPMorgan",
+          "ticker": "JPM",
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1937,104 +2037,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-1220",
-      "headline": "Japan Earmarks Another $944 Million for Rapidus in AI Chip Race",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-21/japan-earmarks-another-944-million-for-rapidus-in-ai-chip-race",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T09:01:30Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Japan allocated another $944 million to Rapidus for AI chip fab build-out, a named capacity investment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Japan allocated another $944 million to Rapidus for AI chip fab build-out, a named capacity investment.",
-      "region": "JP",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rapidus",
-          "ticker": null,
-          "listing_country": "JP"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-1545",
-      "headline": "Alibaba profit falls 75% after ramping up AI infrastructure spending",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/retail-consumer/alibaba-beats-quarterly-revenue-estimates-2026-08-20/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T15:07:06Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Alibaba profit fell 75% after increased AI infrastructure spending, a quantified earnings decline.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Alibaba profit fell 75% after increased AI infrastructure spending, a quantified earnings decline.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alibaba",
-          "ticker": "BABA",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -78418,9 +78420,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 244510,
-    "news_picked_today": 2129,
-    "news_dropped_today": 3571
+    "news_seen_today": 249355,
+    "news_picked_today": 2227,
+    "news_dropped_today": 3737
   },
   "book_momentum": {
     "live_count": 8,
