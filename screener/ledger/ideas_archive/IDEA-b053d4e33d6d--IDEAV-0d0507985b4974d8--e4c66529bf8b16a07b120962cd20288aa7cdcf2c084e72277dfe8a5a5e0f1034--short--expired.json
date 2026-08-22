@@ -1,0 +1,78 @@
+{
+  "schema_version": "idea-archive/v1",
+  "archived_at": "2026-08-22T08:49:10Z",
+  "archive_reason": "expired_pruned",
+  "snapshot": {
+    "idea_id": "IDEA-b053d4e33d6d",
+    "idea_version": "IDEAV-0d0507985b4974d8",
+    "idea_version_started_at": "2026-08-20T06:23:48Z",
+    "ticker": "09968",
+    "company": "Huijing Holdings Company Limited",
+    "exchange": "HKEX",
+    "ticker_verified": false,
+    "listing_verified": false,
+    "liquidity_verified": false,
+    "listing_verification_source": null,
+    "direction": "short",
+    "pair_with": null,
+    "reason": "The profit warning highlights significant operational or financial headwinds, likely impacting cash flow and valuation multiples.",
+    "why_now": "The profit warning was filed on 2026-08-19.",
+    "conviction": 65,
+    "conviction_basis": "pre_edge_proxy",
+    "trade_score": 45,
+    "trade_score_basis": "evidence_gate_v2",
+    "trade_score_breakdown": {
+      "evidence": 25,
+      "impact": 20,
+      "specificity": 7,
+      "timing": 10,
+      "expression": 0,
+      "corroboration": 0,
+      "learning_adjustment": 0
+    },
+    "trade_readiness": "watch_only",
+    "missing_checks": [
+      "verified listed ticker",
+      "verified listing",
+      "live liquidity",
+      "dated catalyst",
+      "live price, liquidity, and consensus"
+    ],
+    "learning": {
+      "resolved": 0,
+      "positive": 0,
+      "negative": 0,
+      "neutral": 0,
+      "adjustment": 0,
+      "basis": "not_enough_outcomes",
+      "evidenceIds": []
+    },
+    "priced_in": "room",
+    "thesis_type": "company_specific",
+    "origin_type": "wire",
+    "source_themes": [],
+    "source_event_ids": [
+      "EVT-5ab71f02d570"
+    ],
+    "primary_source_event_id": "EVT-5ab71f02d570",
+    "source_headlines": [
+      "HUIJING HLDGS (09968): INSIDE INFORMATION PROFIT WARNING"
+    ],
+    "source_headline": "HUIJING HLDGS (09968): INSIDE INFORMATION PROFIT WARNING",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0819/2026081900283.pdf",
+    "source_name": "HKEXnews (HK Exchange Filing)",
+    "materiality_max": 100,
+    "newest_source_at": "2026-08-19T08:31:00Z",
+    "prior_coverage": {
+      "has_run": false,
+      "latest_run": null,
+      "latest_decision": null,
+      "data_pool_present": false
+    },
+    "surfaced_at": "2026-08-20T02:14:56Z",
+    "updated_at": "2026-08-20T06:23:48Z",
+    "decay_at": "2026-08-20T20:31:00Z",
+    "status": "live",
+    "promoted_signal_id": null
+  }
+}
