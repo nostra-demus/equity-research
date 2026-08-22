@@ -1284,6 +1284,10 @@ function memoryTokens(value: string): string[] {
     .slice(0, 24)
 }
 
+function safeConversationTimestamp(value: unknown): number {
+  return typeof value === 'number' && Number.isFinite(value) && value >= 0 && value <= 8.64e15 ? value : 0
+}
+
 function recentConversations(): { conversations: ChatConversation[]; fileCount: number } {
   let files: string[]
   try {
@@ -1303,7 +1307,11 @@ function recentConversations(): { conversations: ChatConversation[]; fileCount: 
     const conversation = readConvoFile(path.join(CHATS_DIR, file))
     if (conversation && !isConversationRevoked(conversation.user, conversation.id)) conversations.push(conversation)
   }
-  conversations.sort((a, b) => b.updatedAt - a.updatedAt)
+  conversations.sort((a, b) => {
+    const aUpdated = safeConversationTimestamp(a.updatedAt)
+    const bUpdated = safeConversationTimestamp(b.updatedAt)
+    return bUpdated - aUpdated || a.id.localeCompare(b.id)
+  })
   return { conversations, fileCount: files.length }
 }
 
@@ -1321,7 +1329,8 @@ export function searchConversationMemory(query: ConversationMemoryQuery): Conver
     const sameSubject = Boolean(query.subject && conversation.subject === query.subject)
     const sameSwarm = Boolean(query.swarm && conversation.swarm === query.swarm)
     const titleHaystack = `${conversation.subject} ${conversation.title}`.toLowerCase()
-    const transcriptHaystack = conversation.messages.map((message) => message.content).join('\n').toLowerCase()
+    const messages = Array.isArray(conversation.messages) ? conversation.messages : []
+    const transcriptHaystack = messages.map((message) => message.content).join('\n').toLowerCase()
     let score = sameSubject ? 18 : 0
     if (sameSwarm) score += 3
     let matchedTerms = 0
@@ -1333,17 +1342,18 @@ export function searchConversationMemory(query: ConversationMemoryQuery): Conver
     // lexical connection; recency alone must never inject an unrelated company into the answer.
     if (matchedTerms === 0 && !(sameSubject && query.allowSubjectOnly)) continue
     if (tokens.length >= 2 && matchedTerms >= Math.min(3, tokens.length)) score += 5
-    const ageDays = Math.max(0, (now - conversation.updatedAt) / 86_400_000)
+    const updatedAt = safeConversationTimestamp(conversation.updatedAt)
+    const ageDays = Math.max(0, (now - updatedAt) / 86_400_000)
     score += Math.max(0, 4 - Math.log2(ageDays + 1))
 
-    let bestStart = Math.max(0, conversation.messages.length - 2)
+    let bestStart = Math.max(0, messages.length - 2)
     let bestScore = -1
-    for (let i = 0; i < conversation.messages.length; i++) {
-      const pair = conversation.messages.slice(i, i + 2).map((message) => message.content).join(' ').toLowerCase()
+    for (let i = 0; i < messages.length; i++) {
+      const pair = messages.slice(i, i + 2).map((message) => message.content).join(' ').toLowerCase()
       const pairScore = tokens.reduce((sum, token) => sum + (pair.includes(token) ? 1 : 0), 0)
       if (pairScore > bestScore) { bestScore = pairScore; bestStart = i }
     }
-    const snippet = conversation.messages.slice(bestStart, bestStart + 2)
+    const snippet = messages.slice(bestStart, bestStart + 2)
       .map((message) => `${message.role === 'user' ? 'User' : 'Assistant'}: ${trim(message.content, 520)}`)
       .join('\n')
     candidates.push({
@@ -1351,13 +1361,19 @@ export function searchConversationMemory(query: ConversationMemoryQuery): Conver
       title: conversation.title,
       subject: conversation.subject,
       swarm: conversation.swarm,
-      updatedAt: conversation.updatedAt,
+      updatedAt,
       score,
       snippet,
     })
   }
   const limit = Math.max(1, Math.min(8, query.limit || 4))
-  return candidates.sort((a, b) => b.score - a.score || b.updatedAt - a.updatedAt).slice(0, limit)
+  return candidates.sort((a, b) => {
+    const aScore = Number.isFinite(a.score) ? a.score : 0
+    const bScore = Number.isFinite(b.score) ? b.score : 0
+    const aUpdated = safeConversationTimestamp(a.updatedAt)
+    const bUpdated = safeConversationTimestamp(b.updatedAt)
+    return bScore - aScore || bUpdated - aUpdated || a.id.localeCompare(b.id)
+  }).slice(0, limit)
 }
 
 // List conversations as summaries, newest-updated first, with the same filter surface as the activity log.

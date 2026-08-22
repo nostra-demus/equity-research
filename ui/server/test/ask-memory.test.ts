@@ -15,6 +15,8 @@ const prior = [{
   snippet: 'User: What did we say?\nAssistant: Working view only.',
 }]
 assert.match(priorChatMemoryBlock(prior), /\[C1\] Ask · AMZN/)
+assert.match(priorChatMemoryBlock([{ ...prior[0], updatedAt: Number.NaN }]), /unknown date/)
+assert.match(priorChatMemoryBlock([{ ...prior[0], updatedAt: Number.MAX_VALUE }]), /unknown date/)
 const meta = askMemoryMeta('current research', {
   route: routeAskMemory('what did we say?', 'research'),
   priorChats: prior,

@@ -4427,10 +4427,10 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
     let assembled
     try {
       assembled = await retrieveNewsForAsk(window, last.content, ac.signal)
-    } catch (e: any) {
+    } catch {
       if (ac.signal.aborted) { await rollbackCanceledQuestion(); return }
       await rollbackCanceledQuestion()
-      return reply.code(500).send({ error: 'could not read the saved news', detail: String(e?.message || e) })
+      return reply.code(500).send({ error: 'could not read the saved news' })
     }
     if (!assembled.present) { await rollbackCanceledQuestion(); return reply.code(409).send({ error: 'no_news', hint: assembled.missingHint }) }
 
@@ -4480,11 +4480,11 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
           fallbackFrom = model
         } else if (backup.error !== 'aborted') {
           await rollbackCanceledQuestion()
-          send({ type: 'news-chat-error', message: `${out.error} ${backup.error}` })
+          send({ type: 'news-chat-error', message: 'The answer providers are unavailable. Try again in a moment.' })
         }
       } else if (out.error && out.error !== 'aborted') {
         await rollbackCanceledQuestion()
-        send({ type: 'news-chat-error', message: out.error })
+        send({ type: 'news-chat-error', message: 'The answer could not be generated. Try again in a moment.' })
       }
       else if (!out.error) {
         answer = primaryChunks.join('')
@@ -4520,9 +4520,9 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
           send({ type: 'news-chat-error', message: 'The model returned no answer. Retry the same question.' })
         }
       }
-    } catch (e: any) {
+    } catch {
       await rollbackCanceledQuestion()
-      if (!closed) send({ type: 'news-chat-error', message: String(e?.message || e) })
+      if (!closed) send({ type: 'news-chat-error', message: 'An internal error occurred while processing the chat.' })
     } finally {
       if (closed || ac.signal.aborted) await rollbackCanceledQuestion()
       clearInterval(ping)

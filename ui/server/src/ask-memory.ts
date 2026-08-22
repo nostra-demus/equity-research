@@ -85,8 +85,12 @@ export function compactNewsEvidence(evidence: NewsChatContext['evidence']): News
 }
 
 export function priorChatMemoryBlock(matches: ConversationMemoryMatch[]): string {
-  return matches.map((match, index) => [
-    `[C${index + 1}] ${match.title} · ${match.subject} · ${new Date(match.updatedAt).toISOString().slice(0, 10)}`,
-    match.snippet,
-  ].join('\n')).join('\n\n')
+  return matches.map((match, index) => {
+    const parsedDate = Number.isFinite(match.updatedAt) ? new Date(match.updatedAt) : null
+    const date = parsedDate && !Number.isNaN(parsedDate.getTime()) ? parsedDate.toISOString().slice(0, 10) : 'unknown date'
+    return [
+      `[C${index + 1}] ${match.title} · ${match.subject} · ${date}`,
+      match.snippet,
+    ].join('\n')
+  }).join('\n\n')
 }

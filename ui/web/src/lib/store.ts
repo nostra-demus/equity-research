@@ -3091,10 +3091,11 @@ export const useStore = create<State>((set, get) => ({
     // Saved-wire conversations share the same History drawer but do not belong to a signal run. Reopen the
     // durable news drawer directly; never feed the synthetic NEWS subject into scSelectSignal.
     if (c.scope === 'wire') {
+      const messages = Array.isArray(c.messages) ? c.messages : []
       let lastAssistantIndex = -1
-      for (let i = c.messages.length - 1; i >= 0; i--) if (c.messages[i].role === 'assistant') { lastAssistantIndex = i; break }
-      const assistant = lastAssistantIndex >= 0 ? c.messages[lastAssistantIndex] : undefined
-      const question = lastAssistantIndex > 0 ? c.messages.slice(0, lastAssistantIndex).reverse().find((message) => message.role === 'user') : undefined
+      for (let i = messages.length - 1; i >= 0; i--) if (messages[i].role === 'assistant') { lastAssistantIndex = i; break }
+      const assistant = lastAssistantIndex >= 0 ? messages[lastAssistantIndex] : undefined
+      const question = lastAssistantIndex > 0 ? messages.slice(0, lastAssistantIndex).reverse().find((message) => message.role === 'user') : undefined
       const memory = assistant?.memory?.kind === 'news-wire' ? assistant.memory : undefined
       const window = memory?.window || (c.style?.startsWith('news:') ? c.style.slice(5) : '')
       const newsWindow: NewsChatWindow = window === '7d' || window === 'history' ? window : '24h'
@@ -3103,15 +3104,17 @@ export const useStore = create<State>((set, get) => ({
         chatOpen: false,
         newsChatOpen: true,
         newsChatWindow: newsWindow,
-        newsChatMessages: c.messages.map((message) => ({ role: message.role, content: message.content, turnId: message.turnId, memory: message.memory })),
+        newsChatMessages: messages.map((message) => ({ role: message.role, content: message.content, turnId: message.turnId, memory: message.memory })),
         newsChatConversationId: c.id,
         newsChatStreaming: false,
         newsChatError: undefined,
         newsChatRetryText: undefined,
         newsChatRetryTurnId: undefined,
         newsChatReceipt: memory?.receipt,
-        newsChatEvidence: memory?.evidence || [],
-        newsChatCompletedTurn: memory && assistant && question ? { question: question.content, answer: assistant.content, receipt: memory.receipt, evidence: memory.evidence } : undefined,
+        newsChatEvidence: Array.isArray(memory?.evidence) ? memory.evidence : [],
+        newsChatCompletedTurn: memory && assistant && question
+          ? { question: question.content, answer: assistant.content, receipt: memory.receipt, evidence: Array.isArray(memory.evidence) ? memory.evidence : [] }
+          : undefined,
       })
       return
     }
@@ -3155,6 +3158,8 @@ export const useStore = create<State>((set, get) => ({
       const hereServesRun = cur.reports.thesis || Object.values(cur.moduleReports).some((r) => !!r?.synthesis)
       if (research && !hereServesRun && c.runRoot) answerRunRoot = c.runRoot
     }
+    const messages = Array.isArray(c.messages) ? c.messages : []
+    const lastAssistantMemory = [...messages].reverse().find((message) => message.role === 'assistant')?.memory
     set({
       chatHistoryOpen: false,
       chatOpen: true,
@@ -3164,7 +3169,7 @@ export const useStore = create<State>((set, get) => ({
       chatOrbKey: c.orbKey,
       chatAnswerRunRoot: answerRunRoot,
       chatTitle: c.title || defaultChatTitle(c.scope, c.subject, { module: c.module }),
-      chatMessages: c.messages.map((m) => ({ role: m.role, content: m.content, turnId: m.turnId, thinking: m.thinking, computed: m.computed, memory: m.memory })),
+      chatMessages: messages.map((m) => ({ role: m.role, content: m.content, turnId: m.turnId, thinking: m.thinking, computed: m.computed, memory: m.memory })),
       chatConversationId: c.id,
       chatModel: c.model || get().chatModel,
       chatStyle: (c.style as ChatStyle) || get().chatStyle,
@@ -3174,9 +3179,7 @@ export const useStore = create<State>((set, get) => ({
       chatRetryText: undefined,
       chatRetryTurnId: undefined,
       chatSource: undefined,
-      chatMemory: [...c.messages].reverse().find((m) => m.role === 'assistant')?.memory?.kind === 'news-wire'
-        ? undefined
-        : [...c.messages].reverse().find((m) => m.role === 'assistant')?.memory as AskMemoryMeta | undefined,
+      chatMemory: lastAssistantMemory?.kind === 'news-wire' ? undefined : lastAssistantMemory as AskMemoryMeta | undefined,
     })
   },
   // Start a brand-new Ask conversation about the selected company — used by the History panel's "New chat"

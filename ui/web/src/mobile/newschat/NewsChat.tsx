@@ -45,13 +45,14 @@ export function NewsChat({ model, staticMode, initial }: { model: string; static
 
   useEffect(() => {
     if (!initial || initial.scope !== 'wire') return
-    const lastAssistant = [...initial.messages].reverse().find((message) => message.role === 'assistant')
+    const messages = Array.isArray(initial.messages) ? initial.messages : []
+    const lastAssistant = [...messages].reverse().find((message) => message.role === 'assistant')
     const memory = lastAssistant?.memory?.kind === 'news-wire' ? lastAssistant.memory : undefined
     setWin(memory?.window || '24h')
-    setMessages(initial.messages.map((message) => ({ role: message.role, content: message.content, turnId: message.turnId, memory: message.memory })))
+    setMessages(messages.map((message) => ({ role: message.role, content: message.content, turnId: message.turnId, memory: message.memory })))
     setConversationId(initial.id)
     setReceipt(memory?.receipt || null)
-    setEvidence(memory?.evidence || [])
+    setEvidence(Array.isArray(memory?.evidence) ? memory.evidence : [])
     setError(null)
     setRetryText(null)
     setRetryTurnId(null)
