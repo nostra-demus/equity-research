@@ -1064,6 +1064,11 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
     const priorFailed = !priorResultPersisted
       && (recoveredAmbiguousDispatch || priorHealthRead.status === 'corrupt'
         || (priorHealth?.outcome === 'failed' && !uncertaintyOnlyFailure) || priorUnfinished)
+    const priorCompletedInputs = new Set(prev?.completed_input_keys || [])
+    const reusableCompleteCoverage = !priorFailed && !priorUnfinished && !uncertaintyReason
+      && !prev?.in_flight && prev?.hash === hash && prev?.effect_hash === effectHash
+      && prev.completed_input_keys !== undefined
+      && rankedInputKeys.every((key) => priorCompletedInputs.has(key))
     const elapsed = Number.isFinite(intervalAnchor) ? now() - intervalAnchor : Number.POSITIVE_INFINITY
     if (elapsed < c.minIntervalSec * 1000) {
       const next = intervalAnchor + c.minIntervalSec * 1000
@@ -1104,7 +1109,10 @@ export async function runIdeaPass(deps: IdeaPassDeps): Promise<IdeaPassResult> {
         ? { ran: false, produced: 0, note: uncertaintyReason, reason_code: 'stale_running' }
         : priorUnfinished
         ? { ran: false, produced: 0, note: 'prior provider attempt unfinished', reason_code: 'stale_running' }
-        : { ran: false, produced: 0, note: 'within min interval', reason_code: 'min_interval' }
+        : {
+            ran: false, produced: 0, note: 'within min interval', reason_code: 'min_interval',
+            ...(reusableCompleteCoverage ? { coverage_complete: true } : {}),
+          }
     }
     // Prompt spend and persistence effects are separate. A Theme revision/evidence edge can change while
     // the model-visible rows stay byte-identical; that still needs one minimal rerun so saved lineage and

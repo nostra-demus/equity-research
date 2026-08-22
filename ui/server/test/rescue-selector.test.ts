@@ -103,6 +103,17 @@ function row(id: string, fields: Partial<FeedItem> = {}): FeedItem {
     'country-proven native and Yahoo ticker spellings corroborate one local listing')
   assert.equal(result.candidates[0].identity_key, 'ticker:NHY')
   assert.equal(result.candidates[0].rank_inputs.independent_reports, 2)
+
+  const mixedMetadata = row('EVT-nhy-alias-metadata', {
+    companies: [
+      { name: 'Norsk Hydro ASA', ticker: 'NHY', listing_country: null },
+      { name: 'Norsk Hydro ASA', ticker: 'NHY.OL', listing_country: 'NO' },
+    ],
+    event_types: ['commercial'], dedup_group: 'STORY-nhy-alias-metadata',
+  })
+  const candidate = selectRescueCandidates([mixedMetadata], NOW).candidates[0]
+  assert.equal(candidate.ticker, 'NHY', 'the shorter native spelling remains the directory query')
+  assert.equal(candidate.listing_country, 'NO', 'a compatible alias preserves its known listing country')
 }
 
 {

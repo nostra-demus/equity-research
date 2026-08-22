@@ -7,7 +7,8 @@ import { getRescueDiagnostics, runRescueShadowPass, type RescueShadowConfig } fr
 import { runNormalIdeasThenSecondLook } from '../src/news/rescue/order'
 import {
   completeRescueCheck, flushPendingRescueAudit, loadRescueDay, loadRescueQueue, readRescueHealth,
-  recordRescueRows, RESCUE_QUEUE_MAX_BYTES, RESCUE_QUEUE_MAX_ITEMS, RESCUE_QUEUE_OVERFLOW_ERROR,
+  recordRescueRows as recordRescueRowsProduction,
+  RESCUE_QUEUE_MAX_BYTES, RESCUE_QUEUE_MAX_ITEMS, RESCUE_QUEUE_OVERFLOW_ERROR,
   reserveRescueCheck, rescueQueueEnabled, updateRescueHealth,
 } from '../src/news/rescue/store'
 import { invalidateSymbolCache } from '../src/news/symbology'
@@ -19,10 +20,19 @@ const baseConfig: RescueShadowConfig = {
   nameDailyCap: 40, paceFloorFraction: 0.04, auditMaxBytes: 15 * 1024 * 1024,
 }
 
-assert.ok(RESCUE_QUEUE_MAX_ITEMS >= 60_000, 'the queue covers 36 hours at the 40,000-row daily feed cap')
-assert.ok(RESCUE_QUEUE_MAX_BYTES >= 120_000_000, 'the byte guard covers the same maximum retention window')
+assert.ok(RESCUE_QUEUE_MAX_ITEMS >= 120_000,
+  'the queue covers a 36-hour window spanning bursts from three UTC daily partitions')
+assert.ok(RESCUE_QUEUE_MAX_BYTES >= 240_000_000, 'the byte guard covers the same maximum retention window')
 assert.equal(rescueQueueEnabled('shadow'), true)
 assert.equal(rescueQueueEnabled('off'), false, 'the explicit off switch disables rescue queue maintenance')
+
+function recordRescueRows(stateDir: string, rows: readonly FeedItem[], now = START, maxAgeHrs = 36): boolean {
+  if (!loadRescueQueue(stateDir).coverage_started_at) {
+    const matureStart = now - Math.max(1, maxAgeHrs) * 3_600_000 - 5 * 60_000 - 1
+    if (!recordRescueRowsProduction(stateDir, [], matureStart, maxAgeHrs)) return false
+  }
+  return recordRescueRowsProduction(stateDir, rows, now, maxAgeHrs)
+}
 
 {
   const failedRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-day-directory-eio-'))
@@ -177,6 +187,36 @@ function responseForUrl(url: string): any {
     ok: true, status: 200,
     json: async () => ({ quotes: [{ quoteType: 'EQUITY', symbol: `C${index}`, longname: `Company ${index} Inc`, exchDisp: 'NYSE' }] }),
   }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-warmup-'))
+  try {
+    invalidateSymbolCache()
+    assert.equal(recordRescueRowsProduction(root, [row(1)], START), true)
+    let calls = 0
+    const fetchImpl = (async (url: string) => { calls++; return responseForUrl(url) }) as any
+    const warming = await runRescueShadowPass({
+      stateDir: root, config: baseConfig, coreReady: true, fetchImpl, now: () => START,
+    })
+    assert.equal(warming.status, 'warming')
+    assert.equal(warming.candidatesFound, null,
+      'first-deployment counts stay unknown while pre-start firehose rows may be missing')
+    assert.equal(calls, 0)
+
+    const matureAt = START + 36 * 3_600_000 + 5 * 60_000 + 1
+    const fresh = withInitialRescueDecision({
+      ...row(2), ts: new Date(matureAt).toISOString(), found_at: new Date(matureAt).toISOString(),
+    })
+    assert.equal(recordRescueRowsProduction(root, [fresh], matureAt), true)
+    const ready = await runRescueShadowPass({
+      stateDir: root, config: { ...baseConfig, perCycle: 1 }, coreReady: true, fetchImpl,
+      now: () => matureAt,
+    })
+    assert.equal(ready.status, 'ready')
+    assert.equal(ready.checkedThisCycle, 1,
+      'the lane starts only after its full omission window has retired')
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
 }
 
 {
@@ -398,7 +438,8 @@ function responseForUrl(url: string): any {
 {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-audit-repair-'))
   try {
-    const candidate = selectRescueCandidates([row(1)], START).candidates[0]
+    assert.equal(recordRescueRows(root, [row(1)], START), true)
+    const candidate = selectRescueCandidates(loadRescueQueue(root).items, START).candidates[0]
     const reservation = reserveRescueCheck(root, '2026-08-22', candidate, RESCUE_SELECTOR_VERSION, START)
     assert.ok(reservation)
     assert.equal(completeRescueCheck(root, '2026-08-22', reservation.key, {
@@ -443,15 +484,21 @@ function responseForUrl(url: string): any {
       audit_error: RESCUE_QUEUE_OVERFLOW_ERROR,
       queue_overflow_at: new Date(START).toISOString(),
     }, START), true)
-    const beforeRetirement = START + 36 * 3_600_000
+    const laterOverflow = START + 24 * 3_600_000
+    assert.equal(updateRescueHealth(root, {
+      audit_healthy: false,
+      audit_error: RESCUE_QUEUE_OVERFLOW_ERROR,
+      queue_overflow_at: new Date(laterOverflow).toISOString(),
+    }, laterOverflow), true)
+    const beforeRetirement = START + 36 * 3_600_000 + 6 * 60_000
     const stillActive = withInitialRescueDecision({
       ...row(1), ts: new Date(beforeRetirement).toISOString(), found_at: new Date(beforeRetirement).toISOString(),
     })
     assert.equal(recordRescueRows(root, [stillActive], beforeRetirement), true)
     assert.equal(readRescueHealth(root).audit_healthy, false,
-      'a bounded rewrite cannot clear an overflow while omitted rows may still be active')
+      'a later omitted batch extends retirement beyond the first overflow window')
 
-    const afterRetirement = START + 36 * 3_600_000 + 6 * 60_000
+    const afterRetirement = laterOverflow + 36 * 3_600_000 + 6 * 60_000
     const rebuilt = withInitialRescueDecision({
       ...row(1), ts: new Date(afterRetirement).toISOString(), found_at: new Date(afterRetirement).toISOString(),
     })
@@ -482,6 +529,39 @@ function responseForUrl(url: string): any {
       new Set(['EVT-1', 'EVT-2', 'EVT-3']),
       'a later successful queue write restores the exact batch retained before the failed replacement')
     assert.equal(readRescueHealth(root).audit_healthy, true)
+  } finally {
+    ;(fs as any).renameSync = rename
+    fs.rmSync(root, { recursive: true, force: true })
+  }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-pending-closes-admission-'))
+  const rename = fs.renameSync
+  try {
+    invalidateSymbolCache()
+    assert.equal(recordRescueRows(root, [row(1)], START), true)
+    let queueFailed = false
+    ;(fs as any).renameSync = (from: fs.PathLike, to: fs.PathLike) => {
+      if (!queueFailed && String(to).endsWith('/news-rescue/queue.json')) {
+        queueFailed = true
+        throw new Error('injected queue replacement failure')
+      }
+      if (String(to).endsWith('/news-rescue/health.json')) throw new Error('injected health write failure')
+      return rename(from, to)
+    }
+    assert.equal(recordRescueRows(root, [row(2)], START), false)
+    ;(fs as any).renameSync = rename
+
+    let calls = 0
+    const fetchImpl = (async (url: string) => { calls++; return responseForUrl(url) }) as any
+    const blocked = await runRescueShadowPass({
+      stateDir: root, config: baseConfig, coreReady: true, fetchImpl, now: () => START,
+    })
+    assert.equal(blocked.status, 'audit_unavailable')
+    assert.equal(blocked.candidatesFound, null)
+    assert.equal(calls, 0,
+      'a durable uncommitted batch closes admission even when the accompanying health write failed')
   } finally {
     ;(fs as any).renameSync = rename
     fs.rmSync(root, { recursive: true, force: true })
@@ -532,6 +612,12 @@ function responseForUrl(url: string): any {
     })}\n`)
     assert.equal(loadRescueQueue(root).available, false,
       'a JSON-valid row with selector-unsafe shapes closes the durable queue instead of throwing later')
+    fs.writeFileSync(path.join(dir, 'queue.json'), `${JSON.stringify({
+      v: 1, updated_at: new Date(START).toISOString(), coverage_started_at: new Date(START).toISOString(),
+      incomplete_since: 'not-a-clock', items: [row(1)],
+    })}\n`)
+    assert.equal(loadRescueQueue(root).available, false,
+      'an invalid incomplete-window clock cannot reopen queue admission')
   } finally { fs.rmSync(root, { recursive: true, force: true }) }
 }
 

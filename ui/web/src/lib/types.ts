@@ -1207,7 +1207,7 @@ export interface NewsDiagnostics {
   rescue?: {
     mode: 'off' | 'shadow'
     selectorVersion: string
-    status: 'disabled' | 'ready' | 'paused_core_work' | 'directory_paused' | 'audit_unavailable'
+    status: 'disabled' | 'warming' | 'ready' | 'paused_core_work' | 'directory_paused' | 'audit_unavailable'
     reason: string
     candidatesFound: number | null
     primaryCandidates: number | null

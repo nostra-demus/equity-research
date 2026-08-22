@@ -715,6 +715,8 @@ resetSharedLimiters()
 
 const throttled = await runIdeaPass({ repoRoot: okRoot, stateDir: okState, config: cfg, refreshBoard: async () => {}, now: () => NOW + 60_000, fetchFn, sleep: async () => {}, persistHealth: true })
 assert.equal(throttled.reason_code, 'min_interval')
+assert.equal(throttled.coverage_complete, true,
+  'an unchanged, fully completed input set remains safe through the minimum interval')
 const waiting = readIdeasHealth(okState, okRoot, true, NOW + 60_000)
 assert.equal(waiting.status, 'waiting')
 assert.equal(waiting.last_success_at, healthy.last_success_at, 'skip transitions preserve the last real success')

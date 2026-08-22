@@ -10,10 +10,11 @@ import type { FeedItem } from '../types'
 import type { RescueCandidate, RescuePool, RescueRankInputs } from './selector'
 
 const ROOT = 'news-rescue'
-// The durable feed accepts 40,000 rows per UTC day. At that sustained supported rate, a 36-hour rescue
-// window contains 60,000 rows; the queue and byte guard must cover the whole rolling window.
-export const RESCUE_QUEUE_MAX_ITEMS = 60_000
-export const RESCUE_QUEUE_MAX_BYTES = 128 * 1024 * 1024
+// The durable feed accepts 40,000 rows per UTC day. A 36-hour clock window can intersect late day 1,
+// all of day 2, and early day 3, so bursty valid traffic can contain 120,000 rows rather than the
+// uniform-rate 60,000. Three 80 MiB daily file ceilings bound the same worst-case byte window.
+export const RESCUE_QUEUE_MAX_ITEMS = 120_000
+export const RESCUE_QUEUE_MAX_BYTES = 256 * 1024 * 1024
 const DAILY_MAX_ITEMS = 240 // hard parser bound; configured admission remains <=200
 const DAILY_MAX_BYTES = 2 * 1024 * 1024
 const AUDIT_LINE_MAX_BYTES = 2 * 1024
@@ -38,6 +39,10 @@ export interface RescueQueueSnapshot {
   available: boolean
   items: FeedItem[]
   updated_at: string | null
+  coverage_started_at: string | null
+  /** False while a staged replacement or overflow omission has not been safely retired. */
+  committed: boolean
+  incomplete_since: string | null
   error?: 'unreadable' | 'write_failed' | 'overflow'
 }
 
@@ -79,7 +84,7 @@ export interface RescueRuntimeHealth {
   last_directory_status: RescueIdentityStatus | null
   normal_ideas_ready: boolean
   normal_ideas_reason: string | null
-  /** First instant of the current overflow. It cannot be cleared until every omitted row is too old. */
+  /** Latest instant at which a batch was omitted. It advances on every overflow. */
   queue_overflow_at: string | null
 }
 
@@ -246,31 +251,103 @@ export function rescueQueueEnabled(mode: unknown): boolean {
 }
 
 function loadQueueSnapshot(file: string): RescueQueueSnapshot {
-  if (!fs.existsSync(file)) return { available: true, items: [], updated_at: null }
+  const empty = (): RescueQueueSnapshot => ({
+    available: true, items: [], updated_at: null, coverage_started_at: null,
+    committed: true, incomplete_since: null,
+  })
+  if (!fs.existsSync(file)) return empty()
   try {
     const stat = fs.statSync(file)
     if (!stat.isFile() || stat.size < 2 || stat.size > RESCUE_QUEUE_MAX_BYTES) throw new Error('queue size')
     const raw = JSON.parse(fs.readFileSync(file, 'utf8'))
     if (raw?.v !== 1 || !Array.isArray(raw.items) || raw.items.length > RESCUE_QUEUE_MAX_ITEMS) throw new Error('queue shape')
     if (!raw.items.every(isRescueQueueItem)) throw new Error('queue item shape')
-    return { available: true, items: raw.items, updated_at: typeof raw.updated_at === 'string' ? raw.updated_at : null }
+    if (raw.coverage_started_at != null
+      && (typeof raw.coverage_started_at !== 'string' || !Number.isFinite(Date.parse(raw.coverage_started_at)))) {
+      throw new Error('queue coverage clock')
+    }
+    if (raw.incomplete_since != null
+      && (typeof raw.incomplete_since !== 'string' || !Number.isFinite(Date.parse(raw.incomplete_since)))) {
+      throw new Error('queue incomplete clock')
+    }
+    const updatedAt = typeof raw.updated_at === 'string' && Number.isFinite(Date.parse(raw.updated_at))
+      ? raw.updated_at
+      : null
+    const coverageStartedAt = typeof raw.coverage_started_at === 'string'
+      && Number.isFinite(Date.parse(raw.coverage_started_at)) ? raw.coverage_started_at : null
+    const incompleteSince = typeof raw.incomplete_since === 'string'
+      && Number.isFinite(Date.parse(raw.incomplete_since)) ? raw.incomplete_since : null
+    return {
+      available: true,
+      items: raw.items,
+      updated_at: updatedAt,
+      coverage_started_at: coverageStartedAt,
+      committed: !incompleteSince,
+      incomplete_since: incompleteSince,
+    }
   } catch {
-    return { available: false, items: [], updated_at: null, error: 'unreadable' }
+    return { ...empty(), available: false, committed: false, error: 'unreadable' }
   }
 }
 
 export function loadRescueQueue(stateDir: string): RescueQueueSnapshot {
-  return loadQueueSnapshot(queueFile(stateDir))
+  const main = loadQueueSnapshot(queueFile(stateDir))
+  const pending = loadQueueSnapshot(queuePendingFile(stateDir))
+  if (!main.available || !pending.available) return {
+    available: false, items: [], updated_at: null, coverage_started_at: null,
+    committed: false, incomplete_since: pending.incomplete_since, error: 'unreadable',
+  }
+  const byId = new Map(main.items.map((item) => [item.event_id, item]))
+  let pendingCommitted = !pending.incomplete_since
+  for (const item of pending.items) {
+    const saved = byId.get(item.event_id)
+    if (!saved || JSON.stringify(saved) !== JSON.stringify(item)) pendingCommitted = false
+    byId.set(item.event_id, item)
+  }
+  const items = [...byId.values()]
+  if (items.length > RESCUE_QUEUE_MAX_ITEMS) return {
+    available: false, items: [], updated_at: null, coverage_started_at: null,
+    committed: false, incomplete_since: pending.incomplete_since, error: 'overflow',
+  }
+  const times = [main.updated_at, pending.updated_at].filter((value): value is string => !!value)
+  const starts = [main.coverage_started_at, pending.coverage_started_at]
+    .filter((value): value is string => !!value)
+  return {
+    available: true,
+    items,
+    updated_at: times.sort().at(-1) || null,
+    coverage_started_at: starts.sort()[0] || null,
+    committed: pendingCommitted,
+    incomplete_since: pending.incomplete_since,
+  }
 }
 
 export function recordRescueRows(stateDir: string, rows: readonly FeedItem[], now = Date.now(), maxAgeHrs = 36): boolean {
-  const prior = loadRescueQueue(stateDir)
+  const prior = loadQueueSnapshot(queueFile(stateDir))
   const pending = loadQueueSnapshot(queuePendingFile(stateDir))
   if (!prior.available || !pending.available) {
     updateRescueHealth(stateDir, { audit_healthy: false, audit_error: 'The saved second-look queue cannot be read.' }, now)
     return false
   }
   const minTime = now - Math.max(1, maxAgeHrs) * 3_600_000
+  const coverageStartedAt = prior.coverage_started_at || pending.coverage_started_at || new Date(now).toISOString()
+  const markOverflow = (pendingItems: readonly FeedItem[]): void => {
+    const incompleteSince = new Date(now).toISOString()
+    // The small staged marker is a second fail-closed authority when the health-file write itself fails.
+    // Existing pending rows remain recoverable; newly omitted overflow rows retire by this latest clock.
+    atomicWriteJson(stateDir, queuePendingFile(stateDir), {
+      v: 1,
+      updated_at: incompleteSince,
+      coverage_started_at: coverageStartedAt,
+      incomplete_since: incompleteSince,
+      items: pendingItems,
+    }, RESCUE_QUEUE_MAX_BYTES)
+    updateRescueHealth(stateDir, {
+      audit_healthy: false,
+      audit_error: RESCUE_QUEUE_OVERFLOW_ERROR,
+      queue_overflow_at: incompleteSince,
+    }, now)
+  }
   const retainedById = new Map<string, FeedItem>()
   // Never age an uncommitted batch out before it reaches the main queue. Once committed, the selector
   // can truthfully classify an old row outside the active window and the next ordinary write may prune it.
@@ -286,20 +363,17 @@ export function recordRescueRows(stateDir: string, rows: readonly FeedItem[], no
   const retained = [...retainedById.values()]
     .sort((left, right) => String(left.found_at || left.ts).localeCompare(String(right.found_at || right.ts)))
   if (retained.length > RESCUE_QUEUE_MAX_ITEMS) {
-    const health = readRescueHealth(stateDir)
-    updateRescueHealth(stateDir, {
-      audit_healthy: false,
-      audit_error: RESCUE_QUEUE_OVERFLOW_ERROR,
-      queue_overflow_at: health.audit_error === RESCUE_QUEUE_OVERFLOW_ERROR && health.queue_overflow_at
-        ? health.queue_overflow_at
-        : new Date(now).toISOString(),
-    }, now)
+    markOverflow(pending.items)
     return false
   }
   // Stage every not-yet-committed row before replacing the main queue. If the queue replacement fails,
   // the next call must merge this exact batch rather than silently clearing the error with later rows.
   if (retained.length && !atomicWriteJson(stateDir, queuePendingFile(stateDir), {
-    v: 1, updated_at: new Date(now).toISOString(), items: retained,
+    v: 1,
+    updated_at: new Date(now).toISOString(),
+    coverage_started_at: coverageStartedAt,
+    ...(pending.incomplete_since ? { incomplete_since: pending.incomplete_since } : {}),
+    items: retained,
   }, RESCUE_QUEUE_MAX_BYTES)) {
     const health = readRescueHealth(stateDir)
     if (health.audit_error !== RESCUE_QUEUE_OVERFLOW_ERROR) {
@@ -316,17 +390,12 @@ export function recordRescueRows(stateDir: string, rows: readonly FeedItem[], no
   }
   const items = [...byId.values()].sort((left, right) => String(left.found_at || left.ts).localeCompare(String(right.found_at || right.ts)))
   if (items.length > RESCUE_QUEUE_MAX_ITEMS) {
-    const health = readRescueHealth(stateDir)
-    updateRescueHealth(stateDir, {
-      audit_healthy: false,
-      audit_error: RESCUE_QUEUE_OVERFLOW_ERROR,
-      queue_overflow_at: health.audit_error === RESCUE_QUEUE_OVERFLOW_ERROR && health.queue_overflow_at
-        ? health.queue_overflow_at
-        : new Date(now).toISOString(),
-    }, now)
+    markOverflow(retained)
     return false
   }
-  const ok = atomicWriteJson(stateDir, queueFile(stateDir), { v: 1, updated_at: new Date(now).toISOString(), items }, RESCUE_QUEUE_MAX_BYTES)
+  const ok = atomicWriteJson(stateDir, queueFile(stateDir), {
+    v: 1, updated_at: new Date(now).toISOString(), coverage_started_at: coverageStartedAt, items,
+  }, RESCUE_QUEUE_MAX_BYTES)
   // A healthy queue write cannot clear an unrelated day-ledger/monthly-audit failure. Those failures
   // stay closed until their own authority is repaired; otherwise a later ingest cycle could reopen the
   // lane before the pending detailed record is safe.
@@ -338,15 +407,23 @@ export function recordRescueRows(stateDir: string, rows: readonly FeedItem[], no
     }, now)
   }
   else {
-    // A stale pending file is harmless because the main queue now contains all of its rows. Remove it
-    // best-effort; if unlinking fails, the next call deterministically merges and deduplicates it again.
-    try { fs.unlinkSync(queuePendingFile(stateDir)) } catch { /* absent or retained for a safe retry */ }
+    const incompleteAt = Date.parse(pending.incomplete_since || '')
+    const incompleteWindowRetired = Number.isFinite(incompleteAt)
+      && now - incompleteAt > Math.max(1, maxAgeHrs) * 3_600_000 + 5 * 60_000
+    // A staged batch is removable once the main queue contains it. An overflow marker stays until every
+    // possibly omitted row has aged out and this bounded rewrite proves the current window is complete.
+    if (!pending.incomplete_since || incompleteWindowRetired) {
+      try { fs.unlinkSync(queuePendingFile(stateDir)) } catch { /* absent or retained for a safe retry */ }
+    }
     // A later successful write is the proof that this queue authority recovered. It may clear only its
     // own transient error; monthly/day-ledger failures remain closed until their repair path proves them.
     const health = readRescueHealth(stateDir)
-    const overflowAt = Date.parse(health.queue_overflow_at || '')
+    const overflowAt = Math.max(
+      Date.parse(health.queue_overflow_at || '') || 0,
+      Date.parse(pending.incomplete_since || '') || 0,
+    )
     const overflowWindowRetired = health.audit_error === RESCUE_QUEUE_OVERFLOW_ERROR
-      && Number.isFinite(overflowAt)
+      && overflowAt > 0
       && now - overflowAt > Math.max(1, maxAgeHrs) * 3_600_000 + 5 * 60_000
     if (!health.audit_healthy && (health.audit_error === RESCUE_QUEUE_WRITE_ERROR || overflowWindowRetired)) {
       updateRescueHealth(stateDir, {

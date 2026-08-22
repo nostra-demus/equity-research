@@ -178,8 +178,12 @@ function identity(item: FeedItem): { ticker: string | null; name: string; countr
   }
   if (tickers.size > 1) return null
   const [tickerKey, selectedTicker] = [...tickers.entries()][0] || []
-  const withTicker = onlyNamed.find((company) => company.ticker
+  const compatibleAliases = onlyNamed.filter((company) => company.ticker
     && directoryTickerIdentityKey(company.ticker, company.country) === tickerKey)
+  // The query spelling and its listing metadata have separate jobs. Prefer the shorter native query,
+  // but keep a known country from any equivalent alias so the directory can license its venue suffix.
+  const withTicker = compatibleAliases.find((company) => !!String(company.country || '').trim())
+    || compatibleAliases[0]
   if (withTicker?.ticker && selectedTicker && tickerKey) {
     return {
       ticker: selectedTicker,

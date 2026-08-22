@@ -29,7 +29,7 @@ export interface RescueShadowConfig {
 export interface RescueDiagnostics {
   mode: 'off' | 'shadow'
   selectorVersion: string
-  status: 'disabled' | 'ready' | 'paused_core_work' | 'directory_paused' | 'audit_unavailable'
+  status: 'disabled' | 'warming' | 'ready' | 'paused_core_work' | 'directory_paused' | 'audit_unavailable'
   reason: string
   candidatesFound: number | null
   primaryCandidates: number | null
@@ -201,13 +201,23 @@ function diagnosticsFromState(
   const dailyCapReached = checks.length >= config.dailyChecks
   const capacityMisses = dailyCapReached ? remaining.length : nameCapBlocked
   const queuedForLater = dailyCapReached ? 0 : Math.max(0, remaining.length - nameCapBlocked)
-  const metricsAvailable = queue.available && day.available && history.available
-  const rescueStateHealthy = health.audit_healthy && queue.available && day.available && history.available
+  const coverageStartedAt = Date.parse(queue.coverage_started_at || '')
+  const coverageReady = Number.isFinite(coverageStartedAt)
+    && now - coverageStartedAt >= Math.max(1, config.maxAgeHrs) * 3_600_000 + 5 * 60_000
+  const metricsAvailable = queue.available && queue.committed && coverageReady && day.available && history.available
+  const rescueStateHealthy = health.audit_healthy && queue.available && queue.committed
+    && day.available && history.available
   const auditHealthy = rescueStateHealthy && humanActionsReady
   const ideasReady = normalIdeasReady && health.normal_ideas_ready
   let status: RescueDiagnostics['status'] = 'ready'
   let reason = 'The second look is running in shadow mode. It checks company identity but reads no articles and creates no ideas.'
   if (config.mode === 'off') { status = 'disabled'; reason = 'The second look is turned off.' }
+  else if (!queue.available || !queue.committed) {
+    status = 'audit_unavailable'
+    reason = queue.incomplete_since
+      ? 'A second-look queue update is incomplete. No stock-listing checks will run until the omitted window is safely rebuilt.'
+      : 'The second-look queue cannot be safely read or written.'
+  }
   else if (!rescueStateHealthy) { status = 'audit_unavailable'; reason = health.audit_error || 'The second-look record cannot be safely read or written.' }
   else if (!humanActionsReady) {
     status = 'audit_unavailable'
@@ -216,6 +226,10 @@ function diagnosticsFromState(
   else if (!ideasReady) {
     status = 'paused_core_work'
     reason = health.normal_ideas_reason || 'Normal Ideas work did not finish, so the second look did no work.'
+  }
+  else if (!coverageReady) {
+    status = 'warming'
+    reason = `The second look is building its first complete ${Math.max(1, config.maxAgeHrs)}-hour history. Counts stay unavailable and no company checks run until that window is complete.`
   }
   else if (!coreReady) { status = 'paused_core_work'; reason = 'Normal news or Ideas work is still waiting, so the second look did no work.' }
   else if (directoryPaused(health.directory_pause_until, now)) {
