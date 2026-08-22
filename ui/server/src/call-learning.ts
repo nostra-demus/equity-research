@@ -105,6 +105,7 @@ export interface CallMemoryItem {
 
 const finite = (value: unknown): value is number => typeof value === 'number' && Number.isFinite(value)
 const normalized = (value: unknown): string => String(value ?? '').trim().toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
+const enumValue = (value: unknown): string => String(value ?? '').trim().toLowerCase()
 const companyCore = (value: unknown): string => normalized(value)
   .split(' ').filter((word) => !['the', 'com', 'inc', 'incorporated', 'corp', 'corporation', 'company', 'co', 'ltd', 'limited', 'plc', 'pjsc', 'sa', 'ag', 'nv'].includes(word)).join(' ')
 
@@ -216,10 +217,10 @@ export function actionNowForCall(call: CallLike, review = latestDoneReview(call.
   }
   const decision = normalized(call.decision)
   const basket = normalized(call.basket)
-  const thesis = normalized(review?.thesis_status)
-  const quality = normalized(review?.decision_quality)
-  const broken = thesis === 'broken' || thesis === 'at risk' || quality === 'genuine miss'
-  const working = thesis === 'confirmed' || thesis === 'on track' || quality === 'skill'
+  const thesis = enumValue(review?.thesis_status)
+  const quality = enumValue(review?.decision_quality)
+  const broken = thesis === 'broken' || thesis === 'at-risk' || quality === 'genuine miss'
+  const working = thesis === 'confirmed' || thesis === 'on-track' || quality === 'skill'
   const inferred = review ? 'Conservative read of the latest review; no separate action was recorded.' : 'No review action has been recorded yet.'
   if (basket === 'short') return { label: broken ? 'Exit' : 'Hold', reason: inferred }
   if (decision === 'strong buy' || decision === 'buy' || decision === 'starter position only' || basket === 'selected') {

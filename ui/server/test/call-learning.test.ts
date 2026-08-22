@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import {
-  buildCallsScorecard, decisionMemoryBlock, directionAdjusted, latestDoneReview, selectCallMemories,
+  actionNowForCall, buildCallsScorecard, decisionMemoryBlock, directionAdjusted, latestDoneReview, selectCallMemories,
 } from '../src/call-learning'
 
 const reviewed = (ticker: string, decisionQuality: string, confidence: number, rel: number, basket = 'Selected') => ({
@@ -17,6 +17,13 @@ assert.equal(directionAdjusted('Short', -12), 12)
 assert.equal(directionAdjusted('Rejected', -8), null)
 assert.equal(directionAdjusted('Watchlist', 15), null)
 assert.equal(directionAdjusted('Selected', -8), -8)
+
+const selectedAtRisk = reviewed('RISK', '', 70, 0)
+selectedAtRisk.timeline[0].thesis_status = 'at-risk'
+selectedAtRisk.timeline[0].decision_quality = ''
+assert.equal(actionNowForCall(selectedAtRisk).label, 'Exit', 'the canonical at-risk enum triggers the defensive action')
+selectedAtRisk.timeline[0].thesis_status = 'at risk'
+assert.equal(actionNowForCall(selectedAtRisk).label, 'Hold', 'an invalid near-spelling is not silently accepted as a schema enum')
 
 const calls = [
   reviewed('LOW1', 'genuine miss', 40, -10), reviewed('LOW2', 'skill', 45, 5),
