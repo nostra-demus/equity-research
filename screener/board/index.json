@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T15:27:04Z",
+  "generated_at": "2026-08-22T15:36:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-2369",
@@ -350,6 +350,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-2428",
+      "headline": "NYC Office REIT Faces Going Concern Doubt on $249M Debt",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/real-estate/articles/nyc-office-reit-faces-going-150933790.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T15:09:33Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "A going concern doubt regarding $249M in debt indicates a high risk of insolvency or default.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A going concern doubt regarding $249M in debt indicates a high risk of insolvency or default.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": -1,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "small"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "small",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1907,55 +1950,6 @@
           "name": "Samsung",
           "ticker": null,
           "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-1211",
-      "headline": "Warren Buffett's Successor, Greg Abel, Is Transforming Berkshire Hathaway With This $43 Billion Investment (and I'm Not Talking About Alphabet)",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/08/21/warren-buffett-greg-abel-transform-brka-43-billion/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T09:06:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Berkshire Hathaway is committing $43 billion to a new investment, representing a significant capital allocation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Berkshire Hathaway is committing $43 billion to a new investment, representing a significant capital allocation.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Berkshire Hathaway",
-          "ticker": null,
-          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -78371,9 +78365,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 298766,
-    "news_picked_today": 4591,
-    "news_dropped_today": 10118
+    "news_seen_today": 298813,
+    "news_picked_today": 4608,
+    "news_dropped_today": 10148
   },
   "book_momentum": {
     "live_count": 8,
