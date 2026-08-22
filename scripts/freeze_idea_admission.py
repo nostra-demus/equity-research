@@ -32,6 +32,7 @@ from validate_screener_json import validate as validate_json_contract
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCHEMA = "qualified-idea-admission/v1"
+PUBLICATION_MARKER = ".requires_idea_publication"
 CLEAN_VERDICTS = {"clean", "minor issues"}
 ADMISSION_KEYS = {
     "schema_version", "admission_id", "status", "run_root", "frozen_at",
@@ -407,6 +408,22 @@ def atomic_write(path, value):
             os.unlink(tmp)
 
 
+def clear_publication_marker(run_abs):
+    """Release the launcher's completion gate only after a valid immutable admission exists."""
+    marker = os.path.join(run_abs, PUBLICATION_MARKER)
+    try:
+        os.unlink(marker)
+    except FileNotFoundError:
+        return
+    # Windows cannot open/fsync directories. The immutable admission file was fsynced before this unlink.
+    if os.name != "nt":
+        dfd = os.open(run_abs, os.O_RDONLY)
+        try:
+            os.fsync(dfd)
+        finally:
+            os.close(dfd)
+
+
 def existing_is_valid(value, expected_root):
     if (not isinstance(value, dict) or set(value) != ADMISSION_KEYS or
             value.get("schema_version") != SCHEMA or value.get("run_root") != expected_root):
@@ -502,6 +519,7 @@ def _freeze_locked(expected_root, run_abs, output, repo):
             market_gaps = exact_market_match(candidate, market, manifest)
             if market_gaps or digest(market.get("evidence")) != existing.get("market_evidence_sha256"):
                 raise ValueError("sealed run's current market evidence no longer matches the frozen admission")
+        clear_publication_marker(run_abs)
         print(json.dumps({
             "status": existing.get("status"),
             "path": expected_root + "/idea_admission.json",
@@ -551,6 +569,7 @@ def _freeze_locked(expected_root, run_abs, output, repo):
         }
         payload["admission_sha256"] = digest(payload)
         atomic_write(output, payload)
+        clear_publication_marker(run_abs)
         print(json.dumps({
             "status": "not_applicable",
             "path": expected_root + "/idea_admission.json",
@@ -618,6 +637,7 @@ def _freeze_locked(expected_root, run_abs, output, repo):
     }
     payload["admission_sha256"] = digest(payload)
     atomic_write(output, payload)
+    clear_publication_marker(run_abs)
     print(json.dumps({
         "status": payload["status"],
         "path": expected_root + "/idea_admission.json",

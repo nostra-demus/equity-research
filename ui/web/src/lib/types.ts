@@ -1764,6 +1764,8 @@ export interface SupplyChainBoard {
     run_count: number
     graph_count: number
     invalid_count: number
+    input_warning_count: number
+    pool_export_count: number
     sheet_count: number
     anchors_without_export: string[]
     lead_count: number

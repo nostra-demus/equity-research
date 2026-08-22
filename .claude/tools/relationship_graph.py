@@ -36,6 +36,7 @@ import hashlib
 import json
 import re
 import sys
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -761,9 +762,7 @@ def _pool_files(data_path: Path) -> list[Path]:
     """Every spreadsheet in the pool, including external/ drops, newest last for stable ordering.
 
     Also picks up `.rtf` files whose NAME looks like a relationship export (CIQ sometimes saves these as
-    Suppliers/Customers.rtf rather than a workbook). This module has no RTF table reader — see the
-    unsupported-format warning in `build_graph` — but the file still has to reach that check to produce
-    one; dropped here, it would silently become an empty graph with no error (§3, §20 bad extraction)."""
+    Suppliers/Customers.rtf rather than a workbook). Unrelated RTF filings stay out of this narrow parser."""
     out: list[Path] = []
     for p in sorted(data_path.rglob("*")):
         if not p.is_file() or p.name.startswith("."):
@@ -776,6 +775,91 @@ def _pool_files(data_path: Path) -> list[Path]:
     return out
 
 
+def _read_rtf_relationship_sheets(path: Path) -> dict[str, Rows]:
+    """Turn a CIQ RTF relationship table into the same row contract as an Excel sheet.
+
+    CIQ's RTF export serialises each table cell as a paragraph. `striprtf` gives us those paragraphs on
+    every supported host (the old extractor depended on macOS-only `textutil`). We recognise the five
+    named columns, keep the optional description with its row, and infer the anchor only from the modal
+    anchor-side value actually printed in the export. No filename-derived company identity is trusted.
+    """
+    try:
+        from striprtf.striprtf import rtf_to_text
+    except ImportError as exc:
+        raise CiqParseError(f"{path.name}: RTF relationship export needs `striprtf`") from exc
+    try:
+        raw = path.read_text(encoding="latin-1", errors="strict")
+        plain = rtf_to_text(raw, errors="ignore")
+    except (OSError, UnicodeError, ValueError) as exc:
+        raise CiqParseError(f"{path.name}: RTF text conversion failed ({type(exc).__name__})") from exc
+
+    lines = [re.sub(r"\s+", " ", line).strip() for line in plain.splitlines()]
+    lines = [line for line in lines if line]
+    paragraphs = []
+    for line in lines:
+        cells = [cell.strip() for cell in line.split("|")]
+        while cells and not cells[0]:
+            cells.pop(0)
+        while cells and not cells[-1]:
+            cells.pop()
+        if cells:
+            paragraphs.append(cells)
+    supplier_header = ["supplier name", "customer name", "relationship type", "primary industry", "source"]
+    customer_header = ["customer name", "supplier name", "relationship type", "primary industry", "source"]
+    header_idx = None
+    header_labels: list[str] | None = None
+    header_paragraphs = 1
+    for i, row in enumerate(paragraphs):
+        labels = [cell.lower() for cell in row]
+        if labels in (supplier_header, customer_header):
+            header_idx, header_labels = i, row
+            break
+        if len(row) == 1 and i + 5 <= len(paragraphs):
+            labels = [part[0].lower() for part in paragraphs[i:i + 5] if len(part) == 1]
+            if labels in (supplier_header, customer_header):
+                header_idx, header_labels, header_paragraphs = i, [part[0] for part in paragraphs[i:i + 5]], 5
+                break
+    if header_idx is None or header_labels is None:
+        raise CiqParseError(f"{path.name}: no CIQ supplier/customer table header found in RTF")
+
+    orientation = "suppliers" if header_labels[0].lower() == "supplier name" else "customers"
+    data = paragraphs[header_idx + header_paragraphs:]
+    parsed: Rows = []
+    i = 0
+    footer = re.compile(r"^(?:\*denotes|powered by|copyright|page \d+\b)", re.I)
+    while i < len(data):
+        if data[i] and footer.search(data[i][0]):
+            break
+        if len(data[i]) >= 5:
+            cells = data[i][:5]
+            i += 1
+        elif i + 5 <= len(data) and all(len(part) == 1 for part in data[i:i + 5]):
+            cells = [part[0] for part in data[i:i + 5]]
+            i += 5
+        else:
+            raise CiqParseError(f"{path.name}: trailing RTF relationship row is incomplete")
+        if any(footer.search(value) for value in cells):
+            break
+        description = ""
+        if i < len(data) and len(data[i]) == 1 and data[i][0].lower().startswith("business description:"):
+            description = data[i][0].split(":", 1)[1].strip()
+            i += 1
+        parsed.append(cells[:2] + [""] + cells[2:] + [description])
+    if not parsed:
+        raise CiqParseError(f"{path.name}: RTF relationship table contains no complete rows")
+
+    side_col = 1  # both CIQ RTF orientations print the outside counterparty first, anchor side second
+    anchor_counts = Counter(_text(row[side_col]) for row in parsed if _text(row[side_col]))
+    if not anchor_counts:
+        raise CiqParseError(f"{path.name}: RTF relationship table has no anchor-side entity")
+    anchor = anchor_counts.most_common(1)[0][0]
+    title = f"{anchor} > {'Suppliers' if orientation == 'suppliers' else 'Customers'}"
+    scope = [[row[0]] for row in paragraphs[:header_idx] if len(row) == 1 and row[0].lower().startswith(_SCOPE_PREFIXES)]
+    normalized_header = header_labels[:2] + ["Entity"] + header_labels[2:] + ["Business Description"]
+    rows: Rows = [[title], *scope, normalized_header, *parsed]
+    return {"Suppliers" if orientation == "suppliers" else "Customers": rows}
+
+
 def build_graph(data_path: Path, ticker: str) -> dict[str, Any]:
     """Parse every relationship export in one pool into the graph document. Never raises on bad input."""
     builder = GraphBuilder()
@@ -783,8 +867,12 @@ def build_graph(data_path: Path, ticker: str) -> dict[str, Any]:
         rel = str(path.relative_to(data_path))
         try:
             fmt = classify(path)
-            if fmt not in (CiqFormat.BIFF_XLS, CiqFormat.OOXML):
-                # No table reader exists for this format (RTF text, PDF, HTML, …). A file whose NAME says
+            if fmt is CiqFormat.RTF_TEXT:
+                sheets = _read_rtf_relationship_sheets(path)
+            elif fmt in (CiqFormat.BIFF_XLS, CiqFormat.OOXML):
+                sheets = read_sheets(path, fmt)
+            else:
+                # No table reader exists for this format (binary Word, PDF, HTML, …). A file whose NAME says
                 # it is a relationship export gets a stated gap rather than silently contributing zero
                 # rows — the difference between "no relationship export was provided" and "one was
                 # provided and this tool could not read it" matters to data sufficiency (§11, §20).
@@ -795,9 +883,8 @@ def build_graph(data_path: Path, ticker: str) -> dict[str, Any]:
                         f"parsed; treat this as a missing export, not zero disclosed relationships."
                     )
                 continue
-            sheets = read_sheets(path, fmt)
         except (CiqParseError, OSError, ValueError) as exc:
-            builder.warnings.append(f"{rel}: not readable as a workbook ({type(exc).__name__}); skipped.")
+            builder.warnings.append(f"{rel}: relationship export could not be parsed ({type(exc).__name__}: {exc}); skipped.")
             continue
         except Exception as exc:  # noqa: BLE001 — one bad workbook must never lose the rest of the pool
             builder.warnings.append(f"{rel}: unreadable ({type(exc).__name__}: {exc}); skipped.")
