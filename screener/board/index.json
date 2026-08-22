@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T03:09:05Z",
+  "generated_at": "2026-08-22T03:53:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-033",
@@ -636,6 +636,222 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260822-1371",
+      "headline": "Uber écope d'une amende de €825 mlns aux Pays-Bas pour la suspension automatisée de chauffeurs - document",
+      "headline_en": "Uber hit with €825 mln fine in Netherlands for automated suspension of drivers - document",
+      "url": "https://www.reuters.com/fr/affaires/uber-cope-dune-amende-de-825-mlns-aux-pays-bas-pour-la-suspension-automatise-de-2026-08-21/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T13:22:25Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Uber fined €825 million by Netherlands for automated driver suspensions, a quantified enforcement action.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Uber fined €825 million by Netherlands for automated driver suspensions, a quantified enforcement action.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 72,
+      "rank_factors": {
+        "materiality": 72,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 13,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Uber",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-1390",
+      "headline": "Mps lancia Ops su Banco Bpm e Banca Generali contro scalata Intesa",
+      "headline_en": "MPS launches exchange offer on Banco Bpm and Banca Generali against Intesa takeover",
+      "url": "https://www.reuters.com/it/azienda/mps-lancia-ops-su-banco-bpm-e-banca-generali-contro-scalata-intesa-2026-08-21/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T12:17:45Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "MPS launches a public exchange offer on Banco BPM and Banca Generali against Intesa's takeover bid, a named multi-bank deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "MPS launches a public exchange offer on Banco BPM and Banca Generali against Intesa's takeover bid, a named multi-bank deal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 1,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "mid"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Monte dei Paschi di Siena",
+          "ticker": null,
+          "listing_country": "IT"
+        },
+        {
+          "name": "Banco BPM",
+          "ticker": null,
+          "listing_country": "IT"
+        },
+        {
+          "name": "Banca Generali",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "mid",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-1399",
+      "headline": "Micron Launches $10 Billion Memory Research Lab",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=275293",
+      "source_name": "Business Korea — All English Articles",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T12:16:26Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Micron launched a $10 billion memory research lab, a major capex commitment by the company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Micron launched a $10 billion memory research lab, a major capex commitment by the company.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Micron Technology",
+          "ticker": "MU",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-1400",
+      "headline": "Monte dei Paschi bids $40 billion for BPM, Banca Generali to fend off Intesa",
+      "headline_en": null,
+      "url": "https://www.reuters.com/legal/transactional/monte-dei-paschi-ceo-unveil-strategy-fend-off-intesas-36-billion-bid-2026-08-20/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T12:15:47Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Monte dei Paschi bid $40 billion for BPM with Banca Generali involved, a named large M&A deal.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Monte dei Paschi bid $40 billion for BPM with Banca Generali involved, a named large M&A deal.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Banca Monte dei Paschi di Siena",
+          "ticker": null,
+          "listing_country": "IT"
+        },
+        {
+          "name": "Banco BPM",
+          "ticker": null,
+          "listing_country": "IT"
+        },
+        {
+          "name": "Banca Generali",
+          "ticker": null,
+          "listing_country": "IT"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260822-1041",
       "headline": "AI Chip Boom Drives Samsung Electronics' Record $80-Billion Shareholder Payout Plan",
       "headline_en": null,
@@ -1222,6 +1438,110 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260822-1309",
+      "headline": "Google's Marvell Warrant Doesn't Fully Vest Until Google Buys $120 Billion of Chips",
+      "headline_en": null,
+      "url": "https://www.fool.com/investing/2026/08/20/google-s-marvell-warrant-doesn-t-fully-vest-until-google-buys-usd120-billion-of-chips/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T03:18:01Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Google's Marvell warrant tied to $120B chip purchase",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Google's Marvell warrant tied to $120B chip purchase",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 1,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Google",
+          "ticker": "GOOGL",
+          "listing_country": "US"
+        },
+        {
+          "name": "Marvell Technology",
+          "ticker": "MRVL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-1590",
+      "headline": "Walmart shares tumble on weakest US sales growth in six years, soft profit outlook",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/walmart-shares-tumble-weakest-us-144400613.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T14:44:00Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Walmart shares fell on weakest US sales growth in six years and a soft profit outlook, a clear decision-changing event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Walmart shares fell on weakest US sales growth in six years and a soft profit outlook, a clear decision-changing event.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Walmart",
+          "ticker": "WMT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260822-037",
       "headline": "QTREX Announces Pricing of a $10 Million Registered Direct Offering of Ordinary Shares",
       "headline_en": null,
@@ -1364,6 +1684,159 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-1509",
+      "headline": "Alphabet Just Made a $200 Billion Infrastructure Move: Here Is What It Means for Investors",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/alphabet-just-made-200-billion-infrastructure-move-here-what-it-means-investors",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T17:46:00Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Alphabet made a $200 billion infrastructure move, a major capital-expenditure commitment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Alphabet made a $200 billion infrastructure move, a major capital-expenditure commitment.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Alphabet",
+          "ticker": "GOOGL",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-1667",
+      "headline": "Hudson River Signs Multibillion-Dollar CoreWeave (CRWV) Deal for AI Cloud",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-20/hudson-river-signs-multibillion-dollar-coreweave-crwv-deal-for-ai-cloud",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T11:50:00Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Hudson River signed a multibillion-dollar CoreWeave AI-cloud deal, a named large contract for CRWV.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Hudson River signed a multibillion-dollar CoreWeave AI-cloud deal, a named large contract for CRWV.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna",
+        "capex"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CoreWeave",
+          "ticker": "CRWV",
+          "listing_country": "US"
+        },
+        {
+          "name": "Hudson River",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-1695",
+      "headline": "China Sentences Evergrande Founder Hui to Life in Prison",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-08-20/china-sentences-evergrande-founder-hui-to-life-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T09:08:23Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "China sentenced Evergrande founder Hui to life in prison, a major enforcement action against the company's founder.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "China sentenced Evergrande founder Hui to life in prison, a major enforcement action against the company's founder.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Evergrande Group",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1518,86 +1991,37 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260822-522",
-      "headline": "Ukrainian Drone Attack Hits Lukoil Refinery Deep in Russia",
+      "inbox_id": "INB-20260822-1545",
+      "headline": "Alibaba profit falls 75% after ramping up AI infrastructure spending",
       "headline_en": null,
-      "url": "https://oilprice.com/Latest-Energy-News/World-News/Ukrainian-Drone-Attack-Hits-Lukoil-Refinery-Deep-in-Russia.html",
-      "source_name": "OilPrice.com",
+      "url": "https://www.reuters.com/business/retail-consumer/alibaba-beats-quarterly-revenue-estimates-2026-08-20/",
+      "source_name": "Reuters — Latest, next page (news sitemap)",
       "input_nature": "news_headline",
-      "found_at": "2026-08-21T15:00:00Z",
+      "found_at": "2026-08-20T15:07:06Z",
       "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "A Ukrainian drone attack hit a Lukoil refinery in Russia, representing a direct supply shock and operational risk.",
+      "prelim_note": "Alibaba profit fell 75% after increased AI infrastructure spending, a quantified earnings decline.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "A Ukrainian drone attack hit a Lukoil refinery in Russia, representing a direct supply shock and operational risk.",
-      "region": "OTHER",
+      "triage_score": 98,
+      "triage_reason": "Alibaba profit fell 75% after increased AI infrastructure spending, a quantified earnings decline.",
+      "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 75,
+      "materiality_pre_score": 80,
       "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 2,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "operations",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "operations"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Lukoil",
-          "ticker": null,
-          "listing_country": "RU"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-628",
-      "headline": "Applied Energetics Stock Declines as Q2 Loss Widens Y/Y",
-      "headline_en": null,
-      "url": "https://www.nasdaq.com/articles/applied-energetics-stock-declines-q2-loss-widens-y-y",
-      "source_name": "Nasdaq",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T14:08:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Company reported a widening net loss in Q2, indicating deteriorating financial performance.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 97,
-      "triage_reason": "Company reported a widening net loss in Q2, indicating deteriorating financial performance.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
+        "materiality": 80,
         "source_tier": 0,
         "scope": 6,
         "event": 5,
-        "size": -1,
-        "recency": 2,
-        "materiality_label_floor": 10,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 5,
         "quantified": 0,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
         "event_id": "earnings_revenue_margin",
-        "size_bucket": "small"
+        "size_bucket": "mega"
       },
       "event_types": [
         "earnings_revenue_margin"
@@ -1605,386 +2029,12 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Applied Energetics",
-          "ticker": "AERG",
+          "name": "Alibaba",
+          "ticker": "BABA",
           "listing_country": "US"
         }
       ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-1278",
-      "headline": "Israeli army advances into southern Lebanese town, shelling reported",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-army-advances-southern-lebanese-town-shelling-reported",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T07:07:52Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Israeli army advanced into southern Lebanon with shelling, a military escalation with regional market risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Israeli army advanced into southern Lebanon with shelling, a military escalation with regional market risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 1,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-975",
-      "headline": "Israeli shelling in Syrian Golan Height's sparks fire",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israel-shelling-syrian-golan-heights-sparks-fire",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T06:23:01Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Israeli shelling in Syrian Golan Heights sparked fire, a military escalation with no company named but market-moving geopolitical risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Israeli shelling in Syrian Golan Heights sparked fire, a military escalation with no company named but market-moving geopolitical risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 1,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-806",
-      "headline": "Ongoing Israeli air strikes, massive blasts reported in south Lebanon",
-      "headline_en": null,
-      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/ongoing-israeli-air-strikes-massive-blasts-reported-south-lebanon",
-      "source_name": "Middle East Eye",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T05:11:03Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Ongoing Israeli air strikes with massive blasts in south Lebanon is a military escalation with regional risk.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Ongoing Israeli air strikes with massive blasts in south Lebanon is a military escalation with regional risk.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 9,
-        "event": 1,
-        "size": 0,
-        "recency": 1,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "geopolitical",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-864",
-      "headline": "Welspun Corp share price now up 180% this year; Stock jumps after ₹17,200 crore order",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/market/stocks/welspun-corp-share-price-bags-record-rs-17200-crore-us-pipe-order-global-order-book-hits-rs-42100-crore-19974059.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T04:23:51Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "The company secured a major order worth ₹17,200 crore, significantly impacting its revenue outlook.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "The company secured a major order worth ₹17,200 crore, significantly impacting its revenue outlook.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 3,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "commercial",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Welspun Corp",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-1088",
-      "headline": "India's Welspun Corp wins record $1.8 billion pipe supply order",
-      "headline_en": null,
-      "url": "https://www.reuters.com/world/india/indias-welspun-corp-wins-record-18-billion-pipe-supply-order-2026-08-21/",
-      "source_name": "Reuters — Latest (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T03:41:14Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Welspun Corp wins record $1.8 billion pipe supply order, a major confirmed contract.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Welspun Corp wins record $1.8 billion pipe supply order, a major confirmed contract.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 3,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "commercial",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Welspun Corp",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-1091",
-      "headline": "Welspun Corp bags biggest-ever ₹17,200 crore US pipe order, shares soar",
-      "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/welspun-corp-bags-biggest-ever-17200-crore-us-pipe-order/articleshow/133391948.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T03:37:55Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Welspun Corp secured a major order worth ₹17,200 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Welspun Corp secured a major order worth ₹17,200 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 3,
-        "size": 1,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "commercial",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "commercial"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Welspun Corp",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mid",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-868",
-      "headline": "Micron commits $10 billion to new US-based Research Labs — Boise hub to target post-DRAM and NAND technologies and packaging",
-      "headline_en": null,
-      "url": "https://www.tomshardware.com/tech-industry/micron-commits-usd10-billion-to-new-us-based-research-labs-boise-hub-to-target-post-dram-and-nand-technologies-and-packaging",
-      "source_name": "Tom's Hardware",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T12:00:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Micron announces $10B research lab investment",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Micron announces $10B research lab investment",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Micron Technology",
-          "ticker": "MU",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-556",
-      "headline": "China Chipmaker YMTC Seeks to Raise $4.9 Billion in Shanghai IPO",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-21/china-chipmaker-ymtc-seeks-to-raise-4-9-billion-in-shanghai-ipo",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T14:44:27Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "YMTC seeks to raise $4.9 billion in a Shanghai IPO, a significant capital raise that could alter its capital structure and future cash flows",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "YMTC seeks to raise $4.9 billion in a Shanghai IPO, a significant capital raise that could alter its capital structure and future cash flows",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capital_actions",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "YMTC",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "unknown",
+      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -78368,9 +78418,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 215950,
-    "news_picked_today": 1555,
-    "news_dropped_today": 2513
+    "news_seen_today": 244510,
+    "news_picked_today": 2129,
+    "news_dropped_today": 3571
   },
   "book_momentum": {
     "live_count": 8,
