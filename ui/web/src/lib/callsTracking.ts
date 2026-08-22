@@ -42,7 +42,9 @@ function money(currency: string | null | undefined, value: number | null | undef
 }
 
 function signedPct(value: number): string {
-  return `${value > 0 ? '+' : value < 0 ? '−' : ''}${Math.abs(value).toFixed(1)}%`
+  const formatted = Math.abs(value).toFixed(1)
+  if (formatted === '0.0') return '0.0%'
+  return `${value > 0 ? '+' : '−'}${formatted}%`
 }
 
 function windowLabel(window: string): string {

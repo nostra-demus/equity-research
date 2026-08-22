@@ -75,6 +75,10 @@ assert.deepEqual(callTrackingSnapshot(shortCall).checkpoint, {
   returnTone: 'good', benchmarkDelta: '10.3pp ahead of benchmark',
 })
 
+const roundedZero = baseCall()
+roundedZero.timeline[0].absolute_return_pct = -0.04
+assert.equal(callTrackingSnapshot(roundedZero).checkpoint?.returnFromCall, '0.0%')
+
 const lateScheduled = baseCall()
 lateScheduled.timeline = [
   { ...lateScheduled.timeline[0], review_date: '2026-08-20', review_file: 'reviews/late.json', memo_delta_summary: 'Newest evidence.' },
