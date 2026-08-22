@@ -3,6 +3,7 @@
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
+import os from 'node:os'
 import path from 'node:path'
 import { randomUUID } from 'node:crypto'
 import { execFileSync } from 'node:child_process'
@@ -12,7 +13,9 @@ import {
   beginExecutionAttempt, canonicalManifestJsonl, canonicalManifestPath,
   hasLegacyPriorUnattributed, readLastProviderSelection,
 } from '../src/execution-provenance'
-import { applySupervisorPublicationEnv, providerWritablePaths } from '../src/launcher'
+import {
+  applySupervisorPublicationEnv, paritySnapshotRootMatchesDataSubject, providerWritablePaths,
+} from '../src/launcher'
 import { claudeChildEnv, claudeSandboxSettings, createClaudeMirrorWorkspace, isClaudeMaxAuth } from '../src/providers/claude'
 import { codexChildEnv } from '../src/providers/codex'
 import type { RunState } from '../src/registry'
@@ -180,6 +183,25 @@ try {
     })
     assert.deepEqual(providerWritablePaths(review), [path.join(REPO_ROOT, 'analyses/ACME_2099-01-01/reviews')])
     assert.ok(!providerWritablePaths(review).some((candidate) => candidate.includes('OTHER_2099')))
+  })
+
+  check('parity snapshot identity accepts a canonical root behind the data parent symlink only', () => {
+    const fixture = fs.mkdtempSync(path.join(os.tmpdir(), 'nostra-parity-data-root-'))
+    try {
+      const mountedData = path.join(fixture, 'mounted-data')
+      const repoData = path.join(fixture, 'data')
+      const subjectRoot = path.join(mountedData, 'AMZN')
+      fs.mkdirSync(subjectRoot, { recursive: true })
+      fs.symlinkSync(mountedData, repoData, 'dir')
+      assert.equal(paritySnapshotRootMatchesDataSubject(subjectRoot, repoData, 'AMZN'), true)
+      fs.mkdirSync(path.join(mountedData, 'OTHER'))
+      assert.equal(paritySnapshotRootMatchesDataSubject(path.join(mountedData, 'OTHER'), repoData, 'AMZN'), false)
+      assert.equal(paritySnapshotRootMatchesDataSubject(path.join(mountedData, 'MISSING'), repoData, 'AMZN'), false)
+      fs.symlinkSync(subjectRoot, path.join(mountedData, 'LINKED'))
+      assert.equal(paritySnapshotRootMatchesDataSubject(path.join(mountedData, 'LINKED'), mountedData, 'LINKED'), false)
+    } finally {
+      fs.rmSync(fixture, { recursive: true, force: true })
+    }
   })
 
   check('tracked Claude cwd is a disposable mirror, never the durable repository', () => {

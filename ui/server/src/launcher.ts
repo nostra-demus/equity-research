@@ -2694,7 +2694,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       throw Object.assign(new Error('parity canary root basename must be <SUBJECT>_<FROZEN_DECISION_DATE>'), { statusCode: 400 })
     }
     const snapshotRoot = path.resolve(path.dirname(freezeAbsolute), String(freeze.data_snapshot?.root || ''))
-    if (snapshotRoot !== path.resolve(DATA_DIR, subjectId)) {
+    if (!paritySnapshotRootMatchesDataSubject(snapshotRoot, DATA_DIR, subjectId)) {
       throw Object.assign(new Error('equity full canary must bind the exact data/<SUBJECT> frozen snapshot'), { statusCode: 400 })
     }
     const unexpected = fs.readdirSync(rootAbsolute).filter((name) => name !== '.provider-parity-input.json')
@@ -3176,6 +3176,24 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   } finally {
     releaseTargetPoolClaim()
     releasePoolClaim()
+  }
+}
+
+/**
+ * The production `data/` directory may be a parent symlink to the mounted Drive pool. The freeze builder
+ * deliberately stores the canonical snapshot root, so compare real directory identities rather than the
+ * two lexical spellings. A symlink at the subject itself, a missing path, or any sibling remains invalid.
+ */
+export function paritySnapshotRootMatchesDataSubject(snapshotRoot: string, dataDir: string, subjectId: string): boolean {
+  try {
+    const boundInfo = fs.lstatSync(snapshotRoot)
+    const expected = path.resolve(dataDir, subjectId)
+    const expectedInfo = fs.lstatSync(expected)
+    if (!boundInfo.isDirectory() || boundInfo.isSymbolicLink()
+        || !expectedInfo.isDirectory() || expectedInfo.isSymbolicLink()) return false
+    return fs.realpathSync(snapshotRoot) === fs.realpathSync(expected)
+  } catch {
+    return false
   }
 }
 

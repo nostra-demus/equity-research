@@ -452,6 +452,22 @@ for (const capability of ['multi_agent_version', 'supports_search_tool', 'suppor
   delete broken.models[0][capability]
   assert.throws(() => assertRequiredCodexModels(parseCodexCatalog(JSON.stringify(broken))), /capability/)
 }
+const codex0149Catalogue = JSON.parse(catalogue)
+for (const model of codex0149Catalogue.models) delete model.supports_parallel_tool_calls
+assert.doesNotThrow(() => assertRequiredCodexModels(
+  parseCodexCatalog(JSON.stringify(codex0149Catalogue)),
+  'codex-cli 0.149.0',
+), 'the exact 0.149.0 catalogue omission is accepted after every remaining live capability gate')
+assert.throws(() => assertRequiredCodexModels(
+  parseCodexCatalog(JSON.stringify(codex0149Catalogue)),
+  'codex-cli 0.149.1',
+), /parallel-tool capability/, 'the omission does not silently expand to later CLI versions')
+const codex0149False = JSON.parse(catalogue)
+codex0149False.models[0].supports_parallel_tool_calls = false
+assert.throws(() => assertRequiredCodexModels(
+  parseCodexCatalog(JSON.stringify(codex0149False)),
+  'codex-cli 0.149.0',
+), /parallel-tool capability/, 'an explicit negative capability never passes the version exception')
 const duplicate = JSON.parse(catalogue)
 duplicate.models.push({ ...duplicate.models[0] })
 assert.throws(() => assertRequiredCodexModels(parseCodexCatalog(JSON.stringify(duplicate))), /exactly one gpt-5.6-sol/)
