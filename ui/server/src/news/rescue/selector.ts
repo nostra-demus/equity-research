@@ -205,11 +205,12 @@ function rankInputs(item: FeedItem, independentReports = 1): RescueRankInputs {
 }
 
 export function classifyInitialRescueDecision(item: FeedItem): RescueInitialDecision {
-  const score = Number(item.triage_score || 0)
+  const rawScore = Number(item.triage_score)
+  const score = Number.isFinite(rawScore) ? rawScore : 0
   const input = rankInputs(item)
   let reason: RescueDecisionReasonCode
   if (item.inboxed) reason = 'sent_to_main_inbox'
-  else if (score < 10 || score > 39) reason = 'score_outside_second_look'
+  else if (!Number.isFinite(rawScore) || score < 10 || score > 39) reason = 'score_outside_second_look'
   else if (itemSourceTier(item) === 'social' || item.caution === true || item.via === 'reddit') reason = 'social_low_quality_source'
   else if (isRoutineSecFiling(item)) reason = 'routine_filing'
   else if (item.dedup_status === 'possible_duplicate') reason = 'duplicate_story'
@@ -261,10 +262,10 @@ export function selectRescueCandidates(
 
   for (const item of items) {
     counts.total++
-    const score = Number(item.triage_score || 0)
+    const score = Number(item.triage_score)
     const found = Date.parse(String(item.found_at || item.ts || ''))
     if (item.inboxed) { counts.inboxed++; continue }
-    if (score < 10 || score > 39 || !Number.isFinite(found) || now - found > maxAgeMs || found - now > 5 * 60_000) {
+    if (!Number.isFinite(score) || score < 10 || score > 39 || !Number.isFinite(found) || now - found > maxAgeMs || found - now > 5 * 60_000) {
       counts.outside_score++; continue
     }
     if (itemSourceTier(item) === 'social' || item.caution === true || item.via === 'reddit') { counts.social++; continue }

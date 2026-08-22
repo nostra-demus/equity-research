@@ -29,6 +29,13 @@ function row(id: string, fields: Partial<FeedItem> = {}): FeedItem {
 }
 
 {
+  const invalidScore = row('EVT-invalid-score', { triage_score: Number.NaN })
+  assert.deepEqual(classifyInitialRescueDecision(invalidScore).reason_codes, ['score_outside_second_look'])
+  assert.equal(selectRescueCandidates([invalidScore], NOW).candidates.length, 0,
+    'a non-finite score cannot enter the second-look pool')
+}
+
+{
   const routine = row('EVT-form4', {
     headline: '4 - ACME CORP (0001234567) (Issuer)', input_nature: 'regulatory_filing', source_tier: 'primary_filing',
     event_types: ['insider_transaction'],

@@ -133,7 +133,9 @@ export async function runConfiguredQualifiedIdeaOutcomes(log: (m: string) => voi
   catch (e: any) { log(`qualified idea outcome pass error: ${e?.message || e}`); return null }
 }
 
-function rescueCoreReady(status: NewsStatus): boolean {
+export function rescueCoreReady(status: Pick<NewsStatus, 'readOnly' | 'backlog' | 'today'>): boolean {
+  // getNewsStatus copies PipelineFlowHistory.todayHistoryStatus into status.today.historyStatus.
+  // Keeping the normalized public status as the only input makes both scheduler entrypoints agree.
   return status.readOnly !== true
     && status.backlog.unavailable !== true
     && status.backlog.count === 0

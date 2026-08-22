@@ -50,6 +50,8 @@ export interface RescueCheckRecord {
   rank_inputs: RescueRankInputs
   selector_version: string
   audit_pending?: boolean
+  /** Exact byte where this row must start in the append-only monthly audit. */
+  audit_offset?: number
 }
 
 export interface RescueDayLedger {
@@ -123,8 +125,8 @@ function compactFeedItem(item: FeedItem): FeedItem {
 }
 
 function queueRelevant(item: FeedItem): boolean {
-  const score = Number(item.triage_score || 0)
-  if (item.inboxed || score < 10 || score > 39) return false
+  const score = Number(item.triage_score)
+  if (item.inboxed || !Number.isFinite(score) || score < 10 || score > 39) return false
   const reasons = new Set(item.decision_reason_codes || [])
   return reasons.has('second_look_candidate') || reasons.has('no_strong_company_event') || reasons.has('duplicate_story')
 }
@@ -220,15 +222,39 @@ export function reserveRescueCheck(
   return atomicWriteJson(dayFile(stateDir, date), next, DAILY_MAX_BYTES) ? record : null
 }
 
-function auditKeys(file: string): Set<string> {
-  const keys = new Set<string>()
-  if (!fs.existsSync(file)) return keys
-  const text = fs.readFileSync(file, 'utf8')
-  for (const line of text.split('\n')) {
-    if (!line.trim()) continue
-    try { const row = JSON.parse(line); if (typeof row?.key === 'string') keys.add(row.key) } catch { /* old bad row does not block a new unique row */ }
+function currentAuditOffset(stateDir: string, reservedAt: string, maxBytes: number): number | null {
+  const file = auditFile(stateDir, reservedAt.slice(0, 7))
+  try {
+    const dir = path.dirname(file)
+    fs.mkdirSync(dir, { recursive: true })
+    fs.accessSync(dir, fs.constants.W_OK)
+    if (!fs.existsSync(file)) return maxBytes >= AUDIT_LINE_MAX_BYTES ? 0 : null
+    const stat = fs.statSync(file)
+    if (!stat.isFile() || stat.size + AUDIT_LINE_MAX_BYTES > maxBytes) return null
+    return stat.size
+  } catch {
+    return null
   }
-  return keys
+}
+
+function auditRowAtOffset(file: string, offset: number): string | null {
+  let fd: number | undefined
+  try {
+    const size = fs.statSync(file).size
+    if (size <= offset) return null
+    const length = Math.min(AUDIT_LINE_MAX_BYTES, size - offset)
+    const buffer = Buffer.alloc(length)
+    fd = fs.openSync(file, 'r')
+    const bytes = fs.readSync(fd, buffer, 0, length, offset)
+    const newline = buffer.subarray(0, bytes).indexOf(0x0a)
+    if (newline < 0) return null
+    const row = JSON.parse(buffer.subarray(0, newline).toString('utf8'))
+    return typeof row?.key === 'string' ? row.key : null
+  } catch {
+    return null
+  } finally {
+    if (fd !== undefined) try { fs.closeSync(fd) } catch { /* no-op */ }
+  }
 }
 
 function appendAudit(stateDir: string, record: RescueCheckRecord, maxBytes: number, checkExisting = false): boolean {
@@ -240,8 +266,13 @@ function appendAudit(stateDir: string, record: RescueCheckRecord, maxBytes: numb
   let fd: number | undefined
   try {
     fs.mkdirSync(path.dirname(file), { recursive: true })
-    if (checkExisting && auditKeys(file).has(record.key)) return true
+    if (!Number.isSafeInteger(record.audit_offset) || Number(record.audit_offset) < 0) return false
+    const expectedOffset = Number(record.audit_offset)
     const size = fs.existsSync(file) ? fs.statSync(file).size : 0
+    // Crash repair reads one bounded row at the offset saved before the append. It never reparses the
+    // monthly file, and a different row at that byte closes the lane instead of guessing about order.
+    if (checkExisting && size > expectedOffset) return auditRowAtOffset(file, expectedOffset) === record.key
+    if (size !== expectedOffset) return false
     if (size + line.length > maxBytes) return false
     fd = fs.openSync(file, 'a', 0o600)
     fs.writeFileSync(fd, line)
@@ -283,6 +314,8 @@ export function completeRescueCheck(
   if (!loaded.available) return false
   const index = loaded.ledger.checks.findIndex((check) => check.key === key)
   if (index < 0) return false
+  const auditOffset = currentAuditOffset(stateDir, loaded.ledger.checks[index].reserved_at, auditMaxBytes)
+  if (auditOffset === null) return false
   const record: RescueCheckRecord = {
     ...loaded.ledger.checks[index],
     completed_at: new Date(now).toISOString(),
@@ -297,6 +330,7 @@ export function completeRescueCheck(
     ...(result.exchange !== undefined ? { exchange: result.exchange } : {}),
     ...(result.status === 'verified' ? { source: 'yahoo_symbol_directory' as const } : {}),
     audit_pending: true,
+    audit_offset: auditOffset,
   }
   const next: RescueDayLedger = { ...loaded.ledger, checks: [...loaded.ledger.checks] }
   next.checks[index] = record

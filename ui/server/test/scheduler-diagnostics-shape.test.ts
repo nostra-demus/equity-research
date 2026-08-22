@@ -3,7 +3,7 @@ import { spawnSync } from 'node:child_process'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { cycleHasDurableFeedCommit, persistedDeferReasons } from '../src/news/scheduler'
+import { cycleHasDurableFeedCommit, persistedDeferReasons, rescueCoreReady } from '../src/news/scheduler'
 import type { CycleSummary } from '../src/news/types'
 
 function cycle(fields: Partial<CycleSummary> & Record<string, unknown> = {}): CycleSummary {
@@ -46,6 +46,16 @@ assert.deepEqual(
 
 assert.equal(cycleHasDurableFeedCommit(cycle({ feed_commit_version: 1 })), true)
 assert.equal(cycleHasDurableFeedCommit(cycle()), false, 'legacy pick/watch/drop counts do not prove feed durability')
+
+assert.equal(rescueCoreReady({
+  readOnly: false,
+  backlog: { count: 0, cap: 5_000 },
+  today: {
+    newArrivals: 1, read: 1, kept: 0, dropped: 1, cycles: 1,
+    durablyCommitted: true, incompleteCycles: 0, totalsLowerBound: false,
+    historyStatus: 'complete', corruptCycleRows: 0,
+  },
+}), true, 'a complete durable day allows shadow work once normal backlog work is finished')
 
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'scheduler-diagnostics-shape-'))
 const state = path.join(root, '.state')

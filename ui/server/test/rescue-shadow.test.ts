@@ -5,7 +5,10 @@ import path from 'node:path'
 import { RESCUE_SELECTOR_VERSION, selectRescueCandidates, withInitialRescueDecision } from '../src/news/rescue/selector'
 import { getRescueDiagnostics, runRescueShadowPass, type RescueShadowConfig } from '../src/news/rescue/shadow'
 import { runNormalIdeasThenSecondLook } from '../src/news/rescue/order'
-import { loadRescueDay, loadRescueQueue, recordRescueRows, reserveRescueCheck } from '../src/news/rescue/store'
+import {
+  completeRescueCheck, flushPendingRescueAudit, loadRescueDay, loadRescueQueue,
+  recordRescueRows, reserveRescueCheck,
+} from '../src/news/rescue/store'
 import { invalidateSymbolCache } from '../src/news/symbology'
 import type { FeedItem } from '../src/news/types'
 
@@ -145,6 +148,28 @@ function responseForUrl(url: string): any {
     const restarted = await runRescueShadowPass({ stateDir: root, config: baseConfig, coreReady: true, fetchImpl, now: () => START })
     assert.equal(restarted.checkedThisCycle, 0)
     assert.equal(calls, 0, 'a crash after reservation cannot repeat an identity check on restart')
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-audit-repair-'))
+  try {
+    const candidate = selectRescueCandidates([row(1)], START).candidates[0]
+    const reservation = reserveRescueCheck(root, '2026-08-22', candidate, RESCUE_SELECTOR_VERSION, START)
+    assert.ok(reservation)
+    assert.equal(completeRescueCheck(root, '2026-08-22', reservation.key, {
+      status: 'verified', ticker: 'C1', companyName: 'Company 1 Inc', exchange: 'NYSE',
+    }, baseConfig.auditMaxBytes, START), true)
+
+    const dayPath = path.join(root, 'news-rescue', 'days', '2026-08-22.json')
+    const day = JSON.parse(fs.readFileSync(dayPath, 'utf8'))
+    day.checks[0].audit_pending = true
+    fs.writeFileSync(dayPath, `${JSON.stringify(day)}\n`)
+
+    assert.equal(flushPendingRescueAudit(root, '2026-08-22', baseConfig.auditMaxBytes), true)
+    const auditPath = path.join(root, 'news-rescue', 'ledger', '2026-08.ndjson')
+    assert.equal(fs.readFileSync(auditPath, 'utf8').trim().split('\n').length, 1,
+      'crash repair checks the saved byte offset and does not duplicate the audit row')
   } finally { fs.rmSync(root, { recursive: true, force: true }) }
 }
 
