@@ -2418,6 +2418,9 @@ export interface CallSummary {
   run_root: string
   final_thesis_path: string
   latest_thesis_status: string | null
+  latest_review_summary?: string | null
+  latest_review_verdict?: string | null
+  latest_review_date?: string | null
   next_checkpoint: { window: string; due_date: string | null; status: string } | null
   review_count: number
   timeline: CallTimelineEntry[]
@@ -2432,10 +2435,25 @@ export interface NeedsAttentionRow extends OverdueItem {
   run_root: string
   final_thesis_path: string
 }
+export type CallUpdateTone = 'better' | 'worse' | 'same' | 'info'
+export interface CallUpdate {
+  id: string
+  ticker: string
+  company: string | null
+  at: string | null
+  kind: 'call' | 'review'
+  headline: string
+  detail: string | null
+  tone: CallUpdateTone
+  run_root: string
+  source_path: string | null
+}
 export interface CallsResult {
   calls: CallSummary[]
   dashboard: string | null
   needs_attention: NeedsAttentionRow[]
+  updates: CallUpdate[]
+  authority_commit?: string
 }
 
 // ---- activity / audit log ----

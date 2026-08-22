@@ -168,6 +168,11 @@ async function get<T>(url: string, timeoutMs = 15_000): Promise<T> {
   if (!r.ok) throw Object.assign(new Error(`${r.status} ${url}`), { status: r.status })
   return r.json() as Promise<T>
 }
+async function staticOutput(path: string): Promise<{ path: string; markdown: string }> {
+  const r = await fetch(`${BASE}data/${path}`)
+  if (!r.ok) throw new Error('not found')
+  return { path, markdown: await r.text() }
+}
 async function post<T>(url: string, body?: any, timeoutMs?: number, signal?: AbortSignal): Promise<T> {
   // Only set the JSON content-type when there's actually a body. A bodyless POST (cancel, credit-check)
   // sent WITH content-type: application/json makes Fastify reject it 400 FST_ERR_CTP_EMPTY_JSON_BODY
@@ -1027,14 +1032,15 @@ export const api = {
     return post(`/api/runs/${encodeURIComponent(runId)}/readiness-decision`, { action, acknowledgedText })
   },
   output: async (path: string): Promise<{ path: string; markdown: string }> => {
-    if ((await ensureMode()) === 'static') {
-      const r = await fetch(`${BASE}data/${path}`)
-      if (!r.ok) throw new Error('not found')
-      return { path, markdown: await r.text() }
-    }
+    if ((await ensureMode()) === 'static') return staticOutput(path)
     // screener artifacts are served by their own sandboxed reader; analyses/ keeps /api/output
     if (path.startsWith('screener/')) return get(`/api/screener/output?path=${encodeURIComponent(path)}`)
     return get(`/api/output?path=${encodeURIComponent(path)}`)
+  },
+  // A Calls row must open the same published Git bytes used to build that row, never mutable local disk.
+  callArtifact: async (path: string): Promise<{ path: string; markdown: string }> => {
+    if ((await ensureMode()) === 'static') return staticOutput(path)
+    return get(`/api/calls/artifact?path=${encodeURIComponent(path)}`)
   },
   // Read-only prompt surface (agent definitions / module rules / constitution). Works in both modes:
   // live -> the engine's sandboxed /api/prompt; static -> the bundled snapshot under data/prompts/.
@@ -1075,7 +1081,10 @@ export const api = {
   },
   // cross-ticker call ledger + since-the-call timelines (the Calls Tracker). Static -> bundled snapshot.
   calls: async (): Promise<CallsResult> => {
-    if ((await ensureMode()) === 'static') return { calls: snap.calls || [], dashboard: snap.dashboard || null, needs_attention: snap.needsAttention || [] }
+    if ((await ensureMode()) === 'static') return {
+      calls: snap.calls || [], dashboard: snap.dashboard || null,
+      needs_attention: snap.needsAttention || [], updates: snap.callUpdates || [],
+    }
     return get(`/api/calls`)
   },
   history: async (ticker: string): Promise<{ history: RunHistoryEntry[] }> => {
