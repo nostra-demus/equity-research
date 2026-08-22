@@ -26,7 +26,7 @@ function sigFromOutputPath(path?: string): string | undefined {
   return SIG_FROM_PATH_RE.exec(path || '')?.[1]
 }
 
-export function OutputReader({ output }: { output: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean; body?: string; embedUrl?: string } }) {
+export function OutputReader({ output }: { output: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean; body?: string; embedUrl?: string; publishedCalls?: boolean } }) {
   const close = useStore((s) => s.closeOutput)
   const activeSwarm = useStore((s) => s.activeSwarm)
   const researchNodes = useStore((s) => s.nodesByKey)
@@ -62,7 +62,8 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
     // folder, which api.output deliberately cannot read) renders directly — same pipeline, no fetch.
     if (output.embedUrl) { setMd(''); setLoading(false); return } // rendered by the viewer, not fetched
     if (output.body != null) { setMd(output.body); setLoading(false); return }
-    if (!output.path) { setMd(''); setLoading(false); return } // pending (not-yet-run) node — nothing to fetch
+    const path = output.path
+    if (!path) { setMd(''); setLoading(false); return } // pending (not-yet-run) node — nothing to fetch
     setLoading(true)
     setMd('')
     // A fetch already in flight when the panel switches documents must not land on the NEW one. Without
@@ -70,13 +71,13 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
     // embedded PDF is on screen, where a stale report-integrity banner would appear above someone else's
     // document. The guard is per-effect-run, so only the newest fetch may write.
     let live = true
-    api
-      .output(output.path)
-      .then((r) => { if (live) setMd(r.markdown) })
+    const readPromise = output.publishedCalls ? api.callArtifact(path) : api.output(path)
+    readPromise
+      .then((r) => { if (live) setMd(typeof r?.markdown === 'string' ? r.markdown : '*Could not load this output.*') })
       .catch(() => { if (live) setMd('*Could not load this output.*') })
       .finally(() => { if (live) setLoading(false) })
     return () => { live = false }
-  }, [output.path, output.body, output.embedUrl])
+  }, [output.path, output.body, output.embedUrl, output.publishedCalls])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && (promptView ? setPromptView(false) : close())

@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { api, isStatic } from '../lib/api'
+import { currentCalls, publishedCalls, publishedCallUpdates, publishedNeedsAttention } from '../lib/callsView'
 import { decisionColor } from '../lib/format'
-import type { CallSummary, CallTimelineEntry, CallsResult, NeedsAttentionRow } from '../lib/types'
+import type { CallSummary, CallTimelineEntry, CallsResult, CallUpdate, NeedsAttentionRow } from '../lib/types'
 import './CallsTracker.css'
 
 // every call the engine has made + what's happened since — a card per call with a visual timeline
@@ -27,6 +28,7 @@ function money(cur?: string | null, v?: number | null): string {
 }
 
 type TLNode = { kind: 'call' | CallTimelineEntry['status']; label: string; sub: string; subTone?: 'pos' | 'neg'; reached: boolean; title: string; onClick?: () => void }
+type CallsView = 'current' | 'history' | 'updates'
 
 export function CallsTracker() {
   const close = useStore((s) => s.closeCalls)
@@ -48,18 +50,29 @@ export function CallsTracker() {
   const launchPending = useStore((s) => s.launchPending)
   const [data, setData] = useState<CallsResult | null>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+  const [view, setView] = useState<CallsView>('current')
   const staticMode = isStatic()
 
   const reqGen = useRef(0)
   const mounted = useRef(true)
   useEffect(() => { mounted.current = true; return () => { mounted.current = false } }, [])
-  const load = useCallback(async () => {
+  const load = useCallback(async (showLoading = false) => {
     const gen = ++reqGen.current
+    if (mounted.current) {
+      if (showLoading) setLoading(true)
+      setError(null)
+    }
     try {
       const res = await api.calls()
-      if (mounted.current && gen === reqGen.current) setData(res)
+      if (mounted.current && gen === reqGen.current) {
+        setData(res)
+        setError(null)
+      }
     } catch {
-      if (mounted.current && gen === reqGen.current) setData({ calls: [], dashboard: null, needs_attention: [] })
+      if (mounted.current && gen === reqGen.current) {
+        setError('Published Calls history is temporarily unavailable. Your saved research has not been changed.')
+      }
     } finally {
       if (mounted.current && gen === reqGen.current) setLoading(false)
     }
@@ -75,46 +88,127 @@ export function CallsTracker() {
     return () => window.removeEventListener('keydown', onKey)
   }, [close])
 
-  const calls = data?.calls ?? []
-  const needsAttention = data?.needs_attention ?? []
+  // The published endpoint is versioned independently from the browser bundle. Fail closed if an old or
+  // partial deploy sends a non-array field instead of letting one malformed payload take down the panel.
+  const calls = useMemo(() => publishedCalls(data?.calls), [data?.calls])
+  const current = useMemo(() => currentCalls(calls), [calls])
+  const currentRoots = useMemo(() => new Set(current
+    .map((call) => call?.run_root)
+    .filter((root): root is string => typeof root === 'string' && root.length > 0)), [current])
+  const updates = useMemo(() => publishedCallUpdates(data?.updates), [data?.updates])
+  const needsAttention = useMemo(() => publishedNeedsAttention(data?.needs_attention), [data?.needs_attention])
+  const visibleCalls = view === 'current' ? current : calls
 
   return (
     <motion.div className="calls" initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
       <div className="calls__head">
         <div style={{ minWidth: 0 }}>
-          <div className="calls__title">Calls tracker</div>
-          <div className="calls__sub">Every call the engine has made — and what's happened since</div>
+          <div className="calls__title">Calls</div>
+          <div className="calls__sub">What the engine believes now, what it believed before, and what changed</div>
         </div>
         <div className="calls__tools">
           {!staticMode && <button className="btn btn--ghost btn--mini" onClick={() => refreshDashboard()} title="Rebuild the downloadable dashboard (/research:track)">Rebuild</button>}
           <button className="btn btn--ghost btn--mini" onClick={() => data?.dashboard ? openCallFile(data.dashboard, 'Calls dashboard') : setToast({ msg: 'No dashboard yet — Rebuild to generate one', tone: 'info' })} title="Open the latest markdown dashboard">Dashboard ↧</button>
+          <button className="btn btn--ghost btn--mini" onClick={() => load(true)} disabled={loading} title="Read the latest published Calls history">{loading ? 'Loading…' : 'Refresh ↻'}</button>
           <button className="btn btn--ghost" style={{ height: 30 }} onClick={close} aria-label="Close">✕</button>
         </div>
       </div>
 
       <div className="calls__body">
+        {error && (
+          <div className="calls__error" role="status">
+            <span>{error}</span>
+            <button className="btn btn--ghost btn--mini" onClick={() => load(true)}>Try again</button>
+          </div>
+        )}
         {calls.length === 0 ? (
           <div className="calls__empty">{loading ? 'Loading…' : "No calls yet. Run the full pipeline on a company and its verdict appears here to track over time."}</div>
         ) : (
           <>
-            <div className="calls__count">Tracking <b style={{ color: 'var(--text-muted)' }}>{calls.length}</b> call{calls.length === 1 ? '' : 's'}{staticMode ? ' · read-only showcase' : ''}</div>
-            {needsAttention.length > 0 && <NeedsAttentionPanel rows={needsAttention} onOpen={openCallFile} />}
-            {calls.map((c) => (
-              <CallCard
-                key={c.run_root}
-                c={c}
-                busy={anyRunForTicker(c.ticker) || launchPending?.ticker === c.ticker} // pending covers the click→ack window; refreshActiveRuns covers the rest
-                staticMode={staticMode}
-                onUpdate={() => updateCall(c.ticker)}
-                onFileDue={(w) => fileDueReview(c.ticker, w)}
-                onOpen={openCallFile}
-                onCopyNote={copyStageOne}
-              />
-            ))}
+            <div className="calls__viewbar">
+              <div className="seg calls__tabs" role="tablist" aria-label="Calls view">
+                {([
+                  ['current', 'Current', current.length],
+                  ['history', 'History', calls.length],
+                  ['updates', 'Updates', updates.length],
+                ] as const).map(([key, label, count]) => (
+                  <button
+                    key={key}
+                    className={`seg__btn${view === key ? ' seg__btn--on' : ''}`}
+                    role="tab"
+                    aria-selected={view === key}
+                    onClick={() => setView(key)}
+                  >
+                    {label} <span className="calls__tabcount">{count}</span>
+                  </button>
+                ))}
+              </div>
+              <div className="calls__count" title={data?.authority_commit ? `Published source commit ${data.authority_commit}` : undefined}>
+                {view === 'current' && <><b>{current.length}</b> current compan{current.length === 1 ? 'y' : 'ies'}</>}
+                {view === 'history' && <><b>{calls.length}</b> dated call{calls.length === 1 ? '' : 's'} across {current.length} compan{current.length === 1 ? 'y' : 'ies'}</>}
+                {view === 'updates' && <><b>{updates.length}</b> recorded change{updates.length === 1 ? '' : 's'}</>}
+                {staticMode ? ' · read-only showcase' : data?.authority_commit ? ' · published history' : ''}
+              </div>
+            </div>
+            {view === 'current' && needsAttention.length > 0 && <NeedsAttentionPanel rows={needsAttention} onOpen={openCallFile} />}
+            {view === 'updates' ? (
+              <CallsUpdates rows={updates} staticMode={staticMode} onOpen={openCallFile} />
+            ) : (
+              visibleCalls.map((c) => (
+                <CallCard
+                  key={c.run_root}
+                  c={c}
+                  historical={view === 'history' && !currentRoots.has(c.run_root)}
+                  busy={anyRunForTicker(c.ticker) || launchPending?.ticker === c.ticker} // pending covers the click→ack window; refreshActiveRuns covers the rest
+                  staticMode={staticMode}
+                  onUpdate={() => updateCall(c.ticker)}
+                  onFileDue={(w) => fileDueReview(c.ticker, w)}
+                  onOpen={openCallFile}
+                  onCopyNote={copyStageOne}
+                />
+              ))
+            )}
           </>
         )}
       </div>
     </motion.div>
+  )
+}
+
+function CallsUpdates({ rows, staticMode, onOpen }: { rows: CallUpdate[]; staticMode: boolean; onOpen: (path: string, title: string) => void }) {
+  if (!Array.isArray(rows) || rows.length === 0) {
+    return (
+      <div className="calls__empty">
+        {staticMode
+          ? 'Updates are available in the live cockpit. This read-only showcase does not rebuild published history.'
+          : 'No recorded changes yet. A new dated call or completed review will appear here in plain English.'}
+      </div>
+    )
+  }
+  return (
+    <div className="callupdates" aria-label="Published call changes">
+      {rows.map((row) => (
+        <button
+          className={`callupdate callupdate--${row.tone}`}
+          key={row.id}
+          disabled={!row.source_path}
+          onClick={() => row.source_path && onOpen(row.source_path, `${row.kind === 'review' ? 'Review' : 'Investment thesis'} — ${row.ticker}`)}
+          title={row.source_path ? 'Open the published source behind this update' : undefined}
+        >
+          <span className="callupdate__rail" />
+          <span className="callupdate__body">
+            <span className="callupdate__meta">
+              <span>{row.kind === 'review' ? 'Review' : 'Call'}</span>
+              <span>{row.at || 'date not recorded'}</span>
+              {row.company && <span>{row.company}</span>}
+            </span>
+            <strong>{row.headline}</strong>
+            {row.detail && <span className="callupdate__detail">{row.detail}</span>}
+          </span>
+          {row.source_path && <span className="callupdate__open" aria-hidden="true">›</span>}
+        </button>
+      ))}
+    </div>
   )
 }
 
@@ -124,6 +218,7 @@ export function CallsTracker() {
 // `/research:eval` by hand; this is what makes them actionable without leaving the cockpit.
 function NeedsAttentionPanel({ rows, onOpen }: { rows: NeedsAttentionRow[]; onOpen: (path: string, title: string) => void }) {
   const [open, setOpen] = useState(true)
+  if (!Array.isArray(rows) || rows.length === 0) return null
   return (
     <div className="needsattn">
       <div className="needsattn__head" onClick={() => setOpen((o) => !o)}>
@@ -152,8 +247,9 @@ function NeedsAttentionPanel({ rows, onOpen }: { rows: NeedsAttentionRow[]; onOp
   )
 }
 
-function CallCard({ c, busy, staticMode, onUpdate, onFileDue, onOpen, onCopyNote }: {
+function CallCard({ c, historical, busy, staticMode, onUpdate, onFileDue, onOpen, onCopyNote }: {
   c: CallSummary
+  historical: boolean
   busy: boolean
   staticMode: boolean
   onUpdate: () => void
@@ -214,6 +310,7 @@ function CallCard({ c, busy, staticMode, onUpdate, onFileDue, onOpen, onCopyNote
               ⚠ CAPPED
             </span>
           )}
+          {historical && <span className="flag flag--past" title="A newer dated call for this company is shown in Current">PAST CALL</span>}
           <span className="callcard__name" title={dash(c.company)}>{dash(c.company)}</span>
           <span className="callcard__tkr">{c.ticker}</span>
         </div>
@@ -227,6 +324,12 @@ function CallCard({ c, busy, staticMode, onUpdate, onFileDue, onOpen, onCopyNote
           <span className="dot" />{statusLabel}
         </span>
       </div>
+      {!historical && c.latest_review_summary && (
+        <div className="callcard__latest">
+          <span>Latest review{c.latest_review_date ? ` · ${c.latest_review_date}` : ''}</span>
+          {c.latest_review_summary}
+        </div>
+      )}
 
       <div className="tl">
         <div className="tl__base" style={{ left: `${inset}%`, width: `${span}%` }} />
