@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T10:48:26Z",
+  "generated_at": "2026-08-22T10:53:31Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-2369",
@@ -350,6 +350,92 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-2383",
+      "headline": "Myanmar air strike kills 14 praying at monastery, rebel witnesses say",
+      "headline_en": null,
+      "url": "https://www.scmp.com/news/asia/southeast-asia/article/3364928/myanmar-air-strike-kills-14-praying-monastery-rebel-witnesses-say?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T10:48:41Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Myanmar air strike killed 14 at a monastery, a military escalation in an active conflict with no company named but market-wide risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Myanmar air strike killed 14 at a monastery, a military escalation in an active conflict with no company named but market-wide risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-2386",
+      "headline": "Israeli artillery shelling, airstrikes continue in Southern Lebanon",
+      "headline_en": null,
+      "url": "https://www.gulf-times.com/article/731589/region/israeli-artillery-shelling-airstrikes-continue-in-southern-lebanon",
+      "source_name": "Gulf Times — Region",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T10:43:00Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Israeli artillery and airstrikes continued in Southern Lebanon, a live military escalation with regional risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Israeli artillery and airstrikes continued in Southern Lebanon, a live military escalation with regional risk.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1906,109 +1992,6 @@
       "event_types": [
         "default_distress",
         "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "China Evergrande Group",
-          "ticker": null,
-          "listing_country": "HK"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-1309",
-      "headline": "Google's Marvell Warrant Doesn't Fully Vest Until Google Buys $120 Billion of Chips",
-      "headline_en": null,
-      "url": "https://www.fool.com/investing/2026/08/20/google-s-marvell-warrant-doesn-t-fully-vest-until-google-buys-usd120-billion-of-chips/?source=iedfolrf0000001",
-      "source_name": "The Motley Fool",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T03:18:01Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Google's Marvell warrant tied to $120B chip purchase",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Google's Marvell warrant tied to $120B chip purchase",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Google",
-          "ticker": "GOOGL",
-          "listing_country": "US"
-        },
-        {
-          "name": "Marvell Technology",
-          "ticker": "MRVL",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-2247",
-      "headline": "Evergrande Creditors Owed $45 Billion Now Face More Complex Path",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/articles/2026-08-21/evergrande-creditors-owed-45-billion-now-face-more-complex-path",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T01:25:12Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Evergrande creditors owed $45 billion face a more complex recovery path, a quantified distress escalation for the developer.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Evergrande creditors owed $45 billion face a more complex recovery path, a quantified distress escalation for the developer.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "default_distress"
       ],
       "issuer_linkage": "primary",
       "companies": [
@@ -78277,9 +78260,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 297118,
-    "news_picked_today": 4274,
-    "news_dropped_today": 8950
+    "news_seen_today": 297154,
+    "news_picked_today": 4286,
+    "news_dropped_today": 8974
   },
   "book_momentum": {
     "live_count": 8,
