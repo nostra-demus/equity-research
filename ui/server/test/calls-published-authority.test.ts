@@ -70,6 +70,10 @@ const {
 } = await import('../src/outputs')
 const { publishedTreeAuthority, publishedTreePaths } = await import('../src/published-git')
 
+assert.doesNotMatch(fs.readFileSync(new URL('../src/published-git.ts', import.meta.url), 'utf8'),
+  /\b(?:execFileSync|execSync|spawnSync)\b/,
+  'published Calls Git reads must never block the server event loop with a synchronous child process')
+
 // Poison mutable disk after the commit: replace a shared decision, remove its review, and add a private call.
 fs.rmSync(path.join(repo, 'analyses'), { recursive: true, force: true })
 write(`${olderRoot}/decision_record.json`, JSON.stringify({ ...olderDecision, decision: 'Avoid' }) + '\n')
@@ -79,14 +83,16 @@ write('analyses/LOCAL_2026-08-14/decision_record.json', JSON.stringify({
 }) + '\n')
 write('analyses/LOCAL_2026-08-14/final_thesis.md', '# private\n')
 
-const dirty = listAllCalls()
+const dirty = await listAllCalls()
 assert.deepEqual(dirty.calls.map((call: any) => call.run_root), [newerRoot, olderRoot],
   'only complete calls in published Git are enumerated')
 assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)?.decision, 'Watchlist',
   'the decision comes from published Git, not dirty disk')
 assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)?.integrity_status, 'verified',
   'published verification survives a poisoned local thesis')
-assert.equal(publishedIntegrityStatus(olderRoot, publishedTreeAuthority('analyses', repo, publishedCommit)).integrity_score,
+const integrityAuthority = await publishedTreeAuthority('analyses', repo, publishedCommit)
+await integrityAuthority.loadRequired([`${olderRoot}/final_thesis.md`, `${olderRoot}/verification_report_v2.json`])
+assert.equal(publishedIntegrityStatus(olderRoot, integrityAuthority).integrity_score,
   null, 'an overflowing JSON number never propagates as an infinite integrity score')
 assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)?.review_count, 1,
   'a locally absent published review remains completed')
@@ -105,7 +111,7 @@ for (const rel of [
   'analyses/tracking/2026-08-13_calls_tracker.md',
 ]) {
   assert.equal(isPublishedCallsArtifactPath(rel), true, `${rel} is an admitted Calls artifact`)
-  assert.deepEqual(readPublishedCallsMarkdown(rel), { path: rel, markdown: publishedText(rel) },
+  assert.deepEqual(await readPublishedCallsMarkdown(rel), { path: rel, markdown: publishedText(rel) },
     'click-through bytes come exactly from published Git')
 }
 for (const rel of [
@@ -115,19 +121,19 @@ for (const rel of [
   'analyses/tracking/2026-08-13_calls_tracker.json',
 ]) {
   assert.equal(isPublishedCallsArtifactPath(rel), false, `${rel} is outside the narrow artifact reader`)
-  assert.throws(() => readPublishedCallsMarkdown(rel),
+  await assert.rejects(() => readPublishedCallsMarkdown(rel),
     (error: any) => error?.code === 'INVALID_CALLS_ARTIFACT_PATH')
 }
 
 // A static materialization with no analyses directory projects byte-for-byte the same result.
 fs.rmSync(path.join(repo, 'analyses'), { recursive: true, force: true })
-assert.deepEqual(listAllCalls(publishedTreeAuthority('analyses', repo, publishedCommit)), dirty)
-assert.equal(readPublishedCallsMarkdown(`${olderRoot}/final_thesis.md`).markdown,
+assert.deepEqual(await listAllCalls(await publishedTreeAuthority('analyses', repo, publishedCommit)), dirty)
+assert.equal((await readPublishedCallsMarkdown(`${olderRoot}/final_thesis.md`)).markdown,
   publishedText(`${olderRoot}/final_thesis.md`))
 
 const previousRef = process.env.ENGINE_PUBLISHED_GIT_REF
 process.env.ENGINE_PUBLISHED_GIT_REF = 'refs/heads/does-not-exist'
-assert.throws(() => publishedTreePaths('analyses'),
+await assert.rejects(() => publishedTreePaths('analyses'),
   (error: any) => error?.code === 'CALLS_AUTHORITY_UNAVAILABLE',
   'an invalid shared ref is an explicit authority failure, never an empty history')
 process.env.ENGINE_PUBLISHED_GIT_REF = previousRef

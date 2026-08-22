@@ -1,5 +1,8 @@
-import { execFileSync } from 'node:child_process'
+import { execFile, spawn } from 'node:child_process'
+import { promisify } from 'node:util'
 import { REPO_ROOT } from './config'
+
+const execFileAsync = promisify(execFile)
 
 const COMMIT_RE = /^[a-f0-9]{40}(?:[a-f0-9]{24})?$/
 const SAFE_TREE_PATH_RE = /^(?:[A-Za-z0-9._-]+)(?:\/[A-Za-z0-9._-]+)*$/
@@ -9,11 +12,46 @@ const COMMIT_CACHE_MS = 15_000
 const MAX_TREE_ENTRY_CACHES = 8
 
 const commitCache = new Map<string, { commit: string; expiresAt: number }>()
+const commitInflight = new Map<string, Promise<string>>()
 
 const authorityError = (cause?: unknown): Error & { code: string; cause?: unknown } => Object.assign(
   new Error('shared Calls history cannot be read safely'),
   { code: 'CALLS_AUTHORITY_UNAVAILABLE', ...(cause === undefined ? {} : { cause }) },
 )
+
+function catFileBatch(repoRoot: string, oids: string[], maxBuffer: number): Promise<Buffer> {
+  return new Promise((resolve, reject) => {
+    const child = spawn('git', ['-C', repoRoot, 'cat-file', '--batch'], {
+      stdio: ['pipe', 'pipe', 'ignore'], windowsHide: true, timeout: 15_000,
+    })
+    const chunks: Buffer[] = []
+    let size = 0
+    let settled = false
+    const fail = (error: unknown) => {
+      if (settled) return
+      settled = true
+      child.kill()
+      reject(error)
+    }
+    child.once('error', fail)
+    child.stdin.once('error', fail)
+    child.stdout.once('error', fail)
+    child.stdout.on('data', (chunk: Buffer | Uint8Array) => {
+      if (settled) return
+      const bytes = Buffer.from(chunk)
+      size += bytes.length
+      if (size > maxBuffer) return fail(new Error('shared research batch exceeded its byte limit'))
+      chunks.push(bytes)
+    })
+    child.once('close', (code) => {
+      if (settled) return
+      settled = true
+      if (code !== 0) return reject(new Error('shared research blobs were not readable'))
+      resolve(Buffer.concat(chunks, size))
+    })
+    child.stdin.end(`${oids.join('\n')}\n`)
+  })
+}
 
 /**
  * The shared research authority. A doer's local HEAD may be ahead after a push outage, while a static
@@ -25,23 +63,31 @@ export function publishedGitRef(): string {
 }
 
 /** Resolve the moving ref once so one projection cannot mix files from two fetches. */
-export function publishedGitCommit(repoRoot = REPO_ROOT): string {
+export async function publishedGitCommit(repoRoot = REPO_ROOT): Promise<string> {
   const ref = publishedGitRef()
   const cacheKey = `${repoRoot}\u0000${ref}`
   const cached = commitCache.get(cacheKey)
   if (cached && cached.expiresAt > Date.now()) return cached.commit
-  try {
-    // `^{commit}` peels tags and fails unless the result is a commit; a second `cat-file -t` process is
-    // redundant. The short cache matches the cockpit's poll interval and bounds synchronous Git work.
-    const commit = execFileSync('git', ['-C', repoRoot, 'rev-parse', '--verify', `${ref}^{commit}`], {
-      encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 1024 * 1024,
-    }).trim()
-    if (!COMMIT_RE.test(commit)) throw new Error('invalid shared commit')
-    commitCache.set(cacheKey, { commit, expiresAt: Date.now() + COMMIT_CACHE_MS })
-    return commit
-  } catch (error) {
-    throw authorityError(error)
-  }
+  const existing = commitInflight.get(cacheKey)
+  if (existing) return existing
+  const resolving = (async () => {
+    try {
+      // `^{commit}` peels tags and fails unless the result is a commit; a second type probe is redundant.
+      const { stdout } = await execFileAsync('git', ['-C', repoRoot, 'rev-parse', '--verify', `${ref}^{commit}`], {
+        encoding: 'utf8', windowsHide: true, timeout: 15_000, maxBuffer: 1024 * 1024,
+      })
+      const commit = stdout.trim()
+      if (!COMMIT_RE.test(commit)) throw new Error('invalid shared commit')
+      commitCache.set(cacheKey, { commit, expiresAt: Date.now() + COMMIT_CACHE_MS })
+      return commit
+    } catch (error) {
+      throw authorityError(error)
+    } finally {
+      commitInflight.delete(cacheKey)
+    }
+  })()
+  commitInflight.set(cacheKey, resolving)
+  return resolving
 }
 
 interface PublishedTreeEntry {
@@ -50,6 +96,7 @@ interface PublishedTreeEntry {
 }
 
 const treeEntriesCache = new Map<string, Map<string, PublishedTreeEntry>>()
+const treeEntriesInflight = new Map<string, Promise<Map<string, PublishedTreeEntry>>>()
 
 function rememberTreeEntries(key: string, entries: Map<string, PublishedTreeEntry>): void {
   if (treeEntriesCache.size >= MAX_TREE_ENTRY_CACHES) {
@@ -63,11 +110,11 @@ function safeTreePath(value: string): boolean {
   return SAFE_TREE_PATH_RE.test(value) && !value.split('/').some((part) => part === '.' || part === '..')
 }
 
-function publishedTreeEntries(
+async function publishedTreeEntries(
   treePath: string,
   repoRoot: string,
   revision: string,
-): Map<string, PublishedTreeEntry> {
+): Promise<Map<string, PublishedTreeEntry>> {
   if (!safeTreePath(treePath) || !COMMIT_RE.test(revision)) throw authorityError()
   const cacheKey = `${repoRoot}\u0000${revision}\u0000${treePath}`
   const cached = treeEntriesCache.get(cacheKey)
@@ -77,67 +124,77 @@ function publishedTreeEntries(
     treeEntriesCache.set(cacheKey, cached)
     return cached
   }
-  try {
-    // `ls-tree` verifies the revision is tree-ish. A missing/non-tree research path yields no regular
-    // blobs and is rejected below, so separate commit/tree type probes only add event-loop stalls.
-    const raw = execFileSync('git', [
-      '-C', repoRoot, 'ls-tree', '-r', '-l', '-z', '--full-tree', revision, '--', treePath,
-    ], { encoding: null, stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 32 * 1024 * 1024 })
-    if (!Buffer.isBuffer(raw)) throw new Error('shared research tree was not readable')
-
-    const prefix = `${treePath}/`
-    const entries = new Map<string, PublishedTreeEntry>()
-    for (const row of raw.toString('utf8').split('\0').filter(Boolean)) {
-      const match = /^(100644|100755) blob ([a-f0-9]{40}(?:[a-f0-9]{24})?)\s+(\d+)\t(.+)$/.exec(row)
-      if (!match) continue // ignore trees, symlinks and gitlinks defensively
-      const repoPath = match[4]
-      if (!repoPath.startsWith(prefix) || !safeTreePath(repoPath)) {
-        throw new Error('shared research tree returned an unsafe path')
+  const existing = treeEntriesInflight.get(cacheKey)
+  if (existing) return existing
+  const loading = (async () => {
+    try {
+      // `ls-tree` verifies the revision is tree-ish. Missing/non-tree paths yield no regular blobs and
+      // are rejected below. The async subprocess keeps cold Calls reads off the server event loop.
+      const { stdout } = await execFileAsync('git', [
+        '-C', repoRoot, 'ls-tree', '-r', '-l', '-z', '--full-tree', revision, '--', treePath,
+      ], { encoding: null, windowsHide: true, timeout: 15_000, maxBuffer: 32 * 1024 * 1024 })
+      if (!Buffer.isBuffer(stdout)) throw new Error('shared research tree was not readable')
+      const raw = stdout
+      const prefix = `${treePath}/`
+      const entries = new Map<string, PublishedTreeEntry>()
+      for (const row of raw.toString('utf8').split('\0').filter(Boolean)) {
+        const match = /^(100644|100755) blob ([a-f0-9]{40}(?:[a-f0-9]{24})?)\s+(\d+)\t(.+)$/.exec(row)
+        if (!match) continue // ignore trees, symlinks and gitlinks defensively
+        const repoPath = match[4]
+        if (!repoPath.startsWith(prefix) || !safeTreePath(repoPath)) {
+          throw new Error('shared research tree returned an unsafe path')
+        }
+        const size = Number(match[3])
+        if (!Number.isSafeInteger(size) || size < 0) throw new Error('shared research blob has an invalid size')
+        entries.set(repoPath, { oid: match[2], size })
       }
-      const size = Number(match[3])
-      if (!Number.isSafeInteger(size) || size < 0) throw new Error('shared research blob has an invalid size')
-      entries.set(repoPath, { oid: match[2], size })
+      if (!entries.size) throw new Error('shared research tree is missing or empty')
+      rememberTreeEntries(cacheKey, entries)
+      return entries
+    } catch (error: any) {
+      if (error?.code === 'CALLS_AUTHORITY_UNAVAILABLE') throw error
+      throw authorityError(error)
+    } finally {
+      treeEntriesInflight.delete(cacheKey)
     }
-    if (!entries.size) throw new Error('shared research tree is missing or empty')
-    rememberTreeEntries(cacheKey, entries)
-    return entries
-  } catch (error: any) {
-    if (error?.code === 'CALLS_AUTHORITY_UNAVAILABLE') throw error
-    throw authorityError(error)
-  }
+  })()
+  treeEntriesInflight.set(cacheKey, loading)
+  return loading
 }
 
 /** Enumerate regular blobs from one positively verified published tree. */
-export function publishedTreePaths(
+export async function publishedTreePaths(
   treePath = 'analyses',
   repoRoot = REPO_ROOT,
-  revision = publishedGitCommit(repoRoot),
-): string[] {
-  return [...publishedTreeEntries(treePath, repoRoot, revision).keys()].sort()
+  revision?: string,
+): Promise<string[]> {
+  const commit = revision ?? await publishedGitCommit(repoRoot)
+  return [...(await publishedTreeEntries(treePath, repoRoot, commit)).keys()].sort()
 }
 
 export interface PublishedTreeAuthority {
   commit: string
   paths: ReadonlySet<string>
   readRequired(repoPath: string): Buffer
-  readManyRequired(repoPaths: Iterable<string>): ReadonlyMap<string, Buffer>
+  loadRequired(repoPaths: Iterable<string>): Promise<void>
 }
 
 /**
  * Build one immutable Calls snapshot. Requested blobs are read through one `git cat-file --batch` call,
  * avoiding a child process per decision/review on the 15-second Calls poll path.
  */
-export function publishedTreeAuthority(
+export async function publishedTreeAuthority(
   treePath = 'analyses',
   repoRoot = REPO_ROOT,
-  commit = publishedGitCommit(repoRoot),
-): PublishedTreeAuthority {
+  requestedCommit?: string,
+): Promise<PublishedTreeAuthority> {
+  const commit = requestedCommit ?? await publishedGitCommit(repoRoot)
   if (!COMMIT_RE.test(commit)) throw authorityError()
-  const entries = publishedTreeEntries(treePath, repoRoot, commit)
+  const entries = await publishedTreeEntries(treePath, repoRoot, commit)
   const paths = new Set(entries.keys())
   const cache = new Map<string, Buffer>()
 
-  const readManyRequired = (requested: Iterable<string>): ReadonlyMap<string, Buffer> => {
+  const loadRequired = async (requested: Iterable<string>): Promise<void> => {
     const repoPaths = [...new Set(requested)]
     for (const repoPath of repoPaths) {
       if (!paths.has(repoPath)) throw authorityError(new Error(`published blob is not in ${treePath}`))
@@ -164,11 +221,11 @@ export function publishedTreeAuthority(
       }
 
       try {
-        const raw = execFileSync('git', ['-C', repoRoot, 'cat-file', '--batch'], {
-          input: `${oids.join('\n')}\n`, encoding: null, stdio: ['pipe', 'pipe', 'ignore'],
-          maxBuffer: totalBytes + Math.max(1024 * 1024, oids.length * 160),
-        })
-        if (!Buffer.isBuffer(raw)) throw new Error('shared research blobs were not readable')
+        const raw = await catFileBatch(
+          repoRoot,
+          oids,
+          totalBytes + Math.max(1024 * 1024, oids.length * 160),
+        )
         let cursor = 0
         for (const expectedOid of oids) {
           const headerEnd = raw.indexOf(0x0a, cursor)
@@ -195,23 +252,18 @@ export function publishedTreeAuthority(
         throw authorityError(error)
       }
     }
-
-    const result = new Map<string, Buffer>()
     for (const repoPath of repoPaths) {
-      const bytes = cache.get(repoPath)
-      if (bytes === undefined) throw authorityError(new Error('shared research batch omitted a requested blob'))
-      result.set(repoPath, bytes)
+      if (!cache.has(repoPath)) throw authorityError(new Error('shared research batch omitted a requested blob'))
     }
-    return result
   }
 
   return {
     commit,
     paths,
-    readManyRequired,
+    loadRequired,
     readRequired(repoPath: string): Buffer {
-      const bytes = readManyRequired([repoPath]).get(repoPath)
-      if (bytes === undefined) throw authorityError(new Error('shared research batch omitted a requested blob'))
+      const bytes = cache.get(repoPath)
+      if (bytes === undefined) throw authorityError(new Error('published blob was not loaded'))
       return bytes
     },
   }

@@ -27,16 +27,17 @@ export function isPublishedCallsArtifactPath(value: unknown): value is string {
 }
 
 /** Read a Calls click-through from the exact published Git snapshot, never mutable disk. */
-export function readPublishedCallsMarkdown(relPath: string): { path: string; markdown: string } {
+export async function readPublishedCallsMarkdown(relPath: string): Promise<{ path: string; markdown: string }> {
   if (!isPublishedCallsArtifactPath(relPath)) {
     throw Object.assign(new Error('invalid published Calls artifact path'), {
       code: 'INVALID_CALLS_ARTIFACT_PATH', statusCode: 400,
     })
   }
-  const authority = publishedTreeAuthority('analyses')
+  const authority = await publishedTreeAuthority('analyses')
   if (!authority.paths.has(relPath)) {
     throw Object.assign(new Error('published Calls artifact not found'), { code: 'ENOENT', statusCode: 404 })
   }
+  await authority.loadRequired([relPath])
   return { path: relPath, markdown: authority.readRequired(relPath).toString('utf8') }
 }
 
@@ -779,7 +780,7 @@ export function buildCallUpdates(rows: CallUpdateInput[]): CallUpdate[] {
 
 // One row per run-folder decision_record — a cross-ticker ledger of every call the engine made,
 // each with its since-the-call timeline. Generic: scans all run folders, no module/ticker hardcoded.
-function projectAllCalls(authority: PublishedTreeAuthority) {
+async function projectAllCalls(authority: PublishedTreeAuthority) {
   const publishedPaths = authority.paths
   const runRoots = [...publishedPaths]
     .map((repoPath) => /^(analyses\/[A-Z0-9.\-]{1,40}_\d{4}-\d{2}-\d{2})\/decision_record\.json$/.exec(repoPath)?.[1] || null)
@@ -796,7 +797,7 @@ function projectAllCalls(authority: PublishedTreeAuthority) {
     return tail === 'decision_record.json' || tail === 'final_thesis.md' || tail === 'corrections.json'
       || VERIFY_REPORT_RE.test(tail) || /^reviews\/[A-Za-z0-9._-]+\.json$/.test(tail)
   })
-  authority.readManyRequired(projectionPaths)
+  await authority.loadRequired(projectionPaths)
 
   const today = todayISO()
   const calls: any[] = []
@@ -901,16 +902,25 @@ function projectAllCalls(authority: PublishedTreeAuthority) {
   }
 }
 
-let publishedCallsCache: { commit: string; value: ReturnType<typeof projectAllCalls> } | null = null
+type PublishedCallsProjection = Awaited<ReturnType<typeof projectAllCalls>>
+let publishedCallsCache: { commit: string; value: PublishedCallsProjection } | null = null
+let publishedCallsInflight: { commit: string; value: Promise<PublishedCallsProjection> } | null = null
 
 /** Share one immutable projection across rapid dashboard/watchlist reads; the ref resolver's short TTL
  * bounds staleness while avoiding a synchronous Git subprocess for every browser poll. Passing an
  * authority is the uncached test/diagnostic seam. */
-export function listAllCalls(authority?: PublishedTreeAuthority): ReturnType<typeof projectAllCalls> {
+export async function listAllCalls(authority?: PublishedTreeAuthority): Promise<PublishedCallsProjection> {
   if (authority) return projectAllCalls(authority)
-  const commit = publishedGitCommit(REPO_ROOT)
+  const commit = await publishedGitCommit(REPO_ROOT)
   if (publishedCallsCache?.commit === commit) return publishedCallsCache.value
-  const value = projectAllCalls(publishedTreeAuthority('analyses', REPO_ROOT, commit))
-  publishedCallsCache = { commit, value }
-  return value
+  if (publishedCallsInflight?.commit === commit) return publishedCallsInflight.value
+  const value = (async () => projectAllCalls(await publishedTreeAuthority('analyses', REPO_ROOT, commit)))()
+  publishedCallsInflight = { commit, value }
+  try {
+    const projected = await value
+    publishedCallsCache = { commit, value: projected }
+    return projected
+  } finally {
+    if (publishedCallsInflight?.value === value) publishedCallsInflight = null
+  }
 }

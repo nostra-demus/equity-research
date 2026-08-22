@@ -3142,9 +3142,9 @@ function withTriggerIds(triggers: z.infer<typeof TriggerBody>[], prev: WatchTrig
 /** The standing calls that feed the engine half, cached briefly: listAllCalls walks every run folder,
  *  and the watchlist read is polled. */
 let callsCache: { at: number; calls: StandingCall[] } | null = null
-function standingCalls(): StandingCall[] {
+async function standingCalls(): Promise<StandingCall[]> {
   if (callsCache && Date.now() - callsCache.at < 30_000) return callsCache.calls
-  const calls = (listAllCalls().calls ?? []) as unknown as StandingCall[]
+  const calls = ((await listAllCalls()).calls ?? []) as unknown as StandingCall[]
   callsCache = { at: Date.now(), calls }
   return calls
 }
@@ -3176,7 +3176,7 @@ const watchlistEntryPath = (entryId: string) => `watchlist/entries/${entryId}.js
 async function buildWatchlist() {
   const { entries, unreadable } = readEntries()
   const decoration = readSizingDecoration()
-  const engine = readEngineWatch(standingCalls(), decoration)
+  const engine = readEngineWatch(await standingCalls(), decoration)
 
   // One batched quote call for the whole list — but getQuotes keys its result Map on the TICKER alone
   // (equity-quote.ts), so two listings of the SAME ticker in one batch collide and the survivor could be
@@ -3312,7 +3312,7 @@ app.post('/api/watchlist', { config: { rateLimit: { max: 120, timeWindow: '1 min
     const pub = await publishWatchlist([watchlistEntryPath(existing.entry_id)], `Watchlist: re-add ${listing.ticker}`)
     return reply.code(200).send({ ok: true, entry: existing, publish_error: pub.ok ? undefined : pub.error })
   }
-  const engine = readEngineWatch(standingCalls(), readSizingDecoration()).find((e) => e.listing.listing_key === listing.listing_key) ?? null
+  const engine = readEngineWatch(await standingCalls(), readSizingDecoration()).find((e) => e.listing.listing_key === listing.listing_key) ?? null
   const entry: WatchEntry = {
     schema_version: 'watchlist-entry/v1',
     entry_id: newEntryId(now),
@@ -3393,7 +3393,7 @@ app.post('/api/watchlist/archive', { config: { rateLimit: { max: 120, timeWindow
   const key = listingKey(parsed.data.ticker, parsed.data.currency ?? null)
   const { user } = identify(req)
   const now = new Date()
-  const engine = readEngineWatch(standingCalls(), readSizingDecoration()).find((e) => e.listing.listing_key === key) ?? null
+  const engine = readEngineWatch(await standingCalls(), readSizingDecoration()).find((e) => e.listing.listing_key === key) ?? null
   const { entries } = readEntries()
   let entry = pickEntryForListing(entries, key)
   if (!entry) {
@@ -4538,7 +4538,7 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
 // ---------- calls tracker: cross-ticker ledger of every call + its since-the-call timeline ----------
 app.get('/api/calls', async (_req, reply) => {
   try {
-    return listAllCalls()
+    return await listAllCalls()
   } catch (e: any) {
     if (e?.code === 'CALLS_AUTHORITY_UNAVAILABLE') {
       return reply.code(503).send({
@@ -4555,7 +4555,7 @@ app.get('/api/calls', async (_req, reply) => {
 app.get('/api/calls/artifact', async (req, reply) => {
   const p = (req.query as any)?.path as string
   try {
-    return readPublishedCallsMarkdown(p)
+    return await readPublishedCallsMarkdown(p)
   } catch (e: any) {
     if (e?.code === 'CALLS_AUTHORITY_UNAVAILABLE') {
       return reply.code(503).send({
