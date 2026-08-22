@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T04:51:28Z",
+  "generated_at": "2026-08-22T06:18:54Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-033",
@@ -1585,6 +1585,55 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260822-2247",
+      "headline": "Evergrande Creditors Owed $45 Billion Now Face More Complex Path",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-21/evergrande-creditors-owed-45-billion-now-face-more-complex-path",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-21T01:25:12Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Evergrande creditors owed $45 billion face a more complex recovery path, a quantified distress escalation for the developer.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Evergrande creditors owed $45 billion face a more complex recovery path, a quantified distress escalation for the developer.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Evergrande Group",
+          "ticker": null,
+          "listing_country": "HK"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260822-1784",
       "headline": "Broadcom Seeking $60B in AI Debt Deal",
       "headline_en": null,
@@ -1678,6 +1727,148 @@
         }
       ],
       "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-2329",
+      "headline": "Broadcom Seeks More Than $60 Billion in Latest AI Debt Deal",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-20/broadcom-seeks-more-than-60-billion-in-latest-ai-debt-deal",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T20:08:40Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Broadcom seeks over $60 billion AI debt deal, a major capital-structure event.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Broadcom seeks over $60 billion AI debt deal, a major capital-structure event.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "debt_credit",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "debt_credit"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Broadcom",
+          "ticker": "AVGO",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-2334",
+      "headline": "Walmart stock tumbles 9% after outlook disappoints Wall Street",
+      "headline_en": null,
+      "url": "https://www.cnbc.com/2026/08/20/walmart-wmt-q2-2027-earnings.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T20:01:49Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Walmart shares fell 9% after a disappointing outlook, a clear single-company guidance miss.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Walmart shares fell 9% after a disappointing outlook, a clear single-company guidance miss.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Walmart",
+          "ticker": "WMT",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-1990",
+      "headline": "US Wages Economic War on Iran | Radio Balance of Power: Early Edition 8/20/2026",
+      "headline_en": null,
+      "url": "https://www.bloomberg.com/news/videos/2026-08-20/radio-balance-of-power-early-edition-8-20-2026-video",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-20T19:28:04Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "US launching economic war on Iran is a geopolitical escalation that can move oil, sanctions exposure and whole markets.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "US launching economic war on Iran is a geopolitical escalation that can move oil, sanctions exposure and whole markets.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 6,
+        "size": 0,
+        "recency": 0,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": "litigation_enforcement",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector",
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1782,247 +1973,50 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260822-1718",
-      "headline": "$300b debt crisis: China Evergrande founder sentenced to life in prison",
+      "inbox_id": "INB-20260822-2324",
+      "headline": "InfraTech to invest $2.7bn to develop data center campus in Carson County, Texas",
       "headline_en": null,
-      "url": "https://www.emirates247.com/business/china-evergrande-founder-hui-ka-yan-sentenced-to-life-in-prison-amid-300b-debt-crisis/4733",
-      "source_name": "Emirates 24|7 — Flash News (general)",
+      "url": "https://www.datacenterdynamics.com/en/news/infratech-to-invest-27bn-to-develop-data-center-campus-in-carson-county-texas/",
+      "source_name": "DataCenterDynamics",
       "input_nature": "news_headline",
-      "found_at": "2026-08-20T05:02:00Z",
+      "found_at": "2026-08-20T14:20:34Z",
       "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Evergrande founder sentenced to life amid a $300b debt crisis, a major distress and enforcement event.",
+      "prelim_note": "InfraTech announced a $2.7bn data center campus investment, a major capex commitment.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 100,
-      "triage_reason": "Evergrande founder sentenced to life amid a $300b debt crisis, a major distress and enforcement event.",
-      "region": "CN",
+      "triage_reason": "InfraTech announced a $2.7bn data center campus investment, a major capex commitment.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
       "rank_factors": {
         "materiality": 75,
         "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "litigation_enforcement",
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "China Evergrande",
-          "ticker": null,
-          "listing_country": "CN"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-037",
-      "headline": "QTREX Announces Pricing of a $10 Million Registered Direct Offering of Ordinary Shares",
-      "headline_en": null,
-      "url": "https://www.globenewswire.com/news-release/2026/08/20/3348346/0/en/qtrex-announces-pricing-of-a-10-million-registered-direct-offering-of-ordinary-shares.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "input_nature": "company_press_release",
-      "found_at": "2026-08-20T12:30:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Pricing of a $10 million equity offering is dilutive.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Pricing of a $10 million equity offering is dilutive.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 3,
         "scope": 6,
         "event": 6,
-        "size": -1,
+        "size": 0,
         "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "company",
-        "event_id": "capital_actions",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "QTREX",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-563",
-      "headline": "Sparmaßnahmen: Oliver Blume sieht Lage von VW „mehr als kritisch“",
-      "headline_en": "Austerity measures: Oliver Blume sees VW's situation as 'more than critical'",
-      "url": "https://www.handelsblatt.com/unternehmen/industrie/sparmassnahmen-oliver-blume-sieht-lage-von-vw-mehr-als-kritisch/100248912.html",
-      "source_name": "Handelsblatt",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T14:41:16Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Volkswagen CEO describes the company's situation as 'more than critical', signaling potential major restructuring or cost-cutting.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Volkswagen CEO describes the company's situation as 'more than critical', signaling potential major restructuring or cost-cutting.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 4,
-        "size": 2,
-        "recency": 2,
         "materiality_label_floor": 10,
-        "quantified": 0,
+        "quantified": 6,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "news",
-        "event_id": "restructuring_layoffs",
-        "size_bucket": "mega"
+        "event_id": "capex",
+        "size_bucket": "unknown"
       },
       "event_types": [
-        "restructuring_layoffs"
+        "capex"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Volkswagen",
+          "name": "InfraTech",
           "ticker": null,
-          "listing_country": "DE"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-1226",
-      "headline": "Walmart sales growth slowdown tests consumer resilience, shares slide 9%",
-      "headline_en": null,
-      "url": "https://www.reuters.com/business/walmart-reports-rare-comparable-sales-miss-consumers-pare-back-spending-2026-08-20/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T10:54:01Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Walmart reported a sales growth slowdown and shares fell 9%.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Walmart reported a sales growth slowdown and shares fell 9%.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "earnings_revenue_margin",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Walmart",
-          "ticker": "WMT",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-1785",
-      "headline": "Nedbank CIB helps structure Harmony’s $1.25bn financing for international growth",
-      "headline_en": null,
-      "url": "https://www.moneyweb.co.za/in-depth/nedbank-cib/nedbank-cib-helps-structure-harmonys-1-25bn-financing-for-international-growth/",
-      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T22:01:37Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Harmony Gold secured a $1.25 billion financing package for international growth, which is a material capital event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Harmony Gold secured a $1.25 billion financing package for international growth, which is a material capital event.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 1,
-        "recency": 0,
-        "materiality_label_floor": 15,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "debt_credit",
-        "size_bucket": "mid"
-      },
-      "event_types": [
-        "debt_credit"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Harmony Gold",
-          "ticker": "HMY",
           "listing_country": null
         }
       ],
-      "size_bucket": "mid",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -72146,77 +72140,6 @@
       "stale": false
     },
     {
-      "idea_id": "IDEA-6dfe7ce03ed8",
-      "idea_version": "IDEAV-de54a6d0935827d1",
-      "idea_version_started_at": "2026-08-20T18:25:35Z",
-      "ticker": "OTTW",
-      "company": "Ottawa Bancorp, Inc.",
-      "exchange": "OQX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company has entered a definitive agreement to be acquired by Pontiac Bancorp, which typically results in the stock price converging toward the acquisition offer price.",
-      "why_now": "The acquisition was announced on 2026-08-20.",
-      "conviction": 75,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 55,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 18,
-        "impact": 19,
-        "specificity": 15,
-        "timing": 10,
-        "expression": 6,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "needs_data",
-      "missing_checks": [
-        "live liquidity",
-        "dated catalyst",
-        "priced-in risk",
-        "independent confirmation",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "priced",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-f6c6bb38240e"
-      ],
-      "primary_source_event_id": "EVT-f6c6bb38240e",
-      "source_headlines": [
-        "Pontiac Bancorp, Inc. has agreed to acquire Ottawa Bancorp, Inc."
-      ],
-      "source_headline": "Pontiac Bancorp, Inc. has agreed to acquire Ottawa Bancorp, Inc.",
-      "source_url": "https://www.globenewswire.com/news-release/2026/08/20/3348730/0/en/pontiac-bancorp-inc-has-agreed-to-acquire-ottawa-bancorp-inc.html",
-      "source_name": "GlobeNewswire — News about Public Companies",
-      "materiality_max": 96,
-      "newest_source_at": "2026-08-20T17:20:00Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-20T18:25:35Z",
-      "updated_at": "2026-08-20T18:25:35Z",
-      "decay_at": "2026-08-22T05:20:00Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": false
-    },
-    {
       "idea_id": "IDEA-7124724b5aaa",
       "idea_version": "IDEAV-cdc6277c3874c478",
       "idea_version_started_at": "2026-08-22T02:12:31Z",
@@ -74637,6 +74560,77 @@
       "stale": true
     },
     {
+      "idea_id": "IDEA-6dfe7ce03ed8",
+      "idea_version": "IDEAV-de54a6d0935827d1",
+      "idea_version_started_at": "2026-08-20T18:25:35Z",
+      "ticker": "OTTW",
+      "company": "Ottawa Bancorp, Inc.",
+      "exchange": "OQX",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "The company has entered a definitive agreement to be acquired by Pontiac Bancorp, which typically results in the stock price converging toward the acquisition offer price.",
+      "why_now": "The acquisition was announced on 2026-08-20.",
+      "conviction": 75,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 18,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-f6c6bb38240e"
+      ],
+      "primary_source_event_id": "EVT-f6c6bb38240e",
+      "source_headlines": [
+        "Pontiac Bancorp, Inc. has agreed to acquire Ottawa Bancorp, Inc."
+      ],
+      "source_headline": "Pontiac Bancorp, Inc. has agreed to acquire Ottawa Bancorp, Inc.",
+      "source_url": "https://www.globenewswire.com/news-release/2026/08/20/3348730/0/en/pontiac-bancorp-inc-has-agreed-to-acquire-ottawa-bancorp-inc.html",
+      "source_name": "GlobeNewswire — News about Public Companies",
+      "materiality_max": 96,
+      "newest_source_at": "2026-08-20T17:20:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-20T18:25:35Z",
+      "updated_at": "2026-08-20T18:25:35Z",
+      "decay_at": "2026-08-22T05:20:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": true
+    },
+    {
       "idea_id": "IDEA-7a73e09f78e8",
       "idea_version": "IDEAV-eed3df02b619ee61",
       "idea_version_started_at": "2026-08-21T06:43:23Z",
@@ -76210,13 +76204,13 @@
       "invalid_count": 0,
       "error": null
     },
-    "total_count": 29,
-    "shown_count": 29,
+    "total_count": 30,
+    "shown_count": 30,
     "hidden_count": 0,
     "side_counts": {
       "long": {
-        "total_count": 8,
-        "shown_count": 8,
+        "total_count": 9,
+        "shown_count": 9,
         "hidden_count": 0
       },
       "short": {
@@ -76241,6 +76235,80 @@
       }
     },
     "rows": [
+      {
+        "idea_id": "IDEA-6dfe7ce03ed8",
+        "idea_version": "IDEAV-de54a6d0935827d1",
+        "idea_version_started_at": "2026-08-20T18:25:35Z",
+        "ticker": "OTTW",
+        "company": "Ottawa Bancorp, Inc.",
+        "exchange": "OQX",
+        "direction": "long",
+        "pair_with": null,
+        "reason": "The company has entered a definitive agreement to be acquired by Pontiac Bancorp, which typically results in the stock price converging toward the acquisition offer price.",
+        "why_now": "The acquisition was announced on 2026-08-20.",
+        "conviction": 75,
+        "conviction_basis": "pre_edge_proxy",
+        "trade_score": 55,
+        "trade_score_basis": "evidence_gate_v2",
+        "trade_score_breakdown": {
+          "evidence": 18,
+          "impact": 19,
+          "specificity": 15,
+          "timing": 10,
+          "expression": 6,
+          "corroboration": 0,
+          "learning_adjustment": 0
+        },
+        "trade_readiness": "needs_data",
+        "missing_checks": [
+          "live liquidity",
+          "dated catalyst",
+          "priced-in risk",
+          "independent confirmation",
+          "live price, liquidity, and consensus"
+        ],
+        "learning": {
+          "resolved": 0,
+          "positive": 0,
+          "negative": 0,
+          "neutral": 0,
+          "adjustment": 0,
+          "basis": "not_enough_outcomes",
+          "evidenceIds": []
+        },
+        "priced_in": "priced",
+        "thesis_type": "company_specific",
+        "origin_type": "wire",
+        "source_themes": [],
+        "source_event_ids": [
+          "EVT-f6c6bb38240e"
+        ],
+        "primary_source_event_id": "EVT-f6c6bb38240e",
+        "source_headlines": [
+          "Pontiac Bancorp, Inc. has agreed to acquire Ottawa Bancorp, Inc."
+        ],
+        "source_headline": "Pontiac Bancorp, Inc. has agreed to acquire Ottawa Bancorp, Inc.",
+        "source_url": "https://www.globenewswire.com/news-release/2026/08/20/3348730/0/en/pontiac-bancorp-inc-has-agreed-to-acquire-ottawa-bancorp-inc.html",
+        "source_name": "GlobeNewswire — News about Public Companies",
+        "materiality_max": 96,
+        "newest_source_at": "2026-08-20T17:20:00Z",
+        "prior_coverage": {
+          "has_run": false,
+          "latest_run": null,
+          "latest_decision": null,
+          "data_pool_present": false
+        },
+        "surfaced_at": "2026-08-20T18:25:35Z",
+        "updated_at": "2026-08-20T18:25:35Z",
+        "decay_at": "2026-08-22T05:20:00Z",
+        "status": "expired",
+        "promoted_signal_id": null,
+        "feedback": null,
+        "stale": true,
+        "archived_at": "2026-08-22T05:20:00Z",
+        "archive_reason": "expired",
+        "audit_only": true
+      },
       {
         "idea_id": "IDEA-6463e4eddb42",
         "idea_version": "IDEAV-b278f86a1a29438a",
@@ -78387,7 +78455,7 @@
   },
   "ideas_scorecard": {
     "surfaced_total": 69,
-    "live_count": 39,
+    "live_count": 38,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
@@ -78406,9 +78474,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 272992,
-    "news_picked_today": 2648,
-    "news_dropped_today": 4444
+    "news_seen_today": 293761,
+    "news_picked_today": 3883,
+    "news_dropped_today": 6593
   },
   "book_momentum": {
     "live_count": 8,
