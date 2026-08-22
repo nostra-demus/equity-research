@@ -66,7 +66,7 @@ import { notifyFeedbackResolved } from './feedback-email'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, swarmSubjectSummaries, terminalModuleName } from './roster'
-import { isValidCalendarISODate, listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, readPublishedCallsMarkdown, resolveRunRoot, runManifest, todayISO } from './outputs'
+import { isValidCalendarISODate, listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, readPublishedCallsMarkdown, readRunsMarkdown, resolveRunRoot, runManifest, todayISO } from './outputs'
 import {
   WATCHLIST_ENTRIES_DIR, WATCHLIST_MAX_ATTACHMENTS, WATCHLIST_MAX_ROWS, WATCHLIST_MAX_TAGS, WATCHLIST_MAX_TRIGGERS,
   deleteEntry, fingerprintEngineRow, isWatchId, listingKey, makeListing, mergeWatchlist, newEntryId,
@@ -3146,7 +3146,7 @@ app.get('/api/output', async (req, reply) => {
   const allowed = ['analyses/', ...listSwarms().filter((s) => s.id !== 'research').map((s) => `${s.runsRoot}/`)]
   if (!p || !allowed.some((pre) => p.startsWith(pre))) return reply.code(400).send({ error: 'path must be under a runs folder' })
   try {
-    return readMarkdown(p, resolveInsideRuns)
+    return readRunsMarkdown(p)
   } catch (e: any) {
     return reply.code(e?.code === 'ENOENT' ? 404 : 400).send({ error: 'cannot read', detail: String(e?.message || e) })
   }
@@ -3177,7 +3177,7 @@ app.get('/api/output/thesis', async (req, reply) => {
     const p = runManifest(r.runRoot, r.resolve, terminalModuleName(r.swarm)).finalReport?.path
     if (!p) return reply.code(404).send({ error: 'no final dossier yet' })
     try {
-      return readMarkdown(p, r.resolve)
+      return readRunsMarkdown(p)
     } catch {
       return reply.code(404).send({ error: 'no final dossier yet' })
     }

@@ -11,15 +11,66 @@ import { diffDecisionRecords } from './run-diff'
 import { publishedGitCommit, publishedTreeAuthority, type PublishedTreeAuthority } from './published-git'
 import { listSwarms } from './swarms'
 
-// `resolve` defaults to the analyses/ sandbox (research). The chat reader passes resolveInsideRuns so it
-// can ground on any swarm's run folder; every other caller keeps the analyses-only default unchanged.
-export function readMarkdown(relPath: string, resolve: (p: string) => string = resolveInsideAnalyses): { path: string; markdown: string } {
-  const real = resolve(relPath)
+// Output markdown is always an engine-authored repo-relative artifact. The strict segment allowlist makes
+// the public request boundary explicit; filesystem enumeration and canonical containment below prevent the
+// request value itself from becoming a path while rejecting aliases and symlink escapes.
+const SAFE_OUTPUT_MARKDOWN_RE = /^(?:[A-Za-z0-9][A-Za-z0-9._-]*\/)+[A-Za-z0-9][A-Za-z0-9._-]*\.md$/
+
+function missingOutputPath(): Error {
+  return Object.assign(new Error('Output markdown not found'), { code: 'ENOENT' })
+}
+
+/**
+ * Resolve an existing regular file without ever feeding request-derived text to a filesystem path sink.
+ * Each requested segment is only compared with names returned by readdir; the selected entry name is the
+ * value joined into the next path. Rejecting links at every step also closes aliases and swap-through-link
+ * attacks before the final canonical containment check.
+ */
+function resolveEnumeratedFile(root: string, requestedRelativePath: string): string {
+  const baseReal = fs.realpathSync(root)
+  const requestedSegments = requestedRelativePath.split('/')
+  let current = baseReal
+  for (let index = 0; index < requestedSegments.length; index += 1) {
+    const requestedName = requestedSegments[index]
+    const entry = fs.readdirSync(current, { withFileTypes: true })
+      .find((candidate) => candidate.name === requestedName)
+    if (!entry || entry.isSymbolicLink()) throw missingOutputPath()
+    const terminal = index === requestedSegments.length - 1
+    if ((terminal && !entry.isFile()) || (!terminal && !entry.isDirectory())) throw missingOutputPath()
+    current = path.join(current, entry.name)
+  }
+  const real = fs.realpathSync(current)
+  if (!real.startsWith(`${baseReal}${path.sep}`)) throw new Error('Path escapes the output sandbox')
+  return real
+}
+
+export function readMarkdown(relPath: string): { path: string; markdown: string } {
+  if (!SAFE_OUTPUT_MARKDOWN_RE.test(relPath)) throw new Error('Invalid output markdown path')
+  const prefix = 'analyses/'
+  if (!relPath.startsWith(prefix)) throw new Error('Path escapes the analyses sandbox')
+  const real = resolveEnumeratedFile(ANALYSES_DIR, relPath.slice(prefix.length))
   const markdown = fs.readFileSync(real, 'utf8')
   return { path: relPath, markdown }
 }
 
-// Calls advertises only these published artifacts. General run output remains owned by readMarkdown();
+/** Read markdown confined to any discovered swarm run tree. */
+export function readRunsMarkdown(relPath: string): { path: string; markdown: string } {
+  if (!SAFE_OUTPUT_MARKDOWN_RE.test(relPath)) throw new Error('Invalid output markdown path')
+  const roots = [
+    { prefix: 'analyses/', root: ANALYSES_DIR },
+    ...listSwarms().map((swarm) => ({
+      prefix: `${swarm.runsRoot.replace(/\/+$/, '')}/`,
+      root: path.join(REPO_ROOT, swarm.runsRoot),
+    })),
+  ].sort((left, right) => right.prefix.length - left.prefix.length)
+  const selected = roots.find(({ prefix }) => relPath.startsWith(prefix))
+  if (!selected) throw new Error('Path escapes the runs sandbox')
+  const real = resolveEnumeratedFile(selected.root, relPath.slice(selected.prefix.length))
+  const markdown = fs.readFileSync(real, 'utf8')
+  return { path: relPath, markdown }
+}
+
+// Calls advertises only these published artifacts. General run output remains owned by the scoped readers;
 // this narrow reader exists so a dirty doer and a fresh/static host open the same bytes the Calls row used.
 const PUBLISHED_CALLS_ARTIFACT_RE = /^(?:analyses\/[A-Z0-9.\-]{1,40}_\d{4}-\d{2}-\d{2}\/final_thesis\.md|analyses\/[A-Z0-9.\-]{1,40}_\d{4}-\d{2}-\d{2}\/reviews\/\d{4}-\d{2}-\d{2}_[A-Za-z0-9-]{1,20}_(?:decision_review(?:_v\d+)?\.json|memo_delta(?:_v\d+)?\.md)|analyses\/tracking\/\d{4}-\d{2}-\d{2}_calls_tracker(?:_v\d+)?\.md)$/
 const PUBLISHED_DECISION_REVIEW_BASENAME_RE = /^\d{4}-\d{2}-\d{2}_[A-Za-z0-9-]{1,20}_decision_review(?:_v\d+)?\.json$/
