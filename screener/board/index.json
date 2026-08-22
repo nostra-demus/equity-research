@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T22:06:13Z",
+  "generated_at": "2026-08-22T22:06:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-2434",
@@ -72129,6 +72129,148 @@
       "stale": false
     },
     {
+      "idea_id": "IDEA-0ac5d784c64f",
+      "idea_version": "IDEAV-4baa810c8a8e6979",
+      "idea_version_started_at": "2026-08-22T22:06:30Z",
+      "ticker": "TSLA",
+      "company": "Tesla",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Chinese regulators forced Tesla to lead a 4 million-vehicle recall, creating direct cost and reputational drag on its largest overseas market.",
+      "why_now": "Recall announced 2026-08-22, a live regulatory action in China.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-33e42602a963"
+      ],
+      "primary_source_event_id": "EVT-33e42602a963",
+      "source_headlines": [
+        "Tesla leads China’s 4 mn vehicle recall"
+      ],
+      "source_headline": "Tesla leads China’s 4 mn vehicle recall",
+      "source_url": "https://www.qatar-tribune.com/article/249971/business/tesla-leads-chinas-4-mn-vehicle-recall",
+      "source_name": "Qatar Tribune — Business",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-22T21:00:00Z",
+      "prior_coverage": {
+        "has_run": true,
+        "latest_run": "analyses/TSLA_2026-07-25",
+        "latest_decision": "Short Candidate",
+        "data_pool_present": true
+      },
+      "surfaced_at": "2026-08-22T22:06:30Z",
+      "updated_at": "2026-08-22T22:06:30Z",
+      "decay_at": "2026-08-24T09:00:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-90b902d53889",
+      "idea_version": "IDEAV-b640f5f95d51a562",
+      "idea_version_started_at": "2026-08-22T22:06:30Z",
+      "ticker": "NVDA",
+      "company": "Nvidia",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Nvidia notified customers of AI-related price hikes above 15%, which should lift its revenue per unit and expand margins if volumes hold.",
+      "why_now": "Customers were notified on 2026-08-22, a fresh pricing action.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 60,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "price and market expectations",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "unknown",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-1c863cf2a242"
+      ],
+      "primary_source_event_id": "EVT-1c863cf2a242",
+      "source_headlines": [
+        "Nvidia customers notified about AI-related price hikes above 15%"
+      ],
+      "source_headline": "Nvidia customers notified about AI-related price hikes above 15%",
+      "source_url": "https://fortune.com/2026/08/22/nvidia-customers-ai-related-price-hikes-15-percent-vera-rubin-grace-blackwell-chips/",
+      "source_name": "Fortune",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-22T20:27:38Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-22T22:06:30Z",
+      "updated_at": "2026-08-22T22:06:30Z",
+      "decay_at": "2026-08-24T08:27:38Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-0eeb9ca06436",
       "idea_version": "IDEAV-6e33be96a4668ea5",
       "idea_version_started_at": "2026-08-22T19:15:06Z",
@@ -75329,77 +75471,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-bc50c2310a83",
-      "idea_version": "IDEAV-870a61e387aa576b",
-      "idea_version_started_at": "2026-08-20T06:40:08Z",
-      "ticker": "EHL",
-      "company": "Emeco Holdings",
-      "exchange": "ASX",
-      "direction": "long",
-      "pair_with": null,
-      "reason": "The company reported earnings growth and initiated a share buy-back, signaling strong cash flow generation and management confidence in the FY27 outlook.",
-      "why_now": "The announcement was made on 2026-08-19.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "company_specific",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-a49d77d98e73"
-      ],
-      "primary_source_event_id": "EVT-a49d77d98e73",
-      "source_headlines": [
-        "EHL: Emeco grows earnings, announces buy-back and FY27 outlook"
-      ],
-      "source_headline": "EHL: Emeco grows earnings, announces buy-back and FY27 outlook",
-      "source_url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.EHL?key=2924-03123131-6A1339299",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-19T21:53:37Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-20T02:38:38Z",
-      "updated_at": "2026-08-20T06:40:08Z",
-      "decay_at": "2026-08-21T09:53:37Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-5ad1780c26cb",
       "idea_version": "IDEAV-81bf3212a1e82bad",
       "idea_version_started_at": "2026-08-20T18:25:35Z",
@@ -75687,7 +75758,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 23,
+      "file_count": 24,
       "suppression_count": 0,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -77718,8 +77789,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-21T09:53:37Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-22T22:06:35Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -79424,8 +79495,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 80,
-    "live_count": 29,
+    "surfaced_total": 82,
+    "live_count": 31,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
