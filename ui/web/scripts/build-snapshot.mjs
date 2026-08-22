@@ -461,6 +461,15 @@ function copyPrompts() {
 function isISODateJ(s) { return typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s) }
 function loadJSON(p) { try { return JSON.parse(fs.readFileSync(p, 'utf8')) } catch { return null } }
 function todayISOJ() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}` }
+function finiteNumberJ(v) { return typeof v === 'number' && Number.isFinite(v) ? v : null }
+function safeReviewArtifactJ(value, runDirAbs, runRoot) {
+  const prefix = `${runRoot}/reviews/`
+  if (typeof value !== 'string' || !value.startsWith(prefix) || value.includes('\\')) return null
+  const parts = value.split('/')
+  if (parts.some((part) => !part || part === '.' || part === '..')) return null
+  const abs = path.join(runDirAbs, value.slice(runRoot.length + 1))
+  return isFile(abs) ? value : null
+}
 function reviewsForRun(runDirAbs, runRoot) {
   const rdir = path.join(runDirAbs, 'reviews')
   if (!isDir(rdir)) return []
@@ -470,9 +479,18 @@ function reviewsForRun(runDirAbs, runRoot) {
     const fr = Array.isArray(j.forecast_results) ? j.forecast_results : []
     const conf = fr.filter((r) => String((r && r.status) || '').toLowerCase() === 'confirmed').length
     const fals = fr.filter((r) => String((r && r.status) || '').toLowerCase() === 'falsified').length
+    const md = j.memo_delta && typeof j.memo_delta === 'object' ? j.memo_delta : null
     out.push({ file: `${runRoot}/reviews/${n}`, basename: n, review_window: j.review_window || '', review_date: j.review_date || '',
-      review_price: typeof j.review_price === 'number' ? j.review_price : null, absolute_return_pct: typeof j.absolute_return_pct === 'number' ? j.absolute_return_pct : null,
-      thesis_status: j.thesis_status || null, forecasts_confirmed: conf, forecasts_falsified: fals })
+      review_price: finiteNumberJ(j.review_price), absolute_return_pct: finiteNumberJ(j.absolute_return_pct),
+      benchmark_relative_return_pct: finiteNumberJ(j.benchmark_relative_return_pct),
+      thesis_status: typeof j.thesis_status === 'string' && j.thesis_status ? j.thesis_status : null,
+      decision_quality: typeof j.decision_quality === 'string' && j.decision_quality ? j.decision_quality : null,
+      forecasts_confirmed: conf, forecasts_falsified: fals,
+      memo_delta_file: safeReviewArtifactJ(md?.memo_delta_file, runDirAbs, runRoot),
+      stage_one_comment: typeof md?.stage_one_comment === 'string' && md.stage_one_comment ? md.stage_one_comment : null,
+      memo_delta_summary: typeof md?.summary === 'string' && md.summary.trim() ? md.summary.trim() : null,
+      thesis_delta_verdict: typeof md?.thesis_delta_verdict === 'string' && md.thesis_delta_verdict.trim()
+        ? md.thesis_delta_verdict.trim().toLowerCase() : null })
   }
   return out
 }
@@ -483,12 +501,20 @@ function buildTimelineJ(schedule, reviews, today) {
     const dt = schedule[w]; if (!isISODateJ(dt)) continue
     const matches = reviews.filter((r) => r.basename.includes(`_${w}_decision_review`))
     const win = winnerJ(matches)
-    if (win) out.push({ window: w, due_date: dt, status: 'done', review_date: win.review_date, review_price: win.review_price, absolute_return_pct: win.absolute_return_pct, thesis_status: win.thesis_status, forecasts_confirmed: win.forecasts_confirmed, forecasts_falsified: win.forecasts_falsified, review_file: win.file, review_count: matches.length })
+    if (win) out.push({ window: w, due_date: dt, status: 'done', review_date: win.review_date, review_price: win.review_price, absolute_return_pct: win.absolute_return_pct,
+      benchmark_relative_return_pct: win.benchmark_relative_return_pct, thesis_status: win.thesis_status, decision_quality: win.decision_quality,
+      forecasts_confirmed: win.forecasts_confirmed, forecasts_falsified: win.forecasts_falsified, review_file: win.file, review_count: matches.length,
+      memo_delta_file: win.memo_delta_file, stage_one_comment: win.stage_one_comment,
+      memo_delta_summary: win.memo_delta_summary, thesis_delta_verdict: win.thesis_delta_verdict })
     else out.push({ window: w, due_date: dt, status: dt < today ? 'overdue' : dt === today ? 'due' : 'upcoming' })
   }
   for (const r of reviews) {
     if (keys.some((w) => r.basename.includes(`_${w}_decision_review`))) continue
-    out.push({ window: r.review_window || 'ad-hoc', due_date: r.review_date || null, status: 'done', review_date: r.review_date, review_price: r.review_price, absolute_return_pct: r.absolute_return_pct, thesis_status: r.thesis_status, forecasts_confirmed: r.forecasts_confirmed, forecasts_falsified: r.forecasts_falsified, review_file: r.file })
+    out.push({ window: r.review_window || 'ad-hoc', due_date: r.review_date || null, status: 'done', review_date: r.review_date, review_price: r.review_price, absolute_return_pct: r.absolute_return_pct,
+      benchmark_relative_return_pct: r.benchmark_relative_return_pct, thesis_status: r.thesis_status, decision_quality: r.decision_quality,
+      forecasts_confirmed: r.forecasts_confirmed, forecasts_falsified: r.forecasts_falsified, review_file: r.file,
+      memo_delta_file: r.memo_delta_file, stage_one_comment: r.stage_one_comment,
+      memo_delta_summary: r.memo_delta_summary, thesis_delta_verdict: r.thesis_delta_verdict })
   }
   out.sort((a, b) => { const da = a.due_date || '9999-99-99', db = b.due_date || '9999-99-99'; return da < db ? -1 : da > db ? 1 : 0 })
   return out
@@ -697,10 +723,16 @@ function buildCalls() {
       expected_return_pct: exp, implied_target: entry != null && exp != null ? Math.round(entry * (1 + exp / 100) * 100) / 100 : null,
       downside_risk_pct: typeof d.downside_risk_pct === 'number' ? d.downside_risk_pct : null, kill_criteria_count: Array.isArray(d.kill_criteria) ? d.kill_criteria.length : 0,
       forecasts: fc, run_root: runRoot, final_thesis_path: finalThesisPath, latest_thesis_status: latest ? latest.thesis_status : null,
+      latest_review_summary: latest ? latest.memo_delta_summary : null,
+      latest_review_verdict: latest ? latest.thesis_delta_verdict : null,
+      latest_review_date: latest ? latest.review_date || null : null,
       next_checkpoint: pending ? { window: pending.window, due_date: pending.due_date, status: pending.status } : null, review_count: reviews.length, timeline })
     // copy every file the tracker can open (older runs aren't copied by the latest-only per-ticker loop)
     const ftAbs = path.join(REPO, finalThesisPath); if (isFile(ftAbs)) copyInto(ftAbs, finalThesisPath)
-    for (const t of timeline) if (t.review_file) { const rfAbs = path.join(REPO, t.review_file); if (isFile(rfAbs)) copyInto(rfAbs, t.review_file) }
+    for (const t of timeline) {
+      if (t.review_file) { const rfAbs = path.join(REPO, t.review_file); if (isFile(rfAbs)) copyInto(rfAbs, t.review_file) }
+      if (t.memo_delta_file) { const mdAbs = path.join(REPO, t.memo_delta_file); if (isFile(mdAbs)) copyInto(mdAbs, t.memo_delta_file) }
+    }
   }
   calls.sort((a, b) => (a.decision_date < b.decision_date ? 1 : a.decision_date > b.decision_date ? -1 : 0))
   let dashboard = null

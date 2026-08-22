@@ -58,12 +58,25 @@ function displayStatus(value?: string | null): string {
   return value.replace(/[-_]/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase())
 }
 
-function latestCompleted(timeline: CallTimelineEntry[]): CallTimelineEntry | null {
-  return [...timeline].reverse().find((row) => row.status === 'done') || null
+export function callReturnValue(call: CallSummary, value: number | null | undefined): number | null {
+  if (!finite(value)) return null
+  return (call.basket || '').trim().toLowerCase() === 'short' ? -value : value
+}
+
+export function latestCompletedReview(timeline: CallTimelineEntry[]): CallTimelineEntry | null {
+  const completed = timeline.filter((row) => row.status === 'done')
+  if (!completed.length) return null
+  return [...completed].sort((a, b) => {
+    const ad = a.review_date || ''
+    const bd = b.review_date || ''
+    if (ad !== bd) return ad < bd ? 1 : -1
+    return (b.review_file || '').localeCompare(a.review_file || '')
+  })[0]
 }
 
 function situationFor(row: CallTimelineEntry | null, call: CallSummary): CallTrackingSnapshot['situation'] {
   const quality = (row?.decision_quality || '').trim().toLowerCase()
+  const thesis = (row?.thesis_status || '').trim().toLowerCase()
   const detailBits = [
     row?.thesis_status ? `Thesis ${displayStatus(row.thesis_status).toLowerCase()}` : null,
     row?.thesis_delta_verdict ? `delta ${displayStatus(row.thesis_delta_verdict).toLowerCase()}` : null,
@@ -73,17 +86,35 @@ function situationFor(row: CallTimelineEntry | null, call: CallSummary): CallTra
     : row ? 'Review completed' : 'No reviews recorded yet'
   const detail = detailBits.join(' · ') || fallbackDetail
 
+  const thesisRight = thesis === 'confirmed' || thesis === 'on-track'
+  const thesisWrong = thesis === 'broken' || thesis === 'at-risk'
+  const qualitySaysRight = quality === 'skill' || quality === 'good process / bad luck or too early'
+  const qualitySaysWrong = quality === 'luck' || quality === 'genuine miss'
+  if ((thesisRight && qualitySaysWrong) || (thesisWrong && qualitySaysRight)) {
+    const headline = thesis === 'broken' ? 'Thesis broken'
+      : thesis === 'at-risk' ? 'Thesis at risk' : 'Review fields disagree'
+    return {
+      headline,
+      detail: `Review fields disagree: thesis ${displayStatus(thesis).toLowerCase()}, decision quality ${displayStatus(quality).toLowerCase()}`,
+      tone: 'bad',
+    }
+  }
+  if (thesis === 'broken') return { headline: 'Thesis broken', detail, tone: 'bad' }
+  if (thesis === 'at-risk') return { headline: 'Thesis at risk', detail, tone: 'bad' }
+  if (thesis === 'expired') {
+    const expiredDetail = row?.thesis_delta_verdict
+      ? `Delta ${displayStatus(row.thesis_delta_verdict).toLowerCase()}`
+      : 'The recorded thesis window has ended'
+    return { headline: 'Thesis expired', detail: expiredDetail, tone: 'neutral' }
+  }
   if (quality === 'skill') return { headline: 'Call working as intended', detail, tone: 'good' }
   if (quality === 'luck') return { headline: 'Price moved our way, but not for our reason', detail, tone: 'neutral' }
   if (quality === 'good process / bad luck or too early') {
     return { headline: 'Thesis holds; price has not followed yet', detail, tone: 'neutral' }
   }
   if (quality === 'genuine miss') return { headline: 'Call is going wrong', detail, tone: 'bad' }
-  if (row?.thesis_status === 'confirmed') return { headline: 'Thesis confirmed', detail, tone: 'good' }
-  if (row?.thesis_status === 'at-risk' || row?.thesis_status === 'broken') {
-    return { headline: row.thesis_status === 'broken' ? 'Thesis broken' : 'Thesis at risk', detail, tone: 'bad' }
-  }
-  if (row?.thesis_status === 'on-track') return { headline: 'Thesis on track', detail, tone: 'good' }
+  if (thesis === 'confirmed') return { headline: 'Thesis confirmed', detail, tone: 'good' }
+  if (thesis === 'on-track') return { headline: 'Thesis on track', detail, tone: 'good' }
   return { headline: row ? 'Too early to score' : 'Awaiting first review', detail, tone: 'neutral' }
 }
 
@@ -92,20 +123,22 @@ export function callTrackingSnapshot(call: CallSummary): CallTrackingSnapshot {
   const entry = money(call.currency, call.entry_price)
   const entryPhrase = entry === 'price not recorded' ? 'with no recorded entry price' : `at ${entry}`
   const target = finite(call.implied_target) ? ` Target: ${money(call.currency, call.implied_target)}.` : ''
-  const latest = latestCompleted(call.timeline)
+  const latest = latestCompletedReview(call.timeline)
+  const observedReturn = callReturnValue(call, latest?.absolute_return_pct)
+  const benchmarkDelta = callReturnValue(call, latest?.benchmark_relative_return_pct)
 
   const checkpoint = latest ? {
     label: `${windowLabel(latest.window)} check · ${humanDate(latest.review_date || latest.due_date)}`,
     price: money(call.currency, latest.review_price),
-    returnFromCall: finite(latest.absolute_return_pct)
-      ? signedPct(latest.absolute_return_pct)
+    returnFromCall: observedReturn != null
+      ? signedPct(observedReturn)
       : 'Return not recorded',
-    returnTone: !finite(latest.absolute_return_pct) ? 'neutral' as const
-      : latest.absolute_return_pct >= 0 ? 'good' as const : 'bad' as const,
-    benchmarkDelta: !finite(latest.benchmark_relative_return_pct) ? null
-      : latest.benchmark_relative_return_pct >= 0
-        ? `${Math.abs(latest.benchmark_relative_return_pct).toFixed(1)}pp ahead of benchmark`
-        : `${Math.abs(latest.benchmark_relative_return_pct).toFixed(1)}pp behind benchmark`,
+    returnTone: observedReturn == null ? 'neutral' as const
+      : observedReturn >= 0 ? 'good' as const : 'bad' as const,
+    benchmarkDelta: benchmarkDelta == null ? null
+      : benchmarkDelta >= 0
+        ? `${Math.abs(benchmarkDelta).toFixed(1)}pp ahead of benchmark`
+        : `${Math.abs(benchmarkDelta).toFixed(1)}pp behind benchmark`,
   } : null
 
   const next = call.next_checkpoint

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { api, isStatic } from '../lib/api'
 import { currentCalls, publishedCalls, publishedCallUpdates, publishedNeedsAttention } from '../lib/callsView'
-import { callTrackingSnapshot } from '../lib/callsTracking'
+import { callReturnValue, callTrackingSnapshot, latestCompletedReview } from '../lib/callsTracking'
 import { decisionColor } from '../lib/format'
 import type { CallSummary, CallTimelineEntry, CallsResult, CallUpdate, NeedsAttentionRow } from '../lib/types'
 import './CallsTracker.css'
@@ -257,11 +257,12 @@ function CallCard({ c, historical, busy, staticMode, onUpdate, onFileDue, onOpen
   }]
   for (const t of c.timeline) {
     const reached = t.status === 'done' || t.status === 'due' || t.status === 'overdue'
-    const sub = t.status === 'done' ? ret(t.absolute_return_pct) : dash(t.due_date)
+    const callReturn = callReturnValue(c, t.absolute_return_pct)
+    const sub = t.status === 'done' ? ret(callReturn) : dash(t.due_date)
     const detail = t.status === 'done'
-      ? `Reviewed ${dash(t.review_date)} · price ${dash(t.review_price)} · ${ret(t.absolute_return_pct)} · thesis ${dash(t.thesis_status)} · forecasts ${dash(t.forecasts_confirmed)}✓/${dash(t.forecasts_falsified)}✗${t.memo_delta_file ? ' · click: memo delta' : t.review_file ? ' · click: review JSON' : ''}`
+      ? `Reviewed ${dash(t.review_date)} · price ${dash(t.review_price)} · ${ret(callReturn)} · thesis ${dash(t.thesis_status)} · forecasts ${dash(t.forecasts_confirmed)}✓/${dash(t.forecasts_falsified)}✗${t.memo_delta_file ? ' · click: memo delta' : t.review_file ? ' · click: review JSON' : ''}`
       : `${t.window} review ${t.status} — due ${dash(t.due_date)}`
-    const subTone = t.status === 'done' && typeof t.absolute_return_pct === 'number' ? (t.absolute_return_pct >= 0 ? 'pos' : 'neg') : undefined
+    const subTone = t.status === 'done' && callReturn != null ? (callReturn >= 0 ? 'pos' : 'neg') : undefined
     // a done checkpoint opens its human-readable memo delta when the review filed one; else the raw review JSON
     const onClick = t.memo_delta_file
       ? () => onOpen(t.memo_delta_file!, `${c.ticker} ${t.window} memo delta`)
@@ -270,8 +271,8 @@ function CallCard({ c, historical, busy, staticMode, onUpdate, onFileDue, onOpen
         : undefined
     nodes.push({ kind: t.status, label: t.window, sub, subTone, reached, title: detail, onClick })
   }
-  // latest filed delta artifacts (timeline is in time order; take the last done entry that carries them)
-  const lastDelta = [...c.timeline].reverse().find((t) => t.status === 'done' && (t.memo_delta_file || t.stage_one_comment))
+  // Use the actual review date: a scheduled review can be filed after a newer-due ad-hoc checkpoint.
+  const lastDelta = latestCompletedReview(c.timeline.filter((t) => t.memo_delta_file || t.stage_one_comment))
   // amber fill reaches the furthest checkpoint time has passed (done/due/overdue)
   let reachedIdx = 0
   nodes.forEach((n, i) => { if (n.reached) reachedIdx = i })

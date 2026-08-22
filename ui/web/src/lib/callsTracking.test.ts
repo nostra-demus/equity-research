@@ -65,4 +65,39 @@ completedWithoutStatus.timeline[0].thesis_status = null
 completedWithoutStatus.timeline[0].thesis_delta_verdict = null
 assert.equal(callTrackingSnapshot(completedWithoutStatus).situation.detail, 'Review completed')
 
+const shortCall = baseCall()
+shortCall.decision = 'Short Candidate'
+shortCall.basket = 'Short'
+shortCall.timeline[0].absolute_return_pct = -12.34
+shortCall.timeline[0].benchmark_relative_return_pct = -10.25
+assert.deepEqual(callTrackingSnapshot(shortCall).checkpoint, {
+  label: '30-day check · 9 Aug 2026', price: 'AED 11.5', returnFromCall: '+12.3%',
+  returnTone: 'good', benchmarkDelta: '10.3pp ahead of benchmark',
+})
+
+const lateScheduled = baseCall()
+lateScheduled.timeline = [
+  { ...lateScheduled.timeline[0], review_date: '2026-08-20', review_file: 'reviews/late.json', memo_delta_summary: 'Newest evidence.' },
+  { ...lateScheduled.timeline[0], window: 'ad-hoc', due_date: '2026-08-15', review_date: '2026-08-15', review_file: 'reviews/adhoc.json', memo_delta_summary: 'Older evidence.' },
+]
+const lateTracked = callTrackingSnapshot(lateScheduled)
+assert.equal(lateTracked.checkpoint?.label, '30-day check · 20 Aug 2026')
+assert.equal(lateTracked.evidence, 'Newest evidence.')
+
+const expired = baseCall()
+expired.timeline[0].decision_quality = null
+expired.timeline[0].thesis_status = 'expired'
+expired.timeline[0].thesis_delta_verdict = null
+assert.deepEqual(callTrackingSnapshot(expired).situation, {
+  headline: 'Thesis expired', detail: 'The recorded thesis window has ended', tone: 'neutral',
+})
+
+const contradictory = baseCall()
+contradictory.timeline[0].thesis_status = 'broken'
+assert.deepEqual(callTrackingSnapshot(contradictory).situation, {
+  headline: 'Thesis broken',
+  detail: 'Review fields disagree: thesis broken, decision quality skill',
+  tone: 'bad',
+})
+
 console.log('ok  Calls scorecard tells the original call, result, present read, and next check')
