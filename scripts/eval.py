@@ -3319,12 +3319,12 @@ if scope=="selftest":
         if not ok: bad+=1
 
     # ---- check BA: HARD GATE 11 kill-criteria trigger-test schema presence ------------------------
-    _ba_good  = {"criterion":"c1","comparable_basis":"H1 FY26 gross margin vs H1 FY25 gross margin","fired_last_two_periods":False}
-    _ba_wouldfire = {"criterion":"c2","comparable_basis":"Q4 revenue vs Q4 a year earlier","fired_last_two_periods":True}
-    _ba_nocb  = {"criterion":"c3","fired_last_two_periods":False}
-    _ba_blankcb = {"criterion":"c4","comparable_basis":"   ","fired_last_two_periods":False}
-    _ba_nofl  = {"criterion":"c5","comparable_basis":"H1 FY26 vs H1 FY25"}
-    _ba_badfl = {"criterion":"c6","comparable_basis":"H1 FY26 vs H1 FY25","fired_last_two_periods":"no"}
+    _ba_good  = {"condition":"c1","comparable_basis":"H1 FY26 gross margin vs H1 FY25 gross margin","fired_last_two_periods":False}
+    _ba_wouldfire = {"condition":"c2","comparable_basis":"Q4 revenue vs Q4 a year earlier","fired_last_two_periods":True}
+    _ba_nocb  = {"condition":"c3","fired_last_two_periods":False}
+    _ba_blankcb = {"condition":"c4","comparable_basis":"   ","fired_last_two_periods":False}
+    _ba_nofl  = {"condition":"c5","comparable_basis":"H1 FY26 vs H1 FY25"}
+    _ba_badfl = {"condition":"c6","comparable_basis":"H1 FY26 vs H1 FY25","fired_last_two_periods":"no"}
     _ba_str   = "a plain-string kill criterion with no structured fields at all"
     bacases=[  # (decision_date, kill_criteria, expect: None=N/A, []=pass, [substr]=fail-with)
         ("2026-08-22",[_ba_good],[]),                                    # both fields present, well-formed → pass
