@@ -63,6 +63,11 @@ check('the static showcase fails closed to empty legacy history instead of fabri
   assert.match(api, /buckets: \[\], providers: \[\]/)
 })
 
+check('an unreadable saved backlog is shown as unknown, never as a proven zero', () => {
+  assert.match(panel, /diag\.backlog\.unavailable \? '—'/)
+  assert.match(panel, /the saved waiting list could not be read/)
+})
+
 check('reduced motion and narrow-screen layouts remain supported', () => {
   assert.match(css, /prefers-reduced-motion: reduce/)
   assert.match(css, /\.diag \{ transition: none; \}/)

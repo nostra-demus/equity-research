@@ -404,7 +404,7 @@ export function PipelineDiagnostics() {
               <ul className="diagwhy__list">
                 <li><b>{diag.today.newArrivals == null ? '—' : diag.today.newArrivals.toLocaleString()}</b> new items found today{diag.today.newArrivals == null ? ' — older records cannot prove the unique total.' : '.'}</li>
                 <li><b>{diag.today.read.toLocaleString()}</b> items fully scored.</li>
-                <li><b>{(diag.backlog.unscoredCount ?? diag.backlog.count).toLocaleString()}</b> items currently waiting for a first score.</li>
+                <li><b>{diag.backlog.unavailable ? '—' : (diag.backlog.unscoredCount ?? diag.backlog.count).toLocaleString()}</b> items currently waiting for a first score{diag.backlog.unavailable ? ' — the saved waiting list could not be read.' : '.'}</li>
                 {(diag.backlog.projectionRecoveryCount ?? 0) > 0 && <li><b>{diag.backlog.projectionRecoveryCount!.toLocaleString()}</b> items already scored and waiting to be safely saved.</li>}
                 <li><b>{diag.today.dropped.toLocaleString()}</b> items scored but not sent to the main inbox.</li>
                 <li><b>{diag.backlog.lostToday.toLocaleString()}</b> items never scored by older scanner versions because the active waiting list was full.</li>

@@ -7,11 +7,12 @@ let ideas = 0
 let outcomes = 0
 const failed = await runStandalonePasses({
   ingest: async () => { throw new Error('source exploded') },
-  ideas: async () => { ideas++; return 'lead' },
+  ideas: async () => { ideas++; return { ideaPass: 'lead', secondLook: 'shadow' } },
   outcomes: async () => { outcomes++; return 'settled' },
 })
 assert.equal(failed.summary, null)
 assert.equal(failed.ideaPass, 'lead')
+assert.equal(failed.secondLook, 'shadow', 'standalone output retains the second-look result')
 assert.match(String(failed.error), /source exploded/)
 assert.equal(failed.ingestError instanceof Error, true)
 assert.equal(failed.ideaError, null)
@@ -22,11 +23,12 @@ assert.equal(failed.qualifiedOutcomes, 'settled')
 const order: string[] = []
 const healthy = await runStandalonePasses({
   ingest: async () => { order.push('ingest'); return { ok: true } },
-  ideas: async () => { order.push('ideas'); return { ran: true } },
+  ideas: async () => { order.push('ideas'); return { ideaPass: { ran: true }, secondLook: { checked: 2 } } },
   outcomes: async () => { order.push('outcomes'); return { resolved: 1 } },
 })
 assert.deepEqual(order, ['ingest', 'ideas', 'outcomes'])
 assert.equal(healthy.error, null)
 assert.deepEqual(healthy.summary, { ok: true })
+assert.deepEqual(healthy.secondLook, { checked: 2 })
 
 console.log('\n1 ingest-once orchestration test file passed')

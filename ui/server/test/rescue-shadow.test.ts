@@ -192,6 +192,74 @@ function responseForUrl(url: string): any {
 }
 
 {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-malformed-queue-'))
+  try {
+    const dir = path.join(root, 'news-rescue')
+    fs.mkdirSync(dir, { recursive: true })
+    fs.writeFileSync(path.join(dir, 'queue.json'), `${JSON.stringify({
+      v: 1, updated_at: new Date(START).toISOString(),
+      items: [{ kind: 'item', event_id: 'EVT-bad-shape', companies: {} }],
+    })}\n`)
+    assert.equal(loadRescueQueue(root).available, false,
+      'a JSON-valid row with selector-unsafe shapes closes the durable queue instead of throwing later')
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-full-reconciliation-'))
+  try {
+    const social = withInitialRescueDecision({ ...row(2), via: 'reddit', source_tier: 'social' })
+    const routine = withInitialRescueDecision({
+      ...row(3), headline: 'Company 3 Ltd - Board Meeting Intimation for quarterly results',
+      source_tier: 'primary_filing', event_types: ['earnings_revenue_margin'],
+    })
+    const noSignal = withInitialRescueDecision({
+      ...row(4), event_types: [], rank_factors: { ...row(4).rank_factors!, quantified: 0 },
+    })
+    const inboxed = withInitialRescueDecision({ ...row(5), inboxed: true })
+    const outside = withInitialRescueDecision({ ...row(6), triage_score: 45 })
+    assert.equal(recordRescueRows(root, [row(1), social, routine, noSignal, inboxed, outside], START), true)
+    const saved = loadRescueQueue(root)
+    assert.equal(saved.items.length, 6, 'terminal scored rows remain in the rolling audit authority')
+    const reconciled = getRescueDiagnostics(root, baseConfig, START).reconciliation
+    assert.equal(reconciled.total, 6)
+    assert.equal(reconciled.inboxed, 1)
+    assert.equal(reconciled.outside_score, 1)
+    assert.equal(reconciled.social, 1)
+    assert.equal(reconciled.routine_filing, 1)
+    assert.equal(reconciled.no_signal, 1)
+    assert.equal(reconciled.candidates, 1)
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-cluster-representative-'))
+  try {
+    invalidateSymbolCache()
+    assert.equal(recordRescueRows(root, [row(1)], START), true)
+    let calls = 0
+    const fetchImpl = (async (url: string) => { calls++; return responseForUrl(url) }) as any
+    const first = await runRescueShadowPass({
+      stateDir: root, config: { ...baseConfig, perCycle: 1 }, coreReady: true, fetchImpl, now: () => START,
+    })
+    assert.equal(first.checkedThisCycle, 1)
+    const betterCopy = withInitialRescueDecision({
+      ...row(1), event_id: 'EVT-1-better', triage_score: 39,
+      ts: '2026-08-22T00:02:00Z', found_at: '2026-08-22T00:02:00Z',
+      url: 'https://ft.com/company-1-better', domain: 'ft.com', source_name: 'Financial Times',
+    })
+    const later = START + 3 * 60_000
+    assert.equal(recordRescueRows(root, [betterCopy], later), true)
+    const second = await runRescueShadowPass({
+      stateDir: root, config: { ...baseConfig, perCycle: 1 }, coreReady: true, fetchImpl, now: () => later,
+    })
+    assert.equal(second.checkedThisCycle, 0,
+      'a better representative reuses the check on its now-supporting cluster member')
+    assert.equal(calls, 1)
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-retry-exhausted-'))
   try {
     invalidateSymbolCache()

@@ -679,15 +679,18 @@ export function getNewsStatus(
       today.dropped += c.dropped || 0
       today.read += (c.picked || 0) + (c.watched || 0) + (c.dropped || 0)
     }
-    today.newArrivals = dailyHistory?.todayHistoryStatus === 'complete'
-      && cyclesToday.every((cycle) => typeof cycle.new_arrivals === 'number')
-      ? cyclesToday.reduce((sum, cycle) => sum + Math.max(0, Number(cycle.new_arrivals) || 0), 0)
-      : null
     today.durablyCommitted = cyclesToday.every(cycleHasDurableFeedCommit)
     today.incompleteCycles = dailyHistory?.todayIncompleteCycles ?? 0
     today.totalsLowerBound = dailyHistory?.todayTotalsLowerBound !== false
     today.historyStatus = dailyHistory?.todayHistoryStatus ?? 'unavailable'
     today.corruptCycleRows = dailyHistory?.todayCorruptCycleRows ?? 0
+    today.newArrivals = today.historyStatus === 'complete'
+      && today.incompleteCycles === 0
+      && today.totalsLowerBound === false
+      && today.corruptCycleRows === 0
+      && cyclesToday.every((cycle) => typeof cycle.new_arrivals === 'number')
+      ? cyclesToday.reduce((sum, cycle) => sum + Math.max(0, Number(cycle.new_arrivals) || 0), 0)
+      : null
   } catch {
     // a status read never throws
   }

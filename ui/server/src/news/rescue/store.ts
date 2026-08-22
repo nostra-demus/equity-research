@@ -126,10 +126,32 @@ function compactFeedItem(item: FeedItem): FeedItem {
 }
 
 function queueRelevant(item: FeedItem): boolean {
-  const score = Number(item.triage_score)
-  if (item.inboxed || !Number.isFinite(score) || score < 10 || score > 39) return false
-  const reasons = new Set(item.decision_reason_codes || [])
-  return reasons.has('second_look_candidate') || reasons.has('no_strong_company_event') || reasons.has('duplicate_story')
+  // Keep the whole newly scored funnel for the rolling window. The selector still admits only its
+  // narrow 10-39 candidates, while the terminal rows make live reconciliation honest instead of
+  // showing every excluded category as zero. compactFeedItem keeps this bounded local copy small.
+  return item.kind === 'item' && typeof item.event_id === 'string' && item.event_id.length > 0
+    && typeof item.decision_rule_version === 'string' && item.decision_rule_version.length > 0
+}
+
+function isRescueQueueItem(item: unknown): item is FeedItem {
+  if (!item || typeof item !== 'object' || Array.isArray(item)) return false
+  const row = item as Record<string, unknown>
+  if (row.kind !== 'item' || typeof row.event_id !== 'string' || !row.event_id) return false
+  if (typeof row.headline !== 'string' || typeof row.url !== 'string') return false
+  if (typeof row.ts !== 'string' || typeof row.inboxed !== 'boolean') return false
+  if (typeof row.triage_score !== 'number' || !Number.isFinite(row.triage_score)) return false
+  if (!Array.isArray(row.event_types) || !row.event_types.every((value) => typeof value === 'string')) return false
+  if (!Array.isArray(row.companies) || !row.companies.every((company) => {
+    if (!company || typeof company !== 'object' || Array.isArray(company)) return false
+    const value = company as Record<string, unknown>
+    return (value.name == null || typeof value.name === 'string')
+      && (value.ticker == null || typeof value.ticker === 'string')
+      && (value.listing_country == null || typeof value.listing_country === 'string')
+  })) return false
+  if (row.rank_factors != null && (typeof row.rank_factors !== 'object' || Array.isArray(row.rank_factors))) return false
+  if (row.decision_reason_codes != null
+    && (!Array.isArray(row.decision_reason_codes) || !row.decision_reason_codes.every((value) => typeof value === 'string'))) return false
+  return typeof row.decision_rule_version === 'string' && row.decision_rule_version.length > 0
 }
 
 export function loadRescueQueue(stateDir: string): RescueQueueSnapshot {
@@ -140,11 +162,8 @@ export function loadRescueQueue(stateDir: string): RescueQueueSnapshot {
     if (!stat.isFile() || stat.size < 2 || stat.size > QUEUE_MAX_BYTES) throw new Error('queue size')
     const raw = JSON.parse(fs.readFileSync(file, 'utf8'))
     if (raw?.v !== 1 || !Array.isArray(raw.items) || raw.items.length > QUEUE_MAX_ITEMS) throw new Error('queue shape')
-    return {
-      available: true,
-      items: raw.items.filter((item: any) => item?.kind === 'item' && typeof item.event_id === 'string') as FeedItem[],
-      updated_at: typeof raw.updated_at === 'string' ? raw.updated_at : null,
-    }
+    if (!raw.items.every(isRescueQueueItem)) throw new Error('queue item shape')
+    return { available: true, items: raw.items, updated_at: typeof raw.updated_at === 'string' ? raw.updated_at : null }
   } catch {
     return { available: false, items: [], updated_at: null, error: 'unreadable' }
   }
@@ -210,6 +229,7 @@ export function reserveRescueCheck(
   candidate: RescueCandidate,
   selectorVersion: string,
   now = Date.now(),
+  attemptNumber?: number,
 ): RescueCheckRecord | null {
   const loaded = loadRescueDay(stateDir, date)
   if (!loaded.available || loaded.ledger.checks.length >= DAILY_MAX_ITEMS) return null
@@ -219,7 +239,7 @@ export function reserveRescueCheck(
     key: `${date}:${candidate.event_id}:${loaded.ledger.checks.length + 1}`,
     event_id: candidate.event_id,
     identity_key: candidate.identity_key,
-    attempt: attempts + 1,
+    attempt: attemptNumber ?? attempts + 1,
     pool: candidate.pool,
     reserved_at: new Date(now).toISOString(),
     ticker: candidate.ticker,

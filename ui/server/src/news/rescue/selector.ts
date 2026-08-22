@@ -292,14 +292,29 @@ export function selectRescueCandidates(
     clusterRows.push({ item, identity: id, foundMs: found, duplicate })
   }
 
+  const identitySignatures = new Map<string, Set<string>>()
+  for (const row of clusterRows) {
+    if (!row.identity.ticker) continue
+    const base = `${coreCompanyName(row.identity.name)}|${eventFamily(row.item)}`
+    const signature = `${row.identity.key}|country:${String(row.identity.country || '').trim().toUpperCase()}`
+    identitySignatures.set(base, new Set([...(identitySignatures.get(base) || []), signature]))
+  }
+
   const families = new Map<string, ClusterRow[]>()
   for (const row of clusterRows) {
-    // Publisher copies often disagree only on whether they supplied a ticker or listing country. Use
-    // the exact normalized company name to keep those copies in one evidence package.
-    const companyKey = coreCompanyName(row.identity.name)
-      ? `company:${coreCompanyName(row.identity.name)}`
-      : row.identity.key
-    const key = `${companyKey}|${eventFamily(row.item)}`
+    // Same-name issuers exist in different countries, and occasionally on the same market. Never let
+    // their reports corroborate one another. A name-only copy may join a ticker package only when its
+    // saved country leaves exactly one compatible ticker identity; otherwise it remains separate.
+    const family = eventFamily(row.item)
+    const country = String(row.identity.country || '').trim().toUpperCase()
+    const base = `${coreCompanyName(row.identity.name)}|${family}`
+    const savedIdentity = `${row.identity.key}|country:${country}`
+    const compatibleTickerIdentities = [...(identitySignatures.get(base) || [])].filter((signature) =>
+      !country || signature.endsWith(`country:${country}`))
+    const companyKey = row.identity.ticker || compatibleTickerIdentities.length !== 1
+      ? savedIdentity
+      : compatibleTickerIdentities[0]
+    const key = `${companyKey}|${family}`
     families.set(key, [...(families.get(key) || []), row])
   }
 

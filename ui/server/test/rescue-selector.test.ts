@@ -167,6 +167,22 @@ function row(id: string, fields: Partial<FeedItem> = {}): FeedItem {
   assert.equal(result.candidates[0].pool, 'ticker', 'the cluster still uses its saved clean ticker for identity')
 }
 
+{
+  const usIssuer = row('EVT-same-name-us', {
+    event_types: ['commercial'],
+    companies: [{ name: 'Global Industries Inc', ticker: 'GLBI', listing_country: 'US' }],
+  })
+  const indiaIssuer = row('EVT-same-name-in', {
+    event_types: ['commercial'], domain: 'moneycontrol.com', source_name: 'Moneycontrol',
+    url: 'https://moneycontrol.com/global-industries',
+    companies: [{ name: 'Global Industries Inc', ticker: 'GLOBALIND', listing_country: 'IN' }],
+  })
+  const result = selectRescueCandidates([usIssuer, indiaIssuer], NOW)
+  assert.equal(result.candidates.length, 2,
+    'same-name issuers with different saved listing identities never corroborate or collapse into one candidate')
+  assert.deepEqual(new Set(result.candidates.map((candidate) => candidate.identity_key)).size, 2)
+}
+
 // Historical replay gate. These committed files are the real partial-day samples used to size the rule.
 // The selector must stay in the approved 150–250 daily band and every row must reconcile exactly once.
 const repoRoot = path.resolve(import.meta.dirname, '../../..')

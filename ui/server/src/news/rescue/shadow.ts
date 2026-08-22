@@ -75,6 +75,11 @@ function directoryPaused(until: string | null, now: number): boolean {
   return Number.isFinite(parsed) && parsed > now
 }
 
+function checksForCandidate(candidate: RescueCandidate, checks: readonly RescueCheckRecord[]): RescueCheckRecord[] {
+  const eventIds = new Set([candidate.event_id, ...candidate.supporting_event_ids])
+  return checks.filter((check) => check.identity_key === candidate.identity_key && eventIds.has(check.event_id))
+}
+
 async function verifyCandidate(
   candidate: RescueCandidate,
   fetchImpl: FetchLike,
@@ -128,20 +133,13 @@ function diagnosticsFromState(
   const verified = complete.filter((check) => check.identity_status === 'verified').length
   const unresolved = complete.filter((check) => check.identity_status === 'identity_unresolved').length
   const unavailable = complete.filter((check) => check.identity_status === 'directory_unavailable').length
-  const candidateIds = new Set(selection.candidates.map((candidate) => `${candidate.event_id}|${candidate.identity_key}`))
-  const completedCandidateIds = new Set(history.checks
-    .filter((check) => check.identity_status !== 'directory_unavailable')
-    .map((check) => `${check.event_id}|${check.identity_key}`))
-  const unavailableAttempts = new Map<string, number>()
-  for (const check of history.checks) if (check.identity_status === 'directory_unavailable') {
-    const key = `${check.event_id}|${check.identity_key}`
-    unavailableAttempts.set(key, (unavailableAttempts.get(key) || 0) + 1)
-  }
-  const retryExhaustedIds = new Set([...unavailableAttempts]
-    .filter(([key, attempts]) => attempts >= 2 && !completedCandidateIds.has(key))
-    .map(([key]) => key))
-  const remaining = [...candidateIds]
-    .filter((id) => !completedCandidateIds.has(id) && !retryExhaustedIds.has(id)).length
+  const candidateStates = selection.candidates.map((candidate) => {
+    const matching = checksForCandidate(candidate, history.checks)
+    const terminal = matching.some((check) => check.identity_status !== 'directory_unavailable')
+    const unavailableAttempts = matching.filter((check) => check.identity_status === 'directory_unavailable').length
+    return { candidate, terminal, retryExhausted: !terminal && unavailableAttempts >= 2 }
+  })
+  const remaining = candidateStates.filter((state) => !state.terminal && !state.retryExhausted).length
   const auditHealthy = health.audit_healthy && queue.available && day.available && history.available
   let status: RescueDiagnostics['status'] = 'ready'
   let reason = 'The second look is running in shadow mode. It checks company identity but reads no articles and creates no ideas.'
@@ -169,7 +167,7 @@ function diagnosticsFromState(
     ideasCreated: 0,
     capacityMisses: checks.length >= config.dailyChecks ? Math.max(0, remaining) : 0,
     queuedForLater: remaining,
-    retryExhausted: [...retryExhaustedIds].filter((id) => candidateIds.has(id)).length,
+    retryExhausted: candidateStates.filter((state) => state.retryExhausted).length,
     auditHealthy,
     circuitOpenUntil: health.directory_pause_until,
     dailyCap: config.dailyChecks,
@@ -234,26 +232,15 @@ export async function runRescueShadowPass(deps: {
   const selection = selectRescueCandidates(queue.items, now, deps.config.maxAgeHrs, blockedEventIds)
   const checks = [...day.ledger.checks]
   // A bare reservation may have crossed the network boundary before a crash. Treat it as spent and do
-  // not repeat it after restart. Only an explicitly recorded directory outage earns the bounded retry.
-  const completed = new Set(history.checks
-    .filter((check) => check.identity_status !== 'directory_unavailable')
-    .map((check) => `${check.event_id}|${check.identity_key}`))
-  const lastUnavailable = new Map<string, number>()
-  for (const check of history.checks) if (check.identity_status === 'directory_unavailable') {
-    const key = `${check.event_id}|${check.identity_key}`
-    lastUnavailable.set(key, Math.max(lastUnavailable.get(key) || 0, Date.parse(check.completed_at || check.reserved_at)))
-  }
-  const attempts = new Map<string, number>()
-  for (const check of history.checks) {
-    const key = `${check.event_id}|${check.identity_key}`
-    attempts.set(key, (attempts.get(key) || 0) + 1)
-  }
+  // not repeat it after restart. If a better article later becomes the cluster representative, the old
+  // representative remains a supporting id and therefore reuses this same check.
   const eligible = selection.candidates.filter((candidate) => {
-    const key = `${candidate.event_id}|${candidate.identity_key}`
-    if (completed.has(key)) return false
-    const count = attempts.get(key) || 0
-    if (count >= 2) return false
-    const unavailableAt = lastUnavailable.get(key)
+    const matching = checksForCandidate(candidate, history.checks)
+    if (matching.some((check) => check.identity_status !== 'directory_unavailable')) return false
+    if (matching.length >= 2) return false
+    const unavailableAt = Math.max(0, ...matching
+      .filter((check) => check.identity_status === 'directory_unavailable')
+      .map((check) => Date.parse(check.completed_at || check.reserved_at) || 0))
     return !unavailableAt || now - unavailableAt >= 30 * 60_000
   })
   const ticker = eligible.filter((candidate) => candidate.pool === 'ticker')
@@ -281,7 +268,8 @@ export async function runRescueShadowPass(deps: {
     if (!candidate && nameUsed < deps.config.nameDailyCap) candidate = name.shift()
     if (!candidate) break
 
-    const reservation = reserveRescueCheck(deps.stateDir, date, candidate, RESCUE_SELECTOR_VERSION, now)
+    const attempt = checksForCandidate(candidate, history.checks).length + 1
+    const reservation = reserveRescueCheck(deps.stateDir, date, candidate, RESCUE_SELECTOR_VERSION, now, attempt)
     if (!reservation) {
       updateRescueHealth(deps.stateDir, { audit_healthy: false, audit_error: 'The app could not reserve a second-look check.' }, now)
       break

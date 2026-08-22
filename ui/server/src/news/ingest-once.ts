@@ -17,9 +17,10 @@ import { runNormalIdeasThenSecondLook } from './rescue/order'
 
 const log = (m: string) => console.log(`[news] ${m}`) // eslint-disable-line no-console
 
-export interface StandalonePassResult<TSummary, TIdea, TOutcomes> {
+export interface StandalonePassResult<TSummary, TIdea, TSecondLook, TOutcomes> {
   summary: TSummary | null
   ideaPass: TIdea | null
+  secondLook: TSecondLook | null
   qualifiedOutcomes: TOutcomes
   ingestError: unknown | null
   ideaError: unknown | null
@@ -30,20 +31,25 @@ export interface StandalonePassResult<TSummary, TIdea, TOutcomes> {
  * failure because it independently rejects stale/corrupt sweeps and source timestamps. Thus a transient
  * fetch failure cannot suppress a pass over still-current inputs, and neither news phase can prevent a
  * due 3–6-month research forecast from being graded. */
-export async function runStandalonePasses<TSummary, TIdea, TOutcomes>(deps: {
+export async function runStandalonePasses<TSummary, TIdea, TSecondLook, TOutcomes>(deps: {
   ingest: () => Promise<TSummary>
-  ideas: () => Promise<TIdea>
+  ideas: () => Promise<{ ideaPass: TIdea; secondLook: TSecondLook }>
   outcomes: () => Promise<TOutcomes>
-}): Promise<StandalonePassResult<TSummary, TIdea, TOutcomes>> {
+}): Promise<StandalonePassResult<TSummary, TIdea, TSecondLook, TOutcomes>> {
   let summary: TSummary | null = null
   let ideaPass: TIdea | null = null
+  let secondLook: TSecondLook | null = null
   let ingestError: unknown | null = null
   let ideaError: unknown | null = null
   try { summary = await deps.ingest() } catch (e) { ingestError = e }
-  try { ideaPass = await deps.ideas() } catch (e) { ideaError = e }
+  try {
+    const ideaResult = await deps.ideas()
+    ideaPass = ideaResult.ideaPass
+    secondLook = ideaResult.secondLook
+  } catch (e) { ideaError = e }
   // Intentionally after the catch, not inside the news try: this always runs once.
   const qualifiedOutcomes = await deps.outcomes()
-  return { summary, ideaPass, qualifiedOutcomes, ingestError, ideaError, error: ingestError || ideaError }
+  return { summary, ideaPass, secondLook, qualifiedOutcomes, ingestError, ideaError, error: ingestError || ideaError }
 }
 
 async function main(): Promise<void> {
@@ -89,21 +95,20 @@ async function main(): Promise<void> {
     const result = await runStandalonePasses({
       ingest: () => runIngestCycle({ log }),
       ideas: async () => {
-        const result = await runNormalIdeasThenSecondLook({
+        return runNormalIdeasThenSecondLook({
           ideas: () => runConfiguredIdeaPass(log),
           secondLook: () => runConfiguredRescueShadow(log),
         })
-        return result.ideaPass
       },
       outcomes: () => runConfiguredQualifiedIdeaOutcomes(log),
     })
     if (result.error) console.error('[news] fatal', result.error) // eslint-disable-line no-console
     // Keep the machine-readable settlement result visible even on a failed ingest.
     console.log(JSON.stringify(result.summary // eslint-disable-line no-console
-      ? { ...result.summary, idea_pass: result.ideaPass, qualified_idea_outcomes: result.qualifiedOutcomes,
+      ? { ...result.summary, idea_pass: result.ideaPass, second_look: result.secondLook, qualified_idea_outcomes: result.qualifiedOutcomes,
           ingest_error: result.ingestError instanceof Error ? result.ingestError.message : result.ingestError,
           idea_error: result.ideaError instanceof Error ? result.ideaError.message : result.ideaError }
-      : { ok: false, idea_pass: result.ideaPass, qualified_idea_outcomes: result.qualifiedOutcomes,
+      : { ok: false, idea_pass: result.ideaPass, second_look: result.secondLook, qualified_idea_outcomes: result.qualifiedOutcomes,
           ingest_error: result.ingestError instanceof Error ? result.ingestError.message : result.ingestError,
           idea_error: result.ideaError instanceof Error ? result.ideaError.message : result.ideaError,
           error: result.error instanceof Error ? result.error.message : String(result.error || 'news cycle failed') }))
