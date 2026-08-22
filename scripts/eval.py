@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Deterministic eval harness for the equity-research engine.
 
-Checks invariants A-Z, AA-AZ, and J (framework-source contracts) against every committed
+Checks invariants A-Z, AA-BA, and J (framework-source contracts) against every committed
 decision record in analyses/. Called by /research:eval and by CI.
 
 Usage:
@@ -1359,6 +1359,46 @@ def eval_aw_kill_criteria_overdue(decision_date, kill_criteria, today):
     caveat). None = N/A; [] = nothing due."""
     r = _overdue_aw_kill_criteria_overdue(kill_criteria, today)
     return None if r is None else [x["description"] for x in r]
+
+# ── Check BA (§17 / HARD GATE 11 — kill-criteria trigger test) ──────────────────────────────────
+# WHY: synthesizer.md HARD GATE 11 requires three things per Thesis Kill Criteria row before it can
+# publish: (1) a like-for-like comparable — same period a year earlier, same reporting basis — (2)
+# the implied stub arithmetic where part of the period has already reported, and (3) whether the
+# trigger would have fired on the last two reported periods (the "capable of failing" test). The
+# markdown table even has a dedicated "Measured against" column. But `decision_record.json`'s
+# `kill_criteria[]` (DECISION_LEDGER.md §5) was always a flat array of strings/loose dicts — none of
+# HARD GATE 11's three checks ever survived into the machine-readable record, so nothing this harness
+# (or the finish-gate) can see confirms the sweep happened. The named worked failure this rule exists
+# for: a "gross margin holding at or above 26.3%" trigger that was silently benchmarked against the
+# PRIOR FULL YEAR instead of the correct year-ago HALF, which the trigger could clear while margin was
+# still falling year on year — the opposite of what it claimed to test.
+# This is the presence/shape half only, matching the AZ/AT precedent: whether a stated comparable_basis
+# is GENUINELY like-for-like stays the authoring LLM's judgment call (verify-evidence Section B/C
+# already audits period-basis mismatches on request); this check only stops a future run from silently
+# omitting the two structured fields HARD GATE 11 says every row must carry.
+BA_DATE="2026-08-22"
+def eval_ba_kill_criteria_trigger_test(decision_date, kill_criteria):
+    """Core of check BA. Returns None (N/A — pre-gate, or no kill_criteria to test) or a list of
+    violation strings (empty list = every row passes). Side-effect-free + module-level so the
+    selftest drives every branch fixture-free."""
+    if not (isdate(decision_date) and decision_date>=BA_DATE):
+        return None
+    if not isinstance(kill_criteria, list) or not kill_criteria:
+        return None  # T flags a non-list kill_criteria; an empty list has nothing to trigger-test
+    issues=[]
+    for i,e in enumerate(kill_criteria):
+        if not isinstance(e, dict):
+            issues.append(f"kill_criteria[{i}] is a plain string — HARD GATE 11 requires comparable_basis "
+                           f"and fired_last_two_periods fields, which only an object row can carry")
+            continue
+        cb=e.get("comparable_basis"); fl=e.get("fired_last_two_periods")
+        if not (isinstance(cb,str) and cb.strip()):
+            issues.append(f"kill_criteria[{i}] missing comparable_basis — the like-for-like period/basis "
+                           f"this trigger is measured against (HARD GATE 11 check 1)")
+        if not isinstance(fl,bool):
+            issues.append(f"kill_criteria[{i}] missing fired_last_two_periods (bool) — whether this trigger "
+                           f"would have fired on the last two reported periods (HARD GATE 11 check 3)")
+    return issues
 
 
 # ── Checks AT/AU/AV (§10 scenario span + conjunction disclosure; sign-check presence) ───────────
@@ -3278,6 +3318,39 @@ if scope=="selftest":
         print(("  [ok] " if ok else "  [BAD] ")+f"AW({_dd!r},today={_td!r}) -> {got!r} (want {_want!r})")
         if not ok: bad+=1
 
+    # ---- check BA: HARD GATE 11 kill-criteria trigger-test schema presence ------------------------
+    _ba_good  = {"criterion":"c1","comparable_basis":"H1 FY26 gross margin vs H1 FY25 gross margin","fired_last_two_periods":False}
+    _ba_wouldfire = {"criterion":"c2","comparable_basis":"Q4 revenue vs Q4 a year earlier","fired_last_two_periods":True}
+    _ba_nocb  = {"criterion":"c3","fired_last_two_periods":False}
+    _ba_blankcb = {"criterion":"c4","comparable_basis":"   ","fired_last_two_periods":False}
+    _ba_nofl  = {"criterion":"c5","comparable_basis":"H1 FY26 vs H1 FY25"}
+    _ba_badfl = {"criterion":"c6","comparable_basis":"H1 FY26 vs H1 FY25","fired_last_two_periods":"no"}
+    _ba_str   = "a plain-string kill criterion with no structured fields at all"
+    bacases=[  # (decision_date, kill_criteria, expect: None=N/A, []=pass, [substr]=fail-with)
+        ("2026-08-22",[_ba_good],[]),                                    # both fields present, well-formed → pass
+        ("2026-08-22",[_ba_wouldfire],[]),                               # fired_last_two_periods=True is still a valid bool — presence-gate only, not a correctness grader
+        ("2026-08-22",[_ba_good,_ba_wouldfire],[]),                      # multiple well-formed rows → pass
+        ("2026-08-22",[_ba_nocb],["kill_criteria[0] missing comparable_basis"]),
+        ("2026-08-22",[_ba_blankcb],["kill_criteria[0] missing comparable_basis"]),  # whitespace-only doesn't count
+        ("2026-08-22",[_ba_nofl],["kill_criteria[0] missing fired_last_two_periods"]),
+        ("2026-08-22",[_ba_badfl],["kill_criteria[0] missing fired_last_two_periods"]),  # a string 'no' is not a bool
+        ("2026-08-22",[_ba_str],["kill_criteria[0] is a plain string"]),
+        ("2026-08-22",[_ba_good,_ba_nofl],["kill_criteria[1] missing fired_last_two_periods"]),  # index tracks the offending row
+        ("2026-08-21",[_ba_nocb],None),                                  # predates BA_DATE → N/A
+        ("2026-08-22",[],None),                                         # empty kill_criteria → nothing to test
+        ("2026-08-22",None,None),                                       # no kill_criteria field → N/A
+        ("2026-08-22",5,None),                                          # malformed (non-list) → N/A, T flags it separately
+        ("not-a-date",[_ba_nocb],None),                                 # unparseable decision_date → N/A
+    ]
+    for _dd,_kc,_want in bacases:
+        got=eval_ba_kill_criteria_trigger_test(_dd,_kc)
+        if _want is None:
+            ok = got is None
+        else:
+            ok = got is not None and len(got)==len(_want) and all(any(w in g for g in got) for w in _want)
+        print(("  [ok] " if ok else "  [BAD] ")+f"BA({_dd!r},kc={_kc!r}) -> {got!r} (want {_want!r})")
+        if not ok: bad+=1
+
     for dt_,fl_,exp in aocases:
         got=eval_ao_forecast_resolvability(dt_,fl_)
         if exp is None: ok=(got is None)
@@ -3624,7 +3697,7 @@ if scope=="selftest":
     # AP — valuation-summary lever-sidecar integrity: reuse the module's own fixture-free selftest (DRY),
     # covering soft-presence, structure, blend, and the decision_record non-contradiction check.
     if _vs_selftest() != 0: bad += 1
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(aycases)} check-AY + {len(azcases)} check-AZ + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(t4cases)} check-T4 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(aqcases)} check-AQ + {len(agcases)+len(agci_cases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK + {len(ancases)} check-AN + {len(amcases)} check-AM + {len(arcases)} check-AR + {len(aocases)} check-AO + {len(ascases)} check-AS + {len(awcases)} check-AW + {len(bacases)} check-BA + {len(atcases)} check-AT + {len(aucases)} check-AU + {len(avcases)} check-AV + {len(axcases)} check-AX cases + AP lever-sidecar (module selftest)")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -4165,6 +4238,18 @@ for drp in runs:
         add("AZ_contradiction_sweep", True, f"contradiction_checks present ({len(_az_report.get('contradiction_checks') or [])} finding(s)) in {os.path.basename(_az_vp)}")
     else:
         add("AZ_contradiction_sweep", True, f"N/A (decision_date {ddte!r} predates AZ_DATE {AZ_DATE!r}, or no verification_report.json)", na=True)
+    # BA HARD GATE 11 kill-criteria trigger-test schema presence (forward-looking; landing 2026-08-22).
+    # See the BA_DATE / eval_ba_kill_criteria_trigger_test comment block near AW_kill_criteria_overdue
+    # for the full rationale. Basket-independent, like AY/AZ: any run whose kill_criteria[] is non-empty
+    # must carry comparable_basis + fired_last_two_periods on every row.
+    _bar = eval_ba_kill_criteria_trigger_test(ddte, d.get("kill_criteria"))
+    if _bar is None:
+        add("BA_kill_criteria_trigger_test", True,
+            f"N/A (decision_date {ddte!r} predates BA_DATE {BA_DATE!r}, kill_criteria is empty/absent, or malformed)", na=True)
+    elif _bar:
+        add("BA_kill_criteria_trigger_test", False, "; ".join(_bar))
+    else:
+        add("BA_kill_criteria_trigger_test", True, f"every kill_criteria row carries comparable_basis and fired_last_two_periods ({len(d.get('kill_criteria') or [])} row(s))")
     # W sector ↔ valuation-method consistency (forward-looking; landing SECTOR_DATE / SECTOR_OVERLAYS.md).
     #   When business_type AND primary_valuation_method are both set, verify the method is not one
     #   SECTOR_OVERLAYS.md forbids for that sector type (logic + forbidden list live in SECTOR_FORBIDDEN /
