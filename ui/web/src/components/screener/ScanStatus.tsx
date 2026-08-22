@@ -109,14 +109,21 @@ export function ScanStatus({ variant }: { variant: 'rail' | 'panel' }) {
       })()}
 
       {lc && (lc.fetched > 0 || lc.picked + lc.watched + lc.dropped > 0 ? (
-        <div className="scanstat__last" title="The most recent look: raw items read, then how many were kept for you vs dropped as not worth it">
+        <div className="scanstat__last" title={lc.feed_commit_version === 1
+          ? 'The most recent look: raw items fetched, then how many outcomes crossed the durable feed boundary'
+          : 'Legacy look: pick/watch/drop counts predate durable feed-boundary proof'}>
           {/* a drain cycle fetches nothing (it works the backlog), so "read" is only meaningful for a fetch */}
           {lc.phase === 'drain' ? 'Last look sorted the backlog' : <>Last look read <b>{lc.fetched.toLocaleString()}</b></>}
-          {' · '}kept <b className="scanstat__kept">{lc.picked + lc.watched}</b>
-          {' · '}dropped <b>{lc.dropped.toLocaleString()}</b>
+          {lc.feed_commit_version === 1 ? <>
+            {' · '}inbox-eligible <b className="scanstat__kept">{lc.picked + lc.watched}</b>
+            {' · '}dropped <b>{lc.dropped.toLocaleString()}</b>
+          </> : <>
+            {' · '}legacy report: inbox-eligible <b className="scanstat__kept">{lc.picked + lc.watched}</b>
+            {' · '}dropped <b>{lc.dropped.toLocaleString()}</b> · feed durability unverified
+          </>}
         </div>
       ) : (
-        <div className="scanstat__last">Last look: nothing new</div>
+        <div className="scanstat__last">{lc.feed_commit_version === 1 ? 'Last look: nothing new' : 'Last look: legacy report · outcome durability unverified'}</div>
       ))}
 
       {!isBenignNote(status.lastNote) && (
@@ -143,7 +150,9 @@ export function ScanStatus({ variant }: { variant: 'rail' | 'panel' }) {
               <div key={`${c.ts}-${i}`} className="scanstat__logrow">
                 <span className="scanstat__logtime">{hhmm(c.ts)}</span>
                 <span className="scanstat__logbody">
-                  read {c.fetched.toLocaleString()} · kept {c.picked + c.watched} · dropped {c.dropped.toLocaleString()}
+                  read {c.fetched.toLocaleString()} · {c.feed_commit_version === 1
+                    ? <>inbox-eligible {c.picked + c.watched} · dropped {c.dropped.toLocaleString()}</>
+                    : <>legacy outcomes {c.picked + c.watched}/{c.dropped.toLocaleString()} · feed durability unverified</>}
                   {c.phase === 'drain' ? ' · backlog' : ''}
                   {c.local_tokens ? <span className="scanstat__loglocal"> · local {ktok(c.local_tokens)} tok</span> : c.local_down ? <span className="scanstat__loglocal scanstat__loglocal--down"> · local call failed</span> : ''}
                 </span>

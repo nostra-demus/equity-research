@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import type { NewsDiagnostics, PipelineFlowRates, TierDiagnostics } from '../../lib/types'
-import { diagnosticBlockers, fmtPipelineRate, lastCycleArrivalCopy, pipelineFlowPresentation, retryReasonLabel, tierStatusCopy } from './pipelineDiagnosticsView'
+import { diagnosticBlockers, diagnosticDeferReasons, fmtPipelineRate, lastCycleArrivalCopy, pipelineFlowPresentation, retryReasonLabel, tierStatusCopy, todayOutcomeCopy } from './pipelineDiagnosticsView'
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -18,6 +18,36 @@ const diagnostics = (tiers: TierDiagnostics[], defer: Partial<NewsDiagnostics['d
   backlog: { count: 10, cap: 5000, pctOfCap: 0.2, nearLimit: false, trend: null, lostToday: 0 },
   today: { read: 0, kept: 0, dropped: 0, cycles: 0 }, lastCycle: null,
   defer: { active: true, reason: null, plainNote: null, lastResort: null, blockingTiers: [], ...defer },
+})
+
+check('additive defer causes stay ordered and deduplicated with a scalar rolling-deploy fallback', () => {
+  assert.deepEqual(
+    diagnosticDeferReasons(diagnostics([], { reason: 'feed-cap', reasons: ['storage-emergency', 'feed-cap', 'feed-cap'] }).defer),
+    ['storage-emergency', 'feed-cap'],
+  )
+  assert.deepEqual(diagnosticDeferReasons(diagnostics([], { reason: 'provider-retry-held' }).defer), ['provider-retry-held'])
+  assert.deepEqual(diagnosticDeferReasons(diagnostics([], { reason: null }).defer), [])
+})
+
+check('malformed defer cause payloads cannot crash or render one reason per string character', () => {
+  assert.deepEqual(
+    diagnosticDeferReasons(diagnostics([], { reason: 'feed-cap', reasons: 'storage-emergency' as any }).defer),
+    ['feed-cap'],
+    'a string is not an additive reason array',
+  )
+  assert.deepEqual(
+    diagnosticDeferReasons(diagnostics([], { reason: 'feed-write-failed', reasons: { length: 1 } as any }).defer),
+    ['feed-write-failed'],
+    'an array-like persisted object falls back to the scalar reason',
+  )
+  assert.deepEqual(
+    diagnosticDeferReasons(diagnostics([], {
+      reason: null,
+      reasons: ['storage-emergency', null, 'future-defer-reason', 'storage-emergency'] as any,
+    }).defer),
+    ['storage-emergency', 'future-defer-reason'],
+    'bad entries are removed while a future string reason retains generic rolling-deploy copy',
+  )
 })
 
 check('eligible and engine-allowance copy never claims provider health or a provider quota', () => {
@@ -174,19 +204,65 @@ check('last-look copy uses unique arrivals and never relabels legacy fresh-path 
   assert.equal(lastCycleArrivalCopy({ fresh: 10, carryover: 24 }), null, 'legacy payload omits the unprovable split')
 })
 
+check('daily outcome copy marks every counter as a lower bound when a started look has no summary', () => {
+  assert.equal(
+    todayOutcomeCopy({
+      read: 7, kept: 5, dropped: 2, cycles: 3, durablyCommitted: true,
+      incompleteCycles: 1, totalsLowerBound: true,
+    }),
+    'at least 7 durably saved · at least 5 inbox-eligible · at least 2 dropped · daily totals incomplete (1 started look has no durable completion summary)',
+  )
+  assert.equal(
+    todayOutcomeCopy({
+      read: 7, kept: 5, dropped: 2, cycles: 3, durablyCommitted: false,
+      incompleteCycles: 2, totalsLowerBound: true,
+    }),
+    'legacy report · 7 reported outcomes · 5 reported inbox-eligible · 2 reported dropped · daily totals incomplete (2 started looks have no durable completion summary) · feed durability unverified',
+  )
+})
+
+check('daily outcome copy is unavailable when every started look lacks a summary or its authority is unreadable', () => {
+  assert.equal(
+    todayOutcomeCopy({ read: 0, kept: 0, dropped: 0, cycles: 0, incompleteCycles: 1, totalsLowerBound: true }),
+    'Daily totals unavailable — 1 started look has no durable completion summary.',
+  )
+  assert.equal(
+    todayOutcomeCopy({ read: 0, kept: 0, dropped: 0, cycles: 0, totalsLowerBound: true }, true),
+    'Daily totals unavailable — the cycle-completion safety record is unreadable.',
+  )
+  assert.equal(todayOutcomeCopy({ read: 0, kept: 0, dropped: 0, cycles: 0 }), null)
+})
+
+check('daily outcome copy names partition and corrupt-row debt instead of presenting exact totals', () => {
+  assert.equal(
+    todayOutcomeCopy({
+      read: 0, kept: 0, dropped: 0, cycles: 0,
+      durablyCommitted: true, totalsLowerBound: true, historyStatus: 'missing', corruptCycleRows: 0,
+    }),
+    "Daily totals unavailable — today's cycle-summary partition is missing.",
+  )
+  assert.equal(
+    todayOutcomeCopy({
+      read: 7, kept: 5, dropped: 2, cycles: 3,
+      durablyCommitted: true, totalsLowerBound: true, historyStatus: 'complete', corruptCycleRows: 1,
+    }),
+    'at least 7 durably saved · at least 5 inbox-eligible · at least 2 dropped · daily totals incomplete (1 malformed cycle-summary row today)',
+  )
+})
+
 check('flow copy names ahead, equal headroom, and falling-behind gaps in items/hour', () => {
   const ahead = pipelineFlowPresentation(flow(25, 'ahead'), FLOW_TS, FLOW_NOW)
   assert.equal(ahead.tone, 'ahead')
-  assert.equal(ahead.gapCopy, 'Ahead by 25 items/hour of scanning capacity — before any item expires or is lost at the backlog cap.')
+  assert.equal(ahead.gapCopy, 'Ahead by 25 items/hour of scanning capacity — before any queued item reaches the age limit.')
   assert.match(ahead.coverageCopy, /fixed 3,600-second wall-clock average/)
 
   const equal = pipelineFlowPresentation(flow(0, 'equal'), FLOW_TS, FLOW_NOW)
   assert.equal(equal.tone, 'equal')
-  assert.equal(equal.gapCopy, 'Equal — 0 items/hour of capacity headroom before expiry or cap loss. Scanning must stay above inflow to reduce the backlog.')
+  assert.equal(equal.gapCopy, 'Equal — 0 items/hour of capacity headroom before age-based retirement. Scanning must stay above inflow to reduce the backlog.')
 
   const behind = pipelineFlowPresentation(flow(-40, 'behind'), FLOW_TS, FLOW_NOW)
   assert.equal(behind.tone, 'behind')
-  assert.equal(behind.gapCopy, 'Falling behind by 40 items/hour — queue pressure grows at this rate before any item expires or is lost at the backlog cap.')
+  assert.equal(behind.gapCopy, 'Falling behind by 40 items/hour — queue pressure grows at this rate before any queued item reaches the age limit.')
 })
 
 check('partial legacy flow never presents a comparison or turns unknown inflow into zero', () => {
@@ -240,6 +316,23 @@ check('missing required partition history hides rates and names the coverage deb
   assert.equal(view.scanningRate, '—')
   assert.equal(view.gapCopy, 'Required rate history is incomplete — capacity is not compared.')
   assert.equal(view.coverageCopy, 'missing 2026-08-12')
+})
+
+check('started-without-summary and unreadable safety-marker debt are named instead of blamed on partitions', () => {
+  const incomplete = flow(25, 'ahead')
+  incomplete.history = {
+    ...completeHistory,
+    coverage: 'partial',
+    incompleteCycles: 2,
+    gapMarkerUnreadable: true,
+  }
+  const view = pipelineFlowPresentation(incomplete, FLOW_TS, FLOW_NOW)
+  assert.equal(view.tone, 'unavailable')
+  assert.equal(
+    view.coverageCopy,
+    '2 started cycles without a durable completion summary · cycle-completion safety record unreadable',
+  )
+  assert.doesNotMatch(view.coverageCopy, /partition/i)
 })
 
 check('deploy skew without partition coverage fails closed instead of trusting numeric rates', () => {

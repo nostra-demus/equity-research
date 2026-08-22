@@ -11,7 +11,6 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { NEWS, REPO_ROOT, STATE_DIR, buildOmniRouteProvider } from '../config'
 import { acquireSingletonLock, releaseSingletonLock } from '../singleton-lock'
-import { readFeed } from './feed'
 import { refreshBoard } from './write-inbox'
 import { DEFERRED_CAP, inspectDeferredBacklog, loadDeferred, runIngestCycle, triageGroqTokenBound, triagePaceTokenBound } from './runCycle'
 import { healEnrichCache } from './enrich-heal'
@@ -25,7 +24,7 @@ import {
 } from './triage/budget'
 import { SYSTEM, buildUserMessage, estimateTokens } from './triage/groq'
 import { preTriagePriority } from './rank'
-import { buildPipelineFlowRates, readPipelineFlowCycles, type PipelineFlowRates } from './pipeline-flow'
+import { buildPipelineFlowRates, readPipelineFlowCycles, type PipelineFlowHistory, type PipelineFlowRates } from './pipeline-flow'
 import { omniRouteDisabledReason } from './omniroute-provision-status'
 import type { CycleSummary, DeferReason, LastResortState } from './types'
 
@@ -237,7 +236,7 @@ export function stopQualifiedIdeaOutcomeLoop(): void {
 // own clock ceiling governs how much of the day's budget is available right now.
 const DRAIN_INTERVAL_MS = Math.max(30, Number(process.env.NEWS_DRAIN_INTERVAL_SEC) || 60) * 1000
 
-/** How many items are waiting un-triaged in the deferred spillover (read-only, never throws). */
+/** How many items are waiting in durable retry storage, including unscored and projection-recovery work. */
 function backlogCount(): number {
   const backlog = inspectDeferredBacklog(STATE_DIR)
   return backlog.available ? backlog.items.length : 0
@@ -305,6 +304,12 @@ function diagnosticBatchPaceBound(batch: ReturnType<typeof loadDeferred>): numbe
   return batch.length ? triagePaceTokenBound(batch) : 0
 }
 
+/** Feed-pending rows are already scored; provider diagnostics and pacing must price only work that would
+ * actually enter the LLM loop. The backlog gauge itself continues to include both classes. */
+function loadUnscoredDiagnosticBatch(): ReturnType<typeof loadDeferred> {
+  return loadDeferred(STATE_DIR).filter((item) => !item.feed_pending).slice(0, NEWS.triageBatch)
+}
+
 /** Pure: can a request/token-gated free provider (overflow provider OR one Gemini pool model) score a batch
  *  RIGHT NOW? Not in a failure cooldown, under its request cap, and — when token-gated — with room for one
  *  more batch (tokens + est), not merely strictly under the token cap. This mirrors the triage loop's real
@@ -324,7 +329,7 @@ export function providerDrainUsable(cooling: boolean, used: number, reqCap: numb
 function geminiAnyUsableNow(now = Date.now()): boolean {
   if (!(NEWS.geminiEnabled && NEWS.geminiApiKey && NEWS.geminiModels.length)) return false
   const day = geminiToday(now)
-  const batch = loadDeferred(STATE_DIR).slice(0, NEWS.triageBatch)
+  const batch = loadUnscoredDiagnosticBatch()
   const strictCost = diagnosticBatchTokenBound(batch, NEWS.geminiMaxTokens)
   for (const e of NEWS.geminiModels) {
     const g = readDailyBudget(`gemini-budget-${e.model.replace(/[^a-z0-9]+/gi, '-')}.json`, day)
@@ -364,7 +369,7 @@ function overflowUsage(p: (typeof NEWS.overflowProviders)[number]): { id: string
  *  e.g. NVIDIA at 34/150 while cooling — read as headroom, so the drain ran and scored 0) and est-blind (a
  *  token-gated Cerebras one batch short of its 900k cap read as headroom the loop then skipped). */
 function overflowHasHeadroom(now = Date.now()): boolean {
-  const batch = loadDeferred(STATE_DIR).slice(0, NEWS.triageBatch)
+  const batch = loadUnscoredDiagnosticBatch()
   return NEWS.overflowProviders.some((p) => {
     const u = overflowUsage(p)
     if (u.ledgerUnavailable || u.dayUnavailable) return false
@@ -398,7 +403,7 @@ function overflowHasHeadroom(now = Date.now()): boolean {
  */
 export function budgetHasHeadroom(now = Date.now()): boolean {
   const today = new Date(now).toISOString().slice(0, 10)
-  const batch = loadDeferred(STATE_DIR).slice(0, NEWS.triageBatch)
+  const batch = loadUnscoredDiagnosticBatch()
   const strictCost = diagnosticBatchTokenBound(batch, NEWS.triageMaxTokens)
   const paceCost = diagnosticBatchPaceBound(batch)
   let groqOk = Boolean(NEWS.groqApiKey) && triageRetryInfo('groq', now).until <= now
@@ -464,7 +469,7 @@ export function anthropicHasHeadroom(now = Date.now()): boolean {
   const cooling = triageRetryInfo('anthropic-triage', now).until > now
   const u = readDailyUsd('anthropic-triage-budget.json', new Date(now).toISOString().slice(0, 10))
   if (u.ledgerUnavailable) return false
-  const batch = loadDeferred(STATE_DIR).slice(0, NEWS.triageBatch)
+  const batch = loadUnscoredDiagnosticBatch()
   const nextCallUsd = NEWS.anthropicFallbackMode === 'subscription'
     ? Math.max(0, NEWS.anthropicPerCallUsd)
     : conservativeChatUsdBound(
@@ -506,7 +511,9 @@ function localHasHeadroom(now = Date.now()): boolean {
  * tier, local and Haiku included) may.
  */
 function drainHasHeadroom(now = Date.now()): boolean {
-  return budgetHasHeadroom(now) || localHasHeadroom(now) || anthropicHasHeadroom(now)
+  // Projection recovery needs no model or allowance and must keep draining even when every provider is off.
+  return loadDeferred(STATE_DIR).some((item) => !!item.feed_pending)
+    || budgetHasHeadroom(now) || localHasHeadroom(now) || anthropicHasHeadroom(now)
 }
 
 export interface NewsStatus {
@@ -520,10 +527,25 @@ export interface NewsStatus {
   lastNote: string | null
   // true when another engine owns the ingester lock → this process is read-only (serves but never scans)
   readOnly: boolean
-  // items waiting un-triaged in the deferred spillover, and the loss boundary they are counted against.
+  // Items waiting in durable retry storage, and the active work-window size they are compared against.
   // A first-class field so the cockpit can show the backlog depth without the heavier diagnostics call.
   backlog: { count: number; cap: number; unavailable?: boolean }
-  today: { read: number; kept: number; dropped: number; cycles: number }
+  today: {
+    read: number
+    kept: number
+    dropped: number
+    cycles: number
+    /** True only when every included outcome summary uses durable feed-boundary accounting. */
+    durablyCommitted: boolean
+    /** Started looks today whose durable completion summary is absent. */
+    incompleteCycles: number
+    /** Numeric counters omit or cannot verify at least one daily summary. */
+    totalsLowerBound: boolean
+    /** Readability of today's cycle-summary partition. */
+    historyStatus: 'complete' | 'missing' | 'unreadable' | 'unavailable'
+    /** Malformed cycle summaries in today's otherwise-readable partition. */
+    corruptCycleRows: number
+  }
   // tokenTarget = the pacer's day goal; paceCeiling = tokens allowed spent BY NOW under the clock
   // schedule (tokens ≈ paceCeiling ⇒ the pacer is metering; tokens ≪ paceCeiling ⇒ free-flowing).
   budget: {
@@ -555,17 +577,37 @@ export interface NewsStatus {
 
 /** Status for the cockpit. Daily counts come from today's firehose ON DISK (restart-proof). Diagnostics may
  * supply its cycle-only snapshot so the 10-second panel poll never hydrates every item a second time. */
-export function getNewsStatus(cycleSnapshot?: readonly CycleSummary[]): NewsStatus {
+export function getNewsStatus(
+  cycleSnapshot?: readonly CycleSummary[],
+  historySnapshot?: PipelineFlowHistory,
+): NewsStatus {
   const todayDate = new Date().toISOString().slice(0, 10)
   const statusNow = Date.now()
   const backlogInspection = inspectDeferredBacklog(STATE_DIR)
-  const diagnosticBatch = backlogInspection.available ? backlogInspection.items.slice(0, NEWS.triageBatch) : []
+  const diagnosticBatch = backlogInspection.available
+    ? backlogInspection.items.filter((item) => !item.feed_pending).slice(0, NEWS.triageBatch)
+    : []
   const spendingAllowed = providerDiagnosticsActiveForState(NEWS.enabled, readOnlyMode, providerSpendingOwner)
-  const today = { read: 0, kept: 0, dropped: 0, cycles: 0 }
+  const today: NewsStatus['today'] = {
+    read: 0, kept: 0, dropped: 0, cycles: 0,
+    durablyCommitted: false,
+    incompleteCycles: 0,
+    totalsLowerBound: true,
+    historyStatus: 'unavailable',
+    corruptCycleRows: 0,
+  }
+  let statusCycles: readonly CycleSummary[] = []
+  let dailyHistory = historySnapshot
   try {
-    const cycles = cycleSnapshot ?? readFeed(REPO_ROOT, 1).cycles
-    for (const c of cycles as CycleSummary[]) {
-      if ((c.ts || '').slice(0, 10) !== todayDate) continue
+    if (cycleSnapshot) {
+      statusCycles = cycleSnapshot
+    } else {
+      const flowRead = readPipelineFlowCycles(REPO_ROOT, NEWS.newsArchiveDir, statusNow, NEWS.cycleTimeoutMs, STATE_DIR)
+      statusCycles = flowRead.cycles
+      dailyHistory = flowRead.history
+    }
+    const cyclesToday = statusCycles.filter((cycle) => String(cycle.ts || '').slice(0, 10) === todayDate)
+    for (const c of cyclesToday) {
       today.cycles++
       // read = items the scanner actually READ AND SCORED today = kept + dropped. We deliberately do
       // NOT sum c.candidates here: candidates is the triage QUEUE size (this cycle's fresh items PLUS
@@ -578,6 +620,11 @@ export function getNewsStatus(cycleSnapshot?: readonly CycleSummary[]): NewsStat
       today.dropped += c.dropped || 0
       today.read += (c.picked || 0) + (c.watched || 0) + (c.dropped || 0)
     }
+    today.durablyCommitted = cyclesToday.every(cycleHasDurableFeedCommit)
+    today.incompleteCycles = dailyHistory?.todayIncompleteCycles ?? 0
+    today.totalsLowerBound = dailyHistory?.todayTotalsLowerBound !== false
+    today.historyStatus = dailyHistory?.todayHistoryStatus ?? 'unavailable'
+    today.corruptCycleRows = dailyHistory?.todayCorruptCycleRows ?? 0
   } catch {
     // a status read never throws
   }
@@ -713,7 +760,7 @@ export function getNewsStatus(cycleSnapshot?: readonly CycleSummary[]): NewsStat
 // The FULL, honest state of every triage tier + the deferred backlog, reconstructed entirely from state
 // already on disk (per-provider budget files, `<id>-health.json` cooldown markers, the Haiku $ ledger, the
 // deferred spillover, the firehose). This exists because the three highest-value facts — the backlog depth
-// vs its loss boundary, the Haiku last-resort's $ spend + plan-quota state, and every provider's cooldown —
+// vs its active work window, the Haiku last-resort's $ spend + plan-quota state, and every provider's cooldown —
 // were all persisted but surfaced NOWHERE, so "Groq in failure cooldown" could print while the paid fallback
 // had silently tapped out too. Zero-touch: tiers are enumerated from the SAME config arrays the run loop
 // uses (NEWS.overflowProviders / NEWS.geminiModels), so a newly-keyed provider appears with no edit here.
@@ -782,15 +829,30 @@ export interface NewsDiagnostics {
   tiers: TierDiagnostics[] // ordered primary → overflow → gemini → last-resort
   backlog: {
     unavailable?: boolean // the saved waiting list could not be read; count and percentage are unknown
-    count: number // items waiting un-triaged
-    cap: number // DEFERRED_CAP — the loss boundary; backlog past this is silently dropped
-    pctOfCap: number // 0..100
-    nearLimit: boolean // ≥80% of the cap — approaching silent data loss
+    count: number // queued items, including unscored and projection-recovery work
+    cap: number // DEFERRED_CAP — active work-window size; excess raw input waits in durable overflow
+    pctOfCap: number // nonnegative; may exceed 100 while durable input overflow is waiting
+    nearLimit: boolean // ≥80% of the active work window — overflow pressure is building
     trend: 'growing' | 'shrinking' | 'flat' | null // over today's recent cycles (null = too few to tell)
-    lostToday: number // items ACTUALLY dropped past the cap so far today (sum of cycle dropped_at_cap) — real, not projected, data loss
+    lostToday: number // legacy items actually dropped by pre-overflow workers today (sum of cycle dropped_at_cap)
     retiredToday: number // items retired UNSCORED so far today for waiting longer than the backlog age bound (sum of cycle backlog_expired) — the OTHER real loss; a gauge that showed only the cap would read 0 while thousands aged out
   }
-  today: { read: number; kept: number; dropped: number; cycles: number }
+  today: {
+    read: number
+    kept: number
+    dropped: number
+    cycles: number
+    /** True only when every included summary uses the durable feed-commit accounting contract. */
+    durablyCommitted: boolean
+    /** Started looks today whose durable completion summary is absent. */
+    incompleteCycles: number
+    /** True means the numeric summary totals omit at least one unproved look and are only lower bounds. */
+    totalsLowerBound: boolean
+    /** Readability of today's cycle-summary partition. */
+    historyStatus: 'complete' | 'missing' | 'unreadable' | 'unavailable'
+    /** Malformed cycle summaries in today's otherwise-readable partition. */
+    corruptCycleRows: number
+  }
   lastCycle: {
     ts: string
     phase: 'fetch' | 'drain' | null
@@ -808,6 +870,8 @@ export interface NewsDiagnostics {
     aborted: boolean
     note: string | null
     deferReason: DeferReason | null
+    /** False for an older summary whose pick/watch/drop counts predate the durable feed boundary. */
+    durablyCommitted: boolean
     lastResort: LastResortState | null
     anthropicCostUsd: number | null
     scoredBy: { id: string; label: string; requests: number }[] // per-tier batches scored this cycle
@@ -815,6 +879,7 @@ export interface NewsDiagnostics {
   defer: {
     active: boolean // is there a live backlog being held right now?
     reason: DeferReason | null // structured reason from the most recent deferring cycle
+    reasons?: DeferReason[] // complete cause set; optional while an older cycle summary is serving
     plainNote: string | null // the honest human sentence (the fixed, fallback-aware note)
     lastResort: LastResortState | null // the Haiku fallback's state — the piece that used to be hidden
     // Split the two materially different blockers. A configured allowance being used is an engine policy;
@@ -831,6 +896,47 @@ export interface NewsDiagnostics {
     needsCredentialTiers: string[]
     blockingTiers: string[]
   }
+}
+
+const KNOWN_DEFER_REASONS = new Set<string>([
+  'storage-emergency',
+  'feed-write-failed',
+  'feed-cap',
+  'inbox-withheld',
+  'no-scoring-provider',
+  'aborted',
+  'usage-ledger-unavailable',
+  'free-budget-spent',
+  'provider-day-limit',
+  'groq-cooldown',
+  'provider-retry-held',
+  'allowance-paced',
+  'paced',
+  'batch-failed',
+] satisfies DeferReason[])
+
+function isKnownDeferReason(value: unknown): value is DeferReason {
+  return typeof value === 'string' && KNOWN_DEFER_REASONS.has(value)
+}
+
+/** Firehose summaries are persisted data, not a trusted TypeScript value. Keep a malformed or future
+ * additive list from crashing diagnostics, and retain the scalar field as the rolling-deploy fallback. */
+export function persistedDeferReasons(cycle: CycleSummary | null | undefined): DeferReason[] {
+  const raw = (cycle as { defer_reasons?: unknown } | null | undefined)?.defer_reasons
+  const reasons: DeferReason[] = []
+  if (Array.isArray(raw)) {
+    for (const value of raw) {
+      if (isKnownDeferReason(value) && !reasons.includes(value)) reasons.push(value)
+      if (reasons.length === KNOWN_DEFER_REASONS.size) break
+    }
+  }
+  if (reasons.length) return reasons
+  const scalar = (cycle as { defer_reason?: unknown } | null | undefined)?.defer_reason
+  return isKnownDeferReason(scalar) ? [scalar] : []
+}
+
+export function cycleHasDurableFeedCommit(cycle: CycleSummary | null | undefined): boolean {
+  return cycle?.feed_commit_version === 1
 }
 
 /** Optional retry metadata shared by every diagnostics row. Keeping the legacy `fails` alias lets an old
@@ -1032,10 +1138,10 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
   // Cycle-only read: the panel polls every 10s, so never hydrate/re-rank/deduplicate thousands of item rows
   // just to total compact summaries. It proves every UTC partition the trailing hour needs and falls back to
   // the configured archive after local pruning; missing history fails the rate closed.
-  const flowRead = readPipelineFlowCycles(REPO_ROOT, NEWS.newsArchiveDir, now, NEWS.cycleTimeoutMs)
+  const flowRead = readPipelineFlowCycles(REPO_ROOT, NEWS.newsArchiveDir, now, NEWS.cycleTimeoutMs, STATE_DIR)
   const flowCycles = flowRead.cycles
   const flow = buildPipelineFlowRates(flowCycles, now, NEWS.cycleTimeoutMs, flowRead.history)
-  const status = getNewsStatus(flowCycles) // reuse the same cycle-only rows for today totals
+  const status = getNewsStatus(flowCycles, flowRead.history) // reuse the same cycle-only rows + proof for today totals
   const providerWorkEnabled = NEWS.enabled || (NEWS.ideasEnabled && NEWS.ideaProviderConfigured)
   const spendingAllowed = providerDiagnosticsActiveForState(providerWorkEnabled, status.readOnly, providerSpendingOwner)
   const todayUtc = new Date(now).toISOString().slice(0, 10)
@@ -1044,7 +1150,9 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
   // post-midnight outage cannot erase it and that historical row cannot leak into today's totals or rate math.
   const cyclesToday = flowCycles.filter((cycle) => String(cycle.ts || '').slice(0, 10) === todayUtc)
   const last = flowRead.latestCycle
-  const diagnosticBatch = loadDeferred(STATE_DIR).slice(0, NEWS.triageBatch)
+  const lastDeferReasons = persistedDeferReasons(last)
+  const lastDeferReason = lastDeferReasons[0] ?? null
+  const diagnosticBatch = loadUnscoredDiagnosticBatch()
 
   const tiers: TierDiagnostics[] = []
   // local is the PRIMARY brain (unlimited, $0, tried first) → it leads the ladder and Groq becomes a fallback.
@@ -1230,11 +1338,12 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
     })
   }
 
-  // backlog gauge (depth vs the loss boundary + short trend)
+  // backlog gauge (depth vs the active work window + short trend)
   const count = status.backlog.count
   const cap = status.backlog.cap
   const pctOfCap = cap > 0 ? Math.round((count / cap) * 1000) / 10 : 0
-  // real data loss so far today = sum of each cycle's dropped_at_cap (backlog overran the cap). Restart-safe
+  // Historical same-day loss = sum of each cycle's dropped_at_cap. Current workers spool excess raw input,
+  // but rolling-deploy summaries from the earlier slicing contract remain visible and restart-safe.
   // (read from the firehose on disk), same today-window as the read/kept/dropped totals.
   const lostToday = cyclesToday.reduce((s, c) => s + (typeof c.dropped_at_cap === 'number' ? c.dropped_at_cap : 0), 0)
   // the age boundary's twin of lostToday: items retired unscored for waiting out the backlog age bound.
@@ -1269,7 +1378,8 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
         deferred: typeof last.deferred === 'number' ? last.deferred : null,
         aborted: !!last.aborted,
         note: last.note || null,
-        deferReason: last.defer_reason || null,
+        deferReason: lastDeferReason,
+        durablyCommitted: cycleHasDurableFeedCommit(last),
         lastResort: last.last_resort || null,
         anthropicCostUsd: typeof last.anthropic_cost_usd === 'number' ? last.anthropic_cost_usd : null,
         scoredBy,
@@ -1300,11 +1410,21 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
     flow,
     tiers,
     backlog,
-    today: status.today,
+    today: {
+      ...status.today,
+      // A mixed deploy-day total may contain both contracts. Label the whole aggregate unverified rather
+      // than presenting the legacy component as if it crossed the newer durable feed boundary.
+      durablyCommitted: cyclesToday.every(cycleHasDurableFeedCommit),
+      incompleteCycles: flowRead.history.todayIncompleteCycles ?? 0,
+      totalsLowerBound: flowRead.history.todayTotalsLowerBound === true,
+      historyStatus: flowRead.history.todayHistoryStatus ?? 'unavailable',
+      corruptCycleRows: flowRead.history.todayCorruptCycleRows ?? 0,
+    },
     lastCycle,
     defer: {
-      active: count > 0,
-      reason: last?.defer_reason || null,
+      active: count > 0 || lastDeferReasons.includes('storage-emergency'),
+      reason: lastDeferReason,
+      ...(lastDeferReasons.length ? { reasons: lastDeferReasons } : {}),
       plainNote: last?.note || null,
       lastResort: last?.last_resort || null,
       retryHeldTiers,

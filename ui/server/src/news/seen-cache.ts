@@ -8,7 +8,9 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-const TTL_MS = 7 * 24 * 60 * 60 * 1000 // 7 days
+// Cover the longest configured source redelivery window (gov-data is 21 days). A durable firehose row
+// must not be paid for or appended again merely because a source legitimately replays it a week later.
+const TTL_MS = 30 * 24 * 60 * 60 * 1000
 
 interface Entry { score: number; ts: number }
 
@@ -38,14 +40,27 @@ export class SeenCache {
     this.map.set(eventId, { score, ts: Date.now() })
   }
 
-  save(): void {
+  save(): boolean {
+    const dirPath = path.dirname(this.file)
+    const tmp = `${this.file}.tmp`
+    let fd: number | undefined
     try {
-      fs.mkdirSync(path.dirname(this.file), { recursive: true })
+      fs.mkdirSync(dirPath, { recursive: true })
       const obj: Record<string, Entry> = {}
       for (const [k, v] of this.map) obj[k] = v
-      fs.writeFileSync(this.file, JSON.stringify(obj))
+      fd = fs.openSync(tmp, 'w', 0o600)
+      fs.writeFileSync(fd, `${JSON.stringify(obj)}\n`)
+      fs.fsyncSync(fd)
+      fs.closeSync(fd)
+      fd = undefined
+      fs.renameSync(tmp, this.file)
+      const dir = fs.openSync(dirPath, 'r')
+      try { fs.fsyncSync(dir) } finally { fs.closeSync(dir) }
+      return true
     } catch {
-      // best-effort persistence; a failed write just means we may re-score next time
+      if (fd !== undefined) try { fs.closeSync(fd) } catch { /* best effort */ }
+      try { fs.rmSync(tmp, { force: true }) } catch { /* best effort */ }
+      return false
     }
   }
 

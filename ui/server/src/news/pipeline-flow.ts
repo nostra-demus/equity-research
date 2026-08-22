@@ -23,6 +23,18 @@ export interface PipelineFlowHistory {
   missingDates: string[]
   unreadableDates: string[]
   corruptCycleRows: number
+  /** Started cycles whose durable summary receipt is still absent inside the rate window. */
+  incompleteCycles?: number
+  /** Missing-summary receipts that started during the current UTC day, including ones older than the rate window. */
+  todayIncompleteCycles?: number
+  /** Today's summary-derived counters are lower bounds because a receipt is missing or the receipt file is unreadable. */
+  todayTotalsLowerBound?: boolean
+  /** Readability of today's summary partition. Missing is explicit: zero rows cannot prove zero completed looks. */
+  todayHistoryStatus?: 'complete' | 'missing' | 'unreadable'
+  /** Malformed cycle-summary rows in today's otherwise-readable partition. */
+  todayCorruptCycleRows?: number
+  /** The compact completion-gap authority itself could not be trusted. */
+  gapMarkerUnreadable?: boolean
 }
 
 export interface PipelineFlowMeasure {
@@ -61,6 +73,70 @@ export interface PipelineFlowCycleRead {
 
 interface EventIdentity { event_id?: unknown }
 
+const PIPELINE_FLOW_GAP_FILE = 'news-pipeline-flow-gaps.json'
+interface PipelineFlowGapFile { v: 1; starts: string[] }
+
+function gapFilePath(stateDir: string): string { return path.join(stateDir, PIPELINE_FLOW_GAP_FILE) }
+
+function readPipelineFlowGapFile(stateDir: string): { status: 'ok'; starts: string[] } | { status: 'missing' | 'unreadable' } {
+  try {
+    const parsed = JSON.parse(fs.readFileSync(gapFilePath(stateDir), 'utf8')) as Partial<PipelineFlowGapFile>
+    if (parsed?.v !== 1 || !Array.isArray(parsed.starts) || parsed.starts.length > 512
+      || parsed.starts.some((value) => typeof value !== 'string' || !Number.isFinite(Date.parse(value)))) {
+      return { status: 'unreadable' }
+    }
+    return { status: 'ok', starts: [...new Set(parsed.starts)] }
+  } catch (error: any) {
+    return error?.code === 'ENOENT' ? { status: 'missing' } : { status: 'unreadable' }
+  }
+}
+
+function writePipelineFlowGapFile(stateDir: string, starts: readonly string[]): boolean {
+  const target = gapFilePath(stateDir)
+  const tmp = `${target}.tmp`
+  let fd: number | undefined
+  try {
+    fs.mkdirSync(stateDir, { recursive: true })
+    fd = fs.openSync(tmp, 'w', 0o600)
+    fs.writeFileSync(fd, `${JSON.stringify({ v: 1, starts })}\n`)
+    fs.fsyncSync(fd)
+    fs.closeSync(fd)
+    fd = undefined
+    fs.renameSync(tmp, target)
+    const dir = fs.openSync(stateDir, 'r')
+    try { fs.fsyncSync(dir) } finally { fs.closeSync(dir) }
+    return true
+  } catch {
+    if (fd !== undefined) try { fs.closeSync(fd) } catch { /* best effort */ }
+    try { fs.rmSync(tmp, { force: true }) } catch { /* best effort */ }
+    return false
+  }
+}
+
+/** Durable start receipt. If this cannot land, the cycle must not process data: its rate outcome could not
+ * be proven later. Retain every receipt through its UTC day; around midnight, also retain any prior-day
+ * receipt that can still overlap the trailing rate window. */
+export function beginPipelineFlowCycle(stateDir: string, startedAt: string, nowMs: number, cycleTimeoutMs: number): boolean {
+  const started = timestampMs(startedAt)
+  if (started === null || !Number.isFinite(nowMs) || !validTimeoutMs(cycleTimeoutMs)) return false
+  const prior = readPipelineFlowGapFile(stateDir)
+  if (prior.status === 'unreadable') return false
+  const rateFloor = nowMs - PIPELINE_FLOW_WINDOW_MS - maximumCycleDurationMs(cycleTimeoutMs, true)
+  const todayFloor = Date.parse(`${isoDay(nowMs)}T00:00:00Z`)
+  const floor = Math.min(rateFloor, todayFloor)
+  const starts = (prior.status === 'ok' ? prior.starts : [])
+    .filter((value) => (timestampMs(value) ?? -Infinity) >= floor)
+  if (!starts.includes(startedAt)) starts.push(startedAt)
+  return starts.length <= 512 && writePipelineFlowGapFile(stateDir, starts)
+}
+
+/** Clear a start receipt only after its cycle summary is fsynced. Failure leaves a conservative gap. */
+export function completePipelineFlowCycle(stateDir: string, startedAt: string): boolean {
+  const prior = readPipelineFlowGapFile(stateDir)
+  if (prior.status !== 'ok' || !prior.starts.includes(startedAt)) return false
+  return writePipelineFlowGapFile(stateDir, prior.starts.filter((value) => value !== startedAt))
+}
+
 /** Count unique fetched IDs that were not already resident in the saved backlog. */
 export function countUniqueNewArrivals(delivered: readonly EventIdentity[], backlog: readonly EventIdentity[]): number {
   if (delivered.length === 0) return 0
@@ -96,6 +172,7 @@ export function cycleNewArrivalItems(cycle: CycleSummary): number | null {
 
 /** One scored queue item ends in exactly one of these three bands. Loss/defer counters are not scanning. */
 export function cycleScannedItems(cycle: CycleSummary): number | null {
+  if (cycle.feed_commit_version !== 1) return null
   const picked = queueCount(cycle.picked)
   const watched = queueCount(cycle.watched)
   const dropped = queueCount(cycle.dropped)
@@ -290,7 +367,13 @@ function resolveLatestCycle(
  * poll. Local storage wins; `NEWS.newsArchiveDir` is the fallback supplied by the caller. Every parseable
  * summary is preserved for operational/day diagnostics. Rate validity is applied separately below.
  */
-export function readPipelineFlowCycles(repoRoot: string, archiveDir: string, nowMs: number, cycleTimeoutMs: number): PipelineFlowCycleRead {
+export function readPipelineFlowCycles(
+  repoRoot: string,
+  archiveDir: string,
+  nowMs: number,
+  cycleTimeoutMs: number,
+  stateDir = '',
+): PipelineFlowCycleRead {
   const requiredDates = requiredPipelineFlowDates(nowMs, cycleTimeoutMs)
   const fromMs = nowMs - PIPELINE_FLOW_WINDOW_MS
   const readDates: string[] = []
@@ -298,6 +381,29 @@ export function readPipelineFlowCycles(repoRoot: string, archiveDir: string, now
   const unreadableDates: string[] = []
   const cycles: CycleSummary[] = []
   let corruptCycleRows = 0
+  let incompleteCycles = 0
+  let todayIncompleteCycles = 0
+  let gapMarkerUnreadable = false
+  let gapMarkerMissing = false
+  let todayCorruptCycleRows = 0
+  const today = Number.isFinite(nowMs) ? isoDay(nowMs) : ''
+
+  if (stateDir) {
+    const gaps = readPipelineFlowGapFile(stateDir)
+    gapMarkerUnreadable = gaps.status === 'unreadable'
+    gapMarkerMissing = gaps.status === 'missing'
+    if (gaps.status === 'ok') {
+      for (const value of gaps.starts) {
+        const started = timestampMs(value)
+        if (started === null) {
+          incompleteCycles++
+          continue
+        }
+        if (started <= nowMs && started + maximumCycleDurationMs(cycleTimeoutMs, true) >= fromMs) incompleteCycles++
+        if (started <= nowMs && today && isoDay(started) === today) todayIncompleteCycles++
+      }
+    }
+  }
 
   for (const date of requiredDates) {
     const partition = readPartition(repoRoot, archiveDir, date)
@@ -308,7 +414,9 @@ export function readPipelineFlowCycles(repoRoot: string, archiveDir: string, now
     for (const line of partition.text.split('\n')) {
       const text = line.trim()
       // Item rows dominate the file. Avoid even JSON.parse for them; no item hydration is needed here.
-      if (!text || !/"kind"\s*:\s*"cycle_summary"/.test(text)) continue
+      // Match the prefix too: a torn `"cycle_summ...` record is missing flow authority, not an item row that
+      // can be skipped. Valid non-summary `cycle_*` records still parse and are ignored by the kind check.
+      if (!text || !/"kind"\s*:\s*"cycle/.test(text)) continue
       try {
         const row = JSON.parse(text)
         if (row?.kind !== 'cycle_summary') continue
@@ -316,18 +424,47 @@ export function readPipelineFlowCycles(repoRoot: string, archiveDir: string, now
         // every other parseable field. buildPipelineFlowRates applies strict chronology only to rate math.
         cycles.push(row as CycleSummary)
       } catch {
+        if (date === today) todayCorruptCycleRows++
         if (malformedSummaryPotentiallyRelevant(text, fromMs, nowMs, cycleTimeoutMs)) corruptCycleRows++
       }
     }
   }
 
+  // This file is introduced in the same deploy as feed_commit_version=1 and successful completion keeps an
+  // empty file rather than deleting it. Therefore ENOENT is a safe first-boot state only while no v1 summary
+  // exists. Once a v1 receipt exists, a missing file means the completion authority was lost; treating it as
+  // an empty gap set could hide a crashed high-inflow/low-scan cycle and manufacture headroom.
+  if (stateDir && gapMarkerMissing && cycles.some((cycle) => cycle.feed_commit_version === 1)) {
+    gapMarkerUnreadable = true
+  }
+  const todayHistoryStatus: NonNullable<PipelineFlowHistory['todayHistoryStatus']> = !today
+    ? 'unreadable'
+    : unreadableDates.includes(today)
+      ? 'unreadable'
+      : missingDates.includes(today)
+        ? 'missing'
+        : 'complete'
+  const todayTotalsLowerBound = todayIncompleteCycles > 0
+    || gapMarkerUnreadable
+    || todayHistoryStatus !== 'complete'
+    || todayCorruptCycleRows > 0
+
   const allDatesRead = readDates.length === requiredDates.length
   const coverage: PipelineFlowCoverage = allDatesRead && corruptCycleRows === 0
+    && incompleteCycles === 0 && !gapMarkerUnreadable
     ? 'complete'
     : readDates.length > 0 ? 'partial' : 'none'
   return {
     cycles,
-    history: { coverage, requiredDates, readDates, missingDates, unreadableDates, corruptCycleRows },
+    history: {
+      coverage, requiredDates, readDates, missingDates, unreadableDates, corruptCycleRows,
+      ...(incompleteCycles ? { incompleteCycles } : {}),
+      todayIncompleteCycles,
+      todayTotalsLowerBound,
+      todayHistoryStatus,
+      ...(todayCorruptCycleRows ? { todayCorruptCycleRows } : {}),
+      ...(gapMarkerUnreadable ? { gapMarkerUnreadable: true } : {}),
+    },
     latestCycle: resolveLatestCycle(repoRoot, archiveDir, requiredDates, cycles, nowMs, cycleTimeoutMs),
   }
 }
@@ -340,7 +477,8 @@ function completeHistory(nowMs: number, cycleTimeoutMs: number): PipelineFlowHis
 function historyCoverage(history: PipelineFlowHistory, corruptCycleRows = history.corruptCycleRows): PipelineFlowCoverage {
   const read = new Set(history.readDates)
   const everyRequiredDateRead = history.requiredDates.every((date) => read.has(date))
-  if (everyRequiredDateRead && history.missingDates.length === 0 && history.unreadableDates.length === 0 && corruptCycleRows === 0) return 'complete'
+  if (everyRequiredDateRead && history.missingDates.length === 0 && history.unreadableDates.length === 0
+    && corruptCycleRows === 0 && (history.incompleteCycles ?? 0) === 0 && history.gapMarkerUnreadable !== true) return 'complete'
   return history.readDates.length > 0 ? 'partial' : 'none'
 }
 

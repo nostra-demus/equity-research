@@ -470,7 +470,7 @@ export const api = {
     return get(`/api/news/status`, 8_000) // small + polled every 60s — a short budget keeps the rail snappy
   },
   // The FULL pipeline diagnostics: every triage tier's budget + health + cooldown, the deferred backlog vs
-  // its loss boundary, the last cycle's flow, and the honest defer reason. Backs the Pipeline diagnostics
+  // its active work window, the last cycle's flow, and the honest defer reason. Backs the Pipeline diagnostics
   // panel. Read-only + fail-soft server-side; a short budget keeps the panel poll snappy.
   newsDiagnostics: async (): Promise<NewsDiagnostics> => {
     if ((await ensureMode()) === 'static')

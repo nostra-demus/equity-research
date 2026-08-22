@@ -8,10 +8,10 @@
 import path from 'node:path'
 import { NEWS, REPO_ROOT, STATE_DIR } from '../config'
 import { newsBus } from './bus'
-import { appendFeedItems, readFeed } from './feed'
+import { appendFeedItems, inspectFeedCapacity, inspectHistoricalFeedIdentities, readFeed } from './feed'
 import { assignDedupGroups } from './dedup'
 import { fetchGdelt } from './sources/gdelt'
-import { fetchRss } from './sources/rss'
+import { acknowledgeRssDeliveries, fetchRss } from './sources/rss'
 import { fetchNse } from './sources/nse'
 import { fetchExchangeIntl } from './sources/exchange-intl'
 import { fetchGovData } from './sources/gov-data'
@@ -30,7 +30,7 @@ import { SYSTEM, buildUserMessage, estimateTokens, scoreToBand, triageBatch, tri
 import { rankScore, preTriagePriority, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
 import { deriveScope, deriveSourceTier, toEventScope } from './scope'
 import { deriveCommodities } from './commodities'
-import { countUniqueNewArrivals } from './pipeline-flow'
+import { beginPipelineFlowCycle, completePipelineFlowCycle, countUniqueNewArrivals } from './pipeline-flow'
 import { appendFirehoseSummary, mergeInbox, refreshBoard, type InboxRevisionClocks } from './write-inbox'
 import { runThemesCycle, bumpCycleCounter, themesConfigFromNews } from './themes/engine'
 import { makeThemeNamer } from './themes/llm'
@@ -44,6 +44,9 @@ import fs from 'node:fs'
 // the sources won't hand them back (GDELT's lookback ages out; an unchanged RSS feed answers 304).
 const DEFERRED_FILE = 'news-deferred.json'
 const DEFERRED_PENDING_FILE = 'news-deferred-pending.json'
+const INPUT_OVERFLOW_FILE = 'news-input-overflow.json'
+const SCORED_CHECKPOINT_FILE = 'news-scored-checkpoints.ndjson'
+const SCORED_CHECKPOINT_MAX_BYTES = 100_000_000
 
 /** Worst-case billable tokens for one primary-Groq triage attempt. Reads the output ceiling through
  *  triageMaxOutputTokens — the same batch-sized function the adapter puts on the wire — so the reservation can
@@ -77,6 +80,11 @@ function addProviderCount(target: Record<string, number>, id: string, value: num
   const n = Number.isFinite(value) ? Math.max(0, Math.floor(value)) : 0
   if (n > 0) target[id] = (target[id] || 0) + n
 }
+
+// Normalization and triage bound every source/model field. Reserve a deliberately conservative 64KiB for
+// each eventual NDJSON item before spending a provider call (observed rows peak below 8KiB). The runtime
+// assertion at the append boundary fails closed if a future additive field ever violates this contract.
+export const MAX_FEED_ITEM_BYTES = 64 * 1024
 
 /** A model-output/request-shape failure belongs to this prompt/workload, not to the provider as a whole.
  * Keeping a separate marker prevents one malformed triage answer from sidelining article reads, Themes,
@@ -197,17 +205,39 @@ export async function triageGroqWithReservation(args: {
     args.budget.reconcile(reservation, charged.requests, charged.tokens)
   }
 }
-// Spillover backlog of items not yet scored (budget hit / LLM hiccup / plan quota spent). THE CAP IS A
-// LOSS BOUNDARY, not a nicety: whatever sits past it when saveDeferred runs is written to no file and,
-// once it ages out of its source window, is gone — never scored, never re-fetchable. 1,000 was BELOW real
-// peaks (2,383 on 2026-07-07; 1,244 on 2026-07-16), so the low-priority tail was still being silently
-// binned on exactly the overload days this backlog exists for. It must comfortably exceed the inflow of a
-// whole exhaustion window (free tiers AND the plan out) so nothing is lost while we WAIT for quota —
-// deferring is fine, dropping is not. The cost of a bigger cap is file size / write volume (~500B an item,
-// rewritten each cycle), which is why it stays bounded and env-tunable rather than unlimited.
-export const DEFERRED_CAP = (() => { const n = Number(process.env.NEWS_DEFERRED_CAP); return Number.isFinite(n) && n > 0 ? n : 5000 })()
+// Canonical work window for items not yet scored (budget hit / LLM hiccup / plan quota spent). The earlier
+// implementation treated this as a loss boundary and silently sliced excess rows. It now bounds only the
+// hot file rewritten at each phase: excess source rows stay in INPUT_OVERFLOW_FILE and replay later. 1,000
+// was below real peaks (2,383 on 2026-07-07; 1,244 on 2026-07-16), so the default still leaves wide room for
+// normal processing while the source-neutral overflow protects exceptional bursts without making every
+// phase rewrite an unbounded file.
+export const DEFERRED_CAP = (() => { const n = Number(process.env.NEWS_DEFERRED_CAP); return Number.isFinite(n) && n > 0 ? n : 100_000 })()
 
-// AGE BOUND on the backlog. The cap above bounds the backlog's SIZE; nothing bounded its AGE, so a long
+export function scoringJournalSlots(pendingRows: number, cap: number = DEFERRED_CAP): number {
+  const safeCap = Math.max(0, Math.floor(Number.isFinite(cap) ? cap : 0))
+  const occupied = Math.max(0, Math.floor(Number.isFinite(pendingRows) ? pendingRows : safeCap))
+  return Math.max(0, safeCap - occupied)
+}
+
+/** A target partition is journaled before its first append. While that date is still inside the local
+ * retention window, a missing local/archive file is therefore positive evidence that the append never
+ * began and retrying today is safe. After local retention, absence is ambiguous (an archived commit may be
+ * temporarily unavailable), so recovery must fail closed. Future/bad dates are never treated as empty. */
+export function recentMissingFeedTargetIsRetryable(
+  targetDate: string,
+  currentDate: string,
+  localRetentionDays: number,
+): boolean {
+  const targetMs = Date.parse(`${targetDate}T00:00:00Z`)
+  const currentMs = Date.parse(`${currentDate}T00:00:00Z`)
+  if (!Number.isFinite(targetMs) || !Number.isFinite(currentMs)) return false
+  const ageDays = Math.floor((currentMs - targetMs) / 86_400_000)
+  const retention = Math.max(1, Math.floor(Number.isFinite(localRetentionDays) ? localRetentionDays : 0))
+  return ageDays >= 0 && ageDays < retention
+}
+
+// AGE BOUND on the backlog. The work window above bounds each canonical rewrite, but the durable overflow
+// may grow during a long provider outage; residence age separately prevents an undrainable stale queue, so a long
 // provider outage let it grow without limit (11,000 items on 2026-08-13 → 23,422 on 2026-08-16) and every
 // later cycle hit its wall-clock guard re-queuing the same wall. It can then never drain: at the ~36
 // items/cycle the degraded tiers managed, a 23,000-item backlog outlives every item in it.
@@ -240,6 +270,13 @@ export function expireBacklog(
   const expired: NewsItem[] = []
   const at = now.getTime()
   for (const it of items) {
+    // A feed-pending row has already paid for and completed scoring. Its residence timestamp stays intact
+    // for audit, but the unscored-backlog age policy must never retire it before the authoritative firehose
+    // projection lands. Capacity and disk faults can span UTC rollover; those rows retry until committed.
+    if (it.feed_pending) {
+      live.push(it)
+      continue
+    }
     // RESIDENCE time, not publication time. `found_at` is the SOURCE's clock — gov-data stamps it with the
     // FDA report date under a 21-day lookback (config govDataLookbackDays), so keying on it retired items
     // discovered minutes ago, unscored, on their first deferral. `deferred_at` is stamped when an item
@@ -318,14 +355,22 @@ export function buildTriageQueue(
   freshShare: number = FRESH_RESERVE_FRAC,
 ): NewsItem[] {
   const byPriority = (a: NewsItem, b: NewsItem) => preTriagePriority(b, now) - preTriagePriority(a, now)
-  const freshQ = [...fresh].sort(byPriority)
-  const backQ = [...requeued].sort(byPriority)
+  // Scored rows awaiting the firehose are a commit-recovery queue, not fresh scoring work. Put them first
+  // (oldest residence first) so the next UTC file drains them before spending provider capacity on new rows.
+  const pending = [...requeued, ...fresh]
+    .filter((it) => !!it.feed_pending)
+    .sort((a, b) => String(a.deferred_at || '').localeCompare(String(b.deferred_at || '')) || a.event_id.localeCompare(b.event_id))
+  const freshQ = fresh.filter((it) => !it.feed_pending).sort(byPriority)
+  const backQ = requeued.filter((it) => !it.feed_pending).sort(byPriority)
   const share = Math.max(0, Math.min(1, Number.isFinite(freshShare) ? freshShare : FRESH_RESERVE_FRAC))
   // Share 0 is the documented rollback lever (NEWS_FRESH_RESERVE_FRAC=0), so it must restore the ORIGINAL
   // behaviour — one priority sort across both pools. The interleave below would instead append fresh
   // items only once the backlog drained, whatever their priority: an absolute version of the starvation
   // this reserve exists to prevent, reached by the switch meant to undo it.
-  if (share <= 0) return [...backQ, ...freshQ].sort(byPriority)
+  if (share <= 0) return [...pending, ...backQ, ...freshQ].sort((a, b) => {
+    if (!!a.feed_pending !== !!b.feed_pending) return a.feed_pending ? -1 : 1
+    return a.feed_pending ? a.event_id.localeCompare(b.event_id) : byPriority(a, b)
+  })
   const out: NewsItem[] = []
   let f = 0
   let b = 0
@@ -336,7 +381,52 @@ export function buildTriageQueue(
     if (f < freshQ.length && (b >= backQ.length || freshUnderQuota)) out.push(freshQ[f++])
     else out.push(backQ[b++])
   }
-  return out
+  return [...pending, ...out]
+}
+
+/** Rolling-safe proof that a persisted feed-pending row contains the complete scored contract. A marker on
+ * a malformed/older row is not enough to bypass the model: the cycle fails closed and preserves the journal. */
+function isFeedPendingTriaged(item: NewsItem): item is TriagedItem {
+  const triaged = ['uncommitted', 'cap', 'io_failure'].includes(String(item.feed_pending))
+    && Number.isFinite(Date.parse(String(item.feed_triaged_at || '')))
+    && Number.isFinite((item as Partial<TriagedItem>).triage_score)
+    && Number.isFinite((item as Partial<TriagedItem>).materiality_pre_score)
+    && typeof (item as Partial<TriagedItem>).triage_reason === 'string'
+    && ['material', 'relevant_non_material', 'irrelevant'].includes(String((item as Partial<TriagedItem>).relevance))
+    && ['primary', 'secondary', 'sector', 'macro'].includes(String((item as Partial<TriagedItem>).issuer_linkage))
+    && ['pick', 'watch', 'drop'].includes(String((item as Partial<TriagedItem>).band))
+    && Array.isArray((item as Partial<TriagedItem>).event_types)
+    && Array.isArray((item as Partial<TriagedItem>).companies)
+    && typeof (item as Partial<TriagedItem>).size_bucket === 'string'
+    && typeof (item as Partial<TriagedItem>).event_materiality_label === 'string'
+    && typeof (item as Partial<TriagedItem>).event_direction === 'string'
+    && typeof (item as Partial<TriagedItem>).event_scope === 'string'
+  if (!triaged) return false
+  const exact = item.pending_feed_item
+  if (!exact) return !item.feed_target_date || /^\d{4}-\d{2}-\d{2}$/.test(item.feed_target_date)
+  return exact.kind === 'item'
+    && exact.event_id === item.event_id
+    && exact.headline === item.headline
+    && exact.url === item.url
+    && exact.domain === item.domain
+    && exact.source_name === item.source_name
+    && exact.input_nature === item.input_nature
+    && exact.triage_score === (item as TriagedItem).triage_score
+    && exact.band === (item as TriagedItem).band
+    && exact.triage_reason === (item as TriagedItem).triage_reason
+    && exact.relevance === (item as TriagedItem).relevance
+    && JSON.stringify(exact.event_types) === JSON.stringify((item as TriagedItem).event_types)
+    && exact.issuer_linkage === (item as TriagedItem).issuer_linkage
+    && JSON.stringify(exact.companies) === JSON.stringify((item as TriagedItem).companies)
+    && exact.size_bucket === (item as TriagedItem).size_bucket
+    && exact.event_materiality_label === (item as TriagedItem).event_materiality_label
+    && exact.event_direction === (item as TriagedItem).event_direction
+    && exact.event_scope === (item as TriagedItem).event_scope
+    && exact.dedup_status === item.dedup_status
+    && exact.inboxed === ((item as TriagedItem).band !== 'drop')
+    && Number.isFinite(Date.parse(exact.ts))
+    && exact.ts === item.feed_triaged_at
+    && (!item.feed_target_date || /^\d{4}-\d{2}-\d{2}$/.test(item.feed_target_date))
 }
 
 export type DeferredBacklogInspection = { available: true; items: NewsItem[] } | { available: false; items: [] }
@@ -347,22 +437,121 @@ function readDeferredFile(file: string): { status: 'missing' } | { status: 'ok';
   catch (error: any) { return error?.code === 'ENOENT' ? { status: 'missing' } : { status: 'unavailable' } }
   try {
     const value = JSON.parse(text)
-    if (!Array.isArray(value) || value.some((row) => !row || typeof row !== 'object'
+    // v2 is intentionally an object wrapper whenever scored feed-recovery state is present. A pre-v2
+    // worker rejects it as unavailable and pauses, instead of treating the additive marker as ordinary
+    // unscored work during a rolling downgrade. Plain arrays remain the legacy/raw-backlog format.
+    const rows = Array.isArray(value)
+      ? value
+      : value?.v === 2 && Array.isArray(value.items) ? value.items : null
+    if (!rows || rows.some((row: any) => !row || typeof row !== 'object'
       || typeof row.event_id !== 'string' || !row.event_id
       || typeof row.headline !== 'string')) return { status: 'unavailable' }
-    return { status: 'ok', items: value as NewsItem[] }
+    return { status: 'ok', items: rows as NewsItem[] }
   } catch { return { status: 'unavailable' } }
+}
+
+function readInputOverflow(stateDir: string): { status: 'missing' | 'unavailable' } | { status: 'ok'; items: NewsItem[] } {
+  const result = readDeferredFile(path.join(stateDir, INPUT_OVERFLOW_FILE))
+  if (result.status !== 'ok') return result
+  // Every overflow row is a raw-input handoff. Requiring the marker keeps a manually replaced/older file
+  // from being mistaken for this authority and preserves the rolling-downgrade fail-closed contract.
+  return result.items.every((item) => item.input_pending === true)
+    ? result
+    : { status: 'unavailable' }
+}
+
+function inputOverflowPresence(stateDir: string): 'present' | 'missing' | 'unavailable' {
+  try {
+    const stat = fs.statSync(path.join(stateDir, INPUT_OVERFLOW_FILE))
+    return stat.isFile() ? 'present' : 'unavailable'
+  } catch (error: any) {
+    return error?.code === 'ENOENT' ? 'missing' : 'unavailable'
+  }
+}
+
+function readScoredCheckpoints(stateDir: string): { status: 'missing' | 'unavailable' } | { status: 'ok'; items: NewsItem[] } {
+  const file = path.join(stateDir, SCORED_CHECKPOINT_FILE)
+  let bytes: Buffer
+  try { bytes = fs.readFileSync(file) }
+  catch (error: any) { return { status: error?.code === 'ENOENT' ? 'missing' : 'unavailable' } }
+  if (bytes.length > SCORED_CHECKPOINT_MAX_BYTES) return { status: 'unavailable' }
+  // A host/process death may leave only the final batch line torn. Earlier newline-delimited checkpoints
+  // remain authoritative; trim that unacknowledged tail before exposing any row.
+  if (bytes.length && bytes[bytes.length - 1] !== 0x0a) {
+    const lastNewline = bytes.lastIndexOf(0x0a)
+    const safeLength = lastNewline < 0 ? 0 : lastNewline + 1
+    try {
+      const fd = fs.openSync(file, 'r+')
+      try { fs.ftruncateSync(fd, safeLength); fs.fsyncSync(fd) } finally { fs.closeSync(fd) }
+      bytes = bytes.subarray(0, safeLength)
+    } catch { return { status: 'unavailable' } }
+  }
+  const items: NewsItem[] = []
+  for (const raw of bytes.toString('utf8').split('\n')) {
+    const text = raw.trim()
+    if (!text) continue
+    let row: any
+    try { row = JSON.parse(text) } catch { return { status: 'unavailable' } }
+    if (row?.v !== 1 || !Array.isArray(row.items) || row.items.length > DEFERRED_CAP) return { status: 'unavailable' }
+    for (const item of row.items) {
+      if (!item || typeof item !== 'object' || typeof item.event_id !== 'string' || !item.event_id
+        || typeof item.headline !== 'string' || !item.feed_pending) return { status: 'unavailable' }
+      items.push(item as NewsItem)
+      if (items.length > DEFERRED_CAP) return { status: 'unavailable' }
+    }
+  }
+  return { status: 'ok', items }
+}
+
+/** Small append-only scored-result WAL. Unlike saveDeferred, this writes only the just-completed batch, so
+ * a 20k-row raw queue is not reserialized+fsynced after every 12-row model response. */
+export function appendScoredCheckpoint(stateDir: string, items: readonly TriagedItem[]): boolean {
+  if (!items.length) return true
+  const file = path.join(stateDir, SCORED_CHECKPOINT_FILE)
+  const line = Buffer.from(`${JSON.stringify({ v: 1, items })}\n`, 'utf8')
+  let fd: number | undefined
+  let offset = 0
+  try {
+    fs.mkdirSync(stateDir, { recursive: true })
+    fd = fs.openSync(file, 'a+')
+    offset = fs.fstatSync(fd).size
+    if (offset + line.length > SCORED_CHECKPOINT_MAX_BYTES) return false
+    let written = 0
+    while (written < line.length) {
+      const n = fs.writeSync(fd, line, written, line.length - written)
+      if (n <= 0) throw new Error('scored checkpoint append made no progress')
+      written += n
+    }
+    if (fs.fstatSync(fd).size !== offset + line.length) throw new Error('scored checkpoint append was short')
+    fs.fsyncSync(fd)
+    if (offset === 0) fsyncDirectory(stateDir)
+    return true
+  } catch {
+    if (fd !== undefined) {
+      try { fs.ftruncateSync(fd, offset); fs.fsyncSync(fd) } catch { /* torn tail is repaired on read */ }
+    }
+    return false
+  } finally {
+    if (fd !== undefined) try { fs.closeSync(fd) } catch { /* best effort */ }
+  }
 }
 
 export function inspectDeferredBacklog(stateDir: string): DeferredBacklogInspection {
   const primary = readDeferredFile(path.join(stateDir, DEFERRED_FILE))
   const pending = readDeferredFile(path.join(stateDir, DEFERRED_PENDING_FILE))
-  if (primary.status === 'unavailable' || pending.status === 'unavailable') return { available: false, items: [] }
+  const scored = readScoredCheckpoints(stateDir)
+  const overflow = readInputOverflow(stateDir)
+  if (primary.status === 'unavailable' || pending.status === 'unavailable'
+    || scored.status === 'unavailable' || overflow.status === 'unavailable') return { available: false, items: [] }
   const merged: NewsItem[] = []
   const seen = new Set<string>()
+  // The pending file is the write-ahead journal. If its rename landed but canonical replacement failed,
+  // it contains the NEWER typed marker/payload for the same id and must win over stale canonical state.
   for (const item of [
-    ...(primary.status === 'ok' ? primary.items : []),
+    ...(scored.status === 'ok' ? scored.items : []),
     ...(pending.status === 'ok' ? pending.items : []),
+    ...(primary.status === 'ok' ? primary.items : []),
+    ...(overflow.status === 'ok' ? overflow.items : []),
   ]) {
     if (seen.has(item.event_id)) continue
     seen.add(item.event_id)
@@ -376,7 +565,95 @@ export function loadDeferred(stateDir: string): NewsItem[] {
   return snapshot.available ? snapshot.items : []
 }
 
-// ATOMIC write: this file OWNS the loss boundary — the whole backlog lives here. A plain truncating write
+function fsyncDirectory(dirPath: string): void {
+  const fd = fs.openSync(dirPath, 'r')
+  try { fs.fsyncSync(fd) } finally { fs.closeSync(fd) }
+}
+
+/** Persist bytes and their rename across a host crash, not merely a process crash. */
+function writeAtomicDurably(tmp: string, target: string, bytes: string): void {
+  const fd = fs.openSync(tmp, 'w', 0o600)
+  try {
+    fs.writeFileSync(fd, bytes)
+    fs.fsyncSync(fd)
+  } finally { fs.closeSync(fd) }
+  fs.renameSync(tmp, target)
+  fsyncDirectory(path.dirname(target))
+}
+
+/** Full raw-input rolling-deploy barrier. The old worker already inspects DEFERRED_PENDING_FILE and rejects
+ * object-wrapped v2 state, so the FIRST durable handoff must land here rather than in a new pathname it
+ * cannot see. Keep this full superset until both the bounded canonical prefix and overflow suffix are
+ * durable; every crash boundary then pauses old workers while current workers can merge every row. */
+function saveInputBarrier(stateDir: string, items: readonly NewsItem[], log: (m: string) => void): boolean {
+  const target = path.join(stateDir, DEFERRED_PENDING_FILE)
+  const tmp = `${target}.input.tmp`
+  try {
+    fs.mkdirSync(stateDir, { recursive: true })
+    const retained = items.map((item) => ({ ...item, input_pending: true as const }))
+    writeAtomicDurably(tmp, target, `${JSON.stringify({ v: 2, items: retained })}\n`)
+    return true
+  } catch (e: any) {
+    log(`saveInputBarrier failed (${e?.message || e}) — source handoff was not acknowledged and prior backlog bytes were preserved`)
+    try { fs.rmSync(tmp, { force: true }) } catch { /* prior pending authority remains intact */ }
+    return false
+  }
+}
+
+/** Replace only the canonical hot window while the full pending barrier remains in place. Calling the
+ * ordinary saveDeferred here would overwrite/remove that barrier before overflow became durable. */
+function saveCanonicalInputWindow(stateDir: string, items: readonly NewsItem[], log: (m: string) => void): boolean {
+  const target = path.join(stateDir, DEFERRED_FILE)
+  const tmp = `${target}.input.tmp`
+  try {
+    fs.mkdirSync(stateDir, { recursive: true })
+    const retained = items.map((item) => ({ ...item, input_pending: true as const }))
+    writeAtomicDurably(tmp, target, `${JSON.stringify({ v: 2, items: retained })}\n`)
+    return true
+  } catch (e: any) {
+    log(`saveCanonicalInputWindow failed (${e?.message || e}) — full pending barrier remains authoritative`)
+    try { fs.rmSync(tmp, { force: true }) } catch { /* full pending barrier remains authoritative */ }
+    return false
+  }
+}
+
+function clearInputBarrier(stateDir: string, log: (m: string) => void): boolean {
+  const target = path.join(stateDir, DEFERRED_PENDING_FILE)
+  try {
+    fs.rmSync(target, { force: true })
+    fsyncDirectory(stateDir)
+    return true
+  } catch (e: any) {
+    log(`clearInputBarrier failed (${e?.message || e}) — full pending barrier remains authoritative`)
+    return false
+  }
+}
+
+/** Source-neutral raw overflow authority. The canonical backlog remains bounded to DEFERRED_CAP work rows,
+ * while this file holds every excess fetched row until a later standalone or in-process cycle can admit it.
+ * It is written before any source acknowledgement or provider call. Empty means delete+directory-fsync so
+ * saveDeferred can safely return to the legacy array format after the overflow has fully drained. */
+function saveInputOverflow(stateDir: string, items: readonly NewsItem[], log: (m: string) => void): boolean {
+  const target = path.join(stateDir, INPUT_OVERFLOW_FILE)
+  const tmp = `${target}.tmp`
+  try {
+    fs.mkdirSync(stateDir, { recursive: true })
+    if (!items.length) {
+      fs.rmSync(target, { force: true })
+      fsyncDirectory(stateDir)
+      return true
+    }
+    const retained = items.map((item) => ({ ...item, input_pending: true as const }))
+    writeAtomicDurably(tmp, target, `${JSON.stringify({ v: 2, items: retained })}\n`)
+    return true
+  } catch (e: any) {
+    log(`saveInputOverflow failed (${e?.message || e}) — source handoff was not acknowledged and existing overflow bytes were preserved`)
+    try { fs.rmSync(tmp, { force: true }) } catch { /* last-good overflow remains authoritative */ }
+    return false
+  }
+}
+
+// ATOMIC write: this file owns the bounded active work window. A plain truncating write
 // that fails mid-way (e.g. ENOSPC during a long outage, exactly when the backlog is largest) would leave a
 // truncated/corrupt file that next loadDeferred parses as [] — silently dropping up to DEFERRED_CAP held
 // items with no trace. So write a temp file in the same dir and rename it over the target (atomic on one
@@ -385,21 +662,45 @@ export function loadDeferred(stateDir: string): NewsItem[] {
 // was kept instead. The caller surfaces a false as `deferred_write_failed` on the cycle summary, so the
 // backlog/deferred counts are not reported as safely-on-disk when the new list never reached the file — an
 // ENOSPC mid-outage could otherwise show items "waiting" that were actually only in memory (Codex review, PR #316).
-export function saveDeferred(stateDir: string, items: NewsItem[], log: (m: string) => void = () => {}): boolean {
+export function saveDeferred(
+  stateDir: string,
+  items: NewsItem[],
+  log: (m: string) => void = () => {},
+  cap: number = DEFERRED_CAP,
+): boolean {
   const target = path.join(stateDir, DEFERRED_FILE)
   const tmp = `${target}.tmp`
   const pending = path.join(stateDir, DEFERRED_PENDING_FILE)
   const pendingTmp = `${pending}.tmp`
-  const bytes = JSON.stringify(items.slice(0, DEFERRED_CAP)) + '\n'
+  const scoredCheckpoint = path.join(stateDir, SCORED_CHECKPOINT_FILE)
+  const overflowPresence = inputOverflowPresence(stateDir)
+  if (overflowPresence === 'unavailable') {
+    log('saveDeferred failed (input overflow authority unavailable) — canonical backlog was preserved')
+    return false
+  }
+  // Projection recovery rows outrank unscored work in the active window. A large provider tail must never
+  // slice away an already-paid scored row waiting only for durable feed completion.
+  const prioritized = [
+    ...items.filter((item) => !!item.feed_pending),
+    ...items.filter((item) => !item.feed_pending),
+  ]
+  const safeCap = Math.max(0, Math.floor(Number.isFinite(cap) ? cap : 0))
+  const retained = prioritized.slice(0, safeCap)
+  const bytes = JSON.stringify((overflowPresence === 'present'
+    || retained.some((item) => !!item.feed_pending || item.input_pending === true))
+    ? { v: 2, items: retained }
+    : retained) + '\n'
   try {
     fs.mkdirSync(stateDir, { recursive: true })
     // Write-ahead journal: if the canonical rename fails after one-shot sources have already delivered new
     // rows, the next cycle can still merge and retry them instead of losing them with process memory.
-    fs.writeFileSync(pendingTmp, bytes)
-    fs.renameSync(pendingTmp, pending)
-    fs.writeFileSync(tmp, bytes)
-    fs.renameSync(tmp, target)
-    try { fs.rmSync(pending, { force: true }) } catch { /* duplicate journal is harmless; reads dedupe ids */ }
+    writeAtomicDurably(pendingTmp, pending, bytes)
+    writeAtomicDurably(tmp, target, bytes)
+    try {
+      fs.rmSync(pending, { force: true })
+      fs.rmSync(scoredCheckpoint, { force: true })
+      fsyncDirectory(stateDir)
+    } catch { /* duplicate journal is harmless; reads dedupe ids */ }
     return true
   } catch (e: any) {
     log(`saveDeferred failed (${e?.message || e}) — kept the last-good backlog and any completed pending journal; ${items.length} item(s) need a retry`)
@@ -409,9 +710,9 @@ export function saveDeferred(stateDir: string, items: NewsItem[], log: (m: strin
   }
 }
 
-// A cycle calls saveDeferred TWICE against the same backlog file: once as a pre-projection safety journal
-// (writes triaged rows + the true carry-forward tail), once as a final cleanup once projection has landed
-// (writes just the carry-forward tail, shrinking the file back down). Both writes already exclude any
+// A cycle calls saveDeferred at several durable phase boundaries: raw input, post-triage, exact feed payload,
+// and final cleanup. Every one excludes backlogExpired; the final cleanup shrinks the file to the true tail.
+// Therefore ANY pre-projection canonical write plus the final write form the two booleans below. Both exclude
 // backlogExpired rows, so EITHER write succeeding already durably replaces the on-disk file with a copy that
 // no longer has them — the expired rows are gone from disk the moment the FIRST of the two writes lands, not
 // only once the LAST one does. Tracking only the final write's result (overwriting the journal write's result
@@ -461,6 +762,12 @@ export interface RunCycleDeps {
   // here to exercise that tier without a real process (and without drawing the host's plan quota); a test
   // that doesn't care should instead set config.anthropicFallbackEnabled=false. Undefined ⇒ the real CLI.
   claudeCliRunner?: ClaudeCliRunner
+  /** Test seam for journal/final-cleanup failure. Production always uses the atomic saveDeferred writer. */
+  saveDeferredFn?: typeof saveDeferred
+  /** Test seam for the small append-only per-batch scored-result checkpoint. */
+  appendScoredCheckpointFn?: typeof appendScoredCheckpoint
+  /** Test seam for a durable cycle-summary refusal. */
+  appendFirehoseSummaryFn?: typeof appendFirehoseSummary
 }
 
 /** Maintain Themes on EVERY scanner clock, including a fetch that produced no new on-list items. Theme
@@ -471,16 +778,17 @@ async function runThemesStage(input: {
   repoRoot: string
   stateDir: string
   picks: TriagedItem[]
+  dfPicks?: TriagedItem[]
   fetchFn: typeof fetch
   now: () => Date
   log: (m: string) => void
   signal?: AbortSignal
   revisionClocksByEvent?: ReadonlyMap<string, InboxRevisionClocks>
 }): Promise<void> {
-  const { cfg, repoRoot, stateDir, picks, fetchFn, now, log, signal, revisionClocksByEvent } = input
+  const { cfg, repoRoot, stateDir, picks, dfPicks, fetchFn, now, log, signal, revisionClocksByEvent } = input
   if (!cfg.themesEnabled) return
   try {
-    const themeItems: ThemeItemView[] = picks
+    const toThemeItems = (rows: TriagedItem[]): ThemeItemView[] => rows
       .filter((t) => t.triage_score >= cfg.themesMinScore)
       .map((t) => {
         const clocks = revisionClocksByEvent?.get(t.event_id)
@@ -509,6 +817,8 @@ async function runThemesStage(input: {
           commodities: deriveCommodities(t),
         }
       })
+    const themeItems = toThemeItems(picks)
+    const dfItems = dfPicks ? toThemeItems(dfPicks) : undefined
     const n = bumpCycleCounter(stateDir)
     let themesTimeout: ReturnType<typeof setTimeout> | undefined
     const res = await Promise.race([
@@ -516,6 +826,7 @@ async function runThemesStage(input: {
         repoRoot,
         stateDir,
         items: themeItems,
+        ...(dfItems ? { dfItems } : {}),
         runDiscovery: n % Math.max(1, cfg.themesDiscoverEveryCycles) === 0,
         minScore: cfg.themesMinScore,
         now,
@@ -543,6 +854,9 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const sleep = deps.sleep || ((ms: number) => new Promise<void>((r) => setTimeout(r, ms)))
   const now = deps.now || (() => new Date())
   const log = deps.log || (() => {})
+  const persistDeferred = deps.saveDeferredFn || saveDeferred
+  const persistScoredCheckpoint = deps.appendScoredCheckpointFn || appendScoredCheckpoint
+  const persistCycleSummary = deps.appendFirehoseSummaryFn || appendFirehoseSummary
   const ts = now().toISOString().replace(/\.\d{3}Z$/, 'Z')
   const date = ts.slice(0, 10)
 
@@ -556,11 +870,6 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     || (cfg.geminiEnabled && cfg.geminiApiKey && cfg.geminiModels.length)
     || (cfg.anthropicFallbackEnabled && (cfg.anthropicFallbackMode === 'subscription' || cfg.anthropicApiKey)),
   )
-  if (!hasScoringProvider) {
-    await runThemesStage({ cfg, repoRoot, stateDir, picks: [], fetchFn, now, log, signal: deps.signal })
-    return { ...blank, note: 'no scoring provider configured — ingester idle' }
-  }
-
   // The backlog is durable authority for one-shot fetched rows. Bad JSON/schema or an unreadable file may
   // conceal work, so stop before fetching or spending and never overwrite it as an invented empty queue.
   const backlogSnapshot = inspectDeferredBacklog(stateDir)
@@ -570,6 +879,65 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       deferred_read_failed: true,
       note: 'news backlog record needs attention — fetch and scoring paused; existing files were preserved',
     }
+  }
+  const corruptFeedPending = backlogSnapshot.items.find((item) => !!item.feed_pending && !isFeedPendingTriaged(item))
+  if (corruptFeedPending) {
+    const failure: CycleSummary = {
+      ...blank,
+      feed_commit_version: 1,
+      completed_at: now().toISOString().replace(/\.\d{3}Z$/, 'Z'),
+      deferred_read_failed: true,
+      deferred: backlogSnapshot.items.length,
+      backlog: backlogSnapshot.items.length,
+      backlog_cap: DEFERRED_CAP,
+      defer_reason: 'storage-emergency',
+      defer_reasons: ['storage-emergency'],
+      note: `feed recovery record ${corruptFeedPending.event_id} is inconsistent — scoring and projection paused; backlog files were preserved`,
+    }
+    appendFirehoseSummary(repoRoot, date, failure)
+    newsBus.emit({ type: 'news-cycle', summary: failure })
+    return failure
+  }
+  // Feed-pending rows are already scored and need no model. They must still cross the persistence boundary
+  // when every provider is disabled or temporarily absent; only a purely-unscored queue remains idle.
+  const hasDrainablePending = backlogSnapshot.items.some(isFeedPendingTriaged)
+  if (!hasScoringProvider && !hasDrainablePending && backlogSnapshot.items.length === 0) {
+    await runThemesStage({ cfg, repoRoot, stateDir, picks: [], fetchFn, now, log, signal: deps.signal })
+    return { ...blank, note: 'no scoring provider configured — ingester idle' }
+  }
+
+  // Start a compact, fsynced completion receipt before any fetch/scoring/projection work. If the cycle dies
+  // or its summary cannot be fsynced, the marker makes trailing-rate coverage unavailable rather than letting
+  // a missing high-inflow/low-scan look create false headroom. Refuse work when this safety receipt cannot land.
+  if (!beginPipelineFlowCycle(stateDir, ts, now().getTime(), cfg.cycleTimeoutMs)) {
+    return { ...blank, deferred_write_failed: true, note: 'pipeline flow safety record unavailable — scan paused before reading or scoring' }
+  }
+  const publishCycleSummary = (summary: CycleSummary): void => {
+    summary.feed_commit_version = 1
+    const summaryDurable = persistCycleSummary(repoRoot, date, summary)
+    if (summaryDurable) completePipelineFlowCycle(stateDir, ts)
+    newsBus.emit({ type: 'news-cycle', summary })
+  }
+  if (!hasScoringProvider && !hasDrainablePending) {
+    const count = backlogSnapshot.items.length
+    const summary: CycleSummary = {
+      ...blank,
+      ok: true,
+      completed_at: now().toISOString().replace(/\.\d{3}Z$/, 'Z'),
+      candidates: backlogSnapshot.items.length,
+      fresh: 0,
+      new_arrivals: 0,
+      carryover: backlogSnapshot.items.length,
+      deferred: backlogSnapshot.items.length,
+      backlog: count,
+      backlog_cap: DEFERRED_CAP,
+      defer_reason: 'no-scoring-provider',
+      defer_reasons: ['no-scoring-provider'],
+      note: `no scoring provider configured — ${backlogSnapshot.items.length} unscored item${backlogSnapshot.items.length === 1 ? '' : 's'} remain durably queued`,
+    }
+    publishCycleSummary(summary)
+    await runThemesStage({ cfg, repoRoot, stateDir, picks: [], fetchFn, now, log, signal: deps.signal })
+    return summary
   }
 
   // Announce the cycle BEFORE any network work, so the cockpit can say "looking now" for its whole
@@ -633,7 +1001,9 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       continue
     }
     for (const a of f.value) {
-      const key = a.url && urlKey(a.url)
+      // A URL is not a revision identity: RSS/regulator feeds can reuse it for a correction or reversal.
+      // Keep distinct normalized headlines while still collapsing tracking-param copies of the same revision.
+      const key = a.url && `${urlKey(a.url)}\u0000${String(a.title || '').trim().replace(/\s+/g, ' ').toLowerCase()}`
       if (key && !seenUrl.has(key)) {
         seenUrl.add(key)
         raws.push(a)
@@ -652,11 +1022,20 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // reading them through the `found_at` fallback would expire them by publication date — the bug this
   // replaced. Then carry each stamp across a source REDELIVERY, so an item a source keeps re-serving does
   // not restart its clock every time it reappears on the fresh path.
-  const backlogRows = migrateDeferred(backlogSnapshot.items, ts)
+  // `input_pending` exists only to make the raw handoff fail closed across rollback. Once this worker has
+  // loaded the v2 authority it is ordinary unscored queue work; do not carry the marker into later journals.
+  const backlogRows = migrateDeferred(backlogSnapshot.items.map(({ input_pending: _inputPending, ...item }) => item), ts)
+  // A feed-pending backlog copy is the scored authority. A source redelivery only has raw fields and must
+  // never overwrite it, strip its exact pending FeedItem payload, or spend another LLM call on the same id.
+  const feedPendingIds = new Set(backlogRows.filter((it) => !!it.feed_pending).map((it) => it.event_id))
   const fresh = preserveResidence(normalizeAndFilter(raws, { ledgerEventIds: ledgerIds, seen, now }), backlogRows)
+    .filter((it) => !feedPendingIds.has(it.event_id))
   const freshIds = new Set(fresh.map((i) => i.event_id))
   const nowDate = now()
-  const carried = backlogRows.filter((d) => d?.event_id && !freshIds.has(d.event_id) && !seen.has(d.event_id))
+  const carried = backlogRows.filter((d) => d?.event_id && !freshIds.has(d.event_id)
+    // A crash may save Seen after a durable append but before backlog cleanup/downstream replay. Typed
+    // pending is recovery authority and outranks the optimization cache until this cycle acknowledges it.
+    && (!!d.feed_pending || !seen.has(d.event_id)))
   // Retire the part of the backlog that can no longer reach the 2-day wire, BEFORE it competes for a slot.
   // Reported, never silent: an aged-out item is a real loss, exactly like the dropped_at_cap tail.
   const { live: requeued, expired: carriedExpired } = expireBacklog(carried, nowDate)
@@ -680,14 +1059,23 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // today's news out of the wire. Whatever the budget can't reach this cycle defers to the next — never
   // lost, but now the tail that defers is the low-priority tail of each pool, not a random one, and never
   // the whole of one pool. (rank.ts preTriagePriority; buildTriageQueue above.)
-  const items = buildTriageQueue(requeued, freshLive, nowDate)
+  let items = buildTriageQueue(requeued, freshLive, nowDate)
 
   if (!items.length) {
     // saveDeferred keeps the last-good file and returns false when the write fails (ENOSPC, permissions, a
     // failed rename). Every other call site propagates that; dropping it here reported `backlog: 0` on a
     // full disk while the same rows stayed on disk to be re-loaded, re-expired and re-counted every cycle —
     // inflating retiredToday without bound behind a gauge that read "caught up".
-    const cleared = saveDeferred(stateDir, [], log) // any stale spillover was consumed by the filters above
+    const hadInputOverflow = inputOverflowPresence(stateDir) === 'present'
+    const canonicalCleared = persistDeferred(stateDir, [], log) // any stale spillover was consumed by the filters above
+    // If every staged overflow row expired/was already seen, clear that authority only after the canonical
+    // empty v2 receipt lands, then rewrite the canonical file once more as a rollback-readable empty array.
+    // A crash between those steps leaves v2 (old worker pauses), never a false empty legacy authority.
+    const overflowCleared = canonicalCleared && (!hadInputOverflow || saveInputOverflow(stateDir, [], log))
+    const cleared = overflowCleared && (!hadInputOverflow || persistDeferred(stateDir, [], log))
+    const rssHandoffCleared = cleared && phase === 'fetch' && cfg.rssEnabled
+      ? acknowledgeRssDeliveries(stateDir)
+      : true
     const summary: CycleSummary = {
       ...blank, completed_at: now().toISOString().replace(/\.\d{3}Z$/, 'Z'),
       ok: true, fetched: raws.length, fresh: freshLive.length, new_arrivals: newArrivals, carryover: requeued.length,
@@ -699,15 +1087,74 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       // will be re-loaded, re-expired and re-counted next cycle, so counting them now double-counts the
       // same loss into retiredToday every cycle until the disk recovers.
       ...(backlogExpired.length && cleared ? { backlog_expired: backlogExpired.length } : {}),
-      note: backlogExpired.length && cleared
+      note: !rssHandoffCleared
+        ? 'RSS delivery journal needs attention — existing bytes preserved for replay'
+        : backlogExpired.length && cleared
         ? `no new on-list items · ${backlogExpired.length} backlog item${backlogExpired.length === 1 ? '' : 's'} RETIRED unscored — waited longer than ${Math.round(DEFERRED_MAX_AGE_MS / 3_600_000)}h behind the queue`
         : 'no new on-list items',
       ...(sources ? { sources } : {}),
     }
-    appendFirehoseSummary(repoRoot, date, summary)
-    newsBus.emit({ type: 'news-cycle', summary })
+    publishCycleSummary(summary)
     await runThemesStage({ cfg, repoRoot, stateDir, picks: [], fetchFn, now, log, signal: deps.signal })
     return summary
+  }
+
+  // Raw queue write-ahead boundary: every normalized source row lands before the first provider call. RSS
+  // may now commit its conditional validators because an ETag/304 can no longer erase the only delivery;
+  // other one-shot sources gain the same crash-safe backlog authority.
+  //
+  // When backlog + fresh exceeds the canonical work cap, never refuse the WHOLE cycle: the standalone
+  // ingest:once topology has no one-minute drain tick, so an all-or-none guard deadlocks forever at the cap.
+  // Existing durable backlog owns the admitted prefix; every excess source row first lands in a separate,
+  // source-neutral overflow authority, then replays on later standalone or in-process cycles.
+  const residentIds = new Set(backlogRows.map((item) => item.event_id))
+  const orderedInput = [
+    ...items.filter((item) => residentIds.has(item.event_id)),
+    ...items.filter((item) => !residentIds.has(item.event_id)),
+  ]
+  const activeInput = orderedInput.slice(0, DEFERRED_CAP)
+  const overflowInput = orderedInput.slice(DEFERRED_CAP)
+  const existingOverflow = inputOverflowPresence(stateDir) === 'present'
+  const inputJournalRows = stampDeferred(activeInput, ts).map((item) => ({ ...item, input_pending: true as const }))
+  let inputJournalOk = false
+  if (overflowInput.length || existingOverflow) {
+    // First persist ALL rows at the pending pathname every old worker already inspects. Its v2 wrapper makes
+    // a rollback worker pause. Keep that full barrier through the canonical-prefix and overflow-suffix
+    // writes; removing it sooner creates a crash window where old code can accept legacy canonical bytes and
+    // ignore the new overflow path. Current readers merge/dedupe the superset at every intermediate state.
+    const allInputRows = stampDeferred(orderedInput, ts).map((item) => ({ ...item, input_pending: true as const }))
+    inputJournalOk = saveInputBarrier(stateDir, allInputRows, log)
+      && saveCanonicalInputWindow(stateDir, inputJournalRows, log)
+      && saveInputOverflow(stateDir, stampDeferred(overflowInput, ts), log)
+      && clearInputBarrier(stateDir, log)
+  } else {
+    inputJournalOk = persistDeferred(stateDir, inputJournalRows, log)
+  }
+  if (!inputJournalOk) {
+    const durableAfterFailure = inspectDeferredBacklog(stateDir)
+    const summary: CycleSummary = {
+      ...blank,
+      completed_at: now().toISOString().replace(/\.\d{3}Z$/, 'Z'),
+      fetched: raws.length,
+      candidates: orderedInput.length,
+      fresh: freshLive.length,
+      new_arrivals: newArrivals,
+      carryover: requeued.length,
+      deferred: orderedInput.length,
+      backlog: durableAfterFailure.available ? durableAfterFailure.items.length : backlogSnapshot.items.length,
+      backlog_cap: DEFERRED_CAP,
+      deferred_write_failed: true,
+      defer_reason: 'storage-emergency',
+      defer_reasons: ['storage-emergency'],
+      note: 'STORAGE EMERGENCY — normalized source queue or its overflow could not be durably journaled; provider calls paused and source acknowledgements were retained',
+      ...(sources ? { sources } : {}),
+    }
+    publishCycleSummary(summary)
+    return summary
+  }
+  items = activeInput
+  if (phase === 'fetch' && cfg.rssEnabled && !acknowledgeRssDeliveries(stateDir)) {
+    log('rss: durable delivery acknowledgement refused — raw journal preserved for a later replay')
   }
 
   // 3. TRIAGE (batched, budget + adaptive token-per-minute pacing). The pacer is SHARED with the
@@ -796,8 +1243,57 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   let localRequests = 0
   let localTokens = 0
   let localDownThisCycle = false // once the local box fails this cycle, stop poking it and use the cloud fallback
-  const triaged: TriagedItem[] = []
-  const deferred: NewsItem[] = [] // unscored this cycle (budget hit / batch failed) — re-queued next cycle
+  const pendingTriaged = items.filter(isFeedPendingTriaged).map((item) => ({
+    ...item,
+    feed_triaged_at: item.feed_triaged_at || item.pending_feed_item?.ts || ts,
+  }))
+  const unscoredItems = items.filter((item) => !isFeedPendingTriaged(item))
+  const feedCapacity = inspectFeedCapacity(repoRoot, date, cfg.feedItemsDailyCap, cfg.feedItemsDailyMaxBytes)
+  const acknowledgedEventIds = new Set<string>(feedCapacity.status === 'available' ? feedCapacity.eventIds : [])
+  let historicalFeedReadFailed = false
+  const historicalDates = new Set(pendingTriaged
+    .flatMap((item) => [
+      (item.pending_feed_item?.ts || item.feed_triaged_at || '').slice(0, 10),
+      item.feed_target_date || '',
+    ])
+    .filter((pendingDate) => /^\d{4}-\d{2}-\d{2}$/.test(pendingDate) && pendingDate !== date))
+  for (const pendingDate of historicalDates) {
+    const historical = inspectHistoricalFeedIdentities(repoRoot, pendingDate, cfg.newsArchiveDir)
+    if (historical.status === 'io_failure'
+      || (historical.status === 'missing'
+        && !recentMissingFeedTargetIsRetryable(pendingDate, date, cfg.newsLocalRetentionDays))) {
+      historicalFeedReadFailed = true
+      continue
+    }
+    // A recent missing target is the legitimate crash-before-first-append state described by
+    // recentMissingFeedTargetIsRetryable. It contains no identities and can safely retry today.
+    if (historical.status === 'missing') continue
+    for (const eventId of historical.eventIds) acknowledgedEventIds.add(eventId)
+  }
+  const pendingNeedingRows = feedCapacity.status === 'available'
+    ? pendingTriaged.filter((item) => !acknowledgedEventIds.has(item.event_id)).length
+    : pendingTriaged.length
+  // Never spend a provider call after today's firehose is already full. When only row capacity remains,
+  // bound new scoring to that exact remainder after pending recovery rows; the byte boundary remains the
+  // final authority and can create at most this explicitly bounded suffix for later UTC rollover.
+  const byteGuaranteedSlots = feedCapacity.status === 'available'
+    ? Math.floor(feedCapacity.remainingBytes / MAX_FEED_ITEM_BYTES)
+    : 0
+  const scoringSlots = hasScoringProvider && !historicalFeedReadFailed && pendingNeedingRows === 0
+    && feedCapacity.status === 'available' && byteGuaranteedSlots > 0
+    // A catastrophic append failure can turn every scored row into feed-pending. Never score more rows than
+    // the durable backlog can retain, so its priority slice can preserve the ENTIRE unwritten scored set.
+    ? Math.min(
+        scoringJournalSlots(pendingTriaged.length),
+        Math.max(0, feedCapacity.remainingItems - pendingNeedingRows),
+        byteGuaranteedSlots,
+      )
+    : 0
+  const scoreItems = unscoredItems.slice(0, scoringSlots)
+  const capacityDeferred = unscoredItems.slice(scoringSlots)
+  const feedPreflightFailed = feedCapacity.status === 'io_failure' || historicalFeedReadFailed
+  const triaged: TriagedItem[] = pendingTriaged
+  const deferred: NewsItem[] = [...capacityDeferred] // unscored this cycle (provider/feed capacity) — re-queued next cycle
   let groqRequests = 0
   let groqTokens = 0
   let geminiRequests = 0
@@ -815,6 +1311,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   let providerDayLimitHit = false
   let paceHit = false
   let providerRetryHeld = false
+  let scoredCheckpointWriteFailed = false
   let batchFailed = false
   let aborted = false // the wall-clock guard killed this cycle mid-way and dumped the remainder to the backlog
   // Once Groq fails this cycle (org 429 / network), STOP poking it for the rest of the cycle and go
@@ -839,18 +1336,18 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const anthropicLedgerUnavailable = (): boolean => anthropicOn
     && (anthropicBudget?.ledgerAvailable !== true || anthropicBudget.lastReserveFailure === 'authority_unavailable')
 
-  batchLoop: for (let i = 0; i < items.length; i += cfg.triageBatch) {
+  batchLoop: for (let i = 0; i < scoreItems.length; i += cfg.triageBatch) {
     // The wall-clock guard fired: stop starting new batches. The wrapped fetchFn already fails fast, but
     // without this the loop walks every remaining batch retrying each provider (burning daily LLM quota on
     // doomed calls and holding the cycle lock past the abort). Requeue the untriaged remainder to the
     // deferred backlog FIRST (same as the budget-exhausted path below) so the abort loses nothing, then stop.
     if (deps.signal?.aborted) {
       aborted = true
-      deferred.push(...items.slice(i))
-      log(`cycle aborted — deferring ${items.length - i} remaining item(s) to the next cycle`)
+      deferred.push(...scoreItems.slice(i))
+      log(`cycle aborted — deferring ${scoreItems.length - i} remaining item(s) to the next cycle`)
       break
     }
-    const batch = items.slice(i, i + cfg.triageBatch)
+    const batch = scoreItems.slice(i, i + cfg.triageBatch)
     const est = estimateTokens(batch.length)
     const groqOptions: TriageOptions = { model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.triageMaxTokens, requestRemainingHeaderIsDaily: true }
     const groqAttemptTokenBound = triageGroqTokenBound(batch, groqOptions)
@@ -880,8 +1377,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     const stopAbortedBatch = (): boolean => {
       if (!deps.signal?.aborted || res?.ok) return false
       aborted = true
-      deferred.push(...items.slice(i))
-      log(`cycle aborted during scoring — deferring ${items.length - i} unscored item(s) to the next cycle`)
+      deferred.push(...scoreItems.slice(i))
+      log(`cycle aborted during scoring — deferring ${scoreItems.length - i} unscored item(s) to the next cycle`)
       return true
     }
     // LOCAL PRIMARY BRAIN, tried FIRST: unlimited, $0, no cap. When the local box is up it scores the WHOLE
@@ -1257,7 +1754,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       if (!acquired) continue
       if (triageIsHeld(stateDir, 'anthropic-triage', now().getTime())) {
         providerRetryHeld = true
-        deferred.push(...items.slice(i))
+        deferred.push(...scoreItems.slice(i))
         break batchLoop
       }
       // The subscription adapter may make one bounded retry when the first exact response is unusable.
@@ -1281,7 +1778,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
           || configuredFreeLedgerUnavailable()
           || anthropicLedgerUnavailable()
         if (!usageLedgerUnavailable) budgetHit = true
-        deferred.push(...items.slice(i))
+        deferred.push(...scoreItems.slice(i))
         break batchLoop
       }
       const attemptStartedAt = now().getTime()
@@ -1386,7 +1883,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         || geminiPool.some((gem) => gem.budget.providerDayExhausted)
       providerDayLimitHit = !usageLedgerUnavailable && !anyHard && anyProviderDayLimit
       budgetHit = !usageLedgerUnavailable && !anyHard && !providerDayLimitHit
-      deferred.push(...items.slice(i)) // everything from here on waits for the next cycle / drain
+      deferred.push(...scoreItems.slice(i)) // everything from here on waits for the next cycle / drain
       break
     }
     if (!res.ok) {
@@ -1397,6 +1894,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       log(`triage batch @${i}: ${res.note || 'failed'} — ${batch.length} item${batch.length === 1 ? '' : 's'} deferred to next cycle`)
       continue
     }
+    const batchTriagedStart = triaged.length
     for (let j = 0; j < batch.length; j++) {
       const it = batch[j]
       const t = res.byIndex.get(j)
@@ -1452,6 +1950,23 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         source_region: it.region,
       })
     }
+    // Checkpoint each completed provider batch immediately. The raw queue journal prevents article loss, but
+    // without this second receipt a host crash late in a long loop would pay to rescore every earlier batch.
+    // Stop dispatching more calls if the checkpoint cannot land; the raw v2 authority remains retryable.
+    const completedBatch = triaged.slice(batchTriagedStart).map((item) => ({
+      ...item,
+      deferred_at: item.deferred_at || ts,
+      feed_pending: item.feed_pending || 'uncommitted' as const,
+      feed_triaged_at: item.feed_triaged_at || item.pending_feed_item?.ts || ts,
+    }))
+    triaged.splice(batchTriagedStart, completedBatch.length, ...completedBatch)
+    const unprocessedAfterBatch = scoreItems.slice(i + batch.length)
+    if (!persistScoredCheckpoint(stateDir, completedBatch)) {
+      scoredCheckpointWriteFailed = true
+      deferred.push(...unprocessedAfterBatch)
+      log(`scored checkpoint unavailable after batch @${i} — stopped further provider calls; raw queue remains durable`)
+      break batchLoop
+    }
   }
   budget.save()
   if (localBudget) localBudget.save() // persist local's daily tokens/requests so the cockpit reads live throughput
@@ -1464,7 +1979,11 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // This journal write already excludes backlogExpired (carriedExpired/freshExpired never entered `deferred`
   // or the triage queue `items` that `triaged` was drawn from) — so a successful journal write ALONE already
   // durably removes the expired rows from disk, independent of whether the later cleanup write below succeeds.
-  const deferredJournalOk = saveDeferred(stateDir, stampDeferred([...triaged, ...deferred], ts), log)
+  for (const item of triaged) {
+    item.feed_pending ||= 'uncommitted'
+    item.feed_triaged_at ||= item.pending_feed_item?.ts || ts
+  }
+  const deferredJournalOk = persistDeferred(stateDir, stampDeferred([...triaged, ...deferred], ts), log)
   let deferredPersisted = deferredJournalOk
 
   // 3b. DEDUP — micro-cluster this cycle's items against the recent firehose into STORIES (finer than
@@ -1479,7 +1998,10 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         ...triaged.map((t) => ({ event_id: t.event_id, headline: t.headline, ts, companies: t.companies, source_name: t.source_name })),
       ]
       const groups = assignDedupGroups(views, { windowHours: cfg.dedupWindowHours, jaccard: cfg.dedupJaccard, verbatimJaccard: cfg.dedupVerbatimJaccard, maxScan: cfg.dedupMaxScan })
-      for (const t of triaged) t.dedup_group = groups.get(t.event_id) || t.event_id
+      for (const t of triaged) {
+        // Once the exact payload exists it is immutable recovery authority, including its story id.
+        t.dedup_group = t.pending_feed_item?.dedup_group || groups.get(t.event_id) || t.event_id
+      }
     } catch (e: any) {
       log(`dedup stage error: ${e?.message || e}`)
     }
@@ -1491,18 +2013,37 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   let revisionClocksByEvent = new Map<string, InboxRevisionClocks>()
   let withheldEventIds = new Set<string>()
   let inboxWriteFailed = false
-  if (picks.length) {
-    try {
-      const merged = mergeInbox(repoRoot, date, picks, {
+  // An exact pending payload proves this pick/watch was already merged. Re-merging it after UTC rollover
+  // would create a second day's sweep row. Seed its immutable clocks for Themes and merge only rows that do
+  // not yet have an exact post-inbox payload.
+  for (const item of picks) {
+    const exact = item.pending_feed_item
+    if (!exact) continue
+    revisionClocksByEvent.set(item.event_id, {
+      foundAt: exact.found_at || item.found_at,
+      ...(exact.observed_at ? { observedAt: exact.observed_at } : {}),
+      sourceIsEnglish: exact.source_is_english === true,
+    })
+  }
+  const picksNeedingInbox = picks.filter((item) => !item.pending_feed_item)
+  if (picksNeedingInbox.length) {
+    const byInboxDate = new Map<string, TriagedItem[]>()
+    for (const item of picksNeedingInbox) {
+      const originalDate = (item.feed_triaged_at || date).slice(0, 10)
+      const inboxDate = /^\d{4}-\d{2}-\d{2}$/.test(originalDate) ? originalDate : date
+      byInboxDate.set(inboxDate, [...(byInboxDate.get(inboxDate) || []), item])
+    }
+    let mergedAny = false
+    for (const [inboxDate, group] of byInboxDate) try {
+      const merged = mergeInbox(repoRoot, inboxDate, group, {
         maxRows: cfg.inboxMaxRows,
         now,
         archiveDir: cfg.newsArchiveDir,
         stateDir,
       })
-      inboxed = merged.rowCount
-      revisionClocksByEvent = merged.revisionClocksByEvent
-      withheldEventIds = merged.withheldEventIds
-      await refreshBoard(repoRoot, log)
+      for (const [eventId, clocks] of merged.revisionClocksByEvent) revisionClocksByEvent.set(eventId, clocks)
+      for (const eventId of merged.withheldEventIds) withheldEventIds.add(eventId)
+      mergedAny = true
     } catch (e: any) {
       // LAST BACKSTOP — this module's standing invariant is that a cycle never throws, and every other
       // stage already honours it (dedup, themes, appendFirehoseSummary). mergeInbox was the sole
@@ -1512,26 +2053,38 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       // clocks, the summary is still written, and the failure is REPORTED. Never widen this to swallow
       // non-write failures.
       inboxWriteFailed = true
-      for (const t of picks) withheldEventIds.add(t.event_id)
+      for (const t of group) withheldEventIds.add(t.event_id)
       log(`inbox write withheld: ${e?.message || e}`)
     }
+    if (mergedAny) {
+      try { await refreshBoard(repoRoot, log) }
+      catch (e: any) { log(`board refresh failed after durable inbox merge: ${e?.message || e}`) }
+    }
   }
-  // Count only what was actually PROJECTED. A withheld row is re-queued and re-scored next cycle;
-  // counting it now would double-count it. read = kept + dropped still ties out, and each item is
-  // counted exactly once — in the cycle it finally lands.
-  const landed = triaged.filter((t) => !withheldEventIds.has(t.event_id))
-  const picked = landed.filter((t) => t.band === 'pick').length
-  const watched = landed.filter((t) => t.band === 'watch').length
-  const dropped = landed.filter((t) => t.band === 'drop').length
+  try {
+    const current = JSON.parse(fs.readFileSync(path.join(repoRoot, 'screener', 'inbox', `${date}_sweep.json`), 'utf8'))
+    inboxed = Array.isArray(current?.rows) ? current.rows.length : 0
+  } catch { inboxed = 0 }
+  // A row is only a candidate to land until its firehose item is durably appended below. Inbox-withheld
+  // rows never reach that boundary. A daily feed cap or I/O failure can still refuse a suffix, and that
+  // suffix must remain uncounted, unseen, and queued until a later cycle actually persists it.
+  const eligibleFeedCandidates = triaged.filter((t) => !withheldEventIds.has(t.event_id))
+  // append reports an ordered prefix. Put already-durable acknowledgements first so a new row blocked by
+  // today's cap cannot strand a later historical acknowledgement behind it forever.
+  const feedCandidates = [
+    ...eligibleFeedCandidates.filter((item) => acknowledgedEventIds.has(item.event_id)),
+    ...eligibleFeedCandidates.filter((item) => !acknowledgedEventIds.has(item.event_id)),
+  ]
 
   // per-item feed records — for KEPT and DROPPED alike, so the live wire shows everything the
   // scanner read and why; then stream each to live listeners
-  const feedItems: FeedItem[] = landed.map((t) => {
+  const feedItems: FeedItem[] = feedCandidates.map((t) => {
+    if (t.pending_feed_item) return t.pending_feed_item
     const clocks = revisionClocksByEvent.get(t.event_id)
     const sourceIsEnglish = clocks ? clocks.sourceIsEnglish : t.source_is_english === true
     return {
       kind: 'item',
-      ts,
+      ts: t.feed_triaged_at || ts,
       // Exact kept revisions use the pair mergeInbox persisted. Dropped rows have no inbox lane and retain
       // their raw source clock; `ts` above remains the separate triage audit clock in either case.
       found_at: clocks?.foundAt || t.found_at,
@@ -1578,33 +2131,71 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       caution: t.caution, // caution_only social — preserved so the display re-rank (feed.ts) re-applies the lowest cap
     }
   })
-  // emit exactly what was persisted, so the live wire and a later backfill agree
-  const written = appendFeedItems(repoRoot, date, feedItems, cfg.feedItemsDailyCap)
-  if (written) invalidateFacets() // a fresh cycle changed the archive — drop the facet index so new items/countries show up before the TTL
-  for (const fi of feedItems.slice(0, written)) newsBus.emit({ type: 'news-item', item: fi })
+  // Persist the exact post-inbox payload BEFORE append. This is the crash-replay authority for every field,
+  // including original triage time and durable inbox clocks. If this journal cannot land, do not start a
+  // new append: the earlier marker journal remains retryable, but it intentionally predates exact projection.
+  for (let i = 0; i < feedCandidates.length; i++) {
+    feedCandidates[i].pending_feed_item = feedItems[i]
+    // Preserve the last proven target when it already contains the event. Otherwise journal THIS attempt's
+    // partition before append, closing D → D+1 → crash → D+2 idempotence without mutating FeedItem.ts.
+    if (!acknowledgedEventIds.has(feedCandidates[i].event_id)) feedCandidates[i].feed_target_date = date
+  }
+  const exactFeedJournalOk = persistDeferred(stateDir, stampDeferred([...triaged, ...deferred], ts), log)
+  const oversizedFeedItem = feedItems.find((item) =>
+    Buffer.byteLength(`${JSON.stringify(item)}\n`, 'utf8') > MAX_FEED_ITEM_BYTES)
+  if (oversizedFeedItem) {
+    log(`feed persistence refused oversized item ${oversizedFeedItem.event_id}; exact scored payload remains queued`)
+  }
+  // This result is the authoritative commit boundary. Cap refusal and I/O failure are different operator
+  // states, but both make the unwritten suffix retryable work — never reported progress.
+  const feedAppend = exactFeedJournalOk && !feedPreflightFailed && !oversizedFeedItem
+    ? appendFeedItems(repoRoot, date, feedItems, cfg.feedItemsDailyCap, cfg.feedItemsDailyMaxBytes, { acknowledgedEventIds })
+    : { status: 'io_failure' as const, written: 0, unwritten: feedItems.length, appendedEventIds: [] }
+  const persistedFeedItems = feedItems.slice(0, feedAppend.written)
+  const persistedRows = feedCandidates.slice(0, feedAppend.written)
+  const feedUnwrittenRows = feedCandidates.slice(feedAppend.written)
+  const feedUnwritten = feedAppend.unwritten
+  const feedWriteFailed = feedAppend.status === 'io_failure' || feedPreflightFailed
+  const preflightCapKind = feedCapacity.status === 'available'
+    ? feedCapacity.remainingBytes <= 0 || byteGuaranteedSlots < unscoredItems.length
+      ? 'bytes' as const
+      : feedCapacity.remainingItems < pendingNeedingRows + unscoredItems.length
+        ? 'items' as const
+        : undefined
+    : undefined
+  const feedCapKind = feedAppend.status === 'cap' ? feedAppend.cap : preflightCapKind
+  const newlyAppendedIds = new Set(feedAppend.appendedEventIds)
+  const newlyAppendedFeedItems = persistedFeedItems.filter((item) => newlyAppendedIds.has(item.event_id))
+  const newlyAppendedRows = persistedRows.filter((item) => newlyAppendedIds.has(item.event_id))
+  // Only a row appended by THIS cycle is new durable progress. A crash/final-cleanup failure can leave an
+  // already-fsynced event in the pending journal; acknowledging it on the next look clears recovery state,
+  // but counting or replaying it again would overstate scanning and could falsely show headroom over inflow.
+  const picked = newlyAppendedRows.filter((t) => t.band === 'pick').length
+  const watched = newlyAppendedRows.filter((t) => t.band === 'watch').length
+  const dropped = newlyAppendedRows.filter((t) => t.band === 'drop').length
+  const inboxFeedPending = feedUnwrittenRows.filter((t) => t.band !== 'drop').length
+  if (newlyAppendedFeedItems.length) invalidateFacets() // a fresh cycle changed the archive — drop the facet index so new items/countries show up before the TTL
+  // Historical acknowledgement completes recovery bookkeeping but must not replay a stale live event.
+  for (const fi of newlyAppendedFeedItems) newsBus.emit({ type: 'news-item', item: fi })
+  if (feedAppend.status === 'cap') {
+    log(`feed persistence cap: ${feedUnwritten} scored item${feedUnwritten === 1 ? '' : 's'} remain queued and unseen`)
+  } else if (feedWriteFailed) {
+    log(`feed persistence write failed: ${feedUnwritten} scored item${feedUnwritten === 1 ? '' : 's'} remain queued and unseen`)
+  }
   // A kept row now has a durable inbox projection; a dropped row has its durable firehose audit record.
   // Only now may the optimization cache suppress a future source delivery. If any write above throws, the
   // safety backlog remains and the item is neither seen nor silently lost.
-  for (const t of landed) seen.add(t.event_id, t.materiality_pre_score)
-  seen.save()
-  // Final cleanup write: now that triaged rows are durably projected, shrink the backlog file down to just
-  // the true carry-forward tail. `deferredPersisted` tracks THIS write for `deferred_write_failed` — an
-  // operator-facing disk-health signal — deliberately independent of whether the journal write above already
-  // removed the expired rows: a failure here just leaves some already-projected, already-`seen` rows sitting
-  // harmlessly in the backlog file (next cycle's `carried` filter drops them via `seen`), not a data-loss risk.
-  deferredPersisted = saveDeferred(stateDir, stampDeferred(
-    [...picks.filter((t) => withheldEventIds.has(t.event_id)), ...deferred], ts), log)
-  // See backlogDurablyCleared above: `deferredPersisted` alone (the LAST write) undercounted retirement
-  // whenever the journal write succeeded but this cleanup write then failed — the journal write had already
-  // made the expired rows' removal durable, but the reassignment above threw that success away.
-  const expiredRemoved = backlogDurablyCleared(deferredJournalOk, deferredPersisted)
+  for (const t of persistedRows) seen.add(t.event_id, t.materiality_pre_score)
+  const seenPersisted = seen.save()
   // Optional neural index. It runs only when explicitly configured, only over newly persisted items, and
   // is fully fail-open: provider trouble can never block the wire or turn an item into a false non-match.
-  if (written && cfg.retrievalEmbeddingEnabled) {
+  // Derived sinks are idempotent recovery work. Include historical acknowledgements so a crash after the
+  // feed fsync but before indexing/Themes is repaired on the next look; only counters/SSE stay new-only.
+  if (persistedFeedItems.length && cfg.retrievalEmbeddingEnabled) {
     try {
       const indexed = await updateSemanticIndex({
         stateDir,
-        items: feedItems.slice(0, written),
+        items: persistedFeedItems,
         fetchFn,
         config: {
           enabled: cfg.retrievalEmbeddingEnabled,
@@ -1622,6 +2213,66 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       log(`semantic index error: ${e?.message || e} — hybrid search remains active`)
     }
   }
+
+  // Themes is also a derived sink. Keep the exact recovery journal until semantic assignment and Themes have
+  // both had their chance: a crash after feed fsync but before either stage must replay the acknowledged row.
+  // Membership assignment is idempotent; token-DF accounting receives new-only rows separately.
+  await runThemesStage({
+    cfg, repoRoot, stateDir, picks: persistedRows.filter((t) => t.band !== 'drop'),
+    dfPicks: newlyAppendedRows.filter((t) => t.band !== 'drop'),
+    fetchFn, now, log, signal: deps.signal, revisionClocksByEvent,
+  })
+
+  // Final cleanup is deliberately AFTER all derived sinks. Shrink the exact recovery journal only when the
+  // firehose is durable and those idempotent recovery stages have been attempted.
+  const retryState: NonNullable<NewsItem['feed_pending']> = feedAppend.status === 'cap' ? 'cap' : 'io_failure'
+  const retryRows = [
+    // Keep a durable exact acknowledgement receipt until the dedup cache is also durable. Otherwise a
+    // source redelivery after rollover could pay for and append the same event again.
+    ...(!seenPersisted
+      ? persistedRows.map((t) => ({ ...t, feed_pending: 'uncommitted' as const }))
+      : []),
+    ...picks.filter((t) => withheldEventIds.has(t.event_id)).map((t) => ({ ...t, feed_pending: 'uncommitted' as const })),
+    ...feedUnwrittenRows.map((t) => ({ ...t, feed_pending: retryState })),
+    ...deferred,
+  ]
+  const stampedRetryRows = stampDeferred(retryRows, ts)
+  deferredPersisted = persistDeferred(stateDir, stampedRetryRows, log)
+  // A false writer result can still leave its atomic pending journal complete. Inspect both authorities and
+  // prove that every row expected in the active window is retryable before escalating to an emergency.
+  const retrySnapshot = inspectDeferredBacklog(stateDir)
+  const retryById = new Map(retrySnapshot.items.map((item) => [item.event_id, item]))
+  const requiredRetryRows = [
+    ...stampedRetryRows.filter((item) => !!item.feed_pending),
+    ...stampedRetryRows.filter((item) => !item.feed_pending),
+  ].slice(0, DEFERRED_CAP)
+  const retryJournalDurable = retrySnapshot.available && requiredRetryRows.every((expected) => {
+    const actual = retryById.get(expected.event_id)
+    if (!actual) return false
+    if (expected.feed_pending && !actual.feed_pending) return false
+    if (exactFeedJournalOk && expected.pending_feed_item
+      && JSON.stringify(actual.pending_feed_item) !== JSON.stringify(expected.pending_feed_item)) return false
+    return true
+  })
+  // An unreadable final authority is itself an emergency, even when this active prefix produced no retry
+  // rows. Durable raw overflow can still hold a suffix that this cycle did not admit, so treating an EIO as
+  // an exact empty snapshot would publish a false `backlog: 0` while work remains on disk.
+  const retrySnapshotUnavailable = !retrySnapshot.available
+  const storageEmergency = retrySnapshotUnavailable
+    || (requiredRetryRows.length > 0 && !retryJournalDurable)
+  const knownRetryIds = new Set([
+    ...overflowInput.map((item) => item.event_id),
+    ...stampedRetryRows.map((item) => item.event_id),
+  ])
+  const authoritativeBacklogCount = retrySnapshot.available
+    ? retrySnapshot.items.length
+    : knownRetryIds.size
+  // The raw input journal already excludes this cycle's expired rows. Any later successful scored/exact/final
+  // journal is also sufficient; do not undercount retirement merely because final cleanup failed.
+  const expiredRemoved = backlogDurablyCleared(
+    inputJournalOk || deferredJournalOk || exactFeedJournalOk,
+    deferredPersisted,
+  )
 
   const overflowReq = overflow.reduce((s, o) => s + o.requests, 0)
   const overflowTok = overflow.reduce((s, o) => s + o.tokens, 0)
@@ -1660,10 +2311,11 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
           : anthropicRequests > 0
             ? 'scored'
             : 'available'
+  const scoringDeferredCount = Math.max(0, deferred.length - capacityDeferred.length)
   // When items deferred, name the LAST-RESORT tier's state too, so a defer note can't read as if Groq were
   // the only blocker. Added only when the tier genuinely could NOT absorb the spillover (never for
   // 'scored'/'available', which weren't the reason anything deferred).
-  const lastResortClause = !deferred.length
+  const lastResortClause = !scoringDeferredCount
     ? ''
     : lastResort === 'off'
       ? ' · Haiku last-resort is off'
@@ -1679,37 +2331,28 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
                 ? ' · Haiku last-resort backing off after an error'
                 : ''
 
-  const defCount = deferred.length
-  const defPlural = defCount === 1 ? '' : 's'
-  // Items past the loss boundary. saveDeferred keeps only the first DEFERRED_CAP of the priority-sorted
-  // backlog, so anything beyond the cap is DROPPED — never scored, and not re-fetchable once its source
-  // window ages out (GDELT's lookback expires; an unchanged RSS feed answers 304). It was derivable as
-  // `deferred − backlog` but never named, logged, or counted, so the loss was invisible while the panel's
-  // trend read "steady". Surface it: `deferred = backlog + dropped_at_cap` is now an explicit invariant.
-  const droppedAtCap = Math.max(0, defCount - DEFERRED_CAP)
-  if (droppedAtCap > 0) {
-    log(`LOSS: ${droppedAtCap} lowest-priority item${droppedAtCap === 1 ? '' : 's'} dropped past the ${DEFERRED_CAP}-item backlog cap — not deferred; gone once their source window ages out`)
-  }
-  const baseNote = aborted && defCount
-    ? `cycle hit its time guard — ${defCount} item${defPlural} dumped to the backlog for the next look${lastResortClause}`
-    : usageLedgerUnavailable
-      ? `one or more provider usage records need attention — ${defCount} item${defPlural} deferred; no allowance or quota exhaustion is claimed${lastResortClause}`
-      : providerDayLimitHit
-        ? `one or more free providers reported their day limit and no other scoring tier could fit — ${defCount} item${defPlural} deferred until provider-day reset${lastResortClause}`
-        : budgetHit
-          ? `configured free-tier engine allowances cannot fit another safe batch — ${defCount} item${defPlural} deferred until their provider-day reset${lastResortClause}`
-          : providerRetryHeld && defCount
-            ? `provider retries held after errors — ${defCount} item${defPlural} deferred until the next eligible retry window${lastResortClause}`
-            : paceHit
-              ? `engine allowances paced for the day — ${defCount} item${defPlural} held for the next drain so every usable tier lasts to its reset${lastResortClause}`
-              : batchFailed
-                ? `${defCount} item${defPlural} not scored (LLM hiccup) — deferred to next cycle${lastResortClause}`
+  const scoringDefPlural = scoringDeferredCount === 1 ? '' : 's'
+  // The durable backlog also owns rows that WERE scored but did not cross a persistence boundary. Include
+  // inbox-withheld and feed-unwritten work in the true queue-depth arithmetic; reporting only
+  // the unscored provider tail would make the gauge smaller than the file we just wrote.
+  const defCount = authoritativeBacklogCount
+  const baseNote = aborted && scoringDeferredCount
+    ? `cycle hit its time guard — ${scoringDeferredCount} item${scoringDefPlural} dumped to the backlog for the next look${lastResortClause}`
+    : usageLedgerUnavailable && scoringDeferredCount
+      ? `one or more provider usage records need attention — ${scoringDeferredCount} item${scoringDefPlural} deferred; no allowance or quota exhaustion is claimed${lastResortClause}`
+      : providerDayLimitHit && scoringDeferredCount
+        ? `one or more free providers reported their day limit and no other scoring tier could fit — ${scoringDeferredCount} item${scoringDefPlural} deferred until provider-day reset${lastResortClause}`
+        : budgetHit && scoringDeferredCount
+          ? `configured free-tier engine allowances cannot fit another safe batch — ${scoringDeferredCount} item${scoringDefPlural} deferred until their provider-day reset${lastResortClause}`
+          : providerRetryHeld && scoringDeferredCount
+            ? `provider retries held after errors — ${scoringDeferredCount} item${scoringDefPlural} deferred until the next eligible retry window${lastResortClause}`
+            : paceHit && scoringDeferredCount
+              ? `engine allowances paced for the day — ${scoringDeferredCount} item${scoringDefPlural} held for the next drain so every usable tier lasts to its reset${lastResortClause}`
+              : batchFailed && scoringDeferredCount
+                ? `${scoringDeferredCount} item${scoringDefPlural} not scored (LLM hiccup) — deferred to next cycle${lastResortClause}`
                 : undefined
-  // Append the honest loss clause so a defer note never reads as if everything was merely postponed when part
-  // of it was actually dropped (the reported "clears when quotas reset" is false for the lost tail).
-  const capNote = droppedAtCap > 0
-    ? `${baseNote ? `${baseNote} · ` : ''}${droppedAtCap} item${droppedAtCap === 1 ? '' : 's'} DROPPED past the ${DEFERRED_CAP}-item cap (not deferred — lost)`
-    : baseNote
+  // Work beyond the hot window remains in durable overflow, so reaching DEFERRED_CAP adds no loss clause.
+  const capNote = baseNote
   // Same honesty for the age boundary: a retired item was never scored and never will be. Reported even on
   // a cycle that deferred nothing, because that is exactly the cycle whose note would otherwise read clean.
   // Count retirement ONLY once a backlog write durably removed the expired rows — `expiredRemoved`, which is
@@ -1732,10 +2375,37 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const inboxNote = withheldEventIds.size
     ? `held back ${withheldEventIds.size} item${withheldEventIds.size === 1 ? '' : 's'} — first-seen clock not proved${inboxWriteFailed ? ' (inbox write refused)' : ''}; they stay queued and retry next look`
     : ''
-  const note = [localDownNote, inboxNote, coreNote].filter(Boolean).join(' · ') || undefined
-  // Structured twin of the note, in the same precedence, so the cockpit can reason about the defer reason
-  // without parsing free text.
-  const deferReason: CycleSummary['defer_reason'] = !defCount
+  const pendingRecoveryHeld = capacityDeferred.length > 0 && pendingNeedingRows > 0
+  const noScoringProviderHeld = capacityDeferred.length > 0 && !hasScoringProvider
+  // Describe THIS look's boundary. A prior marker explains why recovery exists, but once today's append
+  // succeeds it must not keep claiming that storage is unavailable or today's cap is full.
+  const feedIoReason = feedWriteFailed
+  const feedCapReason = feedAppend.status === 'cap'
+    || !!preflightCapKind
+  const heldUnscored = capacityDeferred.length
+  const feedNote = feedIoReason
+    ? `feed persistence unavailable — ${feedUnwritten} scored and ${heldUnscored} unscored item${feedUnwritten + heldUnscored === 1 ? '' : 's'} stayed queued; no unproved rows count as complete`
+    : feedCapReason
+      ? `daily feed ${feedCapKind || 'item'} cap reached — ${feedUnwritten} scored and ${heldUnscored} unscored item${feedUnwritten + heldUnscored === 1 ? '' : 's'} stayed queued; provider calls stop at known capacity`
+      : pendingRecoveryHeld
+        ? `feed recovery drained first — ${heldUnscored} unscored item${heldUnscored === 1 ? '' : 's'} stayed queued without a provider call`
+        : ''
+  const storageNote = retrySnapshotUnavailable
+    ? `STORAGE EMERGENCY — final retry authority could not be read; backlog depth is unavailable${authoritativeBacklogCount ? ` (known lower bound: ${authoritativeBacklogCount})` : ''}`
+    : storageEmergency
+    ? 'STORAGE EMERGENCY — no durable backlog or write-ahead journal contains every retry row expected in the active work window'
+    : ''
+  const checkpointNote = scoredCheckpointWriteFailed
+    ? 'scored-batch checkpoint was refused — further provider calls stopped and remaining raw work stayed queued'
+    : ''
+  const seenNote = !seenPersisted
+    ? `${persistedRows.length} completed item${persistedRows.length === 1 ? '' : 's'} remain in recovery until the durable dedup receipt can be saved`
+    : ''
+  const noProviderNote = noScoringProviderHeld
+    ? `no scoring provider configured — ${capacityDeferred.length} unscored item${capacityDeferred.length === 1 ? '' : 's'} remain durably queued`
+    : ''
+  const note = [storageNote, checkpointNote, seenNote, localDownNote, inboxNote, feedNote, noProviderNote, coreNote].filter(Boolean).join(' · ') || undefined
+  const providerDeferReason: CycleSummary['defer_reason'] = !scoringDeferredCount
     ? undefined
     : aborted
       ? 'aborted'
@@ -1752,23 +2422,44 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
                 : batchFailed
                   ? 'batch-failed'
                   : undefined
+  // Complete ordered cause set. The first entry remains the legacy primary for rolling-deploy clients.
+  const deferReasons = ([
+    ...(storageEmergency ? ['storage-emergency' as const] : []),
+    ...(feedIoReason ? ['feed-write-failed' as const] : []),
+    ...(feedCapReason ? ['feed-cap' as const] : []),
+    ...(withheldEventIds.size ? ['inbox-withheld' as const] : []),
+    ...(noScoringProviderHeld ? ['no-scoring-provider' as const] : []),
+    ...(providerDeferReason ? [providerDeferReason] : []),
+  ] as NonNullable<CycleSummary['defer_reasons']>).filter((reason, index, all) => all.indexOf(reason) === index)
+  const deferReason = deferReasons[0]
 
   const summary: CycleSummary = {
     ts, completed_at: now().toISOString().replace(/\.\d{3}Z$/, 'Z'),
     ok: true, fetched: raws.length, candidates: items.length,
     picked, watched, dropped, inboxed, groq_requests: groqRequests, groq_tokens: groqTokens,
     // end-to-end transparency: split the read balloon (fresh vs re-queued backlog), and always carry the
-    // backlog depth + its loss boundary + the fallback's state so the cockpit never has to infer them.
+    // backlog depth + active work-window size + the fallback's state so the cockpit never has to infer them.
     fresh: freshLive.length, new_arrivals: newArrivals, carryover: requeued.length,
     ...(defCount ? { deferred: defCount } : {}),
-    backlog: Math.min(defCount, DEFERRED_CAP), backlog_cap: DEFERRED_CAP,
-    ...(droppedAtCap ? { dropped_at_cap: droppedAtCap } : {}),
+    // If cleanup was refused, the pre-append exact journal can legitimately still contain completed recovery
+    // rows. Report the readable on-disk authority, not the smaller intended cleanup list.
+    // When the final read fails, this is only the rows still known from the untouched overflow suffix and
+    // intended active retry set. Omit an unproved zero entirely; deferred_read_failed is the unavailable bit.
+    ...(retrySnapshot.available || authoritativeBacklogCount > 0 ? { backlog: authoritativeBacklogCount } : {}),
+    backlog_cap: DEFERRED_CAP,
     ...(backlogExpired.length && expiredRemoved ? { backlog_expired: backlogExpired.length } : {}),
-    ...(deferredPersisted ? {} : { deferred_write_failed: true }),
+    ...(feedUnwritten ? { feed_unwritten: feedUnwritten } : {}),
+    ...(feedWriteFailed ? { feed_write_failed: true } : {}),
+    ...(feedCapKind && feedCapReason ? { feed_cap_kind: feedCapKind } : {}),
+    ...(inboxFeedPending ? { inbox_feed_pending: inboxFeedPending } : {}),
+    ...(deferredPersisted && !scoredCheckpointWriteFailed ? {} : { deferred_write_failed: true }),
+    ...(retrySnapshotUnavailable ? { deferred_read_failed: true } : {}),
+    ...(!seenPersisted ? { seen_write_failed: true } : {}),
     ...(withheldEventIds.size ? { inbox_withheld: withheldEventIds.size } : {}),
     ...(inboxWriteFailed ? { inbox_write_failed: true } : {}),
     ...(aborted ? { aborted: true } : {}),
     ...(deferReason ? { defer_reason: deferReason } : {}),
+    ...(deferReasons.length ? { defer_reasons: deferReasons } : {}),
     last_resort: lastResort,
     ...(localRequests ? { local_requests: localRequests, local_tokens: localTokens } : {}),
     ...(localOn && localDownThisCycle ? { local_down: true } : {}),
@@ -1781,15 +2472,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     phase,
     note,
   }
-  appendFirehoseSummary(repoRoot, date, summary)
-  newsBus.emit({ type: 'news-cycle', summary })
+  publishCycleSummary(summary)
   log(`news cycle: fetched ${raws.length}, ${items.length} new, picked ${picked}, watched ${watched}, dropped ${dropped}; ${localRequests ? `local ${localRequests} req / ${localTokens} tok · ` : ''}groq ${groqRequests} req / ${groqTokens} tok${geminiRequests ? ` · gemini ${geminiRequests} req / ${geminiTokens} tok` : ''}${overflowLog}${anthropicRequests ? ` · haiku ${anthropicRequests} req / $${anthropicCostUsd.toFixed(3)}` : ''}`)
 
-  // 5. THEMES — bucket material items and run the same maintenance clock used by quiet cycles. Fully
-  // guarded so a themes bug can never block or corrupt the core wire.
-  await runThemesStage({
-    cfg, repoRoot, stateDir, picks: picks.filter((t) => !withheldEventIds.has(t.event_id)),
-    fetchFn, now, log, signal: deps.signal, revisionClocksByEvent,
-  })
   return summary
 }

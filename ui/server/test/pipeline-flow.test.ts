@@ -4,6 +4,8 @@ import os from 'node:os'
 import path from 'node:path'
 import {
   buildPipelineFlowRates,
+  beginPipelineFlowCycle,
+  completePipelineFlowCycle,
   countUniqueNewArrivals,
   cycleCompletionMs,
   latestPipelineCycle,
@@ -28,6 +30,7 @@ function cycle(atMs: number, fields: Partial<CycleSummary> = {}): CycleSummary {
   return {
     ts: new Date(atMs).toISOString(), ok: true, fetched: 0, candidates: 0,
     picked: 0, watched: 0, dropped: 0, inboxed: 0, groq_requests: 0, groq_tokens: 0,
+    feed_commit_version: 1,
     ...fields,
   }
 }
@@ -49,6 +52,18 @@ check('redelivered backlog IDs are excluded from unique new-arrival inflow', () 
 check('an empty delivery returns before inspecting backlog identities', () => {
   const unreadableBacklog = [{ get event_id(): string { throw new Error('backlog should not be traversed') } }]
   assert.equal(countUniqueNewArrivals([], unreadableBacklog), 0)
+})
+
+check('legacy pre-boundary summaries cannot claim durable scanning progress', () => {
+  const legacy = cycle(NOW - 60_000, {
+    completed_at: new Date(NOW - 30_000).toISOString(), new_arrivals: 12,
+    picked: 4, watched: 4, dropped: 4, feed_commit_version: undefined,
+  })
+  assert.equal(cycleScannedItems(legacy), null)
+  const rates = buildPipelineFlowRates([legacy], NOW, CYCLE_TIMEOUT_MS)
+  assert.equal(rates.inflow.items, 12)
+  assert.equal(rates.scanning.items, null)
+  assert.equal(rates.comparison.status, 'unavailable')
 })
 
 check('legacy non-empty rows are unknown because fresh/candidates can contain redelivery', () => {
@@ -306,6 +321,148 @@ check('no completed cycles is no coverage, not a measured zero-rate claim', () =
   assert.equal(rates.scanning.coverage, 'none')
   assert.equal(rates.inflow.perSecond, null)
   assert.equal(rates.comparison.status, 'unavailable')
+})
+
+check('a durable started-without-summary receipt makes an otherwise readable rate window unavailable', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-flow-gap-root-'))
+  const state = fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-flow-gap-state-'))
+  const midday = Date.parse('2026-08-21T12:00:00Z')
+  const started = '2026-08-21T11:59:00Z'
+  try {
+    const inbox = path.join(root, 'screener', 'inbox')
+    fs.mkdirSync(inbox, { recursive: true })
+    fs.writeFileSync(path.join(inbox, '2026-08-21_firehose.ndjson'), `${JSON.stringify({
+      kind: 'cycle_summary', ...cycle(midday - 600_000, { completed_at: '2026-08-21T11:51:00Z', new_arrivals: 1, picked: 2 }),
+    })}\n`)
+    assert.equal(beginPipelineFlowCycle(state, started, midday - 60_000, CYCLE_TIMEOUT_MS), true)
+    const incomplete = readPipelineFlowCycles(root, '', midday, CYCLE_TIMEOUT_MS, state)
+    assert.equal(incomplete.history.coverage, 'partial')
+    assert.equal(incomplete.history.incompleteCycles, 1)
+    assert.equal(incomplete.history.todayIncompleteCycles, 1)
+    assert.equal(incomplete.history.todayTotalsLowerBound, true)
+    assert.equal(buildPipelineFlowRates(incomplete.cycles, midday, CYCLE_TIMEOUT_MS, incomplete.history).comparison.status, 'unavailable')
+
+    // A later begin performs receipt pruning. The missing 11:59 summary no longer overlaps the trailing
+    // hour at 14:00, but must survive because today's summary-derived counters are still lower bounds.
+    const twoHoursLater = midday + 2 * 60 * 60_000
+    const laterStarted = '2026-08-21T13:59:00Z'
+    assert.equal(beginPipelineFlowCycle(state, laterStarted, twoHoursLater - 60_000, CYCLE_TIMEOUT_MS), true)
+    assert.equal(completePipelineFlowCycle(state, laterStarted), true)
+    fs.appendFileSync(path.join(inbox, '2026-08-21_firehose.ndjson'), `${JSON.stringify({
+      kind: 'cycle_summary', ...cycle(twoHoursLater - 10 * 60_000, {
+        completed_at: '2026-08-21T13:51:00Z', new_arrivals: 1, picked: 1,
+      }),
+    })}\n`)
+    const aged = readPipelineFlowCycles(root, '', twoHoursLater, CYCLE_TIMEOUT_MS, state)
+    assert.equal(aged.history.incompleteCycles, undefined, 'an old same-day gap does not gate the trailing hour')
+    assert.equal(aged.history.coverage, 'complete', 'rate history remains independently complete')
+    assert.equal(aged.history.todayIncompleteCycles, 1, 'daily incompleteness survives later begin/prune calls')
+    assert.equal(aged.history.todayTotalsLowerBound, true)
+    assert.equal(buildPipelineFlowRates(aged.cycles, twoHoursLater, CYCLE_TIMEOUT_MS, aged.history).comparison.status, 'equal')
+
+    assert.equal(completePipelineFlowCycle(state, started), true)
+    const complete = readPipelineFlowCycles(root, '', twoHoursLater, CYCLE_TIMEOUT_MS, state)
+    assert.equal(complete.history.coverage, 'complete')
+    assert.equal(complete.history.todayIncompleteCycles, 0)
+    assert.equal(complete.history.todayTotalsLowerBound, false)
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true })
+    fs.rmSync(state, { recursive: true, force: true })
+  }
+})
+
+check('a missing completion authority after v1 summaries exist fails the rate closed', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-flow-missing-gap-root-'))
+  const state = fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-flow-missing-gap-state-'))
+  const midday = Date.parse('2026-08-21T12:00:00Z')
+  try {
+    const inbox = path.join(root, 'screener', 'inbox')
+    fs.mkdirSync(inbox, { recursive: true })
+    fs.writeFileSync(path.join(inbox, '2026-08-21_firehose.ndjson'), `${JSON.stringify({
+      kind: 'cycle_summary', ...cycle(midday - 60_000, {
+        completed_at: '2026-08-21T11:59:30Z', new_arrivals: 2, picked: 3,
+      }),
+    })}\n`)
+    // The state directory exists but its v1 completion-authority file disappeared. Because a v1 summary
+    // proves the authority was initialized, ENOENT is damage rather than a clean first boot.
+    const read = readPipelineFlowCycles(root, '', midday, CYCLE_TIMEOUT_MS, state)
+    assert.equal(read.history.gapMarkerUnreadable, true)
+    assert.equal(read.history.coverage, 'partial')
+    assert.equal(read.history.todayTotalsLowerBound, true)
+    assert.equal(buildPipelineFlowRates(read.cycles, midday, CYCLE_TIMEOUT_MS, read.history).comparison.status, 'unavailable')
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true })
+    fs.rmSync(state, { recursive: true, force: true })
+  }
+})
+
+check('today summary-partition damage marks daily totals incomplete independently of the trailing rate', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-flow-today-damage-'))
+  const midday = Date.parse('2026-08-21T12:00:00Z')
+  try {
+    const inbox = path.join(root, 'screener', 'inbox')
+    fs.mkdirSync(inbox, { recursive: true })
+    const oldMalformed = '{"kind":"cycle_summary","ts":"2026-08-21T08:00:00Z",'
+    fs.writeFileSync(path.join(inbox, '2026-08-21_firehose.ndjson'), `${oldMalformed}\n${JSON.stringify({
+      kind: 'cycle_summary', ...cycle(midday - 60_000, {
+        completed_at: '2026-08-21T11:59:30Z', new_arrivals: 2, picked: 2,
+      }),
+    })}\n`)
+    const corrupt = readPipelineFlowCycles(root, '', midday, CYCLE_TIMEOUT_MS)
+    assert.equal(corrupt.history.coverage, 'complete', 'an old malformed row does not black out a valid trailing rate')
+    assert.equal(corrupt.history.todayHistoryStatus, 'complete')
+    assert.equal(corrupt.history.todayCorruptCycleRows, 1)
+    assert.equal(corrupt.history.todayTotalsLowerBound, true, 'the same old row still makes day totals a lower bound')
+
+    fs.unlinkSync(path.join(inbox, '2026-08-21_firehose.ndjson'))
+    const missing = readPipelineFlowCycles(root, '', midday, CYCLE_TIMEOUT_MS)
+    assert.equal(missing.history.todayHistoryStatus, 'missing')
+    assert.equal(missing.history.todayTotalsLowerBound, true)
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true })
+  }
+})
+
+check('a prior-day missing summary gates only the overlapping rate window and not new-day totals', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-flow-rollover-root-'))
+  const state = fs.mkdtempSync(path.join(os.tmpdir(), 'pipeline-flow-rollover-state-'))
+  const started = '2026-08-21T23:59:00Z'
+  const shortlyAfterMidnight = Date.parse('2026-08-22T00:05:00Z')
+  const twoHoursAfterMidnight = Date.parse('2026-08-22T02:00:00Z')
+  try {
+    const inbox = path.join(root, 'screener', 'inbox')
+    fs.mkdirSync(inbox, { recursive: true })
+    fs.writeFileSync(path.join(inbox, '2026-08-21_firehose.ndjson'), '')
+    fs.writeFileSync(path.join(inbox, '2026-08-22_firehose.ndjson'), '')
+    assert.equal(beginPipelineFlowCycle(state, started, Date.parse(started), CYCLE_TIMEOUT_MS), true)
+
+    const overlapping = readPipelineFlowCycles(root, '', shortlyAfterMidnight, CYCLE_TIMEOUT_MS, state)
+    assert.equal(overlapping.history.incompleteCycles, 1, 'the 23:59 start can still affect the trailing hour')
+    assert.equal(overlapping.history.coverage, 'partial')
+    assert.equal(overlapping.history.todayIncompleteCycles, 0, 'the prior UTC day does not taint new-day totals')
+    assert.equal(overlapping.history.todayTotalsLowerBound, false)
+
+    fs.appendFileSync(path.join(inbox, '2026-08-22_firehose.ndjson'), `${JSON.stringify({
+      kind: 'cycle_summary', ...cycle(Date.parse('2026-08-22T01:50:00Z'), {
+        completed_at: '2026-08-22T01:51:00Z', new_arrivals: 2, picked: 2,
+      }),
+    })}\n`)
+    const aged = readPipelineFlowCycles(root, '', twoHoursAfterMidnight, CYCLE_TIMEOUT_MS, state)
+    assert.equal(aged.history.incompleteCycles, undefined)
+    assert.equal(aged.history.coverage, 'complete')
+    assert.equal(aged.history.todayIncompleteCycles, 0)
+    assert.equal(aged.history.todayTotalsLowerBound, false)
+    assert.equal(buildPipelineFlowRates(aged.cycles, twoHoursAfterMidnight, CYCLE_TIMEOUT_MS, aged.history).comparison.status, 'equal')
+
+    // The first new-day begin may now prune the irrelevant prior-day receipt.
+    const newDayStarted = '2026-08-22T01:59:00Z'
+    assert.equal(beginPipelineFlowCycle(state, newDayStarted, Date.parse(newDayStarted), CYCLE_TIMEOUT_MS), true)
+    assert.equal(completePipelineFlowCycle(state, newDayStarted), true)
+    assert.deepEqual(JSON.parse(fs.readFileSync(path.join(state, 'news-pipeline-flow-gaps.json'), 'utf8')).starts, [])
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true })
+    fs.rmSync(state, { recursive: true, force: true })
+  }
 })
 
 console.log(`\npipeline-flow.test: ${passed} checks passed`)
