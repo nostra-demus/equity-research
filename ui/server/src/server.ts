@@ -615,6 +615,9 @@ app.get('/api/whoami', async (req) => {
     canScanPipeline: admin && pipelineScanReady(),
     canBuildConnector: admin && connectorDispatchReady(),
     // The release canary is intentionally exposed only through an authenticated cockpit session.
+    // Inspection remains available after the launch gate is turned off: an already-spent canary must
+    // never disappear merely because the operator safely disabled new parity launches.
+    canInspectProviderParity: admin && who.userVia === 'cf-access',
     // This is a capability hint for rendering; the POST route repeats the admin + feature gates.
     canLaunchProviderParity: admin && process.env.ENGINE_PROVIDER_PARITY_ENABLED === '1',
     emailEnabled: feedbackEmailReady(),
@@ -931,17 +934,19 @@ const ParityLaunchBody = z.object({
   outputDir: z.string().regex(/^[A-Za-z0-9._/-]{1,500}$/),
 }).strict()
 
+const PARITY_CANARY_RUN_ROOT_RE = /^analyses\/provider-parity\/\d{4}-\d{2}-\d{2}\/(?:claude|codex)\/[A-Z0-9.\-]{1,12}_\d{4}-\d{2}-\d{2}$/
+
 const ParityCanaryLaunchBody = z.object({
   provider: z.enum(['claude', 'codex']),
   model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i),
   reasoningLevel: z.string().regex(/^[a-z0-9_-]{1,24}$/i),
   expectedProfileKey: z.string().min(1).max(240),
-  runRoot: z.string().regex(/^[A-Za-z0-9._/-]{1,500}$/),
+  runRoot: z.string().regex(PARITY_CANARY_RUN_ROOT_RE),
   freezeReceipt: z.string().regex(/^[A-Za-z0-9._/-]{1,500}$/),
 }).strict()
 
 const ParityCanaryStatusQuery = z.object({
-  runRoot: z.string().regex(/^analyses\/provider-parity\/\d{4}-\d{2}-\d{2}\/(?:claude|codex)\/[A-Z0-9.\-]{1,12}_\d{4}-\d{2}-\d{2}$/),
+  runRoot: z.string().regex(PARITY_CANARY_RUN_ROOT_RE),
 }).strict()
 
 function readCanaryRunFile(rootAbs: string, name: string): string | null {
@@ -1113,6 +1118,7 @@ app.get('/api/internal/provider-parity/canary-status', { config: { rateLimit: { 
   const terminalEvent = run && [...run.eventLog].reverse().find((event) => event.type === 'run-error' || event.type === 'run-done')
   const failureNote = readCanaryRunFile(rootAbs, 'RUN_FAILURE.md')
   const interruptedRaw = readCanaryRunFile(rootAbs, '.interrupted')
+  const abortedRaw = readCanaryRunFile(rootAbs, '.aborted')
   let interruption: Record<string, unknown> | null = null
   try {
     const value = interruptedRaw ? JSON.parse(interruptedRaw) : null
@@ -1125,8 +1131,11 @@ app.get('/api/internal/provider-parity/canary-status', { config: { rateLimit: { 
   const diskFailure = failureNote !== null || interruptedRaw !== null
   // A supervisor-written failure marker wins over any child-created terminal-looking files. Successful
   // post-restart recovery still requires all three terminal artifacts, including the supervisor receipt.
-  const status = run?.status ?? (diskFailure ? 'error' : diskComplete ? 'done' : 'unknown')
-  const eventMessage = terminalEvent?.type === 'run-error'
+  const status = abortedRaw !== null ? 'cancelled'
+    : diskFailure ? 'error'
+      : run?.status ?? (diskComplete ? 'done' : 'unknown')
+  const eventMessage = abortedRaw !== null ? 'Canary cancelled by the operator.'
+    : terminalEvent?.type === 'run-error'
     ? terminalEvent.message || terminalEvent.reason
     : terminalEvent?.type === 'run-done' ? 'Canary completed.' : null
   return {

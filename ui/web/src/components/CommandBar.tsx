@@ -505,7 +505,10 @@ function ProviderSelector() {
   const staticMode = useStore((s) => s.staticMode)
   const refreshActiveRuns = useStore((s) => s.refreshActiveRuns)
   const setToast = useStore((s) => s.setToast)
+  const selectTicker = useStore((s) => s.selectTicker)
+  const openActivity = useStore((s) => s.openActivity)
   const [open, setOpen] = useState(false)
+  const [canInspectCanary, setCanInspectCanary] = useState(false)
   const [canLaunchCanary, setCanLaunchCanary] = useState(false)
   const [canaryOpen, setCanaryOpen] = useState(false)
   const [canaryRunRoot, setCanaryRunRoot] = useState('')
@@ -521,19 +524,21 @@ function ProviderSelector() {
     let alive = true
     void api.whoami().then((who) => {
       if (!alive) return
-      const allowed = who.canLaunchProviderParity === true && who.userVia === 'cf-access'
-      setCanLaunchCanary(allowed)
-      if (allowed && canaryPrefill.current) {
+      const inspect = who.canInspectProviderParity === true && who.userVia === 'cf-access'
+      const launch = who.canLaunchProviderParity === true && inspect
+      setCanInspectCanary(inspect)
+      setCanLaunchCanary(launch)
+      if (inspect && canaryPrefill.current) {
         setCanaryRunRoot(canaryPrefill.current.runRoot)
         setCanaryFreeze(canaryPrefill.current.freezeReceipt)
         setCanaryOpen(true)
       }
-    }).catch(() => { if (alive) setCanLaunchCanary(false) })
+    }).catch(() => { if (alive) { setCanInspectCanary(false); setCanLaunchCanary(false) } })
     return () => { alive = false }
   }, [])
 
   useEffect(() => {
-    if (!canLaunchCanary || !canaryOpen || !providerParityCanaryRunRootIsValid(canaryRunRoot)) return
+    if (!canInspectCanary || !canaryOpen || !providerParityCanaryRunRootIsValid(canaryRunRoot)) return
     let alive = true
     let timer: ReturnType<typeof setTimeout> | null = null
     const refresh = async () => {
@@ -546,12 +551,18 @@ function ProviderSelector() {
           timer = setTimeout(() => void refresh(), 2_000)
         }
       } catch (error: any) {
-        if (alive && error?.status !== 404) setCanaryError(error?.body?.error || error?.message || 'Could not read canary status.')
+        if (!alive) return
+        if (error?.status !== 404) {
+          setCanaryError(error?.body?.error || error?.message || 'Could not read canary status.')
+          // A brief tunnel restart or rate limit must not strand an already-spent attempt. This endpoint
+          // is read-only and the root has passed the exact grammar gate, so retry at the normal poll rate.
+          timer = setTimeout(() => void refresh(), 2_000)
+        }
       }
     }
     void refresh()
     return () => { alive = false; if (timer) clearTimeout(timer) }
-  }, [canLaunchCanary, canaryOpen, canaryRunRoot, canaryAttempted])
+  }, [canInspectCanary, canaryOpen, canaryRunRoot, canaryAttempted])
 
   // static showcase has no Claude usage to report — the "read-only showcase" chip already says so
   if (staticMode) return null
@@ -587,7 +598,8 @@ function ProviderSelector() {
   }
 
   const canarySubject = providerParityCanarySubject(canaryRunRoot)
-  const canaryReady = !!canarySubject && !!canaryFreeze.trim()
+  const canaryReady = canLaunchCanary && providerParityCanaryRunRootIsValid(canaryRunRoot)
+    && !!canarySubject && !!canaryFreeze.trim()
     && canaryTyped.trim().toUpperCase() === canarySubject
     && !canarySubmitting && !canaryAttempted
   const launchCanary = async () => {
@@ -684,7 +696,7 @@ function ProviderSelector() {
           </div>
         </>
       )}
-      {canaryOpen && canLaunchCanary && (
+      {canaryOpen && canInspectCanary && (
         <div className="scrim" onClick={() => { if (!canarySubmitting) setCanaryOpen(false) }}>
           <div className="modal" role="dialog" aria-modal="true" aria-labelledby="provider-canary-title" onClick={(event) => event.stopPropagation()} style={{ width: 'min(560px, calc(100vw - 24px))' }}>
             <div className="modal__head">
@@ -709,6 +721,14 @@ function ProviderSelector() {
                   <div><b>Profile:</b> {canaryStatus.profileKey || 'not available after restart'}</div>
                   {canaryStatus.message && <div style={{ color: canaryStatus.status === 'done' ? 'var(--good)' : 'var(--bad)' }}>{canaryStatus.message}</div>}
                   {canaryStatus.failureNote && <pre style={{ whiteSpace: 'pre-wrap', maxHeight: 190, overflow: 'auto', margin: '8px 0 0', color: 'var(--bad)' }}>{canaryStatus.failureNote}</pre>}
+                  {canaryStatus.status === 'awaiting-readiness-decision' && canarySubject && (
+                    <button className="btn btn--amber" style={{ marginTop: 8 }} onClick={() => {
+                      setCanaryOpen(false)
+                      void selectTicker(canarySubject).then(() => openActivity())
+                    }}>
+                      Resolve data check…
+                    </button>
+                  )}
                 </div>
               )}
             </div>
@@ -719,7 +739,7 @@ function ProviderSelector() {
             </div>
             <div className="modal__actions">
               <button className="btn btn--ghost" disabled={canarySubmitting} onClick={() => setCanaryOpen(false)}>Close</button>
-              <button className="btn btn--amber" disabled={!canaryReady} onClick={() => void launchCanary()}>{canarySubmitting ? <><Spin /> Launching once…</> : canaryAttempted ? 'Attempt sent' : 'Launch once'}</button>
+              {canLaunchCanary && <button className="btn btn--amber" disabled={!canaryReady} onClick={() => void launchCanary()}>{canarySubmitting ? <><Spin /> Launching once…</> : canaryAttempted ? 'Attempt sent' : 'Launch once'}</button>}
             </div>
           </div>
         </div>
