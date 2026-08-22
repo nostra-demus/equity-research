@@ -109,11 +109,6 @@ function fmtItemsPerHour(value: number): string {
   return Math.abs(value).toLocaleString('en-US', { maximumFractionDigits: 1 })
 }
 
-function ratePerHour(perSecond: number | null | undefined): string {
-  if (typeof perSecond !== 'number' || !Number.isFinite(perSecond) || perSecond < 0) return '—'
-  return fmtItemsPerHour(perSecond * 3600)
-}
-
 function unavailable(gapCopy: string, coverageCopy: string): PipelineFlowPresentation {
   return { tone: 'unavailable', inflowRate: '—', scanningRate: '—', gapCopy, coverageCopy }
 }
@@ -181,8 +176,8 @@ export function pipelineFlowPresentation(
       'The scanner sent a number that cannot be read. Refresh to check again.',
     )
   }
-  const inflowRate = ratePerHour(inflowPerSecond)
-  const scanningRate = ratePerHour(scanningPerSecond)
+  const inflowRate = fmtPipelineRate(inflowPerSecond)
+  const scanningRate = fmtPipelineRate(scanningPerSecond)
   const totalCycles = Math.max(flow.inflow.totalCycles, flow.scanning.totalCycles)
   const rawGap = flow.comparison.scanningMinusInflowItemsPerHour
   const gapStatus = typeof rawGap !== 'number' || !Number.isFinite(rawGap)
