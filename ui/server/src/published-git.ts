@@ -146,17 +146,19 @@ export function publishedTreeAuthority(
     const uncached = repoPaths.filter((repoPath) => !cache.has(repoPath))
     if (uncached.length) {
       const oidToPaths = new Map<string, string[]>()
+      let totalBytes = 0
       for (const repoPath of uncached) {
-        const entry = entries.get(repoPath)!
+        const entry = entries.get(repoPath)
+        if (!entry) throw authorityError(new Error(`published blob is not in ${treePath}`))
         if (entry.size > MAX_AUTHORITY_BLOB_BYTES) {
           throw authorityError(new Error('shared Calls artifact is too large to read safely'))
         }
         const aliases = oidToPaths.get(entry.oid) || []
+        if (!aliases.length) totalBytes += entry.size
         aliases.push(repoPath)
         oidToPaths.set(entry.oid, aliases)
       }
       const oids = [...oidToPaths.keys()]
-      const totalBytes = oids.reduce((sum, oid) => sum + entries.get(oidToPaths.get(oid)![0])!.size, 0)
       if (totalBytes > MAX_AUTHORITY_BATCH_BYTES) {
         throw authorityError(new Error('shared Calls projection is too large to read safely'))
       }
@@ -175,13 +177,17 @@ export function publishedTreeAuthority(
           const match = /^([a-f0-9]{40}(?:[a-f0-9]{24})?) blob (\d+)$/.exec(header)
           if (!match || match[1] !== expectedOid) throw new Error('shared research batch returned another object')
           const size = Number(match[2])
-          const entrySize = entries.get(oidToPaths.get(expectedOid)![0])!.size
+          const aliases = oidToPaths.get(expectedOid)
+          if (!aliases?.length) throw new Error('shared research batch returned an unexpected object')
+          const entry = entries.get(aliases[0])
+          if (!entry) throw new Error('shared research batch returned an unknown object')
+          const entrySize = entry.size
           if (!Number.isSafeInteger(size) || size !== entrySize) throw new Error('shared research blob size changed')
           const bodyStart = headerEnd + 1
           const bodyEnd = bodyStart + size
           if (bodyEnd >= raw.length || raw[bodyEnd] !== 0x0a) throw new Error('truncated shared research blob')
           const bytes = Buffer.from(raw.subarray(bodyStart, bodyEnd))
-          for (const repoPath of oidToPaths.get(expectedOid)!) cache.set(repoPath, bytes)
+          for (const repoPath of aliases) cache.set(repoPath, bytes)
           cursor = bodyEnd + 1
         }
         if (cursor !== raw.length) throw new Error('shared research batch returned unexpected bytes')
@@ -190,7 +196,13 @@ export function publishedTreeAuthority(
       }
     }
 
-    return new Map(repoPaths.map((repoPath) => [repoPath, cache.get(repoPath)!]))
+    const result = new Map<string, Buffer>()
+    for (const repoPath of repoPaths) {
+      const bytes = cache.get(repoPath)
+      if (bytes === undefined) throw authorityError(new Error('shared research batch omitted a requested blob'))
+      result.set(repoPath, bytes)
+    }
+    return result
   }
 
   return {
@@ -198,7 +210,9 @@ export function publishedTreeAuthority(
     paths,
     readManyRequired,
     readRequired(repoPath: string): Buffer {
-      return readManyRequired([repoPath]).get(repoPath)!
+      const bytes = readManyRequired([repoPath]).get(repoPath)
+      if (bytes === undefined) throw authorityError(new Error('shared research batch omitted a requested blob'))
+      return bytes
     },
   }
 }
