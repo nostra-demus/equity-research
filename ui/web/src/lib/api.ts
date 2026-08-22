@@ -28,6 +28,14 @@ export interface ProviderReceiptFields {
   reasoningLevel?: string
 }
 export type LaunchResponse = ProviderReceiptFields & { runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }
+export interface ProviderParityCanaryRequest {
+  provider: RunProvider
+  model: string
+  reasoningLevel: string
+  expectedProfileKey: string
+  runRoot: string
+  freezeReceipt: string
+}
 
 export interface ReelTranscriptRead {
   transcript: string
@@ -1733,6 +1741,12 @@ export const api = {
   whoami: async (): Promise<Whoami> => {
     if ((await ensureMode()) === 'static') return { user: 'local', userVia: 'local' }
     return get(`/api/whoami`)
+  },
+  // Admin-only release canary. The browser contributes no privileged header: Cloudflare Access identity
+  // on this same-origin request is the authority, and the server repeats both admin + feature gates.
+  providerParityCanary: async (body: ProviderParityCanaryRequest): Promise<LaunchResponse> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/internal/provider-parity/canary`, body, 30_000)
   },
   // perpetual activity/audit log with filters — live only (the static showcase has no run history)
   activity: async (query: ActivityQuery = {}): Promise<ActivityResult> => {

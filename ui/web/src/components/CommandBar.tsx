@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../lib/store'
+import { api } from '../lib/api'
 import { captureAskOpener } from '../lib/askFocus'
 import { decisionColor, fmtAgo, fmtMinutes, nextSweepLabel, resetIn, resolveVerdict, usageColor, usageLabel } from '../lib/format'
 import { plainKind } from '../lib/plain'
@@ -8,6 +9,8 @@ import { todayOutcomeCopy } from './screener/pipelineDiagnosticsView'
 import { ThemeToggle } from './ThemeToggle'
 import { RunHistory } from './RunHistory'
 import { executionProfileLabel, providerBlockedReason, providerIsBlocked, providerLabel, providerNeedsCheck, providerUsagePercentText, type RunProvider } from '../lib/provider'
+import { CODEX_PARITY_CANARY_SELECTION, providerParityCanaryPrefill, providerParityCanaryResponseMatches, providerParityCanarySubject } from '../lib/parityCanary'
+import { Spin } from './Spin'
 
 function BrandMark() {
   return (
@@ -499,7 +502,34 @@ function ProviderSelector() {
   const checking = useStore((s) => s.providersChecking)
   const check = useStore((s) => s.refreshProviders)
   const staticMode = useStore((s) => s.staticMode)
+  const openActivity = useStore((s) => s.openActivity)
+  const refreshActiveRuns = useStore((s) => s.refreshActiveRuns)
+  const setToast = useStore((s) => s.setToast)
   const [open, setOpen] = useState(false)
+  const [canLaunchCanary, setCanLaunchCanary] = useState(false)
+  const [canaryOpen, setCanaryOpen] = useState(false)
+  const [canaryRunRoot, setCanaryRunRoot] = useState('')
+  const [canaryFreeze, setCanaryFreeze] = useState('')
+  const [canaryTyped, setCanaryTyped] = useState('')
+  const [canarySubmitting, setCanarySubmitting] = useState(false)
+  const [canaryAttempted, setCanaryAttempted] = useState(false)
+  const [canaryError, setCanaryError] = useState<string | null>(null)
+  const canaryPrefill = useRef(typeof window === 'undefined' ? null : providerParityCanaryPrefill(window.location.search))
+
+  useEffect(() => {
+    let alive = true
+    void api.whoami().then((who) => {
+      if (!alive) return
+      const allowed = who.canLaunchProviderParity === true && who.userVia === 'cf-access'
+      setCanLaunchCanary(allowed)
+      if (allowed && canaryPrefill.current) {
+        setCanaryRunRoot(canaryPrefill.current.runRoot)
+        setCanaryFreeze(canaryPrefill.current.freezeReceipt)
+        setCanaryOpen(true)
+      }
+    }).catch(() => { if (alive) setCanLaunchCanary(false) })
+    return () => { alive = false }
+  }, [])
 
   // static showcase has no Claude usage to report — the "read-only showcase" chip already says so
   if (staticMode) return null
@@ -532,6 +562,42 @@ function ProviderSelector() {
     const utilization = providerWindows.map((w) => w.utilization).filter((v): v is number => typeof v === 'number')
     if (utilization.length) return `${Math.round(Math.max(...utilization) * 100)}%`
     return status.available ? 'ready' : 'unknown'
+  }
+
+  const canarySubject = providerParityCanarySubject(canaryRunRoot)
+  const canaryReady = !!canarySubject && !!canaryFreeze.trim()
+    && canaryTyped.trim().toUpperCase() === canarySubject
+    && !canarySubmitting && !canaryAttempted
+  const launchCanary = async () => {
+    if (!canaryReady || !canarySubject) return
+    // This modal represents one explicit paid attempt. Once the POST begins, no UI retry is offered;
+    // an uncertain response may already have admitted a run and must be resolved from Activity.
+    setCanaryAttempted(true)
+    setCanarySubmitting(true)
+    setCanaryError(null)
+    try {
+      const out = await api.providerParityCanary({
+        provider: 'codex',
+        model: CODEX_PARITY_CANARY_SELECTION.model!,
+        reasoningLevel: CODEX_PARITY_CANARY_SELECTION.reasoningLevel!,
+        expectedProfileKey: CODEX_PARITY_CANARY_SELECTION.expectedProfileKey!,
+        runRoot: canaryRunRoot.trim(),
+        freezeReceipt: canaryFreeze.trim(),
+      })
+      if (!providerParityCanaryResponseMatches(out, canarySubject)) {
+        throw new Error(out?.runId
+          ? `Run ${out.runId} may have been admitted, but its provider receipt was invalid. Do not retry; check Activity.`
+          : 'The server did not return an exact Codex canary receipt. Do not retry until Activity is checked.')
+      }
+      setCanaryOpen(false)
+      setToast({ msg: `Codex canary ${out.runId} admitted for ${canarySubject}. Follow it in Activity.`, tone: 'good' })
+      openActivity()
+      await refreshActiveRuns()
+    } catch (error: any) {
+      setCanaryError(error?.body?.error || error?.message || 'Canary launch failed. Do not retry until Activity is checked.')
+    } finally {
+      setCanarySubmitting(false)
+    }
   }
 
   return (
@@ -589,8 +655,45 @@ function ProviderSelector() {
               The choice is remembered for new work. A run already in progress keeps its original provider.
               {credit?.isUsingOverage && <div style={{ color: 'var(--accent-bright)', marginTop: 3 }}>Currently using paid overage.</div>}
             </div>
+            {canLaunchCanary && (
+              <button className="btn btn--ghost" style={{ width: '100%', marginTop: 10 }} onClick={() => { setOpen(false); setCanaryOpen(true) }}>
+                Launch release canary…
+              </button>
+            )}
           </div>
         </>
+      )}
+      {canaryOpen && canLaunchCanary && (
+        <div className="scrim" onClick={() => { if (!canarySubmitting) setCanaryOpen(false) }}>
+          <div className="modal" role="dialog" aria-modal="true" aria-labelledby="provider-canary-title" onClick={(event) => event.stopPropagation()} style={{ width: 'min(560px, calc(100vw - 24px))' }}>
+            <div className="modal__head">
+              <div className="modal__title" id="provider-canary-title">Launch frozen Codex release canary</div>
+              <div className="modal__sub">Admin-only. Uses ChatGPT plan capacity, keeps global Codex off, and does not commit or push.</div>
+            </div>
+            <div className="modal__body">
+              <label style={{ display: 'block', padding: '7px 0', fontSize: 12, color: 'var(--text-muted)' }}>
+                Frozen Codex run root
+                <input className="modal__input" style={{ letterSpacing: 0, marginTop: 5 }} value={canaryRunRoot} disabled={canaryAttempted} onChange={(event) => { setCanaryRunRoot(event.target.value); setCanaryTyped(''); setCanaryError(null) }} autoComplete="off" spellCheck={false} />
+              </label>
+              <label style={{ display: 'block', padding: '7px 0', fontSize: 12, color: 'var(--text-muted)' }}>
+                Immutable freeze receipt
+                <input className="modal__input" style={{ letterSpacing: 0, marginTop: 5 }} value={canaryFreeze} disabled={canaryAttempted} onChange={(event) => { setCanaryFreeze(event.target.value); setCanaryError(null) }} autoComplete="off" spellCheck={false} />
+              </label>
+              <div className="modal__row"><span className="modal__k">Provider</span><span className="modal__v">Codex · ChatGPT plan</span></div>
+              <div className="modal__row"><span className="modal__k">Profile</span><span className="modal__v" style={{ maxWidth: 330, textAlign: 'right' }}>Sol max · Terra xhigh</span></div>
+              <div className="modal__row"><span className="modal__k">Publication</span><span className="modal__v">stamp only · no Git</span></div>
+            </div>
+            <div className="modal__confirm">
+              <div style={{ fontSize: 12.5, color: 'var(--text-muted)' }}>Type <b style={{ color: 'var(--text)' }}>{canarySubject || 'the subject'}</b> to authorize one paid launch</div>
+              <input className="modal__input" autoFocus value={canaryTyped} disabled={canaryAttempted} onChange={(event) => setCanaryTyped(event.target.value)} placeholder={canarySubject || ''} onKeyDown={(event) => { if (event.key === 'Enter' && canaryReady) void launchCanary() }} />
+              {canaryError && <div style={{ color: 'var(--bad)', fontSize: 12, lineHeight: 1.5, marginTop: 10 }}>{canaryError}</div>}
+            </div>
+            <div className="modal__actions">
+              <button className="btn btn--ghost" disabled={canarySubmitting} onClick={() => setCanaryOpen(false)}>Close</button>
+              <button className="btn btn--amber" disabled={!canaryReady} onClick={() => void launchCanary()}>{canarySubmitting ? <><Spin /> Launching once…</> : canaryAttempted ? 'Attempt sent' : 'Launch once'}</button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   )

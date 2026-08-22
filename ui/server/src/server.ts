@@ -614,6 +614,9 @@ app.get('/api/whoami', async (req) => {
     canDispatch: admin && feedbackDispatchReady(),
     canScanPipeline: admin && pipelineScanReady(),
     canBuildConnector: admin && connectorDispatchReady(),
+    // The release canary is intentionally exposed only through an authenticated cockpit session.
+    // This is a capability hint for rendering; the POST route repeats the admin + feature gates.
+    canLaunchProviderParity: admin && process.env.ENGINE_PROVIDER_PARITY_ENABLED === '1',
     emailEnabled: feedbackEmailReady(),
   }
 })
