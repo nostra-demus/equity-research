@@ -260,6 +260,35 @@ a { color: inherit; }
 .swarm { position: absolute; inset: 0; }
 .swarm__svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 
+/* Screener cold start — a gauntlet-shaped skeleton instead of the old empty canvas. The application shell
+   and wire can paint before the discovered graph arrives, especially through a cold tunnel; this state owns
+   only that visual gap and never changes the request sequence or substitutes data. */
+.scboot {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 52px; padding: 40px clamp(28px, 7vw, 110px); color: var(--text-muted);
+}
+.scboot__copy { display: flex; flex-direction: column; align-items: center; gap: 5px; text-align: center; }
+.scboot__copy strong { color: var(--text); font-size: 14px; font-weight: 600; letter-spacing: 0.1px; }
+.scboot__copy span { color: var(--text-muted); font-size: 12px; }
+.scboot__flow {
+  position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: center;
+  width: min(860px, 100%); min-width: 0;
+}
+.scboot__flow::before {
+  content: ''; position: absolute; left: 9%; right: 9%; top: 50%; height: 1px; background: var(--hairline-strong);
+}
+.scboot__step { position: relative; z-index: 1; display: grid; justify-items: center; gap: 12px; }
+.scboot__label, .scboot__meta { display: block; height: 7px; border-radius: var(--r-pill); background: var(--surface-3); }
+.scboot__label { width: min(58px, 72%); }
+.scboot__meta { width: 36px; opacity: 0.7; }
+.scboot__orb {
+  display: block; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--hairline-strong);
+  background: var(--surface-2); box-shadow: 0 0 18px var(--accent-wash-soft);
+  animation: scboot-pulse 1.5s var(--ease-out) infinite; animation-delay: calc(var(--boot-step) * 90ms);
+}
+@keyframes scboot-pulse { 0%, 100% { opacity: 0.45; } 50% { opacity: 0.9; } }
+@media (prefers-reduced-motion: reduce) { .scboot__orb { animation: none; opacity: 0.72; } }
+
 .cluster__label {
   position: absolute; transform: translate(-50%, -100%);
   display: flex; flex-direction: column; align-items: center; gap: 3px;

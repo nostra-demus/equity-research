@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { computeLayout, type PlacedNode } from '../../lib/layout'
 import { collectSamples, expectedDurations, expectedFor, fmtClock, fmtEtaLeft, orbClass, scopeTiming, type ScopeOrb } from '../../lib/eta'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from '../../lib/plain'
@@ -9,6 +9,30 @@ import { AgentTooltip } from '../AgentTooltip'
 import { Switchyard } from './Switchyard'
 import { ProviderMiniSelector } from '../ProviderMiniSelector'
 import { providerLabel, providerLaunchBlockedReason } from '../../lib/provider'
+
+// The live shell paints before the discovered screener graph arrives. Keep that cold-start interval honest
+// and useful: this skeleton follows the eventual left-to-right gauntlet shape, while the existing graph,
+// board, and wire requests continue unchanged underneath it. It is deliberately local to ScreenerField so
+// every route that is genuinely waiting on the graph gets the same state instead of an empty canvas.
+function ScreenerFieldLoading() {
+  return (
+    <div className="scboot" role="status" aria-live="polite">
+      <div className="scboot__copy">
+        <strong>Loading the screening workspace…</strong>
+        <span>Connecting the live wire and your latest checks.</span>
+      </div>
+      <div className="scboot__flow" aria-hidden="true">
+        {[0, 1, 2, 3, 4].map((i) => (
+          <div key={i} className="scboot__step" style={{ '--boot-step': i } as CSSProperties}>
+            <span className="scboot__label" />
+            <span className="scboot__orb" />
+            <span className="scboot__meta" />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 // The screener stage: the gauntlet as a left-to-right flow constellation. Reuses the research
 // swarm's orb/edge components and ETA machinery wholesale — only the semantics differ: the unit is
@@ -133,7 +157,7 @@ export function ScreenerField() {
   }, [hover, hoverModule, activeModules, layout, routed])
   const anyHover = !!(hover || hoverModule)
 
-  if (!graph || !layout) return <div className="swarm" ref={ref} />
+  if (!graph || !layout) return <div className="swarm" ref={ref}><ScreenerFieldLoading /></div>
 
   const onEnter = (n: PlacedNode) => {
     const rect = ref.current?.getBoundingClientRect()
