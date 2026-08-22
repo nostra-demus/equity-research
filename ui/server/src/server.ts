@@ -4679,7 +4679,7 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
         : [])
       // Prefer an issuer named exactly in the question, then the structured issuer identities from the
       // ranked evidence. Matching remains exact, so an incidental word cannot pull in another company.
-      callMemories = selectCallMemories((await listAllCalls()).calls, [last.content, ...evidenceIdentifiers])
+      callMemories = selectCallMemories((await listAllCalls()).calls, evidenceIdentifiers, 3, last.content)
     } catch {
       callMemories = []
     }

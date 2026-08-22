@@ -40,6 +40,8 @@ interface CallLike {
   currency?: string | null
   run_root?: string
   final_thesis_path?: string | null
+  integrity_status?: string | null
+  frozen_call?: { source_path?: string | null } | null
   timeline?: ReviewLike[]
   next_checkpoint?: { window?: string | null; due_date?: string | null; status?: string | null } | null
 }
@@ -57,6 +59,7 @@ export interface CallsScorecardHorizon {
 
 export interface CallsScorecard {
   assessed_calls: number
+  excluded_provisional: number
   worked: number
   failed: number
   mixed: number
@@ -95,7 +98,9 @@ export interface CallMemoryItem {
   future_research_check: string | null
   next_check_date: string | null
   next_check_label: string | null
-  source_path: string | null
+  original_source_path: string | null
+  review_source_path: string | null
+  memo_source_path: string | null
 }
 
 const finite = (value: unknown): value is number => typeof value === 'number' && Number.isFinite(value)
@@ -106,7 +111,9 @@ const companyCore = (value: unknown): string => normalized(value)
 export function directionAdjusted(basket: string | null | undefined, value: number | null | undefined): number | null {
   if (!finite(value)) return null
   const direction = normalized(basket)
-  return direction === 'short' || direction === 'rejected' ? -value : value
+  if (direction === 'short') return -value
+  if (direction === 'selected') return value
+  return null
 }
 
 export function classifyDecisionQuality(value: string | null | undefined): OutcomeClass {
@@ -172,13 +179,14 @@ function confidenceCheck(calls: CallLike[]): CallsScorecard['confidence_check'] 
 }
 
 export function buildCallsScorecard(calls: CallLike[]): CallsScorecard {
-  const rows = calls.map((call) => ({ call, review: latestDoneReview(call.timeline) }))
+  const eligibleCalls = calls.filter((call) => normalized(call.integrity_status) !== 'provisional')
+  const rows = eligibleCalls.map((call) => ({ call, review: latestDoneReview(call.timeline) }))
   const classes = rows.map(({ review }) => classifyDecisionQuality(review?.decision_quality))
   const count = (value: OutcomeClass) => classes.filter((row) => row === value).length
   const outcomeReturns = rows.map(({ call, review }) => directionAdjusted(call.basket, review?.absolute_return_pct))
   const benchmarkReturns = rows.map(({ call, review }) => directionAdjusted(call.basket, review?.benchmark_relative_return_pct))
   const horizons = (['30d', '90d', '180d', '365d'] as const).map((window) => {
-    const windowRows = calls.flatMap((call) => {
+    const windowRows = eligibleCalls.flatMap((call) => {
       const review = (call.timeline || []).filter((row) => row.status === 'done' && normalized(row.window) === window).sort(compareNewestReview)[0]
       return review ? [{ call, review }] : []
     })
@@ -192,7 +200,8 @@ export function buildCallsScorecard(calls: CallLike[]): CallsScorecard {
     }
   })
   return {
-    assessed_calls: count('worked') + count('failed'), worked: count('worked'), failed: count('failed'),
+    assessed_calls: count('worked') + count('failed'), excluded_provisional: calls.length - eligibleCalls.length,
+    worked: count('worked'), failed: count('failed'),
     mixed: count('mixed'), unscored: count('unscored'), average_return_pct: average(outcomeReturns),
     average_vs_benchmark_pct: average(benchmarkReturns), horizons, confidence_check: confidenceCheck(calls),
   }
@@ -225,11 +234,27 @@ export function actionNowForCall(call: CallLike, review = latestDoneReview(call.
   return { label: 'Keep watching', reason: 'No separate action was recorded.' }
 }
 
-function exactEntityMatchIndex(call: CallLike, identifiers: string[]): number {
+function questionNamesCall(call: CallLike, rawQuestion: string): boolean {
+  const raw = String(rawQuestion || '')
+  const question = normalized(raw)
+  const questionCore = companyCore(raw)
+  const company = normalized(call.company)
+  const core = companyCore(call.company)
+  if ((company.length >= 5 && ` ${question} `.includes(` ${company} `))
+    || (core.length >= 5 && ` ${questionCore} `.includes(` ${core} `))) return true
+  const ticker = String(call.ticker || '').trim().toUpperCase()
+  if (!ticker || ticker.length < 2) return false
+  const escaped = ticker.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  return new RegExp(`(^|[^A-Za-z0-9])${escaped}(?=$|[^A-Za-z0-9])`).test(raw)
+    || new RegExp(`\\$${escaped}(?=$|[^A-Za-z0-9])`, 'i').test(raw)
+}
+
+function exactEntityMatchIndex(call: CallLike, identifiers: string[], question?: string): number {
   const ticker = normalized(call.ticker)
   const company = normalized(call.company)
   const core = companyCore(call.company)
-  return identifiers.findIndex((raw) => {
+  if (question && questionNamesCall(call, question)) return 0
+  const structuredRank = identifiers.findIndex((raw) => {
     const id = normalized(raw)
     const idCore = companyCore(raw)
     if (!id) return false
@@ -237,6 +262,7 @@ function exactEntityMatchIndex(call: CallLike, identifiers: string[]): number {
     const padded = ` ${id} `
     return (ticker.length >= 3 && padded.includes(` ${ticker} `)) || (company.length >= 5 && padded.includes(` ${company} `)) || (core.length >= 5 && ` ${idCore} `.includes(` ${core} `))
   })
+  return structuredRank < 0 ? -1 : structuredRank + (question ? 1 : 0)
 }
 
 function namedWatchItem(review: ReviewLike | null): string | null {
@@ -253,26 +279,39 @@ function namedWatchItem(review: ReviewLike | null): string | null {
   return item && item.length > 220 ? `${item.slice(0, 217).trimEnd()}…` : item
 }
 
-export function selectCallMemories(calls: CallLike[], identifiers: string[], cap = 3): CallMemoryItem[] {
-  const newestByTicker = new Map<string, { call: CallLike; matchRank: number }>()
+export function selectCallMemories(calls: CallLike[], identifiers: string[], cap = 3, question?: string): CallMemoryItem[] {
+  const byTicker = new Map<string, Array<{ call: CallLike; matchRank: number }>>()
   for (const call of calls) {
     if (!call?.ticker) continue
-    const matchRank = exactEntityMatchIndex(call, identifiers)
+    const matchRank = exactEntityMatchIndex(call, identifiers, question)
     if (matchRank < 0) continue
     const key = normalized(call.ticker)
-    const prior = newestByTicker.get(key)
-    if (!prior || String(call.decision_date || '') > String(prior.call.decision_date || '')) newestByTicker.set(key, { call, matchRank })
+    const group = byTicker.get(key) || []
+    group.push({ call, matchRank })
+    byTicker.set(key, group)
   }
-  return [...newestByTicker.values()]
-    .sort((a, b) => {
-      if (a.matchRank !== b.matchRank) return a.matchRank - b.matchRank
+  const selected = [...byTicker.entries()].map(([ticker, matches]) => {
+    const ordered = matches.sort((a, b) => {
       const ad = String(a.call.decision_date || '')
       const bd = String(b.call.decision_date || '')
       if (ad < bd) return 1
       if (ad > bd) return -1
-      return normalized(a.call.ticker).localeCompare(normalized(b.call.ticker))
+      return String(a.call.run_root || '').localeCompare(String(b.call.run_root || ''))
     })
-    .slice(0, cap).map(({ call }) => {
+    const current = ordered[0]
+    const keep = [current]
+    if (!latestDoneReview(current.call.timeline)) {
+      const reviewedPrior = ordered.slice(1).find((row) => latestDoneReview(row.call.timeline))
+      if (reviewedPrior) keep.push(reviewedPrior)
+    }
+    return { ticker, matchRank: Math.min(...matches.map((row) => row.matchRank)), calls: keep }
+  })
+    .sort((a, b) => {
+      if (a.matchRank !== b.matchRank) return a.matchRank - b.matchRank
+      return a.ticker.localeCompare(b.ticker)
+    })
+    .flatMap((group) => group.calls)
+  return selected.slice(0, cap).map(({ call }) => {
     const latest = latestDoneReview(call.timeline)
     const action = actionNowForCall(call, latest)
     const why = latest?.learning?.why_right_or_wrong || latest?.lessons?.[0] || latest?.memo_delta_summary || null
@@ -290,11 +329,16 @@ export function selectCallMemories(calls: CallLike[], identifiers: string[], cap
       confidence_after: finite(latest?.confidence_update?.after) ? latest!.confidence_update!.after! : null,
       confidence_reason: latest?.confidence_update?.change_reason || null, why_right_or_wrong: why,
       error_taxonomy: Array.isArray(latest?.error_taxonomy) ? latest!.error_taxonomy! : [],
-      future_research_check: future, next_check_date: latest?.next_check?.date || call.next_checkpoint?.due_date || null,
-      next_check_label: latest?.next_check?.label || watch || call.next_checkpoint?.window || null,
-      source_path: latest?.memo_delta_file || latest?.review_file || call.final_thesis_path || null,
+      future_research_check: future,
+      next_check_date: latest?.next_check ? latest.next_check.date || null : call.next_checkpoint?.due_date || null,
+      next_check_label: latest?.next_check
+        ? latest.next_check.label || latest.next_check.trigger || null
+        : watch || call.next_checkpoint?.window || null,
+      original_source_path: call.frozen_call?.source_path || (call.run_root ? `${call.run_root}/decision_record.json` : null),
+      review_source_path: latest?.review_file || null,
+      memo_source_path: latest?.memo_delta_file || null,
     }
-    })
+  })
 }
 
 function fmtPct(value: number | null): string {
@@ -315,7 +359,9 @@ export function decisionMemoryBlock(memories: CallMemoryItem[]): string {
     `CONFIDENCE: ${finite(memory.confidence_after) ? `${memory.original_confidence ?? 'not recorded'} → ${memory.confidence_after}/100` : `${memory.original_confidence ?? 'not recorded'} → not re-scored`}${memory.confidence_reason ? ` — ${memory.confidence_reason}` : ''}.`,
     `WHY / LEARNING: ${memory.why_right_or_wrong || 'Not recorded yet.'}${memory.error_taxonomy.length ? ` Error tags: ${memory.error_taxonomy.join(', ')}.` : ''}`,
     `RECHECK NOW: ${memory.future_research_check || 'No specific learned check recorded yet.'}`,
-    `NEXT CHECK: ${memory.next_check_date || 'not scheduled'}${memory.next_check_label ? ` — ${memory.next_check_label}` : ''}.`,
-    `SOURCE: ${memory.source_path || 'published decision ledger'}`,
+    `NEXT CHECK: ${memory.next_check_date || (memory.next_check_label ? 'date not proven' : 'not scheduled')}${memory.next_check_label ? ` — ${memory.next_check_label}` : ''}.`,
+    `ORIGINAL SOURCE: ${memory.original_source_path || 'published decision ledger'}`,
+    `REVIEW SOURCE: ${memory.review_source_path || 'no completed review yet'}`,
+    ...(memory.memo_source_path ? [`MEMO SOURCE: ${memory.memo_source_path}`] : []),
   ].join('\n')).join('\n\n')
 }

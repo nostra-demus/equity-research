@@ -537,6 +537,24 @@ function buildTimelineJ(schedule, reviews, today) {
   out.sort((a, b) => { const da = a.due_date || '9999-99-99', db = b.due_date || '9999-99-99'; return da < db ? -1 : da > db ? 1 : 0 })
   return out
 }
+
+const PROVISIONAL_MARK_J = 'PROVISIONAL — the automated finish-gate'
+const CLEAN_INTEGRITY_VERDICTS_J = new Set(['Clean', 'Minor issues'])
+function integrityStatusJ(runDirAbs) {
+  let banner = false
+  try { banner = fs.readFileSync(path.join(runDirAbs, 'final_thesis.md'), 'utf8').slice(0, 2000).includes(PROVISIONAL_MARK_J) } catch { /* honest unaudited fallback below */ }
+  const reports = isDir(runDirAbs) ? fs.readdirSync(runDirAbs)
+    .map((name) => ({ name, match: /^verification_report(?:_v(\d+))?\.json$/.exec(name) }))
+    .filter((row) => row.match)
+    .sort((a, b) => Number(a.match[1] || 1) - Number(b.match[1] || 1)) : []
+  let verdict = null
+  if (reports.length) {
+    const report = loadJSON(path.join(runDirAbs, reports[reports.length - 1].name))
+    verdict = typeof report?.verdict === 'string' && report.verdict.trim() ? report.verdict.trim() : null
+  }
+  const status = banner ? 'provisional' : reports.length ? (verdict && CLEAN_INTEGRITY_VERDICTS_J.has(verdict) ? 'verified' : 'provisional') : 'unaudited'
+  return { status, verdict, banner }
+}
 /**
  * The watchlist, for the read-only showcase.
  *
@@ -739,13 +757,14 @@ function buildCalls() {
     const pending = timeline.find((t) => t.status === 'overdue') || timeline.find((t) => t.status === 'due') || timeline.find((t) => t.status === 'upcoming') || null
     const finalThesisPath = (typeof d.final_thesis_path === 'string' && d.final_thesis_path) ? d.final_thesis_path : `${runRoot}/final_thesis.md`
     const disp = resolveDisplayFields(d, 'decision')
+    const integrity = integrityStatusJ(runDirAbs)
     const frozenDecision = disp.decision
     const frozenBasket = (typeof d.post_mortem_basket === 'string' && d.post_mortem_basket) ? d.post_mortem_basket : (d.basket ?? null)
     const frozenConfidence = disp.confidence
     calls.push({ ticker: d.ticker, company: d.company_name ?? null, decision_date: d.decision_date, decision: frozenDecision, basket: frozenBasket,
       decision_is_post_mortem_capped: disp.decisionIsPostMortemCapped, confidence: frozenConfidence, confidence_is_post_review: disp.confidenceIsPostReview,
       frozen_call: { locked: true, decision: frozenDecision, basket: frozenBasket, confidence: frozenConfidence, decision_date: d.decision_date, entry_price: entry, currency: d.currency ?? null, source_path: `${runRoot}/decision_record.json` },
-      integrity_status: 'unaudited', integrity_verdict: null, integrity_banner: false,
+      integrity_status: integrity.status, integrity_verdict: integrity.verdict, integrity_banner: integrity.banner,
       time_horizon: d.time_horizon ?? null, entry_price: entry, currency: d.currency ?? null,
       expected_return_pct: exp, implied_target: entry != null && exp != null ? Math.round(entry * (1 + exp / 100) * 100) / 100 : null,
       downside_risk_pct: typeof d.downside_risk_pct === 'number' ? d.downside_risk_pct : null, kill_criteria_count: Array.isArray(d.kill_criteria) ? d.kill_criteria.length : 0,
@@ -771,7 +790,13 @@ function buildCalls() {
     const mds = fs.readdirSync(tdir).filter((f) => /_calls_tracker\.md$/.test(f)).sort()
     if (mds.length) { dashboard = `analyses/tracking/${mds[mds.length - 1]}`; copyInto(path.join(tdir, mds[mds.length - 1]), dashboard) }
   }
-  const adjusted = (call, value) => typeof value === 'number' ? ((String(call.basket || '').toLowerCase() === 'short' || String(call.basket || '').toLowerCase() === 'rejected') ? -value : value) : null
+  const adjusted = (call, value) => {
+    if (typeof value !== 'number' || !Number.isFinite(value)) return null
+    const basket = String(call.basket || '').trim().toLowerCase()
+    if (basket === 'short') return -value
+    if (basket === 'selected') return value
+    return null
+  }
   const quality = (row) => row?.decision_quality === 'skill' ? 'worked' : row?.decision_quality === 'genuine miss' ? 'failed' : row?.decision_quality === 'luck' ? 'mixed' : 'unscored'
   const latestDone = (call) => [...call.timeline].filter((row) => row.status === 'done').sort((a, b) => {
     const ad = String(a.review_date || a.due_date || '')
@@ -781,11 +806,12 @@ function buildCalls() {
     return String(b.review_file || '').localeCompare(String(a.review_file || ''))
   })[0] || null
   const avg = (values) => { const kept = values.filter((x) => typeof x === 'number' && Number.isFinite(x)); return kept.length ? Math.round((kept.reduce((a, b) => a + b, 0) / kept.length) * 100) / 100 : null }
-  const rows = calls.map((call) => ({ call, review: latestDone(call) }))
+  const eligibleCalls = calls.filter((call) => String(call.integrity_status || '').trim().toLowerCase() !== 'provisional')
+  const rows = eligibleCalls.map((call) => ({ call, review: latestDone(call) }))
   const classes = rows.map((row) => quality(row.review))
   const count = (kind) => classes.filter((x) => x === kind).length
   const horizons = ['30d', '90d', '180d', '365d'].map((window) => {
-    const wr = calls.flatMap((call) => { const review = call.timeline.find((row) => row.status === 'done' && String(row.window).toLowerCase() === window); return review ? [{ call, review }] : [] })
+    const wr = eligibleCalls.flatMap((call) => { const review = latestDone({ timeline: call.timeline.filter((row) => row.status === 'done' && String(row.window).toLowerCase() === window) }); return review ? [{ call, review }] : [] })
     const cls = wr.map((row) => quality(row.review)), n = (kind) => cls.filter((x) => x === kind).length
     return { window, reviewed: wr.length, worked: n('worked'), failed: n('failed'), mixed: n('mixed'), unscored: n('unscored'),
       average_return_pct: avg(wr.map(({ call, review }) => adjusted(call, review.absolute_return_pct))),
@@ -807,7 +833,7 @@ function buildCalls() {
     : confidenceAligned
       ? 'Higher-confidence calls have generally worked more often. This is a ranking check, not a probability claim.'
       : 'Higher-confidence calls have not worked more often. Nostra should lower or rework its conviction rules.'
-  const scorecard = { assessed_calls: count('worked') + count('failed'), worked: count('worked'), failed: count('failed'), mixed: count('mixed'), unscored: count('unscored'),
+  const scorecard = { assessed_calls: count('worked') + count('failed'), excluded_provisional: calls.length - eligibleCalls.length, worked: count('worked'), failed: count('failed'), mixed: count('mixed'), unscored: count('unscored'),
     average_return_pct: avg(rows.map(({ call, review }) => adjusted(call, review?.absolute_return_pct))),
     average_vs_benchmark_pct: avg(rows.map(({ call, review }) => adjusted(call, review?.benchmark_relative_return_pct))), horizons,
     confidence_check: { status: confidenceStatus, scored_calls: scoredConfidence.length, bands, detail: confidenceDetail } }

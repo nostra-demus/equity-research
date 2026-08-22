@@ -95,7 +95,7 @@ assert.equal(publishedNeedsAttention([{ ...attention, company: undefined }]).len
   'an omitted optional company survives deploy skew')
 
 const scorecard = {
-  assessed_calls: 2, worked: 1, failed: 1, mixed: 0, unscored: 3,
+  assessed_calls: 2, excluded_provisional: 0, worked: 1, failed: 1, mixed: 0, unscored: 3,
   average_return_pct: 2.5, average_vs_benchmark_pct: 1.2,
   horizons: ['30d', '90d', '180d', '365d'].map((window) => ({ window, reviewed: 1, worked: 1, failed: 0, mixed: 0, unscored: 0, average_return_pct: 2, average_vs_benchmark_pct: 1 })),
   confidence_check: { status: 'too_little_data', scored_calls: 2, detail: 'Too little data.', bands: [] },

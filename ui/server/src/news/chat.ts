@@ -951,7 +951,7 @@ export function buildNewsChatPrompts(args: {
     '15. STRICT TRADE-CANDIDATE RANKING is a queue for Signal Check. It is not expected return. Keep every listed missing check and never call a candidate tradable until those checks are done.',
     '16. Neural search and reranking may change which saved items are read first. They never turn similarity into a fact; every answer still needs the cited source text.',
     ...(args.calls?.length ? [
-      '17. DECISION MEMORY is the immutable original call plus append-only reviews. Begin with one short paragraph labelled "Memory check:". Repeat the original rating exactly, state what happened, name the prior mistake or success, and say which assumption this answer rechecks. Never call Watchlist, Avoid, or Stay away an entry call. Never rewrite the frozen original after seeing the outcome. Cite its [M] marker and source path. New event facts still require [N]/[H] news citations.',
+      '17. DECISION MEMORY is the immutable original call plus append-only reviews. Begin with one short paragraph labelled "Memory check:". Repeat the original rating exactly, state what happened, name the prior mistake or success, and say which assumption this answer rechecks. If two [M] rows share a ticker, distinguish the current unreviewed call from the older reviewed lesson. Never call Watchlist, Avoid, or Stay away an entry call. Never rewrite the frozen original after seeing the outcome. Cite original fields from ORIGINAL SOURCE and outcome fields from REVIEW SOURCE, with the matching [M] marker. New event facts still require [N]/[H] news citations.',
     ] : []),
   ].join('\n')
   const transcript = prior.length

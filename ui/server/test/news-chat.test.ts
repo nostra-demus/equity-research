@@ -335,13 +335,16 @@ check('news prompt carries exact prior-call learning into Screener wire chat wit
     action_now: 'Keep watching' as const, action_reason: 'Re-run earnings before acting.', confidence_after: 45,
     confidence_reason: 'AWS margin expanded.', why_right_or_wrong: 'Nostra underestimated AWS growth.', error_taxonomy: ['bad base rate'],
     future_research_check: 'Recheck AWS growth and margin.', next_check_date: '2026-10-30', next_check_label: 'Q3 AWS check',
-    source_path: 'analyses/AMZN_2026-07-10/reviews/2026-08-09_30d_decision_review.json',
+    original_source_path: 'analyses/AMZN_2026-07-10/decision_record.json',
+    review_source_path: 'analyses/AMZN_2026-07-10/reviews/2026-08-09_30d_decision_review.json', memo_source_path: null,
   }]
   const p = buildNewsChatPrompts({ assembled, messages: [{ role: 'user', content: 'What changed?' }], calls })
   assert.match(p.system, /Begin with one short paragraph labelled "Memory check:"/)
   assert.match(p.system, /Never call Watchlist, Avoid, or Stay away an entry call/)
   assert.match(p.user, /FROZEN ORIGINAL: Nostra rated it Watchlist/)
   assert.match(p.user, /RECHECK NOW: Recheck AWS growth and margin/)
+  assert.match(p.user, /ORIGINAL SOURCE: analyses\/AMZN_2026-07-10\/decision_record\.json/)
+  assert.match(p.user, /REVIEW SOURCE: analyses\/AMZN_2026-07-10\/reviews\/2026-08-09_30d_decision_review\.json/)
 })
 
 await checks

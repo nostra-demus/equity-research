@@ -135,7 +135,8 @@ check('research and selected-signal chat begins with immutable decision memory w
         benchmark_relative_pct: 11.49, thesis_status: 'broken', decision_quality: 'genuine miss', action_now: 'Keep watching',
         action_reason: 'Re-run earnings before acting.', confidence_after: 45, confidence_reason: 'AWS margin expanded.',
         why_right_or_wrong: 'Nostra underestimated AWS growth.', error_taxonomy: ['bad base rate'], future_research_check: 'Recheck AWS growth and margin.',
-        next_check_date: '2026-10-30', next_check_label: 'Q3 AWS check', source_path: 'analyses/AMZN_2026-07-10/reviews/review.json',
+        next_check_date: '2026-10-30', next_check_label: 'Q3 AWS check',
+        original_source_path: 'analyses/AMZN_2026-07-10/decision_record.json', review_source_path: 'analyses/AMZN_2026-07-10/reviews/review.json', memo_source_path: null,
       }],
     },
   })
@@ -143,6 +144,8 @@ check('research and selected-signal chat begins with immutable decision memory w
   assert.match(p.system, /Never turn Watchlist, Avoid, or Stay away into "Nostra said enter"/)
   assert.match(p.user, /FROZEN ORIGINAL: Nostra rated it Watchlist/)
   assert.match(p.user, /RECHECK NOW: Recheck AWS growth and margin/)
+  assert.match(p.user, /ORIGINAL SOURCE: analyses\/AMZN_2026-07-10\/decision_record\.json/)
+  assert.match(p.user, /REVIEW SOURCE: analyses\/AMZN_2026-07-10\/reviews\/review\.json/)
 })
 
 // ---- PR #329 review fixes ----

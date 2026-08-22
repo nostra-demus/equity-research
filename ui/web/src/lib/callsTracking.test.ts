@@ -141,6 +141,12 @@ assert.deepEqual(learned.confidence, { label: '72 → 54', detail: 'Sales missed
 assert.deepEqual(learned.nextCheck, { date: '8 Oct 2026', detail: 'Q3 results and pre-sales check', tone: 'neutral' })
 assert.equal(learned.learning, 'The caution was right because the named warning appeared.')
 
+const undatedNextCheck = baseCall()
+undatedNextCheck.timeline[0].next_check = { date: null, label: 'Q3 results and pre-sales check', trigger: 'Pre-sales above 16%' }
+assert.deepEqual(callTrackingSnapshot(undatedNextCheck).nextCheck, {
+  date: 'Date not proven', detail: 'Q3 results and pre-sales check', tone: 'neutral',
+}, 'an explicitly undated event never borrows the scheduled 90-day checkpoint date')
+
 const expired = baseCall()
 expired.timeline[0].decision_quality = null
 expired.timeline[0].thesis_status = 'expired'

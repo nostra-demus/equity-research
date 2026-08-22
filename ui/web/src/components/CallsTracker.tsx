@@ -174,13 +174,13 @@ function CallsScorecardPanel({ scorecard }: { scorecard: CallsScorecard }) {
   return (
     <section className="callscore" aria-label="Overall Nostra call scorecard">
       <div className="callscore__head">
-        <div><strong>Nostra scorecard</strong><span>One latest outcome per call. No double-counting repeat reviews.</span></div>
-        <span>{scorecard.assessed_calls} scored · {scorecard.mixed} mixed · {scorecard.unscored} too early</span>
+        <div><strong>Nostra scorecard</strong><span>One latest outcome per non-provisional call. Returns use Selected and Short calls only.</span></div>
+        <span>{scorecard.assessed_calls} scored · {scorecard.mixed} mixed · {scorecard.unscored} too early{scorecard.excluded_provisional ? ` · ${scorecard.excluded_provisional} provisional excluded` : ''}</span>
       </div>
       <div className="callscore__metrics">
         <div><span>Calls worked</span><strong className="tone--good">{scorecard.worked}</strong></div>
         <div><span>Calls failed</span><strong className="tone--bad">{scorecard.failed}</strong></div>
-        <div><span>Average call result</span><strong>{ret(scorecard.average_return_pct)}</strong></div>
+        <div><span>Average position result</span><strong>{ret(scorecard.average_return_pct)}</strong></div>
         <div><span>Versus benchmark</span><strong>{ret(scorecard.average_vs_benchmark_pct)}</strong></div>
       </div>
       <div className="callscore__horizons">

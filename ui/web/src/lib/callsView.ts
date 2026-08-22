@@ -114,7 +114,7 @@ export function publishedNeedsAttention(value: unknown): NeedsAttentionRow[] {
 
 export function publishedCallsScorecard(value: unknown): CallsScorecard | null {
   if (!isRecord(value)) return null
-  if (!['assessed_calls', 'worked', 'failed', 'mixed', 'unscored'].every((key) => typeof value[key] === 'number' && Number.isFinite(value[key]))) return null
+  if (!['assessed_calls', 'excluded_provisional', 'worked', 'failed', 'mixed', 'unscored'].every((key) => typeof value[key] === 'number' && Number.isFinite(value[key]))) return null
   if (!nullableNumber(value.average_return_pct) || !nullableNumber(value.average_vs_benchmark_pct)) return null
   if (!Array.isArray(value.horizons) || !value.horizons.every((row) => isRecord(row)
     && ['30d', '90d', '180d', '365d'].includes(String(row.window))

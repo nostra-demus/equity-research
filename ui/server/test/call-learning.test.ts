@@ -14,7 +14,8 @@ const reviewed = (ticker: string, decisionQuality: string, confidence: number, r
 })
 
 assert.equal(directionAdjusted('Short', -12), 12)
-assert.equal(directionAdjusted('Rejected', -8), 8)
+assert.equal(directionAdjusted('Rejected', -8), null)
+assert.equal(directionAdjusted('Watchlist', 15), null)
 assert.equal(directionAdjusted('Selected', -8), -8)
 
 const calls = [
@@ -35,6 +36,11 @@ assert.equal(score.mixed, 1)
 assert.equal(score.horizons.find((row) => row.window === '30d')?.reviewed, 10)
 assert.equal(score.confidence_check.status, 'aligned')
 assert.ok((score.average_vs_benchmark_pct || 0) > 0, 'short returns are direction-adjusted in aggregate')
+const withProvisional = buildCallsScorecard([...calls, { ...reviewed('PROVISIONAL', 'skill', 99, 90), integrity_status: 'provisional' }])
+assert.equal(withProvisional.excluded_provisional, 1)
+assert.equal(withProvisional.worked, score.worked)
+assert.equal(withProvisional.average_return_pct, score.average_return_pct,
+  'provisional calls stay visible outside the scorecard but cannot change its accuracy or returns')
 
 const sameDayReviews = [
   { window: '30d', status: 'done', review_date: '2026-08-09', decision_quality: 'genuine miss', absolute_return_pct: -4, review_file: 'reviews/a.json' },
@@ -50,6 +56,7 @@ assert.deepEqual(buildCallsScorecard([sameDayCall]), buildCallsScorecard([{ ...s
 const memoryCall = {
   ticker: 'AMZN', company: 'Amazon.com, Inc.', decision_date: '2026-07-10', decision: 'Watchlist', basket: 'Watchlist',
   confidence: 72, entry_price: 238.34, currency: 'USD', final_thesis_path: 'analyses/AMZN_2026-07-10/final_thesis.md',
+  run_root: 'analyses/AMZN_2026-07-10', frozen_call: { source_path: 'analyses/AMZN_2026-07-10/decision_record.json' },
   timeline: [{
     window: '30d', status: 'done', review_date: '2026-08-09', review_price: 274.48,
     absolute_return_pct: 15.16, benchmark_relative_return_pct: 11.49, thesis_status: 'broken', decision_quality: 'genuine miss',
@@ -66,16 +73,31 @@ assert.equal(matched[0].ticker, 'AMZN')
 assert.equal(selectCallMemories([memoryCall], ['Amazon']).length, 1, 'structured short issuer names match the same legal-form-normalized company')
 assert.equal(selectCallMemories([memoryCall], ['Amazonian rainforest']).length, 0, 'company matching is exact, not fuzzy')
 const oracleCall = { ...memoryCall, ticker: 'ORCL', company: 'Oracle Corporation', decision_date: '2026-08-20' }
-assert.deepEqual(selectCallMemories([oracleCall, memoryCall], ['What changed at Amazon?', 'ORCL']).map((row) => row.ticker), ['AMZN', 'ORCL'],
+assert.deepEqual(selectCallMemories([oracleCall, memoryCall], ['ORCL'], 3, 'What changed at Amazon?').map((row) => row.ticker), ['AMZN', 'ORCL'],
   'the issuer named in the question ranks ahead of incidental companies in retrieved evidence')
 const sameRankOracle = { ...oracleCall, decision_date: memoryCall.decision_date }
 assert.deepEqual(selectCallMemories([sameRankOracle, memoryCall], ['AMZN ORCL']).map((row) => row.ticker), ['AMZN', 'ORCL'])
 assert.deepEqual(selectCallMemories([memoryCall, sameRankOracle], ['AMZN ORCL']).map((row) => row.ticker), ['AMZN', 'ORCL'],
   'same-rank, same-date memories have a stable ticker tie-break independent of input order')
+const freshCall = { ...memoryCall, decision_date: '2026-08-20', decision: 'Buy', run_root: 'analyses/AMZN_2026-08-20', timeline: [] }
+const currentAndLesson = selectCallMemories([memoryCall, freshCall], ['AMZN'])
+assert.deepEqual(currentAndLesson.map((row) => row.decision_date), ['2026-08-20', '2026-07-10'])
+assert.equal(currentAndLesson[1].why_right_or_wrong, 'Nostra underestimated AWS growth.',
+  'a fresh unreviewed call cannot erase the newest reviewed same-ticker lesson')
+const nowCall = { ...memoryCall, ticker: 'NOW', company: 'ServiceNow, Inc.' }
+assert.equal(selectCallMemories([nowCall], [], 3, 'What should I do now?').length, 0,
+  'a lowercase common word cannot be mistaken for a ticker in a free-form question')
+assert.equal(selectCallMemories([nowCall], [], 3, 'What changed at NOW?').length, 1)
+assert.equal(selectCallMemories([nowCall], [], 3, 'What changed at $now?').length, 1,
+  'uppercase and cashtag ticker syntax remain explicit question matches')
 const block = decisionMemoryBlock(matched)
 assert.match(block, /FROZEN ORIGINAL: Nostra rated it Watchlist/)
 assert.doesNotMatch(block, /said enter/i)
 assert.match(block, /RECHECK NOW: Recheck AWS growth and margin/)
 assert.match(block, /72 → 45\/100/)
+assert.match(block, /ORIGINAL SOURCE: analyses\/AMZN_2026-07-10\/decision_record\.json/)
+assert.match(block, /REVIEW SOURCE: analyses\/AMZN_2026-07-10\/reviews\/2026-08-09_30d_decision_review\.json/)
+const undatedMemoryCall = { ...memoryCall, timeline: [{ ...memoryCall.timeline[0], next_check: { date: null, label: 'Q3 AWS results', trigger: 'AWS growth' } }] }
+assert.match(decisionMemoryBlock(selectCallMemories([undatedMemoryCall], ['AMZN'])), /NEXT CHECK: date not proven — Q3 AWS results/)
 
 console.log('ok  self-correcting call memory is immutable, direction-aware, calibrated, and exact-matched')

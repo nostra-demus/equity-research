@@ -2466,6 +2466,7 @@ export interface CallsScorecardHorizon {
 }
 export interface CallsScorecard {
   assessed_calls: number
+  excluded_provisional: number
   worked: number
   failed: number
   mixed: number

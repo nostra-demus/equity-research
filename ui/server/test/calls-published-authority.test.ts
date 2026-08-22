@@ -130,7 +130,9 @@ assert.deepEqual(
 )
 assert.equal(dirty.scorecard.worked, 1)
 assert.equal(dirty.scorecard.failed, 0)
-assert.equal(dirty.scorecard.horizons.find((row: any) => row.window === '30d')?.average_vs_benchmark_pct, 6.5)
+assert.equal(dirty.scorecard.excluded_provisional, 0)
+assert.equal(dirty.scorecard.horizons.find((row: any) => row.window === '30d')?.average_vs_benchmark_pct, null,
+  'a Watchlist process outcome is scored, but its stock move is not treated as a held position return')
 assert.equal(dirty.scorecard.confidence_check.status, 'too_little_data')
 assert.equal(dirty.dashboard, 'analyses/tracking/2026-08-13_calls_tracker.md')
 assert.equal(dirty.authority_commit, publishedCommit)

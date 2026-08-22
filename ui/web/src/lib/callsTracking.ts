@@ -263,6 +263,7 @@ export function callTrackingSnapshot(call: CallSummary): CallTrackingSnapshot {
   } : null
 
   const next = call.next_checkpoint
+  const structuredNext = latest?.next_check
   return {
     originalSentence: `Nostra rated it ${decision} on ${humanDate(call.frozen_call?.decision_date || call.decision_date)} ${entryPhrase}.${target}`,
     checkpoint,
@@ -272,12 +273,14 @@ export function callTrackingSnapshot(call: CallSummary): CallTrackingSnapshot {
     situation: situationFor(latest, call),
     evidence: latest?.memo_delta_summary || call.latest_review_summary || null,
     learning: latest?.learning?.why_right_or_wrong || latest?.learning?.rule_for_future || firstSentence(latest?.lessons?.[0]) || null,
-    nextCheck: next ? {
-      date: humanDate(latest?.next_check?.date || next.due_date),
-      detail: latest?.next_check?.label || (watch ? `${windowLabel(next.window)} review · Watch: ${watch}` : `${windowLabel(next.window)} review · ${next.status}`),
+    nextCheck: structuredNext ? {
+      date: structuredNext.date ? humanDate(structuredNext.date) : 'Date not proven',
+      detail: structuredNext.label || structuredNext.trigger || 'Named review check',
+      tone: 'neutral',
+    } : next ? {
+      date: humanDate(next.due_date),
+      detail: watch ? `${windowLabel(next.window)} review · Watch: ${watch}` : `${windowLabel(next.window)} review · ${next.status}`,
       tone: next.status === 'overdue' ? 'bad' : 'neutral',
-    } : latest?.next_check ? {
-      date: humanDate(latest.next_check.date), detail: latest.next_check.label || latest.next_check.trigger || 'Named review check', tone: 'neutral',
     } : null,
   }
 }
