@@ -44,10 +44,34 @@ def digest_json(value: Any) -> str:
 
 
 def digest_file(path: str | Path) -> str:
+    candidate = Path(path)
+    try:
+        before = candidate.lstat()
+        canonical = candidate.resolve(strict=True)
+    except OSError as exc:
+        raise FreezeError(f"cannot hash parity artifact {candidate}: {exc}") from exc
+    if not stat.S_ISREG(before.st_mode) or stat.S_ISLNK(before.st_mode) or before.st_nlink != 1:
+        raise FreezeError(f"parity artifact must be one regular, non-linked file: {candidate}")
+    if canonical != candidate.absolute():
+        raise FreezeError(f"parity artifact path must be canonical: {candidate}")
     digest = hashlib.sha256()
-    with Path(path).open("rb") as handle:
+    # The pathname has been canonicalized and its inode constrained above; O_NOFOLLOW closes the
+    # final lookup race. CodeQL does not model that no-follow + identity proof, so record it here.
+    flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
+    descriptor = os.open(canonical, flags)  # lgtm[py/path-injection]
+    with os.fdopen(descriptor, "rb") as handle:
+        opened = os.fstat(handle.fileno())
+        if (opened.st_dev, opened.st_ino, opened.st_size, opened.st_mtime_ns) != (
+            before.st_dev, before.st_ino, before.st_size, before.st_mtime_ns
+        ):
+            raise FreezeError(f"parity artifact changed before hashing: {candidate}")
         for block in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(block)
+    after = candidate.lstat()
+    if (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns) != (
+        before.st_dev, before.st_ino, before.st_size, before.st_mtime_ns
+    ):
+        raise FreezeError(f"parity artifact changed while hashing: {candidate}")
     return "sha256:" + digest.hexdigest()
 
 

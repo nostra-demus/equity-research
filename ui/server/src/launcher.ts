@@ -3390,7 +3390,7 @@ export async function startSupervisorPublicationSocket(run: RunState): Promise<S
     response.setHeader('Content-Type', 'application/json; charset=utf-8')
     try { verify() } catch (error: any) {
       response.statusCode = 409
-      response.end(JSON.stringify({ error: String(error?.message || error) }))
+      response.end(JSON.stringify({ error: 'publication transport rejected' }))
       request.resume()
       return
     }
@@ -3434,7 +3434,7 @@ export async function startSupervisorPublicationSocket(run: RunState): Promise<S
       }
       try { verify() } catch (error: any) {
         response.statusCode = 409
-        response.end(JSON.stringify({ error: String(error?.message || error) }))
+        response.end(JSON.stringify({ error: 'publication transport rejected' }))
         return
       }
       void queuePublicationIntent(run.runId, token, body).then((result) => {
@@ -3443,7 +3443,7 @@ export async function startSupervisorPublicationSocket(run: RunState): Promise<S
         run.publicationError = String(error?.message || error).slice(0, 1000)
         if (!response.writableEnded) {
           response.statusCode = error?.statusCode || 409
-          response.end(JSON.stringify({ error: String(error?.message || error) }))
+          response.end(JSON.stringify({ error: 'publication request rejected' }))
         }
       })
     })

@@ -65,11 +65,11 @@ class FakeSupervisor:
                     length = int(self.headers.get("Content-Length", "0"))
                     payload = json.loads(self.rfile.read(length))
                     if payload.get("phase") == "attest":
-                        comparison = Path(payload["comparisonArtifact"]).resolve()
-                        freeze = Path(payload["freezeReceipt"]).resolve()
-                        output = Path(payload["receiptOutput"]).resolve()
-                        comparison_value = json.loads(comparison.read_text(encoding="utf-8"))
-                        freeze_value = json.loads(freeze.read_text(encoding="utf-8"))
+                        comparison = owner.request_path(payload.get("comparisonArtifact"), must_exist=True)
+                        freeze = owner.request_path(payload.get("freezeReceipt"), must_exist=True)
+                        output = owner.request_path(payload.get("receiptOutput"), must_exist=False)
+                        comparison_value = json.loads(comparison.read_text(encoding="utf-8"))  # lgtm[py/path-injection]
+                        freeze_value = json.loads(freeze.read_text(encoding="utf-8"))  # lgtm[py/path-injection]
                         keys = ("attempt_id", "provider", "model", "reasoning_level", "profile_key", "started_at")
                         attempt = {key: owner.attempt_row[key] for key in keys}
                         attempt.update({"kind": "parity", "role": "terminal_adjudicator", "decision_author": True})
@@ -92,18 +92,19 @@ class FakeSupervisor:
                                 "attempt_sha256": "sha256:" + hashlib.sha256(json.dumps(owner.attempt_row,
                                     sort_keys=True, separators=(",", ":")).encode()).hexdigest(),
                                 "paired_canaries": paired}}
-                        output.write_text(json.dumps(receipt, sort_keys=True) + "\n", encoding="utf-8")
+                        output.write_text(json.dumps(receipt, sort_keys=True) + "\n", encoding="utf-8")  # lgtm[py/path-injection]
                         output.chmod(0o444)
                         owner.issued[str(output)] = {"receipt": digest_file(output), "comparison": digest_file(comparison),
                                                      "freeze": digest_file(freeze), "manifest": digest_file(owner.manifest)}
                         result = {"ok": True, "phase": "attest", "receiptPath": str(output),
                                   "receiptSha256": digest_file(output), "attempt": attempt}
                     elif payload.get("phase") == "verify-attestation":
-                        output = Path(payload["receiptOutput"]).resolve(); issued = owner.issued.get(str(output))
-                        receipt = json.loads(output.read_text(encoding="utf-8")) if issued else {}
+                        output = owner.request_path(payload.get("receiptOutput"), must_exist=True)
+                        issued = owner.issued.get(str(output))
+                        receipt = json.loads(output.read_text(encoding="utf-8")) if issued else {}  # lgtm[py/path-injection]
                         valid = bool(issued) and digest_file(output) == issued["receipt"] \
-                            and digest_file(Path(receipt["comparison_artifact"]["path"])) == issued["comparison"] \
-                            and digest_file(Path(receipt["freeze_receipt"]["path"])) == issued["freeze"] \
+                            and digest_file(owner.request_path(receipt["comparison_artifact"]["path"], must_exist=True)) == issued["comparison"] \
+                            and digest_file(owner.request_path(receipt["freeze_receipt"]["path"], must_exist=True)) == issued["freeze"] \
                             and digest_file(owner.manifest) == issued["manifest"]
                         if not valid: raise ValueError("stale attestation")
                         result = {"ok": True, "phase": "verify-attestation", "receiptPath": str(output),
@@ -117,6 +118,29 @@ class FakeSupervisor:
 
         self.server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), Handler)
         self.thread = threading.Thread(target=self.server.serve_forever, daemon=True)
+
+    def request_path(self, value: object, *, must_exist: bool) -> Path:
+        if not isinstance(value, str) or not value:
+            raise ValueError("invalid supervisor fixture path")
+        base = self.root.resolve(strict=True)
+        raw = Path(value)
+        if raw.is_symlink():
+            raise ValueError("supervisor fixture path is a symlink")
+        if must_exist:
+            candidate = raw.resolve(strict=True)
+            info = candidate.stat()
+            if not candidate.is_file() or info.st_nlink != 1:
+                raise ValueError("supervisor fixture input is not one regular file")
+        else:
+            parent = raw.parent.resolve(strict=True)
+            candidate = parent / raw.name
+            if candidate.exists() or candidate.is_symlink():
+                raise ValueError("supervisor fixture output already exists")
+        try:
+            candidate.relative_to(base)
+        except ValueError as exc:
+            raise ValueError("supervisor fixture path escaped its root") from exc
+        return candidate
 
     def __enter__(self): self.thread.start(); return self
     def __exit__(self, *_args): self.server.shutdown(); self.server.server_close(); self.thread.join(timeout=2)
