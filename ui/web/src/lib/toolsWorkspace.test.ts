@@ -51,16 +51,33 @@ assert.match(globalCss, /@media \(max-width: 1700px\)[\s\S]*\.brand__name, \.swa
 const priorWindow = (globalThis as any).window
 const priorFetch = globalThis.fetch
 ;(globalThis as any).window = { __ENGINE_LIVE__: true }
+const streamedProgress: string[] = []
+globalThis.fetch = (async (url: string | URL | Request, init?: RequestInit) => {
+  assert.equal(String(url), '/api/tools/reel-transcript')
+  assert.equal(new Headers(init?.headers).get('accept'), 'text/event-stream')
+  assert.deepEqual(JSON.parse(String(init?.body)), { url: 'https://www.instagram.com/reel/Test/' })
+  const frames = [
+    'event: reel-progress\ndata: {"type":"reel-progress","step":"prepare-output","status":"complete","elapsedMs":1,"detail":{"language":42}}',
+    'event: reel-progress\ndata: {"type":"reel-progress","step":"validate-link","status":"running","elapsedMs":0}',
+    'event: reel-progress\ndata: {"type":"reel-progress","step":"validate-link","status":"complete","elapsedMs":2,"stepElapsedMs":2}',
+    'event: reel-result\ndata: {"type":"reel-result","elapsedMs":3,"result":{"transcript":"Spoken text.","sourceUrl":"https://www.instagram.com/reel/Test/","title":"Test Reel","author":"creator","durationSeconds":12,"language":"en"}}',
+  ].join('\n\n') + '\n\n'
+  return new Response(frames, { status: 200, headers: { 'content-type': 'text/event-stream' } })
+}) as typeof fetch
+const streamed = await api.reelTranscriptLive('https://www.instagram.com/reel/Test/', (event) => streamedProgress.push(`${event.step}:${event.status}`))
+assert.equal(streamed.transcript, 'Spoken text.')
+assert.deepEqual(streamedProgress, ['validate-link:running', 'validate-link:complete'], 'the UI receives real server stage transitions before the result and rejects malformed detail')
+
 globalThis.fetch = (async (_url: string | URL | Request, init?: RequestInit) => new Promise((_resolve, reject) => {
   const signal = init?.signal
   if (signal?.aborted) return reject(signal.reason)
   signal?.addEventListener('abort', () => reject(signal.reason), { once: true })
 })) as typeof fetch
 const controller = new AbortController()
-const pending = api.reelTranscript('https://www.instagram.com/reel/Test/', controller.signal)
+const pending = api.reelTranscriptLive('https://www.instagram.com/reel/Test/', () => undefined, controller.signal)
 controller.abort()
 await assert.rejects(pending, (cause: unknown) => cause instanceof DOMException && cause.name === 'AbortError')
 globalThis.fetch = priorFetch
 ;(globalThis as any).window = priorWindow
 
-console.log('tools workspace: overlay exclusivity, top-bar entry, responsive width, and request cancellation passed')
+console.log('tools workspace: overlay exclusivity, top-bar entry, live progress stream, and request cancellation passed')
