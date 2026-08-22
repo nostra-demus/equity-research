@@ -717,6 +717,8 @@ Draw from the modules — e.g. earnings miss / margin deterioration / guidance c
 2. **Arithmetic on the stub.** Where part of the period has already reported, show what the threshold implies for the part still to come, in one clause.
 3. **It could actually fire.** State what the trigger would have done on the last two reported periods. If the status quo already clears it, or it can be cleared while the series is still falling year on year, delete the row and write one that bites.
 
+Checks 1 and 3 are not just prose for the table — carry them into `decision_record.json` as `comparable_basis` (check 1's answer, verbatim) and `fired_last_two_periods` (check 3's literal backtest fact, as a bool) on every `kill_criteria[]` row; `stub_arithmetic` carries check 2's answer, `null` when not applicable. `scripts/eval.py` check BA fails a run dated on/after 2026-08-22 that publishes any row missing `comparable_basis` or `fired_last_two_periods` — so a kill criterion this table's third bullet says to delete cannot instead reach the machine-readable record silently unfixed.
+
 The same three checks apply to every threshold in the Forecast Ledger's confirmation and falsification triggers — a falsification trigger that cannot fire is the most expensive kind of false comfort the engine can produce.
 
 ## 11. Positioning and Trade Construction
@@ -1253,7 +1255,7 @@ Populate each field as follows. All of these come from work you have already don
 | edge_score | Part I edge score (0–100); `CLAUDE.md` §7 proven-edge strength — binds the confidence cap |
 | edge_proof | Part I variant perception, 4th bullet — the falsifiable §7 item-4 test |
 | killer_risk | main killer risk |
-| kill_criteria | Thesis Kill Criteria section |
+| kill_criteria | Thesis Kill Criteria section — array of **objects**, one per row of the form `{"condition": "", "comparable_basis": "", "stub_arithmetic": null, "fired_last_two_periods": false, "monitor": "", "module_source": ""}`. `condition` (string) is the criterion text — use this key, not `criterion`: it is the corpus-canonical key the ledger canonicalizers (`_canon_kill_criterion`, `ledger-corrections.ts`) emit and the only one `run-diff.ts` maps for row identity and readable text, so a `criterion`-keyed row would diff as raw JSON and never pair across runs. `comparable_basis` (string) records the like-for-like period/basis this trigger is measured against (HARD GATE 11 check 1). `fired_last_two_periods` (bool) records the literal backtest fact: would this exact trigger, applied as written, have been satisfied on each of the last two reported periods (HARD GATE 11 check 3)? A row that already clears trivially, or clears while the underlying series still falls y/y, is a rubber stamp — HARD GATE 11's third bullet says delete it and write one that bites, before it is recorded here, not after. `stub_arithmetic` is `null` when no part of the period has yet reported. `scripts/eval.py` check BA fails a run dated ≥2026-08-22 that omits `comparable_basis` or `fired_last_two_periods` on any row — presence only; whether the recorded basis is genuinely like-for-like stays the synthesizer's own judgment. |
 | forecast_ledger | Forecast Ledger section |
 | module_scores | module-level scores from module syntheses |
 | red_flags | critical/high/medium red flags |
