@@ -141,7 +141,7 @@ function newestFirst(a: CallRow, b: CallRow): number {
 }
 
 function callListingKey(call: CallSummary): string {
-  const clean = (value: string | null | undefined) => String(value || '').trim().toUpperCase().replace(/[^A-Z0-9]+/g, ' ')
+  const clean = (value: string | null | undefined) => String(value || '').trim().toUpperCase().replace(/[^A-Z0-9]+/g, ' ').trim()
   return [clean(call.ticker), clean(call.exchange) || 'EXCHANGE UNKNOWN', clean(call.company) || 'ISSUER UNKNOWN'].join('|')
 }
 

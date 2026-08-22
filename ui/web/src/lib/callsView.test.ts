@@ -35,6 +35,14 @@ const venueB = call('DUP', '2026-08-12', 'analyses/DUP_LSE_2026-08-12')
 venueB.company = 'Duplicate Britain plc'
 venueB.exchange = 'LSE'
 assert.equal(currentCalls([venueA, venueB]).length, 2, 'same ticker on different issuer/listings stays separate')
+const punctuatedIssuer = call('AAPL', '2026-08-11', 'analyses/AAPL_2026-08-11')
+punctuatedIssuer.company = 'Apple Inc.'
+punctuatedIssuer.exchange = 'NASDAQ'
+const plainIssuer = call('AAPL', '2026-08-12', 'analyses/AAPL_2026-08-12')
+plainIssuer.company = 'Apple Inc'
+plainIssuer.exchange = 'NASDAQ'
+assert.deepEqual(currentCalls([punctuatedIssuer, plainIssuer]).map((row) => row.run_root), ['analyses/AAPL_2026-08-12'],
+  'trailing issuer punctuation cannot split one listing into duplicate Current cards')
 assert.equal(currentCalls([call('', '2026-08-11')]).length, 0, 'a nameless row cannot become a current call')
 assert.equal(currentCalls(null).length, 0, 'a missing calls field fails closed')
 assert.equal(currentCalls([
