@@ -1857,13 +1857,19 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
           const { ov } = pick
           const acquired = await ov.limiter.acquire(est, sleep, () => now().getTime(), undefined, deps.signal)
           if (stopAbortedBatch()) break batchLoop
-          if (!acquired) continue
+          if (!acquired) {
+            reservationUnavailable.add(pick.id)
+            continue
+          }
           if (credentialRejectedFor(ov.p.id) || triageIsHeld(stateDir, ov.p.id, now().getTime())) { reservationUnavailable.add(pick.id); continue }
           const refreshedAdmission = dailyQuotaAdmission({
             ...pick,
             used: pick.meter === 'tokens' ? ov.budget.tokens : ov.budget.requests,
           }, now().getTime())
-          if (!refreshedAdmission.pacedFit || !ov.budget.canSpend(pick.perAttemptTokens, 1)) continue
+          if (!refreshedAdmission.pacedFit || !ov.budget.canSpend(pick.perAttemptTokens, 1)) {
+            reservationUnavailable.add(pick.id)
+            continue
+          }
           const reservation = ov.budget.tryReserve(pick.perAttemptTokens, undefined, now().getTime(), 1)
           if (!reservation) { reservationUnavailable.add(pick.id); continue }
           const attemptStartedAt = now().getTime()
@@ -1896,10 +1902,16 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         const { gem } = pick
         const acquired = await geminiLimiter!.acquire(est, sleep, () => now().getTime(), undefined, deps.signal)
         if (stopAbortedBatch()) break batchLoop
-        if (!acquired) continue
+        if (!acquired) {
+          reservationUnavailable.add(pick.id)
+          continue
+        }
         if (credentialRejectedFor(pick.id) || triageIsHeld(stateDir, pick.id, now().getTime())) { reservationUnavailable.add(pick.id); continue }
         const refreshedAdmission = dailyQuotaAdmission({ ...pick, used: gem.budget.requests }, now().getTime())
-        if (!refreshedAdmission.pacedFit || !gem.budget.canSpend(pick.perAttemptTokens, 1)) continue
+        if (!refreshedAdmission.pacedFit || !gem.budget.canSpend(pick.perAttemptTokens, 1)) {
+          reservationUnavailable.add(pick.id)
+          continue
+        }
         const reservation = gem.budget.tryReserve(pick.perAttemptTokens, undefined, now().getTime(), 1)
         if (!reservation) { reservationUnavailable.add(pick.id); continue }
         const attemptStartedAt = now().getTime()
