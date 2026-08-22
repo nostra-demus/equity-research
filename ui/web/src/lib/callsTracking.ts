@@ -68,7 +68,10 @@ function situationFor(row: CallTimelineEntry | null, call: CallSummary): CallTra
     row?.thesis_status ? `Thesis ${displayStatus(row.thesis_status).toLowerCase()}` : null,
     row?.thesis_delta_verdict ? `delta ${displayStatus(row.thesis_delta_verdict).toLowerCase()}` : null,
   ].filter((value): value is string => !!value)
-  const detail = detailBits.join(' · ') || displayStatus(call.latest_thesis_status)
+  const fallbackDetail = call.latest_thesis_status
+    ? displayStatus(call.latest_thesis_status)
+    : row ? 'Review completed' : 'No reviews recorded yet'
+  const detail = detailBits.join(' · ') || fallbackDetail
 
   if (quality === 'skill') return { headline: 'Call working as intended', detail, tone: 'good' }
   if (quality === 'luck') return { headline: 'Price moved our way, but not for our reason', detail, tone: 'neutral' }
@@ -114,7 +117,7 @@ export function callTrackingSnapshot(call: CallSummary): CallTrackingSnapshot {
     nextCheck: next ? {
       date: humanDate(next.due_date),
       detail: `${windowLabel(next.window)} review · ${next.status}`,
-      tone: next.status === 'overdue' || next.status === 'due' ? 'bad' : 'neutral',
+      tone: next.status === 'overdue' ? 'bad' : 'neutral',
     } : null,
   }
 }

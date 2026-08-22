@@ -52,6 +52,17 @@ assert.equal(awaiting.originalSentence,
   'Nostra said Watchlist on 10 Jul 2026 with no recorded entry price.')
 assert.equal(awaiting.checkpoint, null)
 assert.equal(awaiting.situation.headline, 'Awaiting first review')
+assert.equal(awaiting.situation.detail, 'No reviews recorded yet')
 assert.equal(awaiting.nextCheck, null)
+
+const dueToday = baseCall()
+dueToday.next_checkpoint = { window: '90d', due_date: '2026-10-08', status: 'due' }
+assert.equal(callTrackingSnapshot(dueToday).nextCheck?.tone, 'neutral')
+
+const completedWithoutStatus = baseCall()
+completedWithoutStatus.latest_thesis_status = null
+completedWithoutStatus.timeline[0].thesis_status = null
+completedWithoutStatus.timeline[0].thesis_delta_verdict = null
+assert.equal(callTrackingSnapshot(completedWithoutStatus).situation.detail, 'Review completed')
 
 console.log('ok  Calls scorecard tells the original call, result, present read, and next check')
