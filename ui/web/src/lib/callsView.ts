@@ -7,7 +7,7 @@ function isRecord(value: unknown): value is UnknownRecord {
   return !!value && typeof value === 'object'
 }
 const nullableString = (value: unknown) => value === null || typeof value === 'string'
-const nullableNumber = (value: unknown) => value === null || typeof value === 'number'
+const nullableNumber = (value: unknown) => value === null || (typeof value === 'number' && Number.isFinite(value))
 const optionalString = (value: unknown) => value === undefined || nullableString(value)
 const optionalNumber = (value: unknown) => value === undefined || nullableNumber(value)
 
@@ -40,7 +40,7 @@ function isCallSummary(value: unknown): value is CallSummary {
   const forecasts = value.forecasts
   if (!isRecord(forecasts)) return false
   return ['open', 'confirmed', 'falsified', 'expired', 'other']
-    .every((key) => typeof forecasts[key] === 'number')
+    .every((key) => typeof forecasts[key] === 'number' && Number.isFinite(forecasts[key]))
 }
 
 /** Deploy-skew boundary: only complete-enough call rows may reach either Current or History cards. */

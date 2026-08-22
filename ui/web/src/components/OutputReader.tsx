@@ -73,7 +73,7 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
     let live = true
     const read = output.publishedCalls ? api.callArtifact : api.output
     read(path)
-      .then((r) => { if (live) setMd(r.markdown) })
+      .then((r) => { if (live) setMd(typeof r?.markdown === 'string' ? r.markdown : '*Could not load this output.*') })
       .catch(() => { if (live) setMd('*Could not load this output.*') })
       .finally(() => { if (live) setLoading(false) })
     return () => { live = false }

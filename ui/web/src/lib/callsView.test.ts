@@ -37,6 +37,9 @@ assert.equal(currentCalls([
 ]).length, 1, 'malformed rows cannot take down the Current view')
 assert.deepEqual(publishedCalls([null, { ticker: 'PARTIAL' }, call('SAFE', '2026-08-12')])
   .map((row) => row.ticker), ['SAFE'], 'History receives only render-safe call rows')
+const invalidNumber = call('NAN', '2026-08-12')
+invalidNumber.expected_return_pct = Number.NaN
+assert.equal(publishedCalls([invalidNumber]).length, 0, 'non-finite call numbers fail closed')
 
 const update: CallUpdate = {
   id: 'review:SAFE:2026-08-12', ticker: 'SAFE', company: null, at: '2026-08-12', kind: 'review',
