@@ -38,6 +38,74 @@ export interface ReelTranscriptRead {
   language: string | null
 }
 
+export const REEL_TRANSCRIPT_PROGRESS_STEPS = [
+  'validate-link',
+  'prepare-runtime',
+  'inspect-reel',
+  'download-media',
+  'check-media',
+  'transcribe-speech',
+  'prepare-output',
+  'clean-up',
+] as const
+export type ReelTranscriptProgressStep = typeof REEL_TRANSCRIPT_PROGRESS_STEPS[number]
+export interface ReelTranscriptProgressEvent {
+  step: ReelTranscriptProgressStep
+  status: 'running' | 'complete' | 'failed' | 'warning'
+  elapsedMs: number
+  stepElapsedMs?: number
+  detail?: {
+    sourceUrl?: string
+    title?: string | null
+    author?: string | null
+    durationSeconds?: number | null
+    bytes?: number
+    maxSeconds?: number
+    maxBytes?: number
+    language?: string | null
+    transcriptCharacters?: number
+    mediaRemoved?: boolean
+  }
+}
+
+function isReelTranscriptRead(value: unknown): value is ReelTranscriptRead {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+  const read = value as Record<string, unknown>
+  return typeof read.transcript === 'string' && Boolean(read.transcript.trim())
+    && typeof read.sourceUrl === 'string'
+    && (read.title === null || typeof read.title === 'string')
+    && (read.author === null || typeof read.author === 'string')
+    && (read.durationSeconds === null || (typeof read.durationSeconds === 'number' && Number.isFinite(read.durationSeconds) && read.durationSeconds >= 0))
+    && (read.language === null || typeof read.language === 'string')
+}
+
+function isReelTranscriptProgress(value: unknown): value is ReelTranscriptProgressEvent {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+  const progress = value as Record<string, unknown>
+  const detail = progress.detail as Record<string, unknown> | undefined
+  const nullableString = (item: unknown) => item === null || typeof item === 'string'
+  const nonnegativeNumber = (item: unknown) => typeof item === 'number' && Number.isFinite(item) && item >= 0
+  const validDetail = detail === undefined || (
+    Boolean(detail) && typeof detail === 'object' && !Array.isArray(detail)
+    && (detail.sourceUrl === undefined || typeof detail.sourceUrl === 'string')
+    && (detail.title === undefined || nullableString(detail.title))
+    && (detail.author === undefined || nullableString(detail.author))
+    && (detail.durationSeconds === undefined || detail.durationSeconds === null || nonnegativeNumber(detail.durationSeconds))
+    && (detail.bytes === undefined || nonnegativeNumber(detail.bytes))
+    && (detail.maxSeconds === undefined || nonnegativeNumber(detail.maxSeconds))
+    && (detail.maxBytes === undefined || nonnegativeNumber(detail.maxBytes))
+    && (detail.language === undefined || nullableString(detail.language))
+    && (detail.transcriptCharacters === undefined || nonnegativeNumber(detail.transcriptCharacters))
+    && (detail.mediaRemoved === undefined || typeof detail.mediaRemoved === 'boolean')
+  )
+  return REEL_TRANSCRIPT_PROGRESS_STEPS.includes(progress.step as ReelTranscriptProgressStep)
+    && typeof progress.status === 'string' && ['running', 'complete', 'failed', 'warning'].includes(progress.status)
+    && typeof progress.elapsedMs === 'number' && Number.isFinite(progress.elapsedMs) && progress.elapsedMs >= 0
+    && (progress.stepElapsedMs === undefined
+      || (typeof progress.stepElapsedMs === 'number' && Number.isFinite(progress.stepElapsedMs) && progress.stepElapsedMs >= 0))
+    && validDetail
+}
+
 // ---- live/static mode detection ----
 // Local dev (Fastify backend up) -> live. Cloudflare Pages (no backend) -> static snapshot, read-only.
 let mode: 'live' | 'static' | null = null
@@ -406,6 +474,60 @@ export const api = {
   reelTranscript: async (url: string, signal?: AbortSignal): Promise<ReelTranscriptRead> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post<ReelTranscriptRead>('/api/tools/reel-transcript', { url }, REEL_TRANSCRIPT_CLIENT_TIMEOUT_MS, signal)
+  },
+  reelTranscriptLive: async (
+    url: string,
+    onProgress: (progress: ReelTranscriptProgressEvent) => void,
+    signal?: AbortSignal,
+  ): Promise<ReelTranscriptRead> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    const requestSignal = signal
+      ? AbortSignal.any([signal, AbortSignal.timeout(REEL_TRANSCRIPT_CLIENT_TIMEOUT_MS)])
+      : AbortSignal.timeout(REEL_TRANSCRIPT_CLIENT_TIMEOUT_MS)
+    let result: ReelTranscriptRead | null = null
+    let failure: Error | null = null
+    await readSse(
+      '/api/tools/reel-transcript',
+      {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', accept: 'text/event-stream' },
+        body: JSON.stringify({ url }),
+        signal: requestSignal,
+      },
+      requestSignal,
+      (event, parsed) => {
+        if (event === 'reel-progress') {
+          if (isReelTranscriptProgress(parsed)) onProgress(parsed)
+          return
+        }
+        if (event === 'reel-result') {
+          if (isReelTranscriptRead(parsed?.result)) result = parsed.result
+          else failure = Object.assign(new Error('The engine returned an unsupported transcript.'), { code: 'transcription-contract-invalid' })
+          return 'stop'
+        }
+        if (event === 'reel-error') {
+          const message = typeof parsed?.error === 'string' && parsed.error.trim()
+            ? parsed.error
+            : 'The Reel could not be transcribed. Try again.'
+          failure = Object.assign(new Error(message), {
+            status: typeof parsed?.status === 'number' ? parsed.status : undefined,
+            body: { code: typeof parsed?.code === 'string' ? parsed.code : 'transcription-failed' },
+          })
+          return 'stop'
+        }
+      },
+      (message) => {
+        const readable = message === 'engine-offline'
+          ? 'The live engine connection was interrupted before transcription started. Wait a moment and try again.'
+          : message || 'The live update was interrupted.'
+        failure = new Error(readable)
+      },
+      () => { if (!result && !failure) failure = new Error('The live update ended before the transcript was ready.') },
+    )
+    if (result) return result
+    if (signal?.aborted) throw signal.reason || new DOMException('The operation was aborted.', 'AbortError')
+    if (requestSignal.aborted) throw requestSignal.reason || new DOMException('The operation was aborted.', 'AbortError')
+    throw failure || new Error('The live update ended before the transcript was ready.')
   },
   swarm: async (ticker?: string): Promise<SwarmGraph> => {
     if ((await ensureMode()) === 'static') return snap.swarmGraph
