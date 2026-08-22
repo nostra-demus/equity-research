@@ -761,8 +761,8 @@ def _prov_summary(row):
 
 
 def _ensure_deps():
-    """The extractor needs xlrd (.xls/BIFF) + openpyxl (.xlsx) to read workbooks, plus
-    pypdf as a pure-Python PDF text fallback when poppler/pdftotext is absent.
+    """The extractor needs xlrd/openpyxl for workbooks, pypdf for portable PDF text, and
+    striprtf for portable CIQ relationship-table extraction.
     On a PEP-668 "externally-managed" system Python (e.g. Homebrew) you cannot
     pip-install them globally, so the engine ships an isolated venv at
     `.claude/tools/.venv` (gitignored; recreate via setup-tools.sh). If the current
@@ -774,6 +774,7 @@ def _ensure_deps():
         import xlrd  # noqa
         import openpyxl  # noqa
         import pypdf  # noqa  [DD-16] pure-Python PDF text fallback when poppler is absent
+        from striprtf.striprtf import rtf_to_text  # noqa
         return
     except Exception:
         pass
@@ -1838,6 +1839,7 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None,
                 print(f"[extract_pool] fresh — {t.get('tabs',0)} tabs across "
                       f"{t.get('workbooks',0)} workbook(s), {t.get('extracts_written',0)} "
                       f"extract(s) already in {out_dir} (use --force to rebuild)")
+                _ensure_durable_relationships(data_path, out_dir)
                 if corpus_path:
                     _write_corpus(out_dir, data_path, corpus_path, cached)
                 return cached
@@ -2157,6 +2159,56 @@ def _write_ciq_facts(data_path, out_dir):
         print(f"[extract_pool] ciq_facts: skipped ({type(e).__name__}: {e})")
 
 
+def _relationship_artifact_paths(out_dir):
+    """Cache path plus the committed run-root artifact when this is a canonical run extract."""
+    cache = os.path.join(out_dir, "relationships.json")
+    paths = [cache]
+    if os.path.basename(os.path.normpath(out_dir)) == "_pool_extracts":
+        paths.append(os.path.join(os.path.dirname(os.path.normpath(out_dir)), "relationships.json"))
+    return paths
+
+
+def _atomic_json(path, value):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    fd, tmp = tempfile.mkstemp(prefix=".relationships-", suffix=".json", dir=os.path.dirname(path))
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as handle:
+            json.dump(value, handle, indent=2, default=str)
+            handle.write("\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(tmp, path)
+        tmp = None
+        dir_fd = os.open(os.path.dirname(path), os.O_RDONLY)
+        try:
+            os.fsync(dir_fd)
+        finally:
+            os.close(dir_fd)
+    finally:
+        if tmp and os.path.exists(tmp):
+            os.unlink(tmp)
+
+
+def _ensure_durable_relationships(data_path, out_dir):
+    """Publish an older cached graph into the run root without forcing a full pool re-extract."""
+    cache, *durable = _relationship_artifact_paths(out_dir)
+    if not durable:
+        return
+    try:
+        with open(cache, encoding="utf-8") as handle:
+            graph = json.load(handle)
+        if os.path.exists(durable[0]):
+            with open(durable[0], encoding="utf-8") as handle:
+                if json.load(handle) == graph:
+                    return
+        _atomic_json(durable[0], graph)
+        print(f"[extract_pool] relationships.json: published durable run artifact {durable[0]}")
+    except FileNotFoundError:
+        _write_relationships(data_path, out_dir)
+    except Exception as e:  # noqa: BLE001 — keep extraction cache hits best-effort
+        print(f"[extract_pool] relationships durable publish: skipped ({type(e).__name__}: {e})")
+
+
 def _write_relationships(data_path, out_dir):
     """Emit relationships.json — the deterministic supply-chain graph parsed from any CIQ
     Suppliers / Customers export in the pool, next to manifest.json and ciq_facts.json.
@@ -2171,7 +2223,8 @@ def _write_relationships(data_path, out_dir):
         from relationship_graph import build_graph  # same tools dir (on sys.path when run as a script)
         ticker = os.path.basename(os.path.normpath(data_path))
         graph = build_graph(_Path(data_path), ticker)
-        json.dump(graph, open(os.path.join(out_dir, "relationships.json"), "w"), indent=2, default=str)
+        for output in _relationship_artifact_paths(out_dir):
+            _atomic_json(output, graph)
         c = graph.get("concentration", {})
         n_sheets = len(graph.get("sources", []))
         if n_sheets:
@@ -2179,6 +2232,9 @@ def _write_relationships(data_path, out_dir):
                   f"{c.get('relationship_rows', 0)} disclosed row(s), "
                   f"{c.get('third_party_entities', 0)} outside part(y/ies) "
                   f"({c.get('listed_third_parties', 0)} listed)")
+        elif graph.get("warnings"):
+            print(f"[extract_pool] relationships.json: no relationship sheet parsed; "
+                  f"{len(graph['warnings'])} input warning(s) recorded")
         else:
             print("[extract_pool] relationships.json: no CIQ supplier/customer export in the pool")
     except Exception as e:  # noqa: BLE001 — best-effort; a graph failure must never fail extraction

@@ -58,7 +58,7 @@ function counterparty(init: CpInit) {
 function writeRun(
   dir: string,
   runName: string,
-  opts: { anchorName: string; anchorListing?: string | null; counterparties?: ReturnType<typeof counterparty>[]; decision?: string | null; sheets?: number; graph?: unknown },
+  opts: { anchorName: string; anchorListing?: string | null; counterparties?: ReturnType<typeof counterparty>[]; decision?: string | null; sheets?: number; graph?: unknown; durable?: boolean },
 ): void {
   const runAbs = path.join(dir, 'analyses', runName)
   fs.mkdirSync(path.join(runAbs, '_pool_extracts'), { recursive: true })
@@ -88,7 +88,10 @@ function writeRun(
     },
     warnings: [],
   }
-  fs.writeFileSync(path.join(runAbs, '_pool_extracts', 'relationships.json'), JSON.stringify(graph))
+  const graphPath = opts.durable === false
+    ? path.join(runAbs, '_pool_extracts', 'relationships.json')
+    : path.join(runAbs, 'relationships.json')
+  fs.writeFileSync(graphPath, JSON.stringify(graph))
 }
 
 const byName = (leads: SupplyChainLead[]) => new Map(leads.map((l) => [l.name, l]))
@@ -381,4 +384,55 @@ const byName = (leads: SupplyChainLead[]) => new Map(leads.map((l) => [l.name, l
     'once discounted for the extra hop, the two-hop lead must no longer outrank a genuinely direct counterparty it would otherwise have beaten (82 < 88)')
 }
 
-console.log('supply-chain: PASS (empty honesty, readiness gates, anchor verdict caps, standing run, third order only when evidenced, shortest chain wins, coverage match, invalid artifacts, related-party map, degraded-when-unreadable, order-discounted third-order scoring)')
+// ---- 15. committed graphs are authoritative; the ignored cache remains a legacy fallback ------------------
+{
+  const durable = repo()
+  writeRun(durable, 'ANC_2026-08-01', {
+    anchorName: 'Anchor Corp', decision: 'Buy', counterparties: [counterparty({ name: 'Durable Supplier' })],
+  })
+  assert.equal(buildSupplyChainBoard(durable).leads[0]?.name, 'Durable Supplier')
+
+  const legacy = repo()
+  writeRun(legacy, 'ANC_2026-08-01', {
+    anchorName: 'Anchor Corp', decision: 'Buy', counterparties: [counterparty({ name: 'Legacy Supplier' })], durable: false,
+  })
+  assert.equal(buildSupplyChainBoard(legacy).leads[0]?.name, 'Legacy Supplier')
+}
+
+// ---- 16. files present without a published graph produce a diagnostic, not "drop an export" ----------------
+{
+  const dir = repo()
+  const runAbs = path.join(dir, 'analyses', 'ANC_2026-08-01')
+  fs.mkdirSync(runAbs, { recursive: true })
+  fs.writeFileSync(path.join(runAbs, 'decision_record.json'), JSON.stringify({ decision: 'Buy' }))
+  const pool = path.join(dir, 'data', 'ANC')
+  fs.mkdirSync(pool, { recursive: true })
+  fs.writeFileSync(path.join(pool, 'Anchor Corp Suppliers.xls'), 'fixture')
+  const board = buildSupplyChainBoard(dir)
+  assert.equal(board.health.status, 'degraded')
+  assert.equal(board.health.outcome, 'invalid_artifacts')
+  assert.equal(board.health.pool_export_count, 1)
+  assert.match(board.health.reason, /present in the data pools.*no durable relationship graph/i)
+}
+
+// ---- 17. health follows the standing graph; repaired historical warnings do not linger forever -----------
+{
+  const dir = repo()
+  writeRun(dir, 'ANC_2026-07-01', {
+    anchorName: 'Anchor Corp', decision: 'Buy',
+    graph: {
+      schema_version: 'relationship-graph/v1', generated_by: 'relationship_graph.py', ticker: 'ANC',
+      anchor: { name: 'ANC', listing: null, node_id: 'anchor' }, sources: [], scope_notes: [], nodes: [],
+      edges: [], counterparties: [], industry_clusters: [], concentration: {}, warnings: ['old unreadable export'],
+    },
+  })
+  writeRun(dir, 'ANC_2026-08-01', {
+    anchorName: 'Anchor Corp', decision: 'Buy', counterparties: [counterparty({ name: 'Repaired Supplier' })],
+  })
+  const board = buildSupplyChainBoard(dir)
+  assert.equal(board.health.input_warning_count, 0)
+  assert.equal(board.health.status, 'healthy')
+  assert.equal(board.leads[0]?.name, 'Repaired Supplier')
+}
+
+console.log('supply-chain: PASS (empty honesty, readiness gates, anchor verdict caps, standing run, durable+legacy artifacts, pool diagnostics, third order only when evidenced, shortest chain wins, coverage match, invalid artifacts, related-party map, degraded-when-unreadable, order-discounted third-order scoring)')

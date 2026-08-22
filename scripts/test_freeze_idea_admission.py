@@ -205,13 +205,19 @@ def main():
     repo = tempfile.mkdtemp(prefix="idea-admission-test-")
     try:
         run_root, run = fixture(repo)
+        publication_marker = os.path.join(run, ".requires_idea_publication")
+        open(publication_marker, "w", encoding="utf-8").close()
         assert freeze_main(["--check-only", run_root]) == 2
         assert not os.path.exists(os.path.join(run, "idea_admission.json")), "the removed preview option must not expose or freeze a semantic result"
+        assert os.path.exists(publication_marker), "a failed/non-writing freezer call must retain the completion marker"
         assert freeze(run_root, repo) == 0
+        assert not os.path.exists(publication_marker), "a valid atomic admission must release the launcher's completion marker"
         admitted = json.load(open(os.path.join(run, "idea_admission.json"), encoding="utf-8"))
         assert admitted["status"] == "admitted" and admitted["gaps"] == []
         assert admitted["candidate_sha256"] == digest(admitted["candidate"])
+        open(publication_marker, "w", encoding="utf-8").close()
         assert freeze(run_root, repo) == 0
+        assert not os.path.exists(publication_marker), "idempotent recovery must release a stale completion marker after revalidation"
         assert json.load(open(os.path.join(run, "idea_admission.json"), encoding="utf-8")) == admitted, "recovery may validate but never rewrite the first frozen result"
         original_target = admitted["candidate"]["scenarios"][0]["price_target"]
         assessment_path = os.path.join(run, "idea_3_6m.json")

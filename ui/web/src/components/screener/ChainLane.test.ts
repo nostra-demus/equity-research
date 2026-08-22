@@ -67,7 +67,7 @@ const board = (patch: Partial<SupplyChainBoard> = {}): SupplyChainBoard => ({
   score_basis: 'chain_evidence_v1',
   health: {
     status: 'healthy', outcome: 'leads', reason: '1 outside counterparty is listed and operating.',
-    run_count: 1, graph_count: 1, invalid_count: 0, sheet_count: 2,
+    run_count: 1, graph_count: 1, invalid_count: 0, input_warning_count: 0, pool_export_count: 2, sheet_count: 2,
     anchors_without_export: [], lead_count: 1, research_now_count: 1, third_order_count: 0,
   },
   anchors: [{

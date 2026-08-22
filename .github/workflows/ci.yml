@@ -244,9 +244,9 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Install extractor dependencies (xlrd/openpyxl/pypdf + poppler for PDF text)
+      - name: Install extractor dependencies (workbooks, PDF, RTF + poppler for PDF text)
         run: |
-          python3 -m pip install --quiet xlrd openpyxl pypdf
+          python3 -m pip install --quiet -r .claude/tools/requirements.txt
           sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
 
       # Closes the assessment gap "the deterministic-extractor test suite is invisible to CI" without
