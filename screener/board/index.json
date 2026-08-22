@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T12:56:15Z",
+  "generated_at": "2026-08-22T13:03:45Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-2369",
@@ -347,6 +347,55 @@
           "name": "Skanska",
           "ticker": null,
           "listing_country": "SE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-2396",
+      "headline": "Russie Un entrepôt du distributeur Ozon ciblé par les drones ukrainiens",
+      "headline_en": "Russia: A warehouse of the distributor Ozon targeted by Ukrainian drones",
+      "url": "https://www.reuters.com/fr/international/russie-un-entrept-du-distributeur-ozon-cibl-par-les-drones-ukrainiens-2026-08-22/",
+      "source_name": "Reuters — Latest (news sitemap)",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T12:54:09Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "A warehouse belonging to Ozon was targeted by Ukrainian drones, representing a direct operational and physical security risk.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A warehouse belonging to Ozon was targeted by Ukrainian drones, representing a direct operational and physical security risk.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 2,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "operations",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "operations"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ozon",
+          "ticker": null,
+          "listing_country": "RU"
         }
       ],
       "size_bucket": "large",
@@ -1949,56 +1998,6 @@
           "name": "Fermacell",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-841",
-      "headline": "Evergrande creditors owed US$45 billion face more complex path after founder jailed for life",
-      "headline_en": null,
-      "url": "https://www.businesstimes.com.sg/international/global/evergrande-creditors-owed-us45-billion-face-more-complex-path-after-founder-jailed-life",
-      "source_name": "The Business Times (Singapore)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T04:43:42Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Evergrande founder jailed for life, complicating recovery for creditors owed US$45 billion.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Evergrande founder jailed for life, complicating recovery for creditors owed US$45 billion.",
-      "region": "CN",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "default_distress",
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "China Evergrande Group",
-          "ticker": null,
-          "listing_country": "HK"
         }
       ],
       "size_bucket": "large",
@@ -78554,9 +78553,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 297991,
-    "news_picked_today": 4412,
-    "news_dropped_today": 9584
+    "news_seen_today": 298061,
+    "news_picked_today": 4429,
+    "news_dropped_today": 9637
   },
   "book_momentum": {
     "live_count": 8,
