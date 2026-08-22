@@ -1,9 +1,14 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import { createHash } from 'node:crypto'
 import { ANALYSES_DIR, REPO_ROOT } from './config'
 import { resolveInsideAnalyses, resolveInsidePrompts } from './sandbox'
 import { extractVerdict } from './verdict'
-import { isSupersededRun, normalizeRecord, resolveIntegrityStatusForRun, resolveDisplayFields } from './ledger-corrections'
+import {
+  applyErrata, CORRECTIONS_SCHEMA, resolveDisplayFields, supersededTarget,
+} from './ledger-corrections'
+import { diffDecisionRecords } from './run-diff'
+import { publishedTreeAuthority, type PublishedTreeAuthority } from './published-git'
 
 // `resolve` defaults to the analyses/ sandbox (research). The chat reader passes resolveInsideRuns so it
 // can ground on any swarm's run folder; every other caller keeps the analyses-only default unchanged.
@@ -11,6 +16,28 @@ export function readMarkdown(relPath: string, resolve: (p: string) => string = r
   const real = resolve(relPath)
   const markdown = fs.readFileSync(real, 'utf8')
   return { path: relPath, markdown }
+}
+
+// Calls advertises only these published artifacts. General run output remains owned by readMarkdown();
+// this narrow reader exists so a dirty doer and a fresh/static host open the same bytes the Calls row used.
+const PUBLISHED_CALLS_ARTIFACT_RE = /^(?:analyses\/[A-Z0-9.\-]{1,40}_\d{4}-\d{2}-\d{2}\/final_thesis\.md|analyses\/[A-Z0-9.\-]{1,40}_\d{4}-\d{2}-\d{2}\/reviews\/\d{4}-\d{2}-\d{2}_[A-Za-z0-9-]{1,20}_(?:decision_review(?:_v\d+)?\.json|memo_delta(?:_v\d+)?\.md)|analyses\/tracking\/\d{4}-\d{2}-\d{2}_calls_tracker(?:_v\d+)?\.md)$/
+
+export function isPublishedCallsArtifactPath(value: unknown): value is string {
+  return typeof value === 'string' && PUBLISHED_CALLS_ARTIFACT_RE.test(value)
+}
+
+/** Read a Calls click-through from the exact published Git snapshot, never mutable disk. */
+export function readPublishedCallsMarkdown(relPath: string): { path: string; markdown: string } {
+  if (!isPublishedCallsArtifactPath(relPath)) {
+    throw Object.assign(new Error('invalid published Calls artifact path'), {
+      code: 'INVALID_CALLS_ARTIFACT_PATH', statusCode: 400,
+    })
+  }
+  const authority = publishedTreeAuthority('analyses')
+  if (!authority.paths.has(relPath)) {
+    throw Object.assign(new Error('published Calls artifact not found'), { code: 'ENOENT', statusCode: 404 })
+  }
+  return { path: relPath, markdown: authority.readRequired(relPath).toString('utf8') }
 }
 
 // Read a prompt (agent definition / module rules / constitution) from the read-only doctrine surface.
@@ -365,7 +392,7 @@ function killCriteriaOverdue(killCriteria: unknown, today: string): OverdueItem[
   return out
 }
 
-interface ReviewFile {
+export interface ReviewFile {
   file: string // repo-relative path under analyses/
   basename: string
   review_window: string
@@ -378,6 +405,8 @@ interface ReviewFile {
   // §8 memo_delta block (DECISION_LEDGER): the human-readable "what changed since the memo" tier.
   memo_delta_file: string | null
   stage_one_comment: string | null
+  memo_delta_summary: string | null
+  thesis_delta_verdict: string | null
 }
 
 // normalize forecast_results[].status (lowercase, unknown-safe) and count the resolved ones.
@@ -394,21 +423,33 @@ function countForecastResults(results: unknown): { confirmed: number; falsified:
   return { confirmed, falsified }
 }
 
-function listReviewFiles(runRoot: string): ReviewFile[] {
-  let names: string[] = []
-  try {
-    const dir = resolveInsideAnalyses(`${runRoot}/reviews`)
-    names = fs.readdirSync(dir).filter((f) => /_decision_review.*\.json$/.test(f))
-  } catch {
-    return []
-  }
+export function safeRunArtifact(
+  value: unknown,
+  runRoot: string,
+  publishedPaths: ReadonlySet<string>,
+  subdir = '',
+): string | null {
+  if (typeof value !== 'string' || !value || value.includes('\\') || path.isAbsolute(value)) return null
+  const prefix = `${runRoot}/${subdir ? `${subdir.replace(/\/$/, '')}/` : ''}`
+  if (!value.startsWith(prefix) || value.split('/').some((part) => !part || part === '.' || part === '..')) return null
+  return publishedPaths.has(value) && isPublishedCallsArtifactPath(value) ? value : null
+}
+
+function listReviewFiles(runRoot: string, authority: PublishedTreeAuthority): ReviewFile[] {
+  const prefix = `${runRoot}/reviews/`
+  const names = [...authority.paths]
+    .filter((repoPath) => repoPath.startsWith(prefix))
+    .map((repoPath) => repoPath.slice(prefix.length))
+    .filter((name) => !name.includes('/') && /_decision_review.*\.json$/.test(name))
+    .sort()
   const out: ReviewFile[] = []
-  for (const n of names.sort()) {
+  for (const n of names) {
     let j: any
     try {
-      j = JSON.parse(fs.readFileSync(resolveInsideAnalyses(`${runRoot}/reviews/${n}`), 'utf8'))
-    } catch {
-      continue
+      j = JSON.parse(authority.readRequired(`${runRoot}/reviews/${n}`).toString('utf8'))
+    } catch (error: any) {
+      if (error?.code === 'CALLS_AUTHORITY_UNAVAILABLE') throw error
+      continue // malformed published JSON is not a completed review
     }
     const fc = countForecastResults(j?.forecast_results)
     const md = j?.memo_delta && typeof j.memo_delta === 'object' ? j.memo_delta : null
@@ -422,8 +463,12 @@ function listReviewFiles(runRoot: string): ReviewFile[] {
       thesis_status: typeof j?.thesis_status === 'string' && j.thesis_status ? j.thesis_status : null,
       forecasts_confirmed: fc.confirmed,
       forecasts_falsified: fc.falsified,
-      memo_delta_file: typeof md?.memo_delta_file === 'string' && md.memo_delta_file ? md.memo_delta_file : null,
+      memo_delta_file: safeRunArtifact(md?.memo_delta_file, runRoot, authority.paths, 'reviews'),
       stage_one_comment: typeof md?.stage_one_comment === 'string' && md.stage_one_comment ? md.stage_one_comment : null,
+      memo_delta_summary: typeof md?.summary === 'string' && md.summary.trim() ? md.summary.trim() : null,
+      thesis_delta_verdict: typeof md?.thesis_delta_verdict === 'string' && md.thesis_delta_verdict.trim()
+        ? md.thesis_delta_verdict.trim().toLowerCase()
+        : null,
     })
   }
   return out
@@ -451,6 +496,8 @@ interface TimelineEntry {
   review_count?: number
   memo_delta_file?: string // present only when the review filed a §8 memo delta
   stage_one_comment?: string
+  memo_delta_summary?: string
+  thesis_delta_verdict?: string
 }
 
 function buildTimeline(schedule: Record<string, any>, reviews: ReviewFile[], today: string): TimelineEntry[] {
@@ -478,6 +525,8 @@ function buildTimeline(schedule: Record<string, any>, reviews: ReviewFile[], tod
         review_count: matches.length,
         ...(win.memo_delta_file ? { memo_delta_file: win.memo_delta_file } : {}),
         ...(win.stage_one_comment ? { stage_one_comment: win.stage_one_comment } : {}),
+        ...(win.memo_delta_summary ? { memo_delta_summary: win.memo_delta_summary } : {}),
+        ...(win.thesis_delta_verdict ? { thesis_delta_verdict: win.thesis_delta_verdict } : {}),
       })
     } else {
       out.push({ window, due_date: dt, status: dt < today ? 'overdue' : dt === today ? 'due' : 'upcoming' })
@@ -500,6 +549,8 @@ function buildTimeline(schedule: Record<string, any>, reviews: ReviewFile[], tod
       review_file: r.file,
       ...(r.memo_delta_file ? { memo_delta_file: r.memo_delta_file } : {}),
       ...(r.stage_one_comment ? { stage_one_comment: r.stage_one_comment } : {}),
+      ...(r.memo_delta_summary ? { memo_delta_summary: r.memo_delta_summary } : {}),
+      ...(r.thesis_delta_verdict ? { thesis_delta_verdict: r.thesis_delta_verdict } : {}),
     })
   }
   // order by effective date (scheduled due_date or ad-hoc review_date); undated last
@@ -511,41 +562,249 @@ function buildTimeline(schedule: Record<string, any>, reviews: ReviewFile[], tod
   return out
 }
 
-function newestDashboard(): string | null {
+function newestDashboard(publishedPaths: ReadonlySet<string>): string | null {
+  const prefix = 'analyses/tracking/'
+  const mds = [...publishedPaths]
+    .filter((repoPath) => repoPath.startsWith(prefix))
+    .map((repoPath) => repoPath.slice(prefix.length))
+    .filter((name) => !name.includes('/') && /_calls_tracker(?:_v\d+)?\.md$/.test(name))
+    .sort()
+  return mds.length ? `${prefix}${mds[mds.length - 1]}` : null
+}
+
+const callsAuthorityUnavailable = (cause?: unknown): Error & { code: string; cause?: unknown } => Object.assign(
+  new Error('shared Calls history cannot be read safely'),
+  { code: 'CALLS_AUTHORITY_UNAVAILABLE', ...(cause === undefined ? {} : { cause }) },
+)
+
+function requiredPublishedJsonObject(authority: PublishedTreeAuthority, repoPath: string): Record<string, any> {
+  let value: unknown
   try {
-    const dir = resolveInsideAnalyses('tracking')
-    const mds = fs.readdirSync(dir).filter((f) => /_calls_tracker\.md$/.test(f)).sort()
-    return mds.length ? `tracking/${mds[mds.length - 1]}` : null
-  } catch {
-    return null
+    value = JSON.parse(authority.readRequired(repoPath).toString('utf8'))
+  } catch (error: any) {
+    if (error?.code === 'CALLS_AUTHORITY_UNAVAILABLE') throw error
+    throw callsAuthorityUnavailable(error)
   }
+  if (!value || typeof value !== 'object' || Array.isArray(value)) throw callsAuthorityUnavailable()
+  return value as Record<string, any>
+}
+
+function publishedCorrections(runRoot: string, authority: PublishedTreeAuthority): Record<string, any> {
+  const repoPath = `${runRoot}/corrections.json`
+  if (!authority.paths.has(repoPath)) return {}
+  const corrections = requiredPublishedJsonObject(authority, repoPath)
+  // A listed but malformed sidecar cannot mean “no correction”: that could resurrect a superseded call.
+  if (corrections.schema !== CORRECTIONS_SCHEMA) throw callsAuthorityUnavailable()
+  return corrections
+}
+
+const PROVISIONAL_MARK = 'PROVISIONAL — the automated finish-gate'
+const CLEAN_INTEGRITY_VERDICTS = new Set(['Clean', 'Minor issues'])
+const VERIFY_REPORT_RE = /^verification_report(?:_v(\d+))?\.json$/
+
+function publishedIntegrityStatus(runRoot: string, authority: PublishedTreeAuthority) {
+  const thesis = authority.readRequired(`${runRoot}/final_thesis.md`)
+  const banner = thesis.toString('utf8').slice(0, 2000).includes(PROVISIONAL_MARK)
+  const prefix = `${runRoot}/`
+  const reports = [...authority.paths]
+    .filter((repoPath) => repoPath.startsWith(prefix))
+    .map((repoPath) => repoPath.slice(prefix.length))
+    .map((name) => ({ name, match: VERIFY_REPORT_RE.exec(name) }))
+    .filter((row): row is { name: string; match: RegExpExecArray } => !!row.match)
+    .sort((a, b) => Number(a.match[1] || 1) - Number(b.match[1] || 1))
+
+  let verdict: string | null = null
+  let score: number | null = null
+  let reportFile: string | null = null
+  if (reports.length) {
+    reportFile = reports[reports.length - 1].name
+    try {
+      const raw = JSON.parse(authority.readRequired(`${runRoot}/${reportFile}`).toString('utf8'))
+      if (raw && typeof raw === 'object' && !Array.isArray(raw)) {
+        verdict = typeof raw.verdict === 'string' && raw.verdict ? raw.verdict : null
+        score = typeof raw.integrity_score === 'number' ? raw.integrity_score : null
+      }
+    } catch (error: any) {
+      if (error?.code === 'CALLS_AUTHORITY_UNAVAILABLE') throw error
+      verdict = null
+    }
+  }
+  const normalizedVerdict = verdict?.trim() || null
+  const status = banner
+    ? 'provisional'
+    : reports.length
+      ? normalizedVerdict !== null && CLEAN_INTEGRITY_VERDICTS.has(normalizedVerdict) ? 'verified' : 'provisional'
+      : 'unaudited'
+  return { status, verdict, integrity_score: score, banner, report_file: reportFile }
+}
+
+export type CallUpdateTone = 'better' | 'worse' | 'same' | 'info'
+
+export interface CallUpdate {
+  id: string
+  ticker: string
+  company: string | null
+  at: string | null
+  kind: 'call' | 'review'
+  headline: string
+  detail: string | null
+  tone: CallUpdateTone
+  run_root: string
+  source_path: string | null
+}
+
+export interface CallUpdateInput {
+  call: any
+  record: any
+  reviews: ReviewFile[]
+}
+
+function updateId(...parts: Array<string | null | undefined>): string {
+  return createHash('sha256').update(parts.map((part) => part || '').join('\u0000')).digest('hex').slice(0, 24)
+}
+
+function reviewHeadline(ticker: string, verdict: string | null): { headline: string; tone: CallUpdateTone } {
+  switch (verdict) {
+    case 'strengthened': return { headline: `${ticker}: the call looks stronger`, tone: 'better' }
+    case 'weakened': return { headline: `${ticker}: the call looks weaker`, tone: 'worse' }
+    case 'broken': return { headline: `${ticker}: the call no longer holds`, tone: 'worse' }
+    case 'confirmed': return { headline: `${ticker}: the call is holding up`, tone: 'better' }
+    case 'too_early': return { headline: `${ticker}: no clear change yet`, tone: 'same' }
+    default: return { headline: `${ticker}: review finished`, tone: 'info' }
+  }
+}
+
+function shortReviewDetail(review: ReviewFile): string | null {
+  const raw = (review.memo_delta_summary || review.stage_one_comment || '').replace(/\s+/g, ' ').trim()
+  const firstSentence = raw.match(/^.*?[.!?](?:\s|$)/)?.[0]?.trim() || raw
+  const why = firstSentence.length > 240 ? `${firstSentence.slice(0, 237).trimEnd()}…` : firstSentence
+  const outcomes: string[] = []
+  if (typeof review.absolute_return_pct === 'number') {
+    outcomes.push(`Price since the call: ${review.absolute_return_pct >= 0 ? '+' : ''}${review.absolute_return_pct.toFixed(1)}%`)
+  }
+  if (review.forecasts_confirmed || review.forecasts_falsified) {
+    outcomes.push(`${review.forecasts_confirmed} forecast${review.forecasts_confirmed === 1 ? '' : 's'} right · ${review.forecasts_falsified} wrong`)
+  }
+  return [why || null, outcomes.length ? `${outcomes.join(' · ')}.` : null].filter(Boolean).join(' ') || null
+}
+
+function callDiffTone(diff: ReturnType<typeof diffDecisionRecords>): CallUpdateTone {
+  const decision = diff.anchors.find((anchor) => anchor.field === 'decision' && anchor.moved)
+  if (decision) {
+    const rank = (value: unknown): number | null => {
+      const key = String(value || '').trim().toLowerCase()
+      const ranks: Record<string, number> = {
+        avoid: 1, watchlist: 2, 'starter position only': 3, buy: 4, 'strong buy': 5,
+      }
+      return Object.prototype.hasOwnProperty.call(ranks, key) ? ranks[key] : null
+    }
+    const before = rank(decision.prev)
+    const after = rank(decision.cur)
+    if (before !== null && after !== null && before !== after) return after > before ? 'better' : 'worse'
+    return 'info'
+  }
+  const headlineMove = diff.anchors.find((anchor) => anchor.field !== 'decision' && anchor.moved)
+  if (headlineMove?.tone === 'worse') return 'worse'
+  if (headlineMove?.tone === 'better') return 'better'
+  return diff.verdict === 'identical' || diff.verdict === 'call_held' ? 'same' : 'info'
+}
+
+/** Build one stable, plain-English update stream from the same corrected rows Calls displays. */
+export function buildCallUpdates(rows: CallUpdateInput[]): CallUpdate[] {
+  const updates: CallUpdate[] = []
+  const byTicker = new Map<string, CallUpdateInput[]>()
+  for (const row of rows) {
+    const ticker = String(row.call?.ticker || '').trim()
+    if (!ticker) continue
+    const existing = byTicker.get(ticker) || []
+    existing.push(row)
+    byTicker.set(ticker, existing)
+  }
+
+  for (const [ticker, tickerRows] of byTicker) {
+    tickerRows.sort((a, b) => {
+      const ad = String(a.call?.decision_date || '')
+      const bd = String(b.call?.decision_date || '')
+      return ad < bd ? -1 : ad > bd ? 1 : String(a.call?.run_root).localeCompare(String(b.call?.run_root))
+    })
+    let previous: CallUpdateInput | null = null
+    for (const row of tickerRows) {
+      const call = row.call
+      if (!previous) {
+        updates.push({
+          id: updateId('call', call.run_root), ticker, company: call.company ?? null,
+          at: call.decision_date ?? null, kind: 'call',
+          headline: `${ticker}: ${call.decision || 'new'} call recorded`,
+          detail: typeof call.expected_return_pct === 'number'
+            ? `Expected return at the time: ${call.expected_return_pct > 0 ? '+' : ''}${call.expected_return_pct.toFixed(1)}%.`
+            : null,
+          tone: 'info', run_root: call.run_root, source_path: call.final_thesis_path || null,
+        })
+      } else {
+        const diff = diffDecisionRecords(previous.record, row.record)
+        const sentence = diff.headline
+          ? diff.headline.charAt(0).toLowerCase() + diff.headline.slice(1)
+          : 'the call was updated.'
+        updates.push({
+          id: updateId('call-change', previous.call.run_root, call.run_root), ticker,
+          company: call.company ?? null, at: call.decision_date ?? null, kind: 'call',
+          headline: `${ticker}: ${sentence}`, detail: diff.subline || diff.tailSummary || null,
+          tone: callDiffTone(diff), run_root: call.run_root, source_path: call.final_thesis_path || null,
+        })
+      }
+
+      for (const review of row.reviews) {
+        const display = reviewHeadline(ticker, review.thesis_delta_verdict || review.thesis_status)
+        updates.push({
+          id: updateId('review', review.file), ticker, company: call.company ?? null,
+          at: review.review_date || null, kind: 'review', headline: display.headline,
+          detail: shortReviewDetail(review), tone: display.tone, run_root: call.run_root,
+          source_path: review.memo_delta_file || review.file,
+        })
+      }
+      previous = row
+    }
+  }
+  return updates.sort((a, b) => {
+    const ad = a.at || ''
+    const bd = b.at || ''
+    return ad < bd ? 1 : ad > bd ? -1 : a.id.localeCompare(b.id)
+  })
 }
 
 // One row per run-folder decision_record — a cross-ticker ledger of every call the engine made,
 // each with its since-the-call timeline. Generic: scans all run folders, no module/ticker hardcoded.
-export function listAllCalls() {
-  let entries: string[] = []
-  try {
-    entries = fs.readdirSync(ANALYSES_DIR)
-  } catch {
-    return { calls: [], dashboard: null }
-  }
+export function listAllCalls(authority: PublishedTreeAuthority = publishedTreeAuthority('analyses')) {
+  const publishedPaths = authority.paths
+  const runRoots = [...publishedPaths]
+    .map((repoPath) => /^(analyses\/[A-Z0-9.\-]{1,40}_\d{4}-\d{2}-\d{2})\/decision_record\.json$/.exec(repoPath)?.[1] || null)
+    .filter((runRoot): runRoot is string => !!runRoot && publishedPaths.has(`${runRoot}/final_thesis.md`))
+    .sort()
+
+  // Prime every blob this projection may read in one Git batch. readRequired() then becomes an in-memory
+  // lookup, rather than blocking Fastify once per call/review on every cockpit poll.
+  const runRootSet = new Set(runRoots)
+  const projectionPaths = [...publishedPaths].filter((repoPath) => {
+    const match = /^(analyses\/[A-Z0-9.\-]{1,40}_\d{4}-\d{2}-\d{2})\/(.+)$/.exec(repoPath)
+    if (!match || !runRootSet.has(match[1])) return false
+    const tail = match[2]
+    return tail === 'decision_record.json' || tail === 'final_thesis.md' || tail === 'corrections.json'
+      || VERIFY_REPORT_RE.test(tail) || /^reviews\/[A-Za-z0-9._-]+\.json$/.test(tail)
+  })
+  authority.readManyRequired(projectionPaths)
+
   const today = todayISO()
   const calls: any[] = []
-  for (const name of entries) {
-    if (!/_\d{4}-\d{2}-\d{2}$/.test(name)) continue // only <TICKER>_<YYYY-MM-DD> run folders
-    const runRoot = `analyses/${name}`
+  const updateRows: CallUpdateInput[] = []
+  for (const runRoot of runRoots) {
+    const name = runRoot.slice('analyses/'.length)
     // Skip a corrected-away duplicate (frameworks/DECISION_LEDGER.md §4a): a run superseded by an
     // append-only corrections.json is not a live call — this is what de-double-counts EMAAR here and
     // in the cockpit Calls view, matching scripts/ledger_records.py's standing set.
-    if (isSupersededRun(runRoot)) continue
-    let d: any
-    try {
-      d = normalizeRecord(runRoot, readDecision(runRoot)) // apply append-only field errata on read
-    } catch {
-      continue
-    }
-    const reviews = listReviewFiles(runRoot)
+    const corrections = publishedCorrections(runRoot, authority)
+    if (supersededTarget(corrections)) continue
+    const d = applyErrata(requiredPublishedJsonObject(authority, `${runRoot}/decision_record.json`), corrections)
+    const reviews = listReviewFiles(runRoot, authority)
     const timeline = buildTimeline(d?.review_schedule || {}, reviews, today)
     const latest = pickWinner(reviews) // latest review across ALL windows incl. ad-hoc
     const entry = typeof d?.entry_price === 'number' ? d.entry_price : null
@@ -566,12 +825,12 @@ export function listAllCalls() {
     // Truth-integrity status (DECISION_LEDGER.md §18a) + the post-mortem rating-cap / post-review
     // confidence preference (fix F28b / F28) that /research:track already applies — the live cockpit
     // was the one ledger consumer still showing the synthesizer's original, unflagged, uncapped call.
-    const integrity = resolveIntegrityStatusForRun(runRoot)
+    const integrity = publishedIntegrityStatus(runRoot, authority)
     const disp = resolveDisplayFields(d)
     // checks AS / AW (scripts/eval.py) ported live — see the block above `isISODate`.
     const forecastsDue = forecastsOverdue(d?.forecast_ledger, today)
     const killCriteriaDue = killCriteriaOverdue(d?.kill_criteria, today)
-    calls.push({
+    const call = {
       ticker: d?.ticker ?? name.replace(/_\d{4}-\d{2}-\d{2}$/, ''),
       company: d?.company_name ?? null,
       decision_date: d?.decision_date ?? null,
@@ -593,18 +852,27 @@ export function listAllCalls() {
       kill_criteria_count: Array.isArray(d?.kill_criteria) ? d.kill_criteria.length : 0,
       forecasts: fc,
       run_root: runRoot,
-      final_thesis_path: typeof d?.final_thesis_path === 'string' && d.final_thesis_path ? d.final_thesis_path : `${runRoot}/final_thesis.md`,
+      final_thesis_path: safeRunArtifact(d?.final_thesis_path, runRoot, publishedPaths) || `${runRoot}/final_thesis.md`,
       latest_thesis_status: latest?.thesis_status ?? null,
+      latest_review_summary: latest?.memo_delta_summary ?? null,
+      latest_review_verdict: latest?.thesis_delta_verdict ?? null,
+      latest_review_date: latest?.review_date || null,
       next_checkpoint: pending ? { window: pending.window, due_date: pending.due_date, status: pending.status } : null,
       review_count: reviews.length,
       timeline,
       // AS_forecast_overdue / AW_kill_criteria_overdue, live — same two checks eval.py otherwise only
       // reports when someone runs `/research:eval` by hand.
       needs_attention: { forecasts_overdue: forecastsDue, kill_criteria_overdue: killCriteriaDue },
-    })
+    }
+    calls.push(call)
+    updateRows.push({ call, record: d, reviews })
   }
   // newest call first
-  calls.sort((a, b) => (String(a.decision_date) < String(b.decision_date) ? 1 : String(a.decision_date) > String(b.decision_date) ? -1 : 0))
+  calls.sort((a, b) => {
+    const ad = String(a.decision_date)
+    const bd = String(b.decision_date)
+    return ad < bd ? 1 : ad > bd ? -1 : String(a.run_root).localeCompare(String(b.run_root))
+  })
   // ranked "needs attention now" list across ALL calls: most-overdue (earliest due_date) first, then
   // ticker as a stable tiebreak. This is what makes AS/AW actionable without running the eval harness.
   const needsAttention = calls
@@ -619,5 +887,11 @@ export function listAllCalls() {
       ...it,
     })))
     .sort((a, b) => (a.due_date < b.due_date ? -1 : a.due_date > b.due_date ? 1 : a.ticker < b.ticker ? -1 : a.ticker > b.ticker ? 1 : 0))
-  return { calls, dashboard: newestDashboard(), needs_attention: needsAttention }
+  return {
+    calls,
+    dashboard: newestDashboard(publishedPaths),
+    needs_attention: needsAttention,
+    updates: buildCallUpdates(updateRows).slice(0, 100),
+    authority_commit: authority.commit,
+  }
 }

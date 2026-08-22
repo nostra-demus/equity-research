@@ -60,7 +60,7 @@ import { notifyFeedbackResolved } from './feedback-email'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, swarmSubjectSummaries, terminalModuleName } from './roster'
-import { isValidCalendarISODate, listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest, todayISO } from './outputs'
+import { isValidCalendarISODate, listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, readPublishedCallsMarkdown, resolveRunRoot, runManifest, todayISO } from './outputs'
 import {
   WATCHLIST_ENTRIES_DIR, WATCHLIST_MAX_ATTACHMENTS, WATCHLIST_MAX_ROWS, WATCHLIST_MAX_TAGS, WATCHLIST_MAX_TRIGGERS,
   deleteEntry, fingerprintEngineRow, isWatchId, listingKey, makeListing, mergeWatchlist, newEntryId,
@@ -4536,7 +4536,39 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
 })
 
 // ---------- calls tracker: cross-ticker ledger of every call + its since-the-call timeline ----------
-app.get('/api/calls', async () => listAllCalls())
+app.get('/api/calls', async (_req, reply) => {
+  try {
+    return listAllCalls()
+  } catch (e: any) {
+    if (e?.code === 'CALLS_AUTHORITY_UNAVAILABLE') {
+      return reply.code(503).send({
+        error: 'Shared Calls history is temporarily unavailable. Retry after the published repository refreshes.',
+        code: e.code,
+      })
+    }
+    throw e
+  }
+})
+
+// Narrow click-through for artifacts advertised by /api/calls. Reading through the same published Git
+// authority prevents a dirty doer checkout from showing different bytes from the row the user clicked.
+app.get('/api/calls/artifact', async (req, reply) => {
+  const p = (req.query as any)?.path as string
+  try {
+    return readPublishedCallsMarkdown(p)
+  } catch (e: any) {
+    if (e?.code === 'CALLS_AUTHORITY_UNAVAILABLE') {
+      return reply.code(503).send({
+        error: 'The published Calls artifact is temporarily unavailable. Retry after the repository refreshes.',
+        code: e.code,
+      })
+    }
+    return reply.code(e?.statusCode || (e?.code === 'ENOENT' ? 404 : 400)).send({
+      error: String(e?.message || 'Cannot read published Calls artifact'),
+      code: e?.code,
+    })
+  }
+})
 
 // ---------- screener swarm (dedicated, sandboxed readers — /api/output stays locked to analyses/) ----------
 app.get('/api/screener/board', async (_req, reply) => {

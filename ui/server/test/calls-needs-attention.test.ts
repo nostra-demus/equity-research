@@ -5,10 +5,8 @@
 // drift with the real clock. Run: npx tsx test/calls-needs-attention.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
-import fs from 'node:fs'
-import path from 'node:path'
-import { ANALYSES_DIR } from '../src/config'
 import { listAllCalls } from '../src/outputs'
+import type { PublishedTreeAuthority } from '../src/published-git'
 
 const DATE = '2020-01-01'
 
@@ -24,17 +22,37 @@ function check(name: string, fn: () => void) {
   }
 }
 
+const files = new Map<string, Buffer>()
+
 function mkCallDir(ticker: string, record: Record<string, unknown>): string {
-  const root = path.join(ANALYSES_DIR, `${ticker}_${DATE}`)
-  fs.mkdirSync(root, { recursive: true })
-  fs.writeFileSync(path.join(root, 'decision_record.json'), JSON.stringify(record, null, 2))
+  const root = `analyses/${ticker}_${DATE}`
+  files.set(`${root}/decision_record.json`, Buffer.from(JSON.stringify(record, null, 2)))
+  files.set(`${root}/final_thesis.md`, Buffer.from(`# ${ticker}\n`))
   return root
 }
 
-const cleanupDirs: string[] = []
-try {
-  check('an overdue, still-open forecast_ledger entry is reported with its due date and index', () => {
-    const root = mkCallDir('ZZATTA', {
+function authority(): PublishedTreeAuthority {
+  const snapshot = new Map(files)
+  return {
+    commit: 'a'.repeat(40),
+    paths: new Set(snapshot.keys()),
+    readRequired(repoPath: string): Buffer {
+      const value = snapshot.get(repoPath)
+      if (!value) throw Object.assign(new Error('missing test blob'), { code: 'CALLS_AUTHORITY_UNAVAILABLE' })
+      return value
+    },
+    readManyRequired(repoPaths: Iterable<string>): ReadonlyMap<string, Buffer> {
+      return new Map([...repoPaths].map((repoPath) => {
+        const value = snapshot.get(repoPath)
+        if (!value) throw Object.assign(new Error('missing test blob'), { code: 'CALLS_AUTHORITY_UNAVAILABLE' })
+        return [repoPath, value]
+      }))
+    },
+  }
+}
+
+check('an overdue, still-open forecast_ledger entry is reported with its due date and index', () => {
+    mkCallDir('ZZATTA', {
       ticker: 'ZZATTA', company_name: 'Attention Co A', decision_date: DATE, decision: 'Watchlist',
       forecast_ledger: [
         { prediction: 'thing happens', status: 'open', time_window: 'By 2020-02-01' },
@@ -42,8 +60,7 @@ try {
         { prediction: 'settled thing', status: 'confirmed', time_window: 'By 2020-02-01' }, // resolved
       ],
     })
-    cleanupDirs.push(root)
-    const { calls, needs_attention } = listAllCalls()
+    const { calls, needs_attention } = listAllCalls(authority())
     const c = calls.find((c: any) => c.ticker === 'ZZATTA')
     assert.ok(c, 'call must appear in listAllCalls()')
     assert.equal(c.needs_attention.forecasts_overdue.length, 1, 'only the overdue, still-open entry is flagged')
@@ -54,10 +71,10 @@ try {
     assert.equal(na.length, 1, 'the top-level ranked list must carry the same overdue item')
     assert.equal(na[0].type, 'forecast')
     assert.equal(na[0].run_root, 'analyses/ZZATTA_2020-01-01')
-  })
+})
 
-  check('an overdue kill_criteria monitor event (free-text month) is reported; an undateable one is not', () => {
-    const root = mkCallDir('ZZATTB', {
+check('an overdue kill_criteria monitor event (free-text month) is reported; an undateable one is not', () => {
+    mkCallDir('ZZATTB', {
       ticker: 'ZZATTB', company_name: 'Attention Co B', decision_date: DATE, decision: 'Watchlist',
       kill_criteria: [
         { criterion: 'auditor resigns', monitor: 'FY2020 results release (~Feb 2020)' }, // overdue (bare month closes on the 28th)
@@ -66,45 +83,39 @@ try {
         'a legacy plain-string kill criterion with no monitor field at all', // undateable — never flagged, never crashes
       ],
     })
-    cleanupDirs.push(root)
-    const { calls } = listAllCalls()
+    const { calls } = listAllCalls(authority())
     const c = calls.find((c: any) => c.ticker === 'ZZATTB')
     assert.ok(c)
     assert.equal(c.needs_attention.kill_criteria_overdue.length, 1)
     assert.equal(c.needs_attention.kill_criteria_overdue[0].due_date, '2020-02-28')
     assert.match(c.needs_attention.kill_criteria_overdue[0].description, /kill_criteria\[0\]/)
     assert.match(c.needs_attention.kill_criteria_overdue[0].description, /auditor resigns/)
-  })
+})
 
-  check('an invalid calendar date embedded in free text (Feb 30) is never returned as a due date', () => {
-    const root = mkCallDir('ZZATTC', {
+check('an invalid calendar date embedded in free text (Feb 30) is never returned as a due date', () => {
+    mkCallDir('ZZATTC', {
       ticker: 'ZZATTC', company_name: 'Attention Co C', decision_date: DATE, decision: 'Watchlist',
       forecast_ledger: [{ prediction: 'bad date', status: 'open', time_window: 'By 2020-02-30' }],
     })
-    cleanupDirs.push(root)
-    const { calls } = listAllCalls()
+    const { calls } = listAllCalls(authority())
     const c = calls.find((c: any) => c.ticker === 'ZZATTC')
     assert.equal(c.needs_attention.forecasts_overdue.length, 0, 'an invalid calendar date must fall through to undateable, never overdue')
-  })
+})
 
-  check('the top-level needs_attention list is ranked oldest-due-date first, across tickers', () => {
-    const rootD = mkCallDir('ZZATTD', {
+check('the top-level needs_attention list is ranked oldest-due-date first, across tickers', () => {
+    mkCallDir('ZZATTD', {
       ticker: 'ZZATTD', company_name: 'Attention Co D', decision_date: DATE, decision: 'Watchlist',
       forecast_ledger: [{ prediction: 'later', status: 'open', time_window: 'By 2020-06-01' }],
     })
-    const rootE = mkCallDir('ZZATTE', {
+    mkCallDir('ZZATTE', {
       ticker: 'ZZATTE', company_name: 'Attention Co E', decision_date: DATE, decision: 'Watchlist',
       forecast_ledger: [{ prediction: 'earlier', status: 'open', time_window: 'By 2020-03-01' }],
     })
-    cleanupDirs.push(rootD, rootE)
-    const { needs_attention } = listAllCalls()
+    const { needs_attention } = listAllCalls(authority())
     const idxD = needs_attention.findIndex((n: any) => n.ticker === 'ZZATTD')
     const idxE = needs_attention.findIndex((n: any) => n.ticker === 'ZZATTE')
     assert.ok(idxE >= 0 && idxD >= 0)
     assert.ok(idxE < idxD, 'the earlier (more overdue) due date must rank first')
-  })
-} finally {
-  for (const d of cleanupDirs) fs.rmSync(d, { recursive: true, force: true })
-}
+})
 
 console.log(`\n${passed} checks passed${process.exitCode ? ' (with failures)' : ''}`)

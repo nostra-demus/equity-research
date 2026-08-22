@@ -1,0 +1,133 @@
+// Calls is a projection of published Git, not the mutable checkout. A doer may have dirty/private bytes;
+// a fresh or static host may have no materialized analyses tree at all. Both must show the same calls.
+process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
+import assert from 'node:assert/strict'
+import { execFileSync } from 'node:child_process'
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
+
+const repo = fs.mkdtempSync(path.join(os.tmpdir(), 'calls-published-authority-'))
+const state = fs.mkdtempSync(path.join(os.tmpdir(), 'calls-published-state-'))
+process.env.ENGINE_REPO_ROOT = repo
+process.env.ENGINE_STATE_DIR = state
+process.env.ENGINE_PUBLISHED_GIT_REF = 'HEAD'
+
+execFileSync('git', ['-C', repo, 'init', '-q'])
+execFileSync('git', ['-C', repo, 'config', 'user.email', 'calls-authority@example.invalid'])
+execFileSync('git', ['-C', repo, 'config', 'user.name', 'Calls Authority Test'])
+
+const write = (rel: string, body: string): void => {
+  const file = path.join(repo, rel)
+  fs.mkdirSync(path.dirname(file), { recursive: true })
+  fs.writeFileSync(file, body)
+}
+
+const olderRoot = 'analyses/ACME_2026-08-01'
+const newerRoot = 'analyses/ACME_2026-08-10'
+const olderDecision = {
+  ticker: 'ACME', company_name: 'Acme Corp', decision_date: '2026-08-01', decision: 'Watchlist',
+  confidence_score: 58, expected_return_pct: 5, review_schedule: { '30d': '2026-08-13' },
+}
+const newerDecision = {
+  ticker: 'ACME', company_name: 'Acme Corp', decision_date: '2026-08-10', decision: 'Buy',
+  confidence_score: 72, expected_return_pct: 18, review_schedule: {},
+}
+write(`${olderRoot}/decision_record.json`, JSON.stringify(olderDecision, null, 2) + '\n')
+write(`${olderRoot}/final_thesis.md`, '# ACME — original published thesis\n')
+write(`${olderRoot}/verification_report_v2.json`, JSON.stringify({ verdict: 'Clean', integrity_score: 99 }) + '\n')
+write(`${newerRoot}/decision_record.json`, JSON.stringify(newerDecision, null, 2) + '\n')
+write(`${newerRoot}/final_thesis.md`, '# ACME — newer published thesis\n')
+
+const reviewName = '2026-08-13_30d_decision_review.json'
+const memoName = '2026-08-13_30d_memo_delta.md'
+write(`${olderRoot}/reviews/${memoName}`, '# ACME memo delta\n\nThe operating evidence improved.\n')
+write(`${olderRoot}/reviews/${reviewName}`, JSON.stringify({
+  review_window: '30d', review_date: '2026-08-13', review_price: 110,
+  absolute_return_pct: 10, thesis_status: 'confirmed',
+  forecast_results: [{ status: 'confirmed' }],
+  memo_delta: {
+    summary: 'The operating evidence improved.', thesis_delta_verdict: 'strengthened',
+    memo_delta_file: `${olderRoot}/reviews/${memoName}`,
+  },
+}, null, 2) + '\n')
+
+// A decision record by itself is not a completed, publishable call.
+write('analyses/HALF_2026-08-12/decision_record.json', JSON.stringify({
+  ticker: 'HALF', decision_date: '2026-08-12', decision: 'Strong Buy',
+}) + '\n')
+write('analyses/tracking/2026-08-13_calls_tracker.md', '# Calls tracker\n')
+
+execFileSync('git', ['-C', repo, 'add', '--', 'analyses'])
+execFileSync('git', ['-C', repo, 'commit', '-q', '-m', 'published Calls authority'])
+const publishedCommit = execFileSync('git', ['-C', repo, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
+const publishedText = (rel: string): string => execFileSync(
+  'git', ['-C', repo, 'show', `HEAD:${rel}`], { encoding: 'utf8' },
+)
+
+const { isPublishedCallsArtifactPath, listAllCalls, readPublishedCallsMarkdown } = await import('../src/outputs')
+const { publishedTreePaths } = await import('../src/published-git')
+
+// Poison mutable disk after the commit: replace a shared decision, remove its review, and add a private call.
+fs.rmSync(path.join(repo, 'analyses'), { recursive: true, force: true })
+write(`${olderRoot}/decision_record.json`, JSON.stringify({ ...olderDecision, decision: 'Avoid' }) + '\n')
+write(`${olderRoot}/final_thesis.md`, '# dirty local thesis\n')
+write('analyses/LOCAL_2026-08-14/decision_record.json', JSON.stringify({
+  ticker: 'LOCAL', decision_date: '2026-08-14', decision: 'Strong Buy', review_schedule: {},
+}) + '\n')
+write('analyses/LOCAL_2026-08-14/final_thesis.md', '# private\n')
+
+const dirty = listAllCalls()
+assert.deepEqual(dirty.calls.map((call: any) => call.run_root), [newerRoot, olderRoot],
+  'only complete calls in published Git are enumerated')
+assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)?.decision, 'Watchlist',
+  'the decision comes from published Git, not dirty disk')
+assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)?.integrity_status, 'verified',
+  'published verification survives a poisoned local thesis')
+assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)?.review_count, 1,
+  'a locally absent published review remains completed')
+assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)
+  ?.timeline.find((row: any) => row.window === '30d')?.status, 'done')
+assert.equal(dirty.dashboard, 'analyses/tracking/2026-08-13_calls_tracker.md')
+assert.equal(dirty.authority_commit, publishedCommit)
+assert.equal(dirty.updates.filter((row: any) => row.kind === 'review').length, 1)
+assert.ok(dirty.updates.some((row: any) => row.kind === 'call' && row.headline.includes('Watchlist → Buy')),
+  'consecutive published calls create a durable call-change update')
+
+for (const rel of [
+  `${olderRoot}/final_thesis.md`,
+  `${olderRoot}/reviews/${reviewName}`,
+  `${olderRoot}/reviews/${memoName}`,
+  'analyses/tracking/2026-08-13_calls_tracker.md',
+]) {
+  assert.equal(isPublishedCallsArtifactPath(rel), true, `${rel} is an admitted Calls artifact`)
+  assert.deepEqual(readPublishedCallsMarkdown(rel), { path: rel, markdown: publishedText(rel) },
+    'click-through bytes come exactly from published Git')
+}
+for (const rel of [
+  `${olderRoot}/decision_record.json`,
+  `${olderRoot}/corrections.json`,
+  `${olderRoot}/../secrets.md`,
+  'analyses/tracking/2026-08-13_calls_tracker.json',
+]) {
+  assert.equal(isPublishedCallsArtifactPath(rel), false, `${rel} is outside the narrow artifact reader`)
+  assert.throws(() => readPublishedCallsMarkdown(rel),
+    (error: any) => error?.code === 'INVALID_CALLS_ARTIFACT_PATH')
+}
+
+// A static materialization with no analyses directory projects byte-for-byte the same result.
+fs.rmSync(path.join(repo, 'analyses'), { recursive: true, force: true })
+assert.deepEqual(listAllCalls(), dirty)
+assert.equal(readPublishedCallsMarkdown(`${olderRoot}/final_thesis.md`).markdown,
+  publishedText(`${olderRoot}/final_thesis.md`))
+
+const previousRef = process.env.ENGINE_PUBLISHED_GIT_REF
+process.env.ENGINE_PUBLISHED_GIT_REF = 'refs/heads/does-not-exist'
+assert.throws(() => publishedTreePaths('analyses'),
+  (error: any) => error?.code === 'CALLS_AUTHORITY_UNAVAILABLE',
+  'an invalid shared ref is an explicit authority failure, never an empty history')
+process.env.ENGINE_PUBLISHED_GIT_REF = previousRef
+
+fs.rmSync(repo, { recursive: true, force: true })
+fs.rmSync(state, { recursive: true, force: true })
+console.log('ok  Calls decisions, reviews and artifacts come only from the verified published tree')
