@@ -77,6 +77,7 @@ import { askMemoryMeta, compactNewsEvidence, routeAskMemory, type AskMemoryPromp
 import { dataPoolPresent, deriveSignalState, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
 import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
 import { getNewsDiagnostics, getNewsStatus, newsProviderSpendingAllowed, startNewsIngester } from './news/scheduler'
+import { parseTrendRange, readPipelineTrend, readPipelineTrendEvents } from './news/provider-routing'
 import { startConvictionLoop } from './conviction-dispatch'
 import { startReviewLoop } from './review-dispatch'
 import { runAutotuneOnce, startAutotuneLoop } from './news/rank-weights-autotune'
@@ -4695,6 +4696,29 @@ app.get('/api/bridge/status', async () => getBridgeStatus())
 // Read-only, fail-soft (never throws), rate-limited like the other fs-reading news reads. Backs the cockpit's
 // "Pipeline diagnostics" panel so a defer/cooldown/backlog state is never a surprise.
 app.get('/api/news/diagnostics', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async () => getNewsDiagnostics())
+
+app.get('/api/news/diagnostics/trend', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const query = (req.query || {}) as Record<string, unknown>
+  try {
+    const { from, to } = parseTrendRange(query.from, query.to)
+    return readPipelineTrend(REPO_ROOT, NEWS.newsArchiveDir, from, to, String(query.bucket || 'auto'))
+  } catch (error: any) {
+    return reply.code(400).send({ error: error?.message || 'invalid trend range' })
+  }
+})
+
+app.get('/api/news/diagnostics/trend/events', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const query = (req.query || {}) as Record<string, unknown>
+  try {
+    const { from, to } = parseTrendRange(query.from, query.to)
+    return readPipelineTrendEvents(
+      REPO_ROOT, NEWS.newsArchiveDir, from, to,
+      String(query.providerId || ''), String(query.cursor || ''), Number(query.limit || 100),
+    )
+  } catch (error: any) {
+    return reply.code(400).send({ error: error?.message || 'invalid trend event request' })
+  }
+})
 
 // Time-windowed intake intensity for the screener ThemeMap. Returns small AGGREGATES only (per-tier
 // counts + totals + a ≤48-point hourly histogram) over the chosen window (last scan … full day … 7d),

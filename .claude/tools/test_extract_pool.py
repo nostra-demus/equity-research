@@ -112,6 +112,33 @@ def test_readers() -> None:
         skip("rtf: text extracted", "textutil not available (macOS-only reader)")
 
 
+def test_durable_relationship_artifact() -> None:
+    """The chain graph must cross the git/deployment boundary, not live only in ignored cache."""
+    with tempfile.TemporaryDirectory() as root_td:
+        root = Path(root_td)
+        pool = root / "data" / "ANCHOR"
+        out = root / "analyses" / "ANCHOR_2099-01-01" / "_pool_extracts"
+        pool.mkdir(parents=True)
+        out.mkdir(parents=True)
+        ep._write_relationships(str(pool), str(out))
+        cache = out / "relationships.json"
+        durable = out.parent / "relationships.json"
+        check("relationships: ignored cache sidecar still written", cache.is_file())
+        check("relationships: committed run-root artifact is written", durable.is_file())
+        check("relationships: cache and durable artifact are byte-identical",
+              cache.read_bytes() == durable.read_bytes())
+
+        durable.unlink()
+        ep._ensure_durable_relationships(str(pool), str(out))
+        check("relationships: a fresh cache hit republishes a missing durable artifact",
+              durable.is_file() and durable.read_bytes() == cache.read_bytes())
+
+        durable.write_text('{"schema_version":"stale"}\n')
+        ep._ensure_durable_relationships(str(pool), str(out))
+        check("relationships: a cache hit repairs a divergent durable artifact",
+              durable.read_bytes() == cache.read_bytes())
+
+
 # formats read with pure-Python, no external tool — MUST never fail on any platform
 _ALWAYS = {"ciq_synth.xls", "synth.xlsx", "note.txt", "mislabeled.xls"}
 # formats whose reader is platform/tool-specific — a 'fail' here is a missing tool, recorded as a skip
@@ -1202,6 +1229,8 @@ def main() -> int:
     test_sniff()
     print("== deterministic readers (per physical form) ==")
     test_readers()
+    print("== supply-chain relationship graph crosses the cache/deployment boundary ==")
+    test_durable_relationship_artifact()
     print("== full extract_pool pipeline (statuses + corpus) ==")
     test_pipeline()
     print("== pool filesystem boundary (root alias allowed; descendants pinned) ==")

@@ -730,7 +730,16 @@ export const NEWS = {
   // the cloud. readFeed falls back to this folder for days no longer on local disk, so the time-travel
   // filter still spans the whole archive. Empty → no cloud archive (read local only).
   newsArchiveDir: process.env.NEWS_ARCHIVE_DIR || '',
-  newsLocalRetentionDays: capNum(process.env.NEWS_LOCAL_RETENTION_DAYS, 30), // days of firehose kept on local disk
+  newsLocalRetentionDays: capNum(process.env.NEWS_LOCAL_RETENTION_DAYS, 30), // days of firehose + pipeline audit telemetry kept locally
+  // Scanner-triage provider routing only. `auto` records the current route and its adaptive shadow for a
+  // complete day before it is allowed to change provider order. `shadow` never activates; `static` is the
+  // emergency kill switch. An unreadable audit ledger always overrides auto and keeps the static route.
+  providerRouterMode: (() => {
+    const raw = String(process.env.NEWS_PROVIDER_ROUTER_MODE || 'auto').trim().toLowerCase()
+    return raw === 'static' || raw === 'shadow' ? raw : 'auto'
+  })() as 'auto' | 'shadow' | 'static',
+  providerRouterShadowHours: capNum(process.env.NEWS_PROVIDER_ROUTER_SHADOW_HOURS, 24),
+  providerRouterMinOutcomes: capNum(process.env.NEWS_PROVIDER_ROUTER_MIN_OUTCOMES, 20),
   // OPTIONAL neural retrieval. The deterministic hybrid search is always present; these two provider
   // seams add a compact embedding index and a second-stage rerank when an operator supplies an
   // OpenAI-compatible endpoint. They never borrow a triage key silently and fail open to hybrid search.

@@ -79,6 +79,26 @@ try {
     assert.equal(inFlightRunsForSubject('ZZFINB').length, 0)
   })
 
+  // 2b. A forward full run explicitly marked for immutable Ideas publication is not complete merely
+  // because the master wrote its thesis. The admission freezer is the only writer allowed to clear this
+  // marker, after it has atomically frozen an admitted/not-admitted/not-applicable result.
+  check('close keeps a thesis-bearing full run incomplete while immutable Ideas publication is pending', () => {
+    const root = path.join(ANALYSES_DIR, `ZZFINPUB_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    fs.writeFileSync(path.join(root, 'final_thesis.md'), '# thesis\n')
+    fs.writeFileSync(path.join(root, 'decision_record.json'), '{}\n')
+    fs.writeFileSync(path.join(root, '.requires_idea_publication'), '')
+    const { run, events } = mkRun('full', 'ZZFINPUB')
+    finalizeRunOnClose(run, { exitCode: 0 }, '')
+    assert.equal(run.status, 'incomplete')
+    assert.match(String(run.note), /immutable Ideas publication did not finish/)
+    const evt = events.find((e) => e.type === 'run-error') as any
+    assert.equal(evt?.reason, 'incomplete_deliverables')
+    assert.match(String(evt?.message), /immutable Ideas publication did not/)
+    assert.ok(!events.find((e) => e.type === 'run-done'), 'an unpublished thesis must never emit run-done')
+  })
+
   // 3. a cancel() sets status='cancelled' directly — close must STILL finalize and release the
   //    subject (the old status-gated close handler skipped it, leaking the subject until restart).
   check('cancelled run is finalized on close and releases its subject', () => {

@@ -238,10 +238,44 @@ export function moduleSynthesisPresent(
   } catch { return false }
 }
 
+const IDEA_PUBLICATION_MARKER = '.requires_idea_publication'
+
+function ideaPublicationMarkerPath(runRoot: string): string {
+  const root = path.isAbsolute(runRoot) ? runRoot : path.join(REPO_ROOT, runRoot)
+  return path.join(root, IDEA_PUBLICATION_MARKER)
+}
+
+function markIdeaPublicationRequired(runRoot: string): void {
+  const marker = ideaPublicationMarkerPath(runRoot)
+  fs.mkdirSync(path.dirname(marker), { recursive: true })
+  const fd = fs.openSync(marker, 'w')
+  try {
+    fs.fsyncSync(fd)
+  } finally {
+    fs.closeSync(fd)
+  }
+  // Windows does not allow opening/fsyncing directories. The marker file itself is still fsynced above.
+  if (process.platform !== 'win32') {
+    const dirFd = fs.openSync(path.dirname(marker), 'r')
+    try {
+      fs.fsyncSync(dirFd)
+    } finally {
+      fs.closeSync(dirFd)
+    }
+  }
+}
+
+export function ideaPublicationPending(runRoot: string | null): boolean {
+  if (!runRoot) return false
+  try { return fs.existsSync(ideaPublicationMarkerPath(runRoot)) } catch { return true }
+}
+
 export function finalDeliverablesPresent(runRoot: string | null): boolean {
   if (!runRoot) return false
   const root = path.isAbsolute(runRoot) ? runRoot : path.join(REPO_ROOT, runRoot)
-  return fs.existsSync(path.join(root, 'final_thesis.md')) && fs.existsSync(path.join(root, 'decision_record.json'))
+  return fs.existsSync(path.join(root, 'final_thesis.md'))
+    && fs.existsSync(path.join(root, 'decision_record.json'))
+    && !ideaPublicationPending(runRoot)
 }
 
 // Were the terminal deliverables actually produced by THIS run attempt — not stale leftovers from an
@@ -274,9 +308,10 @@ export function finalDeliverablesShippedByThisAttempt(run: RunState): boolean {
 }
 
 // Did a full/rerun exit cleanly WITHOUT its terminal deliverable? Research ends on final_thesis.md +
-// decision_record.json; a constellation swarm (e.g. commodity) ends on decision_record.json alone —
-// the same key the resume detector uses (resumable.ts). The screener (flow layout) has its own
-// terminal-routing semantics and is never judged here.
+// decision_record.json and, when publication was required, a cleared publication marker proving the
+// immutable idea-admission step finished. A constellation swarm (e.g. commodity) ends on
+// decision_record.json alone — the same key the resume detector uses (resumable.ts). The screener (flow
+// layout) has its own terminal-routing semantics and is never judged here.
 export function truncatedBeforeFinal(run: RunState): boolean {
   // A sweep's whole deliverable is the day's inbox file. A clean exit that never wrote one means the scan
   // found and saved nothing — say so, instead of reporting the misleading "done" the cockpit turns into
@@ -611,6 +646,7 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
     // INCOMPLETE (not a misleading "done") so the cockpit + activity log show the truth and the
     // user can finish it / raise the cap.
     const orbs = run.kind === 'module' ? moduleOrbProgress(run.runRoot, run.module) : { landed: [], expected: 0 }
+    const publicationPending = run.swarmId === RESEARCH_SWARM_ID && ideaPublicationPending(run.runRoot)
     const msg = run.kind === 'sweep'
       ? 'The scan ended without saving anything to the Inbox — it found no events, or it stopped before it could write. Nothing was added.'
       : run.kind === 'module'
@@ -618,6 +654,8 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
           + `${orbs.landed.length}${orbs.expected ? ` of ${orbs.expected}` : ''} step(s) finished and were saved`
           + `${orbs.landed.length ? `: ${orbs.landed.map((f) => f.replace(/\.md$/, '')).join(', ')}` : ''}. `
           + 'Nothing is lost — re-run the module and it picks up from the steps already on disk.'
+      : publicationPending
+        ? 'The thesis finished, but immutable Ideas publication did not. The run is incomplete until a post-audit admission record freezes an admitted, not-admitted, or not-applicable result.'
       : run.swarmId === 'research'
         ? 'Run ended without the final thesis & memo — likely budget- or turn-truncated before the master synthesizer finished. Re-run from the master (or any late orb) to finish; the cap is now higher.'
         : 'Run ended without the final dossier & decision record — likely budget- or turn-truncated before the terminal synthesis finished. Re-run the terminal module to finish.'
@@ -625,6 +663,8 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string, term
       ? 'incomplete: sweep wrote no inbox file'
       : run.kind === 'module'
         ? `incomplete: ${run.module} stopped before its synthesis (${orbs.landed.length}${orbs.expected ? `/${orbs.expected}` : ''} steps saved)`
+        : publicationPending
+          ? 'incomplete: thesis exists but immutable Ideas publication did not finish'
         : 'incomplete: no final thesis/decision (likely budget/turn truncation)'
     // A clean budget/turn truncation is a DELIBERATE cap, not an interruption — auto-resuming would just
     // re-hit the same cap and loop. Clear any interrupted-marker so the supervisor leaves it for the human.
@@ -1735,11 +1775,11 @@ export function captureChainEpoch(subjectId?: string, swarmId = RESEARCH_SWARM_I
 export interface FullChainDeps {
   // launch one run (params) and register its completion callback; resolves to the run's id + preflight.
   launchAndWire: (params: LaunchParams, onFinish: (status: RunStatus) => void) => Promise<{ runId: string; preflight: LaunchPreflight }>
-  // drop the defer-module-memos marker in the run root (best-effort).
+  // Establish both chained-full routing/completion markers before any paid work.
   writeMarker: (ticker: string) => void
   // remove the defer-module-memos marker (best-effort). Called on every failure path so a crashed chain
   // never leaves an orphaned marker that would make a later same-day standalone module run defer-and-DROP
-  // its memo (the success path's marker removal is done by the master step, rerun.md Step 9A).
+  // its memo (the success path's marker removal is done by the master step, rerun.md Step 9B).
   clearMarker: (ticker: string) => void
   // schedule a re-pump after a transient 429 capacity rejection (default: setTimeout; tests fire it directly).
   scheduleRetry: (fn: () => void) => void
@@ -1758,11 +1798,18 @@ const defaultFullChainDeps: FullChainDeps = {
     return { runId: out.runId, preflight: out.preflight }
   },
   writeMarker: (ticker) => {
+    const p = deferMarkerPath(ticker)
+    fs.mkdirSync(path.dirname(p), { recursive: true })
+    // Both markers are correctness-critical: .defer_module_memos routes the master through the chained-full
+    // audit/publication branch, while the publication marker prevents close-time success until it freezes.
+    // If either cannot be recorded, refuse to start a chain that could later be mistaken for complete.
+    fs.writeFileSync(p, '')
     try {
-      const p = deferMarkerPath(ticker)
-      fs.mkdirSync(path.dirname(p), { recursive: true })
-      fs.writeFileSync(p, '')
-    } catch { /* non-fatal: fall back to inline per-module memos */ }
+      markIdeaPublicationRequired(path.posix.join('analyses', `${ticker}_${todayDate()}`))
+    } catch (error) {
+      try { fs.rmSync(p, { force: true }) } catch { /* best-effort rollback of the routing marker */ }
+      throw error
+    }
   },
   clearMarker: (ticker) => {
     try { fs.rmSync(deferMarkerPath(ticker), { force: true }) } catch { /* best-effort */ }
@@ -1829,7 +1876,7 @@ export async function launchFullChained(
   }
 
   // Drop a marker in the shared run root so each per-module run SKIPS its inline memo (MODULE_PIPELINE
-  // Step 4.9A); the master step regenerates all module memos in ONE batch at the end (rerun.md Step 9A)
+  // Step 4.9A); the master step regenerates all module memos in ONE batch at the end (rerun.md Step 9B)
   // and removes the marker. Keeps the ~2.5-min-per-module memo off the parallel critical path —
   // output-neutral, only the memo's timing moves. Injected so the test asserts it without touching disk.
   try {
@@ -1889,7 +1936,7 @@ export async function launchFullChained(
     const launched = deps.launchAndWire(
       { kind: 'rerun', ticker, module: 'master', agent: 'synthesizer', user, userVia, chained: true, ...decisionBinding },
       (status) => {
-        deps.clearMarker(ticker) // always clear the defer-memo marker once master exits — success path: rerun.md Step 9A also rm -f's it (idempotent); this is the safety net for an abnormal 'done' before Step 9A ran, or any failure
+        deps.clearMarker(ticker) // always clear the defer-memo marker once master exits — success path: rerun.md Step 9B also rm -f's it (idempotent); this is the safety net for an abnormal 'done' before Step 9B ran, or any failure
         releaseChainPool()
         // eslint-disable-next-line no-console
         console.log(`[full-chain] ${ticker}: ${status === 'done' ? 'pipeline complete' : `stopped at master — ${status}`}`)
@@ -2423,6 +2470,12 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   if (isFullRelaunch) {
     resetAdmittedFullRelaunch(runRoot)
   }
+
+  // A research full run is not terminal at thesis creation. It must also freeze the post-audit Ideas
+  // admission (including an honest not-admitted/not-applicable result). The freezer removes this marker
+  // only after it has atomically written or revalidated that immutable record; close-time success therefore
+  // cannot race ahead of publication. Chained full runs create the same marker in writeMarker() above.
+  if (swarmId === RESEARCH_SWARM_ID && kind === 'full') markIdeaPublicationRequired(runRoot)
 
   // Materialize the signal intake AFTER admission passes (no orphan folders on rejection).
   if (pendingIntake) {

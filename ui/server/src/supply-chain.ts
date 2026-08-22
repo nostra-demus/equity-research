@@ -2,7 +2,8 @@
 //
 // A Capital IQ Suppliers / Customers export names, with a source filing per row, exactly who sells into
 // a company and who buys from it. `relationship_graph.py` turns that into a graph in every run's
-// `_pool_extracts/relationships.json`. This module reads those graphs across every standing research run
+// committed `relationships.json` artifacts (with `_pool_extracts/relationships.json` as a legacy fallback).
+// This module reads those graphs across every standing research run
 // and projects the outside counterparties as a third, honestly-labelled lane beside news leads and
 // qualified ideas.
 //
@@ -141,6 +142,8 @@ export interface SupplyChainBoard {
     run_count: number // standing runs inspected
     graph_count: number // runs that carried a relationship graph
     invalid_count: number // graphs that could not be read
+    input_warning_count: number // relationship inputs found but not parsed
+    pool_export_count: number // supplier/customer files currently present in standing data pools
     sheet_count: number
     anchors_without_export: string[]
     lead_count: number
@@ -275,6 +278,8 @@ function discover(repoRoot: string): {
   graphs: DiscoveredGraph[]
   runCount: number
   invalidCount: number
+  inputWarningCount: number
+  poolExportCount: number
   anchorsWithoutExport: string[]
   error: string | null
 } {
@@ -283,9 +288,9 @@ function discover(repoRoot: string): {
   try {
     runNames = fs.readdirSync(analyses).filter((x) => /_\d{4}-\d{2}-\d{2}$/.test(x)).sort()
   } catch (e: any) {
-    if (e?.code === 'ENOENT') return { graphs: [], runCount: 0, invalidCount: 0, anchorsWithoutExport: [], error: null }
+    if (e?.code === 'ENOENT') return { graphs: [], runCount: 0, invalidCount: 0, inputWarningCount: 0, poolExportCount: 0, anchorsWithoutExport: [], error: null }
     return {
-      graphs: [], runCount: 0, invalidCount: 0, anchorsWithoutExport: [],
+      graphs: [], runCount: 0, invalidCount: 0, inputWarningCount: 0, poolExportCount: 0, anchorsWithoutExport: [],
       error: `The analyses store cannot be read: ${String(e?.message || e).slice(0, 240)}`,
     }
   }
@@ -293,8 +298,8 @@ function discover(repoRoot: string): {
   // best[ticker] = the winning run so far. A decided run always beats an undecided one; among equals the
   // later dated folder wins (runNames is sorted ascending, so a later pass overwrites).
   const best = new Map<string, DiscoveredGraph>()
+  const unresolvedWarnings = new Map<string, number>()
   const seenTickers = new Set<string>()
-  const withExport = new Set<string>()
   let invalidCount = 0
   let runCount = 0
 
@@ -308,15 +313,21 @@ function discover(repoRoot: string): {
     seenTickers.add(ticker)
     runCount++
 
-    const file = path.join(runAbs, '_pool_extracts', 'relationships.json')
+    // New runs commit the graph at their root. Keep the ignored cache as a read-only compatibility
+    // fallback for older runs produced before the persistence boundary was fixed.
+    const durable = path.join(runAbs, 'relationships.json')
+    const legacyCache = path.join(runAbs, '_pool_extracts', 'relationships.json')
+    const file = fs.existsSync(durable) ? durable : legacyCache
     let text: string
     try { text = fs.readFileSync(file, 'utf8') } catch { continue }
     const graph = parseGraph(text)
     if (!graph) { invalidCount++; continue }
-    withExport.add(ticker)
     // An empty graph is a real, informative answer ("this pool has no supplier/customer export") but it
     // must not win the standing slot away from an older run that DOES carry one.
-    if (!graph.sources.length) continue
+    if (!graph.sources.length) {
+      unresolvedWarnings.set(ticker, graph.warnings.length)
+      continue
+    }
 
     const { decision, date } = readDecision(runAbs)
     const candidate: DiscoveredGraph = { ticker, runRoot, graph, decision, decisionDate: date }
@@ -327,10 +338,47 @@ function discover(repoRoot: string): {
   }
 
   const anchorsWithoutExport = [...seenTickers].filter((t) => !best.has(t)).sort()
+  // Health follows the same standing graph the board shows. Old parse warnings must not permanently
+  // degrade a ticker after a later usable export succeeds; a ticker with no usable graph still carries
+  // the newest empty graph's warnings so an unreadable export is never mistaken for a missing upload.
+  const inputWarningCount = [...best.values()].reduce((n, item) => n + item.graph.warnings.length, 0)
+    + anchorsWithoutExport.reduce((n, ticker) => n + (unresolvedWarnings.get(ticker) || 0), 0)
+  const poolExportCount = countPoolRelationshipExports(repoRoot, seenTickers)
   return {
     graphs: [...best.values()].sort((a, b) => a.ticker.localeCompare(b.ticker)),
-    runCount, invalidCount, anchorsWithoutExport, error: null,
+    runCount, invalidCount, inputWarningCount, poolExportCount, anchorsWithoutExport, error: null,
   }
+}
+
+function countPoolRelationshipExports(repoRoot: string, tickers: ReadonlySet<string>): number {
+  const dataRoot = path.resolve(repoRoot, 'data')
+  let poolDirs: fs.Dirent[]
+  try { poolDirs = fs.readdirSync(dataRoot, { withFileTypes: true }) } catch { return 0 }
+  let count = 0
+  const tickerList = [...tickers]
+  for (const entry of poolDirs) {
+    if (!entry.isDirectory() || entry.name.startsWith('.')) continue
+    const normalized = entry.name.toUpperCase()
+    const ticker = tickerList.find((candidate) => normalized === candidate || normalized.startsWith(`${candidate} (`))
+    if (!ticker) continue
+    const stack = [path.join(dataRoot, entry.name)]
+    while (stack.length) {
+      const dir = stack.pop()!
+      let children: fs.Dirent[]
+      try { children = fs.readdirSync(dir, { withFileTypes: true }) } catch { continue }
+      for (const child of children) {
+        if (child.name.startsWith('.')) continue
+        const abs = path.join(dir, child.name)
+        if (child.isDirectory()) {
+          if (!child.name.endsWith('_pool_extracts')) stack.push(abs)
+        } else if (child.isFile() && /(?:supplier|customer|relationship)/i.test(child.name)
+          && /\.(?:xls|xlsx|xlsm|rtf)$/i.test(child.name)) {
+          count++
+        }
+      }
+    }
+  }
+  return count
 }
 
 // ---- prior coverage -------------------------------------------------------------------------------
@@ -642,14 +690,20 @@ export function buildSupplyChainBoard(repoRoot: string, opts: { nowMs?: number }
   } else if (!found.graphs.length && found.invalidCount > 0) {
     status = 'degraded'; outcome = 'invalid_artifacts'
     reason = `${found.invalidCount} relationship graph${found.invalidCount === 1 ? '' : 's'} could not be read; no chain can be projected from them.`
+  } else if (!found.graphs.length && found.inputWarningCount > 0) {
+    status = 'degraded'; outcome = 'invalid_artifacts'
+    reason = `${found.inputWarningCount} supplier/customer input warning${found.inputWarningCount === 1 ? '' : 's'} prevented a relationship sheet from being parsed. The exports were found, but the chain is not readable yet.`
+  } else if (!found.graphs.length && found.poolExportCount > 0) {
+    status = 'degraded'; outcome = 'invalid_artifacts'
+    reason = `${found.poolExportCount} Capital IQ supplier/customer export${found.poolExportCount === 1 ? ' is' : 's are'} present in the data pools, but no durable relationship graph was published by a research run. Run fresh research after the extractor dependencies are installed.`
   } else if (leads.length) {
-    status = found.invalidCount > 0 ? 'degraded' : 'healthy'
+    status = found.invalidCount > 0 || found.inputWarningCount > 0 ? 'degraded' : 'healthy'
     outcome = researchNow ? 'leads' : 'none_investable'
     reason = researchNow
       ? `${researchNow} outside counterpart${researchNow === 1 ? 'y is' : 'ies are'} listed, trade with the company on an operating basis, and sit behind a company the engine has already decided on.`
       : `${leads.length} disclosed counterpart${leads.length === 1 ? 'y' : 'ies'} mapped, but none is both listed and operating behind a decided company — nothing here clears the bar to research yet.`
   } else if (found.graphs.length) {
-    status = found.invalidCount > 0 ? 'degraded' : 'healthy'; outcome = 'none_investable'
+    status = found.invalidCount > 0 || found.inputWarningCount > 0 ? 'degraded' : 'healthy'; outcome = 'none_investable'
     reason = found.invalidCount > 0
       ? `The exports read so far name no outside counterparty, but ${found.invalidCount} relationship graph${found.invalidCount === 1 ? '' : 's'} could not be read — the chain is not proven complete.`
       : 'The supplier and customer exports read so far name no outside counterparty at all — every disclosed relationship is inside the company’s own group.'
@@ -664,6 +718,8 @@ export function buildSupplyChainBoard(repoRoot: string, opts: { nowMs?: number }
       run_count: found.runCount,
       graph_count: found.graphs.length,
       invalid_count: found.invalidCount,
+      input_warning_count: found.inputWarningCount,
+      pool_export_count: found.poolExportCount,
       sheet_count: sheetCount,
       anchors_without_export: found.anchorsWithoutExport,
       lead_count: leads.length,

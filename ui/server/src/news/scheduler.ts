@@ -26,6 +26,7 @@ import { SYSTEM, buildUserMessage, estimateTokens } from './triage/groq'
 import { preTriagePriority } from './rank'
 import { buildPipelineFlowRates, readPipelineFlowCycles, type PipelineFlowHistory, type PipelineFlowRates } from './pipeline-flow'
 import { omniRouteDisabledReason } from './omniroute-provision-status'
+import { credentialRejected, evaluateProviderRouting, type ProviderRouterMetadata, type ProviderRoutingCandidate } from './provider-routing'
 import type { CycleSummary, DeferReason, LastResortState } from './types'
 
 // The news-lead skim config, assembled once from NEWS. It reuses the ingester's canonical OpenAI-compatible
@@ -813,6 +814,23 @@ export interface TierDiagnostics {
   triageScoredBatchesToday?: number // triage batches that returned usable scores today
   lastCycleAttempts?: number // actual provider calls in the most recent cycle (absent = not tracked per-tier)
   lastCycleRequests?: number // batches this tier scored in the most recent cycle (absent = not tracked per-tier)
+  routing?: {
+    actualRank: number | null
+    shadowRank: number | null
+    fitnessScore: number
+    components: {
+      usableBatchYield: number
+      usefulThroughput: number
+      releasedCapacityUrgency: number
+      failurePenalty: number
+      costPenalty: number
+    }
+    sampleSize: number
+    eligible: boolean
+    eligibilityReason: string
+    explorationDue: boolean
+    lastSelectedAt: string | null
+  }
 }
 
 export interface NewsDiagnostics {
@@ -826,6 +844,7 @@ export interface NewsDiagnostics {
   /** Like-for-like queue flow over a fixed trailing hour. Required UTC partitions are coverage-checked;
    * missing history or partial legacy fields never produce a comparison. */
   flow: PipelineFlowRates
+  router: ProviderRouterMetadata
   tiers: TierDiagnostics[] // ordered primary → overflow → gemini → last-resort
   backlog: {
     unavailable?: boolean // the saved waiting list could not be read; count and percentage are unknown
@@ -955,13 +974,7 @@ interface RetryInfo { until: number; fails: number; accessFails?: number; reason
  *  The count is the ACCESS streak, not the general failure streak: `fails` counts timeouts and outages too,
  *  so reading it here declared a key dead on its first 403 whenever two ordinary failures happened to
  *  precede it. */
-export const CREDENTIAL_DEAD_AFTER_FAILS = 3
-
-/** Does this tier's live marker say its CREDENTIAL is being rejected (as opposed to the provider being busy,
- *  down, or slow)? Pure, so it is unit-testable and the threshold is stated in exactly one place. */
-export function credentialRejected(reason: string | undefined, accessFails: number): boolean {
-  return reason === 'provider-access' && accessFails >= CREDENTIAL_DEAD_AFTER_FAILS
-}
+export { CREDENTIAL_DEAD_AFTER_FAILS, credentialRejected } from './provider-routing'
 
 /** A triage call is blocked by either the provider-wide availability hold or its triage-workload hold.
  * If both are live, the later gate wins because that is the true next eligibility instant. */
@@ -1326,10 +1339,16 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
     const u = readDailyUsd('anthropic-triage-budget.json', todayUtc)
     const cd = triageRetryInfo('anthropic-triage', now)
     const coolMs = Math.max(0, cd.until - now)
-    const spent = u.usd >= NEWS.anthropicDailyUsd
+    const callBound = NEWS.anthropicFallbackMode === 'subscription'
+      ? Math.max(0, NEWS.anthropicPerCallUsd)
+      : conservativeChatUsdBound(SYSTEM, buildUserMessage(diagnosticBatch), NEWS.anthropicMaxTokens, NEWS.anthropicInPricePerMTok, NEWS.anthropicOutPricePerMTok)
+    const admission = dailyQuotaAdmission({ id: 'anthropic-triage', meter: 'requests', used: u.usd, cap: NEWS.anthropicDailyUsd, cost: callBound, paceCost: callBound, floorFraction: NEWS.freeProviderPaceFloorFrac }, now)
+    const spent = u.usd >= NEWS.anthropicDailyUsd || (diagnosticBatch.length > 0 && !admission.hardCapFit)
+    const finalEnvelope = u.usd > 0 && admission.hardCapFit && Math.max(0, NEWS.anthropicDailyUsd - u.usd) <= callBound + 1e-9
+    const paced = !spent && diagnosticBatch.length > 0 && !(admission.pacedFit || finalEnvelope)
     tiers.push({
       id: 'anthropic-triage', label: 'Haiku · last resort', color: '--provider-haiku', role: 'last-resort', order: order++,
-      enabled, spendingAllowed, meter: 'usd', health: tierHealth(enabled, coolMs, spent, false, u.ledgerUnavailable),
+      enabled, spendingAllowed, meter: 'usd', health: tierHealth(enabled, coolMs, spent, paced, u.ledgerUnavailable),
       ...(u.ledgerUnavailable ? { ledgerUnavailable: true } : {}),
       ...(!u.ledgerUnavailable ? { usdToday: Math.round(u.usd * 10_000) / 10_000, callsToday: u.calls } : {}),
       usdCap: NEWS.anthropicDailyUsd,
@@ -1359,6 +1378,90 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
     trend: (status.backlog.unavailable ?? false) ? null : backlogTrend(cyclesToday),
     lostToday,
     retiredToday,
+  }
+
+  const aggregateIds = new Set(aggregateOverflow.map((provider) => provider.id))
+  const localFallbackIds = new Set(localOverflow.map((provider) => provider.id))
+  const candidateReason = (tier: TierDiagnostics): ProviderRoutingCandidate['eligibilityReason'] => {
+    if (!tier.enabled || tier.spendingAllowed === false) return 'disabled'
+    if (tier.credentialRejected) return 'credential-rejected'
+    if (tier.ledgerUnavailable) return 'ledger-unavailable'
+    if (tier.providerDayExhausted) return 'provider-day-exhausted'
+    if (tier.health === 'cooling') return 'cooldown'
+    if (tier.health === 'budget-spent') return 'hard-cap'
+    if (tier.health === 'paced') return 'paced'
+    if (tier.health === 'unavailable') return 'ledger-unavailable'
+    return 'eligible'
+  }
+  const capacityUrgency = (tier: TierDiagnostics): number => {
+    if (tier.reqCap == null && tier.tokenCap == null && tier.usdCap == null) return 1
+    const cap = tier.tokenCap ?? tier.reqCap ?? tier.usdCap ?? 0
+    const used = tier.tokenCap != null ? tier.tokensToday ?? 0 : tier.reqCap != null ? tier.requestsToday ?? 0 : tier.usdToday ?? 0
+    const cost = tier.usdCap != null ? Math.max(0.000_001, NEWS.anthropicPerCallUsd) : 1
+    return dailyQuotaAdmission({ id: tier.id, meter: tier.tokenCap != null ? 'tokens' : 'requests', used, cap, cost, paceCost: cost, floorFraction: NEWS.freeProviderPaceFloorFrac }, now).normalizedDeficit
+  }
+  const queuePressure = count >= cap * 0.1
+    || (flow.comparison.measured && (flow.comparison.status === 'behind' || flow.comparison.status === 'equal'))
+    || diagnosticBatch.some((item) => item.deferred_at && now - Date.parse(item.deferred_at) >= 6 * 3_600_000)
+  const maxDiagnosticPriority = diagnosticBatch.reduce((maximum, item) => Math.max(maximum, preTriagePriority(item, new Date(now))), -Infinity)
+  const routingCandidates: ProviderRoutingCandidate[] = tiers.map((tier) => {
+    const baseReason = candidateReason(tier)
+    const band = aggregateIds.has(tier.id) ? 'aggregate' as const : localFallbackIds.has(tier.id) ? 'demoted-local' as const : 'direct' as const
+    const haikuPressureEligible = tier.id !== 'anthropic-triage' || (queuePressure && maxDiagnosticPriority >= NEWS.anthropicMinPriority)
+    const reason = tier.id === 'anthropic-triage' && maxDiagnosticPriority < NEWS.anthropicMinPriority
+      ? 'minimum-priority' as const
+      : tier.id === 'anthropic-triage' && !queuePressure
+        ? 'haiku-pressure' as const
+        : baseReason
+    return {
+      id: tier.id,
+      label: tier.label,
+      order: tier.order,
+      band,
+      eligible: baseReason === 'eligible' && haikuPressureEligible,
+      eligibilityReason: reason,
+      releasedCapacityUrgency: capacityUrgency(tier),
+      consecutiveFailures: tier.consecutiveFailures,
+      isHaiku: tier.id === 'anthropic-triage',
+    }
+  })
+  const routingOptions = { repoRoot: REPO_ROOT, stateDir: STATE_DIR, archiveDir: NEWS.newsArchiveDir, requestedMode: NEWS.providerRouterMode, shadowHours: NEWS.providerRouterShadowHours, minOutcomes: NEWS.providerRouterMinOutcomes, now }
+  let routing = evaluateProviderRouting(routingOptions, routingCandidates)
+  const freeScores = routing.candidates.filter((candidate) => candidate.id !== 'anthropic-triage' && candidate.eligible && (candidate.band || 'direct') === 'direct')
+  if (!queuePressure && freeScores.every((candidate) => candidate.components.usableBatchYield < 0.6)) {
+    const candidate = routingCandidates.find((value) => value.id === 'anthropic-triage')
+    const tier = tiers.find((value) => value.id === 'anthropic-triage')
+    if (candidate && tier && candidateReason(tier) === 'eligible' && maxDiagnosticPriority >= NEWS.anthropicMinPriority) {
+      candidate.eligible = true
+      candidate.eligibilityReason = 'eligible'
+      routing = evaluateProviderRouting(routingOptions, routingCandidates)
+    }
+  }
+  const configuredEligible = [...routing.candidates].filter((candidate) => candidate.eligible).sort((left, right) => left.order - right.order)
+  const actualRank = new Map(configuredEligible.map((candidate, index) => [candidate.id, index + 1]))
+  const scoresById = new Map(routing.candidates.map((candidate) => [candidate.id, candidate]))
+  for (const tier of tiers) {
+    const score = scoresById.get(tier.id)
+    if (!score) continue
+    tier.routing = {
+      actualRank: routing.router.mode === 'adaptive' ? score.rank : actualRank.get(tier.id) ?? null,
+      shadowRank: score.rank,
+      fitnessScore: score.score,
+      components: score.components,
+      sampleSize: score.sampleSize,
+      eligible: score.eligible,
+      eligibilityReason: score.eligibilityReason,
+      explorationDue: score.explorationDue,
+      lastSelectedAt: score.lastSelectedAt,
+    }
+    if (tier.id === 'anthropic-triage' && routing.router.mode === 'adaptive') tier.label = 'Claude Haiku'
+  }
+  if (routing.router.mode === 'adaptive') {
+    const bandOrder = (tier: TierDiagnostics): number => aggregateIds.has(tier.id) ? 1 : localFallbackIds.has(tier.id) ? 2 : 0
+    tiers.sort((left, right) => bandOrder(left) - bandOrder(right)
+      || (left.routing?.eligible === true ? 0 : 1) - (right.routing?.eligible === true ? 0 : 1)
+      || (left.routing?.actualRank ?? Infinity) - (right.routing?.actualRank ?? Infinity)
+      || left.order - right.order)
   }
 
   const scoredBy = scoredByForLastCycle(last, tiers)
@@ -1408,6 +1511,7 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
     lastCycleAt: status.lastCycleAt,
     nextCycleAt: status.nextCycleAt,
     flow,
+    router: routing.router,
     tiers,
     backlog,
     today: {

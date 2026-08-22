@@ -3700,10 +3700,11 @@ await check('finite pool falls through when the selected route cannot persist it
     id, label: id, color: '--x', apiKey: 'k', baseUrl: `https://${id}.test/v1`, model: 'm',
     maxTokens: 900, rpm: 60_000, dailyReqCap: 10, budgetFile: `${id}-budget.json`, paceFloorFrac: 0,
   })
-  // Keep the regression bounded if the no-progress loop ever returns: yielding limiter sleeps let this
-  // abort fire instead of letting repeated already-resolved awaits monopolize the microtask queue.
+  // Keep the regression bounded if the no-progress loop ever returns. Leave enough room for the audited
+  // route to fsync its decision and outcome on slower CI hosts; yielding limiter sleeps still let the guard
+  // fire instead of allowing repeated already-resolved awaits to monopolize the microtask queue.
   const controller = new AbortController()
-  const abortTimer = setTimeout(() => controller.abort(), 500)
+  const abortTimer = setTimeout(() => controller.abort(), 2_000)
   let summary
   try {
     summary = await runIngestCycle({

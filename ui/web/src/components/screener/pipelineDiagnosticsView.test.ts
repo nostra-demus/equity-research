@@ -51,11 +51,11 @@ check('malformed defer cause payloads cannot crash or render one reason per stri
 })
 
 check('eligible and engine-allowance copy never claims provider health or a provider quota', () => {
-  assert.equal(tierStatusCopy(tier('x', 'X', 'healthy'), 0), 'Ready to try')
-  assert.equal(tierStatusCopy({ ...tier('x', 'X', 'healthy'), spendingAllowed: false }, 0), 'News engine is not running')
-  assert.equal(tierStatusCopy(tier('x', 'X', 'budget-spent'), 0), "This app's daily amount is used")
+  assert.equal(tierStatusCopy(tier('x', 'X', 'healthy'), 0), 'Ready')
+  assert.equal(tierStatusCopy({ ...tier('x', 'X', 'healthy'), spendingAllowed: false }, 0), 'News scanner is not running')
+  assert.equal(tierStatusCopy(tier('x', 'X', 'budget-spent'), 0), "Today's app limit is used")
   const providerDay = { ...tier('x', 'X', 'budget-spent'), providerDayExhausted: true, requestsToday: 16, reqCap: 45 }
-  assert.equal(tierStatusCopy(providerDay, 0), "Provider says today's limit is used")
+  assert.equal(tierStatusCopy(providerDay, 0), "Service says today's limit is used")
   assert.equal(providerDay.requestsToday, 16, 'provider-day state does not forge the meter to 45/45')
   assert.equal(tierStatusCopy({ ...providerDay, enabled: false, health: 'disabled' }, 0), 'Off', 'a stale marker on a disabled tier does not override its current state')
 })
@@ -63,7 +63,7 @@ check('eligible and engine-allowance copy never claims provider health or a prov
 check('retry hold names the failure class and countdown, not a cooling provider quota', () => {
   const t = { ...tier('x', 'X', 'cooling'), cooldownReason: 'rate_limit' }
   const copy = tierStatusCopy(t, 25 * 60_000)
-  assert.equal(copy, 'Waiting after a rate-limit response · try again in ~25m')
+  assert.equal(copy, 'Paused after the service asked it to wait · try again in ~25m')
   assert.doesNotMatch(copy, /cool|quota/i)
 })
 
@@ -106,7 +106,7 @@ check('a non-owner process never presents configured tiers as actionable blocker
 check('an unreadable usage record is needs-attention, never Ready or fake allowance use', () => {
   const unavailable = { ...tier('groq', 'Groq', 'unavailable'), ledgerUnavailable: true }
   const d = diagnostics([unavailable], { unavailableTiers: ['groq'], blockingTiers: ['groq'] })
-  assert.equal(tierStatusCopy(unavailable, 0), "Can't read today's usage")
+  assert.equal(tierStatusCopy(unavailable, 0), "Can't check today's use")
   assert.deepEqual(diagnosticBlockers(d), {
     retryHeld: [], providerDayLimited: [], allowanceUsed: [], needsAttention: ['Groq'], paced: [], needsCredential: [],
   })
@@ -123,10 +123,10 @@ check('a rejected credential outranks the retry countdown and names the env var 
     keyEnvVar: 'MISTRAL_API_KEY', failingForMs: 42 * 3_600_000, triageScoredBatchesToday: 0,
   }
   const copy = tierStatusCopy(dead, 43 * 60_000)
-  assert.match(copy, /^Key rejected/, 'the fault leads, not the timer')
+  assert.match(copy, /^Needs a working key/, 'the fault leads, not the timer')
   assert.match(copy, /failing for 42h/, 'the streak duration is named — the backoff window pins flat and cannot say this')
-  assert.match(copy, /0 scored today/)
-  assert.match(copy, /check MISTRAL_API_KEY/, 'the operator is told WHICH credential')
+  assert.match(copy, /0 checked today/)
+  assert.match(copy, /replace MISTRAL_API_KEY/, 'the operator is told WHICH credential')
   assert.doesNotMatch(copy, /try again in/, 'the countdown must not be the headline for a fault retrying cannot fix')
 })
 
@@ -143,20 +143,20 @@ check('the credential fault is its own blocker group, never filed under needs-at
 
 check('a timeout names the measured duration, so "is our deadline too short?" is answerable', () => {
   const at30 = { ...tier('openrouter', 'OpenRouter', 'cooling'), cooldownReason: 'timeout', lastFailureMs: 30_000 }
-  assert.equal(tierStatusCopy(at30, 50 * 60_000), 'Waiting after a request timeout at 30.0s · try again in ~50m')
+  assert.equal(tierStatusCopy(at30, 50 * 60_000), 'Paused after a request took too long at 30.0s · try again in ~50m')
   // an early refusal reads differently — a longer deadline would not have helped
   const at1 = { ...at30, lastFailureMs: 1_200 }
   assert.match(tierStatusCopy(at1, 60_000), /at 1\.2s/)
   // and with nothing measured (an older engine's marker) the line is exactly what it always was
   const unmeasured = { ...tier('openrouter', 'OpenRouter', 'cooling'), cooldownReason: 'timeout' }
-  assert.equal(tierStatusCopy(unmeasured, 5 * 60_000), 'Waiting after a request timeout · try again in ~5m')
+  assert.equal(tierStatusCopy(unmeasured, 5 * 60_000), 'Paused after a request took too long · try again in ~5m')
 })
 
 check('a single provider-access failure is unlucky, not a dead key — no premature blame', () => {
   // the flag comes from the SERVER (credentialRejected), so the view must not invent it from the reason alone
   const oneOff = { ...tier('mistral', 'Mistral', 'cooling'), cooldownReason: 'provider-access', consecutiveFailures: 1 }
   const copy = tierStatusCopy(oneOff, 5 * 60_000)
-  assert.equal(copy, 'Waiting after rejected provider access · try again in ~5m')
+  assert.equal(copy, 'Paused after a sign-in error · try again in ~5m')
   assert.deepEqual(diagnosticBlockers(diagnostics([oneOff], { blockingTiers: ['mistral'] })).needsCredential, [])
 })
 
@@ -199,7 +199,7 @@ check('pipeline rate formatting keeps a one-item-per-hour flow visible', () => {
 check('last-look copy uses unique arrivals and never relabels legacy fresh-path rows as new', () => {
   assert.equal(
     lastCycleArrivalCopy({ newArrivals: 8, fresh: 10, carryover: 24 }),
-    '8 new arrivals · 2 backlog redeliveries · 24 carried',
+    '8 new · 2 waiting from before · 24 carried over',
   )
   assert.equal(lastCycleArrivalCopy({ fresh: 10, carryover: 24 }), null, 'legacy payload omits the unprovable split')
 })
@@ -210,25 +210,25 @@ check('daily outcome copy marks every counter as a lower bound when a started lo
       read: 7, kept: 5, dropped: 2, cycles: 3, durablyCommitted: true,
       incompleteCycles: 1, totalsLowerBound: true,
     }),
-    'at least 7 durably saved · at least 5 inbox-eligible · at least 2 dropped · daily totals incomplete (1 started look has no durable completion summary)',
+    'at least 7 checked · at least 5 kept · at least 2 ignored · some totals may be missing: 1 check did not finish recording',
   )
   assert.equal(
     todayOutcomeCopy({
       read: 7, kept: 5, dropped: 2, cycles: 3, durablyCommitted: false,
       incompleteCycles: 2, totalsLowerBound: true,
     }),
-    'legacy report · 7 reported outcomes · 5 reported inbox-eligible · 2 reported dropped · daily totals incomplete (2 started looks have no durable completion summary) · feed durability unverified',
+    '7 checked · 5 kept · 2 ignored · older report; totals may be incomplete: 2 checks did not finish recording',
   )
 })
 
 check('daily outcome copy is unavailable when every started look lacks a summary or its authority is unreadable', () => {
   assert.equal(
     todayOutcomeCopy({ read: 0, kept: 0, dropped: 0, cycles: 0, incompleteCycles: 1, totalsLowerBound: true }),
-    'Daily totals unavailable — 1 started look has no durable completion summary.',
+    'Totals are not available — 1 check did not finish recording.',
   )
   assert.equal(
     todayOutcomeCopy({ read: 0, kept: 0, dropped: 0, cycles: 0, totalsLowerBound: true }, true),
-    'Daily totals unavailable — the cycle-completion safety record is unreadable.',
+    'Totals are not available — the record of finished checks cannot be read.',
   )
   assert.equal(todayOutcomeCopy({ read: 0, kept: 0, dropped: 0, cycles: 0 }), null)
 })
@@ -239,30 +239,32 @@ check('daily outcome copy names partition and corrupt-row debt instead of presen
       read: 0, kept: 0, dropped: 0, cycles: 0,
       durablyCommitted: true, totalsLowerBound: true, historyStatus: 'missing', corruptCycleRows: 0,
     }),
-    "Daily totals unavailable — today's cycle-summary partition is missing.",
+    "Totals are not available — today's saved check record is missing.",
   )
   assert.equal(
     todayOutcomeCopy({
       read: 7, kept: 5, dropped: 2, cycles: 3,
       durablyCommitted: true, totalsLowerBound: true, historyStatus: 'complete', corruptCycleRows: 1,
     }),
-    'at least 7 durably saved · at least 5 inbox-eligible · at least 2 dropped · daily totals incomplete (1 malformed cycle-summary row today)',
+    'at least 7 checked · at least 5 kept · at least 2 ignored · some totals may be missing: 1 saved check record cannot be read',
   )
 })
 
 check('flow copy names ahead, equal headroom, and falling-behind gaps in items/hour', () => {
   const ahead = pipelineFlowPresentation(flow(25, 'ahead'), FLOW_TS, FLOW_NOW)
   assert.equal(ahead.tone, 'ahead')
-  assert.equal(ahead.gapCopy, 'Ahead by 25 items/hour of scanning capacity — before any queued item reaches the age limit.')
-  assert.match(ahead.coverageCopy, /fixed 3,600-second wall-clock average/)
+  assert.equal(ahead.inflowRate, '100')
+  assert.equal(ahead.scanningRate, '125')
+  assert.equal(ahead.gapCopy, 'Yes — it checks about 25 more items each hour than arrive.')
+  assert.equal(ahead.coverageCopy, 'Based on the last 60 minutes (3 finished checks).')
 
   const equal = pipelineFlowPresentation(flow(0, 'equal'), FLOW_TS, FLOW_NOW)
   assert.equal(equal.tone, 'equal')
-  assert.equal(equal.gapCopy, 'Equal — 0 items/hour of capacity headroom before age-based retirement. Scanning must stay above inflow to reduce the backlog.')
+  assert.equal(equal.gapCopy, 'Only just — it is keeping up, but there is no spare room if more news arrives.')
 
   const behind = pipelineFlowPresentation(flow(-40, 'behind'), FLOW_TS, FLOW_NOW)
   assert.equal(behind.tone, 'behind')
-  assert.equal(behind.gapCopy, 'Falling behind by 40 items/hour — queue pressure grows at this rate before any queued item reaches the age limit.')
+  assert.equal(behind.gapCopy, 'No — about 40 more items arrive each hour than it checks.')
 })
 
 check('partial legacy flow never presents a comparison or turns unknown inflow into zero', () => {
@@ -272,15 +274,26 @@ check('partial legacy flow never presents a comparison or turns unknown inflow i
   const view = pipelineFlowPresentation(partial, FLOW_TS, FLOW_NOW)
   assert.equal(view.tone, 'unavailable')
   assert.equal(view.inflowRate, '—')
-  assert.equal(view.gapCopy, 'Like-for-like coverage is incomplete — scanning and inflow are not compared.')
-  assert.equal(view.coverageCopy, 'Coverage: 2/3 completed cycles prove unique new arrivals; 3/3 prove scanning.')
+  assert.equal(view.gapCopy, 'We can’t compare the two numbers yet.')
+  assert.equal(view.coverageCopy, 'Some recent totals are missing.')
 })
 
 check('deploy skew without a flow field is explicit, not a measured zero-rate state', () => {
   const view = pipelineFlowPresentation(undefined, FLOW_TS, FLOW_NOW)
   assert.equal(view.inflowRate, '—')
-  assert.match(view.gapCopy, /not available/)
-  assert.match(view.coverageCopy, /not compared/)
+  assert.equal(view.gapCopy, 'We can’t tell yet.')
+  assert.equal(view.coverageCopy, 'The scanner has not sent enough recent information.')
+})
+
+check('an invalid rate fails closed instead of showing NaN or pretending it is zero', () => {
+  const invalid = flow(25, 'ahead')
+  invalid.inflow.perSecond = Number.NaN
+  const view = pipelineFlowPresentation(invalid, FLOW_TS, FLOW_NOW)
+  assert.equal(view.tone, 'unavailable')
+  assert.equal(view.inflowRate, '—')
+  assert.equal(view.scanningRate, '—')
+  assert.equal(view.gapCopy, 'We can’t tell yet.')
+  assert.equal(view.coverageCopy, 'The scanner sent a number that cannot be read. Refresh to check again.')
 })
 
 check('stale diagnostics fail closed even when their last rate values were healthy', () => {
@@ -289,8 +302,8 @@ check('stale diagnostics fail closed even when their last rate values were healt
   assert.equal(view.tone, 'unavailable')
   assert.equal(view.inflowRate, '—')
   assert.equal(view.scanningRate, '—')
-  assert.match(view.gapCopy, /snapshot is stale/)
-  assert.match(view.coverageCopy, /over 60 seconds old/)
+  assert.equal(view.gapCopy, 'The numbers are out of date.')
+  assert.equal(view.coverageCopy, 'Refresh to check again.')
 })
 
 check('either the diagnostics clock or the flow clock can make a snapshot stale', () => {
@@ -314,8 +327,8 @@ check('missing required partition history hides rates and names the coverage deb
   assert.equal(view.tone, 'unavailable')
   assert.equal(view.inflowRate, '—')
   assert.equal(view.scanningRate, '—')
-  assert.equal(view.gapCopy, 'Required rate history is incomplete — capacity is not compared.')
-  assert.equal(view.coverageCopy, 'missing 2026-08-12')
+  assert.equal(view.gapCopy, 'We can’t tell yet.')
+  assert.equal(view.coverageCopy, 'Some recent records are missing')
 })
 
 check('started-without-summary and unreadable safety-marker debt are named instead of blamed on partitions', () => {
@@ -330,7 +343,7 @@ check('started-without-summary and unreadable safety-marker debt are named inste
   assert.equal(view.tone, 'unavailable')
   assert.equal(
     view.coverageCopy,
-    '2 started cycles without a durable completion summary · cycle-completion safety record unreadable',
+    '2 recent checks did not finish recording · The record of finished checks cannot be read',
   )
   assert.doesNotMatch(view.coverageCopy, /partition/i)
 })
@@ -341,7 +354,7 @@ check('deploy skew without partition coverage fails closed instead of trusting n
   const view = pipelineFlowPresentation(older, FLOW_TS, FLOW_NOW)
   assert.equal(view.tone, 'unavailable')
   assert.equal(view.inflowRate, '—')
-  assert.match(view.coverageCopy, /prove every partition/)
+  assert.equal(view.coverageCopy, 'This scanner has not sent a complete recent record.')
 })
 
 console.log(`\npipelineDiagnosticsView.test: ${passed} checks passed`)

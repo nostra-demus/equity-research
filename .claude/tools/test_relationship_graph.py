@@ -245,21 +245,32 @@ check(kin["concentration"]["intragroup_rows"] == 1,
 check(kin["concentration"].get("likely_group_rows") == 1,
       "the suspected (likely_group) row was not surfaced separately from proven intra-group rows")
 
-# ---- 15. an RTF relationship export is not silently dropped ----------------------------------------
-# `_pool_files` used to accept only .xls/.xlsx/.xlsm, so a CIQ export saved as e.g.
-# "Amazon com Inc NasdaqGS AMZN Customers.rtf" never even reached the parser and produced a clean-looking
-# but WRONG empty graph — indistinguishable from "no export was provided" (§3, §20 bad extraction). There
-# is still no RTF table reader, so the file cannot be turned into rows, but it must now be picked up and
-# must leave a stated, readable gap rather than silence.
+# ---- 15. RTF relationship exports are parsed portably, and malformed ones fail visibly ----------------
 with tempfile.TemporaryDirectory() as tmp:
     rtf_path = Path(tmp) / "Anchor Corp NyseANC Suppliers.rtf"
-    rtf_path.write_text(r"{\rtf1\ansi Anchor Corp Suppliers export, not a table.}")
+    rtf_path.write_text(r"""{\rtf1\ansi
+Recently disclosed suppliers only (within the last two years)\par
+Include Suppliers for:Current subsidiaries\par
+Suppliers\par
+Recently Disclosed Suppliers\par
+Supplier Name|Customer Name|Relationship Type|Primary Industry|Source|\par
+Widget Motors Inc. (NASDAQ:WMI)|Anchor Corp (NYSE:ANC)|Supplier|Electrical Components and Equipment|Widget Motors Inc. (NASDAQ:WMI) 2025 Form Doc|\par
+Business Description: Widget Motors makes motors.|\par
+}""")
     check(rtf_path in rg._pool_files(Path(tmp)), "an RTF file named like a relationship export was not picked up by _pool_files")
     rtf_graph = rg.build_graph(Path(tmp), "ANCHOR")
-    check(rtf_graph["sources"] == [] and rtf_graph["counterparties"] == [],
-          "an unparseable RTF export produced fabricated rows instead of an honest empty graph")
-    check(any("unsupported format" in w and "Suppliers.rtf" in w for w in rtf_graph["warnings"]),
-          f"an RTF relationship export was dropped with no explanatory warning: {rtf_graph['warnings']}")
+    check(len(rtf_graph["sources"]) == 1 and len(rtf_graph["counterparties"]) == 1,
+          f"a valid RTF relationship export did not become one source/counterparty: {rtf_graph['warnings']}")
+    check(rtf_graph["counterparties"] and rtf_graph["counterparties"][0]["listing"] == "NASDAQ:WMI",
+          "the RTF reader did not preserve the counterparty listing printed in its name")
+    check(rtf_graph["anchor"]["listing"] == "NYSE:ANC",
+          "the RTF reader did not infer the modal anchor-side identity from the exported rows")
+
+    malformed = Path(tmp) / "Broken Corp Suppliers.rtf"
+    malformed.write_text(r"{\rtf1\ansi Broken Corp Suppliers export, not a table.}")
+    malformed_graph = rg.build_graph(Path(tmp), "ANCHOR")
+    check(any("Broken Corp Suppliers.rtf" in w and "CiqParseError" in w for w in malformed_graph["warnings"]),
+          f"a malformed RTF relationship export left no explicit parse warning: {malformed_graph['warnings']}")
     # An .rtf file that does NOT look like a relationship export (by name) must stay silent, exactly like
     # the pre-existing notes.txt case in check 10 — most .rtf files in a pool are unrelated filings.
     (Path(tmp) / "10-K excerpt.rtf").write_text(r"{\rtf1\ansi some filing text.}")
@@ -273,5 +284,5 @@ if failures:
     sys.exit(1)
 print("  PASS: group/anchor classification, no invented tickers, scope carried, discloser side, "
       "financing capped, conditional mechanism, header-shift tolerance, related-party read, "
-      "brand withholding, empty-pool honesty, customers mirror, RTF export gap surfaced")
+      "brand withholding, empty-pool honesty, customers mirror, RTF export parsed/fails visibly")
 sys.exit(0)

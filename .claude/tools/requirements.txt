@@ -6,3 +6,4 @@
 xlrd>=2.0.1
 openpyxl>=3.1
 pypdf>=4.0  # [DD-16] pure-Python PDF text fallback when poppler/pdftotext is absent (no system dep)
+striprtf>=0.0.29  # portable CIQ supplier/customer RTF table extraction (Linux + macOS)
