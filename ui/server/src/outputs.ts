@@ -524,7 +524,9 @@ export interface ReviewFile {
   review_date: string
   review_price: number | null
   absolute_return_pct: number | null
+  benchmark_relative_return_pct: number | null
   thesis_status: string | null
+  decision_quality: string | null
   forecasts_confirmed: number
   forecasts_falsified: number
   // §8 memo_delta block (DECISION_LEDGER): the human-readable "what changed since the memo" tier.
@@ -589,7 +591,9 @@ function listReviewFiles(runRoot: string, authority: PublishedTreeAuthority): Re
       review_date: typeof j?.review_date === 'string' ? j.review_date : '',
       review_price: finiteNumber(j?.review_price),
       absolute_return_pct: finiteNumber(j?.absolute_return_pct),
+      benchmark_relative_return_pct: finiteNumber(j?.benchmark_relative_return_pct),
       thesis_status: typeof j?.thesis_status === 'string' && j.thesis_status ? j.thesis_status : null,
+      decision_quality: typeof j?.decision_quality === 'string' && j.decision_quality ? j.decision_quality : null,
       forecasts_confirmed: fc.confirmed,
       forecasts_falsified: fc.falsified,
       memo_delta_file: safeRunArtifact(md?.memo_delta_file, runRoot, authority.paths, 'reviews'),
@@ -618,7 +622,9 @@ interface TimelineEntry {
   review_date?: string
   review_price?: number | null
   absolute_return_pct?: number | null
+  benchmark_relative_return_pct?: number | null
   thesis_status?: string | null
+  decision_quality?: string | null
   forecasts_confirmed?: number
   forecasts_falsified?: number
   review_file?: string
@@ -647,7 +653,9 @@ function buildTimeline(schedule: Record<string, any>, reviews: ReviewFile[], tod
         review_date: win.review_date,
         review_price: win.review_price,
         absolute_return_pct: win.absolute_return_pct,
+        benchmark_relative_return_pct: win.benchmark_relative_return_pct,
         thesis_status: win.thesis_status,
+        decision_quality: win.decision_quality,
         forecasts_confirmed: win.forecasts_confirmed,
         forecasts_falsified: win.forecasts_falsified,
         review_file: win.file,
@@ -672,7 +680,9 @@ function buildTimeline(schedule: Record<string, any>, reviews: ReviewFile[], tod
       review_date: r.review_date,
       review_price: r.review_price,
       absolute_return_pct: r.absolute_return_pct,
+      benchmark_relative_return_pct: r.benchmark_relative_return_pct,
       thesis_status: r.thesis_status,
+      decision_quality: r.decision_quality,
       forecasts_confirmed: r.forecasts_confirmed,
       forecasts_falsified: r.forecasts_falsified,
       review_file: r.file,

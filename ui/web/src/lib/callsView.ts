@@ -19,10 +19,17 @@ function isTimelineEntry(value: unknown): boolean {
     && optionalString(value.review_date)
     && optionalNumber(value.review_price)
     && optionalNumber(value.absolute_return_pct)
+    && optionalNumber(value.benchmark_relative_return_pct)
     && optionalString(value.thesis_status)
+    && optionalString(value.decision_quality)
+    && optionalString(value.thesis_delta_verdict)
+    && optionalString(value.memo_delta_summary)
     && optionalString(value.review_file)
     && optionalString(value.memo_delta_file)
     && optionalString(value.stage_one_comment)
+    && optionalNumber(value.forecasts_confirmed)
+    && optionalNumber(value.forecasts_falsified)
+    && optionalNumber(value.review_count)
 }
 
 function isCallSummary(value: unknown): value is CallSummary {

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { api, isStatic } from '../lib/api'
 import { currentCalls, publishedCalls, publishedCallUpdates, publishedNeedsAttention } from '../lib/callsView'
+import { callReturnValue, callTrackingSnapshot, latestCompletedReview } from '../lib/callsTracking'
 import { decisionColor } from '../lib/format'
 import type { CallSummary, CallTimelineEntry, CallsResult, CallUpdate, NeedsAttentionRow } from '../lib/types'
 import './CallsTracker.css'
@@ -13,14 +14,6 @@ import './CallsTracker.css'
 const dash = (v: unknown) => (v === null || v === undefined || v === '' ? '—' : String(v))
 function ret(v?: number | null): string {
   return typeof v !== 'number' ? '—' : v >= 0 ? `+${v.toFixed(1)}%` : `${v.toFixed(1)}%`
-}
-function thesisColor(s?: string | null): string {
-  switch ((s || '').toLowerCase()) {
-    case 'confirmed': case 'on-track': return 'var(--accent-bright)'
-    case 'at-risk': return 'var(--accent-bright)'
-    case 'broken': return 'var(--bad)'
-    default: return 'var(--text-faint)'
-  }
 }
 function money(cur?: string | null, v?: number | null): string {
   if (v === null || v === undefined) return '—'
@@ -264,11 +257,12 @@ function CallCard({ c, historical, busy, staticMode, onUpdate, onFileDue, onOpen
   }]
   for (const t of c.timeline) {
     const reached = t.status === 'done' || t.status === 'due' || t.status === 'overdue'
-    const sub = t.status === 'done' ? ret(t.absolute_return_pct) : dash(t.due_date)
+    const callReturn = callReturnValue(c, t.absolute_return_pct)
+    const sub = t.status === 'done' ? ret(callReturn) : dash(t.due_date)
     const detail = t.status === 'done'
-      ? `Reviewed ${dash(t.review_date)} · price ${dash(t.review_price)} · ${ret(t.absolute_return_pct)} · thesis ${dash(t.thesis_status)} · forecasts ${dash(t.forecasts_confirmed)}✓/${dash(t.forecasts_falsified)}✗${t.memo_delta_file ? ' · click: memo delta' : t.review_file ? ' · click: review JSON' : ''}`
+      ? `Reviewed ${dash(t.review_date)} · price ${dash(t.review_price)} · ${ret(callReturn)} · thesis ${dash(t.thesis_status)} · forecasts ${dash(t.forecasts_confirmed)}✓/${dash(t.forecasts_falsified)}✗${t.memo_delta_file ? ' · click: memo delta' : t.review_file ? ' · click: review JSON' : ''}`
       : `${t.window} review ${t.status} — due ${dash(t.due_date)}`
-    const subTone = t.status === 'done' && typeof t.absolute_return_pct === 'number' ? (t.absolute_return_pct >= 0 ? 'pos' : 'neg') : undefined
+    const subTone = t.status === 'done' && callReturn != null ? (callReturn >= 0 ? 'pos' : 'neg') : undefined
     // a done checkpoint opens its human-readable memo delta when the review filed one; else the raw review JSON
     const onClick = t.memo_delta_file
       ? () => onOpen(t.memo_delta_file!, `${c.ticker} ${t.window} memo delta`)
@@ -277,8 +271,8 @@ function CallCard({ c, historical, busy, staticMode, onUpdate, onFileDue, onOpen
         : undefined
     nodes.push({ kind: t.status, label: t.window, sub, subTone, reached, title: detail, onClick })
   }
-  // latest filed delta artifacts (timeline is in time order; take the last done entry that carries them)
-  const lastDelta = [...c.timeline].reverse().find((t) => t.status === 'done' && (t.memo_delta_file || t.stage_one_comment))
+  // Use the actual review date: a scheduled review can be filed after a newer-due ad-hoc checkpoint.
+  const lastDelta = latestCompletedReview(c.timeline.filter((t) => t.memo_delta_file || t.stage_one_comment))
   // amber fill reaches the furthest checkpoint time has passed (done/due/overdue)
   let reachedIdx = 0
   nodes.forEach((n, i) => { if (n.reached) reachedIdx = i })
@@ -289,8 +283,8 @@ function CallCard({ c, historical, busy, staticMode, onUpdate, onFileDue, onOpen
 
   const nc = c.next_checkpoint
   const dueNow = nc && (nc.status === 'due' || nc.status === 'overdue')
-  const statusLabel = c.latest_thesis_status || 'awaiting first review'
   const forecastsTotal = c.forecasts.open + c.forecasts.confirmed + c.forecasts.falsified + c.forecasts.expired + c.forecasts.other
+  const tracking = callTrackingSnapshot(c)
 
   return (
     <div className="callcard">
@@ -317,19 +311,37 @@ function CallCard({ c, historical, busy, staticMode, onUpdate, onFileDue, onOpen
         <div className="callcard__when">{dash(c.decision_date)}<br />{dash(c.time_horizon)} horizon</div>
       </div>
 
-      <div className="callcard__meta">
-        <span>entry <b>{money(c.currency, c.entry_price)}</b>{c.implied_target != null && <> → target <b>{money(c.currency, c.implied_target)}</b></>}</span>
-        <span>expected <b className={typeof c.expected_return_pct === 'number' ? (c.expected_return_pct >= 0 ? 'pos' : 'neg') : ''}>{ret(c.expected_return_pct)}</b></span>
-        <span className="statuschip" style={{ color: thesisColor(c.latest_thesis_status) }}>
-          <span className="dot" />{statusLabel}
-        </span>
-      </div>
-      {!historical && c.latest_review_summary && (
-        <div className="callcard__latest">
-          <span>Latest review{c.latest_review_date ? ` · ${c.latest_review_date}` : ''}</span>
-          {c.latest_review_summary}
+      <div className="calltrack">
+        <p className="calltrack__original">{tracking.originalSentence}</p>
+        <div className="calltrack__grid">
+          <div className="calltrack__cell">
+            <span className="calltrack__label">{tracking.checkpoint?.label || 'Latest check'}</span>
+            <strong>{tracking.checkpoint?.price || 'Not reviewed yet'}</strong>
+            <span className={`calltrack__metric tone--${tracking.checkpoint?.returnTone || 'neutral'}`}>
+              {tracking.checkpoint?.returnLabel || 'Return at check'}: {tracking.checkpoint?.returnFromCall || 'not available yet'}
+            </span>
+            {tracking.checkpoint?.benchmarkDelta && <small>{tracking.checkpoint.benchmarkDelta}</small>}
+          </div>
+          <div className="calltrack__cell">
+            <span className="calltrack__label">Where we stand</span>
+            <strong className={`tone--${tracking.situation.tone}`}>{tracking.situation.headline}</strong>
+            <small>{tracking.situation.detail}</small>
+          </div>
+          <div className="calltrack__cell">
+            <span className="calltrack__label">Next check</span>
+            <strong className={`tone--${tracking.nextCheck?.tone || 'neutral'}`}>
+              {tracking.nextCheck?.date || 'Not scheduled'}
+            </strong>
+            <small>{tracking.nextCheck?.detail || 'No future checkpoint recorded'}</small>
+          </div>
         </div>
-      )}
+        {tracking.evidence && (
+          <div className="calltrack__evidence" title={tracking.evidence}>
+            <span>What is going right / wrong</span>
+            <p>{tracking.evidence}</p>
+          </div>
+        )}
+      </div>
 
       <div className="tl">
         <div className="tl__base" style={{ left: `${inset}%`, width: `${span}%` }} />

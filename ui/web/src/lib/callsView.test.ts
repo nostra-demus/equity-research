@@ -51,6 +51,20 @@ assert.equal(publishedCalls([{
   expected_return_pct: undefined,
   implied_target: undefined,
 }]).length, 1, 'omitted optional call numbers survive deploy skew')
+const invalidTimelineNumber = call('BAD-TIMELINE', '2026-08-12')
+invalidTimelineNumber.timeline = [{
+  window: '30d', due_date: '2026-09-11', status: 'done',
+  benchmark_relative_return_pct: Number.NaN,
+}]
+assert.equal(publishedCalls([invalidTimelineNumber]).length, 0,
+  'non-finite scorecard numbers fail closed')
+for (const field of ['forecasts_confirmed', 'forecasts_falsified', 'review_count'] as const) {
+  const invalid = call(`BAD-TIMELINE-${field}`, '2026-08-12')
+  invalid.timeline = [{
+    window: '30d', due_date: '2026-09-11', status: 'done', [field]: Number.NaN,
+  }]
+  assert.equal(publishedCalls([invalid]).length, 0, `non-finite timeline ${field} fails closed`)
+}
 
 const update: CallUpdate = {
   id: 'review:SAFE:2026-08-12', ticker: 'SAFE', company: null, at: '2026-08-12', kind: 'review',
