@@ -42,8 +42,14 @@ RC=$?
 printf '%s\n' "$OUTPUT" >> "$LOG"
 [ "$RC" -eq 0 ] || { log "CALIBRATE FAIL $REASON — core exit $RC"; exit "$RC"; }
 
-JSON_PATH="$(printf '%s\n' "$OUTPUT" | sed -n 's/^WROTE \(analyses\/performance\/.*_calibration_summary\.json\)$/\1/p' | tail -n 1)"
-MD_PATH="$(printf '%s\n' "$OUTPUT" | sed -n 's/^WROTE \(analyses\/performance\/.*_decision_performance_summary\.md\)$/\1/p' | tail -n 1)"
+JSON_PATHS="$(printf '%s\n' "$OUTPUT" | sed -n 's/^WROTE \(analyses\/performance\/.*_calibration_summary\.json\)$/\1/p')"
+MD_PATHS="$(printf '%s\n' "$OUTPUT" | sed -n 's/^WROTE \(analyses\/performance\/.*_decision_performance_summary\.md\)$/\1/p')"
+JSON_COUNT="$(printf '%s\n' "$JSON_PATHS" | awk 'NF { count += 1 } END { print count + 0 }')"
+MD_COUNT="$(printf '%s\n' "$MD_PATHS" | awk 'NF { count += 1 } END { print count + 0 }')"
+[ "$JSON_COUNT" -eq 1 ] && [ "$MD_COUNT" -eq 1 ] \
+  || { log "CALIBRATE FAIL $REASON — deterministic core returned duplicate or missing output paths"; exit 3; }
+JSON_PATH="$JSON_PATHS"
+MD_PATH="$MD_PATHS"
 case "$JSON_PATH:$MD_PATH" in
   analyses/performance/*.json:analyses/performance/*.md) ;;
   *) log "CALIBRATE FAIL $REASON — deterministic core did not return exactly scoped output paths"; exit 3 ;;

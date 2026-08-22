@@ -48,10 +48,10 @@ def main() -> int:
 from pathlib import Path
 p = Path('analyses/performance')
 p.mkdir(parents=True, exist_ok=True)
-(p / '2026-08-21_calibration_summary.json').write_text('{}\\n')
 (p / '2026-08-21_decision_performance_summary.md').write_text('# calibration\\n')
-print('WROTE analyses/performance/2026-08-21_calibration_summary.json')
+(p / '2026-08-21_calibration_summary.json').write_text('{}\\n')
 print('WROTE analyses/performance/2026-08-21_decision_performance_summary.md')
+print('WROTE analyses/performance/2026-08-21_calibration_summary.json')
 """
     result, captured = run_fixture(ok)
     expected_tail = (
@@ -68,6 +68,20 @@ print('WROTE analyses/performance/2026-08-21_decision_performance_summary.md')
     result, captured = run_fixture(hostile)
     assert result.returncode == 3, result.stderr
     assert captured is None, "unsafe output reached commit-run"
+
+    duplicate = """#!/usr/bin/env python3
+from pathlib import Path
+p = Path('analyses/performance')
+p.mkdir(parents=True, exist_ok=True)
+(p / '2026-08-21_calibration_summary.json').write_text('{}\\n')
+(p / '2026-08-21_decision_performance_summary.md').write_text('# calibration\\n')
+print('WROTE analyses/performance/2026-08-21_calibration_summary.json')
+print('WROTE analyses/performance/2026-08-21_decision_performance_summary.md')
+print('WROTE analyses/performance/2026-08-21_calibration_summary.json')
+"""
+    result, captured = run_fixture(duplicate)
+    assert result.returncode == 3, result.stderr
+    assert captured is None, "duplicate output claim reached commit-run"
 
     print("test_calibrate_local.py: PASS")
     return 0
