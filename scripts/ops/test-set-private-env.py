@@ -127,9 +127,9 @@ class PrivateEnvTest(unittest.TestCase):
         self.assertEqual(self.run_setter("matches", "1").returncode, 1)
 
     def test_provider_rollout_flags_use_the_same_private_atomic_setter(self) -> None:
-        secret = "CLAUDE_CODE_OAUTH_TOKEN=must-stay-byte-for-byte-secret"
+        unrelated = "UNRELATED_PROVIDER_SETTING=must-stay-byte-for-byte"
         self.write_env(
-            f"{secret}\n"
+            f"{unrelated}\n"
             "NEWS_OMNIROUTE_ENABLED=1\n"
             "ENGINE_CODEX_ENABLED=0\n",
         )
@@ -138,7 +138,7 @@ class PrivateEnvTest(unittest.TestCase):
         self.assertEqual(parity.returncode, 0, parity.stderr)
         self.assertEqual(parity.stdout, "updated\n")
         payload = self.env.read_text(encoding="utf-8")
-        self.assertIn(f"{secret}\n", payload)
+        self.assertIn(f"{unrelated}\n", payload)
         self.assertIn("NEWS_OMNIROUTE_ENABLED=1\n", payload)
         self.assertIn("ENGINE_PROVIDER_PARITY_ENABLED=1\n", payload)
         self.assertIn("ENGINE_CODEX_ENABLED=0\n", payload)
