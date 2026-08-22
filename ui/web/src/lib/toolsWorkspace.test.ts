@@ -68,6 +68,16 @@ const streamed = await api.reelTranscriptLive('https://www.instagram.com/reel/Te
 assert.equal(streamed.transcript, 'Spoken text.')
 assert.deepEqual(streamedProgress, ['validate-link:running', 'validate-link:complete'], 'the UI receives real server stage transitions before the result and rejects malformed detail')
 
+globalThis.fetch = (async () => new Response(JSON.stringify({ error: 'engine-offline' }), {
+  status: 503,
+  headers: { 'content-type': 'application/json' },
+})) as typeof fetch
+await assert.rejects(
+  api.reelTranscriptLive('https://www.instagram.com/reel/Test/', () => undefined),
+  /live engine connection was interrupted before transcription started/i,
+  'the edge fallback is explained to a person instead of exposing the raw engine-offline code',
+)
+
 globalThis.fetch = (async (_url: string | URL | Request, init?: RequestInit) => new Promise((_resolve, reject) => {
   const signal = init?.signal
   if (signal?.aborted) return reject(signal.reason)

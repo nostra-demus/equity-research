@@ -511,7 +511,12 @@ export const api = {
           return 'stop'
         }
       },
-      (message) => { failure = new Error(message || 'The live update was interrupted.') },
+      (message) => {
+        const readable = message === 'engine-offline'
+          ? 'The live engine connection was interrupted before transcription started. Wait a moment and try again.'
+          : message || 'The live update was interrupted.'
+        failure = new Error(readable)
+      },
       () => { if (!result && !failure) failure = new Error('The live update ended before the transcript was ready.') },
     )
     if (result) return result
