@@ -9,7 +9,7 @@ import {
   completeRescueCheck, flushPendingRescueAudit, loadRescueDay, loadRescueQueue, readRescueHealth,
   recordRescueRows as recordRescueRowsProduction,
   RESCUE_QUEUE_MAX_BYTES, RESCUE_QUEUE_MAX_ITEMS, RESCUE_QUEUE_OVERFLOW_ERROR,
-  reserveRescueCheck, rescueQueueEnabled, updateRescueHealth,
+  readRescueMode, recordRescueMode, reserveRescueCheck, rescueQueueEnabled, updateRescueHealth,
 } from '../src/news/rescue/store'
 import { invalidateSymbolCache } from '../src/news/symbology'
 import type { FeedItem } from '../src/news/types'
@@ -225,23 +225,33 @@ function responseForUrl(url: string): any {
     invalidateSymbolCache()
     assert.equal(recordRescueRows(root, [row(1)], START), true)
     const offAt = START + 60 * 60_000
+    const queuePath = path.join(root, 'news-rescue', 'queue.json')
+    const queueBeforeOff = fs.readFileSync(queuePath)
+    assert.equal(recordRescueMode(root, 'off', offAt), true)
     const disabled = await runRescueShadowPass({
       stateDir: root, config: { ...baseConfig, mode: 'off' }, coreReady: true, now: () => offAt,
     })
     assert.equal(disabled.status, 'disabled')
-    assert.equal(loadRescueQueue(root).maintenance_mode, 'off')
+    assert.equal(readRescueMode(root).mode, 'off')
+    assert.deepEqual(fs.readFileSync(queuePath), queueBeforeOff,
+      'an off-mode Ideas tick writes no candidate queue bytes')
 
     let calls = 0
     const reenabledAt = offAt + 60 * 60_000
+    const checkpoint = { '2026-08-22': 123, '2026-08-21': 0, '2026-08-20': 0 }
+    assert.equal(recordRescueRowsProduction(root, [], reenabledAt, 36, {
+      before: checkpoint, after: checkpoint,
+    }), true)
     const reenabled = await runRescueShadowPass({
       stateDir: root, config: baseConfig, coreReady: true,
       fetchImpl: (async (url: string) => { calls++; return responseForUrl(url) }) as any,
+      feedCheckpoint: { available: true, checkpoint },
       now: () => reenabledAt,
     })
     const queue = loadRescueQueue(root)
     assert.equal(reenabled.status, 'warming')
     assert.equal(reenabled.candidatesFound, null)
-    assert.equal(queue.maintenance_mode, 'shadow')
+    assert.equal(readRescueMode(root).mode, 'shadow')
     assert.equal(queue.coverage_started_at, new Date(reenabledAt).toISOString(),
       'off -> shadow starts a new omission window instead of reusing the old mature clock')
     assert.equal(calls, 0, 're-enable cannot perform a directory check before the new window matures')
@@ -271,16 +281,41 @@ function responseForUrl(url: string): any {
       fetchImpl: (async (url: string) => { calls++; return responseForUrl(url) }) as any,
       now: () => failedAt,
     })
-    assert.equal(blocked.status, 'warming')
+    assert.equal(blocked.status, 'audit_unavailable')
     assert.equal(blocked.candidatesFound, null)
-    assert.equal(loadRescueQueue(root).coverage_started_at, new Date(failedAt).toISOString(),
-      'repair starts a new full window because the unstaged feed batch cannot be reconstructed')
     assert.equal(calls, 0,
       'the in-memory failure witness blocks same-cycle directory admission when both durable witnesses failed')
   } finally {
     ;(fs as any).renameSync = rename
     fs.rmSync(root, { recursive: true, force: true })
   }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-restart-checkpoint-gap-'))
+  try {
+    invalidateSymbolCache()
+    const saved = { '2026-08-22': 100, '2026-08-21': 0, '2026-08-20': 0 }
+    assert.equal(recordRescueRowsProduction(root, [row(1)], START, 36, { before: saved, after: saved }), true)
+    let calls = 0
+    const afterMissedFeedAppend = { ...saved, '2026-08-22': 250 }
+    const restarted = await runRescueShadowPass({
+      stateDir: root, config: baseConfig, coreReady: true,
+      fetchImpl: (async (url: string) => { calls++; return responseForUrl(url) }) as any,
+      feedCheckpoint: { available: true, checkpoint: afterMissedFeedAppend },
+      now: () => START,
+    })
+    assert.equal(restarted.status, 'warming')
+    assert.equal(restarted.candidatesFound, null)
+    assert.equal(calls, 0,
+      'a durable firehose/queue checkpoint mismatch survives process restart and blocks directory admission')
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
+  const runCycleSource = fs.readFileSync(new URL('../src/news/runCycle.ts', import.meta.url), 'utf8')
+  assert.ok(runCycleSource.indexOf("recordRescueMode(stateDir, 'off'") < runCycleSource.indexOf('appendFeedItems('),
+    'off mode is recorded at the ingest boundary before any durable feed append can omit queue maintenance')
 }
 
 {
@@ -525,6 +560,22 @@ function responseForUrl(url: string): any {
     const auditPath = path.join(root, 'news-rescue', 'ledger', '2026-08.ndjson')
     assert.equal(fs.readFileSync(auditPath, 'utf8').trim().split('\n').length, 1,
       'crash repair checks the saved byte offset and does not duplicate the audit row')
+
+    const completeAudit = fs.readFileSync(auditPath)
+    const tornDay = JSON.parse(fs.readFileSync(dayPath, 'utf8'))
+    tornDay.checks[0].audit_pending = true
+    fs.writeFileSync(dayPath, `${JSON.stringify(tornDay)}\n`)
+    fs.writeFileSync(auditPath, completeAudit.subarray(0, Math.max(1, Math.floor(completeAudit.length / 2))))
+    assert.equal(updateRescueHealth(root, {
+      audit_healthy: false,
+      audit_error: 'The detailed second-look result could not be saved. Further checks are stopped.',
+    }, START), true)
+    const tornRepaired = await runRescueShadowPass({
+      stateDir: root, config: baseConfig, coreReady: true, now: () => START,
+    })
+    assert.equal(tornRepaired.status, 'ready')
+    assert.deepEqual(fs.readFileSync(auditPath), completeAudit,
+      'a no-newline torn suffix is truncated to its durable offset and the exact pending row is re-appended')
   } finally { fs.rmSync(root, { recursive: true, force: true }) }
 }
 

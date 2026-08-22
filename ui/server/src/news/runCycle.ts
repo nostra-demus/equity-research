@@ -53,7 +53,9 @@ import { makeThemeNamer } from './themes/llm'
 import type { ThemeItemView } from './themes/types'
 import type { CycleSummary, FeedItem, NewsItem, RawArticle, TriagedItem } from './types'
 import { withInitialRescueDecision } from './rescue/selector'
-import { recordRescueRows, rescueQueueEnabled } from './rescue/store'
+import {
+  captureRescueFeedCheckpoint, recordRescueMode, recordRescueRows, rescueQueueEnabled,
+} from './rescue/store'
 import { updateSemanticIndex } from '../retrieval/semantic'
 import fs from 'node:fs'
 
@@ -890,6 +892,12 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const persistCycleSummary = deps.appendFirehoseSummaryFn || appendFirehoseSummary
   const ts = now().toISOString().replace(/\.\d{3}Z$/, 'Z')
   const date = ts.slice(0, 10)
+  const cycleStartedAt = Date.parse(ts)
+  const rescueCheckpointBefore = captureRescueFeedCheckpoint(repoRoot, cycleStartedAt, cfg.rescueMaxAgeHrs)
+  let rescueQueueRowsForCycle: FeedItem[] = []
+  if (!rescueQueueEnabled(cfg.rescueMode) && !recordRescueMode(stateDir, 'off', cycleStartedAt)) {
+    log('second look disabled, but its small off-mode marker could not be saved')
+  }
   const routingCycleId = deterministicCycleId(ts)
   const routingOptions = (): ProviderRoutingOptions => ({
     repoRoot,
@@ -962,6 +970,19 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     summary.feed_commit_version = 1
     const summaryDurable = persistCycleSummary(repoRoot, date, summary)
     if (summaryDurable) completePipelineFlowCycle(stateDir, ts)
+    if (rescueQueueEnabled(cfg.rescueMode)) {
+      const checkpointAt = Date.parse(summary.completed_at || summary.ts)
+      const checkpointAfter = captureRescueFeedCheckpoint(repoRoot, checkpointAt, cfg.rescueMaxAgeHrs)
+      if (!rescueCheckpointBefore.available || !checkpointAfter.available
+        || !recordRescueRows(
+          stateDir, rescueQueueRowsForCycle, checkpointAt, cfg.rescueMaxAgeHrs,
+          rescueCheckpointBefore.available && checkpointAfter.available
+            ? { before: rescueCheckpointBefore.checkpoint, after: checkpointAfter.checkpoint }
+            : undefined,
+        )) {
+        log('second look shadow paused — its saved candidate queue or feed checkpoint could not be updated')
+      }
+    }
     newsBus.emit({ type: 'news-cycle', summary })
   }
   if (!hasScoringProvider && !hasDrainablePending) {
@@ -2447,13 +2468,9 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const persistedRows = feedCandidates.slice(0, feedAppend.written)
   const feedUnwrittenRows = feedCandidates.slice(feedAppend.written)
   const feedUnwritten = feedAppend.unwritten
-  // A bounded rolling queue lets the post-Ideas shadow pass rank only durably-persisted rows without
-  // re-reading up to 160 MB of firehose files every 15 minutes. Failure closes the second-look lane but
-  // never holds the core feed hostage; diagnostics name the audit fault and no identity checks run.
-  if (rescueQueueEnabled(NEWS.rescueMode) && persistedFeedItems.length
-    && !recordRescueRows(stateDir, persistedFeedItems, now().getTime(), NEWS.rescueMaxAgeHrs)) {
-    log('second look shadow paused — its saved candidate queue could not be updated')
-  }
+  // publishCycleSummary runs after the firehose summary append. Carry these rows there so one queue write
+  // can atomically bind them to the exact before/after firehose-size checkpoint. Off mode never copies them.
+  rescueQueueRowsForCycle = persistedFeedItems
   const feedWriteFailed = feedAppend.status === 'io_failure' || feedPreflightFailed
   const preflightCapKind = feedCapacity.status === 'available'
     ? feedCapacity.remainingBytes <= 0 || byteGuaranteedSlots < unscoredItems.length

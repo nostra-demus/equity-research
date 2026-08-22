@@ -78,6 +78,8 @@ check('unreadable second-look ledgers are shown as unavailable, never as zero ac
   assert.match(panel, /diag\.rescue\.candidatesFound == null/)
   assert.match(panel, /Second-look counts are unavailable because the saved second-look record could not be read/)
   assert.match(panel, /Second-look counts will appear after the first complete history window is built/)
+  assert.match(panel, /Second-look checks and counts are turned off/,
+    'an explicit kill switch is not mislabeled as a storage failure')
 })
 
 check('pool-cap misses do not hide candidates that still have a paced slot later today', () => {

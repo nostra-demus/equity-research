@@ -10,10 +10,10 @@ import {
 import { RESCUE_SELECTOR_VERSION, selectRescueCandidates, type RescueCandidate } from './selector'
 import {
   completeRescueCheck, loadRecentRescueChecks, loadRescueDay, loadRescueQueue, noteDirectoryResult,
-  readRescueHealth, reconcileRescueDayLedgers, recordRescueRows, repairRescueReservationAuthority,
+  readRescueHealth, readRescueMode, reconcileRescueDayLedgers, repairRescueReservationAuthority,
   RESCUE_RESERVATION_WRITE_ERROR, rescueAuditCanAccept, rescueCheckMatchesCandidate,
-  rescueRuntimeQueueFailureAt, reserveRescueCheck, updateRescueHealth,
-  type RescueCheckRecord, type RescueIdentityStatus,
+  rescueFeedCheckpointMatches, reserveRescueCheck, updateRescueHealth,
+  type RescueCheckRecord, type RescueFeedCheckpointSnapshot, type RescueIdentityStatus,
 } from './store'
 
 export interface RescueShadowConfig {
@@ -162,8 +162,10 @@ function diagnosticsFromState(
   blockedEventIds: ReadonlySet<string>,
   humanActionsReady: boolean,
   normalIdeasReady: boolean,
+  feedCheckpoint?: RescueFeedCheckpointSnapshot,
 ): RescueDiagnostics {
   const health = readRescueHealth(stateDir)
+  const modeState = readRescueMode(stateDir)
   const queue = loadRescueQueue(stateDir)
   const date = utcDate(now)
   const day = loadRescueDay(stateDir, date)
@@ -204,14 +206,23 @@ function diagnosticsFromState(
   const coverageStartedAt = Date.parse(queue.coverage_started_at || '')
   const coverageReady = Number.isFinite(coverageStartedAt)
     && now - coverageStartedAt >= Math.max(1, config.maxAgeHrs) * 3_600_000 + 5 * 60_000
-  const metricsAvailable = queue.available && queue.committed && coverageReady && day.available && history.available
+  const checkpointReadable = feedCheckpoint?.available !== false
+  const checkpointContinuous = !feedCheckpoint
+    || (feedCheckpoint.available && rescueFeedCheckpointMatches(queue.feed_checkpoint, feedCheckpoint.checkpoint))
+  const modeReady = modeState.available && modeState.mode === 'shadow'
+  const metricsAvailable = queue.available && queue.committed && modeReady && checkpointContinuous
+    && coverageReady && day.available && history.available
   const rescueStateHealthy = health.audit_healthy && queue.available && queue.committed
-    && day.available && history.available
+    && modeState.available && checkpointReadable && day.available && history.available
   const auditHealthy = rescueStateHealthy && humanActionsReady
   const ideasReady = normalIdeasReady && health.normal_ideas_ready
   let status: RescueDiagnostics['status'] = 'ready'
   let reason = 'The second look is running in shadow mode. It checks company identity but reads no articles and creates no ideas.'
   if (config.mode === 'off') { status = 'disabled'; reason = 'The second look is turned off.' }
+  else if (!modeState.available || !checkpointReadable) {
+    status = 'audit_unavailable'
+    reason = 'The second look cannot prove its saved coverage state, so no stock-listing checks will run.'
+  }
   else if (!queue.available || !queue.committed) {
     status = 'audit_unavailable'
     reason = queue.incomplete_since
@@ -222,6 +233,10 @@ function diagnosticsFromState(
   else if (!humanActionsReady) {
     status = 'audit_unavailable'
     reason = 'Saved dismissals and manual blocks cannot be read safely, so the second look is paused until that record is repaired.'
+  }
+  else if (!modeReady || !checkpointContinuous) {
+    status = 'warming'
+    reason = `The second look found a gap in its saved news coverage. It is rebuilding a complete ${Math.max(1, config.maxAgeHrs)}-hour history before any company checks run.`
   }
   else if (!ideasReady) {
     status = 'paused_core_work'
@@ -270,8 +285,11 @@ export function getRescueDiagnostics(
   blockedEventIds: ReadonlySet<string> = new Set(),
   humanActionsReady = true,
   normalIdeasReady = true,
+  feedCheckpoint?: RescueFeedCheckpointSnapshot,
 ): RescueDiagnostics {
-  return diagnosticsFromState(stateDir, config, now, coreReady, blockedEventIds, humanActionsReady, normalIdeasReady)
+  return diagnosticsFromState(
+    stateDir, config, now, coreReady, blockedEventIds, humanActionsReady, normalIdeasReady, feedCheckpoint,
+  )
 }
 
 export async function runRescueShadowPass(deps: {
@@ -284,6 +302,7 @@ export async function runRescueShadowPass(deps: {
   blockedEventIds?: ReadonlySet<string>
   humanActionsReady?: boolean
   normalIdeasReady?: boolean
+  feedCheckpoint?: RescueFeedCheckpointSnapshot
 }): Promise<RescueShadowResult> {
   const now = deps.now?.() ?? Date.now()
   const log = deps.log || (() => {})
@@ -291,39 +310,13 @@ export async function runRescueShadowPass(deps: {
   const humanActionsReady = deps.humanActionsReady !== false
   const normalIdeasReady = deps.normalIdeasReady !== false
 
-  // The kill switch deliberately stops candidate maintenance. Persist only the transition marker and
-  // restart the coverage clock, so turning shadow back on cannot inherit a mature clock across missing
-  // feed rows. No lookup, reservation, article read, or Ideas work can happen on this path.
+  // Off mode is a hard no-work path. Its tiny durable transition marker is written at the ingest boundary,
+  // before any feed omission can occur; an Ideas tick must not rewrite a potentially 256 MiB queue.
   if (deps.config.mode === 'off') {
-    recordRescueRows(deps.stateDir, [], now, deps.config.maxAgeHrs, 'off')
     return {
       ...diagnosticsFromState(
-        deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady, normalIdeasReady,
-      ),
-      checkedThisCycle: 0,
-    }
-  }
-
-  const queueBeforeAdmission = loadRescueQueue(deps.stateDir)
-  const runtimeQueueFailure = rescueRuntimeQueueFailureAt(deps.stateDir)
-  if (runtimeQueueFailure != null && !queueBeforeAdmission.durable_committed) {
-    // A durable pending batch or overflow marker already owns recovery. Keep it visibly unavailable in
-    // this pass; the next ordinary queue write will merge or retire that exact authority.
-    return {
-      ...diagnosticsFromState(
-        deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady, normalIdeasReady,
-      ),
-      checkedThisCycle: 0,
-    }
-  }
-  if (runtimeQueueFailure != null || queueBeforeAdmission.maintenance_mode !== 'shadow') {
-    // A same-process failure is the only authority available when both the pending-batch and health writes
-    // failed. Repair by starting a new full omission window, but never admit a lookup in that same pass.
-    // The same reset handles first deployment and every durable off -> shadow transition.
-    recordRescueRows(deps.stateDir, [], now, deps.config.maxAgeHrs, 'shadow')
-    return {
-      ...diagnosticsFromState(
-        deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady, normalIdeasReady,
+        deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady,
+        normalIdeasReady, deps.feedCheckpoint,
       ),
       checkedThisCycle: 0,
     }
@@ -361,7 +354,8 @@ export async function runRescueShadowPass(deps: {
   const directoryHealthSaved = deps.config.mode !== 'shadow' || !repairHistory?.available
     || updateRescueHealth(deps.stateDir, directoryHealthPatch(repairHistory.checks, now), now)
   let diagnostic = diagnosticsFromState(
-    deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady, normalIdeasReady,
+    deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady,
+    normalIdeasReady, deps.feedCheckpoint,
   )
   if (!directoryHealthSaved) return {
     ...diagnostic,
@@ -377,7 +371,8 @@ export async function runRescueShadowPass(deps: {
       audit_error: 'The detailed second-look record is full or could not be saved.',
     }, now)
     diagnostic = diagnosticsFromState(
-      deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady, normalIdeasReady,
+      deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady,
+      normalIdeasReady, deps.feedCheckpoint,
     )
     return { ...diagnostic, checkedThisCycle: 0 }
   }
@@ -387,7 +382,8 @@ export async function runRescueShadowPass(deps: {
   const history = recentChecks(deps.stateDir, now)
   if (!queue.available || !day.available || !history.available) return {
     ...diagnosticsFromState(
-      deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady, normalIdeasReady,
+      deps.stateDir, deps.config, now, deps.coreReady, blockedEventIds, humanActionsReady,
+      normalIdeasReady, deps.feedCheckpoint,
     ), checkedThisCycle: 0,
   }
   const selection = selectRescueCandidates(queue.items, now, deps.config.maxAgeHrs, blockedEventIds)
@@ -453,7 +449,7 @@ export async function runRescueShadowPass(deps: {
       const failedAt = deps.now?.() ?? Date.now()
       diagnostic = diagnosticsFromState(
         deps.stateDir, deps.config, utcDate(failedAt) === date ? failedAt : now, deps.coreReady,
-        blockedEventIds, humanActionsReady, normalIdeasReady,
+        blockedEventIds, humanActionsReady, normalIdeasReady, deps.feedCheckpoint,
       )
       return {
         ...diagnostic,
@@ -468,7 +464,7 @@ export async function runRescueShadowPass(deps: {
   const finalNow = deps.now?.() ?? Date.now()
   diagnostic = diagnosticsFromState(
     deps.stateDir, deps.config, utcDate(finalNow) === date ? finalNow : now, deps.coreReady,
-    blockedEventIds, humanActionsReady, normalIdeasReady,
+    blockedEventIds, humanActionsReady, normalIdeasReady, deps.feedCheckpoint,
   )
   return { ...diagnostic, checkedThisCycle }
 }

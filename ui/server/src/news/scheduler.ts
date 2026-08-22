@@ -29,7 +29,7 @@ import { omniRouteDisabledReason } from './omniroute-provision-status'
 import { credentialRejected, evaluateProviderRouting, type ProviderRouterMetadata, type ProviderRoutingCandidate } from './provider-routing'
 import { getRescueDiagnostics, runRescueShadowPass, type RescueDiagnostics, type RescueShadowConfig } from './rescue/shadow'
 import { runNormalIdeasThenSecondLook } from './rescue/order'
-import { noteNormalIdeasReadiness } from './rescue/store'
+import { captureRescueFeedCheckpoint, noteNormalIdeasReadiness } from './rescue/store'
 import { readInboxHumanActions } from './inbox-actions'
 import type { CycleSummary, DeferReason, LastResortState } from './types'
 
@@ -172,6 +172,7 @@ export async function runConfiguredRescueShadow(
     coreReady: rescueCoreReady(status),
     humanActionsReady: humanBlocks.complete,
     normalIdeasReady: normalIdeasReady && ideasReadinessRecorded,
+    feedCheckpoint: captureRescueFeedCheckpoint(REPO_ROOT, Date.now(), RESCUE_SHADOW_CONFIG.maxAgeHrs),
     blockedEventIds: humanBlocks.ids,
     log,
   })
@@ -1604,6 +1605,8 @@ export function getNewsDiagnostics(options: { omniRouteHomeDir?: string } = {}):
         rescueCoreReady(status),
         humanBlocks.ids,
         humanBlocks.complete,
+        true,
+        captureRescueFeedCheckpoint(REPO_ROOT, now, RESCUE_SHADOW_CONFIG.maxAgeHrs),
       )
     })(),
     backlog,
