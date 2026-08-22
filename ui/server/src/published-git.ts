@@ -14,9 +14,9 @@ const MAX_TREE_ENTRY_CACHES = 8
 const commitCache = new Map<string, { commit: string; expiresAt: number }>()
 const commitInflight = new Map<string, Promise<string>>()
 
-const authorityError = (cause?: unknown): Error & { code: string; cause?: unknown } => Object.assign(
+const authorityError = (cause?: unknown): Error & { code: string; statusCode: number; cause?: unknown } => Object.assign(
   new Error('shared Calls history cannot be read safely'),
-  { code: 'CALLS_AUTHORITY_UNAVAILABLE', ...(cause === undefined ? {} : { cause }) },
+  { code: 'CALLS_AUTHORITY_UNAVAILABLE', statusCode: 503, ...(cause === undefined ? {} : { cause }) },
 )
 
 function catFileBatch(repoRoot: string, oids: string[], maxBuffer: number): Promise<Buffer> {
@@ -142,7 +142,7 @@ async function publishedTreeEntries(
         if (!match) continue // ignore trees, symlinks and gitlinks defensively
         const repoPath = match[4]
         if (!repoPath.startsWith(prefix) || !safeTreePath(repoPath)) {
-          throw new Error('shared research tree returned an unsafe path')
+          continue // unrelated unsafe names are never admitted into the Calls projection
         }
         const size = Number(match[3])
         if (!Number.isSafeInteger(size) || size < 0) throw new Error('shared research blob has an invalid size')

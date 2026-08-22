@@ -577,9 +577,9 @@ function newestDashboard(publishedPaths: ReadonlySet<string>): string | null {
   return mds.length ? `${prefix}${mds[mds.length - 1]}` : null
 }
 
-const callsAuthorityUnavailable = (cause?: unknown): Error & { code: string; cause?: unknown } => Object.assign(
+const callsAuthorityUnavailable = (cause?: unknown): Error & { code: string; statusCode: number; cause?: unknown } => Object.assign(
   new Error('shared Calls history cannot be read safely'),
-  { code: 'CALLS_AUTHORITY_UNAVAILABLE', ...(cause === undefined ? {} : { cause }) },
+  { code: 'CALLS_AUTHORITY_UNAVAILABLE', statusCode: 503, ...(cause === undefined ? {} : { cause }) },
 )
 
 function requiredPublishedJsonObject(authority: PublishedTreeAuthority, repoPath: string): Record<string, any> {

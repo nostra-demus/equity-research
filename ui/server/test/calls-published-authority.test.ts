@@ -57,6 +57,7 @@ write('analyses/HALF_2026-08-12/decision_record.json', JSON.stringify({
   ticker: 'HALF', decision_date: '2026-08-12', decision: 'Strong Buy',
 }) + '\n')
 write('analyses/tracking/2026-08-13_calls_tracker.md', '# Calls tracker\n')
+write('analyses/manual copy (1).md', '# unrelated unsafe filename\n')
 
 execFileSync('git', ['-C', repo, 'add', '--', 'analyses'])
 execFileSync('git', ['-C', repo, 'commit', '-q', '-m', 'published Calls authority'])
@@ -85,7 +86,7 @@ write('analyses/LOCAL_2026-08-14/final_thesis.md', '# private\n')
 
 const dirty = await listAllCalls()
 assert.deepEqual(dirty.calls.map((call: any) => call.run_root), [newerRoot, olderRoot],
-  'only complete calls in published Git are enumerated')
+  'only complete calls in published Git are enumerated; unrelated unsafe names are skipped')
 assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)?.decision, 'Watchlist',
   'the decision comes from published Git, not dirty disk')
 assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)?.integrity_status, 'verified',
@@ -134,7 +135,7 @@ assert.equal((await readPublishedCallsMarkdown(`${olderRoot}/final_thesis.md`)).
 const previousRef = process.env.ENGINE_PUBLISHED_GIT_REF
 process.env.ENGINE_PUBLISHED_GIT_REF = 'refs/heads/does-not-exist'
 await assert.rejects(() => publishedTreePaths('analyses'),
-  (error: any) => error?.code === 'CALLS_AUTHORITY_UNAVAILABLE',
+  (error: any) => error?.code === 'CALLS_AUTHORITY_UNAVAILABLE' && error?.statusCode === 503,
   'an invalid shared ref is an explicit authority failure, never an empty history')
 process.env.ENGINE_PUBLISHED_GIT_REF = previousRef
 
