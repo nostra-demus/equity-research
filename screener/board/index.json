@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T22:01:18Z",
+  "generated_at": "2026-08-22T22:06:13Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-2434",
@@ -548,6 +548,55 @@
           "name": "TikTok",
           "ticker": null,
           "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-2459",
+      "headline": "Tesla leads China’s 4 mn vehicle recall",
+      "headline_en": null,
+      "url": "https://www.qatar-tribune.com/article/249971/business/tesla-leads-chinas-4-mn-vehicle-recall",
+      "source_name": "Qatar Tribune — Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T21:00:00Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Tesla is recalling 4 million vehicles in China due to regulatory concerns.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Tesla is recalling 4 million vehicles in China due to regulatory concerns.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "mega"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tesla",
+          "ticker": "TSLA",
+          "listing_country": "US"
         }
       ],
       "size_bucket": "mega",
@@ -1886,60 +1935,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-557",
-      "headline": "Nvidia invests in data center developer Cloverleaf Infrastructure",
-      "headline_en": null,
-      "url": "https://www.reuters.com/technology/nvidia-invests-data-center-developer-cloverleaf-infrastructure-2026-08-21/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T14:44:28Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Nvidia invests in Cloverleaf Infrastructure, a significant capital investment that could affect Nvidia’s capital structure and future revenue",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Nvidia invests in Cloverleaf Infrastructure, a significant capital investment that could affect Nvidia’s capital structure and future revenue",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "capital_actions",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Nvidia",
-          "ticker": "NVDA",
-          "listing_country": "US"
-        },
-        {
-          "name": "Cloverleaf Infrastructure",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -79449,9 +79444,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 300032,
-    "news_picked_today": 4898,
-    "news_dropped_today": 10980
+    "news_seen_today": 300063,
+    "news_picked_today": 4907,
+    "news_dropped_today": 11002
   },
   "book_momentum": {
     "live_count": 8,
