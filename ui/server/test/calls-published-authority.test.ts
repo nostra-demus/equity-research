@@ -58,6 +58,11 @@ write(`${olderRoot}/reviews/${reviewName}`, JSON.stringify({
     memo_delta_file: `${olderRoot}/reviews/${memoName}`,
   },
 }, null, 2) + '\n')
+const publishedReview = JSON.parse(fs.readFileSync(path.join(repo, `${olderRoot}/reviews/${reviewName}`), 'utf8'))
+const reviewV2Name = '2026-08-13_30d_decision_review_v2.json'
+const reviewV10Name = '2026-08-13_30d_decision_review_v10.json'
+write(`${olderRoot}/reviews/${reviewV2Name}`, JSON.stringify({ ...publishedReview, review_price: 109 }, null, 2) + '\n')
+write(`${olderRoot}/reviews/${reviewV10Name}`, JSON.stringify(publishedReview, null, 2) + '\n')
 write(`${olderRoot}/reviews/2026-08-13_30d_decision_review_backup.json`, '{}\n')
 
 // A decision record by itself is not a completed, publishable call.
@@ -114,7 +119,7 @@ const integrityAuthority = await publishedTreeAuthority('analyses', repo, publis
 await integrityAuthority.loadRequired([`${olderRoot}/final_thesis.md`, `${olderRoot}/verification_report_v2.json`])
 assert.equal(publishedIntegrityStatus(olderRoot, integrityAuthority).integrity_score,
   null, 'an overflowing JSON number never propagates as an infinite integrity score')
-assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)?.review_count, 1,
+assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)?.review_count, 3,
   'a locally absent published review remains completed')
 assert.equal(dirty.calls.find((call: any) => call.run_root === olderRoot)
   ?.timeline.find((row: any) => row.window === '30d')?.status, 'done')
@@ -124,7 +129,7 @@ assert.deepEqual(
     window: '30d', due_date: '2026-08-13', status: 'done', review_date: '2026-08-13',
     review_price: 110, absolute_return_pct: 10, benchmark_relative_return_pct: 6.5,
     thesis_status: 'confirmed', decision_quality: 'skill', forecasts_confirmed: 1,
-    forecasts_falsified: 0, review_file: `${olderRoot}/reviews/${reviewName}`, review_count: 1,
+    forecasts_falsified: 0, review_file: `${olderRoot}/reviews/${reviewV10Name}`, review_count: 3,
     memo_delta_file: `${olderRoot}/reviews/${memoName}`,
     memo_delta_summary: 'The operating evidence improved.', thesis_delta_verdict: 'strengthened',
     action_now: { label: 'Hold', reason: 'The thesis remains supported.', recorded: true },

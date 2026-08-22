@@ -664,12 +664,31 @@ function listReviewFiles(runRoot: string, authority: PublishedTreeAuthority): Re
   return out
 }
 
-// deterministic winner among reviews: latest review_date, tie-break lexically-newest basename.
+function reviewFileVersion(file: ReviewFile): number {
+  const match = /_v(\d+)\.json$/i.exec(file.basename)
+  return match ? Number(match[1]) : 1
+}
+
+// Deterministic standing winner: latest review date, then highest numeric append-only correction.
 function pickWinner(files: ReviewFile[]): ReviewFile | null {
   if (!files.length) return null
-  return [...files].sort((a, b) =>
-    a.review_date < b.review_date ? 1 : a.review_date > b.review_date ? -1 : a.basename < b.basename ? 1 : -1,
-  )[0]
+  return [...files].sort((a, b) => {
+    if (a.review_date !== b.review_date) return a.review_date < b.review_date ? 1 : -1
+    const av = reviewFileVersion(a)
+    const bv = reviewFileVersion(b)
+    if (av !== bv) return bv - av
+    return b.basename.localeCompare(a.basename)
+  })[0]
+}
+
+function standingReviewFiles(files: ReviewFile[]): ReviewFile[] {
+  const byCheckpoint = new Map<string, ReviewFile>()
+  for (const file of files) {
+    const key = `${file.review_date.trim().toLowerCase()}|${file.review_window.trim().toLowerCase()}`
+    const winner = pickWinner(byCheckpoint.has(key) ? [byCheckpoint.get(key)!, file] : [file])
+    if (winner) byCheckpoint.set(key, winner)
+  }
+  return [...byCheckpoint.values()]
 }
 
 interface TimelineEntry {
@@ -982,7 +1001,7 @@ export function buildCallUpdates(rows: CallUpdateInput[]): CallUpdate[] {
         })
       }
 
-      for (const review of row.reviews) {
+      for (const review of standingReviewFiles(row.reviews)) {
         const display = reviewHeadline(ticker, review.thesis_delta_verdict || review.thesis_status)
         updates.push({
           id: updateId('review', review.file), ticker, company: call.company ?? null,

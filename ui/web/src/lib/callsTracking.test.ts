@@ -79,8 +79,8 @@ shortCall.basket = 'Short'
 shortCall.timeline[0].absolute_return_pct = -12.34
 shortCall.timeline[0].benchmark_relative_return_pct = -10.25
 assert.deepEqual(callTrackingSnapshot(shortCall).checkpoint, {
-  label: '30-day check · 9 Aug 2026', price: 'AED 11.5', returnLabel: 'Delta from call', returnFromCall: '−12.3%',
-  returnTone: 'neutral', benchmarkDelta: '10.3pp behind benchmark', sincePrevious: 'First review — no previous-review delta yet',
+  label: '30-day check · 9 Aug 2026', price: 'AED 11.5', returnLabel: 'Delta from call', returnFromCall: '+12.3%',
+  returnTone: 'neutral', benchmarkDelta: '10.3pp ahead of benchmark', sincePrevious: 'First review — no previous-review delta yet',
 })
 
 const rejectedCall = baseCall()
@@ -89,8 +89,8 @@ rejectedCall.basket = 'Rejected'
 rejectedCall.timeline[0].absolute_return_pct = -8.4
 rejectedCall.timeline[0].benchmark_relative_return_pct = -4.2
 assert.deepEqual(callTrackingSnapshot(rejectedCall).checkpoint, {
-  label: '30-day check · 9 Aug 2026', price: 'AED 11.5', returnLabel: 'Delta from call', returnFromCall: '−8.4%',
-  returnTone: 'neutral', benchmarkDelta: '4.2pp behind benchmark', sincePrevious: 'First review — no previous-review delta yet',
+  label: '30-day check · 9 Aug 2026', price: 'AED 11.5', returnLabel: 'Delta from call', returnFromCall: '+8.4%',
+  returnTone: 'neutral', benchmarkDelta: '4.2pp ahead of benchmark', sincePrevious: 'First review — no previous-review delta yet',
 })
 
 const roundedZero = baseCall()
@@ -122,6 +122,17 @@ const lateTracked = callTrackingSnapshot(lateScheduled)
 assert.equal(lateTracked.checkpoint?.label, '30-day check · 20 Aug 2026')
 assert.equal(lateTracked.evidence, 'Newest evidence.')
 assert.equal(lateTracked.checkpoint?.sincePrevious, '0.0% since previous review')
+
+const correctedTimeline = baseCall()
+correctedTimeline.timeline = [
+  { ...correctedTimeline.timeline[0], review_date: '2026-08-01', review_price: 10, review_file: 'reviews/2026-08-01_30d_decision_review.json' },
+  { ...correctedTimeline.timeline[0], window: 'ad-hoc', review_date: '2026-08-20', review_price: 11, review_file: 'reviews/2026-08-20_ad-hoc_decision_review_v2.json' },
+  { ...correctedTimeline.timeline[0], window: 'ad-hoc', review_date: '2026-08-20', review_price: 12, review_file: 'reviews/2026-08-20_ad-hoc_decision_review_v10.json' },
+]
+const correctedTracked = callTrackingSnapshot(correctedTimeline)
+assert.equal(correctedTracked.checkpoint?.price, 'AED 12', 'the highest numeric correction version owns the checkpoint')
+assert.equal(correctedTracked.checkpoint?.sincePrevious, '+20.0% since previous review',
+  'a correction version is not mistaken for the previous checkpoint')
 
 const fullyLearned = baseCall()
 fullyLearned.frozen_call = {

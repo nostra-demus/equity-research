@@ -118,11 +118,6 @@ const normalized = (value: unknown): string => String(value ?? '').trim().toLowe
 const enumValue = (value: unknown): string => String(value ?? '').trim().toLowerCase()
 const companyCore = (value: unknown): string => normalized(value)
   .split(' ').filter((word) => !['the', 'com', 'inc', 'incorporated', 'corp', 'corporation', 'company', 'co', 'ltd', 'limited', 'plc', 'pjsc', 'sa', 'ag', 'nv'].includes(word)).join(' ')
-const EQUITY_CALL_MEMORY_SWARMS = new Set(['research', 'screener'])
-
-export function isEquityCallMemorySwarm(swarmId: string): boolean {
-  return EQUITY_CALL_MEMORY_SWARMS.has(String(swarmId || '').trim().toLowerCase())
-}
 
 export function directionAdjusted(basket: string | null | undefined, value: number | null | undefined): number | null {
   if (!finite(value)) return null
@@ -150,12 +145,50 @@ function compareNewestReview(a: ReviewLike, b: ReviewLike): number {
   const bd = reviewDate(b)
   if (ad < bd) return 1
   if (ad > bd) return -1
+  const aw = reviewWindowRank(a.window)
+  const bw = reviewWindowRank(b.window)
+  if (aw !== bw) return bw - aw
+  const av = reviewVersion(a)
+  const bv = reviewVersion(b)
+  if (av !== bv) return bv - av
   return String(b.review_file || '').localeCompare(String(a.review_file || ''))
 }
 
+function reviewWindowRank(value: unknown): number {
+  const window = enumValue(value)
+  const fixed: Record<string, number> = { '30d': 30, '90d': 90, '180d': 180, '365d': 365, '24m': 730, '36m': 1095, 'ad-hoc': 100000, 'post-mortem': 200000 }
+  return fixed[window] ?? 50000
+}
+
+function reviewVersion(row: ReviewLike | null | undefined): number {
+  const match = /_v(\d+)\.json$/i.exec(String(row?.review_file || ''))
+  return match ? Number(match[1]) : 1
+}
+
+function standingDoneReviews(timeline: ReviewLike[] | null | undefined): ReviewLike[] {
+  const byCheckpoint = new Map<string, ReviewLike>()
+  for (const row of Array.isArray(timeline) ? timeline : []) {
+    if (row?.status !== 'done') continue
+    const key = `${normalized(reviewDate(row))}|${normalized(row.window)}`
+    const prior = byCheckpoint.get(key)
+    if (!prior || reviewVersion(row) > reviewVersion(prior)
+      || (reviewVersion(row) === reviewVersion(prior) && String(row.review_file || '') > String(prior.review_file || ''))) {
+      byCheckpoint.set(key, row)
+    }
+  }
+  return [...byCheckpoint.values()].sort(compareNewestReview)
+}
+
 export function latestDoneReview(timeline: ReviewLike[] | null | undefined): ReviewLike | null {
-  const done = (Array.isArray(timeline) ? timeline : []).filter((row) => row?.status === 'done')
-  return done.sort(compareNewestReview)[0] || null
+  return standingDoneReviews(timeline)[0] || null
+}
+
+function latestMetricReview(
+  timeline: ReviewLike[] | null | undefined,
+  field: 'absolute_return_pct' | 'benchmark_relative_return_pct',
+  window?: string,
+): ReviewLike | null {
+  return standingDoneReviews(timeline).find((row) => (!window || normalized(row.window) === window) && finite(row[field])) || null
 }
 
 function average(values: Array<number | null>): number | null {
@@ -210,23 +243,32 @@ function confidenceCheck(calls: CallLike[]): CallsScorecard['confidence_check'] 
 
 export function buildCallsScorecard(calls: CallLike[]): CallsScorecard {
   const eligibleCalls = calls.filter((call) => normalized(call.integrity_status) !== 'provisional')
-  const rows = eligibleCalls.map((call) => ({ call, review: latestDoneReview(call.timeline) }))
+  const rows = eligibleCalls.map((call) => ({
+    call,
+    review: latestDoneReview(call.timeline),
+    absoluteReview: latestMetricReview(call.timeline, 'absolute_return_pct'),
+    benchmarkReview: latestMetricReview(call.timeline, 'benchmark_relative_return_pct'),
+  }))
   const classes = rows.map(({ review }) => classifyDecisionQuality(review?.decision_quality))
   const count = (value: OutcomeClass) => classes.filter((row) => row === value).length
-  const outcomeReturns = rows.map(({ call, review }) => directionAdjusted(call.basket, review?.absolute_return_pct))
-  const benchmarkReturns = rows.map(({ call, review }) => directionAdjusted(call.basket, review?.benchmark_relative_return_pct))
+  const outcomeReturns = rows.map(({ call, absoluteReview }) => directionAdjusted(call.basket, absoluteReview?.absolute_return_pct))
+  const benchmarkReturns = rows.map(({ call, benchmarkReview }) => directionAdjusted(call.basket, benchmarkReview?.benchmark_relative_return_pct))
   const horizons = (['30d', '90d', '180d', '365d'] as const).map((window) => {
     const windowRows = eligibleCalls.flatMap((call) => {
-      const review = (Array.isArray(call.timeline) ? call.timeline : []).filter((row) => row?.status === 'done' && normalized(row?.window) === window).sort(compareNewestReview)[0]
-      return review ? [{ call, review }] : []
+      const review = standingDoneReviews(call.timeline).find((row) => normalized(row.window) === window)
+      return review ? [{
+        call, review,
+        absoluteReview: latestMetricReview(call.timeline, 'absolute_return_pct', window),
+        benchmarkReview: latestMetricReview(call.timeline, 'benchmark_relative_return_pct', window),
+      }] : []
     })
     const windowClasses = windowRows.map(({ review }) => classifyDecisionQuality(review.decision_quality))
     const windowCount = (value: OutcomeClass) => windowClasses.filter((row) => row === value).length
     return {
       window, reviewed: windowRows.length,
       worked: windowCount('worked'), failed: windowCount('failed'), mixed: windowCount('mixed'), unscored: windowCount('unscored'),
-      average_return_pct: average(windowRows.map(({ call, review }) => directionAdjusted(call.basket, review.absolute_return_pct))),
-      average_vs_benchmark_pct: average(windowRows.map(({ call, review }) => directionAdjusted(call.basket, review.benchmark_relative_return_pct))),
+      average_return_pct: average(windowRows.map(({ call, absoluteReview }) => directionAdjusted(call.basket, absoluteReview?.absolute_return_pct))),
+      average_vs_benchmark_pct: average(windowRows.map(({ call, benchmarkReview }) => directionAdjusted(call.basket, benchmarkReview?.benchmark_relative_return_pct))),
     }
   })
   return {
@@ -280,11 +322,11 @@ function questionNamesCall(call: CallLike, rawQuestion: string): boolean {
     || new RegExp(`\\$${escaped}(?=$|[^A-Za-z0-9])`, 'i').test(raw)
 }
 
-function exactEntityMatchIndex(call: CallLike, identifiers: string[], question?: string): number {
+function exactEntityMatchIndex(call: CallLike, identifiers: string[], question?: string, requireIdentifierMatch = false): number {
   const ticker = normalized(call.ticker)
   const company = normalized(call.company)
   const core = companyCore(call.company)
-  if (question && questionNamesCall(call, question)) return 0
+  const questionMatch = Boolean(question && questionNamesCall(call, question))
   const structuredRank = identifiers.findIndex((raw) => {
     const id = normalized(raw)
     const idCore = companyCore(raw)
@@ -293,6 +335,8 @@ function exactEntityMatchIndex(call: CallLike, identifiers: string[], question?:
     const padded = ` ${id} `
     return (ticker.length >= 3 && padded.includes(` ${ticker} `)) || (company.length >= 5 && padded.includes(` ${company} `)) || (core.length >= 5 && ` ${idCore} `.includes(` ${core} `))
   })
+  if (requireIdentifierMatch && structuredRank < 0) return -1
+  if (questionMatch) return 0
   return structuredRank < 0 ? -1 : structuredRank + (question ? 1 : 0)
 }
 
@@ -310,11 +354,14 @@ function namedWatchItem(review: ReviewLike | null): string | null {
   return item && item.length > 170 ? `${item.slice(0, 167).trimEnd()}…` : item
 }
 
-export function selectCallMemories(calls: CallLike[], identifiers: string[], cap = 3, question?: string): CallMemoryItem[] {
+export function selectCallMemories(
+  calls: CallLike[], identifiers: string[], cap = 3, question?: string,
+  options?: { requireIdentifierMatch?: boolean },
+): CallMemoryItem[] {
   const byListing = new Map<string, Array<{ call: CallLike; matchRank: number }>>()
   for (const call of calls) {
     if (!call?.ticker) continue
-    const matchRank = exactEntityMatchIndex(call, identifiers, question)
+    const matchRank = exactEntityMatchIndex(call, identifiers, question, options?.requireIdentifierMatch)
     if (matchRank < 0) continue
     const key = [normalized(call.ticker), normalized(call.exchange) || 'exchange-unknown', companyCore(call.company) || 'issuer-unknown'].join('|')
     const group = byListing.get(key) || []

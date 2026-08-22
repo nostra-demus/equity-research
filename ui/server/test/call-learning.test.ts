@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import {
-  actionNowForCall, buildCallsScorecard, decisionMemoryBlock, directionAdjusted, isEquityCallMemorySwarm,
+  actionNowForCall, buildCallsScorecard, decisionMemoryBlock, directionAdjusted,
   latestDoneReview, selectCallMemories,
 } from '../src/call-learning'
 
@@ -18,10 +18,6 @@ assert.equal(directionAdjusted('Short', -12), 12)
 assert.equal(directionAdjusted('Rejected', -8), null)
 assert.equal(directionAdjusted('Watchlist', 15), null)
 assert.equal(directionAdjusted('Selected', -8), -8)
-assert.equal(isEquityCallMemorySwarm('research'), true)
-assert.equal(isEquityCallMemorySwarm('screener'), true)
-assert.equal(isEquityCallMemorySwarm('commodity'), false, 'commodity symbols cannot read the equity Calls ledger')
-
 const selectedAtRisk = reviewed('RISK', '', 70, 0)
 selectedAtRisk.timeline[0].thesis_status = 'at-risk'
 selectedAtRisk.timeline[0].decision_quality = ''
@@ -77,6 +73,29 @@ assert.deepEqual(buildCallsScorecard([sameDayCall]), buildCallsScorecard([{ ...s
   'aggregate and horizon scorecards use the same deterministic review winner')
 assert.doesNotThrow(() => buildCallsScorecard([{ ...sameDayCall, timeline: {} as never }]),
   'schema-less non-array timelines degrade safely instead of crashing the Calls dashboard')
+const pricedThenUnpriced = reviewed('PRICED', 'skill', 70, 10)
+pricedThenUnpriced.timeline.push({
+  ...pricedThenUnpriced.timeline[0], window: 'ad-hoc', review_date: '2026-08-10',
+  absolute_return_pct: null, benchmark_relative_return_pct: null, decision_quality: 'genuine miss',
+  review_file: 'reviews/2026-08-10_ad-hoc_decision_review.json',
+})
+const pricedScore = buildCallsScorecard([pricedThenUnpriced])
+assert.equal(pricedScore.failed, 1, 'the newest review owns process scoring')
+assert.equal(pricedScore.average_return_pct, 10, 'a later unpriced review cannot erase the latest known position return')
+assert.equal(pricedScore.average_vs_benchmark_pct, 10, 'a later unpriced review cannot erase the latest known benchmark result')
+const correctedReview = reviewed('CORRECTED', 'skill', 70, 12)
+correctedReview.timeline = [
+  { ...correctedReview.timeline[0], review_file: 'reviews/2026-08-01_30d_decision_review.json' },
+  { ...correctedReview.timeline[0], review_file: 'reviews/2026-08-01_30d_decision_review_v2.json', absolute_return_pct: null, benchmark_relative_return_pct: null },
+]
+const correctedScore = buildCallsScorecard([correctedReview])
+assert.equal(correctedScore.average_return_pct, null, 'a correction that nulls a bad return cannot resurrect the superseded version')
+assert.equal(correctedScore.horizons.find((row) => row.window === '30d')?.average_return_pct, null)
+const numericCorrection = [
+  { ...sameDayReviews[0], review_file: 'reviews/check_v2.json' },
+  { ...sameDayReviews[1], review_file: 'reviews/check_v10.json' },
+]
+assert.equal(latestDoneReview(numericCorrection)?.review_file, 'reviews/check_v10.json', 'correction versions sort numerically, not lexically')
 
 const memoryCall = {
   ticker: 'AMZN', company: 'Amazon.com, Inc.', decision_date: '2026-07-10', decision: 'Watchlist', basket: 'Watchlist',
@@ -124,6 +143,11 @@ assert.equal(selectCallMemories([nowCall], [], 3, 'What should I do now?').lengt
 assert.equal(selectCallMemories([nowCall], [], 3, 'What changed at NOW?').length, 1)
 assert.equal(selectCallMemories([nowCall], [], 3, 'What changed at $now?').length, 1,
   'uppercase and cashtag ticker syntax remain explicit question matches')
+const goldEquity = { ...memoryCall, ticker: 'GOLD', company: 'Barrick Mining Corporation', exchange: 'NYSE' }
+assert.equal(selectCallMemories([goldEquity], [], 3, 'What is driving GOLD?', { requireIdentifierMatch: true }).length, 0,
+  'a commodity question cannot inject a same-symbol equity when retrieved evidence names no company')
+assert.equal(selectCallMemories([goldEquity], ['Barrick Mining Corporation'], 3, 'What is driving GOLD?', { requireIdentifierMatch: true }).length, 1,
+  'wire memory remains available when structured evidence proves the matching issuer')
 const block = decisionMemoryBlock(matched)
 assert.match(block, /FROZEN ORIGINAL: Nostra rated it Watchlist/)
 assert.match(block, /AMZN @ NASDAQ — Amazon\.com, Inc\./)

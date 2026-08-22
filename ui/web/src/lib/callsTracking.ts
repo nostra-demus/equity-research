@@ -73,21 +73,34 @@ export function callReturnValue(call: CallSummary, value: number | null | undefi
 }
 
 export function latestCompletedReview(timeline: CallTimelineEntry[]): CallTimelineEntry | null {
-  const completed = timeline.filter((row) => row.status === 'done')
-  if (!completed.length) return null
-  return completed.sort((a, b) => {
-    const ad = a.review_date || ''
-    const bd = b.review_date || ''
-    if (ad !== bd) return ad < bd ? 1 : -1
-    return (b.review_file || '').localeCompare(a.review_file || '')
-  })[0]
+  return completedReviews(timeline)[0] || null
+}
+
+function reviewVersion(row: CallTimelineEntry): number {
+  const match = /_v(\d+)\.json$/i.exec(row.review_file || '')
+  return match ? Number(match[1]) : 1
+}
+
+function reviewWindowRank(row: CallTimelineEntry): number {
+  const fixed: Record<string, number> = { '30d': 30, '90d': 90, '180d': 180, '365d': 365, '24m': 730, '36m': 1095, 'ad-hoc': 100000, 'post-mortem': 200000 }
+  return fixed[row.window.trim().toLowerCase()] ?? 50000
 }
 
 function completedReviews(timeline: CallTimelineEntry[]): CallTimelineEntry[] {
-  return timeline.filter((row) => row.status === 'done').sort((a, b) => {
+  const byCheckpoint = new Map<string, CallTimelineEntry>()
+  for (const row of timeline) {
+    if (row.status !== 'done') continue
+    const key = `${row.review_date || row.due_date || ''}|${row.window.trim().toLowerCase()}`
+    const prior = byCheckpoint.get(key)
+    if (!prior || reviewVersion(row) > reviewVersion(prior)
+      || (reviewVersion(row) === reviewVersion(prior) && (row.review_file || '') > (prior.review_file || ''))) byCheckpoint.set(key, row)
+  }
+  return [...byCheckpoint.values()].sort((a, b) => {
     const ad = a.review_date || ''
     const bd = b.review_date || ''
     if (ad !== bd) return ad < bd ? 1 : -1
+    if (reviewWindowRank(a) !== reviewWindowRank(b)) return reviewWindowRank(b) - reviewWindowRank(a)
+    if (reviewVersion(a) !== reviewVersion(b)) return reviewVersion(b) - reviewVersion(a)
     return (b.review_file || '').localeCompare(a.review_file || '')
   })
 }
@@ -243,11 +256,11 @@ export function callTrackingSnapshot(call: CallSummary): CallTrackingSnapshot {
   const reviews = completedReviews(call.timeline)
   const latest = reviews[0] || null
   const previous = reviews[1] || null
-  const observedReturn = finite(latest?.absolute_return_pct) ? latest.absolute_return_pct : null
-  const benchmarkDelta = finite(latest?.benchmark_relative_return_pct) ? latest.benchmark_relative_return_pct : null
-  const sincePrevious = finite(latest?.review_price) && finite(previous?.review_price) && previous.review_price !== 0
-    ? ((latest.review_price - previous.review_price) / previous.review_price) * 100
-    : null
+  const observedReturn = callReturnValue(call, latest?.absolute_return_pct)
+  const benchmarkDelta = callReturnValue(call, latest?.benchmark_relative_return_pct)
+  const rawSincePrevious = finite(latest?.review_price) && finite(previous?.review_price) && previous.review_price !== 0
+    ? ((latest.review_price - previous.review_price) / previous.review_price) * 100 : null
+  const sincePrevious = callReturnValue(call, rawSincePrevious)
   const watch = namedWatchItem(latest)
 
   const checkpoint = latest ? {

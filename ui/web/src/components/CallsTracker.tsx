@@ -175,7 +175,7 @@ function CallsScorecardPanel({ scorecard }: { scorecard: CallsScorecard }) {
     <section className="callscore" aria-label="Overall Nostra call scorecard">
       <div className="callscore__head">
         <div><strong>Nostra scorecard</strong><span>One latest outcome per non-provisional call. Returns use Selected and Short calls only.</span></div>
-        <span>{scorecard.assessed_calls} scored · {scorecard.mixed} mixed · {scorecard.unscored} too early{scorecard.excluded_provisional ? ` · ${scorecard.excluded_provisional} provisional excluded` : ''}</span>
+        <span>{scorecard.assessed_calls} scored · {scorecard.mixed} mixed · {scorecard.unscored} unscored / not assessable{scorecard.excluded_provisional ? ` · ${scorecard.excluded_provisional} provisional excluded` : ''}</span>
       </div>
       <div className="callscore__metrics">
         <div><span>Calls worked</span><strong className="tone--good">{scorecard.worked}</strong></div>

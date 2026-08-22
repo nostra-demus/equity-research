@@ -80,7 +80,7 @@ import { chatTurnsInFlight, runChatTurn } from './chat-llm'
 import { computePlan, computedContextBlock, detectWhatIf, isNumberlessTargetFollowUp, loadSidecar, parseWhatIf, recordedList, repriceFromMetric, resolveAuthenticatedPriorScenario, validateIntents } from './chat-whatif'
 import { ChatTurnReservationError, deleteConversation, findCompletedTurnForUser, getConversation, isValidConversationId, isValidTurnId, listConversations, recordAssistantMessageForPending, recordPendingUserMessage, rollbackUserMessage, searchConversationMemory, type UserMessageRollback } from './chat-store'
 import { askMemoryMeta, compactNewsEvidence, routeAskMemory, type AskMemoryPromptContext } from './ask-memory'
-import { isEquityCallMemorySwarm, selectCallMemories } from './call-learning'
+import { selectCallMemories } from './call-learning'
 import { dataPoolPresent, deriveSignalState, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
 import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
 import { getNewsDiagnostics, getNewsStatus, newsProviderSpendingAllowed, startNewsIngester } from './news/scheduler'
@@ -4250,7 +4250,7 @@ app.post('/api/chat', async (req, reply) => {
   }
   // The Calls ledger is equity-only. Commodity and future swarms own separate decision ledgers, so a
   // shared symbol such as GOLD must never inject a Barrick equity call into a commodity answer.
-  if (!ac.signal.aborted && isEquityCallMemorySwarm(swarmId)) {
+  if (!ac.signal.aborted && swarmById(swarmId)?.decisionMemory === 'equity_calls') {
     try {
       const projection = await listAllCalls()
       const identifiers = [subject, signalMemoryAnchor || '']
@@ -4681,7 +4681,7 @@ app.post('/api/news/chat', { config: { rateLimit: { max: NEWS.chatRateLimitPerMi
         : []).filter(Boolean)
       // Prefer an issuer named exactly in the question, then the structured issuer identities from the
       // ranked evidence. Matching remains exact, so an incidental word cannot pull in another company.
-      callMemories = selectCallMemories((await listAllCalls()).calls, evidenceIdentifiers, 3, last.content)
+      callMemories = selectCallMemories((await listAllCalls()).calls, evidenceIdentifiers, 3, last.content, { requireIdentifierMatch: true })
     } catch {
       callMemories = []
     }

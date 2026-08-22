@@ -516,7 +516,12 @@ function reviewsForRun(runDirAbs, runRoot) {
   }
   return out
 }
-function winnerJ(files) { return files.length ? [...files].sort((a, b) => (a.review_date < b.review_date ? 1 : a.review_date > b.review_date ? -1 : String(b.basename || '').localeCompare(String(a.basename || ''))))[0] : null }
+function winnerJ(files) { return files.length ? [...files].sort((a, b) => {
+  if (a.review_date !== b.review_date) return a.review_date < b.review_date ? 1 : -1
+  const version = (row) => { const m = /_v(\d+)\.json$/i.exec(String(row?.basename || '')); return m ? Number(m[1]) : 1 }
+  const av = version(a), bv = version(b)
+  return av !== bv ? bv - av : String(b.basename || '').localeCompare(String(a.basename || ''))
+})[0] : null }
 function buildTimelineJ(schedule, reviews, today) {
   const out = [], keys = Object.keys(schedule || {})
   for (const w of keys) {
@@ -807,24 +812,43 @@ function buildCalls() {
     return null
   }
   const quality = (row) => row?.decision_quality === 'skill' ? 'worked' : row?.decision_quality === 'genuine miss' ? 'failed' : row?.decision_quality === 'luck' ? 'mixed' : 'unscored'
-  const latestDone = (call) => [...(Array.isArray(call?.timeline) ? call.timeline : [])].filter((row) => row?.status === 'done').sort((a, b) => {
+  const reviewWindowRank = (row) => ({ '30d': 30, '90d': 90, '180d': 180, '365d': 365, '24m': 730, '36m': 1095, 'ad-hoc': 100000, 'post-mortem': 200000 }[String(row?.window || '').trim().toLowerCase()] ?? 50000)
+  const reviewVersion = (row) => { const m = /_v(\d+)\.json$/i.exec(String(row?.review_file || '')); return m ? Number(m[1]) : 1 }
+  const compareNewest = (a, b) => {
     const ad = String(a?.review_date || a?.due_date || '')
     const bd = String(b?.review_date || b?.due_date || '')
     if (ad < bd) return 1
     if (ad > bd) return -1
+    const aw = reviewWindowRank(a), bw = reviewWindowRank(b)
+    if (aw !== bw) return bw - aw
+    const av = reviewVersion(a), bv = reviewVersion(b)
+    if (av !== bv) return bv - av
     return String(b.review_file || '').localeCompare(String(a.review_file || ''))
-  })[0] || null
+  }
+  const standingDone = (call) => {
+    const byCheckpoint = new Map()
+    for (const row of Array.isArray(call?.timeline) ? call.timeline : []) {
+      if (row?.status !== 'done') continue
+      const key = `${String(row.review_date || row.due_date || '').trim().toLowerCase()}|${String(row.window || '').trim().toLowerCase()}`
+      const prior = byCheckpoint.get(key)
+      if (!prior || reviewVersion(row) > reviewVersion(prior)
+        || (reviewVersion(row) === reviewVersion(prior) && String(row.review_file || '') > String(prior.review_file || ''))) byCheckpoint.set(key, row)
+    }
+    return [...byCheckpoint.values()].sort(compareNewest)
+  }
+  const latestDone = (call) => standingDone(call)[0] || null
+  const latestMetric = (call, field, window) => standingDone(call).find((row) => (!window || String(row.window || '').trim().toLowerCase() === window) && typeof row[field] === 'number' && Number.isFinite(row[field])) || null
   const avg = (values) => { const kept = values.filter((x) => typeof x === 'number' && Number.isFinite(x)); return kept.length ? Math.round((kept.reduce((a, b) => a + b, 0) / kept.length) * 100) / 100 : null }
   const eligibleCalls = calls.filter((call) => String(call.integrity_status || '').trim().toLowerCase() !== 'provisional')
-  const rows = eligibleCalls.map((call) => ({ call, review: latestDone(call) }))
+  const rows = eligibleCalls.map((call) => ({ call, review: latestDone(call), absoluteReview: latestMetric(call, 'absolute_return_pct'), benchmarkReview: latestMetric(call, 'benchmark_relative_return_pct') }))
   const classes = rows.map((row) => quality(row.review))
   const count = (kind) => classes.filter((x) => x === kind).length
   const horizons = ['30d', '90d', '180d', '365d'].map((window) => {
-    const wr = eligibleCalls.flatMap((call) => { const review = latestDone({ timeline: (Array.isArray(call.timeline) ? call.timeline : []).filter((row) => row?.status === 'done' && String(row?.window || '').toLowerCase() === window) }); return review ? [{ call, review }] : [] })
+    const wr = eligibleCalls.flatMap((call) => { const review = standingDone(call).find((row) => String(row.window || '').trim().toLowerCase() === window); return review ? [{ call, review, absoluteReview: latestMetric(call, 'absolute_return_pct', window), benchmarkReview: latestMetric(call, 'benchmark_relative_return_pct', window) }] : [] })
     const cls = wr.map((row) => quality(row.review)), n = (kind) => cls.filter((x) => x === kind).length
     return { window, reviewed: wr.length, worked: n('worked'), failed: n('failed'), mixed: n('mixed'), unscored: n('unscored'),
-      average_return_pct: avg(wr.map(({ call, review }) => adjusted(call, review.absolute_return_pct))),
-      average_vs_benchmark_pct: avg(wr.map(({ call, review }) => adjusted(call, review.benchmark_relative_return_pct))) }
+      average_return_pct: avg(wr.map(({ call, absoluteReview }) => adjusted(call, absoluteReview?.absolute_return_pct))),
+      average_vs_benchmark_pct: avg(wr.map(({ call, benchmarkReview }) => adjusted(call, benchmarkReview?.benchmark_relative_return_pct))) }
   })
   const scoredCandidates = rows.filter(({ call, review }) => (quality(review) === 'worked' || quality(review) === 'failed') && Number.isFinite(call.confidence))
   const scoredByTicker = new Map()
@@ -853,8 +877,8 @@ function buildCalls() {
       ? 'Higher-confidence calls have generally worked more often. This is a ranking check, not a probability claim.'
       : 'Higher-confidence calls have not worked more often. Nostra should lower or rework its conviction rules.'
   const scorecard = { assessed_calls: count('worked') + count('failed'), excluded_provisional: calls.length - eligibleCalls.length, worked: count('worked'), failed: count('failed'), mixed: count('mixed'), unscored: count('unscored'),
-    average_return_pct: avg(rows.map(({ call, review }) => adjusted(call, review?.absolute_return_pct))),
-    average_vs_benchmark_pct: avg(rows.map(({ call, review }) => adjusted(call, review?.benchmark_relative_return_pct))), horizons,
+    average_return_pct: avg(rows.map(({ call, absoluteReview }) => adjusted(call, absoluteReview?.absolute_return_pct))),
+    average_vs_benchmark_pct: avg(rows.map(({ call, benchmarkReview }) => adjusted(call, benchmarkReview?.benchmark_relative_return_pct))), horizons,
     confidence_check: { status: confidenceStatus, scored_calls: scoredConfidence.length, bands, detail: confidenceDetail } }
   return { calls, dashboard, scorecard }
 }
