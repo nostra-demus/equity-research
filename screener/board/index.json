@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T16:09:06Z",
+  "generated_at": "2026-08-22T16:18:00Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-2369",
@@ -350,6 +350,55 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-2429",
+      "headline": "Cemat Raises FY26 Guidance",
+      "headline_en": null,
+      "url": "https://www.nasdaq.com/articles/cemat-raises-fy26-guidance",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T15:42:58Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Cemat raised its fiscal year 2026 guidance, which directly impacts analyst expectations and valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Cemat raised its fiscal year 2026 guidance, which directly impacts analyst expectations and valuation.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Cemat",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1904,55 +1953,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-735",
-      "headline": "Samsung to return record $80bn to shareholders",
-      "headline_en": null,
-      "url": "https://www.ft.com/content/d434a48b-4b6c-4071-bf16-da16a6b95bda?syn-25a6b1a6=1",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T09:19:30Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Samsung to return a record $80bn to shareholders, a quantified capital return commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Samsung to return a record $80bn to shareholders, a quantified capital return commitment.",
-      "region": "KR",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capital_actions",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Samsung",
-          "ticker": null,
-          "listing_country": "KR"
-        }
-      ],
-      "size_bucket": "mega",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -78365,9 +78365,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 298941,
-    "news_picked_today": 4658,
-    "news_dropped_today": 10226
+    "news_seen_today": 298975,
+    "news_picked_today": 4663,
+    "news_dropped_today": 10245
   },
   "book_momentum": {
     "live_count": 8,
