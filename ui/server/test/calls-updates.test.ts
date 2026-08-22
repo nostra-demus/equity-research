@@ -79,6 +79,11 @@ check('non-finite returns never leak into update text', () => {
     'Sales beat the level the call said would matter. 1 forecast right · 0 wrong.')
 })
 
+check('malformed call rows cannot create partial updates', () => {
+  const malformed = { ...row('2026-08-01', 'Watchlist', 5), call: { ticker: 'ACME' } }
+  assert.deepEqual(buildCallUpdates([malformed as CallUpdateInput]), [])
+})
+
 check('a decision downgrade stays red even when expected return rose', () => {
   const updates = buildCallUpdates([
     row('2026-08-10', 'Avoid', 12),

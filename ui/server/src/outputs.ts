@@ -21,6 +21,7 @@ export function readMarkdown(relPath: string, resolve: (p: string) => string = r
 // Calls advertises only these published artifacts. General run output remains owned by readMarkdown();
 // this narrow reader exists so a dirty doer and a fresh/static host open the same bytes the Calls row used.
 const PUBLISHED_CALLS_ARTIFACT_RE = /^(?:analyses\/[A-Z0-9.\-]{1,40}_\d{4}-\d{2}-\d{2}\/final_thesis\.md|analyses\/[A-Z0-9.\-]{1,40}_\d{4}-\d{2}-\d{2}\/reviews\/\d{4}-\d{2}-\d{2}_[A-Za-z0-9-]{1,20}_(?:decision_review(?:_v\d+)?\.json|memo_delta(?:_v\d+)?\.md)|analyses\/tracking\/\d{4}-\d{2}-\d{2}_calls_tracker(?:_v\d+)?\.md)$/
+const PUBLISHED_DECISION_REVIEW_BASENAME_RE = /^\d{4}-\d{2}-\d{2}_[A-Za-z0-9-]{1,20}_decision_review(?:_v\d+)?\.json$/
 
 export function isPublishedCallsArtifactPath(value: unknown): value is string {
   return typeof value === 'string' && PUBLISHED_CALLS_ARTIFACT_RE.test(value)
@@ -445,7 +446,7 @@ function listReviewFiles(runRoot: string, authority: PublishedTreeAuthority): Re
   const names = [...authority.paths]
     .filter((repoPath) => repoPath.startsWith(prefix))
     .map((repoPath) => repoPath.slice(prefix.length))
-    .filter((name) => !name.includes('/') && /_decision_review.*\.json$/.test(name))
+    .filter((name) => PUBLISHED_DECISION_REVIEW_BASENAME_RE.test(name))
     .sort()
   const out: ReviewFile[] = []
   for (const n of names) {
@@ -658,8 +659,18 @@ export interface CallUpdate {
   source_path: string | null
 }
 
+interface CallUpdateCall {
+  ticker: string
+  run_root: string
+  company?: string | null
+  decision_date?: string | null
+  decision?: string | null
+  expected_return_pct?: number | null
+  final_thesis_path?: string | null
+}
+
 export interface CallUpdateInput {
-  call: any
+  call: CallUpdateCall
   record: any
   reviews: ReviewFile[]
 }
@@ -721,7 +732,7 @@ export function buildCallUpdates(rows: CallUpdateInput[]): CallUpdate[] {
   const byTicker = new Map<string, CallUpdateInput[]>()
   for (const row of rows) {
     const ticker = String(row.call?.ticker || '').trim()
-    if (!ticker) continue
+    if (!ticker || typeof row.call?.run_root !== 'string' || !row.call.run_root || !Array.isArray(row.reviews)) continue
     const existing = byTicker.get(ticker) || []
     existing.push(row)
     byTicker.set(ticker, existing)
@@ -736,13 +747,14 @@ export function buildCallUpdates(rows: CallUpdateInput[]): CallUpdate[] {
     let previous: CallUpdateInput | null = null
     for (const row of tickerRows) {
       const call = row.call
+      const expectedReturn = finiteNumber(call.expected_return_pct)
       if (!previous) {
         updates.push({
           id: updateId('call', call.run_root), ticker, company: call.company ?? null,
           at: call.decision_date ?? null, kind: 'call',
           headline: `${ticker}: ${call.decision || 'new'} call recorded`,
-          detail: finiteNumber(call.expected_return_pct) !== null
-            ? `Expected return at the time: ${call.expected_return_pct > 0 ? '+' : ''}${call.expected_return_pct.toFixed(1)}%.`
+          detail: expectedReturn !== null
+            ? `Expected return at the time: ${expectedReturn > 0 ? '+' : ''}${expectedReturn.toFixed(1)}%.`
             : null,
           tone: 'info', run_root: call.run_root, source_path: call.final_thesis_path || null,
         })

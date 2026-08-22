@@ -51,6 +51,7 @@ write(`${olderRoot}/reviews/${reviewName}`, JSON.stringify({
     memo_delta_file: `${olderRoot}/reviews/${memoName}`,
   },
 }, null, 2) + '\n')
+write(`${olderRoot}/reviews/2026-08-13_30d_decision_review_backup.json`, '{}\n')
 
 // A decision record by itself is not a completed, publishable call.
 write('analyses/HALF_2026-08-12/decision_record.json', JSON.stringify({
