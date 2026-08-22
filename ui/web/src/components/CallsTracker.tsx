@@ -171,7 +171,7 @@ export function CallsTracker() {
 }
 
 function CallsUpdates({ rows, staticMode, onOpen }: { rows: CallUpdate[]; staticMode: boolean; onOpen: (path: string, title: string) => void }) {
-  if (!rows.length) {
+  if (!Array.isArray(rows) || rows.length === 0) {
     return (
       <div className="calls__empty">
         {staticMode
@@ -213,6 +213,7 @@ function CallsUpdates({ rows, staticMode, onOpen }: { rows: CallUpdate[]; static
 // `/research:eval` by hand; this is what makes them actionable without leaving the cockpit.
 function NeedsAttentionPanel({ rows, onOpen }: { rows: NeedsAttentionRow[]; onOpen: (path: string, title: string) => void }) {
   const [open, setOpen] = useState(true)
+  if (!Array.isArray(rows) || rows.length === 0) return null
   return (
     <div className="needsattn">
       <div className="needsattn__head" onClick={() => setOpen((o) => !o)}>

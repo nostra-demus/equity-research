@@ -40,6 +40,11 @@ assert.deepEqual(publishedCalls([null, { ticker: 'PARTIAL' }, call('SAFE', '2026
 const invalidNumber = call('NAN', '2026-08-12')
 invalidNumber.expected_return_pct = Number.NaN
 assert.equal(publishedCalls([invalidNumber]).length, 0, 'non-finite call numbers fail closed')
+for (const field of ['confidence', 'downside_risk_pct', 'kill_criteria_count', 'review_count'] as const) {
+  const invalid = call(`BAD-${field}`, '2026-08-12')
+  invalid[field] = Number.NaN
+  assert.equal(publishedCalls([invalid]).length, 0, `non-finite ${field} fails closed`)
+}
 assert.equal(publishedCalls([{
   ...call('LEGACY', '2026-08-11'),
   entry_price: undefined,

@@ -31,7 +31,10 @@ function isCallSummary(value: unknown): value is CallSummary {
   if (!nullableString(value.company) || !nullableString(value.decision_date) || !nullableString(value.decision)) return false
   if (!nullableString(value.time_horizon) || !nullableString(value.currency) || !nullableString(value.latest_thesis_status)) return false
   if (!optionalString(value.latest_review_summary) || !optionalString(value.latest_review_date)) return false
-  if (![value.entry_price, value.expected_return_pct, value.implied_target].every(optionalNumber)) return false
+  if (![value.confidence, value.entry_price, value.expected_return_pct, value.implied_target, value.downside_risk_pct]
+    .every(optionalNumber)) return false
+  if (typeof value.kill_criteria_count !== 'number' || !Number.isFinite(value.kill_criteria_count)) return false
+  if (typeof value.review_count !== 'number' || !Number.isFinite(value.review_count)) return false
   if (!Array.isArray(value.timeline) || !value.timeline.every(isTimelineEntry)) return false
   if (value.next_checkpoint != null && (!isRecord(value.next_checkpoint)
     || typeof value.next_checkpoint.window !== 'string'
