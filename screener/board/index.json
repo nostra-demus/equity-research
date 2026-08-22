@@ -1,6 +1,60 @@
 {
-  "generated_at": "2026-08-22T06:19:42Z",
+  "generated_at": "2026-08-22T06:29:00Z",
   "inbox": [
+    {
+      "inbox_id": "INB-20260822-2341",
+      "headline": "SuperiorMed Holdings Limited Announces Entering into an Agreement and Plan of Merger with Starry Sea Acquisition Corp | SSEA Stock News",
+      "headline_en": null,
+      "url": "https://www.stocktitan.net/news/SSEA/superior-med-holdings-limited-announces-entering-into-an-agreement-box9i5nrtf5h.html",
+      "source_name": "Stock Titan — Latest News",
+      "input_nature": "company_press_release",
+      "found_at": "2026-08-22T05:24:00Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Definitive merger agreement between SuperiorMed Holdings and Starry Sea Acquisition Corp.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Definitive merger agreement between SuperiorMed Holdings and Starry Sea Acquisition Corp.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 3,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "company",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SuperiorMed Holdings Limited",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "Starry Sea Acquisition Corp",
+          "ticker": "SSEA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
     {
       "inbox_id": "INB-20260822-033",
       "headline": "Enovix to Double Korea Drone Battery Capacity",
@@ -198,6 +252,49 @@
         }
       ],
       "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-2342",
+      "headline": "US sanctions 'declaration of war on all nations', Iran says",
+      "headline_en": null,
+      "url": "https://www.middleeasteye.net/live-blog/live-blog-update/us-sanctions-declaration-war-all-nations-iran-says",
+      "source_name": "Middle East Eye",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T05:54:42Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Escalation in geopolitical tensions following new US sanctions on Iran.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Escalation in geopolitical tensions following new US sanctions on Iran.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -1918,105 +2015,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-1590",
-      "headline": "Walmart shares tumble on weakest US sales growth in six years, soft profit outlook",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/walmart-shares-tumble-weakest-us-144400613.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T14:44:00Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Walmart shares fell on weakest US sales growth in six years and a soft profit outlook, a clear decision-changing event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Walmart shares fell on weakest US sales growth in six years and a soft profit outlook, a clear decision-changing event.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 7,
-        "size": 2,
-        "recency": 0,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "guidance_change",
-        "size_bucket": "mega"
-      },
-      "event_types": [
-        "earnings_revenue_margin",
-        "guidance_change"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Walmart",
-          "ticker": "WMT",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-2324",
-      "headline": "InfraTech to invest $2.7bn to develop data center campus in Carson County, Texas",
-      "headline_en": null,
-      "url": "https://www.datacenterdynamics.com/en/news/infratech-to-invest-27bn-to-develop-data-center-campus-in-carson-county-texas/",
-      "source_name": "DataCenterDynamics",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-20T14:20:34Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "InfraTech announced a $2.7bn data center campus investment, a major capex commitment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "InfraTech announced a $2.7bn data center campus investment, a major capex commitment.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 0,
-        "materiality_label_floor": 10,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "capex",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capex"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "InfraTech",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -78474,9 +78472,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 293761,
-    "news_picked_today": 3883,
-    "news_dropped_today": 6593
+    "news_seen_today": 294205,
+    "news_picked_today": 3953,
+    "news_dropped_today": 6775
   },
   "book_momentum": {
     "live_count": 8,
