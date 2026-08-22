@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T14:21:22Z",
+  "generated_at": "2026-08-22T14:29:08Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-2369",
@@ -355,6 +355,49 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260822-2421",
+      "headline": "India approves 1,800 km of new LPG pipelines across 6 states with ₹7,000 crore investment to boost supply",
+      "headline_en": null,
+      "url": "https://www.livemint.com/news/india/india-approves-1-800-km-of-new-lpg-pipelines-across-6-states-with-rs-7-000-crore-investment-to-boost-supply-11787404666622.html",
+      "source_name": "Mint",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T14:18:49Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "The Indian government approved a ₹7,000 crore investment for 1,800 km of new LPG pipelines to expand infrastructure capacity.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The Indian government approved a ₹7,000 crore investment for 1,800 km of new LPG pipelines to expand infrastructure capacity.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 4,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 10,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "commodity",
+        "source_tier_id": "news",
+        "event_id": "capex",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capex"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260822-2410",
       "headline": "Logitech faces lawsuit for withholding $61M in tariff refunds from customers — lawsuit claims company extracted up to $97M from consumers in 2026 through tariff-justified price increases",
       "headline_en": null,
@@ -398,6 +441,104 @@
           "listing_country": null
         }
       ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-2411",
+      "headline": "Madison Air Solutions to Buy ebm-papst in $5.8B Deal, Expanding Global Airflow Reach",
+      "headline_en": null,
+      "url": "https://finance.yahoo.com/markets/stocks/articles/madison-air-solutions-buy-ebm-140155631.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T14:01:55Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "Madison Air Solutions is acquiring ebm-papst in a deal valued at $5.8 billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Madison Air Solutions is acquiring ebm-papst in a deal valued at $5.8 billion.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Madison Air Solutions",
+          "ticker": null,
+          "listing_country": "US"
+        },
+        {
+          "name": "ebm-papst",
+          "ticker": null,
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260822-2418",
+      "headline": "U.S. hits Canada with 50% tariffs, invoking a notorious Great Depression law that has never been used before to impose import taxes",
+      "headline_en": null,
+      "url": "https://fortune.com/2026/08/22/us-canada-50-percent-tariffs-1930-trade-act-smoot-hawley-trump/",
+      "source_name": "Fortune",
+      "input_nature": "news_headline",
+      "found_at": "2026-08-22T13:45:48Z",
+      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
+      "prelim_note": "The U.S. government is imposing 50% tariffs on Canadian imports using an unprecedented legal mechanism, significantly impacting cross-border trade.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "The U.S. government is imposing 50% tariffs on Canadian imports using an unprecedented legal mechanism, significantly impacting cross-border trade.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory",
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1828,173 +1969,6 @@
         }
       ],
       "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-1254",
-      "headline": "Trellus Health to appoint administrators, shareholders face wipeout",
-      "headline_en": null,
-      "url": "https://ukinvestormagazine.co.uk/trellus-health-to-appoint-administrators-shareholders-face-wipeout/",
-      "source_name": "UK Investor Magazine",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T07:17:08Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Trellus Health to appoint administrators with shareholder wipeout, a going-concern/survival event.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Trellus Health to appoint administrators with shareholder wipeout, a going-concern/survival event.",
-      "region": "GB",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 9,
-        "size": -1,
-        "recency": 1,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "default_distress"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Trellus Health",
-          "ticker": null,
-          "listing_country": "GB"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-952",
-      "headline": "MPS lance des offres en actions sur BPM et Banca Generali",
-      "headline_en": "MPS launches share offers on BPM and Banca Generali",
-      "url": "https://www.reuters.com/fr/affaires/mps-lance-des-offres-en-actions-sur-bpm-et-banca-generali-2026-08-21/",
-      "source_name": "Reuters — Latest, next page (news sitemap)",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T06:42:07Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "MPS launches share-based offers for BPM and Banca Generali, indicating significant M&A activity.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "MPS launches share-based offers for BPM and Banca Generali, indicating significant M&A activity.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Monte dei Paschi di Siena",
-          "ticker": null,
-          "listing_country": "IT"
-        },
-        {
-          "name": "Banco BPM",
-          "ticker": null,
-          "listing_country": "IT"
-        },
-        {
-          "name": "Banca Generali",
-          "ticker": null,
-          "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260822-739",
-      "headline": "Monte Paschi Bids €34 Billion for BPM, Banca Generali",
-      "headline_en": null,
-      "url": "https://www.bloomberg.com/news/videos/2026-08-21/monte-paschi-bids-34-billion-for-bpm-banca-generali-video",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-08-21T05:53:01Z",
-      "sweep_file": "screener/inbox/2026-08-22_sweep.json",
-      "prelim_note": "Monte Paschi bid €34 billion for BPM and Banca Generali, a named large M&A deal.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Monte Paschi bid €34 billion for BPM and Banca Generali, a named large M&A deal.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 1,
-        "materiality_label_floor": 5,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Banca Monte dei Paschi di Siena",
-          "ticker": null,
-          "listing_country": "IT"
-        },
-        {
-          "name": "Banco BPM",
-          "ticker": null,
-          "listing_country": "IT"
-        },
-        {
-          "name": "Banca Generali",
-          "ticker": null,
-          "listing_country": "IT"
-        }
-      ],
-      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -78405,9 +78379,9 @@
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 298503,
-    "news_picked_today": 4518,
-    "news_dropped_today": 9940
+    "news_seen_today": 298523,
+    "news_picked_today": 4530,
+    "news_dropped_today": 9948
   },
   "book_momentum": {
     "live_count": 8,
