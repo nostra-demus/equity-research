@@ -254,11 +254,14 @@ function markIdeaPublicationRequired(runRoot: string): void {
   } finally {
     fs.closeSync(fd)
   }
-  const dirFd = fs.openSync(path.dirname(marker), 'r')
-  try {
-    fs.fsyncSync(dirFd)
-  } finally {
-    fs.closeSync(dirFd)
+  // Windows does not allow opening/fsyncing directories. The marker file itself is still fsynced above.
+  if (process.platform !== 'win32') {
+    const dirFd = fs.openSync(path.dirname(marker), 'r')
+    try {
+      fs.fsyncSync(dirFd)
+    } finally {
+      fs.closeSync(dirFd)
+    }
   }
 }
 

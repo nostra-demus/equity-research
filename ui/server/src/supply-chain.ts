@@ -355,10 +355,11 @@ function countPoolRelationshipExports(repoRoot: string, tickers: ReadonlySet<str
   let poolDirs: fs.Dirent[]
   try { poolDirs = fs.readdirSync(dataRoot, { withFileTypes: true }) } catch { return 0 }
   let count = 0
+  const tickerList = [...tickers]
   for (const entry of poolDirs) {
     if (!entry.isDirectory() || entry.name.startsWith('.')) continue
     const normalized = entry.name.toUpperCase()
-    const ticker = [...tickers].find((candidate) => normalized === candidate || normalized.startsWith(`${candidate} (`))
+    const ticker = tickerList.find((candidate) => normalized === candidate || normalized.startsWith(`${candidate} (`))
     if (!ticker) continue
     const stack = [path.join(dataRoot, entry.name)]
     while (stack.length) {

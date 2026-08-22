@@ -2179,11 +2179,13 @@ def _atomic_json(path, value):
             os.fsync(handle.fileno())
         os.replace(tmp, path)
         tmp = None
-        dir_fd = os.open(os.path.dirname(path), os.O_RDONLY)
-        try:
-            os.fsync(dir_fd)
-        finally:
-            os.close(dir_fd)
+        # Windows cannot open/fsync directories; file fsync + os.replace above remain portable.
+        if os.name != "nt":
+            dir_fd = os.open(os.path.dirname(path), os.O_RDONLY)
+            try:
+                os.fsync(dir_fd)
+            finally:
+                os.close(dir_fd)
     finally:
         if tmp and os.path.exists(tmp):
             os.unlink(tmp)

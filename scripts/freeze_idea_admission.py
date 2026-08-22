@@ -415,11 +415,13 @@ def clear_publication_marker(run_abs):
         os.unlink(marker)
     except FileNotFoundError:
         return
-    dfd = os.open(run_abs, os.O_RDONLY)
-    try:
-        os.fsync(dfd)
-    finally:
-        os.close(dfd)
+    # Windows cannot open/fsync directories. The immutable admission file was fsynced before this unlink.
+    if os.name != "nt":
+        dfd = os.open(run_abs, os.O_RDONLY)
+        try:
+            os.fsync(dfd)
+        finally:
+            os.close(dfd)
 
 
 def existing_is_valid(value, expected_root):
