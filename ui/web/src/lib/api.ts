@@ -515,8 +515,8 @@ export const api = {
       () => { if (!result && !failure) failure = new Error('The live update ended before the transcript was ready.') },
     )
     if (result) return result
-    if (signal?.aborted) throw signal.reason
-    if (requestSignal.aborted) throw requestSignal.reason
+    if (signal?.aborted) throw signal.reason || new DOMException('The operation was aborted.', 'AbortError')
+    if (requestSignal.aborted) throw requestSignal.reason || new DOMException('The operation was aborted.', 'AbortError')
     throw failure || new Error('The live update ended before the transcript was ready.')
   },
   swarm: async (ticker?: string): Promise<SwarmGraph> => {

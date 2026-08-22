@@ -239,6 +239,7 @@ export function ToolsWorkspace() {
       setError(message)
     } finally {
       if (requestRef.current === controller) {
+        if (runStartedAtRef.current !== null) setElapsedMs(Math.max(0, Date.now() - runStartedAtRef.current))
         requestRef.current = null
         setLoading(false)
       }
