@@ -14,7 +14,7 @@ import { updateTokenDf, buildGenericSet, loadTokenDf, saveTokenDf, DEFAULT_TOKEN
 import { topicTokens, themeTokens, isRoutineFiling } from '../src/news/text-match'
 import { stepThemes, runThemesCycle, DEFAULT_THEMES_CONFIG } from '../src/news/themes/engine'
 import { appendThemeMutations, buildSummary, buildThemesIndex, loadThemes, maybeCompactThemesLedger, readRecentThemeItems, readThemesIndex, writeThemesIndex } from '../src/news/themes/store'
-import { Budget, NON_BINDING_DAILY_TOKEN_CAP, armCooldown, getNamedLimiter, readCooldownUntil, resetBudgetMemory, resetCooldownMemory, resetSharedLimiters } from '../src/news/triage/budget'
+import { Budget, NON_BINDING_DAILY_TOKEN_CAP, armCooldown, cooldownInfo, getNamedLimiter, readCooldownUntil, resetBudgetMemory, resetCooldownMemory, resetSharedLimiters } from '../src/news/triage/budget'
 import type { Theme, ThemeItemView } from '../src/news/themes/types'
 import { attachValidNarrative } from './themes-fixtures'
 import { qualifyTheme, uniqueThemeMembers } from '../src/news/themes/qualification'
@@ -1908,7 +1908,16 @@ await check('theme HTTP failures hold the correct scope without forging provider
     assert.notEqual(persisted.providerDayExhausted, true, `${status} is not proof that the daily allowance is gone`)
     assert.notEqual(persisted.exhausted, true)
     const scoped = [400, 413, 422].includes(status)
-    assert.ok(readCooldownUntil(tmp, scoped ? 'themes:groq' : 'groq') > NOW.getTime())
+    const markerId = scoped ? 'themes:groq' : 'groq'
+    const expectedReason = status === 402
+      ? 'theme-credits'
+      : status === 404
+        ? 'theme-endpoint'
+        : scoped
+          ? 'theme-request'
+          : 'theme-access'
+    assert.ok(readCooldownUntil(tmp, markerId) > NOW.getTime())
+    assert.equal(cooldownInfo(tmp, markerId).reason, expectedReason)
     assert.equal(readCooldownUntil(tmp, scoped ? 'groq' : 'themes:groq'), 0)
 
     // Prove the durable hold, rather than a fabricated day marker, prevents repeated failed probes.
@@ -2347,6 +2356,7 @@ await check('makeThemeNamer shares exact 429/503 Retry-After holds and never bur
     await namer([candidate], NOW)
     const sharedUntil = readCooldownUntil(tmp, 'groq')
     assert.ok(sharedUntil >= started + 9_000 && sharedUntil <= Date.now() + 9_100, `${status} follows the exact provider clock`)
+    assert.equal(cooldownInfo(tmp, 'groq').reason, status === 429 ? 'theme-rate_limit' : 'theme-availability')
     assert.equal(readCooldownUntil(tmp, 'themes:groq'), 0)
     await namer([candidate], new Date(NOW.getTime() + 1_000))
     assert.equal(calls, 1, `${status} is not repeatedly probed while shared hold is live`)
