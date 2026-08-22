@@ -40,6 +40,12 @@ assert.deepEqual(publishedCalls([null, { ticker: 'PARTIAL' }, call('SAFE', '2026
 const invalidNumber = call('NAN', '2026-08-12')
 invalidNumber.expected_return_pct = Number.NaN
 assert.equal(publishedCalls([invalidNumber]).length, 0, 'non-finite call numbers fail closed')
+assert.equal(publishedCalls([{
+  ...call('LEGACY', '2026-08-11'),
+  entry_price: undefined,
+  expected_return_pct: undefined,
+  implied_target: undefined,
+}]).length, 1, 'omitted optional call numbers survive deploy skew')
 
 const update: CallUpdate = {
   id: 'review:SAFE:2026-08-12', ticker: 'SAFE', company: null, at: '2026-08-12', kind: 'review',
@@ -47,11 +53,19 @@ const update: CallUpdate = {
   source_path: 'analyses/SAFE_2026-08-12/reviews/review.md',
 }
 assert.deepEqual(publishedCallUpdates([null, { id: 'partial' }, update]), [update], 'Updates skips malformed rows')
+assert.equal(publishedCallUpdates([{
+  ...update,
+  company: undefined,
+  at: undefined,
+  detail: undefined,
+}]).length, 1, 'omitted optional update labels survive deploy skew')
 
 const attention: NeedsAttentionRow = {
   type: 'forecast', ticker: 'SAFE', company: null, run_root: 'analyses/SAFE_2026-08-12',
   final_thesis_path: 'analyses/SAFE_2026-08-12/final_thesis.md', due_date: '2026-08-11', description: 'check it',
 }
 assert.deepEqual(publishedNeedsAttention([undefined, { type: 'forecast' }, attention]), [attention], 'Needs Attention skips malformed rows')
+assert.equal(publishedNeedsAttention([{ ...attention, company: undefined }]).length, 1,
+  'an omitted optional company survives deploy skew')
 
 console.log('ok  Calls Current view is one newest published record per ticker')

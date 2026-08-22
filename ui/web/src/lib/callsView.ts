@@ -31,7 +31,7 @@ function isCallSummary(value: unknown): value is CallSummary {
   if (!nullableString(value.company) || !nullableString(value.decision_date) || !nullableString(value.decision)) return false
   if (!nullableString(value.time_horizon) || !nullableString(value.currency) || !nullableString(value.latest_thesis_status)) return false
   if (!optionalString(value.latest_review_summary) || !optionalString(value.latest_review_date)) return false
-  if (![value.entry_price, value.expected_return_pct, value.implied_target].every(nullableNumber)) return false
+  if (![value.entry_price, value.expected_return_pct, value.implied_target].every(optionalNumber)) return false
   if (!Array.isArray(value.timeline) || !value.timeline.every(isTimelineEntry)) return false
   if (value.next_checkpoint != null && (!isRecord(value.next_checkpoint)
     || typeof value.next_checkpoint.window !== 'string'
@@ -55,7 +55,7 @@ function isCallUpdate(value: unknown): value is CallUpdate {
     && (value.kind === 'call' || value.kind === 'review')
     && typeof value.headline === 'string' && !!value.headline
     && (value.tone === 'better' || value.tone === 'worse' || value.tone === 'same' || value.tone === 'info')
-    && nullableString(value.company) && nullableString(value.at) && nullableString(value.detail)
+    && optionalString(value.company) && optionalString(value.at) && optionalString(value.detail)
     && typeof value.run_root === 'string'
     && (value.source_path === null || typeof value.source_path === 'string')
 }
@@ -71,7 +71,7 @@ function isNeedsAttentionRow(value: unknown): value is NeedsAttentionRow {
     && typeof value.run_root === 'string' && !!value.run_root
     && typeof value.final_thesis_path === 'string' && !!value.final_thesis_path
     && typeof value.due_date === 'string' && typeof value.description === 'string'
-    && nullableString(value.company)
+    && optionalString(value.company)
 }
 
 export function publishedNeedsAttention(value: unknown): NeedsAttentionRow[] {
