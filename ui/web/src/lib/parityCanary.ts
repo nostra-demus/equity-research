@@ -13,6 +13,12 @@ export interface ProviderParityCanaryPrefill {
   freezeReceipt: string
 }
 
+export const PROVIDER_PARITY_CANARY_RUN_ROOT_RE = /^analyses\/provider-parity\/\d{4}-\d{2}-\d{2}\/(?:claude|codex)\/[A-Z0-9.\-]{1,12}_\d{4}-\d{2}-\d{2}$/
+
+export function providerParityCanaryRunRootIsValid(runRoot: string): boolean {
+  return PROVIDER_PARITY_CANARY_RUN_ROOT_RE.test(runRoot.trim())
+}
+
 /** Deep links may prefill the two non-secret repository paths, but never submit a launch. */
 export function providerParityCanaryPrefill(search: string): ProviderParityCanaryPrefill | null {
   const params = new URLSearchParams(search)

@@ -948,7 +948,7 @@ function readCanaryRunFile(rootAbs: string, name: string): string | null {
   const target = path.join(rootAbs, name)
   let fd: number | null = null
   try {
-    fd = fs.openSync(target, fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW)
+    fd = fs.openSync(target, fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW | fs.constants.O_NONBLOCK)
     const stat = fs.fstatSync(fd)
     if (!stat.isFile() || stat.size > 64 * 1024) return null
     return fs.readFileSync(fd, 'utf8')
@@ -962,7 +962,7 @@ function readCanaryRunFile(rootAbs: string, name: string): string | null {
 function canaryRunFileExists(rootAbs: string, name: string): boolean {
   let fd: number | null = null
   try {
-    fd = fs.openSync(path.join(rootAbs, name), fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW)
+    fd = fs.openSync(path.join(rootAbs, name), fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW | fs.constants.O_NONBLOCK)
     return fs.fstatSync(fd).isFile()
   } catch {
     return false
@@ -1108,7 +1108,7 @@ app.get('/api/internal/provider-parity/canary-status', { config: { rateLimit: { 
   }
 
   const run = listRuns()
-    .filter((candidate) => candidate.runRoot === parsed.data.runRoot && Boolean(candidate.parityPrelaunchBinding))
+    .filter((candidate) => candidate.runRoot === parsed.data.runRoot && candidate.parityCanary === true)
     .sort((a, b) => b.startedAt - a.startedAt)[0]
   const terminalEvent = run && [...run.eventLog].reverse().find((event) => event.type === 'run-error' || event.type === 'run-done')
   const failureNote = readCanaryRunFile(rootAbs, 'RUN_FAILURE.md')
@@ -1122,7 +1122,7 @@ app.get('/api/internal/provider-parity/canary-status', { config: { rateLimit: { 
     'final_thesis.md', 'decision_record.json', 'audit_dossier.md', 'execution_provenance.receipt.json',
   ].map((name) => [name, canaryRunFileExists(rootAbs, name)]))
   const diskComplete = artifacts['final_thesis.md'] && artifacts['decision_record.json'] && artifacts['execution_provenance.receipt.json']
-  const status = run?.status ?? (diskComplete ? 'done' : failureNote || interruptedRaw ? 'error' : 'unknown')
+  const status = run?.status ?? (diskComplete ? 'done' : failureNote !== null || interruptedRaw !== null ? 'error' : 'unknown')
   const eventMessage = terminalEvent?.type === 'run-error'
     ? terminalEvent.message || terminalEvent.reason
     : terminalEvent?.type === 'run-done' ? 'Canary completed.' : null

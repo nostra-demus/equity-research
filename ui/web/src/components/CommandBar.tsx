@@ -10,7 +10,7 @@ import { todayOutcomeCopy } from './screener/pipelineDiagnosticsView'
 import { ThemeToggle } from './ThemeToggle'
 import { RunHistory } from './RunHistory'
 import { executionProfileLabel, providerBlockedReason, providerIsBlocked, providerLabel, providerNeedsCheck, providerUsagePercentText, type RunProvider } from '../lib/provider'
-import { CODEX_PARITY_CANARY_SELECTION, providerParityCanaryPrefill, providerParityCanaryResponseMatches, providerParityCanarySubject } from '../lib/parityCanary'
+import { CODEX_PARITY_CANARY_SELECTION, providerParityCanaryPrefill, providerParityCanaryResponseMatches, providerParityCanaryRunRootIsValid, providerParityCanarySubject } from '../lib/parityCanary'
 import { Spin } from './Spin'
 
 function BrandMark() {
@@ -533,7 +533,7 @@ function ProviderSelector() {
   }, [])
 
   useEffect(() => {
-    if (!canLaunchCanary || !canaryOpen || !canaryRunRoot.trim()) return
+    if (!canLaunchCanary || !canaryOpen || !providerParityCanaryRunRootIsValid(canaryRunRoot)) return
     let alive = true
     let timer: ReturnType<typeof setTimeout> | null = null
     const refresh = async () => {
@@ -541,7 +541,8 @@ function ProviderSelector() {
         const status = await api.providerParityCanaryStatus(canaryRunRoot.trim())
         if (!alive) return
         setCanaryStatus(status)
-        if (['starting', 'readiness-checking', 'awaiting-readiness-decision', 'running'].includes(status.status)) {
+        if (['starting', 'readiness-checking', 'awaiting-readiness-decision', 'running'].includes(status.status)
+            || (canaryAttempted && status.status === 'unknown')) {
           timer = setTimeout(() => void refresh(), 2_000)
         }
       } catch (error: any) {
@@ -550,7 +551,7 @@ function ProviderSelector() {
     }
     void refresh()
     return () => { alive = false; if (timer) clearTimeout(timer) }
-  }, [canLaunchCanary, canaryOpen, canaryRunRoot])
+  }, [canLaunchCanary, canaryOpen, canaryRunRoot, canaryAttempted])
 
   // static showcase has no Claude usage to report — the "read-only showcase" chip already says so
   if (staticMode) return null
