@@ -10,7 +10,7 @@
 # so the time-travel filter still spans the entire archive.
 #
 #   - COPY (never move) into Drive, re-copying only when the local file is newer → cloud is append-only.
-#   - PRUNE local firehose files older than RETENTION_DAYS, but ONLY when a same-size copy is confirmed
+#   - PRUNE local firehose and pipeline-audit files older than RETENTION_DAYS, but ONLY when a same-size copy is confirmed
 #     in the Drive folder (never delete data that isn't safely in the cloud).
 #   - No-ops cleanly if the Drive folder isn't reachable (Drive app off) — logs and exits 0, prunes nothing.
 # ---------------------------------------------------------------------------------------------------
@@ -33,7 +33,7 @@ fi
 
 echo "$(ts) [start] mirror raw news → $ARCH" >> "$LOG"
 up=0
-for f in "$SRC"/*_firehose.ndjson "$SRC"/*_sweep.json; do
+for f in "$SRC"/*_firehose.ndjson "$SRC"/*_pipeline.ndjson "$SRC"/*_sweep.json; do
   [ -e "$f" ] || continue
   dest="$ARCH/$(basename "$f")"
   if [ ! -e "$dest" ] || [ "$f" -nt "$dest" ]; then
@@ -44,7 +44,7 @@ for f in "$SRC"/*_firehose.ndjson "$SRC"/*_sweep.json; do
 done
 echo "$(ts) [up] $up file(s) copied/updated to Drive" >> "$LOG"
 
-# prune local firehose older than retention, only if a same-size cloud copy exists
+# prune local firehose and pipeline audit telemetry older than retention, only if a same-size cloud copy exists
 pruned=0
 while IFS= read -r f; do
   [ -e "$f" ] || continue
@@ -52,7 +52,7 @@ while IFS= read -r f; do
   if [ -e "$dest" ] && [ "$(stat -f%z "$f" 2>/dev/null)" = "$(stat -f%z "$dest" 2>/dev/null)" ]; then
     rm -f "$f" && pruned=$((pruned+1)) && echo "$(ts) [prune] $(basename "$f") (safe in Drive)" >> "$LOG"
   fi
-done < <(find "$SRC" -name '*_firehose.ndjson' -type f -mtime +"$RETENTION_DAYS" 2>/dev/null)
+done < <(find "$SRC" \( -name '*_firehose.ndjson' -o -name '*_pipeline.ndjson' \) -type f -mtime +"$RETENTION_DAYS" 2>/dev/null)
 
 echo "$(ts) [ok] archive complete · uploaded $up · pruned $pruned (local retention ${RETENTION_DAYS}d)" >> "$LOG"
 exit 0

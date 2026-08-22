@@ -13,6 +13,7 @@ import { useStore } from '../../lib/store'
 import type { DeferReason, LastResortState, NewsDiagnostics, TierDiagnostics, TierHealth } from '../../lib/types'
 import { tierMeter } from './pipelineMeter'
 import { diagnosticDeferReasons, fmtFailingFor, lastCycleArrivalCopy, pipelineFlowPresentation, tierStatusCopy, todayOutcomeCopy } from './pipelineDiagnosticsView'
+import { PipelineTrendView } from './PipelineTrend'
 import './PipelineDiagnostics.css'
 
 /** Plain time-UNTIL a future instant. The scheduler keeps nextCycleAt ahead of now, so this is the correct
@@ -82,7 +83,7 @@ function lastResortWhy(state: LastResortState): string {
   return LAST_RESORT_WHY[state] || 'The paid Haiku backup is not checking items right now.'
 }
 
-function TierRow({ tier, coolLeftMs }: { tier: TierDiagnostics; coolLeftMs: number }) {
+function TierRow({ tier, coolLeftMs, routerMode }: { tier: TierDiagnostics; coolLeftMs: number; routerMode?: NonNullable<NewsDiagnostics['router']>['mode'] }) {
   const c = `var(${tier.color})`
   const meter = tierMeter(tier)
   const tone = tier.spendingAllowed === false ? 'off' : HEALTH_TONE[tier.health]
@@ -103,6 +104,14 @@ function TierRow({ tier, coolLeftMs }: { tier: TierDiagnostics; coolLeftMs: numb
       <div className="diagtier__top">
         <span className="diagtier__dot" data-tone={tone} aria-hidden />
         <span className="diagtier__label" style={{ color: tier.enabled && tier.spendingAllowed !== false ? c : 'var(--text-faint)' }}>{tier.label}</span>
+        {tier.routing && <span className="diagtier__rank" title={`Fitness ${tier.routing.fitnessScore.toFixed(1)} from ${tier.routing.sampleSize} audited calls`}>
+          {tier.routing.actualRank == null ? 'not ranked' : `#${tier.routing.actualRank}`}
+          {routerMode === 'shadow' && tier.routing.shadowRank != null
+            ? ` · would rank #${tier.routing.shadowRank}`
+            : tier.routing.shadowRank != null && tier.routing.shadowRank !== tier.routing.actualRank
+              ? ` · shadow #${tier.routing.shadowRank}`
+              : ''}
+        </span>}
         <span className="diagtier__health" data-tone={tone} title={statusTitle}>
           {status}
         </span>
@@ -137,6 +146,9 @@ function TierRow({ tier, coolLeftMs }: { tier: TierDiagnostics; coolLeftMs: numb
           )}
         </div>
       )}
+      {tier.routing && <div className="diagtier__fitness" title={`Yield ${(tier.routing.components.usableBatchYield * 100).toFixed(1)}%; throughput ${(tier.routing.components.usefulThroughput * 100).toFixed(1)}% of peer; released-capacity urgency ${(tier.routing.components.releasedCapacityUrgency * 100).toFixed(1)}%; failure penalty ${tier.routing.components.failurePenalty}; cost penalty ${tier.routing.components.costPenalty}.`}>
+        fitness {tier.routing.fitnessScore.toFixed(1)} · {tier.routing.sampleSize} calls · {tier.routing.eligible ? 'eligible' : tier.routing.eligibilityReason}
+      </div>}
     </div>
   )
 }
@@ -226,6 +238,7 @@ export function PipelineDiagnostics() {
   const diag = useStore((s) => s.newsDiagnostics)
   const refresh = useStore((s) => s.refreshDiagnostics)
   const [booted, setBooted] = useState(false)
+  const [trendMode, setTrendMode] = useState(false)
 
   // panel-local poll (guarded, cleared on unmount) — belt-and-braces over the per-cycle SSE refresh
   useEffect(() => {
@@ -279,13 +292,14 @@ export function PipelineDiagnostics() {
   // still renders against an engine that has the flag but not yet the group (rolling deploy).
   const credentialBlocked = (diag?.tiers || []).filter((t) => t.enabled && t.spendingAllowed !== false && t.credentialRejected === true)
   return (
-    <motion.div className="diag" initial={{ x: '100%' }} animate={{ x: 0 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
+    <motion.div className={`diag${trendMode ? ' is-trend' : ''}`} initial={{ x: '100%' }} animate={{ x: 0 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
       <div className="diag__head">
         <div style={{ minWidth: 0 }}>
           <div className="diag__title">News scanner</div>
           <div className="diag__sub">Checks incoming news and keeps the useful items. See whether it is working, keeping up, or missing anything.</div>
         </div>
         <div className="diag__tools">
+          <button className="btn btn--ghost diag__mini" onClick={() => setTrendMode((value) => !value)}>{trendMode ? 'Live' : 'Trend'}</button>
           <button className="btn btn--ghost diag__mini" onClick={() => void refresh()} title="Refresh">↻</button>
           <button className="btn btn--ghost diag__mini" onClick={close}>Close ✕</button>
         </div>
@@ -301,6 +315,8 @@ export function PipelineDiagnostics() {
         <div className="diag__body">
           <div className="diag__empty">Couldn't reach the scanner. <button className="btn btn--ghost diag__mini" onClick={() => void refresh()}>Retry</button></div>
         </div>
+      ) : trendMode ? (
+        <div className="diag__body is-trend"><PipelineTrendView diagnostics={diag} /></div>
       ) : (
         <div className="diag__body">
           <section className="diag__sec">
@@ -394,7 +410,7 @@ export function PipelineDiagnostics() {
           <details className="diagdetails">
             <summary>Checking services <span className="diag__count">{diag.tiers.length}</span></summary>
             <div className="diag__tiers">
-              {diag.tiers.map((t) => <TierRow key={t.id} tier={t} coolLeftMs={coolLeft(t)} />)}
+              {diag.tiers.map((t) => <TierRow key={t.id} tier={t} coolLeftMs={coolLeft(t)} routerMode={diag.router?.mode} />)}
             </div>
             <div className="diag__hint">The bars show how much of this app’s daily limit has been used.</div>
             {diag.tiers.length === 0 && <div className="diag__hint">No checking service is set up, so the scanner cannot run.</div>}

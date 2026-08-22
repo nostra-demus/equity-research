@@ -1109,6 +1109,17 @@ export interface TierDiagnostics {
   triageAttemptsToday?: number
   triageScoredBatchesToday?: number
   lastCycleRequests?: number
+  routing?: {
+    actualRank: number | null
+    shadowRank: number | null
+    fitnessScore: number
+    components: { usableBatchYield: number; usefulThroughput: number; releasedCapacityUrgency: number; failurePenalty: number; costPenalty: number }
+    sampleSize: number
+    eligible: boolean
+    eligibilityReason: string
+    explorationDue: boolean
+    lastSelectedAt: string | null
+  }
 }
 
 export type PipelineFlowCoverage = 'complete' | 'partial' | 'none'
@@ -1162,6 +1173,19 @@ export interface NewsDiagnostics {
   nextCycleAt: string | null
   /** Optional for a new cockpit talking to an older server during a rolling deploy. */
   flow?: PipelineFlowRates
+  /** Optional for rolling deploys; absent means the static order remains the only proven route. */
+  router?: {
+    requestedMode: 'auto' | 'shadow' | 'static'
+    mode: 'static' | 'shadow' | 'adaptive' | 'static-fallback'
+    reason: string
+    shadowStartedAt: string | null
+    activatesAt: string | null
+    activatedAt: string | null
+    outcomeCount: number
+    providerCount: number
+    pendingDecisions: number
+    coverageComplete: boolean
+  }
   tiers: TierDiagnostics[]
   // retiredToday is optional so a cockpit talking to an older server degrades cleanly (reads as absent, not 0-with-confidence)
   backlog: { unavailable?: boolean; count: number; cap: number; pctOfCap: number; nearLimit: boolean; trend: 'growing' | 'shrinking' | 'flat' | null; lostToday: number; retiredToday?: number }
@@ -1219,6 +1243,36 @@ export interface NewsDiagnostics {
     needsCredentialTiers?: string[] // optional while an older engine is still serving
   }
 }
+
+export interface PipelineTrendBucket {
+  start: string
+  end: string
+  inflowPerSecond: number | null
+  scanningPerSecond: number | null
+  backlog: number | null
+  retired: number | null
+  legacyLoss: number | null
+  verified: boolean
+  routerMode: 'static' | 'shadow' | 'adaptive' | 'static-fallback' | null
+  routerTransition: string | null
+  providers: Record<string, { successes: number; failures: number; scoredItems: number; actualRank: number | null; shadowRank: number | null; health: string | null; routingChanges: number }>
+}
+
+export interface PipelineTrend {
+  from: string
+  to: string
+  bucketMs: number
+  timezone: 'UTC'
+  coverage: { complete: boolean; missingPipelineDays: string[]; missingFirehoseDays: string[]; corruptRows: number; unreadableDays: string[]; truncated: boolean }
+  buckets: PipelineTrendBucket[]
+  providers: Array<{ id: string; contributionShare: number; usableBatchYield: number; usefulThroughput: number; releasedCapacityUtilization: number | null; failures: number; currentRank: number | null }>
+}
+
+export type PipelineAuditEvent =
+  | { v: 1; kind: 'provider_decision'; ts: string; cycleId: string; decisionId: string; mode: string; actualProviderId: string | null; shadowProviderId: string | null; exploration: boolean; candidates: Array<{ id: string; eligible: boolean; reason: string; score: number; rank: number | null; actualRank?: number | null; shadowRank?: number | null; sampleSize: number; components: { usableBatchYield: number; usefulThroughput: number; releasedCapacityUrgency: number; failurePenalty: number; costPenalty: number } }> }
+  | { v: 1; kind: 'provider_outcome'; ts: string; cycleId: string; decisionId: string; providerId: string; outcome: 'success' | 'failure'; failureClass: string | null; batchSize: number; scoredItems: number; networkCalls: number; tokens: number; costUsd: number; elapsedMs: number }
+  | { v: 1; kind: 'provider_snapshot'; ts: string; cycleId: string; phase: string; providers: Array<{ id: string; state: string; eligible: boolean; reason: string; allowanceUsed?: number; allowanceReleased?: number; allowanceCap?: number; consecutiveFailures?: number }> }
+  | { v: 1; kind: 'router_transition'; ts: string; cycleId: string; from: string; to: string; reason: string }
 
 export interface ActiveRunLite {
   runId: string

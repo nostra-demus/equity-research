@@ -5,7 +5,7 @@ import { QUOTE_CLIENT_TIMEOUT_MS } from './quoteTimeout'
 import type { ValuationLeversResponse, ValuationOverride } from './valuationLevers'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
 import type { BridgeStatus } from './types'
-import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, MemoryRead, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, AddPipelineSourceInput, BuildStep, CallsResult, ChatComputed, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CompletedChatTurn, CoverageGroup, DataNeedsRead, DataNeedUploadRead, DataStatus, DiscoveredFeed, EventEnrichment, EventResearchLink, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, MemoryRead, NewsChatEvidence, NewsChatReceipt, NewsChatRequest, NewsCycle, NewsDiagnostics, NewsStatus, PipelineAuditEvent, PipelineTrend, PipelineView, QuoteRead, ResumableRunInfo, RunHistoryEntry, ScanVerdict, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, TickerSummary, UploadResult, Usage, WhatChangedRead, Whoami } from './types'
 import { parseMemoryRead, unavailableMemoryRead } from './memoryView'
 
 // Vite supplies `import.meta.env` in the app; standalone tsx regression tests do not.
@@ -493,6 +493,18 @@ export const api = {
     if ((await ensureMode()) === 'static')
       return { ts: new Date().toISOString(), enabled: false, running: false, readOnly: false, intervalMin: 15, lastCycleAt: null, nextCycleAt: null, tiers: [], backlog: { count: 0, cap: 0, pctOfCap: 0, nearLimit: false, trend: null, lostToday: 0, retiredToday: 0 }, today: { read: 0, kept: 0, dropped: 0, cycles: 0 }, lastCycle: null, defer: { active: false, reason: null, plainNote: null, lastResort: null, blockingTiers: [] } }
     return get(`/api/news/diagnostics`, 8_000)
+  },
+  newsDiagnosticsTrend: async (from: string, to: string, bucket = 'auto'): Promise<PipelineTrend> => {
+    if ((await ensureMode()) === 'static') return { from, to, bucketMs: 3_600_000, timezone: 'UTC', coverage: { complete: false, missingPipelineDays: [], missingFirehoseDays: [], corruptRows: 0, unreadableDays: [], truncated: false }, buckets: [], providers: [] }
+    const query = new URLSearchParams({ from, to, bucket })
+    return get(`/api/news/diagnostics/trend?${query.toString()}`, 15_000)
+  },
+  newsDiagnosticsTrendEvents: async (from: string, to: string, providerId = '', cursor = '', limit = 250): Promise<{ events: PipelineAuditEvent[]; nextCursor: string | null; coverage: { corruptRows: number; unreadableDays: string[]; truncated: boolean } }> => {
+    if ((await ensureMode()) === 'static') return { events: [], nextCursor: null, coverage: { corruptRows: 0, unreadableDays: [], truncated: false } }
+    const query = new URLSearchParams({ from, to, limit: String(Math.min(250, Math.max(1, limit))) })
+    if (providerId) query.set('providerId', providerId)
+    if (cursor) query.set('cursor', cursor)
+    return get(`/api/news/diagnostics/trend/events?${query.toString()}`, 15_000)
   },
   newsSources: async (): Promise<SourcesReport> => {
     if ((await ensureMode()) === 'static') return { updated_at: new Date().toISOString(), counts: { total: 0, healthy: 0, quiet: 0, failing: 0, idle: 0 }, sources: [] }
