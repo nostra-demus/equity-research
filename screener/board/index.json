@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-22T07:11:05Z",
+  "generated_at": "2026-08-22T07:11:27Z",
   "inbox": [
     {
       "inbox_id": "INB-20260822-2341",
@@ -71719,6 +71719,76 @@
   "handoffs": [],
   "ideas": [
     {
+      "idea_id": "IDEA-ce5a3da6047f",
+      "idea_version": "IDEAV-1189938ab48fac87",
+      "idea_version_started_at": "2026-08-22T07:11:14Z",
+      "ticker": "SSEA",
+      "company": "Starry Sea Acquisition Corp",
+      "exchange": "NASDAQ",
+      "direction": "long",
+      "pair_with": null,
+      "reason": "Starry Sea Acquisition Corp has entered into a definitive merger agreement with SuperiorMed Holdings Limited, which typically drives immediate speculative upside to the SPAC's shares.",
+      "why_now": "The merger agreement was officially announced on August 22, 2026, creating an immediate trading catalyst.",
+      "conviction": 60,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 62,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 18,
+        "impact": 21,
+        "specificity": 15,
+        "timing": 10,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "room",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-53dc51597abf"
+      ],
+      "primary_source_event_id": "EVT-53dc51597abf",
+      "source_headlines": [
+        "SuperiorMed Holdings Limited Announces Entering into an Agreement and Plan of Merger with Starry Sea Acquisition Corp | SSEA Stock News"
+      ],
+      "source_headline": "SuperiorMed Holdings Limited Announces Entering into an Agreement and Plan of Merger with Starry Sea Acquisition Corp | SSEA Stock News",
+      "source_url": "https://www.stocktitan.net/news/SSEA/superior-med-holdings-limited-announces-entering-into-an-agreement-box9i5nrtf5h.html",
+      "source_name": "Stock Titan — Latest News",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-22T05:24:00Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-22T07:11:14Z",
+      "updated_at": "2026-08-22T07:11:14Z",
+      "decay_at": "2026-08-23T17:24:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
       "idea_id": "IDEA-17879c231b7e",
       "idea_version": "IDEAV-582364657501bec5",
       "idea_version_started_at": "2026-08-22T02:12:31Z",
@@ -72132,6 +72202,77 @@
       "surfaced_at": "2026-08-20T21:32:56Z",
       "updated_at": "2026-08-20T21:32:56Z",
       "decay_at": "2026-08-22T08:17:00Z",
+      "status": "live",
+      "promoted_signal_id": null,
+      "feedback": null,
+      "stale": false
+    },
+    {
+      "idea_id": "IDEA-3cfa47125f65",
+      "idea_version": "IDEAV-64638a1412f2ffb5",
+      "idea_version_started_at": "2026-08-22T07:11:14Z",
+      "ticker": "WMT",
+      "company": "Walmart",
+      "exchange": "NASDAQ",
+      "direction": "short",
+      "pair_with": null,
+      "reason": "Walmart's stock is under pressure after the company issued a disappointing outlook that missed Wall Street expectations, signaling potential margin compression or slowing consumer demand.",
+      "why_now": "The stock tumbled 9% following the immediate release of its disappointing guidance on August 20, 2026.",
+      "conviction": 65,
+      "conviction_basis": "pre_edge_proxy",
+      "trade_score": 55,
+      "trade_score_basis": "evidence_gate_v2",
+      "trade_score_breakdown": {
+        "evidence": 14,
+        "impact": 19,
+        "specificity": 15,
+        "timing": 6,
+        "expression": 6,
+        "corroboration": 0,
+        "learning_adjustment": 0
+      },
+      "trade_readiness": "needs_data",
+      "missing_checks": [
+        "live liquidity",
+        "dated catalyst",
+        "priced-in risk",
+        "independent confirmation",
+        "live price, liquidity, and consensus"
+      ],
+      "learning": {
+        "resolved": 0,
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0,
+        "adjustment": 0,
+        "basis": "not_enough_outcomes",
+        "evidenceIds": []
+      },
+      "priced_in": "priced",
+      "thesis_type": "company_specific",
+      "origin_type": "wire",
+      "source_themes": [],
+      "source_event_ids": [
+        "EVT-4c114ed8b317"
+      ],
+      "primary_source_event_id": "EVT-4c114ed8b317",
+      "source_headlines": [
+        "Walmart stock tumbles 9% after outlook disappoints Wall Street"
+      ],
+      "source_headline": "Walmart stock tumbles 9% after outlook disappoints Wall Street",
+      "source_url": "https://www.cnbc.com/2026/08/20/walmart-wmt-q2-2027-earnings.html",
+      "source_name": "CNBC",
+      "materiality_max": 100,
+      "newest_source_at": "2026-08-20T20:01:49Z",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "surfaced_at": "2026-08-22T07:11:14Z",
+      "updated_at": "2026-08-22T07:11:14Z",
+      "decay_at": "2026-08-22T08:01:49Z",
       "status": "live",
       "promoted_signal_id": null,
       "feedback": null,
@@ -75909,77 +76050,6 @@
       "stale": true
     },
     {
-      "idea_id": "IDEA-f0b7aaadad7d",
-      "idea_version": "IDEAV-c0f14b83d2178899",
-      "idea_version_started_at": "2026-08-20T06:23:48Z",
-      "ticker": "ADVIKCAP",
-      "company": "Advik Capital Ltd",
-      "exchange": "BSE",
-      "direction": "short",
-      "pair_with": null,
-      "reason": "The resignation of a statutory auditor is a significant governance red flag that often precedes further negative disclosures or regulatory scrutiny.",
-      "why_now": "The resignation was announced on 2026-08-19.",
-      "conviction": 70,
-      "conviction_basis": "pre_edge_proxy",
-      "trade_score": 45,
-      "trade_score_basis": "evidence_gate_v2",
-      "trade_score_breakdown": {
-        "evidence": 25,
-        "impact": 19,
-        "specificity": 7,
-        "timing": 10,
-        "expression": 0,
-        "corroboration": 0,
-        "learning_adjustment": 0
-      },
-      "trade_readiness": "watch_only",
-      "missing_checks": [
-        "verified listed ticker",
-        "verified listing",
-        "live liquidity",
-        "dated catalyst",
-        "live price, liquidity, and consensus"
-      ],
-      "learning": {
-        "resolved": 0,
-        "positive": 0,
-        "negative": 0,
-        "neutral": 0,
-        "adjustment": 0,
-        "basis": "not_enough_outcomes",
-        "evidenceIds": []
-      },
-      "priced_in": "room",
-      "thesis_type": "governance_turnaround",
-      "origin_type": "wire",
-      "source_themes": [],
-      "source_event_ids": [
-        "EVT-6a9941666303"
-      ],
-      "primary_source_event_id": "EVT-6a9941666303",
-      "source_headlines": [
-        "Advik Capital Ltd: Intimation under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 - Resignation of Statutory Auditor"
-      ],
-      "source_headline": "Advik Capital Ltd: Intimation under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 - Resignation of Statutory Auditor",
-      "source_url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/94671121-de23-4e9d-99da-d97156009770.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "materiality_max": 100,
-      "newest_source_at": "2026-08-19T07:10:38Z",
-      "prior_coverage": {
-        "has_run": false,
-        "latest_run": null,
-        "latest_decision": null,
-        "data_pool_present": false
-      },
-      "surfaced_at": "2026-08-20T02:14:56Z",
-      "updated_at": "2026-08-20T06:23:48Z",
-      "decay_at": "2026-08-20T19:10:38Z",
-      "status": "live",
-      "promoted_signal_id": null,
-      "feedback": null,
-      "stale": true
-    },
-    {
       "idea_id": "IDEA-73fe33cef954",
       "idea_version": "IDEAV-1f7dd21dd930af9c",
       "idea_version_started_at": "2026-08-20T02:14:56Z",
@@ -76196,7 +76266,7 @@
     "schema_version": "ideas-archive/v1",
     "health": {
       "status": "ok",
-      "file_count": 6,
+      "file_count": 7,
       "suppression_count": 0,
       "corrupt_count": 0,
       "invalid_count": 0,
@@ -78004,8 +78074,8 @@
         "promoted_signal_id": null,
         "feedback": null,
         "stale": true,
-        "archived_at": "2026-08-20T19:10:38Z",
-        "archive_reason": "expired",
+        "archived_at": "2026-08-22T07:11:19Z",
+        "archive_reason": "expired_pruned",
         "audit_only": true
       },
       {
@@ -78452,8 +78522,8 @@
     ]
   },
   "ideas_scorecard": {
-    "surfaced_total": 69,
-    "live_count": 38,
+    "surfaced_total": 71,
+    "live_count": 40,
     "promoted_total": 1,
     "machine_confirmed": 0,
     "machine_passed": 1,
