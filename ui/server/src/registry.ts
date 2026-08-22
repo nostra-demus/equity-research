@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto'
 import type { ResultPromise } from 'execa'
 import { logFinish } from './activity-log'
 import type { AgentRunState, ReadinessDecision, ReadinessReport, RunActivity, RunKind, RunStatus, SseEvent } from './types'
+import type { ProviderExecutionProfile, RunProvider } from './providers/types'
 
 export interface SseClient {
   id: string
@@ -29,7 +30,52 @@ export interface RunState {
   ticker: string
   module?: string
   agent?: string
+  provider: RunProvider
+  executionProfile: ProviderExecutionProfile
+  profileKey: string
   model: string
+  reasoningLevel?: string
+  cliVersion?: string
+  availabilityProofId?: string
+  /** Opaque capability accepted only by the local supervisor publication route. */
+  publicationToken?: string
+  /** One publication epoch; chained steps share their chain id, stable-root runs never share epochs. */
+  provenanceEpoch?: string
+  /** Canonical supervisor-owned rows. Provider children never receive or mutate this array. */
+  executionAttempts?: Array<Record<string, unknown>>
+  currentExecutionAttempts?: Array<Record<string, unknown>>
+  /** Run-root-relative decision artifact hashes captured immediately before the provider starts. */
+  publicationBaselines?: Record<string, string | null>
+  /** Retained evidence exists but its pre-provider identity cannot be proven. */
+  priorExecutionUnobserved?: boolean
+  /** Supervisor-verified provider-parity binding captured before this process was spawned. */
+  parityPrelaunchBinding?: Record<string, unknown>
+  /** Set only after the live supervisor verifies the terminal parity receipt and bound canaries. */
+  parityVerificationCompleted?: boolean
+  parityVerificationReceiptPath?: string
+  parityVerificationReceiptSha256?: string
+  publicationRequested?: boolean
+  publicationCompleted?: boolean
+  publicationError?: string
+  publicationPhase?: 'open' | 'archive-in-progress' | 'archive-sealed' | 'terminal-in-progress' | 'terminal-complete' | 'terminal-failed' | 'parity-attested'
+  /** Synchronous supervisor-owned integrity check for the per-run publication capability transport. */
+  publicationTransportVerify?: () => void
+  /** Exact supervisor-stamped terminal bytes; close/adjudication fail if the child changes them later. */
+  publicationArtifactHashes?: Record<string, string>
+  /** Protected immutable copies retained until the whole detached provider group has drained. */
+  publicationSnapshot?: {
+    directory: string
+    entries: Array<{ path: string; snapshot: string; sha256: string }>
+  }
+  /** Additional supervisor-created immutable files which the terminal commit must include exactly. */
+  supervisorPublicationArtifacts?: string[]
+  /** Commodity archive/top-record bytes sealed by the supervisor archive phase and rechecked at commit. */
+  commodityArchiveBinding?: {
+    decisionId: string
+    topRecord: string
+    topRecordSha256: string
+    archiveArtifactHashes: Record<string, string>
+  }
   prompt: string
   user: string // who launched it — authenticated email (Cloudflare Access) or "local"
   userVia: 'cf-access' | 'local'
@@ -49,17 +95,25 @@ export interface RunState {
   onFinish?: (status: RunStatus) => void // chained full run: advance to the next step when this one ends
   onTerminal?: (status: RunStatus) => void // headless orchestration hook; fires once with the real outcome
   chained?: boolean // this run is a step of a chained full run — cancelling it must also halt the chain
+  /** Immutable id shared by every step of one chained full run. Cancellation is scoped to this id. */
+  chainId?: string
   startedAt: number
   endedAt?: number
   costUsd?: number
   numTurns?: number
   // The CLI's own final `result` verdict, captured on EVERY result (clean or error) — see activity-log.
   cliResult?: { subtype?: string; isError?: boolean; apiErrorStatus?: number }
+  /** Structured provider failure observed before process close; admission remains held until tree exit. */
+  streamFailure?: { reason: string; message: string }
+  /** Detached provider process-group identity while a terminal kill is being drained. */
+  processGroupPid?: number
+  processGroupKillRequested?: boolean
   durationMs?: number
   lastStdoutAt?: number // when the engine child last wrote ANY stdout — the "engine is alive" signal
   lastActivity?: RunActivity // the orchestrator's most recent tool call (heartbeat payload)
   activity: RunActivity[] // bounded ring of recent tool calls — replayed on subscribe (see ACTIVITY_RING)
   sessionId?: string
+  resumeSessionId?: string
   willCommitToMain: boolean
   writeTargetsAbs: string[] // absolute paths this run writes — D2 disjointness
   coveredModules: string[] // modules this run writes into — D2b / D3
@@ -163,10 +217,14 @@ export function listRuns(): RunState[] {
 }
 
 export function emit(run: RunState, event: SseEvent) {
-  run.eventLog.push(event)
+  const wireEvent = {
+    ...event, provider: run.provider, executionProfile: run.executionProfile,
+    chainId: run.chainId, executionEpoch: run.provenanceEpoch,
+  } as SseEvent
+  run.eventLog.push(wireEvent)
   for (const c of run.subscribers) {
     try {
-      c.send(event)
+      c.send(wireEvent)
     } catch {
       run.subscribers.delete(c)
     }
@@ -176,9 +234,13 @@ export function emit(run: RunState, event: SseEvent) {
 /** Send to live subscribers WITHOUT recording in eventLog — for transient/ambient events (heartbeats)
  *  that would otherwise bloat the replay backlog every new subscriber receives. */
 export function emitTransient(run: RunState, event: SseEvent) {
+  const wireEvent = {
+    ...event, provider: run.provider, executionProfile: run.executionProfile,
+    chainId: run.chainId, executionEpoch: run.provenanceEpoch,
+  } as SseEvent
   for (const c of run.subscribers) {
     try {
-      c.send(event)
+      c.send(wireEvent)
     } catch {
       run.subscribers.delete(c)
     }
@@ -216,6 +278,11 @@ const heartbeatTimer = setInterval(() => {
       agentsDone: agents.filter((a) => a.status === 'done').length,
       agentsTotal: agents.length,
       costUsd: run.costUsd,
+      provider: run.provider,
+      executionProfile: run.executionProfile,
+      profileKey: run.profileKey,
+      model: run.model,
+      reasoningLevel: run.reasoningLevel,
       lastStdoutAt: run.lastStdoutAt,
       lastActivity: run.lastActivity,
       ts: now,
@@ -229,7 +296,11 @@ export function subscribe(run: RunState, client: SseClient) {
   for (const e of run.eventLog) client.send(e)
   // …then the activity tail (kept out of eventLog — see ACTIVITY_RING), so a client attaching mid-run
   // sees the steps that ran before it connected instead of a feed that starts mid-thought.
-  for (const a of run.activity) client.send({ type: 'run-activity', runId: run.runId, tool: a.tool, target: a.target, ts: a.ts })
+  for (const a of run.activity) client.send({
+    type: 'run-activity', runId: run.runId, tool: a.tool, target: a.target,
+    provider: run.provider, executionProfile: run.executionProfile,
+    chainId: run.chainId, executionEpoch: run.provenanceEpoch, ts: a.ts,
+  })
   run.subscribers.add(client)
 }
 
@@ -258,12 +329,19 @@ export function finishRun(run: RunState, status: RunStatus) {
       ticker: run.ticker,
       swarm: run.swarmId,
       chained: run.chained,
+      chainId: run.chainId,
+      executionEpoch: run.provenanceEpoch,
       // the authoritative run folder rides the finished event too: a row folded from a finish-only
       // event (its launched line lost) could otherwise never open its reports
       runRoot: run.runRoot ?? undefined,
       module: run.module,
       agent: run.agent,
+      provider: run.provider,
+      executionProfile: run.executionProfile,
+      profileKey: run.profileKey,
       model: run.model,
+      reasoningLevel: run.reasoningLevel,
+      cliVersion: run.cliVersion,
       status,
       costUsd: run.costUsd,
       durationMs: run.durationMs ?? (run.endedAt - run.startedAt),

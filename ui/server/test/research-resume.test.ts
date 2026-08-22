@@ -106,6 +106,9 @@ check('exactly the two genuine interruptions are surfaced (LIVE excluded as in-f
 })
 
 // --- shouldHoldForCredit ---
+check('credit gate: unknown telemetry holds after restart (manual resume only)', () => {
+  assert.equal(shouldHoldForCredit({ ok: true, checked: false }, now), true)
+})
 check('credit gate: a healthy plan does NOT hold', () => {
   assert.equal(shouldHoldForCredit({ ok: true, checked: true }, now), false)
 })
@@ -128,6 +131,9 @@ check('resume gate: an out_of_credits pause with a FUTURE reset is NOT due yet',
 })
 check('resume gate: an out_of_credits pause whose reset PASSED is due', () => {
   assert.equal(isResumeDue({ kind: 'full', subject: 'OOC', reason: 'out_of_credits', resetsAt: PAST }, now, 60_000), true)
+})
+check('resume gate: an out_of_credits pause with unavailable reset telemetry is never auto-due', () => {
+  assert.equal(isResumeDue({ kind: 'full', subject: 'OOC', reason: 'out_of_credits' }, now, 60_000), false)
 })
 check('resume gate: a connection/kill break is due immediately', () => {
   assert.equal(isResumeDue({ kind: 'full', subject: 'INTR', reason: 'terminated_SIGKILL' }, now, 60_000), true)

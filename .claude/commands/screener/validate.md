@@ -51,7 +51,10 @@ transition line (e.g. `provisional(64) → strong(83) … GATE: kill pending →
 
 ```
 bash scripts/commit-run.sh "Screener conviction: <THESIS_ID> <CHECKPOINT_ID> → <verdict>" -- \
-  "screener/ledger/conviction/" "screener/board/"
+  "screener/ledger/conviction/checkpoints.ndjson" \
+  "screener/ledger/conviction/conviction.ndjson" \
+  "screener/ledger/conviction/conviction_state/<THESIS_ID>.json" \
+  "screener/board/index.json"
 ```
 
 Capture the SHA (`git rev-parse HEAD`).

@@ -290,6 +290,23 @@ def preflight(args: argparse.Namespace) -> None:
 
 
 def create(args: argparse.Namespace) -> None:
+    if os.environ.get("NOSTRA_COCKPIT_RUN") == "1" and args.swarm == "commodity":
+        # The immutable commodity archive is supervisor-created only after the paid process group is
+        # extinct. Its dependent receipt must therefore be queued too; creating it here would bind a
+        # provisional, unarchived decision. The live RunState supplies every other frozen plan/orb field.
+        from supervisor_publication import SupervisorPublicationError, post
+        try:
+            result = post({
+                "phase": "intake-receipt",
+                "executedAgainstDecisionFingerprint": args.executed_against_decision_fingerprint,
+            }, timeout=5 * 60)
+        except SupervisorPublicationError as error:
+            raise ReceiptError(f"supervisor intake-receipt queue failed: {error}") from error
+        intent_id = result.get("intentId") if isinstance(result, dict) else None
+        if result.get("ok") is not True or result.get("phase") != "queued" or not isinstance(intent_id, str):
+            raise ReceiptError("supervisor did not queue the post-archive intake receipt")
+        print(f"INTAKE-RECEIPT: deferred/{intent_id}.json sha256:{'0' * 64}")
+        return
     repo = Path(args.repo_root).resolve(strict=True)
     run_abs, _, plan = validate_plan(
         repo=repo, swarm=args.swarm, subject=args.subject, run_root=args.run_root,

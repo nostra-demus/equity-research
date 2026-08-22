@@ -44,17 +44,18 @@ export function agentMetricsArgs(sessionId: string, runRoot: string): string[] {
   ]
 }
 
-// Fire-and-forget on run finalize. Never throws; never blocks finalization. `onWritten` (optional) fires
-// ONLY after the report exits 0, with the per-run filename the caller should commit into the data stream
-// (§28) — writeAgentMetrics itself never touches git, keeping this module a pure telemetry writer.
-export function writeAgentMetrics(run: RunState, onWritten?: (run: RunState, filename: string) => void): void {
-  if (!run.runRoot || !run.sessionId) return // no session transcript to attribute → no metrics file (we don't fake one)
+// Run after the detached provider group is extinct and before the supervisor freezes terminal bytes. Never
+// throws. Returning the exact filename lets the caller include it in the SAME immutable publication instead
+// of starting a fire-and-forget Git writer after subject/admission claims have been released.
+export async function writeAgentMetrics(run: RunState): Promise<string | null> {
+  if (!run.runRoot || !run.sessionId) return null // no session transcript to attribute → no metrics file (we don't fake one)
   const filename = agentMetricsFilename(run.sessionId)
-  void execa('python3', agentMetricsArgs(run.sessionId, run.runRoot), {
-    cwd: REPO_ROOT,
-    timeout: 120_000,
-    reject: false, // a non-zero report (e.g. transcripts not found) is not a run failure
-  }).then((res) => {
-    if (res.exitCode === 0) onWritten?.(run, filename)
-  }).catch(() => { /* best-effort: a missing python3 / read error must never affect the run */ })
+  try {
+    const result = await execa('python3', agentMetricsArgs(run.sessionId, run.runRoot), {
+      cwd: REPO_ROOT,
+      timeout: 120_000,
+      reject: false, // a non-zero report (e.g. transcripts not found) is not a run failure
+    })
+    return result.exitCode === 0 ? filename : null
+  } catch { return null }
 }

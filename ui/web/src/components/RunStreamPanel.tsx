@@ -5,6 +5,7 @@ import { fmtCost } from '../lib/format'
 import { collectSamples, expectedDurations, expectedFor, fmtClock, fmtEtaLeft, fmtSpan, isOrblessRun, orbClass, orbProgress, scopeTiming, type ScopeOrb } from '../lib/eta'
 import { LIVEISH, pendingForScope, runsForScope } from '../lib/runScope'
 import { Spin } from './Spin'
+import { providerLabel } from '../lib/provider'
 
 const dotColor: Record<string, string> = {
   running: 'var(--accent)',
@@ -15,6 +16,11 @@ const dotColor: Record<string, string> = {
 
 const runLabel = (r: { kind: string; module?: string; agent?: string }) =>
   r.kind === 'full' ? 'Full run' : r.kind === 'sweep' ? 'News scan' : r.kind === 'module' ? `${r.module} module` : r.kind === 'rerun' ? `Re-run · ${r.agent}` : r.kind === 'doc-intake' ? 'New-data read' : r.agent || 'Agent'
+
+const runExecutionLabel = (run: { provider?: 'claude' | 'codex'; profileKey?: string; executionProfile?: { key: string }; model?: string; reasoningLevel?: string }): string =>
+  run.provider
+    ? `${providerLabel(run.provider)} · ${run.profileKey || run.executionProfile?.key || (run.model ? `${run.model}${run.reasoningLevel ? `:${run.reasoningLevel}` : ''}` : 'profile unknown')}`
+    : 'Provider/profile unknown'
 
 // what the system is doing right now, in plain words — from the run's server status
 const PHASE_LABEL: Record<string, string> = {
@@ -168,10 +174,11 @@ export function RunNowSection() {
                         // the heartbeat line below carries the live detail.
                         ? (running ? `${run.kind === 'doc-intake' ? 'reading' : 'scanning'} · ${fmtClock(elapsedMs)}` : run.status)
                         : `${done}/${total} orbs · ${running ? `${fmtClock(elapsedMs)} · ${etaText}` : run.status}`}
+                    {` · ${runExecutionLabel(run)}`}
                   </div>
                 </div>
                 {run.willCommitToMain && <span className="chip" style={{ color: 'var(--accent-bright)', borderColor: 'var(--accent-deep)' }}>commits main</span>}
-                <span className="runfoot__stat">{fmtCost(run.costUsd)}</span>
+                <span className="runfoot__stat">{run.provider === 'codex' ? 'Plan' : fmtCost(run.costUsd)}</span>
                 {running && (stoppingRuns[run.runId]
                   ? <button className="btn" style={{ height: 26, padding: '0 9px', fontSize: 12 }} disabled><Spin /> Stopping…</button>
                   : <button className="btn btn--danger" style={{ height: 26, padding: '0 9px', fontSize: 12 }} onClick={() => cancelRun(run.runId)}>Cancel</button>)}
@@ -204,7 +211,7 @@ export function RunNowSection() {
                       <div className="streamrow__body">
                         <div className="streamrow__name">
                           {r.name}
-                          <span className="streamrow__mod">{r.module} · L{r.layer}</span>
+                          <span className="streamrow__mod">{r.module} · L{r.layer} · {runExecutionLabel(run)}</span>
                         </div>
                         {r.verdict && (
                           <div className="streamrow__verdict">{r.verdict}{r.status === 'done' && dur && <span className="streamrow__dur"> · {dur}</span>}</div>
@@ -233,12 +240,13 @@ export function RunNowSection() {
           <AnimatePresence initial={false}>
             {runStream.map((r) => {
               const nrt = nodeRuntime[r.key]
+              const owner = activeRuns[r.runId]
               const dur = nrt?.startedAt && nrt?.endedAt && nrt.endedAt > nrt.startedAt ? fmtSpan(nrt.endedAt - nrt.startedAt) : null
               return (
                 <motion.div key={r.key} layout initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} className="streamrow">
                   <span className="streamrow__dot" style={{ background: dotColor[r.status] || 'var(--neutral)' }} />
                   <div className="streamrow__body">
-                    <div className="streamrow__name">{r.name}<span className="streamrow__mod">{r.module} · L{r.layer}</span></div>
+                    <div className="streamrow__name">{r.name}<span className="streamrow__mod">{r.module} · L{r.layer} · {owner ? runExecutionLabel(owner) : 'Provider/profile unknown'}</span></div>
                     {r.verdict && <div className="streamrow__verdict">{r.verdict}{dur && <span className="streamrow__dur"> · {dur}</span>}</div>}
                   </div>
                 </motion.div>

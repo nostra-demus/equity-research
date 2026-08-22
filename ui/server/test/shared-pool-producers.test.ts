@@ -51,8 +51,9 @@ assert.match(launchHandoff, /sharedPoolTarget: \{ swarm: RESEARCH_SWARM_ID, subj
   'the generic handoff carries its target into launcher TOCTOU protection')
 
 const dedicatedHandoff = route("app.post('/api/screener/handoff'", '// ---------- the news wire')
-assert.ok(dedicatedHandoff.indexOf('manualPoolOwnerError(RESEARCH_SWARM_ID, parsed.data.ticker)')
-  < dedicatedHandoff.indexOf("await launch({ kind: 'handoff'"),
+const dedicatedOwnerGuard = dedicatedHandoff.indexOf('manualPoolOwnerError(RESEARCH_SWARM_ID, parsed.data.ticker)')
+const dedicatedLaunch = dedicatedHandoff.indexOf("kind: 'handoff', ticker: parsed.data.ticker")
+assert.ok(dedicatedOwnerGuard >= 0 && dedicatedLaunch >= 0 && dedicatedOwnerGuard < dedicatedLaunch,
 'the dedicated handoff route checks its research destination before launch')
 assert.match(dedicatedHandoff, /sharedPoolTarget: \{ swarm: RESEARCH_SWARM_ID, subject: parsed\.data\.ticker \}/,
   'the dedicated handoff also carries a live target binding')

@@ -3,16 +3,22 @@
 from __future__ import annotations
 
 import hashlib
+import argparse
+import contextlib
+import io
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
 import tempfile
+from unittest.mock import patch
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 from canonical_json import canonical_json, canonical_sha256  # noqa: E402
 from ledger_records import load_one  # noqa: E402
+from intake_execution_receipt import create  # noqa: E402
 
 
 SCRIPT = HERE / "intake_execution_receipt.py"
@@ -162,5 +168,35 @@ with tempfile.TemporaryDirectory(prefix="intake-receipt-dangling-") as temp:
         "create", *common, "--executed-against-decision-fingerprint", fp, ok=False,
     ).stderr
     assert "receipts" in create_failure and ("unsafe" in create_failure or "not a direct" in create_failure)
+
+# Commodity cockpit receipts are dependent on the supervisor-created immutable archive, so the paid
+# child queues a post-extinction receipt intent and writes no provisional file.
+saved_cockpit = os.environ.get("NOSTRA_COCKPIT_RUN")
+try:
+    os.environ["NOSTRA_COCKPIT_RUN"] = "1"
+    args = argparse.Namespace(
+        swarm="commodity", subject="GOLD", run_root="commodity/runs/GOLD",
+        plan_path="commodity/runs/GOLD/intake/plan.json", plan_sha256="sha256:" + "1" * 64,
+        source_decision_fingerprint="sha256:" + "2" * 64,
+        executed_against_decision_fingerprint="sha256:" + "3" * 64,
+        module="supply-demand", agent="mine-supply",
+    )
+    captured = io.StringIO()
+    with patch("supervisor_publication.post", return_value={
+        "ok": True, "phase": "queued", "intentId": "8a1ed665-329a-4396-89b1-f8a1888320cf",
+    }) as delegated, contextlib.redirect_stdout(captured):
+        create(args)
+    delegated.assert_called_once_with({
+        "phase": "intake-receipt",
+        "executedAgainstDecisionFingerprint": args.executed_against_decision_fingerprint,
+    }, timeout=5 * 60)
+    assert captured.getvalue().strip() == (
+        "INTAKE-RECEIPT: deferred/8a1ed665-329a-4396-89b1-f8a1888320cf.json sha256:" + "0" * 64
+    )
+finally:
+    if saved_cockpit is None:
+        os.environ.pop("NOSTRA_COCKPIT_RUN", None)
+    else:
+        os.environ["NOSTRA_COCKPIT_RUN"] = saved_cockpit
 
 print("test_intake_execution_receipt: PASS")

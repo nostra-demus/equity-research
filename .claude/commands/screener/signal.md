@@ -64,13 +64,21 @@ At `<RUN_ROOT>/RUN_METADATA.md`: signal id, date, started/finished timestamps, r
 ## 6. Verify state files
 
 - `test -s <RUN_ROOT>/signal_payload.json` (whenever signal-gate completed its synthesis).
+- **Runtime execution provenance is supervisor-owned.** Do not write, copy, or stamp
+  `execution_provenance`. In a cockpit run, the `commit-run.sh` request is handled by the local supervisor:
+  it proves this attempt freshly authored the run thesis, derives the immutable ledger thesis from
+  `meta.thesis_id`, stamps both from canonical runtime identity, and rejects publication if they disagree.
+  A direct non-cockpit CLI run has no supervisor capability and keeps its historical standalone behavior.
 - If edge-definition ran: `test -s <RUN_ROOT>/thesis_record.json` AND `python3 -c "import json;assert json.load(open('<RUN_ROOT>/thesis_record.json'))['meta']['locked']"` — a completed edge-definition MUST leave a locked record.
 - If thesis-integrity ran: `test -s <RUN_ROOT>/thesis_integrity_review.json` (or its latest `_vN`).
-- **If thesis-integrity ran: patch the LEDGER thesis record with its verdict** (mirrors `/research:full` step 10B.2's pre-mortem → `decision_record.json` haircut propagation, adapted to the screener's frozen-record convention). Read `<THESIS_ID>` = `meta.thesis_id` from `<RUN_ROOT>/thesis_record.json` (needed here and by the checkpoint-seeding bullet below), then run `python3 scripts/screener_patch_integrity_review.py <THESIS_ID>` — deterministic, no LLM, idempotent. It reads the latest `thesis_integrity_review*.json` and additively writes a new top-level `integrity_review: {verdict, routing, reviewed_at, review_file, edge_score_haircut_note}` key onto `screener/ledger/theses/<THESIS_ID>.json` — it NEVER touches `meta`, `locked`, `version_history`, or any `M0_x` field, and never touches `<RUN_ROOT>/thesis_record.json` at all. Without this, a thesis the adversarial gate already killed keeps reading as "provisional"/"full_machine" everywhere except the one file nobody but this module ever opens (`update_board_index.py` reads it next, per below).
+- **Do not create or patch the immutable ledger thesis from the model process.** At publication the
+  supervisor copies the fresh locked run thesis, deterministically adds the latest integrity-review block,
+  stamps both copies, and refuses any mismatch. `<THESIS_ID>` comes only from the run thesis.
 - If candidate-surfacing ran: `test -s <RUN_ROOT>/candidates.json`.
-- If edge-definition locked a thesis AND the thesis-integrity gate did not reject it — i.e. thesis-integrity did NOT run (edge-definition routed non-provisional, so no `thesis_integrity_review.json` exists) OR the latest `thesis_integrity_review.json` / `_vN` has `routing: "Proceed"`: seed its conviction checkpoints (the post-lock live-book calendar). Reuse `<THESIS_ID>` from above, then run `python3 scripts/screener_emit_checkpoints.py <THESIS_ID>` — deterministic, no LLM, idempotent (safe on a resumed run). This places the idea on the Live Book; the conviction loop then runs separately, per checkpoint, via `/screener:validate` (never as part of this signal pipeline). See `frameworks/screener/CONVICTION_LOOP.md`.
+- If edge-definition locked a thesis and the integrity gate did not reject it, the supervisor seeds its
+  conviction checkpoints after deriving the ledger copy. Do not invoke the checkpoint helper directly.
   - Do NOT seed checkpoints when the latest integrity review routed `watchlist_integrity_downgrade` or `watchlist_integrity_broken` — the adversarial gate rejected the thesis, so it must not get a live-book conviction calendar or spend on paid `/screener:validate` runs (CONVICTION_LOOP.md). A rejection on a rerun means an already-seeded thesis's due checkpoints should be left un-launched until a later re-review routes `Proceed`.
-- Always: `python3 scripts/update_board_index.py` (idempotent — ensures the board reflects the final state even after an early stop).
+- The supervisor rebuilds the board after it derives the ledger copy. Do not rebuild it before publication.
 
 ## 7. Commit and push to main
 

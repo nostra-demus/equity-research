@@ -80,41 +80,25 @@ check('argv: an absolute runRoot resolves to itself, not nested under REPO_ROOT'
   assert.equal(jsonPath, path.join(abs, agentMetricsFilename('sess-1')))
 })
 
-// writeAgentMetrics is fire-and-forget; the guard must short-circuit (never spawn) when there's nothing to
-// attribute — a run with no captured session id, or no run folder — so telemetry can never fail a run.
-check('write guard: a run with no sessionId short-circuits (no throw, nothing spawned)', () => {
-  writeAgentMetrics({ runRoot: 'screener/runs/SIG-x', sessionId: undefined } as unknown as RunState)
+// The guard short-circuits (never spawns) when there's nothing to attribute.
+await checkAsync('write guard: a run with no sessionId returns no artifact', async () => {
+  assert.equal(await writeAgentMetrics({ runRoot: 'screener/runs/SIG-x', sessionId: undefined } as unknown as RunState), null)
 })
-check('write guard: a run with no runRoot short-circuits (no throw, nothing spawned)', () => {
-  writeAgentMetrics({ runRoot: null, sessionId: 'sess-abc' } as unknown as RunState)
+await checkAsync('write guard: a run with no runRoot returns no artifact', async () => {
+  assert.equal(await writeAgentMetrics({ runRoot: null, sessionId: 'sess-abc' } as unknown as RunState), null)
 })
 
-// The persist gap this closes: writeAgentMetrics used to be pure fire-and-forget with no way for the caller
-// to commit the file into the data stream (§28) — it landed after commit-run.sh had already pushed the run
-// folder and was never pushed. onWritten is the hook the launcher uses to commit; it must fire ONLY on a
-// zero-exit report, with the exact per-run filename that was passed to --json.
-await checkAsync('onWritten: fires with the run-scoped filename after a zero-exit report', () =>
-  withFakePython3(0, () => new Promise<void>((resolve, reject) => {
-    const timer = setTimeout(() => reject(new Error('onWritten never fired')), 5000)
-    writeAgentMetrics({ runRoot: 'analyses/FOO', sessionId: 'sess-ok', ticker: 'FOO' } as unknown as RunState,
-      (_run, filename) => {
-        clearTimeout(timer)
-        try {
-          assert.equal(filename, agentMetricsFilename('sess-ok'))
-          resolve()
-        } catch (e) { reject(e) }
-      })
-  })))
+// The launcher awaits this exact filename after process-group extinction and folds it into the terminal
+// immutable snapshot. A failed report returns null and cannot start a second Git writer.
+await checkAsync('successful report returns the run-scoped filename', () =>
+  withFakePython3(0, async () => {
+    assert.equal(await writeAgentMetrics({ runRoot: 'analyses/FOO', sessionId: 'sess-ok', ticker: 'FOO' } as unknown as RunState),
+      agentMetricsFilename('sess-ok'))
+  }))
 
-await checkAsync('onWritten: does NOT fire when the report exits non-zero', () =>
-  withFakePython3(1, () => new Promise<void>((resolve, reject) => {
-    let fired = false
-    writeAgentMetrics({ runRoot: 'analyses/FOO', sessionId: 'sess-fail', ticker: 'FOO' } as unknown as RunState,
-      () => { fired = true })
-    setTimeout(() => {
-      if (fired) reject(new Error('onWritten fired despite a non-zero exit'))
-      else resolve()
-    }, 2000)
-  })))
+await checkAsync('non-zero report returns no terminal artifact', () =>
+  withFakePython3(1, async () => {
+    assert.equal(await writeAgentMetrics({ runRoot: 'analyses/FOO', sessionId: 'sess-fail', ticker: 'FOO' } as unknown as RunState), null)
+  }))
 
 console.log(`\n${passed} checks passed`)

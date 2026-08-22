@@ -44,6 +44,9 @@ jobs:
       - name: Tests
         run: npm test
 
+      - name: Codex prompt-input doctrine + instruction-budget gate (official CLI 0.149.0)
+        run: node ../../scripts/check_codex_prompt_input.mjs --npx-version 0.149.0
+
   eval-contracts:
     name: eval — decision-record contracts + framework anchors
     runs-on: ubuntu-latest
@@ -111,8 +114,35 @@ jobs:
       - name: Ledger-records resolver tests (append-only correction layer — supersession + errata)
         run: python3 scripts/test_ledger_records.py
 
+      - name: Provider analytical-parity gate tests (frozen runs + evidence adjudication)
+        run: |
+          python3 -m json.tool frameworks/provider_parity_freeze.schema.json >/dev/null
+          python3 -m json.tool frameworks/provider_parity_run_binding.schema.json >/dev/null
+          python3 -m json.tool frameworks/provider_parity_execution_receipt.schema.json >/dev/null
+          python3 -m json.tool frameworks/provider_parity_adjudication.schema.json >/dev/null
+          python3 scripts/test_compare_provider_runs.py
+          python3 scripts/test_provider_parity_freeze.py
+
       - name: Calibration scoreboard tests (Brier, Murphy, Clopper-Pearson, e-value, effective-N, honesty)
-        run: python3 scripts/test_calibrate.py
+        run: |
+          python3 scripts/test_calibrate.py
+          python3 scripts/test_execution_provenance.py
+          python3 scripts/execution_provenance.py audit-repository --repo-root .
+          python3 scripts/ops/test_calibrate_local.py
+
+      - name: Calibration scheduler contracts (no-model wrapper + valid launchd templates)
+        run: |
+          bash -n scripts/ops/calibrate-local.sh scripts/ops/housekeeping.sh scripts/ops/install-services.sh
+          python3 scripts/test_review_due.py
+          python3 - <<'PY'
+          import plistlib
+          for path in (
+              "scripts/ops/com.nostradamus.hk-calibrate.plist",
+              "scripts/ops/com.nostradamus.hk-calibrate-daily.plist",
+          ):
+              with open(path, "rb") as handle:
+                  plistlib.load(handle)
+          PY
 
       - name: Calibration + market-feed selftests (deterministic engine + price-feed reader — fixture-free)
         run: |

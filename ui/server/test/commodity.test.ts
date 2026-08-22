@@ -37,6 +37,7 @@ check('commodity swarm is discovered from its SWARM.md manifest with an Action r
   assert.equal(c!.commandNs, 'commodity')
   assert.equal(c!.runRootTemplate, 'commodity/runs/{COMMODITY}')
   assert.equal(c!.placeholder, 'COMMODITY')
+  assert.deepEqual(c!.decisionArtifacts, ['decision_record.json'])
   assert.ok(c!.routing && c!.routing.verdictField === 'Action')
   for (const v of ['Buy', 'Hold', 'Trim', 'Avoid', 'Research More']) assert.ok(c!.routing!.terminal.includes(v), `terminal missing ${v}`)
   // research stays byte-stable (no swarm descriptor) and lists FIRST
@@ -116,7 +117,7 @@ check('swarmSubjectSummaries: the commodity picker surfaces the red-teamed cap, 
 
 // ---- launch preflight is swarm-scoped (reused full kind routed by swarm) ----
 check('estimate(full, GOLD, swarm=commodity) is scoped to the commodity swarm', () => {
-  const p = estimate('full', 'GOLD', undefined, undefined, 'commodity')
+  const p = estimate('full', 'GOLD', 'claude', undefined, undefined, 'commodity')
   assert.equal(p.swarm, 'commodity')
   assert.ok(p.agentCount >= 13)
   assert.equal(p.requiresTypedConfirm, true)
@@ -135,7 +136,7 @@ check('rerun on the commodity swarm: whole-module + single-orb cascade end at co
   assert.ok(orb.length >= 1 && orb.every((c) => c.module !== 'master'))
   assert.ok(orb.some((c) => c.module === 'commodity-thesis'), 'single-orb cascade must also reach commodity-thesis')
   // estimate accepts the reused rerun kind, scoped to the swarm, and is not a typed-confirm full run
-  const p = estimate('rerun', 'GOLD', 'supply-demand', undefined, 'commodity')
+  const p = estimate('rerun', 'GOLD', 'claude', 'supply-demand', undefined, 'commodity')
   assert.equal(p.swarm, 'commodity')
   assert.ok(p.agentCount >= 1)
   assert.notEqual(p.requiresTypedConfirm, true)

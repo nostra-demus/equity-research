@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Machine-agnostic TEMPLATE: placeholder tokens rendered by scripts/ops/install-services.sh at install time.
+     DOER-ONLY daily fallback. The post-review hook normally refreshes first; this catches interrupted/manual
+     reviews through deterministic local math and consumes neither Claude nor Codex quota. -->
+<plist version="1.0"><dict>
+  <key>Label</key><string>com.nostradamus.hk-calibrate-daily</string>
+  <key>ProgramArguments</key><array>
+    <string>/bin/bash</string>
+    <string>{{HOME}}/.nostra-ops/calibrate-local.sh</string>
+    <string>daily</string>
+  </array>
+  <key>EnvironmentVariables</key><dict>
+    <key>HOME</key><string>{{HOME}}</string>
+    <key>PATH</key><string>{{PLIST_PATH}}</string>
+    <key>ENGINE_REPO_ROOT</key><string>{{ENGINE_REPO_ROOT}}</string>
+  </dict>
+  <key>MaterializeDatalessFiles</key><true/>
+  <key>StartCalendarInterval</key><dict><key>Hour</key><integer>7</integer><key>Minute</key><integer>25</integer></dict>
+  <key>StandardOutPath</key><string>{{HOME}}/Library/Logs/nostradamus-housekeeping.log</string>
+  <key>StandardErrorPath</key><string>{{HOME}}/Library/Logs/nostradamus-housekeeping.log</string>
+</dict></plist>

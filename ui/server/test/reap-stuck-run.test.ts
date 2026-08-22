@@ -1,14 +1,17 @@
-// Never-stuck guarantee: a run whose engine PROCESS has died but whose close handler never fired must not
-// pin its subject's run-lock forever. reapDeadSubjectRuns() probes each in-flight run's child pid and
-// finalizes the corpses, releasing the subject so the next launch is admitted. Run: npx tsx test/reap-stuck-run.test.ts
-// Pure in-memory: fake `child` objects (a pid only), no real claude spawn, no disk writes (kind 'module'
-// isn't a resumable full/rerun, so finalizeRunOnClose writes no .interrupted marker).
+// Never-stuck guarantee: a run whose whole engine process tree has died but whose close handler never
+// fired must not pin its subject's run-lock forever. A dead leader with a live Task descendant, however,
+// must retain that lock until the detached process group drains. Run: npx tsx test/reap-stuck-run.test.ts
+// The process-group regression uses a short-lived local Node leader/descendant; all other checks use fake
+// `child` objects. No provider CLI is spawned and kind 'module' writes no resumable marker.
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
+import { spawn } from 'node:child_process'
+import { once } from 'node:events'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import {
+  awaitProviderProcessGroupExit,
   awaitRunsExited,
   bindTerminalGuard,
   cancel,
@@ -26,6 +29,7 @@ import {
   streamResultAwaitsProcessClose,
   subjectRunsAwaitingExit,
   trackTerminalGuardWork,
+  cancelSubject,
 } from '../src/launcher'
 import { admitRun } from '../src/admission'
 import { MAX_CONCURRENT_RUNS, REPO_ROOT } from '../src/config'
@@ -53,7 +57,10 @@ function seed(kind: RunKind, status: RunStatus, child: { pid?: number } | null):
 function seedOn(ticker: string, kind: RunKind, status: RunStatus, child: { pid?: number } | null): RunState {
   const subjRoot = `analyses/${ticker}_${DATE}`
   const run = createRun({
-    kind, ticker, model: 'sonnet', prompt: '', runRoot: subjRoot, willCommitToMain: true,
+    kind, ticker, provider: 'claude', model: 'sonnet', reasoningLevel: 'default',
+    profileKey: 'claude:sonnet:default',
+    executionProfile: { key: 'claude:sonnet:default', parentModel: 'sonnet', parentReasoning: 'default' },
+    prompt: '', runRoot: subjRoot, willCommitToMain: true,
     writeTargetsAbs: [path.join(REPO_ROOT, subjRoot, 'business-model/99_business-model-synthesis.md')],
     coveredModules: ['business-model'], readDepsAbs: [],
   })
@@ -73,6 +80,21 @@ function check(name: string, fn: () => void) {
 async function acheck(name: string, fn: () => Promise<void>) {
   try { await fn(); passed++; console.log(`  ok  ${name}`) }
   catch (e: any) { console.error(`FAIL  ${name}\n      ${e?.message || e}`); process.exitCode = 1 }
+}
+
+async function processGroupWithDeadLeader(): Promise<{ leader: ReturnType<typeof spawn>; groupPid: number }> {
+  const leader = spawn(process.execPath, ['-e', [
+    "const { spawn } = require('node:child_process')",
+    "const child = spawn(process.execPath, ['-e', \"process.on('SIGTERM', () => {}); setInterval(() => {}, 1000)\"], { stdio: 'ignore' })",
+    'child.unref()',
+    'setTimeout(() => {}, 250)',
+  ].join(';')], { detached: true, stdio: 'ignore' })
+  const groupPid = leader.pid
+  assert.ok(groupPid, 'detached leader must have a pid')
+  await once(leader, 'close')
+  assert.throws(() => process.kill(groupPid, 0), (error: any) => error?.code === 'ESRCH', 'leader must be gone')
+  assert.doesNotThrow(() => process.kill(-groupPid, 0), 'Task descendant must keep the process group alive')
+  return { leader, groupPid }
 }
 
 // A module run that conflicts with the seeded in-flight business-model run (same write target → D2/D2b).
@@ -263,7 +285,7 @@ try {
     const failedGuardRecovery = body.indexOf('if (!terminalProof.ok)', guard)
     const cleanRecovery = body.indexOf('recoverNonCleanExactClose(run)', failedGuardRecovery)
     const nonCleanRecovery = body.indexOf('recoverNonCleanExactClose(run)', cleanRecovery + 1)
-    const finalize = body.indexOf('finalizeRunOnClose(run, res, stderr, terminalProof)', nonCleanRecovery)
+    const finalize = body.indexOf('finalizeRunOnClose(run, finalResult, stderr, terminalProof)', nonCleanRecovery)
     assert.ok(start > 0 && end > start && proof > 0 && sweep > proof && guard > sweep
       && failedGuardRecovery > guard && cleanRecovery > failedGuardRecovery
       && nonCleanRecovery > cleanRecovery && finalize > nonCleanRecovery,
@@ -349,7 +371,88 @@ try {
   })
   clearAll()
 
-  console.log(`\n${passed}/18 reap-stuck-run checks passed`)
+  // 7) Detached provider leaders are process-group leaders. A Task descendant inherits that group and can
+  //    outlive the leader, so a leader-pid-only probe would incorrectly return true and admit a replacement.
+  //    This fixture creates exactly that shape without invoking either paid provider CLI.
+  await acheck('awaitRunsExited: dead leader + live descendant keeps replacement held until the process group drains', async () => {
+    const leader = spawn(process.execPath, ['-e', [
+      "const { spawn } = require('node:child_process')",
+      "const child = spawn(process.execPath, ['-e', 'setTimeout(() => {}, 30000)'], { stdio: 'ignore' })",
+      'child.unref()',
+    ].join(';')], { detached: true, stdio: 'ignore' })
+    const groupPid = leader.pid
+    assert.ok(groupPid, 'detached leader must have a pid')
+    const run = seed('module', 'cancelled', { pid: groupPid })
+    run.processGroupPid = groupPid
+    try {
+      await once(leader, 'close')
+      assert.throws(() => process.kill(groupPid, 0), (error: any) => error?.code === 'ESRCH', 'leader must be gone')
+      assert.doesNotThrow(() => process.kill(-groupPid, 0), 'Task descendant must keep the process group alive')
+      assert.equal(await awaitRunsExited([run], 120), false, 'replacement must remain held while descendant lives')
+
+      process.kill(-groupPid, 'SIGKILL')
+      assert.equal(await awaitRunsExited([run], 2000), true, 'replacement may admit only after the group drains')
+    } finally {
+      try { process.kill(-groupPid, 'SIGKILL') } catch { /* group already drained */ }
+    }
+  })
+  clearAll()
+
+  await acheck('individual cancel retains admission until a dead leader\'s live descendant is killed', async () => {
+    const { leader, groupPid } = await processGroupWithDeadLeader()
+    const run = seed('module', 'running', leader as any)
+    run.processGroupPid = groupPid
+    try {
+      const pending = cancel(run.runId)
+      await new Promise((resolve) => setTimeout(resolve, 100))
+      assert.equal(run.status, 'running', 'cancel must retain an in-flight status while the group drains')
+      assert.equal(admitRun(conflictReq()).ok, false, 'ordinary relaunch must remain blocked during drainage')
+      assert.equal(await pending, true)
+      assert.equal(run.status, 'cancelled')
+      assert.ok(run.endedAt !== undefined)
+      assert.equal(admitRun(conflictReq()).ok, true, 'replacement may admit after the full group exits')
+    } finally {
+      try { process.kill(-groupPid, 'SIGKILL') } catch { /* group already drained */ }
+    }
+  })
+  clearAll()
+
+  await acheck('subject cancel retains admission until every detached writer group drains', async () => {
+    const { leader, groupPid } = await processGroupWithDeadLeader()
+    const run = seed('module', 'running', leader as any)
+    run.processGroupPid = groupPid
+    try {
+      const pending = cancelSubject(T)
+      await new Promise((resolve) => setTimeout(resolve, 100))
+      assert.equal(run.status, 'running')
+      assert.equal(admitRun(conflictReq()).ok, false)
+      assert.deepEqual(await pending, [run.runId])
+      assert.equal(admitRun(conflictReq()).ok, true)
+    } finally {
+      try { process.kill(-groupPid, 'SIGKILL') } catch { /* group already drained */ }
+    }
+  })
+  clearAll()
+
+  await acheck('clean leader close drains a surviving Task descendant before admission releases', async () => {
+    const { leader, groupPid } = await processGroupWithDeadLeader()
+    const run = seed('module', 'running', leader as any)
+    run.processGroupPid = groupPid
+    try {
+      const draining = awaitProviderProcessGroupExit(run)
+      await new Promise((resolve) => setTimeout(resolve, 100))
+      assert.equal(admitRun(conflictReq()).ok, false, 'clean leader close must retain the writer claim while descendants drain')
+      await draining
+      assert.equal(await awaitRunsExited([run], 500), true)
+      finishRun(run, 'done')
+      assert.equal(admitRun(conflictReq()).ok, true)
+    } finally {
+      try { process.kill(-groupPid, 'SIGKILL') } catch { /* group already drained */ }
+    }
+  })
+  clearAll()
+
+  console.log(`\n${passed} reap-stuck-run checks passed`)
 } finally {
   clearAll()
 }

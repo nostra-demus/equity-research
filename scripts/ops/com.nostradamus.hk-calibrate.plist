@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <!-- Machine-agnostic TEMPLATE: placeholder tokens rendered by scripts/ops/install-services.sh at install time.
-     DOER-ONLY housekeeping timer. MONTHLY (1st, 07:40): refresh the performance + calibration summary
-     (pure-local; refuses to quote metrics on insufficient resolved history — no false confidence). -->
+     DOER-ONLY final fallback. MONTHLY (1st, 07:40): refresh the performance + calibration summary through
+     deterministic local math. It invokes no model and consumes neither Claude nor Codex quota. -->
 <plist version="1.0"><dict>
   <key>Label</key><string>com.nostradamus.hk-calibrate</string>
   <key>ProgramArguments</key><array>
     <string>/bin/bash</string>
-    <string>{{HOME}}/.nostra-ops/housekeeping.sh</string>
-    <string>/research:calibrate</string><string>all</string>
+    <string>{{HOME}}/.nostra-ops/calibrate-local.sh</string>
+    <string>monthly</string>
   </array>
   <key>EnvironmentVariables</key><dict>
     <key>HOME</key><string>{{HOME}}</string>

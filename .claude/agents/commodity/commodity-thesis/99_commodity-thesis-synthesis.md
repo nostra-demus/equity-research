@@ -183,6 +183,10 @@ Thesis type: Commodity-conditional
 
 Write exactly this shape (a commodity-scoped record — NOT the equity schema):
 
+Do NOT write, guess, copy, or preserve `execution_provenance`. It is runtime-owned: the cockpit
+supervisor projects it from private canonical attempt state immediately before the independent
+pre-archive validator and content-addressed hash. A model-authored provider/model claim is rejected.
+
 ```json
 {
   "swarm": "commodity",

@@ -3,6 +3,7 @@
 // per session like desktop's default; theme is the shared nsw.theme contract).
 import { Sheet } from './Sheet'
 import { applyTheme, readTheme, saveChatStyle, type ChatStyle } from '../prefs'
+import { providerBlockedReason, providerIsBlocked, providerLabel, providerNeedsCheck, type ProvidersRead, type RunProvider } from '../../lib/provider'
 
 const MODELS: Array<{ id: string; blurb: string }> = [
   { id: 'sonnet', blurb: 'fast · strong default' },
@@ -15,16 +16,27 @@ const STYLES: Array<{ id: ChatStyle; blurb: string }> = [
   { id: 'detailed', blurb: 'thorough, structured walkthrough' },
 ]
 
-export function PrefsSheet({ open, model, style, onModel, onStyle, onClose }: {
+export function PrefsSheet({ open, model, style, provider, providers, onModel, onStyle, onProvider, onClose }: {
   open: boolean
   model: string
   style: ChatStyle
+  provider: RunProvider
+  providers: ProvidersRead
   onModel: (m: string) => void
   onStyle: (s: ChatStyle) => void
+  onProvider: (p: RunProvider) => void
   onClose: () => void
 }) {
   return (
     <Sheet open={open} onClose={onClose} label="Chat preferences">
+      <div className="msheet__head">Run research with</div>
+      <div className="msheet__list msheet__list--tight">
+        {(['claude', 'codex'] as RunProvider[]).map((choice) => {
+          const status = providers[choice]
+          const problem = providerBlockedReason(status)
+          return <button key={choice} className={`msheet__row${provider === choice ? ' msheet__row--on' : ''}`} disabled={providerIsBlocked(status)} title={problem || (providerNeedsCheck(status) ? `Check ${providerLabel(choice)} status` : undefined)} onClick={() => onProvider(choice)}><span className="msheet__rowlabel">{status.checking ? 'checking…' : providerLabel(choice)}</span><span className="msheet__rowsub">{problem || (providerNeedsCheck(status) ? 'status unknown — tap to check again' : choice === 'codex' ? 'uses your Codex plan for new runs' : 'uses your Claude plan for new runs')}</span></button>
+        })}
+      </div>
       <div className="msheet__head">Model</div>
       <div className="msheet__list msheet__list--tight">
         {MODELS.map((m) => (

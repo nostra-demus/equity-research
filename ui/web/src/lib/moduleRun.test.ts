@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import { api } from './api'
 import { moduleRunAffordance, moduleRunConfirmation, moduleRunInputModules } from './moduleRun'
+import { providerCatalogFallback } from './provider'
 import { useStore } from './store'
 import type { AgentNode, LaunchPreflight, NodeStatus, ThesisPlan } from './types'
 
@@ -163,6 +164,8 @@ try {
     activeSwarm: 'research',
     constellationSwarm: 'research',
     selectedTicker: 'INDIAMART',
+    runProvider: 'claude',
+    providers: providerCatalogFallback(),
     graph: {
       modules: [
         { name: 'management-governance', order: 3, dependsOn: ['business-model', 'earnings'], readsFrom: ['balance-sheet-survival'], exactResume: true, layers: {}, agentCount: nodes.length },
@@ -246,6 +249,7 @@ try {
     'analyses/INDIAMART_2026-08-21',
     85,
     1_776_000_000_000,
+    { subject: 'INDIAMART', swarm: 'research', selectToken: 0, provider: 'claude', legacyClaudeFallback: true },
   ])
   assert.match(useStore.getState().toast?.msg ?? '', /6 empty orbs \+ 1 related saved check \+ a fresh summary/)
   assert.equal(useStore.getState().nodeRuntime[nodes[6].key]?.status, 'queued', 'the saved dependent check queues without being mislabeled as an originally empty orb')
@@ -324,7 +328,7 @@ try {
   assert.equal(savedInputPosts, 0, 'the saved-input action performs no POST before confirmation')
   await useStore.getState().confirmModule()
   assert.deepEqual(savedInputPlanReads, [
-    ['INDIAMART', 'research', undefined, 'management-governance'],
+    ['INDIAMART', { subject: 'INDIAMART', swarm: 'research', selectToken: 0, provider: 'claude', legacyClaudeFallback: true }, 'research', undefined, 'management-governance'],
   ], 'confirmation reads exactly one server-owned module plan')
   assert.equal(savedInputPosts, 1, 'the runnable saved-input scope submits exactly one module POST')
   assert.deepEqual(savedInputPostArgs?.[2], savedInputPlan.reuse,
@@ -447,6 +451,7 @@ try {
   await useStore.getState().launchModule('business-model')
   assert.equal(nonExactPlanCalls, 0, 'a module without exact_resume never enters the exact smart-resume route')
   assert.deepEqual(nonExactLaunchBody, {
+    selection: { subject: 'INDIAMART', swarm: 'research', selectToken: 2, provider: 'claude', legacyClaudeFallback: true },
     kind: 'module', ticker: 'INDIAMART', module: 'business-model', force: undefined, swarm: undefined,
   })
   useStore.setState({ activeRuns: {}, globalActive: [], nodeRuntime: { ...standingRuntime }, launchPending: null })

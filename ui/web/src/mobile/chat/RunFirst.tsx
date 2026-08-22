@@ -6,26 +6,36 @@
 //                 and reruns). The button says plainly that it starts a paid engine run.
 import { useState } from 'react'
 import { api } from '../../lib/api'
+import { freezeProviderLaunch, launchProviderReceiptMatches, providerLaunchBlockedReason, type ProviderStatus, type ProvidersRead, type RunProvider } from '../../lib/provider'
 
 const titleize = (s: string) => s.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 
-export function RunFirst({ swarm, subject, scope, module, isFlow, staticMode }: {
+export function RunFirst({ swarm, subject, scope, module, isFlow, staticMode, provider, providerStatus, providerCatalogState }: {
   swarm: string
   subject: string
   scope: 'run' | 'module' | 'orb'
   module?: string
   isFlow: boolean
   staticMode: boolean
+  provider: RunProvider
+  providerStatus: ProviderStatus
+  providerCatalogState?: ProvidersRead['catalogState']
 }) {
   const [pending, setPending] = useState(false)
   const [note, setNote] = useState<string | null>(null)
+  const providerProblem = providerLaunchBlockedReason(providerStatus, providerCatalogState)
 
   const launch = async () => {
-    if (pending || !module) return
+    if (pending || !module || providerProblem) return
     setPending(true)
     setNote(null)
     try {
-      await api.launch({ kind: 'module', ticker: subject, module, swarm: swarm === 'research' ? undefined : swarm })
+      const selection = freezeProviderLaunch(providerStatus, providerCatalogState)
+      if (!selection) throw new Error('The selected execution profile could not be frozen. Check the provider again.')
+      const out = await api.launch({ selection, kind: 'module', ticker: subject, module, swarm: swarm === 'research' ? undefined : swarm })
+      if (!launchProviderReceiptMatches(out, selection, providerCatalogState)) {
+        throw new Error(`The engine did not confirm the selected ${provider === 'codex' ? 'Codex' : 'Claude'} provider. Check Activity before retrying.`)
+      }
       setNote('Started — this chat unlocks when the module finishes.')
     } catch (e: any) {
       setNote(String(e?.message || e) || 'Could not start the run.')
@@ -43,10 +53,10 @@ export function RunFirst({ swarm, subject, scope, module, isFlow, staticMode }: 
         <p className="mrunfirst__hint">Running the whole pipeline is a desktop action — use <b>Run full ▸</b> there, then ask here.</p>
       ) : (
         <>
-          <button className="mrunfirst__btn" disabled={staticMode || pending} onClick={() => void launch()}>
+          <button className="mrunfirst__btn" disabled={staticMode || pending || !!providerProblem} title={providerProblem || undefined} onClick={() => void launch()}>
             {pending ? 'Starting…' : `Run ${titleize(module || '')} ▸`}
           </button>
-          <p className="mrunfirst__hint">Starts a real engine run (paid), exactly as the desktop button does.</p>
+          <p className="mrunfirst__hint">{providerProblem || `Starts a real ${provider === 'codex' ? 'Codex plan' : 'Claude'} engine run, exactly as the desktop button does.`}</p>
         </>
       )}
       {note && <p className="mrunfirst__hint">{note}</p>}

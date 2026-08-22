@@ -1283,6 +1283,14 @@ export interface ActiveRunLite {
   swarmId?: string // 'research' (default) or a SWARM.md id — lets the UI scope a run to its swarm
   unit?: string // 'ticker' | 'signal' | … (the swarm's unit of work)
   startedAt?: number // epoch ms the run started — drives the live "running Nm" elapsed readout
+  provider?: import('./provider').RunProvider
+  executionProfile?: import('./provider').ProviderExecutionProfile
+  profileKey?: string
+  model?: string
+  reasoningLevel?: string
+  cliVersion?: string
+  chainId?: string
+  executionEpoch?: string
 }
 export interface BoardSignal {
   signal_id: string
@@ -1848,7 +1856,18 @@ export interface ScreenerBoard {
   book_momentum?: BookMomentum
   live?: { runId: string; kind: string; subjectId: string; runRoot: string | null; startedAt: number }[]
   // interrupted partial runs (broken by a closed laptop / dropped connection) the cockpit auto-resumes.
-  resumable?: { sigId: string; headline: string; doneCount: number; totalCount: number }[]
+  resumable?: {
+    sigId: string
+    headline: string
+    doneCount: number
+    totalCount: number
+    provider?: import('./provider').RunProvider
+    executionProfile?: import('./provider').ProviderExecutionProfile
+    reason?: string
+    resetsAt?: number // unix seconds
+    supervisorIdentity?: string
+    autoResumeDue?: boolean
+  }[]
 }
 
 // ---- live-book filter + sort (the Recent-runs drawer) ----
@@ -1990,7 +2009,7 @@ export interface IntensityStats {
 }
 
 export interface LaunchPreflight {
-  kind: 'full' | 'module' | 'agent' | 'rerun' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
+  kind: RunKind
   ticker: string
   swarm?: string
   module?: string
@@ -2002,6 +2021,12 @@ export interface LaunchPreflight {
   estCommits: number
   requiresTypedConfirm: boolean
   creditPreflight: { ok: boolean; reason?: string; rateLimitType?: string; checked: boolean }
+  provider?: import('./provider').RunProvider
+  executionProfile?: import('./provider').ProviderExecutionProfile
+  profileKey?: string
+  model?: string
+  reasoningLevel?: string
+  cliVersion?: string
   // A server-minted, exact-identity receipt. Re-run controls fail closed when it is absent (including
   // when a newly deployed browser is briefly talking to an older server that ignored the query fields).
   exactDecisionBinding?: {
@@ -2049,9 +2074,11 @@ export interface RunActivity {
   tool: string
   target?: string
   ts: number
+  provider?: import('./provider').RunProvider
+  executionProfile?: import('./provider').ProviderExecutionProfile
 }
 
-export type SseEvent =
+export type SseEvent = (
   | { type: 'run-started'; runId: string; kind: string; ticker: string; runRoot: string | null; willCommitToMain: boolean; ts: number }
   | { type: 'agent-started'; runId: string; module: string; agentKey: string; name: string; layer: number; ts: number }
   | { type: 'agent-done'; runId: string; agentKey: string; module: string; name: string; layer: number; outputPath: string; verdict: string | null; bytes: number; ts: number }
@@ -2073,6 +2100,7 @@ export type SseEvent =
   | { type: 'readiness-report'; runId: string; report: ReadinessReport; ts: number }
   | { type: 'readiness-blocked'; runId: string; report: ReadinessReport; ts: number }
   | { type: 'readiness-resolved'; runId: string; action: string; ts: number }
+) & { provider?: import('./provider').RunProvider; executionProfile?: import('./provider').ProviderExecutionProfile; profileKey?: string; model?: string; reasoningLevel?: string; cliVersion?: string; chainId?: string; executionEpoch?: string }
 
 // startedAt/endedAt are SERVER timestamps (from the agent-started / agent-done SSE events), so a finished
 // orb's duration (endedAt - startedAt) is clock-skew-free. startedAt is set the instant the orchestrator
@@ -2429,7 +2457,9 @@ export interface CallsResult {
 }
 
 // ---- activity / audit log ----
-export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'doc-intake' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
+export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'doc-intake' | 'signal' | 'sweep' | 'screener-agent' | 'handoff' | 'conviction' | 'parity'
+/** Server-internal adjudication kinds are visible in Activity/SSE but have no user launch surface. */
+export type LaunchableRunKind = Exclude<RunKind, 'conviction' | 'parity'>
 export interface Whoami { user: string; userVia: 'cf-access' | 'local'; canDispatch?: boolean; canScanPipeline?: boolean; canBuildConnector?: boolean; emailEnabled?: boolean }
 
 // ---- cockpit-wide product feedback (server: feedback-store.ts) ----
@@ -2459,10 +2489,19 @@ export interface ActivityRow {
   subjectLabel?: string // human-readable Company-column label when the raw ticker is an opaque subject id
   swarm?: string // swarm id (from the launched event) — routes a Resume relaunch to the right swarm
   chained?: boolean // this run was a step of a chained full run — Resume continues the whole pipeline
+  /** Backend execution-scoped grouping identity. Optional only for rolling deploys and legacy rows. */
+  executionEpoch?: string
+  /** Older/current chain alias; used when executionEpoch is absent. */
+  chainId?: string
   runRoot?: string // repo-relative run folder (from the launched event) — drives the row's "open reports" menu
   module?: string
   agent?: string
   model?: string
+  provider?: import('./provider').RunProvider
+  executionProfile?: import('./provider').ProviderExecutionProfile
+  profileKey?: string
+  reasoningLevel?: string
+  cliVersion?: string
   launchedAt: number
   finishedAt?: number
   status: NodeStatus | 'starting' | 'cancelled' | 'error' | 'done' | 'running' | 'incomplete'
@@ -2484,6 +2523,12 @@ export interface ResumableRunInfo {
   totalCount: number
   unit: 'module' | 'agent' // whether the counts are modules-done (full/signal) or agents-done (module)
   label?: string // human label (e.g. the signal headline) when the raw subject id isn't the best name
+  provider?: import('./provider').RunProvider
+  executionProfile?: import('./provider').ProviderExecutionProfile
+  reason?: string
+  resetsAt?: number // unix seconds
+  supervisorIdentity?: string
+  autoResumeDue?: boolean
 }
 // ---- "Complete the thesis" (GET /api/thesis-plan) ----
 // What still stands between this subject and a final thesis, and what already exists on disk — possibly in

@@ -6,6 +6,8 @@ import { Spin } from '../Spin'
 import type { FeedItem, SignalState } from '../../lib/types'
 import type { ReportMenuAnchor } from '../ActivityReportMenu'
 import '../swarm/CoreOrb.css' // reuse the .reportpop / __item / __label / __hint / __scrim popover look
+import { ProviderMiniSelector } from '../ProviderMiniSelector'
+import { providerLaunchBlockedReason } from '../../lib/provider'
 
 // "Run the checks" — ONE split button that folds the old (Run button + "or run only through" footer) into a
 // single control whose caret opens the RIGHT actions for the signal's ACTUAL run-state. A read-only state
@@ -35,6 +37,9 @@ export function RunChecksMenu({ it }: Props) {
   const launchPending = useStore((s) => s.launchPending)
   const staticMode = useStore((s) => s.staticMode)
   const scGraph = useStore((s) => s.scGraph) // the SCREENER graph — stages in dependency order (zero-touch)
+  const runProvider = useStore((s) => s.runProvider)
+  const providers = useStore((s) => s.providers)
+  const providerProblem = providerLaunchBlockedReason(providers[runProvider], providers.catalogState)
   const [open, setOpen] = useState(false)
   const [anchor, setAnchor] = useState<ReportMenuAnchor | null>(null)
 
@@ -147,14 +152,15 @@ export function RunChecksMenu({ it }: Props) {
           className="btn btn--amber runsplit__trigger"
           aria-haspopup="menu"
           aria-expanded={open}
-          disabled={busy || loading}
+          disabled={busy || loading || !!providerProblem}
           onClick={openMenu}
-          title={staticMode ? 'Runs on your local machine (npm run dev)' : loading ? 'Checking this signal’s run state…' : 'Choose how to run the checks'}
+          title={staticMode ? 'Runs on your local machine (npm run dev)' : providerProblem || (loading ? 'Checking this signal’s run state…' : 'Choose how to run the checks')}
         >
           {busy ? <><Spin /> Starting…</> : loading ? <><Spin /> Checking…</> : <>{buttonLabel}<span className="runsplit__chev" aria-hidden style={{ transform: open ? 'rotate(180deg)' : 'none' }}>▾</span></>}
         </button>
       </div>
-      {showEst && <span className="evdetail__est mono">about $8–45 · stops early (and cheaper) if a check says no</span>}
+      <ProviderMiniSelector agentCount={scGraph?.totals.agents} duration="duration shown live" />
+      {showEst && <span className="evdetail__est mono">{runProvider === 'codex' ? 'Codex plan · stops early if a check says no' : 'about $8–45 · stops early (and cheaper) if a check says no'}</span>}
 
       {open && anchor && createPortal(
         <>
@@ -180,12 +186,12 @@ export function RunChecksMenu({ it }: Props) {
             {state === 'partial' && (
               <>
                 <div className="reportpop__label">{stages.length ? `Resume · ${doneSet.size}/${stages.length} done` : 'Resume the run'}</div>
-                <button className="reportpop__item" role="menuitem" onClick={closeThen(resumeAll)}>
+                <button className="reportpop__item" role="menuitem" disabled={!!providerProblem} title={providerProblem || undefined} onClick={closeThen(resumeAll)}>
                   <b>Continue to the end</b>
                   <span>Run every remaining stage</span>
                 </button>
                 {remaining.length > 0 && remaining.map((m) => (
-                  <button key={m.name} className="reportpop__item" role="menuitem" onClick={closeThen(() => resumeThrough(m.name))}>
+                  <button key={m.name} className="reportpop__item" role="menuitem" disabled={!!providerProblem} title={providerProblem || undefined} onClick={closeThen(() => resumeThrough(m.name))}>
                     <b>Continue through “{plainStage(m.name)}”</b>
                     <span>Run up to here, then stop again</span>
                   </button>
@@ -197,11 +203,11 @@ export function RunChecksMenu({ it }: Props) {
             {(state === 'parked' || state === 'logged') && (
               <>
                 <div className="reportpop__label">{state === 'parked' ? 'Parked by the gate' : 'Logged by the gate'}{scoreTxt}</div>
-                <button className="reportpop__item" role="menuitem" onClick={closeThen(overrideRun)}>
+                <button className="reportpop__item" role="menuitem" disabled={!!providerProblem} title={providerProblem || undefined} onClick={closeThen(overrideRun)}>
                   <b style={{ color: 'var(--accent-deep)' }}>Override the gate & run all</b>
                   <span>Force past the promotion gate and run every stage</span>
                 </button>
-                <button className="reportpop__item" role="menuitem" onClick={closeThen(startFull)}>
+                <button className="reportpop__item" role="menuitem" disabled={!!providerProblem} title={providerProblem || undefined} onClick={closeThen(startFull)}>
                   <b>Run all (respect the gate)</b>
                   <span>Re-score at the gate — it may park again</span>
                 </button>
@@ -212,13 +218,13 @@ export function RunChecksMenu({ it }: Props) {
             {state === 'never' && (
               <>
                 <div className="reportpop__label">Run the checks</div>
-                <button className="reportpop__item" role="menuitem" onClick={closeThen(startFull)}>
+                <button className="reportpop__item" role="menuitem" disabled={!!providerProblem} title={providerProblem || undefined} onClick={closeThen(startFull)}>
                   <b style={{ color: 'var(--accent-deep)' }}>Run all checks</b>
                   <span>The full gauntlet — every stage</span>
                 </button>
                 {nonTerminal.length > 0 && <div className="reportpop__label" style={{ marginTop: 2 }}>Or stop after…</div>}
                 {nonTerminal.map((m) => (
-                  <button key={m.name} className="reportpop__item" role="menuitem" onClick={closeThen(() => startThrough(m.name))}>
+                  <button key={m.name} className="reportpop__item" role="menuitem" disabled={!!providerProblem} title={providerProblem || undefined} onClick={closeThen(() => startThrough(m.name))}>
                     <b>{plainStage(m.name)}</b>
                     <span>Run through here, then stop — Continue the rest later</span>
                   </button>

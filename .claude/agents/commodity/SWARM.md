@@ -9,8 +9,13 @@ command_ns: commodity
 run_root_template: commodity/runs/{COMMODITY}
 placeholder: COMMODITY
 runs_root: commodity/runs
+decision_artifacts:
+  - decision_record.json
 board_index: commodity/board/index.json
 schemas_root: frameworks/commodity
+review_command: review
+calibrator: scripts/commodity_calibrate.py
+calibration_root: commodity/performance
 subjects_source: frameworks/commodity/COMMODITY_PROFILES.md
 signal_evidence:
   emitted_suffix: .signals.json

@@ -15,12 +15,14 @@ import { stageDockHUpdate } from './stageDock'
 import { affectedModules, focusKeysFor } from './intake'
 import { moduleRunAffordance, moduleRunInputModules } from './moduleRun'
 import type { BridgeStatus } from './types'
-import type { ActiveRunLite, AgentNode, AskMemoryMeta, AskMemoryMode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
+import type { ActiveRunLite, AgentNode, AskMemoryMeta, AskMemoryMode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ChatWork, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsChatCompletedTurn, NewsChatEvidence, NewsChatReceipt, NewsChatWindow, NewsDiagnostics, NewsStatus, NodeRuntime, NodeStatus, QuoteRead, ReadinessReport, ResumableRunInfo, RunActivity, RunKind, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, SwarmSubjectSummary, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage, WhatChangedRead } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyDlFilters, type DlFilterState } from '../components/datalibrary/DataLibraryFilters'
 import type { PipelinesRead } from './types'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
+import { automaticResumeMatches, emptyProviders, freezeProviderLaunch, isRunProvider, launchProviderReceiptMatches, manualResumeConfirmation, optionalNestedLaunchResponseMatches, providerCatalogUnknown, providerIsBlocked, providerLaunchBlockedReason, providerLabel, providerNeedsCheck, readRunProvider, saveRunProvider, trackedLaunchResponseMatches, type FrozenProviderLaunch, type ProvidersRead, type RecordedRunExecution, type RunProvider } from './provider'
+import { normalizeRunSnapshotIdentity, reconcileRunIdentity, sseFrameForRun } from './runIdentity'
 
 const SIGNAL_INPUT_NATURES = new Set([
   'news_headline', 'regulatory_filing', 'earnings_release', 'earnings_call_transcript',
@@ -160,6 +162,12 @@ let chatPendingBaseline: { messages: ChatMessage[]; conversationId?: string; sou
 let chatResumeSeq = 0
 // Monotonic stamp for "complete the thesis" re-pricing requests: only the newest response may be applied.
 let thesisPriceSeq = 0
+// Full/rerun estimates and provider re-prices share one last-choice-wins generation. It is intentionally
+// separate from thesis pricing: the two dialogs can never make each other's valid response stale.
+let launchPriceSeq = 0
+let providerCatalogSeq = 0
+const providerCheckSeq: Record<RunProvider, number> = { claude: 0, codex: 0 }
+let providerChecksInFlight = 0
 // Most-recent turns sent to the model per request. The server's ChatBody caps the transcript at 40, so a
 // long or resumed conversation (whose full history lives in chatMessages + on disk) is windowed to the last
 // 40 here — anything larger would be rejected 400 and break "continue chatting". The closed-book CONTEXT is
@@ -359,6 +367,13 @@ export interface ActiveRun {
   // this run's OWN folder, captured from the run-started event — lets the run-done/run-error refresh target
   // exactly the run that finished, instead of resolving by ticker to the (possibly older) standing run
   runRoot?: string | null
+  provider?: RunProvider
+  executionProfile?: import('./provider').ProviderExecutionProfile
+  profileKey?: string
+  model?: string
+  reasoningLevel?: string
+  chainId?: string
+  executionEpoch?: string
   // live-heartbeat fields (run-heartbeat SSE, ~3s cadence) — all optional so an older server (deploy
   // skew) simply renders no heartbeat line (fail closed):
   agentsDone?: number
@@ -373,7 +388,7 @@ export interface Toast { msg: string; tone: 'info' | 'good' | 'bad'; action?: { 
 // A priced launch belongs to one exact cockpit selection. The estimate and the confirmation retain this
 // identity instead of re-reading selectedTicker/activeSwarm after an await, when the user may already be
 // looking at another company or swarm.
-export interface LaunchSelectionBinding {
+export interface LaunchSelectionBinding extends FrozenProviderLaunch {
   subject: string
   swarm: string
   selectToken: number
@@ -442,6 +457,11 @@ interface State {
   dataLoading: boolean
   credit: Usage | null
   creditChecking: boolean
+  runProvider: RunProvider
+  providers: ProvidersRead
+  providersChecking: boolean
+  setRunProvider: (provider: RunProvider) => void
+  refreshProviders: (provider?: RunProvider) => Promise<void>
   nodeRuntime: Record<string, NodeRuntime>
   now: number // shared 1s clock for every live timer (orb/module/panel/tooltip); ticked only while orbs run
   activeRuns: Record<string, ActiveRun> // selected-ticker live runs (+ just-finished, until next switch)
@@ -650,6 +670,7 @@ interface State {
   confirmFull: () => Promise<void>
   launchRerun: (node: { module: string; name: string; key: string }, planOrigin?: LaunchSelectionBinding['planOrigin']) => Promise<void>
   confirmRerun: () => Promise<void>
+  changeLaunchProvider: (provider: RunProvider) => Promise<void>
   cancelLaunch: () => void
   cancelRun: (runId: string) => Promise<void>
   readinessGate: { runId: string; report: ReadinessReport; rechecking?: boolean } | null // pre-flight gate panel (null = hidden; rechecking = a re-check is running)
@@ -662,6 +683,7 @@ interface State {
   // The core orb used to dead-end on "No final thesis yet". Now a click with no thesis opens a plan: what is
   // missing, what already exists on disk (and in which dated run), and what finishing it actually costs.
   thesisPlan: ThesisPlan | null
+  thesisPlanExecution: FrozenProviderLaunch | null
   thesisPlanOpen: boolean
   thesisPlanLoading: boolean // first load — the panel shows its skeleton
   thesisPlanPricing: boolean // re-pricing after a checkbox toggle — the old price stays put, no flicker
@@ -1180,15 +1202,21 @@ const NEWS_CHAT_RESET = {
   newsChatConversationId: undefined as string | undefined,
 }
 
+function captureProviderLaunch(state: State, provider: RunProvider = state.runProvider): FrozenProviderLaunch | null {
+  return freezeProviderLaunch(state.providers[provider], state.providers.catalogState)
+}
+
 function captureLaunchSelection(state: State): LaunchSelectionBinding | null {
   if (!state.selectedTicker) return null
+  const execution = captureProviderLaunch(state)
+  if (!execution) return null
   const read = state.dataNeeds
   const exactDecision = read && state.runRoot && read.subject === state.selectedTicker
     && read.swarm === state.activeSwarm && read.run_root === state.runRoot
     && /^sha256:[a-f0-9]{64}$/.test(read.decision_fingerprint)
     ? { runRoot: read.run_root, decisionFingerprint: read.decision_fingerprint }
     : {}
-  return { subject: state.selectedTicker, swarm: state.activeSwarm, selectToken: state.selectToken, ...exactDecision }
+  return { subject: state.selectedTicker, swarm: state.activeSwarm, selectToken: state.selectToken, ...execution, ...exactDecision }
 }
 
 function hasExactDecisionBinding(
@@ -1227,6 +1255,7 @@ function launchPreflightMatches(
   preflight: LaunchPreflight | null | undefined,
   selection: LaunchSelectionBinding,
   kind: 'full' | 'rerun',
+  catalogState: ProvidersRead['catalogState'],
   node?: { module: string; name: string },
 ): boolean {
   if (!preflight) return false
@@ -1243,8 +1272,25 @@ function launchPreflightMatches(
     && preflight.exactDecisionBinding.intakePlan.planSha256 === selection.planOrigin.planSha256
     && preflight.exactDecisionBinding.intakePlan.sourceDecisionFingerprint === selection.planOrigin.sourceDecisionFingerprint)
   return preflight.kind === kind && preflight.ticker === selection.subject && swarmMatches
+    && launchProviderReceiptMatches(preflight, selection, catalogState)
     && exactReceiptMatches && planReceiptMatches
     && (kind !== 'rerun' || (!!node && preflight.module === node.module && preflight.agent === node.name))
+}
+
+function requireLaunchProviderReceipt(
+  value: unknown,
+  selection: FrozenProviderLaunch,
+  catalogState: ProvidersRead['catalogState'],
+  launched = true,
+): void {
+  // `launched` controls only the recovery copy. Estimates and launch responses both have to echo the
+  // provider; a missing estimate echo is the same rolling-deploy hazard, even though no run exists yet.
+  if (launchProviderReceiptMatches(value, selection, catalogState)) return
+  throw Object.assign(new Error(
+    launched
+      ? `The engine did not confirm that this run started with the selected ${providerLabel(selection.provider)} profile. Check Activity before retrying.`
+      : `The engine did not confirm the selected ${providerLabel(selection.provider)} execution profile.`,
+  ), { body: { code: 'provider_receipt_mismatch' } })
 }
 
 async function verifyScopedRerunCapability(
@@ -1268,14 +1314,14 @@ async function verifyScopedRerunCapability(
     sourceDecisionFingerprint: plan.decision_fingerprint!,
   }
   const capability = await api.estimate(
-    'rerun', selection.subject, firstCommand.module, firstCommand.agent,
+    'rerun', selection.subject, selection, firstCommand.module, firstCommand.agent,
     selection.swarm !== 'research' ? selection.swarm : undefined,
     { runRoot: selection.runRoot, decisionFingerprint: selection.decisionFingerprint, ...planOrigin },
   )
   if (!launchSelectionIsCurrent(get(), selection)) {
     throw new Error('The selected call changed. Nothing was launched.')
   }
-  if (!launchPreflightMatches(capability, { ...selection, planOrigin }, 'rerun', {
+  if (!launchPreflightMatches(capability, { ...selection, planOrigin }, 'rerun', get().providers.catalogState, {
     module: firstCommand.module,
     name: firstCommand.agent,
   })) {
@@ -1309,6 +1355,9 @@ export const useStore = create<State>((set, get) => ({
   dataLoading: false,
   credit: null,
   creditChecking: false,
+  runProvider: readRunProvider(),
+  providers: emptyProviders(),
+  providersChecking: false,
   nodeRuntime: {},
   now: Date.now(),
   activeRuns: {},
@@ -1323,6 +1372,7 @@ export const useStore = create<State>((set, get) => ({
   reports: { memo: false, thesis: false, dossier: false },
   moduleReports: {},
   thesisPlan: null,
+  thesisPlanExecution: null,
   thesisPlanOpen: false,
   thesisPlanLoading: false,
   thesisPlanPricing: false,
@@ -1543,6 +1593,7 @@ export const useStore = create<State>((set, get) => ({
       if (!creditProbed) {
         creditProbed = true
         get().checkCredit()
+        void get().refreshProviders()
       }
     }
     // Landing view: the screener is the default, but ONLY when the live engine actually SERVES it
@@ -1575,7 +1626,7 @@ export const useStore = create<State>((set, get) => ({
     chatPendingBaseline = null
     chatAbort?.abort(); chatAbort = null // a new subject → drop any in-flight chat + its thread
     // the completion plan is per-subject disk truth — never let a previous subject's plan survive a switch
-    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, dataNeeds: null, whatChanged: null, whatChangedOpen: false, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, runActivity: {}, thesisPlanIntake: null, liveQuote: null, liveQuoteAt: null, launchConfirm: null, launchPending: get().launchPending?.selection ? null : get().launchPending, ...CHAT_RESET })
+    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null, thesisPlan: null, thesisPlanExecution: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, dataNeeds: null, whatChanged: null, whatChangedOpen: false, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, runActivity: {}, thesisPlanIntake: null, liveQuote: null, liveQuoteAt: null, launchConfirm: null, launchPending: get().launchPending?.selection ? null : get().launchPending, ...CHAT_RESET })
     const graph = isResearch ? await api.swarm(t) : await api.swarmGraph(sw, t)
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
@@ -1736,19 +1787,33 @@ export const useStore = create<State>((set, get) => ({
   resumeRun: async (info) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    const provider = get().runProvider
     // Screener signals resume through their own path — it keeps the finished orbs and re-queues the rest.
+    // That path compares both the board and disk receipts; do not pre-confirm only the weaker row here.
     if (info.kind === 'signal') { await get().continueSignal(info.subject); return }
+    const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
+    if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
+    const execution = captureProviderLaunch(get(), provider)
+    if (!execution) return get().setToast({ msg: 'The selected execution profile could not be frozen. Check the provider again.', tone: 'bad' })
+    const confirmation = manualResumeConfirmation([{
+      provider: isRunProvider(info.provider) ? info.provider : undefined,
+      executionProfile: info.executionProfile,
+      source: 'disk',
+    }], execution)
+    if (confirmation && (typeof window === 'undefined' || !window.confirm(confirmation))) return
     const swarm = info.swarm && info.swarm !== 'research' ? info.swarm : undefined
     const label = info.label || info.subject
     const doResume = async (force?: boolean) => {
       set({ launchPending: { key: `resume:${info.subject}:${info.module || ''}`, label: `Resuming ${label}…`, ticker: info.subject } })
       try {
-        const body: { kind: string; ticker: string; module?: string; confirmTicker?: string; force?: boolean; swarm?: string } =
-          { kind: info.kind, ticker: info.subject, module: info.module, force, swarm }
+        const body: { selection: FrozenProviderLaunch; kind: 'full' | 'module'; ticker: string; module?: string; confirmTicker?: string; force?: boolean; swarm?: string } =
+          { selection: execution, kind: info.kind as 'full' | 'module', ticker: info.subject, module: info.module, force, swarm }
         if (info.kind === 'full') body.confirmTicker = info.subject // the server requires a typed confirm for a full run
         // The engine reports the resume split: `skipped` = modules already finished on disk (NOT re-run),
         // `planned` = modules this relaunch will actually run. Use it to keep the UI honest.
-        const { runId, chained, skipped, planned: plannedMods, resumed } = await api.launch(body)
+        const out = await api.launch(body)
+        requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
+        const { runId, chained, skipped, planned: plannedMods, resumed } = out
         if (chained) set({ chainTickers: new Set(get().chainTickers).add(runSubjectKey(info.swarm || 'research', info.subject)) })
         // If the resumed subject is the one on screen, light up its orbs and follow live (beginRun keys off
         // the selected ticker). Otherwise just attach the stream + refresh — the Activity log row settles on
@@ -1776,7 +1841,7 @@ export const useStore = create<State>((set, get) => ({
           plannedKeys = nodes.map((n) => n.key) // no split (monolithic full, or an older engine) — run all
         }
         if (runId && onScreen) {
-          beginRun(set, get, runId, { kind: info.kind, module: info.module, willCommitToMain: true }, plannedKeys, doneKeys)
+          beginRun(set, get, runId, { subject: info.subject, swarmId: info.swarm || 'research', execution, kind: info.kind, module: info.module, willCommitToMain: true }, plannedKeys, doneKeys)
         } else if (runId) {
           connectRun(get, runId)
           void get().refreshActiveRuns()
@@ -1820,6 +1885,71 @@ export const useStore = create<State>((set, get) => ({
       // keep last-known usage on a transient failure — don't wipe the windows we already have
     } finally {
       set({ creditChecking: false })
+    }
+  },
+
+  setRunProvider: (provider) => {
+    if (providerIsBlocked(get().providers[provider])) return
+    saveRunProvider(provider)
+    set({ runProvider: provider })
+  },
+
+  refreshProviders: async (provider) => {
+    if (get().staticMode) return
+    providerChecksInFlight++
+    set({ providersChecking: true })
+    if (provider) {
+      const current = get().providers
+      set({ providers: { ...current, [provider]: { ...current[provider], checking: true } } })
+    }
+    const catalogGeneration = providerCatalogSeq
+    const targetedGeneration = provider ? ++providerCheckSeq[provider] : undefined
+    let claudeGeneration: number | undefined
+    let codexGeneration: number | undefined
+    let fullCatalogGeneration: number | undefined
+    if (!provider) {
+      fullCatalogGeneration = ++providerCatalogSeq
+      claudeGeneration = ++providerCheckSeq.claude
+      codexGeneration = ++providerCheckSeq.codex
+    }
+    const targetedIsCurrent = () => !!provider && targetedGeneration === providerCheckSeq[provider]
+      && catalogGeneration === providerCatalogSeq
+    const catalogIsCurrent = () => fullCatalogGeneration === providerCatalogSeq
+    try {
+      if (provider) {
+        const status = await api.providerCheck(provider)
+        if (!targetedIsCurrent()) return
+        set({ providers: { ...get().providers, [provider]: { ...status, provider, checked: true, checking: false } } })
+      } else {
+        const providers = await api.providers()
+        if (!catalogIsCurrent()) return
+        if (providers.catalogState === 'fallback' && get().runProvider === 'codex') {
+          saveRunProvider('claude')
+          set({ providers, runProvider: 'claude' })
+        } else {
+          // A targeted check that began after this catalogue read owns its provider row. Keep that newer
+          // answer while still applying the catalogue's contract state and the other row.
+          const current = get().providers
+          set({ providers: {
+            ...providers,
+            claude: claudeGeneration === providerCheckSeq.claude ? providers.claude : current.claude,
+            codex: codexGeneration === providerCheckSeq.codex ? providers.codex : current.codex,
+          } })
+        }
+      }
+    } catch {
+      if (provider) {
+        if (!targetedIsCurrent()) return
+        set({ providers: { ...get().providers, [provider]: { ...get().providers[provider], checked: true, checking: false, status: 'unavailable', available: false, reason: 'Availability check failed' } } })
+      } else {
+        if (!catalogIsCurrent()) return
+        // Only api.providers() can mint the exact-404 legacy fallback. An exception here is transient or
+        // unclassified: retain the user's choice, make both rows retryable, and block all launches.
+        set({ providers: providerCatalogUnknown('Provider selection could not be verified. Check again.') })
+      }
+    } finally {
+      providerChecksInFlight = Math.max(0, providerChecksInFlight - 1)
+      set({ providersChecking: providerChecksInFlight > 0 })
     }
   },
 
@@ -1999,6 +2129,8 @@ export const useStore = create<State>((set, get) => ({
   launchAgent: async (node, force) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    const providerProblem = providerLaunchBlockedReason(get().providers[get().runProvider], get().providers.catalogState)
+    if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
     const selection = captureLaunchSelection(get())
     const t = selection?.subject
     if (!selection || !t) return
@@ -2016,13 +2148,14 @@ export const useStore = create<State>((set, get) => ({
       const pending = { key: `agent:${node.key}`, label: `Starting ${node.name}…`, ticker: t, selection }
       set({ launchPending: pending })
       try {
-        const { runId } = await api.launch({ kind: 'agent', ticker: t, module: node.module, agent: node.name, force: f, swarm: selection.swarm !== 'research' ? selection.swarm : undefined })
+        const out = await api.launch({ selection, kind: 'agent', ticker: t, module: node.module, agent: node.name, force: f, swarm: selection.swarm !== 'research' ? selection.swarm : undefined })
+        requireLaunchProviderReceipt(out, selection, get().providers.catalogState)
+        const { runId } = out
+        beginRun(set, get, runId, { subject: t, swarmId: selection.swarm, execution: selection, kind: 'agent', module: node.module, agent: node.name, willCommitToMain: false }, [node.key])
         if (!launchSelectionIsCurrent(get(), selection)) {
-          void get().refreshActiveRuns()
           get().setToast({ msg: `${node.name} started on ${t}. Follow it in Activity.`, tone: 'good' })
           return
         }
-        beginRun(set, get, runId, { kind: 'agent', module: node.module, agent: node.name, willCommitToMain: false }, [node.key])
         get().setToast({ msg: `${f ? 'Re-launched' : 'Launched'} ${node.name} on ${t}`, tone: 'good' })
       } catch (e: any) {
         launchErrorToast(get, e, t, node.name, f ? undefined : () => doLaunch(true))
@@ -2044,6 +2177,8 @@ export const useStore = create<State>((set, get) => ({
   launchModule: async (module, force) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    const providerProblem = providerLaunchBlockedReason(get().providers[get().runProvider], get().providers.catalogState)
+    if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
     const selection = captureLaunchSelection(get())
     const t = selection?.subject
     if (!selection || !t) return
@@ -2090,13 +2225,14 @@ export const useStore = create<State>((set, get) => ({
       const pending = { key: `module:${module}`, label: `Starting the ${module} module…`, ticker: t, selection }
       set({ launchPending: pending })
       try {
-        const { runId } = await api.launch({ kind: 'module', ticker: t, module, force: f, swarm: selection.swarm !== 'research' ? selection.swarm : undefined })
+        const out = await api.launch({ selection, kind: 'module', ticker: t, module, force: f, swarm: selection.swarm !== 'research' ? selection.swarm : undefined })
+        requireLaunchProviderReceipt(out, selection, get().providers.catalogState)
+        const { runId } = out
+        beginRun(set, get, runId, { subject: t, swarmId: selection.swarm, execution: selection, kind: 'module', module, willCommitToMain: true }, planned)
         if (!launchSelectionIsCurrent(get(), selection)) {
-          void get().refreshActiveRuns()
           get().setToast({ msg: `${moduleLabel(module)} started on ${t}. Follow it in Activity.`, tone: 'good' })
           return
         }
-        beginRun(set, get, runId, { kind: 'module', module, willCommitToMain: true }, planned)
         get().setToast({ msg: `${f ? 'Re-launched' : 'Launched'} ${module} module on ${t}`, tone: 'good' })
       } catch (e: any) {
         launchErrorToast(get, e, t, `${module} module`, f ? undefined : () => doLaunch(true))
@@ -2145,21 +2281,25 @@ export const useStore = create<State>((set, get) => ({
   requestFull: async () => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — a full run executes on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    const providerProblem = providerLaunchBlockedReason(get().providers[get().runProvider], get().providers.catalogState)
+    if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
     const selection = captureLaunchSelection(get())
     if (!selection) return
-    if (hasPendingLaunchForTicker(get(), selection)) return
+    const existingPending = get().launchPending
+    if (existingPending?.ticker === selection.subject && existingPending.key !== 'full:request') return
+    const seq = ++launchPriceSeq
     if (get().anyRunForTicker(selection.subject)) return get().setToast({ msg: `Finish the in-flight run on ${selection.subject} first — a full run needs exclusive access`, tone: 'info' })
     const pending = { key: 'full:request', label: 'Preparing the run plan…', ticker: selection.subject, selection }
     set({ launchPending: pending })
     try {
-      const preflight = await api.estimate('full', selection.subject, undefined, undefined, selection.swarm !== 'research' ? selection.swarm : undefined)
-      if (!launchSelectionIsCurrent(get(), selection)) return
-      if (!launchPreflightMatches(preflight, selection, 'full')) {
+      const preflight = await api.estimate('full', selection.subject, selection, undefined, undefined, selection.swarm !== 'research' ? selection.swarm : undefined)
+      if (seq !== launchPriceSeq || !launchSelectionIsCurrent(get(), selection)) return
+      if (!launchPreflightMatches(preflight, selection, 'full', get().providers.catalogState)) {
         return get().setToast({ msg: 'Couldn\'t verify that this run plan belongs to the call on screen. Refresh and try again.', tone: 'bad' })
       }
       set({ launchConfirm: { kind: 'full', selection, preflight } })
     } catch (e: any) {
-      if (!launchSelectionIsCurrent(get(), selection)) return
+      if (seq !== launchPriceSeq || !launchSelectionIsCurrent(get(), selection)) return
       // was an unhandled rejection — the button just did nothing on a failed estimate
       get().setToast({ msg: `Couldn't prepare the run: ${e?.message || 'the estimate failed'}`, tone: 'bad' })
     } finally {
@@ -2172,6 +2312,8 @@ export const useStore = create<State>((set, get) => ({
     const lc = get().launchConfirm
     if (!lc || lc.kind !== 'full') return
     const selection = lc.selection
+    const providerProblem = providerLaunchBlockedReason(get().providers[selection.provider], get().providers.catalogState)
+    if (providerProblem) return get().setToast({ msg: `${providerProblem}. Nothing was launched.`, tone: 'bad' })
     if (!launchSelectionIsCurrent(get(), selection) || get().launchConfirm !== lc) {
       set({ launchConfirm: null })
       return get().setToast({ msg: 'The selected call changed. Nothing was launched.', tone: 'info' })
@@ -2189,22 +2331,25 @@ export const useStore = create<State>((set, get) => ({
         set({ launchConfirm: null })
         return get().setToast({ msg: 'The selected call changed. Nothing was launched.', tone: 'info' })
       }
-      const { runId, chained, preflight } = await api.launch({ kind: 'full', ticker: selection.subject, confirmTicker: selection.subject, swarm: selection.swarm !== 'research' ? selection.swarm : undefined })
+      const out = await api.launch({ selection, kind: 'full', ticker: selection.subject, confirmTicker: selection.subject, swarm: selection.swarm !== 'research' ? selection.swarm : undefined })
+      const { runId, chained, preflight } = out
+      if (typeof runId !== 'string' || !runId.trim()
+          || !launchProviderReceiptMatches(out, selection, get().providers.catalogState)
+          || !launchPreflightMatches(preflight, selection, 'full', get().providers.catalogState)) {
+        void get().refreshActiveRuns()
+        return get().setToast({ msg: 'The run started, but its receipt did not match this call. Check Activity before doing anything else.', tone: 'bad' })
+      }
       // The paid request may finish after navigation. It still targeted the captured subject, but must not
       // paint that run onto the newly selected graph.
       if (!launchSelectionIsCurrent(get(), selection)) {
         void get().refreshActiveRuns()
         return get().setToast({ msg: `The full run started on ${selection.subject}. Follow it in Activity.`, tone: 'good' })
       }
-      if (!launchPreflightMatches(preflight, selection, 'full')) {
-        void get().refreshActiveRuns()
-        return get().setToast({ msg: 'The run started, but its receipt did not match this call. Check Activity before doing anything else.', tone: 'bad' })
-      }
       // a chained full run is a sequence of per-module runs + master; mark the ticker so run-done defers
       // the "complete" celebration to the master step and the cockpit live-follows every step.
       if (chained) set({ chainTickers: new Set(get().chainTickers).add(runSubjectKey(selection.swarm, selection.subject)) })
       set({ launchConfirm: null })
-      beginRun(set, get, runId, { kind: 'full', willCommitToMain: true }, planned)
+      beginRun(set, get, runId, { subject: selection.subject, swarmId: selection.swarm, execution: selection, kind: 'full', willCommitToMain: true }, planned)
       get().setToast({ msg: `Launched full run on ${selection.subject}${chained ? ' (per-module)' : ''}`, tone: 'good' })
     } catch (e: any) {
       if (get().launchConfirm === lc) set({ launchConfirm: null }) // close so the error toast is unobstructed
@@ -2222,6 +2367,9 @@ export const useStore = create<State>((set, get) => ({
     const selection = captureLaunchSelection(get())
     if (!selection) return
     if (hasPendingLaunchForTicker(get(), selection)) return
+    const seq = ++launchPriceSeq
+    const providerProblem = providerLaunchBlockedReason(get().providers[selection.provider], get().providers.catalogState)
+    if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
     // A re-run changes an existing call, so it must be bound to that call's immutable run folder and
     // decision fingerprint. If the projection is still loading/missing, stop before even pricing work.
     // Full runs remain available because they create a new call rather than mutate this one.
@@ -2236,19 +2384,19 @@ export const useStore = create<State>((set, get) => ({
     set({ launchPending: pending })
     try {
       const preflight = await api.estimate(
-        'rerun', selection.subject, node.module, node.name,
+        'rerun', selection.subject, selection, node.module, node.name,
         selection.swarm !== 'research' ? selection.swarm : undefined,
         { runRoot: selection.runRoot, decisionFingerprint: selection.decisionFingerprint, ...selection.planOrigin },
       )
-      if (!launchSelectionIsCurrent(get(), selection)) return
+      if (seq !== launchPriceSeq || !launchSelectionIsCurrent(get(), selection)) return
       const liveNode = get().nodesByKey.get(node.key)
       if (!liveNode || liveNode.module !== node.module || liveNode.name !== node.name
-          || !launchPreflightMatches(preflight, selection, 'rerun', node)) {
+          || !launchPreflightMatches(preflight, selection, 'rerun', get().providers.catalogState, node)) {
         return get().setToast({ msg: 'Couldn\'t verify that this re-run belongs to the live orb on screen. Refresh and try again.', tone: 'bad' })
       }
       set({ launchConfirm: { kind: 'rerun', selection, preflight, cascade, node } })
     } catch (e: any) {
-      if (!launchSelectionIsCurrent(get(), selection)) return
+      if (seq !== launchPriceSeq || !launchSelectionIsCurrent(get(), selection)) return
       get().setToast({ msg: `Re-run estimate failed: ${e?.message || e}`, tone: 'bad' })
     } finally {
       if (get().launchPending === pending) set({ launchPending: null })
@@ -2259,6 +2407,8 @@ export const useStore = create<State>((set, get) => ({
     const lc = get().launchConfirm
     if (!lc || lc.kind !== 'rerun' || !lc.node) return
     const selection = lc.selection
+    const providerProblem = providerLaunchBlockedReason(get().providers[selection.provider], get().providers.catalogState)
+    if (providerProblem) return get().setToast({ msg: `${providerProblem}. Nothing was launched.`, tone: 'bad' })
     if (!hasExactDecisionBinding(selection)) {
       set({ launchConfirm: null })
       return get().setToast({ msg: 'This re-run is not tied to an exact call. Nothing was launched.', tone: 'bad' })
@@ -2277,7 +2427,7 @@ export const useStore = create<State>((set, get) => ({
     // Recheck the server-minted capability at the final spend boundary too. This covers a confirmation
     // restored from stale client state or crafted by an old bundle: immutable local identity alone does
     // not prove the server understood it, and an old server would silently strip the binding fields.
-    if (!launchPreflightMatches(lc.preflight, selection, 'rerun', node)) {
+    if (!launchPreflightMatches(lc.preflight, selection, 'rerun', get().providers.catalogState, node)) {
       set({ launchConfirm: null })
       return get().setToast({ msg: 'This engine did not verify the exact call. Nothing was launched.', tone: 'bad' })
     }
@@ -2293,23 +2443,26 @@ export const useStore = create<State>((set, get) => ({
       const pending = { key: 'confirm', label: `Starting the re-run of ${node.name}…`, ticker: selection.subject, selection }
       set({ launchPending: pending })
       try {
-        const { runId, preflight } = await api.launchExact({
-          kind: 'rerun', ticker: selection.subject, module: node.module, agent: node.name, force,
+        const out = await api.launchExact({
+          selection, kind: 'rerun', ticker: selection.subject, module: node.module, agent: node.name, force,
           swarm: selection.swarm !== 'research' ? selection.swarm : undefined,
           runRoot: selection.runRoot,
           decisionFingerprint: selection.decisionFingerprint,
           ...selection.planOrigin,
         })
+        const { runId, preflight } = out
+        if (typeof runId !== 'string' || !runId.trim()
+            || !launchProviderReceiptMatches(out, selection, get().providers.catalogState)
+            || !launchPreflightMatches(preflight, selection, 'rerun', get().providers.catalogState, node)) {
+          void get().refreshActiveRuns()
+          return get().setToast({ msg: 'The re-run started, but its receipt did not match this call. Check Activity before doing anything else.', tone: 'bad' })
+        }
         if (!launchSelectionIsCurrent(get(), selection)) {
           void get().refreshActiveRuns()
           return get().setToast({ msg: `The re-run of ${node.name} started on ${selection.subject}. Follow it in Activity.`, tone: 'good' })
         }
-        if (!launchPreflightMatches(preflight, selection, 'rerun', node)) {
-          void get().refreshActiveRuns()
-          return get().setToast({ msg: 'The re-run started, but its receipt did not match this call. Check Activity before doing anything else.', tone: 'bad' })
-        }
         set({ launchConfirm: null })
-        beginRun(set, get, runId, { kind: 'rerun', module: node.module, agent: node.name, willCommitToMain: true }, planned)
+        beginRun(set, get, runId, { subject: selection.subject, swarmId: selection.swarm, execution: selection, kind: 'rerun', module: node.module, agent: node.name, willCommitToMain: true }, planned)
         get().setToast({ msg: `Re-running ${node.name} + downstream on ${selection.subject}`, tone: 'good' })
       } catch (e: any) {
         if (get().launchConfirm === lc) set({ launchConfirm: null })
@@ -2321,7 +2474,34 @@ export const useStore = create<State>((set, get) => ({
     await doRerun()
   },
 
-  cancelLaunch: () => set({ launchConfirm: null }),
+  cancelLaunch: () => { launchPriceSeq++; set({ launchConfirm: null }) },
+  changeLaunchProvider: async (provider) => {
+    const lc = get().launchConfirm
+    if (!lc || get().launchPending) return
+    const seq = ++launchPriceSeq
+    if (providerIsBlocked(get().providers[provider])) return
+    if (providerNeedsCheck(get().providers[provider])) {
+      await get().refreshProviders(provider)
+      if (seq !== launchPriceSeq || get().launchConfirm !== lc) return
+      if (providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)) return
+    }
+    if (seq !== launchPriceSeq || get().launchConfirm !== lc) return
+    const execution = captureProviderLaunch(get(), provider)
+    if (!execution) return
+    if (lc.selection.provider === provider
+        && lc.selection.expectedProfileKey === execution.expectedProfileKey
+        && lc.selection.model === execution.model
+        && lc.selection.reasoningLevel === execution.reasoningLevel
+        && JSON.stringify(lc.selection.executionProfile) === JSON.stringify(execution.executionProfile)) return
+    const node = lc.kind === 'rerun' ? lc.node : undefined
+    const moduleName = lc.kind === 'module' ? lc.module : undefined
+    const planOrigin = lc.selection.planOrigin
+    get().setRunProvider(provider)
+    set({ launchConfirm: null })
+    if (moduleName) await get().launchModule(moduleName)
+    else if (lc.kind === 'rerun' && node) await get().launchRerun(node, planOrigin)
+    else await get().requestFull()
+  },
 
   // Hide the run-stream panel. Keep the run rows in state (so reopening restores them); a boolean flag drives
   // visibility. The panel re-shows automatically on the next live run (see RunStreamPanel's anyLive effect).
@@ -2461,19 +2641,28 @@ export const useStore = create<State>((set, get) => ({
     if (!t) { get().setToast({ msg: 'Select a company first', tone: 'info' }); return }
     if (get().staticMode) { get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' }); return }
     const sw = get().constellationSwarm
+    const token = get().selectToken
+    const provider = get().runProvider
+    const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
+    if (providerProblem) { get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' }); return }
+    const execution = captureProviderLaunch(get(), provider)
+    if (!execution) { get().setToast({ msg: 'The selected execution profile could not be frozen. Check the provider again.', tone: 'bad' }); return }
     // Bump the price-request generation on every (re)open, not just on each toggle. Without this, a reprice
     // still in flight when the panel closes can resolve AFTER the panel is reopened (same ticker) and land
     // a stale override on top of the fresh disk snapshot just loaded below — `seq !== thesisPriceSeq` alone
     // can't catch that, since no toggle happened in the new session to advance the counter past it.
-    thesisPriceSeq++
+    const seq = ++thesisPriceSeq
     // thesisPlanPricing MUST be cleared here: a toggle whose re-price was still in flight when the panel
     // closed returns early and leaves it true, and nothing else resets it — which would leave the Run button
     // permanently disabled on every subsequent open (a dead button, the failure mode of the readiness gate).
-    set({ thesisPlanOpen: true, thesisPlanLoading: true, thesisPlanPricing: false, thesisPlanError: null, thesisPlan: null, thesisPlanIntake: null })
+    set({ thesisPlanOpen: true, thesisPlanLoading: true, thesisPlanPricing: false, thesisPlanError: null, thesisPlan: null, thesisPlanExecution: execution, thesisPlanIntake: null })
     try {
-      let plan = await api.thesisPlan(t, sw)
+      let plan = await api.thesisPlan(t, execution, sw)
       // the user may have switched subject or closed the panel while this was in flight
-      if (get().selectedTicker !== t || !get().thesisPlanOpen) return
+      if (seq !== thesisPriceSeq || get().selectToken !== token || get().selectedTicker !== t
+          || get().constellationSwarm !== sw || get().runProvider !== provider || get().thesisPlanExecution !== execution || !get().thesisPlanOpen) return
+      requireLaunchProviderReceipt(plan.preflight, execution, get().providers.catalogState, false)
+      requireLaunchProviderReceipt(plan.fullPreflight, execution, get().providers.catalogState, false)
       // INTELLIGENT DEFAULT (frameworks/INTAKE.md): if intake has read the docs that landed since the last
       // run and scoped the impact, don't default to "re-run every stale module". Keep the finished modules
       // the evidence doesn't touch; re-run only the affected ones + their DAG cascade. This is ADDITIVE over
@@ -2486,8 +2675,11 @@ export const useStore = create<State>((set, get) => ({
         const bluntKeeps = new Set(plan.reuse)
         // only override when it genuinely narrows the run (keeps something the blunt default would re-run)
         if (keep.length && keep.some((m) => !bluntKeeps.has(m))) {
-          const scopedPlan = await api.thesisPlan(t, sw, keep)
-          if (get().selectedTicker !== t || !get().thesisPlanOpen) return
+          const scopedPlan = await api.thesisPlan(t, execution, sw, keep)
+          if (seq !== thesisPriceSeq || get().selectToken !== token || get().selectedTicker !== t
+              || get().constellationSwarm !== sw || get().runProvider !== provider || get().thesisPlanExecution !== execution || !get().thesisPlanOpen) return
+          requireLaunchProviderReceipt(scopedPlan.preflight, execution, get().providers.catalogState, false)
+          requireLaunchProviderReceipt(scopedPlan.fullPreflight, execution, get().providers.catalogState, false)
           plan = scopedPlan
           const present = new Set(plan.modules.map((m) => m.module))
           scoped = { affected: [...affected].filter((m) => present.has(m)), keep, scanDate: intake.scan_date, summary: intake.summary }
@@ -2495,12 +2687,13 @@ export const useStore = create<State>((set, get) => ({
       }
       set({ thesisPlan: plan, thesisPlanLoading: false, thesisPlanIntake: scoped })
     } catch (e: any) {
-      if (get().selectedTicker !== t) return
+      if (seq !== thesisPriceSeq || get().selectToken !== token || get().selectedTicker !== t
+          || get().constellationSwarm !== sw || get().runProvider !== provider || get().thesisPlanExecution !== execution || !get().thesisPlanOpen) return
       set({ thesisPlanLoading: false, thesisPlanError: e?.message || 'Could not read what this run still needs' })
     }
   },
 
-  closeThesisPlan: () => set({ thesisPlanOpen: false, thesisPlanPricing: false, thesisPlanError: null, thesisPlanIntake: null }),
+  closeThesisPlan: () => set({ thesisPlanOpen: false, thesisPlanExecution: null, thesisPlanPricing: false, thesisPlanError: null, thesisPlanIntake: null }),
 
   // Fetch the scoped rerun plan for the selected ticker (advisory; the server validates + re-expands it).
   // Fails to null — the cockpit then shows the honest staleness floor, never a fabricated plan.
@@ -2625,6 +2818,11 @@ export const useStore = create<State>((set, get) => ({
     const runRoot = get().runRoot ?? undefined
     if (!t || get().staticMode || sw === 'screener' || get().intakeAnalyzing) return
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — analysis is paused until it reconnects.', tone: 'info' })
+    const provider = get().runProvider
+    const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
+    if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
+    const execution = captureProviderLaunch(get(), provider)
+    if (!execution) return get().setToast({ msg: 'The selected execution profile could not be frozen. Check the provider again.', tone: 'bad' })
     set({ intakeAnalyzing: true })
     get().setToast({ msg: 'Reading the new documents — I’ll light up the orbs to re-run when it’s done (about a minute).', tone: 'info' })
     const token = get().selectToken
@@ -2636,7 +2834,8 @@ export const useStore = create<State>((set, get) => ({
     const before = get().intake?.analyzed_at
     try {
       try {
-        await api.analyzeIntake(t, sw, runRoot, decisionFingerprint)
+        const out = await api.analyzeIntake(t, sw, execution, runRoot, decisionFingerprint)
+        requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
         // Attach to the run's live stream NOW rather than waiting for the next background poll: this is
         // what feeds the dock's reading list, and the run starts reading the moment it spawns. (The
         // server replays its activity ring on subscribe, so the steps taken in this gap are not lost —
@@ -2685,15 +2884,26 @@ export const useStore = create<State>((set, get) => ({
     const plan = get().thesisPlan
     const t = get().selectedTicker
     if (!plan || !t) return
-    set({ thesisPlanIntake: null, thesisPlanPricing: true })
     const token = get().selectToken
+    const provider = get().runProvider
+    const execution = get().thesisPlanExecution
+    if (!execution || execution.provider !== provider) return
+    set({ thesisPlanIntake: null, thesisPlanPricing: true })
+    const sw = plan.swarm
     const seq = ++thesisPriceSeq
-    api.thesisPlan(t, plan.swarm)
+    api.thesisPlan(t, execution, sw)
       .then((fresh) => {
-        if (get().selectToken !== token || seq !== thesisPriceSeq || !get().thesisPlanOpen) return
+        if (get().selectToken !== token || seq !== thesisPriceSeq || get().selectedTicker !== t
+            || get().runProvider !== provider || get().thesisPlanExecution !== execution || get().thesisPlan?.swarm !== sw || !get().thesisPlanOpen) return
+        requireLaunchProviderReceipt(fresh.preflight, execution, get().providers.catalogState, false)
+        requireLaunchProviderReceipt(fresh.fullPreflight, execution, get().providers.catalogState, false)
         set({ thesisPlan: fresh, thesisPlanPricing: false })
       })
-      .catch(() => { if (seq === thesisPriceSeq) set({ thesisPlanPricing: false }) })
+      .catch((e: any) => {
+        if (seq !== thesisPriceSeq || get().selectToken !== token || get().runProvider !== provider || get().thesisPlanExecution !== execution) return
+        set({ thesisPlanPricing: false })
+        get().setToast({ msg: e?.message || 'Couldn’t re-price that change — nothing was changed.', tone: 'bad' })
+      })
   },
 
   // Flip ONE module between "reuse what's on disk" and "re-run it", then ask the SERVER to re-price. The
@@ -2705,23 +2915,31 @@ export const useStore = create<State>((set, get) => ({
     if (!plan || !t) return
     if (!plan.reusable.includes(module)) return // nothing on disk to reuse — this module always runs
     if (plan.mustReuse.includes(module)) return // its synthesis is already in the target run root — the launcher skips it regardless
+    const provider = get().runProvider
+    const execution = get().thesisPlanExecution
+    if (!execution || execution.provider !== provider) return
 
     const next = plan.reuse.includes(module) ? plan.reuse.filter((m) => m !== module) : [...plan.reuse, module]
 
     // Optimistic: flip the checkbox now (the click must feel instant), then reconcile with the server's price.
     set({ thesisPlan: { ...plan, reuse: next }, thesisPlanPricing: true })
     const token = get().selectToken
+    const sw = plan.swarm
     // Clicks are faster than a disk walk, and responses can land out of order. Stamp each request and apply
     // only the newest — otherwise a slow earlier response overwrites a later one, visibly re-ticking a box the
     // user just unticked, and `completeThesis` launches with a reuse set the user can see they changed.
     const seq = ++thesisPriceSeq
     void (async () => {
       try {
-        const repriced = await api.thesisPlan(t, plan.swarm, next)
-        if (seq !== thesisPriceSeq || get().selectToken !== token || !get().thesisPlanOpen) return
+        const repriced = await api.thesisPlan(t, execution, sw, next)
+        if (seq !== thesisPriceSeq || get().selectToken !== token || get().selectedTicker !== t
+            || get().runProvider !== provider || get().thesisPlanExecution !== execution || get().thesisPlan?.swarm !== sw || !get().thesisPlanOpen) return
+        requireLaunchProviderReceipt(repriced.preflight, execution, get().providers.catalogState, false)
+        requireLaunchProviderReceipt(repriced.fullPreflight, execution, get().providers.catalogState, false)
         set({ thesisPlan: repriced, thesisPlanPricing: false })
       } catch (e: any) {
-        if (seq !== thesisPriceSeq || get().selectToken !== token) return
+        if (seq !== thesisPriceSeq || get().selectToken !== token || get().selectedTicker !== t
+            || get().runProvider !== provider || get().thesisPlanExecution !== execution || get().thesisPlan?.swarm !== sw) return
         // Roll THIS toggle back off current state (not a stale closure, which would also undo later toggles),
         // and surface the failure as a toast — a transient re-price must never unmount the plan the user is
         // reading, and it is not the "couldn't read your run folders" error the panel's error state describes.
@@ -2791,13 +3009,16 @@ export const useStore = create<State>((set, get) => ({
       // spend against whatever plan was current. Ask the same versioned estimate boundary used by one-orb
       // reruns first; only its exact identity echo unlocks the versioned POST.
       const planOrigin = await verifyScopedRerunCapability(get, selection)
-      const { runId, staleModules, carried, scoped, chained } = await api.runIntakePlan(
+      const out = await api.runIntakePlan(
         t,
         selection.swarm,
         selection.runRoot,
         selection.decisionFingerprint,
         planOrigin,
+        selection,
       )
+      requireLaunchProviderReceipt(out, selection, get().providers.catalogState)
+      const { runId, staleModules, carried, scoped, chained } = out
       if (chained) set({ chainTickers: new Set(get().chainTickers).add(runSubjectKey('research', t)) })
       if (!launchSelectionIsCurrent(get(), selection)) {
         // Selection moved on — attach the run in the background (mirrors resumeRun's "not onScreen" path)
@@ -2836,7 +3057,7 @@ export const useStore = create<State>((set, get) => ({
       // already done, not "queued": it never runs again, so it must not sit on screen looking stuck.
       const doneKeys = nodes.filter((n) => carriedSet.has(n.module) || (staleSet.has(n.module) && !plannedSet.has(n.key))).map((n) => n.key)
       if (runId) {
-        beginRun(set, get, runId, { kind: 'full', willCommitToMain: true }, plannedKeys, doneKeys)
+        beginRun(set, get, runId, { subject: selection.subject, swarmId: selection.swarm, execution: selection, kind: 'full', willCommitToMain: true }, plannedKeys, doneKeys)
       } else {
         void get().refreshActiveRuns()
       }
@@ -2857,12 +3078,17 @@ export const useStore = create<State>((set, get) => ({
     // Research-only, matched positively (a missing/unknown swarm must never read as permitted).
     if (plan.swarm !== 'research') return get().setToast({ msg: `Completing a ${plan.swarm} dossier from here isn’t supported yet.`, tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    const provider = get().runProvider
+    const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
+    if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
+    const execution = get().thesisPlanExecution
+    if (!execution || execution.provider !== provider) return get().setToast({ msg: 'This plan was priced for a different execution profile. Reopen it before launching.', tone: 'bad' })
 
     // Nothing to reuse ⇒ this IS a full run: same orbs, same price, same commits pushed to main. Hand it to
     // the normal full-run confirm dialog, which asks the user to type the ticker and shows the plan-usage row.
     // A cheaper run earns the one-click path; a full one does not, whichever modal you happen to be standing in.
     if (plan.reuse.length === 0) {
-      set({ thesisPlanOpen: false })
+      set({ thesisPlanOpen: false, thesisPlanExecution: null })
       await get().requestFull()
       return
     }
@@ -2876,7 +3102,9 @@ export const useStore = create<State>((set, get) => ({
       // reconsidered" (that distinction only exists here, in what the user actually saw and clicked). Re-check
       // fresh, from disk, immediately before submitting, and abort rather than silently carry evidence the
       // user never agreed to keep past its shelf life.
-      const fresh = await api.thesisPlan(t, plan.swarm, plan.reuse)
+      const fresh = await api.thesisPlan(t, execution, plan.swarm, plan.reuse)
+      requireLaunchProviderReceipt(fresh.preflight, execution, get().providers.catalogState, false)
+      requireLaunchProviderReceipt(fresh.fullPreflight, execution, get().providers.catalogState, false)
       const turnedStale = plan.reuse.filter((m) => {
         const was = plan.modules.find((x) => x.module === m)
         const now = fresh.modules.find((x) => x.module === m)
@@ -2889,7 +3117,9 @@ export const useStore = create<State>((set, get) => ({
         return
       }
 
-      const { runId, chained, carried, willRun } = await api.runThesisPlan(t, plan.reuse, plan.swarm)
+      const out = await api.runThesisPlan(t, plan.reuse, plan.swarm, execution)
+      requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
+      const { runId, chained, carried, willRun } = out
       if (chained) set({ chainTickers: new Set(get().chainTickers).add(runSubjectKey(plan.swarm, t)) })
 
       // Light up ONLY the modules that will actually run; show the reused ones as done (green), never as
@@ -2900,9 +3130,9 @@ export const useStore = create<State>((set, get) => ({
       const plannedKeys = nodes.filter((n) => runSet.has(n.module)).map((n) => n.key)
       const doneKeys = nodes.filter((n) => reuseSet.has(n.module)).map((n) => n.key)
 
-      set({ thesisPlanOpen: false, launchPending: null })
+      set({ thesisPlanOpen: false, thesisPlanExecution: null, launchPending: null })
       if (runId) {
-        beginRun(set, get, runId, { kind: 'full', willCommitToMain: true }, plannedKeys, doneKeys)
+        beginRun(set, get, runId, { subject: t, swarmId: plan.swarm, execution, kind: 'full', willCommitToMain: true }, plannedKeys, doneKeys)
       } else {
         // runId === '' — every module was already on disk, so the engine launched the master synthesizer
         // directly under its OWN runId (adopted via refreshActiveRuns). NEVER open a stream to an empty id or
@@ -2923,7 +3153,7 @@ export const useStore = create<State>((set, get) => ({
       if (code === 'already_complete') {
         // Someone else's run (or a chained run) finished this thesis while the panel was open. Don't error —
         // the user asked for the thesis, and it now exists: give them it.
-        set({ thesisPlanOpen: false })
+        set({ thesisPlanOpen: false, thesisPlanExecution: null })
         get().setToast({ msg: 'This run already has a final thesis — opening it.', tone: 'info' })
         void get().openThesis()
         return
@@ -2941,7 +3171,20 @@ export const useStore = create<State>((set, get) => ({
     if (!plan || !t) return
     if (plan.swarm !== 'research') return get().setToast({ msg: `Running a single module of a ${plan.swarm} dossier from here isn’t supported yet.`, tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
-    await runPlannedResearchModule(set, get, module, plan, `complete-module:${module}`, true)
+    const provider = get().runProvider
+    const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
+    if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
+    const execution = get().thesisPlanExecution
+    if (!execution || execution.provider !== provider) return get().setToast({ msg: 'This plan was priced for a different execution profile. Reopen it before launching.', tone: 'bad' })
+    const selection = captureLaunchSelection(get())
+    if (!selection || selection.provider !== execution.provider
+        || selection.expectedProfileKey !== execution.expectedProfileKey
+        || selection.model !== execution.model
+        || selection.reasoningLevel !== execution.reasoningLevel
+        || JSON.stringify(selection.executionProfile) !== JSON.stringify(execution.executionProfile)) {
+      return get().setToast({ msg: 'This plan was priced for a different execution profile. Reopen it before launching.', tone: 'bad' })
+    }
+    await runPlannedResearchModule(set, get, module, plan, `complete-module:${module}`, true, selection)
   },
 
   // open one of the three run tiers (memo / thesis / dossier) by resolving its file under the run root.
@@ -3430,9 +3673,15 @@ export const useStore = create<State>((set, get) => ({
   updateCall: async (ticker) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — updates run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live updates are paused until it reconnects.', tone: 'info' })
+    const provider = get().runProvider
+    const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
+    if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
+    const execution = captureProviderLaunch(get(), provider)
+    if (!execution) return get().setToast({ msg: 'The selected execution profile could not be frozen. Check the provider again.', tone: 'bad' })
     set({ launchPending: { key: `review:${ticker}`, label: `Filing the review for ${ticker}…`, ticker } })
     try {
-      await api.launch({ kind: 'review', ticker, window: 'ad-hoc' })
+      const out = await api.launch({ selection: execution, kind: 'review', ticker, window: 'ad-hoc' })
+      requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
       void get().refreshActiveRuns() // flip the card's busy state NOW, not on the next 20s idle poll
       get().setToast({ msg: `Filing an ad-hoc review for ${ticker} — see Activity; the tracker refreshes when it lands`, tone: 'good' })
     } catch (e: any) {
@@ -3445,9 +3694,15 @@ export const useStore = create<State>((set, get) => ({
   fileDueReview: async (ticker, window) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — updates run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live updates are paused until it reconnects.', tone: 'info' })
+    const provider = get().runProvider
+    const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
+    if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
+    const execution = captureProviderLaunch(get(), provider)
+    if (!execution) return get().setToast({ msg: 'The selected execution profile could not be frozen. Check the provider again.', tone: 'bad' })
     set({ launchPending: { key: `review:${ticker}:${window}`, label: `Filing the ${window} review…`, ticker } })
     try {
-      await api.launch({ kind: 'review', ticker, window })
+      const out = await api.launch({ selection: execution, kind: 'review', ticker, window })
+      requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
       void get().refreshActiveRuns()
       get().setToast({ msg: `Filing the ${window} review for ${ticker} — see Activity`, tone: 'good' })
     } catch (e: any) {
@@ -3463,8 +3718,14 @@ export const useStore = create<State>((set, get) => ({
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — paused until it reconnects.', tone: 'info' })
     const t = get().selectedTicker || get().tickers[0]?.ticker
     if (!t) return get().setToast({ msg: 'No company loaded to run the dashboard from', tone: 'info' })
+    const provider = get().runProvider
+    const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
+    if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
+    const execution = captureProviderLaunch(get(), provider)
+    if (!execution) return get().setToast({ msg: 'The selected execution profile could not be frozen. Check the provider again.', tone: 'bad' })
     try {
-      await api.launch({ kind: 'track', ticker: t })
+      const out = await api.launch({ selection: execution, kind: 'track', ticker: t })
+      requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
       get().setToast({ msg: 'Rebuilding the calls dashboard — see Activity; it commits when done', tone: 'good' })
     } catch (e: any) {
       launchErrorToast(get, e, t, 'calls dashboard')
@@ -3588,6 +3849,14 @@ export const useStore = create<State>((set, get) => ({
   },
 
   _handleEvent: (e) => {
+    if (!sseFrameForRun(e, e?.runId, RUN_EVENT_TYPES)) return
+    const adopted = get().activeRuns[e.runId]
+    if (adopted) {
+      if (!adopted.swarmId) return
+      const reconciled = reconcileRunIdentity(adopted as ActiveRun & { swarmId: string }, e)
+      if (!reconciled) return
+      set({ activeRuns: { ...get().activeRuns, [e.runId]: reconciled } })
+    }
     const selected = get().selectedTicker
     const activeSwarm = get().activeSwarm
     // A label is not a global identity. Derive both halves from the owning run and fail closed if either
@@ -3635,7 +3904,8 @@ export const useStore = create<State>((set, get) => ({
       case 'cost-tick': {
         const r = get().activeRuns[e.runId]
         if (r) patch.activeRuns = { ...get().activeRuns, [e.runId]: { ...r, costUsd: e.costUsdSoFar ?? r.costUsd } }
-        if (e.rateLimit) api.credit().then((c) => set({ credit: c })).catch(() => {})
+        const rateProvider = isRunProvider(e.provider) ? e.provider : isRunProvider(r?.provider) ? r.provider : undefined
+        if (e.rateLimit && rateProvider) void get().refreshProviders(rateProvider)
         break
       }
       case 'run-heartbeat': {
@@ -3645,7 +3915,7 @@ export const useStore = create<State>((set, get) => ({
         if (r) {
           patch.activeRuns = {
             ...get().activeRuns,
-            [e.runId]: { ...r, status: e.status ?? r.status, costUsd: e.costUsd ?? r.costUsd, agentsDone: e.agentsDone, agentsTotal: e.agentsTotal, lastStdoutAt: e.lastStdoutAt, lastActivity: e.lastActivity },
+            [e.runId]: { ...r, status: e.status ?? r.status, costUsd: e.costUsd ?? r.costUsd, agentsDone: e.agentsDone, agentsTotal: e.agentsTotal, lastStdoutAt: e.lastStdoutAt, lastActivity: e.lastActivity, provider: e.provider ?? r.provider, executionProfile: e.executionProfile ?? r.executionProfile, profileKey: e.profileKey ?? r.profileKey, model: e.model ?? r.model, reasoningLevel: e.reasoningLevel ?? r.reasoningLevel, chainId: e.chainId ?? r.chainId, executionEpoch: e.executionEpoch ?? r.executionEpoch },
           }
         }
         break
@@ -3656,7 +3926,7 @@ export const useStore = create<State>((set, get) => ({
         // stream reconnects; a tool+ts match drops the duplicate rather than showing a document twice.
         const prev = get().runActivity[e.runId] ?? []
         if (prev.some((a) => a.ts === e.ts && a.tool === e.tool && a.target === e.target)) break
-        const next = [...prev, { tool: e.tool, target: e.target, ts: e.ts }]
+        const next = [...prev, { tool: e.tool, target: e.target, ts: e.ts, provider: e.provider, executionProfile: e.executionProfile }]
         patch.runActivity = { ...get().runActivity, [e.runId]: next.length > ACTIVITY_CAP ? next.slice(-ACTIVITY_CAP) : next }
         break
       }
@@ -3666,7 +3936,7 @@ export const useStore = create<State>((set, get) => ({
         // re-run writes a new dated folder with no decision record; a by-ticker (preferComplete) refresh
         // would otherwise roll the cockpit back to the older complete run and hide what just landed.
         const r = get().activeRuns[e.runId]
-        if (r && e.runRoot) patch.activeRuns = { ...get().activeRuns, [e.runId]: { ...r, runRoot: e.runRoot } }
+        if (r) patch.activeRuns = { ...get().activeRuns, [e.runId]: { ...r, ...(e.runRoot ? { runRoot: e.runRoot } : {}), provider: e.provider ?? r.provider, executionProfile: e.executionProfile ?? r.executionProfile, profileKey: e.profileKey ?? r.profileKey, model: e.model ?? r.model, reasoningLevel: e.reasoningLevel ?? r.reasoningLevel, chainId: e.chainId ?? r.chainId, executionEpoch: e.executionEpoch ?? r.executionEpoch } }
         break
       }
       case 'run-done': {
@@ -3794,8 +4064,13 @@ export const useStore = create<State>((set, get) => ({
               if (eventSelectionStillOwnsView()) set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier }, moduleReports: m.moduleReports ?? get().moduleReports })
             }).catch(() => {})
           } else {
-            get().setToast({ msg: e.reason === 'out_of_credits' ? 'Out of credits — run could not execute' : `Run ${e.status}: ${e.reason}`, tone: 'bad' })
-            if (e.reason === 'out_of_credits') patch.credit = { ok: false, reason: 'out_of_credits', checked: true }
+            const failedProvider = isRunProvider(e.provider) ? e.provider : isRunProvider(r?.provider) ? r.provider : undefined
+            get().setToast({ msg: e.reason === 'out_of_credits' && failedProvider ? `${providerLabel(failedProvider)} plan usage is exhausted — run paused` : `Run ${e.status}: ${e.reason}`, tone: 'bad' })
+            if (e.reason === 'out_of_credits' && failedProvider) {
+              const providers = get().providers
+              patch.providers = { ...providers, [failedProvider]: { ...providers[failedProvider], usage: { ok: false, reason: 'out_of_credits', checked: true } } }
+              void get().refreshProviders(failedProvider)
+            }
           }
         }
         break
@@ -3975,7 +4250,7 @@ export const useStore = create<State>((set, get) => ({
       if (!stillOwnsBootstrap()) return
       // attach to any screener runs already in flight
       const live = get().scBoard?.live || []
-      for (const l of live) if (!scRunSources.has(l.runId)) connectScreenerRun(get, l.runId)
+      for (const l of live) if (!scRunSources.has(l.runId)) void reconnectScreenerRun(get, l.runId, l.subjectId)
       // the event rail is part of the screener stage now — keep the wire backfilled + streaming live
       await get().scEnsureNewsStream(ownershipEpoch)
       if (!stillOwnsBootstrap()) return
@@ -4602,7 +4877,15 @@ export const useStore = create<State>((set, get) => ({
   // flips to "In the machine" (the server stamped the snapshot promoted). Re-throws so the card can show a
   // failure inline — a paid launch that didn't happen must never look like it did.
   scPromoteIdea: async (idea) => {
-    await api.promoteIdea(idea.idea_id)
+    const provider = get().runProvider
+    const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
+    if (providerProblem) throw new Error(`${providerProblem}. Choose another run provider.`)
+    const execution = captureProviderLaunch(get(), provider)
+    if (!execution) throw new Error('The selected execution profile could not be frozen. Check the provider again.')
+    const out = await api.promoteIdea(idea.idea_id, execution)
+    if (!trackedLaunchResponseMatches(out, execution, get().providers.catalogState, out.alreadyPromoted === true)) {
+      throw Object.assign(new Error('The engine did not return an exact provider receipt for the promoted run.'), { body: { code: 'provider_receipt_mismatch' } })
+    }
     await get().scRefreshBoard()
   },
   // 👍/👎 a surfaced idea — the self-grading loop. Optimistic (the thumb reacts instantly), then persist +
@@ -4679,7 +4962,36 @@ export const useStore = create<State>((set, get) => ({
       const prev = autoResumeTries.get(r.sigId)
       autoResumeTries.set(r.sigId, { count: (prev?.count || 0) + 1, lastAt: Date.now() })
       try {
-        const { runId } = await api.launchSignal({ sigId: r.sigId })
+        const recorded = get().resumableRuns.find((entry) => entry.kind === 'signal' && entry.subject === r.sigId)
+        const hold = () => {
+          if (prev) autoResumeTries.set(r.sigId, prev)
+          else autoResumeTries.delete(r.sigId)
+        }
+        // Automatic continuation requires two agreeing authorities: the live board row and the disk-truth
+        // resumable projection. Provider-only rows, missing profiles, profile drift, and any disagreement
+        // stay paused for a human; none may be guessed into Claude or a current catalogue profile.
+        if (!recorded) { hold(); continue }
+        const records: RecordedRunExecution[] = [
+          { provider: isRunProvider(r.provider) ? r.provider : undefined, executionProfile: r.executionProfile, source: 'board' },
+          { provider: isRunProvider(recorded.provider) ? recorded.provider : undefined, executionProfile: recorded.executionProfile, source: 'disk' },
+        ]
+        const provider = isRunProvider(recorded.provider) ? recorded.provider : undefined
+        if (!provider) { hold(); continue }
+        // A quota pause is owned by the server supervisor. The browser may continue it only when the
+        // server explicitly says this exact item is due in both board and disk projections; absent or
+        // contradictory rolling-deploy metadata fails closed.
+        if ((r.reason === 'out_of_credits' || recorded?.reason === 'out_of_credits')
+            && (r.autoResumeDue !== true || recorded?.autoResumeDue !== true)) {
+          hold()
+          continue
+        }
+        const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
+        if (providerProblem) { hold(); continue }
+        const execution = captureProviderLaunch(get(), provider)
+        if (!execution || !automaticResumeMatches(records, execution)) { hold(); continue }
+        const out = await api.launchSignal(execution, { sigId: r.sigId })
+        requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
+        const { runId } = out
         resumed++ // the server accepted it even if the user navigated while this await was pending
         if (!stillOwnsResume()) break
         // if this is the run the user is watching, keep its finished orbs and re-queue the rest so the
@@ -4691,7 +5003,7 @@ export const useStore = create<State>((set, get) => ({
           const rt: Record<string, NodeRuntime> = {}
           for (const k of get().scNodesByKey.keys()) rt[k] = done[k]?.status === 'done' ? done[k] : { status: 'queued', runId }
           set({ scRuntime: rt })
-          connectScreenerRun(get, runId)
+          connectScreenerRun(get, runId, r.sigId)
         }
       } catch (e: any) {
         // no slot right now (cap) or it's already in flight — not a real failure; un-count so the next
@@ -4947,13 +5259,20 @@ export const useStore = create<State>((set, get) => ({
   submitSignal: async (intake, until) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — signals run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    const provider = get().runProvider
+    const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
+    if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
+    const execution = captureProviderLaunch(get(), provider)
+    if (!execution) return get().setToast({ msg: 'The selected execution profile could not be frozen. Check the provider again.', tone: 'bad' })
     set({ launchPending: { key: 'signal:intake', label: 'Starting the checks…', ticker: '' } })
     try {
-      const { runId, preflight } = await api.launchSignal({ intake, until })
+      const out = await api.launchSignal(execution, { intake, until })
+      requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
+      const { runId, preflight } = out
       set({ signalIntakeOpen: false, signalIntakeSeed: null })
       const sigId = preflight.ticker
       set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {} })
-      beginScreenerRun(set, get, runId, sigId)
+      beginScreenerRun(set, get, runId, { subject: sigId, swarmId: 'screener', execution })
       get().setToast({ msg: `Checks started for ${sigId} — watch them run left to right`, tone: 'good' })
     } catch (e: any) {
       get().setToast({ msg: e?.message ? String(e.message) : 'Could not start the checks', tone: e?.body?.code ? 'info' : 'bad' })
@@ -4966,11 +5285,18 @@ export const useStore = create<State>((set, get) => ({
   relaunchSignal: async (sigId) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — signals run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    const provider = get().runProvider
+    const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
+    if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
+    const execution = captureProviderLaunch(get(), provider)
+    if (!execution) return get().setToast({ msg: 'The selected execution profile could not be frozen. Check the provider again.', tone: 'bad' })
     set({ launchPending: { key: `signal:${sigId}`, label: `Starting the checks for ${sigId}…`, ticker: sigId } })
     try {
-      const { runId } = await api.launchSignal({ sigId })
+      const out = await api.launchSignal(execution, { sigId })
+      requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
+      const { runId } = out
       set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {}, pipelineOpen: false })
-      beginScreenerRun(set, get, runId, sigId)
+      beginScreenerRun(set, get, runId, { subject: sigId, swarmId: 'screener', execution })
       get().setToast({ msg: `Re-running the checks for ${sigId}`, tone: 'good' })
     } catch (e: any) {
       get().setToast({ msg: e?.message ? String(e.message) : 'Could not start the checks', tone: e?.body?.code ? 'info' : 'bad' })
@@ -4986,6 +5312,19 @@ export const useStore = create<State>((set, get) => ({
   continueSignal: async (sigId, until, override) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — signals run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    const provider = get().runProvider
+    const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
+    if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
+    const execution = captureProviderLaunch(get(), provider)
+    if (!execution) return get().setToast({ msg: 'The selected execution profile could not be frozen. Check the provider again.', tone: 'bad' })
+    const disk = get().resumableRuns.find((entry) => entry.kind === 'signal' && entry.subject === sigId)
+    const board = get().scBoard?.resumable?.find((entry) => entry.sigId === sigId)
+    const records: RecordedRunExecution[] = [
+      ...(board ? [{ provider: isRunProvider(board.provider) ? board.provider : undefined, executionProfile: board.executionProfile, source: 'board' }] : []),
+      ...(disk ? [{ provider: isRunProvider(disk.provider) ? disk.provider : undefined, executionProfile: disk.executionProfile, source: 'disk' }] : []),
+    ]
+    const confirmation = manualResumeConfirmation(records, execution)
+    if (confirmation && (typeof window === 'undefined' || !window.confirm(confirmation))) return
     set({ launchPending: { key: `continue:${sigId}`, label: override ? `Running ${sigId} forward…` : `Resuming ${sigId}…`, ticker: sigId } })
     try {
       // make sure we hold the authoritative finished-orb set from disk before relaunching
@@ -4994,12 +5333,14 @@ export const useStore = create<State>((set, get) => ({
       // `until` continues only THROUGH the named module then stops again (a staged partial); undefined runs
       // the rest of the gauntlet to the end. `override` pushes a signal-gate PARK/LOG past the promotion gate.
       // Either way the gauntlet skips modules already on disk, so finished checks are reused, never redone.
-      const { runId } = await api.launchSignal({ sigId, until, override })
+      const out = await api.launchSignal(execution, { sigId, until, override })
+      requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
+      const { runId } = out
       // keep finished orbs as-is; re-queue everything else under the new runId so they animate as they run
       const rt: Record<string, NodeRuntime> = {}
       for (const k of get().scNodesByKey.keys()) rt[k] = done[k]?.status === 'done' ? done[k] : { status: 'queued', runId }
       set({ scSelectedSignal: sigId, scRuntime: rt, pipelineOpen: false })
-      connectScreenerRun(get, runId)
+      connectScreenerRun(get, runId, sigId)
       void get().refreshActiveRuns()
       get().setToast({ msg: override ? `Running ${sigId} forward — overriding the gate, reusing finished checks` : `Resuming ${sigId} — picking up where it stopped`, tone: 'good' })
     } catch (e: any) {
@@ -5065,11 +5406,18 @@ export const useStore = create<State>((set, get) => ({
   runSweep: async () => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — sweeps run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    const provider = get().runProvider
+    const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
+    if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
+    const execution = captureProviderLaunch(get(), provider)
+    if (!execution) return get().setToast({ msg: 'The selected execution profile could not be frozen. Check the provider again.', tone: 'bad' })
     set({ launchPending: { key: 'sweep', label: 'Starting the news scan…', ticker: 'sweep' } })
     try {
-      const { runId } = await api.launchSweep()
+      const out = await api.launchSweep(execution)
+      requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
+      const { runId } = out
       scSweepWatch.add(runId) // tag this run so run-done/run-error give it sweep copy, not signal copy
-      beginScreenerRun(set, get, runId, 'sweep')
+      beginScreenerRun(set, get, runId, { subject: 'sweep', swarmId: 'screener', execution })
       // open the wire so the scan is watchable AS it runs — the visibility surface, not a black box
       void get().openNewsFeed()
       get().setToast({ msg: 'Scanning for news — watch it come in on the wire; new leads land in the Inbox.', tone: 'good' })
@@ -5163,9 +5511,17 @@ export const useStore = create<State>((set, get) => ({
   sendToResearch: async (thesisId, ticker, poolPresent) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — handoffs run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    const provider = get().runProvider
+    const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
+    if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
+    const execution = captureProviderLaunch(get(), provider)
+    if (!execution) return get().setToast({ msg: 'The selected execution profile could not be frozen. Check the provider again.', tone: 'bad' })
     set({ launchPending: { key: `handoff:${thesisId}:${ticker}`, label: `Sending ${ticker} to research…`, ticker } })
     try {
-      const res = await api.handoff(thesisId, ticker)
+      const res = await api.handoff(thesisId, ticker, execution)
+      if (!trackedLaunchResponseMatches(res, execution, get().providers.catalogState, res.alreadyHandedOff === true)) {
+        throw Object.assign(new Error('The engine did not return an exact provider receipt for the handoff run.'), { body: { code: 'provider_receipt_mismatch' } })
+      }
       const already = res.alreadyHandedOff
       set({ pipelineOpen: false, scThesisDetail: null })
       get().switchSwarm('research', { payloadTicker: ticker, landTicker: poolPresent ? ticker : undefined })
@@ -5198,8 +5554,16 @@ export const useStore = create<State>((set, get) => ({
   sendEventToResearch: async (it, ticker) => {
     if (get().staticMode) { get().setToast({ msg: 'Read-only showcase — sending to research runs on your machine via npm run dev', tone: 'info' }); return false }
     if (HARD_DOWN.has(get().health)) { get().setToast({ msg: 'Engine offline — try again when it reconnects.', tone: 'info' }); return false }
+    const provider = get().runProvider
+    const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
+    if (providerProblem) { get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' }); return false }
+    const execution = captureProviderLaunch(get(), provider)
+    if (!execution) { get().setToast({ msg: 'The selected execution profile could not be frozen. Check the provider again.', tone: 'bad' }); return false }
     try {
-      const res = await api.sendEventToResearch(it.event_id, ticker)
+      const res = await api.sendEventToResearch(it.event_id, ticker, execution)
+      if (!optionalNestedLaunchResponseMatches(res, execution, get().providers.catalogState, res.analyzing === true)) {
+        throw Object.assign(new Error('The engine did not return an exact provider receipt for the event analysis run.'), { body: { code: 'provider_receipt_mismatch' } })
+      }
       const targetSwarm = typeof res.swarm === 'string' && res.swarm ? res.swarm : 'research'
       const openIt = () => {
         get().scSelectEvent(null)
@@ -5527,14 +5891,21 @@ export const useStore = create<State>((set, get) => ({
   checkInboxItem: async (row) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — checks run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    const provider = get().runProvider
+    const providerProblem = providerLaunchBlockedReason(get().providers[provider], get().providers.catalogState)
+    if (providerProblem) return get().setToast({ msg: `${providerProblem}. Choose another run provider.`, tone: 'bad' })
+    const execution = captureProviderLaunch(get(), provider)
+    if (!execution) return get().setToast({ msg: 'The selected execution profile could not be frozen. Check the provider again.', tone: 'bad' })
     try {
-      const { runId, preflight } = await api.launchSignal({
+      const out = await api.launchSignal(execution, {
         intake: { headline: row.headline, source_url: row.url, source_name: row.source_name, input_nature: (row.input_nature as any) || 'news_headline' },
         inboxId: row.inbox_id,
       })
+      requireLaunchProviderReceipt(out, execution, get().providers.catalogState)
+      const { runId, preflight } = out
       const sigId = preflight.ticker
       set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {}, pipelineOpen: false })
-      beginScreenerRun(set, get, runId, sigId)
+      beginScreenerRun(set, get, runId, { subject: sigId, swarmId: 'screener', execution })
       get().setToast({ msg: `Checks started for ${sigId} — watch them run left to right`, tone: 'good' })
       void get().scRefreshBoard()
     } catch (e: any) {
@@ -5603,6 +5974,34 @@ export const useStore = create<State>((set, get) => ({
 
   // screener SSE -> the screener slice (the research handler stays untouched)
   _handleScreenerEvent: (e) => {
+    if (!sseFrameForRun(e, e?.runId, RUN_EVENT_TYPES)) return
+    const adopted = get().activeRuns[e.runId]
+    if (adopted) {
+      if (!adopted.swarmId) return
+      const reconciled = reconcileRunIdentity(adopted as ActiveRun & { swarmId: string }, e)
+      if (!reconciled) return
+      set({ activeRuns: { ...get().activeRuns, [e.runId]: reconciled } })
+    }
+    const existingSubject = scRunSubjects.get(e.runId)
+    const candidateSubject = existingSubject
+      ?? get().activeRuns[e.runId]?.ticker
+      ?? (e.type === 'run-started' && typeof e.ticker === 'string' ? e.ticker : undefined)
+    if (existingSubject === undefined && candidateSubject) scRunSubjects.set(e.runId, candidateSubject)
+    // Once learned from the launch receipt/active snapshot, a run's subject never follows the selected
+    // signal. A contradictory run-started frame is untrusted for orb mutation.
+    const eventSubject = e.type === 'run-started' && existingSubject && e.ticker && e.ticker !== existingSubject
+      ? undefined
+      : candidateSubject
+    const ownsSelectedSignal = typeof eventSubject === 'string'
+      && eventSubject.startsWith('SIG-') && eventSubject === get().scSelectedSignal
+    const eventProvider = isRunProvider(e.provider)
+      ? e.provider
+      : isRunProvider(get().activeRuns[e.runId]?.provider) ? get().activeRuns[e.runId]!.provider : undefined
+    if (e.type === 'run-error' && e.reason === 'out_of_credits' && eventProvider) {
+      const providers = get().providers
+      set({ providers: { ...providers, [eventProvider]: { ...providers[eventProvider], usage: { ok: false, reason: 'out_of_credits', checked: true } } } })
+      void get().refreshProviders(eventProvider)
+    }
     // The EventSource can deliver one queued frame after navigation. The board/manifest will catch up when
     // Screener is entered again; never let that late frame repopulate another swarm's cleared gauntlet.
     if (get().activeSwarm !== 'screener') {
@@ -5629,7 +6028,7 @@ export const useStore = create<State>((set, get) => ({
             get().setToast({ msg: 'Scan stopped. Nothing was charged for the part that did not run.', tone: 'info' })
           } else {
             get().setToast({
-              msg: `The scan could not finish — ${plainReason(e.reason, e.message)} (${e.reason || 'unknown'}).`,
+              msg: `The scan could not finish — ${plainReason(e.reason, e.message, eventProvider)} (${e.reason || 'unknown'}).`,
               tone: 'bad',
               action: { label: 'Try again', onClick: () => void get().runSweep() },
             })
@@ -5642,24 +6041,28 @@ export const useStore = create<State>((set, get) => ({
     const stream = get().runStream.slice()
     const upsert = (runId: string, key: string, name: string, module: string, layer: number, status: NodeStatus, verdict?: string | null) => {
       const i = stream.findIndex((r) => r.key === key)
-      const row: StreamRow = { runId, ticker: get().scSelectedSignal || 'screener', key, name, module, layer, status, verdict, ts: Date.now() }
+      const row: StreamRow = { runId, ticker: eventSubject || 'screener', key, name, module, layer, status, verdict, ts: Date.now() }
       if (i >= 0) stream[i] = row
       else stream.unshift(row)
     }
     switch (e.type) {
       case 'agent-started':
+        if (!ownsSelectedSignal) break
         rt[e.agentKey] = { ...rt[e.agentKey], status: 'running', runId: e.runId, startedAt: e.ts, endedAt: undefined }
         upsert(e.runId, e.agentKey, e.name, e.module, e.layer, 'running')
         break
       case 'agent-done':
+        if (!ownsSelectedSignal) break
         rt[e.agentKey] = { ...rt[e.agentKey], status: 'done', verdict: e.verdict, outputPath: e.outputPath, runId: e.runId, endedAt: e.ts }
         upsert(e.runId, e.agentKey, e.name, e.module, e.layer, 'done', e.verdict)
         break
       case 'agent-failed':
+        if (!ownsSelectedSignal) break
         rt[e.agentKey] = { ...rt[e.agentKey], status: 'failed', runId: e.runId, endedAt: e.ts }
         upsert(e.runId, e.agentKey, e.name, e.module, e.layer, 'failed')
         break
       case 'module-routed': {
+        if (!ownsSelectedSignal) break
         const scRouted = { ...get().scRouted, [e.module]: { route: e.route, terminal: e.terminal } }
         set({ scRouted })
         if (e.terminal) get().setToast({ msg: `Stopped at "${plainStage(e.module)}": ${plainRoute(e.route)}. A normal outcome, not a failure.`, tone: 'info' })
@@ -5675,7 +6078,7 @@ export const useStore = create<State>((set, get) => ({
           set({
             activeRuns: {
               ...get().activeRuns,
-              [e.runId]: { ...r, status: e.status ?? r.status, costUsd: e.costUsd ?? r.costUsd, agentsDone: e.agentsDone, agentsTotal: e.agentsTotal, lastStdoutAt: e.lastStdoutAt, lastActivity: e.lastActivity },
+              [e.runId]: { ...r, status: e.status ?? r.status, costUsd: e.costUsd ?? r.costUsd, agentsDone: e.agentsDone, agentsTotal: e.agentsTotal, lastStdoutAt: e.lastStdoutAt, lastActivity: e.lastActivity, provider: e.provider ?? r.provider, executionProfile: e.executionProfile ?? r.executionProfile, profileKey: e.profileKey ?? r.profileKey, model: e.model ?? r.model, reasoningLevel: e.reasoningLevel ?? r.reasoningLevel, chainId: e.chainId ?? r.chainId, executionEpoch: e.executionEpoch ?? r.executionEpoch },
             },
           })
         }
@@ -5704,9 +6107,10 @@ export const useStore = create<State>((set, get) => ({
           get().setToast({ msg: 'Scan finished — fresh leads are on the wire and in the Inbox.', tone: 'good' })
           break
         }
-        const sig = get().scSelectedSignal
-        if (sig) void get().scSelectSignal(sig) // reload saved outputs + final routing lights
-        get().setToast({ msg: 'Checks finished', tone: 'good' })
+        if (ownsSelectedSignal) {
+          void get().scSelectSignal(eventSubject!) // reload saved outputs + final routing lights
+          get().setToast({ msg: 'Checks finished', tone: 'good' })
+        }
         break
       }
       case 'run-error': {
@@ -5729,7 +6133,7 @@ export const useStore = create<State>((set, get) => ({
             break
           }
           get().setToast({
-            msg: `The scan could not finish — ${plainReason(e.reason, e.message)} (${e.reason || 'unknown'}).`,
+            msg: `The scan could not finish — ${plainReason(e.reason, e.message, eventProvider)} (${e.reason || 'unknown'}).`,
             tone: 'bad',
             action: { label: 'Try again', onClick: () => void get().runSweep() },
           })
@@ -5738,16 +6142,19 @@ export const useStore = create<State>((set, get) => ({
         // a stopped/failed signal run: reload the truthful finished-orb set from disk (the done orbs stay
         // done, the rest fall back to dormant) so the constellation shows exactly what completed — and the
         // Continue button can resume from there. A user STOP reads as a calm pause, not a failure.
-        const sig = get().scSelectedSignal
-        if (sig) void get().scSelectSignal(sig)
+        if (ownsSelectedSignal) void get().scSelectSignal(eventSubject!)
         const stopped = /cancel/i.test(String(e.reason || ''))
         // A user STOP reads as a calm pause. An interruption (connection drop / killed mid-run) is NOT a
         // failure: the finished checks are saved and scRefreshBoard above re-pulls the board, so the run
         // surfaces as resumable and _maybeAutoResume picks it up on its own (its "Resuming…" toast then
         // replaces this one). No scary error — exactly what the engine just did, said plainly.
-        get().setToast(stopped
-          ? { msg: 'Stopped — your finished checks are saved. Press Continue to resume from here.', tone: 'info' }
-          : { msg: 'The run paused — your finished checks are saved; it resumes on its own when the connection is back.', tone: 'info' })
+        if (ownsSelectedSignal) {
+          get().setToast(stopped
+            ? { msg: 'Stopped — your finished checks are saved. Press Continue to resume from here.', tone: 'info' }
+            : e.reason === 'out_of_credits' && eventProvider
+              ? { msg: `${providerLabel(eventProvider)} plan usage is exhausted — finished checks are saved; the server resumes this run when its reset is due.`, tone: 'info' }
+              : { msg: 'The run paused — your finished checks are saved; the server resumes it when the connection is back.', tone: 'info' })
+        }
         break
       }
     }
@@ -5806,8 +6213,10 @@ async function runExactResearchModule(
   set({ launchPending: pending })
   let plan: ThesisPlan | null = null
   try {
-    plan = await api.thesisPlan(ticker, 'research', undefined, module)
+    plan = await api.thesisPlan(ticker, selection, 'research', undefined, module)
     if (!launchSelectionIsCurrent(get(), selection)) return
+    requireLaunchProviderReceipt(plan.preflight, selection, get().providers.catalogState)
+    requireLaunchProviderReceipt(plan.fullPreflight, selection, get().providers.catalogState)
     if (plan.moduleResumeVersion !== 2 || typeof plan.dataPool.newestMs !== 'number') {
       get().setToast({ msg: 'The engine is still updating. Refresh once, then click the module again.', tone: 'info' })
       return
@@ -5912,7 +6321,7 @@ async function runPlannedResearchModule(
   const pending = { key: pendingKey, label: `Running ${moduleLabel(module)}…`, ticker, selection }
   set({ launchPending: pending })
   try {
-    const { runId, doneOrbKeys, carried, resumed, ranClean } = await api.runThesisPlanModule(
+    const out = await api.runThesisPlanModule(
       ticker,
       module,
       plan.reuse,
@@ -5922,7 +6331,10 @@ async function runPlannedResearchModule(
       plan.targetRunRoot,
       plan.dataPool.files,
       plan.dataPool.newestMs,
+      selection,
     )
+    requireLaunchProviderReceipt(out, selection, get().providers.catalogState)
+    const { runId, doneOrbKeys, carried, resumed, ranClean } = out
     if (!launchSelectionIsCurrent(get(), selection)) {
       void get().refreshActiveRuns()
       get().setToast({ msg: `${moduleLabel(module)} started on ${ticker}. Follow it in Activity.`, tone: 'good' })
@@ -5948,7 +6360,10 @@ async function runPlannedResearchModule(
       ...(closePlanOnStart ? { thesisPlanOpen: false } : {}),
       ...(get().launchPending === pending ? { launchPending: null } : {}),
     })
-    if (runId) beginRun(set, get, runId, { kind: 'module', module, willCommitToMain: true }, plannedKeys, doneKeys)
+    if (runId) beginRun(set, get, runId, {
+      subject: ticker, swarmId: selection.swarm, execution: selection,
+      kind: 'module', module, willCommitToMain: true,
+    }, plannedKeys, doneKeys)
     else void get().refreshActiveRuns()
 
     const carriedNote = carried.length ? ` · reused ${carried.length} upstream module${carried.length === 1 ? '' : 's'}` : ''
@@ -5994,26 +6409,47 @@ async function runPlannedResearchModule(
   }
 }
 
-function beginRun(set: any, get: () => State, runId: string, info: { kind: string; module?: string; agent?: string; willCommitToMain?: boolean }, plannedKeys: string[], doneKeys: string[] = []) {
-  const ticker = get().selectedTicker || ''
-  const swarmId = get().constellationSwarm
+function beginRun(
+  set: any,
+  get: () => State,
+  runId: string,
+  info: { subject: string; swarmId: string; execution: FrozenProviderLaunch; kind: string; module?: string; agent?: string; willCommitToMain?: boolean },
+  plannedKeys: string[],
+  doneKeys: string[] = [],
+) {
+  const ticker = info.subject
+  const swarmId = info.swarmId
+  const onScreen = get().selectedTicker === ticker && get().activeSwarm === swarmId
   const rt = { ...get().nodeRuntime }
   // Resume: modules already finished on disk are shown as done, NOT queued — so the constellation doesn't
   // read as "starting… / 0-of-N" for work that isn't being redone (the "it's reprocessing everything and
   // burning money" false alarm). Only plannedKeys are queued, and the run's orb total counts only them.
-  for (const k of doneKeys) rt[k] = { status: 'done', runId }
-  for (const k of plannedKeys) rt[k] = { status: 'queued', runId }
-  if (info.kind === 'full') rt['master/synthesizer'] = { status: 'queued', runId }
+  if (onScreen) {
+    for (const k of doneKeys) rt[k] = { status: 'done', runId }
+    for (const k of plannedKeys) rt[k] = { status: 'queued', runId }
+    if (info.kind === 'full') rt['master/synthesizer'] = { status: 'queued', runId }
+  }
   const plannedCount = plannedKeys.length + (info.kind === 'full' ? 1 : 0)
   // drop finished runs for this ticker, add the new live one (other tickers' / other runs' state kept)
   const activeRuns = Object.fromEntries(Object.entries(get().activeRuns).filter(([, r]) =>
     !runMatchesSubject(r, ticker, swarmId) || LIVE_RUN.has(r.status)))
   // the run belongs to the selection's swarm (constellationSwarm at launch), so the run-done refresh
   // can resolve the manifest/decision against the run's OWN run root (e.g. commodity/runs/<subject>)
-  activeRuns[runId] = { runId, ticker, swarmId, ...info, status: 'running', plannedCount, startedAt: Date.now() }
+  activeRuns[runId] = {
+    runId, ticker, swarmId, kind: info.kind, module: info.module, agent: info.agent,
+    willCommitToMain: info.willCommitToMain,
+    provider: info.execution.provider,
+    executionProfile: info.execution.executionProfile,
+    profileKey: info.execution.expectedProfileKey,
+    model: info.execution.model,
+    reasoningLevel: info.execution.reasoningLevel,
+    status: 'running', plannedCount, startedAt: Date.now(),
+  }
   // close the output panel so the user is dropped back to the swarm to watch the run live; keep
   // other concurrent runs' stream rows, just clear any stale rows from this runId
-  set({ activeRuns, nodeRuntime: rt, runStream: get().runStream.filter((r) => r.runId !== runId), coreBloom: false, selectedNodeKey: null, openOutput: null })
+  set(onScreen
+    ? { activeRuns, nodeRuntime: rt, runStream: get().runStream.filter((r) => r.runId !== runId), coreBloom: false, selectedNodeKey: null, openOutput: null }
+    : { activeRuns })
   connectRun(get, runId)
   get().refreshActiveRuns()
 }
@@ -6027,7 +6463,8 @@ function connectRun(get: () => State, runId: string) {
     es.addEventListener(t, (ev: MessageEvent) => {
       get()._noteStreamLive() // run traffic also proves the engine is up — keep the indicator green
       try {
-        get()._handleEvent(JSON.parse(ev.data))
+        const frame = JSON.parse(ev.data)
+        if (sseFrameForRun(frame, runId, RUN_EVENT_TYPES)) get()._handleEvent(frame as SseEvent)
       } catch {}
     })
   }
@@ -6046,16 +6483,23 @@ async function reconnectRun(
 ) {
   try {
     const snap = await api.runSnapshot(runId)
-    if (get().selectToken !== token || get().selectedTicker !== expected.subject
-        || get().activeSwarm !== expected.swarm || !runMatchesSubject(snap, expected.subject, expected.swarm)) return
+    const current = get().activeRuns[runId]
+    const identity = normalizeRunSnapshotIdentity(snap, {
+      runId,
+      ticker: expected.subject,
+      swarmId: expected.swarm,
+      ...(current?.swarmId ? { existing: current as ActiveRun & { swarmId: string } } : {}),
+    })
+    if (!identity || get().selectToken !== token || get().selectedTicker !== expected.subject
+        || get().activeSwarm !== expected.swarm) return
     const rt = { ...get().nodeRuntime }
     const stream = get().runStream.filter((r) => r.runId !== runId)
     for (const a of snap.agents || []) {
       rt[a.key] = { status: a.status, verdict: a.verdict ?? null, outputPath: a.outputPath, runId }
-      if (a.status !== 'queued') stream.unshift({ runId, ticker: snap.ticker, key: a.key, name: a.name, module: a.module, layer: a.layer, status: a.status, verdict: a.verdict ?? null, ts: Date.now() })
+      if (a.status !== 'queued') stream.unshift({ runId, ticker: identity.ticker, key: a.key, name: a.name, module: a.module, layer: a.layer, status: a.status, verdict: a.verdict ?? null, ts: Date.now() })
     }
     const plannedCount = (snap.expected?.length ?? snap.agents?.length ?? 0) + (snap.kind === 'full' ? 1 : 0)
-    const activeRuns = { ...get().activeRuns, [runId]: { runId, ticker: snap.ticker, kind: snap.kind, module: snap.module, agent: snap.agent, status: snap.status, swarmId: snap.swarmId, costUsd: snap.costUsd, willCommitToMain: snap.willCommitToMain, plannedCount, startedAt: snap.startedAt } }
+    const activeRuns = { ...get().activeRuns, [runId]: { ...identity, kind: identity.kind || snap.kind, module: identity.module || snap.module, agent: identity.agent || snap.agent, status: snap.status, costUsd: snap.costUsd, willCommitToMain: snap.willCommitToMain, plannedCount, startedAt: snap.startedAt } }
     set({ activeRuns, nodeRuntime: rt, runStream: stream })
     connectRun(get, runId)
   } catch {}
@@ -6256,6 +6700,9 @@ function reviveNewsStream(get: () => State, force = false) {
 
 // ---- screener run streams (separate map so research streams are never disturbed) ----
 const scRunSources = new Map<string, EventSource>()
+// Immutable subject ownership for each screener stream. Orb keys repeat across signals, so the selected
+// signal can never be used as a fallback identity for a late/background run frame.
+const scRunSubjects = new Map<string, string>()
 // Handoff runs being watched for completion: runId → toast context. The launch API returns as soon
 // as the CLI spawns, so "memo seeded" is only true at run-done — these runs get a tailored
 // completion/failure toast instead of the generic "Screener run complete".
@@ -6267,10 +6714,6 @@ const scSweepWatch = new Set<string>()
 // Turn the engine's machine failure reason into one plain-English clause (CLAUDE.md §21). Falls back to the
 // first line of the raw message, then the code itself — never a blank or a lie.
 const SWEEP_FAILURE_COPY: Record<string, string> = {
-  api_error_403: "the engine's Claude login was rejected",
-  api_error_401: "the engine's Claude login was rejected",
-  api_error_429: 'Claude is rate-limiting the engine — give it a moment',
-  out_of_credits: 'the engine is out of Claude credit for now',
   error_max_turns: 'it ran out of steps before finishing',
   error_during_execution: 'the engine stopped mid-scan',
   incomplete_deliverables: 'it finished without saving anything',
@@ -6278,7 +6721,11 @@ const SWEEP_FAILURE_COPY: Record<string, string> = {
   launch_failed: 'the engine could not start',
   nonzero_exit: 'the engine exited with an error',
 }
-function plainReason(reason?: string, message?: string): string {
+function plainReason(reason?: string, message?: string, provider?: RunProvider): string {
+  const label = providerLabel(provider || 'claude')
+  if (reason === 'api_error_403' || reason === 'api_error_401') return `the engine's ${label} login was rejected`
+  if (reason === 'api_error_429') return `${label} is rate-limiting the engine — give it a moment`
+  if (reason === 'out_of_credits') return `${label} plan usage is exhausted for now`
   if (reason && SWEEP_FAILURE_COPY[reason]) return SWEEP_FAILURE_COPY[reason]
   const firstLine = (message || '').split('\n')[0].trim()
   if (firstLine) return firstLine.slice(0, 90)
@@ -6294,14 +6741,17 @@ function isTerminalRoute(route: string): boolean {
   return TERMINAL_ROUTES.has(String(route).toLowerCase())
 }
 
-function connectScreenerRun(get: () => State, runId: string) {
+function connectScreenerRun(get: () => State, runId: string, subject?: string) {
+  const resolvedSubject = subject || get().activeRuns[runId]?.ticker
+  if (resolvedSubject && !scRunSubjects.has(runId)) scRunSubjects.set(runId, resolvedSubject)
   if (scRunSources.has(runId)) return
   const es = new EventSource(api.runStreamUrl(runId))
   for (const t of RUN_EVENT_TYPES) {
     es.addEventListener(t, (ev: MessageEvent) => {
       get()._noteStreamLive() // screener run traffic also proves the engine is up — keep the indicator green
       try {
-        get()._handleScreenerEvent(JSON.parse(ev.data))
+        const frame = JSON.parse(ev.data)
+        if (sseFrameForRun(frame, runId, RUN_EVENT_TYPES)) get()._handleScreenerEvent(frame as SseEvent)
       } catch {}
     })
   }
@@ -6309,14 +6759,69 @@ function connectScreenerRun(get: () => State, runId: string) {
   scRunSources.set(runId, es)
 }
 
-function beginScreenerRun(set: any, get: () => State, runId: string, subject: string) {
+// A board row is only an index into a live run. Before reconnecting after reload, bind the stream to the
+// snapshot's exact run/subject/swarm identity and adopt its immutable provider/profile/epoch fields.
+async function reconnectScreenerRun(get: () => State, runId: string, subject: string): Promise<void> {
+  try {
+    const snap = await api.runSnapshot(runId)
+    if (get().activeSwarm !== 'screener') return
+    const current = get().activeRuns[runId]
+    const identity = normalizeRunSnapshotIdentity(snap, {
+      runId,
+      ticker: subject,
+      swarmId: 'screener',
+      ...(current?.swarmId ? { existing: current as ActiveRun & { swarmId: string } } : {}),
+    })
+    if (!identity) return
+    useStore.setState((state) => ({
+      activeRuns: {
+        ...state.activeRuns,
+        [runId]: {
+          ...identity,
+          kind: identity.kind || snap.kind,
+          module: identity.module || snap.module,
+          agent: identity.agent || snap.agent,
+          status: snap.status,
+          costUsd: snap.costUsd,
+          willCommitToMain: snap.willCommitToMain,
+          startedAt: snap.startedAt,
+          plannedCount: snap.expected?.length ?? snap.agents?.length,
+        },
+      },
+    }))
+    connectScreenerRun(get, runId, subject)
+  } catch {
+    // No identity proof means no stream adoption. The board stays readable and the next refresh retries.
+  }
+}
+
+function beginScreenerRun(
+  set: any,
+  get: () => State,
+  runId: string,
+  identity: { subject: string; swarmId: 'screener'; execution: FrozenProviderLaunch },
+) {
+  const { subject, swarmId, execution } = identity
+  const ownsVisibleSignal = get().activeSwarm === swarmId && get().scSelectedSignal === subject
+  const activeRuns = {
+    ...get().activeRuns,
+    [runId]: {
+      ...get().activeRuns[runId], runId, ticker: subject, swarmId,
+      kind: subject.startsWith('SIG-') ? 'signal' : 'sweep', status: 'running',
+      provider: execution.provider, executionProfile: execution.executionProfile,
+      profileKey: execution.expectedProfileKey, model: execution.model, reasoningLevel: execution.reasoningLevel,
+      startedAt: Date.now(),
+    },
+  }
   // seed every screener orb as queued when a full signal enters the gauntlet (sweeps have no orbs)
-  if (subject.startsWith('SIG-')) {
+  if (subject.startsWith('SIG-') && ownsVisibleSignal) {
     const rt: Record<string, NodeRuntime> = {}
     for (const k of get().scNodesByKey.keys()) rt[k] = { status: 'queued', runId }
-    set({ scRuntime: rt, runStream: get().runStream.filter((r) => r.runId !== runId) })
+    set({ activeRuns, scRuntime: rt, runStream: get().runStream.filter((r) => r.runId !== runId) })
+  } else {
+    set({ activeRuns })
   }
-  connectScreenerRun(get, runId)
+  connectScreenerRun(get, runId, subject)
   void get().refreshActiveRuns() // the kill-switch pill ("N running") tracks screener runs too
 }
 
@@ -6326,6 +6831,7 @@ function closeScreenerRunSource(runId: string) {
     es.close()
     scRunSources.delete(runId)
   }
+  scRunSubjects.delete(runId)
 }
 
 function closeAllRunSources() {

@@ -50,6 +50,7 @@ check('screener declares NO wire → wire is undefined (fail-closed, key omitted
 check('research (the grandfathered synthetic default) has no wire and still lists first', () => {
   assert.equal(swarms[0].id, 'research')
   assert.equal(swarms[0].wire, undefined)
+  assert.deepEqual(swarms[0].decisionArtifacts, ['decision_record.json'])
 })
 
 // ---- parseWire edge cases via a tmpdir AGENTS_DIR in a subprocess ----
@@ -69,6 +70,9 @@ check('parseWire: empty block → undefined; blank strings → undefined; partia
   writeSwarm(agents, 'wireblank', 'wire:\n  event_scope: ""\n  group_by: "   "\n') // set but content-free
   writeSwarm(agents, 'wirepartial', 'wire:\n  event_scope: commodity\n') // only event_scope
   writeSwarm(agents, 'wirenone', '') // no wire key at all
+  writeSwarm(agents, 'decisionvalid', 'decision_artifacts:\n  - terminal/decision.json\n')
+  writeSwarm(agents, 'decisionunsafe', 'decision_artifacts:\n  - ../outside.json\n')
+  writeSwarm(agents, 'decisionwrongtype', 'decision_artifacts: terminal.json\n')
   const unsafeDir = path.join(agents, 'wireunsafe')
   fs.mkdirSync(unsafeDir, { recursive: true })
   fs.writeFileSync(path.join(unsafeDir, 'SWARM.md'), [
@@ -81,7 +85,7 @@ check('parseWire: empty block → undefined; blank strings → undefined; partia
   const swarmsSrc = path.resolve(here, '..', 'src', 'swarms')
   fs.writeFileSync(probe, [
     `import { listSwarms } from ${JSON.stringify(swarmsSrc)}`,
-    `console.log(JSON.stringify(listSwarms(true).map((s) => ({ id: s.id, wire: s.wire ?? null }))))`,
+    `console.log(JSON.stringify(listSwarms(true).map((s) => ({ id: s.id, wire: s.wire ?? null, decisionArtifacts: s.decisionArtifacts ?? null }))))`,
     '',
   ].join('\n'))
   const tsx = path.join(here, '..', 'node_modules', '.bin', process.platform === 'win32' ? 'tsx.cmd' : 'tsx')
@@ -91,7 +95,7 @@ check('parseWire: empty block → undefined; blank strings → undefined; partia
   })
   assert.equal(r.status, 0, `probe subprocess failed: ${r.stderr || r.error}`)
   const lines = r.stdout.trim().split('\n')
-  const out: { id: string; wire: Record<string, string> | null }[] = JSON.parse(lines[lines.length - 1])
+  const out: { id: string; wire: Record<string, string> | null; decisionArtifacts: string[] | null }[] = JSON.parse(lines[lines.length - 1])
 
   const by = (id: string) => out.find((s) => s.id === id)
   assert.ok(by('wireempty') && by('wireblank') && by('wirepartial') && by('wirenone'), `tmp swarms not discovered: ${r.stdout}`)
@@ -99,6 +103,9 @@ check('parseWire: empty block → undefined; blank strings → undefined; partia
   assert.equal(by('wireblank')!.wire, null, 'a wire block of empty/whitespace strings parses to NO wire')
   assert.equal(by('wirenone')!.wire, null, 'no wire key → no wire')
   assert.deepEqual(by('wirepartial')!.wire, { eventScope: 'commodity' }, 'a partial block keeps just the declared key (others absent)')
+  assert.deepEqual(by('decisionvalid')!.decisionArtifacts, ['terminal/decision.json'], 'safe run-root-relative JSON targets are preserved')
+  assert.equal(by('decisionunsafe'), undefined, 'an escaping decision artifact invalidates the manifest')
+  assert.equal(by('decisionwrongtype'), undefined, 'decision_artifacts must be a non-empty list')
   assert.equal(by('wireunsafe'), undefined, 'a manifest whose runs root escapes the repo is dropped at discovery')
   assert.equal(out[0].id, 'research', 'the synthetic research default still heads the list in the tmp repo')
 })

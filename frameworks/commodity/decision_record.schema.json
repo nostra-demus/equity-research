@@ -231,6 +231,60 @@
       "maxItems": 5,
       "items": { "$ref": "#/definitions/dataNeedEntryV2" },
       "description": "At most five decision-relevant needs. [] is valid when no missing item currently caps the decision. The array itself is ordered exactly by contiguous priority 1..N; data_needs[0] is priority 1."
+    },
+    "executionAuthorV1": {
+      "type": "object",
+      "required": ["attempt_id", "provider", "model", "reasoning_level", "attribution"],
+      "properties": {
+        "attempt_id": { "type": "string", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$" },
+        "provider": { "type": "string", "enum": ["claude", "codex"] },
+        "model": { "type": "string", "minLength": 1 },
+        "reasoning_level": { "type": "string", "minLength": 1 },
+        "attribution": { "const": "recorded" }
+      },
+      "additionalProperties": false
+    },
+    "executionContributorV1": {
+      "type": "object",
+      "required": ["provider", "model", "reasoning_level", "attribution", "scopes"],
+      "properties": {
+        "provider": { "type": "string", "enum": ["claude", "codex"] },
+        "model": { "type": ["string", "null"], "minLength": 1 },
+        "reasoning_level": { "type": ["string", "null"], "minLength": 1 },
+        "attribution": { "type": "string", "enum": ["recorded", "configured"] },
+        "scopes": {
+          "type": "array", "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      },
+      "additionalProperties": false
+    },
+    "executionProvenanceV1": {
+      "type": "object",
+      "required": [
+        "schema_version", "source", "coverage", "provider_mode", "profile_key",
+        "decision_author", "contributors", "cli_versions"
+      ],
+      "properties": {
+        "schema_version": { "const": "1.0" },
+        "source": { "const": "cockpit_runtime" },
+        "coverage": { "const": "cockpit_top_level_processes" },
+        "provider_mode": {
+          "type": "string",
+          "enum": ["single_provider", "mixed_provider", "partially_observed", "unknown"]
+        },
+        "profile_key": { "type": "string", "minLength": 1 },
+        "decision_author": { "$ref": "#/definitions/executionAuthorV1" },
+        "contributors": {
+          "type": "array", "minItems": 1,
+          "items": { "$ref": "#/definitions/executionContributorV1" }
+        },
+        "cli_versions": {
+          "type": "object",
+          "additionalProperties": { "type": "string", "minLength": 1 }
+        }
+      },
+      "additionalProperties": false
     }
   },
   "properties": {
@@ -246,6 +300,10 @@
       "type": "string",
       "pattern": "^CMD-[A-Z0-9]+(?:[-_][A-Z0-9]+)*-[0-9]{4}-[0-9]{2}-[0-9]{2}-[a-f0-9]{12}$",
       "description": "Immutable content-addressed decision ID assigned after the pre-mortem finish-gate by scripts/commodity_decision_archive.py. The matching archive lives at decisions/<decision_id>/decision_record.json; the top-level record is only the current UI projection."
+    },
+    "execution_provenance": {
+      "$ref": "#/definitions/executionProvenanceV1",
+      "description": "Runtime-owned execution identity. scripts/execution_provenance.py stamps this before scripts/commodity_decision_archive.py validates or hashes the record. Historical records remain unchanged; every cockpit publication after rollout must carry the exact run-manifest projection."
     },
     "target_exposure_risk_units": {
       "type": ["number", "null"],

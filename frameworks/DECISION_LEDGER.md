@@ -221,6 +221,22 @@ The canonical `decision_record.json` the synthesizer emits — one per final the
     "365d": ""
   },
   "created_by": "synthesizer",
+  "execution_provenance": {
+    "schema_version": "1.0",
+    "source": "cockpit_runtime",
+    "coverage": "cockpit_top_level_processes",
+    "provider_mode": "single_provider",
+    "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+    "decision_author": {
+      "attempt_id": "uuid",
+      "provider": "codex",
+      "model": "gpt-5.6-sol",
+      "reasoning_level": "max",
+      "attribution": "recorded"
+    },
+    "contributors": [],
+    "cli_versions": {}
+  },
   "notes": "",
   "post_review_confidence_score": null,
   "confidence_haircut": null,
@@ -286,6 +302,7 @@ The three `post_review_*` fields are **additive and optional** — the synthesiz
 | `data_needs` | Additive (required for publications ≥ 2026-08-14) | Ranked machine guidance for at most five missing observations that actively cap the decision. `[]` means the synthesizer checked and found none; see the exact v2 contract below. | Pre-Write Gate / module evidence gaps |
 | `review_schedule` | Yes | Target review dates at 30/90/180/365d from `decision_date`. | Computed (§7) |
 | `created_by` | Yes | Emitter ("synthesizer"). | Convention |
+| `execution_provenance` | Runtime-owned (required for cockpit terminal publications after rollout) | Separately versioned provider/model/reasoning provenance projected from the supervisor's canonical attempt stream. It never changes `created_by`, which continues to name the emitter role. | Cockpit supervisor + deterministic publication gate |
 | `notes` | Optional | Free-text caveats. | Synthesizer |
 | `post_review_confidence_score` | Additive | Confidence /100 after the in-path pre-mortem red-team. Set by the finish-gate (step 10B.2) — never by the synthesizer. `null` when no pre-mortem ran or no haircut applied. Downstream tools (calibrate, track) prefer this over `confidence_score` when present: it is the engine's best estimate of its own conviction after adversarial stress-testing. | Finish-gate patch (fix F28) |
 | `confidence_haircut` | Additive | Points of confidence removed by the pre-mortem (`confidence_score − post_review_confidence_score`). 0 if the thesis survived without haircut; `null` if no pre-mortem ran. | Finish-gate patch (fix F28) |
@@ -299,6 +316,63 @@ The three `post_review_*` fields are **additive and optional** — the synthesiz
 | `confidence_breakdown` | Additive (for runs ≥ 2026-07-11) | The step-by-step build (base → evidence → caps → downgrades → final) so `conviction` is auditable and re-derivable. | `scripts/confidence.py` |
 
 Rules: keep field names exactly as above. Absent values are `null` (numbers), `""` (strings), or `[]`/`{}` — never fabricated.
+
+### Execution provenance v1 (runtime-owned; new cockpit publications only)
+
+`execution_provenance` is additive, with its own `schema_version: "1.0"`; the record's top-level
+`schema_version` remains `"1.0"`. The model does not write this object. The shared run supervisor records
+each process attempt in its private state and pipes those canonical rows directly to
+`scripts/execution_provenance.py` before validation and `commit-run.sh`; provider children never receive
+an authoritative manifest path. A committed `execution_provenance.receipt.json` carries durable lineage
+for later chains and cross-machine resumes. The commit fails when a cockpit terminal record is missing the
+stamp or when an existing stamp disagrees with the supervisor rows. Commodity records face the same projection
+before archive hashing, so the immutable decision ID commits to provenance rather than accepting a later
+patch.
+
+The exact object is:
+
+```json
+{
+  "schema_version": "1.0",
+  "source": "cockpit_runtime",
+  "coverage": "cockpit_top_level_processes",
+  "provider_mode": "single_provider",
+  "profile_key": "codex|gpt-5.6-sol:max|gpt-5.6-terra:xhigh",
+  "decision_author": {
+    "attempt_id": "uuid",
+    "provider": "codex",
+    "model": "gpt-5.6-sol",
+    "reasoning_level": "max",
+    "attribution": "recorded"
+  },
+  "contributors": [
+    {
+      "provider": "codex",
+      "model": "gpt-5.6-terra",
+      "reasoning_level": "xhigh",
+      "attribution": "configured",
+      "scopes": ["specialists"]
+    }
+  ],
+  "cli_versions": {"codex": "codex-cli ..."}
+}
+```
+
+- `provider_mode` is exactly `single_provider`, `mixed_provider`, `partially_observed`, or `unknown`.
+- `decision_author` is the terminal adjudicator that authored the verdict and probabilities. `recorded`
+  means runtime telemetry proved the exact provider/model/reasoning tuple; `configured` means the tuple is
+  known from an immutable nested-agent policy but the child runtime did not expose model telemetry.
+- `contributors` groups every retained execution profile and the scopes it affected. A cross-provider
+  resume is always `mixed_provider`; the record is never credited wholesale to the provider that happened
+  to finish it.
+- `profile_key` is stable for a configured pipeline. Mixed profiles are explicitly prefixed `mixed|`.
+- Authentication material, account identifiers, session identifiers, prompts/transcripts, and other
+  secrets are forbidden from both the manifest and the record projection.
+- Historical records are frozen. A missing object may be classified only in a derived sensitivity view as
+  `legacy_inferred_claude` when cockpit history proves sole-Claude execution; otherwise it is
+  `unknown_legacy`. Neither group enters the recorded Claude-versus-Codex comparison.
+
+`created_by: "synthesizer"` remains mandatory and unchanged: it names the emitter role, not the provider.
 
 ### Data-needs decision guidance v2 (required for new publications from 2026-08-14)
 

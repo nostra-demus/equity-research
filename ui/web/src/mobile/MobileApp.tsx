@@ -3,7 +3,7 @@
 // (a 4th swarm appears with zero edits here, §26). The .app wrapper carries data-swarm + the manifest
 // color as --swarm-color, exactly as desktop App.tsx does — the derived-accent selector in tokens.css
 // keys on that pair, and silently fails without it.
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { api, ensureMode } from '../lib/api'
 import type { ChatConversationDetail, ChatScope, SwarmMeta } from '../lib/types'
 import { Composer } from './chat/Composer'
@@ -17,6 +17,7 @@ import { PrefsSheet } from './sheets/PrefsSheet'
 import { ScopeSheet } from './sheets/ScopeSheet'
 import { SubjectSheet, type SubjectChoice } from './sheets/SubjectSheet'
 import { SnapshotHeader, useSnapshot } from './snapshot/SnapshotHeader'
+import { emptyProviders, providerIsBlocked, providerNeedsCheck, readRunProvider, saveRunProvider, type ProvidersRead, type RunProvider } from '../lib/provider'
 
 // the desktop's per-scope starters, verbatim (ChatPanel.tsx) — same empty state, same wording
 const SUGGESTIONS: Record<ChatScope, string[]> = {
@@ -44,6 +45,45 @@ export function MobileApp() {
   const [sheet, setSheet] = useState<SheetId>(null)
   const [model, setModel] = useState('sonnet')
   const [style, setStyle] = useState<ChatStyle>(readChatStyle())
+  const [provider, setProviderState] = useState<RunProvider>(readRunProvider())
+  const [providers, setProviders] = useState<ProvidersRead>(emptyProviders())
+  const providerCheckSeq = useRef<Record<RunProvider, number>>({ claude: 0, codex: 0 })
+  const checkProvider = (choice: RunProvider) => {
+    const seq = ++providerCheckSeq.current[choice]
+    setProviders((current) => ({ ...current, [choice]: { ...current[choice], checking: true } }))
+    void api.providerCheck(choice).then((status) => {
+      if (providerCheckSeq.current[choice] !== seq) return
+      setProviders((current) => ({ ...current, [choice]: { ...status, checking: false } }))
+    }).catch(() => {
+      if (providerCheckSeq.current[choice] !== seq) return
+      setProviders((current) => ({
+        ...current,
+        [choice]: { ...current[choice], checked: true, checking: false, status: 'unavailable', available: false, reason: 'Availability check failed' },
+      }))
+    })
+  }
+  const setProvider = (next: RunProvider) => {
+    if (providerIsBlocked(providers[next])) return
+    saveRunProvider(next)
+    setProviderState(next)
+    if (providerNeedsCheck(providers[next]) && !providers[next].checking) checkProvider(next)
+  }
+
+  useEffect(() => {
+    let dead = false
+    void api.providers().then((catalog) => {
+      if (dead) return
+      setProviders(catalog)
+      if (catalog.catalogState === 'fallback') {
+        setProviderState((current) => {
+          if (current !== 'codex') return current
+          saveRunProvider('claude')
+          return 'claude'
+        })
+      }
+    })
+    return () => { dead = true }
+  }, [])
 
   useEffect(() => {
     let dead = false
@@ -171,7 +211,7 @@ export function MobileApp() {
         <>
           <SnapshotHeader snap={snap} onTap={() => setSheet('subject')} />
           {target && !present ? (
-            <RunFirst swarm={target.swarm} subject={target.subject} scope={target.scope === 'wire' ? 'run' : target.scope} module={target.module} isFlow={swarm?.layout === 'flow'} staticMode={staticMode} />
+            <RunFirst swarm={target.swarm} subject={target.subject} scope={target.scope === 'wire' ? 'run' : target.scope} module={target.module} isFlow={swarm?.layout === 'flow'} staticMode={staticMode} provider={provider} providerStatus={providers[provider]} providerCatalogState={providers.catalogState} />
           ) : (
             <Thread chat={chat} starters={target ? SUGGESTIONS[target.scope] : undefined} onStarter={(q) => chat.send(q)} />
           )}
@@ -211,7 +251,7 @@ export function MobileApp() {
           onClose={() => setSheet(null)}
         />
       )}
-      <PrefsSheet open={sheet === 'prefs'} model={model} style={style} onModel={setModel} onStyle={setStyle} onClose={() => setSheet(null)} />
+      <PrefsSheet open={sheet === 'prefs'} model={model} style={style} provider={provider} providers={providers} onModel={setModel} onStyle={setStyle} onProvider={setProvider} onClose={() => setSheet(null)} />
       <HistorySheet open={sheet === 'history'} onResume={resume} onClose={() => setSheet(null)} />
     </div>
   )

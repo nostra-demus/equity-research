@@ -27,6 +27,11 @@ WHAT IT COMPUTES (each gated by its own floor; withheld, never faked, below it)
     effective N (distinct tickers) is reported alongside the raw count so significance is not overstated.
   • Months-to-significance + a standing honesty statement printed every run: WHEN a real verdict
     becomes possible at the observed resolution-arrival rate, so "not yet" is quantified, not vague.
+  • Provenance-aware slices by recorded provider and exact execution profile. Forecast calibration is
+    attributed to the terminal decision author; directional and basket outcomes to the whole pipeline.
+    Claude, Codex, mixed, partially observed, invalid, and legacy/unknown stay separate. The
+    global number remains an explicitly labelled operational aggregate, never evidence that either
+    provider is calibrated or better. No provider ranking or confidence haircut is generated.
 
 TRUTH-INTEGRITY GATE (added 2026-07-30 — closes the verify-evidence dead-end)
   Every standing entry carries `ledger_records.resolve_integrity_status()`'s read of the run's
@@ -55,6 +60,9 @@ CONTRACT
     exactly one. This is what lets the engine's own historical hit rate on, say, "Governance turnaround"
     calls feed the base-rate penalty §24 Filter 2 already demands in prose, instead of that penalty
     staying generic and un-calibrated against the engine's own record.
+  • Extends (never replaces) that output with `provider_calibration_schema_version`,
+    `calibration_by_provider`, `calibration_by_execution_profile`, and `provider_comparison`. The fixed
+    nine-field `calibration_feedback` consumer contract and its haircut rules are unchanged.
   • Pure + importable; the CLI runs only under __main__. Deterministic: identical inputs → identical
     output (modulo the generated_at timestamp).
 
@@ -79,6 +87,7 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(REPO, "scripts"))
 from ledger_records import load_standing_records  # noqa: E402
 from market_prices import load_feed  # noqa: E402 — optional price feed (EXTERNAL_DATA §7A); absent → graceful fallback
+from provider_calibration import execution_identity as shared_execution_identity  # noqa: E402
 
 PERF_DIR = os.path.join(REPO, "analyses", "performance")
 
@@ -651,6 +660,11 @@ def _run_date(run_root):
     return base.rsplit("_", 1)[-1] if "_" in base else None
 
 
+def _execution_identity(record, legacy_evidence=None):
+    """Compatibility seam around the one strict calibration provenance validator."""
+    return shared_execution_identity(record, legacy_evidence)
+
+
 def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, feed=None):
     """Assemble the full calibration summary dict. `standing` overrides the ledger read (for tests);
     `today` overrides the date stamp (for deterministic tests); `reviews_provider(run_root)` overrides
@@ -682,6 +696,9 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
     cluster_by_ticker = {}       # ticker -> total resolved-forecast count (for effective-N; a ticker's
                                  # forecasts across runs are one correlated cluster, not independent bets)
     basket_dist, conf_scores, ds_scores = {}, [], []
+    pipeline_returns = []        # provider/profile + basket + exact review horizon; never pooled across horizons
+    provider_error_tax = {}      # whole-pipeline provider cohort -> §20 counts (counts are honest at any N)
+    profile_error_tax = {}       # whole-pipeline execution profile -> §20 counts
 
     for entry in standing:
         rec, run_root = entry["record"], entry["run_root"]
@@ -696,6 +713,7 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         priced_rev = latest_priced_review(reviews)    # latest with a computable return — for return scoring
         basket = basket_of(rec)
         conf, conf_field = confidence_of(rec)
+        execution = _execution_identity(rec, entry.get("legacy_provider_evidence"))
         basket_dist[basket] = basket_dist.get(basket, 0) + 1
         if isinstance(conf, (int, float)):
             conf_scores.append(conf)
@@ -719,6 +737,12 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
                                           "verdict": integrity.get("verdict"), "banner": integrity.get("banner")})
 
         pairs = match_resolved_forecasts(rec, reviews)
+        for pair in pairs:
+            # Forecast probabilities belong to the terminal decision author. Directional/basket outcomes
+            # below use the whole-pipeline cohort instead; keeping both fields prevents a mixed continuation
+            # from being silently credited wholesale to whichever provider wrote the final JSON.
+            pair["execution_author_provider"] = execution["author_provider"]
+            pair["execution_author_profile"] = execution["author_profile"]
         dh = directional_hit(rec, priced_rev)  # score the direction on the latest PRICED review, not any
         if dh is not None:
             # Integrity-BLIND cohort: every resolved directional call, provisional or not. Used ONLY for the
@@ -733,7 +757,9 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
                 all_pairs.append(p)
             if dh is not None:
                 directional.append({"ticker": tkr, "hit": dh, "basket": basket,
-                                    "review_date": priced_rev.get("review_date") if priced_rev else None})
+                                    "review_date": priced_rev.get("review_date") if priced_rev else None,
+                                    "pipeline_provider": execution["pipeline_provider"],
+                                    "pipeline_profile": execution["pipeline_profile"]})
             # Effective-N clusters by ticker over EVERY scored bet this run contributes — resolved forecast
             # pairs AND a directional call. Counting only forecast pairs let a run resolve a directional hit
             # (returns settle before forecast outcomes, or a decision has no forecast ledger) while reporting
@@ -757,6 +783,11 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
                 basket_returns.setdefault(basket, []).append(val)
                 w = _norm(priced_rev.get("review_window")) if priced_rev else ""
                 basket_window_returns.setdefault((basket, w), []).append(val)  # keep horizon for the §2 spread
+                pipeline_returns.append({
+                    "ticker": _norm(tkr), "basket": basket, "window": w, "value": val,
+                    "pipeline_provider": execution["pipeline_provider"],
+                    "pipeline_profile": execution["pipeline_profile"],
+                })
 
         # Flat tallies (§20 error taxonomy, §5 pre-mortem audit) aggregate across every distinct review
         # WINDOW of the run (not just the latest window — an earlier window's error tag / pre-mortem outcome
@@ -769,6 +800,10 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
                 t = tag if isinstance(tag, str) else (tag.get("tag") if isinstance(tag, dict) else None)
                 if isinstance(t, str) and t.strip():  # only a real string tag is a hashable key — a malformed
                     error_tax[t] = error_tax.get(t, 0) + 1  # {"tag": [...]} shape is skipped, never crashes _slice
+                    provider_counts = provider_error_tax.setdefault(execution["pipeline_provider"], {})
+                    provider_counts[t] = provider_counts.get(t, 0) + 1
+                    profile_counts = profile_error_tax.setdefault(execution["pipeline_profile"], {})
+                    profile_counts[t] = profile_counts.get(t, 0) + 1
             pmc = a_rev.get("pre_mortem_check") or {}
             ov = _norm(pmc.get("outcome_vs_verdict"))
             key = {"not_applicable": "not_applicable", "too_early": "too_early", "vindicated": "vindicated",
@@ -804,6 +839,9 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
             "confidence_score": conf, "confidence_field_used": conf_field,
             "data_sufficiency_score": rec.get("data_sufficiency_score"),
             "thesis_type": rec.get("thesis_type"),
+            "execution_provenance_status": execution["status"],
+            "decision_author_provider": execution["author_provider"],
+            "execution_profile": execution["pipeline_profile"],
             "n_forecasts": len(rec.get("forecast_ledger", []) or []),
             "n_resolved_forecasts": len(pairs),
             "n_reviews": len(reviews),
@@ -820,6 +858,7 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
 
     out = {
         "schema_version": "2.0",
+        "provider_calibration_schema_version": "1.0",
         "generated_at": now,
         "scope": scope or "all",
         "n_decisions": n_decisions,
@@ -851,6 +890,13 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
         "calibration_by_module": {},
         "calibration_by_forecast_type": {},
         "calibration_by_thesis_type": {},
+        "calibration_by_provider": {},
+        "calibration_by_execution_profile": {},
+        "provider_comparison": {},
+        "operational_aggregate_label": (
+            "Global production-system aggregate across all execution cohorts. It preserves historical "
+            "continuity but cannot establish that Claude or Codex is calibrated or better."
+        ),
         "reliability_bands": None,
         "sequential_test": {},
         "effective_sample": effective_n(list(cluster_by_ticker.values())),
@@ -1047,6 +1093,31 @@ def build(scope=None, standing=None, today=None, reviews_provider=read_reviews, 
                 integrity_blind_calibration["brier"] - out["calibration"]["brier"], 4)
     out["integrity_blind_calibration"] = integrity_blind_calibration
 
+    # Provider/profile diagnostics use the SAME integrity exclusions and statistical floors as the
+    # global scoreboard, but never pool providers for a provider-quality claim. Forecast Brier follows
+    # decision_author; directional/basket outcomes follow the whole-pipeline cohort. Mixed, partial and
+    # legacy/unknown identities remain explicit rows rather than leaking into Claude or Codex.
+    out["calibration_by_provider"] = _execution_slices(
+        all_pairs, directional, pipeline_returns, provider_error_tax,
+        forecast_key="execution_author_provider", pipeline_key="pipeline_provider",
+    )
+    out["calibration_by_execution_profile"] = _execution_slices(
+        all_pairs, directional, pipeline_returns, profile_error_tax,
+        forecast_key="execution_author_profile", pipeline_key="pipeline_profile",
+    )
+    out["provider_comparison"] = _provider_comparison(out["calibration_by_provider"])
+    out["legacy_provider_sensitivity"] = {
+        "legacy_inferred_claude": sum(
+            1 for row in inventory if row.get("execution_provenance_status") == "legacy_inferred_claude"),
+        "unknown_legacy": sum(
+            1 for row in inventory if row.get("execution_provenance_status") == "unknown_legacy"),
+        "policy": (
+            "legacy_inferred_claude requires a separately verified pre_rollout_cockpit_history proof. "
+            "Age or missing provenance alone remains unknown_legacy. Both cohorts are sensitivity-only "
+            "and excluded from recorded Claude-versus-Codex comparisons."
+        ),
+    }
+
     out["data_sufficiency_note"] = (
         f"N={n_decisions} decisions; {n_reviews} reviews filed; {n_resolved} forecasts resolved; "
         f"{n_directional} directional calls resolved. Floors: Brier ≥{MIN_RESOLVED_FORECASTS} resolved, "
@@ -1101,6 +1172,158 @@ def _slice_multi(pairs, key):
         else:
             out[g] = f"insufficient (N={len(gp)}, tickers={n_tickers})"
     return out
+
+
+def _forecast_execution_metric(rows):
+    n = len(rows)
+    n_tickers = len({row.get("ticker") for row in rows})
+    result = {
+        "status": "insufficient",
+        "n": n,
+        "n_tickers": n_tickers,
+        "floor": {"n": MIN_RESOLVED_FORECASTS, "distinct_tickers": MIN_SLICE_TICKERS},
+        "brier": None,
+        "murphy": None,
+        "reliability_bands": None,
+    }
+    if n >= MIN_RESOLVED_FORECASTS and n_tickers >= MIN_SLICE_TICKERS:
+        tuples = [(row["prob"], row["realized"]) for row in rows]
+        result.update({
+            "status": "available",
+            "brier": brier(tuples),
+            "murphy": murphy_decomposition(tuples),
+            "reliability_bands": reliability_bands(tuples),
+        })
+    return result
+
+
+def _directional_execution_metric(rows):
+    n = len(rows)
+    k = sum(row["hit"] for row in rows)
+    n_tickers = len({row.get("ticker") for row in rows if row.get("ticker")})
+    result = {
+        "status": "insufficient",
+        "n": n,
+        "n_tickers": n_tickers,
+        "k_hits": k,
+        "floor": {"n": MIN_DIRECTIONAL_HITS},
+        "hit_rate": None,
+        "hit_rate_ci95": None,
+    }
+    if n >= MIN_DIRECTIONAL_HITS:
+        result.update({
+            "status": "available",
+            "hit_rate": round(k / n, 4),
+            "hit_rate_ci95": list(clopper_pearson(k, n, 0.05)),
+        })
+    return result
+
+
+def _return_execution_metrics(rows):
+    groups = {}
+    for row in rows:
+        basket = row.get("basket") or "unclassified"
+        window = row.get("window") or "unmatched"
+        groups.setdefault((basket, window), []).append(row)
+    result = {}
+    for (basket, window), cohort in sorted(groups.items()):
+        n = len(cohort)
+        n_tickers = len({row.get("ticker") for row in cohort if row.get("ticker")})
+        available = n >= MIN_REVIEWED_PER_BASKET and window != "unmatched"
+        result.setdefault(basket, {})[window] = {
+            "status": "available" if available else "insufficient",
+            "n": n,
+            "n_tickers": n_tickers,
+            "floor": {"n": MIN_REVIEWED_PER_BASKET, "matched_horizon_required": True},
+            "mean_benchmark_relative_pct": (
+                round(statistics.mean(row["value"] for row in cohort), 3) if available else None
+            ),
+        }
+    return result
+
+
+def _execution_slices(pairs, directional, returns, error_counts, *, forecast_key, pipeline_key):
+    """Provider/profile slices with different attribution for probabilities vs whole-pipeline outcomes."""
+    cohorts = (
+        {row.get(forecast_key) for row in pairs}
+        | {row.get(pipeline_key) for row in directional}
+        | {row.get(pipeline_key) for row in returns}
+        | set(error_counts)
+    )
+    cohorts.discard(None)
+    out = {}
+    for cohort in sorted(cohorts):
+        forecast_rows = [row for row in pairs if row.get(forecast_key) == cohort]
+        directional_rows = [row for row in directional if row.get(pipeline_key) == cohort]
+        return_rows = [row for row in returns if row.get(pipeline_key) == cohort]
+        out[cohort] = {
+            "forecast_author_calibration": _forecast_execution_metric(forecast_rows),
+            "pipeline_directional": _directional_execution_metric(directional_rows),
+            "pipeline_returns_by_horizon": _return_execution_metrics(return_rows),
+            "error_taxonomy_distribution": dict(sorted((error_counts.get(cohort) or {}).items())),
+            "attribution_policy": (
+                "Forecast/Brier rows follow decision_author; directional and basket rows follow the "
+                "whole-pipeline execution cohort. Mixed/partial/legacy cohorts are never reassigned."
+            ),
+        }
+    return out
+
+
+def _provider_comparison(slices):
+    """A human-facing, non-blended Claude/Codex comparison with per-metric refusal gates."""
+    names = ("claude", "codex")
+
+    def metric(provider, field):
+        row = slices.get(provider) or {}
+        return row.get(field) or {
+            "status": "insufficient", "n": 0, "n_tickers": 0,
+            "brier": None, "hit_rate": None,
+        }
+
+    forecast = {provider: metric(provider, "forecast_author_calibration") for provider in names}
+    directional = {provider: metric(provider, "pipeline_directional") for provider in names}
+    forecast_ready = all(forecast[p].get("status") == "available" for p in names)
+    directional_ready = all(directional[p].get("status") == "available" for p in names)
+
+    common_returns = []
+    claude_returns = (slices.get("claude") or {}).get("pipeline_returns_by_horizon") or {}
+    codex_returns = (slices.get("codex") or {}).get("pipeline_returns_by_horizon") or {}
+    for basket in sorted(set(claude_returns) & set(codex_returns)):
+        for window in sorted(set(claude_returns[basket]) & set(codex_returns[basket])):
+            if (claude_returns[basket][window].get("status") == "available"
+                    and codex_returns[basket][window].get("status") == "available"):
+                common_returns.append({"basket": basket, "review_window": window})
+
+    any_ready = forecast_ready or directional_ready or bool(common_returns)
+    excluded = sorted(key for key in slices if key not in names)
+    return {
+        "status": "ready_for_side_by_side" if any_ready else "withheld",
+        "policy": (
+            "No blended provider hit rate. Each recorded cohort is reported separately. A metric is "
+            "comparable only when Claude and Codex independently clear that metric's existing floor at "
+            "a matched horizon. No automated superiority ranking or confidence haircut is produced."
+        ),
+        "forecast_calibration": {
+            "comparison_ready": forecast_ready,
+            "claude": forecast["claude"],
+            "codex": forecast["codex"],
+        },
+        "directional_hit_rate": {
+            "comparison_ready": directional_ready,
+            "claude": directional["claude"],
+            "codex": directional["codex"],
+        },
+        "matched_basket_horizons_ready": common_returns,
+        "excluded_from_recorded_head_to_head": excluded,
+        "ranking": None,
+        "reason": (
+            "At least one side-by-side metric has independently cleared its floor; inspect the separate "
+            "cohorts and uncertainty intervals. No automatic ranking is asserted."
+            if any_ready else
+            "Claude and Codex have not both independently cleared any applicable metric floor; provider "
+            "ranking and provider-specific confidence haircuts are refused."
+        ),
+    }
 
 
 def _month_span(d0, d1):
@@ -1227,6 +1450,31 @@ def render_markdown(out):
     if mts.get("projectable"):
         L.append(f"- Months to a real verdict (at current rate): **~{mts['months_to_significance']:.0f}**")
     L.append("")
+    L.append("## Provider calibration (recorded cohorts only; never blended)")
+    comparison = out.get("provider_comparison") or {}
+    L.append(f"> {comparison.get('policy', 'Provider comparison unavailable.')}")
+    L.append("")
+    L.append("| Provider | Forecast calibration | Directional hit rate |")
+    L.append("|---|---|---|")
+    for provider in ("claude", "codex"):
+        row = (out.get("calibration_by_provider") or {}).get(provider) or {}
+        fc = row.get("forecast_author_calibration") or {"n": 0, "n_tickers": 0, "status": "insufficient"}
+        dr = row.get("pipeline_directional") or {"n": 0, "n_tickers": 0, "status": "insufficient"}
+        fc_text = (f"Brier {fc['brier']} (N={fc['n']}, tickers={fc['n_tickers']})"
+                   if fc.get("status") == "available" else
+                   f"withheld (N={fc.get('n', 0)}, tickers={fc.get('n_tickers', 0)})")
+        dr_text = (f"{dr['hit_rate']:.0%} (N={dr['n']}, tickers={dr['n_tickers']})"
+                   if dr.get("status") == "available" else
+                   f"withheld (N={dr.get('n', 0)}, tickers={dr.get('n_tickers', 0)})")
+        L.append(f"| {provider.title()} | {fc_text} | {dr_text} |")
+    excluded_provider = comparison.get("excluded_from_recorded_head_to_head") or []
+    if excluded_provider:
+        L.append("")
+        L.append("Mixed, partial, invalid, and legacy/unknown cohorts remain separate and are "
+                 f"excluded from the recorded head-to-head: {', '.join(excluded_provider)}.")
+    L.append("")
+    L.append(f"**Comparison status:** {comparison.get('status', 'withheld')} — {comparison.get('reason', '')}")
+    L.append("")
     L.append("## Always-honest tallies (no floor — a count, not a rate)")
     L.append(f"- Error taxonomy (§20): {out['error_taxonomy_distribution'] or '{} (no reviewed call has gone wrong yet)'}")
     L.append(f"- Pre-mortem outcomes (§5): {out['pre_mortem_calibration']['outcome_distribution']}")
@@ -1256,13 +1504,13 @@ def render_markdown(out):
         L.append("_None — every standing run is verified or unaudited (an unaudited run is NOT excluded)._")
     L.append("")
     L.append("## Inventory")
-    L.append("| Ticker | Run | Decision | Basket | Integrity | Conf | Resolved fc | Dir hit | Latest review |")
-    L.append("|---|---|---|---|---|---|---|---|---|")
+    L.append("| Ticker | Run | Decision | Basket | Provider cohort | Integrity | Conf | Resolved fc | Dir hit | Latest review |")
+    L.append("|---|---|---|---|---|---|---|---|---|---|")
     for r in out["inventory"]:
         dh = "—" if r["directional_hit"] is None else ("✓" if r["directional_hit"] else "✗")
         integ = r.get("integrity_status") or "—"
         integ_cell = f"⚠ {integ}" if integ == "provisional" else integ
-        L.append(f"| {r['ticker']} | {r['run']} | {r['decision']} | {r['basket']} | {integ_cell} | {r['confidence_score']} "
+        L.append(f"| {r['ticker']} | {r['run']} | {r['decision']} | {r['basket']} | {r.get('decision_author_provider', 'unknown_legacy')} | {integ_cell} | {r['confidence_score']} "
                  f"| {r['n_resolved_forecasts']}/{r['n_forecasts']} | {dh} | {r['latest_review_date'] or '—'} |")
     L.append("")
     L.append(f"*{out['data_sufficiency_note']}*")

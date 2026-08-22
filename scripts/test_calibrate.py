@@ -12,6 +12,7 @@ Run: python3 scripts/test_calibrate.py   (exit 0 = all pass)
 """
 import os
 import sys
+import uuid
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import calibrate as C  # noqa: E402
@@ -161,6 +162,77 @@ def _rejected(i, rel_return):
     review = {"schema_version": "1.0", "ticker": f"REJ{i}", "review_date": "2026-07-01", "review_window": "30d",
               "basket": "Rejected", "benchmark_relative_return_pct": rel_return, "forecast_results": []}
     return rec, review
+
+
+def _execution_provenance(provider, *, mode="single_provider", attribution="recorded", contributors=None):
+    """Canonical runtime projection fixture; malformed variants are created explicitly in tests."""
+    profile = f"{provider}|{provider}-parent:max|{provider}-specialist:xhigh"
+    author_contributor = {
+        "provider": provider,
+        "model": f"{provider}-parent",
+        "reasoning_level": "max",
+        "attribution": attribution,
+        "scopes": ["terminal_adjudication"],
+    }
+    rows = contributors if contributors is not None else [
+        author_contributor,
+        {
+            "provider": provider,
+            "model": f"{provider}-specialist",
+            "reasoning_level": "xhigh",
+            "attribution": "configured",
+            "scopes": ["specialists"],
+        },
+    ]
+    rows = sorted(rows, key=lambda item: (
+        item["provider"], item.get("model") or "", item.get("reasoning_level") or "",
+        item["attribution"],
+    ))
+    return {
+        "schema_version": "1.0",
+        "source": "cockpit_runtime",
+        "coverage": "cockpit_top_level_processes",
+        "provider_mode": mode,
+        "profile_key": profile if mode != "mixed_provider" else f"mixed|claude|codex|{profile}",
+        "decision_author": {
+            "attempt_id": str(uuid.uuid5(uuid.NAMESPACE_URL, f"nostra-calibration:{provider}:{mode}")),
+            "provider": provider,
+            "model": f"{provider}-parent",
+            "reasoning_level": "max",
+            "attribution": attribution,
+        },
+        "contributors": rows,
+        "cli_versions": {provider: "fixture"},
+    }
+
+
+def _provider_run(provider, i, *, mode="single_provider", attribution="recorded", contributors=None,
+                  error_tag=None):
+    ticker = f"{provider[:2].upper()}{i:02d}"
+    run_root = f"analyses/{ticker}_2026-06-01"
+    prediction = f"{ticker} forecast"
+    record = {
+        "ticker": ticker,
+        "decision": "Buy",
+        "decision_date": "2026-06-01",
+        "basket": "Selected",
+        "forecast_ledger": [{
+            "prediction": prediction,
+            "probability": 80,
+            "owner_module": "earnings",
+            "forecast_type": "earnings_eps",
+        }],
+        "execution_provenance": _execution_provenance(
+            provider, mode=mode, attribution=attribution, contributors=contributors),
+    }
+    review = {
+        "review_date": "2026-07-01",
+        "review_window": "30d",
+        "benchmark_relative_return_pct": 4.0,
+        "forecast_results": [{"prediction": prediction, "status": "confirmed"}],
+        "error_taxonomy": [error_tag] if error_tag else [],
+    }
+    return {"run_root": run_root, "record": record}, review
 
 
 def test_end_to_end_floor_met():
@@ -963,6 +1035,234 @@ def test_no_integrity_field_behaves_as_before():
     check(out["excluded_provisional"]["n"] == 0, "nothing excluded when no record carries a provisional status")
 
 
+def test_execution_identity_is_conservative():
+    legacy = C._execution_identity({})
+    check(legacy["author_provider"] == "unknown_legacy"
+          and legacy["pipeline_provider"] == "unknown_legacy",
+          "a historical record without runtime provenance remains unknown_legacy, never guessed Claude")
+
+    proven = C._execution_identity({}, {
+        "provider": "claude", "basis": "pre_rollout_cockpit_history", "verified": True})
+    check(proven["author_provider"] == "legacy_inferred_claude"
+          and proven["pipeline_provider"] == "legacy_inferred_claude",
+          "a separately verified sole-Claude cockpit proof is labelled legacy_inferred_claude")
+    unverified = C._execution_identity({}, {
+        "provider": "claude", "basis": "record_age_only", "verified": True})
+    check(unverified["author_provider"] == "unknown_legacy",
+          "age or an unrecognised basis never infers Claude")
+
+    recorded = C._execution_identity({"execution_provenance": _execution_provenance("claude")})
+    check(recorded["author_provider"] == "claude" and recorded["pipeline_provider"] == "claude"
+          and recorded["status"] == "recorded_single_provider",
+          "a canonical recorded author plus configured specialist is attributed to that provider")
+
+    configured = C._execution_identity({
+        "execution_provenance": _execution_provenance("codex", attribution="configured")})
+    check(configured["author_provider"] == "unknown"
+          and configured["pipeline_provider"] == "unknown",
+          "a configured-only terminal author is not a valid runtime projection and gets no Codex credit")
+
+    mixed = C._execution_identity({"execution_provenance": _execution_provenance(
+        "codex", mode="mixed_provider", contributors=[
+            {"provider": "claude", "model": "claude-parent", "reasoning_level": "high",
+             "attribution": "recorded", "scopes": ["modules"]},
+            {"provider": "codex", "model": "codex-parent", "reasoning_level": "max",
+             "attribution": "recorded", "scopes": ["terminal_adjudication"]},
+        ])})
+    check(mixed["author_provider"] == "codex" and mixed["pipeline_provider"] == "mixed",
+          "a mixed continuation credits forecasts to its recorded terminal author but pipeline outcomes to mixed")
+
+    partial_projection = _execution_provenance(
+        "codex", mode="partially_observed", contributors=[
+            {"provider": "codex", "model": None, "reasoning_level": None,
+             "attribution": "configured", "scopes": ["prior_unobserved"]},
+            {"provider": "codex", "model": "codex-parent", "reasoning_level": "max",
+             "attribution": "recorded", "scopes": ["terminal_adjudication"]},
+        ])
+    partial = C._execution_identity({"execution_provenance": partial_projection})
+    check(partial["author_provider"] == "codex"
+          and partial["pipeline_provider"] == "partially_observed",
+          "a canonical partial projection credits its recorded author but keeps pipeline outcomes partial")
+
+    forged_minimal = {
+        "provider_mode": "single_provider",
+        "profile_key": "codex|codex-parent:max",
+        "decision_author": {"provider": "codex", "attribution": "recorded"},
+    }
+    forged = C._execution_identity({"execution_provenance": forged_minimal})
+    check(forged["author_provider"] == "unknown" and forged["pipeline_provider"] == "unknown",
+          "a forged plausible-looking minimal object never becomes recorded provenance")
+
+    invalid_uuid = _execution_provenance("codex")
+    invalid_uuid["decision_author"]["attempt_id"] = "attempt-codex"
+    check(C._execution_identity({"execution_provenance": invalid_uuid})["author_provider"] == "unknown",
+          "a non-canonical decision-author UUID invalidates the projection")
+
+    inconsistent = _execution_provenance("codex")
+    inconsistent["contributors"] = sorted(inconsistent["contributors"] + [{
+        "provider": "claude", "model": "claude-parent", "reasoning_level": "high",
+        "attribution": "recorded", "scopes": ["prior_modules"],
+    }], key=lambda item: (
+        item["provider"], item.get("model") or "", item.get("reasoning_level") or "",
+        item["attribution"],
+    ))
+    check(C._execution_identity({"execution_provenance": inconsistent})["pipeline_provider"] == "unknown",
+          "cross-provider contributors cannot claim single_provider")
+
+    inconsistent_partial = dict(partial_projection, provider_mode="single_provider")
+    check(C._execution_identity({"execution_provenance": inconsistent_partial})["pipeline_provider"] == "unknown",
+          "a missing configured tuple cannot claim fully observed single_provider")
+
+    inconsistent_mixed = _execution_provenance("codex", mode="mixed_provider", contributors=[
+        {"provider": "claude", "model": "claude-parent", "reasoning_level": "high",
+         "attribution": "recorded", "scopes": ["prior_modules"]},
+        {"provider": "codex", "model": "codex-parent", "reasoning_level": "max",
+         "attribution": "recorded", "scopes": ["terminal_adjudication"]},
+    ])
+    inconsistent_mixed["profile_key"] = "codex|codex-parent:max"
+    check(C._execution_identity({"execution_provenance": inconsistent_mixed})["pipeline_provider"] == "unknown",
+          "a mixed-provider projection requires the canonical mixed profile discriminator")
+
+    wrong_profile = _execution_provenance("codex")
+    wrong_profile["profile_key"] = "claude:codex-parent:max"
+    check(C._execution_identity({"execution_provenance": wrong_profile})["author_provider"] == "unknown",
+          "a structured profile naming a different provider cannot authorize the recorded author")
+
+
+def test_provider_calibration_attribution_floors_and_refusal():
+    standing, reviews_by_run = [], {}
+
+    # Each recorded provider independently clears every existing floor: 10 forecasts on 10 tickers,
+    # 10 directional outcomes, and 10 exact-30d basket returns.  The values are deliberately different
+    # enough to prove the cohorts are separate, but the script must still emit no automated ranking.
+    for provider in ("claude", "codex"):
+        for i in range(10):
+            entry, review = _provider_run(
+                provider, i, error_tag="bad causal inference" if i == 0 else None)
+            if provider == "codex" and i >= 8:
+                review["forecast_results"][0]["status"] = "falsified"
+                review["benchmark_relative_return_pct"] = -2.0
+            standing.append(entry)
+            reviews_by_run[entry["run_root"]] = [review]
+
+    # One cross-provider continuation: the Codex terminal author owns its probability, while the
+    # realised direction/return/error remain in the mixed whole-pipeline cohort.
+    mixed_entry, mixed_review = _provider_run(
+        "codex", 90, mode="mixed_provider", error_tag="bad math", contributors=[
+            {"provider": "claude", "model": "claude-parent", "reasoning_level": "high",
+             "attribution": "recorded", "scopes": ["modules"]},
+            {"provider": "codex", "model": "codex-parent", "reasoning_level": "max",
+             "attribution": "recorded", "scopes": ["terminal_adjudication"]},
+        ])
+    standing.append(mixed_entry)
+    reviews_by_run[mixed_entry["run_root"]] = [mixed_review]
+
+    # A valid partial pipeline keeps its recorded author; a configured-only terminal forgery is unknown.
+    partial_entry, partial_review = _provider_run(
+        "codex", 91, mode="partially_observed", error_tag="missing data", contributors=[
+            {"provider": "codex", "model": None, "reasoning_level": None,
+             "attribution": "configured", "scopes": ["prior_unobserved"]},
+            {"provider": "codex", "model": "codex-parent", "reasoning_level": "max",
+             "attribution": "recorded", "scopes": ["terminal_adjudication"]},
+        ])
+    standing.append(partial_entry)
+    reviews_by_run[partial_entry["run_root"]] = [partial_review]
+    configured_entry, configured_review = _provider_run(
+        "codex", 92, attribution="configured", error_tag="bad source")
+    standing.append(configured_entry)
+    reviews_by_run[configured_entry["run_root"]] = [configured_review]
+    legacy_root = "analyses/LEGACY_2026-06-01"
+    standing.append({"run_root": legacy_root, "record": {
+        "ticker": "LEGACY", "decision": "Buy", "decision_date": "2026-06-01",
+        "basket": "Selected", "forecast_ledger": [{
+            "prediction": "legacy forecast", "probability": 60,
+            "owner_module": "earnings", "forecast_type": "earnings_eps",
+        }],
+    }})
+    reviews_by_run[legacy_root] = [{
+        "review_date": "2026-07-01", "review_window": "30d",
+        "benchmark_relative_return_pct": 1.0,
+        "forecast_results": [{"prediction": "legacy forecast", "status": "confirmed"}],
+        "error_taxonomy": ["stale data"],
+    }]
+
+    out = C.build(standing=standing, today="2026-08-21",
+                  reviews_provider=lambda rr: reviews_by_run.get(rr, []))
+    by_provider = out["calibration_by_provider"]
+    claude = by_provider["claude"]
+    codex = by_provider["codex"]
+
+    check(claude["forecast_author_calibration"]["status"] == "available"
+          and claude["forecast_author_calibration"]["n"] == 10,
+          "Claude Brier slice clears N=10 and the distinct-ticker floor independently")
+    check(codex["forecast_author_calibration"]["status"] == "available"
+          and codex["forecast_author_calibration"]["n"] == 12,
+          "Codex forecast slice includes recorded mixed/partial authors, not configured-only forgeries")
+    check(claude["pipeline_directional"]["n"] == 10
+          and codex["pipeline_directional"]["n"] == 10,
+          "recorded single-provider directional cohorts remain separate and both clear N=10")
+    check(by_provider["mixed"]["pipeline_directional"]["n"] == 1
+          and by_provider["mixed"]["forecast_author_calibration"]["n"] == 0,
+          "mixed run direction stays mixed while its forecast is attributed to the decision author")
+    check(by_provider["partially_observed"]["pipeline_directional"]["n"] == 1
+          and by_provider["unknown"]["forecast_author_calibration"]["n"] == 1
+          and by_provider["unknown"]["pipeline_directional"]["n"] == 1,
+          "partial pipeline and invalid configured-author projection remain separate non-recorded cohorts")
+    check(by_provider["unknown_legacy"]["pipeline_directional"]["n"] == 1,
+          "legacy provenance remains an explicit unknown_legacy pipeline cohort")
+
+    check(claude["pipeline_returns_by_horizon"]["Selected"]["30d"]["status"] == "available"
+          and codex["pipeline_returns_by_horizon"]["Selected"]["30d"]["status"] == "available",
+          "provider basket returns apply the N>=5 floor at the exact matched review horizon")
+    check(by_provider["mixed"]["pipeline_returns_by_horizon"]["Selected"]["30d"]["status"] == "insufficient",
+          "a one-run mixed return is reported but withheld below the basket floor")
+    check(by_provider["mixed"]["error_taxonomy_distribution"] == {"bad math": 1}
+          and by_provider["unknown_legacy"]["error_taxonomy_distribution"] == {"stale data": 1},
+          "provider error-taxonomy counts are reported at any N without fabricating rates")
+
+    comparison = out["provider_comparison"]
+    check(comparison["forecast_calibration"]["comparison_ready"]
+          and comparison["directional_hit_rate"]["comparison_ready"],
+          "head-to-head is marked ready only after both recorded providers independently clear each floor")
+    check({"mixed", "partially_observed", "unknown", "unknown_legacy"}.issubset(
+              set(comparison["excluded_from_recorded_head_to_head"])),
+          "mixed, partial, invalid, and legacy cohorts are excluded from recorded head-to-head")
+    check(comparison["ranking"] is None and "No blended provider hit rate" in comparison["policy"],
+          "even above floor the deterministic core emits no provider ranking, blended hit rate, or haircut")
+
+    thin_entry, thin_review = _provider_run("claude", 99)
+    thin = C.build(standing=[thin_entry], today="2026-08-21",
+                   reviews_provider=lambda rr: [thin_review])
+    check(thin["provider_comparison"]["status"] == "withheld"
+          and thin["provider_comparison"]["ranking"] is None,
+          "below floor, provider comparison and ranking are refused")
+
+
+def test_provider_metric_floors_match_the_published_contract():
+    directional = C._directional_execution_metric([
+        {"ticker": "ONE", "hit": 1 if i % 2 == 0 else 0} for i in range(10)])
+    check(directional["status"] == "available" and directional["floor"] == {"n": 10},
+          "directional provider slices require N>=10, not ten distinct tickers")
+
+    returns = C._return_execution_metrics([
+        {"ticker": "ONE", "basket": "Selected", "window": "30d", "value": float(i)}
+        for i in range(5)
+    ])
+    check(returns["Selected"]["30d"]["status"] == "available",
+          "basket provider slices require N>=5 at one matched horizon, not five distinct tickers")
+    unmatched = C._return_execution_metrics([
+        {"ticker": "ONE", "basket": "Selected", "window": "unmatched", "value": float(i)}
+        for i in range(5)
+    ])
+    check(unmatched["Selected"]["unmatched"]["status"] == "insufficient",
+          "basket provider slices still refuse an unmatched horizon")
+
+    forecasts = C._forecast_execution_metric([
+        {"ticker": f"T{i % 4}", "prob": 0.6, "realized": i % 2} for i in range(10)])
+    check(forecasts["status"] == "insufficient",
+          "Brier provider slices retain the independent five-distinct-ticker floor")
+
+
 def main():
     print("test_calibrate.py")
     for fn in (test_incomplete_beta, test_clopper_pearson, test_brier_and_murphy, test_e_value,
@@ -989,7 +1289,9 @@ def main():
                test_spread_matched_by_horizon, test_duplicate_forecast_result_not_double_counted,
                test_end_to_end_floor_met, test_probability_scale, test_below_floor_withholds,
                test_provisional_run_excluded_from_skill_scoring, test_markdown_names_excluded_and_shadow,
-               test_no_integrity_field_behaves_as_before):
+               test_no_integrity_field_behaves_as_before, test_execution_identity_is_conservative,
+               test_provider_calibration_attribution_floors_and_refusal,
+               test_provider_metric_floors_match_the_published_contract):
         print(f"[{fn.__name__}]")
         fn()
     print()

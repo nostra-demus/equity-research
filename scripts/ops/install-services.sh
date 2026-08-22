@@ -8,7 +8,7 @@
 #
 # ROLES (--role doer|admin, default doer):
 #   base agents  (BOTH roles): engine, deploy, watchdog, caffeinate, pinned OmniRoute when provisioned
-#   doer-only agents         : tunnel, news-archive, news-ingester, + the 5 housekeeping timers (hk-*)
+#   doer-only agents         : tunnel, news-archive, news-ingester, + deterministic calibration timers
 #   Exactly ONE machine should be the doer — it owns the public tunnel and runs the autonomous daily
 #   jobs. Other machines install with --role admin (full local engine, no tunnel, no duplicate autonomy).
 #
@@ -19,7 +19,7 @@
 #   com.nostradamus.omniroute    — local model-router fallback on 127.0.0.1:20128            (RunAtLoad+KeepAlive)   [managed base]
 #   com.nostradamus.tunnel       — cloudflared tunnel run                                 (RunAtLoad+KeepAlive)   [doer]
 #   com.nostradamus.news-archive — news -> Google Drive, every 3h                         (RunAtLoad+StartInterval) [doer]
-#   com.nostradamus.hk-*         — daily/monthly housekeeping (review/track/sweep/size/calibrate) [doer]
+#   com.nostradamus.hk-calibrate* — deterministic daily/monthly calibration fallbacks             [doer]
 # Idempotent, no sudo. Engine + news-archive run from PROD; watchdog + deploy + housekeeping shell scripts from ~/.nostra-ops.
 #
 # RELIABILITY (why this is not a naive bootout;bootstrap loop):
@@ -324,7 +324,7 @@ install_runtime_script() {
   fi
 }
 if [ -z "$ONLY" ]; then
-  for s in watchdog.sh deploy.sh housekeeping.sh connector-supervisor.py; do
+  for s in watchdog.sh deploy.sh housekeeping.sh calibrate-local.sh connector-supervisor.py; do
     install_runtime_script "$s" || exit 1
   done
 fi
@@ -609,8 +609,12 @@ remove_one() {
 BASE=(com.nostradamus.engine com.nostradamus.deploy com.nostradamus.watchdog com.nostradamus.caffeinate)
 DOER_ONLY=(com.nostradamus.tunnel com.nostradamus.news-archive com.nostradamus.external-ingest \
            com.nostradamus.connectors \
-           com.nostradamus.hk-review com.nostradamus.hk-track com.nostradamus.hk-sweep \
-           com.nostradamus.hk-size com.nostradamus.hk-calibrate)
+           com.nostradamus.hk-calibrate-daily com.nostradamus.hk-calibrate)
+# These historical timers directly spawned Claude and therefore bypassed provider/profile inheritance,
+# quota pauses, admission and supervisor publication. Remove them on every full install, including doer
+# upgrades; deterministic calibration timers above remain model-free and installed.
+RETIRED_MODEL_HK=(com.nostradamus.hk-review com.nostradamus.hk-track \
+                  com.nostradamus.hk-sweep com.nostradamus.hk-size)
 NEWS_INGESTER=com.nostradamus.news-ingester   # doer-only AND opt-in (needs a real GROQ key in its plist)
 OMNIROUTE_SERVICE=com.nostradamus.omniroute   # both roles; installer requires the exact reviewed executable
 
@@ -683,6 +687,14 @@ if [ -z "$ONLY" ] || [ "$ONLY" = omniroute ]; then
     echo "skipping $OMNIROUTE_SERVICE (omniroute executable not installed)"
     remove_one "$OMNIROUTE_SERVICE" || install_failed=1
   fi
+fi
+
+if [ -z "$ONLY" ]; then
+  retired_failed=0
+  for label in "${RETIRED_MODEL_HK[@]}"; do
+    remove_one "$label" || retired_failed=1
+  done
+  [ "$retired_failed" = 0 ] || exit 1
 fi
 
 # Optional autonomous news ingester (standalone 24/7 mode) — DOER ONLY, and only once you've put your
