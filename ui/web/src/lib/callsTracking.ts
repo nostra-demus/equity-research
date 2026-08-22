@@ -7,6 +7,7 @@ export interface CallTrackingSnapshot {
   checkpoint: {
     label: string
     price: string
+    returnLabel: string
     returnFromCall: string
     returnTone: TrackingTone
     benchmarkDelta: string | null
@@ -37,7 +38,7 @@ export function humanDate(value?: string | null): string {
 
 function money(currency: string | null | undefined, value: number | null | undefined): string {
   if (!finite(value)) return 'price not recorded'
-  const amount = value.toLocaleString('en-GB', { maximumFractionDigits: 2 })
+  const amount = value.toLocaleString('en-GB', { maximumSignificantDigits: 15 })
   return `${(currency || '').trim()} ${amount}`.trim()
 }
 
@@ -104,6 +105,7 @@ function situationFor(row: CallTimelineEntry | null, call: CallSummary): CallTra
     || (deltaSaysWrong && (thesisRight || qualitySaysRight))
     || (deltaSaysRight && (thesisWrong || qualitySaysWrong))
     || (deltaTooEarly && (thesisResolved || qualityResolved))
+    || (thesis === 'expired' && quality === 'genuine miss')
   if (fieldsDisagree) {
     const headline = thesis === 'broken' || delta === 'broken' ? 'Thesis broken'
       : thesis === 'at-risk' ? 'Thesis at risk' : 'Review fields disagree'
@@ -152,6 +154,7 @@ export function callTrackingSnapshot(call: CallSummary): CallTrackingSnapshot {
   const checkpoint = latest ? {
     label: `${windowLabel(latest.window)} check · ${humanDate(latest.review_date || latest.due_date)}`,
     price: money(call.currency, latest.review_price),
+    returnLabel: finite(call.entry_price) ? 'Delta from call' : 'Return at check',
     returnFromCall: observedReturn != null
       ? signedPct(observedReturn)
       : 'Return not recorded',

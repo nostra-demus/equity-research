@@ -29,7 +29,7 @@ const tracked = callTrackingSnapshot(baseCall())
 assert.equal(tracked.originalSentence,
   'Nostra said Watchlist on 10 Jul 2026 at AED 12.2. Target: AED 14.36.')
 assert.deepEqual(tracked.checkpoint, {
-  label: '30-day check · 9 Aug 2026', price: 'AED 11.5', returnFromCall: '−5.7%',
+  label: '30-day check · 9 Aug 2026', price: 'AED 11.5', returnLabel: 'Delta from call', returnFromCall: '−5.7%',
   returnTone: 'bad', benchmarkDelta: '5.1pp behind benchmark',
 })
 assert.deepEqual(tracked.situation, {
@@ -71,7 +71,7 @@ shortCall.basket = 'Short'
 shortCall.timeline[0].absolute_return_pct = -12.34
 shortCall.timeline[0].benchmark_relative_return_pct = -10.25
 assert.deepEqual(callTrackingSnapshot(shortCall).checkpoint, {
-  label: '30-day check · 9 Aug 2026', price: 'AED 11.5', returnFromCall: '+12.3%',
+  label: '30-day check · 9 Aug 2026', price: 'AED 11.5', returnLabel: 'Delta from call', returnFromCall: '+12.3%',
   returnTone: 'good', benchmarkDelta: '10.3pp ahead of benchmark',
 })
 
@@ -81,7 +81,7 @@ rejectedCall.basket = 'Rejected'
 rejectedCall.timeline[0].absolute_return_pct = -8.4
 rejectedCall.timeline[0].benchmark_relative_return_pct = -4.2
 assert.deepEqual(callTrackingSnapshot(rejectedCall).checkpoint, {
-  label: '30-day check · 9 Aug 2026', price: 'AED 11.5', returnFromCall: '+8.4%',
+  label: '30-day check · 9 Aug 2026', price: 'AED 11.5', returnLabel: 'Delta from call', returnFromCall: '+8.4%',
   returnTone: 'good', benchmarkDelta: '4.2pp ahead of benchmark',
 })
 
@@ -90,6 +90,20 @@ roundedZero.timeline[0].absolute_return_pct = -0.04
 roundedZero.timeline[0].benchmark_relative_return_pct = -0.04
 assert.equal(callTrackingSnapshot(roundedZero).checkpoint?.returnFromCall, '0.0%')
 assert.equal(callTrackingSnapshot(roundedZero).checkpoint?.benchmarkDelta, 'even with benchmark')
+
+const trackingBasis = baseCall()
+trackingBasis.entry_price = null
+trackingBasis.implied_target = null
+assert.equal(callTrackingSnapshot(trackingBasis).checkpoint?.returnLabel, 'Return at check')
+
+const smallPrice = baseCall()
+smallPrice.entry_price = 0.004
+smallPrice.implied_target = 0.0065
+smallPrice.timeline[0].review_price = 0.0045
+const smallPriceTracked = callTrackingSnapshot(smallPrice)
+assert.equal(smallPriceTracked.originalSentence,
+  'Nostra said Watchlist on 10 Jul 2026 at AED 0.004. Target: AED 0.0065.')
+assert.equal(smallPriceTracked.checkpoint?.price, 'AED 0.0045')
 
 const lateScheduled = baseCall()
 lateScheduled.timeline = [
@@ -106,6 +120,16 @@ expired.timeline[0].thesis_status = 'expired'
 expired.timeline[0].thesis_delta_verdict = null
 assert.deepEqual(callTrackingSnapshot(expired).situation, {
   headline: 'Thesis expired', detail: 'The recorded thesis window has ended', tone: 'neutral',
+})
+
+const expiredMiss = baseCall()
+expiredMiss.timeline[0].thesis_status = 'expired'
+expiredMiss.timeline[0].decision_quality = 'genuine miss'
+expiredMiss.timeline[0].thesis_delta_verdict = null
+assert.deepEqual(callTrackingSnapshot(expiredMiss).situation, {
+  headline: 'Review fields disagree',
+  detail: 'Review fields disagree: thesis expired, decision quality genuine miss',
+  tone: 'bad',
 })
 
 const contradictory = baseCall()

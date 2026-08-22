@@ -318,7 +318,7 @@ function CallCard({ c, historical, busy, staticMode, onUpdate, onFileDue, onOpen
             <span className="calltrack__label">{tracking.checkpoint?.label || 'Latest check'}</span>
             <strong>{tracking.checkpoint?.price || 'Not reviewed yet'}</strong>
             <span className={`calltrack__metric tone--${tracking.checkpoint?.returnTone || 'neutral'}`}>
-              Delta from call: {tracking.checkpoint?.returnFromCall || 'not available yet'}
+              {tracking.checkpoint?.returnLabel || 'Return at check'}: {tracking.checkpoint?.returnFromCall || 'not available yet'}
             </span>
             {tracking.checkpoint?.benchmarkDelta && <small>{tracking.checkpoint.benchmarkDelta}</small>}
           </div>
