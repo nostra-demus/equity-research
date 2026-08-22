@@ -24,7 +24,7 @@ export function readMarkdown(relPath: string): { path: string; markdown: string 
     throw new Error('Path escapes the analyses sandbox')
   }
   // CodeQL does not model the strict grammar + realpath + canonical-root containment above.
-  // codeql[js/path-injection]
+  // lgtm[js/path-injection]
   const markdown = fs.readFileSync(real, 'utf8')
   return { path: relPath, markdown }
 }
@@ -42,7 +42,7 @@ export function readRunsMarkdown(relPath: string): { path: string; markdown: str
     throw new Error('Path escapes the runs sandbox')
   }
   // CodeQL does not model the strict grammar + realpath + discovered-root containment above.
-  // codeql[js/path-injection]
+  // lgtm[js/path-injection]
   const markdown = fs.readFileSync(real, 'utf8')
   return { path: relPath, markdown }
 }
