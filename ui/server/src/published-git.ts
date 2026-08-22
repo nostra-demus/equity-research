@@ -5,6 +5,10 @@ const COMMIT_RE = /^[a-f0-9]{40}(?:[a-f0-9]{24})?$/
 const SAFE_TREE_PATH_RE = /^(?:[A-Za-z0-9._-]+)(?:\/[A-Za-z0-9._-]+)*$/
 const MAX_AUTHORITY_BLOB_BYTES = 8 * 1024 * 1024
 const MAX_AUTHORITY_BATCH_BYTES = 96 * 1024 * 1024
+const COMMIT_CACHE_MS = 15_000
+const MAX_TREE_ENTRY_CACHES = 8
+
+const commitCache = new Map<string, { commit: string; expiresAt: number }>()
 
 const authorityError = (cause?: unknown): Error & { code: string; cause?: unknown } => Object.assign(
   new Error('shared Calls history cannot be read safely'),
@@ -22,14 +26,18 @@ export function publishedGitRef(): string {
 
 /** Resolve the moving ref once so one projection cannot mix files from two fetches. */
 export function publishedGitCommit(repoRoot = REPO_ROOT): string {
+  const ref = publishedGitRef()
+  const cacheKey = `${repoRoot}\u0000${ref}`
+  const cached = commitCache.get(cacheKey)
+  if (cached && cached.expiresAt > Date.now()) return cached.commit
   try {
-    const commit = execFileSync('git', ['-C', repoRoot, 'rev-parse', '--verify', `${publishedGitRef()}^{commit}`], {
+    // `^{commit}` peels tags and fails unless the result is a commit; a second `cat-file -t` process is
+    // redundant. The short cache matches the cockpit's poll interval and bounds synchronous Git work.
+    const commit = execFileSync('git', ['-C', repoRoot, 'rev-parse', '--verify', `${ref}^{commit}`], {
       encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 1024 * 1024,
     }).trim()
-    const type = execFileSync('git', ['-C', repoRoot, 'cat-file', '-t', commit], {
-      encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 1024 * 1024,
-    }).trim()
-    if (!COMMIT_RE.test(commit) || type !== 'commit') throw new Error('invalid shared commit')
+    if (!COMMIT_RE.test(commit)) throw new Error('invalid shared commit')
+    commitCache.set(cacheKey, { commit, expiresAt: Date.now() + COMMIT_CACHE_MS })
     return commit
   } catch (error) {
     throw authorityError(error)
@@ -39,6 +47,16 @@ export function publishedGitCommit(repoRoot = REPO_ROOT): string {
 interface PublishedTreeEntry {
   oid: string
   size: number
+}
+
+const treeEntriesCache = new Map<string, Map<string, PublishedTreeEntry>>()
+
+function rememberTreeEntries(key: string, entries: Map<string, PublishedTreeEntry>): void {
+  if (treeEntriesCache.size >= MAX_TREE_ENTRY_CACHES) {
+    const oldest = treeEntriesCache.keys().next().value
+    if (oldest !== undefined) treeEntriesCache.delete(oldest)
+  }
+  treeEntriesCache.set(key, entries)
 }
 
 function safeTreePath(value: string): boolean {
@@ -51,15 +69,17 @@ function publishedTreeEntries(
   revision: string,
 ): Map<string, PublishedTreeEntry> {
   if (!safeTreePath(treePath) || !COMMIT_RE.test(revision)) throw authorityError()
+  const cacheKey = `${repoRoot}\u0000${revision}\u0000${treePath}`
+  const cached = treeEntriesCache.get(cacheKey)
+  if (cached) {
+    // Refresh the bounded insertion order so frequently used production trees outlive one-off test repos.
+    treeEntriesCache.delete(cacheKey)
+    treeEntriesCache.set(cacheKey, cached)
+    return cached
+  }
   try {
-    const commitType = execFileSync('git', ['-C', repoRoot, 'cat-file', '-t', revision], {
-      encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 1024 * 1024,
-    }).trim()
-    const treeType = execFileSync('git', ['-C', repoRoot, 'cat-file', '-t', `${revision}:${treePath}`], {
-      encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 1024 * 1024,
-    }).trim()
-    if (commitType !== 'commit' || treeType !== 'tree') throw new Error('invalid shared research tree')
-
+    // `ls-tree` verifies the revision is tree-ish. A missing/non-tree research path yields no regular
+    // blobs and is rejected below, so separate commit/tree type probes only add event-loop stalls.
     const raw = execFileSync('git', [
       '-C', repoRoot, 'ls-tree', '-r', '-l', '-z', '--full-tree', revision, '--', treePath,
     ], { encoding: null, stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 32 * 1024 * 1024 })
@@ -78,6 +98,8 @@ function publishedTreeEntries(
       if (!Number.isSafeInteger(size) || size < 0) throw new Error('shared research blob has an invalid size')
       entries.set(repoPath, { oid: match[2], size })
     }
+    if (!entries.size) throw new Error('shared research tree is missing or empty')
+    rememberTreeEntries(cacheKey, entries)
     return entries
   } catch (error: any) {
     if (error?.code === 'CALLS_AUTHORITY_UNAVAILABLE') throw error
@@ -105,8 +127,12 @@ export interface PublishedTreeAuthority {
  * Build one immutable Calls snapshot. Requested blobs are read through one `git cat-file --batch` call,
  * avoiding a child process per decision/review on the 15-second Calls poll path.
  */
-export function publishedTreeAuthority(treePath = 'analyses', repoRoot = REPO_ROOT): PublishedTreeAuthority {
-  const commit = publishedGitCommit(repoRoot)
+export function publishedTreeAuthority(
+  treePath = 'analyses',
+  repoRoot = REPO_ROOT,
+  commit = publishedGitCommit(repoRoot),
+): PublishedTreeAuthority {
+  if (!COMMIT_RE.test(commit)) throw authorityError()
   const entries = publishedTreeEntries(treePath, repoRoot, commit)
   const paths = new Set(entries.keys())
   const cache = new Map<string, Buffer>()

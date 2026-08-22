@@ -8,7 +8,7 @@ import {
   applyErrata, CORRECTIONS_SCHEMA, resolveDisplayFields, supersededTarget,
 } from './ledger-corrections'
 import { diffDecisionRecords } from './run-diff'
-import { publishedTreeAuthority, type PublishedTreeAuthority } from './published-git'
+import { publishedGitCommit, publishedTreeAuthority, type PublishedTreeAuthority } from './published-git'
 
 // `resolve` defaults to the analyses/ sandbox (research). The chat reader passes resolveInsideRuns so it
 // can ground on any swarm's run folder; every other caller keeps the analyses-only default unchanged.
@@ -774,7 +774,7 @@ export function buildCallUpdates(rows: CallUpdateInput[]): CallUpdate[] {
 
 // One row per run-folder decision_record — a cross-ticker ledger of every call the engine made,
 // each with its since-the-call timeline. Generic: scans all run folders, no module/ticker hardcoded.
-export function listAllCalls(authority: PublishedTreeAuthority = publishedTreeAuthority('analyses')) {
+function projectAllCalls(authority: PublishedTreeAuthority) {
   const publishedPaths = authority.paths
   const runRoots = [...publishedPaths]
     .map((repoPath) => /^(analyses\/[A-Z0-9.\-]{1,40}_\d{4}-\d{2}-\d{2})\/decision_record\.json$/.exec(repoPath)?.[1] || null)
@@ -894,4 +894,18 @@ export function listAllCalls(authority: PublishedTreeAuthority = publishedTreeAu
     updates: buildCallUpdates(updateRows).slice(0, 100),
     authority_commit: authority.commit,
   }
+}
+
+let publishedCallsCache: { commit: string; value: ReturnType<typeof projectAllCalls> } | null = null
+
+/** Share one immutable projection across rapid dashboard/watchlist reads; the ref resolver's short TTL
+ * bounds staleness while avoiding a synchronous Git subprocess for every browser poll. Passing an
+ * authority is the uncached test/diagnostic seam. */
+export function listAllCalls(authority?: PublishedTreeAuthority): ReturnType<typeof projectAllCalls> {
+  if (authority) return projectAllCalls(authority)
+  const commit = publishedGitCommit(REPO_ROOT)
+  if (publishedCallsCache?.commit === commit) return publishedCallsCache.value
+  const value = projectAllCalls(publishedTreeAuthority('analyses', REPO_ROOT, commit))
+  publishedCallsCache = { commit, value }
+  return value
 }

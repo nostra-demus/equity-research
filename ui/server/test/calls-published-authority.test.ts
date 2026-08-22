@@ -66,7 +66,7 @@ const publishedText = (rel: string): string => execFileSync(
 )
 
 const { isPublishedCallsArtifactPath, listAllCalls, readPublishedCallsMarkdown } = await import('../src/outputs')
-const { publishedTreePaths } = await import('../src/published-git')
+const { publishedTreeAuthority, publishedTreePaths } = await import('../src/published-git')
 
 // Poison mutable disk after the commit: replace a shared decision, remove its review, and add a private call.
 fs.rmSync(path.join(repo, 'analyses'), { recursive: true, force: true })
@@ -117,7 +117,7 @@ for (const rel of [
 
 // A static materialization with no analyses directory projects byte-for-byte the same result.
 fs.rmSync(path.join(repo, 'analyses'), { recursive: true, force: true })
-assert.deepEqual(listAllCalls(), dirty)
+assert.deepEqual(listAllCalls(publishedTreeAuthority('analyses', repo, publishedCommit)), dirty)
 assert.equal(readPublishedCallsMarkdown(`${olderRoot}/final_thesis.md`).markdown,
   publishedText(`${olderRoot}/final_thesis.md`))
 
