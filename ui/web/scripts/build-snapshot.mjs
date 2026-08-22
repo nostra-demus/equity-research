@@ -7,6 +7,7 @@ import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { safePublishedMemoDeltaPath } from './calls-snapshot-artifacts.mjs'
 import { normalizeStaticBoardArchive } from './ideas-archive-static.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -462,14 +463,6 @@ function isISODateJ(s) { return typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.t
 function loadJSON(p) { try { return JSON.parse(fs.readFileSync(p, 'utf8')) } catch { return null } }
 function todayISOJ() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}` }
 function finiteNumberJ(v) { return typeof v === 'number' && Number.isFinite(v) ? v : null }
-function safeReviewArtifactJ(value, runDirAbs, runRoot) {
-  const prefix = `${runRoot}/reviews/`
-  if (typeof value !== 'string' || !value.startsWith(prefix) || value.includes('\\')) return null
-  const parts = value.split('/')
-  if (parts.some((part) => !part || part === '.' || part === '..')) return null
-  const abs = path.join(runDirAbs, value.slice(runRoot.length + 1))
-  return isFile(abs) ? value : null
-}
 function reviewsForRun(runDirAbs, runRoot) {
   const rdir = path.join(runDirAbs, 'reviews')
   if (!isDir(rdir)) return []
@@ -486,7 +479,7 @@ function reviewsForRun(runDirAbs, runRoot) {
       thesis_status: typeof j.thesis_status === 'string' && j.thesis_status ? j.thesis_status : null,
       decision_quality: typeof j.decision_quality === 'string' && j.decision_quality ? j.decision_quality : null,
       forecasts_confirmed: conf, forecasts_falsified: fals,
-      memo_delta_file: safeReviewArtifactJ(md?.memo_delta_file, runDirAbs, runRoot),
+      memo_delta_file: safePublishedMemoDeltaPath(md?.memo_delta_file, REPO, runDirAbs, runRoot),
       stage_one_comment: typeof md?.stage_one_comment === 'string' && md.stage_one_comment ? md.stage_one_comment : null,
       memo_delta_summary: typeof md?.summary === 'string' && md.summary.trim() ? md.summary.trim() : null,
       thesis_delta_verdict: typeof md?.thesis_delta_verdict === 'string' && md.thesis_delta_verdict.trim()
@@ -731,7 +724,10 @@ function buildCalls() {
     const ftAbs = path.join(REPO, finalThesisPath); if (isFile(ftAbs)) copyInto(ftAbs, finalThesisPath)
     for (const t of timeline) {
       if (t.review_file) { const rfAbs = path.join(REPO, t.review_file); if (isFile(rfAbs)) copyInto(rfAbs, t.review_file) }
-      if (t.memo_delta_file) { const mdAbs = path.join(REPO, t.memo_delta_file); if (isFile(mdAbs)) copyInto(mdAbs, t.memo_delta_file) }
+      if (t.memo_delta_file) {
+        const safeMemo = safePublishedMemoDeltaPath(t.memo_delta_file, REPO, runDirAbs, runRoot)
+        if (safeMemo) copyInto(path.join(REPO, safeMemo), safeMemo)
+      }
     }
   }
   calls.sort((a, b) => (a.decision_date < b.decision_date ? 1 : a.decision_date > b.decision_date ? -1 : 0))

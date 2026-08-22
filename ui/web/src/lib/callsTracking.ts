@@ -62,7 +62,8 @@ function displayStatus(value?: string | null): string {
 
 export function callReturnValue(call: CallSummary, value: number | null | undefined): number | null {
   if (!finite(value)) return null
-  return (call.basket || '').trim().toLowerCase() === 'short' ? -value : value
+  const basket = (call.basket || '').trim().toLowerCase()
+  return basket === 'short' || basket === 'rejected' ? -value : value
 }
 
 export function latestCompletedReview(timeline: CallTimelineEntry[]): CallTimelineEntry | null {
@@ -79,6 +80,7 @@ export function latestCompletedReview(timeline: CallTimelineEntry[]): CallTimeli
 function situationFor(row: CallTimelineEntry | null, call: CallSummary): CallTrackingSnapshot['situation'] {
   const quality = (row?.decision_quality || '').trim().toLowerCase()
   const thesis = (row?.thesis_status || '').trim().toLowerCase()
+  const delta = (row?.thesis_delta_verdict || '').trim().toLowerCase()
   const detailBits = [
     row?.thesis_status ? `Thesis ${displayStatus(row.thesis_status).toLowerCase()}` : null,
     row?.thesis_delta_verdict ? `delta ${displayStatus(row.thesis_delta_verdict).toLowerCase()}` : null,
@@ -92,17 +94,29 @@ function situationFor(row: CallTimelineEntry | null, call: CallSummary): CallTra
   const thesisWrong = thesis === 'broken' || thesis === 'at-risk'
   const qualitySaysRight = quality === 'skill' || quality === 'good process / bad luck or too early'
   const qualitySaysWrong = quality === 'luck' || quality === 'genuine miss'
-  if ((thesisRight && qualitySaysWrong) || (thesisWrong && qualitySaysRight)) {
-    const headline = thesis === 'broken' ? 'Thesis broken'
+  const deltaSaysRight = delta === 'strengthened'
+  const deltaSaysWrong = delta === 'weakened' || delta === 'broken'
+  const fieldsDisagree = (thesisRight && qualitySaysWrong)
+    || (thesisWrong && qualitySaysRight)
+    || (deltaSaysWrong && (thesisRight || qualitySaysRight))
+    || (deltaSaysRight && (thesisWrong || qualitySaysWrong))
+  if (fieldsDisagree) {
+    const headline = thesis === 'broken' || delta === 'broken' ? 'Thesis broken'
       : thesis === 'at-risk' ? 'Thesis at risk' : 'Review fields disagree'
+    const fields = [
+      thesis ? `thesis ${displayStatus(thesis).toLowerCase()}` : null,
+      quality ? `decision quality ${displayStatus(quality).toLowerCase()}` : null,
+      delta ? `delta ${displayStatus(delta).toLowerCase()}` : null,
+    ].filter((value): value is string => !!value)
     return {
       headline,
-      detail: `Review fields disagree: thesis ${displayStatus(thesis).toLowerCase()}, decision quality ${displayStatus(quality).toLowerCase()}`,
+      detail: `Review fields disagree: ${fields.join(', ')}`,
       tone: 'bad',
     }
   }
-  if (thesis === 'broken') return { headline: 'Thesis broken', detail, tone: 'bad' }
+  if (thesis === 'broken' || delta === 'broken') return { headline: 'Thesis broken', detail, tone: 'bad' }
   if (thesis === 'at-risk') return { headline: 'Thesis at risk', detail, tone: 'bad' }
+  if (delta === 'weakened') return { headline: 'Thesis weakened', detail, tone: 'bad' }
   if (thesis === 'expired') {
     const expiredDetail = row?.thesis_delta_verdict
       ? `Delta ${displayStatus(row.thesis_delta_verdict).toLowerCase()}`
@@ -115,6 +129,8 @@ function situationFor(row: CallTimelineEntry | null, call: CallSummary): CallTra
     return { headline: 'Thesis holds; price has not followed yet', detail, tone: 'neutral' }
   }
   if (quality === 'genuine miss') return { headline: 'Call is going wrong', detail, tone: 'bad' }
+  if (delta === 'too_early') return { headline: 'Too early to score', detail, tone: 'neutral' }
+  if (delta === 'strengthened') return { headline: 'Thesis strengthened', detail, tone: 'good' }
   if (thesis === 'confirmed') return { headline: 'Thesis confirmed', detail, tone: 'good' }
   if (thesis === 'on-track') return { headline: 'Thesis on track', detail, tone: 'good' }
   return { headline: row ? 'Too early to score' : 'Awaiting first review', detail, tone: 'neutral' }

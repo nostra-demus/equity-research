@@ -75,6 +75,16 @@ assert.deepEqual(callTrackingSnapshot(shortCall).checkpoint, {
   returnTone: 'good', benchmarkDelta: '10.3pp ahead of benchmark',
 })
 
+const rejectedCall = baseCall()
+rejectedCall.decision = 'Avoid'
+rejectedCall.basket = 'Rejected'
+rejectedCall.timeline[0].absolute_return_pct = -8.4
+rejectedCall.timeline[0].benchmark_relative_return_pct = -4.2
+assert.deepEqual(callTrackingSnapshot(rejectedCall).checkpoint, {
+  label: '30-day check · 9 Aug 2026', price: 'AED 11.5', returnFromCall: '+8.4%',
+  returnTone: 'good', benchmarkDelta: '4.2pp ahead of benchmark',
+})
+
 const roundedZero = baseCall()
 roundedZero.timeline[0].absolute_return_pct = -0.04
 assert.equal(callTrackingSnapshot(roundedZero).checkpoint?.returnFromCall, '0.0%')
@@ -100,7 +110,15 @@ const contradictory = baseCall()
 contradictory.timeline[0].thesis_status = 'broken'
 assert.deepEqual(callTrackingSnapshot(contradictory).situation, {
   headline: 'Thesis broken',
-  detail: 'Review fields disagree: thesis broken, decision quality skill',
+  detail: 'Review fields disagree: thesis broken, decision quality skill, delta strengthened',
+  tone: 'bad',
+})
+
+const brokenDelta = baseCall()
+brokenDelta.timeline[0].thesis_delta_verdict = 'broken'
+assert.deepEqual(callTrackingSnapshot(brokenDelta).situation, {
+  headline: 'Thesis broken',
+  detail: 'Review fields disagree: thesis confirmed, decision quality skill, delta broken',
   tone: 'bad',
 })
 
