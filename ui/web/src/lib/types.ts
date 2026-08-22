@@ -1209,26 +1209,26 @@ export interface NewsDiagnostics {
     selectorVersion: string
     status: 'disabled' | 'ready' | 'paused_core_work' | 'directory_paused' | 'audit_unavailable'
     reason: string
-    candidatesFound: number
-    primaryCandidates: number
-    nameCandidates: number
-    identityChecks: number
-    checksReleased: number
-    verified: number
-    identityUnresolved: number
-    directoryUnavailable: number
+    candidatesFound: number | null
+    primaryCandidates: number | null
+    nameCandidates: number | null
+    identityChecks: number | null
+    checksReleased: number | null
+    verified: number | null
+    identityUnresolved: number | null
+    directoryUnavailable: number | null
     articleReads: number
     ideasCreated: number
-    capacityMisses: number
-    queuedForLater: number
-    retryExhausted?: number
+    capacityMisses: number | null
+    queuedForLater: number | null
+    retryExhausted?: number | null
     auditHealthy: boolean
     circuitOpenUntil: string | null
     dailyCap: number
     reconciliation: {
       total: number; inboxed: number; outside_score: number; social: number; routine_filing: number
       duplicate: number; manually_blocked?: number; no_identity: number; no_signal: number; candidates: number
-    }
+    } | null
   }
   // retiredToday is optional so a cockpit talking to an older server degrades cleanly (reads as absent, not 0-with-confidence)
   backlog: {

@@ -5,7 +5,10 @@
 // ui/web/src/lib/symbology.ts; these pins are what keep the two honest. Run: npx tsx test/symbology.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
-import { baseTicker, cleanTicker, companyNameMatches, coreCompanyName, groupQuotes, normTicker, pickTickerSet, tickerHitAny } from '../src/news/symbology'
+import {
+  baseTicker, cleanTicker, companyNameMatches, coreCompanyName, directoryTickerMatches, groupQuotes,
+  normTicker, pickTickerSet, tickerHitAny,
+} from '../src/news/symbology'
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -44,6 +47,11 @@ check('baseTicker strips known exchange suffixes only', () => {
   assert.equal(baseTicker('BRK.A'), 'BRK.A', 'a share class is NOT an exchange suffix')
   assert.equal(baseTicker('brk-b'), 'BRK.B', 'class separator normalised, class kept')
   assert.equal(baseTicker('AMZN'), 'AMZN')
+})
+check('directoryTickerMatches licenses Dubai and Abu Dhabi suffixes only for UAE listings', () => {
+  assert.equal(directoryTickerMatches('EMAAR', 'EMAAR.DU', 'AE'), true)
+  assert.equal(directoryTickerMatches('ADNOCDRILL', 'ADNOCDRILL.AD', 'AE'), true)
+  assert.equal(directoryTickerMatches('EMAAR', 'EMAAR.DU', 'US'), false)
 })
 
 // ---- coreCompanyName: legal-suffix-stripped identity ----

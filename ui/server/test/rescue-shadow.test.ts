@@ -7,7 +7,8 @@ import { getRescueDiagnostics, runRescueShadowPass, type RescueShadowConfig } fr
 import { runNormalIdeasThenSecondLook } from '../src/news/rescue/order'
 import {
   completeRescueCheck, flushPendingRescueAudit, loadRescueDay, loadRescueQueue, readRescueHealth,
-  recordRescueRows, reserveRescueCheck, updateRescueHealth,
+  recordRescueRows, RESCUE_QUEUE_MAX_BYTES, RESCUE_QUEUE_MAX_ITEMS, reserveRescueCheck, rescueQueueEnabled,
+  updateRescueHealth,
 } from '../src/news/rescue/store'
 import { invalidateSymbolCache } from '../src/news/symbology'
 import type { FeedItem } from '../src/news/types'
@@ -16,6 +17,47 @@ const START = Date.parse('2026-08-22T00:01:00Z')
 const baseConfig: RescueShadowConfig = {
   mode: 'shadow', maxAgeHrs: 36, dailyChecks: 200, perCycle: 8,
   nameDailyCap: 40, paceFloorFraction: 0.04, auditMaxBytes: 15 * 1024 * 1024,
+}
+
+assert.ok(RESCUE_QUEUE_MAX_ITEMS >= 60_000, 'the queue covers 36 hours at the 40,000-row daily feed cap')
+assert.ok(RESCUE_QUEUE_MAX_BYTES >= 120_000_000, 'the byte guard covers the same maximum retention window')
+assert.equal(rescueQueueEnabled('shadow'), true)
+assert.equal(rescueQueueEnabled('off'), false, 'the explicit off switch disables rescue queue maintenance')
+
+{
+  const failedRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-day-directory-eio-'))
+  const unsupportedRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-day-directory-unsupported-'))
+  const open = fs.openSync
+  try {
+    const candidate = selectRescueCandidates([row(1)], START).candidates[0]
+    const failDir = path.join(failedRoot, 'news-rescue', 'days')
+    ;(fs as any).openSync = (target: fs.PathLike, flags: string | number, mode?: number) => {
+      if (String(target) === failDir && flags === 'r') {
+        const error = new Error('injected parent directory I/O failure') as NodeJS.ErrnoException
+        error.code = 'EIO'
+        throw error
+      }
+      return open(target, flags as any, mode)
+    }
+    assert.equal(reserveRescueCheck(failedRoot, '2026-08-22', candidate, RESCUE_SELECTOR_VERSION, START), null,
+      'a real parent-directory fsync error closes admission even after the file rename')
+
+    const unsupportedDir = path.join(unsupportedRoot, 'news-rescue', 'days')
+    ;(fs as any).openSync = (target: fs.PathLike, flags: string | number, mode?: number) => {
+      if (String(target) === unsupportedDir && flags === 'r') {
+        const error = new Error('directory fsync unsupported') as NodeJS.ErrnoException
+        error.code = 'EINVAL'
+        throw error
+      }
+      return open(target, flags as any, mode)
+    }
+    assert.ok(reserveRescueCheck(unsupportedRoot, '2026-08-22', candidate, RESCUE_SELECTOR_VERSION, START),
+      'an explicitly unsupported directory fsync is the only tolerated parent-sync failure')
+  } finally {
+    ;(fs as any).openSync = open
+    fs.rmSync(failedRoot, { recursive: true, force: true })
+    fs.rmSync(unsupportedRoot, { recursive: true, force: true })
+  }
 }
 
 {
@@ -211,6 +253,30 @@ function responseForUrl(url: string): any {
 }
 
 {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-directory-country-'))
+  try {
+    invalidateSymbolCache()
+    const gbRow = withInitialRescueDecision({
+      ...row(1), companies: [{ name: 'Company 1 Inc', ticker: 'C1', listing_country: 'GB' }],
+    })
+    assert.equal(recordRescueRows(root, [gbRow], START), true)
+    const listings = (async () => ({
+      ok: true, status: 200, json: async () => ({ quotes: [
+        { quoteType: 'EQUITY', symbol: 'C1', longname: 'Company 1 Inc', exchDisp: 'NYSE' },
+        { quoteType: 'EQUITY', symbol: 'C1.L', longname: 'Company 1 Inc', exchDisp: 'LSE' },
+      ] }),
+    })) as any
+    const result = await runRescueShadowPass({
+      stateDir: root, config: { ...baseConfig, perCycle: 1 }, coreReady: true, fetchImpl: listings, now: () => START,
+    })
+    assert.equal(result.verified, 1)
+    const check = loadRescueDay(root, '2026-08-22').ledger.checks[0]
+    assert.equal(check.ticker, 'C1.L')
+    assert.equal(check.exchange, 'LSE', 'an exact bare ticker on the wrong country cannot win the match')
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
   const ambiguousRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-name-ambiguous-'))
   const countryRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-name-country-'))
   const directory = (async () => ({
@@ -398,8 +464,26 @@ function responseForUrl(url: string): any {
       v: 1, date: '2026-08-22', checks: [null],
     })}\n`)
     assert.equal(loadRescueDay(root, '2026-08-22').available, false)
-    assert.equal(getRescueDiagnostics(root, baseConfig, START).status, 'audit_unavailable',
+    const diagnostic = getRescueDiagnostics(root, baseConfig, START)
+    assert.equal(diagnostic.status, 'audit_unavailable',
       'a malformed durable check closes diagnostics instead of throwing')
+    assert.equal(diagnostic.identityChecks, null)
+    assert.equal(diagnostic.candidatesFound, null)
+    assert.equal(diagnostic.reconciliation, null, 'unreadable authority is unknown, never empty activity')
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-incomplete-completed-day-'))
+  try {
+    const candidate = selectRescueCandidates([row(1)], START).candidates[0]
+    assert.ok(reserveRescueCheck(root, '2026-08-22', candidate, RESCUE_SELECTOR_VERSION, START))
+    const file = path.join(root, 'news-rescue', 'days', '2026-08-22.json')
+    const day = JSON.parse(fs.readFileSync(file, 'utf8'))
+    day.checks[0].identity_status = 'verified'
+    fs.writeFileSync(file, `${JSON.stringify(day)}\n`)
+    assert.equal(loadRescueDay(root, '2026-08-22').available, false,
+      'a completed phase marker without its reason, audit offset, timestamp, and venue is corrupt')
   } finally { fs.rmSync(root, { recursive: true, force: true }) }
 }
 
@@ -453,6 +537,37 @@ function responseForUrl(url: string): any {
     })
     assert.equal(second.checkedThisCycle, 0,
       'a better representative reuses the check on its now-supporting cluster member')
+    assert.equal(calls, 1)
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-aged-representative-'))
+  try {
+    invalidateSymbolCache()
+    assert.equal(recordRescueRows(root, [row(1)], START), true)
+    let calls = 0
+    const fetchImpl = (async (url: string) => { calls++; return responseForUrl(url) }) as any
+    const first = await runRescueShadowPass({
+      stateDir: root, config: { ...baseConfig, perCycle: 1 }, coreReady: true, fetchImpl, now: () => START,
+    })
+    assert.equal(first.checkedThisCycle, 1)
+
+    const later = START + 37 * 3_600_000
+    const replacement = withInitialRescueDecision({
+      ...row(1), event_id: 'EVT-1-new-representative',
+      ts: new Date(later - 60_000).toISOString(), found_at: new Date(later - 60_000).toISOString(),
+      url: 'https://ft.com/company-1-follow-up', domain: 'ft.com', source_name: 'Financial Times',
+      dedup_group: 'EVT-1',
+    })
+    assert.equal(recordRescueRows(root, [replacement], later), true)
+    assert.deepEqual(loadRescueQueue(root).items.map((item) => item.event_id), ['EVT-1-new-representative'],
+      'the original representative has aged out of the rolling queue')
+    const second = await runRescueShadowPass({
+      stateDir: root, config: { ...baseConfig, perCycle: 1 }, coreReady: true, fetchImpl, now: () => later,
+    })
+    assert.equal(second.checkedThisCycle, 0,
+      'the completed review follows the stable story cluster after its original event id ages out')
     assert.equal(calls, 1)
   } finally { fs.rmSync(root, { recursive: true, force: true }) }
 }

@@ -92,6 +92,8 @@ export interface RescueInitialDecision {
 
 export interface RescueCandidate {
   event_id: string
+  /** Stable identity for the underlying saved story, independent of the current representative row. */
+  story_key: string
   identity_key: string
   pool: RescuePool
   query: string
@@ -390,13 +392,13 @@ export function selectRescueCandidates(
         return { ...member, rank }
       })
       .sort((left, right) => compareCandidates({
-        event_id: left.item.event_id, identity_key: '', pool: left.identity.ticker ? 'ticker' : 'name',
+        event_id: left.item.event_id, story_key: eventFingerprint(left.item), identity_key: '', pool: left.identity.ticker ? 'ticker' : 'name',
         query: '', ticker: left.identity.ticker, company_name: left.identity.name, listing_country: left.identity.country,
         headline: left.item.headline, url: left.item.url, domain: left.item.domain, source_name: left.item.source_name,
         source_tier: itemSourceTier(left.item), event_types: left.item.event_types || [], found_at: left.rank.found_at,
         rank_inputs: left.rank, supporting_event_ids: [],
       }, {
-        event_id: right.item.event_id, identity_key: '', pool: right.identity.ticker ? 'ticker' : 'name',
+        event_id: right.item.event_id, story_key: eventFingerprint(right.item), identity_key: '', pool: right.identity.ticker ? 'ticker' : 'name',
         query: '', ticker: right.identity.ticker, company_name: right.identity.name, listing_country: right.identity.country,
         headline: right.item.headline, url: right.item.url, domain: right.item.domain, source_name: right.item.source_name,
         source_tier: itemSourceTier(right.item), event_types: right.item.event_types || [], found_at: right.rank.found_at,
@@ -415,6 +417,7 @@ export function selectRescueCandidates(
     if (strongCount < (pool === 'ticker' ? 1 : 2)) { counts.no_signal++; continue }
     candidates.push({
       event_id: representative.item.event_id,
+      story_key: eventFingerprint(representative.item),
       identity_key: identityOwner.companyKey || `${pool}:${identityOwner.identity.ticker
         ? normTicker(identityOwner.identity.ticker)
         : coreCompanyName(identityOwner.identity.name)}:${identityOwner.identity.country || ''}`,

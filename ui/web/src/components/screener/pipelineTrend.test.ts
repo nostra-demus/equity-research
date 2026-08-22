@@ -74,8 +74,13 @@ check('incomplete daily cycle history cannot publish scored and rejected totals 
   assert.match(panel, /dailyScoringTotalsKnown \? diag\.today\.dropped\.toLocaleString\(\) : '—'/)
 })
 
+check('unreadable second-look ledgers are shown as unavailable, never as zero activity', () => {
+  assert.match(panel, /diag\.rescue\.candidatesFound == null/)
+  assert.match(panel, /Second-look counts are unavailable because the saved second-look record could not be read/)
+})
+
 check('pool-cap misses do not hide candidates that still have a paced slot later today', () => {
-  assert.match(panel, /diag\.rescue\.queuedForLater > 0/)
+  assert.match(panel, /\(diag\.rescue\.queuedForLater \?\? 0\) > 0/)
   assert.doesNotMatch(panel, /queuedForLater > 0 && diag\.rescue\.capacityMisses/)
 })
 

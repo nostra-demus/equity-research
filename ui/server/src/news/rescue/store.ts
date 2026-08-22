@@ -8,8 +8,10 @@ import type { FeedItem } from '../types'
 import type { RescueCandidate, RescuePool, RescueRankInputs } from './selector'
 
 const ROOT = 'news-rescue'
-const QUEUE_MAX_ITEMS = 40_000
-const QUEUE_MAX_BYTES = 40 * 1024 * 1024
+// The durable feed accepts 40,000 rows per UTC day. At that sustained supported rate, a 36-hour rescue
+// window contains 60,000 rows; the queue and byte guard must cover the whole rolling window.
+export const RESCUE_QUEUE_MAX_ITEMS = 60_000
+export const RESCUE_QUEUE_MAX_BYTES = 128 * 1024 * 1024
 const DAILY_MAX_ITEMS = 240 // hard parser bound; configured admission remains <=200
 const DAILY_MAX_BYTES = 2 * 1024 * 1024
 const AUDIT_LINE_MAX_BYTES = 2 * 1024
@@ -39,6 +41,7 @@ export interface RescueQueueSnapshot {
 export interface RescueCheckRecord {
   key: string
   event_id: string
+  story_key: string
   identity_key: string
   attempt: number
   pool: RescuePool
@@ -82,6 +85,11 @@ const healthFile = (stateDir: string): string => path.join(stateRoot(stateDir), 
 const dayFile = (stateDir: string, date: string): string => path.join(stateRoot(stateDir), 'days', `${date}.json`)
 const auditFile = (stateDir: string, month: string): string => path.join(stateRoot(stateDir), 'ledger', `${month}.ndjson`)
 
+function directorySyncUnsupported(error: unknown): boolean {
+  const code = String((error as NodeJS.ErrnoException)?.code || '')
+  return ['EINVAL', 'ENOTSUP', 'EOPNOTSUPP', 'ENOSYS'].includes(code)
+}
+
 function atomicWriteJson(file: string, value: unknown, maxBytes: number): boolean {
   let body: string
   try { body = `${JSON.stringify(value)}\n` } catch { return false }
@@ -100,7 +108,11 @@ function atomicWriteJson(file: string, value: unknown, maxBytes: number): boolea
     try {
       const parent = fs.openSync(dir, 'r')
       try { fs.fsyncSync(parent) } finally { fs.closeSync(parent) }
-    } catch { /* the file itself is durable; unsupported directory fsync is not a false failure */ }
+    } catch (error) {
+      // Some filesystems do not implement directory fsync. Ignore only that explicit platform
+      // limitation; EIO and other real durability failures must close second-look admission.
+      if (!directorySyncUnsupported(error)) throw error
+    }
     return true
   } catch {
     return false
@@ -174,25 +186,51 @@ function isRescueCheckRecord(value: unknown): value is RescueCheckRecord {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return false
   const check = value as Record<string, unknown>
   if (typeof check.key !== 'string' || !check.key || typeof check.event_id !== 'string' || !check.event_id) return false
+  if (typeof check.story_key !== 'string' || !check.story_key) return false
   if (typeof check.identity_key !== 'string' || !check.identity_key || !Number.isInteger(check.attempt) || Number(check.attempt) < 1) return false
   if (check.pool !== 'ticker' && check.pool !== 'name') return false
-  if (typeof check.reserved_at !== 'string' || typeof check.company_name !== 'string') return false
+  if (typeof check.reserved_at !== 'string' || !Number.isFinite(Date.parse(check.reserved_at))
+    || typeof check.company_name !== 'string' || !check.company_name) return false
   if (typeof check.selector_version !== 'string' || !check.selector_version || !isRescueRankInputs(check.rank_inputs)) return false
-  if (check.completed_at != null && typeof check.completed_at !== 'string') return false
-  if (check.identity_status != null && !['verified', 'identity_unresolved', 'directory_unavailable'].includes(String(check.identity_status))) return false
-  if (check.reason_code != null && !Object.hasOwn(RESCUE_REVIEW_REASON_LABELS, String(check.reason_code))) return false
-  if (check.audit_pending != null && typeof check.audit_pending !== 'boolean') return false
-  if (check.audit_offset != null && (!Number.isSafeInteger(check.audit_offset) || Number(check.audit_offset) < 0)) return false
-  return true
+  if (check.ticker != null && (typeof check.ticker !== 'string' || !check.ticker.trim())) return false
+  if (check.exchange != null && typeof check.exchange !== 'string') return false
+  if (check.source != null && check.source !== 'yahoo_symbol_directory') return false
+
+  const status = check.identity_status
+  if (status == null) {
+    return check.completed_at == null && check.reason_code == null && check.exchange == null
+      && check.source == null && check.audit_pending == null && check.audit_offset == null
+  }
+  if (!['verified', 'identity_unresolved', 'directory_unavailable'].includes(String(status))) return false
+  if (typeof check.completed_at !== 'string' || !Number.isFinite(Date.parse(check.completed_at))) return false
+  if (typeof check.audit_pending !== 'boolean'
+    || !Number.isSafeInteger(check.audit_offset) || Number(check.audit_offset) < 0) return false
+  const expectedReason: Record<RescueIdentityStatus, RescueReviewReasonCode> = {
+    verified: 'identity_verified_shadow',
+    identity_unresolved: 'could_not_match_listed_stock',
+    directory_unavailable: 'listing_lookup_temporarily_unavailable',
+  }
+  if (check.reason_code !== expectedReason[status as RescueIdentityStatus]) return false
+  if (status === 'verified') {
+    return typeof check.ticker === 'string' && !!check.ticker.trim()
+      && typeof check.exchange === 'string' && !!check.exchange.trim()
+      && check.source === 'yahoo_symbol_directory'
+  }
+  return check.exchange == null && check.source == null
+}
+
+/** Queue maintenance is shadow work too; an explicit off value must avoid every rescue-state write. */
+export function rescueQueueEnabled(mode: unknown): boolean {
+  return mode === 'shadow'
 }
 
 function loadQueueSnapshot(file: string): RescueQueueSnapshot {
   if (!fs.existsSync(file)) return { available: true, items: [], updated_at: null }
   try {
     const stat = fs.statSync(file)
-    if (!stat.isFile() || stat.size < 2 || stat.size > QUEUE_MAX_BYTES) throw new Error('queue size')
+    if (!stat.isFile() || stat.size < 2 || stat.size > RESCUE_QUEUE_MAX_BYTES) throw new Error('queue size')
     const raw = JSON.parse(fs.readFileSync(file, 'utf8'))
-    if (raw?.v !== 1 || !Array.isArray(raw.items) || raw.items.length > QUEUE_MAX_ITEMS) throw new Error('queue shape')
+    if (raw?.v !== 1 || !Array.isArray(raw.items) || raw.items.length > RESCUE_QUEUE_MAX_ITEMS) throw new Error('queue shape')
     if (!raw.items.every(isRescueQueueItem)) throw new Error('queue item shape')
     return { available: true, items: raw.items, updated_at: typeof raw.updated_at === 'string' ? raw.updated_at : null }
   } catch {
@@ -226,7 +264,7 @@ export function recordRescueRows(stateDir: string, rows: readonly FeedItem[], no
   }
   const retained = [...retainedById.values()]
     .sort((left, right) => String(left.found_at || left.ts).localeCompare(String(right.found_at || right.ts)))
-  if (retained.length > QUEUE_MAX_ITEMS) {
+  if (retained.length > RESCUE_QUEUE_MAX_ITEMS) {
     updateRescueHealth(stateDir, { audit_healthy: false, audit_error: 'The saved second-look queue reached its safety limit.' }, now)
     return false
   }
@@ -234,7 +272,7 @@ export function recordRescueRows(stateDir: string, rows: readonly FeedItem[], no
   // the next call must merge this exact batch rather than silently clearing the error with later rows.
   if (retained.length && !atomicWriteJson(queuePendingFile(stateDir), {
     v: 1, updated_at: new Date(now).toISOString(), items: retained,
-  }, QUEUE_MAX_BYTES)) {
+  }, RESCUE_QUEUE_MAX_BYTES)) {
     updateRescueHealth(stateDir, { audit_healthy: false, audit_error: RESCUE_QUEUE_PENDING_WRITE_ERROR }, now)
     return false
   }
@@ -246,11 +284,11 @@ export function recordRescueRows(stateDir: string, rows: readonly FeedItem[], no
     byId.set(item.event_id, compactFeedItem(item))
   }
   const items = [...byId.values()].sort((left, right) => String(left.found_at || left.ts).localeCompare(String(right.found_at || right.ts)))
-  if (items.length > QUEUE_MAX_ITEMS) {
+  if (items.length > RESCUE_QUEUE_MAX_ITEMS) {
     updateRescueHealth(stateDir, { audit_healthy: false, audit_error: 'The saved second-look queue reached its safety limit.' }, now)
     return false
   }
-  const ok = atomicWriteJson(queueFile(stateDir), { v: 1, updated_at: new Date(now).toISOString(), items }, QUEUE_MAX_BYTES)
+  const ok = atomicWriteJson(queueFile(stateDir), { v: 1, updated_at: new Date(now).toISOString(), items }, RESCUE_QUEUE_MAX_BYTES)
   // A healthy queue write cannot clear an unrelated day-ledger/monthly-audit failure. Those failures
   // stay closed until their own authority is repaired; otherwise a later ingest cycle could reopen the
   // lane before the pending detailed record is safe.
@@ -317,12 +355,12 @@ export function reserveRescueCheck(
   if (!loaded.available || loaded.ledger.checks.length >= DAILY_MAX_ITEMS) return null
   const history = loadRecentRescueChecks(stateDir, now)
   if (!history.available) return null
-  const eventIds = new Set([candidate.event_id, ...candidate.supporting_event_ids])
   const attempts = history.checks.filter((check) => check.identity_key === candidate.identity_key
-    && eventIds.has(check.event_id)).length
+    && check.story_key === candidate.story_key).length
   const record: RescueCheckRecord = {
     key: `${date}:${candidate.event_id}:${loaded.ledger.checks.length + 1}`,
     event_id: candidate.event_id,
+    story_key: candidate.story_key,
     identity_key: candidate.identity_key,
     attempt: attempts + 1,
     pool: candidate.pool,
@@ -469,6 +507,7 @@ export function completeRescueCheck(
     audit_pending: true,
     audit_offset: auditOffset,
   }
+  if (!isRescueCheckRecord(record)) return false
   const next: RescueDayLedger = { ...loaded.ledger, checks: [...loaded.ledger.checks] }
   next.checks[index] = record
   if (!atomicWriteJson(dayFile(stateDir, date), next, DAILY_MAX_BYTES)) return false

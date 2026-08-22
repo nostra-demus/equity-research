@@ -66,7 +66,7 @@ const EXCHANGE_SUFFIXES = new Set([
   'AX', 'NZ', // Oceania
   'TO', 'V', 'CN', 'NE', // Canada
   'MX', 'SA', 'BA', 'SN', // Latin America
-  'JO', 'TA', 'QA', 'SR', 'CA', 'ME', // Africa / Middle East / Moscow
+  'JO', 'TA', 'QA', 'SR', 'CA', 'AD', 'ME', // Africa / Middle East / Moscow
 ])
 
 /** The listing-agnostic base of a symbol: "NHY.OL" → "NHY", "500325.BO" → "500325" — but "BRK.A" stays
@@ -91,7 +91,7 @@ const DIRECTORY_SUFFIXES_BY_COUNTRY: Record<string, ReadonlySet<string>> = {
   MY: new Set(['KL']), ID: new Set(['JK']), TH: new Set(['BK']), AU: new Set(['AX']), NZ: new Set(['NZ']),
   CA: new Set(['TO', 'V', 'CN', 'NE']), MX: new Set(['MX']), BR: new Set(['SA']), AR: new Set(['BA']),
   CL: new Set(['SN']), ZA: new Set(['JO']), IL: new Set(['TA']), QA: new Set(['QA']), SA: new Set(['SR']),
-  EG: new Set(['CA']),
+  EG: new Set(['CA']), AE: new Set(['DU', 'AD']),
 }
 
 /** Exact directory symbol match, allowing only the country-proven Yahoo suffix for a saved bare symbol. */

@@ -4,7 +4,8 @@
 import { dailyQuotaAdmission } from '../triage/budget'
 import { countryFromExchange } from '../equity-quote'
 import {
-  cleanTicker, companyNameMatches, coreCompanyName, directoryTickerMatches, searchSymbolsChecked, type FetchLike,
+  baseTicker, cleanTicker, companyNameMatches, coreCompanyName, directoryTickerMatches, normTicker,
+  searchSymbolsChecked, type FetchLike,
 } from '../symbology'
 import { RESCUE_SELECTOR_VERSION, selectRescueCandidates, type RescueCandidate } from './selector'
 import {
@@ -29,23 +30,23 @@ export interface RescueDiagnostics {
   selectorVersion: string
   status: 'disabled' | 'ready' | 'paused_core_work' | 'directory_paused' | 'audit_unavailable'
   reason: string
-  candidatesFound: number
-  primaryCandidates: number
-  nameCandidates: number
-  identityChecks: number
-  checksReleased: number
-  verified: number
-  identityUnresolved: number
-  directoryUnavailable: number
+  candidatesFound: number | null
+  primaryCandidates: number | null
+  nameCandidates: number | null
+  identityChecks: number | null
+  checksReleased: number | null
+  verified: number | null
+  identityUnresolved: number | null
+  directoryUnavailable: number | null
   articleReads: number
   ideasCreated: number
-  capacityMisses: number
-  queuedForLater: number
-  retryExhausted: number
+  capacityMisses: number | null
+  queuedForLater: number | null
+  retryExhausted: number | null
   auditHealthy: boolean
   circuitOpenUntil: string | null
   dailyCap: number
-  reconciliation: ReturnType<typeof selectRescueCandidates>['reconciled']
+  reconciliation: ReturnType<typeof selectRescueCandidates>['reconciled'] | null
 }
 
 export interface RescueShadowResult extends RescueDiagnostics {
@@ -70,8 +71,7 @@ function directoryPaused(until: string | null, now: number): boolean {
 }
 
 function checksForCandidate(candidate: RescueCandidate, checks: readonly RescueCheckRecord[]): RescueCheckRecord[] {
-  const eventIds = new Set([candidate.event_id, ...candidate.supporting_event_ids])
-  return checks.filter((check) => check.identity_key === candidate.identity_key && eventIds.has(check.event_id))
+  return checks.filter((check) => check.identity_key === candidate.identity_key && check.story_key === candidate.story_key)
 }
 
 async function verifyCandidate(
@@ -80,27 +80,30 @@ async function verifyCandidate(
 ): Promise<{ status: RescueIdentityStatus; ticker?: string | null; companyName?: string | null; exchange?: string | null }> {
   const result = await searchSymbolsChecked(candidate.query, fetchImpl, { useCache: true })
   if (result.status === 'unavailable') return { status: 'directory_unavailable' }
+  const wantedCountry = String(candidate.listing_country || '').trim().toUpperCase()
   if (candidate.ticker) {
     const hit = result.groups.flatMap((group) => {
-      const matchingSymbol = [group.symbol, ...group.aliases]
-        .find((symbol) => directoryTickerMatches(candidate.ticker, symbol, candidate.listing_country))
-      const exchange = matchingSymbol
-        ? String(group.aliasExchanges?.[matchingSymbol] || (matchingSymbol === group.symbol ? group.exchange : '')).trim()
-        : ''
-      if (!matchingSymbol || !exchange) return []
+      const matching = [group.symbol, ...group.aliases].flatMap((symbol) => {
+        if (!directoryTickerMatches(candidate.ticker, symbol, candidate.listing_country)) return []
+        const exchange = String(group.aliasExchanges?.[symbol] || (symbol === group.symbol ? group.exchange : '')).trim()
+        const savedNorm = normTicker(candidate.ticker)
+        const exactBare = baseTicker(savedNorm) === savedNorm && normTicker(symbol) === savedNorm
+        if (!exchange || (wantedCountry && exactBare && countryFromExchange(exchange) !== wantedCountry)) return []
+        return [{ symbol, exchange }]
+      })[0]
+      if (!matching) return []
       if (candidate.company_name) {
         const actual = String(group.name || '').toLowerCase()
         const expected = candidate.company_name.toLowerCase()
         if (!companyNameMatches(actual, expected) && !companyNameMatches(expected, actual)) return []
       }
-      return [{ group, matchingSymbol, exchange }]
+      return [{ group, matchingSymbol: matching.symbol, exchange: matching.exchange }]
     })[0]
     return hit
       ? { status: 'verified', ticker: cleanTicker(hit.matchingSymbol), companyName: hit.group.name, exchange: hit.exchange }
       : { status: 'identity_unresolved' }
   }
   const expected = coreCompanyName(candidate.company_name)
-  const wantedCountry = String(candidate.listing_country || '').trim().toUpperCase()
   const matches = result.groups.flatMap((group) => {
     if (!expected || coreCompanyName(group.name) !== expected) return []
     const listings = group.listings || [{ symbol: group.symbol, name: group.name, exchange: group.exchange }]
@@ -177,6 +180,7 @@ function diagnosticsFromState(
   const dailyCapReached = checks.length >= config.dailyChecks
   const capacityMisses = dailyCapReached ? remaining.length : nameCapBlocked
   const queuedForLater = dailyCapReached ? 0 : Math.max(0, remaining.length - nameCapBlocked)
+  const metricsAvailable = queue.available && day.available && history.available
   const rescueStateHealthy = health.audit_healthy && queue.available && day.available && history.available
   const auditHealthy = rescueStateHealthy && humanActionsReady
   const ideasReady = normalIdeasReady && health.normal_ideas_ready
@@ -202,23 +206,23 @@ function diagnosticsFromState(
     selectorVersion: RESCUE_SELECTOR_VERSION,
     status,
     reason,
-    candidatesFound: selection.candidates.length,
-    primaryCandidates: selection.primary_count,
-    nameCandidates: selection.name_count,
-    identityChecks: checks.length,
-    checksReleased: released,
-    verified,
-    identityUnresolved: unresolved,
-    directoryUnavailable: unavailable,
+    candidatesFound: metricsAvailable ? selection.candidates.length : null,
+    primaryCandidates: metricsAvailable ? selection.primary_count : null,
+    nameCandidates: metricsAvailable ? selection.name_count : null,
+    identityChecks: metricsAvailable ? checks.length : null,
+    checksReleased: metricsAvailable ? released : null,
+    verified: metricsAvailable ? verified : null,
+    identityUnresolved: metricsAvailable ? unresolved : null,
+    directoryUnavailable: metricsAvailable ? unavailable : null,
     articleReads: 0,
     ideasCreated: 0,
-    capacityMisses,
-    queuedForLater,
-    retryExhausted: candidateStates.filter((state) => state.retryExhausted).length,
+    capacityMisses: metricsAvailable ? capacityMisses : null,
+    queuedForLater: metricsAvailable ? queuedForLater : null,
+    retryExhausted: metricsAvailable ? candidateStates.filter((state) => state.retryExhausted).length : null,
     auditHealthy,
     circuitOpenUntil: health.directory_pause_until,
     dailyCap: config.dailyChecks,
-    reconciliation: selection.reconciled,
+    reconciliation: metricsAvailable ? selection.reconciled : null,
   }
 }
 
@@ -307,8 +311,8 @@ export async function runRescueShadowPass(deps: {
   const selection = selectRescueCandidates(queue.items, now, deps.config.maxAgeHrs, blockedEventIds)
   const checks = [...day.ledger.checks]
   // A bare reservation may have crossed the network boundary before a crash. Treat it as spent and do
-  // not repeat it after restart. If a better article later becomes the cluster representative, the old
-  // representative remains a supporting id and therefore reuses this same check.
+  // not repeat it after restart. If a better article later becomes the representative — even after the
+  // first row ages out — the saved story key still reuses this same check.
   const eligible = selection.candidates.filter((candidate) => {
     const matching = checksForCandidate(candidate, history.checks)
     if (matching.some((check) => check.identity_status !== 'directory_unavailable')) return false

@@ -426,13 +426,17 @@ export function PipelineDiagnostics() {
               <div className={`diagwhy${diag.rescue.status === 'directory_paused' || diag.rescue.status === 'audit_unavailable' ? ' is-alert' : ''}`} role="status">
                 <div className="diagwhy__head"><span aria-hidden>↻</span><span>{diag.rescue.reason}</span></div>
                 <ul className="diagwhy__list">
-                  <li>{diag.rescue.candidatesFound.toLocaleString()} items looked worth checking again.</li>
-                  <li>{diag.rescue.identityChecks.toLocaleString()} of {diag.rescue.dailyCap.toLocaleString()} daily company checks used · {diag.rescue.verified.toLocaleString()} matched to a listed stock.</li>
-                  {diag.rescue.identityUnresolved > 0 && <li>{diag.rescue.identityUnresolved.toLocaleString()} could not be matched to one listed stock.</li>}
-                  {diag.rescue.directoryUnavailable > 0 && <li>{diag.rescue.directoryUnavailable.toLocaleString()} checks failed because the stock-listing lookup was unavailable.</li>}
+                  {diag.rescue.candidatesFound == null
+                    ? <li>Second-look counts are unavailable because the saved second-look record could not be read.</li>
+                    : <li>{diag.rescue.candidatesFound.toLocaleString()} items looked worth checking again.</li>}
+                  {diag.rescue.identityChecks != null && diag.rescue.verified != null && (
+                    <li>{diag.rescue.identityChecks.toLocaleString()} of {diag.rescue.dailyCap.toLocaleString()} daily company checks used · {diag.rescue.verified.toLocaleString()} matched to a listed stock.</li>
+                  )}
+                  {(diag.rescue.identityUnresolved ?? 0) > 0 && <li>{diag.rescue.identityUnresolved!.toLocaleString()} could not be matched to one listed stock.</li>}
+                  {(diag.rescue.directoryUnavailable ?? 0) > 0 && <li>{diag.rescue.directoryUnavailable!.toLocaleString()} checks failed because the stock-listing lookup was unavailable.</li>}
                   {(diag.rescue.retryExhausted ?? 0) > 0 && <li>{diag.rescue.retryExhausted!.toLocaleString()} could not be checked after two temporary listing-service failures.</li>}
-                  {diag.rescue.capacityMisses > 0 && <li>{diag.rescue.capacityMisses.toLocaleString()} were not reviewed: their daily second-look limit was reached.</li>}
-                  {diag.rescue.queuedForLater > 0 && <li>{diag.rescue.queuedForLater.toLocaleString()} are waiting for a paced slot later today.</li>}
+                  {(diag.rescue.capacityMisses ?? 0) > 0 && <li>{diag.rescue.capacityMisses!.toLocaleString()} were not reviewed: their daily second-look limit was reached.</li>}
+                  {(diag.rescue.queuedForLater ?? 0) > 0 && <li>{diag.rescue.queuedForLater!.toLocaleString()} are waiting for a paced slot later today.</li>}
                   <li>{diag.rescue.articleReads.toLocaleString()} articles read · {diag.rescue.ideasCreated.toLocaleString()} ideas created. Shadow mode keeps both at zero.</li>
                 </ul>
                 <div className="diagwhy__foot">Not selected does not mean an item was proven wrong. It means it did not pass the evidence and capacity rules used that day.</div>

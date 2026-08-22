@@ -53,7 +53,7 @@ import { makeThemeNamer } from './themes/llm'
 import type { ThemeItemView } from './themes/types'
 import type { CycleSummary, FeedItem, NewsItem, RawArticle, TriagedItem } from './types'
 import { withInitialRescueDecision } from './rescue/selector'
-import { recordRescueRows } from './rescue/store'
+import { recordRescueRows, rescueQueueEnabled } from './rescue/store'
 import { updateSemanticIndex } from '../retrieval/semantic'
 import fs from 'node:fs'
 
@@ -2447,10 +2447,11 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const persistedRows = feedCandidates.slice(0, feedAppend.written)
   const feedUnwrittenRows = feedCandidates.slice(feedAppend.written)
   const feedUnwritten = feedAppend.unwritten
-  // A tiny rolling queue lets the post-Ideas shadow pass rank only durably-persisted rows without
+  // A bounded rolling queue lets the post-Ideas shadow pass rank only durably-persisted rows without
   // re-reading up to 160 MB of firehose files every 15 minutes. Failure closes the second-look lane but
   // never holds the core feed hostage; diagnostics name the audit fault and no identity checks run.
-  if (persistedFeedItems.length && !recordRescueRows(stateDir, persistedFeedItems, now().getTime(), NEWS.rescueMaxAgeHrs)) {
+  if (rescueQueueEnabled(NEWS.rescueMode) && persistedFeedItems.length
+    && !recordRescueRows(stateDir, persistedFeedItems, now().getTime(), NEWS.rescueMaxAgeHrs)) {
     log('second look shadow paused — its saved candidate queue could not be updated')
   }
   const feedWriteFailed = feedAppend.status === 'io_failure' || feedPreflightFailed
