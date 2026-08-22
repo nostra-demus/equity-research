@@ -1,27 +1,27 @@
 {
-  "idea_id": "IDEA-7124724b5aaa",
-  "idea_version": "IDEAV-cdc6277c3874c478",
+  "idea_id": "IDEA-c16b6740793c",
+  "idea_version": "IDEAV-bede43dbdd3f08e1",
   "idea_version_started_at": "2026-08-22T02:12:31Z",
-  "ticker": "HOLN",
-  "company": "Holcim",
-  "exchange": "SIX",
+  "ticker": "08540",
+  "company": "Victory Securities",
+  "exchange": "HKEX",
   "ticker_verified": false,
   "listing_verified": false,
   "liquidity_verified": false,
   "listing_verification_source": null,
-  "direction": "long",
+  "direction": "short",
   "pair_with": null,
-  "reason": "Holcim is acquiring part of James Hardie's European business, which should expand its market presence and revenue in the region.",
-  "why_now": "The acquisition was reported on August 20, 2026.",
+  "reason": "The company issued a profit warning, indicating a likely significant decline in earnings.",
+  "why_now": "The profit warning was issued on August 21, 2026.",
   "conviction": 70,
   "conviction_basis": "pre_edge_proxy",
   "trade_score": 45,
   "trade_score_basis": "evidence_gate_v2",
   "trade_score_breakdown": {
-    "evidence": 14,
-    "impact": 19,
+    "evidence": 25,
+    "impact": 20,
     "specificity": 7,
-    "timing": 6,
+    "timing": 10,
     "expression": 0,
     "corroboration": 0,
     "learning_adjustment": 0
@@ -32,7 +32,6 @@
     "verified listing",
     "live liquidity",
     "dated catalyst",
-    "independent confirmation",
     "live price, liquidity, and consensus"
   ],
   "learning": {
@@ -45,30 +44,30 @@
     "evidenceIds": []
   },
   "priced_in": "room",
-  "thesis_type": "pair_trade",
+  "thesis_type": "company_specific",
   "origin_type": "wire",
   "source_themes": [],
   "source_event_ids": [
-    "EVT-9799efc4c03f"
+    "EVT-dd8865288bff"
   ],
-  "primary_source_event_id": "EVT-9799efc4c03f",
+  "primary_source_event_id": "EVT-dd8865288bff",
   "source_headlines": [
-    "Holcim Is Acquiring Part of James Hardie’s European Business"
+    "VICTORY SEC (08540): PROFIT WARNING"
   ],
-  "source_headline": "Holcim Is Acquiring Part of James Hardie’s European Business",
-  "source_url": "https://www.bloomberg.com/news/articles/2026-08-20/holcim-said-to-acquire-part-of-james-hardie-s-european-business",
-  "source_name": "Bloomberg",
+  "source_headline": "VICTORY SEC (08540): PROFIT WARNING",
+  "source_url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0821/2026082101309.pdf",
+  "source_name": "HKEXnews (HK Exchange Filing)",
   "materiality_max": 100,
-  "newest_source_at": "2026-08-20T20:27:53Z",
+  "newest_source_at": "2026-08-21T11:58:00Z",
   "prior_coverage": {
     "has_run": false,
     "latest_run": null,
     "latest_decision": null,
     "data_pool_present": false
   },
-  "surfaced_at": "2026-08-21T00:36:04Z",
+  "surfaced_at": "2026-08-22T02:12:31Z",
   "updated_at": "2026-08-22T02:12:31Z",
-  "decay_at": "2026-08-22T08:27:53Z",
+  "decay_at": "2026-08-22T23:58:00Z",
   "status": "live",
   "promoted_signal_id": null
 }
