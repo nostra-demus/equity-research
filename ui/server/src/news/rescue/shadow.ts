@@ -42,6 +42,7 @@ export interface RescueDiagnostics {
   ideasCreated: number
   capacityMisses: number | null
   queuedForLater: number | null
+  retryCooling: number | null
   retryExhausted: number | null
   auditHealthy: boolean
   circuitOpenUntil: string | null
@@ -58,6 +59,8 @@ const emptyReconciliation = (): RescueDiagnostics['reconciliation'] => ({
   duplicate: 0, manually_blocked: 0, no_identity: 0, no_signal: 0, candidates: 0,
 })
 
+const RESCUE_AUDIT_PREFLIGHT_ERROR = 'The detailed second-look record is full or cannot accept another result.'
+
 function utcDate(now: number): string { return new Date(now).toISOString().slice(0, 10) }
 
 function recentChecks(stateDir: string, now: number): { available: boolean; checks: RescueCheckRecord[] } {
@@ -72,6 +75,16 @@ function directoryPaused(until: string | null, now: number): boolean {
 
 function checksForCandidate(candidate: RescueCandidate, checks: readonly RescueCheckRecord[]): RescueCheckRecord[] {
   return checks.filter((check) => check.identity_key === candidate.identity_key && check.story_key === candidate.story_key)
+}
+
+function uniqueReviewCandidates(candidates: readonly RescueCandidate[]): RescueCandidate[] {
+  const seen = new Set<string>()
+  return candidates.filter((candidate) => {
+    const key = JSON.stringify([candidate.identity_key, candidate.story_key])
+    if (seen.has(key)) return false
+    seen.add(key)
+    return true
+  })
 }
 
 async function verifyCandidate(
@@ -166,13 +179,20 @@ function diagnosticsFromState(
   const verified = complete.filter((check) => check.identity_status === 'verified').length
   const unresolved = complete.filter((check) => check.identity_status === 'identity_unresolved').length
   const unavailable = complete.filter((check) => check.identity_status === 'directory_unavailable').length
-  const candidateStates = selection.candidates.map((candidate) => {
+  const candidates = uniqueReviewCandidates(selection.candidates)
+  const candidateStates = candidates.map((candidate) => {
     const matching = checksForCandidate(candidate, history.checks)
     const terminal = matching.some((check) => check.identity_status !== 'directory_unavailable')
-    const unavailableAttempts = matching.filter((check) => check.identity_status === 'directory_unavailable').length
-    return { candidate, terminal, retryExhausted: !terminal && unavailableAttempts >= 2 }
+    const unavailableChecks = matching.filter((check) => check.identity_status === 'directory_unavailable')
+    const unavailableAttempts = unavailableChecks.length
+    const lastUnavailableAt = Math.max(0, ...unavailableChecks
+      .map((check) => Date.parse(check.completed_at || check.reserved_at) || 0))
+    const retryExhausted = !terminal && unavailableAttempts >= 2
+    const retryCooling = !terminal && !retryExhausted && lastUnavailableAt > 0
+      && now - lastUnavailableAt < 30 * 60_000
+    return { candidate, terminal, retryExhausted, retryCooling }
   })
-  const remaining = candidateStates.filter((state) => !state.terminal && !state.retryExhausted)
+  const remaining = candidateStates.filter((state) => !state.terminal && !state.retryExhausted && !state.retryCooling)
   const nameUsed = checks.filter((check) => check.pool === 'name').length
   const nameCapBlocked = nameUsed >= config.nameDailyCap
     ? remaining.filter((state) => state.candidate.pool === 'name').length
@@ -206,9 +226,9 @@ function diagnosticsFromState(
     selectorVersion: RESCUE_SELECTOR_VERSION,
     status,
     reason,
-    candidatesFound: metricsAvailable ? selection.candidates.length : null,
-    primaryCandidates: metricsAvailable ? selection.primary_count : null,
-    nameCandidates: metricsAvailable ? selection.name_count : null,
+    candidatesFound: metricsAvailable ? candidates.length : null,
+    primaryCandidates: metricsAvailable ? candidates.filter((candidate) => candidate.pool === 'ticker').length : null,
+    nameCandidates: metricsAvailable ? candidates.filter((candidate) => candidate.pool === 'name').length : null,
     identityChecks: metricsAvailable ? checks.length : null,
     checksReleased: metricsAvailable ? released : null,
     verified: metricsAvailable ? verified : null,
@@ -218,6 +238,7 @@ function diagnosticsFromState(
     ideasCreated: 0,
     capacityMisses: metricsAvailable ? capacityMisses : null,
     queuedForLater: metricsAvailable ? queuedForLater : null,
+    retryCooling: metricsAvailable ? candidateStates.filter((state) => state.retryCooling).length : null,
     retryExhausted: metricsAvailable ? candidateStates.filter((state) => state.retryExhausted).length : null,
     auditHealthy,
     circuitOpenUntil: health.directory_pause_until,
@@ -258,6 +279,14 @@ export async function runRescueShadowPass(deps: {
   const initialHealth = readRescueHealth(deps.stateDir)
   if (deps.config.mode === 'shadow' && initialHealth.audit_error === RESCUE_RESERVATION_WRITE_ERROR
     && repairRescueReservationAuthority(deps.stateDir, date)) {
+    updateRescueHealth(deps.stateDir, { audit_healthy: true, audit_error: null }, now)
+  }
+  const capacityHealth = readRescueHealth(deps.stateDir)
+  // A preflight refusal has no pending result to repair. Re-probe it before honoring the stale latch so
+  // a transient directory fault — or the start of a new monthly audit file — can recover without a
+  // manual health-file edit. Result-write failures use a different error and remain fail-closed.
+  if (deps.config.mode === 'shadow' && capacityHealth.audit_error === RESCUE_AUDIT_PREFLIGHT_ERROR
+    && rescueAuditCanAccept(deps.stateDir, now, deps.config.auditMaxBytes)) {
     updateRescueHealth(deps.stateDir, { audit_healthy: true, audit_error: null }, now)
   }
   // A crash can happen after the monthly append fsync but before the day ledger clears audit_pending.
@@ -313,7 +342,7 @@ export async function runRescueShadowPass(deps: {
   // A bare reservation may have crossed the network boundary before a crash. Treat it as spent and do
   // not repeat it after restart. If a better article later becomes the representative — even after the
   // first row ages out — the saved story key still reuses this same check.
-  const eligible = selection.candidates.filter((candidate) => {
+  const eligible = uniqueReviewCandidates(selection.candidates).filter((candidate) => {
     const matching = checksForCandidate(candidate, history.checks)
     if (matching.some((check) => check.identity_status !== 'directory_unavailable')) return false
     if (matching.length >= 2) return false
@@ -339,7 +368,7 @@ export async function runRescueShadowPass(deps: {
     if (!rescueAuditCanAccept(deps.stateDir, loopNow, deps.config.auditMaxBytes)) {
       updateRescueHealth(deps.stateDir, {
         audit_healthy: false,
-        audit_error: 'The detailed second-look record is full or cannot accept another result.',
+        audit_error: RESCUE_AUDIT_PREFLIGHT_ERROR,
       }, loopNow)
       break
     }

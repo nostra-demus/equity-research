@@ -323,6 +323,19 @@ function responseForUrl(url: string): any {
     assert.equal(calls, 0, 'a known-full detailed audit stops before any unlogged network check')
     assert.equal(result.status, 'audit_unavailable')
     assert.equal(result.auditHealthy, false)
+
+    const nextMonth = Date.parse('2026-09-01T00:01:00Z')
+    const nextRow = withInitialRescueDecision({
+      ...row(3), ts: '2026-09-01T00:00:00Z', found_at: '2026-09-01T00:00:00Z',
+    })
+    assert.equal(recordRescueRows(root, [nextRow], nextMonth), true)
+    const recovered = await runRescueShadowPass({
+      stateDir: root, config: baseConfig, coreReady: true, fetchImpl, now: () => nextMonth,
+    })
+    assert.equal(recovered.status, 'ready')
+    assert.equal(recovered.checkedThisCycle, 1,
+      'a capacity-only latch is re-probed and clears when a new monthly audit has room')
+    assert.equal(readRescueHealth(root).audit_healthy, true)
   } finally { fs.rmSync(root, { recursive: true, force: true }) }
 }
 
@@ -542,6 +555,30 @@ function responseForUrl(url: string): any {
 }
 
 {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-stable-story-dedup-'))
+  try {
+    invalidateSymbolCache()
+    const otherFamily = withInitialRescueDecision({
+      ...row(1), event_id: 'EVT-1-product-copy',
+      headline: 'Company 1 launches a $20 million product contract',
+      url: 'https://ft.com/company-1-product-copy', domain: 'ft.com', source_name: 'Financial Times',
+      event_types: ['product'], dedup_group: 'EVT-1',
+    })
+    assert.equal(recordRescueRows(root, [row(1), otherFamily], START), true)
+    assert.equal(selectRescueCandidates(loadRescueQueue(root).items, START).candidates.length, 2,
+      'the selector keeps separately labelled event families auditable')
+    let calls = 0
+    const fetchImpl = (async (url: string) => { calls++; return responseForUrl(url) }) as any
+    const result = await runRescueShadowPass({
+      stateDir: root, config: baseConfig, coreReady: true, fetchImpl, now: () => START,
+    })
+    assert.equal(result.candidatesFound, 1, 'one stable company/story pair is one review candidate')
+    assert.equal(result.checkedThisCycle, 1)
+    assert.equal(calls, 1, 'the same stable story cannot be checked twice in one pass')
+  } finally { fs.rmSync(root, { recursive: true, force: true }) }
+}
+
+{
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'rescue-shadow-aged-representative-'))
   try {
     invalidateSymbolCache()
@@ -582,6 +619,11 @@ function responseForUrl(url: string): any {
       stateDir: root, config: { ...baseConfig, perCycle: 1 }, coreReady: true,
       fetchImpl: unavailable, now: () => START,
     })
+    const cooling = getRescueDiagnostics(root, baseConfig, START + 10 * 60_000)
+    assert.equal(cooling.retryCooling, 1)
+    assert.equal(cooling.queuedForLater, 0,
+      'a retry delay is not mislabeled as waiting for a paced slot')
+    assert.equal(cooling.capacityMisses, 0)
     const later = START + 31 * 60_000
     const exhausted = await runRescueShadowPass({
       stateDir: root, config: { ...baseConfig, perCycle: 1 }, coreReady: true,

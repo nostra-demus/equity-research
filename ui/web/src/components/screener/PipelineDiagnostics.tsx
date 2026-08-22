@@ -434,6 +434,7 @@ export function PipelineDiagnostics() {
                   )}
                   {(diag.rescue.identityUnresolved ?? 0) > 0 && <li>{diag.rescue.identityUnresolved!.toLocaleString()} could not be matched to one listed stock.</li>}
                   {(diag.rescue.directoryUnavailable ?? 0) > 0 && <li>{diag.rescue.directoryUnavailable!.toLocaleString()} checks failed because the stock-listing lookup was unavailable.</li>}
+                  {(diag.rescue.retryCooling ?? 0) > 0 && <li>{diag.rescue.retryCooling!.toLocaleString()} are waiting 30 minutes before another stock-listing lookup.</li>}
                   {(diag.rescue.retryExhausted ?? 0) > 0 && <li>{diag.rescue.retryExhausted!.toLocaleString()} could not be checked after two temporary listing-service failures.</li>}
                   {(diag.rescue.capacityMisses ?? 0) > 0 && <li>{diag.rescue.capacityMisses!.toLocaleString()} were not reviewed: their daily second-look limit was reached.</li>}
                   {(diag.rescue.queuedForLater ?? 0) > 0 && <li>{diag.rescue.queuedForLater!.toLocaleString()} are waiting for a paced slot later today.</li>}

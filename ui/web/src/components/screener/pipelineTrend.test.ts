@@ -84,6 +84,11 @@ check('pool-cap misses do not hide candidates that still have a paced slot later
   assert.doesNotMatch(panel, /queuedForLater > 0 && diag\.rescue\.capacityMisses/)
 })
 
+check('retry cooldown is named separately from paced capacity', () => {
+  assert.match(panel, /diag\.rescue\.retryCooling/)
+  assert.match(panel, /waiting 30 minutes before another stock-listing lookup/)
+})
+
 check('reduced motion and narrow-screen layouts remain supported', () => {
   assert.match(css, /prefers-reduced-motion: reduce/)
   assert.match(css, /\.diag \{ transition: none; \}/)

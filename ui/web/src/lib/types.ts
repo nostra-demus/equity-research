@@ -1221,6 +1221,7 @@ export interface NewsDiagnostics {
     ideasCreated: number
     capacityMisses: number | null
     queuedForLater: number | null
+    retryCooling?: number | null
     retryExhausted?: number | null
     auditHealthy: boolean
     circuitOpenUntil: string | null
